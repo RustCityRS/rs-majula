@@ -1,8 +1,0 @@
-[clientscript,script_4014](int $int0, int $int1)
-if (cc_find(60096610, $int0) = 1) {
-    if (if_gethide = 1) {
-        cc_setgraphic($int1);
-    }
-}
-~script_41(60096613);
-return;

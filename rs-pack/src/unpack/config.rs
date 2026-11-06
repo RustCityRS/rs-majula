@@ -619,13 +619,12 @@ pub(super) fn unpack_config(
     cache_dir: &Path,
     output_dir: &Path,
     pack_dir: &Path,
-    cs2_dir: &Path,
     results: &mut Vec<StepResult>,
 ) -> anyhow::Result<()> {
     let mut store = Js5Store::open(cache_dir)?;
     let mut packs = UnpackedPacks::new();
     packs.load_existing_names(pack_dir);
-    packs.transmit_varps = varp::transmit_varps(&mut store, cs2_dir)?;
+    packs.transmit_varps = varp::transmit_varps(&mut store)?;
     let hsl = HashMap::new();
     for (name, decoder) in config_decoders() {
         step(results, name, || {

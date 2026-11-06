@@ -1,0 +1,57 @@
+name=""
+local_int_count=6
+local_string_count=3
+local_long_count=0
+int_param_count=6
+string_param_count=3
+long_param_count=0
+
+L0: push_constant_int 0
+L1: cc_sethide 0
+L2: push_int_local 0
+L3: push_int_local 1
+L4: push_constant_int 0
+L5: push_constant_int 0
+L6: cc_setsize 0
+L7: push_int_local 2
+L8: push_int_local 3
+L9: push_constant_int 1
+L10: push_constant_int 1
+L11: cc_setposition2 0
+L12: push_int_local 4
+L13: cc_setcolour 0
+L14: push_constant_int 591
+L15: cc_settextfont 0
+L16: push_constant_int 1
+L17: push_constant_int 1
+L18: push_constant_int 13
+L19: cc_settextalign 0
+L20: push_string_local 0
+L21: cc_settext 0
+L22: push_int_local 5
+L23: push_constant_int -1
+L24: branch_not L26
+L25: branch L41
+L26: push_constant_string "<col=ff9040>"
+L27: push_string_local 1
+L28: push_constant_string "</col>"
+L29: join_string 3
+L30: cc_setopbase 0
+L31: push_constant_int 1
+L32: push_string_local 2
+L33: cc_setop 0
+L34: push_constant_int 2053
+L35: push_constant_int -2147483644
+L36: push_constant_int -2147483645
+L37: push_int_local 5
+L38: push_constant_string "iIc"
+L39: cc_setonop 0
+L40: branch L47
+L41: push_constant_int 1
+L42: push_constant_string ""
+L43: cc_setop 0
+L44: push_constant_int -1
+L45: push_constant_string ""
+L46: cc_setonop 0
+L47: return 0
+L48:

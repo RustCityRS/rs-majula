@@ -1,0 +1,91 @@
+name=""
+local_int_count=0
+local_string_count=0
+local_long_count=0
+int_param_count=0
+string_param_count=0
+long_param_count=0
+
+L0: push_constant_int 0
+L1: push_constant_int 70975640
+L2: if_sethide 0
+L3: push_constant_int 1
+L4: push_constant_int 70975641
+L5: if_sethide 0
+L6: push_constant_int 0
+L7: push_constant_int 70975726
+L8: if_sethide 0
+L9: push_constant_int 1
+L10: push_constant_int 70975736
+L11: if_sethide 0
+L12: push_constant_string "Spells"
+L13: push_constant_int 70975564
+L14: if_settext 0
+L15: push_constant_string "Select a reward for more information."
+L16: push_constant_int 70975566
+L17: if_settext 0
+L18: push_constant_string ""
+L19: push_constant_int 70975568
+L20: if_settext 0
+L21: push_constant_int 1
+L22: push_constant_int 70975569
+L23: if_sethide 0
+L24: push_constant_int 1
+L25: push_constant_int 70975573
+L26: if_sethide 0
+L27: push_constant_int 1
+L28: push_constant_int 70975574
+L29: if_sethide 0
+L30: push_constant_int 1
+L31: push_constant_int 70975575
+L32: if_sethide 0
+L33: push_constant_int 1
+L34: push_constant_int 70975576
+L35: if_sethide 0
+L36: push_constant_int 1
+L37: push_constant_int 70975577
+L38: if_sethide 0
+L39: push_constant_int 1
+L40: push_constant_int 70975578
+L41: if_sethide 0
+L42: push_constant_int 1
+L43: push_constant_int 70975579
+L44: if_sethide 0
+L45: push_constant_int 1
+L46: push_constant_int 70975580
+L47: if_sethide 0
+L48: push_constant_int 1
+L49: push_constant_int 70975581
+L50: if_sethide 0
+L51: push_constant_int 1
+L52: push_constant_int 70975582
+L53: if_sethide 0
+L54: push_constant_int 1
+L55: push_constant_int 70975583
+L56: if_sethide 0
+L57: push_constant_int 1
+L58: push_constant_int 70975584
+L59: if_sethide 0
+L60: push_constant_int 1
+L61: push_constant_int 70975585
+L62: if_sethide 0
+L63: push_constant_int 1
+L64: push_constant_int 70975586
+L65: if_sethide 0
+L66: push_constant_int 1
+L67: push_constant_int 70975642
+L68: if_sethide 0
+L69: push_constant_int 1
+L70: push_constant_int 70975639
+L71: if_sethide 0
+L72: push_constant_int 0
+L73: push_constant_int 70975637
+L74: if_sethide 0
+L75: push_constant_int 0
+L76: push_constant_int 70975638
+L77: if_sethide 0
+L78: push_constant_int 0
+L79: push_constant_int 70975643
+L80: if_sethide 0
+L81: return 0
+L82:

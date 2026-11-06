@@ -1,0 +1,24 @@
+name=""
+local_int_count=0
+local_string_count=0
+local_long_count=0
+int_param_count=0
+string_param_count=0
+long_param_count=0
+
+L0: push_constant_int 2
+L1: gosub_with_params [proc,graphics_options_init]
+L2: push_constant_int 59703337
+L3: push_constant_int 59703338
+L4: gosub_with_params [proc,loginscreen_soundvol]
+L5: push_constant_int 59703343
+L6: push_constant_int 59703344
+L7: gosub_with_params [proc,loginscreen_musicvol]
+L8: push_constant_int 59703331
+L9: push_constant_int 59703332
+L10: gosub_with_params [proc,loginscreen_bgsoundvol]
+L11: push_constant_int 59703316
+L12: push_constant_int 59703314
+L13: gosub_with_params [proc,loginscreen_stereo]
+L14: return 0
+L15:

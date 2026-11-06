@@ -1,0 +1,91 @@
+name=""
+local_int_count=0
+local_string_count=10
+local_long_count=0
+int_param_count=0
+string_param_count=0
+long_param_count=0
+
+L0: push_constant_string ""
+L1: pop_string_local 0
+L2: push_constant_string ""
+L3: pop_string_local 1
+L4: push_constant_string ""
+L5: pop_string_local 2
+L6: push_constant_string ""
+L7: pop_string_local 3
+L8: push_constant_string ""
+L9: pop_string_local 4
+L10: push_constant_string ""
+L11: pop_string_local 5
+L12: push_constant_string ""
+L13: pop_string_local 6
+L14: push_constant_string ""
+L15: pop_string_local 7
+L16: push_constant_string ""
+L17: pop_string_local 8
+L18: push_constant_string ""
+L19: pop_string_local 9
+L20: push_clansetting_var 25
+L21: push_clansetting_var 26
+L22: gosub_with_params clientscript_4345
+L23: pop_string_local 0
+L24: push_clansetting_var 27
+L25: push_clansetting_var 28
+L26: gosub_with_params clientscript_4345
+L27: pop_string_local 1
+L28: push_clansetting_var 29
+L29: push_clansetting_var 30
+L30: gosub_with_params clientscript_4345
+L31: pop_string_local 2
+L32: push_clansetting_var 31
+L33: push_clansetting_var 32
+L34: gosub_with_params clientscript_4345
+L35: pop_string_local 3
+L36: push_clansetting_var 33
+L37: push_clansetting_var 34
+L38: gosub_with_params clientscript_4345
+L39: pop_string_local 4
+L40: push_clansetting_var 35
+L41: push_clansetting_var 36
+L42: gosub_with_params clientscript_4345
+L43: pop_string_local 5
+L44: push_clansetting_var 37
+L45: push_clansetting_var 38
+L46: gosub_with_params clientscript_4345
+L47: pop_string_local 6
+L48: push_clansetting_var 39
+L49: push_clansetting_var 40
+L50: gosub_with_params clientscript_4345
+L51: pop_string_local 7
+L52: push_clansetting_var 41
+L53: push_clansetting_var 42
+L54: gosub_with_params clientscript_4345
+L55: pop_string_local 8
+L56: push_clansetting_var 43
+L57: push_clansetting_var 44
+L58: gosub_with_params clientscript_4345
+L59: pop_string_local 9
+L60: push_string_local 0
+L61: push_string_local 1
+L62: push_string_local 2
+L63: push_string_local 3
+L64: push_string_local 4
+L65: push_string_local 5
+L66: push_string_local 6
+L67: push_string_local 7
+L68: push_string_local 8
+L69: push_string_local 9
+L70: return 0
+L71: push_constant_string ""
+L72: push_constant_string ""
+L73: push_constant_string ""
+L74: push_constant_string ""
+L75: push_constant_string ""
+L76: push_constant_string ""
+L77: push_constant_string ""
+L78: push_constant_string ""
+L79: push_constant_string ""
+L80: push_constant_string ""
+L81: return 0
+L82:

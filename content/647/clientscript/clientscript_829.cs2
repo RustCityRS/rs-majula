@@ -1,0 +1,24 @@
+name=""
+local_int_count=2
+local_string_count=0
+local_long_count=0
+int_param_count=2
+string_param_count=0
+long_param_count=0
+
+L0: push_int_local 0
+L1: push_constant_int 845
+L2: branch_equals L4
+L3: branch L8
+L4: screenmode_getcount 0
+L5: push_constant_int 1
+L6: sub 0
+L7: return 0
+L8: push_int_local 1
+L9: enum_getoutputcount 0
+L10: push_constant_int 1
+L11: sub 0
+L12: return 0
+L13: push_constant_int 0
+L14: return 0
+L15:

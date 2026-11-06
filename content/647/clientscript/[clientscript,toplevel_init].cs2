@@ -1,0 +1,62 @@
+name=""
+local_int_count=0
+local_string_count=0
+local_long_count=0
+int_param_count=0
+string_param_count=0
+long_param_count=0
+
+L0: getwindowmode 0
+L1: push_constant_int 1
+L2: branch_greater_than_or_equals L4
+L3: branch L16
+L4: push_constant_int 1434
+L5: push_constant_int 184
+L6: push_constant_int 1
+L7: push_constant_string "Y"
+L8: push_constant_int 48889862
+L9: if_setonvarctransmit 0
+L10: push_constant_int 1434
+L11: push_constant_int 184
+L12: push_constant_int 1
+L13: push_constant_string "Y"
+L14: push_constant_int 35913731
+L15: if_setonvarctransmit 0
+L16: push_constant_int 1547
+L17: push_constant_int 5
+L18: push_constant_int 1
+L19: push_constant_string "Y"
+L20: push_constant_int 49283075
+L21: if_setonvarctransmit 0
+L22: push_constant_int 721
+L23: push_constant_string ""
+L24: push_constant_int 48889857
+L25: op2427 0
+L26: getwindowmode 0
+L27: push_constant_int 2
+L28: branch_greater_than_or_equals L30
+L29: branch L41
+L30: push_constant_int 1850
+L31: push_constant_int 48890028
+L32: push_constant_int 281
+L33: push_constant_int 1255
+L34: push_constant_int 2
+L35: push_constant_string "IY"
+L36: push_constant_int 48889866
+L37: if_setonvartransmit 0
+L38: push_constant_int 48890028
+L39: gosub_with_params clientscript_1886
+L40: branch L51
+L41: push_constant_int 1850
+L42: push_constant_int 35913911
+L43: push_constant_int 281
+L44: push_constant_int 1255
+L45: push_constant_int 2
+L46: push_constant_string "IY"
+L47: push_constant_int 35913793
+L48: if_setonvartransmit 0
+L49: push_constant_int 35913911
+L50: gosub_with_params clientscript_1886
+L51: gosub_with_params [proc,toplevel_minimenu_setup]
+L52: return 0
+L53:

@@ -1,9 +1,0 @@
-[clientscript,script_3949](int $int0, int $int1)
-if ($int1 = 1) {
-    if_setcolour($int0);
-    if_settext(append("<u=fafafa>", removetags(if_gettext)));
-} else {
-    if_setcolour($int0);
-    if_settext(append("<u=ebe0bc>", removetags(if_gettext)));
-}
-return;

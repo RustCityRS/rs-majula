@@ -1,0 +1,21 @@
+name=""
+local_int_count=1
+local_string_count=0
+local_long_count=0
+int_param_count=1
+string_param_count=0
+long_param_count=0
+
+L0: push_constant_int 93
+L1: push_constant_int 12526
+L2: inv_total 0
+L3: push_constant_int 1
+L4: branch_less_than L6
+L5: branch L8
+L6: push_constant_int 0
+L7: return 0
+L8: push_constant_int 1
+L9: return 0
+L10: push_constant_int 0
+L11: return 0
+L12:

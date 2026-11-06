@@ -1,0 +1,50 @@
+name=""
+local_int_count=1
+local_string_count=0
+local_long_count=0
+int_param_count=0
+string_param_count=0
+long_param_count=0
+
+L0: push_constant_int 0
+L1: push_constant_int 8978482
+L2: if_sethide 0
+L3: push_constant_int 73
+L4: push_constant_int -2147483640
+L5: push_constant_int -2147483639
+L6: push_constant_string "iz"
+L7: push_constant_int 8978487
+L8: if_setonkey 0
+L9: push_constant_int 1
+L10: push_constant_int 8978432
+L11: if_sethide 0
+L12: push_constant_int 0
+L13: pop_int_local 0
+L14: push_constant_int 105
+L15: push_constant_int 73
+L16: push_constant_int 1550
+L17: push_int_local 0
+L18: enum 0
+L19: push_constant_int -1
+L20: branch_not L22
+L21: branch L35
+L22: push_constant_int -1
+L23: push_constant_string ""
+L24: push_constant_int 105
+L25: push_constant_int 73
+L26: push_constant_int 1550
+L27: push_int_local 0
+L28: enum 0
+L29: if_setonkey 0
+L30: push_int_local 0
+L31: push_constant_int 1
+L32: add 0
+L33: pop_int_local 0
+L34: branch L14
+L35: getwindowmode 0
+L36: push_constant_int 2
+L37: branch_greater_than_or_equals L39
+L38: branch L40
+L39: gosub_with_params [proc,subchanged]
+L40: return 0
+L41:

@@ -1,0 +1,52 @@
+name=""
+local_int_count=2
+local_string_count=0
+local_long_count=0
+int_param_count=1
+string_param_count=0
+long_param_count=0
+
+L0: push_int_local 0
+L1: push_constant_int -1
+L2: branch_equals L4
+L3: branch L5
+L4: return 0
+L5: push_constant_int 2266
+L6: push_constant_int 1
+L7: push_constant_int 0
+L8: sound_synth 0
+L9: push_int_local 0
+L10: maparea_getbycoord 0
+L11: pop_int_local 1
+L12: push_int_local 1
+L13: gosub_with_params clientscript_2785
+L14: pop_int_local 1
+L15: push_int_local 1
+L16: push_constant_int -1
+L17: branch_equals L19
+L18: branch L20
+L19: return 0
+L20: push_constant_int 49479709
+L21: gosub_with_params [proc,worldmap_overlay_clear]
+L22: push_constant_string ""
+L23: pop_varc_string_old varc_string_31
+L24: push_constant_int 49479705
+L25: gosub_with_params clientscript_308
+L26: push_int_local 1
+L27: maparea_getname 0
+L28: push_constant_int 49479700
+L29: if_settext 0
+L30: push_constant_int 49479737
+L31: gosub_with_params [proc,deltooltip_action]
+L32: push_int_local 1
+L33: push_int_local 0
+L34: worldmap_setflag_5227 0
+L35: push_int_local 0
+L36: worldmap_setcoord_5214 0
+L37: push_int_local 1
+L38: maparea_getdefaultzoom 0
+L39: pop_varc_int varc_int_172
+L40: gosub_with_params [proc,worldmap_setzoom]
+L41: gosub_with_params [proc,worldmap_vartransmit_effects]
+L42: return 0
+L43:

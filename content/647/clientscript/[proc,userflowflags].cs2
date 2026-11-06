@@ -1,0 +1,44 @@
+name=""
+local_int_count=3
+local_string_count=0
+local_long_count=0
+int_param_count=1
+string_param_count=0
+long_param_count=0
+
+L0: push_int_local 0
+L1: push_constant_int 0
+L2: branch_less_than L7
+L3: push_int_local 0
+L4: push_constant_int 63
+L5: branch_greater_than L7
+L6: branch L9
+L7: push_constant_int 0
+L8: return 0
+L9: push_constant_int 0
+L10: pop_int_local 1
+L11: push_constant_int 0
+L12: pop_int_local 2
+L13: login_getuserflow 0
+L14: pop_int_local 1
+L15: pop_int_local 2
+L16: push_int_local 0
+L17: push_constant_int 32
+L18: branch_less_than L20
+L19: branch L26
+L20: push_int_local 1
+L21: push_int_local 0
+L22: testbit 0
+L23: gosub_with_params [proc,int_to_bool]
+L24: return 0
+L25: branch L33
+L26: push_int_local 2
+L27: push_int_local 0
+L28: push_constant_int 32
+L29: sub 0
+L30: testbit 0
+L31: gosub_with_params [proc,int_to_bool]
+L32: return 0
+L33: push_constant_int -1
+L34: return 0
+L35:

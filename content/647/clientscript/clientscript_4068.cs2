@@ -1,0 +1,79 @@
+name=""
+local_int_count=1
+local_string_count=0
+local_long_count=0
+int_param_count=1
+string_param_count=0
+long_param_count=0
+
+L0: push_int_local 0
+L1: switch switch0
+L2: branch L62
+L3: push_constant_int 69337107
+L4: if_getgraphic 0
+L5: push_constant_int 4444
+L6: branch_not L8
+L7: branch L14
+L8: push_constant_int -160
+L9: push_constant_int 18
+L10: push_constant_int 1
+L11: push_constant_int 0
+L12: push_int_local 0
+L13: if_setposition 0
+L14: branch L62
+L15: push_constant_int 69337105
+L16: if_getgraphic 0
+L17: push_constant_int 4445
+L18: branch_not L20
+L19: branch L26
+L20: push_constant_int -80
+L21: push_constant_int 18
+L22: push_constant_int 1
+L23: push_constant_int 0
+L24: push_int_local 0
+L25: if_setposition 0
+L26: branch L62
+L27: push_constant_int 69337103
+L28: if_getgraphic 0
+L29: push_constant_int 4446
+L30: branch_not L32
+L31: branch L38
+L32: push_constant_int 0
+L33: push_constant_int 18
+L34: push_constant_int 1
+L35: push_constant_int 0
+L36: push_int_local 0
+L37: if_setposition 0
+L38: branch L62
+L39: push_constant_int 69337101
+L40: if_getgraphic 0
+L41: push_constant_int 4447
+L42: branch_not L44
+L43: branch L50
+L44: push_constant_int 80
+L45: push_constant_int 18
+L46: push_constant_int 1
+L47: push_constant_int 0
+L48: push_int_local 0
+L49: if_setposition 0
+L50: branch L62
+L51: push_constant_int 69337099
+L52: if_getgraphic 0
+L53: push_constant_int 4448
+L54: branch_not L56
+L55: branch L62
+L56: push_constant_int 160
+L57: push_constant_int 18
+L58: push_constant_int 1
+L59: push_constant_int 0
+L60: push_int_local 0
+L61: if_setposition 0
+L62: return 0
+L63:
+
+[switch0@L1]
+69337110=L3
+69337111=L15
+69337112=L27
+69337114=L39
+69337113=L51

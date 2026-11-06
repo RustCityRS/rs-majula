@@ -1,0 +1,70 @@
+name=""
+local_int_count=4
+local_string_count=1
+local_long_count=0
+int_param_count=3
+string_param_count=1
+long_param_count=0
+
+L0: push_string_local 0
+L1: push_constant_string ""
+L2: compare 0
+L3: branch_if_false L5
+L4: branch L8
+L5: push_int_local 1
+L6: push_int_local 2
+L7: return 0
+L8: push_int_local 0
+L9: push_constant_int 4
+L10: push_int_local 1
+L11: cc_setposition 0
+L12: push_string_local 0
+L13: cc_settext 0
+L14: push_constant_int 495
+L15: cc_settextfont 0
+L16: push_string_local 0
+L17: push_constant_int 430
+L18: push_constant_int 495
+L19: paraheight 0
+L20: pop_int_local 3
+L21: push_int_local 3
+L22: push_constant_int 1
+L23: branch_less_than L25
+L24: branch L27
+L25: push_constant_int 1
+L26: pop_int_local 3
+L27: push_constant_int 430
+L28: push_constant_int 14
+L29: push_int_local 3
+L30: multiply 0
+L31: push_constant_int 0
+L32: push_constant_int 0
+L33: cc_setsize 0
+L34: push_constant_int 3
+L35: push_int_local 2
+L36: push_constant_int 15
+L37: multiply 0
+L38: push_constant_int 4
+L39: add 0
+L40: push_constant_int 0
+L41: push_constant_int 0
+L42: cc_setposition2 0
+L43: push_constant_int 1
+L44: push_constant_int 0
+L45: push_constant_int 14
+L46: cc_settextalign 0
+L47: push_constant_int 11184810
+L48: cc_setcolour 0
+L49: push_constant_int 1
+L50: cc_settextshadow 0
+L51: push_int_local 1
+L52: push_constant_int 1
+L53: add 0
+L54: push_int_local 2
+L55: push_int_local 3
+L56: add 0
+L57: return 0
+L58: push_constant_int 0
+L59: push_constant_int 0
+L60: return 0
+L61:

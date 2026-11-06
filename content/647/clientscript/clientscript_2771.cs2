@@ -1,0 +1,54 @@
+name=""
+local_int_count=3
+local_string_count=0
+local_long_count=0
+int_param_count=2
+string_param_count=0
+long_param_count=0
+
+L0: clientclock 0
+L1: push_int_local 1
+L2: sub 0
+L3: pop_int_local 2
+L4: push_int_local 2
+L5: push_constant_int 181
+L6: branch_greater_than_or_equals L11
+L7: push_varc_int varc_int_1007
+L8: push_constant_int 1
+L9: branch_not L11
+L10: branch L16
+L11: push_constant_int -1
+L12: push_constant_string ""
+L13: push_int_local 0
+L14: if_setontimer 0
+L15: return 0
+L16: push_int_local 2
+L17: push_constant_int 25
+L18: mod 0
+L19: branch_if_false L21
+L20: branch L39
+L21: push_constant_int 2
+L22: randominc 0
+L23: switch switch0
+L24: branch L39
+L25: push_constant_int 6645
+L26: push_constant_int 1
+L27: push_constant_int 0
+L28: sound_synth 0
+L29: branch L39
+L30: push_constant_int 6644
+L31: push_constant_int 1
+L32: push_constant_int 0
+L33: sound_synth 0
+L34: branch L39
+L35: push_constant_int 6643
+L36: push_constant_int 1
+L37: push_constant_int 0
+L38: sound_synth 0
+L39: return 0
+L40:
+
+[switch0@L23]
+0=L25
+1=L30
+2=L35

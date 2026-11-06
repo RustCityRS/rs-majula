@@ -1,0 +1,60 @@
+name=""
+local_int_count=0
+local_string_count=1
+local_long_count=0
+int_param_count=0
+string_param_count=1
+long_param_count=0
+
+L0: push_constant_int 1
+L1: push_constant_int 49283080
+L2: if_sethide 0
+L3: push_constant_int 1
+L4: push_constant_int 49283075
+L5: if_sethide 0
+L6: push_constant_int 0
+L7: push_constant_int 49283079
+L8: if_sethide 0
+L9: push_constant_int 574
+L10: push_constant_int -2147483640
+L11: push_constant_int -2147483639
+L12: push_constant_string "iz"
+L13: push_constant_int 25493513
+L14: if_setonkey 0
+L15: push_string_local 0
+L16: push_constant_int 25493510
+L17: if_settext 0
+L18: push_constant_int 0
+L19: push_constant_int 25493509
+L20: if_sethide 0
+L21: push_constant_int -1
+L22: push_constant_int -1
+L23: push_constant_int 25493519
+L24: if_setobject 0
+L25: gosub_with_params [clientscript,opt_header]
+L26: push_constant_string ""
+L27: pop_varc_string_old varc_string_22
+L28: push_constant_string "*"
+L29: push_constant_int 25493513
+L30: if_settext 0
+L31: push_constant_int 25493508
+L32: cc_deleteall_152 0
+L33: push_constant_int 0
+L34: push_constant_int 15
+L35: push_constant_int 25493508
+L36: if_setscrollsize 0
+L37: push_constant_int 25493512
+L38: push_constant_int 25493508
+L39: push_constant_int 792
+L40: push_constant_int 789
+L41: push_constant_int 790
+L42: push_constant_int 791
+L43: push_constant_int 773
+L44: push_constant_int 788
+L45: gosub_with_params [proc,scrollbar_vertical]
+L46: push_constant_int 572
+L47: push_constant_string ""
+L48: push_constant_int 25493513
+L49: op2423 0
+L50: return 0
+L51:

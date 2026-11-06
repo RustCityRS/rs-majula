@@ -1,0 +1,45 @@
+name=""
+local_int_count=1
+local_string_count=0
+local_long_count=0
+int_param_count=1
+string_param_count=0
+long_param_count=0
+
+L0: push_int_local 0
+L1: push_constant_int 50724876
+L2: branch_equals L4
+L3: branch L12
+L4: push_constant_int 41312
+L5: push_constant_int 50724875
+L6: if_setmodel 0
+L7: push_constant_int 5111
+L8: push_constant_int 1
+L9: push_constant_int 0
+L10: sound_synth 0
+L11: branch L35
+L12: push_int_local 0
+L13: push_constant_int 50724877
+L14: branch_equals L16
+L15: branch L24
+L16: push_constant_int 41303
+L17: push_constant_int 50724875
+L18: if_setmodel 0
+L19: push_constant_int 5112
+L20: push_constant_int 1
+L21: push_constant_int 0
+L22: sound_synth 0
+L23: branch L35
+L24: push_int_local 0
+L25: push_constant_int 50724878
+L26: branch_equals L28
+L27: branch L35
+L28: push_constant_int 41305
+L29: push_constant_int 50724875
+L30: if_setmodel 0
+L31: push_constant_int 5110
+L32: push_constant_int 1
+L33: push_constant_int 0
+L34: sound_synth 0
+L35: return 0
+L36:

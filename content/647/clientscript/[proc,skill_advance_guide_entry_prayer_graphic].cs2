@@ -1,0 +1,740 @@
+name=""
+local_int_count=2
+local_string_count=0
+local_long_count=0
+int_param_count=2
+string_param_count=0
+long_param_count=0
+
+L0: push_int_local 1
+L1: switch switch0
+L2: branch L673
+L3: push_constant_int -1
+L4: push_constant_int 2287
+L5: push_constant_string "You can see what each prayer does by selecting the Prayer icon on your side interface. Move your mouse over the icon of the prayer you want and a description will be available."
+L6: push_constant_string ""
+L7: return 0
+L8: branch L673
+L9: push_constant_int 1
+L10: push_constant_int 660
+L11: push_constant_int 735
+L12: struct_param_4500 0
+L13: push_constant_string "Thick Skin"
+L14: push_constant_string "You can now use the "
+L15: push_constant_string "<col=000080>"
+L16: push_constant_string "Thick Skin"
+L17: push_constant_string "</col>"
+L18: push_constant_string " prayer."
+L19: join_string 5
+L20: return 0
+L21: branch L673
+L22: push_constant_int 4
+L23: push_constant_int 661
+L24: push_constant_int 735
+L25: struct_param_4500 0
+L26: push_constant_string "Burst of Strength"
+L27: push_constant_string "You can now use the "
+L28: push_constant_string "<col=000080>"
+L29: push_constant_string "Burst of Strength"
+L30: push_constant_string "</col>"
+L31: push_constant_string " prayer."
+L32: join_string 5
+L33: return 0
+L34: branch L673
+L35: push_constant_int 7
+L36: push_constant_int 662
+L37: push_constant_int 735
+L38: struct_param_4500 0
+L39: push_constant_string "Clarity of Thought"
+L40: push_constant_string "You can now use the "
+L41: push_constant_string "<col=000080>"
+L42: push_constant_string "Clarity of Thought"
+L43: push_constant_string "</col>"
+L44: push_constant_string " prayer."
+L45: join_string 5
+L46: return 0
+L47: branch L673
+L48: push_constant_int 8
+L49: push_constant_int 678
+L50: push_constant_int 735
+L51: struct_param_4500 0
+L52: push_constant_string "Sharp Eye"
+L53: push_constant_string "You can now use the "
+L54: push_constant_string "<col=000080>"
+L55: push_constant_string "Sharp Eye"
+L56: push_constant_string "</col>"
+L57: push_constant_string " prayer."
+L58: join_string 5
+L59: return 0
+L60: branch L673
+L61: push_constant_int 9
+L62: push_constant_int 679
+L63: push_constant_int 735
+L64: struct_param_4500 0
+L65: push_constant_string "Mystic Will"
+L66: push_constant_string "You can now use the "
+L67: push_constant_string "<col=000080>"
+L68: push_constant_string "Mystic Will"
+L69: push_constant_string "</col>"
+L70: push_constant_string " prayer."
+L71: join_string 5
+L72: return 0
+L73: branch L673
+L74: push_constant_int 10
+L75: push_constant_int 663
+L76: push_constant_int 735
+L77: struct_param_4500 0
+L78: push_constant_string "Rock Skin"
+L79: push_constant_string "You can now use the "
+L80: push_constant_string "<col=000080>"
+L81: push_constant_string "Rock Skin"
+L82: push_constant_string "</col>"
+L83: push_constant_string " prayer."
+L84: join_string 5
+L85: return 0
+L86: branch L673
+L87: push_constant_int 13
+L88: push_constant_int 664
+L89: push_constant_int 735
+L90: struct_param_4500 0
+L91: push_constant_string "Superhuman Strength"
+L92: push_constant_string "You can now use the "
+L93: push_constant_string "<col=000080>"
+L94: push_constant_string "Superhuman Strength"
+L95: push_constant_string "</col>"
+L96: push_constant_string " prayer."
+L97: join_string 5
+L98: return 0
+L99: branch L673
+L100: push_constant_int 16
+L101: push_constant_int 665
+L102: push_constant_int 735
+L103: struct_param_4500 0
+L104: push_constant_string "Improved Reflexes"
+L105: push_constant_string "You can now use the "
+L106: push_constant_string "<col=000080>"
+L107: push_constant_string "Improved Reflexes"
+L108: push_constant_string "</col>"
+L109: push_constant_string " prayer."
+L110: join_string 5
+L111: return 0
+L112: branch L673
+L113: push_constant_int 19
+L114: push_constant_int 666
+L115: push_constant_int 735
+L116: struct_param_4500 0
+L117: push_constant_string "Rapid Restore"
+L118: push_constant_string "You can now use the "
+L119: push_constant_string "<col=000080>"
+L120: push_constant_string "Rapid Restore"
+L121: push_constant_string "</col>"
+L122: push_constant_string " prayer."
+L123: join_string 5
+L124: return 0
+L125: branch L673
+L126: push_constant_int 22
+L127: push_constant_int 667
+L128: push_constant_int 735
+L129: struct_param_4500 0
+L130: push_constant_string "Rapid Heal"
+L131: push_constant_string "You can now use the "
+L132: push_constant_string "<col=000080>"
+L133: push_constant_string "Rapid Heal"
+L134: push_constant_string "</col>"
+L135: push_constant_string " prayer."
+L136: join_string 5
+L137: return 0
+L138: branch L673
+L139: push_constant_int 25
+L140: push_constant_int 668
+L141: push_constant_int 735
+L142: struct_param_4500 0
+L143: push_constant_string "Protect Item"
+L144: push_constant_string "You can now use the "
+L145: push_constant_string "<col=000080>"
+L146: push_constant_string "Protect Item"
+L147: push_constant_string "</col>"
+L148: push_constant_string " prayer."
+L149: join_string 5
+L150: return 0
+L151: branch L673
+L152: push_constant_int 26
+L153: push_constant_int 680
+L154: push_constant_int 735
+L155: struct_param_4500 0
+L156: push_constant_string "Hawk Eye"
+L157: push_constant_string "You can now use the "
+L158: push_constant_string "<col=000080>"
+L159: push_constant_string "Hawk Eye"
+L160: push_constant_string "</col>"
+L161: push_constant_string " prayer."
+L162: join_string 5
+L163: return 0
+L164: branch L673
+L165: push_constant_int 27
+L166: push_constant_int 681
+L167: push_constant_int 735
+L168: struct_param_4500 0
+L169: push_constant_string "Mystic Lore"
+L170: push_constant_string "You can now use the "
+L171: push_constant_string "<col=000080>"
+L172: push_constant_string "Mystic Lore"
+L173: push_constant_string "</col>"
+L174: push_constant_string " prayer."
+L175: join_string 5
+L176: return 0
+L177: branch L673
+L178: push_constant_int 28
+L179: push_constant_int 669
+L180: push_constant_int 735
+L181: struct_param_4500 0
+L182: push_constant_string "Steel Skin"
+L183: push_constant_string "You can now use the "
+L184: push_constant_string "<col=000080>"
+L185: push_constant_string "Steel Skin"
+L186: push_constant_string "</col>"
+L187: push_constant_string " prayer."
+L188: join_string 5
+L189: return 0
+L190: branch L673
+L191: push_constant_int 31
+L192: push_constant_int 670
+L193: push_constant_int 735
+L194: struct_param_4500 0
+L195: push_constant_string "Ultimate Strength"
+L196: push_constant_string "You can now use the "
+L197: push_constant_string "<col=000080>"
+L198: push_constant_string "Ultimate Strength"
+L199: push_constant_string "</col>"
+L200: push_constant_string " prayer."
+L201: join_string 5
+L202: return 0
+L203: branch L673
+L204: push_constant_int 34
+L205: push_constant_int 671
+L206: push_constant_int 735
+L207: struct_param_4500 0
+L208: push_constant_string "Incredible Reflexes"
+L209: push_constant_string "You can now use the "
+L210: push_constant_string "<col=000080>"
+L211: push_constant_string "Incredible Reflexes"
+L212: push_constant_string "</col>"
+L213: push_constant_string " prayer."
+L214: join_string 5
+L215: return 0
+L216: branch L673
+L217: push_constant_int 35
+L218: push_constant_int 684
+L219: push_constant_int 735
+L220: struct_param_4500 0
+L221: push_constant_string "Members: Protect from Summoning"
+L222: push_constant_string "Members can now use the "
+L223: push_constant_string "<col=000080>"
+L224: push_constant_string "Protect from Summoning"
+L225: push_constant_string "</col>"
+L226: push_constant_string " prayer."
+L227: join_string 5
+L228: return 0
+L229: branch L673
+L230: push_constant_int 37
+L231: push_constant_int 672
+L232: push_constant_int 735
+L233: struct_param_4500 0
+L234: push_constant_string "Protect from Magic"
+L235: push_constant_string "You can now use the "
+L236: push_constant_string "<col=000080>"
+L237: push_constant_string "Protect from Magic"
+L238: push_constant_string "</col>"
+L239: push_constant_string " prayer."
+L240: join_string 5
+L241: return 0
+L242: branch L673
+L243: push_constant_int 40
+L244: push_constant_int 673
+L245: push_constant_int 735
+L246: struct_param_4500 0
+L247: push_constant_string "Protect from Missiles"
+L248: push_constant_string "You can now use the "
+L249: push_constant_string "<col=000080>"
+L250: push_constant_string "Protect from Missiles"
+L251: push_constant_string "</col>"
+L252: push_constant_string " prayer."
+L253: join_string 5
+L254: return 0
+L255: branch L673
+L256: push_constant_int 43
+L257: push_constant_int 674
+L258: push_constant_int 735
+L259: struct_param_4500 0
+L260: push_constant_string "Protect from Melee"
+L261: push_constant_string "You can now use the "
+L262: push_constant_string "<col=000080>"
+L263: push_constant_string "Protect from Melee"
+L264: push_constant_string "</col>"
+L265: push_constant_string " prayer."
+L266: join_string 5
+L267: return 0
+L268: branch L673
+L269: push_constant_int 44
+L270: push_constant_int 682
+L271: push_constant_int 735
+L272: struct_param_4500 0
+L273: push_constant_string "Eagle Eye"
+L274: push_constant_string "You can now use the "
+L275: push_constant_string "<col=000080>"
+L276: push_constant_string "Eagle Eye"
+L277: push_constant_string "</col>"
+L278: push_constant_string " prayer."
+L279: join_string 5
+L280: return 0
+L281: branch L673
+L282: push_constant_int 45
+L283: push_constant_int 683
+L284: push_constant_int 735
+L285: struct_param_4500 0
+L286: push_constant_string "Mystic Might"
+L287: push_constant_string "You can now use the "
+L288: push_constant_string "<col=000080>"
+L289: push_constant_string "Mystic Might"
+L290: push_constant_string "</col>"
+L291: push_constant_string " prayer."
+L292: join_string 5
+L293: return 0
+L294: branch L673
+L295: push_constant_int 46
+L296: push_constant_int 675
+L297: push_constant_int 735
+L298: struct_param_4500 0
+L299: push_constant_string "Members: Retribution"
+L300: push_constant_string "Members can now use the "
+L301: push_constant_string "<col=000080>"
+L302: push_constant_string "Retribution"
+L303: push_constant_string "</col>"
+L304: push_constant_string " prayer."
+L305: join_string 5
+L306: return 0
+L307: branch L673
+L308: push_constant_int 49
+L309: push_constant_int 676
+L310: push_constant_int 735
+L311: struct_param_4500 0
+L312: push_constant_string "Members: Redemption"
+L313: push_constant_string "Members can now use the "
+L314: push_constant_string "<col=000080>"
+L315: push_constant_string "Redemption"
+L316: push_constant_string "</col>"
+L317: push_constant_string " prayer."
+L318: join_string 5
+L319: return 0
+L320: branch L673
+L321: push_constant_int 50
+L322: push_constant_int 888
+L323: push_constant_int 735
+L324: struct_param_4500 0
+L325: push_constant_string "Members: Protect Item (curse)"
+L326: push_constant_string "Members can now use the "
+L327: push_constant_string "<col=000080>"
+L328: push_constant_string "Protect Item"
+L329: push_constant_string "</col>"
+L330: push_constant_string " curse (after The Temple at Senntisten)."
+L331: join_string 5
+L332: return 0
+L333: branch L673
+L334: push_constant_int 50
+L335: push_constant_int 889
+L336: push_constant_int 735
+L337: struct_param_4500 0
+L338: push_constant_string "Members: Sap Warrior"
+L339: push_constant_string "Members can now use the "
+L340: push_constant_string "<col=000080>"
+L341: push_constant_string "Sap Warrior"
+L342: push_constant_string "</col>"
+L343: push_constant_string " curse (after The Temple at Senntisten)."
+L344: join_string 5
+L345: return 0
+L346: branch L673
+L347: push_constant_int 52
+L348: push_constant_int 677
+L349: push_constant_int 735
+L350: struct_param_4500 0
+L351: push_constant_string "Members: Smite"
+L352: push_constant_string "Members can now use the "
+L353: push_constant_string "<col=000080>"
+L354: push_constant_string "Smite"
+L355: push_constant_string "</col>"
+L356: push_constant_string " prayer."
+L357: join_string 5
+L358: return 0
+L359: branch L673
+L360: push_constant_int 52
+L361: push_constant_int 890
+L362: push_constant_int 735
+L363: struct_param_4500 0
+L364: push_constant_string "Members: Sap Ranger"
+L365: push_constant_string "Members can now use the "
+L366: push_constant_string "<col=000080>"
+L367: push_constant_string "Sap Ranger"
+L368: push_constant_string "</col>"
+L369: push_constant_string " curse (after The Temple at Senntisten)."
+L370: join_string 5
+L371: return 0
+L372: branch L673
+L373: push_constant_int 54
+L374: push_constant_int 891
+L375: push_constant_int 735
+L376: struct_param_4500 0
+L377: push_constant_string "Members: Sap Mage"
+L378: push_constant_string "Members can now use the "
+L379: push_constant_string "<col=000080>"
+L380: push_constant_string "Sap Mage"
+L381: push_constant_string "</col>"
+L382: push_constant_string " curse (after The Temple at Senntisten)."
+L383: join_string 5
+L384: return 0
+L385: branch L673
+L386: push_constant_int 56
+L387: push_constant_int 892
+L388: push_constant_int 735
+L389: struct_param_4500 0
+L390: push_constant_string "Members: Sap Spirit"
+L391: push_constant_string "Members can now use the "
+L392: push_constant_string "<col=000080>"
+L393: push_constant_string "Sap Spirit"
+L394: push_constant_string "</col>"
+L395: push_constant_string " curse (after The Temple at Senntisten)."
+L396: join_string 5
+L397: return 0
+L398: branch L673
+L399: push_constant_int 59
+L400: push_constant_int 893
+L401: push_constant_int 735
+L402: struct_param_4500 0
+L403: push_constant_string "Members: Berserker"
+L404: push_constant_string "Members can now use the "
+L405: push_constant_string "<col=000080>"
+L406: push_constant_string "Berserker"
+L407: push_constant_string "</col>"
+L408: push_constant_string " curse (after The Temple at Senntisten)."
+L409: join_string 5
+L410: return 0
+L411: branch L673
+L412: push_constant_int 60
+L413: push_constant_int 685
+L414: push_constant_int 735
+L415: struct_param_4500 0
+L416: push_constant_string "Members: Chivalry"
+L417: push_constant_string "<br>"
+L418: push_constant_string " (after King's Ransom)"
+L419: join_string 3
+L420: push_constant_string "Members now have the Prayer level required to use the "
+L421: push_constant_string "<col=000080>"
+L422: push_constant_string "Chivalry"
+L423: push_constant_string "</col>"
+L424: push_constant_string " prayer (after King's Ransom)."
+L425: join_string 5
+L426: return 0
+L427: branch L673
+L428: push_constant_int 62
+L429: push_constant_int 894
+L430: push_constant_int 735
+L431: struct_param_4500 0
+L432: push_constant_string "Members: Deflect Summoning"
+L433: push_constant_string "Members can now use the "
+L434: push_constant_string "<col=000080>"
+L435: push_constant_string "Deflect Summoning"
+L436: push_constant_string "</col>"
+L437: push_constant_string " curse (after The Temple at Senntisten)."
+L438: join_string 5
+L439: return 0
+L440: branch L673
+L441: push_constant_int 65
+L442: push_constant_int 895
+L443: push_constant_int 735
+L444: struct_param_4500 0
+L445: push_constant_string "Members: Deflect Magic"
+L446: push_constant_string "Members can now use the "
+L447: push_constant_string "<col=000080>"
+L448: push_constant_string "Deflect Magic"
+L449: push_constant_string "</col>"
+L450: push_constant_string " curse (after The Temple at Senntisten)."
+L451: join_string 5
+L452: return 0
+L453: branch L673
+L454: push_constant_int 65
+L455: push_constant_int 1005
+L456: push_constant_int 735
+L457: struct_param_4500 0
+L458: push_constant_string "Members: Rapid Renewal"
+L459: push_constant_string "<br>"
+L460: push_constant_string " (with 65 Dungeoneering)"
+L461: join_string 3
+L462: push_constant_string "Members can now use the "
+L463: push_constant_string "<col=000080>"
+L464: push_constant_string "Rapid Renewal"
+L465: push_constant_string "</col>"
+L466: push_constant_string " prayer (bought from Daemonheim). (They also need level 65 Dungeoneering.)"
+L467: join_string 5
+L468: return 0
+L469: branch L673
+L470: push_constant_int 68
+L471: push_constant_int 896
+L472: push_constant_int 735
+L473: struct_param_4500 0
+L474: push_constant_string "Members: Deflect Missiles"
+L475: push_constant_string "Members can now use the "
+L476: push_constant_string "<col=000080>"
+L477: push_constant_string "Deflect Missiles"
+L478: push_constant_string "</col>"
+L479: push_constant_string " curse (after The Temple at Senntisten)."
+L480: join_string 5
+L481: return 0
+L482: branch L673
+L483: push_constant_int 70
+L484: push_constant_int 686
+L485: push_constant_int 735
+L486: struct_param_4500 0
+L487: push_constant_string "Members: Piety"
+L488: push_constant_string "<br>"
+L489: push_constant_string " (after King's Ransom)"
+L490: join_string 3
+L491: push_constant_string "Members now have the Prayer level required to use the "
+L492: push_constant_string "<col=000080>"
+L493: push_constant_string "Piety"
+L494: push_constant_string "</col>"
+L495: push_constant_string " prayer (after King's Ransom)."
+L496: join_string 5
+L497: return 0
+L498: branch L673
+L499: push_constant_int 71
+L500: push_constant_int 897
+L501: push_constant_int 735
+L502: struct_param_4500 0
+L503: push_constant_string "Members: Deflect Melee"
+L504: push_constant_string "Members can now use the "
+L505: push_constant_string "<col=000080>"
+L506: push_constant_string "Deflect Melee"
+L507: push_constant_string "</col>"
+L508: push_constant_string " curse (after The Temple at Senntisten)."
+L509: join_string 5
+L510: return 0
+L511: branch L673
+L512: push_constant_int 74
+L513: push_constant_int 1029
+L514: push_constant_int 735
+L515: struct_param_4500 0
+L516: push_constant_string "Members: Rigour"
+L517: push_constant_string "<br>"
+L518: push_constant_string " (with 74 Dungeoneering)"
+L519: join_string 3
+L520: push_constant_string "Members can now use the "
+L521: push_constant_string "<col=000080>"
+L522: push_constant_string "Rigour"
+L523: push_constant_string "</col>"
+L524: push_constant_string " prayer (bought from Daemonheim). (They also need level 74 Dungeoneering.)"
+L525: join_string 5
+L526: return 0
+L527: branch L673
+L528: push_constant_int 74
+L529: push_constant_int 898
+L530: push_constant_int 735
+L531: struct_param_4500 0
+L532: push_constant_string "Members: Leech Attack"
+L533: push_constant_string "Members can now use the "
+L534: push_constant_string "<col=000080>"
+L535: push_constant_string "Leech Attack"
+L536: push_constant_string "</col>"
+L537: push_constant_string " curse (after The Temple at Senntisten)."
+L538: join_string 5
+L539: return 0
+L540: branch L673
+L541: push_constant_int 76
+L542: push_constant_int 899
+L543: push_constant_int 735
+L544: struct_param_4500 0
+L545: push_constant_string "Members: Leech Ranged"
+L546: push_constant_string "Members can now use the "
+L547: push_constant_string "<col=000080>"
+L548: push_constant_string "Leech Ranged"
+L549: push_constant_string "</col>"
+L550: push_constant_string " curse (after The Temple at Senntisten)."
+L551: join_string 5
+L552: return 0
+L553: branch L673
+L554: push_constant_int 77
+L555: push_constant_int 1006
+L556: push_constant_int 735
+L557: struct_param_4500 0
+L558: push_constant_string "Members: Augury"
+L559: push_constant_string "<br>"
+L560: push_constant_string " (with 77 Dungeoneering)"
+L561: join_string 3
+L562: push_constant_string "Members can now use the "
+L563: push_constant_string "<col=000080>"
+L564: push_constant_string "Augury"
+L565: push_constant_string "</col>"
+L566: push_constant_string " prayer (bought from Daemonheim). (They also need level 77 Dungeoneering.)"
+L567: join_string 5
+L568: return 0
+L569: branch L673
+L570: push_constant_int 78
+L571: push_constant_int 900
+L572: push_constant_int 735
+L573: struct_param_4500 0
+L574: push_constant_string "Members: Leech Magic"
+L575: push_constant_string "Members can now use the "
+L576: push_constant_string "<col=000080>"
+L577: push_constant_string "Leech Magic"
+L578: push_constant_string "</col>"
+L579: push_constant_string " curse (after The Temple at Senntisten)."
+L580: join_string 5
+L581: return 0
+L582: branch L673
+L583: push_constant_int 80
+L584: push_constant_int 901
+L585: push_constant_int 735
+L586: struct_param_4500 0
+L587: push_constant_string "Members: Leech Defence"
+L588: push_constant_string "Members can now use the "
+L589: push_constant_string "<col=000080>"
+L590: push_constant_string "Leech Defence"
+L591: push_constant_string "</col>"
+L592: push_constant_string " curse (after The Temple at Senntisten)."
+L593: join_string 5
+L594: return 0
+L595: branch L673
+L596: push_constant_int 82
+L597: push_constant_int 902
+L598: push_constant_int 735
+L599: struct_param_4500 0
+L600: push_constant_string "Members: Leech Strength"
+L601: push_constant_string "Members can now use the "
+L602: push_constant_string "<col=000080>"
+L603: push_constant_string "Leech Strength"
+L604: push_constant_string "</col>"
+L605: push_constant_string " curse (after The Temple at Senntisten)."
+L606: join_string 5
+L607: return 0
+L608: branch L673
+L609: push_constant_int 84
+L610: push_constant_int 903
+L611: push_constant_int 735
+L612: struct_param_4500 0
+L613: push_constant_string "Members: Leech Energy"
+L614: push_constant_string "Members can now use the "
+L615: push_constant_string "<col=000080>"
+L616: push_constant_string "Leech Energy"
+L617: push_constant_string "</col>"
+L618: push_constant_string " curse (after The Temple at Senntisten)."
+L619: join_string 5
+L620: return 0
+L621: branch L673
+L622: push_constant_int 86
+L623: push_constant_int 904
+L624: push_constant_int 735
+L625: struct_param_4500 0
+L626: push_constant_string "Members: Leech Special Attack"
+L627: push_constant_string "Members can now use the "
+L628: push_constant_string "<col=000080>"
+L629: push_constant_string "Leech Special Attack"
+L630: push_constant_string "</col>"
+L631: push_constant_string " curse (after The Temple at Senntisten)."
+L632: join_string 5
+L633: return 0
+L634: branch L673
+L635: push_constant_int 89
+L636: push_constant_int 905
+L637: push_constant_int 735
+L638: struct_param_4500 0
+L639: push_constant_string "Members: Wrath"
+L640: push_constant_string "Members can now use the "
+L641: push_constant_string "<col=000080>"
+L642: push_constant_string "Wrath"
+L643: push_constant_string "</col>"
+L644: push_constant_string " curse (after The Temple at Senntisten)."
+L645: join_string 5
+L646: return 0
+L647: branch L673
+L648: push_constant_int 92
+L649: push_constant_int 906
+L650: push_constant_int 735
+L651: struct_param_4500 0
+L652: push_constant_string "Members: Soul Split"
+L653: push_constant_string "Members can now use the "
+L654: push_constant_string "<col=000080>"
+L655: push_constant_string "Soul Split"
+L656: push_constant_string "</col>"
+L657: push_constant_string " curse (after The Temple at Senntisten)."
+L658: join_string 5
+L659: return 0
+L660: branch L673
+L661: push_constant_int 95
+L662: push_constant_int 907
+L663: push_constant_int 735
+L664: struct_param_4500 0
+L665: push_constant_string "Members: Turmoil"
+L666: push_constant_string "Members can now use the "
+L667: push_constant_string "<col=000080>"
+L668: push_constant_string "Turmoil"
+L669: push_constant_string "</col>"
+L670: push_constant_string " curse (after The Temple at Senntisten)."
+L671: join_string 5
+L672: return 0
+L673: push_constant_int 0
+L674: push_constant_int -1
+L675: push_constant_string ""
+L676: push_constant_string ""
+L677: return 0
+L678:
+
+[switch0@L1]
+0=L3
+1=L9
+2=L22
+3=L35
+4=L48
+5=L61
+6=L74
+7=L87
+8=L100
+9=L113
+10=L126
+11=L139
+12=L152
+13=L165
+14=L178
+15=L191
+16=L204
+17=L217
+18=L230
+19=L243
+20=L256
+21=L269
+22=L282
+23=L295
+24=L308
+25=L321
+26=L334
+27=L347
+28=L360
+29=L373
+30=L386
+31=L399
+32=L412
+33=L428
+34=L441
+35=L454
+36=L470
+37=L483
+38=L499
+39=L512
+40=L528
+41=L541
+42=L554
+43=L570
+44=L583
+45=L596
+46=L609
+47=L622
+48=L635
+49=L648
+50=L661

@@ -1,0 +1,94 @@
+name=""
+local_int_count=0
+local_string_count=0
+local_long_count=0
+int_param_count=0
+string_param_count=0
+long_param_count=0
+
+L0: push_constant_int 22
+L1: stat 0
+L2: push_constant_int 56
+L3: branch_less_than L5
+L4: branch L9
+L5: push_constant_int 8815456
+L6: push_constant_int 30081051
+L7: if_setcolour 0
+L8: branch L12
+L9: push_constant_int 15394756
+L10: push_constant_int 30081051
+L11: if_setcolour 0
+L12: push_constant_int 22
+L13: stat 0
+L14: push_constant_int 57
+L15: branch_less_than L17
+L16: branch L21
+L17: push_constant_int 8815456
+L18: push_constant_int 30081047
+L19: if_setcolour 0
+L20: branch L24
+L21: push_constant_int 15394756
+L22: push_constant_int 30081047
+L23: if_setcolour 0
+L24: push_constant_int 22
+L25: stat 0
+L26: push_constant_int 59
+L27: branch_less_than L29
+L28: branch L33
+L29: push_constant_int 8815456
+L30: push_constant_int 30081043
+L31: if_setcolour 0
+L32: branch L36
+L33: push_constant_int 15394756
+L34: push_constant_int 30081043
+L35: if_setcolour 0
+L36: push_constant_int 22
+L37: stat 0
+L38: push_constant_int 62
+L39: branch_less_than L41
+L40: branch L45
+L41: push_constant_int 8815456
+L42: push_constant_int 30081039
+L43: if_setcolour 0
+L44: branch L48
+L45: push_constant_int 15394756
+L46: push_constant_int 30081039
+L47: if_setcolour 0
+L48: push_constant_int 22
+L49: stat 0
+L50: push_constant_int 65
+L51: branch_less_than L53
+L52: branch L57
+L53: push_constant_int 8815456
+L54: push_constant_int 30081031
+L55: if_setcolour 0
+L56: branch L60
+L57: push_constant_int 15394756
+L58: push_constant_int 30081031
+L59: if_setcolour 0
+L60: push_constant_int 22
+L61: stat 0
+L62: push_constant_int 70
+L63: branch_less_than L65
+L64: branch L69
+L65: push_constant_int 8815456
+L66: push_constant_int 30081035
+L67: if_setcolour 0
+L68: branch L72
+L69: push_constant_int 15394756
+L70: push_constant_int 30081035
+L71: if_setcolour 0
+L72: push_constant_int 22
+L73: stat 0
+L74: push_constant_int 80
+L75: branch_less_than L77
+L76: branch L81
+L77: push_constant_int 8815456
+L78: push_constant_int 30081027
+L79: if_setcolour 0
+L80: branch L84
+L81: push_constant_int 15394756
+L82: push_constant_int 30081027
+L83: if_setcolour 0
+L84: return 0
+L85:

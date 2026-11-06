@@ -1,7 +1,5 @@
 #![allow(clippy::needless_range_loop)]
 #[cfg(since_647)]
-use crate::archive;
-#[cfg(since_647)]
 use crate::archive::TEXTURES as TEXTURE_ARCHIVE;
 #[cfg(since_647)]
 use crate::cache::texture::{OP_NAMES, TextureDef, parse_texture};
@@ -13,18 +11,10 @@ use anyhow::{Context, Result};
 use rs_io::jag::JagFile;
 #[cfg(since_647)]
 use rs_io::js5::Js5Store;
-#[cfg(since_647)]
-use rs_io::js5::compression::Container;
-#[cfg(since_647)]
-use serde_json::json;
-#[cfg(since_647)]
-use std::collections::HashMap;
 use std::fs;
 use std::path::Path;
 #[cfg(before_647)]
 use tracing::debug;
-#[cfg(since_647)]
-use tracing::{info, warn};
 
 #[cfg(before_647)]
 pub const TEXTURE_NAMES: &[&str] = &[
@@ -189,359 +179,43 @@ pub(crate) fn known_hashes() -> Vec<i32> {
 }
 
 #[cfg(since_647)]
-pub struct TextureUnpackStats {
-    pub textures_total: u32,
-    pub textures_named: u32,
-    pub textures_numeric: u32,
-    pub opt_files: u32,
-}
-
-#[cfg(since_647)]
-pub fn unpack_named_textures(
+pub fn unpack_texture_text(
     store: &mut Js5Store,
     content_dir: &Path,
-    hash_names_path: &Path,
-) -> Result<TextureUnpackStats> {
-    let tex_dir = content_dir.join("textures").join("_unpack");
-    let meta_dir = tex_dir.join("meta");
-    fs::create_dir_all(&tex_dir)?;
-    fs::create_dir_all(&meta_dir)?;
-
-    let sprite_names = load_sprite_names(hash_names_path)?;
-    let materials = load_materials(store)?;
-    let sprite_dir = content_dir.join("sprites").join("_unpack");
-
-    let group_count = store.group_count(TEXTURE_ARCHIVE).unwrap_or(0);
-    let mut stats = TextureUnpackStats {
-        textures_total: 0,
-        textures_named: 0,
-        textures_numeric: 0,
-        opt_files: 0,
-    };
-
-    for group_id in 0..group_count {
-        let Some(group) = store.read_group(TEXTURE_ARCHIVE, group_id)? else {
-            continue;
-        };
-        let Some(entry) = group.entries.first() else {
-            continue;
-        };
-        if entry.data().is_empty() {
-            continue;
-        }
-
-        stats.textures_total += 1;
-
-        let tex_def = parse_texture(entry.data());
-        let primary_sprite = tex_def.primary_sprite();
-
-        let tex_name = if let Some(sprite_id) = primary_sprite {
-            if let Some(name) = sprite_names.get(&(sprite_id as u32)) {
-                if !name.is_empty() {
-                    name.clone()
-                } else {
-                    format!("{}", group_id)
-                }
-            } else {
-                format!("{}", group_id)
-            }
-        } else {
-            format!("{}", group_id)
-        };
-
-        let is_named = !tex_name.chars().next().is_none_or(|c| c.is_ascii_digit());
-        if is_named {
-            stats.textures_named += 1;
-        } else {
-            stats.textures_numeric += 1;
-        }
-
-        if let Some(sprite_id) = primary_sprite {
-            let src_png = sprite_dir.join(format!("{}.png", sprite_id));
-            let dst_png = tex_dir.join(format!("{}.png", tex_name));
-            if src_png.exists() {
-                fs::copy(&src_png, &dst_png).with_context(|| {
-                    format!("copy {} → {}", src_png.display(), dst_png.display())
-                })?;
-            } else {
-                let src_sub = sprite_dir.join(format!("{}/0.png", sprite_id));
-                if src_sub.exists() {
-                    fs::copy(&src_sub, &dst_png)?;
-                }
-            }
-        }
-
-        if let Some(mat) = materials.get(&group_id) {
-            let opt_path = meta_dir.join(format!("{}.opt", tex_name));
-            let repeat_mode = match (mat.repeat_s, mat.repeat_t) {
-                (true, true) => "both",
-                (true, false) => "col",
-                (false, true) => "row",
-                (false, false) => "none",
-            };
-            let opt_content = format!(
-                "{},{},{},{},{}\n",
-                primary_sprite.unwrap_or(0),
-                mat.speed_u,
-                mat.speed_v,
-                mat.averagecolor,
-                repeat_mode,
-            );
-            fs::write(&opt_path, opt_content)?;
-            stats.opt_files += 1;
-        }
+    pack_dir: &Path,
+) -> Result<u32> {
+    let dir = content_dir.join("textures");
+    fs::create_dir_all(&dir)?;
+    let names = crate::pack::names::AssetNames::load(pack_dir)?;
+    let groups = store
+        .reference_table(TEXTURE_ARCHIVE)
+        .context("Missing texture table")?
+        .groups
+        .clone();
+    for info in &groups {
+        let data = store
+            .read_group_raw_decompressed(TEXTURE_ARCHIVE, info.id)?
+            .context("Missing texture group")?;
+        let text = crate::pack::texture::source::convert(
+            &emit_texture_text(&parse_texture(&data)),
+            &names,
+            true,
+        )?;
+        let numeric = crate::pack::texture::source::convert(&text, &names, false)?;
+        let packed = crate::pack::texture::encode_texture(
+            &crate::pack::texture::parse_texture_text(&numeric),
+        );
+        anyhow::ensure!(
+            packed == data,
+            "Texture {} text round trip changed bytes",
+            info.id
+        );
+        fs::write(
+            dir.join(format!("{}.texture", names.name("texture", info.id))),
+            text,
+        )?;
     }
-
-    info!(
-        "Named textures: {} total, {} named, {} numeric, {} .opt files",
-        stats.textures_total, stats.textures_named, stats.textures_numeric, stats.opt_files
-    );
-
-    Ok(stats)
-}
-
-#[cfg(since_647)]
-pub fn unpack_texture_text(store: &mut Js5Store, content_dir: &Path) -> Result<u32> {
-    let tex_dir = content_dir.join("textures").join("_unpack");
-    fs::create_dir_all(&tex_dir)?;
-
-    let sprite_dir = content_dir.join("sprites").join("_unpack");
-
-    let group_count = store.group_count(TEXTURE_ARCHIVE).unwrap_or(0);
-    let mut groups = Vec::new();
-    let mut written = 0u32;
-    let mut sprite_pngs = 0u32;
-
-    for group_id in 0..group_count {
-        let Some(raw) = store.read_raw_group_bytes(TEXTURE_ARCHIVE, group_id)? else {
-            continue;
-        };
-        if raw.len() < 5 {
-            continue;
-        }
-
-        let container = Container::parse(&raw)?;
-
-        let Some(group) = store
-            .read_group(TEXTURE_ARCHIVE, group_id)
-            .with_context(|| format!("read texture group {}", group_id))?
-        else {
-            continue;
-        };
-        let Some(entry) = group.entries.first() else {
-            continue;
-        };
-        if entry.data().is_empty() {
-            continue;
-        }
-
-        let def = parse_texture(entry.data());
-        let text = emit_texture_text(&def);
-
-        let file_name = format!("{}.texture", group_id);
-        fs::write(tex_dir.join(&file_name), &text)?;
-
-        if let Some(sprite_id) = def.primary_sprite() {
-            let src = sprite_dir.join(format!("{}.png", sprite_id));
-            let dst = tex_dir.join(format!("{}.png", group_id));
-            if src.exists() {
-                fs::copy(&src, &dst)?;
-                sprite_pngs += 1;
-            } else {
-                let src_sub = sprite_dir.join(format!("{}/0.png", sprite_id));
-                if src_sub.exists() {
-                    fs::copy(&src_sub, &dst)?;
-                    sprite_pngs += 1;
-                }
-            }
-        }
-
-        groups.push(json!({
-            "group_id": group_id,
-            "file_name": file_name,
-            "compression": container.compression as u8,
-            "version": container.version.unwrap_or(0),
-            "compressed_len": container.compressed_len,
-            "decompressed_len": container.uncompressed_len,
-            "crc": container.crc(),
-        }));
-        written += 1;
-    }
-
-    let manifest = json!({ "archive_id": TEXTURE_ARCHIVE, "groups": groups });
-    let manifest_path = tex_dir.join("manifest.json");
-    fs::write(&manifest_path, serde_json::to_string_pretty(&manifest)?)?;
-
-    info!(
-        "Textures unpacked: {} groups, {} sprite PNGs copied",
-        written, sprite_pngs
-    );
-
-    Ok(written)
-}
-
-#[cfg(since_647)]
-fn load_sprite_names(hash_names_path: &Path) -> Result<HashMap<u32, String>> {
-    let mut names = HashMap::new();
-    if !hash_names_path.exists() {
-        warn!("No hash names file at {}", hash_names_path.display());
-        return Ok(names);
-    }
-    let content = fs::read_to_string(hash_names_path)?;
-    for line in content.lines() {
-        let parts: Vec<&str> = line.split('\t').collect();
-        if parts.len() < 5 {
-            continue;
-        }
-        let archive: u8 = match parts[0].parse() {
-            Ok(v) => v,
-            Err(_) => continue,
-        };
-        if archive != 8 {
-            continue;
-        }
-        let file: i32 = match parts[2].parse() {
-            Ok(v) => v,
-            Err(_) => continue,
-        };
-        if file != -1 {
-            continue;
-        } // group-level names only
-        let group: u32 = match parts[1].parse() {
-            Ok(v) => v,
-            Err(_) => continue,
-        };
-        let name = parts[4].to_string();
-        if name.contains(',') {
-            if let Some(base) = name.split(',').next() {
-                names.insert(group, base.to_string());
-            }
-        } else {
-            names.insert(group, name);
-        }
-    }
-    Ok(names)
-}
-
-#[cfg(since_647)]
-struct MaterialInfo {
-    averagecolor: u16,
-    speed_u: i8,
-    speed_v: i8,
-    repeat_s: bool,
-    repeat_t: bool,
-}
-
-#[cfg(since_647)]
-fn load_materials(store: &mut Js5Store) -> Result<HashMap<u32, MaterialInfo>> {
-    let mut materials = HashMap::new();
-    let Some(group) = store.read_group(archive::MATERIALS, 0)? else {
-        return Ok(materials);
-    };
-    let Some(entry) = group.entries.first() else {
-        return Ok(materials);
-    };
-    let data = entry.data();
-    if data.len() < 2 {
-        return Ok(materials);
-    }
-    let mut pos = 0;
-
-    let texture_count = u16::from_be_bytes([data[pos], data[pos + 1]]) as usize;
-    pos += 2;
-
-    let mut has_material = vec![false; texture_count];
-    for i in 0..texture_count {
-        has_material[i] = data.get(pos).copied().unwrap_or(0) == 1;
-        pos += 1;
-    }
-
-    macro_rules! skip_pass {
-        ($size:expr) => {
-            for i in 0..texture_count {
-                if has_material[i] {
-                    pos += $size;
-                }
-            }
-        };
-    }
-
-    skip_pass!(1); // highdetail
-    skip_pass!(1); // is_lowmem
-    skip_pass!(1); // lowdetail
-    skip_pass!(1); // brightness
-    skip_pass!(1); // intensity
-    skip_pass!(1); // effect
-    skip_pass!(1); // effect_param1
-
-    // averageColor (u16)
-    let mut average_color = vec![0u16; texture_count];
-    for i in 0..texture_count {
-        if has_material[i] {
-            average_color[i] = u16::from_be_bytes([
-                data.get(pos).copied().unwrap_or(0),
-                data.get(pos + 1).copied().unwrap_or(0),
-            ]);
-            pos += 2;
-        }
-    }
-
-    // speed_u (i8)
-    let mut speed_u = vec![0i8; texture_count];
-    for i in 0..texture_count {
-        if has_material[i] {
-            speed_u[i] = data.get(pos).copied().unwrap_or(0) as i8;
-            pos += 1;
-        }
-    }
-
-    // speed_v (i8)
-    let mut speed_v = vec![0i8; texture_count];
-    for i in 0..texture_count {
-        if has_material[i] {
-            speed_v[i] = data.get(pos).copied().unwrap_or(0) as i8;
-            pos += 1;
-        }
-    }
-
-    skip_pass!(1); // flag_94
-    skip_pass!(1); // flag_95
-    skip_pass!(1); // mipmapping
-
-    // repeat_s
-    let mut repeat_s = vec![false; texture_count];
-    for i in 0..texture_count {
-        if has_material[i] {
-            repeat_s[i] = data.get(pos).copied().unwrap_or(0) == 1;
-            pos += 1;
-        }
-    }
-
-    // repeat_t
-    let mut repeat_t = vec![false; texture_count];
-    for i in 0..texture_count {
-        if has_material[i] {
-            repeat_t[i] = data.get(pos).copied().unwrap_or(0) == 1;
-            pos += 1;
-        }
-    }
-
-    for i in 0..texture_count {
-        if has_material[i] {
-            materials.insert(
-                i as u32,
-                MaterialInfo {
-                    averagecolor: average_color[i],
-                    speed_u: speed_u[i],
-                    speed_v: speed_v[i],
-                    repeat_s: repeat_s[i],
-                    repeat_t: repeat_t[i],
-                },
-            );
-        }
-    }
-
-    Ok(materials)
+    Ok(groups.len() as u32)
 }
 
 #[cfg(since_647)]

@@ -1,8 +1,0 @@
-[clientscript,script_4109](int $int0, int $int1, int $int2, int $int3, int $int4, int $int5)(int, int, int, int, int, int)
-def_int $int6 = if_getwidth;
-$int0 = max(min($int4, sub(if_getwidth, $int6)), 0);
-def_int $int7 = if_getx;
-if_setsize(0, 0, 1, $int2);
-if_setsize(0, 1, 1, $int3);
-if_setposition(0, 0, 1, $int5);
-return($int5, $int0, $int4, add($int7, $int0), calc($int7 + $int0 + $int6), $int0);

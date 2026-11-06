@@ -3,7 +3,7 @@ use super::namecrack;
 #[cfg(before_647)]
 use crate::archive::JAG_ARCHIVES;
 #[cfg(since_647)]
-use anyhow::Result;
+use anyhow::{Result, ensure};
 #[cfg(before_647)]
 use rs_io::crc;
 #[cfg(before_647)]
@@ -877,8 +877,10 @@ pub(super) fn write_report(results: &[StepResult], report_path: &Path) -> Result
     report_text.push_str(&format!("\n{} steps, {} failed\n", results.len(), failures));
     fs::write(report_path, &report_text)?;
     info!("Unpack complete. Report: {}", report_path.display());
-    if failures > 0 {
-        error!("{failures} unpack steps failed — see report");
-    }
+    ensure!(
+        failures == 0,
+        "{failures} unpack steps failed; see {}",
+        report_path.display()
+    );
     Ok(())
 }

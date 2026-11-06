@@ -1,0 +1,29 @@
+name=""
+local_int_count=1
+local_string_count=2
+local_long_count=0
+int_param_count=1
+string_param_count=2
+long_param_count=0
+
+L0: push_string_local 0
+L1: push_constant_string ""
+L2: compare 0
+L3: push_constant_int 0
+L4: branch_not L6
+L5: branch L19
+L6: push_string_local 1
+L7: push_constant_string ""
+L8: compare 0
+L9: push_constant_int 0
+L10: branch_not L12
+L11: branch L19
+L12: push_constant_string "loginapplet/loginapplet.ws?ssl=1&expired=0&mod="
+L13: push_string_local 0
+L14: push_constant_string "&dest="
+L15: push_string_local 1
+L16: join_string 4
+L17: push_int_local 0
+L18: logout_url 0
+L19: return 0
+L20:

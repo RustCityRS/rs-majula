@@ -1,0 +1,29 @@
+name=""
+local_int_count=4
+local_string_count=0
+local_long_count=0
+int_param_count=3
+string_param_count=0
+long_param_count=0
+
+L0: push_constant_int 59310093
+L1: if_getscrollx 0
+L2: pop_int_local 3
+L3: push_constant_int 59310093
+L4: if_getscrollx 0
+L5: push_int_local 2
+L6: add 0
+L7: push_constant_int 0
+L8: push_constant_int 59310093
+L9: if_setscrollpos 0
+L10: push_int_local 3
+L11: push_constant_int 59310093
+L12: if_getscrollx 0
+L13: branch_not L15
+L14: branch L18
+L15: push_int_local 1
+L16: push_int_local 0
+L17: if_setgraphic 0
+L18: gosub_with_params clientscript_2370
+L19: return 0
+L20:

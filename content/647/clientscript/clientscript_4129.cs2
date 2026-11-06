@@ -1,0 +1,29 @@
+name=""
+local_int_count=2
+local_string_count=0
+local_long_count=0
+int_param_count=2
+string_param_count=0
+long_param_count=0
+
+L0: push_int_local 1
+L1: push_int_local 0
+L2: coordx 0
+L3: push_constant_int 57676160
+L4: coordx 0
+L5: sub 0
+L6: push_int_local 0
+L7: coordy 0
+L8: push_constant_int 57676160
+L9: coordy 0
+L10: sub 0
+L11: push_int_local 0
+L12: coordz 0
+L13: push_constant_int 57676160
+L14: coordz 0
+L15: sub 0
+L16: coordpack 0
+L17: return 0
+L18: push_constant_int -1
+L19: return 0
+L20:

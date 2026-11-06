@@ -1,0 +1,81 @@
+name=""
+local_int_count=2
+local_string_count=0
+local_long_count=0
+int_param_count=0
+string_param_count=0
+long_param_count=0
+
+L0: push_constant_int 1
+L1: pop_int_local 0
+L2: push_constant_int 0
+L3: pop_int_local 1
+L4: push_int_local 0
+L5: push_constant_int 2119
+L6: enum_getoutputcount 0
+L7: branch_less_than_or_equals L9
+L8: branch L71
+L9: push_varc_int varc_int_617
+L10: branch_if_true L12
+L11: branch L29
+L12: push_constant_int 105
+L13: push_constant_int 105
+L14: push_constant_int 2022
+L15: push_int_local 0
+L16: enum 0
+L17: pop_int_local 1
+L18: push_int_local 1
+L19: tostring 0
+L20: push_constant_string " Coins"
+L21: join_string 2
+L22: push_constant_int 105
+L23: push_constant_int 73
+L24: push_constant_int 2119
+L25: push_int_local 0
+L26: enum 0
+L27: if_settext 0
+L28: branch L45
+L29: push_constant_int 105
+L30: push_constant_int 105
+L31: push_constant_int 2021
+L32: push_int_local 0
+L33: enum 0
+L34: pop_int_local 1
+L35: push_int_local 1
+L36: tostring 0
+L37: push_constant_string " Coins"
+L38: join_string 2
+L39: push_constant_int 105
+L40: push_constant_int 73
+L41: push_constant_int 2119
+L42: push_int_local 0
+L43: enum 0
+L44: if_settext 0
+L45: push_constant_int 93
+L46: push_constant_int 995
+L47: inv_total 0
+L48: push_int_local 1
+L49: branch_greater_than_or_equals L51
+L50: branch L59
+L51: push_constant_int 65280
+L52: push_constant_int 105
+L53: push_constant_int 73
+L54: push_constant_int 2119
+L55: push_int_local 0
+L56: enum 0
+L57: if_setcolour 0
+L58: branch L66
+L59: push_constant_int 16711680
+L60: push_constant_int 105
+L61: push_constant_int 73
+L62: push_constant_int 2119
+L63: push_int_local 0
+L64: enum 0
+L65: if_setcolour 0
+L66: push_int_local 0
+L67: push_constant_int 1
+L68: add 0
+L69: pop_int_local 0
+L70: branch L4
+L71: return 0
+L72:

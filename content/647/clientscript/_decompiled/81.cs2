@@ -1,6 +1,0 @@
-[clientscript,script_81](int $int0)(int, int, component, string)
-if (hud_test(49283081, -1) = 1) {
-    if_setontimer;
-    return(1559, $int0, 49283081, "1");
-}
-return(~script_1560($int0));

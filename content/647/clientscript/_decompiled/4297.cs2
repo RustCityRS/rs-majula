@@ -1,8 +1,0 @@
-[clientscript,script_4297]
-if_sethide(71827497);
-if_sethide(71827496);
-if (ignore_getname = 1) {
-    ~script_4501(enum(105, 115, enum_3725, add(clanchannel_getbyte1, 1)), "");
-    ~script_4501(enum(105, 115, enum_3716, clanchannel_getbyte2), "");
-}
-return;

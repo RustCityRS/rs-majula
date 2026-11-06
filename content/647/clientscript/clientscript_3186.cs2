@@ -1,0 +1,34 @@
+name=""
+local_int_count=2
+local_string_count=0
+local_long_count=0
+int_param_count=2
+string_param_count=0
+long_param_count=0
+
+L0: push_int_local 1
+L1: if_gettext 0
+L2: push_constant_int 2710
+L3: char_isnumeric 0
+L4: push_constant_int 0
+L5: push_constant_int 0
+L6: push_constant_int 1
+L7: push_int_local 1
+L8: if_setsize 0
+L9: push_constant_int 40
+L10: push_constant_int 0
+L11: push_constant_int 2
+L12: push_constant_int 1
+L13: push_int_local 1
+L14: if_setposition 0
+L15: push_constant_int 38
+L16: push_constant_int 31
+L17: push_constant_int 0
+L18: push_constant_int 0
+L19: push_int_local 0
+L20: if_setsize 0
+L21: push_constant_int 0
+L22: push_int_local 0
+L23: if_sethide 0
+L24: return 0
+L25:

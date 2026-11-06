@@ -1,0 +1,58 @@
+name=""
+local_int_count=1
+local_string_count=2
+local_long_count=0
+int_param_count=1
+string_param_count=2
+long_param_count=0
+
+L0: push_int_local 0
+L1: clan_isself 0
+L2: branch_if_false L4
+L3: branch L34
+L4: push_string_local 1
+L5: friend_test 0
+L6: branch_if_true L8
+L7: branch L14
+L8: push_constant_int 7
+L9: push_constant_string "Remove friend "
+L10: push_string_local 0
+L11: join_string 2
+L12: cc_setop 0
+L13: branch L34
+L14: push_string_local 1
+L15: ignores_test 0
+L16: branch_if_true L18
+L17: branch L24
+L18: push_constant_int 8
+L19: push_constant_string "Remove ignore "
+L20: push_string_local 0
+L21: join_string 2
+L22: cc_setop 0
+L23: branch L34
+L24: push_constant_int 5
+L25: push_constant_string "Add friend "
+L26: push_string_local 0
+L27: join_string 2
+L28: cc_setop 0
+L29: push_constant_int 6
+L30: push_constant_string "Add ignore "
+L31: push_string_local 0
+L32: join_string 2
+L33: cc_setop 0
+L34: clan_getranks2 0
+L35: clan_getminkick2 0
+L36: branch_greater_than_or_equals L38
+L37: branch L48
+L38: clan_getranks2 0
+L39: push_int_local 0
+L40: clan_getchatuserrank2 0
+L41: branch_greater_than L43
+L42: branch L48
+L43: push_constant_int 9
+L44: push_constant_string "Kick/ban user "
+L45: push_string_local 0
+L46: join_string 2
+L47: cc_setop 0
+L48: return 0
+L49:

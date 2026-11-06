@@ -1,0 +1,85 @@
+name=""
+local_int_count=0
+local_string_count=0
+local_long_count=0
+int_param_count=0
+string_param_count=0
+long_param_count=0
+
+L0: push_constant_int 0
+L1: stat_xp 0
+L2: pop_varc_int varc_int_1243
+L3: push_constant_int 2
+L4: stat_xp 0
+L5: pop_varc_int varc_int_1244
+L6: push_constant_int 1
+L7: stat_xp 0
+L8: pop_varc_int varc_int_1245
+L9: push_constant_int 4
+L10: stat_xp 0
+L11: pop_varc_int varc_int_1246
+L12: push_constant_int 5
+L13: stat_xp 0
+L14: pop_varc_int varc_int_1247
+L15: push_constant_int 6
+L16: stat_xp 0
+L17: pop_varc_int varc_int_1248
+L18: push_constant_int 20
+L19: stat_xp 0
+L20: pop_varc_int varc_int_1249
+L21: push_constant_int 3
+L22: stat_xp 0
+L23: pop_varc_int varc_int_1250
+L24: push_constant_int 12
+L25: stat_xp 0
+L26: pop_varc_int varc_int_1251
+L27: push_constant_int 14
+L28: stat_xp 0
+L29: pop_varc_int varc_int_1252
+L30: push_constant_int 13
+L31: stat_xp 0
+L32: pop_varc_int varc_int_1253
+L33: push_constant_int 10
+L34: stat_xp 0
+L35: pop_varc_int varc_int_1254
+L36: push_constant_int 7
+L37: stat_xp 0
+L38: pop_varc_int varc_int_1255
+L39: push_constant_int 11
+L40: stat_xp 0
+L41: pop_varc_int varc_int_1256
+L42: push_constant_int 8
+L43: stat_xp 0
+L44: pop_varc_int varc_int_1257
+L45: push_constant_int 16
+L46: stat_xp 0
+L47: pop_varc_int varc_int_1258
+L48: push_constant_int 15
+L49: stat_xp 0
+L50: pop_varc_int varc_int_1259
+L51: push_constant_int 17
+L52: stat_xp 0
+L53: pop_varc_int varc_int_1260
+L54: push_constant_int 9
+L55: stat_xp 0
+L56: pop_varc_int varc_int_1261
+L57: push_constant_int 18
+L58: stat_xp 0
+L59: pop_varc_int varc_int_1262
+L60: push_constant_int 19
+L61: stat_xp 0
+L62: pop_varc_int varc_int_1263
+L63: push_constant_int 22
+L64: stat_xp 0
+L65: pop_varc_int varc_int_1264
+L66: push_constant_int 21
+L67: stat_xp 0
+L68: pop_varc_int varc_int_1265
+L69: push_constant_int 23
+L70: stat_xp 0
+L71: pop_varc_int varc_int_1266
+L72: push_constant_int 24
+L73: stat_xp 0
+L74: pop_varc_int varc_int_1267
+L75: return 0
+L76:

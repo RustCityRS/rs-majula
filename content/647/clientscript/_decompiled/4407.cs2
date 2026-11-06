@@ -1,7 +1,0 @@
-[clientscript,script_4407](int $int0, int $int1, int $int2, int $int3, int $int4)(int, int, int, int)
-def_int $int5 = if_getheight;
-def_int $int6 = calc($int5 - $int4 * 64 / $int5);
-if_setcolour($int0);
-%varbit9088 = mod($int6, 64);
-if_setcolour($int2);
-return($int1, $int6, ~script_4412($int4), hsv_to_rgb(%varp2098));

@@ -1,0 +1,85 @@
+name=""
+local_int_count=5
+local_string_count=4
+local_long_count=0
+int_param_count=0
+string_param_count=0
+long_param_count=0
+
+L0: active_toplevelinterface 0
+L1: push_constant_int -1
+L2: branch_equals L4
+L3: branch L11
+L4: push_constant_int 1
+L5: push_constant_int 59637772
+L6: if_sethide 0
+L7: push_constant_string "World: Auto"
+L8: push_constant_int 59637771
+L9: if_settext 0
+L10: return 0
+L11: push_constant_int 0
+L12: pop_int_local 0
+L13: push_constant_string ""
+L14: pop_string_local 0
+L15: push_constant_int 0
+L16: pop_int_local 1
+L17: push_constant_string ""
+L18: pop_string_local 1
+L19: push_constant_int 0
+L20: pop_int_local 2
+L21: push_constant_int 0
+L22: pop_int_local 3
+L23: push_constant_string ""
+L24: pop_string_local 2
+L25: active_toplevelinterface 0
+L26: worldlist_getbyid 0
+L27: pop_string_local 2
+L28: pop_int_local 3
+L29: pop_int_local 2
+L30: pop_string_local 1
+L31: pop_int_local 1
+L32: pop_string_local 0
+L33: pop_int_local 0
+L34: push_constant_int 0
+L35: pop_int_local 4
+L36: push_int_local 0
+L37: push_constant_int 0
+L38: testbit 0
+L39: branch_if_true L41
+L40: branch L44
+L41: push_constant_int 1
+L42: pop_int_local 4
+L43: branch L46
+L44: push_constant_int 0
+L45: pop_int_local 4
+L46: push_constant_string "World "
+L47: active_toplevelinterface 0
+L48: tostring 0
+L49: join_string 2
+L50: pop_string_local 3
+L51: push_string_local 3
+L52: push_constant_int 59637771
+L53: if_settext 0
+L54: push_string_local 3
+L55: push_constant_int 3793
+L56: char_isnumeric 0
+L57: push_constant_int 5
+L58: add 0
+L59: push_constant_int 0
+L60: push_constant_int 2
+L61: push_constant_int 2
+L62: push_constant_int 59637772
+L63: if_setposition 0
+L64: push_int_local 4
+L65: branch_if_true L67
+L66: branch L71
+L67: push_constant_int 1531
+L68: push_constant_int 59637772
+L69: if_setgraphic 0
+L70: branch L74
+L71: push_constant_int 1532
+L72: push_constant_int 59637772
+L73: if_setgraphic 0
+L74: return 0
+L75: return 0
+L76:

@@ -1,0 +1,359 @@
+name=""
+local_int_count=0
+local_string_count=0
+local_long_count=0
+int_param_count=0
+string_param_count=0
+long_param_count=0
+
+L0: push_constant_int 1438
+L1: push_constant_int 51052561
+L2: push_constant_int 51052560
+L3: gosub_with_params clientscript_730
+L4: push_constant_int 1448
+L5: push_constant_int 51052575
+L6: push_constant_int 51052574
+L7: gosub_with_params clientscript_730
+L8: push_constant_int 1444
+L9: push_constant_int 51052579
+L10: push_constant_int 51052578
+L11: gosub_with_params clientscript_730
+L12: push_constant_int 1440
+L13: push_constant_int 51052569
+L14: push_constant_int 51052568
+L15: gosub_with_params clientscript_730
+L16: push_constant_int 1442
+L17: push_constant_int 51052571
+L18: push_constant_int 51052570
+L19: gosub_with_params clientscript_730
+L20: push_constant_int 1446
+L21: push_constant_int 51052563
+L22: push_constant_int 51052562
+L23: gosub_with_params clientscript_730
+L24: push_constant_int 1452
+L25: push_constant_int 51052565
+L26: push_constant_int 51052564
+L27: gosub_with_params clientscript_730
+L28: push_constant_int 1458
+L29: push_constant_int 51052573
+L30: push_constant_int 51052572
+L31: gosub_with_params clientscript_730
+L32: push_constant_int 1462
+L33: push_constant_int 51052577
+L34: push_constant_int 51052576
+L35: gosub_with_params clientscript_730
+L36: push_constant_int 1454
+L37: push_constant_int 51052567
+L38: push_constant_int 51052566
+L39: gosub_with_params clientscript_730
+L40: push_constant_int 13625
+L41: push_constant_int 51052593
+L42: push_constant_int 51052592
+L43: gosub_with_params clientscript_730
+L44: push_constant_int 13624
+L45: push_constant_int 51052599
+L46: push_constant_int 51052598
+L47: gosub_with_params clientscript_730
+L48: push_constant_int 13627
+L49: push_constant_int 51052605
+L50: push_constant_int 51052604
+L51: gosub_with_params clientscript_730
+L52: push_constant_int 13628
+L53: push_constant_int 51052611
+L54: push_constant_int 51052610
+L55: gosub_with_params clientscript_730
+L56: push_constant_int 13615
+L57: push_constant_int 51052595
+L58: push_constant_int 51052594
+L59: gosub_with_params clientscript_730
+L60: push_constant_int 13614
+L61: push_constant_int 51052601
+L62: push_constant_int 51052600
+L63: gosub_with_params clientscript_730
+L64: push_constant_int 13617
+L65: push_constant_int 51052607
+L66: push_constant_int 51052606
+L67: gosub_with_params clientscript_730
+L68: push_constant_int 13618
+L69: push_constant_int 51052613
+L70: push_constant_int 51052612
+L71: gosub_with_params clientscript_730
+L72: push_constant_int 13620
+L73: push_constant_int 51052597
+L74: push_constant_int 51052596
+L75: gosub_with_params clientscript_730
+L76: push_constant_int 13619
+L77: push_constant_int 51052603
+L78: push_constant_int 51052602
+L79: gosub_with_params clientscript_730
+L80: push_constant_int 13622
+L81: push_constant_int 51052609
+L82: push_constant_int 51052608
+L83: gosub_with_params clientscript_730
+L84: push_constant_int 13623
+L85: push_constant_int 51052615
+L86: push_constant_int 51052614
+L87: gosub_with_params clientscript_730
+L88: push_constant_int 13599
+L89: push_constant_int 51052631
+L90: push_constant_int 51052630
+L91: gosub_with_params clientscript_730
+L92: push_constant_int 13602
+L93: push_constant_int 51052641
+L94: push_constant_int 51052640
+L95: gosub_with_params clientscript_730
+L96: push_constant_int 13601
+L97: push_constant_int 51052653
+L98: push_constant_int 51052652
+L99: gosub_with_params clientscript_730
+L100: push_constant_int 13603
+L101: push_constant_int 51052643
+L102: push_constant_int 51052642
+L103: gosub_with_params clientscript_730
+L104: push_constant_int 13600
+L105: push_constant_int 51052647
+L106: push_constant_int 51052646
+L107: gosub_with_params clientscript_730
+L108: push_constant_int 13604
+L109: push_constant_int 51052633
+L110: push_constant_int 51052632
+L111: gosub_with_params clientscript_730
+L112: push_constant_int 13608
+L113: push_constant_int 51052645
+L114: push_constant_int 51052644
+L115: gosub_with_params clientscript_730
+L116: push_constant_int 13606
+L117: push_constant_int 51052635
+L118: push_constant_int 51052634
+L119: gosub_with_params clientscript_730
+L120: push_constant_int 13605
+L121: push_constant_int 51052637
+L122: push_constant_int 51052636
+L123: gosub_with_params clientscript_730
+L124: push_constant_int 13607
+L125: push_constant_int 51052649
+L126: push_constant_int 51052648
+L127: gosub_with_params clientscript_730
+L128: push_constant_int 13609
+L129: push_constant_int 51052639
+L130: push_constant_int 51052638
+L131: gosub_with_params clientscript_730
+L132: push_constant_int 13610
+L133: push_constant_int 51052655
+L134: push_constant_int 51052654
+L135: gosub_with_params clientscript_730
+L136: push_constant_int 13598
+L137: push_constant_int 51052657
+L138: push_constant_int 51052656
+L139: gosub_with_params clientscript_730
+L140: push_constant_int 13611
+L141: push_constant_int 51052651
+L142: push_constant_int 51052650
+L143: gosub_with_params clientscript_730
+L144: push_constant_int 13629
+L145: push_constant_int 51052661
+L146: push_constant_int 51052660
+L147: gosub_with_params clientscript_730
+L148: push_constant_int 1437
+L149: push_constant_int 51052663
+L150: push_constant_int 51052662
+L151: gosub_with_params clientscript_730
+L152: push_constant_string "1 token each"
+L153: push_constant_int 51052663
+L154: if_settext 0
+L155: push_var varp_1278
+L156: switch switch0
+L157: branch L309
+L158: push_constant_int 16777215
+L159: push_constant_int 51052560
+L160: if_setcolour 0
+L161: branch L309
+L162: push_constant_int 16777215
+L163: push_constant_int 51052568
+L164: if_setcolour 0
+L165: branch L309
+L166: push_constant_int 16777215
+L167: push_constant_int 51052570
+L168: if_setcolour 0
+L169: branch L309
+L170: push_constant_int 16777215
+L171: push_constant_int 51052578
+L172: if_setcolour 0
+L173: branch L309
+L174: push_constant_int 16777215
+L175: push_constant_int 51052574
+L176: if_setcolour 0
+L177: branch L309
+L178: push_constant_int 16777215
+L179: push_constant_int 51052562
+L180: if_setcolour 0
+L181: branch L309
+L182: push_constant_int 16777215
+L183: push_constant_int 51052572
+L184: if_setcolour 0
+L185: branch L309
+L186: push_constant_int 16777215
+L187: push_constant_int 51052564
+L188: if_setcolour 0
+L189: branch L309
+L190: push_constant_int 16777215
+L191: push_constant_int 51052576
+L192: if_setcolour 0
+L193: branch L309
+L194: push_constant_int 16777215
+L195: push_constant_int 51052566
+L196: if_setcolour 0
+L197: branch L309
+L198: push_constant_int 16777215
+L199: push_constant_int 51052592
+L200: if_setcolour 0
+L201: branch L309
+L202: push_constant_int 16777215
+L203: push_constant_int 51052598
+L204: if_setcolour 0
+L205: branch L309
+L206: push_constant_int 16777215
+L207: push_constant_int 51052604
+L208: if_setcolour 0
+L209: branch L309
+L210: push_constant_int 16777215
+L211: push_constant_int 51052610
+L212: if_setcolour 0
+L213: branch L309
+L214: push_constant_int 16777215
+L215: push_constant_int 51052594
+L216: if_setcolour 0
+L217: branch L309
+L218: push_constant_int 16777215
+L219: push_constant_int 51052600
+L220: if_setcolour 0
+L221: branch L309
+L222: push_constant_int 16777215
+L223: push_constant_int 51052606
+L224: if_setcolour 0
+L225: branch L309
+L226: push_constant_int 16777215
+L227: push_constant_int 51052612
+L228: if_setcolour 0
+L229: branch L309
+L230: push_constant_int 16777215
+L231: push_constant_int 51052596
+L232: if_setcolour 0
+L233: branch L309
+L234: push_constant_int 16777215
+L235: push_constant_int 51052602
+L236: if_setcolour 0
+L237: branch L309
+L238: push_constant_int 16777215
+L239: push_constant_int 51052608
+L240: if_setcolour 0
+L241: branch L309
+L242: push_constant_int 16777215
+L243: push_constant_int 51052614
+L244: if_setcolour 0
+L245: branch L309
+L246: push_constant_int 16777215
+L247: push_constant_int 51052630
+L248: if_setcolour 0
+L249: branch L309
+L250: push_constant_int 16777215
+L251: push_constant_int 51052652
+L252: if_setcolour 0
+L253: branch L309
+L254: push_constant_int 16777215
+L255: push_constant_int 51052640
+L256: if_setcolour 0
+L257: branch L309
+L258: push_constant_int 16777215
+L259: push_constant_int 51052642
+L260: if_setcolour 0
+L261: branch L309
+L262: push_constant_int 16777215
+L263: push_constant_int 51052646
+L264: if_setcolour 0
+L265: branch L309
+L266: push_constant_int 16777215
+L267: push_constant_int 51052632
+L268: if_setcolour 0
+L269: branch L309
+L270: push_constant_int 16777215
+L271: push_constant_int 51052644
+L272: if_setcolour 0
+L273: branch L309
+L274: push_constant_int 16777215
+L275: push_constant_int 51052634
+L276: if_setcolour 0
+L277: branch L309
+L278: push_constant_int 16777215
+L279: push_constant_int 51052648
+L280: if_setcolour 0
+L281: branch L309
+L282: push_constant_int 16777215
+L283: push_constant_int 51052636
+L284: if_setcolour 0
+L285: branch L309
+L286: push_constant_int 16777215
+L287: push_constant_int 51052638
+L288: if_setcolour 0
+L289: branch L309
+L290: push_constant_int 16777215
+L291: push_constant_int 51052654
+L292: if_setcolour 0
+L293: branch L309
+L294: push_constant_int 16777215
+L295: push_constant_int 51052656
+L296: if_setcolour 0
+L297: branch L309
+L298: push_constant_int 16777215
+L299: push_constant_int 51052650
+L300: if_setcolour 0
+L301: branch L309
+L302: push_constant_int 16777215
+L303: push_constant_int 51052660
+L304: if_setcolour 0
+L305: branch L309
+L306: push_constant_int 16777215
+L307: push_constant_int 51052662
+L308: if_setcolour 0
+L309: return 0
+L310:
+
+[switch0@L156]
+1438=L158
+1440=L162
+1442=L166
+1444=L170
+1448=L174
+1446=L178
+1458=L182
+1452=L186
+1462=L190
+1454=L194
+13625=L198
+13624=L202
+13627=L206
+13628=L210
+13615=L214
+13614=L218
+13617=L222
+13618=L226
+13620=L230
+13619=L234
+13622=L238
+13623=L242
+13599=L246
+13601=L250
+13602=L254
+13603=L258
+13600=L262
+13604=L266
+13608=L270
+13606=L274
+13607=L278
+13605=L282
+13609=L286
+13610=L290
+13598=L294
+13611=L298
+13629=L302
+1437=L306

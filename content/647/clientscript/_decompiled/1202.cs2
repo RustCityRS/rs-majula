@@ -1,5 +1,0 @@
-[clientscript,script_1202](int $int0, int $int1, int $int2, int $int3)(int, int, int, int, int, int, int)
-def_int $int4 = 100;
-%varc_int1186 = calc(%varc_int1186 + 1 % 360);
-if_setmodelangle;
-return(if_getmodelxof($int0), if_getmodelyof($int0), $int1, calc($int2 + scale($int4, 10000, enum(105, 105, enum_3384, %varc_int1186)) % 2048), calc($int3 + scale($int4, 10000, enum(105, 105, enum_3385, %varc_int1186)) % 2048), if_getmodelzoom($int0), $int0);

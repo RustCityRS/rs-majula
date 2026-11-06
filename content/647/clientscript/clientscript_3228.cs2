@@ -1,0 +1,211 @@
+name=""
+local_int_count=8
+local_string_count=2
+local_long_count=0
+int_param_count=3
+string_param_count=0
+long_param_count=0
+
+L0: push_constant_string ""
+L1: pop_string_local 0
+L2: push_constant_int -1
+L3: pop_int_local 3
+L4: push_int_local 0
+L5: switch switch0
+L6: branch L20
+L7: push_varc_string_old varc_string_124
+L8: pop_string_local 0
+L9: push_constant_int 44105799
+L10: pop_int_local 3
+L11: push_varc_string_old varc_string_124
+L12: pop_varc_string_old varc_string_328
+L13: branch L20
+L14: push_varc_string_old varc_string_125
+L15: pop_string_local 0
+L16: push_constant_int 44105789
+L17: pop_int_local 3
+L18: push_varc_string_old varc_string_125
+L19: pop_varc_string_old varc_string_329
+L20: push_string_local 0
+L21: string_length 0
+L22: pop_int_local 4
+L23: push_int_local 4
+L24: push_constant_int 0
+L25: branch_less_than_or_equals L27
+L26: branch L39
+L27: push_int_local 0
+L28: switch switch1
+L29: branch L37
+L30: push_constant_string "Please enter your desired password here."
+L31: push_constant_int 44105799
+L32: gosub_with_params [proc,create_error]
+L33: branch L37
+L34: push_constant_string "Please enter your desired password again here."
+L35: push_constant_int 44105789
+L36: gosub_with_params [proc,create_error]
+L37: push_constant_int 0
+L38: return 0
+L39: push_int_local 1
+L40: branch_if_true L42
+L41: branch L63
+L42: push_varc_string_old varc_string_124
+L43: push_varc_string_old varc_string_125
+L44: compare 0
+L45: push_constant_int 0
+L46: branch_not L48
+L47: branch L63
+L48: push_varc_string_old varc_string_124
+L49: string_length 0
+L50: push_constant_int 0
+L51: branch_greater_than L57
+L52: push_varc_string_old varc_string_125
+L53: string_length 0
+L54: push_constant_int 0
+L55: branch_greater_than L57
+L56: branch L63
+L57: push_constant_string "Please ensure both passwords match."
+L58: push_constant_int 44105789
+L59: gosub_with_params [proc,create_error]
+L60: push_constant_int 0
+L61: return 0
+L62: branch L109
+L63: push_int_local 4
+L64: push_constant_int 5
+L65: branch_less_than L67
+L66: branch L73
+L67: push_constant_string "Passwords must be at least 5 characters long."
+L68: push_int_local 3
+L69: gosub_with_params [proc,create_error]
+L70: push_constant_int 0
+L71: return 0
+L72: branch L109
+L73: push_int_local 4
+L74: push_constant_int 20
+L75: branch_greater_than L77
+L76: branch L87
+L77: push_constant_string "Passwords must be no more than "
+L78: push_constant_int 20
+L79: tostring 0
+L80: push_constant_string " characters long."
+L81: join_string 3
+L82: push_int_local 3
+L83: gosub_with_params [proc,create_error]
+L84: push_constant_int 0
+L85: return 0
+L86: branch L109
+L87: push_string_local 0
+L88: gosub_with_params clientscript_2202
+L89: branch_if_true L91
+L90: branch L97
+L91: push_constant_string "Passwords may only contain letters and numbers."
+L92: push_int_local 3
+L93: gosub_with_params [proc,create_error]
+L94: push_constant_int 0
+L95: return 0
+L96: branch L109
+L97: push_varc_string_old varc_string_122
+L98: push_string_local 0
+L99: push_constant_int 0
+L100: string_indexof_string 0
+L101: push_constant_int -1
+L102: branch_not L104
+L103: branch L109
+L104: push_constant_string "Your password is too similar to your Email address."
+L105: push_int_local 3
+L106: gosub_with_params [proc,create_error]
+L107: push_constant_int 0
+L108: return 0
+L109: push_string_local 0
+L110: push_constant_int 0
+L111: push_constant_int 1
+L112: substring 0
+L113: pop_string_local 1
+L114: push_string_local 0
+L115: string_length 0
+L116: pop_int_local 5
+L117: push_constant_int 0
+L118: pop_int_local 6
+L119: push_constant_int 0
+L120: pop_int_local 7
+L121: push_int_local 6
+L122: push_int_local 5
+L123: branch_less_than L125
+L124: branch L141
+L125: push_string_local 0
+L126: push_string_local 1
+L127: push_int_local 6
+L128: string_indexof_string 0
+L129: push_int_local 6
+L130: branch_equals L132
+L131: branch L136
+L132: push_int_local 7
+L133: push_constant_int 1
+L134: add 0
+L135: pop_int_local 7
+L136: push_int_local 6
+L137: push_constant_int 1
+L138: add 0
+L139: pop_int_local 6
+L140: branch L121
+L141: push_int_local 7
+L142: push_int_local 5
+L143: branch_equals L145
+L144: branch L150
+L145: push_constant_string "Your password is too easy to guess."
+L146: push_int_local 3
+L147: gosub_with_params [proc,create_error]
+L148: push_constant_int 0
+L149: return 0
+L150: push_int_local 0
+L151: switch switch2
+L152: branch L166
+L153: push_constant_int 4059
+L154: push_constant_int 44105799
+L155: if_setgraphic 0
+L156: push_constant_int 1
+L157: push_constant_int 44105804
+L158: if_sethide 0
+L159: branch L166
+L160: push_constant_int 4059
+L161: push_constant_int 44105789
+L162: if_setgraphic 0
+L163: push_constant_int 1
+L164: push_constant_int 44105794
+L165: if_sethide 0
+L166: push_constant_int 1
+L167: push_constant_int 44105750
+L168: if_sethide 0
+L169: push_int_local 2
+L170: branch_if_true L172
+L171: branch L182
+L172: push_int_local 0
+L173: switch switch3
+L174: branch L182
+L175: push_constant_int 8
+L176: push_constant_int 1
+L177: gosub_with_params [proc,create_focus]
+L178: branch L182
+L179: push_constant_int 15
+L180: push_constant_int 1
+L181: gosub_with_params [proc,create_focus]
+L182: push_constant_int 1
+L183: return 0
+L184: push_constant_int -1
+L185: return 0
+L186:
+
+[switch0@L5]
+7=L7
+8=L14
+
+[switch1@L28]
+7=L30
+8=L34
+
+[switch2@L151]
+7=L153
+8=L160
+
+[switch3@L173]
+7=L175
+8=L179

@@ -4,8 +4,8 @@ Research for building Unstable Foundations (UF) as 647 content, end to end. Ever
 claim names its source. Kinds of claim are kept apart:
 
 - **cache**: cache 786 (configs in `content/647/scripts/_unpack/all.*`, maps in
-  `content/647/maps/_unpack/*.jm2`, interfaces in
-  `runescape/content/647/interfaces/_unpack/*.if` (positional ids), decompiled
+  `content/647/maps/*.jm2`, interfaces in
+  `content/647/interfaces/*.if` (named components), decompiled
   clientscripts in `runescape/target/unpack-work/clientscript/_decompiled/<id>.cs2`),
   or the deob client `tools/client-src`.
 - **wiki**: the local 2011 wiki (`wiki.py "<Title>"`), cited as `Title @ revision`.
@@ -481,7 +481,7 @@ dragonfire: **no source found**.
   12243, 12275, 12279, 12281, 12298 (locs 45630-45632), 12396 (Planks).
   Animation names: **no source found**.
 - **Voice-over (vorbis)**: 5120 vorbis groups in the cache
-  (`runescape/content/647/vorbis/_unpack`), unnamed. Which are UF's: **no source
+  (`content/647/vorbis`), unnamed. Which are UF's: **no source
   found**. Engine: `rs-protocol/src/network/game/server/vorbis_sound.rs` exists
   (fields `unk1`, `unk2`), nothing sends it, no wire test.
 - **Music** (wiki locations; 647 ids from `content/647/pack/midi.pack` and

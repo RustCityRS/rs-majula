@@ -1,0 +1,33 @@
+name=""
+local_int_count=0
+local_string_count=0
+local_long_count=0
+int_param_count=0
+string_param_count=0
+long_param_count=0
+
+L0: push_varc_string_old varc_string_22
+L1: pop_varc_string_old varc_string_138
+L2: clientclock 0
+L3: push_varc_int varc_int_191
+L4: branch_greater_than L6
+L5: branch L18
+L6: push_varc_string_old varc_string_138
+L7: gosub_with_params [proc,bank_v2_show_search]
+L8: pop_int_discard 0
+L9: push_constant_int -1
+L10: push_constant_string ""
+L11: push_constant_int 49938449
+L12: if_setontimer 0
+L13: clientclock 0
+L14: push_constant_int 10
+L15: add 0
+L16: pop_varc_int varc_int_191
+L17: branch L23
+L18: push_constant_int 1476
+L19: push_varc_int varc_int_191
+L20: push_constant_string "i"
+L21: push_constant_int 49938449
+L22: if_setontimer 0
+L23: return 0
+L24:

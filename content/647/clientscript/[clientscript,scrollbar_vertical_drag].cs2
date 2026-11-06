@@ -1,0 +1,76 @@
+name=""
+local_int_count=6
+local_string_count=0
+local_long_count=0
+int_param_count=4
+string_param_count=0
+long_param_count=0
+
+L0: push_constant_int 0
+L1: pop_int_local 4
+L2: push_constant_int 0
+L3: pop_int_local 5
+L4: push_int_local 0
+L5: push_constant_int 1
+L6: cc_find 0
+L7: branch_if_true L9
+L8: branch L66
+L9: push_int_local 0
+L10: push_constant_int 2
+L11: cc_find 1
+L12: branch_if_true L14
+L13: branch L21
+L14: push_constant_int 0
+L15: push_int_local 2
+L16: push_constant_int 16
+L17: add 0
+L18: push_constant_int 0
+L19: push_constant_int 0
+L20: cc_setposition2 1
+L21: push_int_local 0
+L22: push_constant_int 3
+L23: cc_find 1
+L24: branch_if_true L26
+L25: branch L37
+L26: push_constant_int 0
+L27: push_int_local 2
+L28: cc_getheight 0
+L29: add 0
+L30: push_constant_int 5
+L31: sub 0
+L32: push_constant_int 16
+L33: add 0
+L34: push_constant_int 0
+L35: push_constant_int 0
+L36: cc_setposition2 1
+L37: push_int_local 0
+L38: if_getheight 0
+L39: push_constant_int 32
+L40: sub 0
+L41: cc_getheight 0
+L42: sub 0
+L43: pop_int_local 4
+L44: push_int_local 4
+L45: push_constant_int 0
+L46: branch_less_than_or_equals L48
+L47: branch L49
+L48: return 0
+L49: push_int_local 1
+L50: if_getscrollheight 0
+L51: push_int_local 1
+L52: if_getheight 0
+L53: sub 0
+L54: pop_int_local 5
+L55: push_int_local 2
+L56: push_int_local 5
+L57: multiply 0
+L58: push_int_local 4
+L59: div 0
+L60: pop_int_local 2
+L61: push_int_local 0
+L62: push_int_local 1
+L63: push_int_local 2
+L64: push_int_local 3
+L65: gosub_with_params [proc,scrollbar_vertical_doscroll]
+L66: return 0
+L67:

@@ -1,5 +1,0 @@
-[clientscript,script_2934](int $int0, string $str0)
-if (compare($str0, "") ! 0) {
-    logout_url($int0, $str0);
-}
-return;

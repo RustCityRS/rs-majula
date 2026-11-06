@@ -1,0 +1,53 @@
+name=""
+local_int_count=3
+local_string_count=0
+local_long_count=0
+int_param_count=2
+string_param_count=0
+long_param_count=0
+
+L0: push_int_local 1
+L1: gosub_with_params [proc,cws_cc_getvar]
+L2: pop_int_local 2
+L3: push_int_local 2
+L4: push_constant_int 7
+L5: branch_equals L7
+L6: branch L18
+L7: push_constant_int 833
+L8: push_int_local 0
+L9: if_setgraphic 0
+L10: push_constant_int 16711680
+L11: push_constant_int 105
+L12: push_constant_int 73
+L13: push_constant_int 688
+L14: push_int_local 1
+L15: enum 0
+L16: if_setcolour 0
+L17: branch L43
+L18: push_int_local 2
+L19: push_constant_int 6
+L20: branch_equals L22
+L21: branch L33
+L22: push_constant_int 834
+L23: push_int_local 0
+L24: if_setgraphic 0
+L25: push_constant_int 65280
+L26: push_constant_int 105
+L27: push_constant_int 73
+L28: push_constant_int 688
+L29: push_int_local 1
+L30: enum 0
+L31: if_setcolour 0
+L32: branch L43
+L33: push_constant_int 943
+L34: push_int_local 0
+L35: if_setgraphic 0
+L36: push_constant_int 13421772
+L37: push_constant_int 105
+L38: push_constant_int 73
+L39: push_constant_int 688
+L40: push_int_local 1
+L41: enum 0
+L42: if_setcolour 0
+L43: return 0
+L44:

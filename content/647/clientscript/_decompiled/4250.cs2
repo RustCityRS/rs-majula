@@ -1,7 +1,0 @@
-[clientscript,script_4250]
-def_int $int0 = if_getwidth;
-if (getwindowmode >= 2) {
-    $int0 = if_getwidth;
-}
-mes(tostring($int0) + ".");
-return;

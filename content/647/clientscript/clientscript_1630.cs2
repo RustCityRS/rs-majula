@@ -1,0 +1,23 @@
+name=""
+local_int_count=0
+local_string_count=0
+local_long_count=0
+int_param_count=0
+string_param_count=0
+long_param_count=0
+
+L0: push_constant_int 3
+L1: pop_varc_int varc_int_1033
+L2: push_constant_int 0
+L3: push_varc_int varc_int_1033
+L4: push_constant_int 200
+L5: push_constant_int 200
+L6: push_constant_int 1
+L7: push_varc_int varc_int_1033
+L8: cam_startpath 0
+L9: push_constant_int 1631
+L10: push_constant_string ""
+L11: push_constant_int 4915200
+L12: if_setonvarcstringtransmit 0
+L13: return 0
+L14:

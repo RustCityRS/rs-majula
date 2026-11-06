@@ -1,6 +1,0 @@
-[clientscript,script_1192](int $int0, int $int1)(int, int, int, int, int, int, int, int, int, int, int, int, string, string)
-if_setsize(if_getheight, 0, 0, $int0);
-if_setonvarctransmit;
-if_setontimer;
-~script_1194;
-return($int1, 512, add(parawidth(if_gettext, 495), 34), $int0, 1193, 1, 1002, 1, $int0, 1193, 0, $int0, "1Y", "1");

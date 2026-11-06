@@ -1,7 +1,0 @@
-[clientscript,script_2040](int $int0)
-if (%varbit949 = 0) {
-    if_settext("Coal to add: " + tostring(%varbit940));
-} else {
-    if_settext("Coal in furnace: " + tostring(%varbit949));
-}
-return;

@@ -1,6 +1,0 @@
-[clientscript,script_2902](int $int0, int $int1, int $int2)(int)
-if (%varc_int1087 ! $int2) {
-    if_sethide($int0);
-}
-if_settext("");
-return($int1);

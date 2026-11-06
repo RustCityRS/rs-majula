@@ -1,0 +1,266 @@
+name=""
+local_int_count=6
+local_string_count=3
+local_long_count=0
+int_param_count=1
+string_param_count=0
+long_param_count=0
+
+L0: push_constant_string "null"
+L1: pop_string_local 0
+L2: push_constant_string "null"
+L3: pop_string_local 1
+L4: push_constant_string "null"
+L5: pop_string_local 2
+L6: push_constant_int -1
+L7: pop_int_local 1
+L8: push_constant_int -1
+L9: pop_int_local 2
+L10: push_constant_int -1
+L11: pop_int_local 3
+L12: push_constant_int -1
+L13: pop_int_local 4
+L14: push_constant_int -1
+L15: pop_int_local 5
+L16: push_int_local 0
+L17: switch switch0
+L18: push_constant_string "Coming soon"
+L19: pop_string_local 1
+L20: branch L226
+L21: push_varbit varbit_8386
+L22: branch_if_false L24
+L23: branch L25
+L24: return 0
+L25: push_constant_string "Common jadinko"
+L26: pop_string_local 0
+L27: push_constant_string "The most abundant form of jadinko. The common jadinkos lack the magical properties of their counterparts; however, they are the easiest of all the jadinkos to attract."
+L28: push_constant_string "<br>"
+L29: push_constant_string "<br>"
+L30: push_constant_string "These jadinkos are caught with marasamaw plants."
+L31: join_string 4
+L32: pop_string_local 1
+L33: push_constant_string "To attract common jadinkos:"
+L34: push_constant_string "<br>"
+L35: push_constant_string "<br>"
+L36: push_constant_string "grow any of the vine flowers."
+L37: join_string 4
+L38: pop_string_local 2
+L39: push_constant_int 62244
+L40: pop_int_local 5
+L41: branch L226
+L42: push_varbit varbit_8393
+L43: branch_if_false L45
+L44: branch L46
+L45: return 0
+L46: push_constant_string "Shadow jadinko"
+L47: pop_string_local 0
+L48: push_constant_string "This species of jadinko is particularly sinister, tied as it is with darkness. Shadow jadinkos produce shadow vines which are useful for those who want to be more stealthy when hunting."
+L49: push_constant_string "<br>"
+L50: push_constant_string "<br>"
+L51: push_constant_string "These jadinkos are caught by tracking."
+L52: join_string 4
+L53: pop_string_local 1
+L54: push_constant_string "To attract shadow jadinkos:"
+L55: push_constant_string "<br>"
+L56: push_constant_string "<br>"
+L57: push_constant_string "grow red vine flowers and build an abandoned house."
+L58: join_string 4
+L59: pop_string_local 2
+L60: push_constant_int 62253
+L61: pop_int_local 5
+L62: branch L226
+L63: push_varbit varbit_8394
+L64: branch_if_false L66
+L65: branch L67
+L66: return 0
+L67: push_constant_string "Diseased jadinko"
+L68: pop_string_local 0
+L69: push_constant_string "The diseased jadinko is a sorry sort of creature, corrupted by some unknown illness that it can never shake. That's unfortunate for the jadinko, but fortunate for the hunter, because the corrupt vines these creatures produce can be made into juju hunter potions that are invaluable for hunting in the habitat."
+L70: push_constant_string "<br>"
+L71: push_constant_string "<br>"
+L72: push_constant_string "These jadinkos are caught by tracking."
+L73: join_string 4
+L74: pop_string_local 1
+L75: push_constant_string "To attract diseased jadinkos:"
+L76: push_constant_string "<br>"
+L77: push_constant_string "<br>"
+L78: push_constant_string "grow a banana tree and build a boneyard."
+L79: join_string 4
+L80: pop_string_local 2
+L81: push_constant_int 62251
+L82: pop_int_local 5
+L83: branch L226
+L84: push_varbit varbit_8395
+L85: branch_if_false L87
+L86: branch L88
+L87: return 0
+L88: push_constant_string "Igneous jadinko"
+L89: pop_string_local 0
+L90: push_constant_string "The igneous jadinko have a great affinity with the earth. They dwell beneath the stones, unless attracted by the sweet scent of lergberry and oranges. Their vines are particularly useful for those who wish to gather herbs more efficiently."
+L91: push_constant_string "<br>"
+L92: push_constant_string "<br>"
+L93: push_constant_string "These jadinkos are caught with marasamaw plants."
+L94: join_string 4
+L95: pop_string_local 1
+L96: push_constant_string "To attract igneous jadinkos:"
+L97: push_constant_string "<br>"
+L98: push_constant_string "<br>"
+L99: push_constant_string "grow a lergberry bush, an orange tree, a blue vine plant and construct a thermal vent."
+L100: join_string 4
+L101: pop_string_local 2
+L102: push_constant_int 62249
+L103: pop_int_local 5
+L104: branch L226
+L105: push_varbit varbit_8391
+L106: branch_if_false L108
+L107: branch L109
+L108: return 0
+L109: push_constant_string "Cannibal jadinko"
+L110: pop_string_local 0
+L111: push_constant_string "These jadinko prey on other jadinkos. They roam the habitat looking for other creatures to snack on. Unlike other jadinkos, the cannibal jadinko's magic is located not in the vine, but in its teeth. The plant teeth can be used to make a deliciously tasty gumbo, if mixed with the right herbs."
+L112: push_constant_string "<br>"
+L113: push_constant_string "<br>"
+L114: push_constant_string "These jadinkos are caught with marasamaw plants."
+L115: join_string 4
+L116: pop_string_local 1
+L117: push_constant_string "To attract cannibal jadinkos:"
+L118: push_constant_string "<br>"
+L119: push_constant_string "<br>"
+L120: push_constant_string "grow a kalferberry bush, a green vine flower, construct tall grass and be sure to have used the juju hunter potion on the flower."
+L121: join_string 4
+L122: pop_string_local 2
+L123: push_constant_int 62241
+L124: pop_int_local 5
+L125: branch L226
+L126: push_varbit varbit_8387
+L127: branch_if_false L129
+L128: branch L130
+L129: return 0
+L130: push_constant_string "Aquatic jadinko"
+L131: pop_string_local 0
+L132: push_constant_string "The aquatic jadinko rarely comes out on land, but, when it does, it's highly sought after by the discerning hunter. The vines that grow from this creature's back can be used to create a juju fishing potion that allows you to catch the elusive baron shark."
+L133: push_constant_string "<br>"
+L134: push_constant_string "<br>"
+L135: push_constant_string "These jadinkos are caught with marasamaw plants."
+L136: join_string 4
+L137: pop_string_local 1
+L138: push_constant_string "To attract aquatic jadinkos:"
+L139: push_constant_string "<br>"
+L140: push_constant_string "<br>"
+L141: push_constant_string "grow a kalferberry bush, an apple tree, a red vine flower and construct a pond. You must also be under the effects of a juju hunter potion."
+L142: join_string 4
+L143: pop_string_local 2
+L144: push_constant_int 62250
+L145: pop_int_local 5
+L146: branch L226
+L147: push_varbit varbit_8388
+L148: branch_if_false L150
+L149: branch L151
+L150: return 0
+L151: push_constant_string "Amphibious jadinko"
+L152: pop_string_local 0
+L153: push_constant_string "The amphibious jadinko is as at home on land as it is in water. These creatures may be slimy and froggish, but their oily vines can be extremely useful. When combined with the appropriate herb, their vines can be used to create potions that attract wood spirits when you are woodcutting, making a lumberjack's life significantly easier."
+L154: push_constant_string "<br>"
+L155: push_constant_string "<br>"
+L156: push_constant_string "These jadinkos are caught with marasamaw plants."
+L157: join_string 4
+L158: pop_string_local 1
+L159: push_constant_string "To attract amphibian jadinkos:"
+L160: push_constant_string "<br>"
+L161: push_constant_string "<br>"
+L162: push_constant_string "grow a lergberry bush, a blue flower and construct a pond."
+L163: join_string 4
+L164: pop_string_local 2
+L165: push_constant_int 62243
+L166: pop_int_local 5
+L167: branch L226
+L168: push_varbit varbit_8390
+L169: branch_if_false L171
+L170: branch L172
+L171: return 0
+L172: push_constant_string "Carrion jadinko"
+L173: pop_string_local 0
+L174: push_constant_string "The carrion jadinko is probably the least pleasant of the jadinko species. They scavenge on the leftovers of other creatures and feast cannibalistically on the remains of other hunted jadinkos. The vines that these creatures produce are particularly pungent and rot rather nicely to create supercompost."
+L175: pop_string_local 1
+L176: push_constant_string "To attract carrion jadinkos:"
+L177: push_constant_string "<br>"
+L178: push_constant_string "<br>"
+L179: push_constant_string "grow a kalferberry bush, a green vine flower and build a boneyard."
+L180: join_string 4
+L181: pop_string_local 2
+L182: push_constant_int 62248
+L183: pop_int_local 5
+L184: branch L226
+L185: push_varbit varbit_8389
+L186: branch_if_false L188
+L187: branch L189
+L188: return 0
+L189: push_constant_string "Camouflaged jadinko"
+L190: pop_string_local 0
+L191: push_constant_string "The camouflaged jadinko is a stealthy critter that takes great delight in hiding itself in foliage. The magic of its striped vines is particularly odd and cannot be turned into a potion; however, Papa Mambo has mentioned that he has uses for these vines."
+L192: push_constant_string "<br>"
+L193: push_constant_string "<br>"
+L194: push_constant_string "These jadinkos are caught by tracking."
+L195: join_string 4
+L196: pop_string_local 1
+L197: push_constant_string "To attract camouflaged jadinkos:"
+L198: push_constant_string "<br>"
+L199: push_constant_string "<br>"
+L200: push_constant_string "grow a lergberry bush and build standing stones. In addition, you must be under the effects of the juju hunter potion."
+L201: join_string 4
+L202: pop_string_local 2
+L203: push_constant_int 62245
+L204: pop_int_local 5
+L205: branch L226
+L206: push_varbit varbit_8392
+L207: branch_if_false L209
+L208: branch L210
+L209: return 0
+L210: push_constant_string "Draconic jadinko"
+L211: pop_string_local 0
+L212: push_constant_string "While not dragons, these rare and elusive creatures certainly resemble them. They are powerful beasts with a deep connection to the earth: so deep that their vines can be used to create powerful potions that attracts the mining spirits of stone."
+L213: push_constant_string "<br>"
+L214: push_constant_string "<br>"
+L215: push_constant_string "These jadinkos are caught with marasamaw plants."
+L216: join_string 4
+L217: pop_string_local 1
+L218: push_constant_string "To attract draconic jadinkos:"
+L219: push_constant_string "<br>"
+L220: push_constant_string "<br>"
+L221: push_constant_string "grow a lergberry bush, a red vine flower and build a dark pit. In addition you will need to be under the influence of the juju hunter potion."
+L222: join_string 4
+L223: pop_string_local 2
+L224: push_constant_int 62238
+L225: pop_int_local 5
+L226: push_constant_int 1
+L227: push_constant_int 4718648
+L228: if_sethide 0
+L229: push_constant_int 0
+L230: push_constant_int 4718650
+L231: if_sethide 0
+L232: push_string_local 0
+L233: push_constant_int 4718652
+L234: if_settext 0
+L235: push_string_local 1
+L236: push_constant_int 4718653
+L237: if_settext 0
+L238: push_string_local 2
+L239: push_constant_int 4718654
+L240: if_settext 0
+L241: push_int_local 5
+L242: push_constant_int 4718651
+L243: if_setmodel 0
+L244: return 0
+L245:
+
+[switch0@L17]
+4718660=L21
+4718659=L42
+4718658=L63
+4718657=L84
+4718656=L105
+4718665=L126
+4718664=L147
+4718663=L168
+4718662=L185
+4718661=L206

@@ -1,6 +1,0 @@
-[clientscript,script_32](int $int0, int $int1)
-def_int $int2 = sub(if_getscrolly, 4);
-if (cc_find($int0, 1) = 1) {
-    ~script_37($int0, $int1, $int2, 1);
-}
-return;

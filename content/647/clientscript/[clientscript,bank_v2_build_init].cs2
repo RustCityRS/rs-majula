@@ -1,0 +1,45 @@
+name=""
+local_int_count=0
+local_string_count=0
+local_long_count=0
+int_param_count=0
+string_param_count=0
+long_param_count=0
+
+L0: push_constant_int 0
+L1: pop_varc_int varc_int_188
+L2: gosub_with_params [proc,bank_cert_button]
+L3: gosub_with_params [proc,bank_sort_button]
+L4: gosub_with_params [proc,bank_v2_build_slots]
+L5: gosub_with_params clientscript_1464
+L6: gosub_with_params [proc,bank_v2_hide_all]
+L7: gosub_with_params [proc,bank_v2_build_tabs]
+L8: push_varbit open_bank_tab
+L9: gosub_with_params [proc,bank_v2_tab_highlight]
+L10: push_constant_int 1472
+L11: push_constant_int 190
+L12: push_constant_int 1
+L13: push_constant_string "Y"
+L14: push_constant_int 49938449
+L15: if_setonvarctransmit 0
+L16: push_constant_int 1465
+L17: push_constant_int 192
+L18: push_constant_int 1038
+L19: push_constant_int 1324
+L20: push_constant_int 3
+L21: push_constant_string "Y"
+L22: push_constant_int 49938453
+L23: if_setonvarctransmit 0
+L24: push_constant_int 0
+L25: push_varbit open_bank_tab
+L26: gosub_with_params [proc,bank_v2_get_tab_scrollpos]
+L27: push_constant_int 49938525
+L28: if_setscrollpos 0
+L29: push_constant_int 49938546
+L30: push_constant_int 49938525
+L31: push_constant_int 49938525
+L32: if_getscrolly 0
+L33: push_constant_int 1
+L34: gosub_with_params [proc,scrollbar_ondrag_doscroll]
+L35: return 0
+L36:

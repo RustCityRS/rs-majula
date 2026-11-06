@@ -1,0 +1,28 @@
+name=""
+local_int_count=1
+local_string_count=0
+local_long_count=0
+int_param_count=1
+string_param_count=0
+long_param_count=0
+
+L0: push_int_local 0
+L1: branch_if_false L3
+L2: branch L11
+L3: push_constant_int 105
+L4: push_constant_int 109
+L5: push_constant_int 839
+L6: push_varbit varbit_6764
+L7: enum 0
+L8: push_constant_int 5505043
+L9: if_setmodel 0
+L10: branch L18
+L11: push_constant_int 105
+L12: push_constant_int 109
+L13: push_constant_int 838
+L14: push_int_local 0
+L15: enum 0
+L16: push_constant_int 5505043
+L17: if_setmodel 0
+L18: return 0
+L19:

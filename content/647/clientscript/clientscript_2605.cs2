@@ -1,0 +1,29 @@
+name=""
+local_int_count=0
+local_string_count=0
+local_long_count=0
+int_param_count=0
+string_param_count=0
+long_param_count=0
+
+L0: push_constant_int 6784
+L1: push_constant_int 1
+L2: push_constant_int 0
+L3: sound_synth 0
+L4: push_constant_int 0
+L5: push_constant_int 19136642
+L6: if_sethide 0
+L7: push_constant_string "Are you sure you wish to apply the selected changes?"
+L8: push_constant_int 19136644
+L9: if_settext 0
+L10: push_constant_int 1
+L11: push_constant_int 19136647
+L12: if_sethide 0
+L13: push_constant_int 0
+L14: push_constant_int 19136649
+L15: if_sethide 0
+L16: push_constant_int 1
+L17: push_constant_int 19136646
+L18: if_sethide 0
+L19: return 0
+L20:

@@ -1,9 +1,0 @@
-[clientscript,script_310](int $int0, int $int1, string $str0)
-def_int $int2 = 0;
-def_int $int3 = 0;
-if (cc_find($int0, $int1) = 1) {
-    $int3 = calc(cc_gety + cc_getheight + 1);
-    $int2 = calc(cc_getx + cc_getheight + 1);
-    $int3 = sub($int0, if_getscrolly);
-}
-return;

@@ -1,0 +1,26 @@
+name=""
+local_int_count=2
+local_string_count=0
+local_long_count=0
+int_param_count=2
+string_param_count=0
+long_param_count=0
+
+L0: push_int_local 1
+L1: branch_if_false L3
+L2: branch L10
+L3: push_int_local 0
+L4: tostring 0
+L5: push_constant_string ".00"
+L6: join_string 2
+L7: push_constant_int 43384875
+L8: if_settext 0
+L9: branch L16
+L10: push_int_local 0
+L11: tostring 0
+L12: push_constant_string ".30"
+L13: join_string 2
+L14: push_constant_int 43384875
+L15: if_settext 0
+L16: return 0
+L17:

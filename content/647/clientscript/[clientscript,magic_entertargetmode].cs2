@@ -1,0 +1,22 @@
+name=""
+local_int_count=1
+local_string_count=0
+local_long_count=0
+int_param_count=1
+string_param_count=0
+long_param_count=0
+
+L0: push_constant_int 2
+L1: push_int_local 0
+L2: if_setoutline 0
+L3: push_int_local 0
+L4: if_gettargetmask 0
+L5: push_constant_int 32
+L6: and 0
+L7: push_constant_int 0
+L8: branch_not L10
+L9: branch L12
+L10: push_constant_int 4
+L11: gosub_with_params [proc,if_switchside]
+L12: return 0
+L13:

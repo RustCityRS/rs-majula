@@ -1,0 +1,17 @@
+name=""
+local_int_count=0
+local_string_count=0
+local_long_count=1
+int_param_count=0
+string_param_count=0
+long_param_count=1
+
+L0: push_constant_string "clan-forum"
+L1: push_constant_string "threads.ws?threadid="
+L2: push_long_local 0
+L3: long_to_base36 0
+L4: join_string 2
+L5: push_constant_int 0
+L6: url_request 0
+L7: return 0
+L8:

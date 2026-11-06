@@ -1,7 +1,0 @@
-[clientscript,script_3478](int $int0, int $int1, int $int2, int $int3)
-cc_setposition(0, $int0, 3, if_getchildcount($int0));
-cc_setsize(6, 6, 0, 0);
-cc_setcolour($int3);
-cc_setfill(1);
-cc_setposition2(multiply($int1, 16), multiply($int2, 16), 1, 1);
-return;

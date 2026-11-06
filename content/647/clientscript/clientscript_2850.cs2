@@ -1,0 +1,92 @@
+name=""
+local_int_count=0
+local_string_count=0
+local_long_count=0
+int_param_count=0
+string_param_count=0
+long_param_count=0
+
+L0: push_constant_int 500
+L1: pop_varc_int varc_int_1069
+L2: coord 0
+L3: push_constant_int 0
+L4: push_constant_int 0
+L5: push_constant_int -8
+L6: coordpack 0
+L7: pop_varc_int varc_int_1070
+L8: push_constant_int 0
+L9: pop_varc_int varc_int_1071
+L10: coord 0
+L11: pop_varc_int varc_int_1072
+L12: push_constant_int 450
+L13: pop_varc_int varc_int_1073
+L14: push_constant_int 0
+L15: pop_varc_int varc_int_1074
+L16: push_constant_int 25
+L17: pop_varc_int varc_int_1282
+L18: push_varc_int varc_int_1070
+L19: push_varc_int varc_int_1069
+L20: push_constant_int 10
+L21: push_constant_int 3
+L22: cam_moveto 0
+L23: push_varc_int varc_int_1070
+L24: push_varc_int varc_int_1071
+L25: gosub_with_params clientscript_2865
+L26: push_varc_int varc_int_1073
+L27: push_constant_int 10
+L28: push_constant_int 3
+L29: cam_lookat 0
+L30: push_constant_int 0
+L31: pop_varc_int varc_int_1075
+L32: push_constant_int 0
+L33: pop_varc_int varc_int_1076
+L34: push_constant_int 2851
+L35: push_constant_int -2147483645
+L36: push_constant_int -2147483640
+L37: push_constant_int 0
+L38: push_constant_string "Iii"
+L39: push_constant_int 31129601
+L40: if_setonkey 0
+L41: push_constant_int 0
+L42: push_constant_int 31129654
+L43: if_sethide 0
+L44: push_constant_int 0
+L45: push_constant_int 31129607
+L46: if_sethide 0
+L47: push_constant_int 0
+L48: push_constant_int 31129658
+L49: if_sethide 0
+L50: push_constant_int 1
+L51: push_constant_int 31129633
+L52: if_sethide 0
+L53: push_constant_int 1232
+L54: push_constant_int 31129628
+L55: if_setgraphic 0
+L56: push_constant_string "You are now in Aim Mode"
+L57: push_constant_int 31129629
+L58: if_settext 0
+L59: push_constant_int 2853
+L60: push_constant_int 31129601
+L61: clientclock 0
+L62: push_constant_string "Ii"
+L63: push_constant_int 31129601
+L64: if_setontimer 0
+L65: push_constant_int 2852
+L66: push_constant_int 31129607
+L67: push_constant_string "I"
+L68: push_constant_int 31129607
+L69: if_setontimer 0
+L70: push_constant_int 0
+L71: push_constant_int 31129602
+L72: if_sethide 0
+L73: push_constant_int 2870
+L74: push_constant_int -2147483645
+L75: clientclock 0
+L76: push_constant_int 150
+L77: add 0
+L78: push_constant_string "Ii"
+L79: push_constant_int 31129602
+L80: if_setontimer 0
+L81: gosub_with_params clientscript_3455
+L82: return 0
+L83:

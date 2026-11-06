@@ -1,0 +1,30 @@
+name=""
+local_int_count=1
+local_string_count=0
+local_long_count=0
+int_param_count=1
+string_param_count=0
+long_param_count=0
+
+L0: push_varbit varbit_9086
+L1: push_constant_int 0
+L2: branch_greater_than L4
+L3: branch L10
+L4: push_varbit varbit_9086
+L5: push_constant_int 1
+L6: sub 0
+L7: push_constant_int 72417345
+L8: push_int_local 0
+L9: gosub_with_params clientscript_4398
+L10: push_varbit varbit_9087
+L11: push_constant_int 0
+L12: branch_greater_than L14
+L13: branch L20
+L14: push_varbit varbit_9087
+L15: push_constant_int 1
+L16: sub 0
+L17: push_constant_int 72417342
+L18: push_int_local 0
+L19: gosub_with_params clientscript_4398
+L20: return 0
+L21:

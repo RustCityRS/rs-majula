@@ -1,9 +1,0 @@
-[clientscript,script_1156]
-if (get_clientopt = 0) {
-    if_setgraphic(48693299);
-    if_setgraphic(48693297);
-} else {
-    if_setgraphic(48693297);
-    if_setgraphic(48693299);
-}
-return;

@@ -1,7 +1,0 @@
-[clientscript,script_3345]
-if (%varc_int1175 = 0) {
-    ~script_1163(61538364, -1, 61538418, 25, 200, "P1: Shared XP is ON");
-} else {
-    ~script_1163(61538364, -1, 61538418, 25, 200, "P1: Shared XP is OFF");
-}
-return;

@@ -1,6 +1,0 @@
-[clientscript,script_3632](int $int0)
-if (if_find($int0) = 1) {
-    cc_setparam_int(1101, cc_getx);
-    cc_setparam_int(1102, cc_gety);
-}
-return;

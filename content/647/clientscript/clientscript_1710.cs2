@@ -1,0 +1,60 @@
+name=""
+local_int_count=2
+local_string_count=0
+local_long_count=0
+int_param_count=1
+string_param_count=0
+long_param_count=0
+
+L0: push_int_local 0
+L1: gosub_with_params clientscript_1711
+L2: pop_int_local 1
+L3: push_varbit varbit_6839
+L4: push_constant_int 0
+L5: branch_greater_than L7
+L6: branch L42
+L7: push_int_local 0
+L8: switch switch0
+L9: branch L42
+L10: push_int_local 1
+L11: push_constant_int 15
+L12: add 0
+L13: pop_int_local 1
+L14: push_int_local 1
+L15: push_int_local 0
+L16: push_varbit varbit_6844
+L17: gosub_with_params clientscript_1714
+L18: add 0
+L19: pop_int_local 1
+L20: branch L42
+L21: push_int_local 1
+L22: push_constant_int 23
+L23: add 0
+L24: pop_int_local 1
+L25: push_int_local 1
+L26: push_int_local 0
+L27: push_varbit varbit_6845
+L28: gosub_with_params clientscript_1714
+L29: add 0
+L30: pop_int_local 1
+L31: branch L42
+L32: push_int_local 1
+L33: push_constant_int 15
+L34: add 0
+L35: pop_int_local 1
+L36: push_int_local 1
+L37: push_int_local 0
+L38: push_varbit varbit_6846
+L39: gosub_with_params clientscript_1714
+L40: add 0
+L41: pop_int_local 1
+L42: push_int_local 1
+L43: return 0
+L44: push_constant_int 0
+L45: return 0
+L46:
+
+[switch0@L8]
+0=L10
+2=L21
+1=L32

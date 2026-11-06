@@ -1,0 +1,23 @@
+name=""
+local_int_count=3
+local_string_count=0
+local_long_count=0
+int_param_count=3
+string_param_count=0
+long_param_count=0
+
+L0: clientclock 0
+L1: push_constant_int 20
+L2: mod 0
+L3: push_constant_int 10
+L4: branch_less_than L6
+L5: branch L10
+L6: push_int_local 2
+L7: push_int_local 0
+L8: if_setgraphic 0
+L9: branch L13
+L10: push_int_local 1
+L11: push_int_local 0
+L12: if_setgraphic 0
+L13: return 0
+L14:

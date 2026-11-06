@@ -1,0 +1,66 @@
+name=""
+local_int_count=1
+local_string_count=0
+local_long_count=0
+int_param_count=0
+string_param_count=0
+long_param_count=0
+
+L0: push_constant_int -1
+L1: pop_int_local 0
+L2: push_varc_int varc_int_1043
+L3: push_constant_int -1
+L4: branch_equals L6
+L5: branch L7
+L6: return 0
+L7: push_varc_int varc_int_1043
+L8: switch switch0
+L9: branch L27
+L10: push_constant_int 1572874
+L11: pop_int_local 0
+L12: branch L27
+L13: push_constant_int 1572872
+L14: pop_int_local 0
+L15: branch L27
+L16: push_constant_int 1572873
+L17: pop_int_local 0
+L18: branch L27
+L19: push_constant_int 1572875
+L20: pop_int_local 0
+L21: branch L27
+L22: push_constant_int 1572876
+L23: pop_int_local 0
+L24: branch L27
+L25: push_constant_int 1572877
+L26: pop_int_local 0
+L27: push_int_local 0
+L28: push_constant_int -1
+L29: branch_equals L31
+L30: branch L32
+L31: return 0
+L32: push_varc_int varc_int_1043
+L33: push_constant_int -1
+L34: push_int_local 0
+L35: if_setobject 0
+L36: push_constant_int 1600
+L37: push_int_local 0
+L38: if_setmodelzoom 0
+L39: push_constant_int 12554
+L40: push_int_local 0
+L41: if_setmodelanim 0
+L42: return 0
+L43:
+
+[switch0@L8]
+4761=L10
+4762=L10
+4763=L13
+4764=L13
+4765=L16
+4766=L16
+4767=L19
+4768=L19
+4769=L22
+4770=L22
+4771=L25
+4772=L25

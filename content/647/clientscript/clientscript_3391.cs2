@@ -1,0 +1,25 @@
+name=""
+local_int_count=0
+local_string_count=0
+local_long_count=0
+int_param_count=0
+string_param_count=0
+long_param_count=0
+
+L0: push_constant_int 59375659
+L1: if_closeoverlay 0
+L2: push_constant_int 1
+L3: push_constant_int 59375651
+L4: if_sethide 0
+L5: push_constant_int 105
+L6: push_constant_int 73
+L7: push_constant_int 941
+L8: push_constant_int 5
+L9: enum 0
+L10: if_gethide 0
+L11: branch_if_false L13
+L12: branch L15
+L13: push_constant_int 1
+L14: gosub_with_params clientscript_3161
+L15: return 0
+L16:

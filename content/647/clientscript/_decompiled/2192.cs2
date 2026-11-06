@@ -1,9 +1,0 @@
-[clientscript,script_2192](int $int0, int $int1)
-if ($int0 = 1) {
-    if_setonclick;
-    if_sethflip(0, 60030998);
-} else {
-    if_setonclick;
-    if_sethflip(1, 60030998);
-}
-return;

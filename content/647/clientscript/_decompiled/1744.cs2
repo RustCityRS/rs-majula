@@ -1,9 +1,0 @@
-[clientscript,script_1744](int)
-def_int $int0 = cc_gety;
-def_int $int1 = cc_getlayer;
-if ($int1 ! -1) {
-    $int0 = sub($int1, if_getscrolly);
-    if_getlayer;
-    $int1 = $int1;
-}
-return($int0);

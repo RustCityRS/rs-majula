@@ -1,0 +1,56 @@
+name=""
+local_int_count=1
+local_string_count=0
+local_long_count=0
+int_param_count=1
+string_param_count=0
+long_param_count=0
+
+L0: push_int_local 0
+L1: branch_if_true L3
+L2: branch L25
+L3: push_constant_int 1179677
+L4: push_constant_int 0
+L5: cc_find 0
+L6: branch_if_true L8
+L7: branch L10
+L8: push_constant_int 6135
+L9: cc_setgraphic 0
+L10: push_constant_int 1179677
+L11: push_constant_int 1
+L12: cc_find 0
+L13: branch_if_true L15
+L14: branch L17
+L15: push_constant_int 6134
+L16: cc_setgraphic 0
+L17: push_constant_int 1179677
+L18: push_constant_int 2
+L19: cc_find 0
+L20: branch_if_true L22
+L21: branch L24
+L22: push_constant_int 6136
+L23: cc_setgraphic 0
+L24: branch L46
+L25: push_constant_int 1179677
+L26: push_constant_int 0
+L27: cc_find 0
+L28: branch_if_true L30
+L29: branch L32
+L30: push_constant_int 6132
+L31: cc_setgraphic 0
+L32: push_constant_int 1179677
+L33: push_constant_int 1
+L34: cc_find 0
+L35: branch_if_true L37
+L36: branch L39
+L37: push_constant_int 6131
+L38: cc_setgraphic 0
+L39: push_constant_int 1179677
+L40: push_constant_int 2
+L41: cc_find 0
+L42: branch_if_true L44
+L43: branch L46
+L44: push_constant_int 6133
+L45: cc_setgraphic 0
+L46: return 0
+L47:

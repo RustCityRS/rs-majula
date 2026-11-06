@@ -1,26 +1,24 @@
 #![allow(clippy::needless_range_loop)]
 #[cfg(since_647)]
 use crate::archive;
+#[cfg(since_647)]
+use crate::pack::names::{AssetNames, archive_name};
 #[cfg(before_647)]
 use crate::{back, unpack};
 #[cfg(since_647)]
-use anyhow::{Context, Result};
+use crate::{sheet, tga};
 #[cfg(since_647)]
-use png::{BitDepth, ColorType, Encoder};
+use anyhow::{Result, ensure};
 #[cfg(before_647)]
 use rs_io::jag::JagFile;
 #[cfg(since_647)]
 use rs_io::js5::Js5Store;
 use std::fs;
-#[cfg(since_647)]
-use std::fs::File;
-#[cfg(since_647)]
-use std::io::BufWriter;
 use std::path::Path;
 #[cfg(before_647)]
 use tracing::debug;
 #[cfg(since_647)]
-use tracing::{info, warn};
+use tracing::info;
 
 #[cfg(before_647)]
 const MEDIA_NAMES: &[&str] = &[
@@ -190,131 +188,81 @@ struct Sprite {
 }
 
 #[cfg(since_647)]
-/// Write a sprite as an RGBA PNG at full area_width × area_height canvas.
-/// If `palette_strip` is Some, appends extra rows at the bottom encoding the palette
-/// with alpha=254 sentinel (Jordan-style embedded palette).
-fn write_sprite_canvas_png(
-    sprite: &Sprite,
-    area_width: u16,
-    area_height: u16,
-    palette_strip: Option<&[u32]>,
-    path: &Path,
-) -> Result<()> {
-    let aw = area_width as usize;
-    let ah = area_height as usize;
-
-    let strip_rows = if let Some(pal) = palette_strip {
-        let colors = pal.len().saturating_sub(1); // skip index 0
-        if aw == 0 { 0 } else { colors.div_ceil(aw) }
-    } else {
-        0
+pub fn write_sprite_group(data: &[u8], path: &Path) -> Result<usize> {
+    let output = |extension: &str| {
+        let mut name = path.as_os_str().to_os_string();
+        name.push(format!(".{extension}"));
+        std::path::PathBuf::from(name)
     };
-
-    let total_height = ah + strip_rows;
-    let mut rgba = vec![0u8; aw * total_height * 4]; // alpha=0 everywhere (transparent)
-
-    // Place sprite content at (left_padding, top_padding)
-    let lp = sprite.left_padding as usize;
-    let tp = sprite.top_padding as usize;
-    let sw = sprite.width as usize;
-    let sh = sprite.height as usize;
-
-    for y in 0..sh {
-        for x in 0..sw {
-            let src_idx = y * sw + x;
-            let palette_idx = sprite.indices[src_idx] as usize;
-
-            let dst_x = lp + x;
-            let dst_y = tp + y;
-            if dst_x >= aw || dst_y >= ah {
-                continue;
-            }
-            let dst_idx = (dst_y * aw + dst_x) * 4;
-
-            let raw_rgb = sprite.palette.get(palette_idx).copied().unwrap_or(0);
-            // Display substitution: 0x000000 → 0x000001 for non-zero indices
-            // (avoids palette collision with index 0; raw values in palette_hex tEXt)
-            let rgb = if raw_rgb == 0 && palette_idx > 0 {
-                1
-            } else {
-                raw_rgb
-            };
-            rgba[dst_idx] = ((rgb >> 16) & 0xFF) as u8;
-            rgba[dst_idx + 1] = ((rgb >> 8) & 0xFF) as u8;
-            rgba[dst_idx + 2] = (rgb & 0xFF) as u8;
-
-            if let Some(ref alphas) = sprite.alphas {
-                rgba[dst_idx + 3] = alphas[src_idx];
-            } else if palette_idx == 0 {
-                // Non-alpha sprite: index 0 = transparent
-                rgba[dst_idx + 3] = 0;
-            } else {
-                rgba[dst_idx + 3] = 255;
-            }
-        }
+    if let Some(parent) = path.parent() {
+        fs::create_dir_all(parent)?;
     }
-
-    // Write palette strip rows at the bottom (alpha=254 sentinel)
-    if let Some(pal) = palette_strip {
-        let mut color_idx = 1; // skip palette[0] (transparent)
-        for row in 0..strip_rows {
-            for col in 0..aw {
-                if color_idx >= pal.len() {
-                    break;
-                }
-                let dst_idx = ((ah + row) * aw + col) * 4;
-                let rgb = pal[color_idx];
-                rgba[dst_idx] = ((rgb >> 16) & 0xFF) as u8;
-                rgba[dst_idx + 1] = ((rgb >> 8) & 0xFF) as u8;
-                rgba[dst_idx + 2] = (rgb & 0xFF) as u8;
-                rgba[dst_idx + 3] = 254; // sentinel
-                color_idx += 1;
+    if data.starts_with(&[0xff, 0xd8]) {
+        fs::write(output("jpg"), data)?;
+        return Ok(1);
+    }
+    let (sprites, width, height, _) = decode_sprites(data)?;
+    ensure!(!sprites.is_empty(), "Empty sprite group");
+    let (cols, rows) = sheet::grid(width as usize, height as usize, sprites.len());
+    let (w, h) = (cols * width as usize, rows * height as usize);
+    ensure!(
+        w <= u16::MAX as usize && h <= u16::MAX as usize,
+        "Sprite sheet too large"
+    );
+    let mut pixels = vec![0; w * h];
+    let mut alpha = vec![0; w * h];
+    let mut text = format!(
+        "width={width}
+height={height}
+"
+    );
+    for (i, sprite) in sprites.iter().enumerate() {
+        text.push_str(&format!(
+            "frame={},{},{},{},{},{}
+",
+            sprite.left_padding,
+            sprite.top_padding,
+            sprite.width,
+            sprite.height,
+            if sprite.row_major { "columns" } else { "rows" },
+            if sprite.has_alpha { "alpha" } else { "opaque" }
+        ));
+        ensure!(
+            sprite.left_padding + sprite.width <= width
+                && sprite.top_padding + sprite.height <= height,
+            "Sprite crop outside canvas"
+        );
+        let ox = i % cols * width as usize + sprite.left_padding as usize;
+        let oy = i / cols * height as usize + sprite.top_padding as usize;
+        for y in 0..sprite.height as usize {
+            let src = y * sprite.width as usize;
+            let dst = (oy + y) * w + ox;
+            pixels[dst..dst + sprite.width as usize]
+                .copy_from_slice(&sprite.indices[src..src + sprite.width as usize]);
+            if let Some(values) = &sprite.alphas {
+                alpha[dst..dst + sprite.width as usize]
+                    .copy_from_slice(&values[src..src + sprite.width as usize]);
             }
         }
     }
-
-    let file = File::create(path).with_context(|| format!("creating {}", path.display()))?;
-    let w = BufWriter::new(file);
-    let mut encoder = Encoder::new(w, aw as u32, total_height as u32);
-    encoder.set_color(ColorType::Rgba);
-    encoder.set_depth(BitDepth::Eight);
-    // Store metadata as PNG text chunks for lossless roundtrip
-    if strip_rows > 0 {
-        encoder
-            .add_text_chunk("strip_rows".to_string(), strip_rows.to_string())
-            .ok();
+    let mut palette = vec![255, 0, 255];
+    for rgb in sprites[0].palette.iter().skip(1) {
+        palette.extend_from_slice(&[(*rgb >> 16) as u8, (*rgb >> 8) as u8, *rgb as u8]);
     }
-    if sprite.has_alpha {
-        encoder
-            .add_text_chunk("has_alpha".to_string(), "1".to_string())
-            .ok();
+    tga::write(&output("tga"), &[], &palette, w as u32, h as u32, &pixels)?;
+    if sprites.iter().any(|s| s.has_alpha) {
+        let palette: Vec<u8> = (0..=255u8).flat_map(|v| [v, v, v]).collect();
+        tga::write(
+            &output("alpha.tga"),
+            &[],
+            &palette,
+            w as u32,
+            h as u32,
+            &alpha,
+        )?;
     }
-    if sprite.row_major {
-        encoder
-            .add_text_chunk("row_major".to_string(), "1".to_string())
-            .ok();
-    }
-    encoder
-        .add_text_chunk(
-            "crop".to_string(),
-            format!(
-                "{},{},{},{}",
-                sprite.left_padding, sprite.top_padding, sprite.width, sprite.height
-            ),
-        )
-        .ok();
-    // Store raw palette as hex for lossless binary roundtrip (handles 0x000000 collisions)
-    if let Some(pal) = palette_strip {
-        let hex: String = pal[1..]
-            .iter()
-            .map(|&rgb| format!("{:06x}", rgb))
-            .collect::<Vec<_>>()
-            .join("");
-        encoder.add_text_chunk("palette_hex".to_string(), hex).ok();
-    }
-    let mut writer = encoder.write_header()?;
-    writer.write_image_data(&rgba)?;
-    Ok(())
+    fs::write(output("sprite"), text)?;
+    Ok(sprites.len())
 }
 
 #[cfg(since_647)]
@@ -458,10 +406,12 @@ fn decode_sprites(data: &[u8]) -> Result<(Vec<Sprite>, u16, u16, u16)> {
 pub fn unpack_sprites(
     store: &mut Js5Store,
     archive_id: u8,
-    archive_name: &str,
+    dir_name: &str,
     output_dir: &Path,
+    pack_dir: &Path,
 ) -> Result<UnpackSpriteStats> {
-    let archive_dir = output_dir.join(archive_name).join("_unpack");
+    let archive_dir = output_dir.join(dir_name);
+    let names = AssetNames::load(pack_dir)?;
     fs::create_dir_all(&archive_dir)?;
 
     let group_count = store.group_count(archive_id).unwrap_or(0);
@@ -469,89 +419,35 @@ pub fn unpack_sprites(
     let mut stats = UnpackSpriteStats::default();
 
     for gid in 0..group_count {
-        let group = match store.read_group(archive_id, gid) {
-            Ok(Some(g)) => g,
-            Ok(None) => continue,
-            Err(e) => {
-                warn!(
-                    "archive {} group {}: read failed ({}), skipping",
-                    archive_id, gid, e
-                );
-                stats.failed += 1;
-                continue;
-            }
-        };
-        let Some(entry) = group.entries.first() else {
+        let Some(group) = store.read_group(archive_id, gid)? else {
             continue;
         };
-        if entry.data().len() < 2 {
-            continue;
-        }
-
-        // JPEG images (archive 32 mixes sprites and JPEGs)
-        // Store as source .jpg files — the build re-packs them directly.
-        if entry.data()[0] == 0xFF && entry.data()[1] == 0xD8 {
-            let group_dir = archive_dir.join(gid.to_string());
-            fs::create_dir_all(&group_dir)?;
-            fs::write(group_dir.join("0.jpg"), entry.data())?;
-            stats.groups += 1;
-            stats.sprites += 1;
-            continue;
-        }
-
-        let (sprites, area_width, area_height, _palette_size) = match decode_sprites(entry.data()) {
-            Ok(s) => s,
-            Err(e) => {
-                warn!(
-                    "archive {} group {}: sprite decode failed ({}) data_len={}",
-                    archive_id,
-                    gid,
-                    e,
-                    entry.data().len(),
-                );
-                stats.failed += 1;
-                continue;
-            }
-        };
-
-        if sprites.is_empty() {
-            continue;
-        }
-
-        let group_dir = archive_dir.join(gid.to_string());
-        fs::create_dir_all(&group_dir)?;
-
-        for (file_id, sprite) in sprites.iter().enumerate() {
-            let path = group_dir.join(format!("{}.png", file_id));
-            // First sprite gets the palette strip
-            let palette_strip = if file_id == 0 {
-                Some(sprite.palette.as_slice())
-            } else {
-                None
-            };
-            write_sprite_canvas_png(sprite, area_width, area_height, palette_strip, &path)?;
-        }
-
+        anyhow::ensure!(
+            group.entries.len() == 1,
+            "Sprite group {archive_id}/{gid} has multiple entries"
+        );
+        let entry = &group.entries[0];
+        let name = names.name(archive_name(archive_id), gid);
+        stats.sprites += write_sprite_group(entry.data(), &archive_dir.join(name))? as u32;
         stats.groups += 1;
-        stats.sprites += sprites.len() as u32;
     }
 
     Ok(stats)
 }
 
 #[cfg(since_647)]
-pub fn unpack_all_sprites(store: &mut Js5Store, content_dir: &Path) -> Result<UnpackSpriteStats> {
+pub fn unpack_all_sprites(
+    store: &mut Js5Store,
+    content_dir: &Path,
+    pack_dir: &Path,
+) -> Result<UnpackSpriteStats> {
     let mut total = UnpackSpriteStats::default();
 
     info!("Unpacking sprites (archive {})...", archive::SPRITES);
-    let s = unpack_sprites(store, archive::SPRITES, "sprites", content_dir)?;
-    info!(
-        "  {} groups, {} sprites, {} failed",
-        s.groups, s.sprites, s.failed
-    );
+    let s = unpack_sprites(store, archive::SPRITES, "sprites", content_dir, pack_dir)?;
+    info!("  {} groups, {} sprites", s.groups, s.sprites);
     total.groups += s.groups;
     total.sprites += s.sprites;
-    total.failed += s.failed;
 
     for (aid, name) in [
         (archive::LOADING_SPRITES, "loading_sprites"),
@@ -561,14 +457,10 @@ pub fn unpack_all_sprites(store: &mut Js5Store, content_dir: &Path) -> Result<Un
             continue;
         }
         info!("Unpacking loading sprites (archive {aid})...");
-        let s = unpack_sprites(store, aid, name, content_dir)?;
-        info!(
-            "  {} groups, {} sprites, {} failed",
-            s.groups, s.sprites, s.failed
-        );
+        let s = unpack_sprites(store, aid, name, content_dir, pack_dir)?;
+        info!("  {} groups, {} sprites", s.groups, s.sprites);
         total.groups += s.groups;
         total.sprites += s.sprites;
-        total.failed += s.failed;
     }
 
     Ok(total)
@@ -579,5 +471,4 @@ pub fn unpack_all_sprites(store: &mut Js5Store, content_dir: &Path) -> Result<Un
 pub struct UnpackSpriteStats {
     pub groups: u32,
     pub sprites: u32,
-    pub failed: u32,
 }

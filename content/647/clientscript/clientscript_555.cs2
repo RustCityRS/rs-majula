@@ -1,0 +1,58 @@
+name=""
+local_int_count=1
+local_string_count=0
+local_long_count=0
+int_param_count=0
+string_param_count=0
+long_param_count=0
+
+L0: push_constant_int 15
+L1: push_varbit varbit_4109
+L2: sub 0
+L3: push_constant_int 6
+L4: multiply 0
+L5: pop_int_local 0
+L6: push_constant_int 0
+L7: push_int_local 0
+L8: push_constant_int 0
+L9: push_constant_int 0
+L10: push_constant_int 40894479
+L11: if_setposition 0
+L12: push_varbit varbit_4109
+L13: tostring 0
+L14: push_constant_int 40894534
+L15: if_settext 0
+L16: push_constant_int 15
+L17: push_varbit varbit_4110
+L18: sub 0
+L19: push_constant_int 6
+L20: multiply 0
+L21: pop_int_local 0
+L22: push_constant_int 0
+L23: push_int_local 0
+L24: push_constant_int 0
+L25: push_constant_int 0
+L26: push_constant_int 40894481
+L27: if_setposition 0
+L28: push_varbit varbit_4110
+L29: tostring 0
+L30: push_constant_int 40894535
+L31: if_settext 0
+L32: push_constant_int 15
+L33: push_varbit varbit_4111
+L34: sub 0
+L35: push_constant_int 6
+L36: multiply 0
+L37: pop_int_local 0
+L38: push_constant_int 0
+L39: push_int_local 0
+L40: push_constant_int 0
+L41: push_constant_int 0
+L42: push_constant_int 40894483
+L43: if_setposition 0
+L44: push_varbit varbit_4111
+L45: tostring 0
+L46: push_constant_int 40894536
+L47: if_settext 0
+L48: return 0
+L49:

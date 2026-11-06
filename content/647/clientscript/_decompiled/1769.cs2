@@ -1,6 +1,0 @@
-[clientscript,script_1769](int $int0)(int, int, int, int, int, int, int, int, int, int, int, int)
-if_setmodel;
-if_setmodelangle;
-if_setmodelanim;
-if_setposition(struct_param(%varc_int269, param_587), 1, 0, $int0);
-return(struct_param(%varc_int269, param_581), $int0, 0, 160, struct_param(%varc_int269, param_584), struct_param(%varc_int269, param_585), struct_param(%varc_int269, param_586), struct_param(%varc_int269, param_583), $int0, struct_param(%varc_int269, param_582), $int0, 0);

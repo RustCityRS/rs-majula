@@ -666,9 +666,10 @@ The patcher downloads a hash-pinned original JAR. Pass `--original <path>` to us
 copy instead. The original SHA-256 is
 `b7d38915a8fb878d2e2762ba63dac195e68fc8a7ecd9dcc1e738e17f875b6086`.
 
-The `_unpack` directories are versioned source assets. Config sections beside them add to,
-or override, sections of the same name. Map spawns and donor assets are overlaid at pack
-time. Update matching content headers and references when renaming a `.pack` entry.
+Assets are versioned directly in their folders, such as `models`, `animations`, `sprites`
+and `maps`. Config imports use `scripts/_unpack`; authored config sections add to or override
+sections of the same name. Update filenames, headers and references when renaming a `.pack`
+entry. See [647 source formats](rs-pack/README.md#647-source-formats) for editing and repacking.
 
 Startup checks the original config and archive CRCs. Use `--verify false` for deliberate
 client-content changes. The full group comparison runs offline against the committed

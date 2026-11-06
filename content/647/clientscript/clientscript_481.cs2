@@ -1,0 +1,95 @@
+name=""
+local_int_count=0
+local_string_count=0
+local_long_count=0
+int_param_count=0
+string_param_count=0
+long_param_count=0
+
+L0: push_constant_int 3255
+L1: push_constant_int 66519183
+L2: if_setgraphic 0
+L3: push_constant_int 3255
+L4: push_constant_int 66519185
+L5: if_setgraphic 0
+L6: push_constant_int 3255
+L7: push_constant_int 66519187
+L8: if_setgraphic 0
+L9: push_constant_int 3255
+L10: push_constant_int 66519189
+L11: if_setgraphic 0
+L12: push_constant_int 3255
+L13: push_constant_int 66519191
+L14: if_setgraphic 0
+L15: push_constant_int 3255
+L16: push_constant_int 66519193
+L17: if_setgraphic 0
+L18: push_constant_int 3255
+L19: push_constant_int 66519195
+L20: if_setgraphic 0
+L21: push_constant_int 3255
+L22: push_constant_int 66519197
+L23: if_setgraphic 0
+L24: push_constant_int 3255
+L25: push_constant_int 66519199
+L26: if_setgraphic 0
+L27: push_constant_int 3255
+L28: push_constant_int 66519201
+L29: if_setgraphic 0
+L30: push_varbit varbit_7512
+L31: switch switch0
+L32: return 0
+L33: branch L73
+L34: push_constant_int 3257
+L35: push_constant_int 66519183
+L36: if_setgraphic 0
+L37: branch L73
+L38: push_constant_int 3257
+L39: push_constant_int 66519185
+L40: if_setgraphic 0
+L41: branch L73
+L42: push_constant_int 3257
+L43: push_constant_int 66519187
+L44: if_setgraphic 0
+L45: branch L73
+L46: push_constant_int 3257
+L47: push_constant_int 66519189
+L48: if_setgraphic 0
+L49: branch L73
+L50: push_constant_int 3257
+L51: push_constant_int 66519191
+L52: if_setgraphic 0
+L53: branch L73
+L54: push_constant_int 3257
+L55: push_constant_int 66519193
+L56: if_setgraphic 0
+L57: branch L73
+L58: push_constant_int 3257
+L59: push_constant_int 66519195
+L60: if_setgraphic 0
+L61: branch L73
+L62: push_constant_int 3257
+L63: push_constant_int 66519197
+L64: if_setgraphic 0
+L65: branch L73
+L66: push_constant_int 3257
+L67: push_constant_int 66519199
+L68: if_setgraphic 0
+L69: branch L73
+L70: push_constant_int 3257
+L71: push_constant_int 66519201
+L72: if_setgraphic 0
+L73: return 0
+L74:
+
+[switch0@L31]
+1=L34
+2=L38
+3=L42
+4=L46
+5=L50
+6=L54
+7=L58
+8=L62
+9=L66
+10=L70

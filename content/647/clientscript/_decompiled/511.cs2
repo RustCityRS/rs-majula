@@ -1,8 +1,0 @@
-[clientscript,script_511]
-if (%varc_int51 > 170) {
-    %varc_int51 = sub(%varc_int51, 1);
-    if_setmodelangle;
-} else {
-    if_setmodel;
-}
-return;

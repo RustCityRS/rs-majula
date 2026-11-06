@@ -1,6 +1,0 @@
-[clientscript,script_4235](int)
-if (%varc_int1494 > 100) {
-    %varc_int1494 = 100;
-}
-if_setsize(16384, 2, 2, 31522831);
-return(scale(%varc_int1494, 100, 16384));

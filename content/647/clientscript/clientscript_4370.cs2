@@ -1,0 +1,26 @@
+name=""
+local_int_count=3
+local_string_count=0
+local_long_count=0
+int_param_count=3
+string_param_count=0
+long_param_count=0
+
+L0: push_int_local 0
+L1: if_gettext 0
+L2: pop_varc_string_old varc_string_346
+L3: push_varc_int varc_int_1498
+L4: push_varc_string_old varc_string_346
+L5: push_constant_int 5631
+L6: push_int_local 0
+L7: push_constant_int -1
+L8: gosub_with_params clientscript_1552
+L9: pop_varc_int varc_int_1498
+L10: push_varc_int varc_int_1498
+L11: push_constant_int 5
+L12: push_constant_int 0
+L13: push_constant_int 0
+L14: push_int_local 1
+L15: if_setposition 0
+L16: return 0
+L17:

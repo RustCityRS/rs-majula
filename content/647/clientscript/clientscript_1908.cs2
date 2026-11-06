@@ -1,0 +1,711 @@
+name=""
+local_int_count=1
+local_string_count=1
+local_long_count=0
+int_param_count=0
+string_param_count=0
+long_param_count=0
+
+L0: push_constant_int 12
+L1: pop_int_local 0
+L2: push_constant_string ""
+L3: pop_string_local 0
+L4: push_constant_int 16
+L5: push_varc_int varc_int_564
+L6: push_constant_int 100
+L7: multiply 0
+L8: push_int_local 0
+L9: div 0
+L10: push_constant_int 16384
+L11: multiply 0
+L12: push_constant_int 100
+L13: div 0
+L14: push_constant_int 0
+L15: push_constant_int 2
+L16: push_constant_int 52822154
+L17: if_setsize 0
+L18: push_constant_int 16
+L19: push_varc_int varc_int_565
+L20: push_constant_int 100
+L21: multiply 0
+L22: push_int_local 0
+L23: div 0
+L24: push_constant_int 16384
+L25: multiply 0
+L26: push_constant_int 100
+L27: div 0
+L28: push_constant_int 0
+L29: push_constant_int 2
+L30: push_constant_int 52822155
+L31: if_setsize 0
+L32: push_constant_int 16
+L33: push_varc_int varc_int_566
+L34: push_constant_int 100
+L35: multiply 0
+L36: push_int_local 0
+L37: div 0
+L38: push_constant_int 16384
+L39: multiply 0
+L40: push_constant_int 100
+L41: div 0
+L42: push_constant_int 0
+L43: push_constant_int 2
+L44: push_constant_int 52822156
+L45: if_setsize 0
+L46: push_constant_int 16
+L47: push_varc_int varc_int_567
+L48: push_constant_int 100
+L49: multiply 0
+L50: push_int_local 0
+L51: div 0
+L52: push_constant_int 16384
+L53: multiply 0
+L54: push_constant_int 100
+L55: div 0
+L56: push_constant_int 0
+L57: push_constant_int 2
+L58: push_constant_int 52822160
+L59: if_setsize 0
+L60: push_constant_int 16
+L61: push_varc_int varc_int_568
+L62: push_constant_int 100
+L63: multiply 0
+L64: push_int_local 0
+L65: div 0
+L66: push_constant_int 16384
+L67: multiply 0
+L68: push_constant_int 100
+L69: div 0
+L70: push_constant_int 0
+L71: push_constant_int 2
+L72: push_constant_int 52822164
+L73: if_setsize 0
+L74: push_constant_int 16
+L75: push_varc_int varc_int_569
+L76: push_constant_int 100
+L77: multiply 0
+L78: push_int_local 0
+L79: div 0
+L80: push_constant_int 16384
+L81: multiply 0
+L82: push_constant_int 100
+L83: div 0
+L84: push_constant_int 0
+L85: push_constant_int 2
+L86: push_constant_int 52822098
+L87: if_setsize 0
+L88: push_constant_int 16
+L89: push_varc_int varc_int_570
+L90: push_constant_int 100
+L91: multiply 0
+L92: push_int_local 0
+L93: div 0
+L94: push_constant_int 16384
+L95: multiply 0
+L96: push_constant_int 100
+L97: div 0
+L98: push_constant_int 0
+L99: push_constant_int 2
+L100: push_constant_int 52822102
+L101: if_setsize 0
+L102: push_constant_int 16
+L103: push_varc_int varc_int_571
+L104: push_constant_int 100
+L105: multiply 0
+L106: push_int_local 0
+L107: div 0
+L108: push_constant_int 16384
+L109: multiply 0
+L110: push_constant_int 100
+L111: div 0
+L112: push_constant_int 0
+L113: push_constant_int 2
+L114: push_constant_int 52822106
+L115: if_setsize 0
+L116: push_constant_int 16
+L117: push_varc_int varc_int_572
+L118: push_constant_int 100
+L119: multiply 0
+L120: push_int_local 0
+L121: div 0
+L122: push_constant_int 16384
+L123: multiply 0
+L124: push_constant_int 100
+L125: div 0
+L126: push_constant_int 0
+L127: push_constant_int 2
+L128: push_constant_int 52822110
+L129: if_setsize 0
+L130: push_constant_int 16
+L131: push_varc_int varc_int_573
+L132: push_constant_int 100
+L133: multiply 0
+L134: push_int_local 0
+L135: div 0
+L136: push_constant_int 16384
+L137: multiply 0
+L138: push_constant_int 100
+L139: div 0
+L140: push_constant_int 0
+L141: push_constant_int 2
+L142: push_constant_int 52822077
+L143: if_setsize 0
+L144: push_constant_int 16
+L145: push_varc_int varc_int_574
+L146: push_constant_int 100
+L147: multiply 0
+L148: push_int_local 0
+L149: div 0
+L150: push_constant_int 16384
+L151: multiply 0
+L152: push_constant_int 100
+L153: div 0
+L154: push_constant_int 0
+L155: push_constant_int 2
+L156: push_constant_int 52822081
+L157: if_setsize 0
+L158: push_constant_int 16
+L159: push_varc_int varc_int_575
+L160: push_constant_int 100
+L161: multiply 0
+L162: push_int_local 0
+L163: div 0
+L164: push_constant_int 16384
+L165: multiply 0
+L166: push_constant_int 100
+L167: div 0
+L168: push_constant_int 0
+L169: push_constant_int 2
+L170: push_constant_int 52822085
+L171: if_setsize 0
+L172: push_constant_int 16
+L173: push_varc_int varc_int_576
+L174: push_constant_int 100
+L175: multiply 0
+L176: push_int_local 0
+L177: div 0
+L178: push_constant_int 16384
+L179: multiply 0
+L180: push_constant_int 100
+L181: div 0
+L182: push_constant_int 0
+L183: push_constant_int 2
+L184: push_constant_int 52822089
+L185: if_setsize 0
+L186: push_constant_int 16
+L187: push_varc_int varc_int_577
+L188: push_constant_int 100
+L189: multiply 0
+L190: push_int_local 0
+L191: div 0
+L192: push_constant_int 16384
+L193: multiply 0
+L194: push_constant_int 100
+L195: div 0
+L196: push_constant_int 0
+L197: push_constant_int 2
+L198: push_constant_int 52822119
+L199: if_setsize 0
+L200: push_constant_int 16
+L201: push_varc_int varc_int_578
+L202: push_constant_int 100
+L203: multiply 0
+L204: push_int_local 0
+L205: div 0
+L206: push_constant_int 16384
+L207: multiply 0
+L208: push_constant_int 100
+L209: div 0
+L210: push_constant_int 0
+L211: push_constant_int 2
+L212: push_constant_int 52822123
+L213: if_setsize 0
+L214: push_constant_int 16
+L215: push_varc_int varc_int_579
+L216: push_constant_int 100
+L217: multiply 0
+L218: push_int_local 0
+L219: div 0
+L220: push_constant_int 16384
+L221: multiply 0
+L222: push_constant_int 100
+L223: div 0
+L224: push_constant_int 0
+L225: push_constant_int 2
+L226: push_constant_int 52822127
+L227: if_setsize 0
+L228: push_constant_int 16
+L229: push_varc_int varc_int_580
+L230: push_constant_int 100
+L231: multiply 0
+L232: push_int_local 0
+L233: div 0
+L234: push_constant_int 16384
+L235: multiply 0
+L236: push_constant_int 100
+L237: div 0
+L238: push_constant_int 0
+L239: push_constant_int 2
+L240: push_constant_int 52822131
+L241: if_setsize 0
+L242: push_varc_int varc_int_564
+L243: branch_if_false L245
+L244: branch L248
+L245: push_constant_string "There are no class 1 clay locations in the area."
+L246: pop_string_local 0
+L247: branch L260
+L248: push_varc_int varc_int_564
+L249: branch_if_true L251
+L250: branch L254
+L251: push_constant_string "There is 1 class 1 clay location in the area."
+L252: pop_string_local 0
+L253: branch L260
+L254: push_constant_string "There are "
+L255: push_varc_int varc_int_564
+L256: tostring 0
+L257: push_constant_string " class 1 clay locations in the area."
+L258: join_string 3
+L259: pop_string_local 0
+L260: push_constant_int 38
+L261: push_constant_int -2147483645
+L262: push_constant_int 52822065
+L263: push_string_local 0
+L264: push_constant_int 25
+L265: push_constant_int 100
+L266: push_constant_string "IIsii"
+L267: push_constant_int 52822154
+L268: if_setonmouserepeat 0
+L269: push_varc_int varc_int_565
+L270: branch_if_false L272
+L271: branch L275
+L272: push_constant_string "There are no class 2 fishing locations in the area."
+L273: pop_string_local 0
+L274: branch L287
+L275: push_varc_int varc_int_565
+L276: branch_if_true L278
+L277: branch L281
+L278: push_constant_string "There is 1 class 2 fishing location in the area."
+L279: pop_string_local 0
+L280: branch L287
+L281: push_constant_string "There are "
+L282: push_varc_int varc_int_565
+L283: tostring 0
+L284: push_constant_string " class 2 fishing locations in the area."
+L285: join_string 3
+L286: pop_string_local 0
+L287: push_constant_int 38
+L288: push_constant_int -2147483645
+L289: push_constant_int 52822065
+L290: push_string_local 0
+L291: push_constant_int 25
+L292: push_constant_int 100
+L293: push_constant_string "IIsii"
+L294: push_constant_int 52822155
+L295: if_setonmouserepeat 0
+L296: push_varc_int varc_int_566
+L297: branch_if_false L299
+L298: branch L302
+L299: push_constant_string "There are no class 3 fishing locations in the area."
+L300: pop_string_local 0
+L301: branch L314
+L302: push_varc_int varc_int_566
+L303: branch_if_true L305
+L304: branch L308
+L305: push_constant_string "There is 1 class 3 fishing location in the area."
+L306: pop_string_local 0
+L307: branch L314
+L308: push_constant_string "There are "
+L309: push_varc_int varc_int_566
+L310: tostring 0
+L311: push_constant_string " class 3 fishing locations in the area."
+L312: join_string 3
+L313: pop_string_local 0
+L314: push_constant_int 38
+L315: push_constant_int -2147483645
+L316: push_constant_int 52822065
+L317: push_string_local 0
+L318: push_constant_int 25
+L319: push_constant_int 100
+L320: push_constant_string "IIsii"
+L321: push_constant_int 52822156
+L322: if_setonmouserepeat 0
+L323: push_varc_int varc_int_567
+L324: branch_if_false L326
+L325: branch L329
+L326: push_constant_string "There are no class 4 fishing locations in the area."
+L327: pop_string_local 0
+L328: branch L341
+L329: push_varc_int varc_int_567
+L330: branch_if_true L332
+L331: branch L335
+L332: push_constant_string "There is 1 class 4 fishing location in the area."
+L333: pop_string_local 0
+L334: branch L341
+L335: push_constant_string "There are "
+L336: push_varc_int varc_int_567
+L337: tostring 0
+L338: push_constant_string " class 4 fishing locations in the area."
+L339: join_string 3
+L340: pop_string_local 0
+L341: push_constant_int 38
+L342: push_constant_int -2147483645
+L343: push_constant_int 52822065
+L344: push_string_local 0
+L345: push_constant_int 25
+L346: push_constant_int 100
+L347: push_constant_string "IIsii"
+L348: push_constant_int 52822160
+L349: if_setonmouserepeat 0
+L350: push_varc_int varc_int_568
+L351: branch_if_false L353
+L352: branch L356
+L353: push_constant_string "There are no class 5 fishing locations in the area."
+L354: pop_string_local 0
+L355: branch L368
+L356: push_varc_int varc_int_568
+L357: branch_if_true L359
+L358: branch L362
+L359: push_constant_string "There is 1 class 5 fishing location in the area."
+L360: pop_string_local 0
+L361: branch L368
+L362: push_constant_string "There are "
+L363: push_varc_int varc_int_568
+L364: tostring 0
+L365: push_constant_string " class 5 fishing locations in the area."
+L366: join_string 3
+L367: pop_string_local 0
+L368: push_constant_int 38
+L369: push_constant_int -2147483645
+L370: push_constant_int 52822065
+L371: push_string_local 0
+L372: push_constant_int 25
+L373: push_constant_int 100
+L374: push_constant_string "IIsii"
+L375: push_constant_int 52822164
+L376: if_setonmouserepeat 0
+L377: push_varc_int varc_int_569
+L378: branch_if_false L380
+L379: branch L383
+L380: push_constant_string "There are no class 2 mining locations in the area."
+L381: pop_string_local 0
+L382: branch L395
+L383: push_varc_int varc_int_569
+L384: branch_if_true L386
+L385: branch L389
+L386: push_constant_string "There is 1 class 2 mining location in the area."
+L387: pop_string_local 0
+L388: branch L395
+L389: push_constant_string "There are "
+L390: push_varc_int varc_int_569
+L391: tostring 0
+L392: push_constant_string " class 2 mining locations in the area."
+L393: join_string 3
+L394: pop_string_local 0
+L395: push_constant_int 38
+L396: push_constant_int -2147483645
+L397: push_constant_int 52822065
+L398: push_string_local 0
+L399: push_constant_int 25
+L400: push_constant_int 100
+L401: push_constant_string "IIsii"
+L402: push_constant_int 52822098
+L403: if_setonmouserepeat 0
+L404: push_varc_int varc_int_570
+L405: branch_if_false L407
+L406: branch L410
+L407: push_constant_string "There are no class 3 mining locations in the area."
+L408: pop_string_local 0
+L409: branch L422
+L410: push_varc_int varc_int_570
+L411: branch_if_true L413
+L412: branch L416
+L413: push_constant_string "There is 1 class 3 mining location in the area."
+L414: pop_string_local 0
+L415: branch L422
+L416: push_constant_string "There are "
+L417: push_varc_int varc_int_570
+L418: tostring 0
+L419: push_constant_string " class 3 mining locations in the area."
+L420: join_string 3
+L421: pop_string_local 0
+L422: push_constant_int 38
+L423: push_constant_int -2147483645
+L424: push_constant_int 52822065
+L425: push_string_local 0
+L426: push_constant_int 25
+L427: push_constant_int 100
+L428: push_constant_string "IIsii"
+L429: push_constant_int 52822102
+L430: if_setonmouserepeat 0
+L431: push_varc_int varc_int_571
+L432: branch_if_false L434
+L433: branch L437
+L434: push_constant_string "There are no class 4 mining locations in the area."
+L435: pop_string_local 0
+L436: branch L449
+L437: push_varc_int varc_int_571
+L438: branch_if_true L440
+L439: branch L443
+L440: push_constant_string "There is 1 class 4 mining location in the area."
+L441: pop_string_local 0
+L442: branch L449
+L443: push_constant_string "There are "
+L444: push_varc_int varc_int_571
+L445: tostring 0
+L446: push_constant_string " class 4 mining locations in the area."
+L447: join_string 3
+L448: pop_string_local 0
+L449: push_constant_int 38
+L450: push_constant_int -2147483645
+L451: push_constant_int 52822065
+L452: push_string_local 0
+L453: push_constant_int 25
+L454: push_constant_int 100
+L455: push_constant_string "IIsii"
+L456: push_constant_int 52822106
+L457: if_setonmouserepeat 0
+L458: push_varc_int varc_int_572
+L459: branch_if_false L461
+L460: branch L464
+L461: push_constant_string "There are no class 5 mining locations in the area."
+L462: pop_string_local 0
+L463: branch L476
+L464: push_varc_int varc_int_572
+L465: branch_if_true L467
+L466: branch L470
+L467: push_constant_string "There is 1 class 5 mining location in the area."
+L468: pop_string_local 0
+L469: branch L476
+L470: push_constant_string "There are "
+L471: push_varc_int varc_int_572
+L472: tostring 0
+L473: push_constant_string " class 5 mining locations in the area."
+L474: join_string 3
+L475: pop_string_local 0
+L476: push_constant_int 38
+L477: push_constant_int -2147483645
+L478: push_constant_int 52822065
+L479: push_string_local 0
+L480: push_constant_int 25
+L481: push_constant_int 100
+L482: push_constant_string "IIsii"
+L483: push_constant_int 52822110
+L484: if_setonmouserepeat 0
+L485: push_varc_int varc_int_573
+L486: branch_if_false L488
+L487: branch L491
+L488: push_constant_string "There are no class 2 woodcutting locations in the area."
+L489: pop_string_local 0
+L490: branch L503
+L491: push_varc_int varc_int_573
+L492: branch_if_true L494
+L493: branch L497
+L494: push_constant_string "There is 1 class 2 woodcutting location in the area."
+L495: pop_string_local 0
+L496: branch L503
+L497: push_constant_string "There are "
+L498: push_varc_int varc_int_573
+L499: tostring 0
+L500: push_constant_string " class 2 woodcutting locations in the area."
+L501: join_string 3
+L502: pop_string_local 0
+L503: push_constant_int 38
+L504: push_constant_int -2147483645
+L505: push_constant_int 52822065
+L506: push_string_local 0
+L507: push_constant_int 25
+L508: push_constant_int 100
+L509: push_constant_string "IIsii"
+L510: push_constant_int 52822077
+L511: if_setonmouserepeat 0
+L512: push_varc_int varc_int_574
+L513: branch_if_false L515
+L514: branch L518
+L515: push_constant_string "There are no class 3 woodcutting locations in the area."
+L516: pop_string_local 0
+L517: branch L530
+L518: push_varc_int varc_int_574
+L519: branch_if_true L521
+L520: branch L524
+L521: push_constant_string "There is 1 class 3 woodcutting location in the area."
+L522: pop_string_local 0
+L523: branch L530
+L524: push_constant_string "There are "
+L525: push_varc_int varc_int_574
+L526: tostring 0
+L527: push_constant_string " class 3 woodcutting locations in the area."
+L528: join_string 3
+L529: pop_string_local 0
+L530: push_constant_int 38
+L531: push_constant_int -2147483645
+L532: push_constant_int 52822065
+L533: push_string_local 0
+L534: push_constant_int 25
+L535: push_constant_int 100
+L536: push_constant_string "IIsii"
+L537: push_constant_int 52822081
+L538: if_setonmouserepeat 0
+L539: push_varc_int varc_int_575
+L540: branch_if_false L542
+L541: branch L545
+L542: push_constant_string "There are no class 4 woodcutting locations in the area."
+L543: pop_string_local 0
+L544: branch L557
+L545: push_varc_int varc_int_575
+L546: branch_if_true L548
+L547: branch L551
+L548: push_constant_string "There is 1 class 4 woodcutting location in the area."
+L549: pop_string_local 0
+L550: branch L557
+L551: push_constant_string "There are "
+L552: push_varc_int varc_int_575
+L553: tostring 0
+L554: push_constant_string " class 4 woodcutting locations in the area."
+L555: join_string 3
+L556: pop_string_local 0
+L557: push_constant_int 38
+L558: push_constant_int -2147483645
+L559: push_constant_int 52822065
+L560: push_string_local 0
+L561: push_constant_int 25
+L562: push_constant_int 100
+L563: push_constant_string "IIsii"
+L564: push_constant_int 52822085
+L565: if_setonmouserepeat 0
+L566: push_varc_int varc_int_576
+L567: branch_if_false L569
+L568: branch L572
+L569: push_constant_string "There are no class 5 woodcutting locations in the area."
+L570: pop_string_local 0
+L571: branch L584
+L572: push_varc_int varc_int_576
+L573: branch_if_true L575
+L574: branch L578
+L575: push_constant_string "There is 1 class 5 woodcutting location in the area."
+L576: pop_string_local 0
+L577: branch L584
+L578: push_constant_string "There are "
+L579: push_varc_int varc_int_576
+L580: tostring 0
+L581: push_constant_string " class 5 woodcutting locations in the area."
+L582: join_string 3
+L583: pop_string_local 0
+L584: push_constant_int 38
+L585: push_constant_int -2147483645
+L586: push_constant_int 52822065
+L587: push_string_local 0
+L588: push_constant_int 25
+L589: push_constant_int 100
+L590: push_constant_string "IIsii"
+L591: push_constant_int 52822089
+L592: if_setonmouserepeat 0
+L593: push_varc_int varc_int_577
+L594: branch_if_false L596
+L595: branch L599
+L596: push_constant_string "There are no class 2 hunting locations in the area."
+L597: pop_string_local 0
+L598: branch L611
+L599: push_varc_int varc_int_577
+L600: branch_if_true L602
+L601: branch L605
+L602: push_constant_string "There is 1 class 2 hunting location in the area."
+L603: pop_string_local 0
+L604: branch L611
+L605: push_constant_string "There are "
+L606: push_varc_int varc_int_577
+L607: tostring 0
+L608: push_constant_string " class 2 hunting locations in the area."
+L609: join_string 3
+L610: pop_string_local 0
+L611: push_constant_int 38
+L612: push_constant_int -2147483645
+L613: push_constant_int 52822065
+L614: push_string_local 0
+L615: push_constant_int 25
+L616: push_constant_int 100
+L617: push_constant_string "IIsii"
+L618: push_constant_int 52822119
+L619: if_setonmouserepeat 0
+L620: push_varc_int varc_int_578
+L621: branch_if_false L623
+L622: branch L626
+L623: push_constant_string "There are no class 3 hunting locations in the area."
+L624: pop_string_local 0
+L625: branch L638
+L626: push_varc_int varc_int_578
+L627: branch_if_true L629
+L628: branch L632
+L629: push_constant_string "There is 1 class 3 hunting location in the area."
+L630: pop_string_local 0
+L631: branch L638
+L632: push_constant_string "There are "
+L633: push_varc_int varc_int_578
+L634: tostring 0
+L635: push_constant_string " class 3 hunting locations in the area."
+L636: join_string 3
+L637: pop_string_local 0
+L638: push_constant_int 38
+L639: push_constant_int -2147483645
+L640: push_constant_int 52822065
+L641: push_string_local 0
+L642: push_constant_int 25
+L643: push_constant_int 100
+L644: push_constant_string "IIsii"
+L645: push_constant_int 52822123
+L646: if_setonmouserepeat 0
+L647: push_varc_int varc_int_579
+L648: branch_if_false L650
+L649: branch L653
+L650: push_constant_string "There are no class 4 hunting locations in the area."
+L651: pop_string_local 0
+L652: branch L665
+L653: push_varc_int varc_int_579
+L654: branch_if_true L656
+L655: branch L659
+L656: push_constant_string "There is 1 class 4 hunting location in the area."
+L657: pop_string_local 0
+L658: branch L665
+L659: push_constant_string "There are "
+L660: push_varc_int varc_int_579
+L661: tostring 0
+L662: push_constant_string " class 4 hunting locations in the area."
+L663: join_string 3
+L664: pop_string_local 0
+L665: push_constant_int 38
+L666: push_constant_int -2147483645
+L667: push_constant_int 52822065
+L668: push_string_local 0
+L669: push_constant_int 25
+L670: push_constant_int 100
+L671: push_constant_string "IIsii"
+L672: push_constant_int 52822127
+L673: if_setonmouserepeat 0
+L674: push_varc_int varc_int_580
+L675: branch_if_false L677
+L676: branch L680
+L677: push_constant_string "There are no class 5 hunting locations in the area."
+L678: pop_string_local 0
+L679: branch L692
+L680: push_varc_int varc_int_580
+L681: branch_if_true L683
+L682: branch L686
+L683: push_constant_string "There is 1 class 5 hunting location in the area."
+L684: pop_string_local 0
+L685: branch L692
+L686: push_constant_string "There are "
+L687: push_varc_int varc_int_580
+L688: tostring 0
+L689: push_constant_string " class 5 hunting locations in the area."
+L690: join_string 3
+L691: pop_string_local 0
+L692: push_constant_int 38
+L693: push_constant_int -2147483645
+L694: push_constant_int 52822065
+L695: push_string_local 0
+L696: push_constant_int 25
+L697: push_constant_int 100
+L698: push_constant_string "IIsii"
+L699: push_constant_int 52822131
+L700: if_setonmouserepeat 0
+L701: return 0
+L702:

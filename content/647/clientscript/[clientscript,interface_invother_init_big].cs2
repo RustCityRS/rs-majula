@@ -1,0 +1,47 @@
+name=""
+local_int_count=6
+local_string_count=9
+local_long_count=0
+int_param_count=6
+string_param_count=9
+long_param_count=0
+
+L0: push_int_local 0
+L1: push_int_local 1
+L2: push_int_local 2
+L3: push_int_local 3
+L4: push_int_local 4
+L5: push_int_local 5
+L6: push_string_local 0
+L7: push_string_local 1
+L8: push_string_local 2
+L9: push_string_local 3
+L10: push_string_local 4
+L11: push_string_local 5
+L12: push_string_local 6
+L13: push_string_local 7
+L14: push_string_local 8
+L15: gosub_with_params [proc,interface_invother_update_big]
+L16: push_constant_int 159
+L17: push_int_local 0
+L18: push_int_local 1
+L19: push_int_local 2
+L20: push_int_local 3
+L21: push_int_local 4
+L22: push_int_local 5
+L23: push_string_local 0
+L24: push_string_local 1
+L25: push_string_local 2
+L26: push_string_local 3
+L27: push_string_local 4
+L28: push_string_local 5
+L29: push_string_local 6
+L30: push_string_local 7
+L31: push_string_local 8
+L32: push_int_local 1
+L33: push_constant_int 1
+L34: push_constant_string "IviiiIsssssssssY"
+L35: push_int_local 0
+L36: if_setoninvtransmit 0
+L37: return 0
+L38:

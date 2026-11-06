@@ -1,0 +1,28 @@
+name=""
+local_int_count=3
+local_string_count=0
+local_long_count=0
+int_param_count=3
+string_param_count=0
+long_param_count=0
+
+L0: push_constant_int 105
+L1: push_constant_int 73
+L2: push_constant_int 1550
+L3: push_int_local 0
+L4: push_constant_int 1
+L5: add 0
+L6: enum 0
+L7: if_gethide 0
+L8: branch_if_true L10
+L9: branch L11
+L10: return 0
+L11: push_int_local 1
+L12: push_int_local 2
+L13: cc_find 0
+L14: branch_if_true L16
+L15: branch L18
+L16: push_constant_int 1
+L17: cc_sethide 0
+L18: return 0
+L19:

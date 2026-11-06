@@ -1,0 +1,285 @@
+name=""
+local_int_count=1
+local_string_count=0
+local_long_count=0
+int_param_count=1
+string_param_count=0
+long_param_count=0
+
+L0: push_constant_int 1
+L1: push_constant_int 20185103
+L2: if_sethide 0
+L3: push_constant_int 1
+L4: push_constant_int 20185102
+L5: if_sethide 0
+L6: push_constant_int 1134
+L7: push_constant_int 20185123
+L8: if_setgraphic 0
+L9: push_constant_int 1
+L10: push_constant_int 20185101
+L11: if_sethide 0
+L12: push_constant_int 1
+L13: push_constant_int 20185100
+L14: if_sethide 0
+L15: push_constant_int 1134
+L16: push_constant_int 20185122
+L17: if_setgraphic 0
+L18: push_constant_int 1
+L19: push_constant_int 20185099
+L20: if_sethide 0
+L21: push_constant_int 1
+L22: push_constant_int 20185098
+L23: if_sethide 0
+L24: push_constant_int 1134
+L25: push_constant_int 20185121
+L26: if_setgraphic 0
+L27: push_constant_int 1
+L28: push_constant_int 20185097
+L29: if_sethide 0
+L30: push_constant_int 1
+L31: push_constant_int 20185096
+L32: if_sethide 0
+L33: push_constant_int 1134
+L34: push_constant_int 20185127
+L35: if_setgraphic 0
+L36: push_constant_int 1
+L37: push_constant_int 20185095
+L38: if_sethide 0
+L39: push_constant_int 1
+L40: push_constant_int 20185094
+L41: if_sethide 0
+L42: push_constant_int 1134
+L43: push_constant_int 20185125
+L44: if_setgraphic 0
+L45: push_constant_int 1
+L46: push_constant_int 20185093
+L47: if_sethide 0
+L48: push_constant_int 1
+L49: push_constant_int 20185092
+L50: if_sethide 0
+L51: push_constant_int 1134
+L52: push_constant_int 20185124
+L53: if_setgraphic 0
+L54: push_constant_int 1
+L55: push_constant_int 20185091
+L56: if_sethide 0
+L57: push_constant_int 1
+L58: push_constant_int 20185090
+L59: if_sethide 0
+L60: push_constant_int 1134
+L61: push_constant_int 20185126
+L62: if_setgraphic 0
+L63: player_isfemale 0
+L64: branch_if_true L66
+L65: branch L118
+L66: push_int_local 0
+L67: switch switch0
+L68: branch L117
+L69: push_constant_int 0
+L70: push_constant_int 20185103
+L71: if_sethide 0
+L72: push_constant_int 1135
+L73: push_constant_int 20185123
+L74: if_setgraphic 0
+L75: branch L117
+L76: push_constant_int 0
+L77: push_constant_int 20185101
+L78: if_sethide 0
+L79: push_constant_int 1135
+L80: push_constant_int 20185122
+L81: if_setgraphic 0
+L82: branch L117
+L83: push_constant_int 0
+L84: push_constant_int 20185099
+L85: if_sethide 0
+L86: push_constant_int 1135
+L87: push_constant_int 20185121
+L88: if_setgraphic 0
+L89: branch L117
+L90: push_constant_int 0
+L91: push_constant_int 20185097
+L92: if_sethide 0
+L93: push_constant_int 1135
+L94: push_constant_int 20185127
+L95: if_setgraphic 0
+L96: branch L117
+L97: push_constant_int 0
+L98: push_constant_int 20185095
+L99: if_sethide 0
+L100: push_constant_int 1135
+L101: push_constant_int 20185125
+L102: if_setgraphic 0
+L103: branch L117
+L104: push_constant_int 0
+L105: push_constant_int 20185093
+L106: if_sethide 0
+L107: push_constant_int 1135
+L108: push_constant_int 20185124
+L109: if_setgraphic 0
+L110: branch L117
+L111: push_constant_int 0
+L112: push_constant_int 20185091
+L113: if_sethide 0
+L114: push_constant_int 1135
+L115: push_constant_int 20185126
+L116: if_setgraphic 0
+L117: branch L169
+L118: push_int_local 0
+L119: switch switch1
+L120: branch L169
+L121: push_constant_int 0
+L122: push_constant_int 20185102
+L123: if_sethide 0
+L124: push_constant_int 1135
+L125: push_constant_int 20185123
+L126: if_setgraphic 0
+L127: branch L169
+L128: push_constant_int 0
+L129: push_constant_int 20185100
+L130: if_sethide 0
+L131: push_constant_int 1135
+L132: push_constant_int 20185122
+L133: if_setgraphic 0
+L134: branch L169
+L135: push_constant_int 0
+L136: push_constant_int 20185098
+L137: if_sethide 0
+L138: push_constant_int 1135
+L139: push_constant_int 20185121
+L140: if_setgraphic 0
+L141: branch L169
+L142: push_constant_int 0
+L143: push_constant_int 20185096
+L144: if_sethide 0
+L145: push_constant_int 1135
+L146: push_constant_int 20185127
+L147: if_setgraphic 0
+L148: branch L169
+L149: push_constant_int 0
+L150: push_constant_int 20185094
+L151: if_sethide 0
+L152: push_constant_int 1135
+L153: push_constant_int 20185125
+L154: if_setgraphic 0
+L155: branch L169
+L156: push_constant_int 0
+L157: push_constant_int 20185092
+L158: if_sethide 0
+L159: push_constant_int 1135
+L160: push_constant_int 20185124
+L161: if_setgraphic 0
+L162: branch L169
+L163: push_constant_int 0
+L164: push_constant_int 20185090
+L165: if_sethide 0
+L166: push_constant_int 1135
+L167: push_constant_int 20185126
+L168: if_setgraphic 0
+L169: player_isfemale 0
+L170: branch_if_true L172
+L171: branch L215
+L172: push_constant_int 0
+L173: push_constant_int 20185108
+L174: if_sethide 0
+L175: push_constant_int 0
+L176: push_constant_int 20185110
+L177: if_sethide 0
+L178: push_constant_int 0
+L179: push_constant_int 20185112
+L180: if_sethide 0
+L181: push_constant_int 0
+L182: push_constant_int 20185114
+L183: if_sethide 0
+L184: push_constant_int 0
+L185: push_constant_int 20185116
+L186: if_sethide 0
+L187: push_constant_int 0
+L188: push_constant_int 20185118
+L189: if_sethide 0
+L190: push_constant_int 0
+L191: push_constant_int 20185120
+L192: if_sethide 0
+L193: push_constant_int 1
+L194: push_constant_int 20185107
+L195: if_sethide 0
+L196: push_constant_int 1
+L197: push_constant_int 20185109
+L198: if_sethide 0
+L199: push_constant_int 1
+L200: push_constant_int 20185111
+L201: if_sethide 0
+L202: push_constant_int 1
+L203: push_constant_int 20185113
+L204: if_sethide 0
+L205: push_constant_int 1
+L206: push_constant_int 20185115
+L207: if_sethide 0
+L208: push_constant_int 1
+L209: push_constant_int 20185117
+L210: if_sethide 0
+L211: push_constant_int 1
+L212: push_constant_int 20185119
+L213: if_sethide 0
+L214: branch L257
+L215: push_constant_int 1
+L216: push_constant_int 20185108
+L217: if_sethide 0
+L218: push_constant_int 1
+L219: push_constant_int 20185110
+L220: if_sethide 0
+L221: push_constant_int 1
+L222: push_constant_int 20185112
+L223: if_sethide 0
+L224: push_constant_int 1
+L225: push_constant_int 20185114
+L226: if_sethide 0
+L227: push_constant_int 1
+L228: push_constant_int 20185116
+L229: if_sethide 0
+L230: push_constant_int 1
+L231: push_constant_int 20185118
+L232: if_sethide 0
+L233: push_constant_int 1
+L234: push_constant_int 20185120
+L235: if_sethide 0
+L236: push_constant_int 0
+L237: push_constant_int 20185107
+L238: if_sethide 0
+L239: push_constant_int 0
+L240: push_constant_int 20185109
+L241: if_sethide 0
+L242: push_constant_int 0
+L243: push_constant_int 20185111
+L244: if_sethide 0
+L245: push_constant_int 0
+L246: push_constant_int 20185113
+L247: if_sethide 0
+L248: push_constant_int 0
+L249: push_constant_int 20185115
+L250: if_sethide 0
+L251: push_constant_int 0
+L252: push_constant_int 20185117
+L253: if_sethide 0
+L254: push_constant_int 0
+L255: push_constant_int 20185119
+L256: if_sethide 0
+L257: return 0
+L258:
+
+[switch0@L67]
+0=L69
+1=L76
+2=L83
+3=L90
+4=L97
+5=L104
+6=L111
+
+[switch1@L119]
+0=L121
+1=L128
+2=L135
+3=L142
+4=L149
+5=L156
+6=L163

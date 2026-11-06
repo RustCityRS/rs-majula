@@ -1,9 +1,0 @@
-[clientscript,script_4229](int $int0, string $str0)
-if (inv_total(inv, ogre_bow) > 0) {
-    if (%varp294 >= $int0) {
-        cc_settext($str0 + "<br>" + "Kills: " + tostring($int0));
-        return;
-    }
-}
-cc_settext($str0 + "<br>" + "<col=ff0000>" + "Kills: " + tostring($int0));
-return;

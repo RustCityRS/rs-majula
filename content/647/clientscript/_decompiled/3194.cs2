@@ -1,9 +1,0 @@
-[clientscript,script_3194]
-if_closeoverlay(59375677);
-if_sethide(59375660);
-if_setonkey;
-%varc_int1094 = 0;
-if (if_gethide = 0) {
-    ~script_3161(1);
-}
-return;

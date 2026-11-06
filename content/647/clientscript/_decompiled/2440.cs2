@@ -1,8 +1,0 @@
-[clientscript,script_2440]
-def_int $int0 = div(%varc_int819, 2);
-if ($int0 < 1) {
-    if_settext("Catch: Nothing");
-} else {
-    if_settext("Catch: " + tostring($int0) + " Fish");
-}
-return;

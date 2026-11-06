@@ -1,0 +1,104 @@
+name=""
+local_int_count=5
+local_string_count=0
+local_long_count=0
+int_param_count=3
+string_param_count=0
+long_param_count=0
+
+L0: push_constant_int 0
+L1: push_constant_int 0
+L2: push_constant_int 10289177
+L3: if_setscrollpos 0
+L4: push_constant_int 10289176
+L5: cc_deleteall_152 0
+L6: push_constant_int 0
+L7: push_constant_int 10289169
+L8: if_sethide 0
+L9: push_constant_int 0
+L10: push_constant_int 10289187
+L11: if_sethide 0
+L12: push_constant_int 1028
+L13: push_constant_string ""
+L14: push_constant_int 10289182
+L15: if_setonclick 0
+L16: push_constant_string "Shortcut keys"
+L17: push_constant_int 10289182
+L18: if_settext 0
+L19: push_constant_int 10289175
+L20: cc_deleteall_152 0
+L21: push_constant_int 10289177
+L22: cc_deleteall_152 0
+L23: push_constant_int 105
+L24: push_constant_int 115
+L25: push_int_local 0
+L26: push_int_local 1
+L27: enum 0
+L28: gosub_with_params [proc,quickchat_tutorial_displaydata]
+L29: push_constant_string "Page "
+L30: push_int_local 1
+L31: push_constant_int 1
+L32: add 0
+L33: tostring 0
+L34: push_constant_string " of "
+L35: push_int_local 2
+L36: tostring 0
+L37: join_string 4
+L38: push_constant_int 10289172
+L39: if_settext 0
+L40: push_int_local 1
+L41: push_constant_int 1
+L42: add 0
+L43: pop_int_local 3
+L44: push_int_local 1
+L45: push_constant_int 1
+L46: sub 0
+L47: pop_int_local 4
+L48: push_int_local 1
+L49: push_int_local 2
+L50: push_constant_int 1
+L51: sub 0
+L52: branch_not L54
+L53: branch L65
+L54: push_constant_int 784
+L55: push_int_local 0
+L56: push_int_local 3
+L57: push_int_local 2
+L58: push_constant_string "gii"
+L59: push_constant_int 10289173
+L60: if_setonclick 0
+L61: push_constant_int 0
+L62: push_constant_int 10289173
+L63: if_settrans 0
+L64: branch L72
+L65: push_constant_int -1
+L66: push_constant_string ""
+L67: push_constant_int 10289173
+L68: if_setonclick 0
+L69: push_constant_int 200
+L70: push_constant_int 10289173
+L71: if_settrans 0
+L72: push_int_local 1
+L73: push_constant_int 0
+L74: branch_not L76
+L75: branch L87
+L76: push_constant_int 784
+L77: push_int_local 0
+L78: push_int_local 4
+L79: push_int_local 2
+L80: push_constant_string "gii"
+L81: push_constant_int 10289174
+L82: if_setonclick 0
+L83: push_constant_int 0
+L84: push_constant_int 10289174
+L85: if_settrans 0
+L86: branch L94
+L87: push_constant_int -1
+L88: push_constant_string ""
+L89: push_constant_int 10289174
+L90: if_setonclick 0
+L91: push_constant_int 200
+L92: push_constant_int 10289174
+L93: if_settrans 0
+L94: return 0
+L95:

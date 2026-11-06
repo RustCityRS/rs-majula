@@ -1,8 +1,0 @@
-[clientscript,script_1517](int $int0, int $int1)
-if (cc_find($int0, $int1) = 1) {
-    if (%varc_int779 ! -1) {
-        cc_setmodelanim(bas_getidle(%varc_int779));
-    }
-    cc_setmodelanim(bas_getidle(1426));
-}
-return;

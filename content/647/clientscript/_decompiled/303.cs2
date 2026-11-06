@@ -1,8 +1,0 @@
-[clientscript,script_303](int $int0, int $int1)
-sound_synth(synth_2266, 1, 0);
-if ($int1 = 0) {
-    worldmap_setcoord($int0);
-} else {
-    worldmap_setcoord($int0);
-}
-return;

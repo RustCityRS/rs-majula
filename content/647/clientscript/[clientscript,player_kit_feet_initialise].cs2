@@ -1,0 +1,51 @@
+name=""
+local_int_count=0
+local_string_count=0
+local_long_count=0
+int_param_count=0
+string_param_count=0
+long_param_count=0
+
+L0: push_constant_int 47710209
+L1: cc_deleteall_152 0
+L2: push_constant_int 47710209
+L3: push_constant_int 22
+L4: gosub_with_params clientscript_1088
+L5: push_constant_int 47710214
+L6: cc_deleteall_152 0
+L7: push_constant_int 47710214
+L8: push_constant_int 4734771
+L9: push_constant_int 3156258
+L10: push_constant_int 0
+L11: push_constant_int 0
+L12: gosub_with_params [proc,verticalgradient]
+L13: push_constant_int 47710214
+L14: gosub_with_params clientscript_2647
+L15: push_constant_int 47710217
+L16: cc_deleteall_152 0
+L17: push_constant_int 47710217
+L18: push_constant_int 4734771
+L19: push_constant_int 3156258
+L20: push_constant_int 0
+L21: push_constant_int 0
+L22: gosub_with_params [proc,verticalgradient]
+L23: push_constant_int 47710217
+L24: push_constant_int 380
+L25: push_constant_int 100
+L26: gosub_with_params [proc,player_kit_player_create]
+L27: push_constant_int 47710217
+L28: gosub_with_params clientscript_2647
+L29: push_constant_int 47710219
+L30: cc_deleteall_152 0
+L31: push_constant_int 47710219
+L32: gosub_with_params clientscript_2647
+L33: gosub_with_params [proc,player_kit_feet_redraw]
+L34: push_constant_int 1505
+L35: push_constant_int 1014
+L36: push_constant_int 1018
+L37: push_constant_int 2
+L38: push_constant_string "Y"
+L39: push_constant_int 47710209
+L40: if_setonvarctransmit 0
+L41: return 0
+L42:

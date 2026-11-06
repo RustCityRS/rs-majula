@@ -1,0 +1,98 @@
+name=""
+local_int_count=2
+local_string_count=0
+local_long_count=0
+int_param_count=1
+string_param_count=0
+long_param_count=0
+
+L0: push_constant_int 0
+L1: pop_int_local 1
+L2: push_constant_int 2228233
+L3: push_int_local 1
+L4: cc_find 0
+L5: branch_if_true L7
+L6: branch L15
+L7: push_constant_int 1
+L8: push_constant_string "Select"
+L9: cc_setop 0
+L10: push_int_local 1
+L11: push_constant_int 1
+L12: add 0
+L13: pop_int_local 1
+L14: branch L2
+L15: push_constant_int 2228233
+L16: push_var varp_1439
+L17: cc_find 0
+L18: branch_if_true L20
+L19: branch L85
+L20: push_constant_int 1
+L21: push_constant_string "Unselect"
+L22: cc_setop 0
+L23: push_constant_int 2228234
+L24: if_gethide 0
+L25: branch_if_false L27
+L26: branch L31
+L27: push_constant_int 1
+L28: push_constant_int 2228238
+L29: if_sethide 0
+L30: return 0
+L31: push_constant_int 0
+L32: push_constant_int 2228238
+L33: if_sethide 0
+L34: cc_getx 0
+L35: cc_gety 0
+L36: push_constant_int 0
+L37: push_constant_int 0
+L38: push_constant_int 2228238
+L39: if_setposition 0
+L40: cc_getwidth 0
+L41: cc_getheight 0
+L42: push_constant_int 0
+L43: push_constant_int 0
+L44: push_constant_int 2228238
+L45: if_setsize 0
+L46: push_int_local 0
+L47: branch_if_true L49
+L48: branch L84
+L49: cc_gety 0
+L50: push_constant_int 2228233
+L51: if_getscrolly 0
+L52: branch_less_than L54
+L53: branch L62
+L54: push_constant_int 2228239
+L55: push_constant_int 2228233
+L56: cc_gety 0
+L57: push_constant_int 5
+L58: sub 0
+L59: push_constant_int 1
+L60: gosub_with_params [proc,scrollbar_ondrag_doscroll]
+L61: branch L84
+L62: cc_gety 0
+L63: cc_getheight 0
+L64: add 0
+L65: push_constant_int 2228233
+L66: if_getscrolly 0
+L67: push_constant_int 2228233
+L68: if_getheight 0
+L69: add 0
+L70: branch_greater_than L72
+L71: branch L84
+L72: push_constant_int 2228239
+L73: push_constant_int 2228233
+L74: cc_gety 0
+L75: push_constant_int 2228233
+L76: if_getheight 0
+L77: sub 0
+L78: cc_getheight 0
+L79: add 0
+L80: push_constant_int 5
+L81: add 0
+L82: push_constant_int 1
+L83: gosub_with_params [proc,scrollbar_ondrag_doscroll]
+L84: branch L88
+L85: push_constant_int 1
+L86: push_constant_int 2228238
+L87: if_sethide 0
+L88: return 0
+L89:

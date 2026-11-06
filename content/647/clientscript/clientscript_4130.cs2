@@ -1,0 +1,170 @@
+name=""
+local_int_count=2
+local_string_count=0
+local_long_count=0
+int_param_count=1
+string_param_count=0
+long_param_count=0
+
+L0: push_constant_int 0
+L1: pop_int_local 1
+L2: push_varc_int varc_int_1452
+L3: switch switch0
+L4: branch L153
+L5: push_int_local 0
+L6: push_constant_int 3
+L7: push_int_local 1
+L8: cc_setposition 0
+L9: push_constant_int 1
+L10: cc_setfill 0
+L11: push_constant_int 15658666
+L12: cc_setcolour 0
+L13: push_constant_int 30
+L14: push_constant_int 0
+L15: push_constant_int 0
+L16: push_constant_int 1
+L17: cc_setsize 0
+L18: push_constant_int 0
+L19: push_constant_int 0
+L20: push_constant_int 0
+L21: push_constant_int 0
+L22: cc_setposition2 0
+L23: push_constant_int 1
+L24: cc_sethide 0
+L25: push_int_local 1
+L26: push_constant_int 1
+L27: add 0
+L28: pop_int_local 1
+L29: push_int_local 0
+L30: push_constant_int 5
+L31: push_int_local 1
+L32: cc_setposition 0
+L33: push_constant_int 3181
+L34: cc_setgraphic 0
+L35: push_constant_int 30
+L36: push_constant_int 0
+L37: push_constant_int 0
+L38: push_constant_int 1
+L39: cc_setsize 0
+L40: push_constant_int 0
+L41: push_constant_int 0
+L42: push_constant_int 0
+L43: push_constant_int 0
+L44: cc_setposition2 0
+L45: push_constant_int 1
+L46: cc_sethide 0
+L47: push_int_local 1
+L48: push_constant_int 1
+L49: add 0
+L50: pop_int_local 1
+L51: push_int_local 0
+L52: push_constant_int 3
+L53: push_int_local 1
+L54: cc_setposition 0
+L55: push_constant_int 1
+L56: cc_setfill 0
+L57: push_constant_int 15658666
+L58: cc_setcolour 0
+L59: push_constant_int 30
+L60: push_constant_int 0
+L61: push_constant_int 0
+L62: push_constant_int 1
+L63: cc_setsize 0
+L64: push_constant_int 0
+L65: push_constant_int 0
+L66: push_constant_int 2
+L67: push_constant_int 2
+L68: cc_setposition2 0
+L69: push_constant_int 1
+L70: cc_sethide 0
+L71: push_int_local 1
+L72: push_constant_int 1
+L73: add 0
+L74: pop_int_local 1
+L75: push_int_local 0
+L76: push_constant_int 5
+L77: push_int_local 1
+L78: cc_setposition 0
+L79: push_constant_int 3182
+L80: cc_setgraphic 0
+L81: push_constant_int 30
+L82: push_constant_int 0
+L83: push_constant_int 0
+L84: push_constant_int 1
+L85: cc_setsize 0
+L86: push_constant_int 0
+L87: push_constant_int 0
+L88: push_constant_int 2
+L89: push_constant_int 2
+L90: cc_setposition2 0
+L91: push_constant_int 1
+L92: cc_sethide 0
+L93: push_int_local 1
+L94: push_constant_int 1
+L95: add 0
+L96: pop_int_local 1
+L97: push_constant_int 0
+L98: push_constant_int 50
+L99: push_int_local 0
+L100: push_int_local 1
+L101: gosub_with_params clientscript_665
+L102: branch L153
+L103: push_int_local 1
+L104: push_constant_int 4
+L105: branch_less_than L107
+L106: branch L119
+L107: push_int_local 0
+L108: push_int_local 1
+L109: cc_find 0
+L110: branch_if_true L112
+L111: branch L114
+L112: push_constant_int 0
+L113: cc_sethide 0
+L114: push_int_local 1
+L115: push_constant_int 1
+L116: add 0
+L117: pop_int_local 1
+L118: branch L103
+L119: push_constant_int 50
+L120: push_int_local 0
+L121: push_int_local 1
+L122: gosub_with_params clientscript_667
+L123: branch L153
+L124: push_constant_int 0
+L125: push_constant_int 50
+L126: push_int_local 0
+L127: push_constant_int 4
+L128: gosub_with_params clientscript_665
+L129: branch L153
+L130: push_int_local 1
+L131: push_constant_int 4
+L132: branch_less_than L134
+L133: branch L146
+L134: push_int_local 0
+L135: push_int_local 1
+L136: cc_find 0
+L137: branch_if_true L139
+L138: branch L141
+L139: push_constant_int 1
+L140: cc_sethide 0
+L141: push_int_local 1
+L142: push_constant_int 1
+L143: add 0
+L144: pop_int_local 1
+L145: branch L130
+L146: push_constant_int 50
+L147: push_int_local 0
+L148: push_int_local 1
+L149: gosub_with_params clientscript_667
+L150: branch L153
+L151: push_int_local 0
+L152: cc_deleteall_152 0
+L153: return 0
+L154:
+
+[switch0@L3]
+1=L5
+2=L103
+3=L124
+4=L130
+5=L151

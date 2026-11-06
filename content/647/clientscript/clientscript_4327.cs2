@@ -1,0 +1,28 @@
+name=""
+local_int_count=2
+local_string_count=0
+local_long_count=0
+int_param_count=2
+string_param_count=0
+long_param_count=0
+
+L0: push_int_local 1
+L1: push_int_local 0
+L2: cc_find 0
+L3: branch_if_true L5
+L4: branch L18
+L5: push_int_local 1
+L6: push_constant_int 71368704
+L7: branch_equals L9
+L8: branch L16
+L9: push_var varp_2149
+L10: push_int_local 0
+L11: branch_equals L13
+L12: branch L16
+L13: push_constant_int 6039
+L14: cc_setgraphic 0
+L15: branch L18
+L16: push_constant_int 6036
+L17: cc_setgraphic 0
+L18: return 0
+L19:

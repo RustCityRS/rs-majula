@@ -1,8 +1,0 @@
-[clientscript,script_1951]
-if (%varc_int616 = 1) {
-    if_sethide(48824321);
-} else {
-    %varc_int616 = 0;
-    if_sethide(48824321);
-}
-return;

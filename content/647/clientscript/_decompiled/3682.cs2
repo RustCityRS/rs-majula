@@ -1,8 +1,0 @@
-[clientscript,script_3682]
-if (string_length(%varc_str196) = 0) {
-    if (%varc_int5 ! 14) {
-        if_setgraphic(12255249);
-    }
-} else {
-}
-return;

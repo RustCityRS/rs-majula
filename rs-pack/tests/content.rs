@@ -33,7 +33,6 @@ fn a_registry_rename_stops_packing() {
     let output = content.join("output");
     fs::create_dir_all(&pack).unwrap();
     fs::create_dir_all(content.join("scripts/_unpack")).unwrap();
-    fs::create_dir_all(content.join("maps/_unpack")).unwrap();
     fs::create_dir_all(output.join("server")).unwrap();
     fs::write(pack.join("seq.pack"), "893=human_shearing\n").unwrap();
     fs::write(pack.join("npc.pack"), "1=guard\n").unwrap();
@@ -48,7 +47,6 @@ fn a_registry_rename_stops_packing() {
     )
     .unwrap();
     fs::write(content.join("scripts/_unpack/all.loc"), "").unwrap();
-    fs::write(content.join("maps/_unpack/manifest.json"), "{}").unwrap();
     fs::write(output.join("server/seq.dat"), b"previous output").unwrap();
 
     for verify in [false, true] {

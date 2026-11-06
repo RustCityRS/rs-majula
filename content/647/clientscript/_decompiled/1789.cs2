@@ -1,4 +1,0 @@
-[clientscript,script_1789](int $int0, int $int1, int $int2)(int)
-def_int $int3 = sub(clientclock, $int1);
-%varc_int265 = max(calc($int2 - $int3 / 30), 0);
-return(~script_1790($int0));

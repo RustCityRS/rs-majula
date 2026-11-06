@@ -1,0 +1,1478 @@
+name=""
+local_int_count=2
+local_string_count=0
+local_long_count=0
+int_param_count=2
+string_param_count=0
+long_param_count=0
+
+L0: push_int_local 0
+L1: switch switch0
+L2: branch L1311
+L3: push_int_local 1
+L4: switch switch1
+L5: branch L82
+L6: push_constant_int 1
+L7: push_constant_int 1942
+L8: push_constant_string "Potato"
+L9: push_constant_string "You can now plant "
+L10: push_constant_string "<col=000080>"
+L11: push_constant_string "potatoes"
+L12: push_constant_string "</col>"
+L13: push_constant_string "."
+L14: join_string 5
+L15: return 0
+L16: branch L82
+L17: push_constant_int 5
+L18: push_constant_int 1957
+L19: push_constant_string "Onion"
+L20: push_constant_string "You can now plant "
+L21: push_constant_string "<col=000080>"
+L22: push_constant_string "onions"
+L23: push_constant_string "</col>"
+L24: push_constant_string "."
+L25: join_string 5
+L26: return 0
+L27: branch L82
+L28: push_constant_int 7
+L29: push_constant_int 1965
+L30: push_constant_string "Cabbage"
+L31: push_constant_string "You can now plant "
+L32: push_constant_string "<col=000080>"
+L33: push_constant_string "cabbages"
+L34: push_constant_string "</col>"
+L35: push_constant_string "."
+L36: join_string 5
+L37: return 0
+L38: branch L82
+L39: push_constant_int 12
+L40: push_constant_int 1982
+L41: push_constant_string "Tomato"
+L42: push_constant_string "You can now plant "
+L43: push_constant_string "<col=000080>"
+L44: push_constant_string "tomatoes"
+L45: push_constant_string "</col>"
+L46: push_constant_string "."
+L47: join_string 5
+L48: return 0
+L49: branch L82
+L50: push_constant_int 20
+L51: push_constant_int 5986
+L52: push_constant_string "Sweetcorn"
+L53: push_constant_string "You can now plant "
+L54: push_constant_string "<col=000080>"
+L55: push_constant_string "sweetcorn"
+L56: push_constant_string "</col>"
+L57: push_constant_string "."
+L58: join_string 5
+L59: return 0
+L60: branch L82
+L61: push_constant_int 31
+L62: push_constant_int 5504
+L63: push_constant_string "Strawberry"
+L64: push_constant_string "You can now plant "
+L65: push_constant_string "<col=000080>"
+L66: push_constant_string "strawberries"
+L67: push_constant_string "</col>"
+L68: push_constant_string "."
+L69: join_string 5
+L70: return 0
+L71: branch L82
+L72: push_constant_int 47
+L73: push_constant_int 5982
+L74: push_constant_string "Watermelon"
+L75: push_constant_string "You can now plant "
+L76: push_constant_string "<col=000080>"
+L77: push_constant_string "watermelons"
+L78: push_constant_string "</col>"
+L79: push_constant_string "."
+L80: join_string 5
+L81: return 0
+L82: branch L1311
+L83: push_int_local 1
+L84: switch switch2
+L85: branch L162
+L86: push_constant_int 3
+L87: push_constant_int 6006
+L88: push_constant_string "Barley"
+L89: push_constant_string "You can now plant "
+L90: push_constant_string "<col=000080>"
+L91: push_constant_string "barley"
+L92: push_constant_string "</col>"
+L93: push_constant_string "."
+L94: join_string 5
+L95: return 0
+L96: branch L162
+L97: push_constant_int 4
+L98: push_constant_int 5994
+L99: push_constant_string "Hammerstone hop"
+L100: push_constant_string "You can now plant "
+L101: push_constant_string "<col=000080>"
+L102: push_constant_string "hammerstone hops"
+L103: push_constant_string "</col>"
+L104: push_constant_string "."
+L105: join_string 5
+L106: return 0
+L107: branch L162
+L108: push_constant_int 8
+L109: push_constant_int 5996
+L110: push_constant_string "Asgarnian hop"
+L111: push_constant_string "You can now plant "
+L112: push_constant_string "<col=000080>"
+L113: push_constant_string "Asgarnian hops"
+L114: push_constant_string "</col>"
+L115: push_constant_string "."
+L116: join_string 5
+L117: return 0
+L118: branch L162
+L119: push_constant_int 13
+L120: push_constant_int 5931
+L121: push_constant_string "Jute plant"
+L122: push_constant_string "You can now plant "
+L123: push_constant_string "<col=000080>"
+L124: push_constant_string "jute plants"
+L125: push_constant_string "</col>"
+L126: push_constant_string "."
+L127: join_string 5
+L128: return 0
+L129: branch L162
+L130: push_constant_int 16
+L131: push_constant_int 5998
+L132: push_constant_string "Yanillian hop"
+L133: push_constant_string "You can now plant "
+L134: push_constant_string "<col=000080>"
+L135: push_constant_string "Yanillian hops"
+L136: push_constant_string "</col>"
+L137: push_constant_string "."
+L138: join_string 5
+L139: return 0
+L140: branch L162
+L141: push_constant_int 21
+L142: push_constant_int 6000
+L143: push_constant_string "Krandorian hop"
+L144: push_constant_string "You can now plant "
+L145: push_constant_string "<col=000080>"
+L146: push_constant_string "Krandorian hops"
+L147: push_constant_string "</col>"
+L148: push_constant_string "."
+L149: join_string 5
+L150: return 0
+L151: branch L162
+L152: push_constant_int 28
+L153: push_constant_int 6002
+L154: push_constant_string "Wildblood hop"
+L155: push_constant_string "You can now plant "
+L156: push_constant_string "<col=000080>"
+L157: push_constant_string "wildblood hops"
+L158: push_constant_string "</col>"
+L159: push_constant_string "."
+L160: join_string 5
+L161: return 0
+L162: branch L1311
+L163: push_int_local 1
+L164: switch switch3
+L165: branch L220
+L166: push_constant_int 15
+L167: push_constant_int 1521
+L168: push_constant_string "Oak tree"
+L169: push_constant_string "You can now plant "
+L170: push_constant_string "<col=000080>"
+L171: push_constant_string "oak trees"
+L172: push_constant_string "</col>"
+L173: push_constant_string "."
+L174: join_string 5
+L175: return 0
+L176: branch L220
+L177: push_constant_int 30
+L178: push_constant_int 1519
+L179: push_constant_string "Willow tree"
+L180: push_constant_string "You can now plant "
+L181: push_constant_string "<col=000080>"
+L182: push_constant_string "willow trees"
+L183: push_constant_string "</col>"
+L184: push_constant_string "."
+L185: join_string 5
+L186: return 0
+L187: branch L220
+L188: push_constant_int 45
+L189: push_constant_int 1517
+L190: push_constant_string "Maple tree"
+L191: push_constant_string "You can now plant "
+L192: push_constant_string "<col=000080>"
+L193: push_constant_string "maple trees"
+L194: push_constant_string "</col>"
+L195: push_constant_string "."
+L196: join_string 5
+L197: return 0
+L198: branch L220
+L199: push_constant_int 60
+L200: push_constant_int 1515
+L201: push_constant_string "Yew tree"
+L202: push_constant_string "You can now plant "
+L203: push_constant_string "<col=000080>"
+L204: push_constant_string "yew trees"
+L205: push_constant_string "</col>"
+L206: push_constant_string "."
+L207: join_string 5
+L208: return 0
+L209: branch L220
+L210: push_constant_int 75
+L211: push_constant_int 1513
+L212: push_constant_string "Magic tree"
+L213: push_constant_string "You can now plant "
+L214: push_constant_string "<col=000080>"
+L215: push_constant_string "magic trees"
+L216: push_constant_string "</col>"
+L217: push_constant_string "."
+L218: join_string 5
+L219: return 0
+L220: branch L1311
+L221: push_int_local 1
+L222: switch switch4
+L223: branch L300
+L224: push_constant_int 27
+L225: push_constant_int 1955
+L226: push_constant_string "Apple tree"
+L227: push_constant_string "You can now plant "
+L228: push_constant_string "<col=000080>"
+L229: push_constant_string "apple trees"
+L230: push_constant_string "</col>"
+L231: push_constant_string "."
+L232: join_string 5
+L233: return 0
+L234: branch L300
+L235: push_constant_int 33
+L236: push_constant_int 1963
+L237: push_constant_string "Banana tree"
+L238: push_constant_string "You can now plant "
+L239: push_constant_string "<col=000080>"
+L240: push_constant_string "banana trees"
+L241: push_constant_string "</col>"
+L242: push_constant_string "."
+L243: join_string 5
+L244: return 0
+L245: branch L300
+L246: push_constant_int 39
+L247: push_constant_int 2108
+L248: push_constant_string "Orange tree"
+L249: push_constant_string "You can now plant "
+L250: push_constant_string "<col=000080>"
+L251: push_constant_string "orange trees"
+L252: push_constant_string "</col>"
+L253: push_constant_string "."
+L254: join_string 5
+L255: return 0
+L256: branch L300
+L257: push_constant_int 42
+L258: push_constant_int 5970
+L259: push_constant_string "Curry tree"
+L260: push_constant_string "You can now plant "
+L261: push_constant_string "<col=000080>"
+L262: push_constant_string "curry trees"
+L263: push_constant_string "</col>"
+L264: push_constant_string "."
+L265: join_string 5
+L266: return 0
+L267: branch L300
+L268: push_constant_int 51
+L269: push_constant_int 2114
+L270: push_constant_string "Pineapple plant"
+L271: push_constant_string "You can now plant "
+L272: push_constant_string "<col=000080>"
+L273: push_constant_string "pineapple plants"
+L274: push_constant_string "</col>"
+L275: push_constant_string "."
+L276: join_string 5
+L277: return 0
+L278: branch L300
+L279: push_constant_int 57
+L280: push_constant_int 5972
+L281: push_constant_string "Papaya tree"
+L282: push_constant_string "You can now plant "
+L283: push_constant_string "<col=000080>"
+L284: push_constant_string "papaya trees"
+L285: push_constant_string "</col>"
+L286: push_constant_string "."
+L287: join_string 5
+L288: return 0
+L289: branch L300
+L290: push_constant_int 68
+L291: push_constant_int 5974
+L292: push_constant_string "Palm tree"
+L293: push_constant_string "You can now plant "
+L294: push_constant_string "<col=000080>"
+L295: push_constant_string "palm trees"
+L296: push_constant_string "</col>"
+L297: push_constant_string "."
+L298: join_string 5
+L299: return 0
+L300: branch L1311
+L301: push_int_local 1
+L302: switch switch5
+L303: branch L369
+L304: push_constant_int 10
+L305: push_constant_int 1951
+L306: push_constant_string "Redberry bush"
+L307: push_constant_string "You can now plant "
+L308: push_constant_string "<col=000080>"
+L309: push_constant_string "redberry bushes"
+L310: push_constant_string "</col>"
+L311: push_constant_string "."
+L312: join_string 5
+L313: return 0
+L314: branch L369
+L315: push_constant_int 22
+L316: push_constant_int 753
+L317: push_constant_string "Cadavaberry bush"
+L318: push_constant_string "You can now plant "
+L319: push_constant_string "<col=000080>"
+L320: push_constant_string "cadavaberry bushes"
+L321: push_constant_string "</col>"
+L322: push_constant_string "."
+L323: join_string 5
+L324: return 0
+L325: branch L369
+L326: push_constant_int 36
+L327: push_constant_int 2126
+L328: push_constant_string "Dwellberry bush"
+L329: push_constant_string "You can now plant "
+L330: push_constant_string "<col=000080>"
+L331: push_constant_string "dwellberry bushes"
+L332: push_constant_string "</col>"
+L333: push_constant_string "."
+L334: join_string 5
+L335: return 0
+L336: branch L369
+L337: push_constant_int 48
+L338: push_constant_int 247
+L339: push_constant_string "Jangerberry bush"
+L340: push_constant_string "You can now plant "
+L341: push_constant_string "<col=000080>"
+L342: push_constant_string "jangerberry bushes"
+L343: push_constant_string "</col>"
+L344: push_constant_string "."
+L345: join_string 5
+L346: return 0
+L347: branch L369
+L348: push_constant_int 59
+L349: push_constant_int 239
+L350: push_constant_string "White berry bush"
+L351: push_constant_string "You can now plant "
+L352: push_constant_string "<col=000080>"
+L353: push_constant_string "white berry bushes"
+L354: push_constant_string "</col>"
+L355: push_constant_string "."
+L356: join_string 5
+L357: return 0
+L358: branch L369
+L359: push_constant_int 70
+L360: push_constant_int 6018
+L361: push_constant_string "Poison ivy bush"
+L362: push_constant_string "You can now plant "
+L363: push_constant_string "<col=000080>"
+L364: push_constant_string "poison ivy bushes"
+L365: push_constant_string "</col>"
+L366: push_constant_string "."
+L367: join_string 5
+L368: return 0
+L369: branch L1311
+L370: push_int_local 1
+L371: switch switch6
+L372: branch L450
+L373: push_constant_int 2
+L374: push_constant_int 6010
+L375: push_constant_string "Marigold"
+L376: push_constant_string "<br>"
+L377: push_constant_string " Protects onions, tomatoes and potatoes from disease"
+L378: join_string 3
+L379: push_constant_string "You can now "
+L380: push_constant_string "<col=000080>"
+L381: push_constant_string "plant marigolds"
+L382: push_constant_string "</col>"
+L383: push_constant_string "."
+L384: join_string 5
+L385: return 0
+L386: branch L450
+L387: push_constant_int 11
+L388: push_constant_int 6014
+L389: push_constant_string "Rosemary"
+L390: push_constant_string "<br>"
+L391: push_constant_string " Protects cabbages from disease"
+L392: join_string 3
+L393: push_constant_string "You can now plant "
+L394: push_constant_string "<col=000080>"
+L395: push_constant_string "rosemary"
+L396: push_constant_string "</col>"
+L397: push_constant_string "."
+L398: join_string 5
+L399: return 0
+L400: branch L450
+L401: push_constant_int 24
+L402: push_constant_int 6012
+L403: push_constant_string "Nasturtium"
+L404: push_constant_string "<br>"
+L405: push_constant_string " Protects watermelons from disease"
+L406: join_string 3
+L407: push_constant_string "You can now plant "
+L408: push_constant_string "<col=000080>"
+L409: push_constant_string "nasturtiums"
+L410: push_constant_string "</col>"
+L411: push_constant_string "."
+L412: join_string 5
+L413: return 0
+L414: branch L450
+L415: push_constant_int 25
+L416: push_constant_int 5738
+L417: push_constant_string "Woad"
+L418: push_constant_string "You can now plant "
+L419: push_constant_string "<col=000080>"
+L420: push_constant_string "woad"
+L421: push_constant_string "</col>"
+L422: push_constant_string "."
+L423: join_string 5
+L424: return 0
+L425: branch L450
+L426: push_constant_int 26
+L427: push_constant_int 225
+L428: push_constant_string "Limpwurt"
+L429: push_constant_string "You can now plant "
+L430: push_constant_string "<col=000080>"
+L431: push_constant_string "limpwurt"
+L432: push_constant_string "</col>"
+L433: push_constant_string "."
+L434: join_string 5
+L435: return 0
+L436: branch L450
+L437: push_constant_int 52
+L438: push_constant_int 14583
+L439: push_constant_string "White lily"
+L440: push_constant_string "<br>"
+L441: push_constant_string " Protects all neighbouring fruit and vegetables from disease"
+L442: join_string 3
+L443: push_constant_string "You can now plant "
+L444: push_constant_string "<col=000080>"
+L445: push_constant_string "white lilies"
+L446: push_constant_string "</col>"
+L447: push_constant_string "."
+L448: join_string 5
+L449: return 0
+L450: branch L1311
+L451: push_int_local 1
+L452: switch switch7
+L453: branch L698
+L454: push_constant_int 9
+L455: push_constant_int 249
+L456: push_constant_string "Guam"
+L457: push_constant_string "You can now plant "
+L458: push_constant_string "<col=000080>"
+L459: push_constant_string "guam"
+L460: push_constant_string "</col>"
+L461: push_constant_string "."
+L462: join_string 5
+L463: return 0
+L464: branch L698
+L465: push_constant_int 14
+L466: push_constant_int 251
+L467: push_constant_string "Marrentill"
+L468: push_constant_string "You can now plant "
+L469: push_constant_string "<col=000080>"
+L470: push_constant_string "marrentill"
+L471: push_constant_string "</col>"
+L472: push_constant_string "."
+L473: join_string 5
+L474: return 0
+L475: branch L698
+L476: push_constant_int 19
+L477: push_constant_int 253
+L478: push_constant_string "Tarromin"
+L479: push_constant_string "You can now plant "
+L480: push_constant_string "<col=000080>"
+L481: push_constant_string "tarromin"
+L482: push_constant_string "</col>"
+L483: push_constant_string "."
+L484: join_string 5
+L485: return 0
+L486: branch L698
+L487: push_constant_int 26
+L488: push_constant_int 255
+L489: push_constant_string "Harralander"
+L490: push_constant_string "You can now plant "
+L491: push_constant_string "<col=000080>"
+L492: push_constant_string "harralander"
+L493: push_constant_string "</col>"
+L494: push_constant_string "."
+L495: join_string 5
+L496: return 0
+L497: branch L698
+L498: push_constant_int 29
+L499: push_constant_int 3261
+L500: push_constant_string "Goutweed"
+L501: push_constant_string "<br>"
+L502: push_constant_string " (after Eadgar's Ruse)"
+L503: join_string 3
+L504: push_constant_string "You now have the Farming level required to plant "
+L505: push_constant_string "<col=000080>"
+L506: push_constant_string "goutweed"
+L507: push_constant_string "</col>"
+L508: push_constant_string " (after Eadgar's Ruse)."
+L509: join_string 5
+L510: return 0
+L511: branch L698
+L512: push_constant_int 32
+L513: push_constant_int 257
+L514: push_constant_string "Ranarr"
+L515: push_constant_string "You can now plant "
+L516: push_constant_string "<col=000080>"
+L517: push_constant_string "ranarr"
+L518: push_constant_string "</col>"
+L519: push_constant_string "."
+L520: join_string 5
+L521: return 0
+L522: branch L698
+L523: push_constant_int 36
+L524: push_constant_int 12172
+L525: push_constant_string "Spirit weed"
+L526: push_constant_string "You can now plant "
+L527: push_constant_string "<col=000080>"
+L528: push_constant_string "spirit weed"
+L529: push_constant_string "</col>"
+L530: push_constant_string "."
+L531: join_string 5
+L532: return 0
+L533: branch L698
+L534: push_constant_int 38
+L535: push_constant_int 2998
+L536: push_constant_string "Toadflax"
+L537: push_constant_string "You can now plant "
+L538: push_constant_string "<col=000080>"
+L539: push_constant_string "toadflax"
+L540: push_constant_string "</col>"
+L541: push_constant_string "."
+L542: join_string 5
+L543: return 0
+L544: branch L698
+L545: push_constant_int 44
+L546: push_constant_int 259
+L547: push_constant_string "Irit"
+L548: push_constant_string "You can now plant "
+L549: push_constant_string "<col=000080>"
+L550: push_constant_string "irit"
+L551: push_constant_string "</col>"
+L552: push_constant_string "."
+L553: join_string 5
+L554: return 0
+L555: branch L698
+L556: push_constant_int 46
+L557: push_constant_int 14854
+L558: push_constant_string "Wergali"
+L559: push_constant_string "You can now plant "
+L560: push_constant_string "<col=000080>"
+L561: push_constant_string "wergali"
+L562: push_constant_string "</col>"
+L563: push_constant_string "."
+L564: join_string 5
+L565: return 0
+L566: branch L698
+L567: push_constant_int 50
+L568: push_constant_int 261
+L569: push_constant_string "Avantoe"
+L570: push_constant_string "You can now plant "
+L571: push_constant_string "<col=000080>"
+L572: push_constant_string "avantoe"
+L573: push_constant_string "</col>"
+L574: push_constant_string "."
+L575: join_string 5
+L576: return 0
+L577: branch L698
+L578: push_constant_int 56
+L579: push_constant_int 263
+L580: push_constant_string "Kwuarm"
+L581: push_constant_string "You can now plant "
+L582: push_constant_string "<col=000080>"
+L583: push_constant_string "kwuarm"
+L584: push_constant_string "</col>"
+L585: push_constant_string "."
+L586: join_string 5
+L587: return 0
+L588: branch L698
+L589: push_constant_int 58
+L590: push_constant_int 19989
+L591: push_constant_string "Erzille"
+L592: push_constant_string "You can now plant "
+L593: push_constant_string "<col=000080>"
+L594: push_constant_string "erzille"
+L595: push_constant_string "</col>"
+L596: push_constant_string " (in a vine herb patch)."
+L597: join_string 5
+L598: return 0
+L599: branch L698
+L600: push_constant_int 62
+L601: push_constant_int 3000
+L602: push_constant_string "Snapdragon"
+L603: push_constant_string "You can now plant "
+L604: push_constant_string "<col=000080>"
+L605: push_constant_string "snapdragon"
+L606: push_constant_string "</col>"
+L607: push_constant_string "."
+L608: join_string 5
+L609: return 0
+L610: branch L698
+L611: push_constant_int 65
+L612: push_constant_int 19990
+L613: push_constant_string "Argway"
+L614: push_constant_string "You can now plant "
+L615: push_constant_string "<col=000080>"
+L616: push_constant_string "argway"
+L617: push_constant_string "</col>"
+L618: push_constant_string " (in a vine herb patch)."
+L619: join_string 5
+L620: return 0
+L621: branch L698
+L622: push_constant_int 67
+L623: push_constant_int 265
+L624: push_constant_string "Cadantine"
+L625: push_constant_string "You can now plant "
+L626: push_constant_string "<col=000080>"
+L627: push_constant_string "cadantine"
+L628: push_constant_string "</col>"
+L629: push_constant_string "."
+L630: join_string 5
+L631: return 0
+L632: branch L698
+L633: push_constant_int 70
+L634: push_constant_int 19991
+L635: push_constant_string "Ugune"
+L636: push_constant_string "You can now plant "
+L637: push_constant_string "<col=000080>"
+L638: push_constant_string "ugune"
+L639: push_constant_string "</col>"
+L640: push_constant_string " (in a vine herb patch)."
+L641: join_string 5
+L642: return 0
+L643: branch L698
+L644: push_constant_int 73
+L645: push_constant_int 2481
+L646: push_constant_string "Lantadyme"
+L647: push_constant_string "You can now plant "
+L648: push_constant_string "<col=000080>"
+L649: push_constant_string "lantadyme"
+L650: push_constant_string "</col>"
+L651: push_constant_string "."
+L652: join_string 5
+L653: return 0
+L654: branch L698
+L655: push_constant_int 76
+L656: push_constant_int 19992
+L657: push_constant_string "Shengo"
+L658: push_constant_string "You can now plant "
+L659: push_constant_string "<col=000080>"
+L660: push_constant_string "shengo"
+L661: push_constant_string "</col>"
+L662: push_constant_string " (in a vine herb patch)."
+L663: join_string 5
+L664: return 0
+L665: branch L698
+L666: push_constant_int 79
+L667: push_constant_int 267
+L668: push_constant_string "Dwarf weed"
+L669: push_constant_string "You can now plant "
+L670: push_constant_string "<col=000080>"
+L671: push_constant_string "dwarf weed"
+L672: push_constant_string "</col>"
+L673: push_constant_string "."
+L674: join_string 5
+L675: return 0
+L676: branch L698
+L677: push_constant_int 80
+L678: push_constant_int 19993
+L679: push_constant_string "Samaden"
+L680: push_constant_string "You can now plant "
+L681: push_constant_string "<col=000080>"
+L682: push_constant_string "samaden"
+L683: push_constant_string "</col>"
+L684: push_constant_string " (in a vine herb patch)."
+L685: join_string 5
+L686: return 0
+L687: branch L698
+L688: push_constant_int 85
+L689: push_constant_int 269
+L690: push_constant_string "Torstol"
+L691: push_constant_string "You can now plant "
+L692: push_constant_string "<col=000080>"
+L693: push_constant_string "torstol"
+L694: push_constant_string "</col>"
+L695: push_constant_string "."
+L696: join_string 5
+L697: return 0
+L698: branch L1311
+L699: push_int_local 1
+L700: switch switch8
+L701: branch L817
+L702: push_constant_int 42
+L703: push_constant_int 12134
+L704: push_constant_string "Evil turnip"
+L705: push_constant_string "You can now plant "
+L706: push_constant_string "<col=000080>"
+L707: push_constant_string "evil turnips"
+L708: push_constant_string "</col>"
+L709: push_constant_string "."
+L710: join_string 5
+L711: return 0
+L712: branch L817
+L713: push_constant_int 53
+L714: push_constant_int 6004
+L715: push_constant_string "Bittercap mushroom"
+L716: push_constant_string "You can now plant "
+L717: push_constant_string "<col=000080>"
+L718: push_constant_string "bittercap mushrooms"
+L719: push_constant_string "</col>"
+L720: push_constant_string "."
+L721: join_string 5
+L722: return 0
+L723: branch L817
+L724: push_constant_int 53
+L725: push_constant_int 11779
+L726: push_constant_string "Jade vine"
+L727: push_constant_string "<br>"
+L728: push_constant_string " (after Back to My Roots)"
+L729: join_string 3
+L730: push_constant_string "You now have the Farming level required to plant "
+L731: push_constant_string "<col=000080>"
+L732: push_constant_string "jade vines"
+L733: push_constant_string "</col>"
+L734: push_constant_string " (after Back to my Roots)."
+L735: join_string 5
+L736: return 0
+L737: branch L817
+L738: push_constant_int 54
+L739: push_constant_int 19962
+L740: push_constant_string "Vine blossoms"
+L741: push_constant_string "You can now plant "
+L742: push_constant_string "<col=000080>"
+L743: push_constant_string "vine blossoms"
+L744: push_constant_string "</col>"
+L745: push_constant_string " (in a vine flower patch)."
+L746: join_string 5
+L747: return 0
+L748: branch L817
+L749: push_constant_int 55
+L750: push_constant_int 6016
+L751: push_constant_string "Cactus"
+L752: push_constant_string "You can now plant "
+L753: push_constant_string "<col=000080>"
+L754: push_constant_string "cacti"
+L755: push_constant_string "</col>"
+L756: push_constant_string "."
+L757: join_string 5
+L758: return 0
+L759: branch L817
+L760: push_constant_int 61
+L761: push_constant_int 19969
+L762: push_constant_string "Lergberry bush"
+L763: push_constant_string "You can now plant "
+L764: push_constant_string "<col=000080>"
+L765: push_constant_string "lergberry bushes"
+L766: push_constant_string "</col>"
+L767: push_constant_string " (in a vine bush patch)."
+L768: join_string 5
+L769: return 0
+L770: branch L817
+L771: push_constant_int 63
+L772: push_constant_int 2398
+L773: push_constant_string "Belladonna"
+L774: push_constant_string "You can now plant "
+L775: push_constant_string "<col=000080>"
+L776: push_constant_string "belladonna"
+L777: push_constant_string "</col>"
+L778: push_constant_string "."
+L779: join_string 5
+L780: return 0
+L781: branch L817
+L782: push_constant_int 72
+L783: push_constant_int 5980
+L784: push_constant_string "Calquat tree"
+L785: push_constant_string "You can now plant "
+L786: push_constant_string "<col=000080>"
+L787: push_constant_string "calquat trees"
+L788: push_constant_string "</col>"
+L789: push_constant_string "."
+L790: join_string 5
+L791: return 0
+L792: branch L817
+L793: push_constant_int 77
+L794: push_constant_int 19970
+L795: push_constant_string "Kalferberry bush"
+L796: push_constant_string "You can now plant "
+L797: push_constant_string "<col=000080>"
+L798: push_constant_string "kalferberry bushes"
+L799: push_constant_string "</col>"
+L800: push_constant_string " (in a vine bush patch)."
+L801: join_string 5
+L802: return 0
+L803: branch L817
+L804: push_constant_int 83
+L805: push_constant_int 6063
+L806: push_constant_string "Spirit tree"
+L807: push_constant_string "<br>"
+L808: push_constant_string " (only 1 planted at a time)"
+L809: join_string 3
+L810: push_constant_string "You can now plant "
+L811: push_constant_string "<col=000080>"
+L812: push_constant_string "spirit trees"
+L813: push_constant_string "</col>"
+L814: push_constant_string "."
+L815: join_string 5
+L816: return 0
+L817: branch L1311
+L818: push_int_local 1
+L819: switch switch9
+L820: branch L881
+L821: push_constant_int 23
+L822: push_constant_int 6059
+L823: push_constant_string "Able to make and place a scarecrow"
+L824: push_constant_string "You now have the ability to make and place a "
+L825: push_constant_string "<col=000080>"
+L826: push_constant_string "scarecrow"
+L827: push_constant_string "</col>"
+L828: push_constant_string "."
+L829: join_string 5
+L830: return 0
+L831: branch L881
+L832: push_constant_int -1
+L833: push_constant_int 7620
+L834: push_constant_string "Scarecrows help to stop sweetcorn from being attacked by birds, while also helping to prevent disease."
+L835: push_constant_string ""
+L836: return 0
+L837: branch L881
+L838: push_constant_int -1
+L839: push_constant_int 7620
+L840: push_constant_string "How to make a scarecrow:"
+L841: push_constant_string ""
+L842: return 0
+L843: branch L881
+L844: push_constant_int -1
+L845: push_constant_int 7620
+L846: push_constant_string "1. Fill an empty sack with straw from a haystack."
+L847: push_constant_string ""
+L848: return 0
+L849: branch L881
+L850: push_constant_int -1
+L851: push_constant_int 7620
+L852: push_constant_string "2. Drive the hay sack onto a bronze spear."
+L853: push_constant_string ""
+L854: return 0
+L855: branch L881
+L856: push_constant_int -1
+L857: push_constant_int 7620
+L858: push_constant_string "3. Place a watermelon at the very top as a head."
+L859: push_constant_string ""
+L860: return 0
+L861: branch L881
+L862: push_constant_int -1
+L863: push_constant_int 7620
+L864: push_constant_string "4. Stand the scarecrow in an empty flower patch."
+L865: push_constant_string ""
+L866: return 0
+L867: branch L881
+L868: push_constant_int 25
+L869: push_constant_int 18336
+L870: push_constant_string "Scroll of life"
+L871: push_constant_string "<br>"
+L872: push_constant_string " (with 25 Dungeoneering)"
+L873: join_string 3
+L874: push_constant_string "You can now use the "
+L875: push_constant_string "<col=000080>"
+L876: push_constant_string "scroll of life"
+L877: push_constant_string "</col>"
+L878: push_constant_string ". (You also need level 25 Dungeoneering.)"
+L879: join_string 5
+L880: return 0
+L881: branch L1311
+L882: push_int_local 1
+L883: switch switch10
+L884: branch L939
+L885: push_constant_int 60
+L886: push_constant_int 20704
+L887: push_constant_string "Members: access to the Livid Farm (with 70 Magic, 60 Agility, 60 Crafting, 50 Construction and Lunar Diplomacy)"
+L888: push_constant_string "Members can access the "
+L889: push_constant_string "<col=000080>"
+L890: push_constant_string "Livid Farm"
+L891: push_constant_string "</col>"
+L892: push_constant_string " (with 70 Magic, 60 Agility, 60 Crafting, 50 Construction and Lunar Diplomacy)."
+L893: join_string 5
+L894: return 0
+L895: branch L939
+L896: push_constant_int 91
+L897: push_constant_int 18778
+L898: push_constant_string "Starved ancient effigies"
+L899: push_constant_string "You can now investigate "
+L900: push_constant_string "<col=000080>"
+L901: push_constant_string "starved ancient effigies"
+L902: push_constant_string "</col>"
+L903: push_constant_string " using your knowledge of Farming."
+L904: join_string 5
+L905: return 0
+L906: branch L939
+L907: push_constant_int 93
+L908: push_constant_int 18779
+L909: push_constant_string "Nourished ancient effigies"
+L910: push_constant_string "You can now investigate "
+L911: push_constant_string "<col=000080>"
+L912: push_constant_string "nourished ancient effigies"
+L913: push_constant_string "</col>"
+L914: push_constant_string " using your knowledge of Farming."
+L915: join_string 5
+L916: return 0
+L917: branch L939
+L918: push_constant_int 95
+L919: push_constant_int 18780
+L920: push_constant_string "Sated ancient effigies"
+L921: push_constant_string "You can now investigate "
+L922: push_constant_string "<col=000080>"
+L923: push_constant_string "sated ancient effigies"
+L924: push_constant_string "</col>"
+L925: push_constant_string " using your knowledge of Farming."
+L926: join_string 5
+L927: return 0
+L928: branch L939
+L929: push_constant_int 97
+L930: push_constant_int 18781
+L931: push_constant_string "Gorged ancient effigies"
+L932: push_constant_string "You can now investigate "
+L933: push_constant_string "<col=000080>"
+L934: push_constant_string "gorged ancient effigies"
+L935: push_constant_string "</col>"
+L936: push_constant_string " using your knowledge of Farming."
+L937: join_string 5
+L938: return 0
+L939: branch L1311
+L940: push_int_local 1
+L941: switch switch11
+L942: branch L1030
+L943: push_constant_int 1
+L944: push_constant_int 12625
+L945: push_constant_string "Vinesweeper"
+L946: push_constant_string "You can now play "
+L947: push_constant_string "<col=000080>"
+L948: push_constant_string "Vinesweeper"
+L949: push_constant_string "</col>"
+L950: push_constant_string "."
+L951: join_string 5
+L952: return 0
+L953: branch L1030
+L954: push_constant_int 1
+L955: push_constant_int 14667
+L956: push_constant_string "Nurture basic evil tree saplings"
+L957: push_constant_string "You can now nurture "
+L958: push_constant_string "<col=000080>"
+L959: push_constant_string "basic evil tree saplings"
+L960: push_constant_string "</col>"
+L961: push_constant_string "."
+L962: join_string 5
+L963: return 0
+L964: branch L1030
+L965: push_constant_int 7
+L966: push_constant_int 14667
+L967: push_constant_string "Nurture evil oak tree saplings"
+L968: push_constant_string "You can now nurture "
+L969: push_constant_string "<col=000080>"
+L970: push_constant_string "evil oak tree saplings"
+L971: push_constant_string "</col>"
+L972: push_constant_string "."
+L973: join_string 5
+L974: return 0
+L975: branch L1030
+L976: push_constant_int 15
+L977: push_constant_int 14667
+L978: push_constant_string "Nurture evil willow tree saplings"
+L979: push_constant_string "You can now nurture "
+L980: push_constant_string "<col=000080>"
+L981: push_constant_string "evil willow tree saplings"
+L982: push_constant_string "</col>"
+L983: push_constant_string "."
+L984: join_string 5
+L985: return 0
+L986: branch L1030
+L987: push_constant_int 22
+L988: push_constant_int 14667
+L989: push_constant_string "Nurture evil maple tree saplings"
+L990: push_constant_string "You can now nurture "
+L991: push_constant_string "<col=000080>"
+L992: push_constant_string "evil maple tree saplings"
+L993: push_constant_string "</col>"
+L994: push_constant_string "."
+L995: join_string 5
+L996: return 0
+L997: branch L1030
+L998: push_constant_int 30
+L999: push_constant_int 14667
+L1000: push_constant_string "Nurture evil yew tree saplings"
+L1001: push_constant_string "You can now nurture "
+L1002: push_constant_string "<col=000080>"
+L1003: push_constant_string "evil yew tree saplings"
+L1004: push_constant_string "</col>"
+L1005: push_constant_string "."
+L1006: join_string 5
+L1007: return 0
+L1008: branch L1030
+L1009: push_constant_int 37
+L1010: push_constant_int 14667
+L1011: push_constant_string "Nurture evil magic tree saplings"
+L1012: push_constant_string "You can now nurture "
+L1013: push_constant_string "<col=000080>"
+L1014: push_constant_string "evil magic tree saplings"
+L1015: push_constant_string "</col>"
+L1016: push_constant_string "."
+L1017: join_string 5
+L1018: return 0
+L1019: branch L1030
+L1020: push_constant_int 42
+L1021: push_constant_int 14667
+L1022: push_constant_string "Nurture elder evil tree saplings"
+L1023: push_constant_string "You can now nurture "
+L1024: push_constant_string "<col=000080>"
+L1025: push_constant_string "elder evil tree saplings"
+L1026: push_constant_string "</col>"
+L1027: push_constant_string "."
+L1028: join_string 5
+L1029: return 0
+L1030: branch L1311
+L1031: push_int_local 1
+L1032: switch switch12
+L1033: branch L1284
+L1034: push_constant_int -1
+L1035: push_constant_int 15707
+L1036: push_constant_string "Dungeoneering skill tasks"
+L1037: push_constant_string "<br>"
+L1038: push_constant_string "As your Farming level increases, you will be able to attempt higher-level farming tasks within Daemonheim. You will also be more likely to succeed when attempting farming tasks within Daemonheim."
+L1039: join_string 3
+L1040: push_constant_string ""
+L1041: return 0
+L1042: branch L1284
+L1043: push_constant_int 1
+L1044: push_constant_int 17448
+L1045: push_constant_string "Salve nettles"
+L1046: push_constant_string "You can now harvest "
+L1047: push_constant_string "<col=000080>"
+L1048: push_constant_string "salve nettles"
+L1049: push_constant_string "</col>"
+L1050: push_constant_string " within Daemonheim."
+L1051: join_string 5
+L1052: return 0
+L1053: branch L1284
+L1054: push_constant_int 1
+L1055: push_constant_int 17823
+L1056: push_constant_string "Cave potato"
+L1057: push_constant_string "You can now plant "
+L1058: push_constant_string "<col=000080>"
+L1059: push_constant_string "cave potatoes"
+L1060: push_constant_string "</col>"
+L1061: push_constant_string " within Daemonheim."
+L1062: join_string 5
+L1063: return 0
+L1064: branch L1284
+L1065: push_constant_int 7
+L1066: push_constant_int 17826
+L1067: push_constant_string "Sagewort"
+L1068: push_constant_string "You can now plant "
+L1069: push_constant_string "<col=000080>"
+L1070: push_constant_string "sagewort"
+L1071: push_constant_string "</col>"
+L1072: push_constant_string " within Daemonheim."
+L1073: join_string 5
+L1074: return 0
+L1075: branch L1284
+L1076: push_constant_int 10
+L1077: push_constant_int 17450
+L1078: push_constant_string "Wildercress"
+L1079: push_constant_string "You can now harvest "
+L1080: push_constant_string "<col=000080>"
+L1081: push_constant_string "wildercress"
+L1082: push_constant_string "</col>"
+L1083: push_constant_string " within Daemonheim."
+L1084: join_string 5
+L1085: return 0
+L1086: branch L1284
+L1087: push_constant_int 18
+L1088: push_constant_int 17827
+L1089: push_constant_string "Valerian"
+L1090: push_constant_string "You can now plant "
+L1091: push_constant_string "<col=000080>"
+L1092: push_constant_string "valerian"
+L1093: push_constant_string "</col>"
+L1094: push_constant_string " within Daemonheim."
+L1095: join_string 5
+L1096: return 0
+L1097: branch L1284
+L1098: push_constant_int 20
+L1099: push_constant_int 17452
+L1100: push_constant_string "Blightleaf"
+L1101: push_constant_string "You can now harvest "
+L1102: push_constant_string "<col=000080>"
+L1103: push_constant_string "blightleaves"
+L1104: push_constant_string "</col>"
+L1105: push_constant_string " within Daemonheim."
+L1106: join_string 5
+L1107: return 0
+L1108: branch L1284
+L1109: push_constant_int 29
+L1110: push_constant_int 17828
+L1111: push_constant_string "Aloe"
+L1112: push_constant_string "You can now plant "
+L1113: push_constant_string "<col=000080>"
+L1114: push_constant_string "aloe"
+L1115: push_constant_string "</col>"
+L1116: push_constant_string " within Daemonheim."
+L1117: join_string 5
+L1118: return 0
+L1119: branch L1284
+L1120: push_constant_int 30
+L1121: push_constant_int 17454
+L1122: push_constant_string "Roseblood"
+L1123: push_constant_string "You can now harvest "
+L1124: push_constant_string "<col=000080>"
+L1125: push_constant_string "roseblood"
+L1126: push_constant_string "</col>"
+L1127: push_constant_string " within Daemonheim."
+L1128: join_string 5
+L1129: return 0
+L1130: branch L1284
+L1131: push_constant_int 34
+L1132: push_constant_int 17824
+L1133: push_constant_string "Gissel mushroom"
+L1134: push_constant_string "You can now plant "
+L1135: push_constant_string "<col=000080>"
+L1136: push_constant_string "gissel mushrooms"
+L1137: push_constant_string "</col>"
+L1138: push_constant_string " within Daemonheim."
+L1139: join_string 5
+L1140: return 0
+L1141: branch L1284
+L1142: push_constant_int 40
+L1143: push_constant_int 17829
+L1144: push_constant_string "Wormwood"
+L1145: push_constant_string "You can now plant "
+L1146: push_constant_string "<col=000080>"
+L1147: push_constant_string "wormwood"
+L1148: push_constant_string "</col>"
+L1149: push_constant_string " within Daemonheim."
+L1150: join_string 5
+L1151: return 0
+L1152: branch L1284
+L1153: push_constant_int 40
+L1154: push_constant_int 17456
+L1155: push_constant_string "Bryll"
+L1156: push_constant_string "You can now harvest "
+L1157: push_constant_string "<col=000080>"
+L1158: push_constant_string "bryll"
+L1159: push_constant_string "</col>"
+L1160: push_constant_string " within Daemonheim."
+L1161: join_string 5
+L1162: return 0
+L1163: branch L1284
+L1164: push_constant_int 50
+L1165: push_constant_int 17458
+L1166: push_constant_string "Duskweed"
+L1167: push_constant_string "You can now plant "
+L1168: push_constant_string "<col=000080>"
+L1169: push_constant_string "duskweed"
+L1170: push_constant_string "</col>"
+L1171: push_constant_string " within Daemonheim."
+L1172: join_string 5
+L1173: return 0
+L1174: branch L1284
+L1175: push_constant_int 51
+L1176: push_constant_int 17830
+L1177: push_constant_string "Magebane"
+L1178: push_constant_string "You can now plant "
+L1179: push_constant_string "<col=000080>"
+L1180: push_constant_string "magebane"
+L1181: push_constant_string "</col>"
+L1182: push_constant_string " within Daemonheim."
+L1183: join_string 5
+L1184: return 0
+L1185: branch L1284
+L1186: push_constant_int 60
+L1187: push_constant_int 17460
+L1188: push_constant_string "Soulbell"
+L1189: push_constant_string "You can now harvest "
+L1190: push_constant_string "<col=000080>"
+L1191: push_constant_string "soulbells"
+L1192: push_constant_string "</col>"
+L1193: push_constant_string " within Daemonheim."
+L1194: join_string 5
+L1195: return 0
+L1196: branch L1284
+L1197: push_constant_int 62
+L1198: push_constant_int 17831
+L1199: push_constant_string "Featherfoil"
+L1200: push_constant_string "You can now plant "
+L1201: push_constant_string "<col=000080>"
+L1202: push_constant_string "featherfoil"
+L1203: push_constant_string "</col>"
+L1204: push_constant_string " within Daemonheim."
+L1205: join_string 5
+L1206: return 0
+L1207: branch L1284
+L1208: push_constant_int 68
+L1209: push_constant_int 17825
+L1210: push_constant_string "Edicap mushroom"
+L1211: push_constant_string "You can now plant "
+L1212: push_constant_string "<col=000080>"
+L1213: push_constant_string "edicap mushrooms"
+L1214: push_constant_string "</col>"
+L1215: push_constant_string " within Daemonheim."
+L1216: join_string 5
+L1217: return 0
+L1218: branch L1284
+L1219: push_constant_int 70
+L1220: push_constant_int 17462
+L1221: push_constant_string "Ectograss"
+L1222: push_constant_string "You can now harvest "
+L1223: push_constant_string "<col=000080>"
+L1224: push_constant_string "ectograss"
+L1225: push_constant_string "</col>"
+L1226: push_constant_string " within Daemonheim."
+L1227: join_string 5
+L1228: return 0
+L1229: branch L1284
+L1230: push_constant_int 73
+L1231: push_constant_int 17832
+L1232: push_constant_string "Winter's grip"
+L1233: push_constant_string "You can now plant "
+L1234: push_constant_string "<col=000080>"
+L1235: push_constant_string "winter's grip"
+L1236: push_constant_string "</col>"
+L1237: push_constant_string " within Daemonheim."
+L1238: join_string 5
+L1239: return 0
+L1240: branch L1284
+L1241: push_constant_int 80
+L1242: push_constant_int 17464
+L1243: push_constant_string "Runeleaf"
+L1244: push_constant_string "You can now harvest "
+L1245: push_constant_string "<col=000080>"
+L1246: push_constant_string "runeleaves"
+L1247: push_constant_string "</col>"
+L1248: push_constant_string " within Daemonheim."
+L1249: join_string 5
+L1250: return 0
+L1251: branch L1284
+L1252: push_constant_int 84
+L1253: push_constant_int 17833
+L1254: push_constant_string "Lycopus"
+L1255: push_constant_string "You can now plant "
+L1256: push_constant_string "<col=000080>"
+L1257: push_constant_string "lycopus"
+L1258: push_constant_string "</col>"
+L1259: push_constant_string " within Daemonheim."
+L1260: join_string 5
+L1261: return 0
+L1262: branch L1284
+L1263: push_constant_int 90
+L1264: push_constant_int 17466
+L1265: push_constant_string "Spiritbloom"
+L1266: push_constant_string "You can now harvest "
+L1267: push_constant_string "<col=000080>"
+L1268: push_constant_string "spiritbloom"
+L1269: push_constant_string "</col>"
+L1270: push_constant_string " within Daemonheim."
+L1271: join_string 5
+L1272: return 0
+L1273: branch L1284
+L1274: push_constant_int 95
+L1275: push_constant_int 17834
+L1276: push_constant_string "Buckthorn"
+L1277: push_constant_string "You can now plant "
+L1278: push_constant_string "<col=000080>"
+L1279: push_constant_string "buckthorn"
+L1280: push_constant_string "</col>"
+L1281: push_constant_string " within Daemonheim."
+L1282: join_string 5
+L1283: return 0
+L1284: branch L1311
+L1285: push_int_local 1
+L1286: branch_if_false L1288
+L1287: branch L1311
+L1288: push_constant_int 99
+L1289: push_constant_int 9810
+L1290: push_constant_string "Skill mastery"
+L1291: push_constant_string "<col=000080>"
+L1292: push_constant_string "Congratulations! You are now a master of "
+L1293: push_constant_string "<col=800000>"
+L1294: push_constant_string "Farming"
+L1295: push_constant_string "<col=000080>"
+L1296: push_constant_string ". Why not visit "
+L1297: push_constant_string "<col=800000>"
+L1298: push_constant_string "Martin the Master Gardener"
+L1299: push_constant_string "<col=000080>"
+L1300: push_constant_string " in "
+L1301: push_constant_string "<col=800000>"
+L1302: push_constant_string "Draynor Village"
+L1303: push_constant_string "<col=000080>"
+L1304: push_constant_string "? He has something special that is only available to true masters of the "
+L1305: push_constant_string "<col=800000>"
+L1306: push_constant_string "Farming"
+L1307: push_constant_string "<col=000080>"
+L1308: push_constant_string " skill!"
+L1309: join_string 18
+L1310: return 0
+L1311: push_constant_int 0
+L1312: push_constant_int -1
+L1313: push_constant_string ""
+L1314: push_constant_string ""
+L1315: return 0
+L1316:
+
+[switch0@L1]
+0=L3
+1=L83
+2=L163
+3=L221
+4=L301
+5=L370
+6=L451
+7=L699
+8=L818
+9=L882
+10=L940
+11=L1031
+12=L1285
+
+[switch1@L4]
+0=L6
+1=L17
+2=L28
+3=L39
+4=L50
+5=L61
+6=L72
+
+[switch2@L84]
+0=L86
+1=L97
+2=L108
+3=L119
+4=L130
+5=L141
+6=L152
+
+[switch3@L164]
+0=L166
+1=L177
+2=L188
+3=L199
+4=L210
+
+[switch4@L222]
+0=L224
+1=L235
+2=L246
+3=L257
+4=L268
+5=L279
+6=L290
+
+[switch5@L302]
+0=L304
+1=L315
+2=L326
+3=L337
+4=L348
+5=L359
+
+[switch6@L371]
+0=L373
+1=L387
+2=L401
+3=L415
+4=L426
+5=L437
+
+[switch7@L452]
+0=L454
+1=L465
+2=L476
+3=L487
+4=L498
+5=L512
+6=L523
+7=L534
+8=L545
+9=L556
+10=L567
+11=L578
+12=L589
+13=L600
+14=L611
+15=L622
+16=L633
+17=L644
+18=L655
+19=L666
+20=L677
+21=L688
+
+[switch8@L700]
+0=L702
+1=L713
+2=L724
+3=L738
+4=L749
+5=L760
+6=L771
+7=L782
+8=L793
+9=L804
+
+[switch9@L819]
+0=L821
+1=L832
+2=L838
+3=L844
+4=L850
+5=L856
+6=L862
+7=L868
+
+[switch10@L883]
+0=L885
+1=L896
+2=L907
+3=L918
+4=L929
+
+[switch11@L941]
+0=L943
+1=L954
+2=L965
+3=L976
+4=L987
+5=L998
+6=L1009
+7=L1020
+
+[switch12@L1032]
+0=L1034
+1=L1043
+2=L1054
+3=L1065
+4=L1076
+5=L1087
+6=L1098
+7=L1109
+8=L1120
+9=L1131
+10=L1142
+11=L1153
+12=L1164
+13=L1175
+14=L1186
+15=L1197
+16=L1208
+17=L1219
+18=L1230
+19=L1241
+20=L1252
+21=L1263
+22=L1274

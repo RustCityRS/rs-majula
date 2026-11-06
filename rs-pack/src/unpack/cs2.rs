@@ -6,508 +6,67 @@ use crate::cs2::names::{load_script_names, load_script_names_from_cache_names};
 use crate::cs2::script::Script;
 use crate::cs2::types::{ArgType, TypeResolver, infer_return_types_from_callers};
 use crate::cs2::{ScriptMeta, decompile_with_names};
-use anyhow::Result;
+use anyhow::{Context, Result};
 use rs_io::js5::Js5Store;
 use std::collections::{HashMap, HashSet};
-use std::fs::{self, File};
-use std::io::Write;
+use std::fs;
 use std::path::Path;
 use tracing::info;
 
-struct Cs2Script {
-    name: String,
-    local_int_count: u16,
-    local_string_count: u16,
-    local_long_count: u16,
-    int_param_count: u16,
-    string_param_count: u16,
-    long_param_count: u16,
-    instructions: Vec<Cs2Instruction>,
-    switches: Vec<Vec<(i32, i32)>>,
-}
-
-struct Cs2Instruction {
-    opcode: u16,
-    operand: Cs2Operand,
-}
-
-enum Cs2Operand {
-    Int(i32),
-    String(String),
-    Long(i64),
-    Byte(u8),
-}
-
-fn decode_cs2(data: &[u8]) -> Result<Cs2Script> {
-    if data.len() < 18 {
-        anyhow::bail!("script too short: {} bytes", data.len());
-    }
-
-    let len = data.len();
-    let switch_section_size = u16::from_be_bytes([data[len - 2], data[len - 1]]) as usize;
-    let meta_start = len - switch_section_size - 16 - 2;
-
-    let instruction_count = i32::from_be_bytes([
-        data[meta_start],
-        data[meta_start + 1],
-        data[meta_start + 2],
-        data[meta_start + 3],
-    ]) as usize;
-    let local_int_count = u16::from_be_bytes([data[meta_start + 4], data[meta_start + 5]]);
-    let local_string_count = u16::from_be_bytes([data[meta_start + 6], data[meta_start + 7]]);
-    let local_long_count = u16::from_be_bytes([data[meta_start + 8], data[meta_start + 9]]);
-    let int_param_count = u16::from_be_bytes([data[meta_start + 10], data[meta_start + 11]]);
-    let string_param_count = u16::from_be_bytes([data[meta_start + 12], data[meta_start + 13]]);
-    let long_param_count = u16::from_be_bytes([data[meta_start + 14], data[meta_start + 15]]);
-
-    // Switch tables
-    let mut spos = meta_start + 16;
-    let switch_count = data[spos] as usize;
-    spos += 1;
-    let mut switches = Vec::with_capacity(switch_count);
-    for _ in 0..switch_count {
-        let case_count = u16::from_be_bytes([data[spos], data[spos + 1]]) as usize;
-        spos += 2;
-        let mut cases = Vec::with_capacity(case_count);
-        for _ in 0..case_count {
-            let key =
-                i32::from_be_bytes([data[spos], data[spos + 1], data[spos + 2], data[spos + 3]]);
-            spos += 4;
-            let target =
-                i32::from_be_bytes([data[spos], data[spos + 1], data[spos + 2], data[spos + 3]]);
-            spos += 4;
-            cases.push((key, target));
-        }
-        switches.push(cases);
-    }
-
-    // Name string at position 0
-    let mut pos: usize = 0;
-    let name = read_nullstr(data, &mut pos);
-
-    // Instructions
-    let mut instructions = Vec::with_capacity(instruction_count);
-    while pos < meta_start {
-        let opcode = u16::from_be_bytes([data[pos], data[pos + 1]]);
-        pos += 2;
-
-        let operand = if opcode == 3 {
-            Cs2Operand::String(read_nullstr(data, &mut pos))
-        } else if opcode == 54 {
-            let v = i64::from_be_bytes([
-                data[pos],
-                data[pos + 1],
-                data[pos + 2],
-                data[pos + 3],
-                data[pos + 4],
-                data[pos + 5],
-                data[pos + 6],
-                data[pos + 7],
-            ]);
-            pos += 8;
-            Cs2Operand::Long(v)
-        } else if opcode >= 150 || opcode == 21 || opcode == 38 || opcode == 39 {
-            let v = data[pos];
-            pos += 1;
-            Cs2Operand::Byte(v)
-        } else {
-            let v = i32::from_be_bytes([data[pos], data[pos + 1], data[pos + 2], data[pos + 3]]);
-            pos += 4;
-            Cs2Operand::Int(v)
-        };
-
-        instructions.push(Cs2Instruction { opcode, operand });
-    }
-
-    Ok(Cs2Script {
-        name,
-        local_int_count,
-        local_string_count,
-        local_long_count,
-        int_param_count,
-        string_param_count,
-        long_param_count,
-        instructions,
-        switches,
-    })
-}
-
-fn read_nullstr(data: &[u8], pos: &mut usize) -> String {
-    let start = *pos;
-    while *pos < data.len() && data[*pos] != 0 {
-        *pos += 1;
-    }
-    let s = String::from_utf8_lossy(&data[start..*pos]).to_string();
-    if *pos < data.len() {
-        *pos += 1; // skip null terminator
-    }
-    s
-}
-
-fn opcode_name(opcode: u16) -> &'static str {
-    match opcode {
-        0 => "push_constant_int",
-        1 => "push_var",
-        2 => "pop_var",
-        3 => "push_constant_string",
-        6 => "branch",
-        7 => "branch_not",
-        8 => "branch_equals",
-        9 => "branch_less_than",
-        10 => "branch_greater_than",
-        21 => "return",
-        25 => "push_varbit",
-        27 => "pop_varbit",
-        31 => "branch_less_than_or_equals",
-        32 => "branch_greater_than_or_equals",
-        33 => "push_int_local",
-        34 => "pop_int_local",
-        35 => "push_string_local",
-        36 => "pop_string_local",
-        37 => "join_string",
-        38 => "pop_int_discard",
-        39 => "pop_string_discard",
-        40 => "gosub_with_params",
-        42 => "push_varc_int",
-        43 => "pop_varc_int",
-        44 => "define_array",
-        45 => "push_array_int",
-        46 => "pop_array_int",
-        47 => "push_varc_string_old",
-        48 => "pop_varc_string_old",
-        51 => "switch",
-        54 => "push_constant_long",
-        55 => "pop_long_discard",
-        66 => "push_long_local",
-        67 => "pop_long_local",
-        68 => "branch_not_long",
-        69 => "branch_equals_long",
-        70 => "branch_less_than_long",
-        71 => "branch_greater_than_long",
-        72 => "branch_less_than_or_equals_long",
-        73 => "branch_greater_than_or_equals_long",
-        86 => "branch_if_true",
-        87 => "branch_if_false",
-        100 => "cc_create",
-        101 => "cc_delete",
-        102 => "cc_deleteall",
-        112 => "push_long_varc",
-        113 => "pop_long_varc",
-        114 => "push_long_local2",
-        115 => "pop_long_local2",
-        150 => "cc_setposition",
-        200 => "cc_find",
-        201 => "if_find",
-        1000 => "cc_setposition2",
-        1001 => "cc_setsize",
-        1003 => "cc_sethide",
-        1100 => "cc_setscrollpos",
-        1101 => "cc_setcolour",
-        1102 => "cc_setfill",
-        1103 => "cc_settrans",
-        1105 => "cc_setgraphic",
-        1108 => "cc_setmodel",
-        1109 => "cc_setmodelangle",
-        1110 => "cc_setmodelanim",
-        1112 => "cc_settext",
-        1113 => "cc_settextfont",
-        1114 => "cc_settextalign",
-        1115 => "cc_settextshadow",
-        1120 => "cc_setscrollsize",
-        1200 => "cc_setobject",
-        1205 => "cc_setobject_nonum",
-        1300 => "cc_setop",
-        1301 => "cc_setdraggable",
-        1305 => "cc_setopbase",
-        1306 => "cc_settargetverb",
-        1307 => "cc_clearops",
-        1350 => "cc_setopkey",
-        1400 => "cc_setonclick",
-        1401 => "cc_setonhold",
-        1402 => "cc_setonrelease",
-        1403 => "cc_setonmouseover",
-        1404 => "cc_setonmouseleave",
-        1405 => "cc_setondrag",
-        1407 => "cc_setonvartransmit",
-        1408 => "cc_setontimer",
-        1409 => "cc_setonop",
-        1410 => "cc_setondragcomplete",
-        1411 => "cc_setonclickrepeat",
-        1412 => "cc_setonmouserepeat",
-        1414 => "cc_setoninvtransmit",
-        1415 => "cc_setonstattransmit",
-        1416 => "cc_setontargetenter",
-        1417 => "cc_setonscrollwheel",
-        1418 => "cc_setonchattransmit",
-        1419 => "cc_setonkey",
-        1500 => "cc_getx",
-        1501 => "cc_gety",
-        1502 => "cc_getwidth",
-        1503 => "cc_getheight",
-        1504 => "cc_gethide",
-        1505 => "cc_getlayer",
-        1600 => "cc_getscrollx",
-        1601 => "cc_getscrolly",
-        1602 => "cc_gettext",
-        1700 => "cc_getinvobject",
-        1701 => "cc_getinvcount",
-        1702 => "cc_getid",
-        2000 => "if_setposition",
-        2001 => "if_setsize",
-        2003 => "if_sethide",
-        2100 => "if_setscrollpos",
-        2101 => "if_setcolour",
-        2105 => "if_setgraphic",
-        2112 => "if_settext",
-        2113 => "if_settextfont",
-        2114 => "if_settextalign",
-        2200 => "if_setobject",
-        2300 => "if_setop",
-        2500 => "if_getx",
-        2501 => "if_gety",
-        2502 => "if_getwidth",
-        2503 => "if_getheight",
-        2504 => "if_gethide",
-        2602 => "if_gettext",
-        2700 => "if_getinvobject",
-        2701 => "if_getinvcount",
-        3100 => "mes",
-        3101 => "anim",
-        3103 => "if_close",
-        3104 => "resume_countdialog",
-        3105 => "resume_namedialog",
-        3106 => "resume_stringdialog",
-        3107 => "opplayer",
-        3200 => "sound_synth",
-        3201 => "sound_song",
-        3202 => "sound_jingle",
-        3300 => "clientclock",
-        3301 => "inv_getobj",
-        3302 => "inv_getnum",
-        3303 => "inv_total",
-        3304 => "inv_size",
-        3305 => "stat",
-        3306 => "stat_base",
-        3307 => "stat_xp",
-        3308 => "coord",
-        3312 => "map_members",
-        3316 => "staffmodlevel",
-        3317 => "reboottimer",
-        3400 => "enum_string",
-        3408 => "enum",
-        3411 => "enum_getoutputcount",
-        3600 => "friend_count",
-        3601 => "friend_getname",
-        3602 => "friend_getworld",
-        3609 => "friend_test",
-        4000 => "add",
-        4001 => "sub",
-        4002 => "multiply",
-        4003 => "div",
-        4004 => "random",
-        4005 => "randominc",
-        4006 => "interpolate",
-        4007 => "addpercent",
-        4008 => "setbit",
-        4009 => "clearbit",
-        4010 => "testbit",
-        4011 => "mod",
-        4014 => "and",
-        4015 => "or",
-        4018 => "scale",
-        4100 => "append_num",
-        4101 => "append",
-        4102 => "append_signnum",
-        4103 => "lowercase",
-        4106 => "tostring",
-        4107 => "compare",
-        4108 => "paraheight",
-        4109 => "parawidth",
-        4110 => "text_switch",
-        4117 => "string_length",
-        4200 => "oc_name",
-        4201 => "oc_op",
-        4202 => "oc_iop",
-        4203 => "oc_cost",
-        4204 => "oc_stackable",
-        4205 => "oc_cert",
-        4206 => "oc_uncert",
-        4207 => "oc_members",
-        5000 => "chat_getfilter_public",
-        5001 => "chat_setfilter",
-        5015 => "chat_playername",
-        5020 => "docheat",
-        5306 => "getwindowmode",
-        5307 => "setwindowmode",
-        5504 => "cam_forceangle",
-        5630 => "logout",
-        6200 => "viewport_setfov",
-        6500 => "worldlist_fetch",
-        6501 => "worldlist_start",
-        6502 => "worldlist_next",
-        6513 => "nc_param",
-        6514 => "lc_param",
-        6515 => "oc_param",
-        6516 => "struct_param",
-        6518 => "on_mobile",
-        6519 => "clienttype",
-        _ => "",
-    }
-}
-
-fn format_operand(instr: &Cs2Instruction) -> String {
-    match &instr.operand {
-        Cs2Operand::Int(v) => v.to_string(),
-        Cs2Operand::String(s) => format!("\"{}\"", s.replace('\\', "\\\\").replace('"', "\\\"")),
-        Cs2Operand::Long(v) => format!("{}L", v),
-        Cs2Operand::Byte(v) => v.to_string(),
-    }
-}
-
-pub fn unpack_cs2_scripts(cache_dir: &Path, output_dir: &Path) -> Result<u32> {
+pub fn unpack_cs2_scripts(cache_dir: &Path, output_dir: &Path, pack_dir: &Path) -> Result<u32> {
     let mut store = Js5Store::open(cache_dir)?;
-
-    let group_count = store.group_count(archive::CLIENTSCRIPT).unwrap_or(0);
-    if group_count == 0 {
-        info!("  Archive 12 (clientscript) absent — skipping");
-        return Ok(0);
-    }
-
-    let out_dir = output_dir.join("clientscript").join("_unpack");
-    fs::create_dir_all(&out_dir)?;
-
-    let mut total = 0u32;
-    let mut errors = 0u32;
-
-    for gid in 0..group_count {
-        let Some(group) = store.read_group(archive::CLIENTSCRIPT, gid)? else {
-            continue;
-        };
-
-        for entry in &group.entries {
-            if entry.data().is_empty() {
-                continue;
-            }
-
-            let script_id = gid;
-            let out_path = out_dir.join(format!("{}.cs2", script_id));
-
-            match decode_cs2(entry.data()) {
-                Ok(script) => {
-                    let mut file = File::create(&out_path)?;
-
-                    // Header
-                    if !script.name.is_empty() {
-                        writeln!(file, "; name: {}", script.name)?;
-                    }
-                    writeln!(file, "; id: {}", script_id)?;
-                    writeln!(file, "int_param_count={}", script.int_param_count)?;
-                    writeln!(file, "string_param_count={}", script.string_param_count)?;
-                    writeln!(file, "long_param_count={}", script.long_param_count)?;
-                    writeln!(file, "local_int_count={}", script.local_int_count)?;
-                    writeln!(file, "local_string_count={}", script.local_string_count)?;
-                    writeln!(file, "local_long_count={}", script.local_long_count)?;
-                    writeln!(file)?;
-
-                    // Instructions
-                    for (i, instr) in script.instructions.iter().enumerate() {
-                        let name = opcode_name(instr.opcode);
-                        let operand = format_operand(instr);
-                        if !name.is_empty() {
-                            writeln!(file, "{:>5}: {} {}", i, name, operand)?;
-                        } else {
-                            writeln!(file, "{:>5}: op{} {}", i, instr.opcode, operand)?;
-                        }
-                    }
-
-                    // Switch tables
-                    if !script.switches.is_empty() {
-                        writeln!(file)?;
-                        for (i, table) in script.switches.iter().enumerate() {
-                            writeln!(file, "switch_{}:", i)?;
-                            for (key, target) in table {
-                                writeln!(file, "  {} => {}", key, target)?;
-                            }
-                        }
-                    }
-
-                    total += 1;
-                }
-                Err(e) => {
-                    errors += 1;
-                    if errors <= 5 {
-                        tracing::warn!("  script {}: {}", script_id, e);
-                    }
-                }
-            }
-        }
-    }
-
-    if errors > 0 {
-        tracing::warn!("  {} scripts failed to decode", errors);
-    }
-    info!(
-        "  {} cs2 scripts disassembled to {}",
-        total,
-        out_dir.display()
-    );
-    Ok(total)
-}
-
-/// Extract numeric IDs following a prefix (e.g. `%varp` → `%varp123` yields 123).
-fn extract_var_ids(source: &str, prefix: &str, out: &mut HashSet<u32>) {
-    let mut search_from = 0;
-    while let Some(pos) = source[search_from..].find(prefix) {
-        let abs = search_from + pos + prefix.len();
-        let digit_start = abs;
-        let mut digit_end = digit_start;
-        while digit_end < source.len() && source.as_bytes()[digit_end].is_ascii_digit() {
-            digit_end += 1;
-        }
-        if digit_end > digit_start {
-            if let Ok(id) = source[digit_start..digit_end].parse::<u32>() {
-                out.insert(id);
-            }
-        }
-        search_from = digit_end.max(abs);
-    }
-}
-
-/// Scan decompiled CS2 source files for `%varp<N>` and `%varbit<N>` references.
-///
-/// Reads `*.cs2` files from `cs2_dir` (e.g. `content/clientscript/_decompiled`).
-/// Returns `(varp_ids, varbit_ids)`.
-pub fn scan_cs2_varp_refs(cs2_dir: &Path) -> Result<(HashSet<u32>, HashSet<u32>)> {
-    let mut varp_ids = HashSet::new();
-    let mut varbit_ids = HashSet::new();
-
-    if !cs2_dir.is_dir() {
-        anyhow::bail!(
-            "Decompiled CS2 directory not found: {}. Run the decompile step first.",
-            cs2_dir.display()
+    let names = crate::pack::names::AssetNames::load(pack_dir)?;
+    let dir = output_dir.join("clientscript");
+    fs::create_dir_all(&dir)?;
+    let groups = store
+        .reference_table(archive::CLIENTSCRIPT)
+        .context("Missing clientscript table")?
+        .groups
+        .clone();
+    for info in &groups {
+        let data = store
+            .read_group_raw_decompressed(archive::CLIENTSCRIPT, info.id)?
+            .context("Missing clientscript")?;
+        let text = crate::cs2::assembly::unpack(&data, &names)?;
+        anyhow::ensure!(
+            crate::cs2::assembly::pack(&text, &names)? == data,
+            "Clientscript {} text round trip changed bytes",
+            info.id
         );
+        fs::write(
+            dir.join(format!("{}.cs2", names.name("clientscript", info.id))),
+            text,
+        )?;
     }
+    Ok(groups.len() as u32)
+}
 
-    let mut file_count = 0u32;
-    for entry in fs::read_dir(cs2_dir)? {
-        let entry = entry?;
-        let path = entry.path();
-        if path.extension().and_then(|e| e.to_str()) != Some("cs2") {
-            continue;
+pub fn scan_cs2_varp_refs(store: &mut Js5Store) -> Result<(HashSet<u32>, HashSet<u32>)> {
+    let mut varps = HashSet::new();
+    let mut varbits = HashSet::new();
+    let groups = store
+        .reference_table(archive::CLIENTSCRIPT)
+        .context("Missing clientscript table")?
+        .groups
+        .clone();
+    for info in groups {
+        let data = store
+            .read_group_raw_decompressed(archive::CLIENTSCRIPT, info.id)?
+            .context("Missing clientscript")?;
+        let script = Script::decode(&data)?;
+        for (&opcode, &operand) in script.opcodes.iter().zip(&script.int_operands) {
+            match opcode {
+                1 | 2 => {
+                    varps.insert(operand as u32);
+                }
+                25 | 27 => {
+                    varbits.insert(operand as u32);
+                }
+                _ => {}
+            }
         }
-        let source = fs::read_to_string(&path)?;
-        file_count += 1;
-
-        extract_var_ids(&source, "%varp", &mut varp_ids);
-        extract_var_ids(&source, "%varbit", &mut varbit_ids);
     }
-
-    info!(
-        "  Scanned {} decompiled CS2 files from {}",
-        file_count,
-        cs2_dir.display()
-    );
-    Ok((varp_ids, varbit_ids))
+    Ok((varps, varbits))
 }
 
 pub fn decompile_cs2_scripts(

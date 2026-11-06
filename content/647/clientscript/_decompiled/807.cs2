@@ -1,6 +1,0 @@
-[clientscript,script_807](int $int0)(int)
-def_int $int1 = 0;
-if (stat_base($int0) > 0) {
-    $int1 = calc(100 * stat($int0) / stat_base($int0));
-}
-return($int1);

@@ -1,0 +1,31 @@
+name=""
+local_int_count=4
+local_string_count=0
+local_long_count=0
+int_param_count=2
+string_param_count=0
+long_param_count=0
+
+L0: push_int_local 0
+L1: push_constant_int -1
+L2: push_int_local 1
+L3: if_setdraggable 0
+L4: push_int_local 0
+L5: if_getwidth 0
+L6: push_int_local 1
+L7: if_getwidth 0
+L8: sub 0
+L9: pop_int_local 2
+L10: get_clientopt_6119 0
+L11: push_constant_int 255
+L12: push_int_local 2
+L13: scale 0
+L14: pop_int_local 3
+L15: push_int_local 3
+L16: push_constant_int 0
+L17: push_constant_int 0
+L18: push_constant_int 0
+L19: push_int_local 1
+L20: if_setposition 0
+L21: return 0
+L22:

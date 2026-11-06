@@ -1,0 +1,61 @@
+name=""
+local_int_count=2
+local_string_count=0
+local_long_count=0
+int_param_count=0
+string_param_count=0
+long_param_count=0
+
+L0: push_constant_int 0
+L1: pop_int_local 0
+L2: push_constant_int 95
+L3: inv_size 0
+L4: pop_int_local 1
+L5: push_int_local 0
+L6: push_int_local 1
+L7: branch_less_than L9
+L8: branch L51
+L9: push_constant_int 49938525
+L10: push_constant_int 5
+L11: push_int_local 0
+L12: cc_setposition 0
+L13: push_constant_int 36
+L14: push_constant_int 32
+L15: push_constant_int 0
+L16: push_constant_int 0
+L17: cc_setsize 0
+L18: push_constant_int 0
+L19: push_constant_int 0
+L20: push_constant_int 0
+L21: push_constant_int 0
+L22: cc_setposition2 0
+L23: push_constant_int 1
+L24: cc_sethide 0
+L25: push_constant_int 95
+L26: push_int_local 0
+L27: inv_getobj 0
+L28: push_constant_int -1
+L29: branch_not L31
+L30: branch L33
+L31: push_int_local 0
+L32: gosub_with_params clientscript_1453
+L33: push_constant_int 1
+L34: cc_setoutline 0
+L35: push_constant_int 3355443
+L36: cc_setgraphicshadow 0
+L37: push_constant_int 1480
+L38: push_constant_int 49938525
+L39: push_int_local 0
+L40: push_constant_string "Ii"
+L41: cc_setonmouserepeat 0
+L42: push_constant_int 40
+L43: push_constant_int 49938529
+L44: push_constant_string "I"
+L45: cc_setonmouseleave 0
+L46: push_int_local 0
+L47: push_constant_int 1
+L48: add 0
+L49: pop_int_local 0
+L50: branch L5
+L51: return 0
+L52:

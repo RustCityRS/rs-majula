@@ -1,0 +1,19 @@
+name=""
+local_int_count=1
+local_string_count=0
+local_long_count=0
+int_param_count=1
+string_param_count=0
+long_param_count=0
+
+L0: push_int_local 0
+L1: gosub_with_params [proc,v2_stone_button_out_filled]
+L2: push_var varp_1149
+L3: push_constant_int -1
+L4: branch_not L6
+L5: branch L8
+L6: gosub_with_params clientscript_1801
+L7: branch L9
+L8: gosub_with_params clientscript_1802
+L9: return 0
+L10:

@@ -1,8 +1,0 @@
-[clientscript,script_1242](int $int0)(int, int, int, int, string)
-if_setgraphic($int0);
-if_setonclick;
-def_int $int1 = coordpack(0, calc(coordx(coord) - coordx(coord) % 64 + 13), 0, calc(coordz(coord) - coordz(coord) % 64 + 23));
-cam_followcoord($int1);
-cam_lookat($int1, 25, 100, 10);
-cam_moveto(coordpack($int1, 11, 0, 0), 2600, 100, 10);
-return(3152, 1950, -2147483645, $int0, "I");

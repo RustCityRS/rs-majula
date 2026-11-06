@@ -1,0 +1,29 @@
+name=""
+local_int_count=3
+local_string_count=0
+local_long_count=0
+int_param_count=2
+string_param_count=0
+long_param_count=0
+
+L0: push_constant_int 0
+L1: pop_int_local 2
+L2: push_int_local 2
+L3: push_int_local 0
+L4: if_getchildcount 0
+L5: branch_less_than L7
+L6: branch L19
+L7: push_int_local 0
+L8: push_int_local 2
+L9: cc_find 0
+L10: branch_if_true L12
+L11: branch L14
+L12: push_int_local 1
+L13: cc_settrans 0
+L14: push_int_local 2
+L15: push_constant_int 1
+L16: add 0
+L17: pop_int_local 2
+L18: branch L2
+L19: return 0
+L20:

@@ -1,0 +1,77 @@
+name=""
+local_int_count=5
+local_string_count=0
+local_long_count=0
+int_param_count=4
+string_param_count=0
+long_param_count=0
+
+L0: push_constant_int 105
+L1: push_constant_int 74
+L2: push_constant_int 169
+L3: push_int_local 0
+L4: enum 0
+L5: push_constant_int 782
+L6: struct_param_4500 0
+L7: pop_int_local 4
+L8: map_members 0
+L9: branch_if_false L11
+L10: branch L14
+L11: push_constant_string "More advanced grouping options are available on a members' world."
+L12: mes 0
+L13: branch L67
+L14: push_var learning_the_ropes
+L15: push_constant_int 1000
+L16: branch_less_than L18
+L17: branch L21
+L18: push_constant_string "More advanced grouping options will be available when you've finished the Tutorial."
+L19: mes 0
+L20: branch L67
+L21: push_varc_int varc_int_693
+L22: push_int_local 1
+L23: branch_equals L25
+L24: branch L32
+L25: push_constant_int 1
+L26: push_varc_int varc_int_694
+L27: add 0
+L28: push_constant_int 2
+L29: mod 0
+L30: pop_varc_int varc_int_694
+L31: branch L36
+L32: push_int_local 1
+L33: pop_varc_int varc_int_693
+L34: push_constant_int 0
+L35: pop_varc_int varc_int_694
+L36: push_int_local 0
+L37: push_varc_int varc_int_693
+L38: push_varc_int varc_int_694
+L39: push_varc_int varc_int_692
+L40: push_varc_int varc_int_1103
+L41: gosub_with_params clientscript_2162
+L42: push_constant_int 12451856
+L43: push_constant_int 12451854
+L44: push_constant_int 12451855
+L45: push_constant_int -1
+L46: push_constant_int 1
+L47: gosub_with_params [proc,dropdownbox_close]
+L48: push_constant_int 12451856
+L49: push_constant_int 2
+L50: cc_find 0
+L51: branch_if_true L53
+L52: branch L67
+L53: push_constant_int 105
+L54: push_constant_int 115
+L55: push_int_local 4
+L56: push_int_local 1
+L57: enum 0
+L58: cc_settext 0
+L59: push_int_local 3
+L60: cc_setcolour 0
+L61: push_constant_int 1354
+L62: push_constant_int 12451856
+L63: push_constant_int 2
+L64: push_int_local 3
+L65: push_constant_string "Iii"
+L66: cc_setonmouseleave 0
+L67: return 0
+L68:

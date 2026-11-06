@@ -1,5 +1,0 @@
-[clientscript,script_4050](int $int0, int $int1)(int, int, int, int, string)
-if ($int1 = 1) {
-    sound_synth(synth_10223, 1, 0);
-}
-return(~script_4051($int0, $int1));

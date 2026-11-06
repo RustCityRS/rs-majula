@@ -1,0 +1,37 @@
+name=""
+local_int_count=2
+local_string_count=0
+local_long_count=0
+int_param_count=2
+string_param_count=0
+long_param_count=0
+
+L0: push_varbit varbit_7191
+L1: branch_if_false L3
+L2: branch L7
+L3: push_constant_int 1
+L4: push_int_local 0
+L5: if_sethide 0
+L6: branch L27
+L7: push_varbit varbit_7191
+L8: push_constant_int 5
+L9: branch_less_than L11
+L10: branch L17
+L11: push_constant_string "<lt>"
+L12: push_constant_string "1 min"
+L13: join_string 2
+L14: push_int_local 1
+L15: if_settext 0
+L16: branch L27
+L17: push_varbit varbit_7191
+L18: push_constant_int 4
+L19: add 0
+L20: push_constant_int 5
+L21: div 0
+L22: tostring 0
+L23: push_constant_string " min"
+L24: join_string 2
+L25: push_int_local 1
+L26: if_settext 0
+L27: return 0
+L28:

@@ -1,0 +1,100 @@
+name=""
+local_int_count=2
+local_string_count=0
+local_long_count=0
+int_param_count=2
+string_param_count=0
+long_param_count=0
+
+L0: clan_getchatsize 0
+L1: push_constant_int 0
+L2: branch_less_than_or_equals L6
+L3: is_subscriber 0
+L4: branch_if_true L6
+L5: branch L7
+L6: return 0
+L7: push_int_local 0
+L8: switch switch0
+L9: branch L78
+L10: clan_getchatsize 0
+L11: push_constant_int 0
+L12: branch_greater_than L14
+L13: branch L24
+L14: push_varc_string_old varc_string_349
+L15: string_length 0
+L16: push_constant_int 0
+L17: branch_greater_than L19
+L18: branch L23
+L19: push_constant_int 1
+L20: chat_setmode 0
+L21: push_varc_string_old varc_string_349
+L22: chat_sendpublic 0
+L23: branch L28
+L24: push_constant_int 11
+L25: push_constant_int 0
+L26: push_constant_string "You are not in a Friends Chat Channel."
+L27: tutorial_openchat 0
+L28: push_constant_string ""
+L29: pop_varc_string_old varc_string_349
+L30: push_varc_string_old varc_string_349
+L31: escape2 0
+L32: push_constant_int 38600731
+L33: if_settext 0
+L34: push_varc_string_old varc_string_349
+L35: string_length 0
+L36: pop_varc_int varc_int_1507
+L37: push_constant_int 38600731
+L38: push_constant_int 38600732
+L39: push_varc_string_old varc_string_349
+L40: gosub_with_params clientscript_4571
+L41: branch L78
+L42: push_int_local 0
+L43: push_varc_int varc_int_1507
+L44: push_varc_string_old varc_string_349
+L45: gosub_with_params clientscript_1553
+L46: pop_varc_int varc_int_1507
+L47: push_constant_int 38600731
+L48: push_constant_int 38600732
+L49: push_varc_string_old varc_string_349
+L50: gosub_with_params clientscript_4571
+L51: branch L78
+L52: push_int_local 1
+L53: char_isprintable2 0
+L54: branch_if_true L62
+L55: push_int_local 0
+L56: push_constant_int 85
+L57: branch_equals L62
+L58: push_int_local 0
+L59: push_constant_int 101
+L60: branch_equals L62
+L61: branch L78
+L62: push_varc_int varc_int_1507
+L63: push_varc_string_old varc_string_349
+L64: push_constant_int 0
+L65: push_int_local 0
+L66: push_int_local 1
+L67: gosub_with_params clientscript_802
+L68: pop_varc_int varc_int_1507
+L69: pop_varc_string_old varc_string_349
+L70: push_varc_string_old varc_string_349
+L71: escape2 0
+L72: push_constant_int 38600731
+L73: if_settext 0
+L74: push_constant_int 38600731
+L75: push_constant_int 38600732
+L76: push_varc_string_old varc_string_349
+L77: gosub_with_params clientscript_4571
+L78: return 0
+L79:
+
+[switch0@L8]
+84=L10
+96=L42
+97=L42
+98=L42
+99=L42
+102=L42
+103=L42
+-1=L52
+85=L52
+101=L52

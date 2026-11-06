@@ -1,0 +1,28 @@
+name=""
+local_int_count=3
+local_string_count=0
+local_long_count=0
+int_param_count=1
+string_param_count=0
+long_param_count=0
+
+L0: push_constant_int 25
+L1: randominc 0
+L2: push_constant_int 10
+L3: add 0
+L4: pop_int_local 1
+L5: push_constant_int 25
+L6: randominc 0
+L7: push_constant_int 20
+L8: add 0
+L9: pop_int_local 2
+L10: push_constant_int 66
+L11: push_int_local 1
+L12: push_int_local 2
+L13: push_constant_int 0
+L14: push_int_local 0
+L15: push_constant_string "iiiI"
+L16: push_int_local 0
+L17: if_setontimer 0
+L18: return 0
+L19:

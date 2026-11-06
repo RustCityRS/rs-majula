@@ -1,6 +1,0 @@
-[clientscript,script_3295](int $int0, int $int1, int $int2, int $int3)
-def_int $int4 = calc(if_getscrolly + $int3 * 45);
-if (cc_find($int0, 1) = 1) {
-    ~script_3296($int0, $int1, $int2, $int4, 1);
-}
-return;

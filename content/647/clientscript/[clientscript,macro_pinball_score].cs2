@@ -1,0 +1,26 @@
+name=""
+local_int_count=1
+local_string_count=0
+local_long_count=0
+int_param_count=1
+string_param_count=0
+long_param_count=0
+
+L0: push_constant_string "Score: "
+L1: push_varbit varbit_2121
+L2: tostring 0
+L3: join_string 2
+L4: push_int_local 0
+L5: if_settext 0
+L6: push_varbit varbit_2121
+L7: branch_if_false L9
+L8: branch L13
+L9: push_constant_int 16711680
+L10: push_int_local 0
+L11: if_setcolour 0
+L12: branch L16
+L13: push_constant_int 16776960
+L14: push_int_local 0
+L15: if_setcolour 0
+L16: return 0
+L17:

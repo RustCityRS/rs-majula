@@ -1,0 +1,28 @@
+name=""
+local_int_count=0
+local_string_count=0
+local_long_count=0
+int_param_count=0
+string_param_count=0
+long_param_count=0
+
+L0: push_constant_int 2175
+L1: push_constant_int 93
+L2: push_constant_int 1
+L3: push_constant_string "Y"
+L4: push_constant_int 60293120
+L5: if_setoninvtransmit 0
+L6: push_constant_int 2175
+L7: push_constant_int 1660
+L8: push_constant_int 1661
+L9: push_constant_int 1662
+L10: push_constant_int 1663
+L11: push_constant_int 1664
+L12: push_constant_int 5
+L13: push_constant_string "Y"
+L14: push_constant_int 60555264
+L15: if_setonvartransmit 0
+L16: gosub_with_params clientscript_2174
+L17: gosub_with_params clientscript_2186
+L18: return 0
+L19:

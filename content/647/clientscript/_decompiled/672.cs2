@@ -1,8 +1,0 @@
-[clientscript,script_672]
-~script_673(0, 0, 2, 0, 0, 1381, 1281, 0, 0, -1);
-def_int $int0 = 1;
-if ($int0 < 6) {
-    ~script_673($int0, 0, 0, 0, 0, -1, 0, 1, 0, -1);
-    $int0 = add($int0, 1);
-}
-return;

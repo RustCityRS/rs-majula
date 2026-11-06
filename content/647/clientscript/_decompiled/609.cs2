@@ -1,8 +1,0 @@
-[clientscript,script_609](int, component, string)
-if (%varc_int83 <= 0) {
-    %varc_int83 = 100;
-} else {
-    %varc_int83 = add(%varc_int83, 10);
-}
-if_setontimer;
-return(610, 6881433, "");

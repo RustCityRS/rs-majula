@@ -1,0 +1,285 @@
+name=""
+local_int_count=2
+local_string_count=0
+local_long_count=0
+int_param_count=2
+string_param_count=0
+long_param_count=0
+
+L0: push_int_local 0
+L1: chat_gethistory_length 0
+L2: switch switch0
+L3: branch L224
+L4: push_constant_int 0
+L5: return 0
+L6: branch L224
+L7: push_constant_int 1
+L8: return 0
+L9: branch L224
+L10: push_varbit varbit_6161
+L11: branch_if_true L13
+L12: branch L15
+L13: push_constant_int 0
+L14: return 0
+L15: push_constant_int 1
+L16: return 0
+L17: branch L224
+L18: chat_getfilter_public 0
+L19: branch_if_false L21
+L20: branch L23
+L21: push_constant_int 1
+L22: return 0
+L23: chat_getfilter_public 0
+L24: branch_if_true L26
+L25: branch L33
+L26: push_int_local 0
+L27: chat_gethistory_message 0
+L28: friend_test 0
+L29: branch_if_true L31
+L30: branch L33
+L31: push_constant_int 1
+L32: return 0
+L33: push_constant_int 0
+L34: return 0
+L35: branch L224
+L36: push_var option_pm
+L37: push_constant_int 0
+L38: branch_greater_than L40
+L39: branch L53
+L40: push_varc_int varc_int_41
+L41: push_constant_int 0
+L42: branch_greater_than_or_equals L44
+L43: branch L53
+L44: push_int_local 1
+L45: branch_if_false L47
+L46: branch L53
+L47: push_int_local 0
+L48: gosub_with_params [proc,partnercheck]
+L49: branch_if_false L51
+L50: branch L53
+L51: push_constant_int 0
+L52: return 0
+L53: chat_getfilter_private 0
+L54: branch_if_false L56
+L55: branch L58
+L56: push_constant_int 1
+L57: return 0
+L58: chat_getfilter_private 0
+L59: branch_if_true L61
+L60: branch L68
+L61: push_int_local 0
+L62: chat_gethistory_message 0
+L63: friend_test 0
+L64: branch_if_true L66
+L65: branch L68
+L66: push_constant_int 1
+L67: return 0
+L68: push_constant_int 0
+L69: return 0
+L70: branch L224
+L71: chat_getfilter_trade 0
+L72: branch_if_false L74
+L73: branch L76
+L74: push_constant_int 1
+L75: return 0
+L76: chat_getfilter_trade 0
+L77: branch_if_true L79
+L78: branch L86
+L79: push_int_local 0
+L80: chat_gethistory_message 0
+L81: friend_test 0
+L82: branch_if_true L84
+L83: branch L86
+L84: push_constant_int 1
+L85: return 0
+L86: push_constant_int 0
+L87: return 0
+L88: branch L224
+L89: push_var option_pm
+L90: push_constant_int 0
+L91: branch_greater_than L93
+L92: branch L106
+L93: push_varc_int varc_int_41
+L94: push_constant_int 0
+L95: branch_greater_than_or_equals L97
+L96: branch L106
+L97: push_int_local 1
+L98: branch_if_false L100
+L99: branch L106
+L100: push_int_local 0
+L101: gosub_with_params [proc,partnercheck]
+L102: branch_if_false L104
+L103: branch L106
+L104: push_constant_int 0
+L105: return 0
+L106: chat_getfilter_private 0
+L107: push_constant_int 2
+L108: branch_less_than L110
+L109: branch L112
+L110: push_constant_int 1
+L111: return 0
+L112: push_constant_int 0
+L113: return 0
+L114: branch L224
+L115: push_var option_pm
+L116: push_constant_int 0
+L117: branch_greater_than L119
+L118: branch L132
+L119: push_varc_int varc_int_41
+L120: push_constant_int 0
+L121: branch_greater_than_or_equals L123
+L122: branch L132
+L123: push_int_local 1
+L124: branch_if_false L126
+L125: branch L132
+L126: push_int_local 0
+L127: gosub_with_params [proc,partnercheck]
+L128: branch_if_false L130
+L129: branch L132
+L130: push_constant_int 0
+L131: return 0
+L132: push_constant_int 1
+L133: return 0
+L134: branch L224
+L135: push_var varp_1054
+L136: branch_if_false L138
+L137: branch L140
+L138: push_constant_int 1
+L139: return 0
+L140: push_var varp_1054
+L141: branch_if_true L143
+L142: branch L150
+L143: push_int_local 0
+L144: chat_gethistory_message 0
+L145: friend_test 0
+L146: branch_if_true L148
+L147: branch L150
+L148: push_constant_int 1
+L149: return 0
+L150: push_constant_int 0
+L151: return 0
+L152: branch L224
+L153: push_var varp_2159
+L154: branch_if_false L156
+L155: branch L158
+L156: push_constant_int 1
+L157: return 0
+L158: push_var varp_2159
+L159: branch_if_true L161
+L160: branch L168
+L161: push_int_local 0
+L162: chat_gethistory_message 0
+L163: friend_test 0
+L164: branch_if_true L166
+L165: branch L168
+L166: push_constant_int 1
+L167: return 0
+L168: push_constant_int 0
+L169: return 0
+L170: branch L224
+L171: push_var varp_1055
+L172: branch_if_false L174
+L173: branch L176
+L174: push_constant_int 1
+L175: return 0
+L176: push_var varp_1055
+L177: branch_if_true L179
+L178: branch L186
+L179: push_int_local 0
+L180: chat_gethistory_message 0
+L181: friend_test 0
+L182: branch_if_true L184
+L183: branch L186
+L184: push_constant_int 1
+L185: return 0
+L186: push_constant_int 0
+L187: return 0
+L188: branch L224
+L189: push_var varp_2159
+L190: push_constant_int 2
+L191: branch_less_than L193
+L192: branch L195
+L193: push_constant_int 1
+L194: return 0
+L195: push_constant_int 0
+L196: return 0
+L197: branch L224
+L198: push_var varp_1054
+L199: push_constant_int 2
+L200: branch_less_than L202
+L201: branch L204
+L202: push_constant_int 1
+L203: return 0
+L204: push_constant_int 0
+L205: return 0
+L206: branch L224
+L207: chat_getfilter_trade 0
+L208: push_constant_int 2
+L209: branch_less_than L211
+L210: branch L213
+L211: push_constant_int 1
+L212: return 0
+L213: push_constant_int 0
+L214: return 0
+L215: branch L224
+L216: push_var varp_1055
+L217: push_constant_int 2
+L218: branch_less_than L220
+L219: branch L222
+L220: push_constant_int 1
+L221: return 0
+L222: push_constant_int 0
+L223: return 0
+L224: push_constant_int 1
+L225: return 0
+L226: push_constant_int -1
+L227: return 0
+L228:
+
+[switch0@L2]
+-1=L4
+0=L7
+4=L7
+27=L7
+28=L7
+29=L7
+1=L7
+110=L7
+26=L7
+30=L7
+31=L7
+115=L7
+116=L7
+117=L7
+109=L10
+2=L18
+17=L18
+3=L36
+18=L36
+100=L71
+101=L71
+105=L71
+106=L71
+108=L71
+111=L71
+112=L71
+113=L71
+114=L71
+118=L71
+5=L89
+6=L89
+19=L89
+7=L115
+41=L135
+107=L135
+42=L135
+44=L135
+45=L135
+9=L153
+20=L153
+102=L171
+11=L189
+43=L198
+46=L198
+103=L207
+104=L216

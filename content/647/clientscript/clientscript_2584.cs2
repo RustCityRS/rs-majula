@@ -1,0 +1,52 @@
+name=""
+local_int_count=0
+local_string_count=0
+local_long_count=0
+int_param_count=0
+string_param_count=0
+long_param_count=0
+
+L0: push_constant_int 16750901
+L1: push_constant_int 19136629
+L2: if_setcolour 0
+L3: push_constant_int 1
+L4: push_constant_string "Select dwarf"
+L5: push_constant_int 19136614
+L6: if_setop 0
+L7: push_constant_int 1
+L8: push_constant_string "Select goblin"
+L9: push_constant_int 19136616
+L10: if_setop 0
+L11: push_constant_int 1
+L12: push_constant_string "Select elf"
+L13: push_constant_int 19136615
+L14: if_setop 0
+L15: push_constant_int 2586
+L16: push_constant_int -2147483645
+L17: push_constant_string "I"
+L18: push_constant_int 19136614
+L19: if_setonop 0
+L20: push_constant_int 2586
+L21: push_constant_int -2147483645
+L22: push_constant_string "I"
+L23: push_constant_int 19136616
+L24: if_setonop 0
+L25: push_constant_int 2586
+L26: push_constant_int -2147483645
+L27: push_constant_string "I"
+L28: push_constant_int 19136615
+L29: if_setonop 0
+L30: push_constant_int -1
+L31: push_constant_string ""
+L32: push_constant_int 19136614
+L33: if_setonclick 0
+L34: push_constant_int -1
+L35: push_constant_string ""
+L36: push_constant_int 19136616
+L37: if_setonclick 0
+L38: push_constant_int -1
+L39: push_constant_string ""
+L40: push_constant_int 19136615
+L41: if_setonclick 0
+L42: return 0
+L43:

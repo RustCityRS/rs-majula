@@ -1,7 +1,0 @@
-[clientscript,script_1178]
-%varc_int548 = max(0, sub(%varc_int548, 1));
-if_settext(tostring(calc(%varc_int548 * 2 / 100)));
-if (%varc_int548 <= 0) {
-    if_setontimer;
-}
-return;

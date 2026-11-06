@@ -1,0 +1,1108 @@
+name=""
+local_int_count=2
+local_string_count=0
+local_long_count=0
+int_param_count=2
+string_param_count=0
+long_param_count=0
+
+L0: push_int_local 0
+L1: switch switch0
+L2: branch L986
+L3: push_int_local 1
+L4: switch switch1
+L5: branch L164
+L6: push_constant_int 1
+L7: push_constant_int 303
+L8: push_constant_string "Small net"
+L9: push_constant_string "You can now fish with a "
+L10: push_constant_string "<col=000080>"
+L11: push_constant_string "small net"
+L12: push_constant_string "</col>"
+L13: push_constant_string "."
+L14: join_string 5
+L15: return 0
+L16: branch L164
+L17: push_constant_int 1
+L18: push_constant_int 13431
+L19: push_constant_string "Crayfish cage"
+L20: push_constant_string "You can now fish with a "
+L21: push_constant_string "<col=000080>"
+L22: push_constant_string "crayfish cage"
+L23: push_constant_string "</col>"
+L24: push_constant_string "."
+L25: join_string 5
+L26: return 0
+L27: branch L164
+L28: push_constant_int 5
+L29: push_constant_int 307
+L30: push_constant_string "Bait fishing"
+L31: push_constant_string "You can now fish with "
+L32: push_constant_string "<col=000080>"
+L33: push_constant_string "fishing rods"
+L34: push_constant_string "</col>"
+L35: push_constant_string " and bait"
+L36: push_constant_string "</col>"
+L37: push_constant_string "."
+L38: join_string 7
+L39: return 0
+L40: branch L164
+L41: push_constant_int 16
+L42: push_constant_int 305
+L43: push_constant_string "Members: Big net fishing"
+L44: push_constant_string "Members can now fish with "
+L45: push_constant_string "<col=000080>"
+L46: push_constant_string "big nets"
+L47: push_constant_string "</col>"
+L48: push_constant_string "."
+L49: join_string 5
+L50: return 0
+L51: branch L164
+L52: push_constant_int 20
+L53: push_constant_int 309
+L54: push_constant_string "Fly fishing rod"
+L55: push_constant_string "You can now fish with "
+L56: push_constant_string "<col=000080>"
+L57: push_constant_string "fly-fishing rods"
+L58: push_constant_string "</col>"
+L59: push_constant_string " and "
+L60: push_constant_string "<col=000080>"
+L61: push_constant_string "feathers"
+L62: push_constant_string "</col>"
+L63: push_constant_string "."
+L64: join_string 9
+L65: return 0
+L66: branch L164
+L67: push_constant_int 35
+L68: push_constant_int 311
+L69: push_constant_string "Harpoon"
+L70: push_constant_string "You can now fish with "
+L71: push_constant_string "<col=000080>"
+L72: push_constant_string "harpoons"
+L73: push_constant_string "</col>"
+L74: push_constant_string "."
+L75: join_string 5
+L76: return 0
+L77: branch L164
+L78: push_constant_int 40
+L79: push_constant_int 301
+L80: push_constant_string "Lobster pot"
+L81: push_constant_string "You can now fish with "
+L82: push_constant_string "<col=000080>"
+L83: push_constant_string "lobster pots"
+L84: push_constant_string "</col>"
+L85: push_constant_string "."
+L86: join_string 5
+L87: return 0
+L88: branch L164
+L89: push_constant_int 40
+L90: push_constant_int 14109
+L91: push_constant_string "Members: Sacred clay harpoon"
+L92: push_constant_string "Members can now use "
+L93: push_constant_string "<col=000080>"
+L94: push_constant_string "sacred clay harpoons"
+L95: push_constant_string "</col>"
+L96: push_constant_string "."
+L97: join_string 5
+L98: return 0
+L99: branch L164
+L100: push_constant_int 40
+L101: push_constant_int 14101
+L102: push_constant_string "Members: Volatile harpoon"
+L103: push_constant_string "Members can now use "
+L104: push_constant_string "<col=000080>"
+L105: push_constant_string "volatile harpoons"
+L106: push_constant_string "</col>"
+L107: push_constant_string "."
+L108: join_string 5
+L109: return 0
+L110: branch L164
+L111: push_constant_int 48
+L112: push_constant_int 11323
+L113: push_constant_string "Members: Heavy rod"
+L114: push_constant_string "<br>"
+L115: push_constant_string " (with 15 Agility and 15 Strength)"
+L116: join_string 3
+L117: push_constant_string "Members who are versed in the art of barbarian fishing now have the Fishing level required to fish with "
+L118: push_constant_string "<col=000080>"
+L119: push_constant_string "heavy rods"
+L120: push_constant_string "</col>"
+L121: push_constant_string ". (They also need level 15 Agility and level 15 Strength.)"
+L122: join_string 5
+L123: return 0
+L124: branch L164
+L125: push_constant_int 65
+L126: push_constant_int 3157
+L127: push_constant_string "Members: Vessel fishing"
+L128: push_constant_string "<br>"
+L129: push_constant_string " (after starting Tai Bwo Wannai Trio)"
+L130: join_string 3
+L131: push_constant_string "Members now have the Fishing level required to use "
+L132: push_constant_string "<col=000080>"
+L133: push_constant_string "karambwan vessels"
+L134: push_constant_string "</col>"
+L135: push_constant_string " to fish for "
+L136: push_constant_string "<col=000080>"
+L137: push_constant_string "karambwan"
+L138: push_constant_string "</col>"
+L139: push_constant_string " (after starting Tai Bwo Wannai Trio)."
+L140: join_string 9
+L141: return 0
+L142: branch L164
+L143: push_constant_int 65
+L144: push_constant_int 12860
+L145: push_constant_string "Swordfish gloves"
+L146: push_constant_string "You can now wear "
+L147: push_constant_string "<col=000080>"
+L148: push_constant_string "swordfish gloves"
+L149: push_constant_string "</col>"
+L150: push_constant_string "."
+L151: join_string 5
+L152: return 0
+L153: branch L164
+L154: push_constant_int 90
+L155: push_constant_int 12861
+L156: push_constant_string "Members: Shark gloves"
+L157: push_constant_string "Members can now wear "
+L158: push_constant_string "<col=000080>"
+L159: push_constant_string "shark gloves"
+L160: push_constant_string "</col>"
+L161: push_constant_string "."
+L162: join_string 5
+L163: return 0
+L164: branch L986
+L165: push_int_local 1
+L166: switch switch2
+L167: branch L497
+L168: push_constant_int 1
+L169: push_constant_int 317
+L170: push_constant_string "Shrimp - Net fishing"
+L171: push_constant_string "You can now catch "
+L172: push_constant_string "<col=000080>"
+L173: push_constant_string "shrimp"
+L174: push_constant_string "</col>"
+L175: push_constant_string " with a net."
+L176: join_string 5
+L177: return 0
+L178: branch L497
+L179: push_constant_int 1
+L180: push_constant_int 13435
+L181: push_constant_string "Crayfish - Crayfish cage"
+L182: push_constant_string "You can now catch "
+L183: push_constant_string "<col=000080>"
+L184: push_constant_string "crayfish"
+L185: push_constant_string "</col>"
+L186: push_constant_string " with a crayfish cage."
+L187: join_string 5
+L188: return 0
+L189: branch L497
+L190: push_constant_int 5
+L191: push_constant_int 327
+L192: push_constant_string "Sardine - Sea bait fishing"
+L193: push_constant_string "You can now catch "
+L194: push_constant_string "<col=000080>"
+L195: push_constant_string "sardines"
+L196: push_constant_string "</col>"
+L197: push_constant_string " with a fishing rod."
+L198: join_string 5
+L199: return 0
+L200: branch L497
+L201: push_constant_int 5
+L202: push_constant_int 3150
+L203: push_constant_string "Members: Karambwanji - Net fishing"
+L204: push_constant_string "Members can now catch "
+L205: push_constant_string "<col=000080>"
+L206: push_constant_string "karabwanji"
+L207: push_constant_string "</col>"
+L208: push_constant_string " with a net."
+L209: join_string 5
+L210: return 0
+L211: branch L497
+L212: push_constant_int 10
+L213: push_constant_int 345
+L214: push_constant_string "Herring - Sea bait fishing"
+L215: push_constant_string "You can now catch "
+L216: push_constant_string "<col=000080>"
+L217: push_constant_string "herring"
+L218: push_constant_string "</col>"
+L219: push_constant_string " with a fishing rod."
+L220: join_string 5
+L221: return 0
+L222: branch L497
+L223: push_constant_int 15
+L224: push_constant_int 321
+L225: push_constant_string "Anchovies - Net fishing"
+L226: push_constant_string "You can now catch "
+L227: push_constant_string "<col=000080>"
+L228: push_constant_string "anchovies"
+L229: push_constant_string "</col>"
+L230: push_constant_string " with a net."
+L231: join_string 5
+L232: return 0
+L233: branch L497
+L234: push_constant_int 16
+L235: push_constant_int 353
+L236: push_constant_string "Members: Mackerel - Big net fishing"
+L237: push_constant_string "Members can now catch "
+L238: push_constant_string "<col=000080>"
+L239: push_constant_string "mackerel"
+L240: push_constant_string "</col>"
+L241: push_constant_string " with a big net."
+L242: join_string 5
+L243: return 0
+L244: branch L497
+L245: push_constant_int 16
+L246: push_constant_int 407
+L247: push_constant_string "Members: Oyster - Big net fishing"
+L248: push_constant_string "Members can now catch "
+L249: push_constant_string "<col=000080>"
+L250: push_constant_string "oysters"
+L251: push_constant_string "</col>"
+L252: push_constant_string " with a big net."
+L253: join_string 5
+L254: return 0
+L255: branch L497
+L256: push_constant_int 16
+L257: push_constant_int 405
+L258: push_constant_string "Members: Casket - Big net fishing"
+L259: push_constant_string "Members can now catch "
+L260: push_constant_string "<col=000080>"
+L261: push_constant_string "caskets"
+L262: push_constant_string "</col>"
+L263: push_constant_string " with a big net."
+L264: join_string 5
+L265: return 0
+L266: branch L497
+L267: push_constant_int 16
+L268: push_constant_int 401
+L269: push_constant_string "Members: Seaweed - Big net fishing"
+L270: push_constant_string "Members can now catch "
+L271: push_constant_string "<col=000080>"
+L272: push_constant_string "seaweed"
+L273: push_constant_string "</col>"
+L274: push_constant_string " with a big net."
+L275: join_string 5
+L276: return 0
+L277: branch L497
+L278: push_constant_int 20
+L279: push_constant_int 335
+L280: push_constant_string "Trout - Fly-fishing"
+L281: push_constant_string "You can now catch "
+L282: push_constant_string "<col=000080>"
+L283: push_constant_string "trout"
+L284: push_constant_string "</col>"
+L285: push_constant_string " with a fly-fishing rod."
+L286: join_string 5
+L287: return 0
+L288: branch L497
+L289: push_constant_int 23
+L290: push_constant_int 341
+L291: push_constant_string "Members: Cod - Big net fishing"
+L292: push_constant_string "Members can now catch "
+L293: push_constant_string "<col=000080>"
+L294: push_constant_string "cod"
+L295: push_constant_string "</col>"
+L296: push_constant_string " with a big net."
+L297: join_string 5
+L298: return 0
+L299: branch L497
+L300: push_constant_int 25
+L301: push_constant_int 349
+L302: push_constant_string "Pike - River bait fishing"
+L303: push_constant_string "You can now catch "
+L304: push_constant_string "<col=000080>"
+L305: push_constant_string "pike"
+L306: push_constant_string "</col>"
+L307: push_constant_string " with a fishing rod."
+L308: join_string 5
+L309: return 0
+L310: branch L497
+L311: push_constant_int 28
+L312: push_constant_int 3379
+L313: push_constant_string "Members: Slimy eel - River bait fishing"
+L314: push_constant_string "Members can now catch "
+L315: push_constant_string "<col=000080>"
+L316: push_constant_string "slimy eels"
+L317: push_constant_string "</col>"
+L318: push_constant_string " with a fishing rod."
+L319: join_string 5
+L320: return 0
+L321: branch L497
+L322: push_constant_int 30
+L323: push_constant_int 331
+L324: push_constant_string "Salmon - Fly-fishing"
+L325: push_constant_string "You can now catch "
+L326: push_constant_string "<col=000080>"
+L327: push_constant_string "salmon"
+L328: push_constant_string "</col>"
+L329: push_constant_string " with a fly-fishing rod."
+L330: join_string 5
+L331: return 0
+L332: branch L497
+L333: push_constant_int 33
+L334: push_constant_int 5004
+L335: push_constant_string "Members: Giant frogspawn - Net fishing"
+L336: push_constant_string "Members can now catch "
+L337: push_constant_string "<col=000080>"
+L338: push_constant_string "giant frogspawn"
+L339: push_constant_string "</col>"
+L340: push_constant_string " with a net."
+L341: join_string 5
+L342: return 0
+L343: branch L497
+L344: push_constant_int 35
+L345: push_constant_int 359
+L346: push_constant_string "Tuna - Harpoon fishing"
+L347: push_constant_string "You can now catch "
+L348: push_constant_string "<col=000080>"
+L349: push_constant_string "tuna"
+L350: push_constant_string "</col>"
+L351: push_constant_string " with a harpoon."
+L352: join_string 5
+L353: return 0
+L354: branch L497
+L355: push_constant_int 38
+L356: push_constant_int 10138
+L357: push_constant_string "Members: Rainbow fish - Stripy fly-fishing"
+L358: push_constant_string "Members can now catch "
+L359: push_constant_string "<col=000080>"
+L360: push_constant_string "rainbow fish"
+L361: push_constant_string "</col>"
+L362: push_constant_string " with a fly-fishing rod."
+L363: join_string 5
+L364: return 0
+L365: branch L497
+L366: push_constant_int 38
+L367: push_constant_int 5001
+L368: push_constant_string "Members: Cave eel - River bait fishing"
+L369: push_constant_string "Members can now catch "
+L370: push_constant_string "<col=000080>"
+L371: push_constant_string "cave eels"
+L372: push_constant_string "</col>"
+L373: push_constant_string " with a fishing rod."
+L374: join_string 5
+L375: return 0
+L376: branch L497
+L377: push_constant_int 40
+L378: push_constant_int 377
+L379: push_constant_string "Lobster - Lobster pot fishing"
+L380: push_constant_string "You can now catch "
+L381: push_constant_string "<col=000080>"
+L382: push_constant_string "lobsters"
+L383: push_constant_string "</col>"
+L384: push_constant_string " with a lobster pot."
+L385: join_string 5
+L386: return 0
+L387: branch L497
+L388: push_constant_int 46
+L389: push_constant_int 363
+L390: push_constant_string "Members: Bass - Big net fishing"
+L391: push_constant_string "Members can now catch "
+L392: push_constant_string "<col=000080>"
+L393: push_constant_string "bass"
+L394: push_constant_string "</col>"
+L395: push_constant_string " with a big net."
+L396: join_string 5
+L397: return 0
+L398: branch L497
+L399: push_constant_int 50
+L400: push_constant_int 371
+L401: push_constant_string "Swordfish - Harpoon fishing"
+L402: push_constant_string "You can now catch "
+L403: push_constant_string "<col=000080>"
+L404: push_constant_string "swordfish"
+L405: push_constant_string "</col>"
+L406: push_constant_string " with a harpoon."
+L407: join_string 5
+L408: return 0
+L409: branch L497
+L410: push_constant_int 53
+L411: push_constant_int 2148
+L412: push_constant_string "Members: Lava eel - Bait fishing (oily fishing rod)"
+L413: push_constant_string "Members can now catch "
+L414: push_constant_string "<col=000080>"
+L415: push_constant_string "lava eels"
+L416: push_constant_string "</col>"
+L417: push_constant_string " with an oily fishing rod."
+L418: join_string 5
+L419: return 0
+L420: branch L497
+L421: push_constant_int 62
+L422: push_constant_int 7944
+L423: push_constant_string "Members: Monkfish - Net fishing"
+L424: push_constant_string "Members can now catch "
+L425: push_constant_string "<col=000080>"
+L426: push_constant_string "monkfish"
+L427: push_constant_string "</col>"
+L428: push_constant_string " with a net."
+L429: join_string 5
+L430: return 0
+L431: branch L497
+L432: push_constant_int 65
+L433: push_constant_int 3142
+L434: push_constant_string "Members: Karambwan - Vessel fishing"
+L435: push_constant_string "Members can now catch "
+L436: push_constant_string "<col=000080>"
+L437: push_constant_string "karambwan"
+L438: push_constant_string "</col>"
+L439: push_constant_string " with a karambwan vessel in Karamja."
+L440: join_string 5
+L441: return 0
+L442: branch L497
+L443: push_constant_int 76
+L444: push_constant_int 383
+L445: push_constant_string "Members: Shark - Harpoon fishing"
+L446: push_constant_string "Members can now catch "
+L447: push_constant_string "<col=000080>"
+L448: push_constant_string "sharks"
+L449: push_constant_string "</col>"
+L450: push_constant_string " with a harpoon."
+L451: join_string 5
+L452: return 0
+L453: branch L497
+L454: push_constant_int 79
+L455: push_constant_int 395
+L456: push_constant_string "Members: Sea turtle - Fishing Trawler"
+L457: push_constant_string "Members can now catch "
+L458: push_constant_string "<col=000080>"
+L459: push_constant_string "sea turtles"
+L460: push_constant_string "</col>"
+L461: push_constant_string " in Fishing Trawler."
+L462: join_string 5
+L463: return 0
+L464: branch L497
+L465: push_constant_int 81
+L466: push_constant_int 389
+L467: push_constant_string "Members: Manta ray - Fishing Trawler"
+L468: push_constant_string "Members can now catch "
+L469: push_constant_string "<col=000080>"
+L470: push_constant_string "manta rays"
+L471: push_constant_string "</col>"
+L472: push_constant_string " in Fishing Trawler."
+L473: join_string 5
+L474: return 0
+L475: branch L497
+L476: push_constant_int 85
+L477: push_constant_int 15264
+L478: push_constant_string "Members: Cavefish - Cave bait fishing"
+L479: push_constant_string "Members can now catch "
+L480: push_constant_string "<col=000080>"
+L481: push_constant_string "cavefish"
+L482: push_constant_string "</col>"
+L483: push_constant_string " with a fishing rod."
+L484: join_string 5
+L485: return 0
+L486: branch L497
+L487: push_constant_int 90
+L488: push_constant_int 15270
+L489: push_constant_string "Members: Rocktail - Living minerals cave bait fishing"
+L490: push_constant_string "Members can now catch "
+L491: push_constant_string "<col=000080>"
+L492: push_constant_string "rocktails"
+L493: push_constant_string "</col>"
+L494: push_constant_string " with a fishing rod."
+L495: join_string 5
+L496: return 0
+L497: branch L986
+L498: push_int_local 1
+L499: switch switch3
+L500: branch L632
+L501: push_constant_int -1
+L502: push_constant_int 7620
+L503: push_constant_string "To start fishing like a barbarian, talk to Otto Godblessed when you have at least level 48 Fishing, level 15 Agility and level 15 Strength."
+L504: push_constant_string ""
+L505: return 0
+L506: branch L632
+L507: push_constant_int 48
+L508: push_constant_int 11328
+L509: push_constant_string "Members: Leaping trout"
+L510: push_constant_string "<br>"
+L511: push_constant_string " (with 15 Strength and 15 Agility)"
+L512: join_string 3
+L513: push_constant_string "Members who are versed in the art of barbarian fishing now have the Fishing level required to catch "
+L514: push_constant_string "<col=000080>"
+L515: push_constant_string "leaping trout"
+L516: push_constant_string "</col>"
+L517: push_constant_string " with a heavy rod. (They also need level 15 Agility and level 15 Strength.)"
+L518: join_string 5
+L519: return 0
+L520: branch L632
+L521: push_constant_int 55
+L522: push_constant_int 359
+L523: push_constant_string "Members: Tuna"
+L524: push_constant_string "<br>"
+L525: push_constant_string " (with 35 Strength)"
+L526: join_string 3
+L527: push_constant_string "Members who are versed in the art of barbarian fishing now have the Fishing level required to catch "
+L528: push_constant_string "<col=000080>"
+L529: push_constant_string "tuna"
+L530: push_constant_string "</col>"
+L531: push_constant_string " without a harpoon. (They also need level 35 Strength.)"
+L532: join_string 5
+L533: return 0
+L534: branch L632
+L535: push_constant_int 55
+L536: push_constant_int 359
+L537: push_constant_string "Members: Possibility of catching two tuna in one fishing attempt"
+L538: push_constant_string "<br>"
+L539: push_constant_string " (with 35 Strength and 35 Agility)"
+L540: join_string 3
+L541: push_constant_string "Members who are versed in the art of barbarian fishing now have the Fishing level required to potentially catch two "
+L542: push_constant_string "<col=000080>"
+L543: push_constant_string "tuna"
+L544: push_constant_string "</col>"
+L545: push_constant_string " in one attempt without a harpoon. (They also need level 35 Strength and 35 Agility.)"
+L546: join_string 5
+L547: return 0
+L548: branch L632
+L549: push_constant_int 58
+L550: push_constant_int 11330
+L551: push_constant_string "Members: Leaping salmon"
+L552: push_constant_string "<br>"
+L553: push_constant_string " (with 30 Strength and 30 Agility)"
+L554: join_string 3
+L555: push_constant_string "Members who are versed in the art of barbarian fishing now have the Fishing level required to catch "
+L556: push_constant_string "<col=000080>"
+L557: push_constant_string "leaping salmon"
+L558: push_constant_string "</col>"
+L559: push_constant_string " with a heavy rod. (They also need level 30 Agility and level 30 Strength.)"
+L560: join_string 5
+L561: return 0
+L562: branch L632
+L563: push_constant_int 70
+L564: push_constant_int 371
+L565: push_constant_string "Members: Swordfish"
+L566: push_constant_string "<br>"
+L567: push_constant_string " (with 50 Strength)"
+L568: join_string 3
+L569: push_constant_string "Members who are versed in the art of barbarian fishing now have the Fishing level required to catch "
+L570: push_constant_string "<col=000080>"
+L571: push_constant_string "swordfish"
+L572: push_constant_string "</col>"
+L573: push_constant_string " without a harpoon. (They also need level 50 Strength.)"
+L574: join_string 5
+L575: return 0
+L576: branch L632
+L577: push_constant_int 70
+L578: push_constant_int 371
+L579: push_constant_string "Members: Possibility of catching two swordfish in one fishing attempt"
+L580: push_constant_string "<br>"
+L581: push_constant_string " (with 50 Strength and 50 Agility)"
+L582: join_string 3
+L583: push_constant_string "Members who are versed in the art of barbarian fishing now have the Fishing level required to catch two "
+L584: push_constant_string "<col=000080>"
+L585: push_constant_string "swordfish"
+L586: push_constant_string "</col>"
+L587: push_constant_string " without a harpoon. (They also need level 50 Strength and 50 Agility.)"
+L588: join_string 5
+L589: return 0
+L590: branch L632
+L591: push_constant_int 70
+L592: push_constant_int 11332
+L593: push_constant_string "Members: Leaping sturgeon"
+L594: push_constant_string "<br>"
+L595: push_constant_string " (with 45 Strength and 45 Agility)"
+L596: join_string 3
+L597: push_constant_string "Members who are versed in the art of barbarian fishing now have the Fishing level required to catch "
+L598: push_constant_string "<col=000080>"
+L599: push_constant_string "leaping sturgeon"
+L600: push_constant_string "</col>"
+L601: push_constant_string " with a heavy rod. (They also need level 45 Agility and level 45 Strength.)"
+L602: join_string 5
+L603: return 0
+L604: branch L632
+L605: push_constant_int 96
+L606: push_constant_int 383
+L607: push_constant_string "Members: Shark"
+L608: push_constant_string "<br>"
+L609: push_constant_string " (with 76 Strength)"
+L610: join_string 3
+L611: push_constant_string "Members who are versed in the art of barbarian fishing now have the Fishing level required to catch "
+L612: push_constant_string "<col=000080>"
+L613: push_constant_string "sharks"
+L614: push_constant_string "</col>"
+L615: push_constant_string " without a harpoon. (They also need level 76 Strength.)"
+L616: join_string 5
+L617: return 0
+L618: branch L632
+L619: push_constant_int 96
+L620: push_constant_int 383
+L621: push_constant_string "Members: Possibility of catching two sharks in one fishing attempt"
+L622: push_constant_string "<br>"
+L623: push_constant_string " (with 76 Strength and 76 Agility)"
+L624: join_string 3
+L625: push_constant_string "Members who are versed in the art of barbarian fishing now have the Fishing level required to potentially catch two "
+L626: push_constant_string "<col=000080>"
+L627: push_constant_string "sharks"
+L628: push_constant_string "</col>"
+L629: push_constant_string " in one attempt without a harpoon. (They also need level 76 Strength and 76 Agility.)"
+L630: join_string 5
+L631: return 0
+L632: branch L986
+L633: push_int_local 1
+L634: switch switch4
+L635: branch L677
+L636: push_constant_int 35
+L637: push_constant_int 359
+L638: push_constant_string "Possibility of catching two tuna in one fishing attempt"
+L639: push_constant_string "<br>"
+L640: push_constant_string " (with 35 Agility)"
+L641: join_string 3
+L642: push_constant_string "You now have the Fishing level required to potentially catch two "
+L643: push_constant_string "<col=000080>"
+L644: push_constant_string "tuna"
+L645: push_constant_string "</col>"
+L646: push_constant_string " in one fishing attempt. (You also need level 35 Agility.)"
+L647: join_string 5
+L648: return 0
+L649: branch L677
+L650: push_constant_int 50
+L651: push_constant_int 371
+L652: push_constant_string "Possibility of catching two swordfish in one fishing attempt"
+L653: push_constant_string "<br>"
+L654: push_constant_string " (with 50 Agility)"
+L655: join_string 3
+L656: push_constant_string "You now have the Fishing level required to potentially catch two "
+L657: push_constant_string "<col=000080>"
+L658: push_constant_string "swordfish"
+L659: push_constant_string "</col>"
+L660: push_constant_string " in one fishing attempt. (You also need level 50 Agility.)"
+L661: join_string 5
+L662: return 0
+L663: branch L677
+L664: push_constant_int 76
+L665: push_constant_int 383
+L666: push_constant_string "Possibility of catching two sharks in one fishing attempt"
+L667: push_constant_string "<br>"
+L668: push_constant_string " (with 76 Agility)"
+L669: join_string 3
+L670: push_constant_string "You now have the Fishing level required to potentially catch two "
+L671: push_constant_string "<col=000080>"
+L672: push_constant_string "sharks"
+L673: push_constant_string "</col>"
+L674: push_constant_string " in one fishing attempt. (You also need level 76 Agility.)"
+L675: join_string 5
+L676: return 0
+L677: branch L986
+L678: push_int_local 1
+L679: switch switch5
+L680: branch L724
+L681: push_constant_int 91
+L682: push_constant_int 18778
+L683: push_constant_string "Members: Starved ancient effigies"
+L684: push_constant_string "Members can now investigate "
+L685: push_constant_string "<col=000080>"
+L686: push_constant_string "starved ancient effigies"
+L687: push_constant_string "</col>"
+L688: push_constant_string " using their knowledge of Fishing."
+L689: join_string 5
+L690: return 0
+L691: branch L724
+L692: push_constant_int 93
+L693: push_constant_int 18779
+L694: push_constant_string "Members: Nourished ancient effigies"
+L695: push_constant_string "Members can now investigate "
+L696: push_constant_string "<col=000080>"
+L697: push_constant_string "nourished ancient effigies"
+L698: push_constant_string "</col>"
+L699: push_constant_string " using their knowledge of Fishing."
+L700: join_string 5
+L701: return 0
+L702: branch L724
+L703: push_constant_int 95
+L704: push_constant_int 18780
+L705: push_constant_string "Members: Sated ancient effigies"
+L706: push_constant_string "Members can now investigate "
+L707: push_constant_string "<col=000080>"
+L708: push_constant_string "sated ancient effigies"
+L709: push_constant_string "</col>"
+L710: push_constant_string " using their knowledge of Fishing."
+L711: join_string 5
+L712: return 0
+L713: branch L724
+L714: push_constant_int 97
+L715: push_constant_int 18781
+L716: push_constant_string "Members: Gorged ancient effigies"
+L717: push_constant_string "Members can now investigate "
+L718: push_constant_string "<col=000080>"
+L719: push_constant_string "gorged ancient effigies"
+L720: push_constant_string "</col>"
+L721: push_constant_string " using their knowledge of Fishing."
+L722: join_string 5
+L723: return 0
+L724: branch L986
+L725: push_int_local 1
+L726: switch switch6
+L727: branch L826
+L728: push_constant_int 1
+L729: push_constant_int 14142
+L730: push_constant_string "Members: Stealing Creation - class 1 harpoon"
+L731: push_constant_string "Members can now use "
+L732: push_constant_string "<col=000080>"
+L733: push_constant_string "class 1 harpoons"
+L734: push_constant_string "</col>"
+L735: push_constant_string " in Stealing Creation."
+L736: join_string 5
+L737: return 0
+L738: branch L826
+L739: push_constant_int 20
+L740: push_constant_int 14184
+L741: push_constant_string "Members: Stealing Creation - catch class 2 sacred clay"
+L742: push_constant_string "Members can now catch "
+L743: push_constant_string "<col=000080>"
+L744: push_constant_string "class 2 sacred clay"
+L745: push_constant_string "</col>"
+L746: push_constant_string " in Stealing Creation."
+L747: join_string 5
+L748: return 0
+L749: branch L826
+L750: push_constant_int 20
+L751: push_constant_int 14144
+L752: push_constant_string "Members: Stealing Creation - class 2 harpoon"
+L753: push_constant_string "Members can now use "
+L754: push_constant_string "<col=000080>"
+L755: push_constant_string "class 2 harpoons"
+L756: push_constant_string "</col>"
+L757: push_constant_string " in Stealing Creation."
+L758: join_string 5
+L759: return 0
+L760: branch L826
+L761: push_constant_int 40
+L762: push_constant_int 14186
+L763: push_constant_string "Members: Stealing Creation - catch class 3 sacred clay"
+L764: push_constant_string "Members can now catch "
+L765: push_constant_string "<col=000080>"
+L766: push_constant_string "class 3 sacred clay"
+L767: push_constant_string "</col>"
+L768: push_constant_string " in Stealing Creation."
+L769: join_string 5
+L770: return 0
+L771: branch L826
+L772: push_constant_int 40
+L773: push_constant_int 14146
+L774: push_constant_string "Members: Stealing Creation - class 3 harpoon"
+L775: push_constant_string "Members can now use "
+L776: push_constant_string "<col=000080>"
+L777: push_constant_string "class 3 harpoons"
+L778: push_constant_string "</col>"
+L779: push_constant_string " in Stealing Creation."
+L780: join_string 5
+L781: return 0
+L782: branch L826
+L783: push_constant_int 60
+L784: push_constant_int 14188
+L785: push_constant_string "Members: Stealing Creation - catch class 4 sacred clay"
+L786: push_constant_string "Members can now catch "
+L787: push_constant_string "<col=000080>"
+L788: push_constant_string "class 4 sacred clay"
+L789: push_constant_string "</col>"
+L790: push_constant_string " in Stealing Creation."
+L791: join_string 5
+L792: return 0
+L793: branch L826
+L794: push_constant_int 60
+L795: push_constant_int 14148
+L796: push_constant_string "Members: Stealing Creation - class 4 harpoon"
+L797: push_constant_string "Members can now use "
+L798: push_constant_string "<col=000080>"
+L799: push_constant_string "class 4 harpoons"
+L800: push_constant_string "</col>"
+L801: push_constant_string " in Stealing Creation."
+L802: join_string 5
+L803: return 0
+L804: branch L826
+L805: push_constant_int 80
+L806: push_constant_int 14190
+L807: push_constant_string "Members: Stealing Creation - catch class 5 sacred clay"
+L808: push_constant_string "Members can now catch "
+L809: push_constant_string "<col=000080>"
+L810: push_constant_string "class 5 sacred clay"
+L811: push_constant_string "</col>"
+L812: push_constant_string " in Stealing Creation."
+L813: join_string 5
+L814: return 0
+L815: branch L826
+L816: push_constant_int 80
+L817: push_constant_int 14150
+L818: push_constant_string "Members: Stealing Creation - class 5 harpoon"
+L819: push_constant_string "Members can now use "
+L820: push_constant_string "<col=000080>"
+L821: push_constant_string "class 5 harpoons"
+L822: push_constant_string "</col>"
+L823: push_constant_string " in Stealing Creation."
+L824: join_string 5
+L825: return 0
+L826: branch L986
+L827: push_int_local 1
+L828: switch switch7
+L829: branch L948
+L830: push_constant_int -1
+L831: push_constant_int 15707
+L832: push_constant_string "Dungeoneering skill tasks"
+L833: push_constant_string "<br>"
+L834: push_constant_string "As your Fishing level increases, you will be able to attempt higher-level fishing tasks within Daemonheim. You will also be more likely to succeed when attempting fishing tasks within Daemonheim."
+L835: join_string 3
+L836: push_constant_string ""
+L837: return 0
+L838: branch L948
+L839: push_constant_int 1
+L840: push_constant_int 17797
+L841: push_constant_string "Heim crab (Tier 1)"
+L842: push_constant_string "You can now catch "
+L843: push_constant_string "<col=000080>"
+L844: push_constant_string "heim crabs"
+L845: push_constant_string "</col>"
+L846: push_constant_string " within Daemonheim."
+L847: join_string 5
+L848: return 0
+L849: branch L948
+L850: push_constant_int 10
+L851: push_constant_int 17799
+L852: push_constant_string "Red-eye (Tier 2)"
+L853: push_constant_string "You can now catch "
+L854: push_constant_string "<col=000080>"
+L855: push_constant_string "red-eye"
+L856: push_constant_string "</col>"
+L857: push_constant_string " within Daemonheim."
+L858: join_string 5
+L859: return 0
+L860: branch L948
+L861: push_constant_int 20
+L862: push_constant_int 17801
+L863: push_constant_string "Dusk eel (Tier 3)"
+L864: push_constant_string "You can now catch "
+L865: push_constant_string "<col=000080>"
+L866: push_constant_string "dusk eels"
+L867: push_constant_string "</col>"
+L868: push_constant_string " within Daemonheim."
+L869: join_string 5
+L870: return 0
+L871: branch L948
+L872: push_constant_int 30
+L873: push_constant_int 17803
+L874: push_constant_string "Giant flatfish (Tier 4)"
+L875: push_constant_string "You can now catch "
+L876: push_constant_string "<col=000080>"
+L877: push_constant_string "giant flatfish"
+L878: push_constant_string "</col>"
+L879: push_constant_string " within Daemonheim."
+L880: join_string 5
+L881: return 0
+L882: branch L948
+L883: push_constant_int 40
+L884: push_constant_int 17805
+L885: push_constant_string "Short-finned eel (Tier 5)"
+L886: push_constant_string "You can now catch "
+L887: push_constant_string "<col=000080>"
+L888: push_constant_string "short-finned eels"
+L889: push_constant_string "</col>"
+L890: push_constant_string " within Daemonheim."
+L891: join_string 5
+L892: return 0
+L893: branch L948
+L894: push_constant_int 50
+L895: push_constant_int 17807
+L896: push_constant_string "Members: Web snipper (Tier 6)"
+L897: push_constant_string "Members can now catch "
+L898: push_constant_string "<col=000080>"
+L899: push_constant_string "web snippers"
+L900: push_constant_string "</col>"
+L901: push_constant_string " within Daemonheim."
+L902: join_string 5
+L903: return 0
+L904: branch L948
+L905: push_constant_int 60
+L906: push_constant_int 17809
+L907: push_constant_string "Members: Bouldabass (Tier 7)"
+L908: push_constant_string "Members can now catch "
+L909: push_constant_string "<col=000080>"
+L910: push_constant_string "bouldabass"
+L911: push_constant_string "</col>"
+L912: push_constant_string " within Daemonheim."
+L913: join_string 5
+L914: return 0
+L915: branch L948
+L916: push_constant_int 70
+L917: push_constant_int 17811
+L918: push_constant_string "Members: Salve eel (Tier 8)"
+L919: push_constant_string "Members can now catch "
+L920: push_constant_string "<col=000080>"
+L921: push_constant_string "salve eels"
+L922: push_constant_string "</col>"
+L923: push_constant_string " within Daemonheim."
+L924: join_string 5
+L925: return 0
+L926: branch L948
+L927: push_constant_int 80
+L928: push_constant_int 17813
+L929: push_constant_string "Members: Blue crab (Tier 9)"
+L930: push_constant_string "Members can now catch "
+L931: push_constant_string "<col=000080>"
+L932: push_constant_string "blue crabs"
+L933: push_constant_string "</col>"
+L934: push_constant_string " within Daemonheim."
+L935: join_string 5
+L936: return 0
+L937: branch L948
+L938: push_constant_int 90
+L939: push_constant_int 17815
+L940: push_constant_string "Members: Cave moray (Tier 10)"
+L941: push_constant_string "Members can now catch "
+L942: push_constant_string "<col=000080>"
+L943: push_constant_string "cave morays"
+L944: push_constant_string "</col>"
+L945: push_constant_string " within Daemonheim."
+L946: join_string 5
+L947: return 0
+L948: branch L986
+L949: push_int_local 1
+L950: switch switch8
+L951: branch L986
+L952: push_constant_int 68
+L953: push_constant_int 383
+L954: push_constant_string "Members: Fishing Guild"
+L955: push_constant_string "Members can now enter the "
+L956: push_constant_string "<col=000080>"
+L957: push_constant_string "Fishing Guild"
+L958: push_constant_string "</col>"
+L959: push_constant_string "."
+L960: join_string 5
+L961: return 0
+L962: branch L986
+L963: push_constant_int 99
+L964: push_constant_int 9798
+L965: push_constant_string "Skill mastery"
+L966: push_constant_string "<col=000080>"
+L967: push_constant_string "Congratulations! You are now a master of "
+L968: push_constant_string "<col=800000>"
+L969: push_constant_string "Fishing"
+L970: push_constant_string "<col=000080>"
+L971: push_constant_string ". Members can visit the "
+L972: push_constant_string "<col=800000>"
+L973: push_constant_string "Master Fisherman"
+L974: push_constant_string "<col=000080>"
+L975: push_constant_string " at the "
+L976: push_constant_string "<col=800000>"
+L977: push_constant_string "Fishing Guild"
+L978: push_constant_string "<col=000080>"
+L979: push_constant_string ". He has something special that is only available to true masters of the "
+L980: push_constant_string "<col=800000>"
+L981: push_constant_string "Fishing"
+L982: push_constant_string "<col=000080>"
+L983: push_constant_string " skill!"
+L984: join_string 18
+L985: return 0
+L986: push_constant_int 0
+L987: push_constant_int -1
+L988: push_constant_string ""
+L989: push_constant_string ""
+L990: return 0
+L991:
+
+[switch0@L1]
+0=L3
+1=L165
+2=L498
+3=L633
+4=L678
+5=L725
+6=L827
+7=L949
+
+[switch1@L4]
+0=L6
+1=L17
+2=L28
+3=L41
+4=L52
+5=L67
+6=L78
+7=L89
+8=L100
+9=L111
+10=L125
+11=L143
+12=L154
+
+[switch2@L166]
+0=L168
+1=L179
+2=L190
+3=L201
+4=L212
+5=L223
+6=L234
+7=L245
+8=L256
+9=L267
+10=L278
+11=L289
+12=L300
+13=L311
+14=L322
+15=L333
+16=L344
+17=L355
+18=L366
+19=L377
+20=L388
+21=L399
+22=L410
+23=L421
+24=L432
+25=L443
+26=L454
+27=L465
+28=L476
+29=L487
+
+[switch3@L499]
+0=L501
+1=L507
+2=L521
+3=L535
+4=L549
+5=L563
+6=L577
+7=L591
+8=L605
+9=L619
+
+[switch4@L634]
+0=L636
+1=L650
+2=L664
+
+[switch5@L679]
+0=L681
+1=L692
+2=L703
+3=L714
+
+[switch6@L726]
+0=L728
+1=L739
+2=L750
+3=L761
+4=L772
+5=L783
+6=L794
+7=L805
+8=L816
+
+[switch7@L828]
+0=L830
+1=L839
+2=L850
+3=L861
+4=L872
+5=L883
+6=L894
+7=L905
+8=L916
+9=L927
+10=L938
+
+[switch8@L950]
+0=L952
+1=L963

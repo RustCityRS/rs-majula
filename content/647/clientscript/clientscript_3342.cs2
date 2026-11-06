@@ -1,0 +1,75 @@
+name=""
+local_int_count=4
+local_string_count=0
+local_long_count=0
+int_param_count=1
+string_param_count=0
+long_param_count=0
+
+L0: push_constant_int -1
+L1: pop_int_local 1
+L2: push_constant_int -1
+L3: pop_int_local 2
+L4: push_constant_int -1
+L5: pop_int_local 3
+L6: getlanguage 0
+L7: branch_if_true L9
+L8: branch L26
+L9: push_varc_int varc_int_1178
+L10: branch_if_false L12
+L11: branch L19
+L12: push_constant_int 3068
+L13: pop_int_local 1
+L14: push_constant_int 3067
+L15: pop_int_local 2
+L16: push_constant_int 3069
+L17: pop_int_local 3
+L18: branch L25
+L19: push_constant_int 3071
+L20: pop_int_local 1
+L21: push_constant_int 3070
+L22: pop_int_local 2
+L23: push_constant_int 3072
+L24: pop_int_local 3
+L25: branch L42
+L26: push_varc_int varc_int_1178
+L27: branch_if_false L29
+L28: branch L36
+L29: push_constant_int 3014
+L30: pop_int_local 1
+L31: push_constant_int 3013
+L32: pop_int_local 2
+L33: push_constant_int 3015
+L34: pop_int_local 3
+L35: branch L42
+L36: push_constant_int 3017
+L37: pop_int_local 1
+L38: push_constant_int 3016
+L39: pop_int_local 2
+L40: push_constant_int 3018
+L41: pop_int_local 3
+L42: push_int_local 2
+L43: push_int_local 0
+L44: if_setgraphic 0
+L45: push_constant_int 44
+L46: push_constant_int -2147483645
+L47: push_int_local 1
+L48: push_constant_string "Id"
+L49: push_int_local 0
+L50: if_setonmouseover 0
+L51: push_constant_int 44
+L52: push_constant_int -2147483645
+L53: push_int_local 2
+L54: push_constant_string "Id"
+L55: push_int_local 0
+L56: if_setonmouseleave 0
+L57: push_constant_int 44
+L58: push_constant_int -2147483645
+L59: push_int_local 3
+L60: push_constant_string "Id"
+L61: push_int_local 0
+L62: if_setonclick 0
+L63: push_constant_int 61538418
+L64: gosub_with_params [proc,deltooltip_action]
+L65: return 0
+L66:

@@ -1,0 +1,24 @@
+name=""
+local_int_count=1
+local_string_count=0
+local_long_count=0
+int_param_count=1
+string_param_count=0
+long_param_count=0
+
+L0: push_int_local 0
+L1: gosub_with_params [proc,clanwars_setup_clicktest]
+L2: branch_if_false L4
+L3: branch L5
+L4: return 0
+L5: push_varc_int varc_int_249
+L6: branch_if_false L8
+L7: branch L11
+L8: push_constant_int 1
+L9: pop_varc_int varc_int_249
+L10: branch L13
+L11: push_constant_int 0
+L12: pop_varc_int varc_int_249
+L13: gosub_with_params clientscript_1773
+L14: return 0
+L15:

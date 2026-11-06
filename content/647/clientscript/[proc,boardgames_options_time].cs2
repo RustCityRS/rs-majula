@@ -1,0 +1,51 @@
+name=""
+local_int_count=0
+local_string_count=0
+local_long_count=0
+int_param_count=0
+string_param_count=0
+long_param_count=0
+
+L0: push_constant_int 180
+L1: push_constant_int 49545228
+L2: if_setgraphic 0
+L3: push_constant_int 180
+L4: push_constant_int 49545229
+L5: if_setgraphic 0
+L6: push_constant_int 180
+L7: push_constant_int 49545231
+L8: if_setgraphic 0
+L9: push_constant_int 180
+L10: push_constant_int 49545232
+L11: if_setgraphic 0
+L12: push_varbit boardgames_timepermove
+L13: branch_if_false L15
+L14: branch L19
+L15: push_constant_int 181
+L16: push_constant_int 49545228
+L17: if_setgraphic 0
+L18: branch L41
+L19: push_varbit boardgames_timepermove
+L20: branch_if_true L22
+L21: branch L26
+L22: push_constant_int 181
+L23: push_constant_int 49545229
+L24: if_setgraphic 0
+L25: branch L41
+L26: push_varbit boardgames_timepermove
+L27: push_constant_int 2
+L28: branch_equals L30
+L29: branch L34
+L30: push_constant_int 181
+L31: push_constant_int 49545231
+L32: if_setgraphic 0
+L33: branch L41
+L34: push_varbit boardgames_timepermove
+L35: push_constant_int 3
+L36: branch_equals L38
+L37: branch L41
+L38: push_constant_int 181
+L39: push_constant_int 49545232
+L40: if_setgraphic 0
+L41: return 0
+L42:

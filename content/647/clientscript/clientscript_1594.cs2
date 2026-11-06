@@ -1,0 +1,58 @@
+name=""
+local_int_count=5
+local_string_count=1
+local_long_count=0
+int_param_count=5
+string_param_count=1
+long_param_count=0
+
+L0: push_int_local 1
+L1: push_int_local 2
+L2: cc_find 0
+L3: branch_if_true L12
+L4: push_int_local 2
+L5: push_constant_int -1
+L6: branch_equals L8
+L7: branch L48
+L8: push_int_local 1
+L9: if_find 0
+L10: branch_if_true L12
+L11: branch L48
+L12: gosub_with_params [proc,cc_gety_absolute]
+L13: push_constant_int 3
+L14: push_constant_int 5
+L15: push_constant_int 261
+L16: scale 0
+L17: branch_less_than L19
+L18: branch L34
+L19: push_int_local 0
+L20: push_int_local 1
+L21: push_int_local 2
+L22: push_string_local 0
+L23: push_constant_int 120
+L24: push_constant_int 3793
+L25: push_constant_int 3793
+L26: push_constant_int 16777215
+L27: push_constant_int 13
+L28: push_constant_int 4
+L29: push_constant_int 2
+L30: push_int_local 3
+L31: push_int_local 4
+L32: gosub_with_params clientscript_4539
+L33: branch L48
+L34: push_int_local 0
+L35: push_int_local 1
+L36: push_int_local 2
+L37: push_string_local 0
+L38: push_constant_int 120
+L39: push_constant_int 3793
+L40: push_constant_int 3793
+L41: push_constant_int 16777215
+L42: push_constant_int 13
+L43: push_constant_int 4
+L44: push_constant_int 0
+L45: push_int_local 3
+L46: push_int_local 4
+L47: gosub_with_params clientscript_4539
+L48: return 0
+L49:

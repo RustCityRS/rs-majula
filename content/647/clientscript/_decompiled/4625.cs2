@@ -1,9 +1,0 @@
-[clientscript,script_4625]
-if (compare(%varc_str353, "") ! 0) {
-    if (compare(%varc_str353, "null") ! 0) {
-        %varc_str354 = %varc_str353;
-    }
-} else {
-    %varc_str354 = "";
-}
-return;

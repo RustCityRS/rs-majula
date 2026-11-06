@@ -1,0 +1,28 @@
+name=""
+local_int_count=0
+local_string_count=0
+local_long_count=0
+int_param_count=0
+string_param_count=0
+long_param_count=0
+
+L0: push_varc_int varc_int_1052
+L1: branch_if_true L3
+L2: branch L11
+L3: push_constant_string "Hide stat adjustments."
+L4: push_constant_int 17760268
+L5: if_settext 0
+L6: push_constant_int 1
+L7: push_constant_string "Hide stat adjustments"
+L8: push_constant_int 17760268
+L9: if_setop 0
+L10: branch L18
+L11: push_constant_string "Show stat adjustments."
+L12: push_constant_int 17760268
+L13: if_settext 0
+L14: push_constant_int 1
+L15: push_constant_string "Show stat adjustments"
+L16: push_constant_int 17760268
+L17: if_setop 0
+L18: return 0
+L19:

@@ -1,8 +1,0 @@
-[clientscript,script_2332](string $str0, string $str1, string $str2)(string)
-def_int $int0 = string_indexof_string($str0, $str1);
-def_int $int1 = string_length($str1);
-if ($int0 ! -1) {
-    $str0 = substring($str0, 0, $int0) + $str2 + substring($str0, add($int0, $int1), string_length($str0));
-    $int0 = string_indexof_string($str0, $str1);
-}
-return($str0);

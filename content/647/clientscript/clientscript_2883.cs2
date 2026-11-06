@@ -1,0 +1,22 @@
+name=""
+local_int_count=0
+local_string_count=0
+local_long_count=0
+int_param_count=0
+string_param_count=0
+long_param_count=0
+
+L0: push_varbit varbit_4393
+L1: branch_if_true L5
+L2: push_varbit varbit_542
+L3: branch_if_true L5
+L4: branch L6
+L5: return 0
+L6: push_constant_int 12255243
+L7: push_constant_int 12255248
+L8: push_constant_string "Clear playlist"
+L9: push_constant_int 25
+L10: push_constant_int 189
+L11: gosub_with_params [proc,addtooltip_action]
+L12: return 0
+L13:

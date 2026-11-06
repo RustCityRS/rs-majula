@@ -1,6 +1,0 @@
-[clientscript,script_3467](int $int0, int $int1, int $int2)(int, int, int, int, int, string, string)
-if (sub(clientclock, $int1) < $int2) {
-    return;
-}
-if_setontimer;
-return(-1, $int0, ~script_2766(0, 50, $int0), ~script_2766(0, 50, $int0), ~script_2766(0, 50, $int0), "", ~script_2766(0, 50, $int0));

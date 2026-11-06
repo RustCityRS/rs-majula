@@ -1,0 +1,49 @@
+name=""
+local_int_count=0
+local_string_count=2
+local_long_count=0
+int_param_count=0
+string_param_count=2
+long_param_count=0
+
+L0: getwindowmode 0
+L1: push_constant_int 2
+L2: branch_greater_than_or_equals L4
+L3: branch L7
+L4: push_constant_int 0
+L5: push_constant_int 48889925
+L6: if_sethide 0
+L7: push_constant_int 0
+L8: push_constant_int 49283075
+L9: if_sethide 0
+L10: push_constant_int 1
+L11: push_constant_int 49283079
+L12: if_sethide 0
+L13: push_constant_int 1
+L14: push_constant_int 49283080
+L15: if_sethide 0
+L16: push_string_local 0
+L17: push_constant_int 49283076
+L18: if_settext 0
+L19: push_constant_int 13
+L20: pop_varc_int varc_int_5
+L21: push_string_local 1
+L22: gosub_with_params [proc,meslayer_setupinput]
+L23: push_constant_int -1
+L24: push_constant_string ""
+L25: push_constant_int 49283075
+L26: if_setonclick 0
+L27: gosub_with_params clientscript_2026
+L28: push_constant_int 112
+L29: push_constant_int -2147483640
+L30: push_constant_int -2147483639
+L31: push_constant_string "iz"
+L32: push_constant_int 49283077
+L33: if_setonkey 0
+L34: push_constant_int 138
+L35: push_constant_string ""
+L36: push_constant_int 49283077
+L37: op2423 0
+L38: gosub_with_params [clientscript,opt_header]
+L39: return 0
+L40:

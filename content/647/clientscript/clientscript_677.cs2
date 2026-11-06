@@ -1,0 +1,37 @@
+name=""
+local_int_count=1
+local_string_count=0
+local_long_count=0
+int_param_count=1
+string_param_count=0
+long_param_count=0
+
+L0: push_int_local 0
+L1: push_constant_int 9
+L2: branch_less_than_or_equals L4
+L3: branch L12
+L4: push_constant_int 358
+L5: push_constant_int 225
+L6: push_constant_int 10223618
+L7: if_setscrollsize 0
+L8: push_constant_int 1
+L9: push_constant_int 10223617
+L10: if_sethide 0
+L11: branch L27
+L12: push_constant_int 0
+L13: push_constant_int 10223617
+L14: if_sethide 0
+L15: push_constant_int 358
+L16: push_int_local 0
+L17: push_constant_int 20
+L18: multiply 0
+L19: push_constant_int 30
+L20: add 0
+L21: push_constant_int 10223618
+L22: if_setscrollsize 0
+L23: push_constant_int 10223617
+L24: push_constant_int 10223618
+L25: push_constant_int 0
+L26: gosub_with_params [proc,scrollbar_resize]
+L27: return 0
+L28:

@@ -30,7 +30,6 @@ rustc-hash = { workspace = true }
 zip = { workspace = true }
 png = { workspace = true }
 serde_json = { workspace = true }
-image = { version = "0.25", default-features = false, features = ["png"] }
 rayon = "1"
 rs-crypto = { workspace = true }
 

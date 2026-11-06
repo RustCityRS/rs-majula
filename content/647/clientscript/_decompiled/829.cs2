@@ -1,5 +1,0 @@
-[clientscript,script_829](int $int0, int $int1)(int)
-if ($int0 = 845) {
-    return(sub(screenmode_getcount, 1));
-}
-return(sub(enum_getoutputcount($int1), 1));

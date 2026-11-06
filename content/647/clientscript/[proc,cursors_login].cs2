@@ -1,0 +1,28 @@
+name=""
+local_int_count=0
+local_string_count=0
+local_long_count=0
+int_param_count=0
+string_param_count=0
+long_param_count=0
+
+L0: push_constant_int 36
+L1: push_constant_int 41
+L2: hud_setoffsets_5426 0
+L3: push_constant_int 46
+L4: push_constant_int -1
+L5: hud_setoffsets_5427 0
+L6: push_varc_int varc_int_987
+L7: branch_if_true L11
+L8: push_varc_int varc_int_987
+L9: branch_if_false L11
+L10: branch L14
+L11: push_varc_int varc_int_987
+L12: set_clientopt_6028 0
+L13: branch L18
+L14: push_constant_int 1
+L15: pop_varc_int varc_int_987
+L16: push_varc_int varc_int_987
+L17: set_clientopt_6028 0
+L18: return 0
+L19:

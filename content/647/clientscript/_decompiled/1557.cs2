@@ -1,9 +1,0 @@
-[clientscript,script_1557](int, int, component, component, string)
-if_setposition(if_gety, 0, 0, 49283078);
-if (has_focus = 1) {
-    if_sethide(49283078);
-} else {
-    if_sethide(49283078);
-}
-if_setontimer;
-return(1400, clientclock, 49283078, 49283077, "iI");

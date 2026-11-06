@@ -1,0 +1,84 @@
+name=""
+local_int_count=0
+local_string_count=0
+local_long_count=0
+int_param_count=0
+string_param_count=0
+long_param_count=0
+
+L0: push_constant_int 59375841
+L1: if_clearops 0
+L2: push_constant_int 59375847
+L3: if_clearops 0
+L4: push_constant_int -1
+L5: push_constant_string ""
+L6: push_constant_int 59375841
+L7: if_setonop 0
+L8: push_constant_int -1
+L9: push_constant_string ""
+L10: push_constant_int 59375847
+L11: if_setonop 0
+L12: push_constant_int -1
+L13: push_constant_string ""
+L14: push_constant_int 59375847
+L15: if_setonmouseover 0
+L16: push_constant_int -1
+L17: push_constant_string ""
+L18: push_constant_int 59375847
+L19: if_setonmouseleave 0
+L20: push_constant_int -1
+L21: push_constant_string ""
+L22: push_constant_int 59375841
+L23: if_setonmouseover 0
+L24: push_constant_int -1
+L25: push_constant_string ""
+L26: push_constant_int 59375841
+L27: if_setonmouseleave 0
+L28: push_constant_int 6
+L29: push_constant_int 5
+L30: push_constant_int 0
+L31: push_constant_int 2
+L32: push_constant_int 59375841
+L33: if_setposition 0
+L34: push_constant_int 6
+L35: push_constant_int 5
+L36: push_constant_int 0
+L37: push_constant_int 2
+L38: push_constant_int 59375847
+L39: if_setposition 0
+L40: push_constant_string ""
+L41: push_constant_int 59375846
+L42: if_settext 0
+L43: push_constant_string ""
+L44: push_constant_int 59375852
+L45: if_settext 0
+L46: push_constant_int 1
+L47: push_constant_int 59375841
+L48: if_sethide 0
+L49: push_constant_int 1
+L50: push_constant_int 59375847
+L51: if_sethide 0
+L52: push_constant_string ""
+L53: push_constant_int 59375840
+L54: if_settext 0
+L55: push_constant_int 0
+L56: pop_varc_int varc_int_1092
+L57: push_constant_int -1
+L58: push_constant_int 59375839
+L59: if_setgraphic 0
+L60: push_constant_int -1
+L61: push_constant_string ""
+L62: push_constant_int 59375839
+L63: if_setontimer 0
+L64: push_constant_int -1
+L65: push_constant_string ""
+L66: push_constant_int 59375649
+L67: if_setonkey 0
+L68: push_constant_int 1
+L69: push_constant_int 59375649
+L70: if_sethide 0
+L71: push_constant_int 1
+L72: push_constant_int 59375635
+L73: if_sethide 0
+L74: return 0
+L75:

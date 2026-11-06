@@ -1,0 +1,195 @@
+name=""
+local_int_count=8
+local_string_count=0
+local_long_count=0
+int_param_count=3
+string_param_count=0
+long_param_count=0
+
+L0: push_varbit varbit_2375
+L1: push_constant_int 500
+L2: min 0
+L3: pop_int_local 3
+L4: push_constant_int 0
+L5: push_constant_int 500
+L6: push_int_local 3
+L7: sub 0
+L8: push_constant_int 500
+L9: push_constant_int 16384
+L10: scale 0
+L11: push_constant_int 1
+L12: push_constant_int 2
+L13: push_int_local 0
+L14: if_setsize 0
+L15: push_constant_int 164
+L16: push_int_local 3
+L17: push_constant_int 500
+L18: push_constant_int 91
+L19: scale 0
+L20: add 0
+L21: pop_int_local 4
+L22: push_constant_int 164
+L23: push_int_local 3
+L24: push_constant_int 500
+L25: push_constant_int 164
+L26: scale 0
+L27: sub 0
+L28: pop_int_local 5
+L29: push_constant_int 41
+L30: push_int_local 3
+L31: push_constant_int 500
+L32: push_constant_int 41
+L33: scale 0
+L34: sub 0
+L35: pop_int_local 6
+L36: push_int_local 4
+L37: push_int_local 5
+L38: push_int_local 6
+L39: gosub_with_params [proc,rgb_to_hex]
+L40: pop_int_local 7
+L41: push_int_local 7
+L42: push_int_local 0
+L43: if_setcolour 0
+L44: push_int_local 7
+L45: push_int_local 1
+L46: if_setcolour 0
+L47: push_int_local 3
+L48: push_constant_int 5
+L49: add 0
+L50: push_constant_int 500
+L51: push_constant_int 25
+L52: scale 0
+L53: switch switch0
+L54: branch L155
+L55: push_constant_int 16353
+L56: push_int_local 2
+L57: if_setmodel 0
+L58: branch L158
+L59: push_constant_int 16354
+L60: push_int_local 2
+L61: if_setmodel 0
+L62: branch L158
+L63: push_constant_int 16355
+L64: push_int_local 2
+L65: if_setmodel 0
+L66: branch L158
+L67: push_constant_int 16356
+L68: push_int_local 2
+L69: if_setmodel 0
+L70: branch L158
+L71: push_constant_int 16357
+L72: push_int_local 2
+L73: if_setmodel 0
+L74: branch L158
+L75: push_constant_int 16358
+L76: push_int_local 2
+L77: if_setmodel 0
+L78: branch L158
+L79: push_constant_int 16359
+L80: push_int_local 2
+L81: if_setmodel 0
+L82: branch L158
+L83: push_constant_int 16360
+L84: push_int_local 2
+L85: if_setmodel 0
+L86: branch L158
+L87: push_constant_int 16361
+L88: push_int_local 2
+L89: if_setmodel 0
+L90: branch L158
+L91: push_constant_int 16362
+L92: push_int_local 2
+L93: if_setmodel 0
+L94: branch L158
+L95: push_constant_int 16363
+L96: push_int_local 2
+L97: if_setmodel 0
+L98: branch L158
+L99: push_constant_int 16364
+L100: push_int_local 2
+L101: if_setmodel 0
+L102: branch L158
+L103: push_constant_int 16365
+L104: push_int_local 2
+L105: if_setmodel 0
+L106: branch L158
+L107: push_constant_int 16366
+L108: push_int_local 2
+L109: if_setmodel 0
+L110: branch L158
+L111: push_constant_int 16367
+L112: push_int_local 2
+L113: if_setmodel 0
+L114: branch L158
+L115: push_constant_int 16368
+L116: push_int_local 2
+L117: if_setmodel 0
+L118: branch L158
+L119: push_constant_int 16369
+L120: push_int_local 2
+L121: if_setmodel 0
+L122: branch L158
+L123: push_constant_int 16370
+L124: push_int_local 2
+L125: if_setmodel 0
+L126: branch L158
+L127: push_constant_int 16371
+L128: push_int_local 2
+L129: if_setmodel 0
+L130: branch L158
+L131: push_constant_int 16372
+L132: push_int_local 2
+L133: if_setmodel 0
+L134: branch L158
+L135: push_constant_int 16373
+L136: push_int_local 2
+L137: if_setmodel 0
+L138: branch L158
+L139: push_constant_int 16374
+L140: push_int_local 2
+L141: if_setmodel 0
+L142: branch L158
+L143: push_constant_int 16375
+L144: push_int_local 2
+L145: if_setmodel 0
+L146: branch L158
+L147: push_constant_int 16376
+L148: push_int_local 2
+L149: if_setmodel 0
+L150: branch L158
+L151: push_constant_int 16377
+L152: push_int_local 2
+L153: if_setmodel 0
+L154: branch L158
+L155: push_constant_int 16378
+L156: push_int_local 2
+L157: if_setmodel 0
+L158: return 0
+L159:
+
+[switch0@L53]
+0=L55
+1=L59
+2=L63
+3=L67
+4=L71
+5=L75
+6=L79
+7=L83
+8=L87
+9=L91
+10=L95
+11=L99
+12=L103
+13=L107
+14=L111
+15=L115
+16=L119
+17=L123
+18=L127
+19=L131
+20=L135
+21=L139
+22=L143
+23=L147
+24=L151

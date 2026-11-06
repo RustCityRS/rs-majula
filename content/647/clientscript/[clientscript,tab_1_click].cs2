@@ -1,0 +1,17 @@
+name=""
+local_int_count=1
+local_string_count=0
+local_long_count=0
+int_param_count=1
+string_param_count=0
+long_param_count=0
+
+L0: gosub_with_params [proc,bank_v2_hide_all]
+L1: gosub_with_params [proc,bank_v2_show_all]
+L2: push_constant_int 1
+L3: gosub_with_params [proc,bank_v2_tab_highlight]
+L4: gosub_with_params [proc,bank_v2_searchmode_off]
+L5: push_constant_int 1
+L6: pop_varbit open_bank_tab
+L7: return 0
+L8:

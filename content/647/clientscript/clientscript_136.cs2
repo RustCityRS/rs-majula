@@ -1,0 +1,59 @@
+name=""
+local_int_count=1
+local_string_count=1
+local_long_count=0
+int_param_count=1
+string_param_count=0
+long_param_count=0
+
+L0: push_constant_string ""
+L1: pop_string_local 0
+L2: push_int_local 0
+L3: push_constant_int 40173583
+L4: branch_equals L6
+L5: branch L16
+L6: push_var varp_1068
+L7: oc_name 0
+L8: pop_string_local 0
+L9: push_var varp_1068
+L10: push_constant_int -1
+L11: branch_equals L13
+L12: branch L15
+L13: push_constant_string "Empty"
+L14: pop_string_local 0
+L15: branch L43
+L16: push_int_local 0
+L17: push_constant_int 40173584
+L18: branch_equals L20
+L19: branch L30
+L20: push_var varp_1069
+L21: oc_name 0
+L22: pop_string_local 0
+L23: push_var varp_1069
+L24: push_constant_int -1
+L25: branch_equals L27
+L26: branch L29
+L27: push_constant_string "Empty"
+L28: pop_string_local 0
+L29: branch L43
+L30: push_int_local 0
+L31: push_constant_int 40173585
+L32: branch_equals L34
+L33: branch L43
+L34: push_var varp_1070
+L35: oc_name 0
+L36: pop_string_local 0
+L37: push_var varp_1070
+L38: push_constant_int -1
+L39: branch_equals L41
+L40: branch L43
+L41: push_constant_string "Empty"
+L42: pop_string_local 0
+L43: push_int_local 0
+L44: push_constant_int 40173591
+L45: push_string_local 0
+L46: push_constant_int 25
+L47: push_constant_int 199
+L48: gosub_with_params [proc,addtooltip_action]
+L49: return 0
+L50:

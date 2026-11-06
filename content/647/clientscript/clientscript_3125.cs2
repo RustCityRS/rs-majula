@@ -1,0 +1,77 @@
+name=""
+local_int_count=3
+local_string_count=2
+local_long_count=0
+int_param_count=3
+string_param_count=2
+long_param_count=0
+
+L0: push_int_local 0
+L1: push_constant_int 0
+L2: push_constant_int 11
+L3: push_constant_int 11
+L4: push_constant_int 0
+L5: push_constant_int 0
+L6: push_constant_int 1535
+L7: push_constant_int 0
+L8: push_constant_int 0
+L9: push_constant_int 0
+L10: push_constant_int 0
+L11: gosub_with_params [proc,cc_add_graphic]
+L12: push_constant_int 3126
+L13: push_int_local 0
+L14: push_constant_int 0
+L15: push_constant_string "Ii"
+L16: cc_setonmouseover 0
+L17: push_constant_int 3127
+L18: push_int_local 0
+L19: push_constant_int 0
+L20: push_constant_string "Ii"
+L21: cc_setonmouseleave 0
+L22: push_constant_int 1
+L23: push_constant_string "Sort"
+L24: cc_setop 0
+L25: push_string_local 0
+L26: cc_setopbase 0
+L27: push_constant_int 3148
+L28: push_int_local 1
+L29: push_constant_string "i"
+L30: cc_setonop 0
+L31: push_int_local 0
+L32: push_constant_int 1
+L33: push_constant_int 11
+L34: push_constant_int 11
+L35: push_constant_int 0
+L36: push_constant_int 0
+L37: push_constant_int 1536
+L38: push_constant_int 0
+L39: push_constant_int 0
+L40: push_constant_int 0
+L41: push_constant_int 0
+L42: gosub_with_params [proc,cc_add_graphic]
+L43: push_constant_int 0
+L44: push_constant_int 0
+L45: push_constant_int 2
+L46: push_constant_int 0
+L47: cc_setposition2 0
+L48: push_constant_int 3126
+L49: push_int_local 0
+L50: push_constant_int 1
+L51: push_constant_string "Ii"
+L52: cc_setonmouseover 0
+L53: push_constant_int 3127
+L54: push_int_local 0
+L55: push_constant_int 1
+L56: push_constant_string "Ii"
+L57: cc_setonmouseleave 0
+L58: push_constant_int 1
+L59: push_constant_string "Sort"
+L60: cc_setop 0
+L61: push_string_local 1
+L62: cc_setopbase 0
+L63: push_constant_int 3148
+L64: push_int_local 2
+L65: push_constant_string "i"
+L66: cc_setonop 0
+L67: return 0
+L68:

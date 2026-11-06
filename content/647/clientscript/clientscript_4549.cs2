@@ -1,0 +1,87 @@
+name=""
+local_int_count=3
+local_string_count=0
+local_long_count=0
+int_param_count=0
+string_param_count=0
+long_param_count=0
+
+L0: push_constant_int -1
+L1: pop_int_local 0
+L2: push_constant_int -1
+L3: pop_int_local 1
+L4: push_constant_int -1
+L5: pop_int_local 2
+L6: clanchannel2_find_affined 0
+L7: branch_if_true L9
+L8: branch L23
+L9: chat_playername 0
+L10: clanchannel2_findname 0
+L11: pop_int_local 0
+L12: push_int_local 0
+L13: push_constant_int -1
+L14: branch_equals L16
+L15: branch L17
+L16: return 0
+L17: push_int_local 0
+L18: clanchannel2_getuserrank 0
+L19: pop_int_local 1
+L20: clanchannel2_getrankkick 0
+L21: pop_int_local 2
+L22: branch L25
+L23: push_constant_string "You must be in a clan to do that."
+L24: mes 0
+L25: push_int_local 1
+L26: push_constant_int 0
+L27: branch_greater_than_or_equals L29
+L28: branch L77
+L29: push_int_local 1
+L30: push_int_local 2
+L31: branch_less_than L33
+L32: branch L34
+L33: return 0
+L34: push_varc_int varc_int_1413
+L35: branch_if_false L37
+L36: branch L38
+L37: return 0
+L38: push_varc_int varc_int_11
+L39: branch_if_true L41
+L40: branch L42
+L41: gosub_with_params clientscript_675
+L42: getwindowmode 0
+L43: push_constant_int 2
+L44: branch_greater_than_or_equals L46
+L45: branch L49
+L46: push_constant_int 0
+L47: push_constant_int 48889925
+L48: if_sethide 0
+L49: push_constant_int 0
+L50: push_constant_int 49283075
+L51: if_sethide 0
+L52: push_constant_int 1
+L53: push_constant_int 49283079
+L54: if_sethide 0
+L55: push_constant_int 1
+L56: push_constant_int 49283080
+L57: if_sethide 0
+L58: push_constant_string "Enter the player to ban from the channel:"
+L59: push_constant_int 49283076
+L60: if_settext 0
+L61: push_constant_int 16
+L62: pop_varc_int varc_int_5
+L63: push_constant_string ""
+L64: gosub_with_params [proc,meslayer_setupinput]
+L65: push_constant_int -1
+L66: push_constant_string ""
+L67: push_constant_int 49283075
+L68: if_setonclick 0
+L69: gosub_with_params clientscript_2026
+L70: push_constant_int 112
+L71: push_constant_int -2147483640
+L72: push_constant_int -2147483639
+L73: push_constant_string "iz"
+L74: push_constant_int 49283077
+L75: if_setonkey 0
+L76: gosub_with_params [clientscript,opt_header]
+L77: return 0
+L78:

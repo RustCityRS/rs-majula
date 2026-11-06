@@ -1,0 +1,29 @@
+name=""
+local_int_count=0
+local_string_count=0
+local_long_count=0
+int_param_count=0
+string_param_count=0
+long_param_count=0
+
+L0: push_varc_int varc_int_903
+L1: branch_if_false L3
+L2: branch L10
+L3: push_constant_int 2023
+L4: push_constant_int 56295450
+L5: if_setgraphic 0
+L6: push_constant_string "Light"
+L7: push_constant_int 56295434
+L8: if_settext 0
+L9: branch L19
+L10: push_varc_int varc_int_903
+L11: branch_if_true L13
+L12: branch L19
+L13: push_constant_int 2022
+L14: push_constant_int 56295450
+L15: if_setgraphic 0
+L16: push_constant_string "Heavy"
+L17: push_constant_int 56295434
+L18: if_settext 0
+L19: return 0
+L20:

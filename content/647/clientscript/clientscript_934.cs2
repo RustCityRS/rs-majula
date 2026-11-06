@@ -1,0 +1,89 @@
+name=""
+local_int_count=2
+local_string_count=1
+local_long_count=0
+int_param_count=1
+string_param_count=0
+long_param_count=0
+
+L0: push_constant_string ""
+L1: pop_string_local 0
+L2: push_int_local 0
+L3: push_constant_int 742
+L4: oc_weight 0
+L5: pop_int_local 1
+L6: push_int_local 0
+L7: push_constant_int 741
+L8: oc_weight 0
+L9: switch switch0
+L10: branch L67
+L11: push_int_local 1
+L12: branch_if_true L14
+L13: branch L17
+L14: push_constant_string "Rescued 1 dignitary in Recipe for Disaster"
+L15: pop_string_local 0
+L16: branch L23
+L17: push_constant_string "Rescued "
+L18: push_int_local 1
+L19: tostring 0
+L20: push_constant_string " dignitaries in Recipe for Disaster"
+L21: join_string 3
+L22: pop_string_local 0
+L23: push_varbit varbit_1852
+L24: push_int_local 0
+L25: push_constant_int 742
+L26: oc_weight 0
+L27: push_string_local 0
+L28: gosub_with_params clientscript_913
+L29: return 0
+L30: branch L69
+L31: push_varbit varbit_3763
+L32: push_constant_int 2
+L33: push_constant_string "Barbarian spearmaking"
+L34: gosub_with_params clientscript_913
+L35: return 0
+L36: branch L69
+L37: push_varbit varbit_4310
+L38: push_constant_int 10
+L39: push_constant_string "Complete: Chaos Tunnels"
+L40: gosub_with_params clientscript_913
+L41: return 0
+L42: branch L69
+L43: push_varbit varbit_1990
+L44: push_constant_int 280
+L45: push_constant_string "Part of quest: In Aid of the Myreque"
+L46: gosub_with_params clientscript_913
+L47: return 0
+L48: branch L69
+L49: push_varbit varbit_1850
+L50: push_constant_int 4
+L51: push_constant_string "Part of quest: Recipe for Disaster"
+L52: gosub_with_params clientscript_913
+L53: return 0
+L54: branch L69
+L55: push_varbit varbit_3550
+L56: push_constant_int 8
+L57: push_constant_string "Part of quest: Another Slice of H.A.M."
+L58: gosub_with_params clientscript_913
+L59: return 0
+L60: branch L69
+L61: push_varbit varbit_998
+L62: push_constant_int 7
+L63: push_constant_string "You need to complete the first puzzle in the Elemental Workshop IV Quest."
+L64: gosub_with_params clientscript_913
+L65: return 0
+L66: branch L69
+L67: push_constant_string ""
+L68: return 0
+L69: push_constant_string ""
+L70: return 0
+L71:
+
+[switch0@L9]
+1=L11
+2=L31
+3=L37
+4=L43
+5=L49
+6=L55
+7=L61

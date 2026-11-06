@@ -1,0 +1,33 @@
+name=""
+local_int_count=1
+local_string_count=0
+local_long_count=0
+int_param_count=1
+string_param_count=0
+long_param_count=0
+
+L0: push_int_local 0
+L1: switch switch0
+L2: branch L14
+L3: push_constant_string "Lake"
+L4: return 0
+L5: branch L14
+L6: push_constant_string "River"
+L7: return 0
+L8: branch L14
+L9: push_constant_string "Beach"
+L10: return 0
+L11: branch L14
+L12: push_constant_string "Docks"
+L13: return 0
+L14: push_constant_string "Waterfront"
+L15: return 0
+L16: push_constant_string ""
+L17: return 0
+L18:
+
+[switch0@L1]
+1=L3
+2=L6
+3=L9
+4=L12

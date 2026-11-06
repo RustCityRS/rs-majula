@@ -1,0 +1,39 @@
+name=""
+local_int_count=2
+local_string_count=0
+local_long_count=0
+int_param_count=2
+string_param_count=0
+long_param_count=0
+
+L0: push_varc_string_old varc_string_122
+L1: pop_varc_string_old varc_string_123
+L2: push_varc_string_old varc_string_122
+L3: string_length 0
+L4: push_constant_int 0
+L5: branch_less_than_or_equals L7
+L6: branch L11
+L7: push_constant_string "Please enter your Email address here."
+L8: push_constant_int 44105809
+L9: gosub_with_params [proc,create_error]
+L10: return 0
+L11: push_varc_string_old varc_string_122
+L12: gosub_with_params [proc,create_check_email]
+L13: branch_if_false L15
+L14: branch L19
+L15: push_constant_string "Please enter a valid Email address."
+L16: push_constant_int 44105809
+L17: gosub_with_params [proc,create_error]
+L18: return 0
+L19: push_constant_int 1
+L20: gosub_with_params [proc,create_please_wait]
+L21: push_varc_string_old varc_string_122
+L22: login_string_5604 0
+L23: push_constant_int 2284
+L24: push_int_local 0
+L25: push_int_local 1
+L26: push_constant_string "11"
+L27: push_constant_int 44105739
+L28: if_setontimer 0
+L29: return 0
+L30:

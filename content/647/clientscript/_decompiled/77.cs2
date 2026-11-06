@@ -1,8 +1,0 @@
-[clientscript,script_77](string $str0)
-~script_78(%varc_int4, $str0);
-%varc_int4 = add(%varc_int4, 1);
-if (%varc_int4 >= 20) {
-    %varc_int4 = 0;
-}
-%varc_int3 = -1;
-return;

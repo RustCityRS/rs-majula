@@ -1,6 +1,0 @@
-[clientscript,script_74](int $int0, int $int1, int $int2, string $str0)(string)
-def_string $str1 = "";
-def_int $int3 = -1;
-$int3 = ~script_802($int3, $int0, $int1, $int2, $str0);
-$str1 = ~script_802($int3, $int0, $int1, $int2, $str0);
-return($str1);

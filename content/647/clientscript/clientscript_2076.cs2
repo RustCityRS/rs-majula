@@ -1,0 +1,37 @@
+name=""
+local_int_count=1
+local_string_count=0
+local_long_count=0
+int_param_count=0
+string_param_count=0
+long_param_count=0
+
+L0: push_constant_int 0
+L1: pop_int_local 0
+L2: push_varc_int varc_int_632
+L3: branch_if_false L5
+L4: branch L23
+L5: push_constant_int 10
+L6: push_varc_int varc_int_634
+L7: sub 0
+L8: push_constant_int 0
+L9: branch_greater_than L11
+L10: branch L16
+L11: push_constant_int 10
+L12: push_varc_int varc_int_634
+L13: sub 0
+L14: pop_int_local 0
+L15: branch L18
+L16: push_constant_int 0
+L17: pop_int_local 0
+L18: push_int_local 0
+L19: tostring 0
+L20: push_constant_int 54853637
+L21: if_settext 0
+L22: branch L27
+L23: push_varc_int varc_int_638
+L24: tostring 0
+L25: push_constant_int 54853637
+L26: if_settext 0
+L27: return 0
+L28:

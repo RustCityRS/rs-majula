@@ -1,0 +1,73 @@
+name=""
+local_int_count=2
+local_string_count=0
+local_long_count=0
+int_param_count=1
+string_param_count=0
+long_param_count=0
+
+L0: gosub_with_params [proc,current_side_if]
+L1: pop_int_local 1
+L2: push_int_local 0
+L3: push_constant_int -1
+L4: branch_equals L6
+L5: branch L11
+L6: push_varbit varbit_9030
+L7: branch_if_true L9
+L8: branch L11
+L9: push_constant_int 1
+L10: pop_int_local 0
+L11: push_int_local 0
+L12: pop_varc_int varc_int_168
+L13: push_int_local 0
+L14: push_constant_int -1
+L15: branch_equals L17
+L16: branch L24
+L17: getwindowmode 0
+L18: push_constant_int 2
+L19: branch_greater_than_or_equals L21
+L20: branch L23
+L21: gosub_with_params [proc,side_if_closeall]
+L22: branch L24
+L23: return 0
+L24: gosub_with_params clientscript_2709
+L25: branch_if_false L27
+L26: branch L38
+L27: push_int_local 0
+L28: push_constant_int 9
+L29: branch_equals L37
+L30: push_int_local 0
+L31: push_constant_int 11
+L32: branch_equals L37
+L33: push_int_local 0
+L34: push_constant_int 10
+L35: branch_equals L37
+L36: branch L38
+L37: return 0
+L38: push_int_local 1
+L39: push_constant_int -1
+L40: branch_greater_than L42
+L41: branch L60
+L42: push_int_local 1
+L43: push_int_local 0
+L44: branch_equals L46
+L45: branch L56
+L46: getwindowmode 0
+L47: push_constant_int 2
+L48: branch_greater_than_or_equals L50
+L49: branch L54
+L50: gosub_with_params [proc,side_if_closeall]
+L51: push_int_local 0
+L52: gosub_with_params [proc,side_if_open]
+L53: branch L55
+L54: return 0
+L55: branch L59
+L56: gosub_with_params [proc,side_if_closeall]
+L57: push_int_local 0
+L58: gosub_with_params [proc,side_if_open]
+L59: branch L63
+L60: gosub_with_params [proc,side_if_closeall]
+L61: push_int_local 0
+L62: gosub_with_params [proc,side_if_open]
+L63: return 0
+L64:

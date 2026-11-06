@@ -1,0 +1,75 @@
+name=""
+local_int_count=3
+local_string_count=1
+local_long_count=0
+int_param_count=3
+string_param_count=1
+long_param_count=0
+
+L0: push_int_local 0
+L1: branch_if_true L3
+L2: branch L64
+L3: push_int_local 2
+L4: push_string_local 0
+L5: gosub_with_params clientscript_3141
+L6: push_int_local 1
+L7: push_constant_int -1
+L8: branch_greater_than L10
+L9: branch L24
+L10: push_constant_int 59637824
+L11: push_int_local 1
+L12: cc_find 0
+L13: branch_if_true L15
+L14: branch L24
+L15: push_constant_int 0
+L16: push_constant_int 59637827
+L17: if_sethide 0
+L18: push_constant_int 0
+L19: cc_gety 0
+L20: push_constant_int 0
+L21: push_constant_int 0
+L22: push_constant_int 59637827
+L23: if_setposition 0
+L24: active_toplevelinterface 0
+L25: push_varc_int varc_int_998
+L26: branch_equals L28
+L27: branch L36
+L28: push_constant_int 59637781
+L29: push_constant_int 3
+L30: cc_find 0
+L31: branch_if_true L33
+L32: branch L35
+L33: push_constant_int 0
+L34: cc_sethide 0
+L35: branch L43
+L36: push_constant_int 59637781
+L37: push_constant_int 3
+L38: cc_find 0
+L39: branch_if_true L41
+L40: branch L43
+L41: push_constant_int 1
+L42: cc_sethide 0
+L43: active_toplevelinterface 0
+L44: push_varc_int varc_int_999
+L45: branch_equals L47
+L46: branch L55
+L47: push_constant_int 59637782
+L48: push_constant_int 3
+L49: cc_find 0
+L50: branch_if_true L52
+L51: branch L54
+L52: push_constant_int 0
+L53: cc_sethide 0
+L54: branch L62
+L55: push_constant_int 59637782
+L56: push_constant_int 3
+L57: cc_find 0
+L58: branch_if_true L60
+L59: branch L62
+L60: push_constant_int 1
+L61: cc_sethide 0
+L62: push_constant_int 1
+L63: gosub_with_params [proc,lobbyscreen_loginbutton_text]
+L64: return 0
+L65: return 0
+L66:

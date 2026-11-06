@@ -1,0 +1,104 @@
+name=""
+local_int_count=4
+local_string_count=1
+local_long_count=0
+int_param_count=0
+string_param_count=1
+long_param_count=0
+
+L0: push_constant_int -1
+L1: pop_int_local 0
+L2: push_constant_int -1
+L3: pop_int_local 1
+L4: push_constant_int -1
+L5: pop_int_local 2
+L6: push_constant_int -1
+L7: pop_int_local 3
+L8: push_string_local 0
+L9: clanchannel2_findname 0
+L10: pop_int_local 0
+L11: push_int_local 0
+L12: push_constant_int 0
+L13: branch_greater_than_or_equals L15
+L14: branch L90
+L15: push_int_local 0
+L16: push_constant_int -1
+L17: branch_equals L19
+L18: branch L20
+L19: return 0
+L20: push_int_local 0
+L21: clanchannel2_getuserrank 0
+L22: pop_int_local 1
+L23: docheat 0
+L24: removetags 0
+L25: clanchannel2_findname 0
+L26: pop_int_local 2
+L27: push_int_local 2
+L28: push_constant_int 0
+L29: branch_greater_than_or_equals L31
+L30: branch L89
+L31: push_int_local 2
+L32: push_int_local 0
+L33: branch_equals L35
+L34: branch L40
+L35: push_constant_int 43
+L36: push_constant_int 0
+L37: push_constant_string "You cannot temporarily ban yourself."
+L38: tutorial_openchat 0
+L39: return 0
+L40: push_int_local 2
+L41: clanchannel2_getuserrank 0
+L42: pop_int_local 3
+L43: push_int_local 2
+L44: push_constant_int -1
+L45: branch_equals L47
+L46: branch L48
+L47: return 0
+L48: push_int_local 3
+L49: clanchannel2_getrankkick 0
+L50: branch_greater_than L52
+L51: branch L85
+L52: push_int_local 1
+L53: push_constant_int -1
+L54: branch_greater_than L56
+L55: branch L65
+L56: push_constant_int 43
+L57: push_constant_int 0
+L58: push_constant_string "You can only temporarily ban guests."
+L59: tutorial_openchat 0
+L60: push_constant_int 43
+L61: push_constant_int 0
+L62: push_constant_string "A clan admin can remove your clanmate."
+L63: tutorial_openchat 0
+L64: branch L84
+L65: push_int_local 3
+L66: push_int_local 1
+L67: branch_greater_than L69
+L68: branch L80
+L69: push_string_local 0
+L70: clanchannel2_findname 0
+L71: clanchannel2_kickuser 0
+L72: push_constant_int 2
+L73: chat_setmode 0
+L74: push_constant_string "[Attempting to kick/ban "
+L75: push_string_local 0
+L76: push_constant_string " from this channel.]"
+L77: join_string 3
+L78: chat_sendpublic 0
+L79: branch L84
+L80: push_constant_int 43
+L81: push_constant_int 0
+L82: push_constant_string "You can only kick people with a lower rank than yourself."
+L83: tutorial_openchat 0
+L84: branch L89
+L85: push_constant_int 43
+L86: push_constant_int 0
+L87: push_constant_string "You do not have sufficient rank to kick."
+L88: tutorial_openchat 0
+L89: branch L94
+L90: push_constant_int 43
+L91: push_constant_int 0
+L92: push_constant_string "Could not find that guest to kick from your Clan Chat."
+L93: tutorial_openchat 0
+L94: return 0
+L95:

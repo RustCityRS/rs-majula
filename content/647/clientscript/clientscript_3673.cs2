@@ -1,0 +1,13 @@
+name=""
+local_int_count=0
+local_string_count=0
+local_long_count=0
+int_param_count=0
+string_param_count=0
+long_param_count=0
+
+L0: push_constant_int 1
+L1: push_constant_int 65798226
+L2: if_sethide 0
+L3: return 0
+L4:

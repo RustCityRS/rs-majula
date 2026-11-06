@@ -1,0 +1,32 @@
+name=""
+local_int_count=3
+local_string_count=0
+local_long_count=0
+int_param_count=3
+string_param_count=0
+long_param_count=0
+
+L0: push_constant_int 4379
+L1: push_int_local 0
+L2: push_int_local 1
+L3: push_constant_int -2147483639
+L4: push_constant_int -2147483640
+L5: push_int_local 2
+L6: push_constant_string "IIziI"
+L7: push_int_local 0
+L8: if_setonkey 0
+L9: push_constant_int 4380
+L10: push_int_local 0
+L11: push_int_local 2
+L12: push_constant_int -2147483647
+L13: push_constant_string "IIi"
+L14: push_int_local 0
+L15: if_setonclick 0
+L16: push_constant_int 1400
+L17: clientclock 0
+L18: push_int_local 2
+L19: push_constant_string "iI"
+L20: push_int_local 0
+L21: if_setontimer 0
+L22: return 0
+L23:

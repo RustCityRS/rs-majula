@@ -1,0 +1,37 @@
+name=""
+local_int_count=5
+local_string_count=5
+local_long_count=0
+int_param_count=5
+string_param_count=5
+long_param_count=0
+
+L0: push_int_local 0
+L1: push_int_local 1
+L2: push_int_local 2
+L3: push_string_local 0
+L4: push_string_local 1
+L5: push_string_local 2
+L6: push_string_local 3
+L7: push_string_local 4
+L8: push_int_local 3
+L9: push_int_local 4
+L10: gosub_with_params clientscript_793
+L11: push_constant_int 792
+L12: push_int_local 0
+L13: push_int_local 1
+L14: push_int_local 2
+L15: push_string_local 0
+L16: push_string_local 1
+L17: push_string_local 2
+L18: push_string_local 3
+L19: push_string_local 4
+L20: push_int_local 3
+L21: push_int_local 4
+L22: push_constant_int 93
+L23: push_constant_int 1
+L24: push_constant_string "IiisssssiiY"
+L25: push_int_local 0
+L26: if_setoninvtransmit 0
+L27: return 0
+L28:

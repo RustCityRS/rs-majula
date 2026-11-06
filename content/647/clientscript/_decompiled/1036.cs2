@@ -1,9 +1,0 @@
-[clientscript,script_1036](int)
-def_int $int0 = -1;
-if (enum(105, 105, enum_1548, %varbit4758) > 0) {
-    $int0 = enum(105, 107, enum_1549, %varbit4758);
-    if ($int0 ! -1) {
-        return($int0);
-    }
-}
-return(enum(105, 107, enum_1483, %varbit4759));

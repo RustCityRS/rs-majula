@@ -1,0 +1,73 @@
+name=""
+local_int_count=4
+local_string_count=2
+local_long_count=0
+int_param_count=3
+string_param_count=0
+long_param_count=0
+
+L0: push_constant_int 105
+L1: push_constant_int 115
+L2: push_constant_int 2857
+L3: push_int_local 1
+L4: enum 0
+L5: pop_string_local 0
+L6: push_constant_int 105
+L7: push_constant_int 105
+L8: push_constant_int 2858
+L9: push_int_local 1
+L10: enum 0
+L11: pop_int_local 3
+L12: push_constant_int 105
+L13: push_constant_int 115
+L14: push_constant_int 2859
+L15: push_int_local 1
+L16: enum 0
+L17: pop_string_local 1
+L18: push_int_local 0
+L19: branch_if_true L21
+L20: branch L60
+L21: push_string_local 0
+L22: push_int_local 2
+L23: if_settext 0
+L24: push_int_local 3
+L25: push_constant_int 2
+L26: branch_equals L28
+L27: branch L32
+L28: push_constant_int 40960
+L29: push_int_local 2
+L30: if_setcolour 0
+L31: branch L45
+L32: push_int_local 3
+L33: branch_if_true L35
+L34: branch L39
+L35: push_constant_int 9474048
+L36: push_int_local 2
+L37: if_setcolour 0
+L38: branch L45
+L39: push_int_local 3
+L40: branch_if_false L42
+L41: branch L45
+L42: push_constant_int 10485760
+L43: push_int_local 2
+L44: if_setcolour 0
+L45: push_constant_int 38
+L46: push_constant_int -2147483645
+L47: push_constant_int 61145342
+L48: push_string_local 1
+L49: push_constant_int 25
+L50: push_constant_int 200
+L51: push_constant_string "IIsii"
+L52: push_int_local 2
+L53: if_setonmouserepeat 0
+L54: push_constant_int 40
+L55: push_constant_int 61145342
+L56: push_constant_string "I"
+L57: push_int_local 2
+L58: if_setonmouseleave 0
+L59: branch L63
+L60: push_constant_string ""
+L61: push_int_local 2
+L62: if_settext 0
+L63: return 0
+L64:

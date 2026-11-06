@@ -1,8 +1,0 @@
-[clientscript,script_2802](int $int0, int $int1)
-def_int $int2 = if_gettrans($int1);
-def_int $int3 = min(max(add($int2, $int0), 0), 255);
-if_settrans($int1);
-if ($int3 = 0) {
-    if_setontimer;
-}
-return;

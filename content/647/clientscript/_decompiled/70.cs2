@@ -1,7 +1,0 @@
-[clientscript,script_70]
-if (%varp560 < 1) {
-    if_settext("You're the Winner!");
-} else {
-    if_settext("Foes Remaining: " + tostring(%varp560));
-}
-return;

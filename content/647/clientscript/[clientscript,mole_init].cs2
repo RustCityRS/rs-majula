@@ -1,0 +1,22 @@
+name=""
+local_int_count=2
+local_string_count=0
+local_long_count=0
+int_param_count=2
+string_param_count=0
+long_param_count=0
+
+L0: push_constant_int 3320
+L1: push_int_local 1
+L2: if_setmodelanim 0
+L3: push_constant_int 831
+L4: push_int_local 0
+L5: push_constant_int 425
+L6: push_constant_int 1
+L7: push_constant_string "IY"
+L8: push_int_local 0
+L9: if_setonvartransmit 0
+L10: push_int_local 0
+L11: gosub_with_params [proc,mole_darkness]
+L12: return 0
+L13:

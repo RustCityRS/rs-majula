@@ -1,0 +1,169 @@
+name=""
+local_int_count=1
+local_string_count=0
+local_long_count=0
+int_param_count=1
+string_param_count=0
+long_param_count=0
+
+L0: push_int_local 0
+L1: switch switch0
+L2: branch L140
+L3: push_constant_int 0
+L4: pop_varc_int varc_int_840
+L5: branch L140
+L6: push_varc_int varc_int_840
+L7: push_constant_int 2147483647
+L8: push_constant_int 10
+L9: sub 0
+L10: branch_less_than L12
+L11: branch L28
+L12: push_varc_int varc_int_839
+L13: push_constant_int 10
+L14: branch_greater_than_or_equals L16
+L15: branch L28
+L16: push_constant_int 10
+L17: gosub_with_params clientscript_2509
+L18: branch_if_true L20
+L19: branch L28
+L20: push_varc_int varc_int_840
+L21: push_constant_int 10
+L22: add 0
+L23: pop_varc_int varc_int_840
+L24: push_varc_int varc_int_839
+L25: push_constant_int 10
+L26: sub 0
+L27: pop_varc_int varc_int_839
+L28: branch L140
+L29: push_varc_int varc_int_840
+L30: push_constant_int 2147483647
+L31: push_constant_int 100
+L32: sub 0
+L33: branch_less_than L35
+L34: branch L51
+L35: push_varc_int varc_int_839
+L36: push_constant_int 100
+L37: branch_greater_than_or_equals L39
+L38: branch L51
+L39: push_constant_int 100
+L40: gosub_with_params clientscript_2509
+L41: branch_if_true L43
+L42: branch L51
+L43: push_varc_int varc_int_840
+L44: push_constant_int 100
+L45: add 0
+L46: pop_varc_int varc_int_840
+L47: push_varc_int varc_int_839
+L48: push_constant_int 100
+L49: sub 0
+L50: pop_varc_int varc_int_839
+L51: branch L140
+L52: push_varc_int varc_int_840
+L53: push_constant_int 2147483647
+L54: push_constant_int 500
+L55: sub 0
+L56: branch_less_than L58
+L57: branch L74
+L58: push_varc_int varc_int_839
+L59: push_constant_int 500
+L60: branch_greater_than_or_equals L62
+L61: branch L74
+L62: push_constant_int 500
+L63: gosub_with_params clientscript_2509
+L64: branch_if_true L66
+L65: branch L74
+L66: push_varc_int varc_int_840
+L67: push_constant_int 500
+L68: add 0
+L69: pop_varc_int varc_int_840
+L70: push_varc_int varc_int_839
+L71: push_constant_int 500
+L72: sub 0
+L73: pop_varc_int varc_int_839
+L74: branch L140
+L75: push_varc_int varc_int_840
+L76: push_constant_int 2147483647
+L77: push_constant_int 1000
+L78: sub 0
+L79: branch_less_than L81
+L80: branch L97
+L81: push_varc_int varc_int_839
+L82: push_constant_int 1000
+L83: branch_greater_than_or_equals L85
+L84: branch L97
+L85: push_constant_int 1000
+L86: gosub_with_params clientscript_2509
+L87: branch_if_true L89
+L88: branch L97
+L89: push_varc_int varc_int_840
+L90: push_constant_int 1000
+L91: add 0
+L92: pop_varc_int varc_int_840
+L93: push_varc_int varc_int_839
+L94: push_constant_int 1000
+L95: sub 0
+L96: pop_varc_int varc_int_839
+L97: branch L140
+L98: push_varc_int varc_int_840
+L99: push_constant_int 2147483647
+L100: push_constant_int 10000
+L101: sub 0
+L102: branch_less_than L104
+L103: branch L120
+L104: push_varc_int varc_int_839
+L105: push_constant_int 10000
+L106: branch_greater_than_or_equals L108
+L107: branch L120
+L108: push_constant_int 10000
+L109: gosub_with_params clientscript_2509
+L110: branch_if_true L112
+L111: branch L120
+L112: push_varc_int varc_int_840
+L113: push_constant_int 10000
+L114: add 0
+L115: pop_varc_int varc_int_840
+L116: push_varc_int varc_int_839
+L117: push_constant_int 10000
+L118: sub 0
+L119: pop_varc_int varc_int_839
+L120: branch L140
+L121: push_varc_int varc_int_839
+L122: gosub_with_params clientscript_2687
+L123: branch_less_than L125
+L124: branch L130
+L125: push_varc_int varc_int_839
+L126: pop_varc_int varc_int_840
+L127: push_constant_int 0
+L128: pop_varc_int varc_int_839
+L129: branch L140
+L130: push_varc_int varc_int_840
+L131: gosub_with_params clientscript_2687
+L132: branch_less_than L134
+L133: branch L140
+L134: gosub_with_params clientscript_2687
+L135: pop_varc_int varc_int_840
+L136: push_varc_int varc_int_839
+L137: gosub_with_params clientscript_2687
+L138: sub 0
+L139: pop_varc_int varc_int_839
+L140: push_varc_int varc_int_840
+L141: push_constant_string ","
+L142: gosub_with_params [proc,tostring_spacer]
+L143: push_constant_int 55836735
+L144: if_settext 0
+L145: push_varc_int varc_int_839
+L146: push_constant_string ","
+L147: gosub_with_params [proc,tostring_spacer]
+L148: push_constant_int 55836734
+L149: if_settext 0
+L150: return 0
+L151:
+
+[switch0@L1]
+55836719=L3
+55836713=L6
+55836715=L29
+55836721=L52
+55836723=L75
+55836725=L98
+55836717=L121

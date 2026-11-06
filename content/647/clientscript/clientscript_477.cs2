@@ -1,0 +1,94 @@
+name=""
+local_int_count=3
+local_string_count=0
+local_long_count=0
+int_param_count=1
+string_param_count=0
+long_param_count=0
+
+L0: push_int_local 0
+L1: if_getx 0
+L2: pop_int_local 1
+L3: push_int_local 0
+L4: if_gety 0
+L5: push_int_local 0
+L6: if_getheight 0
+L7: add 0
+L8: pop_int_local 2
+L9: push_constant_int 0
+L10: stat_base 0
+L11: push_constant_int 42
+L12: branch_less_than L38
+L13: push_constant_int 2
+L14: stat_base 0
+L15: push_constant_int 42
+L16: branch_less_than L38
+L17: push_constant_int 1
+L18: stat_base 0
+L19: push_constant_int 42
+L20: branch_less_than L38
+L21: push_constant_int 3
+L22: stat_base 0
+L23: push_constant_int 42
+L24: branch_less_than L38
+L25: push_constant_int 4
+L26: stat_base 0
+L27: push_constant_int 42
+L28: branch_less_than L38
+L29: push_constant_int 6
+L30: stat_base 0
+L31: push_constant_int 42
+L32: branch_less_than L38
+L33: push_constant_int 5
+L34: stat_base 0
+L35: push_constant_int 22
+L36: branch_less_than L38
+L37: branch L84
+L38: push_int_local 1
+L39: push_constant_int 66257282
+L40: if_getwidth 0
+L41: add 0
+L42: push_constant_int 66256951
+L43: if_getx 0
+L44: push_constant_int 66256951
+L45: if_getwidth 0
+L46: add 0
+L47: branch_greater_than_or_equals L49
+L48: branch L58
+L49: push_int_local 0
+L50: if_getx 0
+L51: push_constant_int 66257282
+L52: if_getwidth 0
+L53: push_int_local 0
+L54: if_getwidth 0
+L55: sub 0
+L56: sub 0
+L57: pop_int_local 1
+L58: push_int_local 2
+L59: push_constant_int 66257282
+L60: if_getheight 0
+L61: add 0
+L62: push_constant_int 66256951
+L63: if_gety 0
+L64: push_constant_int 66256951
+L65: if_getheight 0
+L66: add 0
+L67: branch_greater_than_or_equals L69
+L68: branch L75
+L69: push_int_local 0
+L70: if_gety 0
+L71: push_constant_int 66257282
+L72: if_getheight 0
+L73: sub 0
+L74: pop_int_local 2
+L75: push_int_local 1
+L76: push_int_local 2
+L77: push_constant_int 0
+L78: push_constant_int 0
+L79: push_constant_int 66257282
+L80: if_setposition 0
+L81: push_constant_int 0
+L82: push_constant_int 66257282
+L83: if_sethide 0
+L84: return 0
+L85:

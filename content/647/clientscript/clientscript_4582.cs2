@@ -1,0 +1,148 @@
+name=""
+local_int_count=3
+local_string_count=0
+local_long_count=0
+int_param_count=3
+string_param_count=0
+long_param_count=0
+
+L0: push_int_local 0
+L1: push_constant_int 0
+L2: branch_greater_than L4
+L3: branch L88
+L4: push_int_local 1
+L5: push_constant_int 0
+L6: branch_greater_than L8
+L7: branch L56
+L8: push_int_local 2
+L9: push_constant_int 0
+L10: branch_greater_than L12
+L11: branch L38
+L12: push_int_local 0
+L13: tostring 0
+L14: push_constant_string " "
+L15: push_int_local 0
+L16: push_constant_string "day"
+L17: push_constant_string "days"
+L18: gosub_with_params [proc,text_plural]
+L19: push_constant_string ", "
+L20: push_int_local 1
+L21: tostring 0
+L22: push_constant_string " "
+L23: push_int_local 0
+L24: push_constant_string "hour"
+L25: push_constant_string "hours"
+L26: gosub_with_params [proc,text_plural]
+L27: push_constant_string " and "
+L28: push_int_local 2
+L29: tostring 0
+L30: push_constant_string " "
+L31: push_int_local 0
+L32: push_constant_string "minute"
+L33: push_constant_string "minutes"
+L34: gosub_with_params [proc,text_plural]
+L35: join_string 11
+L36: return 0
+L37: branch L55
+L38: push_int_local 0
+L39: tostring 0
+L40: push_constant_string " "
+L41: push_int_local 0
+L42: push_constant_string "day"
+L43: push_constant_string "days"
+L44: gosub_with_params [proc,text_plural]
+L45: push_constant_string " and "
+L46: push_int_local 1
+L47: tostring 0
+L48: push_constant_string " "
+L49: push_int_local 0
+L50: push_constant_string "hour"
+L51: push_constant_string "hours"
+L52: gosub_with_params [proc,text_plural]
+L53: join_string 7
+L54: return 0
+L55: branch L87
+L56: push_int_local 2
+L57: push_constant_int 0
+L58: branch_greater_than L60
+L59: branch L78
+L60: push_int_local 0
+L61: tostring 0
+L62: push_constant_string " "
+L63: push_int_local 0
+L64: push_constant_string "day"
+L65: push_constant_string "days"
+L66: gosub_with_params [proc,text_plural]
+L67: push_constant_string " and "
+L68: push_int_local 2
+L69: tostring 0
+L70: push_constant_string " "
+L71: push_int_local 0
+L72: push_constant_string "minute"
+L73: push_constant_string "minutes"
+L74: gosub_with_params [proc,text_plural]
+L75: join_string 7
+L76: return 0
+L77: branch L87
+L78: push_int_local 0
+L79: tostring 0
+L80: push_constant_string " "
+L81: push_int_local 0
+L82: push_constant_string "day"
+L83: push_constant_string "days"
+L84: gosub_with_params [proc,text_plural]
+L85: join_string 3
+L86: return 0
+L87: branch L137
+L88: push_int_local 1
+L89: push_constant_int 0
+L90: branch_greater_than L92
+L91: branch L121
+L92: push_int_local 2
+L93: push_constant_int 0
+L94: branch_greater_than L96
+L95: branch L111
+L96: push_int_local 0
+L97: push_constant_string "hour"
+L98: push_constant_string "hours"
+L99: gosub_with_params [proc,text_plural]
+L100: push_constant_string " and "
+L101: push_int_local 2
+L102: tostring 0
+L103: push_constant_string " "
+L104: push_int_local 0
+L105: push_constant_string "minute"
+L106: push_constant_string "minutes"
+L107: gosub_with_params [proc,text_plural]
+L108: join_string 5
+L109: return 0
+L110: branch L120
+L111: push_int_local 1
+L112: tostring 0
+L113: push_constant_string " "
+L114: push_int_local 0
+L115: push_constant_string "hour"
+L116: push_constant_string "hours"
+L117: gosub_with_params [proc,text_plural]
+L118: join_string 3
+L119: return 0
+L120: branch L137
+L121: push_int_local 2
+L122: push_constant_int 0
+L123: branch_greater_than L125
+L124: branch L135
+L125: push_int_local 2
+L126: tostring 0
+L127: push_constant_string " "
+L128: push_int_local 0
+L129: push_constant_string "minute"
+L130: push_constant_string "minutes"
+L131: gosub_with_params [proc,text_plural]
+L132: join_string 3
+L133: return 0
+L134: branch L137
+L135: push_constant_string ""
+L136: return 0
+L137: push_constant_string ""
+L138: return 0
+L139:

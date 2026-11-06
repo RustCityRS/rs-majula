@@ -1,0 +1,31 @@
+name=""
+local_int_count=2
+local_string_count=0
+local_long_count=0
+int_param_count=2
+string_param_count=0
+long_param_count=0
+
+L0: clientclock 0
+L1: push_int_local 1
+L2: sub 0
+L3: push_constant_int 180
+L4: branch_greater_than_or_equals L6
+L5: branch L8
+L6: push_constant_int 1
+L7: pop_varc_int varc_int_1086
+L8: clientclock 0
+L9: push_int_local 1
+L10: sub 0
+L11: push_constant_int 1000
+L12: branch_greater_than_or_equals L14
+L13: branch L21
+L14: push_constant_int -1
+L15: push_constant_string ""
+L16: push_constant_int 31195160
+L17: if_setontimer 0
+L18: push_constant_int 1
+L19: push_constant_int 31195160
+L20: if_sethide 0
+L21: return 0
+L22:

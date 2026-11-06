@@ -1,5 +1,0 @@
-[clientscript,script_250](int $int0)
-if (mod(clientclock, 5) = 0) {
-    ~script_251($int0);
-}
-return;

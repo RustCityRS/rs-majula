@@ -1,0 +1,43 @@
+name=""
+local_int_count=0
+local_string_count=0
+local_long_count=0
+int_param_count=0
+string_param_count=0
+long_param_count=0
+
+L0: is_logged_in 0
+L1: branch_if_true L3
+L2: branch L14
+L3: gosub_with_params clientscript_3287
+L4: branch_if_true L6
+L5: branch L9
+L6: push_constant_int 516
+L7: return 0
+L8: branch L13
+L9: push_constant_int 516
+L10: push_constant_int 10
+L11: sub 0
+L12: return 0
+L13: branch L32
+L14: gosub_with_params clientscript_3287
+L15: branch_if_true L17
+L16: branch L24
+L17: push_constant_int 516
+L18: push_constant_int 439
+L19: sub 0
+L20: push_constant_int 1
+L21: add 0
+L22: return 0
+L23: branch L32
+L24: push_constant_int 516
+L25: push_constant_int 439
+L26: sub 0
+L27: push_constant_int 1
+L28: add 0
+L29: push_constant_int 10
+L30: sub 0
+L31: return 0
+L32: push_constant_int 0
+L33: return 0
+L34:

@@ -1,7 +1,0 @@
-[clientscript,script_4245](int $int0, int $int1, int $int2, int $int3, int $int4, string $str0)
-if (getwindowmode >= 2) {
-    ~script_4248($int0, $int1, $int2, $int3, $int4, $str0);
-} else {
-    ~script_4247($int0, $int1, $int2, $int3, $int4, $str0);
-}
-return;

@@ -1,0 +1,61 @@
+name=""
+local_int_count=5
+local_string_count=1
+local_long_count=0
+int_param_count=5
+string_param_count=1
+long_param_count=0
+
+L0: push_int_local 4
+L1: cc_deleteall_152 0
+L2: push_int_local 3
+L3: push_constant_int -1
+L4: branch_equals L6
+L5: branch L11
+L6: push_constant_int 1
+L7: push_int_local 4
+L8: if_sethide 0
+L9: push_int_local 0
+L10: return 0
+L11: push_int_local 0
+L12: push_int_local 1
+L13: push_int_local 3
+L14: push_string_local 0
+L15: push_int_local 4
+L16: gosub_with_params [proc,skillmulti2010_menubutton_off]
+L17: push_constant_int 0
+L18: push_int_local 4
+L19: if_sethide 0
+L20: push_constant_int 1894
+L21: push_int_local 0
+L22: push_int_local 2
+L23: sub 0
+L24: push_int_local 1
+L25: push_int_local 2
+L26: add 0
+L27: push_int_local 2
+L28: add 0
+L29: push_int_local 3
+L30: push_string_local 0
+L31: push_int_local 4
+L32: push_constant_string "iiosI"
+L33: push_int_local 4
+L34: if_setonmouseover 0
+L35: push_constant_int 1884
+L36: push_int_local 0
+L37: push_int_local 1
+L38: push_int_local 3
+L39: push_string_local 0
+L40: push_int_local 4
+L41: push_constant_string "iiosI"
+L42: push_int_local 4
+L43: if_setonmouseleave 0
+L44: push_int_local 0
+L45: push_int_local 1
+L46: add 0
+L47: push_int_local 2
+L48: add 0
+L49: return 0
+L50: push_constant_int 0
+L51: return 0
+L52:

@@ -1,0 +1,165 @@
+name=""
+local_int_count=6
+local_string_count=0
+local_long_count=0
+int_param_count=6
+string_param_count=0
+long_param_count=0
+
+L0: push_varc_int varc_int_268
+L1: switch switch0
+L2: branch L124
+L3: push_int_local 0
+L4: push_int_local 1
+L5: push_int_local 2
+L6: push_int_local 3
+L7: push_int_local 4
+L8: push_int_local 5
+L9: gosub_with_params [proc,clanwars_end_victory]
+L10: push_constant_string "Your clan knocked the enemy right out of the arena."
+L11: push_int_local 2
+L12: if_settext 0
+L13: branch L142
+L14: push_int_local 0
+L15: push_int_local 1
+L16: push_int_local 2
+L17: push_int_local 3
+L18: push_int_local 4
+L19: push_int_local 5
+L20: gosub_with_params [proc,clanwars_end_victory]
+L21: push_constant_string "Your clan reached the target kill-count."
+L22: push_int_local 2
+L23: if_settext 0
+L24: branch L142
+L25: push_int_local 0
+L26: push_int_local 1
+L27: push_int_local 2
+L28: push_int_local 3
+L29: push_int_local 4
+L30: push_int_local 5
+L31: gosub_with_params [proc,clanwars_end_victory]
+L32: push_constant_string "Your clan had the highest kill-count when the time expired."
+L33: push_int_local 2
+L34: if_settext 0
+L35: branch L142
+L36: push_int_local 0
+L37: push_int_local 1
+L38: push_int_local 2
+L39: push_int_local 3
+L40: push_int_local 4
+L41: push_int_local 5
+L42: gosub_with_params [proc,clanwars_end_victory]
+L43: push_constant_string "Your clan had the most survivors when the time expired."
+L44: push_int_local 2
+L45: if_settext 0
+L46: branch L142
+L47: push_int_local 0
+L48: push_int_local 1
+L49: push_int_local 2
+L50: push_int_local 3
+L51: push_int_local 4
+L52: push_int_local 5
+L53: gosub_with_params [proc,clanwars_end_defeat]
+L54: push_constant_string "Your clan was knocked right out of the arena."
+L55: push_int_local 2
+L56: if_settext 0
+L57: branch L142
+L58: push_int_local 0
+L59: push_int_local 1
+L60: push_int_local 2
+L61: push_int_local 3
+L62: push_int_local 4
+L63: push_int_local 5
+L64: gosub_with_params [proc,clanwars_end_defeat]
+L65: push_constant_string "Your enemy reached the target kill-count."
+L66: push_int_local 2
+L67: if_settext 0
+L68: branch L142
+L69: push_int_local 0
+L70: push_int_local 1
+L71: push_int_local 2
+L72: push_int_local 3
+L73: push_int_local 4
+L74: push_int_local 5
+L75: gosub_with_params [proc,clanwars_end_defeat]
+L76: push_constant_string "Your enemy had the highest kill-count when the time expired."
+L77: push_int_local 2
+L78: if_settext 0
+L79: branch L142
+L80: push_int_local 0
+L81: push_int_local 1
+L82: push_int_local 2
+L83: push_int_local 3
+L84: push_int_local 4
+L85: push_int_local 5
+L86: gosub_with_params [proc,clanwars_end_defeat]
+L87: push_constant_string "Your enemy had the most survivors when the time expired."
+L88: push_int_local 2
+L89: if_settext 0
+L90: branch L142
+L91: push_int_local 0
+L92: push_int_local 1
+L93: push_int_local 2
+L94: push_int_local 3
+L95: push_int_local 4
+L96: push_int_local 5
+L97: gosub_with_params [proc,clanwars_end_draw]
+L98: push_constant_string "The match was aborted due to a lack of fighters."
+L99: push_int_local 2
+L100: if_settext 0
+L101: branch L142
+L102: push_int_local 0
+L103: push_int_local 1
+L104: push_int_local 2
+L105: push_int_local 3
+L106: push_int_local 4
+L107: push_int_local 5
+L108: gosub_with_params [proc,clanwars_end_draw]
+L109: push_constant_string "Your kill-counts were equal."
+L110: push_int_local 2
+L111: if_settext 0
+L112: branch L142
+L113: push_int_local 0
+L114: push_int_local 1
+L115: push_int_local 2
+L116: push_int_local 3
+L117: push_int_local 4
+L118: push_int_local 5
+L119: gosub_with_params [proc,clanwars_end_draw]
+L120: push_constant_string "You had equal numbers of survivors."
+L121: push_int_local 2
+L122: if_settext 0
+L123: branch L142
+L124: push_constant_int 1
+L125: push_int_local 0
+L126: if_sethide 0
+L127: push_constant_int 1
+L128: push_int_local 1
+L129: if_sethide 0
+L130: push_constant_int 1
+L131: push_int_local 2
+L132: if_sethide 0
+L133: push_constant_int 1
+L134: push_int_local 3
+L135: if_sethide 0
+L136: push_constant_int 1
+L137: push_int_local 4
+L138: if_sethide 0
+L139: push_constant_int 1
+L140: push_int_local 5
+L141: if_sethide 0
+L142: return 0
+L143:
+
+[switch0@L1]
+4=L3
+5=L14
+6=L25
+7=L36
+8=L47
+9=L58
+10=L69
+11=L80
+1=L91
+2=L102
+3=L113

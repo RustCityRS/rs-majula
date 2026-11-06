@@ -1,0 +1,26 @@
+name=""
+local_int_count=0
+local_string_count=0
+local_long_count=0
+int_param_count=0
+string_param_count=0
+long_param_count=0
+
+L0: push_constant_int 1
+L1: push_constant_int 47513686
+L2: if_sethide 0
+L3: push_constant_int 0
+L4: push_constant_int 47513685
+L5: if_sethide 0
+L6: push_constant_int 1057
+L7: push_constant_int 47513688
+L8: if_setgraphic 0
+L9: push_constant_int 1051
+L10: push_constant_int 47513687
+L11: if_setgraphic 0
+L12: push_constant_int 0
+L13: pop_varc_int varc_int_783
+L14: push_constant_int 47513685
+L15: gosub_with_params [proc,player_kit_bracelet_load]
+L16: return 0
+L17:

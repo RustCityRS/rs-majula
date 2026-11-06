@@ -1,0 +1,37 @@
+name=""
+local_int_count=2
+local_string_count=0
+local_long_count=0
+int_param_count=2
+string_param_count=0
+long_param_count=0
+
+L0: push_int_local 0
+L1: push_constant_int 50
+L2: branch_less_than L4
+L3: branch L15
+L4: push_int_local 0
+L5: push_constant_int 1
+L6: add 0
+L7: pop_int_local 0
+L8: push_constant_int 3961
+L9: push_int_local 0
+L10: push_int_local 1
+L11: push_constant_string "iI"
+L12: push_int_local 1
+L13: if_setontimer 0
+L14: branch L27
+L15: push_constant_int 63
+L16: push_constant_int 16
+L17: push_constant_int 0
+L18: push_constant_int 0
+L19: push_constant_int 48758865
+L20: if_setsize 0
+L21: push_constant_int -1
+L22: push_constant_string ""
+L23: push_int_local 1
+L24: if_setontimer 0
+L25: push_constant_int 48758891
+L26: gosub_with_params clientscript_3960
+L27: return 0
+L28:

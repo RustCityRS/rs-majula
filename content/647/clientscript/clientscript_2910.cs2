@@ -1,0 +1,57 @@
+name=""
+local_int_count=2
+local_string_count=0
+local_long_count=0
+int_param_count=2
+string_param_count=0
+long_param_count=0
+
+L0: push_int_local 1
+L1: if_gettext 0
+L2: push_constant_string "Hide"
+L3: compare 0
+L4: branch_if_false L6
+L5: branch L27
+L6: push_constant_int 2911
+L7: push_constant_int 0
+L8: push_constant_int 24
+L9: push_int_local 0
+L10: if_getlayer 0
+L11: if_getheight 0
+L12: push_constant_int 24
+L13: sub 0
+L14: push_constant_int 0
+L15: push_int_local 0
+L16: push_constant_string "1iiiI"
+L17: push_int_local 0
+L18: if_setontimer 0
+L19: push_constant_string "Show"
+L20: push_int_local 1
+L21: if_settext 0
+L22: push_constant_int 1
+L23: push_constant_string "Show"
+L24: push_int_local 1
+L25: if_setop 0
+L26: branch L47
+L27: push_constant_int 2911
+L28: push_constant_int 1
+L29: push_constant_int 24
+L30: push_int_local 0
+L31: if_getlayer 0
+L32: if_getheight 0
+L33: push_constant_int 24
+L34: sub 0
+L35: push_constant_int 0
+L36: push_int_local 0
+L37: push_constant_string "1iiiI"
+L38: push_int_local 0
+L39: if_setontimer 0
+L40: push_constant_string "Hide"
+L41: push_int_local 1
+L42: if_settext 0
+L43: push_constant_int 1
+L44: push_constant_string "Hide"
+L45: push_int_local 1
+L46: if_setop 0
+L47: return 0
+L48:

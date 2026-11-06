@@ -1,7 +1,0 @@
-[clientscript,script_4169](int $int0)
-if (testbit(%varp286, $int0) = 1) {
-    cc_setgraphic(1135);
-} else {
-    cc_setgraphic(1134);
-}
-return;

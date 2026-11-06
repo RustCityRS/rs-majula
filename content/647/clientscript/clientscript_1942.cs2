@@ -1,0 +1,89 @@
+name=""
+local_int_count=0
+local_string_count=0
+local_long_count=0
+int_param_count=0
+string_param_count=0
+long_param_count=0
+
+L0: push_varc_int varc_int_560
+L1: branch_if_false L3
+L2: branch L16
+L3: push_constant_int 255
+L4: push_varc_int varc_int_559
+L5: push_constant_int 6
+L6: add 0
+L7: min 0
+L8: pop_varc_int varc_int_559
+L9: push_varc_int varc_int_559
+L10: push_constant_int 255
+L11: branch_equals L13
+L12: branch L15
+L13: push_constant_int 1
+L14: pop_varc_int varc_int_560
+L15: branch L31
+L16: push_varc_int varc_int_560
+L17: branch_if_true L19
+L18: branch L31
+L19: push_constant_int 60
+L20: push_varc_int varc_int_559
+L21: push_constant_int 6
+L22: sub 0
+L23: max 0
+L24: pop_varc_int varc_int_559
+L25: push_varc_int varc_int_559
+L26: push_constant_int 60
+L27: branch_equals L29
+L28: branch L31
+L29: push_constant_int 0
+L30: pop_varc_int varc_int_560
+L31: push_varc_int varc_int_559
+L32: push_constant_int 53018638
+L33: if_settrans 0
+L34: push_varc_int varc_int_561
+L35: push_constant_int 4
+L36: branch_less_than L38
+L37: branch L79
+L38: push_constant_int 53018642
+L39: if_gethide 0
+L40: branch_if_true L42
+L41: branch L58
+L42: push_constant_int 20
+L43: push_varc_int varc_int_562
+L44: push_constant_int 1
+L45: add 0
+L46: min 0
+L47: pop_varc_int varc_int_562
+L48: push_varc_int varc_int_562
+L49: push_constant_int 20
+L50: branch_equals L52
+L51: branch L57
+L52: push_constant_int 0
+L53: pop_varc_int varc_int_562
+L54: push_constant_int 0
+L55: push_constant_int 53018642
+L56: if_sethide 0
+L57: branch L79
+L58: push_constant_int 35
+L59: push_varc_int varc_int_562
+L60: push_constant_int 1
+L61: add 0
+L62: min 0
+L63: pop_varc_int varc_int_562
+L64: push_varc_int varc_int_562
+L65: push_constant_int 35
+L66: branch_equals L68
+L67: branch L79
+L68: push_constant_int 0
+L69: pop_varc_int varc_int_562
+L70: push_constant_int 1
+L71: push_constant_int 53018642
+L72: if_sethide 0
+L73: push_constant_int 4
+L74: push_varc_int varc_int_561
+L75: push_constant_int 1
+L76: add 0
+L77: min 0
+L78: pop_varc_int varc_int_561
+L79: return 0
+L80:

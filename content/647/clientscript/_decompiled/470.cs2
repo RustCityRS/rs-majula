@@ -1,7 +1,0 @@
-[clientscript,script_470](int $int0, int $int1)
-if (%varbit2086 < $int1) {
-    if_settext("<col=c80000>" + tostring($int1) + " Commendations required." + "</col>");
-} else {
-    if_settext(tostring($int1) + " Commendations.");
-}
-return;

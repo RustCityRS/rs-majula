@@ -1,0 +1,78 @@
+name=""
+local_int_count=3
+local_string_count=1
+local_long_count=0
+int_param_count=2
+string_param_count=0
+long_param_count=0
+
+L0: push_int_local 0
+L1: pop_varbit varbit_8576
+L2: push_constant_int 105
+L3: push_constant_int 74
+L4: push_constant_int 3483
+L5: push_int_local 0
+L6: enum 0
+L7: pop_int_local 2
+L8: push_constant_string " -"
+L9: push_constant_string "<br>"
+L10: join_string 2
+L11: pop_string_local 0
+L12: push_int_local 2
+L13: push_constant_int 1266
+L14: struct_param_4500 0
+L15: push_string_local 0
+L16: append 0
+L17: pop_string_local 0
+L18: push_string_local 0
+L19: push_int_local 2
+L20: push_constant_int 1273
+L21: struct_param_4500 0
+L22: append 0
+L23: pop_string_local 0
+L24: push_int_local 0
+L25: gosub_with_params clientscript_3999
+L26: branch_if_false L28
+L27: branch L35
+L28: push_constant_int 3981
+L29: push_int_local 1
+L30: push_string_local 0
+L31: push_constant_string "Is"
+L32: push_int_local 1
+L33: if_setonmouserepeat 0
+L34: branch L39
+L35: push_constant_int -1
+L36: push_constant_string ""
+L37: push_int_local 1
+L38: if_setonmouserepeat 0
+L39: push_int_local 1
+L40: switch switch0
+L41: branch L59
+L42: push_constant_int 1
+L43: pop_varbit varbit_8577
+L44: branch L59
+L45: push_constant_int 2
+L46: pop_varbit varbit_8577
+L47: branch L59
+L48: push_constant_int 3
+L49: pop_varbit varbit_8577
+L50: branch L59
+L51: push_constant_int 4
+L52: pop_varbit varbit_8577
+L53: branch L59
+L54: push_constant_int 5
+L55: pop_varbit varbit_8577
+L56: branch L59
+L57: push_constant_int 6
+L58: pop_varbit varbit_8577
+L59: gosub_with_params clientscript_3975
+L60: return 0
+L61:
+
+[switch0@L40]
+69206080=L42
+69206160=L45
+69206165=L48
+69206170=L51
+69206175=L54
+69206181=L57

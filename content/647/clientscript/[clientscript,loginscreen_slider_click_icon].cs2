@@ -1,0 +1,37 @@
+name=""
+local_int_count=3
+local_string_count=0
+local_long_count=0
+int_param_count=2
+string_param_count=0
+long_param_count=0
+
+L0: get_clientopt_6143 0
+L1: pop_int_local 2
+L2: push_int_local 2
+L3: branch_if_false L5
+L4: branch L16
+L5: push_varc_int varc_int_1394
+L6: push_constant_int 0
+L7: branch_greater_than L9
+L8: branch L16
+L9: push_varc_int varc_int_1394
+L10: push_constant_int 255
+L11: branch_less_than_or_equals L13
+L12: branch L16
+L13: push_varc_int varc_int_1394
+L14: set_clientopt_6038 0
+L15: branch L22
+L16: push_int_local 2
+L17: push_constant_int 0
+L18: branch_greater_than L20
+L19: branch L22
+L20: push_constant_int 0
+L21: set_clientopt_6038 0
+L22: push_int_local 0
+L23: push_int_local 1
+L24: push_constant_int 0
+L25: push_constant_int 1
+L26: gosub_with_params [proc,loginscreen_loginvol]
+L27: return 0
+L28:

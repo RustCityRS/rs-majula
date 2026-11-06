@@ -1,0 +1,1392 @@
+name=""
+local_int_count=2
+local_string_count=0
+local_long_count=0
+int_param_count=2
+string_param_count=0
+long_param_count=0
+
+L0: push_int_local 0
+L1: switch switch0
+L2: branch L1251
+L3: push_int_local 1
+L4: switch switch1
+L5: branch L368
+L6: push_constant_int 1
+L7: push_constant_int 1511
+L8: push_constant_string "Normal logs"
+L9: push_constant_string "You can now light "
+L10: push_constant_string "<col=000080>"
+L11: push_constant_string "normal logs"
+L12: push_constant_string "</col>"
+L13: push_constant_string "."
+L14: join_string 5
+L15: return 0
+L16: branch L368
+L17: push_constant_int 1
+L18: push_constant_int 596
+L19: push_constant_string "Members: Torch"
+L20: push_constant_string "Members can now light "
+L21: push_constant_string "<col=000080>"
+L22: push_constant_string "torches"
+L23: push_constant_string "</col>"
+L24: push_constant_string "."
+L25: join_string 5
+L26: return 0
+L27: branch L368
+L28: push_constant_int 1
+L29: push_constant_int 36
+L30: push_constant_string "Members: Candle"
+L31: push_constant_string "Members can now light "
+L32: push_constant_string "<col=000080>"
+L33: push_constant_string "candles"
+L34: push_constant_string "</col>"
+L35: push_constant_string "."
+L36: join_string 5
+L37: return 0
+L38: branch L368
+L39: push_constant_int 1
+L40: push_constant_int 2862
+L41: push_constant_string "Members: Achey logs"
+L42: push_constant_string "Members can now light "
+L43: push_constant_string "<col=000080>"
+L44: push_constant_string "achey logs"
+L45: push_constant_string "</col>"
+L46: push_constant_string "."
+L47: join_string 5
+L48: return 0
+L49: branch L368
+L50: push_constant_int 4
+L51: push_constant_int 4531
+L52: push_constant_string "Members: Candle lantern"
+L53: push_constant_string "Members can now light "
+L54: push_constant_string "<col=000080>"
+L55: push_constant_string "candle lanterns"
+L56: push_constant_string "</col>"
+L57: push_constant_string "."
+L58: join_string 5
+L59: return 0
+L60: branch L368
+L61: push_constant_int 5
+L62: push_constant_int 3438
+L63: push_constant_string "Members: Pyre logs"
+L64: push_constant_string "Members can now light "
+L65: push_constant_string "<col=000080>"
+L66: push_constant_string "pyre logs"
+L67: push_constant_string "</col>"
+L68: push_constant_string "."
+L69: join_string 5
+L70: return 0
+L71: branch L368
+L72: push_constant_int 12
+L73: push_constant_int 4524
+L74: push_constant_string "Members: Oil lamp"
+L75: push_constant_string "Members can now light "
+L76: push_constant_string "<col=000080>"
+L77: push_constant_string "oil lamps"
+L78: push_constant_string "</col>"
+L79: push_constant_string "."
+L80: join_string 5
+L81: return 0
+L82: branch L368
+L83: push_constant_int 15
+L84: push_constant_int 1521
+L85: push_constant_string "Oak logs"
+L86: push_constant_string "You can now light "
+L87: push_constant_string "<col=000080>"
+L88: push_constant_string "oak logs"
+L89: push_constant_string "</col>"
+L90: push_constant_string "."
+L91: join_string 5
+L92: return 0
+L93: branch L368
+L94: push_constant_int 20
+L95: push_constant_int 7225
+L96: push_constant_string "Members: Iron spit"
+L97: push_constant_string "Members can now cook with "
+L98: push_constant_string "<col=000080>"
+L99: push_constant_string "iron spits"
+L100: push_constant_string "</col>"
+L101: push_constant_string "."
+L102: join_string 5
+L103: return 0
+L104: branch L368
+L105: push_constant_int 20
+L106: push_constant_int 3440
+L107: push_constant_string "Members: Oak pyre logs"
+L108: push_constant_string "Members can now light "
+L109: push_constant_string "<col=000080>"
+L110: push_constant_string "oak pyre logs"
+L111: push_constant_string "</col>"
+L112: push_constant_string "."
+L113: join_string 5
+L114: return 0
+L115: branch L368
+L116: push_constant_int 26
+L117: push_constant_int 4539
+L118: push_constant_string "Members: Oil lantern"
+L119: push_constant_string "Members can now light "
+L120: push_constant_string "<col=000080>"
+L121: push_constant_string "oil lanterns"
+L122: push_constant_string "</col>"
+L123: push_constant_string "."
+L124: join_string 5
+L125: return 0
+L126: branch L368
+L127: push_constant_int 30
+L128: push_constant_int 1519
+L129: push_constant_string "Willow logs"
+L130: push_constant_string "You can now light "
+L131: push_constant_string "<col=000080>"
+L132: push_constant_string "willow logs"
+L133: push_constant_string "</col>"
+L134: push_constant_string "."
+L135: join_string 5
+L136: return 0
+L137: branch L368
+L138: push_constant_int 33
+L139: push_constant_int 7053
+L140: push_constant_string "Members: Harpie bug lantern (not a light source)"
+L141: push_constant_string "Members can now light "
+L142: push_constant_string "<col=000080>"
+L143: push_constant_string "harpie bug lanterns"
+L144: push_constant_string "</col>"
+L145: push_constant_string ". These are not a light source."
+L146: join_string 5
+L147: return 0
+L148: branch L368
+L149: push_constant_int 35
+L150: push_constant_int 6333
+L151: push_constant_string "Members: Teak logs"
+L152: push_constant_string "Members can now light "
+L153: push_constant_string "<col=000080>"
+L154: push_constant_string "teak logs"
+L155: push_constant_string "</col>"
+L156: push_constant_string "."
+L157: join_string 5
+L158: return 0
+L159: branch L368
+L160: push_constant_int 35
+L161: push_constant_int 3442
+L162: push_constant_string "Members: Willow pyre logs"
+L163: push_constant_string "Members can now light "
+L164: push_constant_string "<col=000080>"
+L165: push_constant_string "willow pyre logs"
+L166: push_constant_string "</col>"
+L167: push_constant_string "."
+L168: join_string 5
+L169: return 0
+L170: branch L368
+L171: push_constant_int 40
+L172: push_constant_int 6211
+L173: push_constant_string "Members: Teak pyre logs"
+L174: push_constant_string "Members can now light "
+L175: push_constant_string "<col=000080>"
+L176: push_constant_string "teak pyre logs"
+L177: push_constant_string "</col>"
+L178: push_constant_string "."
+L179: join_string 5
+L180: return 0
+L181: branch L368
+L182: push_constant_int 42
+L183: push_constant_int 10810
+L184: push_constant_string "Members: Arctic pine logs"
+L185: push_constant_string "Members can now light "
+L186: push_constant_string "<col=000080>"
+L187: push_constant_string "arctic pine logs"
+L188: push_constant_string "</col>"
+L189: push_constant_string "."
+L190: join_string 5
+L191: return 0
+L192: branch L368
+L193: push_constant_int 45
+L194: push_constant_int 1517
+L195: push_constant_string "Maple logs"
+L196: push_constant_string "You can now light "
+L197: push_constant_string "<col=000080>"
+L198: push_constant_string "maple logs"
+L199: push_constant_string "</col>"
+L200: push_constant_string "."
+L201: join_string 5
+L202: return 0
+L203: branch L368
+L204: push_constant_int 47
+L205: push_constant_int 10808
+L206: push_constant_string "Members: Arctic pine pyre logs"
+L207: push_constant_string "Members can now light "
+L208: push_constant_string "<col=000080>"
+L209: push_constant_string "arctic pine pyre logs"
+L210: push_constant_string "</col>"
+L211: push_constant_string "."
+L212: join_string 5
+L213: return 0
+L214: branch L368
+L215: push_constant_int 49
+L216: push_constant_int 4550
+L217: push_constant_string "Members: Bullseye lantern"
+L218: push_constant_string "Members can now light "
+L219: push_constant_string "<col=000080>"
+L220: push_constant_string "bullseye lanterns"
+L221: push_constant_string "</col>"
+L222: push_constant_string "."
+L223: join_string 5
+L224: return 0
+L225: branch L368
+L226: push_constant_int 49
+L227: push_constant_int 4702
+L228: push_constant_string "Members: Sapphire lantern"
+L229: push_constant_string "Members can now light "
+L230: push_constant_string "<col=000080>"
+L231: push_constant_string "sapphire lanterns"
+L232: push_constant_string "</col>"
+L233: push_constant_string "."
+L234: join_string 5
+L235: return 0
+L236: branch L368
+L237: push_constant_int 49
+L238: push_constant_int 9065
+L239: push_constant_string "Members: Emerald lantern"
+L240: push_constant_string "Members can now light "
+L241: push_constant_string "<col=000080>"
+L242: push_constant_string "emerald lanterns"
+L243: push_constant_string "</col>"
+L244: push_constant_string "."
+L245: join_string 5
+L246: return 0
+L247: branch L368
+L248: push_constant_int 50
+L249: push_constant_int 6332
+L250: push_constant_string "Members: Mahogany logs"
+L251: push_constant_string "Members can now light "
+L252: push_constant_string "<col=000080>"
+L253: push_constant_string "mahogany logs"
+L254: push_constant_string "</col>"
+L255: push_constant_string "."
+L256: join_string 5
+L257: return 0
+L258: branch L368
+L259: push_constant_int 50
+L260: push_constant_int 3444
+L261: push_constant_string "Members: Maple pyre logs"
+L262: push_constant_string "Members can now light "
+L263: push_constant_string "<col=000080>"
+L264: push_constant_string "maple pyre logs"
+L265: push_constant_string "</col>"
+L266: push_constant_string "."
+L267: join_string 5
+L268: return 0
+L269: branch L368
+L270: push_constant_int 52
+L271: push_constant_int 10973
+L272: push_constant_string "Members: Replace Dorgeshuun light orb"
+L273: push_constant_string "Members can now replace "
+L274: push_constant_string "<col=000080>"
+L275: push_constant_string "Dorgeshuun light orbs"
+L276: push_constant_string "</col>"
+L277: push_constant_string "."
+L278: join_string 5
+L279: return 0
+L280: branch L368
+L281: push_constant_int 55
+L282: push_constant_int 6213
+L283: push_constant_string "Members: Mahogany pyre logs"
+L284: push_constant_string "Members can now light "
+L285: push_constant_string "<col=000080>"
+L286: push_constant_string "mahogany pyre logs"
+L287: push_constant_string "</col>"
+L288: push_constant_string "."
+L289: join_string 5
+L290: return 0
+L291: branch L368
+L292: push_constant_int 58
+L293: push_constant_int 12581
+L294: push_constant_string "Members: Eucalyptus logs"
+L295: push_constant_string "Members can now light "
+L296: push_constant_string "<col=000080>"
+L297: push_constant_string "eucalyptus logs"
+L298: push_constant_string "</col>"
+L299: push_constant_string "."
+L300: join_string 5
+L301: return 0
+L302: branch L368
+L303: push_constant_int 60
+L304: push_constant_int 1515
+L305: push_constant_string "Yew logs"
+L306: push_constant_string "You can now light "
+L307: push_constant_string "<col=000080>"
+L308: push_constant_string "yew logs"
+L309: push_constant_string "</col>"
+L310: push_constant_string "."
+L311: join_string 5
+L312: return 0
+L313: branch L368
+L314: push_constant_int 63
+L315: push_constant_int 12583
+L316: push_constant_string "Members: Eucalyptus pyre logs"
+L317: push_constant_string "Members can now light "
+L318: push_constant_string "<col=000080>"
+L319: push_constant_string "eucalyptus pyre logs"
+L320: push_constant_string "</col>"
+L321: push_constant_string "."
+L322: join_string 5
+L323: return 0
+L324: branch L368
+L325: push_constant_int 65
+L326: push_constant_int 5013
+L327: push_constant_string "Members: Cave goblin mining helmet"
+L328: push_constant_string "Members can now light "
+L329: push_constant_string "<col=000080>"
+L330: push_constant_string "cave goblin mining helmets"
+L331: push_constant_string "</col>"
+L332: push_constant_string "."
+L333: join_string 5
+L334: return 0
+L335: branch L368
+L336: push_constant_int 65
+L337: push_constant_int 3446
+L338: push_constant_string "Members: Yew pyre logs"
+L339: push_constant_string "Members can now light "
+L340: push_constant_string "<col=000080>"
+L341: push_constant_string "yew pyre logs"
+L342: push_constant_string "</col>"
+L343: push_constant_string "."
+L344: join_string 5
+L345: return 0
+L346: branch L368
+L347: push_constant_int 75
+L348: push_constant_int 1513
+L349: push_constant_string "Members: Magic logs"
+L350: push_constant_string "Members can now light "
+L351: push_constant_string "<col=000080>"
+L352: push_constant_string "magic logs"
+L353: push_constant_string "</col>"
+L354: push_constant_string "."
+L355: join_string 5
+L356: return 0
+L357: branch L368
+L358: push_constant_int 80
+L359: push_constant_int 3448
+L360: push_constant_string "Members: Magic pyre logs"
+L361: push_constant_string "Members can now light "
+L362: push_constant_string "<col=000080>"
+L363: push_constant_string "magic pyre logs"
+L364: push_constant_string "</col>"
+L365: push_constant_string "."
+L366: join_string 5
+L367: return 0
+L368: branch L1251
+L369: push_int_local 1
+L370: switch switch2
+L371: branch L498
+L372: push_constant_int -1
+L373: push_constant_int 7620
+L374: push_constant_string "To start Firemaking in the manner of the barbarians, talk to Otto Godblessed when you have level 35 Firemaking or higher."
+L375: push_constant_string ""
+L376: return 0
+L377: branch L498
+L378: push_constant_int 21
+L379: push_constant_int 1511
+L380: push_constant_string "Members: Normal Logs"
+L381: push_constant_string "Members versed in the art of barbarian firemaking can now light "
+L382: push_constant_string "<col=000080>"
+L383: push_constant_string "normal logs"
+L384: push_constant_string "</col>"
+L385: push_constant_string " without a tinderbox."
+L386: join_string 5
+L387: return 0
+L388: branch L498
+L389: push_constant_int 21
+L390: push_constant_int 2862
+L391: push_constant_string "Members: Achey tree"
+L392: push_constant_string "Members versed in the art of barbarian firemaking can now light "
+L393: push_constant_string "<col=000080>"
+L394: push_constant_string "achey tree logs"
+L395: push_constant_string "</col>"
+L396: push_constant_string " without a tinderbox."
+L397: join_string 5
+L398: return 0
+L399: branch L498
+L400: push_constant_int 35
+L401: push_constant_int 1521
+L402: push_constant_string "Members: Oak"
+L403: push_constant_string "Members versed in the art of barbarian firemaking can now light "
+L404: push_constant_string "<col=000080>"
+L405: push_constant_string "oak logs"
+L406: push_constant_string "</col>"
+L407: push_constant_string " without a tinderbox."
+L408: join_string 5
+L409: return 0
+L410: branch L498
+L411: push_constant_int 50
+L412: push_constant_int 1519
+L413: push_constant_string "Members: Willow"
+L414: push_constant_string "Members versed in the art of barbarian firemaking can now light "
+L415: push_constant_string "<col=000080>"
+L416: push_constant_string "willow logs"
+L417: push_constant_string "</col>"
+L418: push_constant_string " without a tinderbox."
+L419: join_string 5
+L420: return 0
+L421: branch L498
+L422: push_constant_int 55
+L423: push_constant_int 6333
+L424: push_constant_string "Members: Teak"
+L425: push_constant_string "Members versed in the art of barbarian firemaking can now light "
+L426: push_constant_string "<col=000080>"
+L427: push_constant_string "teak logs"
+L428: push_constant_string "</col>"
+L429: push_constant_string " without a tinderbox."
+L430: join_string 5
+L431: return 0
+L432: branch L498
+L433: push_constant_int 62
+L434: push_constant_int 10810
+L435: push_constant_string "Members: Arctic pine"
+L436: push_constant_string "Members versed in the art of barbarian firemaking can now light "
+L437: push_constant_string "<col=000080>"
+L438: push_constant_string "arctic pine logs"
+L439: push_constant_string "</col>"
+L440: push_constant_string " without a tinderbox."
+L441: join_string 5
+L442: return 0
+L443: branch L498
+L444: push_constant_int 65
+L445: push_constant_int 1517
+L446: push_constant_string "Members: Maple"
+L447: push_constant_string "Members versed in the art of barbarian firemaking can now light "
+L448: push_constant_string "<col=000080>"
+L449: push_constant_string "maple logs"
+L450: push_constant_string "</col>"
+L451: push_constant_string " without a tinderbox."
+L452: join_string 5
+L453: return 0
+L454: branch L498
+L455: push_constant_int 70
+L456: push_constant_int 6332
+L457: push_constant_string "Members: Mahogany"
+L458: push_constant_string "Members versed in the art of barbarian firemaking can now light "
+L459: push_constant_string "<col=000080>"
+L460: push_constant_string "mahogany logs"
+L461: push_constant_string "</col>"
+L462: push_constant_string " without a tinderbox."
+L463: join_string 5
+L464: return 0
+L465: branch L498
+L466: push_constant_int 78
+L467: push_constant_int 12581
+L468: push_constant_string "Members: Eucalyptus"
+L469: push_constant_string "Members versed in the art of barbarian firemaking can now light "
+L470: push_constant_string "<col=000080>"
+L471: push_constant_string "eucalyptus logs"
+L472: push_constant_string "</col>"
+L473: push_constant_string " without a tinderbox."
+L474: join_string 5
+L475: return 0
+L476: branch L498
+L477: push_constant_int 80
+L478: push_constant_int 1515
+L479: push_constant_string "Members: Yew"
+L480: push_constant_string "Members versed in the art of barbarian firemaking can now light "
+L481: push_constant_string "<col=000080>"
+L482: push_constant_string "yew logs"
+L483: push_constant_string "</col>"
+L484: push_constant_string " without a tinderbox."
+L485: join_string 5
+L486: return 0
+L487: branch L498
+L488: push_constant_int 95
+L489: push_constant_int 1513
+L490: push_constant_string "Members: Magic"
+L491: push_constant_string "Members versed in the art of barbarian firemaking can now light "
+L492: push_constant_string "<col=000080>"
+L493: push_constant_string "magic logs"
+L494: push_constant_string "</col>"
+L495: push_constant_string " without a tinderbox."
+L496: join_string 5
+L497: return 0
+L498: branch L1251
+L499: push_int_local 1
+L500: switch switch3
+L501: branch L661
+L502: push_constant_int -1
+L503: push_constant_int 7620
+L504: push_constant_string "To start Firemaking in the manner of the barbarians, talk to Otto Godblessed when you have level 35 Firemaking or higher. Pyre ships can only be constructed and burnt where the ground is charred, around the lake next to Otto's hut."
+L505: push_constant_string ""
+L506: return 0
+L507: branch L661
+L508: push_constant_int 11
+L509: push_constant_int 1511
+L510: push_constant_string "Members: Wood"
+L511: push_constant_string "<br>"
+L512: push_constant_string " (with 11 Crafting)"
+L513: join_string 3
+L514: push_constant_string "Members versed in the art of barbarian firemaking now have the Firemaking level required to light pyre ships made out of "
+L515: push_constant_string "<col=000080>"
+L516: push_constant_string "logs"
+L517: push_constant_string "</col>"
+L518: push_constant_string ". (They also need level 11 Crafting.)"
+L519: join_string 5
+L520: return 0
+L521: branch L661
+L522: push_constant_int 11
+L523: push_constant_int 2862
+L524: push_constant_string "Members: Achey"
+L525: push_constant_string "<br>"
+L526: push_constant_string " (with 11 Crafting)"
+L527: join_string 3
+L528: push_constant_string "Members versed in the art of barbarian firemaking now have the Firemaking level required to light pyre ships made out of "
+L529: push_constant_string "<col=000080>"
+L530: push_constant_string "achey tree logs"
+L531: push_constant_string "</col>"
+L532: push_constant_string ". (They also need level 11 Crafting.)"
+L533: join_string 5
+L534: return 0
+L535: branch L661
+L536: push_constant_int 25
+L537: push_constant_int 1521
+L538: push_constant_string "Members: Oak"
+L539: push_constant_string "<br>"
+L540: push_constant_string " (with 25 Crafting)"
+L541: join_string 3
+L542: push_constant_string "Members versed in the art of barbarian firemaking now have the Firemaking level required to light pyre ships made out of "
+L543: push_constant_string "<col=000080>"
+L544: push_constant_string "oak logs"
+L545: push_constant_string "</col>"
+L546: push_constant_string ". (They also need level 25 Crafting.)"
+L547: join_string 5
+L548: return 0
+L549: branch L661
+L550: push_constant_int 40
+L551: push_constant_int 1519
+L552: push_constant_string "Members: Willow"
+L553: push_constant_string "<br>"
+L554: push_constant_string " (with 40 Crafting)"
+L555: join_string 3
+L556: push_constant_string "Members versed in the art of barbarian firemaking now have the Firemaking level required to light pyre ships made out of "
+L557: push_constant_string "<col=000080>"
+L558: push_constant_string "willow logs"
+L559: push_constant_string "</col>"
+L560: push_constant_string ". (They also need level 40 Crafting.)"
+L561: join_string 5
+L562: return 0
+L563: branch L661
+L564: push_constant_int 45
+L565: push_constant_int 6333
+L566: push_constant_string "Members: Teak"
+L567: push_constant_string "<br>"
+L568: push_constant_string " (with 45 Crafting)"
+L569: join_string 3
+L570: push_constant_string "Members versed in the art of barbarian firemaking now have the Firemaking level required to light pyre ships made out of "
+L571: push_constant_string "<col=000080>"
+L572: push_constant_string "teak logs"
+L573: push_constant_string "</col>"
+L574: push_constant_string ". (They also need level 45 Crafting.)"
+L575: join_string 5
+L576: return 0
+L577: branch L661
+L578: push_constant_int 52
+L579: push_constant_int 10810
+L580: push_constant_string "Members: Arctic pine"
+L581: push_constant_string "<br>"
+L582: push_constant_string " (with 52 Crafting)"
+L583: join_string 3
+L584: push_constant_string "Members versed in the art of barbarian firemaking now have the Firemaking level required to light pyre ships made out of "
+L585: push_constant_string "<col=000080>"
+L586: push_constant_string "arctic pine logs"
+L587: push_constant_string "</col>"
+L588: push_constant_string ". (They also need level 52 Crafting.)"
+L589: join_string 5
+L590: return 0
+L591: branch L661
+L592: push_constant_int 55
+L593: push_constant_int 1517
+L594: push_constant_string "Members: Maple"
+L595: push_constant_string "<br>"
+L596: push_constant_string " (with 55 Crafting)"
+L597: join_string 3
+L598: push_constant_string "Members versed in the art of barbarian firemaking now have the Firemaking level required to light pyre ships made out of "
+L599: push_constant_string "<col=000080>"
+L600: push_constant_string "maple logs"
+L601: push_constant_string "</col>"
+L602: push_constant_string ". (They also need level 55 Crafting.)"
+L603: join_string 5
+L604: return 0
+L605: branch L661
+L606: push_constant_int 60
+L607: push_constant_int 6332
+L608: push_constant_string "Members: Mahogany"
+L609: push_constant_string "<br>"
+L610: push_constant_string " (with 60 Crafting)"
+L611: join_string 3
+L612: push_constant_string "Members versed in the art of barbarian firemaking now have the Firemaking level required to light pyre ships made out of "
+L613: push_constant_string "<col=000080>"
+L614: push_constant_string "mahogany logs"
+L615: push_constant_string "</col>"
+L616: push_constant_string ". (They also need level 60 Crafting.)"
+L617: join_string 5
+L618: return 0
+L619: branch L661
+L620: push_constant_int 68
+L621: push_constant_int 12581
+L622: push_constant_string "Members: Eucalyptus"
+L623: push_constant_string "<br>"
+L624: push_constant_string " (with 68 Crafting)"
+L625: join_string 3
+L626: push_constant_string "Members versed in the art of barbarian firemaking now have the Firemaking level required to light pyre ships made out of "
+L627: push_constant_string "<col=000080>"
+L628: push_constant_string "eucalyptus logs"
+L629: push_constant_string "</col>"
+L630: push_constant_string ". (They also need level 68 Crafting.)"
+L631: join_string 5
+L632: return 0
+L633: branch L661
+L634: push_constant_int 70
+L635: push_constant_int 1515
+L636: push_constant_string "Members: Yew"
+L637: push_constant_string "<br>"
+L638: push_constant_string " (with 70 Crafting)"
+L639: join_string 3
+L640: push_constant_string "Members versed in the art of barbarian firemaking now have the Firemaking level required to light pyre ships made out of "
+L641: push_constant_string "<col=000080>"
+L642: push_constant_string "yew logs"
+L643: push_constant_string "</col>"
+L644: push_constant_string ". (They also need level 70 Crafting.)"
+L645: join_string 5
+L646: return 0
+L647: branch L661
+L648: push_constant_int 85
+L649: push_constant_int 1513
+L650: push_constant_string "Members: Magic"
+L651: push_constant_string "<br>"
+L652: push_constant_string " (with 85 Crafting)"
+L653: join_string 3
+L654: push_constant_string "Members versed in the art of barbarian firemaking now have the Firemaking level required to light pyre ships made out of "
+L655: push_constant_string "<col=000080>"
+L656: push_constant_string "magic logs"
+L657: push_constant_string "</col>"
+L658: push_constant_string ". (They also need level 85 Crafting.)"
+L659: join_string 5
+L660: return 0
+L661: branch L1251
+L662: push_int_local 1
+L663: switch switch4
+L664: branch L731
+L665: push_constant_int 1
+L666: push_constant_int 590
+L667: push_constant_string "Tinderbox"
+L668: push_constant_string "You can now light fires with a "
+L669: push_constant_string "<col=000080>"
+L670: push_constant_string "tinderbox"
+L671: push_constant_string "</col>"
+L672: push_constant_string "."
+L673: join_string 5
+L674: return 0
+L675: branch L731
+L676: push_constant_int 61
+L677: push_constant_int 15241
+L678: push_constant_string "Members: Chaos dwarf hand cannon"
+L679: push_constant_string "<br>"
+L680: push_constant_string " (after Forgiveness of a Chaos Dwarf and with 75 Ranged)"
+L681: join_string 3
+L682: push_constant_string "Members now have the Firemaking level required to fire the "
+L683: push_constant_string "<col=000080>"
+L684: push_constant_string "chaos dwarf hand cannon"
+L685: push_constant_string "</col>"
+L686: push_constant_string " (after Forgiveness of a Chaos Dwarf and with 75 Ranged)."
+L687: join_string 5
+L688: return 0
+L689: branch L731
+L690: push_constant_int 62
+L691: push_constant_int 13659
+L692: push_constant_string "Members: Ring of Fire"
+L693: push_constant_string "<br>"
+L694: push_constant_string " (after All Fired Up)"
+L695: join_string 3
+L696: push_constant_string "Members can now wear the "
+L697: push_constant_string "<col=000080>"
+L698: push_constant_string "Ring of Fire"
+L699: push_constant_string "</col>"
+L700: push_constant_string " (after All Fired Up)."
+L701: join_string 5
+L702: return 0
+L703: branch L731
+L704: push_constant_int 79
+L705: push_constant_int 13660
+L706: push_constant_string "Members: Flame Gloves"
+L707: push_constant_string "<br>"
+L708: push_constant_string " (after All Fired Up)"
+L709: join_string 3
+L710: push_constant_string "Members can now wear the "
+L711: push_constant_string "<col=000080>"
+L712: push_constant_string "Flame Gloves"
+L713: push_constant_string "</col>"
+L714: push_constant_string " (after All Fired Up)."
+L715: join_string 5
+L716: return 0
+L717: branch L731
+L718: push_constant_int 92
+L719: push_constant_int 13661
+L720: push_constant_string "Members: Inferno Adze"
+L721: push_constant_string "<br>"
+L722: push_constant_string " (after All Fired Up)"
+L723: join_string 3
+L724: push_constant_string "Members can now use the "
+L725: push_constant_string "<col=000080>"
+L726: push_constant_string "Inferno Adze"
+L727: push_constant_string "</col>"
+L728: push_constant_string " (after All Fired Up)."
+L729: join_string 5
+L730: return 0
+L731: branch L1251
+L732: push_int_local 1
+L733: switch switch5
+L734: branch L971
+L735: push_constant_int -1
+L736: push_constant_int 7620
+L737: push_constant_string "To use the beacons, you must have completed All Fired Up."
+L738: push_constant_string ""
+L739: return 0
+L740: branch L971
+L741: push_constant_int 43
+L742: push_constant_int 13662
+L743: push_constant_string "Members: Beacon near the River Salve"
+L744: push_constant_string "Members can now light the "
+L745: push_constant_string "<col=000080>"
+L746: push_constant_string "beacon"
+L747: push_constant_string "</col>"
+L748: push_constant_string " near the "
+L749: push_constant_string "<col=000080>"
+L750: push_constant_string "River Salve"
+L751: push_constant_string "</col>"
+L752: push_constant_string " (after All Fired Up)."
+L753: join_string 9
+L754: return 0
+L755: branch L971
+L756: push_constant_int 43
+L757: push_constant_int 13662
+L758: push_constant_string "Members: Beacon near the Rag and Bone Man"
+L759: push_constant_string "Members can now light the "
+L760: push_constant_string "<col=000080>"
+L761: push_constant_string "beacon"
+L762: push_constant_string "</col>"
+L763: push_constant_string " near the "
+L764: push_constant_string "<col=000080>"
+L765: push_constant_string "Rag and Bone Man"
+L766: push_constant_string "</col>"
+L767: push_constant_string " (after All Fired Up)."
+L768: join_string 9
+L769: return 0
+L770: branch L971
+L771: push_constant_int 48
+L772: push_constant_int 13662
+L773: push_constant_string "Members: Beacon near the Jolly Boar"
+L774: push_constant_string "Members can now light the "
+L775: push_constant_string "<col=000080>"
+L776: push_constant_string "beacon"
+L777: push_constant_string "</col>"
+L778: push_constant_string " near the "
+L779: push_constant_string "<col=000080>"
+L780: push_constant_string "Jolly Boar"
+L781: push_constant_string "</col>"
+L782: push_constant_string " (after All Fired Up)."
+L783: join_string 9
+L784: return 0
+L785: branch L971
+L786: push_constant_int 53
+L787: push_constant_int 13662
+L788: push_constant_string "Members: Beacon north of Varrock Palace"
+L789: push_constant_string "Members can now light the "
+L790: push_constant_string "<col=000080>"
+L791: push_constant_string "beacon"
+L792: push_constant_string "</col>"
+L793: push_constant_string " north of "
+L794: push_constant_string "<col=000080>"
+L795: push_constant_string "Varrock Palace"
+L796: push_constant_string "</col>"
+L797: push_constant_string " (after All Fired Up)."
+L798: join_string 9
+L799: return 0
+L800: branch L971
+L801: push_constant_int 59
+L802: push_constant_int 13662
+L803: push_constant_string "Members: Beacon near the Grand Exchange"
+L804: push_constant_string "Members can now light the "
+L805: push_constant_string "<col=000080>"
+L806: push_constant_string "beacon"
+L807: push_constant_string "</col>"
+L808: push_constant_string " near the "
+L809: push_constant_string "<col=000080>"
+L810: push_constant_string "Grand Exchange"
+L811: push_constant_string "</col>"
+L812: push_constant_string " (after All Fired Up)."
+L813: join_string 9
+L814: return 0
+L815: branch L971
+L816: push_constant_int 62
+L817: push_constant_int 13662
+L818: push_constant_string "Members: Beacon near Edgeville"
+L819: push_constant_string "Members can now light the "
+L820: push_constant_string "<col=000080>"
+L821: push_constant_string "beacon"
+L822: push_constant_string "</col>"
+L823: push_constant_string " near "
+L824: push_constant_string "<col=000080>"
+L825: push_constant_string "Edgeville"
+L826: push_constant_string "</col>"
+L827: push_constant_string " (after All Fired Up)."
+L828: join_string 9
+L829: return 0
+L830: branch L971
+L831: push_constant_int 68
+L832: push_constant_int 13662
+L833: push_constant_string "Members: Beacon near the Monastery"
+L834: push_constant_string "<br>"
+L835: push_constant_string " (after joining the Monastery)"
+L836: join_string 3
+L837: push_constant_string "Members can now light the "
+L838: push_constant_string "<col=000080>"
+L839: push_constant_string "beacon"
+L840: push_constant_string "</col>"
+L841: push_constant_string " near "
+L842: push_constant_string "<col=000080>"
+L843: push_constant_string "the Monastery"
+L844: push_constant_string "</col>"
+L845: push_constant_string " (after All Fired Up and after joining the Monastery)."
+L846: join_string 9
+L847: return 0
+L848: branch L971
+L849: push_constant_int 72
+L850: push_constant_int 13662
+L851: push_constant_string "Members: Beacon near Goblin Village"
+L852: push_constant_string "<br>"
+L853: push_constant_string " (after Land of the Goblins)"
+L854: join_string 3
+L855: push_constant_string "Members can now light the "
+L856: push_constant_string "<col=000080>"
+L857: push_constant_string "beacon"
+L858: push_constant_string "</col>"
+L859: push_constant_string " near "
+L860: push_constant_string "<col=000080>"
+L861: push_constant_string "Goblin Village"
+L862: push_constant_string "</col>"
+L863: push_constant_string " (after All Fired Up and Land of the Goblins)."
+L864: join_string 9
+L865: return 0
+L866: branch L971
+L867: push_constant_int 76
+L868: push_constant_int 13662
+L869: push_constant_string "Members: Beacon near Burthorpe"
+L870: push_constant_string "<br>"
+L871: push_constant_string " (with 56 Smithing)"
+L872: join_string 3
+L873: push_constant_string "Members now have the Firemaking level required to light the "
+L874: push_constant_string "<col=000080>"
+L875: push_constant_string "beacon"
+L876: push_constant_string "</col>"
+L877: push_constant_string " near "
+L878: push_constant_string "<col=000080>"
+L879: push_constant_string "Burthorpe"
+L880: push_constant_string "</col>"
+L881: push_constant_string ". (They also need level 56 Smithing and to have completed All Fired Up)."
+L882: join_string 9
+L883: return 0
+L884: branch L971
+L885: push_constant_int 79
+L886: push_constant_int 13662
+L887: push_constant_string "Members: Beacon east of Death Plateau"
+L888: push_constant_string "<br>"
+L889: push_constant_string " (with 42 Construction)"
+L890: join_string 3
+L891: push_constant_string "Members now have the Firemaking level required to light the "
+L892: push_constant_string "<col=000080>"
+L893: push_constant_string "beacon"
+L894: push_constant_string "</col>"
+L895: push_constant_string " east of "
+L896: push_constant_string "<col=000080>"
+L897: push_constant_string "Death Plateau"
+L898: push_constant_string "</col>"
+L899: push_constant_string ". (They also need level 42 Construction and to have completed All Fired Up)."
+L900: join_string 9
+L901: return 0
+L902: branch L971
+L903: push_constant_int 83
+L904: push_constant_int 13662
+L905: push_constant_string "Members: Beacon near the Trollheim shortcut"
+L906: push_constant_string "<br>"
+L907: push_constant_string " (with 64 Agility)"
+L908: join_string 3
+L909: push_constant_string "Members now have the Firemaking level required to light the "
+L910: push_constant_string "<col=000080>"
+L911: push_constant_string "beacon"
+L912: push_constant_string "</col>"
+L913: push_constant_string " near the "
+L914: push_constant_string "<col=000080>"
+L915: push_constant_string "Trollheim shortcut"
+L916: push_constant_string "</col>"
+L917: push_constant_string ". (They also need level 64 Agility and to have completed All Fired Up)."
+L918: join_string 9
+L919: return 0
+L920: branch L971
+L921: push_constant_int 87
+L922: push_constant_int 13662
+L923: push_constant_string "Members: Beacon near the entrance to the God Wars Dungeon"
+L924: push_constant_string "<br>"
+L925: push_constant_string " (with 60 Crafting)"
+L926: join_string 3
+L927: push_constant_string "Members now have the Firemaking level required to light the "
+L928: push_constant_string "<col=000080>"
+L929: push_constant_string "beacon"
+L930: push_constant_string "</col>"
+L931: push_constant_string " near the entrance to the "
+L932: push_constant_string "<col=000080>"
+L933: push_constant_string "God Wars Dungeon"
+L934: push_constant_string "</col>"
+L935: push_constant_string ". (They also need level 60 Crafting and to have completed All Fired Up)."
+L936: join_string 9
+L937: return 0
+L938: branch L971
+L939: push_constant_int 89
+L940: push_constant_int 13662
+L941: push_constant_string "Members: Beacon near small temple in the Wilderness"
+L942: push_constant_string "<br>"
+L943: push_constant_string " (with 70 Smithing or 59 Construction)"
+L944: join_string 3
+L945: push_constant_string "Members now have the Firemaking level required to light the "
+L946: push_constant_string "<col=000080>"
+L947: push_constant_string "beacon"
+L948: push_constant_string "</col>"
+L949: push_constant_string " near the "
+L950: push_constant_string "<col=000080>"
+L951: push_constant_string "small temple in the Wilderness"
+L952: push_constant_string "</col>"
+L953: push_constant_string ". (They will also need level 70 Smithing or level 59 Construction, and to have completed All Fired Up)."
+L954: join_string 9
+L955: return 0
+L956: branch L971
+L957: push_constant_int 92
+L958: push_constant_int 13662
+L959: push_constant_string "Members: Beacon on the Frozen Waste Plateau"
+L960: push_constant_string "Members can now light the "
+L961: push_constant_string "<col=000080>"
+L962: push_constant_string "beacon"
+L963: push_constant_string "</col>"
+L964: push_constant_string " on the "
+L965: push_constant_string "<col=000080>"
+L966: push_constant_string "Frozen Waste Plateau"
+L967: push_constant_string "</col>"
+L968: push_constant_string " (after All Fired Up)."
+L969: join_string 9
+L970: return 0
+L971: branch L1251
+L972: push_int_local 1
+L973: switch switch6
+L974: branch L1018
+L975: push_constant_int 91
+L976: push_constant_int 18778
+L977: push_constant_string "Members: Starved ancient effigies"
+L978: push_constant_string "Members can now investigate "
+L979: push_constant_string "<col=000080>"
+L980: push_constant_string "starved ancient effigies"
+L981: push_constant_string "</col>"
+L982: push_constant_string " using their knowledge of Firemaking."
+L983: join_string 5
+L984: return 0
+L985: branch L1018
+L986: push_constant_int 93
+L987: push_constant_int 18779
+L988: push_constant_string "Members: Nourished ancient effigies"
+L989: push_constant_string "Members can now investigate "
+L990: push_constant_string "<col=000080>"
+L991: push_constant_string "nourished ancient effigies"
+L992: push_constant_string "</col>"
+L993: push_constant_string " using their knowledge of Firemaking."
+L994: join_string 5
+L995: return 0
+L996: branch L1018
+L997: push_constant_int 95
+L998: push_constant_int 18780
+L999: push_constant_string "Members: Sated ancient effigies"
+L1000: push_constant_string "Members can now investigate "
+L1001: push_constant_string "<col=000080>"
+L1002: push_constant_string "sated ancient effigies"
+L1003: push_constant_string "</col>"
+L1004: push_constant_string " using their knowledge of Firemaking."
+L1005: join_string 5
+L1006: return 0
+L1007: branch L1018
+L1008: push_constant_int 97
+L1009: push_constant_int 18781
+L1010: push_constant_string "Members: Gorged ancient effigies"
+L1011: push_constant_string "Members can now investigate "
+L1012: push_constant_string "<col=000080>"
+L1013: push_constant_string "gorged ancient effigies"
+L1014: push_constant_string "</col>"
+L1015: push_constant_string " using their knowledge of Firemaking."
+L1016: join_string 5
+L1017: return 0
+L1018: branch L1251
+L1019: push_int_local 1
+L1020: switch switch7
+L1021: branch L1102
+L1022: push_constant_int 1
+L1023: push_constant_int 14667
+L1024: push_constant_string "Members: Burn basic evil tree"
+L1025: push_constant_string "Members can now burn "
+L1026: push_constant_string "<col=000080>"
+L1027: push_constant_string "basic evil trees"
+L1028: push_constant_string "</col>"
+L1029: join_string 4
+L1030: return 0
+L1031: branch L1102
+L1032: push_constant_int 15
+L1033: push_constant_int 14667
+L1034: push_constant_string "Members: Burn evil oak tree"
+L1035: push_constant_string "Members can now burn "
+L1036: push_constant_string "<col=000080>"
+L1037: push_constant_string "evil oak trees"
+L1038: push_constant_string "</col>"
+L1039: join_string 4
+L1040: return 0
+L1041: branch L1102
+L1042: push_constant_int 30
+L1043: push_constant_int 14667
+L1044: push_constant_string "Members: Burn evil willow tree"
+L1045: push_constant_string "Members can now burn "
+L1046: push_constant_string "<col=000080>"
+L1047: push_constant_string "evil willow trees"
+L1048: push_constant_string "</col>"
+L1049: join_string 4
+L1050: return 0
+L1051: branch L1102
+L1052: push_constant_int 45
+L1053: push_constant_int 14667
+L1054: push_constant_string "Members: Burn evil maple tree"
+L1055: push_constant_string "Members can now burn "
+L1056: push_constant_string "<col=000080>"
+L1057: push_constant_string "evil maple trees"
+L1058: push_constant_string "</col>"
+L1059: join_string 4
+L1060: return 0
+L1061: branch L1102
+L1062: push_constant_int 55
+L1063: push_constant_int 14619
+L1064: push_constant_string "Members: Phoenix Lair - funeral pyre"
+L1065: push_constant_string "Members can now light the phoenix's "
+L1066: push_constant_string "<col=000080>"
+L1067: push_constant_string "funeral pyre"
+L1068: push_constant_string "</col>"
+L1069: push_constant_string " in the phoenix lair."
+L1070: join_string 5
+L1071: return 0
+L1072: branch L1102
+L1073: push_constant_int 60
+L1074: push_constant_int 14667
+L1075: push_constant_string "Members: Burn evil yew tree"
+L1076: push_constant_string "Members can now burn "
+L1077: push_constant_string "<col=000080>"
+L1078: push_constant_string "evil yew trees"
+L1079: push_constant_string "</col>"
+L1080: join_string 4
+L1081: return 0
+L1082: branch L1102
+L1083: push_constant_int 75
+L1084: push_constant_int 14667
+L1085: push_constant_string "Members: Burn evil magic tree"
+L1086: push_constant_string "Members can now burn "
+L1087: push_constant_string "<col=000080>"
+L1088: push_constant_string "evil magic trees"
+L1089: push_constant_string "</col>"
+L1090: join_string 4
+L1091: return 0
+L1092: branch L1102
+L1093: push_constant_int 85
+L1094: push_constant_int 14667
+L1095: push_constant_string "Members: Burn elder evil tree"
+L1096: push_constant_string "Members can now burn "
+L1097: push_constant_string "<col=000080>"
+L1098: push_constant_string "elder evil trees"
+L1099: push_constant_string "</col>"
+L1100: join_string 4
+L1101: return 0
+L1102: branch L1251
+L1103: push_int_local 1
+L1104: switch switch8
+L1105: branch L1224
+L1106: push_constant_int -1
+L1107: push_constant_int 15707
+L1108: push_constant_string "Dungeoneering skill tasks"
+L1109: push_constant_string "<br>"
+L1110: push_constant_string "As your Firemaking level increases, you will be able to attempt higher-level firemaking tasks within Daemonheim. You will also be more likely to succeed when attempting firemaking tasks within Daemonheim."
+L1111: join_string 3
+L1112: push_constant_string ""
+L1113: return 0
+L1114: branch L1224
+L1115: push_constant_int 1
+L1116: push_constant_int 17682
+L1117: push_constant_string "Tangle gum branches (Tier 1)"
+L1118: push_constant_string "You can now light "
+L1119: push_constant_string "<col=000080>"
+L1120: push_constant_string "tangle gum branches"
+L1121: push_constant_string "</col>"
+L1122: push_constant_string " within Daemonheim."
+L1123: join_string 5
+L1124: return 0
+L1125: branch L1224
+L1126: push_constant_int 10
+L1127: push_constant_int 17684
+L1128: push_constant_string "Seeping elm branches (Tier 2)"
+L1129: push_constant_string "You can now light "
+L1130: push_constant_string "<col=000080>"
+L1131: push_constant_string "seeping elm branches"
+L1132: push_constant_string "</col>"
+L1133: push_constant_string " within Daemonheim."
+L1134: join_string 5
+L1135: return 0
+L1136: branch L1224
+L1137: push_constant_int 20
+L1138: push_constant_int 17686
+L1139: push_constant_string "Blood spindle branches (Tier 3)"
+L1140: push_constant_string "You can now light "
+L1141: push_constant_string "<col=000080>"
+L1142: push_constant_string "blood spindle branches"
+L1143: push_constant_string "</col>"
+L1144: push_constant_string " within Daemonheim."
+L1145: join_string 5
+L1146: return 0
+L1147: branch L1224
+L1148: push_constant_int 30
+L1149: push_constant_int 17688
+L1150: push_constant_string "Utuku branches (Tier 4)"
+L1151: push_constant_string "You can now light "
+L1152: push_constant_string "<col=000080>"
+L1153: push_constant_string "utuku branches"
+L1154: push_constant_string "</col>"
+L1155: push_constant_string " within Daemonheim."
+L1156: join_string 5
+L1157: return 0
+L1158: branch L1224
+L1159: push_constant_int 40
+L1160: push_constant_int 17690
+L1161: push_constant_string "Spinebeam branches (Tier 5)"
+L1162: push_constant_string "You can now light "
+L1163: push_constant_string "<col=000080>"
+L1164: push_constant_string "spinebeam branches"
+L1165: push_constant_string "</col>"
+L1166: push_constant_string " within Daemonheim."
+L1167: join_string 5
+L1168: return 0
+L1169: branch L1224
+L1170: push_constant_int 50
+L1171: push_constant_int 17692
+L1172: push_constant_string "Members: Bovistrangler branches (Tier 6)"
+L1173: push_constant_string "Members can now light "
+L1174: push_constant_string "<col=000080>"
+L1175: push_constant_string "bovistrangler branches"
+L1176: push_constant_string "</col>"
+L1177: push_constant_string " within Daemonheim."
+L1178: join_string 5
+L1179: return 0
+L1180: branch L1224
+L1181: push_constant_int 60
+L1182: push_constant_int 17694
+L1183: push_constant_string "Members: Thigat branches (Tier 7)"
+L1184: push_constant_string "Members can now light "
+L1185: push_constant_string "<col=000080>"
+L1186: push_constant_string "thigat branches"
+L1187: push_constant_string "</col>"
+L1188: push_constant_string " within Daemonheim."
+L1189: join_string 5
+L1190: return 0
+L1191: branch L1224
+L1192: push_constant_int 70
+L1193: push_constant_int 17696
+L1194: push_constant_string "Members: Corpsethorn branches (Tier 8)"
+L1195: push_constant_string "Members can now light "
+L1196: push_constant_string "<col=000080>"
+L1197: push_constant_string "corpsethorn branches"
+L1198: push_constant_string "</col>"
+L1199: push_constant_string " within Daemonheim."
+L1200: join_string 5
+L1201: return 0
+L1202: branch L1224
+L1203: push_constant_int 80
+L1204: push_constant_int 17698
+L1205: push_constant_string "Members: Entgallow branches (Tier 9)"
+L1206: push_constant_string "Members can now light "
+L1207: push_constant_string "<col=000080>"
+L1208: push_constant_string "entgallow branches"
+L1209: push_constant_string "</col>"
+L1210: push_constant_string " within Daemonheim."
+L1211: join_string 5
+L1212: return 0
+L1213: branch L1224
+L1214: push_constant_int 90
+L1215: push_constant_int 17700
+L1216: push_constant_string "Members: Grave creeper branches (Tier 10)"
+L1217: push_constant_string "Members can now light "
+L1218: push_constant_string "<col=000080>"
+L1219: push_constant_string "grave creeper branches"
+L1220: push_constant_string "</col>"
+L1221: push_constant_string " within Daemonheim."
+L1222: join_string 5
+L1223: return 0
+L1224: branch L1251
+L1225: push_int_local 1
+L1226: branch_if_false L1228
+L1227: branch L1251
+L1228: push_constant_int 99
+L1229: push_constant_int 9804
+L1230: push_constant_string "Skill mastery"
+L1231: push_constant_string "<col=000080>"
+L1232: push_constant_string "Congratulations! You are now a master of "
+L1233: push_constant_string "<col=800000>"
+L1234: push_constant_string "Firemaking"
+L1235: push_constant_string "<col=000080>"
+L1236: push_constant_string ". Members can visit "
+L1237: push_constant_string "<col=800000>"
+L1238: push_constant_string "Ignatius"
+L1239: push_constant_string "<col=000080>"
+L1240: push_constant_string ", south of "
+L1241: push_constant_string "<col=800000>"
+L1242: push_constant_string "Seers' Village"
+L1243: push_constant_string "<col=000080>"
+L1244: push_constant_string ". He has something special that is only available to true masters of the "
+L1245: push_constant_string "<col=800000>"
+L1246: push_constant_string "Firemaking"
+L1247: push_constant_string "<col=000080>"
+L1248: push_constant_string " skill!"
+L1249: join_string 18
+L1250: return 0
+L1251: push_constant_int 0
+L1252: push_constant_int -1
+L1253: push_constant_string ""
+L1254: push_constant_string ""
+L1255: return 0
+L1256:
+
+[switch0@L1]
+0=L3
+1=L369
+2=L499
+3=L662
+4=L732
+5=L972
+6=L1019
+7=L1103
+8=L1225
+
+[switch1@L4]
+0=L6
+1=L17
+2=L28
+3=L39
+4=L50
+5=L61
+6=L72
+7=L83
+8=L94
+9=L105
+10=L116
+11=L127
+12=L138
+13=L149
+14=L160
+15=L171
+16=L182
+17=L193
+18=L204
+19=L215
+20=L226
+21=L237
+22=L248
+23=L259
+24=L270
+25=L281
+26=L292
+27=L303
+28=L314
+29=L325
+30=L336
+31=L347
+32=L358
+
+[switch2@L370]
+0=L372
+1=L378
+2=L389
+3=L400
+4=L411
+5=L422
+6=L433
+7=L444
+8=L455
+9=L466
+10=L477
+11=L488
+
+[switch3@L500]
+0=L502
+1=L508
+2=L522
+3=L536
+4=L550
+5=L564
+6=L578
+7=L592
+8=L606
+9=L620
+10=L634
+11=L648
+
+[switch4@L663]
+0=L665
+1=L676
+2=L690
+3=L704
+4=L718
+
+[switch5@L733]
+0=L735
+1=L741
+2=L756
+3=L771
+4=L786
+5=L801
+6=L816
+7=L831
+8=L849
+9=L867
+10=L885
+11=L903
+12=L921
+13=L939
+14=L957
+
+[switch6@L973]
+0=L975
+1=L986
+2=L997
+3=L1008
+
+[switch7@L1020]
+0=L1022
+1=L1032
+2=L1042
+3=L1052
+4=L1062
+5=L1073
+6=L1083
+7=L1093
+
+[switch8@L1104]
+0=L1106
+1=L1115
+2=L1126
+3=L1137
+4=L1148
+5=L1159
+6=L1170
+7=L1181
+8=L1192
+9=L1203
+10=L1214

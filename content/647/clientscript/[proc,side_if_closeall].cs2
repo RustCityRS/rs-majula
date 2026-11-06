@@ -1,0 +1,17 @@
+name=""
+local_int_count=0
+local_string_count=0
+local_long_count=0
+int_param_count=0
+string_param_count=0
+long_param_count=0
+
+L0: getwindowmode 0
+L1: push_constant_int 2
+L2: branch_greater_than_or_equals L4
+L3: branch L6
+L4: gosub_with_params [proc,side_if_closeall_fullscreen]
+L5: branch L7
+L6: gosub_with_params [proc,side_if_closeall_windowed]
+L7: return 0
+L8:

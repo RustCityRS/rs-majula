@@ -1,0 +1,83 @@
+name=""
+local_int_count=9
+local_string_count=0
+local_long_count=0
+int_param_count=9
+string_param_count=0
+long_param_count=0
+
+L0: push_constant_int 2048
+L1: random 0
+L2: pop_varc_int varc_int_681
+L3: push_constant_int 2048
+L4: random 0
+L5: pop_varc_int varc_int_684
+L6: push_constant_int 2048
+L7: random 0
+L8: pop_varc_int varc_int_687
+L9: push_constant_int 2048
+L10: random 0
+L11: pop_varc_int varc_int_690
+L12: push_constant_int 25
+L13: push_constant_int 50
+L14: randominc 0
+L15: sub 0
+L16: pop_varc_int varc_int_680
+L17: push_constant_int 25
+L18: push_constant_int 50
+L19: randominc 0
+L20: sub 0
+L21: pop_varc_int varc_int_682
+L22: push_constant_int 25
+L23: push_constant_int 50
+L24: randominc 0
+L25: sub 0
+L26: pop_varc_int varc_int_683
+L27: push_constant_int 25
+L28: push_constant_int 50
+L29: randominc 0
+L30: sub 0
+L31: pop_varc_int varc_int_685
+L32: push_constant_int 25
+L33: push_constant_int 50
+L34: randominc 0
+L35: sub 0
+L36: pop_varc_int varc_int_686
+L37: push_constant_int 25
+L38: push_constant_int 50
+L39: randominc 0
+L40: sub 0
+L41: pop_varc_int varc_int_688
+L42: push_constant_int 25
+L43: push_constant_int 50
+L44: randominc 0
+L45: sub 0
+L46: pop_varc_int varc_int_689
+L47: push_constant_int 25
+L48: push_constant_int 50
+L49: randominc 0
+L50: sub 0
+L51: pop_varc_int varc_int_691
+L52: push_int_local 1
+L53: push_int_local 2
+L54: push_int_local 3
+L55: push_int_local 4
+L56: push_int_local 5
+L57: push_int_local 6
+L58: push_int_local 7
+L59: push_int_local 8
+L60: gosub_with_params [proc,macro_beekeeper_update]
+L61: push_constant_int 2126
+L62: push_int_local 1
+L63: push_int_local 2
+L64: push_int_local 3
+L65: push_int_local 4
+L66: push_int_local 5
+L67: push_int_local 6
+L68: push_int_local 7
+L69: push_int_local 8
+L70: push_constant_string "IIIIIIII"
+L71: push_int_local 0
+L72: if_setontimer 0
+L73: return 0
+L74:

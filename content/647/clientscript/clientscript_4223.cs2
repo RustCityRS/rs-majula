@@ -1,0 +1,55 @@
+name=""
+local_int_count=0
+local_string_count=0
+local_long_count=0
+int_param_count=0
+string_param_count=0
+long_param_count=0
+
+L0: push_constant_string "Make 100"
+L1: push_constant_int 61866063
+L2: if_setpausetext 0
+L3: push_constant_string "Make 50"
+L4: push_constant_int 61866064
+L5: if_setpausetext 0
+L6: push_constant_string "Make 10"
+L7: push_constant_int 61866065
+L8: if_setpausetext 0
+L9: push_constant_string "Make 100"
+L10: push_constant_int 61866010
+L11: if_setpausetext 0
+L12: push_constant_string "Make 50"
+L13: push_constant_int 61866011
+L14: if_setpausetext 0
+L15: push_constant_string "Make 10"
+L16: push_constant_int 61866012
+L17: if_setpausetext 0
+L18: push_constant_string "Make 100"
+L19: push_constant_int 61866016
+L20: if_setpausetext 0
+L21: push_constant_string "Make 50"
+L22: push_constant_int 61866017
+L23: if_setpausetext 0
+L24: push_constant_string "Make 10"
+L25: push_constant_int 61866018
+L26: if_setpausetext 0
+L27: push_constant_string "Make 100"
+L28: push_constant_int 61866022
+L29: if_setpausetext 0
+L30: push_constant_string "Make 50"
+L31: push_constant_int 61866023
+L32: if_setpausetext 0
+L33: push_constant_string "Make 10"
+L34: push_constant_int 61866024
+L35: if_setpausetext 0
+L36: push_constant_string "Make 100"
+L37: push_constant_int 61866028
+L38: if_setpausetext 0
+L39: push_constant_string "Make 50"
+L40: push_constant_int 61866029
+L41: if_setpausetext 0
+L42: push_constant_string "Make 10"
+L43: push_constant_int 61866030
+L44: if_setpausetext 0
+L45: return 0
+L46:

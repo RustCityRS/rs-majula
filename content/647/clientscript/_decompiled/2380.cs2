@@ -1,8 +1,0 @@
-[clientscript,script_2380](int $int0, int $int1)(int)
-if ($int0 = -1) {
-    if_sethide($int1);
-    return(1);
-}
-if_sethide($int1);
-if_setposition(sub($int1, if_getheight), 0, 0, $int1);
-return(0, $int0, if_getx, add($int0, if_getwidth), sub($int1, if_getwidth), $int0, if_gety, add($int0, if_getheight));

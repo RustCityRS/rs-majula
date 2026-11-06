@@ -1,0 +1,31 @@
+name=""
+local_int_count=1
+local_string_count=0
+local_long_count=0
+int_param_count=0
+string_param_count=0
+long_param_count=0
+
+L0: push_varbit varbit_7189
+L1: pop_varc_int varc_int_1078
+L2: push_constant_int 0
+L3: pop_varc_int varc_int_1086
+L4: clientclock 0
+L5: pop_int_local 0
+L6: push_constant_int 2892
+L7: push_constant_int 31195160
+L8: push_int_local 0
+L9: push_constant_string "Ii"
+L10: push_constant_int 31195160
+L11: if_setontimer 0
+L12: push_constant_int 8641
+L13: push_constant_int 1
+L14: push_constant_int 0
+L15: sound_synth 0
+L16: push_constant_int 2887
+L17: push_constant_string ""
+L18: push_constant_int 31195136
+L19: op2427 0
+L20: gosub_with_params clientscript_2888
+L21: return 0
+L22:

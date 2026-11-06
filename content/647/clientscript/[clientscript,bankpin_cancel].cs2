@@ -1,0 +1,17 @@
+name=""
+local_int_count=0
+local_string_count=0
+local_long_count=0
+int_param_count=0
+string_param_count=0
+long_param_count=0
+
+L0: gosub_with_params clientscript_675
+L1: push_constant_string "Cancelled."
+L2: mes 0
+L3: push_constant_int 1042
+L4: push_constant_int 1
+L5: push_constant_int 0
+L6: sound_synth 0
+L7: return 0
+L8:

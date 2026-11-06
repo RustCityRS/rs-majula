@@ -1,0 +1,92 @@
+name=""
+local_int_count=2
+local_string_count=0
+local_long_count=0
+int_param_count=2
+string_param_count=0
+long_param_count=0
+
+L0: push_var learning_the_ropes
+L1: push_constant_int 1000
+L2: branch_less_than L4
+L3: branch L7
+L4: push_constant_string "You can't do this while in the tutorial."
+L5: mes 0
+L6: return 0
+L7: push_int_local 0
+L8: switch switch0
+L9: branch L75
+L10: push_varc_int varc_int_41
+L11: push_int_local 1
+L12: branch_equals L14
+L13: branch L22
+L14: getwindowmode 0
+L15: push_constant_int 2
+L16: branch_greater_than_or_equals L18
+L17: branch L22
+L18: push_constant_int -1
+L19: pop_varc_int varc_int_41
+L20: gosub_with_params [proc,subchanged]
+L21: branch L32
+L22: push_varc_int varc_int_41
+L23: push_constant_int -1
+L24: branch_equals L26
+L25: branch L30
+L26: push_int_local 1
+L27: pop_varc_int varc_int_41
+L28: gosub_with_params [proc,subchanged]
+L29: branch L32
+L30: push_int_local 1
+L31: pop_varc_int varc_int_41
+L32: push_varc_int varc_int_41
+L33: gosub_with_params [proc,chat_alert_reset]
+L34: gosub_with_params [proc,redraw_chat_buttons]
+L35: gosub_with_params [proc,rebuildchatbox]
+L36: gosub_with_params [proc,rebuildpmbox]
+L37: branch L75
+L38: push_int_local 1
+L39: push_constant_int 0
+L40: gosub_with_params [proc,chat_set_filter]
+L41: gosub_with_params [proc,redraw_chat_buttons]
+L42: gosub_with_params [proc,rebuildchatbox]
+L43: gosub_with_params [proc,rebuildpmbox]
+L44: branch L75
+L45: push_int_local 1
+L46: push_constant_int 3
+L47: branch_equals L49
+L48: branch L55
+L49: friend_count 0
+L50: push_constant_int 0
+L51: branch_less_than L53
+L52: branch L55
+L53: push_constant_string "The friends list is still loading, your selection won't take effect immediately."
+L54: mes 0
+L55: push_int_local 1
+L56: push_constant_int 1
+L57: gosub_with_params [proc,chat_set_filter]
+L58: gosub_with_params [proc,redraw_chat_buttons]
+L59: gosub_with_params [proc,rebuildchatbox]
+L60: gosub_with_params [proc,rebuildpmbox]
+L61: branch L75
+L62: push_int_local 1
+L63: push_constant_int 2
+L64: gosub_with_params [proc,chat_set_filter]
+L65: gosub_with_params [proc,redraw_chat_buttons]
+L66: gosub_with_params [proc,rebuildchatbox]
+L67: gosub_with_params [proc,rebuildpmbox]
+L68: branch L75
+L69: push_int_local 1
+L70: push_constant_int 3
+L71: gosub_with_params [proc,chat_set_filter]
+L72: gosub_with_params [proc,redraw_chat_buttons]
+L73: gosub_with_params [proc,rebuildchatbox]
+L74: gosub_with_params [proc,rebuildpmbox]
+L75: return 0
+L76:
+
+[switch0@L8]
+1=L10
+2=L38
+3=L45
+4=L62
+5=L69

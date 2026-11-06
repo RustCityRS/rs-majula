@@ -1,9 +1,0 @@
-[clientscript,script_1814](string $str0)(string)
-def_string $str1 = "";
-def_string $str2 = "";
-$str1 = substring($str0, 0, 1);
-if (string_length($str0) > 1) {
-    $str2 = substring($str0, 1, string_length($str0));
-}
-$str1 = ~script_1815($str1);
-return(append($str1, $str2));

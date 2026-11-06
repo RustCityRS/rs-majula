@@ -1,0 +1,32 @@
+name=""
+local_int_count=0
+local_string_count=0
+local_long_count=0
+int_param_count=0
+string_param_count=0
+long_param_count=0
+
+L0: push_var varp_380
+L1: push_constant_int 25
+L2: branch_equals L4
+L3: branch L8
+L4: push_constant_string "Time until next game starts: 0"
+L5: push_constant_int 3735552
+L6: if_settext 0
+L7: branch L22
+L8: push_var varp_380
+L9: push_constant_int 0
+L10: branch_greater_than L12
+L11: branch L19
+L12: push_constant_string "Time until next game starts: "
+L13: push_var varp_380
+L14: tostring 0
+L15: join_string 2
+L16: push_constant_int 3735552
+L17: if_settext 0
+L18: branch L22
+L19: push_constant_string "Waiting for players to join the other team."
+L20: push_constant_int 3735552
+L21: if_settext 0
+L22: return 0
+L23:

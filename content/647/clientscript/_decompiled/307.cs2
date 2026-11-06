@@ -1,7 +1,0 @@
-[clientscript,script_307]
-if (%varbit6176 = 1) {
-    worldmap_setflag(950, 1);
-} else {
-    worldmap_setflag(950, 0);
-}
-return;

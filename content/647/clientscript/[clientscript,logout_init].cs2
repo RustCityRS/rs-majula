@@ -1,0 +1,57 @@
+name=""
+local_int_count=0
+local_string_count=0
+local_long_count=0
+int_param_count=0
+string_param_count=0
+long_param_count=0
+
+L0: is_unsigned 0
+L1: branch_if_false L3
+L2: branch L29
+L3: push_constant_string "When you have finished playing"
+L4: push_constant_string "<br>"
+L5: push_constant_string "RuneScape, always use a"
+L6: push_constant_string "<br>"
+L7: push_constant_string "button below to exit the game and logout safely."
+L8: join_string 5
+L9: push_constant_int 11927552
+L10: if_settext 0
+L11: push_constant_string "Exit to Lobby"
+L12: push_constant_int 11927557
+L13: if_settext 0
+L14: push_constant_int 1
+L15: push_constant_string "Exit to Lobby"
+L16: push_constant_int 11927557
+L17: if_setop 0
+L18: push_constant_int 0
+L19: push_constant_int 11927558
+L20: if_sethide 0
+L21: push_constant_string "Exit to Login"
+L22: push_constant_int 11927562
+L23: if_settext 0
+L24: push_constant_int 1
+L25: push_constant_string "Exit to Login"
+L26: push_constant_int 11927562
+L27: if_setop 0
+L28: branch L47
+L29: push_constant_string "When you have finished playing"
+L30: push_constant_string "<br>"
+L31: push_constant_string "RuneScape, always use the"
+L32: push_constant_string "<br>"
+L33: push_constant_string "button below to exit the game and logout safely."
+L34: join_string 5
+L35: push_constant_int 11927552
+L36: if_settext 0
+L37: push_constant_string "Click here to log out"
+L38: push_constant_int 11927557
+L39: if_settext 0
+L40: push_constant_int 1
+L41: push_constant_string "Logout"
+L42: push_constant_int 11927557
+L43: if_setop 0
+L44: push_constant_int 1
+L45: push_constant_int 11927558
+L46: if_sethide 0
+L47: return 0
+L48:

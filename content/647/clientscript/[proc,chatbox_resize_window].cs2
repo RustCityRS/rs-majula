@@ -1,0 +1,79 @@
+name=""
+local_int_count=0
+local_string_count=0
+local_long_count=0
+int_param_count=0
+string_param_count=0
+long_param_count=0
+
+L0: gosub_with_params clientscript_1653
+L1: branch_if_true L3
+L2: branch L10
+L3: push_constant_int 0
+L4: gosub_with_params [proc,chatbox_resize_reset]
+L5: push_constant_int 1
+L6: push_constant_int 48889928
+L7: if_sethide 0
+L8: return 0
+L9: branch L17
+L10: push_varc_int varc_int_41
+L11: push_constant_int -1
+L12: branch_not L14
+L13: branch L17
+L14: push_constant_int 0
+L15: push_constant_int 48889928
+L16: if_sethide 0
+L17: push_varc_int varc_int_1037
+L18: push_constant_int 142
+L19: branch_less_than L21
+L20: branch L24
+L21: push_constant_int 142
+L22: pop_varc_int varc_int_1037
+L23: branch L35
+L24: push_varc_int varc_int_1037
+L25: push_constant_int 48889857
+L26: if_getheight 0
+L27: push_constant_int 117
+L28: sub 0
+L29: branch_greater_than L31
+L30: branch L35
+L31: push_constant_int 0
+L32: push_constant_int 1
+L33: gosub_with_params [proc,chatbox_resize]
+L34: return 0
+L35: push_constant_int 519
+L36: push_varc_int varc_int_1037
+L37: push_constant_int 0
+L38: push_constant_int 0
+L39: push_constant_int 48889925
+L40: if_setsize 0
+L41: push_constant_int 0
+L42: push_constant_int 23
+L43: push_constant_int 0
+L44: push_constant_int 2
+L45: push_constant_int 48889925
+L46: if_setposition 0
+L47: push_constant_int 0
+L48: push_constant_int 48889925
+L49: if_gety 0
+L50: push_constant_int 94
+L51: sub 0
+L52: push_constant_int 0
+L53: push_constant_int 0
+L54: push_constant_int 48889928
+L55: if_setposition 0
+L56: push_constant_int 0
+L57: push_constant_int 48889925
+L58: if_gety 0
+L59: push_constant_int 69
+L60: sub 0
+L61: push_constant_int 0
+L62: push_constant_int 0
+L63: push_constant_int 48889926
+L64: if_setposition 0
+L65: push_constant_int 8978491
+L66: push_constant_int 8978490
+L67: gosub_with_params clientscript_1301
+L68: gosub_with_params [proc,rebuildchatbox]
+L69: return 0
+L70:

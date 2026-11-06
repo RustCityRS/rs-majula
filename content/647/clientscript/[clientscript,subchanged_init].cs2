@@ -1,0 +1,15 @@
+name=""
+local_int_count=1
+local_string_count=0
+local_long_count=0
+int_param_count=1
+string_param_count=0
+long_param_count=0
+
+L0: push_constant_int 140
+L1: push_constant_string ""
+L2: push_int_local 0
+L3: op2424 0
+L4: gosub_with_params [proc,subchanged]
+L5: return 0
+L6:

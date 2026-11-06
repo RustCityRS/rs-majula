@@ -1,0 +1,62 @@
+name=""
+local_int_count=2
+local_string_count=0
+local_long_count=0
+int_param_count=1
+string_param_count=0
+long_param_count=0
+
+L0: gosub_with_params [proc,current_side_if]
+L1: pop_int_local 1
+L2: gosub_with_params clientscript_2709
+L3: branch_if_false L5
+L4: branch L16
+L5: push_int_local 0
+L6: push_constant_int 9
+L7: branch_equals L15
+L8: push_int_local 0
+L9: push_constant_int 11
+L10: branch_equals L15
+L11: push_int_local 0
+L12: push_constant_int 10
+L13: branch_equals L15
+L14: branch L16
+L15: return 0
+L16: push_int_local 0
+L17: push_int_local 1
+L18: branch_equals L20
+L19: branch L26
+L20: push_varbit varbit_9030
+L21: branch_if_true L23
+L22: branch L26
+L23: push_constant_int 1
+L24: pop_int_local 0
+L25: gosub_with_params clientscript_4089
+L26: push_int_local 1
+L27: push_constant_int -1
+L28: branch_greater_than L30
+L29: branch L49
+L30: push_int_local 1
+L31: push_int_local 0
+L32: branch_equals L34
+L33: branch L45
+L34: getwindowmode 0
+L35: push_constant_int 2
+L36: branch_greater_than_or_equals L38
+L37: branch L43
+L38: push_varbit varbit_9030
+L39: branch_if_false L41
+L40: branch L43
+L41: gosub_with_params [proc,side_if_closeall]
+L42: branch L44
+L43: return 0
+L44: branch L48
+L45: gosub_with_params [proc,side_if_closeall]
+L46: push_int_local 0
+L47: gosub_with_params [proc,side_if_open]
+L48: branch L52
+L49: gosub_with_params [proc,side_if_closeall]
+L50: push_int_local 0
+L51: gosub_with_params [proc,side_if_open]
+L52: return 0
+L53:

@@ -1,0 +1,14 @@
+name=""
+local_int_count=2
+local_string_count=1
+local_long_count=0
+int_param_count=2
+string_param_count=1
+long_param_count=0
+
+L0: push_int_local 0
+L1: push_string_local 0
+L2: push_int_local 1
+L3: gosub_with_params [proc,lobbyscreen_input_link_highlight]
+L4: return 0
+L5:

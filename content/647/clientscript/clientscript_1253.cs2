@@ -1,0 +1,33 @@
+name=""
+local_int_count=2
+local_string_count=0
+local_long_count=0
+int_param_count=1
+string_param_count=0
+long_param_count=0
+
+L0: push_int_local 0
+L1: if_gettrans 0
+L2: pop_int_local 1
+L3: push_int_local 1
+L4: push_constant_int 255
+L5: push_constant_int 30
+L6: div 0
+L7: sub 0
+L8: push_constant_int 0
+L9: max 0
+L10: pop_int_local 1
+L11: push_int_local 1
+L12: push_int_local 0
+L13: if_settrans 0
+L14: push_int_local 1
+L15: push_constant_int 0
+L16: branch_less_than_or_equals L18
+L17: branch L23
+L18: push_constant_int -1
+L19: push_constant_string ""
+L20: push_int_local 0
+L21: if_setontimer 0
+L22: return 0
+L23: return 0
+L24:

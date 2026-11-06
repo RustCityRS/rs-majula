@@ -4,26 +4,18 @@ use super::model::load_existing_pack;
 use crate::archive;
 #[cfg(since_647)]
 use crate::cache::midi::decode_jagex_midi;
-#[cfg(since_647)]
-use crate::pack::pack_registry::PackFile;
 #[cfg(all(since_244, before_647))]
 use crate::versionlist::VersionList;
 #[cfg(since_647)]
-use anyhow::Result;
+use anyhow::{Context, Result};
 #[cfg(before_647)]
 use rs_io::bz2::bz2_decompress;
 #[cfg(since_244)]
 use rs_io::js5::Js5Store;
-#[cfg(since_647)]
-use rs_io::js5::compression::{Container, decompress};
-#[cfg(since_647)]
-use serde_json::json;
 use std::fs;
 use std::path::Path;
 #[cfg(before_647)]
 use tracing::debug;
-#[cfg(since_647)]
-use tracing::{info, warn};
 
 #[cfg(before_647)]
 pub fn unpack_songs(songs_dir: &Path, output_dir: &Path) -> anyhow::Result<()> {
@@ -130,99 +122,37 @@ pub fn unpack_midi(
 
 #[cfg(since_647)]
 pub fn unpack_songs(store: &mut Js5Store, pack_dir: &Path, content_dir: &Path) -> Result<u32> {
-    let song_pack = PackFile::load(&pack_dir.join("song.pack")).ok();
-    unpack_midi_archive(
-        store,
-        archive::SONGS,
-        "songs",
-        "mid",
-        content_dir,
-        song_pack.as_ref(),
-    )
-}
-
-#[cfg(since_647)]
-fn unpack_midi_archive(
-    store: &mut Js5Store,
-    archive_id: u8,
-    dir_name: &str,
-    extension: &str,
-    content_dir: &Path,
-    pack: Option<&PackFile>,
-) -> Result<u32> {
-    let archive_dir = content_dir.join(dir_name).join("_unpack");
-    fs::create_dir_all(&archive_dir)?;
-
-    let group_count = store.group_count(archive_id).unwrap_or(0);
-    let mut groups = Vec::new();
-
-    let mut written = 0u32;
-    let mut failed = 0u32;
-
-    for gid in 0..group_count {
-        let Some(raw) = store.read_raw_group_bytes(archive_id, gid)? else {
-            continue;
-        };
-        if raw.len() < 5 {
-            continue;
+    let names = crate::pack::names::AssetNames::load(pack_dir)?;
+    let mut count = 0;
+    for aid in [archive::SONGS, archive::JINGLES] {
+        let format = archive::archive_format(aid).unwrap();
+        let dir = content_dir.join(format.content_dir);
+        fs::create_dir_all(&dir)?;
+        let groups = store
+            .reference_table(aid)
+            .context("Missing MIDI table")?
+            .groups
+            .clone();
+        for info in groups {
+            let data = store
+                .read_group_raw_decompressed(aid, info.id)?
+                .context("Missing MIDI group")?;
+            let midi = decode_jagex_midi(&data)?;
+            anyhow::ensure!(
+                crate::pack::other::song::encode_jagex_midi(&midi)? == data,
+                "MIDI round trip changed {aid}/{}",
+                info.id
+            );
+            let path = dir.join(format!(
+                "{}.mid",
+                names.name(crate::pack::names::archive_name(aid), info.id)
+            ));
+            if let Some(parent) = path.parent() {
+                fs::create_dir_all(parent)?;
+            }
+            fs::write(path, midi)?;
+            count += 1;
         }
-
-        let container = Container::parse(&raw)?;
-
-        let decompressed = match decompress(&raw) {
-            Ok(d) => d,
-            Err(e) => {
-                warn!(
-                    "archive {} group {}: decompress failed ({})",
-                    archive_id, gid, e
-                );
-                failed += 1;
-                continue;
-            }
-        };
-
-        let midi_bytes = match decode_jagex_midi(&decompressed) {
-            Ok(m) => m,
-            Err(e) => {
-                warn!(
-                    "archive {} group {}: MIDI decode failed ({})",
-                    archive_id, gid, e
-                );
-                failed += 1;
-                continue;
-            }
-        };
-
-        let name = pack
-            .and_then(|p| p.get_by_id(gid).map(|s| s.to_string()))
-            .unwrap_or_else(|| gid.to_string());
-        let path = archive_dir.join(format!("{}.{}", name, extension));
-        fs::write(&path, &midi_bytes)?;
-
-        groups.push(json!({
-            "group_id": gid,
-            "file_name": format!("{}.{}", name, extension),
-            "compression": container.compression as u8,
-            "version": container.version.unwrap_or(0),
-            "compressed_len": container.compressed_len,
-            "decompressed_len": container.uncompressed_len,
-            "crc": container.crc(),
-        }));
-        written += 1;
     }
-
-    let manifest = json!({
-        "archive_id": archive_id,
-        "archive_name": dir_name,
-        "file_extension": extension,
-        "groups": groups,
-    });
-    let manifest_path = archive_dir.join("manifest.json");
-    fs::write(&manifest_path, serde_json::to_string_pretty(&manifest)?)?;
-
-    if failed > 0 {
-        warn!("  {} groups failed to decode", failed);
-    }
-    info!("  {} {} decoded to standard MIDI", written, dir_name);
-    Ok(written)
+    Ok(count)
 }

@@ -1,0 +1,247 @@
+name=""
+local_int_count=0
+local_string_count=0
+local_long_count=0
+int_param_count=0
+string_param_count=0
+long_param_count=0
+
+L0: push_varc_int varc_int_754
+L1: switch switch0
+L2: branch L216
+L3: gosub_with_params clientscript_1103
+L4: branch_if_true L6
+L5: branch L12
+L6: push_varbit skill_creation_amount
+L7: push_varbit skill_creation_maximum
+L8: branch_greater_than_or_equals L10
+L9: branch L12
+L10: push_constant_string "Make All"
+L11: return 0
+L12: push_constant_string "Make "
+L13: push_varbit skill_creation_amount
+L14: tostring 0
+L15: join_string 2
+L16: return 0
+L17: branch L216
+L18: push_varbit skill_creation_amount
+L19: branch_if_true L21
+L20: branch L23
+L21: push_constant_string "Make 1 set"
+L22: return 0
+L23: push_constant_string "Make "
+L24: push_varbit skill_creation_amount
+L25: tostring 0
+L26: push_constant_string " sets"
+L27: join_string 3
+L28: return 0
+L29: branch L216
+L30: gosub_with_params clientscript_1103
+L31: branch_if_true L33
+L32: branch L39
+L33: push_varbit skill_creation_amount
+L34: push_varbit skill_creation_maximum
+L35: branch_greater_than_or_equals L37
+L36: branch L39
+L37: push_constant_string "Cook All"
+L38: return 0
+L39: push_constant_string "Cook "
+L40: push_varbit skill_creation_amount
+L41: tostring 0
+L42: join_string 2
+L43: return 0
+L44: branch L216
+L45: gosub_with_params clientscript_1103
+L46: branch_if_true L48
+L47: branch L54
+L48: push_varbit skill_creation_amount
+L49: push_varbit skill_creation_maximum
+L50: branch_greater_than_or_equals L52
+L51: branch L54
+L52: push_constant_string "Roast All"
+L53: return 0
+L54: push_constant_string "Roast "
+L55: push_varbit skill_creation_amount
+L56: tostring 0
+L57: join_string 2
+L58: return 0
+L59: branch L216
+L60: gosub_with_params clientscript_1103
+L61: branch_if_true L63
+L62: branch L69
+L63: push_varbit skill_creation_amount
+L64: push_varbit skill_creation_maximum
+L65: branch_greater_than_or_equals L67
+L66: branch L69
+L67: push_constant_string "Offer All"
+L68: return 0
+L69: push_constant_string "Offer "
+L70: push_varbit skill_creation_amount
+L71: tostring 0
+L72: join_string 2
+L73: return 0
+L74: branch L216
+L75: gosub_with_params clientscript_1103
+L76: branch_if_true L78
+L77: branch L84
+L78: push_varbit skill_creation_amount
+L79: push_varbit skill_creation_maximum
+L80: branch_greater_than_or_equals L82
+L81: branch L84
+L82: push_constant_string "Sell All"
+L83: return 0
+L84: push_constant_string "Sell "
+L85: push_varbit skill_creation_amount
+L86: tostring 0
+L87: join_string 2
+L88: return 0
+L89: branch L216
+L90: gosub_with_params clientscript_1103
+L91: branch_if_true L93
+L92: branch L99
+L93: push_varbit skill_creation_amount
+L94: push_varbit skill_creation_maximum
+L95: branch_greater_than_or_equals L97
+L96: branch L99
+L97: push_constant_string "Bake All"
+L98: return 0
+L99: push_constant_string "Bake "
+L100: push_varbit skill_creation_amount
+L101: tostring 0
+L102: join_string 2
+L103: return 0
+L104: branch L216
+L105: gosub_with_params clientscript_1103
+L106: branch_if_true L108
+L107: branch L114
+L108: push_varbit skill_creation_amount
+L109: push_varbit skill_creation_maximum
+L110: branch_greater_than_or_equals L112
+L111: branch L114
+L112: push_constant_string "Cut All"
+L113: return 0
+L114: push_constant_string "Cut "
+L115: push_varbit skill_creation_amount
+L116: tostring 0
+L117: join_string 2
+L118: return 0
+L119: branch L216
+L120: gosub_with_params clientscript_1103
+L121: branch_if_true L123
+L122: branch L129
+L123: push_varbit skill_creation_amount
+L124: push_varbit skill_creation_maximum
+L125: branch_greater_than_or_equals L127
+L126: branch L129
+L127: push_constant_string "Deposit All"
+L128: return 0
+L129: push_constant_string "Deposit "
+L130: push_varbit skill_creation_amount
+L131: tostring 0
+L132: join_string 2
+L133: return 0
+L134: branch L216
+L135: gosub_with_params clientscript_1103
+L136: branch_if_true L138
+L137: branch L144
+L138: push_varbit skill_creation_amount
+L139: push_varbit skill_creation_maximum
+L140: branch_greater_than_or_equals L142
+L141: branch L144
+L142: push_constant_string "Teleport All"
+L143: return 0
+L144: push_constant_string "Teleport "
+L145: push_varbit skill_creation_amount
+L146: tostring 0
+L147: join_string 2
+L148: return 0
+L149: branch L216
+L150: gosub_with_params clientscript_1103
+L151: branch_if_true L153
+L152: branch L159
+L153: push_varbit skill_creation_amount
+L154: push_varbit skill_creation_maximum
+L155: branch_greater_than_or_equals L157
+L156: branch L159
+L157: push_constant_string "Select All"
+L158: return 0
+L159: branch L216
+L160: push_varbit skill_creation_amount
+L161: branch_if_true L163
+L162: branch L165
+L163: push_constant_string "Make 1 set"
+L164: return 0
+L165: push_constant_string "Make "
+L166: push_varbit skill_creation_amount
+L167: tostring 0
+L168: push_constant_string " sets"
+L169: join_string 3
+L170: return 0
+L171: branch L216
+L172: gosub_with_params clientscript_1103
+L173: branch_if_true L175
+L174: branch L181
+L175: push_varbit skill_creation_amount
+L176: push_varbit skill_creation_maximum
+L177: branch_greater_than_or_equals L179
+L178: branch L181
+L179: push_constant_string "Take All"
+L180: return 0
+L181: push_constant_string "Take "
+L182: push_varbit skill_creation_amount
+L183: tostring 0
+L184: join_string 2
+L185: return 0
+L186: branch L216
+L187: gosub_with_params clientscript_1103
+L188: branch_if_true L190
+L189: branch L196
+L190: push_varbit skill_creation_amount
+L191: push_varbit skill_creation_maximum
+L192: branch_greater_than_or_equals L194
+L193: branch L196
+L194: push_constant_string "Return All"
+L195: return 0
+L196: push_constant_string "Return "
+L197: push_varbit skill_creation_amount
+L198: tostring 0
+L199: join_string 2
+L200: return 0
+L201: branch L216
+L202: gosub_with_params clientscript_1103
+L203: branch_if_true L205
+L204: branch L211
+L205: push_varbit skill_creation_amount
+L206: push_varbit skill_creation_maximum
+L207: branch_greater_than_or_equals L209
+L208: branch L211
+L209: push_constant_string "Heat All"
+L210: return 0
+L211: push_constant_string "Heat "
+L212: push_varbit skill_creation_amount
+L213: tostring 0
+L214: join_string 2
+L215: return 0
+L216: push_constant_string "Select"
+L217: return 0
+L218: push_constant_string ""
+L219: return 0
+L220:
+
+[switch0@L1]
+0=L3
+9=L3
+1=L18
+2=L30
+3=L45
+4=L60
+5=L75
+6=L90
+7=L105
+8=L120
+10=L135
+11=L150
+12=L160
+13=L172
+14=L187
+15=L202

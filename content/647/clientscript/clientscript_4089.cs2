@@ -1,0 +1,48 @@
+name=""
+local_int_count=1
+local_string_count=0
+local_long_count=0
+int_param_count=0
+string_param_count=0
+long_param_count=0
+
+L0: push_constant_int 35913926
+L1: pop_int_local 0
+L2: getwindowmode 0
+L3: push_constant_int 2
+L4: branch_greater_than_or_equals L6
+L5: branch L8
+L6: push_constant_int 48889940
+L7: pop_int_local 0
+L8: push_constant_int 1
+L9: gosub_with_params [proc,getsidelayer]
+L10: push_constant_int 1056
+L11: if_hasoverlay_ver_2705 0
+L12: branch_if_true L14
+L13: branch L32
+L14: push_int_local 0
+L15: if_hasoverlay 0
+L16: branch_if_false L18
+L17: branch L32
+L18: gosub_with_params clientscript_2728
+L19: branch_if_true L21
+L20: branch L32
+L21: push_varbit varbit_8587
+L22: push_constant_int 419
+L23: branch_not L25
+L24: branch L32
+L25: push_constant_int 0
+L26: push_constant_int 48889983
+L27: if_sethide 0
+L28: push_constant_int 0
+L29: push_constant_int 35913864
+L30: if_sethide 0
+L31: branch L38
+L32: push_constant_int 1
+L33: push_constant_int 48889983
+L34: if_sethide 0
+L35: push_constant_int 1
+L36: push_constant_int 35913864
+L37: if_sethide 0
+L38: return 0
+L39:

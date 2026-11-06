@@ -1,0 +1,48 @@
+name=""
+local_int_count=0
+local_string_count=0
+local_long_count=0
+int_param_count=0
+string_param_count=0
+long_param_count=0
+
+L0: push_varc_int varc_int_1068
+L1: push_constant_int 1
+L2: add 0
+L3: pop_varc_int varc_int_1068
+L4: push_varc_int varc_int_1068
+L5: switch switch0
+L6: push_constant_int 2836
+L7: push_constant_string ""
+L8: push_constant_int 25165824
+L9: if_setonvarcstringtransmit 0
+L10: push_constant_int 0
+L11: push_varc_int varc_int_1068
+L12: push_constant_int 400
+L13: push_constant_int 400
+L14: push_constant_int 1
+L15: push_varc_int varc_int_1068
+L16: cam_startpath 0
+L17: branch L34
+L18: push_constant_int 2836
+L19: push_constant_string ""
+L20: push_constant_int 25165824
+L21: if_setonvarcstringtransmit 0
+L22: push_constant_int 0
+L23: push_varc_int varc_int_1068
+L24: push_constant_int 400
+L25: push_constant_int 0
+L26: push_constant_int 1
+L27: push_varc_int varc_int_1068
+L28: cam_startpath 0
+L29: branch L34
+L30: push_constant_int -1
+L31: push_constant_string ""
+L32: push_constant_int 25165824
+L33: if_setonvarcstringtransmit 0
+L34: return 0
+L35:
+
+[switch0@L5]
+2=L18
+3=L30

@@ -1,8 +1,0 @@
-[clientscript,script_1208](int $int0, int $int1, int $int2, int $int3)(int)
-if ($int3 = 1) {
-    if_setscrollsize($int2, add($int1, if_getheight), $int1);
-} else {
-    if_setscrollsize(0, $int2, $int1);
-}
-~script_72($int1, $int1, if_getscrolly);
-return($int0);

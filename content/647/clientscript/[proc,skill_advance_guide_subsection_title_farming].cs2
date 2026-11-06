@@ -1,0 +1,85 @@
+name=""
+local_int_count=1
+local_string_count=0
+local_long_count=0
+int_param_count=1
+string_param_count=0
+long_param_count=0
+
+L0: push_int_local 0
+L1: switch switch0
+L2: branch L55
+L3: push_constant_string "Allotments"
+L4: push_constant_int 1
+L5: return 0
+L6: branch L58
+L7: push_constant_string "Hops"
+L8: push_constant_int 1
+L9: return 0
+L10: branch L58
+L11: push_constant_string "Trees"
+L12: push_constant_int 1
+L13: return 0
+L14: branch L58
+L15: push_constant_string "Fruit Trees"
+L16: push_constant_int 1
+L17: return 0
+L18: branch L58
+L19: push_constant_string "Bushes"
+L20: push_constant_int 1
+L21: return 0
+L22: branch L58
+L23: push_constant_string "Flowers"
+L24: push_constant_int 1
+L25: return 0
+L26: branch L58
+L27: push_constant_string "Herbs"
+L28: push_constant_int 1
+L29: return 0
+L30: branch L58
+L31: push_constant_string "Special"
+L32: push_constant_int 1
+L33: return 0
+L34: branch L58
+L35: push_constant_string "Equipment"
+L36: push_constant_int 1
+L37: return 0
+L38: branch L58
+L39: push_constant_string "Other"
+L40: push_constant_int 1
+L41: return 0
+L42: branch L58
+L43: push_constant_string "Activities"
+L44: push_constant_int 1
+L45: return 0
+L46: branch L58
+L47: push_constant_string "Dungeoneering"
+L48: push_constant_int 1
+L49: return 0
+L50: branch L58
+L51: push_constant_string "Milestones"
+L52: push_constant_int 1
+L53: return 0
+L54: branch L58
+L55: push_constant_string ""
+L56: push_constant_int -1
+L57: return 0
+L58: push_constant_string ""
+L59: push_constant_int 0
+L60: return 0
+L61:
+
+[switch0@L1]
+0=L3
+1=L7
+2=L11
+3=L15
+4=L19
+5=L23
+6=L27
+7=L31
+8=L35
+9=L39
+10=L43
+11=L47
+12=L51

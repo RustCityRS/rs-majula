@@ -1,0 +1,20 @@
+name=""
+local_int_count=1
+local_string_count=0
+local_long_count=0
+int_param_count=1
+string_param_count=0
+long_param_count=0
+
+L0: push_int_local 0
+L1: if_find 0
+L2: branch_if_true L4
+L3: branch L10
+L4: push_constant_int 1101
+L5: cc_getx 0
+L6: cc_setparam_int 0
+L7: push_constant_int 1102
+L8: cc_gety 0
+L9: cc_setparam_int 0
+L10: return 0
+L11:

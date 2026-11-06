@@ -1,7 +1,0 @@
-[clientscript,script_332](int $int0)(int, component)
-def_int $int1 = 2359;
-if (%varc_int783 = 1) {
-    $int1 = 2360;
-}
-if_setmodel;
-return(enum(105, 109, $int1, $int0), 47513683);

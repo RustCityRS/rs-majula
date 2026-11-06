@@ -1,7 +1,0 @@
-[clientscript,script_559](int $int0)(int, int, int, int, int, int)
-def_int $int1 = if_getwidth;
-def_int $int2 = if_getheight;
-def_int $int3 = sub($int1, 2);
-def_int $int4 = sub($int2, 2);
-def_int $int5 = if_getchildcount($int0);
-return($int0, $int0, ~script_98($int0, $int5, 1076, 0, 0, $int1, 2), ~script_98($int0, add($int5, 1), 1076, 1, $int4, sub($int1, 1), 2), ~script_98($int0, add($int5, 2), 1077, 0, 1, 2, sub($int2, 3)), ~script_98($int0, add($int5, 3), 1077, $int3, 1, 2, sub($int2, 2)));

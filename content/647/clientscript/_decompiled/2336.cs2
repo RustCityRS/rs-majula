@@ -1,6 +1,0 @@
-[clientscript,script_2336](int $int0, int $int1)
-if (getwindowmode ! $int1) {
-    if_setontimer;
-    ~script_2337($int0);
-}
-return;

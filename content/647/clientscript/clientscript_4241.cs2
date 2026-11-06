@@ -1,0 +1,19 @@
+name=""
+local_int_count=0
+local_string_count=0
+local_long_count=0
+int_param_count=0
+string_param_count=0
+long_param_count=0
+
+L0: push_varbit varbit_8959
+L1: push_constant_int 10
+L2: push_constant_int 16384
+L3: scale 0
+L4: push_constant_int 16384
+L5: push_constant_int 2
+L6: push_constant_int 2
+L7: push_constant_int 70647815
+L8: if_setsize 0
+L9: return 0
+L10:

@@ -1,0 +1,21 @@
+name=""
+local_int_count=0
+local_string_count=0
+local_long_count=0
+int_param_count=0
+string_param_count=0
+long_param_count=0
+
+L0: push_varc_int varc_int_200
+L1: push_constant_int 0
+L2: branch_greater_than L4
+L3: branch L11
+L4: push_constant_int 1
+L5: gosub_with_params [proc,lobbyscreen_loginbutton_text]
+L6: push_constant_int -1
+L7: push_constant_string ""
+L8: push_constant_int 59375776
+L9: if_setontimer 0
+L10: gosub_with_params [proc,lobby_popup_close]
+L11: return 0
+L12:

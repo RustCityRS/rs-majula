@@ -1,0 +1,17 @@
+name=""
+local_int_count=4
+local_string_count=0
+local_long_count=0
+int_param_count=4
+string_param_count=0
+long_param_count=0
+
+L0: push_int_local 0
+L1: push_int_local 1
+L2: push_int_local 2
+L3: push_int_local 3
+L4: push_varbit varbit_693
+L5: push_varbit varbit_5851
+L6: gosub_with_params [proc,macro_combilock_update]
+L7: return 0
+L8:

@@ -1,0 +1,89 @@
+name=""
+local_int_count=11
+local_string_count=0
+local_long_count=0
+int_param_count=7
+string_param_count=0
+long_param_count=0
+
+L0: push_constant_int 4677
+L1: pop_int_local 7
+L2: push_constant_int 4678
+L3: pop_int_local 8
+L4: push_constant_int 4679
+L5: pop_int_local 9
+L6: push_constant_int 4680
+L7: pop_int_local 10
+L8: push_constant_int 13
+L9: push_constant_int 30
+L10: push_constant_int 0
+L11: push_constant_int 0
+L12: push_int_local 1
+L13: if_setsize 0
+L14: push_int_local 7
+L15: push_int_local 1
+L16: if_setgraphic 0
+L17: push_constant_int 26
+L18: push_constant_int 30
+L19: push_constant_int 1
+L20: push_constant_int 0
+L21: push_int_local 2
+L22: if_setsize 0
+L23: push_int_local 8
+L24: push_int_local 2
+L25: if_setgraphic 0
+L26: push_constant_int 13
+L27: push_constant_int 30
+L28: push_constant_int 0
+L29: push_constant_int 0
+L30: push_int_local 3
+L31: if_setsize 0
+L32: push_int_local 10
+L33: push_int_local 3
+L34: if_setgraphic 0
+L35: push_constant_int 2673
+L36: push_int_local 5
+L37: if_setgraphic 0
+L38: push_constant_int 13
+L39: push_constant_int 30
+L40: push_constant_int 0
+L41: push_constant_int 0
+L42: push_int_local 6
+L43: if_setsize 0
+L44: push_constant_int 4679
+L45: push_int_local 6
+L46: if_setgraphic 0
+L47: push_constant_int 4164
+L48: push_int_local 1
+L49: push_int_local 7
+L50: push_int_local 2
+L51: push_int_local 8
+L52: push_int_local 6
+L53: push_int_local 9
+L54: push_int_local 3
+L55: push_int_local 10
+L56: push_constant_string "IdIdIdId"
+L57: push_int_local 0
+L58: if_setonmouseleave 0
+L59: push_constant_int 4673
+L60: pop_int_local 7
+L61: push_constant_int 4674
+L62: pop_int_local 8
+L63: push_constant_int 4675
+L64: pop_int_local 9
+L65: push_constant_int 4676
+L66: pop_int_local 10
+L67: push_constant_int 4164
+L68: push_int_local 1
+L69: push_int_local 7
+L70: push_int_local 2
+L71: push_int_local 8
+L72: push_int_local 6
+L73: push_int_local 9
+L74: push_int_local 3
+L75: push_int_local 10
+L76: push_constant_string "IdIdIdId"
+L77: push_int_local 0
+L78: if_setonmouseover 0
+L79: return 0
+L80:

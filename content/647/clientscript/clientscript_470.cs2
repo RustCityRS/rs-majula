@@ -1,0 +1,29 @@
+name=""
+local_int_count=2
+local_string_count=0
+local_long_count=0
+int_param_count=2
+string_param_count=0
+long_param_count=0
+
+L0: push_varbit varbit_2086
+L1: push_int_local 1
+L2: branch_less_than L4
+L3: branch L13
+L4: push_constant_string "<col=c80000>"
+L5: push_int_local 1
+L6: tostring 0
+L7: push_constant_string " Commendations required."
+L8: push_constant_string "</col>"
+L9: join_string 4
+L10: push_int_local 0
+L11: if_settext 0
+L12: branch L19
+L13: push_int_local 1
+L14: tostring 0
+L15: push_constant_string " Commendations."
+L16: join_string 2
+L17: push_int_local 0
+L18: if_settext 0
+L19: return 0
+L20:

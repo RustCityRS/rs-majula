@@ -1,0 +1,13 @@
+name=""
+local_int_count=0
+local_string_count=0
+local_long_count=0
+int_param_count=0
+string_param_count=0
+long_param_count=0
+
+L0: gosub_with_params [proc,fishcomp_draw_weights]
+L1: gosub_with_params [proc,fishcomp_draw_bait]
+L2: gosub_with_params [proc,fishcomp_draw_hook]
+L3: return 0
+L4:

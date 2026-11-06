@@ -1,0 +1,27 @@
+name=""
+local_int_count=0
+local_string_count=0
+local_long_count=0
+int_param_count=0
+string_param_count=0
+long_param_count=0
+
+L0: push_constant_int 6710886
+L1: push_constant_int 19136628
+L2: if_setcolour 0
+L3: push_constant_int 19136622
+L4: if_clearops 0
+L5: push_constant_int 19136623
+L6: if_clearops 0
+L7: push_constant_int 2606
+L8: push_constant_int -2147483645
+L9: push_constant_string "I"
+L10: push_constant_int 19136622
+L11: if_setonclick 0
+L12: push_constant_int 2606
+L13: push_constant_int -2147483645
+L14: push_constant_string "I"
+L15: push_constant_int 19136623
+L16: if_setonclick 0
+L17: return 0
+L18:

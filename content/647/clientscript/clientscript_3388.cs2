@@ -1,0 +1,109 @@
+name=""
+local_int_count=5
+local_string_count=0
+local_long_count=0
+int_param_count=3
+string_param_count=0
+long_param_count=0
+
+L0: push_constant_int 4
+L1: pop_int_local 3
+L2: push_int_local 0
+L3: switch switch0
+L4: branch L71
+L5: autosetup_getvalue2 0
+L6: push_constant_int 1
+L7: branch_not L9
+L8: branch L11
+L9: autosetup_level_7004 0
+L10: branch L12
+L11: return 0
+L12: branch L71
+L13: push_int_local 3
+L14: push_constant_int 2
+L15: branch_greater_than_or_equals L17
+L16: branch L25
+L17: autosetup_getvalue2 0
+L18: push_constant_int 2
+L19: branch_not L21
+L20: branch L23
+L21: autosetup_level_7003 0
+L22: branch L24
+L23: return 0
+L24: branch L27
+L25: push_int_local 1
+L26: gosub_with_params clientscript_3413
+L27: branch L71
+L28: push_int_local 3
+L29: push_constant_int 3
+L30: branch_greater_than_or_equals L32
+L31: branch L40
+L32: autosetup_getvalue2 0
+L33: push_constant_int 3
+L34: branch_not L36
+L35: branch L38
+L36: autosetup_level_7002 0
+L37: branch L39
+L38: return 0
+L39: branch L42
+L40: push_int_local 1
+L41: gosub_with_params clientscript_3413
+L42: branch L71
+L43: push_int_local 3
+L44: push_constant_int 4
+L45: branch_greater_than_or_equals L47
+L46: branch L55
+L47: autosetup_getvalue2 0
+L48: push_constant_int 4
+L49: branch_not L51
+L50: branch L53
+L51: autosetup_level_7001 0
+L52: branch L54
+L53: return 0
+L54: branch L57
+L55: push_int_local 1
+L56: gosub_with_params clientscript_3413
+L57: branch L71
+L58: push_int_local 2
+L59: branch_if_true L61
+L60: branch L68
+L61: autosetup_getvalue2 0
+L62: push_constant_int 0
+L63: branch_not L65
+L64: branch L67
+L65: autosetup_level_7005 0
+L66: branch L68
+L67: return 0
+L68: branch L71
+L69: push_int_local 1
+L70: gosub_with_params [proc,autosetup]
+L71: get_clientopt_6131 0
+L72: pop_int_local 4
+L73: push_int_local 0
+L74: branch_if_false L78
+L75: push_int_local 2
+L76: branch_if_true L78
+L77: branch L85
+L78: push_int_local 4
+L79: getwindowmode 0
+L80: push_int_local 4
+L81: gosub_with_params [proc,graphics_options_reviewoptions]
+L82: push_int_local 1
+L83: gosub_with_params [proc,graphics_options_rebuild_advanced]
+L84: branch L91
+L85: push_int_local 4
+L86: getwindowmode 0
+L87: push_int_local 4
+L88: gosub_with_params [proc,graphics_options_reviewoptions]
+L89: push_int_local 1
+L90: gosub_with_params [proc,graphics_options_rebuild]
+L91: return 0
+L92:
+
+[switch0@L3]
+1=L5
+2=L13
+3=L28
+4=L43
+0=L58
+-1=L69

@@ -1,9 +1,0 @@
-[clientscript,script_2886](int, component, int, component, int, component, string, string)
-%varc_int1078 = %varbit7189;
-%varc_int1086 = 0;
-def_int $int0 = clientclock;
-if_setontimer;
-sound_synth(synth_8641, 1, 0);
-op2427;
-~script_2888;
-return(2892, 31195160, $int0, 31195160, 2887, 31195136, "Ii", "");

@@ -1,0 +1,37 @@
+name=""
+local_int_count=5
+local_string_count=1
+local_long_count=0
+int_param_count=5
+string_param_count=0
+long_param_count=0
+
+L0: push_constant_string ""
+L1: pop_string_local 0
+L2: push_int_local 3
+L3: switch switch0
+L4: branch L11
+L5: push_varc_string_old varc_string_32
+L6: pop_string_local 0
+L7: branch L11
+L8: push_varc_string_old varc_string_33
+L9: gosub_with_params clientscript_2949
+L10: pop_string_local 0
+L11: push_int_local 0
+L12: push_string_local 0
+L13: push_constant_int 3793
+L14: push_constant_int 0
+L15: gosub_with_params clientscript_1401
+L16: pop_varc_int varc_int_1099
+L17: push_int_local 4
+L18: push_int_local 1
+L19: push_int_local 2
+L20: push_string_local 0
+L21: push_int_local 3
+L22: gosub_with_params clientscript_3237
+L23: return 0
+L24:
+
+[switch0@L3]
+3=L5
+4=L8

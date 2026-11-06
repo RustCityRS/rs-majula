@@ -1,0 +1,36 @@
+!!ARBvp1.0
+ATTRIB  iPos              = vertex.position;
+ATTRIB  iTexCoord         = vertex.texcoord[0];
+OUTPUT  oPos              = result.position;
+OUTPUT  oColour           = result.color;
+OUTPUT  oTexCoord0        = result.texcoord[0];
+PARAM   time              = program.local[0];
+PARAM   fogPlanes         = program.local[1];
+PARAM   fogColor          = state.fog.color;
+PARAM   fogParams         = state.fog.params;
+PARAM   mvMatrix[4]       = { state.matrix.modelview };
+PARAM   pMatrix[4]        = { state.matrix.projection };
+PARAM   textureMatrix[4]  = { state.matrix.texture[0] };
+TEMP viewPos, texCoord, fogFactor;
+#Calculate the vertex's clip coordinates
+DP4   viewPos.x, mvMatrix[0], iPos;
+DP4   viewPos.y, mvMatrix[1], iPos;
+DP4   viewPos.z, mvMatrix[2], iPos;
+DP4   viewPos.w, mvMatrix[3], iPos;
+#Transform the base texture coordinate
+DP3   texCoord.x, textureMatrix[0], iTexCoord;
+DP3   texCoord.y, textureMatrix[1], iTexCoord;
+MUL   oTexCoord0.xy, texCoord, 0.25;
+MOV   oTexCoord0.zw, time.xxxw;
+#Transform the vertex position to clip space
+DP4   oPos.x, pMatrix[0], viewPos;
+DP4   oPos.y, pMatrix[1], viewPos;
+DP4   oPos.z, pMatrix[2], viewPos;
+DP4   oPos.w, pMatrix[3], viewPos;
+#Use the fog colour
+MOV   oColour.xyz, fogColor;
+#Alpha the surface to give the impression of fog
+ADD   fogFactor, viewPos.zzzz, fogParams.zzzz;
+SUB   fogFactor, 1, fogFactor;
+MUL   oColour.w, fogFactor.xxxx, fogParams.wwww;
+END

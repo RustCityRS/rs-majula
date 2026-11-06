@@ -1,0 +1,36 @@
+name=""
+local_int_count=2
+local_string_count=0
+local_long_count=0
+int_param_count=2
+string_param_count=0
+long_param_count=0
+
+L0: push_int_local 1
+L1: push_constant_int -1
+L2: branch_equals L4
+L3: branch L7
+L4: push_int_local 0
+L5: if_find 0
+L6: branch_if_true L12
+L7: push_int_local 0
+L8: push_int_local 1
+L9: cc_find 0
+L10: branch_if_true L12
+L11: branch L26
+L12: push_varc_int varc_int_198
+L13: push_constant_int 1
+L14: branch_not L16
+L15: branch L26
+L16: push_constant_int 0
+L17: cc_sethide 0
+L18: push_constant_int 1
+L19: pop_varc_int varc_int_198
+L20: push_constant_int 2196
+L21: push_int_local 0
+L22: push_int_local 1
+L23: cc_gettext 0
+L24: push_constant_string "Iis"
+L25: cc_setontimer 0
+L26: return 0
+L27:

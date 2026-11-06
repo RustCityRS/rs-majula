@@ -1,4 +1,0 @@
-[clientscript,script_1137](int $int0, int $int1)(int, int)
-if_setsize(13, 0, 0, $int0);
-if_settext("Special Attack (" + tostring(div(%varp300, 10)) + "%)");
-return(scale(%varp300, 1000, 143), $int1);

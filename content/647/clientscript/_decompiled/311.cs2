@@ -1,6 +1,0 @@
-[clientscript,script_311](int $int0, int $int1, string $str0)(int)
-if (%varbit6177 = 1) {
-    cc_deleteall(49479737);
-    return;
-}
-return(~script_312(add($int0, 3), add($int1, 3), $str0));

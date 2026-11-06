@@ -1,0 +1,89 @@
+name=""
+local_int_count=2
+local_string_count=1
+local_long_count=0
+int_param_count=2
+string_param_count=0
+long_param_count=0
+
+L0: push_constant_string ""
+L1: pop_string_local 0
+L2: push_varbit varbit_5835
+L3: branch_if_true L5
+L4: branch L6
+L5: return 0
+L6: push_int_local 0
+L7: switch switch0
+L8: branch L48
+L9: push_constant_string "The number of times that the avatar has been killed."
+L10: pop_string_local 0
+L11: branch L49
+L12: push_constant_string "The Slayer level required to attack each avatar."
+L13: pop_string_local 0
+L14: branch L49
+L15: push_constant_string "The remaining health of each avatar."
+L16: pop_string_local 0
+L17: branch L49
+L18: push_constant_string "How much time the game has remaining."
+L19: pop_string_local 0
+L20: branch L49
+L21: push_constant_string "This column displays the blue team's statistics."
+L22: pop_string_local 0
+L23: branch L49
+L24: push_constant_string "This column displays the red team's statistics."
+L25: pop_string_local 0
+L26: branch L49
+L27: push_constant_string "Shows which team controls the soul obelisk."
+L28: pop_string_local 0
+L29: branch L49
+L30: push_constant_string "Shows which team controls the western graveyard."
+L31: pop_string_local 0
+L32: branch L49
+L33: push_constant_string "Shows which team controls the eastern graveyard."
+L34: pop_string_local 0
+L35: branch L49
+L36: push_constant_string "Shows how much control a team has over the soul obelisk."
+L37: pop_string_local 0
+L38: branch L49
+L39: push_constant_string "Shows how much control a team has over the eastern graveyard."
+L40: pop_string_local 0
+L41: branch L49
+L42: push_constant_string "Shows how much control a team has over the western graveyard."
+L43: pop_string_local 0
+L44: branch L49
+L45: push_constant_string "Shows how active you have been during the game."
+L46: pop_string_local 0
+L47: branch L49
+L48: return 0
+L49: push_int_local 0
+L50: push_int_local 1
+L51: push_string_local 0
+L52: push_constant_int 25
+L53: push_int_local 1
+L54: if_getlayer 0
+L55: if_getwidth 0
+L56: gosub_with_params [proc,addtooltip_action]
+L57: return 0
+L58:
+
+[switch0@L7]
+54788105=L9
+54788109=L9
+54788124=L9
+54788106=L12
+54788110=L12
+54788121=L12
+54788107=L15
+54788111=L15
+54788120=L15
+54788122=L18
+54788123=L18
+54788104=L21
+54788108=L24
+54788125=L27
+54788126=L30
+54788127=L33
+54788102=L36
+54788165=L39
+54788158=L42
+54788152=L45

@@ -1,0 +1,42 @@
+name=""
+local_int_count=1
+local_string_count=0
+local_long_count=0
+int_param_count=0
+string_param_count=0
+long_param_count=0
+
+L0: push_constant_int -1
+L1: pop_int_local 0
+L2: ignore_getname 0
+L3: branch_if_true L5
+L4: branch L27
+L5: clanchannel2_find_affined 0
+L6: branch_if_true L8
+L7: branch L24
+L8: docheat 0
+L9: removetags 0
+L10: clanchannel_findname 0
+L11: pop_int_local 0
+L12: push_int_local 0
+L13: push_constant_int -1
+L14: branch_not L16
+L15: branch L23
+L16: push_int_local 0
+L17: clanchannel2_getuserrank 0
+L18: clanchannel_getbyte2 0
+L19: branch_greater_than_or_equals L21
+L20: branch L23
+L21: push_constant_int 1
+L22: return 0
+L23: branch L26
+L24: push_constant_string "You must be in a clan to do that."
+L25: mes 0
+L26: branch L29
+L27: push_constant_string "You must be in a clan to do that."
+L28: mes 0
+L29: push_constant_int 0
+L30: return 0
+L31: push_constant_int 0
+L32: return 0
+L33:

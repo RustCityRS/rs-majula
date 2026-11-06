@@ -1,0 +1,31 @@
+name=""
+local_int_count=1
+local_string_count=0
+local_long_count=0
+int_param_count=1
+string_param_count=0
+long_param_count=0
+
+L0: getwindowmode 0
+L1: push_constant_int 2
+L2: branch_greater_than_or_equals L4
+L3: branch L13
+L4: push_constant_int 48889862
+L5: if_getwidth 0
+L6: push_constant_int 48889862
+L7: if_getheight 0
+L8: push_constant_int 0
+L9: push_constant_int 0
+L10: push_int_local 0
+L11: if_setsize 0
+L12: branch L21
+L13: push_constant_int 35913735
+L14: if_getwidth 0
+L15: push_constant_int 35913735
+L16: if_getheight 0
+L17: push_constant_int 0
+L18: push_constant_int 0
+L19: push_int_local 0
+L20: if_setsize 0
+L21: return 0
+L22:

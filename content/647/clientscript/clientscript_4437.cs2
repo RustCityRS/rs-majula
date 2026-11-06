@@ -1,0 +1,50 @@
+name=""
+local_int_count=0
+local_string_count=0
+local_long_count=0
+int_param_count=0
+string_param_count=0
+long_param_count=0
+
+L0: push_constant_int 1
+L1: push_constant_int 72744987
+L2: if_sethide 0
+L3: push_constant_int 72744987
+L4: if_clearops 0
+L5: push_constant_int 0
+L6: push_constant_int 0
+L7: push_constant_int 72744985
+L8: if_setscrollpos 0
+L9: push_constant_int 0
+L10: push_constant_int 72744989
+L11: if_sethide 0
+L12: push_constant_int 72744989
+L13: push_constant_int 72744985
+L14: push_constant_int 5666
+L15: push_constant_int 5663
+L16: push_constant_int 5664
+L17: push_constant_int 5665
+L18: push_constant_int 5686
+L19: push_constant_int 5685
+L20: gosub_with_params [proc,scrollbar_vertical]
+L21: push_constant_int 6256
+L22: push_constant_int 72745046
+L23: if_setgraphic 0
+L24: push_constant_int 1
+L25: push_constant_int 72744973
+L26: if_sethide 0
+L27: push_constant_int 1
+L28: push_constant_int 19
+L29: push_constant_int 0
+L30: push_constant_int 0
+L31: push_constant_int 72744980
+L32: if_setsize 0
+L33: push_constant_int -1
+L34: pop_varc_int varc_int_1518
+L35: push_constant_string ""
+L36: pop_varc_string_old varc_string_126
+L37: push_constant_string ""
+L38: push_constant_int 72744986
+L39: if_settext 0
+L40: return 0
+L41:

@@ -1,0 +1,22 @@
+name=""
+local_int_count=0
+local_string_count=0
+local_long_count=0
+int_param_count=0
+string_param_count=0
+long_param_count=0
+
+L0: push_var offer_modified
+L1: branch_if_true L3
+L2: branch L6
+L3: push_constant_int 0
+L4: push_constant_int 21954599
+L5: if_sethide 0
+L6: push_var other_offer_modified
+L7: branch_if_true L9
+L8: branch L12
+L9: push_constant_int 0
+L10: push_constant_int 21954600
+L11: if_sethide 0
+L12: return 0
+L13:

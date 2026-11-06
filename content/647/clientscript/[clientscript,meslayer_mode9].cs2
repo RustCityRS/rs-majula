@@ -1,0 +1,108 @@
+name=""
+local_int_count=0
+local_string_count=1
+local_long_count=0
+int_param_count=0
+string_param_count=1
+long_param_count=0
+
+L0: getwindowmode 0
+L1: push_constant_int 2
+L2: branch_greater_than_or_equals L4
+L3: branch L7
+L4: push_constant_int 0
+L5: push_constant_int 48889925
+L6: if_sethide 0
+L7: push_constant_int 0
+L8: push_constant_int 49283075
+L9: if_sethide 0
+L10: push_constant_int 1
+L11: push_constant_int 49283079
+L12: if_sethide 0
+L13: push_constant_int 1
+L14: push_constant_int 49283080
+L15: if_sethide 0
+L16: push_string_local 0
+L17: push_constant_int 49283076
+L18: if_settext 0
+L19: push_constant_int 9
+L20: pop_varc_int varc_int_5
+L21: push_constant_string "null"
+L22: push_varc_string_old varc_string_350
+L23: compare 0
+L24: branch_if_false L26
+L25: branch L28
+L26: push_constant_string ""
+L27: pop_varc_string_old varc_string_350
+L28: push_constant_string ""
+L29: push_varc_string_old varc_string_350
+L30: compare 0
+L31: push_constant_int 0
+L32: branch_not L34
+L33: branch L39
+L34: push_varc_string_old varc_string_350
+L35: gosub_with_params [proc,meslayer_setupinput]
+L36: push_constant_string ""
+L37: pop_varc_string_old varc_string_350
+L38: branch L41
+L39: push_constant_string ""
+L40: gosub_with_params [proc,meslayer_setupinput]
+L41: push_constant_string "null"
+L42: push_varc_string_old varc_string_354
+L43: compare 0
+L44: branch_if_false L46
+L45: branch L48
+L46: push_constant_string ""
+L47: pop_varc_string_old varc_string_354
+L48: push_constant_int -1
+L49: push_constant_string ""
+L50: push_constant_int 49283075
+L51: if_setonclick 0
+L52: gosub_with_params clientscript_2026
+L53: push_constant_int 112
+L54: push_constant_int -2147483640
+L55: push_constant_int -2147483639
+L56: push_constant_string "iz"
+L57: push_constant_int 49283077
+L58: if_setonkey 0
+L59: push_constant_int 138
+L60: push_constant_string ""
+L61: push_constant_int 49283077
+L62: op2423 0
+L63: push_varc_string_old varc_string_354
+L64: push_constant_string ""
+L65: compare 0
+L66: push_constant_int 0
+L67: branch_not L69
+L68: branch L97
+L69: push_constant_int 49283075
+L70: push_constant_int 4
+L71: push_constant_int 0
+L72: cc_setposition 0
+L73: gosub_with_params [proc,meslayer_setupdynamicbutton]
+L74: push_constant_string "Last entered: "
+L75: push_varc_string_old varc_string_354
+L76: join_string 2
+L77: cc_settext 0
+L78: push_constant_int 1
+L79: push_constant_string "Use:"
+L80: cc_setop 0
+L81: push_constant_string "<col=ff9040>"
+L82: push_varc_string_old varc_string_354
+L83: removetags 0
+L84: push_constant_string "</col>"
+L85: join_string 3
+L86: cc_setopbase 0
+L87: push_constant_int 2753
+L88: push_varc_int varc_int_5
+L89: push_constant_int -2147483644
+L90: push_constant_int -2147483645
+L91: push_constant_int -2147483643
+L92: push_varc_string_old varc_string_354
+L93: push_constant_string "iiIis"
+L94: cc_setonop 0
+L95: push_constant_string ""
+L96: pop_varc_string_old varc_string_354
+L97: gosub_with_params [clientscript,opt_header]
+L98: return 0
+L99:

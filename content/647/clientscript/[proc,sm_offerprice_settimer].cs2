@@ -1,0 +1,25 @@
+name=""
+local_int_count=0
+local_string_count=0
+local_long_count=0
+int_param_count=0
+string_param_count=0
+long_param_count=0
+
+L0: push_varc_int varc_int_83
+L1: push_constant_int 0
+L2: branch_less_than_or_equals L4
+L3: branch L7
+L4: push_constant_int 100
+L5: pop_varc_int varc_int_83
+L6: branch L11
+L7: push_varc_int varc_int_83
+L8: push_constant_int 10
+L9: add 0
+L10: pop_varc_int varc_int_83
+L11: push_constant_int 610
+L12: push_constant_string ""
+L13: push_constant_int 6881433
+L14: if_setontimer 0
+L15: return 0
+L16:

@@ -1,0 +1,38 @@
+name=""
+local_int_count=1
+local_string_count=0
+local_long_count=0
+int_param_count=0
+string_param_count=0
+long_param_count=0
+
+L0: push_constant_int 0
+L1: push_constant_int 59506703
+L2: if_sethide 0
+L3: push_constant_int 1
+L4: push_constant_int 59506718
+L5: if_sethide 0
+L6: push_constant_int 100
+L7: random 0
+L8: pop_int_local 0
+L9: push_int_local 0
+L10: push_constant_int 40
+L11: branch_less_than L13
+L12: branch L17
+L13: push_constant_string "Take time to check the second trade window carefully. Don't be scammed!"
+L14: push_constant_int 59506707
+L15: if_settext 0
+L16: branch L28
+L17: push_int_local 0
+L18: push_constant_int 70
+L19: branch_less_than L21
+L20: branch L25
+L21: push_constant_string "Never ever believe a player 'trimming' armour, it's a scam so report them!"
+L22: push_constant_int 59506707
+L23: if_settext 0
+L24: branch L28
+L25: push_constant_string "Did you know having a bank pin can help secure your valuable items?"
+L26: push_constant_int 59506707
+L27: if_settext 0
+L28: return 0
+L29:

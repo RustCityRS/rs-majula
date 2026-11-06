@@ -1,0 +1,63 @@
+name=""
+local_int_count=1
+local_string_count=1
+local_long_count=0
+int_param_count=1
+string_param_count=0
+long_param_count=0
+
+L0: push_varc_int varc_int_998
+L1: push_constant_int 0
+L2: branch_greater_than L4
+L3: branch L13
+L4: push_varc_int varc_int_999
+L5: push_constant_int 0
+L6: branch_greater_than L8
+L7: branch L13
+L8: push_constant_int 1
+L9: push_constant_string "Please delete one of your existing favourite worlds before setting another."
+L10: gosub_with_params clientscript_3143
+L11: return 0
+L12: branch L26
+L13: push_varc_int varc_int_998
+L14: push_constant_int 1
+L15: branch_less_than L17
+L16: branch L20
+L17: push_int_local 0
+L18: gosub_with_params clientscript_1857
+L19: branch L26
+L20: push_varc_int varc_int_999
+L21: push_constant_int 1
+L22: branch_less_than L24
+L23: branch L26
+L24: push_int_local 0
+L25: gosub_with_params clientscript_1858
+L26: gosub_with_params clientscript_1853
+L27: pop_varc_int varc_int_998
+L28: gosub_with_params clientscript_1854
+L29: pop_varc_int varc_int_999
+L30: gosub_with_params [proc,lobby_worldswitcher_drawlist]
+L31: push_constant_string "Your changes cannot be saved because"
+L32: push_constant_string "<br>"
+L33: push_constant_string "you are using the unsigned client."
+L34: join_string 3
+L35: pop_string_local 0
+L36: is_unsigned 0
+L37: branch_if_true L39
+L38: branch L43
+L39: push_constant_int 1
+L40: push_string_local 0
+L41: gosub_with_params clientscript_3143
+L42: branch L50
+L43: push_constant_int 0
+L44: push_constant_string "World "
+L45: push_int_local 0
+L46: tostring 0
+L47: push_constant_string " has been added to your favourites."
+L48: join_string 3
+L49: gosub_with_params clientscript_3143
+L50: push_constant_int 1
+L51: gosub_with_params clientscript_3065
+L52: return 0
+L53: return 0
+L54:

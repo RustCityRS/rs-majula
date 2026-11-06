@@ -1,9 +1,0 @@
-[clientscript,script_1824](int $int0)
-if (~script_1820($int0) = 0) {
-    return;
-}
-if (%varc_int248 = 0) {
-    %varc_int248 = 1;
-    ~script_1772;
-}
-return;

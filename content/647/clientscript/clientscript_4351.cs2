@@ -1,0 +1,21 @@
+name=""
+local_int_count=1
+local_string_count=0
+local_long_count=0
+int_param_count=1
+string_param_count=0
+long_param_count=0
+
+L0: push_varbit varbit_9139
+L1: push_var varp_2128
+L2: branch_equals L4
+L3: branch L7
+L4: push_constant_int 0
+L5: pop_varbit varbit_9139
+L6: branch L9
+L7: push_var varp_2128
+L8: pop_varbit varbit_9139
+L9: push_int_local 0
+L10: gosub_with_params clientscript_4353
+L11: return 0
+L12:

@@ -1,5 +1,0 @@
-[clientscript,script_1196](int $int0, int $int1)
-if (clientclock > add($int1, 50)) {
-    ~script_1197($int0);
-}
-return;

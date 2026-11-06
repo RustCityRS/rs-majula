@@ -1,0 +1,64 @@
+name=""
+local_int_count=0
+local_string_count=0
+local_long_count=0
+int_param_count=0
+string_param_count=0
+long_param_count=0
+
+L0: push_varbit varbit_4090
+L1: push_constant_int 215
+L2: push_constant_int 1103
+L3: push_constant_int 19726399
+L4: push_constant_int 19726350
+L5: gosub_with_params [proc,assist_set_icon]
+L6: push_varbit varbit_4091
+L7: push_constant_int 207
+L8: push_constant_int 1095
+L9: push_constant_int 19726400
+L10: push_constant_int 19726352
+L11: gosub_with_params [proc,assist_set_icon]
+L12: push_varbit varbit_4093
+L13: push_constant_int 208
+L14: push_constant_int 1096
+L15: push_constant_int 19726401
+L16: push_constant_int 19726354
+L17: gosub_with_params [proc,assist_set_icon]
+L18: push_varbit varbit_4095
+L19: push_constant_int 221
+L20: push_constant_int 1109
+L21: push_constant_int 19726402
+L22: push_constant_int 19726356
+L23: gosub_with_params [proc,assist_set_icon]
+L24: push_varbit varbit_4096
+L25: push_constant_int 217
+L26: push_constant_int 1105
+L27: push_constant_int 19726403
+L28: push_constant_int 19726358
+L29: gosub_with_params [proc,assist_set_icon]
+L30: push_varbit varbit_4098
+L31: push_constant_int 202
+L32: push_constant_int 1090
+L33: push_constant_int 19726404
+L34: push_constant_int 19726360
+L35: gosub_with_params [proc,assist_set_icon]
+L36: push_varbit varbit_4100
+L37: push_constant_int 210
+L38: push_constant_int 1098
+L39: push_constant_int 19726405
+L40: push_constant_int 19726362
+L41: gosub_with_params [proc,assist_set_icon]
+L42: push_varbit varbit_4101
+L43: push_constant_int 212
+L44: push_constant_int 1100
+L45: push_constant_int 19726406
+L46: push_constant_int 19726364
+L47: gosub_with_params [proc,assist_set_icon]
+L48: push_varbit varbit_4102
+L49: push_constant_int 205
+L50: push_constant_int 1093
+L51: push_constant_int 19726407
+L52: push_constant_int 19726366
+L53: gosub_with_params [proc,assist_set_icon]
+L54: return 0
+L55:

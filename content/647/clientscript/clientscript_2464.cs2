@@ -1,0 +1,56 @@
+name=""
+local_int_count=2
+local_string_count=0
+local_long_count=0
+int_param_count=2
+string_param_count=0
+long_param_count=0
+
+L0: push_int_local 0
+L1: clientclock 0
+L2: push_constant_int 5
+L3: sub 0
+L4: branch_greater_than L6
+L5: branch L7
+L6: return 0
+L7: push_constant_int -1
+L8: push_constant_string ""
+L9: push_int_local 1
+L10: if_setontimer 0
+L11: gosub_with_params [proc,current_side_if]
+L12: gosub_with_params clientscript_2465
+L13: branch_if_false L15
+L14: branch L46
+L15: getwindowmode 0
+L16: push_constant_int 2
+L17: branch_greater_than_or_equals L19
+L18: branch L22
+L19: push_constant_int -1
+L20: gosub_with_params [proc,if_switchside]
+L21: return 0
+L22: push_constant_int 4
+L23: gosub_with_params clientscript_2465
+L24: branch_if_true L26
+L25: branch L29
+L26: push_constant_int 4
+L27: gosub_with_params [proc,if_switchside]
+L28: branch L46
+L29: push_constant_int 9
+L30: gosub_with_params clientscript_2465
+L31: branch_if_true L33
+L32: branch L36
+L33: push_constant_int 9
+L34: gosub_with_params [proc,if_switchside]
+L35: branch L46
+L36: push_constant_int 12
+L37: gosub_with_params clientscript_2465
+L38: branch_if_true L40
+L39: branch L46
+L40: push_var learning_the_ropes
+L41: push_constant_int 3
+L42: branch_greater_than L44
+L43: branch L46
+L44: push_constant_int 12
+L45: gosub_with_params [proc,if_switchside]
+L46: return 0
+L47:

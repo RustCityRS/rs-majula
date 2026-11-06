@@ -1,8 +1,0 @@
-[clientscript,script_4524](int $int0, int $int1)(int)
-cc_setposition(0, $int0, 5, if_getchildcount($int0));
-cc_setsize(16384, 16384, 2, 2);
-cc_setposition2(0, 0, 1, 1);
-cc_setgraphic($int1);
-if_setnoclickthrough(1, $int0);
-if_sethide($int0);
-return(1);

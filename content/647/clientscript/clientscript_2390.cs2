@@ -1,0 +1,17 @@
+name=""
+local_int_count=2
+local_string_count=0
+local_long_count=0
+int_param_count=2
+string_param_count=0
+long_param_count=0
+
+L0: push_int_local 0
+L1: push_int_local 1
+L2: push_constant_string "Level 40 Agility"
+L3: push_constant_string "<br>"
+L4: push_constant_string "Requires a rope on first passage"
+L5: join_string 3
+L6: gosub_with_params clientscript_2010
+L7: return 0
+L8:

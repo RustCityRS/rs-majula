@@ -1,9 +1,0 @@
-[clientscript,script_1400](int $int0, int $int1)
-if (calc(clientclock - $int0 % 40) < 20) {
-    if (has_focus = 1) {
-        if_sethide($int1);
-    }
-} else {
-    if_sethide($int1);
-}
-return;

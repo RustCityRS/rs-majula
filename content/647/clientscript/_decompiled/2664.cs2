@@ -1,8 +1,0 @@
-[clientscript,script_2664]
-def_int $int0 = enum(105, 73, enum_2566, %varbit6297);
-def_int $int1 = enum(105, 73, enum_2565, %varbit6297);
-if (if_getx < 352) {
-    if_setposition(if_gety, 0, 0, $int0);
-    if_setposition(if_gety, 0, 0, $int1);
-}
-return;

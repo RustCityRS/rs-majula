@@ -1,0 +1,39 @@
+name=""
+local_int_count=0
+local_string_count=0
+local_long_count=0
+int_param_count=0
+string_param_count=0
+long_param_count=0
+
+L0: push_varbit varbit_6302
+L1: push_constant_int 1
+L2: add 0
+L3: pop_varbit varbit_6302
+L4: push_varbit varbit_6302
+L5: push_constant_int 0
+L6: cam_getpathcount 0
+L7: push_constant_int 1
+L8: sub 0
+L9: branch_greater_than_or_equals L11
+L10: branch L18
+L11: push_constant_int 0
+L12: pop_varbit varbit_6302
+L13: push_constant_int -1
+L14: push_constant_string ""
+L15: push_constant_int 57409536
+L16: if_setonvarcstringtransmit 0
+L17: return 0
+L18: push_constant_int 0
+L19: push_varbit varbit_6302
+L20: push_constant_int 600
+L21: push_constant_int 400
+L22: push_constant_int 1
+L23: push_varbit varbit_6302
+L24: cam_startpath 0
+L25: push_constant_int 2658
+L26: push_constant_string ""
+L27: push_constant_int 57409536
+L28: if_setonvarcstringtransmit 0
+L29: return 0
+L30:

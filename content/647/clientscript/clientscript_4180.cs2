@@ -1,0 +1,92 @@
+name=""
+local_int_count=5
+local_string_count=1
+local_long_count=0
+int_param_count=3
+string_param_count=1
+long_param_count=0
+
+L0: push_string_local 0
+L1: push_int_local 1
+L2: if_getwidth 0
+L3: push_constant_int 494
+L4: paraheight 0
+L5: push_constant_int 10
+L6: multiply 0
+L7: push_constant_int 2
+L8: add 0
+L9: pop_int_local 3
+L10: clientclock 0
+L11: push_int_local 2
+L12: sub 0
+L13: pop_int_local 4
+L14: push_int_local 2
+L15: push_constant_int 0
+L16: branch_greater_than L18
+L17: branch L50
+L18: push_int_local 4
+L19: push_constant_int 255
+L20: branch_less_than L22
+L21: branch L50
+L22: push_int_local 1
+L23: push_constant_int 3
+L24: push_int_local 1
+L25: if_getchildcount 0
+L26: cc_setposition 0
+L27: push_constant_int 0
+L28: push_int_local 3
+L29: push_constant_int 1
+L30: push_constant_int 0
+L31: cc_setsize 0
+L32: push_constant_int 0
+L33: push_int_local 0
+L34: push_constant_int 1
+L35: push_constant_int 0
+L36: cc_setposition2 0
+L37: push_constant_int 1
+L38: cc_setfill 0
+L39: push_constant_int 16711680
+L40: cc_setcolour 0
+L41: push_int_local 4
+L42: push_constant_int 0
+L43: max 0
+L44: cc_settrans 0
+L45: push_constant_int 4181
+L46: push_constant_int -2147483645
+L47: push_constant_int -2147483643
+L48: push_constant_string "Ii"
+L49: cc_setontimer 0
+L50: push_int_local 1
+L51: push_constant_int 4
+L52: push_int_local 1
+L53: if_getchildcount 0
+L54: cc_setposition 0
+L55: push_constant_int 0
+L56: push_int_local 3
+L57: push_constant_int 1
+L58: push_constant_int 0
+L59: cc_setsize 0
+L60: push_constant_int 0
+L61: push_int_local 0
+L62: push_constant_int 1
+L63: push_constant_int 0
+L64: cc_setposition2 0
+L65: push_constant_int 11184810
+L66: cc_setcolour 0
+L67: push_constant_int 494
+L68: cc_settextfont 0
+L69: push_constant_int 1
+L70: push_constant_int 1
+L71: push_constant_int 0
+L72: cc_settextalign 0
+L73: push_string_local 0
+L74: cc_settext 0
+L75: push_int_local 0
+L76: push_int_local 3
+L77: add 0
+L78: push_constant_int 2
+L79: add 0
+L80: return 0
+L81: push_constant_int 0
+L82: return 0
+L83:

@@ -1,0 +1,99 @@
+name=""
+local_int_count=8
+local_string_count=0
+local_long_count=0
+int_param_count=3
+string_param_count=0
+long_param_count=0
+
+L0: push_int_local 1
+L1: push_int_local 2
+L2: add 0
+L3: push_constant_int 2
+L4: div 0
+L5: pop_int_local 3
+L6: push_int_local 3
+L7: push_array_int 0
+L8: pop_int_local 4
+L9: push_int_local 3
+L10: push_int_local 2
+L11: push_array_int 0
+L12: pop_array_int 0
+L13: push_int_local 2
+L14: push_int_local 4
+L15: pop_array_int 0
+L16: push_int_local 1
+L17: pop_int_local 5
+L18: push_int_local 1
+L19: pop_int_local 6
+L20: push_constant_int -1
+L21: pop_int_local 7
+L22: push_int_local 6
+L23: push_int_local 2
+L24: branch_less_than L26
+L25: branch L58
+L26: push_int_local 6
+L27: push_array_int 0
+L28: if_gettext 0
+L29: lowercase 0
+L30: push_int_local 4
+L31: if_gettext 0
+L32: lowercase 0
+L33: compare 0
+L34: push_int_local 6
+L35: push_constant_int 1
+L36: and 0
+L37: branch_less_than L39
+L38: branch L53
+L39: push_int_local 6
+L40: push_array_int 0
+L41: pop_int_local 7
+L42: push_int_local 6
+L43: push_int_local 5
+L44: push_array_int 0
+L45: pop_array_int 0
+L46: push_int_local 5
+L47: push_int_local 7
+L48: pop_array_int 0
+L49: push_int_local 5
+L50: push_constant_int 1
+L51: add 0
+L52: pop_int_local 5
+L53: push_int_local 6
+L54: push_constant_int 1
+L55: add 0
+L56: pop_int_local 6
+L57: branch L22
+L58: push_int_local 2
+L59: push_int_local 5
+L60: push_array_int 0
+L61: pop_array_int 0
+L62: push_int_local 5
+L63: push_int_local 4
+L64: pop_array_int 0
+L65: push_int_local 1
+L66: push_int_local 5
+L67: push_constant_int 1
+L68: sub 0
+L69: branch_less_than L71
+L70: branch L77
+L71: push_constant_int 0
+L72: push_int_local 1
+L73: push_int_local 5
+L74: push_constant_int 1
+L75: sub 0
+L76: gosub_with_params [proc,quicksort]
+L77: push_int_local 5
+L78: push_constant_int 1
+L79: add 0
+L80: push_int_local 2
+L81: branch_less_than L83
+L82: branch L89
+L83: push_constant_int 0
+L84: push_int_local 5
+L85: push_constant_int 1
+L86: add 0
+L87: push_int_local 2
+L88: gosub_with_params [proc,quicksort]
+L89: return 0
+L90:

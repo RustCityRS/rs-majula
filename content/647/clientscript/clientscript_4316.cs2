@@ -1,0 +1,27 @@
+name=""
+local_int_count=0
+local_string_count=0
+local_long_count=0
+int_param_count=0
+string_param_count=0
+long_param_count=0
+
+L0: push_constant_int 0
+L1: push_constant_int 0
+L2: push_constant_int 71499782
+L3: if_setscrollsize 0
+L4: push_constant_int 0
+L5: push_constant_int 0
+L6: push_constant_int 71499782
+L7: if_setscrollpos 0
+L8: push_constant_int 71499781
+L9: push_constant_int 71499782
+L10: push_constant_int 5666
+L11: push_constant_int 5663
+L12: push_constant_int 5664
+L13: push_constant_int 5665
+L14: push_constant_int 5686
+L15: push_constant_int 5685
+L16: gosub_with_params [proc,scrollbar_vertical]
+L17: return 0
+L18:

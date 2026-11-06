@@ -1,0 +1,82 @@
+name=""
+local_int_count=2
+local_string_count=0
+local_long_count=0
+int_param_count=1
+string_param_count=0
+long_param_count=0
+
+L0: gosub_with_params clientscript_3205
+L1: push_constant_int 0
+L2: pop_int_local 1
+L3: push_constant_int 105
+L4: push_constant_int 73
+L5: push_constant_int 941
+L6: push_constant_int 5
+L7: enum 0
+L8: if_gethide 0
+L9: branch_if_false L11
+L10: branch L13
+L11: push_constant_int 1
+L12: pop_int_local 1
+L13: push_int_local 0
+L14: branch_if_true L16
+L15: branch L58
+L16: push_varc_string_old varc_string_279
+L17: string_length 0
+L18: push_constant_int 0
+L19: branch_greater_than L21
+L20: branch L58
+L21: push_varc_string_old varc_string_279
+L22: friend_test 0
+L23: branch_if_true L25
+L24: branch L38
+L25: push_int_local 1
+L26: branch_if_false L28
+L27: branch L33
+L28: push_constant_int 26
+L29: push_constant_int 0
+L30: push_constant_string "Sorry, you cannot ignore players in your Friends List."
+L31: tutorial_openchat 0
+L32: branch L37
+L33: push_constant_int 26
+L34: push_constant_int 0
+L35: push_constant_string "Sorry, you cannot ignore players in your Friends List."
+L36: tutorial_openchat 0
+L37: branch L58
+L38: push_varc_string_old varc_string_279
+L39: clan_getminkick 0
+L40: push_int_local 1
+L41: branch_if_false L43
+L42: branch L51
+L43: push_constant_int 26
+L44: push_constant_int 0
+L45: push_constant_string "You are ignoring "
+L46: push_varc_string_old varc_string_279
+L47: push_constant_string " until you log out."
+L48: join_string 3
+L49: tutorial_openchat 0
+L50: branch L58
+L51: push_constant_int 26
+L52: push_constant_int 0
+L53: push_constant_string "You are ignoring "
+L54: push_varc_string_old varc_string_279
+L55: push_constant_string " until you log out."
+L56: join_string 3
+L57: tutorial_openchat 0
+L58: push_varc_int varc_int_1094
+L59: branch_if_true L61
+L60: branch L72
+L61: push_constant_string ""
+L62: push_constant_string "Open a bug report form?"
+L63: push_constant_string "<br>"
+L64: push_constant_string "(opens a new window)"
+L65: join_string 3
+L66: push_constant_int 6
+L67: push_constant_string ""
+L68: push_constant_string ""
+L69: gosub_with_params [proc,lobbyscreen_input]
+L70: push_constant_int 0
+L71: pop_varc_int varc_int_1094
+L72: return 0
+L73:

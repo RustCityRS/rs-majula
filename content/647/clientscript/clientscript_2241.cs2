@@ -1,0 +1,189 @@
+name=""
+local_int_count=0
+local_string_count=0
+local_long_count=0
+int_param_count=0
+string_param_count=0
+long_param_count=0
+
+L0: push_constant_string "+ "
+L1: push_var varp_1693
+L2: tostring 0
+L3: push_constant_string " ( "
+L4: push_var varp_1687
+L5: tostring 0
+L6: push_constant_string " )"
+L7: push_constant_string "<br>"
+L8: push_constant_string "+ "
+L9: push_var varp_1692
+L10: tostring 0
+L11: push_constant_string " ( "
+L12: push_var varp_1686
+L13: tostring 0
+L14: push_constant_string " )"
+L15: push_constant_string "<br>"
+L16: push_constant_string "+ "
+L17: push_var varp_1694
+L18: tostring 0
+L19: push_constant_string " ( "
+L20: push_var varp_1688
+L21: tostring 0
+L22: push_constant_string " )"
+L23: push_constant_string "<br>"
+L24: join_string 18
+L25: push_constant_int 60883050
+L26: if_settext 0
+L27: push_constant_string "+ "
+L28: push_var varp_1695
+L29: tostring 0
+L30: push_constant_string " ( "
+L31: push_var varp_1689
+L32: tostring 0
+L33: push_constant_string " )"
+L34: push_constant_string "<br>"
+L35: push_constant_string "+ "
+L36: push_var varp_1697
+L37: tostring 0
+L38: push_constant_string " ( "
+L39: push_var varp_1690
+L40: tostring 0
+L41: push_constant_string " )"
+L42: push_constant_string "<br>"
+L43: push_constant_string "+ "
+L44: push_var varp_1696
+L45: tostring 0
+L46: push_constant_string " ( "
+L47: push_var varp_1691
+L48: tostring 0
+L49: push_constant_string " )"
+L50: push_constant_string "<br>"
+L51: join_string 18
+L52: push_constant_int 60883052
+L53: if_settext 0
+L54: push_varbit varbit_7324
+L55: branch_if_true L57
+L56: branch L64
+L57: push_constant_string "WORKING"
+L58: push_constant_int 60883057
+L59: if_settext 0
+L60: push_constant_int 65280
+L61: push_constant_int 60883057
+L62: if_setcolour 0
+L63: branch L74
+L64: push_constant_int 8723
+L65: push_constant_int 10
+L66: push_constant_int 0
+L67: sound_synth 0
+L68: push_constant_string "NEEDS REPAIR"
+L69: push_constant_int 60883057
+L70: if_settext 0
+L71: push_constant_int 16711680
+L72: push_constant_int 60883057
+L73: if_setcolour 0
+L74: push_varbit varbit_7326
+L75: branch_if_true L77
+L76: branch L84
+L77: push_constant_string "WORKING"
+L78: push_constant_int 60883056
+L79: if_settext 0
+L80: push_constant_int 65280
+L81: push_constant_int 60883056
+L82: if_setcolour 0
+L83: branch L94
+L84: push_constant_int 8723
+L85: push_constant_int 10
+L86: push_constant_int 1
+L87: sound_synth 0
+L88: push_constant_string "NEEDS REPAIR"
+L89: push_constant_int 60883056
+L90: if_settext 0
+L91: push_constant_int 16711680
+L92: push_constant_int 60883056
+L93: if_setcolour 0
+L94: push_varbit varbit_7325
+L95: branch_if_true L97
+L96: branch L104
+L97: push_constant_string "WORKING"
+L98: push_constant_int 60883058
+L99: if_settext 0
+L100: push_constant_int 65280
+L101: push_constant_int 60883058
+L102: if_setcolour 0
+L103: branch L114
+L104: push_constant_int 8723
+L105: push_constant_int 10
+L106: push_constant_int 2
+L107: sound_synth 0
+L108: push_constant_string "NEEDS REPAIR"
+L109: push_constant_int 60883058
+L110: if_settext 0
+L111: push_constant_int 16711680
+L112: push_constant_int 60883058
+L113: if_setcolour 0
+L114: push_varc_int varc_int_1135
+L115: push_constant_int 5
+L116: div 0
+L117: tostring 0
+L118: push_constant_int 60883046
+L119: if_settext 0
+L120: push_var varp_1698
+L121: switch switch0
+L122: branch L166
+L123: push_constant_string "Your workers uncover a hidden stash and you receive"
+L124: push_constant_int 60883048
+L125: if_settext 0
+L126: push_constant_string "3 extra resources."
+L127: push_constant_int 60883049
+L128: if_settext 0
+L129: push_constant_int 8728
+L130: push_constant_int 1
+L131: push_constant_int 0
+L132: sound_synth 0
+L133: branch L172
+L134: push_constant_string "An accident at work has taken place. As a result you have"
+L135: push_constant_int 60883048
+L136: if_settext 0
+L137: push_constant_string "lost 3 resources."
+L138: push_constant_int 60883049
+L139: if_settext 0
+L140: push_constant_int 8723
+L141: push_constant_int 10
+L142: push_constant_int 0
+L143: sound_synth 0
+L144: branch L172
+L145: push_constant_string "The paint machine is out of glaze and requires a repair to work at full efficiency."
+L146: push_constant_int 60883048
+L147: if_settext 0
+L148: push_constant_string "Painter needs repair."
+L149: push_constant_int 60883049
+L150: if_settext 0
+L151: branch L172
+L152: push_constant_string "The conveyor team needs re-training in order to work at full efficiency."
+L153: push_constant_int 60883048
+L154: if_settext 0
+L155: push_constant_string "Conveyor needs repair."
+L156: push_constant_int 60883049
+L157: if_settext 0
+L158: branch L172
+L159: push_constant_string "The oven is coated in soot. It requires a repair to work at full efficiency."
+L160: push_constant_int 60883048
+L161: if_settext 0
+L162: push_constant_string "Oven needs repair."
+L163: push_constant_int 60883049
+L164: if_settext 0
+L165: branch L172
+L166: push_constant_string ""
+L167: push_constant_int 60883048
+L168: if_settext 0
+L169: push_constant_string "Nothing unusual happened."
+L170: push_constant_int 60883049
+L171: if_settext 0
+L172: return 0
+L173:
+
+[switch0@L121]
+5=L123
+6=L134
+7=L145
+8=L152
+9=L159

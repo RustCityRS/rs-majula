@@ -1,0 +1,124 @@
+name=""
+local_int_count=1
+local_string_count=0
+local_long_count=0
+int_param_count=1
+string_param_count=0
+long_param_count=0
+
+L0: push_int_local 0
+L1: switch switch0
+L2: branch L102
+L3: push_constant_string ""
+L4: push_varc_string_old varc_string_132
+L5: compare 0
+L6: push_constant_int 0
+L7: branch_not L9
+L8: branch L12
+L9: push_varc_string_old varc_string_132
+L10: push_constant_int 61865999
+L11: if_settext 0
+L12: branch L102
+L13: push_constant_string ""
+L14: push_varc_string_old varc_string_133
+L15: compare 0
+L16: push_constant_int 0
+L17: branch_not L19
+L18: branch L22
+L19: push_varc_string_old varc_string_133
+L20: push_constant_int 61865999
+L21: if_settext 0
+L22: branch L102
+L23: push_constant_string ""
+L24: push_varc_string_old varc_string_134
+L25: compare 0
+L26: push_constant_int 0
+L27: branch_not L29
+L28: branch L32
+L29: push_varc_string_old varc_string_134
+L30: push_constant_int 61865999
+L31: if_settext 0
+L32: branch L102
+L33: push_constant_string ""
+L34: push_varc_string_old varc_string_135
+L35: compare 0
+L36: push_constant_int 0
+L37: branch_not L39
+L38: branch L42
+L39: push_varc_string_old varc_string_135
+L40: push_constant_int 61865999
+L41: if_settext 0
+L42: branch L102
+L43: push_constant_string ""
+L44: push_varc_string_old varc_string_136
+L45: compare 0
+L46: push_constant_int 0
+L47: branch_not L49
+L48: branch L52
+L49: push_varc_string_old varc_string_136
+L50: push_constant_int 61865999
+L51: if_settext 0
+L52: branch L102
+L53: push_constant_string ""
+L54: push_varc_string_old varc_string_137
+L55: compare 0
+L56: push_constant_int 0
+L57: branch_not L59
+L58: branch L62
+L59: push_varc_string_old varc_string_137
+L60: push_constant_int 61865999
+L61: if_settext 0
+L62: branch L102
+L63: push_constant_string ""
+L64: push_varc_string_old varc_string_280
+L65: compare 0
+L66: push_constant_int 0
+L67: branch_not L69
+L68: branch L72
+L69: push_varc_string_old varc_string_280
+L70: push_constant_int 61865999
+L71: if_settext 0
+L72: branch L102
+L73: push_constant_string ""
+L74: push_varc_string_old varc_string_281
+L75: compare 0
+L76: push_constant_int 0
+L77: branch_not L79
+L78: branch L82
+L79: push_varc_string_old varc_string_281
+L80: push_constant_int 61865999
+L81: if_settext 0
+L82: branch L102
+L83: push_constant_string ""
+L84: push_varc_string_old varc_string_282
+L85: compare 0
+L86: push_constant_int 0
+L87: branch_not L89
+L88: branch L92
+L89: push_varc_string_old varc_string_282
+L90: push_constant_int 61865999
+L91: if_settext 0
+L92: branch L102
+L93: push_constant_string ""
+L94: push_varc_string_old varc_string_283
+L95: compare 0
+L96: push_constant_int 0
+L97: branch_not L99
+L98: branch L102
+L99: push_varc_string_old varc_string_283
+L100: push_constant_int 61865999
+L101: if_settext 0
+L102: return 0
+L103:
+
+[switch0@L1]
+61866061=L3
+61866008=L13
+61866014=L23
+61866020=L33
+61866026=L43
+61866032=L53
+61866038=L63
+61866044=L73
+61866050=L83
+61866056=L93

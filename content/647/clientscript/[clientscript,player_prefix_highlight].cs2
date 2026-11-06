@@ -1,0 +1,43 @@
+name=""
+local_int_count=2
+local_string_count=0
+local_long_count=0
+int_param_count=1
+string_param_count=0
+long_param_count=0
+
+L0: push_constant_int 0
+L1: pop_int_local 1
+L2: push_int_local 1
+L3: push_constant_int 1093
+L4: enum_getoutputcount 0
+L5: branch_less_than_or_equals L7
+L6: branch L26
+L7: push_constant_int 56688649
+L8: push_int_local 1
+L9: cc_find 0
+L10: branch_if_true L12
+L11: branch L21
+L12: push_int_local 1
+L13: gosub_with_params [proc,player_prefix_check]
+L14: branch_if_true L16
+L15: branch L19
+L16: push_constant_int 1179392
+L17: cc_setcolour 0
+L18: branch L21
+L19: push_constant_int 16716032
+L20: cc_setcolour 0
+L21: push_constant_int 1
+L22: push_int_local 1
+L23: add 0
+L24: pop_int_local 1
+L25: branch L2
+L26: push_constant_int 56688649
+L27: push_int_local 0
+L28: cc_find 0
+L29: branch_if_true L31
+L30: branch L33
+L31: push_constant_int 16777215
+L32: cc_setcolour 0
+L33: return 0
+L34:

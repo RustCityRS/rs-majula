@@ -1,9 +1,0 @@
-[clientscript,script_3150](int $int0, int $int1, string $str0)
-if ($int1 < 0) {
-    if_setonmouserepeat;
-} else {
-    if (cc_find($int0, $int1) = 1) {
-        cc_setonmouserepeat;
-    }
-}
-return;

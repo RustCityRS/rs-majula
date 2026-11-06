@@ -1,0 +1,14 @@
+name=""
+local_int_count=0
+local_string_count=0
+local_long_count=0
+int_param_count=0
+string_param_count=0
+long_param_count=0
+
+L0: push_constant_int 26279944
+L1: push_constant_int 26279960
+L2: push_varc_string_old varc_string_222
+L3: gosub_with_params [proc,poh_ranging_display_name]
+L4: return 0
+L5:

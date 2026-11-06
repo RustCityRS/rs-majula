@@ -1,0 +1,63 @@
+name=""
+local_int_count=4
+local_string_count=0
+local_long_count=0
+int_param_count=1
+string_param_count=0
+long_param_count=0
+
+L0: push_int_local 0
+L1: if_setzorder_front 0
+L2: push_var varp_1893
+L3: push_constant_int -1
+L4: branch_equals L6
+L5: branch L7
+L6: return 0
+L7: push_constant_int 73
+L8: push_constant_int 73
+L9: push_constant_int 1592
+L10: push_var varp_1893
+L11: enum 0
+L12: pop_int_local 1
+L13: push_int_local 0
+L14: if_getx 0
+L15: pop_int_local 2
+L16: push_int_local 0
+L17: if_gety 0
+L18: pop_int_local 3
+L19: push_int_local 0
+L20: push_constant_int 69009490
+L21: branch_equals L23
+L22: branch L47
+L23: push_int_local 2
+L24: push_int_local 0
+L25: if_getwidth 0
+L26: push_constant_int 2
+L27: div 0
+L28: add 0
+L29: push_int_local 1
+L30: if_getwidth 0
+L31: push_constant_int 2
+L32: div 0
+L33: sub 0
+L34: pop_int_local 2
+L35: push_int_local 3
+L36: push_int_local 0
+L37: if_getheight 0
+L38: push_constant_int 2
+L39: div 0
+L40: add 0
+L41: push_int_local 1
+L42: if_getheight 0
+L43: push_constant_int 2
+L44: div 0
+L45: sub 0
+L46: pop_int_local 3
+L47: push_int_local 2
+L48: push_int_local 3
+L49: push_constant_int 0
+L50: push_constant_int 0
+L51: push_int_local 1
+L52: if_setposition 0
+L53: return 0
+L54:

@@ -1,0 +1,65 @@
+name=""
+local_int_count=1
+local_string_count=0
+local_long_count=0
+int_param_count=1
+string_param_count=0
+long_param_count=0
+
+L0: push_int_local 0
+L1: switch switch0
+L2: branch L39
+L3: push_constant_string "Firemaking"
+L4: push_constant_int 0
+L5: return 0
+L6: branch L42
+L7: push_constant_string "Barbarian fires"
+L8: push_constant_int 1
+L9: return 0
+L10: branch L42
+L11: push_constant_string "Pyre ships"
+L12: push_constant_int 1
+L13: return 0
+L14: branch L42
+L15: push_constant_string "Equipment"
+L16: push_constant_int 0
+L17: return 0
+L18: branch L42
+L19: push_constant_string "Beacons"
+L20: push_constant_int 1
+L21: return 0
+L22: branch L42
+L23: push_constant_string "Other"
+L24: push_constant_int 0
+L25: return 0
+L26: branch L42
+L27: push_constant_string "Activities"
+L28: push_constant_int 1
+L29: return 0
+L30: branch L42
+L31: push_constant_string "Dungeoneering"
+L32: push_constant_int 0
+L33: return 0
+L34: branch L42
+L35: push_constant_string "Milestones"
+L36: push_constant_int 0
+L37: return 0
+L38: branch L42
+L39: push_constant_string ""
+L40: push_constant_int -1
+L41: return 0
+L42: push_constant_string ""
+L43: push_constant_int 0
+L44: return 0
+L45:
+
+[switch0@L1]
+0=L3
+1=L7
+2=L11
+3=L15
+4=L19
+5=L23
+6=L27
+7=L31
+8=L35

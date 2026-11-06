@@ -1,8 +1,0 @@
-[clientscript,script_1476](int $int0)
-if (clientclock >= $int0) {
-    if (%varc_int5 = 11) {
-        ~script_1479(%varc_str138);
-    }
-    if_setontimer;
-}
-return;

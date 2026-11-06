@@ -1,0 +1,36 @@
+name=""
+local_int_count=1
+local_string_count=1
+local_long_count=0
+int_param_count=1
+string_param_count=1
+long_param_count=0
+
+L0: push_constant_int 12451858
+L1: push_int_local 0
+L2: cc_find 0
+L3: branch_if_true L5
+L4: branch L26
+L5: clientclock 0
+L6: push_constant_int 20
+L7: mod 0
+L8: push_constant_int 9
+L9: branch_greater_than L11
+L10: branch L24
+L11: push_constant_string ""
+L12: cc_settext 0
+L13: clientclock 0
+L14: push_constant_int 20
+L15: mod 0
+L16: push_constant_int 10
+L17: branch_equals L19
+L18: branch L23
+L19: push_constant_int 5009
+L20: push_constant_int 1
+L21: push_constant_int 0
+L22: sound_synth 0
+L23: branch L26
+L24: push_string_local 0
+L25: cc_settext 0
+L26: return 0
+L27:

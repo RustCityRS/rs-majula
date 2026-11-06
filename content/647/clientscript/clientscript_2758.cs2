@@ -1,0 +1,26 @@
+name=""
+local_int_count=1
+local_string_count=0
+local_long_count=0
+int_param_count=1
+string_param_count=0
+long_param_count=0
+
+L0: push_constant_int 2759
+L1: push_constant_int -2147483645
+L2: push_constant_int 466
+L3: push_constant_int 1
+L4: push_constant_string "IY"
+L5: push_int_local 0
+L6: if_setonvartransmit 0
+L7: push_constant_int 2759
+L8: push_constant_int -2147483645
+L9: push_constant_int 173
+L10: push_constant_int 1
+L11: push_constant_string "IY"
+L12: push_int_local 0
+L13: if_setonvarctransmit 0
+L14: push_int_local 0
+L15: gosub_with_params clientscript_2760
+L16: return 0
+L17:

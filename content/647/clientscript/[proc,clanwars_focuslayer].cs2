@@ -1,0 +1,62 @@
+name=""
+local_int_count=5
+local_string_count=0
+local_long_count=0
+int_param_count=4
+string_param_count=0
+long_param_count=0
+
+L0: push_int_local 2
+L1: push_constant_int -1
+L2: branch_equals L4
+L3: branch L15
+L4: push_int_local 1
+L5: push_constant_int 1
+L6: cc_find 0
+L7: branch_if_true L9
+L8: branch L14
+L9: push_int_local 1
+L10: push_int_local 0
+L11: push_constant_int 0
+L12: push_constant_int 1
+L13: gosub_with_params [proc,scrollbar_ondrag_doscroll]
+L14: return 0
+L15: push_constant_int 0
+L16: pop_int_local 4
+L17: push_int_local 2
+L18: push_int_local 3
+L19: cc_find 0
+L20: branch_if_true L29
+L21: push_int_local 3
+L22: push_constant_int -1
+L23: branch_equals L25
+L24: branch L52
+L25: push_int_local 2
+L26: if_find 0
+L27: branch_if_true L29
+L28: branch L52
+L29: cc_gety 0
+L30: cc_getheight 0
+L31: push_constant_int 2
+L32: div 0
+L33: add 0
+L34: pop_int_local 4
+L35: push_int_local 4
+L36: push_int_local 0
+L37: if_getheight 0
+L38: push_constant_int 2
+L39: div 0
+L40: sub 0
+L41: pop_int_local 4
+L42: push_int_local 1
+L43: push_constant_int 1
+L44: cc_find 0
+L45: branch_if_true L47
+L46: branch L52
+L47: push_int_local 1
+L48: push_int_local 0
+L49: push_int_local 4
+L50: push_constant_int 1
+L51: gosub_with_params [proc,scrollbar_ondrag_doscroll]
+L52: return 0
+L53:

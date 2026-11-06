@@ -1,0 +1,62 @@
+name=""
+local_int_count=1
+local_string_count=0
+local_long_count=0
+int_param_count=0
+string_param_count=0
+long_param_count=0
+
+L0: push_constant_int 0
+L1: pop_int_local 0
+L2: push_int_local 0
+L3: push_constant_int 4
+L4: branch_less_than_or_equals L6
+L5: branch L51
+L6: push_constant_int 51839117
+L7: push_int_local 0
+L8: push_constant_int 4
+L9: multiply 0
+L10: cc_find 0
+L11: branch_if_true L13
+L12: branch L46
+L13: push_varc_int varc_int_257
+L14: push_int_local 0
+L15: branch_equals L17
+L16: branch L29
+L17: push_constant_int 699
+L18: cc_setgraphic 0
+L19: push_constant_int 51839117
+L20: push_constant_int 51839118
+L21: push_constant_int 51839117
+L22: push_int_local 0
+L23: push_constant_int 4
+L24: multiply 0
+L25: push_constant_int 3
+L26: add 0
+L27: gosub_with_params [proc,clanwars_focuslayer]
+L28: branch L46
+L29: map_members 0
+L30: branch_if_false L32
+L31: branch L44
+L32: push_constant_int 105
+L33: push_constant_int 74
+L34: push_constant_int 1604
+L35: push_int_local 0
+L36: enum 0
+L37: push_constant_int 557
+L38: struct_param_4500 0
+L39: branch_if_true L41
+L40: branch L44
+L41: push_constant_int 698
+L42: cc_setgraphic 0
+L43: branch L46
+L44: push_constant_int 697
+L45: cc_setgraphic 0
+L46: push_int_local 0
+L47: push_constant_int 1
+L48: add 0
+L49: pop_int_local 0
+L50: branch L2
+L51: gosub_with_params [proc,clanwars_updateside]
+L52: return 0
+L53:

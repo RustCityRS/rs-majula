@@ -1,0 +1,1168 @@
+name=""
+local_int_count=2
+local_string_count=0
+local_long_count=0
+int_param_count=2
+string_param_count=0
+long_param_count=0
+
+L0: push_int_local 0
+L1: switch switch0
+L2: branch L1055
+L3: push_int_local 1
+L4: switch switch1
+L5: branch L352
+L6: push_constant_int 1
+L7: push_constant_int 4155
+L8: push_constant_string "Enchanted gem"
+L9: push_constant_string "You can now use an "
+L10: push_constant_string "<col=000080>"
+L11: push_constant_string "enchanted gem"
+L12: push_constant_string "</col>"
+L13: push_constant_string " to communicate with your Slayer Master."
+L14: join_string 5
+L15: return 0
+L16: branch L352
+L17: push_constant_int 1
+L18: push_constant_int 4161
+L19: push_constant_string "Bag of salt"
+L20: push_constant_string "You can now use "
+L21: push_constant_string "<col=000080>"
+L22: push_constant_string "bags of salt"
+L23: push_constant_string "</col>"
+L24: push_constant_string " to finish off rock slugs."
+L25: join_string 5
+L26: return 0
+L27: branch L352
+L28: push_constant_int 1
+L29: push_constant_int 6696
+L30: push_constant_string "Ice cooler"
+L31: push_constant_string "You can now use "
+L32: push_constant_string "<col=000080>"
+L33: push_constant_string "ice coolers"
+L34: push_constant_string "</col>"
+L35: push_constant_string "to finish off desert lizards."
+L36: join_string 5
+L37: return 0
+L38: branch L352
+L39: push_constant_int 1
+L40: push_constant_int 4551
+L41: push_constant_string "Spiny helmet"
+L42: push_constant_string "<br>"
+L43: push_constant_string " (with 5 Defence)"
+L44: join_string 3
+L45: push_constant_string "You now have the Slayer level required to wear a "
+L46: push_constant_string "<col=000080>"
+L47: push_constant_string "spiny helmet"
+L48: push_constant_string "</col>"
+L49: push_constant_string " to fend off wall beast attacks. (You also need level 5 Defence."
+L50: join_string 5
+L51: return 0
+L52: branch L352
+L53: push_constant_int 1
+L54: push_constant_int 4162
+L55: push_constant_string "Rock hammer"
+L56: push_constant_string "You can now use "
+L57: push_constant_string "<col=000080>"
+L58: push_constant_string "rock hammers"
+L59: push_constant_string "</col>"
+L60: push_constant_string " to kill weakened gargoyles."
+L61: join_string 5
+L62: return 0
+L63: branch L352
+L64: push_constant_int 1
+L65: push_constant_int 15490
+L66: push_constant_string "Members: Focus sight"
+L67: push_constant_string "<br>"
+L68: push_constant_string " (with 20 Ranged and 10 Defence)"
+L69: join_string 3
+L70: push_constant_string "Members can now wear "
+L71: push_constant_string "<col=000080>"
+L72: push_constant_string "focus sights"
+L73: push_constant_string "</col>"
+L74: push_constant_string "."
+L75: join_string 5
+L76: return 0
+L77: branch L352
+L78: push_constant_int 1
+L79: push_constant_int 15488
+L80: push_constant_string "Members: Hexcrest"
+L81: push_constant_string "<br>"
+L82: push_constant_string " (with 20 Magic and 10 Defence)"
+L83: join_string 3
+L84: push_constant_string "Members can now wear "
+L85: push_constant_string "<col=000080>"
+L86: push_constant_string "hexcrests"
+L87: push_constant_string "</col>"
+L88: push_constant_string "."
+L89: join_string 5
+L90: return 0
+L91: branch L352
+L92: push_constant_int 1
+L93: push_constant_int 8921
+L94: push_constant_string "Members: Black mask"
+L95: push_constant_string "<br>"
+L96: push_constant_string " (with 20 Strength and 10 Defence)"
+L97: join_string 3
+L98: push_constant_string "Members can now wear "
+L99: push_constant_string "<col=000080>"
+L100: push_constant_string "black masks"
+L101: push_constant_string "</col>"
+L102: push_constant_string "."
+L103: join_string 5
+L104: return 0
+L105: branch L352
+L106: push_constant_int 1
+L107: push_constant_int 13263
+L108: push_constant_string "Members: Slayer helmet"
+L109: push_constant_string "<br>"
+L110: push_constant_string " (after Smoking Kills)"
+L111: join_string 3
+L112: push_constant_string "Members can now wear "
+L113: push_constant_string "<col=000080>"
+L114: push_constant_string "slayer helmets"
+L115: push_constant_string "</col>"
+L116: push_constant_string " (after Smoking Kills)."
+L117: join_string 5
+L118: return 0
+L119: branch L352
+L120: push_constant_int 1
+L121: push_constant_int 15492
+L122: push_constant_string "Members: Full Slayer helmet"
+L123: push_constant_string "<br>"
+L124: push_constant_string " (after Smoking Kills with 20 Ranged, Magic, Strength and 10 Defence)"
+L125: join_string 3
+L126: push_constant_string "Members can now wear "
+L127: push_constant_string "<col=000080>"
+L128: push_constant_string "full slayer helmets"
+L129: push_constant_string "</col>"
+L130: push_constant_string " (after Smoking Kills with 20 Ranged, Magic, Strength and 10 Defence)."
+L131: join_string 5
+L132: return 0
+L133: branch L352
+L134: push_constant_int 10
+L135: push_constant_int 4164
+L136: push_constant_string "Face mask"
+L137: push_constant_string "You can now wear the "
+L138: push_constant_string "<col=000080>"
+L139: push_constant_string "face mask"
+L140: push_constant_string "</col>"
+L141: push_constant_string " needed to kill dust devils."
+L142: join_string 5
+L143: return 0
+L144: branch L352
+L145: push_constant_int 15
+L146: push_constant_int 4166
+L147: push_constant_string "Earmuffs"
+L148: push_constant_string "You can now wear "
+L149: push_constant_string "<col=000080>"
+L150: push_constant_string "earmuffs"
+L151: push_constant_string "</col>"
+L152: push_constant_string " to protect yourself against banshees."
+L153: join_string 5
+L154: return 0
+L155: branch L352
+L156: push_constant_int 25
+L157: push_constant_int 4156
+L158: push_constant_string "Mirror shield"
+L159: push_constant_string "<br>"
+L160: push_constant_string " (with 20 Defence)"
+L161: join_string 3
+L162: push_constant_string "You now have the Slayer level required to wield "
+L163: push_constant_string "<col=000080>"
+L164: push_constant_string "mirror shields"
+L165: push_constant_string "</col>"
+L166: push_constant_string " to protect yourself from cockatrices and basilisks. (You also need level 20 Defence.)"
+L167: join_string 5
+L168: return 0
+L169: branch L352
+L170: push_constant_int 32
+L171: push_constant_int 6660
+L172: push_constant_string "Fishing explosive"
+L173: push_constant_string "You can now use "
+L174: push_constant_string "<col=000080>"
+L175: push_constant_string "fishing explosives"
+L176: push_constant_string "</col>"
+L177: push_constant_string " to lure mogres."
+L178: join_string 5
+L179: return 0
+L180: branch L352
+L181: push_constant_int 33
+L182: push_constant_int 7053
+L183: push_constant_string "Harpie bug lantern"
+L184: push_constant_string "<br>"
+L185: push_constant_string " (not a light source)"
+L186: join_string 3
+L187: push_constant_string "You can now use "
+L188: push_constant_string "<col=000080>"
+L189: push_constant_string "harpie bug lanterns"
+L190: push_constant_string "</col>"
+L191: push_constant_string " to fend off harpie bug swarms so that you can attack."
+L192: join_string 5
+L193: return 0
+L194: branch L352
+L195: push_constant_int 35
+L196: push_constant_int 8923
+L197: push_constant_string "Witchwood icon"
+L198: push_constant_string "You can now wear "
+L199: push_constant_string "<col=000080>"
+L200: push_constant_string "witchwood icons"
+L201: push_constant_string "</col>"
+L202: push_constant_string " to protect yourself from cave horrors."
+L203: join_string 5
+L204: return 0
+L205: branch L352
+L206: push_constant_int 37
+L207: push_constant_int 7159
+L208: push_constant_string "Insulated boots"
+L209: push_constant_string "You can now wear "
+L210: push_constant_string "<col=000080>"
+L211: push_constant_string "insulated boots"
+L212: push_constant_string "</col>"
+L213: push_constant_string " to protect yourself from killerwatt shocks."
+L214: join_string 5
+L215: return 0
+L216: branch L352
+L217: push_constant_int 39
+L218: push_constant_int 10952
+L219: push_constant_string "Slayer bell"
+L220: push_constant_string "You can now use "
+L221: push_constant_string "<col=000080>"
+L222: push_constant_string "slayer bells"
+L223: push_constant_string "</col>"
+L224: push_constant_string ", which allow molanisks to be attacked."
+L225: join_string 5
+L226: return 0
+L227: branch L352
+L228: push_constant_int 42
+L229: push_constant_int 6720
+L230: push_constant_string "Slayer gloves"
+L231: push_constant_string "You can now wear "
+L232: push_constant_string "<col=000080>"
+L233: push_constant_string "slayer gloves"
+L234: push_constant_string "</col>"
+L235: push_constant_string " to protect yourself from fever spiders."
+L236: join_string 5
+L237: return 0
+L238: branch L352
+L239: push_constant_int 55
+L240: push_constant_int 4158
+L241: push_constant_string "Leaf-bladed spear"
+L242: push_constant_string "<br>"
+L243: push_constant_string " (with 50 Attack)"
+L244: join_string 3
+L245: push_constant_string "You now have the Slayer level required to wield "
+L246: push_constant_string "<col=000080>"
+L247: push_constant_string "leaf-bladed spears"
+L248: push_constant_string "</col>"
+L249: push_constant_string ", melee weapons used for killing turoth and kurask. (You also need level 50 Attack.)"
+L250: join_string 5
+L251: return 0
+L252: branch L352
+L253: push_constant_int 55
+L254: push_constant_int 4150
+L255: push_constant_string "Broad arrows"
+L256: push_constant_string "<br>"
+L257: push_constant_string " (with 50 Ranged)"
+L258: join_string 3
+L259: push_constant_string "You now have the Slayer level required to fire "
+L260: push_constant_string "<col=000080>"
+L261: push_constant_string "broad arrows"
+L262: push_constant_string "</col>"
+L263: push_constant_string ", ranged weapons used for killing turoth and kurask. (You also need level 50 Ranged.)"
+L264: join_string 5
+L265: return 0
+L266: branch L352
+L267: push_constant_int 55
+L268: push_constant_int 13280
+L269: push_constant_string "Broad-tipped bolts"
+L270: push_constant_string "<br>"
+L271: push_constant_string " (with 50 Ranged)"
+L272: join_string 3
+L273: push_constant_string "You now have the Slayer level required to fire "
+L274: push_constant_string "<col=000080>"
+L275: push_constant_string "broad bolts"
+L276: push_constant_string "</col>"
+L277: push_constant_string ", ranged weapons used for killing turoth and kurask. (You also need level 50 Ranged.)"
+L278: join_string 5
+L279: return 0
+L280: branch L352
+L281: push_constant_int 55
+L282: push_constant_int 4170
+L283: push_constant_string "Slayer's staff"
+L284: push_constant_string "<br>"
+L285: push_constant_string " (with 50 Magic)"
+L286: join_string 3
+L287: push_constant_string "You now have the Slayer level required to wield "
+L288: push_constant_string "<col=000080>"
+L289: push_constant_string "slayer's staves"
+L290: push_constant_string "</col>"
+L291: push_constant_string ", magic weapons used for killing turoth and kurask. (You also need level 50 Magic.)"
+L292: join_string 5
+L293: return 0
+L294: branch L352
+L295: push_constant_int 55
+L296: push_constant_int 13290
+L297: push_constant_string "Leaf-bladed swords"
+L298: push_constant_string "<br>"
+L299: push_constant_string " (with 50 Attack)"
+L300: join_string 3
+L301: push_constant_string "You now have the Slayer level required to wield "
+L302: push_constant_string "<col=000080>"
+L303: push_constant_string "leaf-bladed swords"
+L304: push_constant_string "</col>"
+L305: push_constant_string ", melee weapons used for killing turoth and kurask (with level 50 Attack)."
+L306: join_string 5
+L307: return 0
+L308: branch L352
+L309: push_constant_int 56
+L310: push_constant_int 11749
+L311: push_constant_string "Crystal chime"
+L312: push_constant_string "You can now use a "
+L313: push_constant_string "<col=000080>"
+L314: push_constant_string "crystal chime"
+L315: push_constant_string "</col>"
+L316: push_constant_string " to kill warped terrorbirds and warped tortoises."
+L317: join_string 5
+L318: return 0
+L319: branch L352
+L320: push_constant_int 57
+L321: push_constant_int 7432
+L322: push_constant_string "Fungicide spray"
+L323: push_constant_string "You can now use "
+L324: push_constant_string "<col=000080>"
+L325: push_constant_string "fungicide spray"
+L326: push_constant_string "</col>"
+L327: push_constant_string " to finish off mutated zygomites."
+L328: join_string 5
+L329: return 0
+L330: branch L352
+L331: push_constant_int 60
+L332: push_constant_int 4168
+L333: push_constant_string "Nose peg"
+L334: push_constant_string "You can now wear a "
+L335: push_constant_string "<col=000080>"
+L336: push_constant_string "nosepeg"
+L337: push_constant_string "</col>"
+L338: push_constant_string " to protect yourself from aberrant spectres."
+L339: join_string 5
+L340: return 0
+L341: branch L352
+L342: push_constant_int 70
+L343: push_constant_int 12862
+L344: push_constant_string "Dragon slayer gloves"
+L345: push_constant_string "You can now wear "
+L346: push_constant_string "<col=000080>"
+L347: push_constant_string "dragon slayer gloves"
+L348: push_constant_string "</col>"
+L349: push_constant_string "."
+L350: join_string 5
+L351: return 0
+L352: branch L1055
+L353: push_int_local 1
+L354: switch switch2
+L355: branch L845
+L356: push_constant_int 5
+L357: push_constant_int 4133
+L358: push_constant_string "Crawling hand"
+L359: push_constant_string "You can now slay "
+L360: push_constant_string "<col=000080>"
+L361: push_constant_string "crawling hands"
+L362: push_constant_string "</col>"
+L363: push_constant_string "."
+L364: join_string 5
+L365: return 0
+L366: branch L845
+L367: push_constant_int 7
+L368: push_constant_int 4521
+L369: push_constant_string "Cave bug"
+L370: push_constant_string "You can now slay "
+L371: push_constant_string "<col=000080>"
+L372: push_constant_string "cave bugs"
+L373: push_constant_string "</col>"
+L374: push_constant_string "."
+L375: join_string 5
+L376: return 0
+L377: branch L845
+L378: push_constant_int 10
+L379: push_constant_int 4134
+L380: push_constant_string "Cave crawler"
+L381: push_constant_string "You can now slay "
+L382: push_constant_string "<col=000080>"
+L383: push_constant_string "cave crawlers"
+L384: push_constant_string "</col>"
+L385: push_constant_string "."
+L386: join_string 5
+L387: return 0
+L388: branch L845
+L389: push_constant_int 15
+L390: push_constant_int 4135
+L391: push_constant_string "Banshee"
+L392: push_constant_string "You can now slay "
+L393: push_constant_string "<col=000080>"
+L394: push_constant_string "banshees"
+L395: push_constant_string "</col>"
+L396: push_constant_string "."
+L397: join_string 5
+L398: return 0
+L399: branch L845
+L400: push_constant_int 17
+L401: push_constant_int 4520
+L402: push_constant_string "Cave slime"
+L403: push_constant_string "You can now slay "
+L404: push_constant_string "<col=000080>"
+L405: push_constant_string "cave slimes"
+L406: push_constant_string "</col>"
+L407: push_constant_string "."
+L408: join_string 5
+L409: return 0
+L410: branch L845
+L411: push_constant_int 20
+L412: push_constant_int 4136
+L413: push_constant_string "Rockslug"
+L414: push_constant_string "You can now slay "
+L415: push_constant_string "<col=000080>"
+L416: push_constant_string "rockslugs"
+L417: push_constant_string "</col>"
+L418: push_constant_string "."
+L419: join_string 5
+L420: return 0
+L421: branch L845
+L422: push_constant_int 22
+L423: push_constant_int 6695
+L424: push_constant_string "Desert lizard"
+L425: push_constant_string "You can now slay "
+L426: push_constant_string "<col=000080>"
+L427: push_constant_string "desert lizards"
+L428: push_constant_string "</col>"
+L429: push_constant_string "."
+L430: join_string 5
+L431: return 0
+L432: branch L845
+L433: push_constant_int 25
+L434: push_constant_int 4137
+L435: push_constant_string "Cockatrice"
+L436: push_constant_string "You can now slay "
+L437: push_constant_string "<col=000080>"
+L438: push_constant_string "cockatrices"
+L439: push_constant_string "</col>"
+L440: push_constant_string "."
+L441: join_string 5
+L442: return 0
+L443: branch L845
+L444: push_constant_int 30
+L445: push_constant_int 4138
+L446: push_constant_string "Pyrefiend"
+L447: push_constant_string "You can now slay "
+L448: push_constant_string "<col=000080>"
+L449: push_constant_string "pyrefiends"
+L450: push_constant_string "</col>"
+L451: push_constant_string "."
+L452: join_string 5
+L453: return 0
+L454: branch L845
+L455: push_constant_int 32
+L456: push_constant_int 6661
+L457: push_constant_string "Mogre"
+L458: push_constant_string "You can now slay "
+L459: push_constant_string "<col=000080>"
+L460: push_constant_string "mogres"
+L461: push_constant_string "</col>"
+L462: push_constant_string "."
+L463: join_string 5
+L464: return 0
+L465: branch L845
+L466: push_constant_int 33
+L467: push_constant_int 7050
+L468: push_constant_string "Harpie bug swarm"
+L469: push_constant_string "You can now slay "
+L470: push_constant_string "<col=000080>"
+L471: push_constant_string "harpie bug swarms"
+L472: push_constant_string "</col>"
+L473: push_constant_string "."
+L474: join_string 5
+L475: return 0
+L476: branch L845
+L477: push_constant_int 35
+L478: push_constant_int 4519
+L479: push_constant_string "Wall beast"
+L480: push_constant_string "You can now slay "
+L481: push_constant_string "<col=000080>"
+L482: push_constant_string "wall beasts"
+L483: push_constant_string "</col>"
+L484: push_constant_string "."
+L485: join_string 5
+L486: return 0
+L487: branch L845
+L488: push_constant_int 37
+L489: push_constant_int 7160
+L490: push_constant_string "Killerwatt"
+L491: push_constant_string "You can now slay "
+L492: push_constant_string "<col=000080>"
+L493: push_constant_string "killerwatts"
+L494: push_constant_string "</col>"
+L495: push_constant_string "."
+L496: join_string 5
+L497: return 0
+L498: branch L845
+L499: push_constant_int 39
+L500: push_constant_int 10997
+L501: push_constant_string "Molanisk"
+L502: push_constant_string "You can now slay "
+L503: push_constant_string "<col=000080>"
+L504: push_constant_string "molanisks"
+L505: push_constant_string "</col>"
+L506: push_constant_string "."
+L507: join_string 5
+L508: return 0
+L509: branch L845
+L510: push_constant_int 40
+L511: push_constant_int 4139
+L512: push_constant_string "Basilisk"
+L513: push_constant_string "You can now slay "
+L514: push_constant_string "<col=000080>"
+L515: push_constant_string "basilisks"
+L516: push_constant_string "</col>"
+L517: push_constant_string "."
+L518: join_string 5
+L519: return 0
+L520: branch L845
+L521: push_constant_int 40
+L522: push_constant_int 10591
+L523: push_constant_string "Terror dog"
+L524: push_constant_string "You can now slay "
+L525: push_constant_string "<col=000080>"
+L526: push_constant_string "terror dogs"
+L527: push_constant_string "</col>"
+L528: push_constant_string "."
+L529: join_string 5
+L530: return 0
+L531: branch L845
+L532: push_constant_int 42
+L533: push_constant_int 6709
+L534: push_constant_string "Fever spider"
+L535: push_constant_string "You can now slay "
+L536: push_constant_string "<col=000080>"
+L537: push_constant_string "fever spiders"
+L538: push_constant_string "</col>"
+L539: push_constant_string "."
+L540: join_string 5
+L541: return 0
+L542: branch L845
+L543: push_constant_int 45
+L544: push_constant_int 4140
+L545: push_constant_string "Infernal mage"
+L546: push_constant_string "You can now slay "
+L547: push_constant_string "<col=000080>"
+L548: push_constant_string "infernal mages"
+L549: push_constant_string "</col>"
+L550: push_constant_string "."
+L551: join_string 5
+L552: return 0
+L553: branch L845
+L554: push_constant_int 47
+L555: push_constant_int 11047
+L556: push_constant_string "Brine rat"
+L557: push_constant_string "You can now slay "
+L558: push_constant_string "<col=000080>"
+L559: push_constant_string "brine rats"
+L560: push_constant_string "</col>"
+L561: push_constant_string "."
+L562: join_string 5
+L563: return 0
+L564: branch L845
+L565: push_constant_int 50
+L566: push_constant_int 4141
+L567: push_constant_string "Bloodveld"
+L568: push_constant_string "You can now slay "
+L569: push_constant_string "<col=000080>"
+L570: push_constant_string "bloodvelds"
+L571: push_constant_string "</col>"
+L572: push_constant_string "."
+L573: join_string 5
+L574: return 0
+L575: branch L845
+L576: push_constant_int 51
+L577: push_constant_int 14618
+L578: push_constant_string "Phoenix"
+L579: push_constant_string "<br>"
+L580: push_constant_string " (after In Pyre Need)"
+L581: join_string 3
+L582: push_constant_string "You can now slay the "
+L583: push_constant_string "<col=000080>"
+L584: push_constant_string "phoenix"
+L585: push_constant_string "</col>"
+L586: push_constant_string "(after In Pyre Need)."
+L587: join_string 5
+L588: return 0
+L589: branch L845
+L590: push_constant_int 52
+L591: push_constant_int 4142
+L592: push_constant_string "Jelly"
+L593: push_constant_string "You can now slay "
+L594: push_constant_string "<col=000080>"
+L595: push_constant_string "jellies"
+L596: push_constant_string "</col>"
+L597: push_constant_string "."
+L598: join_string 5
+L599: return 0
+L600: branch L845
+L601: push_constant_int 55
+L602: push_constant_int 4143
+L603: push_constant_string "Turoth"
+L604: push_constant_string "You can now slay "
+L605: push_constant_string "<col=000080>"
+L606: push_constant_string "turoths"
+L607: push_constant_string "</col>"
+L608: push_constant_string "."
+L609: join_string 5
+L610: return 0
+L611: branch L845
+L612: push_constant_int 56
+L613: push_constant_int 11752
+L614: push_constant_string "Warped terrorbird"
+L615: push_constant_string "You can now slay "
+L616: push_constant_string "<col=000080>"
+L617: push_constant_string "warped terrorbirds"
+L618: push_constant_string "</col>"
+L619: push_constant_string "."
+L620: join_string 5
+L621: return 0
+L622: branch L845
+L623: push_constant_int 56
+L624: push_constant_int 11751
+L625: push_constant_string "Warped tortoise"
+L626: push_constant_string "You can now slay "
+L627: push_constant_string "<col=000080>"
+L628: push_constant_string "warped tortoises"
+L629: push_constant_string "</col>"
+L630: push_constant_string "."
+L631: join_string 5
+L632: return 0
+L633: branch L845
+L634: push_constant_int 57
+L635: push_constant_int 7420
+L636: push_constant_string "Mutated zygomite"
+L637: push_constant_string "You can now slay "
+L638: push_constant_string "<col=000080>"
+L639: push_constant_string "mutated zygomites"
+L640: push_constant_string "</col>"
+L641: push_constant_string "."
+L642: join_string 5
+L643: return 0
+L644: branch L845
+L645: push_constant_int 58
+L646: push_constant_int 8900
+L647: push_constant_string "Cave horror"
+L648: push_constant_string "You can now slay "
+L649: push_constant_string "<col=000080>"
+L650: push_constant_string "cave horrors"
+L651: push_constant_string "</col>"
+L652: push_constant_string "."
+L653: join_string 5
+L654: return 0
+L655: branch L845
+L656: push_constant_int 59
+L657: push_constant_int 11779
+L658: push_constant_string "Wild jade vine"
+L659: push_constant_string "<br>"
+L660: push_constant_string " (after Back to My Roots)"
+L661: join_string 3
+L662: push_constant_string "You now have the Slayer level required to slay "
+L663: push_constant_string "<col=000080>"
+L664: push_constant_string "wild jade vines"
+L665: push_constant_string "</col>"
+L666: push_constant_string " (after Back to My Roots)."
+L667: join_string 5
+L668: return 0
+L669: branch L845
+L670: push_constant_int 60
+L671: push_constant_int 4144
+L672: push_constant_string "Aberrant spectre"
+L673: push_constant_string "You can now slay "
+L674: push_constant_string "<col=000080>"
+L675: push_constant_string "aberrant spectres"
+L676: push_constant_string "</col>"
+L677: push_constant_string "."
+L678: join_string 5
+L679: return 0
+L680: branch L845
+L681: push_constant_int 61
+L682: push_constant_int 12501
+L683: push_constant_string "'Rum'-pumped crab"
+L684: push_constant_string "You can now slay "
+L685: push_constant_string "<col=000080>"
+L686: push_constant_string "'rum'-pumped crabs"
+L687: push_constant_string "</col>"
+L688: push_constant_string "."
+L689: join_string 5
+L690: return 0
+L691: branch L845
+L692: push_constant_int 63
+L693: push_constant_int 11742
+L694: push_constant_string "Spiritual ranger"
+L695: push_constant_string "You can now slay "
+L696: push_constant_string "<col=000080>"
+L697: push_constant_string "spiritual rangers"
+L698: push_constant_string "</col>"
+L699: push_constant_string "."
+L700: join_string 5
+L701: return 0
+L702: branch L845
+L703: push_constant_int 65
+L704: push_constant_int 4145
+L705: push_constant_string "Dust devil"
+L706: push_constant_string "You can now slay "
+L707: push_constant_string "<col=000080>"
+L708: push_constant_string "dust devils"
+L709: push_constant_string "</col>"
+L710: push_constant_string "."
+L711: join_string 5
+L712: return 0
+L713: branch L845
+L714: push_constant_int 68
+L715: push_constant_int 11744
+L716: push_constant_string "Spiritual warrior"
+L717: push_constant_string "You can now slay "
+L718: push_constant_string "<col=000080>"
+L719: push_constant_string "spiritual warriors"
+L720: push_constant_string "</col>"
+L721: push_constant_string "."
+L722: join_string 5
+L723: return 0
+L724: branch L845
+L725: push_constant_int 70
+L726: push_constant_int 4146
+L727: push_constant_string "Kurask"
+L728: push_constant_string "You can now slay "
+L729: push_constant_string "<col=000080>"
+L730: push_constant_string "kurask"
+L731: push_constant_string "</col>"
+L732: push_constant_string "."
+L733: join_string 5
+L734: return 0
+L735: branch L845
+L736: push_constant_int 72
+L737: push_constant_int 6811
+L738: push_constant_string "Skeletal wyvern"
+L739: push_constant_string "You can now slay "
+L740: push_constant_string "<col=000080>"
+L741: push_constant_string "skeletal wyverns"
+L742: push_constant_string "</col>"
+L743: push_constant_string "."
+L744: join_string 5
+L745: return 0
+L746: branch L845
+L747: push_constant_int 73
+L748: push_constant_int 15499
+L749: push_constant_string "Jungle strykewyrm"
+L750: push_constant_string "You can now slay "
+L751: push_constant_string "<col=000080>"
+L752: push_constant_string "jungle strykewyrms"
+L753: push_constant_string "</col>"
+L754: push_constant_string "."
+L755: join_string 5
+L756: return 0
+L757: branch L845
+L758: push_constant_int 75
+L759: push_constant_int 4147
+L760: push_constant_string "Gargoyle"
+L761: push_constant_string "You can now slay "
+L762: push_constant_string "<col=000080>"
+L763: push_constant_string "gargoyles"
+L764: push_constant_string "</col>"
+L765: push_constant_string "."
+L766: join_string 5
+L767: return 0
+L768: branch L845
+L769: push_constant_int 77
+L770: push_constant_int 15498
+L771: push_constant_string "Desert strykewyrm"
+L772: push_constant_string "You can now slay "
+L773: push_constant_string "<col=000080>"
+L774: push_constant_string "desert strykewyrms"
+L775: push_constant_string "</col>"
+L776: push_constant_string "."
+L777: join_string 5
+L778: return 0
+L779: branch L845
+L780: push_constant_int 78
+L781: push_constant_int 15125
+L782: push_constant_string "Aquanite"
+L783: push_constant_string "You can now slay "
+L784: push_constant_string "<col=000080>"
+L785: push_constant_string "aquanites"
+L786: push_constant_string "</col>"
+L787: push_constant_string "."
+L788: join_string 5
+L789: return 0
+L790: branch L845
+L791: push_constant_int 80
+L792: push_constant_int 4148
+L793: push_constant_string "Nechryael"
+L794: push_constant_string "You can now slay "
+L795: push_constant_string "<col=000080>"
+L796: push_constant_string "nechryaels"
+L797: push_constant_string "</col>"
+L798: push_constant_string "."
+L799: join_string 5
+L800: return 0
+L801: branch L845
+L802: push_constant_int 83
+L803: push_constant_int 11740
+L804: push_constant_string "Spiritual mage"
+L805: push_constant_string "You can now slay "
+L806: push_constant_string "<col=000080>"
+L807: push_constant_string "spiritual mages"
+L808: push_constant_string "</col>"
+L809: push_constant_string "."
+L810: join_string 5
+L811: return 0
+L812: branch L845
+L813: push_constant_int 85
+L814: push_constant_int 4149
+L815: push_constant_string "Abyssal demon"
+L816: push_constant_string "You can now slay "
+L817: push_constant_string "<col=000080>"
+L818: push_constant_string "abyssal demons"
+L819: push_constant_string "</col>"
+L820: push_constant_string "."
+L821: join_string 5
+L822: return 0
+L823: branch L845
+L824: push_constant_int 90
+L825: push_constant_int 6637
+L826: push_constant_string "Dark beast"
+L827: push_constant_string "You can now slay "
+L828: push_constant_string "<col=000080>"
+L829: push_constant_string "dark beasts"
+L830: push_constant_string "</col>"
+L831: push_constant_string "."
+L832: join_string 5
+L833: return 0
+L834: branch L845
+L835: push_constant_int 93
+L836: push_constant_int 15500
+L837: push_constant_string "Ice strykewyrm"
+L838: push_constant_string "You can now slay "
+L839: push_constant_string "<col=000080>"
+L840: push_constant_string "ice strykewyrms"
+L841: push_constant_string "</col>"
+L842: push_constant_string "."
+L843: join_string 5
+L844: return 0
+L845: branch L1055
+L846: push_int_local 1
+L847: switch switch3
+L848: branch L974
+L849: push_constant_int 1
+L850: push_constant_int 4155
+L851: push_constant_string "Burthorpe"
+L852: push_constant_string "<br>"
+L853: push_constant_string " (with level 3 Combat)"
+L854: join_string 3
+L855: push_constant_string "You can now receive "
+L856: push_constant_string "<col=000080>"
+L857: push_constant_string "Slayer assignments"
+L858: push_constant_string "</col>"
+L859: push_constant_string " from the "
+L860: push_constant_string "<col=000080>"
+L861: push_constant_string "Burthorpe slayer master"
+L862: push_constant_string "</col>"
+L863: push_constant_string "."
+L864: join_string 9
+L865: return 0
+L866: branch L974
+L867: push_constant_int 1
+L868: push_constant_int 4155
+L869: push_constant_string "Canifis"
+L870: push_constant_string "<br>"
+L871: push_constant_string " (with level 20 Combat)"
+L872: join_string 3
+L873: push_constant_string "You now have the Slayer level required to receive "
+L874: push_constant_string "<col=000080>"
+L875: push_constant_string "slayer assignments"
+L876: push_constant_string "</col>"
+L877: push_constant_string " from the "
+L878: push_constant_string "<col=000080>"
+L879: push_constant_string "Canifis slayer master"
+L880: push_constant_string "</col>"
+L881: push_constant_string ". (You also need level 20 Combat.)"
+L882: join_string 9
+L883: return 0
+L884: branch L974
+L885: push_constant_int 1
+L886: push_constant_int 4155
+L887: push_constant_string "Edgeville Dungeon"
+L888: push_constant_string "<br>"
+L889: push_constant_string " (with level 40 Combat)"
+L890: join_string 3
+L891: push_constant_string "You now have the Slayer level required to receive "
+L892: push_constant_string "<col=000080>"
+L893: push_constant_string "slayer assignments"
+L894: push_constant_string "</col>"
+L895: push_constant_string " from the "
+L896: push_constant_string "<col=000080>"
+L897: push_constant_string "Edgeville Dungeon slayer master"
+L898: push_constant_string "</col>"
+L899: push_constant_string ". (You also need level 40 Combat.)"
+L900: join_string 9
+L901: return 0
+L902: branch L974
+L903: push_constant_int 1
+L904: push_constant_int 4155
+L905: push_constant_string "Zanaris"
+L906: push_constant_string "<br>"
+L907: push_constant_string " (with level 70 Combat)"
+L908: join_string 3
+L909: push_constant_string "You now have the Slayer level required to receive "
+L910: push_constant_string "<col=000080>"
+L911: push_constant_string "slayer assignments"
+L912: push_constant_string "</col>"
+L913: push_constant_string " from the "
+L914: push_constant_string "<col=000080>"
+L915: push_constant_string "Zanaris slayer master"
+L916: push_constant_string "</col>"
+L917: push_constant_string ". (You also need level 70 Combat.)"
+L918: join_string 9
+L919: return 0
+L920: branch L974
+L921: push_constant_int 35
+L922: push_constant_int 4155
+L923: push_constant_string "Pollnivneach"
+L924: push_constant_string "<br>"
+L925: push_constant_string " (after Smoking Kills)"
+L926: join_string 3
+L927: push_constant_string "You now have the Slayer level required to receive "
+L928: push_constant_string "<col=000080>"
+L929: push_constant_string "slayer assignments"
+L930: push_constant_string "</col>"
+L931: push_constant_string " from the "
+L932: push_constant_string "<col=000080>"
+L933: push_constant_string "Pollnivneach slayer master"
+L934: push_constant_string "</col>"
+L935: push_constant_string " (after Smoking Kills)."
+L936: join_string 9
+L937: return 0
+L938: branch L974
+L939: push_constant_int 50
+L940: push_constant_int 4155
+L941: push_constant_string "Shilo Village"
+L942: push_constant_string "<br>"
+L943: push_constant_string " (with level 100 Combat)"
+L944: join_string 3
+L945: push_constant_string "You now have the Slayer level required to receive "
+L946: push_constant_string "<col=000080>"
+L947: push_constant_string "slayer assignments"
+L948: push_constant_string "</col>"
+L949: push_constant_string " from the "
+L950: push_constant_string "<col=000080>"
+L951: push_constant_string "Shilo Village slayer master"
+L952: push_constant_string "</col>"
+L953: push_constant_string ". (You also need level 100 Combat.)"
+L954: join_string 9
+L955: return 0
+L956: branch L974
+L957: push_constant_int 75
+L958: push_constant_int 4155
+L959: push_constant_string "Ancient cavern"
+L960: push_constant_string "<br>"
+L961: push_constant_string " (with level 110 Combat)"
+L962: join_string 3
+L963: push_constant_string "You now have the Slayer level required to receive "
+L964: push_constant_string "<col=000080>"
+L965: push_constant_string "slayer assignments"
+L966: push_constant_string "</col>"
+L967: push_constant_string " from the "
+L968: push_constant_string "<col=000080>"
+L969: push_constant_string "Ancient Cavern slayer master"
+L970: push_constant_string "</col>"
+L971: push_constant_string ". (You also need level 110 Combat.)"
+L972: join_string 9
+L973: return 0
+L974: branch L1055
+L975: push_int_local 1
+L976: switch switch4
+L977: branch L1032
+L978: push_constant_int 41
+L979: push_constant_int 18504
+L980: push_constant_string "Night spider"
+L981: push_constant_string "You can now slay "
+L982: push_constant_string "<col=000080>"
+L983: push_constant_string "night spiders"
+L984: push_constant_string "</col>"
+L985: push_constant_string " within Daemonheim."
+L986: join_string 5
+L987: return 0
+L988: branch L1032
+L989: push_constant_int 63
+L990: push_constant_int 18506
+L991: push_constant_string "Spiritual guardian"
+L992: push_constant_string "You can now slay "
+L993: push_constant_string "<col=000080>"
+L994: push_constant_string "spiritual guardians"
+L995: push_constant_string "</col>"
+L996: push_constant_string " within Daemonheim."
+L997: join_string 5
+L998: return 0
+L999: branch L1032
+L1000: push_constant_int 71
+L1001: push_constant_int 18505
+L1002: push_constant_string "Seeker"
+L1003: push_constant_string "You can now slay "
+L1004: push_constant_string "<col=000080>"
+L1005: push_constant_string "seekers"
+L1006: push_constant_string "</col>"
+L1007: push_constant_string " within Daemonheim."
+L1008: join_string 5
+L1009: return 0
+L1010: branch L1032
+L1011: push_constant_int 90
+L1012: push_constant_int 18503
+L1013: push_constant_string "Edimmu"
+L1014: push_constant_string "You can now slay "
+L1015: push_constant_string "<col=000080>"
+L1016: push_constant_string "edimmu"
+L1017: push_constant_string "</col>"
+L1018: push_constant_string " within Daemonheim."
+L1019: join_string 5
+L1020: return 0
+L1021: branch L1032
+L1022: push_constant_int 99
+L1023: push_constant_int 18507
+L1024: push_constant_string "Soulgazer"
+L1025: push_constant_string "You can now slay "
+L1026: push_constant_string "<col=000080>"
+L1027: push_constant_string "soulgazers"
+L1028: push_constant_string "</col>"
+L1029: push_constant_string " within Daemonheim."
+L1030: join_string 5
+L1031: return 0
+L1032: branch L1055
+L1033: push_int_local 1
+L1034: branch_if_false L1036
+L1035: branch L1055
+L1036: push_constant_int 99
+L1037: push_constant_int 9786
+L1038: push_constant_string "Skill mastery"
+L1039: push_constant_string "<col=000080>"
+L1040: push_constant_string "Congratulations! You are now a master of "
+L1041: push_constant_string "<col=800000>"
+L1042: push_constant_string "Slayer"
+L1043: push_constant_string "<col=000080>"
+L1044: push_constant_string ". Why not visit the "
+L1045: push_constant_string "<col=800000>"
+L1046: push_constant_string "ancient cavern Slayer Master"
+L1047: push_constant_string "<col=000080>"
+L1048: push_constant_string "? She has something special that is only available to true masters of the "
+L1049: push_constant_string "<col=800000>"
+L1050: push_constant_string "Slayer"
+L1051: push_constant_string "<col=000080>"
+L1052: push_constant_string " skill!"
+L1053: join_string 14
+L1054: return 0
+L1055: push_constant_int 0
+L1056: push_constant_int -1
+L1057: push_constant_string ""
+L1058: push_constant_string ""
+L1059: return 0
+L1060:
+
+[switch0@L1]
+0=L3
+1=L353
+2=L846
+3=L975
+4=L1033
+
+[switch1@L4]
+0=L6
+1=L17
+2=L28
+3=L39
+4=L53
+5=L64
+6=L78
+7=L92
+8=L106
+9=L120
+10=L134
+11=L145
+12=L156
+13=L170
+14=L181
+15=L195
+16=L206
+17=L217
+18=L228
+19=L239
+20=L253
+21=L267
+22=L281
+23=L295
+24=L309
+25=L320
+26=L331
+27=L342
+
+[switch2@L354]
+0=L356
+1=L367
+2=L378
+3=L389
+4=L400
+5=L411
+6=L422
+7=L433
+8=L444
+9=L455
+10=L466
+11=L477
+12=L488
+13=L499
+14=L510
+15=L521
+16=L532
+17=L543
+18=L554
+19=L565
+20=L576
+21=L590
+22=L601
+23=L612
+24=L623
+25=L634
+26=L645
+27=L656
+28=L670
+29=L681
+30=L692
+31=L703
+32=L714
+33=L725
+34=L736
+35=L747
+36=L758
+37=L769
+38=L780
+39=L791
+40=L802
+41=L813
+42=L824
+43=L835
+
+[switch3@L847]
+0=L849
+1=L867
+2=L885
+3=L903
+4=L921
+5=L939
+6=L957
+
+[switch4@L976]
+0=L978
+1=L989
+2=L1000
+3=L1011
+4=L1022

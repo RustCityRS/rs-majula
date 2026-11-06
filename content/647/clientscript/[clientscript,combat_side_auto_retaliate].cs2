@@ -1,0 +1,26 @@
+name=""
+local_int_count=1
+local_string_count=0
+local_long_count=0
+int_param_count=1
+string_param_count=0
+long_param_count=0
+
+L0: push_var option_nodef
+L1: branch_if_true L3
+L2: branch L10
+L3: push_constant_string "Auto Retaliate "
+L4: push_constant_string "<br>"
+L5: push_constant_string "(Off)"
+L6: join_string 3
+L7: push_int_local 0
+L8: if_settext 0
+L9: branch L16
+L10: push_constant_string "Auto Retaliate "
+L11: push_constant_string "<br>"
+L12: push_constant_string "(On)"
+L13: join_string 3
+L14: push_int_local 0
+L15: if_settext 0
+L16: return 0
+L17:

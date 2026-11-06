@@ -1,0 +1,30 @@
+name=""
+local_int_count=0
+local_string_count=0
+local_long_count=0
+int_param_count=0
+string_param_count=0
+long_param_count=0
+
+L0: push_varbit varbit_6673
+L1: branch_if_false L3
+L2: branch L11
+L3: push_constant_int 29
+L4: push_constant_string ""
+L5: push_constant_int 50266122
+L6: if_setonop 0
+L7: push_constant_int 1
+L8: push_constant_int 50266166
+L9: if_sethide 0
+L10: branch L20
+L11: push_constant_int -1
+L12: push_constant_string ""
+L13: push_constant_int 50266122
+L14: if_setonop 0
+L15: push_constant_int 0
+L16: push_constant_int 50266166
+L17: if_sethide 0
+L18: push_constant_int 50266167
+L19: gosub_with_params [proc,v2_stone_button]
+L20: return 0
+L21:

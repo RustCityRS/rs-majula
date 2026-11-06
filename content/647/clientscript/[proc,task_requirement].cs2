@@ -1,0 +1,262 @@
+name=""
+local_int_count=11
+local_string_count=1
+local_long_count=0
+int_param_count=4
+string_param_count=0
+long_param_count=0
+
+L0: push_constant_int 105
+L1: push_constant_int 74
+L2: push_constant_int 3483
+L3: push_int_local 1
+L4: enum 0
+L5: pop_int_local 4
+L6: push_constant_int 0
+L7: pop_int_local 5
+L8: push_constant_int 0
+L9: pop_int_local 6
+L10: push_constant_int -1
+L11: pop_int_local 7
+L12: push_constant_int 0
+L13: pop_int_local 8
+L14: push_constant_string ""
+L15: pop_string_local 0
+L16: push_constant_int -1
+L17: pop_int_local 9
+L18: push_int_local 2
+L19: switch switch0
+L20: branch L110
+L21: push_int_local 4
+L22: push_constant_int 1294
+L23: struct_param_4500 0
+L24: pop_int_local 5
+L25: push_int_local 4
+L26: push_constant_int 1295
+L27: struct_param_4500 0
+L28: pop_int_local 6
+L29: branch L110
+L30: push_int_local 4
+L31: push_constant_int 1296
+L32: struct_param_4500 0
+L33: pop_int_local 5
+L34: push_int_local 4
+L35: push_constant_int 1297
+L36: struct_param_4500 0
+L37: pop_int_local 6
+L38: branch L110
+L39: push_int_local 4
+L40: push_constant_int 1298
+L41: struct_param_4500 0
+L42: pop_int_local 5
+L43: push_int_local 4
+L44: push_constant_int 1299
+L45: struct_param_4500 0
+L46: pop_int_local 6
+L47: branch L110
+L48: push_int_local 4
+L49: push_constant_int 1300
+L50: struct_param_4500 0
+L51: pop_int_local 5
+L52: push_int_local 4
+L53: push_constant_int 1301
+L54: struct_param_4500 0
+L55: pop_int_local 6
+L56: branch L110
+L57: push_int_local 4
+L58: push_constant_int 1302
+L59: struct_param_4500 0
+L60: pop_int_local 5
+L61: push_int_local 4
+L62: push_constant_int 1303
+L63: struct_param_4500 0
+L64: pop_int_local 6
+L65: branch L110
+L66: push_int_local 4
+L67: push_constant_int 1304
+L68: struct_param_4500 0
+L69: pop_int_local 5
+L70: push_int_local 4
+L71: push_constant_int 1305
+L72: struct_param_4500 0
+L73: pop_int_local 6
+L74: branch L110
+L75: push_int_local 4
+L76: push_constant_int 1306
+L77: struct_param_4500 0
+L78: pop_int_local 5
+L79: push_int_local 4
+L80: push_constant_int 1307
+L81: struct_param_4500 0
+L82: pop_int_local 6
+L83: branch L110
+L84: push_int_local 4
+L85: push_constant_int 1308
+L86: struct_param_4500 0
+L87: pop_int_local 5
+L88: push_int_local 4
+L89: push_constant_int 1309
+L90: struct_param_4500 0
+L91: pop_int_local 6
+L92: branch L110
+L93: push_int_local 4
+L94: push_constant_int 1310
+L95: struct_param_4500 0
+L96: pop_int_local 5
+L97: push_int_local 4
+L98: push_constant_int 1311
+L99: struct_param_4500 0
+L100: pop_int_local 6
+L101: branch L110
+L102: push_int_local 4
+L103: push_constant_int 1312
+L104: struct_param_4500 0
+L105: pop_int_local 5
+L106: push_int_local 4
+L107: push_constant_int 1313
+L108: struct_param_4500 0
+L109: pop_int_local 6
+L110: push_int_local 5
+L111: branch_if_false L113
+L112: branch L116
+L113: push_int_local 0
+L114: return 0
+L115: branch L185
+L116: push_int_local 5
+L117: push_constant_int 62
+L118: branch_less_than L120
+L119: branch L152
+L120: push_constant_int 105
+L121: push_constant_int 83
+L122: push_constant_int 681
+L123: push_int_local 5
+L124: enum 0
+L125: pop_int_local 7
+L126: push_int_local 7
+L127: push_constant_int -1
+L128: branch_not L130
+L129: branch L151
+L130: push_constant_string "This Task requires "
+L131: push_int_local 6
+L132: tostring 0
+L133: push_constant_string " "
+L134: push_constant_int 105
+L135: push_constant_int 115
+L136: push_constant_int 108
+L137: push_int_local 5
+L138: enum 0
+L139: push_constant_string "."
+L140: join_string 5
+L141: pop_string_local 0
+L142: push_int_local 7
+L143: stat 0
+L144: push_int_local 6
+L145: branch_greater_than_or_equals L147
+L146: branch L151
+L147: push_constant_string "<str>"
+L148: push_string_local 0
+L149: append 0
+L150: pop_string_local 0
+L151: branch L185
+L152: push_int_local 5
+L153: push_constant_int 62
+L154: branch_equals L156
+L155: branch L179
+L156: push_constant_int 105
+L157: push_constant_int 74
+L158: push_constant_int 2252
+L159: push_int_local 6
+L160: enum 0
+L161: pop_int_local 9
+L162: push_constant_string "To complete this Task, you must complete the "
+L163: push_int_local 9
+L164: push_constant_int 845
+L165: struct_param_4500 0
+L166: push_constant_string " quest."
+L167: join_string 3
+L168: pop_string_local 0
+L169: push_int_local 6
+L170: gosub_with_params clientscript_2193
+L171: push_constant_int 2
+L172: branch_equals L174
+L173: branch L178
+L174: push_constant_string "<str>"
+L175: push_string_local 0
+L176: append 0
+L177: pop_string_local 0
+L178: branch L185
+L179: push_int_local 1
+L180: push_int_local 2
+L181: push_constant_int 1
+L182: add 0
+L183: gosub_with_params clientscript_3223
+L184: pop_string_local 0
+L185: push_constant_int 0
+L186: pop_int_local 10
+L187: push_string_local 0
+L188: push_constant_string ""
+L189: compare 0
+L190: push_constant_int 0
+L191: branch_not L193
+L192: branch L233
+L193: push_constant_int 0
+L194: push_int_local 3
+L195: if_sethide 0
+L196: push_string_local 0
+L197: push_int_local 3
+L198: if_settext 0
+L199: push_constant_int 495
+L200: push_int_local 3
+L201: if_settextfont 0
+L202: push_constant_int 0
+L203: push_constant_int 1
+L204: push_constant_int 0
+L205: push_int_local 3
+L206: if_settextalign 0
+L207: push_int_local 3
+L208: if_getlayer 0
+L209: if_getwidth 0
+L210: push_constant_int 18
+L211: sub 0
+L212: pop_int_local 10
+L213: push_constant_int 15
+L214: push_string_local 0
+L215: push_int_local 10
+L216: push_constant_int 495
+L217: paraheight 0
+L218: multiply 0
+L219: pop_int_local 8
+L220: push_int_local 10
+L221: push_int_local 8
+L222: push_constant_int 0
+L223: push_constant_int 0
+L224: push_int_local 3
+L225: if_setsize 0
+L226: push_constant_int 9
+L227: push_int_local 0
+L228: push_constant_int 0
+L229: push_constant_int 0
+L230: push_int_local 3
+L231: if_setposition 0
+L232: branch L235
+L233: push_constant_int 0
+L234: pop_int_local 8
+L235: push_int_local 0
+L236: push_int_local 8
+L237: add 0
+L238: return 0
+L239: push_constant_int 0
+L240: return 0
+L241:
+
+[switch0@L19]
+0=L21
+1=L30
+2=L39
+3=L48
+4=L57
+5=L66
+6=L75
+7=L84
+8=L93
+9=L102

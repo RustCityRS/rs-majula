@@ -1,8 +1,0 @@
-[clientscript,script_52](int $int0, int $int1, int $int2, int $int3, int $int4)
-if (cc_find($int3, $int4) = 1) {
-    if (stat_base(prayer) < $int0) {
-        cc_setgraphic($int1);
-    }
-    cc_setgraphic($int2);
-}
-return;

@@ -1,0 +1,107 @@
+name=""
+local_int_count=7
+local_string_count=9
+local_long_count=0
+int_param_count=6
+string_param_count=9
+long_param_count=0
+
+L0: push_int_local 2
+L1: push_constant_int -1
+L2: branch_equals L4
+L3: branch L21
+L4: push_int_local 0
+L5: push_int_local 1
+L6: push_int_local 3
+L7: push_int_local 1
+L8: push_int_local 4
+L9: push_int_local 5
+L10: push_string_local 0
+L11: push_string_local 1
+L12: push_string_local 2
+L13: push_string_local 3
+L14: push_string_local 4
+L15: push_string_local 5
+L16: push_string_local 6
+L17: push_string_local 7
+L18: push_string_local 8
+L19: gosub_with_params [proc,interface_inv_draw_slot_big]
+L20: return 0
+L21: push_int_local 1
+L22: pop_int_local 6
+L23: push_int_local 6
+L24: push_int_local 2
+L25: branch_not L27
+L26: branch L81
+L27: push_int_local 6
+L28: push_int_local 2
+L29: branch_greater_than L31
+L30: branch L54
+L31: push_int_local 0
+L32: push_int_local 6
+L33: push_constant_int 1
+L34: sub 0
+L35: push_int_local 3
+L36: push_int_local 6
+L37: push_int_local 4
+L38: push_int_local 5
+L39: push_string_local 0
+L40: push_string_local 1
+L41: push_string_local 2
+L42: push_string_local 3
+L43: push_string_local 4
+L44: push_string_local 5
+L45: push_string_local 6
+L46: push_string_local 7
+L47: push_string_local 8
+L48: gosub_with_params [proc,interface_inv_draw_slot_big]
+L49: push_int_local 6
+L50: push_constant_int 1
+L51: sub 0
+L52: pop_int_local 6
+L53: branch L80
+L54: push_int_local 6
+L55: push_int_local 2
+L56: branch_less_than L58
+L57: branch L80
+L58: push_int_local 0
+L59: push_int_local 6
+L60: push_constant_int 1
+L61: add 0
+L62: push_int_local 3
+L63: push_int_local 6
+L64: push_int_local 4
+L65: push_int_local 5
+L66: push_string_local 0
+L67: push_string_local 1
+L68: push_string_local 2
+L69: push_string_local 3
+L70: push_string_local 4
+L71: push_string_local 5
+L72: push_string_local 6
+L73: push_string_local 7
+L74: push_string_local 8
+L75: gosub_with_params [proc,interface_inv_draw_slot_big]
+L76: push_int_local 6
+L77: push_constant_int 1
+L78: add 0
+L79: pop_int_local 6
+L80: branch L23
+L81: push_int_local 0
+L82: push_int_local 1
+L83: push_int_local 3
+L84: push_int_local 2
+L85: push_int_local 4
+L86: push_int_local 5
+L87: push_string_local 0
+L88: push_string_local 1
+L89: push_string_local 2
+L90: push_string_local 3
+L91: push_string_local 4
+L92: push_string_local 5
+L93: push_string_local 6
+L94: push_string_local 7
+L95: push_string_local 8
+L96: gosub_with_params [proc,interface_inv_draw_slot_big]
+L97: return 0
+L98:

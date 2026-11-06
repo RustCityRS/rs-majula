@@ -10,8 +10,6 @@ use crate::config_crc;
 use crate::pack::js5::{PreparedGroup, insert_archive, load_name_hashes};
 #[cfg(before_647)]
 use crate::pack::pack::collect_if_files;
-#[cfg(since_647)]
-use crate::pack::pack_registry::PackFile;
 #[cfg(before_647)]
 use crate::pack::pack_registry::{PackRegistry, PackedFile};
 use crate::pack::packed_data::PackedData;
@@ -30,8 +28,6 @@ use std::collections::BTreeMap;
 use std::collections::HashMap;
 use std::fs;
 use std::path::Path;
-#[cfg(since_647)]
-use std::path::PathBuf;
 #[cfg(before_647)]
 use std::str::FromStr;
 #[cfg(before_647)]
@@ -789,66 +785,17 @@ pub fn pack_archive(
 ) -> Result<()> {
     let aid = archive::INTERFACES;
     let format = archive::archive_format(aid).unwrap();
-    let if_dir = content_dir.join("interfaces").join("_unpack");
-
-    let iface_pack =
-        PackFile::load(&pack_dir.join("interface.pack")).unwrap_or_else(|_| PackFile::empty());
-
-    let comp_name_maps: HashMap<u32, HashMap<String, u32>> = {
-        let mut maps: HashMap<u32, HashMap<String, u32>> = HashMap::new();
-        let pack_path = pack_dir.join("interface.pack");
-        if let Ok(text) = fs::read_to_string(&pack_path) {
-            for line in text.lines() {
-                let line = line.trim();
-                if line.is_empty() {
-                    continue;
-                }
-                let Some((id_str, name)) = line.split_once('=') else {
-                    continue;
-                };
-                let Some((gid_str, cid_str)) = id_str.split_once(':') else {
-                    continue;
-                };
-                let Ok(gid) = gid_str.parse::<u32>() else {
-                    continue;
-                };
-                let Ok(cid) = cid_str.parse::<u32>() else {
-                    continue;
-                };
-                maps.entry(gid)
-                    .or_default()
-                    .insert(name.trim().to_string(), cid);
-            }
-        }
-        maps
-    };
-
-    let mut if_files: Vec<(u32, PathBuf)> = Vec::new();
-    if if_dir.is_dir() {
-        for entry in fs::read_dir(&if_dir)? {
-            let entry = entry?;
-            let path = entry.path();
-            if path.extension().and_then(|e| e.to_str()) != Some("if") {
-                continue;
-            }
-            let stem = path.file_stem().and_then(|s| s.to_str()).unwrap_or("");
-            if let Ok(gid) = stem.parse::<u32>() {
-                if_files.push((gid, path));
-            } else if let Some(gid) = iface_pack.get_by_debugname(stem) {
-                if_files.push((gid, path));
-            }
-        }
-    }
-    if_files.sort_by_key(|(gid, _)| *gid);
+    let if_dir = content_dir.join("interfaces");
+    let names = crate::pack::names::AssetNames::load(pack_dir)?;
+    let if_files = names.files(&if_dir, "interface", &["if"])?;
     let gids: Vec<_> = if_files.iter().map(|(gid, _)| *gid).collect();
     let name_hashes = load_name_hashes(pack_dir, aid, &gids);
 
     let prepared: BTreeMap<u32, PreparedGroup> = if_files
         .par_iter()
         .map(|(gid, path)| {
-            let text = fs::read_to_string(path).unwrap();
-            let names = comp_name_maps.get(gid);
-            let components = parse_interface_text(&text, names);
+            let text = references::convert(&fs::read_to_string(path)?, *gid, &names, false)?;
+            let components = parse_interface_text(&text, None);
             let mut file_entries: Vec<(u32, Vec<u8>)> = components
                 .iter()
                 .map(|(id, comp)| (*id, encode_component(comp)))
@@ -860,6 +807,7 @@ pub fn pack_archive(
                 .collect();
             let data = encode_group_entries(&refs);
             let mut group = PreparedGroup::new(aid, *gid, &data, versions)?;
+            group.set_files(file_entries.iter().map(|(id, _)| *id));
             group.name_hash = name_hashes.get(gid).copied().unwrap_or(-1);
             Ok((*gid, group))
         })
@@ -1348,3 +1296,5 @@ fn parse_hook_text(val: &str) -> Option<Vec<HookArg>> {
 
     if args.is_empty() { None } else { Some(args) }
 }
+#[cfg(since_647)]
+pub mod references;

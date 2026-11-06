@@ -1,0 +1,124 @@
+name=""
+local_int_count=7
+local_string_count=0
+local_long_count=0
+int_param_count=1
+string_param_count=0
+long_param_count=0
+
+L0: push_constant_int -1
+L1: pop_int_local 1
+L2: push_constant_int -1
+L3: pop_int_local 2
+L4: push_constant_int -1
+L5: pop_int_local 3
+L6: push_constant_int -1
+L7: pop_int_local 4
+L8: push_constant_int -1
+L9: pop_int_local 5
+L10: push_constant_int -1
+L11: pop_int_local 6
+L12: gosub_with_params clientscript_4590
+L13: pop_int_local 6
+L14: pop_int_local 5
+L15: pop_int_local 4
+L16: pop_int_local 3
+L17: pop_int_local 2
+L18: pop_int_local 1
+L19: push_int_local 0
+L20: branch_if_true L22
+L21: branch L26
+L22: push_constant_int 0
+L23: push_constant_string ""
+L24: gosub_with_params [proc,quickchat_open]
+L25: branch L114
+L26: push_int_local 0
+L27: push_constant_int 2
+L28: branch_equals L30
+L29: branch L49
+L30: clan_getchatsize 0
+L31: push_constant_int 0
+L32: branch_greater_than L34
+L33: branch L38
+L34: push_constant_int 2
+L35: push_constant_string ""
+L36: gosub_with_params [proc,quickchat_open]
+L37: branch L48
+L38: push_constant_int 0
+L39: pop_varc_int varc_int_41
+L40: push_constant_int 0
+L41: gosub_with_params [proc,chat_alert_reset]
+L42: gosub_with_params [proc,redraw_chat_buttons]
+L43: gosub_with_params [proc,rebuildchatbox]
+L44: gosub_with_params [proc,rebuildpmbox]
+L45: push_constant_string "You aren't in a Friends Chat channel."
+L46: mes 0
+L47: return 0
+L48: branch L114
+L49: push_int_local 0
+L50: push_constant_int 3
+L51: branch_equals L53
+L52: branch L82
+L53: push_int_local 1
+L54: push_constant_int 0
+L55: branch_greater_than_or_equals L57
+L56: branch L71
+L57: push_int_local 2
+L58: push_int_local 3
+L59: branch_greater_than_or_equals L61
+L60: branch L65
+L61: push_constant_int 8
+L62: push_constant_string ""
+L63: gosub_with_params [proc,quickchat_open]
+L64: branch L70
+L65: push_constant_int 43
+L66: push_constant_int 0
+L67: push_constant_string "Your rank is not high enough to chat in the Clan Chat."
+L68: tutorial_openchat 0
+L69: return 0
+L70: branch L81
+L71: push_constant_int 0
+L72: pop_varc_int varc_int_41
+L73: push_constant_int 0
+L74: gosub_with_params [proc,chat_alert_reset]
+L75: gosub_with_params [proc,redraw_chat_buttons]
+L76: gosub_with_params [proc,rebuildchatbox]
+L77: gosub_with_params [proc,rebuildpmbox]
+L78: push_constant_string "You aren't in a Clan Chat channel."
+L79: mes 0
+L80: return 0
+L81: branch L114
+L82: push_int_local 0
+L83: push_constant_int 4
+L84: branch_equals L86
+L85: branch L114
+L86: push_int_local 4
+L87: push_constant_int 0
+L88: branch_greater_than_or_equals L90
+L89: branch L104
+L90: push_int_local 5
+L91: push_int_local 6
+L92: branch_greater_than_or_equals L94
+L93: branch L98
+L94: push_constant_int 10
+L95: push_constant_string ""
+L96: gosub_with_params [proc,quickchat_open]
+L97: branch L103
+L98: push_constant_int 43
+L99: push_constant_int 0
+L100: push_constant_string "Guests cannot chat in this visited Clan channel."
+L101: tutorial_openchat 0
+L102: return 0
+L103: branch L114
+L104: push_constant_int 0
+L105: pop_varc_int varc_int_41
+L106: push_constant_int 0
+L107: gosub_with_params [proc,chat_alert_reset]
+L108: gosub_with_params [proc,redraw_chat_buttons]
+L109: gosub_with_params [proc,rebuildchatbox]
+L110: gosub_with_params [proc,rebuildpmbox]
+L111: push_constant_string "You aren't a guest in a Clan Chat channel."
+L112: mes 0
+L113: return 0
+L114: return 0
+L115:

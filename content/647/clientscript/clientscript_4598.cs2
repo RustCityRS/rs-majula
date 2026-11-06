@@ -1,0 +1,168 @@
+name=""
+local_int_count=2
+local_string_count=1
+local_long_count=0
+int_param_count=1
+string_param_count=0
+long_param_count=0
+
+L0: push_constant_int 1048596
+L1: cc_deleteall_152 0
+L2: push_constant_int 1048596
+L3: gosub_with_params clientscript_4534
+L4: push_constant_int 1048615
+L5: cc_deleteall_152 0
+L6: push_constant_int 1048615
+L7: gosub_with_params clientscript_4534
+L8: push_constant_int 1048635
+L9: cc_deleteall_152 0
+L10: push_constant_int 1048635
+L11: gosub_with_params clientscript_4535
+L12: push_constant_int 1048584
+L13: push_constant_int 1746
+L14: gosub_with_params clientscript_4513
+L15: push_constant_int 1048644
+L16: push_constant_int 1736
+L17: gosub_with_params clientscript_4510
+L18: push_constant_int 1048645
+L19: push_constant_int 1737
+L20: gosub_with_params clientscript_4510
+L21: push_constant_int 1048578
+L22: gosub_with_params clientscript_4530
+L23: push_constant_int 1048648
+L24: gosub_with_params clientscript_4531
+L25: push_constant_int 1048650
+L26: gosub_with_params clientscript_4532
+L27: push_constant_int 1048653
+L28: gosub_with_params clientscript_4530
+L29: push_constant_int 1048657
+L30: gosub_with_params clientscript_4531
+L31: push_constant_int 11694
+L32: push_constant_int 1
+L33: push_constant_string "A beautiful, heavy sword."
+L34: push_constant_int 1048590
+L35: gosub_with_params clientscript_4599
+L36: push_constant_int 20151
+L37: push_constant_int 1
+L38: push_constant_string "An ancient ranger's body armour."
+L39: push_constant_int 1048591
+L40: gosub_with_params clientscript_4599
+L41: push_constant_int 20167
+L42: push_constant_int 1
+L43: push_constant_string "An ancient mage's robe legs."
+L44: push_constant_int 1048592
+L45: gosub_with_params clientscript_4599
+L46: push_constant_int 2667
+L47: push_constant_int 1
+L48: push_constant_string "A rune kiteshield in the colours of Saradomin."
+L49: push_constant_int 1048607
+L50: gosub_with_params clientscript_4599
+L51: push_constant_int 4587
+L52: push_constant_int 1
+L53: push_constant_string "A vicious, curved sword."
+L54: push_constant_int 1048608
+L55: gosub_with_params clientscript_4599
+L56: push_constant_int 1955
+L57: push_constant_int 1
+L58: push_constant_string "Keeps the doctor away."
+L59: push_constant_int 1048609
+L60: gosub_with_params clientscript_4599
+L61: push_constant_int 11235
+L62: push_constant_int 1
+L63: push_constant_string "A bow from a darker dimension."
+L64: push_constant_int 1048610
+L65: gosub_with_params clientscript_4599
+L66: push_constant_int 560
+L67: push_constant_int 1337
+L68: push_constant_string "Used for medium level missile spells."
+L69: push_constant_int 1048611
+L70: gosub_with_params clientscript_4599
+L71: push_constant_int 4151
+L72: push_constant_int 1
+L73: push_constant_string "A weapon from the Abyss."
+L74: push_constant_int 1048612
+L75: gosub_with_params clientscript_4599
+L76: push_constant_int 995
+L77: push_constant_int 6969
+L78: push_constant_string "Lovely money!"
+L79: push_constant_int 1048624
+L80: gosub_with_params clientscript_4599
+L81: push_constant_int 11279
+L82: push_constant_int 1
+L83: push_constant_string "The severed head of the great dragon Elvarg!"
+L84: push_constant_int 1048625
+L85: gosub_with_params clientscript_4599
+L86: push_constant_int 2347
+L87: push_constant_int 1
+L88: push_constant_string "Good for hitting things!"
+L89: push_constant_int 1048626
+L90: gosub_with_params clientscript_4599
+L91: push_constant_int 14090
+L92: push_constant_int 1
+L93: push_constant_string "This cat definitely likes you."
+L94: push_constant_int 1048627
+L95: gosub_with_params clientscript_4599
+L96: push_constant_int 105
+L97: push_constant_int 115
+L98: push_constant_int 3796
+L99: push_constant_int 0
+L100: enum 0
+L101: pop_string_local 0
+L102: push_string_local 0
+L103: push_constant_int 1048639
+L104: if_settext 0
+L105: push_constant_int 1048634
+L106: if_gettext 0
+L107: push_constant_int 494
+L108: char_isnumeric 0
+L109: push_string_local 0
+L110: push_constant_int 494
+L111: char_isnumeric 0
+L112: max 0
+L113: push_constant_int 26
+L114: add 0
+L115: pop_int_local 1
+L116: push_int_local 1
+L117: push_constant_int 1048628
+L118: if_getheight 0
+L119: push_constant_int 0
+L120: push_constant_int 0
+L121: push_constant_int 1048628
+L122: if_setsize 0
+L123: push_int_local 1
+L124: push_constant_int 1048635
+L125: if_getheight 0
+L126: push_constant_int 0
+L127: push_constant_int 0
+L128: push_constant_int 1048635
+L129: if_setsize 0
+L130: push_int_local 1
+L131: push_constant_int 1
+L132: add 0
+L133: push_constant_int 1048579
+L134: if_getwidth 0
+L135: push_constant_int 1048580
+L136: if_getwidth 0
+L137: sub 0
+L138: push_constant_int 2
+L139: div 0
+L140: sub 0
+L141: push_constant_int 0
+L142: max 0
+L143: push_constant_int 0
+L144: push_constant_int 1
+L145: push_constant_int 0
+L146: push_constant_int 1048580
+L147: if_setposition 0
+L148: push_constant_int 4601
+L149: push_int_local 0
+L150: push_constant_int 1514
+L151: push_constant_int 1
+L152: push_constant_string "IY"
+L153: push_int_local 0
+L154: if_setonvarctransmit 0
+L155: push_varc_int varc_int_1514
+L156: push_int_local 0
+L157: gosub_with_params clientscript_4602
+L158: return 0
+L159:

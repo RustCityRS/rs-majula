@@ -1,0 +1,164 @@
+name=""
+local_int_count=5
+local_string_count=0
+local_long_count=0
+int_param_count=1
+string_param_count=0
+long_param_count=0
+
+L0: push_int_local 0
+L1: pop_int_local 1
+L2: push_int_local 0
+L3: push_constant_int 105
+L4: branch_equals L6
+L5: branch L18
+L6: push_varbit varbit_7774
+L7: push_constant_int 0
+L8: branch_not L10
+L9: branch L13
+L10: push_constant_int 1021
+L11: pop_int_local 0
+L12: branch L18
+L13: push_var varp_394
+L14: branch_if_false L16
+L15: branch L18
+L16: push_constant_int 561
+L17: pop_int_local 0
+L18: push_int_local 0
+L19: quickchat_phrase_init 0
+L20: push_constant_int 0
+L21: pop_int_local 2
+L22: push_int_local 0
+L23: quickchat_phrase_getcmdcount 0
+L24: pop_int_local 3
+L25: push_constant_int -1
+L26: pop_int_local 4
+L27: push_int_local 2
+L28: push_int_local 3
+L29: branch_less_than L31
+L30: branch L56
+L31: push_int_local 2
+L32: push_constant_int 10
+L33: branch_less_than L35
+L34: branch L56
+L35: push_int_local 0
+L36: push_int_local 2
+L37: quickchat_phrase_getcmdid 0
+L38: switch switch0
+L39: branch L51
+L40: push_int_local 2
+L41: gosub_with_params [proc,quickchat_phrase_setint]
+L42: branch L51
+L43: push_int_local 2
+L44: gosub_with_params [proc,quickchat_phrase_setobj]
+L45: branch L51
+L46: push_int_local 2
+L47: gosub_with_params [proc,quickchat_phrase_setobj]
+L48: branch L51
+L49: push_int_local 2
+L50: gosub_with_params [proc,quickchat_phrase_setint]
+L51: push_int_local 2
+L52: push_constant_int 1
+L53: add 0
+L54: pop_int_local 2
+L55: branch L27
+L56: push_varc_int varc_int_126
+L57: branch_if_false L62
+L58: push_varc_int varc_int_126
+L59: push_constant_int 4
+L60: branch_equals L62
+L61: branch L64
+L62: quickchat_sendpublic 0
+L63: branch L141
+L64: push_varc_int varc_int_126
+L65: branch_if_true L67
+L66: branch L88
+L67: push_varc_string_old varc_string_27
+L68: gosub_with_params [proc,quickchat_friend_status]
+L69: pop_int_local 4
+L70: push_int_local 4
+L71: branch_if_true L73
+L72: branch L78
+L73: push_varc_string_old varc_string_27
+L74: removetags 0
+L75: quickchat_sendprivate 0
+L76: gosub_with_params clientscript_1089
+L77: branch L87
+L78: push_int_local 4
+L79: push_constant_int -1
+L80: branch_equals L82
+L81: branch L85
+L82: push_constant_string "Sorry, this user is not on your Friends List."
+L83: mes 0
+L84: branch L87
+L85: push_constant_string "Sorry, your friend is no longer playing RuneScape."
+L86: mes 0
+L87: branch L141
+L88: push_varc_int varc_int_126
+L89: push_constant_int 5
+L90: branch_equals L92
+L91: branch L97
+L92: push_varc_string_old varc_string_27
+L93: removetags 0
+L94: quickchat_sendprivate 0
+L95: gosub_with_params clientscript_1089
+L96: branch L141
+L97: push_varc_int varc_int_126
+L98: push_constant_int 3
+L99: branch_equals L104
+L100: push_varc_int varc_int_126
+L101: push_constant_int 7
+L102: branch_equals L104
+L103: branch L109
+L104: push_varc_string_old varc_string_27
+L105: removetags 0
+L106: quickchat_sendprivate 0
+L107: gosub_with_params clientscript_1089
+L108: branch L141
+L109: push_varc_int varc_int_126
+L110: push_constant_int 2
+L111: branch_equals L116
+L112: push_varc_int varc_int_126
+L113: push_constant_int 6
+L114: branch_equals L116
+L115: branch L118
+L116: quickchat_sendfriendsonly 0
+L117: branch L141
+L118: push_varc_int varc_int_126
+L119: push_constant_int 8
+L120: branch_equals L125
+L121: push_varc_int varc_int_126
+L122: push_constant_int 9
+L123: branch_equals L125
+L124: branch L130
+L125: clanchannel2_find_affined 0
+L126: branch_if_true L128
+L127: branch L129
+L128: quickchat_sendclan_5074 0
+L129: branch L141
+L130: push_varc_int varc_int_126
+L131: push_constant_int 10
+L132: branch_equals L137
+L133: push_varc_int varc_int_126
+L134: push_constant_int 11
+L135: branch_equals L137
+L136: branch L141
+L137: clanchannel2_find 0
+L138: branch_if_true L140
+L139: branch L141
+L140: quickchat_sendclan_5075 0
+L141: push_int_local 1
+L142: pop_varc_int varc_int_130
+L143: push_varc_int varc_int_126
+L144: pop_varc_int varc_int_131
+L145: push_varc_string_old varc_string_27
+L146: pop_varc_string_old varc_string_28
+L147: gosub_with_params [proc,quickchat_close]
+L148: return 0
+L149:
+
+[switch0@L38]
+0=L40
+1=L43
+10=L46
+2=L49

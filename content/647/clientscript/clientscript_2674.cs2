@@ -1,0 +1,98 @@
+name=""
+local_int_count=1
+local_string_count=0
+local_long_count=0
+int_param_count=1
+string_param_count=0
+long_param_count=0
+
+L0: push_int_local 0
+L1: push_constant_int 0
+L2: branch_not L4
+L3: branch L8
+L4: push_constant_int 2034
+L5: push_constant_int 57671687
+L6: if_setgraphic 0
+L7: branch L11
+L8: push_constant_int 2035
+L9: push_constant_int 57671687
+L10: if_setgraphic 0
+L11: push_int_local 0
+L12: push_constant_int 1
+L13: branch_not L15
+L14: branch L19
+L15: push_constant_int 2034
+L16: push_constant_int 57671689
+L17: if_setgraphic 0
+L18: branch L22
+L19: push_constant_int 2035
+L20: push_constant_int 57671689
+L21: if_setgraphic 0
+L22: push_int_local 0
+L23: push_constant_int 2
+L24: branch_not L26
+L25: branch L30
+L26: push_constant_int 2034
+L27: push_constant_int 57671691
+L28: if_setgraphic 0
+L29: branch L33
+L30: push_constant_int 2035
+L31: push_constant_int 57671691
+L32: if_setgraphic 0
+L33: push_int_local 0
+L34: push_constant_int 3
+L35: branch_not L37
+L36: branch L41
+L37: push_constant_int 2034
+L38: push_constant_int 57671693
+L39: if_setgraphic 0
+L40: branch L44
+L41: push_constant_int 2035
+L42: push_constant_int 57671693
+L43: if_setgraphic 0
+L44: push_int_local 0
+L45: push_constant_int 4
+L46: branch_not L48
+L47: branch L52
+L48: push_constant_int 2034
+L49: push_constant_int 57671695
+L50: if_setgraphic 0
+L51: branch L55
+L52: push_constant_int 2035
+L53: push_constant_int 57671695
+L54: if_setgraphic 0
+L55: push_int_local 0
+L56: push_constant_int 5
+L57: branch_not L59
+L58: branch L63
+L59: push_constant_int 2034
+L60: push_constant_int 57671697
+L61: if_setgraphic 0
+L62: branch L66
+L63: push_constant_int 2035
+L64: push_constant_int 57671697
+L65: if_setgraphic 0
+L66: push_int_local 0
+L67: push_constant_int 6
+L68: branch_not L70
+L69: branch L74
+L70: push_constant_int 2034
+L71: push_constant_int 57671699
+L72: if_setgraphic 0
+L73: branch L77
+L74: push_constant_int 2035
+L75: push_constant_int 57671699
+L76: if_setgraphic 0
+L77: push_int_local 0
+L78: push_constant_int 7
+L79: branch_not L81
+L80: branch L85
+L81: push_constant_int 2034
+L82: push_constant_int 57671705
+L83: if_setgraphic 0
+L84: branch L88
+L85: push_constant_int 2035
+L86: push_constant_int 57671705
+L87: if_setgraphic 0
+L88: return 0
+L89:

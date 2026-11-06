@@ -1,0 +1,22 @@
+name=""
+local_int_count=1
+local_string_count=0
+local_long_count=0
+int_param_count=0
+string_param_count=0
+long_param_count=0
+
+L0: push_constant_int 94
+L1: push_constant_int 3
+L2: inv_getobj 0
+L3: push_constant_int 644
+L4: oc_weight 0
+L5: bas_getidle 0
+L6: pop_int_local 0
+L7: push_int_local 0
+L8: push_constant_int 35979346
+L9: if_setmodelanim 0
+L10: push_constant_int 35979346
+L11: if_setplayermodel_snapshot 0
+L12: return 0
+L13:

@@ -6,41 +6,29 @@ use crate::archive::{self, ArchiveVersions};
 use crate::cache::js5::PackedCache;
 #[cfg(since_647)]
 use crate::pack::js5::{PreparedGroup, insert_archive, load_name_hashes};
+#[cfg(since_647)]
+use crate::pack::names::{AssetNames, archive_name};
 #[cfg(before_647)]
 use crate::pack::util::{media, palette};
 #[cfg(before_647)]
 use crate::sheet::Parsed;
 #[cfg(since_647)]
-use anyhow::{Context, Result};
+use crate::{sheet, tga};
 #[cfg(since_647)]
-use png::{ColorType, Decoder, Info};
+use anyhow::{Context, Result, bail, ensure};
 #[cfg(since_647)]
 use rayon::prelude::*;
 #[cfg(before_647)]
 use rs_io::jag::JagFile;
 #[cfg(since_647)]
 use rs_io::js5::reference::FileInfo;
-#[cfg(since_647)]
-use rustc_hash::{FxHashMap, FxHashSet};
 use std::collections::HashMap;
 use std::fs;
-#[cfg(since_647)]
-use std::fs::File;
-#[cfg(since_647)]
-use std::io::BufReader;
-#[cfg(since_647)]
-use std::iter::once;
 #[cfg(before_647)]
 use std::mem::take;
 use std::path::Path;
-#[cfg(since_647)]
-use std::path::PathBuf;
-#[cfg(since_647)]
-use std::str::from_utf8;
 #[cfg(before_647)]
 use tracing::debug;
-#[cfg(since_647)]
-use tracing::info;
 
 #[cfg(before_647)]
 pub fn pack_media_jag(content_dir: &Path) -> Vec<u8> {
@@ -99,74 +87,34 @@ pub fn pack_archive(
     pack_dir: &Path,
     versions: &HashMap<u8, ArchiveVersions>,
 ) -> Result<()> {
+    let names = AssetNames::load(pack_dir)?;
     for &(aid, dir_name) in &[
         (archive::SPRITES, "sprites"),
         (archive::LOADING_SPRITES, "loading_sprites"),
         (archive::LOADING_SPRITES_RAW, "loading_sprites_raw"),
     ] {
         let format = archive::archive_format(aid).unwrap();
-        let unpack_dir = content_dir.join(dir_name).join("_unpack");
-
-        if !unpack_dir.is_dir() {
-            info!(
-                "  archive {:>2} ({}) -- no _unpack dir, skipping",
-                aid, dir_name
-            );
-            continue;
-        }
-
-        let mut group_ids: Vec<u32> = Vec::new();
-        if let Ok(entries) = fs::read_dir(&unpack_dir) {
-            for entry in entries.flatten() {
-                let path = entry.path();
-                if entry
-                    .file_type()
-                    .is_ok_and(|kind| kind.is_dir() || kind.is_symlink() && path.is_dir())
-                {
-                    if let Some(name) = path.file_name().and_then(|s| s.to_str()) {
-                        if let Ok(gid) = name.parse::<u32>() {
-                            group_ids.push(gid);
-                        }
-                    }
-                }
-            }
-        }
-        group_ids.sort();
-
-        if group_ids.is_empty() {
-            info!(
-                "  archive {:>2} ({}) -- no sprite groups found, skipping",
-                aid, dir_name
-            );
-            continue;
-        }
-
-        let name_hashes: HashMap<u32, i32> = if format.named {
-            load_name_hashes(pack_dir, aid, &group_ids)
-        } else {
-            HashMap::new()
-        };
-
-        let prepared: Vec<PreparedGroup> = group_ids
+        let files = names.files(
+            &content_dir.join(dir_name),
+            archive_name(aid),
+            &["sprite", "jpg"],
+        )?;
+        let ids: Vec<_> = files.iter().map(|(id, _)| *id).collect();
+        let hashes = load_name_hashes(pack_dir, aid, &ids);
+        let groups = files
             .par_iter()
-            .map(|&gid| -> Result<PreparedGroup> {
-                let group_dir = unpack_dir.join(gid.to_string());
-                let data = encode_sprite_group_from_dir(&group_dir)
-                    .with_context(|| format!("encoding sprite group {}", group_dir.display()))?
-                    .with_context(|| {
-                        format!("sprite group {} contains no images", group_dir.display())
-                    })?;
-                let mut group = PreparedGroup::new(aid, gid, &data, versions)?;
-                group.name_hash = name_hashes.get(&gid).copied().unwrap_or(-1);
+            .map(|(gid, path)| {
+                let data = encode_sprite_sheet(path).with_context(|| path.display().to_string())?;
+                let mut group = PreparedGroup::new(aid, *gid, &data, versions)?;
+                group.name_hash = hashes.get(gid).copied().unwrap_or(-1);
                 group.files = vec![FileInfo {
                     id: 0,
                     name_hash: None,
                 }];
                 Ok(group)
             })
-            .collect::<Result<_>>()?;
-
-        insert_archive(store, aid, format, versions, prepared, "PNG encode")?;
+            .collect::<Result<Vec<_>>>()?;
+        insert_archive(store, aid, format, versions, groups, "from TGA sheets")?;
     }
     Ok(())
 }
@@ -192,426 +140,116 @@ struct SpriteFrame {
     alphas: Option<Vec<u8>>,
 }
 
-/// Encode indexed PNG sprites or a raw JPEG group.
 #[cfg(since_647)]
-pub fn encode_sprite_group_from_dir(group_dir: &Path) -> Result<Option<Vec<u8>>> {
-    let jpg_path = group_dir.join("0.jpg");
-    if jpg_path.exists() {
-        return Ok(Some(fs::read(&jpg_path)?));
+pub fn encode_sprite_sheet(path: &Path) -> Result<Vec<u8>> {
+    if path.extension().is_some_and(|e| e == "jpg") {
+        return Ok(fs::read(path)?);
     }
-    match read_sprite_group(group_dir)? {
-        Some(group) => Ok(Some(encode_sprite_group_binary(&group))),
-        None => Ok(None),
-    }
-}
-
-#[cfg(since_647)]
-fn read_sprite_group(group_dir: &Path) -> Result<Option<SpriteGroup>> {
-    let mut png_files: Vec<(u32, PathBuf)> = Vec::new();
-    for entry in fs::read_dir(group_dir)? {
-        let entry = entry?;
-        let path = entry.path();
-        if path.extension().and_then(|e| e.to_str()) == Some("png") {
-            if let Some(stem) = path.file_stem().and_then(|s| s.to_str()) {
-                if let Ok(id) = stem.parse::<u32>() {
-                    png_files.push((id, path));
-                }
+    let text = fs::read_to_string(path)?;
+    let mut width = 0u16;
+    let mut height = 0u16;
+    let mut frames = Vec::new();
+    for line in text
+        .lines()
+        .map(str::trim)
+        .filter(|s| !s.is_empty() && !s.starts_with('#') && !s.starts_with("//"))
+    {
+        let (key, value) = line.split_once('=').context("Expected sprite key=value")?;
+        match key.trim() {
+            "width" => width = value.trim().parse()?,
+            "height" => height = value.trim().parse()?,
+            "frame" => {
+                let v: Vec<_> = value.split(',').map(str::trim).collect();
+                ensure!(
+                    v.len() == 6,
+                    "Expected frame=x,y,width,height,rows|columns,opaque|alpha"
+                );
+                ensure!(
+                    matches!(v[4], "rows" | "columns") && matches!(v[5], "opaque" | "alpha"),
+                    "Invalid sprite flags"
+                );
+                frames.push(SpriteFrame {
+                    left_padding: v[0].parse()?,
+                    top_padding: v[1].parse()?,
+                    width: v[2].parse()?,
+                    height: v[3].parse()?,
+                    row_major: v[4] == "columns",
+                    has_alpha: v[5] == "alpha",
+                    indices: Vec::new(),
+                    alphas: None,
+                });
             }
+            _ => bail!("Unknown sprite property: {key}"),
         }
     }
-    if png_files.is_empty() {
-        return Ok(None);
-    }
-    png_files.sort_by_key(|(id, _)| *id);
-
-    let (first_rgba, first_meta) = load_rgba_png_with_meta(&png_files[0].1)?;
-    let img_w = first_rgba.width;
-    let img_h = first_rgba.height;
-
-    let strip_rows = if first_meta.strip_rows > 0 {
-        first_meta.strip_rows
-    } else {
-        let mut sr = 0u32;
-        for y in (0..img_h).rev() {
-            let row_start = (y * img_w) as usize * 4;
-            let has_sentinel =
-                (0..img_w as usize).any(|x| first_rgba.data[row_start + x * 4 + 3] == 254);
-            if has_sentinel {
-                sr += 1;
-            } else {
-                break;
-            }
-        }
-        sr
-    };
-
-    let area_width = img_w as u16;
-    let area_height = (img_h - strip_rows) as u16;
-
-    let (palette, raw_palette) = if let Some(ref hex) = first_meta.palette_hex {
-        let mut raw: Vec<u32> = vec![0];
-        let mut display: Vec<u32> = vec![0];
-        for chunk in hex.as_bytes().chunks(6) {
-            if chunk.len() == 6 {
-                let s = from_utf8(chunk).unwrap_or("000000");
-                let rgb = u32::from_str_radix(s, 16).unwrap_or(0);
-                raw.push(rgb);
-                display.push(if rgb == 0 { 1 } else { rgb });
-            }
-        }
-        (display, raw)
-    } else if strip_rows > 0 {
-        let mut pal: Vec<u32> = vec![0];
-        for row in 0..strip_rows {
-            let y = (img_h - strip_rows + row) as usize;
-            for x in 0..img_w as usize {
-                let idx = (y * img_w as usize + x) * 4;
-                if first_rgba.data[idx + 3] == 254 {
-                    let r = first_rgba.data[idx] as u32;
-                    let g = first_rgba.data[idx + 1] as u32;
-                    let b = first_rgba.data[idx + 2] as u32;
-                    pal.push((r << 16) | (g << 8) | b);
-                }
-            }
-        }
-        (pal.clone(), pal)
-    } else {
-        let mut seen = FxHashSet::default();
-        seen.insert(0u32);
-        let mut pal: Vec<u32> = vec![0];
-        for (_, path) in &png_files {
-            let img = load_rgba_png(path)?;
-            for i in 0..(img.width * img.height) as usize {
-                let a = img.data[i * 4 + 3];
-                if a == 0 {
-                    continue;
-                }
-                let r = img.data[i * 4] as u32;
-                let g = img.data[i * 4 + 1] as u32;
-                let b = img.data[i * 4 + 2] as u32;
-                let rgb = (r << 16) | (g << 8) | b;
-                if seen.insert(rgb) {
-                    pal.push(rgb);
-                }
-            }
-        }
-        (pal.clone(), pal)
-    };
-
-    let color_map: FxHashMap<u32, u8> = palette
-        .iter()
-        .enumerate()
-        .skip(1)
-        .map(|(i, &c)| (c, i as u8))
-        .collect();
-
-    let mut sprites = Vec::with_capacity(png_files.len());
-    let images = once(Ok((first_rgba, first_meta))).chain(
-        png_files
-            .iter()
-            .skip(1)
-            .map(|(_, path)| load_rgba_png_with_meta(path)),
+    ensure!(
+        width > 0 && height > 0 && !frames.is_empty() && frames.len() <= u16::MAX as usize,
+        "Invalid sprite dimensions"
     );
-    for image in images {
-        let (img, sprite_meta) = image?;
-        let meta_has_alpha = sprite_meta.has_alpha;
-        let meta_row_major = sprite_meta.row_major;
-
-        let aw = area_width as usize;
-        let ah = area_height as usize;
-
-        let has_real_alpha = if let Some(ha) = meta_has_alpha {
-            ha
-        } else {
-            let mut detected = false;
-            for y in 0..ah {
-                for x in 0..aw {
-                    let idx = (y * img.width as usize + x) * 4;
-                    let a = img.data[idx + 3];
-                    if a == 254 {
-                        continue;
-                    }
-                    if a > 0 && a < 255 {
-                        detected = true;
-                        break;
-                    }
-                    if a == 0 {
-                        let r = img.data[idx] as u32;
-                        let g = img.data[idx + 1] as u32;
-                        let b = img.data[idx + 2] as u32;
-                        if (r << 16) | (g << 8) | b != 0 {
-                            detected = true;
-                            break;
-                        }
-                    }
-                }
-                if detected {
-                    break;
-                }
-            }
-            detected
-        };
-
-        let (left_pad, top_pad, content_w, content_h) = if let Some(crop) = sprite_meta.crop {
-            crop
-        } else {
-            let mut min_x = aw;
-            let mut min_y = ah;
-            let mut max_x = 0usize;
-            let mut max_y = 0usize;
-            let mut has_content = false;
-
-            for y in 0..ah {
-                for x in 0..aw {
-                    let idx = (y * img.width as usize + x) * 4;
-                    let a = img.data[idx + 3];
-                    if a > 0 && a != 254 {
-                        has_content = true;
-                        min_x = min_x.min(x);
-                        min_y = min_y.min(y);
-                        max_x = max_x.max(x);
-                        max_y = max_y.max(y);
-                    }
-                }
-            }
-
-            if has_content {
-                (
-                    min_x as u16,
-                    min_y as u16,
-                    (max_x - min_x + 1) as u16,
-                    (max_y - min_y + 1) as u16,
-                )
-            } else {
-                (0u16, 0u16, 0u16, 0u16)
-            }
-        };
-
-        let min_x = left_pad as usize;
-        let min_y = top_pad as usize;
-        let cw = content_w as usize;
-        let ch = content_h as usize;
-        let pixel_count = cw * ch;
-
-        let mut indices = vec![0u8; pixel_count];
-        let mut alphas = vec![0u8; pixel_count];
-
-        for y in 0..ch {
-            for x in 0..cw {
-                let src_x = min_x + x;
-                let src_y = min_y + y;
-                let src_idx = (src_y * img.width as usize + src_x) * 4;
-                let r = img.data[src_idx] as u32;
-                let g = img.data[src_idx + 1] as u32;
-                let b = img.data[src_idx + 2] as u32;
-                let a = img.data[src_idx + 3];
-
-                alphas[y * cw + x] = a;
-
-                if has_real_alpha && a == 0 {
-                    let rgb = (r << 16) | (g << 8) | b;
-                    indices[y * cw + x] = if rgb == 0 {
-                        0
-                    } else {
-                        color_map.get(&rgb).copied().unwrap_or(0)
-                    };
-                } else if has_real_alpha {
-                    let rgb = (r << 16) | (g << 8) | b;
-                    indices[y * cw + x] = color_map.get(&rgb).copied().unwrap_or(0);
-                } else if a == 0 {
-                    indices[y * cw + x] = 0;
-                } else {
-                    let rgb = (r << 16) | (g << 8) | b;
-                    indices[y * cw + x] = color_map.get(&rgb).copied().unwrap_or(0);
+    let image = tga::read(&path.with_extension("tga"));
+    let alpha = frames
+        .iter()
+        .any(|f| f.has_alpha)
+        .then(|| tga::read(&path.with_extension("alpha.tga")));
+    let (cols, rows) = sheet::grid(width as usize, height as usize, frames.len());
+    ensure!(
+        image.width == cols * width as usize && image.height == rows * height as usize,
+        "Sprite sheet dimensions do not match metadata"
+    );
+    ensure!(
+        (1..=256).contains(&(image.palette.len() / 3)),
+        "Sprite palette exceeds 256 colours"
+    );
+    if let Some(alpha) = &alpha {
+        ensure!(
+            alpha.width == image.width && alpha.height == image.height,
+            "Alpha sheet size mismatch"
+        );
+    }
+    for (i, frame) in frames.iter_mut().enumerate() {
+        ensure!(
+            frame.left_padding as usize + frame.width as usize <= width as usize
+                && frame.top_padding as usize + frame.height as usize <= height as usize,
+            "Sprite crop outside canvas"
+        );
+        let ox = i % cols * width as usize + frame.left_padding as usize;
+        let oy = i / cols * height as usize + frame.top_padding as usize;
+        let mut alphas = Vec::new();
+        for y in 0..frame.height as usize {
+            let start = (oy + y) * image.width + ox;
+            frame
+                .indices
+                .extend_from_slice(&image.pixels[start..start + frame.width as usize]);
+            if frame.has_alpha {
+                let alpha = alpha.as_ref().unwrap();
+                for index in &alpha.pixels[start..start + frame.width as usize] {
+                    alphas.push(alpha.palette[*index as usize * 3]);
                 }
             }
         }
-
-        let row_major = if let Some(rm) = meta_row_major {
-            rm
-        } else if pixel_count > 0 {
-            let mut row_runs = 0i64;
-            let mut prev = -1i64;
-            for idx in indices.iter() {
-                let v = *idx as i64;
-                if v == prev {
-                    row_runs += 1;
-                }
-                prev = v;
-            }
-            let mut col_runs = 0i64;
-            prev = -1;
-            for x in 0..cw {
-                for y in 0..ch {
-                    let v = indices[y * cw + x] as i64;
-                    if v == prev {
-                        col_runs += 1;
-                    }
-                    prev = v;
-                }
-            }
-            col_runs > row_runs
-        } else {
-            false
-        };
-
-        sprites.push(SpriteFrame {
-            width: content_w,
-            height: content_h,
-            left_padding: left_pad,
-            top_padding: top_pad,
-            has_alpha: has_real_alpha,
-            row_major,
-            indices,
-            alphas: if has_real_alpha { Some(alphas) } else { None },
-        });
+        ensure!(
+            frame
+                .indices
+                .iter()
+                .all(|&i| i as usize * 3 < image.palette.len()),
+            "Sprite palette index out of range"
+        );
+        frame.alphas = frame.has_alpha.then_some(alphas);
     }
-
-    Ok(Some(SpriteGroup {
-        area_width,
-        area_height,
+    let palette: Vec<u32> = image
+        .palette
+        .as_chunks::<3>()
+        .0
+        .iter()
+        .map(|c| (c[0] as u32) << 16 | (c[1] as u32) << 8 | c[2] as u32)
+        .collect();
+    Ok(encode_sprite_group_binary(&SpriteGroup {
+        area_width: width,
+        area_height: height,
+        raw_palette: palette.clone(),
         palette,
-        raw_palette,
-        sprites,
+        sprites: frames,
     }))
-}
-
-#[cfg(since_647)]
-struct RgbaImage {
-    data: Vec<u8>,
-    width: u32,
-    height: u32,
-}
-
-#[cfg(since_647)]
-struct PngMeta {
-    strip_rows: u32,
-    has_alpha: Option<bool>,
-    row_major: Option<bool>,
-    crop: Option<(u16, u16, u16, u16)>,
-    palette_hex: Option<String>,
-}
-
-#[cfg(since_647)]
-fn load_rgba_png_with_meta(path: &Path) -> Result<(RgbaImage, PngMeta)> {
-    let file = File::open(path).with_context(|| format!("opening {}", path.display()))?;
-    let decoder = Decoder::new(BufReader::new(file));
-    let mut reader = decoder.read_info()?;
-    let info = reader.info().clone();
-    let size = reader
-        .output_buffer_size()
-        .ok_or_else(|| anyhow::anyhow!("{} is too large to decode", path.display()))?;
-    let mut buf = vec![0u8; size];
-    let frame = reader.next_frame(&mut buf)?;
-    buf.truncate(frame.buffer_size());
-    let w = info.width;
-    let h = info.height;
-
-    let strip_rows = info
-        .uncompressed_latin1_text
-        .iter()
-        .find(|t| t.keyword == "strip_rows")
-        .and_then(|t| t.text.parse::<u32>().ok())
-        .unwrap_or(0);
-    let has_alpha = info
-        .uncompressed_latin1_text
-        .iter()
-        .find(|t| t.keyword == "has_alpha")
-        .map(|t| t.text == "1");
-    let row_major = info
-        .uncompressed_latin1_text
-        .iter()
-        .find(|t| t.keyword == "row_major")
-        .map(|t| t.text == "1");
-    let crop = info
-        .uncompressed_latin1_text
-        .iter()
-        .find(|t| t.keyword == "crop")
-        .and_then(|t| {
-            let parts: Vec<u16> = t.text.split(',').filter_map(|s| s.parse().ok()).collect();
-            if parts.len() == 4 {
-                Some((parts[0], parts[1], parts[2], parts[3]))
-            } else {
-                None
-            }
-        });
-    let palette_hex = info
-        .uncompressed_latin1_text
-        .iter()
-        .find(|t| t.keyword == "palette_hex")
-        .map(|t| t.text.clone());
-
-    let rgba = decode_to_rgba(buf, &info)?;
-
-    Ok((
-        RgbaImage {
-            data: rgba,
-            width: w,
-            height: h,
-        },
-        PngMeta {
-            strip_rows,
-            has_alpha,
-            row_major,
-            crop,
-            palette_hex,
-        },
-    ))
-}
-
-#[cfg(since_647)]
-fn load_rgba_png(path: &Path) -> Result<RgbaImage> {
-    let file = File::open(path).with_context(|| format!("opening {}", path.display()))?;
-    let decoder = Decoder::new(BufReader::new(file));
-    let mut reader = decoder.read_info()?;
-    let info = reader.info().clone();
-    let size = reader
-        .output_buffer_size()
-        .ok_or_else(|| anyhow::anyhow!("{} is too large to decode", path.display()))?;
-    let mut buf = vec![0u8; size];
-    let frame = reader.next_frame(&mut buf)?;
-    buf.truncate(frame.buffer_size());
-    let w = info.width;
-    let h = info.height;
-
-    let rgba = decode_to_rgba(buf, &info)?;
-    Ok(RgbaImage {
-        data: rgba,
-        width: w,
-        height: h,
-    })
-}
-
-#[cfg(since_647)]
-fn decode_to_rgba(raw: Vec<u8>, info: &Info) -> Result<Vec<u8>> {
-    let w = info.width;
-    let h = info.height;
-    match info.color_type {
-        ColorType::Rgba => Ok(raw),
-        ColorType::Rgb => {
-            let mut out = Vec::with_capacity((w * h * 4) as usize);
-            for chunk in raw.chunks(3) {
-                out.extend_from_slice(chunk);
-                out.push(255);
-            }
-            Ok(out)
-        }
-        ColorType::Indexed => {
-            let plte = info.palette.as_ref().unwrap();
-            let trns = info.trns.as_ref();
-            let mut out = Vec::with_capacity((w * h * 4) as usize);
-            for idx in raw {
-                let i = idx as usize;
-                let r = plte.get(i * 3).copied().unwrap_or(0);
-                let g = plte.get(i * 3 + 1).copied().unwrap_or(0);
-                let b = plte.get(i * 3 + 2).copied().unwrap_or(0);
-                let a = trns.and_then(|t| t.get(i)).copied().unwrap_or(255);
-                out.extend_from_slice(&[r, g, b, a]);
-            }
-            Ok(out)
-        }
-        _ => anyhow::bail!("unsupported color type {:?}", info.color_type),
-    }
 }
 
 #[cfg(since_647)]

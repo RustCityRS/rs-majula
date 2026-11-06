@@ -1,9 +1,0 @@
-[clientscript,script_2892](int $int0, int $int1)
-if (sub(clientclock, $int1) >= 180) {
-    %varc_int1086 = 1;
-}
-if (sub(clientclock, $int1) >= 1000) {
-    if_setontimer;
-    if_sethide(31195160);
-}
-return;

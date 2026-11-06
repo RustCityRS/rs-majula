@@ -1,0 +1,36 @@
+name=""
+local_int_count=2
+local_string_count=1
+local_long_count=0
+int_param_count=2
+string_param_count=1
+long_param_count=0
+
+L0: push_int_local 0
+L1: push_constant_int -1
+L2: branch_not L4
+L3: branch L26
+L4: push_int_local 1
+L5: branch_if_true L7
+L6: branch L17
+L7: push_constant_string "<u=91b1f4>"
+L8: push_string_local 0
+L9: push_constant_string "</u>"
+L10: join_string 3
+L11: push_int_local 0
+L12: if_settext 0
+L13: push_constant_int 9548276
+L14: push_int_local 0
+L15: if_setcolour 0
+L16: branch L26
+L17: push_constant_string "<u=2c6ff8>"
+L18: push_string_local 0
+L19: push_constant_string "</u>"
+L20: join_string 3
+L21: push_int_local 0
+L22: if_settext 0
+L23: push_constant_int 2912248
+L24: push_int_local 0
+L25: if_setcolour 0
+L26: return 0
+L27:

@@ -1,0 +1,19 @@
+name=""
+local_int_count=3
+local_string_count=0
+local_long_count=0
+int_param_count=3
+string_param_count=0
+long_param_count=0
+
+L0: push_constant_int 3189
+L1: push_constant_int 3190
+L2: push_constant_int 3191
+L3: push_varbit varbit_7392
+L4: gosub_with_params clientscript_3669
+L5: push_int_local 0
+L6: push_int_local 1
+L7: push_int_local 2
+L8: gosub_with_params clientscript_3625
+L9: return 0
+L10:

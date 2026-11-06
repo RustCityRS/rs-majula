@@ -1,0 +1,38 @@
+name=""
+local_int_count=1
+local_string_count=0
+local_long_count=0
+int_param_count=1
+string_param_count=0
+long_param_count=0
+
+L0: push_int_local 0
+L1: if_find 0
+L2: branch_if_true L4
+L3: branch L28
+L4: push_constant_int 0
+L5: push_constant_int 0
+L6: push_constant_int 1
+L7: push_constant_int 1
+L8: cc_setposition2 0
+L9: push_constant_int 16
+L10: push_constant_int 15
+L11: push_constant_int 0
+L12: push_constant_int 0
+L13: cc_setsize 0
+L14: push_constant_int 5451
+L15: cc_setgraphic 0
+L16: push_constant_int 4209
+L17: push_int_local 0
+L18: push_constant_int 0
+L19: push_constant_string "Ii"
+L20: cc_setonmouseover 0
+L21: push_constant_int 4209
+L22: push_int_local 0
+L23: push_constant_int 1
+L24: push_constant_string "Ii"
+L25: cc_setonmouseleave 0
+L26: push_constant_int 255
+L27: cc_settrans 0
+L28: return 0
+L29:

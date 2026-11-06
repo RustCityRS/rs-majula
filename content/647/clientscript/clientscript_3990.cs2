@@ -1,0 +1,33 @@
+name=""
+local_int_count=4
+local_string_count=0
+local_long_count=0
+int_param_count=3
+string_param_count=0
+long_param_count=0
+
+L0: push_int_local 2
+L1: push_constant_int 1
+L2: branch_not L4
+L3: branch L5
+L4: return 0
+L5: push_constant_int 60096664
+L6: gosub_with_params [proc,deltooltip_action]
+L7: push_int_local 0
+L8: gosub_with_params [proc,task_get_progress]
+L9: pop_int_local 3
+L10: push_int_local 3
+L11: push_constant_int 2
+L12: branch_equals L14
+L13: branch L18
+L14: push_int_local 1
+L15: push_constant_int 4043
+L16: gosub_with_params [proc,task_main_list_graphicswapper]
+L17: branch L21
+L18: push_int_local 1
+L19: push_constant_int 4041
+L20: gosub_with_params [proc,task_main_list_graphicswapper]
+L21: push_int_local 0
+L22: gosub_with_params clientscript_3991
+L23: return 0
+L24:

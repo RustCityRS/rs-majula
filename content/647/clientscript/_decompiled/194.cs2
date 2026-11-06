@@ -1,7 +1,0 @@
-[clientscript,script_194](int $int0)
-if ($int0 = 1) {
-    if (clan_getchatsize > 0) {
-        clan_getchatleavechat;
-    }
-}
-return;

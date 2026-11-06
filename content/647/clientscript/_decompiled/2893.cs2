@@ -1,7 +1,0 @@
-[clientscript,script_2893]
-if (%varc_int1086 = 1) {
-    if_setontimer;
-    if_sethide(31195160);
-    %varc_int1086 = 0;
-}
-return;

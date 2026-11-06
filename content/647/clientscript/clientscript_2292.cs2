@@ -1,0 +1,16 @@
+name=""
+local_int_count=2
+local_string_count=0
+local_long_count=0
+int_param_count=2
+string_param_count=0
+long_param_count=0
+
+L0: push_constant_int 939
+L1: push_int_local 1
+L2: if_setgraphic 0
+L3: push_constant_int 16737310
+L4: push_int_local 0
+L5: if_setcolour 0
+L6: return 0
+L7:

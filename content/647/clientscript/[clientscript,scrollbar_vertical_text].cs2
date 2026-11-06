@@ -1,0 +1,100 @@
+name=""
+local_int_count=5
+local_string_count=0
+local_long_count=0
+int_param_count=4
+string_param_count=0
+long_param_count=0
+
+L0: push_int_local 3
+L1: branch_if_false L3
+L2: branch L5
+L3: push_constant_int 12
+L4: pop_int_local 3
+L5: push_int_local 1
+L6: if_gettext 0
+L7: push_int_local 1
+L8: if_getwidth 0
+L9: push_constant_int 16
+L10: add 0
+L11: push_int_local 2
+L12: paraheight 0
+L13: pop_int_local 4
+L14: push_int_local 4
+L15: push_int_local 3
+L16: multiply 0
+L17: pop_int_local 4
+L18: push_constant_string "txt "
+L19: push_int_local 4
+L20: tostring 0
+L21: push_constant_string ", layer "
+L22: push_int_local 1
+L23: if_getheight 0
+L24: tostring 0
+L25: join_string 4
+L26: mes 0
+L27: push_int_local 1
+L28: if_getheight 0
+L29: push_int_local 4
+L30: branch_greater_than_or_equals L32
+L31: branch L55
+L32: push_constant_string "No scroll txt "
+L33: push_int_local 4
+L34: tostring 0
+L35: push_constant_string ", layer "
+L36: push_int_local 1
+L37: if_getheight 0
+L38: tostring 0
+L39: join_string 4
+L40: mes 0
+L41: push_int_local 1
+L42: if_getwidth 0
+L43: push_constant_int 16
+L44: add 0
+L45: push_int_local 1
+L46: if_getheight 0
+L47: push_constant_int 0
+L48: push_constant_int 0
+L49: push_int_local 1
+L50: if_setsize 0
+L51: push_constant_int 1
+L52: push_int_local 0
+L53: if_sethide 0
+L54: branch L90
+L55: push_int_local 1
+L56: if_gettext 0
+L57: push_int_local 1
+L58: if_getwidth 0
+L59: push_int_local 2
+L60: paraheight 0
+L61: pop_int_local 4
+L62: push_int_local 4
+L63: push_int_local 3
+L64: multiply 0
+L65: pop_int_local 4
+L66: push_constant_int 0
+L67: push_int_local 4
+L68: push_constant_int 10
+L69: add 0
+L70: push_int_local 1
+L71: if_setscrollsize 0
+L72: push_constant_string "Scroll txt "
+L73: push_int_local 4
+L74: tostring 0
+L75: push_constant_string ", layer "
+L76: push_int_local 1
+L77: if_getheight 0
+L78: tostring 0
+L79: join_string 4
+L80: mes 0
+L81: push_int_local 0
+L82: push_int_local 1
+L83: push_constant_int 792
+L84: push_constant_int 789
+L85: push_constant_int 790
+L86: push_constant_int 791
+L87: push_constant_int 773
+L88: push_constant_int 788
+L89: gosub_with_params [proc,scrollbar_vertical]
+L90: return 0
+L91:

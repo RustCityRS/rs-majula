@@ -1,9 +1,0 @@
-[clientscript,script_1679]
-~script_1678;
-switch (%varc_int1044) {
-    case 0:
-        ~script_1687;
-    default:
-        if_setonvarcstringtransmit;
-}
-return;

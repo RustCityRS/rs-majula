@@ -1,0 +1,59 @@
+name=""
+local_int_count=5
+local_string_count=0
+local_long_count=0
+int_param_count=2
+string_param_count=0
+long_param_count=0
+
+L0: push_int_local 1
+L1: push_varc_int varc_int_86
+L2: branch_equals L7
+L3: push_int_local 0
+L4: push_constant_int 1
+L5: branch_not L7
+L6: branch L8
+L7: return 0
+L8: push_constant_int 9819
+L9: push_constant_int 1
+L10: push_constant_int 0
+L11: sound_synth 0
+L12: push_constant_int 105
+L13: push_constant_int 74
+L14: push_constant_int 3278
+L15: push_varc_int varc_int_197
+L16: push_constant_int 1
+L17: sub 0
+L18: enum 0
+L19: pop_int_local 2
+L20: push_int_local 2
+L21: push_constant_int -1
+L22: branch_equals L24
+L23: branch L25
+L24: return 0
+L25: player_isfemale 0
+L26: gosub_with_params [proc,int_to_bool]
+L27: pop_int_local 3
+L28: push_int_local 1
+L29: push_constant_int 1
+L30: sub 0
+L31: push_int_local 2
+L32: push_int_local 3
+L33: gosub_with_params [proc,playerdesign4_getoutfit]
+L34: pop_int_local 4
+L35: push_int_local 4
+L36: push_constant_int -1
+L37: branch_equals L39
+L38: branch L40
+L39: return 0
+L40: push_int_local 1
+L41: pop_varc_int varc_int_86
+L42: push_int_local 1
+L43: pop_varbit character_creation_sub_style
+L44: push_int_local 4
+L45: push_int_local 3
+L46: gosub_with_params [proc,playerdesign4_setoutfit]
+L47: push_int_local 3
+L48: gosub_with_params clientscript_390
+L49: return 0
+L50:

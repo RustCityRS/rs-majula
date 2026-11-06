@@ -1,0 +1,24 @@
+name=""
+local_int_count=1
+local_string_count=0
+local_long_count=0
+int_param_count=1
+string_param_count=0
+long_param_count=0
+
+L0: push_constant_int 105
+L1: push_constant_int 105
+L2: push_varbit varbit_7392
+L3: gosub_with_params clientscript_3623
+L4: push_int_local 0
+L5: push_varbit varbit_7389
+L6: add 0
+L7: push_varbit varbit_7392
+L8: gosub_with_params clientscript_3623
+L9: enum_getoutputcount 0
+L10: mod 0
+L11: enum 0
+L12: return 0
+L13: push_constant_int 0
+L14: return 0
+L15:

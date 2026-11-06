@@ -1,0 +1,55 @@
+name=""
+local_int_count=3
+local_string_count=1
+local_long_count=0
+int_param_count=2
+string_param_count=1
+long_param_count=0
+
+L0: push_constant_int 0
+L1: pop_int_local 2
+L2: push_int_local 1
+L3: push_constant_int -1
+L4: branch_equals L6
+L5: branch L9
+L6: push_int_local 0
+L7: if_find 0
+L8: branch_if_true L14
+L9: push_int_local 0
+L10: push_int_local 1
+L11: cc_find 0
+L12: branch_if_true L14
+L13: branch L45
+L14: push_varc_int varc_int_198
+L15: push_constant_int 1
+L16: branch_not L18
+L17: branch L24
+L18: push_constant_int -1
+L19: push_constant_string ""
+L20: cc_setontimer 0
+L21: push_string_local 0
+L22: cc_settext 0
+L23: return 0
+L24: clientclock 0
+L25: push_constant_int 20
+L26: mod 0
+L27: push_constant_int 9
+L28: branch_greater_than L30
+L29: branch L43
+L30: push_constant_string ""
+L31: cc_settext 0
+L32: clientclock 0
+L33: push_constant_int 20
+L34: mod 0
+L35: push_constant_int 10
+L36: branch_equals L38
+L37: branch L42
+L38: push_constant_int 5009
+L39: push_constant_int 1
+L40: push_constant_int 0
+L41: sound_synth 0
+L42: branch L45
+L43: push_string_local 0
+L44: cc_settext 0
+L45: return 0
+L46:

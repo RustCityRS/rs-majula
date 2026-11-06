@@ -1,0 +1,49 @@
+name=""
+local_int_count=0
+local_string_count=0
+local_long_count=0
+int_param_count=0
+string_param_count=0
+long_param_count=0
+
+L0: push_varbit varbit_6364
+L1: pop_varc_int varc_int_847
+L2: push_varbit varbit_6366
+L3: pop_varc_int varc_int_848
+L4: push_varbit varbit_6367
+L5: pop_varc_int varc_int_849
+L6: push_varbit varbit_6363
+L7: pop_varc_int varc_int_850
+L8: push_varbit varbit_6365
+L9: pop_varc_int varc_int_851
+L10: push_varbit varbit_6351
+L11: pop_varc_int varc_int_839
+L12: push_varc_int varc_int_847
+L13: tostring 0
+L14: push_constant_int 42860557
+L15: if_settext 0
+L16: push_varc_int varc_int_848
+L17: tostring 0
+L18: push_constant_int 42860605
+L19: if_settext 0
+L20: push_varc_int varc_int_849
+L21: tostring 0
+L22: push_constant_int 42860597
+L23: if_settext 0
+L24: push_varc_int varc_int_850
+L25: tostring 0
+L26: push_constant_int 42860589
+L27: if_settext 0
+L28: push_varc_int varc_int_851
+L29: tostring 0
+L30: push_constant_int 42860614
+L31: if_settext 0
+L32: push_varc_int varc_int_839
+L33: push_constant_string ","
+L34: gosub_with_params [proc,tostring_spacer]
+L35: push_constant_int 42860621
+L36: if_settext 0
+L37: gosub_with_params clientscript_2517
+L38: return 0
+L39: return 0
+L40:

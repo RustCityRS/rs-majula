@@ -1,0 +1,27 @@
+name=""
+local_int_count=2
+local_string_count=0
+local_long_count=0
+int_param_count=2
+string_param_count=0
+long_param_count=0
+
+L0: push_int_local 0
+L1: if_getscrollheight 0
+L2: push_constant_int 0
+L3: branch_greater_than L5
+L4: branch L14
+L5: push_int_local 0
+L6: if_getscrolly 0
+L7: push_constant_int 35
+L8: branch_less_than L10
+L9: branch L14
+L10: push_constant_int 0
+L11: push_int_local 1
+L12: if_sethide 0
+L13: branch L17
+L14: push_constant_int 1
+L15: push_int_local 1
+L16: if_sethide 0
+L17: return 0
+L18:

@@ -1,0 +1,35 @@
+name=""
+local_int_count=1
+local_string_count=1
+local_long_count=0
+int_param_count=1
+string_param_count=1
+long_param_count=0
+
+L0: push_int_local 0
+L1: push_string_local 0
+L2: worldlist_hop 0
+L3: branch_if_true L5
+L4: branch L14
+L5: push_constant_int 0
+L6: pop_varc_int varc_int_547
+L7: push_constant_int 0
+L8: push_constant_string "Switched to game world "
+L9: push_int_local 0
+L10: tostring 0
+L11: join_string 2
+L12: gosub_with_params clientscript_3143
+L13: branch L23
+L14: push_constant_int 1
+L15: push_constant_string "Sorry, we couldn't contact world "
+L16: push_int_local 0
+L17: tostring 0
+L18: push_constant_string "."
+L19: push_constant_string "<br>"
+L20: push_constant_string "Please choose a different world."
+L21: join_string 5
+L22: gosub_with_params clientscript_3143
+L23: gosub_with_params clientscript_3116
+L24: return 0
+L25: return 0
+L26:

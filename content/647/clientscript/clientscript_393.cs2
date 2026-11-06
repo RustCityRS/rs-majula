@@ -1,0 +1,131 @@
+name=""
+local_int_count=0
+local_string_count=0
+local_long_count=0
+int_param_count=0
+string_param_count=0
+long_param_count=0
+
+L0: push_constant_int 1
+L1: push_constant_int 66191364
+L2: if_sethide 0
+L3: push_constant_int 1
+L4: push_constant_int 66191380
+L5: if_sethide 0
+L6: push_constant_string "Command Options"
+L7: push_constant_int 66191361
+L8: if_settext 0
+L9: push_constant_int 0
+L10: push_constant_int 133
+L11: push_constant_int 0
+L12: push_constant_int 0
+L13: push_constant_int 66191400
+L14: if_setposition 0
+L15: push_constant_int 190
+L16: push_constant_int 116
+L17: push_constant_int 0
+L18: push_constant_int 0
+L19: push_constant_int 66191400
+L20: if_setsize 0
+L21: push_constant_string "Comm Orb Recharging"
+L22: push_constant_int 66191401
+L23: if_settext 0
+L24: push_constant_int 0
+L25: push_constant_int 133
+L26: push_constant_int 0
+L27: push_constant_int 0
+L28: push_constant_int 66191401
+L29: if_setposition 0
+L30: push_constant_int 190
+L31: push_constant_int 116
+L32: push_constant_int 0
+L33: push_constant_int 0
+L34: push_constant_int 66191401
+L35: if_setsize 0
+L36: push_constant_int 1
+L37: push_constant_int 1
+L38: push_constant_int 0
+L39: push_constant_int 66191401
+L40: if_settextalign 0
+L41: push_constant_int 30
+L42: push_constant_int 152
+L43: push_constant_int 0
+L44: push_constant_int 0
+L45: push_constant_int 66191394
+L46: if_setposition 0
+L47: push_constant_int 30
+L48: push_constant_int 200
+L49: push_constant_int 0
+L50: push_constant_int 0
+L51: push_constant_int 66191397
+L52: if_setposition 0
+L53: push_constant_string "Recharge"
+L54: push_constant_int 66191399
+L55: if_settext 0
+L56: push_constant_int 1
+L57: push_constant_string "Recharge"
+L58: push_constant_int 66191399
+L59: if_setop 0
+L60: push_constant_int 4
+L61: push_constant_int 148
+L62: push_constant_int 0
+L63: push_constant_int 0
+L64: push_constant_int 66191391
+L65: if_setposition 0
+L66: push_constant_int 15
+L67: push_constant_int 204
+L68: push_constant_int 0
+L69: push_constant_int 0
+L70: push_constant_int 66191385
+L71: if_setposition 0
+L72: push_constant_int 105
+L73: push_constant_int 204
+L74: push_constant_int 0
+L75: push_constant_int 0
+L76: push_constant_int 66191388
+L77: if_setposition 0
+L78: push_constant_int 1
+L79: push_constant_int 66191392
+L80: if_sethide 0
+L81: push_constant_int 1
+L82: push_constant_int 66781189
+L83: if_sethide 0
+L84: push_constant_int 1
+L85: push_constant_int 66781190
+L86: if_sethide 0
+L87: push_constant_int 1
+L88: push_constant_int 66781193
+L89: if_sethide 0
+L90: push_constant_int 1
+L91: push_constant_int 66781192
+L92: if_sethide 0
+L93: push_constant_string "Retreat"
+L94: push_constant_int 66781187
+L95: if_settext 0
+L96: push_constant_int 1
+L97: push_constant_int 66781196
+L98: if_sethide 0
+L99: push_constant_string "Retreat"
+L100: push_constant_int 66781200
+L101: if_settext 0
+L102: push_constant_int 1
+L103: push_constant_string "Retreat"
+L104: push_constant_int 66781200
+L105: if_setop 0
+L106: push_constant_int 30
+L107: push_constant_int 0
+L108: push_constant_int 0
+L109: push_constant_int 1
+L110: push_constant_int 66781185
+L111: if_setposition 0
+L112: push_constant_int 0
+L113: push_constant_int 50
+L114: push_constant_int 0
+L115: push_constant_int 1
+L116: push_constant_int 66781184
+L117: if_setposition 0
+L118: push_constant_string "Force Savant to teleport you to safety and order your remaining troops to fall back."
+L119: push_constant_int 66781184
+L120: if_settext 0
+L121: return 0
+L122:

@@ -1,0 +1,120 @@
+name=""
+local_int_count=1
+local_string_count=0
+local_long_count=0
+int_param_count=1
+string_param_count=0
+long_param_count=0
+
+L0: gosub_with_params clientscript_4066
+L1: push_int_local 0
+L2: switch switch0
+L3: branch L103
+L4: push_constant_int 4444
+L5: push_constant_int 69337107
+L6: if_setgraphic 0
+L7: push_constant_string "Currently selected: Balance tokens - earned through the keg balancing minigame."
+L8: push_constant_int 69337134
+L9: if_settext 0
+L10: push_constant_int -160
+L11: push_constant_int 13
+L12: push_constant_int 1
+L13: push_constant_int 0
+L14: push_int_local 0
+L15: if_setposition 0
+L16: push_varbit varbit_8666
+L17: push_constant_int 200
+L18: branch_less_than L20
+L19: branch L22
+L20: gosub_with_params clientscript_4061
+L21: branch L23
+L22: gosub_with_params clientscript_4062
+L23: branch L103
+L24: push_constant_int 4445
+L25: push_constant_int 69337105
+L26: if_setgraphic 0
+L27: push_constant_string "Currently selected: Strength tokens - earned through the shot put minigame."
+L28: push_constant_int 69337134
+L29: if_settext 0
+L30: push_constant_int -80
+L31: push_constant_int 13
+L32: push_constant_int 1
+L33: push_constant_int 0
+L34: push_int_local 0
+L35: if_setposition 0
+L36: push_varbit varbit_8662
+L37: push_constant_int 200
+L38: branch_less_than L40
+L39: branch L42
+L40: gosub_with_params clientscript_4061
+L41: branch L43
+L42: gosub_with_params clientscript_4062
+L43: branch L103
+L44: push_constant_int 4446
+L45: push_constant_int 69337103
+L46: if_setgraphic 0
+L47: push_constant_string "Currently selected: Combat tokens - earned through the animator minigame."
+L48: push_constant_int 69337134
+L49: if_settext 0
+L50: push_constant_int 0
+L51: push_constant_int 13
+L52: push_constant_int 1
+L53: push_constant_int 0
+L54: push_int_local 0
+L55: if_setposition 0
+L56: push_varbit varbit_8665
+L57: push_constant_int 200
+L58: branch_less_than L60
+L59: branch L62
+L60: gosub_with_params clientscript_4061
+L61: branch L63
+L62: gosub_with_params clientscript_4062
+L63: branch L103
+L64: push_constant_int 4447
+L65: push_constant_int 69337101
+L66: if_setgraphic 0
+L67: push_constant_string "Currently selected: Defence tokens - earned through the catapult minigame."
+L68: push_constant_int 69337134
+L69: if_settext 0
+L70: push_constant_int 80
+L71: push_constant_int 13
+L72: push_constant_int 1
+L73: push_constant_int 0
+L74: push_int_local 0
+L75: if_setposition 0
+L76: push_varbit varbit_8663
+L77: push_constant_int 200
+L78: branch_less_than L80
+L79: branch L82
+L80: gosub_with_params clientscript_4061
+L81: branch L83
+L82: gosub_with_params clientscript_4062
+L83: branch L103
+L84: push_constant_int 4448
+L85: push_constant_int 69337099
+L86: if_setgraphic 0
+L87: push_constant_string "Currently selected: Attack tokens - earned through the dummy minigame."
+L88: push_constant_int 69337134
+L89: if_settext 0
+L90: push_constant_int 160
+L91: push_constant_int 13
+L92: push_constant_int 1
+L93: push_constant_int 0
+L94: push_int_local 0
+L95: if_setposition 0
+L96: push_varbit varbit_8664
+L97: push_constant_int 200
+L98: branch_less_than L100
+L99: branch L102
+L100: gosub_with_params clientscript_4061
+L101: branch L103
+L102: gosub_with_params clientscript_4062
+L103: return 0
+L104:
+
+[switch0@L2]
+69337110=L4
+69337111=L24
+69337112=L44
+69337114=L64
+69337113=L84

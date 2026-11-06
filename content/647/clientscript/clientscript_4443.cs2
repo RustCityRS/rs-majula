@@ -1,0 +1,17 @@
+name=""
+local_int_count=1
+local_string_count=0
+local_long_count=0
+int_param_count=1
+string_param_count=0
+long_param_count=0
+
+L0: clanchannel2_find 0
+L1: branch_if_true L3
+L2: branch L6
+L3: push_int_local 0
+L4: gosub_with_params clientscript_4444
+L5: branch L7
+L6: gosub_with_params clientscript_4445
+L7: return 0
+L8:

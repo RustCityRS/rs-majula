@@ -1,0 +1,89 @@
+name=""
+local_int_count=7
+local_string_count=0
+local_long_count=0
+int_param_count=2
+string_param_count=0
+long_param_count=0
+
+L0: push_int_local 0
+L1: cc_deleteall_152 0
+L2: push_constant_int 0
+L3: pop_int_local 2
+L4: push_constant_int 0
+L5: pop_int_local 3
+L6: push_constant_int 0
+L7: pop_int_local 4
+L8: push_int_local 4
+L9: push_constant_int 50
+L10: branch_less_than L12
+L11: branch L25
+L12: push_int_local 0
+L13: push_int_local 3
+L14: push_int_local 4
+L15: gosub_with_params clientscript_1638
+L16: push_int_local 2
+L17: gosub_with_params clientscript_1637
+L18: pop_int_local 2
+L19: pop_int_local 3
+L20: push_int_local 4
+L21: push_constant_int 1
+L22: add 0
+L23: pop_int_local 4
+L24: branch L8
+L25: push_int_local 3
+L26: branch_if_false L28
+L27: branch L35
+L28: push_int_local 0
+L29: push_constant_int 0
+L30: push_constant_string "Loading..."
+L31: push_constant_int 0
+L32: gosub_with_params clientscript_1637
+L33: pop_int_discard 0
+L34: pop_int_discard 0
+L35: push_constant_int 0
+L36: pop_int_local 5
+L37: push_constant_int 0
+L38: pop_int_local 6
+L39: push_int_local 2
+L40: push_constant_int 15
+L41: branch_greater_than L43
+L42: branch L67
+L43: push_int_local 0
+L44: if_getscrolly 0
+L45: pop_int_local 5
+L46: push_int_local 2
+L47: push_constant_int 15
+L48: multiply 0
+L49: push_constant_int 8
+L50: add 0
+L51: pop_int_local 6
+L52: push_constant_int 0
+L53: push_int_local 6
+L54: push_int_local 0
+L55: if_setscrollsize 0
+L56: push_int_local 5
+L57: push_int_local 6
+L58: branch_greater_than L60
+L59: branch L62
+L60: push_int_local 6
+L61: pop_int_local 5
+L62: push_int_local 1
+L63: push_int_local 0
+L64: push_int_local 5
+L65: gosub_with_params [proc,scrollbar_resize]
+L66: branch L79
+L67: push_constant_int 0
+L68: push_constant_int 0
+L69: push_int_local 0
+L70: if_setscrollsize 0
+L71: push_constant_int 0
+L72: push_constant_int 0
+L73: push_int_local 0
+L74: if_setscrollpos 0
+L75: push_int_local 1
+L76: push_int_local 0
+L77: push_constant_int 0
+L78: gosub_with_params [proc,scrollbar_resize]
+L79: return 0
+L80:

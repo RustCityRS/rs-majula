@@ -1,0 +1,38 @@
+name=""
+local_int_count=1
+local_string_count=0
+local_long_count=0
+int_param_count=0
+string_param_count=0
+long_param_count=0
+
+L0: push_constant_int 5592405
+L1: pop_int_local 0
+L2: headicon_count 0
+L3: push_constant_int 75
+L4: branch_greater_than L6
+L5: branch L9
+L6: push_constant_int 65280
+L7: pop_int_local 0
+L8: branch L25
+L9: headicon_count 0
+L10: push_constant_int 50
+L11: branch_greater_than L13
+L12: branch L16
+L13: push_constant_int 16776960
+L14: pop_int_local 0
+L15: branch L25
+L16: headicon_count 0
+L17: push_constant_int 25
+L18: branch_greater_than L20
+L19: branch L23
+L20: push_constant_int 16750623
+L21: pop_int_local 0
+L22: branch L25
+L23: push_constant_int 16711680
+L24: pop_int_local 0
+L25: push_int_local 0
+L26: return 0
+L27: push_constant_int 0
+L28: return 0
+L29:

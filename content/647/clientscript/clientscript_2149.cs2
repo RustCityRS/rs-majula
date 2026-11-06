@@ -1,0 +1,52 @@
+name=""
+local_int_count=0
+local_string_count=0
+local_long_count=0
+int_param_count=0
+string_param_count=0
+long_param_count=0
+
+L0: gosub_with_params clientscript_2155
+L1: branch_if_false L3
+L2: branch L5
+L3: push_constant_int 0
+L4: return 0
+L5: push_var qp
+L6: push_varc_int varc_int_699
+L7: push_constant_int 895
+L8: struct_param_4500 0
+L9: branch_less_than L11
+L10: branch L13
+L11: push_constant_int 0
+L12: return 0
+L13: push_varc_int varc_int_698
+L14: push_varc_int varc_int_699
+L15: push_constant_int 896
+L16: struct_param_4500 0
+L17: branch_less_than L19
+L18: branch L21
+L19: push_constant_int 0
+L20: return 0
+L21: gosub_with_params clientscript_2153
+L22: branch_if_false L24
+L23: branch L26
+L24: push_constant_int 0
+L25: return 0
+L26: push_varc_int varc_int_699
+L27: push_constant_int 898
+L28: struct_param_4500 0
+L29: branch_if_true L31
+L30: branch L39
+L31: push_varc_int varc_int_699
+L32: push_constant_int 847
+L33: struct_param_4500 0
+L34: gosub_with_params clientscript_2194
+L35: branch_if_false L37
+L36: branch L39
+L37: push_constant_int 0
+L38: return 0
+L39: push_constant_int 1
+L40: return 0
+L41: push_constant_int -1
+L42: return 0
+L43:

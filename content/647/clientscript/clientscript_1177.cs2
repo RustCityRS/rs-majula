@@ -1,0 +1,23 @@
+name=""
+local_int_count=0
+local_string_count=0
+local_long_count=0
+int_param_count=0
+string_param_count=0
+long_param_count=0
+
+L0: push_var varp_1414
+L1: branch_if_false L3
+L2: branch L4
+L3: return 0
+L4: push_constant_int 540
+L5: pop_varc_int varc_int_548
+L6: push_constant_string "10"
+L7: push_constant_int 48824325
+L8: if_settext 0
+L9: push_constant_int 1178
+L10: push_constant_string ""
+L11: push_constant_int 48824325
+L12: if_setontimer 0
+L13: return 0
+L14:

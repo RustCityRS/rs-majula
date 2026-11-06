@@ -25,7 +25,7 @@ use crate::zone_csv::load_csv_zones;
 #[cfg(before_647)]
 pub(super) use crate::zone_csv::zone_key;
 #[cfg(since_647)]
-use anyhow::Result;
+use anyhow::{Context, Result};
 #[cfg(since_647)]
 use rayon::prelude::*;
 #[cfg(before_647)]
@@ -54,7 +54,7 @@ use std::sync::Arc;
 #[cfg(before_647)]
 use tracing::debug;
 #[cfg(since_647)]
-use tracing::{info, warn};
+use tracing::info;
 
 #[cfg(before_647)]
 type PackedMapSquare = (
@@ -533,8 +533,8 @@ pub fn pack_maps(content_dir: &Path) -> PackedMapSquare {
 }
 
 #[cfg(since_647)]
-pub fn pack_spawns(map_dirs: &[PathBuf]) -> Result<PackedData> {
-    let entries = collect(map_dirs, 'n', is_npc_spawns, |text| {
+pub fn pack_spawns(map_dirs: &[PathBuf], pack_dir: &Path) -> Result<PackedData> {
+    let entries = collect(map_dirs, pack_dir, 'n', is_npc_spawns, |text| {
         let spawns = parse_npc_spawn_text(text);
         (!spawns.is_empty()).then(|| encode_npc_spawn_binary(&spawns))
     })?;
@@ -546,8 +546,8 @@ pub fn pack_spawns(map_dirs: &[PathBuf]) -> Result<PackedData> {
 /// packer; the engine merges these as the `o` mapsquare layer and loads them
 /// as `EntityLifeTime::Respawn` objs.
 #[cfg(since_647)]
-pub fn pack_obj_spawns(map_dirs: &[PathBuf]) -> Result<PackedData> {
-    let entries = collect(map_dirs, 'o', is_obj_spawns, |text| {
+pub fn pack_obj_spawns(map_dirs: &[PathBuf], pack_dir: &Path) -> Result<PackedData> {
+    let entries = collect(map_dirs, pack_dir, 'o', is_obj_spawns, |text| {
         let spawns = parse_obj_spawn_text(text);
         (!spawns.is_empty()).then(|| encode_obj_spawn_binary(&spawns))
     })?;
@@ -561,10 +561,12 @@ type Entry = (u8, u8, Vec<u8>);
 #[cfg(since_647)]
 fn collect(
     map_dirs: &[PathBuf],
+    pack_dir: &Path,
     prefix: char,
     is_kind: fn(&str) -> bool,
     encode: impl Fn(&str) -> Option<Vec<u8>>,
 ) -> Result<Vec<Entry>> {
+    let names = crate::pack::names::AssetNames::load(pack_dir)?;
     let mut entries = Vec::new();
     for (stem, path) in squares(map_dirs) {
         if !is_kind(&stem) {
@@ -577,7 +579,12 @@ fn collect(
         let (Ok(mx), Ok(mz)) = (mx.parse::<u8>(), mz.parse::<u8>()) else {
             continue;
         };
-        if let Some(binary) = encode(&fs::read_to_string(&path)?) {
+        if let Some(binary) = encode(&super::map_references::convert(
+            &fs::read_to_string(&path)?,
+            &stem,
+            &names,
+            false,
+        )?) {
             entries.push((mx, mz, binary));
         }
     }
@@ -607,9 +614,8 @@ pub fn pack_archive(
 ) -> Result<()> {
     let aid = archive::MAPS;
     let format = archive::archive_format(aid).unwrap();
-    // Opaque squares (no key exists) are cache output, so only `_unpack`
-    // holds them; text squares may come from any source directory.
-    let map_dir = content_dir.join("maps").join("_unpack");
+    let map_dir = content_dir.join("maps");
+    let names = crate::pack::names::AssetNames::load(pack_dir)?;
     let map_dirs = source_dirs(content_dir);
     let sources = squares(&map_dirs);
 
@@ -631,7 +637,7 @@ pub fn pack_archive(
 
     let prepared: Vec<PreparedGroup> = groups
         .par_iter()
-        .filter_map(|(gid, name)| {
+        .map(|(gid, name)| -> Result<PreparedGroup> {
             let ver = group_version(versions, aid, gid);
             let version = ver as u16;
             let name_hash = java_string_hash(name);
@@ -641,43 +647,57 @@ pub fn pack_archive(
 
             let (raw, crc) = if is_landscape {
                 let text_path = sources.get(name);
-                let encrypted_path = map_dir.join(format!("encrypted/{}.bin", gid));
+                let encrypted_path = map_dir.join(format!("encrypted/{name}.js5"));
 
                 if let Some(text_path) = text_path {
-                    let text = fs::read_to_string(text_path).ok()?;
+                    let text = super::map_references::convert(
+                        &fs::read_to_string(text_path)?,
+                        name,
+                        &names,
+                        false,
+                    )?;
                     let locs = parse_landscape_text(&text);
                     let binary = encode_landscape_binary(&locs);
                     let key = xtea_keys.get(&name_hash).copied().unwrap_or([0; 4]);
-                    let container =
-                        compress_xtea(&binary, CompressionType::Gzip, version, &key).ok()?;
+                    let container = compress_xtea(&binary, CompressionType::Gzip, version, &key)?;
                     let crc = compute_group_crc(&container[..container.len() - 2]);
                     (container, crc)
                 } else if encrypted_path.exists() {
-                    let raw = fs::read(&encrypted_path).ok()?;
-                    let crc = Container::parse(&raw).ok()?.crc();
+                    let raw = fs::read(&encrypted_path)?;
+                    let crc = Container::parse(&raw)?.crc();
                     (raw, crc)
                 } else {
-                    warn!(
-                        "  archive 5 group {}: missing file for landscape {}",
-                        gid, name
-                    );
-                    return None;
+                    anyhow::bail!("Missing landscape source: {name}");
                 }
             } else if is_npc {
-                let text_path = sources.get(name)?;
-                let text = fs::read_to_string(text_path).ok()?;
+                let text_path = sources
+                    .get(name)
+                    .with_context(|| format!("Missing map source: {name}"))?;
+                let text = super::map_references::convert(
+                    &fs::read_to_string(text_path)?,
+                    name,
+                    &names,
+                    false,
+                )?;
                 let spawns = parse_npc_spawn_text(&text);
                 let binary = encode_npc_spawn_binary(&spawns);
-                prepare_group(aid, *gid, &binary, version, false).ok()?
+                prepare_group(aid, *gid, &binary, version, false)?
             } else {
-                let text_path = sources.get(name)?;
-                let text = fs::read_to_string(text_path).ok()?;
+                let text_path = sources
+                    .get(name)
+                    .with_context(|| format!("Missing map source: {name}"))?;
+                let text = super::map_references::convert(
+                    &fs::read_to_string(text_path)?,
+                    name,
+                    &names,
+                    false,
+                )?;
                 let terrain = parse_terrain_text(&text);
                 let binary = encode_terrain_binary(&terrain);
-                prepare_group(aid, *gid, &binary, version, false).ok()?
+                prepare_group(aid, *gid, &binary, version, false)?
             };
 
-            Some(PreparedGroup {
+            Ok(PreparedGroup {
                 id: *gid,
                 raw,
                 crc,
@@ -691,7 +711,7 @@ pub fn pack_archive(
                 }],
             })
         })
-        .collect();
+        .collect::<Result<_>>()?;
 
     insert_archive(
         store,
@@ -731,13 +751,8 @@ fn encode_tiles(tiles: &[TerrainTile], out: &mut Vec<u8>) {
 }
 
 #[cfg(since_647)]
-pub fn source_dirs(content_dir: &Path) -> [PathBuf; 3] {
-    let maps = content_dir.join("maps");
-    [
-        maps.join("_unpack"),
-        maps.join("spawns"),
-        maps.join("donor"),
-    ]
+pub fn source_dirs(content_dir: &Path) -> [PathBuf; 1] {
+    [content_dir.join("maps")]
 }
 
 #[cfg(since_647)]

@@ -1,0 +1,50 @@
+name=""
+local_int_count=0
+local_string_count=0
+local_long_count=0
+int_param_count=0
+string_param_count=0
+long_param_count=0
+
+L0: push_varc_int varc_int_1281
+L1: push_constant_int 8
+L2: branch_equals L4
+L3: branch L5
+L4: return 0
+L5: push_varc_int varc_int_1074
+L6: branch_if_false L8
+L7: branch L19
+L8: push_varc_int varc_int_1281
+L9: push_constant_int 1
+L10: add 0
+L11: push_varc_int varc_int_1070
+L12: push_varc_int varc_int_1069
+L13: push_varc_int varc_int_1070
+L14: push_varc_int varc_int_1071
+L15: gosub_with_params clientscript_2865
+L16: push_varc_int varc_int_1073
+L17: gosub_with_params clientscript_3454
+L18: branch L32
+L19: push_varc_int varc_int_1074
+L20: branch_if_true L22
+L21: branch L31
+L22: push_varc_int varc_int_1281
+L23: push_constant_int 1
+L24: add 0
+L25: push_varc_int varc_int_1070
+L26: push_varc_int varc_int_1069
+L27: push_varc_int varc_int_1072
+L28: push_constant_int 50
+L29: gosub_with_params clientscript_3454
+L30: branch L32
+L31: return 0
+L32: push_varc_int varc_int_1281
+L33: push_constant_int 1
+L34: add 0
+L35: pop_varc_int varc_int_1281
+L36: push_varc_int varc_int_1281
+L37: tostring 0
+L38: push_constant_int 31129678
+L39: if_settext 0
+L40: return 0
+L41:

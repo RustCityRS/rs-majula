@@ -1,0 +1,62 @@
+name=""
+local_int_count=17
+local_string_count=0
+local_long_count=0
+int_param_count=17
+string_param_count=0
+long_param_count=0
+
+L0: push_constant_int 1787
+L1: push_int_local 0
+L2: push_int_local 1
+L3: push_int_local 2
+L4: push_int_local 3
+L5: push_int_local 4
+L6: push_int_local 5
+L7: push_int_local 6
+L8: push_int_local 7
+L9: push_int_local 8
+L10: push_int_local 9
+L11: push_int_local 10
+L12: push_int_local 11
+L13: push_int_local 12
+L14: push_int_local 13
+L15: push_int_local 14
+L16: push_int_local 15
+L17: push_int_local 16
+L18: push_constant_int 1305
+L19: push_constant_int 1
+L20: push_constant_string "IIIIIIIIIIIIIIIIIY"
+L21: push_int_local 0
+L22: if_setonvartransmit 0
+L23: push_constant_int 1787
+L24: push_int_local 0
+L25: push_int_local 1
+L26: push_int_local 2
+L27: push_int_local 3
+L28: push_int_local 4
+L29: push_int_local 5
+L30: push_int_local 6
+L31: push_int_local 7
+L32: push_int_local 8
+L33: push_int_local 9
+L34: push_int_local 10
+L35: push_int_local 11
+L36: push_int_local 12
+L37: push_int_local 13
+L38: push_int_local 14
+L39: push_int_local 15
+L40: push_int_local 16
+L41: push_constant_int 270
+L42: push_constant_int 260
+L43: push_constant_int 261
+L44: push_constant_int 262
+L45: push_constant_int 263
+L46: push_constant_int 264
+L47: push_constant_int 271
+L48: push_constant_int 7
+L49: push_constant_string "IIIIIIIIIIIIIIIIIY"
+L50: push_int_local 0
+L51: if_setonvarctransmit 0
+L52: return 0
+L53:

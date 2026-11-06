@@ -1,0 +1,20 @@
+name=""
+local_int_count=4
+local_string_count=0
+local_long_count=0
+int_param_count=2
+string_param_count=0
+long_param_count=0
+
+L0: push_constant_int -1
+L1: pop_int_local 2
+L2: push_constant_int -1
+L3: pop_int_local 3
+L4: ignore_count 0
+L5: branch_if_true L7
+L6: branch L10
+L7: push_int_local 0
+L8: push_int_local 1
+L9: gosub_with_params clientscript_4332
+L10: return 0
+L11:

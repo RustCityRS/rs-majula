@@ -1,7 +1,0 @@
-[clientscript,script_1804](int $int0, int $int1, int $int2)
-if (map_members = 1) {
-    ~script_1163($int0, $int1, $int2, 25, 250, "You may choose:" + "<br>" + "- Allow all spells" + "<br>" + "- Standard spellbook only" + "<br>" + "- Bind/Snare/Entangle only" + "<br>" + "- No Magic");
-} else {
-    ~script_1163($int0, $int1, $int2, 25, 250, "You may choose:" + "<br>" + "- Standard spellbook" + "<br>" + "- Bind only" + "<br>" + "- No Magic");
-}
-return;

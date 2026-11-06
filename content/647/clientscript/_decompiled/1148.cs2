@@ -1,7 +1,0 @@
-[clientscript,script_1148](int $int0, int $int1, int $int2, int $int3, int $int4)
-if ($int4 = 1) {
-    if_setgraphic($int1);
-} else {
-    if_setgraphic($int1);
-}
-return;

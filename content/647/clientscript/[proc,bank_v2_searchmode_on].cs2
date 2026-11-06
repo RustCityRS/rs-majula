@@ -1,0 +1,22 @@
+name=""
+local_int_count=0
+local_string_count=0
+local_long_count=0
+int_param_count=0
+string_param_count=0
+long_param_count=0
+
+L0: push_constant_int 1424
+L1: push_constant_int 49938450
+L2: if_setgraphic 0
+L3: push_constant_int 1433
+L4: push_constant_int 49938449
+L5: if_setgraphic 0
+L6: push_constant_int 0
+L7: gosub_with_params [proc,bank_v2_tab_highlight]
+L8: gosub_with_params [proc,bank_v2_show_all]
+L9: gosub_with_params [proc,meslayer_mode11]
+L10: push_constant_int 1
+L11: pop_varc_int varc_int_188
+L12: return 0
+L13:

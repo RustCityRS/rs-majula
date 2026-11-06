@@ -1,9 +1,0 @@
-[clientscript,script_1886](int $int0)
-if (%varbit4895 = 3) {
-    if (%varp281 < 125) {
-        if_sethide($int0);
-    }
-} else {
-    if_sethide($int0);
-}
-return;

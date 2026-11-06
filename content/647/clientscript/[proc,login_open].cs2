@@ -1,0 +1,71 @@
+name=""
+local_int_count=2
+local_string_count=0
+local_long_count=0
+int_param_count=1
+string_param_count=0
+long_param_count=0
+
+L0: gosub_with_params [proc,login_getreply]
+L1: pop_int_local 1
+L2: push_int_local 1
+L3: push_constant_int -3
+L4: branch_equals L11
+L5: push_int_local 1
+L6: push_constant_int 21
+L7: branch_equals L11
+L8: push_int_local 1
+L9: branch_if_true L11
+L10: branch L12
+L11: return 0
+L12: push_varc_string_old varc_string_32
+L13: push_constant_int 39059521
+L14: if_settext 0
+L15: push_varc_string_old varc_string_33
+L16: gosub_with_params clientscript_2949
+L17: push_constant_int 39059527
+L18: if_settext 0
+L19: push_varc_string_old varc_string_32
+L20: string_length 0
+L21: push_constant_int 0
+L22: branch_greater_than L24
+L23: branch L27
+L24: push_constant_int 4
+L25: pop_varc_int varc_int_174
+L26: branch L29
+L27: push_constant_int 3
+L28: pop_varc_int varc_int_174
+L29: push_varc_int varc_int_174
+L30: push_constant_int 3
+L31: branch_equals L33
+L32: branch L43
+L33: push_varc_string_old varc_string_32
+L34: string_length 0
+L35: pop_varc_int varc_int_1099
+L36: push_constant_int 39059520
+L37: push_constant_int 39059521
+L38: push_constant_int 39059522
+L39: push_varc_string_old varc_string_32
+L40: push_constant_int 3
+L41: gosub_with_params clientscript_3237
+L42: branch L54
+L43: push_varc_string_old varc_string_33
+L44: gosub_with_params clientscript_2949
+L45: string_length 0
+L46: pop_varc_int varc_int_1099
+L47: push_constant_int 39059526
+L48: push_constant_int 39059527
+L49: push_constant_int 39059528
+L50: push_varc_string_old varc_string_33
+L51: gosub_with_params clientscript_2949
+L52: push_constant_int 4
+L53: gosub_with_params clientscript_3237
+L54: push_constant_int 0
+L55: push_constant_int 48758810
+L56: if_sethide 0
+L57: push_constant_int 0
+L58: push_constant_int 39059460
+L59: if_sethide 0
+L60: gosub_with_params clientscript_3964
+L61: return 0
+L62:

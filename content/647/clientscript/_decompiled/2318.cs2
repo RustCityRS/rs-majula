@@ -1,8 +1,0 @@
-[clientscript,script_2318](int $int0)
-if ($int0 ! 1) {
-    return;
-}
-sound_synth(synth_2266, 1, 0);
-%varbit8348 = sub(1, %varbit8348);
-~script_2319;
-return;

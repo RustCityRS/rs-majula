@@ -1,9 +1,0 @@
-[clientscript,script_2119](int $int0, int $int1)
-if (if_getscrollheight > 0) {
-    if (if_getscrolly < 35) {
-        if_sethide($int1);
-    }
-} else {
-    if_sethide($int1);
-}
-return;

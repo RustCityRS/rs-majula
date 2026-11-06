@@ -1,0 +1,20 @@
+name=""
+local_int_count=0
+local_string_count=0
+local_long_count=0
+int_param_count=0
+string_param_count=0
+long_param_count=0
+
+L0: push_constant_int 48758832
+L1: if_gethide 0
+L2: branch_if_false L7
+L3: push_constant_int 48758833
+L4: if_gethide 0
+L5: branch_if_false L7
+L6: branch L9
+L7: gosub_with_params [proc,create_exit]
+L8: branch L10
+L9: logout_ex 0
+L10: return 0
+L11:

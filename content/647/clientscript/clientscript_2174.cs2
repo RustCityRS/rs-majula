@@ -1,0 +1,42 @@
+name=""
+local_int_count=3
+local_string_count=0
+local_long_count=0
+int_param_count=0
+string_param_count=0
+long_param_count=0
+
+L0: push_constant_int 0
+L1: pop_int_local 0
+L2: push_constant_int 141
+L3: pop_int_local 1
+L4: push_constant_int 964
+L5: enum_getoutputcount 0
+L6: pop_int_local 2
+L7: push_int_local 0
+L8: push_int_local 2
+L9: branch_less_than L11
+L10: branch L32
+L11: push_int_local 0
+L12: gosub_with_params clientscript_2189
+L13: branch_if_true L15
+L14: branch L18
+L15: push_constant_int 255
+L16: pop_int_local 1
+L17: branch L20
+L18: push_constant_int 141
+L19: pop_int_local 1
+L20: push_int_local 1
+L21: push_constant_int 105
+L22: push_constant_int 73
+L23: push_constant_int 964
+L24: push_int_local 0
+L25: enum 0
+L26: if_settrans 0
+L27: push_int_local 0
+L28: push_constant_int 1
+L29: add 0
+L30: pop_int_local 0
+L31: branch L7
+L32: return 0
+L33:

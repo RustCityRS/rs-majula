@@ -1,0 +1,68 @@
+name=""
+local_int_count=2
+local_string_count=0
+local_long_count=0
+int_param_count=2
+string_param_count=0
+long_param_count=0
+
+L0: push_int_local 0
+L1: push_constant_int 2
+L2: branch_equals L4
+L3: branch L58
+L4: gosub_with_params [proc,music_search_close]
+L5: push_int_local 1
+L6: push_constant_int 500
+L7: branch_less_than L9
+L8: branch L34
+L9: push_int_local 1
+L10: gosub_with_params [proc,music_getvar]
+L11: branch_if_true L13
+L12: branch L27
+L13: push_constant_int 105
+L14: push_constant_int 105
+L15: push_constant_int 1350
+L16: push_int_local 1
+L17: enum 0
+L18: branch_if_false L20
+L19: branch L27
+L20: push_constant_string "This track was unlocked "
+L21: push_constant_int 1349
+L22: push_int_local 1
+L23: enum_string 0
+L24: join_string 2
+L25: mes 0
+L26: branch L33
+L27: push_constant_string "This track unlocks "
+L28: push_constant_int 1349
+L29: push_int_local 1
+L30: enum_string 0
+L31: join_string 2
+L32: mes 0
+L33: branch L58
+L34: push_int_local 1
+L35: gosub_with_params [proc,music_getvar]
+L36: branch_if_true L38
+L37: branch L52
+L38: push_constant_int 105
+L39: push_constant_int 105
+L40: push_constant_int 1350
+L41: push_int_local 1
+L42: enum 0
+L43: branch_if_false L45
+L44: branch L52
+L45: push_constant_string "This track was unlocked "
+L46: push_constant_int 952
+L47: push_int_local 1
+L48: enum_string 0
+L49: join_string 2
+L50: mes 0
+L51: branch L58
+L52: push_constant_string "This track unlocks "
+L53: push_constant_int 952
+L54: push_int_local 1
+L55: enum_string 0
+L56: join_string 2
+L57: mes 0
+L58: return 0
+L59:

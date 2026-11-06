@@ -1,0 +1,72 @@
+name=""
+local_int_count=5
+local_string_count=0
+local_long_count=0
+int_param_count=0
+string_param_count=0
+long_param_count=0
+
+L0: push_constant_int -1
+L1: pop_int_local 0
+L2: push_constant_int 0
+L3: pop_int_local 1
+L4: push_constant_int 0
+L5: pop_int_local 2
+L6: push_constant_int 0
+L7: pop_int_local 3
+L8: push_constant_int 0
+L9: pop_int_local 4
+L10: push_constant_int 0
+L11: push_constant_int 18808836
+L12: if_sethide 0
+L13: push_varc_int varc_int_1032
+L14: branch_if_true L16
+L15: branch L19
+L16: push_constant_int 221
+L17: pop_int_local 0
+L18: branch L21
+L19: push_constant_int 222
+L20: pop_int_local 0
+L21: push_int_local 0
+L22: inv_size 0
+L23: pop_int_local 1
+L24: push_int_local 1
+L25: push_constant_int 5
+L26: push_constant_int 5
+L27: multiply 0
+L28: branch_not L30
+L29: branch L33
+L30: push_constant_string "Nothing happens, as if something is wrong."
+L31: mes 0
+L32: return 0
+L33: push_int_local 4
+L34: push_int_local 1
+L35: branch_less_than L37
+L36: branch L62
+L37: push_int_local 2
+L38: push_int_local 3
+L39: push_int_local 0
+L40: push_int_local 4
+L41: inv_getobj 0
+L42: gosub_with_params clientscript_1619
+L43: push_int_local 2
+L44: push_constant_int 1
+L45: add 0
+L46: pop_int_local 2
+L47: push_int_local 2
+L48: push_constant_int 5
+L49: branch_greater_than_or_equals L51
+L50: branch L57
+L51: push_constant_int 0
+L52: pop_int_local 2
+L53: push_int_local 3
+L54: push_constant_int 1
+L55: add 0
+L56: pop_int_local 3
+L57: push_int_local 4
+L58: push_constant_int 1
+L59: add 0
+L60: pop_int_local 4
+L61: branch L33
+L62: return 0
+L63:

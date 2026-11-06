@@ -1,0 +1,72 @@
+name=""
+local_int_count=1
+local_string_count=0
+local_long_count=0
+int_param_count=0
+string_param_count=0
+long_param_count=0
+
+L0: push_constant_int 69140483
+L1: if_gettrans 0
+L2: pop_int_local 0
+L3: push_varc_int varc_int_1427
+L4: push_constant_int 190
+L5: branch_less_than L7
+L6: branch L12
+L7: push_varc_int varc_int_1427
+L8: push_constant_int 1
+L9: add 0
+L10: pop_varc_int varc_int_1427
+L11: branch L62
+L12: push_int_local 0
+L13: push_constant_int 255
+L14: branch_less_than L16
+L15: branch L53
+L16: push_int_local 0
+L17: push_constant_int 4
+L18: add 0
+L19: push_constant_int 255
+L20: min 0
+L21: pop_int_local 0
+L22: push_int_local 0
+L23: push_constant_int 69140482
+L24: if_settrans 0
+L25: push_int_local 0
+L26: push_constant_int 69140483
+L27: if_settrans 0
+L28: push_int_local 0
+L29: push_constant_int 69140484
+L30: if_settrans 0
+L31: push_int_local 0
+L32: push_constant_int 69140485
+L33: if_settrans 0
+L34: push_int_local 0
+L35: push_constant_int 69140486
+L36: if_settrans 0
+L37: push_int_local 0
+L38: push_constant_int 69140487
+L39: if_settrans 0
+L40: push_int_local 0
+L41: push_constant_int 69140488
+L42: if_settrans 0
+L43: push_int_local 0
+L44: push_constant_int 69140489
+L45: if_settrans 0
+L46: push_int_local 0
+L47: push_constant_int 69140490
+L48: if_settrans 0
+L49: push_int_local 0
+L50: push_constant_int 69140491
+L51: if_settrans 0
+L52: branch L62
+L53: push_constant_int -1
+L54: push_constant_string ""
+L55: push_constant_int 69140480
+L56: if_setontimer 0
+L57: push_constant_int 1
+L58: push_constant_int 69140481
+L59: if_sethide 0
+L60: push_constant_int 0
+L61: pop_varc_int varc_int_1427
+L62: return 0
+L63:

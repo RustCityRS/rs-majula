@@ -1,0 +1,34 @@
+name=""
+local_int_count=0
+local_string_count=0
+local_long_count=0
+int_param_count=0
+string_param_count=0
+long_param_count=0
+
+L0: push_varc_int varc_int_1127
+L1: push_constant_int 15
+L2: branch_less_than L4
+L3: branch L17
+L4: gosub_with_params clientscript_2240
+L5: push_varc_int varc_int_1135
+L6: branch_less_than L8
+L7: branch L17
+L8: push_constant_int 8729
+L9: push_constant_int 1
+L10: push_constant_int 0
+L11: sound_synth 0
+L12: push_varc_int varc_int_1130
+L13: push_constant_int 1
+L14: add 0
+L15: pop_varc_int varc_int_1130
+L16: branch L23
+L17: push_constant_int 1
+L18: pop_var varp_1685
+L19: push_constant_int 2277
+L20: push_constant_int 1
+L21: push_constant_int 0
+L22: sound_synth 0
+L23: gosub_with_params clientscript_2220
+L24: return 0
+L25:

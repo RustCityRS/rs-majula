@@ -1,0 +1,106 @@
+name=""
+local_int_count=0
+local_string_count=0
+local_long_count=0
+int_param_count=0
+string_param_count=0
+long_param_count=0
+
+L0: push_varc_int varc_int_766
+L1: branch_if_true L6
+L2: push_varc_int varc_int_766
+L3: push_constant_int 2
+L4: branch_equals L6
+L5: branch L9
+L6: push_constant_string "You can't do that right now."
+L7: mes 0
+L8: return 0
+L9: push_constant_int 6421
+L10: push_constant_int 1
+L11: push_constant_int 0
+L12: sound_synth 0
+L13: push_constant_int 20054022
+L14: if_getx 0
+L15: push_constant_int 20054034
+L16: if_getx 0
+L17: branch_greater_than_or_equals L19
+L18: branch L32
+L19: push_constant_int 20054022
+L20: if_getx 0
+L21: push_constant_int 20054034
+L22: if_getx 0
+L23: push_constant_int 20054034
+L24: if_getwidth 0
+L25: add 0
+L26: branch_less_than L28
+L27: branch L32
+L28: push_constant_int 1
+L29: pop_varc_int varc_int_765
+L30: push_varc_int varc_int_761
+L31: gosub_with_params clientscript_2326
+L32: push_constant_int 20054023
+L33: if_getx 0
+L34: push_constant_int 20054034
+L35: if_getx 0
+L36: branch_greater_than_or_equals L38
+L37: branch L51
+L38: push_constant_int 20054023
+L39: if_getx 0
+L40: push_constant_int 20054034
+L41: if_getx 0
+L42: push_constant_int 20054034
+L43: if_getwidth 0
+L44: add 0
+L45: branch_less_than L47
+L46: branch L51
+L47: push_constant_int 2
+L48: pop_varc_int varc_int_765
+L49: push_varc_int varc_int_762
+L50: gosub_with_params clientscript_2326
+L51: push_constant_int 20054024
+L52: if_getx 0
+L53: push_constant_int 20054034
+L54: if_getx 0
+L55: branch_greater_than_or_equals L57
+L56: branch L70
+L57: push_constant_int 20054024
+L58: if_getx 0
+L59: push_constant_int 20054034
+L60: if_getx 0
+L61: push_constant_int 20054034
+L62: if_getwidth 0
+L63: add 0
+L64: branch_less_than L66
+L65: branch L70
+L66: push_constant_int 3
+L67: pop_varc_int varc_int_765
+L68: push_varc_int varc_int_763
+L69: gosub_with_params clientscript_2326
+L70: push_constant_int 20054025
+L71: if_getx 0
+L72: push_constant_int 20054034
+L73: if_getx 0
+L74: branch_greater_than_or_equals L76
+L75: branch L89
+L76: push_constant_int 20054025
+L77: if_getx 0
+L78: push_constant_int 20054034
+L79: if_getx 0
+L80: push_constant_int 20054034
+L81: if_getwidth 0
+L82: add 0
+L83: branch_less_than L85
+L84: branch L89
+L85: push_constant_int 4
+L86: pop_varc_int varc_int_765
+L87: push_varc_int varc_int_764
+L88: gosub_with_params clientscript_2326
+L89: push_constant_int 1
+L90: pop_varc_int varc_int_766
+L91: push_constant_int 2328
+L92: push_constant_int -2147483645
+L93: push_constant_string "I"
+L94: push_constant_int 20054026
+L95: if_setontimer 0
+L96: return 0
+L97:

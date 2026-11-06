@@ -1,0 +1,99 @@
+name=""
+local_int_count=5
+local_string_count=0
+local_long_count=0
+int_param_count=5
+string_param_count=0
+long_param_count=0
+
+L0: push_int_local 0
+L1: if_gettext 0
+L2: pop_varc_string_old varc_string_345
+L3: push_int_local 3
+L4: switch switch0
+L5: branch L32
+L6: gosub_with_params clientscript_4382
+L7: branch L43
+L8: key_isdown_ctrl 0
+L9: branch_if_false L11
+L10: branch L12
+L11: return 0
+L12: push_int_local 3
+L13: push_varc_int varc_int_1496
+L14: push_varc_string_old varc_string_345
+L15: gosub_with_params clientscript_1553
+L16: pop_int_discard 0
+L17: branch L43
+L18: push_varc_string_old varc_string_345
+L19: string_length 0
+L20: push_constant_int 0
+L21: branch_greater_than L23
+L22: branch L31
+L23: push_varc_string_old varc_string_345
+L24: push_constant_int 0
+L25: push_varc_string_old varc_string_345
+L26: string_length 0
+L27: push_constant_int 1
+L28: sub 0
+L29: substring 0
+L30: pop_varc_string_old varc_string_345
+L31: branch L43
+L32: push_varc_string_old varc_string_345
+L33: string_length 0
+L34: push_constant_int 80
+L35: branch_less_than L37
+L36: branch L43
+L37: push_varc_string_old varc_string_345
+L38: push_constant_int 0
+L39: push_int_local 3
+L40: push_int_local 2
+L41: gosub_with_params [proc,add_to_inputstring]
+L42: pop_varc_string_old varc_string_345
+L43: push_varc_int varc_int_1496
+L44: push_varc_string_old varc_string_345
+L45: push_constant_int 5631
+L46: push_int_local 0
+L47: push_constant_int -1
+L48: gosub_with_params clientscript_1552
+L49: pop_varc_int varc_int_1496
+L50: push_varc_int varc_int_1496
+L51: push_int_local 4
+L52: if_gety 0
+L53: push_constant_int 0
+L54: push_constant_int 0
+L55: push_int_local 4
+L56: if_setposition 0
+L57: push_varc_string_old varc_string_345
+L58: string_length 0
+L59: tostring 0
+L60: push_constant_string "/80"
+L61: join_string 2
+L62: push_int_local 1
+L63: if_settext 0
+L64: push_varc_string_old varc_string_345
+L65: string_length 0
+L66: push_constant_int 70
+L67: branch_greater_than_or_equals L69
+L68: branch L73
+L69: push_constant_int 14483456
+L70: push_int_local 1
+L71: if_setcolour 0
+L72: branch L76
+L73: push_constant_int 2039065
+L74: push_int_local 1
+L75: if_setcolour 0
+L76: push_varc_string_old varc_string_345
+L77: push_int_local 0
+L78: if_settext 0
+L79: return 0
+L80:
+
+[switch0@L4]
+84=L6
+96=L8
+97=L8
+98=L8
+99=L8
+102=L8
+103=L8
+85=L18

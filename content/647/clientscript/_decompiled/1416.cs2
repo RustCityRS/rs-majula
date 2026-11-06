@@ -1,4 +1,0 @@
-[clientscript,script_1416](int $int0, int $int1)(int, int, int, int)
-if_setposition(calc($int1 - $int0 * if_getheight), 0, 0, $int0);
-$int1 = add($int1, 1);
-return($int0, if_getx, 225, $int1);

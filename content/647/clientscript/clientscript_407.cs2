@@ -1,0 +1,87 @@
+name=""
+local_int_count=3
+local_string_count=1
+local_long_count=0
+int_param_count=0
+string_param_count=0
+long_param_count=0
+
+L0: push_varc_int varc_int_1362
+L1: push_constant_int 1
+L2: branch_less_than L4
+L3: branch L5
+L4: return 0
+L5: push_varc_int varc_int_1362
+L6: push_constant_int 6
+L7: multiply 0
+L8: push_constant_int 10
+L9: div 0
+L10: pop_int_local 0
+L11: push_constant_int 0
+L12: pop_int_local 1
+L13: push_constant_int 0
+L14: pop_int_local 2
+L15: push_constant_string ""
+L16: pop_string_local 0
+L17: push_int_local 0
+L18: push_constant_int 60
+L19: branch_less_than L21
+L20: branch L24
+L21: push_int_local 0
+L22: pop_int_local 1
+L23: branch L32
+L24: push_int_local 0
+L25: push_constant_int 60
+L26: mod 0
+L27: pop_int_local 1
+L28: push_int_local 0
+L29: push_constant_int 60
+L30: div 0
+L31: pop_int_local 2
+L32: push_int_local 1
+L33: push_constant_int 10
+L34: branch_less_than L36
+L35: branch L58
+L36: push_constant_string "0"
+L37: push_int_local 1
+L38: tostring 0
+L39: append 0
+L40: pop_string_local 0
+L41: push_int_local 2
+L42: branch_if_false L44
+L43: branch L57
+L44: push_varc_int varc_int_1389
+L45: branch_if_false L47
+L46: branch L57
+L47: push_constant_int 1
+L48: pop_varc_int varc_int_1389
+L49: push_varbit varbit_7511
+L50: branch_if_true L52
+L51: branch L57
+L52: push_constant_int 3434
+L53: push_constant_int 1
+L54: push_constant_int 0
+L55: push_constant_int 255
+L56: sound_song_alt 0
+L57: branch L61
+L58: push_int_local 1
+L59: tostring 0
+L60: pop_string_local 0
+L61: push_constant_string "Turn Time Left"
+L62: push_constant_string "<br>"
+L63: push_int_local 2
+L64: tostring 0
+L65: push_constant_string ":"
+L66: push_string_local 0
+L67: join_string 5
+L68: push_constant_int 66191381
+L69: if_settext 0
+L70: push_int_local 2
+L71: tostring 0
+L72: push_constant_string ":"
+L73: push_string_local 0
+L74: join_string 3
+L75: push_constant_int 66387992
+L76: if_settext 0
+L77: return 0
+L78:

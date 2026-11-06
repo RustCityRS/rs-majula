@@ -1,0 +1,41 @@
+name=""
+local_int_count=2
+local_string_count=1
+local_long_count=0
+int_param_count=0
+string_param_count=1
+long_param_count=0
+
+L0: push_string_local 0
+L1: string_length 0
+L2: pop_int_local 0
+L3: push_constant_int 0
+L4: pop_int_local 1
+L5: push_int_local 1
+L6: push_int_local 0
+L7: branch_less_than L9
+L8: branch L28
+L9: push_constant_string "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"
+L10: push_string_local 0
+L11: push_int_local 1
+L12: push_int_local 1
+L13: push_constant_int 1
+L14: add 0
+L15: substring 0
+L16: push_constant_int 0
+L17: string_indexof_string 0
+L18: push_constant_int -1
+L19: branch_equals L21
+L20: branch L23
+L21: push_constant_int 1
+L22: return 0
+L23: push_int_local 1
+L24: push_constant_int 1
+L25: add 0
+L26: pop_int_local 1
+L27: branch L5
+L28: push_constant_int 0
+L29: return 0
+L30: push_constant_int -1
+L31: return 0
+L32:

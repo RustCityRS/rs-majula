@@ -1,0 +1,131 @@
+name=""
+local_int_count=1
+local_string_count=0
+local_long_count=0
+int_param_count=1
+string_param_count=0
+long_param_count=0
+
+L0: push_var varp_1469
+L1: push_constant_int 105
+L2: push_constant_int 99
+L3: push_constant_int 2536
+L4: push_int_local 0
+L5: enum 0
+L6: branch_equals L8
+L7: branch L11
+L8: push_constant_int 0
+L9: push_constant_string "null"
+L10: return 0
+L11: push_int_local 0
+L12: switch switch0
+L13: branch L102
+L14: push_constant_int 1
+L15: push_constant_int 105
+L16: push_constant_int 115
+L17: push_constant_int 2535
+L18: push_constant_int 0
+L19: enum 0
+L20: return 0
+L21: branch L105
+L22: push_constant_int 1
+L23: push_constant_int 105
+L24: push_constant_int 115
+L25: push_constant_int 2535
+L26: push_constant_int 1
+L27: enum 0
+L28: return 0
+L29: branch L105
+L30: push_constant_int 1
+L31: push_constant_int 105
+L32: push_constant_int 115
+L33: push_constant_int 2535
+L34: push_constant_int 2
+L35: enum 0
+L36: return 0
+L37: branch L105
+L38: push_constant_int 1
+L39: push_constant_int 105
+L40: push_constant_int 115
+L41: push_constant_int 2535
+L42: push_constant_int 3
+L43: enum 0
+L44: return 0
+L45: branch L105
+L46: push_constant_int 1
+L47: push_constant_int 105
+L48: push_constant_int 115
+L49: push_constant_int 2535
+L50: push_constant_int 4
+L51: enum 0
+L52: return 0
+L53: branch L105
+L54: push_varbit varbit_720
+L55: push_constant_int 20
+L56: branch_equals L58
+L57: branch L65
+L58: push_constant_int 1
+L59: push_constant_int 105
+L60: push_constant_int 115
+L61: push_constant_int 2535
+L62: push_constant_int 5
+L63: enum 0
+L64: return 0
+L65: branch L105
+L66: push_varbit varbit_722
+L67: push_constant_int 20
+L68: branch_equals L70
+L69: branch L77
+L70: push_constant_int 1
+L71: push_constant_int 105
+L72: push_constant_int 115
+L73: push_constant_int 2535
+L74: push_constant_int 6
+L75: enum 0
+L76: return 0
+L77: branch L105
+L78: push_varbit varbit_724
+L79: push_constant_int 20
+L80: branch_equals L82
+L81: branch L89
+L82: push_constant_int 1
+L83: push_constant_int 105
+L84: push_constant_int 115
+L85: push_constant_int 2535
+L86: push_constant_int 7
+L87: enum 0
+L88: return 0
+L89: branch L105
+L90: push_varbit varbit_3959
+L91: push_constant_int 3
+L92: branch_greater_than_or_equals L94
+L93: branch L101
+L94: push_constant_int 1
+L95: push_constant_int 105
+L96: push_constant_int 115
+L97: push_constant_int 2535
+L98: push_constant_int 8
+L99: enum 0
+L100: return 0
+L101: branch L105
+L102: push_constant_int -1
+L103: push_constant_string "null"
+L104: return 0
+L105: push_constant_int 0
+L106: push_constant_string "null"
+L107: return 0
+L108: push_constant_int 0
+L109: push_constant_string ""
+L110: return 0
+L111:
+
+[switch0@L12]
+0=L14
+1=L22
+2=L30
+3=L38
+4=L46
+5=L54
+6=L66
+7=L78
+8=L90

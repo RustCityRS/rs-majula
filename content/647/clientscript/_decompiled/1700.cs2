@@ -1,9 +1,0 @@
-[clientscript,script_1700]
-if (%varc_int1052 = 1) {
-    if_settext("Hide stat adjustments.");
-    if_setop(17760268, "Hide stat adjustments");
-} else {
-    if_settext("Show stat adjustments.");
-    if_setop(17760268, "Show stat adjustments");
-}
-return;

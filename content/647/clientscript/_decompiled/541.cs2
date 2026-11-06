@@ -1,9 +1,0 @@
-[clientscript,script_541](int $int0, int $int1)
-if (stat(crafting) < $int1) {
-    if (%varbit4089 = 1) {
-    }
-} else {
-    if_setcolour($int0);
-}
-if_setcolour($int0);
-return;

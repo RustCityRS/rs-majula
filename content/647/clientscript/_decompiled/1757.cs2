@@ -1,8 +1,0 @@
-[clientscript,script_1757](int $int0, int $int1)(int)
-if (%varc_int219 > 0) {
-    if_sethide($int0);
-} else {
-    if_sethide($int0);
-}
-if_settext(tostring(%varc_int219));
-return($int1);

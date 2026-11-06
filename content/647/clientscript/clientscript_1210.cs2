@@ -1,0 +1,50 @@
+name=""
+local_int_count=7
+local_string_count=0
+local_long_count=0
+int_param_count=4
+string_param_count=0
+long_param_count=0
+
+L0: clientclock 0
+L1: push_int_local 3
+L2: add 0
+L3: push_int_local 2
+L4: sub 0
+L5: push_int_local 1
+L6: mod 0
+L7: pop_int_local 4
+L8: push_int_local 1
+L9: push_constant_int 2
+L10: div 0
+L11: pop_int_local 5
+L12: push_int_local 5
+L13: push_int_local 4
+L14: sub 0
+L15: pop_int_local 6
+L16: push_int_local 6
+L17: branch_if_false L19
+L18: branch L21
+L19: push_int_local 0
+L20: return 0
+L21: push_int_local 6
+L22: push_constant_int 0
+L23: branch_greater_than L25
+L24: branch L32
+L25: push_int_local 0
+L26: push_int_local 6
+L27: push_int_local 5
+L28: push_int_local 0
+L29: scale 0
+L30: sub 0
+L31: return 0
+L32: push_int_local 0
+L33: push_int_local 6
+L34: push_int_local 5
+L35: push_int_local 0
+L36: scale 0
+L37: add 0
+L38: return 0
+L39: push_constant_int 0
+L40: return 0
+L41:

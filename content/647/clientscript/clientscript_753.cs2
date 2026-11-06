@@ -1,0 +1,58 @@
+name=""
+local_int_count=0
+local_string_count=0
+local_long_count=0
+int_param_count=0
+string_param_count=0
+long_param_count=0
+
+L0: push_varbit varbit_4286
+L1: push_constant_int 101
+L2: branch_not L4
+L3: branch L22
+L4: push_varbit varbit_4286
+L5: tostring 0
+L6: push_constant_string "%"
+L7: join_string 2
+L8: push_constant_int 43384880
+L9: if_settext 0
+L10: push_varbit varbit_4286
+L11: push_constant_int 74
+L12: branch_greater_than L14
+L13: branch L18
+L14: push_constant_int 16711680
+L15: push_constant_int 43384880
+L16: if_setcolour 0
+L17: branch L21
+L18: push_constant_int 16777215
+L19: push_constant_int 43384880
+L20: if_setcolour 0
+L21: branch L25
+L22: push_constant_string "NA"
+L23: push_constant_int 43384880
+L24: if_settext 0
+L25: push_varbit varbit_4285
+L26: push_constant_int 101
+L27: branch_not L29
+L28: branch L42
+L29: push_varbit varbit_4285
+L30: tostring 0
+L31: push_constant_string "%"
+L32: join_string 2
+L33: push_constant_int 43384877
+L34: if_settext 0
+L35: push_varbit varbit_4285
+L36: tostring 0
+L37: push_constant_string "%"
+L38: join_string 2
+L39: push_constant_int 43384878
+L40: if_settext 0
+L41: branch L48
+L42: push_constant_string "NA"
+L43: push_constant_int 43384877
+L44: if_settext 0
+L45: push_constant_string "NA"
+L46: push_constant_int 43384878
+L47: if_settext 0
+L48: return 0
+L49:

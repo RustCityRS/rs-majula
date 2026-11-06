@@ -10,6 +10,7 @@ use crate::cache::seq_frame::split_frame_into_stripes;
 use crate::cache::seq_frame::{AnimFrame, FrameBone};
 #[cfg(since_647)]
 use crate::pack::js5::{PreparedGroup, insert_archive};
+#[cfg(before_647)]
 use crate::pack::pack_registry::PackFile;
 #[cfg(before_647)]
 use crate::pack::pack_registry::PackRegistry;
@@ -31,8 +32,6 @@ use rs_io::js5::{encode_group_entries, encode_group_entries_striped, reference::
 use std::collections::BTreeMap;
 use std::collections::HashMap;
 use std::fs;
-#[cfg(since_647)]
-use std::io;
 use std::path::Path;
 #[cfg(before_647)]
 use tracing::{debug, warn};
@@ -411,7 +410,10 @@ fn parse_csv_i32(s: &str) -> Vec<i32> {
 }
 
 #[cfg(since_647)]
-fn parse_frames(text: &str) -> Result<BTreeMap<u32, Vec<u8>>> {
+pub fn parse_frames(
+    text: &str,
+    names: &crate::pack::names::AssetNames,
+) -> Result<BTreeMap<u32, Vec<u8>>> {
     let mut frames = BTreeMap::new();
     let mut id = None;
     let mut frame = AnimFrame {
@@ -446,7 +448,7 @@ fn parse_frames(text: &str) -> Result<BTreeMap<u32, Vec<u8>>> {
         let value = value.trim();
         match key.trim() {
             "type" => frame.type_marker = value.parse()?,
-            "base" => frame.base_id = value.parse()?,
+            "base" => frame.base_id = names.id("base", value)?.try_into()?,
             "bone_count" => frame.bone_count = value.parse()?,
             "bone" => {
                 let mut fields = value.split(':');
@@ -477,23 +479,14 @@ pub fn pack_archive(
     versions: &HashMap<u8, ArchiveVersions>,
 ) -> Result<()> {
     let aid = archive::ANIMS;
-    let anim_dir = content_dir.join("scripts/_unpack/animations");
-    let pack = PackFile::load(&pack_dir.join("anim.pack"))?;
-    let files: Vec<_> = fs::read_dir(&anim_dir)?
-        .map(|entry| entry.map(|e| e.path()))
-        .collect::<io::Result<Vec<_>>>()?
-        .into_iter()
-        .filter(|p| p.extension().and_then(|e| e.to_str()) == Some("anim"))
-        .collect();
+    let anim_dir = content_dir.join("animations");
+    let names = crate::pack::names::AssetNames::load(pack_dir)?;
+    let files = names.files(&anim_dir, "anim", &["anim"])?;
     let prepared = files
         .par_iter()
-        .map(|path| {
-            let name = path.file_stem().and_then(|s| s.to_str()).unwrap_or("");
-            let gid = pack
-                .get_by_debugname(name)
-                .or_else(|| name.strip_prefix("anim_").and_then(|s| s.parse().ok()))
-                .with_context(|| format!("Unknown animation: {name}"))?;
-            let frames = parse_frames(&fs::read_to_string(path)?)
+        .map(|(gid, path)| {
+            let gid = *gid;
+            let frames = parse_frames(&fs::read_to_string(path)?, &names)
                 .with_context(|| format!("Reading animation {}", path.display()))?;
             let refs: Vec<_> = frames
                 .iter()
@@ -524,3 +517,7 @@ pub fn pack_archive(
         "from animations",
     )
 }
+#[cfg(since_647)]
+mod geometry;
+#[cfg(since_647)]
+pub mod source;

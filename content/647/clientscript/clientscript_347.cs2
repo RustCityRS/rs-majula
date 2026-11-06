@@ -1,0 +1,61 @@
+name=""
+local_int_count=3
+local_string_count=0
+local_long_count=0
+int_param_count=3
+string_param_count=0
+long_param_count=0
+
+L0: push_int_local 0
+L1: push_int_local 1
+L2: cc_find 0
+L3: branch_if_true L5
+L4: branch L51
+L5: push_int_local 2
+L6: push_constant_int -1
+L7: branch_equals L9
+L8: branch L22
+L9: push_constant_int 1518
+L10: push_constant_int -2147483645
+L11: push_constant_int -2147483643
+L12: push_constant_int 0
+L13: push_constant_string "Iii"
+L14: cc_setontimer 0
+L15: push_constant_int 347
+L16: push_constant_int -2147483645
+L17: push_constant_int -2147483643
+L18: push_constant_int -2147483647
+L19: push_constant_string "Iii"
+L20: cc_setonclick 0
+L21: branch L51
+L22: push_int_local 2
+L23: cc_getwidth 0
+L24: push_constant_int 2
+L25: div 0
+L26: sub 0
+L27: pop_int_local 2
+L28: push_int_local 2
+L29: push_constant_int 0
+L30: branch_greater_than_or_equals L32
+L31: branch L39
+L32: push_constant_int 1518
+L33: push_constant_int -2147483645
+L34: push_constant_int -2147483643
+L35: push_constant_int 1
+L36: push_constant_string "Iii"
+L37: cc_setontimer 0
+L38: branch L45
+L39: push_constant_int 1518
+L40: push_constant_int -2147483645
+L41: push_constant_int -2147483643
+L42: push_constant_int -1
+L43: push_constant_string "Iii"
+L44: cc_setontimer 0
+L45: push_constant_int 347
+L46: push_constant_int -2147483645
+L47: push_constant_int -2147483643
+L48: push_constant_int -1
+L49: push_constant_string "Iii"
+L50: cc_setonclick 0
+L51: return 0
+L52:

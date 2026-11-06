@@ -1,0 +1,67 @@
+name=""
+local_int_count=4
+local_string_count=0
+local_long_count=0
+int_param_count=2
+string_param_count=0
+long_param_count=0
+
+L0: push_constant_int 0
+L1: pop_int_local 2
+L2: push_int_local 0
+L3: pop_int_local 3
+L4: push_int_local 3
+L5: push_int_local 1
+L6: branch_less_than L8
+L7: branch L41
+L8: push_constant_int 49938525
+L9: push_int_local 3
+L10: cc_find 0
+L11: branch_if_true L13
+L12: branch L36
+L13: push_constant_int 44
+L14: push_int_local 2
+L15: push_constant_int 10
+L16: mod 0
+L17: multiply 0
+L18: push_constant_int 8
+L19: add 0
+L20: push_int_local 2
+L21: push_constant_int 10
+L22: div 0
+L23: push_constant_int 44
+L24: multiply 0
+L25: push_constant_int 5
+L26: add 0
+L27: push_constant_int 0
+L28: push_constant_int 0
+L29: cc_setposition2 0
+L30: push_constant_int 0
+L31: cc_sethide 0
+L32: push_int_local 2
+L33: push_constant_int 1
+L34: add 0
+L35: pop_int_local 2
+L36: push_int_local 3
+L37: push_constant_int 1
+L38: add 0
+L39: pop_int_local 3
+L40: branch L4
+L41: gosub_with_params clientscript_1464
+L42: push_constant_int 0
+L43: push_constant_int 49938516
+L44: if_sethide 0
+L45: push_constant_int 8
+L46: push_constant_int 2
+L47: sub 0
+L48: push_constant_int 5
+L49: push_constant_int 2
+L50: sub 0
+L51: push_constant_int 0
+L52: push_constant_int 0
+L53: push_constant_int 49938516
+L54: if_setposition 0
+L55: push_int_local 2
+L56: gosub_with_params [proc,bank_v2_build_scrollbar]
+L57: return 0
+L58:

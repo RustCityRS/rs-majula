@@ -1,0 +1,22 @@
+name=""
+local_int_count=1
+local_string_count=0
+local_long_count=0
+int_param_count=1
+string_param_count=0
+long_param_count=0
+
+L0: push_int_local 0
+L1: push_var shop
+L2: gosub_with_params clientscript_2001
+L3: push_constant_int 2000
+L4: push_int_local 0
+L5: push_var shop
+L6: push_constant_int 1081
+L7: push_constant_int 1
+L8: push_constant_string "IvY"
+L9: push_int_local 0
+L10: if_setonvartransmit 0
+L11: return 0
+L12: return 0
+L13:

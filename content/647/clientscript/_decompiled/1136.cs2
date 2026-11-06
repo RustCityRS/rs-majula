@@ -1,9 +1,0 @@
-[clientscript,script_1136](int $int0)(int)
-if (map_members = 1) {
-    if (oc_weight(broken_arrow) ! 0) {
-        if_sethide($int0);
-        return(0);
-    }
-}
-if_sethide($int0);
-return(1);

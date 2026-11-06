@@ -1,0 +1,45 @@
+name=""
+local_int_count=3
+local_string_count=0
+local_long_count=0
+int_param_count=3
+string_param_count=0
+long_param_count=0
+
+L0: push_int_local 2
+L1: gosub_with_params [proc,prayer_client_getvar]
+L2: branch_if_true L4
+L3: branch L20
+L4: push_int_local 0
+L5: push_int_local 2
+L6: cc_find 0
+L7: branch_if_true L9
+L8: branch L12
+L9: push_constant_int 1
+L10: push_constant_string "Deactivate"
+L11: cc_setop 0
+L12: push_int_local 1
+L13: push_int_local 2
+L14: cc_find 0
+L15: branch_if_true L17
+L16: branch L19
+L17: push_constant_int 155
+L18: cc_setgraphic 0
+L19: branch L35
+L20: push_int_local 0
+L21: push_int_local 2
+L22: cc_find 0
+L23: branch_if_true L25
+L24: branch L28
+L25: push_constant_int 1
+L26: push_constant_string "Activate"
+L27: cc_setop 0
+L28: push_int_local 1
+L29: push_int_local 2
+L30: cc_find 0
+L31: branch_if_true L33
+L32: branch L35
+L33: push_constant_int -1
+L34: cc_setgraphic 0
+L35: return 0
+L36:

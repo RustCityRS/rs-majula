@@ -1,0 +1,54 @@
+name=""
+local_int_count=2
+local_string_count=0
+local_long_count=0
+int_param_count=2
+string_param_count=0
+long_param_count=0
+
+L0: push_constant_string "Mime outfit"
+L1: push_constant_int 1
+L2: push_int_local 0
+L3: gosub_with_params [proc,ame_costumes_createrow]
+L4: push_constant_string "Frog kit"
+L5: push_constant_int 11
+L6: push_int_local 0
+L7: gosub_with_params [proc,ame_costumes_createrow]
+L8: push_constant_string "Zombie outfit (Gravedigger reward)"
+L9: push_constant_int 21
+L10: push_int_local 0
+L11: gosub_with_params [proc,ame_costumes_createrow]
+L12: push_constant_string "Camo kit (Drill Demon reward)"
+L13: push_constant_int 31
+L14: push_int_local 0
+L15: gosub_with_params [proc,ame_costumes_createrow]
+L16: push_constant_string "Lederhosen outfit (Freaky Forester reward)"
+L17: push_constant_int 41
+L18: push_int_local 0
+L19: gosub_with_params [proc,ame_costumes_createrow]
+L20: push_constant_int 0
+L21: push_constant_int 320
+L22: push_int_local 0
+L23: if_setscrollsize 0
+L24: push_int_local 1
+L25: push_int_local 0
+L26: push_constant_int 792
+L27: push_constant_int 789
+L28: push_constant_int 790
+L29: push_constant_int 791
+L30: push_constant_int 773
+L31: push_constant_int 788
+L32: gosub_with_params [proc,scrollbar_vertical]
+L33: push_int_local 1
+L34: push_constant_int 1
+L35: cc_find 0
+L36: branch_if_true L38
+L37: branch L44
+L38: push_int_local 1
+L39: push_int_local 0
+L40: push_int_local 0
+L41: if_getscrolly 0
+L42: push_constant_int 1
+L43: gosub_with_params [proc,scrollbar_vertical_doscroll]
+L44: return 0
+L45:

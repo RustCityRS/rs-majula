@@ -1,0 +1,12 @@
+name=""
+local_int_count=0
+local_string_count=0
+local_long_count=0
+int_param_count=0
+string_param_count=0
+long_param_count=0
+
+L0: push_varc_string_old varc_string_126
+L1: gosub_with_params clientscript_4465
+L2: return 0
+L3:

@@ -1,0 +1,26 @@
+name=""
+local_int_count=1
+local_string_count=0
+local_long_count=0
+int_param_count=1
+string_param_count=0
+long_param_count=0
+
+L0: push_int_local 0
+L1: switch switch0
+L2: branch L10
+L3: cam_clear_5507 0
+L4: branch L10
+L5: cam_clear_5508 0
+L6: branch L10
+L7: cam_clear_5509 0
+L8: branch L10
+L9: cam_clear_5510 0
+L10: return 0
+L11:
+
+[switch0@L1]
+1=L3
+2=L5
+3=L7
+4=L9

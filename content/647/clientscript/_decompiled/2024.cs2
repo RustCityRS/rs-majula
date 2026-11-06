@@ -1,7 +1,0 @@
-[clientscript,script_2024](int $int0)(int, component, int, string)
-if (clientclock < $int0) {
-    return;
-}
-if_setontimer;
-if_sethide(59310108);
-return(-1, 59310108, 1, "");

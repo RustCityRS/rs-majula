@@ -1,0 +1,46 @@
+name=""
+local_int_count=2
+local_string_count=0
+local_long_count=0
+int_param_count=2
+string_param_count=0
+long_param_count=0
+
+L0: push_constant_int 1893
+L1: push_int_local 0
+L2: push_int_local 1
+L3: push_constant_string "II"
+L4: push_int_local 0
+L5: op2420 0
+L6: push_constant_int 0
+L7: push_constant_int 0
+L8: push_int_local 0
+L9: if_setscrollsize 0
+L10: push_constant_int 0
+L11: push_constant_int 0
+L12: push_int_local 0
+L13: if_setscrollpos 0
+L14: push_int_local 1
+L15: push_int_local 0
+L16: push_constant_int 5666
+L17: push_constant_int 5663
+L18: push_constant_int 5664
+L19: push_constant_int 5665
+L20: push_constant_int 5686
+L21: push_constant_int 5685
+L22: gosub_with_params [proc,scrollbar_vertical]
+L23: push_int_local 0
+L24: push_int_local 1
+L25: gosub_with_params clientscript_1895
+L26: is_subscriber 0
+L27: branch_if_true L29
+L28: branch L36
+L29: push_constant_string "Friends Chat channel:"
+L30: push_constant_int 72613915
+L31: if_settext 0
+L32: push_constant_int 1
+L33: push_constant_string "Enable"
+L34: push_constant_int 72613910
+L35: if_setop 0
+L36: return 0
+L37:

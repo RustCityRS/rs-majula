@@ -1,9 +1,0 @@
-[clientscript,script_2323](int $int0)
-if (20054017 < sub(if_getwidth, 1)) {
-    if (140 = add($int0, if_getwidth)) {
-        if_setontimer;
-    }
-    if_setposition(if_gety, 0, 0, $int0);
-} else {
-}
-return;

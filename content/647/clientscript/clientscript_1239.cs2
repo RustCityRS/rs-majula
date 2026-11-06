@@ -1,0 +1,68 @@
+name=""
+local_int_count=4
+local_string_count=0
+local_long_count=0
+int_param_count=1
+string_param_count=0
+long_param_count=0
+
+L0: push_varc_int varc_int_176
+L1: push_constant_int 10
+L2: div 0
+L3: pop_int_local 1
+L4: push_int_local 1
+L5: push_constant_int 5
+L6: branch_greater_than L8
+L7: branch L14
+L8: push_constant_int 1
+L9: pop_int_local 1
+L10: push_int_local 1
+L11: push_constant_int 10
+L12: multiply 0
+L13: pop_varc_int varc_int_176
+L14: push_constant_int -1
+L15: pop_int_local 2
+L16: push_constant_int 0
+L17: pop_int_local 3
+L18: push_int_local 1
+L19: switch switch0
+L20: branch L45
+L21: push_int_local 0
+L22: gosub_with_params clientscript_3415
+L23: pop_int_local 3
+L24: pop_int_local 2
+L25: branch L45
+L26: push_int_local 0
+L27: gosub_with_params clientscript_3371
+L28: pop_int_local 3
+L29: pop_int_local 2
+L30: branch L45
+L31: push_int_local 0
+L32: gosub_with_params clientscript_3372
+L33: pop_int_local 3
+L34: pop_int_local 2
+L35: branch L45
+L36: push_int_local 0
+L37: gosub_with_params clientscript_3373
+L38: pop_int_local 3
+L39: pop_int_local 2
+L40: branch L45
+L41: push_int_local 0
+L42: gosub_with_params clientscript_3374
+L43: pop_int_local 3
+L44: pop_int_local 2
+L45: push_int_local 2
+L46: push_int_local 3
+L47: return 0
+L48: push_constant_int -1
+L49: push_constant_int 0
+L50: return 0
+L51:
+
+[switch0@L19]
+0=L21
+1=L21
+2=L26
+3=L31
+4=L36
+5=L41

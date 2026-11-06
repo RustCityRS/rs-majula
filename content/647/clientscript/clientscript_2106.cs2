@@ -1,0 +1,54 @@
+name=""
+local_int_count=6
+local_string_count=0
+local_long_count=0
+int_param_count=6
+string_param_count=0
+long_param_count=0
+
+L0: push_int_local 4
+L1: push_constant_int 1
+L2: randominc 0
+L3: add 0
+L4: push_constant_int 1
+L5: randominc 0
+L6: sub 0
+L7: push_constant_int 5
+L8: min 0
+L9: push_constant_int -5
+L10: max 0
+L11: pop_int_local 4
+L12: push_int_local 5
+L13: push_constant_int 1
+L14: randominc 0
+L15: add 0
+L16: push_constant_int 1
+L17: randominc 0
+L18: sub 0
+L19: push_constant_int 5
+L20: min 0
+L21: push_constant_int -5
+L22: max 0
+L23: pop_int_local 5
+L24: push_int_local 2
+L25: push_int_local 4
+L26: add 0
+L27: push_int_local 3
+L28: push_int_local 5
+L29: add 0
+L30: push_constant_int 0
+L31: push_constant_int 0
+L32: push_int_local 1
+L33: if_setposition 0
+L34: push_constant_int 2106
+L35: push_int_local 0
+L36: push_int_local 1
+L37: push_int_local 2
+L38: push_int_local 3
+L39: push_int_local 4
+L40: push_int_local 5
+L41: push_constant_string "IIiiii"
+L42: push_int_local 0
+L43: if_setontimer 0
+L44: return 0
+L45:

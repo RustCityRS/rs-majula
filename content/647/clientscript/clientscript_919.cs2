@@ -1,0 +1,103 @@
+name=""
+local_int_count=2
+local_string_count=1
+local_long_count=0
+int_param_count=0
+string_param_count=0
+long_param_count=0
+
+L0: push_constant_int 93
+L1: push_varc_int varc_int_743
+L2: inv_total 0
+L3: pop_int_local 0
+L4: push_constant_string "Cost:"
+L5: pop_string_local 0
+L6: push_constant_int -1
+L7: pop_int_local 1
+L8: push_varc_int varc_int_744
+L9: branch_if_false L11
+L10: branch L14
+L11: push_constant_string "None available"
+L12: pop_string_local 0
+L13: branch L23
+L14: push_varc_int varc_int_744
+L15: push_constant_int -1
+L16: branch_equals L18
+L17: branch L21
+L18: push_constant_string "Free sample!"
+L19: pop_string_local 0
+L20: branch L23
+L21: push_varc_int varc_int_744
+L22: pop_int_local 1
+L23: push_string_local 0
+L24: push_constant_int 29425688
+L25: if_settext 0
+L26: push_int_local 1
+L27: push_int_local 0
+L28: branch_greater_than L30
+L29: branch L34
+L30: push_constant_int 16711680
+L31: push_constant_int 29425689
+L32: if_setcolour 0
+L33: branch L37
+L34: push_varc_int varc_int_1241
+L35: push_constant_int 29425689
+L36: if_setcolour 0
+L37: push_int_local 1
+L38: push_constant_int -1
+L39: branch_greater_than L41
+L40: branch L46
+L41: push_varc_int varc_int_743
+L42: push_int_local 1
+L43: push_constant_int 29425687
+L44: if_setobject_scaled 0
+L45: branch L50
+L46: push_constant_int -1
+L47: push_constant_int -1
+L48: push_constant_int 29425687
+L49: if_setobject_nonum 0
+L50: push_varc_int varc_int_744
+L51: push_constant_int -1
+L52: branch_equals L54
+L53: branch L74
+L54: push_constant_string "Take"
+L55: push_constant_int 29425686
+L56: if_settext 0
+L57: push_constant_int 1
+L58: push_constant_string "Take 1"
+L59: push_constant_int 29425685
+L60: if_setop 0
+L61: push_constant_int 2
+L62: push_constant_string "Take 5"
+L63: push_constant_int 29425685
+L64: if_setop 0
+L65: push_constant_int 3
+L66: push_constant_string "Take 10"
+L67: push_constant_int 29425685
+L68: if_setop 0
+L69: push_constant_int 4
+L70: push_constant_string "Take 50"
+L71: push_constant_int 29425685
+L72: if_setop 0
+L73: branch L93
+L74: push_constant_string "Buy"
+L75: push_constant_int 29425686
+L76: if_settext 0
+L77: push_constant_int 1
+L78: push_constant_string "Buy 1"
+L79: push_constant_int 29425685
+L80: if_setop 0
+L81: push_constant_int 2
+L82: push_constant_string "Buy 5"
+L83: push_constant_int 29425685
+L84: if_setop 0
+L85: push_constant_int 3
+L86: push_constant_string "Buy 10"
+L87: push_constant_int 29425685
+L88: if_setop 0
+L89: push_constant_int 4
+L90: push_constant_string "Buy 50"
+L91: push_constant_int 29425685
+L92: if_setop 0
+L93: return 0
+L94:

@@ -1,0 +1,36 @@
+name=""
+local_int_count=1
+local_string_count=0
+local_long_count=0
+int_param_count=1
+string_param_count=0
+long_param_count=0
+
+L0: push_int_local 0
+L1: branch_if_true L3
+L2: branch L16
+L3: push_int_local 0
+L4: push_constant_int 1
+L5: push_constant_string "This setting is not available in your current version of Java."
+L6: push_constant_string ""
+L7: push_constant_string ""
+L8: gosub_with_params [proc,graphics_options_message]
+L9: push_int_local 0
+L10: push_constant_int 1
+L11: push_constant_string "Please update to the latest version."
+L12: push_constant_string ""
+L13: push_constant_string ""
+L14: gosub_with_params [proc,graphics_options_message]
+L15: branch L26
+L16: push_int_local 0
+L17: push_constant_int 1
+L18: push_constant_string "This setting is not available in your current version of Java."
+L19: push_constant_string "<br>"
+L20: push_constant_string "<br>"
+L21: push_constant_string "Please update to the latest version, or try our Windows Client available from the link below."
+L22: join_string 4
+L23: push_constant_string "Download Windows Client"
+L24: push_constant_string "kbase/view.ws?guid=Downloads_and_Wallpapers"
+L25: gosub_with_params [proc,graphics_options_message]
+L26: return 0
+L27:

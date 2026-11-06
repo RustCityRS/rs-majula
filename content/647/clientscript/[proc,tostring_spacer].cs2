@@ -1,0 +1,94 @@
+name=""
+local_int_count=5
+local_string_count=1
+local_long_count=0
+int_param_count=1
+string_param_count=1
+long_param_count=0
+
+L0: push_int_local 0
+L1: push_constant_int 1000000000
+L2: div 0
+L3: pop_int_local 1
+L4: push_int_local 0
+L5: push_int_local 1
+L6: push_constant_int 1000000000
+L7: multiply 0
+L8: sub 0
+L9: push_constant_int 1000000
+L10: div 0
+L11: pop_int_local 2
+L12: push_int_local 0
+L13: push_int_local 1
+L14: push_constant_int 1000000000
+L15: multiply 0
+L16: push_int_local 2
+L17: push_constant_int 1000000
+L18: multiply 0
+L19: add 0
+L20: sub 0
+L21: push_constant_int 1000
+L22: div 0
+L23: pop_int_local 3
+L24: push_int_local 0
+L25: push_int_local 1
+L26: push_constant_int 1000000000
+L27: multiply 0
+L28: push_int_local 2
+L29: push_constant_int 1000000
+L30: multiply 0
+L31: add 0
+L32: push_int_local 3
+L33: push_constant_int 1000
+L34: multiply 0
+L35: add 0
+L36: sub 0
+L37: pop_int_local 4
+L38: push_int_local 1
+L39: push_constant_int 0
+L40: branch_greater_than L42
+L41: branch L55
+L42: push_int_local 1
+L43: tostring 0
+L44: push_string_local 0
+L45: push_int_local 2
+L46: gosub_with_params clientscript_47
+L47: push_string_local 0
+L48: push_int_local 3
+L49: gosub_with_params clientscript_47
+L50: push_string_local 0
+L51: push_int_local 4
+L52: gosub_with_params clientscript_47
+L53: join_string 7
+L54: return 0
+L55: push_int_local 2
+L56: push_constant_int 0
+L57: branch_greater_than L59
+L58: branch L69
+L59: push_int_local 2
+L60: tostring 0
+L61: push_string_local 0
+L62: push_int_local 3
+L63: gosub_with_params clientscript_47
+L64: push_string_local 0
+L65: push_int_local 4
+L66: gosub_with_params clientscript_47
+L67: join_string 5
+L68: return 0
+L69: push_int_local 3
+L70: push_constant_int 0
+L71: branch_greater_than L73
+L72: branch L80
+L73: push_int_local 3
+L74: tostring 0
+L75: push_string_local 0
+L76: push_int_local 4
+L77: gosub_with_params clientscript_47
+L78: join_string 3
+L79: return 0
+L80: push_int_local 0
+L81: tostring 0
+L82: return 0
+L83: push_constant_string ""
+L84: return 0
+L85:

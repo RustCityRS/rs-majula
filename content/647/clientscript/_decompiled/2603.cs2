@@ -1,8 +1,0 @@
-[clientscript,script_2603](int, component, int, int, int)
-sound_synth(synth_6784, 1, 0);
-if_sethide(19136642);
-if_settext("Are you sure you wish to resupply all defeated squads?");
-if_sethide(19136647);
-if_sethide(19136646);
-if_sethide(19136649);
-return(0, 19136644, 0, 1, 1);

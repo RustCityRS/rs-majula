@@ -1,0 +1,34 @@
+name=""
+local_int_count=6
+local_string_count=0
+local_long_count=0
+int_param_count=6
+string_param_count=0
+long_param_count=0
+
+L0: push_varbit varbit_5367
+L1: push_int_local 0
+L2: push_int_local 1
+L3: push_int_local 2
+L4: gosub_with_params [proc,worldmap_key_build]
+L5: push_int_local 5
+L6: push_varbit varbit_6175
+L7: branch_not L9
+L8: branch L23
+L9: push_constant_int 1404
+L10: push_int_local 0
+L11: push_int_local 1
+L12: push_int_local 2
+L13: push_int_local 3
+L14: push_int_local 4
+L15: push_varbit varbit_6175
+L16: push_constant_int 463
+L17: push_constant_int 1
+L18: push_constant_string "IIIIIiY"
+L19: push_int_local 4
+L20: if_setonvartransmit 0
+L21: push_int_local 3
+L22: gosub_with_params [proc,worldmap_overlay_clear]
+L23: gosub_with_params [proc,worldmap_vartransmit_effects]
+L24: return 0
+L25:

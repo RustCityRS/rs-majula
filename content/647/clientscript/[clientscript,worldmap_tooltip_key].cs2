@@ -1,0 +1,40 @@
+name=""
+local_int_count=4
+local_string_count=1
+local_long_count=0
+int_param_count=2
+string_param_count=1
+long_param_count=0
+
+L0: push_constant_int 0
+L1: pop_int_local 2
+L2: push_constant_int 0
+L3: pop_int_local 3
+L4: push_int_local 0
+L5: push_int_local 1
+L6: cc_find 0
+L7: branch_if_true L9
+L8: branch L30
+L9: cc_getx 0
+L10: cc_getheight 0
+L11: add 0
+L12: push_constant_int 1
+L13: add 0
+L14: cc_gety 0
+L15: cc_getheight 0
+L16: add 0
+L17: push_constant_int 1
+L18: add 0
+L19: pop_int_local 3
+L20: pop_int_local 2
+L21: push_int_local 3
+L22: push_int_local 0
+L23: if_getscrolly 0
+L24: sub 0
+L25: pop_int_local 3
+L26: push_string_local 0
+L27: push_int_local 2
+L28: push_int_local 3
+L29: gosub_with_params [proc,worldmap_tooltip]
+L30: return 0
+L31:

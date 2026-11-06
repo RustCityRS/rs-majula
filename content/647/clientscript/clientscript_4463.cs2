@@ -1,0 +1,55 @@
+name=""
+local_int_count=3
+local_string_count=1
+local_long_count=0
+int_param_count=2
+string_param_count=0
+long_param_count=0
+
+L0: push_constant_string ""
+L1: pop_string_local 0
+L2: push_constant_int 0
+L3: pop_int_local 2
+L4: clanchannel2_find_affined 0
+L5: branch_if_true L7
+L6: branch L38
+L7: ignore_getname 0
+L8: branch_if_true L10
+L9: branch L35
+L10: push_int_local 0
+L11: clanchannel2_getusername 0
+L12: pop_string_local 0
+L13: push_int_local 1
+L14: branch_if_true L16
+L15: branch L28
+L16: push_string_local 0
+L17: friend_test 0
+L18: branch_if_true L20
+L19: branch L23
+L20: push_constant_int 1
+L21: pop_int_local 2
+L22: branch L27
+L23: push_constant_int 0
+L24: push_constant_int 0
+L25: push_constant_string "You only message people on your Friends List."
+L26: tutorial_openchat 0
+L27: branch L34
+L28: push_int_local 1
+L29: push_constant_int 8
+L30: branch_equals L32
+L31: branch L34
+L32: push_string_local 0
+L33: gosub_with_params clientscript_4466
+L34: branch L37
+L35: push_constant_string "You must be in a clan to do that."
+L36: mes 0
+L37: branch L40
+L38: push_constant_string "You must be in a clan to do that."
+L39: mes 0
+L40: push_int_local 2
+L41: branch_if_true L43
+L42: branch L45
+L43: push_string_local 0
+L44: gosub_with_params [proc,meslayer_mode6]
+L45: return 0
+L46:

@@ -1,0 +1,26 @@
+name=""
+local_int_count=2
+local_string_count=0
+local_long_count=0
+int_param_count=2
+string_param_count=0
+long_param_count=0
+
+L0: push_int_local 0
+L1: push_int_local 1
+L2: cc_find 0
+L3: branch_if_true L5
+L4: branch L16
+L5: cc_getmodelxof 0
+L6: cc_getmodelyof 0
+L7: cc_getmodelangle_x 0
+L8: cc_getmodelangle_y 0
+L9: push_constant_int 2
+L10: add 0
+L11: push_constant_int 2028
+L12: mod 0
+L13: cc_getmodelangle_z 0
+L14: cc_getmodelzoom 0
+L15: cc_setmodelangle 0
+L16: return 0
+L17:

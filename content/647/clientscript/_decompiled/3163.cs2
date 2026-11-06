@@ -1,7 +1,0 @@
-[clientscript,script_3163]
-if (clan_getchatsize > 0) {
-    clan_getchatleavechat;
-} else {
-    ~script_3015(8, "Join Chat Channel", "", "", "");
-}
-return;

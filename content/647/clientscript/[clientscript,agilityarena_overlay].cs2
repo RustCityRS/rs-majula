@@ -1,0 +1,26 @@
+name=""
+local_int_count=0
+local_string_count=0
+local_long_count=0
+int_param_count=0
+string_param_count=0
+long_param_count=0
+
+L0: push_varbit varbit_4456
+L1: branch_if_false L3
+L2: branch L10
+L3: push_constant_int 8960
+L4: push_constant_int 327683
+L5: if_setcolour 0
+L6: push_constant_int 16711680
+L7: push_constant_int 327682
+L8: if_setcolour 0
+L9: branch L16
+L10: push_constant_int 65280
+L11: push_constant_int 327683
+L12: if_setcolour 0
+L13: push_constant_int 2293760
+L14: push_constant_int 327682
+L15: if_setcolour 0
+L16: return 0
+L17:

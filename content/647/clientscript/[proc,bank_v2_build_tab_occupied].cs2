@@ -1,0 +1,81 @@
+name=""
+local_int_count=4
+local_string_count=1
+local_long_count=0
+int_param_count=2
+string_param_count=0
+long_param_count=0
+
+L0: push_constant_int 105
+L1: push_constant_int 73
+L2: push_constant_int 1614
+L3: push_int_local 0
+L4: enum 0
+L5: pop_int_local 2
+L6: push_constant_int 105
+L7: push_constant_int 73
+L8: push_constant_int 1615
+L9: push_int_local 0
+L10: enum 0
+L11: pop_int_local 3
+L12: push_constant_int 0
+L13: push_int_local 2
+L14: if_sethide 0
+L15: push_constant_int 0
+L16: push_int_local 3
+L17: if_sethide 0
+L18: push_constant_int 95
+L19: push_int_local 1
+L20: inv_getobj 0
+L21: push_constant_int 95
+L22: push_int_local 1
+L23: inv_getnum 0
+L24: push_int_local 3
+L25: if_setobject_nonum 0
+L26: push_constant_int 1
+L27: push_int_local 3
+L28: if_setoutline 0
+L29: push_constant_int 3355443
+L30: push_int_local 3
+L31: if_setgraphicshadow 0
+L32: push_int_local 2
+L33: if_clearops 0
+L34: push_constant_int 1
+L35: push_constant_string "View tab "
+L36: push_int_local 0
+L37: tostring 0
+L38: join_string 2
+L39: push_int_local 2
+L40: if_setop 0
+L41: push_constant_int 2
+L42: push_constant_string "Collapse tab "
+L43: push_int_local 0
+L44: tostring 0
+L45: join_string 2
+L46: push_int_local 2
+L47: if_setop 0
+L48: push_constant_int -1
+L49: push_constant_string ""
+L50: push_int_local 2
+L51: if_setonclick 0
+L52: push_constant_string "Click here to select tab "
+L53: push_int_local 0
+L54: tostring 0
+L55: join_string 2
+L56: pop_string_local 0
+L57: push_constant_int 38
+L58: push_constant_int -2147483645
+L59: push_constant_int 49938551
+L60: push_string_local 0
+L61: push_constant_int 25
+L62: push_constant_int 150
+L63: push_constant_string "IIsii"
+L64: push_int_local 2
+L65: if_setonmouserepeat 0
+L66: push_constant_int 40
+L67: push_constant_int 49938551
+L68: push_constant_string "I"
+L69: push_int_local 2
+L70: if_setonmouseleave 0
+L71: return 0
+L72:

@@ -1,8 +1,0 @@
-[clientscript,script_1567](int $int0, int $int1, int $int2)(int, int, string, string)
-if ($int0 = 7) {
-    return(~script_2788($int1, $int2));
-}
-if ($int0 = 4) {
-    return(~script_2787($int1, $int2));
-}
-return(0, -1, "", "");

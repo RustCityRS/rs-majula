@@ -1,0 +1,60 @@
+name=""
+local_int_count=2
+local_string_count=0
+local_long_count=0
+int_param_count=1
+string_param_count=0
+long_param_count=0
+
+L0: push_constant_int 0
+L1: pop_int_local 1
+L2: push_int_local 0
+L3: push_constant_int 1
+L4: branch_greater_than L6
+L5: branch L7
+L6: return 0
+L7: getwindowmode 0
+L8: push_constant_int 2
+L9: branch_greater_than_or_equals L11
+L10: branch L15
+L11: push_constant_int 48890037
+L12: if_gethide 0
+L13: pop_int_local 1
+L14: branch L18
+L15: push_constant_int 35913749
+L16: if_gethide 0
+L17: pop_int_local 1
+L18: push_int_local 1
+L19: branch_if_true L21
+L20: branch L43
+L21: gosub_with_params clientscript_3337
+L22: push_constant_int 1
+L23: push_constant_int 35913751
+L24: if_sethide 0
+L25: push_constant_int -1
+L26: push_constant_string ""
+L27: push_constant_int 35913749
+L28: if_setontimer 0
+L29: push_constant_int 1
+L30: push_constant_int 48890040
+L31: if_sethide 0
+L32: push_constant_int -1
+L33: push_constant_string ""
+L34: push_constant_int 48890037
+L35: if_setontimer 0
+L36: push_constant_int 0
+L37: push_constant_int 48890037
+L38: if_sethide 0
+L39: push_constant_int 0
+L40: push_constant_int 35913749
+L41: if_sethide 0
+L42: branch L49
+L43: push_constant_int 1
+L44: push_constant_int 48890037
+L45: if_sethide 0
+L46: push_constant_int 1
+L47: push_constant_int 35913749
+L48: if_sethide 0
+L49: gosub_with_params clientscript_776
+L50: return 0
+L51:

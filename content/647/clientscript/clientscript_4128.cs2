@@ -1,0 +1,35 @@
+name=""
+local_int_count=1
+local_string_count=0
+local_long_count=0
+int_param_count=1
+string_param_count=0
+long_param_count=0
+
+L0: push_varc_int varc_int_1452
+L1: push_constant_int 100
+L2: branch_less_than_or_equals L4
+L3: branch L7
+L4: push_int_local 0
+L5: gosub_with_params clientscript_4130
+L6: return 0
+L7: push_varc_int varc_int_1452
+L8: push_constant_int 200
+L9: branch_less_than_or_equals L11
+L10: branch L16
+L11: push_int_local 0
+L12: coord 0
+L13: gosub_with_params [proc,coord_0_0]
+L14: gosub_with_params clientscript_4131
+L15: return 0
+L16: push_varc_int varc_int_1452
+L17: push_constant_int 300
+L18: branch_less_than_or_equals L20
+L19: branch L25
+L20: push_int_local 0
+L21: coord 0
+L22: gosub_with_params [proc,coord_0_0]
+L23: gosub_with_params clientscript_4132
+L24: return 0
+L25: return 0
+L26:

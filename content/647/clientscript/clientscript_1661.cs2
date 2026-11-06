@@ -1,0 +1,48 @@
+name=""
+local_int_count=3
+local_string_count=0
+local_long_count=0
+int_param_count=3
+string_param_count=0
+long_param_count=0
+
+L0: push_int_local 2
+L1: cc_deleteall_152 0
+L2: push_varbit varbit_4895
+L3: push_constant_int 3
+L4: branch_not L9
+L5: push_var learning_the_ropes
+L6: push_constant_int 55
+L7: branch_not L9
+L8: branch L14
+L9: push_constant_int -1
+L10: push_constant_string ""
+L11: push_int_local 2
+L12: if_setontimer 0
+L13: return 0
+L14: push_int_local 2
+L15: push_constant_int 6
+L16: push_constant_int 0
+L17: cc_setposition 0
+L18: push_constant_int 41760
+L19: cc_setmodel 0
+L20: push_constant_int 10221
+L21: cc_setmodelanim 0
+L22: push_constant_int 43
+L23: push_constant_int 43
+L24: push_constant_int 0
+L25: push_constant_int 0
+L26: cc_setsize 0
+L27: push_int_local 0
+L28: push_int_local 1
+L29: push_int_local 2
+L30: gosub_with_params clientscript_1663
+L31: push_constant_int 1662
+L32: push_int_local 0
+L33: push_int_local 1
+L34: push_int_local 2
+L35: push_constant_string "IiI"
+L36: push_int_local 2
+L37: if_setontimer 0
+L38: return 0
+L39:

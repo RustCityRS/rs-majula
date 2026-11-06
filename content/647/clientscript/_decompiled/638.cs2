@@ -1,8 +1,0 @@
-[clientscript,script_638](int $int0)
-if_setgraphic($int0);
-def_int $int1 = 0;
-if ($int1 < 6) {
-    ~script_41(~script_626($int1));
-    $int1 = add($int1, 1);
-}
-return;

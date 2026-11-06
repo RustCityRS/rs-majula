@@ -1,9 +1,0 @@
-[clientscript,script_3471](int $int0, int $int1)
-if ($int1 < sub(cam_getpathcount(0), 1)) {
-    cam_startpath(0, $int1, 700, 700, 1, $int1);
-    if_setonvarcstringtransmit;
-} else {
-    if_setonvarcstringtransmit;
-    cam_clear;
-}
-return;

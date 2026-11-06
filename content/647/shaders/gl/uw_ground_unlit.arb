@@ -1,0 +1,54 @@
+!!ARBvp1.0
+ATTRIB  iPos         = vertex.position;
+ATTRIB  iColour      = vertex.color;
+ATTRIB  iTexCoord    = vertex.texcoord[0];
+ATTRIB  iWaterDepth  = vertex.texcoord[1];
+OUTPUT  oPos         = result.position;
+OUTPUT  oColour      = result.color;
+OUTPUT  oTexCoord0   = result.texcoord[0];
+OUTPUT  oTexCoord1   = result.texcoord[1];
+OUTPUT  oFogCoord    = result.fogcoord;
+PARAM   fogParams    = program.local[0];
+PARAM   waterPlane   = program.local[1];
+PARAM   tMatrix[4]   = { state.matrix.texture[0] };
+PARAM   pMatrix[4]   = { state.matrix.projection };
+PARAM   mvMatrix[4]  = { state.matrix.modelview };
+TEMP    viewPos, fogFactor;
+# Calculate the vertex's eye coordinates
+DP4   viewPos.x, mvMatrix[0], iPos;
+DP4   viewPos.y, mvMatrix[1], iPos;
+DP4   viewPos.z, mvMatrix[2], iPos;
+DP4   viewPos.w, mvMatrix[3], iPos;
+# Calculate a fog factor based on the vertex's depth into the screen
+SUB   fogFactor.x, -viewPos.z, fogParams.x;
+MUL   fogFactor.x, fogFactor.x, 0.001953125;
+# Calculate a fog factor based on the vertex's depth below the water
+MAD   fogFactor.y, iWaterDepth.x, fogParams.z, fogParams.w;
+# We're going to shift the vertex towards the water plane where the distance fog will cover up what we're doing.
+SUB   fogFactor.z, -viewPos.z, fogParams.y;
+MUL   fogFactor.z, fogFactor.z, 0.00390625;
+# try and avoid distance fogging in the shallows
+MUL   fogFactor.x, fogFactor.x, fogFactor.y;
+# Clamp the fog factors
+MIN   fogFactor, fogFactor, 1;
+MAX   fogFactor, fogFactor, 0;
+# Shift the vertex towards the water plane dependent on it's depth into the screen
+MUL   fogFactor.z, fogFactor.z, iWaterDepth.x;
+MAD   viewPos.xyz, waterPlane.xyzw, fogFactor.zzzz, viewPos.xyzw;
+# Use the foggiest of the two fog factors
+MAX   oTexCoord1.xyz, fogFactor.xxxx, fogFactor.yyyy;
+MOV   oTexCoord1.w, 1;
+# Transfer the base colour
+MOV   oColour, iColour;
+# Calculate the vertex's clip coordinates
+DP4   oPos.x, pMatrix[0], viewPos;
+DP4   oPos.y, pMatrix[1], viewPos;
+DP4   oPos.z, pMatrix[2], viewPos;
+DP4   oPos.w, pMatrix[3], viewPos;
+# The fog coord is simply the vertex's camera space depth
+MOV   oFogCoord.x, viewPos.z;
+# Transfer the base texture coordinate
+DP3   oTexCoord0.x, tMatrix[0], iTexCoord;
+DP3   oTexCoord0.y, tMatrix[1], iTexCoord;
+MOV   oTexCoord0.zw, iTexCoord;
+END

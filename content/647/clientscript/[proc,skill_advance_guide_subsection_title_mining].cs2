@@ -1,0 +1,55 @@
+name=""
+local_int_count=1
+local_string_count=0
+local_long_count=0
+int_param_count=1
+string_param_count=0
+long_param_count=0
+
+L0: push_int_local 0
+L1: switch switch0
+L2: branch L31
+L3: push_constant_string "Ores"
+L4: push_constant_int 0
+L5: return 0
+L6: branch L34
+L7: push_constant_string "Equipment"
+L8: push_constant_int 0
+L9: return 0
+L10: branch L34
+L11: push_constant_string "Other"
+L12: push_constant_int 0
+L13: return 0
+L14: branch L34
+L15: push_constant_string "Shooting Stars"
+L16: push_constant_int 1
+L17: return 0
+L18: branch L34
+L19: push_constant_string "Activities"
+L20: push_constant_int 1
+L21: return 0
+L22: branch L34
+L23: push_constant_string "Dungeoneering"
+L24: push_constant_int 0
+L25: return 0
+L26: branch L34
+L27: push_constant_string "Milestones"
+L28: push_constant_int 0
+L29: return 0
+L30: branch L34
+L31: push_constant_string ""
+L32: push_constant_int -1
+L33: return 0
+L34: push_constant_string ""
+L35: push_constant_int 0
+L36: return 0
+L37:
+
+[switch0@L1]
+0=L3
+1=L7
+2=L11
+3=L15
+4=L19
+5=L23
+6=L27

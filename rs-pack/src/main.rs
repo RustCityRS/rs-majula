@@ -30,9 +30,9 @@ enum Commands {
         #[arg(long, default_value = "true")]
         members: bool,
     },
-    /// Extract original JAG archives into content files for re-packing
+    /// Extract original cache archives into editable content files
     Unpack {
-        /// Directory containing expected JAG files
+        /// Directory containing original cache files
         #[arg(short, long, default_value = "expected")]
         expected: PathBuf,
         /// Output directory for unpacked content

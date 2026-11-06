@@ -1,0 +1,53 @@
+name=""
+local_int_count=2
+local_string_count=0
+local_long_count=0
+int_param_count=1
+string_param_count=0
+long_param_count=0
+
+L0: push_int_local 0
+L1: if_gettrans 0
+L2: pop_int_local 1
+L3: push_varc_int varc_int_992
+L4: branch_if_true L6
+L5: branch L17
+L6: push_int_local 1
+L7: push_constant_int 1
+L8: add 0
+L9: pop_int_local 1
+L10: push_int_local 1
+L11: push_constant_int 255
+L12: branch_greater_than_or_equals L14
+L13: branch L16
+L14: push_constant_int 0
+L15: pop_varc_int varc_int_992
+L16: branch L27
+L17: push_int_local 1
+L18: push_constant_int 1
+L19: sub 0
+L20: pop_int_local 1
+L21: push_int_local 1
+L22: push_constant_int 0
+L23: branch_less_than_or_equals L25
+L24: branch L27
+L25: push_constant_int 1
+L26: pop_varc_int varc_int_992
+L27: push_int_local 1
+L28: push_constant_int 255
+L29: branch_greater_than L31
+L30: branch L34
+L31: push_constant_int 255
+L32: pop_int_local 1
+L33: branch L40
+L34: push_int_local 1
+L35: push_constant_int 0
+L36: branch_less_than L38
+L37: branch L40
+L38: push_constant_int 0
+L39: pop_int_local 1
+L40: push_int_local 1
+L41: push_int_local 0
+L42: if_settrans 0
+L43: return 0
+L44:

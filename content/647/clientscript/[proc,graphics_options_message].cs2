@@ -1,0 +1,114 @@
+name=""
+local_int_count=3
+local_string_count=3
+local_long_count=0
+int_param_count=2
+string_param_count=3
+long_param_count=0
+
+L0: push_constant_int 0
+L1: pop_int_local 2
+L2: push_int_local 0
+L3: branch_if_true L5
+L4: branch L29
+L5: push_string_local 0
+L6: string_length 0
+L7: push_constant_int 0
+L8: branch_greater_than L10
+L9: branch L27
+L10: push_string_local 0
+L11: push_constant_string "<br>"
+L12: push_constant_int 0
+L13: string_indexof_string 0
+L14: pop_int_local 2
+L15: push_int_local 2
+L16: push_constant_int -1
+L17: branch_equals L19
+L18: branch L22
+L19: push_string_local 0
+L20: mes 0
+L21: return 0
+L22: push_string_local 0
+L23: push_constant_int 0
+L24: push_int_local 2
+L25: substring 0
+L26: mes 0
+L27: return 0
+L28: branch L64
+L29: push_int_local 0
+L30: push_constant_int 2
+L31: branch_equals L33
+L32: branch L64
+L33: push_string_local 0
+L34: push_constant_string "<br>"
+L35: push_constant_string " "
+L36: gosub_with_params [proc,find_and_replace_single]
+L37: push_constant_int 64094215
+L38: if_settext 0
+L39: push_constant_string ""
+L40: push_string_local 0
+L41: push_constant_int 0
+L42: push_constant_int -1
+L43: push_constant_string ""
+L44: push_string_local 1
+L45: push_constant_int 0
+L46: gosub_with_params [proc,lobbyscreen_input_full]
+L47: push_string_local 1
+L48: string_length 0
+L49: push_constant_int 0
+L50: branch_greater_than L52
+L51: branch L59
+L52: push_constant_int 702
+L53: push_string_local 2
+L54: push_constant_int 1
+L55: push_constant_string "s1"
+L56: push_constant_int 59375758
+L57: if_setonclick 0
+L58: branch L63
+L59: push_constant_int -1
+L60: push_constant_string ""
+L61: push_constant_int 59375758
+L62: if_setonclick 0
+L63: return 0
+L64: push_string_local 0
+L65: push_constant_string "<br>"
+L66: push_constant_string " "
+L67: gosub_with_params [proc,find_and_replace_single]
+L68: push_constant_int 64094215
+L69: if_settext 0
+L70: push_string_local 0
+L71: push_constant_int 48758860
+L72: if_settext 0
+L73: push_constant_int 3452
+L74: push_constant_int 6
+L75: push_constant_int 0
+L76: push_constant_int 1
+L77: push_constant_string "i11"
+L78: push_constant_int 48758863
+L79: if_setonclick 0
+L80: push_string_local 1
+L81: string_length 0
+L82: push_constant_int 0
+L83: branch_greater_than L85
+L84: branch L95
+L85: push_string_local 1
+L86: push_constant_int 48758862
+L87: if_settext 0
+L88: push_constant_int 702
+L89: push_string_local 2
+L90: push_constant_int 1
+L91: push_constant_string "s1"
+L92: push_constant_int 48758862
+L93: if_setonclick 0
+L94: branch L102
+L95: push_constant_string ""
+L96: push_constant_int 48758862
+L97: if_settext 0
+L98: push_constant_int -1
+L99: push_constant_string ""
+L100: push_constant_int 48758861
+L101: if_setonclick 0
+L102: push_constant_int 9
+L103: gosub_with_params [proc,loginscreen_setactivemenu]
+L104: return 0
+L105:

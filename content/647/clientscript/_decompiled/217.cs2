@@ -1,9 +1,0 @@
-[clientscript,script_217]
-if_settext("Reporting: " + %varc_str24);
-if_settext(%varc_str24);
-if (compare(%varc_str24, "") ! 0) {
-    if_sethide(38928465);
-} else {
-    if_sethide(38928465);
-}
-return;

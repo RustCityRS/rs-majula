@@ -1,0 +1,97 @@
+name=""
+local_int_count=8
+local_string_count=0
+local_long_count=0
+int_param_count=7
+string_param_count=0
+long_param_count=0
+
+L0: push_int_local 0
+L1: if_getwidth 0
+L2: pop_int_local 7
+L3: push_int_local 1
+L4: branch_if_true L6
+L5: branch L50
+L6: push_int_local 7
+L7: push_int_local 2
+L8: sub 0
+L9: push_constant_int 55
+L10: branch_less_than L12
+L11: branch L25
+L12: push_int_local 7
+L13: push_constant_int 5
+L14: add 0
+L15: push_constant_int 55
+L16: push_int_local 2
+L17: add 0
+L18: min 0
+L19: push_constant_int 31
+L20: push_constant_int 0
+L21: push_constant_int 0
+L22: push_int_local 0
+L23: if_setsize 0
+L24: branch L37
+L25: push_constant_int -1
+L26: push_constant_string ""
+L27: push_int_local 0
+L28: if_setontimer 0
+L29: push_constant_int 55
+L30: push_int_local 2
+L31: add 0
+L32: push_constant_int 31
+L33: push_constant_int 0
+L34: push_constant_int 0
+L35: push_int_local 0
+L36: if_setsize 0
+L37: push_constant_int 2569
+L38: push_int_local 3
+L39: if_setgraphic 0
+L40: push_constant_int 2568
+L41: push_int_local 4
+L42: if_setgraphic 0
+L43: push_constant_int 2568
+L44: push_int_local 5
+L45: if_setgraphic 0
+L46: push_constant_int 2614
+L47: push_int_local 6
+L48: if_setgraphic 0
+L49: branch L87
+L50: push_int_local 7
+L51: push_constant_int 38
+L52: branch_greater_than L54
+L53: branch L65
+L54: push_int_local 7
+L55: push_constant_int 5
+L56: sub 0
+L57: push_constant_int 38
+L58: max 0
+L59: push_constant_int 31
+L60: push_constant_int 0
+L61: push_constant_int 0
+L62: push_int_local 0
+L63: if_setsize 0
+L64: branch L75
+L65: push_constant_int -1
+L66: push_constant_string ""
+L67: push_int_local 0
+L68: if_setontimer 0
+L69: push_constant_int 38
+L70: push_constant_int 31
+L71: push_constant_int 0
+L72: push_constant_int 0
+L73: push_int_local 0
+L74: if_setsize 0
+L75: push_constant_int 2567
+L76: push_int_local 3
+L77: if_setgraphic 0
+L78: push_constant_int 2566
+L79: push_int_local 4
+L80: if_setgraphic 0
+L81: push_constant_int 2566
+L82: push_int_local 5
+L83: if_setgraphic 0
+L84: push_constant_int 2613
+L85: push_int_local 6
+L86: if_setgraphic 0
+L87: return 0
+L88:

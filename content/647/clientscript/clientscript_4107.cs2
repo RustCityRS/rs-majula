@@ -1,0 +1,73 @@
+name=""
+local_int_count=2
+local_string_count=0
+local_long_count=0
+int_param_count=2
+string_param_count=0
+long_param_count=0
+
+L0: push_int_local 1
+L1: push_constant_int 10000000
+L2: branch_greater_than_or_equals L4
+L3: branch L21
+L4: push_constant_string "<col=ff981f>"
+L5: push_int_local 0
+L6: oc_name 0
+L7: push_constant_string "</col>"
+L8: push_constant_string " x "
+L9: push_int_local 1
+L10: push_constant_int 1000000
+L11: div 0
+L12: push_constant_int 1
+L13: char_isalpha 0
+L14: push_constant_string "M ("
+L15: push_int_local 1
+L16: push_constant_int 1
+L17: char_isalpha 0
+L18: push_constant_string ")"
+L19: join_string 8
+L20: return 0
+L21: push_int_local 1
+L22: push_constant_int 10000
+L23: branch_greater_than_or_equals L25
+L24: branch L42
+L25: push_constant_string "<col=ff981f>"
+L26: push_int_local 0
+L27: oc_name 0
+L28: push_constant_string "</col>"
+L29: push_constant_string " x "
+L30: push_int_local 1
+L31: push_constant_int 1000
+L32: div 0
+L33: push_constant_int 1
+L34: char_isalpha 0
+L35: push_constant_string "K ("
+L36: push_int_local 1
+L37: push_constant_int 1
+L38: char_isalpha 0
+L39: push_constant_string ")"
+L40: join_string 8
+L41: return 0
+L42: push_int_local 1
+L43: push_constant_int 1
+L44: branch_greater_than L46
+L45: branch L56
+L46: push_constant_string "<col=ff981f>"
+L47: push_int_local 0
+L48: oc_name 0
+L49: push_constant_string "</col>"
+L50: push_constant_string " x "
+L51: push_int_local 1
+L52: push_constant_int 1
+L53: char_isalpha 0
+L54: join_string 5
+L55: return 0
+L56: push_constant_string "<col=ff981f>"
+L57: push_int_local 0
+L58: oc_name 0
+L59: push_constant_string "</col>"
+L60: join_string 3
+L61: return 0
+L62: push_constant_string ""
+L63: return 0
+L64:

@@ -1,0 +1,50 @@
+name=""
+local_int_count=3
+local_string_count=1
+local_long_count=0
+int_param_count=3
+string_param_count=0
+long_param_count=0
+
+L0: push_constant_string ""
+L1: pop_string_local 0
+L2: push_varc_string_old varc_string_38
+L3: string_length 0
+L4: push_constant_int 0
+L5: branch_greater_than L7
+L6: branch L23
+L7: push_varc_string_old varc_string_38
+L8: gosub_with_params clientscript_1814
+L9: pop_string_local 0
+L10: push_string_local 0
+L11: push_int_local 1
+L12: if_settext 0
+L13: push_string_local 0
+L14: push_constant_int 512
+L15: push_constant_int 496
+L16: parawidth 0
+L17: push_constant_int 15
+L18: push_constant_int 0
+L19: push_constant_int 0
+L20: push_int_local 1
+L21: if_setsize 0
+L22: branch L32
+L23: push_constant_string ""
+L24: push_int_local 1
+L25: if_settext 0
+L26: push_constant_int 0
+L27: push_constant_int 15
+L28: push_constant_int 0
+L29: push_constant_int 0
+L30: push_int_local 1
+L31: if_setsize 0
+L32: push_constant_int -1
+L33: pop_varc_int varc_int_267
+L34: push_constant_string ""
+L35: pop_varc_string_old varc_string_39
+L36: push_int_local 0
+L37: push_int_local 1
+L38: push_int_local 2
+L39: gosub_with_params clientscript_1811
+L40: return 0
+L41:

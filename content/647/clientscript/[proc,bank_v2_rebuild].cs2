@@ -1,0 +1,23 @@
+name=""
+local_int_count=0
+local_string_count=0
+local_long_count=0
+int_param_count=0
+string_param_count=0
+long_param_count=0
+
+L0: push_varc_int varc_int_193
+L1: clientclock 0
+L2: branch_less_than_or_equals L4
+L3: branch L13
+L4: clientclock 0
+L5: push_constant_int 10
+L6: add 0
+L7: pop_varc_int varc_int_193
+L8: push_constant_int 1452
+L9: push_varc_int varc_int_193
+L10: push_constant_string "i"
+L11: push_constant_int 49938525
+L12: if_setontimer 0
+L13: return 0
+L14:

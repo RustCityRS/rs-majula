@@ -1,8 +1,0 @@
-[clientscript,script_3381](int $int0, int $int1)
-$int1 = add($int1, 1);
-if_setontimer;
-if ($int1 > 1) {
-    %varc_int1273 = 1;
-    if_setontimer;
-}
-return;

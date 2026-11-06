@@ -1,0 +1,81 @@
+name=""
+local_int_count=0
+local_string_count=0
+local_long_count=0
+int_param_count=0
+string_param_count=0
+long_param_count=0
+
+L0: push_var varp_448
+L1: switch switch0
+L2: push_constant_int 3
+L3: push_constant_string "Snaring Wave (Tier 1)"
+L4: push_constant_int 18047
+L5: return 0
+L6: branch L56
+L7: push_constant_int 3
+L8: push_constant_string "Snaring Wave (Tier 1)"
+L9: push_constant_int 18047
+L10: return 0
+L11: branch L56
+L12: push_constant_int 13
+L13: push_constant_string "Snaring Wave (Tier 2)"
+L14: push_constant_int 18048
+L15: return 0
+L16: branch L56
+L17: push_constant_int 23
+L18: push_constant_string "Snaring Wave (Tier 3)"
+L19: push_constant_int 18049
+L20: return 0
+L21: branch L56
+L22: push_constant_int 33
+L23: push_constant_string "Snaring Wave (Tier 4)"
+L24: push_constant_int 18050
+L25: return 0
+L26: branch L56
+L27: push_constant_int 43
+L28: push_constant_string "Snaring Wave (Tier 5)"
+L29: push_constant_int 18051
+L30: return 0
+L31: branch L56
+L32: push_constant_int 53
+L33: push_constant_string "Snaring Wave (Tier 6)"
+L34: push_constant_int 18052
+L35: return 0
+L36: branch L56
+L37: push_constant_int 63
+L38: push_constant_string "Snaring Wave (Tier 7)"
+L39: push_constant_int 18053
+L40: return 0
+L41: branch L56
+L42: push_constant_int 73
+L43: push_constant_string "Snaring Wave (Tier 8)"
+L44: push_constant_int 18054
+L45: return 0
+L46: branch L56
+L47: push_constant_int 83
+L48: push_constant_string "Snaring Wave (Tier 9)"
+L49: push_constant_int 18055
+L50: return 0
+L51: branch L56
+L52: push_constant_int 93
+L53: push_constant_string "Snaring Wave (Tier 10)"
+L54: push_constant_int 18056
+L55: return 0
+L56: push_constant_int 0
+L57: push_constant_string ""
+L58: push_constant_int -1
+L59: return 0
+L60:
+
+[switch0@L1]
+17945=L7
+17946=L12
+17947=L17
+17948=L22
+17949=L27
+17950=L32
+17951=L37
+17952=L42
+17953=L47
+17954=L52

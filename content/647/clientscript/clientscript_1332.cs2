@@ -1,0 +1,47 @@
+name=""
+local_int_count=0
+local_string_count=0
+local_long_count=0
+int_param_count=0
+string_param_count=0
+long_param_count=0
+
+L0: push_varbit varbit_275
+L1: branch_if_true L3
+L2: branch L14
+L3: push_constant_int -1
+L4: push_constant_string ""
+L5: push_constant_int 58589189
+L6: if_setontimer 0
+L7: push_constant_int 1
+L8: push_constant_int 58589191
+L9: if_sethide 0
+L10: push_constant_int -1
+L11: push_constant_int 58589188
+L12: if_setgraphic 0
+L13: branch L37
+L14: gosub_with_params [proc,current_side_if]
+L15: push_constant_int 7
+L16: branch_equals L18
+L17: branch L28
+L18: push_constant_string "To set Wind Rush to auto-cast, click on the flashing spell icon. You can hover over spell icons to read a brief description of the spell and the runes required to cast it."
+L19: push_constant_int 58589191
+L20: if_settext 0
+L21: push_constant_string ""
+L22: push_constant_int 58589190
+L23: if_settext 0
+L24: push_constant_int 3759
+L25: push_constant_int 58589188
+L26: if_setgraphic 0
+L27: branch L37
+L28: push_constant_string "Click on the Magic icon to open your magic spellbook."
+L29: push_constant_int 58589191
+L30: if_settext 0
+L31: push_constant_string ""
+L32: push_constant_int 58589190
+L33: if_settext 0
+L34: push_constant_int 1824
+L35: push_constant_int 58589188
+L36: if_setgraphic 0
+L37: return 0
+L38:

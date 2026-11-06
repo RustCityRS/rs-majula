@@ -1,8 +1,0 @@
-[clientscript,script_4231](int $int0)
-if (if_find($int0) = 1) {
-    cc_setonclick;
-    cc_setonhold;
-    cc_setonrelease;
-    cc_settrans(255);
-}
-return;

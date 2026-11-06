@@ -1,0 +1,13 @@
+name=""
+local_int_count=0
+local_string_count=0
+local_long_count=0
+int_param_count=0
+string_param_count=0
+long_param_count=0
+
+L0: gosub_with_params clientscript_505
+L1: gosub_with_params clientscript_1371
+L2: gosub_with_params [clientscript,build_lists_varclientstrings]
+L3: return 0
+L4:

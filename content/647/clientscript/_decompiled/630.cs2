@@ -1,7 +1,0 @@
-[clientscript,script_630](int $int0)
-if (stockmarket_isempty($int0) = 0) {
-    if (cc_find(~script_623($int0), 0) = 1) {
-        cc_settrans(230);
-    }
-}
-return;

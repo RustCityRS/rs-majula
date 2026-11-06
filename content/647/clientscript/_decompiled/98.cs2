@@ -1,7 +1,0 @@
-[clientscript,script_98](int $int0, int $int1, int $int2, int $int3, int $int4, int $int5, int $int6)(int)
-cc_setposition(0, $int0, 5, $int1);
-cc_setposition2($int3, $int4, 0, 0);
-cc_setsize($int5, $int6, 0, 0);
-cc_setgraphic($int2);
-cc_settiling;
-return(1);

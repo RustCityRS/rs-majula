@@ -1,0 +1,51 @@
+name=""
+local_int_count=1
+local_string_count=0
+local_long_count=0
+int_param_count=0
+string_param_count=0
+long_param_count=0
+
+L0: push_constant_int 19464198
+L1: push_constant_int 19464196
+L2: push_constant_int 798
+L3: push_constant_int 795
+L4: push_constant_int 796
+L5: push_constant_int 797
+L6: push_constant_int 793
+L7: push_constant_int 794
+L8: gosub_with_params [proc,scrollbar_vertical]
+L9: push_constant_int 19464199
+L10: if_gettext 0
+L11: push_constant_int 19464199
+L12: if_getwidth 0
+L13: push_constant_int 495
+L14: paraheight 0
+L15: push_constant_int 12
+L16: multiply 0
+L17: push_constant_int 5
+L18: add 0
+L19: pop_int_local 0
+L20: push_constant_int 19464199
+L21: if_getwidth 0
+L22: push_int_local 0
+L23: push_constant_int 0
+L24: push_constant_int 0
+L25: push_constant_int 19464199
+L26: if_setsize 0
+L27: push_constant_int 19464241
+L28: if_getx 0
+L29: push_constant_int 19464199
+L30: if_gety 0
+L31: push_int_local 0
+L32: add 0
+L33: push_constant_int 5
+L34: add 0
+L35: push_constant_int 0
+L36: push_constant_int 0
+L37: push_constant_int 19464241
+L38: if_setposition 0
+L39: push_constant_int 0
+L40: gosub_with_params clientscript_2104
+L41: return 0
+L42:

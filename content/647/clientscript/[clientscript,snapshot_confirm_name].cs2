@@ -1,0 +1,22 @@
+name=""
+local_int_count=0
+local_string_count=0
+local_long_count=0
+int_param_count=0
+string_param_count=0
+long_param_count=0
+
+L0: push_varc_string_old varc_string_24
+L1: push_constant_string ""
+L2: compare 0
+L3: push_constant_int 0
+L4: branch_not L6
+L5: branch L8
+L6: gosub_with_params clientscript_220
+L7: branch L12
+L8: push_constant_int 26
+L9: push_constant_int 0
+L10: push_constant_string "You must first select a name from the list."
+L11: tutorial_openchat 0
+L12: return 0
+L13:

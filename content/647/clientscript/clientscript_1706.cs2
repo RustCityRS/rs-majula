@@ -1,0 +1,93 @@
+name=""
+local_int_count=3
+local_string_count=0
+local_long_count=0
+int_param_count=0
+string_param_count=0
+long_param_count=0
+
+L0: push_constant_int 0
+L1: pop_int_local 0
+L2: push_constant_int 0
+L3: pop_int_local 1
+L4: push_constant_int 10
+L5: pop_int_local 2
+L6: push_int_local 0
+L7: push_constant_int -1
+L8: branch_not L10
+L9: branch L76
+L10: push_int_local 2
+L11: push_constant_int 0
+L12: branch_greater_than L14
+L13: branch L76
+L14: push_int_local 0
+L15: gosub_with_params clientscript_1708
+L16: pop_int_local 1
+L17: push_int_local 0
+L18: gosub_with_params clientscript_1707
+L19: if_find 0
+L20: branch_if_true L22
+L21: branch L54
+L22: push_int_local 1
+L23: push_constant_int 0
+L24: branch_greater_than L26
+L25: branch L35
+L26: push_constant_int 3342130
+L27: cc_setcolour 0
+L28: push_constant_string "+"
+L29: push_int_local 1
+L30: append_num 0
+L31: push_constant_string "%"
+L32: append 0
+L33: cc_settext 0
+L34: branch L54
+L35: push_int_local 1
+L36: push_constant_int 0
+L37: branch_less_than L39
+L38: branch L47
+L39: push_constant_int 16724530
+L40: cc_setcolour 0
+L41: push_int_local 1
+L42: tostring 0
+L43: push_constant_string "%"
+L44: append 0
+L45: cc_settext 0
+L46: branch L54
+L47: push_constant_int 16750623
+L48: cc_setcolour 0
+L49: push_int_local 1
+L50: tostring 0
+L51: push_constant_string "%"
+L52: append 0
+L53: cc_settext 0
+L54: push_int_local 0
+L55: switch switch0
+L56: branch L71
+L57: push_constant_int 2
+L58: pop_int_local 0
+L59: branch L71
+L60: push_constant_int 1
+L61: pop_int_local 0
+L62: branch L71
+L63: push_constant_int 4
+L64: pop_int_local 0
+L65: branch L71
+L66: push_constant_int 6
+L67: pop_int_local 0
+L68: branch L71
+L69: push_constant_int -1
+L70: pop_int_local 0
+L71: push_int_local 2
+L72: push_constant_int 1
+L73: sub 0
+L74: pop_int_local 2
+L75: branch L6
+L76: return 0
+L77:
+
+[switch0@L55]
+0=L57
+2=L60
+1=L63
+4=L66
+6=L69

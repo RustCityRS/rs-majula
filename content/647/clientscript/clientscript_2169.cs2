@@ -1,0 +1,68 @@
+name=""
+local_int_count=1
+local_string_count=0
+local_long_count=0
+int_param_count=0
+string_param_count=0
+long_param_count=0
+
+L0: map_members 0
+L1: branch_if_true L3
+L2: branch L6
+L3: push_varbit varbit_4536
+L4: pop_varc_int varc_int_693
+L5: branch L8
+L6: push_constant_int 0
+L7: pop_varc_int varc_int_693
+L8: push_varbit varbit_4538
+L9: pop_varc_int varc_int_694
+L10: push_varbit varbit_4537
+L11: pop_varc_int varc_int_692
+L12: push_constant_int 1
+L13: push_varc_int varc_int_693
+L14: push_varc_int varc_int_694
+L15: push_varc_int varc_int_692
+L16: push_varc_int varc_int_1103
+L17: gosub_with_params clientscript_2162
+L18: push_constant_int 0
+L19: pop_int_local 0
+L20: map_members 0
+L21: branch_if_true L23
+L22: branch L49
+L23: push_var learning_the_ropes
+L24: push_constant_int 1000
+L25: branch_greater_than_or_equals L27
+L26: branch L49
+L27: push_constant_int 1
+L28: push_varc_int varc_int_693
+L29: push_constant_int 2
+L30: push_constant_int 12451856
+L31: push_constant_int 12451854
+L32: push_constant_int 12451855
+L33: push_constant_int -1
+L34: push_constant_int 897
+L35: push_constant_int 788
+L36: push_constant_int 788
+L37: push_constant_int 1040
+L38: push_constant_int 16777215
+L39: push_constant_int 16776960
+L40: push_constant_int 494
+L41: push_constant_int 792
+L42: push_constant_int 789
+L43: push_constant_int 790
+L44: push_constant_int 791
+L45: push_constant_int 773
+L46: push_constant_int 788
+L47: gosub_with_params clientscript_944
+L48: branch L58
+L49: push_constant_string "Free/Members"
+L50: push_constant_int 12451856
+L51: push_constant_int 12451854
+L52: push_constant_int 12451855
+L53: push_constant_int -1
+L54: push_constant_int 897
+L55: push_constant_int 16776960
+L56: push_constant_int 494
+L57: gosub_with_params [proc,dropdownbox_refuse]
+L58: return 0
+L59:

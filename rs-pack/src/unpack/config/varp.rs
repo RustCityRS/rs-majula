@@ -19,8 +19,6 @@ use rs_io::js5::Js5Store;
 use std::collections::HashMap;
 #[cfg(since_647)]
 use std::collections::HashSet;
-#[cfg(since_647)]
-use std::path::Path;
 
 pub fn emit_varp_props(
     def: &VarPlayerTypeRaw,
@@ -62,8 +60,8 @@ pub fn emit_varp_props(
 }
 
 #[cfg(since_647)]
-pub(super) fn transmit_varps(store: &mut Js5Store, cs2_dir: &Path) -> anyhow::Result<HashSet<u32>> {
-    let (mut varps, varbits) = scan_cs2_varp_refs(cs2_dir)?;
+pub(super) fn transmit_varps(store: &mut Js5Store) -> anyhow::Result<HashSet<u32>> {
+    let (mut varps, varbits) = scan_cs2_varp_refs(store)?;
     for group_id in 0..store.group_count(archive::CONFIG_VARBIT).unwrap_or(0) {
         if let Some(group) = store.read_group(archive::CONFIG_VARBIT, group_id)? {
             for entry in group.entries {

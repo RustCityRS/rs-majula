@@ -8,8 +8,6 @@ use crate::archive::{JagArchive, JagSource};
 use crate::discover::discover_symbols;
 #[cfg(before_647)]
 use crate::pack::pack::pack_assets;
-#[cfg(since_647)]
-use crate::pack::pack_registry::PackRegistry;
 #[cfg(before_647)]
 use crate::pack::pack_registry::{PackRegistry, PackedFile};
 #[cfg(before_647)]
@@ -54,30 +52,18 @@ use tracing::info;
 use tracing::{debug, warn};
 
 #[cfg(since_647)]
-pub mod billboards;
-#[cfg(since_647)]
 pub mod binary_assets;
 pub mod config;
 #[cfg(before_647)]
 pub mod configdiff;
 #[cfg(since_647)]
 pub mod cs2;
-#[cfg(since_647)]
-pub mod defaults;
-#[cfg(since_647)]
-pub mod fontmetrics;
 pub mod interface;
 pub mod map;
-#[cfg(since_647)]
-pub mod materials;
 pub mod media;
 pub mod model;
 #[cfg(before_647)]
 mod namecrack;
-#[cfg(since_647)]
-pub mod particles;
-#[cfg(since_647)]
-pub mod quickchat;
 pub mod report;
 #[cfg(since_647)]
 pub mod shaders;
@@ -708,35 +694,33 @@ fn unpack_cache(expected_dir: &Path, output_dir: &Path, pack_dir: &Path) -> Resu
     info!("Discovering pack registries from cache...");
     let report = discover_symbols(expected_dir, pack_dir, false)?;
     info!("  {} registry types processed", report.types.len());
-    let registry = PackRegistry::load(pack_dir)?;
-    let cs2_dir = output_dir.join("clientscript/_decompiled");
-    step(&mut results, "cs2 disassembly", || {
-        cs2::unpack_cs2_scripts(expected_dir, output_dir).map(|n| format!("{n} scripts"))
+    step(&mut results, "archive metadata", || {
+        let store = Js5Store::open(expected_dir)?;
+        asset::unpack_metadata(&store, pack_dir, output_dir).map(|n| format!("{n} archives"))
     });
-    step(&mut results, "cs2 decompile", || {
-        cs2::decompile_cs2_scripts(expected_dir, output_dir, None).map(|n| format!("{n} scripts"))
+    step(&mut results, "clientscripts", || {
+        cs2::unpack_cs2_scripts(expected_dir, output_dir, pack_dir).map(|n| format!("{n} scripts"))
     });
-    unpack_configs(&mut results, expected_dir, pack_dir, &scripts_dir, &cs2_dir);
+    unpack_configs(&mut results, expected_dir, pack_dir, &scripts_dir);
     step(&mut results, "maps", || {
         let mut store = Js5Store::open(expected_dir)?;
-        map::unpack_maps(&mut store, expected_dir, output_dir).map(|n| format!("{n} map groups"))
+        map::unpack_maps(&mut store, expected_dir, output_dir, pack_dir)
+            .map(|n| format!("{n} map groups"))
     });
-    unpack_assets(&mut results, expected_dir, &registry, pack_dir, output_dir);
+    unpack_assets(&mut results, expected_dir, pack_dir, output_dir);
     write_report(&results, &output_dir.join("unpack_report.txt"))
 }
 
 #[cfg(since_647)]
-/// Steps 4-5 and the animations: every config type, to `scripts/_unpack`.
 fn unpack_configs(
     results: &mut Vec<StepResult>,
     cache_dir: &Path,
     pack_dir: &Path,
     scripts_dir: &Path,
-    cs2_dir: &Path,
 ) {
     let config_out = scripts_dir.join("_unpack");
 
-    if let Err(error) = config::unpack_config(cache_dir, &config_out, pack_dir, cs2_dir, results) {
+    if let Err(error) = config::unpack_config(cache_dir, &config_out, pack_dir, results) {
         step(results, "configs", || Err(error));
     }
 
@@ -754,87 +738,67 @@ fn unpack_configs(
         }
         Ok(String::new())
     });
-
-    step(results, "animations", || {
-        let mut store = Js5Store::open(cache_dir)?;
-        model::unpack_anims(&mut store, pack_dir, scripts_dir).map(|n| format!("{n} anim frames"))
-    });
 }
 
 #[cfg(since_647)]
-/// Unpack each asset domain into its own `<domain>/_unpack/` directory.
 fn unpack_assets(
     results: &mut Vec<StepResult>,
     cache_dir: &Path,
-    registry: &PackRegistry,
     pack_dir: &Path,
     output_dir: &Path,
 ) {
-    // under the output dir.
+    step(results, "animations", || {
+        let mut store = Js5Store::open(cache_dir)?;
+        model::unpack_anims(&mut store, pack_dir, output_dir).map(|n| format!("{n} frames"))
+    });
     step(results, "interfaces", || {
         let mut store = Js5Store::open(cache_dir)?;
-        interface::unpack_interfaces(&mut store, output_dir).map(|n| format!("{n} groups"))
+        interface::unpack_interfaces(&mut store, output_dir, pack_dir)
+            .map(|n| format!("{n} groups"))
     });
     step(results, "models", || {
-        let stats = model::unpack_models(
-            cache_dir,
-            registry,
-            &output_dir.join("models").join("_unpack"),
-        )?;
-        Ok(format!(
-            "{} models ({} failed)",
-            stats.total(),
-            stats.failed
-        ))
+        model::unpack_models(cache_dir, pack_dir, output_dir).map(|n| format!("{n} models"))
     });
     step(results, "sprites", || {
         let mut store = Js5Store::open(cache_dir)?;
-        let stats = media::unpack_all_sprites(&mut store, output_dir)?;
+        let stats = media::unpack_all_sprites(&mut store, output_dir, pack_dir)?;
         Ok(format!(
-            "{} groups, {} sprites ({} failed)",
-            stats.groups, stats.sprites, stats.failed
+            "{} groups, {} sprites",
+            stats.groups, stats.sprites
         ))
     });
     step(results, "textures", || {
         let mut store = Js5Store::open(cache_dir)?;
-        texture::unpack_texture_text(&mut store, output_dir).map(|n| format!("{n} groups"))
+        texture::unpack_texture_text(&mut store, output_dir, pack_dir)
+            .map(|n| format!("{n} groups"))
     });
-    step(results, "songs (midi)", || {
+    step(results, "music", || {
         let mut store = Js5Store::open(cache_dir)?;
-        song::unpack_songs(&mut store, pack_dir, output_dir).map(|n| format!("{n} songs"))
+        song::unpack_songs(&mut store, pack_dir, output_dir)
+            .map(|n| format!("{n} songs and jingles"))
     });
-    step(results, "fontmetrics", || {
-        let mut store = Js5Store::open(cache_dir)?;
-        fontmetrics::unpack_fontmetrics(&mut store, pack_dir, output_dir)
-            .map(|n| format!("{n} fonts"))
-    });
-    step(results, "quickchat", || {
-        let mut store = Js5Store::open(cache_dir)?;
-        quickchat::unpack_quickchat(&mut store, output_dir).map(|n| format!("{n} groups"))
-    });
-    step(results, "materials", || {
-        let mut store = Js5Store::open(cache_dir)?;
-        materials::unpack_materials(&mut store, output_dir).map(|n| format!("{n} groups"))
-    });
-    step(results, "particles", || {
-        let mut store = Js5Store::open(cache_dir)?;
-        particles::unpack_particles(&mut store, output_dir).map(|n| format!("{n} groups"))
-    });
-    step(results, "defaults", || {
-        let mut store = Js5Store::open(cache_dir)?;
-        defaults::unpack_defaults(&mut store, output_dir).map(|n| format!("{n} groups"))
-    });
-    step(results, "billboards", || {
-        let mut store = Js5Store::open(cache_dir)?;
-        billboards::unpack_billboards(&mut store, output_dir).map(|n| format!("{n} groups"))
-    });
+    for aid in [1, 4, 10, 13, 15, 23, 24, 25, 26, 27, 28, 29, 33] {
+        let format = crate::archive::archive_format(aid).unwrap();
+        step(results, format.content_dir, || {
+            let mut store = Js5Store::open(cache_dir)?;
+            asset::unpack_archive(&mut store, aid, pack_dir, output_dir)
+                .map(|n| format!("{n} groups"))
+        });
+    }
     step(results, "shaders", || {
         let mut store = Js5Store::open(cache_dir)?;
-        shaders::unpack_shaders(&mut store, output_dir).map(|n| format!("{n} groups"))
+        shaders::unpack_shaders(&mut store, output_dir, pack_dir).map(|n| format!("{n} groups"))
     });
-    step(results, "binary assets", || {
+    step(results, "Vorbis", || {
         let mut store = Js5Store::open(cache_dir)?;
-        binary_assets::unpack_all_binary_assets(&mut store, output_dir)
+        crate::pack::sound::vorbis::unpack_archive(&mut store, pack_dir, output_dir)
+            .map(|n| format!("{n} groups"))
+    });
+    step(results, "native libraries", || {
+        let mut store = Js5Store::open(cache_dir)?;
+        binary_assets::unpack_libraries(&mut store, output_dir, pack_dir)
             .map(|n| format!("{n} groups"))
     });
 }
+#[cfg(since_647)]
+pub mod asset;

@@ -1,0 +1,82 @@
+name=""
+local_int_count=3
+local_string_count=0
+local_long_count=0
+int_param_count=0
+string_param_count=0
+long_param_count=0
+
+L0: push_constant_int 2
+L1: pop_int_local 0
+L2: push_constant_int 0
+L3: pop_int_local 1
+L4: push_constant_int 0
+L5: pop_int_local 2
+L6: push_int_local 0
+L7: push_constant_int 9
+L8: branch_less_than_or_equals L10
+L9: branch L60
+L10: push_int_local 0
+L11: switch switch0
+L12: branch L36
+L13: push_varbit bank_tab_1
+L14: pop_int_local 1
+L15: branch L36
+L16: push_varbit bank_tab_2
+L17: pop_int_local 1
+L18: branch L36
+L19: push_varbit bank_tab_3
+L20: pop_int_local 1
+L21: branch L36
+L22: push_varbit bank_tab_4
+L23: pop_int_local 1
+L24: branch L36
+L25: push_varbit bank_tab_5
+L26: pop_int_local 1
+L27: branch L36
+L28: push_varbit bank_tab_6
+L29: pop_int_local 1
+L30: branch L36
+L31: push_varbit bank_tab_7
+L32: pop_int_local 1
+L33: branch L36
+L34: push_varbit bank_tab_8
+L35: pop_int_local 1
+L36: push_int_local 1
+L37: push_constant_int 0
+L38: branch_greater_than L40
+L39: branch L45
+L40: push_int_local 0
+L41: push_int_local 0
+L42: gosub_with_params [proc,bank_v2_get_firstslot]
+L43: gosub_with_params [proc,bank_v2_build_tab_occupied]
+L44: branch L55
+L45: push_int_local 2
+L46: branch_if_false L48
+L47: branch L53
+L48: push_int_local 0
+L49: gosub_with_params [proc,bank_v2_build_tab_add]
+L50: push_constant_int 1
+L51: pop_int_local 2
+L52: branch L55
+L53: push_int_local 0
+L54: gosub_with_params [proc,bank_v2_build_tab_hide]
+L55: push_int_local 0
+L56: push_constant_int 1
+L57: add 0
+L58: pop_int_local 0
+L59: branch L6
+L60: push_varbit open_bank_tab
+L61: gosub_with_params [proc,bank_v2_tab_highlight]
+L62: return 0
+L63:
+
+[switch0@L11]
+2=L13
+3=L16
+4=L19
+5=L22
+6=L25
+7=L28
+8=L31
+9=L34

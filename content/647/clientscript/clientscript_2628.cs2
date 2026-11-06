@@ -1,0 +1,112 @@
+name=""
+local_int_count=0
+local_string_count=0
+local_long_count=0
+int_param_count=0
+string_param_count=0
+long_param_count=0
+
+L0: push_varc_int varc_int_906
+L1: branch_if_false L3
+L2: branch L10
+L3: push_constant_int 1868
+L4: push_constant_int 56295449
+L5: if_setgraphic 0
+L6: push_constant_string "Idle"
+L7: push_constant_int 56295435
+L8: if_settext 0
+L9: branch L76
+L10: push_varc_int varc_int_906
+L11: push_constant_int 2
+L12: branch_equals L14
+L13: branch L76
+L14: push_constant_int 1867
+L15: push_constant_int 56295449
+L16: if_setgraphic 0
+L17: push_varc_int varc_int_907
+L18: switch switch0
+L19: branch L73
+L20: push_constant_int 0
+L21: pop_varc_int varc_int_906
+L22: push_constant_int 1868
+L23: push_constant_int 56295449
+L24: if_setgraphic 0
+L25: push_constant_string "Idle"
+L26: push_constant_int 56295435
+L27: if_settext 0
+L28: branch L76
+L29: push_constant_string "Exploring"
+L30: push_constant_int 56295435
+L31: if_settext 0
+L32: branch L76
+L33: push_constant_string "Attacking wall"
+L34: push_constant_int 56295435
+L35: if_settext 0
+L36: branch L76
+L37: push_constant_string "Rescuing TzHaar"
+L38: push_constant_int 56295435
+L39: if_settext 0
+L40: branch L76
+L41: push_constant_string "Collecting gold"
+L42: push_constant_int 56295435
+L43: if_settext 0
+L44: branch L76
+L45: push_constant_string "Stealing TzHaar"
+L46: push_constant_int 56295435
+L47: if_settext 0
+L48: branch L76
+L49: push_constant_string "Collecting parts"
+L50: push_constant_int 56295435
+L51: if_settext 0
+L52: branch L76
+L53: push_constant_string "Collecting Rocks"
+L54: push_constant_int 56295435
+L55: if_settext 0
+L56: branch L76
+L57: push_constant_string "Attacking catapult"
+L58: push_constant_int 56295435
+L59: if_settext 0
+L60: branch L76
+L61: push_constant_string "Retaliating"
+L62: push_constant_int 56295435
+L63: if_settext 0
+L64: branch L76
+L65: push_constant_string "Moving to destination"
+L66: push_constant_int 56295435
+L67: if_settext 0
+L68: branch L76
+L69: push_constant_string "Attacking"
+L70: push_constant_int 56295435
+L71: if_settext 0
+L72: branch L76
+L73: push_constant_string "Busy"
+L74: push_constant_int 56295435
+L75: if_settext 0
+L76: return 0
+L77:
+
+[switch0@L18]
+0=L20
+1=L29
+2=L29
+3=L33
+4=L33
+5=L37
+6=L37
+7=L37
+8=L41
+9=L41
+10=L45
+11=L45
+12=L45
+13=L49
+14=L49
+15=L49
+16=L53
+17=L53
+18=L53
+19=L57
+20=L57
+21=L61
+22=L65
+23=L69

@@ -1,0 +1,55 @@
+name=""
+local_int_count=0
+local_string_count=0
+local_long_count=0
+int_param_count=0
+string_param_count=0
+long_param_count=0
+
+L0: push_constant_int 59375790
+L1: push_constant_int 907
+L2: if_openoverlay 0
+L3: gosub_with_params clientscript_2998
+L4: push_constant_int 59375791
+L5: push_constant_int 910
+L6: if_openoverlay 0
+L7: gosub_with_params clientscript_3103
+L8: push_constant_int 59375792
+L9: push_constant_int 909
+L10: if_openoverlay 0
+L11: gosub_with_params clientscript_3023
+L12: push_constant_int 59572273
+L13: gosub_with_params clientscript_3052
+L14: push_constant_int 59572290
+L15: gosub_with_params clientscript_3043
+L16: push_constant_int 59375794
+L17: push_constant_int 912
+L18: if_openoverlay 0
+L19: push_constant_int 59768841
+L20: gosub_with_params [proc,lobbyscreen_pane_clanchat_load]
+L21: push_constant_int 59768842
+L22: gosub_with_params clientscript_3171
+L23: push_constant_int 59375793
+L24: push_constant_int 589
+L25: if_openoverlay 0
+L26: push_constant_int 38600715
+L27: gosub_with_params clientscript_4554
+L28: push_constant_int 38600716
+L29: gosub_with_params clientscript_4565
+L30: push_constant_int 59375795
+L31: push_constant_int 911
+L32: if_openoverlay 0
+L33: gosub_with_params [proc,lobbyscreen_options_load]
+L34: push_constant_int 3405
+L35: push_constant_int 59572273
+L36: push_constant_int 59768842
+L37: push_constant_int 38600716
+L38: push_constant_string "III"
+L39: push_constant_int 59375629
+L40: if_setonchattransmit 0
+L41: gosub_with_params [proc,lobbyscreen_chat_count]
+L42: pop_varc_int varc_int_1510
+L43: pop_varc_int varc_int_1276
+L44: pop_varc_int varc_int_1275
+L45: return 0
+L46:

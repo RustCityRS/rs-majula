@@ -1,0 +1,38 @@
+name=""
+local_int_count=0
+local_string_count=3
+local_long_count=0
+int_param_count=0
+string_param_count=1
+long_param_count=0
+
+L0: push_constant_string ""
+L1: pop_string_local 1
+L2: push_constant_string ""
+L3: pop_string_local 2
+L4: push_string_local 0
+L5: push_constant_int 0
+L6: push_constant_int 1
+L7: substring 0
+L8: pop_string_local 1
+L9: push_string_local 0
+L10: string_length 0
+L11: push_constant_int 1
+L12: branch_greater_than L14
+L13: branch L20
+L14: push_string_local 0
+L15: push_constant_int 1
+L16: push_string_local 0
+L17: string_length 0
+L18: substring 0
+L19: pop_string_local 2
+L20: push_string_local 1
+L21: gosub_with_params clientscript_1815
+L22: pop_string_local 1
+L23: push_string_local 1
+L24: push_string_local 2
+L25: append 0
+L26: return 0
+L27: push_constant_string ""
+L28: return 0
+L29:

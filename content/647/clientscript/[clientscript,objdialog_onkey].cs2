@@ -1,0 +1,48 @@
+name=""
+local_int_count=2
+local_string_count=1
+local_long_count=0
+int_param_count=2
+string_param_count=0
+long_param_count=0
+
+L0: push_int_local 0
+L1: push_constant_int 84
+L2: branch_equals L4
+L3: branch L12
+L4: push_constant_int 0
+L5: pop_varc_int varc_int_81
+L6: push_constant_int -1
+L7: push_constant_string ""
+L8: push_constant_int 25493513
+L9: if_setontimer 0
+L10: gosub_with_params [proc,objdialog_refreshsearch]
+L11: return 0
+L12: push_varc_string_old varc_string_22
+L13: push_constant_int 0
+L14: push_int_local 0
+L15: push_int_local 1
+L16: gosub_with_params [proc,add_to_inputstring]
+L17: pop_string_local 0
+L18: push_varc_string_old varc_string_22
+L19: push_string_local 0
+L20: compare 0
+L21: branch_if_false L23
+L22: branch L24
+L23: return 0
+L24: push_string_local 0
+L25: pop_varc_string_old varc_string_22
+L26: push_varc_string_old varc_string_22
+L27: escape2 0
+L28: push_constant_string "*"
+L29: join_string 2
+L30: push_constant_int 25493513
+L31: if_settext 0
+L32: push_constant_int 50
+L33: pop_varc_int varc_int_81
+L34: push_constant_int 575
+L35: push_constant_string ""
+L36: push_constant_int 25493513
+L37: if_setontimer 0
+L38: return 0
+L39:

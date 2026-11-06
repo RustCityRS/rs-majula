@@ -1,0 +1,34 @@
+name=""
+local_int_count=1
+local_string_count=0
+local_long_count=0
+int_param_count=1
+string_param_count=0
+long_param_count=0
+
+L0: push_constant_int 42996800
+L1: push_constant_int 849335423
+L2: coord 0
+L3: gosub_with_params [proc,inzone]
+L4: branch_if_true L6
+L5: branch L17
+L6: get_clientopt_6108 0
+L7: branch_if_true L9
+L8: branch L17
+L9: push_int_local 0
+L10: if_gethide 0
+L11: branch_if_true L13
+L12: branch L16
+L13: push_constant_int 0
+L14: push_int_local 0
+L15: if_sethide 0
+L16: branch L24
+L17: push_int_local 0
+L18: if_gethide 0
+L19: branch_if_false L21
+L20: branch L24
+L21: push_constant_int 1
+L22: push_int_local 0
+L23: if_sethide 0
+L24: return 0
+L25:

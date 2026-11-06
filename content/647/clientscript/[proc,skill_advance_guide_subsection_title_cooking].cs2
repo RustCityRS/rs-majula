@@ -1,0 +1,100 @@
+name=""
+local_int_count=1
+local_string_count=0
+local_long_count=0
+int_param_count=1
+string_param_count=0
+long_param_count=0
+
+L0: push_int_local 0
+L1: switch switch0
+L2: branch L67
+L3: push_constant_string "Meats"
+L4: push_constant_int 0
+L5: return 0
+L6: branch L70
+L7: push_constant_string "Bread"
+L8: push_constant_int 0
+L9: return 0
+L10: branch L70
+L11: push_constant_string "Pies"
+L12: push_constant_int 0
+L13: return 0
+L14: branch L70
+L15: push_constant_string "Stews"
+L16: push_constant_int 0
+L17: return 0
+L18: branch L70
+L19: push_constant_string "Pizzas"
+L20: push_constant_int 0
+L21: return 0
+L22: branch L70
+L23: push_constant_string "Cakes"
+L24: push_constant_int 0
+L25: return 0
+L26: branch L70
+L27: push_constant_string "Wine"
+L28: push_constant_int 0
+L29: return 0
+L30: branch L70
+L31: push_constant_string "Hot Drinks"
+L32: push_constant_int 1
+L33: return 0
+L34: branch L70
+L35: push_constant_string "Brewing"
+L36: push_constant_int 1
+L37: return 0
+L38: branch L70
+L39: push_constant_string "Potatoes & Toppings"
+L40: push_constant_int 1
+L41: return 0
+L42: branch L70
+L43: push_constant_string "Dairy"
+L44: push_constant_int 1
+L45: return 0
+L46: branch L70
+L47: push_constant_string "Gnome"
+L48: push_constant_int 1
+L49: return 0
+L50: branch L70
+L51: push_constant_string "Other"
+L52: push_constant_int 0
+L53: return 0
+L54: branch L70
+L55: push_constant_string "Activities"
+L56: push_constant_int 1
+L57: return 0
+L58: branch L70
+L59: push_constant_string "Dungeoneering"
+L60: push_constant_int 0
+L61: return 0
+L62: branch L70
+L63: push_constant_string "Milestones"
+L64: push_constant_int 0
+L65: return 0
+L66: branch L70
+L67: push_constant_string ""
+L68: push_constant_int -1
+L69: return 0
+L70: push_constant_string ""
+L71: push_constant_int 0
+L72: return 0
+L73:
+
+[switch0@L1]
+0=L3
+1=L7
+2=L11
+3=L15
+4=L19
+5=L23
+6=L27
+7=L31
+8=L35
+9=L39
+10=L43
+11=L47
+12=L51
+13=L55
+14=L59
+15=L63

@@ -52,3 +52,4 @@ pub fn decompile_with_names(
         my_meta,
     ))
 }
+pub mod assembly;

@@ -1,0 +1,4455 @@
+name=""
+local_int_count=2
+local_string_count=0
+local_long_count=0
+int_param_count=2
+string_param_count=0
+long_param_count=0
+
+L0: push_int_local 0
+L1: switch switch0
+L2: branch L4048
+L3: push_int_local 1
+L4: switch switch1
+L5: branch L148
+L6: push_constant_int 1
+L7: push_constant_int 1205
+L8: push_constant_string "Bronze dagger"
+L9: push_constant_string "You can now wield "
+L10: push_constant_string "<col=000080>"
+L11: push_constant_string "bronze daggers"
+L12: push_constant_string "</col>"
+L13: push_constant_string "."
+L14: join_string 5
+L15: return 0
+L16: branch L148
+L17: push_constant_int 1
+L18: push_constant_int 1351
+L19: push_constant_string "Bronze hatchet"
+L20: push_constant_string "You can now wield "
+L21: push_constant_string "<col=000080>"
+L22: push_constant_string "bronze hatchets"
+L23: push_constant_string "</col>"
+L24: push_constant_string "."
+L25: join_string 5
+L26: return 0
+L27: branch L148
+L28: push_constant_int 1
+L29: push_constant_int 1422
+L30: push_constant_string "Bronze mace"
+L31: push_constant_string "You can now wield "
+L32: push_constant_string "<col=000080>"
+L33: push_constant_string "bronze maces"
+L34: push_constant_string "</col>"
+L35: push_constant_string "."
+L36: join_string 5
+L37: return 0
+L38: branch L148
+L39: push_constant_int 1
+L40: push_constant_int 3095
+L41: push_constant_string "Members: Bronze claws"
+L42: push_constant_string "Members can now wield "
+L43: push_constant_string "<col=000080>"
+L44: push_constant_string "bronze claws"
+L45: push_constant_string "</col>"
+L46: push_constant_string "."
+L47: join_string 5
+L48: return 0
+L49: branch L148
+L50: push_constant_int 1
+L51: push_constant_int 1277
+L52: push_constant_string "Bronze sword"
+L53: push_constant_string "You can now wield "
+L54: push_constant_string "<col=000080>"
+L55: push_constant_string "bronze swords"
+L56: push_constant_string "</col>"
+L57: push_constant_string "."
+L58: join_string 5
+L59: return 0
+L60: branch L148
+L61: push_constant_int 1
+L62: push_constant_int 1291
+L63: push_constant_string "Bronze longsword"
+L64: push_constant_string "You can now wield "
+L65: push_constant_string "<col=000080>"
+L66: push_constant_string "bronze longswords"
+L67: push_constant_string "</col>"
+L68: push_constant_string "."
+L69: join_string 5
+L70: return 0
+L71: branch L148
+L72: push_constant_int 1
+L73: push_constant_int 1321
+L74: push_constant_string "Bronze scimitar"
+L75: push_constant_string "You can now wield "
+L76: push_constant_string "<col=000080>"
+L77: push_constant_string "bronze scimitars"
+L78: push_constant_string "</col>"
+L79: push_constant_string "."
+L80: join_string 5
+L81: return 0
+L82: branch L148
+L83: push_constant_int 1
+L84: push_constant_int 1237
+L85: push_constant_string "Members: Bronze spear"
+L86: push_constant_string "Members can now wield "
+L87: push_constant_string "<col=000080>"
+L88: push_constant_string "bronze spears"
+L89: push_constant_string "</col>"
+L90: push_constant_string "."
+L91: join_string 5
+L92: return 0
+L93: branch L148
+L94: push_constant_int 1
+L95: push_constant_int 1337
+L96: push_constant_string "Bronze warhammer"
+L97: push_constant_string "You can now wield "
+L98: push_constant_string "<col=000080>"
+L99: push_constant_string "bronze warhammers"
+L100: push_constant_string "</col>"
+L101: push_constant_string "."
+L102: join_string 5
+L103: return 0
+L104: branch L148
+L105: push_constant_int 1
+L106: push_constant_int 1375
+L107: push_constant_string "Bronze battleaxe"
+L108: push_constant_string "You can now wield "
+L109: push_constant_string "<col=000080>"
+L110: push_constant_string "bronze battleaxes"
+L111: push_constant_string "</col>"
+L112: push_constant_string "."
+L113: join_string 5
+L114: return 0
+L115: branch L148
+L116: push_constant_int 1
+L117: push_constant_int 1307
+L118: push_constant_string "Bronze two-handed sword"
+L119: push_constant_string "You can now wield "
+L120: push_constant_string "<col=000080>"
+L121: push_constant_string "bronze two-handed swords"
+L122: push_constant_string "</col>"
+L123: push_constant_string "."
+L124: join_string 5
+L125: return 0
+L126: branch L148
+L127: push_constant_int 1
+L128: push_constant_int 3190
+L129: push_constant_string "Members: Bronze halberd"
+L130: push_constant_string "Members can now wield "
+L131: push_constant_string "<col=000080>"
+L132: push_constant_string "bronze halberds"
+L133: push_constant_string "</col>"
+L134: push_constant_string "."
+L135: join_string 5
+L136: return 0
+L137: branch L148
+L138: push_constant_int 1
+L139: push_constant_int 8844
+L140: push_constant_string "Members: Bronze defender"
+L141: push_constant_string "Members can now wield "
+L142: push_constant_string "<col=000080>"
+L143: push_constant_string "bronze defenders"
+L144: push_constant_string "</col>"
+L145: push_constant_string "."
+L146: join_string 5
+L147: return 0
+L148: branch L4048
+L149: push_int_local 1
+L150: switch switch2
+L151: branch L305
+L152: push_constant_int 1
+L153: push_constant_int 1203
+L154: push_constant_string "Iron dagger"
+L155: push_constant_string "You can now wield "
+L156: push_constant_string "<col=000080>"
+L157: push_constant_string "iron daggers"
+L158: push_constant_string "</col>"
+L159: push_constant_string "."
+L160: join_string 5
+L161: return 0
+L162: branch L305
+L163: push_constant_int 1
+L164: push_constant_int 1349
+L165: push_constant_string "Iron hatchet"
+L166: push_constant_string "You can now wield "
+L167: push_constant_string "<col=000080>"
+L168: push_constant_string "iron hatchets"
+L169: push_constant_string "</col>"
+L170: push_constant_string "."
+L171: join_string 5
+L172: return 0
+L173: branch L305
+L174: push_constant_int 1
+L175: push_constant_int 1420
+L176: push_constant_string "Iron mace"
+L177: push_constant_string "You can now wield "
+L178: push_constant_string "<col=000080>"
+L179: push_constant_string "iron maces"
+L180: push_constant_string "</col>"
+L181: push_constant_string "."
+L182: join_string 5
+L183: return 0
+L184: branch L305
+L185: push_constant_int 1
+L186: push_constant_int 3096
+L187: push_constant_string "Members: Iron claws"
+L188: push_constant_string "Members can now wield "
+L189: push_constant_string "<col=000080>"
+L190: push_constant_string "iron claws"
+L191: push_constant_string "</col>"
+L192: push_constant_string "."
+L193: join_string 5
+L194: return 0
+L195: branch L305
+L196: push_constant_int 1
+L197: push_constant_int 1279
+L198: push_constant_string "Iron sword"
+L199: push_constant_string "You can now wield "
+L200: push_constant_string "<col=000080>"
+L201: push_constant_string "iron swords"
+L202: push_constant_string "</col>"
+L203: push_constant_string "."
+L204: join_string 5
+L205: return 0
+L206: branch L305
+L207: push_constant_int 1
+L208: push_constant_int 1293
+L209: push_constant_string "Iron longsword"
+L210: push_constant_string "You can now wield "
+L211: push_constant_string "<col=000080>"
+L212: push_constant_string "iron longswords"
+L213: push_constant_string "</col>"
+L214: push_constant_string "."
+L215: join_string 5
+L216: return 0
+L217: branch L305
+L218: push_constant_int 1
+L219: push_constant_int 1323
+L220: push_constant_string "Iron scimitar"
+L221: push_constant_string "You can now wield "
+L222: push_constant_string "<col=000080>"
+L223: push_constant_string "iron scimitars"
+L224: push_constant_string "</col>"
+L225: push_constant_string "."
+L226: join_string 5
+L227: return 0
+L228: branch L305
+L229: push_constant_int 1
+L230: push_constant_int 20533
+L231: push_constant_string "Members: Iron Ceremonial Sword"
+L232: push_constant_string "Members can now wield "
+L233: push_constant_string "<col=000080>"
+L234: push_constant_string "iron ceremonial swords"
+L235: push_constant_string "</col>"
+L236: push_constant_string "."
+L237: join_string 5
+L238: return 0
+L239: branch L305
+L240: push_constant_int 1
+L241: push_constant_int 1239
+L242: push_constant_string "Members: Iron spear"
+L243: push_constant_string "Members can now wield "
+L244: push_constant_string "<col=000080>"
+L245: push_constant_string "iron spears"
+L246: push_constant_string "</col>"
+L247: push_constant_string "."
+L248: join_string 5
+L249: return 0
+L250: branch L305
+L251: push_constant_int 1
+L252: push_constant_int 1335
+L253: push_constant_string "Iron warhammer"
+L254: push_constant_string "You can now wield "
+L255: push_constant_string "<col=000080>"
+L256: push_constant_string "iron warhammers"
+L257: push_constant_string "</col>"
+L258: push_constant_string "."
+L259: join_string 5
+L260: return 0
+L261: branch L305
+L262: push_constant_int 1
+L263: push_constant_int 1363
+L264: push_constant_string "Iron battleaxe"
+L265: push_constant_string "You can now wield "
+L266: push_constant_string "<col=000080>"
+L267: push_constant_string "iron battleaxes"
+L268: push_constant_string "</col>"
+L269: push_constant_string "."
+L270: join_string 5
+L271: return 0
+L272: branch L305
+L273: push_constant_int 1
+L274: push_constant_int 1309
+L275: push_constant_string "Iron two-handed sword"
+L276: push_constant_string "You can now wield "
+L277: push_constant_string "<col=000080>"
+L278: push_constant_string "iron two-handed swords"
+L279: push_constant_string "</col>"
+L280: push_constant_string "."
+L281: join_string 5
+L282: return 0
+L283: branch L305
+L284: push_constant_int 1
+L285: push_constant_int 3192
+L286: push_constant_string "Members: Iron halberd"
+L287: push_constant_string "Members can now wield "
+L288: push_constant_string "<col=000080>"
+L289: push_constant_string "iron halberds"
+L290: push_constant_string "</col>"
+L291: push_constant_string "."
+L292: join_string 5
+L293: return 0
+L294: branch L305
+L295: push_constant_int 1
+L296: push_constant_int 8845
+L297: push_constant_string "Members: Iron defender"
+L298: push_constant_string "Members can now wield "
+L299: push_constant_string "<col=000080>"
+L300: push_constant_string "iron defenders"
+L301: push_constant_string "</col>"
+L302: push_constant_string "."
+L303: join_string 5
+L304: return 0
+L305: branch L4048
+L306: push_int_local 1
+L307: switch switch3
+L308: branch L465
+L309: push_constant_int 5
+L310: push_constant_int 1207
+L311: push_constant_string "Steel dagger"
+L312: push_constant_string "You can now wield "
+L313: push_constant_string "<col=000080>"
+L314: push_constant_string "steel daggers"
+L315: push_constant_string "</col>"
+L316: push_constant_string "."
+L317: join_string 5
+L318: return 0
+L319: branch L465
+L320: push_constant_int 5
+L321: push_constant_int 1353
+L322: push_constant_string "Steel hatchet"
+L323: push_constant_string "You can now wield "
+L324: push_constant_string "<col=000080>"
+L325: push_constant_string "steel hatchets"
+L326: push_constant_string "</col>"
+L327: push_constant_string "."
+L328: join_string 5
+L329: return 0
+L330: branch L465
+L331: push_constant_int 5
+L332: push_constant_int 1424
+L333: push_constant_string "Steel mace"
+L334: push_constant_string "You can now wield "
+L335: push_constant_string "<col=000080>"
+L336: push_constant_string "steel maces"
+L337: push_constant_string "</col>"
+L338: push_constant_string "."
+L339: join_string 5
+L340: return 0
+L341: branch L465
+L342: push_constant_int 5
+L343: push_constant_int 3097
+L344: push_constant_string "Members: Steel claws"
+L345: push_constant_string "Members can now wield "
+L346: push_constant_string "<col=000080>"
+L347: push_constant_string "steel claws"
+L348: push_constant_string "</col>"
+L349: push_constant_string "."
+L350: join_string 5
+L351: return 0
+L352: branch L465
+L353: push_constant_int 5
+L354: push_constant_int 1281
+L355: push_constant_string "Steel sword"
+L356: push_constant_string "You can now wield "
+L357: push_constant_string "<col=000080>"
+L358: push_constant_string "steel swords"
+L359: push_constant_string "</col>"
+L360: push_constant_string "."
+L361: join_string 5
+L362: return 0
+L363: branch L465
+L364: push_constant_int 5
+L365: push_constant_int 1295
+L366: push_constant_string "Steel longsword"
+L367: push_constant_string "You can now wield "
+L368: push_constant_string "<col=000080>"
+L369: push_constant_string "steel longswords"
+L370: push_constant_string "</col>"
+L371: push_constant_string "."
+L372: join_string 5
+L373: return 0
+L374: branch L465
+L375: push_constant_int 5
+L376: push_constant_int 1325
+L377: push_constant_string "Steel scimitar"
+L378: push_constant_string "You can now wield "
+L379: push_constant_string "<col=000080>"
+L380: push_constant_string "steel scimitars"
+L381: push_constant_string "</col>"
+L382: push_constant_string "."
+L383: join_string 5
+L384: return 0
+L385: branch L465
+L386: push_constant_int 5
+L387: push_constant_int 20538
+L388: push_constant_string "Members: Steel Ceremonial Sword"
+L389: push_constant_string "Members can now wield "
+L390: push_constant_string "<col=000080>"
+L391: push_constant_string "steel ceremonial swords"
+L392: push_constant_string "</col>"
+L393: push_constant_string "."
+L394: join_string 5
+L395: return 0
+L396: branch L465
+L397: push_constant_int 5
+L398: push_constant_int 1241
+L399: push_constant_string "Members: Steel spear"
+L400: push_constant_string "Members can now wield "
+L401: push_constant_string "<col=000080>"
+L402: push_constant_string "steel spears"
+L403: push_constant_string "</col>"
+L404: push_constant_string "."
+L405: join_string 5
+L406: return 0
+L407: branch L465
+L408: push_constant_int 5
+L409: push_constant_int 1339
+L410: push_constant_string "Steel warhammer"
+L411: push_constant_string "You can now wield "
+L412: push_constant_string "<col=000080>"
+L413: push_constant_string "steel warhammers"
+L414: push_constant_string "</col>"
+L415: push_constant_string "."
+L416: join_string 5
+L417: return 0
+L418: branch L465
+L419: push_constant_int 5
+L420: push_constant_int 1365
+L421: push_constant_string "Steel battleaxe"
+L422: push_constant_string "You can now wield "
+L423: push_constant_string "<col=000080>"
+L424: push_constant_string "steel battleaxes"
+L425: push_constant_string "</col>"
+L426: push_constant_string "."
+L427: join_string 5
+L428: return 0
+L429: branch L465
+L430: push_constant_int 5
+L431: push_constant_int 1311
+L432: push_constant_string "Steel two-handed sword"
+L433: push_constant_string "You can now wield "
+L434: push_constant_string "<col=000080>"
+L435: push_constant_string "steel two-handed swords"
+L436: push_constant_string "</col>"
+L437: push_constant_string "."
+L438: join_string 5
+L439: return 0
+L440: branch L465
+L441: push_constant_int 5
+L442: push_constant_int 3194
+L443: push_constant_string "Members: Steel halberd"
+L444: push_constant_string "Members can now wield "
+L445: push_constant_string "<col=000080>"
+L446: push_constant_string "steel halberds"
+L447: push_constant_string "</col>"
+L448: push_constant_string "."
+L449: join_string 5
+L450: return 0
+L451: branch L465
+L452: push_constant_int 5
+L453: push_constant_int 8846
+L454: push_constant_string "Members: Steel defender"
+L455: push_constant_string "<br>"
+L456: push_constant_string " (with 5 Defence)"
+L457: join_string 3
+L458: push_constant_string "Members now have the Attack level required to wield "
+L459: push_constant_string "<col=000080>"
+L460: push_constant_string "steel defenders"
+L461: push_constant_string "</col>"
+L462: push_constant_string ". (They also need level 5 Defence.)"
+L463: join_string 5
+L464: return 0
+L465: branch L4048
+L466: push_int_local 1
+L467: switch switch4
+L468: branch L614
+L469: push_constant_int 10
+L470: push_constant_int 1217
+L471: push_constant_string "Black dagger"
+L472: push_constant_string "You can now wield "
+L473: push_constant_string "<col=000080>"
+L474: push_constant_string "black daggers"
+L475: push_constant_string "</col>"
+L476: push_constant_string "."
+L477: join_string 5
+L478: return 0
+L479: branch L614
+L480: push_constant_int 10
+L481: push_constant_int 1361
+L482: push_constant_string "Black hatchet"
+L483: push_constant_string "You can now wield "
+L484: push_constant_string "<col=000080>"
+L485: push_constant_string "black hatchets"
+L486: push_constant_string "</col>"
+L487: push_constant_string "."
+L488: join_string 5
+L489: return 0
+L490: branch L614
+L491: push_constant_int 10
+L492: push_constant_int 1426
+L493: push_constant_string "Black mace"
+L494: push_constant_string "You can now wield "
+L495: push_constant_string "<col=000080>"
+L496: push_constant_string "black maces"
+L497: push_constant_string "</col>"
+L498: push_constant_string "."
+L499: join_string 5
+L500: return 0
+L501: branch L614
+L502: push_constant_int 10
+L503: push_constant_int 3098
+L504: push_constant_string "Members: Black claws"
+L505: push_constant_string "Members can now wield "
+L506: push_constant_string "<col=000080>"
+L507: push_constant_string "black claws"
+L508: push_constant_string "</col>"
+L509: push_constant_string "."
+L510: join_string 5
+L511: return 0
+L512: branch L614
+L513: push_constant_int 10
+L514: push_constant_int 1283
+L515: push_constant_string "Black sword"
+L516: push_constant_string "You can now wield "
+L517: push_constant_string "<col=000080>"
+L518: push_constant_string "black swords"
+L519: push_constant_string "</col>"
+L520: push_constant_string "."
+L521: join_string 5
+L522: return 0
+L523: branch L614
+L524: push_constant_int 10
+L525: push_constant_int 1297
+L526: push_constant_string "Black longsword"
+L527: push_constant_string "You can now wield "
+L528: push_constant_string "<col=000080>"
+L529: push_constant_string "black longswords"
+L530: push_constant_string "</col>"
+L531: push_constant_string "."
+L532: join_string 5
+L533: return 0
+L534: branch L614
+L535: push_constant_int 10
+L536: push_constant_int 1327
+L537: push_constant_string "Black scimitar"
+L538: push_constant_string "You can now wield "
+L539: push_constant_string "<col=000080>"
+L540: push_constant_string "black scimitars"
+L541: push_constant_string "</col>"
+L542: push_constant_string "."
+L543: join_string 5
+L544: return 0
+L545: branch L614
+L546: push_constant_int 10
+L547: push_constant_int 4580
+L548: push_constant_string "Members: Black spear"
+L549: push_constant_string "Members can now wield "
+L550: push_constant_string "<col=000080>"
+L551: push_constant_string "black spears"
+L552: push_constant_string "</col>"
+L553: push_constant_string "."
+L554: join_string 5
+L555: return 0
+L556: branch L614
+L557: push_constant_int 10
+L558: push_constant_int 1341
+L559: push_constant_string "Black warhammer"
+L560: push_constant_string "You can now wield "
+L561: push_constant_string "<col=000080>"
+L562: push_constant_string "black warhammers"
+L563: push_constant_string "</col>"
+L564: push_constant_string "."
+L565: join_string 5
+L566: return 0
+L567: branch L614
+L568: push_constant_int 10
+L569: push_constant_int 1367
+L570: push_constant_string "Black battleaxe"
+L571: push_constant_string "You can now wield "
+L572: push_constant_string "<col=000080>"
+L573: push_constant_string "black battleaxes"
+L574: push_constant_string "</col>"
+L575: push_constant_string "."
+L576: join_string 5
+L577: return 0
+L578: branch L614
+L579: push_constant_int 10
+L580: push_constant_int 1313
+L581: push_constant_string "Black two-handed sword"
+L582: push_constant_string "You can now wield "
+L583: push_constant_string "<col=000080>"
+L584: push_constant_string "black two-handed swords"
+L585: push_constant_string "</col>"
+L586: push_constant_string "."
+L587: join_string 5
+L588: return 0
+L589: branch L614
+L590: push_constant_int 10
+L591: push_constant_int 3196
+L592: push_constant_string "Members: Black halberd"
+L593: push_constant_string "Members can now wield "
+L594: push_constant_string "<col=000080>"
+L595: push_constant_string "black halberds"
+L596: push_constant_string "</col>"
+L597: push_constant_string "."
+L598: join_string 5
+L599: return 0
+L600: branch L614
+L601: push_constant_int 10
+L602: push_constant_int 8847
+L603: push_constant_string "Members: Black defender"
+L604: push_constant_string "<br>"
+L605: push_constant_string " (with 10 Defence)"
+L606: join_string 3
+L607: push_constant_string "Members now have the Attack level required to wield "
+L608: push_constant_string "<col=000080>"
+L609: push_constant_string "black defenders"
+L610: push_constant_string "</col>"
+L611: push_constant_string ". (They also need level 10 Defence.)"
+L612: join_string 5
+L613: return 0
+L614: branch L4048
+L615: push_int_local 1
+L616: switch switch5
+L617: branch L733
+L618: push_constant_int -1
+L619: push_constant_int 7620
+L620: push_constant_string "To wield any white equipment, you must have completed Wanted!."
+L621: push_constant_string ""
+L622: return 0
+L623: branch L733
+L624: push_constant_int 10
+L625: push_constant_int 6591
+L626: push_constant_string "Members: White dagger"
+L627: push_constant_string "Members can now wield "
+L628: push_constant_string "<col=000080>"
+L629: push_constant_string "white daggers"
+L630: push_constant_string "</col>"
+L631: push_constant_string " (after finishing Wanted!)."
+L632: join_string 5
+L633: return 0
+L634: branch L733
+L635: push_constant_int 10
+L636: push_constant_int 6601
+L637: push_constant_string "Members: White mace"
+L638: push_constant_string "Members can now wield "
+L639: push_constant_string "<col=000080>"
+L640: push_constant_string "white maces"
+L641: push_constant_string "</col>"
+L642: push_constant_string " (after finishing Wanted!)."
+L643: join_string 5
+L644: return 0
+L645: branch L733
+L646: push_constant_int 10
+L647: push_constant_int 6587
+L648: push_constant_string "Members: White claws"
+L649: push_constant_string "Members can now wield "
+L650: push_constant_string "<col=000080>"
+L651: push_constant_string "white claws"
+L652: push_constant_string "</col>"
+L653: push_constant_string " (after finishing Wanted!)."
+L654: join_string 5
+L655: return 0
+L656: branch L733
+L657: push_constant_int 10
+L658: push_constant_int 6605
+L659: push_constant_string "Members: White sword"
+L660: push_constant_string "Members can now wield "
+L661: push_constant_string "<col=000080>"
+L662: push_constant_string "white swords"
+L663: push_constant_string "</col>"
+L664: push_constant_string " (after finishing Wanted!)."
+L665: join_string 5
+L666: return 0
+L667: branch L733
+L668: push_constant_int 10
+L669: push_constant_int 6607
+L670: push_constant_string "Members: White longsword"
+L671: push_constant_string "Members can now wield "
+L672: push_constant_string "<col=000080>"
+L673: push_constant_string "white longswords"
+L674: push_constant_string "</col>"
+L675: push_constant_string " (after finishing Wanted!)."
+L676: join_string 5
+L677: return 0
+L678: branch L733
+L679: push_constant_int 10
+L680: push_constant_int 6611
+L681: push_constant_string "Members: White scimitar"
+L682: push_constant_string "Members can now wield "
+L683: push_constant_string "<col=000080>"
+L684: push_constant_string "white scimitars"
+L685: push_constant_string "</col>"
+L686: push_constant_string " (after finishing Wanted!)."
+L687: join_string 5
+L688: return 0
+L689: branch L733
+L690: push_constant_int 10
+L691: push_constant_int 6613
+L692: push_constant_string "Members: White warhammer"
+L693: push_constant_string "Members can now wield "
+L694: push_constant_string "<col=000080>"
+L695: push_constant_string "white warhammers"
+L696: push_constant_string "</col>"
+L697: push_constant_string " (after finishing Wanted!)."
+L698: join_string 5
+L699: return 0
+L700: branch L733
+L701: push_constant_int 10
+L702: push_constant_int 6589
+L703: push_constant_string "Members: White battleaxe"
+L704: push_constant_string "Members can now wield "
+L705: push_constant_string "<col=000080>"
+L706: push_constant_string "white battleaxes"
+L707: push_constant_string "</col>"
+L708: push_constant_string " (after finishing Wanted!)."
+L709: join_string 5
+L710: return 0
+L711: branch L733
+L712: push_constant_int 10
+L713: push_constant_int 6609
+L714: push_constant_string "Members: White two-handed sword"
+L715: push_constant_string "Members can now wield "
+L716: push_constant_string "<col=000080>"
+L717: push_constant_string "white two-handed swords"
+L718: push_constant_string "</col>"
+L719: push_constant_string " (after finishing Wanted!)."
+L720: join_string 5
+L721: return 0
+L722: branch L733
+L723: push_constant_int 10
+L724: push_constant_int 6599
+L725: push_constant_string "Members: White halberd"
+L726: push_constant_string "Members can now wield "
+L727: push_constant_string "<col=000080>"
+L728: push_constant_string "white halberds"
+L729: push_constant_string "</col>"
+L730: push_constant_string " (after finishing Wanted!)."
+L731: join_string 5
+L732: return 0
+L733: branch L4048
+L734: push_int_local 1
+L735: switch switch6
+L736: branch L867
+L737: push_constant_int 20
+L738: push_constant_int 1209
+L739: push_constant_string "Mithril dagger"
+L740: push_constant_string "You can now wield mithril daggers"
+L741: push_constant_string "</col>"
+L742: push_constant_string "."
+L743: join_string 3
+L744: return 0
+L745: branch L867
+L746: push_constant_int 20
+L747: push_constant_int 1355
+L748: push_constant_string "Mithril hatchet"
+L749: push_constant_string "You can now wield mithril hatchets"
+L750: push_constant_string "</col>"
+L751: push_constant_string "."
+L752: join_string 3
+L753: return 0
+L754: branch L867
+L755: push_constant_int 20
+L756: push_constant_int 1428
+L757: push_constant_string "Mithril mace"
+L758: push_constant_string "You can now wield mithril maces"
+L759: push_constant_string "</col>"
+L760: push_constant_string "."
+L761: join_string 3
+L762: return 0
+L763: branch L867
+L764: push_constant_int 20
+L765: push_constant_int 3099
+L766: push_constant_string "Members: Mithril claws"
+L767: push_constant_string "Members can now wield mithril claws"
+L768: push_constant_string "</col>"
+L769: push_constant_string "."
+L770: join_string 3
+L771: return 0
+L772: branch L867
+L773: push_constant_int 20
+L774: push_constant_int 1285
+L775: push_constant_string "Mithril sword"
+L776: push_constant_string "You can now wield mithril swords"
+L777: push_constant_string "</col>"
+L778: push_constant_string "."
+L779: join_string 3
+L780: return 0
+L781: branch L867
+L782: push_constant_int 20
+L783: push_constant_int 1299
+L784: push_constant_string "Mithril longsword"
+L785: push_constant_string "You can now wield mithril longswords"
+L786: push_constant_string "</col>"
+L787: push_constant_string "."
+L788: join_string 3
+L789: return 0
+L790: branch L867
+L791: push_constant_int 20
+L792: push_constant_int 1329
+L793: push_constant_string "Mithril scimitar"
+L794: push_constant_string "You can now wield mithril scimitars"
+L795: push_constant_string "</col>"
+L796: push_constant_string "."
+L797: join_string 3
+L798: return 0
+L799: branch L867
+L800: push_constant_int 20
+L801: push_constant_int 20543
+L802: push_constant_string "Members: Mithril Ceremonial Sword"
+L803: push_constant_string "Members can now wield "
+L804: push_constant_string "<col=000080>"
+L805: push_constant_string "mithril ceremonial swords"
+L806: push_constant_string "</col>"
+L807: push_constant_string "."
+L808: join_string 5
+L809: return 0
+L810: branch L867
+L811: push_constant_int 20
+L812: push_constant_int 1243
+L813: push_constant_string "Members: Mithril spear"
+L814: push_constant_string "Members can now wield mithril spears"
+L815: push_constant_string "</col>"
+L816: push_constant_string "."
+L817: join_string 3
+L818: return 0
+L819: branch L867
+L820: push_constant_int 20
+L821: push_constant_int 1343
+L822: push_constant_string "Mithril warhammer"
+L823: push_constant_string "You can now wield mithril warhammers"
+L824: push_constant_string "</col>"
+L825: push_constant_string "."
+L826: join_string 3
+L827: return 0
+L828: branch L867
+L829: push_constant_int 20
+L830: push_constant_int 1369
+L831: push_constant_string "Mithril battleaxe"
+L832: push_constant_string "You can now wield mithril battleaxes"
+L833: push_constant_string "</col>"
+L834: push_constant_string "."
+L835: join_string 3
+L836: return 0
+L837: branch L867
+L838: push_constant_int 20
+L839: push_constant_int 1315
+L840: push_constant_string "Mithril two-handed sword"
+L841: push_constant_string "You can now wield mithril two-handed swords"
+L842: push_constant_string "</col>"
+L843: push_constant_string "."
+L844: join_string 3
+L845: return 0
+L846: branch L867
+L847: push_constant_int 20
+L848: push_constant_int 3198
+L849: push_constant_string "Members: Mithril halberd"
+L850: push_constant_string "Members can now wield mithril halberds"
+L851: push_constant_string "</col>"
+L852: push_constant_string "."
+L853: join_string 3
+L854: return 0
+L855: branch L867
+L856: push_constant_int 20
+L857: push_constant_int 8848
+L858: push_constant_string "Members: Mithril defender"
+L859: push_constant_string "<br>"
+L860: push_constant_string " (with 20 Defence)"
+L861: join_string 3
+L862: push_constant_string "Members now have the Attack level required to wield mithril defenders"
+L863: push_constant_string "</col>"
+L864: push_constant_string ". (They also need level 20 Defence.)"
+L865: join_string 3
+L866: return 0
+L867: branch L4048
+L868: push_int_local 1
+L869: switch switch7
+L870: branch L1027
+L871: push_constant_int 30
+L872: push_constant_int 1211
+L873: push_constant_string "Adamant dagger"
+L874: push_constant_string "You can now wield "
+L875: push_constant_string "<col=000080>"
+L876: push_constant_string "adamant daggers"
+L877: push_constant_string "</col>"
+L878: push_constant_string "."
+L879: join_string 5
+L880: return 0
+L881: branch L1027
+L882: push_constant_int 30
+L883: push_constant_int 1357
+L884: push_constant_string "Adamant hatchet"
+L885: push_constant_string "You can now wield "
+L886: push_constant_string "<col=000080>"
+L887: push_constant_string "adamant hatchets"
+L888: push_constant_string "</col>"
+L889: push_constant_string "."
+L890: join_string 5
+L891: return 0
+L892: branch L1027
+L893: push_constant_int 30
+L894: push_constant_int 1430
+L895: push_constant_string "Adamant mace"
+L896: push_constant_string "You can now wield "
+L897: push_constant_string "<col=000080>"
+L898: push_constant_string "adamant maces"
+L899: push_constant_string "</col>"
+L900: push_constant_string "."
+L901: join_string 5
+L902: return 0
+L903: branch L1027
+L904: push_constant_int 30
+L905: push_constant_int 3100
+L906: push_constant_string "Members: Adamant claws"
+L907: push_constant_string "Members can now wield "
+L908: push_constant_string "<col=000080>"
+L909: push_constant_string "adamant claws"
+L910: push_constant_string "</col>"
+L911: push_constant_string "."
+L912: join_string 5
+L913: return 0
+L914: branch L1027
+L915: push_constant_int 30
+L916: push_constant_int 1287
+L917: push_constant_string "Adamant sword"
+L918: push_constant_string "You can now wield "
+L919: push_constant_string "<col=000080>"
+L920: push_constant_string "adamant swords"
+L921: push_constant_string "</col>"
+L922: push_constant_string "."
+L923: join_string 5
+L924: return 0
+L925: branch L1027
+L926: push_constant_int 30
+L927: push_constant_int 1301
+L928: push_constant_string "Adamant longsword"
+L929: push_constant_string "You can now wield "
+L930: push_constant_string "<col=000080>"
+L931: push_constant_string "adamant longswords"
+L932: push_constant_string "</col>"
+L933: push_constant_string "."
+L934: join_string 5
+L935: return 0
+L936: branch L1027
+L937: push_constant_int 30
+L938: push_constant_int 1331
+L939: push_constant_string "Adamant scimitar"
+L940: push_constant_string "You can now wield "
+L941: push_constant_string "<col=000080>"
+L942: push_constant_string "adamant scimitars"
+L943: push_constant_string "</col>"
+L944: push_constant_string "."
+L945: join_string 5
+L946: return 0
+L947: branch L1027
+L948: push_constant_int 30
+L949: push_constant_int 20548
+L950: push_constant_string "Members: Adamant Ceremonial Sword"
+L951: push_constant_string "Members can now wield "
+L952: push_constant_string "<col=000080>"
+L953: push_constant_string "adamant ceremonial swords"
+L954: push_constant_string "</col>"
+L955: push_constant_string "."
+L956: join_string 5
+L957: return 0
+L958: branch L1027
+L959: push_constant_int 30
+L960: push_constant_int 1245
+L961: push_constant_string "Members: Adamant spear"
+L962: push_constant_string "Members can now wield "
+L963: push_constant_string "<col=000080>"
+L964: push_constant_string "adamant spears"
+L965: push_constant_string "</col>"
+L966: push_constant_string "."
+L967: join_string 5
+L968: return 0
+L969: branch L1027
+L970: push_constant_int 30
+L971: push_constant_int 1345
+L972: push_constant_string "Adamant warhammer"
+L973: push_constant_string "You can now wield "
+L974: push_constant_string "<col=000080>"
+L975: push_constant_string "adamant warhammers"
+L976: push_constant_string "</col>"
+L977: push_constant_string "."
+L978: join_string 5
+L979: return 0
+L980: branch L1027
+L981: push_constant_int 30
+L982: push_constant_int 1371
+L983: push_constant_string "Adamant battleaxe"
+L984: push_constant_string "You can now wield "
+L985: push_constant_string "<col=000080>"
+L986: push_constant_string "adamant battleaxes"
+L987: push_constant_string "</col>"
+L988: push_constant_string "."
+L989: join_string 5
+L990: return 0
+L991: branch L1027
+L992: push_constant_int 30
+L993: push_constant_int 1317
+L994: push_constant_string "Adamant two-handed sword"
+L995: push_constant_string "You can now wield "
+L996: push_constant_string "<col=000080>"
+L997: push_constant_string "adamant two-handed swords"
+L998: push_constant_string "</col>"
+L999: push_constant_string "."
+L1000: join_string 5
+L1001: return 0
+L1002: branch L1027
+L1003: push_constant_int 30
+L1004: push_constant_int 3200
+L1005: push_constant_string "Members: Adamant halberd"
+L1006: push_constant_string "Members can now wield "
+L1007: push_constant_string "<col=000080>"
+L1008: push_constant_string "adamant halberds"
+L1009: push_constant_string "</col>"
+L1010: push_constant_string "."
+L1011: join_string 5
+L1012: return 0
+L1013: branch L1027
+L1014: push_constant_int 30
+L1015: push_constant_int 8849
+L1016: push_constant_string "Members: Adamant defender"
+L1017: push_constant_string "<br>"
+L1018: push_constant_string " (with 30 Defence)"
+L1019: join_string 3
+L1020: push_constant_string "Members now have the Attack level required to wield "
+L1021: push_constant_string "<col=000080>"
+L1022: push_constant_string "adamant defenders"
+L1023: push_constant_string "</col>"
+L1024: push_constant_string ". (They also need level 30 Defence.)"
+L1025: join_string 5
+L1026: return 0
+L1027: branch L4048
+L1028: push_int_local 1
+L1029: switch switch8
+L1030: branch L1187
+L1031: push_constant_int 40
+L1032: push_constant_int 1213
+L1033: push_constant_string "Rune dagger"
+L1034: push_constant_string "You can now wield "
+L1035: push_constant_string "<col=000080>"
+L1036: push_constant_string "rune daggers"
+L1037: push_constant_string "</col>"
+L1038: push_constant_string "."
+L1039: join_string 5
+L1040: return 0
+L1041: branch L1187
+L1042: push_constant_int 40
+L1043: push_constant_int 1359
+L1044: push_constant_string "Rune hatchet"
+L1045: push_constant_string "You can now wield "
+L1046: push_constant_string "<col=000080>"
+L1047: push_constant_string "rune hatchets"
+L1048: push_constant_string "</col>"
+L1049: push_constant_string "."
+L1050: join_string 5
+L1051: return 0
+L1052: branch L1187
+L1053: push_constant_int 40
+L1054: push_constant_int 1432
+L1055: push_constant_string "Rune mace"
+L1056: push_constant_string "You can now wield "
+L1057: push_constant_string "<col=000080>"
+L1058: push_constant_string "rune maces"
+L1059: push_constant_string "</col>"
+L1060: push_constant_string "."
+L1061: join_string 5
+L1062: return 0
+L1063: branch L1187
+L1064: push_constant_int 40
+L1065: push_constant_int 3101
+L1066: push_constant_string "Members: Rune claws"
+L1067: push_constant_string "Members can now wield "
+L1068: push_constant_string "<col=000080>"
+L1069: push_constant_string "rune claws"
+L1070: push_constant_string "</col>"
+L1071: push_constant_string "."
+L1072: join_string 5
+L1073: return 0
+L1074: branch L1187
+L1075: push_constant_int 40
+L1076: push_constant_int 1289
+L1077: push_constant_string "Rune sword"
+L1078: push_constant_string "You can now wield "
+L1079: push_constant_string "<col=000080>"
+L1080: push_constant_string "rune swords"
+L1081: push_constant_string "</col>"
+L1082: push_constant_string "."
+L1083: join_string 5
+L1084: return 0
+L1085: branch L1187
+L1086: push_constant_int 40
+L1087: push_constant_int 1303
+L1088: push_constant_string "Rune longsword"
+L1089: push_constant_string "You can now wield "
+L1090: push_constant_string "<col=000080>"
+L1091: push_constant_string "rune longswords"
+L1092: push_constant_string "</col>"
+L1093: push_constant_string "."
+L1094: join_string 5
+L1095: return 0
+L1096: branch L1187
+L1097: push_constant_int 40
+L1098: push_constant_int 1333
+L1099: push_constant_string "Rune scimitar"
+L1100: push_constant_string "You can now wield "
+L1101: push_constant_string "<col=000080>"
+L1102: push_constant_string "rune scimitars"
+L1103: push_constant_string "</col>"
+L1104: push_constant_string "."
+L1105: join_string 5
+L1106: return 0
+L1107: branch L1187
+L1108: push_constant_int 40
+L1109: push_constant_int 20553
+L1110: push_constant_string "Members: Rune Ceremonial Sword"
+L1111: push_constant_string "Members can now wield "
+L1112: push_constant_string "<col=000080>"
+L1113: push_constant_string "rune ceremonial swords"
+L1114: push_constant_string "</col>"
+L1115: push_constant_string "."
+L1116: join_string 5
+L1117: return 0
+L1118: branch L1187
+L1119: push_constant_int 40
+L1120: push_constant_int 1247
+L1121: push_constant_string "Members: Rune spear"
+L1122: push_constant_string "Members can now wield "
+L1123: push_constant_string "<col=000080>"
+L1124: push_constant_string "rune spears"
+L1125: push_constant_string "</col>"
+L1126: push_constant_string "."
+L1127: join_string 5
+L1128: return 0
+L1129: branch L1187
+L1130: push_constant_int 40
+L1131: push_constant_int 1347
+L1132: push_constant_string "Rune warhammer"
+L1133: push_constant_string "You can now wield "
+L1134: push_constant_string "<col=000080>"
+L1135: push_constant_string "rune warhammers"
+L1136: push_constant_string "</col>"
+L1137: push_constant_string "."
+L1138: join_string 5
+L1139: return 0
+L1140: branch L1187
+L1141: push_constant_int 40
+L1142: push_constant_int 1373
+L1143: push_constant_string "Rune battleaxe"
+L1144: push_constant_string "You can now wield "
+L1145: push_constant_string "<col=000080>"
+L1146: push_constant_string "rune battleaxes"
+L1147: push_constant_string "</col>"
+L1148: push_constant_string "."
+L1149: join_string 5
+L1150: return 0
+L1151: branch L1187
+L1152: push_constant_int 40
+L1153: push_constant_int 1319
+L1154: push_constant_string "Rune two-handed sword"
+L1155: push_constant_string "You can now wield "
+L1156: push_constant_string "<col=000080>"
+L1157: push_constant_string "rune two-handed swords"
+L1158: push_constant_string "</col>"
+L1159: push_constant_string "."
+L1160: join_string 5
+L1161: return 0
+L1162: branch L1187
+L1163: push_constant_int 40
+L1164: push_constant_int 3202
+L1165: push_constant_string "Members: Rune halberd"
+L1166: push_constant_string "Members can now wield "
+L1167: push_constant_string "<col=000080>"
+L1168: push_constant_string "rune halberds"
+L1169: push_constant_string "</col>"
+L1170: push_constant_string "."
+L1171: join_string 5
+L1172: return 0
+L1173: branch L1187
+L1174: push_constant_int 40
+L1175: push_constant_int 8850
+L1176: push_constant_string "Members: Rune defender"
+L1177: push_constant_string "<br>"
+L1178: push_constant_string " (with 40 Defence)"
+L1179: join_string 3
+L1180: push_constant_string "Members now have the Attack level required to wield "
+L1181: push_constant_string "<col=000080>"
+L1182: push_constant_string "rune defenders"
+L1183: push_constant_string "</col>"
+L1184: push_constant_string ". (They also need level 40 Defence.)"
+L1185: join_string 5
+L1186: return 0
+L1187: branch L4048
+L1188: push_int_local 1
+L1189: switch switch9
+L1190: branch L1409
+L1191: push_constant_int 60
+L1192: push_constant_int 1215
+L1193: push_constant_string "Members: Dragon dagger"
+L1194: push_constant_string "<br>"
+L1195: push_constant_string " (after Lost City)"
+L1196: join_string 3
+L1197: push_constant_string "Members can now wield "
+L1198: push_constant_string "<col=000080>"
+L1199: push_constant_string "dragon daggers"
+L1200: push_constant_string "</col>"
+L1201: push_constant_string " (after Lost City)."
+L1202: join_string 5
+L1203: return 0
+L1204: branch L1409
+L1205: push_constant_int 60
+L1206: push_constant_int 6739
+L1207: push_constant_string "Members: Dragon hatchet"
+L1208: push_constant_string "Members can now wield "
+L1209: push_constant_string "<col=000080>"
+L1210: push_constant_string "dragon hatchets"
+L1211: push_constant_string "</col>"
+L1212: push_constant_string "."
+L1213: join_string 5
+L1214: return 0
+L1215: branch L1409
+L1216: push_constant_int 60
+L1217: push_constant_int 1434
+L1218: push_constant_string "Members: Dragon mace"
+L1219: push_constant_string "<br>"
+L1220: push_constant_string " (after Heroes' Quest)"
+L1221: join_string 3
+L1222: push_constant_string "Members can now wield "
+L1223: push_constant_string "<col=000080>"
+L1224: push_constant_string "dragon maces"
+L1225: push_constant_string "</col>"
+L1226: push_constant_string " (after Heroes' Quest)."
+L1227: join_string 5
+L1228: return 0
+L1229: branch L1409
+L1230: push_constant_int 60
+L1231: push_constant_int 14484
+L1232: push_constant_string "Members: Dragon claws"
+L1233: push_constant_string "Members can now wield "
+L1234: push_constant_string "<col=000080>"
+L1235: push_constant_string "dragon claws"
+L1236: push_constant_string "</col>"
+L1237: push_constant_string "."
+L1238: join_string 5
+L1239: return 0
+L1240: branch L1409
+L1241: push_constant_int 60
+L1242: push_constant_int 1305
+L1243: push_constant_string "Members: Dragon longsword"
+L1244: push_constant_string "<br>"
+L1245: push_constant_string " (after Lost City)"
+L1246: join_string 3
+L1247: push_constant_string "Members can now wield "
+L1248: push_constant_string "<col=000080>"
+L1249: push_constant_string "dragon longswords"
+L1250: push_constant_string "</col>"
+L1251: push_constant_string " (after Lost City)."
+L1252: join_string 5
+L1253: return 0
+L1254: branch L1409
+L1255: push_constant_int 60
+L1256: push_constant_int 4587
+L1257: push_constant_string "Members: Dragon scimitar"
+L1258: push_constant_string "<br>"
+L1259: push_constant_string " (after Monkey Madness)"
+L1260: join_string 3
+L1261: push_constant_string "Members can now wield "
+L1262: push_constant_string "<col=000080>"
+L1263: push_constant_string "dragon scimitars"
+L1264: push_constant_string "</col>"
+L1265: push_constant_string " (after Monkey Madness)."
+L1266: join_string 5
+L1267: return 0
+L1268: branch L1409
+L1269: push_constant_int 60
+L1270: push_constant_int 1249
+L1271: push_constant_string "Members: Dragon spear"
+L1272: push_constant_string "Members can now wield "
+L1273: push_constant_string "<col=000080>"
+L1274: push_constant_string "dragon spears"
+L1275: push_constant_string "</col>"
+L1276: push_constant_string "."
+L1277: join_string 5
+L1278: return 0
+L1279: branch L1409
+L1280: push_constant_int 60
+L1281: push_constant_int 1377
+L1282: push_constant_string "Members: Dragon battleaxe"
+L1283: push_constant_string "<br>"
+L1284: push_constant_string " (after Heroes' Quest)"
+L1285: join_string 3
+L1286: push_constant_string "Members can now wield "
+L1287: push_constant_string "<col=000080>"
+L1288: push_constant_string "dragon battleaxes"
+L1289: push_constant_string "</col>"
+L1290: push_constant_string " (after Heroes' Quest)."
+L1291: join_string 5
+L1292: return 0
+L1293: branch L1409
+L1294: push_constant_int 60
+L1295: push_constant_int 7158
+L1296: push_constant_string "Members: Dragon two-handed sword"
+L1297: push_constant_string "Members can now wield "
+L1298: push_constant_string "<col=000080>"
+L1299: push_constant_string "dragon two-handed swords"
+L1300: push_constant_string "</col>"
+L1301: push_constant_string "."
+L1302: join_string 5
+L1303: return 0
+L1304: branch L1409
+L1305: push_constant_int 60
+L1306: push_constant_int 3204
+L1307: push_constant_string "Members: Dragon halberd"
+L1308: push_constant_string "<br>"
+L1309: push_constant_string " (after Regicide)"
+L1310: join_string 3
+L1311: push_constant_string "Members can now wield "
+L1312: push_constant_string "<col=000080>"
+L1313: push_constant_string "dragon halberds"
+L1314: push_constant_string "</col>"
+L1315: push_constant_string " (after Regicide)."
+L1316: join_string 5
+L1317: return 0
+L1318: branch L1409
+L1319: push_constant_int 60
+L1320: push_constant_int 15259
+L1321: push_constant_string "Members: Dragon pickaxe"
+L1322: push_constant_string "Members can now wield "
+L1323: push_constant_string "<col=000080>"
+L1324: push_constant_string "dragon pickaxes"
+L1325: push_constant_string "</col>"
+L1326: push_constant_string "."
+L1327: join_string 5
+L1328: return 0
+L1329: branch L1409
+L1330: push_constant_int 60
+L1331: push_constant_int 20072
+L1332: push_constant_string "Members: Dragon defender"
+L1333: push_constant_string "<br>"
+L1334: push_constant_string " (with 60 Defence)"
+L1335: join_string 3
+L1336: push_constant_string "Members now have the Attack level required to wield "
+L1337: push_constant_string "<col=000080>"
+L1338: push_constant_string "dragon defenders"
+L1339: push_constant_string "</col>"
+L1340: push_constant_string ". (They also need level 60 Defence.)"
+L1341: join_string 5
+L1342: return 0
+L1343: branch L1409
+L1344: push_constant_int 60
+L1345: push_constant_int 13976
+L1346: push_constant_string "Corrupt dragon dagger"
+L1347: push_constant_string "You can now wield "
+L1348: push_constant_string "<col=000080>"
+L1349: push_constant_string "corrupt dragon daggers"
+L1350: push_constant_string "</col>"
+L1351: push_constant_string "."
+L1352: join_string 5
+L1353: return 0
+L1354: branch L1409
+L1355: push_constant_int 60
+L1356: push_constant_int 13985
+L1357: push_constant_string "Corrupt dragon mace"
+L1358: push_constant_string "You can now wield "
+L1359: push_constant_string "<col=000080>"
+L1360: push_constant_string "corrupt dragon maces"
+L1361: push_constant_string "</col>"
+L1362: push_constant_string "."
+L1363: join_string 5
+L1364: return 0
+L1365: branch L1409
+L1366: push_constant_int 60
+L1367: push_constant_int 13982
+L1368: push_constant_string "Corrupt dragon longsword"
+L1369: push_constant_string "You can now wield "
+L1370: push_constant_string "<col=000080>"
+L1371: push_constant_string "corrupt dragon longswords"
+L1372: push_constant_string "</col>"
+L1373: push_constant_string "."
+L1374: join_string 5
+L1375: return 0
+L1376: branch L1409
+L1377: push_constant_int 60
+L1378: push_constant_int 13979
+L1379: push_constant_string "Corrupt dragon scimitar"
+L1380: push_constant_string "You can now wield "
+L1381: push_constant_string "<col=000080>"
+L1382: push_constant_string "corrupt dragon scimitars"
+L1383: push_constant_string "</col>"
+L1384: push_constant_string "."
+L1385: join_string 5
+L1386: return 0
+L1387: branch L1409
+L1388: push_constant_int 60
+L1389: push_constant_int 13988
+L1390: push_constant_string "Corrupt dragon spear"
+L1391: push_constant_string "You can now wield "
+L1392: push_constant_string "<col=000080>"
+L1393: push_constant_string "corrupt dragon spears"
+L1394: push_constant_string "</col>"
+L1395: push_constant_string "."
+L1396: join_string 5
+L1397: return 0
+L1398: branch L1409
+L1399: push_constant_int 60
+L1400: push_constant_int 13973
+L1401: push_constant_string "Corrupt dragon battleaxe"
+L1402: push_constant_string "You can now wield "
+L1403: push_constant_string "<col=000080>"
+L1404: push_constant_string "corrupt dragon battleaxes"
+L1405: push_constant_string "</col>"
+L1406: push_constant_string "."
+L1407: join_string 5
+L1408: return 0
+L1409: branch L4048
+L1410: push_int_local 1
+L1411: switch switch10
+L1412: branch L1476
+L1413: push_constant_int 70
+L1414: push_constant_int 4710
+L1415: push_constant_string "Members: Ahrim's staff"
+L1416: push_constant_string "<br>"
+L1417: push_constant_string " (with 70 Magic)"
+L1418: join_string 3
+L1419: push_constant_string "Members now have the Attack level required to wield "
+L1420: push_constant_string "<col=000080>"
+L1421: push_constant_string "Ahrim's staff"
+L1422: push_constant_string "</col>"
+L1423: push_constant_string ". (They also need level 70 Magic.)"
+L1424: join_string 5
+L1425: return 0
+L1426: branch L1476
+L1427: push_constant_int 70
+L1428: push_constant_int 4718
+L1429: push_constant_string "Members: Dharok's greataxe"
+L1430: push_constant_string "<br>"
+L1431: push_constant_string " (with 70 Strength)"
+L1432: join_string 3
+L1433: push_constant_string "Members now have the Attack level required to wield "
+L1434: push_constant_string "<col=000080>"
+L1435: push_constant_string "Dharok's greataxe"
+L1436: push_constant_string "</col>"
+L1437: push_constant_string ". (They also need level 70 Strength.)"
+L1438: join_string 5
+L1439: return 0
+L1440: branch L1476
+L1441: push_constant_int 70
+L1442: push_constant_int 4726
+L1443: push_constant_string "Members: Guthan's spear"
+L1444: push_constant_string "Members can now wield "
+L1445: push_constant_string "<col=000080>"
+L1446: push_constant_string "Guthan's spear"
+L1447: push_constant_string "</col>"
+L1448: push_constant_string "."
+L1449: join_string 5
+L1450: return 0
+L1451: branch L1476
+L1452: push_constant_int 70
+L1453: push_constant_int 4747
+L1454: push_constant_string "Members: Torag's hammers"
+L1455: push_constant_string "<br>"
+L1456: push_constant_string " (with 70 Strength)"
+L1457: join_string 3
+L1458: push_constant_string "Members now have the Attack level required to wield "
+L1459: push_constant_string "<col=000080>"
+L1460: push_constant_string "Torag's hammers"
+L1461: push_constant_string "</col>"
+L1462: push_constant_string ". (They also need level 70 Strength.)"
+L1463: join_string 5
+L1464: return 0
+L1465: branch L1476
+L1466: push_constant_int 70
+L1467: push_constant_int 4755
+L1468: push_constant_string "Members: Verac's flail"
+L1469: push_constant_string "Members can now wield "
+L1470: push_constant_string "<col=000080>"
+L1471: push_constant_string "Verac's flail"
+L1472: push_constant_string "</col>"
+L1473: push_constant_string "."
+L1474: join_string 5
+L1475: return 0
+L1476: branch L4048
+L1477: push_int_local 1
+L1478: switch switch11
+L1479: branch L2654
+L1480: push_constant_int 1
+L1481: push_constant_int 15596
+L1482: push_constant_string "Reese's sword"
+L1483: push_constant_string "<br>"
+L1484: push_constant_string " (after The Blood Pact)"
+L1485: join_string 3
+L1486: push_constant_string "You can now wield "
+L1487: push_constant_string "<col=000080>"
+L1488: push_constant_string "Reese's sword"
+L1489: push_constant_string "</col>"
+L1490: push_constant_string " (after starting The Blood Pact)."
+L1491: join_string 5
+L1492: return 0
+L1493: branch L2654
+L1494: push_constant_int 1
+L1495: push_constant_int 2402
+L1496: push_constant_string "Silverlight"
+L1497: push_constant_string "<br>"
+L1498: push_constant_string " (after Demon Slayer)"
+L1499: join_string 3
+L1500: push_constant_string "You can now wield "
+L1501: push_constant_string "<col=000080>"
+L1502: push_constant_string "Silverlight"
+L1503: push_constant_string "</col>"
+L1504: push_constant_string " (after starting Demon Slayer)."
+L1505: join_string 5
+L1506: return 0
+L1507: branch L2654
+L1508: push_constant_int 1
+L1509: push_constant_int 6746
+L1510: push_constant_string "Members: Darklight"
+L1511: push_constant_string "<br>"
+L1512: push_constant_string " (after Shadow of the Storm)"
+L1513: join_string 3
+L1514: push_constant_string "Members can now wield "
+L1515: push_constant_string "<col=000080>"
+L1516: push_constant_string "Darklight"
+L1517: push_constant_string "</col>"
+L1518: push_constant_string " (after Shadow of the Storm)."
+L1519: join_string 5
+L1520: return 0
+L1521: branch L2654
+L1522: push_constant_int 1
+L1523: push_constant_int 2952
+L1524: push_constant_string "Members: Wolfbane Dagger"
+L1525: push_constant_string "<br>"
+L1526: push_constant_string " (after Priest in Peril)"
+L1527: join_string 3
+L1528: push_constant_string "Members can now wield the "
+L1529: push_constant_string "<col=000080>"
+L1530: push_constant_string "Wolfbane Dagger"
+L1531: push_constant_string "</col>"
+L1532: push_constant_string " (after Priest in Peril."
+L1533: join_string 5
+L1534: return 0
+L1535: branch L2654
+L1536: push_constant_int 1
+L1537: push_constant_int 746
+L1538: push_constant_string "Members: Dark Dagger"
+L1539: push_constant_string "Members can now wield the "
+L1540: push_constant_string "<col=000080>"
+L1541: push_constant_string "Dark Dagger"
+L1542: push_constant_string "</col>"
+L1543: push_constant_string "."
+L1544: join_string 5
+L1545: return 0
+L1546: branch L2654
+L1547: push_constant_int 1
+L1548: push_constant_int 667
+L1549: push_constant_string "Faladian/Blurite Sword"
+L1550: push_constant_string "<br>"
+L1551: push_constant_string " (after starting The Knight's Sword)"
+L1552: join_string 3
+L1553: push_constant_string "You can now wield the "
+L1554: push_constant_string "<col=000080>"
+L1555: push_constant_string "Faladian/Blurite Sword"
+L1556: push_constant_string "</col>"
+L1557: push_constant_string " (after starting The Knight's Sword)."
+L1558: join_string 5
+L1559: return 0
+L1560: branch L2654
+L1561: push_constant_int 1
+L1562: push_constant_int 10858
+L1563: push_constant_string "Members: Shadow Sword"
+L1564: push_constant_string "Members can now wield the "
+L1565: push_constant_string "<col=000080>"
+L1566: push_constant_string "Shadow Sword"
+L1567: push_constant_string "</col>"
+L1568: push_constant_string "."
+L1569: join_string 5
+L1570: return 0
+L1571: branch L2654
+L1572: push_constant_int 1
+L1573: push_constant_int 5016
+L1574: push_constant_string "Members: Bone spear"
+L1575: push_constant_string "Members can now wield "
+L1576: push_constant_string "<col=000080>"
+L1577: push_constant_string "bone spears"
+L1578: push_constant_string "</col>"
+L1579: push_constant_string "."
+L1580: join_string 5
+L1581: return 0
+L1582: branch L2654
+L1583: push_constant_int 1
+L1584: push_constant_int 5018
+L1585: push_constant_string "Members: Bone club"
+L1586: push_constant_string "Members can now wield "
+L1587: push_constant_string "<col=000080>"
+L1588: push_constant_string "bone clubs"
+L1589: push_constant_string "</col>"
+L1590: push_constant_string "."
+L1591: join_string 5
+L1592: return 0
+L1593: branch L2654
+L1594: push_constant_int 1
+L1595: push_constant_int 8872
+L1596: push_constant_string "Members: Bone dagger"
+L1597: push_constant_string "Members can now wield "
+L1598: push_constant_string "<col=000080>"
+L1599: push_constant_string "bone daggers"
+L1600: push_constant_string "</col>"
+L1601: push_constant_string "."
+L1602: join_string 5
+L1603: return 0
+L1604: branch L2654
+L1605: push_constant_int 1
+L1606: push_constant_int 6760
+L1607: push_constant_string "Members: Guthix Mjolnir"
+L1608: push_constant_string "<br>"
+L1609: push_constant_string " (after Making History)"
+L1610: join_string 3
+L1611: push_constant_string "Members can now wield the "
+L1612: push_constant_string "<col=000080>"
+L1613: push_constant_string "Guthix Mjolnir"
+L1614: push_constant_string "</col>"
+L1615: push_constant_string " (after Making History)."
+L1616: join_string 5
+L1617: return 0
+L1618: branch L2654
+L1619: push_constant_int 1
+L1620: push_constant_int 6762
+L1621: push_constant_string "Members: Saradomin Mjolnir"
+L1622: push_constant_string "<br>"
+L1623: push_constant_string " (after Making History)"
+L1624: join_string 3
+L1625: push_constant_string "Members can now wield the "
+L1626: push_constant_string "<col=000080>"
+L1627: push_constant_string "Saradomin Mjolnir"
+L1628: push_constant_string "</col>"
+L1629: push_constant_string " after completing Making History."
+L1630: join_string 5
+L1631: return 0
+L1632: branch L2654
+L1633: push_constant_int 1
+L1634: push_constant_int 6764
+L1635: push_constant_string "Members: Zamorak Mjolnir"
+L1636: push_constant_string "<br>"
+L1637: push_constant_string " (after Making History)"
+L1638: join_string 3
+L1639: push_constant_string "Members can now wield the "
+L1640: push_constant_string "<col=000080>"
+L1641: push_constant_string "Zamorak Mjolnir"
+L1642: push_constant_string "</col>"
+L1643: push_constant_string " (after Making History)."
+L1644: join_string 5
+L1645: return 0
+L1646: branch L2654
+L1647: push_constant_int 1
+L1648: push_constant_int 7668
+L1649: push_constant_string "Members: Gadderhammer"
+L1650: push_constant_string "<br>"
+L1651: push_constant_string " (after starting In Aid of the Myreque)"
+L1652: join_string 3
+L1653: push_constant_string "Members can now wield the "
+L1654: push_constant_string "<col=000080>"
+L1655: push_constant_string "Gadderhammer"
+L1656: push_constant_string "</col>"
+L1657: push_constant_string " (after starting In Aid of the Myreque)."
+L1658: join_string 5
+L1659: return 0
+L1660: branch L2654
+L1661: push_constant_int 1
+L1662: push_constant_int 10491
+L1663: push_constant_string "Members: Blessed Axe"
+L1664: push_constant_string "<br>"
+L1665: push_constant_string " (after starting Animal Magnetism)"
+L1666: join_string 3
+L1667: push_constant_string "Members can now wield the "
+L1668: push_constant_string "<col=000080>"
+L1669: push_constant_string "Blessed Axe"
+L1670: push_constant_string "</col>"
+L1671: push_constant_string " (after starting Animal Magnetism)."
+L1672: join_string 5
+L1673: return 0
+L1674: branch L2654
+L1675: push_constant_int 1
+L1676: push_constant_int 13661
+L1677: push_constant_string "Members: Inferno Adze"
+L1678: push_constant_string "<br>"
+L1679: push_constant_string " (after All Fired Up and with 92 Firemaking)"
+L1680: join_string 3
+L1681: push_constant_string "Members can now wield the "
+L1682: push_constant_string "<col=000080>"
+L1683: push_constant_string "Inferno Adze"
+L1684: push_constant_string "</col>"
+L1685: push_constant_string " (after All Fired Up)."
+L1686: join_string 5
+L1687: return 0
+L1688: branch L2654
+L1689: push_constant_int 5
+L1690: push_constant_int 4068
+L1691: push_constant_string "Members: Basic decorative sword"
+L1692: push_constant_string "Members can now wield "
+L1693: push_constant_string "<col=000080>"
+L1694: push_constant_string "basic decorative swords"
+L1695: push_constant_string "</col>"
+L1696: push_constant_string "."
+L1697: join_string 5
+L1698: return 0
+L1699: branch L2654
+L1700: push_constant_int 5
+L1701: push_constant_int 12570
+L1702: push_constant_string "Members: Ogre club"
+L1703: push_constant_string "Members can now wield "
+L1704: push_constant_string "<col=000080>"
+L1705: push_constant_string "ogre clubs"
+L1706: push_constant_string "</col>"
+L1707: push_constant_string "."
+L1708: join_string 5
+L1709: return 0
+L1710: branch L2654
+L1711: push_constant_int 15
+L1712: push_constant_int 11061
+L1713: push_constant_string "Members: Ancient Mace"
+L1714: push_constant_string "<br>"
+L1715: push_constant_string " (after Another Slice of H.A.M. and with 25 Prayer)"
+L1716: join_string 3
+L1717: push_constant_string "Members now have the Attack level required to wield the "
+L1718: push_constant_string "<col=000080>"
+L1719: push_constant_string "Ancient Mace"
+L1720: push_constant_string "</col>"
+L1721: push_constant_string " (after Another Slice of H.A.M. and with level 25 Prayer)."
+L1722: join_string 5
+L1723: return 0
+L1724: branch L2654
+L1725: push_constant_int 20
+L1726: push_constant_int 35
+L1727: push_constant_string "Members: Excalibur"
+L1728: push_constant_string "<br>"
+L1729: push_constant_string " (after starting Merlin's Crystal)"
+L1730: join_string 3
+L1731: push_constant_string "Members can now wield "
+L1732: push_constant_string "<col=000080>"
+L1733: push_constant_string "Excalibur"
+L1734: push_constant_string "</col>"
+L1735: push_constant_string " (after starting Merlin's Crystal)."
+L1736: join_string 5
+L1737: return 0
+L1738: branch L2654
+L1739: push_constant_int 20
+L1740: push_constant_int 4503
+L1741: push_constant_string "Members: Detailed decorative sword"
+L1742: push_constant_string "Members can now wield "
+L1743: push_constant_string "<col=000080>"
+L1744: push_constant_string "detailed decorative swords"
+L1745: push_constant_string "</col>"
+L1746: push_constant_string "."
+L1747: join_string 5
+L1748: return 0
+L1749: branch L2654
+L1750: push_constant_int 20
+L1751: push_constant_int 13926
+L1752: push_constant_string "Members: Corrupt Statius's warhammer"
+L1753: push_constant_string "Members now have the Attack level required to wield "
+L1754: push_constant_string "<col=000080>"
+L1755: push_constant_string "corrupt Statius's warhammer"
+L1756: push_constant_string "</col>"
+L1757: push_constant_string "."
+L1758: join_string 5
+L1759: return 0
+L1760: branch L2654
+L1761: push_constant_int 20
+L1762: push_constant_int 13923
+L1763: push_constant_string "Members: Corrupt Vesta's longsword"
+L1764: push_constant_string "Members now have the Attack level required to wield "
+L1765: push_constant_string "<col=000080>"
+L1766: push_constant_string "corrupt Vesta's longsword"
+L1767: push_constant_string "</col>"
+L1768: push_constant_string "."
+L1769: join_string 5
+L1770: return 0
+L1771: branch L2654
+L1772: push_constant_int 20
+L1773: push_constant_int 13929
+L1774: push_constant_string "Members: Corrupt Vesta's spear"
+L1775: push_constant_string "Members now have the Attack level required to wield "
+L1776: push_constant_string "<col=000080>"
+L1777: push_constant_string "corrupt Vesta's spear"
+L1778: push_constant_string "</col>"
+L1779: push_constant_string "."
+L1780: join_string 5
+L1781: return 0
+L1782: branch L2654
+L1783: push_constant_int 20
+L1784: push_constant_int 13941
+L1785: push_constant_string "Members: Corrupt Zuriel's staff"
+L1786: push_constant_string "<br>"
+L1787: push_constant_string " (with 20 Magic)"
+L1788: join_string 3
+L1789: push_constant_string "Members now have the Attack level required to wield "
+L1790: push_constant_string "<col=000080>"
+L1791: push_constant_string "corrupt Zuriel's staff"
+L1792: push_constant_string "</col>"
+L1793: push_constant_string " (with level 20 Magic)."
+L1794: join_string 5
+L1795: return 0
+L1796: branch L2654
+L1797: push_constant_int 30
+L1798: push_constant_int 1397
+L1799: push_constant_string "Members: Air battlestaff"
+L1800: push_constant_string "<br>"
+L1801: push_constant_string " (with 30 Magic)"
+L1802: join_string 3
+L1803: push_constant_string "Members now have the Attack level required to wield "
+L1804: push_constant_string "<col=000080>"
+L1805: push_constant_string "air battlestaves"
+L1806: push_constant_string "</col>"
+L1807: push_constant_string ". (They also need level 30 Magic.)"
+L1808: join_string 5
+L1809: return 0
+L1810: branch L2654
+L1811: push_constant_int 30
+L1812: push_constant_int 1399
+L1813: push_constant_string "Members: Earth battlestaff"
+L1814: push_constant_string "<br>"
+L1815: push_constant_string " (with 30 Magic)"
+L1816: join_string 3
+L1817: push_constant_string "Members now have the Attack level required to wield "
+L1818: push_constant_string "<col=000080>"
+L1819: push_constant_string "earth battlestaves"
+L1820: push_constant_string "</col>"
+L1821: push_constant_string ". (They also need level 30 Magic.)"
+L1822: join_string 5
+L1823: return 0
+L1824: branch L2654
+L1825: push_constant_int 30
+L1826: push_constant_int 1393
+L1827: push_constant_string "Members: Fire battlestaff"
+L1828: push_constant_string "<br>"
+L1829: push_constant_string " (with 30 Magic)"
+L1830: join_string 3
+L1831: push_constant_string "Members now have the Attack level required to wield "
+L1832: push_constant_string "<col=000080>"
+L1833: push_constant_string "fire battlestaves"
+L1834: push_constant_string "</col>"
+L1835: push_constant_string ". (They also need level 30 Magic.)"
+L1836: join_string 5
+L1837: return 0
+L1838: branch L2654
+L1839: push_constant_int 30
+L1840: push_constant_int 1395
+L1841: push_constant_string "Members: Water battlestaff"
+L1842: push_constant_string "<br>"
+L1843: push_constant_string " (with 30 Magic)"
+L1844: join_string 3
+L1845: push_constant_string "Members now have the Attack level required to wield "
+L1846: push_constant_string "<col=000080>"
+L1847: push_constant_string "water battlestaves"
+L1848: push_constant_string "</col>"
+L1849: push_constant_string ". (They also need level 30 Magic.)"
+L1850: join_string 5
+L1851: return 0
+L1852: branch L2654
+L1853: push_constant_int 30
+L1854: push_constant_int 3053
+L1855: push_constant_string "Members: Lava battlestaff"
+L1856: push_constant_string "<br>"
+L1857: push_constant_string " (with 30 Magic)"
+L1858: join_string 3
+L1859: push_constant_string "Members now have the Attack level required to wield "
+L1860: push_constant_string "<col=000080>"
+L1861: push_constant_string "lava battlestaves"
+L1862: push_constant_string "</col>"
+L1863: push_constant_string ". (They also need level 30 Magic.)"
+L1864: join_string 5
+L1865: return 0
+L1866: branch L2654
+L1867: push_constant_int 30
+L1868: push_constant_int 6562
+L1869: push_constant_string "Members: Mud battlestaff"
+L1870: push_constant_string "<br>"
+L1871: push_constant_string " (with 30 Magic)"
+L1872: join_string 3
+L1873: push_constant_string "Members now have the Attack level required to wield "
+L1874: push_constant_string "<col=000080>"
+L1875: push_constant_string "mud battlestaves"
+L1876: push_constant_string "</col>"
+L1877: push_constant_string ". (They also need level 30 Magic.)"
+L1878: join_string 5
+L1879: return 0
+L1880: branch L2654
+L1881: push_constant_int 30
+L1882: push_constant_int 4508
+L1883: push_constant_string "Members: Intricate decorative sword"
+L1884: push_constant_string "Members can now wield "
+L1885: push_constant_string "<col=000080>"
+L1886: push_constant_string "intricate decorative swords"
+L1887: push_constant_string "</col>"
+L1888: push_constant_string "."
+L1889: join_string 5
+L1890: return 0
+L1891: branch L2654
+L1892: push_constant_int 30
+L1893: push_constant_int 3757
+L1894: push_constant_string "Members: Fremennik blade"
+L1895: push_constant_string "Members can now wield "
+L1896: push_constant_string "<col=000080>"
+L1897: push_constant_string "Fremennik blades"
+L1898: push_constant_string "</col>"
+L1899: push_constant_string "."
+L1900: join_string 5
+L1901: return 0
+L1902: branch L2654
+L1903: push_constant_int 40
+L1904: push_constant_int 18341
+L1905: push_constant_string "Nature staff"
+L1906: push_constant_string "<br>"
+L1907: push_constant_string " (with 53 Magic and 53 Dungeoneering)"
+L1908: join_string 3
+L1909: push_constant_string "You can now use "
+L1910: push_constant_string "<col=000080>"
+L1911: push_constant_string "nature staves"
+L1912: push_constant_string "</col>"
+L1913: push_constant_string ". (You also need level 53 Magic and level 53 Dungeoneering.)"
+L1914: join_string 5
+L1915: return 0
+L1916: branch L2654
+L1917: push_constant_int 40
+L1918: push_constant_int 18342
+L1919: push_constant_string "Law staff"
+L1920: push_constant_string "<br>"
+L1921: push_constant_string " (with 45 Magic and 45 Dungeoneering)"
+L1922: join_string 3
+L1923: push_constant_string "You can now use "
+L1924: push_constant_string "<col=000080>"
+L1925: push_constant_string "law staves"
+L1926: push_constant_string "</col>"
+L1927: push_constant_string ". (You also need level 45 Magic and level 45 Dungeoneering.)"
+L1928: join_string 5
+L1929: return 0
+L1930: branch L2654
+L1931: push_constant_int 40
+L1932: push_constant_int 1405
+L1933: push_constant_string "Members: Mystic air staff"
+L1934: push_constant_string "<br>"
+L1935: push_constant_string " (with 40 Magic)"
+L1936: join_string 3
+L1937: push_constant_string "Members now have the Attack level required to wield "
+L1938: push_constant_string "<col=000080>"
+L1939: push_constant_string "mystic air staves"
+L1940: push_constant_string "</col>"
+L1941: push_constant_string ". (They also need level 40 Magic.)"
+L1942: join_string 5
+L1943: return 0
+L1944: branch L2654
+L1945: push_constant_int 40
+L1946: push_constant_int 1407
+L1947: push_constant_string "Members: Mystic earth staff"
+L1948: push_constant_string "<br>"
+L1949: push_constant_string " (with 40 Magic)"
+L1950: join_string 3
+L1951: push_constant_string "Members now have the Attack level required to wield "
+L1952: push_constant_string "<col=000080>"
+L1953: push_constant_string "mystic earth staves"
+L1954: push_constant_string "</col>"
+L1955: push_constant_string ". (They also need level 40 Magic.)"
+L1956: join_string 5
+L1957: return 0
+L1958: branch L2654
+L1959: push_constant_int 40
+L1960: push_constant_int 1401
+L1961: push_constant_string "Members: Mystic fire staff"
+L1962: push_constant_string "<br>"
+L1963: push_constant_string " (with 40 Magic)"
+L1964: join_string 3
+L1965: push_constant_string "Members now have the Attack level required to wield "
+L1966: push_constant_string "<col=000080>"
+L1967: push_constant_string "mystic fire staves"
+L1968: push_constant_string "</col>"
+L1969: push_constant_string ". (They also need level 40 Magic.)"
+L1970: join_string 5
+L1971: return 0
+L1972: branch L2654
+L1973: push_constant_int 40
+L1974: push_constant_int 1403
+L1975: push_constant_string "Members: Mystic water staff"
+L1976: push_constant_string "<br>"
+L1977: push_constant_string " (with 40 Magic)"
+L1978: join_string 3
+L1979: push_constant_string "Members now have the Attack level required to wield "
+L1980: push_constant_string "<col=000080>"
+L1981: push_constant_string "mystic water staves"
+L1982: push_constant_string "</col>"
+L1983: push_constant_string ". (They also need level 40 Magic.)"
+L1984: join_string 5
+L1985: return 0
+L1986: branch L2654
+L1987: push_constant_int 40
+L1988: push_constant_int 3054
+L1989: push_constant_string "Members: Mystic lava staff"
+L1990: push_constant_string "<br>"
+L1991: push_constant_string " (with 40 Magic)"
+L1992: join_string 3
+L1993: push_constant_string "Members now have the Attack level required to wield "
+L1994: push_constant_string "<col=000080>"
+L1995: push_constant_string "mystic lava staves"
+L1996: push_constant_string "</col>"
+L1997: push_constant_string ". (They also need level 40 Magic.)"
+L1998: join_string 5
+L1999: return 0
+L2000: branch L2654
+L2001: push_constant_int 40
+L2002: push_constant_int 6563
+L2003: push_constant_string "Members: Mystic mud staff"
+L2004: push_constant_string "<br>"
+L2005: push_constant_string " (with 40 Magic)"
+L2006: join_string 3
+L2007: push_constant_string "Members now have the Attack level required to wield "
+L2008: push_constant_string "<col=000080>"
+L2009: push_constant_string "mystic mud staves"
+L2010: push_constant_string "</col>"
+L2011: push_constant_string ". (They also need level 40 Magic.)"
+L2012: join_string 5
+L2013: return 0
+L2014: branch L2654
+L2015: push_constant_int 40
+L2016: push_constant_int 11738
+L2017: push_constant_string "Members: Mystic steam staff"
+L2018: push_constant_string "<br>"
+L2019: push_constant_string " (with 40 Magic)"
+L2020: join_string 3
+L2021: push_constant_string "Members now have the Attack level required to wield "
+L2022: push_constant_string "<col=000080>"
+L2023: push_constant_string "mystic steam staves"
+L2024: push_constant_string "</col>"
+L2025: push_constant_string ". (They also need level 40 Magic.)"
+L2026: join_string 5
+L2027: return 0
+L2028: branch L2654
+L2029: push_constant_int 40
+L2030: push_constant_int 11037
+L2031: push_constant_string "Members: Brine sabre"
+L2032: push_constant_string "Members can now wield "
+L2033: push_constant_string "<col=000080>"
+L2034: push_constant_string "brine sabres"
+L2035: push_constant_string "</col>"
+L2036: push_constant_string "."
+L2037: join_string 5
+L2038: return 0
+L2039: branch L2654
+L2040: push_constant_int 40
+L2041: push_constant_int 14097
+L2042: push_constant_string "Members: Sacred clay sword"
+L2043: push_constant_string "Members can now wield "
+L2044: push_constant_string "<col=000080>"
+L2045: push_constant_string "sacred clay swords"
+L2046: push_constant_string "</col>"
+L2047: push_constant_string "."
+L2048: join_string 5
+L2049: return 0
+L2050: branch L2654
+L2051: push_constant_int 40
+L2052: push_constant_int 4508
+L2053: push_constant_string "Members: Profound decorative sword"
+L2054: push_constant_string "Members can now wield "
+L2055: push_constant_string "<col=000080>"
+L2056: push_constant_string "profound decorative swords"
+L2057: push_constant_string "</col>"
+L2058: push_constant_string "."
+L2059: join_string 5
+L2060: return 0
+L2061: branch L2654
+L2062: push_constant_int 40
+L2063: push_constant_int 19323
+L2064: push_constant_string "Members: Dragon staff"
+L2065: push_constant_string "<br>"
+L2066: push_constant_string " (with 40 Magic, 60 Prayer and 20 Defence)"
+L2067: join_string 3
+L2068: push_constant_string "Members now have the Attack level required to wield "
+L2069: push_constant_string "<col=000080>"
+L2070: push_constant_string "dragon staves"
+L2071: push_constant_string "</col>"
+L2072: push_constant_string ". (They also need level 40 Magic, level 60 Prayer and level 20 Defence.)"
+L2073: join_string 5
+L2074: return 0
+L2075: branch L2654
+L2076: push_constant_int 40
+L2077: push_constant_int 19325
+L2078: push_constant_string "Members: Penguin staff"
+L2079: push_constant_string "<br>"
+L2080: push_constant_string " (with 40 Magic, 60 Prayer and 20 Defence)"
+L2081: join_string 3
+L2082: push_constant_string "Members now have the Attack level required to wield "
+L2083: push_constant_string "<col=000080>"
+L2084: push_constant_string "penguin staves"
+L2085: push_constant_string "</col>"
+L2086: push_constant_string ". (They also need level 40 Magic, level 60 Prayer and level 20 Defence.)"
+L2087: join_string 5
+L2088: return 0
+L2089: branch L2654
+L2090: push_constant_int 40
+L2091: push_constant_int 19327
+L2092: push_constant_string "Members: Bat staff"
+L2093: push_constant_string "<br>"
+L2094: push_constant_string " (with 40 Magic, 60 Prayer and 20 Defence)"
+L2095: join_string 3
+L2096: push_constant_string "Members now have the Attack level required to wield "
+L2097: push_constant_string "<col=000080>"
+L2098: push_constant_string "bat staves"
+L2099: push_constant_string "</col>"
+L2100: push_constant_string ". (They also need level 40 Magic, level 60 Prayer and level 20 Defence.)"
+L2101: join_string 5
+L2102: return 0
+L2103: branch L2654
+L2104: push_constant_int 40
+L2105: push_constant_int 19329
+L2106: push_constant_string "Members: Wolf staff"
+L2107: push_constant_string "<br>"
+L2108: push_constant_string " (with 40 Magic, 60 Prayer and 20 Defence)"
+L2109: join_string 3
+L2110: push_constant_string "Members now have the Attack level required to wield "
+L2111: push_constant_string "<col=000080>"
+L2112: push_constant_string "wolf staves"
+L2113: push_constant_string "</col>"
+L2114: push_constant_string ". (They also need level 40 Magic, level 60 Prayer and level 20 Defence.)"
+L2115: join_string 5
+L2116: return 0
+L2117: branch L2654
+L2118: push_constant_int 40
+L2119: push_constant_int 19331
+L2120: push_constant_string "Members: Cat staff"
+L2121: push_constant_string "<br>"
+L2122: push_constant_string " (with 40 Magic, 60 Prayer and 20 Defence)"
+L2123: join_string 3
+L2124: push_constant_string "Members now have the Attack level required to wield "
+L2125: push_constant_string "<col=000080>"
+L2126: push_constant_string "cat staves"
+L2127: push_constant_string "</col>"
+L2128: push_constant_string ". (They also need level 40 Magic, level 60 Prayer and level 20 Defence.)"
+L2129: join_string 5
+L2130: return 0
+L2131: branch L2654
+L2132: push_constant_int 42
+L2133: push_constant_int 11665
+L2134: push_constant_string "Members: Void melee helm"
+L2135: push_constant_string "Members now have the Attack level required to wear "
+L2136: push_constant_string "<col=000080>"
+L2137: push_constant_string "Void melee helms"
+L2138: push_constant_string "</col>"
+L2139: push_constant_string "."
+L2140: join_string 5
+L2141: return 0
+L2142: branch L2654
+L2143: push_constant_int 42
+L2144: push_constant_int 11664
+L2145: push_constant_string "Members: Void ranger helm"
+L2146: push_constant_string "Members now have the Attack level required to wear "
+L2147: push_constant_string "<col=000080>"
+L2148: push_constant_string "Void ranger helms"
+L2149: push_constant_string "</col>"
+L2150: push_constant_string "."
+L2151: join_string 5
+L2152: return 0
+L2153: branch L2654
+L2154: push_constant_int 42
+L2155: push_constant_int 11663
+L2156: push_constant_string "Members: Void mage helm"
+L2157: push_constant_string "Members now have the Attack level required to wear "
+L2158: push_constant_string "<col=000080>"
+L2159: push_constant_string "Void mage helms"
+L2160: push_constant_string "</col>"
+L2161: push_constant_string "."
+L2162: join_string 5
+L2163: return 0
+L2164: branch L2654
+L2165: push_constant_int 42
+L2166: push_constant_int 8839
+L2167: push_constant_string "Members: Void knight top"
+L2168: push_constant_string "Members now have the Attack level required to wear "
+L2169: push_constant_string "<col=000080>"
+L2170: push_constant_string "Void knight tops"
+L2171: push_constant_string "</col>"
+L2172: push_constant_string "."
+L2173: join_string 5
+L2174: return 0
+L2175: branch L2654
+L2176: push_constant_int 42
+L2177: push_constant_int 8840
+L2178: push_constant_string "Members: Void knight robe"
+L2179: push_constant_string "Members now have the Attack level required to wear "
+L2180: push_constant_string "<col=000080>"
+L2181: push_constant_string "Void knight robes"
+L2182: push_constant_string "</col>"
+L2183: push_constant_string "."
+L2184: join_string 5
+L2185: return 0
+L2186: branch L2654
+L2187: push_constant_int 42
+L2188: push_constant_int 8842
+L2189: push_constant_string "Members: Void knight gloves"
+L2190: push_constant_string "Members now have the Attack level required to wear "
+L2191: push_constant_string "<col=000080>"
+L2192: push_constant_string "Void knight gloves"
+L2193: push_constant_string "</col>"
+L2194: push_constant_string "."
+L2195: join_string 5
+L2196: return 0
+L2197: branch L2654
+L2198: push_constant_int 42
+L2199: push_constant_int 19712
+L2200: push_constant_string "Members: Void knight deflector"
+L2201: push_constant_string "Members now have the Attack level required to wear "
+L2202: push_constant_string "<col=000080>"
+L2203: push_constant_string "Void knight deflectors"
+L2204: push_constant_string "</col>"
+L2205: push_constant_string "."
+L2206: join_string 5
+L2207: return 0
+L2208: branch L2654
+L2209: push_constant_int 42
+L2210: push_constant_int 8841
+L2211: push_constant_string "Members: Void knight mace"
+L2212: push_constant_string "Members now have the Attack level required to wield "
+L2213: push_constant_string "<col=000080>"
+L2214: push_constant_string "Void knight maces"
+L2215: push_constant_string "</col>"
+L2216: push_constant_string "."
+L2217: join_string 5
+L2218: return 0
+L2219: branch L2654
+L2220: push_constant_int 42
+L2221: push_constant_int 7620
+L2222: push_constant_string "Void knight equipment requires 42 Attack, Defence, Strength, Ranged, Magic and Constitution and 22 Prayer."
+L2223: push_constant_string "<col=000080>"
+L2224: push_constant_string "Void knight equipment"
+L2225: push_constant_string "</col>"
+L2226: push_constant_string " requires 42 Attack, Defence, Strength, Ranged, Magic and Constitution and 22 Prayer."
+L2227: join_string 4
+L2228: return 0
+L2229: branch L2654
+L2230: push_constant_int 45
+L2231: push_constant_int 18365
+L2232: push_constant_string "Gravite rapier"
+L2233: push_constant_string "<br>"
+L2234: push_constant_string " (with 45 Dungeoneering)"
+L2235: join_string 3
+L2236: push_constant_string "You can now wield "
+L2237: push_constant_string "<col=000080>"
+L2238: push_constant_string "gravite rapiers"
+L2239: push_constant_string "</col>"
+L2240: push_constant_string ". (You also need level 45 Dungeoneering.)"
+L2241: join_string 5
+L2242: return 0
+L2243: branch L2654
+L2244: push_constant_int 45
+L2245: push_constant_int 18367
+L2246: push_constant_string "Gravite longsword"
+L2247: push_constant_string "<br>"
+L2248: push_constant_string " (with 45 Dungeoneering)"
+L2249: join_string 3
+L2250: push_constant_string "You can now wield "
+L2251: push_constant_string "<col=000080>"
+L2252: push_constant_string "gravite longswords"
+L2253: push_constant_string "</col>"
+L2254: push_constant_string ". (You also need level 45 Dungeoneering.)"
+L2255: join_string 5
+L2256: return 0
+L2257: branch L2654
+L2258: push_constant_int 45
+L2259: push_constant_int 18369
+L2260: push_constant_string "Gravite two-handed sword"
+L2261: push_constant_string "<br>"
+L2262: push_constant_string " (with 45 Dungeoneering)"
+L2263: join_string 3
+L2264: push_constant_string "You can now wield "
+L2265: push_constant_string "<col=000080>"
+L2266: push_constant_string "gravite two-handed swords"
+L2267: push_constant_string "</col>"
+L2268: push_constant_string ". (You also need level 45 Dungeoneering.)"
+L2269: join_string 5
+L2270: return 0
+L2271: branch L2654
+L2272: push_constant_int 50
+L2273: push_constant_int 4158
+L2274: push_constant_string "Members: Leaf-bladed spear"
+L2275: push_constant_string "<br>"
+L2276: push_constant_string " (with 55 Slayer)"
+L2277: join_string 3
+L2278: push_constant_string "Members now have the Attack level required to wield "
+L2279: push_constant_string "<col=000080>"
+L2280: push_constant_string "leaf-bladed spears"
+L2281: push_constant_string "</col>"
+L2282: push_constant_string ": melee weapons used for killing turoth and kurask. (They also need level 55 Slayer.)"
+L2283: join_string 5
+L2284: return 0
+L2285: branch L2654
+L2286: push_constant_int 50
+L2287: push_constant_int 4675
+L2288: push_constant_string "Members: Ancient Staff"
+L2289: push_constant_string "<br>"
+L2290: push_constant_string " (after Desert Treasure and with 50 Magic)"
+L2291: join_string 3
+L2292: push_constant_string "Members now have the Attack level required to wield the "
+L2293: push_constant_string "<col=000080>"
+L2294: push_constant_string "Ancient Staff"
+L2295: push_constant_string "</col>"
+L2296: push_constant_string " (after Desert Treasure and with level 50 Magic)."
+L2297: join_string 5
+L2298: return 0
+L2299: branch L2654
+L2300: push_constant_int 50
+L2301: push_constant_int 1409
+L2302: push_constant_string "Members: Iban's Staff"
+L2303: push_constant_string "<br>"
+L2304: push_constant_string " (after Underground Pass and with 50 Magic)"
+L2305: join_string 3
+L2306: push_constant_string "Members now have the Attack level required to wield "
+L2307: push_constant_string "<col=000080>"
+L2308: push_constant_string "Iban's Staff"
+L2309: push_constant_string "</col>"
+L2310: push_constant_string " (after Underground Pass and with level 50 Magic)."
+L2311: join_string 5
+L2312: return 0
+L2313: branch L2654
+L2314: push_constant_int 50
+L2315: push_constant_int 4153
+L2316: push_constant_string "Members: Granite maul"
+L2317: push_constant_string "<br>"
+L2318: push_constant_string " (with 50 Strength)"
+L2319: join_string 3
+L2320: push_constant_string "Members can now wield "
+L2321: push_constant_string "<col=000080>"
+L2322: push_constant_string "granite mauls"
+L2323: push_constant_string "</col>"
+L2324: push_constant_string ". (They also need level 50 Strength.)"
+L2325: join_string 5
+L2326: return 0
+L2327: branch L2654
+L2328: push_constant_int 50
+L2329: push_constant_int 14679
+L2330: push_constant_string "Members: Granite mace"
+L2331: push_constant_string "<br>"
+L2332: push_constant_string " (with 50 Strength)"
+L2333: join_string 3
+L2334: push_constant_string "Members can now wield "
+L2335: push_constant_string "<col=000080>"
+L2336: push_constant_string "granite maces"
+L2337: push_constant_string "</col>"
+L2338: push_constant_string ". (They also need level 50 Strength.)"
+L2339: join_string 5
+L2340: return 0
+L2341: branch L2654
+L2342: push_constant_int 50
+L2343: push_constant_int 10581
+L2344: push_constant_string "Members: Keris"
+L2345: push_constant_string "<br>"
+L2346: push_constant_string " (after Contact!)"
+L2347: join_string 3
+L2348: push_constant_string "Members can now wield "
+L2349: push_constant_string "<col=000080>"
+L2350: push_constant_string "Keris"
+L2351: push_constant_string "</col>"
+L2352: push_constant_string " (after Contact!)."
+L2353: join_string 5
+L2354: return 0
+L2355: branch L2654
+L2356: push_constant_int 50
+L2357: push_constant_int 13290
+L2358: push_constant_string "Members: Leaf-bladed swords"
+L2359: push_constant_string "<br>"
+L2360: push_constant_string " (with 55 Slayer)"
+L2361: join_string 3
+L2362: push_constant_string "Members can now wield "
+L2363: push_constant_string "<col=000080>"
+L2364: push_constant_string "leaf-bladed swords"
+L2365: push_constant_string "</col>"
+L2366: push_constant_string ". (They also need level 55 Slayer)."
+L2367: join_string 5
+L2368: return 0
+L2369: branch L2654
+L2370: push_constant_int 60
+L2371: push_constant_int 10887
+L2372: push_constant_string "Members: Barrelchest Anchor"
+L2373: push_constant_string "<br>"
+L2374: push_constant_string " (after Great Brain Robbery and with 40 Strength)"
+L2375: join_string 3
+L2376: push_constant_string "Members now have the Attack level required to wield the "
+L2377: push_constant_string "<col=000080>"
+L2378: push_constant_string "Barrelchest Anchor"
+L2379: push_constant_string "</col>"
+L2380: push_constant_string " (after Great Brain Robbery, with level 40 Strength)."
+L2381: join_string 5
+L2382: return 0
+L2383: branch L2654
+L2384: push_constant_int 60
+L2385: push_constant_int 6523
+L2386: push_constant_string "Members: TokTz-Xil-Ak"
+L2387: push_constant_string "Members can now wield "
+L2388: push_constant_string "<col=000080>"
+L2389: push_constant_string "TokTz-Xil-Ak"
+L2390: push_constant_string "</col>"
+L2391: push_constant_string "."
+L2392: join_string 5
+L2393: return 0
+L2394: branch L2654
+L2395: push_constant_int 60
+L2396: push_constant_int 6527
+L2397: push_constant_string "Members: TzHaar-Ket-Em"
+L2398: push_constant_string "Members can now wield "
+L2399: push_constant_string "<col=000080>"
+L2400: push_constant_string "TzHaar-Ket-Em"
+L2401: push_constant_string "</col>"
+L2402: push_constant_string "."
+L2403: join_string 5
+L2404: return 0
+L2405: branch L2654
+L2406: push_constant_int 60
+L2407: push_constant_int 6525
+L2408: push_constant_string "Members: TokTz-Xil-Ek"
+L2409: push_constant_string "Members can now wield "
+L2410: push_constant_string "<col=000080>"
+L2411: push_constant_string "TokTz-Xil-Ek"
+L2412: push_constant_string "</col>"
+L2413: push_constant_string "."
+L2414: join_string 5
+L2415: return 0
+L2416: branch L2654
+L2417: push_constant_int 60
+L2418: push_constant_int 6526
+L2419: push_constant_string "Members: Toktz-Mej-Tal"
+L2420: push_constant_string "<br>"
+L2421: push_constant_string " (with 60 Magic)"
+L2422: join_string 3
+L2423: push_constant_string "Members now have the Attack level required to wield "
+L2424: push_constant_string "<col=000080>"
+L2425: push_constant_string "Toktz-Mej-Tal"
+L2426: push_constant_string "</col>"
+L2427: push_constant_string ". (They also need level 60 Magic.)"
+L2428: join_string 5
+L2429: return 0
+L2430: branch L2654
+L2431: push_constant_int 60
+L2432: push_constant_int 20671
+L2433: push_constant_string "Members: Brackish Blade"
+L2434: push_constant_string "Members can now wield "
+L2435: push_constant_string "<col=000080>"
+L2436: push_constant_string "Brackish Blades"
+L2437: push_constant_string "</col>"
+L2438: push_constant_string "."
+L2439: join_string 5
+L2440: return 0
+L2441: branch L2654
+L2442: push_constant_int 62
+L2443: push_constant_int 19669
+L2444: push_constant_string "Members: Ring of vigour"
+L2445: push_constant_string "<br>"
+L2446: push_constant_string " (with 62 Dungeoneering)"
+L2447: join_string 3
+L2448: push_constant_string "Members can now wear "
+L2449: push_constant_string "<col=000080>"
+L2450: push_constant_string "rings of vigour"
+L2451: push_constant_string "</col>"
+L2452: push_constant_string ". (They also need level 62 Dungeoneering.)"
+L2453: join_string 5
+L2454: return 0
+L2455: branch L2654
+L2456: push_constant_int 70
+L2457: push_constant_int 4151
+L2458: push_constant_string "Members: Abyssal whip"
+L2459: push_constant_string "Members can now wield "
+L2460: push_constant_string "<col=000080>"
+L2461: push_constant_string "abyssal whips"
+L2462: push_constant_string "</col>"
+L2463: push_constant_string "."
+L2464: join_string 5
+L2465: return 0
+L2466: branch L2654
+L2467: push_constant_int 70
+L2468: push_constant_int 15485
+L2469: push_constant_string "Members: Penance master trident (with 70 Magic)"
+L2470: push_constant_string "Members can now wield "
+L2471: push_constant_string "<col=000080>"
+L2472: push_constant_string "penance master tridents"
+L2473: push_constant_string "</col>"
+L2474: push_constant_string ". (They also need level 70 Magic.)"
+L2475: join_string 5
+L2476: return 0
+L2477: branch L2654
+L2478: push_constant_int 70
+L2479: push_constant_int 11730
+L2480: push_constant_string "Members: Saradomin sword"
+L2481: push_constant_string "Members can now wield "
+L2482: push_constant_string "<col=000080>"
+L2483: push_constant_string "Saradomin swords"
+L2484: push_constant_string "</col>"
+L2485: push_constant_string "."
+L2486: join_string 5
+L2487: return 0
+L2488: branch L2654
+L2489: push_constant_int 70
+L2490: push_constant_int 11716
+L2491: push_constant_string "Members: Zamorakian spear"
+L2492: push_constant_string "Members can now wield "
+L2493: push_constant_string "<col=000080>"
+L2494: push_constant_string "Zamorakian spears"
+L2495: push_constant_string "</col>"
+L2496: push_constant_string "."
+L2497: join_string 5
+L2498: return 0
+L2499: branch L2654
+L2500: push_constant_int 75
+L2501: push_constant_int 11694
+L2502: push_constant_string "Members: Armadyl godsword"
+L2503: push_constant_string "Members can now wield the "
+L2504: push_constant_string "<col=000080>"
+L2505: push_constant_string "Armadyl godsword"
+L2506: push_constant_string "</col>"
+L2507: push_constant_string "."
+L2508: join_string 5
+L2509: return 0
+L2510: branch L2654
+L2511: push_constant_int 75
+L2512: push_constant_int 11696
+L2513: push_constant_string "Members: Bandos godsword"
+L2514: push_constant_string "Members can now wield the "
+L2515: push_constant_string "<col=000080>"
+L2516: push_constant_string "Bandos godsword"
+L2517: push_constant_string "</col>"
+L2518: push_constant_string "."
+L2519: join_string 5
+L2520: return 0
+L2521: branch L2654
+L2522: push_constant_int 75
+L2523: push_constant_int 11698
+L2524: push_constant_string "Members: Saradomin godsword"
+L2525: push_constant_string "Members can now wield the "
+L2526: push_constant_string "<col=000080>"
+L2527: push_constant_string "Saradomin godsword"
+L2528: push_constant_string "</col>"
+L2529: push_constant_string "."
+L2530: join_string 5
+L2531: return 0
+L2532: branch L2654
+L2533: push_constant_int 75
+L2534: push_constant_int 11700
+L2535: push_constant_string "Members: Zamorak godsword"
+L2536: push_constant_string "Members can now wield the "
+L2537: push_constant_string "<col=000080>"
+L2538: push_constant_string "Zamorak godsword"
+L2539: push_constant_string "</col>"
+L2540: push_constant_string "."
+L2541: join_string 5
+L2542: return 0
+L2543: branch L2654
+L2544: push_constant_int 75
+L2545: push_constant_int 15403
+L2546: push_constant_string "Members: Balmung (after Blood Runs Deep and with 75 Strength)"
+L2547: push_constant_string "Members can now wield "
+L2548: push_constant_string "<col=000080>"
+L2549: push_constant_string "Balmung"
+L2550: push_constant_string "</col>"
+L2551: push_constant_string " (after Blood Runs Deep, with 75 Strength)."
+L2552: join_string 5
+L2553: return 0
+L2554: branch L2654
+L2555: push_constant_int 75
+L2556: push_constant_int 15486
+L2557: push_constant_string "Members: Staff of Light (with 75 Magic)"
+L2558: push_constant_string "Members can now wield the "
+L2559: push_constant_string "<col=000080>"
+L2560: push_constant_string "Staff of Light"
+L2561: push_constant_string "</col>"
+L2562: push_constant_string " (with 75 Magic)."
+L2563: join_string 5
+L2564: return 0
+L2565: branch L2654
+L2566: push_constant_int 78
+L2567: push_constant_int 13902
+L2568: push_constant_string "Members: Statius's warhammer"
+L2569: push_constant_string "Members now have the Attack level required to wield "
+L2570: push_constant_string "<col=000080>"
+L2571: push_constant_string "Statius's warhammer"
+L2572: push_constant_string "</col>"
+L2573: push_constant_string "."
+L2574: join_string 5
+L2575: return 0
+L2576: branch L2654
+L2577: push_constant_int 78
+L2578: push_constant_int 13899
+L2579: push_constant_string "Members: Vesta's longsword"
+L2580: push_constant_string "Members now have the Attack level required to wield "
+L2581: push_constant_string "<col=000080>"
+L2582: push_constant_string "Vesta's longsword"
+L2583: push_constant_string "</col>"
+L2584: push_constant_string "."
+L2585: join_string 5
+L2586: return 0
+L2587: branch L2654
+L2588: push_constant_int 78
+L2589: push_constant_int 13905
+L2590: push_constant_string "Members: Vesta's spear"
+L2591: push_constant_string "Members now have the Attack level required to wield "
+L2592: push_constant_string "<col=000080>"
+L2593: push_constant_string "Vesta's spear"
+L2594: push_constant_string "</col>"
+L2595: push_constant_string "."
+L2596: join_string 5
+L2597: return 0
+L2598: branch L2654
+L2599: push_constant_int 78
+L2600: push_constant_int 13867
+L2601: push_constant_string "Members: Zuriel's staff"
+L2602: push_constant_string "<br>"
+L2603: push_constant_string " (with 78 Magic)"
+L2604: join_string 3
+L2605: push_constant_string "Members now have the Attack level required to wield "
+L2606: push_constant_string "<col=000080>"
+L2607: push_constant_string "Zuriel's staff"
+L2608: push_constant_string "</col>"
+L2609: push_constant_string " (with level 78 Magic)."
+L2610: join_string 5
+L2611: return 0
+L2612: branch L2654
+L2613: push_constant_int 80
+L2614: push_constant_int 18349
+L2615: push_constant_string "Members: Chaotic rapier"
+L2616: push_constant_string "<br>"
+L2617: push_constant_string " (with 80 Dungeoneering)"
+L2618: join_string 3
+L2619: push_constant_string "Members can now wield "
+L2620: push_constant_string "<col=000080>"
+L2621: push_constant_string "chaotic rapiers"
+L2622: push_constant_string "</col>"
+L2623: push_constant_string ". (They also need level 80 Dungeoneering.)"
+L2624: join_string 5
+L2625: return 0
+L2626: branch L2654
+L2627: push_constant_int 80
+L2628: push_constant_int 18351
+L2629: push_constant_string "Members: Chaotic longsword"
+L2630: push_constant_string "<br>"
+L2631: push_constant_string " (with 80 Dungeoneering)"
+L2632: join_string 3
+L2633: push_constant_string "Members can now wield "
+L2634: push_constant_string "<col=000080>"
+L2635: push_constant_string "chaotic longswords"
+L2636: push_constant_string "</col>"
+L2637: push_constant_string ". (They also need level 80 Dungeoneering.)"
+L2638: join_string 5
+L2639: return 0
+L2640: branch L2654
+L2641: push_constant_int 80
+L2642: push_constant_int 18353
+L2643: push_constant_string "Members: Chaotic maul"
+L2644: push_constant_string "<br>"
+L2645: push_constant_string " (with 80 Dungeoneering)"
+L2646: join_string 3
+L2647: push_constant_string "Members can now wield "
+L2648: push_constant_string "<col=000080>"
+L2649: push_constant_string "chaotic mauls"
+L2650: push_constant_string "</col>"
+L2651: push_constant_string ". (They also need level 80 Dungeoneering.)"
+L2652: join_string 5
+L2653: return 0
+L2654: branch L4048
+L2655: push_int_local 1
+L2656: switch switch12
+L2657: branch L2713
+L2658: push_constant_int 30
+L2659: push_constant_int 10149
+L2660: push_constant_string "Members: Swamp lizard"
+L2661: push_constant_string "<br>"
+L2662: push_constant_string " (with 30 Magic and 30 Ranged)"
+L2663: join_string 3
+L2664: push_constant_string "Members now have the Attack level required to wield "
+L2665: push_constant_string "<col=000080>"
+L2666: push_constant_string "swamp lizards"
+L2667: push_constant_string "</col>"
+L2668: push_constant_string ". (They also need level 30 Magic and level 30 Ranged.)"
+L2669: join_string 5
+L2670: return 0
+L2671: branch L2713
+L2672: push_constant_int 50
+L2673: push_constant_int 10146
+L2674: push_constant_string "Members: Orange salamander"
+L2675: push_constant_string "<br>"
+L2676: push_constant_string " (with 50 Magic and 50 Ranged)"
+L2677: join_string 3
+L2678: push_constant_string "Members now have the Attack level required to wield "
+L2679: push_constant_string "<col=000080>"
+L2680: push_constant_string "orange salamanders"
+L2681: push_constant_string "</col>"
+L2682: push_constant_string ". (They also need level 50 Magic and level 50 Ranged.)"
+L2683: join_string 5
+L2684: return 0
+L2685: branch L2713
+L2686: push_constant_int 60
+L2687: push_constant_int 10147
+L2688: push_constant_string "Members: Red salamander"
+L2689: push_constant_string "<br>"
+L2690: push_constant_string " (with 60 Magic and 60 Ranged)"
+L2691: join_string 3
+L2692: push_constant_string "Members now have the Attack level required to wield "
+L2693: push_constant_string "<col=000080>"
+L2694: push_constant_string "red salamanders"
+L2695: push_constant_string "</col>"
+L2696: push_constant_string ". (They also need level 60 Magic and level 60 Ranged.)"
+L2697: join_string 5
+L2698: return 0
+L2699: branch L2713
+L2700: push_constant_int 70
+L2701: push_constant_int 10148
+L2702: push_constant_string "Members: Black salamander"
+L2703: push_constant_string "<br>"
+L2704: push_constant_string " (with 70 Magic and 70 Ranged)"
+L2705: join_string 3
+L2706: push_constant_string "Members now have the Attack level required to wield "
+L2707: push_constant_string "<col=000080>"
+L2708: push_constant_string "black salamanders"
+L2709: push_constant_string "</col>"
+L2710: push_constant_string ". (They also need level 70 Magic and level 70 Ranged.)"
+L2711: join_string 5
+L2712: return 0
+L2713: branch L4048
+L2714: push_int_local 1
+L2715: switch switch13
+L2716: branch L2881
+L2717: push_constant_int 1
+L2718: push_constant_int 14297
+L2719: push_constant_string "Members: Stealing Creation - class 1 dagger"
+L2720: push_constant_string "Members can now wield "
+L2721: push_constant_string "<col=000080>"
+L2722: push_constant_string "class 1 daggers"
+L2723: push_constant_string "</col>"
+L2724: push_constant_string " in Stealing Creation."
+L2725: join_string 5
+L2726: return 0
+L2727: branch L2881
+L2728: push_constant_int 1
+L2729: push_constant_int 14287
+L2730: push_constant_string "Members: Stealing Creation - class 1 scimitar"
+L2731: push_constant_string "Members can now wield "
+L2732: push_constant_string "<col=000080>"
+L2733: push_constant_string "class 1 scimitars"
+L2734: push_constant_string "</col>"
+L2735: push_constant_string " in Stealing Creation."
+L2736: join_string 5
+L2737: return 0
+L2738: branch L2881
+L2739: push_constant_int 1
+L2740: push_constant_int 14307
+L2741: push_constant_string "Members: Stealing Creation - class 1 warhammer"
+L2742: push_constant_string "Members can now wield "
+L2743: push_constant_string "<col=000080>"
+L2744: push_constant_string "class 1 warhammers"
+L2745: push_constant_string "</col>"
+L2746: push_constant_string " in Stealing Creation."
+L2747: join_string 5
+L2748: return 0
+L2749: branch L2881
+L2750: push_constant_int 20
+L2751: push_constant_int 14299
+L2752: push_constant_string "Members: Stealing Creation - class 2 dagger"
+L2753: push_constant_string "Members can now wield "
+L2754: push_constant_string "<col=000080>"
+L2755: push_constant_string "class 2 daggers"
+L2756: push_constant_string "</col>"
+L2757: push_constant_string " in Stealing Creation."
+L2758: join_string 5
+L2759: return 0
+L2760: branch L2881
+L2761: push_constant_int 20
+L2762: push_constant_int 14289
+L2763: push_constant_string "Members: Stealing Creation - class 2 scimitar"
+L2764: push_constant_string "Members can now wield "
+L2765: push_constant_string "<col=000080>"
+L2766: push_constant_string "class 2 scimitars"
+L2767: push_constant_string "</col>"
+L2768: push_constant_string " in Stealing Creation."
+L2769: join_string 5
+L2770: return 0
+L2771: branch L2881
+L2772: push_constant_int 20
+L2773: push_constant_int 14309
+L2774: push_constant_string "Members: Stealing Creation - class 2 warhammer"
+L2775: push_constant_string "Members can now wield "
+L2776: push_constant_string "<col=000080>"
+L2777: push_constant_string "class 2 warhammers"
+L2778: push_constant_string "</col>"
+L2779: push_constant_string " in Stealing Creation."
+L2780: join_string 5
+L2781: return 0
+L2782: branch L2881
+L2783: push_constant_int 40
+L2784: push_constant_int 14301
+L2785: push_constant_string "Members: Stealing Creation - class 3 dagger"
+L2786: push_constant_string "Members can now wield "
+L2787: push_constant_string "<col=000080>"
+L2788: push_constant_string "class 3 daggers"
+L2789: push_constant_string "</col>"
+L2790: push_constant_string " in Stealing Creation."
+L2791: join_string 5
+L2792: return 0
+L2793: branch L2881
+L2794: push_constant_int 40
+L2795: push_constant_int 14291
+L2796: push_constant_string "Members: Stealing Creation - class 3 scimitar"
+L2797: push_constant_string "Members can now wield "
+L2798: push_constant_string "<col=000080>"
+L2799: push_constant_string "class 3 scimitars"
+L2800: push_constant_string "</col>"
+L2801: push_constant_string " in Stealing Creation."
+L2802: join_string 5
+L2803: return 0
+L2804: branch L2881
+L2805: push_constant_int 40
+L2806: push_constant_int 14311
+L2807: push_constant_string "Members: Stealing Creation - class 3 warhammer"
+L2808: push_constant_string "Members can now wield "
+L2809: push_constant_string "<col=000080>"
+L2810: push_constant_string "class 3 warhammers"
+L2811: push_constant_string "</col>"
+L2812: push_constant_string " in Stealing Creation."
+L2813: join_string 5
+L2814: return 0
+L2815: branch L2881
+L2816: push_constant_int 60
+L2817: push_constant_int 14303
+L2818: push_constant_string "Members: Stealing Creation - class 4 dagger"
+L2819: push_constant_string "Members can now wield "
+L2820: push_constant_string "<col=000080>"
+L2821: push_constant_string "class 4 daggers"
+L2822: push_constant_string "</col>"
+L2823: push_constant_string " in Stealing Creation."
+L2824: join_string 5
+L2825: return 0
+L2826: branch L2881
+L2827: push_constant_int 60
+L2828: push_constant_int 14293
+L2829: push_constant_string "Members: Stealing Creation - class 4 scimitar"
+L2830: push_constant_string "Members can now wield "
+L2831: push_constant_string "<col=000080>"
+L2832: push_constant_string "class 4 scimitars"
+L2833: push_constant_string "</col>"
+L2834: push_constant_string " in Stealing Creation."
+L2835: join_string 5
+L2836: return 0
+L2837: branch L2881
+L2838: push_constant_int 60
+L2839: push_constant_int 14313
+L2840: push_constant_string "Members: Stealing Creation - class 4 warhammer"
+L2841: push_constant_string "Members can now wield "
+L2842: push_constant_string "<col=000080>"
+L2843: push_constant_string "class 4 warhammers"
+L2844: push_constant_string "</col>"
+L2845: push_constant_string " in Stealing Creation."
+L2846: join_string 5
+L2847: return 0
+L2848: branch L2881
+L2849: push_constant_int 80
+L2850: push_constant_int 14305
+L2851: push_constant_string "Members: Stealing Creation - class 5 dagger"
+L2852: push_constant_string "Members can now wield "
+L2853: push_constant_string "<col=000080>"
+L2854: push_constant_string "class 5 daggers"
+L2855: push_constant_string "</col>"
+L2856: push_constant_string " in Stealing Creation."
+L2857: join_string 5
+L2858: return 0
+L2859: branch L2881
+L2860: push_constant_int 80
+L2861: push_constant_int 14295
+L2862: push_constant_string "Members: Stealing Creation - class 5 scimitar"
+L2863: push_constant_string "Members can now wield "
+L2864: push_constant_string "<col=000080>"
+L2865: push_constant_string "class 5 scimitars"
+L2866: push_constant_string "</col>"
+L2867: push_constant_string " in Stealing Creation."
+L2868: join_string 5
+L2869: return 0
+L2870: branch L2881
+L2871: push_constant_int 80
+L2872: push_constant_int 14315
+L2873: push_constant_string "Members: Stealing Creation - class 5 warhammer"
+L2874: push_constant_string "Members can now wield "
+L2875: push_constant_string "<col=000080>"
+L2876: push_constant_string "class 5 warhammers"
+L2877: push_constant_string "</col>"
+L2878: push_constant_string " in Stealing Creation."
+L2879: join_string 5
+L2880: return 0
+L2881: branch L4048
+L2882: push_int_local 1
+L2883: switch switch14
+L2884: branch L4015
+L2885: push_constant_int 1
+L2886: push_constant_int 16757
+L2887: push_constant_string "Novite dagger (Tier 1)"
+L2888: push_constant_string "You can now wield "
+L2889: push_constant_string "<col=000080>"
+L2890: push_constant_string "novite daggers"
+L2891: push_constant_string "</col>"
+L2892: push_constant_string " within Daemonheim."
+L2893: join_string 5
+L2894: return 0
+L2895: branch L4015
+L2896: push_constant_int 1
+L2897: push_constant_int 16935
+L2898: push_constant_string "Novite rapier (Tier 1)"
+L2899: push_constant_string "You can now wield "
+L2900: push_constant_string "<col=000080>"
+L2901: push_constant_string "novite rapiers"
+L2902: push_constant_string "</col>"
+L2903: push_constant_string " within Daemonheim."
+L2904: join_string 5
+L2905: return 0
+L2906: branch L4015
+L2907: push_constant_int 1
+L2908: push_constant_int 16383
+L2909: push_constant_string "Novite longsword (Tier 1)"
+L2910: push_constant_string "You can now wield "
+L2911: push_constant_string "<col=000080>"
+L2912: push_constant_string "novite longswords"
+L2913: push_constant_string "</col>"
+L2914: push_constant_string " within Daemonheim."
+L2915: join_string 5
+L2916: return 0
+L2917: branch L4015
+L2918: push_constant_int 1
+L2919: push_constant_int 15753
+L2920: push_constant_string "Novite battleaxe (Tier 1)"
+L2921: push_constant_string "You can now wield "
+L2922: push_constant_string "<col=000080>"
+L2923: push_constant_string "novite battleaxes"
+L2924: push_constant_string "</col>"
+L2925: push_constant_string " within Daemonheim."
+L2926: join_string 5
+L2927: return 0
+L2928: branch L4015
+L2929: push_constant_int 1
+L2930: push_constant_int 16889
+L2931: push_constant_string "Novite 2h swords (Tier 1)"
+L2932: push_constant_string "You can now wield "
+L2933: push_constant_string "<col=000080>"
+L2934: push_constant_string "novite 2h swords"
+L2935: push_constant_string "</col>"
+L2936: push_constant_string " within Daemonheim."
+L2937: join_string 5
+L2938: return 0
+L2939: branch L4015
+L2940: push_constant_int 1
+L2941: push_constant_int 17063
+L2942: push_constant_string "Novite spears (Tier 1)"
+L2943: push_constant_string "You can now wield "
+L2944: push_constant_string "<col=000080>"
+L2945: push_constant_string "novite spears"
+L2946: push_constant_string "</col>"
+L2947: push_constant_string " within Daemonheim."
+L2948: join_string 5
+L2949: return 0
+L2950: branch L4015
+L2951: push_constant_int 1
+L2952: push_constant_int 17019
+L2953: push_constant_string "Novite warhammer (Tier 1)"
+L2954: push_constant_string "You can now wield "
+L2955: push_constant_string "<col=000080>"
+L2956: push_constant_string "novite warhammers"
+L2957: push_constant_string "</col>"
+L2958: push_constant_string " within Daemonheim."
+L2959: join_string 5
+L2960: return 0
+L2961: branch L4015
+L2962: push_constant_int 1
+L2963: push_constant_int 16361
+L2964: push_constant_string "Novite hatchet (Tier 1)"
+L2965: push_constant_string "You can now wield "
+L2966: push_constant_string "<col=000080>"
+L2967: push_constant_string "novite hatchets"
+L2968: push_constant_string "</col>"
+L2969: push_constant_string " within Daemonheim."
+L2970: join_string 5
+L2971: return 0
+L2972: branch L4015
+L2973: push_constant_int 1
+L2974: push_constant_int 16295
+L2975: push_constant_string "Novite pickaxe (Tier 1)"
+L2976: push_constant_string "You can now wield "
+L2977: push_constant_string "<col=000080>"
+L2978: push_constant_string "novite pickaxes"
+L2979: push_constant_string "</col>"
+L2980: push_constant_string " within Daemonheim."
+L2981: join_string 5
+L2982: return 0
+L2983: branch L4015
+L2984: push_constant_int 10
+L2985: push_constant_int 16765
+L2986: push_constant_string "Bathus dagger (Tier 2)"
+L2987: push_constant_string "You can now wield "
+L2988: push_constant_string "<col=000080>"
+L2989: push_constant_string "bathus daggers"
+L2990: push_constant_string "</col>"
+L2991: push_constant_string " within Daemonheim."
+L2992: join_string 5
+L2993: return 0
+L2994: branch L4015
+L2995: push_constant_int 10
+L2996: push_constant_int 16937
+L2997: push_constant_string "Bathus rapier (Tier 2)"
+L2998: push_constant_string "You can now wield "
+L2999: push_constant_string "<col=000080>"
+L3000: push_constant_string "bathus rapiers"
+L3001: push_constant_string "</col>"
+L3002: push_constant_string " within Daemonheim."
+L3003: join_string 5
+L3004: return 0
+L3005: branch L4015
+L3006: push_constant_int 10
+L3007: push_constant_int 16385
+L3008: push_constant_string "Bathus longsword (Tier 2)"
+L3009: push_constant_string "You can now wield "
+L3010: push_constant_string "<col=000080>"
+L3011: push_constant_string "bathus longswords"
+L3012: push_constant_string "</col>"
+L3013: push_constant_string " within Daemonheim."
+L3014: join_string 5
+L3015: return 0
+L3016: branch L4015
+L3017: push_constant_int 10
+L3018: push_constant_int 15755
+L3019: push_constant_string "Bathus battleaxe (Tier 2)"
+L3020: push_constant_string "You can now wield "
+L3021: push_constant_string "<col=000080>"
+L3022: push_constant_string "bathus battleaxes"
+L3023: push_constant_string "</col>"
+L3024: push_constant_string " within Daemonheim."
+L3025: join_string 5
+L3026: return 0
+L3027: branch L4015
+L3028: push_constant_int 10
+L3029: push_constant_int 16891
+L3030: push_constant_string "Bathus 2h swords (Tier 2)"
+L3031: push_constant_string "You can now wield "
+L3032: push_constant_string "<col=000080>"
+L3033: push_constant_string "bathus 2h swords"
+L3034: push_constant_string "</col>"
+L3035: push_constant_string " within Daemonheim."
+L3036: join_string 5
+L3037: return 0
+L3038: branch L4015
+L3039: push_constant_int 10
+L3040: push_constant_int 17071
+L3041: push_constant_string "Bathus spears (Tier 2)"
+L3042: push_constant_string "You can now wield "
+L3043: push_constant_string "<col=000080>"
+L3044: push_constant_string "bathus spears"
+L3045: push_constant_string "</col>"
+L3046: push_constant_string " within Daemonheim."
+L3047: join_string 5
+L3048: return 0
+L3049: branch L4015
+L3050: push_constant_int 10
+L3051: push_constant_int 17021
+L3052: push_constant_string "Bathus warhammer (Tier 2)"
+L3053: push_constant_string "You can now wield "
+L3054: push_constant_string "<col=000080>"
+L3055: push_constant_string "bathus warhammers"
+L3056: push_constant_string "</col>"
+L3057: push_constant_string " within Daemonheim."
+L3058: join_string 5
+L3059: return 0
+L3060: branch L4015
+L3061: push_constant_int 10
+L3062: push_constant_int 16363
+L3063: push_constant_string "Bathus hatchet (Tier 2)"
+L3064: push_constant_string "You can now wield "
+L3065: push_constant_string "<col=000080>"
+L3066: push_constant_string "bathus hatchets"
+L3067: push_constant_string "</col>"
+L3068: push_constant_string " within Daemonheim."
+L3069: join_string 5
+L3070: return 0
+L3071: branch L4015
+L3072: push_constant_int 10
+L3073: push_constant_int 16297
+L3074: push_constant_string "Bathus pickaxe (Tier 2)"
+L3075: push_constant_string "You can now wield "
+L3076: push_constant_string "<col=000080>"
+L3077: push_constant_string "bathus pickaxes"
+L3078: push_constant_string "</col>"
+L3079: push_constant_string " within Daemonheim."
+L3080: join_string 5
+L3081: return 0
+L3082: branch L4015
+L3083: push_constant_int 20
+L3084: push_constant_int 16773
+L3085: push_constant_string "Marmaros dagger (Tier 3)"
+L3086: push_constant_string "You can now wield "
+L3087: push_constant_string "<col=000080>"
+L3088: push_constant_string "marmaros daggers"
+L3089: push_constant_string "</col>"
+L3090: push_constant_string " within Daemonheim."
+L3091: join_string 5
+L3092: return 0
+L3093: branch L4015
+L3094: push_constant_int 20
+L3095: push_constant_int 16939
+L3096: push_constant_string "Marmaros rapier (Tier 3)"
+L3097: push_constant_string "You can now wield "
+L3098: push_constant_string "<col=000080>"
+L3099: push_constant_string "marmaros rapiers"
+L3100: push_constant_string "</col>"
+L3101: push_constant_string " within Daemonheim."
+L3102: join_string 5
+L3103: return 0
+L3104: branch L4015
+L3105: push_constant_int 20
+L3106: push_constant_int 16387
+L3107: push_constant_string "Marmaros longsword (Tier 3)"
+L3108: push_constant_string "You can now wield "
+L3109: push_constant_string "<col=000080>"
+L3110: push_constant_string "marmaros longswords"
+L3111: push_constant_string "</col>"
+L3112: push_constant_string " within Daemonheim."
+L3113: join_string 5
+L3114: return 0
+L3115: branch L4015
+L3116: push_constant_int 20
+L3117: push_constant_int 15757
+L3118: push_constant_string "Marmaros battleaxe (Tier 3)"
+L3119: push_constant_string "You can now wield "
+L3120: push_constant_string "<col=000080>"
+L3121: push_constant_string "marmaros battleaxes"
+L3122: push_constant_string "</col>"
+L3123: push_constant_string " within Daemonheim."
+L3124: join_string 5
+L3125: return 0
+L3126: branch L4015
+L3127: push_constant_int 20
+L3128: push_constant_int 16893
+L3129: push_constant_string "Marmaros 2h swords (Tier 3)"
+L3130: push_constant_string "You can now wield "
+L3131: push_constant_string "<col=000080>"
+L3132: push_constant_string "marmaros 2h swords"
+L3133: push_constant_string "</col>"
+L3134: push_constant_string " within Daemonheim."
+L3135: join_string 5
+L3136: return 0
+L3137: branch L4015
+L3138: push_constant_int 20
+L3139: push_constant_int 17079
+L3140: push_constant_string "Marmaros spears (Tier 3)"
+L3141: push_constant_string "You can now wield "
+L3142: push_constant_string "<col=000080>"
+L3143: push_constant_string "marmaros spears"
+L3144: push_constant_string "</col>"
+L3145: push_constant_string " within Daemonheim."
+L3146: join_string 5
+L3147: return 0
+L3148: branch L4015
+L3149: push_constant_int 20
+L3150: push_constant_int 17023
+L3151: push_constant_string "Marmaros warhammer (Tier 3)"
+L3152: push_constant_string "You can now wield "
+L3153: push_constant_string "<col=000080>"
+L3154: push_constant_string "marmaros warhammers"
+L3155: push_constant_string "</col>"
+L3156: push_constant_string " within Daemonheim."
+L3157: join_string 5
+L3158: return 0
+L3159: branch L4015
+L3160: push_constant_int 20
+L3161: push_constant_int 16365
+L3162: push_constant_string "Marmaros hatchet (Tier 3)"
+L3163: push_constant_string "You can now wield "
+L3164: push_constant_string "<col=000080>"
+L3165: push_constant_string "marmaros hatchets"
+L3166: push_constant_string "</col>"
+L3167: push_constant_string " within Daemonheim."
+L3168: join_string 5
+L3169: return 0
+L3170: branch L4015
+L3171: push_constant_int 20
+L3172: push_constant_int 16299
+L3173: push_constant_string "Marmaros pickaxe (Tier 3)"
+L3174: push_constant_string "You can now wield "
+L3175: push_constant_string "<col=000080>"
+L3176: push_constant_string "marmaros pickaxes"
+L3177: push_constant_string "</col>"
+L3178: push_constant_string " within Daemonheim."
+L3179: join_string 5
+L3180: return 0
+L3181: branch L4015
+L3182: push_constant_int 30
+L3183: push_constant_int 16781
+L3184: push_constant_string "Kratonite dagger (Tier 4)"
+L3185: push_constant_string "You can now wield "
+L3186: push_constant_string "<col=000080>"
+L3187: push_constant_string "kratonite daggers"
+L3188: push_constant_string "</col>"
+L3189: push_constant_string " within Daemonheim."
+L3190: join_string 5
+L3191: return 0
+L3192: branch L4015
+L3193: push_constant_int 30
+L3194: push_constant_int 16941
+L3195: push_constant_string "Kratonite rapier (Tier 4)"
+L3196: push_constant_string "You can now wield "
+L3197: push_constant_string "<col=000080>"
+L3198: push_constant_string "kratonite rapiers"
+L3199: push_constant_string "</col>"
+L3200: push_constant_string " within Daemonheim."
+L3201: join_string 5
+L3202: return 0
+L3203: branch L4015
+L3204: push_constant_int 30
+L3205: push_constant_int 16389
+L3206: push_constant_string "Kratonite longsword (Tier 4)"
+L3207: push_constant_string "You can now wield "
+L3208: push_constant_string "<col=000080>"
+L3209: push_constant_string "kratonite longswords"
+L3210: push_constant_string "</col>"
+L3211: push_constant_string " within Daemonheim."
+L3212: join_string 5
+L3213: return 0
+L3214: branch L4015
+L3215: push_constant_int 30
+L3216: push_constant_int 15759
+L3217: push_constant_string "Kratonite battleaxe (Tier 4)"
+L3218: push_constant_string "You can now wield "
+L3219: push_constant_string "<col=000080>"
+L3220: push_constant_string "kratonite battleaxes"
+L3221: push_constant_string "</col>"
+L3222: push_constant_string " within Daemonheim."
+L3223: join_string 5
+L3224: return 0
+L3225: branch L4015
+L3226: push_constant_int 30
+L3227: push_constant_int 16895
+L3228: push_constant_string "Kratonite 2h swords (Tier 4)"
+L3229: push_constant_string "You can now wield "
+L3230: push_constant_string "<col=000080>"
+L3231: push_constant_string "kratonite 2h swords"
+L3232: push_constant_string "</col>"
+L3233: push_constant_string " within Daemonheim."
+L3234: join_string 5
+L3235: return 0
+L3236: branch L4015
+L3237: push_constant_int 30
+L3238: push_constant_int 17087
+L3239: push_constant_string "Kratonite spears (Tier 4)"
+L3240: push_constant_string "You can now wield "
+L3241: push_constant_string "<col=000080>"
+L3242: push_constant_string "kratonite spears"
+L3243: push_constant_string "</col>"
+L3244: push_constant_string " within Daemonheim."
+L3245: join_string 5
+L3246: return 0
+L3247: branch L4015
+L3248: push_constant_int 30
+L3249: push_constant_int 17025
+L3250: push_constant_string "Kratonite warhammer (Tier 4)"
+L3251: push_constant_string "You can now wield "
+L3252: push_constant_string "<col=000080>"
+L3253: push_constant_string "kratonite warhammers"
+L3254: push_constant_string "</col>"
+L3255: push_constant_string " within Daemonheim."
+L3256: join_string 5
+L3257: return 0
+L3258: branch L4015
+L3259: push_constant_int 30
+L3260: push_constant_int 16367
+L3261: push_constant_string "Kratonite hatchet (Tier 4)"
+L3262: push_constant_string "You can now wield "
+L3263: push_constant_string "<col=000080>"
+L3264: push_constant_string "kratonite hatchets"
+L3265: push_constant_string "</col>"
+L3266: push_constant_string " within Daemonheim."
+L3267: join_string 5
+L3268: return 0
+L3269: branch L4015
+L3270: push_constant_int 30
+L3271: push_constant_int 16301
+L3272: push_constant_string "Kratonite pickaxe (Tier 4)"
+L3273: push_constant_string "You can now wield "
+L3274: push_constant_string "<col=000080>"
+L3275: push_constant_string "kratonite pickaxes"
+L3276: push_constant_string "</col>"
+L3277: push_constant_string " within Daemonheim."
+L3278: join_string 5
+L3279: return 0
+L3280: branch L4015
+L3281: push_constant_int 36
+L3282: push_constant_int 17275
+L3283: push_constant_string "Members: Frostbite dagger"
+L3284: push_constant_string "<br>"
+L3285: push_constant_string " (with 36 Magic)"
+L3286: join_string 3
+L3287: push_constant_string "Members can now wield "
+L3288: push_constant_string "<col=000080>"
+L3289: push_constant_string "frostbite daggers"
+L3290: push_constant_string "</col>"
+L3291: push_constant_string " within Daemonheim. (They also need level 36 Magic.)"
+L3292: join_string 5
+L3293: return 0
+L3294: branch L4015
+L3295: push_constant_int 40
+L3296: push_constant_int 16789
+L3297: push_constant_string "Fractite dagger (Tier 5)"
+L3298: push_constant_string "You can now wield "
+L3299: push_constant_string "<col=000080>"
+L3300: push_constant_string "fractite daggers"
+L3301: push_constant_string "</col>"
+L3302: push_constant_string " within Daemonheim."
+L3303: join_string 5
+L3304: return 0
+L3305: branch L4015
+L3306: push_constant_int 40
+L3307: push_constant_int 16943
+L3308: push_constant_string "Fractite rapier (Tier 5)"
+L3309: push_constant_string "You can now wield "
+L3310: push_constant_string "<col=000080>"
+L3311: push_constant_string "fractite rapiers"
+L3312: push_constant_string "</col>"
+L3313: push_constant_string " within Daemonheim."
+L3314: join_string 5
+L3315: return 0
+L3316: branch L4015
+L3317: push_constant_int 40
+L3318: push_constant_int 16391
+L3319: push_constant_string "Fractite longsword (Tier 5)"
+L3320: push_constant_string "You can now wield "
+L3321: push_constant_string "<col=000080>"
+L3322: push_constant_string "fractite longswords"
+L3323: push_constant_string "</col>"
+L3324: push_constant_string " within Daemonheim."
+L3325: join_string 5
+L3326: return 0
+L3327: branch L4015
+L3328: push_constant_int 40
+L3329: push_constant_int 15761
+L3330: push_constant_string "Fractite battleaxe (Tier 5)"
+L3331: push_constant_string "You can now wield "
+L3332: push_constant_string "<col=000080>"
+L3333: push_constant_string "fractite battleaxes"
+L3334: push_constant_string "</col>"
+L3335: push_constant_string " within Daemonheim."
+L3336: join_string 5
+L3337: return 0
+L3338: branch L4015
+L3339: push_constant_int 40
+L3340: push_constant_int 16897
+L3341: push_constant_string "Fractite 2h swords (Tier 5)"
+L3342: push_constant_string "You can now wield "
+L3343: push_constant_string "<col=000080>"
+L3344: push_constant_string "fractite 2h swords"
+L3345: push_constant_string "</col>"
+L3346: push_constant_string " within Daemonheim."
+L3347: join_string 5
+L3348: return 0
+L3349: branch L4015
+L3350: push_constant_int 40
+L3351: push_constant_int 17095
+L3352: push_constant_string "Fractite spears (Tier 5)"
+L3353: push_constant_string "You can now wield "
+L3354: push_constant_string "<col=000080>"
+L3355: push_constant_string "fractite spears"
+L3356: push_constant_string "</col>"
+L3357: push_constant_string " within Daemonheim."
+L3358: join_string 5
+L3359: return 0
+L3360: branch L4015
+L3361: push_constant_int 40
+L3362: push_constant_int 17027
+L3363: push_constant_string "Fractite warhammer (Tier 5)"
+L3364: push_constant_string "You can now wield "
+L3365: push_constant_string "<col=000080>"
+L3366: push_constant_string "fractite warhammers"
+L3367: push_constant_string "</col>"
+L3368: push_constant_string " within Daemonheim."
+L3369: join_string 5
+L3370: return 0
+L3371: branch L4015
+L3372: push_constant_int 40
+L3373: push_constant_int 16369
+L3374: push_constant_string "Fractite hatchet (Tier 5)"
+L3375: push_constant_string "You can now wield "
+L3376: push_constant_string "<col=000080>"
+L3377: push_constant_string "fractite hatchets"
+L3378: push_constant_string "</col>"
+L3379: push_constant_string " within Daemonheim."
+L3380: join_string 5
+L3381: return 0
+L3382: branch L4015
+L3383: push_constant_int 40
+L3384: push_constant_int 16303
+L3385: push_constant_string "Fractite pickaxe (Tier 5)"
+L3386: push_constant_string "You can now wield "
+L3387: push_constant_string "<col=000080>"
+L3388: push_constant_string "fractite pickaxes"
+L3389: push_constant_string "</col>"
+L3390: push_constant_string " within Daemonheim."
+L3391: join_string 5
+L3392: return 0
+L3393: branch L4015
+L3394: push_constant_int 50
+L3395: push_constant_int 16797
+L3396: push_constant_string "Members: Zephyrium dagger (Tier 6)"
+L3397: push_constant_string "Members can now wield "
+L3398: push_constant_string "<col=000080>"
+L3399: push_constant_string "zephyrium daggers"
+L3400: push_constant_string "</col>"
+L3401: push_constant_string " within Daemonheim."
+L3402: join_string 5
+L3403: return 0
+L3404: branch L4015
+L3405: push_constant_int 50
+L3406: push_constant_int 16945
+L3407: push_constant_string "Members: Zephyrium rapier (Tier 6)"
+L3408: push_constant_string "Members can now wield "
+L3409: push_constant_string "<col=000080>"
+L3410: push_constant_string "zephyrium rapiers"
+L3411: push_constant_string "</col>"
+L3412: push_constant_string " within Daemonheim."
+L3413: join_string 5
+L3414: return 0
+L3415: branch L4015
+L3416: push_constant_int 50
+L3417: push_constant_int 16393
+L3418: push_constant_string "Members: Zephyrium longsword (Tier 6)"
+L3419: push_constant_string "Members can now wield "
+L3420: push_constant_string "<col=000080>"
+L3421: push_constant_string "zephyrium longswords"
+L3422: push_constant_string "</col>"
+L3423: push_constant_string " within Daemonheim."
+L3424: join_string 5
+L3425: return 0
+L3426: branch L4015
+L3427: push_constant_int 50
+L3428: push_constant_int 15763
+L3429: push_constant_string "Members: Zephyrium battleaxe (Tier 6)"
+L3430: push_constant_string "Members can now wield "
+L3431: push_constant_string "<col=000080>"
+L3432: push_constant_string "zephyrium battleaxes"
+L3433: push_constant_string "</col>"
+L3434: push_constant_string " within Daemonheim."
+L3435: join_string 5
+L3436: return 0
+L3437: branch L4015
+L3438: push_constant_int 50
+L3439: push_constant_int 16899
+L3440: push_constant_string "Members: Zephyrium 2h swords (Tier 6)"
+L3441: push_constant_string "Members can now wield "
+L3442: push_constant_string "<col=000080>"
+L3443: push_constant_string "zephyrium 2h swords"
+L3444: push_constant_string "</col>"
+L3445: push_constant_string " within Daemonheim."
+L3446: join_string 5
+L3447: return 0
+L3448: branch L4015
+L3449: push_constant_int 50
+L3450: push_constant_int 17103
+L3451: push_constant_string "Members: Zephyrium spears (Tier 6)"
+L3452: push_constant_string "Members can now wield "
+L3453: push_constant_string "<col=000080>"
+L3454: push_constant_string "zephyrium spears"
+L3455: push_constant_string "</col>"
+L3456: push_constant_string " within Daemonheim."
+L3457: join_string 5
+L3458: return 0
+L3459: branch L4015
+L3460: push_constant_int 50
+L3461: push_constant_int 17029
+L3462: push_constant_string "Members: Zephyrium warhammer (Tier 6)"
+L3463: push_constant_string "Members can now wield "
+L3464: push_constant_string "<col=000080>"
+L3465: push_constant_string "zephyrium warhammers"
+L3466: push_constant_string "</col>"
+L3467: push_constant_string " within Daemonheim."
+L3468: join_string 5
+L3469: return 0
+L3470: branch L4015
+L3471: push_constant_int 50
+L3472: push_constant_int 16371
+L3473: push_constant_string "Members: Zephyrium hatchet (Tier 6)"
+L3474: push_constant_string "Members can now wield "
+L3475: push_constant_string "<col=000080>"
+L3476: push_constant_string "zephyrium hatchets"
+L3477: push_constant_string "</col>"
+L3478: push_constant_string " within Daemonheim."
+L3479: join_string 5
+L3480: return 0
+L3481: branch L4015
+L3482: push_constant_int 50
+L3483: push_constant_int 16305
+L3484: push_constant_string "Members: Zephyrium pickaxe (Tier 6)"
+L3485: push_constant_string "Members can now wield "
+L3486: push_constant_string "<col=000080>"
+L3487: push_constant_string "zephyrium pickaxes"
+L3488: push_constant_string "</col>"
+L3489: push_constant_string " within Daemonheim."
+L3490: join_string 5
+L3491: return 0
+L3492: branch L4015
+L3493: push_constant_int 60
+L3494: push_constant_int 16805
+L3495: push_constant_string "Members: Argonite dagger (Tier 7)"
+L3496: push_constant_string "Members can now wield "
+L3497: push_constant_string "<col=000080>"
+L3498: push_constant_string "argonite daggers"
+L3499: push_constant_string "</col>"
+L3500: push_constant_string " within Daemonheim."
+L3501: join_string 5
+L3502: return 0
+L3503: branch L4015
+L3504: push_constant_int 60
+L3505: push_constant_int 16947
+L3506: push_constant_string "Members: Argonite rapier (Tier 7)"
+L3507: push_constant_string "Members can now wield "
+L3508: push_constant_string "<col=000080>"
+L3509: push_constant_string "argonite rapiers"
+L3510: push_constant_string "</col>"
+L3511: push_constant_string " within Daemonheim."
+L3512: join_string 5
+L3513: return 0
+L3514: branch L4015
+L3515: push_constant_int 60
+L3516: push_constant_int 16395
+L3517: push_constant_string "Members: Argonite longsword (Tier 7)"
+L3518: push_constant_string "Members can now wield "
+L3519: push_constant_string "<col=000080>"
+L3520: push_constant_string "argonite longswords"
+L3521: push_constant_string "</col>"
+L3522: push_constant_string " within Daemonheim."
+L3523: join_string 5
+L3524: return 0
+L3525: branch L4015
+L3526: push_constant_int 60
+L3527: push_constant_int 15765
+L3528: push_constant_string "Members: Argonite battleaxe (Tier 7)"
+L3529: push_constant_string "Members can now wield "
+L3530: push_constant_string "<col=000080>"
+L3531: push_constant_string "argonite battleaxes"
+L3532: push_constant_string "</col>"
+L3533: push_constant_string " within Daemonheim."
+L3534: join_string 5
+L3535: return 0
+L3536: branch L4015
+L3537: push_constant_int 60
+L3538: push_constant_int 16901
+L3539: push_constant_string "Members: Argonite 2h swords (Tier 7)"
+L3540: push_constant_string "Members can now wield "
+L3541: push_constant_string "<col=000080>"
+L3542: push_constant_string "argonite 2h swords"
+L3543: push_constant_string "</col>"
+L3544: push_constant_string " within Daemonheim."
+L3545: join_string 5
+L3546: return 0
+L3547: branch L4015
+L3548: push_constant_int 60
+L3549: push_constant_int 17111
+L3550: push_constant_string "Members: Argonite spears (Tier 7)"
+L3551: push_constant_string "Members can now wield "
+L3552: push_constant_string "<col=000080>"
+L3553: push_constant_string "argonite spears"
+L3554: push_constant_string "</col>"
+L3555: push_constant_string " within Daemonheim."
+L3556: join_string 5
+L3557: return 0
+L3558: branch L4015
+L3559: push_constant_int 60
+L3560: push_constant_int 17031
+L3561: push_constant_string "Members: Argonite warhammer (Tier 7)"
+L3562: push_constant_string "Members can now wield "
+L3563: push_constant_string "<col=000080>"
+L3564: push_constant_string "argonite warhammers"
+L3565: push_constant_string "</col>"
+L3566: push_constant_string " within Daemonheim."
+L3567: join_string 5
+L3568: return 0
+L3569: branch L4015
+L3570: push_constant_int 60
+L3571: push_constant_int 16373
+L3572: push_constant_string "Members: Argonite hatchet (Tier 7)"
+L3573: push_constant_string "Members can now wield "
+L3574: push_constant_string "<col=000080>"
+L3575: push_constant_string "argonite hatchets"
+L3576: push_constant_string "</col>"
+L3577: push_constant_string " within Daemonheim."
+L3578: join_string 5
+L3579: return 0
+L3580: branch L4015
+L3581: push_constant_int 60
+L3582: push_constant_int 16307
+L3583: push_constant_string "Members: Argonite pickaxe (Tier 7)"
+L3584: push_constant_string "Members can now wield "
+L3585: push_constant_string "<col=000080>"
+L3586: push_constant_string "argonite pickaxes"
+L3587: push_constant_string "</col>"
+L3588: push_constant_string " within Daemonheim."
+L3589: join_string 5
+L3590: return 0
+L3591: branch L4015
+L3592: push_constant_int 68
+L3593: push_constant_int 17275
+L3594: push_constant_string "Members: Hailstorm dagger"
+L3595: push_constant_string "<br>"
+L3596: push_constant_string " (with 68 Magic)"
+L3597: join_string 3
+L3598: push_constant_string "Members can now wield "
+L3599: push_constant_string "<col=000080>"
+L3600: push_constant_string "hailstorm daggers"
+L3601: push_constant_string "</col>"
+L3602: push_constant_string " within Daemonheim. (They also need level 68 Magic)"
+L3603: join_string 5
+L3604: return 0
+L3605: branch L4015
+L3606: push_constant_int 68
+L3607: push_constant_int 17293
+L3608: push_constant_string "Members: Doomcore staff"
+L3609: push_constant_string "<br>"
+L3610: push_constant_string " (with 68 Magic)"
+L3611: join_string 3
+L3612: push_constant_string "Members can now wield "
+L3613: push_constant_string "<col=000080>"
+L3614: push_constant_string "doomcore staves"
+L3615: push_constant_string "</col>"
+L3616: push_constant_string " within Daemonheim. (They also need level 68 Magic.)"
+L3617: join_string 5
+L3618: return 0
+L3619: branch L4015
+L3620: push_constant_int 70
+L3621: push_constant_int 16813
+L3622: push_constant_string "Members: Katagon dagger (Tier 8)"
+L3623: push_constant_string "Members can now wield "
+L3624: push_constant_string "<col=000080>"
+L3625: push_constant_string "katagon daggers"
+L3626: push_constant_string "</col>"
+L3627: push_constant_string " within Daemonheim."
+L3628: join_string 5
+L3629: return 0
+L3630: branch L4015
+L3631: push_constant_int 70
+L3632: push_constant_int 16949
+L3633: push_constant_string "Members: Katagon rapier (Tier 8)"
+L3634: push_constant_string "Members can now wield "
+L3635: push_constant_string "<col=000080>"
+L3636: push_constant_string "katagon rapiers"
+L3637: push_constant_string "</col>"
+L3638: push_constant_string " within Daemonheim."
+L3639: join_string 5
+L3640: return 0
+L3641: branch L4015
+L3642: push_constant_int 70
+L3643: push_constant_int 16397
+L3644: push_constant_string "Members: Katagon longsword (Tier 8)"
+L3645: push_constant_string "Members can now wield "
+L3646: push_constant_string "<col=000080>"
+L3647: push_constant_string "katagon longswords"
+L3648: push_constant_string "</col>"
+L3649: push_constant_string " within Daemonheim."
+L3650: join_string 5
+L3651: return 0
+L3652: branch L4015
+L3653: push_constant_int 70
+L3654: push_constant_int 15767
+L3655: push_constant_string "Members: Katagon battleaxe (Tier 8)"
+L3656: push_constant_string "Members can now wield "
+L3657: push_constant_string "<col=000080>"
+L3658: push_constant_string "katagon battleaxes"
+L3659: push_constant_string "</col>"
+L3660: push_constant_string " within Daemonheim."
+L3661: join_string 5
+L3662: return 0
+L3663: branch L4015
+L3664: push_constant_int 70
+L3665: push_constant_int 16903
+L3666: push_constant_string "Members: Katagon 2h swords (Tier 8)"
+L3667: push_constant_string "Members can now wield "
+L3668: push_constant_string "<col=000080>"
+L3669: push_constant_string "katagon 2h swords"
+L3670: push_constant_string "</col>"
+L3671: push_constant_string " within Daemonheim."
+L3672: join_string 5
+L3673: return 0
+L3674: branch L4015
+L3675: push_constant_int 70
+L3676: push_constant_int 17119
+L3677: push_constant_string "Members: Katagon spears (Tier 8)"
+L3678: push_constant_string "Members can now wield "
+L3679: push_constant_string "<col=000080>"
+L3680: push_constant_string "katagon spears"
+L3681: push_constant_string "</col>"
+L3682: push_constant_string " within Daemonheim."
+L3683: join_string 5
+L3684: return 0
+L3685: branch L4015
+L3686: push_constant_int 70
+L3687: push_constant_int 17033
+L3688: push_constant_string "Members: Katagon warhammer (Tier 8)"
+L3689: push_constant_string "Members can now wield "
+L3690: push_constant_string "<col=000080>"
+L3691: push_constant_string "katagon warhammers"
+L3692: push_constant_string "</col>"
+L3693: push_constant_string " within Daemonheim."
+L3694: join_string 5
+L3695: return 0
+L3696: branch L4015
+L3697: push_constant_int 70
+L3698: push_constant_int 16375
+L3699: push_constant_string "Members: Katagon hatchet (Tier 8)"
+L3700: push_constant_string "Members can now wield "
+L3701: push_constant_string "<col=000080>"
+L3702: push_constant_string "katagon hatchets"
+L3703: push_constant_string "</col>"
+L3704: push_constant_string " within Daemonheim."
+L3705: join_string 5
+L3706: return 0
+L3707: branch L4015
+L3708: push_constant_int 70
+L3709: push_constant_int 16309
+L3710: push_constant_string "Members: Katagon pickaxe (Tier 8)"
+L3711: push_constant_string "Members can now wield "
+L3712: push_constant_string "<col=000080>"
+L3713: push_constant_string "katagon pickaxes"
+L3714: push_constant_string "</col>"
+L3715: push_constant_string " within Daemonheim."
+L3716: join_string 5
+L3717: return 0
+L3718: branch L4015
+L3719: push_constant_int 80
+L3720: push_constant_int 16821
+L3721: push_constant_string "Members: Gorgonite dagger (Tier 9)"
+L3722: push_constant_string "Members can now wield "
+L3723: push_constant_string "<col=000080>"
+L3724: push_constant_string "gorgonite daggers"
+L3725: push_constant_string "</col>"
+L3726: push_constant_string " within Daemonheim."
+L3727: join_string 5
+L3728: return 0
+L3729: branch L4015
+L3730: push_constant_int 80
+L3731: push_constant_int 16951
+L3732: push_constant_string "Members: Gorgonite rapier (Tier 9)"
+L3733: push_constant_string "Members can now wield "
+L3734: push_constant_string "<col=000080>"
+L3735: push_constant_string "gorgonite rapiers"
+L3736: push_constant_string "</col>"
+L3737: push_constant_string " within Daemonheim."
+L3738: join_string 5
+L3739: return 0
+L3740: branch L4015
+L3741: push_constant_int 80
+L3742: push_constant_int 16399
+L3743: push_constant_string "Members: Gorgonite longsword (Tier 9)"
+L3744: push_constant_string "Members can now wield "
+L3745: push_constant_string "<col=000080>"
+L3746: push_constant_string "gorgonite longswords"
+L3747: push_constant_string "</col>"
+L3748: push_constant_string " within Daemonheim."
+L3749: join_string 5
+L3750: return 0
+L3751: branch L4015
+L3752: push_constant_int 80
+L3753: push_constant_int 15769
+L3754: push_constant_string "Members: Gorgonite battleaxe (Tier 9)"
+L3755: push_constant_string "Members can now wield "
+L3756: push_constant_string "<col=000080>"
+L3757: push_constant_string "gorgonite battleaxes"
+L3758: push_constant_string "</col>"
+L3759: push_constant_string " within Daemonheim."
+L3760: join_string 5
+L3761: return 0
+L3762: branch L4015
+L3763: push_constant_int 80
+L3764: push_constant_int 16905
+L3765: push_constant_string "Members: Gorgonite 2h swords (Tier 9)"
+L3766: push_constant_string "Members can now wield "
+L3767: push_constant_string "<col=000080>"
+L3768: push_constant_string "gorgonite 2h swords"
+L3769: push_constant_string "</col>"
+L3770: push_constant_string " within Daemonheim."
+L3771: join_string 5
+L3772: return 0
+L3773: branch L4015
+L3774: push_constant_int 80
+L3775: push_constant_int 17127
+L3776: push_constant_string "Members: Gorgonite spears (Tier 9)"
+L3777: push_constant_string "Members can now wield "
+L3778: push_constant_string "<col=000080>"
+L3779: push_constant_string "gorgonite spears"
+L3780: push_constant_string "</col>"
+L3781: push_constant_string " within Daemonheim."
+L3782: join_string 5
+L3783: return 0
+L3784: branch L4015
+L3785: push_constant_int 80
+L3786: push_constant_int 17035
+L3787: push_constant_string "Members: Gorgonite warhammer (Tier 9)"
+L3788: push_constant_string "Members can now wield "
+L3789: push_constant_string "<col=000080>"
+L3790: push_constant_string "gorgonite warhammers"
+L3791: push_constant_string "</col>"
+L3792: push_constant_string " within Daemonheim."
+L3793: join_string 5
+L3794: return 0
+L3795: branch L4015
+L3796: push_constant_int 80
+L3797: push_constant_int 16377
+L3798: push_constant_string "Members: Gorgonite hatchet (Tier 9)"
+L3799: push_constant_string "Members can now wield "
+L3800: push_constant_string "<col=000080>"
+L3801: push_constant_string "gorgonite hatchets"
+L3802: push_constant_string "</col>"
+L3803: push_constant_string " within Daemonheim."
+L3804: join_string 5
+L3805: return 0
+L3806: branch L4015
+L3807: push_constant_int 80
+L3808: push_constant_int 16311
+L3809: push_constant_string "Members: Gorgonite pickaxe (Tier 9)"
+L3810: push_constant_string "Members can now wield "
+L3811: push_constant_string "<col=000080>"
+L3812: push_constant_string "gorgonite pickaxes"
+L3813: push_constant_string "</col>"
+L3814: push_constant_string " within Daemonheim."
+L3815: join_string 5
+L3816: return 0
+L3817: branch L4015
+L3818: push_constant_int 90
+L3819: push_constant_int 16829
+L3820: push_constant_string "Members: Promethium dagger (Tier 10)"
+L3821: push_constant_string "Members can now wield "
+L3822: push_constant_string "<col=000080>"
+L3823: push_constant_string "promethium daggers"
+L3824: push_constant_string "</col>"
+L3825: push_constant_string " within Daemonheim."
+L3826: join_string 5
+L3827: return 0
+L3828: branch L4015
+L3829: push_constant_int 90
+L3830: push_constant_int 16953
+L3831: push_constant_string "Members: Promethium rapier (Tier 10)"
+L3832: push_constant_string "Members can now wield "
+L3833: push_constant_string "<col=000080>"
+L3834: push_constant_string "promethium rapiers"
+L3835: push_constant_string "</col>"
+L3836: push_constant_string " within Daemonheim."
+L3837: join_string 5
+L3838: return 0
+L3839: branch L4015
+L3840: push_constant_int 90
+L3841: push_constant_int 16401
+L3842: push_constant_string "Members: Promethium longsword (Tier 10)"
+L3843: push_constant_string "Members can now wield "
+L3844: push_constant_string "<col=000080>"
+L3845: push_constant_string "promethium longswords"
+L3846: push_constant_string "</col>"
+L3847: push_constant_string " within Daemonheim."
+L3848: join_string 5
+L3849: return 0
+L3850: branch L4015
+L3851: push_constant_int 90
+L3852: push_constant_int 15771
+L3853: push_constant_string "Members: Promethium battleaxe (Tier 10)"
+L3854: push_constant_string "Members can now wield "
+L3855: push_constant_string "<col=000080>"
+L3856: push_constant_string "promethium battleaxes"
+L3857: push_constant_string "</col>"
+L3858: push_constant_string " within Daemonheim."
+L3859: join_string 5
+L3860: return 0
+L3861: branch L4015
+L3862: push_constant_int 90
+L3863: push_constant_int 16907
+L3864: push_constant_string "Members: Promethium 2h swords (Tier 10)"
+L3865: push_constant_string "Members can now wield "
+L3866: push_constant_string "<col=000080>"
+L3867: push_constant_string "promethium 2h swords"
+L3868: push_constant_string "</col>"
+L3869: push_constant_string " within Daemonheim."
+L3870: join_string 5
+L3871: return 0
+L3872: branch L4015
+L3873: push_constant_int 90
+L3874: push_constant_int 17135
+L3875: push_constant_string "Members: Promethium spears (Tier 10)"
+L3876: push_constant_string "Members can now wield "
+L3877: push_constant_string "<col=000080>"
+L3878: push_constant_string "promethium spears"
+L3879: push_constant_string "</col>"
+L3880: push_constant_string " within Daemonheim."
+L3881: join_string 5
+L3882: return 0
+L3883: branch L4015
+L3884: push_constant_int 90
+L3885: push_constant_int 17037
+L3886: push_constant_string "Members: Promethium warhammer (Tier 10)"
+L3887: push_constant_string "Members can now wield "
+L3888: push_constant_string "<col=000080>"
+L3889: push_constant_string "promethium warhammers"
+L3890: push_constant_string "</col>"
+L3891: push_constant_string " within Daemonheim."
+L3892: join_string 5
+L3893: return 0
+L3894: branch L4015
+L3895: push_constant_int 90
+L3896: push_constant_int 16379
+L3897: push_constant_string "Members: Promethium hatchet (Tier 10)"
+L3898: push_constant_string "Members can now wield "
+L3899: push_constant_string "<col=000080>"
+L3900: push_constant_string "promethium hatchets"
+L3901: push_constant_string "</col>"
+L3902: push_constant_string " within Daemonheim."
+L3903: join_string 5
+L3904: return 0
+L3905: branch L4015
+L3906: push_constant_int 90
+L3907: push_constant_int 16313
+L3908: push_constant_string "Members: Promethium pickaxe (Tier 10)"
+L3909: push_constant_string "Members can now wield "
+L3910: push_constant_string "<col=000080>"
+L3911: push_constant_string "promethium pickaxes"
+L3912: push_constant_string "</col>"
+L3913: push_constant_string " within Daemonheim."
+L3914: join_string 5
+L3915: return 0
+L3916: branch L4015
+L3917: push_constant_int 99
+L3918: push_constant_int 16837
+L3919: push_constant_string "Members: Primal dagger (Tier 11)"
+L3920: push_constant_string "Members can now wield "
+L3921: push_constant_string "<col=000080>"
+L3922: push_constant_string "primal daggers"
+L3923: push_constant_string "</col>"
+L3924: push_constant_string " within Daemonheim."
+L3925: join_string 5
+L3926: return 0
+L3927: branch L4015
+L3928: push_constant_int 99
+L3929: push_constant_int 16955
+L3930: push_constant_string "Members: Primal rapier (Tier 11)"
+L3931: push_constant_string "Members can now wield "
+L3932: push_constant_string "<col=000080>"
+L3933: push_constant_string "primal rapiers"
+L3934: push_constant_string "</col>"
+L3935: push_constant_string " within Daemonheim."
+L3936: join_string 5
+L3937: return 0
+L3938: branch L4015
+L3939: push_constant_int 99
+L3940: push_constant_int 16403
+L3941: push_constant_string "Members: Primal longsword (Tier 11)"
+L3942: push_constant_string "Members can now wield "
+L3943: push_constant_string "<col=000080>"
+L3944: push_constant_string "primal longswords"
+L3945: push_constant_string "</col>"
+L3946: push_constant_string " within Daemonheim."
+L3947: join_string 5
+L3948: return 0
+L3949: branch L4015
+L3950: push_constant_int 99
+L3951: push_constant_int 15773
+L3952: push_constant_string "Members: Primal battleaxe (Tier 11)"
+L3953: push_constant_string "Members can now wield "
+L3954: push_constant_string "<col=000080>"
+L3955: push_constant_string "primal battleaxes"
+L3956: push_constant_string "</col>"
+L3957: push_constant_string " within Daemonheim."
+L3958: join_string 5
+L3959: return 0
+L3960: branch L4015
+L3961: push_constant_int 99
+L3962: push_constant_int 16909
+L3963: push_constant_string "Members: Primal 2h swords (Tier 11)"
+L3964: push_constant_string "Members can now wield "
+L3965: push_constant_string "<col=000080>"
+L3966: push_constant_string "primal 2h swords"
+L3967: push_constant_string "</col>"
+L3968: push_constant_string " within Daemonheim."
+L3969: join_string 5
+L3970: return 0
+L3971: branch L4015
+L3972: push_constant_int 99
+L3973: push_constant_int 17143
+L3974: push_constant_string "Members: Primal spears (Tier 11)"
+L3975: push_constant_string "Members can now wield "
+L3976: push_constant_string "<col=000080>"
+L3977: push_constant_string "primal spears"
+L3978: push_constant_string "</col>"
+L3979: push_constant_string " within Daemonheim."
+L3980: join_string 5
+L3981: return 0
+L3982: branch L4015
+L3983: push_constant_int 99
+L3984: push_constant_int 17039
+L3985: push_constant_string "Members: Primal warhammer (Tier 11)"
+L3986: push_constant_string "Members can now wield "
+L3987: push_constant_string "<col=000080>"
+L3988: push_constant_string "primal warhammers"
+L3989: push_constant_string "</col>"
+L3990: push_constant_string " within Daemonheim."
+L3991: join_string 5
+L3992: return 0
+L3993: branch L4015
+L3994: push_constant_int 99
+L3995: push_constant_int 16381
+L3996: push_constant_string "Members: Primal hatchet (Tier 11)"
+L3997: push_constant_string "Members can now wield "
+L3998: push_constant_string "<col=000080>"
+L3999: push_constant_string "primal hatchets"
+L4000: push_constant_string "</col>"
+L4001: push_constant_string " within Daemonheim."
+L4002: join_string 5
+L4003: return 0
+L4004: branch L4015
+L4005: push_constant_int 99
+L4006: push_constant_int 16315
+L4007: push_constant_string "Members: Primal pickaxe (Tier 11)"
+L4008: push_constant_string "Members can now wield "
+L4009: push_constant_string "<col=000080>"
+L4010: push_constant_string "primal pickaxes"
+L4011: push_constant_string "</col>"
+L4012: push_constant_string " within Daemonheim."
+L4013: join_string 5
+L4014: return 0
+L4015: branch L4048
+L4016: push_int_local 1
+L4017: switch switch15
+L4018: branch L4048
+L4019: push_constant_int -1
+L4020: push_constant_int 8855
+L4021: push_constant_string "You can enter the Warriors' Guild when your Attack and Strength levels add up to 130 or more, or when you reach level 99 in either Attack or Strength."
+L4022: push_constant_string ""
+L4023: return 0
+L4024: branch L4048
+L4025: push_constant_int 99
+L4026: push_constant_int 9747
+L4027: push_constant_string "Skill mastery"
+L4028: push_constant_string "<col=000080>"
+L4029: push_constant_string "Congratulations! You are now a master of "
+L4030: push_constant_string "<col=800000>"
+L4031: push_constant_string "Attack"
+L4032: push_constant_string "<col=000080>"
+L4033: push_constant_string ". Members can visit "
+L4034: push_constant_string "<col=800000>"
+L4035: push_constant_string "Ajjat"
+L4036: push_constant_string "<col=000080>"
+L4037: push_constant_string " at the "
+L4038: push_constant_string "<col=800000>"
+L4039: push_constant_string "Warriors' Guild"
+L4040: push_constant_string "<col=000080>"
+L4041: push_constant_string ". He has something special that is only available to true masters of the "
+L4042: push_constant_string "<col=800000>"
+L4043: push_constant_string "Attack"
+L4044: push_constant_string "<col=000080>"
+L4045: push_constant_string " skill!"
+L4046: join_string 18
+L4047: return 0
+L4048: push_constant_int 0
+L4049: push_constant_int -1
+L4050: push_constant_string ""
+L4051: push_constant_string ""
+L4052: return 0
+L4053:
+
+[switch0@L1]
+0=L3
+1=L149
+2=L306
+3=L466
+4=L615
+5=L734
+6=L868
+7=L1028
+8=L1188
+9=L1410
+10=L1477
+11=L2655
+12=L2714
+13=L2882
+14=L4016
+
+[switch1@L4]
+0=L6
+1=L17
+2=L28
+3=L39
+4=L50
+5=L61
+6=L72
+7=L83
+8=L94
+9=L105
+10=L116
+11=L127
+12=L138
+
+[switch2@L150]
+0=L152
+1=L163
+2=L174
+3=L185
+4=L196
+5=L207
+6=L218
+7=L229
+8=L240
+9=L251
+10=L262
+11=L273
+12=L284
+13=L295
+
+[switch3@L307]
+0=L309
+1=L320
+2=L331
+3=L342
+4=L353
+5=L364
+6=L375
+7=L386
+8=L397
+9=L408
+10=L419
+11=L430
+12=L441
+13=L452
+
+[switch4@L467]
+0=L469
+1=L480
+2=L491
+3=L502
+4=L513
+5=L524
+6=L535
+7=L546
+8=L557
+9=L568
+10=L579
+11=L590
+12=L601
+
+[switch5@L616]
+0=L618
+1=L624
+2=L635
+3=L646
+4=L657
+5=L668
+6=L679
+7=L690
+8=L701
+9=L712
+10=L723
+
+[switch6@L735]
+0=L737
+1=L746
+2=L755
+3=L764
+4=L773
+5=L782
+6=L791
+7=L800
+8=L811
+9=L820
+10=L829
+11=L838
+12=L847
+13=L856
+
+[switch7@L869]
+0=L871
+1=L882
+2=L893
+3=L904
+4=L915
+5=L926
+6=L937
+7=L948
+8=L959
+9=L970
+10=L981
+11=L992
+12=L1003
+13=L1014
+
+[switch8@L1029]
+0=L1031
+1=L1042
+2=L1053
+3=L1064
+4=L1075
+5=L1086
+6=L1097
+7=L1108
+8=L1119
+9=L1130
+10=L1141
+11=L1152
+12=L1163
+13=L1174
+
+[switch9@L1189]
+0=L1191
+1=L1205
+2=L1216
+3=L1230
+4=L1241
+5=L1255
+6=L1269
+7=L1280
+8=L1294
+9=L1305
+10=L1319
+11=L1330
+12=L1344
+13=L1355
+14=L1366
+15=L1377
+16=L1388
+17=L1399
+
+[switch10@L1411]
+0=L1413
+1=L1427
+2=L1441
+3=L1452
+4=L1466
+
+[switch11@L1478]
+0=L1480
+1=L1494
+2=L1508
+3=L1522
+4=L1536
+5=L1547
+6=L1561
+7=L1572
+8=L1583
+9=L1594
+10=L1605
+11=L1619
+12=L1633
+13=L1647
+14=L1661
+15=L1675
+16=L1689
+17=L1700
+18=L1711
+19=L1725
+20=L1739
+21=L1750
+22=L1761
+23=L1772
+24=L1783
+25=L1797
+26=L1811
+27=L1825
+28=L1839
+29=L1853
+30=L1867
+31=L1881
+32=L1892
+33=L1903
+34=L1917
+35=L1931
+36=L1945
+37=L1959
+38=L1973
+39=L1987
+40=L2001
+41=L2015
+42=L2029
+43=L2040
+44=L2051
+45=L2062
+46=L2076
+47=L2090
+48=L2104
+49=L2118
+50=L2132
+51=L2143
+52=L2154
+53=L2165
+54=L2176
+55=L2187
+56=L2198
+57=L2209
+58=L2220
+59=L2230
+60=L2244
+61=L2258
+62=L2272
+63=L2286
+64=L2300
+65=L2314
+66=L2328
+67=L2342
+68=L2356
+69=L2370
+70=L2384
+71=L2395
+72=L2406
+73=L2417
+74=L2431
+75=L2442
+76=L2456
+77=L2467
+78=L2478
+79=L2489
+80=L2500
+81=L2511
+82=L2522
+83=L2533
+84=L2544
+85=L2555
+86=L2566
+87=L2577
+88=L2588
+89=L2599
+90=L2613
+91=L2627
+92=L2641
+
+[switch12@L2656]
+0=L2658
+1=L2672
+2=L2686
+3=L2700
+
+[switch13@L2715]
+0=L2717
+1=L2728
+2=L2739
+3=L2750
+4=L2761
+5=L2772
+6=L2783
+7=L2794
+8=L2805
+9=L2816
+10=L2827
+11=L2838
+12=L2849
+13=L2860
+14=L2871
+
+[switch14@L2883]
+0=L2885
+1=L2896
+2=L2907
+3=L2918
+4=L2929
+5=L2940
+6=L2951
+7=L2962
+8=L2973
+9=L2984
+10=L2995
+11=L3006
+12=L3017
+13=L3028
+14=L3039
+15=L3050
+16=L3061
+17=L3072
+18=L3083
+19=L3094
+20=L3105
+21=L3116
+22=L3127
+23=L3138
+24=L3149
+25=L3160
+26=L3171
+27=L3182
+28=L3193
+29=L3204
+30=L3215
+31=L3226
+32=L3237
+33=L3248
+34=L3259
+35=L3270
+36=L3281
+37=L3295
+38=L3306
+39=L3317
+40=L3328
+41=L3339
+42=L3350
+43=L3361
+44=L3372
+45=L3383
+46=L3394
+47=L3405
+48=L3416
+49=L3427
+50=L3438
+51=L3449
+52=L3460
+53=L3471
+54=L3482
+55=L3493
+56=L3504
+57=L3515
+58=L3526
+59=L3537
+60=L3548
+61=L3559
+62=L3570
+63=L3581
+64=L3592
+65=L3606
+66=L3620
+67=L3631
+68=L3642
+69=L3653
+70=L3664
+71=L3675
+72=L3686
+73=L3697
+74=L3708
+75=L3719
+76=L3730
+77=L3741
+78=L3752
+79=L3763
+80=L3774
+81=L3785
+82=L3796
+83=L3807
+84=L3818
+85=L3829
+86=L3840
+87=L3851
+88=L3862
+89=L3873
+90=L3884
+91=L3895
+92=L3906
+93=L3917
+94=L3928
+95=L3939
+96=L3950
+97=L3961
+98=L3972
+99=L3983
+100=L3994
+101=L4005
+
+[switch15@L4017]
+0=L4019
+1=L4025

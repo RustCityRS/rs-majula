@@ -1,7 +1,0 @@
-[clientscript,script_1687]
-if (%varc_int1044 < sub(cam_getpathcount(0), 1)) {
-    %varc_int1044 = add(%varc_int1044, 1);
-    cam_startpath(0, %varc_int1044, 200, 200, 1, %varc_int1044);
-    if_setonvarcstringtransmit;
-}
-return;

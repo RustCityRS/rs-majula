@@ -1,0 +1,189 @@
+name=""
+local_int_count=7
+local_string_count=2
+local_long_count=0
+int_param_count=6
+string_param_count=0
+long_param_count=0
+
+L0: push_constant_int -1
+L1: pop_int_local 6
+L2: push_constant_string ""
+L3: pop_string_local 0
+L4: push_constant_string ""
+L5: pop_string_local 1
+L6: push_int_local 0
+L7: switch switch0
+L8: branch L107
+L9: push_constant_string "Help - selecting an offence"
+L10: pop_string_local 0
+L11: push_constant_string "Here you can select the offence that you believe the player has committed."
+L12: push_constant_string "<br>"
+L13: push_constant_string "<br>"
+L14: push_constant_string "Clicking one of the offence buttons will send recent chat to Player Support for investigation. You should act quickly to report the player, particularly in areas where there is a lot of chat, such as at the Grand Exchange."
+L15: push_constant_string "<br>"
+L16: push_constant_string "<br>"
+L17: push_constant_string "If you have selected the wrong player, you can use the 'Change player' button to return to the previous page and choose again."
+L18: push_constant_string "<br>"
+L19: push_constant_string "<br>"
+L20: push_constant_string "Once your report has been sent, you'll be asked if you want to temporarily add the offender to your Ignore List."
+L21: join_string 10
+L22: pop_string_local 1
+L23: branch L107
+L24: push_constant_string "Help - selecting an offence"
+L25: pop_string_local 0
+L26: push_constant_string "Here you can select the offence that you believe the player has committed."
+L27: push_constant_string "<br>"
+L28: push_constant_string "<br>"
+L29: push_constant_string "Clicking one of the offence buttons will send recent chat to Player Support for investigation. You should act quickly to report the player, particularly in areas where there is a lot of chat, such as at the Grand Exchange."
+L30: push_constant_string "<br>"
+L31: push_constant_string "<br>"
+L32: push_constant_string "If you have selected the wrong player, you can use the 'Change player' button to return to the chat list and choose again."
+L33: push_constant_string "<br>"
+L34: push_constant_string "<br>"
+L35: push_constant_string "You can only report players who have spoken recently."
+L36: push_constant_string "<br>"
+L37: push_constant_string "<br>"
+L38: push_constant_string "Once your report has been sent, you'll be asked if you want to temporarily add the offender to your Ignore List."
+L39: join_string 13
+L40: pop_string_local 1
+L41: branch L107
+L42: push_constant_string "Help - honour"
+L43: pop_string_local 0
+L44: push_constant_string "An item scam is defined as cheating another player during a trade. We don't consider it a scam to ask for large amounts of gp for an item, but it is not in the spirit of the game to overprice an item. It is your responsibility to make sure that you are paying a good price."
+L45: push_constant_string "<br>"
+L46: push_constant_string "<br>"
+L47: push_constant_string "Asking for someone's bank PIN or recovery answers is just as serious as asking for a password; giving out your bank PIN allows other players access to your bank space. Never tell another player your password, PIN number or any other account security details."
+L48: push_constant_string "<br>"
+L49: push_constant_string "<br>"
+L50: push_constant_string "If you notice a bug, please report it to us straight away. If, after noticing a bug, you continue to exploit it, you are likely to have action taken against your account."
+L51: push_constant_string "<br>"
+L52: push_constant_string "<br>"
+L53: push_constant_string "There are no cheats for any of our games. Anyone that approaches you in-game to offer you cheats should be reported under 'Encouraging rule-breaking'."
+L54: push_constant_string "<br>"
+L55: push_constant_string "<br>"
+L56: push_constant_string "Don't encourage rule-breaking, such as encouraging someone to try real-world trading, scamming or exploiting bugs."
+L57: push_constant_string "<br>"
+L58: push_constant_string "<br>"
+L59: push_constant_string "You should not swap your account with another player, or share your account with anyone else. Sharing your account makes it less secure, and is also unfair to other players."
+L60: join_string 16
+L61: pop_string_local 1
+L62: branch L107
+L63: push_constant_string "Help - respect"
+L64: pop_string_local 0
+L65: push_constant_string "There's no need to report anyone for using the term 'noob', it simply means 'new player'."
+L66: push_constant_string "<br>"
+L67: push_constant_string "<br>"
+L68: push_constant_string "Seriously offensive language includes racism and chat of a sexual nature."
+L69: push_constant_string "<br>"
+L70: push_constant_string "<br>"
+L71: push_constant_string "You don't need to report players for using abbreviations such as 'lmao', 'wtf', 'gtfo'."
+L72: push_constant_string "<br>"
+L73: push_constant_string "<br>"
+L74: push_constant_string "You shouldn't report any chat that has been starred out (like this: ****), as the censor has prevented anything that may have been offensive from being seen."
+L75: push_constant_string "<br>"
+L76: push_constant_string "<br>"
+L77: push_constant_string "Solicitation includes asking for a boyfriend or girlfriend in-game."
+L78: push_constant_string "<br>"
+L79: push_constant_string "<br>"
+L80: push_constant_string "Disruptive behaviour includes flooding the chat window with lines of unnecessary chat, but only if you feel it's impairing your gameplay."
+L81: push_constant_string "<br>"
+L82: push_constant_string "<br>"
+L83: push_constant_string "Beware of context when reporting players for real-life threats: they could be talking about in-game combat!"
+L84: join_string 19
+L85: pop_string_local 1
+L86: branch L107
+L87: push_constant_string "Help - security"
+L88: pop_string_local 0
+L89: push_constant_string "Giving out your contact information in-game can put the security of your account at risk. There are some unscrupulous people out there, so, to protect your account and your privacy, it makes sense not to give your details to anyone you don't know."
+L90: push_constant_string "<br>"
+L91: push_constant_string "<br>"
+L92: push_constant_string "Contact information includes: full name, email addresses, instant messenger screen names, telephone numbers, your home/work address or age."
+L93: push_constant_string "<br>"
+L94: push_constant_string "<br>"
+L95: push_constant_string "Promoting a non-Jagex website in the forums or in-game could get you banned, even if you post the URL for your clan's site. We understand this rule may cause some inconvenience, but we want it to be impossible for people to send players to scam sites."
+L96: join_string 7
+L97: pop_string_local 1
+L98: branch L107
+L99: push_constant_string "Help - ignoring a player temporarily"
+L100: pop_string_local 0
+L101: push_constant_string "Now that your report has been sent, you can choose whether or not to ignore the offender. This is a temporary measure, and will only last until you log out. To permanently ignore a player, make a note of their name and add them to your Ignore List once the 'Report Abuse' windows are closed."
+L102: push_constant_string "<br>"
+L103: push_constant_string "<br>"
+L104: push_constant_string "You cannot ignore moderators or people on your Friends List."
+L105: join_string 4
+L106: pop_string_local 1
+L107: push_string_local 0
+L108: push_int_local 1
+L109: if_settext 0
+L110: push_string_local 1
+L111: push_int_local 2
+L112: if_settext 0
+L113: push_int_local 3
+L114: if_getwidth 0
+L115: push_string_local 1
+L116: push_int_local 2
+L117: if_getwidth 0
+L118: push_constant_int 3793
+L119: paraheight 0
+L120: push_constant_int 12
+L121: multiply 0
+L122: push_constant_int 48
+L123: add 0
+L124: push_constant_int 0
+L125: push_constant_int 0
+L126: push_int_local 3
+L127: if_setsize 0
+L128: push_int_local 5
+L129: switch switch1
+L130: branch L142
+L131: push_constant_int 59375669
+L132: pop_int_local 6
+L133: branch L142
+L134: push_constant_int 59375685
+L135: pop_int_local 6
+L136: branch L142
+L137: push_constant_int 59375659
+L138: pop_int_local 6
+L139: branch L142
+L140: push_constant_int 59375677
+L141: pop_int_local 6
+L142: push_int_local 6
+L143: push_constant_int -1
+L144: branch_not L146
+L145: branch L162
+L146: push_int_local 6
+L147: if_getwidth 0
+L148: push_int_local 3
+L149: if_getheight 0
+L150: push_constant_int 0
+L151: push_constant_int 0
+L152: push_int_local 6
+L153: if_setsize 0
+L154: push_int_local 5
+L155: if_getwidth 0
+L156: push_int_local 3
+L157: if_getheight 0
+L158: push_constant_int 0
+L159: push_constant_int 0
+L160: push_int_local 5
+L161: if_setsize 0
+L162: push_constant_int 0
+L163: push_int_local 4
+L164: if_sethide 0
+L165: return 0
+L166:
+
+[switch0@L7]
+1=L9
+2=L24
+3=L42
+4=L63
+5=L87
+6=L99
+
+[switch1@L129]
+59834368=L131
+59899904=L134
+64159744=L137
+59965458=L140

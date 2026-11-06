@@ -1,9 +1,0 @@
-[clientscript,script_957](int $int0, int $int1, int $int2)
-if (%varbit4618 = 0) {
-    ~script_959($int0, $int1, 0);
-    if_setgraphic($int2);
-} else {
-    ~script_959($int0, $int1, 1);
-    if_setgraphic($int2);
-}
-return;

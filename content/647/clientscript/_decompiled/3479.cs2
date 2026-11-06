@@ -1,6 +1,0 @@
-[clientscript,script_3479](int $int0, int $int1, int $int2, int $int3)(int, int, int, int, int, int, int, int, int, string)
-if_sethide($int1);
-if_sethide($int2);
-sound_synth(synth_2871, 1, 0);
-if_setontimer;
-return(1, 1, 3480, $int0, $int1, $int2, $int3, clientclock, $int0, "III1i");

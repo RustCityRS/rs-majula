@@ -1,0 +1,33 @@
+name=""
+local_int_count=1
+local_string_count=0
+local_long_count=0
+int_param_count=1
+string_param_count=0
+long_param_count=0
+
+L0: push_int_local 0
+L1: switch switch0
+L2: push_constant_int 3141
+L3: return 0
+L4: branch L16
+L5: push_constant_int 3144
+L6: return 0
+L7: branch L16
+L8: push_constant_int 3147
+L9: return 0
+L10: branch L16
+L11: push_constant_int 3150
+L12: return 0
+L13: branch L16
+L14: push_constant_int 3153
+L15: return 0
+L16: push_constant_int -1
+L17: return 0
+L18:
+
+[switch0@L1]
+2=L5
+3=L8
+4=L11
+5=L14

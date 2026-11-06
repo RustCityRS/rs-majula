@@ -1,0 +1,105 @@
+name=""
+local_int_count=1
+local_string_count=0
+local_long_count=0
+int_param_count=1
+string_param_count=0
+long_param_count=0
+
+L0: push_int_local 0
+L1: switch switch0
+L2: branch L87
+L3: push_varbit varbit_6852
+L4: push_constant_int 0
+L5: branch_greater_than L7
+L6: branch L10
+L7: push_constant_int 4
+L8: return 0
+L9: branch L19
+L10: push_varbit varbit_6847
+L11: push_constant_int 0
+L12: branch_greater_than L14
+L13: branch L17
+L14: push_constant_int 1
+L15: return 0
+L16: branch L19
+L17: push_constant_int 0
+L18: return 0
+L19: branch L87
+L20: push_varbit varbit_6853
+L21: push_constant_int 0
+L22: branch_greater_than L24
+L23: branch L27
+L24: push_constant_int 4
+L25: return 0
+L26: branch L36
+L27: push_varbit varbit_6848
+L28: push_constant_int 0
+L29: branch_greater_than L31
+L30: branch L34
+L31: push_constant_int 1
+L32: return 0
+L33: branch L36
+L34: push_constant_int 0
+L35: return 0
+L36: branch L87
+L37: push_varbit varbit_6854
+L38: push_constant_int 0
+L39: branch_greater_than L41
+L40: branch L44
+L41: push_constant_int 4
+L42: return 0
+L43: branch L53
+L44: push_varbit varbit_6849
+L45: push_constant_int 0
+L46: branch_greater_than L48
+L47: branch L51
+L48: push_constant_int 1
+L49: return 0
+L50: branch L53
+L51: push_constant_int 0
+L52: return 0
+L53: branch L87
+L54: push_varbit varbit_6855
+L55: push_constant_int 0
+L56: branch_greater_than L58
+L57: branch L61
+L58: push_constant_int 4
+L59: return 0
+L60: branch L70
+L61: push_varbit varbit_6850
+L62: push_constant_int 0
+L63: branch_greater_than L65
+L64: branch L68
+L65: push_constant_int 1
+L66: return 0
+L67: branch L70
+L68: push_constant_int 0
+L69: return 0
+L70: branch L87
+L71: push_varbit varbit_6856
+L72: push_constant_int 0
+L73: branch_greater_than L75
+L74: branch L78
+L75: push_constant_int 4
+L76: return 0
+L77: branch L87
+L78: push_varbit varbit_6851
+L79: push_constant_int 0
+L80: branch_greater_than L82
+L81: branch L85
+L82: push_constant_int 1
+L83: return 0
+L84: branch L87
+L85: push_constant_int 0
+L86: return 0
+L87: push_constant_int 0
+L88: return 0
+L89:
+
+[switch0@L1]
+0=L3
+2=L20
+1=L37
+4=L54
+6=L71

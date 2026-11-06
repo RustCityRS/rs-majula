@@ -1,0 +1,37 @@
+name=""
+local_int_count=2
+local_string_count=0
+local_long_count=0
+int_param_count=2
+string_param_count=0
+long_param_count=0
+
+L0: push_int_local 0
+L1: push_constant_int 1
+L2: branch_not L4
+L3: branch L5
+L4: return 0
+L5: push_varbit varbit_8877
+L6: push_int_local 1
+L7: add 0
+L8: push_constant_int 28
+L9: min 0
+L10: push_constant_int 1
+L11: max 0
+L12: pop_varbit varbit_8877
+L13: push_varbit varbit_8877
+L14: tostring 0
+L15: push_constant_int 70254625
+L16: if_settext 0
+L17: push_constant_int 4187
+L18: clientclock 0
+L19: push_constant_int 15
+L20: add 0
+L21: push_constant_string "i"
+L22: push_constant_int 70254675
+L23: if_setontimer 0
+L24: push_constant_int 0
+L25: push_constant_int 70254675
+L26: if_sethide 0
+L27: return 0
+L28:

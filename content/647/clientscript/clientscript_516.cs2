@@ -1,0 +1,43 @@
+name=""
+local_int_count=0
+local_string_count=0
+local_long_count=0
+int_param_count=0
+string_param_count=0
+long_param_count=0
+
+L0: push_varc_int varc_int_52
+L1: push_constant_int 300
+L2: branch_less_than L4
+L3: branch L8
+L4: push_varc_int varc_int_52
+L5: push_constant_int 1
+L6: add 0
+L7: pop_varc_int varc_int_52
+L8: push_varc_int varc_int_51
+L9: push_constant_int 0
+L10: branch_greater_than L12
+L11: branch L33
+L12: push_varc_int varc_int_52
+L13: push_constant_int 3
+L14: mod 0
+L15: branch_if_false L17
+L16: branch L33
+L17: push_varc_int varc_int_51
+L18: push_constant_int 3
+L19: sub 0
+L20: pop_varc_int varc_int_51
+L21: push_varc_int varc_int_50
+L22: push_constant_int 1
+L23: add 0
+L24: pop_varc_int varc_int_50
+L25: push_constant_int 0
+L26: push_varc_int varc_int_50
+L27: push_constant_int 0
+L28: push_constant_int 0
+L29: push_constant_int 0
+L30: push_varc_int varc_int_51
+L31: push_constant_int 40304640
+L32: if_setmodelangle 0
+L33: return 0
+L34:

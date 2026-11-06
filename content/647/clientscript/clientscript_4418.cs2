@@ -1,0 +1,31 @@
+name=""
+local_int_count=0
+local_string_count=1
+local_long_count=0
+int_param_count=0
+string_param_count=0
+long_param_count=0
+
+L0: push_constant_int 72548450
+L1: if_gettext 0
+L2: removetags 0
+L3: pop_string_local 0
+L4: push_string_local 0
+L5: friend_test 0
+L6: branch_if_false L8
+L7: branch L16
+L8: push_constant_string "Attempting to add "
+L9: push_string_local 0
+L10: push_constant_string " to your Friends List."
+L11: join_string 3
+L12: mes 0
+L13: push_string_local 0
+L14: friend_add 0
+L15: branch L21
+L16: push_constant_string "You've already added "
+L17: push_string_local 0
+L18: push_constant_string " to your friends list."
+L19: join_string 3
+L20: mes 0
+L21: return 0
+L22:

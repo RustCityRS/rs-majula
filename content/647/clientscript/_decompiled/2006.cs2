@@ -1,8 +1,0 @@
-[clientscript,script_2006](int $int0)(int, int, component, component, string)
-if ($int0 > 0) {
-    if_setgraphic(48758891);
-} else {
-    if_setgraphic(48758891);
-}
-if_setontimer;
-return(3961, 0, 48758791, 48758791, "iI");

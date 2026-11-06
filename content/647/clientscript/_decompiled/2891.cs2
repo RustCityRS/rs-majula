@@ -1,6 +1,0 @@
-[clientscript,script_2891](int $int0, int $int1)
-if (clientclock >= $int0) {
-    if_sethide(31195153);
-    if_setontimer;
-}
-return;

@@ -1,0 +1,28 @@
+name=""
+local_int_count=0
+local_string_count=0
+local_long_count=0
+int_param_count=0
+string_param_count=0
+long_param_count=0
+
+L0: push_constant_int 49938449
+L1: if_clearops 0
+L2: push_constant_int -1
+L3: push_constant_string ""
+L4: push_constant_int 49938449
+L5: if_setonop 0
+L6: push_constant_int 0
+L7: pop_varc_int varc_int_190
+L8: push_varc_int varc_int_188
+L9: branch_if_false L11
+L10: branch L15
+L11: push_constant_int 0
+L12: pop_varbit open_bank_tab
+L13: gosub_with_params [proc,bank_v2_searchmode_on]
+L14: branch L18
+L15: push_constant_int 1
+L16: pop_varbit open_bank_tab
+L17: gosub_with_params [proc,bank_v2_searchmode_off]
+L18: return 0
+L19:

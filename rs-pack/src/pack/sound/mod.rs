@@ -5,7 +5,11 @@ use crate::archive::{self, ArchiveVersions};
 #[cfg(since_647)]
 use crate::cache::js5::PackedCache;
 #[cfg(since_647)]
-use crate::pack::js5::{PreparedGroup, insert_archive, insert_empty_archive, load_group_files};
+use crate::pack::js5::{PreparedGroup, insert_archive, insert_empty_archive};
+#[cfg(since_647)]
+use crate::pack::names::AssetNames;
+#[cfg(since_647)]
+use crate::pack::other::asset;
 #[cfg(before_647)]
 use crate::pack::pack_registry::PackRegistry;
 #[cfg(before_647)]
@@ -80,13 +84,13 @@ pub fn pack_sounds(registry: &PackRegistry, content_dir: &Path, pack_dir: &Path)
 pub fn pack_archive(
     store: &mut PackedCache,
     content_dir: &Path,
+    pack_dir: &Path,
     versions: &HashMap<u8, ArchiveVersions>,
 ) -> Result<()> {
     let aid = archive::SYNTH;
     let format = archive::archive_format(aid).unwrap();
-    let unpack_dir = content_dir.join(format.content_dir).join("_unpack");
-
-    let group_files = load_group_files(&unpack_dir, "");
+    let names = AssetNames::load(pack_dir)?;
+    let group_files = names.files(&content_dir.join(format.content_dir), "synth", &["synth"])?;
 
     if group_files.is_empty() {
         insert_empty_archive(store, aid, format, versions)?;
@@ -96,10 +100,19 @@ pub fn pack_archive(
 
     let prepared: Vec<PreparedGroup> = group_files
         .par_iter()
-        .map(|(gid, path)| PreparedGroup::new(aid, *gid, &fs::read(path)?, versions))
+        .map(|(gid, path)| {
+            let data = asset::pack_group(aid, *gid, &fs::read_to_string(path)?, &names)?;
+            PreparedGroup::new(aid, *gid, &data, versions)
+        })
         .collect::<Result<Vec<_>>>()?;
 
     insert_archive(store, aid, format, versions, prepared, "from synths")?;
 
     Ok(())
 }
+#[cfg(since_647)]
+pub mod instrument;
+#[cfg(since_647)]
+pub mod vorbis;
+#[cfg(since_647)]
+pub mod vorbis_setup;

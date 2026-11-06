@@ -1,0 +1,32 @@
+name=""
+local_int_count=0
+local_string_count=0
+local_long_count=0
+int_param_count=0
+string_param_count=0
+long_param_count=0
+
+L0: push_varbit varbit_4393
+L1: branch_if_true L5
+L2: push_varbit varbit_542
+L3: branch_if_true L5
+L4: branch L6
+L5: return 0
+L6: push_varbit varbit_7078
+L7: branch_if_false L9
+L8: branch L16
+L9: push_constant_int 12255242
+L10: push_constant_int 12255248
+L11: push_constant_string "Playlist on"
+L12: push_constant_int 25
+L13: push_constant_int 189
+L14: gosub_with_params [proc,addtooltip_action]
+L15: branch L22
+L16: push_constant_int 12255242
+L17: push_constant_int 12255248
+L18: push_constant_string "Playlist off"
+L19: push_constant_int 25
+L20: push_constant_int 189
+L21: gosub_with_params [proc,addtooltip_action]
+L22: return 0
+L23:

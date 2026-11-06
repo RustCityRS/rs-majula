@@ -7,14 +7,14 @@ verified by CRC against original archives.
 ## Revision 647 startup
 
 The complete unpacked source cache is versioned under `content/647`, alongside the authored
-configs, scripts and donor assets. Starting the server needs no reference cache or download.
+configs and scripts. Restored assets are included in the source tree. Starting the server needs no reference cache or download.
 `unpack` remains a manual import tool for a separately supplied cache.
 
 Startup reads config files once for validation and packing. Independent asset archives,
-including the binary archives, start alongside config packing and RuneScript compilation.
+start alongside config packing and RuneScript compilation.
 Animations, interfaces, sprites, songs and textures are encoded and compressed one group
 at a time. Config grouping borrows records directly from the packed buffers. Map sources
-are indexed with one directory scan, preserving donor precedence.
+are indexed with one directory scan.
 
 Config buffers go directly to JS5 grouping and runtime providers, without intermediate
 JAGs, dat2 files, server files or timestamp files. Map loading and MIDI-length calculation
@@ -37,7 +37,7 @@ build 647. `--verify false` allows intentional source edits while still checking
 Loading-screen JPEGs are copied byte-for-byte from source. Their untagged four-channel
 color data can display incorrectly in generic image previews. The vanilla client probes
 JVM JPEG support and requests archive 34 when decoding fails. Its original fallback sprites
-are included as PNG sources under `loading_sprites_raw`, with exact group and reference
+are included as indexed TGA sources under `loading_sprites_raw`, with exact group and reference
 CRCs from cache 274. Archive 35 is unused in that reference cache.
 
 Check the source pack and run the offline group-level regression:
@@ -60,6 +60,80 @@ system allocator; the server uses mimalloc, so their timings are not directly co
 The manual import, discovery, clientscript decompiler and legacy JAG builders do not run
 on the 647 startup path. Compression keeps the original Gzip/Bzip2 selection rules and
 the strict archive/group checks.
+
+## 647 source formats
+
+Non-config assets live directly under their domain folder. Only imported configs use
+`scripts/_unpack`. The packer reads these sources into memory; it does not rebuild a disk
+cache or create intermediate asset files during startup. There are no raw `.bin` copies,
+PNG previews or `manifest.json` files in `content/647`.
+
+| Folder | Editable source |
+|---|---|
+| `animations`, `skeletons` | `.anim` frames and `.base` bone transforms, masks and labels |
+| `models` | `.model` vertex coordinates, triangle indices, colours, named materials, texture mappings and particle attachments |
+| `interfaces` | `.if` component properties, named asset references and clientscript hooks |
+| `maps` | `.jm2` terrain, named loc placements and server spawns, using the existing map text layout |
+| `sprites`, `loading_sprites`, `loading_sprites_raw` | Indexed `.tga` sheets with `.sprite` frame metadata; `.alpha.tga` masks where needed; original JPEGs |
+| `textures`, `materials` | `.texture` procedural operations, gradients, curves and shapes; `.material` rendering properties grouped by texture |
+| `clientscript` | `.cs2` assembly with instruction names, asset references and branch/switch labels |
+| `synth`, `music_samples` | `.synth` envelopes, oscillators and filters; `.instrument` key maps and sample references |
+| `songs`, `jingles` | Standard `.mid` files |
+| `vorbis` | Standard `.ogg` packets, `.sample` playback and loop metadata, and the shared `.vorbis` setup as text |
+| `fontmetrics`, `binary` | `.fontmetrics` glyph widths/bearings and `.huffman` code lengths |
+| `billboards`, `particles`, `defaults` | `.billboard`, `.particle` and `.defaults` named properties/opcodes |
+| `quickchat`, `quickchat_global` | `.quickchat` categories, phrases, responses and named enum references |
+| `loading_backgrounds` | `.screen` sequences and layout elements with named fonts and sprites |
+| `worldmap_data` | `.fm` area metadata and static elements; `.fms` map squares with coordinates and named floors/locs |
+| `shaders` | Direct3D `.shader` assembly and constant tables; original OpenGL `.arb`/`.glsl` source |
+| `dlls` | Original native libraries under their platform and library names |
+
+Names come from `pack/*.pack`. Assets without recovered names use stable names such as
+`model_123`, rather than guessed names. References resolve through those same registries;
+local geometry indices and numeric values remain numeric. `null` represents an absent
+reference. The text files in `versions` and the `.hashes`/`.fileids` registries retain
+original JS5 versions, file ordering and hashes required for byte-identical reference tables.
+Unpacking exports this metadata and copies the keys used to decode maps into the output tree.
+
+World-map areas list `square=main/file_1/m50_50.fms` paths relative to their `.fm` file.
+Each square file contains the original 64-by-64 square or its 8-by-8 chunks. Keep the
+listed order: a square revisited later uses a numbered part such as `m50_50_2.fms`.
+The area palette stays in `.fm`, and packing combines the squares into the original
+cache entry. Inline square data is also accepted.
+
+For example, a model vertex is `vertex0=-40,-10,-16`, a triangle is
+`face0.vertices=0,1,2`, and a material is `face0.material=texture_12`. Texture mappings
+have their own properties such as `mapping0.type=cylindrical`. Coordinate deltas, stream
+lengths and triangle compression are derived during packing. Rare explicit `.encoding`
+properties preserve original compression choices; geometry edits still regenerate valid data.
+
+Sprite sheets preserve palette indices, including distinct entries with identical colours.
+Keep the indexed palette when editing a TGA. `.sprite` records the original canvas and each
+frame's `x,y,width,height,rows|columns,opaque|alpha`. An alpha mask uses its pixel indices as
+opacity values. Do not flatten the mask into the colour palette. A dot in an asset name is
+part of the name: `painting.02.sprite` pairs with `painting.02.tga`.
+
+CS2 branch operands target labels. Switch tables use an anchor, for example
+`[switch0@L12]` with `5=L30`; offsets and instruction counts are rebuilt. A table shared by
+multiple switch instructions retains relative offsets. The assembly is the repackable
+source; decompiled previews are not needed.
+
+Vorbis packets are wrapped in Ogg without audio re-encoding. Edit playback rate, sample
+count and loop points in `.sample`. The client shares one codebook/setup across every
+sample, so replacing an Ogg requires the same setup and block sizes. Packing rejects
+incompatible Oggs and invalid page CRCs. Changing the shared setup requires updating the
+audio consistently. Instrument references explicitly distinguish `vorbis:name,loop` from
+`synth:name,once`.
+
+Native libraries remain compiled binaries. The 34 landscape groups with no available XTEA
+keys remain encrypted `.js5` containers under `maps/encrypted`, named by map square; their
+contents cannot be decoded into editable terrain/locs without the keys. JPEGs, TGAs, MIDI
+and Ogg are standard media sources. No redundant binary copy accompanies a text source.
+
+Unpacking checks reversible formats against their original bytes before writing them.
+For deliberate client-content edits, launch with `--verify false`; the original-content
+CRC gate is expected to reject changed assets. Unknown names and unrecognized properties in
+the new typed formats fail packing instead of silently falling back to raw data.
 
 ## Table of Contents
 

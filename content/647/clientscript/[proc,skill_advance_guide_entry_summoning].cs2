@@ -1,0 +1,4482 @@
+name=""
+local_int_count=2
+local_string_count=0
+local_long_count=0
+int_param_count=2
+string_param_count=0
+long_param_count=0
+
+L0: push_int_local 0
+L1: switch switch0
+L2: branch L4118
+L3: push_int_local 1
+L4: switch switch1
+L5: branch L1113
+L6: push_constant_int 1
+L7: push_constant_int 12047
+L8: push_constant_string "Spirit wolf - Attack XP"
+L9: push_constant_string "<br>"
+L10: push_constant_string "Gold charm, wolf bones, 7 shards"
+L11: join_string 3
+L12: push_constant_string "You can now infuse "
+L13: push_constant_string "<col=000080>"
+L14: push_constant_string "spirit wolf pouches"
+L15: push_constant_string "</col>"
+L16: push_constant_string "."
+L17: join_string 5
+L18: return 0
+L19: branch L1113
+L20: push_constant_int 4
+L21: push_constant_int 12043
+L22: push_constant_string "Dreadfowl - Magic XP"
+L23: push_constant_string "<br>"
+L24: push_constant_string "Gold charm, raw chicken, 8 shards"
+L25: join_string 3
+L26: push_constant_string "You can now infuse "
+L27: push_constant_string "<col=000080>"
+L28: push_constant_string "dreadfowl pouches"
+L29: push_constant_string "</col>"
+L30: push_constant_string "."
+L31: join_string 5
+L32: return 0
+L33: branch L1113
+L34: push_constant_int 4
+L35: push_constant_int 19622
+L36: push_constant_string "Meerkats"
+L37: push_constant_string "<br>"
+L38: push_constant_string "Obtained from Treasure Trails."
+L39: join_string 3
+L40: push_constant_string "You can now summon "
+L41: push_constant_string "<col=000080>"
+L42: push_constant_string "meerkats"
+L43: push_constant_string "</col>"
+L44: push_constant_string "."
+L45: join_string 5
+L46: return 0
+L47: branch L1113
+L48: push_constant_int 10
+L49: push_constant_int 12059
+L50: push_constant_string "Spirit spider - Controlled XP"
+L51: push_constant_string "<br>"
+L52: push_constant_string "Gold charm, spider carcass, 8 shards"
+L53: join_string 3
+L54: push_constant_string "You can now infuse "
+L55: push_constant_string "<col=000080>"
+L56: push_constant_string "spirit spider pouches"
+L57: push_constant_string "</col>"
+L58: push_constant_string "."
+L59: join_string 5
+L60: return 0
+L61: branch L1113
+L62: push_constant_int 13
+L63: push_constant_int 12019
+L64: push_constant_string "Thorny snail - Ranged XP"
+L65: push_constant_string "<br>"
+L66: push_constant_string "Gold charm, raw thin snail, 9 shards"
+L67: join_string 3
+L68: push_constant_string "You can now infuse "
+L69: push_constant_string "<col=000080>"
+L70: push_constant_string "thorny snail pouches"
+L71: push_constant_string "</col>"
+L72: push_constant_string "."
+L73: join_string 5
+L74: return 0
+L75: branch L1113
+L76: push_constant_int 16
+L77: push_constant_int 12009
+L78: push_constant_string "Granite crab - Defence XP"
+L79: push_constant_string "<br>"
+L80: push_constant_string "Gold charm, iron ore, 7 shards"
+L81: join_string 3
+L82: push_constant_string "You can now infuse "
+L83: push_constant_string "<col=000080>"
+L84: push_constant_string "granite crab pouches"
+L85: push_constant_string "</col>"
+L86: push_constant_string "."
+L87: join_string 5
+L88: return 0
+L89: branch L1113
+L90: push_constant_int 17
+L91: push_constant_int 12778
+L92: push_constant_string "Spirit mosquito - Attack XP"
+L93: push_constant_string "<br>"
+L94: push_constant_string "Gold charm, proboscis, 1 shard"
+L95: join_string 3
+L96: push_constant_string "You can now infuse "
+L97: push_constant_string "<col=000080>"
+L98: push_constant_string "spirit mosquito pouches"
+L99: push_constant_string "</col>"
+L100: push_constant_string "."
+L101: join_string 5
+L102: return 0
+L103: branch L1113
+L104: push_constant_int 18
+L105: push_constant_int 12049
+L106: push_constant_string "Desert wyrm - Strength XP"
+L107: push_constant_string "<br>"
+L108: push_constant_string "Green charm, bucket of sand, 45 shards"
+L109: join_string 3
+L110: push_constant_string "You can now infuse "
+L111: push_constant_string "<col=000080>"
+L112: push_constant_string "desert wyrm pouches"
+L113: push_constant_string "</col>"
+L114: push_constant_string "."
+L115: join_string 5
+L116: return 0
+L117: branch L1113
+L118: push_constant_int 19
+L119: push_constant_int 12055
+L120: push_constant_string "Spirit scorpion - Controlled XP"
+L121: push_constant_string "<br>"
+L122: push_constant_string "Crimson charm, bronze claws, 57 shards"
+L123: join_string 3
+L124: push_constant_string "You can now infuse "
+L125: push_constant_string "<col=000080>"
+L126: push_constant_string "spirit scorpion pouches"
+L127: push_constant_string "</col>"
+L128: push_constant_string "."
+L129: join_string 5
+L130: return 0
+L131: branch L1113
+L132: push_constant_int 22
+L133: push_constant_int 12808
+L134: push_constant_string "Spirit Tz-Kih - Magic XP"
+L135: push_constant_string "<br>"
+L136: push_constant_string "Crimson charm, obsidian charm, 64 shards"
+L137: join_string 3
+L138: push_constant_string "You can now infuse "
+L139: push_constant_string "<col=000080>"
+L140: push_constant_string "spirit Tz-Kih pouches"
+L141: push_constant_string "</col>"
+L142: push_constant_string "."
+L143: join_string 5
+L144: return 0
+L145: branch L1113
+L146: push_constant_int 23
+L147: push_constant_int 12067
+L148: push_constant_string "Albino rat - Attack XP"
+L149: push_constant_string "<br>"
+L150: push_constant_string "Blue charm, raw rat meat, 75 shards"
+L151: join_string 3
+L152: push_constant_string "You can now infuse "
+L153: push_constant_string "<col=000080>"
+L154: push_constant_string "albino rat pouches"
+L155: push_constant_string "</col>"
+L156: push_constant_string "."
+L157: join_string 5
+L158: return 0
+L159: branch L1113
+L160: push_constant_int 25
+L161: push_constant_int 12063
+L162: push_constant_string "Spirit kalphite - Defence XP"
+L163: push_constant_string "<br>"
+L164: push_constant_string "Blue charm, potato cactus, 51 shards"
+L165: join_string 3
+L166: push_constant_string "You can now infuse "
+L167: push_constant_string "<col=000080>"
+L168: push_constant_string "spirit kalphite pouches"
+L169: push_constant_string "</col>"
+L170: push_constant_string "."
+L171: join_string 5
+L172: return 0
+L173: branch L1113
+L174: push_constant_int 28
+L175: push_constant_int 12091
+L176: push_constant_string "Compost mound - Strength XP"
+L177: push_constant_string "<br>"
+L178: push_constant_string "Green charm, compost, 47 shards"
+L179: join_string 3
+L180: push_constant_string "You can now infuse "
+L181: push_constant_string "<col=000080>"
+L182: push_constant_string "compost mound pouches"
+L183: push_constant_string "</col>"
+L184: push_constant_string "."
+L185: join_string 5
+L186: return 0
+L187: branch L1113
+L188: push_constant_int 29
+L189: push_constant_int 12800
+L190: push_constant_string "Giant chinchompa - Ranged XP"
+L191: push_constant_string "<br>"
+L192: push_constant_string "Blue charm, chinchompa, 84 shards"
+L193: join_string 3
+L194: push_constant_string "You can now infuse "
+L195: push_constant_string "<col=000080>"
+L196: push_constant_string "giant chinchompa pouches"
+L197: push_constant_string "</col>"
+L198: push_constant_string "."
+L199: join_string 5
+L200: return 0
+L201: branch L1113
+L202: push_constant_int 31
+L203: push_constant_int 12053
+L204: push_constant_string "Vampire bat - Controlled XP"
+L205: push_constant_string "<br>"
+L206: push_constant_string "Crimson charm, vampire dust, 81 shards"
+L207: join_string 3
+L208: push_constant_string "You can now infuse "
+L209: push_constant_string "<col=000080>"
+L210: push_constant_string "vampire bat pouches"
+L211: push_constant_string "</col>"
+L212: push_constant_string "."
+L213: join_string 5
+L214: return 0
+L215: branch L1113
+L216: push_constant_int 32
+L217: push_constant_int 12065
+L218: push_constant_string "Honey badger - Strength XP"
+L219: push_constant_string "<br>"
+L220: push_constant_string "Crimson charm, honeycomb, 84 shards"
+L221: join_string 3
+L222: push_constant_string "You can now infuse "
+L223: push_constant_string "<col=000080>"
+L224: push_constant_string "honey badger pouches"
+L225: push_constant_string "</col>"
+L226: push_constant_string "."
+L227: join_string 5
+L228: return 0
+L229: branch L1113
+L230: push_constant_int 33
+L231: push_constant_int 12021
+L232: push_constant_string "Beaver"
+L233: push_constant_string "<br>"
+L234: push_constant_string "Green charm, willow logs, 72 shards"
+L235: join_string 3
+L236: push_constant_string "You can now infuse "
+L237: push_constant_string "<col=000080>"
+L238: push_constant_string "beaver pouches"
+L239: push_constant_string "</col>"
+L240: push_constant_string "."
+L241: join_string 5
+L242: return 0
+L243: branch L1113
+L244: push_constant_int 34
+L245: push_constant_int 12818
+L246: push_constant_string "Void ravager - Strength XP"
+L247: push_constant_string "<br>"
+L248: push_constant_string "Green charm, ravager charm, 74 shards"
+L249: join_string 3
+L250: push_constant_string "You can now infuse "
+L251: push_constant_string "<col=000080>"
+L252: push_constant_string "void ravager pouches"
+L253: push_constant_string "</col>"
+L254: push_constant_string "."
+L255: join_string 5
+L256: return 0
+L257: branch L1113
+L258: push_constant_int 34
+L259: push_constant_int 12780
+L260: push_constant_string "Void spinner - Defence XP"
+L261: push_constant_string "<br>"
+L262: push_constant_string "Blue charm, spinner charm, 74 shards"
+L263: join_string 3
+L264: push_constant_string "You can now infuse "
+L265: push_constant_string "<col=000080>"
+L266: push_constant_string "void spinner pouches"
+L267: push_constant_string "</col>"
+L268: push_constant_string "."
+L269: join_string 5
+L270: return 0
+L271: branch L1113
+L272: push_constant_int 34
+L273: push_constant_int 12798
+L274: push_constant_string "Void torcher - Magic XP"
+L275: push_constant_string "<br>"
+L276: push_constant_string "Blue charm, torcher charm, 74 shards"
+L277: join_string 3
+L278: push_constant_string "You can now infuse "
+L279: push_constant_string "<col=000080>"
+L280: push_constant_string "void torcher pouches"
+L281: push_constant_string "</col>"
+L282: push_constant_string "."
+L283: join_string 5
+L284: return 0
+L285: branch L1113
+L286: push_constant_int 34
+L287: push_constant_int 12814
+L288: push_constant_string "Void shifter - Attack XP"
+L289: push_constant_string "<br>"
+L290: push_constant_string "Blue charm, shifter charm, 74 shards"
+L291: join_string 3
+L292: push_constant_string "You can now infuse "
+L293: push_constant_string "<col=000080>"
+L294: push_constant_string "void shifter pouches"
+L295: push_constant_string "</col>"
+L296: push_constant_string "."
+L297: join_string 5
+L298: return 0
+L299: branch L1113
+L300: push_constant_int 36
+L301: push_constant_int 12073
+L302: push_constant_string "Bronze minotaur - Defence XP"
+L303: push_constant_string "<br>"
+L304: push_constant_string "Blue charm, bronze bar, 102 shards"
+L305: join_string 3
+L306: push_constant_string "You can now infuse "
+L307: push_constant_string "<col=000080>"
+L308: push_constant_string "bronze minotaur pouches"
+L309: push_constant_string "</col>"
+L310: push_constant_string "."
+L311: join_string 5
+L312: return 0
+L313: branch L1113
+L314: push_constant_int 40
+L315: push_constant_int 12087
+L316: push_constant_string "Bull ant - Controlled XP"
+L317: push_constant_string "<br>"
+L318: push_constant_string "Gold charm, marigolds, 11 shards"
+L319: join_string 3
+L320: push_constant_string "You can now infuse "
+L321: push_constant_string "<col=000080>"
+L322: push_constant_string "bull ant pouches"
+L323: push_constant_string "</col>"
+L324: push_constant_string "."
+L325: join_string 5
+L326: return 0
+L327: branch L1113
+L328: push_constant_int 41
+L329: push_constant_int 12071
+L330: push_constant_string "Macaw"
+L331: push_constant_string "<br>"
+L332: push_constant_string "Green charm, guam, 78 shards"
+L333: join_string 3
+L334: push_constant_string "You can now infuse "
+L335: push_constant_string "<col=000080>"
+L336: push_constant_string "macaw pouches"
+L337: push_constant_string "</col>"
+L338: push_constant_string "."
+L339: join_string 5
+L340: return 0
+L341: branch L1113
+L342: push_constant_int 42
+L343: push_constant_int 12051
+L344: push_constant_string "Evil turnip - Ranged XP"
+L345: push_constant_string "<br>"
+L346: push_constant_string "Crimson charm, carved turnip, 104 shards"
+L347: join_string 3
+L348: push_constant_string "You can now infuse "
+L349: push_constant_string "<col=000080>"
+L350: push_constant_string "evil turnip pouches"
+L351: push_constant_string "</col>"
+L352: push_constant_string "."
+L353: join_string 5
+L354: return 0
+L355: branch L1113
+L356: push_constant_int 43
+L357: push_constant_int 12095
+L358: push_constant_string "Spirit cockatrice - Magic XP"
+L359: push_constant_string "<br>"
+L360: push_constant_string "Green charm, cockatrice egg, 88 shards"
+L361: join_string 3
+L362: push_constant_string "You can now infuse "
+L363: push_constant_string "<col=000080>"
+L364: push_constant_string "spirit cockatrice pouches"
+L365: push_constant_string "</col>"
+L366: push_constant_string "."
+L367: join_string 5
+L368: return 0
+L369: branch L1113
+L370: push_constant_int 43
+L371: push_constant_int 12097
+L372: push_constant_string "Spirit guthatrice - Magic XP"
+L373: push_constant_string "<br>"
+L374: push_constant_string "Green charm, guthatrice egg, 88 shards"
+L375: join_string 3
+L376: push_constant_string "You can now infuse "
+L377: push_constant_string "<col=000080>"
+L378: push_constant_string "spirit guthatrice pouches"
+L379: push_constant_string "</col>"
+L380: push_constant_string "."
+L381: join_string 5
+L382: return 0
+L383: branch L1113
+L384: push_constant_int 43
+L385: push_constant_int 12099
+L386: push_constant_string "Spirit saratrice - Magic XP"
+L387: push_constant_string "<br>"
+L388: push_constant_string "Green charm, saratrice egg, 88 shards"
+L389: join_string 3
+L390: push_constant_string "You can now infuse "
+L391: push_constant_string "<col=000080>"
+L392: push_constant_string "spirit saratrice pouches"
+L393: push_constant_string "</col>"
+L394: push_constant_string "."
+L395: join_string 5
+L396: return 0
+L397: branch L1113
+L398: push_constant_int 43
+L399: push_constant_int 12101
+L400: push_constant_string "Spirit zamatrice - Magic XP"
+L401: push_constant_string "<br>"
+L402: push_constant_string "Green charm, zamatrice egg, 88 shards"
+L403: join_string 3
+L404: push_constant_string "You can now infuse "
+L405: push_constant_string "<col=000080>"
+L406: push_constant_string "spirit zamatrice pouches"
+L407: push_constant_string "</col>"
+L408: push_constant_string "."
+L409: join_string 5
+L410: return 0
+L411: branch L1113
+L412: push_constant_int 43
+L413: push_constant_int 12103
+L414: push_constant_string "Spirit pengatrice - Magic XP"
+L415: push_constant_string "<br>"
+L416: push_constant_string "Green charm, pengatrice egg, 88 shards"
+L417: join_string 3
+L418: push_constant_string "You can now infuse "
+L419: push_constant_string "<col=000080>"
+L420: push_constant_string "spirit pengatrice pouches"
+L421: push_constant_string "</col>"
+L422: push_constant_string "."
+L423: join_string 5
+L424: return 0
+L425: branch L1113
+L426: push_constant_int 43
+L427: push_constant_int 12105
+L428: push_constant_string "Spirit coraxatrice - Magic XP"
+L429: push_constant_string "<br>"
+L430: push_constant_string "Green charm, coraxatrice egg, 88 shards"
+L431: join_string 3
+L432: push_constant_string "You can now infuse "
+L433: push_constant_string "<col=000080>"
+L434: push_constant_string "spirit coraxatrice pouches"
+L435: push_constant_string "</col>"
+L436: push_constant_string "."
+L437: join_string 5
+L438: return 0
+L439: branch L1113
+L440: push_constant_int 43
+L441: push_constant_int 12107
+L442: push_constant_string "Spirit vulatrice - Magic XP"
+L443: push_constant_string "<br>"
+L444: push_constant_string "Green charm, vulatrice egg, 88 shards"
+L445: join_string 3
+L446: push_constant_string "You can now infuse "
+L447: push_constant_string "<col=000080>"
+L448: push_constant_string "spirit vulatrice pouches"
+L449: push_constant_string "</col>"
+L450: push_constant_string "."
+L451: join_string 5
+L452: return 0
+L453: branch L1113
+L454: push_constant_int 46
+L455: push_constant_int 12075
+L456: push_constant_string "Iron minotaur - Defence XP"
+L457: push_constant_string "<br>"
+L458: push_constant_string "Blue charm, iron bar, 125 shards"
+L459: join_string 3
+L460: push_constant_string "You can now infuse "
+L461: push_constant_string "<col=000080>"
+L462: push_constant_string "iron minotaur pouches"
+L463: push_constant_string "</col>"
+L464: push_constant_string "."
+L465: join_string 5
+L466: return 0
+L467: branch L1113
+L468: push_constant_int 46
+L469: push_constant_int 12816
+L470: push_constant_string "Pyrelord - Strength XP"
+L471: push_constant_string "<br>"
+L472: push_constant_string "Crimson charm, tinderbox, 111 shards"
+L473: join_string 3
+L474: push_constant_string "You can now infuse "
+L475: push_constant_string "<col=000080>"
+L476: push_constant_string "pyrelord"
+L477: push_constant_string "</col>"
+L478: push_constant_string " pouches."
+L479: join_string 5
+L480: return 0
+L481: branch L1113
+L482: push_constant_int 47
+L483: push_constant_int 12041
+L484: push_constant_string "Magpie"
+L485: push_constant_string "<br>"
+L486: push_constant_string "Green charm, gold ring, 88 shards"
+L487: join_string 3
+L488: push_constant_string "You can now infuse "
+L489: push_constant_string "<col=000080>"
+L490: push_constant_string "magpie pouches"
+L491: push_constant_string "</col>"
+L492: push_constant_string "."
+L493: join_string 5
+L494: return 0
+L495: branch L1113
+L496: push_constant_int 49
+L497: push_constant_int 12061
+L498: push_constant_string "Bloated leech - Attack XP"
+L499: push_constant_string "<br>"
+L500: push_constant_string "Crimson charm, raw beef, 117 shards"
+L501: join_string 3
+L502: push_constant_string "You can now infuse "
+L503: push_constant_string "<col=000080>"
+L504: push_constant_string "bloated leech pouches"
+L505: push_constant_string "</col>"
+L506: push_constant_string "."
+L507: join_string 5
+L508: return 0
+L509: branch L1113
+L510: push_constant_int 52
+L511: push_constant_int 12007
+L512: push_constant_string "Spirit terrorbird - Controlled XP"
+L513: push_constant_string "<br>"
+L514: push_constant_string "Gold charm, raw bird meat, 12 shards"
+L515: join_string 3
+L516: push_constant_string "You can now infuse "
+L517: push_constant_string "<col=000080>"
+L518: push_constant_string "spirit terrorbird pouches"
+L519: push_constant_string "</col>"
+L520: push_constant_string "."
+L521: join_string 5
+L522: return 0
+L523: branch L1113
+L524: push_constant_int 54
+L525: push_constant_int 12035
+L526: push_constant_string "Abyssal parasite - Magic XP"
+L527: push_constant_string "<br>"
+L528: push_constant_string "Green charm, abyssal charm, 106 shards"
+L529: join_string 3
+L530: push_constant_string "You can now infuse "
+L531: push_constant_string "<col=000080>"
+L532: push_constant_string "abyssal parasite pouches"
+L533: push_constant_string "</col>"
+L534: push_constant_string "."
+L535: join_string 5
+L536: return 0
+L537: branch L1113
+L538: push_constant_int 55
+L539: push_constant_int 12027
+L540: push_constant_string "Spirit jelly - Strength XP"
+L541: push_constant_string "<br>"
+L542: push_constant_string "Blue charm, jug of water, 151 shards"
+L543: join_string 3
+L544: push_constant_string "You can now infuse "
+L545: push_constant_string "<col=000080>"
+L546: push_constant_string "spirit jelly pouches"
+L547: push_constant_string "</col>"
+L548: push_constant_string "."
+L549: join_string 5
+L550: return 0
+L551: branch L1113
+L552: push_constant_int 56
+L553: push_constant_int 12077
+L554: push_constant_string "Steel minotaur - Defence XP"
+L555: push_constant_string "<br>"
+L556: push_constant_string "Blue charm, steel bar, 141 shards"
+L557: join_string 3
+L558: push_constant_string "You can now infuse "
+L559: push_constant_string "<col=000080>"
+L560: push_constant_string "steel minotaur pouches"
+L561: push_constant_string "</col>"
+L562: push_constant_string "."
+L563: join_string 5
+L564: return 0
+L565: branch L1113
+L566: push_constant_int 56
+L567: push_constant_int 12531
+L568: push_constant_string "Ibis"
+L569: push_constant_string "<br>"
+L570: push_constant_string "Green charm, harpoon, 109 shards"
+L571: join_string 3
+L572: push_constant_string "You can now infuse "
+L573: push_constant_string "<col=000080>"
+L574: push_constant_string "ibis pouches"
+L575: push_constant_string "</col>"
+L576: push_constant_string "."
+L577: join_string 5
+L578: return 0
+L579: branch L1113
+L580: push_constant_int 57
+L581: push_constant_int 12812
+L582: push_constant_string "Spirit kyatt - Attack XP"
+L583: push_constant_string "<br>"
+L584: push_constant_string "Blue charm, kyatt fur, 153 shards"
+L585: join_string 3
+L586: push_constant_string "You can now infuse "
+L587: push_constant_string "<col=000080>"
+L588: push_constant_string "spirit kyatt pouches"
+L589: push_constant_string "</col>"
+L590: push_constant_string "."
+L591: join_string 5
+L592: return 0
+L593: branch L1113
+L594: push_constant_int 57
+L595: push_constant_int 12784
+L596: push_constant_string "Spirit larupia - Controlled XP"
+L597: push_constant_string "<br>"
+L598: push_constant_string "Blue charm, larupia fur, 155 shards"
+L599: join_string 3
+L600: push_constant_string "You can now infuse "
+L601: push_constant_string "<col=000080>"
+L602: push_constant_string "spirit larupia pouches"
+L603: push_constant_string "</col>"
+L604: push_constant_string "."
+L605: join_string 5
+L606: return 0
+L607: branch L1113
+L608: push_constant_int 57
+L609: push_constant_int 12810
+L610: push_constant_string "Spirit graahk - Strength XP"
+L611: push_constant_string "<br>"
+L612: push_constant_string "Blue charm, graahk fur, 154 shards"
+L613: join_string 3
+L614: push_constant_string "You can now infuse "
+L615: push_constant_string "<col=000080>"
+L616: push_constant_string "spirit graahk pouches"
+L617: push_constant_string "</col>"
+L618: push_constant_string "."
+L619: join_string 5
+L620: return 0
+L621: branch L1113
+L622: push_constant_int 58
+L623: push_constant_int 12023
+L624: push_constant_string "Karamthulhu overlord - Ranged XP"
+L625: push_constant_string "<br>"
+L626: push_constant_string "Blue charm, empty fishbowl, 144 shards"
+L627: join_string 3
+L628: push_constant_string "You can now infuse "
+L629: push_constant_string "<col=000080>"
+L630: push_constant_string "karamthulhu overlord pouches"
+L631: push_constant_string "</col>"
+L632: push_constant_string "."
+L633: join_string 5
+L634: return 0
+L635: branch L1113
+L636: push_constant_int 61
+L637: push_constant_int 12085
+L638: push_constant_string "Smoke devil - Magic XP"
+L639: push_constant_string "<br>"
+L640: push_constant_string "Crimson charm, goat's horn dust, 141 shards"
+L641: join_string 3
+L642: push_constant_string "You can now infuse "
+L643: push_constant_string "<col=000080>"
+L644: push_constant_string "smoke devil pouches"
+L645: push_constant_string "</col>"
+L646: push_constant_string "."
+L647: join_string 5
+L648: return 0
+L649: branch L1113
+L650: push_constant_int 62
+L651: push_constant_int 12037
+L652: push_constant_string "Abyssal lurker - Controlled XP"
+L653: push_constant_string "<br>"
+L654: push_constant_string "Green charm, abyssal charm, 119 shards"
+L655: join_string 3
+L656: push_constant_string "You can now infuse "
+L657: push_constant_string "<col=000080>"
+L658: push_constant_string "abyssal lurker pouches"
+L659: push_constant_string "</col>"
+L660: push_constant_string "."
+L661: join_string 5
+L662: return 0
+L663: branch L1113
+L664: push_constant_int 63
+L665: push_constant_int 12015
+L666: push_constant_string "Spirit cobra - Attack XP"
+L667: push_constant_string "<br>"
+L668: push_constant_string "Crimson charm, snake hide, 116 shards"
+L669: join_string 3
+L670: push_constant_string "You can now infuse "
+L671: push_constant_string "<col=000080>"
+L672: push_constant_string "spirit cobra pouches"
+L673: push_constant_string "</col>"
+L674: push_constant_string "."
+L675: join_string 5
+L676: return 0
+L677: branch L1113
+L678: push_constant_int 64
+L679: push_constant_int 12045
+L680: push_constant_string "Stranger plant - Controlled XP"
+L681: push_constant_string "<br>"
+L682: push_constant_string "Crimson charm, bagged plant, 128 shards"
+L683: join_string 3
+L684: push_constant_string "You can now infuse "
+L685: push_constant_string "<col=000080>"
+L686: push_constant_string "stranger plant pouches"
+L687: push_constant_string "</col>"
+L688: push_constant_string "."
+L689: join_string 5
+L690: return 0
+L691: branch L1113
+L692: push_constant_int 66
+L693: push_constant_int 12079
+L694: push_constant_string "Mithril minotaur - Defence XP"
+L695: push_constant_string "<br>"
+L696: push_constant_string "Blue charm, mithril bar, 152 shards"
+L697: join_string 3
+L698: push_constant_string "You can now infuse "
+L699: push_constant_string "<col=000080>"
+L700: push_constant_string "mithril minotaur pouches"
+L701: push_constant_string "</col>"
+L702: push_constant_string "."
+L703: join_string 5
+L704: return 0
+L705: branch L1113
+L706: push_constant_int 66
+L707: push_constant_int 12123
+L708: push_constant_string "Barker toad - Strength XP"
+L709: push_constant_string "<br>"
+L710: push_constant_string "Gold charm, swamp toad, 11 shards"
+L711: join_string 3
+L712: push_constant_string "You can now infuse "
+L713: push_constant_string "<col=000080>"
+L714: push_constant_string "barker toad pouches"
+L715: push_constant_string "</col>"
+L716: push_constant_string "."
+L717: join_string 5
+L718: return 0
+L719: branch L1113
+L720: push_constant_int 67
+L721: push_constant_int 12031
+L722: push_constant_string "War tortoise - Defence XP"
+L723: push_constant_string "<br>"
+L724: push_constant_string "Gold charm, tortoise shell, 1 shard"
+L725: join_string 3
+L726: push_constant_string "You can now infuse "
+L727: push_constant_string "<col=000080>"
+L728: push_constant_string "war tortoise pouches"
+L729: push_constant_string "</col>"
+L730: push_constant_string "."
+L731: join_string 5
+L732: return 0
+L733: branch L1113
+L734: push_constant_int 68
+L735: push_constant_int 12029
+L736: push_constant_string "Bunyip - Attack XP"
+L737: push_constant_string "<br>"
+L738: push_constant_string "Green charm, raw shark, 110 shards"
+L739: join_string 3
+L740: push_constant_string "You can now infuse "
+L741: push_constant_string "<col=000080>"
+L742: push_constant_string "bunyip pouches"
+L743: push_constant_string "</col>"
+L744: push_constant_string "."
+L745: join_string 5
+L746: return 0
+L747: branch L1113
+L748: push_constant_int 69
+L749: push_constant_int 12033
+L750: push_constant_string "Fruit bat"
+L751: push_constant_string "<br>"
+L752: push_constant_string "Green charm, banana, 130 shards"
+L753: join_string 3
+L754: push_constant_string "You can now infuse "
+L755: push_constant_string "<col=000080>"
+L756: push_constant_string "fruit bat pouches"
+L757: push_constant_string "</col>"
+L758: push_constant_string "."
+L759: join_string 5
+L760: return 0
+L761: branch L1113
+L762: push_constant_int 70
+L763: push_constant_int 12820
+L764: push_constant_string "Ravenous locust - Attack XP"
+L765: push_constant_string "<br>"
+L766: push_constant_string "Crimson charm, pot of flour, 79 shards"
+L767: join_string 3
+L768: push_constant_string "You can now infuse "
+L769: push_constant_string "<col=000080>"
+L770: push_constant_string "ravenous locust pouches"
+L771: push_constant_string "</col>"
+L772: push_constant_string "."
+L773: join_string 5
+L774: return 0
+L775: branch L1113
+L776: push_constant_int 71
+L777: push_constant_int 12057
+L778: push_constant_string "Arctic bear - Controlled XP"
+L779: push_constant_string "<br>"
+L780: push_constant_string "Gold charm, polar kebbit fur, 14 shards"
+L781: join_string 3
+L782: push_constant_string "You can now infuse "
+L783: push_constant_string "<col=000080>"
+L784: push_constant_string "arctic bear pouches"
+L785: push_constant_string "</col>"
+L786: push_constant_string "."
+L787: join_string 5
+L788: return 0
+L789: branch L1113
+L790: push_constant_int 72
+L791: push_constant_int 14623
+L792: push_constant_string "Phoenix - Magic XP"
+L793: push_constant_string "<br>"
+L794: push_constant_string "Crimson charm, phoenix quill, 165 shards (after In Pyre Need)"
+L795: join_string 3
+L796: push_constant_string "You can now infuse "
+L797: push_constant_string "<col=000080>"
+L798: push_constant_string "phoenix pouches"
+L799: push_constant_string "</col>"
+L800: push_constant_string " (after In Pyre Need)"
+L801: push_constant_string "</col>"
+L802: push_constant_string "."
+L803: join_string 7
+L804: return 0
+L805: branch L1113
+L806: push_constant_int 73
+L807: push_constant_int 12792
+L808: push_constant_string "Obsidian golem - Strength XP"
+L809: push_constant_string "<br>"
+L810: push_constant_string "Blue charm, obsidian charm, 195 shards"
+L811: join_string 3
+L812: push_constant_string "You can now infuse "
+L813: push_constant_string "<col=000080>"
+L814: push_constant_string "obsidian golem pouches"
+L815: push_constant_string "</col>"
+L816: push_constant_string "."
+L817: join_string 5
+L818: return 0
+L819: branch L1113
+L820: push_constant_int 74
+L821: push_constant_int 12069
+L822: push_constant_string "Granite lobster - Defence XP"
+L823: push_constant_string "<br>"
+L824: push_constant_string "Crimson charm, granite (500g, 2kg or 5kg), 166 shards"
+L825: join_string 3
+L826: push_constant_string "You can now infuse "
+L827: push_constant_string "<col=000080>"
+L828: push_constant_string "granite lobster pouches"
+L829: push_constant_string "</col>"
+L830: push_constant_string "."
+L831: join_string 5
+L832: return 0
+L833: branch L1113
+L834: push_constant_int 75
+L835: push_constant_int 12011
+L836: push_constant_string "Praying mantis - Attack XP"
+L837: push_constant_string "<br>"
+L838: push_constant_string "Crimson charm, flowers (any except black or white), 168 shards"
+L839: join_string 3
+L840: push_constant_string "You can now infuse "
+L841: push_constant_string "<col=000080>"
+L842: push_constant_string "praying mantis pouches"
+L843: push_constant_string "</col>"
+L844: push_constant_string "."
+L845: join_string 5
+L846: return 0
+L847: branch L1113
+L848: push_constant_int 76
+L849: push_constant_int 12782
+L850: push_constant_string "Forge regent - Ranged XP"
+L851: push_constant_string "<br>"
+L852: push_constant_string "Green charm, ruby harvest, 141 shards"
+L853: join_string 3
+L854: push_constant_string "You can now infuse "
+L855: push_constant_string "<col=000080>"
+L856: push_constant_string "forge regent pouches"
+L857: push_constant_string "</col>"
+L858: push_constant_string "."
+L859: join_string 5
+L860: return 0
+L861: branch L1113
+L862: push_constant_int 76
+L863: push_constant_int 12081
+L864: push_constant_string "Adamant minotaur - Defence XP"
+L865: push_constant_string "<br>"
+L866: push_constant_string "Blue charm, adamant bar, 144 shards"
+L867: join_string 3
+L868: push_constant_string "You can now infuse "
+L869: push_constant_string "<col=000080>"
+L870: push_constant_string "adamant minotaur pouches"
+L871: push_constant_string "</col>"
+L872: push_constant_string "."
+L873: join_string 5
+L874: return 0
+L875: branch L1113
+L876: push_constant_int 77
+L877: push_constant_int 12794
+L878: push_constant_string "Talon beast - Strength XP"
+L879: push_constant_string "<br>"
+L880: push_constant_string "Crimson charm, talon beast charm, 174 shards"
+L881: join_string 3
+L882: push_constant_string "You can now infuse "
+L883: push_constant_string "<col=000080>"
+L884: push_constant_string "talon beast pouches"
+L885: push_constant_string "</col>"
+L886: push_constant_string "."
+L887: join_string 5
+L888: return 0
+L889: branch L1113
+L890: push_constant_int 78
+L891: push_constant_int 12013
+L892: push_constant_string "Giant ent - Controlled XP"
+L893: push_constant_string "<br>"
+L894: push_constant_string "Green charm, willow branch, 124 shards"
+L895: join_string 3
+L896: push_constant_string "You can now infuse "
+L897: push_constant_string "<col=000080>"
+L898: push_constant_string "giant ent pouches"
+L899: push_constant_string "</col>"
+L900: push_constant_string "."
+L901: join_string 5
+L902: return 0
+L903: branch L1113
+L904: push_constant_int 79
+L905: push_constant_int 12802
+L906: push_constant_string "Fire titan - Magic XP"
+L907: push_constant_string "<br>"
+L908: push_constant_string "Blue charm, fire talisman, 198 shards"
+L909: join_string 3
+L910: push_constant_string "You can now infuse "
+L911: push_constant_string "<col=000080>"
+L912: push_constant_string "fire titan pouches"
+L913: push_constant_string "</col>"
+L914: push_constant_string "."
+L915: join_string 5
+L916: return 0
+L917: branch L1113
+L918: push_constant_int 79
+L919: push_constant_int 12804
+L920: push_constant_string "Moss titan - Strength XP"
+L921: push_constant_string "<br>"
+L922: push_constant_string "Blue charm, earth talisman, 202 shards"
+L923: join_string 3
+L924: push_constant_string "You can now infuse "
+L925: push_constant_string "<col=000080>"
+L926: push_constant_string "moss titan pouches"
+L927: push_constant_string "</col>"
+L928: push_constant_string "."
+L929: join_string 5
+L930: return 0
+L931: branch L1113
+L932: push_constant_int 79
+L933: push_constant_int 12806
+L934: push_constant_string "Ice titan - Attack XP"
+L935: push_constant_string "<br>"
+L936: push_constant_string "Blue charm, air talisman, water talisman, 198 shards"
+L937: join_string 3
+L938: push_constant_string "You can now infuse "
+L939: push_constant_string "<col=000080>"
+L940: push_constant_string "ice titan pouches"
+L941: push_constant_string "</col>"
+L942: push_constant_string "."
+L943: join_string 5
+L944: return 0
+L945: branch L1113
+L946: push_constant_int 80
+L947: push_constant_int 12025
+L948: push_constant_string "Hydra - Ranged XP"
+L949: push_constant_string "<br>"
+L950: push_constant_string "Green charm, water orb, 128 shards"
+L951: join_string 3
+L952: push_constant_string "You can now infuse "
+L953: push_constant_string "<col=000080>"
+L954: push_constant_string "hydra pouches"
+L955: push_constant_string "</col>"
+L956: push_constant_string "."
+L957: join_string 5
+L958: return 0
+L959: branch L1113
+L960: push_constant_int 83
+L961: push_constant_int 12017
+L962: push_constant_string "Spirit dagannoth - Controlled XP"
+L963: push_constant_string "<br>"
+L964: push_constant_string "Crimson charm, dagannoth hide, 1 shard"
+L965: join_string 3
+L966: push_constant_string "You can now infuse "
+L967: push_constant_string "<col=000080>"
+L968: push_constant_string "spirit dagannoth pouches"
+L969: push_constant_string "</col>"
+L970: push_constant_string "."
+L971: join_string 5
+L972: return 0
+L973: branch L1113
+L974: push_constant_int 83
+L975: push_constant_int 12788
+L976: push_constant_string "Lava titan - Strength XP"
+L977: push_constant_string "<br>"
+L978: push_constant_string "Blue charm, obsidian charm, 219 shards"
+L979: join_string 3
+L980: push_constant_string "You can now infuse "
+L981: push_constant_string "<col=000080>"
+L982: push_constant_string "lava titan pouches"
+L983: push_constant_string "</col>"
+L984: push_constant_string "."
+L985: join_string 5
+L986: return 0
+L987: branch L1113
+L988: push_constant_int 85
+L989: push_constant_int 12776
+L990: push_constant_string "Swamp titan - Attack XP"
+L991: push_constant_string "<br>"
+L992: push_constant_string "Crimson charm, swamp lizard, 150 shards"
+L993: join_string 3
+L994: push_constant_string "You can now infuse "
+L995: push_constant_string "<col=000080>"
+L996: push_constant_string "swamp titan pouches"
+L997: push_constant_string "</col>"
+L998: push_constant_string "."
+L999: join_string 5
+L1000: return 0
+L1001: branch L1113
+L1002: push_constant_int 86
+L1003: push_constant_int 12083
+L1004: push_constant_string "Rune minotaur - Defence XP"
+L1005: push_constant_string "<br>"
+L1006: push_constant_string "Blue charm, rune bar, 1 shard"
+L1007: join_string 3
+L1008: push_constant_string "You can now infuse "
+L1009: push_constant_string "<col=000080>"
+L1010: push_constant_string "rune minotaur pouches"
+L1011: push_constant_string "</col>"
+L1012: push_constant_string "."
+L1013: join_string 5
+L1014: return 0
+L1015: branch L1113
+L1016: push_constant_int 88
+L1017: push_constant_int 12039
+L1018: push_constant_string "Unicorn stallion - Controlled XP"
+L1019: push_constant_string "<br>"
+L1020: push_constant_string "Green charm, unicorn horn, 140 shards"
+L1021: join_string 3
+L1022: push_constant_string "You can now infuse "
+L1023: push_constant_string "<col=000080>"
+L1024: push_constant_string "unicorn stallion pouches"
+L1025: push_constant_string "</col>"
+L1026: push_constant_string "."
+L1027: join_string 5
+L1028: return 0
+L1029: branch L1113
+L1030: push_constant_int 89
+L1031: push_constant_int 12786
+L1032: push_constant_string "Geyser titan - Ranged XP"
+L1033: push_constant_string "<br>"
+L1034: push_constant_string "Blue charm, water talisman, 222 shards"
+L1035: join_string 3
+L1036: push_constant_string "You can now infuse "
+L1037: push_constant_string "<col=000080>"
+L1038: push_constant_string "geyser titan pouches"
+L1039: push_constant_string "</col>"
+L1040: push_constant_string "."
+L1041: join_string 5
+L1042: return 0
+L1043: branch L1113
+L1044: push_constant_int 92
+L1045: push_constant_int 12089
+L1046: push_constant_string "Wolpertinger - Magic XP"
+L1047: push_constant_string "<br>"
+L1048: push_constant_string "Crimson charm, raw rabbit, wolf bones, 203 shards"
+L1049: join_string 3
+L1050: push_constant_string "You can now infuse "
+L1051: push_constant_string "<col=000080>"
+L1052: push_constant_string "wolpertinger pouches"
+L1053: push_constant_string "</col>"
+L1054: push_constant_string "."
+L1055: join_string 5
+L1056: return 0
+L1057: branch L1113
+L1058: push_constant_int 93
+L1059: push_constant_int 12796
+L1060: push_constant_string "Abyssal titan - Attack XP"
+L1061: push_constant_string "<br>"
+L1062: push_constant_string "Green charm, abyssal charm, 113 shards"
+L1063: join_string 3
+L1064: push_constant_string "You can now infuse "
+L1065: push_constant_string "<col=000080>"
+L1066: push_constant_string "abyssal titan pouches"
+L1067: push_constant_string "</col>"
+L1068: push_constant_string "."
+L1069: join_string 5
+L1070: return 0
+L1071: branch L1113
+L1072: push_constant_int 95
+L1073: push_constant_int 12822
+L1074: push_constant_string "Iron titan - Defence XP"
+L1075: push_constant_string "<br>"
+L1076: push_constant_string "Crimson charm, iron platebody, 198 shards"
+L1077: join_string 3
+L1078: push_constant_string "You can now infuse "
+L1079: push_constant_string "<col=000080>"
+L1080: push_constant_string "iron titan pouches"
+L1081: push_constant_string "</col>"
+L1082: push_constant_string "."
+L1083: join_string 5
+L1084: return 0
+L1085: branch L1113
+L1086: push_constant_int 96
+L1087: push_constant_int 12093
+L1088: push_constant_string "Pack yak - Strength XP"
+L1089: push_constant_string "<br>"
+L1090: push_constant_string "Crimson charm, yak hide, 211 shards"
+L1091: join_string 3
+L1092: push_constant_string "You can now infuse "
+L1093: push_constant_string "<col=000080>"
+L1094: push_constant_string "pack yak pouches"
+L1095: push_constant_string "</col>"
+L1096: push_constant_string "."
+L1097: join_string 5
+L1098: return 0
+L1099: branch L1113
+L1100: push_constant_int 99
+L1101: push_constant_int 12790
+L1102: push_constant_string "Steel titan - Ranged XP"
+L1103: push_constant_string "<br>"
+L1104: push_constant_string "Crimson charm, steel platebody, 178 shards"
+L1105: join_string 3
+L1106: push_constant_string "You can now infuse "
+L1107: push_constant_string "<col=000080>"
+L1108: push_constant_string "steel titan pouches"
+L1109: push_constant_string "</col>"
+L1110: push_constant_string "."
+L1111: join_string 5
+L1112: return 0
+L1113: branch L4118
+L1114: push_int_local 1
+L1115: switch switch2
+L1116: branch L1864
+L1117: push_constant_int 1
+L1118: push_constant_int 12425
+L1119: push_constant_string "Howl"
+L1120: push_constant_string "You can now use "
+L1121: push_constant_string "<col=000080>"
+L1122: push_constant_string "Howl scrolls"
+L1123: push_constant_string "</col>"
+L1124: push_constant_string "."
+L1125: join_string 5
+L1126: return 0
+L1127: branch L1864
+L1128: push_constant_int 4
+L1129: push_constant_int 12445
+L1130: push_constant_string "Dreadfowl Strike"
+L1131: push_constant_string "You can now use "
+L1132: push_constant_string "<col=000080>"
+L1133: push_constant_string "Dreadfowl Strike scrolls"
+L1134: push_constant_string "</col>"
+L1135: push_constant_string "."
+L1136: join_string 5
+L1137: return 0
+L1138: branch L1864
+L1139: push_constant_int 4
+L1140: push_constant_int 19621
+L1141: push_constant_string "Fetch Casket"
+L1142: push_constant_string "You can now use "
+L1143: push_constant_string "<col=000080>"
+L1144: push_constant_string "Fetch Casket scrolls"
+L1145: push_constant_string "</col>"
+L1146: push_constant_string "."
+L1147: join_string 5
+L1148: return 0
+L1149: branch L1864
+L1150: push_constant_int 10
+L1151: push_constant_int 12428
+L1152: push_constant_string "Egg Spawn"
+L1153: push_constant_string "You can now use "
+L1154: push_constant_string "<col=000080>"
+L1155: push_constant_string "Egg Spawn scrolls"
+L1156: push_constant_string "</col>"
+L1157: push_constant_string "."
+L1158: join_string 5
+L1159: return 0
+L1160: branch L1864
+L1161: push_constant_int 13
+L1162: push_constant_int 12459
+L1163: push_constant_string "Slime Spray"
+L1164: push_constant_string "You can now use "
+L1165: push_constant_string "<col=000080>"
+L1166: push_constant_string "Slime Spray scrolls"
+L1167: push_constant_string "</col>"
+L1168: push_constant_string "."
+L1169: join_string 5
+L1170: return 0
+L1171: branch L1864
+L1172: push_constant_int 16
+L1173: push_constant_int 12533
+L1174: push_constant_string "Stony Shell"
+L1175: push_constant_string "You can now use "
+L1176: push_constant_string "<col=000080>"
+L1177: push_constant_string "Stony Shell scrolls"
+L1178: push_constant_string "</col>"
+L1179: push_constant_string "."
+L1180: join_string 5
+L1181: return 0
+L1182: branch L1864
+L1183: push_constant_int 17
+L1184: push_constant_int 12838
+L1185: push_constant_string "Pester"
+L1186: push_constant_string "You can now use "
+L1187: push_constant_string "<col=000080>"
+L1188: push_constant_string "Pester scrolls"
+L1189: push_constant_string "</col>"
+L1190: push_constant_string "."
+L1191: join_string 5
+L1192: return 0
+L1193: branch L1864
+L1194: push_constant_int 18
+L1195: push_constant_int 12460
+L1196: push_constant_string "Electric Lash"
+L1197: push_constant_string "You can now use "
+L1198: push_constant_string "<col=000080>"
+L1199: push_constant_string "Electric Lash scrolls"
+L1200: push_constant_string "</col>"
+L1201: push_constant_string "."
+L1202: join_string 5
+L1203: return 0
+L1204: branch L1864
+L1205: push_constant_int 19
+L1206: push_constant_int 12432
+L1207: push_constant_string "Venom Shot"
+L1208: push_constant_string "You can now use "
+L1209: push_constant_string "<col=000080>"
+L1210: push_constant_string "Venom Shot scrolls"
+L1211: push_constant_string "</col>"
+L1212: push_constant_string "."
+L1213: join_string 5
+L1214: return 0
+L1215: branch L1864
+L1216: push_constant_int 22
+L1217: push_constant_int 12839
+L1218: push_constant_string "Fireball Assault"
+L1219: push_constant_string "You can now use "
+L1220: push_constant_string "<col=000080>"
+L1221: push_constant_string "Fireball Assault scrolls"
+L1222: push_constant_string "</col>"
+L1223: push_constant_string "."
+L1224: join_string 5
+L1225: return 0
+L1226: branch L1864
+L1227: push_constant_int 23
+L1228: push_constant_int 12430
+L1229: push_constant_string "Cheese Feast"
+L1230: push_constant_string "You can now use "
+L1231: push_constant_string "<col=000080>"
+L1232: push_constant_string "Cheese Feast scrolls"
+L1233: push_constant_string "</col>"
+L1234: push_constant_string "."
+L1235: join_string 5
+L1236: return 0
+L1237: branch L1864
+L1238: push_constant_int 25
+L1239: push_constant_int 12446
+L1240: push_constant_string "Sandstorm"
+L1241: push_constant_string "You can now use "
+L1242: push_constant_string "<col=000080>"
+L1243: push_constant_string "Sandstorm scrolls"
+L1244: push_constant_string "</col>"
+L1245: push_constant_string "."
+L1246: join_string 5
+L1247: return 0
+L1248: branch L1864
+L1249: push_constant_int 28
+L1250: push_constant_int 12440
+L1251: push_constant_string "Generate Compost"
+L1252: push_constant_string "You can now use "
+L1253: push_constant_string "<col=000080>"
+L1254: push_constant_string "Generate Compost scrolls"
+L1255: push_constant_string "</col>"
+L1256: push_constant_string "."
+L1257: join_string 5
+L1258: return 0
+L1259: branch L1864
+L1260: push_constant_int 29
+L1261: push_constant_int 12834
+L1262: push_constant_string "Explode"
+L1263: push_constant_string "You can now use "
+L1264: push_constant_string "<col=000080>"
+L1265: push_constant_string "Explode scrolls"
+L1266: push_constant_string "</col>"
+L1267: push_constant_string "."
+L1268: join_string 5
+L1269: return 0
+L1270: branch L1864
+L1271: push_constant_int 31
+L1272: push_constant_int 12447
+L1273: push_constant_string "Vampire Touch"
+L1274: push_constant_string "You can now use "
+L1275: push_constant_string "<col=000080>"
+L1276: push_constant_string "Vampire Touch scrolls"
+L1277: push_constant_string "</col>"
+L1278: push_constant_string "."
+L1279: join_string 5
+L1280: return 0
+L1281: branch L1864
+L1282: push_constant_int 32
+L1283: push_constant_int 12433
+L1284: push_constant_string "Insane Ferocity"
+L1285: push_constant_string "You can now use "
+L1286: push_constant_string "<col=000080>"
+L1287: push_constant_string "Insane Ferocity scrolls"
+L1288: push_constant_string "</col>"
+L1289: push_constant_string "."
+L1290: join_string 5
+L1291: return 0
+L1292: branch L1864
+L1293: push_constant_int 33
+L1294: push_constant_int 12429
+L1295: push_constant_string "Multichop"
+L1296: push_constant_string "You can now use "
+L1297: push_constant_string "<col=000080>"
+L1298: push_constant_string "Multichop scrolls"
+L1299: push_constant_string "</col>"
+L1300: push_constant_string "."
+L1301: join_string 5
+L1302: return 0
+L1303: branch L1864
+L1304: push_constant_int 34
+L1305: push_constant_int 12443
+L1306: push_constant_string "Call to Arms"
+L1307: push_constant_string "You can now use "
+L1308: push_constant_string "<col=000080>"
+L1309: push_constant_string "Call to Arms scrolls"
+L1310: push_constant_string "</col>"
+L1311: push_constant_string "."
+L1312: join_string 5
+L1313: return 0
+L1314: branch L1864
+L1315: push_constant_int 36
+L1316: push_constant_int 12461
+L1317: push_constant_string "Bronze Bull Rush"
+L1318: push_constant_string "You can now use "
+L1319: push_constant_string "<col=000080>"
+L1320: push_constant_string "Bronze Bull Rush scrolls"
+L1321: push_constant_string "</col>"
+L1322: push_constant_string "."
+L1323: join_string 5
+L1324: return 0
+L1325: branch L1864
+L1326: push_constant_int 40
+L1327: push_constant_int 12431
+L1328: push_constant_string "Unburden"
+L1329: push_constant_string "You can now use "
+L1330: push_constant_string "<col=000080>"
+L1331: push_constant_string "Unburden scrolls"
+L1332: push_constant_string "</col>"
+L1333: push_constant_string "."
+L1334: join_string 5
+L1335: return 0
+L1336: branch L1864
+L1337: push_constant_int 41
+L1338: push_constant_int 12422
+L1339: push_constant_string "Herbcall"
+L1340: push_constant_string "You can now use "
+L1341: push_constant_string "<col=000080>"
+L1342: push_constant_string "Herbcall scrolls"
+L1343: push_constant_string "</col>"
+L1344: push_constant_string "."
+L1345: join_string 5
+L1346: return 0
+L1347: branch L1864
+L1348: push_constant_int 42
+L1349: push_constant_int 12448
+L1350: push_constant_string "Evil Flames"
+L1351: push_constant_string "You can now use "
+L1352: push_constant_string "<col=000080>"
+L1353: push_constant_string "Evil Flames scrolls"
+L1354: push_constant_string "</col>"
+L1355: push_constant_string "."
+L1356: join_string 5
+L1357: return 0
+L1358: branch L1864
+L1359: push_constant_int 43
+L1360: push_constant_int 12458
+L1361: push_constant_string "Petrifying Gaze"
+L1362: push_constant_string "You can now use "
+L1363: push_constant_string "<col=000080>"
+L1364: push_constant_string "Petrifying Gaze scrolls"
+L1365: push_constant_string "</col>"
+L1366: push_constant_string "."
+L1367: join_string 5
+L1368: return 0
+L1369: branch L1864
+L1370: push_constant_int 46
+L1371: push_constant_int 12462
+L1372: push_constant_string "Iron Bull Rush"
+L1373: push_constant_string "You can now use "
+L1374: push_constant_string "<col=000080>"
+L1375: push_constant_string "Iron Bull Rush scrolls"
+L1376: push_constant_string "</col>"
+L1377: push_constant_string "."
+L1378: join_string 5
+L1379: return 0
+L1380: branch L1864
+L1381: push_constant_int 46
+L1382: push_constant_int 12829
+L1383: push_constant_string "Immense Heat"
+L1384: push_constant_string "You can now use "
+L1385: push_constant_string "<col=000080>"
+L1386: push_constant_string "Immense Heat scrolls"
+L1387: push_constant_string "</col>"
+L1388: push_constant_string "."
+L1389: join_string 5
+L1390: return 0
+L1391: branch L1864
+L1392: push_constant_int 47
+L1393: push_constant_int 12426
+L1394: push_constant_string "Thieving Fingers"
+L1395: push_constant_string "You can now use "
+L1396: push_constant_string "<col=000080>"
+L1397: push_constant_string "Thieving Fingers scrolls"
+L1398: push_constant_string "</col>"
+L1399: push_constant_string "."
+L1400: join_string 5
+L1401: return 0
+L1402: branch L1864
+L1403: push_constant_int 49
+L1404: push_constant_int 12444
+L1405: push_constant_string "Blood Drain"
+L1406: push_constant_string "You can now use "
+L1407: push_constant_string "<col=000080>"
+L1408: push_constant_string "Blood Drain scrolls"
+L1409: push_constant_string "</col>"
+L1410: push_constant_string "."
+L1411: join_string 5
+L1412: return 0
+L1413: branch L1864
+L1414: push_constant_int 52
+L1415: push_constant_int 12441
+L1416: push_constant_string "Tireless Run"
+L1417: push_constant_string "You can now use "
+L1418: push_constant_string "<col=000080>"
+L1419: push_constant_string "Tireless Run scrolls"
+L1420: push_constant_string "</col>"
+L1421: push_constant_string "."
+L1422: join_string 5
+L1423: return 0
+L1424: branch L1864
+L1425: push_constant_int 54
+L1426: push_constant_int 12454
+L1427: push_constant_string "Abyssal Drain"
+L1428: push_constant_string "You can now use "
+L1429: push_constant_string "<col=000080>"
+L1430: push_constant_string "Abyssal Drain scrolls"
+L1431: push_constant_string "</col>"
+L1432: push_constant_string "."
+L1433: join_string 5
+L1434: return 0
+L1435: branch L1864
+L1436: push_constant_int 55
+L1437: push_constant_int 12453
+L1438: push_constant_string "Dissolve"
+L1439: push_constant_string "You can now use "
+L1440: push_constant_string "<col=000080>"
+L1441: push_constant_string "Dissolve scrolls"
+L1442: push_constant_string "</col>"
+L1443: push_constant_string "."
+L1444: join_string 5
+L1445: return 0
+L1446: branch L1864
+L1447: push_constant_int 56
+L1448: push_constant_int 12463
+L1449: push_constant_string "Steel Bull Rush"
+L1450: push_constant_string "You can now use "
+L1451: push_constant_string "<col=000080>"
+L1452: push_constant_string "Steel Bull Rush scrolls"
+L1453: push_constant_string "</col>"
+L1454: push_constant_string "."
+L1455: join_string 5
+L1456: return 0
+L1457: branch L1864
+L1458: push_constant_int 56
+L1459: push_constant_int 12424
+L1460: push_constant_string "Fish Rain"
+L1461: push_constant_string "You can now use "
+L1462: push_constant_string "<col=000080>"
+L1463: push_constant_string "Fish Rain scrolls"
+L1464: push_constant_string "</col>"
+L1465: push_constant_string "."
+L1466: join_string 5
+L1467: return 0
+L1468: branch L1864
+L1469: push_constant_int 57
+L1470: push_constant_int 12836
+L1471: push_constant_string "Ambush"
+L1472: push_constant_string "You can now use "
+L1473: push_constant_string "<col=000080>"
+L1474: push_constant_string "Ambush scrolls"
+L1475: push_constant_string "</col>"
+L1476: push_constant_string "."
+L1477: join_string 5
+L1478: return 0
+L1479: branch L1864
+L1480: push_constant_int 57
+L1481: push_constant_int 12840
+L1482: push_constant_string "Rending"
+L1483: push_constant_string "You can now use "
+L1484: push_constant_string "<col=000080>"
+L1485: push_constant_string "Rending scrolls"
+L1486: push_constant_string "</col>"
+L1487: push_constant_string "."
+L1488: join_string 5
+L1489: return 0
+L1490: branch L1864
+L1491: push_constant_int 57
+L1492: push_constant_int 12835
+L1493: push_constant_string "Goad"
+L1494: push_constant_string "You can now use "
+L1495: push_constant_string "<col=000080>"
+L1496: push_constant_string "Goad scrolls"
+L1497: push_constant_string "</col>"
+L1498: push_constant_string "."
+L1499: join_string 5
+L1500: return 0
+L1501: branch L1864
+L1502: push_constant_int 58
+L1503: push_constant_int 12455
+L1504: push_constant_string "Doomsphere Device"
+L1505: push_constant_string "You can now use "
+L1506: push_constant_string "<col=000080>"
+L1507: push_constant_string "Doomsphere Device scrolls"
+L1508: push_constant_string "</col>"
+L1509: push_constant_string "."
+L1510: join_string 5
+L1511: return 0
+L1512: branch L1864
+L1513: push_constant_int 61
+L1514: push_constant_int 12468
+L1515: push_constant_string "Dust Cloud"
+L1516: push_constant_string "You can now use "
+L1517: push_constant_string "<col=000080>"
+L1518: push_constant_string "Dust Cloud scrolls"
+L1519: push_constant_string "</col>"
+L1520: push_constant_string "."
+L1521: join_string 5
+L1522: return 0
+L1523: branch L1864
+L1524: push_constant_int 62
+L1525: push_constant_int 12427
+L1526: push_constant_string "Abyssal Stealth"
+L1527: push_constant_string "You can now use "
+L1528: push_constant_string "<col=000080>"
+L1529: push_constant_string "Abyssal Stealth scrolls"
+L1530: push_constant_string "</col>"
+L1531: push_constant_string "."
+L1532: join_string 5
+L1533: return 0
+L1534: branch L1864
+L1535: push_constant_int 63
+L1536: push_constant_int 12436
+L1537: push_constant_string "Ophidian Incubation"
+L1538: push_constant_string "You can now use "
+L1539: push_constant_string "<col=000080>"
+L1540: push_constant_string "Ophidian Incubation scrolls"
+L1541: push_constant_string "</col>"
+L1542: push_constant_string "."
+L1543: join_string 5
+L1544: return 0
+L1545: branch L1864
+L1546: push_constant_int 64
+L1547: push_constant_int 12467
+L1548: push_constant_string "Poisonous Blast"
+L1549: push_constant_string "You can now use "
+L1550: push_constant_string "<col=000080>"
+L1551: push_constant_string "Poisonous Blast scrolls"
+L1552: push_constant_string "</col>"
+L1553: push_constant_string "."
+L1554: join_string 5
+L1555: return 0
+L1556: branch L1864
+L1557: push_constant_int 66
+L1558: push_constant_int 12464
+L1559: push_constant_string "Mithril Bull Rush"
+L1560: push_constant_string "You can now use "
+L1561: push_constant_string "<col=000080>"
+L1562: push_constant_string "Mithril Bull Rush scrolls"
+L1563: push_constant_string "</col>"
+L1564: push_constant_string "."
+L1565: join_string 5
+L1566: return 0
+L1567: branch L1864
+L1568: push_constant_int 66
+L1569: push_constant_int 12452
+L1570: push_constant_string "Toad Bark"
+L1571: push_constant_string "You can now use "
+L1572: push_constant_string "<col=000080>"
+L1573: push_constant_string "Toad Bark scrolls"
+L1574: push_constant_string "</col>"
+L1575: push_constant_string "."
+L1576: join_string 5
+L1577: return 0
+L1578: branch L1864
+L1579: push_constant_int 67
+L1580: push_constant_int 12439
+L1581: push_constant_string "Testudo"
+L1582: push_constant_string "You can now use "
+L1583: push_constant_string "<col=000080>"
+L1584: push_constant_string "Testudo scrolls"
+L1585: push_constant_string "</col>"
+L1586: push_constant_string "."
+L1587: join_string 5
+L1588: return 0
+L1589: branch L1864
+L1590: push_constant_int 68
+L1591: push_constant_int 12438
+L1592: push_constant_string "Swallow Whole"
+L1593: push_constant_string "You can now use "
+L1594: push_constant_string "<col=000080>"
+L1595: push_constant_string "Swallow Whole scrolls"
+L1596: push_constant_string "</col>"
+L1597: push_constant_string "."
+L1598: join_string 5
+L1599: return 0
+L1600: branch L1864
+L1601: push_constant_int 69
+L1602: push_constant_int 12423
+L1603: push_constant_string "Fruitfall"
+L1604: push_constant_string "You can now use "
+L1605: push_constant_string "<col=000080>"
+L1606: push_constant_string "Fruitfall scrolls"
+L1607: push_constant_string "</col>"
+L1608: push_constant_string "."
+L1609: join_string 5
+L1610: return 0
+L1611: branch L1864
+L1612: push_constant_int 70
+L1613: push_constant_int 12830
+L1614: push_constant_string "Famine"
+L1615: push_constant_string "You can now use "
+L1616: push_constant_string "<col=000080>"
+L1617: push_constant_string "Famine scrolls"
+L1618: push_constant_string "</col>"
+L1619: push_constant_string "."
+L1620: join_string 5
+L1621: return 0
+L1622: branch L1864
+L1623: push_constant_int 71
+L1624: push_constant_int 12451
+L1625: push_constant_string "Arctic Blast"
+L1626: push_constant_string "You can now use "
+L1627: push_constant_string "<col=000080>"
+L1628: push_constant_string "Arctic Blast scrolls"
+L1629: push_constant_string "</col>"
+L1630: push_constant_string "."
+L1631: join_string 5
+L1632: return 0
+L1633: branch L1864
+L1634: push_constant_int 72
+L1635: push_constant_int 14622
+L1636: push_constant_string "Rise from the Ashes (after In Pyre Need)"
+L1637: push_constant_string "You can now use "
+L1638: push_constant_string "<col=000080>"
+L1639: push_constant_string "Rise from the Ashes scrolls"
+L1640: push_constant_string "</col>"
+L1641: push_constant_string " (after In Pyre Need)."
+L1642: join_string 5
+L1643: return 0
+L1644: branch L1864
+L1645: push_constant_int 73
+L1646: push_constant_int 12826
+L1647: push_constant_string "Volcanic Strength"
+L1648: push_constant_string "You can now use "
+L1649: push_constant_string "<col=000080>"
+L1650: push_constant_string "Volcanic Strength scrolls"
+L1651: push_constant_string "</col>"
+L1652: push_constant_string "."
+L1653: join_string 5
+L1654: return 0
+L1655: branch L1864
+L1656: push_constant_int 74
+L1657: push_constant_int 12449
+L1658: push_constant_string "Crushing Claw"
+L1659: push_constant_string "You can now use "
+L1660: push_constant_string "<col=000080>"
+L1661: push_constant_string "Crushing Claw scrolls"
+L1662: push_constant_string "</col>"
+L1663: push_constant_string "."
+L1664: join_string 5
+L1665: return 0
+L1666: branch L1864
+L1667: push_constant_int 75
+L1668: push_constant_int 12450
+L1669: push_constant_string "Mantis Strike"
+L1670: push_constant_string "You can now use "
+L1671: push_constant_string "<col=000080>"
+L1672: push_constant_string "Mantis Strike scrolls"
+L1673: push_constant_string "</col>"
+L1674: push_constant_string "."
+L1675: join_string 5
+L1676: return 0
+L1677: branch L1864
+L1678: push_constant_int 76
+L1679: push_constant_int 12841
+L1680: push_constant_string "Inferno"
+L1681: push_constant_string "You can now use "
+L1682: push_constant_string "<col=000080>"
+L1683: push_constant_string "Inferno scrolls"
+L1684: push_constant_string "</col>"
+L1685: push_constant_string "."
+L1686: join_string 5
+L1687: return 0
+L1688: branch L1864
+L1689: push_constant_int 76
+L1690: push_constant_int 12465
+L1691: push_constant_string "Adamant Bull Rush"
+L1692: push_constant_string "You can now use "
+L1693: push_constant_string "<col=000080>"
+L1694: push_constant_string "Adamant Bull Rush scrolls"
+L1695: push_constant_string "</col>"
+L1696: push_constant_string "."
+L1697: join_string 5
+L1698: return 0
+L1699: branch L1864
+L1700: push_constant_int 77
+L1701: push_constant_int 12831
+L1702: push_constant_string "Deadly Claw"
+L1703: push_constant_string "You can now use "
+L1704: push_constant_string "<col=000080>"
+L1705: push_constant_string "Deadly Claw scrolls"
+L1706: push_constant_string "</col>"
+L1707: push_constant_string "."
+L1708: join_string 5
+L1709: return 0
+L1710: branch L1864
+L1711: push_constant_int 78
+L1712: push_constant_int 12457
+L1713: push_constant_string "Acorn Missile"
+L1714: push_constant_string "You can now use "
+L1715: push_constant_string "<col=000080>"
+L1716: push_constant_string "Acorn Missile scrolls"
+L1717: push_constant_string "</col>"
+L1718: push_constant_string "."
+L1719: join_string 5
+L1720: return 0
+L1721: branch L1864
+L1722: push_constant_int 79
+L1723: push_constant_int 12824
+L1724: push_constant_string "Titan's Constitution"
+L1725: push_constant_string "You can now use "
+L1726: push_constant_string "<col=000080>"
+L1727: push_constant_string "Titan's Constitution scrolls"
+L1728: push_constant_string "</col>"
+L1729: push_constant_string "."
+L1730: join_string 5
+L1731: return 0
+L1732: branch L1864
+L1733: push_constant_int 80
+L1734: push_constant_int 12442
+L1735: push_constant_string "Regrowth"
+L1736: push_constant_string "You can now use "
+L1737: push_constant_string "<col=000080>"
+L1738: push_constant_string "Regrowth scrolls"
+L1739: push_constant_string "</col>"
+L1740: push_constant_string "."
+L1741: join_string 5
+L1742: return 0
+L1743: branch L1864
+L1744: push_constant_int 83
+L1745: push_constant_int 12456
+L1746: push_constant_string "Spike Shot"
+L1747: push_constant_string "You can now use "
+L1748: push_constant_string "<col=000080>"
+L1749: push_constant_string "Spike Shot scrolls"
+L1750: push_constant_string "</col>"
+L1751: push_constant_string "."
+L1752: join_string 5
+L1753: return 0
+L1754: branch L1864
+L1755: push_constant_int 83
+L1756: push_constant_int 12837
+L1757: push_constant_string "Ebon Thunder"
+L1758: push_constant_string "You can now use "
+L1759: push_constant_string "<col=000080>"
+L1760: push_constant_string "Ebon Thunder scrolls"
+L1761: push_constant_string "</col>"
+L1762: push_constant_string "."
+L1763: join_string 5
+L1764: return 0
+L1765: branch L1864
+L1766: push_constant_int 85
+L1767: push_constant_int 12832
+L1768: push_constant_string "Swamp Plague"
+L1769: push_constant_string "You can now use "
+L1770: push_constant_string "<col=000080>"
+L1771: push_constant_string "Swamp Plague scrolls"
+L1772: push_constant_string "</col>"
+L1773: push_constant_string "."
+L1774: join_string 5
+L1775: return 0
+L1776: branch L1864
+L1777: push_constant_int 86
+L1778: push_constant_int 12466
+L1779: push_constant_string "Rune Bull Rush"
+L1780: push_constant_string "You can now use "
+L1781: push_constant_string "<col=000080>"
+L1782: push_constant_string "Rune Bull Rush scrolls"
+L1783: push_constant_string "</col>"
+L1784: push_constant_string "."
+L1785: join_string 5
+L1786: return 0
+L1787: branch L1864
+L1788: push_constant_int 88
+L1789: push_constant_int 12434
+L1790: push_constant_string "Healing Aura"
+L1791: push_constant_string "You can now use "
+L1792: push_constant_string "<col=000080>"
+L1793: push_constant_string "Healing Aura scrolls"
+L1794: push_constant_string "</col>"
+L1795: push_constant_string "."
+L1796: join_string 5
+L1797: return 0
+L1798: branch L1864
+L1799: push_constant_int 89
+L1800: push_constant_int 12833
+L1801: push_constant_string "Boil"
+L1802: push_constant_string "You can now use "
+L1803: push_constant_string "<col=000080>"
+L1804: push_constant_string "Boil scrolls"
+L1805: push_constant_string "</col>"
+L1806: push_constant_string "."
+L1807: join_string 5
+L1808: return 0
+L1809: branch L1864
+L1810: push_constant_int 92
+L1811: push_constant_int 12437
+L1812: push_constant_string "Magic Focus"
+L1813: push_constant_string "You can now use "
+L1814: push_constant_string "<col=000080>"
+L1815: push_constant_string "Magic Focus scrolls"
+L1816: push_constant_string "</col>"
+L1817: push_constant_string "."
+L1818: join_string 5
+L1819: return 0
+L1820: branch L1864
+L1821: push_constant_int 93
+L1822: push_constant_int 12827
+L1823: push_constant_string "Essence Shipment"
+L1824: push_constant_string "You can now use "
+L1825: push_constant_string "<col=000080>"
+L1826: push_constant_string "Essence Shipment scrolls"
+L1827: push_constant_string "</col>"
+L1828: push_constant_string "."
+L1829: join_string 5
+L1830: return 0
+L1831: branch L1864
+L1832: push_constant_int 95
+L1833: push_constant_int 12828
+L1834: push_constant_string "Iron Within"
+L1835: push_constant_string "You can now use "
+L1836: push_constant_string "<col=000080>"
+L1837: push_constant_string "Iron Within scrolls"
+L1838: push_constant_string "</col>"
+L1839: push_constant_string "."
+L1840: join_string 5
+L1841: return 0
+L1842: branch L1864
+L1843: push_constant_int 96
+L1844: push_constant_int 12435
+L1845: push_constant_string "Winter Storage"
+L1846: push_constant_string "You can now use "
+L1847: push_constant_string "<col=000080>"
+L1848: push_constant_string "Winter Storage scrolls"
+L1849: push_constant_string "</col>"
+L1850: push_constant_string "."
+L1851: join_string 5
+L1852: return 0
+L1853: branch L1864
+L1854: push_constant_int 99
+L1855: push_constant_int 12825
+L1856: push_constant_string "Steel of Legends"
+L1857: push_constant_string "You can now use "
+L1858: push_constant_string "<col=000080>"
+L1859: push_constant_string "Steel of Legends scrolls"
+L1860: push_constant_string "</col>"
+L1861: push_constant_string "."
+L1862: join_string 5
+L1863: return 0
+L1864: branch L4118
+L1865: push_int_local 1
+L1866: switch switch3
+L1867: branch L2242
+L1868: push_constant_int 4
+L1869: push_constant_int 12196
+L1870: push_constant_string "Bulldog"
+L1871: push_constant_string "You can now raise "
+L1872: push_constant_string "<col=000080>"
+L1873: push_constant_string "bulldogs"
+L1874: push_constant_string "</col>"
+L1875: push_constant_string "."
+L1876: join_string 5
+L1877: return 0
+L1878: branch L2242
+L1879: push_constant_int 4
+L1880: push_constant_int 12194
+L1881: push_constant_string "Dalmatian"
+L1882: push_constant_string "You can now raise "
+L1883: push_constant_string "<col=000080>"
+L1884: push_constant_string "dalmatians"
+L1885: push_constant_string "</col>"
+L1886: push_constant_string "."
+L1887: join_string 5
+L1888: return 0
+L1889: branch L2242
+L1890: push_constant_int 4
+L1891: push_constant_int 12192
+L1892: push_constant_string "Greyhound"
+L1893: push_constant_string "You can now raise "
+L1894: push_constant_string "<col=000080>"
+L1895: push_constant_string "greyhounds"
+L1896: push_constant_string "</col>"
+L1897: push_constant_string "."
+L1898: join_string 5
+L1899: return 0
+L1900: branch L2242
+L1901: push_constant_int 4
+L1902: push_constant_int 12193
+L1903: push_constant_string "Labrador"
+L1904: push_constant_string "You can now raise "
+L1905: push_constant_string "<col=000080>"
+L1906: push_constant_string "labradors"
+L1907: push_constant_string "</col>"
+L1908: push_constant_string "."
+L1909: join_string 5
+L1910: return 0
+L1911: branch L2242
+L1912: push_constant_int 4
+L1913: push_constant_int 12195
+L1914: push_constant_string "Sheepdog"
+L1915: push_constant_string "You can now raise "
+L1916: push_constant_string "<col=000080>"
+L1917: push_constant_string "sheepdogs"
+L1918: push_constant_string "</col>"
+L1919: push_constant_string "."
+L1920: join_string 5
+L1921: return 0
+L1922: branch L2242
+L1923: push_constant_int 4
+L1924: push_constant_int 12191
+L1925: push_constant_string "Terrier"
+L1926: push_constant_string "You can now raise "
+L1927: push_constant_string "<col=000080>"
+L1928: push_constant_string "terriers"
+L1929: push_constant_string "</col>"
+L1930: push_constant_string "."
+L1931: join_string 5
+L1932: return 0
+L1933: branch L2242
+L1934: push_constant_int 4
+L1935: push_constant_int 14652
+L1936: push_constant_string "Creeping hand"
+L1937: push_constant_string "You can now keep "
+L1938: push_constant_string "<col=000080>"
+L1939: push_constant_string "creeping hands"
+L1940: push_constant_string "</col>"
+L1941: push_constant_string "."
+L1942: join_string 5
+L1943: return 0
+L1944: branch L2242
+L1945: push_constant_int 4
+L1946: push_constant_int 14653
+L1947: push_constant_string "Minitrice"
+L1948: push_constant_string "You can now keep "
+L1949: push_constant_string "<col=000080>"
+L1950: push_constant_string "minitrices"
+L1951: push_constant_string "</col>"
+L1952: push_constant_string "."
+L1953: join_string 5
+L1954: return 0
+L1955: branch L2242
+L1956: push_constant_int 4
+L1957: push_constant_int 14654
+L1958: push_constant_string "Baby basilisk"
+L1959: push_constant_string "You can now keep "
+L1960: push_constant_string "<col=000080>"
+L1961: push_constant_string "baby basilisks"
+L1962: push_constant_string "</col>"
+L1963: push_constant_string "."
+L1964: join_string 5
+L1965: return 0
+L1966: branch L2242
+L1967: push_constant_int 4
+L1968: push_constant_int 14655
+L1969: push_constant_string "Baby kurask"
+L1970: push_constant_string "You can now keep "
+L1971: push_constant_string "<col=000080>"
+L1972: push_constant_string "baby kurasks"
+L1973: push_constant_string "</col>"
+L1974: push_constant_string "."
+L1975: join_string 5
+L1976: return 0
+L1977: branch L2242
+L1978: push_constant_int 4
+L1979: push_constant_int 14651
+L1980: push_constant_string "Abyssal minion"
+L1981: push_constant_string "You can now keep "
+L1982: push_constant_string "<col=000080>"
+L1983: push_constant_string "abyssal minions"
+L1984: push_constant_string "</col>"
+L1985: push_constant_string "."
+L1986: join_string 5
+L1987: return 0
+L1988: branch L2242
+L1989: push_constant_int 4
+L1990: push_constant_int 15483
+L1991: push_constant_string "Rune guardian"
+L1992: push_constant_string "<br>"
+L1993: push_constant_string " (after Rune Mechanics)"
+L1994: join_string 3
+L1995: push_constant_string "You can now keep "
+L1996: push_constant_string "<col=000080>"
+L1997: push_constant_string "rune guardians"
+L1998: push_constant_string "</col>"
+L1999: push_constant_string " (after Rune Mechanics)"
+L2000: join_string 5
+L2001: return 0
+L2002: branch L2242
+L2003: push_constant_int 10
+L2004: push_constant_int 12488
+L2005: push_constant_string "Gecko"
+L2006: push_constant_string "You can now raise "
+L2007: push_constant_string "<col=000080>"
+L2008: push_constant_string "geckos"
+L2009: push_constant_string "</col>"
+L2010: push_constant_string "."
+L2011: join_string 5
+L2012: return 0
+L2013: branch L2242
+L2014: push_constant_int 10
+L2015: push_constant_int 12547
+L2016: push_constant_string "Platypus"
+L2017: push_constant_string "<br>"
+L2018: push_constant_string " (after As a First Resort...)"
+L2019: join_string 3
+L2020: push_constant_string "You can now raise "
+L2021: push_constant_string "<col=000080>"
+L2022: push_constant_string "platypodes"
+L2023: push_constant_string "</col>"
+L2024: push_constant_string " (after As a First Resort...)."
+L2025: join_string 5
+L2026: return 0
+L2027: branch L2242
+L2028: push_constant_int 23
+L2029: push_constant_int 14533
+L2030: push_constant_string "Broav"
+L2031: push_constant_string "<br>"
+L2032: push_constant_string " (after While Guthix Sleeps...)"
+L2033: join_string 3
+L2034: push_constant_string "You can now raise "
+L2035: push_constant_string "<col=000080>"
+L2036: push_constant_string "broavs"
+L2037: push_constant_string "</col>"
+L2038: push_constant_string " "
+L2039: push_constant_string "<br>"
+L2040: push_constant_string " (after While Guthix Sleeps...)."
+L2041: join_string 7
+L2042: return 0
+L2043: branch L2242
+L2044: push_constant_int 30
+L2045: push_constant_int 12188
+L2046: push_constant_string "Penguin"
+L2047: push_constant_string "You can now raise "
+L2048: push_constant_string "<col=000080>"
+L2049: push_constant_string "penguins"
+L2050: push_constant_string "</col>"
+L2051: push_constant_string "."
+L2052: join_string 5
+L2053: return 0
+L2054: branch L2242
+L2055: push_constant_int 37
+L2056: push_constant_int 18668
+L2057: push_constant_string "Tooth pet"
+L2058: push_constant_string "You can now raise "
+L2059: push_constant_string "<col=000080>"
+L2060: push_constant_string "tooth pets"
+L2061: push_constant_string "</col>"
+L2062: push_constant_string "."
+L2063: join_string 5
+L2064: return 0
+L2065: branch L2242
+L2066: push_constant_int 40
+L2067: push_constant_int 12198
+L2068: push_constant_string "Giant crab"
+L2069: push_constant_string "You can now raise "
+L2070: push_constant_string "<col=000080>"
+L2071: push_constant_string "giant crabs"
+L2072: push_constant_string "</col>"
+L2073: push_constant_string "."
+L2074: join_string 5
+L2075: return 0
+L2076: branch L2242
+L2077: push_constant_int 50
+L2078: push_constant_int 12485
+L2079: push_constant_string "Raven"
+L2080: push_constant_string "You can now raise "
+L2081: push_constant_string "<col=000080>"
+L2082: push_constant_string "ravens"
+L2083: push_constant_string "</col>"
+L2084: push_constant_string "."
+L2085: join_string 5
+L2086: return 0
+L2087: branch L2242
+L2088: push_constant_int 60
+L2089: push_constant_int 12200
+L2090: push_constant_string "Squirrel"
+L2091: push_constant_string "You can now raise "
+L2092: push_constant_string "<col=000080>"
+L2093: push_constant_string "squirrels"
+L2094: push_constant_string "</col>"
+L2095: push_constant_string "."
+L2096: join_string 5
+L2097: return 0
+L2098: branch L2242
+L2099: push_constant_int 70
+L2100: push_constant_int 12185
+L2101: push_constant_string "Saradomin owl"
+L2102: push_constant_string "You can now raise "
+L2103: push_constant_string "<col=000080>"
+L2104: push_constant_string "Saradomin owls"
+L2105: push_constant_string "</col>"
+L2106: push_constant_string "."
+L2107: join_string 5
+L2108: return 0
+L2109: branch L2242
+L2110: push_constant_int 70
+L2111: push_constant_int 12187
+L2112: push_constant_string "Guthix raptor"
+L2113: push_constant_string "You can now raise "
+L2114: push_constant_string "<col=000080>"
+L2115: push_constant_string "Guthix raptors"
+L2116: push_constant_string "</col>"
+L2117: push_constant_string "."
+L2118: join_string 5
+L2119: return 0
+L2120: branch L2242
+L2121: push_constant_int 70
+L2122: push_constant_int 12186
+L2123: push_constant_string "Zamorak hawk"
+L2124: push_constant_string "You can now raise "
+L2125: push_constant_string "<col=000080>"
+L2126: push_constant_string "Zamorak hawks"
+L2127: push_constant_string "</col>"
+L2128: push_constant_string "."
+L2129: join_string 5
+L2130: return 0
+L2131: branch L2242
+L2132: push_constant_int 71
+L2133: push_constant_int 13336
+L2134: push_constant_string "Ex-ex-parrot"
+L2135: push_constant_string "<br>"
+L2136: push_constant_string " (after Rocking Out)"
+L2137: join_string 3
+L2138: push_constant_string "You can now raise "
+L2139: push_constant_string "<col=000080>"
+L2140: push_constant_string "ex-ex-parrots"
+L2141: push_constant_string "</col>"
+L2142: push_constant_string " (after Rocking Out)."
+L2143: join_string 5
+L2144: return 0
+L2145: branch L2242
+L2146: push_constant_int 72
+L2147: push_constant_int 14627
+L2148: push_constant_string "Cute phoenix eggling"
+L2149: push_constant_string "<br>"
+L2150: push_constant_string " (after In Pyre Need)"
+L2151: join_string 3
+L2152: push_constant_string "You can now raise "
+L2153: push_constant_string "<col=000080>"
+L2154: push_constant_string "cute phoenix egglings"
+L2155: push_constant_string "</col>"
+L2156: push_constant_string " (after In Pyre Need)."
+L2157: join_string 5
+L2158: return 0
+L2159: branch L2242
+L2160: push_constant_int 72
+L2161: push_constant_int 14626
+L2162: push_constant_string "Mean phoenix eggling"
+L2163: push_constant_string "<br>"
+L2164: push_constant_string " (after In Pyre Need)"
+L2165: join_string 3
+L2166: push_constant_string "You can now raise "
+L2167: push_constant_string "<col=000080>"
+L2168: push_constant_string "mean phoenix egglings"
+L2169: push_constant_string "</col>"
+L2170: push_constant_string " (after In Pyre Need)."
+L2171: join_string 5
+L2172: return 0
+L2173: branch L2242
+L2174: push_constant_int 80
+L2175: push_constant_int 12199
+L2176: push_constant_string "Raccoon"
+L2177: push_constant_string "You can now raise "
+L2178: push_constant_string "<col=000080>"
+L2179: push_constant_string "raccoons"
+L2180: push_constant_string "</col>"
+L2181: push_constant_string "."
+L2182: join_string 5
+L2183: return 0
+L2184: branch L2242
+L2185: push_constant_int 80
+L2186: push_constant_int 19894
+L2187: push_constant_string "Sneakerpeeper"
+L2188: push_constant_string "<br>"
+L2189: push_constant_string " (with 80 Dungeoneering)"
+L2190: join_string 3
+L2191: push_constant_string "You can now raise "
+L2192: push_constant_string "<col=000080>"
+L2193: push_constant_string "sneakerpeepers"
+L2194: push_constant_string "</col>"
+L2195: push_constant_string ". (You also need level 80 Dungeoneering.)"
+L2196: join_string 5
+L2197: return 0
+L2198: branch L2242
+L2199: push_constant_int 85
+L2200: push_constant_int 12190
+L2201: push_constant_string "Vulture"
+L2202: push_constant_string "You can now raise "
+L2203: push_constant_string "<col=000080>"
+L2204: push_constant_string "vultures"
+L2205: push_constant_string "</col>"
+L2206: push_constant_string "."
+L2207: join_string 5
+L2208: return 0
+L2209: branch L2242
+L2210: push_constant_int 90
+L2211: push_constant_int 12203
+L2212: push_constant_string "Chameleon"
+L2213: push_constant_string "You can now raise "
+L2214: push_constant_string "<col=000080>"
+L2215: push_constant_string "chameleons"
+L2216: push_constant_string "</col>"
+L2217: push_constant_string "."
+L2218: join_string 5
+L2219: return 0
+L2220: branch L2242
+L2221: push_constant_int 95
+L2222: push_constant_int 12201
+L2223: push_constant_string "Monkey"
+L2224: push_constant_string "You can now raise "
+L2225: push_constant_string "<col=000080>"
+L2226: push_constant_string "monkeys"
+L2227: push_constant_string "</col>"
+L2228: push_constant_string "."
+L2229: join_string 5
+L2230: return 0
+L2231: branch L2242
+L2232: push_constant_int 99
+L2233: push_constant_int 12197
+L2234: push_constant_string "Dragon"
+L2235: push_constant_string "You can now raise "
+L2236: push_constant_string "<col=000080>"
+L2237: push_constant_string "dragons"
+L2238: push_constant_string "</col>"
+L2239: push_constant_string "."
+L2240: join_string 5
+L2241: return 0
+L2242: branch L4118
+L2243: push_int_local 1
+L2244: switch switch4
+L2245: branch L2474
+L2246: push_constant_int 10
+L2247: push_constant_int 12204
+L2248: push_constant_string "Antlers"
+L2249: push_constant_string "You can now use "
+L2250: push_constant_string "<col=000080>"
+L2251: push_constant_string "antlers"
+L2252: push_constant_string "</col>"
+L2253: push_constant_string "."
+L2254: join_string 5
+L2255: return 0
+L2256: branch L2474
+L2257: push_constant_int 20
+L2258: push_constant_int 1161
+L2259: push_constant_string "Adamant full helm"
+L2260: push_constant_string "<br>"
+L2261: push_constant_string " (with 30 Defence)"
+L2262: join_string 3
+L2263: push_constant_string "You can now have "
+L2264: push_constant_string "<col=000080>"
+L2265: push_constant_string "adamant full helms"
+L2266: push_constant_string "</col>"
+L2267: push_constant_string " enchanted to hold Summoning scrolls. (You also need level 30 Defence)."
+L2268: join_string 5
+L2269: return 0
+L2270: branch L2474
+L2271: push_constant_int 20
+L2272: push_constant_int 6326
+L2273: push_constant_string "Snakeskin bandana"
+L2274: push_constant_string "<br>"
+L2275: push_constant_string " (with 30 Defence and 30 Ranged)"
+L2276: join_string 3
+L2277: push_constant_string "You can now have "
+L2278: push_constant_string "<col=000080>"
+L2279: push_constant_string "snakeskin bandanas"
+L2280: push_constant_string "</col>"
+L2281: push_constant_string " enchanted to hold Summoning scrolls. (You also need level 30 Defence and level 30 Ranged)."
+L2282: join_string 5
+L2283: return 0
+L2284: branch L2474
+L2285: push_constant_int 20
+L2286: push_constant_int 14636
+L2287: push_constant_string "Slayer helmet"
+L2288: push_constant_string "<br>"
+L2289: push_constant_string " (with 10 Defence)"
+L2290: join_string 3
+L2291: push_constant_string "You can now have "
+L2292: push_constant_string "<col=000080>"
+L2293: push_constant_string "Slayer helmets"
+L2294: push_constant_string "</col>"
+L2295: push_constant_string " enchanted to hold Summoning scrolls. (You also need level 10 Defence)."
+L2296: join_string 5
+L2297: return 0
+L2298: branch L2474
+L2299: push_constant_int 30
+L2300: push_constant_int 12207
+L2301: push_constant_string "Lizard skull"
+L2302: push_constant_string "You can now use "
+L2303: push_constant_string "<col=000080>"
+L2304: push_constant_string "lizard skulls"
+L2305: push_constant_string "</col>"
+L2306: push_constant_string "."
+L2307: join_string 5
+L2308: return 0
+L2309: branch L2474
+L2310: push_constant_int 30
+L2311: push_constant_int 3385
+L2312: push_constant_string "Splitbark helm"
+L2313: push_constant_string "<br>"
+L2314: push_constant_string " (with 40 Defence and 40 Magic)"
+L2315: join_string 3
+L2316: push_constant_string "You can now have "
+L2317: push_constant_string "<col=000080>"
+L2318: push_constant_string "splitbark helms"
+L2319: push_constant_string "</col>"
+L2320: push_constant_string " enchanted to hold Summoning scrolls. (You also need level 40 Defence and level 40 Magic)."
+L2321: join_string 5
+L2322: return 0
+L2323: branch L2474
+L2324: push_constant_int 30
+L2325: push_constant_int 1163
+L2326: push_constant_string "Rune full helm"
+L2327: push_constant_string "<br>"
+L2328: push_constant_string " (with 40 Defence)"
+L2329: join_string 3
+L2330: push_constant_string "You can now have "
+L2331: push_constant_string "<col=000080>"
+L2332: push_constant_string "rune full helms"
+L2333: push_constant_string "</col>"
+L2334: push_constant_string " enchanted to hold Summoning scrolls. (You also need level 40 Defence)."
+L2335: join_string 5
+L2336: return 0
+L2337: branch L2474
+L2338: push_constant_int 35
+L2339: push_constant_int 3751
+L2340: push_constant_string "Berserker helm"
+L2341: push_constant_string "<br>"
+L2342: push_constant_string " (after Fremennik Trials with 45 Defence)"
+L2343: join_string 3
+L2344: push_constant_string "You can now have "
+L2345: push_constant_string "<col=000080>"
+L2346: push_constant_string "Berserker helms"
+L2347: push_constant_string "</col>"
+L2348: push_constant_string " enchanted to hold Summoning scrolls. (After Fremennik Trials and with level 45 Defence)."
+L2349: join_string 5
+L2350: return 0
+L2351: branch L2474
+L2352: push_constant_int 35
+L2353: push_constant_int 3755
+L2354: push_constant_string "Farseer helm"
+L2355: push_constant_string "<br>"
+L2356: push_constant_string " (after Fremennik Trials with 45 Defence)"
+L2357: join_string 3
+L2358: push_constant_string "You can now have "
+L2359: push_constant_string "<col=000080>"
+L2360: push_constant_string "Farseer helms"
+L2361: push_constant_string "</col>"
+L2362: push_constant_string " enchanted to hold Summoning scrolls. (After Fremennik Trials and with level 45 Defence)."
+L2363: join_string 5
+L2364: return 0
+L2365: branch L2474
+L2366: push_constant_int 35
+L2367: push_constant_int 3749
+L2368: push_constant_string "Archer helm"
+L2369: push_constant_string "<br>"
+L2370: push_constant_string " (after Fremennik Trials with 45 Defence)"
+L2371: join_string 3
+L2372: push_constant_string "You can now have "
+L2373: push_constant_string "<col=000080>"
+L2374: push_constant_string "Archer helms"
+L2375: push_constant_string "</col>"
+L2376: push_constant_string " enchanted to hold Summoning scrolls. (After Fremennik Trials and with level 45 Defence)."
+L2377: join_string 5
+L2378: return 0
+L2379: branch L2474
+L2380: push_constant_int 35
+L2381: push_constant_int 3753
+L2382: push_constant_string "Warrior helm"
+L2383: push_constant_string "<br>"
+L2384: push_constant_string " (after Fremennik Trials with 45 Defence)"
+L2385: join_string 3
+L2386: push_constant_string "You can now have "
+L2387: push_constant_string "<col=000080>"
+L2388: push_constant_string "Warrior helms"
+L2389: push_constant_string "</col>"
+L2390: push_constant_string " enchanted to hold Summoning scrolls. (After Fremennik Trials and with level 45 Defence)."
+L2391: join_string 5
+L2392: return 0
+L2393: branch L2474
+L2394: push_constant_int 45
+L2395: push_constant_int 10828
+L2396: push_constant_string "Helm of Neitiznot"
+L2397: push_constant_string "<br>"
+L2398: push_constant_string " (after Fremennik Isles)"
+L2399: join_string 3
+L2400: push_constant_string "You can now have the "
+L2401: push_constant_string "<col=000080>"
+L2402: push_constant_string "Helm of Neitiznot"
+L2403: push_constant_string "</col>"
+L2404: push_constant_string " enchanted to hold Summoning scrolls (after Fremennik Isles)."
+L2405: join_string 5
+L2406: return 0
+L2407: branch L2474
+L2408: push_constant_int 50
+L2409: push_constant_int 12210
+L2410: push_constant_string "Feather headdress"
+L2411: push_constant_string "You can now use "
+L2412: push_constant_string "<col=000080>"
+L2413: push_constant_string "feather headdresses"
+L2414: push_constant_string "</col>"
+L2415: push_constant_string ". (You also need Level 79 Crafting to make feather headdresses)."
+L2416: join_string 5
+L2417: return 0
+L2418: branch L2474
+L2419: push_constant_int 50
+L2420: push_constant_int 1149
+L2421: push_constant_string "Dragon medium helm"
+L2422: push_constant_string "<br>"
+L2423: push_constant_string " (with 60 Defence)"
+L2424: join_string 3
+L2425: push_constant_string "You can now have "
+L2426: push_constant_string "<col=000080>"
+L2427: push_constant_string "dragon medium helms"
+L2428: push_constant_string "</col>"
+L2429: push_constant_string " enchanted to hold Summoning scrolls. (You also need level 60 Defence.)"
+L2430: join_string 5
+L2431: return 0
+L2432: branch L2474
+L2433: push_constant_int 50
+L2434: push_constant_int 19893
+L2435: push_constant_string "Spirit cape"
+L2436: push_constant_string "<br>"
+L2437: push_constant_string " (with 50 Defence and 50 Dungeoneering)"
+L2438: join_string 3
+L2439: push_constant_string "You can now wear "
+L2440: push_constant_string "<col=000080>"
+L2441: push_constant_string "spirit capes"
+L2442: push_constant_string "</col>"
+L2443: push_constant_string ". (You also need level 50 Defence and 50 Dungeoneering.)"
+L2444: join_string 5
+L2445: return 0
+L2446: branch L2474
+L2447: push_constant_int 55
+L2448: push_constant_int 9096
+L2449: push_constant_string "Lunar helm"
+L2450: push_constant_string "<br>"
+L2451: push_constant_string " (with 40 Defence and 65 Magic)"
+L2452: join_string 3
+L2453: push_constant_string "You can now have "
+L2454: push_constant_string "<col=000080>"
+L2455: push_constant_string "lunar helms"
+L2456: push_constant_string "</col>"
+L2457: push_constant_string " enchanted to hold Summoning scrolls. (You also need level 40 Defence and level 65 Magic.)"
+L2458: join_string 5
+L2459: return 0
+L2460: branch L2474
+L2461: push_constant_int 60
+L2462: push_constant_int 11718
+L2463: push_constant_string "Armadyl helm"
+L2464: push_constant_string "<br>"
+L2465: push_constant_string " (with 70 Defence and 70 Ranged)"
+L2466: join_string 3
+L2467: push_constant_string "You can now have "
+L2468: push_constant_string "<col=000080>"
+L2469: push_constant_string "Armadyl helms"
+L2470: push_constant_string "</col>"
+L2471: push_constant_string " enchanted to hold Summoning scrolls. (You also need level 70 Defence and level 70 Ranged.)"
+L2472: join_string 5
+L2473: return 0
+L2474: branch L4118
+L2475: push_int_local 1
+L2476: switch switch5
+L2477: branch L2521
+L2478: push_constant_int 91
+L2479: push_constant_int 18778
+L2480: push_constant_string "Starved ancient effigies"
+L2481: push_constant_string "You can now investigate "
+L2482: push_constant_string "<col=000080>"
+L2483: push_constant_string "starved ancient effigies"
+L2484: push_constant_string "</col>"
+L2485: push_constant_string " using your knowledge of Summoning."
+L2486: join_string 5
+L2487: return 0
+L2488: branch L2521
+L2489: push_constant_int 93
+L2490: push_constant_int 18779
+L2491: push_constant_string "Nourished ancient effigies"
+L2492: push_constant_string "You can now investigate "
+L2493: push_constant_string "<col=000080>"
+L2494: push_constant_string "nourished ancient effigies"
+L2495: push_constant_string "</col>"
+L2496: push_constant_string " using your knowledge of Summoning."
+L2497: join_string 5
+L2498: return 0
+L2499: branch L2521
+L2500: push_constant_int 95
+L2501: push_constant_int 18780
+L2502: push_constant_string "Sated ancient effigies"
+L2503: push_constant_string "You can now investigate "
+L2504: push_constant_string "<col=000080>"
+L2505: push_constant_string "sated ancient effigies"
+L2506: push_constant_string "</col>"
+L2507: push_constant_string " using your knowledge of Summoning."
+L2508: join_string 5
+L2509: return 0
+L2510: branch L2521
+L2511: push_constant_int 97
+L2512: push_constant_int 18781
+L2513: push_constant_string "Gorged ancient effigies"
+L2514: push_constant_string "You can now investigate "
+L2515: push_constant_string "<col=000080>"
+L2516: push_constant_string "gorged ancient effigies"
+L2517: push_constant_string "</col>"
+L2518: push_constant_string " using your knowledge of Summoning."
+L2519: join_string 5
+L2520: return 0
+L2521: branch L4118
+L2522: push_int_local 1
+L2523: switch switch6
+L2524: branch L2579
+L2525: push_constant_int 1
+L2526: push_constant_int 14422
+L2527: push_constant_string "Stealing Creation - class 1 clay being - Strength XP"
+L2528: push_constant_string "You can now summon "
+L2529: push_constant_string "<col=000080>"
+L2530: push_constant_string "class 1 clay beings"
+L2531: push_constant_string "</col>"
+L2532: push_constant_string " in Stealing Creation."
+L2533: join_string 5
+L2534: return 0
+L2535: branch L2579
+L2536: push_constant_int 20
+L2537: push_constant_int 14424
+L2538: push_constant_string "Stealing Creation - class 2 clay being - Strength XP"
+L2539: push_constant_string "You can now summon "
+L2540: push_constant_string "<col=000080>"
+L2541: push_constant_string "class 2 clay beings"
+L2542: push_constant_string "</col>"
+L2543: push_constant_string " in Stealing Creation."
+L2544: join_string 5
+L2545: return 0
+L2546: branch L2579
+L2547: push_constant_int 40
+L2548: push_constant_int 14426
+L2549: push_constant_string "Stealing Creation - class 3 clay being - Strength XP"
+L2550: push_constant_string "You can now summon "
+L2551: push_constant_string "<col=000080>"
+L2552: push_constant_string "class 3 clay beings"
+L2553: push_constant_string "</col>"
+L2554: push_constant_string " in Stealing Creation."
+L2555: join_string 5
+L2556: return 0
+L2557: branch L2579
+L2558: push_constant_int 60
+L2559: push_constant_int 14428
+L2560: push_constant_string "Stealing Creation - class 4 clay being - Strength XP"
+L2561: push_constant_string "You can now summon "
+L2562: push_constant_string "<col=000080>"
+L2563: push_constant_string "class 4 clay beings"
+L2564: push_constant_string "</col>"
+L2565: push_constant_string " in Stealing Creation."
+L2566: join_string 5
+L2567: return 0
+L2568: branch L2579
+L2569: push_constant_int 80
+L2570: push_constant_int 14430
+L2571: push_constant_string "Stealing Creation - class 5 clay being - Strength XP"
+L2572: push_constant_string "You can now summon "
+L2573: push_constant_string "<col=000080>"
+L2574: push_constant_string "class 5 clay beings"
+L2575: push_constant_string "</col>"
+L2576: push_constant_string " in Stealing Creation."
+L2577: join_string 5
+L2578: return 0
+L2579: branch L4118
+L2580: push_int_local 1
+L2581: switch switch7
+L2582: branch L4091
+L2583: push_constant_int -1
+L2584: push_constant_int 15707
+L2585: push_constant_string "Dungeoneering skill tasks"
+L2586: push_constant_string "<br>"
+L2587: push_constant_string "As your Summoning level increases, you will be able to attempt higher-level summoning tasks within Daemonheim. You will also be more likely to succeed when attempting summoning tasks within Daemonheim."
+L2588: join_string 3
+L2589: push_constant_string ""
+L2590: return 0
+L2591: branch L4091
+L2592: push_constant_int 1
+L2593: push_constant_int 17935
+L2594: push_constant_string "Cub bloodrager (Melee, tier 1)"
+L2595: push_constant_string "<br>"
+L2596: push_constant_string "Gold charm, novite ore"
+L2597: join_string 3
+L2598: push_constant_string "You can now infuse "
+L2599: push_constant_string "<col=000080>"
+L2600: push_constant_string "cub bloodrager pouches"
+L2601: push_constant_string "</col>"
+L2602: push_constant_string " within Daemonheim."
+L2603: join_string 5
+L2604: return 0
+L2605: branch L4091
+L2606: push_constant_int 1
+L2607: push_constant_int 18027
+L2608: push_constant_string "Sundering Strike (Tier 1) scroll"
+L2609: push_constant_string "You can now use "
+L2610: push_constant_string "<col=000080>"
+L2611: push_constant_string "Sundering Strike (Tier 1) scrolls"
+L2612: push_constant_string "</col>"
+L2613: push_constant_string " within Daemonheim."
+L2614: join_string 5
+L2615: return 0
+L2616: branch L4091
+L2617: push_constant_int 2
+L2618: push_constant_int 17985
+L2619: push_constant_string "Cub deathslinger (Ranged, tier 1)"
+L2620: push_constant_string "<br>"
+L2621: push_constant_string "Gold charm, tangle gum branches"
+L2622: join_string 3
+L2623: push_constant_string "You can now infuse "
+L2624: push_constant_string "<col=000080>"
+L2625: push_constant_string "cub deathslinger pouches"
+L2626: push_constant_string "</col>"
+L2627: push_constant_string " within Daemonheim."
+L2628: join_string 5
+L2629: return 0
+L2630: branch L4091
+L2631: push_constant_int 2
+L2632: push_constant_int 18037
+L2633: push_constant_string "Poisonous Shot (Tier 1) scroll"
+L2634: push_constant_string "You can now use "
+L2635: push_constant_string "<col=000080>"
+L2636: push_constant_string " Poisonous Shot (Tier 1) scrolls"
+L2637: push_constant_string "</col>"
+L2638: push_constant_string " within Daemonheim."
+L2639: join_string 5
+L2640: return 0
+L2641: branch L4091
+L2642: push_constant_int 3
+L2643: push_constant_int 17945
+L2644: push_constant_string "Cub stormbringer (Magic, tier 1)"
+L2645: push_constant_string "<br>"
+L2646: push_constant_string "Gold charm, salve nettles"
+L2647: join_string 3
+L2648: push_constant_string "You can now infuse "
+L2649: push_constant_string "<col=000080>"
+L2650: push_constant_string "cub stormbringer pouches"
+L2651: push_constant_string "</col>"
+L2652: push_constant_string " within Daemonheim."
+L2653: join_string 5
+L2654: return 0
+L2655: branch L4091
+L2656: push_constant_int 3
+L2657: push_constant_int 18047
+L2658: push_constant_string "Snaring Wave (Tier 1) scroll"
+L2659: push_constant_string "You can now use "
+L2660: push_constant_string "<col=000080>"
+L2661: push_constant_string " Snaring Wave (Tier 1) scrolls"
+L2662: push_constant_string "</col>"
+L2663: push_constant_string " within Daemonheim."
+L2664: join_string 5
+L2665: return 0
+L2666: branch L4091
+L2667: push_constant_int 5
+L2668: push_constant_int 17955
+L2669: push_constant_string "Cub hoardstalker (Forager, tier 1)"
+L2670: push_constant_string "<br>"
+L2671: push_constant_string "Gold charm, protomastyx hide"
+L2672: join_string 3
+L2673: push_constant_string "You can now infuse "
+L2674: push_constant_string "<col=000080>"
+L2675: push_constant_string "cub hoardstalker pouches"
+L2676: push_constant_string "</col>"
+L2677: push_constant_string " within Daemonheim."
+L2678: join_string 5
+L2679: return 0
+L2680: branch L4091
+L2681: push_constant_int 5
+L2682: push_constant_int 18057
+L2683: push_constant_string "Aptitude (Tier 1) scroll"
+L2684: push_constant_string "You can now use "
+L2685: push_constant_string "<col=000080>"
+L2686: push_constant_string " Aptitude (Tier 1) scrolls"
+L2687: push_constant_string "</col>"
+L2688: push_constant_string " within Daemonheim."
+L2689: join_string 5
+L2690: return 0
+L2691: branch L4091
+L2692: push_constant_int 7
+L2693: push_constant_int 17975
+L2694: push_constant_string "Cub worldbearer (Beast of burden, tier 1)"
+L2695: push_constant_string "<br>"
+L2696: push_constant_string "Gold charm, protoleather torn bag"
+L2697: join_string 3
+L2698: push_constant_string "You can now infuse "
+L2699: push_constant_string "<col=000080>"
+L2700: push_constant_string "cub worldbearer pouches"
+L2701: push_constant_string "</col>"
+L2702: push_constant_string " within Daemonheim."
+L2703: join_string 5
+L2704: return 0
+L2705: branch L4091
+L2706: push_constant_int 7
+L2707: push_constant_int 18067
+L2708: push_constant_string "Second Wind (Tier 1) scroll"
+L2709: push_constant_string "You can now use "
+L2710: push_constant_string "<col=000080>"
+L2711: push_constant_string " Second Wind (Tier 1) scrolls"
+L2712: push_constant_string "</col>"
+L2713: push_constant_string " within Daemonheim."
+L2714: join_string 5
+L2715: return 0
+L2716: branch L4091
+L2717: push_constant_int 9
+L2718: push_constant_int 17965
+L2719: push_constant_string "Cub skinweaver (Healer, tier 1)"
+L2720: push_constant_string "<br>"
+L2721: push_constant_string "Gold charm, 2 cooked heim crabs"
+L2722: join_string 3
+L2723: push_constant_string "You can now infuse "
+L2724: push_constant_string "<col=000080>"
+L2725: push_constant_string "cub skinweaver pouches"
+L2726: push_constant_string "</col>"
+L2727: push_constant_string " within Daemonheim."
+L2728: join_string 5
+L2729: return 0
+L2730: branch L4091
+L2731: push_constant_int 9
+L2732: push_constant_int 18077
+L2733: push_constant_string "Glimmer of Light (Tier 1) scroll"
+L2734: push_constant_string "You can now use "
+L2735: push_constant_string "<col=000080>"
+L2736: push_constant_string " Glimmer of Light (Tier 1) scrolls"
+L2737: push_constant_string "</col>"
+L2738: push_constant_string " within Daemonheim."
+L2739: join_string 5
+L2740: return 0
+L2741: branch L4091
+L2742: push_constant_int 11
+L2743: push_constant_int 17936
+L2744: push_constant_string "Little bloodrager (Melee, tier 2)"
+L2745: push_constant_string "<br>"
+L2746: push_constant_string "Gold charm, bathus ore"
+L2747: join_string 3
+L2748: push_constant_string "You can now infuse "
+L2749: push_constant_string "<col=000080>"
+L2750: push_constant_string "little bloodrager pouches"
+L2751: push_constant_string "</col>"
+L2752: push_constant_string " within Daemonheim."
+L2753: join_string 5
+L2754: return 0
+L2755: branch L4091
+L2756: push_constant_int 11
+L2757: push_constant_int 18028
+L2758: push_constant_string "Sundering Strike (Tier 2) scroll"
+L2759: push_constant_string "You can now use "
+L2760: push_constant_string "<col=000080>"
+L2761: push_constant_string " Sundering Strike (Tier 2) scrolls"
+L2762: push_constant_string "</col>"
+L2763: push_constant_string " within Daemonheim."
+L2764: join_string 5
+L2765: return 0
+L2766: branch L4091
+L2767: push_constant_int 12
+L2768: push_constant_int 17986
+L2769: push_constant_string "Little deathslinger (Ranged, tier 2)"
+L2770: push_constant_string "<br>"
+L2771: push_constant_string "Gold charm, seeping elm branches"
+L2772: join_string 3
+L2773: push_constant_string "You can now infuse "
+L2774: push_constant_string "<col=000080>"
+L2775: push_constant_string "little deathslinger pouches"
+L2776: push_constant_string "</col>"
+L2777: push_constant_string " within Daemonheim."
+L2778: join_string 5
+L2779: return 0
+L2780: branch L4091
+L2781: push_constant_int 12
+L2782: push_constant_int 18038
+L2783: push_constant_string "Poisonous Shot (Tier 2) scroll"
+L2784: push_constant_string "You can now use "
+L2785: push_constant_string "<col=000080>"
+L2786: push_constant_string " Poisonous Shot (Tier 2) scrolls"
+L2787: push_constant_string "</col>"
+L2788: push_constant_string " within Daemonheim."
+L2789: join_string 5
+L2790: return 0
+L2791: branch L4091
+L2792: push_constant_int 13
+L2793: push_constant_int 17946
+L2794: push_constant_string "Little stormbringer (Magic, tier 2)"
+L2795: push_constant_string "<br>"
+L2796: push_constant_string "Gold charm, wildercress stems"
+L2797: join_string 3
+L2798: push_constant_string "You can now infuse "
+L2799: push_constant_string "<col=000080>"
+L2800: push_constant_string "little stormbringer pouches"
+L2801: push_constant_string "</col>"
+L2802: push_constant_string " within Daemonheim."
+L2803: join_string 5
+L2804: return 0
+L2805: branch L4091
+L2806: push_constant_int 13
+L2807: push_constant_int 18048
+L2808: push_constant_string "Snaring Wave (Tier 2) scroll"
+L2809: push_constant_string "You can now use "
+L2810: push_constant_string "<col=000080>"
+L2811: push_constant_string " Snaring Wave (Tier 2) scrolls"
+L2812: push_constant_string "</col>"
+L2813: push_constant_string " within Daemonheim."
+L2814: join_string 5
+L2815: return 0
+L2816: branch L4091
+L2817: push_constant_int 15
+L2818: push_constant_int 17956
+L2819: push_constant_string "Little hoardstalker (Forager, tier 2)"
+L2820: push_constant_string "<br>"
+L2821: push_constant_string "Gold charm, submastyx hide"
+L2822: join_string 3
+L2823: push_constant_string "You can now infuse "
+L2824: push_constant_string "<col=000080>"
+L2825: push_constant_string "little hoardstalker pouches"
+L2826: push_constant_string "</col>"
+L2827: push_constant_string " within Daemonheim."
+L2828: join_string 5
+L2829: return 0
+L2830: branch L4091
+L2831: push_constant_int 15
+L2832: push_constant_int 18058
+L2833: push_constant_string "Aptitude (Tier 2) scroll"
+L2834: push_constant_string "You can now use "
+L2835: push_constant_string "<col=000080>"
+L2836: push_constant_string " Aptitude (Tier 2) scrolls"
+L2837: push_constant_string "</col>"
+L2838: push_constant_string " within Daemonheim."
+L2839: join_string 5
+L2840: return 0
+L2841: branch L4091
+L2842: push_constant_int 17
+L2843: push_constant_int 17976
+L2844: push_constant_string "Little worldbearer (Beast of burden, tier 2)"
+L2845: push_constant_string "<br>"
+L2846: push_constant_string "Gold charm, subleather torn bag"
+L2847: join_string 3
+L2848: push_constant_string "You can now infuse "
+L2849: push_constant_string "<col=000080>"
+L2850: push_constant_string "little worldbearer pouches"
+L2851: push_constant_string "</col>"
+L2852: push_constant_string " within Daemonheim."
+L2853: join_string 5
+L2854: return 0
+L2855: branch L4091
+L2856: push_constant_int 17
+L2857: push_constant_int 18068
+L2858: push_constant_string "Second Wind (Tier 2) scroll"
+L2859: push_constant_string "You can now use "
+L2860: push_constant_string "<col=000080>"
+L2861: push_constant_string " Second Wind (Tier 2) scrolls"
+L2862: push_constant_string "</col>"
+L2863: push_constant_string " within Daemonheim."
+L2864: join_string 5
+L2865: return 0
+L2866: branch L4091
+L2867: push_constant_int 19
+L2868: push_constant_int 17966
+L2869: push_constant_string "Little skinweaver (Healer, tier 2)"
+L2870: push_constant_string "<br>"
+L2871: push_constant_string "Gold charm, 2 cooked red-eye"
+L2872: join_string 3
+L2873: push_constant_string "You can now infuse "
+L2874: push_constant_string "<col=000080>"
+L2875: push_constant_string "little skinweaver pouches"
+L2876: push_constant_string "</col>"
+L2877: push_constant_string " within Daemonheim."
+L2878: join_string 5
+L2879: return 0
+L2880: branch L4091
+L2881: push_constant_int 19
+L2882: push_constant_int 18078
+L2883: push_constant_string "Glimmer of Light (Tier 2) scroll"
+L2884: push_constant_string "You can now use "
+L2885: push_constant_string "<col=000080>"
+L2886: push_constant_string " Glimmer of Light (Tier 2) scrolls"
+L2887: push_constant_string "</col>"
+L2888: push_constant_string " within Daemonheim."
+L2889: join_string 5
+L2890: return 0
+L2891: branch L4091
+L2892: push_constant_int 21
+L2893: push_constant_int 17937
+L2894: push_constant_string "Naïve bloodrager (Melee, tier 3)"
+L2895: push_constant_string "<br>"
+L2896: push_constant_string "Gold charm, marmaros ore"
+L2897: join_string 3
+L2898: push_constant_string "You can now infuse "
+L2899: push_constant_string "<col=000080>"
+L2900: push_constant_string "naïve bloodrager pouches"
+L2901: push_constant_string "</col>"
+L2902: push_constant_string " within Daemonheim."
+L2903: join_string 5
+L2904: return 0
+L2905: branch L4091
+L2906: push_constant_int 21
+L2907: push_constant_int 18029
+L2908: push_constant_string "Sundering Strike (Tier 3) scroll"
+L2909: push_constant_string "You can now use "
+L2910: push_constant_string "<col=000080>"
+L2911: push_constant_string " Sundering Strike (Tier 3) scrolls"
+L2912: push_constant_string "</col>"
+L2913: push_constant_string " within Daemonheim."
+L2914: join_string 5
+L2915: return 0
+L2916: branch L4091
+L2917: push_constant_int 22
+L2918: push_constant_int 17987
+L2919: push_constant_string "Naïve deathslinger (Ranged, tier 3)"
+L2920: push_constant_string "<br>"
+L2921: push_constant_string "Gold charm, blood spindle branches"
+L2922: join_string 3
+L2923: push_constant_string "You can now infuse "
+L2924: push_constant_string "<col=000080>"
+L2925: push_constant_string "naïve deathslinger pouches"
+L2926: push_constant_string "</col>"
+L2927: push_constant_string " within Daemonheim."
+L2928: join_string 5
+L2929: return 0
+L2930: branch L4091
+L2931: push_constant_int 22
+L2932: push_constant_int 18039
+L2933: push_constant_string "Poisonous Shot (Tier 3) scroll"
+L2934: push_constant_string "You can now use "
+L2935: push_constant_string "<col=000080>"
+L2936: push_constant_string " Poisonous Shot (Tier 3) scrolls"
+L2937: push_constant_string "</col>"
+L2938: push_constant_string " within Daemonheim."
+L2939: join_string 5
+L2940: return 0
+L2941: branch L4091
+L2942: push_constant_int 23
+L2943: push_constant_int 17947
+L2944: push_constant_string "Naïve stormbringer (Magic, tier 3)"
+L2945: push_constant_string "<br>"
+L2946: push_constant_string "Gold charm, blightleaf gauze"
+L2947: join_string 3
+L2948: push_constant_string "You can now infuse "
+L2949: push_constant_string "<col=000080>"
+L2950: push_constant_string "naïve stormbringer pouches"
+L2951: push_constant_string "</col>"
+L2952: push_constant_string " within Daemonheim."
+L2953: join_string 5
+L2954: return 0
+L2955: branch L4091
+L2956: push_constant_int 23
+L2957: push_constant_int 18049
+L2958: push_constant_string "Snaring Wave (Tier 3) scroll"
+L2959: push_constant_string "You can now use "
+L2960: push_constant_string "<col=000080>"
+L2961: push_constant_string " Snaring Wave (Tier 3) scrolls"
+L2962: push_constant_string "</col>"
+L2963: push_constant_string " within Daemonheim."
+L2964: join_string 5
+L2965: return 0
+L2966: branch L4091
+L2967: push_constant_int 25
+L2968: push_constant_int 17957
+L2969: push_constant_string "Naïve hoardstalker (Forager, tier 3)"
+L2970: push_constant_string "<br>"
+L2971: push_constant_string "Gold charm, paramastyx hide"
+L2972: join_string 3
+L2973: push_constant_string "You can now infuse "
+L2974: push_constant_string "<col=000080>"
+L2975: push_constant_string "naïve hoardstalker pouches"
+L2976: push_constant_string "</col>"
+L2977: push_constant_string " within Daemonheim."
+L2978: join_string 5
+L2979: return 0
+L2980: branch L4091
+L2981: push_constant_int 25
+L2982: push_constant_int 18059
+L2983: push_constant_string "Aptitude (Tier 3) scroll"
+L2984: push_constant_string "You can now use "
+L2985: push_constant_string "<col=000080>"
+L2986: push_constant_string " Aptitude (Tier 3) scrolls"
+L2987: push_constant_string "</col>"
+L2988: push_constant_string " within Daemonheim."
+L2989: join_string 5
+L2990: return 0
+L2991: branch L4091
+L2992: push_constant_int 27
+L2993: push_constant_int 17977
+L2994: push_constant_string "Naïve worldbearer (Beast of burden, tier 3)"
+L2995: push_constant_string "<br>"
+L2996: push_constant_string "Gold charm, paraleather torn bag"
+L2997: join_string 3
+L2998: push_constant_string "You can now infuse "
+L2999: push_constant_string "<col=000080>"
+L3000: push_constant_string "naïve worldbearer pouches"
+L3001: push_constant_string "</col>"
+L3002: push_constant_string " within Daemonheim."
+L3003: join_string 5
+L3004: return 0
+L3005: branch L4091
+L3006: push_constant_int 27
+L3007: push_constant_int 18069
+L3008: push_constant_string "Second Wind (Tier 3) scroll"
+L3009: push_constant_string "You can now use "
+L3010: push_constant_string "<col=000080>"
+L3011: push_constant_string " Second Wind (Tier 3) scrolls"
+L3012: push_constant_string "</col>"
+L3013: push_constant_string " within Daemonheim."
+L3014: join_string 5
+L3015: return 0
+L3016: branch L4091
+L3017: push_constant_int 29
+L3018: push_constant_int 17967
+L3019: push_constant_string "Naïve skinweaver (Healer, tier 3)"
+L3020: push_constant_string "<br>"
+L3021: push_constant_string "Gold charm, 2 cooked dusk eels"
+L3022: join_string 3
+L3023: push_constant_string "You can now infuse "
+L3024: push_constant_string "<col=000080>"
+L3025: push_constant_string "naïve skinweaver pouches"
+L3026: push_constant_string "</col>"
+L3027: push_constant_string " within Daemonheim."
+L3028: join_string 5
+L3029: return 0
+L3030: branch L4091
+L3031: push_constant_int 29
+L3032: push_constant_int 18079
+L3033: push_constant_string "Glimmer of Light (Tier 3) scroll"
+L3034: push_constant_string "You can now use "
+L3035: push_constant_string "<col=000080>"
+L3036: push_constant_string " Glimmer of Light (Tier 3) scrolls"
+L3037: push_constant_string "</col>"
+L3038: push_constant_string " within Daemonheim."
+L3039: join_string 5
+L3040: return 0
+L3041: branch L4091
+L3042: push_constant_int 31
+L3043: push_constant_int 17938
+L3044: push_constant_string "Keen bloodrager (Melee, tier 4)"
+L3045: push_constant_string "<br>"
+L3046: push_constant_string "Green charm, kratonite ore"
+L3047: join_string 3
+L3048: push_constant_string "You can now infuse "
+L3049: push_constant_string "<col=000080>"
+L3050: push_constant_string "keen bloodrager pouches"
+L3051: push_constant_string "</col>"
+L3052: push_constant_string " within Daemonheim."
+L3053: join_string 5
+L3054: return 0
+L3055: branch L4091
+L3056: push_constant_int 31
+L3057: push_constant_int 18030
+L3058: push_constant_string "Sundering Strike (Tier 4) scroll"
+L3059: push_constant_string "You can now use "
+L3060: push_constant_string "<col=000080>"
+L3061: push_constant_string " Sundering Strike (Tier 4) scrolls"
+L3062: push_constant_string "</col>"
+L3063: push_constant_string " within Daemonheim."
+L3064: join_string 5
+L3065: return 0
+L3066: branch L4091
+L3067: push_constant_int 32
+L3068: push_constant_int 17988
+L3069: push_constant_string "Keen deathslinger (Ranged, tier 4)"
+L3070: push_constant_string "<br>"
+L3071: push_constant_string "Green charm, utuku branches"
+L3072: join_string 3
+L3073: push_constant_string "You can now infuse "
+L3074: push_constant_string "<col=000080>"
+L3075: push_constant_string "keen deathslinger pouches"
+L3076: push_constant_string "</col>"
+L3077: push_constant_string " within Daemonheim."
+L3078: join_string 5
+L3079: return 0
+L3080: branch L4091
+L3081: push_constant_int 32
+L3082: push_constant_int 18040
+L3083: push_constant_string "Poisonous Shot (Tier 4) scroll"
+L3084: push_constant_string "You can now use "
+L3085: push_constant_string "<col=000080>"
+L3086: push_constant_string " Poisonous Shot (Tier 4) scrolls"
+L3087: push_constant_string "</col>"
+L3088: push_constant_string " within Daemonheim."
+L3089: join_string 5
+L3090: return 0
+L3091: branch L4091
+L3092: push_constant_int 33
+L3093: push_constant_int 17948
+L3094: push_constant_string "Keen stormbringer (Magic, tier 4)"
+L3095: push_constant_string "<br>"
+L3096: push_constant_string "Green charm, roseblood stems"
+L3097: join_string 3
+L3098: push_constant_string "You can now infuse "
+L3099: push_constant_string "<col=000080>"
+L3100: push_constant_string "keen stormbringer pouches"
+L3101: push_constant_string "</col>"
+L3102: push_constant_string " within Daemonheim."
+L3103: join_string 5
+L3104: return 0
+L3105: branch L4091
+L3106: push_constant_int 33
+L3107: push_constant_int 18050
+L3108: push_constant_string "Snaring Wave (Tier 4) scroll"
+L3109: push_constant_string "You can now use "
+L3110: push_constant_string "<col=000080>"
+L3111: push_constant_string " Snaring Wave (Tier 4) scrolls"
+L3112: push_constant_string "</col>"
+L3113: push_constant_string " within Daemonheim."
+L3114: join_string 5
+L3115: return 0
+L3116: branch L4091
+L3117: push_constant_int 35
+L3118: push_constant_int 17958
+L3119: push_constant_string "Keen hoardstalker (Forager, tier 4)"
+L3120: push_constant_string "<br>"
+L3121: push_constant_string "Green charm, archaemastyx hide"
+L3122: join_string 3
+L3123: push_constant_string "You can now infuse "
+L3124: push_constant_string "<col=000080>"
+L3125: push_constant_string "keen hoardstalker pouches"
+L3126: push_constant_string "</col>"
+L3127: push_constant_string " within Daemonheim."
+L3128: join_string 5
+L3129: return 0
+L3130: branch L4091
+L3131: push_constant_int 35
+L3132: push_constant_int 18060
+L3133: push_constant_string "Aptitude (Tier 4) scroll"
+L3134: push_constant_string "You can now use "
+L3135: push_constant_string "<col=000080>"
+L3136: push_constant_string " Aptitude (Tier 4) scrolls"
+L3137: push_constant_string "</col>"
+L3138: push_constant_string " within Daemonheim."
+L3139: join_string 5
+L3140: return 0
+L3141: branch L4091
+L3142: push_constant_int 37
+L3143: push_constant_int 17978
+L3144: push_constant_string "Keen worldbearer (Beast of burden, tier 4)"
+L3145: push_constant_string "<br>"
+L3146: push_constant_string "Green charm, archleather torn bag"
+L3147: join_string 3
+L3148: push_constant_string "You can now infuse "
+L3149: push_constant_string "<col=000080>"
+L3150: push_constant_string "keen worldbearer pouches"
+L3151: push_constant_string "</col>"
+L3152: push_constant_string " within Daemonheim."
+L3153: join_string 5
+L3154: return 0
+L3155: branch L4091
+L3156: push_constant_int 37
+L3157: push_constant_int 18070
+L3158: push_constant_string "Second Wind (Tier 4) scroll"
+L3159: push_constant_string "You can now use "
+L3160: push_constant_string "<col=000080>"
+L3161: push_constant_string " Second Wind (Tier 4) scrolls"
+L3162: push_constant_string "</col>"
+L3163: push_constant_string " within Daemonheim."
+L3164: join_string 5
+L3165: return 0
+L3166: branch L4091
+L3167: push_constant_int 39
+L3168: push_constant_int 17968
+L3169: push_constant_string "Keen skinweaver (Healer, tier 4)"
+L3170: push_constant_string "<br>"
+L3171: push_constant_string "Green charm, 2 cooked giant flatfish"
+L3172: join_string 3
+L3173: push_constant_string "You can now infuse "
+L3174: push_constant_string "<col=000080>"
+L3175: push_constant_string "keen skinweaver pouches"
+L3176: push_constant_string "</col>"
+L3177: push_constant_string " within Daemonheim."
+L3178: join_string 5
+L3179: return 0
+L3180: branch L4091
+L3181: push_constant_int 39
+L3182: push_constant_int 18080
+L3183: push_constant_string "Glimmer of Light (Tier 4) scroll"
+L3184: push_constant_string "You can now use "
+L3185: push_constant_string "<col=000080>"
+L3186: push_constant_string " Glimmer of Light (Tier 4) scrolls"
+L3187: push_constant_string "</col>"
+L3188: push_constant_string " within Daemonheim."
+L3189: join_string 5
+L3190: return 0
+L3191: branch L4091
+L3192: push_constant_int 41
+L3193: push_constant_int 17939
+L3194: push_constant_string "Brave bloodrager (Melee, tier 5)"
+L3195: push_constant_string "<br>"
+L3196: push_constant_string "Green charm, fractite ore"
+L3197: join_string 3
+L3198: push_constant_string "You can now infuse "
+L3199: push_constant_string "<col=000080>"
+L3200: push_constant_string "brave bloodrager pouches"
+L3201: push_constant_string "</col>"
+L3202: push_constant_string " within Daemonheim."
+L3203: join_string 5
+L3204: return 0
+L3205: branch L4091
+L3206: push_constant_int 41
+L3207: push_constant_int 18031
+L3208: push_constant_string "Sundering Strike (Tier 5) scroll"
+L3209: push_constant_string "You can now use "
+L3210: push_constant_string "<col=000080>"
+L3211: push_constant_string " Sundering Strike (Tier 5) scrolls"
+L3212: push_constant_string "</col>"
+L3213: push_constant_string " within Daemonheim."
+L3214: join_string 5
+L3215: return 0
+L3216: branch L4091
+L3217: push_constant_int 42
+L3218: push_constant_int 17989
+L3219: push_constant_string "Brave deathslinger (Ranged, tier 5)"
+L3220: push_constant_string "<br>"
+L3221: push_constant_string "Green charm, spinebeam branches"
+L3222: join_string 3
+L3223: push_constant_string "You can now infuse "
+L3224: push_constant_string "<col=000080>"
+L3225: push_constant_string "brave deathslinger pouches"
+L3226: push_constant_string "</col>"
+L3227: push_constant_string " within Daemonheim."
+L3228: join_string 5
+L3229: return 0
+L3230: branch L4091
+L3231: push_constant_int 42
+L3232: push_constant_int 18041
+L3233: push_constant_string "Poisonous Shot (Tier 5) scroll"
+L3234: push_constant_string "You can now use "
+L3235: push_constant_string "<col=000080>"
+L3236: push_constant_string " Poisonous Shot (Tier 5) scrolls"
+L3237: push_constant_string "</col>"
+L3238: push_constant_string " within Daemonheim."
+L3239: join_string 5
+L3240: return 0
+L3241: branch L4091
+L3242: push_constant_int 43
+L3243: push_constant_int 17949
+L3244: push_constant_string "Brave stormbringer (Magic, tier 5)"
+L3245: push_constant_string "<br>"
+L3246: push_constant_string "Green charm, bryll reeds"
+L3247: join_string 3
+L3248: push_constant_string "You can now infuse "
+L3249: push_constant_string "<col=000080>"
+L3250: push_constant_string "brave stormbringer pouches"
+L3251: push_constant_string "</col>"
+L3252: push_constant_string " within Daemonheim."
+L3253: join_string 5
+L3254: return 0
+L3255: branch L4091
+L3256: push_constant_int 43
+L3257: push_constant_int 18051
+L3258: push_constant_string "Snaring Wave (Tier 5) scroll"
+L3259: push_constant_string "You can now use "
+L3260: push_constant_string "<col=000080>"
+L3261: push_constant_string " Snaring Wave (Tier 5) scrolls"
+L3262: push_constant_string "</col>"
+L3263: push_constant_string " within Daemonheim."
+L3264: join_string 5
+L3265: return 0
+L3266: branch L4091
+L3267: push_constant_int 45
+L3268: push_constant_int 17959
+L3269: push_constant_string "Brave hoardstalker (Forager, tier 5)"
+L3270: push_constant_string "<br>"
+L3271: push_constant_string "Green charm, dromomastyx hide"
+L3272: join_string 3
+L3273: push_constant_string "You can now infuse "
+L3274: push_constant_string "<col=000080>"
+L3275: push_constant_string "brave hoardstalker pouches"
+L3276: push_constant_string "</col>"
+L3277: push_constant_string " within Daemonheim."
+L3278: join_string 5
+L3279: return 0
+L3280: branch L4091
+L3281: push_constant_int 45
+L3282: push_constant_int 18061
+L3283: push_constant_string "Aptitude (Tier 5) scroll"
+L3284: push_constant_string "You can now use "
+L3285: push_constant_string "<col=000080>"
+L3286: push_constant_string " Aptitude (Tier 5) scrolls"
+L3287: push_constant_string "</col>"
+L3288: push_constant_string " within Daemonheim."
+L3289: join_string 5
+L3290: return 0
+L3291: branch L4091
+L3292: push_constant_int 47
+L3293: push_constant_int 17979
+L3294: push_constant_string "Brave worldbearer (Beast of burden, tier 5)"
+L3295: push_constant_string "<br>"
+L3296: push_constant_string "Green charm, dromoleather torn bag"
+L3297: join_string 3
+L3298: push_constant_string "You can now infuse "
+L3299: push_constant_string "<col=000080>"
+L3300: push_constant_string "brave worldbearer pouches"
+L3301: push_constant_string "</col>"
+L3302: push_constant_string " within Daemonheim."
+L3303: join_string 5
+L3304: return 0
+L3305: branch L4091
+L3306: push_constant_int 47
+L3307: push_constant_int 18071
+L3308: push_constant_string "Second Wind (Tier 5) scroll"
+L3309: push_constant_string "You can now use "
+L3310: push_constant_string "<col=000080>"
+L3311: push_constant_string " Second Wind (Tier 5) scrolls"
+L3312: push_constant_string "</col>"
+L3313: push_constant_string " within Daemonheim."
+L3314: join_string 5
+L3315: return 0
+L3316: branch L4091
+L3317: push_constant_int 49
+L3318: push_constant_int 17969
+L3319: push_constant_string "Brave skinweaver (Healer, tier 5)"
+L3320: push_constant_string "<br>"
+L3321: push_constant_string "Green charm, 2 cooked short-finned eels"
+L3322: join_string 3
+L3323: push_constant_string "You can now infuse "
+L3324: push_constant_string "<col=000080>"
+L3325: push_constant_string "brave skinweaver pouches"
+L3326: push_constant_string "</col>"
+L3327: push_constant_string " within Daemonheim."
+L3328: join_string 5
+L3329: return 0
+L3330: branch L4091
+L3331: push_constant_int 49
+L3332: push_constant_int 18081
+L3333: push_constant_string "Glimmer of Light (Tier 5) scroll"
+L3334: push_constant_string "You can now use "
+L3335: push_constant_string "<col=000080>"
+L3336: push_constant_string " Glimmer of Light (Tier 5) scrolls"
+L3337: push_constant_string "</col>"
+L3338: push_constant_string " within Daemonheim."
+L3339: join_string 5
+L3340: return 0
+L3341: branch L4091
+L3342: push_constant_int 51
+L3343: push_constant_int 17940
+L3344: push_constant_string "Brah bloodrager (Melee, tier 6)"
+L3345: push_constant_string "<br>"
+L3346: push_constant_string "Green charm, zephyrium ore"
+L3347: join_string 3
+L3348: push_constant_string "You can now infuse "
+L3349: push_constant_string "<col=000080>"
+L3350: push_constant_string "brah bloodrager pouches"
+L3351: push_constant_string "</col>"
+L3352: push_constant_string " within Daemonheim."
+L3353: join_string 5
+L3354: return 0
+L3355: branch L4091
+L3356: push_constant_int 51
+L3357: push_constant_int 18032
+L3358: push_constant_string "Sundering Strike (Tier 6) scroll"
+L3359: push_constant_string "You can now use "
+L3360: push_constant_string "<col=000080>"
+L3361: push_constant_string " Sundering Strike (Tier 6) scrolls"
+L3362: push_constant_string "</col>"
+L3363: push_constant_string " within Daemonheim."
+L3364: join_string 5
+L3365: return 0
+L3366: branch L4091
+L3367: push_constant_int 52
+L3368: push_constant_int 17990
+L3369: push_constant_string "Brah deathslinger (Ranged, tier 6)"
+L3370: push_constant_string "<br>"
+L3371: push_constant_string "Green charm, bovistrangler branches"
+L3372: join_string 3
+L3373: push_constant_string "You can now infuse "
+L3374: push_constant_string "<col=000080>"
+L3375: push_constant_string "brah deathslinger pouches"
+L3376: push_constant_string "</col>"
+L3377: push_constant_string " within Daemonheim."
+L3378: join_string 5
+L3379: return 0
+L3380: branch L4091
+L3381: push_constant_int 52
+L3382: push_constant_int 18042
+L3383: push_constant_string "Poisonous Shot (Tier 6) scroll"
+L3384: push_constant_string "You can now use "
+L3385: push_constant_string "<col=000080>"
+L3386: push_constant_string " Poisonous Shot (Tier 6) scrolls"
+L3387: push_constant_string "</col>"
+L3388: push_constant_string " within Daemonheim."
+L3389: join_string 5
+L3390: return 0
+L3391: branch L4091
+L3392: push_constant_int 53
+L3393: push_constant_int 17950
+L3394: push_constant_string "Brah stormbringer (Magic, tier 6)"
+L3395: push_constant_string "<br>"
+L3396: push_constant_string "Green charm, duskweed sproutings"
+L3397: join_string 3
+L3398: push_constant_string "You can now infuse "
+L3399: push_constant_string "<col=000080>"
+L3400: push_constant_string "brah stormbringer pouches"
+L3401: push_constant_string "</col>"
+L3402: push_constant_string " within Daemonheim."
+L3403: join_string 5
+L3404: return 0
+L3405: branch L4091
+L3406: push_constant_int 53
+L3407: push_constant_int 18052
+L3408: push_constant_string "Snaring Wave (Tier 6) scroll"
+L3409: push_constant_string "You can now use "
+L3410: push_constant_string "<col=000080>"
+L3411: push_constant_string " Snaring Wave (Tier 6) scrolls"
+L3412: push_constant_string "</col>"
+L3413: push_constant_string " within Daemonheim."
+L3414: join_string 5
+L3415: return 0
+L3416: branch L4091
+L3417: push_constant_int 55
+L3418: push_constant_int 17960
+L3419: push_constant_string "Brah hoardstalker (Forager, tier 6)"
+L3420: push_constant_string "<br>"
+L3421: push_constant_string "Green charm, spinomastyx hide"
+L3422: join_string 3
+L3423: push_constant_string "You can now infuse "
+L3424: push_constant_string "<col=000080>"
+L3425: push_constant_string "brah hoardstalker pouches"
+L3426: push_constant_string "</col>"
+L3427: push_constant_string " within Daemonheim."
+L3428: join_string 5
+L3429: return 0
+L3430: branch L4091
+L3431: push_constant_int 55
+L3432: push_constant_int 18062
+L3433: push_constant_string "Aptitude (Tier 6) scroll"
+L3434: push_constant_string "You can now use "
+L3435: push_constant_string "<col=000080>"
+L3436: push_constant_string " Aptitude (Tier 6) scrolls"
+L3437: push_constant_string "</col>"
+L3438: push_constant_string " within Daemonheim."
+L3439: join_string 5
+L3440: return 0
+L3441: branch L4091
+L3442: push_constant_int 57
+L3443: push_constant_int 17980
+L3444: push_constant_string "Brah worldbearer (Beast of burden, tier 6)"
+L3445: push_constant_string "<br>"
+L3446: push_constant_string "Green charm, spinoleather torn bag"
+L3447: join_string 3
+L3448: push_constant_string "You can now infuse "
+L3449: push_constant_string "<col=000080>"
+L3450: push_constant_string "brah worldbearer pouches"
+L3451: push_constant_string "</col>"
+L3452: push_constant_string " within Daemonheim."
+L3453: join_string 5
+L3454: return 0
+L3455: branch L4091
+L3456: push_constant_int 57
+L3457: push_constant_int 18072
+L3458: push_constant_string "Second Wind (Tier 6) scroll"
+L3459: push_constant_string "You can now use "
+L3460: push_constant_string "<col=000080>"
+L3461: push_constant_string " Second Wind (Tier 6) scrolls"
+L3462: push_constant_string "</col>"
+L3463: push_constant_string " within Daemonheim."
+L3464: join_string 5
+L3465: return 0
+L3466: branch L4091
+L3467: push_constant_int 59
+L3468: push_constant_int 17970
+L3469: push_constant_string "Brah skinweaver (Healer, tier 6)"
+L3470: push_constant_string "<br>"
+L3471: push_constant_string "Green charm, 2 cooked web snippers"
+L3472: join_string 3
+L3473: push_constant_string "You can now infuse "
+L3474: push_constant_string "<col=000080>"
+L3475: push_constant_string "brah skinweaver pouches"
+L3476: push_constant_string "</col>"
+L3477: push_constant_string " within Daemonheim."
+L3478: join_string 5
+L3479: return 0
+L3480: branch L4091
+L3481: push_constant_int 59
+L3482: push_constant_int 18082
+L3483: push_constant_string "Glimmer of Light (Tier 6) scroll"
+L3484: push_constant_string "You can now use "
+L3485: push_constant_string "<col=000080>"
+L3486: push_constant_string " Glimmer of Light (Tier 6) scrolls"
+L3487: push_constant_string "</col>"
+L3488: push_constant_string " within Daemonheim."
+L3489: join_string 5
+L3490: return 0
+L3491: branch L4091
+L3492: push_constant_int 61
+L3493: push_constant_int 17941
+L3494: push_constant_string "Naabe bloodrager (Melee, tier 7)"
+L3495: push_constant_string "<br>"
+L3496: push_constant_string "Crimson charm, argonite ore"
+L3497: join_string 3
+L3498: push_constant_string "You can now infuse "
+L3499: push_constant_string "<col=000080>"
+L3500: push_constant_string "naabe bloodrager pouches"
+L3501: push_constant_string "</col>"
+L3502: push_constant_string " within Daemonheim."
+L3503: join_string 5
+L3504: return 0
+L3505: branch L4091
+L3506: push_constant_int 61
+L3507: push_constant_int 18033
+L3508: push_constant_string "Sundering Strike (Tier 7) scroll"
+L3509: push_constant_string "You can now use "
+L3510: push_constant_string "<col=000080>"
+L3511: push_constant_string " Sundering Strike (Tier 7) scrolls"
+L3512: push_constant_string "</col>"
+L3513: push_constant_string " within Daemonheim."
+L3514: join_string 5
+L3515: return 0
+L3516: branch L4091
+L3517: push_constant_int 62
+L3518: push_constant_int 17991
+L3519: push_constant_string "Naabe deathslinger (Ranged, tier 7)"
+L3520: push_constant_string "<br>"
+L3521: push_constant_string "Crimson charm, thigat branches"
+L3522: join_string 3
+L3523: push_constant_string "You can now infuse "
+L3524: push_constant_string "<col=000080>"
+L3525: push_constant_string "naabe deathslinger pouches"
+L3526: push_constant_string "</col>"
+L3527: push_constant_string " within Daemonheim."
+L3528: join_string 5
+L3529: return 0
+L3530: branch L4091
+L3531: push_constant_int 62
+L3532: push_constant_int 18043
+L3533: push_constant_string "Poisonous Shot (Tier 7) scroll"
+L3534: push_constant_string "You can now use "
+L3535: push_constant_string "<col=000080>"
+L3536: push_constant_string " Poisonous Shot (Tier 7) scrolls"
+L3537: push_constant_string "</col>"
+L3538: push_constant_string " within Daemonheim."
+L3539: join_string 5
+L3540: return 0
+L3541: branch L4091
+L3542: push_constant_int 63
+L3543: push_constant_int 17951
+L3544: push_constant_string "Naabe stormbringer (Magic, tier 7)"
+L3545: push_constant_string "<br>"
+L3546: push_constant_string "Crimson charm, soulbell roots"
+L3547: join_string 3
+L3548: push_constant_string "You can now infuse "
+L3549: push_constant_string "<col=000080>"
+L3550: push_constant_string "naabe stormbringer pouches"
+L3551: push_constant_string "</col>"
+L3552: push_constant_string " within Daemonheim."
+L3553: join_string 5
+L3554: return 0
+L3555: branch L4091
+L3556: push_constant_int 63
+L3557: push_constant_int 18053
+L3558: push_constant_string "Snaring Wave (Tier 7) scroll"
+L3559: push_constant_string "You can now use "
+L3560: push_constant_string "<col=000080>"
+L3561: push_constant_string " Snaring Wave (Tier 7) scrolls"
+L3562: push_constant_string "</col>"
+L3563: push_constant_string " within Daemonheim."
+L3564: join_string 5
+L3565: return 0
+L3566: branch L4091
+L3567: push_constant_int 65
+L3568: push_constant_int 17961
+L3569: push_constant_string "Naabe hoardstalker (Forager, tier 7)"
+L3570: push_constant_string "<br>"
+L3571: push_constant_string "Crimson charm, gallimastyx hide"
+L3572: join_string 3
+L3573: push_constant_string "You can now infuse "
+L3574: push_constant_string "<col=000080>"
+L3575: push_constant_string "naabe hoardstalker pouches"
+L3576: push_constant_string "</col>"
+L3577: push_constant_string " within Daemonheim."
+L3578: join_string 5
+L3579: return 0
+L3580: branch L4091
+L3581: push_constant_int 65
+L3582: push_constant_int 18063
+L3583: push_constant_string "Aptitude (Tier 7) scroll"
+L3584: push_constant_string "You can now use "
+L3585: push_constant_string "<col=000080>"
+L3586: push_constant_string " Aptitude (Tier 7) scrolls"
+L3587: push_constant_string "</col>"
+L3588: push_constant_string " within Daemonheim."
+L3589: join_string 5
+L3590: return 0
+L3591: branch L4091
+L3592: push_constant_int 67
+L3593: push_constant_int 17981
+L3594: push_constant_string "Naabe worldbearer (Beast of burden, tier 7)"
+L3595: push_constant_string "<br>"
+L3596: push_constant_string "Crimson charm, gallileather torn bag"
+L3597: join_string 3
+L3598: push_constant_string "You can now infuse "
+L3599: push_constant_string "<col=000080>"
+L3600: push_constant_string "naabe worldbearer pouches"
+L3601: push_constant_string "</col>"
+L3602: push_constant_string " within Daemonheim."
+L3603: join_string 5
+L3604: return 0
+L3605: branch L4091
+L3606: push_constant_int 67
+L3607: push_constant_int 18073
+L3608: push_constant_string "Second Wind (Tier 7) scroll"
+L3609: push_constant_string "You can now use "
+L3610: push_constant_string "<col=000080>"
+L3611: push_constant_string " Second Wind (Tier 7) scrolls"
+L3612: push_constant_string "</col>"
+L3613: push_constant_string " within Daemonheim."
+L3614: join_string 5
+L3615: return 0
+L3616: branch L4091
+L3617: push_constant_int 69
+L3618: push_constant_int 17971
+L3619: push_constant_string "Naabe skinweaver (Healer, tier 7)"
+L3620: push_constant_string "<br>"
+L3621: push_constant_string "Crimson charm, 2 cooked bouldabass"
+L3622: join_string 3
+L3623: push_constant_string "You can now infuse "
+L3624: push_constant_string "<col=000080>"
+L3625: push_constant_string "naabe skinweaver pouches"
+L3626: push_constant_string "</col>"
+L3627: push_constant_string " within Daemonheim."
+L3628: join_string 5
+L3629: return 0
+L3630: branch L4091
+L3631: push_constant_int 69
+L3632: push_constant_int 18083
+L3633: push_constant_string "Glimmer of Light (Tier 7) scroll"
+L3634: push_constant_string "You can now use "
+L3635: push_constant_string "<col=000080>"
+L3636: push_constant_string " Glimmer of Light (Tier 7) scrolls"
+L3637: push_constant_string "</col>"
+L3638: push_constant_string " within Daemonheim."
+L3639: join_string 5
+L3640: return 0
+L3641: branch L4091
+L3642: push_constant_int 71
+L3643: push_constant_int 17942
+L3644: push_constant_string "Wise bloodrager (Melee, tier 8)"
+L3645: push_constant_string "<br>"
+L3646: push_constant_string "Crimson charm, katagon ore"
+L3647: join_string 3
+L3648: push_constant_string "You can now infuse "
+L3649: push_constant_string "<col=000080>"
+L3650: push_constant_string "wise bloodrager pouches"
+L3651: push_constant_string "</col>"
+L3652: push_constant_string " within Daemonheim."
+L3653: join_string 5
+L3654: return 0
+L3655: branch L4091
+L3656: push_constant_int 71
+L3657: push_constant_int 18034
+L3658: push_constant_string "Sundering Strike (Tier 8) scroll"
+L3659: push_constant_string "You can now use "
+L3660: push_constant_string "<col=000080>"
+L3661: push_constant_string " Sundering Strike (Tier 8) scrolls"
+L3662: push_constant_string "</col>"
+L3663: push_constant_string " within Daemonheim."
+L3664: join_string 5
+L3665: return 0
+L3666: branch L4091
+L3667: push_constant_int 72
+L3668: push_constant_int 17992
+L3669: push_constant_string "Wise deathslinger (Ranged, tier 8)"
+L3670: push_constant_string "<br>"
+L3671: push_constant_string "Crimson charm, corpsethorn branches"
+L3672: join_string 3
+L3673: push_constant_string "You can now infuse "
+L3674: push_constant_string "<col=000080>"
+L3675: push_constant_string "wise deathslinger pouches"
+L3676: push_constant_string "</col>"
+L3677: push_constant_string " within Daemonheim."
+L3678: join_string 5
+L3679: return 0
+L3680: branch L4091
+L3681: push_constant_int 72
+L3682: push_constant_int 18044
+L3683: push_constant_string "Poisonous Shot (Tier 8) scroll"
+L3684: push_constant_string "You can now use "
+L3685: push_constant_string "<col=000080>"
+L3686: push_constant_string " Poisonous Shot (Tier 8) scrolls"
+L3687: push_constant_string "</col>"
+L3688: push_constant_string " within Daemonheim."
+L3689: join_string 5
+L3690: return 0
+L3691: branch L4091
+L3692: push_constant_int 73
+L3693: push_constant_int 17952
+L3694: push_constant_string "Wise stormbringer (Magic, tier 8)"
+L3695: push_constant_string "<br>"
+L3696: push_constant_string "Crimson charm, ectograss blades"
+L3697: join_string 3
+L3698: push_constant_string "You can now infuse "
+L3699: push_constant_string "<col=000080>"
+L3700: push_constant_string "wise stormbringer pouches"
+L3701: push_constant_string "</col>"
+L3702: push_constant_string " within Daemonheim."
+L3703: join_string 5
+L3704: return 0
+L3705: branch L4091
+L3706: push_constant_int 73
+L3707: push_constant_int 18054
+L3708: push_constant_string "Snaring Wave (Tier 8) scroll"
+L3709: push_constant_string "You can now use "
+L3710: push_constant_string "<col=000080>"
+L3711: push_constant_string " Snaring Wave (Tier 8) scrolls"
+L3712: push_constant_string "</col>"
+L3713: push_constant_string " within Daemonheim."
+L3714: join_string 5
+L3715: return 0
+L3716: branch L4091
+L3717: push_constant_int 75
+L3718: push_constant_int 17962
+L3719: push_constant_string "Wise hoardstalker (Forager, tier 8)"
+L3720: push_constant_string "<br>"
+L3721: push_constant_string "Crimson charm, stegomastyx hide"
+L3722: join_string 3
+L3723: push_constant_string "You can now infuse "
+L3724: push_constant_string "<col=000080>"
+L3725: push_constant_string "wise hoardstalker pouches"
+L3726: push_constant_string "</col>"
+L3727: push_constant_string " within Daemonheim."
+L3728: join_string 5
+L3729: return 0
+L3730: branch L4091
+L3731: push_constant_int 75
+L3732: push_constant_int 18064
+L3733: push_constant_string "Aptitude (Tier 8) scroll"
+L3734: push_constant_string "You can now use "
+L3735: push_constant_string "<col=000080>"
+L3736: push_constant_string " Aptitude (Tier 8) scrolls"
+L3737: push_constant_string "</col>"
+L3738: push_constant_string " within Daemonheim."
+L3739: join_string 5
+L3740: return 0
+L3741: branch L4091
+L3742: push_constant_int 77
+L3743: push_constant_int 17982
+L3744: push_constant_string "Wise worldbearer (Beast of burden, tier 8)"
+L3745: push_constant_string "<br>"
+L3746: push_constant_string "Crimson charm, stegoleather torn bag"
+L3747: join_string 3
+L3748: push_constant_string "You can now infuse "
+L3749: push_constant_string "<col=000080>"
+L3750: push_constant_string "wise worldbearer pouches"
+L3751: push_constant_string "</col>"
+L3752: push_constant_string " within Daemonheim."
+L3753: join_string 5
+L3754: return 0
+L3755: branch L4091
+L3756: push_constant_int 77
+L3757: push_constant_int 18074
+L3758: push_constant_string "Second Wind (Tier 8) scroll"
+L3759: push_constant_string "You can now use "
+L3760: push_constant_string "<col=000080>"
+L3761: push_constant_string " Second Wind (Tier 8) scrolls"
+L3762: push_constant_string "</col>"
+L3763: push_constant_string " within Daemonheim."
+L3764: join_string 5
+L3765: return 0
+L3766: branch L4091
+L3767: push_constant_int 79
+L3768: push_constant_int 17972
+L3769: push_constant_string "Wise skinweaver (Healer, tier 8)"
+L3770: push_constant_string "<br>"
+L3771: push_constant_string "Crimson charm, 2 cooked salve eels"
+L3772: join_string 3
+L3773: push_constant_string "You can now infuse "
+L3774: push_constant_string "<col=000080>"
+L3775: push_constant_string "wise skinweaver pouches"
+L3776: push_constant_string "</col>"
+L3777: push_constant_string " within Daemonheim."
+L3778: join_string 5
+L3779: return 0
+L3780: branch L4091
+L3781: push_constant_int 79
+L3782: push_constant_int 18084
+L3783: push_constant_string "Glimmer of Light (Tier 8) scroll"
+L3784: push_constant_string "You can now use "
+L3785: push_constant_string "<col=000080>"
+L3786: push_constant_string " Glimmer of Light (Tier 8) scrolls"
+L3787: push_constant_string "</col>"
+L3788: push_constant_string " within Daemonheim."
+L3789: join_string 5
+L3790: return 0
+L3791: branch L4091
+L3792: push_constant_int 81
+L3793: push_constant_int 17943
+L3794: push_constant_string "Adept bloodrager (Melee, tier 9)"
+L3795: push_constant_string "<br>"
+L3796: push_constant_string "Blue charm, gorgonite ore"
+L3797: join_string 3
+L3798: push_constant_string "You can now infuse "
+L3799: push_constant_string "<col=000080>"
+L3800: push_constant_string "adept bloodrager pouches"
+L3801: push_constant_string "</col>"
+L3802: push_constant_string " within Daemonheim."
+L3803: join_string 5
+L3804: return 0
+L3805: branch L4091
+L3806: push_constant_int 81
+L3807: push_constant_int 18035
+L3808: push_constant_string "Sundering Strike (Tier 9) scroll"
+L3809: push_constant_string "You can now use "
+L3810: push_constant_string "<col=000080>"
+L3811: push_constant_string " Sundering Strike (Tier 9) scrolls"
+L3812: push_constant_string "</col>"
+L3813: push_constant_string " within Daemonheim."
+L3814: join_string 5
+L3815: return 0
+L3816: branch L4091
+L3817: push_constant_int 82
+L3818: push_constant_int 17993
+L3819: push_constant_string "Adept deathslinger (Ranged, tier 9)"
+L3820: push_constant_string "<br>"
+L3821: push_constant_string "Blue charm, entgallow branches"
+L3822: join_string 3
+L3823: push_constant_string "You can now infuse "
+L3824: push_constant_string "<col=000080>"
+L3825: push_constant_string "adept deathslinger pouches"
+L3826: push_constant_string "</col>"
+L3827: push_constant_string " within Daemonheim."
+L3828: join_string 5
+L3829: return 0
+L3830: branch L4091
+L3831: push_constant_int 82
+L3832: push_constant_int 18045
+L3833: push_constant_string "Poisonous Shot (Tier 9) scroll"
+L3834: push_constant_string "You can now use "
+L3835: push_constant_string "<col=000080>"
+L3836: push_constant_string " Poisonous Shot (Tier 9) scrolls"
+L3837: push_constant_string "</col>"
+L3838: push_constant_string " within Daemonheim."
+L3839: join_string 5
+L3840: return 0
+L3841: branch L4091
+L3842: push_constant_int 83
+L3843: push_constant_int 17953
+L3844: push_constant_string "Adept stormbringer (Magic, tier 9)"
+L3845: push_constant_string "<br>"
+L3846: push_constant_string "Blue charm, runeleaf fibres"
+L3847: join_string 3
+L3848: push_constant_string "You can now infuse "
+L3849: push_constant_string "<col=000080>"
+L3850: push_constant_string "adept stormbringer pouches"
+L3851: push_constant_string "</col>"
+L3852: push_constant_string " within Daemonheim."
+L3853: join_string 5
+L3854: return 0
+L3855: branch L4091
+L3856: push_constant_int 83
+L3857: push_constant_int 18055
+L3858: push_constant_string "Snaring Wave (Tier 9) scroll"
+L3859: push_constant_string "You can now use "
+L3860: push_constant_string "<col=000080>"
+L3861: push_constant_string " Snaring Wave (Tier 9) scrolls"
+L3862: push_constant_string "</col>"
+L3863: push_constant_string " within Daemonheim."
+L3864: join_string 5
+L3865: return 0
+L3866: branch L4091
+L3867: push_constant_int 85
+L3868: push_constant_int 17963
+L3869: push_constant_string "Adept hoardstalker (Forager, tier 9)"
+L3870: push_constant_string "<br>"
+L3871: push_constant_string "Blue charm, megamastyx hide"
+L3872: join_string 3
+L3873: push_constant_string "You can now infuse "
+L3874: push_constant_string "<col=000080>"
+L3875: push_constant_string "adept hoardstalker pouches"
+L3876: push_constant_string "</col>"
+L3877: push_constant_string " within Daemonheim."
+L3878: join_string 5
+L3879: return 0
+L3880: branch L4091
+L3881: push_constant_int 85
+L3882: push_constant_int 18065
+L3883: push_constant_string "Aptitude (Tier 9) scroll"
+L3884: push_constant_string "You can now use "
+L3885: push_constant_string "<col=000080>"
+L3886: push_constant_string " Aptitude (Tier 9) scrolls"
+L3887: push_constant_string "</col>"
+L3888: push_constant_string " within Daemonheim."
+L3889: join_string 5
+L3890: return 0
+L3891: branch L4091
+L3892: push_constant_int 87
+L3893: push_constant_int 17983
+L3894: push_constant_string "Adept worldbearer (Beast of burden, tier 9)"
+L3895: push_constant_string "<br>"
+L3896: push_constant_string "Blue charm, megaleather torn bag"
+L3897: join_string 3
+L3898: push_constant_string "You can now infuse "
+L3899: push_constant_string "<col=000080>"
+L3900: push_constant_string "adept worldbearer pouches"
+L3901: push_constant_string "</col>"
+L3902: push_constant_string " within Daemonheim."
+L3903: join_string 5
+L3904: return 0
+L3905: branch L4091
+L3906: push_constant_int 87
+L3907: push_constant_int 18075
+L3908: push_constant_string "Second Wind (Tier 9) scroll"
+L3909: push_constant_string "You can now use "
+L3910: push_constant_string "<col=000080>"
+L3911: push_constant_string " Second Wind (Tier 9) scrolls"
+L3912: push_constant_string "</col>"
+L3913: push_constant_string " within Daemonheim."
+L3914: join_string 5
+L3915: return 0
+L3916: branch L4091
+L3917: push_constant_int 89
+L3918: push_constant_int 17973
+L3919: push_constant_string "Adept skinweaver (Healer, tier 9)"
+L3920: push_constant_string "<br>"
+L3921: push_constant_string "Blue charm, 2 cooked blue crabs"
+L3922: join_string 3
+L3923: push_constant_string "You can now infuse "
+L3924: push_constant_string "<col=000080>"
+L3925: push_constant_string "adept skinweaver pouches"
+L3926: push_constant_string "</col>"
+L3927: push_constant_string " within Daemonheim."
+L3928: join_string 5
+L3929: return 0
+L3930: branch L4091
+L3931: push_constant_int 89
+L3932: push_constant_int 18085
+L3933: push_constant_string "Glimmer of Light (Tier 9) scroll"
+L3934: push_constant_string "You can now use "
+L3935: push_constant_string "<col=000080>"
+L3936: push_constant_string " Glimmer of Light (Tier 9) scrolls"
+L3937: push_constant_string "</col>"
+L3938: push_constant_string " within Daemonheim."
+L3939: join_string 5
+L3940: return 0
+L3941: branch L4091
+L3942: push_constant_int 91
+L3943: push_constant_int 17944
+L3944: push_constant_string "Sachem bloodrager (Melee, tier 10)"
+L3945: push_constant_string "<br>"
+L3946: push_constant_string "Blue charm, promethium ore"
+L3947: join_string 3
+L3948: push_constant_string "You can now infuse "
+L3949: push_constant_string "<col=000080>"
+L3950: push_constant_string "sachem bloodrager pouches"
+L3951: push_constant_string "</col>"
+L3952: push_constant_string " within Daemonheim."
+L3953: join_string 5
+L3954: return 0
+L3955: branch L4091
+L3956: push_constant_int 91
+L3957: push_constant_int 18036
+L3958: push_constant_string "Sundering Strike (Tier 10) scroll"
+L3959: push_constant_string "You can now use "
+L3960: push_constant_string "<col=000080>"
+L3961: push_constant_string " Sundering Strike (Tier 10) scrolls"
+L3962: push_constant_string "</col>"
+L3963: push_constant_string " within Daemonheim."
+L3964: join_string 5
+L3965: return 0
+L3966: branch L4091
+L3967: push_constant_int 92
+L3968: push_constant_int 17994
+L3969: push_constant_string "Sachem deathslinger (Ranged, tier 10)"
+L3970: push_constant_string "<br>"
+L3971: push_constant_string "Blue charm, grave creeper branches"
+L3972: join_string 3
+L3973: push_constant_string "You can now infuse "
+L3974: push_constant_string "<col=000080>"
+L3975: push_constant_string "sachem deathslinger pouches"
+L3976: push_constant_string "</col>"
+L3977: push_constant_string " within Daemonheim."
+L3978: join_string 5
+L3979: return 0
+L3980: branch L4091
+L3981: push_constant_int 92
+L3982: push_constant_int 18046
+L3983: push_constant_string "Poisonous Shot (Tier 10) scroll"
+L3984: push_constant_string "You can now use "
+L3985: push_constant_string "<col=000080>"
+L3986: push_constant_string " Poisonous Shot (Tier 10) scrolls"
+L3987: push_constant_string "</col>"
+L3988: push_constant_string " within Daemonheim."
+L3989: join_string 5
+L3990: return 0
+L3991: branch L4091
+L3992: push_constant_int 93
+L3993: push_constant_int 17954
+L3994: push_constant_string "Sachem stormbringer (Magic, tier 10)"
+L3995: push_constant_string "<br>"
+L3996: push_constant_string "Blue charm, spiritbloom fibres"
+L3997: join_string 3
+L3998: push_constant_string "You can now infuse "
+L3999: push_constant_string "<col=000080>"
+L4000: push_constant_string "sachem stormbringer pouches"
+L4001: push_constant_string "</col>"
+L4002: push_constant_string " within Daemonheim."
+L4003: join_string 5
+L4004: return 0
+L4005: branch L4091
+L4006: push_constant_int 93
+L4007: push_constant_int 18056
+L4008: push_constant_string "Snaring Wave (Tier 10) scroll"
+L4009: push_constant_string "You can now use "
+L4010: push_constant_string "<col=000080>"
+L4011: push_constant_string " Snaring Wave (Tier 10) scrolls"
+L4012: push_constant_string "</col>"
+L4013: push_constant_string " within Daemonheim."
+L4014: join_string 5
+L4015: return 0
+L4016: branch L4091
+L4017: push_constant_int 95
+L4018: push_constant_int 17964
+L4019: push_constant_string "Sachem hoardstalker (Forager, tier 10)"
+L4020: push_constant_string "<br>"
+L4021: push_constant_string "Blue charm, tyrannomastyx hide"
+L4022: join_string 3
+L4023: push_constant_string "You can now infuse "
+L4024: push_constant_string "<col=000080>"
+L4025: push_constant_string "sachem hoardstalker pouches"
+L4026: push_constant_string "</col>"
+L4027: push_constant_string " within Daemonheim."
+L4028: join_string 5
+L4029: return 0
+L4030: branch L4091
+L4031: push_constant_int 95
+L4032: push_constant_int 18066
+L4033: push_constant_string "Aptitude (Tier 10) scroll"
+L4034: push_constant_string "You can now use "
+L4035: push_constant_string "<col=000080>"
+L4036: push_constant_string " Aptitude (Tier 10) scrolls"
+L4037: push_constant_string "</col>"
+L4038: push_constant_string " within Daemonheim."
+L4039: join_string 5
+L4040: return 0
+L4041: branch L4091
+L4042: push_constant_int 97
+L4043: push_constant_int 17984
+L4044: push_constant_string "Sachem worldbearer (Beast of burden, tier 10)"
+L4045: push_constant_string "<br>"
+L4046: push_constant_string "Blue charm, tyrannoleather torn bag"
+L4047: join_string 3
+L4048: push_constant_string "You can now infuse "
+L4049: push_constant_string "<col=000080>"
+L4050: push_constant_string "sachem worldbearer pouches"
+L4051: push_constant_string "</col>"
+L4052: push_constant_string " within Daemonheim."
+L4053: join_string 5
+L4054: return 0
+L4055: branch L4091
+L4056: push_constant_int 97
+L4057: push_constant_int 18076
+L4058: push_constant_string "Second Wind (Tier 10) scroll"
+L4059: push_constant_string "You can now use "
+L4060: push_constant_string "<col=000080>"
+L4061: push_constant_string " Second Wind (Tier 10) scrolls"
+L4062: push_constant_string "</col>"
+L4063: push_constant_string " within Daemonheim."
+L4064: join_string 5
+L4065: return 0
+L4066: branch L4091
+L4067: push_constant_int 99
+L4068: push_constant_int 17974
+L4069: push_constant_string "Sachem skinweaver (Healer, tier 10)"
+L4070: push_constant_string "<br>"
+L4071: push_constant_string "Blue charm, 2 cooked cave morays"
+L4072: join_string 3
+L4073: push_constant_string "You can now infuse "
+L4074: push_constant_string "<col=000080>"
+L4075: push_constant_string "sachem skinweaver pouches"
+L4076: push_constant_string "</col>"
+L4077: push_constant_string " within Daemonheim."
+L4078: join_string 5
+L4079: return 0
+L4080: branch L4091
+L4081: push_constant_int 99
+L4082: push_constant_int 18086
+L4083: push_constant_string "Glimmer of Light (Tier 10) scroll"
+L4084: push_constant_string "You can now use "
+L4085: push_constant_string "<col=000080>"
+L4086: push_constant_string " Glimmer of Light (Tier 10) scrolls"
+L4087: push_constant_string "</col>"
+L4088: push_constant_string " within Daemonheim."
+L4089: join_string 5
+L4090: return 0
+L4091: branch L4118
+L4092: push_int_local 1
+L4093: branch_if_false L4095
+L4094: branch L4118
+L4095: push_constant_int 99
+L4096: push_constant_int 12169
+L4097: push_constant_string "Skill mastery"
+L4098: push_constant_string "<col=000080>"
+L4099: push_constant_string "Congratulations! You are now a master of "
+L4100: push_constant_string "<col=800000>"
+L4101: push_constant_string "Summoning"
+L4102: push_constant_string "<col=000080>"
+L4103: push_constant_string ".  Why not visit "
+L4104: push_constant_string "<col=800000>"
+L4105: push_constant_string "Pikkupstix"
+L4106: push_constant_string "<col=000080>"
+L4107: push_constant_string " in "
+L4108: push_constant_string "<col=800000>"
+L4109: push_constant_string "Taverley"
+L4110: push_constant_string "<col=000080>"
+L4111: push_constant_string "? He has something special only available to true masters of the "
+L4112: push_constant_string "<col=800000>"
+L4113: push_constant_string "Summoning"
+L4114: push_constant_string "<col=000080>"
+L4115: push_constant_string " skill!"
+L4116: join_string 18
+L4117: return 0
+L4118: push_constant_int 0
+L4119: push_constant_int -1
+L4120: push_constant_string ""
+L4121: push_constant_string ""
+L4122: return 0
+L4123:
+
+[switch0@L1]
+0=L3
+1=L1114
+2=L1865
+3=L2243
+4=L2475
+5=L2522
+6=L2580
+7=L4092
+
+[switch1@L4]
+0=L6
+1=L20
+2=L34
+3=L48
+4=L62
+5=L76
+6=L90
+7=L104
+8=L118
+9=L132
+10=L146
+11=L160
+12=L174
+13=L188
+14=L202
+15=L216
+16=L230
+17=L244
+18=L258
+19=L272
+20=L286
+21=L300
+22=L314
+23=L328
+24=L342
+25=L356
+26=L370
+27=L384
+28=L398
+29=L412
+30=L426
+31=L440
+32=L454
+33=L468
+34=L482
+35=L496
+36=L510
+37=L524
+38=L538
+39=L552
+40=L566
+41=L580
+42=L594
+43=L608
+44=L622
+45=L636
+46=L650
+47=L664
+48=L678
+49=L692
+50=L706
+51=L720
+52=L734
+53=L748
+54=L762
+55=L776
+56=L790
+57=L806
+58=L820
+59=L834
+60=L848
+61=L862
+62=L876
+63=L890
+64=L904
+65=L918
+66=L932
+67=L946
+68=L960
+69=L974
+70=L988
+71=L1002
+72=L1016
+73=L1030
+74=L1044
+75=L1058
+76=L1072
+77=L1086
+78=L1100
+
+[switch2@L1115]
+0=L1117
+1=L1128
+2=L1139
+3=L1150
+4=L1161
+5=L1172
+6=L1183
+7=L1194
+8=L1205
+9=L1216
+10=L1227
+11=L1238
+12=L1249
+13=L1260
+14=L1271
+15=L1282
+16=L1293
+17=L1304
+18=L1315
+19=L1326
+20=L1337
+21=L1348
+22=L1359
+23=L1370
+24=L1381
+25=L1392
+26=L1403
+27=L1414
+28=L1425
+29=L1436
+30=L1447
+31=L1458
+32=L1469
+33=L1480
+34=L1491
+35=L1502
+36=L1513
+37=L1524
+38=L1535
+39=L1546
+40=L1557
+41=L1568
+42=L1579
+43=L1590
+44=L1601
+45=L1612
+46=L1623
+47=L1634
+48=L1645
+49=L1656
+50=L1667
+51=L1678
+52=L1689
+53=L1700
+54=L1711
+55=L1722
+56=L1733
+57=L1744
+58=L1755
+59=L1766
+60=L1777
+61=L1788
+62=L1799
+63=L1810
+64=L1821
+65=L1832
+66=L1843
+67=L1854
+
+[switch3@L1866]
+0=L1868
+1=L1879
+2=L1890
+3=L1901
+4=L1912
+5=L1923
+6=L1934
+7=L1945
+8=L1956
+9=L1967
+10=L1978
+11=L1989
+12=L2003
+13=L2014
+14=L2028
+15=L2044
+16=L2055
+17=L2066
+18=L2077
+19=L2088
+20=L2099
+21=L2110
+22=L2121
+23=L2132
+24=L2146
+25=L2160
+26=L2174
+27=L2185
+28=L2199
+29=L2210
+30=L2221
+31=L2232
+
+[switch4@L2244]
+0=L2246
+1=L2257
+2=L2271
+3=L2285
+4=L2299
+5=L2310
+6=L2324
+7=L2338
+8=L2352
+9=L2366
+10=L2380
+11=L2394
+12=L2408
+13=L2419
+14=L2433
+15=L2447
+16=L2461
+
+[switch5@L2476]
+0=L2478
+1=L2489
+2=L2500
+3=L2511
+
+[switch6@L2523]
+0=L2525
+1=L2536
+2=L2547
+3=L2558
+4=L2569
+
+[switch7@L2581]
+0=L2583
+1=L2592
+2=L2606
+3=L2617
+4=L2631
+5=L2642
+6=L2656
+7=L2667
+8=L2681
+9=L2692
+10=L2706
+11=L2717
+12=L2731
+13=L2742
+14=L2756
+15=L2767
+16=L2781
+17=L2792
+18=L2806
+19=L2817
+20=L2831
+21=L2842
+22=L2856
+23=L2867
+24=L2881
+25=L2892
+26=L2906
+27=L2917
+28=L2931
+29=L2942
+30=L2956
+31=L2967
+32=L2981
+33=L2992
+34=L3006
+35=L3017
+36=L3031
+37=L3042
+38=L3056
+39=L3067
+40=L3081
+41=L3092
+42=L3106
+43=L3117
+44=L3131
+45=L3142
+46=L3156
+47=L3167
+48=L3181
+49=L3192
+50=L3206
+51=L3217
+52=L3231
+53=L3242
+54=L3256
+55=L3267
+56=L3281
+57=L3292
+58=L3306
+59=L3317
+60=L3331
+61=L3342
+62=L3356
+63=L3367
+64=L3381
+65=L3392
+66=L3406
+67=L3417
+68=L3431
+69=L3442
+70=L3456
+71=L3467
+72=L3481
+73=L3492
+74=L3506
+75=L3517
+76=L3531
+77=L3542
+78=L3556
+79=L3567
+80=L3581
+81=L3592
+82=L3606
+83=L3617
+84=L3631
+85=L3642
+86=L3656
+87=L3667
+88=L3681
+89=L3692
+90=L3706
+91=L3717
+92=L3731
+93=L3742
+94=L3756
+95=L3767
+96=L3781
+97=L3792
+98=L3806
+99=L3817
+100=L3831
+101=L3842
+102=L3856
+103=L3867
+104=L3881
+105=L3892
+106=L3906
+107=L3917
+108=L3931
+109=L3942
+110=L3956
+111=L3967
+112=L3981
+113=L3992
+114=L4006
+115=L4017
+116=L4031
+117=L4042
+118=L4056
+119=L4067
+120=L4081

@@ -1,7 +1,0 @@
-[clientscript,script_3633](int $int0)
-if (if_find($int0) = 1) {
-    if_setcolour($int0);
-    if_setsize(31, 0, 0, $int0);
-    if_setposition(sub(cc_getparam(1102), 2), 0, 0, $int0);
-}
-return;

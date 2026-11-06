@@ -1,6 +1,0 @@
-[clientscript,script_738](component, component)
-def_string $str0 = tostring(div(%varc_int105, 10));
-def_string $str1 = tostring(mod(%varc_int105, 10));
-if_settext($str0);
-if_settext($str1);
-return(17629232, 17629233);

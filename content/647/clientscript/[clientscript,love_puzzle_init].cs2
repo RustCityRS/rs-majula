@@ -1,0 +1,83 @@
+name=""
+local_int_count=6
+local_string_count=0
+local_long_count=0
+int_param_count=6
+string_param_count=0
+long_param_count=0
+
+L0: push_int_local 0
+L1: push_constant_int 0
+L2: gosub_with_params clientscript_1088
+L3: push_int_local 3
+L4: gosub_with_params [proc,v2_stone_button_filled]
+L5: push_int_local 5
+L6: gosub_with_params [proc,v2_stone_button_filled]
+L7: push_constant_int 95
+L8: push_int_local 3
+L9: push_constant_string "I"
+L10: push_int_local 2
+L11: if_setonmouseover 0
+L12: push_constant_int 95
+L13: push_int_local 5
+L14: push_constant_string "I"
+L15: push_int_local 4
+L16: if_setonmouseover 0
+L17: push_constant_int 93
+L18: push_int_local 3
+L19: push_constant_string "I"
+L20: push_int_local 2
+L21: if_setonmouseleave 0
+L22: push_constant_int 93
+L23: push_int_local 5
+L24: push_constant_string "I"
+L25: push_int_local 4
+L26: if_setonmouseleave 0
+L27: push_constant_int 0
+L28: push_constant_int 300
+L29: push_int_local 1
+L30: if_setscrollpos 0
+L31: push_constant_int -1
+L32: push_constant_string ""
+L33: push_int_local 1
+L34: if_setontimer 0
+L35: push_constant_int 0
+L36: push_int_local 2
+L37: if_sethide 0
+L38: push_constant_int 0
+L39: push_int_local 4
+L40: if_sethide 0
+L41: push_constant_int 3479
+L42: push_int_local 1
+L43: push_int_local 2
+L44: push_int_local 4
+L45: push_constant_int 1
+L46: push_constant_string "III1"
+L47: push_int_local 2
+L48: if_setonop 0
+L49: push_constant_int 3479
+L50: push_int_local 1
+L51: push_int_local 2
+L52: push_int_local 4
+L53: push_constant_int 0
+L54: push_constant_string "III1"
+L55: push_int_local 4
+L56: if_setonop 0
+L57: push_constant_int 3476
+L58: push_constant_int 1506
+L59: push_constant_int 1507
+L60: push_constant_int 1508
+L61: push_constant_int 3
+L62: push_constant_string "Y"
+L63: push_int_local 0
+L64: if_setonvartransmit 0
+L65: push_constant_int 3476
+L66: push_constant_int 1317
+L67: push_constant_int 1318
+L68: push_constant_int 2
+L69: push_constant_string "Y"
+L70: push_int_local 0
+L71: if_setonvarctransmit 0
+L72: gosub_with_params [proc,love_puzzle_update]
+L73: return 0
+L74:

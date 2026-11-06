@@ -1,0 +1,55 @@
+name=""
+local_int_count=0
+local_string_count=0
+local_long_count=0
+int_param_count=0
+string_param_count=0
+long_param_count=0
+
+L0: push_constant_int 105
+L1: push_constant_int 105
+L2: push_constant_int 2454
+L3: push_constant_int 1
+L4: enum 0
+L5: push_constant_string ","
+L6: gosub_with_params [proc,tostring_spacer]
+L7: push_constant_int 42860554
+L8: if_settext 0
+L9: push_constant_int 105
+L10: push_constant_int 105
+L11: push_constant_int 2454
+L12: push_constant_int 2
+L13: enum 0
+L14: push_constant_string ","
+L15: gosub_with_params [proc,tostring_spacer]
+L16: push_constant_int 42860603
+L17: if_settext 0
+L18: push_constant_int 105
+L19: push_constant_int 105
+L20: push_constant_int 2454
+L21: push_constant_int 3
+L22: enum 0
+L23: push_constant_string ","
+L24: gosub_with_params [proc,tostring_spacer]
+L25: push_constant_int 42860595
+L26: if_settext 0
+L27: push_constant_int 105
+L28: push_constant_int 105
+L29: push_constant_int 2454
+L30: push_constant_int 4
+L31: enum 0
+L32: push_constant_string ","
+L33: gosub_with_params [proc,tostring_spacer]
+L34: push_constant_int 42860587
+L35: if_settext 0
+L36: push_constant_int 105
+L37: push_constant_int 105
+L38: push_constant_int 2454
+L39: push_constant_int 5
+L40: enum 0
+L41: push_constant_string ","
+L42: gosub_with_params [proc,tostring_spacer]
+L43: push_constant_int 42860612
+L44: if_settext 0
+L45: return 0
+L46:

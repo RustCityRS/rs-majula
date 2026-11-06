@@ -1,7 +1,0 @@
-[clientscript,script_2571](int $int0)
-if (add(inv_getnum_alwaysnoted(inv, 803), inv_getnum_alwaysnoted(inv, 802)) < add(1, $int0)) {
-    return;
-}
-%varc_int929 = $int0;
-~script_2573;
-return;

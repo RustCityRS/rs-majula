@@ -1,0 +1,107 @@
+name=""
+local_int_count=3
+local_string_count=0
+local_long_count=0
+int_param_count=0
+string_param_count=0
+long_param_count=0
+
+L0: push_constant_int 0
+L1: pop_int_local 0
+L2: push_constant_int 0
+L3: pop_int_local 1
+L4: push_constant_int 0
+L5: pop_int_local 2
+L6: gosub_with_params clientscript_2617
+L7: switch switch0
+L8: branch L64
+L9: push_varc_int varc_int_834
+L10: push_constant_int -5
+L11: push_constant_int 0
+L12: push_constant_int 0
+L13: coordpack 0
+L14: pop_int_local 2
+L15: branch L64
+L16: push_varc_int varc_int_834
+L17: push_constant_int -4
+L18: push_constant_int 0
+L19: push_constant_int -4
+L20: coordpack 0
+L21: pop_int_local 2
+L22: branch L64
+L23: push_varc_int varc_int_834
+L24: push_constant_int 0
+L25: push_constant_int 0
+L26: push_constant_int -5
+L27: coordpack 0
+L28: pop_int_local 2
+L29: branch L64
+L30: push_varc_int varc_int_834
+L31: push_constant_int 4
+L32: push_constant_int 0
+L33: push_constant_int -4
+L34: coordpack 0
+L35: pop_int_local 2
+L36: branch L64
+L37: push_varc_int varc_int_834
+L38: push_constant_int 5
+L39: push_constant_int 0
+L40: push_constant_int 0
+L41: coordpack 0
+L42: pop_int_local 2
+L43: branch L64
+L44: push_varc_int varc_int_834
+L45: push_constant_int 4
+L46: push_constant_int 0
+L47: push_constant_int 4
+L48: coordpack 0
+L49: pop_int_local 2
+L50: branch L64
+L51: push_varc_int varc_int_834
+L52: push_constant_int 0
+L53: push_constant_int 0
+L54: push_constant_int 5
+L55: coordpack 0
+L56: pop_int_local 2
+L57: branch L64
+L58: push_varc_int varc_int_834
+L59: push_constant_int -4
+L60: push_constant_int 0
+L61: push_constant_int 4
+L62: coordpack 0
+L63: pop_int_local 2
+L64: push_int_local 2
+L65: coordx 0
+L66: push_constant_int 64
+L67: div 0
+L68: pop_int_local 0
+L69: push_int_local 2
+L70: coordz 0
+L71: push_constant_int 64
+L72: div 0
+L73: pop_int_local 1
+L74: push_varc_int varc_int_835
+L75: push_int_local 0
+L76: branch_not L81
+L77: push_varc_int varc_int_836
+L78: push_int_local 1
+L79: branch_not L81
+L80: branch L82
+L81: return 0
+L82: push_int_local 2
+L83: pop_varc_int varc_int_834
+L84: push_varc_int varc_int_834
+L85: push_varc_int varc_int_833
+L86: gosub_with_params clientscript_2612
+L87: return 0
+L88:
+
+[switch0@L7]
+0=L9
+7=L16
+6=L23
+5=L30
+4=L37
+3=L44
+2=L51
+1=L58

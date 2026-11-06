@@ -1,0 +1,38 @@
+name=""
+local_int_count=1
+local_string_count=1
+local_long_count=0
+int_param_count=1
+string_param_count=1
+long_param_count=0
+
+L0: push_int_local 0
+L1: switch switch0
+L2: branch L21
+L3: push_string_local 0
+L4: removetags 0
+L5: friend_add 0
+L6: branch L21
+L7: push_string_local 0
+L8: removetags 0
+L9: ignore_add 0
+L10: branch L21
+L11: push_string_local 0
+L12: removetags 0
+L13: friend_del 0
+L14: branch L21
+L15: push_string_local 0
+L16: removetags 0
+L17: ignore_del 0
+L18: branch L21
+L19: push_string_local 0
+L20: gosub_with_params clientscript_1633
+L21: return 0
+L22:
+
+[switch0@L1]
+6=L3
+7=L7
+8=L11
+9=L15
+10=L19

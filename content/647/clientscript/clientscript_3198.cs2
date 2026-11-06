@@ -1,0 +1,76 @@
+name=""
+local_int_count=7
+local_string_count=0
+local_long_count=0
+int_param_count=5
+string_param_count=0
+long_param_count=0
+
+L0: push_constant_int -1
+L1: pop_int_local 5
+L2: push_constant_int 0
+L3: pop_int_local 6
+L4: push_constant_int 1
+L5: push_int_local 3
+L6: if_sethide 0
+L7: push_constant_string ""
+L8: push_int_local 0
+L9: if_settext 0
+L10: push_constant_string ""
+L11: push_int_local 1
+L12: if_settext 0
+L13: push_int_local 2
+L14: if_getwidth 0
+L15: push_constant_int 300
+L16: push_constant_int 0
+L17: push_constant_int 0
+L18: push_int_local 2
+L19: if_setsize 0
+L20: push_int_local 4
+L21: switch switch0
+L22: branch L42
+L23: push_constant_int 59375669
+L24: pop_int_local 5
+L25: push_constant_int 300
+L26: pop_int_local 6
+L27: branch L42
+L28: push_constant_int 59375685
+L29: pop_int_local 5
+L30: push_constant_int 122
+L31: pop_int_local 6
+L32: branch L42
+L33: push_constant_int 59375659
+L34: pop_int_local 5
+L35: push_constant_int 303
+L36: pop_int_local 6
+L37: branch L42
+L38: push_constant_int 59375677
+L39: pop_int_local 5
+L40: push_constant_int 312
+L41: pop_int_local 6
+L42: push_int_local 5
+L43: push_constant_int -1
+L44: branch_not L46
+L45: branch L60
+L46: push_int_local 5
+L47: if_getwidth 0
+L48: push_int_local 6
+L49: push_constant_int 0
+L50: push_constant_int 0
+L51: push_int_local 5
+L52: if_setsize 0
+L53: push_int_local 4
+L54: if_getwidth 0
+L55: push_int_local 6
+L56: push_constant_int 0
+L57: push_constant_int 0
+L58: push_int_local 4
+L59: if_setsize 0
+L60: return 0
+L61:
+
+[switch0@L21]
+59834368=L23
+59899904=L28
+64159744=L33
+59965458=L38

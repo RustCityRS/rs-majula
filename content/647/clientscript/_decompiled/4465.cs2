@@ -1,7 +1,0 @@
-[clientscript,script_4465](string $str0)
-if (clanchannel2_find_affined = 1) {
-    ~script_4466($str0);
-} else {
-    mes("You must be in your clan channel to do that.");
-}
-return;

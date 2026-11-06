@@ -123,8 +123,8 @@ pub fn pack_all(
     );
     archive::verify_crcs(&cache, verify)?;
     let map_dirs = map::source_dirs(content_dir);
-    let spawns = map::pack_spawns(&map_dirs)?;
-    let obj_spawns = map::pack_obj_spawns(&map_dirs)?;
+    let spawns = map::pack_spawns(&map_dirs, pack_dir)?;
+    let obj_spawns = map::pack_obj_spawns(&map_dirs, pack_dir)?;
     let store = load_cache(
         &assets,
         &cache,

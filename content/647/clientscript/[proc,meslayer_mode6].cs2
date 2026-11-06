@@ -1,0 +1,59 @@
+name=""
+local_int_count=0
+local_string_count=1
+local_long_count=0
+int_param_count=0
+string_param_count=1
+long_param_count=0
+
+L0: push_varc_int varc_int_1413
+L1: branch_if_false L3
+L2: branch L4
+L3: return 0
+L4: push_varc_int varc_int_11
+L5: branch_if_true L7
+L6: branch L10
+L7: push_constant_string "You can't do that while you're reporting abuse."
+L8: mes 0
+L9: return 0
+L10: getwindowmode 0
+L11: push_constant_int 2
+L12: branch_greater_than_or_equals L14
+L13: branch L17
+L14: push_constant_int 0
+L15: push_constant_int 48889925
+L16: if_sethide 0
+L17: push_string_local 0
+L18: pop_varc_string_old varc_string_23
+L19: push_constant_int 0
+L20: push_constant_int 49283075
+L21: if_sethide 0
+L22: push_constant_int 1
+L23: push_constant_int 49283079
+L24: if_sethide 0
+L25: push_constant_int 1
+L26: push_constant_int 49283080
+L27: if_sethide 0
+L28: push_constant_string "Enter message to send to "
+L29: push_varc_string_old varc_string_23
+L30: join_string 2
+L31: push_constant_int 49283076
+L32: if_settext 0
+L33: push_constant_int 6
+L34: pop_varc_int varc_int_5
+L35: push_constant_string ""
+L36: gosub_with_params [proc,meslayer_setupinput]
+L37: push_constant_int -1
+L38: push_constant_string ""
+L39: push_constant_int 49283075
+L40: if_setonclick 0
+L41: gosub_with_params clientscript_2026
+L42: push_constant_int 112
+L43: push_constant_int -2147483640
+L44: push_constant_int -2147483639
+L45: push_constant_string "iz"
+L46: push_constant_int 49283077
+L47: if_setonkey 0
+L48: gosub_with_params [clientscript,opt_header]
+L49: return 0
+L50:

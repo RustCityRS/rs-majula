@@ -1,8 +1,0 @@
-[clientscript,script_2855]
-if (~script_2869(coordpack(%varc_int1070, 0, 0, -1)) = 1) {
-    return;
-}
-if (~script_2866(coord, coordpack(%varc_int1070, 0, 0, -1)) < 31) {
-    %varc_int1070 = coordpack(%varc_int1070, 0, 0, -1);
-}
-return;

@@ -1,7 +1,0 @@
-[clientscript,script_1889](string)
-if (~script_1431 = 1) {
-    return("World " + tostring(active_toplevelinterface) + " (PvP)");
-} else {
-    return("World " + tostring(active_toplevelinterface));
-}
-return("");

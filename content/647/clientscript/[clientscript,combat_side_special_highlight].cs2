@@ -1,0 +1,21 @@
+name=""
+local_int_count=1
+local_string_count=0
+local_long_count=0
+int_param_count=1
+string_param_count=0
+long_param_count=0
+
+L0: push_var sa_attack
+L1: push_constant_int 0
+L2: branch_greater_than L4
+L3: branch L8
+L4: push_constant_int 16776960
+L5: push_int_local 0
+L6: if_setcolour 0
+L7: branch L11
+L8: push_constant_int 0
+L9: push_int_local 0
+L10: if_setcolour 0
+L11: return 0
+L12:

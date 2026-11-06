@@ -1,0 +1,105 @@
+name=""
+local_int_count=3
+local_string_count=0
+local_long_count=0
+int_param_count=0
+string_param_count=0
+long_param_count=0
+
+L0: push_var varp_2134
+L1: push_varc_int varc_int_1499
+L2: branch_equals L4
+L3: branch L8
+L4: push_constant_string "You have voted."
+L5: push_constant_int 72155218
+L6: if_settext 0
+L7: branch L14
+L8: push_constant_string "You have not yet voted."
+L9: push_constant_string "<br>"
+L10: push_constant_string "How would you like to vote?"
+L11: join_string 3
+L12: push_constant_int 72155218
+L13: if_settext 0
+L14: push_varbit varbit_9151
+L15: branch_if_false L17
+L16: branch L21
+L17: push_constant_string "Results of last vote:"
+L18: push_constant_int 72155148
+L19: if_settext 0
+L20: branch L37
+L21: push_varbit varbit_9154
+L22: branch_if_true L26
+L23: push_varbit varbit_9154
+L24: branch_if_false L26
+L25: branch L30
+L26: push_constant_string "Vote open for less than a minute."
+L27: push_constant_int 72155148
+L28: if_settext 0
+L29: branch L37
+L30: push_constant_string "Vote open for less than "
+L31: push_varbit varbit_9154
+L32: tostring 0
+L33: push_constant_string " minutes."
+L34: join_string 3
+L35: push_constant_int 72155148
+L36: if_settext 0
+L37: push_varbit varbit_9149
+L38: push_varbit varbit_9150
+L39: add 0
+L40: pop_int_local 0
+L41: push_constant_int 0
+L42: pop_int_local 1
+L43: push_constant_int 0
+L44: pop_int_local 2
+L45: push_int_local 0
+L46: push_constant_int 0
+L47: branch_greater_than L49
+L48: branch L79
+L49: push_int_local 0
+L50: push_varbit varbit_9149
+L51: branch_equals L53
+L52: branch L56
+L53: push_constant_int 100
+L54: pop_int_local 1
+L55: branch L79
+L56: push_int_local 0
+L57: push_varbit varbit_9150
+L58: branch_equals L60
+L59: branch L63
+L60: push_constant_int 100
+L61: pop_int_local 2
+L62: branch L79
+L63: push_constant_int 100
+L64: push_varbit varbit_9149
+L65: multiply 0
+L66: push_int_local 0
+L67: div 0
+L68: pop_int_local 1
+L69: push_varbit varbit_9150
+L70: branch_if_false L72
+L71: branch L75
+L72: push_constant_int 0
+L73: pop_int_local 2
+L74: branch L79
+L75: push_constant_int 100
+L76: push_int_local 1
+L77: sub 0
+L78: pop_int_local 2
+L79: push_varbit varbit_9149
+L80: tostring 0
+L81: push_constant_int 72155143
+L82: if_settext 0
+L83: push_varbit varbit_9150
+L84: tostring 0
+L85: push_constant_int 72155144
+L86: if_settext 0
+L87: push_int_local 1
+L88: push_constant_int 72155195
+L89: push_constant_int 72155200
+L90: gosub_with_params clientscript_4542
+L91: push_int_local 2
+L92: push_constant_int 72155205
+L93: push_constant_int 72155210
+L94: gosub_with_params clientscript_4542
+L95: return 0
+L96:

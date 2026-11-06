@@ -1,0 +1,94 @@
+name=""
+local_int_count=5
+local_string_count=0
+local_long_count=0
+int_param_count=5
+string_param_count=0
+long_param_count=0
+
+L0: push_int_local 0
+L1: switch switch0
+L2: branch L74
+L3: push_int_local 1
+L4: pop_varc_int varc_int_1283
+L5: push_int_local 2
+L6: pop_varc_int varc_int_1284
+L7: push_int_local 3
+L8: pop_varc_int varc_int_1285
+L9: push_int_local 4
+L10: pop_varc_int varc_int_1286
+L11: branch L74
+L12: push_int_local 1
+L13: pop_varc_int varc_int_1287
+L14: push_int_local 2
+L15: pop_varc_int varc_int_1288
+L16: push_int_local 3
+L17: pop_varc_int varc_int_1289
+L18: push_int_local 4
+L19: pop_varc_int varc_int_1290
+L20: branch L74
+L21: push_int_local 1
+L22: pop_varc_int varc_int_1291
+L23: push_int_local 2
+L24: pop_varc_int varc_int_1292
+L25: push_int_local 3
+L26: pop_varc_int varc_int_1293
+L27: push_int_local 4
+L28: pop_varc_int varc_int_1294
+L29: branch L74
+L30: push_int_local 1
+L31: pop_varc_int varc_int_1295
+L32: push_int_local 2
+L33: pop_varc_int varc_int_1296
+L34: push_int_local 3
+L35: pop_varc_int varc_int_1297
+L36: push_int_local 4
+L37: pop_varc_int varc_int_1298
+L38: branch L74
+L39: push_int_local 1
+L40: pop_varc_int varc_int_1299
+L41: push_int_local 2
+L42: pop_varc_int varc_int_1300
+L43: push_int_local 3
+L44: pop_varc_int varc_int_1301
+L45: push_int_local 4
+L46: pop_varc_int varc_int_1302
+L47: branch L74
+L48: push_int_local 1
+L49: pop_varc_int varc_int_1303
+L50: push_int_local 2
+L51: pop_varc_int varc_int_1304
+L52: push_int_local 3
+L53: pop_varc_int varc_int_1305
+L54: push_int_local 4
+L55: pop_varc_int varc_int_1306
+L56: branch L74
+L57: push_int_local 1
+L58: pop_varc_int varc_int_1307
+L59: push_int_local 2
+L60: pop_varc_int varc_int_1308
+L61: push_int_local 3
+L62: pop_varc_int varc_int_1309
+L63: push_int_local 4
+L64: pop_varc_int varc_int_1310
+L65: branch L74
+L66: push_int_local 1
+L67: pop_varc_int varc_int_1311
+L68: push_int_local 2
+L69: pop_varc_int varc_int_1312
+L70: push_int_local 3
+L71: pop_varc_int varc_int_1313
+L72: push_int_local 4
+L73: pop_varc_int varc_int_1314
+L74: return 0
+L75:
+
+[switch0@L1]
+1=L3
+2=L12
+3=L21
+4=L30
+5=L39
+6=L48
+7=L57
+8=L66

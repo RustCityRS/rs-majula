@@ -1,7 +1,0 @@
-[clientscript,script_634](int $int0, int $int1, int $int2, int $int3)
-def_int $int4 = sub(if_gettrans($int0), $int3);
-if_settrans($int0);
-if ($int4 <= $int1) {
-    if_setontimer;
-}
-return;

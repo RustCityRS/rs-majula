@@ -1,0 +1,57 @@
+name=""
+local_int_count=3
+local_string_count=0
+local_long_count=0
+int_param_count=1
+string_param_count=0
+long_param_count=0
+
+L0: push_constant_int 3
+L1: push_constant_int 5
+L2: push_varc_int varc_int_265
+L3: scale 0
+L4: pop_int_local 1
+L5: push_int_local 1
+L6: push_constant_int 3
+L7: branch_less_than_or_equals L9
+L8: branch L16
+L9: push_constant_string "<col=ff0000>"
+L10: push_constant_string "GET READY!"
+L11: push_constant_string "</col>"
+L12: join_string 3
+L13: push_int_local 0
+L14: if_settext 0
+L15: return 0
+L16: push_int_local 1
+L17: push_constant_int 60
+L18: div 0
+L19: pop_int_local 2
+L20: push_int_local 1
+L21: push_constant_int 60
+L22: mod 0
+L23: pop_int_local 1
+L24: push_int_local 1
+L25: push_constant_int 10
+L26: branch_greater_than_or_equals L28
+L27: branch L38
+L28: push_int_local 2
+L29: tostring 0
+L30: push_constant_string "m "
+L31: push_int_local 1
+L32: tostring 0
+L33: push_constant_string "s"
+L34: join_string 4
+L35: push_int_local 0
+L36: if_settext 0
+L37: branch L47
+L38: push_int_local 2
+L39: tostring 0
+L40: push_constant_string "m 0"
+L41: push_int_local 1
+L42: tostring 0
+L43: push_constant_string "s"
+L44: join_string 4
+L45: push_int_local 0
+L46: if_settext 0
+L47: return 0
+L48:

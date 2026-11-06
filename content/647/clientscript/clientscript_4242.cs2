@@ -1,0 +1,144 @@
+name=""
+local_int_count=1
+local_string_count=0
+local_long_count=0
+int_param_count=1
+string_param_count=0
+long_param_count=0
+
+L0: push_int_local 0
+L1: switch switch0
+L2: branch L111
+L3: push_constant_string "You are more likely to hit with your melee attacks."
+L4: push_constant_string "<br>"
+L5: push_constant_string "<br>"
+L6: join_string 3
+L7: return 0
+L8: branch L113
+L9: push_constant_string "You are able to deal more damage with your melee attacks."
+L10: push_constant_string "<br>"
+L11: push_constant_string "<br>"
+L12: join_string 3
+L13: return 0
+L14: branch L113
+L15: push_constant_string "You are less likely to be hit by an enemy's attacks."
+L16: push_constant_string "<br>"
+L17: push_constant_string "<br>"
+L18: join_string 3
+L19: return 0
+L20: branch L113
+L21: push_constant_string "You are more likely to hit with your ranged attacks."
+L22: push_constant_string "<br>"
+L23: push_constant_string "<br>"
+L24: join_string 3
+L25: return 0
+L26: branch L113
+L27: push_constant_string "You are able to sustain your prayers for longer before needing to recharge."
+L28: push_constant_string "<br>"
+L29: push_constant_string "<br>"
+L30: join_string 3
+L31: return 0
+L32: branch L113
+L33: push_constant_string "Your ability to hit with and defend against magical attacks is improved."
+L34: push_constant_string "<br>"
+L35: push_constant_string "<br>"
+L36: join_string 3
+L37: return 0
+L38: branch L113
+L39: push_constant_string "Your maximum lifepoints have been increased by 10."
+L40: push_constant_string "<br>"
+L41: push_constant_string "<br>"
+L42: join_string 3
+L43: return 0
+L44: branch L113
+L45: push_constant_string "Your chance of failing agility shortcuts and obstacles is reduced."
+L46: push_constant_string "<br>"
+L47: push_constant_string "<br>"
+L48: join_string 3
+L49: return 0
+L50: branch L113
+L51: push_constant_string "You are more likely to succeed when picking pockets or locks."
+L52: push_constant_string "<br>"
+L53: push_constant_string "<br>"
+L54: join_string 3
+L55: return 0
+L56: branch L113
+L57: push_constant_string "You are more likely to succeed when attempting to mine ore."
+L58: push_constant_string "<br>"
+L59: push_constant_string "<br>"
+L60: join_string 3
+L61: return 0
+L62: branch L113
+L63: push_constant_string "You are more likely to succeed when attempting to catch a fish."
+L64: push_constant_string "<br>"
+L65: push_constant_string "<br>"
+L66: join_string 3
+L67: return 0
+L68: branch L113
+L69: push_constant_string "Your likelihood of burning food is decreased."
+L70: push_constant_string "<br>"
+L71: push_constant_string "<br>"
+L72: join_string 3
+L73: return 0
+L74: branch L113
+L75: push_constant_string "Your chance of success when lighting a fire is improved."
+L76: push_constant_string "<br>"
+L77: push_constant_string "<br>"
+L78: join_string 3
+L79: return 0
+L80: branch L113
+L81: push_constant_string "You are more likely to succeed when attempting to cut a log."
+L82: push_constant_string "<br>"
+L83: push_constant_string "<br>"
+L84: join_string 3
+L85: return 0
+L86: branch L113
+L87: push_constant_string "Your chance of crafting multiple runes from a single piece of essence is increased."
+L88: push_constant_string "<br>"
+L89: push_constant_string "<br>"
+L90: join_string 3
+L91: return 0
+L92: branch L113
+L93: push_constant_string "Your chance of successfully pruning diseased plants is increased."
+L94: push_constant_string "<br>"
+L95: push_constant_string "<br>"
+L96: join_string 3
+L97: return 0
+L98: branch L113
+L99: push_constant_string "Your chance of successfully trapping creatures is increased."
+L100: push_constant_string "<br>"
+L101: push_constant_string "<br>"
+L102: join_string 3
+L103: return 0
+L104: branch L113
+L105: push_constant_string "You are able to sustain your familiars for longer before needing to recharge."
+L106: push_constant_string "<br>"
+L107: push_constant_string "<br>"
+L108: join_string 3
+L109: return 0
+L110: branch L113
+L111: push_constant_string ""
+L112: return 0
+L113: push_constant_string ""
+L114: return 0
+L115:
+
+[switch0@L1]
+1=L3
+2=L9
+5=L15
+3=L21
+7=L27
+4=L33
+6=L39
+8=L45
+10=L51
+13=L57
+15=L63
+16=L69
+17=L75
+18=L81
+12=L87
+21=L93
+23=L99
+24=L105

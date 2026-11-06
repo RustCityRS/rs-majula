@@ -1,0 +1,21 @@
+name=""
+local_int_count=0
+local_string_count=0
+local_long_count=0
+int_param_count=0
+string_param_count=0
+long_param_count=0
+
+L0: push_varbit level_up_icon
+L1: push_constant_int 0
+L2: branch_greater_than L4
+L3: branch L11
+L4: push_constant_int 105
+L5: push_constant_int 100
+L6: push_constant_int 1478
+L7: push_varbit level_up_icon
+L8: enum 0
+L9: push_constant_int 48496644
+L10: if_setgraphic 0
+L11: return 0
+L12:

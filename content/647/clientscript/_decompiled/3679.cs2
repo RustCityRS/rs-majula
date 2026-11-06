@@ -1,5 +1,0 @@
-[clientscript,script_3679](int $int0, int $int1)(int, stat, int, int, string)
-if_clearops;
-if_setop($int0, "Examine" + "<col=ff9040>");
-if_setopbase;
-return($int0, prayer, enum(105, 115, enum_3274, $int1), $int0, "<col=ff981f>" + " Piece");

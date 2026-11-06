@@ -1,0 +1,33 @@
+name=""
+local_int_count=1
+local_string_count=0
+local_long_count=0
+int_param_count=1
+string_param_count=0
+long_param_count=0
+
+L0: push_int_local 0
+L1: branch_if_false L6
+L2: push_int_local 0
+L3: push_varc_int varc_int_5
+L4: branch_equals L6
+L5: branch L18
+L6: push_constant_int 1
+L7: push_constant_int 49283075
+L8: if_sethide 0
+L9: push_constant_int 1
+L10: push_constant_int 49283079
+L11: if_sethide 0
+L12: push_constant_int 0
+L13: push_constant_int 49283080
+L14: if_sethide 0
+L15: gosub_with_params clientscript_2026
+L16: push_constant_int 0
+L17: pop_varc_int varc_int_5
+L18: getwindowmode 0
+L19: push_constant_int 2
+L20: branch_greater_than_or_equals L22
+L21: branch L23
+L22: gosub_with_params [proc,subchanged]
+L23: return 0
+L24:

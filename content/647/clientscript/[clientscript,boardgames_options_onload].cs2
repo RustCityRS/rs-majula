@@ -1,0 +1,51 @@
+name=""
+local_int_count=0
+local_string_count=0
+local_long_count=0
+int_param_count=0
+string_param_count=0
+long_param_count=0
+
+L0: push_varbit varbit_61
+L1: branch_if_true L3
+L2: branch L9
+L3: push_constant_string "Draughts: Options"
+L4: push_constant_int 49545226
+L5: if_settext 0
+L6: push_constant_int 49545219
+L7: gosub_with_params clientscript_1406
+L8: branch L38
+L9: push_varbit varbit_61
+L10: push_constant_int 2
+L11: branch_equals L13
+L12: branch L19
+L13: push_constant_string "Runelink: Options"
+L14: push_constant_int 49545226
+L15: if_settext 0
+L16: push_constant_int 49545220
+L17: gosub_with_params clientscript_1406
+L18: branch L38
+L19: push_varbit varbit_61
+L20: push_constant_int 3
+L21: branch_equals L23
+L22: branch L29
+L23: push_constant_string "Runesquares: Options"
+L24: push_constant_int 49545226
+L25: if_settext 0
+L26: push_constant_int 49545224
+L27: gosub_with_params clientscript_1406
+L28: branch L38
+L29: push_varbit varbit_61
+L30: push_constant_int 4
+L31: branch_equals L33
+L32: branch L38
+L33: push_constant_string "Runeversi: Options"
+L34: push_constant_int 49545226
+L35: if_settext 0
+L36: push_constant_int 49545222
+L37: gosub_with_params clientscript_1406
+L38: gosub_with_params [proc,boardgames_options_ranked]
+L39: gosub_with_params [proc,boardgames_options_time]
+L40: gosub_with_params [proc,boardgames_options_pick_piece]
+L41: return 0
+L42:

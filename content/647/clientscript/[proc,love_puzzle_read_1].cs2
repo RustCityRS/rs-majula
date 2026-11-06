@@ -1,0 +1,129 @@
+name=""
+local_int_count=1
+local_string_count=0
+local_long_count=0
+int_param_count=1
+string_param_count=0
+long_param_count=0
+
+L0: push_int_local 0
+L1: switch switch0
+L2: branch L86
+L3: push_varbit varbit_7999
+L4: return 0
+L5: branch L86
+L6: push_varbit varbit_8000
+L7: return 0
+L8: branch L86
+L9: push_constant_int -1
+L10: return 0
+L11: branch L86
+L12: push_varbit varbit_8001
+L13: return 0
+L14: branch L86
+L15: push_varbit varbit_8002
+L16: return 0
+L17: branch L86
+L18: push_varbit varbit_8003
+L19: return 0
+L20: branch L86
+L21: push_varbit varbit_8004
+L22: return 0
+L23: branch L86
+L24: push_constant_int -1
+L25: return 0
+L26: branch L86
+L27: push_varbit varbit_8005
+L28: return 0
+L29: branch L86
+L30: push_varbit varbit_8006
+L31: return 0
+L32: branch L86
+L33: push_varbit varbit_8007
+L34: return 0
+L35: branch L86
+L36: push_varbit varbit_8008
+L37: return 0
+L38: branch L86
+L39: push_constant_int -1
+L40: return 0
+L41: branch L86
+L42: push_varbit varbit_8009
+L43: return 0
+L44: branch L86
+L45: push_varbit varbit_8010
+L46: return 0
+L47: branch L86
+L48: push_varbit varbit_8011
+L49: return 0
+L50: branch L86
+L51: push_varbit varbit_8012
+L52: return 0
+L53: branch L86
+L54: push_constant_int -1
+L55: return 0
+L56: branch L86
+L57: push_varbit varbit_8013
+L58: return 0
+L59: branch L86
+L60: push_varbit varbit_8014
+L61: return 0
+L62: branch L86
+L63: push_varbit varbit_8015
+L64: return 0
+L65: branch L86
+L66: push_varbit varbit_8016
+L67: return 0
+L68: branch L86
+L69: push_varbit varbit_8017
+L70: return 0
+L71: branch L86
+L72: push_varbit varbit_8018
+L73: return 0
+L74: branch L86
+L75: push_varbit varbit_8019
+L76: return 0
+L77: branch L86
+L78: push_varbit varbit_8020
+L79: return 0
+L80: branch L86
+L81: push_varbit varbit_8021
+L82: return 0
+L83: branch L86
+L84: push_varbit varbit_8022
+L85: return 0
+L86: push_constant_int -1
+L87: return 0
+L88: push_constant_int 0
+L89: return 0
+L90:
+
+[switch0@L1]
+0=L3
+1=L6
+2=L9
+3=L12
+4=L15
+5=L18
+6=L21
+7=L24
+8=L27
+9=L30
+10=L33
+11=L36
+12=L39
+13=L42
+14=L45
+15=L48
+16=L51
+17=L54
+18=L57
+19=L60
+20=L63
+21=L66
+22=L69
+23=L72
+24=L75
+25=L78
+26=L81
+27=L84

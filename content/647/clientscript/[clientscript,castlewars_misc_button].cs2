@@ -1,0 +1,38 @@
+name=""
+local_int_count=0
+local_string_count=0
+local_long_count=0
+int_param_count=0
+string_param_count=0
+long_param_count=0
+
+L0: push_varc_int varc_int_1279
+L1: push_constant_int 2
+L2: branch_not L4
+L3: branch L8
+L4: push_constant_int 9445
+L5: push_constant_int 1
+L6: push_constant_int 0
+L7: sound_synth 0
+L8: push_constant_int 2
+L9: pop_varc_int varc_int_1279
+L10: push_constant_int 1
+L11: push_constant_int 3932205
+L12: if_sethide 0
+L13: push_constant_int 1
+L14: push_constant_int 3932206
+L15: if_sethide 0
+L16: push_constant_int 0
+L17: push_constant_int 3932247
+L18: if_sethide 0
+L19: push_constant_int 1
+L20: push_constant_int 3932180
+L21: if_sethide 0
+L22: push_constant_int 1
+L23: push_constant_int 3932177
+L24: if_sethide 0
+L25: push_constant_int 0
+L26: push_constant_int 3932174
+L27: if_sethide 0
+L28: return 0
+L29:

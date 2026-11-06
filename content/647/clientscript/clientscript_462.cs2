@@ -1,0 +1,49 @@
+name=""
+local_int_count=1
+local_string_count=0
+local_long_count=0
+int_param_count=1
+string_param_count=0
+long_param_count=0
+
+L0: push_constant_int 1
+L1: stat_base 0
+L2: push_constant_int 25
+L3: branch_less_than L5
+L4: branch L15
+L5: push_constant_string "<col=c80000>"
+L6: push_constant_string "A Defence level of "
+L7: push_constant_int 25
+L8: tostring 0
+L9: push_constant_string " is required."
+L10: push_constant_string "</col>"
+L11: join_string 5
+L12: push_int_local 0
+L13: if_settext 0
+L14: branch L39
+L15: push_varbit varbit_2086
+L16: push_constant_int 1
+L17: branch_less_than L19
+L18: branch L26
+L19: push_constant_string "<col=c80000>"
+L20: push_constant_string "1 Commendation required."
+L21: push_constant_string "</col>"
+L22: join_string 3
+L23: push_int_local 0
+L24: if_settext 0
+L25: branch L39
+L26: push_constant_int 1
+L27: stat_base 0
+L28: push_constant_int 2
+L29: pow 0
+L30: push_constant_int 600
+L31: div 0
+L32: push_constant_int 35
+L33: multiply 0
+L34: tostring 0
+L35: push_constant_string " XP per Commendation."
+L36: join_string 2
+L37: push_int_local 0
+L38: if_settext 0
+L39: return 0
+L40:

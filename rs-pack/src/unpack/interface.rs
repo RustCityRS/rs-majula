@@ -19,10 +19,6 @@ use rs_io::Packet;
 use rs_io::jag::JagFile;
 #[cfg(since_647)]
 use rs_io::js5::Js5Store;
-#[cfg(since_647)]
-use rs_io::js5::compression::Container;
-#[cfg(since_647)]
-use serde_json::json;
 #[cfg(before_647)]
 use std::collections::{HashMap, HashSet};
 use std::fs;
@@ -30,8 +26,6 @@ use std::fs;
 use std::path::Path;
 #[cfg(before_647)]
 use std::path::{Path, PathBuf};
-#[cfg(since_647)]
-use tracing::info;
 #[cfg(before_647)]
 use tracing::{debug, warn};
 
@@ -660,76 +654,55 @@ pub fn unpack_interface(
 }
 
 #[cfg(since_647)]
-pub fn unpack_interfaces(store: &mut Js5Store, content_dir: &Path) -> Result<u32> {
-    let if_dir = content_dir.join("interfaces").join("_unpack");
+pub fn unpack_interfaces(store: &mut Js5Store, content_dir: &Path, pack_dir: &Path) -> Result<u32> {
+    let if_dir = content_dir.join("interfaces");
     fs::create_dir_all(&if_dir)?;
-
-    let group_count = store.group_count(INTERFACE_ARCHIVE).unwrap_or(0);
-    let mut groups = Vec::new();
-    let mut written = 0u32;
-    let mut components = 0u32;
-
-    for group_id in 0..group_count {
-        let Some(raw) = store.read_raw_group_bytes(INTERFACE_ARCHIVE, group_id)? else {
-            continue;
-        };
-        if raw.len() < 5 {
-            continue;
-        }
-
-        let container = Container::parse(&raw)?;
-
-        let Some(group) = store
-            .read_group(INTERFACE_ARCHIVE, group_id)
-            .with_context(|| format!("read interface group {}", group_id))?
-        else {
-            continue;
-        };
-
+    let names = crate::pack::names::AssetNames::load(pack_dir)?;
+    let groups = store
+        .reference_table(INTERFACE_ARCHIVE)
+        .context("Missing interface table")?
+        .groups
+        .clone();
+    for info in &groups {
+        let group = store
+            .read_group(INTERFACE_ARCHIVE, info.id)?
+            .context("Missing interface group")?;
         let mut text = String::new();
-        let mut comp_count = 0u32;
-
         for entry in &group.entries {
-            if entry.data().is_empty() {
-                continue;
-            }
             let comp = IfTypeRaw::decode(
                 &mut Packet::from(entry.data().to_vec()),
                 entry.id as u16,
-                group_id as i32,
+                info.id as i32,
             );
             text.push_str(&emit_component_text(&comp, entry.id));
             text.push('\n');
-            comp_count += 1;
         }
-
-        let file_name = format!("{}.if", group_id);
-        fs::write(if_dir.join(&file_name), &text)?;
-
-        groups.push(json!({
-            "group_id": group_id,
-            "file_name": file_name,
-            "compression": container.compression as u8,
-            "version": container.version.unwrap_or(0),
-            "compressed_len": container.compressed_len,
-            "decompressed_len": container.uncompressed_len,
-            "crc": container.crc(),
-            "component_count": comp_count,
-        }));
-        written += 1;
-        components += comp_count;
+        let text = crate::pack::interface::references::convert(&text, info.id, &names, true)?;
+        let numeric = crate::pack::interface::references::convert(&text, info.id, &names, false)?;
+        let components = crate::pack::interface::parse_interface_text(&numeric, None);
+        let entries: Vec<_> = components
+            .iter()
+            .map(|(id, comp)| (*id, crate::pack::interface::encode_component(comp)))
+            .collect();
+        let refs: Vec<_> = entries
+            .iter()
+            .map(|(id, data)| (*id, data.as_slice()))
+            .collect();
+        let original = store
+            .read_group_raw_decompressed(INTERFACE_ARCHIVE, info.id)?
+            .context("Missing interface payload")?;
+        anyhow::ensure!(
+            original == rs_io::js5::encode_group_entries(&refs),
+            "Interface {} text round trip changed bytes",
+            info.id
+        );
+        let path = if_dir.join(format!("{}.if", names.name("interface", info.id)));
+        if let Some(parent) = path.parent() {
+            fs::create_dir_all(parent)?;
+        }
+        fs::write(&path, text).with_context(|| path.display().to_string())?;
     }
-
-    let manifest = json!({ "archive_id": INTERFACE_ARCHIVE, "groups": groups });
-    let manifest_path = if_dir.join("manifest.json");
-    fs::write(&manifest_path, serde_json::to_string_pretty(&manifest)?)?;
-
-    info!(
-        "Interfaces unpacked: {} groups, {} total components",
-        written, components
-    );
-
-    Ok(written)
+    Ok(groups.len() as u32)
 }
 
 #[cfg(since_647)]

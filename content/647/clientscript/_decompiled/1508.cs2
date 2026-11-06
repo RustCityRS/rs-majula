@@ -1,8 +1,0 @@
-[clientscript,script_1508](int $int0, int $int1)
-if ($int0 ! 1) {
-    return;
-}
-player_setcolour(3, $int1);
-%varc_int1018 = $int1;
-~script_1506;
-return;

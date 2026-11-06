@@ -1,0 +1,77 @@
+name=""
+local_int_count=2
+local_string_count=0
+local_long_count=0
+int_param_count=1
+string_param_count=0
+long_param_count=0
+
+L0: push_varc_int varc_int_196
+L1: gosub_with_params [proc,int_to_bool]
+L2: pop_int_local 1
+L3: push_int_local 0
+L4: branch_if_true L6
+L5: branch L27
+L6: push_varc_int varc_int_197
+L7: push_constant_int 0
+L8: branch_not L10
+L9: branch L27
+L10: gosub_with_params [proc,playerdesign4_rebuildmenu]
+L11: push_constant_int 1
+L12: push_constant_int 67371043
+L13: if_sethide 0
+L14: push_constant_int 1
+L15: push_constant_int 67371123
+L16: if_sethide 0
+L17: push_constant_int 0
+L18: push_constant_int 67371125
+L19: if_sethide 0
+L20: push_constant_int 0
+L21: push_constant_int 67371124
+L22: if_sethide 0
+L23: push_constant_int 0
+L24: push_constant_int 67371097
+L25: if_sethide 0
+L26: branch L66
+L27: push_int_local 1
+L28: gosub_with_params clientscript_387
+L29: push_int_local 1
+L30: gosub_with_params clientscript_390
+L31: push_constant_int 0
+L32: push_constant_int 67371043
+L33: if_sethide 0
+L34: push_varc_int varc_int_197
+L35: branch_if_false L37
+L36: branch L44
+L37: push_constant_int 1
+L38: push_constant_int 67371123
+L39: if_sethide 0
+L40: push_constant_int 1
+L41: push_constant_int 67371125
+L42: if_sethide 0
+L43: branch L60
+L44: push_constant_int 0
+L45: push_constant_int 67371123
+L46: if_sethide 0
+L47: push_varbit character_creation_multipage
+L48: branch_if_true L50
+L49: branch L57
+L50: push_varbit character_creation_page
+L51: branch_if_false L53
+L52: branch L57
+L53: push_constant_int 1
+L54: push_constant_int 67371125
+L55: if_sethide 0
+L56: branch L60
+L57: push_constant_int 0
+L58: push_constant_int 67371125
+L59: if_sethide 0
+L60: push_constant_int 1
+L61: push_constant_int 67371124
+L62: if_sethide 0
+L63: push_constant_int 1
+L64: push_constant_int 67371097
+L65: if_sethide 0
+L66: gosub_with_params [proc,playerdesign4_tooltip_clear]
+L67: return 0
+L68:

@@ -1,8 +1,0 @@
-[clientscript,script_1141]
-if (~script_1431 = 1) {
-    if (getwindowmode < 2) {
-        if_setontimer;
-    }
-    if_setontimer;
-}
-return;

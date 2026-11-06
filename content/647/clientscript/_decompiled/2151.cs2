@@ -1,7 +1,0 @@
-[clientscript,script_2151](int $int0, int $int1)(int)
-def_int $int2 = enum(105, 74, enum_169, $int0);
-%varc_int699 = enum(105, 74, struct_param($int2, param_61), $int1);
-if (~script_1432 < struct_param(%varc_int699, param_896)) {
-    return(0);
-}
-return(1);

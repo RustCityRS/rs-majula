@@ -1,0 +1,31 @@
+name=""
+local_int_count=0
+local_string_count=0
+local_long_count=0
+int_param_count=0
+string_param_count=0
+long_param_count=0
+
+L0: push_varc_string_old varc_string_24
+L1: friend_test 0
+L2: branch_if_true L4
+L3: branch L9
+L4: push_constant_int 26
+L5: push_constant_int 0
+L6: push_constant_string "Sorry, you cannot ignore players in your Friends List."
+L7: tutorial_openchat 0
+L8: branch L18
+L9: push_varc_string_old varc_string_24
+L10: clan_getminkick 0
+L11: push_constant_int 26
+L12: push_constant_int 0
+L13: push_constant_string "You are ignoring "
+L14: push_varc_string_old varc_string_24
+L15: push_constant_string " until you log out."
+L16: join_string 3
+L17: tutorial_openchat 0
+L18: push_constant_int 0
+L19: pop_varc_int varc_int_11
+L20: gosub_with_params clientscript_675
+L21: return 0
+L22:

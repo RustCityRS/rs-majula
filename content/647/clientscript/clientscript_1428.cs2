@@ -1,0 +1,34 @@
+name=""
+local_int_count=2
+local_string_count=0
+local_long_count=0
+int_param_count=2
+string_param_count=0
+long_param_count=0
+
+L0: push_int_local 0
+L1: push_int_local 1
+L2: cc_find 0
+L3: branch_if_true L5
+L4: branch L24
+L5: push_varc_int varc_int_1024
+L6: push_varbit varbit_6521
+L7: branch_equals L9
+L8: branch L19
+L9: push_varc_int varc_int_1024
+L10: push_constant_int 0
+L11: branch_not L13
+L12: branch L19
+L13: push_constant_int 1429
+L14: push_int_local 0
+L15: push_int_local 1
+L16: push_constant_string "Ii"
+L17: cc_setontimer 0
+L18: branch L24
+L19: push_constant_int -1
+L20: push_constant_string ""
+L21: cc_setontimer 0
+L22: push_constant_int 0
+L23: cc_settrans 0
+L24: return 0
+L25:

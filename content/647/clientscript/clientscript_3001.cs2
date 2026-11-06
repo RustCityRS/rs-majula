@@ -1,0 +1,152 @@
+name=""
+local_int_count=8
+local_string_count=4
+local_long_count=0
+int_param_count=0
+string_param_count=0
+long_param_count=0
+
+L0: push_constant_int 0
+L1: pop_int_local 0
+L2: push_constant_int 0
+L3: pop_int_local 1
+L4: push_constant_int 0
+L5: pop_int_local 2
+L6: push_constant_string ""
+L7: pop_string_local 0
+L8: push_constant_int 0
+L9: pop_int_local 3
+L10: push_constant_int 0
+L11: pop_int_local 4
+L12: push_constant_int 0
+L13: pop_int_local 5
+L14: push_constant_string ""
+L15: pop_string_local 1
+L16: push_constant_string ""
+L17: pop_string_local 2
+L18: push_constant_string ""
+L19: pop_string_local 3
+L20: subscription_info 0
+L21: pop_int_local 0
+L22: pop_int_local 2
+L23: pop_int_local 1
+L24: push_int_local 0
+L25: branch_if_false L27
+L26: branch L102
+L27: is_logged_in 0
+L28: branch_if_true L30
+L29: branch L102
+L30: push_int_local 1
+L31: date_to_string 0
+L32: pop_string_local 0
+L33: push_int_local 2
+L34: push_constant_int 1440
+L35: div 0
+L36: pop_int_local 3
+L37: push_int_local 2
+L38: push_constant_int 1440
+L39: mod 0
+L40: push_constant_int 60
+L41: div 0
+L42: pop_int_local 4
+L43: push_int_local 2
+L44: push_constant_int 60
+L45: mod 0
+L46: pop_int_local 5
+L47: push_int_local 3
+L48: push_int_local 4
+L49: add 0
+L50: push_int_local 5
+L51: add 0
+L52: push_constant_int 0
+L53: branch_not L55
+L54: branch L63
+L55: push_constant_string " (in "
+L56: push_int_local 3
+L57: push_int_local 4
+L58: push_int_local 5
+L59: gosub_with_params clientscript_4582
+L60: push_constant_string ")"
+L61: join_string 3
+L62: pop_string_local 1
+L63: push_constant_string "Your membership will expire on "
+L64: push_string_local 0
+L65: push_string_local 1
+L66: push_constant_string ". Renew now to avoid losing member status. Click "
+L67: push_constant_string "<col=0166ff>"
+L68: push_constant_string "<u=0166ff>"
+L69: push_constant_string "here"
+L70: push_constant_string "</u>"
+L71: push_constant_string "</col>"
+L72: push_constant_string " to renew."
+L73: join_string 10
+L74: pop_string_local 2
+L75: push_constant_string "Your membership will expire on "
+L76: push_string_local 0
+L77: push_string_local 1
+L78: push_constant_string ". Renew now to avoid losing member status. Click "
+L79: push_constant_string "<col=0296fe>"
+L80: push_constant_string "<u=0296fe>"
+L81: push_constant_string "here"
+L82: push_constant_string "</u>"
+L83: push_constant_string "</col>"
+L84: push_constant_string " to renew."
+L85: join_string 10
+L86: pop_string_local 3
+L87: push_string_local 2
+L88: push_constant_int 59441206
+L89: if_settext 0
+L90: push_constant_int 68
+L91: push_constant_int -2147483645
+L92: push_string_local 3
+L93: push_constant_string "Is"
+L94: push_constant_int 59441206
+L95: if_setonmouseover 0
+L96: push_constant_int 68
+L97: push_constant_int -2147483645
+L98: push_string_local 2
+L99: push_constant_string "Is"
+L100: push_constant_int 59441206
+L101: if_setonmouseleave 0
+L102: get_accountinfo_6904 0
+L103: pop_int_local 6
+L104: push_int_local 6
+L105: branch_if_false L107
+L106: branch L111
+L107: push_constant_string "Welcome to RuneScape!"
+L108: push_constant_int 59441153
+L109: if_settext 0
+L110: return 0
+L111: date_getdays 0
+L112: push_int_local 6
+L113: sub 0
+L114: pop_int_local 7
+L115: push_int_local 7
+L116: push_constant_int 1
+L117: branch_less_than L119
+L118: branch L125
+L119: push_constant_string "You last logged in earlier today from: "
+L120: get_clipboard 0
+L121: join_string 2
+L122: push_constant_int 59441153
+L123: if_settext 0
+L124: branch L142
+L125: push_int_local 7
+L126: branch_if_true L128
+L127: branch L134
+L128: push_constant_string "You last logged in yesterday from: "
+L129: get_clipboard 0
+L130: join_string 2
+L131: push_constant_int 59441153
+L132: if_settext 0
+L133: branch L142
+L134: push_constant_string "You last logged in "
+L135: push_int_local 7
+L136: tostring 0
+L137: push_constant_string " days ago from: "
+L138: get_clipboard 0
+L139: join_string 4
+L140: push_constant_int 59441153
+L141: if_settext 0
+L142: return 0
+L143:

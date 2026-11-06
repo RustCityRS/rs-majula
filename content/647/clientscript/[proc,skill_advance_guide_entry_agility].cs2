@@ -1,0 +1,2133 @@
+name=""
+local_int_count=2
+local_string_count=0
+local_long_count=0
+int_param_count=2
+string_param_count=0
+long_param_count=0
+
+L0: push_int_local 0
+L1: switch switch0
+L2: branch L1942
+L3: push_int_local 1
+L4: switch switch1
+L5: branch L211
+L6: push_constant_int 1
+L7: push_constant_int 2150
+L8: push_constant_string "Gnome Stronghold Agility Course"
+L9: push_constant_string "You can now use the "
+L10: push_constant_string "<col=000080>"
+L11: push_constant_string "Gnome Stronghold Agility Course"
+L12: push_constant_string "</col>"
+L13: push_constant_string "."
+L14: join_string 5
+L15: return 0
+L16: branch L211
+L17: push_constant_int 1
+L18: push_constant_int 751
+L19: push_constant_string "Gnome Ball"
+L20: push_constant_string "You can now play "
+L21: push_constant_string "<col=000080>"
+L22: push_constant_string "Gnome Ball"
+L23: push_constant_string "</col>"
+L24: push_constant_string " at the "
+L25: push_constant_string "<col=000080>"
+L26: push_constant_string "Tree Gnome Stronghold"
+L27: push_constant_string "</col>"
+L28: push_constant_string "."
+L29: join_string 9
+L30: return 0
+L31: branch L211
+L32: push_constant_int 1
+L33: push_constant_int 2996
+L34: push_constant_string "Low-level Agility arena obstacles"
+L35: push_constant_string "You can now attempt "
+L36: push_constant_string "<col=000080>"
+L37: push_constant_string "low-level Agility arena obstacles"
+L38: push_constant_string "</col>"
+L39: push_constant_string "."
+L40: join_string 5
+L41: return 0
+L42: branch L211
+L43: push_constant_int 20
+L44: push_constant_int 2996
+L45: push_constant_string "Medium-level Agility arena obstacles"
+L46: push_constant_string "You can now attempt "
+L47: push_constant_string "<col=000080>"
+L48: push_constant_string "medium-level Agility arena obstacles"
+L49: push_constant_string "</col>"
+L50: push_constant_string "."
+L51: join_string 5
+L52: return 0
+L53: branch L211
+L54: push_constant_int 25
+L55: push_constant_int 1061
+L56: push_constant_string "Werewolf skullball game"
+L57: push_constant_string "<br>"
+L58: push_constant_string " (after Creature of Fenkenstrain)"
+L59: join_string 3
+L60: push_constant_string "You can now play "
+L61: push_constant_string "<col=000080>"
+L62: push_constant_string "werewolf skullball"
+L63: push_constant_string "</col>"
+L64: push_constant_string " at the "
+L65: push_constant_string "<col=000080>"
+L66: push_constant_string "skullball course"
+L67: push_constant_string "</col>"
+L68: push_constant_string " east of "
+L69: push_constant_string "<col=000080>"
+L70: push_constant_string "Canifis"
+L71: push_constant_string "</col>"
+L72: push_constant_string " (after Creature of Fenkenstrain)."
+L73: join_string 13
+L74: return 0
+L75: branch L211
+L76: push_constant_int 30
+L77: push_constant_int 6970
+L78: push_constant_string "Agility Pyramid"
+L79: push_constant_string "You can now enter the "
+L80: push_constant_string "<col=000080>"
+L81: push_constant_string "Agility Pyramid"
+L82: push_constant_string "</col>"
+L83: push_constant_string "."
+L84: join_string 5
+L85: return 0
+L86: branch L211
+L87: push_constant_int 30
+L88: push_constant_int 10595
+L89: push_constant_string "Penguin Agility Course"
+L90: push_constant_string "<br>"
+L91: push_constant_string " (after starting Cold War)"
+L92: join_string 3
+L93: push_constant_string "You can now use the "
+L94: push_constant_string "<col=000080>"
+L95: push_constant_string "Penguin Agility Course"
+L96: push_constant_string "</col>"
+L97: push_constant_string " (after starting Cold War)."
+L98: join_string 5
+L99: return 0
+L100: branch L211
+L101: push_constant_int 35
+L102: push_constant_int 1365
+L103: push_constant_string "Barbarian Outpost Agility Course"
+L104: push_constant_string "You can now use the "
+L105: push_constant_string "<col=000080>"
+L106: push_constant_string "Barbarian Outpost Agility Course"
+L107: push_constant_string "</col>"
+L108: push_constant_string "."
+L109: join_string 5
+L110: return 0
+L111: branch L211
+L112: push_constant_int 40
+L113: push_constant_int 2996
+L114: push_constant_string "High-level Agility arena obstacles"
+L115: push_constant_string "You can now attempt"
+L116: push_constant_string "<col=000080>"
+L117: push_constant_string " high-level Agility arena obstacles"
+L118: push_constant_string "</col>"
+L119: push_constant_string "."
+L120: join_string 5
+L121: return 0
+L122: branch L211
+L123: push_constant_int 48
+L124: push_constant_int 4024
+L125: push_constant_string "Ape Atoll Agility Course"
+L126: push_constant_string "<br>"
+L127: push_constant_string " (after Monkey Madness)"
+L128: join_string 3
+L129: push_constant_string "You can now use the "
+L130: push_constant_string "<col=000080>"
+L131: push_constant_string "Ape Atoll Agility Course"
+L132: push_constant_string "</col>"
+L133: push_constant_string " (after Monkey Madness)."
+L134: join_string 5
+L135: return 0
+L136: branch L211
+L137: push_constant_int 52
+L138: push_constant_int 964
+L139: push_constant_string "Wilderness Agility Course"
+L140: push_constant_string "You can now use the "
+L141: push_constant_string "<col=000080>"
+L142: push_constant_string "Wilderness Agility Course"
+L143: push_constant_string "</col>"
+L144: push_constant_string "."
+L145: join_string 5
+L146: return 0
+L147: branch L211
+L148: push_constant_int 60
+L149: push_constant_int 4179
+L150: push_constant_string "Werewolf Agility Course"
+L151: push_constant_string "<br>"
+L152: push_constant_string " (after Creature of Fenkenstrain)"
+L153: join_string 3
+L154: push_constant_string "You can now use the "
+L155: push_constant_string "<col=000080>"
+L156: push_constant_string "Werewolf Agility Course"
+L157: push_constant_string "</col>"
+L158: push_constant_string " (after Creature of Fenkenstrain)."
+L159: join_string 5
+L160: return 0
+L161: branch L211
+L162: push_constant_int 60
+L163: push_constant_int 14683
+L164: push_constant_string "Statues in Bandos's Throne Room"
+L165: push_constant_string "<br>"
+L166: push_constant_string " (after The Chosen Commander)"
+L167: join_string 3
+L168: push_constant_string "You can now use the "
+L169: push_constant_string "<col=000080>"
+L170: push_constant_string "statues in Bandos's throne room"
+L171: push_constant_string "</col>"
+L172: push_constant_string " (after The Chosen Commander)."
+L173: join_string 5
+L174: return 0
+L175: branch L211
+L176: push_constant_int 80
+L177: push_constant_int 4550
+L178: push_constant_string "Dorgesh-Kaan Agility Course"
+L179: push_constant_string "<br>"
+L180: push_constant_string " (after Death to the Dorgeshuun)"
+L181: join_string 3
+L182: push_constant_string "You can now use the "
+L183: push_constant_string "<col=000080>"
+L184: push_constant_string "Dorgesh-Kaan Agility Course"
+L185: push_constant_string "</col>"
+L186: push_constant_string " (after Death to the Dorgeshuun)."
+L187: join_string 5
+L188: return 0
+L189: branch L211
+L190: push_constant_int 85
+L191: push_constant_int 2150
+L192: push_constant_string "Advanced Gnome Stronghold Course"
+L193: push_constant_string "You can now use the "
+L194: push_constant_string "<col=000080>"
+L195: push_constant_string "Advanced Gnome Stronghold Course"
+L196: push_constant_string "</col>"
+L197: push_constant_string "."
+L198: join_string 5
+L199: return 0
+L200: branch L211
+L201: push_constant_int 90
+L202: push_constant_int 1365
+L203: push_constant_string "Advanced Barbarian Outpost Course"
+L204: push_constant_string "You can now use the "
+L205: push_constant_string "<col=000080>"
+L206: push_constant_string "Advanced Barbarian Outpost Course"
+L207: push_constant_string "</col>"
+L208: push_constant_string "."
+L209: join_string 5
+L210: return 0
+L211: branch L1942
+L212: push_int_local 1
+L213: switch switch2
+L214: branch L364
+L215: push_constant_int 10
+L216: push_constant_int 6518
+L217: push_constant_string "Moss Giant Island rope swing"
+L218: push_constant_string "You can now use the "
+L219: push_constant_string "<col=000080>"
+L220: push_constant_string "Moss Giant Island rope-swing"
+L221: push_constant_string "</col>"
+L222: push_constant_string "."
+L223: join_string 5
+L224: return 0
+L225: branch L364
+L226: push_constant_int 12
+L227: push_constant_int 6518
+L228: push_constant_string "Karamja Dungeon stepping stones"
+L229: push_constant_string "You can now cross the "
+L230: push_constant_string "<col=000080>"
+L231: push_constant_string "Karamja Dungeon stepping stones"
+L232: push_constant_string "</col>"
+L233: push_constant_string "."
+L234: join_string 5
+L235: return 0
+L236: branch L364
+L237: push_constant_int 15
+L238: push_constant_int 6518
+L239: push_constant_string "Edgeville Dungeon monkey bars"
+L240: push_constant_string "You can now use the "
+L241: push_constant_string "<col=000080>"
+L242: push_constant_string "Edgeville Dungeon monkey bars"
+L243: push_constant_string "</col>"
+L244: push_constant_string "."
+L245: join_string 5
+L246: return 0
+L247: branch L364
+L248: push_constant_int 18
+L249: push_constant_int 6521
+L250: push_constant_string "Watchtower wall climb"
+L251: push_constant_string "You can now use the "
+L252: push_constant_string "<col=000080>"
+L253: push_constant_string "Watchtower wall climb"
+L254: push_constant_string "</col>"
+L255: push_constant_string "."
+L256: join_string 5
+L257: return 0
+L258: branch L364
+L259: push_constant_int 22
+L260: push_constant_int 6520
+L261: push_constant_string "Karamja Dungeon pipe contortion"
+L262: push_constant_string "You can now squeeze through the "
+L263: push_constant_string "<col=000080>"
+L264: push_constant_string "Karamja Dungeon pipe contortion"
+L265: push_constant_string "</col>"
+L266: push_constant_string "."
+L267: join_string 5
+L268: return 0
+L269: branch L364
+L270: push_constant_int 30
+L271: push_constant_int 6518
+L272: push_constant_string "South-east Karamja stepping stones"
+L273: push_constant_string "You can now cross the "
+L274: push_constant_string "<col=000080>"
+L275: push_constant_string "south-east Karamja stepping stones"
+L276: push_constant_string "</col>"
+L277: push_constant_string "."
+L278: join_string 5
+L279: return 0
+L280: branch L364
+L281: push_constant_int 34
+L282: push_constant_int 6520
+L283: push_constant_string "Karamja Dungeon pipe contortion"
+L284: push_constant_string "You can now squeeze through the "
+L285: push_constant_string "<col=000080>"
+L286: push_constant_string "Karamja Dungeon pipe contortion"
+L287: push_constant_string "</col>"
+L288: push_constant_string "."
+L289: join_string 5
+L290: return 0
+L291: branch L364
+L292: push_constant_int 45
+L293: push_constant_int 6519
+L294: push_constant_string "Isafdar log balance"
+L295: push_constant_string "You can now cross the "
+L296: push_constant_string "<col=000080>"
+L297: push_constant_string "Isafdar log balance"
+L298: push_constant_string "</col>"
+L299: push_constant_string "."
+L300: join_string 5
+L301: return 0
+L302: branch L364
+L303: push_constant_int 49
+L304: push_constant_int 6520
+L305: push_constant_string "Yanille Dungeon contortion"
+L306: push_constant_string "You can now squeeze through the "
+L307: push_constant_string "<col=000080>"
+L308: push_constant_string "Yanille Dungeon contortion"
+L309: push_constant_string "</col>"
+L310: push_constant_string "."
+L311: join_string 5
+L312: return 0
+L313: branch L364
+L314: push_constant_int 50
+L315: push_constant_int 6518
+L316: push_constant_string "Rogues' Den"
+L317: push_constant_string "<br>"
+L318: push_constant_string " (with 50 Thieving)"
+L319: join_string 3
+L320: push_constant_string "You now have the Agility level required to attempt the "
+L321: push_constant_string "<col=000080>"
+L322: push_constant_string "Rogues' Den"
+L323: push_constant_string "</col>"
+L324: push_constant_string ", located below the Toad and Chicken pub in Burthorpe. (You also need level 50 Thieving.)"
+L325: join_string 5
+L326: return 0
+L327: branch L364
+L328: push_constant_int 60
+L329: push_constant_int 6520
+L330: push_constant_string "God Wars Dungeon access"
+L331: push_constant_string "You can now use the "
+L332: push_constant_string "<col=000080>"
+L333: push_constant_string "God Wars Dungeon access"
+L334: push_constant_string "</col>"
+L335: push_constant_string "."
+L336: join_string 5
+L337: return 0
+L338: branch L364
+L339: push_constant_int 67
+L340: push_constant_int 6521
+L341: push_constant_string "Yanille Dungeon rubble climb"
+L342: push_constant_string "You can now attempt the "
+L343: push_constant_string "<col=000080>"
+L344: push_constant_string "Yanille Dungeon rubble climb"
+L345: push_constant_string "</col>"
+L346: push_constant_string "."
+L347: join_string 5
+L348: return 0
+L349: branch L364
+L350: push_constant_int 70
+L351: push_constant_int 6521
+L352: push_constant_string "Saradomin Encampment rope descent"
+L353: push_constant_string "You can now use the "
+L354: push_constant_string "<col=000080>"
+L355: push_constant_string "Saradomin Encampment rope descent"
+L356: push_constant_string "</col>"
+L357: push_constant_string " in the "
+L358: push_constant_string "<col=000080>"
+L359: push_constant_string "God Wars Dungeon"
+L360: push_constant_string "</col>"
+L361: push_constant_string "."
+L362: join_string 9
+L363: return 0
+L364: branch L1942
+L365: push_int_local 1
+L366: switch switch3
+L367: branch L892
+L368: push_constant_int 5
+L369: push_constant_int 6517
+L370: push_constant_string "Falador Agility shortcut"
+L371: push_constant_string "You can now use the Falador Agility shortcut"
+L372: push_constant_string "</col>"
+L373: push_constant_string "."
+L374: join_string 3
+L375: return 0
+L376: branch L892
+L377: push_constant_int 8
+L378: push_constant_int 6515
+L379: push_constant_string "River crossing to Al Kharid"
+L380: push_constant_string "<br>"
+L381: push_constant_string " (with 37 Ranged and 19 Strength)"
+L382: join_string 3
+L383: push_constant_string "You now have the Agility level required to use the "
+L384: push_constant_string "<col=000080>"
+L385: push_constant_string "river crossing to Al Kharid"
+L386: push_constant_string "</col>"
+L387: push_constant_string ". (You also need level 37 Ranged and level 19 Strength.)"
+L388: join_string 5
+L389: return 0
+L390: branch L892
+L391: push_constant_int 11
+L392: push_constant_int 6517
+L393: push_constant_string "Falador wall"
+L394: push_constant_string "<br>"
+L395: push_constant_string " (with 19 Ranged and 37 Strength)"
+L396: join_string 3
+L397: push_constant_string "You now have the Agility level required to scale "
+L398: push_constant_string "<col=000080>"
+L399: push_constant_string "Falador wall"
+L400: push_constant_string "</col>"
+L401: push_constant_string ". (You also need level 19 Ranged and level 37 Strength.)"
+L402: join_string 5
+L403: return 0
+L404: branch L892
+L405: push_constant_int 13
+L406: push_constant_int 6514
+L407: push_constant_string "Varrock south fence jump"
+L408: push_constant_string "You can now use the "
+L409: push_constant_string "<col=000080>"
+L410: push_constant_string "Varrock south fence jump"
+L411: push_constant_string "</col>"
+L412: push_constant_string "."
+L413: join_string 5
+L414: return 0
+L415: branch L892
+L416: push_constant_int 16
+L417: push_constant_int 6516
+L418: push_constant_string "Yanille Agility shortcut"
+L419: push_constant_string "You can now use the "
+L420: push_constant_string "<col=000080>"
+L421: push_constant_string "Yanille Agility shortcut"
+L422: push_constant_string "</col>"
+L423: push_constant_string "."
+L424: join_string 5
+L425: return 0
+L426: branch L892
+L427: push_constant_int 20
+L428: push_constant_int 6515
+L429: push_constant_string "Coal truck log balance"
+L430: push_constant_string "You can now use the "
+L431: push_constant_string "<col=000080>"
+L432: push_constant_string "coal truck log balance"
+L433: push_constant_string "</col>"
+L434: push_constant_string "."
+L435: join_string 5
+L436: return 0
+L437: branch L892
+L438: push_constant_int 21
+L439: push_constant_int 6516
+L440: push_constant_string "Varrock Agility shortcut"
+L441: push_constant_string "You can now use the "
+L442: push_constant_string "<col=000080>"
+L443: push_constant_string "Varrock Agility shortcut"
+L444: push_constant_string "</col>"
+L445: push_constant_string "."
+L446: join_string 5
+L447: return 0
+L448: branch L892
+L449: push_constant_int 25
+L450: push_constant_int 6517
+L451: push_constant_string "Eagles' Peak Agility shortcut"
+L452: push_constant_string "You can now use the "
+L453: push_constant_string "<col=000080>"
+L454: push_constant_string "Eagles' Peak Agility shortcut"
+L455: push_constant_string "</col>"
+L456: push_constant_string "."
+L457: join_string 5
+L458: return 0
+L459: branch L892
+L460: push_constant_int 26
+L461: push_constant_int 6516
+L462: push_constant_string "Falador wall crawl"
+L463: push_constant_string "You can now use the "
+L464: push_constant_string "<col=000080>"
+L465: push_constant_string "Falador Agility shortcut"
+L466: push_constant_string "</col>"
+L467: push_constant_string "."
+L468: join_string 5
+L469: return 0
+L470: branch L892
+L471: push_constant_int 28
+L472: push_constant_int 6516
+L473: push_constant_string "Draynor Manor broken railing"
+L474: push_constant_string "You can now fit through the "
+L475: push_constant_string "<col=000080>"
+L476: push_constant_string "Draynor Manor broken railing"
+L477: push_constant_string "</col>"
+L478: push_constant_string "."
+L479: join_string 5
+L480: return 0
+L481: branch L892
+L482: push_constant_int 29
+L483: push_constant_int 6516
+L484: push_constant_string "Oo'glog Agility shortcut"
+L485: push_constant_string "You can now use the "
+L486: push_constant_string "<col=000080>"
+L487: push_constant_string "Oo'glog Agility shortcut"
+L488: push_constant_string "</col>"
+L489: push_constant_string "."
+L490: join_string 5
+L491: return 0
+L492: branch L892
+L493: push_constant_int 31
+L494: push_constant_int 6515
+L495: push_constant_string "Draynor Manor stones to the Champions' Guild"
+L496: push_constant_string "You can now use the "
+L497: push_constant_string "<col=000080>"
+L498: push_constant_string "Draynor Manor stones to the Champions' Guild"
+L499: push_constant_string "</col>"
+L500: push_constant_string "."
+L501: join_string 5
+L502: return 0
+L503: branch L892
+L504: push_constant_int 32
+L505: push_constant_int 6517
+L506: push_constant_string "Catherby cliff"
+L507: push_constant_string "<br>"
+L508: push_constant_string " (after Fishing Contest, with 35 Strength and 35 Ranged)"
+L509: join_string 3
+L510: push_constant_string "You now have the Agility level required to scale the "
+L511: push_constant_string "<col=000080>"
+L512: push_constant_string "Catherby cliff"
+L513: push_constant_string "</col>"
+L514: push_constant_string ". (You must have completed Fishing Contest and have level 35 Strength and level 35 Ranged.)"
+L515: join_string 5
+L516: return 0
+L517: branch L892
+L518: push_constant_int 33
+L519: push_constant_int 6515
+L520: push_constant_string "Ardougne log balance shortcut"
+L521: push_constant_string "You can now use the "
+L522: push_constant_string "<col=000080>"
+L523: push_constant_string "Ardougne log balance shortcut"
+L524: push_constant_string "</col>"
+L525: push_constant_string "."
+L526: join_string 5
+L527: return 0
+L528: branch L892
+L529: push_constant_int 36
+L530: push_constant_int 6517
+L531: push_constant_string "Water Obelisk Island escape"
+L532: push_constant_string "<br>"
+L533: push_constant_string " (with 39 Ranged and 22 Strength)"
+L534: join_string 3
+L535: push_constant_string "You now have the Agility level required to use the "
+L536: push_constant_string "<col=000080>"
+L537: push_constant_string "Water Obelisk Island escape"
+L538: push_constant_string "</col>"
+L539: push_constant_string ". (You also need level 39 Ranged and level 22 Strength.)"
+L540: join_string 5
+L541: return 0
+L542: branch L892
+L543: push_constant_int 37
+L544: push_constant_int 6517
+L545: push_constant_string "Gnome Stronghold shortcut"
+L546: push_constant_string "You can now use the "
+L547: push_constant_string "<col=000080>"
+L548: push_constant_string "Gnome Stronghold shortcut"
+L549: push_constant_string "</col>"
+L550: push_constant_string "."
+L551: join_string 5
+L552: return 0
+L553: branch L892
+L554: push_constant_int 38
+L555: push_constant_int 6517
+L556: push_constant_string "Al Kharid mining pit cliffside scramble"
+L557: push_constant_string "You can now manage the "
+L558: push_constant_string "<col=000080>"
+L559: push_constant_string "Al Kharid mining pit cliffside scramble"
+L560: push_constant_string "</col>"
+L561: push_constant_string "."
+L562: join_string 5
+L563: return 0
+L564: branch L892
+L565: push_constant_int 39
+L566: push_constant_int 6517
+L567: push_constant_string "Yanille wall"
+L568: push_constant_string "<br>"
+L569: push_constant_string " (with 21 Ranged and 38 Strength)"
+L570: join_string 3
+L571: push_constant_string "You now have the Agility level required to scale "
+L572: push_constant_string "<col=000080>"
+L573: push_constant_string "Yanille wall"
+L574: push_constant_string "</col>"
+L575: push_constant_string ". (You also need level 21 Ranged and level 38 Strength.)"
+L576: join_string 5
+L577: return 0
+L578: branch L892
+L579: push_constant_int 40
+L580: push_constant_int 6517
+L581: push_constant_string "Rope climb south-east of the Agility Pyramid"
+L582: push_constant_string "You can now use the "
+L583: push_constant_string "<col=000080>"
+L584: push_constant_string "rope climb south-east of the Agility Pyramid"
+L585: push_constant_string "</col>"
+L586: push_constant_string "."
+L587: join_string 5
+L588: return 0
+L589: branch L892
+L590: push_constant_int 41
+L591: push_constant_int 6517
+L592: push_constant_string "Trollheim easy cliffside scramble"
+L593: push_constant_string "You can now manage the "
+L594: push_constant_string "<col=000080>"
+L595: push_constant_string "Trollheim easy cliffside scramble"
+L596: push_constant_string "</col>"
+L597: push_constant_string "."
+L598: join_string 5
+L599: return 0
+L600: branch L892
+L601: push_constant_int 42
+L602: push_constant_int 6516
+L603: push_constant_string "Dwarven Mine narrow crevice"
+L604: push_constant_string "You can now manage the "
+L605: push_constant_string "<col=000080>"
+L606: push_constant_string "Dwarven Mine narrow crevice"
+L607: push_constant_string "</col>"
+L608: push_constant_string "."
+L609: join_string 5
+L610: return 0
+L611: branch L892
+L612: push_constant_int 43
+L613: push_constant_int 6517
+L614: push_constant_string "Trollheim medium cliffside scramble"
+L615: push_constant_string "You can now manage the "
+L616: push_constant_string "<col=000080>"
+L617: push_constant_string "Trollheim medium cliffside scramble"
+L618: push_constant_string "</col>"
+L619: push_constant_string "."
+L620: join_string 5
+L621: return 0
+L622: branch L892
+L623: push_constant_int 44
+L624: push_constant_int 6517
+L625: push_constant_string "Trollheim advanced cliffside scramble"
+L626: push_constant_string "You can now manage the "
+L627: push_constant_string "<col=000080>"
+L628: push_constant_string "Trollheim advanced cliffside scramble"
+L629: push_constant_string "</col>"
+L630: push_constant_string "."
+L631: join_string 5
+L632: return 0
+L633: branch L892
+L634: push_constant_int 46
+L635: push_constant_int 6516
+L636: push_constant_string "Cosmic Temple medium narrow walkway"
+L637: push_constant_string "You can now use the "
+L638: push_constant_string "<col=000080>"
+L639: push_constant_string "Cosmic Temple medium narrow walkway"
+L640: push_constant_string "</col>"
+L641: push_constant_string "."
+L642: join_string 5
+L643: return 0
+L644: branch L892
+L645: push_constant_int 47
+L646: push_constant_int 6517
+L647: push_constant_string "Trollheim hard cliffside scramble"
+L648: push_constant_string "You can now manage the "
+L649: push_constant_string "<col=000080>"
+L650: push_constant_string "Trollheim hard cliffside scramble"
+L651: push_constant_string "</col>"
+L652: push_constant_string "."
+L653: join_string 5
+L654: return 0
+L655: branch L892
+L656: push_constant_int 48
+L657: push_constant_int 6515
+L658: push_constant_string "Log balance to the Fremennik Province"
+L659: push_constant_string "You can now use the "
+L660: push_constant_string "<col=000080>"
+L661: push_constant_string "log balance to the Fremennik Province"
+L662: push_constant_string "</col>"
+L663: push_constant_string "."
+L664: join_string 5
+L665: return 0
+L666: branch L892
+L667: push_constant_int 51
+L668: push_constant_int 6516
+L669: push_constant_string "Edgeville Dungeon to Varrock Sewers pipe"
+L670: push_constant_string "You can now use the "
+L671: push_constant_string "<col=000080>"
+L672: push_constant_string "Edgeville Dungeon to Varrock Sewers pipe"
+L673: push_constant_string "</col>"
+L674: push_constant_string "."
+L675: join_string 5
+L676: return 0
+L677: branch L892
+L678: push_constant_int 53
+L679: push_constant_int 6517
+L680: push_constant_string "Karamja crossing, south of the volcano"
+L681: push_constant_string "<br>"
+L682: push_constant_string " (with 42 Ranged and 21 Strength)"
+L683: join_string 3
+L684: push_constant_string "You now have the Agility level required to manage the "
+L685: push_constant_string "<col=000080>"
+L686: push_constant_string "Karamja crossing, south of the volcano"
+L687: push_constant_string "</col>"
+L688: push_constant_string ". (You also need level 42 Ranged and level 21 Strength)."
+L689: join_string 5
+L690: return 0
+L691: branch L892
+L692: push_constant_int 58
+L693: push_constant_int 6517
+L694: push_constant_string "Port Phasmatys ectopool shortcut"
+L695: push_constant_string "You can now use the "
+L696: push_constant_string "<col=000080>"
+L697: push_constant_string "Port Phasmatys ectopool shortcut"
+L698: push_constant_string "</col>"
+L699: push_constant_string "."
+L700: join_string 5
+L701: return 0
+L702: branch L892
+L703: push_constant_int 59
+L704: push_constant_int 6517
+L705: push_constant_string "Elven overpass easy cliffside scramble"
+L706: push_constant_string "You can now manage the "
+L707: push_constant_string "<col=000080>"
+L708: push_constant_string "Elven Overpass easy cliffside scramble"
+L709: push_constant_string "</col>"
+L710: push_constant_string "."
+L711: join_string 5
+L712: return 0
+L713: branch L892
+L714: push_constant_int 60
+L715: push_constant_int 6517
+L716: push_constant_string "God Wars temple escape to the Wilderness"
+L717: push_constant_string "You can now manage the "
+L718: push_constant_string "<col=000080>"
+L719: push_constant_string "God Wars temple escape to the Wilderness"
+L720: push_constant_string "</col>"
+L721: push_constant_string "."
+L722: join_string 5
+L723: return 0
+L724: branch L892
+L725: push_constant_int 61
+L726: push_constant_int 6517
+L727: push_constant_string "Slayer Tower medium spiked chain climb"
+L728: push_constant_string "You can now manage the "
+L729: push_constant_string "<col=000080>"
+L730: push_constant_string "Slayer Tower medium spiked chain climb"
+L731: push_constant_string "</col>"
+L732: push_constant_string "."
+L733: join_string 5
+L734: return 0
+L735: branch L892
+L736: push_constant_int 62
+L737: push_constant_int 6516
+L738: push_constant_string "Slayer Dungeon narrow crevice"
+L739: push_constant_string "You can now manage the "
+L740: push_constant_string "<col=000080>"
+L741: push_constant_string "Slayer Dungeon narrow crevice"
+L742: push_constant_string "</col>"
+L743: push_constant_string "."
+L744: join_string 5
+L745: return 0
+L746: branch L892
+L747: push_constant_int 64
+L748: push_constant_int 6517
+L749: push_constant_string "Trollheim Wilderness route"
+L750: push_constant_string "You can now use the "
+L751: push_constant_string "<col=000080>"
+L752: push_constant_string "Trollheim Wilderness route"
+L753: push_constant_string "</col>"
+L754: push_constant_string "."
+L755: join_string 5
+L756: return 0
+L757: branch L892
+L758: push_constant_int 65
+L759: push_constant_int 6517
+L760: push_constant_string "Paterdomus Temple to Morytania shortcut"
+L761: push_constant_string "You can now use the "
+L762: push_constant_string "<col=000080>"
+L763: push_constant_string "Paterdomus Temple to Morytania shortcut"
+L764: push_constant_string "</col>"
+L765: push_constant_string "."
+L766: join_string 5
+L767: return 0
+L768: branch L892
+L769: push_constant_int 66
+L770: push_constant_int 6516
+L771: push_constant_string "Cosmic Temple advanced narrow walkway"
+L772: push_constant_string "You can now use the "
+L773: push_constant_string "<col=000080>"
+L774: push_constant_string "Cosmic Temple advanced narrow walkway"
+L775: push_constant_string "</col>"
+L776: push_constant_string "."
+L777: join_string 5
+L778: return 0
+L779: branch L892
+L780: push_constant_int 68
+L781: push_constant_int 6517
+L782: push_constant_string "Elven overpass medium cliffside scramble"
+L783: push_constant_string "You can now manage the "
+L784: push_constant_string "<col=000080>"
+L785: push_constant_string "elven overpass medium cliffside scramble"
+L786: push_constant_string "</col>"
+L787: push_constant_string "."
+L788: join_string 5
+L789: return 0
+L790: branch L892
+L791: push_constant_int 70
+L792: push_constant_int 6516
+L793: push_constant_string "Taverley Dungeon pipe squeeze"
+L794: push_constant_string "You can now use the "
+L795: push_constant_string "<col=000080>"
+L796: push_constant_string "Taverley Dungeon pipe squeeze"
+L797: push_constant_string "</col>"
+L798: push_constant_string " to the blue dragons."
+L799: join_string 5
+L800: return 0
+L801: branch L892
+L802: push_constant_int 71
+L803: push_constant_int 6517
+L804: push_constant_string "Slayer Tower advanced spiked chain climb"
+L805: push_constant_string "You can now manage the "
+L806: push_constant_string "<col=000080>"
+L807: push_constant_string "Slayer Tower advanced spiked chain climb"
+L808: push_constant_string "</col>"
+L809: push_constant_string "."
+L810: join_string 5
+L811: return 0
+L812: branch L892
+L813: push_constant_int 74
+L814: push_constant_int 6514
+L815: push_constant_string "Shilo Village stepping stone"
+L816: push_constant_string "You can now use the "
+L817: push_constant_string "<col=000080>"
+L818: push_constant_string "Shilo Village stepping stone"
+L819: push_constant_string "</col>"
+L820: push_constant_string "."
+L821: join_string 5
+L822: return 0
+L823: branch L892
+L824: push_constant_int 80
+L825: push_constant_int 6515
+L826: push_constant_string "Cross cave, south of Dorgesh-Kaan "
+L827: push_constant_string "<br>"
+L828: push_constant_string " (with 80 Ranged and 80 Strength)"
+L829: join_string 3
+L830: push_constant_string "You now have the Agility level required to cross the "
+L831: push_constant_string "<col=000080>"
+L832: push_constant_string "cave south of Dorgesh-Kaan"
+L833: push_constant_string "</col>"
+L834: push_constant_string ". (You also need level 80 Ranged and 80 Strength."
+L835: join_string 5
+L836: return 0
+L837: branch L892
+L838: push_constant_int 80
+L839: push_constant_int 6514
+L840: push_constant_string "Taverley Dungeon spiked blade jump"
+L841: push_constant_string "You can now manage the "
+L842: push_constant_string "<col=000080>"
+L843: push_constant_string "Taverley Dungeon spiked blade jump"
+L844: push_constant_string "</col>"
+L845: push_constant_string "."
+L846: join_string 5
+L847: return 0
+L848: branch L892
+L849: push_constant_int 81
+L850: push_constant_int 6514
+L851: push_constant_string "Slayer Dungeon chasm jump"
+L852: push_constant_string "You can now manage the "
+L853: push_constant_string "<col=000080>"
+L854: push_constant_string "Slayer Dungeon chasm jump"
+L855: push_constant_string "</col>"
+L856: push_constant_string "."
+L857: join_string 5
+L858: return 0
+L859: branch L892
+L860: push_constant_int 85
+L861: push_constant_int 6517
+L862: push_constant_string "Elven overpass advanced cliffside scramble"
+L863: push_constant_string "You can now manage the "
+L864: push_constant_string "<col=000080>"
+L865: push_constant_string "elven Overpass advanced cliffside scramble"
+L866: push_constant_string "</col>"
+L867: push_constant_string "."
+L868: join_string 5
+L869: return 0
+L870: branch L892
+L871: push_constant_int 86
+L872: push_constant_int 6517
+L873: push_constant_string "Kuradal's Dungeon wall climb"
+L874: push_constant_string "You can now manage the "
+L875: push_constant_string "<col=000080>"
+L876: push_constant_string "wall climb in Kuradal's Slayer Dungeon"
+L877: push_constant_string "</col>"
+L878: push_constant_string "."
+L879: join_string 5
+L880: return 0
+L881: branch L892
+L882: push_constant_int 90
+L883: push_constant_int 6514
+L884: push_constant_string "Kuradal's Dungeon wall run"
+L885: push_constant_string "You can now manage the "
+L886: push_constant_string "<col=000080>"
+L887: push_constant_string "wall run in Kuradal's Slayer Dungeon"
+L888: push_constant_string "</col>"
+L889: push_constant_string "."
+L890: join_string 5
+L891: return 0
+L892: branch L1942
+L893: push_int_local 1
+L894: switch switch4
+L895: branch L957
+L896: push_constant_int -1
+L897: push_constant_int 7620
+L898: push_constant_string "To start Fishing like a barbarian, talk to Otto Godblessed when you have at least level 48 Fishing and level 15 Strength."
+L899: push_constant_string ""
+L900: return 0
+L901: branch L957
+L902: push_constant_int 15
+L903: push_constant_int 11323
+L904: push_constant_string "Heavy rod"
+L905: push_constant_string "<br>"
+L906: push_constant_string " (with 48 Fishing and 15 Strength)"
+L907: join_string 3
+L908: push_constant_string "You now have the Agility level required to fish with a "
+L909: push_constant_string "<col=000080>"
+L910: push_constant_string "heavy rod"
+L911: push_constant_string "</col>"
+L912: push_constant_string ". (You also need level 48 Fishing and level 15 Strength.)"
+L913: join_string 5
+L914: return 0
+L915: branch L957
+L916: push_constant_int 15
+L917: push_constant_int 11328
+L918: push_constant_string "Leaping trout"
+L919: push_constant_string "<br>"
+L920: push_constant_string " (with 48 Fishing and 15 Strength)"
+L921: join_string 3
+L922: push_constant_string "You now have the Agility level required to catch "
+L923: push_constant_string "<col=000080>"
+L924: push_constant_string "leaping trout"
+L925: push_constant_string "</col>"
+L926: push_constant_string ". (You also need level 48 Fishing and level 15 Strength.)"
+L927: join_string 5
+L928: return 0
+L929: branch L957
+L930: push_constant_int 30
+L931: push_constant_int 11330
+L932: push_constant_string "Leaping salmon"
+L933: push_constant_string "<br>"
+L934: push_constant_string " (with 58 Fishing and 30 Strength)"
+L935: join_string 3
+L936: push_constant_string "You now have the Agility level required to catch "
+L937: push_constant_string "<col=000080>"
+L938: push_constant_string "leaping salmon"
+L939: push_constant_string "</col>"
+L940: push_constant_string ". (You also need level 58 Fishing and level 30 Strength.)"
+L941: join_string 5
+L942: return 0
+L943: branch L957
+L944: push_constant_int 45
+L945: push_constant_int 11332
+L946: push_constant_string "Leaping sturgeon"
+L947: push_constant_string "<br>"
+L948: push_constant_string " (with 70 Fishing and 45 Strength)"
+L949: join_string 3
+L950: push_constant_string "You now have the Agility level required to catch "
+L951: push_constant_string "<col=000080>"
+L952: push_constant_string "leaping sturgeon"
+L953: push_constant_string "</col>"
+L954: push_constant_string ". (You also need level 70 Fishing and level 45 Strength.)"
+L955: join_string 5
+L956: return 0
+L957: branch L1942
+L958: push_int_local 1
+L959: switch switch5
+L960: branch L1002
+L961: push_constant_int 35
+L962: push_constant_int 359
+L963: push_constant_string "Possibility of catching two tuna in one fishing attempt"
+L964: push_constant_string "<br>"
+L965: push_constant_string " (with 35 Fishing)"
+L966: join_string 3
+L967: push_constant_string "You now have the Agility level required to potentially catch two "
+L968: push_constant_string "<col=000080>"
+L969: push_constant_string "tuna"
+L970: push_constant_string "</col>"
+L971: push_constant_string " in one fishing attempt. (You also need level 35 Fishing.)"
+L972: join_string 5
+L973: return 0
+L974: branch L1002
+L975: push_constant_int 50
+L976: push_constant_int 371
+L977: push_constant_string "Possibility of catching two swordfish in one fishing attempt"
+L978: push_constant_string "<br>"
+L979: push_constant_string " (with 50 Fishing)"
+L980: join_string 3
+L981: push_constant_string "You now have the Agility level required to potentially catch two "
+L982: push_constant_string "<col=000080>"
+L983: push_constant_string "swordfish"
+L984: push_constant_string "</col>"
+L985: push_constant_string " in one fishing attempt. (You also need level 50 Fishing.)"
+L986: join_string 5
+L987: return 0
+L988: branch L1002
+L989: push_constant_int 76
+L990: push_constant_int 383
+L991: push_constant_string "Possibility of catching two sharks in one fishing attempt"
+L992: push_constant_string "<br>"
+L993: push_constant_string " (with 76 Fishing)"
+L994: join_string 3
+L995: push_constant_string "You now have the Agility level required to potentially catch two "
+L996: push_constant_string "<col=000080>"
+L997: push_constant_string "sharks"
+L998: push_constant_string "</col>"
+L999: push_constant_string " in one fishing attempt. (You also need level 76 Fishing.)"
+L1000: join_string 5
+L1001: return 0
+L1002: branch L1942
+L1003: push_int_local 1
+L1004: switch switch6
+L1005: branch L1773
+L1006: push_constant_int 1
+L1007: push_constant_int 3241
+L1008: push_constant_string "Possibility of stealing double loot from a man"
+L1009: push_constant_string "<br>"
+L1010: push_constant_string " (with 11 Thieving)"
+L1011: join_string 3
+L1012: push_constant_string "You now have the Agility level required to potentially steal double loot from "
+L1013: push_constant_string "<col=000080>"
+L1014: push_constant_string "men"
+L1015: push_constant_string "</col>"
+L1016: push_constant_string " and "
+L1017: push_constant_string "<col=000080>"
+L1018: push_constant_string "women"
+L1019: push_constant_string "</col>"
+L1020: push_constant_string ". (You also need level 11 Thieving.)"
+L1021: join_string 9
+L1022: return 0
+L1023: branch L1773
+L1024: push_constant_int 10
+L1025: push_constant_int 3243
+L1026: push_constant_string "Possibility of stealing double loot from a farmer"
+L1027: push_constant_string "<br>"
+L1028: push_constant_string " (with 20 Thieving)"
+L1029: join_string 3
+L1030: push_constant_string "You now have the Agility level required to potentially steal double loot from "
+L1031: push_constant_string "<col=000080>"
+L1032: push_constant_string "farmers"
+L1033: push_constant_string "</col>"
+L1034: push_constant_string ". (You also need level 20 Thieving.)"
+L1035: join_string 5
+L1036: return 0
+L1037: branch L1773
+L1038: push_constant_int 11
+L1039: push_constant_int 3241
+L1040: push_constant_string "Possibility of stealing triple loot from a man"
+L1041: push_constant_string "<br>"
+L1042: push_constant_string " (with 21 Thieving)"
+L1043: join_string 3
+L1044: push_constant_string "You now have the Agility level required to potentially steal triple loot from "
+L1045: push_constant_string "<col=000080>"
+L1046: push_constant_string "men"
+L1047: push_constant_string "</col>"
+L1048: push_constant_string " and "
+L1049: push_constant_string "<col=000080>"
+L1050: push_constant_string "women"
+L1051: push_constant_string "</col>"
+L1052: push_constant_string ". (You also need level 21 Thieving.)"
+L1053: join_string 9
+L1054: return 0
+L1055: branch L1773
+L1056: push_constant_int 15
+L1057: push_constant_int 4295
+L1058: push_constant_string "Possibility of stealing double loot from a female H.A.M.follower"
+L1059: push_constant_string "<br>"
+L1060: push_constant_string " (with 25 Thieving)"
+L1061: join_string 3
+L1062: push_constant_string "You now have the Agility level required to potentially steal double loot from "
+L1063: push_constant_string "<col=000080>"
+L1064: push_constant_string "female H.A.M. followers"
+L1065: push_constant_string "</col>"
+L1066: push_constant_string ". (You also need level 25 Thieving.)"
+L1067: join_string 5
+L1068: return 0
+L1069: branch L1773
+L1070: push_constant_int 20
+L1071: push_constant_int 3243
+L1072: push_constant_string "Possibility of stealing triple loot from a farmer"
+L1073: push_constant_string "<br>"
+L1074: push_constant_string " (with 30 Thieving)"
+L1075: join_string 3
+L1076: push_constant_string "You now have the Agility level required to potentially steal triple loot from "
+L1077: push_constant_string "<col=000080>"
+L1078: push_constant_string "farmers"
+L1079: push_constant_string "</col>"
+L1080: push_constant_string ". (You also need level 30 Thieving.)"
+L1081: join_string 5
+L1082: return 0
+L1083: branch L1773
+L1084: push_constant_int 20
+L1085: push_constant_int 4297
+L1086: push_constant_string "Possibility of stealing double loot from a male H.A.M. follower"
+L1087: push_constant_string "<br>"
+L1088: push_constant_string " (with 30 Thieving)"
+L1089: join_string 3
+L1090: push_constant_string "You now have the Agility level required to potentially steal double loot from "
+L1091: push_constant_string "<col=000080>"
+L1092: push_constant_string "male H.A.M. followers"
+L1093: push_constant_string "</col>"
+L1094: push_constant_string ". (You also need level 30 Thieving.)"
+L1095: join_string 5
+L1096: return 0
+L1097: branch L1773
+L1098: push_constant_int 21
+L1099: push_constant_int 3241
+L1100: push_constant_string "Possibility of stealing quadruple loot from a man"
+L1101: push_constant_string "<br>"
+L1102: push_constant_string " (with 31 Thieving)"
+L1103: join_string 3
+L1104: push_constant_string "You now have the Agility level required to potentially steal quadruple loot from "
+L1105: push_constant_string "<col=000080>"
+L1106: push_constant_string "men"
+L1107: push_constant_string "</col>"
+L1108: push_constant_string " and "
+L1109: push_constant_string "<col=000080>"
+L1110: push_constant_string "women"
+L1111: push_constant_string "</col>"
+L1112: push_constant_string ". (You also need level 31 Thieving.)"
+L1113: join_string 9
+L1114: return 0
+L1115: branch L1773
+L1116: push_constant_int 25
+L1117: push_constant_int 4295
+L1118: push_constant_string "Possibility of stealing triple loot from a female H.A.M.follower"
+L1119: push_constant_string "<br>"
+L1120: push_constant_string " (with 35 Thieving)"
+L1121: join_string 3
+L1122: push_constant_string "You now have the Agility level required to potentially steal triple loot from "
+L1123: push_constant_string "<col=000080>"
+L1124: push_constant_string "female H.A.M. followers"
+L1125: push_constant_string "</col>"
+L1126: push_constant_string ". (You also need level 35 Thieving.)"
+L1127: join_string 5
+L1128: return 0
+L1129: branch L1773
+L1130: push_constant_int 25
+L1131: push_constant_int 3245
+L1132: push_constant_string "Possibility of stealing double loot from a warrior"
+L1133: push_constant_string "<br>"
+L1134: push_constant_string " (with 35 Thieving)"
+L1135: join_string 3
+L1136: push_constant_string "You now have the Agility level required to potentially steal double loot from "
+L1137: push_constant_string "<col=000080>"
+L1138: push_constant_string "warriors"
+L1139: push_constant_string "</col>"
+L1140: push_constant_string ". (You also need level 35 Thieving.)"
+L1141: join_string 5
+L1142: return 0
+L1143: branch L1773
+L1144: push_constant_int 30
+L1145: push_constant_int 3243
+L1146: push_constant_string "Possibility of stealing quadruple loot from a farmer"
+L1147: push_constant_string "<br>"
+L1148: push_constant_string " (with 40 Thieving)"
+L1149: join_string 3
+L1150: push_constant_string "You now have the Agility level required to potentially steal quadruple loot from "
+L1151: push_constant_string "<col=000080>"
+L1152: push_constant_string "farmers"
+L1153: push_constant_string "</col>"
+L1154: push_constant_string ". (You also need level 40 Thieving.)"
+L1155: join_string 5
+L1156: return 0
+L1157: branch L1773
+L1158: push_constant_int 30
+L1159: push_constant_int 4297
+L1160: push_constant_string "Possibility of stealing triple loot from a male H.A.M. follower"
+L1161: push_constant_string "<br>"
+L1162: push_constant_string " (with 40 Thieving)"
+L1163: join_string 3
+L1164: push_constant_string "You now have the Agility level required to potentially steal triple loot from "
+L1165: push_constant_string "<col=000080>"
+L1166: push_constant_string "male H.A.M. followers"
+L1167: push_constant_string "</col>"
+L1168: push_constant_string ". (You also need level 40 Thieving.)"
+L1169: join_string 5
+L1170: return 0
+L1171: branch L1773
+L1172: push_constant_int 32
+L1173: push_constant_int 3247
+L1174: push_constant_string "Possibility of stealing double loot from a rogue"
+L1175: push_constant_string "<br>"
+L1176: push_constant_string " (with 42 Thieving)"
+L1177: join_string 3
+L1178: push_constant_string "You now have the Agility level required to potentially steal double loot from "
+L1179: push_constant_string "<col=000080>"
+L1180: push_constant_string "rogues"
+L1181: push_constant_string "</col>"
+L1182: push_constant_string ". (You also need level 42 Thieving.)"
+L1183: join_string 5
+L1184: return 0
+L1185: branch L1773
+L1186: push_constant_int 35
+L1187: push_constant_int 4295
+L1188: push_constant_string "Possibility of stealing quadruple loot from a female H.A.M. follower"
+L1189: push_constant_string "<br>"
+L1190: push_constant_string " (with 45 Thieving)"
+L1191: join_string 3
+L1192: push_constant_string "You now have the Agility level required to potentially steal quadruple loot from "
+L1193: push_constant_string "<col=000080>"
+L1194: push_constant_string "female H.A.M. followers"
+L1195: push_constant_string "</col>"
+L1196: push_constant_string ". (You also need level 45 Thieving.)"
+L1197: join_string 5
+L1198: return 0
+L1199: branch L1773
+L1200: push_constant_int 35
+L1201: push_constant_int 3245
+L1202: push_constant_string "Possibility of stealing triple loot from a warrior"
+L1203: push_constant_string "<br>"
+L1204: push_constant_string " (with 45 Thieving)"
+L1205: join_string 3
+L1206: push_constant_string "You now have the Agility level required to potentially steal triple loot from "
+L1207: push_constant_string "<col=000080>"
+L1208: push_constant_string "warriors"
+L1209: push_constant_string "</col>"
+L1210: push_constant_string ". (You also need level 45 Thieving.)"
+L1211: join_string 5
+L1212: return 0
+L1213: branch L1773
+L1214: push_constant_int 36
+L1215: push_constant_int 10998
+L1216: push_constant_string "Possibility of stealing double loot from a cave goblin"
+L1217: push_constant_string "<br>"
+L1218: push_constant_string " (with 46 Thieving)"
+L1219: join_string 3
+L1220: push_constant_string "You now have the Agility level required to potentially steal double loot from "
+L1221: push_constant_string "<col=000080>"
+L1222: push_constant_string "cave goblins"
+L1223: push_constant_string "</col>"
+L1224: push_constant_string ". (You also need level 46 Thieving.)"
+L1225: join_string 5
+L1226: return 0
+L1227: branch L1773
+L1228: push_constant_int 38
+L1229: push_constant_int 5068
+L1230: push_constant_string "Possibility of stealing double loot from a master farmer"
+L1231: push_constant_string "<br>"
+L1232: push_constant_string " (with 48 Thieving)"
+L1233: join_string 3
+L1234: push_constant_string "You now have the Agility level required to potentially steal double loot from "
+L1235: push_constant_string "<col=000080>"
+L1236: push_constant_string "master farmers"
+L1237: push_constant_string "</col>"
+L1238: push_constant_string ". (You also need level 48 Thieving.)"
+L1239: join_string 5
+L1240: return 0
+L1241: branch L1773
+L1242: push_constant_int 40
+L1243: push_constant_int 4297
+L1244: push_constant_string "Possibility of stealing quadruple loot from a male H.A.M. follower"
+L1245: push_constant_string "<br>"
+L1246: push_constant_string " (with 50 Thieving)"
+L1247: join_string 3
+L1248: push_constant_string "You now have the Agility level required to potentially steal quadruple loot from "
+L1249: push_constant_string "<col=000080>"
+L1250: push_constant_string "male H.A.M. followers"
+L1251: push_constant_string "</col>"
+L1252: push_constant_string ". (You also need level 50 Thieving.)"
+L1253: join_string 5
+L1254: return 0
+L1255: branch L1773
+L1256: push_constant_int 40
+L1257: push_constant_int 3249
+L1258: push_constant_string "Possibility of stealing double loot from a guard"
+L1259: push_constant_string "<br>"
+L1260: push_constant_string " (with 50 Thieving)"
+L1261: join_string 3
+L1262: push_constant_string "You now have the Agility level required to potentially steal double loot from "
+L1263: push_constant_string "<col=000080>"
+L1264: push_constant_string "guards"
+L1265: push_constant_string "</col>"
+L1266: push_constant_string ". (You also need level 50 Thieving.)"
+L1267: join_string 5
+L1268: return 0
+L1269: branch L1773
+L1270: push_constant_int 42
+L1271: push_constant_int 3247
+L1272: push_constant_string "Possibility of stealing triple loot from a rogue"
+L1273: push_constant_string "<br>"
+L1274: push_constant_string " (with 52 Thieving)"
+L1275: join_string 3
+L1276: push_constant_string "You now have the Agility level required to potentially steal triple loot from "
+L1277: push_constant_string "<col=000080>"
+L1278: push_constant_string "rogues"
+L1279: push_constant_string "</col>"
+L1280: push_constant_string ". (You also need level 52 Thieving.)"
+L1281: join_string 5
+L1282: return 0
+L1283: branch L1773
+L1284: push_constant_int 45
+L1285: push_constant_int 3245
+L1286: push_constant_string "Possibility of stealing quadruple loot from a warrior"
+L1287: push_constant_string "<br>"
+L1288: push_constant_string " (with 55 Thieving)"
+L1289: join_string 3
+L1290: push_constant_string "You now have the Agility level required to potentially steal quadruple loot from "
+L1291: push_constant_string "<col=000080>"
+L1292: push_constant_string "warriors"
+L1293: push_constant_string "</col>"
+L1294: push_constant_string ". (You also need level 55 Thieving.)"
+L1295: join_string 5
+L1296: return 0
+L1297: branch L1773
+L1298: push_constant_int 45
+L1299: push_constant_int 3686
+L1300: push_constant_string "Possibility of stealing double loot from a Fremennik citizen"
+L1301: push_constant_string "<br>"
+L1302: push_constant_string " (with 55 Thieving)"
+L1303: join_string 3
+L1304: push_constant_string "You now have the Agility level required to potentially steal double loot from "
+L1305: push_constant_string "<col=000080>"
+L1306: push_constant_string "Fremennik citizens"
+L1307: push_constant_string "</col>"
+L1308: push_constant_string ". (You also need level 55 Thieving.)"
+L1309: join_string 5
+L1310: return 0
+L1311: branch L1773
+L1312: push_constant_int 45
+L1313: push_constant_int 6782
+L1314: push_constant_string "Possibility of stealing double loot from a bearded Pollnivnian bandit"
+L1315: push_constant_string "<br>"
+L1316: push_constant_string " (with 55 Thieving)"
+L1317: join_string 3
+L1318: push_constant_string "You now have the Agility level required to potentially steal double loot from "
+L1319: push_constant_string "<col=000080>"
+L1320: push_constant_string "bearded Pollnivnian bandits"
+L1321: push_constant_string "</col>"
+L1322: push_constant_string ". (You also need level 55 Thieving.)"
+L1323: join_string 5
+L1324: return 0
+L1325: branch L1773
+L1326: push_constant_int 46
+L1327: push_constant_int 10998
+L1328: push_constant_string "Possibility of stealing triple loot from a cave goblin"
+L1329: push_constant_string "<br>"
+L1330: push_constant_string " (with 56 Thieving)"
+L1331: join_string 3
+L1332: push_constant_string "You now have the Agility level required to potentially steal triple loot from "
+L1333: push_constant_string "<col=000080>"
+L1334: push_constant_string "cave goblins"
+L1335: push_constant_string "</col>"
+L1336: push_constant_string ". (You also need level 56 Thieving.)"
+L1337: join_string 5
+L1338: return 0
+L1339: branch L1773
+L1340: push_constant_int 48
+L1341: push_constant_int 5068
+L1342: push_constant_string "Possibility of stealing triple loot from a master farmer"
+L1343: push_constant_string "<br>"
+L1344: push_constant_string " (with 58 Thieving)"
+L1345: join_string 3
+L1346: push_constant_string "You now have the Agility level required to potentially steal triple loot from "
+L1347: push_constant_string "<col=000080>"
+L1348: push_constant_string "master farmers"
+L1349: push_constant_string "</col>"
+L1350: push_constant_string ". (You also need level 58 Thieving.)"
+L1351: join_string 5
+L1352: return 0
+L1353: branch L1773
+L1354: push_constant_int 50
+L1355: push_constant_int 3249
+L1356: push_constant_string "Possibility of stealing triple loot from a guard"
+L1357: push_constant_string "<br>"
+L1358: push_constant_string " (with 60 Thieving)"
+L1359: join_string 3
+L1360: push_constant_string "You now have the Agility level required to potentially steal triple loot from "
+L1361: push_constant_string "<col=000080>"
+L1362: push_constant_string "guards"
+L1363: push_constant_string "</col>"
+L1364: push_constant_string ". (You also need level 60 Thieving.)"
+L1365: join_string 5
+L1366: return 0
+L1367: branch L1773
+L1368: push_constant_int 52
+L1369: push_constant_int 3247
+L1370: push_constant_string "Possibility of stealing quadruple loot from a rogue"
+L1371: push_constant_string "<br>"
+L1372: push_constant_string " (with 62 Thieving)"
+L1373: join_string 3
+L1374: push_constant_string "You now have the Agility level required to potentially steal quadruple loot from "
+L1375: push_constant_string "<col=000080>"
+L1376: push_constant_string "rogues"
+L1377: push_constant_string "</col>"
+L1378: push_constant_string ". (You also need level 62 Thieving.)"
+L1379: join_string 5
+L1380: return 0
+L1381: branch L1773
+L1382: push_constant_int 53
+L1383: push_constant_int 4625
+L1384: push_constant_string "Possibility of stealing double loot from a desert bandit"
+L1385: push_constant_string "<br>"
+L1386: push_constant_string " (with 63 Thieving)"
+L1387: join_string 3
+L1388: push_constant_string "You now have the Agility level required to potentially steal double loot from "
+L1389: push_constant_string "<col=000080>"
+L1390: push_constant_string "desert bandits"
+L1391: push_constant_string "</col>"
+L1392: push_constant_string ". (You also need level 63 Thieving.)"
+L1393: join_string 5
+L1394: return 0
+L1395: branch L1773
+L1396: push_constant_int 55
+L1397: push_constant_int 3686
+L1398: push_constant_string "Possibility of stealing triple loot from a Fremennik citizen"
+L1399: push_constant_string "<br>"
+L1400: push_constant_string " (with 65 Thieving)"
+L1401: join_string 3
+L1402: push_constant_string "You now have the Agility level required to potentially steal triple loot from "
+L1403: push_constant_string "<col=000080>"
+L1404: push_constant_string "Fremennik citizens"
+L1405: push_constant_string "</col>"
+L1406: push_constant_string ". (You also need level 65 Thieving.)"
+L1407: join_string 5
+L1408: return 0
+L1409: branch L1773
+L1410: push_constant_int 55
+L1411: push_constant_int 6782
+L1412: push_constant_string "Possibility of stealing triple loot from a Bearded Pollnivnian bandit"
+L1413: push_constant_string "<br>"
+L1414: push_constant_string " (with 65 Thieving)"
+L1415: join_string 3
+L1416: push_constant_string "You now have the Agility level required to potentially steal triple loot from "
+L1417: push_constant_string "<col=000080>"
+L1418: push_constant_string "bearded Pollnivnian bandits"
+L1419: push_constant_string "</col>"
+L1420: push_constant_string ". (You also need level 65 Thieving.)"
+L1421: join_string 5
+L1422: return 0
+L1423: branch L1773
+L1424: push_constant_int 55
+L1425: push_constant_int 3251
+L1426: push_constant_string "Possibility of stealing double loot from a knight"
+L1427: push_constant_string "<br>"
+L1428: push_constant_string " (with 65 Thieving)"
+L1429: join_string 3
+L1430: push_constant_string "You now have the Agility level required to potentially steal double loot from "
+L1431: push_constant_string "<col=000080>"
+L1432: push_constant_string "knights"
+L1433: push_constant_string "</col>"
+L1434: push_constant_string ". (You also need level 65 Thieving.)"
+L1435: join_string 5
+L1436: return 0
+L1437: branch L1773
+L1438: push_constant_int 55
+L1439: push_constant_int 6781
+L1440: push_constant_string "Possibility of stealing double loot from a Pollnivnian bandit"
+L1441: push_constant_string "<br>"
+L1442: push_constant_string " (with 65 Thieving)"
+L1443: join_string 3
+L1444: push_constant_string "You now have the Agility level required to potentially steal double loot from "
+L1445: push_constant_string "<col=000080>"
+L1446: push_constant_string "Pollnivnian bandits"
+L1447: push_constant_string "</col>"
+L1448: push_constant_string ". (You also need level 65 Thieving.)"
+L1449: join_string 5
+L1450: return 0
+L1451: branch L1773
+L1452: push_constant_int 56
+L1453: push_constant_int 10998
+L1454: push_constant_string "Possibility of stealing quadruple loot from a cave goblin"
+L1455: push_constant_string "<br>"
+L1456: push_constant_string " (with 66 Thieving)"
+L1457: join_string 3
+L1458: push_constant_string "You now have the Agility level required to potentially steal quadruple loot from "
+L1459: push_constant_string "<col=000080>"
+L1460: push_constant_string "cave goblins"
+L1461: push_constant_string "</col>"
+L1462: push_constant_string ". (You also need level 66 Thieving.)"
+L1463: join_string 5
+L1464: return 0
+L1465: branch L1773
+L1466: push_constant_int 58
+L1467: push_constant_int 5068
+L1468: push_constant_string "Possibility of stealing quadruple loot from a master farmer"
+L1469: push_constant_string "<br>"
+L1470: push_constant_string " (with 68 Thieving)"
+L1471: join_string 3
+L1472: push_constant_string "You now have the Agility level required to potentially steal quadruple loot from "
+L1473: push_constant_string "<col=000080>"
+L1474: push_constant_string "master farmers"
+L1475: push_constant_string "</col>"
+L1476: push_constant_string ". (You also need level 68 Thieving.)"
+L1477: join_string 5
+L1478: return 0
+L1479: branch L1773
+L1480: push_constant_int 60
+L1481: push_constant_int 3249
+L1482: push_constant_string "Possibility of stealing quadruple loot from a guard"
+L1483: push_constant_string "<br>"
+L1484: push_constant_string " (with 70 Thieving)"
+L1485: join_string 3
+L1486: push_constant_string "You now have the Agility level required to potentially steal quadruple loot from "
+L1487: push_constant_string "<col=000080>"
+L1488: push_constant_string "guards"
+L1489: push_constant_string "</col>"
+L1490: push_constant_string ". (You also need level 70 Thieving.)"
+L1491: join_string 5
+L1492: return 0
+L1493: branch L1773
+L1494: push_constant_int 63
+L1495: push_constant_int 4625
+L1496: push_constant_string "Possibility of stealing triple loot from a desert bandit"
+L1497: push_constant_string "<br>"
+L1498: push_constant_string " (with 73 Thieving)"
+L1499: join_string 3
+L1500: push_constant_string "You now have the Agility level required to potentially steal triple loot from "
+L1501: push_constant_string "<col=000080>"
+L1502: push_constant_string "desert bandits"
+L1503: push_constant_string "</col>"
+L1504: push_constant_string ". (You also need level 73 Thieving.)"
+L1505: join_string 5
+L1506: return 0
+L1507: branch L1773
+L1508: push_constant_int 65
+L1509: push_constant_int 3686
+L1510: push_constant_string "Possibility of stealing quadruple loot from a Fremennik citizen"
+L1511: push_constant_string "<br>"
+L1512: push_constant_string " (with 75 Thieving)"
+L1513: join_string 3
+L1514: push_constant_string "You now have the Agility level required to potentially steal quadruple loot from "
+L1515: push_constant_string "<col=000080>"
+L1516: push_constant_string "Fremennik citizens"
+L1517: push_constant_string "</col>"
+L1518: push_constant_string ". (You also need level 75 Thieving.)"
+L1519: join_string 5
+L1520: return 0
+L1521: branch L1773
+L1522: push_constant_int 65
+L1523: push_constant_int 6782
+L1524: push_constant_string "Possibility of stealing quadruple loot from a bearded Pollnivnian bandit"
+L1525: push_constant_string "<br>"
+L1526: push_constant_string " (with 75 Thieving)"
+L1527: join_string 3
+L1528: push_constant_string "You now have the Agility level required to potentially steal quadruple loot from "
+L1529: push_constant_string "<col=000080>"
+L1530: push_constant_string "bearded Pollnivnian bandits"
+L1531: push_constant_string "</col>"
+L1532: push_constant_string ". (You also need level 75 Thieving.)"
+L1533: join_string 5
+L1534: return 0
+L1535: branch L1773
+L1536: push_constant_int 65
+L1537: push_constant_int 3251
+L1538: push_constant_string "Possibility of stealing triple loot from a knight"
+L1539: push_constant_string "<br>"
+L1540: push_constant_string " (with 75 Thieving)"
+L1541: join_string 3
+L1542: push_constant_string "You now have the Agility level required to potentially steal triple loot from "
+L1543: push_constant_string "<col=000080>"
+L1544: push_constant_string "knights"
+L1545: push_constant_string "</col>"
+L1546: push_constant_string ". (You also need level 75 Thieving.)"
+L1547: join_string 5
+L1548: return 0
+L1549: branch L1773
+L1550: push_constant_int 65
+L1551: push_constant_int 6781
+L1552: push_constant_string "Possibility of stealing triple loot from a Pollnivnian bandit"
+L1553: push_constant_string "<br>"
+L1554: push_constant_string " (with 75 Thieving)"
+L1555: join_string 3
+L1556: push_constant_string "You now have the Agility level required to potentially steal triple loot from "
+L1557: push_constant_string "<col=000080>"
+L1558: push_constant_string "Pollnivnian bandits"
+L1559: push_constant_string "</col>"
+L1560: push_constant_string ". (You also need level 75 Thieving.)"
+L1561: join_string 5
+L1562: return 0
+L1563: branch L1773
+L1564: push_constant_int 65
+L1565: push_constant_int 3253
+L1566: push_constant_string "Possibility of stealing double loot from a watchman"
+L1567: push_constant_string "<br>"
+L1568: push_constant_string " (with 75 Thieving)"
+L1569: join_string 3
+L1570: push_constant_string "You now have the Agility level required to potentially steal double loot from "
+L1571: push_constant_string "<col=000080>"
+L1572: push_constant_string "watchmen"
+L1573: push_constant_string "</col>"
+L1574: push_constant_string ". (You also need level 75 Thieving.)"
+L1575: join_string 5
+L1576: return 0
+L1577: branch L1773
+L1578: push_constant_int 65
+L1579: push_constant_int 6780
+L1580: push_constant_string "Possibility of stealing double loot from a Menaphite thug"
+L1581: push_constant_string "<br>"
+L1582: push_constant_string " (with 75 Thieving)"
+L1583: join_string 3
+L1584: push_constant_string "You now have the Agility level required to potentially steal double loot from "
+L1585: push_constant_string "<col=000080>"
+L1586: push_constant_string "Menaphite thugs"
+L1587: push_constant_string "</col>"
+L1588: push_constant_string ". (You also need level 75 Thieving.)"
+L1589: join_string 5
+L1590: return 0
+L1591: branch L1773
+L1592: push_constant_int 70
+L1593: push_constant_int 3255
+L1594: push_constant_string "Possibility of stealing double loot from a paladin"
+L1595: push_constant_string "<br>"
+L1596: push_constant_string " (with 80 Thieving)"
+L1597: join_string 3
+L1598: push_constant_string "You now have the Agility level required to potentially steal double loot from "
+L1599: push_constant_string "<col=000080>"
+L1600: push_constant_string "paladins"
+L1601: push_constant_string "</col>"
+L1602: push_constant_string ". (You also need level 80 Thieving.)"
+L1603: join_string 5
+L1604: return 0
+L1605: branch L1773
+L1606: push_constant_int 73
+L1607: push_constant_int 4625
+L1608: push_constant_string "Possibility of stealing quadruple loot from a desert bandit"
+L1609: push_constant_string "<br>"
+L1610: push_constant_string " (with 83 Thieving)"
+L1611: join_string 3
+L1612: push_constant_string "You now have the Agility level required to potentially steal quadruple loot from "
+L1613: push_constant_string "<col=000080>"
+L1614: push_constant_string "desert bandits"
+L1615: push_constant_string "</col>"
+L1616: push_constant_string ". (You also need level 83 Thieving.)"
+L1617: join_string 5
+L1618: return 0
+L1619: branch L1773
+L1620: push_constant_int 75
+L1621: push_constant_int 3251
+L1622: push_constant_string "Possibility of stealing quadruple loot from a knight"
+L1623: push_constant_string "<br>"
+L1624: push_constant_string " (with 85 Thieving)"
+L1625: join_string 3
+L1626: push_constant_string "You now have the Agility level required to potentially steal quadruple loot from "
+L1627: push_constant_string "<col=000080>"
+L1628: push_constant_string "knights"
+L1629: push_constant_string "</col>"
+L1630: push_constant_string ". (You also need level 85 Thieving.)"
+L1631: join_string 5
+L1632: return 0
+L1633: branch L1773
+L1634: push_constant_int 75
+L1635: push_constant_int 6781
+L1636: push_constant_string "Possibility of stealing quadruple loot from a Pollnivnian bandit"
+L1637: push_constant_string "<br>"
+L1638: push_constant_string " (with 85 Thieving)"
+L1639: join_string 3
+L1640: push_constant_string "You now have the Agility level required to potentially steal quadruple loot from "
+L1641: push_constant_string "<col=000080>"
+L1642: push_constant_string "Pollnivnian bandits"
+L1643: push_constant_string "</col>"
+L1644: push_constant_string ". (You also need level 85 Thieving.)"
+L1645: join_string 5
+L1646: return 0
+L1647: branch L1773
+L1648: push_constant_int 75
+L1649: push_constant_int 3253
+L1650: push_constant_string "Possibility of stealing triple loot from a watchman"
+L1651: push_constant_string "<br>"
+L1652: push_constant_string " (with 85 Thieving)"
+L1653: join_string 3
+L1654: push_constant_string "You now have the Agility level required to potentially steal triple loot from "
+L1655: push_constant_string "<col=000080>"
+L1656: push_constant_string "watchmen"
+L1657: push_constant_string "</col>"
+L1658: push_constant_string ". (You also need level 85 Thieving.)"
+L1659: join_string 5
+L1660: return 0
+L1661: branch L1773
+L1662: push_constant_int 75
+L1663: push_constant_int 6780
+L1664: push_constant_string "Possibility of stealing triple loot from a Menaphite thug"
+L1665: push_constant_string "<br>"
+L1666: push_constant_string " (with 85 Thieving)"
+L1667: join_string 3
+L1668: push_constant_string "You now have the Agility level required to potentially steal triple loot from "
+L1669: push_constant_string "<col=000080>"
+L1670: push_constant_string "Menaphite thugs"
+L1671: push_constant_string "</col>"
+L1672: push_constant_string ". (You also need level 85 Thieving.)"
+L1673: join_string 5
+L1674: return 0
+L1675: branch L1773
+L1676: push_constant_int 75
+L1677: push_constant_int 3257
+L1678: push_constant_string "Possibility of stealing double loot from a gnome"
+L1679: push_constant_string "<br>"
+L1680: push_constant_string " (with 85 Thieving)"
+L1681: join_string 3
+L1682: push_constant_string "You now have the Agility level required to potentially steal double loot from "
+L1683: push_constant_string "<col=000080>"
+L1684: push_constant_string "gnomes"
+L1685: push_constant_string "</col>"
+L1686: push_constant_string ". (You also need level 85 Thieving.)"
+L1687: join_string 5
+L1688: return 0
+L1689: branch L1773
+L1690: push_constant_int 80
+L1691: push_constant_int 3255
+L1692: push_constant_string "Possibility of stealing triple loot from a paladin"
+L1693: push_constant_string "<br>"
+L1694: push_constant_string " (with 90 Thieving)"
+L1695: join_string 3
+L1696: push_constant_string "You now have the Agility level required to potentially steal triple loot from "
+L1697: push_constant_string "<col=000080>"
+L1698: push_constant_string "paladins"
+L1699: push_constant_string "</col>"
+L1700: push_constant_string ". (You also need level 90 Thieving.)"
+L1701: join_string 5
+L1702: return 0
+L1703: branch L1773
+L1704: push_constant_int 80
+L1705: push_constant_int 3259
+L1706: push_constant_string "Possibility of stealing double loot from a hero"
+L1707: push_constant_string "<br>"
+L1708: push_constant_string " (with 90 Thieving)"
+L1709: join_string 3
+L1710: push_constant_string "You now have the Agility level required to potentially steal double loot from "
+L1711: push_constant_string "<col=000080>"
+L1712: push_constant_string "heroes"
+L1713: push_constant_string "</col>"
+L1714: push_constant_string ". (You also need level 90 Thieving.)"
+L1715: join_string 5
+L1716: return 0
+L1717: branch L1773
+L1718: push_constant_int 85
+L1719: push_constant_int 3253
+L1720: push_constant_string "Possibility of stealing quadruple loot from a watchman"
+L1721: push_constant_string "<br>"
+L1722: push_constant_string " (with 95 Thieving)"
+L1723: join_string 3
+L1724: push_constant_string "You now have the Agility level required to potentially steal quadruple loot from "
+L1725: push_constant_string "<col=000080>"
+L1726: push_constant_string "watchmen"
+L1727: push_constant_string "</col>"
+L1728: push_constant_string ". (You also need level 95 Thieving.)"
+L1729: join_string 5
+L1730: return 0
+L1731: branch L1773
+L1732: push_constant_int 85
+L1733: push_constant_int 6780
+L1734: push_constant_string "Possibility of stealing quadruple loot from a Menaphite thug"
+L1735: push_constant_string "<br>"
+L1736: push_constant_string " (with 95 Thieving)"
+L1737: join_string 3
+L1738: push_constant_string "You now have the Agility level required to potentially steal quadruple loot from "
+L1739: push_constant_string "<col=000080>"
+L1740: push_constant_string "Menaphite thugs"
+L1741: push_constant_string "</col>"
+L1742: push_constant_string ". (You also need level 95 Thieving.)"
+L1743: join_string 5
+L1744: return 0
+L1745: branch L1773
+L1746: push_constant_int 85
+L1747: push_constant_int 3257
+L1748: push_constant_string "Possibility of stealing triple loot from a gnome"
+L1749: push_constant_string "<br>"
+L1750: push_constant_string " (with 95 Thieving)"
+L1751: join_string 3
+L1752: push_constant_string "You now have the Agility level required to potentially steal triple loot from "
+L1753: push_constant_string "<col=000080>"
+L1754: push_constant_string "gnomes"
+L1755: push_constant_string "</col>"
+L1756: push_constant_string ". (You also need level 95 Thieving.)"
+L1757: join_string 5
+L1758: return 0
+L1759: branch L1773
+L1760: push_constant_int 85
+L1761: push_constant_int 6105
+L1762: push_constant_string "Possibility of stealing double loot from an elf"
+L1763: push_constant_string "<br>"
+L1764: push_constant_string " (with 95 Thieving)"
+L1765: join_string 3
+L1766: push_constant_string "You now have the Agility level required to potentially steal double loot from "
+L1767: push_constant_string "<col=000080>"
+L1768: push_constant_string "elves"
+L1769: push_constant_string "</col>"
+L1770: push_constant_string ". (You also need level 95 Thieving.)"
+L1771: join_string 5
+L1772: return 0
+L1773: branch L1942
+L1774: push_int_local 1
+L1775: switch switch7
+L1776: branch L1832
+L1777: push_constant_int 75
+L1778: push_constant_int 9970
+L1779: push_constant_string "Catch ruby harvest barehanded (woodland)"
+L1780: push_constant_string "<br>"
+L1781: push_constant_string " (with 80 Hunter)"
+L1782: join_string 3
+L1783: push_constant_string "You now have the Agility level to catch "
+L1784: push_constant_string "<col=000080>"
+L1785: push_constant_string "ruby harvest butterflies"
+L1786: push_constant_string "</col>"
+L1787: push_constant_string " barehanded. This feat will give you Hunter and Agility experience upon a successful catch. (You also need level 80 Hunter.)"
+L1788: join_string 5
+L1789: return 0
+L1790: branch L1832
+L1791: push_constant_int 80
+L1792: push_constant_int 9971
+L1793: push_constant_string "Catch sapphire glacialis barehanded (polar)"
+L1794: push_constant_string "<br>"
+L1795: push_constant_string " (with 85 Hunter)"
+L1796: join_string 3
+L1797: push_constant_string "You now have the Agility level to catch "
+L1798: push_constant_string "<col=000080>"
+L1799: push_constant_string "sapphire glacialis butterflies"
+L1800: push_constant_string "</col>"
+L1801: push_constant_string " barehanded. This feat will give you Hunter and Agility experience upon a successful catch. (You also need level 85 Hunter.)"
+L1802: join_string 5
+L1803: return 0
+L1804: branch L1832
+L1805: push_constant_int 85
+L1806: push_constant_int 9972
+L1807: push_constant_string "Catch snowy knights barehanded (polar)"
+L1808: push_constant_string "<br>"
+L1809: push_constant_string " (with 90 Hunter)"
+L1810: join_string 3
+L1811: push_constant_string "You now have the Agility level to catch "
+L1812: push_constant_string "<col=000080>"
+L1813: push_constant_string "snowy knight butterflies"
+L1814: push_constant_string "</col>"
+L1815: push_constant_string " barehanded. This feat will give you Hunter and Agility experience upon a successful catch. (You also need level 90 Hunter.)"
+L1816: join_string 5
+L1817: return 0
+L1818: branch L1832
+L1819: push_constant_int 90
+L1820: push_constant_int 9973
+L1821: push_constant_string "Catch black warlocks barehanded (jungle)"
+L1822: push_constant_string "<br>"
+L1823: push_constant_string " (with 95 Hunter)"
+L1824: join_string 3
+L1825: push_constant_string "You now have the Agility level to catch "
+L1826: push_constant_string "<col=000080>"
+L1827: push_constant_string "black warlock butterflies"
+L1828: push_constant_string "</col>"
+L1829: push_constant_string " barehanded. This feat will give you Hunter and Agility experience upon a succesful catch. (You also need level 95 Hunter.)"
+L1830: join_string 5
+L1831: return 0
+L1832: branch L1942
+L1833: push_int_local 1
+L1834: switch switch8
+L1835: branch L1890
+L1836: push_constant_int 60
+L1837: push_constant_int 20704
+L1838: push_constant_string "Members: access to the Livid Farm (with 70 Magic, 60 Crafting, 60 Farming, 50 Construction and Lunar Diplomacy)"
+L1839: push_constant_string "Members can access the "
+L1840: push_constant_string "<col=000080>"
+L1841: push_constant_string "Livid Farm"
+L1842: push_constant_string "</col>"
+L1843: push_constant_string " (with 70 Magic, 60 Crafting, 60 Farming, 50 Construction and Lunar Diplomacy)."
+L1844: join_string 5
+L1845: return 0
+L1846: branch L1890
+L1847: push_constant_int 91
+L1848: push_constant_int 18778
+L1849: push_constant_string "Starved ancient effigies"
+L1850: push_constant_string "You can now investigate "
+L1851: push_constant_string "<col=000080>"
+L1852: push_constant_string "starved ancient effigies"
+L1853: push_constant_string "</col>"
+L1854: push_constant_string " using your knowledge of Agility."
+L1855: join_string 5
+L1856: return 0
+L1857: branch L1890
+L1858: push_constant_int 93
+L1859: push_constant_int 18779
+L1860: push_constant_string "Nourished ancient effigies"
+L1861: push_constant_string "You can now investigate "
+L1862: push_constant_string "<col=000080>"
+L1863: push_constant_string "nourished ancient effigies"
+L1864: push_constant_string "</col>"
+L1865: push_constant_string " using your knowledge of Agility."
+L1866: join_string 5
+L1867: return 0
+L1868: branch L1890
+L1869: push_constant_int 95
+L1870: push_constant_int 18780
+L1871: push_constant_string "Sated ancient effigies"
+L1872: push_constant_string "You can now investigate "
+L1873: push_constant_string "<col=000080>"
+L1874: push_constant_string "sated ancient effigies"
+L1875: push_constant_string "</col>"
+L1876: push_constant_string " using your knowledge of Agility."
+L1877: join_string 5
+L1878: return 0
+L1879: branch L1890
+L1880: push_constant_int 97
+L1881: push_constant_int 18781
+L1882: push_constant_string "Gorged ancient effigies"
+L1883: push_constant_string "You can now investigate "
+L1884: push_constant_string "<col=000080>"
+L1885: push_constant_string "gorged ancient effigies"
+L1886: push_constant_string "</col>"
+L1887: push_constant_string " using your knowledge of Agility."
+L1888: join_string 5
+L1889: return 0
+L1890: branch L1942
+L1891: push_int_local 1
+L1892: switch switch9
+L1893: branch L1902
+L1894: push_constant_int -1
+L1895: push_constant_int 15707
+L1896: push_constant_string "Dungeoneering skill tasks"
+L1897: push_constant_string "<br>"
+L1898: push_constant_string "As your Agility level increases, you will be able to attempt higher-level Agility tasks within Daemonheim. You will also be more likely to succeed when attempting Agility tasks within Daemonheim."
+L1899: join_string 3
+L1900: push_constant_string ""
+L1901: return 0
+L1902: branch L1942
+L1903: push_int_local 1
+L1904: branch_if_false L1906
+L1905: branch L1916
+L1906: push_constant_int 50
+L1907: push_constant_int 4211
+L1908: push_constant_string "Crystal equipment"
+L1909: push_constant_string "You now have the Agility level required to use "
+L1910: push_constant_string "<col=000080>"
+L1911: push_constant_string "crystal equipment"
+L1912: push_constant_string "</col>"
+L1913: push_constant_string ". (You may need further requirements.)"
+L1914: join_string 5
+L1915: return 0
+L1916: push_int_local 1
+L1917: branch_if_true L1919
+L1918: branch L1942
+L1919: push_constant_int 99
+L1920: push_constant_int 9771
+L1921: push_constant_string "Skill mastery"
+L1922: push_constant_string "<col=000080>"
+L1923: push_constant_string "Congratulations! You are now a master of "
+L1924: push_constant_string "<col=800000>"
+L1925: push_constant_string "Agility"
+L1926: push_constant_string "<col=000080>"
+L1927: push_constant_string ". Why not visit "
+L1928: push_constant_string "<col=800000>"
+L1929: push_constant_string "Cap'n Izzy No-beard"
+L1930: push_constant_string "<col=000080>"
+L1931: push_constant_string " at the "
+L1932: push_constant_string "<col=800000>"
+L1933: push_constant_string "Brimhaven Agility Arena"
+L1934: push_constant_string "<col=000080>"
+L1935: push_constant_string "? He has something special that is only available to true masters of the "
+L1936: push_constant_string "<col=800000>"
+L1937: push_constant_string "Agility"
+L1938: push_constant_string "<col=000080>"
+L1939: push_constant_string " skill!"
+L1940: join_string 18
+L1941: return 0
+L1942: push_constant_int 0
+L1943: push_constant_int -1
+L1944: push_constant_string ""
+L1945: push_constant_string ""
+L1946: return 0
+L1947:
+
+[switch0@L1]
+0=L3
+1=L212
+2=L365
+3=L893
+4=L958
+5=L1003
+6=L1774
+7=L1833
+8=L1891
+9=L1903
+
+[switch1@L4]
+0=L6
+1=L17
+2=L32
+3=L43
+4=L54
+5=L76
+6=L87
+7=L101
+8=L112
+9=L123
+10=L137
+11=L148
+12=L162
+13=L176
+14=L190
+15=L201
+
+[switch2@L213]
+0=L215
+1=L226
+2=L237
+3=L248
+4=L259
+5=L270
+6=L281
+7=L292
+8=L303
+9=L314
+10=L328
+11=L339
+12=L350
+
+[switch3@L366]
+0=L368
+1=L377
+2=L391
+3=L405
+4=L416
+5=L427
+6=L438
+7=L449
+8=L460
+9=L471
+10=L482
+11=L493
+12=L504
+13=L518
+14=L529
+15=L543
+16=L554
+17=L565
+18=L579
+19=L590
+20=L601
+21=L612
+22=L623
+23=L634
+24=L645
+25=L656
+26=L667
+27=L678
+28=L692
+29=L703
+30=L714
+31=L725
+32=L736
+33=L747
+34=L758
+35=L769
+36=L780
+37=L791
+38=L802
+39=L813
+40=L824
+41=L838
+42=L849
+43=L860
+44=L871
+45=L882
+
+[switch4@L894]
+0=L896
+1=L902
+2=L916
+3=L930
+4=L944
+
+[switch5@L959]
+0=L961
+1=L975
+2=L989
+
+[switch6@L1004]
+0=L1006
+1=L1024
+2=L1038
+3=L1056
+4=L1070
+5=L1084
+6=L1098
+7=L1116
+8=L1130
+9=L1144
+10=L1158
+11=L1172
+12=L1186
+13=L1200
+14=L1214
+15=L1228
+16=L1242
+17=L1256
+18=L1270
+19=L1284
+20=L1298
+21=L1312
+22=L1326
+23=L1340
+24=L1354
+25=L1368
+26=L1382
+27=L1396
+28=L1410
+29=L1424
+30=L1438
+31=L1452
+32=L1466
+33=L1480
+34=L1494
+35=L1508
+36=L1522
+37=L1536
+38=L1550
+39=L1564
+40=L1578
+41=L1592
+42=L1606
+43=L1620
+44=L1634
+45=L1648
+46=L1662
+47=L1676
+48=L1690
+49=L1704
+50=L1718
+51=L1732
+52=L1746
+53=L1760
+
+[switch7@L1775]
+0=L1777
+1=L1791
+2=L1805
+3=L1819
+
+[switch8@L1834]
+0=L1836
+1=L1847
+2=L1858
+3=L1869
+4=L1880
+
+[switch9@L1892]
+0=L1894

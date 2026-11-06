@@ -1,0 +1,45 @@
+name=""
+local_int_count=1
+local_string_count=0
+local_long_count=0
+int_param_count=1
+string_param_count=0
+long_param_count=0
+
+L0: push_clansetting_longvar 2
+L1: push_constant_long -1
+L2: branch_not_long L4
+L3: branch L32
+L4: push_clansetting_longvar 2
+L5: long_to_base36 0
+L6: push_int_local 0
+L7: if_settext 0
+L8: push_constant_int 45
+L9: push_int_local 0
+L10: push_constant_int 255
+L11: push_constant_string "Ii"
+L12: push_int_local 0
+L13: if_setonmouseover 0
+L14: push_constant_int 45
+L15: push_int_local 0
+L16: push_constant_int 15393218
+L17: push_constant_string "Ii"
+L18: push_int_local 0
+L19: if_setonmouseleave 0
+L20: push_constant_int 175
+L21: push_int_local 0
+L22: if_setmouseover_cursor 0
+L23: push_constant_int 4330
+L24: push_clansetting_longvar 2
+L25: push_constant_string "§"
+L26: push_int_local 0
+L27: if_setonclick 0
+L28: push_constant_string "Visit Clan Forum"
+L29: push_int_local 0
+L30: if_setopbase 0
+L31: branch L35
+L32: push_constant_string ""
+L33: push_int_local 0
+L34: if_settext 0
+L35: return 0
+L36:

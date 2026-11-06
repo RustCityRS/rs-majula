@@ -1,0 +1,29 @@
+name=""
+local_int_count=1
+local_string_count=0
+local_long_count=0
+int_param_count=0
+string_param_count=0
+long_param_count=0
+
+L0: push_constant_int 0
+L1: pop_int_local 0
+L2: push_varbit varbit_6380
+L3: pop_varc_int varc_int_846
+L4: push_varbit varbit_6380
+L5: tostring 0
+L6: push_constant_int 56557598
+L7: if_settext 0
+L8: push_varc_int varc_int_839
+L9: push_constant_int 100
+L10: push_varc_int varc_int_846
+L11: multiply 0
+L12: sub 0
+L13: pop_int_local 0
+L14: push_int_local 0
+L15: push_constant_string ","
+L16: gosub_with_params [proc,tostring_spacer]
+L17: push_constant_int 56557582
+L18: if_settext 0
+L19: return 0
+L20:

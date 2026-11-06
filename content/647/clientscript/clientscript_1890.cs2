@@ -1,0 +1,14 @@
+name=""
+local_int_count=0
+local_string_count=1
+local_long_count=0
+int_param_count=0
+string_param_count=1
+long_param_count=0
+
+L0: push_constant_int 11
+L1: push_constant_int 0
+L2: push_string_local 0
+L3: tutorial_openchat 0
+L4: return 0
+L5:

@@ -1,0 +1,64 @@
+name=""
+local_int_count=0
+local_string_count=0
+local_long_count=0
+int_param_count=0
+string_param_count=0
+long_param_count=0
+
+L0: map_members 0
+L1: branch_if_true L3
+L2: branch L36
+L3: push_varbit show_summoning_orb
+L4: branch_if_true L6
+L5: branch L36
+L6: push_constant_int 0
+L7: push_constant_int 48955394
+L8: if_sethide 0
+L9: push_constant_int 0
+L10: push_constant_int 48955395
+L11: if_sethide 0
+L12: push_constant_int 0
+L13: push_constant_int 48955398
+L14: if_sethide 0
+L15: push_constant_int 0
+L16: push_constant_int 48955396
+L17: if_sethide 0
+L18: push_constant_int 0
+L19: push_constant_int 48955399
+L20: if_sethide 0
+L21: push_constant_int 23
+L22: gosub_with_params clientscript_817
+L23: push_constant_int 0
+L24: push_constant_int 48955397
+L25: if_sethide 0
+L26: push_constant_int 23
+L27: gosub_with_params clientscript_805
+L28: push_constant_int 48955397
+L29: if_setcolour 0
+L30: push_constant_int 23
+L31: stat 0
+L32: tostring 0
+L33: push_constant_int 48955397
+L34: if_settext 0
+L35: branch L54
+L36: push_constant_int 1
+L37: push_constant_int 48955394
+L38: if_sethide 0
+L39: push_constant_int 1
+L40: push_constant_int 48955395
+L41: if_sethide 0
+L42: push_constant_int 1
+L43: push_constant_int 48955397
+L44: if_sethide 0
+L45: push_constant_int 1
+L46: push_constant_int 48955398
+L47: if_sethide 0
+L48: push_constant_int 1
+L49: push_constant_int 48955396
+L50: if_sethide 0
+L51: push_constant_int 1
+L52: push_constant_int 48955399
+L53: if_sethide 0
+L54: return 0
+L55:

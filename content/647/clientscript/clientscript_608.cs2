@@ -1,0 +1,44 @@
+name=""
+local_int_count=0
+local_string_count=0
+local_long_count=0
+int_param_count=0
+string_param_count=0
+long_param_count=0
+
+L0: push_constant_int 43384906
+L1: push_constant_int 0
+L2: cc_find 0
+L3: branch_if_true L5
+L4: branch L17
+L5: push_constant_string "<col=00ff00>"
+L6: push_varc_string_old varc_string_204
+L7: join_string 2
+L8: cc_setopbase 0
+L9: push_constant_string "Cast"
+L10: cc_settargetverb 0
+L11: push_varc_int varc_int_1436
+L12: branch_if_true L14
+L13: branch L17
+L14: push_constant_int 1
+L15: push_constant_string "Cast"
+L16: cc_setop 0
+L17: push_constant_int 48955409
+L18: push_constant_int 0
+L19: cc_find 0
+L20: branch_if_true L22
+L21: branch L34
+L22: push_constant_string "<col=00ff00>"
+L23: push_varc_string_old varc_string_204
+L24: join_string 2
+L25: cc_setopbase 0
+L26: push_constant_string "Cast"
+L27: cc_settargetverb 0
+L28: push_varc_int varc_int_1436
+L29: branch_if_true L31
+L30: branch L34
+L31: push_constant_int 1
+L32: push_constant_string "Cast"
+L33: cc_setop 0
+L34: return 0
+L35:

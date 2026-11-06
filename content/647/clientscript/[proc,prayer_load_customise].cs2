@@ -1,0 +1,106 @@
+name=""
+local_int_count=8
+local_string_count=0
+local_long_count=0
+int_param_count=1
+string_param_count=0
+long_param_count=0
+
+L0: push_int_local 0
+L1: cc_deleteall_152 0
+L2: push_constant_int 17760262
+L3: cc_deleteall_152 0
+L4: push_constant_int 5
+L5: pop_int_local 1
+L6: push_constant_int 15
+L7: pop_int_local 2
+L8: push_constant_int 15
+L9: pop_int_local 3
+L10: push_constant_int 0
+L11: pop_int_local 4
+L12: push_constant_int 6
+L13: pop_int_local 5
+L14: push_constant_int 28
+L15: pop_int_local 6
+L16: push_constant_int 30
+L17: pop_int_local 7
+L18: push_varbit varbit_6840
+L19: branch_if_true L21
+L20: branch L23
+L21: push_constant_int 20
+L22: pop_int_local 7
+L23: push_int_local 4
+L24: push_int_local 7
+L25: branch_less_than L27
+L26: branch L96
+L27: push_int_local 0
+L28: push_constant_int 5
+L29: push_int_local 4
+L30: cc_setposition 0
+L31: push_int_local 2
+L32: push_int_local 3
+L33: push_constant_int 0
+L34: push_constant_int 0
+L35: cc_setsize 0
+L36: push_constant_int 1
+L37: cc_settiling 0
+L38: push_int_local 5
+L39: push_int_local 6
+L40: push_constant_int 0
+L41: push_constant_int 0
+L42: cc_setposition2 0
+L43: push_int_local 4
+L44: gosub_with_params clientscript_2297
+L45: branch_if_false L47
+L46: branch L55
+L47: push_constant_int 1
+L48: push_constant_string "Select"
+L49: push_constant_string "<col=ff9040>"
+L50: join_string 2
+L51: cc_setop 0
+L52: push_constant_int 180
+L53: cc_setgraphic 0
+L54: branch L62
+L55: push_constant_int 1
+L56: push_constant_string "Deselect"
+L57: push_constant_string "<col=ff9040>"
+L58: join_string 2
+L59: cc_setop 0
+L60: push_constant_int 181
+L61: cc_setgraphic 0
+L62: push_constant_int 2290
+L63: push_constant_int -2147483645
+L64: push_constant_int -2147483643
+L65: push_constant_string "Ii"
+L66: cc_setonop 0
+L67: push_constant_int 2291
+L68: push_constant_int -2147483645
+L69: push_constant_int -2147483643
+L70: push_constant_int 1397
+L71: push_constant_int 1587
+L72: push_constant_int 2
+L73: push_constant_string "IiY"
+L74: cc_setonvartransmit 0
+L75: push_int_local 4
+L76: push_constant_int 1
+L77: add 0
+L78: pop_int_local 4
+L79: push_int_local 4
+L80: push_int_local 1
+L81: mod 0
+L82: branch_if_false L84
+L83: branch L91
+L84: push_constant_int 6
+L85: pop_int_local 5
+L86: push_int_local 6
+L87: push_constant_int 35
+L88: add 0
+L89: pop_int_local 6
+L90: branch L95
+L91: push_int_local 5
+L92: push_constant_int 37
+L93: add 0
+L94: pop_int_local 5
+L95: branch L23
+L96: return 0
+L97:

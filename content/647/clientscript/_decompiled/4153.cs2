@@ -1,9 +1,0 @@
-[clientscript,script_4153]
-if (%varbit4466 = 1) {
-    if_setgraphic(72613921);
-} else {
-    if (%varbit4466 = 0) {
-        if_setgraphic(72613921);
-    }
-}
-return;

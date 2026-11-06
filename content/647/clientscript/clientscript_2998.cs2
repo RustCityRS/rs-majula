@@ -1,0 +1,104 @@
+name=""
+local_int_count=1
+local_string_count=0
+local_long_count=0
+int_param_count=0
+string_param_count=0
+long_param_count=0
+
+L0: gosub_with_params clientscript_2999
+L1: push_constant_int 3002
+L2: push_constant_int 0
+L3: push_constant_string "i"
+L4: push_constant_int 59441193
+L5: if_setonclick 0
+L6: push_constant_int 3002
+L7: push_constant_int 1
+L8: push_constant_string "i"
+L9: push_constant_int 59441181
+L10: if_setonclick 0
+L11: push_constant_int 3002
+L12: push_constant_int 2
+L13: push_constant_string "i"
+L14: push_constant_int 59441169
+L15: if_setonclick 0
+L16: push_constant_int 3002
+L17: push_constant_int 3
+L18: push_constant_string "i"
+L19: push_constant_int 59441207
+L20: if_setonclick 0
+L21: push_constant_int 0
+L22: pop_int_local 0
+L23: push_constant_int 59441186
+L24: if_getgraphic 0
+L25: push_constant_int 2672
+L26: branch_equals L28
+L27: branch L31
+L28: push_constant_int 0
+L29: pop_int_local 0
+L30: branch L54
+L31: push_constant_int 59441174
+L32: if_getgraphic 0
+L33: push_constant_int 2672
+L34: branch_equals L36
+L35: branch L39
+L36: push_constant_int 1
+L37: pop_int_local 0
+L38: branch L54
+L39: push_constant_int 59441162
+L40: if_getgraphic 0
+L41: push_constant_int 2672
+L42: branch_equals L44
+L43: branch L47
+L44: push_constant_int 2
+L45: pop_int_local 0
+L46: branch L54
+L47: push_constant_int 59441200
+L48: if_getgraphic 0
+L49: push_constant_int 2672
+L50: branch_equals L52
+L51: branch L54
+L52: push_constant_int 3
+L53: pop_int_local 0
+L54: push_int_local 0
+L55: switch switch0
+L56: branch L76
+L57: push_constant_int 0
+L58: push_constant_int 0
+L59: gosub_with_params clientscript_3011
+L60: gosub_with_params clientscript_3006
+L61: branch L76
+L62: push_constant_int 1
+L63: push_constant_int 1
+L64: gosub_with_params clientscript_3011
+L65: gosub_with_params clientscript_3006
+L66: branch L76
+L67: push_constant_int 2
+L68: push_constant_int 2
+L69: gosub_with_params clientscript_3011
+L70: gosub_with_params clientscript_3006
+L71: branch L76
+L72: push_constant_int 3
+L73: push_constant_int 3
+L74: gosub_with_params clientscript_3011
+L75: gosub_with_params clientscript_3006
+L76: push_constant_int 0
+L77: push_constant_int 59441154
+L78: if_sethide 0
+L79: gosub_with_params clientscript_3001
+L80: push_constant_int 3000
+L81: push_constant_string ""
+L82: push_constant_int 59441153
+L83: if_setontimer 0
+L84: push_constant_int 59441194
+L85: push_constant_int 908
+L86: if_openoverlay 0
+L87: gosub_with_params [proc,lobby_message_of_the_week]
+L88: return 0
+L89:
+
+[switch0@L55]
+0=L57
+1=L62
+2=L67
+3=L72

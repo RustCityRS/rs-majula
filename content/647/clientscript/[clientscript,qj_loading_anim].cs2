@@ -1,0 +1,68 @@
+name=""
+local_int_count=1
+local_string_count=0
+local_long_count=0
+int_param_count=1
+string_param_count=0
+long_param_count=0
+
+L0: push_varc_int varc_int_772
+L1: branch_if_true L3
+L2: branch L11
+L3: push_constant_string "Saving your game and loading QuestHelp"
+L4: push_int_local 0
+L5: if_settext 0
+L6: push_varc_int varc_int_772
+L7: push_constant_int 1
+L8: add 0
+L9: pop_varc_int varc_int_772
+L10: branch L58
+L11: push_varc_int varc_int_772
+L12: push_constant_int 20
+L13: branch_equals L15
+L14: branch L23
+L15: push_constant_string "Saving your game and loading QuestHelp."
+L16: push_int_local 0
+L17: if_settext 0
+L18: push_varc_int varc_int_772
+L19: push_constant_int 1
+L20: add 0
+L21: pop_varc_int varc_int_772
+L22: branch L58
+L23: push_varc_int varc_int_772
+L24: push_constant_int 40
+L25: branch_equals L27
+L26: branch L35
+L27: push_constant_string "Saving your game and loading QuestHelp.."
+L28: push_int_local 0
+L29: if_settext 0
+L30: push_varc_int varc_int_772
+L31: push_constant_int 1
+L32: add 0
+L33: pop_varc_int varc_int_772
+L34: branch L58
+L35: push_varc_int varc_int_772
+L36: push_constant_int 60
+L37: branch_equals L39
+L38: branch L47
+L39: push_constant_string "Saving your game and loading QuestHelp."
+L40: push_int_local 0
+L41: if_settext 0
+L42: push_varc_int varc_int_772
+L43: push_constant_int 1
+L44: add 0
+L45: pop_varc_int varc_int_772
+L46: branch L58
+L47: push_varc_int varc_int_772
+L48: push_constant_int 80
+L49: branch_equals L51
+L50: branch L54
+L51: push_constant_int 1
+L52: pop_varc_int varc_int_772
+L53: branch L58
+L54: push_varc_int varc_int_772
+L55: push_constant_int 1
+L56: add 0
+L57: pop_varc_int varc_int_772
+L58: return 0
+L59:

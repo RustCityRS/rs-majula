@@ -1,0 +1,181 @@
+name=""
+local_int_count=8
+local_string_count=0
+local_long_count=0
+int_param_count=6
+string_param_count=0
+long_param_count=0
+
+L0: push_constant_int -1
+L1: pop_int_local 6
+L2: push_constant_int -1
+L3: pop_int_local 7
+L4: push_int_local 1
+L5: push_int_local 0
+L6: branch_equals L8
+L7: branch L55
+L8: push_constant_int 106
+L9: push_constant_int 27
+L10: push_constant_int 0
+L11: push_constant_int 0
+L12: push_int_local 3
+L13: if_setsize 0
+L14: push_int_local 0
+L15: switch switch0
+L16: branch L39
+L17: push_constant_int 3095
+L18: pop_int_local 6
+L19: branch L39
+L20: getlanguage 0
+L21: switch switch1
+L22: push_constant_int 3098
+L23: pop_int_local 6
+L24: branch L33
+L25: push_constant_int 3104
+L26: pop_int_local 6
+L27: branch L33
+L28: push_constant_int 3110
+L29: pop_int_local 6
+L30: branch L33
+L31: push_constant_int 3098
+L32: pop_int_local 6
+L33: branch L39
+L34: push_constant_int 3119
+L35: pop_int_local 6
+L36: branch L39
+L37: push_constant_int 3122
+L38: pop_int_local 6
+L39: push_int_local 6
+L40: push_int_local 4
+L41: if_setgraphic 0
+L42: push_constant_int -1
+L43: push_constant_string ""
+L44: push_int_local 3
+L45: if_setonmouseover 0
+L46: push_constant_int -1
+L47: push_constant_string ""
+L48: push_int_local 3
+L49: if_setonmouseleave 0
+L50: push_constant_int -1
+L51: push_constant_string ""
+L52: push_int_local 3
+L53: if_setonclick 0
+L54: branch L144
+L55: push_constant_int 106
+L56: push_constant_int 27
+L57: push_constant_int 0
+L58: push_constant_int 0
+L59: push_int_local 3
+L60: if_setsize 0
+L61: push_int_local 0
+L62: switch switch2
+L63: branch L117
+L64: getlanguage 0
+L65: switch switch3
+L66: push_constant_int 3093
+L67: pop_int_local 6
+L68: push_constant_int 3094
+L69: pop_int_local 7
+L70: branch L85
+L71: push_constant_int 3099
+L72: pop_int_local 6
+L73: push_constant_int 3100
+L74: pop_int_local 7
+L75: branch L85
+L76: push_constant_int 3105
+L77: pop_int_local 6
+L78: push_constant_int 3106
+L79: pop_int_local 7
+L80: branch L85
+L81: push_constant_int 3111
+L82: pop_int_local 6
+L83: push_constant_int 3112
+L84: pop_int_local 7
+L85: branch L117
+L86: getlanguage 0
+L87: switch switch4
+L88: push_constant_int 3096
+L89: pop_int_local 6
+L90: push_constant_int 3097
+L91: pop_int_local 7
+L92: branch L107
+L93: push_constant_int 3102
+L94: pop_int_local 6
+L95: push_constant_int 3103
+L96: pop_int_local 7
+L97: branch L107
+L98: push_constant_int 3108
+L99: pop_int_local 6
+L100: push_constant_int 3109
+L101: pop_int_local 7
+L102: branch L107
+L103: push_constant_int 3096
+L104: pop_int_local 6
+L105: push_constant_int 3097
+L106: pop_int_local 7
+L107: branch L117
+L108: push_constant_int 3117
+L109: pop_int_local 6
+L110: push_constant_int 3118
+L111: pop_int_local 7
+L112: branch L117
+L113: push_constant_int 3120
+L114: pop_int_local 6
+L115: push_constant_int 3121
+L116: pop_int_local 7
+L117: push_int_local 6
+L118: push_int_local 4
+L119: if_setgraphic 0
+L120: push_constant_int 1148
+L121: push_int_local 0
+L122: push_int_local 4
+L123: push_int_local 6
+L124: push_int_local 7
+L125: push_constant_int 1
+L126: push_constant_string "iIdd1"
+L127: push_int_local 3
+L128: if_setonmouseover 0
+L129: push_constant_int 1148
+L130: push_int_local 0
+L131: push_int_local 4
+L132: push_int_local 6
+L133: push_int_local 7
+L134: push_constant_int 0
+L135: push_constant_string "iIdd1"
+L136: push_int_local 3
+L137: if_setonmouseleave 0
+L138: push_constant_int 2697
+L139: push_int_local 0
+L140: push_int_local 5
+L141: push_constant_string "ii"
+L142: push_int_local 3
+L143: if_setonclick 0
+L144: return 0
+L145:
+
+[switch0@L15]
+0=L17
+2=L20
+1=L34
+3=L37
+
+[switch1@L21]
+1=L25
+2=L28
+3=L31
+
+[switch2@L62]
+0=L64
+2=L86
+1=L108
+3=L113
+
+[switch3@L65]
+1=L71
+2=L76
+3=L81
+
+[switch4@L87]
+1=L93
+2=L98
+3=L103

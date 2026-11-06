@@ -1,0 +1,43 @@
+name=""
+local_int_count=1
+local_string_count=0
+local_long_count=0
+int_param_count=1
+string_param_count=0
+long_param_count=0
+
+L0: push_varbit varbit_804
+L1: switch switch0
+L2: branch L23
+L3: push_constant_int 6090
+L4: push_constant_int 300
+L5: push_int_local 0
+L6: if_setobject 0
+L7: branch L27
+L8: push_constant_int 6092
+L9: push_constant_int 300
+L10: push_int_local 0
+L11: if_setobject 0
+L12: branch L27
+L13: push_constant_int 6089
+L14: push_constant_int 300
+L15: push_int_local 0
+L16: if_setobject 0
+L17: branch L27
+L18: push_constant_int 6091
+L19: push_constant_int 300
+L20: push_int_local 0
+L21: if_setobject 0
+L22: branch L27
+L23: push_constant_int -1
+L24: push_constant_int 300
+L25: push_int_local 0
+L26: if_setobject 0
+L27: return 0
+L28:
+
+[switch0@L1]
+1=L3
+2=L8
+3=L13
+4=L18

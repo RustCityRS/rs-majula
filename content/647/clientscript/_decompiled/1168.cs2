@@ -1,8 +1,0 @@
-[clientscript,script_1168](int $int0, int $int1, string $str0)
-if (mod(clientclock, 50) ! 0) {
-    return;
-}
-if (cc_find(57999376, $int0) = 1) {
-    cc_settext($str0);
-}
-return;

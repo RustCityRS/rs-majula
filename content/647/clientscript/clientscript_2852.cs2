@@ -1,0 +1,95 @@
+name=""
+local_int_count=1
+local_string_count=0
+local_long_count=0
+int_param_count=1
+string_param_count=0
+long_param_count=0
+
+L0: push_varc_int varc_int_1076
+L1: push_varc_int varc_int_1075
+L2: push_constant_int 250
+L3: add 0
+L4: branch_less_than L6
+L5: branch L15
+L6: push_varc_int varc_int_1076
+L7: push_varc_int varc_int_1075
+L8: push_constant_int 250
+L9: sub 0
+L10: branch_greater_than L12
+L11: branch L15
+L12: push_varc_int varc_int_1075
+L13: pop_varc_int varc_int_1076
+L14: branch L82
+L15: push_varc_int varc_int_1076
+L16: push_varc_int varc_int_1075
+L17: branch_greater_than L19
+L18: branch L51
+L19: push_varc_int varc_int_1076
+L20: push_constant_int 32768
+L21: sub 0
+L22: push_varc_int varc_int_1075
+L23: branch_greater_than L25
+L24: branch L38
+L25: push_varc_int varc_int_1076
+L26: push_constant_int 250
+L27: add 0
+L28: pop_varc_int varc_int_1076
+L29: push_varc_int varc_int_1076
+L30: push_constant_int 65535
+L31: branch_greater_than L33
+L32: branch L37
+L33: push_varc_int varc_int_1076
+L34: push_constant_int 63335
+L35: sub 0
+L36: pop_varc_int varc_int_1076
+L37: branch L50
+L38: push_varc_int varc_int_1076
+L39: push_constant_int 250
+L40: sub 0
+L41: pop_varc_int varc_int_1076
+L42: push_varc_int varc_int_1076
+L43: push_constant_int 0
+L44: branch_less_than L46
+L45: branch L50
+L46: push_varc_int varc_int_1076
+L47: push_constant_int 63335
+L48: add 0
+L49: pop_varc_int varc_int_1076
+L50: branch L82
+L51: push_varc_int varc_int_1076
+L52: push_constant_int 32768
+L53: add 0
+L54: push_varc_int varc_int_1075
+L55: branch_less_than L57
+L56: branch L70
+L57: push_varc_int varc_int_1076
+L58: push_constant_int 250
+L59: sub 0
+L60: pop_varc_int varc_int_1076
+L61: push_varc_int varc_int_1076
+L62: push_constant_int 0
+L63: branch_less_than L65
+L64: branch L69
+L65: push_varc_int varc_int_1076
+L66: push_constant_int 63335
+L67: add 0
+L68: pop_varc_int varc_int_1076
+L69: branch L82
+L70: push_varc_int varc_int_1076
+L71: push_constant_int 250
+L72: add 0
+L73: pop_varc_int varc_int_1076
+L74: push_varc_int varc_int_1076
+L75: push_constant_int 65535
+L76: branch_greater_than L78
+L77: branch L82
+L78: push_varc_int varc_int_1076
+L79: push_constant_int 63335
+L80: sub 0
+L81: pop_varc_int varc_int_1076
+L82: push_varc_int varc_int_1076
+L83: push_constant_int 31129631
+L84: if_set2dangle 0
+L85: return 0
+L86:

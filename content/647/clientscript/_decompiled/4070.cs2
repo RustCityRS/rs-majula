@@ -1,6 +1,0 @@
-[clientscript,script_4070](int $int0)
-if (clientclock > add($int0, 25)) {
-    %varc_int1431 = 0;
-    if_setontimer;
-}
-return;

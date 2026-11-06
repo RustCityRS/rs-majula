@@ -1,0 +1,44 @@
+name=""
+local_int_count=4
+local_string_count=0
+local_long_count=0
+int_param_count=2
+string_param_count=0
+long_param_count=0
+
+L0: push_constant_int 73
+L1: push_constant_int 79
+L2: push_constant_int 3058
+L3: push_int_local 1
+L4: enum 0
+L5: pop_int_local 2
+L6: push_constant_int 79
+L7: push_constant_int 105
+L8: push_constant_int 3059
+L9: push_int_local 2
+L10: enum 0
+L11: pop_int_local 3
+L12: push_int_local 2
+L13: push_constant_int 4055
+L14: branch_equals L16
+L15: branch L20
+L16: push_constant_string "Free!"
+L17: push_int_local 0
+L18: if_settext 0
+L19: branch L24
+L20: push_int_local 3
+L21: tostring 0
+L22: push_int_local 0
+L23: if_settext 0
+L24: push_int_local 2
+L25: push_constant_int -1
+L26: push_int_local 1
+L27: if_setobject 0
+L28: push_constant_int 1
+L29: push_int_local 1
+L30: if_setoutline 0
+L31: push_constant_int 3355443
+L32: push_int_local 1
+L33: if_setgraphicshadow 0
+L34: return 0
+L35:

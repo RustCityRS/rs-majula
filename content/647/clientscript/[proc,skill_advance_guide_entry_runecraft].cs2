@@ -1,0 +1,1082 @@
+name=""
+local_int_count=2
+local_string_count=0
+local_long_count=0
+int_param_count=2
+string_param_count=0
+long_param_count=0
+
+L0: push_int_local 0
+L1: switch switch0
+L2: branch L960
+L3: push_int_local 1
+L4: switch switch1
+L5: branch L229
+L6: push_constant_int -1
+L7: push_constant_int 7620
+L8: push_constant_string "To mine rune essence, you must have started Rune Mysteries."
+L9: push_constant_string ""
+L10: return 0
+L11: branch L229
+L12: push_constant_int 1
+L13: push_constant_int 556
+L14: push_constant_string "Air runes"
+L15: push_constant_string "You can now craft "
+L16: push_constant_string "<col=000080>"
+L17: push_constant_string "air runes"
+L18: push_constant_string "</col>"
+L19: push_constant_string "."
+L20: join_string 5
+L21: return 0
+L22: branch L229
+L23: push_constant_int 2
+L24: push_constant_int 558
+L25: push_constant_string "Mind runes"
+L26: push_constant_string "You can now craft "
+L27: push_constant_string "<col=000080>"
+L28: push_constant_string "mind runes"
+L29: push_constant_string "</col>"
+L30: push_constant_string "."
+L31: join_string 5
+L32: return 0
+L33: branch L229
+L34: push_constant_int 5
+L35: push_constant_int 555
+L36: push_constant_string "Water runes"
+L37: push_constant_string "You can now craft "
+L38: push_constant_string "<col=000080>"
+L39: push_constant_string "water runes"
+L40: push_constant_string "</col>"
+L41: push_constant_string "."
+L42: join_string 5
+L43: return 0
+L44: branch L229
+L45: push_constant_int 6
+L46: push_constant_int 4695
+L47: push_constant_string "Members: Mist runes"
+L48: push_constant_string "Members can now craft "
+L49: push_constant_string "<col=000080>"
+L50: push_constant_string "mist runes"
+L51: push_constant_string "</col>"
+L52: push_constant_string "."
+L53: join_string 5
+L54: return 0
+L55: branch L229
+L56: push_constant_int 9
+L57: push_constant_int 557
+L58: push_constant_string "Earth runes"
+L59: push_constant_string "You can now craft "
+L60: push_constant_string "<col=000080>"
+L61: push_constant_string "earth runes"
+L62: push_constant_string "</col>"
+L63: push_constant_string "."
+L64: join_string 5
+L65: return 0
+L66: branch L229
+L67: push_constant_int 10
+L68: push_constant_int 4696
+L69: push_constant_string "Members: Dust runes"
+L70: push_constant_string "Members can now craft "
+L71: push_constant_string "<col=000080>"
+L72: push_constant_string "dust runes"
+L73: push_constant_string "</col>"
+L74: push_constant_string "."
+L75: join_string 5
+L76: return 0
+L77: branch L229
+L78: push_constant_int 13
+L79: push_constant_int 4698
+L80: push_constant_string "Members: Mud runes"
+L81: push_constant_string "Members can now craft "
+L82: push_constant_string "<col=000080>"
+L83: push_constant_string "mud runes"
+L84: push_constant_string "</col>"
+L85: push_constant_string "."
+L86: join_string 5
+L87: return 0
+L88: branch L229
+L89: push_constant_int 14
+L90: push_constant_int 554
+L91: push_constant_string "Fire runes"
+L92: push_constant_string "You can now craft "
+L93: push_constant_string "<col=000080>"
+L94: push_constant_string "fire runes"
+L95: push_constant_string "</col>"
+L96: push_constant_string "."
+L97: join_string 5
+L98: return 0
+L99: branch L229
+L100: push_constant_int 15
+L101: push_constant_int 4697
+L102: push_constant_string "Members: Smoke runes"
+L103: push_constant_string "Members can now craft "
+L104: push_constant_string "<col=000080>"
+L105: push_constant_string "smoke runes"
+L106: push_constant_string "</col>"
+L107: push_constant_string "."
+L108: join_string 5
+L109: return 0
+L110: branch L229
+L111: push_constant_int 19
+L112: push_constant_int 4694
+L113: push_constant_string "Members: Steam runes"
+L114: push_constant_string "Members can now craft "
+L115: push_constant_string "<col=000080>"
+L116: push_constant_string "steam runes"
+L117: push_constant_string "</col>"
+L118: push_constant_string "."
+L119: join_string 5
+L120: return 0
+L121: branch L229
+L122: push_constant_int 20
+L123: push_constant_int 559
+L124: push_constant_string "Body runes"
+L125: push_constant_string "You can now craft "
+L126: push_constant_string "<col=000080>"
+L127: push_constant_string "body runes"
+L128: push_constant_string "</col>"
+L129: push_constant_string "."
+L130: join_string 5
+L131: return 0
+L132: branch L229
+L133: push_constant_int 23
+L134: push_constant_int 4699
+L135: push_constant_string "Members: Lava runes"
+L136: push_constant_string "Members can now craft "
+L137: push_constant_string "<col=000080>"
+L138: push_constant_string "lava runes"
+L139: push_constant_string "</col>"
+L140: push_constant_string "."
+L141: join_string 5
+L142: return 0
+L143: branch L229
+L144: push_constant_int 27
+L145: push_constant_int 564
+L146: push_constant_string "Members: Cosmic runes"
+L147: push_constant_string "Members can now craft "
+L148: push_constant_string "<col=000080>"
+L149: push_constant_string "cosmic runes"
+L150: push_constant_string "</col>"
+L151: push_constant_string "."
+L152: join_string 5
+L153: return 0
+L154: branch L229
+L155: push_constant_int 35
+L156: push_constant_int 562
+L157: push_constant_string "Members: Chaos runes"
+L158: push_constant_string "Members can now craft "
+L159: push_constant_string "<col=000080>"
+L160: push_constant_string "chaos runes"
+L161: push_constant_string "</col>"
+L162: push_constant_string "."
+L163: join_string 5
+L164: return 0
+L165: branch L229
+L166: push_constant_int 40
+L167: push_constant_int 9075
+L168: push_constant_string "Members: Astral runes"
+L169: push_constant_string "<br>"
+L170: push_constant_string " (after Lunar Diplomacy)"
+L171: join_string 3
+L172: push_constant_string "Members now have the Runecrafting level required to craft "
+L173: push_constant_string "<col=000080>"
+L174: push_constant_string "astral runes"
+L175: push_constant_string "</col>"
+L176: push_constant_string " (after Lunar Diplomacy, or when in Daemonheim)."
+L177: join_string 5
+L178: return 0
+L179: branch L229
+L180: push_constant_int 44
+L181: push_constant_int 561
+L182: push_constant_string "Members: Nature runes"
+L183: push_constant_string "Members can now craft "
+L184: push_constant_string "<col=000080>"
+L185: push_constant_string "nature runes"
+L186: push_constant_string "</col>"
+L187: push_constant_string "."
+L188: join_string 5
+L189: return 0
+L190: branch L229
+L191: push_constant_int 54
+L192: push_constant_int 563
+L193: push_constant_string "Members: Law runes"
+L194: push_constant_string "Members can now craft "
+L195: push_constant_string "<col=000080>"
+L196: push_constant_string "law runes"
+L197: push_constant_string "</col>"
+L198: push_constant_string "."
+L199: join_string 5
+L200: return 0
+L201: branch L229
+L202: push_constant_int 65
+L203: push_constant_int 560
+L204: push_constant_string "Members: Death runes"
+L205: push_constant_string "<br>"
+L206: push_constant_string " (after Mourning's Ends Part II)"
+L207: join_string 3
+L208: push_constant_string "Members now have the Runecrafting level required to craft "
+L209: push_constant_string "<col=000080>"
+L210: push_constant_string "death runes"
+L211: push_constant_string "</col>"
+L212: push_constant_string " (after Mourning's Ends Part II, or when in Daemonheim)."
+L213: join_string 5
+L214: return 0
+L215: branch L229
+L216: push_constant_int 77
+L217: push_constant_int 565
+L218: push_constant_string "Members: Blood runes"
+L219: push_constant_string "<br>"
+L220: push_constant_string " (after Legacy of Seergaze)"
+L221: join_string 3
+L222: push_constant_string "Members now have the Runecrafting level required to craft "
+L223: push_constant_string "<col=000080>"
+L224: push_constant_string "blood runes"
+L225: push_constant_string "</col>"
+L226: push_constant_string " (after Legacy of Seergaze, or when in Daemonheim)."
+L227: join_string 5
+L228: return 0
+L229: branch L960
+L230: push_int_local 1
+L231: switch switch2
+L232: branch L590
+L233: push_constant_int -1
+L234: push_constant_int 7620
+L235: push_constant_string "As your Runecrafting skill develops, you will be able to craft multiple runes from one piece of essence. You only receive experience for each piece of essence crafted, not each rune crafted."
+L236: push_constant_string " "
+L237: return 0
+L238: branch L590
+L239: push_constant_int 11
+L240: push_constant_int 556
+L241: push_constant_string "2 Air runes per essence"
+L242: push_constant_string "You can now craft "
+L243: push_constant_string "<col=000080>"
+L244: push_constant_string "2 air runes"
+L245: push_constant_string "</col>"
+L246: push_constant_string " from one piece of essence."
+L247: join_string 5
+L248: return 0
+L249: branch L590
+L250: push_constant_int 14
+L251: push_constant_int 558
+L252: push_constant_string "2 Mind runes per essence"
+L253: push_constant_string "You can now craft "
+L254: push_constant_string "<col=000080>"
+L255: push_constant_string "2 mind runes"
+L256: push_constant_string "</col>"
+L257: push_constant_string " from one piece of essence."
+L258: join_string 5
+L259: return 0
+L260: branch L590
+L261: push_constant_int 19
+L262: push_constant_int 555
+L263: push_constant_string "2 Water runes per essence"
+L264: push_constant_string "You can now craft "
+L265: push_constant_string "<col=000080>"
+L266: push_constant_string "2 water runes"
+L267: push_constant_string "</col>"
+L268: push_constant_string " from one piece of essence."
+L269: join_string 5
+L270: return 0
+L271: branch L590
+L272: push_constant_int 22
+L273: push_constant_int 556
+L274: push_constant_string "3 Air runes per essence"
+L275: push_constant_string "You can now craft "
+L276: push_constant_string "<col=000080>"
+L277: push_constant_string "3 air runes"
+L278: push_constant_string "</col>"
+L279: push_constant_string " from one piece of essence."
+L280: join_string 5
+L281: return 0
+L282: branch L590
+L283: push_constant_int 26
+L284: push_constant_int 557
+L285: push_constant_string "2 Earth runes per essence"
+L286: push_constant_string "You can now craft "
+L287: push_constant_string "<col=000080>"
+L288: push_constant_string "2 earth runes"
+L289: push_constant_string "</col>"
+L290: push_constant_string " from one piece of essence."
+L291: join_string 5
+L292: return 0
+L293: branch L590
+L294: push_constant_int 28
+L295: push_constant_int 558
+L296: push_constant_string "3 Mind runes per essence"
+L297: push_constant_string "You can now craft "
+L298: push_constant_string "<col=000080>"
+L299: push_constant_string "3 mind runes"
+L300: push_constant_string "</col>"
+L301: push_constant_string " from one piece of essence."
+L302: join_string 5
+L303: return 0
+L304: branch L590
+L305: push_constant_int 33
+L306: push_constant_int 556
+L307: push_constant_string "4 Air runes per essence"
+L308: push_constant_string "You can now craft "
+L309: push_constant_string "<col=000080>"
+L310: push_constant_string "4 air runes"
+L311: push_constant_string "</col>"
+L312: push_constant_string " from one piece of essence."
+L313: join_string 5
+L314: return 0
+L315: branch L590
+L316: push_constant_int 35
+L317: push_constant_int 554
+L318: push_constant_string "2 Fire runes per essence"
+L319: push_constant_string "You can now craft "
+L320: push_constant_string "<col=000080>"
+L321: push_constant_string "2 fire runes"
+L322: push_constant_string "</col>"
+L323: push_constant_string " from one piece of essence."
+L324: join_string 5
+L325: return 0
+L326: branch L590
+L327: push_constant_int 38
+L328: push_constant_int 555
+L329: push_constant_string "3 Water runes per essence"
+L330: push_constant_string "You can now craft "
+L331: push_constant_string "<col=000080>"
+L332: push_constant_string "3 water runes"
+L333: push_constant_string "</col>"
+L334: push_constant_string " from one piece of essence."
+L335: join_string 5
+L336: return 0
+L337: branch L590
+L338: push_constant_int 42
+L339: push_constant_int 558
+L340: push_constant_string "4 Mind runes per essence"
+L341: push_constant_string "You can now craft "
+L342: push_constant_string "<col=000080>"
+L343: push_constant_string "4 mind runes"
+L344: push_constant_string "</col>"
+L345: push_constant_string " from one piece of essence."
+L346: join_string 5
+L347: return 0
+L348: branch L590
+L349: push_constant_int 44
+L350: push_constant_int 556
+L351: push_constant_string "5 Air runes per essence"
+L352: push_constant_string "You can now craft "
+L353: push_constant_string "<col=000080>"
+L354: push_constant_string "5 air runes"
+L355: push_constant_string "</col>"
+L356: push_constant_string " from one piece of essence."
+L357: join_string 5
+L358: return 0
+L359: branch L590
+L360: push_constant_int 46
+L361: push_constant_int 559
+L362: push_constant_string "2 Body runes per essence"
+L363: push_constant_string "You can now craft "
+L364: push_constant_string "<col=000080>"
+L365: push_constant_string "2 body runes"
+L366: push_constant_string "</col>"
+L367: push_constant_string " from one piece of essence."
+L368: join_string 5
+L369: return 0
+L370: branch L590
+L371: push_constant_int 52
+L372: push_constant_int 557
+L373: push_constant_string "3 Earth runes per essence"
+L374: push_constant_string "You can now craft "
+L375: push_constant_string "<col=000080>"
+L376: push_constant_string "3 earth runes"
+L377: push_constant_string "</col>"
+L378: push_constant_string " from one piece of essence."
+L379: join_string 5
+L380: return 0
+L381: branch L590
+L382: push_constant_int 55
+L383: push_constant_int 556
+L384: push_constant_string "6 Air runes per essence"
+L385: push_constant_string "You can now craft "
+L386: push_constant_string "<col=000080>"
+L387: push_constant_string "6 air runes"
+L388: push_constant_string "</col>"
+L389: push_constant_string " from one piece of essence."
+L390: join_string 5
+L391: return 0
+L392: branch L590
+L393: push_constant_int 56
+L394: push_constant_int 558
+L395: push_constant_string "5 Mind runes per essence"
+L396: push_constant_string "You can now craft "
+L397: push_constant_string "<col=000080>"
+L398: push_constant_string "5 mind runes"
+L399: push_constant_string "</col>"
+L400: push_constant_string " from one piece of essence."
+L401: join_string 5
+L402: return 0
+L403: branch L590
+L404: push_constant_int 57
+L405: push_constant_int 555
+L406: push_constant_string "4 Water runes per essence"
+L407: push_constant_string "You can now craft "
+L408: push_constant_string "<col=000080>"
+L409: push_constant_string "4 water runes"
+L410: push_constant_string "</col>"
+L411: push_constant_string " from one piece of essence."
+L412: join_string 5
+L413: return 0
+L414: branch L590
+L415: push_constant_int 59
+L416: push_constant_int 564
+L417: push_constant_string "Members: 2 Cosmic runes per essence"
+L418: push_constant_string "Members can now craft "
+L419: push_constant_string "<col=000080>"
+L420: push_constant_string "2 cosmic runes"
+L421: push_constant_string "</col>"
+L422: push_constant_string " from one piece of essence."
+L423: join_string 5
+L424: return 0
+L425: branch L590
+L426: push_constant_int 66
+L427: push_constant_int 556
+L428: push_constant_string "7 Air runes per essence"
+L429: push_constant_string "You can now craft "
+L430: push_constant_string "<col=000080>"
+L431: push_constant_string "7 air runes"
+L432: push_constant_string "</col>"
+L433: push_constant_string " from one piece of essence."
+L434: join_string 5
+L435: return 0
+L436: branch L590
+L437: push_constant_int 70
+L438: push_constant_int 558
+L439: push_constant_string "6 Mind runes per essence"
+L440: push_constant_string "You can now craft "
+L441: push_constant_string "<col=000080>"
+L442: push_constant_string "6 mind runes"
+L443: push_constant_string "</col>"
+L444: push_constant_string " from one piece of essence."
+L445: join_string 5
+L446: return 0
+L447: branch L590
+L448: push_constant_int 70
+L449: push_constant_int 554
+L450: push_constant_string "3 Fire runes per essence"
+L451: push_constant_string "You can now craft "
+L452: push_constant_string "<col=000080>"
+L453: push_constant_string "3 fire runes"
+L454: push_constant_string "</col>"
+L455: push_constant_string " from one piece of essence."
+L456: join_string 5
+L457: return 0
+L458: branch L590
+L459: push_constant_int 74
+L460: push_constant_int 562
+L461: push_constant_string "Members: 2 Chaos runes per essence"
+L462: push_constant_string "Members can now craft "
+L463: push_constant_string "<col=000080>"
+L464: push_constant_string "2 chaos runes"
+L465: push_constant_string "</col>"
+L466: push_constant_string " from one piece of essence."
+L467: join_string 5
+L468: return 0
+L469: branch L590
+L470: push_constant_int 76
+L471: push_constant_int 555
+L472: push_constant_string "5 Water runes per essence"
+L473: push_constant_string "You can now craft "
+L474: push_constant_string "<col=000080>"
+L475: push_constant_string "5 water runes"
+L476: push_constant_string "</col>"
+L477: push_constant_string " from one piece of essence."
+L478: join_string 5
+L479: return 0
+L480: branch L590
+L481: push_constant_int 77
+L482: push_constant_int 556
+L483: push_constant_string "8 Air runes per essence"
+L484: push_constant_string "You can now craft "
+L485: push_constant_string "<col=000080>"
+L486: push_constant_string "8 air runes"
+L487: push_constant_string "</col>"
+L488: push_constant_string " from one piece of essence."
+L489: join_string 5
+L490: return 0
+L491: branch L590
+L492: push_constant_int 78
+L493: push_constant_int 557
+L494: push_constant_string "4 Earth runes per essence"
+L495: push_constant_string "You can now craft "
+L496: push_constant_string "<col=000080>"
+L497: push_constant_string "4 earth runes"
+L498: push_constant_string "</col>"
+L499: push_constant_string " from one piece of essence."
+L500: join_string 5
+L501: return 0
+L502: branch L590
+L503: push_constant_int 82
+L504: push_constant_int 9075
+L505: push_constant_string "Members: 2 Astral runes per essence"
+L506: push_constant_string "Members can now craft "
+L507: push_constant_string "<col=000080>"
+L508: push_constant_string "2 astral runes"
+L509: push_constant_string "</col>"
+L510: push_constant_string " from one piece of essence."
+L511: join_string 5
+L512: return 0
+L513: branch L590
+L514: push_constant_int 84
+L515: push_constant_int 558
+L516: push_constant_string "7 Mind runes per essence"
+L517: push_constant_string "You can now craft "
+L518: push_constant_string "<col=000080>"
+L519: push_constant_string "7 mind runes"
+L520: push_constant_string "</col>"
+L521: push_constant_string " from one piece of essence."
+L522: join_string 5
+L523: return 0
+L524: branch L590
+L525: push_constant_int 88
+L526: push_constant_int 556
+L527: push_constant_string "9 Air runes per essence"
+L528: push_constant_string "You can now craft "
+L529: push_constant_string "<col=000080>"
+L530: push_constant_string "9 air runes"
+L531: push_constant_string "</col>"
+L532: push_constant_string " from one piece of essence."
+L533: join_string 5
+L534: return 0
+L535: branch L590
+L536: push_constant_int 91
+L537: push_constant_int 561
+L538: push_constant_string "Members: 2 Nature runes per essence"
+L539: push_constant_string "Members can now craft "
+L540: push_constant_string "<col=000080>"
+L541: push_constant_string "2 nature runes"
+L542: push_constant_string "</col>"
+L543: push_constant_string " from one piece of essence."
+L544: join_string 5
+L545: return 0
+L546: branch L590
+L547: push_constant_int 92
+L548: push_constant_int 559
+L549: push_constant_string "3 Body runes per essence"
+L550: push_constant_string "You can now craft "
+L551: push_constant_string "<col=000080>"
+L552: push_constant_string "3 body runes"
+L553: push_constant_string "</col>"
+L554: push_constant_string " from one piece of essence."
+L555: join_string 5
+L556: return 0
+L557: branch L590
+L558: push_constant_int 95
+L559: push_constant_int 555
+L560: push_constant_string "6 Water runes per essence"
+L561: push_constant_string "You can now craft "
+L562: push_constant_string "<col=000080>"
+L563: push_constant_string "6 water runes"
+L564: push_constant_string "</col>"
+L565: push_constant_string " from one piece of essence."
+L566: join_string 5
+L567: return 0
+L568: branch L590
+L569: push_constant_int 98
+L570: push_constant_int 558
+L571: push_constant_string "8 Mind runes per essence"
+L572: push_constant_string "You can now craft "
+L573: push_constant_string "<col=000080>"
+L574: push_constant_string "8 mind runes"
+L575: push_constant_string "</col>"
+L576: push_constant_string " from one piece of essence."
+L577: join_string 5
+L578: return 0
+L579: branch L590
+L580: push_constant_int 99
+L581: push_constant_int 556
+L582: push_constant_string "10 Air runes per essence"
+L583: push_constant_string "You can now craft "
+L584: push_constant_string "<col=000080>"
+L585: push_constant_string "10 air runes"
+L586: push_constant_string "</col>"
+L587: push_constant_string " from one piece of essence."
+L588: join_string 5
+L589: return 0
+L590: branch L960
+L591: push_int_local 1
+L592: switch switch3
+L593: branch L716
+L594: push_constant_int -1
+L595: push_constant_int 7620
+L596: push_constant_string "Pouches allow you to carry extra essence in them and they come in various sizes. As you use the pouches, they degrade and store less essence. Speak to the Dark Mage at the centre of the Abyss to restore them."
+L597: push_constant_string ""
+L598: return 0
+L599: branch L716
+L600: push_constant_int 1
+L601: push_constant_int 5509
+L602: push_constant_string "Members: Small pouch"
+L603: push_constant_string "<br>"
+L604: push_constant_string "Holds 3 extra essence"
+L605: join_string 3
+L606: push_constant_string "Members can now use "
+L607: push_constant_string "<col=000080>"
+L608: push_constant_string "small pouches"
+L609: push_constant_string "</col>"
+L610: push_constant_string " to store 3 essence."
+L611: join_string 5
+L612: return 0
+L613: branch L716
+L614: push_constant_int 10
+L615: push_constant_int 12863
+L616: push_constant_string "Air rune crafting gloves"
+L617: push_constant_string "You can now wear "
+L618: push_constant_string "<col=000080>"
+L619: push_constant_string "air rune crafting gloves"
+L620: push_constant_string "</col>"
+L621: push_constant_string "."
+L622: join_string 5
+L623: return 0
+L624: branch L716
+L625: push_constant_int 20
+L626: push_constant_int 12864
+L627: push_constant_string "Water rune crafting gloves"
+L628: push_constant_string "You can now wear "
+L629: push_constant_string "<col=000080>"
+L630: push_constant_string "water rune crafting gloves"
+L631: push_constant_string "</col>"
+L632: push_constant_string "."
+L633: join_string 5
+L634: return 0
+L635: branch L716
+L636: push_constant_int 25
+L637: push_constant_int 5510
+L638: push_constant_string "Members: Medium pouch"
+L639: push_constant_string "<br>"
+L640: push_constant_string "Holds 6 extra essence"
+L641: join_string 3
+L642: push_constant_string "Members can now use "
+L643: push_constant_string "<col=000080>"
+L644: push_constant_string "medium pouches"
+L645: push_constant_string "</col>"
+L646: push_constant_string " to store 6 essence."
+L647: join_string 5
+L648: return 0
+L649: branch L716
+L650: push_constant_int 30
+L651: push_constant_int 12865
+L652: push_constant_string "Earth rune crafting gloves"
+L653: push_constant_string "You can now wear "
+L654: push_constant_string "<col=000080>"
+L655: push_constant_string "earth rune crafting gloves"
+L656: push_constant_string "</col>"
+L657: push_constant_string "."
+L658: join_string 5
+L659: return 0
+L660: branch L716
+L661: push_constant_int 35
+L662: push_constant_int 19671
+L663: push_constant_string "Magical blastbox"
+L664: push_constant_string "<br>"
+L665: push_constant_string " (with 30 Dungeoneering and 30 Magic)"
+L666: join_string 3
+L667: push_constant_string "You can now use "
+L668: push_constant_string "<col=000080>"
+L669: push_constant_string "magical blastboxes"
+L670: push_constant_string "</col>"
+L671: push_constant_string ". (You also need level 30 Dungeoneering and 30 Magic.)"
+L672: join_string 5
+L673: return 0
+L674: branch L716
+L675: push_constant_int 50
+L676: push_constant_int 5512
+L677: push_constant_string "Members: Large pouch"
+L678: push_constant_string "<br>"
+L679: push_constant_string "Holds 9 extra essence"
+L680: join_string 3
+L681: push_constant_string "Members can now use "
+L682: push_constant_string "<col=000080>"
+L683: push_constant_string "large pouches"
+L684: push_constant_string "</col>"
+L685: push_constant_string " to store 9 essence."
+L686: join_string 5
+L687: return 0
+L688: branch L716
+L689: push_constant_int 70
+L690: push_constant_int 19889
+L691: push_constant_string "Members: Celestial surgebox"
+L692: push_constant_string "<br>"
+L693: push_constant_string " (with 70 Magic and 70 Dungeoneering)"
+L694: join_string 3
+L695: push_constant_string "Members can now use "
+L696: push_constant_string "<col=000080>"
+L697: push_constant_string "celestial surgeboxes"
+L698: push_constant_string "</col>"
+L699: push_constant_string ". (They also need level 70 Magic and level 70 Dungeoneering.)"
+L700: join_string 5
+L701: return 0
+L702: branch L716
+L703: push_constant_int 75
+L704: push_constant_int 5514
+L705: push_constant_string "Members: Giant pouch"
+L706: push_constant_string "<br>"
+L707: push_constant_string "Holds 12 extra essence"
+L708: join_string 3
+L709: push_constant_string "Members can now use "
+L710: push_constant_string "<col=000080>"
+L711: push_constant_string "giant pouches"
+L712: push_constant_string "</col>"
+L713: push_constant_string " to store 12 essence."
+L714: join_string 5
+L715: return 0
+L716: branch L960
+L717: push_int_local 1
+L718: switch switch4
+L719: branch L763
+L720: push_constant_int 91
+L721: push_constant_int 18778
+L722: push_constant_string "Members: Starved ancient effigies"
+L723: push_constant_string "Members can now investigate "
+L724: push_constant_string "<col=000080>"
+L725: push_constant_string "starved ancient effigies"
+L726: push_constant_string "</col>"
+L727: push_constant_string " using their knowledge of Runecrafting."
+L728: join_string 5
+L729: return 0
+L730: branch L763
+L731: push_constant_int 93
+L732: push_constant_int 18779
+L733: push_constant_string "Members: Nourished ancient effigies"
+L734: push_constant_string "Members can now investigate "
+L735: push_constant_string "<col=000080>"
+L736: push_constant_string "nourished ancient effigies"
+L737: push_constant_string "</col>"
+L738: push_constant_string " using their knowledge of Runecrafting."
+L739: join_string 5
+L740: return 0
+L741: branch L763
+L742: push_constant_int 95
+L743: push_constant_int 18780
+L744: push_constant_string "Members: Sated ancient effigies"
+L745: push_constant_string "Members can now investigate "
+L746: push_constant_string "<col=000080>"
+L747: push_constant_string "sated ancient effigies"
+L748: push_constant_string "</col>"
+L749: push_constant_string " using their knowledge of Runecrafting."
+L750: join_string 5
+L751: return 0
+L752: branch L763
+L753: push_constant_int 97
+L754: push_constant_int 18781
+L755: push_constant_string "Members: Gorged ancient effigies"
+L756: push_constant_string "Members can now investigate "
+L757: push_constant_string "<col=000080>"
+L758: push_constant_string "gorged ancient effigies"
+L759: push_constant_string "</col>"
+L760: push_constant_string " using their knowledge of Runecrafting."
+L761: join_string 5
+L762: return 0
+L763: branch L960
+L764: push_int_local 1
+L765: switch switch5
+L766: branch L796
+L767: push_constant_int 1
+L768: push_constant_int 12851
+L769: push_constant_string "Members: Stealing Creation - class 1 sacred clay"
+L770: push_constant_string "Members can now craft runes from class 1 sacred clay in Stealing Creation."
+L771: return 0
+L772: branch L796
+L773: push_constant_int 20
+L774: push_constant_int 12851
+L775: push_constant_string "Members: Stealing Creation - class 2 sacred clay"
+L776: push_constant_string "Members can now craft runes from class 2 sacred clay in Stealing Creation."
+L777: return 0
+L778: branch L796
+L779: push_constant_int 40
+L780: push_constant_int 12851
+L781: push_constant_string "Members: Stealing Creation - class 3 sacred clay"
+L782: push_constant_string "Members can now craft runes from class 3 sacred clay in Stealing Creation."
+L783: return 0
+L784: branch L796
+L785: push_constant_int 60
+L786: push_constant_int 12851
+L787: push_constant_string "Members: Stealing Creation - class 4 sacred clay"
+L788: push_constant_string "Members can now craft runes from class 4 sacred clay in Stealing Creation."
+L789: return 0
+L790: branch L796
+L791: push_constant_int 80
+L792: push_constant_int 12851
+L793: push_constant_string "Members: Stealing Creation - class 5 sacred clay"
+L794: push_constant_string "Members can now craft runes from class 5 sacred clay in Stealing Creation."
+L795: return 0
+L796: branch L960
+L797: push_int_local 1
+L798: switch switch6
+L799: branch L918
+L800: push_constant_int -1
+L801: push_constant_int 15707
+L802: push_constant_string "Dungeoneering skill tasks"
+L803: push_constant_string "<br>"
+L804: push_constant_string "As your Runecrafting level increases, you will be able to attempt higher-level runecrafting tasks within Daemonheim. You will also be more likely to succeed when attempting runecrafting tasks within Daemonheim."
+L805: join_string 3
+L806: push_constant_string ""
+L807: return 0
+L808: branch L918
+L809: push_constant_int 10
+L810: push_constant_int 16997
+L811: push_constant_string "Water staff"
+L812: push_constant_string "You can now craft "
+L813: push_constant_string "<col=000080>"
+L814: push_constant_string "water staves"
+L815: push_constant_string "</col>"
+L816: push_constant_string " within Daemonheim."
+L817: join_string 5
+L818: return 0
+L819: branch L918
+L820: push_constant_int 20
+L821: push_constant_int 17001
+L822: push_constant_string "Earth staff"
+L823: push_constant_string "You can now craft "
+L824: push_constant_string "<col=000080>"
+L825: push_constant_string "earth staves"
+L826: push_constant_string "</col>"
+L827: push_constant_string " within Daemonheim."
+L828: join_string 5
+L829: return 0
+L830: branch L918
+L831: push_constant_int 30
+L832: push_constant_int 17005
+L833: push_constant_string "Fire staff"
+L834: push_constant_string "You can now craft "
+L835: push_constant_string "<col=000080>"
+L836: push_constant_string "fire staves"
+L837: push_constant_string "</col>"
+L838: push_constant_string " within Daemonheim."
+L839: join_string 5
+L840: return 0
+L841: branch L918
+L842: push_constant_int 40
+L843: push_constant_int 17009
+L844: push_constant_string "Air staff"
+L845: push_constant_string "You can now craft "
+L846: push_constant_string "<col=000080>"
+L847: push_constant_string "air staves"
+L848: push_constant_string "</col>"
+L849: push_constant_string " within Daemonheim."
+L850: join_string 5
+L851: return 0
+L852: branch L918
+L853: push_constant_int 50
+L854: push_constant_int 17013
+L855: push_constant_string "Catalytic staff"
+L856: push_constant_string "You can now craft "
+L857: push_constant_string "<col=000080>"
+L858: push_constant_string "catalytic staves"
+L859: push_constant_string "</col>"
+L860: push_constant_string " within Daemonheim."
+L861: join_string 5
+L862: return 0
+L863: branch L918
+L864: push_constant_int 60
+L865: push_constant_int 16999
+L866: push_constant_string "Members: Empowered water staff"
+L867: push_constant_string "Members can now craft "
+L868: push_constant_string "<col=000080>"
+L869: push_constant_string "empowered water staves"
+L870: push_constant_string "</col>"
+L871: push_constant_string " within Daemonheim."
+L872: join_string 5
+L873: return 0
+L874: branch L918
+L875: push_constant_int 70
+L876: push_constant_int 17003
+L877: push_constant_string "Members: Empowered earth staff"
+L878: push_constant_string "Members can now craft "
+L879: push_constant_string "<col=000080>"
+L880: push_constant_string "empowered earth staves"
+L881: push_constant_string "</col>"
+L882: push_constant_string " within Daemonheim."
+L883: join_string 5
+L884: return 0
+L885: branch L918
+L886: push_constant_int 80
+L887: push_constant_int 17007
+L888: push_constant_string "Members: Empowered fire staff"
+L889: push_constant_string "Members can now craft "
+L890: push_constant_string "<col=000080>"
+L891: push_constant_string "empowered fire staves"
+L892: push_constant_string "</col>"
+L893: push_constant_string " within Daemonheim."
+L894: join_string 5
+L895: return 0
+L896: branch L918
+L897: push_constant_int 90
+L898: push_constant_int 17011
+L899: push_constant_string "Members: Empowered air staff"
+L900: push_constant_string "Members can now craft "
+L901: push_constant_string "<col=000080>"
+L902: push_constant_string "empowered air staves"
+L903: push_constant_string "</col>"
+L904: push_constant_string " within Daemonheim."
+L905: join_string 5
+L906: return 0
+L907: branch L918
+L908: push_constant_int 99
+L909: push_constant_int 17015
+L910: push_constant_string "Members: Empowered catalytic staff"
+L911: push_constant_string "Members can now craft "
+L912: push_constant_string "<col=000080>"
+L913: push_constant_string "empowered catalytic staves"
+L914: push_constant_string "</col>"
+L915: push_constant_string " within Daemonheim."
+L916: join_string 5
+L917: return 0
+L918: branch L960
+L919: push_int_local 1
+L920: switch switch7
+L921: branch L960
+L922: push_constant_int 50
+L923: push_constant_int 13625
+L924: push_constant_string "Runecrafting Guild"
+L925: push_constant_string "You can now enter the prestigious "
+L926: push_constant_string "<col=000080>"
+L927: push_constant_string "Runecrafting Guild"
+L928: push_constant_string "</col>"
+L929: push_constant_string " and play the "
+L930: push_constant_string "<col=000080>"
+L931: push_constant_string "Great Orb Project"
+L932: push_constant_string "</col>"
+L933: push_constant_string "."
+L934: join_string 9
+L935: return 0
+L936: branch L960
+L937: push_constant_int 99
+L938: push_constant_int 9765
+L939: push_constant_string "Skill mastery"
+L940: push_constant_string "<col=000080>"
+L941: push_constant_string "Congratulations! You are now a master of "
+L942: push_constant_string "<col=800000>"
+L943: push_constant_string "Runecrafting"
+L944: push_constant_string "<col=000080>"
+L945: push_constant_string ". Members can visit "
+L946: push_constant_string "<col=800000>"
+L947: push_constant_string "Larriar"
+L948: push_constant_string "<col=000080>"
+L949: push_constant_string " in the "
+L950: push_constant_string "<col=800000>"
+L951: push_constant_string "Runecrafting Guild"
+L952: push_constant_string "<col=000080>"
+L953: push_constant_string ". She has something special that is only available to true masters of the "
+L954: push_constant_string "<col=800000>"
+L955: push_constant_string "Runecrafting"
+L956: push_constant_string "<col=000080>"
+L957: push_constant_string " skill!"
+L958: join_string 18
+L959: return 0
+L960: push_constant_int 0
+L961: push_constant_int -1
+L962: push_constant_string ""
+L963: push_constant_string ""
+L964: return 0
+L965:
+
+[switch0@L1]
+0=L3
+1=L230
+2=L591
+3=L717
+4=L764
+5=L797
+6=L919
+
+[switch1@L4]
+0=L6
+1=L12
+2=L23
+3=L34
+4=L45
+5=L56
+6=L67
+7=L78
+8=L89
+9=L100
+10=L111
+11=L122
+12=L133
+13=L144
+14=L155
+15=L166
+16=L180
+17=L191
+18=L202
+19=L216
+
+[switch2@L231]
+0=L233
+1=L239
+2=L250
+3=L261
+4=L272
+5=L283
+6=L294
+7=L305
+8=L316
+9=L327
+10=L338
+11=L349
+12=L360
+13=L371
+14=L382
+15=L393
+16=L404
+17=L415
+18=L426
+19=L437
+20=L448
+21=L459
+22=L470
+23=L481
+24=L492
+25=L503
+26=L514
+27=L525
+28=L536
+29=L547
+30=L558
+31=L569
+32=L580
+
+[switch3@L592]
+0=L594
+1=L600
+2=L614
+3=L625
+4=L636
+5=L650
+6=L661
+7=L675
+8=L689
+9=L703
+
+[switch4@L718]
+0=L720
+1=L731
+2=L742
+3=L753
+
+[switch5@L765]
+0=L767
+1=L773
+2=L779
+3=L785
+4=L791
+
+[switch6@L798]
+0=L800
+1=L809
+2=L820
+3=L831
+4=L842
+5=L853
+6=L864
+7=L875
+8=L886
+9=L897
+10=L908
+
+[switch7@L920]
+0=L922
+1=L937

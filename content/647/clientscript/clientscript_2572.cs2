@@ -1,0 +1,37 @@
+name=""
+local_int_count=0
+local_string_count=0
+local_long_count=0
+int_param_count=0
+string_param_count=0
+long_param_count=0
+
+L0: push_constant_int 93
+L1: push_constant_int 803
+L2: inv_getnum_alwaysnoted 0
+L3: push_constant_int 93
+L4: push_constant_int 802
+L5: inv_getnum_alwaysnoted 0
+L6: add 0
+L7: push_varbit varbit_6429
+L8: branch_less_than L10
+L9: branch L11
+L10: return 0
+L11: push_varbit varbit_6429
+L12: push_constant_int 0
+L13: branch_greater_than L15
+L14: branch L24
+L15: push_varbit varbit_6429
+L16: push_constant_int 11
+L17: branch_less_than L19
+L18: branch L24
+L19: push_varbit varbit_6429
+L20: push_constant_int 1
+L21: sub 0
+L22: pop_varc_int varc_int_929
+L23: branch L26
+L24: push_constant_int 0
+L25: pop_varc_int varc_int_929
+L26: gosub_with_params clientscript_2573
+L27: return 0
+L28:

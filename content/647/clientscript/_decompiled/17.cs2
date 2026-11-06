@@ -1,6 +1,0 @@
-[clientscript,script_17](int $int0)
-if_setoutline(2, $int0);
-if (and(if_gettargetmask($int0), 32) ! 0) {
-    ~script_71(4);
-}
-return;

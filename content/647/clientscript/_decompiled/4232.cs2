@@ -1,7 +1,0 @@
-[clientscript,script_4232](int $int0)
-if (if_find($int0) = 1) {
-    cc_setonmouseover;
-    cc_setonmouseleave;
-    cc_settrans(255);
-}
-return;

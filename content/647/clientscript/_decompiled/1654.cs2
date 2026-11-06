@@ -1,6 +1,0 @@
-[clientscript,script_1654]
-if (%varc_int193 <= clientclock) {
-    %varc_int193 = add(clientclock, 10);
-    if_setontimer;
-}
-return;

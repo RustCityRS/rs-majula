@@ -1,0 +1,97 @@
+name=""
+local_int_count=2
+local_string_count=2
+local_long_count=0
+int_param_count=2
+string_param_count=0
+long_param_count=0
+
+L0: push_int_local 0
+L1: if_gettext 0
+L2: pop_string_local 0
+L3: push_constant_string ""
+L4: pop_string_local 1
+L5: push_string_local 0
+L6: string_length 0
+L7: push_constant_int 0
+L8: branch_greater_than L10
+L9: branch L25
+L10: push_int_local 1
+L11: switch switch0
+L12: return 0
+L13: branch L17
+L14: push_int_local 1
+L15: if_gettext 0
+L16: pop_string_local 1
+L17: push_string_local 0
+L18: push_int_local 1
+L19: if_settext 0
+L20: push_string_local 1
+L21: push_int_local 0
+L22: if_settext 0
+L23: push_constant_int 1
+L24: pop_varc_int varc_int_1387
+L25: return 0
+L26:
+
+[switch0@L11]
+66650278=L14
+66650279=L14
+66650280=L14
+66650281=L14
+66650282=L14
+66650283=L14
+66650284=L14
+66650285=L14
+66650286=L14
+66650287=L14
+66650288=L14
+66650289=L14
+66650290=L14
+66650291=L14
+66650292=L14
+66650293=L14
+66650294=L14
+66650295=L14
+66650296=L14
+66650297=L14
+66650298=L14
+66650299=L14
+66650300=L14
+66650301=L14
+66650302=L14
+66650303=L14
+66650304=L14
+66650305=L14
+66650306=L14
+66650307=L14
+66650308=L14
+66650309=L14
+66650310=L14
+66650311=L14
+66650312=L14
+66650313=L14
+66650314=L14
+66650315=L14
+66650316=L14
+66650317=L14
+66650318=L14
+66650319=L14
+66650320=L14
+66650321=L14
+66650322=L14
+66650323=L14
+66650324=L14
+66650325=L14
+66650326=L14
+66650327=L14
+66650328=L14
+66650329=L14
+66650330=L14
+66650331=L14
+66650332=L14
+66650333=L14
+66650334=L14
+66650335=L14
+66650336=L14
+66650337=L14

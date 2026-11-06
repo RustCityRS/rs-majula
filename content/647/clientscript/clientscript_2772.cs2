@@ -1,0 +1,69 @@
+name=""
+local_int_count=3
+local_string_count=0
+local_long_count=0
+int_param_count=2
+string_param_count=0
+long_param_count=0
+
+L0: push_constant_int 0
+L1: cam_getpathcount 0
+L2: push_constant_int 2
+L3: sub 0
+L4: pop_int_local 2
+L5: push_varc_int varc_int_1007
+L6: push_constant_int 2
+L7: branch_not L12
+L8: push_int_local 1
+L9: push_int_local 2
+L10: branch_greater_than L12
+L11: branch L17
+L12: push_constant_int -1
+L13: push_constant_string ""
+L14: push_int_local 0
+L15: if_setonvarcstringtransmit 0
+L16: return 0
+L17: push_constant_int 2
+L18: randominc 0
+L19: switch switch0
+L20: branch L35
+L21: push_constant_int 6645
+L22: push_constant_int 1
+L23: push_constant_int 0
+L24: sound_synth 0
+L25: branch L35
+L26: push_constant_int 6644
+L27: push_constant_int 1
+L28: push_constant_int 0
+L29: sound_synth 0
+L30: branch L35
+L31: push_constant_int 6643
+L32: push_constant_int 1
+L33: push_constant_int 0
+L34: sound_synth 0
+L35: push_constant_int 0
+L36: push_int_local 1
+L37: push_constant_int 2500
+L38: push_constant_int 2400
+L39: push_constant_int 1
+L40: push_int_local 1
+L41: cam_startpath 0
+L42: push_int_local 1
+L43: push_int_local 2
+L44: branch_less_than L46
+L45: branch L54
+L46: push_constant_int 2772
+L47: push_int_local 0
+L48: push_int_local 1
+L49: push_constant_int 1
+L50: add 0
+L51: push_constant_string "Ii"
+L52: push_int_local 0
+L53: if_setonvarcstringtransmit 0
+L54: return 0
+L55:
+
+[switch0@L19]
+0=L21
+1=L26
+2=L31

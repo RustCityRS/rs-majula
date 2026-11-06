@@ -1,0 +1,96 @@
+name=""
+local_int_count=6
+local_string_count=0
+local_long_count=0
+int_param_count=1
+string_param_count=0
+long_param_count=0
+
+L0: clientclock 0
+L1: push_int_local 0
+L2: branch_less_than L4
+L3: branch L6
+L4: return 0
+L5: branch L10
+L6: push_constant_int -1
+L7: push_constant_string ""
+L8: push_constant_int 49938525
+L9: if_setontimer 0
+L10: push_constant_int 0
+L11: pop_int_local 1
+L12: push_constant_int 0
+L13: pop_int_local 2
+L14: push_constant_int 0
+L15: pop_int_local 3
+L16: push_constant_int 0
+L17: pop_int_local 4
+L18: push_constant_int 95
+L19: inv_size 0
+L20: pop_int_local 5
+L21: push_constant_int 49938529
+L22: gosub_with_params [proc,deltooltip_action]
+L23: push_varbit open_bank_tab
+L24: gosub_with_params [proc,bank_v2_get_tab_range]
+L25: pop_int_local 2
+L26: pop_int_local 1
+L27: push_int_local 3
+L28: push_int_local 5
+L29: branch_less_than L31
+L30: branch L56
+L31: push_constant_int 49938525
+L32: push_int_local 3
+L33: cc_find 0
+L34: branch_if_true L36
+L35: branch L51
+L36: push_constant_int 1
+L37: cc_sethide 0
+L38: push_constant_int 95
+L39: push_int_local 3
+L40: inv_getobj 0
+L41: push_constant_int -1
+L42: branch_not L44
+L43: branch L47
+L44: push_int_local 3
+L45: gosub_with_params clientscript_1453
+L46: branch L51
+L47: push_constant_int -1
+L48: push_constant_int -1
+L49: cc_setobject 0
+L50: cc_clearops 0
+L51: push_int_local 3
+L52: push_constant_int 1
+L53: add 0
+L54: pop_int_local 3
+L55: branch L27
+L56: push_varbit open_bank_tab
+L57: branch_if_false L59
+L58: branch L69
+L59: push_varc_int varc_int_5
+L60: push_constant_int 11
+L61: branch_equals L63
+L62: branch L65
+L63: push_varc_string_old varc_string_22
+L64: pop_varc_string_old varc_string_138
+L65: push_varc_string_old varc_string_138
+L66: gosub_with_params [proc,bank_v2_show_search]
+L67: pop_int_discard 0
+L68: branch L77
+L69: push_varbit open_bank_tab
+L70: branch_if_true L72
+L71: branch L74
+L72: gosub_with_params [proc,bank_v2_show_all]
+L73: branch L77
+L74: push_varbit open_bank_tab
+L75: gosub_with_params [proc,bank_v2_get_tab_range]
+L76: gosub_with_params [proc,bank_v2_show_range]
+L77: push_varbit open_bank_tab
+L78: push_constant_int 0
+L79: branch_not L81
+L80: branch L85
+L81: push_varc_int varc_int_188
+L82: branch_if_true L84
+L83: branch L85
+L84: gosub_with_params [proc,bank_v2_searchmode_off]
+L85: gosub_with_params [proc,bank_v2_build_tabs]
+L86: return 0
+L87:

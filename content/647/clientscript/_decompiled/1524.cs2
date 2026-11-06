@@ -1,6 +1,0 @@
-[clientscript,script_1524]
-if (cc_find(18022409, 0) = 1) {
-    cc_deleteall(18022409);
-    if_setop(18022409, "null");
-}
-return;

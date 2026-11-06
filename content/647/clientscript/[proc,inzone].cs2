@@ -1,0 +1,69 @@
+name=""
+local_int_count=3
+local_string_count=0
+local_long_count=0
+int_param_count=3
+string_param_count=0
+long_param_count=0
+
+L0: push_int_local 2
+L1: coordx 0
+L2: push_int_local 0
+L3: coordx 0
+L4: push_int_local 1
+L5: coordx 0
+L6: min 0
+L7: branch_greater_than_or_equals L9
+L8: branch L56
+L9: push_int_local 2
+L10: coordz 0
+L11: push_int_local 0
+L12: coordz 0
+L13: push_int_local 1
+L14: coordz 0
+L15: min 0
+L16: branch_greater_than_or_equals L18
+L17: branch L56
+L18: push_int_local 2
+L19: coordy 0
+L20: push_int_local 0
+L21: coordy 0
+L22: push_int_local 1
+L23: coordy 0
+L24: min 0
+L25: branch_greater_than_or_equals L27
+L26: branch L56
+L27: push_int_local 2
+L28: coordx 0
+L29: push_int_local 0
+L30: coordx 0
+L31: push_int_local 1
+L32: coordx 0
+L33: max 0
+L34: branch_less_than_or_equals L36
+L35: branch L56
+L36: push_int_local 2
+L37: coordz 0
+L38: push_int_local 0
+L39: coordz 0
+L40: push_int_local 1
+L41: coordz 0
+L42: max 0
+L43: branch_less_than_or_equals L45
+L44: branch L56
+L45: push_int_local 2
+L46: coordy 0
+L47: push_int_local 0
+L48: coordy 0
+L49: push_int_local 1
+L50: coordy 0
+L51: max 0
+L52: branch_less_than_or_equals L54
+L53: branch L56
+L54: push_constant_int 1
+L55: return 0
+L56: push_constant_int 0
+L57: return 0
+L58: push_constant_int -1
+L59: return 0
+L60:

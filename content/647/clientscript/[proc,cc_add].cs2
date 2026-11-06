@@ -1,0 +1,24 @@
+name=""
+local_int_count=7
+local_string_count=0
+local_long_count=0
+int_param_count=7
+string_param_count=0
+long_param_count=0
+
+L0: push_int_local 1
+L1: push_int_local 0
+L2: push_int_local 2
+L3: cc_setposition 0
+L4: push_int_local 3
+L5: push_int_local 4
+L6: push_constant_int 0
+L7: push_constant_int 0
+L8: cc_setsize 0
+L9: push_int_local 5
+L10: push_int_local 6
+L11: push_constant_int 0
+L12: push_constant_int 0
+L13: cc_setposition2 0
+L14: return 0
+L15:

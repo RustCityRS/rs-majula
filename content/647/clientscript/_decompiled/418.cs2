@@ -1,9 +1,0 @@
-[clientscript,script_418](int, int, int, int, component, string)
-if (%varc_int1354 = -1) {
-    return;
-}
-cam_followcoord(%varc_int1354);
-%varc_int1355 = cam_getangle_ya;
-%varc_int1356 = cam_getangle_xa;
-if_setontimer;
-return(421, %varc_int1357, %varc_int1358, 0, 66387968, "iii");

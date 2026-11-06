@@ -1,0 +1,26 @@
+name=""
+local_int_count=1
+local_string_count=0
+local_long_count=0
+int_param_count=1
+string_param_count=0
+long_param_count=0
+
+L0: push_constant_int 1
+L1: push_constant_int 170
+L2: push_int_local 0
+L3: if_setcursor_op 0
+L4: push_constant_int 2
+L5: push_constant_int 170
+L6: push_int_local 0
+L7: if_setcursor_op 0
+L8: push_constant_int 3
+L9: push_constant_int 170
+L10: push_int_local 0
+L11: if_setcursor_op 0
+L12: push_constant_int 4
+L13: push_constant_int 170
+L14: push_int_local 0
+L15: if_setcursor_op 0
+L16: return 0
+L17:

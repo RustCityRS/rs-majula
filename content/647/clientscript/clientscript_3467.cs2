@@ -1,0 +1,25 @@
+name=""
+local_int_count=3
+local_string_count=0
+local_long_count=0
+int_param_count=3
+string_param_count=0
+long_param_count=0
+
+L0: clientclock 0
+L1: push_int_local 1
+L2: sub 0
+L3: push_int_local 2
+L4: branch_less_than L6
+L5: branch L7
+L6: return 0
+L7: push_constant_int -1
+L8: push_constant_string ""
+L9: push_int_local 0
+L10: if_setontimer 0
+L11: push_constant_int 0
+L12: push_constant_int 50
+L13: push_int_local 0
+L14: gosub_with_params clientscript_2766
+L15: return 0
+L16:

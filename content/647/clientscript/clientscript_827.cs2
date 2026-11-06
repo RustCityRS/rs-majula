@@ -1,0 +1,49 @@
+name=""
+local_int_count=2
+local_string_count=0
+local_long_count=0
+int_param_count=1
+string_param_count=0
+long_param_count=0
+
+L0: push_constant_int 0
+L1: pop_int_local 1
+L2: clientclock 0
+L3: push_int_local 0
+L4: push_constant_int 32
+L5: add 0
+L6: branch_greater_than_or_equals L8
+L7: branch L27
+L8: clientclock 0
+L9: push_int_local 0
+L10: push_constant_int 140
+L11: add 0
+L12: branch_less_than L14
+L13: branch L27
+L14: push_constant_string "Varrock Herald"
+L15: push_constant_int 30474242
+L16: if_settext 0
+L17: push_constant_string "Covering all of Misthalin and beyond."
+L18: push_constant_int 30474243
+L19: if_settext 0
+L20: push_constant_string "1 gp"
+L21: push_constant_int 30474244
+L22: if_settext 0
+L23: push_constant_string "Oo'glog Ogresses Open Health Spa!"
+L24: push_constant_int 30474245
+L25: if_settext 0
+L26: branch L39
+L27: push_constant_string " "
+L28: push_constant_int 30474242
+L29: if_settext 0
+L30: push_constant_string " "
+L31: push_constant_int 30474243
+L32: if_settext 0
+L33: push_constant_string " "
+L34: push_constant_int 30474244
+L35: if_settext 0
+L36: push_constant_string " "
+L37: push_constant_int 30474245
+L38: if_settext 0
+L39: return 0
+L40:

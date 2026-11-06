@@ -1,0 +1,92 @@
+name=""
+local_int_count=0
+local_string_count=0
+local_long_count=0
+int_param_count=0
+string_param_count=0
+long_param_count=0
+
+L0: push_varbit varbit_5007
+L1: branch_if_false L3
+L2: branch L7
+L3: push_constant_string "Quick task:"
+L4: push_constant_int 50200612
+L5: if_settext 0
+L6: branch L10
+L7: push_constant_string "Large task:"
+L8: push_constant_int 50200612
+L9: if_settext 0
+L10: push_varbit varbit_4216
+L11: tostring 0
+L12: push_constant_int 50200676
+L13: if_settext 0
+L14: push_varbit varbit_4208
+L15: push_constant_int 1
+L16: add 0
+L17: push_constant_int 5
+L18: multiply 0
+L19: tostring 0
+L20: push_constant_int 50200678
+L21: if_settext 0
+L22: push_varbit varbit_4217
+L23: tostring 0
+L24: push_constant_int 50200667
+L25: if_settext 0
+L26: push_varbit varbit_4209
+L27: push_constant_int 1
+L28: add 0
+L29: push_constant_int 5
+L30: multiply 0
+L31: tostring 0
+L32: push_constant_int 50200669
+L33: if_settext 0
+L34: push_varbit varbit_4218
+L35: tostring 0
+L36: push_constant_int 50200657
+L37: if_settext 0
+L38: push_varbit varbit_4210
+L39: push_constant_int 1
+L40: add 0
+L41: push_constant_int 5
+L42: multiply 0
+L43: tostring 0
+L44: push_constant_int 50200659
+L45: if_settext 0
+L46: push_varbit varbit_4219
+L47: tostring 0
+L48: push_constant_int 50200647
+L49: if_settext 0
+L50: push_varbit varbit_4211
+L51: push_constant_int 1
+L52: add 0
+L53: push_constant_int 5
+L54: multiply 0
+L55: tostring 0
+L56: push_constant_int 50200649
+L57: if_settext 0
+L58: push_varbit varbit_4220
+L59: tostring 0
+L60: push_constant_int 50200637
+L61: if_settext 0
+L62: push_varbit varbit_4212
+L63: push_constant_int 1
+L64: add 0
+L65: push_constant_int 5
+L66: multiply 0
+L67: tostring 0
+L68: push_constant_int 50200639
+L69: if_settext 0
+L70: push_varbit varbit_5008
+L71: tostring 0
+L72: push_constant_int 50200627
+L73: if_settext 0
+L74: push_varbit varbit_4213
+L75: push_constant_int 1
+L76: add 0
+L77: push_constant_int 5
+L78: multiply 0
+L79: tostring 0
+L80: push_constant_int 50200629
+L81: if_settext 0
+L82: return 0
+L83:

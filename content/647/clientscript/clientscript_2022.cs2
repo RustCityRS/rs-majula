@@ -1,0 +1,38 @@
+name=""
+local_int_count=2
+local_string_count=0
+local_long_count=0
+int_param_count=2
+string_param_count=0
+long_param_count=0
+
+L0: push_int_local 0
+L1: push_constant_int 1
+L2: branch_not L4
+L3: branch L5
+L4: return 0
+L5: push_int_local 1
+L6: push_constant_int -1
+L7: branch_less_than_or_equals L9
+L8: branch L13
+L9: push_constant_string ""
+L10: push_constant_int 60030993
+L11: if_settext 0
+L12: return 0
+L13: push_int_local 1
+L14: push_varbit skill_creation_maximum
+L15: min 0
+L16: pop_varbit skill_creation_amount
+L17: gosub_with_params clientscript_2047
+L18: push_constant_int 2024
+L19: clientclock 0
+L20: push_constant_int 15
+L21: add 0
+L22: push_constant_string "i"
+L23: push_constant_int 59310108
+L24: if_setontimer 0
+L25: push_constant_int 0
+L26: push_constant_int 59310108
+L27: if_sethide 0
+L28: return 0
+L29:

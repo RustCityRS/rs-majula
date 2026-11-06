@@ -1,6 +1,0 @@
-[clientscript,script_2211]
-if (if_getx < 339) {
-    if_setontimer;
-    if_setposition(if_gety, 0, 0, %varc_int1136);
-}
-return;

@@ -1,7 +1,0 @@
-[clientscript,script_1530](int)
-def_int $int0 = 0;
-$int0 = calc(%varbit3600 + %varbit3601 + %varbit3602 + %varbit3603 + %varbit3604 + %varbit3605 + %varbit3606 + %varbit3608 + %varbit3609);
-if (%varbit3607 = 5) {
-    $int0 = add($int0, 1);
-}
-return($int0);

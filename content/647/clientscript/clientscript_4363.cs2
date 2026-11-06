@@ -1,0 +1,134 @@
+name=""
+local_int_count=7
+local_string_count=1
+local_long_count=1
+int_param_count=7
+string_param_count=1
+long_param_count=1
+
+L0: push_string_local 0
+L1: push_constant_int 72024171
+L2: if_settext 0
+L3: push_constant_int 5933
+L4: push_int_local 1
+L5: if_setgraphic 0
+L6: push_long_local 0
+L7: push_constant_long -1
+L8: branch_not_long L10
+L9: branch L19
+L10: push_constant_int 4330
+L11: push_long_local 0
+L12: push_constant_string "§"
+L13: push_constant_int 72024227
+L14: if_setonop 0
+L15: push_constant_int 1
+L16: push_constant_int 72024230
+L17: if_sethide 0
+L18: branch L24
+L19: push_constant_int 72024227
+L20: if_clearops 0
+L21: push_constant_int 0
+L22: push_constant_int 72024230
+L23: if_sethide 0
+L24: ignore_count 0
+L25: branch_if_true L27
+L26: branch L51
+L27: push_int_local 2
+L28: push_int_local 3
+L29: gosub_with_params clientscript_4616
+L30: push_constant_int 0
+L31: branch_greater_than L33
+L32: branch L48
+L33: push_int_local 4
+L34: push_constant_int 0
+L35: branch_greater_than L37
+L36: branch L48
+L37: push_int_local 5
+L38: push_constant_int 0
+L39: branch_greater_than L41
+L40: branch L48
+L41: push_int_local 6
+L42: push_constant_int 0
+L43: branch_greater_than L45
+L44: branch L48
+L45: push_constant_int 0
+L46: push_constant_int 72024172
+L47: if_sethide 0
+L48: push_constant_int 72024064
+L49: gosub_with_params clientscript_4621
+L50: branch L54
+L51: push_constant_int 1
+L52: push_constant_int 72024172
+L53: if_sethide 0
+L54: push_int_local 0
+L55: pop_var varp_2128
+L56: push_int_local 0
+L57: switch switch0
+L58: branch L90
+L59: push_constant_int 5935
+L60: push_constant_int 72024070
+L61: if_setgraphic 0
+L62: branch L90
+L63: push_constant_int 5935
+L64: push_constant_int 72024187
+L65: if_setgraphic 0
+L66: branch L90
+L67: push_constant_int 5935
+L68: push_constant_int 72024190
+L69: if_setgraphic 0
+L70: branch L90
+L71: push_constant_int 5935
+L72: push_constant_int 72024193
+L73: if_setgraphic 0
+L74: branch L90
+L75: push_constant_int 5935
+L76: push_constant_int 72024196
+L77: if_setgraphic 0
+L78: branch L90
+L79: push_constant_int 5935
+L80: push_constant_int 72024199
+L81: if_setgraphic 0
+L82: branch L90
+L83: push_constant_int 5935
+L84: push_constant_int 72024202
+L85: if_setgraphic 0
+L86: branch L90
+L87: push_constant_int 5935
+L88: push_constant_int 72024205
+L89: if_setgraphic 0
+L90: push_constant_int 72024070
+L91: push_constant_int 1
+L92: gosub_with_params clientscript_4624
+L93: push_constant_int 72024187
+L94: push_constant_int 2
+L95: gosub_with_params clientscript_4624
+L96: push_constant_int 72024190
+L97: push_constant_int 3
+L98: gosub_with_params clientscript_4624
+L99: push_constant_int 72024193
+L100: push_constant_int 4
+L101: gosub_with_params clientscript_4624
+L102: push_constant_int 72024196
+L103: push_constant_int 5
+L104: gosub_with_params clientscript_4624
+L105: push_constant_int 72024199
+L106: push_constant_int 6
+L107: gosub_with_params clientscript_4624
+L108: push_constant_int 72024202
+L109: push_constant_int 7
+L110: gosub_with_params clientscript_4624
+L111: push_constant_int 72024205
+L112: push_constant_int 8
+L113: gosub_with_params clientscript_4624
+L114: return 0
+L115:
+
+[switch0@L57]
+1=L59
+2=L63
+3=L67
+4=L71
+5=L75
+6=L79
+7=L83
+8=L87

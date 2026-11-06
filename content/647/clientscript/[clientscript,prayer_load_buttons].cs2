@@ -1,0 +1,32 @@
+name=""
+local_int_count=0
+local_string_count=0
+local_long_count=0
+int_param_count=0
+string_param_count=0
+long_param_count=0
+
+L0: push_constant_int -1
+L1: pop_varc_int varc_int_1063
+L2: push_constant_int 1716
+L3: push_constant_int 1584
+L4: push_constant_int 1
+L5: push_constant_string "Y"
+L6: push_constant_int 17760264
+L7: if_setonvartransmit 0
+L8: push_constant_int 1705
+L9: push_constant_int 0
+L10: push_constant_int 2
+L11: push_constant_int 1
+L12: push_constant_int 4
+L13: push_constant_int 6
+L14: push_constant_int 5
+L15: push_constant_string "Y"
+L16: push_constant_int 17760264
+L17: if_setonstattransmit 0
+L18: gosub_with_params [proc,prayer_init_buttons]
+L19: push_constant_int 17760262
+L20: cc_deleteall_152 0
+L21: gosub_with_params [proc,prayer_refresh_scrollbar]
+L22: return 0
+L23:

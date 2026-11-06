@@ -1,0 +1,23 @@
+name=""
+local_int_count=0
+local_string_count=0
+local_long_count=0
+int_param_count=0
+string_param_count=0
+long_param_count=0
+
+L0: push_constant_int 1
+L1: push_constant_int 110
+L2: push_constant_int 73
+L3: push_constant_int 1092
+L4: push_var varp_1174
+L5: enum 0
+L6: if_sethide 0
+L7: push_constant_int 1244
+L8: push_constant_int 48955395
+L9: if_setgraphic 0
+L10: push_constant_int 1
+L11: push_constant_int 48955400
+L12: if_sethide 0
+L13: return 0
+L14:

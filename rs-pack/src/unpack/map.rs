@@ -13,17 +13,15 @@ use crate::pack::other::map::{is_landscape, is_npc_spawns};
 #[cfg(all(since_244, before_647))]
 use crate::versionlist::VersionList;
 #[cfg(since_647)]
-use anyhow::Result;
+use anyhow::{Context, Result};
 #[cfg(rev = "225")]
 use rs_io::bz2::bz2_decompress;
 #[cfg(since_244)]
 use rs_io::js5::Js5Store;
 #[cfg(since_647)]
-use rs_io::js5::compression::{Container, decompress, decompress_xtea};
+use rs_io::js5::compression::{decompress, decompress_xtea};
 #[cfg(since_647)]
 use rs_io::js5::java_string_hash;
-#[cfg(since_647)]
-use serde_json::json;
 #[cfg(since_647)]
 use std::collections::HashMap;
 #[cfg(rev = "225")]
@@ -32,8 +30,6 @@ use std::fs;
 use std::path::Path;
 #[cfg(before_647)]
 use tracing::debug;
-#[cfg(since_647)]
-use tracing::{info, warn};
 
 #[cfg(rev = "225")]
 pub fn unpack_maps(maps_dir: &Path, output_dir: &Path) -> anyhow::Result<()> {
@@ -238,156 +234,82 @@ fn decode_locs(data: &[u8], lines: &mut Vec<String>) {
 }
 
 #[cfg(since_647)]
-pub fn unpack_maps(store: &mut Js5Store, cache_dir: &Path, content_dir: &Path) -> Result<u32> {
-    let map_dir = content_dir.join("maps").join("_unpack");
-    fs::create_dir_all(&map_dir)?;
-
-    let name_lookup = build_name_lookup();
-    // XTEA map keys: prefer the committed content/<REV>/keys.json, fall back
-    // to a keys.json sitting next to the raw cache (OpenRS2 download layout).
-    let content_keys = Path::new(crate::CONTENT_DIR).join("keys.json");
-    let cache_keys = cache_dir.join("keys.json");
-    let keys_path = if content_keys.exists() {
-        content_keys
-    } else {
-        cache_keys
-    };
-    let xtea_keys = if keys_path.exists() {
-        load_xtea_keys(&keys_path)?
-    } else {
-        warn!(
-            "No keys.json found at {}, landscape groups will be opaque",
-            keys_path.display()
-        );
-        HashMap::new()
-    };
-
-    let group_count = store.group_count(archive::MAPS).unwrap_or(0);
-
-    let ref_table = store.reference_table(archive::MAPS);
-    let ref_groups: Vec<_> = ref_table.map(|t| t.groups.clone()).unwrap_or_default();
-
-    let mut groups = Vec::new();
-    let mut written = 0u32;
-    let mut keyed = 0u32;
-    let mut unkeyed = 0u32;
-    let mut terrain = 0u32;
-
-    for gid in 0..group_count {
-        let Some(raw) = store.read_raw_group_bytes(archive::MAPS, gid)? else {
-            continue;
-        };
-        if raw.len() < 5 {
-            continue;
-        }
-
-        let container = Container::parse(&raw)?;
-
-        // Resolve the group name from the reference table's name_hash
-        let name_hash = ref_groups.iter().find(|g| g.id == gid).map(|g| g.name_hash);
-
-        let name = name_hash
-            .and_then(|h| name_lookup.get(&h).cloned())
-            .unwrap_or_else(|| format!("group_{}", gid));
-
-        let is_landscape = is_landscape(&name);
-        let mut is_keyed = false;
-
-        let file_name = if is_landscape {
-            // Landscape group — XTEA encrypted
-            let group_hash = java_string_hash(&name);
-            let key = xtea_keys.get(&group_hash).copied();
-
-            // Use explicit key if available, otherwise try zero key (unencrypted)
-            let effective_key = key.unwrap_or([0, 0, 0, 0]);
-            match decompress_xtea(&raw, &effective_key) {
-                Ok(decompressed) => {
-                    let locs = parse_landscape_binary(&decompressed);
-                    let text = emit_landscape_text(&locs);
-
-                    let file_name = format!("{}.jm2", name);
-                    let file_path = map_dir.join(&file_name);
-                    fs::write(&file_path, &text)?;
-
-                    is_keyed = key.is_some();
-                    file_name
-                }
-                Err(_) => {
-                    // Truly encrypted with unknown key — opaque passthrough
-                    let encrypted_dir = map_dir.join("encrypted");
-                    fs::create_dir_all(&encrypted_dir)?;
-                    let file_name = format!("encrypted/{}.bin", gid);
-                    let file_path = map_dir.join(&file_name);
-                    fs::write(&file_path, &raw)?;
-
-                    file_name
-                }
-            }
-        } else if is_npc_spawns(&name) {
-            // NPC spawn group — decompress and emit text
-            let decompressed = decompress(&raw)
-                .map_err(|e| anyhow::anyhow!("decompress {} (group {}): {}", name, gid, e))?;
-
-            // Format: series of (u16 pos_key, u8 count, count × u16 npc_id) blocks
-            let text = emit_npc_spawn_text(&decompressed);
-
-            let file_name = format!("{}.jm2", name);
-            let file_path = map_dir.join(&file_name);
-            fs::write(&file_path, &text)?;
-
-            file_name
-        } else {
-            // Terrain group (m_ or um_) — plaintext, decompress directly
-            let decompressed = decompress(&raw)
-                .map_err(|e| anyhow::anyhow!("decompress {} (group {}): {}", name, gid, e))?;
-
-            let levels = terrain_levels(&name);
-            let terrain = parse_terrain_binary_levels(&decompressed, levels);
-            let text = emit_terrain_text(&terrain);
-
-            let file_name = format!("{}.jm2", name);
-            let file_path = map_dir.join(&file_name);
-            fs::write(&file_path, &text)?;
-
-            file_name
-        };
-
-        let mut group = json!({
-            "group_id": gid,
-            "name": name,
-            "file_name": file_name,
-            "compression": container.compression as u8,
-            "version": container.version.unwrap_or(0),
-            "compressed_len": container.compressed_len,
-            "decompressed_len": container.uncompressed_len,
-            "crc": container.crc(),
-        });
-        if is_landscape {
-            group["encrypted"] = true.into();
-            if is_keyed {
-                group["keyed"] = true.into();
-                keyed += 1;
-            } else {
-                unkeyed += 1;
-            }
-        } else {
-            terrain += 1;
-        }
-        groups.push(group);
-        written += 1;
+pub fn unpack_maps(
+    store: &mut Js5Store,
+    cache_dir: &Path,
+    content_dir: &Path,
+    pack_dir: &Path,
+) -> Result<u32> {
+    use crate::pack::other::{map, map_references};
+    let dir = content_dir.join("maps");
+    fs::create_dir_all(&dir)?;
+    let names = crate::pack::names::AssetNames::load(pack_dir)?;
+    let lookup = build_name_lookup();
+    let candidates = [
+        content_dir.join("keys.json"),
+        cache_dir.join("keys.json"),
+        Path::new(crate::CONTENT_DIR).join("keys.json"),
+    ];
+    let key_source = candidates.iter().find(|p| p.is_file());
+    let keys = key_source
+        .map(|p| load_xtea_keys(p))
+        .transpose()?
+        .unwrap_or_default();
+    if let Some(path) = key_source
+        && !content_dir.join("keys.json").exists()
+    {
+        fs::copy(path, content_dir.join("keys.json"))?;
     }
-
-    let manifest = json!({ "archive_id": archive::MAPS, "groups": groups });
-    let manifest_path = map_dir.join("manifest.json");
-    let json = serde_json::to_string_pretty(&manifest)?;
-    fs::write(&manifest_path, json)?;
-
-    info!(
-        "Maps unpacked: {} groups ({} landscape keyed, {} unkeyed, {} terrain)",
-        written, keyed, unkeyed, terrain,
-    );
-
-    Ok(written)
+    let groups = store
+        .reference_table(archive::MAPS)
+        .context("Missing map table")?
+        .groups
+        .clone();
+    for info in &groups {
+        let name = lookup
+            .get(&info.name_hash)
+            .cloned()
+            .unwrap_or_else(|| names.name("map", info.id));
+        let raw = store
+            .read_raw_group_bytes(archive::MAPS, info.id)?
+            .context("Missing map group")?;
+        let landscape = is_landscape(&name);
+        let data = if landscape {
+            match decompress_xtea(&raw, &keys.get(&info.name_hash).copied().unwrap_or([0; 4])) {
+                Ok(data) => data,
+                Err(_) => {
+                    fs::create_dir_all(dir.join("encrypted"))?;
+                    fs::write(dir.join(format!("encrypted/{name}.js5")), raw)?;
+                    continue;
+                }
+            }
+        } else {
+            decompress(&raw)?.into_owned()
+        };
+        let (text, packed) = if landscape {
+            let locs = parse_landscape_binary(&data);
+            (
+                emit_landscape_text(&locs),
+                map::encode_landscape_binary(&locs),
+            )
+        } else if is_npc_spawns(&name) {
+            let spawns = parse_npc_spawn_binary(&data);
+            (
+                emit_npc_spawn_text(&data),
+                map::encode_npc_spawn_binary(&spawns),
+            )
+        } else {
+            let terrain = parse_terrain_binary_levels(&data, terrain_levels(&name));
+            (
+                emit_terrain_text(&terrain),
+                map::encode_terrain_binary(&terrain),
+            )
+        };
+        anyhow::ensure!(data == packed, "Map {name} text round trip changed bytes");
+        let text = map_references::convert(&text, &name, &names, true)?;
+        fs::write(dir.join(format!("{name}.jm2")), text)?;
+    }
+    Ok(groups.len() as u32)
 }
 
 #[cfg(since_647)]

@@ -1,0 +1,80 @@
+name=""
+local_int_count=0
+local_string_count=1
+local_long_count=0
+int_param_count=0
+string_param_count=0
+long_param_count=0
+
+L0: push_constant_int 72744974
+L1: cc_deleteall_152 0
+L2: push_constant_int 72744972
+L3: cc_deleteall_152 0
+L4: push_constant_int 72744975
+L5: cc_deleteall_152 0
+L6: push_constant_int 72744977
+L7: cc_deleteall_152 0
+L8: push_constant_int 72744978
+L9: cc_deleteall_152 0
+L10: push_constant_int 72744976
+L11: cc_deleteall_152 0
+L12: push_constant_int 1
+L13: push_constant_int 72744987
+L14: if_sethide 0
+L15: push_constant_int 0
+L16: push_constant_int 72745027
+L17: if_sethide 0
+L18: push_constant_string "You are not currently in a Clan Chat channel."
+L19: push_constant_int 72745022
+L20: if_settext 0
+L21: push_constant_int 1
+L22: push_constant_int 72744989
+L23: if_sethide 0
+L24: push_constant_int 0
+L25: push_constant_int 72744982
+L26: if_sethide 0
+L27: gosub_with_params clientscript_4469
+L28: push_constant_int 6256
+L29: push_constant_int 72745046
+L30: if_setgraphic 0
+L31: push_constant_int 1
+L32: push_constant_int 72744973
+L33: if_sethide 0
+L34: push_constant_int 1
+L35: push_constant_int 19
+L36: push_constant_int 0
+L37: push_constant_int 0
+L38: push_constant_int 72744980
+L39: if_setsize 0
+L40: push_constant_int -1
+L41: pop_varc_int varc_int_1518
+L42: push_constant_string ""
+L43: pop_varc_string_old varc_string_126
+L44: push_constant_string ""
+L45: push_constant_int 72744986
+L46: if_settext 0
+L47: push_constant_string "Join your clan chat channel."
+L48: pop_string_local 0
+L49: push_constant_int 4538
+L50: push_constant_int 72745020
+L51: push_constant_int -2147483645
+L52: push_constant_int -1
+L53: push_string_local 0
+L54: push_constant_int 120
+L55: push_constant_int 3793
+L56: push_constant_int 3793
+L57: push_constant_int 16777215
+L58: push_constant_int 13
+L59: push_constant_int 4
+L60: push_constant_int 0
+L61: push_constant_int -2147483647
+L62: push_constant_int -2147483646
+L63: push_constant_string "IIisifdiiiiii"
+L64: push_constant_int 72745045
+L65: if_setonmouserepeat 0
+L66: push_constant_int 1
+L67: push_constant_string "Join Clan Chat channel"
+L68: push_constant_int 72745045
+L69: if_setop 0
+L70: return 0
+L71:

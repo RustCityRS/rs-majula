@@ -1,7 +1,0 @@
-[clientscript,script_2083]
-if (%varc_int639 > 0) {
-    if_settext(tostring(%varc_int639) + "%");
-} else {
-    if_settext("---");
-}
-return;

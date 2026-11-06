@@ -1,8 +1,0 @@
-[clientscript,script_2498]
-%varc_int837 = %varbit6350;
-if (%varc_int837 > 0) {
-    if (%varc_int837 <= 9) {
-        ~script_2500(enum(105, 73, enum_2400, %varc_int837));
-    }
-}
-return;

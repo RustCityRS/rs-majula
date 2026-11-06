@@ -1,0 +1,100 @@
+name=""
+local_int_count=1
+local_string_count=0
+local_long_count=0
+int_param_count=1
+string_param_count=0
+long_param_count=0
+
+L0: push_int_local 0
+L1: branch_if_true L3
+L2: branch L85
+L3: push_constant_int 0
+L4: push_constant_int 4
+L5: cam_allocpath 0
+L6: push_constant_int 1
+L7: push_constant_int 4
+L8: cam_allocpath 0
+L9: push_constant_int 0
+L10: push_constant_int 0
+L11: push_constant_int 48417962
+L12: push_constant_int 1000
+L13: push_constant_int 48385194
+L14: push_constant_int 1000
+L15: push_constant_int 0
+L16: cam_addwaypoint 0
+L17: push_constant_int 1
+L18: push_constant_int 0
+L19: push_constant_int 48417960
+L20: push_constant_int 600
+L21: push_constant_int 48401568
+L22: push_constant_int 600
+L23: push_constant_int 0
+L24: cam_addwaypoint 0
+L25: push_constant_int 0
+L26: push_constant_int 1
+L27: push_constant_int 48417946
+L28: push_constant_int 1000
+L29: push_constant_int 48434326
+L30: push_constant_int 1000
+L31: push_constant_int 0
+L32: cam_addwaypoint 0
+L33: push_constant_int 1
+L34: push_constant_int 1
+L35: push_constant_int 48450710
+L36: push_constant_int 600
+L37: push_constant_int 48467090
+L38: push_constant_int 600
+L39: push_constant_int 0
+L40: cam_addwaypoint 0
+L41: push_constant_int 0
+L42: push_constant_int 100
+L43: push_constant_int 100
+L44: gosub_with_params clientscript_1899
+L45: push_constant_int 0
+L46: push_constant_int 2
+L47: push_constant_int 48532612
+L48: push_constant_int 1000
+L49: push_constant_int 48532610
+L50: push_constant_int 1000
+L51: push_constant_int 0
+L52: cam_addwaypoint 0
+L53: push_constant_int 1
+L54: push_constant_int 2
+L55: push_constant_int 48581761
+L56: push_constant_int 600
+L57: push_constant_int 48581760
+L58: push_constant_int 600
+L59: push_constant_int 0
+L60: cam_addwaypoint 0
+L61: push_constant_int 1
+L62: push_constant_int 100
+L63: push_constant_int 100
+L64: gosub_with_params clientscript_1899
+L65: push_constant_int 0
+L66: push_constant_int 3
+L67: push_constant_int 48548992
+L68: push_constant_int 1000
+L69: push_constant_int 48548992
+L70: push_constant_int 1000
+L71: push_constant_int 0
+L72: cam_addwaypoint 0
+L73: push_constant_int 1
+L74: push_constant_int 3
+L75: push_constant_int 48598144
+L76: push_constant_int 600
+L77: push_constant_int 48598144
+L78: push_constant_int 600
+L79: push_constant_int 0
+L80: cam_addwaypoint 0
+L81: push_constant_int 2
+L82: push_constant_int 100
+L83: push_constant_int 100
+L84: gosub_with_params clientscript_1899
+L85: push_constant_int 48483486
+L86: push_constant_int 1250324
+L87: return 0
+L88: push_constant_int -1
+L89: push_constant_int 0
+L90: return 0
+L91:

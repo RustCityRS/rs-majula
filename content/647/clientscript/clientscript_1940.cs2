@@ -1,0 +1,22 @@
+name=""
+local_int_count=1
+local_string_count=0
+local_long_count=0
+int_param_count=0
+string_param_count=0
+long_param_count=0
+
+L0: clientclock 0
+L1: push_varc_int varc_int_557
+L2: push_constant_int 3000
+L3: multiply 0
+L4: add 0
+L5: pop_int_local 0
+L6: push_int_local 0
+L7: push_varc_int varc_int_556
+L8: branch_less_than L10
+L9: branch L12
+L10: push_int_local 0
+L11: pop_varc_int varc_int_556
+L12: return 0
+L13:

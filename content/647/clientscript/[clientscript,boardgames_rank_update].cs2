@@ -1,0 +1,117 @@
+name=""
+local_int_count=6
+local_string_count=0
+local_long_count=0
+int_param_count=6
+string_param_count=0
+long_param_count=0
+
+L0: push_varc_int varc_int_808
+L1: switch switch0
+L2: branch L83
+L3: push_constant_int 1
+L4: push_int_local 3
+L5: if_sethide 0
+L6: push_constant_int 1
+L7: push_int_local 4
+L8: if_sethide 0
+L9: push_constant_int 1
+L10: push_int_local 5
+L11: if_sethide 0
+L12: push_constant_int 0
+L13: push_int_local 2
+L14: if_sethide 0
+L15: push_constant_string "Draughts"
+L16: push_int_local 0
+L17: if_settext 0
+L18: push_var varp_354
+L19: tostring 0
+L20: push_int_local 1
+L21: if_settext 0
+L22: branch L101
+L23: push_constant_int 1
+L24: push_int_local 2
+L25: if_sethide 0
+L26: push_constant_int 1
+L27: push_int_local 4
+L28: if_sethide 0
+L29: push_constant_int 1
+L30: push_int_local 5
+L31: if_sethide 0
+L32: push_constant_int 0
+L33: push_int_local 3
+L34: if_sethide 0
+L35: push_constant_string "Runelink"
+L36: push_int_local 0
+L37: if_settext 0
+L38: push_var varp_353
+L39: tostring 0
+L40: push_int_local 1
+L41: if_settext 0
+L42: branch L101
+L43: push_constant_int 1
+L44: push_int_local 2
+L45: if_sethide 0
+L46: push_constant_int 1
+L47: push_int_local 3
+L48: if_sethide 0
+L49: push_constant_int 1
+L50: push_int_local 5
+L51: if_sethide 0
+L52: push_constant_int 0
+L53: push_int_local 4
+L54: if_sethide 0
+L55: push_constant_string "Runesquares"
+L56: push_int_local 0
+L57: if_settext 0
+L58: push_var varp_648
+L59: tostring 0
+L60: push_int_local 1
+L61: if_settext 0
+L62: branch L101
+L63: push_constant_int 1
+L64: push_int_local 2
+L65: if_sethide 0
+L66: push_constant_int 1
+L67: push_int_local 3
+L68: if_sethide 0
+L69: push_constant_int 1
+L70: push_int_local 4
+L71: if_sethide 0
+L72: push_constant_int 0
+L73: push_int_local 5
+L74: if_sethide 0
+L75: push_constant_string "Runeversi"
+L76: push_int_local 0
+L77: if_settext 0
+L78: push_var varp_649
+L79: tostring 0
+L80: push_int_local 1
+L81: if_settext 0
+L82: branch L101
+L83: push_constant_int 1
+L84: push_int_local 3
+L85: if_sethide 0
+L86: push_constant_int 1
+L87: push_int_local 4
+L88: if_sethide 0
+L89: push_constant_int 1
+L90: push_int_local 5
+L91: if_sethide 0
+L92: push_constant_int 1
+L93: push_int_local 2
+L94: if_sethide 0
+L95: push_constant_string ""
+L96: push_int_local 0
+L97: if_settext 0
+L98: push_constant_string ""
+L99: push_int_local 1
+L100: if_settext 0
+L101: return 0
+L102:
+
+[switch0@L1]
+1=L3
+2=L23
+3=L43
+4=L63

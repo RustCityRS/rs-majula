@@ -1,5 +1,0 @@
-[clientscript,script_2137](int $int0, int $int1, int $int2, int $int3, int $int4, int $int5, int $int6)
-if (cc_find($int5, $int6) = 1) {
-    cc_setmodelangle($int3, $int4, and(add(cc_getmodelangle_x, $int0), 2047), and(add(cc_getmodelangle_y, $int1), 2047), and(add(cc_getmodelangle_z, $int2), 2047), cc_getmodelzoom);
-}
-return;

@@ -1,0 +1,469 @@
+name=""
+local_int_count=0
+local_string_count=0
+local_long_count=0
+int_param_count=0
+string_param_count=0
+long_param_count=0
+
+L0: push_varc_int varc_int_232
+L1: branch_if_false L3
+L2: branch L17
+L3: push_constant_int 1817
+L4: push_constant_int 35913865
+L5: if_setgraphic 0
+L6: push_constant_int 1817
+L7: push_constant_int 48889877
+L8: if_setgraphic 0
+L9: push_constant_int 1
+L10: push_constant_string "Combat Styles"
+L11: push_constant_int 35913856
+L12: if_setop 0
+L13: push_constant_int 1
+L14: push_constant_string "Combat Styles"
+L15: push_constant_int 48889892
+L16: if_setop 0
+L17: push_varc_int varc_int_822
+L18: branch_if_false L20
+L19: branch L36
+L20: gosub_with_params clientscript_4089
+L21: push_constant_int 1820
+L22: push_constant_int 35913866
+L23: if_setgraphic 0
+L24: push_constant_int 1820
+L25: push_constant_int 48889984
+L26: if_setgraphic 0
+L27: push_constant_int 1
+L28: push_constant_string "Task List"
+L29: push_constant_int 35913857
+L30: if_setop 0
+L31: push_constant_int 1
+L32: push_constant_string "Task List"
+L33: push_constant_int 48889893
+L34: if_setop 0
+L35: branch L59
+L36: push_varc_int varc_int_822
+L37: branch_if_true L39
+L38: branch L59
+L39: push_constant_int 1
+L40: push_constant_int 48889983
+L41: if_sethide 0
+L42: push_constant_int 1
+L43: push_constant_int 35913864
+L44: if_sethide 0
+L45: push_constant_int 1812
+L46: push_constant_int 35913866
+L47: if_setgraphic 0
+L48: push_constant_int 1812
+L49: push_constant_int 48889984
+L50: if_setgraphic 0
+L51: push_constant_int 1
+L52: push_constant_string "Camera"
+L53: push_constant_int 35913857
+L54: if_setop 0
+L55: push_constant_int 1
+L56: push_constant_string "Camera"
+L57: push_constant_int 48889893
+L58: if_setop 0
+L59: push_varc_int varc_int_233
+L60: switch switch0
+L61: push_constant_int 1818
+L62: push_constant_int 35913867
+L63: if_setgraphic 0
+L64: push_constant_int 1818
+L65: push_constant_int 48889878
+L66: if_setgraphic 0
+L67: push_constant_int 1
+L68: push_constant_string "Stats"
+L69: push_constant_int 35913858
+L70: if_setop 0
+L71: push_constant_int 1
+L72: push_constant_string "Stats"
+L73: push_constant_int 48889894
+L74: if_setop 0
+L75: branch L120
+L76: push_constant_int 1815
+L77: push_constant_int 35913867
+L78: if_setgraphic 0
+L79: push_constant_int 1815
+L80: push_constant_int 48889878
+L81: if_setgraphic 0
+L82: push_constant_int 1
+L83: push_constant_string "Squad Commands"
+L84: push_constant_int 35913858
+L85: if_setop 0
+L86: push_constant_int 1
+L87: push_constant_string "Squad Commands"
+L88: push_constant_int 48889894
+L89: if_setop 0
+L90: branch L120
+L91: push_constant_int 3248
+L92: push_constant_int 35913867
+L93: if_setgraphic 0
+L94: push_constant_int 3248
+L95: push_constant_int 48889878
+L96: if_setgraphic 0
+L97: push_constant_int 1
+L98: push_constant_string "Turn Options"
+L99: push_constant_int 35913858
+L100: if_setop 0
+L101: push_constant_int 1
+L102: push_constant_string "Turn Options"
+L103: push_constant_int 48889894
+L104: if_setop 0
+L105: branch L120
+L106: push_constant_int 3248
+L107: push_constant_int 35913867
+L108: if_setgraphic 0
+L109: push_constant_int 3248
+L110: push_constant_int 48889878
+L111: if_setgraphic 0
+L112: push_constant_int 1
+L113: push_constant_string "Command Options"
+L114: push_constant_int 35913858
+L115: if_setop 0
+L116: push_constant_int 1
+L117: push_constant_string "Command Options"
+L118: push_constant_int 48889894
+L119: if_setop 0
+L120: push_varc_int varc_int_234
+L121: switch switch1
+L122: push_constant_int 1819
+L123: push_constant_int 35913868
+L124: if_setgraphic 0
+L125: push_constant_int 1819
+L126: push_constant_int 48889879
+L127: if_setgraphic 0
+L128: push_constant_int 1
+L129: push_constant_string "Quest Journals"
+L130: push_constant_int 35913859
+L131: if_setop 0
+L132: push_constant_int 1
+L133: push_constant_string "Quest Journals"
+L134: push_constant_int 48889895
+L135: if_setop 0
+L136: branch L196
+L137: push_constant_int 1813
+L138: push_constant_int 35913868
+L139: if_setgraphic 0
+L140: push_constant_int 1813
+L141: push_constant_int 48889879
+L142: if_setgraphic 0
+L143: push_constant_int 1
+L144: push_constant_string "Special Units"
+L145: push_constant_int 35913859
+L146: if_setop 0
+L147: push_constant_int 1
+L148: push_constant_string "Special Units"
+L149: push_constant_int 48889895
+L150: if_setop 0
+L151: branch L196
+L152: push_constant_int 3249
+L153: push_constant_int 35913868
+L154: if_setgraphic 0
+L155: push_constant_int 3249
+L156: push_constant_int 48889879
+L157: if_setgraphic 0
+L158: push_constant_int 1
+L159: push_constant_string "Troop Details"
+L160: push_constant_int 35913859
+L161: if_setop 0
+L162: push_constant_int 1
+L163: push_constant_string "Troop Details"
+L164: push_constant_int 48889895
+L165: if_setop 0
+L166: branch L196
+L167: push_constant_int 3028
+L168: push_constant_int 35913868
+L169: if_setgraphic 0
+L170: push_constant_int 3028
+L171: push_constant_int 48889879
+L172: if_setgraphic 0
+L173: push_constant_int 1
+L174: push_constant_string "Party organiser"
+L175: push_constant_int 35913859
+L176: if_setop 0
+L177: push_constant_int 1
+L178: push_constant_string "Party organiser"
+L179: push_constant_int 48889895
+L180: if_setop 0
+L181: branch L196
+L182: push_constant_int 1834
+L183: push_constant_int 35913868
+L184: if_setgraphic 0
+L185: push_constant_int 1834
+L186: push_constant_int 48889879
+L187: if_setgraphic 0
+L188: push_constant_int 1
+L189: push_constant_string "Book"
+L190: push_constant_int 35913859
+L191: if_setop 0
+L192: push_constant_int 1
+L193: push_constant_string "Book"
+L194: push_constant_int 48889895
+L195: if_setop 0
+L196: push_varc_int varc_int_235
+L197: branch_if_false L199
+L198: branch L214
+L199: push_constant_int 1821
+L200: push_constant_int 35913869
+L201: if_setgraphic 0
+L202: push_constant_int 1821
+L203: push_constant_int 48889880
+L204: if_setgraphic 0
+L205: push_constant_int 1
+L206: push_constant_string "Inventory"
+L207: push_constant_int 35913860
+L208: if_setop 0
+L209: push_constant_int 1
+L210: push_constant_string "Inventory"
+L211: push_constant_int 48889896
+L212: if_setop 0
+L213: branch L250
+L214: push_varc_int varc_int_235
+L215: branch_if_true L217
+L216: branch L232
+L217: push_constant_int 1814
+L218: push_constant_int 35913869
+L219: if_setgraphic 0
+L220: push_constant_int 1814
+L221: push_constant_int 48889880
+L222: if_setgraphic 0
+L223: push_constant_int 1
+L224: push_constant_string "My Squads"
+L225: push_constant_int 35913860
+L226: if_setop 0
+L227: push_constant_int 1
+L228: push_constant_string "My Squads"
+L229: push_constant_int 48889896
+L230: if_setop 0
+L231: branch L250
+L232: push_varc_int varc_int_235
+L233: push_constant_int 2
+L234: branch_equals L236
+L235: branch L250
+L236: push_constant_int 3247
+L237: push_constant_int 35913869
+L238: if_setgraphic 0
+L239: push_constant_int 3247
+L240: push_constant_int 48889880
+L241: if_setgraphic 0
+L242: push_constant_int 1
+L243: push_constant_string "Commands"
+L244: push_constant_int 35913860
+L245: if_setop 0
+L246: push_constant_int 1
+L247: push_constant_string "Commands"
+L248: push_constant_int 48889896
+L249: if_setop 0
+L250: push_varc_int varc_int_236
+L251: branch_if_false L253
+L252: branch L268
+L253: push_constant_int 1822
+L254: push_constant_int 35913870
+L255: if_setgraphic 0
+L256: push_constant_int 1822
+L257: push_constant_int 48889881
+L258: if_setgraphic 0
+L259: push_constant_int 1
+L260: push_constant_string "Worn Equipment"
+L261: push_constant_int 35913861
+L262: if_setop 0
+L263: push_constant_int 1
+L264: push_constant_string "Worn Equipment"
+L265: push_constant_int 48889897
+L266: if_setop 0
+L267: branch L342
+L268: push_varc_int varc_int_236
+L269: branch_if_true L271
+L270: branch L286
+L271: push_constant_int 1833
+L272: push_constant_int 35913870
+L273: if_setgraphic 0
+L274: push_constant_int 1833
+L275: push_constant_int 48889881
+L276: if_setgraphic 0
+L277: push_constant_int 1
+L278: push_constant_string "Acrobat Emotes"
+L279: push_constant_int 35913861
+L280: if_setop 0
+L281: push_constant_int 1
+L282: push_constant_string "Acrobat Emotes"
+L283: push_constant_int 48889897
+L284: if_setop 0
+L285: branch L342
+L286: push_varc_int varc_int_236
+L287: push_constant_int 2
+L288: branch_equals L290
+L289: branch L305
+L290: push_constant_int 1816
+L291: push_constant_int 35913870
+L292: if_setgraphic 0
+L293: push_constant_int 1816
+L294: push_constant_int 48889881
+L295: if_setgraphic 0
+L296: push_constant_int 1
+L297: push_constant_string "Forfeit"
+L298: push_constant_int 35913861
+L299: if_setop 0
+L300: push_constant_int 1
+L301: push_constant_string "Forfeit"
+L302: push_constant_int 48889897
+L303: if_setop 0
+L304: branch L342
+L305: push_varc_int varc_int_236
+L306: push_constant_int 3
+L307: branch_equals L309
+L308: branch L324
+L309: push_constant_int 3250
+L310: push_constant_int 35913870
+L311: if_setgraphic 0
+L312: push_constant_int 3250
+L313: push_constant_int 48889881
+L314: if_setgraphic 0
+L315: push_constant_int 1
+L316: push_constant_string "Diplomacy"
+L317: push_constant_int 35913861
+L318: if_setop 0
+L319: push_constant_int 1
+L320: push_constant_string "Diplomacy"
+L321: push_constant_int 48889897
+L322: if_setop 0
+L323: branch L342
+L324: push_varc_int varc_int_236
+L325: push_constant_int 4
+L326: branch_equals L328
+L327: branch L342
+L328: push_constant_int 3250
+L329: push_constant_int 35913870
+L330: if_setgraphic 0
+L331: push_constant_int 3250
+L332: push_constant_int 48889881
+L333: if_setgraphic 0
+L334: push_constant_int 1
+L335: push_constant_string "Retreat"
+L336: push_constant_int 35913861
+L337: if_setop 0
+L338: push_constant_int 1
+L339: push_constant_string "Retreat"
+L340: push_constant_int 48889897
+L341: if_setop 0
+L342: push_varc_int varc_int_237
+L343: branch_if_false L345
+L344: branch L351
+L345: push_constant_int 1823
+L346: push_constant_int 35913871
+L347: if_setgraphic 0
+L348: push_constant_int 1823
+L349: push_constant_int 48889882
+L350: if_setgraphic 0
+L351: push_varc_int varc_int_238
+L352: branch_if_false L354
+L353: branch L368
+L354: push_constant_int 1824
+L355: push_constant_int 35913872
+L356: if_setgraphic 0
+L357: push_constant_int 1824
+L358: push_constant_int 48889883
+L359: if_setgraphic 0
+L360: push_constant_int 1
+L361: push_constant_string "Magic Spellbook"
+L362: push_constant_int 35913863
+L363: if_setop 0
+L364: push_constant_int 1
+L365: push_constant_string "Magic Spellbook"
+L366: push_constant_int 48889899
+L367: if_setop 0
+L368: push_varc_int varc_int_823
+L369: branch_if_false L371
+L370: branch L377
+L371: push_constant_int 1825
+L372: push_constant_int 35913834
+L373: if_setgraphic 0
+L374: push_constant_int 1825
+L375: push_constant_int 48889884
+L376: if_setgraphic 0
+L377: push_varc_int varc_int_240
+L378: branch_if_false L380
+L379: branch L386
+L380: push_constant_int 6238
+L381: push_constant_int 35913835
+L382: if_setgraphic 0
+L383: push_constant_int 6238
+L384: push_constant_int 48889885
+L385: if_setgraphic 0
+L386: push_varc_int varc_int_241
+L387: branch_if_false L389
+L388: branch L395
+L389: push_constant_int 6237
+L390: push_constant_int 35913836
+L391: if_setgraphic 0
+L392: push_constant_int 6237
+L393: push_constant_int 48889886
+L394: if_setgraphic 0
+L395: push_varc_int varc_int_242
+L396: branch_if_false L398
+L397: branch L404
+L398: push_constant_int 1828
+L399: push_constant_int 35913837
+L400: if_setgraphic 0
+L401: push_constant_int 1828
+L402: push_constant_int 48889887
+L403: if_setgraphic 0
+L404: push_varc_int varc_int_243
+L405: branch_if_false L407
+L406: branch L413
+L407: push_constant_int 1829
+L408: push_constant_int 35913838
+L409: if_setgraphic 0
+L410: push_constant_int 1829
+L411: push_constant_int 48889888
+L412: if_setgraphic 0
+L413: push_varc_int varc_int_244
+L414: branch_if_false L416
+L415: branch L430
+L416: push_constant_int 1830
+L417: push_constant_int 35913839
+L418: if_setgraphic 0
+L419: push_constant_int 1830
+L420: push_constant_int 48889889
+L421: if_setgraphic 0
+L422: push_constant_int 1
+L423: push_constant_string "Emotes"
+L424: push_constant_int 35913831
+L425: if_setop 0
+L426: push_constant_int 1
+L427: push_constant_string "Emotes"
+L428: push_constant_int 48889905
+L429: if_setop 0
+L430: push_varc_int varc_int_245
+L431: branch_if_false L433
+L432: branch L439
+L433: push_constant_int 1831
+L434: push_constant_int 35913840
+L435: if_setgraphic 0
+L436: push_constant_int 1831
+L437: push_constant_int 48889890
+L438: if_setgraphic 0
+L439: push_varc_int varc_int_824
+L440: branch_if_false L442
+L441: branch L448
+L442: push_constant_int 1832
+L443: push_constant_int 35913841
+L444: if_setgraphic 0
+L445: push_constant_int 1832
+L446: push_constant_int 48889891
+L447: if_setgraphic 0
+L448: return 0
+L449:
+
+[switch0@L60]
+1=L76
+4=L91
+5=L106
+
+[switch1@L121]
+1=L137
+2=L152
+3=L167
+4=L182

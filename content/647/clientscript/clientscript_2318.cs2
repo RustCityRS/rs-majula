@@ -1,0 +1,24 @@
+name=""
+local_int_count=1
+local_string_count=0
+local_long_count=0
+int_param_count=1
+string_param_count=0
+long_param_count=0
+
+L0: push_int_local 0
+L1: push_constant_int 1
+L2: branch_not L4
+L3: branch L5
+L4: return 0
+L5: push_constant_int 2266
+L6: push_constant_int 1
+L7: push_constant_int 0
+L8: sound_synth 0
+L9: push_constant_int 1
+L10: push_varbit bank_hidden
+L11: sub 0
+L12: pop_varbit bank_hidden
+L13: gosub_with_params [proc,bank_v2_showequipscreen]
+L14: return 0
+L15:

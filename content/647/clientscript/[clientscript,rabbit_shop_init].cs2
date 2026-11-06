@@ -1,0 +1,74 @@
+name=""
+local_int_count=0
+local_string_count=0
+local_long_count=0
+int_param_count=0
+string_param_count=0
+long_param_count=0
+
+L0: push_constant_int 44957699
+L1: push_constant_int 0
+L2: push_constant_int 4537650
+L3: push_constant_int 0
+L4: push_constant_int 0
+L5: gosub_with_params [proc,verticalgradient]
+L6: push_constant_int 44957700
+L7: push_constant_int 4537650
+L8: push_constant_int 6052707
+L9: push_constant_int 0
+L10: push_constant_int 0
+L11: gosub_with_params [proc,verticalgradient]
+L12: push_constant_int 1
+L13: push_constant_int 44957705
+L14: if_sethide 0
+L15: push_constant_int 44957710
+L16: gosub_with_params [proc,v2_stone_button_filled]
+L17: push_constant_int 95
+L18: push_constant_int -2147483645
+L19: push_constant_string "I"
+L20: push_constant_int 44957710
+L21: if_setonmouseover 0
+L22: push_constant_int 93
+L23: push_constant_int -2147483645
+L24: push_constant_string "I"
+L25: push_constant_int 44957710
+L26: if_setonmouseleave 0
+L27: push_constant_int 69
+L28: push_constant_int 1
+L29: push_constant_int 44957705
+L30: push_constant_string "1I"
+L31: push_constant_int 44957710
+L32: if_setonop 0
+L33: push_constant_int 44957712
+L34: gosub_with_params [proc,v2_stone_button_filled]
+L35: push_constant_int 95
+L36: push_constant_int -2147483645
+L37: push_constant_string "I"
+L38: push_constant_int 44957712
+L39: if_setonmouseover 0
+L40: push_constant_int 93
+L41: push_constant_int -2147483645
+L42: push_constant_string "I"
+L43: push_constant_int 44957712
+L44: if_setonmouseleave 0
+L45: push_constant_int 69
+L46: push_constant_int 1
+L47: push_constant_int 44957705
+L48: push_constant_string "1I"
+L49: push_constant_int 44957712
+L50: if_setonop 0
+L51: gosub_with_params [proc,rabbit_shop_pointsupdate]
+L52: push_constant_int 961
+L53: push_constant_int 1195
+L54: push_constant_int 1
+L55: push_constant_string "Y"
+L56: push_constant_int 44957697
+L57: if_setonvartransmit 0
+L58: push_constant_int 961
+L59: push_constant_int 19
+L60: push_constant_int 1
+L61: push_constant_string "Y"
+L62: push_constant_int 44957697
+L63: if_setonstattransmit 0
+L64: return 0
+L65:

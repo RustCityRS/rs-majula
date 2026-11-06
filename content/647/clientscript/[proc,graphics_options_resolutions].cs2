@@ -1,0 +1,26 @@
+name=""
+local_int_count=3
+local_string_count=0
+local_long_count=0
+int_param_count=1
+string_param_count=0
+long_param_count=0
+
+L0: push_constant_int 0
+L1: pop_int_local 1
+L2: push_constant_int 0
+L3: pop_int_local 2
+L4: push_int_local 0
+L5: screenmode_getresolution 0
+L6: pop_int_local 2
+L7: pop_int_local 1
+L8: push_int_local 1
+L9: tostring 0
+L10: push_constant_string "x"
+L11: push_int_local 2
+L12: tostring 0
+L13: join_string 3
+L14: return 0
+L15: push_constant_string ""
+L16: return 0
+L17:

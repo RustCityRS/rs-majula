@@ -1,0 +1,32 @@
+name=""
+local_int_count=2
+local_string_count=0
+local_long_count=0
+int_param_count=2
+string_param_count=0
+long_param_count=0
+
+L0: push_int_local 0
+L1: branch_if_true L3
+L2: branch L13
+L3: push_constant_int 2355
+L4: push_constant_int 1
+L5: push_int_local 1
+L6: push_constant_string "1i"
+L7: push_constant_int 60030997
+L8: if_setonclick 0
+L9: push_constant_int 0
+L10: push_constant_int 60030998
+L11: if_sethflip 0
+L12: branch L22
+L13: push_constant_int 2355
+L14: push_constant_int 0
+L15: push_int_local 1
+L16: push_constant_string "1i"
+L17: push_constant_int 60030997
+L18: if_setonclick 0
+L19: push_constant_int 1
+L20: push_constant_int 60030998
+L21: if_sethflip 0
+L22: return 0
+L23:

@@ -1,0 +1,25 @@
+name=""
+local_int_count=0
+local_string_count=0
+local_long_count=0
+int_param_count=0
+string_param_count=0
+long_param_count=0
+
+L0: push_varc_int varc_int_1034
+L1: branch_if_true L3
+L2: branch L15
+L3: push_varc_int varc_int_1027
+L4: branch_if_true L6
+L5: branch L15
+L6: push_varc_string_old varc_string_202
+L7: string_length 0
+L8: push_constant_int 0
+L9: branch_greater_than L11
+L10: branch L15
+L11: push_varc_string_old varc_string_202
+L12: clan_leavechat2 0
+L13: push_constant_int 2
+L14: pop_varc_int varc_int_1034
+L15: return 0
+L16:

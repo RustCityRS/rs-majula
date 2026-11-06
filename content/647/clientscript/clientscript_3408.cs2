@@ -1,0 +1,46 @@
+name=""
+local_int_count=1
+local_string_count=3
+local_long_count=0
+int_param_count=1
+string_param_count=1
+long_param_count=0
+
+L0: push_constant_string "<u=88ffff>"
+L1: push_string_local 0
+L2: push_constant_string "</u>"
+L3: join_string 3
+L4: pop_string_local 1
+L5: push_constant_string "<u=64c8fa>"
+L6: push_string_local 0
+L7: push_constant_string "</u>"
+L8: join_string 3
+L9: pop_string_local 2
+L10: push_constant_int 1
+L11: push_constant_string "Open link"
+L12: push_int_local 0
+L13: if_setop 0
+L14: push_constant_int 1897
+L15: push_constant_string ""
+L16: push_int_local 0
+L17: if_setonop 0
+L18: push_constant_int 1
+L19: push_constant_int 146
+L20: push_int_local 0
+L21: if_setcursor_op 0
+L22: push_constant_int 2381
+L23: push_int_local 0
+L24: push_constant_int 8978431
+L25: push_string_local 1
+L26: push_constant_string "Iis"
+L27: push_int_local 0
+L28: if_setonmouseover 0
+L29: push_constant_int 2381
+L30: push_int_local 0
+L31: push_constant_int 6605050
+L32: push_string_local 2
+L33: push_constant_string "Iis"
+L34: push_int_local 0
+L35: if_setonmouseleave 0
+L36: return 0
+L37:

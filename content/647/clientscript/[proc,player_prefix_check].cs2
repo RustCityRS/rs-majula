@@ -1,0 +1,61 @@
+name=""
+local_int_count=1
+local_string_count=0
+local_long_count=0
+int_param_count=1
+string_param_count=0
+long_param_count=0
+
+L0: push_int_local 0
+L1: switch switch0
+L2: branch L42
+L3: push_var varp_1447
+L4: push_constant_int 1
+L5: branch_less_than L7
+L6: branch L9
+L7: push_constant_int 0
+L8: return 0
+L9: branch L42
+L10: push_var varp_1447
+L11: push_constant_int 105
+L12: push_constant_int 105
+L13: push_constant_int 2461
+L14: push_constant_int 2
+L15: enum 0
+L16: branch_less_than L18
+L17: branch L20
+L18: push_constant_int 0
+L19: return 0
+L20: branch L42
+L21: push_var varp_1447
+L22: push_constant_int 105
+L23: push_constant_int 105
+L24: push_constant_int 2461
+L25: push_constant_int 3
+L26: enum 0
+L27: branch_less_than L29
+L28: branch L31
+L29: push_constant_int 0
+L30: return 0
+L31: branch L42
+L32: push_var varp_1447
+L33: push_constant_int 105
+L34: push_constant_int 105
+L35: push_constant_int 2461
+L36: push_constant_int 4
+L37: enum 0
+L38: branch_less_than L40
+L39: branch L42
+L40: push_constant_int 0
+L41: return 0
+L42: push_constant_int 1
+L43: return 0
+L44: push_constant_int 0
+L45: return 0
+L46:
+
+[switch0@L1]
+1=L3
+2=L10
+3=L21
+4=L32

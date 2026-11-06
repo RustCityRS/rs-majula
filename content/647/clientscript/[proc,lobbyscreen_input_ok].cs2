@@ -1,0 +1,173 @@
+name=""
+local_int_count=4
+local_string_count=5
+local_long_count=0
+int_param_count=1
+string_param_count=1
+long_param_count=0
+
+L0: push_constant_int 0
+L1: pop_int_local 1
+L2: push_constant_string ""
+L3: pop_string_local 1
+L4: push_constant_string ""
+L5: pop_string_local 2
+L6: push_constant_int -1
+L7: pop_int_local 2
+L8: push_constant_string ""
+L9: pop_string_local 3
+L10: push_constant_string ""
+L11: pop_string_local 4
+L12: push_constant_int -1
+L13: pop_int_local 3
+L14: push_varc_string_old varc_string_277
+L15: string_length 0
+L16: push_constant_int 0
+L17: branch_greater_than L19
+L18: branch L141
+L19: push_int_local 0
+L20: switch switch0
+L21: branch L141
+L22: push_varc_string_old varc_string_277
+L23: string_length 0
+L24: push_constant_int 0
+L25: branch_greater_than L27
+L26: branch L42
+L27: push_string_local 0
+L28: string_length 0
+L29: push_constant_int 0
+L30: branch_greater_than L32
+L31: branch L42
+L32: chat_getfilter_private 0
+L33: push_constant_int 2
+L34: branch_equals L36
+L35: branch L38
+L36: push_constant_int 1
+L37: gosub_with_params clientscript_3047
+L38: push_string_local 0
+L39: removetags 0
+L40: push_varc_string_old varc_string_277
+L41: chat_sendprivate 0
+L42: branch L141
+L43: friend_count 0
+L44: push_constant_int 0
+L45: branch_less_than L47
+L46: branch L50
+L47: push_constant_string "Unable to update Friends List - system busy."
+L48: mes 0
+L49: branch L57
+L50: push_varc_string_old varc_string_277
+L51: string_length 0
+L52: push_constant_int 0
+L53: branch_greater_than L55
+L54: branch L57
+L55: push_varc_string_old varc_string_277
+L56: friend_add 0
+L57: branch L141
+L58: ignores_count 0
+L59: push_constant_int 0
+L60: branch_less_than L62
+L61: branch L65
+L62: push_constant_string "Unable to update Ignore List - system busy."
+L63: mes 0
+L64: branch L72
+L65: push_varc_string_old varc_string_277
+L66: string_length 0
+L67: push_constant_int 0
+L68: branch_greater_than L70
+L69: branch L72
+L70: push_varc_string_old varc_string_277
+L71: ignore_add 0
+L72: branch L141
+L73: friend_count 0
+L74: push_constant_int 0
+L75: branch_less_than L77
+L76: branch L80
+L77: push_constant_string "Unable to update Friends List - system busy."
+L78: mes 0
+L79: branch L87
+L80: push_varc_string_old varc_string_277
+L81: string_length 0
+L82: push_constant_int 0
+L83: branch_greater_than L85
+L84: branch L87
+L85: push_varc_string_old varc_string_277
+L86: friend_del 0
+L87: branch L141
+L88: ignores_count 0
+L89: push_constant_int 0
+L90: branch_less_than L92
+L91: branch L95
+L92: push_constant_string "Unable to update Ignore List - system busy."
+L93: mes 0
+L94: branch L102
+L95: push_varc_string_old varc_string_277
+L96: string_length 0
+L97: push_constant_int 0
+L98: branch_greater_than L100
+L99: branch L102
+L100: push_varc_string_old varc_string_277
+L101: ignore_del 0
+L102: branch L141
+L103: clan_getchatsize 0
+L104: push_constant_int 0
+L105: branch_less_than_or_equals L107
+L106: branch L114
+L107: push_varc_string_old varc_string_277
+L108: string_length 0
+L109: push_constant_int 0
+L110: branch_greater_than L112
+L111: branch L114
+L112: push_varc_string_old varc_string_277
+L113: clan_leavechat2 0
+L114: branch L141
+L115: push_constant_int 0
+L116: pop_varc_int varc_int_1094
+L117: push_constant_string "bugtracker_v4"
+L118: push_constant_string "index.html"
+L119: push_constant_int 0
+L120: url_request 0
+L121: branch L141
+L122: push_varc_string_old varc_string_277
+L123: string_length 0
+L124: push_constant_int 0
+L125: branch_greater_than L127
+L126: branch L129
+L127: push_varc_string_old varc_string_277
+L128: gosub_with_params clientscript_4465
+L129: branch L141
+L130: clan_getchatsize 0
+L131: push_constant_int 0
+L132: branch_greater_than L134
+L133: branch L141
+L134: push_varc_string_old varc_string_277
+L135: string_length 0
+L136: push_constant_int 0
+L137: branch_greater_than L139
+L138: branch L141
+L139: push_varc_string_old varc_string_277
+L140: gosub_with_params clientscript_1633
+L141: push_int_local 1
+L142: branch_if_true L144
+L143: branch L151
+L144: push_string_local 1
+L145: push_string_local 2
+L146: push_int_local 2
+L147: push_string_local 3
+L148: push_string_local 4
+L149: gosub_with_params [proc,lobbyscreen_input]
+L150: branch L152
+L151: gosub_with_params [proc,lobbyscreen_input_close]
+L152: return 0
+L153:
+
+[switch0@L20]
+0=L22
+1=L43
+2=L58
+3=L73
+4=L88
+5=L103
+6=L115
+7=L122
+9=L130

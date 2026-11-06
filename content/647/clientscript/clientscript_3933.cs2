@@ -1,0 +1,43 @@
+name=""
+local_int_count=6
+local_string_count=0
+local_long_count=0
+int_param_count=6
+string_param_count=0
+long_param_count=0
+
+L0: push_int_local 1
+L1: push_int_local 0
+L2: if_setcolour 0
+L3: push_int_local 2
+L4: branch_if_true L6
+L5: branch L14
+L6: push_constant_int 105
+L7: push_constant_int 100
+L8: push_constant_int 3480
+L9: push_int_local 3
+L10: enum 0
+L11: push_int_local 4
+L12: if_setgraphic 0
+L13: branch L33
+L14: push_int_local 5
+L15: push_int_local 3
+L16: branch_equals L18
+L17: branch L26
+L18: push_constant_int 105
+L19: push_constant_int 100
+L20: push_constant_int 736
+L21: push_int_local 3
+L22: enum 0
+L23: push_int_local 4
+L24: if_setgraphic 0
+L25: branch L33
+L26: push_constant_int 105
+L27: push_constant_int 100
+L28: push_constant_int 735
+L29: push_int_local 3
+L30: enum 0
+L31: push_int_local 4
+L32: if_setgraphic 0
+L33: return 0
+L34:

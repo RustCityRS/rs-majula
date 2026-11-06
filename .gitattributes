@@ -71,5 +71,12 @@
 *.cso binary
 
 content/647/** eol=lf
-content/647/animations/_unpack/*.anim binary
-content/647/shaders/_unpack/*.glsl binary
+content/647/**/*.synth text diff eol=lf
+content/647/**/*.fm text diff eol=lf
+content/647/**/*.fms text diff eol=lf
+content/647/**/*.huffman text diff eol=lf
+content/647/**/*.sample text diff eol=lf
+content/647/**/*.vorbis text diff eol=lf
+content/647/shaders/**/*.arb -text diff
+content/647/shaders/**/*.glsl -text diff
+*.js5 binary

@@ -1,0 +1,26 @@
+name=""
+local_int_count=5
+local_string_count=0
+local_long_count=0
+int_param_count=5
+string_param_count=0
+long_param_count=0
+
+L0: push_int_local 0
+L1: branch_if_true L3
+L2: branch L10
+L3: push_int_local 1
+L4: push_int_local 3
+L5: if_setgraphic 0
+L6: push_constant_int 0
+L7: push_int_local 4
+L8: if_sethide 0
+L9: branch L16
+L10: push_int_local 2
+L11: push_int_local 3
+L12: if_setgraphic 0
+L13: push_constant_int 1
+L14: push_int_local 4
+L15: if_sethide 0
+L16: return 0
+L17:

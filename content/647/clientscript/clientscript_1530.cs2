@@ -1,0 +1,41 @@
+name=""
+local_int_count=1
+local_string_count=0
+local_long_count=0
+int_param_count=0
+string_param_count=0
+long_param_count=0
+
+L0: push_constant_int 0
+L1: pop_int_local 0
+L2: push_varbit varbit_3600
+L3: push_varbit varbit_3601
+L4: add 0
+L5: push_varbit varbit_3602
+L6: add 0
+L7: push_varbit varbit_3603
+L8: add 0
+L9: push_varbit varbit_3604
+L10: add 0
+L11: push_varbit varbit_3605
+L12: add 0
+L13: push_varbit varbit_3606
+L14: add 0
+L15: push_varbit varbit_3608
+L16: add 0
+L17: push_varbit varbit_3609
+L18: add 0
+L19: pop_int_local 0
+L20: push_varbit varbit_3607
+L21: push_constant_int 5
+L22: branch_equals L24
+L23: branch L28
+L24: push_int_local 0
+L25: push_constant_int 1
+L26: add 0
+L27: pop_int_local 0
+L28: push_int_local 0
+L29: return 0
+L30: push_constant_int 0
+L31: return 0
+L32:

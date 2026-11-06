@@ -1,0 +1,125 @@
+name=""
+local_int_count=2
+local_string_count=2
+local_long_count=0
+int_param_count=0
+string_param_count=0
+long_param_count=0
+
+L0: login_getint_5609 0
+L1: pop_int_local 0
+L2: push_int_local 0
+L3: push_constant_int -3
+L4: branch_equals L6
+L5: branch L7
+L6: return 0
+L7: push_constant_int -1
+L8: push_constant_string ""
+L9: push_constant_int 44105745
+L10: if_setontimer 0
+L11: push_constant_int 0
+L12: pop_int_local 1
+L13: push_constant_string "accountappeal"
+L14: pop_string_local 0
+L15: push_constant_string "passwordchoice.ws"
+L16: pop_string_local 1
+L17: push_int_local 0
+L18: push_constant_int 2
+L19: branch_equals L21
+L20: branch L24
+L21: account_event_5430 0
+L22: gosub_with_params [proc,create_complete]
+L23: branch L97
+L24: push_int_local 0
+L25: switch switch0
+L26: push_constant_string "Unexpected server response."
+L27: push_constant_int 44105809
+L28: gosub_with_params [proc,create_error]
+L29: branch L97
+L30: push_constant_string "Error contacting server."
+L31: push_constant_int 44105809
+L32: gosub_with_params [proc,create_error]
+L33: branch L97
+L34: push_constant_string "No response from server."
+L35: push_constant_int 44105809
+L36: gosub_with_params [proc,create_error]
+L37: branch L97
+L38: push_constant_string "The server is currently very busy. Please try again shortly."
+L39: push_constant_int 44105809
+L40: gosub_with_params [proc,create_error]
+L41: branch L97
+L42: push_constant_string "You cannot create an account at this time. Please try again later."
+L43: push_constant_int 44105809
+L44: gosub_with_params [proc,create_error]
+L45: branch L97
+L46: push_constant_string "Email already in use. Try a different email or click "
+L47: push_constant_string "<u=ebe0bc>"
+L48: push_constant_string "here"
+L49: push_constant_string "</u>"
+L50: push_constant_string " to recover this account."
+L51: join_string 5
+L52: push_constant_int 44105809
+L53: gosub_with_params [proc,create_error]
+L54: branch L97
+L55: push_constant_string "Please enter a valid Email address."
+L56: push_constant_int 44105809
+L57: gosub_with_params [proc,create_error]
+L58: branch L97
+L59: push_constant_string "RuneScape has been updated. Please reload this page."
+L60: push_constant_int 44105809
+L61: gosub_with_params [proc,create_error]
+L62: branch L97
+L63: push_varc_string_old varc_string_124
+L64: string_length 0
+L65: pop_int_local 1
+L66: push_int_local 1
+L67: push_constant_int 5
+L68: branch_less_than L70
+L69: branch L74
+L70: push_constant_string "Passwords must be at least 5 characters long."
+L71: push_constant_int 44105799
+L72: gosub_with_params [proc,create_error]
+L73: branch L89
+L74: push_int_local 1
+L75: push_constant_int 20
+L76: branch_greater_than L78
+L77: branch L86
+L78: push_constant_string "Passwords must be no more than "
+L79: push_constant_int 20
+L80: tostring 0
+L81: push_constant_string " characters long."
+L82: join_string 3
+L83: push_constant_int 44105799
+L84: gosub_with_params [proc,create_error]
+L85: branch L89
+L86: push_constant_string "Please supply a valid password."
+L87: push_constant_int 44105799
+L88: gosub_with_params [proc,create_error]
+L89: branch L97
+L90: push_constant_string "Passwords may only contain letters and numbers."
+L91: push_constant_int 44105799
+L92: gosub_with_params [proc,create_error]
+L93: branch L97
+L94: push_constant_string "Your password is too easy to guess."
+L95: push_constant_int 44105799
+L96: gosub_with_params [proc,create_error]
+L97: push_constant_int 0
+L98: gosub_with_params [proc,create_please_wait]
+L99: return 0
+L100:
+
+[switch0@L25]
+-4=L30
+-1=L30
+3=L30
+-5=L34
+7=L38
+9=L42
+38=L42
+20=L46
+21=L55
+37=L59
+30=L63
+31=L90
+32=L94
+33=L94

@@ -1,0 +1,104 @@
+name=""
+local_int_count=13
+local_string_count=0
+local_long_count=0
+int_param_count=12
+string_param_count=0
+long_param_count=0
+
+L0: push_int_local 1
+L1: push_int_local 2
+L2: push_int_local 0
+L3: push_constant_int 61276214
+L4: push_constant_int 61276209
+L5: gosub_with_params clientscript_2245
+L6: pop_int_local 0
+L7: push_int_local 4
+L8: push_int_local 5
+L9: push_int_local 3
+L10: push_constant_int 61276224
+L11: push_constant_int 61276219
+L12: gosub_with_params clientscript_2245
+L13: pop_int_local 3
+L14: push_int_local 7
+L15: push_int_local 8
+L16: push_int_local 6
+L17: push_constant_int 61276234
+L18: push_constant_int 61276229
+L19: gosub_with_params clientscript_2245
+L20: pop_int_local 6
+L21: push_int_local 0
+L22: push_int_local 3
+L23: add 0
+L24: push_int_local 6
+L25: add 0
+L26: pop_int_local 12
+L27: push_constant_int 1
+L28: push_constant_int 223
+L29: push_int_local 12
+L30: multiply 0
+L31: push_int_local 2
+L32: push_int_local 5
+L33: add 0
+L34: push_int_local 8
+L35: add 0
+L36: div 0
+L37: add 0
+L38: push_constant_int 10
+L39: push_constant_int 0
+L40: push_constant_int 0
+L41: push_constant_int 61276255
+L42: if_setsize 0
+L43: push_int_local 12
+L44: push_int_local 9
+L45: add 0
+L46: push_int_local 10
+L47: add 0
+L48: pop_int_local 12
+L49: push_int_local 12
+L50: tostring 0
+L51: push_constant_int 61276250
+L52: if_settext 0
+L53: push_int_local 12
+L54: push_int_local 11
+L55: multiply 0
+L56: push_constant_int 100
+L57: div 0
+L58: tostring 0
+L59: push_constant_int 61276267
+L60: if_settext 0
+L61: push_int_local 0
+L62: push_int_local 1
+L63: branch_equals L65
+L64: branch L78
+L65: push_int_local 3
+L66: push_int_local 4
+L67: branch_equals L69
+L68: branch L78
+L69: push_int_local 6
+L70: push_int_local 7
+L71: branch_equals L73
+L72: branch L78
+L73: push_constant_int -1
+L74: push_constant_string ""
+L75: push_constant_int 61276160
+L76: if_setontimer 0
+L77: branch L94
+L78: push_constant_int 2244
+L79: push_int_local 0
+L80: push_int_local 1
+L81: push_int_local 2
+L82: push_int_local 3
+L83: push_int_local 4
+L84: push_int_local 5
+L85: push_int_local 6
+L86: push_int_local 7
+L87: push_int_local 8
+L88: push_int_local 9
+L89: push_int_local 10
+L90: push_int_local 11
+L91: push_constant_string "iiiiiiiiiiii"
+L92: push_constant_int 61276160
+L93: if_setontimer 0
+L94: return 0
+L95:

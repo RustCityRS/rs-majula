@@ -1,0 +1,89 @@
+name=""
+local_int_count=1
+local_string_count=0
+local_long_count=0
+int_param_count=0
+string_param_count=0
+long_param_count=0
+
+L0: push_constant_int 0
+L1: pop_int_local 0
+L2: push_varbit varbit_8150
+L3: branch_if_true L5
+L4: branch L17
+L5: push_varbit varbit_4069
+L6: push_constant_int 79
+L7: branch_greater_than L9
+L8: branch L12
+L9: push_constant_int 0
+L10: pop_int_local 0
+L11: branch L16
+L12: push_constant_int 80
+L13: push_varbit varbit_4069
+L14: sub 0
+L15: pop_int_local 0
+L16: branch L76
+L17: push_varbit varbit_3976
+L18: branch_if_true L20
+L19: branch L32
+L20: push_varbit varbit_4069
+L21: push_constant_int 63
+L22: branch_greater_than L24
+L23: branch L27
+L24: push_constant_int 0
+L25: pop_int_local 0
+L26: branch L31
+L27: push_constant_int 64
+L28: push_varbit varbit_4069
+L29: sub 0
+L30: pop_int_local 0
+L31: branch L76
+L32: push_varbit varbit_3975
+L33: branch_if_true L35
+L34: branch L47
+L35: push_varbit varbit_4069
+L36: push_constant_int 31
+L37: branch_greater_than L39
+L38: branch L42
+L39: push_constant_int 0
+L40: pop_int_local 0
+L41: branch L46
+L42: push_constant_int 32
+L43: push_varbit varbit_4069
+L44: sub 0
+L45: pop_int_local 0
+L46: branch L76
+L47: push_varbit varbit_3974
+L48: branch_if_true L50
+L49: branch L62
+L50: push_varbit varbit_4069
+L51: push_constant_int 15
+L52: branch_greater_than L54
+L53: branch L57
+L54: push_constant_int 0
+L55: pop_int_local 0
+L56: branch L61
+L57: push_constant_int 16
+L58: push_varbit varbit_4069
+L59: sub 0
+L60: pop_int_local 0
+L61: branch L76
+L62: push_varbit varbit_3974
+L63: branch_if_false L65
+L64: branch L76
+L65: push_varbit varbit_4069
+L66: push_constant_int 7
+L67: branch_greater_than L69
+L68: branch L72
+L69: push_constant_int 0
+L70: pop_int_local 0
+L71: branch L76
+L72: push_constant_int 8
+L73: push_varbit varbit_4069
+L74: sub 0
+L75: pop_int_local 0
+L76: push_int_local 0
+L77: return 0
+L78: push_constant_int 0
+L79: return 0
+L80:

@@ -1,52 +1,23 @@
 use crate::archive::{self, ArchiveFormat, ArchiveVersions};
 use crate::cache::js5::PackedCache;
+use crate::cs2::assembly;
+use crate::pack::model::source as model_source;
+use crate::pack::names::{AssetNames, archive_name};
+use crate::pack::other::asset;
 use crate::pack::pack_registry::PackFile;
-use anyhow::Result;
+use crate::pack::sound::{vorbis, vorbis_setup};
+use anyhow::{Context, Result};
 use rayon::prelude::*;
 use rs_crypto::whirlpool;
 use rs_io::js5::compression::compress_best;
 use rs_io::js5::java_string_hash;
 use rs_io::js5::reference::{FileInfo, GroupInfo, ReferenceTable, encode_reference_table};
-use rs_io::js5::{compute_group_crc, detect_file_count};
-use std::collections::{BTreeMap, HashMap, hash_map::Entry};
+use rs_io::js5::{compute_group_crc, detect_file_count, encode_group_entries};
+use std::collections::{HashMap, hash_map::Entry};
 use std::fs;
-use std::path::{Path, PathBuf};
+use std::path::Path;
 use std::time::Instant;
 use tracing::{debug, info};
-
-pub fn load_group_files(unpack_dir: &Path, extension: &str) -> Vec<(u32, PathBuf)> {
-    let mut map: HashMap<u32, PathBuf> = HashMap::new();
-    if !unpack_dir.is_dir() {
-        return Vec::new();
-    }
-    let Ok(entries) = fs::read_dir(unpack_dir) else {
-        return Vec::new();
-    };
-    for entry in entries.flatten() {
-        let path = entry.path();
-        if !entry.file_type().is_ok_and(|kind| kind.is_file()) {
-            continue;
-        }
-        let stem = path.file_stem().and_then(|s| s.to_str()).unwrap_or("");
-        let Ok(gid) = stem.parse::<u32>() else {
-            continue;
-        };
-        let ext = path.extension().and_then(|s| s.to_str()).unwrap_or("");
-        if !extension.is_empty() && ext != extension {
-            continue;
-        }
-        let dominated = map
-            .get(&gid)
-            .and_then(|p| p.extension().and_then(|e| e.to_str()))
-            .is_some_and(|e| e == "bin");
-        if ext == "bin" || !dominated {
-            map.insert(gid, path);
-        }
-    }
-    let mut files: Vec<_> = map.into_iter().collect();
-    files.sort_by_key(|(gid, _)| *gid);
-    files
-}
 
 pub fn load_name_hashes(pack_dir: &Path, archive_id: u8, group_ids: &[u32]) -> HashMap<u32, i32> {
     let pack_name = pack_filename_for_archive(archive_id);
@@ -118,6 +89,24 @@ pub struct PreparedGroup {
 }
 
 impl PreparedGroup {
+    pub fn set_files(&mut self, ids: impl IntoIterator<Item = u32>) {
+        self.files = ids
+            .into_iter()
+            .enumerate()
+            .map(|(i, id)| {
+                let original = self
+                    .files
+                    .get(i)
+                    .filter(|f| f.id == id)
+                    .or_else(|| self.files.iter().find(|f| f.id == id));
+                FileInfo {
+                    id,
+                    name_hash: original.and_then(|f| f.name_hash),
+                }
+            })
+            .collect();
+    }
+
     pub fn new(
         aid: u8,
         id: u32,
@@ -240,7 +229,6 @@ const SIMPLE_ARCHIVES: &[u8] = &[
     archive::BASES,
     archive::MODELS,
     archive::BINARY,
-    archive::JINGLES,
     archive::CLIENTSCRIPT,
     archive::FONTMETRICS,
     archive::VORBIS,
@@ -253,35 +241,72 @@ const SIMPLE_ARCHIVES: &[u8] = &[
     archive::DEFAULTS,
     archive::BILLBOARDS,
     archive::DLLS,
-    archive::SHADERS,
     archive::LOADING_SCREENS,
     archive::WORLDMAP_LOCS,
 ];
 
-pub fn pack_binary_archives(
+pub fn pack_asset_archives(
     store: &mut PackedCache,
     content_dir: &Path,
     pack_dir: &Path,
     versions: &HashMap<u8, ArchiveVersions>,
 ) -> Result<()> {
+    let names = AssetNames::load(pack_dir)?;
     let cache = SIMPLE_ARCHIVES
         .par_iter()
         .map(|&aid| -> Result<_> {
             let start = Instant::now();
             let mut cache = PackedCache::default();
             let format = archive::archive_format(aid).unwrap();
-            let unpack_dir = content_dir.join(format.content_dir).join("_unpack");
-            let donor_dir = content_dir.join(format.content_dir).join("donor");
 
-            let group_files = overlay_groups(
-                load_group_files(&unpack_dir, ""),
-                load_group_files(&donor_dir, ""),
-            );
+            let group_files = if let Some(extension) = asset::extension(aid) {
+                names.files(
+                    &content_dir.join(format.content_dir),
+                    archive_name(aid),
+                    &[extension],
+                )?
+            } else if aid == archive::MODELS || aid == archive::CLIENTSCRIPT {
+                names.files(
+                    &content_dir.join(format.content_dir),
+                    archive_name(aid),
+                    &[if aid == archive::MODELS {
+                        "model"
+                    } else {
+                        "cs2"
+                    }],
+                )?
+            } else if aid == archive::VORBIS {
+                names.files(
+                    &content_dir.join(format.content_dir),
+                    "vorbis",
+                    &["vorbis", "sample"],
+                )?
+            } else if aid == archive::DLLS {
+                names.files(
+                    &content_dir.join(format.content_dir),
+                    "dlls",
+                    &["dll", "dylib", "so"],
+                )?
+            } else {
+                Vec::new()
+            };
 
             if group_files.is_empty() {
                 insert_empty_archive(&mut cache, aid, format, versions)?;
                 return Ok(cache);
             }
+
+            let vorbis = if aid == archive::VORBIS {
+                let path = &group_files
+                    .iter()
+                    .find(|(id, _)| *id == 0)
+                    .context("Missing Vorbis setup source")?
+                    .1;
+                let data = vorbis_setup::pack(&fs::read_to_string(path)?, &names)?;
+                Some((vorbis::Setup::new(&data, &names)?, data))
+            } else {
+                None
+            };
 
             let name_hashes: HashMap<u32, i32> = if format.named {
                 let gids: Vec<u32> = group_files.iter().map(|(gid, _)| *gid).collect();
@@ -293,14 +318,53 @@ pub fn pack_binary_archives(
             let prepared: Vec<PreparedGroup> = group_files
                 .par_iter()
                 .map(|(gid, path)| {
-                    let data = fs::read(path)?;
+                    let mut file_ids = None;
+                    let data = if asset::extension(aid).is_some() {
+                        let entries =
+                            asset::pack_entries(aid, *gid, &asset::read(aid, path)?, &names)?;
+                        file_ids = Some(entries.iter().map(|(id, _)| *id).collect::<Vec<_>>());
+                        encode_group_entries(
+                            &entries
+                                .iter()
+                                .map(|(id, data)| (*id, data.as_slice()))
+                                .collect::<Vec<_>>(),
+                        )
+                    } else if aid == archive::MODELS {
+                        model_source::pack(&fs::read_to_string(path)?, &names)?
+                    } else if aid == archive::CLIENTSCRIPT {
+                        assembly::pack(&fs::read_to_string(path)?, &names)?
+                    } else if aid == archive::VORBIS {
+                        let (setup, data) = vorbis.as_ref().unwrap();
+                        if *gid == 0 {
+                            data.clone()
+                        } else {
+                            vorbis::pack_sample(
+                                &fs::read_to_string(path)?,
+                                &fs::read(path.with_extension("ogg"))?,
+                                setup,
+                                &names,
+                            )?
+                        }
+                    } else {
+                        fs::read(path)?
+                    };
                     let mut group = PreparedGroup::new(aid, *gid, &data, versions)?;
+                    if let Some(ids) = file_ids {
+                        group.set_files(ids);
+                    }
                     group.name_hash = name_hashes.get(gid).copied().unwrap_or(-1);
                     Ok(group)
                 })
                 .collect::<Result<Vec<_>>>()?;
 
-            insert_archive(&mut cache, aid, format, versions, prepared, "from _unpack/")?;
+            insert_archive(
+                &mut cache,
+                aid,
+                format,
+                versions,
+                prepared,
+                "from asset sources",
+            )?;
             debug!(
                 "Packed archive {aid} in {:.2}s",
                 start.elapsed().as_secs_f64()
@@ -313,14 +377,6 @@ pub fn pack_binary_archives(
         })?;
     store.extend(cache);
     Ok(())
-}
-
-/// `derived`'s groups with `donor`'s laid over them: a donor group replaces
-/// the derived one of its id, or adds one the cache lacks. Sorted by id.
-fn overlay_groups(derived: Vec<(u32, PathBuf)>, donor: Vec<(u32, PathBuf)>) -> Vec<(u32, PathBuf)> {
-    let mut groups: BTreeMap<_, _> = derived.into_iter().collect();
-    groups.extend(donor);
-    groups.into_iter().collect()
 }
 
 pub fn prepare_group(
@@ -340,24 +396,4 @@ pub fn prepare_group(
     with_version.reserve_exact(2);
     with_version.extend_from_slice(&version.to_be_bytes());
     Ok((with_version, crc))
-}
-
-#[cfg(test)]
-mod tests {
-    use super::overlay_groups;
-    use std::path::PathBuf;
-
-    #[test]
-    fn a_donor_group_adds_or_replaces_by_id() {
-        let derived = vec![(1, PathBuf::from("u/1.bin")), (3, PathBuf::from("u/3.bin"))];
-        let donor = vec![(2, PathBuf::from("d/2.bin")), (3, PathBuf::from("d/3.bin"))];
-        assert_eq!(
-            overlay_groups(derived, donor),
-            vec![
-                (1, PathBuf::from("u/1.bin")),
-                (2, PathBuf::from("d/2.bin")),
-                (3, PathBuf::from("d/3.bin")),
-            ]
-        );
-    }
 }

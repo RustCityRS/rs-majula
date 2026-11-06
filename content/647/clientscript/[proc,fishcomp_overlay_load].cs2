@@ -1,0 +1,21 @@
+name=""
+local_int_count=0
+local_string_count=0
+local_long_count=0
+int_param_count=0
+string_param_count=0
+long_param_count=0
+
+L0: push_constant_int 256
+L1: push_constant_int 1111
+L2: push_constant_int 1112
+L3: push_constant_int 1113
+L4: push_constant_int 1114
+L5: push_constant_int 1115
+L6: push_constant_int 1116
+L7: push_constant_int 6
+L8: push_constant_string "Y"
+L9: push_constant_int 60227584
+L10: if_setonvarctransmit 0
+L11: return 0
+L12:

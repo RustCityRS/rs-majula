@@ -1,0 +1,86 @@
+name=""
+local_int_count=7
+local_string_count=0
+local_long_count=0
+int_param_count=7
+string_param_count=0
+long_param_count=0
+
+L0: push_constant_int 105
+L1: push_constant_int 109
+L2: push_constant_int 1595
+L3: push_varbit varbit_2512
+L4: push_constant_int 10
+L5: div 0
+L6: enum 0
+L7: push_int_local 0
+L8: if_setmodel 0
+L9: push_constant_int 105
+L10: push_constant_int 109
+L11: push_constant_int 1595
+L12: push_varbit varbit_2512
+L13: push_constant_int 10
+L14: mod 0
+L15: enum 0
+L16: push_int_local 1
+L17: if_setmodel 0
+L18: push_var varp_851
+L19: push_constant_int 1
+L20: push_int_local 5
+L21: if_setobject_nonum 0
+L22: push_var varp_852
+L23: push_constant_int 1
+L24: push_int_local 6
+L25: if_setobject_nonum 0
+L26: push_varbit varbit_2541
+L27: branch_if_false L29
+L28: branch L39
+L29: push_constant_int 17219
+L30: push_int_local 3
+L31: if_setmodel 0
+L32: push_constant_int -1
+L33: push_int_local 2
+L34: if_setmodel 0
+L35: push_constant_int -1
+L36: push_int_local 4
+L37: if_setmodel 0
+L38: return 0
+L39: push_varbit varbit_2541
+L40: push_varbit varbit_2512
+L41: branch_greater_than L43
+L42: branch L53
+L43: push_constant_int 17219
+L44: push_int_local 3
+L45: if_setmodel 0
+L46: push_constant_int 17221
+L47: push_int_local 2
+L48: if_setmodel 0
+L49: push_constant_int 17217
+L50: push_int_local 4
+L51: if_setmodel 0
+L52: return 0
+L53: push_varbit varbit_2541
+L54: push_varbit varbit_2512
+L55: branch_less_than L57
+L56: branch L67
+L57: push_constant_int 17219
+L58: push_int_local 3
+L59: if_setmodel 0
+L60: push_constant_int 17220
+L61: push_int_local 2
+L62: if_setmodel 0
+L63: push_constant_int 17218
+L64: push_int_local 4
+L65: if_setmodel 0
+L66: return 0
+L67: push_constant_int 17216
+L68: push_int_local 3
+L69: if_setmodel 0
+L70: push_constant_int -1
+L71: push_int_local 2
+L72: if_setmodel 0
+L73: push_constant_int -1
+L74: push_int_local 4
+L75: if_setmodel 0
+L76: return 0
+L77:

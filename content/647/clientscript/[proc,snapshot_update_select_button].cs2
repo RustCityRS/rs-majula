@@ -1,0 +1,31 @@
+name=""
+local_int_count=0
+local_string_count=0
+local_long_count=0
+int_param_count=0
+string_param_count=0
+long_param_count=0
+
+L0: push_constant_string "Reporting: "
+L1: push_varc_string_old varc_string_24
+L2: join_string 2
+L3: push_constant_int 38928490
+L4: if_settext 0
+L5: push_varc_string_old varc_string_24
+L6: push_constant_int 38928455
+L7: if_settext 0
+L8: push_varc_string_old varc_string_24
+L9: push_constant_string ""
+L10: compare 0
+L11: push_constant_int 0
+L12: branch_not L14
+L13: branch L18
+L14: push_constant_int 1
+L15: push_constant_int 38928465
+L16: if_sethide 0
+L17: branch L21
+L18: push_constant_int 0
+L19: push_constant_int 38928465
+L20: if_sethide 0
+L21: return 0
+L22:

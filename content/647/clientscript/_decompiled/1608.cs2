@@ -1,5 +1,0 @@
-[clientscript,script_1608](int, int, component)
-def_int $int0 = bas_getidle(oc_weight(turquoise_robe_top));
-if_setmodelanim;
-if_setplayermodel_snapshot(35979346);
-return(inv_getobj(worn, nulodion_s_notes), $int0, 35979346);

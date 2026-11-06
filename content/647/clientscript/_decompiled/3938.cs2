@@ -1,9 +1,0 @@
-[clientscript,script_3938]
-if (%varc_int1411 = 1) {
-    %varc_int1411 = 0;
-    if_setgraphic(44105756);
-} else {
-    %varc_int1411 = 1;
-    if_setgraphic(44105756);
-}
-return;

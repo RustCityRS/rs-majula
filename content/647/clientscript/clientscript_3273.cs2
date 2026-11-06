@@ -1,0 +1,125 @@
+name=""
+local_int_count=3
+local_string_count=0
+local_long_count=0
+int_param_count=0
+string_param_count=0
+long_param_count=0
+
+L0: push_constant_int 0
+L1: pop_int_local 0
+L2: push_varc_int varc_int_1191
+L3: push_constant_int 10
+L4: div 0
+L5: pop_int_local 1
+L6: push_varc_int varc_int_1191
+L7: push_varc_int varc_int_1191
+L8: push_constant_int 10
+L9: div 0
+L10: push_constant_int 10
+L11: multiply 0
+L12: sub 0
+L13: pop_int_local 2
+L14: push_int_local 1
+L15: switch switch0
+L16: branch L76
+L17: push_int_local 2
+L18: switch switch1
+L19: branch L22
+L20: push_constant_int 0
+L21: pop_int_local 0
+L22: branch L76
+L23: push_int_local 2
+L24: switch switch2
+L25: branch L31
+L26: push_constant_int -760
+L27: pop_int_local 0
+L28: branch L31
+L29: push_constant_int 507
+L30: pop_int_local 0
+L31: branch L76
+L32: push_int_local 2
+L33: switch switch3
+L34: branch L43
+L35: push_constant_int -1520
+L36: pop_int_local 0
+L37: branch L43
+L38: push_constant_int 190
+L39: pop_int_local 0
+L40: branch L43
+L41: push_constant_int 950
+L42: pop_int_local 0
+L43: branch L76
+L44: push_int_local 2
+L45: switch switch4
+L46: branch L58
+L47: push_constant_int -2280
+L48: pop_int_local 0
+L49: branch L58
+L50: push_constant_int -760
+L51: pop_int_local 0
+L52: branch L58
+L53: push_constant_int 633
+L54: pop_int_local 0
+L55: branch L58
+L56: push_constant_int 1457
+L57: pop_int_local 0
+L58: branch L76
+L59: push_int_local 2
+L60: switch switch5
+L61: branch L76
+L62: push_constant_int -3040
+L63: pop_int_local 0
+L64: branch L76
+L65: push_constant_int -1267
+L66: pop_int_local 0
+L67: branch L76
+L68: push_constant_int 380
+L69: pop_int_local 0
+L70: branch L76
+L71: push_constant_int 1140
+L72: pop_int_local 0
+L73: branch L76
+L74: push_constant_int 1900
+L75: pop_int_local 0
+L76: push_int_local 1
+L77: push_int_local 2
+L78: push_int_local 0
+L79: return 0
+L80: push_constant_int 0
+L81: push_constant_int 0
+L82: push_constant_int 0
+L83: return 0
+L84:
+
+[switch0@L15]
+1=L17
+2=L23
+3=L32
+4=L44
+5=L59
+
+[switch1@L18]
+1=L20
+
+[switch2@L24]
+1=L26
+2=L29
+
+[switch3@L33]
+1=L35
+2=L38
+3=L41
+
+[switch4@L45]
+1=L47
+2=L50
+3=L53
+4=L56
+
+[switch5@L60]
+1=L62
+2=L65
+3=L68
+4=L71
+5=L74

@@ -1,7 +1,0 @@
-[clientscript,script_2611](int $int0, int $int1)
-if ($int1 = 1) {
-    viewport_setfov2(256, 320);
-    cam_forceangle(0, 0, 383, 0);
-}
-~script_2612(coordpack(coord, -16, 0, -16), $int0);
-return;

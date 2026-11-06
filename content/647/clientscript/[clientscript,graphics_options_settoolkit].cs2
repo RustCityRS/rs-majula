@@ -1,0 +1,65 @@
+name=""
+local_int_count=3
+local_string_count=0
+local_long_count=0
+int_param_count=2
+string_param_count=0
+long_param_count=0
+
+L0: push_int_local 0
+L1: get_clientopt_6131 0
+L2: branch_equals L4
+L3: branch L5
+L4: return 0
+L5: push_int_local 0
+L6: set_clientopt_6031 0
+L7: get_clientopt_6131 0
+L8: pop_int_local 2
+L9: push_int_local 2
+L10: gosub_with_params clientscript_2593
+L11: push_int_local 0
+L12: push_int_local 2
+L13: branch_not L15
+L14: branch L34
+L15: push_int_local 2
+L16: push_constant_int 1
+L17: setdesiredtoolkit 0
+L18: push_int_local 1
+L19: push_constant_int 1
+L20: push_constant_string "RuneScape was unable to enter that display mode."
+L21: push_constant_string "<br>"
+L22: push_constant_string "<br>"
+L23: push_constant_string "Please visit our Knowledge Base for more information."
+L24: join_string 4
+L25: push_constant_string "Consult Knowledge Base"
+L26: push_constant_string "kbase/view.ws?guid=controls_display_options"
+L27: gosub_with_params [proc,graphics_options_message]
+L28: push_int_local 2
+L29: getwindowmode 0
+L30: push_int_local 2
+L31: gosub_with_params [proc,graphics_options_reviewoptions]
+L32: push_int_local 1
+L33: gosub_with_params [proc,graphics_options_rebuild_advanced]
+L34: push_int_local 2
+L35: getwindowmode 0
+L36: push_int_local 2
+L37: gosub_with_params [proc,graphics_options_reviewoptions]
+L38: push_int_local 1
+L39: gosub_with_params [proc,graphics_options_rebuild_advanced]
+L40: push_int_local 2
+L41: branch_if_true L46
+L42: push_int_local 2
+L43: push_constant_int 3
+L44: branch_equals L46
+L45: branch L52
+L46: push_constant_int 1
+L47: push_int_local 1
+L48: push_constant_int 0
+L49: push_constant_int 1
+L50: gosub_with_params [proc,graphics_options_startcountdown]
+L51: branch L55
+L52: push_int_local 2
+L53: push_constant_int 0
+L54: setdesiredtoolkit 0
+L55: return 0
+L56:

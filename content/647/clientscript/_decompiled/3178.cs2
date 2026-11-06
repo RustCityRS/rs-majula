@@ -1,9 +1,0 @@
-[clientscript,script_3178](int $int0)
-if (%varc_int6 = 0) {
-    %varc_int6 = 1;
-    if_setgraphic($int0);
-} else {
-    %varc_int6 = 0;
-    if_setgraphic($int0);
-}
-return;

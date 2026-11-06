@@ -510,6 +510,7 @@ pub fn pack_cache(
     let versions = archive::load_versions_dir(&content_dir.join("versions"))?;
     let stages = [
         "animations",
+        "shaders",
         "interfaces",
         "binary",
         "synth",
@@ -541,13 +542,23 @@ pub fn pack_cache(
                             interface::pack_archive(&mut cache, content_dir, pack_dir, &versions)?
                         }
                         "binary" => {
-                            js5::pack_binary_archives(&mut cache, content_dir, pack_dir, &versions)?
+                            js5::pack_asset_archives(&mut cache, content_dir, pack_dir, &versions)?
                         }
-                        "synth" => sound::pack_archive(&mut cache, content_dir, &versions)?,
+                        "synth" => {
+                            sound::pack_archive(&mut cache, content_dir, pack_dir, &versions)?
+                        }
+                        "shaders" => crate::pack::other::shader::pack_archive(
+                            &mut cache,
+                            content_dir,
+                            pack_dir,
+                            &versions,
+                        )?,
                         "songs" => {
                             song::pack_archive(&mut cache, content_dir, pack_dir, &versions)?
                         }
-                        "textures" => texture::pack_archive(&mut cache, content_dir, &versions)?,
+                        "textures" => {
+                            texture::pack_archive(&mut cache, content_dir, pack_dir, &versions)?
+                        }
                         "sprites" => {
                             media::pack_archive(&mut cache, content_dir, pack_dir, &versions)?
                         }

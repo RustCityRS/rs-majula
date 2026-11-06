@@ -9,7 +9,7 @@
 //!
 //! `quest_varps_647.tsv` lists each such varp. This decompiles the client's
 //! own table from 786's clientscript 2193, unpacked into the repo
-//! (`content/647/clientscript/_unpack/2193.bin`), and fails if a listed
+//! (`content/647/clientscript/*.cs2`), and fails if a listed
 //! varp is not there with that value, or if 647's registry does not give the
 //! name that id.
 //!
@@ -19,7 +19,8 @@
 
 #![cfg(since_647)]
 
-use rs_pack::cs2::decompile;
+use rs_pack::cs2::{assembly, decompile};
+use rs_pack::pack::names::AssetNames;
 use std::collections::BTreeMap;
 use std::fs;
 use std::path::Path;
@@ -28,8 +29,13 @@ use std::path::Path;
 fn client_quest_table(root: &Path) -> BTreeMap<u32, Vec<i32>> {
     // 786's own script, as the repo carries it unpacked: CI has no
     // reference cache in expected/ since the unpacked cache is in git.
-    let script = fs::read(root.join("content/647/clientscript/_unpack/2193.bin"))
-        .expect("clientscript 2193 in content/647/clientscript/_unpack");
+    let names = AssetNames::load(&root.join("content/647/pack")).unwrap();
+    let text = fs::read_to_string(
+        root.join("content/647/clientscript")
+            .join(format!("{}.cs2", names.name("clientscript", 2193))),
+    )
+    .unwrap();
+    let script = assembly::pack(&text, &names).expect("pack clientscript 2193");
     let source = decompile(&script, 2193).expect("decompile 2193");
 
     // Each case is `~script_2157(%varp63, 6)`, or -- decompiled without

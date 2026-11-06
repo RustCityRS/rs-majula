@@ -18,6 +18,7 @@
 //!   - all others: g4 (signed 4-byte int)
 
 use anyhow::Result;
+use rs_io::Packet;
 
 /// A decoded CS2 script ready for interpretation.
 pub struct Script {
@@ -190,7 +191,9 @@ fn read_nullstr(data: &[u8], pos: &mut usize) -> String {
     while *pos < data.len() && data[*pos] != 0 {
         *pos += 1;
     }
-    let s = String::from_utf8_lossy(&data[start..*pos]).to_string();
+    let mut bytes = data[start..*pos].to_vec();
+    bytes.push(0);
+    let s = Packet::from(bytes).gjstr(0);
     if *pos < data.len() {
         *pos += 1; // skip null terminator
     }

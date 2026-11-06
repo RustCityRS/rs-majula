@@ -1,0 +1,148 @@
+name=""
+local_int_count=1
+local_string_count=0
+local_long_count=0
+int_param_count=1
+string_param_count=0
+long_param_count=0
+
+L0: push_int_local 0
+L1: switch switch0
+L2: branch L117
+L3: push_varbit varbit_888
+L4: branch_if_false L6
+L5: branch L8
+L6: push_constant_int 0
+L7: return 0
+L8: branch L119
+L9: push_varbit varbit_5394
+L10: branch_if_false L12
+L11: branch L14
+L12: push_constant_int 0
+L13: return 0
+L14: branch L119
+L15: push_varbit varbit_4310
+L16: push_constant_int 10
+L17: branch_less_than L19
+L18: branch L21
+L19: push_constant_int 0
+L20: return 0
+L21: branch L119
+L22: push_varbit troll_freed_eadgar
+L23: branch_if_false L25
+L24: branch L27
+L25: push_constant_int 0
+L26: return 0
+L27: branch L119
+L28: push_varbit varbit_1895
+L29: push_constant_int 110
+L30: branch_less_than L32
+L31: branch L34
+L32: push_constant_int 0
+L33: return 0
+L34: branch L119
+L35: push_varbit varbit_3637
+L36: push_constant_int 125
+L37: branch_less_than L39
+L38: branch L41
+L39: push_constant_int 0
+L40: return 0
+L41: branch L119
+L42: gosub_with_params clientscript_2656
+L43: push_constant_int 100
+L44: branch_less_than L46
+L45: branch L48
+L46: push_constant_int 0
+L47: return 0
+L48: branch L119
+L49: push_varbit varbit_3909
+L50: push_constant_int 8
+L51: branch_less_than L53
+L52: branch L55
+L53: push_constant_int 0
+L54: return 0
+L55: push_varbit varbit_5834
+L56: branch_if_false L58
+L57: branch L60
+L58: push_constant_int 0
+L59: return 0
+L60: push_varbit varbit_5830
+L61: branch_if_false L63
+L62: branch L65
+L63: push_constant_int 0
+L64: return 0
+L65: branch L119
+L66: push_varbit varbit_5686
+L67: branch_if_false L69
+L68: branch L71
+L69: push_constant_int 0
+L70: return 0
+L71: branch L119
+L72: push_varbit varbit_1910
+L73: push_constant_int 20
+L74: branch_less_than L76
+L75: branch L78
+L76: push_constant_int 0
+L77: return 0
+L78: branch L119
+L79: push_varbit varbit_7973
+L80: branch_if_false L82
+L81: branch L84
+L82: push_constant_int 0
+L83: return 0
+L84: branch L119
+L85: push_varbit varbit_7544
+L86: branch_if_false L88
+L87: branch L90
+L88: push_constant_int 0
+L89: return 0
+L90: branch L119
+L91: gosub_with_params clientscript_2656
+L92: push_constant_int 100
+L93: branch_less_than L95
+L94: branch L97
+L95: push_constant_int 0
+L96: return 0
+L97: push_varbit varbit_1914
+L98: push_constant_int 50
+L99: branch_less_than L101
+L100: branch L103
+L101: push_constant_int 0
+L102: return 0
+L103: push_varbit varbit_8494
+L104: push_constant_int 5
+L105: branch_less_than L107
+L106: branch L109
+L107: push_constant_int 0
+L108: return 0
+L109: branch L119
+L110: push_varbit varbit_8601
+L111: push_constant_int 6
+L112: branch_less_than L114
+L113: branch L116
+L114: push_constant_int 0
+L115: return 0
+L116: branch L119
+L117: push_constant_int 1
+L118: return 0
+L119: push_constant_int 1
+L120: return 0
+L121: push_constant_int -1
+L122: return 0
+L123:
+
+[switch0@L1]
+79=L3
+144=L9
+145=L15
+35=L22
+120=L28
+157=L35
+156=L42
+162=L49
+163=L66
+168=L72
+171=L79
+174=L85
+179=L91
+148=L110

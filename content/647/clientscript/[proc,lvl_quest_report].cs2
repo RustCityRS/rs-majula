@@ -1,0 +1,63 @@
+name=""
+local_int_count=5
+local_string_count=1
+local_long_count=0
+int_param_count=3
+string_param_count=0
+long_param_count=0
+
+L0: push_constant_string "null"
+L1: pop_string_local 0
+L2: push_constant_int -1
+L3: pop_int_local 3
+L4: push_constant_int 1
+L5: pop_int_local 4
+L6: push_int_local 2
+L7: gosub_with_params [proc,lvl_quest_requirements_met]
+L8: branch_if_false L10
+L9: branch L30
+L10: push_constant_string "<col=000080>"
+L11: push_constant_string "Level "
+L12: push_int_local 1
+L13: tostring 0
+L14: push_constant_string " "
+L15: push_constant_string "<col=800000>"
+L16: push_constant_int 680
+L17: push_int_local 0
+L18: enum_string 0
+L19: push_constant_string "<col=000080>"
+L20: push_constant_string " is one of the requirements for "
+L21: push_constant_string "<col=800000>"
+L22: push_constant_int 1481
+L23: push_int_local 2
+L24: enum_string 0
+L25: push_constant_string "<col=000080>"
+L26: push_constant_string "."
+L27: join_string 12
+L28: pop_string_local 0
+L29: branch L40
+L30: push_constant_string "<col=000080>"
+L31: push_constant_string "You now have all the levels you need to complete "
+L32: push_constant_string "<col=800000>"
+L33: push_constant_int 1481
+L34: push_int_local 2
+L35: enum_string 0
+L36: push_constant_string "<col=000080>"
+L37: push_constant_string "."
+L38: join_string 6
+L39: pop_string_local 0
+L40: push_int_local 3
+L41: push_constant_int -1
+L42: branch_equals L44
+L43: branch L46
+L44: push_constant_int 6513
+L45: pop_int_local 3
+L46: push_string_local 0
+L47: push_int_local 3
+L48: push_int_local 4
+L49: return 0
+L50: push_constant_string ""
+L51: push_constant_int -1
+L52: push_constant_int 0
+L53: return 0
+L54:

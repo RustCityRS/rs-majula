@@ -1,9 +1,0 @@
-[clientscript,script_4161](int $int0, int $int1)
-def_int $int2 = 0;
-if ($int2 < if_getchildcount($int0)) {
-    if (cc_find($int0, $int2) = 1) {
-        cc_settrans($int1);
-    }
-    $int2 = add($int2, 1);
-}
-return;

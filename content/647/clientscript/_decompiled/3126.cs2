@@ -1,8 +1,0 @@
-[clientscript,script_3126](int $int0, int $int1)
-if (cc_find($int0, $int1) = 1) {
-    if ($int1 = 0) {
-        cc_setgraphic(1533);
-    }
-    cc_setgraphic(1534);
-}
-return;

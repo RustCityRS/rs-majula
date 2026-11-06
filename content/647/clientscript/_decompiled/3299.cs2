@@ -1,5 +1,0 @@
-[clientscript,script_3299](int $int0, int $int1)
-if (inv_getobj_alwaysnoted($int0, $int1) ! -1) {
-    mes(oc_name(inv_getobj_alwaysnoted($int0, $int1)));
-}
-return;

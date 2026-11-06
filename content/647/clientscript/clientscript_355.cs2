@@ -1,0 +1,215 @@
+name=""
+local_int_count=5
+local_string_count=0
+local_long_count=0
+int_param_count=3
+string_param_count=0
+long_param_count=0
+
+L0: push_int_local 0
+L1: push_constant_int 1
+L2: branch_not L4
+L3: branch L5
+L4: return 0
+L5: push_constant_int -1
+L6: pop_int_local 3
+L7: push_constant_int -1
+L8: pop_int_local 4
+L9: push_int_local 2
+L10: switch switch0
+L11: branch L179
+L12: push_int_local 1
+L13: pop_varc_int varc_int_1008
+L14: push_int_local 2
+L15: push_int_local 1
+L16: player_setbodytype 0
+L17: push_constant_int 9860
+L18: push_constant_int 1
+L19: push_constant_int 0
+L20: sound_synth 0
+L21: branch L180
+L22: push_int_local 1
+L23: pop_varc_int varc_int_1009
+L24: push_int_local 2
+L25: push_int_local 1
+L26: player_setbodytype 0
+L27: push_constant_int 9860
+L28: push_constant_int 1
+L29: push_constant_int 0
+L30: sound_synth 0
+L31: branch L180
+L32: push_constant_int 0
+L33: pop_varc_int varc_int_86
+L34: push_constant_int 2
+L35: push_constant_int 19713
+L36: player_setwornobject 0
+L37: push_constant_int 3
+L38: push_constant_int -1
+L39: player_setwornobject 0
+L40: push_constant_int 5
+L41: push_constant_int -1
+L42: player_setwornobject 0
+L43: push_constant_int 9819
+L44: push_constant_int 1
+L45: push_constant_int 0
+L46: sound_synth 0
+L47: push_int_local 2
+L48: switch switch1
+L49: branch L64
+L50: push_int_local 1
+L51: push_constant_int 3
+L52: pop_int_local 4
+L53: pop_varc_int varc_int_1010
+L54: branch L64
+L55: push_int_local 1
+L56: push_constant_int 4
+L57: pop_int_local 4
+L58: pop_varc_int varc_int_1011
+L59: branch L64
+L60: push_int_local 1
+L61: push_constant_int 5
+L62: pop_int_local 4
+L63: pop_varc_int varc_int_1012
+L64: push_int_local 1
+L65: push_int_local 4
+L66: gosub_with_params clientscript_361
+L67: pop_int_local 3
+L68: push_int_local 3
+L69: push_constant_int -1
+L70: branch_not L72
+L71: branch L125
+L72: player_isfemale 0
+L73: branch_if_true L75
+L74: branch L100
+L75: push_int_local 3
+L76: push_constant_int 1182
+L77: struct_param_4500 0
+L78: pop_varc_int varc_int_1010
+L79: push_constant_int 9
+L80: push_varc_int varc_int_1010
+L81: player_setbodytype 0
+L82: push_int_local 3
+L83: push_constant_int 1183
+L84: struct_param_4500 0
+L85: pop_varc_int varc_int_1011
+L86: push_constant_int 10
+L87: push_varc_int varc_int_1011
+L88: player_setbodytype 0
+L89: push_int_local 3
+L90: push_constant_int 1184
+L91: struct_param_4500 0
+L92: pop_varc_int varc_int_1012
+L93: push_constant_int 11
+L94: push_varc_int varc_int_1012
+L95: player_setbodytype 0
+L96: push_constant_int -1
+L97: push_constant_int 1
+L98: gosub_with_params [proc,playerdesign4_setplayeranim]
+L99: branch L124
+L100: push_int_local 3
+L101: push_constant_int 1182
+L102: struct_param_4500 0
+L103: pop_varc_int varc_int_1010
+L104: push_constant_int 2
+L105: push_varc_int varc_int_1010
+L106: player_setbodytype 0
+L107: push_int_local 3
+L108: push_constant_int 1183
+L109: struct_param_4500 0
+L110: pop_varc_int varc_int_1011
+L111: push_constant_int 3
+L112: push_varc_int varc_int_1011
+L113: player_setbodytype 0
+L114: push_int_local 3
+L115: push_constant_int 1184
+L116: struct_param_4500 0
+L117: pop_varc_int varc_int_1012
+L118: push_constant_int 4
+L119: push_varc_int varc_int_1012
+L120: player_setbodytype 0
+L121: push_constant_int -1
+L122: push_constant_int 0
+L123: gosub_with_params [proc,playerdesign4_setplayeranim]
+L124: branch L128
+L125: push_int_local 2
+L126: push_int_local 1
+L127: player_setbodytype 0
+L128: branch L180
+L129: push_constant_int 0
+L130: pop_varc_int varc_int_86
+L131: push_constant_int 2
+L132: push_constant_int 19713
+L133: player_setwornobject 0
+L134: push_constant_int 3
+L135: push_constant_int -1
+L136: player_setwornobject 0
+L137: push_constant_int 5
+L138: push_constant_int -1
+L139: player_setwornobject 0
+L140: push_constant_int -1
+L141: player_isfemale 0
+L142: gosub_with_params [proc,int_to_bool]
+L143: gosub_with_params [proc,playerdesign4_setplayeranim]
+L144: push_int_local 2
+L145: push_int_local 1
+L146: player_setbodytype 0
+L147: push_int_local 1
+L148: pop_varc_int varc_int_1013
+L149: push_constant_int 9819
+L150: push_constant_int 1
+L151: push_constant_int 0
+L152: sound_synth 0
+L153: branch L180
+L154: push_constant_int 0
+L155: pop_varc_int varc_int_86
+L156: push_constant_int 2
+L157: push_constant_int 19713
+L158: player_setwornobject 0
+L159: push_constant_int 3
+L160: push_constant_int -1
+L161: player_setwornobject 0
+L162: push_constant_int 5
+L163: push_constant_int -1
+L164: player_setwornobject 0
+L165: push_constant_int -1
+L166: player_isfemale 0
+L167: gosub_with_params [proc,int_to_bool]
+L168: gosub_with_params [proc,playerdesign4_setplayeranim]
+L169: push_int_local 2
+L170: push_int_local 1
+L171: player_setbodytype 0
+L172: push_int_local 1
+L173: pop_varc_int varc_int_1014
+L174: push_constant_int 9819
+L175: push_constant_int 1
+L176: push_constant_int 0
+L177: sound_synth 0
+L178: branch L180
+L179: return 0
+L180: gosub_with_params [proc,playerdesign4_rebuildmenu]
+L181: return 0
+L182:
+
+[switch0@L10]
+0=L12
+7=L12
+1=L22
+8=L22
+2=L32
+9=L32
+3=L32
+10=L32
+4=L32
+11=L32
+5=L129
+12=L129
+6=L154
+13=L154
+
+[switch1@L48]
+2=L50
+9=L50
+3=L55
+10=L55
+4=L60
+11=L60

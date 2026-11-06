@@ -1,0 +1,98 @@
+name=""
+local_int_count=5
+local_string_count=1
+local_long_count=0
+int_param_count=3
+string_param_count=0
+long_param_count=0
+
+L0: push_varc_string_old varc_string_38
+L1: string_length 0
+L2: branch_if_false L4
+L3: branch L8
+L4: push_constant_string ""
+L5: push_int_local 2
+L6: gosub_with_params clientscript_1812
+L7: return 0
+L8: chat_getofflinepm 0
+L9: push_constant_int 100
+L10: min 0
+L11: push_constant_int 1
+L12: sub 0
+L13: pop_int_local 3
+L14: push_constant_string ""
+L15: pop_string_local 0
+L16: push_constant_int -1
+L17: pop_int_local 4
+L18: push_int_local 3
+L19: push_constant_int 0
+L20: branch_greater_than_or_equals L22
+L21: branch L44
+L22: push_int_local 3
+L23: chat_gethistory_length 0
+L24: switch switch0
+L25: branch L39
+L26: push_int_local 3
+L27: player_getdisplayname 0
+L28: removetags 0
+L29: lowercase 0
+L30: push_varc_string_old varc_string_38
+L31: compare 0
+L32: branch_if_false L34
+L33: branch L39
+L34: push_int_local 3
+L35: chat_gethistory_bytypeandline 0
+L36: pop_string_local 0
+L37: push_int_local 3
+L38: pop_int_local 4
+L39: push_int_local 3
+L40: push_constant_int 1
+L41: sub 0
+L42: pop_int_local 3
+L43: branch L18
+L44: push_int_local 4
+L45: push_constant_int 0
+L46: branch_less_than L48
+L47: branch L54
+L48: push_constant_int -1
+L49: pop_varc_int varc_int_267
+L50: push_constant_string ""
+L51: push_int_local 2
+L52: gosub_with_params clientscript_1812
+L53: return 0
+L54: push_varc_int varc_int_267
+L55: push_constant_int -1
+L56: branch_equals L66
+L57: push_int_local 4
+L58: push_varc_int varc_int_267
+L59: branch_less_than_or_equals L66
+L60: push_string_local 0
+L61: push_varc_string_old varc_string_39
+L62: compare 0
+L63: push_constant_int 0
+L64: branch_not L66
+L65: branch L69
+L66: push_string_local 0
+L67: push_int_local 2
+L68: gosub_with_params clientscript_1812
+L69: push_int_local 4
+L70: pop_varc_int varc_int_267
+L71: return 0
+L72:
+
+[switch0@L24]
+1=L26
+2=L26
+3=L26
+7=L26
+9=L26
+11=L26
+17=L26
+18=L26
+20=L26
+24=L26
+25=L26
+41=L26
+42=L26
+44=L26
+45=L26

@@ -1,5 +1,0 @@
-[clientscript,script_2774](int $int0)(int, int, int, int, int, string)
-sound_synth(synth_2277, 1, 0);
-if_setcolour($int0);
-if_setontimer;
-return(16776960, 2775, add(clientclock, 15), -2147483645, $int0, "iI");

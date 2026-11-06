@@ -1,0 +1,138 @@
+name=""
+local_int_count=3
+local_string_count=2
+local_long_count=0
+int_param_count=2
+string_param_count=0
+long_param_count=0
+
+L0: login_getint_5609 0
+L1: pop_int_local 2
+L2: push_int_local 2
+L3: push_constant_int -3
+L4: branch_equals L6
+L5: branch L7
+L6: return 0
+L7: push_constant_int -1
+L8: push_constant_string ""
+L9: push_constant_int 44105739
+L10: if_setontimer 0
+L11: push_constant_int 0
+L12: gosub_with_params [proc,create_please_wait]
+L13: push_int_local 2
+L14: push_constant_int 2
+L15: branch_equals L17
+L16: branch L63
+L17: push_constant_int 4059
+L18: push_constant_int 44105809
+L19: if_setgraphic 0
+L20: push_constant_int 1
+L21: push_constant_int 44105814
+L22: if_sethide 0
+L23: push_constant_int 1
+L24: push_constant_int 44105750
+L25: if_sethide 0
+L26: push_int_local 1
+L27: branch_if_true L29
+L28: branch L36
+L29: push_varc_string_old varc_string_326
+L30: string_length 0
+L31: push_constant_int 0
+L32: branch_greater_than L34
+L33: branch L36
+L34: push_constant_int 0
+L35: gosub_with_params clientscript_3953
+L36: push_varc_string_old varc_string_124
+L37: string_length 0
+L38: push_constant_int 0
+L39: branch_greater_than L41
+L40: branch L56
+L41: push_constant_int 7
+L42: push_constant_int 1
+L43: push_constant_int 0
+L44: gosub_with_params clientscript_3228
+L45: pop_int_discard 0
+L46: push_varc_string_old varc_string_125
+L47: string_length 0
+L48: push_constant_int 0
+L49: branch_greater_than L51
+L50: branch L56
+L51: push_constant_int 8
+L52: push_constant_int 1
+L53: push_constant_int 0
+L54: gosub_with_params clientscript_3228
+L55: pop_int_discard 0
+L56: push_int_local 0
+L57: branch_if_true L59
+L58: branch L62
+L59: push_constant_int 14
+L60: push_constant_int 1
+L61: gosub_with_params [proc,create_focus]
+L62: return 0
+L63: push_constant_string "accountappeal"
+L64: pop_string_local 0
+L65: push_constant_string "passwordchoice.ws"
+L66: pop_string_local 1
+L67: push_int_local 2
+L68: switch switch0
+L69: branch L103
+L70: push_constant_string "Error contacting server."
+L71: push_constant_int 44105809
+L72: gosub_with_params [proc,create_error]
+L73: branch L106
+L74: push_constant_string "No response from server."
+L75: push_constant_int 44105809
+L76: gosub_with_params [proc,create_error]
+L77: branch L106
+L78: push_constant_string "The server is currently very busy. Please try again shortly."
+L79: push_constant_int 44105809
+L80: gosub_with_params [proc,create_error]
+L81: branch L106
+L82: push_constant_string "You cannot create an account at this time. Please try again later."
+L83: push_constant_int 44105809
+L84: gosub_with_params [proc,create_error]
+L85: branch L106
+L86: push_constant_string "Email already in use. Try a different email or click "
+L87: push_constant_string "<u=ebe0bc>"
+L88: push_constant_string "here"
+L89: push_constant_string "</u>"
+L90: push_constant_string " to recover this account."
+L91: join_string 5
+L92: push_constant_int 44105809
+L93: gosub_with_params [proc,create_error]
+L94: branch L106
+L95: push_constant_string "Please enter a valid Email address."
+L96: push_constant_int 44105809
+L97: gosub_with_params [proc,create_error]
+L98: branch L106
+L99: push_constant_string "RuneScape has been updated. Please reload this page."
+L100: push_constant_int 44105809
+L101: gosub_with_params [proc,create_error]
+L102: branch L106
+L103: push_constant_string "Unexpected server response."
+L104: push_constant_int 44105809
+L105: gosub_with_params [proc,create_error]
+L106: push_int_local 1
+L107: branch_if_true L109
+L108: branch L116
+L109: push_varc_string_old varc_string_326
+L110: string_length 0
+L111: push_constant_int 0
+L112: branch_greater_than L114
+L113: branch L116
+L114: push_constant_int 0
+L115: gosub_with_params clientscript_3953
+L116: return 0
+L117:
+
+[switch0@L68]
+-4=L70
+-1=L70
+3=L70
+-5=L74
+7=L78
+9=L82
+38=L82
+20=L86
+21=L95
+37=L99

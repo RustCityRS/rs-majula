@@ -1,0 +1,42 @@
+name=""
+local_int_count=2
+local_string_count=1
+local_long_count=0
+int_param_count=1
+string_param_count=1
+long_param_count=0
+
+L0: push_constant_int 59768847
+L1: gosub_with_params [proc,deltooltip_action]
+L2: push_constant_int 59572283
+L3: gosub_with_params [proc,deltooltip_action]
+L4: push_constant_string ""
+L5: pop_varc_string_old varc_string_279
+L6: push_int_local 0
+L7: pop_varc_int varc_int_6
+L8: push_constant_int 0
+L9: pop_varc_int varc_int_1094
+L10: push_constant_int 0
+L11: pop_int_local 1
+L12: autosetup_isactive 0
+L13: branch_if_true L18
+L14: staffmodlevel 0
+L15: push_constant_int 0
+L16: branch_greater_than L18
+L17: branch L20
+L18: push_constant_int 1
+L19: pop_int_local 1
+L20: getlanguage 0
+L21: branch_if_true L23
+L22: branch L28
+L23: push_string_local 0
+L24: push_int_local 1
+L25: autosetup_getvalue 0
+L26: gosub_with_params clientscript_2921
+L27: branch L32
+L28: push_string_local 0
+L29: push_int_local 1
+L30: autosetup_getvalue 0
+L31: gosub_with_params clientscript_2920
+L32: return 0
+L33:

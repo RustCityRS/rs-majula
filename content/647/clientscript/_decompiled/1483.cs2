@@ -1,6 +1,0 @@
-[clientscript,script_1483](int $int0, int $int1)
-if (clientclock >= $int0) {
-    if_setontimer;
-    ~script_1463(%varbit4893);
-}
-return;

@@ -1,0 +1,4010 @@
+name=""
+local_int_count=2
+local_string_count=0
+local_long_count=0
+int_param_count=2
+string_param_count=0
+long_param_count=0
+
+L0: push_int_local 0
+L1: switch switch0
+L2: branch L3633
+L3: push_int_local 1
+L4: switch switch1
+L5: branch L148
+L6: push_constant_int 10
+L7: push_constant_int 3224
+L8: push_constant_string "Members: Cloth"
+L9: push_constant_string "Members can now weave "
+L10: push_constant_string "<col=000080>"
+L11: push_constant_string "cloth"
+L12: push_constant_string "</col>"
+L13: push_constant_string " on a loom."
+L14: join_string 5
+L15: return 0
+L16: branch L148
+L17: push_constant_int 10
+L18: push_constant_int 20754
+L19: push_constant_string "Members: Milestone cape (10)"
+L20: push_constant_string "Members can now weave a "
+L21: push_constant_string "<col=000080>"
+L22: push_constant_string "Milestone cape (10)"
+L23: push_constant_string "</col>"
+L24: push_constant_string " on a loom."
+L25: join_string 5
+L26: return 0
+L27: branch L148
+L28: push_constant_int 20
+L29: push_constant_int 20755
+L30: push_constant_string "Members: Milestone cape (20)"
+L31: push_constant_string "Members can now weave a "
+L32: push_constant_string "<col=000080>"
+L33: push_constant_string "Milestone cape (20)"
+L34: push_constant_string "</col>"
+L35: push_constant_string " on a loom."
+L36: join_string 5
+L37: return 0
+L38: branch L148
+L39: push_constant_int 21
+L40: push_constant_int 5418
+L41: push_constant_string "Members: Vegetable sack"
+L42: push_constant_string "Members can now weave "
+L43: push_constant_string "<col=000080>"
+L44: push_constant_string "vegetable sacks"
+L45: push_constant_string "</col>"
+L46: push_constant_string " on a loom."
+L47: join_string 5
+L48: return 0
+L49: branch L148
+L50: push_constant_int 30
+L51: push_constant_int 20756
+L52: push_constant_string "Members: Milestone cape (30)"
+L53: push_constant_string "Members can now weave a "
+L54: push_constant_string "<col=000080>"
+L55: push_constant_string "Milestone cape (30)"
+L56: push_constant_string "</col>"
+L57: push_constant_string " on a loom."
+L58: join_string 5
+L59: return 0
+L60: branch L148
+L61: push_constant_int 36
+L62: push_constant_int 5376
+L63: push_constant_string "Members: Fruit basket"
+L64: push_constant_string "Members can now weave "
+L65: push_constant_string "<col=000080>"
+L66: push_constant_string "fruit baskets"
+L67: push_constant_string "</col>"
+L68: push_constant_string " on a loom."
+L69: join_string 5
+L70: return 0
+L71: branch L148
+L72: push_constant_int 40
+L73: push_constant_int 20757
+L74: push_constant_string "Members: Milestone cape (40)"
+L75: push_constant_string "Members can now weave a "
+L76: push_constant_string "<col=000080>"
+L77: push_constant_string "Milestone cape (40)"
+L78: push_constant_string "</col>"
+L79: push_constant_string " on a loom."
+L80: join_string 5
+L81: return 0
+L82: branch L148
+L83: push_constant_int 50
+L84: push_constant_int 20758
+L85: push_constant_string "Members: Milestone cape (50)"
+L86: push_constant_string "Members can now weave a "
+L87: push_constant_string "<col=000080>"
+L88: push_constant_string "Milestone cape (50)"
+L89: push_constant_string "</col>"
+L90: push_constant_string " on a loom."
+L91: join_string 5
+L92: return 0
+L93: branch L148
+L94: push_constant_int 52
+L95: push_constant_int 14859
+L96: push_constant_string "Members: Seaweed net"
+L97: push_constant_string "Members can now weave "
+L98: push_constant_string "<col=000080>"
+L99: push_constant_string "seaweed nets"
+L100: push_constant_string "</col>"
+L101: push_constant_string " on a loom."
+L102: join_string 5
+L103: return 0
+L104: branch L148
+L105: push_constant_int 60
+L106: push_constant_int 20759
+L107: push_constant_string "Members: Milestone cape (60)"
+L108: push_constant_string "Members can now weave a "
+L109: push_constant_string "<col=000080>"
+L110: push_constant_string "Milestone cape (60)"
+L111: push_constant_string "</col>"
+L112: push_constant_string " on a loom."
+L113: join_string 5
+L114: return 0
+L115: branch L148
+L116: push_constant_int 70
+L117: push_constant_int 20760
+L118: push_constant_string "Members: Milestone cape (70)"
+L119: push_constant_string "Members can now weave a "
+L120: push_constant_string "<col=000080>"
+L121: push_constant_string "Milestone cape (70)"
+L122: push_constant_string "</col>"
+L123: push_constant_string " on a loom."
+L124: join_string 5
+L125: return 0
+L126: branch L148
+L127: push_constant_int 80
+L128: push_constant_int 20761
+L129: push_constant_string "Members: Milestone cape (80)"
+L130: push_constant_string "Members can now weave a "
+L131: push_constant_string "<col=000080>"
+L132: push_constant_string "Milestone cape (80)"
+L133: push_constant_string "</col>"
+L134: push_constant_string " on a loom."
+L135: join_string 5
+L136: return 0
+L137: branch L148
+L138: push_constant_int 90
+L139: push_constant_int 20762
+L140: push_constant_string "Members: Milestone cape (90)"
+L141: push_constant_string "Members can now weave a "
+L142: push_constant_string "<col=000080>"
+L143: push_constant_string "Milestone cape (90)"
+L144: push_constant_string "</col>"
+L145: push_constant_string " on a loom."
+L146: join_string 5
+L147: return 0
+L148: branch L3633
+L149: push_int_local 1
+L150: switch switch2
+L151: branch L550
+L152: push_constant_int 1
+L153: push_constant_int 1059
+L154: push_constant_string "Leather gloves"
+L155: push_constant_string "You can now craft "
+L156: push_constant_string "<col=000080>"
+L157: push_constant_string "leather gloves"
+L158: push_constant_string "</col>"
+L159: push_constant_string "."
+L160: join_string 5
+L161: return 0
+L162: branch L550
+L163: push_constant_int 7
+L164: push_constant_int 1061
+L165: push_constant_string "Leather boots"
+L166: push_constant_string "You can now craft "
+L167: push_constant_string "<col=000080>"
+L168: push_constant_string "leather boots"
+L169: push_constant_string "</col>"
+L170: push_constant_string "."
+L171: join_string 5
+L172: return 0
+L173: branch L550
+L174: push_constant_int 9
+L175: push_constant_int 1167
+L176: push_constant_string "Leather cowl"
+L177: push_constant_string "You can now craft "
+L178: push_constant_string "<col=000080>"
+L179: push_constant_string "leather cowls"
+L180: push_constant_string "</col>"
+L181: push_constant_string "."
+L182: join_string 5
+L183: return 0
+L184: branch L550
+L185: push_constant_int 11
+L186: push_constant_int 1063
+L187: push_constant_string "Leather vambraces"
+L188: push_constant_string "You can now craft "
+L189: push_constant_string "<col=000080>"
+L190: push_constant_string "leather vambraces"
+L191: push_constant_string "</col>"
+L192: push_constant_string "."
+L193: join_string 5
+L194: return 0
+L195: branch L550
+L196: push_constant_int 14
+L197: push_constant_int 1129
+L198: push_constant_string "Leather body"
+L199: push_constant_string "You can now craft "
+L200: push_constant_string "<col=000080>"
+L201: push_constant_string "leather bodies"
+L202: push_constant_string "</col>"
+L203: push_constant_string "."
+L204: join_string 5
+L205: return 0
+L206: branch L550
+L207: push_constant_int 15
+L208: push_constant_int 3327
+L209: push_constant_string "Members: Snail helmet"
+L210: push_constant_string "Members can now craft "
+L211: push_constant_string "<col=000080>"
+L212: push_constant_string "snail helmets"
+L213: push_constant_string "</col>"
+L214: push_constant_string "."
+L215: join_string 5
+L216: return 0
+L217: branch L550
+L218: push_constant_int 15
+L219: push_constant_int 7539
+L220: push_constant_string "Members: Crab shell armour"
+L221: push_constant_string "Members can now craft "
+L222: push_constant_string "<col=000080>"
+L223: push_constant_string "crab shell armour"
+L224: push_constant_string "</col>"
+L225: push_constant_string "."
+L226: join_string 5
+L227: return 0
+L228: branch L550
+L229: push_constant_int 18
+L230: push_constant_int 1095
+L231: push_constant_string "Leather chaps"
+L232: push_constant_string "You can now craft "
+L233: push_constant_string "<col=000080>"
+L234: push_constant_string "leather chaps"
+L235: push_constant_string "</col>"
+L236: push_constant_string "."
+L237: join_string 5
+L238: return 0
+L239: branch L550
+L240: push_constant_int 28
+L241: push_constant_int 1131
+L242: push_constant_string "Hard leather body"
+L243: push_constant_string "You can now craft "
+L244: push_constant_string "<col=000080>"
+L245: push_constant_string "hard leather bodies"
+L246: push_constant_string "</col>"
+L247: push_constant_string "."
+L248: join_string 5
+L249: return 0
+L250: branch L550
+L251: push_constant_int 32
+L252: push_constant_int 10077
+L253: push_constant_string "Members: Spiked vambraces"
+L254: push_constant_string "Members can now craft "
+L255: push_constant_string "<col=000080>"
+L256: push_constant_string "spiked vambraces"
+L257: push_constant_string "</col>"
+L258: push_constant_string "."
+L259: join_string 5
+L260: return 0
+L261: branch L550
+L262: push_constant_int 35
+L263: push_constant_int 6259
+L264: push_constant_string "Members: Broodoo shield"
+L265: push_constant_string "Members can now craft "
+L266: push_constant_string "<col=000080>"
+L267: push_constant_string "broodoo shields"
+L268: push_constant_string "</col>"
+L269: push_constant_string "."
+L270: join_string 5
+L271: return 0
+L272: branch L550
+L273: push_constant_int 38
+L274: push_constant_int 1169
+L275: push_constant_string "Members: Coif"
+L276: push_constant_string "Members can now craft "
+L277: push_constant_string "<col=000080>"
+L278: push_constant_string "coifs"
+L279: push_constant_string "</col>"
+L280: push_constant_string "."
+L281: join_string 5
+L282: return 0
+L283: branch L550
+L284: push_constant_int 41
+L285: push_constant_int 1133
+L286: push_constant_string "Members: Studded body"
+L287: push_constant_string "Members can now craft "
+L288: push_constant_string "<col=000080>"
+L289: push_constant_string "studded bodies"
+L290: push_constant_string "</col>"
+L291: push_constant_string "."
+L292: join_string 5
+L293: return 0
+L294: branch L550
+L295: push_constant_int 43
+L296: push_constant_int 10824
+L297: push_constant_string "Members: Yak-hide leg armour"
+L298: push_constant_string "Members can now craft "
+L299: push_constant_string "<col=000080>"
+L300: push_constant_string "yak-hide leg armour"
+L301: push_constant_string "</col>"
+L302: push_constant_string "."
+L303: join_string 5
+L304: return 0
+L305: branch L550
+L306: push_constant_int 44
+L307: push_constant_int 1097
+L308: push_constant_string "Members: Studded chaps"
+L309: push_constant_string "Members can now craft "
+L310: push_constant_string "<col=000080>"
+L311: push_constant_string "studded chaps"
+L312: push_constant_string "</col>"
+L313: push_constant_string "."
+L314: join_string 5
+L315: return 0
+L316: branch L550
+L317: push_constant_int 45
+L318: push_constant_int 6328
+L319: push_constant_string "Members: Snakeskin boots"
+L320: push_constant_string "Members can now craft "
+L321: push_constant_string "<col=000080>"
+L322: push_constant_string "snakeskin boots"
+L323: push_constant_string "</col>"
+L324: push_constant_string "."
+L325: join_string 5
+L326: return 0
+L327: branch L550
+L328: push_constant_int 46
+L329: push_constant_int 10822
+L330: push_constant_string "Members: Yak-hide body armour"
+L331: push_constant_string "Members can now craft "
+L332: push_constant_string "<col=000080>"
+L333: push_constant_string "yak-hide body armour"
+L334: push_constant_string "</col>"
+L335: push_constant_string "."
+L336: join_string 5
+L337: return 0
+L338: branch L550
+L339: push_constant_int 47
+L340: push_constant_int 6330
+L341: push_constant_string "Members: Snakeskin vambraces"
+L342: push_constant_string "Members can now craft "
+L343: push_constant_string "<col=000080>"
+L344: push_constant_string "snakeskin vambraces"
+L345: push_constant_string "</col>"
+L346: push_constant_string "."
+L347: join_string 5
+L348: return 0
+L349: branch L550
+L350: push_constant_int 48
+L351: push_constant_int 6326
+L352: push_constant_string "Members: Snakeskin bandana"
+L353: push_constant_string "Members can now craft "
+L354: push_constant_string "<col=000080>"
+L355: push_constant_string "snakeskin bandanas"
+L356: push_constant_string "</col>"
+L357: push_constant_string "."
+L358: join_string 5
+L359: return 0
+L360: branch L550
+L361: push_constant_int 51
+L362: push_constant_int 6324
+L363: push_constant_string "Members: Snakeskin chaps"
+L364: push_constant_string "Members can now craft "
+L365: push_constant_string "<col=000080>"
+L366: push_constant_string "snakeskin chaps"
+L367: push_constant_string "</col>"
+L368: push_constant_string "."
+L369: join_string 5
+L370: return 0
+L371: branch L550
+L372: push_constant_int 53
+L373: push_constant_int 6322
+L374: push_constant_string "Members: Snakeskin body"
+L375: push_constant_string "Members can now craft "
+L376: push_constant_string "<col=000080>"
+L377: push_constant_string "snakeskin bodies"
+L378: push_constant_string "</col>"
+L379: push_constant_string "."
+L380: join_string 5
+L381: return 0
+L382: branch L550
+L383: push_constant_int 55
+L384: push_constant_int 13263
+L385: push_constant_string "Members: Slayer helmet"
+L386: push_constant_string "<br>"
+L387: push_constant_string " (after Smoking Kills)"
+L388: join_string 3
+L389: push_constant_string "Members can now craft "
+L390: push_constant_string "<col=000080>"
+L391: push_constant_string "Slayer helmets"
+L392: push_constant_string "</col>"
+L393: push_constant_string " (after Smoking Kills)."
+L394: join_string 5
+L395: return 0
+L396: branch L550
+L397: push_constant_int 57
+L398: push_constant_int 1065
+L399: push_constant_string "Members: Green dragonhide vambraces"
+L400: push_constant_string "Members can now craft "
+L401: push_constant_string "<col=000080>"
+L402: push_constant_string "green dragonhide vambraces"
+L403: push_constant_string "</col>"
+L404: push_constant_string "."
+L405: join_string 5
+L406: return 0
+L407: branch L550
+L408: push_constant_int 60
+L409: push_constant_int 1099
+L410: push_constant_string "Members: Green dragonhide chaps"
+L411: push_constant_string "Members can now craft "
+L412: push_constant_string "<col=000080>"
+L413: push_constant_string "green dragonhide chaps"
+L414: push_constant_string "</col>"
+L415: push_constant_string "."
+L416: join_string 5
+L417: return 0
+L418: branch L550
+L419: push_constant_int 63
+L420: push_constant_int 1135
+L421: push_constant_string "Members: Green dragonhide body"
+L422: push_constant_string "Members can now craft "
+L423: push_constant_string "<col=000080>"
+L424: push_constant_string "green dragonhide bodies"
+L425: push_constant_string "</col>"
+L426: push_constant_string "."
+L427: join_string 5
+L428: return 0
+L429: branch L550
+L430: push_constant_int 64
+L431: push_constant_int 10075
+L432: push_constant_string "Members: Repairing gloves of silence"
+L433: push_constant_string "Members can now repair "
+L434: push_constant_string "<col=000080>"
+L435: push_constant_string "gloves of silence"
+L436: push_constant_string "</col>"
+L437: push_constant_string " with dark kebbit fur."
+L438: join_string 5
+L439: return 0
+L440: branch L550
+L441: push_constant_int 66
+L442: push_constant_int 2487
+L443: push_constant_string "Members: Blue dragonhide vambraces"
+L444: push_constant_string "Members can now craft "
+L445: push_constant_string "<col=000080>"
+L446: push_constant_string "blue dragonhide vambraces"
+L447: push_constant_string "</col>"
+L448: push_constant_string "."
+L449: join_string 5
+L450: return 0
+L451: branch L550
+L452: push_constant_int 68
+L453: push_constant_int 2493
+L454: push_constant_string "Members: Blue dragonhide chaps"
+L455: push_constant_string "Members can now craft "
+L456: push_constant_string "<col=000080>"
+L457: push_constant_string "blue dragonhide chaps"
+L458: push_constant_string "</col>"
+L459: push_constant_string "."
+L460: join_string 5
+L461: return 0
+L462: branch L550
+L463: push_constant_int 71
+L464: push_constant_int 2499
+L465: push_constant_string "Members: Blue dragonhide body"
+L466: push_constant_string "Members can now craft "
+L467: push_constant_string "<col=000080>"
+L468: push_constant_string "blue dragonhide bodies"
+L469: push_constant_string "</col>"
+L470: push_constant_string "."
+L471: join_string 5
+L472: return 0
+L473: branch L550
+L474: push_constant_int 73
+L475: push_constant_int 2489
+L476: push_constant_string "Members: Red dragonhide vambraces"
+L477: push_constant_string "Members can now craft "
+L478: push_constant_string "<col=000080>"
+L479: push_constant_string "red dragonhide vambraces"
+L480: push_constant_string "</col>"
+L481: push_constant_string "."
+L482: join_string 5
+L483: return 0
+L484: branch L550
+L485: push_constant_int 75
+L486: push_constant_int 2495
+L487: push_constant_string "Members: Red dragonhide chaps"
+L488: push_constant_string "Members can now craft "
+L489: push_constant_string "<col=000080>"
+L490: push_constant_string "red dragonhide chaps"
+L491: push_constant_string "</col>"
+L492: push_constant_string "."
+L493: join_string 5
+L494: return 0
+L495: branch L550
+L496: push_constant_int 77
+L497: push_constant_int 2501
+L498: push_constant_string "Members: Red dragonhide body"
+L499: push_constant_string "Members can now craft "
+L500: push_constant_string "<col=000080>"
+L501: push_constant_string "red dragonhide bodies"
+L502: push_constant_string "</col>"
+L503: push_constant_string "."
+L504: join_string 5
+L505: return 0
+L506: branch L550
+L507: push_constant_int 79
+L508: push_constant_int 12210
+L509: push_constant_string "Members: Feathered headdress"
+L510: push_constant_string "Members can now craft "
+L511: push_constant_string "<col=000080>"
+L512: push_constant_string "feathered headdresses"
+L513: push_constant_string "</col>"
+L514: push_constant_string "."
+L515: join_string 5
+L516: return 0
+L517: branch L550
+L518: push_constant_int 79
+L519: push_constant_int 2491
+L520: push_constant_string "Members: Black dragonhide vambraces"
+L521: push_constant_string "Members can now craft "
+L522: push_constant_string "<col=000080>"
+L523: push_constant_string "black dragonhide vambraces"
+L524: push_constant_string "</col>"
+L525: push_constant_string "."
+L526: join_string 5
+L527: return 0
+L528: branch L550
+L529: push_constant_int 82
+L530: push_constant_int 2497
+L531: push_constant_string "Members: Black dragonhide chaps"
+L532: push_constant_string "Members can now craft "
+L533: push_constant_string "<col=000080>"
+L534: push_constant_string "black dragonhide chaps"
+L535: push_constant_string "</col>"
+L536: push_constant_string "."
+L537: join_string 5
+L538: return 0
+L539: branch L550
+L540: push_constant_int 84
+L541: push_constant_int 2503
+L542: push_constant_string "Members: Black dragonhide body"
+L543: push_constant_string "Members can now craft "
+L544: push_constant_string "<col=000080>"
+L545: push_constant_string "black dragonhide bodies"
+L546: push_constant_string "</col>"
+L547: push_constant_string "."
+L548: join_string 5
+L549: return 0
+L550: branch L3633
+L551: push_int_local 1
+L552: switch switch3
+L553: branch L606
+L554: push_constant_int 1
+L555: push_constant_int 1759
+L556: push_constant_string "Wool"
+L557: push_constant_string "You can now spin wool from a sheep into "
+L558: push_constant_string "<col=000080>"
+L559: push_constant_string "balls of wool"
+L560: push_constant_string "</col>"
+L561: push_constant_string "."
+L562: join_string 5
+L563: return 0
+L564: branch L606
+L565: push_constant_int 10
+L566: push_constant_int 1777
+L567: push_constant_string "Members: Flax into bow strings"
+L568: push_constant_string "Members can now spin flax into "
+L569: push_constant_string "<col=000080>"
+L570: push_constant_string "bow strings"
+L571: push_constant_string "</col>"
+L572: push_constant_string "."
+L573: join_string 5
+L574: return 0
+L575: branch L606
+L576: push_constant_int 10
+L577: push_constant_int 9438
+L578: push_constant_string "Members: Sinew into crossbow strings"
+L579: push_constant_string "Members can now spin sinew into "
+L580: push_constant_string "<col=000080>"
+L581: push_constant_string "crossbow strings"
+L582: push_constant_string "</col>"
+L583: push_constant_string "."
+L584: join_string 5
+L585: return 0
+L586: branch L606
+L587: push_constant_int 19
+L588: push_constant_int 6038
+L589: push_constant_string "Members: Magic tree roots into magic strings"
+L590: push_constant_string "Members can now spin magic tree roots into "
+L591: push_constant_string "<col=000080>"
+L592: push_constant_string "magic strings"
+L593: push_constant_string "</col>"
+L594: push_constant_string "."
+L595: join_string 5
+L596: return 0
+L597: branch L606
+L598: push_constant_int 30
+L599: push_constant_int 954
+L600: push_constant_string "Members: Yak hair into rope"
+L601: push_constant_string "Members can now spin yak hair into "
+L602: push_constant_string "<col=000080>"
+L603: push_constant_string "rope."
+L604: join_string 3
+L605: return 0
+L606: branch L3633
+L607: push_int_local 1
+L608: switch switch4
+L609: branch L964
+L610: push_constant_int 1
+L611: push_constant_int 1931
+L612: push_constant_string "Pot"
+L613: push_constant_string "You can now craft and fire "
+L614: push_constant_string "<col=000080>"
+L615: push_constant_string "clay pots"
+L616: push_constant_string "</col>"
+L617: push_constant_string "."
+L618: join_string 5
+L619: return 0
+L620: branch L964
+L621: push_constant_int 1
+L622: push_constant_int 20382
+L623: push_constant_string "Cracked mining urn"
+L624: push_constant_string "You can now craft, fire and attach runes to "
+L625: push_constant_string "<col=000080>"
+L626: push_constant_string "cracked mining urns"
+L627: push_constant_string "</col>"
+L628: push_constant_string "."
+L629: join_string 5
+L630: return 0
+L631: branch L964
+L632: push_constant_int 2
+L633: push_constant_int 20352
+L634: push_constant_string "Cracked cooking urn"
+L635: push_constant_string "You can now craft, fire and attach runes to "
+L636: push_constant_string "<col=000080>"
+L637: push_constant_string "cracked cooking urns"
+L638: push_constant_string "</col>"
+L639: push_constant_string "."
+L640: join_string 5
+L641: return 0
+L642: branch L964
+L643: push_constant_int 2
+L644: push_constant_int 20322
+L645: push_constant_string "Cracked fishing urn"
+L646: push_constant_string "You can now craft, fire and attach runes to "
+L647: push_constant_string "<col=000080>"
+L648: push_constant_string "cracked fishing urns"
+L649: push_constant_string "</col>"
+L650: push_constant_string "."
+L651: join_string 5
+L652: return 0
+L653: branch L964
+L654: push_constant_int 2
+L655: push_constant_int 20412
+L656: push_constant_string "Impious urn"
+L657: push_constant_string "You can now craft, fire and attach runes to "
+L658: push_constant_string "<col=000080>"
+L659: push_constant_string "impious urns"
+L660: push_constant_string "</col>"
+L661: push_constant_string "."
+L662: join_string 5
+L663: return 0
+L664: branch L964
+L665: push_constant_int 4
+L666: push_constant_int 20053
+L667: push_constant_string "Clay ring"
+L668: push_constant_string "You can now craft and fire "
+L669: push_constant_string "<col=000080>"
+L670: push_constant_string "clay rings"
+L671: push_constant_string "</col>"
+L672: push_constant_string "."
+L673: join_string 5
+L674: return 0
+L675: branch L964
+L676: push_constant_int 4
+L677: push_constant_int 20298
+L678: push_constant_string "Cracked woodcutting urn"
+L679: push_constant_string "You can now craft, fire and attach runes to "
+L680: push_constant_string "<col=000080>"
+L681: push_constant_string "cracked woodcutting urns"
+L682: push_constant_string "</col>"
+L683: push_constant_string "."
+L684: join_string 5
+L685: return 0
+L686: branch L964
+L687: push_constant_int 4
+L688: push_constant_int 20274
+L689: push_constant_string "Cracked smelting urn"
+L690: push_constant_string "You can now craft, fire and attach runes to "
+L691: push_constant_string "<col=000080>"
+L692: push_constant_string "cracked smelting urns"
+L693: push_constant_string "</col>"
+L694: push_constant_string "."
+L695: join_string 5
+L696: return 0
+L697: branch L964
+L698: push_constant_int 7
+L699: push_constant_int 2313
+L700: push_constant_string "Pie dish"
+L701: push_constant_string "You can now craft and fire "
+L702: push_constant_string "<col=000080>"
+L703: push_constant_string "clay pie dishes"
+L704: push_constant_string "</col>"
+L705: push_constant_string "."
+L706: join_string 5
+L707: return 0
+L708: branch L964
+L709: push_constant_int 8
+L710: push_constant_int 1923
+L711: push_constant_string "Bowl"
+L712: push_constant_string "You can now craft and fire "
+L713: push_constant_string "<col=000080>"
+L714: push_constant_string "clay bowls"
+L715: push_constant_string "</col>"
+L716: push_constant_string "."
+L717: join_string 5
+L718: return 0
+L719: branch L964
+L720: push_constant_int 12
+L721: push_constant_int 20358
+L722: push_constant_string "Fragile cooking urn"
+L723: push_constant_string "You can now craft, fire and attach runes to "
+L724: push_constant_string "<col=000080>"
+L725: push_constant_string "fragile cooking urns"
+L726: push_constant_string "</col>"
+L727: push_constant_string "."
+L728: join_string 5
+L729: return 0
+L730: branch L964
+L731: push_constant_int 15
+L732: push_constant_int 20328
+L733: push_constant_string "Fragile fishing urn"
+L734: push_constant_string "You can now craft, fire and attach runes to "
+L735: push_constant_string "<col=000080>"
+L736: push_constant_string "fragile fishing urns"
+L737: push_constant_string "</col>"
+L738: push_constant_string "."
+L739: join_string 5
+L740: return 0
+L741: branch L964
+L742: push_constant_int 15
+L743: push_constant_int 20304
+L744: push_constant_string "Fragile woodcutting urn"
+L745: push_constant_string "You can now craft, fire and attach runes to "
+L746: push_constant_string "<col=000080>"
+L747: push_constant_string "fragile woodcutting urns"
+L748: push_constant_string "</col>"
+L749: push_constant_string "."
+L750: join_string 5
+L751: return 0
+L752: branch L964
+L753: push_constant_int 17
+L754: push_constant_int 20388
+L755: push_constant_string "Fragile mining urn"
+L756: push_constant_string "You can now craft, fire and attach runes to "
+L757: push_constant_string "<col=000080>"
+L758: push_constant_string "fragile mining urns"
+L759: push_constant_string "</col>"
+L760: push_constant_string "."
+L761: join_string 5
+L762: return 0
+L763: branch L964
+L764: push_constant_int 17
+L765: push_constant_int 20280
+L766: push_constant_string "Fragile smelting urn"
+L767: push_constant_string "You can now craft, fire and attach runes to "
+L768: push_constant_string "<col=000080>"
+L769: push_constant_string "fragile smelting urns"
+L770: push_constant_string "</col>"
+L771: push_constant_string "."
+L772: join_string 5
+L773: return 0
+L774: branch L964
+L775: push_constant_int 19
+L776: push_constant_int 5350
+L777: push_constant_string "Members: Plant pot"
+L778: push_constant_string "Members can now craft and fire "
+L779: push_constant_string "<col=000080>"
+L780: push_constant_string "clay plant pots"
+L781: push_constant_string "</col>"
+L782: push_constant_string "."
+L783: join_string 5
+L784: return 0
+L785: branch L964
+L786: push_constant_int 25
+L787: push_constant_int 4440
+L788: push_constant_string "Members: Pot lid"
+L789: push_constant_string "<br>"
+L790: push_constant_string " (after starting One Small Favour)"
+L791: join_string 3
+L792: push_constant_string "Members can now craft and fire "
+L793: push_constant_string "<col=000080>"
+L794: push_constant_string "clay pot lids"
+L795: push_constant_string "</col>"
+L796: push_constant_string " (after starting One Small Favour.)"
+L797: join_string 5
+L798: return 0
+L799: branch L964
+L800: push_constant_int 26
+L801: push_constant_int 20418
+L802: push_constant_string "Accursed urn"
+L803: push_constant_string "You can now craft, fire and attach runes to "
+L804: push_constant_string "<col=000080>"
+L805: push_constant_string "accursed urns"
+L806: push_constant_string "</col>"
+L807: push_constant_string "."
+L808: join_string 5
+L809: return 0
+L810: branch L964
+L811: push_constant_int 32
+L812: push_constant_int 20394
+L813: push_constant_string "Mining urn"
+L814: push_constant_string "You can now craft, fire and attach runes to "
+L815: push_constant_string "<col=000080>"
+L816: push_constant_string "mining urns"
+L817: push_constant_string "</col>"
+L818: push_constant_string "."
+L819: join_string 5
+L820: return 0
+L821: branch L964
+L822: push_constant_int 35
+L823: push_constant_int 20286
+L824: push_constant_string "Smelting urn"
+L825: push_constant_string "You can now craft, fire and attach runes to "
+L826: push_constant_string "<col=000080>"
+L827: push_constant_string "smelting urns"
+L828: push_constant_string "</col>"
+L829: push_constant_string "."
+L830: join_string 5
+L831: return 0
+L832: branch L964
+L833: push_constant_int 36
+L834: push_constant_int 20364
+L835: push_constant_string "Cooking urn"
+L836: push_constant_string "You can now craft, fire and attach runes to "
+L837: push_constant_string "<col=000080>"
+L838: push_constant_string "cooking urns"
+L839: push_constant_string "</col>"
+L840: push_constant_string "."
+L841: join_string 5
+L842: return 0
+L843: branch L964
+L844: push_constant_int 41
+L845: push_constant_int 20334
+L846: push_constant_string "Fishing urn"
+L847: push_constant_string "You can now craft, fire and attach runes to "
+L848: push_constant_string "<col=000080>"
+L849: push_constant_string "fishing urns"
+L850: push_constant_string "</col>"
+L851: push_constant_string "."
+L852: join_string 5
+L853: return 0
+L854: branch L964
+L855: push_constant_int 44
+L856: push_constant_int 20310
+L857: push_constant_string "Woodcutting urn"
+L858: push_constant_string "You can now craft, fire and attach runes to "
+L859: push_constant_string "<col=000080>"
+L860: push_constant_string "woodcutting urns"
+L861: push_constant_string "</col>"
+L862: push_constant_string "."
+L863: join_string 5
+L864: return 0
+L865: branch L964
+L866: push_constant_int 48
+L867: push_constant_int 20400
+L868: push_constant_string "Members: Strong mining urn"
+L869: push_constant_string "Members can now craft, fire and attach runes to "
+L870: push_constant_string "<col=000080>"
+L871: push_constant_string "strong mining urns"
+L872: push_constant_string "</col>"
+L873: push_constant_string "."
+L874: join_string 5
+L875: return 0
+L876: branch L964
+L877: push_constant_int 49
+L878: push_constant_int 20292
+L879: push_constant_string "Members: Strong smelting urn"
+L880: push_constant_string "Members can now craft, fire and attach runes to "
+L881: push_constant_string "<col=000080>"
+L882: push_constant_string "strong smelting urns"
+L883: push_constant_string "</col>"
+L884: push_constant_string "."
+L885: join_string 5
+L886: return 0
+L887: branch L964
+L888: push_constant_int 51
+L889: push_constant_int 20370
+L890: push_constant_string "Members: Strong cooking urn"
+L891: push_constant_string "Members can now craft, fire and attach runes to "
+L892: push_constant_string "<col=000080>"
+L893: push_constant_string "strong cooking urns"
+L894: push_constant_string "</col>"
+L895: push_constant_string "."
+L896: join_string 5
+L897: return 0
+L898: branch L964
+L899: push_constant_int 53
+L900: push_constant_int 20340
+L901: push_constant_string "Members: Strong fishing urn"
+L902: push_constant_string "Members can now craft, fire and attach runes to "
+L903: push_constant_string "<col=000080>"
+L904: push_constant_string "strong fishing urns"
+L905: push_constant_string "</col>"
+L906: push_constant_string "."
+L907: join_string 5
+L908: return 0
+L909: branch L964
+L910: push_constant_int 59
+L911: push_constant_int 20406
+L912: push_constant_string "Members: Decorated mining urn"
+L913: push_constant_string "Members can now craft, fire and attach runes to "
+L914: push_constant_string "<col=000080>"
+L915: push_constant_string "decorated mining urns"
+L916: push_constant_string "</col>"
+L917: push_constant_string "."
+L918: join_string 5
+L919: return 0
+L920: branch L964
+L921: push_constant_int 61
+L922: push_constant_int 20316
+L923: push_constant_string "Members: Strong woodcutting urn"
+L924: push_constant_string "Members can now craft, fire and attach runes to "
+L925: push_constant_string "<col=000080>"
+L926: push_constant_string "strong woodcutting urns"
+L927: push_constant_string "</col>"
+L928: push_constant_string "."
+L929: join_string 5
+L930: return 0
+L931: branch L964
+L932: push_constant_int 62
+L933: push_constant_int 20424
+L934: push_constant_string "Members: Infernal urn"
+L935: push_constant_string "Members can now craft, fire and attach runes to "
+L936: push_constant_string "<col=000080>"
+L937: push_constant_string "infernal urns"
+L938: push_constant_string "</col>"
+L939: push_constant_string "."
+L940: join_string 5
+L941: return 0
+L942: branch L964
+L943: push_constant_int 76
+L944: push_constant_int 20346
+L945: push_constant_string "Members: Decorated fishing urn"
+L946: push_constant_string "Members can now craft, fire and attach runes to "
+L947: push_constant_string "<col=000080>"
+L948: push_constant_string "decorated fishing urns"
+L949: push_constant_string "</col>"
+L950: push_constant_string "."
+L951: join_string 5
+L952: return 0
+L953: branch L964
+L954: push_constant_int 81
+L955: push_constant_int 20376
+L956: push_constant_string "Members: Decorated cooking urn"
+L957: push_constant_string "Members can now craft, fire and attach runes to "
+L958: push_constant_string "<col=000080>"
+L959: push_constant_string "decorated cooking urns"
+L960: push_constant_string "</col>"
+L961: push_constant_string "."
+L962: join_string 5
+L963: return 0
+L964: branch L3633
+L965: push_int_local 1
+L966: switch switch5
+L967: branch L1066
+L968: push_constant_int 1
+L969: push_constant_int 1919
+L970: push_constant_string "Members: Beer glass"
+L971: push_constant_string "Members can now craft "
+L972: push_constant_string "<col=000080>"
+L973: push_constant_string "beer glasses"
+L974: push_constant_string "</col>"
+L975: push_constant_string "."
+L976: join_string 5
+L977: return 0
+L978: branch L1066
+L979: push_constant_int 4
+L980: push_constant_int 4527
+L981: push_constant_string "Members: Candle lantern"
+L982: push_constant_string "Members can now craft "
+L983: push_constant_string "<col=000080>"
+L984: push_constant_string "candle lanterns"
+L985: push_constant_string "</col>"
+L986: push_constant_string "."
+L987: join_string 5
+L988: return 0
+L989: branch L1066
+L990: push_constant_int 12
+L991: push_constant_int 4525
+L992: push_constant_string "Members: Oil lamp"
+L993: push_constant_string "Members can now craft "
+L994: push_constant_string "<col=000080>"
+L995: push_constant_string "oil lamps"
+L996: push_constant_string "</col>"
+L997: push_constant_string "."
+L998: join_string 5
+L999: return 0
+L1000: branch L1066
+L1001: push_constant_int 26
+L1002: push_constant_int 4535
+L1003: push_constant_string "Members: Oil lantern"
+L1004: push_constant_string "Members can now craft "
+L1005: push_constant_string "<col=000080>"
+L1006: push_constant_string "oil lanterns"
+L1007: push_constant_string "</col>"
+L1008: push_constant_string "."
+L1009: join_string 5
+L1010: return 0
+L1011: branch L1066
+L1012: push_constant_int 33
+L1013: push_constant_int 229
+L1014: push_constant_string "Members: Vial"
+L1015: push_constant_string "Members can now craft "
+L1016: push_constant_string "<col=000080>"
+L1017: push_constant_string "vials"
+L1018: push_constant_string "</col>"
+L1019: push_constant_string "."
+L1020: join_string 5
+L1021: return 0
+L1022: branch L1066
+L1023: push_constant_int 42
+L1024: push_constant_int 6667
+L1025: push_constant_string "Members: Fishbowl"
+L1026: push_constant_string "Members can now craft "
+L1027: push_constant_string "<col=000080>"
+L1028: push_constant_string "fishbowls"
+L1029: push_constant_string "</col>"
+L1030: push_constant_string "."
+L1031: join_string 5
+L1032: return 0
+L1033: branch L1066
+L1034: push_constant_int 46
+L1035: push_constant_int 567
+L1036: push_constant_string "Members: Glass orb"
+L1037: push_constant_string "Members can now craft "
+L1038: push_constant_string "<col=000080>"
+L1039: push_constant_string "glass orbs"
+L1040: push_constant_string "</col>"
+L1041: push_constant_string "."
+L1042: join_string 5
+L1043: return 0
+L1044: branch L1066
+L1045: push_constant_int 49
+L1046: push_constant_int 4542
+L1047: push_constant_string "Members: Bullseye lantern lens"
+L1048: push_constant_string "Members can now craft "
+L1049: push_constant_string "<col=000080>"
+L1050: push_constant_string "bullseye lantern lenses"
+L1051: push_constant_string "</col>"
+L1052: push_constant_string "."
+L1053: join_string 5
+L1054: return 0
+L1055: branch L1066
+L1056: push_constant_int 87
+L1057: push_constant_int 10973
+L1058: push_constant_string "Members: Dorgeshuun light orb"
+L1059: push_constant_string "Members can now craft "
+L1060: push_constant_string "<col=000080>"
+L1061: push_constant_string "Dorgeshuun light orbs"
+L1062: push_constant_string "</col>"
+L1063: push_constant_string "."
+L1064: join_string 5
+L1065: return 0
+L1066: branch L3633
+L1067: push_int_local 1
+L1068: switch switch6
+L1069: branch L1545
+L1070: push_constant_int 1
+L1071: push_constant_int 1609
+L1072: push_constant_string "Members: Cut opal"
+L1073: push_constant_string "Members can now cut "
+L1074: push_constant_string "<col=000080>"
+L1075: push_constant_string "opals"
+L1076: push_constant_string "</col>"
+L1077: push_constant_string "."
+L1078: join_string 5
+L1079: return 0
+L1080: branch L1545
+L1081: push_constant_int 3
+L1082: push_constant_int 10496
+L1083: push_constant_string "Polished buttons"
+L1084: push_constant_string "You can now craft "
+L1085: push_constant_string "<col=000080>"
+L1086: push_constant_string "polished buttons"
+L1087: push_constant_string "</col>"
+L1088: push_constant_string "."
+L1089: join_string 5
+L1090: return 0
+L1091: branch L1545
+L1092: push_constant_int 5
+L1093: push_constant_int 1635
+L1094: push_constant_string "Gold ring"
+L1095: push_constant_string "You can now craft "
+L1096: push_constant_string "<col=000080>"
+L1097: push_constant_string "gold rings"
+L1098: push_constant_string "</col>"
+L1099: push_constant_string "."
+L1100: join_string 5
+L1101: return 0
+L1102: branch L1545
+L1103: push_constant_int 6
+L1104: push_constant_int 1654
+L1105: push_constant_string "Gold necklace"
+L1106: push_constant_string "You can now craft "
+L1107: push_constant_string "<col=000080>"
+L1108: push_constant_string "gold necklaces"
+L1109: push_constant_string "</col>"
+L1110: push_constant_string "."
+L1111: join_string 5
+L1112: return 0
+L1113: branch L1545
+L1114: push_constant_int 7
+L1115: push_constant_int 11069
+L1116: push_constant_string "Members: Gold bracelet"
+L1117: push_constant_string "Members can now craft "
+L1118: push_constant_string "<col=000080>"
+L1119: push_constant_string "gold bracelets"
+L1120: push_constant_string "</col>"
+L1121: push_constant_string "."
+L1122: join_string 5
+L1123: return 0
+L1124: branch L1545
+L1125: push_constant_int 8
+L1126: push_constant_int 1692
+L1127: push_constant_string "Gold amulet"
+L1128: push_constant_string "You can now craft "
+L1129: push_constant_string "<col=000080>"
+L1130: push_constant_string "gold amulets"
+L1131: push_constant_string "</col>"
+L1132: push_constant_string "."
+L1133: join_string 5
+L1134: return 0
+L1135: branch L1545
+L1136: push_constant_int 13
+L1137: push_constant_int 1611
+L1138: push_constant_string "Members: Cut jade"
+L1139: push_constant_string "Members can now cut "
+L1140: push_constant_string "<col=000080>"
+L1141: push_constant_string "jade"
+L1142: push_constant_string "</col>"
+L1143: push_constant_string "."
+L1144: join_string 5
+L1145: return 0
+L1146: branch L1545
+L1147: push_constant_int 16
+L1148: push_constant_int 1716
+L1149: push_constant_string "Holy symbol"
+L1150: push_constant_string "You can now craft "
+L1151: push_constant_string "<col=000080>"
+L1152: push_constant_string "holy symbols"
+L1153: push_constant_string "</col>"
+L1154: push_constant_string "."
+L1155: join_string 5
+L1156: return 0
+L1157: branch L1545
+L1158: push_constant_int 16
+L1159: push_constant_int 1613
+L1160: push_constant_string "Members: Cut red topaz"
+L1161: push_constant_string "Members can now cut "
+L1162: push_constant_string "<col=000080>"
+L1163: push_constant_string "red topaz"
+L1164: push_constant_string "</col>"
+L1165: push_constant_string "."
+L1166: join_string 5
+L1167: return 0
+L1168: branch L1545
+L1169: push_constant_int 17
+L1170: push_constant_int 1722
+L1171: push_constant_string "Members: Unholy symbol"
+L1172: push_constant_string "Members can now craft "
+L1173: push_constant_string "<col=000080>"
+L1174: push_constant_string "unholy symbols"
+L1175: push_constant_string "</col>"
+L1176: push_constant_string "."
+L1177: join_string 5
+L1178: return 0
+L1179: branch L1545
+L1180: push_constant_int 20
+L1181: push_constant_int 1607
+L1182: push_constant_string "Cut sapphire"
+L1183: push_constant_string "You can now craft "
+L1184: push_constant_string "<col=000080>"
+L1185: push_constant_string "sapphires"
+L1186: push_constant_string "</col>"
+L1187: push_constant_string "."
+L1188: join_string 5
+L1189: return 0
+L1190: branch L1545
+L1191: push_constant_int 20
+L1192: push_constant_int 1637
+L1193: push_constant_string "Sapphire ring"
+L1194: push_constant_string "You can now craft "
+L1195: push_constant_string "<col=000080>"
+L1196: push_constant_string "sapphire rings"
+L1197: push_constant_string "</col>"
+L1198: push_constant_string "."
+L1199: join_string 5
+L1200: return 0
+L1201: branch L1545
+L1202: push_constant_int 22
+L1203: push_constant_int 1656
+L1204: push_constant_string "Sapphire necklace"
+L1205: push_constant_string "You can now craft "
+L1206: push_constant_string "<col=000080>"
+L1207: push_constant_string "sapphire necklaces"
+L1208: push_constant_string "</col>"
+L1209: push_constant_string "."
+L1210: join_string 5
+L1211: return 0
+L1212: branch L1545
+L1213: push_constant_int 23
+L1214: push_constant_int 5525
+L1215: push_constant_string "Tiara"
+L1216: push_constant_string "You can now craft "
+L1217: push_constant_string "<col=000080>"
+L1218: push_constant_string "tiaras"
+L1219: push_constant_string "</col>"
+L1220: push_constant_string "."
+L1221: join_string 5
+L1222: return 0
+L1223: branch L1545
+L1224: push_constant_int 23
+L1225: push_constant_int 11072
+L1226: push_constant_string "Members: Sapphire bracelet"
+L1227: push_constant_string "Members can now craft "
+L1228: push_constant_string "<col=000080>"
+L1229: push_constant_string "sapphire bracelets"
+L1230: push_constant_string "</col>"
+L1231: push_constant_string "."
+L1232: join_string 5
+L1233: return 0
+L1234: branch L1545
+L1235: push_constant_int 24
+L1236: push_constant_int 1694
+L1237: push_constant_string "Sapphire amulet"
+L1238: push_constant_string "You can now craft "
+L1239: push_constant_string "<col=000080>"
+L1240: push_constant_string "sapphire amulets"
+L1241: push_constant_string "</col>"
+L1242: push_constant_string "."
+L1243: join_string 5
+L1244: return 0
+L1245: branch L1545
+L1246: push_constant_int 27
+L1247: push_constant_int 1605
+L1248: push_constant_string "Cut emerald"
+L1249: push_constant_string "You can now cut "
+L1250: push_constant_string "<col=000080>"
+L1251: push_constant_string "emeralds"
+L1252: push_constant_string "</col>"
+L1253: push_constant_string "."
+L1254: join_string 5
+L1255: return 0
+L1256: branch L1545
+L1257: push_constant_int 27
+L1258: push_constant_int 1639
+L1259: push_constant_string "Emerald ring"
+L1260: push_constant_string "You can now craft "
+L1261: push_constant_string "<col=000080>"
+L1262: push_constant_string "emerald rings"
+L1263: push_constant_string "</col>"
+L1264: push_constant_string "."
+L1265: join_string 5
+L1266: return 0
+L1267: branch L1545
+L1268: push_constant_int 29
+L1269: push_constant_int 1658
+L1270: push_constant_string "Emerald necklace"
+L1271: push_constant_string "You can now craft "
+L1272: push_constant_string "<col=000080>"
+L1273: push_constant_string "emerald necklaces"
+L1274: push_constant_string "</col>"
+L1275: push_constant_string "."
+L1276: join_string 5
+L1277: return 0
+L1278: branch L1545
+L1279: push_constant_int 30
+L1280: push_constant_int 11076
+L1281: push_constant_string "Members: Emerald bracelet"
+L1282: push_constant_string "Members can now craft "
+L1283: push_constant_string "<col=000080>"
+L1284: push_constant_string "emerald bracelets"
+L1285: push_constant_string "</col>"
+L1286: push_constant_string "."
+L1287: join_string 5
+L1288: return 0
+L1289: branch L1545
+L1290: push_constant_int 31
+L1291: push_constant_int 1696
+L1292: push_constant_string "Emerald amulet"
+L1293: push_constant_string "You can now craft "
+L1294: push_constant_string "<col=000080>"
+L1295: push_constant_string "emerald amulets"
+L1296: push_constant_string "</col>"
+L1297: push_constant_string "."
+L1298: join_string 5
+L1299: return 0
+L1300: branch L1545
+L1301: push_constant_int 34
+L1302: push_constant_int 1603
+L1303: push_constant_string "Cut ruby"
+L1304: push_constant_string "You can now cut "
+L1305: push_constant_string "<col=000080>"
+L1306: push_constant_string "rubies"
+L1307: push_constant_string "</col>"
+L1308: push_constant_string "."
+L1309: join_string 5
+L1310: return 0
+L1311: branch L1545
+L1312: push_constant_int 34
+L1313: push_constant_int 1641
+L1314: push_constant_string "Ruby ring"
+L1315: push_constant_string "You can now craft "
+L1316: push_constant_string "<col=000080>"
+L1317: push_constant_string "ruby rings"
+L1318: push_constant_string "</col>"
+L1319: push_constant_string "."
+L1320: join_string 5
+L1321: return 0
+L1322: branch L1545
+L1323: push_constant_int 37
+L1324: push_constant_int 10132
+L1325: push_constant_string "Members: Rabbit-foot necklaces"
+L1326: push_constant_string "Members can now craft "
+L1327: push_constant_string "<col=000080>"
+L1328: push_constant_string "rabbit-foot necklaces"
+L1329: push_constant_string "</col>"
+L1330: push_constant_string "."
+L1331: join_string 5
+L1332: return 0
+L1333: branch L1545
+L1334: push_constant_int 40
+L1335: push_constant_int 1660
+L1336: push_constant_string "Ruby necklace"
+L1337: push_constant_string "You can now craft "
+L1338: push_constant_string "<col=000080>"
+L1339: push_constant_string "ruby necklaces"
+L1340: push_constant_string "</col>"
+L1341: push_constant_string "."
+L1342: join_string 5
+L1343: return 0
+L1344: branch L1545
+L1345: push_constant_int 42
+L1346: push_constant_int 11085
+L1347: push_constant_string "Members: Ruby bracelet"
+L1348: push_constant_string "Members can now craft "
+L1349: push_constant_string "<col=000080>"
+L1350: push_constant_string "ruby bracelets"
+L1351: push_constant_string "</col>"
+L1352: push_constant_string "."
+L1353: join_string 5
+L1354: return 0
+L1355: branch L1545
+L1356: push_constant_int 43
+L1357: push_constant_int 1601
+L1358: push_constant_string "Cut diamond"
+L1359: push_constant_string "You can now cut "
+L1360: push_constant_string "<col=000080>"
+L1361: push_constant_string "diamonds"
+L1362: push_constant_string "</col>"
+L1363: push_constant_string "."
+L1364: join_string 5
+L1365: return 0
+L1366: branch L1545
+L1367: push_constant_int 43
+L1368: push_constant_int 1643
+L1369: push_constant_string "Diamond ring"
+L1370: push_constant_string "You can now craft "
+L1371: push_constant_string "<col=000080>"
+L1372: push_constant_string "diamond rings"
+L1373: push_constant_string "</col>"
+L1374: push_constant_string "."
+L1375: join_string 5
+L1376: return 0
+L1377: branch L1545
+L1378: push_constant_int 50
+L1379: push_constant_int 1698
+L1380: push_constant_string "Ruby amulet"
+L1381: push_constant_string "You can now craft "
+L1382: push_constant_string "<col=000080>"
+L1383: push_constant_string "ruby amulets"
+L1384: push_constant_string "</col>"
+L1385: push_constant_string "."
+L1386: join_string 5
+L1387: return 0
+L1388: branch L1545
+L1389: push_constant_int 55
+L1390: push_constant_int 1615
+L1391: push_constant_string "Members: Cut dragonstone"
+L1392: push_constant_string "Members can now cut "
+L1393: push_constant_string "<col=000080>"
+L1394: push_constant_string "dragonstones"
+L1395: push_constant_string "</col>"
+L1396: push_constant_string "."
+L1397: join_string 5
+L1398: return 0
+L1399: branch L1545
+L1400: push_constant_int 55
+L1401: push_constant_int 1645
+L1402: push_constant_string "Members: Dragonstone ring"
+L1403: push_constant_string "Members can now craft "
+L1404: push_constant_string "<col=000080>"
+L1405: push_constant_string "dragonstone rings"
+L1406: push_constant_string "</col>"
+L1407: push_constant_string "."
+L1408: join_string 5
+L1409: return 0
+L1410: branch L1545
+L1411: push_constant_int 56
+L1412: push_constant_int 1662
+L1413: push_constant_string "Diamond necklace"
+L1414: push_constant_string "You can now craft "
+L1415: push_constant_string "<col=000080>"
+L1416: push_constant_string "diamond necklaces"
+L1417: push_constant_string "</col>"
+L1418: push_constant_string "."
+L1419: join_string 5
+L1420: return 0
+L1421: branch L1545
+L1422: push_constant_int 58
+L1423: push_constant_int 11092
+L1424: push_constant_string "Members: Diamond bracelet"
+L1425: push_constant_string "Members can now craft "
+L1426: push_constant_string "<col=000080>"
+L1427: push_constant_string "diamond bracelets"
+L1428: push_constant_string "</col>"
+L1429: push_constant_string "."
+L1430: join_string 5
+L1431: return 0
+L1432: branch L1545
+L1433: push_constant_int 67
+L1434: push_constant_int 6573
+L1435: push_constant_string "Members: Cut onyx"
+L1436: push_constant_string "Members can now cut "
+L1437: push_constant_string "<col=000080>"
+L1438: push_constant_string "onyx"
+L1439: push_constant_string "</col>"
+L1440: push_constant_string "."
+L1441: join_string 5
+L1442: return 0
+L1443: branch L1545
+L1444: push_constant_int 67
+L1445: push_constant_int 6575
+L1446: push_constant_string "Members: Onyx ring"
+L1447: push_constant_string "Members can now craft "
+L1448: push_constant_string "<col=000080>"
+L1449: push_constant_string "onyx rings"
+L1450: push_constant_string "</col>"
+L1451: push_constant_string "."
+L1452: join_string 5
+L1453: return 0
+L1454: branch L1545
+L1455: push_constant_int 70
+L1456: push_constant_int 1700
+L1457: push_constant_string "Diamond amulet"
+L1458: push_constant_string "You can now craft "
+L1459: push_constant_string "<col=000080>"
+L1460: push_constant_string "diamond amulets"
+L1461: push_constant_string "</col>"
+L1462: push_constant_string "."
+L1463: join_string 5
+L1464: return 0
+L1465: branch L1545
+L1466: push_constant_int 72
+L1467: push_constant_int 1664
+L1468: push_constant_string "Members: Dragonstone necklace"
+L1469: push_constant_string "Members can now craft "
+L1470: push_constant_string "<col=000080>"
+L1471: push_constant_string "dragonstone necklaces"
+L1472: push_constant_string "</col>"
+L1473: push_constant_string "."
+L1474: join_string 5
+L1475: return 0
+L1476: branch L1545
+L1477: push_constant_int 74
+L1478: push_constant_int 11115
+L1479: push_constant_string "Members: Dragonstone bracelet"
+L1480: push_constant_string "Members can now craft "
+L1481: push_constant_string "<col=000080>"
+L1482: push_constant_string "dragonstone bracelets"
+L1483: push_constant_string "</col>"
+L1484: push_constant_string "."
+L1485: join_string 5
+L1486: return 0
+L1487: branch L1545
+L1488: push_constant_int 75
+L1489: push_constant_int 13281
+L1490: push_constant_string "Members: Ring of slaying"
+L1491: push_constant_string "<br>"
+L1492: push_constant_string " (after Smoking Kills)"
+L1493: join_string 3
+L1494: push_constant_string "Members can now craft "
+L1495: push_constant_string "<col=000080>"
+L1496: push_constant_string "rings of slaying"
+L1497: push_constant_string "</col>"
+L1498: push_constant_string " (after Smoking Kills)."
+L1499: join_string 5
+L1500: return 0
+L1501: branch L1545
+L1502: push_constant_int 80
+L1503: push_constant_int 1702
+L1504: push_constant_string "Members: Dragonstone amulet"
+L1505: push_constant_string "Members can now craft "
+L1506: push_constant_string "<col=000080>"
+L1507: push_constant_string "dragonstone amulets"
+L1508: push_constant_string "</col>"
+L1509: push_constant_string "."
+L1510: join_string 5
+L1511: return 0
+L1512: branch L1545
+L1513: push_constant_int 82
+L1514: push_constant_int 6577
+L1515: push_constant_string "Members: Onyx necklace"
+L1516: push_constant_string "Members can now craft "
+L1517: push_constant_string "<col=000080>"
+L1518: push_constant_string "onyx necklaces"
+L1519: push_constant_string "</col>"
+L1520: push_constant_string "."
+L1521: join_string 5
+L1522: return 0
+L1523: branch L1545
+L1524: push_constant_int 84
+L1525: push_constant_int 11130
+L1526: push_constant_string "Members: Onyx bracelet"
+L1527: push_constant_string "Members can now craft "
+L1528: push_constant_string "<col=000080>"
+L1529: push_constant_string "onyx bracelets"
+L1530: push_constant_string "</col>"
+L1531: push_constant_string "."
+L1532: join_string 5
+L1533: return 0
+L1534: branch L1545
+L1535: push_constant_int 90
+L1536: push_constant_int 6581
+L1537: push_constant_string "Members: Onyx amulet"
+L1538: push_constant_string "Members can now craft "
+L1539: push_constant_string "<col=000080>"
+L1540: push_constant_string "onyx amulets"
+L1541: push_constant_string "</col>"
+L1542: push_constant_string "."
+L1543: join_string 5
+L1544: return 0
+L1545: branch L3633
+L1546: push_int_local 1
+L1547: switch switch7
+L1548: branch L1609
+L1549: push_constant_int 18
+L1550: push_constant_int 2961
+L1551: push_constant_string "Members: Silver sickle"
+L1552: push_constant_string "Members can now craft silver sickles."
+L1553: return 0
+L1554: branch L1609
+L1555: push_constant_int 21
+L1556: push_constant_int 9145
+L1557: push_constant_string "Silver crossbow bolt"
+L1558: push_constant_string "Members can now craft "
+L1559: push_constant_string "<col=000080>"
+L1560: push_constant_string "silver crossbow bolts"
+L1561: push_constant_string "</col>"
+L1562: push_constant_string "."
+L1563: join_string 5
+L1564: return 0
+L1565: branch L1609
+L1566: push_constant_int 54
+L1567: push_constant_int 1395
+L1568: push_constant_string "Members: Water battlestaff"
+L1569: push_constant_string "Members can now craft "
+L1570: push_constant_string "<col=000080>"
+L1571: push_constant_string "water battlestaves"
+L1572: push_constant_string "</col>"
+L1573: push_constant_string "."
+L1574: join_string 5
+L1575: return 0
+L1576: branch L1609
+L1577: push_constant_int 58
+L1578: push_constant_int 1399
+L1579: push_constant_string "Members: Earth battlestaff"
+L1580: push_constant_string "Members can now craft "
+L1581: push_constant_string "<col=000080>"
+L1582: push_constant_string "earth battlestaves"
+L1583: push_constant_string "</col>"
+L1584: push_constant_string "."
+L1585: join_string 5
+L1586: return 0
+L1587: branch L1609
+L1588: push_constant_int 62
+L1589: push_constant_int 1393
+L1590: push_constant_string "Members: Fire battlestaff"
+L1591: push_constant_string "Members can now craft "
+L1592: push_constant_string "<col=000080>"
+L1593: push_constant_string "fire battlestaves"
+L1594: push_constant_string "</col>"
+L1595: push_constant_string "."
+L1596: join_string 5
+L1597: return 0
+L1598: branch L1609
+L1599: push_constant_int 66
+L1600: push_constant_int 1397
+L1601: push_constant_string "Members: Air battlestaff"
+L1602: push_constant_string "Members can now craft "
+L1603: push_constant_string "<col=000080>"
+L1604: push_constant_string "air battlestaves"
+L1605: push_constant_string "</col>"
+L1606: push_constant_string "."
+L1607: join_string 5
+L1608: return 0
+L1609: branch L3633
+L1610: push_int_local 1
+L1611: switch switch8
+L1612: branch L1772
+L1613: push_constant_int -1
+L1614: push_constant_int 7620
+L1615: push_constant_string "To start Firemaking in the manner of the barbarians, talk to Otto Godblessed when you have level 35 Firemaking or higher. Pyre ships can only be constructed and burnt where the ground is charred around the lake next to Otto's hut."
+L1616: push_constant_string ""
+L1617: return 0
+L1618: branch L1772
+L1619: push_constant_int 11
+L1620: push_constant_int 1511
+L1621: push_constant_string "Members: Wood"
+L1622: push_constant_string "<br>"
+L1623: push_constant_string " (with 11 Firemaking)"
+L1624: join_string 3
+L1625: push_constant_string "Members versed in the art of barbarian firemaking now have the Crafting level required to make "
+L1626: push_constant_string "<col=000080>"
+L1627: push_constant_string "wood pyre ships"
+L1628: push_constant_string "</col>"
+L1629: push_constant_string ". (They also need level 11 Firemaking.)"
+L1630: join_string 5
+L1631: return 0
+L1632: branch L1772
+L1633: push_constant_int 11
+L1634: push_constant_int 2862
+L1635: push_constant_string "Members: Achey"
+L1636: push_constant_string "<br>"
+L1637: push_constant_string " (with 11 Firemaking)"
+L1638: join_string 3
+L1639: push_constant_string "Members versed in the art of barbarian firemaking now have the Crafting level required to make "
+L1640: push_constant_string "<col=000080>"
+L1641: push_constant_string "achey log pyre ships"
+L1642: push_constant_string "</col>"
+L1643: push_constant_string ". (They also need level 11 Firemaking.)"
+L1644: join_string 5
+L1645: return 0
+L1646: branch L1772
+L1647: push_constant_int 25
+L1648: push_constant_int 1521
+L1649: push_constant_string "Members: Oak"
+L1650: push_constant_string "<br>"
+L1651: push_constant_string " (with 25 Firemaking)"
+L1652: join_string 3
+L1653: push_constant_string "Members versed in the art of barbarian firemaking now have the Crafting level required to make "
+L1654: push_constant_string "<col=000080>"
+L1655: push_constant_string "oak pyre ships"
+L1656: push_constant_string "</col>"
+L1657: push_constant_string ". (They also need level 25 Firemaking.)"
+L1658: join_string 5
+L1659: return 0
+L1660: branch L1772
+L1661: push_constant_int 40
+L1662: push_constant_int 1519
+L1663: push_constant_string "Members: Willow"
+L1664: push_constant_string "<br>"
+L1665: push_constant_string " (with 40 Firemaking)"
+L1666: join_string 3
+L1667: push_constant_string "Members versed in the art of barbarian firemaking now have the Crafting level required to make "
+L1668: push_constant_string "<col=000080>"
+L1669: push_constant_string "willow pyre ships"
+L1670: push_constant_string "</col>"
+L1671: push_constant_string ". (They also need level 40 Firemaking.)"
+L1672: join_string 5
+L1673: return 0
+L1674: branch L1772
+L1675: push_constant_int 45
+L1676: push_constant_int 6333
+L1677: push_constant_string "Members: Teak"
+L1678: push_constant_string "<br>"
+L1679: push_constant_string " (with 45 Firemaking)"
+L1680: join_string 3
+L1681: push_constant_string "Members versed in the art of barbarian firemaking now have the Crafting level required to make "
+L1682: push_constant_string "<col=000080>"
+L1683: push_constant_string "teak pyre ships"
+L1684: push_constant_string "</col>"
+L1685: push_constant_string ". (They also need level 45 Firemaking.)"
+L1686: join_string 5
+L1687: return 0
+L1688: branch L1772
+L1689: push_constant_int 52
+L1690: push_constant_int 10810
+L1691: push_constant_string "Members: Arctic pine"
+L1692: push_constant_string "<br>"
+L1693: push_constant_string " (with 52 Firemaking)"
+L1694: join_string 3
+L1695: push_constant_string "Members versed in the art of barbarian firemaking now have the Crafting level required to make "
+L1696: push_constant_string "<col=000080>"
+L1697: push_constant_string "arctic pine pyre ships"
+L1698: push_constant_string "</col>"
+L1699: push_constant_string ". (They also need level 52 Firemaking.)"
+L1700: join_string 5
+L1701: return 0
+L1702: branch L1772
+L1703: push_constant_int 55
+L1704: push_constant_int 1517
+L1705: push_constant_string "Members: Maple"
+L1706: push_constant_string "<br>"
+L1707: push_constant_string " (with 55 Firemaking)"
+L1708: join_string 3
+L1709: push_constant_string "Members versed in the art of barbarian firemaking now have the Crafting level required to make "
+L1710: push_constant_string "<col=000080>"
+L1711: push_constant_string "maple pyre ships"
+L1712: push_constant_string "</col>"
+L1713: push_constant_string ". (They also need level 55 Firemaking.)"
+L1714: join_string 5
+L1715: return 0
+L1716: branch L1772
+L1717: push_constant_int 60
+L1718: push_constant_int 6332
+L1719: push_constant_string "Members: Mahogany"
+L1720: push_constant_string "<br>"
+L1721: push_constant_string " (with 60 Firemaking)"
+L1722: join_string 3
+L1723: push_constant_string "Members versed in the art of barbarian firemaking now have the Crafting level required to make "
+L1724: push_constant_string "<col=000080>"
+L1725: push_constant_string "mahogany pyre ships"
+L1726: push_constant_string "</col>"
+L1727: push_constant_string ". (They also need level 60 Firemaking.)"
+L1728: join_string 5
+L1729: return 0
+L1730: branch L1772
+L1731: push_constant_int 68
+L1732: push_constant_int 12581
+L1733: push_constant_string "Members: Eucalyptus"
+L1734: push_constant_string "<br>"
+L1735: push_constant_string " (with 68 Firemaking)"
+L1736: join_string 3
+L1737: push_constant_string "Members versed in the art of barbarian firemaking now have the Crafting level required to make "
+L1738: push_constant_string "<col=000080>"
+L1739: push_constant_string "eucalyptus pyre ships"
+L1740: push_constant_string "</col>"
+L1741: push_constant_string ". (They also need level 68 Firemaking.)"
+L1742: join_string 5
+L1743: return 0
+L1744: branch L1772
+L1745: push_constant_int 70
+L1746: push_constant_int 1515
+L1747: push_constant_string "Members: Yew"
+L1748: push_constant_string "<br>"
+L1749: push_constant_string " (with 70 Firemaking)"
+L1750: join_string 3
+L1751: push_constant_string "Members versed in the art of barbarian firemaking now have the Crafting level required to make "
+L1752: push_constant_string "<col=000080>"
+L1753: push_constant_string "yew pyre ships"
+L1754: push_constant_string "</col>"
+L1755: push_constant_string ". (They also need level 70 Firemaking.)"
+L1756: join_string 5
+L1757: return 0
+L1758: branch L1772
+L1759: push_constant_int 85
+L1760: push_constant_int 1513
+L1761: push_constant_string "Members: Magic"
+L1762: push_constant_string "<br>"
+L1763: push_constant_string " (with 85 Firemaking)"
+L1764: join_string 3
+L1765: push_constant_string "Members versed in the art of barbarian firemaking now have the Crafting level required to make "
+L1766: push_constant_string "<col=000080>"
+L1767: push_constant_string "magic log pyre ships"
+L1768: push_constant_string "</col>"
+L1769: push_constant_string ". (They also need level 85 Firemaking.)"
+L1770: join_string 5
+L1771: return 0
+L1772: branch L3633
+L1773: push_int_local 1
+L1774: switch switch9
+L1775: branch L1916
+L1776: push_constant_int 8
+L1777: push_constant_int 8792
+L1778: push_constant_string "Members: Clockwork mechanism"
+L1779: push_constant_string "Members can now craft "
+L1780: push_constant_string "<col=000080>"
+L1781: push_constant_string "clockwork mechanisms"
+L1782: push_constant_string "</col>"
+L1783: push_constant_string " in the workshop of their player-owned house."
+L1784: join_string 5
+L1785: return 0
+L1786: branch L1916
+L1787: push_constant_int 10
+L1788: push_constant_int 2522
+L1789: push_constant_string "Members: Toy horsey"
+L1790: push_constant_string "Members can now craft "
+L1791: push_constant_string "<col=000080>"
+L1792: push_constant_string "toy horseys"
+L1793: push_constant_string "</col>"
+L1794: push_constant_string " in the workshop of their player-owned house."
+L1795: join_string 5
+L1796: return 0
+L1797: branch L1916
+L1798: push_constant_int 13
+L1799: push_constant_int 7761
+L1800: push_constant_string "Members: Clockwork soldier"
+L1801: push_constant_string "Members can now craft "
+L1802: push_constant_string "<col=000080>"
+L1803: push_constant_string "clockwork soldiers"
+L1804: push_constant_string "</col>"
+L1805: push_constant_string " in the workshop of their player-owned house."
+L1806: join_string 5
+L1807: return 0
+L1808: branch L1916
+L1809: push_constant_int 18
+L1810: push_constant_int 7765
+L1811: push_constant_string "Members: Clockwork doll"
+L1812: push_constant_string "Members can now craft "
+L1813: push_constant_string "<col=000080>"
+L1814: push_constant_string "clockwork dolls"
+L1815: push_constant_string "</col>"
+L1816: push_constant_string " in the workshop of their player-owned house."
+L1817: join_string 5
+L1818: return 0
+L1819: branch L1916
+L1820: push_constant_int 20
+L1821: push_constant_int 4201
+L1822: push_constant_string "Members: Conductor"
+L1823: push_constant_string "<br>"
+L1824: push_constant_string " (after starting Creature of Fenkenstrain)"
+L1825: join_string 3
+L1826: push_constant_string "Members can now make "
+L1827: push_constant_string "<col=000080>"
+L1828: push_constant_string "lightning conductors"
+L1829: push_constant_string "</col>"
+L1830: push_constant_string " (after starting Creature of Fenkenstrain)."
+L1831: join_string 5
+L1832: return 0
+L1833: branch L1916
+L1834: push_constant_int 23
+L1835: push_constant_int 2574
+L1836: push_constant_string "Members: Sextant"
+L1837: push_constant_string "Members can now craft "
+L1838: push_constant_string "<col=000080>"
+L1839: push_constant_string "sextants"
+L1840: push_constant_string "</col>"
+L1841: push_constant_string " in the workshop of their player-owned house."
+L1842: join_string 5
+L1843: return 0
+L1844: branch L1916
+L1845: push_constant_int 25
+L1846: push_constant_int 18338
+L1847: push_constant_string "Gem bag"
+L1848: push_constant_string "<br>"
+L1849: push_constant_string " (with 25 Dungeoneering)"
+L1850: join_string 3
+L1851: push_constant_string "You can now use "
+L1852: push_constant_string "<col=000080>"
+L1853: push_constant_string "gem bags"
+L1854: push_constant_string "</col>"
+L1855: push_constant_string ". (You also need level 25 Dungeoneering.)"
+L1856: join_string 5
+L1857: return 0
+L1858: branch L1916
+L1859: push_constant_int 28
+L1860: push_constant_int 2575
+L1861: push_constant_string "Members: Watch"
+L1862: push_constant_string "Members can now craft "
+L1863: push_constant_string "<col=000080>"
+L1864: push_constant_string "watches"
+L1865: push_constant_string "</col>"
+L1866: push_constant_string " in the workshop of their player-owned house."
+L1867: join_string 5
+L1868: return 0
+L1869: branch L1916
+L1870: push_constant_int 30
+L1871: push_constant_int 10595
+L1872: push_constant_string "Members: Clockwork penguins"
+L1873: push_constant_string "Members can now craft "
+L1874: push_constant_string "<col=000080>"
+L1875: push_constant_string "clockwork penguins"
+L1876: push_constant_string "</col>"
+L1877: push_constant_string " in the workshop of their player-owned house."
+L1878: join_string 5
+L1879: return 0
+L1880: branch L1916
+L1881: push_constant_int 33
+L1882: push_constant_int 7769
+L1883: push_constant_string "Members: Clockwork mouse"
+L1884: push_constant_string "Members can now craft "
+L1885: push_constant_string "<col=000080>"
+L1886: push_constant_string "clockwork mice"
+L1887: push_constant_string "</col>"
+L1888: push_constant_string " in the workshop of their player-owned house."
+L1889: join_string 5
+L1890: return 0
+L1891: branch L1916
+L1892: push_constant_int 43
+L1893: push_constant_int 13246
+L1894: push_constant_string "Members: Pillar"
+L1895: push_constant_string "<br>"
+L1896: push_constant_string " (after starting TokTz-Ket-Dill)"
+L1897: join_string 3
+L1898: push_constant_string "Members can now make "
+L1899: push_constant_string "<col=000080>"
+L1900: push_constant_string "pillars"
+L1901: push_constant_string "</col>"
+L1902: push_constant_string " (after starting TokTz-Ket-Dill)."
+L1903: join_string 5
+L1904: return 0
+L1905: branch L1916
+L1906: push_constant_int 85
+L1907: push_constant_int 7771
+L1908: push_constant_string "Members: Clockwork cat"
+L1909: push_constant_string "Members can now craft "
+L1910: push_constant_string "<col=000080>"
+L1911: push_constant_string "clockwork cats"
+L1912: push_constant_string "</col>"
+L1913: push_constant_string " in the workshop of their player-owned house."
+L1914: join_string 5
+L1915: return 0
+L1916: branch L3633
+L1917: push_int_local 1
+L1918: switch switch10
+L1919: branch L1974
+L1920: push_constant_int 60
+L1921: push_constant_int 20704
+L1922: push_constant_string "Members: access to the Livid Farm (with 70 Magic, 60 Agility, 60 Farming, 50 Construction and Lunar Diplomacy)"
+L1923: push_constant_string "Members can access "
+L1924: push_constant_string "<col=000080>"
+L1925: push_constant_string "Livid Farm"
+L1926: push_constant_string "</col>"
+L1927: push_constant_string " (with 70 Magic, 60 Agility, 60 Farming, 50 Construction and Lunar Diplomacy)."
+L1928: join_string 5
+L1929: return 0
+L1930: branch L1974
+L1931: push_constant_int 91
+L1932: push_constant_int 18778
+L1933: push_constant_string "Members: Starved ancient effigies"
+L1934: push_constant_string "Members can now investigate "
+L1935: push_constant_string "<col=000080>"
+L1936: push_constant_string "starved ancient effigies"
+L1937: push_constant_string "</col>"
+L1938: push_constant_string " using their knowledge of Crafting."
+L1939: join_string 5
+L1940: return 0
+L1941: branch L1974
+L1942: push_constant_int 93
+L1943: push_constant_int 18779
+L1944: push_constant_string "Members: Nourished ancient effigies"
+L1945: push_constant_string "Members can now investigate "
+L1946: push_constant_string "<col=000080>"
+L1947: push_constant_string "nourished ancient effigies"
+L1948: push_constant_string "</col>"
+L1949: push_constant_string " using their knowledge of Crafting."
+L1950: join_string 5
+L1951: return 0
+L1952: branch L1974
+L1953: push_constant_int 95
+L1954: push_constant_int 18780
+L1955: push_constant_string "Members: Sated ancient effigies"
+L1956: push_constant_string "Members can now investigate "
+L1957: push_constant_string "<col=000080>"
+L1958: push_constant_string "sated ancient effigies"
+L1959: push_constant_string "</col>"
+L1960: push_constant_string " using their knowledge of Crafting."
+L1961: join_string 5
+L1962: return 0
+L1963: branch L1974
+L1964: push_constant_int 97
+L1965: push_constant_int 18781
+L1966: push_constant_string "Members: Gorged ancient effigies"
+L1967: push_constant_string "Members can now investigate "
+L1968: push_constant_string "<col=000080>"
+L1969: push_constant_string "gorged ancient effigies"
+L1970: push_constant_string "</col>"
+L1971: push_constant_string " using their knowledge of Crafting."
+L1972: join_string 5
+L1973: return 0
+L1974: branch L3633
+L1975: push_int_local 1
+L1976: switch switch11
+L1977: branch L2483
+L1978: push_constant_int 1
+L1979: push_constant_int 14152
+L1980: push_constant_string "Members: Stealing Creation - class 1 butterfly net"
+L1981: push_constant_string "Members can now craft "
+L1982: push_constant_string "<col=000080>"
+L1983: push_constant_string "class 1 butterfly nets"
+L1984: push_constant_string "</col>"
+L1985: push_constant_string " in Stealing Creation."
+L1986: join_string 5
+L1987: return 0
+L1988: branch L2483
+L1989: push_constant_int 1
+L1990: push_constant_int 14142
+L1991: push_constant_string "Members: Stealing Creation - class 1 harpoon"
+L1992: push_constant_string "Members can now craft "
+L1993: push_constant_string "<col=000080>"
+L1994: push_constant_string "class 1 harpoons"
+L1995: push_constant_string "</col>"
+L1996: push_constant_string " in Stealing Creation."
+L1997: join_string 5
+L1998: return 0
+L1999: branch L2483
+L2000: push_constant_int 1
+L2001: push_constant_int 14377
+L2002: push_constant_string "Members: Stealing Creation - class 1 staff"
+L2003: push_constant_string "Members can now craft "
+L2004: push_constant_string "<col=000080>"
+L2005: push_constant_string "class 1 staves"
+L2006: push_constant_string "</col>"
+L2007: push_constant_string " in Stealing Creation."
+L2008: join_string 5
+L2009: return 0
+L2010: branch L2483
+L2011: push_constant_int 1
+L2012: push_constant_int 14391
+L2013: push_constant_string "Members: Stealing Creation - class 1 leather body"
+L2014: push_constant_string "Members can now craft "
+L2015: push_constant_string "<col=000080>"
+L2016: push_constant_string "class 1 leather bodies"
+L2017: push_constant_string "</col>"
+L2018: push_constant_string " in Stealing Creation."
+L2019: join_string 5
+L2020: return 0
+L2021: branch L2483
+L2022: push_constant_int 1
+L2023: push_constant_int 14401
+L2024: push_constant_string "Members: Stealing Creation - class 1 chaps"
+L2025: push_constant_string "Members can now craft "
+L2026: push_constant_string "<col=000080>"
+L2027: push_constant_string "class 1 chaps"
+L2028: push_constant_string "</col>"
+L2029: push_constant_string " in Stealing Creation."
+L2030: join_string 5
+L2031: return 0
+L2032: branch L2483
+L2033: push_constant_int 1
+L2034: push_constant_int 14411
+L2035: push_constant_string "Members: Stealing Creation - class 1 coif"
+L2036: push_constant_string "Members can now craft "
+L2037: push_constant_string "<col=000080>"
+L2038: push_constant_string "class 1 coifs"
+L2039: push_constant_string "</col>"
+L2040: push_constant_string " in Stealing Creation."
+L2041: join_string 5
+L2042: return 0
+L2043: branch L2483
+L2044: push_constant_int 1
+L2045: push_constant_int 14317
+L2046: push_constant_string "Members: Stealing Creation - class 1 robe top"
+L2047: push_constant_string "Members can now craft "
+L2048: push_constant_string "<col=000080>"
+L2049: push_constant_string "class 1 robe tops"
+L2050: push_constant_string "</col>"
+L2051: push_constant_string " in Stealing Creation."
+L2052: join_string 5
+L2053: return 0
+L2054: branch L2483
+L2055: push_constant_int 1
+L2056: push_constant_int 14327
+L2057: push_constant_string "Members: Stealing Creation - class 1 robe bottom"
+L2058: push_constant_string "Members can now craft "
+L2059: push_constant_string "<col=000080>"
+L2060: push_constant_string "class 1 robe bottoms"
+L2061: push_constant_string "</col>"
+L2062: push_constant_string " in Stealing Creation."
+L2063: join_string 5
+L2064: return 0
+L2065: branch L2483
+L2066: push_constant_int 1
+L2067: push_constant_int 14337
+L2068: push_constant_string "Members: Stealing Creation - class 1 hat"
+L2069: push_constant_string "Members can now craft "
+L2070: push_constant_string "<col=000080>"
+L2071: push_constant_string "class 1 hats"
+L2072: push_constant_string "</col>"
+L2073: push_constant_string " in Stealing Creation."
+L2074: join_string 5
+L2075: return 0
+L2076: branch L2483
+L2077: push_constant_int 20
+L2078: push_constant_int 14154
+L2079: push_constant_string "Members: Stealing Creation - class 2 butterfly net"
+L2080: push_constant_string "Members can now craft "
+L2081: push_constant_string "<col=000080>"
+L2082: push_constant_string "class 2 butterfly nets"
+L2083: push_constant_string "</col>"
+L2084: push_constant_string " in Stealing Creation."
+L2085: join_string 5
+L2086: return 0
+L2087: branch L2483
+L2088: push_constant_int 20
+L2089: push_constant_int 14144
+L2090: push_constant_string "Members: Stealing Creation - class 2 harpoon"
+L2091: push_constant_string "Members can now craft "
+L2092: push_constant_string "<col=000080>"
+L2093: push_constant_string "class 2 harpoons"
+L2094: push_constant_string "</col>"
+L2095: push_constant_string " in Stealing Creation."
+L2096: join_string 5
+L2097: return 0
+L2098: branch L2483
+L2099: push_constant_int 20
+L2100: push_constant_int 14379
+L2101: push_constant_string "Members: Stealing Creation - class 2 staff"
+L2102: push_constant_string "Members can now craft "
+L2103: push_constant_string "<col=000080>"
+L2104: push_constant_string "class 2 staves"
+L2105: push_constant_string "</col>"
+L2106: push_constant_string " in Stealing Creation."
+L2107: join_string 5
+L2108: return 0
+L2109: branch L2483
+L2110: push_constant_int 20
+L2111: push_constant_int 14393
+L2112: push_constant_string "Members: Stealing Creation - class 2 leather body"
+L2113: push_constant_string "Members can now craft "
+L2114: push_constant_string "<col=000080>"
+L2115: push_constant_string "class 2 leather bodies"
+L2116: push_constant_string "</col>"
+L2117: push_constant_string " in Stealing Creation."
+L2118: join_string 5
+L2119: return 0
+L2120: branch L2483
+L2121: push_constant_int 20
+L2122: push_constant_int 14403
+L2123: push_constant_string "Members: Stealing Creation - class 2 chaps"
+L2124: push_constant_string "Members can now craft "
+L2125: push_constant_string "<col=000080>"
+L2126: push_constant_string "class 2 chaps"
+L2127: push_constant_string "</col>"
+L2128: push_constant_string " in Stealing Creation."
+L2129: join_string 5
+L2130: return 0
+L2131: branch L2483
+L2132: push_constant_int 20
+L2133: push_constant_int 14413
+L2134: push_constant_string "Members: Stealing Creation - class 2 coif"
+L2135: push_constant_string "Members can now craft "
+L2136: push_constant_string "<col=000080>"
+L2137: push_constant_string "class 2 coifs"
+L2138: push_constant_string "</col>"
+L2139: push_constant_string " in Stealing Creation."
+L2140: join_string 5
+L2141: return 0
+L2142: branch L2483
+L2143: push_constant_int 20
+L2144: push_constant_int 14319
+L2145: push_constant_string "Members: Stealing Creation - class 2 robe top"
+L2146: push_constant_string "Members can now craft "
+L2147: push_constant_string "<col=000080>"
+L2148: push_constant_string "class 2 robe tops"
+L2149: push_constant_string "</col>"
+L2150: push_constant_string " in Stealing Creation."
+L2151: join_string 5
+L2152: return 0
+L2153: branch L2483
+L2154: push_constant_int 20
+L2155: push_constant_int 14329
+L2156: push_constant_string "Members: Stealing Creation - class 2 robe bottom"
+L2157: push_constant_string "Members can now craft "
+L2158: push_constant_string "<col=000080>"
+L2159: push_constant_string "class 2 robe bottoms"
+L2160: push_constant_string "</col>"
+L2161: push_constant_string " in Stealing Creation."
+L2162: join_string 5
+L2163: return 0
+L2164: branch L2483
+L2165: push_constant_int 20
+L2166: push_constant_int 14339
+L2167: push_constant_string "Members: Stealing Creation - class 2 hat"
+L2168: push_constant_string "Members can now craft "
+L2169: push_constant_string "<col=000080>"
+L2170: push_constant_string "class 2 hats"
+L2171: push_constant_string "</col>"
+L2172: push_constant_string " in Stealing Creation."
+L2173: join_string 5
+L2174: return 0
+L2175: branch L2483
+L2176: push_constant_int 40
+L2177: push_constant_int 14156
+L2178: push_constant_string "Members: Stealing Creation - class 3 butterfly net"
+L2179: push_constant_string "Members can now craft "
+L2180: push_constant_string "<col=000080>"
+L2181: push_constant_string "class 3 butterfly nets"
+L2182: push_constant_string "</col>"
+L2183: push_constant_string " in Stealing Creation."
+L2184: join_string 5
+L2185: return 0
+L2186: branch L2483
+L2187: push_constant_int 40
+L2188: push_constant_int 14146
+L2189: push_constant_string "Members: Stealing Creation - class 3 harpoon"
+L2190: push_constant_string "Members can now craft "
+L2191: push_constant_string "<col=000080>"
+L2192: push_constant_string "class 3 harpoons"
+L2193: push_constant_string "</col>"
+L2194: push_constant_string " in Stealing Creation."
+L2195: join_string 5
+L2196: return 0
+L2197: branch L2483
+L2198: push_constant_int 40
+L2199: push_constant_int 14381
+L2200: push_constant_string "Members: Stealing Creation - class 3 staff"
+L2201: push_constant_string "Members can now craft "
+L2202: push_constant_string "<col=000080>"
+L2203: push_constant_string "class 3 staves"
+L2204: push_constant_string "</col>"
+L2205: push_constant_string " in Stealing Creation."
+L2206: join_string 5
+L2207: return 0
+L2208: branch L2483
+L2209: push_constant_int 40
+L2210: push_constant_int 14395
+L2211: push_constant_string "Members: Stealing Creation - class 3 leather body"
+L2212: push_constant_string "Members can now craft "
+L2213: push_constant_string "<col=000080>"
+L2214: push_constant_string "class 3 leather bodies"
+L2215: push_constant_string "</col>"
+L2216: push_constant_string " in Stealing Creation."
+L2217: join_string 5
+L2218: return 0
+L2219: branch L2483
+L2220: push_constant_int 40
+L2221: push_constant_int 14405
+L2222: push_constant_string "Members: Stealing Creation - class 3 chaps"
+L2223: push_constant_string "Members can now craft "
+L2224: push_constant_string "<col=000080>"
+L2225: push_constant_string "class 3 chaps"
+L2226: push_constant_string "</col>"
+L2227: push_constant_string " in Stealing Creation."
+L2228: join_string 5
+L2229: return 0
+L2230: branch L2483
+L2231: push_constant_int 40
+L2232: push_constant_int 14415
+L2233: push_constant_string "Members: Stealing Creation - class 3 coif"
+L2234: push_constant_string "Members can now craft "
+L2235: push_constant_string "<col=000080>"
+L2236: push_constant_string "class 3 coifs"
+L2237: push_constant_string "</col>"
+L2238: push_constant_string " in Stealing Creation."
+L2239: join_string 5
+L2240: return 0
+L2241: branch L2483
+L2242: push_constant_int 40
+L2243: push_constant_int 14321
+L2244: push_constant_string "Members: Stealing Creation - class 3 robe top"
+L2245: push_constant_string "Members can now craft "
+L2246: push_constant_string "<col=000080>"
+L2247: push_constant_string "class 3 robe tops"
+L2248: push_constant_string "</col>"
+L2249: push_constant_string " in Stealing Creation."
+L2250: join_string 5
+L2251: return 0
+L2252: branch L2483
+L2253: push_constant_int 40
+L2254: push_constant_int 14331
+L2255: push_constant_string "Members: Stealing Creation - class 3 robe bottom"
+L2256: push_constant_string "Members can now craft "
+L2257: push_constant_string "<col=000080>"
+L2258: push_constant_string "class 3 robe bottoms"
+L2259: push_constant_string "</col>"
+L2260: push_constant_string " in Stealing Creation."
+L2261: join_string 5
+L2262: return 0
+L2263: branch L2483
+L2264: push_constant_int 40
+L2265: push_constant_int 14341
+L2266: push_constant_string "Members: Stealing Creation - class 3 hat"
+L2267: push_constant_string "Members can now craft "
+L2268: push_constant_string "<col=000080>"
+L2269: push_constant_string "class 3 hats"
+L2270: push_constant_string "</col>"
+L2271: push_constant_string " in Stealing Creation."
+L2272: join_string 5
+L2273: return 0
+L2274: branch L2483
+L2275: push_constant_int 52
+L2276: push_constant_int 14619
+L2277: push_constant_string "Members: Phoenix lair - funeral pyre"
+L2278: push_constant_string "Members can now craft the phoenix's "
+L2279: push_constant_string "<col=000080>"
+L2280: push_constant_string "funeral pyre"
+L2281: push_constant_string "</col>"
+L2282: push_constant_string " in the phoenix lair."
+L2283: join_string 5
+L2284: return 0
+L2285: branch L2483
+L2286: push_constant_int 60
+L2287: push_constant_int 14158
+L2288: push_constant_string "Members: Stealing Creation - class 4 butterfly net"
+L2289: push_constant_string "Members can now craft "
+L2290: push_constant_string "<col=000080>"
+L2291: push_constant_string "class 4 butterfly nets"
+L2292: push_constant_string "</col>"
+L2293: push_constant_string " in Stealing Creation."
+L2294: join_string 5
+L2295: return 0
+L2296: branch L2483
+L2297: push_constant_int 60
+L2298: push_constant_int 14148
+L2299: push_constant_string "Members: Stealing Creation - class 4 harpoon"
+L2300: push_constant_string "Members can now craft "
+L2301: push_constant_string "<col=000080>"
+L2302: push_constant_string "class 4 harpoons"
+L2303: push_constant_string "</col>"
+L2304: push_constant_string " in Stealing Creation."
+L2305: join_string 5
+L2306: return 0
+L2307: branch L2483
+L2308: push_constant_int 60
+L2309: push_constant_int 14383
+L2310: push_constant_string "Members: Stealing Creation - class 4 staff"
+L2311: push_constant_string "Members can now craft "
+L2312: push_constant_string "<col=000080>"
+L2313: push_constant_string "class 4 staves"
+L2314: push_constant_string "</col>"
+L2315: push_constant_string " in Stealing Creation."
+L2316: join_string 5
+L2317: return 0
+L2318: branch L2483
+L2319: push_constant_int 60
+L2320: push_constant_int 14397
+L2321: push_constant_string "Members: Stealing Creation - class 4 leather body"
+L2322: push_constant_string "Members can now craft "
+L2323: push_constant_string "<col=000080>"
+L2324: push_constant_string "class 4 leather bodies"
+L2325: push_constant_string "</col>"
+L2326: push_constant_string " in Stealing Creation."
+L2327: join_string 5
+L2328: return 0
+L2329: branch L2483
+L2330: push_constant_int 60
+L2331: push_constant_int 14407
+L2332: push_constant_string "Members: Stealing Creation - class 4 chaps"
+L2333: push_constant_string "Members can now craft "
+L2334: push_constant_string "<col=000080>"
+L2335: push_constant_string "class 4 chaps"
+L2336: push_constant_string "</col>"
+L2337: push_constant_string " in Stealing Creation."
+L2338: join_string 5
+L2339: return 0
+L2340: branch L2483
+L2341: push_constant_int 60
+L2342: push_constant_int 14417
+L2343: push_constant_string "Members: Stealing Creation - class 4 coif"
+L2344: push_constant_string "Members can now craft "
+L2345: push_constant_string "<col=000080>"
+L2346: push_constant_string "class 4 coifs"
+L2347: push_constant_string "</col>"
+L2348: push_constant_string " in Stealing Creation."
+L2349: join_string 5
+L2350: return 0
+L2351: branch L2483
+L2352: push_constant_int 60
+L2353: push_constant_int 14323
+L2354: push_constant_string "Members: Stealing Creation - class 4 robe top"
+L2355: push_constant_string "Members can now craft "
+L2356: push_constant_string "<col=000080>"
+L2357: push_constant_string "class 4 robe tops"
+L2358: push_constant_string "</col>"
+L2359: push_constant_string " in Stealing Creation."
+L2360: join_string 5
+L2361: return 0
+L2362: branch L2483
+L2363: push_constant_int 60
+L2364: push_constant_int 14333
+L2365: push_constant_string "Members: Stealing Creation - class 4 robe bottom"
+L2366: push_constant_string "Members can now craft "
+L2367: push_constant_string "<col=000080>"
+L2368: push_constant_string "class 4 robe bottoms"
+L2369: push_constant_string "</col>"
+L2370: push_constant_string " in Stealing Creation."
+L2371: join_string 5
+L2372: return 0
+L2373: branch L2483
+L2374: push_constant_int 60
+L2375: push_constant_int 14343
+L2376: push_constant_string "Members: Stealing Creation - class 4 hat"
+L2377: push_constant_string "Members can now craft "
+L2378: push_constant_string "<col=000080>"
+L2379: push_constant_string "class 4 hats"
+L2380: push_constant_string "</col>"
+L2381: push_constant_string " in Stealing Creation."
+L2382: join_string 5
+L2383: return 0
+L2384: branch L2483
+L2385: push_constant_int 80
+L2386: push_constant_int 14160
+L2387: push_constant_string "Members: Stealing Creation - class 5 butterfly net"
+L2388: push_constant_string "Members can now craft "
+L2389: push_constant_string "<col=000080>"
+L2390: push_constant_string "class 5 butterfly nets"
+L2391: push_constant_string "</col>"
+L2392: push_constant_string " in Stealing Creation."
+L2393: join_string 5
+L2394: return 0
+L2395: branch L2483
+L2396: push_constant_int 80
+L2397: push_constant_int 14150
+L2398: push_constant_string "Members: Stealing Creation - class 5 harpoon"
+L2399: push_constant_string "Members can now craft "
+L2400: push_constant_string "<col=000080>"
+L2401: push_constant_string "class 5 harpoons"
+L2402: push_constant_string "</col>"
+L2403: push_constant_string " in Stealing Creation."
+L2404: join_string 5
+L2405: return 0
+L2406: branch L2483
+L2407: push_constant_int 80
+L2408: push_constant_int 14385
+L2409: push_constant_string "Members: Stealing Creation - class 5 staff"
+L2410: push_constant_string "Members can now craft "
+L2411: push_constant_string "<col=000080>"
+L2412: push_constant_string "class 5 staves"
+L2413: push_constant_string "</col>"
+L2414: push_constant_string " in Stealing Creation."
+L2415: join_string 5
+L2416: return 0
+L2417: branch L2483
+L2418: push_constant_int 80
+L2419: push_constant_int 14399
+L2420: push_constant_string "Members: Stealing Creation - class 5 leather body"
+L2421: push_constant_string "Members can now craft "
+L2422: push_constant_string "<col=000080>"
+L2423: push_constant_string "class 5 leather bodies"
+L2424: push_constant_string "</col>"
+L2425: push_constant_string " in Stealing Creation."
+L2426: join_string 5
+L2427: return 0
+L2428: branch L2483
+L2429: push_constant_int 80
+L2430: push_constant_int 14409
+L2431: push_constant_string "Members: Stealing Creation - class 5 chaps"
+L2432: push_constant_string "Members can now craft "
+L2433: push_constant_string "<col=000080>"
+L2434: push_constant_string "class 5 chaps"
+L2435: push_constant_string "</col>"
+L2436: push_constant_string " in Stealing Creation."
+L2437: join_string 5
+L2438: return 0
+L2439: branch L2483
+L2440: push_constant_int 80
+L2441: push_constant_int 14419
+L2442: push_constant_string "Members: Stealing Creation - class 5 coif"
+L2443: push_constant_string "Members can now craft "
+L2444: push_constant_string "<col=000080>"
+L2445: push_constant_string "class 5 coifs"
+L2446: push_constant_string "</col>"
+L2447: push_constant_string " in Stealing Creation."
+L2448: join_string 5
+L2449: return 0
+L2450: branch L2483
+L2451: push_constant_int 80
+L2452: push_constant_int 14325
+L2453: push_constant_string "Members: Stealing Creation - class 5 robe top"
+L2454: push_constant_string "Members can now craft "
+L2455: push_constant_string "<col=000080>"
+L2456: push_constant_string "class 5 robe tops"
+L2457: push_constant_string "</col>"
+L2458: push_constant_string " in Stealing Creation."
+L2459: join_string 5
+L2460: return 0
+L2461: branch L2483
+L2462: push_constant_int 80
+L2463: push_constant_int 14335
+L2464: push_constant_string "Members: Stealing Creation - class 5 robe bottom"
+L2465: push_constant_string "Members can now craft "
+L2466: push_constant_string "<col=000080>"
+L2467: push_constant_string "class 5 robe bottoms"
+L2468: push_constant_string "</col>"
+L2469: push_constant_string " in Stealing Creation."
+L2470: join_string 5
+L2471: return 0
+L2472: branch L2483
+L2473: push_constant_int 80
+L2474: push_constant_int 14345
+L2475: push_constant_string "Members: Stealing Creation - class 5 hat"
+L2476: push_constant_string "Members can now craft "
+L2477: push_constant_string "<col=000080>"
+L2478: push_constant_string "class 5 hats"
+L2479: push_constant_string "</col>"
+L2480: push_constant_string " in Stealing Creation."
+L2481: join_string 5
+L2482: return 0
+L2483: branch L3633
+L2484: push_int_local 1
+L2485: switch switch12
+L2486: branch L3595
+L2487: push_constant_int -1
+L2488: push_constant_int 15707
+L2489: push_constant_string "Dungeoneering skill tasks (Levels 1-99)"
+L2490: push_constant_string "<br>"
+L2491: push_constant_string "As your Crafting level increases, you will be able to attempt higher-level crafting tasks within Daemonheim. You will also be more likely to succeed when attempting crafting tasks within Daemonheim."
+L2492: join_string 3
+L2493: push_constant_string ""
+L2494: return 0
+L2495: branch L3595
+L2496: push_constant_int 1
+L2497: push_constant_int 17151
+L2498: push_constant_string "Salve gloves (Tier 1)"
+L2499: push_constant_string "You can now craft "
+L2500: push_constant_string "<col=000080>"
+L2501: push_constant_string "salve gloves"
+L2502: push_constant_string "</col>"
+L2503: push_constant_string " within Daemonheim."
+L2504: join_string 5
+L2505: return 0
+L2506: branch L3595
+L2507: push_constant_int 1
+L2508: push_constant_int 17195
+L2509: push_constant_string "Protoleather vambraces (Tier 1)"
+L2510: push_constant_string "You can now craft "
+L2511: push_constant_string "<col=000080>"
+L2512: push_constant_string "protoleather vambraces"
+L2513: push_constant_string "</col>"
+L2514: push_constant_string " within Daemonheim."
+L2515: join_string 5
+L2516: return 0
+L2517: branch L3595
+L2518: push_constant_int 2
+L2519: push_constant_int 16911
+L2520: push_constant_string "Salve shoes (Tier 1)"
+L2521: push_constant_string "You can now craft "
+L2522: push_constant_string "<col=000080>"
+L2523: push_constant_string "salve shoes"
+L2524: push_constant_string "</col>"
+L2525: push_constant_string " within Daemonheim."
+L2526: join_string 5
+L2527: return 0
+L2528: branch L3595
+L2529: push_constant_int 3
+L2530: push_constant_int 17297
+L2531: push_constant_string "Protoleather boots (Tier 1)"
+L2532: push_constant_string "You can now craft "
+L2533: push_constant_string "<col=000080>"
+L2534: push_constant_string "protoleather boots"
+L2535: push_constant_string "</col>"
+L2536: push_constant_string " within Daemonheim."
+L2537: join_string 5
+L2538: return 0
+L2539: branch L3595
+L2540: push_constant_int 4
+L2541: push_constant_int 16735
+L2542: push_constant_string "Salve hood (Tier 1)"
+L2543: push_constant_string "You can now craft "
+L2544: push_constant_string "<col=000080>"
+L2545: push_constant_string "salve hoods"
+L2546: push_constant_string "</col>"
+L2547: push_constant_string " within Daemonheim."
+L2548: join_string 5
+L2549: return 0
+L2550: branch L3595
+L2551: push_constant_int 5
+L2552: push_constant_int 17041
+L2553: push_constant_string "Protoleather coif (Tier 1)"
+L2554: push_constant_string "You can now craft "
+L2555: push_constant_string "<col=000080>"
+L2556: push_constant_string "protoleather coifs"
+L2557: push_constant_string "</col>"
+L2558: push_constant_string " within Daemonheim."
+L2559: join_string 5
+L2560: return 0
+L2561: branch L3595
+L2562: push_constant_int 6
+L2563: push_constant_int 16845
+L2564: push_constant_string "Salve robe bottom (Tier 1)"
+L2565: push_constant_string "You can now craft "
+L2566: push_constant_string "<col=000080>"
+L2567: push_constant_string "salve robe bottoms"
+L2568: push_constant_string "</col>"
+L2569: push_constant_string " within Daemonheim."
+L2570: join_string 5
+L2571: return 0
+L2572: branch L3595
+L2573: push_constant_int 7
+L2574: push_constant_int 17319
+L2575: push_constant_string "Protoleather chaps (Tier 1)"
+L2576: push_constant_string "You can now craft "
+L2577: push_constant_string "<col=000080>"
+L2578: push_constant_string "protoleather chaps"
+L2579: push_constant_string "</col>"
+L2580: push_constant_string " within Daemonheim."
+L2581: join_string 5
+L2582: return 0
+L2583: branch L3595
+L2584: push_constant_int 8
+L2585: push_constant_int 17217
+L2586: push_constant_string "Salve robe top (Tier 1)"
+L2587: push_constant_string "You can now craft "
+L2588: push_constant_string "<col=000080>"
+L2589: push_constant_string "salve robe tops"
+L2590: push_constant_string "</col>"
+L2591: push_constant_string " within Daemonheim."
+L2592: join_string 5
+L2593: return 0
+L2594: branch L3595
+L2595: push_constant_int 9
+L2596: push_constant_int 17173
+L2597: push_constant_string "Protoleather body (Tier 1)"
+L2598: push_constant_string "You can now craft "
+L2599: push_constant_string "<col=000080>"
+L2600: push_constant_string "protoleather bodies"
+L2601: push_constant_string "</col>"
+L2602: push_constant_string " within Daemonheim."
+L2603: join_string 5
+L2604: return 0
+L2605: branch L3595
+L2606: push_constant_int 10
+L2607: push_constant_int 17153
+L2608: push_constant_string "Wildercress gloves (Tier 2)"
+L2609: push_constant_string "You can now craft "
+L2610: push_constant_string "<col=000080>"
+L2611: push_constant_string "wildercress gloves"
+L2612: push_constant_string "</col>"
+L2613: push_constant_string " within Daemonheim."
+L2614: join_string 5
+L2615: return 0
+L2616: branch L3595
+L2617: push_constant_int 11
+L2618: push_constant_int 17197
+L2619: push_constant_string "Subleather vambraces (Tier 2)"
+L2620: push_constant_string "You can now craft "
+L2621: push_constant_string "<col=000080>"
+L2622: push_constant_string "subleather vambraces"
+L2623: push_constant_string "</col>"
+L2624: push_constant_string " within Daemonheim."
+L2625: join_string 5
+L2626: return 0
+L2627: branch L3595
+L2628: push_constant_int 12
+L2629: push_constant_int 16913
+L2630: push_constant_string "Wildercress shoes (Tier 2)"
+L2631: push_constant_string "You can now craft "
+L2632: push_constant_string "<col=000080>"
+L2633: push_constant_string "wildercress shoes"
+L2634: push_constant_string "</col>"
+L2635: push_constant_string " within Daemonheim."
+L2636: join_string 5
+L2637: return 0
+L2638: branch L3595
+L2639: push_constant_int 13
+L2640: push_constant_int 17299
+L2641: push_constant_string "Subleather boots (Tier 2)"
+L2642: push_constant_string "You can now craft "
+L2643: push_constant_string "<col=000080>"
+L2644: push_constant_string "subleather boots"
+L2645: push_constant_string "</col>"
+L2646: push_constant_string " within Daemonheim."
+L2647: join_string 5
+L2648: return 0
+L2649: branch L3595
+L2650: push_constant_int 14
+L2651: push_constant_int 16737
+L2652: push_constant_string "Wildercress hood (Tier 2)"
+L2653: push_constant_string "You can now craft "
+L2654: push_constant_string "<col=000080>"
+L2655: push_constant_string "wildercress hoods"
+L2656: push_constant_string "</col>"
+L2657: push_constant_string " within Daemonheim."
+L2658: join_string 5
+L2659: return 0
+L2660: branch L3595
+L2661: push_constant_int 15
+L2662: push_constant_int 17043
+L2663: push_constant_string "Subleather coif (Tier 2)"
+L2664: push_constant_string "You can now craft "
+L2665: push_constant_string "<col=000080>"
+L2666: push_constant_string "subleather coifs"
+L2667: push_constant_string "</col>"
+L2668: push_constant_string " within Daemonheim."
+L2669: join_string 5
+L2670: return 0
+L2671: branch L3595
+L2672: push_constant_int 16
+L2673: push_constant_int 16847
+L2674: push_constant_string "Wildercress robe bottom (Tier 2)"
+L2675: push_constant_string "You can now craft "
+L2676: push_constant_string "<col=000080>"
+L2677: push_constant_string "wildercress robe bottoms"
+L2678: push_constant_string "</col>"
+L2679: push_constant_string " within Daemonheim."
+L2680: join_string 5
+L2681: return 0
+L2682: branch L3595
+L2683: push_constant_int 17
+L2684: push_constant_int 17321
+L2685: push_constant_string "Subleather chaps (Tier 2)"
+L2686: push_constant_string "You can now craft "
+L2687: push_constant_string "<col=000080>"
+L2688: push_constant_string "subleather chaps"
+L2689: push_constant_string "</col>"
+L2690: push_constant_string " within Daemonheim."
+L2691: join_string 5
+L2692: return 0
+L2693: branch L3595
+L2694: push_constant_int 18
+L2695: push_constant_int 17219
+L2696: push_constant_string "Wildercress robe top (Tier 2)"
+L2697: push_constant_string "You can now craft "
+L2698: push_constant_string "<col=000080>"
+L2699: push_constant_string "wildercress robe tops"
+L2700: push_constant_string "</col>"
+L2701: push_constant_string " within Daemonheim."
+L2702: join_string 5
+L2703: return 0
+L2704: branch L3595
+L2705: push_constant_int 19
+L2706: push_constant_int 17175
+L2707: push_constant_string "Subleather body (Tier 2)"
+L2708: push_constant_string "You can now craft "
+L2709: push_constant_string "<col=000080>"
+L2710: push_constant_string "subleather bodies"
+L2711: push_constant_string "</col>"
+L2712: push_constant_string " within Daemonheim."
+L2713: join_string 5
+L2714: return 0
+L2715: branch L3595
+L2716: push_constant_int 20
+L2717: push_constant_int 17155
+L2718: push_constant_string "Blightleaf gloves (Tier 3)"
+L2719: push_constant_string "You can now craft "
+L2720: push_constant_string "<col=000080>"
+L2721: push_constant_string "blightleaf gloves"
+L2722: push_constant_string "</col>"
+L2723: push_constant_string " within Daemonheim."
+L2724: join_string 5
+L2725: return 0
+L2726: branch L3595
+L2727: push_constant_int 21
+L2728: push_constant_int 17199
+L2729: push_constant_string "Paraleather vambraces (Tier 3)"
+L2730: push_constant_string "You can now craft "
+L2731: push_constant_string "<col=000080>"
+L2732: push_constant_string "paraleather vambraces"
+L2733: push_constant_string "</col>"
+L2734: push_constant_string " within Daemonheim."
+L2735: join_string 5
+L2736: return 0
+L2737: branch L3595
+L2738: push_constant_int 22
+L2739: push_constant_int 16915
+L2740: push_constant_string "Blightleaf shoes (Tier 3)"
+L2741: push_constant_string "You can now craft "
+L2742: push_constant_string "<col=000080>"
+L2743: push_constant_string "blightleaf shoes"
+L2744: push_constant_string "</col>"
+L2745: push_constant_string " within Daemonheim."
+L2746: join_string 5
+L2747: return 0
+L2748: branch L3595
+L2749: push_constant_int 23
+L2750: push_constant_int 17301
+L2751: push_constant_string "Paraleather boots (Tier 3)"
+L2752: push_constant_string "You can now craft "
+L2753: push_constant_string "<col=000080>"
+L2754: push_constant_string "paraleather boots"
+L2755: push_constant_string "</col>"
+L2756: push_constant_string " within Daemonheim."
+L2757: join_string 5
+L2758: return 0
+L2759: branch L3595
+L2760: push_constant_int 24
+L2761: push_constant_int 16739
+L2762: push_constant_string "Blightleaf hood (Tier 3)"
+L2763: push_constant_string "You can now craft "
+L2764: push_constant_string "<col=000080>"
+L2765: push_constant_string "blightleaf hoods"
+L2766: push_constant_string "</col>"
+L2767: push_constant_string " within Daemonheim."
+L2768: join_string 5
+L2769: return 0
+L2770: branch L3595
+L2771: push_constant_int 25
+L2772: push_constant_int 17045
+L2773: push_constant_string "Paraleather coif (Tier 3)"
+L2774: push_constant_string "You can now craft "
+L2775: push_constant_string "<col=000080>"
+L2776: push_constant_string "paraleather coifs"
+L2777: push_constant_string "</col>"
+L2778: push_constant_string " within Daemonheim."
+L2779: join_string 5
+L2780: return 0
+L2781: branch L3595
+L2782: push_constant_int 26
+L2783: push_constant_int 16849
+L2784: push_constant_string "Blightleaf robe bottom (Tier 3)"
+L2785: push_constant_string "You can now craft "
+L2786: push_constant_string "<col=000080>"
+L2787: push_constant_string "blightleaf robe bottoms"
+L2788: push_constant_string "</col>"
+L2789: push_constant_string " within Daemonheim."
+L2790: join_string 5
+L2791: return 0
+L2792: branch L3595
+L2793: push_constant_int 27
+L2794: push_constant_int 17323
+L2795: push_constant_string "Paraleather chaps (Tier 3)"
+L2796: push_constant_string "You can now craft "
+L2797: push_constant_string "<col=000080>"
+L2798: push_constant_string "paraleather chaps"
+L2799: push_constant_string "</col>"
+L2800: push_constant_string " within Daemonheim."
+L2801: join_string 5
+L2802: return 0
+L2803: branch L3595
+L2804: push_constant_int 28
+L2805: push_constant_int 17221
+L2806: push_constant_string "Blightleaf robe top (Tier 3)"
+L2807: push_constant_string "You can now craft "
+L2808: push_constant_string "<col=000080>"
+L2809: push_constant_string "blightleaf robe tops"
+L2810: push_constant_string "</col>"
+L2811: push_constant_string " within Daemonheim."
+L2812: join_string 5
+L2813: return 0
+L2814: branch L3595
+L2815: push_constant_int 29
+L2816: push_constant_int 17177
+L2817: push_constant_string "Paraleather body (Tier 3)"
+L2818: push_constant_string "You can now craft "
+L2819: push_constant_string "<col=000080>"
+L2820: push_constant_string "paraleather bodies"
+L2821: push_constant_string "</col>"
+L2822: push_constant_string " within Daemonheim."
+L2823: join_string 5
+L2824: return 0
+L2825: branch L3595
+L2826: push_constant_int 30
+L2827: push_constant_int 17157
+L2828: push_constant_string "Roseblood gloves (Tier 4)"
+L2829: push_constant_string "You can now craft "
+L2830: push_constant_string "<col=000080>"
+L2831: push_constant_string "roseblood gloves"
+L2832: push_constant_string "</col>"
+L2833: push_constant_string " within Daemonheim."
+L2834: join_string 5
+L2835: return 0
+L2836: branch L3595
+L2837: push_constant_int 31
+L2838: push_constant_int 17201
+L2839: push_constant_string "Archleather vambraces (Tier 4)"
+L2840: push_constant_string "You can now craft "
+L2841: push_constant_string "<col=000080>"
+L2842: push_constant_string "archleather vambraces"
+L2843: push_constant_string "</col>"
+L2844: push_constant_string " within Daemonheim."
+L2845: join_string 5
+L2846: return 0
+L2847: branch L3595
+L2848: push_constant_int 32
+L2849: push_constant_int 16917
+L2850: push_constant_string "Roseblood shoes (Tier 4)"
+L2851: push_constant_string "You can now craft "
+L2852: push_constant_string "<col=000080>"
+L2853: push_constant_string "roseblood shoes"
+L2854: push_constant_string "</col>"
+L2855: push_constant_string " within Daemonheim."
+L2856: join_string 5
+L2857: return 0
+L2858: branch L3595
+L2859: push_constant_int 33
+L2860: push_constant_int 17303
+L2861: push_constant_string "Archleather boots (Tier 4)"
+L2862: push_constant_string "You can now craft "
+L2863: push_constant_string "<col=000080>"
+L2864: push_constant_string "archleather boots"
+L2865: push_constant_string "</col>"
+L2866: push_constant_string " within Daemonheim."
+L2867: join_string 5
+L2868: return 0
+L2869: branch L3595
+L2870: push_constant_int 34
+L2871: push_constant_int 16741
+L2872: push_constant_string "Roseblood hood (Tier 4)"
+L2873: push_constant_string "You can now craft "
+L2874: push_constant_string "<col=000080>"
+L2875: push_constant_string "roseblood hoods"
+L2876: push_constant_string "</col>"
+L2877: push_constant_string " within Daemonheim."
+L2878: join_string 5
+L2879: return 0
+L2880: branch L3595
+L2881: push_constant_int 35
+L2882: push_constant_int 17047
+L2883: push_constant_string "Archleather coif (Tier 4)"
+L2884: push_constant_string "You can now craft "
+L2885: push_constant_string "<col=000080>"
+L2886: push_constant_string "archleather coifs"
+L2887: push_constant_string "</col>"
+L2888: push_constant_string " within Daemonheim."
+L2889: join_string 5
+L2890: return 0
+L2891: branch L3595
+L2892: push_constant_int 36
+L2893: push_constant_int 16851
+L2894: push_constant_string "Roseblood robe bottom (Tier 4)"
+L2895: push_constant_string "You can now craft "
+L2896: push_constant_string "<col=000080>"
+L2897: push_constant_string "roseblood robe bottoms"
+L2898: push_constant_string "</col>"
+L2899: push_constant_string " within Daemonheim."
+L2900: join_string 5
+L2901: return 0
+L2902: branch L3595
+L2903: push_constant_int 37
+L2904: push_constant_int 17325
+L2905: push_constant_string "Archleather chaps (Tier 4)"
+L2906: push_constant_string "You can now craft "
+L2907: push_constant_string "<col=000080>"
+L2908: push_constant_string "archleather chaps"
+L2909: push_constant_string "</col>"
+L2910: push_constant_string " within Daemonheim."
+L2911: join_string 5
+L2912: return 0
+L2913: branch L3595
+L2914: push_constant_int 38
+L2915: push_constant_int 17223
+L2916: push_constant_string "Roseblood robe top (Tier 4)"
+L2917: push_constant_string "You can now craft "
+L2918: push_constant_string "<col=000080>"
+L2919: push_constant_string "roseblood robe tops"
+L2920: push_constant_string "</col>"
+L2921: push_constant_string " within Daemonheim."
+L2922: join_string 5
+L2923: return 0
+L2924: branch L3595
+L2925: push_constant_int 39
+L2926: push_constant_int 17179
+L2927: push_constant_string "Archleather body (Tier 4)"
+L2928: push_constant_string "You can now craft "
+L2929: push_constant_string "<col=000080>"
+L2930: push_constant_string "archleather bodies"
+L2931: push_constant_string "</col>"
+L2932: push_constant_string " within Daemonheim."
+L2933: join_string 5
+L2934: return 0
+L2935: branch L3595
+L2936: push_constant_int 40
+L2937: push_constant_int 17159
+L2938: push_constant_string "Bryll gloves (Tier 5)"
+L2939: push_constant_string "You can now craft "
+L2940: push_constant_string "<col=000080>"
+L2941: push_constant_string "bryll gloves"
+L2942: push_constant_string "</col>"
+L2943: push_constant_string " within Daemonheim."
+L2944: join_string 5
+L2945: return 0
+L2946: branch L3595
+L2947: push_constant_int 41
+L2948: push_constant_int 17203
+L2949: push_constant_string "Dromoleather vambraces (Tier 5)"
+L2950: push_constant_string "You can now craft "
+L2951: push_constant_string "<col=000080>"
+L2952: push_constant_string "dromoleather vambraces"
+L2953: push_constant_string "</col>"
+L2954: push_constant_string " within Daemonheim."
+L2955: join_string 5
+L2956: return 0
+L2957: branch L3595
+L2958: push_constant_int 42
+L2959: push_constant_int 16919
+L2960: push_constant_string "Bryll shoes (Tier 5)"
+L2961: push_constant_string "You can now craft "
+L2962: push_constant_string "<col=000080>"
+L2963: push_constant_string "bryll shoes"
+L2964: push_constant_string "</col>"
+L2965: push_constant_string " within Daemonheim."
+L2966: join_string 5
+L2967: return 0
+L2968: branch L3595
+L2969: push_constant_int 43
+L2970: push_constant_int 17305
+L2971: push_constant_string "Dromoleather boots (Tier 5)"
+L2972: push_constant_string "You can now craft "
+L2973: push_constant_string "<col=000080>"
+L2974: push_constant_string "dromoleather boots"
+L2975: push_constant_string "</col>"
+L2976: push_constant_string " within Daemonheim."
+L2977: join_string 5
+L2978: return 0
+L2979: branch L3595
+L2980: push_constant_int 44
+L2981: push_constant_int 16743
+L2982: push_constant_string "Bryll hood (Tier 5)"
+L2983: push_constant_string "You can now craft "
+L2984: push_constant_string "<col=000080>"
+L2985: push_constant_string "bryll hoods"
+L2986: push_constant_string "</col>"
+L2987: push_constant_string " within Daemonheim."
+L2988: join_string 5
+L2989: return 0
+L2990: branch L3595
+L2991: push_constant_int 45
+L2992: push_constant_int 17049
+L2993: push_constant_string "Dromoleather coif (Tier 5)"
+L2994: push_constant_string "You can now craft "
+L2995: push_constant_string "<col=000080>"
+L2996: push_constant_string "dromoleather coifs"
+L2997: push_constant_string "</col>"
+L2998: push_constant_string " within Daemonheim."
+L2999: join_string 5
+L3000: return 0
+L3001: branch L3595
+L3002: push_constant_int 46
+L3003: push_constant_int 16853
+L3004: push_constant_string "Bryll robe bottom (Tier 5)"
+L3005: push_constant_string "You can now craft "
+L3006: push_constant_string "<col=000080>"
+L3007: push_constant_string "bryll robe bottoms"
+L3008: push_constant_string "</col>"
+L3009: push_constant_string " within Daemonheim."
+L3010: join_string 5
+L3011: return 0
+L3012: branch L3595
+L3013: push_constant_int 47
+L3014: push_constant_int 17327
+L3015: push_constant_string "Dromoleather chaps (Tier 5)"
+L3016: push_constant_string "You can now craft "
+L3017: push_constant_string "<col=000080>"
+L3018: push_constant_string "dromoleather chaps"
+L3019: push_constant_string "</col>"
+L3020: push_constant_string " within Daemonheim."
+L3021: join_string 5
+L3022: return 0
+L3023: branch L3595
+L3024: push_constant_int 48
+L3025: push_constant_int 17225
+L3026: push_constant_string "Bryll robe top (Tier 5)"
+L3027: push_constant_string "You can now craft "
+L3028: push_constant_string "<col=000080>"
+L3029: push_constant_string "bryll robe tops"
+L3030: push_constant_string "</col>"
+L3031: push_constant_string " within Daemonheim."
+L3032: join_string 5
+L3033: return 0
+L3034: branch L3595
+L3035: push_constant_int 49
+L3036: push_constant_int 17181
+L3037: push_constant_string "Dromoleather body (Tier 5)"
+L3038: push_constant_string "You can now craft "
+L3039: push_constant_string "<col=000080>"
+L3040: push_constant_string "dromoleather bodies"
+L3041: push_constant_string "</col>"
+L3042: push_constant_string " within Daemonheim."
+L3043: join_string 5
+L3044: return 0
+L3045: branch L3595
+L3046: push_constant_int 50
+L3047: push_constant_int 17161
+L3048: push_constant_string "Members: Duskweed gloves (Tier 6)"
+L3049: push_constant_string "Members can now craft "
+L3050: push_constant_string "<col=000080>"
+L3051: push_constant_string "duskweed gloves"
+L3052: push_constant_string "</col>"
+L3053: push_constant_string " within Daemonheim."
+L3054: join_string 5
+L3055: return 0
+L3056: branch L3595
+L3057: push_constant_int 51
+L3058: push_constant_int 17205
+L3059: push_constant_string "Members: Spinoleather vambraces (Tier 6)"
+L3060: push_constant_string "Members can now craft "
+L3061: push_constant_string "<col=000080>"
+L3062: push_constant_string "spinoleather vambraces"
+L3063: push_constant_string "</col>"
+L3064: push_constant_string " within Daemonheim."
+L3065: join_string 5
+L3066: return 0
+L3067: branch L3595
+L3068: push_constant_int 52
+L3069: push_constant_int 16921
+L3070: push_constant_string "Members: Duskweed shoes (Tier 6)"
+L3071: push_constant_string "Members can now craft "
+L3072: push_constant_string "<col=000080>"
+L3073: push_constant_string "duskweed shoes"
+L3074: push_constant_string "</col>"
+L3075: push_constant_string " within Daemonheim."
+L3076: join_string 5
+L3077: return 0
+L3078: branch L3595
+L3079: push_constant_int 53
+L3080: push_constant_int 17307
+L3081: push_constant_string "Members: Spinoleather boots (Tier 6)"
+L3082: push_constant_string "Members can now craft "
+L3083: push_constant_string "<col=000080>"
+L3084: push_constant_string "spinoleather boots"
+L3085: push_constant_string "</col>"
+L3086: push_constant_string " within Daemonheim."
+L3087: join_string 5
+L3088: return 0
+L3089: branch L3595
+L3090: push_constant_int 54
+L3091: push_constant_int 16745
+L3092: push_constant_string "Members: Duskweed hood (Tier 6)"
+L3093: push_constant_string "Members can now craft "
+L3094: push_constant_string "<col=000080>"
+L3095: push_constant_string "duskweed hoods"
+L3096: push_constant_string "</col>"
+L3097: push_constant_string " within Daemonheim."
+L3098: join_string 5
+L3099: return 0
+L3100: branch L3595
+L3101: push_constant_int 55
+L3102: push_constant_int 17051
+L3103: push_constant_string "Members: Spinoleather coif (Tier 6)"
+L3104: push_constant_string "Members can now craft "
+L3105: push_constant_string "<col=000080>"
+L3106: push_constant_string "spinoleather coifs"
+L3107: push_constant_string "</col>"
+L3108: push_constant_string " within Daemonheim."
+L3109: join_string 5
+L3110: return 0
+L3111: branch L3595
+L3112: push_constant_int 56
+L3113: push_constant_int 16855
+L3114: push_constant_string "Members: Duskweed robe bottom (Tier 6)"
+L3115: push_constant_string "Members can now craft "
+L3116: push_constant_string "<col=000080>"
+L3117: push_constant_string "duskweed robe bottoms"
+L3118: push_constant_string "</col>"
+L3119: push_constant_string " within Daemonheim."
+L3120: join_string 5
+L3121: return 0
+L3122: branch L3595
+L3123: push_constant_int 57
+L3124: push_constant_int 17329
+L3125: push_constant_string "Members: Spinoleather chaps (Tier 6)"
+L3126: push_constant_string "Members can now craft "
+L3127: push_constant_string "<col=000080>"
+L3128: push_constant_string "spinoleather chaps"
+L3129: push_constant_string "</col>"
+L3130: push_constant_string " within Daemonheim."
+L3131: join_string 5
+L3132: return 0
+L3133: branch L3595
+L3134: push_constant_int 58
+L3135: push_constant_int 17227
+L3136: push_constant_string "Members: Duskweed robe top (Tier 6)"
+L3137: push_constant_string "Members can now craft "
+L3138: push_constant_string "<col=000080>"
+L3139: push_constant_string "duskweed robe tops"
+L3140: push_constant_string "</col>"
+L3141: push_constant_string " within Daemonheim."
+L3142: join_string 5
+L3143: return 0
+L3144: branch L3595
+L3145: push_constant_int 59
+L3146: push_constant_int 17183
+L3147: push_constant_string "Members: Spinoleather body (Tier 6)"
+L3148: push_constant_string "Members can now craft "
+L3149: push_constant_string "<col=000080>"
+L3150: push_constant_string "spinoleather bodies"
+L3151: push_constant_string "</col>"
+L3152: push_constant_string " within Daemonheim."
+L3153: join_string 5
+L3154: return 0
+L3155: branch L3595
+L3156: push_constant_int 60
+L3157: push_constant_int 17163
+L3158: push_constant_string "Members: Soulbell gloves (Tier 7)"
+L3159: push_constant_string "Members can now craft "
+L3160: push_constant_string "<col=000080>"
+L3161: push_constant_string "soulbell gloves"
+L3162: push_constant_string "</col>"
+L3163: push_constant_string " within Daemonheim."
+L3164: join_string 5
+L3165: return 0
+L3166: branch L3595
+L3167: push_constant_int 61
+L3168: push_constant_int 17207
+L3169: push_constant_string "Members: Gallileather vambraces (Tier 7)"
+L3170: push_constant_string "Members can now craft "
+L3171: push_constant_string "<col=000080>"
+L3172: push_constant_string "gallileather vambraces"
+L3173: push_constant_string "</col>"
+L3174: push_constant_string " within Daemonheim."
+L3175: join_string 5
+L3176: return 0
+L3177: branch L3595
+L3178: push_constant_int 62
+L3179: push_constant_int 16923
+L3180: push_constant_string "Members: Soulbell shoes (Tier 7)"
+L3181: push_constant_string "Members can now craft "
+L3182: push_constant_string "<col=000080>"
+L3183: push_constant_string "soulbell shoes"
+L3184: push_constant_string "</col>"
+L3185: push_constant_string " within Daemonheim."
+L3186: join_string 5
+L3187: return 0
+L3188: branch L3595
+L3189: push_constant_int 63
+L3190: push_constant_int 17309
+L3191: push_constant_string "Members: Gallileather boots (Tier 7)"
+L3192: push_constant_string "Members can now craft "
+L3193: push_constant_string "<col=000080>"
+L3194: push_constant_string "gallileather boots"
+L3195: push_constant_string "</col>"
+L3196: push_constant_string " within Daemonheim."
+L3197: join_string 5
+L3198: return 0
+L3199: branch L3595
+L3200: push_constant_int 64
+L3201: push_constant_int 16747
+L3202: push_constant_string "Members: Soulbell hood (Tier 7)"
+L3203: push_constant_string "Members can now craft "
+L3204: push_constant_string "<col=000080>"
+L3205: push_constant_string "soulbell hoods"
+L3206: push_constant_string "</col>"
+L3207: push_constant_string " within Daemonheim."
+L3208: join_string 5
+L3209: return 0
+L3210: branch L3595
+L3211: push_constant_int 65
+L3212: push_constant_int 17053
+L3213: push_constant_string "Members: Gallileather coif (Tier 7)"
+L3214: push_constant_string "Members can now craft "
+L3215: push_constant_string "<col=000080>"
+L3216: push_constant_string "gallileather coifs"
+L3217: push_constant_string "</col>"
+L3218: push_constant_string " within Daemonheim."
+L3219: join_string 5
+L3220: return 0
+L3221: branch L3595
+L3222: push_constant_int 66
+L3223: push_constant_int 16857
+L3224: push_constant_string "Members: Soulbell robe bottom (Tier 7)"
+L3225: push_constant_string "Members can now craft "
+L3226: push_constant_string "<col=000080>"
+L3227: push_constant_string "soulbell robe bottoms"
+L3228: push_constant_string "</col>"
+L3229: push_constant_string " within Daemonheim."
+L3230: join_string 5
+L3231: return 0
+L3232: branch L3595
+L3233: push_constant_int 67
+L3234: push_constant_int 17331
+L3235: push_constant_string "Members: Gallileather chaps (Tier 7)"
+L3236: push_constant_string "Members can now craft "
+L3237: push_constant_string "<col=000080>"
+L3238: push_constant_string "gallileather chaps"
+L3239: push_constant_string "</col>"
+L3240: push_constant_string " within Daemonheim."
+L3241: join_string 5
+L3242: return 0
+L3243: branch L3595
+L3244: push_constant_int 68
+L3245: push_constant_int 17229
+L3246: push_constant_string "Members: Soulbell robe top (Tier 7)"
+L3247: push_constant_string "Members can now craft "
+L3248: push_constant_string "<col=000080>"
+L3249: push_constant_string "soulbell robe tops"
+L3250: push_constant_string "</col>"
+L3251: push_constant_string " within Daemonheim."
+L3252: join_string 5
+L3253: return 0
+L3254: branch L3595
+L3255: push_constant_int 69
+L3256: push_constant_int 17185
+L3257: push_constant_string "Members: Gallileather body (Tier 7)"
+L3258: push_constant_string "Members can now craft "
+L3259: push_constant_string "<col=000080>"
+L3260: push_constant_string "gallileather bodies"
+L3261: push_constant_string "</col>"
+L3262: push_constant_string " within Daemonheim."
+L3263: join_string 5
+L3264: return 0
+L3265: branch L3595
+L3266: push_constant_int 70
+L3267: push_constant_int 17165
+L3268: push_constant_string "Members: Ectogloves (Tier 8)"
+L3269: push_constant_string "Members can now craft "
+L3270: push_constant_string "<col=000080>"
+L3271: push_constant_string "ectogloves"
+L3272: push_constant_string "</col>"
+L3273: push_constant_string " within Daemonheim."
+L3274: join_string 5
+L3275: return 0
+L3276: branch L3595
+L3277: push_constant_int 71
+L3278: push_constant_int 17209
+L3279: push_constant_string "Members: Stegoleather vambraces (Tier 8)"
+L3280: push_constant_string "Members can now craft "
+L3281: push_constant_string "<col=000080>"
+L3282: push_constant_string "stegoleather vambraces"
+L3283: push_constant_string "</col>"
+L3284: push_constant_string " within Daemonheim."
+L3285: join_string 5
+L3286: return 0
+L3287: branch L3595
+L3288: push_constant_int 72
+L3289: push_constant_int 16925
+L3290: push_constant_string "Members: Ectoshoes (Tier 8)"
+L3291: push_constant_string "Members can now craft "
+L3292: push_constant_string "<col=000080>"
+L3293: push_constant_string "ectoshoes"
+L3294: push_constant_string "</col>"
+L3295: push_constant_string " within Daemonheim."
+L3296: join_string 5
+L3297: return 0
+L3298: branch L3595
+L3299: push_constant_int 73
+L3300: push_constant_int 17311
+L3301: push_constant_string "Members: Stegoleather boots (Tier 8)"
+L3302: push_constant_string "Members can now craft "
+L3303: push_constant_string "<col=000080>"
+L3304: push_constant_string "stegoleather boots"
+L3305: push_constant_string "</col>"
+L3306: push_constant_string " within Daemonheim."
+L3307: join_string 5
+L3308: return 0
+L3309: branch L3595
+L3310: push_constant_int 74
+L3311: push_constant_int 16749
+L3312: push_constant_string "Members: Ectohood (Tier 8)"
+L3313: push_constant_string "Members can now craft "
+L3314: push_constant_string "<col=000080>"
+L3315: push_constant_string "ectohoods"
+L3316: push_constant_string "</col>"
+L3317: push_constant_string " within Daemonheim."
+L3318: join_string 5
+L3319: return 0
+L3320: branch L3595
+L3321: push_constant_int 75
+L3322: push_constant_int 17055
+L3323: push_constant_string "Members: Stegoleather coif (Tier 8)"
+L3324: push_constant_string "Members can now craft "
+L3325: push_constant_string "<col=000080>"
+L3326: push_constant_string "stegoleather coifs"
+L3327: push_constant_string "</col>"
+L3328: push_constant_string " within Daemonheim."
+L3329: join_string 5
+L3330: return 0
+L3331: branch L3595
+L3332: push_constant_int 76
+L3333: push_constant_int 16859
+L3334: push_constant_string "Members: Ectorobe bottom (Tier 8)"
+L3335: push_constant_string "Members can now craft "
+L3336: push_constant_string "<col=000080>"
+L3337: push_constant_string "ectorobe bottoms"
+L3338: push_constant_string "</col>"
+L3339: push_constant_string " within Daemonheim."
+L3340: join_string 5
+L3341: return 0
+L3342: branch L3595
+L3343: push_constant_int 77
+L3344: push_constant_int 17333
+L3345: push_constant_string "Members: Stegoleather chaps (Tier 8)"
+L3346: push_constant_string "Members can now craft "
+L3347: push_constant_string "<col=000080>"
+L3348: push_constant_string "stegoleather chaps"
+L3349: push_constant_string "</col>"
+L3350: push_constant_string " within Daemonheim."
+L3351: join_string 5
+L3352: return 0
+L3353: branch L3595
+L3354: push_constant_int 78
+L3355: push_constant_int 17231
+L3356: push_constant_string "Members: Ectorobe top (Tier 8)"
+L3357: push_constant_string "Members can now craft "
+L3358: push_constant_string "<col=000080>"
+L3359: push_constant_string "ectorobe tops"
+L3360: push_constant_string "</col>"
+L3361: push_constant_string " within Daemonheim."
+L3362: join_string 5
+L3363: return 0
+L3364: branch L3595
+L3365: push_constant_int 79
+L3366: push_constant_int 17187
+L3367: push_constant_string "Members: Stegoleather body (Tier 8)"
+L3368: push_constant_string "Members can now craft "
+L3369: push_constant_string "<col=000080>"
+L3370: push_constant_string "stegoleather bodies"
+L3371: push_constant_string "</col>"
+L3372: push_constant_string " within Daemonheim."
+L3373: join_string 5
+L3374: return 0
+L3375: branch L3595
+L3376: push_constant_int 80
+L3377: push_constant_int 17167
+L3378: push_constant_string "Members: Runic gloves (Tier 9)"
+L3379: push_constant_string "Members can now craft "
+L3380: push_constant_string "<col=000080>"
+L3381: push_constant_string "runic gloves"
+L3382: push_constant_string "</col>"
+L3383: push_constant_string " within Daemonheim."
+L3384: join_string 5
+L3385: return 0
+L3386: branch L3595
+L3387: push_constant_int 81
+L3388: push_constant_int 17211
+L3389: push_constant_string "Members: Megaleather vambraces (Tier 9)"
+L3390: push_constant_string "Members can now craft "
+L3391: push_constant_string "<col=000080>"
+L3392: push_constant_string "megaleather vambraces"
+L3393: push_constant_string "</col>"
+L3394: push_constant_string " within Daemonheim."
+L3395: join_string 5
+L3396: return 0
+L3397: branch L3595
+L3398: push_constant_int 82
+L3399: push_constant_int 16927
+L3400: push_constant_string "Members: Runic shoes (Tier 9)"
+L3401: push_constant_string "Members can now craft "
+L3402: push_constant_string "<col=000080>"
+L3403: push_constant_string "runic shoes"
+L3404: push_constant_string "</col>"
+L3405: push_constant_string " within Daemonheim."
+L3406: join_string 5
+L3407: return 0
+L3408: branch L3595
+L3409: push_constant_int 83
+L3410: push_constant_int 17313
+L3411: push_constant_string "Members: Megaleather boots (Tier 9)"
+L3412: push_constant_string "Members can now craft "
+L3413: push_constant_string "<col=000080>"
+L3414: push_constant_string "megaleather boots"
+L3415: push_constant_string "</col>"
+L3416: push_constant_string " within Daemonheim."
+L3417: join_string 5
+L3418: return 0
+L3419: branch L3595
+L3420: push_constant_int 84
+L3421: push_constant_int 16751
+L3422: push_constant_string "Members: Runic hood (Tier 9)"
+L3423: push_constant_string "Members can now craft "
+L3424: push_constant_string "<col=000080>"
+L3425: push_constant_string "runic hoods"
+L3426: push_constant_string "</col>"
+L3427: push_constant_string " within Daemonheim."
+L3428: join_string 5
+L3429: return 0
+L3430: branch L3595
+L3431: push_constant_int 85
+L3432: push_constant_int 17057
+L3433: push_constant_string "Members: Megaleather coif (Tier 9)"
+L3434: push_constant_string "Members can now craft "
+L3435: push_constant_string "<col=000080>"
+L3436: push_constant_string "megaleather coifs"
+L3437: push_constant_string "</col>"
+L3438: push_constant_string " within Daemonheim."
+L3439: join_string 5
+L3440: return 0
+L3441: branch L3595
+L3442: push_constant_int 86
+L3443: push_constant_int 16861
+L3444: push_constant_string "Members: Runic robe bottom (Tier 9)"
+L3445: push_constant_string "Members can now craft "
+L3446: push_constant_string "<col=000080>"
+L3447: push_constant_string "runic robe bottoms"
+L3448: push_constant_string "</col>"
+L3449: push_constant_string " within Daemonheim."
+L3450: join_string 5
+L3451: return 0
+L3452: branch L3595
+L3453: push_constant_int 87
+L3454: push_constant_int 17335
+L3455: push_constant_string "Members: Megaleather chaps (Tier 9)"
+L3456: push_constant_string "Members can now craft "
+L3457: push_constant_string "<col=000080>"
+L3458: push_constant_string "megaleather chaps"
+L3459: push_constant_string "</col>"
+L3460: push_constant_string " within Daemonheim."
+L3461: join_string 5
+L3462: return 0
+L3463: branch L3595
+L3464: push_constant_int 88
+L3465: push_constant_int 17233
+L3466: push_constant_string "Members: Runic robe top (Tier 9)"
+L3467: push_constant_string "Members can now craft "
+L3468: push_constant_string "<col=000080>"
+L3469: push_constant_string "runic robe tops"
+L3470: push_constant_string "</col>"
+L3471: push_constant_string " within Daemonheim."
+L3472: join_string 5
+L3473: return 0
+L3474: branch L3595
+L3475: push_constant_int 89
+L3476: push_constant_int 17189
+L3477: push_constant_string "Members: Megaleather body (Tier 9)"
+L3478: push_constant_string "Members can now craft "
+L3479: push_constant_string "<col=000080>"
+L3480: push_constant_string "megaleather bodies"
+L3481: push_constant_string "</col>"
+L3482: push_constant_string " within Daemonheim."
+L3483: join_string 5
+L3484: return 0
+L3485: branch L3595
+L3486: push_constant_int 90
+L3487: push_constant_int 17169
+L3488: push_constant_string "Members: Spiritbloom gloves (Tier 10)"
+L3489: push_constant_string "Members can now craft "
+L3490: push_constant_string "<col=000080>"
+L3491: push_constant_string "spiritbloom gloves"
+L3492: push_constant_string "</col>"
+L3493: push_constant_string " within Daemonheim."
+L3494: join_string 5
+L3495: return 0
+L3496: branch L3595
+L3497: push_constant_int 91
+L3498: push_constant_int 17213
+L3499: push_constant_string "Members: Tyrannoleather vambraces (Tier 10)"
+L3500: push_constant_string "Members can now craft "
+L3501: push_constant_string "<col=000080>"
+L3502: push_constant_string "tyrannoleather vambraces"
+L3503: push_constant_string "</col>"
+L3504: push_constant_string " within Daemonheim."
+L3505: join_string 5
+L3506: return 0
+L3507: branch L3595
+L3508: push_constant_int 92
+L3509: push_constant_int 16929
+L3510: push_constant_string "Members: Spiritbloom shoes (Tier 10)"
+L3511: push_constant_string "Members can now craft "
+L3512: push_constant_string "<col=000080>"
+L3513: push_constant_string "spiritbloom shoes"
+L3514: push_constant_string "</col>"
+L3515: push_constant_string " within Daemonheim."
+L3516: join_string 5
+L3517: return 0
+L3518: branch L3595
+L3519: push_constant_int 93
+L3520: push_constant_int 17315
+L3521: push_constant_string "Members: Tyrannoleather boots (Tier 10)"
+L3522: push_constant_string "Members can now craft "
+L3523: push_constant_string "<col=000080>"
+L3524: push_constant_string "tyrannoleather boots"
+L3525: push_constant_string "</col>"
+L3526: push_constant_string " within Daemonheim."
+L3527: join_string 5
+L3528: return 0
+L3529: branch L3595
+L3530: push_constant_int 94
+L3531: push_constant_int 16753
+L3532: push_constant_string "Members: Spiritbloom hood (Tier 10)"
+L3533: push_constant_string "Members can now craft "
+L3534: push_constant_string "<col=000080>"
+L3535: push_constant_string "spiritbloom hoods"
+L3536: push_constant_string "</col>"
+L3537: push_constant_string " within Daemonheim."
+L3538: join_string 5
+L3539: return 0
+L3540: branch L3595
+L3541: push_constant_int 95
+L3542: push_constant_int 17059
+L3543: push_constant_string "Members: Tyrannoleather coif (Tier 10)"
+L3544: push_constant_string "Members can now craft "
+L3545: push_constant_string "<col=000080>"
+L3546: push_constant_string "tyrannoleather coifs"
+L3547: push_constant_string "</col>"
+L3548: push_constant_string " within Daemonheim."
+L3549: join_string 5
+L3550: return 0
+L3551: branch L3595
+L3552: push_constant_int 96
+L3553: push_constant_int 16863
+L3554: push_constant_string "Members: Spiritbloom robe bottom (Tier 10)"
+L3555: push_constant_string "Members can now craft "
+L3556: push_constant_string "<col=000080>"
+L3557: push_constant_string "spiritbloom robe bottoms"
+L3558: push_constant_string "</col>"
+L3559: push_constant_string " within Daemonheim."
+L3560: join_string 5
+L3561: return 0
+L3562: branch L3595
+L3563: push_constant_int 97
+L3564: push_constant_int 17337
+L3565: push_constant_string "Members: Tyrannoleather chaps (Tier 10)"
+L3566: push_constant_string "Members can now craft "
+L3567: push_constant_string "<col=000080>"
+L3568: push_constant_string "tyrannoleather chaps"
+L3569: push_constant_string "</col>"
+L3570: push_constant_string " within Daemonheim."
+L3571: join_string 5
+L3572: return 0
+L3573: branch L3595
+L3574: push_constant_int 98
+L3575: push_constant_int 17235
+L3576: push_constant_string "Members: Spiritbloom robe top (Tier 10)"
+L3577: push_constant_string "Members can now craft "
+L3578: push_constant_string "<col=000080>"
+L3579: push_constant_string "spiritbloom robe tops"
+L3580: push_constant_string "</col>"
+L3581: push_constant_string " within Daemonheim."
+L3582: join_string 5
+L3583: return 0
+L3584: branch L3595
+L3585: push_constant_int 99
+L3586: push_constant_int 17191
+L3587: push_constant_string "Members: Tyrannoleather body (Tier 10)"
+L3588: push_constant_string "Members can now craft "
+L3589: push_constant_string "<col=000080>"
+L3590: push_constant_string "tyrannoleather bodies"
+L3591: push_constant_string "</col>"
+L3592: push_constant_string " within Daemonheim."
+L3593: join_string 5
+L3594: return 0
+L3595: branch L3633
+L3596: push_int_local 1
+L3597: switch switch13
+L3598: branch L3633
+L3599: push_constant_int 40
+L3600: push_constant_int 1757
+L3601: push_constant_string "Crafting Guild"
+L3602: push_constant_string "You can now enter the "
+L3603: push_constant_string "<col=000080>"
+L3604: push_constant_string "Crafting Guild"
+L3605: push_constant_string "<col=000080>"
+L3606: push_constant_string "."
+L3607: join_string 5
+L3608: return 0
+L3609: branch L3633
+L3610: push_constant_int 99
+L3611: push_constant_int 9780
+L3612: push_constant_string "Skill mastery"
+L3613: push_constant_string "<col=000080>"
+L3614: push_constant_string "Congratulations! You are now a master of "
+L3615: push_constant_string "<col=800000>"
+L3616: push_constant_string "Crafting"
+L3617: push_constant_string "<col=000080>"
+L3618: push_constant_string ". Members can visit the "
+L3619: push_constant_string "<col=800000>"
+L3620: push_constant_string "Master Craftsman"
+L3621: push_constant_string "<col=000080>"
+L3622: push_constant_string " at the "
+L3623: push_constant_string "<col=800000>"
+L3624: push_constant_string "Crafting Guild"
+L3625: push_constant_string "<col=000080>"
+L3626: push_constant_string ". He has something special that is only available to true masters of the "
+L3627: push_constant_string "<col=800000>"
+L3628: push_constant_string "Crafting"
+L3629: push_constant_string "<col=000080>"
+L3630: push_constant_string " skill!"
+L3631: join_string 18
+L3632: return 0
+L3633: push_constant_int 0
+L3634: push_constant_int -1
+L3635: push_constant_string ""
+L3636: push_constant_string ""
+L3637: return 0
+L3638:
+
+[switch0@L1]
+0=L3
+1=L149
+2=L551
+3=L607
+4=L965
+5=L1067
+6=L1546
+7=L1610
+8=L1773
+9=L1917
+10=L1975
+11=L2484
+12=L3596
+
+[switch1@L4]
+0=L6
+1=L17
+2=L28
+3=L39
+4=L50
+5=L61
+6=L72
+7=L83
+8=L94
+9=L105
+10=L116
+11=L127
+12=L138
+
+[switch2@L150]
+0=L152
+1=L163
+2=L174
+3=L185
+4=L196
+5=L207
+6=L218
+7=L229
+8=L240
+9=L251
+10=L262
+11=L273
+12=L284
+13=L295
+14=L306
+15=L317
+16=L328
+17=L339
+18=L350
+19=L361
+20=L372
+21=L383
+22=L397
+23=L408
+24=L419
+25=L430
+26=L441
+27=L452
+28=L463
+29=L474
+30=L485
+31=L496
+32=L507
+33=L518
+34=L529
+35=L540
+
+[switch3@L552]
+0=L554
+1=L565
+2=L576
+3=L587
+4=L598
+
+[switch4@L608]
+0=L610
+1=L621
+2=L632
+3=L643
+4=L654
+5=L665
+6=L676
+7=L687
+8=L698
+9=L709
+10=L720
+11=L731
+12=L742
+13=L753
+14=L764
+15=L775
+16=L786
+17=L800
+18=L811
+19=L822
+20=L833
+21=L844
+22=L855
+23=L866
+24=L877
+25=L888
+26=L899
+27=L910
+28=L921
+29=L932
+30=L943
+31=L954
+
+[switch5@L966]
+0=L968
+1=L979
+2=L990
+3=L1001
+4=L1012
+5=L1023
+6=L1034
+7=L1045
+8=L1056
+
+[switch6@L1068]
+0=L1070
+1=L1081
+2=L1092
+3=L1103
+4=L1114
+5=L1125
+6=L1136
+7=L1147
+8=L1158
+9=L1169
+10=L1180
+11=L1191
+12=L1202
+13=L1213
+14=L1224
+15=L1235
+16=L1246
+17=L1257
+18=L1268
+19=L1279
+20=L1290
+21=L1301
+22=L1312
+23=L1323
+24=L1334
+25=L1345
+26=L1356
+27=L1367
+28=L1378
+29=L1389
+30=L1400
+31=L1411
+32=L1422
+33=L1433
+34=L1444
+35=L1455
+36=L1466
+37=L1477
+38=L1488
+39=L1502
+40=L1513
+41=L1524
+42=L1535
+
+[switch7@L1547]
+0=L1549
+1=L1555
+2=L1566
+3=L1577
+4=L1588
+5=L1599
+
+[switch8@L1611]
+0=L1613
+1=L1619
+2=L1633
+3=L1647
+4=L1661
+5=L1675
+6=L1689
+7=L1703
+8=L1717
+9=L1731
+10=L1745
+11=L1759
+
+[switch9@L1774]
+0=L1776
+1=L1787
+2=L1798
+3=L1809
+4=L1820
+5=L1834
+6=L1845
+7=L1859
+8=L1870
+9=L1881
+10=L1892
+11=L1906
+
+[switch10@L1918]
+0=L1920
+1=L1931
+2=L1942
+3=L1953
+4=L1964
+
+[switch11@L1976]
+0=L1978
+1=L1989
+2=L2000
+3=L2011
+4=L2022
+5=L2033
+6=L2044
+7=L2055
+8=L2066
+9=L2077
+10=L2088
+11=L2099
+12=L2110
+13=L2121
+14=L2132
+15=L2143
+16=L2154
+17=L2165
+18=L2176
+19=L2187
+20=L2198
+21=L2209
+22=L2220
+23=L2231
+24=L2242
+25=L2253
+26=L2264
+27=L2275
+28=L2286
+29=L2297
+30=L2308
+31=L2319
+32=L2330
+33=L2341
+34=L2352
+35=L2363
+36=L2374
+37=L2385
+38=L2396
+39=L2407
+40=L2418
+41=L2429
+42=L2440
+43=L2451
+44=L2462
+45=L2473
+
+[switch12@L2485]
+0=L2487
+1=L2496
+2=L2507
+3=L2518
+4=L2529
+5=L2540
+6=L2551
+7=L2562
+8=L2573
+9=L2584
+10=L2595
+11=L2606
+12=L2617
+13=L2628
+14=L2639
+15=L2650
+16=L2661
+17=L2672
+18=L2683
+19=L2694
+20=L2705
+21=L2716
+22=L2727
+23=L2738
+24=L2749
+25=L2760
+26=L2771
+27=L2782
+28=L2793
+29=L2804
+30=L2815
+31=L2826
+32=L2837
+33=L2848
+34=L2859
+35=L2870
+36=L2881
+37=L2892
+38=L2903
+39=L2914
+40=L2925
+41=L2936
+42=L2947
+43=L2958
+44=L2969
+45=L2980
+46=L2991
+47=L3002
+48=L3013
+49=L3024
+50=L3035
+51=L3046
+52=L3057
+53=L3068
+54=L3079
+55=L3090
+56=L3101
+57=L3112
+58=L3123
+59=L3134
+60=L3145
+61=L3156
+62=L3167
+63=L3178
+64=L3189
+65=L3200
+66=L3211
+67=L3222
+68=L3233
+69=L3244
+70=L3255
+71=L3266
+72=L3277
+73=L3288
+74=L3299
+75=L3310
+76=L3321
+77=L3332
+78=L3343
+79=L3354
+80=L3365
+81=L3376
+82=L3387
+83=L3398
+84=L3409
+85=L3420
+86=L3431
+87=L3442
+88=L3453
+89=L3464
+90=L3475
+91=L3486
+92=L3497
+93=L3508
+94=L3519
+95=L3530
+96=L3541
+97=L3552
+98=L3563
+99=L3574
+100=L3585
+
+[switch13@L3597]
+0=L3599
+1=L3610

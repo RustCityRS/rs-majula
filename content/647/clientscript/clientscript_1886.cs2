@@ -1,0 +1,25 @@
+name=""
+local_int_count=1
+local_string_count=0
+local_long_count=0
+int_param_count=1
+string_param_count=0
+long_param_count=0
+
+L0: push_varbit varbit_4895
+L1: push_constant_int 3
+L2: branch_equals L4
+L3: branch L12
+L4: push_var learning_the_ropes
+L5: push_constant_int 125
+L6: branch_less_than L8
+L7: branch L12
+L8: push_constant_int 1
+L9: push_int_local 0
+L10: if_sethide 0
+L11: branch L15
+L12: push_constant_int 0
+L13: push_int_local 0
+L14: if_sethide 0
+L15: return 0
+L16:

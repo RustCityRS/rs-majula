@@ -1,7 +1,0 @@
-[clientscript,script_3442](int $int0, int $int1, int $int2)
-if (~script_3441 = 1) {
-    ~script_569($int0, -1, $int1, 50, 150, ~script_3443($int2));
-} else {
-    ~script_569($int0, -1, $int1, 50, 150, "A member of the Jury.");
-}
-return;

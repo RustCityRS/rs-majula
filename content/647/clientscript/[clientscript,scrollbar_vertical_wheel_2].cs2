@@ -1,0 +1,28 @@
+name=""
+local_int_count=5
+local_string_count=0
+local_long_count=0
+int_param_count=4
+string_param_count=0
+long_param_count=0
+
+L0: push_int_local 1
+L1: if_getscrolly 0
+L2: push_int_local 3
+L3: push_constant_int 45
+L4: multiply 0
+L5: add 0
+L6: pop_int_local 4
+L7: push_int_local 0
+L8: push_constant_int 1
+L9: cc_find 0
+L10: branch_if_true L12
+L11: branch L18
+L12: push_int_local 0
+L13: push_int_local 1
+L14: push_int_local 2
+L15: push_int_local 4
+L16: push_constant_int 1
+L17: gosub_with_params [proc,scrollbar_vertical_doscroll_2]
+L18: return 0
+L19:

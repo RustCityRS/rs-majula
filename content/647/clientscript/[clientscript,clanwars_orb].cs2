@@ -1,0 +1,44 @@
+name=""
+local_int_count=1
+local_string_count=0
+local_long_count=0
+int_param_count=1
+string_param_count=0
+long_param_count=0
+
+L0: push_varc_int varc_int_269
+L1: push_constant_int 581
+L2: struct_param_4500 0
+L3: push_int_local 0
+L4: if_setmodel 0
+L5: push_constant_int 0
+L6: push_constant_int 160
+L7: push_varc_int varc_int_269
+L8: push_constant_int 584
+L9: struct_param_4500 0
+L10: push_varc_int varc_int_269
+L11: push_constant_int 585
+L12: struct_param_4500 0
+L13: push_varc_int varc_int_269
+L14: push_constant_int 586
+L15: struct_param_4500 0
+L16: push_varc_int varc_int_269
+L17: push_constant_int 583
+L18: struct_param_4500 0
+L19: push_int_local 0
+L20: if_setmodelangle 0
+L21: push_varc_int varc_int_269
+L22: push_constant_int 582
+L23: struct_param_4500 0
+L24: push_int_local 0
+L25: if_setmodelanim 0
+L26: push_constant_int 0
+L27: push_varc_int varc_int_269
+L28: push_constant_int 587
+L29: struct_param_4500 0
+L30: push_constant_int 1
+L31: push_constant_int 0
+L32: push_int_local 0
+L33: if_setposition 0
+L34: return 0
+L35:

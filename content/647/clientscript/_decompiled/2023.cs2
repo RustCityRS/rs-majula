@@ -1,9 +1,0 @@
-[clientscript,script_2023](int $int0, int $int1)(int, int, component, int, string)
-if ($int0 ! 1) {
-    return;
-}
-%varbit8095 = max(min(add(%varbit8095, $int1), %varbit8094), 0);
-~script_2047;
-if_setontimer;
-if_sethide(59310108);
-return(2024, add(clientclock, 15), 59310108, 0, "i");

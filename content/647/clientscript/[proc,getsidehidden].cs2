@@ -1,0 +1,228 @@
+name=""
+local_int_count=1
+local_string_count=0
+local_long_count=0
+int_param_count=1
+string_param_count=0
+long_param_count=0
+
+L0: getwindowmode 0
+L1: push_constant_int 2
+L2: branch_greater_than_or_equals L4
+L3: branch L89
+L4: push_int_local 0
+L5: switch switch0
+L6: branch L88
+L7: push_constant_int 48889943
+L8: if_gethide 0
+L9: return 0
+L10: branch L88
+L11: push_constant_int 48889944
+L12: if_gethide 0
+L13: return 0
+L14: branch L88
+L15: push_constant_int 48889945
+L16: if_gethide 0
+L17: return 0
+L18: branch L88
+L19: push_constant_int 48889946
+L20: if_gethide 0
+L21: return 0
+L22: branch L88
+L23: push_constant_int 48889947
+L24: if_gethide 0
+L25: return 0
+L26: branch L88
+L27: push_constant_int 48889948
+L28: if_gethide 0
+L29: return 0
+L30: branch L88
+L31: push_constant_int 48889949
+L32: if_gethide 0
+L33: return 0
+L34: branch L88
+L35: push_constant_int 48889950
+L36: if_gethide 0
+L37: return 0
+L38: branch L88
+L39: push_constant_int 48889951
+L40: if_gethide 0
+L41: return 0
+L42: branch L88
+L43: push_constant_int 48889952
+L44: if_gethide 0
+L45: return 0
+L46: branch L88
+L47: push_constant_int 48889953
+L48: if_gethide 0
+L49: return 0
+L50: branch L88
+L51: push_constant_int 48889954
+L52: if_gethide 0
+L53: return 0
+L54: branch L88
+L55: push_constant_int 48889955
+L56: if_gethide 0
+L57: return 0
+L58: branch L88
+L59: push_constant_int 48889956
+L60: if_gethide 0
+L61: return 0
+L62: branch L88
+L63: push_constant_int 48889957
+L64: if_gethide 0
+L65: return 0
+L66: branch L88
+L67: push_constant_int 48889958
+L68: if_gethide 0
+L69: return 0
+L70: branch L88
+L71: push_constant_int 48889960
+L72: if_gethide 0
+L73: return 0
+L74: branch L88
+L75: push_constant_int 48889961
+L76: if_gethide 0
+L77: return 0
+L78: branch L88
+L79: push_constant_int 48889941
+L80: if_hasoverlay 0
+L81: branch_if_true L83
+L82: branch L86
+L83: push_constant_int 48889941
+L84: if_gethide 0
+L85: return 0
+L86: push_constant_int 1
+L87: return 0
+L88: branch L173
+L89: push_int_local 0
+L90: switch switch1
+L91: branch L173
+L92: push_constant_int 35913931
+L93: if_gethide 0
+L94: return 0
+L95: branch L173
+L96: push_constant_int 35913932
+L97: if_gethide 0
+L98: return 0
+L99: branch L173
+L100: push_constant_int 35913933
+L101: if_gethide 0
+L102: return 0
+L103: branch L173
+L104: push_constant_int 35913934
+L105: if_gethide 0
+L106: return 0
+L107: branch L173
+L108: push_constant_int 35913935
+L109: if_gethide 0
+L110: return 0
+L111: branch L173
+L112: push_constant_int 35913936
+L113: if_gethide 0
+L114: return 0
+L115: branch L173
+L116: push_constant_int 35913937
+L117: if_gethide 0
+L118: return 0
+L119: branch L173
+L120: push_constant_int 35913938
+L121: if_gethide 0
+L122: return 0
+L123: branch L173
+L124: push_constant_int 35913939
+L125: if_gethide 0
+L126: return 0
+L127: branch L173
+L128: push_constant_int 35913940
+L129: if_gethide 0
+L130: return 0
+L131: branch L173
+L132: push_constant_int 35913941
+L133: if_gethide 0
+L134: return 0
+L135: branch L173
+L136: push_constant_int 35913942
+L137: if_gethide 0
+L138: return 0
+L139: branch L173
+L140: push_constant_int 35913943
+L141: if_gethide 0
+L142: return 0
+L143: branch L173
+L144: push_constant_int 35913944
+L145: if_gethide 0
+L146: return 0
+L147: branch L173
+L148: push_constant_int 35913945
+L149: if_gethide 0
+L150: return 0
+L151: branch L173
+L152: push_constant_int 35913946
+L153: if_gethide 0
+L154: return 0
+L155: branch L173
+L156: push_constant_int 35913948
+L157: if_gethide 0
+L158: return 0
+L159: branch L173
+L160: push_constant_int 35913949
+L161: if_gethide 0
+L162: return 0
+L163: branch L173
+L164: push_constant_int 35913927
+L165: if_hasoverlay 0
+L166: branch_if_true L168
+L167: branch L171
+L168: push_constant_int 35913927
+L169: if_gethide 0
+L170: return 0
+L171: push_constant_int 1
+L172: return 0
+L173: push_constant_int -1
+L174: return 0
+L175: push_constant_int -1
+L176: return 0
+L177:
+
+[switch0@L5]
+0=L7
+1=L11
+2=L15
+3=L19
+4=L23
+5=L27
+6=L31
+7=L35
+8=L39
+9=L43
+10=L47
+11=L51
+12=L55
+13=L59
+14=L63
+15=L67
+95=L71
+99=L75
+98=L79
+
+[switch1@L90]
+0=L92
+1=L96
+2=L100
+3=L104
+4=L108
+5=L112
+6=L116
+7=L120
+8=L124
+9=L128
+10=L132
+11=L136
+12=L140
+13=L144
+14=L148
+15=L152
+95=L156
+99=L160
+98=L164

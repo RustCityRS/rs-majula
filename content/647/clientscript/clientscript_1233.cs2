@@ -1,0 +1,58 @@
+name=""
+local_int_count=8
+local_string_count=0
+local_long_count=0
+int_param_count=6
+string_param_count=0
+long_param_count=0
+
+L0: push_constant_int 0
+L1: pop_int_local 6
+L2: push_constant_int 0
+L3: pop_int_local 7
+L4: push_int_local 0
+L5: push_int_local 1
+L6: cc_find 0
+L7: branch_if_true L9
+L8: branch L48
+L9: push_int_local 2
+L10: push_int_local 0
+L11: branch_equals L13
+L12: branch L33
+L13: push_int_local 2
+L14: push_int_local 3
+L15: cc_find 1
+L16: branch_if_true L18
+L17: branch L32
+L18: cc_getx 0
+L19: cc_gety 0
+L20: pop_int_local 7
+L21: pop_int_local 6
+L22: cc_getx 1
+L23: cc_gety 1
+L24: push_constant_int 0
+L25: push_constant_int 0
+L26: cc_setposition2 0
+L27: push_int_local 6
+L28: push_int_local 7
+L29: push_constant_int 0
+L30: push_constant_int 0
+L31: cc_setposition2 1
+L32: return 0
+L33: push_int_local 2
+L34: push_int_local 4
+L35: branch_equals L40
+L36: push_int_local 2
+L37: push_int_local 5
+L38: branch_equals L40
+L39: branch L43
+L40: push_constant_int 1
+L41: cc_sethide 0
+L42: return 0
+L43: cc_getx 0
+L44: cc_gety 0
+L45: push_constant_int 0
+L46: push_constant_int 0
+L47: cc_setposition2 0
+L48: return 0
+L49:

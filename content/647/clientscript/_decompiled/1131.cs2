@@ -1,7 +1,0 @@
-[clientscript,script_1131](int $int0)
-if (%varc_int1000 > player_getcomlevel) {
-    if_settext("Combat Lvl: " + tostring(player_getcomlevel) + "+" + tostring(sub(%varc_int1000, player_getcomlevel)));
-} else {
-    if_settext("Combat Lvl: " + tostring(player_getcomlevel));
-}
-return;

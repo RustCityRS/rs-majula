@@ -1,9 +1,0 @@
-[clientscript,script_275](component, int, int, component, component, int, string)
-if_setsize(75, 0, 0, 60227585);
-if_setonop;
-if_settext("Show All");
-cc_deleteall(60227589);
-if_setvflip(0, 60227613);
-if_setvflip(0, 60227614);
-if_setscrollpos(0, 60227590);
-return(60227585, if_getwidth, 272, 60227607, 60227615, 0, "");

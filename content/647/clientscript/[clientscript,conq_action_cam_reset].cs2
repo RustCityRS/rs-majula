@@ -1,0 +1,19 @@
+name=""
+local_int_count=0
+local_string_count=0
+local_long_count=0
+int_param_count=0
+string_param_count=0
+long_param_count=0
+
+L0: push_varc_int varc_int_1353
+L1: cam_followcoord 0
+L2: push_constant_int 421
+L3: push_varc_int varc_int_1355
+L4: push_varc_int varc_int_1356
+L5: push_constant_int 0
+L6: push_constant_string "iii"
+L7: push_constant_int 66387968
+L8: if_setontimer 0
+L9: return 0
+L10:

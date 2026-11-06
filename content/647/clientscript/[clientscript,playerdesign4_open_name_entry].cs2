@@ -1,0 +1,57 @@
+name=""
+local_int_count=0
+local_string_count=0
+local_long_count=0
+int_param_count=0
+string_param_count=0
+long_param_count=0
+
+L0: push_constant_int 0
+L1: push_constant_int 67371098
+L2: if_sethide 0
+L3: push_constant_int 1
+L4: push_constant_int 67371043
+L5: if_sethide 0
+L6: push_constant_int 1
+L7: push_constant_int 67371123
+L8: if_sethide 0
+L9: push_constant_int 1
+L10: push_constant_int 67371125
+L11: if_sethide 0
+L12: push_constant_int 1
+L13: push_constant_int 67371124
+L14: if_sethide 0
+L15: push_constant_int 1
+L16: push_constant_int 67371097
+L17: if_sethide 0
+L18: gosub_with_params [proc,playerdesign4_tooltip_clear]
+L19: push_constant_int 3944
+L20: push_constant_int -2147483640
+L21: push_constant_int -2147483639
+L22: push_constant_int 1
+L23: push_constant_string "iz1"
+L24: push_constant_int 67371185
+L25: if_setonkey 0
+L26: push_constant_int 3217
+L27: push_constant_int -2147483647
+L28: push_constant_int 67371189
+L29: push_constant_int 67371190
+L30: push_constant_int 67371191
+L31: push_constant_int 16
+L32: push_constant_string "iIIIi"
+L33: push_constant_int 67371190
+L34: if_setonclick 0
+L35: push_constant_int 0
+L36: pop_varc_int varc_int_1099
+L37: push_constant_string ""
+L38: pop_varc_string_old varc_string_330
+L39: push_constant_int 0
+L40: pop_varc_int varc_int_1412
+L41: push_constant_int 67371189
+L42: push_constant_int 67371190
+L43: push_constant_int 67371191
+L44: push_varc_string_old varc_string_330
+L45: push_constant_int 16
+L46: gosub_with_params clientscript_3218
+L47: return 0
+L48:

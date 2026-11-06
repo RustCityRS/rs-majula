@@ -1,0 +1,74 @@
+name=""
+local_int_count=1
+local_string_count=0
+local_long_count=0
+int_param_count=1
+string_param_count=0
+long_param_count=0
+
+L0: push_constant_int 0
+L1: push_constant_int 0
+L2: push_constant_int 2048
+L3: random 0
+L4: push_constant_int 2048
+L5: random 0
+L6: push_constant_int 2048
+L7: random 0
+L8: push_int_local 0
+L9: if_getmodelzoom 0
+L10: push_int_local 0
+L11: if_setmodelangle 0
+L12: push_constant_int 3
+L13: random 0
+L14: switch switch0
+L15: branch L46
+L16: push_constant_int 66
+L17: push_constant_int 3
+L18: random 0
+L19: push_constant_int 9
+L20: add 0
+L21: push_constant_int 0
+L22: push_constant_int 3
+L23: random 0
+L24: push_constant_int 9
+L25: add 0
+L26: push_int_local 0
+L27: push_constant_string "iiiI"
+L28: push_int_local 0
+L29: if_setontimer 0
+L30: branch L60
+L31: push_constant_int 66
+L32: push_constant_int 3
+L33: random 0
+L34: push_constant_int 9
+L35: add 0
+L36: push_constant_int 3
+L37: random 0
+L38: push_constant_int 9
+L39: add 0
+L40: push_constant_int 0
+L41: push_int_local 0
+L42: push_constant_string "iiiI"
+L43: push_int_local 0
+L44: if_setontimer 0
+L45: branch L60
+L46: push_constant_int 66
+L47: push_constant_int 0
+L48: push_constant_int 3
+L49: random 0
+L50: push_constant_int 9
+L51: add 0
+L52: push_constant_int 3
+L53: random 0
+L54: push_constant_int 9
+L55: add 0
+L56: push_int_local 0
+L57: push_constant_string "iiiI"
+L58: push_int_local 0
+L59: if_setontimer 0
+L60: return 0
+L61:
+
+[switch0@L14]
+0=L16
+1=L31

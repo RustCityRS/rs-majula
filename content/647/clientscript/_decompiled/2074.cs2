@@ -1,7 +1,0 @@
-[clientscript,script_2074]
-if (%varc_int632 = 0) {
-    if_settext("Players needed");
-} else {
-    if_settext("Players in game");
-}
-return;

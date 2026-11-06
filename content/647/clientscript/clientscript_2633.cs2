@@ -1,0 +1,22 @@
+name=""
+local_int_count=1
+local_string_count=0
+local_long_count=0
+int_param_count=1
+string_param_count=0
+long_param_count=0
+
+L0: push_int_local 0
+L1: push_constant_int 56295424
+L2: branch_not L4
+L3: branch L6
+L4: push_int_local 0
+L5: gosub_with_params [proc,v2_stone_button]
+L6: push_constant_string ""
+L7: push_constant_int 56295452
+L8: if_settext 0
+L9: push_constant_string ""
+L10: push_constant_int 56295453
+L11: if_settext 0
+L12: return 0
+L13:

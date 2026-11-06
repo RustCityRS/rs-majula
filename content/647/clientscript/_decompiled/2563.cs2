@@ -1,6 +1,0 @@
-[clientscript,script_2563](component, int, int)
-if (%varc_int846 > 1) {
-    %varc_int846 = sub(%varc_int846, 1);
-}
-if_settext(tostring(%varc_int846));
-return(56557598, ~script_2565, ~script_2565);

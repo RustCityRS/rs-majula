@@ -1,6 +1,0 @@
-[clientscript,script_1813](int $int0, int $int1)
-if (clientclock >= $int0) {
-    if_settext("");
-    if_setontimer;
-}
-return;

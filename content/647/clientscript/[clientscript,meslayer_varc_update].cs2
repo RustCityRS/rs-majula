@@ -1,0 +1,15 @@
+name=""
+local_int_count=0
+local_string_count=0
+local_long_count=0
+int_param_count=0
+string_param_count=0
+long_param_count=0
+
+L0: push_varc_int varc_int_5
+L1: branch_if_false L3
+L2: branch L5
+L3: push_constant_int 0
+L4: gosub_with_params [proc,meslayer_close]
+L5: return 0
+L6:

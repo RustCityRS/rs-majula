@@ -1,0 +1,90 @@
+name=""
+local_int_count=2
+local_string_count=0
+local_long_count=0
+int_param_count=1
+string_param_count=0
+long_param_count=0
+
+L0: coord 0
+L1: gosub_with_params [proc,coord_0_0]
+L2: pop_int_local 1
+L3: push_constant_int 0
+L4: push_constant_int 2
+L5: cam_allocpath 0
+L6: push_constant_int 1
+L7: push_constant_int 2
+L8: cam_allocpath 0
+L9: push_constant_int 0
+L10: push_constant_int 0
+L11: push_int_local 1
+L12: push_constant_int 26
+L13: push_constant_int 0
+L14: push_constant_int 23
+L15: coordpack 0
+L16: push_constant_int 500
+L17: push_int_local 1
+L18: push_constant_int 26
+L19: push_constant_int 0
+L20: push_constant_int 23
+L21: coordpack 0
+L22: push_constant_int 500
+L23: push_constant_int 0
+L24: cam_addwaypoint 0
+L25: push_constant_int 1
+L26: push_constant_int 0
+L27: push_int_local 1
+L28: push_constant_int 12
+L29: push_constant_int 0
+L30: push_constant_int 30
+L31: coordpack 0
+L32: push_constant_int 400
+L33: push_int_local 1
+L34: push_constant_int 12
+L35: push_constant_int 0
+L36: push_constant_int 30
+L37: coordpack 0
+L38: push_constant_int 400
+L39: push_constant_int 0
+L40: cam_addwaypoint 0
+L41: push_constant_int 0
+L42: push_constant_int 1
+L43: push_int_local 1
+L44: push_constant_int 30
+L45: push_constant_int 0
+L46: push_constant_int 25
+L47: coordpack 0
+L48: push_constant_int 900
+L49: push_int_local 1
+L50: push_constant_int 30
+L51: push_constant_int 0
+L52: push_constant_int 25
+L53: coordpack 0
+L54: push_constant_int 900
+L55: push_constant_int 0
+L56: cam_addwaypoint 0
+L57: push_constant_int 1
+L58: push_constant_int 1
+L59: push_int_local 1
+L60: push_constant_int 30
+L61: push_constant_int 0
+L62: push_constant_int 33
+L63: coordpack 0
+L64: push_constant_int 500
+L65: push_int_local 1
+L66: push_constant_int 30
+L67: push_constant_int 0
+L68: push_constant_int 33
+L69: coordpack 0
+L70: push_constant_int 500
+L71: push_constant_int 0
+L72: cam_addwaypoint 0
+L73: push_constant_int 0
+L74: push_constant_int 0
+L75: push_constant_int 450
+L76: push_constant_int 950
+L77: push_constant_int 1
+L78: push_constant_int 0
+L79: cam_startpath 0
+L80: return 0
+L81:

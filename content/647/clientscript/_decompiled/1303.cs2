@@ -1,9 +1,0 @@
-[clientscript,script_1303](int $int0)
-%varc_int10 = 0;
-~script_1304($int0);
-if (%varc_int168 = $int0) {
-    %varc_int168 = -1;
-} else {
-    %varc_int168 = $int0;
-}
-return;

@@ -1,5 +1,0 @@
-[clientscript,script_405](int $int0)(int, int, int, int, int, string)
-if_settrans($int0);
-if_setontimer;
-if_settext("Conquest Ranking: " + tostring(%varp1875));
-return(255, 406, -2147483645, $int0, $int0, "I");

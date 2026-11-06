@@ -1,0 +1,190 @@
+name=""
+local_int_count=7
+local_string_count=4
+local_long_count=0
+int_param_count=1
+string_param_count=0
+long_param_count=0
+
+L0: gosub_with_params clientscript_4548
+L1: push_constant_int 59768853
+L2: push_constant_int -1
+L3: hud_test 0
+L4: branch_if_true L6
+L5: branch L12
+L6: push_constant_int 3172
+L7: push_int_local 0
+L8: push_constant_string "I"
+L9: push_int_local 0
+L10: if_setontimer 0
+L11: return 0
+L12: push_constant_int 59768853
+L13: cc_deleteall_152 0
+L14: push_constant_string "<col=7fa9ff>"
+L15: pop_string_local 0
+L16: push_constant_string "<col=ff5256>"
+L17: pop_string_local 1
+L18: push_constant_int 0
+L19: pop_int_local 1
+L20: push_constant_int 0
+L21: pop_int_local 2
+L22: push_constant_int 0
+L23: pop_int_local 3
+L24: push_constant_string ""
+L25: pop_string_local 2
+L26: push_constant_string ""
+L27: pop_string_local 3
+L28: push_int_local 1
+L29: push_constant_int 100
+L30: branch_less_than L32
+L31: branch L111
+L32: push_int_local 1
+L33: chat_gethistory_length 0
+L34: pop_int_local 3
+L35: push_int_local 1
+L36: player_getdisplayname 0
+L37: pop_string_local 2
+L38: push_int_local 1
+L39: chat_gethistory_message 0
+L40: pop_string_local 3
+L41: push_int_local 3
+L42: switch switch0
+L43: branch L106
+L44: push_int_local 2
+L45: push_int_local 1
+L46: chat_gethistory_bytypeandline 0
+L47: push_constant_int 0
+L48: push_constant_string ""
+L49: push_constant_string ""
+L50: push_int_local 3
+L51: gosub_with_params clientscript_3174
+L52: pop_int_local 2
+L53: branch L106
+L54: push_int_local 2
+L55: push_constant_string "["
+L56: push_string_local 0
+L57: push_int_local 1
+L58: chat_gethistory_name 0
+L59: push_constant_string "</col>"
+L60: push_constant_string "] "
+L61: push_string_local 2
+L62: push_constant_string ": "
+L63: push_string_local 1
+L64: push_int_local 1
+L65: chat_gethistory_bytypeandline 0
+L66: join_string 9
+L67: push_constant_int 1
+L68: push_string_local 2
+L69: push_string_local 3
+L70: push_int_local 3
+L71: gosub_with_params clientscript_3174
+L72: pop_int_local 2
+L73: branch L106
+L74: push_int_local 2
+L75: push_constant_string "["
+L76: push_string_local 0
+L77: push_int_local 1
+L78: chat_gethistory_name 0
+L79: push_constant_string "</col>"
+L80: push_constant_string "] "
+L81: push_string_local 2
+L82: push_constant_string ": "
+L83: push_string_local 1
+L84: push_int_local 1
+L85: chat_gethistory_bytypeandline 0
+L86: join_string 9
+L87: push_constant_int 1
+L88: push_string_local 2
+L89: push_string_local 3
+L90: push_int_local 3
+L91: gosub_with_params clientscript_3174
+L92: pop_int_local 2
+L93: branch L106
+L94: push_int_local 2
+L95: push_constant_string "<col=ff0000>"
+L96: push_int_local 1
+L97: chat_gethistory_bytypeandline 0
+L98: push_constant_string "</col>"
+L99: join_string 3
+L100: push_constant_int 0
+L101: push_constant_string ""
+L102: push_constant_string ""
+L103: push_int_local 3
+L104: gosub_with_params clientscript_3174
+L105: pop_int_local 2
+L106: push_int_local 1
+L107: push_constant_int 1
+L108: add 0
+L109: pop_int_local 1
+L110: branch L28
+L111: push_constant_int 59768853
+L112: if_getheight 0
+L113: push_constant_int 15
+L114: div 0
+L115: pop_int_local 4
+L116: push_constant_int 0
+L117: pop_int_local 1
+L118: push_constant_int 0
+L119: pop_int_local 5
+L120: push_int_local 2
+L121: push_int_local 4
+L122: branch_less_than L124
+L123: branch L145
+L124: push_int_local 4
+L125: push_int_local 2
+L126: sub 0
+L127: pop_int_local 5
+L128: push_int_local 1
+L129: push_int_local 5
+L130: branch_less_than L132
+L131: branch L145
+L132: push_int_local 2
+L133: push_constant_string ""
+L134: push_constant_int 0
+L135: push_constant_string ""
+L136: push_constant_string ""
+L137: push_constant_int 0
+L138: gosub_with_params clientscript_3174
+L139: pop_int_local 2
+L140: push_int_local 1
+L141: push_constant_int 1
+L142: add 0
+L143: pop_int_local 1
+L144: branch L128
+L145: push_int_local 2
+L146: push_constant_int 15
+L147: multiply 0
+L148: push_int_local 4
+L149: push_constant_int 15
+L150: multiply 0
+L151: max 0
+L152: pop_int_local 6
+L153: push_constant_int 0
+L154: push_int_local 6
+L155: push_constant_int 59768853
+L156: if_setscrollsize 0
+L157: push_constant_int 59768854
+L158: push_constant_int 59768853
+L159: push_varc_int varc_int_1124
+L160: push_constant_int 59768853
+L161: if_getscrollheight 0
+L162: add 0
+L163: push_varc_int varc_int_1125
+L164: sub 0
+L165: gosub_with_params [proc,scrollbar_resize]
+L166: push_constant_int 59768853
+L167: if_getscrolly 0
+L168: pop_varc_int varc_int_1124
+L169: push_constant_int 59768853
+L170: if_getscrollheight 0
+L171: pop_varc_int varc_int_1125
+L172: return 0
+L173:
+
+[switch0@L42]
+43=L44
+26=L44
+41=L54
+44=L54
+42=L74
+115=L94

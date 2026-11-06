@@ -1,0 +1,98 @@
+name=""
+local_int_count=3
+local_string_count=0
+local_long_count=0
+int_param_count=1
+string_param_count=0
+long_param_count=0
+
+L0: push_constant_int -1
+L1: pop_int_local 1
+L2: push_constant_int -1
+L3: pop_int_local 2
+L4: push_constant_int 2
+L5: randominc 0
+L6: switch switch0
+L7: branch L22
+L8: push_constant_int 7813
+L9: push_constant_int 1
+L10: push_constant_int 0
+L11: sound_synth 0
+L12: branch L22
+L13: push_constant_int 7817
+L14: push_constant_int 1
+L15: push_constant_int 0
+L16: sound_synth 0
+L17: branch L22
+L18: push_constant_int 7818
+L19: push_constant_int 1
+L20: push_constant_int 0
+L21: sound_synth 0
+L22: push_int_local 0
+L23: switch switch1
+L24: branch L65
+L25: push_constant_int 63700995
+L26: pop_int_local 1
+L27: push_constant_int 63700996
+L28: pop_int_local 2
+L29: branch L66
+L30: push_constant_int 63700996
+L31: pop_int_local 1
+L32: push_constant_int 63700997
+L33: pop_int_local 2
+L34: branch L66
+L35: push_constant_int 63700997
+L36: pop_int_local 1
+L37: push_constant_int 63700998
+L38: pop_int_local 2
+L39: branch L66
+L40: push_constant_int 63700998
+L41: pop_int_local 1
+L42: push_constant_int 63700999
+L43: pop_int_local 2
+L44: branch L66
+L45: push_constant_int 63700999
+L46: pop_int_local 1
+L47: push_constant_int 63700998
+L48: pop_int_local 2
+L49: branch L66
+L50: push_constant_int 63700998
+L51: pop_int_local 1
+L52: push_constant_int 63700997
+L53: pop_int_local 2
+L54: branch L66
+L55: push_constant_int 63700997
+L56: pop_int_local 1
+L57: push_constant_int 63700996
+L58: pop_int_local 2
+L59: branch L66
+L60: push_constant_int 63700996
+L61: pop_int_local 1
+L62: push_constant_int 63700995
+L63: pop_int_local 2
+L64: branch L66
+L65: gosub_with_params clientscript_675
+L66: push_constant_int 1
+L67: push_int_local 1
+L68: if_sethide 0
+L69: push_constant_int 0
+L70: push_int_local 2
+L71: if_sethide 0
+L72: return 0
+L73: return 0
+L74:
+
+[switch0@L6]
+0=L8
+1=L13
+2=L18
+
+[switch1@L23]
+63701023=L25
+63701017=L30
+63701012=L35
+63701007=L40
+63701003=L45
+63701008=L50
+63701013=L55
+63701018=L60

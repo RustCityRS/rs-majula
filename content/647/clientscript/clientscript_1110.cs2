@@ -1,0 +1,27 @@
+name=""
+local_int_count=1
+local_string_count=0
+local_long_count=0
+int_param_count=1
+string_param_count=0
+long_param_count=0
+
+L0: push_int_local 0
+L1: push_constant_int 1
+L2: branch_not L4
+L3: branch L5
+L4: return 0
+L5: push_varbit varbit_1010
+L6: push_constant_int 1
+L7: add 0
+L8: push_constant_int 3
+L9: min 0
+L10: pop_varbit varbit_1010
+L11: push_constant_int 1041
+L12: push_constant_int 1
+L13: push_constant_int 0
+L14: sound_synth 0
+L15: push_constant_int 1
+L16: gosub_with_params clientscript_1271
+L17: return 0
+L18:

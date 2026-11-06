@@ -1,0 +1,41 @@
+name=""
+local_int_count=6
+local_string_count=0
+local_long_count=0
+int_param_count=6
+string_param_count=0
+long_param_count=0
+
+L0: push_int_local 1
+L1: push_constant_int 0
+L2: cam_getpathcount 0
+L3: push_constant_int 1
+L4: sub 0
+L5: branch_less_than L7
+L6: branch L27
+L7: push_constant_int 0
+L8: push_int_local 1
+L9: push_int_local 2
+L10: push_int_local 3
+L11: push_constant_int 1
+L12: push_int_local 1
+L13: cam_startpath 0
+L14: push_constant_int 3473
+L15: push_int_local 0
+L16: push_int_local 1
+L17: push_constant_int 1
+L18: add 0
+L19: push_int_local 4
+L20: push_int_local 5
+L21: push_constant_int 0
+L22: push_constant_int 0
+L23: push_constant_string "Iiiiii"
+L24: push_int_local 0
+L25: if_setonvarcstringtransmit 0
+L26: branch L31
+L27: push_constant_int -1
+L28: push_constant_string ""
+L29: push_int_local 0
+L30: if_setonvarcstringtransmit 0
+L31: return 0
+L32:

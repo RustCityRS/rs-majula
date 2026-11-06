@@ -1,0 +1,1106 @@
+name=""
+local_int_count=17
+local_string_count=5
+local_long_count=0
+int_param_count=0
+string_param_count=0
+long_param_count=0
+
+L0: push_constant_int 0
+L1: pop_int_local 0
+L2: push_constant_int 0
+L3: pop_int_local 1
+L4: push_constant_int 0
+L5: pop_int_local 2
+L6: push_constant_int -1
+L7: pop_int_local 3
+L8: push_constant_int 0
+L9: pop_int_local 4
+L10: push_constant_int 1
+L11: pop_int_local 5
+L12: push_constant_int 1
+L13: pop_int_local 6
+L14: push_varc_int varc_int_41
+L15: push_constant_int 3
+L16: branch_equals L18
+L17: branch L20
+L18: push_constant_int 1
+L19: pop_int_local 4
+L20: push_int_local 1
+L21: push_constant_int 100
+L22: branch_less_than L24
+L23: branch L42
+L24: push_int_local 1
+L25: gosub_with_params [proc,panetest]
+L26: branch_if_true L28
+L27: branch L37
+L28: push_int_local 1
+L29: push_int_local 4
+L30: gosub_with_params [proc,filtertest]
+L31: branch_if_true L33
+L32: branch L37
+L33: push_int_local 0
+L34: push_constant_int 1
+L35: add 0
+L36: pop_int_local 0
+L37: push_int_local 1
+L38: push_constant_int 1
+L39: add 0
+L40: pop_int_local 1
+L41: branch L20
+L42: push_constant_int 8978490
+L43: if_getheight 0
+L44: push_constant_int 14
+L45: div 0
+L46: pop_int_local 7
+L47: push_constant_int 0
+L48: pop_int_local 8
+L49: push_int_local 0
+L50: push_int_local 7
+L51: branch_less_than L53
+L52: branch L70
+L53: push_int_local 7
+L54: pop_int_local 0
+L55: push_int_local 8
+L56: push_int_local 7
+L57: branch_less_than L59
+L58: branch L70
+L59: push_constant_int 105
+L60: push_constant_int 73
+L61: push_constant_int 579
+L62: push_int_local 8
+L63: enum 0
+L64: gosub_with_params clientscript_85
+L65: push_int_local 8
+L66: push_constant_int 1
+L67: add 0
+L68: pop_int_local 8
+L69: branch L55
+L70: push_constant_int 463
+L71: push_int_local 0
+L72: push_constant_int 14
+L73: multiply 0
+L74: push_constant_int 2
+L75: add 0
+L76: push_constant_int 8978490
+L77: if_setscrollsize 0
+L78: push_constant_int 8978491
+L79: push_constant_int 8978490
+L80: push_varc_int varc_int_7
+L81: push_constant_int 8978490
+L82: if_getscrollheight 0
+L83: add 0
+L84: push_varc_int varc_int_8
+L85: sub 0
+L86: gosub_with_params [proc,scrollbar_resize]
+L87: push_constant_int 8978490
+L88: if_getscrolly 0
+L89: pop_varc_int varc_int_7
+L90: push_constant_int 8978490
+L91: if_getscrollheight 0
+L92: pop_varc_int varc_int_8
+L93: push_int_local 0
+L94: push_constant_int 100
+L95: branch_less_than L97
+L96: branch L103
+L97: push_constant_int 105
+L98: push_constant_int 73
+L99: push_constant_int 579
+L100: push_int_local 0
+L101: enum 0
+L102: gosub_with_params clientscript_85
+L103: push_constant_int -1
+L104: pop_int_local 9
+L105: gosub_with_params clientscript_4467
+L106: pop_int_local 10
+L107: push_constant_int -1
+L108: pop_int_local 11
+L109: gosub_with_params clientscript_1891
+L110: pop_int_local 12
+L111: push_constant_int 0
+L112: pop_int_local 1
+L113: push_constant_int -1
+L114: pop_varc_int varc_int_132
+L115: push_constant_string "<col=0000ff>"
+L116: pop_string_local 0
+L117: push_constant_string "<col=800000>"
+L118: pop_string_local 1
+L119: push_constant_string "<col=800080>"
+L120: pop_string_local 2
+L121: push_constant_string "<col=00ff00>"
+L122: pop_string_local 3
+L123: push_constant_int 0
+L124: pop_int_local 13
+L125: push_constant_int 0
+L126: pop_int_local 14
+L127: push_constant_int 0
+L128: pop_int_local 15
+L129: push_constant_int 0
+L130: pop_int_local 16
+L131: push_constant_string "<col=000000>"
+L132: pop_string_local 4
+L133: getwindowmode 0
+L134: push_constant_int 2
+L135: branch_greater_than_or_equals L137
+L136: branch L168
+L137: push_constant_string "<col=7fa9ff>"
+L138: pop_string_local 0
+L139: push_constant_string "<col=ff5256>"
+L140: pop_string_local 1
+L141: push_constant_string "<col=ff78d9>"
+L142: pop_string_local 2
+L143: push_constant_string "<col=96ff7d>"
+L144: pop_string_local 3
+L145: push_constant_int 16777215
+L146: pop_int_local 16
+L147: push_constant_string "<col=ffffff>"
+L148: pop_string_local 4
+L149: push_constant_int 105
+L150: push_constant_int 105
+L151: push_constant_int 3724
+L152: push_varbit varbit_3612
+L153: enum 0
+L154: pop_int_local 14
+L155: push_constant_int 105
+L156: push_constant_int 105
+L157: push_constant_int 3723
+L158: push_varbit varbit_9188
+L159: enum 0
+L160: pop_int_local 13
+L161: push_constant_int 105
+L162: push_constant_int 105
+L163: push_constant_int 3726
+L164: push_varbit varbit_9191
+L165: enum 0
+L166: pop_int_local 15
+L167: branch L186
+L168: push_constant_int 105
+L169: push_constant_int 105
+L170: push_constant_int 3724
+L171: push_varbit varbit_3612
+L172: enum 0
+L173: pop_int_local 14
+L174: push_constant_int 105
+L175: push_constant_int 105
+L176: push_constant_int 3723
+L177: push_varbit varbit_9188
+L178: enum 0
+L179: pop_int_local 13
+L180: push_constant_int 105
+L181: push_constant_int 105
+L182: push_constant_int 3726
+L183: push_varbit varbit_9191
+L184: enum 0
+L185: pop_int_local 15
+L186: push_int_local 1
+L187: push_constant_int 100
+L188: branch_less_than L190
+L189: branch L1017
+L190: push_int_local 1
+L191: gosub_with_params [proc,panetest]
+L192: branch_if_true L194
+L193: branch L999
+L194: push_int_local 1
+L195: push_int_local 4
+L196: gosub_with_params [proc,filtertest]
+L197: branch_if_true L199
+L198: branch L999
+L199: push_int_local 0
+L200: push_constant_int 1
+L201: sub 0
+L202: pop_int_local 0
+L203: push_constant_int 105
+L204: push_constant_int 73
+L205: push_constant_int 579
+L206: push_int_local 0
+L207: enum 0
+L208: pop_int_local 3
+L209: push_int_local 1
+L210: chat_gethistory_length 0
+L211: pop_int_local 2
+L212: push_int_local 16
+L213: push_int_local 3
+L214: if_setcolour 0
+L215: push_int_local 2
+L216: switch switch0
+L217: branch L748
+L218: push_int_local 1
+L219: chat_gethistory_bytypeandline 0
+L220: push_int_local 3
+L221: if_settext 0
+L222: push_int_local 5
+L223: branch_if_true L225
+L224: branch L254
+L225: push_int_local 2
+L226: branch_if_false L249
+L227: push_int_local 2
+L228: push_constant_int 4
+L229: branch_equals L249
+L230: push_int_local 2
+L231: push_constant_int 27
+L232: branch_equals L249
+L233: push_int_local 2
+L234: push_constant_int 28
+L235: branch_equals L249
+L236: push_int_local 2
+L237: push_constant_int 29
+L238: branch_equals L249
+L239: push_int_local 2
+L240: push_constant_int 26
+L241: branch_equals L249
+L242: push_int_local 2
+L243: push_constant_int 30
+L244: branch_equals L249
+L245: push_int_local 2
+L246: push_constant_int 31
+L247: branch_equals L249
+L248: branch L254
+L249: push_int_local 1
+L250: chat_gethistory_crown 0
+L251: pop_varc_int varc_int_1269
+L252: push_constant_int 0
+L253: pop_int_local 5
+L254: branch L748
+L255: push_int_local 1
+L256: player_getdisplayname 0
+L257: push_constant_string ": "
+L258: push_string_local 0
+L259: push_int_local 1
+L260: chat_gethistory_bytypeandline 0
+L261: join_string 4
+L262: push_int_local 3
+L263: if_settext 0
+L264: branch L748
+L265: push_constant_string "From "
+L266: push_int_local 1
+L267: player_getdisplayname 0
+L268: push_constant_string ": "
+L269: push_string_local 1
+L270: push_int_local 1
+L271: chat_gethistory_bytypeandline 0
+L272: join_string 5
+L273: push_int_local 3
+L274: if_settext 0
+L275: branch L748
+L276: push_string_local 2
+L277: push_int_local 1
+L278: player_getdisplayname 0
+L279: push_constant_string " "
+L280: push_int_local 1
+L281: chat_gethistory_bytypeandline 0
+L282: join_string 4
+L283: push_int_local 3
+L284: if_settext 0
+L285: branch L748
+L286: push_string_local 1
+L287: push_int_local 1
+L288: chat_gethistory_bytypeandline 0
+L289: join_string 2
+L290: push_int_local 3
+L291: if_settext 0
+L292: branch L748
+L293: push_constant_string "To "
+L294: push_int_local 1
+L295: player_getdisplayname 0
+L296: push_constant_string ": "
+L297: push_string_local 1
+L298: push_int_local 1
+L299: chat_gethistory_bytypeandline 0
+L300: join_string 5
+L301: push_int_local 3
+L302: if_settext 0
+L303: branch L748
+L304: push_constant_string "From "
+L305: push_int_local 1
+L306: player_getdisplayname 0
+L307: push_constant_string ": "
+L308: push_string_local 1
+L309: push_int_local 1
+L310: chat_gethistory_bytypeandline 0
+L311: join_string 5
+L312: push_int_local 3
+L313: if_settext 0
+L314: branch L748
+L315: push_constant_string "<col=7e3200>"
+L316: push_int_local 1
+L317: player_getdisplayname 0
+L318: push_constant_string " "
+L319: push_int_local 1
+L320: chat_gethistory_bytypeandline 0
+L321: join_string 4
+L322: push_int_local 3
+L323: if_settext 0
+L324: branch L748
+L325: push_int_local 14
+L326: push_int_local 3
+L327: if_setcolour 0
+L328: push_string_local 4
+L329: push_constant_string "["
+L330: push_constant_string "</col>"
+L331: push_string_local 0
+L332: push_int_local 1
+L333: chat_gethistory_name 0
+L334: push_constant_string "</col>"
+L335: push_string_local 4
+L336: push_constant_string "] "
+L337: push_int_local 1
+L338: player_getdisplayname 0
+L339: push_constant_string ": "
+L340: push_constant_string "</col>"
+L341: push_int_local 1
+L342: chat_gethistory_bytypeandline 0
+L343: join_string 12
+L344: push_int_local 3
+L345: if_settext 0
+L346: branch L748
+L347: push_int_local 13
+L348: push_int_local 3
+L349: if_setcolour 0
+L350: push_string_local 4
+L351: push_constant_string "["
+L352: push_constant_string "</col>"
+L353: push_string_local 0
+L354: push_int_local 1
+L355: chat_gethistory_name 0
+L356: push_constant_string "</col>"
+L357: push_string_local 4
+L358: push_constant_string "] "
+L359: push_int_local 1
+L360: player_getdisplayname 0
+L361: push_constant_string ": "
+L362: push_constant_string "</col>"
+L363: push_int_local 1
+L364: chat_gethistory_bytypeandline 0
+L365: join_string 12
+L366: push_int_local 3
+L367: if_settext 0
+L368: branch L748
+L369: push_int_local 15
+L370: push_int_local 3
+L371: if_setcolour 0
+L372: push_string_local 4
+L373: push_constant_string "["
+L374: push_constant_string "</col>"
+L375: push_string_local 0
+L376: push_int_local 1
+L377: chat_gethistory_name 0
+L378: push_constant_string "</col>"
+L379: push_string_local 4
+L380: push_constant_string "] "
+L381: push_int_local 1
+L382: player_getdisplayname 0
+L383: push_constant_string ": "
+L384: push_constant_string "</col>"
+L385: push_int_local 1
+L386: chat_gethistory_bytypeandline 0
+L387: join_string 12
+L388: push_int_local 3
+L389: if_settext 0
+L390: branch L748
+L391: push_constant_string "<col=7e3200>"
+L392: push_int_local 1
+L393: chat_gethistory_bytypeandline 0
+L394: join_string 2
+L395: push_int_local 3
+L396: if_settext 0
+L397: branch L748
+L398: push_constant_string "<col=8a2be2>"
+L399: push_int_local 1
+L400: player_getdisplayname 0
+L401: push_constant_string " "
+L402: push_int_local 1
+L403: chat_gethistory_bytypeandline 0
+L404: join_string 4
+L405: push_int_local 3
+L406: if_settext 0
+L407: branch L748
+L408: push_constant_string "<col=7e3200>"
+L409: push_int_local 1
+L410: player_getdisplayname 0
+L411: push_constant_string " "
+L412: push_int_local 1
+L413: chat_gethistory_bytypeandline 0
+L414: join_string 4
+L415: push_int_local 3
+L416: if_settext 0
+L417: branch L748
+L418: push_constant_string "<col=7e3200>"
+L419: push_int_local 1
+L420: player_getdisplayname 0
+L421: push_constant_string " "
+L422: push_int_local 1
+L423: chat_gethistory_bytypeandline 0
+L424: join_string 4
+L425: push_int_local 3
+L426: if_settext 0
+L427: branch L748
+L428: push_constant_string "<col=7e3200>"
+L429: push_int_local 1
+L430: player_getdisplayname 0
+L431: push_constant_string " "
+L432: push_int_local 1
+L433: chat_gethistory_bytypeandline 0
+L434: join_string 4
+L435: push_int_local 3
+L436: if_settext 0
+L437: branch L748
+L438: push_constant_string "<col=7e3200>"
+L439: push_int_local 1
+L440: player_getdisplayname 0
+L441: push_constant_string " "
+L442: push_int_local 1
+L443: chat_gethistory_bytypeandline 0
+L444: join_string 4
+L445: push_int_local 3
+L446: if_settext 0
+L447: branch L748
+L448: chat_playername 0
+L449: removetags 0
+L450: push_int_local 1
+L451: player_getdisplayname 0
+L452: removetags 0
+L453: compare 0
+L454: push_constant_int 0
+L455: branch_not L457
+L456: branch L474
+L457: push_int_local 1
+L458: chat_gethistory_rank 0
+L459: quickchat_phrase_getautocount 0
+L460: push_constant_int 0
+L461: branch_greater_than L463
+L462: branch L474
+L463: push_int_local 1
+L464: player_getdisplayname 0
+L465: push_constant_string "<img=3>"
+L466: push_constant_string ": "
+L467: push_string_local 0
+L468: push_int_local 1
+L469: chat_gethistory_bytypeandline 0
+L470: join_string 5
+L471: push_int_local 3
+L472: if_settext 0
+L473: branch L483
+L474: push_int_local 1
+L475: player_getdisplayname 0
+L476: push_constant_string ": "
+L477: push_string_local 0
+L478: push_int_local 1
+L479: chat_gethistory_bytypeandline 0
+L480: join_string 4
+L481: push_int_local 3
+L482: if_settext 0
+L483: branch L748
+L484: chat_playername 0
+L485: removetags 0
+L486: push_int_local 1
+L487: player_getdisplayname 0
+L488: removetags 0
+L489: compare 0
+L490: push_constant_int 0
+L491: branch_not L493
+L492: branch L511
+L493: push_int_local 1
+L494: chat_gethistory_rank 0
+L495: quickchat_phrase_getautocount 0
+L496: push_constant_int 0
+L497: branch_greater_than L499
+L498: branch L511
+L499: push_constant_string "From "
+L500: push_int_local 1
+L501: player_getdisplayname 0
+L502: push_constant_string "<img=3>"
+L503: push_constant_string ": "
+L504: push_string_local 1
+L505: push_int_local 1
+L506: chat_gethistory_bytypeandline 0
+L507: join_string 6
+L508: push_int_local 3
+L509: if_settext 0
+L510: branch L521
+L511: push_constant_string "From "
+L512: push_int_local 1
+L513: player_getdisplayname 0
+L514: push_constant_string ": "
+L515: push_string_local 1
+L516: push_int_local 1
+L517: chat_gethistory_bytypeandline 0
+L518: join_string 5
+L519: push_int_local 3
+L520: if_settext 0
+L521: branch L748
+L522: push_constant_string "To "
+L523: push_int_local 1
+L524: player_getdisplayname 0
+L525: push_constant_string ": "
+L526: push_string_local 1
+L527: push_int_local 1
+L528: chat_gethistory_bytypeandline 0
+L529: join_string 5
+L530: push_int_local 3
+L531: if_settext 0
+L532: branch L748
+L533: push_int_local 14
+L534: push_int_local 3
+L535: if_setcolour 0
+L536: chat_playername 0
+L537: removetags 0
+L538: push_int_local 1
+L539: player_getdisplayname 0
+L540: removetags 0
+L541: compare 0
+L542: push_constant_int 0
+L543: branch_not L545
+L544: branch L571
+L545: push_int_local 1
+L546: chat_gethistory_rank 0
+L547: quickchat_phrase_getautocount 0
+L548: push_constant_int 0
+L549: branch_greater_than L551
+L550: branch L571
+L551: push_string_local 4
+L552: push_constant_string "["
+L553: push_constant_string "</col>"
+L554: push_string_local 0
+L555: push_int_local 1
+L556: chat_gethistory_name 0
+L557: push_constant_string "</col>"
+L558: push_string_local 4
+L559: push_constant_string "] "
+L560: push_int_local 1
+L561: player_getdisplayname 0
+L562: push_constant_string "<img=3>"
+L563: push_constant_string ": "
+L564: push_constant_string "</col>"
+L565: push_int_local 1
+L566: chat_gethistory_bytypeandline 0
+L567: join_string 13
+L568: push_int_local 3
+L569: if_settext 0
+L570: branch L589
+L571: push_string_local 4
+L572: push_constant_string "["
+L573: push_constant_string "</col>"
+L574: push_string_local 0
+L575: push_int_local 1
+L576: chat_gethistory_name 0
+L577: push_constant_string "</col>"
+L578: push_string_local 4
+L579: push_constant_string "] "
+L580: push_int_local 1
+L581: player_getdisplayname 0
+L582: push_constant_string ": "
+L583: push_constant_string "</col>"
+L584: push_int_local 1
+L585: chat_gethistory_bytypeandline 0
+L586: join_string 12
+L587: push_int_local 3
+L588: if_settext 0
+L589: branch L748
+L590: push_int_local 15
+L591: push_int_local 3
+L592: if_setcolour 0
+L593: chat_playername 0
+L594: removetags 0
+L595: push_int_local 1
+L596: player_getdisplayname 0
+L597: removetags 0
+L598: compare 0
+L599: push_constant_int 0
+L600: branch_not L602
+L601: branch L628
+L602: push_int_local 1
+L603: chat_gethistory_rank 0
+L604: quickchat_phrase_getautocount 0
+L605: push_constant_int 0
+L606: branch_greater_than L608
+L607: branch L628
+L608: push_string_local 4
+L609: push_constant_string "["
+L610: push_constant_string "</col>"
+L611: push_string_local 0
+L612: push_int_local 1
+L613: chat_gethistory_name 0
+L614: push_constant_string "</col>"
+L615: push_string_local 4
+L616: push_constant_string "] "
+L617: push_int_local 1
+L618: player_getdisplayname 0
+L619: push_constant_string "<img=3>"
+L620: push_constant_string ": "
+L621: push_constant_string "</col>"
+L622: push_int_local 1
+L623: chat_gethistory_bytypeandline 0
+L624: join_string 13
+L625: push_int_local 3
+L626: if_settext 0
+L627: branch L646
+L628: push_string_local 4
+L629: push_constant_string "["
+L630: push_constant_string "</col>"
+L631: push_string_local 0
+L632: push_int_local 1
+L633: chat_gethistory_name 0
+L634: push_constant_string "</col>"
+L635: push_string_local 4
+L636: push_constant_string "] "
+L637: push_int_local 1
+L638: player_getdisplayname 0
+L639: push_constant_string ": "
+L640: push_constant_string "</col>"
+L641: push_int_local 1
+L642: chat_gethistory_bytypeandline 0
+L643: join_string 12
+L644: push_int_local 3
+L645: if_settext 0
+L646: branch L748
+L647: push_int_local 13
+L648: push_int_local 3
+L649: if_setcolour 0
+L650: chat_playername 0
+L651: removetags 0
+L652: push_int_local 1
+L653: player_getdisplayname 0
+L654: removetags 0
+L655: compare 0
+L656: push_constant_int 0
+L657: branch_not L659
+L658: branch L685
+L659: push_int_local 1
+L660: chat_gethistory_rank 0
+L661: quickchat_phrase_getautocount 0
+L662: push_constant_int 0
+L663: branch_greater_than L665
+L664: branch L685
+L665: push_string_local 4
+L666: push_constant_string "["
+L667: push_constant_string "</col>"
+L668: push_string_local 0
+L669: push_int_local 1
+L670: chat_gethistory_name 0
+L671: push_constant_string "</col>"
+L672: push_string_local 4
+L673: push_constant_string "] "
+L674: push_int_local 1
+L675: player_getdisplayname 0
+L676: push_constant_string "<img=3>"
+L677: push_constant_string ": "
+L678: push_constant_string "</col>"
+L679: push_int_local 1
+L680: chat_gethistory_bytypeandline 0
+L681: join_string 13
+L682: push_int_local 3
+L683: if_settext 0
+L684: branch L703
+L685: push_string_local 4
+L686: push_constant_string "["
+L687: push_constant_string "</col>"
+L688: push_string_local 0
+L689: push_int_local 1
+L690: chat_gethistory_name 0
+L691: push_constant_string "</col>"
+L692: push_string_local 4
+L693: push_constant_string "] "
+L694: push_int_local 1
+L695: player_getdisplayname 0
+L696: push_constant_string ": "
+L697: push_constant_string "</col>"
+L698: push_int_local 1
+L699: chat_gethistory_bytypeandline 0
+L700: join_string 12
+L701: push_int_local 3
+L702: if_settext 0
+L703: branch L748
+L704: push_constant_string "<col=7e3200>"
+L705: push_int_local 1
+L706: player_getdisplayname 0
+L707: push_constant_string " "
+L708: push_int_local 1
+L709: chat_gethistory_bytypeandline 0
+L710: join_string 4
+L711: push_int_local 3
+L712: if_settext 0
+L713: branch L748
+L714: push_constant_string "<col=7e3200>"
+L715: push_int_local 1
+L716: player_getdisplayname 0
+L717: push_constant_string " "
+L718: push_int_local 1
+L719: chat_gethistory_bytypeandline 0
+L720: join_string 4
+L721: push_int_local 3
+L722: if_settext 0
+L723: branch L748
+L724: push_constant_string "<col=7e3200>"
+L725: push_int_local 1
+L726: player_getdisplayname 0
+L727: push_constant_string " "
+L728: push_int_local 1
+L729: chat_gethistory_bytypeandline 0
+L730: join_string 4
+L731: push_int_local 3
+L732: if_settext 0
+L733: branch L748
+L734: push_constant_string "<col=7f0000>"
+L735: push_int_local 1
+L736: player_getdisplayname 0
+L737: push_constant_string " "
+L738: push_int_local 1
+L739: chat_gethistory_bytypeandline 0
+L740: join_string 4
+L741: push_int_local 3
+L742: if_settext 0
+L743: branch L748
+L744: push_int_local 1
+L745: chat_gethistory_bytypeandline 0
+L746: push_int_local 3
+L747: if_settext 0
+L748: push_int_local 3
+L749: if_clearops 0
+L750: push_constant_int 86
+L751: push_constant_int -2147483644
+L752: push_int_local 1
+L753: chat_gethistory_message 0
+L754: push_int_local 1
+L755: push_constant_string "isi"
+L756: push_int_local 3
+L757: if_setonop 0
+L758: push_constant_string "<col=ffffff>"
+L759: push_int_local 1
+L760: player_getdisplayname 0
+L761: removetags 0
+L762: join_string 2
+L763: push_int_local 3
+L764: if_setopbase 0
+L765: push_int_local 2
+L766: switch switch1
+L767: branch L999
+L768: chat_playername 0
+L769: removetags 0
+L770: push_int_local 1
+L771: player_getdisplayname 0
+L772: removetags 0
+L773: compare 0
+L774: push_constant_int 0
+L775: branch_not L777
+L776: branch L834
+L777: push_int_local 1
+L778: chat_gethistory_message 0
+L779: friend_test 0
+L780: branch_if_true L782
+L781: branch L793
+L782: is_quickchat_only 0
+L783: branch_if_false L785
+L784: branch L792
+L785: is_subscriber 0
+L786: branch_if_false L788
+L787: branch L792
+L788: push_constant_int 6
+L789: push_constant_string "Message"
+L790: push_int_local 3
+L791: if_setop 0
+L792: branch L801
+L793: push_constant_int 6
+L794: push_constant_string "Add friend"
+L795: push_int_local 3
+L796: if_setop 0
+L797: push_constant_int 7
+L798: push_constant_string "Add ignore"
+L799: push_int_local 3
+L800: if_setop 0
+L801: staffmodlevel 0
+L802: push_constant_int 0
+L803: branch_greater_than L808
+L804: autosetup_isactive 0
+L805: push_constant_int 0
+L806: branch_greater_than L808
+L807: branch L812
+L808: push_constant_int 8
+L809: push_constant_string "Report abuse"
+L810: push_int_local 3
+L811: if_setop 0
+L812: push_int_local 2
+L813: push_constant_int 41
+L814: branch_equals L816
+L815: branch L823
+L816: push_int_local 10
+L817: branch_if_true L819
+L818: branch L823
+L819: push_constant_int 10
+L820: push_constant_string "Kick/ban"
+L821: push_int_local 3
+L822: if_setop 0
+L823: push_int_local 2
+L824: push_constant_int 9
+L825: branch_equals L827
+L826: branch L834
+L827: push_int_local 12
+L828: branch_if_true L830
+L829: branch L834
+L830: push_constant_int 10
+L831: push_constant_string "Kick/ban"
+L832: push_int_local 3
+L833: if_setop 0
+L834: branch L999
+L835: push_constant_int 1
+L836: push_constant_string "Accept trade"
+L837: push_int_local 3
+L838: if_setop 0
+L839: branch L999
+L840: push_constant_int 2
+L841: push_constant_string "Accept challenge"
+L842: push_int_local 3
+L843: if_setop 0
+L844: branch L999
+L845: push_constant_int 3
+L846: push_constant_string "Give assistance"
+L847: push_int_local 3
+L848: if_setop 0
+L849: branch L999
+L850: push_constant_int 4
+L851: push_constant_string "Open invitation"
+L852: push_int_local 3
+L853: if_setop 0
+L854: branch L999
+L855: push_constant_int 3
+L856: push_constant_string "Vote"
+L857: push_int_local 3
+L858: if_setop 0
+L859: branch L999
+L860: chat_playername 0
+L861: removetags 0
+L862: push_int_local 1
+L863: player_getdisplayname 0
+L864: removetags 0
+L865: compare 0
+L866: push_constant_int 0
+L867: branch_not L869
+L868: branch L989
+L869: push_int_local 1
+L870: chat_gethistory_message 0
+L871: friend_test 0
+L872: branch_if_true L874
+L873: branch L885
+L874: is_quickchat_only 0
+L875: branch_if_false L877
+L876: branch L884
+L877: is_subscriber 0
+L878: branch_if_false L880
+L879: branch L884
+L880: push_constant_int 6
+L881: push_constant_string "Message"
+L882: push_int_local 3
+L883: if_setop 0
+L884: branch L893
+L885: push_constant_int 6
+L886: push_constant_string "Add friend"
+L887: push_int_local 3
+L888: if_setop 0
+L889: push_constant_int 7
+L890: push_constant_string "Add ignore"
+L891: push_int_local 3
+L892: if_setop 0
+L893: push_int_local 2
+L894: push_constant_int 42
+L895: branch_equals L897
+L896: branch L904
+L897: push_int_local 10
+L898: branch_if_true L900
+L899: branch L904
+L900: push_constant_int 10
+L901: push_constant_string "Kick/ban"
+L902: push_int_local 3
+L903: if_setop 0
+L904: push_int_local 2
+L905: push_constant_int 20
+L906: branch_equals L908
+L907: branch L915
+L908: push_int_local 12
+L909: branch_if_true L911
+L910: branch L915
+L911: push_constant_int 10
+L912: push_constant_string "Kick/ban"
+L913: push_int_local 3
+L914: if_setop 0
+L915: push_int_local 1
+L916: chat_gethistory_rank 0
+L917: quickchat_phrase_getautocount 0
+L918: push_constant_int 0
+L919: branch_greater_than L921
+L920: branch L989
+L921: push_varc_int varc_int_132
+L922: push_constant_int -1
+L923: branch_equals L925
+L924: branch L985
+L925: push_int_local 1
+L926: chat_gethistory_rank 0
+L927: pop_varc_int varc_int_132
+L928: push_int_local 1
+L929: player_getdisplayname 0
+L930: pop_varc_string_old varc_string_29
+L931: push_int_local 2
+L932: push_constant_int 20
+L933: branch_equals L935
+L934: branch L941
+L935: push_constant_int 6
+L936: pop_varc_int varc_int_133
+L937: push_constant_int 9
+L938: push_constant_string "Quick Response"
+L939: push_int_local 3
+L940: if_setop 0
+L941: push_int_local 2
+L942: push_constant_int 42
+L943: branch_equals L945
+L944: branch L951
+L945: push_constant_int 9
+L946: pop_varc_int varc_int_133
+L947: push_constant_int 9
+L948: push_constant_string "Quick Response"
+L949: push_int_local 3
+L950: if_setop 0
+L951: push_int_local 2
+L952: push_constant_int 45
+L953: branch_equals L955
+L954: branch L962
+L955: push_constant_int 11
+L956: pop_varc_int varc_int_133
+L957: push_constant_int 9
+L958: push_constant_string "Quick Response"
+L959: push_int_local 3
+L960: if_setop 0
+L961: branch L984
+L962: push_int_local 2
+L963: push_constant_int 18
+L964: branch_equals L966
+L965: branch L978
+L966: push_constant_int 5
+L967: pop_varc_int varc_int_133
+L968: push_int_local 1
+L969: chat_gethistory_message 0
+L970: friend_test 0
+L971: branch_if_true L973
+L972: branch L977
+L973: push_constant_int 9
+L974: push_constant_string "Quick Response"
+L975: push_int_local 3
+L976: if_setop 0
+L977: branch L984
+L978: push_constant_int 4
+L979: pop_varc_int varc_int_133
+L980: push_constant_int 9
+L981: push_constant_string "Quick Response"
+L982: push_int_local 3
+L983: if_setop 0
+L984: branch L989
+L985: push_constant_int 9
+L986: push_constant_string "Quick Response"
+L987: push_int_local 3
+L988: if_setop 0
+L989: branch L999
+L990: push_constant_int 10
+L991: push_constant_string "Accept alliance"
+L992: push_int_local 3
+L993: if_setop 0
+L994: branch L999
+L995: push_constant_int 5
+L996: push_constant_string "View invite from"
+L997: push_int_local 3
+L998: if_setop 0
+L999: push_int_local 6
+L1000: branch_if_true L1002
+L1001: branch L1012
+L1002: push_int_local 1
+L1003: chat_gethistory_length 0
+L1004: switch switch2
+L1005: branch L1012
+L1006: push_int_local 1
+L1007: chat_gethistory_message 0
+L1008: removetags 0
+L1009: pop_varc_string_old varc_string_276
+L1010: push_constant_int 0
+L1011: pop_int_local 6
+L1012: push_int_local 1
+L1013: push_constant_int 1
+L1014: add 0
+L1015: pop_int_local 1
+L1016: branch L186
+L1017: return 0
+L1018:
+
+[switch0@L216]
+0=L218
+4=L218
+27=L218
+28=L218
+29=L218
+11=L218
+43=L218
+103=L218
+104=L218
+109=L218
+110=L218
+26=L218
+30=L218
+31=L218
+1=L255
+2=L255
+3=L265
+100=L276
+5=L286
+6=L293
+7=L304
+101=L315
+41=L325
+9=L347
+44=L369
+117=L391
+102=L398
+105=L408
+106=L418
+107=L428
+118=L438
+17=L448
+18=L484
+19=L522
+42=L533
+45=L590
+20=L647
+108=L704
+111=L714
+112=L714
+113=L724
+114=L724
+115=L734
+116=L744
+
+[switch1@L766]
+1=L768
+2=L768
+3=L768
+7=L768
+41=L768
+44=L768
+9=L768
+6=L768
+100=L835
+101=L840
+105=L840
+106=L840
+107=L840
+113=L840
+114=L840
+118=L840
+102=L845
+111=L850
+112=L855
+17=L860
+18=L860
+42=L860
+45=L860
+20=L860
+108=L990
+117=L995
+
+[switch2@L1004]
+3=L1006
+7=L1006
+18=L1006

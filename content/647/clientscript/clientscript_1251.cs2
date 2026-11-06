@@ -1,0 +1,87 @@
+name=""
+local_int_count=5
+local_string_count=0
+local_long_count=0
+int_param_count=5
+string_param_count=0
+long_param_count=0
+
+L0: push_constant_int 0
+L1: push_int_local 0
+L2: push_int_local 0
+L3: gosub_with_params clientscript_1898
+L4: push_constant_int 1
+L5: push_int_local 0
+L6: cam_startpath 0
+L7: push_constant_int 0
+L8: cam_getpathcount 0
+L9: push_int_local 0
+L10: push_constant_int 2
+L11: add 0
+L12: branch_less_than_or_equals L14
+L13: branch L66
+L14: push_int_local 4
+L15: push_int_local 3
+L16: if_setcolour 0
+L17: push_constant_int 255
+L18: push_int_local 3
+L19: if_settrans 0
+L20: push_constant_int 0
+L21: push_int_local 3
+L22: if_sethide 0
+L23: push_constant_int 1253
+L24: push_int_local 3
+L25: push_constant_string "I"
+L26: push_int_local 3
+L27: if_setontimer 0
+L28: push_constant_int 1249
+L29: push_int_local 1
+L30: push_int_local 2
+L31: push_int_local 3
+L32: push_constant_string "III"
+L33: push_int_local 1
+L34: if_setontimer 0
+L35: push_constant_int -1
+L36: push_constant_string ""
+L37: push_int_local 1
+L38: if_setonvarcstringtransmit 0
+L39: push_varc_int varc_int_176
+L40: push_constant_int 2
+L41: branch_equals L43
+L42: branch L57
+L43: push_varc_int varc_int_176
+L44: push_constant_int 8
+L45: add 0
+L46: push_constant_int 10
+L47: push_constant_int 5
+L48: push_constant_int 1
+L49: sub 0
+L50: random 0
+L51: push_constant_int 1
+L52: add 0
+L53: multiply 0
+L54: add 0
+L55: pop_varc_int varc_int_176
+L56: branch L61
+L57: push_varc_int varc_int_176
+L58: push_constant_int 8
+L59: add 0
+L60: pop_varc_int varc_int_176
+L61: clientclock 0
+L62: push_constant_int 30
+L63: add 0
+L64: pop_varc_int varc_int_177
+L65: return 0
+L66: push_constant_int 1250
+L67: push_int_local 0
+L68: push_constant_int 1
+L69: add 0
+L70: push_int_local 1
+L71: push_int_local 2
+L72: push_int_local 3
+L73: push_int_local 4
+L74: push_constant_string "iIIIi"
+L75: push_int_local 1
+L76: if_setonvarcstringtransmit 0
+L77: return 0
+L78:

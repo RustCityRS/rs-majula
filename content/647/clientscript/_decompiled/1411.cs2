@@ -1,9 +1,0 @@
-[clientscript,script_1411](int, int, int, component, string)
-def_int $int0 = 20054022;
-%varc_int761 = enum(105, 109, enum_208, random(enum_getoutputcount(enum_208)));
-if (%varc_int761 ! -1) {
-    if_setmodel;
-}
-if_setposition(120, 0, 0, $int0);
-if_setontimer;
-return(0, sub($int0, if_getwidth), -1, 20054035, "");

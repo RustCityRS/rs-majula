@@ -1,0 +1,36 @@
+name=""
+local_int_count=0
+local_string_count=0
+local_long_count=0
+int_param_count=0
+string_param_count=0
+long_param_count=0
+
+L0: push_constant_int 1
+L1: push_constant_int 66387987
+L2: if_sethide 0
+L3: push_constant_int 1
+L4: push_constant_int 66387986
+L5: if_sethide 0
+L6: push_constant_int 1
+L7: push_constant_int 66387988
+L8: if_sethide 0
+L9: push_constant_int 1
+L10: push_constant_int 66387989
+L11: if_sethide 0
+L12: push_constant_int 1
+L13: push_constant_int 66387985
+L14: if_sethide 0
+L15: push_constant_int 1
+L16: push_constant_int 66387983
+L17: if_sethide 0
+L18: push_constant_int 1
+L19: push_constant_int 66387984
+L20: if_sethide 0
+L21: push_constant_int 1
+L22: push_constant_int 66387982
+L23: if_sethide 0
+L24: push_constant_int 0
+L25: pop_varc_int varc_int_1360
+L26: return 0
+L27:

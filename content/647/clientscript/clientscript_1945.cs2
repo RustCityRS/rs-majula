@@ -1,0 +1,28 @@
+name=""
+local_int_count=1
+local_string_count=0
+local_long_count=0
+int_param_count=0
+string_param_count=0
+long_param_count=0
+
+L0: push_var varp_1332
+L1: push_var varp_1334
+L2: add 0
+L3: push_var varp_1337
+L4: add 0
+L5: push_constant_int 2
+L6: push_var varp_1333
+L7: push_var varp_1335
+L8: sub 0
+L9: multiply 0
+L10: add 0
+L11: pop_int_local 0
+L12: push_constant_string "Score: "
+L13: push_int_local 0
+L14: tostring 0
+L15: join_string 2
+L16: push_constant_int 52559880
+L17: if_settext 0
+L18: return 0
+L19:

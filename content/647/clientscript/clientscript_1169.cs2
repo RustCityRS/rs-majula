@@ -1,0 +1,23 @@
+name=""
+local_int_count=3
+local_string_count=1
+local_long_count=0
+int_param_count=2
+string_param_count=1
+long_param_count=0
+
+L0: push_constant_int 105
+L1: push_constant_int 73
+L2: push_constant_int 737
+L3: push_int_local 1
+L4: enum 0
+L5: pop_int_local 2
+L6: push_constant_int 1168
+L7: push_int_local 0
+L8: push_string_local 0
+L9: push_int_local 2
+L10: push_constant_string "isI"
+L11: push_int_local 2
+L12: if_setontimer 0
+L13: return 0
+L14:

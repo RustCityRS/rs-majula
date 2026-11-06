@@ -1,0 +1,76 @@
+name=""
+local_int_count=1
+local_string_count=0
+local_long_count=0
+int_param_count=1
+string_param_count=0
+long_param_count=0
+
+L0: push_int_local 0
+L1: push_constant_int 1
+L2: branch_less_than L7
+L3: push_int_local 0
+L4: push_constant_int 9
+L5: branch_greater_than L7
+L6: branch L9
+L7: push_constant_int 0
+L8: return 0
+L9: push_int_local 0
+L10: switch switch0
+L11: branch L54
+L12: push_constant_int 516
+L13: push_varbit bank_tab_1
+L14: sub 0
+L15: push_varbit bank_tab_2
+L16: sub 0
+L17: push_varbit bank_tab_3
+L18: sub 0
+L19: push_varbit bank_tab_4
+L20: sub 0
+L21: push_varbit bank_tab_5
+L22: sub 0
+L23: push_varbit bank_tab_6
+L24: sub 0
+L25: push_varbit bank_tab_7
+L26: sub 0
+L27: push_varbit bank_tab_8
+L28: sub 0
+L29: return 0
+L30: branch L54
+L31: push_varbit bank_tab_1
+L32: return 0
+L33: branch L54
+L34: push_varbit bank_tab_2
+L35: return 0
+L36: branch L54
+L37: push_varbit bank_tab_3
+L38: return 0
+L39: branch L54
+L40: push_varbit bank_tab_4
+L41: return 0
+L42: branch L54
+L43: push_varbit bank_tab_5
+L44: return 0
+L45: branch L54
+L46: push_varbit bank_tab_6
+L47: return 0
+L48: branch L54
+L49: push_varbit bank_tab_7
+L50: return 0
+L51: branch L54
+L52: push_varbit bank_tab_8
+L53: return 0
+L54: push_constant_int 0
+L55: return 0
+L56:
+
+[switch0@L10]
+1=L12
+2=L31
+3=L34
+4=L37
+5=L40
+6=L43
+7=L46
+8=L49
+9=L52

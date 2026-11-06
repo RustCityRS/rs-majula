@@ -1,0 +1,67 @@
+name=""
+local_int_count=0
+local_string_count=0
+local_long_count=0
+int_param_count=0
+string_param_count=0
+long_param_count=0
+
+L0: push_var varp_1108
+L1: push_constant_int 3
+L2: branch_less_than_or_equals L4
+L3: branch L29
+L4: push_constant_string "If you selected the 'Buy' option, you would see this screen. You can choose an item to buy by clicking on the indicated box."
+L5: push_constant_int 7209044
+L6: if_settext 0
+L7: push_constant_int 1
+L8: push_constant_int 7209045
+L9: if_sethide 0
+L10: push_constant_string "N/A"
+L11: push_constant_int 7208987
+L12: if_settext 0
+L13: push_constant_int 0
+L14: push_constant_int 7209028
+L15: if_sethide 0
+L16: push_constant_string "Choose an item to exchange"
+L17: push_constant_int 7208988
+L18: if_settext 0
+L19: push_constant_string "1"
+L20: push_constant_int 7208993
+L21: if_settext 0
+L22: push_constant_string "1 gp"
+L23: push_constant_int 7208998
+L24: if_settext 0
+L25: push_constant_string "1 gp"
+L26: push_constant_int 7209025
+L27: if_settext 0
+L28: branch L57
+L29: push_constant_string "You can set how many you wish to buy, and the price you're willing to pay, before clicking the 'Confirm Offer' button. We'll suggest a guide price for the item, but you can offer whatever you like."
+L30: push_constant_int 7209044
+L31: if_settext 0
+L32: push_constant_int 0
+L33: push_constant_int 7209045
+L34: if_sethide 0
+L35: push_constant_int 1381
+L36: push_constant_int 1
+L37: push_constant_int 7209045
+L38: if_setobject_nonum 0
+L39: push_constant_string "1,281 gp"
+L40: push_constant_int 7208987
+L41: if_settext 0
+L42: push_constant_int 1
+L43: push_constant_int 7209028
+L44: if_sethide 0
+L45: push_constant_string "Staff of air"
+L46: push_constant_int 7208988
+L47: if_settext 0
+L48: push_constant_string "2"
+L49: push_constant_int 7208993
+L50: if_settext 0
+L51: push_constant_string "1,281 gp"
+L52: push_constant_int 7208998
+L53: if_settext 0
+L54: push_constant_string "2,562 gp"
+L55: push_constant_int 7209025
+L56: if_settext 0
+L57: return 0
+L58:

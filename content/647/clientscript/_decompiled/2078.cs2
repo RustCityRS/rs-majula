@@ -1,9 +1,0 @@
-[clientscript,script_2078]
-def_int $int0 = 0;
-$int0 = sub(20, %varc_int636);
-if ($int0 = 1) {
-    if_settext(tostring($int0) + " min");
-} else {
-    if_settext(tostring($int0) + " mins");
-}
-return;

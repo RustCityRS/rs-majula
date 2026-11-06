@@ -1,0 +1,117 @@
+name=""
+local_int_count=1
+local_string_count=0
+local_long_count=0
+int_param_count=1
+string_param_count=0
+long_param_count=0
+
+L0: push_constant_int 0
+L1: push_int_local 0
+L2: if_sethide 0
+L3: push_int_local 0
+L4: switch switch0
+L5: branch L95
+L6: push_varc_int varc_int_755
+L7: push_constant_int -1
+L8: branch_not L10
+L9: branch L14
+L10: push_varc_int varc_int_755
+L11: push_constant_int -1
+L12: push_int_local 0
+L13: if_setobject_alwaysnum 0
+L14: branch L95
+L15: push_varc_int varc_int_756
+L16: push_constant_int -1
+L17: branch_not L19
+L18: branch L23
+L19: push_varc_int varc_int_756
+L20: push_constant_int -1
+L21: push_int_local 0
+L22: if_setobject_alwaysnum 0
+L23: branch L95
+L24: push_varc_int varc_int_757
+L25: push_constant_int -1
+L26: branch_not L28
+L27: branch L32
+L28: push_varc_int varc_int_757
+L29: push_constant_int -1
+L30: push_int_local 0
+L31: if_setobject_alwaysnum 0
+L32: branch L95
+L33: push_varc_int varc_int_758
+L34: push_constant_int -1
+L35: branch_not L37
+L36: branch L41
+L37: push_varc_int varc_int_758
+L38: push_constant_int -1
+L39: push_int_local 0
+L40: if_setobject_alwaysnum 0
+L41: branch L95
+L42: push_varc_int varc_int_759
+L43: push_constant_int -1
+L44: branch_not L46
+L45: branch L50
+L46: push_varc_int varc_int_759
+L47: push_constant_int -1
+L48: push_int_local 0
+L49: if_setobject_alwaysnum 0
+L50: branch L95
+L51: push_varc_int varc_int_760
+L52: push_constant_int -1
+L53: branch_not L55
+L54: branch L59
+L55: push_varc_int varc_int_760
+L56: push_constant_int -1
+L57: push_int_local 0
+L58: if_setobject_alwaysnum 0
+L59: branch L95
+L60: push_varc_int varc_int_1139
+L61: push_constant_int -1
+L62: branch_not L64
+L63: branch L68
+L64: push_varc_int varc_int_1139
+L65: push_constant_int -1
+L66: push_int_local 0
+L67: if_setobject_alwaysnum 0
+L68: branch L95
+L69: push_varc_int varc_int_1140
+L70: push_constant_int -1
+L71: branch_not L73
+L72: branch L77
+L73: push_varc_int varc_int_1140
+L74: push_constant_int -1
+L75: push_int_local 0
+L76: if_setobject_alwaysnum 0
+L77: branch L95
+L78: push_varc_int varc_int_1141
+L79: push_constant_int -1
+L80: branch_not L82
+L81: branch L86
+L82: push_varc_int varc_int_1141
+L83: push_constant_int -1
+L84: push_int_local 0
+L85: if_setobject_alwaysnum 0
+L86: branch L95
+L87: push_varc_int varc_int_1142
+L88: push_constant_int -1
+L89: branch_not L91
+L90: branch L95
+L91: push_varc_int varc_int_1142
+L92: push_constant_int -1
+L93: push_int_local 0
+L94: if_setobject_alwaysnum 0
+L95: return 0
+L96:
+
+[switch0@L4]
+61866061=L6
+61866008=L15
+61866014=L24
+61866020=L33
+61866026=L42
+61866032=L51
+61866038=L60
+61866044=L69
+61866050=L78
+61866056=L87

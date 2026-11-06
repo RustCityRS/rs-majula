@@ -1,8 +1,0 @@
-[clientscript,script_2051](int $int0, int $int1, int $int2, int $int3, int $int4, int $int5, int $int6, int $int7, string $str0, string $str1, string $str2)
-if (cc_find($int0, $int1) = 1) {
-    ~script_2052($int2, $int3, $int4, $int5, $int6, $int7, $str0, $str1, $str2);
-} else {
-    cc_setposition(0, $int0, 4, $int1);
-    ~script_2052($int2, $int3, $int4, $int5, $int6, $int7, $str0, $str1, $str2);
-}
-return;

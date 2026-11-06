@@ -1,0 +1,81 @@
+name=""
+local_int_count=8
+local_string_count=0
+local_long_count=0
+int_param_count=1
+string_param_count=0
+long_param_count=0
+
+L0: push_constant_int 73
+L1: push_constant_int 105
+L2: push_constant_int 2125
+L3: push_int_local 0
+L4: enum 0
+L5: pop_int_local 1
+L6: push_constant_int 73
+L7: push_constant_int 105
+L8: push_constant_int 2124
+L9: push_int_local 0
+L10: enum 0
+L11: pop_int_local 2
+L12: push_constant_int 1
+L13: pop_int_local 3
+L14: push_var varp_1893
+L15: push_constant_int -1
+L16: branch_equals L18
+L17: branch L45
+L18: push_int_local 2
+L19: branch_if_true L21
+L20: branch L26
+L21: push_var varp_1890
+L22: push_int_local 1
+L23: testbit 0
+L24: pop_int_local 3
+L25: branch L39
+L26: push_int_local 2
+L27: push_constant_int 2
+L28: branch_equals L30
+L29: branch L35
+L30: push_var varp_1891
+L31: push_int_local 1
+L32: testbit 0
+L33: pop_int_local 3
+L34: branch L39
+L35: push_var varp_1892
+L36: push_int_local 1
+L37: testbit 0
+L38: pop_int_local 3
+L39: push_int_local 3
+L40: branch_if_false L42
+L41: branch L44
+L42: push_int_local 0
+L43: if_setzorder_back 0
+L44: return 0
+L45: push_constant_int 73
+L46: push_constant_int 74
+L47: push_constant_int 704
+L48: push_var varp_1893
+L49: enum 0
+L50: pop_int_local 4
+L51: push_int_local 4
+L52: push_constant_int 1222
+L53: struct_param_4500 0
+L54: pop_int_local 5
+L55: push_int_local 4
+L56: push_constant_int 1223
+L57: struct_param_4500 0
+L58: pop_int_local 6
+L59: push_constant_int 73
+L60: push_constant_int 73
+L61: push_constant_int 1592
+L62: push_var varp_1893
+L63: enum 0
+L64: pop_int_local 7
+L65: push_int_local 5
+L66: push_int_local 6
+L67: push_constant_int 0
+L68: push_constant_int 0
+L69: push_int_local 7
+L70: if_setposition 0
+L71: return 0
+L72:

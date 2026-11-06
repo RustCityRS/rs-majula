@@ -1,9 +1,0 @@
-[clientscript,script_896](component, int, component, int, int, int)
-def_int $int0 = div(116, 12);
-def_int $int1 = multiply($int0, %varbit4527);
-def_int $int2 = multiply($int0, %varbit4526);
-if_setposition(calc(122 + 116 - $int1), 0, 0, 46989320);
-if_setposition(calc(122 + 116 - $int2), 0, 0, 46989319);
-if_setsize($int1, 0, 0, 46989320);
-if_setsize($int2, 0, 0, 46989319);
-return(46989320, if_getx, 46989319, if_getx, 27, 27);
