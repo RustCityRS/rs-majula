@@ -28,13 +28,13 @@ const COM_MODE: u16 = 43;
 const OPTION_NODEF: u16 = 172;
 const SA_ATTACK: u16 = 301;
 
-/// `IF_BUTTON1` as `Class199.method1317` writes it: `p4(com) ip2_alt1(obj)
-/// ip2(slot)`, with no obj or slot for a plain button.
+/// `IF_BUTTON1` as `Class199.method1317` writes it: `p4(com) p2_alt3(obj)
+/// p2_alt1(slot)`, with no obj or slot for a plain button.
 fn click(engine: &mut Engine, client: &mut HarnessClient, com: u16) {
     let mut p = ClientPacket::new();
     p.p4(((COMBAT_SIDE as i32) << 16) | com as i32)
-        .ip2_alt1(0xFFFF)
-        .ip2(0xFFFF);
+        .p2_alt3(0xFFFF)
+        .p2_alt1(0xFFFF);
     client.send(ClientProt::IfButton1, &p.finish());
     engine.cycle();
 }

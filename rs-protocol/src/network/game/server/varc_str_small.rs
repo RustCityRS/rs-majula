@@ -1,6 +1,5 @@
 #[cfg(since_647)]
 use crate::network::game::server_prot::ServerProt;
-use crate::network::game::server_prot_message::jstr_len;
 #[cfg(since_647)]
 use crate::network::game::server_prot_message::{ServerProtMessage, ServerProtMessageInfo};
 #[cfg(since_647)]
@@ -22,10 +21,10 @@ pub struct VarcStrSmall<'a> {
 impl ServerProtMessage for VarcStrSmall<'_> {
     fn encode(&self, buf: &mut Packet) {
         buf.pjstr(self.val, STRING_TERMINATOR);
-        buf.ip2_alt1(self.id);
+        buf.p2_alt3(self.id);
     }
 
     fn sizeof(&self) -> usize {
-        jstr_len(self.val) + size_of_val(&self.id)
+        Packet::sizejstr(self.val) + size_of_val(&self.id)
     }
 }

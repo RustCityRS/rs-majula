@@ -3,7 +3,7 @@
 //! 289's spots are 2005's; the small-net spot on Lumbridge's rebuilt shore
 //! (npc 4908) is 2011's, given 289's `saltfish` category because its ops and
 //! its catch (void-634) are a saltfish spot's. The case clicks Net on it as
-//! the client does (OPNPC1, `Statics1.do_action`: `p1_alt2(ctrl) p2(nid)`)
+//! the client does (OPNPC1, `Statics1.do_action`: `p1_alt3(ctrl) p2(nid)`)
 //! with a small fishing net in the backpack, and fishes until a shrimp comes
 //! up. The catch's numbers come from 289's `fishing_struct_shrimps`, a
 //! server-only struct, which only loads since structs past the cache's range
@@ -84,7 +84,7 @@ fn a_2011_spot_gives_shrimps() {
         client.packets();
 
         let mut p = ClientPacket::new();
-        p.p1_alt2(0).p2(nid as i32);
+        p.p1_alt3(0).p2(nid as i32);
         client.send(ClientProt::OpNpc1, &p.finish());
         let mut said = Vec::new();
         for _ in 0..150 {
@@ -177,7 +177,7 @@ fn fisher(
 
 fn op_npc1(client: &mut HarnessClient, nid: u16) {
     let mut p = ClientPacket::new();
-    p.p1_alt2(0).p2(nid as i32);
+    p.p1_alt3(0).p2(nid as i32);
     client.send(ClientProt::OpNpc1, &p.finish());
 }
 
@@ -415,7 +415,7 @@ fn a_low_harpoon_says_harpoon() {
         let (nid, x, z) = spot(engine, GUILD_RAREFISH, (2602, 3415));
         let mut client = fisher(engine, "lowharpoon", (x, z), 1, &["harpoon"]);
         let mut p = ClientPacket::new();
-        p.p1_alt2(0).p2_alt1(nid as i32);
+        p.p1_alt3(0).p2_alt2(nid as i32);
         client.send(ClientProt::OpNpc3, &p.finish());
         let (said, texts) = run(engine, &mut client, 20, |_| false);
         assert!(

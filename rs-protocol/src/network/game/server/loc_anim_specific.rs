@@ -20,8 +20,8 @@ pub struct LocAnimSpecific {
 #[cfg(since_647)]
 impl ServerProtMessage for LocAnimSpecific {
     fn encode(&self, buf: &mut Packet) {
-        buf.ip2(self.seq);
-        buf.p1_alt2(self.shape_angle);
+        buf.p2_alt1(self.seq);
+        buf.p1_alt3(self.shape_angle);
         buf.p4(self.coord);
     }
 

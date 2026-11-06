@@ -29,10 +29,10 @@ impl ClientProtMessage for OpLoc2 {
 #[cfg(since_647)]
 impl ClientProtMessage for OpLoc2 {
     fn decode(buf: &mut Packet, _: usize) -> Self {
-        let loc = buf.ig2();
-        let ctrl = buf.g1_alt1() != 0;
-        let z = buf.g2_alt1();
-        let x = buf.ig2_alt1();
+        let loc = buf.g2_alt1();
+        let ctrl = buf.g1_alt2() != 0;
+        let z = buf.g2_alt2();
+        let x = buf.g2_alt3();
         OpLoc2 { loc, x, z, ctrl }
     }
 }

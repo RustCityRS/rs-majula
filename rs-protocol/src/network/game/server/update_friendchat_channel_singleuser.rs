@@ -1,6 +1,5 @@
 #[cfg(since_647)]
 use crate::network::game::server_prot::ServerProt;
-use crate::network::game::server_prot_message::jstr_len;
 #[cfg(since_647)]
 use crate::network::game::server_prot_message::{ServerProtMessage, ServerProtMessageInfo};
 #[cfg(since_647)]
@@ -39,11 +38,16 @@ impl ServerProtMessage for UpdateFriendchatChannelSingleuser {
     }
 
     fn sizeof(&self) -> usize {
-        let name = jstr_len(&self.name) + 1 + self.display_name.as_ref().map_or(0, |d| jstr_len(d));
+        let name = Packet::sizejstr(&self.name)
+            + 1
+            + self
+                .display_name
+                .as_ref()
+                .map_or(0, |d| Packet::sizejstr(d));
         let tail = size_of_val(&self.world)
             + size_of_val(&self.rank)
             + if self.rank != -128 {
-                self.title.as_ref().map_or(1, |t| jstr_len(t))
+                self.title.as_ref().map_or(1, |t| Packet::sizejstr(t))
             } else {
                 0
             };

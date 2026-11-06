@@ -18,15 +18,14 @@
 //! subcommand and the pack-pipeline `validate_config_packs()` invariant that
 //! never drops user-edited registry entries.
 
+use crate::cache::loader;
+use anyhow::{Context, Result};
+use rs_io::js5::Js5Store;
 use std::collections::{HashMap, HashSet};
+use std::fs::{self, File};
 use std::io::Write;
 use std::path::{Path, PathBuf};
-
-use anyhow::{Context, Result};
 use tracing::{info, warn};
-
-use crate::cache::loader;
-use rs_dat2::CacheStore;
 
 /// Outcome of a single `discover_npcs` run.
 #[derive(Debug, Default, Clone)]
@@ -70,7 +69,7 @@ pub fn discover_npcs(
     let cache_ids = entries.len();
 
     // ── 1. Merge into npc.pack (idempotent) ──────────────────────────────
-    std::fs::create_dir_all(pack_dir).with_context(|| format!("create pack dir {:?}", pack_dir))?;
+    fs::create_dir_all(pack_dir).with_context(|| format!("create pack dir {:?}", pack_dir))?;
     let pack_path = pack_dir.join("npc.pack");
 
     let existing = if force {
@@ -119,11 +118,11 @@ pub fn discover_npcs(
     );
 
     let unpack_subdir = unpack_dir.join("_unpack");
-    std::fs::create_dir_all(&unpack_subdir)
+    fs::create_dir_all(&unpack_subdir)
         .with_context(|| format!("create unpack dir {:?}", unpack_subdir))?;
     let all_npc_path = unpack_subdir.join("all.npc");
-    let mut all_file = std::fs::File::create(&all_npc_path)
-        .with_context(|| format!("create {:?}", all_npc_path))?;
+    let mut all_file =
+        File::create(&all_npc_path).with_context(|| format!("create {:?}", all_npc_path))?;
 
     writeln!(all_file, "// Auto-generated NPC configs from cache.")?;
     writeln!(
@@ -189,7 +188,7 @@ fn sanitize_name(name: &str) -> String {
 /// Build the unique disambiguated name list from cache configs.
 /// Returns sorted Vec<(id, unique_name, name, combat_level)>.
 fn build_unique_names(cache_dir: &Path) -> Result<Vec<(u16, String, String, i32)>> {
-    let mut cache = CacheStore::open(cache_dir)?;
+    let mut cache = Js5Store::open(cache_dir)?;
     let npc_defs = loader::load_all_npcs(&mut cache)?;
     info!("Loaded {} NPC configs from cache", npc_defs.count());
 
@@ -262,7 +261,7 @@ fn scan_adopted_names(configs_dir: &Path) -> Result<HashSet<String>> {
 }
 
 fn scan_adopted_recursive(dir: &Path, out: &mut HashSet<String>) -> Result<()> {
-    for entry in std::fs::read_dir(dir)? {
+    for entry in fs::read_dir(dir)? {
         let entry = entry?;
         let path = entry.path();
         if path.is_dir() {
@@ -272,7 +271,7 @@ fn scan_adopted_recursive(dir: &Path, out: &mut HashSet<String>) -> Result<()> {
             }
             scan_adopted_recursive(&path, out)?;
         } else if path.extension().is_some_and(|e| e == "npc") {
-            let content = match std::fs::read_to_string(&path) {
+            let content = match fs::read_to_string(&path) {
                 Ok(c) => c,
                 Err(e) => {
                     warn!("failed to read {:?}: {}", path, e);
@@ -292,7 +291,7 @@ fn scan_adopted_recursive(dir: &Path, out: &mut HashSet<String>) -> Result<()> {
 
 /// Load `npc.pack` (id=name format). Returns id→name map.
 fn load_pack_file(path: &Path) -> Result<HashMap<u16, String>> {
-    let content = std::fs::read_to_string(path).with_context(|| format!("read {:?}", path))?;
+    let content = fs::read_to_string(path).with_context(|| format!("read {:?}", path))?;
     let mut map = HashMap::new();
     for line in content.lines() {
         let line = line.trim();
@@ -312,7 +311,7 @@ fn load_pack_file(path: &Path) -> Result<HashMap<u16, String>> {
 fn write_pack_file(path: &Path, map: &HashMap<u16, String>) -> Result<()> {
     let mut entries: Vec<(u16, &str)> = map.iter().map(|(&id, name)| (id, name.as_str())).collect();
     entries.sort_by_key(|(id, _)| *id);
-    let mut file = std::fs::File::create(path).with_context(|| format!("create {:?}", path))?;
+    let mut file = File::create(path).with_context(|| format!("create {:?}", path))?;
     for (id, name) in entries {
         writeln!(file, "{}={}", id, name)?;
     }

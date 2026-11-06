@@ -44,7 +44,7 @@ fn a_drop_after_the_zones_settle_is_sent_in_its_own_zone() {
         client.packets();
 
         let mut p = ClientPacket::new();
-        p.p4(BACKPACK).ip2_alt1(logs as i32).ip2(0);
+        p.p4(BACKPACK).p2_alt3(logs as i32).p2_alt1(0);
         client.send(ClientProt::IfButton8, &p.finish());
         let mut packets = Vec::new();
         for _ in 0..2 {
@@ -52,8 +52,8 @@ fn a_drop_after_the_zones_settle_is_sent_in_its_own_zone() {
             packets.extend(client.packets());
         }
 
-        // The zone's x is a plain byte in both headers -- FOLLOWS: `p1_alt1
-        // level; p1 x; p1_alt2 z`, ENCLOSED: `p1 x; p1_alt1 level; p1 z` --
+        // The zone's x is a plain byte in both headers -- FOLLOWS: `p1_alt2
+        // level; p1 x; p1_alt3 z`, ENCLOSED: `p1 x; p1_alt2 level; p1 z` --
         // and a tile offset in place of the index shows in x as well as z.
         let xs: Vec<u8> = packets
             .iter()

@@ -16,10 +16,10 @@ pub struct ApCoordT {
 
 impl ClientProtMessage for ApCoordT {
     fn decode(buf: &mut Packet, _: usize) -> Self {
-        let x = buf.ig2();
+        let x = buf.g2_alt1();
         let slot = buf.g2();
-        let obj = buf.g2_alt1();
-        let z = buf.g2_alt1();
+        let obj = buf.g2_alt2();
+        let z = buf.g2_alt2();
         let com = buf.g4s() as u32;
         ApCoordT {
             x,

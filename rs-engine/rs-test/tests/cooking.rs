@@ -85,13 +85,13 @@ fn three_shrimps_on_a_range_in_one_go() {
 
         let (loc, x, z) = RANGE;
         let mut p = ClientPacket::new();
-        p.p2_alt1(raw as i32)
-            .p2_alt1(0)
+        p.p2_alt2(raw as i32)
+            .p2_alt2(0)
             .p2(z as i32)
             .p4_alt2(BACKPACK)
-            .p2_alt1(x as i32)
-            .p1_alt3(0)
-            .ip2(loc as i32);
+            .p2_alt2(x as i32)
+            .p1_alt1(0)
+            .p2_alt1(loc as i32);
         client.send(ClientProt::OpLocT, &p.finish());
         let said = ticks(engine, &mut client, 6);
         let player = engine.harness_player(client.pid).unwrap();
@@ -101,7 +101,7 @@ fn three_shrimps_on_a_range_in_one_go() {
         );
 
         let mut p = ClientPacket::new();
-        p.p4(ALL).ip2_alt1(NONE).ip2(NONE);
+        p.p4(ALL).p2_alt3(NONE).p2_alt1(NONE);
         client.send(ClientProt::IfButton1, &p.finish());
         let said = ticks(engine, &mut client, 1);
         assert!(said.is_empty(), "All said {said:?}");
@@ -137,7 +137,7 @@ fn three_shrimps_on_a_range_in_one_go() {
 /// The Cooking Guild's door (`chefdoor`, 0_49_53_7_51). 2011 moved it a
 /// square south of 289's, onto the street's side of its wall: the guild is
 /// north (its Head chef, range and tables), so the door's own square is
-/// outside. OPLOC1 is `ip2(z) ip2(loc) p1(ctrl) p2_alt1(x)`.
+/// outside. OPLOC1 is `p2_alt1(z) p2_alt1(loc) p1(ctrl) p2_alt2(x)`.
 const CHEFDOOR: (u16, u16) = (3143, 3443);
 /// npc_chat3, the Head chef's three lines, and its "Click here to continue".
 const NPC_CHAT_3: u16 = 243;
@@ -148,10 +148,10 @@ const CHEFDOOR_LOC: i32 = 2712;
 
 fn open_chefdoor(client: &mut HarnessClient) {
     let mut p = ClientPacket::new();
-    p.ip2(CHEFDOOR.1 as i32)
-        .ip2(CHEFDOOR_LOC)
+    p.p2_alt1(CHEFDOOR.1 as i32)
+        .p2_alt1(CHEFDOOR_LOC)
         .p1(0)
-        .p2_alt1(CHEFDOOR.0 as i32);
+        .p2_alt2(CHEFDOOR.0 as i32);
     client.send(ClientProt::OpLoc1, &p.finish());
 }
 

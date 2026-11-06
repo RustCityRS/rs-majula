@@ -21,10 +21,10 @@ pub struct NpcAnimSpecific {
 impl ServerProtMessage for NpcAnimSpecific {
     fn encode(&self, buf: &mut Packet) {
         for a in &self.anims {
-            buf.ip2(*a);
+            buf.p2_alt1(*a);
         }
-        buf.p1_alt3(self.delay);
-        buf.ip2(self.npc_uid);
+        buf.p1_alt1(self.delay);
+        buf.p2_alt1(self.npc_uid);
     }
 
     fn sizeof(&self) -> usize {

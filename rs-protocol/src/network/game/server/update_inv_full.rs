@@ -135,18 +135,18 @@ impl ServerProtMessage for UpdateInvFull {
                 Some(item) => {
                     if item.count >= 255 {
                         buf.p1(255);
-                        buf.ip4(item.count as i32);
+                        buf.p4_alt1(item.count as i32);
                     } else {
                         buf.p1(item.count as u8);
                     }
                     let id_plus_one = item.id + 1;
                     buf.p1((id_plus_one >> 8) as u8);
-                    buf.p1_alt3(id_plus_one as u8);
+                    buf.p1_alt1(id_plus_one as u8);
                 }
                 None => {
                     buf.p1(0);
                     buf.p1(0);
-                    buf.p1_alt3(0);
+                    buf.p1_alt1(0);
                 }
             }
         }

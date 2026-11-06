@@ -957,7 +957,7 @@ impl PlayerInfo {
     ) {
         let pid = other.player.uid.pid();
         if masks > 0xff {
-            self.updates.ip2(masks | PlayerInfoProt::BigInfo as u16);
+            self.updates.p2_alt1(masks | PlayerInfoProt::BigInfo as u16);
         } else {
             self.updates.p1(masks as u8);
         }
@@ -2243,33 +2243,33 @@ mod client_decode_tests {
         fn g1(&mut self) -> i32 {
             self.byte() & 0xFF
         }
-        fn g1_alt1(&mut self) -> i32 {
+        fn g1_alt2(&mut self) -> i32 {
             -self.byte() & 0xFF
         }
-        fn g1_alt2(&mut self) -> i32 {
+        fn g1_alt3(&mut self) -> i32 {
             (128 - self.byte()) & 0xFF
         }
-        fn g1_alt3(&mut self) -> i32 {
+        fn g1_alt1(&mut self) -> i32 {
             (self.byte() - 128) & 0xFF
         }
         fn g2(&mut self) -> i32 {
             let hi = self.g1();
             (hi << 8) | self.g1()
         }
-        fn ig2(&mut self) -> i32 {
+        fn g2_alt1(&mut self) -> i32 {
             let lo = self.g1();
             lo | (self.g1() << 8)
         }
-        fn g2_alt1(&mut self) -> i32 {
+        fn g2_alt2(&mut self) -> i32 {
             let hi = self.g1();
             let lo = (self.byte() - 128) & 0xFF;
             (hi << 8) | lo
         }
-        fn ig2_alt1(&mut self) -> i32 {
+        fn g2_alt3(&mut self) -> i32 {
             let lo = (self.byte() - 128) & 0xFF;
             lo | (self.g1() << 8)
         }
-        fn g4_alt1(&mut self) -> i32 {
+        fn g4s_alt3(&mut self) -> i32 {
             let (a, b, c, d) = (self.g1(), self.g1(), self.g1(), self.g1());
             c | (b << 24) | (a << 16) | (d << 8)
         }
@@ -2324,7 +2324,7 @@ mod client_decode_tests {
                 let bytes = renderer.high_block(1);
                 let mut r = Reader { b: bytes, pos: 0 };
                 assert_eq!(r.g1(), 0x4);
-                assert_eq!(r.g1_alt2() as usize, bytes.len() - 2);
+                assert_eq!(r.g1_alt3() as usize, bytes.len() - 2);
                 assert_eq!(r.g1(), gender as i32);
                 assert_eq!((r.byte(), r.byte(), r.byte()), (-1, -1, prayer));
                 assert_eq!(r.g1(), 0);
@@ -2361,7 +2361,7 @@ mod client_decode_tests {
         let bytes = renderer.high_block(1);
         let mut r = Reader { b: bytes, pos: 0 };
         assert_eq!(r.g1(), 0x4);
-        assert_eq!(r.g1_alt2() as usize, bytes.len() - 2);
+        assert_eq!(r.g1_alt3() as usize, bytes.len() - 2);
         assert_eq!(r.g1(), 0x1 | 0x4);
         assert_eq!((r.byte(), r.byte(), r.byte(), r.g1()), (-1, -1, -1, 0));
         assert_eq!((r.g2(), r.g2(), r.g1()), (65535, 4231, 0));
@@ -2419,25 +2419,25 @@ mod client_decode_tests {
 
         assert_eq!(r.g2(), 4231, "0x2 change type");
         assert_eq!(
-            (r.g2(), r.ig2()),
+            (r.g2(), r.g2_alt1()),
             (3222 * 2 + 1, 3218 * 2 + 1),
             "0x4 face coord, fine"
         );
-        assert_eq!(r.ig2_alt1(), 74, "0x20 spotanim id");
-        assert_eq!(r.g4_alt1(), 92 << 16 | 5, "0x20 spotanim height and delay");
-        assert_eq!(r.g1_alt3() >> 3 & 0xF, 15, "0x20 no attachment");
-        assert_eq!(r.ig2(), 0x8000 + 12, "0x10 face entity");
+        assert_eq!(r.g2_alt3(), 74, "0x20 spotanim id");
+        assert_eq!(r.g4s_alt3(), 92 << 16 | 5, "0x20 spotanim height and delay");
+        assert_eq!(r.g1_alt1() >> 3 & 0xF, 15, "0x20 no attachment");
+        assert_eq!(r.g2_alt1(), 0x8000 + 12, "0x10 face entity");
         assert_eq!(r.gjstr(), "Moo", "0x40 say");
-        let count = r.g1_alt3();
+        let count = r.g1_alt1();
         assert_eq!(
             r.hits(count),
             vec![(1, 25, 0, 75 * 255 / 100), (2, 150, 0, 60 * 255 / 100)],
             "0x1 both hits in one block"
         );
         for channel in 0..4 {
-            assert_eq!(r.g2_alt1(), 5577, "0x80 anim channel {channel}");
+            assert_eq!(r.g2_alt2(), 5577, "0x80 anim channel {channel}");
         }
-        assert_eq!(r.g1_alt1(), 3, "0x80 anim delay");
+        assert_eq!(r.g1_alt2(), 3, "0x80 anim delay");
         assert_eq!(r.pos, bytes.len(), "the client reads every byte written");
     }
 
@@ -2477,21 +2477,21 @@ mod client_decode_tests {
         for channel in 0..4 {
             assert_eq!(r.g2(), 879, "0x80 anim channel {channel}");
         }
-        assert_eq!(r.g1_alt3(), 3, "0x80 anim delay");
+        assert_eq!(r.g1_alt1(), 3, "0x80 anim delay");
         let count = r.g1();
         assert_eq!(
             r.hits(count),
             vec![(1, 25, 0, 75 * 255 / 100), (2, 150, 0, 60 * 255 / 100)],
             "0x2 both hits in one block"
         );
-        assert_eq!(r.ig2_alt1(), 42, "0x10 face entity");
-        assert_eq!(r.g2_alt1(), 90, "0x40 spotanim id");
+        assert_eq!(r.g2_alt3(), 42, "0x10 face entity");
+        assert_eq!(r.g2_alt2(), 90, "0x40 spotanim id");
         assert_eq!(
-            r.g4_alt1(),
+            r.g4s_alt3(),
             100 << 16 | 30,
             "0x40 spotanim height and delay"
         );
-        assert_eq!(r.g1_alt2() >> 3 & 0xF, 15, "0x40 no attachment");
+        assert_eq!(r.g1_alt3() >> 3 & 0xF, 15, "0x40 no attachment");
         assert_eq!(r.gjstr(), "Hi", "0x200 say");
         assert_eq!(r.pos, bytes.len(), "the client reads every byte written");
     }
@@ -2518,9 +2518,9 @@ mod client_decode_tests {
             pos: 0,
         };
         assert_eq!(r.g1(), 0x1 | 0x4 | 0x8 | 0x10);
-        assert_eq!(r.g2_alt1(), 0x3000);
+        assert_eq!(r.g2_alt2(), 0x3000);
         assert_eq!(r.g1(), 1);
-        assert_eq!(r.ig2_alt1(), 42);
+        assert_eq!(r.g2_alt3(), 42);
         assert_eq!(&r.b[r.pos..], &[125, 1, 2, 3]);
         assert!(renderer.high_block(7).is_empty());
     }

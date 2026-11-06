@@ -1,6 +1,5 @@
 #[cfg(since_647)]
 use crate::network::game::server_prot::ServerProt;
-use crate::network::game::server_prot_message::jstr_len;
 #[cfg(since_647)]
 use crate::network::game::server_prot_message::{ServerProtMessage, ServerProtMessageInfo};
 #[cfg(since_647)]
@@ -61,7 +60,7 @@ impl ServerProtMessage for UpdateFriendchatChannelFull {
         let header = self.owner.len()
             + 1
             + 1
-            + self.alt_owner.as_ref().map_or(0, |s| jstr_len(s))
+            + self.alt_owner.as_ref().map_or(0, |s| Packet::sizejstr(s))
             + size_of_val(&self.channel_id)
             + size_of_val(&self.min_rank)
             + 1;
@@ -69,9 +68,12 @@ impl ServerProtMessage for UpdateFriendchatChannelFull {
             .members
             .iter()
             .map(|m| {
-                let base = jstr_len(&m.name) + 1;
-                let display = m.display_name.as_ref().map_or(0, |d| jstr_len(d) + 2);
-                base + display + size_of_val(&m.rank) + jstr_len(&m.title)
+                let base = Packet::sizejstr(&m.name) + 1;
+                let display = m
+                    .display_name
+                    .as_ref()
+                    .map_or(0, |d| Packet::sizejstr(d) + 2);
+                base + display + size_of_val(&m.rank) + Packet::sizejstr(&m.title)
             })
             .sum();
         header + members

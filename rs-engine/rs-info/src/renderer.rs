@@ -118,12 +118,10 @@ impl Slot {
     /// The `data` buffer is 8 bytes and all writes stay within bounds (max 6 bytes).
     /// `#[repr(C)]` guarantees `data` is at offset 0 so pointer arithmetic is valid.
     #[inline(always)]
-    const fn set_p2(&mut self, a: u16) {
-        unsafe {
-            let ptr = self.data.as_mut_ptr();
-            core::ptr::write_unaligned(ptr as *mut u16, a.to_be());
-        }
-        self.len = 2;
+    fn set_p2(&mut self, a: u16) {
+        let mut buf = Packet::from(&mut self.data[..]);
+        buf.p2(a);
+        self.len = buf.pos as u8;
     }
 
     /// Stores a 2-byte big-endian value followed by a 1-byte value into the slot.
@@ -138,13 +136,11 @@ impl Slot {
     /// All writes are within the 8-byte `data` buffer.
     #[inline(always)]
     #[cfg(before_647)]
-    const fn set_p2_p1(&mut self, a: u16, b: u8) {
-        unsafe {
-            let ptr = self.data.as_mut_ptr();
-            core::ptr::write_unaligned(ptr as *mut u16, a.to_be());
-            core::ptr::write(ptr.add(2), b);
-        }
-        self.len = 3;
+    fn set_p2_p1(&mut self, a: u16, b: u8) {
+        let mut buf = Packet::from(&mut self.data[..]);
+        buf.p2(a);
+        buf.p1(b);
+        self.len = buf.pos as u8;
     }
 
     /// Stores four individual bytes into the slot.
@@ -161,12 +157,13 @@ impl Slot {
     /// All writes are within the 8-byte `data` buffer.
     #[inline(always)]
     #[cfg(before_647)]
-    const fn set_p1_p1_p1_p1(&mut self, a: u8, b: u8, c: u8, d: u8) {
-        unsafe {
-            let ptr = self.data.as_mut_ptr();
-            core::ptr::write_unaligned(ptr as *mut u32, u32::from_ne_bytes([a, b, c, d]));
-        }
-        self.len = 4;
+    fn set_p1_p1_p1_p1(&mut self, a: u8, b: u8, c: u8, d: u8) {
+        let mut buf = Packet::from(&mut self.data[..]);
+        buf.p1(a);
+        buf.p1(b);
+        buf.p1(c);
+        buf.p1(d);
+        self.len = buf.pos as u8;
     }
 
     /// Stores two 2-byte big-endian values into the slot.
@@ -181,15 +178,11 @@ impl Slot {
     /// All writes are within the 8-byte `data` buffer.
     #[inline(always)]
     #[cfg(before_647)]
-    const fn set_p2_p2(&mut self, a: u16, b: u16) {
-        unsafe {
-            let ptr = self.data.as_mut_ptr();
-            core::ptr::write_unaligned(
-                ptr as *mut u32,
-                u32::from_ne_bytes([(a >> 8) as u8, a as u8, (b >> 8) as u8, b as u8]),
-            );
-        }
-        self.len = 4;
+    fn set_p2_p2(&mut self, a: u16, b: u16) {
+        let mut buf = Packet::from(&mut self.data[..]);
+        buf.p2(a);
+        buf.p2(b);
+        self.len = buf.pos as u8;
     }
 
     /// Stores a 2-byte big-endian value followed by a 4-byte big-endian value.
@@ -204,59 +197,60 @@ impl Slot {
     /// All writes are within the 8-byte `data` buffer.
     #[inline(always)]
     #[cfg(before_647)]
-    const fn set_p2_p4(&mut self, a: u16, b: i32) {
-        unsafe {
-            let ptr = self.data.as_mut_ptr();
-            core::ptr::write_unaligned(ptr as *mut u16, a.to_be());
-            core::ptr::write_unaligned(ptr.add(2) as *mut i32, b.to_be());
-        }
-        self.len = 6;
+    fn set_p2_p4(&mut self, a: u16, b: i32) {
+        let mut buf = Packet::from(&mut self.data[..]);
+        buf.p2(a);
+        buf.p4(b);
+        self.len = buf.pos as u8;
     }
 
     #[cfg(since_647)]
     #[inline(always)]
     fn set_p2_ip2(&mut self, x: u16, z: u16) {
-        self.data[..2].copy_from_slice(&x.to_be_bytes());
-        self.data[2..4].copy_from_slice(&z.to_le_bytes());
-        self.len = 4;
+        let mut buf = Packet::from(&mut self.data[..]);
+        buf.p2(x);
+        buf.p2_alt1(z);
+        self.len = buf.pos as u8;
     }
 
     #[cfg(since_647)]
     #[inline(always)]
     fn set_p1(&mut self, a: u8) {
-        self.data[0] = a;
-        self.len = 1;
+        let mut buf = Packet::from(&mut self.data[..]);
+        buf.p1(a);
+        self.len = buf.pos as u8;
     }
 
     #[cfg(since_647)]
     #[inline(always)]
-    fn set_p2_alt1(&mut self, a: u16) {
-        self.data[0] = (a >> 8) as u8;
-        self.data[1] = (a as u8).wrapping_add(128);
-        self.len = 2;
+    fn set_p2_alt2(&mut self, a: u16) {
+        let mut buf = Packet::from(&mut self.data[..]);
+        buf.p2_alt2(a);
+        self.len = buf.pos as u8;
     }
 
     #[cfg(since_647)]
     #[inline(always)]
-    fn set_ip2_alt1(&mut self, a: u16) {
-        self.data[0] = (a as u8).wrapping_add(128);
-        self.data[1] = (a >> 8) as u8;
-        self.len = 2;
+    fn set_p2_alt3(&mut self, a: u16) {
+        let mut buf = Packet::from(&mut self.data[..]);
+        buf.p2_alt3(a);
+        self.len = buf.pos as u8;
     }
 
     #[cfg(since_647)]
     #[inline(always)]
     fn set_ip2(&mut self, a: u16) {
-        self.data[0] = a as u8;
-        self.data[1] = (a >> 8) as u8;
-        self.len = 2;
+        let mut buf = Packet::from(&mut self.data[..]);
+        buf.p2_alt1(a);
+        self.len = buf.pos as u8;
     }
 
     #[cfg(since_647)]
     #[inline(always)]
-    fn set_p1_alt1(&mut self, a: u8) {
-        self.data[0] = 0u8.wrapping_sub(a);
-        self.len = 1;
+    fn set_p1_alt2(&mut self, a: u8) {
+        let mut buf = Packet::from(&mut self.data[..]);
+        buf.p1_alt2(a);
+        self.len = buf.pos as u8;
     }
 
     #[cfg(since_647)]
@@ -272,99 +266,71 @@ impl Slot {
         finish: u16,
         dir: u8,
     ) {
-        self.data[0] = 128u8.wrapping_sub(start_x as u8);
-        self.data[1] = start_z as u8;
-        self.data[2] = 0u8.wrapping_sub(end_x as u8);
-        self.data[3] = 128u8.wrapping_sub(end_z as u8);
-        self.data[4] = (begin >> 8) as u8;
-        self.data[5] = (begin as u8).wrapping_add(128);
-        let fb = finish.to_be_bytes();
-        self.data[6] = fb[0];
-        self.data[7] = fb[1];
-        self.data[8] = 0u8.wrapping_sub(dir);
-        self.len = 9;
-    }
-
-    #[cfg(since_647)]
-    #[inline(always)]
-    fn put_smart(&mut self, pos: usize, value: i32) -> usize {
-        if (0..=127).contains(&value) {
-            self.data[pos] = value as u8;
-            1
-        } else {
-            let v = (value + 32768) as u16;
-            self.data[pos] = (v >> 8) as u8;
-            self.data[pos + 1] = v as u8;
-            2
-        }
+        let mut buf = Packet::from(&mut self.data[..]);
+        buf.p1_alt3(start_x as u8);
+        buf.p1(start_z as u8);
+        buf.p1_alt2(end_x as u8);
+        buf.p1_alt3(end_z as u8);
+        buf.p2_alt2(begin);
+        buf.p2(finish);
+        buf.p1_alt2(dir);
+        self.len = buf.pos as u8;
     }
 
     #[cfg(since_647)]
     #[inline(always)]
     fn set_hits(&mut self, count: u8, hits: &[Hit]) {
-        let mut n = 0;
-        self.data[n] = count;
-        n += 1;
+        let mut buf = Packet::from(&mut self.data[..]);
+        buf.p1(count);
         for hit in hits {
-            n += self.put_smart(n, hit.hitmark);
-            n += self.put_smart(n, hit.damage);
-            n += self.put_smart(n, 0);
-            self.data[n] = hit.health_percent;
-            n += 1;
+            buf.psmart1or2(hit.hitmark);
+            buf.psmart1or2(hit.damage);
+            buf.psmart1or2(0);
+            buf.p1(hit.health_percent);
         }
-        self.len = n as u8;
+        self.len = buf.pos as u8;
     }
 
     #[cfg(since_647)]
     #[inline(always)]
     fn set_player_anim(&mut self, anim: u16, delay: u8) {
-        let ab = anim.to_be_bytes();
-        for channel in 0..4 {
-            self.data[channel * 2] = ab[0];
-            self.data[channel * 2 + 1] = ab[1];
+        let mut buf = Packet::from(&mut self.data[..]);
+        for _ in 0..4 {
+            buf.p2(anim);
         }
-        self.data[8] = delay.wrapping_add(128);
-        self.len = 9;
+        buf.p1_alt1(delay);
+        self.len = buf.pos as u8;
     }
 
     #[cfg(since_647)]
     #[inline(always)]
     fn set_npc_anim(&mut self, anim: u16, delay: u8) {
-        for channel in 0..4 {
-            self.data[channel * 2] = (anim >> 8) as u8;
-            self.data[channel * 2 + 1] = (anim as u8).wrapping_add(128);
+        let mut buf = Packet::from(&mut self.data[..]);
+        for _ in 0..4 {
+            buf.p2_alt2(anim);
         }
-        self.data[8] = 0u8.wrapping_sub(delay);
-        self.len = 9;
+        buf.p1_alt2(delay);
+        self.len = buf.pos as u8;
     }
 
     #[cfg(since_647)]
     #[inline(always)]
     fn set_player_spotanim(&mut self, id: u16, height: u16, delay: u16) {
-        self.data[0] = (id >> 8) as u8;
-        self.data[1] = (id as u8).wrapping_add(128);
-        let packed: u32 = ((height as u32) << 16) | (delay as u32);
-        self.data[2] = (packed >> 16) as u8;
-        self.data[3] = (packed >> 24) as u8;
-        self.data[4] = packed as u8;
-        self.data[5] = (packed >> 8) as u8;
-        self.data[6] = 128u8.wrapping_sub(15 << 3);
-        self.len = 7;
+        let mut buf = Packet::from(&mut self.data[..]);
+        buf.p2_alt2(id);
+        buf.p4_alt3(((height as i32) << 16) | delay as i32);
+        buf.p1_alt3(15 << 3);
+        self.len = buf.pos as u8;
     }
 
     #[cfg(since_647)]
     #[inline(always)]
     fn set_npc_spotanim(&mut self, id: u16, height: u16, delay: u16) {
-        self.data[0] = (id as u8).wrapping_add(128);
-        self.data[1] = (id >> 8) as u8;
-        let packed: u32 = ((height as u32) << 16) | (delay as u32);
-        self.data[2] = (packed >> 16) as u8;
-        self.data[3] = (packed >> 24) as u8;
-        self.data[4] = packed as u8;
-        self.data[5] = (packed >> 8) as u8;
-        let g1: u8 = 15 << 3;
-        self.data[6] = g1.wrapping_add(128);
-        self.len = 7;
+        let mut buf = Packet::from(&mut self.data[..]);
+        buf.p2_alt3(id);
+        buf.p4_alt3(((height as i32) << 16) | delay as i32);
+        buf.p1_alt1(15 << 3);
+        self.len = buf.pos as u8;
     }
 }
 
@@ -593,7 +559,7 @@ impl PlayerRenderer {
                 #[cfg(before_647)]
                 slot.set_p2(info.face_entity.unwrap_or(u16::MAX));
                 #[cfg(since_647)]
-                slot.set_ip2_alt1(info.face_entity.unwrap_or(u16::MAX));
+                slot.set_p2_alt3(info.face_entity.unwrap_or(u16::MAX));
                 active |= 1 << PlayerInfoProt::FaceEntity.to_index();
             }
             if masks & PlayerInfoProt::Say as u16 != 0 {
@@ -635,7 +601,7 @@ impl PlayerRenderer {
                         (Some(x), Some(z)) => face_angle(src_x, src_z, x as i32, z as i32),
                         _ => 0,
                     };
-                    slot.set_p2_alt1(angle);
+                    slot.set_p2_alt2(angle);
                 }
                 active |= 1 << PlayerInfoProt::FaceCoord.to_index();
             }
@@ -698,7 +664,7 @@ impl PlayerRenderer {
                 }
                 if masks & PlayerInfoProt::TempMoveType as u16 != 0 {
                     self.fixed[PlayerInfoProt::TempMoveType.to_index()][pid]
-                        .set_p1_alt1(info.temp_move_type.unwrap_or(0));
+                        .set_p1_alt2(info.temp_move_type.unwrap_or(0));
                     active |= 1 << PlayerInfoProt::TempMoveType.to_index();
                 }
                 if masks & PlayerInfoProt::ExactMove as u16 != 0 {
@@ -989,7 +955,7 @@ impl PlayerRenderer {
         #[cfg(before_647)]
         slot.set_p2(entity);
         #[cfg(since_647)]
-        slot.set_ip2_alt1(entity);
+        slot.set_p2_alt3(entity);
     }
 
     /// Caches face-coordinate values for low-definition updates.
@@ -1031,7 +997,7 @@ impl PlayerRenderer {
             x as i32,
             z as i32,
         );
-        self.fixed[PlayerInfoProt::FaceCoord.to_index()][id as usize].set_p2_alt1(angle);
+        self.fixed[PlayerInfoProt::FaceCoord.to_index()][id as usize].set_p2_alt2(angle);
     }
 
     /// Returns the total pre-computed high-definition byte size for a player.

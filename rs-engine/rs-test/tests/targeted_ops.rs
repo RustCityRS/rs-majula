@@ -101,13 +101,13 @@ fn item_on_ground_obj(engine: &mut Engine) {
     engine.harness_add_obj(x, 0, z, logs, 1);
 
     let mut p = ClientPacket::new();
-    p.ip2(tinderbox as i32)
-        .ip2(logs as i32)
+    p.p2_alt1(tinderbox as i32)
+        .p2_alt1(logs as i32)
         .p2(0)
         .p4_alt2(BACKPACK)
-        .p1_alt3(0)
-        .p2_alt1(z as i32)
-        .p2_alt1(x as i32);
+        .p1_alt1(0)
+        .p2_alt2(z as i32)
+        .p2_alt2(x as i32);
     client.send(ClientProt::OpObjT, &p.finish());
     engine.harness_inputs();
 
@@ -145,13 +145,13 @@ fn item_on_loc(engine: &mut Engine) {
     hold(engine, client.pid, 3, tinderbox);
 
     let mut p = ClientPacket::new();
-    p.p2_alt1(tinderbox as i32)
-        .p2_alt1(3)
+    p.p2_alt2(tinderbox as i32)
+        .p2_alt2(3)
         .p2(3450)
         .p4_alt2(BACKPACK)
-        .p2_alt1(2552)
-        .p1_alt3(0)
-        .ip2(1276);
+        .p2_alt2(2552)
+        .p1_alt1(0)
+        .p2_alt1(1276);
     client.send(ClientProt::OpLocT, &p.finish());
     engine.harness_inputs();
 
@@ -199,11 +199,11 @@ fn spell_on_npc(engine: &mut Engine) {
     // modern:wind_strike, the standard spellbook's first combat spell.
     let wind_strike = (192 << 16) | 25;
     let mut p = ClientPacket::new();
-    p.p2_alt1(NO_OBJ)
-        .p2_alt1(NO_OBJ)
-        .ip2(nid as i32)
-        .p4_alt1(wind_strike)
-        .p1_alt1(0);
+    p.p2_alt2(NO_OBJ)
+        .p2_alt2(NO_OBJ)
+        .p2_alt1(nid as i32)
+        .p4_alt3(wind_strike)
+        .p1_alt2(0);
     client.send(ClientProt::OpNpcT, &p.finish());
     engine.harness_inputs();
 
@@ -244,11 +244,11 @@ fn item_on_player(engine: &mut Engine) {
     );
 
     let mut p = ClientPacket::new();
-    p.p2_alt1(other.pid as i32)
-        .ip2(0)
+    p.p2_alt2(other.pid as i32)
+        .p2_alt1(0)
         .p4(BACKPACK)
-        .p1_alt2(0)
-        .ip2(tinderbox as i32);
+        .p1_alt3(0)
+        .p2_alt1(tinderbox as i32);
     client.send(ClientProt::OpPlayerT, &p.finish());
     engine.harness_inputs();
 
@@ -274,13 +274,13 @@ fn forged_item_is_dropped(engine: &mut Engine) {
     hold(engine, client.pid, 0, tinderbox);
 
     let mut p = ClientPacket::new();
-    p.p2_alt1(logs as i32)
-        .p2_alt1(0)
+    p.p2_alt2(logs as i32)
+        .p2_alt2(0)
         .p2(3450)
         .p4_alt2(BACKPACK)
-        .p2_alt1(2552)
-        .p1_alt3(0)
-        .ip2(1276);
+        .p2_alt2(2552)
+        .p1_alt1(0)
+        .p2_alt1(1276);
     client.send(ClientProt::OpLocT, &p.finish());
     engine.harness_inputs();
 

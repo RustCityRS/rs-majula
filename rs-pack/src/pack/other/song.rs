@@ -1,5 +1,5 @@
 #[cfg(since_647)]
-use crate::cache::midi::read_varint;
+use crate::archive::{self, ArchiveVersions};
 #[cfg(since_647)]
 use crate::pack::js5::{
     PreparedGroup, load_group_files, load_name_hashes, stamp_path, write_archive,
@@ -9,17 +9,17 @@ use crate::pack::packed_data::PackedData;
 #[cfg(since_647)]
 use crate::startup::{is_up_to_date, newest_mtime, write_stamp};
 #[cfg(since_647)]
-use anyhow::{Result, bail};
+use anyhow::{Result, bail, ensure};
 #[cfg(since_647)]
 use rayon::prelude::*;
 #[cfg(since_647)]
-use rs_dat2::CacheStore;
-#[cfg(since_647)]
-use rs_dat2::archive::{self, ArchiveVersions};
-#[cfg(since_647)]
-use rs_dat2::reference::FileInfo;
+use rs_io::Packet;
 #[cfg(before_647)]
 use rs_io::bz2::bz2_compress_with_size;
+#[cfg(since_647)]
+use rs_io::js5::Js5Store;
+#[cfg(since_647)]
+use rs_io::js5::reference::FileInfo;
 use std::collections::HashMap;
 use std::fs;
 use std::path::Path;
@@ -67,7 +67,7 @@ pub fn pack_midis(content_dir: &Path, kind: &str) -> HashMap<String, Vec<u8>> {
 
 #[cfg(since_647)]
 pub fn pack_archive(
-    store: &mut CacheStore,
+    store: &mut Js5Store,
     content_dir: &Path,
     output_dir: &Path,
     pack_dir: &Path,
@@ -189,65 +189,52 @@ struct MidiEvent {
 }
 
 #[cfg(since_647)]
-fn read_u16(data: &[u8], pos: &mut usize) -> Result<u16> {
-    if *pos + 2 > data.len() {
-        bail!("unexpected EOF reading u16 at {}", *pos);
-    }
-    let v = u16::from_be_bytes([data[*pos], data[*pos + 1]]);
-    *pos += 2;
-    Ok(v)
-}
-
-#[cfg(since_647)]
-fn read_u32(data: &[u8], pos: &mut usize) -> Result<u32> {
-    if *pos + 4 > data.len() {
-        bail!("unexpected EOF reading u32 at {}", *pos);
-    }
-    let v = u32::from_be_bytes([data[*pos], data[*pos + 1], data[*pos + 2], data[*pos + 3]]);
-    *pos += 4;
-    Ok(v)
-}
-
-#[cfg(since_647)]
 fn parse_standard_midi(data: &[u8]) -> Result<(u16, Vec<Vec<MidiEvent>>)> {
-    let mut pos = 0usize;
+    ensure!(data.len() >= 14, "MIDI header too short");
+    let mut buf = Packet::from(data);
 
-    let magic = read_u32(data, &mut pos)?;
+    let magic = buf.g4s() as u32;
     if magic != 0x4D546864 {
         bail!("not a MIDI file (bad MThd magic)");
     }
-    let header_len = read_u32(data, &mut pos)?;
+    let header_len = buf.g4s() as u32;
     if header_len < 6 {
         bail!("MThd header too short: {}", header_len);
     }
-    let _format = read_u16(data, &mut pos)?;
-    let num_tracks = read_u16(data, &mut pos)?;
-    let division = read_u16(data, &mut pos)?;
-    pos = 8 + header_len as usize;
+    let _format = buf.g2();
+    let num_tracks = buf.g2();
+    let division = buf.g2();
+    buf.pos = 8 + header_len as usize;
 
     let mut tracks = Vec::with_capacity(num_tracks as usize);
 
     for _ in 0..num_tracks {
-        let magic = read_u32(data, &mut pos)?;
+        ensure!(buf.pos + 8 <= data.len(), "truncated MIDI track header");
+        let magic = buf.g4s() as u32;
         if magic != 0x4D54726B {
-            bail!("bad MTrk magic at {}", pos - 4);
+            bail!("bad MTrk magic at {}", buf.pos - 4);
         }
-        let track_len = read_u32(data, &mut pos)? as usize;
-        let track_end = pos + track_len;
+        let track_len = buf.g4s() as u32 as usize;
+        let track_end = buf.pos + track_len;
+        ensure!(track_end <= data.len(), "truncated MIDI track");
 
         let mut events = Vec::new();
         let mut running_status: u8 = 0;
 
-        while pos < track_end {
-            let delta = read_varint(data, &mut pos)?;
+        while buf.pos < track_end {
+            ensure!(
+                data[buf.pos..track_end].iter().any(|byte| byte & 0x80 == 0),
+                "truncated MIDI delta"
+            );
+            let delta = buf.gmidivarlen();
 
-            if pos >= track_end {
+            if buf.pos >= track_end {
                 bail!("unexpected end of track data");
             }
 
-            let status = if data[pos] & 0x80 != 0 {
-                let s = data[pos];
-                pos += 1;
+            let status = if data[buf.pos] & 0x80 != 0 {
+                let s = data[buf.pos];
+                buf.pos += 1;
                 running_status = s;
                 s
             } else {
@@ -256,10 +243,10 @@ fn parse_standard_midi(data: &[u8]) -> Result<(u16, Vec<Vec<MidiEvent>>)> {
 
             let kind = match status & 0xF0 {
                 0x80 => {
-                    let note = data[pos] & 0x7F;
-                    pos += 1;
-                    let vel = data[pos] & 0x7F;
-                    pos += 1;
+                    let note = data[buf.pos] & 0x7F;
+                    buf.pos += 1;
+                    let vel = data[buf.pos] & 0x7F;
+                    buf.pos += 1;
                     MidiEventKind::NoteOff {
                         channel: status & 0x0F,
                         note,
@@ -267,10 +254,10 @@ fn parse_standard_midi(data: &[u8]) -> Result<(u16, Vec<Vec<MidiEvent>>)> {
                     }
                 }
                 0x90 => {
-                    let note = data[pos] & 0x7F;
-                    pos += 1;
-                    let vel = data[pos] & 0x7F;
-                    pos += 1;
+                    let note = data[buf.pos] & 0x7F;
+                    buf.pos += 1;
+                    let vel = data[buf.pos] & 0x7F;
+                    buf.pos += 1;
                     MidiEventKind::NoteOn {
                         channel: status & 0x0F,
                         note,
@@ -278,10 +265,10 @@ fn parse_standard_midi(data: &[u8]) -> Result<(u16, Vec<Vec<MidiEvent>>)> {
                     }
                 }
                 0xA0 => {
-                    let note = data[pos] & 0x7F;
-                    pos += 1;
-                    let pressure = data[pos] & 0x7F;
-                    pos += 1;
+                    let note = data[buf.pos] & 0x7F;
+                    buf.pos += 1;
+                    let pressure = data[buf.pos] & 0x7F;
+                    buf.pos += 1;
                     MidiEventKind::PolyAftertouch {
                         channel: status & 0x0F,
                         note,
@@ -289,10 +276,10 @@ fn parse_standard_midi(data: &[u8]) -> Result<(u16, Vec<Vec<MidiEvent>>)> {
                     }
                 }
                 0xB0 => {
-                    let ctrl = data[pos] & 0x7F;
-                    pos += 1;
-                    let val = data[pos] & 0x7F;
-                    pos += 1;
+                    let ctrl = data[buf.pos] & 0x7F;
+                    buf.pos += 1;
+                    let val = data[buf.pos] & 0x7F;
+                    buf.pos += 1;
                     MidiEventKind::ControlChange {
                         channel: status & 0x0F,
                         controller: ctrl,
@@ -300,26 +287,26 @@ fn parse_standard_midi(data: &[u8]) -> Result<(u16, Vec<Vec<MidiEvent>>)> {
                     }
                 }
                 0xC0 => {
-                    let prog = data[pos] & 0x7F;
-                    pos += 1;
+                    let prog = data[buf.pos] & 0x7F;
+                    buf.pos += 1;
                     MidiEventKind::ProgramChange {
                         channel: status & 0x0F,
                         program: prog,
                     }
                 }
                 0xD0 => {
-                    let pressure = data[pos] & 0x7F;
-                    pos += 1;
+                    let pressure = data[buf.pos] & 0x7F;
+                    buf.pos += 1;
                     MidiEventKind::ChannelPressure {
                         channel: status & 0x0F,
                         pressure,
                     }
                 }
                 0xE0 => {
-                    let lo = data[pos] & 0x7F;
-                    pos += 1;
-                    let hi = data[pos] & 0x7F;
-                    pos += 1;
+                    let lo = data[buf.pos] & 0x7F;
+                    buf.pos += 1;
+                    let hi = data[buf.pos] & 0x7F;
+                    buf.pos += 1;
                     MidiEventKind::PitchBend {
                         channel: status & 0x0F,
                         lo,
@@ -327,34 +314,42 @@ fn parse_standard_midi(data: &[u8]) -> Result<(u16, Vec<Vec<MidiEvent>>)> {
                     }
                 }
                 0xF0 if status == 0xFF => {
-                    let meta_type = data[pos];
-                    pos += 1;
-                    let meta_len = read_varint(data, &mut pos)? as usize;
+                    let meta_type = data[buf.pos];
+                    buf.pos += 1;
+                    ensure!(
+                        data[buf.pos..track_end].iter().any(|byte| byte & 0x80 == 0),
+                        "truncated MIDI event length"
+                    );
+                    let meta_len = buf.gmidivarlen() as usize;
                     match meta_type {
                         0x2F => {
-                            pos += meta_len;
+                            buf.pos += meta_len;
                             MidiEventKind::EndOfTrack
                         }
                         0x51 if meta_len == 3 => {
-                            let b1 = data[pos];
-                            let b2 = data[pos + 1];
-                            let b3 = data[pos + 2];
-                            pos += 3;
+                            let b1 = data[buf.pos];
+                            let b2 = data[buf.pos + 1];
+                            let b3 = data[buf.pos + 2];
+                            buf.pos += 3;
                             MidiEventKind::Tempo { b1, b2, b3 }
                         }
                         _ => {
-                            pos += meta_len;
+                            buf.pos += meta_len;
                             continue;
                         }
                     }
                 }
                 0xF0 if status == 0xF0 || status == 0xF7 => {
-                    let sysex_len = read_varint(data, &mut pos)? as usize;
-                    pos += sysex_len;
+                    ensure!(
+                        data[buf.pos..track_end].iter().any(|byte| byte & 0x80 == 0),
+                        "truncated MIDI event length"
+                    );
+                    let sysex_len = buf.gmidivarlen() as usize;
+                    buf.pos += sysex_len;
                     continue;
                 }
                 _ => {
-                    bail!("unsupported MIDI status 0x{:02X} at {}", status, pos);
+                    bail!("unsupported MIDI status 0x{:02X} at {}", status, buf.pos);
                 }
             };
 
@@ -375,7 +370,7 @@ fn parse_standard_midi(data: &[u8]) -> Result<(u16, Vec<Vec<MidiEvent>>)> {
             });
         }
 
-        pos = track_end;
+        buf.pos = track_end;
         tracks.push(events);
     }
 

@@ -56,17 +56,17 @@ fn player_holding(engine: &mut Engine, name: &str, items: &[u16]) -> HarnessClie
 }
 
 /// `IfButtonT`, as `Class141.method876`'s target branch writes it:
-/// `p4(to_com) ip2(to_slot) ip2(from_slot) p2_alt1(from_obj) ip4(from_com)
+/// `p4(to_com) p2_alt1(to_slot) p2_alt1(from_slot) p2_alt2(from_obj) p4_alt1(from_com)
 /// p2(to_obj)`.
 fn if_buttont(from: (i32, i32), to: (i32, i32)) -> Vec<u8> {
     let (from_slot, from_obj) = from;
     let (to_slot, to_obj) = to;
     let mut p = ClientPacket::new();
     p.p4(BACKPACK)
-        .ip2(to_slot)
-        .ip2(from_slot)
-        .p2_alt1(from_obj)
-        .ip4(BACKPACK)
+        .p2_alt1(to_slot)
+        .p2_alt1(from_slot)
+        .p2_alt2(from_obj)
+        .p4_alt1(BACKPACK)
         .p2(to_obj);
     p.finish()
 }
@@ -142,10 +142,10 @@ fn something_used_on_an_item_reaches_its_held_trigger() {
         let high_alchemy = (192 << 16) | 59;
         let mut p = ClientPacket::new();
         p.p4(BACKPACK)
-            .ip2(1)
-            .ip2(NO_OBJ)
+            .p2_alt1(1)
             .p2_alt1(NO_OBJ)
-            .ip4(high_alchemy)
+            .p2_alt2(NO_OBJ)
+            .p4_alt1(high_alchemy)
             .p2(logs);
         client.send(ClientProt::IfButtonT, &p.finish());
         engine.harness_inputs();
@@ -192,7 +192,7 @@ fn eating_cave_nightshade_hurts_150_life_points() {
         let before = life(engine, client.pid);
         assert_eq!(before, 990);
         let mut p = ClientPacket::new();
-        p.p4(BACKPACK).ip2_alt1(nightshade as i32).ip2(0);
+        p.p4(BACKPACK).p2_alt3(nightshade as i32).p2_alt1(0);
         client.send(ClientProt::IfButton4, &p.finish());
         for _ in 0..5 {
             engine.cycle();

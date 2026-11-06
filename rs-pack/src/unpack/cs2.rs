@@ -1,10 +1,18 @@
+use crate::archive;
+use crate::cs2::codegen::set_type_resolver;
+use crate::cs2::interpreter::interpret_with_params;
+use crate::cs2::ir::{Expr, Instruction};
+use crate::cs2::names::{load_script_names, load_script_names_from_cache_names};
+use crate::cs2::script::Script;
+use crate::cs2::types::{ArgType, TypeResolver, infer_return_types_from_callers};
+use crate::cs2::{ScriptMeta, decompile_with_names};
 use anyhow::Result;
-use rs_dat2::CacheStore;
+use rs_io::js5::Js5Store;
+use std::collections::{HashMap, HashSet};
+use std::fs::{self, File};
 use std::io::Write;
 use std::path::Path;
 use tracing::info;
-
-const ARCHIVE_CLIENTSCRIPT: u8 = 12;
 
 struct Cs2Script {
     name: String,
@@ -357,36 +365,36 @@ fn format_operand(instr: &Cs2Instruction) -> String {
 }
 
 pub fn unpack_cs2_scripts(cache_dir: &Path, output_dir: &Path) -> Result<u32> {
-    let mut store = CacheStore::open(cache_dir)?;
+    let mut store = Js5Store::open(cache_dir)?;
 
-    let group_count = store.group_count(ARCHIVE_CLIENTSCRIPT).unwrap_or(0);
+    let group_count = store.group_count(archive::CLIENTSCRIPT).unwrap_or(0);
     if group_count == 0 {
         info!("  Archive 12 (clientscript) absent — skipping");
         return Ok(0);
     }
 
     let out_dir = output_dir.join("clientscript").join("_unpack");
-    std::fs::create_dir_all(&out_dir)?;
+    fs::create_dir_all(&out_dir)?;
 
     let mut total = 0u32;
     let mut errors = 0u32;
 
     for gid in 0..group_count {
-        let Some(group) = store.read_group(ARCHIVE_CLIENTSCRIPT, gid)? else {
+        let Some(group) = store.read_group(archive::CLIENTSCRIPT, gid)? else {
             continue;
         };
 
         for entry in &group.entries {
-            if entry.data.is_empty() {
+            if entry.data().is_empty() {
                 continue;
             }
 
             let script_id = gid;
             let out_path = out_dir.join(format!("{}.cs2", script_id));
 
-            match decode_cs2(&entry.data) {
+            match decode_cs2(entry.data()) {
                 Ok(script) => {
-                    let mut file = std::fs::File::create(&out_path)?;
+                    let mut file = File::create(&out_path)?;
 
                     // Header
                     if !script.name.is_empty() {
@@ -447,7 +455,7 @@ pub fn unpack_cs2_scripts(cache_dir: &Path, output_dir: &Path) -> Result<u32> {
 }
 
 /// Extract numeric IDs following a prefix (e.g. `%varp` → `%varp123` yields 123).
-fn extract_var_ids(source: &str, prefix: &str, out: &mut std::collections::HashSet<u32>) {
+fn extract_var_ids(source: &str, prefix: &str, out: &mut HashSet<u32>) {
     let mut search_from = 0;
     while let Some(pos) = source[search_from..].find(prefix) {
         let abs = search_from + pos + prefix.len();
@@ -469,14 +477,7 @@ fn extract_var_ids(source: &str, prefix: &str, out: &mut std::collections::HashS
 ///
 /// Reads `*.cs2` files from `cs2_dir` (e.g. `content/clientscript/_decompiled`).
 /// Returns `(varp_ids, varbit_ids)`.
-pub fn scan_cs2_varp_refs(
-    cs2_dir: &Path,
-) -> Result<(
-    std::collections::HashSet<u32>,
-    std::collections::HashSet<u32>,
-)> {
-    use std::collections::HashSet;
-
+pub fn scan_cs2_varp_refs(cs2_dir: &Path) -> Result<(HashSet<u32>, HashSet<u32>)> {
     let mut varp_ids = HashSet::new();
     let mut varbit_ids = HashSet::new();
 
@@ -488,13 +489,13 @@ pub fn scan_cs2_varp_refs(
     }
 
     let mut file_count = 0u32;
-    for entry in std::fs::read_dir(cs2_dir)? {
+    for entry in fs::read_dir(cs2_dir)? {
         let entry = entry?;
         let path = entry.path();
         if path.extension().and_then(|e| e.to_str()) != Some("cs2") {
             continue;
         }
-        let source = std::fs::read_to_string(&path)?;
+        let source = fs::read_to_string(&path)?;
         file_count += 1;
 
         extract_var_ids(&source, "%varp", &mut varp_ids);
@@ -514,18 +515,16 @@ pub fn decompile_cs2_scripts(
     output_dir: &Path,
     names_file: Option<&Path>,
 ) -> Result<u32> {
-    use std::collections::HashMap;
-
     // Load pack files for named constant resolution
-    let pack_dir = std::path::Path::new(crate::PACK_DIR);
+    let pack_dir = Path::new(crate::PACK_DIR);
     if pack_dir.exists() {
-        let resolver = crate::cs2::types::TypeResolver::load(pack_dir);
-        crate::cs2::codegen::set_type_resolver(resolver);
+        let resolver = TypeResolver::load(pack_dir);
+        set_type_resolver(resolver);
     }
 
-    let mut store = CacheStore::open(cache_dir)?;
+    let mut store = Js5Store::open(cache_dir)?;
 
-    let group_count = store.group_count(ARCHIVE_CLIENTSCRIPT).unwrap_or(0);
+    let group_count = store.group_count(archive::CLIENTSCRIPT).unwrap_or(0);
     if group_count == 0 {
         info!("  Archive 12 (clientscript) absent — skipping");
         return Ok(0);
@@ -536,16 +535,16 @@ pub fn decompile_cs2_scripts(
         if path.exists() {
             let ext = path.extension().and_then(|e| e.to_str()).unwrap_or("");
             if ext == "tsv" {
-                let first_line = std::fs::read_to_string(path)?
+                let first_line = fs::read_to_string(path)?
                     .lines()
                     .next()
                     .unwrap_or("")
                     .to_string();
                 let col_count = first_line.split('\t').count();
                 if col_count >= 5 {
-                    crate::cs2::names::load_script_names_from_cache_names(path).ok()
+                    load_script_names_from_cache_names(path).ok()
                 } else {
-                    crate::cs2::names::load_script_names(path).ok()
+                    load_script_names(path).ok()
                 }
             } else {
                 None
@@ -560,23 +559,23 @@ pub fn decompile_cs2_scripts(
     // Collect all script data (needed for two-pass: params then decompile)
     let mut scripts: Vec<(u32, Vec<u8>)> = Vec::new();
     for gid in 0..group_count {
-        let Some(group) = store.read_group(ARCHIVE_CLIENTSCRIPT, gid)? else {
+        let Some(group) = store.read_group(archive::CLIENTSCRIPT, gid)? else {
             continue;
         };
         for entry in &group.entries {
-            if !entry.data.is_empty() {
-                scripts.push((gid, entry.data.to_vec()));
+            if !entry.data().is_empty() {
+                scripts.push((gid, entry.data().to_vec()));
             }
         }
     }
 
     // Pass 1: collect parameter counts from metadata trailers
-    let mut script_meta: HashMap<u32, crate::cs2::ScriptMeta> = HashMap::new();
+    let mut script_meta: HashMap<u32, ScriptMeta> = HashMap::new();
     for &(gid, ref data) in &scripts {
-        if let Ok((ip, sp, lp)) = crate::cs2::script::Script::decode_params(data) {
+        if let Ok((ip, sp, lp)) = Script::decode_params(data) {
             script_meta.insert(
                 gid,
-                crate::cs2::ScriptMeta {
+                ScriptMeta {
                     int_params: ip,
                     string_params: sp,
                     long_params: lp,
@@ -592,23 +591,21 @@ pub fn decompile_cs2_scripts(
 
     // Load type resolver for return type inference
     let type_resolver = if pack_dir.exists() {
-        Some(crate::cs2::types::TypeResolver::load(pack_dir))
+        Some(TypeResolver::load(pack_dir))
     } else {
         None
     };
 
     // Pass 2: decompile to infer return counts and semantic types
     for &(gid, ref data) in &scripts {
-        if let Ok(script) = crate::cs2::script::Script::decode(data) {
-            let function =
-                crate::cs2::interpreter::interpret_with_params(&script, gid, Some(&script_meta));
+        if let Ok(script) = Script::decode(data) {
+            let function = interpret_with_params(&script, gid, Some(&script_meta));
             // Collect ALL return instructions for type inference
-            let mut returns: Vec<(Vec<crate::cs2::ir::Expr>, Vec<crate::cs2::ir::Expr>)> =
-                Vec::new();
+            let mut returns: Vec<(Vec<Expr>, Vec<Expr>)> = Vec::new();
             let mut int_ret = 0u16;
             let mut str_ret = 0u16;
             for instr in &function.instructions {
-                if let crate::cs2::ir::Instruction::Return {
+                if let Instruction::Return {
                     int_values,
                     string_values,
                 } = instr
@@ -641,31 +638,23 @@ pub fn decompile_cs2_scripts(
     // return counts to get proc call expressions, then analyze how callers
     // use each proc's return values in typed opcode arguments.
     {
-        let mut all_instrs: HashMap<u32, Vec<crate::cs2::ir::Instruction>> = HashMap::new();
+        let mut all_instrs: HashMap<u32, Vec<Instruction>> = HashMap::new();
         for &(gid, ref data) in &scripts {
-            if let Ok(script) = crate::cs2::script::Script::decode(data) {
-                let function = crate::cs2::interpreter::interpret_with_params(
-                    &script,
-                    gid,
-                    Some(&script_meta),
-                );
+            if let Ok(script) = Script::decode(data) {
+                let function = interpret_with_params(&script, gid, Some(&script_meta));
                 all_instrs.insert(gid, function.instructions);
             }
         }
-        crate::cs2::types::infer_return_types_from_callers(&all_instrs, &mut script_meta);
+        infer_return_types_from_callers(&all_instrs, &mut script_meta);
         let with_typed = script_meta
             .values()
-            .filter(|m| {
-                m.int_return_types
-                    .iter()
-                    .any(|t| *t != crate::cs2::types::ArgType::Int)
-            })
+            .filter(|m| m.int_return_types.iter().any(|t| *t != ArgType::Int))
             .count();
         info!("  Caller-inferred typed returns for {} scripts", with_typed);
     }
 
     let out_dir = output_dir.join("clientscript").join("_decompiled");
-    std::fs::create_dir_all(&out_dir)?;
+    fs::create_dir_all(&out_dir)?;
 
     let mut total = 0u32;
     let mut errors = 0u32;
@@ -674,10 +663,9 @@ pub fn decompile_cs2_scripts(
     for &(gid, ref data) in &scripts {
         let out_path = out_dir.join(format!("{}.cs2", gid));
 
-        match crate::cs2::decompile_with_names(data, gid, script_names.as_ref(), Some(&script_meta))
-        {
+        match decompile_with_names(data, gid, script_names.as_ref(), Some(&script_meta)) {
             Ok(source) => {
-                std::fs::write(&out_path, source)?;
+                fs::write(&out_path, source)?;
                 total += 1;
             }
             Err(_) => {

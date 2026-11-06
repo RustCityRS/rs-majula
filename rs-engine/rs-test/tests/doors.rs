@@ -1,8 +1,8 @@
 //! 289's doors, gates and trapdoors at 2011's placements.
 //!
-//! Each case clicks as the 647 client does (`OPLOC1`: `ip2(z) ip2(loc)
-//! p1(ctrl) p2_alt1(x)`; `OPLOC2`: `ip2(loc) p1_alt1(ctrl) p2_alt1(z)
-//! ip2_alt1(x)`) and reads the zone's locs and the packets sent back.
+//! Each case clicks as the 647 client does (`OPLOC1`: `p2_alt1(z) p2_alt1(loc)
+//! p1(ctrl) p2_alt2(x)`; `OPLOC2`: `p2_alt1(loc) p1_alt2(ctrl) p2_alt2(z)
+//! p2_alt3(x)`) and reads the zone's locs and the packets sent back.
 //!
 //! - A single door (2011's `door_1530` in Yanille, 289's `loc_1530`) swings a
 //!   quarter turn onto the next tile as `door_1531` and plays 289's door_open,
@@ -39,12 +39,16 @@ const THIEVING: usize = 17;
 fn op_loc(client: &mut HarnessClient, prot: ClientProt, (loc, x, z): (u16, u16, u16)) {
     let mut p = ClientPacket::new();
     match prot {
-        ClientProt::OpLoc1 => p.ip2(z as i32).ip2(loc as i32).p1(0).p2_alt1(x as i32),
-        _ => p
-            .ip2(loc as i32)
-            .p1_alt1(0)
+        ClientProt::OpLoc1 => p
             .p2_alt1(z as i32)
-            .ip2_alt1(x as i32),
+            .p2_alt1(loc as i32)
+            .p1(0)
+            .p2_alt2(x as i32),
+        _ => p
+            .p2_alt1(loc as i32)
+            .p1_alt2(0)
+            .p2_alt2(z as i32)
+            .p2_alt3(x as i32),
     };
     client.send(prot, &p.finish());
 }

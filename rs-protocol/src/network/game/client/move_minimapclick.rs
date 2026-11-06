@@ -124,8 +124,8 @@ pub struct MoveMinimapClick {
 #[cfg(since_647)]
 impl ClientProtMessage for MoveMinimapClick {
     fn decode(buf: &mut Packet, _: usize) -> Self {
-        let x = buf.ig2();
-        let ctrl = buf.g1_alt3() != 0;
+        let x = buf.g2_alt1();
+        let ctrl = buf.g1_alt1() != 0;
         let z = buf.g2();
         let trailer = MinimapTrailer::decode(buf);
         MoveMinimapClick {

@@ -65,10 +65,10 @@ fn if_buttond_matches_client() {
     let target_com = 149 << 16;
     let mut p = ClientPacket::new();
     p.p4(source_com) // arg1.id      -- source component
-        .ip2_alt1(3) // arg1.child_id -- source slot
-        .ip2_alt1(20 + 28) // arg0.child_id -- target slot (bank 2; see login.rs2)
+        .p2_alt3(3) // arg1.child_id -- source slot
+        .p2_alt3(20 + 28) // arg0.child_id -- target slot (bank 2; see login.rs2)
         .p4_alt2(target_com) // arg0.id       -- target component
-        .ip2(1511) // arg1.object_id -- source obj
+        .p2_alt1(1511) // arg1.object_id -- source obj
         .p2(-1); // arg0.object_id -- target obj (empty backing sprite)
 
     let m: IfButtonD = decode(&p);
@@ -83,7 +83,7 @@ fn if_buttond_matches_client() {
 // Loc interaction. `Statics1.do_action`, the OP_LOC1..5 branches.
 // ---------------------------------------------------------------------------
 
-/// `ip2(z)`, `ip2(locId)`, `p1(ctrl)`, `p2_alt1(x)`. Note the loc id is the
+/// `p2_alt1(z)`, `p2_alt1(locId)`, `p1(ctrl)`, `p2_alt2(x)`. Note the loc id is the
 /// **high** word of the client's 64-bit menu key, so a send built from a bare
 /// loc id puts zero here.
 #[test]
@@ -91,7 +91,7 @@ fn oploc1_matches_client() {
     use rs_protocol::network::game::client::oploc1::OpLoc1;
 
     let mut p = ClientPacket::new();
-    p.ip2(3218).ip2(1530).p1(1).p2_alt1(3222);
+    p.p2_alt1(3218).p2_alt1(1530).p1(1).p2_alt2(3222);
 
     let m: OpLoc1 = decode(&p);
     assert_eq!(m.z, 3218, "z");
@@ -145,54 +145,54 @@ macro_rules! entity_op {
 }
 
 entity_op!(opnpc1_matches_client, opnpc1::OpNpc1, nid, |p| {
-    p.p1_alt2(1).p2(4231);
+    p.p1_alt3(1).p2(4231);
 });
 entity_op!(opnpc2_matches_client, opnpc2::OpNpc2, nid, |p| {
-    p.p1_alt1(1).ip2_alt1(4231);
+    p.p1_alt2(1).p2_alt3(4231);
 });
 entity_op!(opnpc3_matches_client, opnpc3::OpNpc3, nid, |p| {
-    p.p1_alt2(1).p2_alt1(4231);
+    p.p1_alt3(1).p2_alt2(4231);
 });
 entity_op!(opnpc4_matches_client, opnpc4::OpNpc4, nid, |p| {
-    p.p1_alt2(1).ip2_alt1(4231);
+    p.p1_alt3(1).p2_alt3(4231);
 });
 entity_op!(opnpc5_matches_client, opnpc5::OpNpc5, nid, |p| {
-    p.p1_alt1(1).ip2(4231);
+    p.p1_alt2(1).p2_alt1(4231);
 });
 
 entity_op!(opplayer1_matches_client, opplayer1::OpPlayer1, pid, |p| {
-    p.p1_alt3(1).p2_alt1(4231);
+    p.p1_alt1(1).p2_alt2(4231);
 });
 entity_op!(opplayer2_matches_client, opplayer2::OpPlayer2, pid, |p| {
-    p.p1_alt1(1).p2(4231);
+    p.p1_alt2(1).p2(4231);
 });
 entity_op!(opplayer3_matches_client, opplayer3::OpPlayer3, pid, |p| {
-    p.ip2(4231).p1(1);
-});
-entity_op!(opplayer4_matches_client, opplayer4::OpPlayer4, pid, |p| {
     p.p2_alt1(4231).p1(1);
 });
+entity_op!(opplayer4_matches_client, opplayer4::OpPlayer4, pid, |p| {
+    p.p2_alt2(4231).p1(1);
+});
 entity_op!(opplayer5_matches_client, opplayer5::OpPlayer5, pid, |p| {
-    p.p1_alt3(1).ip2(4231);
+    p.p1_alt1(1).p2_alt1(4231);
 });
 entity_op!(opplayer6_matches_client, opplayer6::OpPlayer6, pid, |p| {
-    p.p1(1).p2_alt1(4231);
+    p.p1(1).p2_alt2(4231);
 });
 entity_op!(opplayer7_matches_client, opplayer7::OpPlayer7, pid, |p| {
-    p.p1_alt1(1).p2(4231);
+    p.p1_alt2(1).p2(4231);
 });
 entity_op!(opplayer8_matches_client, opplayer8::OpPlayer8, pid, |p| {
-    p.p1(1).ip2(4231);
+    p.p1(1).p2_alt1(4231);
 });
 entity_op!(opplayer9_matches_client, opplayer9::OpPlayer9, pid, |p| {
-    p.p2(4231).p1_alt3(1);
+    p.p2(4231).p1_alt1(1);
 });
 entity_op!(
     opplayer10_matches_client,
     opplayer10::OpPlayer10,
     pid,
     |p| {
-        p.p1_alt1(1).p2(4231);
+        p.p1_alt2(1).p2(4231);
     }
 );
 
@@ -218,33 +218,33 @@ macro_rules! tile_op {
 // variant back to back, so only the field assignment tells them apart -- a
 // transposition there survives any check that looks at byte layout alone.
 tile_op!(oploc2_matches_client, oploc2::OpLoc2, loc, |p| {
-    p.ip2(1530).p1_alt1(1).p2_alt1(3218).ip2_alt1(3222);
+    p.p2_alt1(1530).p1_alt2(1).p2_alt2(3218).p2_alt3(3222);
 });
 tile_op!(oploc3_matches_client, oploc3::OpLoc3, loc, |p| {
-    p.p2_alt1(3222).p1_alt2(1).ip2(3218).p2(1530);
+    p.p2_alt2(3222).p1_alt3(1).p2_alt1(3218).p2(1530);
 });
 tile_op!(oploc4_matches_client, oploc4::OpLoc4, loc, |p| {
-    p.ip2_alt1(3218).p2_alt1(3222).p2_alt1(1530).p1_alt3(1);
+    p.p2_alt3(3218).p2_alt2(3222).p2_alt2(1530).p1_alt1(1);
 });
 tile_op!(oploc5_matches_client, oploc5::OpLoc5, loc, |p| {
-    p.p2_alt1(1530).p2_alt1(3222).p1_alt3(1).ip2(3218);
+    p.p2_alt2(1530).p2_alt2(3222).p1_alt1(1).p2_alt1(3218);
 });
 
 // Ground-obj ops.
 tile_op!(opobj1_matches_client, opobj1::OpObj1, obj, |p| {
-    p.p1_alt2(1).p2_alt1(1530).ip2_alt1(3222).ip2(3218);
+    p.p1_alt3(1).p2_alt2(1530).p2_alt3(3222).p2_alt1(3218);
 });
 tile_op!(opobj2_matches_client, opobj2::OpObj2, obj, |p| {
-    p.ip2(3218).p1_alt3(1).p2_alt1(3222).ip2(1530);
+    p.p2_alt1(3218).p1_alt1(1).p2_alt2(3222).p2_alt1(1530);
 });
 tile_op!(opobj3_matches_client, opobj3::OpObj3, obj, |p| {
-    p.ip2(1530).p2_alt1(3218).p1(1).p2(3222);
+    p.p2_alt1(1530).p2_alt2(3218).p1(1).p2(3222);
 });
 tile_op!(opobj4_matches_client, opobj4::OpObj4, obj, |p| {
-    p.ip2(3222).p2(3218).p1_alt2(1).ip2(1530);
+    p.p2_alt1(3222).p2(3218).p1_alt3(1).p2_alt1(1530);
 });
 tile_op!(opobj5_matches_client, opobj5::OpObj5, obj, |p| {
-    p.ip2(3222).p1_alt1(1).ip2(1530).p2(3218);
+    p.p2_alt1(3222).p1_alt2(1).p2_alt1(1530).p2(3218);
 });
 
 // ---------------------------------------------------------------------------
@@ -272,13 +272,13 @@ fn oploct_matches_client() {
     use rs_protocol::network::game::client::oploct::OpLocT;
 
     let mut p = ClientPacket::new();
-    p.p2_alt1(FROM_OBJ)
-        .p2_alt1(FROM_SLOT)
+    p.p2_alt2(FROM_OBJ)
+        .p2_alt2(FROM_SLOT)
         .p2(3218)
         .p4_alt2(FROM_COM)
-        .p2_alt1(3222)
-        .p1_alt3(1)
-        .ip2(1530);
+        .p2_alt2(3222)
+        .p1_alt1(1)
+        .p2_alt1(1530);
 
     let m: OpLocT = decode(&p);
     assert_eq!(m.obj, FROM_OBJ as u16, "source obj");
@@ -294,13 +294,13 @@ fn oploct_matches_client() {
 fn opnpct_matches_client() {
     use rs_protocol::network::game::client::opnpct::OpNpcT;
 
-    // Note the component arrives `p4_alt1` here and `p4_alt2` for loc and obj.
+    // Note the component arrives `p4_alt3` here and `p4_alt2` for loc and obj.
     let mut p = ClientPacket::new();
-    p.p2_alt1(FROM_OBJ)
-        .p2_alt1(FROM_SLOT)
-        .ip2(4231)
-        .p4_alt1(FROM_COM)
-        .p1_alt1(1);
+    p.p2_alt2(FROM_OBJ)
+        .p2_alt2(FROM_SLOT)
+        .p2_alt1(4231)
+        .p4_alt3(FROM_COM)
+        .p1_alt2(1);
 
     let m: OpNpcT = decode(&p);
     assert_eq!(m.obj, FROM_OBJ as u16, "source obj");
@@ -314,15 +314,15 @@ fn opnpct_matches_client() {
 fn opobjt_matches_client() {
     use rs_protocol::network::game::client::opobjt::OpObjT;
 
-    // Two `ip2` reads in a row open with the source obj and the *target* obj.
+    // Two `p2_alt1` reads in a row open with the source obj and the *target* obj.
     let mut p = ClientPacket::new();
-    p.ip2(FROM_OBJ)
-        .ip2(1530)
+    p.p2_alt1(FROM_OBJ)
+        .p2_alt1(1530)
         .p2(FROM_SLOT)
         .p4_alt2(FROM_COM)
-        .p1_alt3(1)
-        .p2_alt1(3218)
-        .p2_alt1(3222);
+        .p1_alt1(1)
+        .p2_alt2(3218)
+        .p2_alt2(3222);
 
     let m: OpObjT = decode(&p);
     assert_eq!(m.obj2, FROM_OBJ as u16, "source obj");
@@ -340,11 +340,11 @@ fn opplayert_matches_client() {
 
     // The only one of the four that sends the component plain (`p4`).
     let mut p = ClientPacket::new();
-    p.p2_alt1(4231)
-        .ip2(FROM_SLOT)
+    p.p2_alt2(4231)
+        .p2_alt1(FROM_SLOT)
         .p4(FROM_COM)
-        .p1_alt2(1)
-        .ip2(FROM_OBJ);
+        .p1_alt3(1)
+        .p2_alt1(FROM_OBJ);
 
     let m: OpPlayerT = decode(&p);
     assert_eq!(m.pid, 4231, "player id");
@@ -359,7 +359,7 @@ fn opplayert_matches_client() {
 // ---------------------------------------------------------------------------
 
 /// `method1317(msg, object_id, child_id, id)` writes `p4(id)`,
-/// `ip2_alt1(object_id)`, `ip2(child_id)` -- the **obj before the slot**, which
+/// `p2_alt3(object_id)`, `p2_alt1(child_id)` -- the **obj before the slot**, which
 /// reads backwards against the call site's own argument order and is easy to
 /// transcribe the wrong way round. All ten IfButton ops share this one writer,
 /// so a transposition here breaks every inventory op at once.
@@ -369,7 +369,7 @@ macro_rules! button_op {
         fn $test() {
             use rs_protocol::network::game::client::$module::$ty;
             let mut p = ClientPacket::new();
-            p.p4(FROM_COM).ip2_alt1(FROM_OBJ).ip2(FROM_SLOT);
+            p.p4(FROM_COM).p2_alt3(FROM_OBJ).p2_alt1(FROM_SLOT);
             let m: $ty = decode(&p);
             assert_eq!(m.com, FROM_COM as u32, "component");
             // IfButton keeps these signed: an empty slot arrives as -1.
@@ -393,10 +393,10 @@ fn if_buttont_matches_client() {
     let to_com = (762 << 16) | 93;
     let mut p = ClientPacket::new();
     p.p4(to_com)
-        .ip2(12)
-        .ip2(FROM_SLOT)
-        .p2_alt1(FROM_OBJ)
-        .ip4(FROM_COM)
+        .p2_alt1(12)
+        .p2_alt1(FROM_SLOT)
+        .p2_alt2(FROM_OBJ)
+        .p4_alt1(FROM_COM)
         .p2(995);
 
     let m: IfButtonT = decode(&p);
@@ -420,7 +420,7 @@ fn move_gameclick_matches_client() {
     use rs_protocol::network::game::client::move_gameclick::MoveGameClick;
 
     let mut p = ClientPacket::new();
-    p.ip2(3222).p1_alt3(1).p2(3218);
+    p.p2_alt1(3222).p1_alt1(1).p2(3218);
 
     let m: MoveGameClick = decode(&p);
     assert_eq!(m.x, 3222, "x");
@@ -431,7 +431,7 @@ fn move_gameclick_matches_client() {
 #[test]
 fn move_minimapclick_matches_client() {
     let mut p = ClientPacket::new();
-    p.ip2(3222).p1_alt3(1).p2(3218);
+    p.p2_alt1(3222).p1_alt1(1).p2(3218);
     p.p1(-1)
         .p1(-1)
         .p2(12345)
@@ -521,13 +521,13 @@ fn send_snapshot_matches_client() {
     assert_eq!(m.text, "bot", "text");
 }
 
-/// `Statics1.do_action`, `FACE_SQUARE`: `p2_alt1(x) ip2(z)`.
+/// `Statics1.do_action`, `FACE_SQUARE`: `p2_alt2(x) p2_alt1(z)`.
 #[test]
 fn face_square_matches_client() {
     use rs_protocol::network::game::client::face_square::FaceSquare;
 
     let mut p = ClientPacket::new();
-    p.p2_alt1(3222).ip2(3218);
+    p.p2_alt2(3222).p2_alt1(3218);
 
     let m: FaceSquare = decode(&p);
     assert_eq!((m.x, m.z), (3222, 3218));
@@ -547,17 +547,17 @@ fn click_world_map_matches_client() {
     assert_eq!(m.coord, coord as u32);
 }
 
-/// `Statics1.do_action`, `TGT_GROUND`: `ip2(x) p2(slot) p2_alt1(obj)
-/// p2_alt1(z) p4(com)`. The middle two were read as a camera yaw and pitch.
+/// `Statics1.do_action`, `TGT_GROUND`: `p2_alt1(x) p2(slot) p2_alt2(obj)
+/// p2_alt2(z) p4(com)`. The middle two were read as a camera yaw and pitch.
 #[test]
 fn apcoordt_matches_client() {
     use rs_protocol::network::game::client::apcoordt::ApCoordT;
 
     let mut p = ClientPacket::new();
-    p.ip2(3222)
+    p.p2_alt1(3222)
         .p2(FROM_SLOT)
-        .p2_alt1(FROM_OBJ)
-        .p2_alt1(3218)
+        .p2_alt2(FROM_OBJ)
+        .p2_alt2(3218)
         .p4(FROM_COM);
 
     let m: ApCoordT = decode(&p);

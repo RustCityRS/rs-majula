@@ -174,7 +174,10 @@ pub fn pack_dbrows(
 #[cfg(all(test, since_647))]
 mod tests {
     use super::*;
-    use crate::pack::pack::{collect_config_files, parse_config_sections};
+    use crate::pack::config::param::type_name_to_char;
+    use crate::pack::pack::{collect_config_files, load_constants, parse_config_sections};
+    use std::collections::BTreeSet;
+    use std::fs;
     use std::path::Path;
 
     /// Every config type that names something, with its 647 pack registry.
@@ -226,15 +229,15 @@ mod tests {
     fn every_namespace_resolves_its_own_names() {
         let registry = registry();
         for (ty, pack) in NAMESPACES {
-            let text = std::fs::read_to_string(registry.pack_dir().join(format!("{pack}.pack")))
-                .expect(pack);
+            let text =
+                fs::read_to_string(registry.pack_dir().join(format!("{pack}.pack"))).expect(pack);
             let (id, name) = text
                 .lines()
                 .filter_map(|l| l.split_once('='))
                 .filter_map(|(id, n)| Some((id.parse::<i32>().ok()?, n)))
                 .next_back()
                 .unwrap_or_else(|| panic!("{pack}.pack names nothing"));
-            let tc = crate::pack::config::param::type_name_to_char(ty) as u8;
+            let tc = type_name_to_char(ty) as u8;
             assert_eq!(
                 lookup_typed(name, tc, &registry),
                 Some(id),
@@ -277,12 +280,12 @@ mod tests {
             "dbrow",
         ];
         for ty in types {
-            let tc = crate::pack::config::param::type_name_to_char(ty);
+            let tc = type_name_to_char(ty);
             assert!(
                 LITERALS.contains(&ty)
                     || NAMESPACES
                         .iter()
-                        .any(|(t, _)| { crate::pack::config::param::type_name_to_char(t) == tc }),
+                        .any(|(t, _)| { type_name_to_char(t) == tc }),
                 "type {ty} ('{tc}') is neither a namespace nor a literal"
             );
         }
@@ -332,10 +335,9 @@ mod tests {
     /// that now resolves, so the list only shrinks.
     #[test]
     fn every_dbrow_value_names_something() {
-        use std::collections::BTreeSet;
         let registry = registry();
         let source = Path::new("..").join(crate::CONTENT_DIR).join("scripts");
-        let constants = crate::pack::pack::load_constants(&source);
+        let constants = load_constants(&source);
         let tables = parse_config_sections(&collect_config_files(&source, "dbtable"), &constants);
         let mut schemas: HashMap<String, HashMap<String, Vec<u8>>> = HashMap::new();
         for (table, props) in &tables {
@@ -348,7 +350,7 @@ mod tests {
                 let types = parts[1..]
                     .iter()
                     .filter(|p| !p.chars().all(|c| c.is_uppercase() || c == '_'))
-                    .map(|p| crate::pack::config::param::type_name_to_char(p) as u8)
+                    .map(|p| type_name_to_char(p) as u8)
                     .collect();
                 columns.insert(parts[0].to_string(), types);
             }
@@ -383,7 +385,7 @@ mod tests {
             }
         }
         let known_path = Path::new("tests/dbrow_refs_647.known.tsv");
-        let known: BTreeSet<String> = std::fs::read_to_string(known_path)
+        let known: BTreeSet<String> = fs::read_to_string(known_path)
             .unwrap_or_default()
             .lines()
             .filter(|l| !l.is_empty() && !l.starts_with('#'))

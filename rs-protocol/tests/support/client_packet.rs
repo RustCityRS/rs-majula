@@ -27,19 +27,19 @@ impl ClientPacket {
     }
 
     /// `buffer[pos++] = (byte) -v`
-    pub fn p1_alt1(&mut self, v: i32) -> &mut Self {
+    pub fn p1_alt2(&mut self, v: i32) -> &mut Self {
         self.buf.push((-v) as u8);
         self
     }
 
     /// `buffer[pos++] = (byte) (128 - v)`
-    pub fn p1_alt2(&mut self, v: i32) -> &mut Self {
+    pub fn p1_alt3(&mut self, v: i32) -> &mut Self {
         self.buf.push((128 - v) as u8);
         self
     }
 
     /// `buffer[pos++] = (byte) (v + 128)`
-    pub fn p1_alt3(&mut self, v: i32) -> &mut Self {
+    pub fn p1_alt1(&mut self, v: i32) -> &mut Self {
         self.buf.push((v + 128) as u8);
         self
     }
@@ -52,21 +52,21 @@ impl ClientPacket {
     }
 
     /// Little-endian 16.
-    pub fn ip2(&mut self, v: i32) -> &mut Self {
+    pub fn p2_alt1(&mut self, v: i32) -> &mut Self {
         self.buf.push(v as u8);
         self.buf.push((v >> 8) as u8);
         self
     }
 
     /// Big-endian 16, low byte biased by 128.
-    pub fn p2_alt1(&mut self, v: i32) -> &mut Self {
+    pub fn p2_alt2(&mut self, v: i32) -> &mut Self {
         self.buf.push((v >> 8) as u8);
         self.buf.push((v + 128) as u8);
         self
     }
 
     /// Little-endian 16, low byte biased by 128.
-    pub fn ip2_alt1(&mut self, v: i32) -> &mut Self {
+    pub fn p2_alt3(&mut self, v: i32) -> &mut Self {
         self.buf.push((v + 128) as u8);
         self.buf.push((v >> 8) as u8);
         self
@@ -89,7 +89,7 @@ impl ClientPacket {
     }
 
     /// Little-endian 32.
-    pub fn ip4(&mut self, v: i32) -> &mut Self {
+    pub fn p4_alt1(&mut self, v: i32) -> &mut Self {
         self.buf.push(v as u8);
         self.buf.push((v >> 8) as u8);
         self.buf.push((v >> 16) as u8);
@@ -98,7 +98,7 @@ impl ClientPacket {
     }
 
     /// Middle-endian 32: `>>16, >>24, v, >>8`.
-    pub fn p4_alt1(&mut self, v: i32) -> &mut Self {
+    pub fn p4_alt3(&mut self, v: i32) -> &mut Self {
         self.buf.push((v >> 16) as u8);
         self.buf.push((v >> 24) as u8);
         self.buf.push(v as u8);

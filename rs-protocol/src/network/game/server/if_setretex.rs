@@ -22,9 +22,9 @@ pub struct IfSetRetex {
 impl ServerProtMessage for IfSetRetex {
     fn encode(&self, buf: &mut Packet) {
         buf.p4(self.com);
-        buf.p1_alt2(self.index);
-        buf.p2_alt1(self.src);
-        buf.p2_alt1(self.dst);
+        buf.p1_alt3(self.index);
+        buf.p2_alt2(self.src);
+        buf.p2_alt2(self.dst);
     }
 
     fn sizeof(&self) -> usize {

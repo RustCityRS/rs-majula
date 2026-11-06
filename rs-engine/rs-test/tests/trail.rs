@@ -7,8 +7,8 @@
 //! moved it from its layer's, so the sextant (365) adds 289's offsets to its
 //! components' own positions. The puzzle (363) and reward (364) boxes show
 //! the inventories their client interfaces transmit: 140 and 207, and 141.
-//! A backpack op is IF_BUTTON1 on `inventory:inv`: `p4(com) ip2_alt1(obj)
-//! ip2(slot)`.
+//! A backpack op is IF_BUTTON1 on `inventory:inv`: `p4(com) p2_alt3(obj)
+//! p2_alt1(slot)`.
 
 #![cfg(since_647)]
 
@@ -63,7 +63,7 @@ fn holder(engine: &mut Engine, name: &str, items: &[&str]) -> HarnessClient {
 
 fn op1(client: &mut HarnessClient, com: i32, obj: u16, slot: u16) {
     let mut p = ClientPacket::new();
-    p.p4(com).ip2_alt1(obj as i32).ip2(slot as i32);
+    p.p4(com).p2_alt3(obj as i32).p2_alt1(slot as i32);
     client.send(ClientProt::IfButton1, &p.finish());
 }
 
@@ -103,7 +103,7 @@ fn texts(packets: &[(u16, Vec<u8>)], iface: u16) -> Vec<(u16, String)> {
         .collect()
 }
 
-/// Each IF_SETPOSITION: `p4_alt1(com) ip2_alt1(x) ip2_alt1(y)` (the client
+/// Each IF_SETPOSITION: `p4_alt3(com) p2_alt3(x) p2_alt3(y)` (the client
 /// takes the second as x and the third as y: VarbitType, state change 11).
 fn positions(packets: &[(u16, Vec<u8>)]) -> Vec<(i32, i16, i16)> {
     of(packets, ServerProt::IfSetPosition)
@@ -221,7 +221,7 @@ fn the_sextant_moves_on_2011s_coordinates() {
 
         // Tilt Down: the horizon 7 lower, the sun 2 higher.
         let mut p = ClientPacket::new();
-        p.p4(TILT_DOWN).ip2_alt1(0xFFFF).ip2(0xFFFF);
+        p.p4(TILT_DOWN).p2_alt3(0xFFFF).p2_alt1(0xFFFF);
         client.send(ClientProt::IfButton1, &p.finish());
         let moved = positions(&ticks(engine, &mut client, 2));
         assert_eq!(at(&moved, HORIZON), Some((370, hy + 7)), "{moved:?}");
@@ -249,7 +249,7 @@ fn a_puzzle_box_shows_its_pieces() {
             "the pieces and the hint; sent {sent:?}"
         );
         // The client sends a piece's Move only for the slots IF_SETEVENTS
-        // enabled: `p2_alt1(from) p4_alt3(events) p4_alt3(com) ip2_alt1(to)`.
+        // enabled: `p2_alt2(from) p4_alt3(events) p4_alt3(com) p2_alt3(to)`.
         let events: Vec<(i32, u16, u16, i32)> = of(&packets, ServerProt::IfSetEvents)
             .map(|p| {
                 let from = u16::from_be_bytes([p[0], p[1].wrapping_sub(128)]);
@@ -293,8 +293,8 @@ fn a_puzzle_box_shows_its_pieces() {
         let piece = before[beside as usize].expect("a piece beside the gap");
         let mut p = ClientPacket::new();
         p.p4((PUZZLE as i32) << 16 | 4)
-            .ip2_alt1(piece as i32)
-            .ip2(beside as i32);
+            .p2_alt3(piece as i32)
+            .p2_alt1(beside as i32);
         client.send(ClientProt::IfButton1, &p.finish());
         let moved = ticks(engine, &mut client, 2);
         assert!(

@@ -1,8 +1,8 @@
-use std::collections::HashMap;
-use std::collections::hash_map::Entry;
-
 use crate::back;
 use crate::sheet::Parsed;
+use std::collections::HashMap;
+use std::collections::hash_map::Entry;
+use std::mem::replace;
 
 const MAGENTA: [u8; 3] = [255, 0, 255];
 const MAX_ENTRIES: usize = 255;
@@ -104,7 +104,7 @@ fn scan_frames(
 }
 
 fn apply(scan: &Scan, name: &str, group: &mut Parsed) {
-    let old = std::mem::replace(&mut group.palette, scan.order.clone());
+    let old = replace(&mut group.palette, scan.order.clone());
     for frame in &mut group.frames {
         for px in frame.iter_mut() {
             if *px != 0 {

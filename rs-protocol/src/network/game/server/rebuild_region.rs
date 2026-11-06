@@ -35,11 +35,11 @@ impl ServerProtMessage for RebuildRegion {
         let chunk_z = self.player_z >> 3;
 
         // Header
-        buf.p1_alt3(self.build_area_idx);
-        buf.p1_alt2(self.instance_type);
-        buf.ip2(chunk_x);
-        buf.ip2(chunk_z);
-        buf.p1_alt3(self.login_flag);
+        buf.p1_alt1(self.build_area_idx);
+        buf.p1_alt3(self.instance_type);
+        buf.p2_alt1(chunk_x);
+        buf.p2_alt1(chunk_z);
+        buf.p1_alt1(self.login_flag);
 
         // Bit-packed templates — scratch Packet with pbit, splice via `pdata`.
         let mut bit_count: usize = 0;

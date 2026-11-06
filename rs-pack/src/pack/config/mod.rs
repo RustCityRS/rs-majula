@@ -1,26 +1,27 @@
 #[cfg(since_647)]
-use crate::config_blob::ConfigBlob;
+use crate::archive::{self, ArchiveVersions};
 #[cfg(since_647)]
 use crate::pack::js5::{PreparedGroup, stamp_path, write_archive};
 use crate::pack::pack::{ConfigProperties, ConfigSections};
 use crate::pack::pack_registry::{PackFile, PackId};
 #[cfg(since_647)]
+use crate::pack::packed_data::PackedData;
+#[cfg(since_647)]
 use crate::startup::{
     current_exe_mtime, file_mtime, is_up_to_date, max_of, newest_mtime, write_stamp,
 };
 #[cfg(since_647)]
-use anyhow::Result;
+use anyhow::{Context, Result};
 #[cfg(since_647)]
 use rayon::prelude::*;
 #[cfg(since_647)]
-use rs_dat2::{
-    CacheStore,
-    archive::{self, ArchiveVersions},
-    encode_group_entries,
-    reference::FileInfo,
-};
+use rs_io::jag::JagFile;
+#[cfg(since_647)]
+use rs_io::js5::{Js5Store, encode_group_entries, reference::FileInfo};
 #[cfg(since_647)]
 use std::collections::{BTreeMap, HashMap};
+#[cfg(since_647)]
+use std::fs;
 #[cfg(since_647)]
 use std::path::Path;
 #[cfg(since_647)]
@@ -55,7 +56,7 @@ pub mod vars;
 
 #[cfg(since_647)]
 pub fn pack_archives(
-    store: &mut CacheStore,
+    store: &mut Js5Store,
     content_dir: &Path,
     output_dir: &Path,
     config_path: &Path,
@@ -73,16 +74,16 @@ pub fn pack_archives(
         return Ok(());
     }
 
-    let blob = ConfigBlob::load(config_path)?;
+    let config = JagFile::from(fs::read(config_path)?);
     let mut config_groups = BTreeMap::new();
     for &(name, gid) in archive::CONFIG_GROUPS {
-        let entries = blob.read_packed_data(name)?;
+        let entries = read_config_entries(&config, name)?;
         if !entries.is_empty() {
             config_groups.insert(gid, entries);
         }
     }
     for &gid in archive::CONFIG_UNKNOWN_GROUPS {
-        let entries = blob.read_packed_data(&format!("config{gid}"))?;
+        let entries = read_config_entries(&config, &format!("config{gid}"))?;
         if !entries.is_empty() {
             config_groups.insert(gid, entries);
         }
@@ -98,7 +99,7 @@ pub fn pack_archives(
         (archive::CONFIG_SPOTANIM, "spotanim", 256),
         (archive::CONFIG_VARBIT, "varbit", 1024),
     ] {
-        let entries = blob.read_packed_data(name)?;
+        let entries = read_config_entries(&config, name)?;
         if entries.is_empty() {
             continue;
         }
@@ -116,8 +117,23 @@ pub fn pack_archives(
 }
 
 #[cfg(since_647)]
+fn read_config_entries(config: &JagFile, name: &str) -> Result<BTreeMap<u32, Vec<u8>>> {
+    let (Some(dat), Some(idx)) = (
+        config.read(&format!("{name}.dat")),
+        config.read(&format!("{name}.idx")),
+    ) else {
+        return Ok(BTreeMap::new());
+    };
+    Ok(PackedData::entries(&dat.data, &idx.data)
+        .with_context(|| format!("Reading {name} configs"))?
+        .filter(|(_, data)| !data.is_empty())
+        .map(|(id, data)| (id as u32, data.to_vec()))
+        .collect())
+}
+
+#[cfg(since_647)]
 fn write_config_archive(
-    store: &mut CacheStore,
+    store: &mut Js5Store,
     aid: u8,
     versions: &HashMap<u8, ArchiveVersions>,
     groups: BTreeMap<u32, BTreeMap<u32, Vec<u8>>>,

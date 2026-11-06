@@ -1,4 +1,6 @@
 use super::config_entry;
+#[cfg(since_647)]
+use super::param::type_name_to_char;
 use crate::ParamValue;
 use crate::pack::config::param::get_param_value_for_type;
 use crate::pack::pack::{FileCache, parse_config_sections_cached};
@@ -83,7 +85,7 @@ fn enum_var_type(name: &str) -> ScriptVarType {
 
 #[cfg(since_647)]
 fn enum_var_type(name: &str) -> ScriptVarType {
-    ScriptVarType::try_from(super::param::type_name_to_char(name) as u8).expect("Invalid enum type")
+    ScriptVarType::try_from(type_name_to_char(name) as u8).expect("Invalid enum type")
 }
 
 fn enum_value(ty: &str, registry: &PackRegistry, value: &str) -> Option<ParamValue> {

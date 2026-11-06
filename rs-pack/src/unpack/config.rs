@@ -4,7 +4,11 @@ use super::report::RecordLeftover;
 #[cfg(since_647)]
 use super::report::{StepResult, step};
 #[cfg(before_647)]
+use super::texture::TEXTURE_NAMES;
+#[cfg(before_647)]
 use crate::PACK_DIR;
+#[cfg(since_647)]
+use crate::archive;
 #[cfg(since_647)]
 use crate::cache::r#enum::EnumTypeRaw;
 use crate::cache::flo::FloTypeRaw;
@@ -32,19 +36,20 @@ use crate::pack::util::colour::rgb15_to_hsl16;
 #[cfg(before_647)]
 use crate::types::LocShape;
 use order::reorder_by_opcode;
-#[cfg(since_647)]
-use rs_dat2::{CacheStore, archive};
 use rs_io::Packet;
 #[cfg(before_647)]
 use rs_io::jag::JagFile;
+#[cfg(since_647)]
+use rs_io::js5::Js5Store;
 #[cfg(before_647)]
 use std::collections::hash_map::Entry;
 use std::collections::{BTreeSet, HashMap, HashSet};
+use std::fs;
 #[cfg(since_647)]
 use std::fs::File;
 #[cfg(since_647)]
 use std::io::BufWriter;
-use std::io::Write;
+use std::io::{self, Write};
 use std::mem::replace;
 use std::path::Path;
 use std::rc::Rc;
@@ -252,7 +257,7 @@ fn write_model_pack(pack_dir: &Path, names: &HashMap<u16, String>) -> anyhow::Re
             .unwrap_or_else(|| format!("model_{id}"));
         lines.push(format!("{id}={name}"));
     }
-    std::fs::write(pack_dir.join("model.pack"), lines.join("\n") + "\n")?;
+    fs::write(pack_dir.join("model.pack"), lines.join("\n") + "\n")?;
     Ok(())
 }
 
@@ -271,7 +276,7 @@ fn write_pack_file(
     for id in 0..=max_id {
         lines.push(format!("{id}={prefix}_{id}"));
     }
-    std::fs::write(
+    fs::write(
         pack_dir.join(format!("{filename}.pack")),
         lines.join("\n") + "\n",
     )?;
@@ -280,7 +285,7 @@ fn write_pack_file(
 
 pub(crate) fn load_committed_config_names(pack_dir: &Path) -> HashMap<String, PackFile> {
     let mut names = HashMap::new();
-    if let Ok(files) = std::fs::read_dir(pack_dir) {
+    if let Ok(files) = fs::read_dir(pack_dir) {
         for entry in files.flatten() {
             let path = entry.path();
             if path.extension().is_some_and(|ext| ext == "pack") {
@@ -331,7 +336,7 @@ pub fn write_config_pack_file(
         }
         lines.push(format!("{id}={}", entry_name(config_type, id, packs)));
     }
-    std::fs::write(
+    fs::write(
         pack_dir.join(format!("{config_type}.pack")),
         lines.join("\n") + "\n",
     )?;
@@ -345,7 +350,7 @@ pub fn unpack_config(
     pack_dir: &Path,
     model_textures: Rc<HashMap<u16, HashSet<u16>>>,
 ) -> anyhow::Result<UnpackedPacks> {
-    std::fs::create_dir_all(pack_dir)?;
+    fs::create_dir_all(pack_dir)?;
     let reverse_hsl = build_reverse_hsl_table();
     let mut packs = UnpackedPacks::new();
     packs.load_existing_names(Path::new(PACK_DIR));
@@ -416,7 +421,7 @@ fn write_config_text_file(
         )?;
     }
 
-    std::fs::write(
+    fs::write(
         output_dir.join(format!("all.{config_type}")),
         if output.is_empty() {
             b"\n".as_slice()
@@ -520,7 +525,7 @@ fn anim_ref(id: u16, packs: &mut UnpackedPacks) -> String {
 #[cfg(before_647)]
 fn texture_ref(id: u16, packs: &mut UnpackedPacks) -> String {
     packs.texture_ids.insert(id);
-    super::texture::TEXTURE_NAMES
+    TEXTURE_NAMES
         .get(id as usize)
         .map(|s| s.to_string())
         .unwrap_or_else(|| format!("texture_{id}"))
@@ -601,7 +606,7 @@ fn write_config_section(
     out: &mut impl Write,
     section: &str,
     props: &[(String, String)],
-) -> std::io::Result<()> {
+) -> io::Result<()> {
     writeln!(out, "[{section}]")?;
     for (key, value) in props {
         writeln!(out, "{key}={value}")?;
@@ -617,7 +622,7 @@ pub(super) fn unpack_config(
     cs2_dir: &Path,
     results: &mut Vec<StepResult>,
 ) -> anyhow::Result<()> {
-    let mut store = CacheStore::open(cache_dir)?;
+    let mut store = Js5Store::open(cache_dir)?;
     let mut packs = UnpackedPacks::new();
     packs.load_existing_names(pack_dir);
     packs.transmit_varps = varp::transmit_varps(&mut store, cs2_dir)?;
@@ -653,12 +658,12 @@ pub(super) fn unpack_config(
                 };
                 group.entries.sort_by_key(|entry| entry.id);
                 for entry in group.entries {
-                    if entry.data.is_empty() {
+                    if entry.data().is_empty() {
                         continue;
                     }
                     let id = (group_id * stride + entry.id) as u16;
                     let props =
-                        decode_entry(name, id, entry.data.to_vec(), &hsl, &mut packs, decoder);
+                        decode_entry(name, id, entry.data().to_vec(), &hsl, &mut packs, decoder);
                     let mut section = entry_name(name, id, &packs);
                     if !seen.insert(section.clone()) {
                         section = format!("{section}__{id}");

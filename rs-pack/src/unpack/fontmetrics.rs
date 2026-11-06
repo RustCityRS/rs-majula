@@ -1,33 +1,33 @@
 #![allow(clippy::needless_range_loop)]
+use crate::archive;
 use crate::pack::pack_registry::PackFile;
 use anyhow::Result;
-use rs_dat2::CacheStore;
+use rs_io::js5::Js5Store;
+use std::fs::{self, File};
 use std::io::Write;
 use std::path::Path;
 use tracing::info;
 
-const ARCHIVE_FONTMETRICS: u8 = 13;
-
 pub fn unpack_fontmetrics(
-    store: &mut CacheStore,
+    store: &mut Js5Store,
     pack_dir: &Path,
     content_dir: &Path,
 ) -> Result<u32> {
     let fontmetrics_pack = PackFile::load(&pack_dir.join("fontmetrics.pack")).ok();
     let archive_dir = content_dir.join("fontmetrics").join("_unpack");
-    std::fs::create_dir_all(&archive_dir)?;
+    fs::create_dir_all(&archive_dir)?;
 
-    let group_count = store.group_count(ARCHIVE_FONTMETRICS).unwrap_or(0);
+    let group_count = store.group_count(archive::FONTMETRICS).unwrap_or(0);
     let mut written = 0u32;
 
     for gid in 0..group_count {
-        let Some(group) = store.read_group(ARCHIVE_FONTMETRICS, gid)? else {
+        let Some(group) = store.read_group(archive::FONTMETRICS, gid)? else {
             continue;
         };
         let Some(entry) = group.entries.first() else {
             continue;
         };
-        if entry.data.is_empty() {
+        if entry.data().is_empty() {
             continue;
         }
 
@@ -37,9 +37,9 @@ pub fn unpack_fontmetrics(
             .unwrap_or_else(|| format!("fontmetrics_{}", gid));
 
         let out_path = archive_dir.join(format!("{}.fontmetrics", name));
-        let mut file = std::fs::File::create(&out_path)?;
+        let mut file = File::create(&out_path)?;
 
-        let data = &entry.data;
+        let data = entry.data();
         let mut pos = 0;
 
         let version = data[pos];

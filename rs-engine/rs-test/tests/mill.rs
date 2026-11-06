@@ -6,9 +6,9 @@
 //! 289's 2718, and flour bin 36880 on the ground floor. Every 2011 flour
 //! bin but one is a multiloc on varp 695, 289's `%flour` (22493 at 3786,2825
 //! turns on varbit 3405), so the client draws it full or empty and 289's loc
-//! changes go. `OPLOC1`: `ip2(z) ip2(loc) p1(ctrl)
-//! p2_alt1(x)`; `OPLOCT`: `p2_alt1(obj) p2_alt1(slot) p2(z) p4_alt2(com)
-//! p2_alt1(x) p1_alt3(ctrl) ip2(loc)`.
+//! changes go. `OPLOC1`: `p2_alt1(z) p2_alt1(loc) p1(ctrl)
+//! p2_alt2(x)`; `OPLOCT`: `p2_alt2(obj) p2_alt2(slot) p2(z) p4_alt2(com)
+//! p2_alt2(x) p1_alt1(ctrl) p2_alt1(loc)`.
 
 #![cfg(since_647)]
 
@@ -63,7 +63,7 @@ fn ticks(engine: &mut Engine, client: &mut HarnessClient, n: usize) -> Vec<Strin
 
 fn op_loc1(client: &mut HarnessClient, (loc, x, z): (i32, u16, u16)) {
     let mut p = ClientPacket::new();
-    p.ip2(z as i32).ip2(loc).p1(0).p2_alt1(x as i32);
+    p.p2_alt1(z as i32).p2_alt1(loc).p1(0).p2_alt2(x as i32);
     client.send(ClientProt::OpLoc1, &p.finish());
 }
 
@@ -93,13 +93,13 @@ fn grain_in_the_hopper_comes_out_as_flour_in_the_bin() {
         assert_eq!(flour(engine, client.pid), 0);
 
         let mut p = ClientPacket::new();
-        p.p2_alt1(grain as i32)
-            .p2_alt1(0)
+        p.p2_alt2(grain as i32)
+            .p2_alt2(0)
             .p2(HOPPER.2 as i32)
             .p4_alt2(BACKPACK)
-            .p2_alt1(HOPPER.1 as i32)
-            .p1_alt3(0)
-            .ip2(HOPPER.0);
+            .p2_alt2(HOPPER.1 as i32)
+            .p1_alt1(0)
+            .p2_alt1(HOPPER.0);
         rs_vm::ops::test::set_recording(true);
         rs_vm::ops::test::forget_calls();
         client.send(ClientProt::OpLocT, &p.finish());
@@ -228,13 +228,13 @@ fn mill_lane_mills_extra_fine_flour_for_the_cook() {
         engine.harness_telejump(client.pid, 3165, 2, 3307);
         ticks(engine, &mut client, 10);
         let mut p = ClientPacket::new();
-        p.p2_alt1(grain as i32)
-            .p2_alt1(0)
+        p.p2_alt2(grain as i32)
+            .p2_alt2(0)
             .p2(HOPPER.2 as i32)
             .p4_alt2(BACKPACK)
-            .p2_alt1(HOPPER.1 as i32)
-            .p1_alt3(0)
-            .ip2(HOPPER.0);
+            .p2_alt2(HOPPER.1 as i32)
+            .p1_alt1(0)
+            .p2_alt1(HOPPER.0);
         client.send(ClientProt::OpLocT, &p.finish());
         ticks(engine, &mut client, 6);
         op_loc1(&mut client, CONTROLS);

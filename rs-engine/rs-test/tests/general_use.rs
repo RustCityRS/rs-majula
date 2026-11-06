@@ -52,13 +52,13 @@ fn holding(engine: &mut Engine, name: &str, x: u16, z: u16, objs: &[u16]) -> Har
 /// The item in backpack slot 0 used on the hat stand.
 fn use_on_hat_stand(client: &mut HarnessClient, item: u16) {
     let mut p = ClientPacket::new();
-    p.p2_alt1(item as i32)
-        .p2_alt1(0)
+    p.p2_alt2(item as i32)
+        .p2_alt2(0)
         .p2(HAT_STAND.1 as i32)
         .p4_alt2(BACKPACK)
-        .p2_alt1(HAT_STAND.0 as i32)
-        .p1_alt3(0)
-        .ip2(374);
+        .p2_alt2(HAT_STAND.0 as i32)
+        .p1_alt1(0)
+        .p2_alt1(374);
     client.send(ClientProt::OpLocT, &p.finish());
 }
 
@@ -103,10 +103,10 @@ fn a_hammer_on_a_semi_precious_gem() {
         // The topaz (slot 1) used on the hammer (slot 0): 289's [opheldu,hammer]
         // switches on the item used.
         p.p4(BACKPACK)
-            .ip2(0)
-            .ip2(1)
-            .p2_alt1(topaz as i32)
-            .ip4(BACKPACK)
+            .p2_alt1(0)
+            .p2_alt1(1)
+            .p2_alt2(topaz as i32)
+            .p4_alt1(BACKPACK)
             .p2(hammer as i32);
         client.send(ClientProt::IfButtonT, &p.finish());
         for _ in 0..3 {
@@ -158,23 +158,26 @@ fn beside(x: u16, level: u8, z: u16) -> (u16, u16) {
     .expect("a walkable tile beside the loc")
 }
 
-/// `OPLOC1`: `ip2(z) ip2(loc) p1(ctrl) p2_alt1(x)`.
+/// `OPLOC1`: `p2_alt1(z) p2_alt1(loc) p1(ctrl) p2_alt2(x)`.
 fn op_loc1(client: &mut HarnessClient, loc: u16, x: u16, z: u16) {
     let mut p = ClientPacket::new();
-    p.ip2(z as i32).ip2(loc as i32).p1(0).p2_alt1(x as i32);
+    p.p2_alt1(z as i32)
+        .p2_alt1(loc as i32)
+        .p1(0)
+        .p2_alt2(x as i32);
     client.send(ClientProt::OpLoc1, &p.finish());
 }
 
 /// Backpack slot 0's item used on the loc `loc` at `x`,`z` (`OPLOCT`).
 fn use_on_loc(client: &mut HarnessClient, item: u16, loc: u16, x: u16, z: u16) {
     let mut p = ClientPacket::new();
-    p.p2_alt1(item as i32)
-        .p2_alt1(0)
+    p.p2_alt2(item as i32)
+        .p2_alt2(0)
         .p2(z as i32)
         .p4_alt2(BACKPACK)
-        .p2_alt1(x as i32)
-        .p1_alt3(0)
-        .ip2(loc as i32);
+        .p2_alt2(x as i32)
+        .p1_alt1(0)
+        .p2_alt1(loc as i32);
     client.send(ClientProt::OpLocT, &p.finish());
 }
 
@@ -311,7 +314,7 @@ fn op_held(client: &mut HarnessClient, op: u8, obj: u16, slot: u16) {
         _ => ClientProt::IfButton2,
     };
     let mut p = ClientPacket::new();
-    p.p4(BACKPACK).ip2_alt1(obj as i32).ip2(slot as i32);
+    p.p4(BACKPACK).p2_alt3(obj as i32).p2_alt1(slot as i32);
     client.send(prot, &p.finish());
 }
 
@@ -400,13 +403,13 @@ fn the_fence_squeezes_through_both_ways() {
     });
 }
 
-/// `OPLOC2`: `ip2(loc) p1_alt1(ctrl) p2_alt1(z) ip2_alt1(x)`.
+/// `OPLOC2`: `p2_alt1(loc) p1_alt2(ctrl) p2_alt2(z) p2_alt3(x)`.
 fn op_loc2(client: &mut HarnessClient, loc: u16, x: u16, z: u16) {
     let mut p = ClientPacket::new();
-    p.ip2(loc as i32)
-        .p1_alt1(0)
-        .p2_alt1(z as i32)
-        .ip2_alt1(x as i32);
+    p.p2_alt1(loc as i32)
+        .p1_alt2(0)
+        .p2_alt2(z as i32)
+        .p2_alt3(x as i32);
     client.send(ClientProt::OpLoc2, &p.finish());
 }
 

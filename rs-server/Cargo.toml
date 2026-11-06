@@ -12,7 +12,6 @@ path = "src/main.rs"
 
 [dependencies]
 rs-crypto = { workspace = true }
-rs-dat2 = { workspace = true }
 rs-protocol = { workspace = true }
 rs-engine = { workspace = true }
 rs-db = { workspace = true }
@@ -23,7 +22,6 @@ rs-util = { workspace = true }
 
 anyhow = { workspace = true }
 axum = { workspace = true }
-bytes = { workspace = true }
 clap = { workspace = true }
 tokio = { workspace = true }
 tracing = { workspace = true }

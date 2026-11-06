@@ -11,15 +11,18 @@
 //!
 //! A group fetched from the API carries no 2-byte version trailer, which is
 //! exactly the form the client hashes for its login CRCs — so the CRC of
-//! `(255, a)` from the API is the archive CRC `archive_crc::EXPECTED` pins.
+//! `(255, a)` from the API is the archive CRC `archive::EXPECTED_CRCS` pins.
 
+use anyhow::{Context, Result, bail};
+use rs_io::js5::compression::decompress;
+use rs_io::js5::reference::{ReferenceTable, parse_reference_table};
+use rs_io::js5::{Js5Store, compute_group_crc};
+use serde::Deserialize;
 use std::collections::BTreeMap;
 use std::fs::{self, File};
 use std::io::{self, Read};
 use std::path::{Path, PathBuf};
-
-use anyhow::{Context, Result, bail};
-use serde::Deserialize;
+use zip::ZipArchive;
 
 pub const BASE_URL: &str = "https://archive.openrs2.org";
 pub const SCOPE: &str = "runescape";
@@ -110,7 +113,7 @@ pub fn cache_file_name(entry_path: &str) -> Option<String> {
 /// Returns the file names written, sorted.
 pub fn extract_disk_zip(zip_path: &Path, out_dir: &Path) -> Result<Vec<String>> {
     let file = File::open(zip_path).with_context(|| format!("opening {}", zip_path.display()))?;
-    let mut archive = zip::ZipArchive::new(file)
+    let mut archive = ZipArchive::new(file)
         .with_context(|| format!("reading {} as a zip", zip_path.display()))?;
     fs::create_dir_all(out_dir)?;
     let mut written = Vec::new();
@@ -201,15 +204,15 @@ pub fn verify_reference_tables(
     archives: &[u8],
     api_cache_dir: &Path,
 ) -> Result<Vec<ArchiveCrcMismatch>> {
-    let mut store = rs_dat2::CacheStore::open(cache)
+    let mut store = Js5Store::open(cache)
         .with_context(|| format!("opening dat2 cache at {}", cache.display()))?;
     let mut mismatches = Vec::new();
     for &archive in archives {
         let remote = fetch_group_cached(api_cache_dir, id, 255, archive as u32)?;
-        let remote = rs_dat2::compute_group_crc(&remote);
+        let remote = compute_group_crc(&remote);
         let local = store
             .read_raw_group_bytes(255, archive as u32)?
-            .map(|raw| rs_dat2::compute_group_crc(&raw));
+            .map(|raw| compute_group_crc(&raw));
         if local != Some(remote) {
             mismatches.push(ArchiveCrcMismatch {
                 archive,
@@ -227,9 +230,9 @@ pub fn default_work_dir() -> PathBuf {
 }
 
 /// Decompress and parse a raw `(255, a)` reference-table container.
-pub fn parse_reference_container(raw: &[u8]) -> Result<rs_dat2::reference::ReferenceTable> {
-    let data = rs_dat2::compression::decompress(raw).context("decompressing reference table")?;
-    rs_dat2::reference::parse_reference_table(&data).context("parsing reference table")
+pub fn parse_reference_container(raw: &[u8]) -> Result<ReferenceTable> {
+    let data = decompress(raw).context("decompressing reference table")?;
+    parse_reference_table(&data).context("parsing reference table")
 }
 
 /// How two reference tables of the same archive disagree, group by group.
@@ -269,11 +272,8 @@ impl TableDiff {
     }
 }
 
-pub fn diff_reference_tables(
-    ours: &rs_dat2::reference::ReferenceTable,
-    theirs: &rs_dat2::reference::ReferenceTable,
-) -> TableDiff {
-    let index = |t: &rs_dat2::reference::ReferenceTable| -> BTreeMap<u32, (u32, u32)> {
+pub fn diff_reference_tables(ours: &ReferenceTable, theirs: &ReferenceTable) -> TableDiff {
+    let index = |t: &ReferenceTable| -> BTreeMap<u32, (u32, u32)> {
         t.groups
             .iter()
             .map(|g| (g.id, (g.crc, g.version)))

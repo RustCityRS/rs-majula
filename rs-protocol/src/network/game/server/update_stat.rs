@@ -30,7 +30,7 @@ impl ServerProtMessage for UpdateStat {
     fn encode(&self, buf: &mut Packet) {
         buf.p4_alt2(self.exp);
         buf.p1(self.stat);
-        buf.p1_alt1(self.lvl);
+        buf.p1_alt2(self.lvl);
     }
 
     fn sizeof(&self) -> usize {

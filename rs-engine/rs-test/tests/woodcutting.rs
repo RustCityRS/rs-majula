@@ -1,7 +1,7 @@
 //! Woodcutting from 289, at 2011's trees.
 //!
-//! Each case clicks Chop down as the client does (OPLOC1, `ip2(z) ip2(loc)
-//! p1(ctrl) p2_alt1(x)`) from a walkable tile near the tree, with a hatchet
+//! Each case clicks Chop down as the client does (OPLOC1, `p2_alt1(z) p2_alt1(loc)
+//! p1(ctrl) p2_alt2(x)`) from a walkable tile near the tree, with a hatchet
 //! in the backpack, and cycles until the tree gives.
 //!
 //! - 289 names the logs it gives ("You get some oak logs.").
@@ -160,7 +160,10 @@ fn chop(case: Chop) {
         client.packets();
 
         let mut p = ClientPacket::new();
-        p.ip2(z as i32).ip2(tree as i32).p1(0).p2_alt1(x as i32);
+        p.p2_alt1(z as i32)
+            .p2_alt1(tree as i32)
+            .p1(0)
+            .p2_alt2(x as i32);
         client.send(ClientProt::OpLoc1, &p.finish());
 
         let mut said = Vec::new();

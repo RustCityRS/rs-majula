@@ -165,9 +165,9 @@ fn decrypt_rsa(
     let modulus = rsa.n.bits().div_ceil(8) as usize;
     decrypted.data.resize(decrypted.len().max(modulus), 0);
     #[cfg(before_647)]
-    decrypted.rsadec(RsaFrame::Byte, rsa);
+    decrypted.rsadecrypt(RsaFrame::Byte, rsa);
     #[cfg(since_647)]
-    decrypted.rsadec(RsaFrame::Short, rsa);
+    decrypted.rsadecrypt(RsaFrame::Short, rsa);
     require(&decrypted, 17)?;
     if decrypted.g1() != 10 {
         return Err(LoginResponse::RuneScapeUpdated);
@@ -313,7 +313,7 @@ Az5KOlJPE6c=
             buf.p4(uid);
             buf.pjstr("Player", 10);
             buf.pjstr("Password£", 10);
-            buf.rsaenc(RsaFrame::Byte, &KEY);
+            buf.rsaencrypt(RsaFrame::Byte, &KEY);
         }
         #[cfg(since_647)]
         {
@@ -321,7 +321,7 @@ Az5KOlJPE6c=
             buf.pjstr("Password£", 0);
             buf.p8(0);
             buf.p8(123);
-            buf.rsaenc(RsaFrame::Short, &KEY);
+            buf.rsaencrypt(RsaFrame::Short, &KEY);
         }
         buf.data.truncate(buf.pos);
         buf
@@ -460,7 +460,7 @@ Az5KOlJPE6c=
                 rsa.p4(key);
             }
             rsa.pos += 42;
-            rsa.rsaenc(RsaFrame::Short, &KEY);
+            rsa.rsaencrypt(RsaFrame::Short, &KEY);
             let mut body = Packet::new(512);
             body.pjstr("Player@Example.com", 0);
             if create {

@@ -41,7 +41,7 @@ pub struct IfSetScrollPos {
 impl ServerProtMessage for IfSetScrollPos {
     fn encode(&self, buf: &mut Packet) {
         buf.p4_alt2(self.com);
-        buf.p2_alt1(self.y);
+        buf.p2_alt2(self.y);
     }
 
     fn sizeof(&self) -> usize {

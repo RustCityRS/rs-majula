@@ -9,6 +9,7 @@ use crate::pack::util::palette;
 use crate::types::{LocShape, MapSquareCsv};
 use rs_io::jag::{JagCompression, JagFile};
 use std::collections::HashMap;
+use std::fs;
 use std::path::Path;
 use tracing::debug;
 
@@ -203,8 +204,8 @@ impl WorldmapBuilder {
         jag.write("b12_full.dat", b12_full);
         for font in FONTS {
             let path = worldmap_dir.join(format!("{font}.fm"));
-            let data = std::fs::read(&path)
-                .unwrap_or_else(|e| panic!("Cannot read {}: {e}", path.display()));
+            let data =
+                fs::read(&path).unwrap_or_else(|e| panic!("Cannot read {}: {e}", path.display()));
             jag.write(&format!("{font}.dat"), data);
         }
         jag.write("mapdots.dat", mapdots);
@@ -311,8 +312,8 @@ fn zone_flags(squares: &[(u8, u8)], zones: &MapSquareCsv) -> Vec<u8> {
 /// hue/saturation/lightness) and the overlay colour it draws (rgb).
 fn floorcol(worldmap_dir: &Path, flos: &TypeProvider<FloType>) -> Vec<u8> {
     let path = worldmap_dir.join("floorcol.txt");
-    let text = std::fs::read_to_string(&path)
-        .unwrap_or_else(|e| panic!("Cannot read {}: {e}", path.display()));
+    let text =
+        fs::read_to_string(&path).unwrap_or_else(|e| panic!("Cannot read {}: {e}", path.display()));
     let table: HashMap<&str, (u32, u32)> = text
         .lines()
         .map(|line| line.split("//").next().unwrap_or("").trim())
@@ -388,8 +389,8 @@ fn sprite(index: &mut Vec<u8>, name: &str, path: &Path) -> Vec<u8> {
 
 /// labels.dat from `=text,x,z,font` lines.
 fn labels(path: &Path) -> Vec<u8> {
-    let text = std::fs::read_to_string(path)
-        .unwrap_or_else(|e| panic!("Cannot read {}: {e}", path.display()));
+    let text =
+        fs::read_to_string(path).unwrap_or_else(|e| panic!("Cannot read {}: {e}", path.display()));
     let lines: Vec<&str> = text
         .lines()
         .filter_map(|line| line.strip_prefix('='))

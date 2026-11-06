@@ -19,8 +19,8 @@ pub struct VarcSmall {
 #[cfg(since_647)]
 impl ServerProtMessage for VarcSmall {
     fn encode(&self, buf: &mut Packet) {
-        buf.p1_alt1(self.val);
-        buf.ip2(self.id);
+        buf.p1_alt2(self.val);
+        buf.p2_alt1(self.id);
     }
 
     fn sizeof(&self) -> usize {

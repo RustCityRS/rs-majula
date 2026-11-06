@@ -6,9 +6,9 @@
 //! (15061) ends it with the 2011 wiki's reward (The Restless Ghost,
 //! 2011-05-22): 125 Prayer experience and 5 ancient bones.
 //!
-//! Loc ops are OPLOC1 (`ip2(z) ip2(loc) p1(ctrl) p2_alt1(x)`) and OPLOCT
-//! (`p2_alt1(obj) p2_alt1(slot) p2(z) p4_alt2(com) p2_alt1(x) p1_alt3(ctrl)
-//! ip2(loc)`).
+//! Loc ops are OPLOC1 (`p2_alt1(z) p2_alt1(loc) p1(ctrl) p2_alt2(x)`) and OPLOCT
+//! (`p2_alt2(obj) p2_alt2(slot) p2(z) p4_alt2(com) p2_alt2(x) p1_alt1(ctrl)
+//! p2_alt1(loc)`).
 
 #![cfg(since_647)]
 
@@ -115,7 +115,10 @@ fn total(engine: &Engine, client: &HarnessClient, inv: &str, obj: &str) -> i64 {
 
 fn oploc1(client: &mut HarnessClient, (loc, x, z): (u16, u16, u16)) {
     let mut p = ClientPacket::new();
-    p.ip2(z as i32).ip2(loc as i32).p1(0).p2_alt1(x as i32);
+    p.p2_alt1(z as i32)
+        .p2_alt1(loc as i32)
+        .p1(0)
+        .p2_alt2(x as i32);
     client.send(ClientProt::OpLoc1, &p.finish());
 }
 
@@ -250,13 +253,13 @@ fn the_skull_in_the_coffin_lays_the_ghost_to_rest() {
         oploc1(&mut client, COFFIN);
         messages(engine, &mut client, 6);
         let mut p = ClientPacket::new();
-        p.p2_alt1(skull as i32)
-            .p2_alt1(0)
+        p.p2_alt2(skull as i32)
+            .p2_alt2(0)
             .p2(COFFIN.2 as i32)
             .p4_alt2(BACKPACK)
-            .p2_alt1(COFFIN.1 as i32)
-            .p1_alt3(0)
-            .ip2(OPEN_COFFIN as i32);
+            .p2_alt2(COFFIN.1 as i32)
+            .p1_alt1(0)
+            .p2_alt1(OPEN_COFFIN as i32);
         client.send(ClientProt::OpLocT, &p.finish());
         let said = messages(engine, &mut client, 10);
         assert!(

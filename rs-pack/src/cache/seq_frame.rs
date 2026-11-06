@@ -3,6 +3,8 @@ use rs_io::Packet;
 #[cfg(rev = "225")]
 use rs_io::jag::JagFile;
 #[cfg(since_244)]
+use std::fs;
+#[cfg(since_244)]
 use std::path::Path;
 
 #[cfg(rev = "225")]
@@ -34,13 +36,13 @@ impl SeqFrameProvider {
 pub fn anim_frame_delays(content_dir: &Path) -> Box<[u8]> {
     let anim_dir = content_dir.join("models").join("anim");
     let mut delays: Vec<u8> = Vec::new();
-    if let Ok(entries) = std::fs::read_dir(&anim_dir) {
+    if let Ok(entries) = fs::read_dir(&anim_dir) {
         for entry in entries.flatten() {
             let path = entry.path();
             if path
                 .extension()
                 .is_some_and(|e| e.eq_ignore_ascii_case("anim"))
-                && let Ok(data) = std::fs::read(&path)
+                && let Ok(data) = fs::read(&path)
             {
                 parse_anim_delays(&data, &mut delays);
             }

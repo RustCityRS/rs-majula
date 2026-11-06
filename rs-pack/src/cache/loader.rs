@@ -7,24 +7,26 @@ use super::provider::{CacheType, TypeProvider};
 use super::r#struct::StructTypeRaw;
 use super::varbit::VarbitType;
 use super::varp::VarPlayerTypeRaw;
+use crate::archive;
+use crate::cache::map::XteaKeyStore;
 use crate::pack::packed_data::PackedData;
 use crate::types::{MapSquareCrcs, MapSquares};
 use anyhow::{Result, anyhow, bail};
 use rs_crypto::huffman::Huffman;
-use rs_dat2::{
-    CacheStore, archive,
-    compression::{CompressionType, compress},
-    xtea::{XteaKeyStore, java_string_hash},
-};
 use rs_io::Packet;
+use rs_io::js5::{
+    Js5Store,
+    compression::{CompressionType, compress},
+    java_string_hash,
+};
 use std::{collections::HashMap, fs, path::Path, sync::Arc};
 use tracing::{debug, info, warn};
 
-pub fn load_all_npcs(cache: &mut CacheStore) -> Result<TypeProvider<NpcTypeRaw>> {
+pub fn load_all_npcs(cache: &mut Js5Store) -> Result<TypeProvider<NpcTypeRaw>> {
     load_strided_archive(cache, archive::CONFIG_NPC, 128, ())
 }
 
-pub fn load_all_objs(cache: &mut CacheStore, members: bool) -> Result<TypeProvider<ObjTypeRaw>> {
+pub fn load_all_objs(cache: &mut Js5Store, members: bool) -> Result<TypeProvider<ObjTypeRaw>> {
     let autodisable_params = if members {
         Box::new([]) as Box<[bool]>
     } else {
@@ -45,28 +47,28 @@ pub fn load_all_objs(cache: &mut CacheStore, members: bool) -> Result<TypeProvid
     )
 }
 
-pub fn load_all_locs(cache: &mut CacheStore) -> Result<TypeProvider<LocTypeRaw>> {
+pub fn load_all_locs(cache: &mut Js5Store) -> Result<TypeProvider<LocTypeRaw>> {
     load_strided_archive(cache, archive::CONFIG_LOC, 256, ())
 }
 
-pub fn load_all_enums(cache: &mut CacheStore) -> Result<TypeProvider<EnumTypeRaw>> {
+pub fn load_all_enums(cache: &mut Js5Store) -> Result<TypeProvider<EnumTypeRaw>> {
     load_strided_archive(cache, archive::CONFIG_ENUM, 256, ())
 }
 
-pub fn load_all_varbits(cache: &mut CacheStore) -> Result<TypeProvider<VarbitType>> {
+pub fn load_all_varbits(cache: &mut Js5Store) -> Result<TypeProvider<VarbitType>> {
     load_strided_archive(cache, archive::CONFIG_VARBIT, 1024, ())
 }
 
-pub fn load_all_structs(cache: &mut CacheStore) -> Result<TypeProvider<StructTypeRaw>> {
+pub fn load_all_structs(cache: &mut Js5Store) -> Result<TypeProvider<StructTypeRaw>> {
     load_config_group(cache, archive::CONFIG_GROUP_STRUCT, ())
 }
 
-pub fn load_all_varps(cache: &mut CacheStore) -> Result<TypeProvider<VarPlayerTypeRaw>> {
+pub fn load_all_varps(cache: &mut Js5Store) -> Result<TypeProvider<VarPlayerTypeRaw>> {
     load_config_group(cache, archive::CONFIG_GROUP_VARP, ())
 }
 
 fn load_strided_archive<T: CacheType>(
-    cache: &mut CacheStore,
+    cache: &mut Js5Store,
     archive_id: u8,
     stride: u32,
     ctx: T::Context,
@@ -100,7 +102,7 @@ fn load_strided_archive<T: CacheType>(
             if id >= types.len() {
                 types.extend((types.len()..=id).map(|i| T::new(i as u16)));
             }
-            let mut buf = Packet::from(entry.data.to_vec());
+            let mut buf = Packet::from(entry.data().to_vec());
             types[id].decode(&mut buf);
             loaded += 1;
         }
@@ -115,7 +117,7 @@ fn load_strided_archive<T: CacheType>(
 }
 
 fn load_config_group<T: CacheType>(
-    cache: &mut CacheStore,
+    cache: &mut Js5Store,
     group_id: u32,
     ctx: T::Context,
 ) -> Result<TypeProvider<T>> {
@@ -141,7 +143,7 @@ fn load_config_group<T: CacheType>(
     for entry in &group.entries {
         let id = entry.id as usize;
         if id < count {
-            let mut buf = Packet::from(entry.data.to_vec());
+            let mut buf = Packet::from(entry.data().to_vec());
             types[id].decode(&mut buf);
         }
     }
@@ -155,7 +157,7 @@ fn load_config_group<T: CacheType>(
     Ok(TypeProvider::from_types(types, ctx))
 }
 
-pub(super) fn load_mapsquares(cache: &mut CacheStore) -> Result<(MapSquares, MapSquareCrcs)> {
+pub(super) fn load_mapsquares(cache: &mut Js5Store) -> Result<(MapSquares, MapSquareCrcs)> {
     let ref_table = match cache.reference_table(archive::MAPS) {
         Some(rt) => rt.clone(),
         None => {
@@ -235,7 +237,7 @@ pub(super) fn merge_server_layer(
     info!("Loaded {loaded} {stem} regions from server {stem}.dat");
 }
 
-pub(super) fn load_huffman(cache: &mut CacheStore) -> Result<Huffman> {
+pub(super) fn load_huffman(cache: &mut Js5Store) -> Result<Huffman> {
     let target_hash = java_string_hash("huffman");
     let ref_table = cache
         .reference_table(archive::BINARY)
@@ -247,7 +249,7 @@ pub(super) fn load_huffman(cache: &mut CacheStore) -> Result<Huffman> {
             continue;
         }
         if let Some(g) = cache.read_group(archive::BINARY, group.id)? {
-            let bits = &g.entries[0].data;
+            let bits = g.entries[0].data();
             info!("Loaded Huffman table ({} symbols) from cache", bits.len());
             return Ok(Huffman::new(bits));
         }

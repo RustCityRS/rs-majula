@@ -1,7 +1,7 @@
 //! Crafting from 289, at 2011's spinning wheels, furnaces and potter's wheels.
 //!
-//! An item used on a loc goes as the client sends it (OPLOCT `p2_alt1(obj)
-//! p2_alt1(slot) p2(z) p4_alt2(com) p2_alt1(x) p1_alt3(ctrl) ip2(loc)`).
+//! An item used on a loc goes as the client sends it (OPLOCT `p2_alt2(obj)
+//! p2_alt2(slot) p2(z) p4_alt2(com) p2_alt2(x) p1_alt1(ctrl) p2_alt1(loc)`).
 //! Wool on Lumbridge castle's spinning wheel (loc 36970, upstairs) spins a ball
 //! of wool for 2.5 xp; a bucket of sand with soda ash on Lumbridge's furnace
 //! (loc 45310) makes molten glass for 20 xp; soft clay on the Crafting Guild's
@@ -11,14 +11,14 @@
 //!
 //! A gold bar used on Lumbridge's furnace opens 2011's gold jewellery
 //! interface (crafting_gold, 446) with each item the moulds and gems held can
-//! make in its model (IF_SETOBJECT `ip4(com) p4_alt3(count) p2(obj)`) and its
-//! button shown (IF_SETHIDE `p4_alt1(com) p1_alt1(hidden)`); a button's Make 1
-//! (IF_BUTTON1 `p4(com) ip2_alt1(obj) ip2(slot)`) makes a sapphire ring for 40
+//! make in its model (IF_SETOBJECT `p4_alt1(com) p4_alt3(count) p2(obj)`) and its
+//! button shown (IF_SETHIDE `p4_alt3(com) p1_alt2(hidden)`); a button's Make 1
+//! (IF_BUTTON1 `p4(com) p2_alt3(obj) p2_alt1(slot)`) makes a sapphire ring for 40
 //! xp. A silver bar opens 2011's silver casting (438): the Saradomin symbol's
 //! row with its mould, the Zamorak symbol's "You need a ... mould" without;
 //! Make All casts as many symbols as the bars make, 50 xp each. A ball of wool
-//! on a gold amulet (IF_BUTTONT `p4(com) ip2(slot) ip2(slot) p2_alt1(obj)
-//! ip4(com) p2(obj)`) strings it for 4 xp.
+//! on a gold amulet (IF_BUTTONT `p4(com) p2_alt1(slot) p2_alt1(slot) p2_alt2(obj)
+//! p4_alt1(com) p2(obj)`) strings it for 4 xp.
 
 #![cfg(since_647)]
 
@@ -118,13 +118,13 @@ fn beside(
 /// Uses the obj in `slot` on the loc `loc` at `(x, z)` (OPLOCT).
 fn use_on(client: &mut HarnessClient, o: u16, slot: i32, (loc, x, z): (u16, u16, u16)) {
     let mut p = ClientPacket::new();
-    p.p2_alt1(o as i32)
-        .p2_alt1(slot)
+    p.p2_alt2(o as i32)
+        .p2_alt2(slot)
         .p2(z as i32)
         .p4_alt2(BACKPACK)
-        .p2_alt1(x as i32)
-        .p1_alt3(0)
-        .ip2(loc as i32);
+        .p2_alt2(x as i32)
+        .p1_alt1(0)
+        .p2_alt1(loc as i32);
     client.send(ClientProt::OpLocT, &p.finish());
 }
 
@@ -230,7 +230,7 @@ fn objects(packets: &[(u16, Vec<u8>)]) -> Vec<(i32, u16)> {
         .collect()
 }
 
-/// Each IF_SETHIDE as `(com, hidden)`: `p4_alt1 com, p1_alt1 hidden`.
+/// Each IF_SETHIDE as `(com, hidden)`: `p4_alt3 com, p1_alt2 hidden`.
 fn hides(packets: &[(u16, Vec<u8>)]) -> Vec<(i32, bool)> {
     packets
         .iter()
@@ -270,7 +270,7 @@ fn button(client: &mut HarnessClient, op: u8, com: i32) {
         _ => ClientProt::IfButton4,
     };
     let mut p = ClientPacket::new();
-    p.p4(com).ip2_alt1(NONE).ip2(NONE);
+    p.p4(com).p2_alt3(NONE).p2_alt1(NONE);
     client.send(prot, &p.finish());
 }
 
@@ -412,10 +412,10 @@ fn a_ball_of_wool_strings_a_gold_amulet() {
 fn use_on_obj(client: &mut HarnessClient, used: (u16, i32), target: (u16, i32)) {
     let mut p = ClientPacket::new();
     p.p4(BACKPACK)
-        .ip2(target.1)
-        .ip2(used.1)
-        .p2_alt1(used.0 as i32)
-        .ip4(BACKPACK)
+        .p2_alt1(target.1)
+        .p2_alt1(used.1)
+        .p2_alt2(used.0 as i32)
+        .p4_alt1(BACKPACK)
         .p2(target.0 as i32);
     client.send(ClientProt::IfButtonT, &p.finish());
 }

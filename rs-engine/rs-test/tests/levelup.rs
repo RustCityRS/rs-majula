@@ -10,7 +10,7 @@
 //! level-up details (741) once, at varp 1230 = the stat's menu index times 8,
 //! and stops the flash; a click on a quiet stat opens 2011's guide (499) at
 //! varp 965 = its menu index. The click is IF_BUTTON1 as the client writes it,
-//! `p4(com) ip2_alt1(obj) ip2(slot)`.
+//! `p4(com) p2_alt3(obj) p2_alt1(slot)`.
 
 #![cfg(since_647)]
 
@@ -54,7 +54,7 @@ fn settexts(packets: &[(u16, Vec<u8>)]) -> Vec<(u32, String)> {
         .collect()
 }
 
-/// Each MIDI_JINGLE's jingle: `ip2_alt1(id) p3_alt2(length) p1(volume)`.
+/// Each MIDI_JINGLE's jingle: `p2_alt3(id) p3_alt2(length) p1(volume)`.
 fn jingles(packets: &[(u16, Vec<u8>)]) -> Vec<u16> {
     let opcode = ServerProt::MidiJingle as u16;
     packets
@@ -76,7 +76,7 @@ fn varp(engine: &Engine, client: &HarnessClient, id: u16) -> i32 {
 /// Clicks `com`; the game messages said meanwhile.
 fn click(engine: &mut Engine, client: &mut HarnessClient, com: i32) -> Vec<String> {
     let mut p = ClientPacket::new();
-    p.p4(com).ip2_alt1(0xFFFF).ip2(0xFFFF);
+    p.p4(com).p2_alt3(0xFFFF).p2_alt1(0xFFFF);
     client.send(ClientProt::IfButton1, &p.finish());
     let mut said = Vec::new();
     for _ in 0..2 {

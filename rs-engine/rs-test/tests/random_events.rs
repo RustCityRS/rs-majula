@@ -5,7 +5,7 @@
 //! The events are summoned with the dev cheat `~macro_event <event>`
 //! (`_test/scripts/cheats/cheat_macro_events.rs2`), as the event timer's roll
 //! would bring them. Inventory op 1 is `IF_BUTTON1` on `inventory:inv`:
-//! `p4(com) ip2_alt1(obj) ip2(slot)`.
+//! `p4(com) p2_alt3(obj) p2_alt1(slot)`.
 
 #![cfg(since_647)]
 
@@ -91,7 +91,7 @@ fn cheat(client: &mut HarnessClient, input: &str) {
 
 fn button1(client: &mut HarnessClient, com: i32, slot: i32, obj: i32) {
     let mut p = ClientPacket::new();
-    p.p4(com).ip2_alt1(obj).ip2(slot);
+    p.p4(com).p2_alt3(obj).p2_alt1(slot);
     client.send(ClientProt::IfButton1, &p.finish());
 }
 
@@ -153,7 +153,10 @@ fn the_maze_takes_a_player_in_and_their_run_never_tires() {
         let (sx, sz) = (45 * 64 + 31, 71 * 64 + 31);
         engine.harness_telejump(client.pid, sx + 1, 0, sz);
         ticks(engine, &mut client, 2);
-        p.ip2(sz as i32).ip2(shrine).p1(0).p2_alt1(sx as i32);
+        p.p2_alt1(sz as i32)
+            .p2_alt1(shrine)
+            .p1(0)
+            .p2_alt2(sx as i32);
         client.send(ClientProt::OpLoc1, &p.finish());
         ticks(engine, &mut client, 12);
         let (x, _, z) = coord(engine, client.pid);

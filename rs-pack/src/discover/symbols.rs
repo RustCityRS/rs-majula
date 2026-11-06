@@ -22,20 +22,15 @@
 //! already preserved existing names via the same `is_auto_name` heuristic.
 //! The `force` flag is a new addition — symbol-generator had no escape
 //! hatch for regenerating from the cache after a rename.
-use std::collections::{BTreeMap, HashMap, HashSet};
+use crate::archive;
+use crate::cache::loader;
+use anyhow::Result;
+use rs_io::js5::Js5Store;
+use std::collections::{BTreeMap, BTreeSet, HashMap, HashSet};
+use std::fs::{self, File};
 use std::io::Write;
 use std::path::Path;
-
-use anyhow::Result;
 use tracing::{info, warn};
-
-use crate::cache::loader;
-use rs_dat2::CacheStore;
-use rs_dat2::archive;
-
-const ARCHIVE_INTERFACE: u8 = 3;
-const ARCHIVE_SYNTH: u8 = 4;
-const ARCHIVE_FONTMETRICS: u8 = 13;
 
 /// Per-type counts produced by a single discover pass.
 #[derive(Debug, Default, Clone)]
@@ -67,9 +62,9 @@ impl DiscoveryReport {
 /// existing pack files are preserved.
 pub fn discover_symbols(cache_dir: &Path, pack_dir: &Path, force: bool) -> Result<DiscoveryReport> {
     info!("Opening cache at {:?}", cache_dir);
-    let mut cache = CacheStore::open(cache_dir)?;
+    let mut cache = Js5Store::open(cache_dir)?;
 
-    std::fs::create_dir_all(pack_dir)?;
+    fs::create_dir_all(pack_dir)?;
 
     let mut report = DiscoveryReport::default();
 
@@ -201,7 +196,7 @@ pub fn discover_symbols(cache_dir: &Path, pack_dir: &Path, force: bool) -> Resul
     // pack id must equal the group id (stride 1), not a stride-256 encoding.
     report.record(
         "synth",
-        generate_auto_pack_stride(&mut cache, pack_dir, "synth", ARCHIVE_SYNTH, 1, force)?,
+        generate_auto_pack_stride(&mut cache, pack_dir, "synth", archive::SYNTH, 1, force)?,
     );
 
     // Interface / component.
@@ -216,7 +211,7 @@ pub fn discover_symbols(cache_dir: &Path, pack_dir: &Path, force: bool) -> Resul
             &mut cache,
             pack_dir,
             "fontmetrics",
-            ARCHIVE_FONTMETRICS,
+            archive::FONTMETRICS,
             256,
             force,
         )?,
@@ -271,7 +266,7 @@ fn sanitize_name(name: &str) -> String {
 /// Load existing pack file entries as id→name map.
 fn load_existing_pack(path: &Path) -> BTreeMap<u32, String> {
     let mut map = BTreeMap::new();
-    if let Ok(contents) = std::fs::read_to_string(path) {
+    if let Ok(contents) = fs::read_to_string(path) {
         for line in contents.lines() {
             let line = line.trim();
             if line.is_empty() {
@@ -290,7 +285,7 @@ fn load_existing_pack(path: &Path) -> BTreeMap<u32, String> {
 /// Load existing `iface_id:comp_id=name` component entries from a combined interface.pack.
 fn load_existing_components(path: &Path) -> BTreeMap<(u32, u32), String> {
     let mut map = BTreeMap::new();
-    if let Ok(contents) = std::fs::read_to_string(path) {
+    if let Ok(contents) = fs::read_to_string(path) {
         for line in contents.lines() {
             let line = line.trim();
             if line.is_empty() {
@@ -340,7 +335,7 @@ fn write_entity_pack(
     force: bool,
 ) -> Result<TypeReport> {
     let existing = load_existing_pack(path);
-    let mut file = std::fs::File::create(path)?;
+    let mut file = File::create(path)?;
     let mut report = TypeReport::default();
     let cache_ids: HashSet<u32> = entries.iter().map(|(id, _)| *id).collect();
 
@@ -423,7 +418,7 @@ fn write_disambiguated_entity_pack(
     let ambiguous: HashSet<String> = first_id.keys().cloned().collect();
     let cache_ids: HashSet<u32> = entries.iter().map(|(id, _)| *id).collect();
 
-    let mut file = std::fs::File::create(path)?;
+    let mut file = File::create(path)?;
     let mut report = TypeReport::default();
     for (id, name) in entries {
         let sanitized = if name == "null" || name.is_empty() {
@@ -479,7 +474,7 @@ fn write_disambiguated_entity_pack(
 
 // ── entity pack generators ──────────────────────────────────────────────
 
-fn generate_obj_pack(cache: &mut CacheStore, pack_dir: &Path, force: bool) -> Result<TypeReport> {
+fn generate_obj_pack(cache: &mut Js5Store, pack_dir: &Path, force: bool) -> Result<TypeReport> {
     let items = loader::load_all_objs(cache, true)?;
     let mut entries: Vec<(u32, String)> = items
         .types
@@ -495,7 +490,7 @@ fn generate_obj_pack(cache: &mut CacheStore, pack_dir: &Path, force: bool) -> Re
     write_disambiguated_entity_pack(&pack_dir.join("obj.pack"), &entries, "obj", force)
 }
 
-fn generate_npc_pack(cache: &mut CacheStore, pack_dir: &Path, force: bool) -> Result<TypeReport> {
+fn generate_npc_pack(cache: &mut Js5Store, pack_dir: &Path, force: bool) -> Result<TypeReport> {
     let npcs = loader::load_all_npcs(cache)?;
     let mut entries: Vec<(u32, String)> = npcs
         .types
@@ -511,7 +506,7 @@ fn generate_npc_pack(cache: &mut CacheStore, pack_dir: &Path, force: bool) -> Re
     write_disambiguated_entity_pack(&pack_dir.join("npc.pack"), &entries, "npc", force)
 }
 
-fn generate_loc_pack(cache: &mut CacheStore, pack_dir: &Path, force: bool) -> Result<TypeReport> {
+fn generate_loc_pack(cache: &mut Js5Store, pack_dir: &Path, force: bool) -> Result<TypeReport> {
     let locs = loader::load_all_locs(cache)?;
     let mut entries: Vec<(u32, String)> = locs
         .types
@@ -529,7 +524,7 @@ fn generate_loc_pack(cache: &mut CacheStore, pack_dir: &Path, force: bool) -> Re
 
 /// Generate a pack file with one entry per group (for archives where each group = one entity).
 fn generate_auto_pack_per_group(
-    cache: &mut CacheStore,
+    cache: &mut Js5Store,
     pack_dir: &Path,
     type_name: &str,
     archive_id: u8,
@@ -537,7 +532,7 @@ fn generate_auto_pack_per_group(
 ) -> Result<TypeReport> {
     let pack_path = pack_dir.join(format!("{}.pack", type_name));
     let existing = load_existing_pack(&pack_path);
-    let mut file = std::fs::File::create(&pack_path)?;
+    let mut file = File::create(&pack_path)?;
     let group_count = cache.group_count(archive_id).unwrap_or(0);
     let mut report = TypeReport::default();
 
@@ -588,7 +583,7 @@ fn generate_auto_pack_per_group(
 }
 
 fn generate_auto_pack_stride(
-    cache: &mut CacheStore,
+    cache: &mut Js5Store,
     pack_dir: &Path,
     type_name: &str,
     archive_id: u8,
@@ -597,7 +592,7 @@ fn generate_auto_pack_stride(
 ) -> Result<TypeReport> {
     let pack_path = pack_dir.join(format!("{}.pack", type_name));
     let existing = load_existing_pack(&pack_path);
-    let mut file = std::fs::File::create(&pack_path)?;
+    let mut file = File::create(&pack_path)?;
     let group_count = cache.group_count(archive_id).unwrap_or(0);
     let mut report = TypeReport::default();
 
@@ -652,7 +647,7 @@ fn generate_auto_pack_stride(
 }
 
 fn generate_auto_pack_group(
-    cache: &mut CacheStore,
+    cache: &mut Js5Store,
     pack_dir: &Path,
     type_name: &str,
     archive_id: u8,
@@ -661,7 +656,7 @@ fn generate_auto_pack_group(
 ) -> Result<TypeReport> {
     let pack_path = pack_dir.join(format!("{}.pack", type_name));
     let existing = load_existing_pack(&pack_path);
-    let mut file = std::fs::File::create(&pack_path)?;
+    let mut file = File::create(&pack_path)?;
     let mut report = TypeReport::default();
     let mut written_ids = HashSet::new();
 
@@ -702,8 +697,8 @@ fn generate_auto_pack_group(
     Ok(report)
 }
 
-fn generate_category_pack(cache: &mut CacheStore, pack_dir: &Path) -> Result<TypeReport> {
-    let mut categories = std::collections::BTreeSet::new();
+fn generate_category_pack(cache: &mut Js5Store, pack_dir: &Path) -> Result<TypeReport> {
+    let mut categories = BTreeSet::new();
 
     let items = loader::load_all_objs(cache, true)?;
     for item in items.types.iter() {
@@ -732,14 +727,14 @@ fn generate_hunt_pack(pack_dir: &Path) -> Result<TypeReport> {
         info!("  hunt.pack: already exists, preserving");
         return Ok(TypeReport::default());
     }
-    std::fs::File::create(&path)?;
+    File::create(&path)?;
     info!("  hunt.pack: created empty (server-only, populated by validate)");
     Ok(TypeReport::default())
 }
 
 /// Generate interface.pack from the interface archive.
 fn generate_interface_packs(
-    cache: &mut CacheStore,
+    cache: &mut Js5Store,
     pack_dir: &Path,
     force: bool,
 ) -> Result<(TypeReport, TypeReport)> {
@@ -747,14 +742,14 @@ fn generate_interface_packs(
     let existing_iface = load_existing_pack(&iface_path);
     let existing_comps = load_existing_components(&iface_path);
 
-    let group_count = cache.group_count(ARCHIVE_INTERFACE).unwrap_or(0);
+    let group_count = cache.group_count(archive::INTERFACES).unwrap_or(0);
 
     let file_counts: HashMap<u32, u32> = cache
-        .reference_table(ARCHIVE_INTERFACE)
+        .reference_table(archive::INTERFACES)
         .map(|rt| rt.groups.iter().map(|g| (g.id, g.file_count)).collect())
         .unwrap_or_default();
 
-    let mut iface_file = std::fs::File::create(&iface_path)?;
+    let mut iface_file = File::create(&iface_path)?;
     let mut iface_report = TypeReport::default();
     let mut comp_report = TypeReport::default();
 
@@ -808,14 +803,14 @@ fn generate_interface_packs(
 }
 
 fn generate_empty_pack(pack_dir: &Path, type_name: &str) -> Result<()> {
-    std::fs::File::create(pack_dir.join(format!("{}.pack", type_name)))?;
+    File::create(pack_dir.join(format!("{}.pack", type_name)))?;
     info!("  {}.pack: empty (placeholder)", type_name);
     Ok(())
 }
 
 // ── game var pack generators ────────────────────────────────────────────
 
-fn generate_varp_pack(cache: &mut CacheStore, pack_dir: &Path) -> Result<TypeReport> {
+fn generate_varp_pack(cache: &mut Js5Store, pack_dir: &Path) -> Result<TypeReport> {
     let varps = loader::load_all_varps(cache)?;
     let path = pack_dir.join("varp.pack");
     let entries: Vec<(u32, String)> = (0..varps.count() as u32)
@@ -827,7 +822,7 @@ fn generate_varp_pack(cache: &mut CacheStore, pack_dir: &Path) -> Result<TypeRep
     write_entity_pack(&path, &entries, "varp", false)
 }
 
-fn generate_varbit_pack(cache: &mut CacheStore, pack_dir: &Path) -> Result<TypeReport> {
+fn generate_varbit_pack(cache: &mut Js5Store, pack_dir: &Path) -> Result<TypeReport> {
     let varbits = loader::load_all_varbits(cache)?;
     let path = pack_dir.join("varbit.pack");
     let entries: Vec<(u32, String)> = (0..varbits.count() as u32)
@@ -943,14 +938,16 @@ fn generate_npc_mode_pack(pack_dir: &Path) -> Result<TypeReport> {
 #[cfg(test)]
 mod tests {
     use super::*;
+    use std::fs;
+    use std::path::PathBuf;
 
     /// Scratch under the workspace `target/`, never the system temp dir.
-    fn scratch(name: &str) -> std::path::PathBuf {
+    fn scratch(name: &str) -> PathBuf {
         let dir = Path::new(env!("CARGO_MANIFEST_DIR"))
             .join("../target/unit-scratch/discover")
             .join(name);
-        let _ = std::fs::remove_dir_all(&dir);
-        std::fs::create_dir_all(&dir).unwrap();
+        let _ = fs::remove_dir_all(&dir);
+        fs::create_dir_all(&dir).unwrap();
         dir
     }
 
@@ -972,7 +969,7 @@ mod tests {
         let path = dir.join("category.pack");
         // 208 carries another id's placeholder-shaped name (as in the real
         // registry); 300 is out of the cache's range; 5 is a stale placeholder.
-        std::fs::write(
+        fs::write(
             &path,
             "5=category_5\n22=drawer\n208=category_22\n300=category_7\n",
         )
@@ -985,7 +982,7 @@ mod tests {
 
         write_entity_pack(&path, &cache, "category", false).unwrap();
 
-        let written = std::fs::read_to_string(&path).unwrap();
+        let written = fs::read_to_string(&path).unwrap();
         let lines: Vec<&str> = written.lines().collect();
         assert_eq!(
             lines,

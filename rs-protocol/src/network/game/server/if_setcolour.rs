@@ -33,13 +33,13 @@ pub struct IfSetColour {
 
 #[cfg(since_647)]
 impl ServerProtMessage for IfSetColour {
-    // Client reads `g4_alt2 component_hash` then `ig2_alt1 colour`
-    // (`MapAreaConfig.java`, IF_SETCOLOUR). `ip4`/`p2` wrote the right number
+    // Client reads `g4s_alt2 component_hash` then `g2_alt3 colour`
+    // (`MapAreaConfig.java`, IF_SETCOLOUR). `p4_alt1`/`p2` wrote the right number
     // of bytes in the wrong order, so the component hash and colour both
     // arrived scrambled.
     fn encode(&self, buf: &mut Packet) {
         buf.p4_alt2(self.com);
-        buf.ip2_alt1(self.colour);
+        buf.p2_alt3(self.colour);
     }
 
     fn sizeof(&self) -> usize {

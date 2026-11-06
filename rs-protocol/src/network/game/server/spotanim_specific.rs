@@ -25,12 +25,12 @@ pub struct SpotanimSpecific {
 #[cfg(since_647)]
 impl ServerProtMessage for SpotanimSpecific {
     fn encode(&self, buf: &mut Packet) {
-        buf.p1_alt2(self.packed);
-        buf.p1_alt3(self.channel);
+        buf.p1_alt3(self.packed);
+        buf.p1_alt1(self.channel);
         buf.p4(self.target);
         buf.p2(self.spotanim);
-        buf.ip2(self.height);
-        buf.ip2_alt1(self.delay);
+        buf.p2_alt1(self.height);
+        buf.p2_alt3(self.delay);
     }
 
     fn sizeof(&self) -> usize {

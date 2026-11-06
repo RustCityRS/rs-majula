@@ -25,11 +25,11 @@ impl ServerProtMessage for CamLookat {
         // `MapAreaConfig`'s CAM_LOOKAT branch, into `AClass13.method622`.
         // Height is in 1/128-tile units, as before 647; the client scales it
         // (`<< 2`) to its 512-unit tiles.
-        buf.p1_alt1(self.local_x);
-        buf.ip2_alt1(self.height);
-        buf.p1_alt2(self.local_z);
-        buf.p1_alt1(self.const_speed);
-        buf.p1_alt2(self.var_speed);
+        buf.p1_alt2(self.local_x);
+        buf.p2_alt3(self.height);
+        buf.p1_alt3(self.local_z);
+        buf.p1_alt2(self.const_speed);
+        buf.p1_alt3(self.var_speed);
     }
 
     fn sizeof(&self) -> usize {

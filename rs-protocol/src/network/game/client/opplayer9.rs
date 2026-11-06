@@ -14,7 +14,7 @@ pub struct OpPlayer9 {
 impl ClientProtMessage for OpPlayer9 {
     fn decode(buf: &mut Packet, _: usize) -> Self {
         let pid = buf.g2();
-        let ctrl = buf.g1_alt3() != 0;
+        let ctrl = buf.g1_alt1() != 0;
         OpPlayer9 { pid, ctrl }
     }
 }

@@ -1,6 +1,5 @@
 #[cfg(since_647)]
 use crate::network::game::server_prot::ServerProt;
-use crate::network::game::server_prot_message::jstr_len;
 #[cfg(since_647)]
 use crate::network::game::server_prot_message::{ServerProtMessage, ServerProtMessageInfo};
 #[cfg(since_647)]
@@ -28,6 +27,6 @@ impl ServerProtMessage for MessageQuickchatPrivateEcho {
     }
 
     fn sizeof(&self) -> usize {
-        jstr_len(&self.recipient) + size_of_val(&self.phrase_id) + self.quickchat_data.len()
+        Packet::sizejstr(&self.recipient) + size_of_val(&self.phrase_id) + self.quickchat_data.len()
     }
 }

@@ -17,12 +17,13 @@
 #![cfg(since_647)]
 
 use std::collections::{BTreeMap, BTreeSet, HashMap, HashSet};
+use std::fs;
 use std::path::{Path, PathBuf};
 
 const KNOWN: &str = "tests/config_param_refs_647.known.tsv";
 
 fn files(dir: &Path, exts: &[&str], out: &mut Vec<PathBuf>) {
-    for entry in std::fs::read_dir(dir).unwrap().flatten() {
+    for entry in fs::read_dir(dir).unwrap().flatten() {
         let path = entry.path();
         if path.is_dir() {
             files(&path, exts, out);
@@ -72,7 +73,7 @@ fn every_config_param_value_names_something() {
     let mut types = HashMap::new();
     for path in &param_files {
         let mut name = None;
-        for line in std::fs::read_to_string(path).unwrap().lines() {
+        for line in fs::read_to_string(path).unwrap().lines() {
             let line = line.trim();
             if let Some(h) = header(line) {
                 name = Some(h.to_string());
@@ -101,7 +102,7 @@ fn every_config_param_value_names_something() {
             .display()
             .to_string()
             .replace('\\', "/");
-        for line in std::fs::read_to_string(path).unwrap().lines() {
+        for line in fs::read_to_string(path).unwrap().lines() {
             let Some((param, value)) = line
                 .trim()
                 .strip_prefix("param=")
@@ -117,7 +118,7 @@ fn every_config_param_value_names_something() {
                 continue;
             }
             let known = names.entry(kind).or_insert_with(|| {
-                std::fs::read_to_string(root.join(format!("pack/{kind}.pack")))
+                fs::read_to_string(root.join(format!("pack/{kind}.pack")))
                     .unwrap()
                     .lines()
                     .filter_map(|l| l.split_once('=').map(|(_, n)| n.to_string()))
@@ -133,7 +134,7 @@ fn every_config_param_value_names_something() {
     }
 
     let listed: BTreeSet<(String, String)> =
-        std::fs::read_to_string(Path::new(env!("CARGO_MANIFEST_DIR")).join(KNOWN))
+        fs::read_to_string(Path::new(env!("CARGO_MANIFEST_DIR")).join(KNOWN))
             .unwrap()
             .lines()
             .filter(|l| !l.is_empty() && !l.starts_with('#'))

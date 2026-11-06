@@ -1,13 +1,16 @@
 #[cfg(since_647)]
 use crate::PACK_DIR;
 #[cfg(since_647)]
+use crate::archive;
+#[cfg(since_647)]
 use crate::pack::packed_data::PackedData;
 #[cfg(since_647)]
 use anyhow::{Result, bail};
-#[cfg(since_647)]
-use rs_dat2::{CacheStore, archive};
+use rs_io::Packet;
 use rs_io::bz2::bz2_decompress;
 use rs_io::crc::getcrc;
+#[cfg(since_647)]
+use rs_io::js5::Js5Store;
 use std::collections::HashMap;
 use std::sync::Arc;
 #[cfg(since_647)]
@@ -83,42 +86,17 @@ fn decompress_song(data: &[u8]) -> Vec<u8> {
     bz2_decompress(&data[4..], size, true, 0)
 }
 
-fn read_u16_be(data: &[u8], offset: usize) -> u16 {
-    ((data[offset] as u16) << 8) | data[offset + 1] as u16
-}
-
-fn read_u32_be(data: &[u8], offset: usize) -> u32 {
-    ((data[offset] as u32) << 24)
-        | ((data[offset + 1] as u32) << 16)
-        | ((data[offset + 2] as u32) << 8)
-        | data[offset + 3] as u32
-}
-
-fn read_u32_le(data: &[u8], offset: usize) -> u32 {
-    (data[offset] as u32)
-        | ((data[offset + 1] as u32) << 8)
-        | ((data[offset + 2] as u32) << 16)
-        | ((data[offset + 3] as u32) << 24)
-}
-
 fn read_chunk_id(data: &[u8], offset: usize) -> &[u8] {
     &data[offset..offset + 4]
 }
 
-fn read_var_len(data: &[u8], mut offset: usize, limit: usize) -> Option<(u32, usize)> {
-    let mut value: u32 = 0;
-    for _ in 0..4 {
-        if offset >= limit {
-            return None;
-        }
-        let byte = data[offset];
-        offset += 1;
-        value = (value << 7) | (byte & 0x7F) as u32;
-        if byte & 0x80 == 0 {
-            return Some((value, offset));
-        }
-    }
-    None
+fn read_var_len(data: &[u8], offset: usize, limit: usize) -> Option<(u32, usize)> {
+    let end = (offset + 4).min(limit);
+    data.get(offset..end)?
+        .iter()
+        .position(|byte| byte & 0x80 == 0)?;
+    let mut buf = Packet { data, pos: offset };
+    Some((buf.gmidivarlen(), buf.pos))
 }
 
 fn unwrap_riff_midi(data: &[u8]) -> Option<&[u8]> {
@@ -137,7 +115,7 @@ fn unwrap_riff_midi(data: &[u8]) -> Option<&[u8]> {
     let mut offset = 12;
     while offset + 8 <= data.len() {
         let id = read_chunk_id(data, offset);
-        let size = read_u32_le(data, offset + 4) as usize;
+        let size = Packet::from(&data[offset + 4..]).g4s_alt1() as u32 as usize;
         offset += 8;
 
         if offset + size > data.len() {
@@ -172,15 +150,15 @@ pub(crate) fn parse_midi_length(src: &[u8]) -> Option<u32> {
         return None;
     }
 
-    let header_length = read_u32_be(data, offset + 4) as usize;
+    let header_length = Packet::from(&data[offset + 4..]).g4s() as u32 as usize;
     offset += 8;
     if header_length < 6 || offset + header_length > data.len() {
         return None;
     }
 
-    let format = read_u16_be(data, offset);
-    let track_count = read_u16_be(data, offset + 2);
-    let division = read_u16_be(data, offset + 4);
+    let format = Packet::from(&data[offset..]).g2();
+    let track_count = Packet::from(&data[offset + 2..]).g2();
+    let division = Packet::from(&data[offset + 4..]).g2();
     offset += header_length;
 
     if format > 2 || track_count == 0 {
@@ -200,7 +178,7 @@ pub(crate) fn parse_midi_length(src: &[u8]) -> Option<u32> {
             return None;
         }
 
-        let track_length = read_u32_be(data, offset + 4) as usize;
+        let track_length = Packet::from(&data[offset + 4..]).g4s() as u32 as usize;
         offset += 8;
         let track_end = offset + track_length;
         if track_end > data.len() {
@@ -366,7 +344,7 @@ pub(super) fn load_midi_ids() -> HashMap<Box<str>, u16> {
 }
 
 #[cfg(since_647)]
-pub(super) fn load_midi_tick_lengths(cache: &mut CacheStore) -> Box<[Option<u16>]> {
+pub(super) fn load_midi_tick_lengths(cache: &mut Js5Store) -> Box<[Option<u16>]> {
     let mut lengths: Vec<Option<u16>> = Vec::new();
     for (archive, base) in [(archive::SONGS, 0), (archive::JINGLES, MIDI_JINGLE_BASE)] {
         let Some(table) = cache.reference_table(archive).cloned() else {
@@ -379,7 +357,7 @@ pub(super) fn load_midi_tick_lengths(cache: &mut CacheStore) -> Box<[Option<u16>
             let Some(ms) = g
                 .entries
                 .first()
-                .and_then(|e| decode_jagex_midi(&e.data).ok())
+                .and_then(|e| decode_jagex_midi(e.data()).ok())
                 .and_then(|smf| parse_midi_length(&smf))
             else {
                 continue;
@@ -399,22 +377,6 @@ pub(super) fn load_midi_tick_lengths(cache: &mut CacheStore) -> Box<[Option<u16>
 }
 
 #[cfg(since_647)]
-pub(crate) fn read_varint(data: &[u8], pos: &mut usize) -> Result<u32> {
-    let mut result: u32 = 0;
-    loop {
-        if *pos >= data.len() {
-            bail!("unexpected EOF in varint at {}", *pos);
-        }
-        let b = data[*pos] as u32;
-        *pos += 1;
-        result = (result << 7) | (b & 0x7F);
-        if b & 0x80 == 0 {
-            return Ok(result);
-        }
-    }
-}
-
-#[cfg(since_647)]
 pub fn decode_jagex_midi(data: &[u8]) -> Result<Vec<u8>> {
     if data.len() < 3 {
         bail!("MIDI data too short: {} bytes", data.len());
@@ -423,7 +385,7 @@ pub fn decode_jagex_midi(data: &[u8]) -> Result<Vec<u8>> {
     let mut pos = data.len() - 3;
     let num_tracks = data[pos] as usize;
     pos += 1;
-    let division = u16::from_be_bytes([data[pos], data[pos + 1]]);
+    let division = Packet::from(&data[pos..]).g2();
 
     let mut header_size = num_tracks * 10 + 14;
     pos = 0;
@@ -486,9 +448,14 @@ pub fn decode_jagex_midi(data: &[u8]) -> Result<Vec<u8>> {
         + poly_pressure_count
         + program_change_count;
 
+    let mut deltas = Packet { data, pos };
     for _ in 0..total_events {
-        read_varint(data, &mut pos)? as i32;
+        if !data[deltas.pos..].iter().any(|byte| byte & 0x80 == 0) {
+            bail!("unexpected EOF in MIDI delta at {}", deltas.pos);
+        }
+        deltas.gmidivarlen();
     }
+    pos = deltas.pos;
     let after_deltas = pos;
 
     let mut controller_zero_or_32 = 0usize;
@@ -577,7 +544,7 @@ pub fn decode_jagex_midi(data: &[u8]) -> Result<Vec<u8>> {
     out.p2(division);
 
     let mut c_opcode = 0usize;
-    let mut c_delta = delta_start;
+    let mut deltas = Packet::from(&data[delta_start..after_deltas]);
     let mut c_cc_num = after_deltas;
     let mut c_switch = switch_off;
     let mut c_poly_pressure = poly_pressure_off;
@@ -620,7 +587,7 @@ pub fn decode_jagex_midi(data: &[u8]) -> Result<Vec<u8>> {
         let mut prev_status: i32 = -1;
 
         loop {
-            let delta = read_varint(data, &mut c_delta)? as i32;
+            let delta = deltas.gmidivarlen() as i32;
             out.pvarint(delta.max(0) as u32);
 
             let opcode = data[c_opcode] as i32;
@@ -635,7 +602,7 @@ pub fn decode_jagex_midi(data: &[u8]) -> Result<Vec<u8>> {
                 out.p1(0x2F);
                 out.p1(0x00);
                 let track_size = (out.dat.len() - track_start) as u32;
-                out.dat[size_pos..size_pos + 4].copy_from_slice(&track_size.to_be_bytes());
+                Packet::from(&mut out.dat[size_pos..size_pos + 4]).p4(track_size as i32);
                 break;
             }
 

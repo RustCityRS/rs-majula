@@ -92,8 +92,8 @@ pub fn pack_varbits(
 #[cfg(all(test, since_647))]
 mod tests {
     use super::*;
-    use crate::config_blob::ConfigBlob;
     use crate::pack::pack::{load_constants, parse_config_sections};
+    use std::fs;
     use std::path::Path;
 
     // A varbit past the cache's (289's horrorquest, on the server-only varp
@@ -107,18 +107,20 @@ mod tests {
         let registry = PackRegistry::load(&root.join(crate::PACK_DIR)).expect("load registry");
         let constants = load_constants(&source);
         let server_dir = root.join("target").join("varbit-pack-test");
-        std::fs::create_dir_all(&server_dir).unwrap();
-        let mut blob = ConfigBlob::new();
+        fs::create_dir_all(&server_dir).unwrap();
         let result = pack_varbits(&FileCache::new(&source), &registry, &constants).unwrap();
         result.server.save(&server_dir, "varbit").unwrap();
         let client = result.client.unwrap();
-        blob.add_packed_data("varbit", client.dat, client.idx);
 
         let horror = registry
             .varbit
             .get_by_debugname("horrorquest")
             .expect("horrorquest");
-        let client = blob.read_packed_data("varbit").unwrap();
+        let client: Vec<_> = PackedData::entries(&client.dat, &client.idx)
+            .unwrap()
+            .filter(|(_, data)| !data.is_empty())
+            .map(|(id, _)| id as u32)
+            .collect();
         let cache_varbits =
             parse_config_sections(&[source.join("_unpack").join("all.varbit")], &constants)
                 .keys()
@@ -126,14 +128,14 @@ mod tests {
                 .max()
                 .expect("run `cargo unpack` first");
         assert_eq!(
-            client.keys().next_back().copied(),
+            client.last().copied(),
             Some(cache_varbits),
             "the client's last varbit is the cache's"
         );
         assert!(horror > cache_varbits, "horrorquest is past the cache's");
-        assert!(!client.contains_key(&horror), "and not the client's");
+        assert!(!client.contains(&horror), "and not the client's");
 
-        let server = std::fs::read(server_dir.join("varbit.dat")).unwrap();
+        let server = fs::read(server_dir.join("varbit.dat")).unwrap();
         assert_eq!(
             u16::from_be_bytes([server[0], server[1]]) as u32,
             registry.varbit.max,

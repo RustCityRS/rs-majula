@@ -2,7 +2,7 @@
 use crate::markup::markup;
 use crate::network::game::server::ServerProtMessage;
 use crate::network::game::server_prot::ServerProt;
-use crate::network::game::server_prot_message::{ServerProtMessageInfo, jstr_len};
+use crate::network::game::server_prot_message::ServerProtMessageInfo;
 use crate::network::game::server_prot_priority::ServerProtPriority;
 use rs_io::{Packet, PacketFrame};
 use rs_protocol_macros::server_prot;
@@ -21,7 +21,7 @@ impl ServerProtMessage for MessageGame<'_> {
     }
 
     fn sizeof(&self) -> usize {
-        jstr_len(self.text)
+        Packet::sizejstr(self.text)
     }
 }
 
@@ -69,6 +69,6 @@ impl ServerProtMessage for MessageGame<'_> {
     fn sizeof(&self) -> usize {
         let (msg_type, name, text) = self.parts();
         let smart = if msg_type < 128 { 1 } else { 2 };
-        smart + 4 + 1 + name.map_or(0, jstr_len) + jstr_len(&text)
+        smart + 4 + 1 + name.map_or(0, Packet::sizejstr) + Packet::sizejstr(&text)
     }
 }

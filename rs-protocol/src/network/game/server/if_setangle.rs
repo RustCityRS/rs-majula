@@ -21,10 +21,10 @@ pub struct IfSetAngle {
 #[cfg(since_647)]
 impl ServerProtMessage for IfSetAngle {
     fn encode(&self, buf: &mut Packet) {
-        buf.ip2(self.x);
-        buf.p4_alt1(self.com);
-        buf.p2_alt1(self.y);
-        buf.p2_alt1(self.zoom);
+        buf.p2_alt1(self.x);
+        buf.p4_alt3(self.com);
+        buf.p2_alt2(self.y);
+        buf.p2_alt2(self.zoom);
     }
 
     fn sizeof(&self) -> usize {

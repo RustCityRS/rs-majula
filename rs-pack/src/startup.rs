@@ -21,18 +21,22 @@ use crate::cache::varbit::VarbitType;
 use crate::cache::varn::VarnType;
 use crate::cache::varp::{VarPlayerType, VarPlayerTypeRaw};
 use crate::cache::vars::VarsType;
-use crate::config_blob::ConfigBlob;
-use crate::config_crc;
+use crate::pack::model;
 use crate::pack::other::map;
-use crate::pack::pack::FileCache;
+use crate::pack::pack::{self, FileCache};
 use crate::pack::pack_registry::PackRegistry;
-use crate::pack::{model, pack};
+use crate::pack::util::verify_crc;
 use crate::types::ParamValue;
-use crate::validate::{Severity, check_pack_content_sync};
-use anyhow::{Result, bail};
+use crate::{CONFIG_TYPE_CRCS, archive, config_crc};
+use anyhow::{Context, Result};
+use rs_io::jag::JagFile;
+use rs_io::js5::Js5Store;
+use std::collections::{HashMap, HashSet};
 use std::path::{Path, PathBuf};
 use std::time::SystemTime;
+use std::{env, fs, io};
 use tracing::{info, warn};
+
 // ── mtime utilities ──────────────────────────────────────────────────────────
 
 pub(crate) fn newest_mtime(dir: &Path, extensions: &[&str]) -> Option<SystemTime> {
@@ -52,7 +56,7 @@ pub(crate) fn config_inputs(scripts_dir: &Path, pack_dir: &Path) -> Option<Syste
 }
 
 fn walk_mtime(dir: &Path, extensions: &[&str], newest: &mut Option<SystemTime>) {
-    let Ok(entries) = std::fs::read_dir(dir) else {
+    let Ok(entries) = fs::read_dir(dir) else {
         return;
     };
     // A directory's own mtime moves when an entry is added, removed or
@@ -90,7 +94,7 @@ pub(crate) fn file_mtime(path: &Path) -> Option<SystemTime> {
 /// forces a repack — content-only timestamp checks otherwise silently keep
 /// stale .dat from an older packer (e.g. enum symbol resolution changing).
 pub(crate) fn current_exe_mtime() -> Option<SystemTime> {
-    std::env::current_exe().ok().and_then(|p| file_mtime(&p))
+    env::current_exe().ok().and_then(|p| file_mtime(&p))
 }
 
 /// Marks a pack step done, now.
@@ -99,8 +103,8 @@ pub(crate) fn current_exe_mtime() -> Option<SystemTime> {
 /// is already empty does not move its mtime, so `.anim_stamp`, written as `[]`,
 /// kept the date it was first created: once any animation input was newer, all
 /// 374,553 frames were repacked on every start and every reload.
-pub fn write_stamp(path: &Path) -> std::io::Result<()> {
-    std::fs::write(path, b"ok")
+pub fn write_stamp(path: &Path) -> io::Result<()> {
+    fs::write(path, b"ok")
 }
 
 pub(crate) fn is_up_to_date(sentinel: &Path, newest_input: Option<SystemTime>) -> bool {
@@ -126,7 +130,7 @@ pub struct PackResult {
     /// Component index lookups derived from interface.pack.
     pub layout: InterfaceLayout,
     /// Pre-opened JS5 cache — avoids redundant re-opens during server init.
-    pub js5_store: rs_dat2::CacheStore,
+    pub js5_store: Js5Store,
 }
 
 /// Well-known component indices per toplevel, derived from interface.pack.
@@ -136,26 +140,26 @@ pub struct PackResult {
 #[derive(Debug, Clone, Default)]
 pub struct InterfaceLayout {
     /// interface_id → component_id for the `com_main_screen` target.
-    pub main_screen: std::collections::HashMap<u16, u16>,
+    pub main_screen: HashMap<u16, u16>,
     /// interface_id → component_id for the `com_wide_screen` target: the
     /// toplevel's full-size main slot (548:8 fixed, 746:6 resizable,
     /// `void-634`'s `wide_screen` with 746's +1 drift).
-    pub wide_screen: std::collections::HashMap<u16, u16>,
+    pub wide_screen: HashMap<u16, u16>,
     /// The main-screen interfaces that open in `wide_screen` instead: the
     /// content `wide_screen_enum` (2011's skill guide, whose own backdrop
     /// fills its slot).
-    pub wide_screen_ifaces: std::collections::HashSet<u16>,
+    pub wide_screen_ifaces: HashSet<u16>,
     /// interface_id → component_id for the `com_overlay_tab` target, the slot
     /// over the side panels that side modals mount on.
-    pub overlay_tab: std::collections::HashMap<u16, u16>,
+    pub overlay_tab: HashMap<u16, u16>,
     /// interface_id → component_id for the `com_overlay` target, the
     /// full-size slot over the game view that `if_openoverlay` mounts on
     /// (548:7, 746:8: `void-634`'s `overlay` with 746's +1 drift).
-    pub overlay: std::collections::HashMap<u16, u16>,
+    pub overlay: HashMap<u16, u16>,
     /// interface_id → component_id for the `com_chatbox` target.
-    pub chatbox: std::collections::HashMap<u16, u16>,
+    pub chatbox: HashMap<u16, u16>,
     /// component_id → interface_id (root_layer) for interface listener cleanup.
-    pub component_roots: std::collections::HashMap<u16, i32>,
+    pub component_roots: HashMap<u16, i32>,
     /// Parent component hash (`chatbox_iface << 16 | dialogue_box_index`) where
     /// dialogue_box interfaces (npc/player chat, message box, multi-choice)
     /// mount. Rev-647: the chatbox interface (752) hosts the dialogue_box at
@@ -169,7 +173,7 @@ pub struct InterfaceLayout {
     /// `dialogue_slot_enum` (e.g. objbox/doubleobjbox → chatbox child 12,
     /// `dialogue_box_small`). Any dialogue *not* in this map uses
     /// `dialogue_parent_hash` (the default `dialogue_box` slot, child 13).
-    pub dialogue_slots: std::collections::HashMap<u16, i32>,
+    pub dialogue_slots: HashMap<u16, i32>,
 }
 
 impl InterfaceLayout {
@@ -209,12 +213,12 @@ pub struct PackedConfig {
     /// Synth name → raw archive-4 sound id (= wire id), from synth.pack.
     /// Synths have no decoded type, so this is the only runtime name source
     /// (used by the cheat arg parser to resolve `synth fire_lit` like `give`).
-    pub synth_names: std::collections::HashMap<String, u16>,
+    pub synth_names: HashMap<String, u16>,
 }
 
 /// Run the complete pack + build pipeline.
 ///
-/// 1. Pack text configs to server .dat + client blobs
+/// 1. Pack text configs to server .dat/.idx and a client config JAG.
 /// 2. Pack animations to .anim files
 /// 3. Compile RuneScript sources
 /// 4. Build JS5 cache from content + assets
@@ -227,7 +231,7 @@ pub struct PackedConfig {
 /// * `pack_dir`    -- `.pack` name registries (e.g. `content/647/pack`)
 /// * `output_dir`  -- output root (e.g. `target/pack/647`), JS5 cache files land here
 /// * `verify`      -- strict mode: panic when a built archive CRC diverges from
-///   `crate::archive_crc::EXPECTED` (Jordan's `insert_jag` convention)
+///   `crate::archive::EXPECTED_CRCS` (Jordan's `insert_jag` convention)
 pub fn pack_all(
     content_dir: &Path,
     pack_dir: &Path,
@@ -282,34 +286,12 @@ fn pack_all_inner(
 
     require_derived_content(content_dir)?;
 
-    {
-        let registry = PackRegistry::load(&pack_dir)?;
-        let diags = check_pack_content_sync(content_dir, &registry);
-        let errors = diags
-            .iter()
-            .filter(|d| d.severity == Severity::Error)
-            .map(ToString::to_string)
-            .collect::<Vec<_>>()
-            .join("\n");
-        if !errors.is_empty() {
-            bail!(
-                "pack registries and content are out of sync:\n{errors}\n\
-                 After registry renames, regenerate cache-derived content with \
-                 `REV=647 cargo regen-content`."
-            );
-        }
-        if !diags.is_empty() {
-            info!(
-                "pack_all: {} unregistered content section(s) won't be packed",
-                diags.len()
-            );
-        }
-    }
+    PackRegistry::load(&pack_dir)?.check_content(&scripts_dir)?;
 
-    std::fs::create_dir_all(&server_dir)?;
-    std::fs::create_dir_all(&client_dir)?;
+    fs::create_dir_all(&server_dir)?;
+    fs::create_dir_all(&client_dir)?;
 
-    // ── Step 1: Pack text configs → server .dat/.idx + client blobs ───────
+    // ── Step 1: Pack text configs ───────────────────────────────────────
     let unpack_dir = scripts_dir.join("_unpack");
     let config_input = config_inputs(&scripts_dir, &pack_dir);
     let config_sentinel = server_dir.join("npc.dat");
@@ -317,7 +299,13 @@ fn pack_all_inner(
 
     if is_up_to_date(&config_sentinel, config_input) && is_up_to_date(&config_path, config_input) {
         if verify {
-            ConfigBlob::load(&config_path)?.verify()?;
+            let config = JagFile::from(fs::read(&config_path)?);
+            for &(name, expected) in CONFIG_TYPE_CRCS.iter().chain(config_crc::GENERIC) {
+                let data = config
+                    .read(&format!("{name}.dat"))
+                    .with_context(|| format!("Missing client config: {name}"))?;
+                verify_crc(name, &data.data, expected);
+            }
         }
         info!("pack_all: text configs up to date, skipping");
     } else {
@@ -413,11 +401,11 @@ fn pack_all_inner(
     )?;
 
     // ── Step 4b: CRC gate against the OpenRS2 786 master index ──────────
-    verify_archive_crcs(output_dir, verify)?;
+    archive::verify_crcs(output_dir, verify)?;
 
     // ── Step 5: Load TypeProviders (always runs) ─────────────────────────
     info!("pack_all: loading TypeProviders...");
-    let mut js5_store = rs_dat2::CacheStore::open(output_dir)?;
+    let mut js5_store = Js5Store::open(output_dir)?;
     let mut config = load_packed_config(&server_dir, &mut js5_store)?;
     config.synth_names = load_synth_names(&pack_dir);
 
@@ -442,70 +430,8 @@ fn pack_all_inner(
     })
 }
 
-/// Master-index order of the 35 rev-647 archives: idx255 positions 0..=34 map
-/// to archive ids 0-33 then 36 (OpenRS2 786 ships no idx34/idx35). This is the
-/// same order the client sends login CRCs in (`Class130.method834`).
-pub const MASTER_INDEX_ORDER: [u8; 35] = [
-    0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25,
-    26, 27, 28, 29, 30, 31, 32, 33, 36,
-];
-
-/// Verify each built archive's reference-table container CRC against
-/// [`crate::archive_crc::EXPECTED`].
-///
-/// The CRC is crc32 over the raw (255, archive_id) container bytes — exactly
-/// what the client hashes for its login CRCs. `EXPECTED` is indexed by
-/// master-index POSITION (not archive id): entry 34 is archive id 36.
-/// `None` entries are known divergences and are skipped. With `strict`,
-/// any mismatch panics (Jordan's `insert_jag` convention).
-pub fn verify_archive_crcs(output_dir: &Path, strict: bool) -> Result<()> {
-    use crate::archive_crc::EXPECTED;
-
-    let mut store = rs_dat2::CacheStore::open(output_dir)?;
-    let mut mismatches: Vec<String> = Vec::new();
-    info!("CRC gate: verifying 35 archives against OpenRS2 786...");
-    for (pos, &aid) in MASTER_INDEX_ORDER.iter().enumerate() {
-        let actual = match store.read_raw_group_bytes(255, aid as u32) {
-            Ok(Some(raw)) => rs_io::crc::getcrc(&raw, 0, raw.len()),
-            _ => 0,
-        };
-        match EXPECTED[pos] {
-            Some(expected) if expected == actual => {
-                info!("  archive {aid:>2}: OK ({actual:#010x})");
-            }
-            Some(expected) => {
-                warn!("  archive {aid:>2}: MISMATCH got {actual:#010x}, expected {expected:#010x}");
-                mismatches.push(format!(
-                    "archive {aid}: got {actual:#010x}, expected {expected:#010x}"
-                ));
-            }
-            None => {
-                info!("  archive {aid:>2}: skipped, known divergence ({actual:#010x})");
-            }
-        }
-    }
-    if mismatches.is_empty() {
-        info!("CRC gate: all 31 verified archives match OpenRS2 786 (4 known divergences skipped)");
-    } else if strict {
-        panic!(
-            "CRC gate: {} archive(s) diverge from OpenRS2 786:\n  {}",
-            mismatches.len(),
-            mismatches.join("\n  "),
-        );
-    } else {
-        warn!(
-            "CRC gate: {} archive(s) diverge from OpenRS2 786",
-            mismatches.len()
-        );
-    }
-    Ok(())
-}
-
 /// Load server configs, merging loc metadata into the JS5 definitions.
-pub fn load_packed_config(
-    server_dir: &Path,
-    cache: &mut rs_dat2::CacheStore,
-) -> Result<PackedConfig> {
+pub fn load_packed_config(server_dir: &Path, cache: &mut Js5Store) -> Result<PackedConfig> {
     let npcs = load_from_server_dat::<NpcTypeRaw, _>(server_dir, "npc", ())?;
     let params: TypeProvider<ParamType> =
         load_from_server_dat::<ParamTypeRaw, _>(server_dir, "param", ())?;
@@ -571,9 +497,9 @@ pub fn load_packed_config(
 
 /// Load synth name → id from `synth.pack` (`<id>=<name>` lines). Since the
 /// stride-1 fix the pack id IS the wire id, so the map can be used directly.
-pub fn load_synth_names(pack_dir: &Path) -> std::collections::HashMap<String, u16> {
-    let mut map = std::collections::HashMap::new();
-    if let Ok(contents) = std::fs::read_to_string(pack_dir.join("synth.pack")) {
+pub fn load_synth_names(pack_dir: &Path) -> HashMap<String, u16> {
+    let mut map = HashMap::new();
+    if let Ok(contents) = fs::read_to_string(pack_dir.join("synth.pack")) {
         for line in contents.lines() {
             if let Some((id, name)) = line.trim().split_once('=')
                 && let Ok(id) = id.parse::<u16>()
@@ -594,7 +520,7 @@ const DIALOGUE_BOX_INDEX: i32 = 13;
 fn load_interface_layout(pack_dir: &Path) -> InterfaceLayout {
     let mut layout = InterfaceLayout::default();
     let path = pack_dir.join("interface.pack");
-    let Ok(contents) = std::fs::read_to_string(&path) else {
+    let Ok(contents) = fs::read_to_string(&path) else {
         return layout;
     };
     for line in contents.lines() {
@@ -648,7 +574,7 @@ fn load_dialogue_slots(
     layout: &mut InterfaceLayout,
 ) {
     const ENUM_NAME: &str = "dialogue_slot_enum";
-    let Ok(contents) = std::fs::read_to_string(pack_dir.join("enum.pack")) else {
+    let Ok(contents) = fs::read_to_string(pack_dir.join("enum.pack")) else {
         return;
     };
     let enum_id = contents.lines().find_map(|line| {
@@ -682,7 +608,7 @@ fn load_wide_screen_ifaces(
     layout: &mut InterfaceLayout,
 ) {
     const ENUM_NAME: &str = "wide_screen_enum";
-    let Ok(contents) = std::fs::read_to_string(pack_dir.join("enum.pack")) else {
+    let Ok(contents) = fs::read_to_string(pack_dir.join("enum.pack")) else {
         return;
     };
     let Some(def) = contents
@@ -720,8 +646,8 @@ pub fn load_from_server_dat<Raw: CacheType, Stored: From<Raw>>(
         info!("  {name}.dat not found, returning empty TypeProvider");
         return Ok(TypeProvider::default());
     }
-    let dat = std::fs::read(&dat_path)?;
-    let idx = std::fs::read(&idx_path)?;
+    let dat = fs::read(&dat_path)?;
+    let idx = fs::read(&idx_path)?;
 
     let provider = TypeProvider::from_indexed_bytes::<Raw>(&dat, &idx, ctx)?;
     info!("  {name}: {} entries loaded", provider.count());

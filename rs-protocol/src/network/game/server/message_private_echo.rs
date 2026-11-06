@@ -1,9 +1,7 @@
 #[cfg(since_647)]
 use crate::network::game::server_prot::ServerProt;
 #[cfg(since_647)]
-use crate::network::game::server_prot_message::{
-    ServerProtMessage, ServerProtMessageInfo, jstr_len,
-};
+use crate::network::game::server_prot_message::{ServerProtMessage, ServerProtMessageInfo};
 #[cfg(since_647)]
 use crate::network::game::server_prot_priority::ServerProtPriority;
 #[cfg(since_647)]
@@ -27,6 +25,6 @@ impl ServerProtMessage for MessagePrivateEcho {
     }
 
     fn sizeof(&self) -> usize {
-        jstr_len(&self.recipient) + self.message_data.len()
+        Packet::sizejstr(&self.recipient) + self.message_data.len()
     }
 }

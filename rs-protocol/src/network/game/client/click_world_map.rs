@@ -13,7 +13,7 @@ pub struct ClickWorldMap {
 impl ClientProtMessage for ClickWorldMap {
     fn decode(buf: &mut Packet, _: usize) -> Self {
         ClickWorldMap {
-            coord: buf.g4_alt2() as u32,
+            coord: buf.g4s_alt2() as u32,
         }
     }
 }

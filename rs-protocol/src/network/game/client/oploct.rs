@@ -41,13 +41,13 @@ pub struct OpLocT {
 #[cfg(since_647)]
 impl ClientProtMessage for OpLocT {
     fn decode(buf: &mut Packet, _: usize) -> Self {
-        let obj = buf.g2_alt1();
-        let slot = buf.g2_alt1();
+        let obj = buf.g2_alt2();
+        let slot = buf.g2_alt2();
         let z = buf.g2();
-        let com = buf.g4_alt2() as u32;
-        let x = buf.g2_alt1();
-        let ctrl = buf.g1_alt3() != 0;
-        let loc = buf.ig2();
+        let com = buf.g4s_alt2() as u32;
+        let x = buf.g2_alt2();
+        let ctrl = buf.g1_alt1() != 0;
+        let loc = buf.g2_alt1();
         OpLocT {
             loc,
             x,

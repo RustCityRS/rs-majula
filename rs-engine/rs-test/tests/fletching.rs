@@ -3,7 +3,7 @@
 //! 289 asks what to cut from a log with `skill_multi3` (Make 1/5/10/X under
 //! each item). 2011 asks in skillmulti2010 (905) with its number panel
 //! skillmulti2010_numbers (916): the amount first, from 1/5/10/All/+1/-1
-//! (IF_BUTTON1: `p4(com) ip2_alt1(obj) ip2(slot)`), then the item, a pause
+//! (IF_BUTTON1: `p4(com) p2_alt3(obj) p2_alt1(slot)`), then the item, a pause
 //! button (RESUME_PAUSEBUTTON: `p2(slot) p4_alt2(com)`). The case uses a
 //! knife on logs (IF_BUTTONT), picks 1 and then arrow shafts, and cuts one
 //! log of three; then picks 5, which the two left cannot fill, and cuts both.
@@ -49,17 +49,17 @@ fn obj(engine: &Engine, name: &str) -> u16 {
 fn knife_on_logs(client: &mut HarnessClient, knife: u16, logs: u16, logs_slot: u16) {
     let mut p = ClientPacket::new();
     p.p4(BACKPACK)
-        .ip2(logs_slot as i32)
-        .ip2(0)
-        .p2_alt1(knife as i32)
-        .ip4(BACKPACK)
+        .p2_alt1(logs_slot as i32)
+        .p2_alt1(0)
+        .p2_alt2(knife as i32)
+        .p4_alt1(BACKPACK)
         .p2(logs as i32);
     client.send(ClientProt::IfButtonT, &p.finish());
 }
 
 fn button(client: &mut HarnessClient, com: i32) {
     let mut p = ClientPacket::new();
-    p.p4(com).ip2_alt1(NONE).ip2(NONE);
+    p.p4(com).p2_alt3(NONE).p2_alt1(NONE);
     client.send(ClientProt::IfButton1, &p.finish());
 }
 

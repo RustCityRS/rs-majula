@@ -57,7 +57,7 @@ pub fn load_engine() -> anyhow::Result<Engine> {
     } = rs_pack::pack_all(&content, &pack, false, true)?;
 
     let keys = content.join("keys.json");
-    rs_dat2::xtea::XteaKeyStore::load(&keys)?.install_global();
+    rs_pack::cache::map::XteaKeyStore::load(&keys)?.install_global();
 
     let server_dir = cache_dir.join("server");
     let store = CacheStore::from_packed_config(config, &mut js5_store, &server_dir)?;

@@ -6,8 +6,8 @@
 //! the backpack as grids the server makes once the screens are open
 //! (clientscripts 150, own, and 695, the other's) and gets the other's offer
 //! as inv 90 with the "other" flag. Both accepting twice swaps the offers.
-//! OPPLAYER4 is `p2_alt1(pid) p1(ctrl)`; an IF_BUTTON{n} is
-//! `p4(com) ip2_alt1(obj) ip2(slot)`.
+//! OPPLAYER4 is `p2_alt2(pid) p1(ctrl)`; an IF_BUTTON{n} is
+//! `p4(com) p2_alt3(obj) p2_alt1(slot)`.
 
 #![cfg(since_647)]
 
@@ -87,7 +87,7 @@ fn scripts(packets: &[(u16, Vec<u8>)]) -> Vec<i32> {
 }
 
 /// Each UPDATE_INV_FULL as `(inv, other, [(obj, count)] of its filled slots)`:
-/// `g2 inv; g1 flags; g2 size;` per slot `g1 count (255: ig4); g2_alt1 obj+1`.
+/// `g2 inv; g1 flags; g2 size;` per slot `g1 count (255: ig4); g2_alt2 obj+1`.
 fn invs(packets: &[(u16, Vec<u8>)]) -> Vec<Inv> {
     of(packets, ServerProt::UpdateInvFull)
         .map(|p| {
@@ -114,8 +114,8 @@ fn invs(packets: &[(u16, Vec<u8>)]) -> Vec<Inv> {
         .collect()
 }
 
-/// Each varc set, `(varc, value)`: VARC_SMALL `p1_alt1 value, ip2 varc`;
-/// VARC_LARGE `ip4 value, ip2_alt1 varc`.
+/// Each varc set, `(varc, value)`: VARC_SMALL `p1_alt2 value, p2_alt1 varc`;
+/// VARC_LARGE `p4_alt1 value, p2_alt3 varc`.
 fn varcs(packets: &[(u16, Vec<u8>)]) -> Vec<(u16, i32)> {
     let mut out: Vec<(u16, i32)> = of(packets, ServerProt::VarcSmall)
         .map(|p| {
@@ -188,7 +188,7 @@ fn display_name(username: &str) -> String {
 
 fn trade_with(client: &mut HarnessClient, other: u16) {
     let mut p = ClientPacket::new();
-    p.p2_alt1(other as i32).p1(0);
+    p.p2_alt2(other as i32).p1(0);
     client.send(ClientProt::OpPlayer4, &p.finish());
 }
 
@@ -203,7 +203,7 @@ fn button(client: &mut HarnessClient, op: u8, com: i32, obj: u16, slot: u16) {
         _ => ClientProt::IfButton10,
     };
     let mut p = ClientPacket::new();
-    p.p4(com).ip2_alt1(obj as i32).ip2(slot as i32);
+    p.p4(com).p2_alt3(obj as i32).p2_alt1(slot as i32);
     client.send(prot, &p.finish());
 }
 
@@ -458,7 +458,7 @@ fn a_removal_marks_the_trade_modified() {
     });
 }
 
-/// Each IF_SETHIDE as `(com, hidden)`: `p4_alt1 com, p1_alt1 hidden`.
+/// Each IF_SETHIDE as `(com, hidden)`: `p4_alt3 com, p1_alt2 hidden`.
 fn hides(packets: &[(u16, Vec<u8>)]) -> Vec<(i32, bool)> {
     of(packets, ServerProt::IfSetHide)
         .map(|p| {

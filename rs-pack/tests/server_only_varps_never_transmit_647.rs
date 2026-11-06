@@ -15,10 +15,11 @@
 #![cfg(since_647)]
 
 use std::collections::BTreeMap;
+use std::fs;
 use std::path::{Path, PathBuf};
 
 fn configs(dir: &Path, out: &mut Vec<PathBuf>) {
-    for entry in std::fs::read_dir(dir).unwrap().flatten() {
+    for entry in fs::read_dir(dir).unwrap().flatten() {
         let path = entry.path();
         if path.is_dir() {
             if path.file_name().is_some_and(|n| n != "_unpack") {
@@ -33,14 +34,14 @@ fn configs(dir: &Path, out: &mut Vec<PathBuf>) {
 #[test]
 fn no_server_only_varp_transmits() {
     let root = Path::new(env!("CARGO_MANIFEST_DIR")).join("../content/647");
-    let ids: BTreeMap<String, u32> = std::fs::read_to_string(root.join("pack/varp.pack"))
+    let ids: BTreeMap<String, u32> = fs::read_to_string(root.join("pack/varp.pack"))
         .unwrap()
         .lines()
         .filter_map(|l| l.split_once('='))
         .filter_map(|(id, name)| Some((name.to_string(), id.parse().ok()?)))
         .collect();
     // The client's count: one past the highest cache varp.
-    let client_count = std::fs::read_to_string(root.join("scripts/_unpack/all.varp"))
+    let client_count = fs::read_to_string(root.join("scripts/_unpack/all.varp"))
         .expect("run `cargo unpack` first")
         .lines()
         .filter_map(|l| l.strip_prefix('[')?.strip_suffix(']'))
@@ -54,7 +55,7 @@ fn no_server_only_varp_transmits() {
     let mut bad = Vec::new();
     for path in files {
         let mut section = String::new();
-        for (n, line) in std::fs::read_to_string(&path).unwrap().lines().enumerate() {
+        for (n, line) in fs::read_to_string(&path).unwrap().lines().enumerate() {
             if let Some(name) = line.strip_prefix('[').and_then(|l| l.strip_suffix(']')) {
                 section = name.to_string();
             } else if line.trim() == "transmit=yes"

@@ -1,6 +1,6 @@
 //! 289's shops on 2011's shop interface.
 //!
-//! Trade (OPNPC3, `p1_alt2(ctrl) p2_alt1(npc)`) on Bob in Lumbridge opens
+//! Trade (OPNPC3, `p1_alt3(ctrl) p2_alt2(npc)`) on Bob in Lumbridge opens
 //! 2011's shop (`shop_template`, 620) and its backpack panel
 //! (`shop_template_side`, 621). The client draws the stock itself
 //! (clientscript 2716) from the inventory varp 118 names -- Bob's is 2011's
@@ -112,7 +112,7 @@ fn customer_of(
 /// Trade on Bob; the packets until his shop is open.
 fn trade(engine: &mut Engine, client: &mut HarnessClient, nid: u16) -> Vec<(u16, Vec<u8>)> {
     let mut p = ClientPacket::new();
-    p.p1_alt2(0).p2_alt1(nid as i32);
+    p.p1_alt3(0).p2_alt2(nid as i32);
     client.send(ClientProt::OpNpc3, &p.finish());
     let mut packets = Vec::new();
     for _ in 0..10 {
@@ -133,7 +133,7 @@ fn trade(engine: &mut Engine, client: &mut HarnessClient, nid: u16) -> Vec<(u16,
 
 fn button(client: &mut HarnessClient, prot: ClientProt, com: i32, slot: i32) {
     let mut p = ClientPacket::new();
-    p.p4(com).ip2_alt1(NONE).ip2(slot);
+    p.p4(com).p2_alt3(NONE).p2_alt1(slot);
     client.send(prot, &p.finish());
 }
 
@@ -189,7 +189,7 @@ fn trade_on_bob_opens_his_axes_on_2011_s_shop() {
 
         let axeshop = id(engine, "inv", "axeshop");
         assert_eq!(axeshop, 1, "289's axeshop is 2011's inventory 1");
-        // VARP_SMALL: p1_alt2 value, p2 varp.
+        // VARP_SMALL: p1_alt3 value, p2 varp.
         assert!(
             of(&packets, ServerProt::VarpSmall)
                 .any(|p| u16::from_be_bytes([p[1], p[2]]) == SHOP_VARP
@@ -200,7 +200,7 @@ fn trade_on_bob_opens_his_axes_on_2011_s_shop() {
             invs_sent(&packets).contains(&axeshop),
             "the stock goes to the client"
         );
-        // VARC_SMALL: p1_alt1 value, ip2 varc. Bob's base stock, slot by slot.
+        // VARC_SMALL: p1_alt2 value, p2_alt1 varc. Bob's base stock, slot by slot.
         let bases: Vec<(u16, i32)> = of(&packets, ServerProt::VarcSmall)
             .map(|p| (u16::from_le_bytes([p[1], p[2]]), -(p[0] as i8) as i32))
             .filter(|(v, _)| (BASE_VARC..BASE_VARC + 40).contains(v))

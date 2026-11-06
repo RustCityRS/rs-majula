@@ -4,6 +4,7 @@
 
 use crate::types::MapSquareCsv;
 use std::collections::HashSet;
+use std::fs;
 use std::path::Path;
 use tracing::warn;
 
@@ -14,7 +15,7 @@ pub fn zone_key(y: u8, x: u16, z: u16) -> u32 {
 
 pub fn load_csv_zones(path: &Path) -> MapSquareCsv {
     let mut set = HashSet::default();
-    let Ok(content) = std::fs::read_to_string(path) else {
+    let Ok(content) = fs::read_to_string(path) else {
         return set;
     };
     for line in content.lines() {

@@ -1,8 +1,6 @@
 use crate::network::game::server::ServerProtMessage;
 use crate::network::game::server_prot::ServerProt;
 use crate::network::game::server_prot_message::ServerProtMessageInfo;
-#[cfg(rev = "225")]
-use crate::network::game::server_prot_message::jstr_len;
 use crate::network::game::server_prot_priority::ServerProtPriority;
 use rs_io::{Packet, PacketFrame};
 use rs_protocol_macros::server_prot;
@@ -26,7 +24,7 @@ impl ServerProtMessage for MidiSong<'_> {
     }
 
     fn sizeof(&self) -> usize {
-        jstr_len(self.name) + size_of_val(&self.crc) + size_of_val(&self.len)
+        Packet::sizejstr(self.name) + size_of_val(&self.crc) + size_of_val(&self.len)
     }
 }
 
@@ -58,9 +56,9 @@ pub struct MidiSong {
 #[cfg(since_647)]
 impl ServerProtMessage for MidiSong {
     fn encode(&self, buf: &mut Packet) {
-        buf.p1_alt2(self.volume);
-        buf.ip2_alt1(self.id);
-        buf.p1_alt3(self.delay);
+        buf.p1_alt3(self.volume);
+        buf.p2_alt3(self.id);
+        buf.p1_alt1(self.delay);
     }
 
     fn sizeof(&self) -> usize {

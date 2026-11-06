@@ -8,13 +8,12 @@
 //! mtime can say anything changed.
 #![cfg(since_647)]
 
+use rs_pack::startup::{cache_build_inputs, write_stamp};
 use std::fs::{self, File};
 use std::path::{Path, PathBuf};
+use std::sync::OnceLock;
 use std::thread::sleep;
 use std::time::{Duration, SystemTime};
-
-use rs_pack::startup::cache_build_inputs;
-use rs_pack::startup::write_stamp;
 
 fn content(name: &str) -> PathBuf {
     let dir = Path::new(env!("CARGO_TARGET_TMPDIR"))
@@ -39,7 +38,7 @@ fn write_at(path: &Path, when: SystemTime) {
 /// A file time later than any directory these tests create, so the file's
 /// own mtime is what decides.
 fn at(secs: u64) -> SystemTime {
-    static BASE: std::sync::OnceLock<SystemTime> = std::sync::OnceLock::new();
+    static BASE: OnceLock<SystemTime> = OnceLock::new();
     *BASE.get_or_init(|| SystemTime::now() + Duration::from_secs(3600)) + Duration::from_secs(secs)
 }
 

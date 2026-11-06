@@ -42,7 +42,7 @@ pub struct EventMouseClick {
 impl ClientProtMessage for EventMouseClick {
     fn decode(buf: &mut Packet, _: usize) -> Self {
         let info = buf.g2();
-        let position = buf.g4_alt2();
+        let position = buf.g4s_alt2();
         EventMouseClick { info, position }
     }
 }

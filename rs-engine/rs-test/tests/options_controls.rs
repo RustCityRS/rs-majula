@@ -11,7 +11,7 @@
 //! - 289's set_sail on 2011's ship journey (299, route varp 75), and 289's
 //!   logout button as the logout tab's Exit to Login (182 com10).
 //!
-//! A tab button is IF_BUTTON1, `p4(com) ip2_alt1(obj) ip2(slot)`.
+//! A tab button is IF_BUTTON1, `p4(com) p2_alt3(obj) p2_alt1(slot)`.
 
 #![cfg(since_647)]
 
@@ -48,7 +48,7 @@ fn player(engine: &mut Engine, name: &str) -> HarnessClient {
 
 fn click(engine: &mut Engine, client: &mut HarnessClient, com: i32) -> Vec<(u16, Vec<u8>)> {
     let mut p = ClientPacket::new();
-    p.p4(com).ip2_alt1(0xFFFF).ip2(0xFFFF);
+    p.p4(com).p2_alt3(0xFFFF).p2_alt1(0xFFFF);
     client.send(ClientProt::IfButton1, &p.finish());
     let mut packets = Vec::new();
     for _ in 0..2 {

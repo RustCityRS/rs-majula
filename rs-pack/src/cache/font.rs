@@ -1,7 +1,9 @@
-use crate::types::Font;
 #[cfg(since_647)]
-use rs_dat2::{CacheStore, archive, xtea::java_string_hash};
+use crate::archive;
+use crate::types::Font;
 use rs_io::jag::JagFile;
+#[cfg(since_647)]
+use rs_io::js5::{Js5Store, java_string_hash};
 #[cfg(since_647)]
 use std::collections::HashMap;
 #[cfg(since_647)]
@@ -246,7 +248,7 @@ impl FontTypeProvider {
 
 #[cfg(since_647)]
 impl FontTypeProvider {
-    pub fn from_cache(cache: &mut CacheStore) -> FontTypeProvider {
+    pub fn from_cache(cache: &mut Js5Store) -> FontTypeProvider {
         let slot_names: [(&str, Font); 4] = [
             ("p11_full", Font::P11),
             ("p12_full", Font::P12),
@@ -285,11 +287,11 @@ impl FontTypeProvider {
                 continue;
             };
             // 2-byte header then one advance per code point.
-            if entry.data.len() < 258 {
+            if entry.data().len() < 258 {
                 continue;
             }
             let mut draw_width = [0u8; 256];
-            draw_width.copy_from_slice(&entry.data[2..258]);
+            draw_width.copy_from_slice(&entry.data()[2..258]);
 
             let index = match slot_of_group.get(&group.id) {
                 Some(&slot) => {

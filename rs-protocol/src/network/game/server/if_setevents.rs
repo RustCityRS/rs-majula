@@ -21,10 +21,10 @@ pub struct IfSetEvents {
 #[cfg(since_647)]
 impl ServerProtMessage for IfSetEvents {
     fn encode(&self, buf: &mut Packet) {
-        buf.p2_alt1(self.slot1);
+        buf.p2_alt2(self.slot1);
         buf.p4_alt3(self.settings);
         buf.p4_alt3(self.com);
-        buf.ip2_alt1(self.slot2);
+        buf.p2_alt3(self.slot2);
     }
 
     fn sizeof(&self) -> usize {

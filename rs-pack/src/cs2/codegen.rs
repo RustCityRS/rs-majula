@@ -1,14 +1,12 @@
 //! Code generator — produces readable CS2 source from structured constructs.
 
+use crate::cs2::cfa::{Construct, is_empty_construct, negate_condition_expr};
+use crate::cs2::ir::*;
+use crate::cs2::opcodes;
+use crate::cs2::types::{ArgType, TypeResolver};
 use std::cell::RefCell;
 use std::collections::{HashMap, HashSet};
 use std::fmt::Write;
-
-use crate::cs2::cfa::{Construct, is_empty_construct};
-use crate::cs2::ir::*;
-use crate::cs2::opcodes;
-
-use crate::cs2::types::{ArgType, TypeResolver};
 
 thread_local! {
     static SCRIPT_NAMES: RefCell<Option<HashMap<u32, String>>> = const { RefCell::new(None) };
@@ -29,7 +27,7 @@ pub fn set_type_resolver(resolver: TypeResolver) {
 pub fn generate_with_names(
     construct: &Construct,
     function: &Function,
-    script_names: Option<&std::collections::HashMap<u32, String>>,
+    script_names: Option<&HashMap<u32, String>>,
     script_meta: Option<&super::ScriptMeta>,
 ) -> String {
     let mut out = String::new();
@@ -113,7 +111,7 @@ fn emit_construct(
             // If then-body is empty and else-body exists, negate and swap
             let (cond, primary, secondary) = if is_empty_construct(then_body) && else_body.is_some()
             {
-                let neg = crate::cs2::cfa::negate_condition_expr(condition.clone());
+                let neg = negate_condition_expr(condition.clone());
                 (neg, else_body.as_ref().unwrap().as_ref(), None)
             } else {
                 (condition.clone(), then_body.as_ref(), else_body.as_deref())

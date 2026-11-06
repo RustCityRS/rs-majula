@@ -4,7 +4,7 @@
 //! (`if_addresumebutton`) and pause; the option clicked comes back as
 //! `last_com`. 2011's client sends that click as RESUME_PAUSEBUTTON
 //! (`p2(slot) p4_alt2(com)`). The case talks to Lumbridge's Cook as the client
-//! does: Talk-to (OPNPC1, `p1_alt2(ctrl) p2(npc)`), "Click here to continue"
+//! does: Talk-to (OPNPC1, `p1_alt3(ctrl) p2(npc)`), "Click here to continue"
 //! on his line (npc_chat1, 241, component 5), then the second of his four
 //! options (multi4, 232: the options are components 2-5), and the player says
 //! it.
@@ -93,7 +93,7 @@ fn the_cook_s_choice_answers_the_option_clicked() {
         client.packets();
 
         let mut p = ClientPacket::new();
-        p.p1_alt2(0).p2(nid as i32);
+        p.p1_alt3(0).p2(nid as i32);
         client.send(ClientProt::OpNpc1, &p.finish());
         let texts = until_open(engine, &mut client, NPC_CHAT_1, 10);
         assert!(
@@ -172,7 +172,7 @@ fn the_cook_s_long_answer_fits_2011_s_chat_box() {
         client.packets();
 
         let mut p = ClientPacket::new();
-        p.p1_alt2(0).p2(nid as i32);
+        p.p1_alt3(0).p2(nid as i32);
         client.send(ClientProt::OpNpc1, &p.finish());
         until_open(engine, &mut client, NPC_CHAT_1, 10);
         resume(&mut client, NPC_CONTINUE);

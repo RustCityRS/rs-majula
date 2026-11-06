@@ -1,13 +1,13 @@
 //! 289's magic on 2011's spellbook (interface 192, the spells at void-634's
 //! ids): a spell with an op is cast with IF_BUTTON1 on its component
-//! (`p4(com) ip2_alt1(obj) ip2(slot)`), a spell cast on an item with
-//! IF_BUTTONT from the spell to the backpack slot (`p4(to_com) ip2(to_slot)
-//! ip2(from_slot) p2_alt1(from_obj) ip4(from_com) p2(to_obj)`, the spell's
+//! (`p4(com) p2_alt3(obj) p2_alt1(slot)`), a spell cast on an item with
+//! IF_BUTTONT from the spell to the backpack slot (`p4(to_com) p2_alt1(to_slot)
+//! p2_alt1(from_slot) p2_alt2(from_obj) p4_alt1(from_com) p2(to_obj)`, the spell's
 //! obj and slot -1). 289's checks, runes and experience ride along.
 //!
-//! Telekinetic Grab is cast on a ground obj with OPOBJT (`ip2(from_obj)
-//! ip2(obj) p2(from_slot) p4_alt2(from_com) p1_alt3(ctrl) p2_alt1(z)
-//! p2_alt1(x)`, `op_obj_t.rs`). The PR's 289 refuses the finished Zamorak and
+//! Telekinetic Grab is cast on a ground obj with OPOBJT (`p2_alt1(from_obj)
+//! p2_alt1(obj) p2(from_slot) p4_alt2(from_com) p1_alt1(ctrl) p2_alt2(z)
+//! p2_alt2(x)`, `op_obj_t.rs`). The PR's 289 refuses the finished Zamorak and
 //! Guthix books (2011's unholy_book and book_of_balance), where it had listed
 //! the unfinished two twice.
 
@@ -76,7 +76,7 @@ fn ticks(engine: &mut Engine, client: &mut HarnessClient, n: usize) -> Vec<(u16,
     packets
 }
 
-/// Each VARC_SMALL set, `(varc, value)`: `p1_alt1 value, ip2 varc`.
+/// Each VARC_SMALL set, `(varc, value)`: `p1_alt2 value, p2_alt1 varc`.
 fn varcs(packets: &[(u16, Vec<u8>)]) -> Vec<(u16, i32)> {
     let opcode = ServerProt::VarcSmall as u16;
     packets
@@ -93,17 +93,17 @@ fn varcs(packets: &[(u16, Vec<u8>)]) -> Vec<(u16, i32)> {
 
 fn cast(client: &mut HarnessClient, spell: i32) {
     let mut p = ClientPacket::new();
-    p.p4(spell).ip2_alt1(-1).ip2(-1);
+    p.p4(spell).p2_alt3(-1).p2_alt1(-1);
     client.send(ClientProt::IfButton1, &p.finish());
 }
 
 fn cast_on(client: &mut HarnessClient, spell: i32, slot: u16, obj: u16) {
     let mut p = ClientPacket::new();
     p.p4(BACKPACK)
-        .ip2(slot as i32)
-        .ip2(-1)
+        .p2_alt1(slot as i32)
         .p2_alt1(-1)
-        .ip4(spell)
+        .p2_alt2(-1)
+        .p4_alt1(spell)
         .p2(obj as i32);
     client.send(ClientProt::IfButtonT, &p.finish());
 }
@@ -278,13 +278,13 @@ fn telekinetic_grab_refuses_the_finished_god_books() {
             engine.cycle();
             client.packets();
             let mut p = ClientPacket::new();
-            p.ip2(-1)
-                .ip2(obj as i32)
+            p.p2_alt1(-1)
+                .p2_alt1(obj as i32)
                 .p2(-1)
                 .p4_alt2(TELEKINETIC_GRAB)
-                .p1_alt3(0)
-                .p2_alt1(z as i32)
-                .p2_alt1(x as i32);
+                .p1_alt1(0)
+                .p2_alt2(z as i32)
+                .p2_alt2(x as i32);
             client.send(ClientProt::OpObjT, &p.finish());
             let said: Vec<String> = HarnessClient::game_messages(&ticks(engine, &mut client, 12))
                 .into_iter()

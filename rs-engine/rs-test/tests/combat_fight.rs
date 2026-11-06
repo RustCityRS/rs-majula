@@ -7,7 +7,7 @@
 //! Maximum melee hit, 2011-05-20; void-634 Damage.kt) with S = 9 * 64
 //! (effective strength 9, bonus 0): 14 life points, where 289's whole
 //! hitpoints would allow only 10. The case clicks Attack on the cow as the
-//! client does (`OPNPC2`: `g1_alt1(ctrl) ig2_alt1(npc index)`) and
+//! client does (`OPNPC2`: `g1_alt2(ctrl) g2_alt3(npc index)`) and
 //! waits for the first hit to land, then checks it took life points and gave
 //! 289's 4 xp per hitpoint, which is 0.4 xp (4 tenths) per life point, in
 //! Attack.
@@ -79,7 +79,7 @@ fn a_fight_runs_on_life_points() {
             .as_int();
 
         let mut p = ClientPacket::new();
-        p.p1_alt1(0).ip2_alt1(nid as i32);
+        p.p1_alt2(0).p2_alt3(nid as i32);
         client.send(ClientProt::OpNpc2, &p.finish());
 
         let mut ticks = 0;
@@ -197,7 +197,7 @@ fn the_player_fights_beside_the_cow_not_inside_it() {
         }
 
         let mut p = ClientPacket::new();
-        p.p1_alt1(0).ip2_alt1(nid as i32);
+        p.p1_alt2(0).p2_alt3(nid as i32);
         client.send(ClientProt::OpNpc2, &p.finish());
 
         let hp = |engine: &rs_engine::Engine| {

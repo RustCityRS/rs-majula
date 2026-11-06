@@ -29,9 +29,9 @@ impl ServerProtMessage for ObjAdd {
 #[cfg(since_647)]
 impl ServerProtMessage for ObjAdd {
     fn encode(&self, buf: &mut Packet) {
-        buf.ip2_alt1(self.count);
+        buf.p2_alt3(self.count);
         buf.p1(self.coord);
-        buf.ip2_alt1(self.id);
+        buf.p2_alt3(self.id);
     }
 
     fn sizeof(&self) -> usize {

@@ -1,6 +1,8 @@
 #[cfg(before_647)]
 use super::ModelCategory;
 use super::UnpackedPacks;
+#[cfg(since_647)]
+use super::order::emit_params;
 use crate::cache::npc::NpcTypeRaw;
 use std::collections::HashMap;
 
@@ -460,7 +462,7 @@ pub fn emit_npc_props(
         p.push((168, "soundrangemin".into(), def.sound_range_min.to_string()));
     }
     #[cfg(since_647)]
-    p.extend(super::order::emit_params(
+    p.extend(emit_params(
         &def.raw_opcodes,
         def.params.as_deref(),
         registry,

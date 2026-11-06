@@ -32,19 +32,19 @@ impl Reader<'_> {
     }
 
     /// `(b[-1] - 128 & 0xFF) + (b[-2] & 0xFF) << 8`
-    fn g2_alt1(&mut self) -> i32 {
+    fn g2_alt2(&mut self) -> i32 {
         self.1 += 2;
         ((self.b(self.1 - 1) - 128) & 0xFF) + ((self.b(self.1 - 2) & 0xFF) << 8)
     }
 
     /// `(b[-1] & 0xFF) << 8 + (b[-2] - 128 & 0xFF)`
-    fn ig2_alt1(&mut self) -> i32 {
+    fn g2_alt3(&mut self) -> i32 {
         self.1 += 2;
         ((self.b(self.1 - 1) & 0xFF) << 8) + ((self.b(self.1 - 2) - 128) & 0xFF)
     }
 
     /// `b[-2] | b[-3] << 24 | b[-4] << 16 | b[-1] << 8`
-    fn g4_alt1(&mut self) -> i32 {
+    fn g4s_alt3(&mut self) -> i32 {
         self.1 += 4;
         (self.b(self.1 - 2) & 0xFF)
             + ((self.b(self.1 - 3) & 0xFF) << 24)
@@ -71,20 +71,20 @@ impl ClientInterfaces {
         for (op, p) in packets {
             let mut r = Reader(p, 0);
             if *op == ServerProt::IfOpensub as u16 {
-                let iface = r.ig2_alt1();
-                let parent = r.g4_alt1();
+                let iface = r.g2_alt3();
+                let parent = r.g4s_alt3();
                 if let Some(old) = self.subs.insert(parent, iface) {
                     self.close(old);
                 }
             } else if *op == ServerProt::IfClosesub as u16 {
-                if let Some(old) = self.subs.remove(&r.g4_alt1()) {
+                if let Some(old) = self.subs.remove(&r.g4s_alt3()) {
                     self.close(old);
                 }
             } else if *op == ServerProt::IfSetEvents as u16 {
-                let from = r.g2_alt1();
-                let _events = r.g4_alt1();
-                let com = r.g4_alt1();
-                let to = r.ig2_alt1();
+                let from = r.g2_alt2();
+                let _events = r.g4s_alt3();
+                let com = r.g4s_alt3();
+                let to = r.g2_alt3();
                 for slot in from..=to {
                     self.events.insert((com, slot));
                 }

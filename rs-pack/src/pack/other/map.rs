@@ -1,13 +1,15 @@
 #[cfg(before_647)]
 use super::worldmap::WorldmapBuilder;
-use crate::cache::map::TerrainTile;
 #[cfg(since_647)]
-use crate::cache::map::container_crc;
+use crate::archive::{self, ArchiveVersions};
+use crate::cache::map::TerrainTile;
 #[cfg(since_647)]
 use crate::cache::map::{
     CameraData, CameraPlane, EnvParams, EnvironmentData, LightData, LocEntry, NpcSpawn, ObjSpawn,
-    SkyboxData, TerrainData,
+    SkyboxData, TerrainData, load_xtea_keys,
 };
+#[cfg(since_647)]
+use crate::pack::js5::prepare_group;
 #[cfg(since_647)]
 use crate::pack::js5::{PreparedGroup, group_version, stamp_path, write_archive};
 #[cfg(since_647)]
@@ -23,19 +25,9 @@ use crate::zone_csv::load_csv_zones;
 #[cfg(before_647)]
 pub(super) use crate::zone_csv::zone_key;
 #[cfg(since_647)]
-use anyhow::{Context, Result};
+use anyhow::Result;
 #[cfg(since_647)]
 use rayon::prelude::*;
-#[cfg(since_647)]
-use rs_dat2::archive::{self, ArchiveVersions};
-#[cfg(since_647)]
-use rs_dat2::compression::{self, CompressionType, Xtea};
-#[cfg(since_647)]
-use rs_dat2::reference::FileInfo;
-#[cfg(since_647)]
-use rs_dat2::xtea::java_string_hash;
-#[cfg(since_647)]
-use rs_dat2::{CacheStore, compute_group_crc, prepare_group};
 #[cfg(before_647)]
 use rs_io::Packet;
 #[cfg(before_647)]
@@ -43,7 +35,13 @@ use rs_io::bz2::bz2_compress_with_size;
 #[cfg(before_647)]
 use rs_io::crc;
 #[cfg(since_647)]
-use serde::Deserialize;
+use rs_io::js5::compression::{CompressionType, Container, compress_xtea};
+#[cfg(since_647)]
+use rs_io::js5::java_string_hash;
+#[cfg(since_647)]
+use rs_io::js5::reference::FileInfo;
+#[cfg(since_647)]
+use rs_io::js5::{Js5Store, compute_group_crc};
 #[cfg(since_647)]
 use std::collections::BTreeMap;
 use std::collections::HashMap;
@@ -604,7 +602,7 @@ fn save(entries: &[Entry], server_dir: &Path, stem: &str) -> Result<()> {
 
 #[cfg(since_647)]
 pub fn pack_archive(
-    store: &mut CacheStore,
+    store: &mut Js5Store,
     content_dir: &Path,
     output_dir: &Path,
     pack_dir: &Path,
@@ -667,12 +665,12 @@ pub fn pack_archive(
                     let binary = encode_landscape_binary(&locs);
                     let key = xtea_keys.get(&name_hash).copied().unwrap_or([0; 4]);
                     let container =
-                        compress_and_encrypt(&binary, CompressionType::Gzip, version, &key).ok()?;
+                        compress_xtea(&binary, CompressionType::Gzip, version, &key).ok()?;
                     let crc = compute_group_crc(&container[..container.len() - 2]);
                     (container, crc)
                 } else if encrypted_path.exists() {
                     let raw = fs::read(&encrypted_path).ok()?;
-                    let crc = container_crc(&raw, raw[0]);
+                    let crc = Container::parse(&raw).ok()?.crc();
                     (raw, crc)
                 } else {
                     warn!(
@@ -798,29 +796,6 @@ pub fn is_npc_spawns(name: &str) -> bool {
 #[cfg(since_647)]
 pub fn is_obj_spawns(name: &str) -> bool {
     name.starts_with('o')
-}
-
-#[cfg(since_647)]
-pub fn load_xtea_keys(keys_path: &Path) -> Result<HashMap<i32, [i32; 4]>> {
-    #[derive(Deserialize)]
-    struct KeyEntry {
-        archive: u8,
-        #[allow(dead_code)]
-        group: u32,
-        key: [i32; 4],
-        name_hash: i32,
-    }
-
-    let data = fs::read_to_string(keys_path)
-        .with_context(|| format!("reading {}", keys_path.display()))?;
-    let entries: Vec<KeyEntry> = serde_json::from_str(&data)?;
-    let mut map = HashMap::new();
-    for entry in entries {
-        if entry.archive == archive::MAPS {
-            map.insert(entry.name_hash, entry.key);
-        }
-    }
-    Ok(map)
 }
 
 #[cfg(since_647)]
@@ -1381,36 +1356,4 @@ pub(crate) fn write_lsmart(out: &mut Vec<u8>, value: i32) {
         remaining -= 32767;
     }
     write_smart(out, remaining);
-}
-
-#[cfg(since_647)]
-pub fn compress_and_encrypt(
-    data: &[u8],
-    compression: CompressionType,
-    version: u16,
-    keys: &[i32; 4],
-) -> Result<Vec<u8>> {
-    let mut compressed = compression::compress(data, compression)
-        .map_err(|e| anyhow::anyhow!("compress failed: {}", e))?;
-
-    let all_zero = keys.iter().all(|&k| k == 0);
-    if !all_zero {
-        let payload = &mut compressed[5..];
-        let block_len = (payload.len() >> 3) << 3;
-        if block_len > 0 {
-            let u32_keys: [u32; 4] = [
-                keys[0] as u32,
-                keys[1] as u32,
-                keys[2] as u32,
-                keys[3] as u32,
-            ];
-            Xtea::encrypt(&mut payload[..block_len], &u32_keys)
-                .map_err(|_| anyhow::anyhow!("XTEA encryption failed"))?;
-        }
-    }
-
-    compressed.push((version >> 8) as u8);
-    compressed.push(version as u8);
-
-    Ok(compressed)
 }

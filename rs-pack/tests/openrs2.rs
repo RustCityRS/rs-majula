@@ -5,12 +5,17 @@
 //! `REV=647 cargo test -p rs-pack --test openrs2 -- --ignored`
 #![cfg(since_647)]
 
+use rs_io::js5::Js5Store;
+use rs_io::js5::compression::{CompressionType, compress};
+use rs_io::js5::reference::{FileInfo, GroupInfo, ReferenceTable, encode_reference_table};
+use rs_pack::archive::ARCHIVE_IDS;
+use rs_pack::openrs2::{self, KeyDiff, XteaKey};
 use std::fs::{self, File};
 use std::io::Write;
 use std::path::{Path, PathBuf};
-
-use rs_pack::openrs2::{self, KeyDiff, XteaKey};
+use std::str::from_utf8;
 use zip::write::SimpleFileOptions;
+use zip::{CompressionMethod, ZipWriter};
 
 fn scratch(name: &str) -> PathBuf {
     let dir = Path::new(env!("CARGO_TARGET_TMPDIR"))
@@ -22,8 +27,8 @@ fn scratch(name: &str) -> PathBuf {
 }
 
 fn write_zip(path: &Path, entries: &[(&str, &[u8])]) {
-    let mut zip = zip::ZipWriter::new(File::create(path).unwrap());
-    let options = SimpleFileOptions::default().compression_method(zip::CompressionMethod::Deflated);
+    let mut zip = ZipWriter::new(File::create(path).unwrap());
+    let options = SimpleFileOptions::default().compression_method(CompressionMethod::Deflated);
     zip.add_directory("cache/", options).unwrap();
     for (name, bytes) in entries {
         zip.start_file(*name, options).unwrap();
@@ -174,7 +179,7 @@ fn fetched_cache_matches_openrs2_reference_tables() {
     let mismatches = openrs2::verify_reference_tables(
         &repo_root().join("expected"),
         id,
-        &rs_pack::startup::MASTER_INDEX_ORDER,
+        ARCHIVE_IDS,
         &Path::new(env!("CARGO_TARGET_TMPDIR")).join("openrs2-api"),
     )
     .unwrap();
@@ -195,7 +200,7 @@ fn fetched_cache_matches_openrs2_reference_tables() {
 fn committed_keys_hold_every_openrs2_key_and_each_one_decrypts() {
     let id = openrs2::default_cache_id().unwrap();
     let remote = openrs2::get_bytes(&openrs2::keys_url(id)).unwrap();
-    let remote = openrs2::parse_keys(std::str::from_utf8(&remote).unwrap()).unwrap();
+    let remote = openrs2::parse_keys(from_utf8(&remote).unwrap()).unwrap();
     let local =
         fs::read_to_string(repo_root().join(rs_pack::CONTENT_DIR).join("keys.json")).unwrap();
     let local = openrs2::parse_keys(&local).unwrap();
@@ -209,7 +214,7 @@ fn committed_keys_hold_every_openrs2_key_and_each_one_decrypts() {
     assert!(diff.different.is_empty(), "disagree: {:?}", diff.different);
     assert_eq!(diff.only_local.len(), 29, "{:?}", diff.only_local);
 
-    let mut store = rs_dat2::CacheStore::open(repo_root().join("expected")).unwrap();
+    let mut store = Js5Store::open(repo_root().join("expected")).unwrap();
     let mut bad = Vec::new();
     for k in &remote {
         let data = store.read_group_xtea(k.archive as u8, k.group, &k.key);
@@ -235,8 +240,8 @@ fn committed_keys_hold_every_openrs2_key_and_each_one_decrypts() {
     );
 }
 
-fn table(groups: &[(u32, u32, u32)]) -> rs_dat2::reference::ReferenceTable {
-    rs_dat2::reference::ReferenceTable {
+fn table(groups: &[(u32, u32, u32)]) -> ReferenceTable {
+    ReferenceTable {
         archive_id: 7,
         format: 6,
         version: 1,
@@ -244,7 +249,7 @@ fn table(groups: &[(u32, u32, u32)]) -> rs_dat2::reference::ReferenceTable {
         whirlpooled: false,
         groups: groups
             .iter()
-            .map(|&(id, crc, version)| rs_dat2::reference::GroupInfo {
+            .map(|&(id, crc, version)| GroupInfo {
                 id,
                 name_hash: -1,
                 crc,
@@ -252,7 +257,7 @@ fn table(groups: &[(u32, u32, u32)]) -> rs_dat2::reference::ReferenceTable {
                 version,
                 size: 0,
                 file_count: 1,
-                files: vec![rs_dat2::reference::FileInfo {
+                files: vec![FileInfo {
                     id: 0,
                     name_hash: None,
                 }],
@@ -293,10 +298,8 @@ fn identical_groups_under_a_different_header_still_agree() {
 #[test]
 fn a_reference_container_round_trips_through_the_parser() {
     let original = table(&[(0, 0xdead_beef, 3), (9, 1, 4)]);
-    let encoded = rs_dat2::reference::encode_reference_table(&original);
-    let container =
-        rs_dat2::compression::compress(&encoded, rs_dat2::compression::CompressionType::Gzip)
-            .unwrap();
+    let encoded = encode_reference_table(&original);
+    let container = compress(&encoded, CompressionType::Gzip).unwrap();
     let parsed = openrs2::parse_reference_container(&container).unwrap();
     assert!(openrs2::diff_reference_tables(&original, &parsed).groups_agree());
     assert!(!openrs2::diff_reference_tables(&original, &parsed).header);

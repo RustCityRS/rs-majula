@@ -31,7 +31,7 @@ fn id(engine: &Engine, name: &str) -> u16 {
 
 /// Logs a returning player in holding `obj` in backpack slot 0, with every
 /// stat at `level`, and clicks its Wield (`IF_BUTTON2`, `Class199.method1317`:
-/// `p4(com) ip2_alt1(obj) ip2(slot)`). Returns whether the obj is still in
+/// `p4(com) p2_alt3(obj) p2_alt1(slot)`). Returns whether the obj is still in
 /// the backpack afterwards.
 fn wield(engine: &mut Engine, name: &str, level: u16) -> bool {
     let obj = id(engine, name);
@@ -48,7 +48,7 @@ fn wield(engine: &mut Engine, name: &str, level: u16) -> bool {
     rs_vm::ops::test::forget_calls();
 
     let mut p = ClientPacket::new();
-    p.p4(BACKPACK).ip2_alt1(obj as i32).ip2(0);
+    p.p4(BACKPACK).p2_alt3(obj as i32).p2_alt1(0);
     client.send(ClientProt::IfButton2, &p.finish());
     engine.cycle();
 
@@ -164,7 +164,7 @@ fn a_wielded_weapon_brings_its_2011_stance() {
         backpack.set(1, sword, 1);
 
         let mut p = ClientPacket::new();
-        p.p4(BACKPACK).ip2_alt1(two_handed as i32).ip2(0);
+        p.p4(BACKPACK).p2_alt3(two_handed as i32).p2_alt1(0);
         client.send(ClientProt::IfButton2, &p.finish());
         engine.cycle();
         let player = engine.harness_player(client.pid).unwrap();
@@ -175,7 +175,7 @@ fn a_wielded_weapon_brings_its_2011_stance() {
         );
 
         let mut p = ClientPacket::new();
-        p.p4(BACKPACK).ip2_alt1(sword as i32).ip2(1);
+        p.p4(BACKPACK).p2_alt3(sword as i32).p2_alt1(1);
         client.send(ClientProt::IfButton2, &p.finish());
         engine.cycle();
         let player = engine.harness_player(client.pid).unwrap();
@@ -205,7 +205,7 @@ fn wearing_the_elemental_shield_plays_its_shimmer() {
         engine.cycle();
         client.packets();
         let mut p = ClientPacket::new();
-        p.p4(BACKPACK).ip2_alt1(obj as i32).ip2(0);
+        p.p4(BACKPACK).p2_alt3(obj as i32).p2_alt1(0);
         client.send(ClientProt::IfButton2, &p.finish());
         let mut packets = Vec::new();
         for _ in 0..4 {

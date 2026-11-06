@@ -1,10 +1,10 @@
+use crate::archive;
 use anyhow::Result;
-use rs_dat2::CacheStore;
+use rs_io::js5::Js5Store;
+use std::fs::{self, File};
 use std::io::Write;
 use std::path::Path;
 use tracing::{info, warn};
-
-const ARCHIVE_PARTICLES: u8 = 27;
 
 fn g2(data: &[u8], pos: &mut usize) -> u16 {
     let v = u16::from_be_bytes([data[*pos], data[*pos + 1]]);
@@ -18,27 +18,27 @@ fn g4(data: &[u8], pos: &mut usize) -> u32 {
     v
 }
 
-pub fn unpack_particles(store: &mut CacheStore, content_dir: &Path) -> Result<u32> {
+pub fn unpack_particles(store: &mut Js5Store, content_dir: &Path) -> Result<u32> {
     let archive_dir = content_dir.join("particles").join("_unpack");
-    std::fs::create_dir_all(&archive_dir)?;
+    fs::create_dir_all(&archive_dir)?;
 
-    let group_count = store.group_count(ARCHIVE_PARTICLES).unwrap_or(0);
+    let group_count = store.group_count(archive::PARTICLES).unwrap_or(0);
     let out_path = archive_dir.join("all.particle");
-    let mut file = std::fs::File::create(&out_path)?;
+    let mut file = File::create(&out_path)?;
     let mut written = 0u32;
 
     for gid in 0..group_count {
-        let Some(group) = store.read_group(ARCHIVE_PARTICLES, gid)? else {
+        let Some(group) = store.read_group(archive::PARTICLES, gid)? else {
             continue;
         };
 
         for entry in &group.entries {
-            if entry.data.is_empty() {
+            if entry.data().is_empty() {
                 continue;
             }
 
             writeln!(file, "[particle_{}]", entry.id)?;
-            let data = &entry.data;
+            let data = entry.data();
             let mut pos = 0;
 
             loop {

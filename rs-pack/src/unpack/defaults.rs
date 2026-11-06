@@ -1,23 +1,23 @@
 #![allow(clippy::single_match)]
+use crate::archive;
 use anyhow::Result;
-use rs_dat2::CacheStore;
+use rs_io::js5::Js5Store;
+use std::fs::{self, File};
 use std::io::Write;
 use std::path::Path;
 use tracing::info;
 
-const ARCHIVE_DEFAULTS: u8 = 28;
-
-pub fn unpack_defaults(store: &mut CacheStore, content_dir: &Path) -> Result<u32> {
+pub fn unpack_defaults(store: &mut Js5Store, content_dir: &Path) -> Result<u32> {
     let archive_dir = content_dir.join("defaults").join("_unpack");
-    std::fs::create_dir_all(&archive_dir)?;
+    fs::create_dir_all(&archive_dir)?;
     let mut written = 0u32;
 
     // File 1: map defaults
-    if let Some(group) = store.read_group(ARCHIVE_DEFAULTS, 1)? {
+    if let Some(group) = store.read_group(archive::DEFAULTS, 1)? {
         if let Some(entry) = group.entries.first() {
             let out = archive_dir.join("map_defaults.txt");
-            let mut file = std::fs::File::create(&out)?;
-            let data = &entry.data;
+            let mut file = File::create(&out)?;
+            let data = entry.data();
             let mut pos = 0;
             loop {
                 if pos >= data.len() {
@@ -90,11 +90,11 @@ pub fn unpack_defaults(store: &mut CacheStore, content_dir: &Path) -> Result<u32
     }
 
     // File 3: graphics defaults
-    if let Some(group) = store.read_group(ARCHIVE_DEFAULTS, 3)? {
+    if let Some(group) = store.read_group(archive::DEFAULTS, 3)? {
         if let Some(entry) = group.entries.first() {
             let out = archive_dir.join("graphics_defaults.txt");
-            let mut file = std::fs::File::create(&out)?;
-            let data = &entry.data;
+            let mut file = File::create(&out)?;
+            let data = entry.data();
             let mut pos = 0;
             loop {
                 if pos >= data.len() {
@@ -154,11 +154,11 @@ pub fn unpack_defaults(store: &mut CacheStore, content_dir: &Path) -> Result<u32
     }
 
     // File 6: tile occlusion defaults (deob name "WearPosDefaults" is an artifact)
-    if let Some(group) = store.read_group(ARCHIVE_DEFAULTS, 6)? {
+    if let Some(group) = store.read_group(archive::DEFAULTS, 6)? {
         if let Some(entry) = group.entries.first() {
             let out = archive_dir.join("occlusion_defaults.txt");
-            let mut file = std::fs::File::create(&out)?;
-            let data = &entry.data;
+            let mut file = File::create(&out)?;
+            let data = entry.data();
             let mut pos = 0;
             loop {
                 if pos >= data.len() {

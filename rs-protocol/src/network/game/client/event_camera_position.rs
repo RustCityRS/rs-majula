@@ -33,8 +33,8 @@ impl ClientProtMessage for EventCameraPosition {
 #[cfg(since_647)]
 impl ClientProtMessage for EventCameraPosition {
     fn decode(buf: &mut Packet, _: usize) -> Self {
-        let yaw = buf.g2_alt1();
-        let pitch = buf.ig2();
+        let yaw = buf.g2_alt2();
+        let pitch = buf.g2_alt1();
         EventCameraPosition { yaw, pitch }
     }
 }

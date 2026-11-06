@@ -34,8 +34,8 @@ pub struct IfSetAnim {
 #[cfg(since_647)]
 impl ServerProtMessage for IfSetAnim {
     fn encode(&self, buf: &mut Packet) {
-        buf.ip4(self.com);
-        buf.ip2(self.seq);
+        buf.p4_alt1(self.com);
+        buf.p2_alt1(self.seq);
     }
 
     fn sizeof(&self) -> usize {

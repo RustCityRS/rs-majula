@@ -542,7 +542,7 @@ Its UF npc spawn (7942 at (3294,4937)) and teles (`.teles.toml`, region 14669 /
 | CAM_SHAKE (96) | `cam_shake.rs` | `cam_shake(axis,random,amplitude,rate)`, cycle always 0 (`active_player.rs:690-708`) | `wire_647.rs:525` | `:1519` |
 | CAM_RESET (67) | `cam_reset.rs` | `cam_reset` (`active_player.rs:837`) | none (empty payload) | `:339` |
 | CAM_SMOOTHRESET (12) | `cam_smoothreset.rs` | **none** | opcode only (`wire_647.rs:551`) | `:1373` |
-| CAM_FORCEANGLE (29) | `cam_forceangle.rs` (`ip2 yaw; p2_alt1 pitch`) | **none** | **none**; field names unverified against `TextureOp_Sub26.method3767`'s parameters | `:1016` |
+| CAM_FORCEANGLE (29) | `cam_forceangle.rs` (`p2_alt1 yaw; p2_alt1 pitch`) | **none** | **none**; field names unverified against `TextureOp_Sub26.method3767`'s parameters | `:1016` |
 | CAM_REMOVEROOF (36) | `cam_removeroof.rs` (`p4_alt2 coord`, -1 clears) | **none** | **none** | `:236` |
 | HINT_ARROW (45) | `hint_arrow.rs` | `hint_coord`, `hint_npc` (`active_player.rs:913-925`) | not checked here | `:1219` |
 | VORBIS_SOUND (51) | `vorbis_sound.rs` | **none** | **none** | not checked |

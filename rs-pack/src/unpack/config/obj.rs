@@ -1,6 +1,8 @@
 #[cfg(before_647)]
 use super::ModelCategory;
 use super::UnpackedPacks;
+#[cfg(since_647)]
+use super::order::emit_params;
 use crate::cache::obj::ObjTypeRaw;
 use std::collections::HashMap;
 
@@ -388,7 +390,7 @@ pub fn emit_obj_props(
         ));
     }
     #[cfg(since_647)]
-    p.extend(super::order::emit_params(
+    p.extend(emit_params(
         &def.raw_opcodes,
         def.params.as_deref(),
         registry,

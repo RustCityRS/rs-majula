@@ -1,49 +1,45 @@
+#[cfg(before_647)]
+use crate::archive::JagArchive;
+#[cfg(since_647)]
+use crate::archive::{self, ArchiveVersions};
 #[cfg(since_647)]
 use crate::cache::seq_frame::split_frame_into_stripes;
 #[cfg(since_647)]
-use crate::pack::js5::{PreparedGroup, stamp_path, write_archive};
-#[cfg(since_647)]
-use crate::startup::{is_up_to_date, max_of, newest_mtime, write_stamp};
-#[cfg(since_647)]
-use rayon::prelude::*;
-#[cfg(since_647)]
-use rs_dat2::{
-    CacheStore,
-    archive::{self, ArchiveVersions},
-    encode_group_entries, encode_group_entries_striped,
-    reference::FileInfo,
-};
-#[cfg(since_647)]
-use std::collections::BTreeMap;
-use std::path::Path;
-
-#[cfg(since_647)]
 use crate::cache::seq_frame::{AnimFrame, FrameBone};
 #[cfg(since_647)]
-use anyhow::{Context, Result, bail, ensure};
-#[cfg(since_647)]
-use tracing::info;
-
-use crate::pack::pack_registry::PackFile;
-
+use crate::pack::js5::{PreparedGroup, stamp_path, write_archive};
 #[cfg(since_647)]
 use crate::pack::pack::parse_sections;
-#[cfg(before_647)]
-use crate::pack::util::{load_order, walk};
-use std::collections::HashMap;
-use std::fs;
-
-#[cfg(before_647)]
-use rs_io::Packet;
-#[cfg(before_647)]
-use rs_io::jag::{JagCompression, JagFile};
-#[cfg(before_647)]
-use tracing::{debug, warn};
-
+use crate::pack::pack_registry::PackFile;
 #[cfg(before_647)]
 use crate::pack::pack_registry::PackRegistry;
 #[cfg(before_647)]
+use crate::pack::util::{load_order, walk};
+#[cfg(since_647)]
+use crate::startup::{is_up_to_date, max_of, newest_mtime, write_stamp};
+#[cfg(before_647)]
 use crate::types::BoneType;
+#[cfg(since_647)]
+use anyhow::{Context, Result, bail, ensure};
+#[cfg(since_647)]
+use rayon::prelude::*;
+#[cfg(before_647)]
+use rs_io::Packet;
+#[cfg(before_647)]
+use rs_io::jag::JagFile;
+#[cfg(since_647)]
+use rs_io::js5::{
+    Js5Store, encode_group_entries, encode_group_entries_striped, reference::FileInfo,
+};
+#[cfg(since_647)]
+use std::collections::BTreeMap;
+use std::collections::HashMap;
+use std::fs;
+use std::path::Path;
+#[cfg(since_647)]
+use tracing::info;
+#[cfg(before_647)]
+use tracing::{debug, warn};
 
 #[cfg(before_647)]
 pub fn pack_models(registry: &PackRegistry, content_dir: &Path, pack_dir: &Path) -> Vec<u8> {
@@ -344,7 +340,7 @@ pub fn pack_models(registry: &PackRegistry, content_dir: &Path, pack_dir: &Path)
         anim_order.len(),
         base_order.len()
     );
-    jag.build(JagCompression::PerFile)
+    jag.build(JagArchive::Models.compression())
 }
 
 #[cfg(before_647)]
@@ -483,7 +479,7 @@ pub fn pack_anims(source_dir: &Path, pack_dir: &Path) -> Result<BTreeMap<(u32, u
 
 #[cfg(since_647)]
 pub fn pack_archive(
-    store: &mut CacheStore,
+    store: &mut Js5Store,
     content_dir: &Path,
     output_dir: &Path,
     pack_dir: &Path,

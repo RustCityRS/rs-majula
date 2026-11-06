@@ -15,8 +15,8 @@ pub struct IfButton4 {
 impl ClientProtMessage for IfButton4 {
     fn decode(buf: &mut Packet, _: usize) -> Self {
         let com = buf.g4s() as u32;
-        let obj = buf.ig2_alt1() as i16;
-        let slot = buf.ig2() as i16;
+        let obj = buf.g2_alt3() as i16;
+        let slot = buf.g2_alt1() as i16;
         IfButton4 { com, slot, obj }
     }
 }

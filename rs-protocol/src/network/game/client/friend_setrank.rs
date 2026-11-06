@@ -18,7 +18,7 @@ impl ClientProtMessage for FriendSetRank {
     }
 
     fn decode(buf: &mut Packet, _: usize) -> Self {
-        let rank = buf.g1_alt3() as i8;
+        let rank = buf.g1_alt1() as i8;
         let name = buf.gjstr(STRING_TERMINATOR);
         FriendSetRank { rank, name }
     }

@@ -169,19 +169,22 @@ fn cheat(client: &mut HarnessClient, input: &str) {
 
 fn button1(client: &mut HarnessClient, com: i32) {
     let mut p = ClientPacket::new();
-    p.p4(com).ip2_alt1(0xFFFF).ip2(0xFFFF);
+    p.p4(com).p2_alt3(0xFFFF).p2_alt1(0xFFFF);
     client.send(ClientProt::IfButton1, &p.finish());
 }
 
 fn op_npc1(client: &mut HarnessClient, nid: u16) {
     let mut p = ClientPacket::new();
-    p.p1_alt2(0).p2(nid as i32);
+    p.p1_alt3(0).p2(nid as i32);
     client.send(ClientProt::OpNpc1, &p.finish());
 }
 
 fn op_loc1(client: &mut HarnessClient, loc: u16, x: u16, z: u16) {
     let mut p = ClientPacket::new();
-    p.ip2(z as i32).ip2(loc as i32).p1(0).p2_alt1(x as i32);
+    p.p2_alt1(z as i32)
+        .p2_alt1(loc as i32)
+        .p1(0)
+        .p2_alt2(x as i32);
     client.send(ClientProt::OpLoc1, &p.finish());
 }
 
@@ -426,7 +429,7 @@ fn a_2011_player_wields_a_bronze_dagger_off_the_island() {
             .set(0, dagger, 1);
 
         let mut p = ClientPacket::new();
-        p.p4(BACKPACK).ip2_alt1(dagger as i32).ip2(0);
+        p.p4(BACKPACK).p2_alt3(dagger as i32).p2_alt1(0);
         client.send(ClientProt::IfButton2, &p.finish());
         ticks(engine, &mut client, 2);
         assert_eq!(

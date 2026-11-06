@@ -35,11 +35,11 @@ pub struct OpNpcT {
 #[cfg(since_647)]
 impl ClientProtMessage for OpNpcT {
     fn decode(buf: &mut Packet, _: usize) -> Self {
-        let obj = buf.g2_alt1();
-        let slot = buf.g2_alt1();
-        let nid = buf.ig2();
-        let com = buf.g4_alt1() as u32;
-        let ctrl = buf.g1_alt1() != 0;
+        let obj = buf.g2_alt2();
+        let slot = buf.g2_alt2();
+        let nid = buf.g2_alt1();
+        let com = buf.g4s_alt3() as u32;
+        let ctrl = buf.g1_alt2() != 0;
         OpNpcT {
             nid,
             obj,

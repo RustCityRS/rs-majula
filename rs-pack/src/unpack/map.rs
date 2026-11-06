@@ -1,28 +1,27 @@
+#[cfg(since_244)]
+use crate::archive;
 use crate::cache::map::parse_landscape_binary;
 #[cfg(before_647)]
 use crate::cache::map::parse_terrain_binary;
 #[cfg(since_647)]
 use crate::cache::map::{
-    CameraPlane, LocEntry, TerrainData, parse_npc_spawn_binary, parse_terrain_binary_levels,
+    CameraPlane, LocEntry, TerrainData, load_xtea_keys, parse_npc_spawn_binary,
+    parse_terrain_binary_levels,
 };
 #[cfg(since_647)]
-use crate::cache::map::{container_crc, decrypt_and_decompress};
-#[cfg(since_647)]
-use crate::pack::other::map::{is_landscape, is_npc_spawns, load_xtea_keys};
+use crate::pack::other::map::{is_landscape, is_npc_spawns};
 #[cfg(all(since_244, before_647))]
 use crate::versionlist::VersionList;
 #[cfg(since_647)]
 use anyhow::Result;
-#[cfg(since_647)]
-use rs_dat2::CacheStore;
-#[cfg(since_647)]
-use rs_dat2::archive::MAPS as MAP_ARCHIVE;
-#[cfg(since_647)]
-use rs_dat2::xtea::java_string_hash;
 #[cfg(rev = "225")]
 use rs_io::bz2::bz2_decompress;
-#[cfg(all(since_244, before_647))]
+#[cfg(since_244)]
 use rs_io::js5::Js5Store;
+#[cfg(since_647)]
+use rs_io::js5::compression::{Container, decompress, decompress_xtea};
+#[cfg(since_647)]
+use rs_io::js5::java_string_hash;
 #[cfg(since_647)]
 use serde::{Deserialize, Serialize};
 #[cfg(since_647)]
@@ -30,6 +29,8 @@ use std::collections::HashMap;
 #[cfg(rev = "225")]
 use std::collections::{HashMap, HashSet};
 use std::fs;
+#[cfg(since_647)]
+use std::ops::Not;
 use std::path::Path;
 #[cfg(before_647)]
 use tracing::debug;
@@ -143,7 +144,7 @@ pub fn unpack_maps(maps_dir: &Path, output_dir: &Path) -> anyhow::Result<()> {
 
 #[cfg(all(since_244, before_647))]
 pub fn unpack_maps(
-    cache: &Js5Store,
+    cache: &mut Js5Store,
     version_list: &VersionList,
     output_dir: &Path,
 ) -> anyhow::Result<()> {
@@ -155,12 +156,20 @@ pub fn unpack_maps(
         let (map_x, map_z) = (entry.map_x(), entry.map_z());
         let mut lines = Vec::new();
 
-        if let Some(land) = cache.read(4, entry.land_file as usize, true) {
+        if let Some(land) = cache
+            .read_group_raw_decompressed(archive::MAPS, entry.land_file as u32)
+            .ok()
+            .flatten()
+        {
             lines.push("==== MAP ====".to_string());
             decode_terrain(&land, &mut lines);
         }
 
-        if let Some(loc) = cache.read(4, entry.loc_file as usize, true) {
+        if let Some(loc) = cache
+            .read_group_raw_decompressed(archive::MAPS, entry.loc_file as u32)
+            .ok()
+            .flatten()
+        {
             lines.push(String::new());
             lines.push("==== LOC ====".to_string());
             decode_locs(&loc, &mut lines);
@@ -231,7 +240,7 @@ fn decode_locs(data: &[u8], lines: &mut Vec<String>) {
 }
 
 #[cfg(since_647)]
-pub fn unpack_maps(store: &mut CacheStore, cache_dir: &Path, content_dir: &Path) -> Result<u32> {
+pub fn unpack_maps(store: &mut Js5Store, cache_dir: &Path, content_dir: &Path) -> Result<u32> {
     let map_dir = content_dir.join("maps").join("_unpack");
     fs::create_dir_all(&map_dir)?;
 
@@ -252,44 +261,30 @@ pub fn unpack_maps(store: &mut CacheStore, cache_dir: &Path, content_dir: &Path)
             "No keys.json found at {}, landscape groups will be opaque",
             keys_path.display()
         );
-        std::collections::HashMap::new()
+        HashMap::new()
     };
 
-    let group_count = store.group_count(MAP_ARCHIVE).unwrap_or(0);
+    let group_count = store.group_count(archive::MAPS).unwrap_or(0);
 
-    let ref_table = store.reference_table(MAP_ARCHIVE);
+    let ref_table = store.reference_table(archive::MAPS);
     let ref_groups: Vec<_> = ref_table.map(|t| t.groups.clone()).unwrap_or_default();
 
     let mut manifest = MapManifest {
-        archive_id: MAP_ARCHIVE,
+        archive_id: archive::MAPS,
         groups: Vec::new(),
     };
 
     let mut written = 0u32;
 
     for gid in 0..group_count {
-        let Some(raw) = store.read_raw_group_bytes(MAP_ARCHIVE, gid)? else {
+        let Some(raw) = store.read_raw_group_bytes(archive::MAPS, gid)? else {
             continue;
         };
         if raw.len() < 5 {
             continue;
         }
 
-        let comp_type = raw[0];
-        let compressed_len = u32::from_be_bytes([raw[1], raw[2], raw[3], raw[4]]) as usize;
-        let header_size = if comp_type == 0 { 5 } else { 9 };
-        let decompressed_len = if comp_type != 0 && raw.len() >= 9 {
-            u32::from_be_bytes([raw[5], raw[6], raw[7], raw[8]])
-        } else {
-            compressed_len as u32
-        };
-        let container_end = header_size + compressed_len;
-        let version = if raw.len() >= container_end + 2 {
-            u16::from_be_bytes([raw[container_end], raw[container_end + 1]])
-        } else {
-            0
-        };
-        let crc = container_crc(&raw, comp_type);
+        let container = Container::parse(&raw)?;
 
         // Resolve the group name from the reference table's name_hash
         let name_hash = ref_groups.iter().find(|g| g.id == gid).map(|g| g.name_hash);
@@ -307,7 +302,7 @@ pub fn unpack_maps(store: &mut CacheStore, cache_dir: &Path, content_dir: &Path)
 
             // Use explicit key if available, otherwise try zero key (unencrypted)
             let effective_key = key.unwrap_or([0, 0, 0, 0]);
-            match decrypt_and_decompress(&raw, &effective_key) {
+            match decompress_xtea(&raw, &effective_key) {
                 Ok(decompressed) => {
                     let locs = parse_landscape_binary(&decompressed);
                     let text = emit_landscape_text(&locs);
@@ -320,11 +315,11 @@ pub fn unpack_maps(store: &mut CacheStore, cache_dir: &Path, content_dir: &Path)
                         group_id: gid,
                         name: name.clone(),
                         file_name,
-                        compression: comp_type,
-                        version,
-                        compressed_len: compressed_len as u32,
-                        decompressed_len,
-                        crc,
+                        compression: container.compression as u8,
+                        version: container.version.unwrap_or(0),
+                        compressed_len: container.compressed_len,
+                        decompressed_len: container.uncompressed_len,
+                        crc: container.crc(),
                         encrypted: true,
                         keyed: key.is_some(),
                     });
@@ -341,11 +336,11 @@ pub fn unpack_maps(store: &mut CacheStore, cache_dir: &Path, content_dir: &Path)
                         group_id: gid,
                         name: name.clone(),
                         file_name,
-                        compression: comp_type,
-                        version,
-                        compressed_len: compressed_len as u32,
-                        decompressed_len,
-                        crc,
+                        compression: container.compression as u8,
+                        version: container.version.unwrap_or(0),
+                        compressed_len: container.compressed_len,
+                        decompressed_len: container.uncompressed_len,
+                        crc: container.crc(),
                         encrypted: true,
                         keyed: false,
                     });
@@ -353,7 +348,7 @@ pub fn unpack_maps(store: &mut CacheStore, cache_dir: &Path, content_dir: &Path)
             }
         } else if is_npc_spawns(&name) {
             // NPC spawn group — decompress and emit text
-            let decompressed = rs_dat2::compression::decompress(&raw)
+            let decompressed = decompress(&raw)
                 .map_err(|e| anyhow::anyhow!("decompress {} (group {}): {}", name, gid, e))?;
 
             // Format: series of (u16 pos_key, u8 count, count × u16 npc_id) blocks
@@ -367,17 +362,17 @@ pub fn unpack_maps(store: &mut CacheStore, cache_dir: &Path, content_dir: &Path)
                 group_id: gid,
                 name: name.clone(),
                 file_name,
-                compression: comp_type,
-                version,
-                compressed_len: compressed_len as u32,
-                decompressed_len,
-                crc,
+                compression: container.compression as u8,
+                version: container.version.unwrap_or(0),
+                compressed_len: container.compressed_len,
+                decompressed_len: container.uncompressed_len,
+                crc: container.crc(),
                 encrypted: false,
                 keyed: false,
             });
         } else {
             // Terrain group (m_ or um_) — plaintext, decompress directly
-            let decompressed = rs_dat2::compression::decompress(&raw)
+            let decompressed = decompress(&raw)
                 .map_err(|e| anyhow::anyhow!("decompress {} (group {}): {}", name, gid, e))?;
 
             let levels = terrain_levels(&name);
@@ -392,11 +387,11 @@ pub fn unpack_maps(store: &mut CacheStore, cache_dir: &Path, content_dir: &Path)
                 group_id: gid,
                 name: name.clone(),
                 file_name,
-                compression: comp_type,
-                version,
-                compressed_len: compressed_len as u32,
-                decompressed_len,
-                crc,
+                compression: container.compression as u8,
+                version: container.version.unwrap_or(0),
+                compressed_len: container.compressed_len,
+                decompressed_len: container.uncompressed_len,
+                crc: container.crc(),
                 encrypted: false,
                 keyed: false,
             });
@@ -446,9 +441,9 @@ pub struct MapGroupEntry {
     pub compressed_len: u32,
     pub decompressed_len: u32,
     pub crc: u32,
-    #[serde(default, skip_serializing_if = "std::ops::Not::not")]
+    #[serde(default, skip_serializing_if = "Not::not")]
     pub encrypted: bool,
-    #[serde(default, skip_serializing_if = "std::ops::Not::not")]
+    #[serde(default, skip_serializing_if = "Not::not")]
     pub keyed: bool,
 }
 

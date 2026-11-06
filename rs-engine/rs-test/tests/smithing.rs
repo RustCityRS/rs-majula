@@ -1,20 +1,20 @@
 //! Smelting and anvil smithing from 289, at 2011's furnaces and anvils.
 //!
 //! Lumbridge's furnace (loc 45310 at 3226,3256; no source found for when it
-//! came) smelts on op2, as 289's furnaces do (OPLOC2: `ip2(loc) p1_alt1(ctrl)
-//! p2_alt1(z) ip2_alt1(x)`). The port asks which bar in the make-X dialogue
+//! came) smelts on op2, as 289's furnaces do (OPLOC2: `p2_alt1(loc) p1_alt2(ctrl)
+//! p2_alt2(z) p2_alt3(x)`). The port asks which bar in the make-X dialogue
 //! (skillmulti2010, 905, with its number panel 916), as void-634's Furnace.kt
 //! does (no 2011 source found; cache 786 still has a 289-style smelting
 //! interface, 941), where 289 opened its own smelting interface: the amount
-//! first (IF_BUTTON1 `p4(com) ip2_alt1(obj)
-//! ip2(slot)`), then the bar, a pause button (RESUME_PAUSEBUTTON `p2(slot)
+//! first (IF_BUTTON1 `p4(com) p2_alt3(obj)
+//! p2_alt1(slot)`), then the bar, a pause button (RESUME_PAUSEBUTTON `p2(slot)
 //! p4_alt2(com)`). A bronze bar takes a copper and a tin ore and pays 6.2
 //! xp, which 2011's xp counter (varp 1801, in tenths) counts.
 //!
 //! A bar used on Lumbridge's anvil (loc 12692 at 3229,3254, OPLOCT
-//! `p2_alt1(obj) p2_alt1(slot) p2(z) p4_alt2(com) p2_alt1(x) p1_alt3(ctrl)
-//! ip2(loc)`) opens 2011's anvil interface (smithing_new, 300) with each of
-//! 289's products in its slot (IF_SETOBJECT `ip4(com) p4_alt3(count)
+//! `p2_alt2(obj) p2_alt2(slot) p2(z) p4_alt2(com) p2_alt2(x) p1_alt1(ctrl)
+//! p2_alt1(loc)`) opens 2011's anvil interface (smithing_new, 300) with each of
+//! 289's products in its slot (IF_SETOBJECT `p4_alt1(com) p4_alt3(count)
 //! p2(obj)`); a slot's Make 1 or Make All (IF_BUTTON1) smiths from that bar
 //! at 289's rates: a bronze dagger is a bar and 12.5 xp.
 
@@ -115,10 +115,10 @@ fn lumbridge_s_furnace_smelts_a_bronze_bar() {
 
         let (loc, x, z) = FURNACE;
         let mut p = ClientPacket::new();
-        p.ip2(loc as i32)
-            .p1_alt1(0)
-            .p2_alt1(z as i32)
-            .ip2_alt1(x as i32);
+        p.p2_alt1(loc as i32)
+            .p1_alt2(0)
+            .p2_alt2(z as i32)
+            .p2_alt3(x as i32);
         client.send(ClientProt::OpLoc2, &p.finish());
         let said = ticks(engine, &mut client, 6);
         let player = engine.harness_player(client.pid).unwrap();
@@ -128,7 +128,7 @@ fn lumbridge_s_furnace_smelts_a_bronze_bar() {
         );
 
         let mut p = ClientPacket::new();
-        p.p4(ONE).ip2_alt1(NONE).ip2(NONE);
+        p.p4(ONE).p2_alt3(NONE).p2_alt1(NONE);
         client.send(ClientProt::IfButton1, &p.finish());
         ticks(engine, &mut client, 1);
         let mut p = ClientPacket::new();
@@ -169,7 +169,7 @@ fn objects(packets: &[(u16, Vec<u8>)]) -> Vec<(i32, u16)> {
         .collect()
 }
 
-/// Each IF_SETHIDE as `(com, hidden)`: `p4_alt1 com, p1_alt1 hidden`.
+/// Each IF_SETHIDE as `(com, hidden)`: `p4_alt3 com, p1_alt2 hidden`.
 fn hides(packets: &[(u16, Vec<u8>)]) -> Vec<(i32, bool)> {
     packets
         .iter()
@@ -192,13 +192,13 @@ fn bar_on_anvil(engine: &Engine, client: &mut HarnessClient) {
         .expect("a bronze bar");
     let (loc, x, z) = ANVIL;
     let mut p = ClientPacket::new();
-    p.p2_alt1(bronze as i32)
-        .p2_alt1(slot as i32)
+    p.p2_alt2(bronze as i32)
+        .p2_alt2(slot as i32)
         .p2(z as i32)
         .p4_alt2(BACKPACK)
-        .p2_alt1(x as i32)
-        .p1_alt3(0)
-        .ip2(loc as i32);
+        .p2_alt2(x as i32)
+        .p1_alt1(0)
+        .p2_alt1(loc as i32);
     client.send(ClientProt::OpLocT, &p.finish());
 }
 
@@ -293,7 +293,7 @@ fn make_1_smiths_a_bronze_dagger_and_make_all_the_rest() {
         let counted = player.vars.get(XP_COUNTER).as_int();
 
         let mut p = ClientPacket::new();
-        p.p4(DAGGER_ONE).ip2_alt1(NONE).ip2(NONE);
+        p.p4(DAGGER_ONE).p2_alt3(NONE).p2_alt1(NONE);
         client.send(ClientProt::IfButton1, &p.finish());
         let said = ticks(engine, &mut client, 6);
         let player = engine.harness_player(client.pid).unwrap();
@@ -318,7 +318,7 @@ fn make_1_smiths_a_bronze_dagger_and_make_all_the_rest() {
             }
         }
         let mut p = ClientPacket::new();
-        p.p4(DAGGER_ALL).ip2_alt1(NONE).ip2(NONE);
+        p.p4(DAGGER_ALL).p2_alt3(NONE).p2_alt1(NONE);
         client.send(ClientProt::IfButton1, &p.finish());
         let said = ticks(engine, &mut client, 12);
         let player = engine.harness_player(client.pid).unwrap();

@@ -7,6 +7,7 @@ use std::collections::{HashMap, HashSet};
 use std::fmt::Write as _;
 use std::path::Path;
 use std::rc::Rc;
+use std::{fs, io};
 use tracing::{info, warn};
 
 const MAX_ENTITIES_PER_TYPE: usize = 500;
@@ -143,9 +144,9 @@ impl ConfigDiffReport {
         Self { types }
     }
 
-    pub fn write(&self, output_dir: &Path) -> std::io::Result<()> {
+    pub fn write(&self, output_dir: &Path) -> io::Result<()> {
         let dir = output_dir.join("_configdiff");
-        std::fs::create_dir_all(&dir)?;
+        fs::create_dir_all(&dir)?;
         let path = dir.join("report.txt");
 
         let total_prop: usize = self.types.iter().map(|t| t.diffs.len()).sum();
@@ -173,7 +174,7 @@ impl ConfigDiffReport {
 
         if changed == 0 {
             out.push_str("\nAll packed config entities match the cache.\n");
-            std::fs::write(&path, &out)?;
+            fs::write(&path, &out)?;
             info!(
                 "Config-diff report: all entities match the cache - {}",
                 path.display()
@@ -230,7 +231,7 @@ impl ConfigDiffReport {
             }
         }
 
-        std::fs::write(&path, &out)?;
+        fs::write(&path, &out)?;
         warn!(
             "Config-diff report: {total_prop} property diff(s), {total_byte} byte-only across {changed} type(s) vs committed content - see {}",
             path.display()

@@ -21,9 +21,9 @@ pub struct IfSetTargetParam {
 #[cfg(since_647)]
 impl ServerProtMessage for IfSetTargetParam {
     fn encode(&self, buf: &mut Packet) {
-        buf.ip2(self.slot1);
-        buf.ip2_alt1(self.inv);
-        buf.p2_alt1(self.slot2);
+        buf.p2_alt1(self.slot1);
+        buf.p2_alt3(self.inv);
+        buf.p2_alt2(self.slot2);
         buf.p4_alt3(self.com);
     }
 

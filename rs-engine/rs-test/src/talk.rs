@@ -45,7 +45,7 @@ impl Conversation {
     }
 }
 
-/// Talk-to on npc `nid` (OPNPC1: `p1_alt2(ctrl) p2(nid)`).
+/// Talk-to on npc `nid` (OPNPC1: `p1_alt3(ctrl) p2(nid)`).
 pub fn talk_to(client: &mut HarnessClient, nid: u16) {
     let p = [128u8, (nid >> 8) as u8, nid as u8];
     client.send(ClientProt::OpNpc1, &p);

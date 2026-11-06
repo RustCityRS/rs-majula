@@ -7,7 +7,7 @@
 //!   downstairs, with Abbot Langley (npc 801, beside it) saying so; a member
 //!   (`%prayer_guild` 1) climbs.
 //!
-//! Clicks are the client's OPLOC1 (`ip2(z) ip2(loc) p1(ctrl) p2_alt1(x)`).
+//! Clicks are the client's OPLOC1 (`p2_alt1(z) p2_alt1(loc) p1(ctrl) p2_alt2(x)`).
 
 #![cfg(since_647)]
 
@@ -31,7 +31,10 @@ static TURN: std::sync::Mutex<()> = std::sync::Mutex::new(());
 
 fn op_loc1(client: &mut HarnessClient, (loc, x, z): (u16, u16, u16)) {
     let mut p = ClientPacket::new();
-    p.ip2(z as i32).ip2(loc as i32).p1(0).p2_alt1(x as i32);
+    p.p2_alt1(z as i32)
+        .p2_alt1(loc as i32)
+        .p1(0)
+        .p2_alt2(x as i32);
     client.send(ClientProt::OpLoc1, &p.finish());
 }
 

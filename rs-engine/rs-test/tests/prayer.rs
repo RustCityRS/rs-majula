@@ -2,9 +2,9 @@
 //! fifteen prayers on 2011's prayer book.
 //!
 //! Each case drives the engine as the client would: Bury is the backpack's
-//! first op (IF_BUTTON1, `Class199.method1317`: `p4(com) ip2_alt1(obj)
-//! ip2(slot)`), praying is OPLOC1 on the altar
-//! (`ip2(z) ip2(loc) p1(ctrl) p2_alt1(x)`), and a prayer is IF_BUTTON1 on
+//! first op (IF_BUTTON1, `Class199.method1317`: `p4(com) p2_alt3(obj)
+//! p2_alt1(slot)`), praying is OPLOC1 on the altar
+//! (`p2_alt1(z) p2_alt1(loc) p1(ctrl) p2_alt2(x)`), and a prayer is IF_BUTTON1 on
 //! the book's com8 at the prayer's slot (enum 2279's order).
 
 #![cfg(since_647)]
@@ -58,7 +58,7 @@ fn bury(engine: &mut Engine) {
     let xp = player.stats.xp[PRAYER];
 
     let mut p = ClientPacket::new();
-    p.p4(BACKPACK).ip2_alt1(bones as i32).ip2(0);
+    p.p4(BACKPACK).p2_alt3(bones as i32).p2_alt1(0);
     client.send(ClientProt::IfButton1, &p.finish());
     engine.cycle();
     assert_eq!(
@@ -113,7 +113,7 @@ fn altar(engine: &mut Engine) {
 /// Clicks Pray on the Lumbridge altar and waits for the answer.
 fn pray(engine: &mut Engine, client: &mut HarnessClient) -> String {
     let mut p = ClientPacket::new();
-    p.ip2(3206).ip2(36972).p1(0).p2_alt1(3243);
+    p.p2_alt1(3206).p2_alt1(36972).p1(0).p2_alt2(3243);
     client.send(ClientProt::OpLoc1, &p.finish());
     for _ in 0..10 {
         engine.cycle();
@@ -132,7 +132,7 @@ fn of(packets: &[(u16, Vec<u8>)], prot: ServerProt) -> impl Iterator<Item = &Vec
         .map(|(_, p)| p)
 }
 
-/// Each IF_SETEVENTS: `p2_alt1(from) p4_alt3(events) p4_alt3(com) ip2_alt1(to)`.
+/// Each IF_SETEVENTS: `p2_alt2(from) p4_alt3(events) p4_alt3(com) p2_alt3(to)`.
 fn events(packets: &[(u16, Vec<u8>)]) -> Vec<(i32, u16, u16, i32)> {
     of(packets, ServerProt::IfSetEvents)
         .map(|p| {
@@ -145,8 +145,8 @@ fn events(packets: &[(u16, Vec<u8>)]) -> Vec<(i32, u16, u16, i32)> {
         .collect()
 }
 
-/// Each varc set, `(varc, value)`: VARC_SMALL `p1_alt1 value, ip2 varc`;
-/// VARC_LARGE `ip4 value, ip2_alt1 varc`.
+/// Each varc set, `(varc, value)`: VARC_SMALL `p1_alt2 value, p2_alt1 varc`;
+/// VARC_LARGE `p4_alt1 value, p2_alt3 varc`.
 fn varcs(packets: &[(u16, Vec<u8>)]) -> Vec<(u16, i32)> {
     let mut out: Vec<(u16, i32)> = of(packets, ServerProt::VarcSmall)
         .map(|p| {
@@ -172,7 +172,7 @@ fn synths(packets: &[(u16, Vec<u8>)]) -> Vec<u16> {
         .collect()
 }
 
-/// The varps sent: VARP_SMALL `p1_alt2 value, p2 varp`, VARP_LARGE
+/// The varps sent: VARP_SMALL `p1_alt3 value, p2 varp`, VARP_LARGE
 /// `p2 varp, p4_alt2 value`.
 fn varps_sent(packets: &[(u16, Vec<u8>)]) -> Vec<u16> {
     let mut out: Vec<u16> = of(packets, ServerProt::VarpSmall)
@@ -219,7 +219,7 @@ fn active(engine: &Engine, client: &HarnessClient) -> u32 {
 /// Clicks Activate on a book slot and runs two ticks.
 fn click(engine: &mut Engine, client: &mut HarnessClient, slot: u16) -> Vec<(u16, Vec<u8>)> {
     let mut p = ClientPacket::new();
-    p.p4(BOOK).ip2_alt1(-1).ip2(slot as i32);
+    p.p4(BOOK).p2_alt3(-1).p2_alt1(slot as i32);
     client.send(ClientProt::IfButton1, &p.finish());
     let mut packets = Vec::new();
     for _ in 0..2 {

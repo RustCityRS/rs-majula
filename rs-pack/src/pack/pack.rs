@@ -1,29 +1,28 @@
 use crate::CONFIG_TYPE_CRCS;
-#[cfg(since_647)]
-use crate::config_blob::ConfigBlob;
-#[cfg(since_647)]
-use crate::config_crc;
 use crate::pack::config::*;
 #[cfg(before_647)]
 use crate::pack::interface;
 #[cfg(since_647)]
-use crate::pack::pack_registry::validate_config_packs;
+use crate::pack::other::{map, song};
 #[cfg(since_647)]
-use crate::pack::pack_registry::{PackFile, PackId};
+use crate::pack::pack_registry::{PackFile, PackId, validate_config_packs};
 use crate::pack::pack_registry::{PackRegistry, PackedFile};
 use crate::pack::util::verify_crc;
 #[cfg(since_647)]
-use crate::pack::{config, interface, js5, media, model, other, sound, texture};
+use crate::pack::{config, interface, js5, media, model, sound, texture};
 #[cfg(since_647)]
 use crate::startup::{cache_build_inputs, file_mtime, is_up_to_date, max_of, write_stamp};
 #[cfg(since_647)]
+use crate::{archive, config_crc};
+#[cfg(since_647)]
 use anyhow::Result;
 #[cfg(since_647)]
-use rs_dat2::{CacheStore, archive};
+use rs_io::jag::{JagCompression, JagFile};
+#[cfg(since_647)]
+use rs_io::js5::Js5Store;
 #[cfg(since_647)]
 use std::collections::BTreeMap;
-use std::collections::HashMap;
-use std::collections::HashSet;
+use std::collections::{HashMap, HashSet};
 use std::fs;
 use std::path::{Path, PathBuf};
 use tracing::debug;
@@ -525,7 +524,7 @@ pub fn pack_all(
     fs::create_dir_all(server_dir)?;
     fs::create_dir_all(client_dir)?;
 
-    let mut config_blob = ConfigBlob::new();
+    let mut config = JagFile::new();
 
     // Validate pack files: auto-register names from content files.
     validate_config_packs(source_dir, pack_dir)?;
@@ -541,17 +540,21 @@ pub fn pack_all(
         if verify {
             verify_crc(name, &client.dat, expected);
         }
-        config_blob.add_packed_data(name, client.dat, client.idx);
+        config.write(&format!("{name}.dat"), client.dat);
+        config.write(&format!("{name}.idx"), client.idx);
     }
-    for (name, asset) in assets {
+    for (name, asset) in assets.into_iter().collect::<BTreeMap<_, _>>() {
         asset.server.save(server_dir, &name)?;
         if let Some(client) = asset.client {
-            config_blob.add_packed_data(&name, client.dat, client.idx);
+            config.write(&format!("{name}.dat"), client.dat);
+            config.write(&format!("{name}.idx"), client.idx);
         }
     }
 
-    // Save the config blob as a single file
-    config_blob.save(&client_dir.join("config"))?;
+    fs::write(
+        client_dir.join("config"),
+        config.build(JagCompression::PerFile),
+    )?;
 
     info!("Pack complete.");
     Ok(())
@@ -578,7 +581,6 @@ pub fn pack_cache(
     }
 
     let versions = archive::load_versions_dir(&content_dir.join("versions"))?;
-    js5::open_or_create_cache(output_dir, archive::ARCHIVE_IDS)?;
     let keys_dst = output_dir.join("keys.json");
     let keys_src = content_dir.join("keys.json");
     if keys_src.exists() {
@@ -587,7 +589,7 @@ pub fn pack_cache(
         warn!("No keys.json found for map encryption");
     }
 
-    let mut store = CacheStore::open(output_dir)?;
+    let mut store = Js5Store::create(output_dir, archive::ARCHIVE_IDS)?;
     let pack_dir = content_dir.join("pack");
     model::pack_archive(
         &mut store,
@@ -611,7 +613,6 @@ pub fn pack_cache(
         content_dir,
         output_dir,
         &pack_dir,
-        client_data_dir,
         &versions,
         force_rebuild,
     )?;
@@ -627,11 +628,10 @@ pub fn pack_cache(
         &mut store,
         content_dir,
         output_dir,
-        client_data_dir,
         &versions,
         force_rebuild,
     )?;
-    other::song::pack_archive(
+    song::pack_archive(
         &mut store,
         content_dir,
         output_dir,
@@ -643,7 +643,6 @@ pub fn pack_cache(
         &mut store,
         content_dir,
         output_dir,
-        client_data_dir,
         &versions,
         force_rebuild,
     )?;
@@ -652,11 +651,10 @@ pub fn pack_cache(
         content_dir,
         output_dir,
         &pack_dir,
-        client_data_dir,
         &versions,
         force_rebuild,
     )?;
-    other::map::pack_archive(
+    map::pack_archive(
         &mut store,
         content_dir,
         output_dir,

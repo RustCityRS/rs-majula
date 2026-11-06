@@ -54,7 +54,7 @@ pub struct MidiJingle {
 #[cfg(since_647)]
 impl ServerProtMessage for MidiJingle {
     fn encode(&self, buf: &mut Packet) {
-        buf.ip2_alt1(self.song_id);
+        buf.p2_alt3(self.song_id);
         buf.p3_alt2(self.duration);
         buf.p1(self.volume);
     }

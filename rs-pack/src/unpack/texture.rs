@@ -1,16 +1,20 @@
 #![allow(clippy::needless_range_loop)]
 #[cfg(since_647)]
+use crate::archive;
+#[cfg(since_647)]
+use crate::archive::TEXTURES as TEXTURE_ARCHIVE;
+#[cfg(since_647)]
 use crate::cache::texture::{OP_NAMES, TextureDef, parse_texture};
 #[cfg(before_647)]
 use crate::unpack;
 #[cfg(since_647)]
 use anyhow::{Context, Result};
-#[cfg(since_647)]
-use rs_dat2::CacheStore;
-#[cfg(since_647)]
-use rs_dat2::archive::TEXTURES as TEXTURE_ARCHIVE;
 #[cfg(before_647)]
 use rs_io::jag::JagFile;
+#[cfg(since_647)]
+use rs_io::js5::Js5Store;
+#[cfg(since_647)]
+use rs_io::js5::compression::Container;
 #[cfg(since_647)]
 use serde::{Deserialize, Serialize};
 #[cfg(since_647)]
@@ -185,9 +189,6 @@ pub(crate) fn known_hashes() -> Vec<i32> {
 }
 
 #[cfg(since_647)]
-const ARCHIVE_MATERIALS: u8 = 26;
-
-#[cfg(since_647)]
 pub struct TextureUnpackStats {
     pub textures_total: u32,
     pub textures_named: u32,
@@ -197,7 +198,7 @@ pub struct TextureUnpackStats {
 
 #[cfg(since_647)]
 pub fn unpack_named_textures(
-    store: &mut CacheStore,
+    store: &mut Js5Store,
     content_dir: &Path,
     hash_names_path: &Path,
 ) -> Result<TextureUnpackStats> {
@@ -225,13 +226,13 @@ pub fn unpack_named_textures(
         let Some(entry) = group.entries.first() else {
             continue;
         };
-        if entry.data.is_empty() {
+        if entry.data().is_empty() {
             continue;
         }
 
         stats.textures_total += 1;
 
-        let tex_def = parse_texture(&entry.data);
+        let tex_def = parse_texture(entry.data());
         let primary_sprite = tex_def.primary_sprite();
 
         let tex_name = if let Some(sprite_id) = primary_sprite {
@@ -300,7 +301,7 @@ pub fn unpack_named_textures(
 }
 
 #[cfg(since_647)]
-pub fn unpack_texture_text(store: &mut CacheStore, content_dir: &Path) -> Result<u32> {
+pub fn unpack_texture_text(store: &mut Js5Store, content_dir: &Path) -> Result<u32> {
     let tex_dir = content_dir.join("textures").join("_unpack");
     fs::create_dir_all(&tex_dir)?;
 
@@ -322,21 +323,7 @@ pub fn unpack_texture_text(store: &mut CacheStore, content_dir: &Path) -> Result
             continue;
         }
 
-        let comp_type = raw[0];
-        let compressed_len = u32::from_be_bytes([raw[1], raw[2], raw[3], raw[4]]) as usize;
-        let header_size = if comp_type == 0 { 5 } else { 9 };
-        let decompressed_len = if comp_type != 0 && raw.len() >= 9 {
-            u32::from_be_bytes([raw[5], raw[6], raw[7], raw[8]])
-        } else {
-            compressed_len as u32
-        };
-        let container_end = header_size + compressed_len;
-        let version = if raw.len() >= container_end + 2 {
-            u16::from_be_bytes([raw[container_end], raw[container_end + 1]])
-        } else {
-            0
-        };
-        let crc = rs_io::crc::getcrc(&raw, 0, container_end.min(raw.len())) as u32;
+        let container = Container::parse(&raw)?;
 
         let Some(group) = store
             .read_group(TEXTURE_ARCHIVE, group_id)
@@ -347,11 +334,11 @@ pub fn unpack_texture_text(store: &mut CacheStore, content_dir: &Path) -> Result
         let Some(entry) = group.entries.first() else {
             continue;
         };
-        if entry.data.is_empty() {
+        if entry.data().is_empty() {
             continue;
         }
 
-        let def = parse_texture(&entry.data);
+        let def = parse_texture(entry.data());
         let text = emit_texture_text(&def);
 
         let file_name = format!("{}.texture", group_id);
@@ -375,11 +362,11 @@ pub fn unpack_texture_text(store: &mut CacheStore, content_dir: &Path) -> Result
         manifest.groups.push(TextureGroupEntry {
             group_id,
             file_name,
-            compression: comp_type,
-            version,
-            compressed_len: compressed_len as u32,
-            decompressed_len,
-            crc,
+            compression: container.compression as u8,
+            version: container.version.unwrap_or(0),
+            compressed_len: container.compressed_len,
+            decompressed_len: container.uncompressed_len,
+            crc: container.crc(),
         });
         written += 1;
     }
@@ -448,15 +435,15 @@ struct MaterialInfo {
 }
 
 #[cfg(since_647)]
-fn load_materials(store: &mut CacheStore) -> Result<HashMap<u32, MaterialInfo>> {
+fn load_materials(store: &mut Js5Store) -> Result<HashMap<u32, MaterialInfo>> {
     let mut materials = HashMap::new();
-    let Some(group) = store.read_group(ARCHIVE_MATERIALS, 0)? else {
+    let Some(group) = store.read_group(archive::MATERIALS, 0)? else {
         return Ok(materials);
     };
     let Some(entry) = group.entries.first() else {
         return Ok(materials);
     };
-    let data = &entry.data;
+    let data = entry.data();
     if data.len() < 2 {
         return Ok(materials);
     }

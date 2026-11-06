@@ -12,14 +12,16 @@
 //! `REV=647 cargo test -p rs-pack --test derived_content -- --ignored`
 #![cfg(rev = "647")]
 
-use rs_pack::ParamValue;
-use rs_pack::config_blob::ConfigBlob;
+use rs_io::jag::{JagCompression, JagFile};
+use rs_pack::cache::varp::VarPlayerScope;
 use rs_pack::pack::pack;
 use rs_pack::pack::pack_registry::{PackFile, PackRegistry};
 use rs_pack::types::ScriptVarType;
-use std::fs;
+use rs_pack::unpack::{self, Domains};
+use rs_pack::{ParamValue, startup};
 use std::panic::catch_unwind;
 use std::path::{Path, PathBuf};
+use std::{env, fs};
 
 fn scratch(name: &str) -> PathBuf {
     let dir = Path::new(env!("CARGO_TARGET_TMPDIR"))
@@ -40,17 +42,17 @@ fn repo_root() -> PathBuf {
 #[test]
 fn pack_refuses_to_run_without_the_derived_content() {
     let content = scratch("missing");
-    let err = rs_pack::startup::require_derived_content(&content).unwrap_err();
+    let err = startup::require_derived_content(&content).unwrap_err();
     assert!(err.to_string().contains("cargo regen-content"), "{err}");
 
     fs::create_dir_all(content.join("scripts/_unpack")).unwrap();
     fs::write(content.join("scripts/_unpack/all.loc"), "").unwrap();
-    let err = rs_pack::startup::require_derived_content(&content).unwrap_err();
+    let err = startup::require_derived_content(&content).unwrap_err();
     assert!(err.to_string().contains("manifest.json"), "{err}");
 
     fs::create_dir_all(content.join("maps/_unpack")).unwrap();
     fs::write(content.join("maps/_unpack/manifest.json"), "{}").unwrap();
-    rs_pack::startup::require_derived_content(&content).unwrap();
+    startup::require_derived_content(&content).unwrap();
 }
 
 #[test]
@@ -63,6 +65,12 @@ fn a_registry_rename_stops_packing_before_outputs_change() {
     fs::create_dir_all(content.join("maps/_unpack")).unwrap();
     fs::create_dir_all(output.join("server")).unwrap();
     fs::write(pack.join("seq.pack"), "893=human_shearing\n").unwrap();
+    fs::write(pack.join("npc.pack"), "1=guard\n").unwrap();
+    fs::write(
+        content.join("scripts/_unpack/all.npc"),
+        "[guard]\nmultivarp=renamed_varp\nmultivar=null\nmultidefault=-1\nmulti1=1\n",
+    )
+    .unwrap();
     fs::write(
         content.join("scripts/_unpack/all.seq"),
         "[seq_893]\npriority=5\n",
@@ -73,7 +81,7 @@ fn a_registry_rename_stops_packing_before_outputs_change() {
     fs::write(output.join("server/seq.dat"), b"previous output").unwrap();
 
     for verify in [false, true] {
-        let err = rs_pack::startup::pack_all(&content, &pack, &output, verify)
+        let err = startup::pack_all(&content, &pack, &output, verify)
             .err()
             .expect("stale generated names must stop packing")
             .to_string();
@@ -81,6 +89,8 @@ fn a_registry_rename_stops_packing_before_outputs_change() {
             "all.seq",
             "seq_893",
             "human_shearing",
+            "all.npc:2",
+            "reference multivarp=renamed_varp",
             "cargo regen-content",
         ] {
             assert!(err.contains(expected), "{err}");
@@ -122,12 +132,12 @@ fn config_crcs_are_checked_before_saving_and_on_cached_startup() {
 
     pack::pack_all(&scripts, &pack_dir, &server, &client, false).unwrap();
     let config_path = client.join("config");
-    let mut blob = ConfigBlob::load(&config_path).unwrap();
-    blob.add("seq.dat", vec![1, 2, 3]);
-    blob.save(&config_path).unwrap();
+    let mut config = JagFile::new();
+    config.write("seq.dat", vec![1, 2, 3]);
+    fs::write(&config_path, config.build(JagCompression::PerFile)).unwrap();
     let saved = fs::read(&config_path).unwrap();
     let error = catch_unwind(|| {
-        rs_pack::startup::pack_all(&content, &pack_dir, &output, true).unwrap();
+        startup::pack_all(&content, &pack_dir, &output, true).unwrap();
     })
     .expect_err("strict startup must verify the cached bytes");
     let message = error.downcast_ref::<String>().unwrap();
@@ -143,12 +153,12 @@ fn config_crcs_are_checked_before_saving_and_on_cached_startup() {
 #[ignore = "runs the full pack pipeline against content/647 (minutes)"]
 fn every_kind_of_authored_overlay_reaches_the_packed_configs() {
     let root = repo_root();
-    std::env::set_current_dir(&root).unwrap();
+    env::set_current_dir(&root).unwrap();
     let registry = PackRegistry::load(Path::new(rs_pack::PACK_DIR)).unwrap();
     // A fresh output directory: the incremental stamps must not decide what
     // this test sees.
     let output = scratch("pack");
-    let result = rs_pack::startup::pack_all(
+    let result = startup::pack_all(
         Path::new(rs_pack::CONTENT_DIR),
         Path::new(rs_pack::PACK_DIR),
         &output,
@@ -241,7 +251,7 @@ fn every_kind_of_authored_overlay_reaches_the_packed_configs() {
         .varps
         .get_by_id(id(&registry.varp, "learning_the_ropes"))
         .unwrap();
-    assert_eq!(varp.scope, rs_pack::cache::varp::VarPlayerScope::Perm);
+    assert_eq!(varp.scope, VarPlayerScope::Perm);
 
     // donor/configs/donor.loc -- a whole definition 786 does not have.
     assert!(config.locs.get_by_id(864).is_some(), "donor loc_864");
@@ -263,7 +273,7 @@ fn every_kind_of_authored_overlay_reaches_the_packed_configs() {
 #[ignore = "unpacks expected/ (minutes)"]
 fn regeneration_is_pure_and_keeps_the_registries() {
     let root = repo_root();
-    std::env::set_current_dir(&root).unwrap();
+    env::set_current_dir(&root).unwrap();
     let content = root.join(rs_pack::CONTENT_DIR);
     let out = scratch("regen");
     let pack = out.join("pack");
@@ -273,11 +283,11 @@ fn regeneration_is_pure_and_keeps_the_registries() {
         fs::copy(&path, pack.join(path.file_name().unwrap())).unwrap();
     }
 
-    rs_pack::unpack::unpack(
+    unpack::unpack(
         &root.join("expected"),
         &out,
         &pack,
-        rs_pack::unpack::Domains::parse("configs,maps").unwrap(),
+        Domains::parse("configs,maps").unwrap(),
         &out.join("work"),
     )
     .unwrap();

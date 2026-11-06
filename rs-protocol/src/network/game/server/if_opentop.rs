@@ -18,8 +18,8 @@ pub struct IfOpentop {
 #[cfg(since_647)]
 impl ServerProtMessage for IfOpentop {
     fn encode(&self, buf: &mut Packet) {
-        buf.ip2(self.interface);
-        buf.p1_alt3(0);
+        buf.p2_alt1(self.interface);
+        buf.p1_alt1(0);
     }
 
     fn sizeof(&self) -> usize {

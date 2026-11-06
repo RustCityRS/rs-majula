@@ -1,6 +1,10 @@
+#[cfg(since_647)]
+use super::super::cs2::scan_cs2_varp_refs;
 use super::UnpackedPacks;
 #[cfg(since_647)]
 use super::param::char_to_type_name;
+#[cfg(since_647)]
+use crate::archive;
 #[cfg(since_647)]
 use crate::cache::provider::CacheType;
 #[cfg(since_647)]
@@ -9,9 +13,9 @@ use crate::cache::varp::VarPlayerTypeRaw;
 #[cfg(since_647)]
 use crate::types::VarPlayerScope;
 #[cfg(since_647)]
-use rs_dat2::{CacheStore, archive};
-#[cfg(since_647)]
 use rs_io::Packet;
+#[cfg(since_647)]
+use rs_io::js5::Js5Store;
 use std::collections::HashMap;
 #[cfg(since_647)]
 use std::collections::HashSet;
@@ -58,17 +62,14 @@ pub fn emit_varp_props(
 }
 
 #[cfg(since_647)]
-pub(super) fn transmit_varps(
-    store: &mut CacheStore,
-    cs2_dir: &Path,
-) -> anyhow::Result<HashSet<u32>> {
-    let (mut varps, varbits) = super::super::cs2::scan_cs2_varp_refs(cs2_dir)?;
+pub(super) fn transmit_varps(store: &mut Js5Store, cs2_dir: &Path) -> anyhow::Result<HashSet<u32>> {
+    let (mut varps, varbits) = scan_cs2_varp_refs(cs2_dir)?;
     for group_id in 0..store.group_count(archive::CONFIG_VARBIT).unwrap_or(0) {
         if let Some(group) = store.read_group(archive::CONFIG_VARBIT, group_id)? {
             for entry in group.entries {
-                if !entry.data.is_empty() && varbits.contains(&(group_id * 1024 + entry.id)) {
+                if !entry.data().is_empty() && varbits.contains(&(group_id * 1024 + entry.id)) {
                     let mut def = VarbitType::new(0);
-                    def.decode(&mut Packet::from(entry.data.to_vec()));
+                    def.decode(&mut Packet::from(entry.data().to_vec()));
                     varps.insert(def.basevar as u32);
                 }
             }

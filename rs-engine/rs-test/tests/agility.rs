@@ -4,8 +4,8 @@
 //! 2011's appearance carries one render anim (BAS), which pairs a ready and a
 //! walk seq, so 289's log-balance seqs (763, 762) are 2011's BAS 155
 //! (`void-634`'s `rope_balance`). The case walks the Gnome Stronghold course's
-//! log (loc 2295) as the client clicks it (OPLOC1: `ip2(z) ip2(loc) p1(ctrl)
-//! p2_alt1(x)`): the player crosses seven tiles south in the balance stance,
+//! log (loc 2295) as the client clicks it (OPLOC1: `p2_alt1(z) p2_alt1(loc) p1(ctrl)
+//! p2_alt2(x)`): the player crosses seven tiles south in the balance stance,
 //! takes 7.5 xp, and stands as before on the far side. Agility pays through
 //! `~givexp`, so 2011's xp counter (varp 1801, in tenths) counts it.
 //!
@@ -66,7 +66,10 @@ fn the_gnome_course_log_in_2011s_balance_stance() {
 
         let (loc, x, z) = LOG;
         let mut p = ClientPacket::new();
-        p.ip2(z as i32).ip2(loc as i32).p1(0).p2_alt1(x as i32);
+        p.p2_alt1(z as i32)
+            .p2_alt1(loc as i32)
+            .p1(0)
+            .p2_alt2(x as i32);
         client.send(ClientProt::OpLoc1, &p.finish());
 
         let mut said = Vec::new();
@@ -123,7 +126,10 @@ fn the_barbarian_net_pays_2011s_xp() {
         client.packets();
 
         let mut p = ClientPacket::new();
-        p.ip2(z as i32).ip2(loc as i32).p1(0).p2_alt1(x as i32);
+        p.p2_alt1(z as i32)
+            .p2_alt1(loc as i32)
+            .p1(0)
+            .p2_alt2(x as i32);
         client.send(ClientProt::OpLoc1, &p.finish());
         let mut said = Vec::new();
         for _ in 0..10 {
@@ -170,7 +176,10 @@ fn athlete(engine: &mut Engine, name: &str, x: u16, z: u16, agility: u16) -> Har
 
 fn op_loc1(client: &mut HarnessClient, (loc, x, z): (u16, u16, u16)) {
     let mut p = ClientPacket::new();
-    p.ip2(z as i32).ip2(loc as i32).p1(0).p2_alt1(x as i32);
+    p.p2_alt1(z as i32)
+        .p2_alt1(loc as i32)
+        .p1(0)
+        .p2_alt2(x as i32);
     client.send(ClientProt::OpLoc1, &p.finish());
 }
 

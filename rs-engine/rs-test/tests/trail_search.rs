@@ -6,8 +6,8 @@
 //! chests open to a loc whose Search is op1 or op2
 //! (`general_use/configs/searchables_2011.loc`). Each case holds a clue at a
 //! spot and does what a player does there; the clue goes, and the trail moves
-//! on (a new clue, or a casket). `OPLOC1`: `ip2(z) ip2(loc) p1(ctrl)
-//! p2_alt1(x)`; `OPLOC2`: `ip2(loc) p1_alt1(ctrl) p2_alt1(z) ip2_alt1(x)`;
+//! on (a new clue, or a casket). `OPLOC1`: `p2_alt1(z) p2_alt1(loc) p1(ctrl)
+//! p2_alt2(x)`; `OPLOC2`: `p2_alt1(loc) p1_alt2(ctrl) p2_alt2(z) p2_alt3(x)`;
 //! a backpack op is IF_BUTTON1 on `inventory:inv`.
 
 #![cfg(since_647)]
@@ -148,16 +148,19 @@ fn loc_there(engine: &Engine, (y, x, z): (u8, u16, u16), loc: u16) -> bool {
 
 fn op_loc1(client: &mut HarnessClient, loc: u16, (_, x, z): (u8, u16, u16)) {
     let mut p = ClientPacket::new();
-    p.ip2(z as i32).ip2(loc as i32).p1(0).p2_alt1(x as i32);
+    p.p2_alt1(z as i32)
+        .p2_alt1(loc as i32)
+        .p1(0)
+        .p2_alt2(x as i32);
     client.send(ClientProt::OpLoc1, &p.finish());
 }
 
 fn op_loc2(client: &mut HarnessClient, loc: u16, (_, x, z): (u8, u16, u16)) {
     let mut p = ClientPacket::new();
-    p.ip2(loc as i32)
-        .p1_alt1(0)
-        .p2_alt1(z as i32)
-        .ip2_alt1(x as i32);
+    p.p2_alt1(loc as i32)
+        .p1_alt2(0)
+        .p2_alt2(z as i32)
+        .p2_alt3(x as i32);
     client.send(ClientProt::OpLoc2, &p.finish());
 }
 
@@ -293,7 +296,7 @@ fn a_spade_on_a_map_clues_spot_digs_up_its_casket() {
             &["spade", "trail_clue_easy_map004"],
         );
         let mut p = ClientPacket::new();
-        p.p4(BACKPACK).ip2_alt1(spade as i32).ip2(0);
+        p.p4(BACKPACK).p2_alt3(spade as i32).p2_alt1(0);
         client.send(ClientProt::IfButton1, &p.finish());
         ticks(engine, 6);
         assert!(!has(engine, client.pid, clue), "the map is used");

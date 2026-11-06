@@ -19,8 +19,8 @@ pub struct CamForceangle {
 #[cfg(since_647)]
 impl ServerProtMessage for CamForceangle {
     fn encode(&self, buf: &mut Packet) {
-        buf.ip2(self.yaw);
-        buf.p2_alt1(self.pitch);
+        buf.p2_alt1(self.yaw);
+        buf.p2_alt2(self.pitch);
     }
 
     fn sizeof(&self) -> usize {

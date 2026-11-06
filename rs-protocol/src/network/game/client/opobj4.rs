@@ -29,10 +29,10 @@ impl ClientProtMessage for OpObj4 {
 #[cfg(since_647)]
 impl ClientProtMessage for OpObj4 {
     fn decode(buf: &mut Packet, _: usize) -> Self {
-        let x = buf.ig2();
+        let x = buf.g2_alt1();
         let z = buf.g2();
-        let ctrl = buf.g1_alt2() != 0;
-        let obj = buf.ig2();
+        let ctrl = buf.g1_alt3() != 0;
+        let obj = buf.g2_alt1();
         OpObj4 { obj, x, z, ctrl }
     }
 }

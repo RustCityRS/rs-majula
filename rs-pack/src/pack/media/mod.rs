@@ -1,5 +1,7 @@
+#[cfg(before_647)]
+use crate::archive::JagArchive;
 #[cfg(since_647)]
-use crate::config_blob::ConfigBlob;
+use crate::archive::{self, ArchiveVersions};
 #[cfg(since_647)]
 use crate::pack::js5::{PreparedGroup, load_name_hashes, stamp_path, write_archive};
 #[cfg(before_647)]
@@ -11,19 +13,21 @@ use crate::startup::{is_up_to_date, newest_mtime, write_stamp};
 #[cfg(since_647)]
 use anyhow::{Context, Result};
 #[cfg(since_647)]
+use png::{ColorType, Decoder, Info};
+#[cfg(since_647)]
 use rayon::prelude::*;
-#[cfg(since_647)]
-use rs_dat2::CacheStore;
-#[cfg(since_647)]
-use rs_dat2::archive::{self, ArchiveVersions};
-#[cfg(since_647)]
-use rs_dat2::reference::FileInfo;
 #[cfg(before_647)]
-use rs_io::jag::{JagCompression, JagFile};
+use rs_io::jag::JagFile;
+#[cfg(since_647)]
+use rs_io::js5::Js5Store;
+#[cfg(since_647)]
+use rs_io::js5::reference::FileInfo;
 use std::collections::HashMap;
 #[cfg(since_647)]
 use std::collections::HashSet;
 use std::fs;
+#[cfg(since_647)]
+use std::fs::File;
 #[cfg(since_647)]
 use std::io::BufReader;
 #[cfg(before_647)]
@@ -85,16 +89,15 @@ pub fn pack_media_jag(content_dir: &Path) -> Vec<u8> {
     }
 
     debug!("Packed sprite groups into media Jag");
-    jag.build(JagCompression::PerFile)
+    jag.build(JagArchive::Media.compression())
 }
 
 #[cfg(since_647)]
 pub fn pack_archive(
-    store: &mut CacheStore,
+    store: &mut Js5Store,
     content_dir: &Path,
     output_dir: &Path,
     pack_dir: &Path,
-    client_data_dir: &Path,
     versions: &HashMap<u8, ArchiveVersions>,
     force_rebuild: bool,
 ) -> Result<()> {
@@ -167,14 +170,6 @@ pub fn pack_archive(
             })
             .collect();
 
-        if aid == archive::SPRITES {
-            let mut blob = ConfigBlob::new();
-            for (gid, data) in &encoded {
-                blob.add(&gid.to_string(), data.clone());
-            }
-            blob.save(&client_data_dir.join("media"))?;
-        }
-
         let prepared: Vec<PreparedGroup> = encoded
             .par_iter()
             .filter_map(|(gid, data)| {
@@ -188,12 +183,7 @@ pub fn pack_archive(
             })
             .collect();
 
-        let blob_note = if aid == archive::SPRITES {
-            "PNG encode → media blob"
-        } else {
-            "PNG encode"
-        };
-        write_archive(store, aid, format, versions, prepared, blob_note)?;
+        write_archive(store, aid, format, versions, prepared, "PNG encode")?;
         write_stamp(&sprite_stamp)?;
     }
     Ok(())
@@ -540,8 +530,8 @@ struct PngMeta {
 
 #[cfg(since_647)]
 fn load_rgba_png_with_meta(path: &Path) -> Result<(RgbaImage, PngMeta)> {
-    let file = fs::File::open(path).with_context(|| format!("opening {}", path.display()))?;
-    let decoder = png::Decoder::new(BufReader::new(file));
+    let file = File::open(path).with_context(|| format!("opening {}", path.display()))?;
+    let decoder = Decoder::new(BufReader::new(file));
     let mut reader = decoder.read_info()?;
     let info = reader.info().clone();
     let size = reader
@@ -607,8 +597,8 @@ fn load_rgba_png_with_meta(path: &Path) -> Result<(RgbaImage, PngMeta)> {
 
 #[cfg(since_647)]
 fn load_rgba_png(path: &Path) -> Result<RgbaImage> {
-    let file = fs::File::open(path).with_context(|| format!("opening {}", path.display()))?;
-    let decoder = png::Decoder::new(BufReader::new(file));
+    let file = File::open(path).with_context(|| format!("opening {}", path.display()))?;
+    let decoder = Decoder::new(BufReader::new(file));
     let mut reader = decoder.read_info()?;
     let info = reader.info().clone();
     let size = reader
@@ -629,12 +619,12 @@ fn load_rgba_png(path: &Path) -> Result<RgbaImage> {
 }
 
 #[cfg(since_647)]
-fn decode_to_rgba(raw: &[u8], info: &png::Info) -> Result<Vec<u8>> {
+fn decode_to_rgba(raw: &[u8], info: &Info) -> Result<Vec<u8>> {
     let w = info.width;
     let h = info.height;
     match info.color_type {
-        png::ColorType::Rgba => Ok(raw.to_vec()),
-        png::ColorType::Rgb => {
+        ColorType::Rgba => Ok(raw.to_vec()),
+        ColorType::Rgb => {
             let mut out = Vec::with_capacity((w * h * 4) as usize);
             for chunk in raw.chunks(3) {
                 out.extend_from_slice(chunk);
@@ -642,7 +632,7 @@ fn decode_to_rgba(raw: &[u8], info: &png::Info) -> Result<Vec<u8>> {
             }
             Ok(out)
         }
-        png::ColorType::Indexed => {
+        ColorType::Indexed => {
             let plte = info.palette.as_ref().unwrap();
             let trns = info.trns.as_ref();
             let mut out = Vec::with_capacity((w * h * 4) as usize);

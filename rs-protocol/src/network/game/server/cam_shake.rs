@@ -45,11 +45,11 @@ pub struct CamShake {
 #[cfg(since_647)]
 impl ServerProtMessage for CamShake {
     fn encode(&self, buf: &mut Packet) {
-        buf.p1_alt1(self.jitter);
+        buf.p1_alt2(self.jitter);
         buf.p1(self.amplitude);
-        buf.ip2_alt1(self.cycle);
+        buf.p2_alt3(self.cycle);
         buf.p1(self.direction);
-        buf.p1_alt3(self.frequency);
+        buf.p1_alt1(self.frequency);
     }
 
     fn sizeof(&self) -> usize {

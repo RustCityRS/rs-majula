@@ -1,16 +1,15 @@
+use crate::archive::{self, ArchiveFormat, ArchiveVersions};
 use crate::pack::pack_registry::PackFile;
 use crate::startup::{is_up_to_date, max_of, newest_mtime, write_stamp};
-use anyhow::{Context, Result};
+use anyhow::Result;
 use rayon::prelude::*;
 use rs_crypto::whirlpool;
-use rs_dat2::archive::{self, ArchiveFormat, ArchiveVersions};
-use rs_dat2::compression::{CompressionType, compress, decompress};
-use rs_dat2::reference::{FileInfo, GroupInfo, ReferenceTable};
-use rs_dat2::xtea::java_string_hash;
-use rs_dat2::{CacheStore, compute_group_crc, detect_file_count, prepare_group};
+use rs_io::js5::compression::{CompressionType, compress, compress_best, decompress};
+use rs_io::js5::java_string_hash;
+use rs_io::js5::reference::{FileInfo, GroupInfo, ReferenceTable};
+use rs_io::js5::{Js5Store, compute_group_crc, detect_file_count};
 use std::collections::{BTreeMap, HashMap, hash_map::Entry};
 use std::fs;
-use std::io::Write;
 use std::path::{Path, PathBuf};
 use tracing::{info, warn};
 
@@ -146,7 +145,7 @@ impl PreparedGroup {
 }
 
 pub fn write_archive(
-    store: &mut CacheStore,
+    store: &mut Js5Store,
     aid: u8,
     format: &ArchiveFormat,
     versions: &HashMap<u8, ArchiveVersions>,
@@ -192,7 +191,7 @@ pub fn write_archive(
 }
 
 pub fn write_empty_archive(
-    store: &mut CacheStore,
+    store: &mut Js5Store,
     aid: u8,
     format: &ArchiveFormat,
     versions: &HashMap<u8, ArchiveVersions>,
@@ -233,30 +232,6 @@ pub fn group_version(versions: &HashMap<u8, ArchiveVersions>, aid: u8, gid: &u32
         .unwrap_or(0)
 }
 
-pub fn open_or_create_cache(dir: &Path, archive_ids: &[u8]) -> Result<()> {
-    fs::create_dir_all(dir).with_context(|| format!("creating cache dir {}", dir.display()))?;
-
-    let dat2_path = dir.join("main_file_cache.dat2");
-    if !dat2_path.exists() {
-        let mut dat2 = fs::File::create(&dat2_path).context("creating main_file_cache.dat2")?;
-        dat2.write_all(&[0u8; 520]).context("writing sector 0")?;
-    }
-
-    for &id in archive_ids {
-        let idx_path = dir.join(format!("main_file_cache.idx{id}"));
-        if !idx_path.exists() {
-            fs::File::create(&idx_path).with_context(|| format!("creating idx{id}"))?;
-        }
-    }
-
-    let idx255_path = dir.join("main_file_cache.idx255");
-    if !idx255_path.exists() {
-        fs::File::create(&idx255_path).context("creating idx255")?;
-    }
-
-    Ok(())
-}
-
 const SIMPLE_ARCHIVES: &[u8] = &[
     archive::BASES,
     archive::MODELS,
@@ -280,7 +255,7 @@ const SIMPLE_ARCHIVES: &[u8] = &[
 ];
 
 pub fn pack_binary_archives(
-    store: &mut CacheStore,
+    store: &mut Js5Store,
     content_dir: &Path,
     output_dir: &Path,
     pack_dir: &Path,
@@ -354,8 +329,8 @@ pub fn verify_cache(source_cache: &Path, output_dir: &Path) -> Result<()> {
     }
 
     info!("Step 5: Verifying per-group CRCs against original cache...");
-    let mut source_store = CacheStore::open(source_cache)?;
-    let mut built_store = CacheStore::open(output_dir)?;
+    let mut source_store = Js5Store::open(source_cache)?;
+    let mut built_store = Js5Store::open(output_dir)?;
 
     let mut archives_verified = 0u32;
     let mut archives_missing = 0u32;
@@ -413,18 +388,26 @@ pub fn verify_cache(source_cache: &Path, output_dir: &Path) -> Result<()> {
                             warn!("    file ID mismatch: src={} built={}", s.id, b.id);
                             break;
                         }
-                        if s.data != b.data {
-                            let sh: String =
-                                s.data.iter().take(40).map(|b| format!("{b:02x}")).collect();
-                            let bh: String =
-                                b.data.iter().take(40).map(|b| format!("{b:02x}")).collect();
+                        if s.data() != b.data() {
+                            let sh: String = s
+                                .data()
+                                .iter()
+                                .take(40)
+                                .map(|b| format!("{b:02x}"))
+                                .collect();
+                            let bh: String = b
+                                .data()
+                                .iter()
+                                .take(40)
+                                .map(|b| format!("{b:02x}"))
+                                .collect();
                             warn!(
                                 "    archive {} group {} diverge file {}: src={}B built={}B\n      src: {}\n      blt: {}",
                                 id,
                                 src_g.id,
                                 s.id,
-                                s.data.len(),
-                                b.data.len(),
+                                s.data().len(),
+                                b.data().len(),
                                 sh,
                                 bh,
                             );
@@ -440,7 +423,7 @@ pub fn verify_cache(source_cache: &Path, output_dir: &Path) -> Result<()> {
                     let all_match = se
                         .iter()
                         .zip(be.iter())
-                        .all(|(s, b)| s.id == b.id && s.data == b.data);
+                        .all(|(s, b)| s.id == b.id && s.data() == b.data());
                     if all_match && se.len() == be.len() {
                         if let (Ok(Some(sr)), Ok(Some(br))) = (
                             source_store.read_raw_group_bytes(id, src_g.id),
@@ -613,6 +596,24 @@ pub fn verify_cache(source_cache: &Path, output_dir: &Path) -> Result<()> {
     );
 
     Ok(())
+}
+
+pub fn prepare_group(
+    archive_id: u8,
+    group_id: u32,
+    data: &[u8],
+    version: u16,
+    allow_uncompressed: bool,
+) -> Result<(Vec<u8>, u32)> {
+    let allow_bzip2 = archive::archive_format(archive_id)
+        .map(|f| f.allow_bzip2)
+        .unwrap_or(true);
+    let forced = archive::codec_override(archive_id, group_id);
+    let compressed = compress_best(data, allow_uncompressed, allow_bzip2, forced)?;
+    let crc = compute_group_crc(&compressed);
+    let mut with_version = compressed;
+    with_version.extend_from_slice(&version.to_be_bytes());
+    Ok((with_version, crc))
 }
 
 #[cfg(test)]

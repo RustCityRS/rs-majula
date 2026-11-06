@@ -3,7 +3,7 @@
 //! 2011 re-issued the Lumbridge castle cellar's ladder as 29355 and rebuilt the
 //! castle's staircases (36773...), none of which 289 names: they climb by
 //! void-634's record of each 2011 placement (`loc_tele_2011`).
-//! `OPLOC1`: `ip2(z) ip2(loc) p1(ctrl) p2_alt1(x)`.
+//! `OPLOC1`: `p2_alt1(z) p2_alt1(loc) p1(ctrl) p2_alt2(x)`.
 
 #![cfg(since_647)]
 
@@ -18,17 +18,20 @@ use rs_test::runner;
 
 fn op_loc1(client: &mut HarnessClient, loc: u16, x: u16, z: u16) {
     let mut p = ClientPacket::new();
-    p.ip2(z as i32).ip2(loc as i32).p1(0).p2_alt1(x as i32);
+    p.p2_alt1(z as i32)
+        .p2_alt1(loc as i32)
+        .p1(0)
+        .p2_alt2(x as i32);
     client.send(ClientProt::OpLoc1, &p.finish());
 }
 
-/// `OPLOC2`: `ip2(loc) p1_alt1(ctrl) p2_alt1(z) ip2_alt1(x)`.
+/// `OPLOC2`: `p2_alt1(loc) p1_alt2(ctrl) p2_alt2(z) p2_alt3(x)`.
 fn op_loc2(client: &mut HarnessClient, loc: u16, x: u16, z: u16) {
     let mut p = ClientPacket::new();
-    p.ip2(loc as i32)
-        .p1_alt1(0)
-        .p2_alt1(z as i32)
-        .ip2_alt1(x as i32);
+    p.p2_alt1(loc as i32)
+        .p1_alt2(0)
+        .p2_alt2(z as i32)
+        .p2_alt3(x as i32);
     client.send(ClientProt::OpLoc2, &p.finish());
 }
 

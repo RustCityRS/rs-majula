@@ -290,7 +290,7 @@ pub fn parse_params<'a>(
                     })
                 }
             };
-            packed.pbool(matches!(value, ParamValue::String(_)));
+            packed.p1(matches!(value, ParamValue::String(_)) as u8);
             packed.p3(pid as i32);
             match value {
                 ParamValue::Int(value) => packed.p4(value),

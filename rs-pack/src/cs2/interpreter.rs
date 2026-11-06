@@ -3,12 +3,12 @@
 //! Simulates the CS2 stack machine instruction-by-instruction, producing
 //! a flat list of `Instruction` nodes suitable for control-flow analysis.
 
-use std::collections::{BTreeSet, HashMap};
-
 use crate::cs2::ScriptMeta;
 use crate::cs2::ir::*;
 use crate::cs2::opcodes::*;
 use crate::cs2::script::Script;
+use std::collections::{BTreeSet, HashMap};
+use std::mem::take;
 
 /// Interpret a decoded `Script` into a flat IR `Function`.
 pub fn interpret(script: &Script, script_id: u32) -> Function {
@@ -269,8 +269,8 @@ pub fn interpret_with_params(
 
             // --- Return ---
             RETURN => {
-                let int_values: Vec<Expr> = std::mem::take(&mut int_stack);
-                let string_values: Vec<Expr> = std::mem::take(&mut string_stack);
+                let int_values: Vec<Expr> = take(&mut int_stack);
+                let string_values: Vec<Expr> = take(&mut string_stack);
                 instructions.push(Instruction::Return {
                     int_values,
                     string_values,

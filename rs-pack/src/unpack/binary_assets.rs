@@ -1,12 +1,14 @@
+use crate::archive;
 use anyhow::Result;
-use rs_dat2::CacheStore;
-use rs_dat2::archive;
+use rs_io::js5::Js5Store;
+use rs_io::js5::compression::decompress;
+use std::fs;
 use std::path::Path;
 use tracing::{info, warn};
 
 /// Unpack a single binary archive to `content/{dir}/_unpack/{gid}.{ext}`.
 pub fn unpack_binary_archive(
-    store: &mut CacheStore,
+    store: &mut Js5Store,
     archive_id: u8,
     content_dir: &Path,
 ) -> Result<u32> {
@@ -15,7 +17,7 @@ pub fn unpack_binary_archive(
 
     let ext = archive_extension(archive_id);
     let archive_dir = content_dir.join(format.content_dir).join("_unpack");
-    std::fs::create_dir_all(&archive_dir)?;
+    fs::create_dir_all(&archive_dir)?;
 
     let group_count = store.group_count(archive_id).unwrap_or(0);
     let mut written = 0u32;
@@ -28,7 +30,7 @@ pub fn unpack_binary_archive(
             continue;
         }
 
-        let decompressed = match rs_dat2::compression::decompress(&raw) {
+        let decompressed = match decompress(&raw) {
             Ok(d) => d,
             Err(e) => {
                 warn!(
@@ -40,7 +42,7 @@ pub fn unpack_binary_archive(
         };
 
         let path = archive_dir.join(format!("{}.{}", gid, ext));
-        std::fs::write(&path, &decompressed)?;
+        fs::write(&path, &decompressed)?;
         written += 1;
     }
 
@@ -62,7 +64,7 @@ fn archive_extension(archive_id: u8) -> &'static str {
     }
 }
 
-pub fn unpack_all_binary_assets(store: &mut CacheStore, content_dir: &Path) -> Result<u32> {
+pub fn unpack_all_binary_assets(store: &mut Js5Store, content_dir: &Path) -> Result<u32> {
     let mut total = 0u32;
     for &aid in &[
         archive::ANIMS,

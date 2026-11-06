@@ -1,14 +1,14 @@
 //! CS2 script name loading from cracked name hash files.
 
-use std::collections::HashMap;
-use std::path::Path;
-
 use anyhow::Result;
+use std::collections::HashMap;
+use std::fs;
+use std::path::Path;
 use tracing::info;
 
 /// Load script names from an extracted TSV (id\tname format).
 pub fn load_script_names(path: &Path) -> Result<HashMap<u32, String>> {
-    let text = std::fs::read_to_string(path)?;
+    let text = fs::read_to_string(path)?;
     let mut names = HashMap::new();
     for line in text.lines() {
         let line = line.trim();
@@ -31,7 +31,7 @@ pub fn load_script_names(path: &Path) -> Result<HashMap<u32, String>> {
 
 /// Load script names from the full cache-names TSV, filtering for archive 12.
 pub fn load_script_names_from_cache_names(path: &Path) -> Result<HashMap<u32, String>> {
-    let text = std::fs::read_to_string(path)?;
+    let text = fs::read_to_string(path)?;
     let mut names = HashMap::new();
     for line in text.lines() {
         let parts: Vec<&str> = line.split('\t').collect();

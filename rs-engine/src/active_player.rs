@@ -2317,7 +2317,7 @@ impl ActivePlayer {
             } else {
                 Vec::new()
             };
-            let xtea_keys = rs_dat2::xtea::XteaKeyStore::global()
+            let xtea_keys = rs_pack::cache::map::XteaKeyStore::global()
                 .map(|s| s.snapshot_build_area(coord.x(), coord.z()))
                 .unwrap_or_default();
             self.write(
@@ -4112,7 +4112,7 @@ impl EnginePlayer for ActivePlayer {
             let y = zone_coord.y();
             // Rev-647 zone headers carry the zone INDEX, not the tile offset the
             // 2004-era protocol sends: the client rebuilds the base with
-            // `g1b() << 3` (see `MapAreaConfig` UPDATE_ZONE_*_FOLLOWS /
+            // `g1s() << 3` (see `MapAreaConfig` UPDATE_ZONE_*_FOLLOWS /
             // _ENCLOSED). Sending the raw tile offset made it shift 0..96 up to
             // 0..768 -- far outside the 104-tile build area -- so every zone
             // event (dropped objs, loc changes) landed off-map and never drew.

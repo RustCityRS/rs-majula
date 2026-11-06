@@ -14,18 +14,19 @@
 #![cfg(since_647)]
 
 use std::collections::BTreeSet;
-use std::path::Path;
+use std::fs;
+use std::path::{Path, PathBuf};
 
 fn names(pack: &Path) -> BTreeSet<String> {
-    std::fs::read_to_string(pack)
+    fs::read_to_string(pack)
         .unwrap_or_default()
         .lines()
         .filter_map(|l| l.split_once('=').map(|(_, n)| n.trim().to_string()))
         .collect()
 }
 
-fn scripts(dir: &Path, out: &mut Vec<std::path::PathBuf>) {
-    for entry in std::fs::read_dir(dir).unwrap().flatten() {
+fn scripts(dir: &Path, out: &mut Vec<PathBuf>) {
+    for entry in fs::read_dir(dir).unwrap().flatten() {
         let path = entry.path();
         if path.is_dir() {
             scripts(&path, out);
@@ -48,7 +49,7 @@ fn every_script_var_is_registered() {
     scripts(&root.join("content/647/scripts"), &mut files);
     let mut missing = BTreeSet::new();
     for path in files {
-        let text = std::fs::read_to_string(&path).unwrap();
+        let text = fs::read_to_string(&path).unwrap();
         for (n, line) in text.lines().enumerate() {
             // Comments and string text are not code.
             let code = line.split("//").next().unwrap_or("");

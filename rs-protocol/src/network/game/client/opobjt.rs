@@ -41,13 +41,13 @@ pub struct OpObjT {
 #[cfg(since_647)]
 impl ClientProtMessage for OpObjT {
     fn decode(buf: &mut Packet, _: usize) -> Self {
-        let obj2 = buf.ig2();
-        let obj = buf.ig2();
+        let obj2 = buf.g2_alt1();
+        let obj = buf.g2_alt1();
         let slot = buf.g2();
-        let com = buf.g4_alt2() as u32;
-        let ctrl = buf.g1_alt3() != 0;
-        let z = buf.g2_alt1();
-        let x = buf.g2_alt1();
+        let com = buf.g4s_alt2() as u32;
+        let ctrl = buf.g1_alt1() != 0;
+        let z = buf.g2_alt2();
+        let x = buf.g2_alt2();
         OpObjT {
             obj,
             x,

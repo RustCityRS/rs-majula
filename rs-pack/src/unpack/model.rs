@@ -2,28 +2,26 @@
 use super::config::ModelCategory;
 #[cfg(all(since_244, before_647))]
 use crate::PACK_DIR;
+#[cfg(since_244)]
+use crate::archive;
+#[cfg(before_647)]
+use crate::archive::JagArchive;
 #[cfg(since_647)]
 use crate::cache::seq_frame::{AnimFrame, SkeletonBase};
 #[cfg(since_647)]
-use crate::pack::pack_registry::PackFile;
-#[cfg(since_647)]
-use crate::pack::pack_registry::PackRegistry;
+use crate::pack::pack_registry::{PackFile, PackRegistry};
 #[cfg(rev = "225")]
 use crate::types::BoneType;
 #[cfg(since_647)]
 use anyhow::{Context, Result};
-#[cfg(since_647)]
-use rs_dat2::CacheStore;
-#[cfg(since_647)]
-use rs_dat2::archive;
-#[cfg(since_647)]
-use rs_dat2::compression;
 #[cfg(before_647)]
 use rs_io::Packet;
 #[cfg(before_647)]
-use rs_io::jag::{JagCompression, JagFile};
-#[cfg(all(since_244, before_647))]
+use rs_io::jag::JagFile;
+#[cfg(since_244)]
 use rs_io::js5::Js5Store;
+#[cfg(since_647)]
+use rs_io::js5::compression::{self, Container};
 #[cfg(since_647)]
 use serde::{Deserialize, Serialize};
 #[cfg(before_647)]
@@ -32,6 +30,9 @@ use std::collections::HashMap;
 use std::collections::HashSet;
 #[cfg(rev = "225")]
 use std::fmt::Write as _;
+use std::fs;
+#[cfg(since_647)]
+use std::fs::File;
 #[cfg(since_647)]
 use std::io::Write;
 use std::path::Path;
@@ -78,10 +79,10 @@ pub fn unpack_models(
     model_categories: &HashMap<u16, ModelCategory>,
 ) -> anyhow::Result<()> {
     let models_dir = output_dir.join("models");
-    std::fs::create_dir_all(&models_dir)?;
+    fs::create_dir_all(&models_dir)?;
 
     let raw_dir = models_dir.join("_raw");
-    std::fs::create_dir_all(&raw_dir)?;
+    fs::create_dir_all(&raw_dir)?;
 
     let mut jag_order = Vec::new();
     for i in 0..jag.file_count {
@@ -95,10 +96,10 @@ pub fn unpack_models(
     }
     for name in &jag_order {
         if let Some(data) = jag.read(name) {
-            std::fs::write(raw_dir.join(name), &data.data)?;
+            fs::write(raw_dir.join(name), &data.data)?;
         }
     }
-    std::fs::write(raw_dir.join("_jag_order.txt"), jag_order.join("\n") + "\n")?;
+    fs::write(raw_dir.join("_jag_order.txt"), jag_order.join("\n") + "\n")?;
 
     let read_stream =
         |name: &str| -> Vec<u8> { jag.read(name).map(|p| p.data).unwrap_or_default() };
@@ -128,12 +129,12 @@ pub fn unpack_models(
     let existing_model_names = load_existing_pack(pack_dir, "model");
 
     let base_out = models_dir.join("_unpack").join("base");
-    std::fs::create_dir_all(&base_out)?;
+    fs::create_dir_all(&base_out)?;
     let base_count = extract_bases(&base_head, &base_type, &base_label, &base_out, pack_dir)?;
     debug!("  Extracted {} bases", base_count);
 
     let frame_out = models_dir.join("_unpack").join("frame");
-    std::fs::create_dir_all(&frame_out)?;
+    fs::create_dir_all(&frame_out)?;
     let frame_count = extract_frames(
         &frame_head,
         &frame_tran1,
@@ -172,7 +173,7 @@ pub fn unpack_models(
 
 #[cfg(before_647)]
 pub fn pack_models_from_raw(raw_dir: &Path) -> Vec<u8> {
-    let order: Vec<String> = std::fs::read_to_string(raw_dir.join("_jag_order.txt"))
+    let order: Vec<String> = fs::read_to_string(raw_dir.join("_jag_order.txt"))
         .unwrap_or_default()
         .lines()
         .filter(|l| !l.is_empty())
@@ -181,17 +182,17 @@ pub fn pack_models_from_raw(raw_dir: &Path) -> Vec<u8> {
 
     let mut jag = JagFile::new();
     for name in &order {
-        if let Ok(data) = std::fs::read(raw_dir.join(name)) {
+        if let Ok(data) = fs::read(raw_dir.join(name)) {
             jag.write(name, data);
         }
     }
-    jag.build(JagCompression::PerFile)
+    jag.build(JagArchive::Models.compression())
 }
 
 #[cfg(before_647)]
 pub(crate) fn load_existing_pack(pack_dir: &Path, name: &str) -> HashMap<u16, String> {
     let mut map = HashMap::new();
-    if let Ok(text) = std::fs::read_to_string(pack_dir.join(format!("{name}.pack"))) {
+    if let Ok(text) = fs::read_to_string(pack_dir.join(format!("{name}.pack"))) {
         for line in text.lines() {
             if let Some((id_str, n)) = line.split_once('=')
                 && let Ok(id) = id_str.parse::<u16>()
@@ -279,10 +280,10 @@ fn extract_bases(
             }
         }
 
-        std::fs::write(out_dir.join(format!("{name}.base")), &text)?;
+        fs::write(out_dir.join(format!("{name}.base")), &text)?;
     }
 
-    std::fs::write(pack_dir.join("base.order"), order_lines.join("\n") + "\n")?;
+    fs::write(pack_dir.join("base.order"), order_lines.join("\n") + "\n")?;
     let max_base_id = order_lines
         .iter()
         .filter_map(|s| s.parse::<u16>().ok())
@@ -292,7 +293,7 @@ fn extract_bases(
     for id in 0..=max_base_id {
         base_pack_lines.push(format!("{id}=base_{id}"));
     }
-    std::fs::write(
+    fs::write(
         pack_dir.join("base.pack"),
         base_pack_lines.join("\n") + "\n",
     )?;
@@ -355,10 +356,10 @@ fn extract_frames(
             writeln!(text, "bone{}={}", i, vals.join(",")).unwrap();
         }
 
-        std::fs::write(out_dir.join(format!("{name}.frame")), &text)?;
+        fs::write(out_dir.join(format!("{name}.frame")), &text)?;
     }
 
-    std::fs::write(pack_dir.join("anim.order"), order_lines.join("\n") + "\n")?;
+    fs::write(pack_dir.join("anim.order"), order_lines.join("\n") + "\n")?;
     let max_anim_id = order_lines
         .iter()
         .filter_map(|s| s.parse::<u16>().ok())
@@ -368,7 +369,7 @@ fn extract_frames(
     for id in 0..=max_anim_id {
         anim_pack_lines.push(format!("{id}=anim_{id}"));
     }
-    std::fs::write(
+    fs::write(
         pack_dir.join("anim.pack"),
         anim_pack_lines.join("\n") + "\n",
     )?;
@@ -518,8 +519,8 @@ fn extract_ob2(
         out.extend_from_slice(&(v1d.len() as u16).to_be_bytes());
 
         let out_dir = models_dir.join(model_subdir(categories.get(&id)));
-        std::fs::create_dir_all(&out_dir)?;
-        std::fs::write(out_dir.join(format!("{name}.ob2")), &out)?;
+        fs::create_dir_all(&out_dir)?;
+        fs::write(out_dir.join(format!("{name}.ob2")), &out)?;
     }
 
     let max_id = order_lines
@@ -535,8 +536,8 @@ fn extract_ob2(
             .unwrap_or_else(|| format!("model_{id}"));
         full_pack.push(format!("{id}={name}"));
     }
-    std::fs::write(pack_dir.join("model.order"), order_lines.join("\n") + "\n")?;
-    std::fs::write(pack_dir.join("model.pack"), full_pack.join("\n") + "\n")?;
+    fs::write(pack_dir.join("model.order"), order_lines.join("\n") + "\n")?;
+    fs::write(pack_dir.join("model.pack"), full_pack.join("\n") + "\n")?;
     Ok(model_count)
 }
 
@@ -567,16 +568,16 @@ fn compute_vertex_delta_len(vertex_count: usize, p1: &[u8], axis: u8) -> usize {
 
 #[cfg(all(since_244, before_647))]
 pub fn unpack_models(
-    cache: &Js5Store,
+    cache: &mut Js5Store,
     output_dir: &Path,
     pack_dir: &Path,
     model_categories: &HashMap<u16, ModelCategory>,
 ) -> anyhow::Result<()> {
     let models_dir = output_dir.join("models");
-    std::fs::create_dir_all(&models_dir)?;
+    fs::create_dir_all(&models_dir)?;
 
     let existing_names = load_existing_pack(Path::new(PACK_DIR), "model");
-    let count = cache.count(1);
+    let count = cache.group_count(archive::MODELS).unwrap_or(0) as usize;
 
     let mut pack_lines = Vec::with_capacity(count);
     let mut written = 0;
@@ -588,19 +589,24 @@ pub fn unpack_models(
             .unwrap_or_else(|| format!("model_{id}"));
         pack_lines.push(format!("{id}={name}"));
 
-        let Some(data) = cache.read(1, id, true).filter(|d| !d.is_empty()) else {
+        let Some(data) = cache
+            .read_group_raw_decompressed(archive::MODELS, id as u32)
+            .ok()
+            .flatten()
+            .filter(|d| !d.is_empty())
+        else {
             continue;
         };
 
         let out_dir = models_dir.join(model_subdir(model_categories.get(&id16)));
-        std::fs::create_dir_all(&out_dir)?;
-        std::fs::write(out_dir.join(format!("{name}.ob2")), &data)?;
+        fs::create_dir_all(&out_dir)?;
+        fs::write(out_dir.join(format!("{name}.ob2")), &data)?;
         written += 1;
     }
 
     let order: Vec<String> = (0..count).map(|id| id.to_string()).collect();
-    std::fs::write(pack_dir.join("model.order"), order.join("\n") + "\n")?;
-    std::fs::write(pack_dir.join("model.pack"), pack_lines.join("\n") + "\n")?;
+    fs::write(pack_dir.join("model.order"), order.join("\n") + "\n")?;
+    fs::write(pack_dir.join("model.pack"), pack_lines.join("\n") + "\n")?;
 
     debug!("Unpacked {written} models");
     Ok(())
@@ -660,10 +666,15 @@ pub fn ob2_textures(data: &[u8]) -> Vec<u16> {
 }
 
 #[cfg(all(since_244, before_647))]
-pub fn build_model_textures(cache: &Js5Store) -> HashMap<u16, HashSet<u16>> {
+pub fn build_model_textures(cache: &mut Js5Store) -> HashMap<u16, HashSet<u16>> {
     let mut map = HashMap::new();
-    for id in 0..cache.count(1) {
-        let Some(data) = cache.read(1, id, true).filter(|d| !d.is_empty()) else {
+    for id in 0..cache.group_count(archive::MODELS).unwrap_or(0) as usize {
+        let Some(data) = cache
+            .read_group_raw_decompressed(archive::MODELS, id as u32)
+            .ok()
+            .flatten()
+            .filter(|d| !d.is_empty())
+        else {
             continue;
         };
         let textures = ob2_textures(&data);
@@ -675,11 +686,15 @@ pub fn build_model_textures(cache: &Js5Store) -> HashMap<u16, HashSet<u16>> {
 }
 
 #[cfg(all(since_244, before_647))]
-pub fn unpack_anims(cache: &Js5Store, output_dir: &Path, pack_dir: &Path) -> anyhow::Result<()> {
+pub fn unpack_anims(
+    cache: &mut Js5Store,
+    output_dir: &Path,
+    pack_dir: &Path,
+) -> anyhow::Result<()> {
     let anim_dir = output_dir.join("models").join("anim");
-    std::fs::create_dir_all(&anim_dir)?;
+    fs::create_dir_all(&anim_dir)?;
 
-    let count = cache.count(2);
+    let count = cache.group_count(archive::ANIMS).unwrap_or(0) as usize;
 
     // Seed with the frames config already named (those referenced by seqs), then
     // add every frame declared in an anim set head.
@@ -687,10 +702,15 @@ pub fn unpack_anims(cache: &Js5Store, output_dir: &Path, pack_dir: &Path) -> any
     let mut written = 0;
 
     for set_id in 0..count {
-        let Some(set) = cache.read(2, set_id, true).filter(|d| !d.is_empty()) else {
+        let Some(set) = cache
+            .read_group_raw_decompressed(archive::ANIMS, set_id as u32)
+            .ok()
+            .flatten()
+            .filter(|d| !d.is_empty())
+        else {
             continue;
         };
-        std::fs::write(anim_dir.join(format!("anim_{set_id}.anim")), &set)?;
+        fs::write(anim_dir.join(format!("anim_{set_id}.anim")), &set)?;
         written += 1;
 
         for frame_id in anim_set_frame_ids(&set) {
@@ -709,10 +729,10 @@ pub fn unpack_anims(cache: &Js5Store, output_dir: &Path, pack_dir: &Path) -> any
             .unwrap_or_else(|| format!("anim_{id}"));
         anim_pack.push(format!("{id}={name}"));
     }
-    std::fs::write(pack_dir.join("anim.pack"), anim_pack.join("\n") + "\n")?;
+    fs::write(pack_dir.join("anim.pack"), anim_pack.join("\n") + "\n")?;
 
     let base_pack: Vec<String> = (0..count).map(|id| format!("{id}=base_{id}")).collect();
-    std::fs::write(pack_dir.join("base.pack"), base_pack.join("\n") + "\n")?;
+    fs::write(pack_dir.join("base.pack"), base_pack.join("\n") + "\n")?;
 
     debug!("Unpacked {written} anim sets");
     Ok(())
@@ -736,9 +756,6 @@ fn anim_set_frame_ids(set: &[u8]) -> Vec<u16> {
     }
     ids
 }
-
-#[cfg(since_647)]
-const ARCHIVE_MODELS: u8 = 7;
 
 #[cfg(since_647)]
 const CATEGORY_SUFFIXES: &[(&str, &str)] = &[
@@ -787,8 +804,8 @@ pub fn unpack_models(
     registry: &PackRegistry,
     output_dir: &Path,
 ) -> Result<UnpackModelStats> {
-    let mut store = CacheStore::open(cache_dir)?;
-    let group_count = store.group_count(ARCHIVE_MODELS).unwrap_or(0);
+    let mut store = Js5Store::open(cache_dir)?;
+    let group_count = store.group_count(archive::MODELS).unwrap_or(0);
 
     // Create category directories
     let categories = [
@@ -804,33 +821,24 @@ pub fn unpack_models(
         "uncategorized",
     ];
     for cat in &categories {
-        std::fs::create_dir_all(output_dir.join(cat))?;
+        fs::create_dir_all(output_dir.join(cat))?;
     }
 
     let mut manifest = ModelManifest {
-        archive_id: ARCHIVE_MODELS,
+        archive_id: archive::MODELS,
         groups: Vec::with_capacity(group_count as usize),
     };
     let mut stats = UnpackModelStats::default();
 
     for gid in 0..group_count {
-        let Some(raw) = store.read_raw_group_bytes(ARCHIVE_MODELS, gid)? else {
+        let Some(raw) = store.read_raw_group_bytes(archive::MODELS, gid)? else {
             continue;
         };
         if raw.len() < 5 {
             continue;
         }
 
-        let comp_type = raw[0];
-        let compressed_len = u32::from_be_bytes([raw[1], raw[2], raw[3], raw[4]]) as usize;
-        let header_size = if comp_type == 0 { 5 } else { 9 };
-        let container_end = header_size + compressed_len;
-        let version = if raw.len() >= container_end + 2 {
-            u16::from_be_bytes([raw[container_end], raw[container_end + 1]])
-        } else {
-            0
-        };
-
+        let container = Container::parse(&raw)?;
         let decompressed = match compression::decompress(&raw) {
             Ok(d) => d,
             Err(_) => {
@@ -847,14 +855,14 @@ pub fn unpack_models(
 
         let category = categorize(&name);
         let file_path = output_dir.join(category).join(format!("{name}.ob2"));
-        std::fs::write(&file_path, &decompressed)?;
+        fs::write(&file_path, &decompressed)?;
 
         manifest.groups.push(ModelEntry {
             group_id: gid,
             name: name.clone(),
             category: category.to_string(),
-            compression: comp_type,
-            version,
+            compression: container.compression as u8,
+            version: container.version.unwrap_or(0),
             decompressed_len: decompressed.len() as u32,
         });
 
@@ -878,7 +886,7 @@ pub fn unpack_models(
 
     let manifest_path = output_dir.join("manifest.json");
     let json = serde_json::to_string_pretty(&manifest).context("serialize manifest")?;
-    std::fs::write(&manifest_path, json)?;
+    fs::write(&manifest_path, json)?;
 
     Ok(stats)
 }
@@ -933,15 +941,15 @@ fn name_or_fallback(pack: &PackFile, id: u32, prefix: &str) -> String {
 }
 
 #[cfg(since_647)]
-pub fn unpack_bases(store: &mut CacheStore, pack_dir: &Path, output_dir: &Path) -> Result<u32> {
+pub fn unpack_bases(store: &mut Js5Store, pack_dir: &Path, output_dir: &Path) -> Result<u32> {
     let group_count = store.group_count(archive::BASES).unwrap_or(0);
     if group_count == 0 {
         return Ok(0);
     }
 
     let pack = load_or_create_pack(pack_dir, "base");
-    std::fs::create_dir_all(output_dir)?;
-    let mut file = std::fs::File::create(output_dir.join("all.base"))?;
+    fs::create_dir_all(output_dir)?;
+    let mut file = File::create(output_dir.join("all.base"))?;
     writeln!(file, "# name bone_count [type:parent:label:groups ...]")?;
     let mut total = 0u32;
 
@@ -950,10 +958,10 @@ pub fn unpack_bases(store: &mut CacheStore, pack_dir: &Path, output_dir: &Path) 
             continue;
         };
         for entry in &group.entries {
-            if entry.data.is_empty() {
+            if entry.data().is_empty() {
                 continue;
             }
-            let base = SkeletonBase::decode(&entry.data);
+            let base = SkeletonBase::decode(entry.data());
             let name = name_or_fallback(&pack, gid, "base");
             let mut line = format!("{} {}", name, base.bone_count);
             for i in 0..base.bone_count as usize {
@@ -980,7 +988,7 @@ pub fn unpack_bases(store: &mut CacheStore, pack_dir: &Path, output_dir: &Path) 
 }
 
 #[cfg(since_647)]
-pub fn unpack_anims(store: &mut CacheStore, pack_dir: &Path, output_dir: &Path) -> Result<u32> {
+pub fn unpack_anims(store: &mut Js5Store, pack_dir: &Path, output_dir: &Path) -> Result<u32> {
     let group_count = store.group_count(archive::ANIMS).unwrap_or(0);
     if group_count == 0 {
         return Ok(0);
@@ -988,7 +996,7 @@ pub fn unpack_anims(store: &mut CacheStore, pack_dir: &Path, output_dir: &Path) 
 
     let pack = load_or_create_pack(pack_dir, "anim");
     let anim_dir = output_dir.join("_unpack").join("animations");
-    std::fs::create_dir_all(&anim_dir)?;
+    fs::create_dir_all(&anim_dir)?;
     let mut total = 0u32;
 
     for gid in 0..group_count {
@@ -997,13 +1005,13 @@ pub fn unpack_anims(store: &mut CacheStore, pack_dir: &Path, output_dir: &Path) 
         };
         let anim_name = name_or_fallback(&pack, gid, "anim");
         let file_path = anim_dir.join(format!("{anim_name}.anim"));
-        let mut file = std::fs::File::create(&file_path)?;
+        let mut file = File::create(&file_path)?;
 
         for entry in &group.entries {
-            if entry.data.is_empty() {
+            if entry.data().is_empty() {
                 continue;
             }
-            let frame = AnimFrame::decode(&entry.data);
+            let frame = AnimFrame::decode(entry.data());
             writeln!(file, "[frame_{}]", entry.id)?;
             writeln!(file, "type={}", frame.type_marker)?;
             writeln!(file, "base={}", frame.base_id)?;

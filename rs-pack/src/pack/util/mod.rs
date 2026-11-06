@@ -12,6 +12,7 @@ use std::array::from_fn;
 #[cfg(since_647)]
 use std::collections::BTreeMap;
 use std::fmt::Display;
+use std::fs;
 use std::path::{Path, PathBuf};
 use std::str::FromStr;
 
@@ -167,7 +168,7 @@ pub fn parse_coord(value: &str) -> Option<i32> {
 
 pub fn walk(path: &Path) -> Vec<PathBuf> {
     let mut results = Vec::new();
-    let Ok(entries) = std::fs::read_dir(path) else {
+    let Ok(entries) = fs::read_dir(path) else {
         return results;
     };
     for entry in entries.flatten() {
@@ -182,7 +183,7 @@ pub fn walk(path: &Path) -> Vec<PathBuf> {
 }
 
 pub fn load_order(path: &Path) -> Vec<u16> {
-    let Ok(text) = std::fs::read_to_string(path) else {
+    let Ok(text) = fs::read_to_string(path) else {
         return Vec::new();
     };
     text.lines()

@@ -9,7 +9,7 @@
 //!
 //! 289's music tab is 2011's music player (187): a track's name is com1's
 //! child at its index * 2 (clientscript 828), and Play is IF_BUTTON1 on it
-//! (`Class199.method1317`: `p4(com) ip2_alt1(obj) ip2(slot)`).
+//! (`Class199.method1317`: `p4(com) p2_alt3(obj) p2_alt1(slot)`).
 
 #![cfg(since_647)]
 
@@ -45,7 +45,7 @@ fn of(packets: &[(u16, Vec<u8>)], prot: ServerProt) -> impl Iterator<Item = &Vec
         .map(|(_, p)| p)
 }
 
-/// Each MIDI_SONG's song: `p1_alt2 volume, ip2_alt1 song, p1_alt3 delay`.
+/// Each MIDI_SONG's song: `p1_alt3 volume, p2_alt3 song, p1_alt1 delay`.
 fn songs(packets: &[(u16, Vec<u8>)]) -> Vec<u16> {
     of(packets, ServerProt::MidiSong)
         .map(|p| u16::from_le_bytes([p[1].wrapping_sub(128), p[2]]))
@@ -145,15 +145,15 @@ fn a_square_plays_its_track_and_unlocks_it() {
 }
 
 /// Clicks Play on a track of the music player's list: IF_BUTTON1 on 187:1 at
-/// the track's name, its index * 2 (`p4 com, ip2_alt1 obj, ip2 slot`).
+/// the track's name, its index * 2 (`p4 com, p2_alt3 obj, p2_alt1 slot`).
 fn play(client: &mut HarnessClient, track: i32) {
     let mut p = ClientPacket::new();
-    p.p4(TRACKS).ip2_alt1(0xFFFF).ip2(track * 2);
+    p.p4(TRACKS).p2_alt3(0xFFFF).p2_alt1(track * 2);
     client.send(ClientProt::IfButton1, &p.finish());
 }
 
-/// Each IF_SETEVENTS as `(com, from, to, ops)`: `p2_alt1 from, p4_alt3
-/// events, p4_alt3 com, ip2_alt1 to`.
+/// Each IF_SETEVENTS as `(com, from, to, ops)`: `p2_alt2 from, p4_alt3
+/// events, p4_alt3 com, p2_alt3 to`.
 fn events(packets: &[(u16, Vec<u8>)]) -> Vec<(i32, u16, u16, i32)> {
     of(packets, ServerProt::IfSetEvents)
         .map(|p| {

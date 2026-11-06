@@ -1,25 +1,25 @@
 #![allow(clippy::needless_range_loop)]
+use crate::archive;
 use anyhow::Result;
-use rs_dat2::CacheStore;
+use rs_io::js5::Js5Store;
+use std::fs::{self, File};
 use std::io::Write;
 use std::path::Path;
 use tracing::info;
 
-const ARCHIVE_MATERIALS: u8 = 26;
-
-pub fn unpack_materials(store: &mut CacheStore, content_dir: &Path) -> Result<u32> {
+pub fn unpack_materials(store: &mut Js5Store, content_dir: &Path) -> Result<u32> {
     let archive_dir = content_dir.join("materials").join("_unpack");
-    std::fs::create_dir_all(&archive_dir)?;
+    fs::create_dir_all(&archive_dir)?;
 
-    let Some(group) = store.read_group(ARCHIVE_MATERIALS, 0)? else {
-        info!("  materials: archive {} group 0 absent", ARCHIVE_MATERIALS);
+    let Some(group) = store.read_group(archive::MATERIALS, 0)? else {
+        info!("  materials: archive {} group 0 absent", archive::MATERIALS);
         return Ok(0);
     };
     let Some(entry) = group.entries.first() else {
         return Ok(0);
     };
 
-    let data = &entry.data;
+    let data = entry.data();
     let mut pos = 0;
 
     let texture_count = u16::from_be_bytes([data[pos], data[pos + 1]]) as usize;
@@ -97,7 +97,7 @@ pub fn unpack_materials(store: &mut CacheStore, content_dir: &Path) -> Result<u3
     let alpha_mode = read_pass_u8!(); // pass 19
 
     let out_path = archive_dir.join("all.material");
-    let mut file = std::fs::File::create(&out_path)?;
+    let mut file = File::create(&out_path)?;
     let mut written = 0u32;
 
     for i in 0..texture_count {

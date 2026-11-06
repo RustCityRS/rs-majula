@@ -3,7 +3,7 @@
 //! 289's rocks are the 2005 ones; Rimmington's copper rock 9708 is 2011's
 //! (void-634 `copper_rocks_rimmington_1`), depleting to 9723 (void-634's
 //! `depleted_rocks_rimmington_1`). The case clicks Mine on it as the client
-//! does (OPLOC1, `ip2(z) ip2(loc) p1(ctrl) p2_alt1(x)`) with a bronze pickaxe
+//! does (OPLOC1, `p2_alt1(z) p2_alt1(loc) p1(ctrl) p2_alt2(x)`) with a bronze pickaxe
 //! in the backpack, swings until the rock gives, and then clicks the depleted
 //! rock.
 
@@ -150,6 +150,9 @@ fn mine(rock: (u16, u16, u16), depleted: u16, ore: &str, level: u16, exp: i32, s
 
 fn click(client: &mut HarnessClient, (loc, x, z): (u16, u16, u16)) {
     let mut p = ClientPacket::new();
-    p.ip2(z as i32).ip2(loc as i32).p1(0).p2_alt1(x as i32);
+    p.p2_alt1(z as i32)
+        .p2_alt1(loc as i32)
+        .p1(0)
+        .p2_alt2(x as i32);
     client.send(ClientProt::OpLoc1, &p.finish());
 }

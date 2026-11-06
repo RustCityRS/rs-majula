@@ -6,7 +6,7 @@
 //! param default, an unarmed punch, and no 289 stats (user-reported). 3229 is
 //! void-634's crossbow guard (`guard_xbow`), 289's `guard2`: it fights at
 //! range with void-634's crossbow animation (4230) and a bolt.
-//! `OPNPC2`: `g1_alt1(ctrl) ig2_alt1(npc index)`.
+//! `OPNPC2`: `g1_alt2(ctrl) g2_alt3(npc index)`.
 
 #![cfg(since_647)]
 
@@ -112,7 +112,7 @@ fn the_crossbow_guard_shoots_back() {
             engine.cycle();
         }
         let mut p = ClientPacket::new();
-        p.p1_alt1(0).ip2_alt1(nid as i32);
+        p.p1_alt2(0).p2_alt3(nid as i32);
         client.send(ClientProt::OpNpc2, &p.finish());
         // A player's life points: varp 1240, bits 1-15 (varbit life_points).
         let pid = client.pid;

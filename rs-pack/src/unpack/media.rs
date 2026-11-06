@@ -1,12 +1,19 @@
 #![allow(clippy::needless_range_loop)]
+#[cfg(since_647)]
+use crate::archive;
 #[cfg(before_647)]
 use crate::{back, unpack};
 #[cfg(since_647)]
 use anyhow::{Context, Result};
 #[cfg(since_647)]
-use rs_dat2::CacheStore;
+use png::{BitDepth, ColorType, Encoder};
 #[cfg(before_647)]
 use rs_io::jag::JagFile;
+#[cfg(since_647)]
+use rs_io::js5::Js5Store;
+use std::fs;
+#[cfg(since_647)]
+use std::fs::File;
 #[cfg(since_647)]
 use std::io::BufWriter;
 use std::path::Path;
@@ -83,8 +90,8 @@ const MEDIA_NAMES: &[&str] = &[
 pub fn unpack_media(jag: &JagFile, output_dir: &Path) -> anyhow::Result<()> {
     let sprite_dir = output_dir.join("sprites");
     let meta_dir = sprite_dir.join("meta");
-    std::fs::create_dir_all(&sprite_dir)?;
-    std::fs::create_dir_all(&meta_dir)?;
+    fs::create_dir_all(&sprite_dir)?;
+    fs::create_dir_all(&meta_dir)?;
 
     let index_data = jag
         .read("index.dat")
@@ -141,7 +148,7 @@ pub fn unpack_media(jag: &JagFile, output_dir: &Path) -> anyhow::Result<()> {
         }
     }
     let sprite_order_content = sprite_order_entries.join("\n") + "\n";
-    std::fs::write(meta_dir.join("sprite.order"), &sprite_order_content)?;
+    fs::write(meta_dir.join("sprite.order"), &sprite_order_content)?;
 
     debug!("Unpacked {count} sprite groups from media JAG");
     Ok(())
@@ -167,11 +174,6 @@ pub(crate) fn known_hashes() -> Vec<i32> {
     );
     hashes
 }
-
-#[cfg(since_647)]
-const ARCHIVE_SPRITES: u8 = 8;
-#[cfg(since_647)]
-const ARCHIVE_LOADING_SPRITES: u8 = 32;
 
 #[cfg(since_647)]
 #[derive(Debug)]
@@ -271,12 +273,11 @@ fn write_sprite_canvas_png(
         }
     }
 
-    let file =
-        std::fs::File::create(path).with_context(|| format!("creating {}", path.display()))?;
+    let file = File::create(path).with_context(|| format!("creating {}", path.display()))?;
     let w = BufWriter::new(file);
-    let mut encoder = png::Encoder::new(w, aw as u32, total_height as u32);
-    encoder.set_color(png::ColorType::Rgba);
-    encoder.set_depth(png::BitDepth::Eight);
+    let mut encoder = Encoder::new(w, aw as u32, total_height as u32);
+    encoder.set_color(ColorType::Rgba);
+    encoder.set_depth(BitDepth::Eight);
     // Store metadata as PNG text chunks for lossless roundtrip
     if strip_rows > 0 {
         encoder
@@ -455,13 +456,13 @@ fn decode_sprites(data: &[u8]) -> Result<(Vec<Sprite>, u16, u16, u16)> {
 
 #[cfg(since_647)]
 pub fn unpack_sprites(
-    store: &mut CacheStore,
+    store: &mut Js5Store,
     archive_id: u8,
     archive_name: &str,
     output_dir: &Path,
 ) -> Result<UnpackSpriteStats> {
     let archive_dir = output_dir.join(archive_name).join("_unpack");
-    std::fs::create_dir_all(&archive_dir)?;
+    fs::create_dir_all(&archive_dir)?;
 
     let group_count = store.group_count(archive_id).unwrap_or(0);
 
@@ -483,22 +484,22 @@ pub fn unpack_sprites(
         let Some(entry) = group.entries.first() else {
             continue;
         };
-        if entry.data.len() < 2 {
+        if entry.data().len() < 2 {
             continue;
         }
 
         // JPEG images (archive 32 mixes sprites and JPEGs)
         // Store as source .jpg files — the build re-packs them directly.
-        if entry.data[0] == 0xFF && entry.data[1] == 0xD8 {
+        if entry.data()[0] == 0xFF && entry.data()[1] == 0xD8 {
             let group_dir = archive_dir.join(gid.to_string());
-            std::fs::create_dir_all(&group_dir)?;
-            std::fs::write(group_dir.join("0.jpg"), &entry.data)?;
+            fs::create_dir_all(&group_dir)?;
+            fs::write(group_dir.join("0.jpg"), entry.data())?;
             stats.groups += 1;
             stats.sprites += 1;
             continue;
         }
 
-        let (sprites, area_width, area_height, _palette_size) = match decode_sprites(&entry.data) {
+        let (sprites, area_width, area_height, _palette_size) = match decode_sprites(entry.data()) {
             Ok(s) => s,
             Err(e) => {
                 warn!(
@@ -506,7 +507,7 @@ pub fn unpack_sprites(
                     archive_id,
                     gid,
                     e,
-                    entry.data.len(),
+                    entry.data().len(),
                 );
                 stats.failed += 1;
                 continue;
@@ -518,7 +519,7 @@ pub fn unpack_sprites(
         }
 
         let group_dir = archive_dir.join(gid.to_string());
-        std::fs::create_dir_all(&group_dir)?;
+        fs::create_dir_all(&group_dir)?;
 
         for (file_id, sprite) in sprites.iter().enumerate() {
             let path = group_dir.join(format!("{}.png", file_id));
@@ -539,11 +540,11 @@ pub fn unpack_sprites(
 }
 
 #[cfg(since_647)]
-pub fn unpack_all_sprites(store: &mut CacheStore, content_dir: &Path) -> Result<UnpackSpriteStats> {
+pub fn unpack_all_sprites(store: &mut Js5Store, content_dir: &Path) -> Result<UnpackSpriteStats> {
     let mut total = UnpackSpriteStats::default();
 
-    info!("Unpacking sprites (archive {})...", ARCHIVE_SPRITES);
-    let s = unpack_sprites(store, ARCHIVE_SPRITES, "sprites", content_dir)?;
+    info!("Unpacking sprites (archive {})...", archive::SPRITES);
+    let s = unpack_sprites(store, archive::SPRITES, "sprites", content_dir)?;
     info!(
         "  {} groups, {} sprites, {} failed",
         s.groups, s.sprites, s.failed
@@ -552,14 +553,14 @@ pub fn unpack_all_sprites(store: &mut CacheStore, content_dir: &Path) -> Result<
     total.sprites += s.sprites;
     total.failed += s.failed;
 
-    if store.has_archive(ARCHIVE_LOADING_SPRITES) {
+    if store.has_archive(archive::LOADING_SPRITES) {
         info!(
             "Unpacking loading sprites (archive {})...",
-            ARCHIVE_LOADING_SPRITES
+            archive::LOADING_SPRITES
         );
         let s = unpack_sprites(
             store,
-            ARCHIVE_LOADING_SPRITES,
+            archive::LOADING_SPRITES,
             "loading_sprites",
             content_dir,
         )?;

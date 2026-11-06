@@ -3,7 +3,7 @@
 //! - `send_quest_complete2`: 2011's quest scroll (277) with the rewards given
 //!   as text on its reward lines (com11-17), below the quest's points (com10).
 //! - The lamp: Rub (inventory op 1, IF_BUTTON1 on `inventory:inv`, `p4(com)
-//!   ip2_alt1(obj) ip2(slot)`) opens 2011's lamp (134); a stat's Select sets
+//!   p2_alt3(obj) p2_alt1(slot)`) opens 2011's lamp (134); a stat's Select sets
 //!   varp 261 to 289's ^xplamp_ value for it; Confirm advances the stat by ten
 //!   times its level.
 //! - 289's scroll reads: 2011's messagescroll (220), 289's lines one higher.
@@ -84,14 +84,14 @@ fn cheat(client: &mut HarnessClient, input: &str) {
 
 fn button1(client: &mut HarnessClient, com: i32, slot: i32, obj: i32) {
     let mut p = ClientPacket::new();
-    p.p4(com).ip2_alt1(obj).ip2(slot);
+    p.p4(com).p2_alt3(obj).p2_alt1(slot);
     client.send(ClientProt::IfButton1, &p.finish());
 }
 
 /// Inventory op 4 (Rub) on the backpack's slot 0.
 fn rub(client: &mut HarnessClient, obj: u16) {
     let mut p = ClientPacket::new();
-    p.p4(BACKPACK).ip2_alt1(obj as i32).ip2(0);
+    p.p4(BACKPACK).p2_alt3(obj as i32).p2_alt1(0);
     client.send(ClientProt::IfButton4, &p.finish());
 }
 
@@ -367,14 +367,14 @@ fn teleport_jewellery_goes_to_2011_s_places() {
     });
 }
 
-/// Every IF_SETHIDE, `p4_alt1(com) p1_alt1(hidden)`, as (com, hidden).
+/// Every IF_SETHIDE, `p4_alt3(com) p1_alt2(hidden)`, as (com, hidden).
 fn sethides(packets: &[(u16, Vec<u8>)]) -> Vec<(i32, bool)> {
     let opcode = ServerProt::IfSetHide as u16;
     packets
         .iter()
         .filter(|(op, _)| *op == opcode)
         .map(|(_, p)| {
-            // p4_alt1 writes `>>16, >>24, v, >>8`; p1_alt1 writes `-v`.
+            // p4_alt3 writes `>>16, >>24, v, >>8`; p1_alt2 writes `-v`.
             let com = i32::from_be_bytes([p[1], p[0], p[3], p[2]]);
             (com, p[4] != 0)
         })
@@ -444,7 +444,7 @@ fn taking_the_temple_s_wine_burns_the_thief() {
         ticks(engine, &mut client, 2);
         let life = life_points(engine, &client);
         let mut p = ClientPacket::new();
-        p.ip2(wine as i32).p2_alt1(3515).p1(0).p2(2930);
+        p.p2_alt1(wine as i32).p2_alt2(3515).p1(0).p2(2930);
         client.send(ClientProt::OpObj3, &p.finish());
         let said = messages(&ticks(engine, &mut client, 6));
         assert!(

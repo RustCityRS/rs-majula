@@ -1,13 +1,17 @@
 #[cfg(since_647)]
 use crate::pack::pack::collect_config_files;
-use std::collections::HashMap;
-use std::path::{Path, PathBuf};
-#[cfg(since_647)]
-use tracing::info;
-
 use crate::pack::packed_data::PackedData;
 use anyhow::Result;
+#[cfg(since_647)]
+use anyhow::bail;
+use std::collections::HashMap;
+#[cfg(since_647)]
+use std::collections::HashSet;
+use std::fs;
+use std::path::{Path, PathBuf};
 use tracing::debug;
+#[cfg(since_647)]
+use tracing::info;
 
 #[cfg(before_647)]
 pub type PackId = u16;
@@ -35,7 +39,7 @@ impl PackFile {
         let mut debugname_to_id = HashMap::new();
         let mut max: PackId = 0;
 
-        if let Ok(text) = std::fs::read_to_string(path) {
+        if let Ok(text) = fs::read_to_string(path) {
             for line in text.lines() {
                 let line = line.trim();
                 if line.is_empty() {
@@ -212,12 +216,117 @@ impl PackRegistry {
     pub fn pack_dir(&self) -> &Path {
         &self.pack_dir
     }
+
+    #[cfg(since_647)]
+    pub fn check_content(&self, source_dir: &Path) -> Result<()> {
+        let mut errors = Vec::new();
+        let mut unregistered = 0;
+        for (ext, pack) in [
+            ("npc", &self.npc),
+            ("obj", &self.obj),
+            ("loc", &self.loc),
+            ("varp", &self.varp),
+            ("varbit", &self.varbit),
+            ("seq", &self.seq),
+            ("spotanim", &self.spotanim),
+            ("inv", &self.inv),
+            ("enum", &self.r#enum),
+            ("struct", &self.r#struct),
+            ("idk", &self.idk),
+            ("flo", &self.flo),
+            ("flu", &self.flu),
+            ("hunt", &self.hunt),
+            ("param", &self.param),
+            ("mesanim", &self.mesanim),
+        ] {
+            for path in collect_config_files(source_dir, ext) {
+                let Ok(text) = fs::read_to_string(&path) else {
+                    continue;
+                };
+                for (line, raw) in text.lines().enumerate() {
+                    let text = raw.split("//").next().unwrap_or(raw).trim();
+                    let message = if let Some(name) =
+                        text.strip_prefix('[').and_then(|s| s.strip_suffix(']'))
+                    {
+                        let name = name.trim();
+                        if pack.get_by_debugname(name).is_some() {
+                            continue;
+                        }
+                        let id = name
+                            .strip_prefix(ext)
+                            .and_then(|s| s.strip_prefix('_'))
+                            .filter(|s| !s.is_empty() && s.bytes().all(|c| c.is_ascii_digit()))
+                            .and_then(|s| s.parse().ok());
+                        let Some(id) = id else {
+                            unregistered += 1;
+                            continue;
+                        };
+                        match pack.get_by_id(id) {
+                            Some(real) => format!(
+                                "section [{name}] but {ext}.pack names id {id} '{real}'; \
+                                 rename this header to [{real}] (or revert the {ext}.pack rename)"
+                            ),
+                            None => format!("section [{name}] but {ext}.pack has no id {id}"),
+                        }
+                    } else if ext == "npc"
+                        && let Some((key, value)) = text.split_once('=')
+                    {
+                        let (key, value) = (key.trim(), value.trim());
+                        let (target, label) = match key {
+                            "multivar" => (&self.varbit, "varbit"),
+                            "multivarp" => (&self.varp, "varp"),
+                            "multidefault" => (&self.npc, "npc"),
+                            _ if key.strip_prefix("multi").is_some_and(|s| {
+                                !s.is_empty() && s.bytes().all(|c| c.is_ascii_digit())
+                            }) =>
+                            {
+                                (&self.npc, "npc")
+                            }
+                            _ => continue,
+                        };
+                        if value == "null"
+                            || value.parse::<i64>().is_ok()
+                            || target.get_by_debugname(value).is_some()
+                        {
+                            continue;
+                        }
+                        format!(
+                            "reference {key}={value} does not resolve to any {label} in \
+                             {label}.pack; renamed in {label}.pack but not here?"
+                        )
+                    } else {
+                        continue;
+                    };
+                    errors.push((path.clone(), line + 1, message));
+                }
+            }
+        }
+        if !errors.is_empty() {
+            errors.sort_by(|a, b| a.0.cmp(&b.0).then(a.1.cmp(&b.1)));
+            let errors = errors
+                .iter()
+                .map(|(path, line, message)| {
+                    format!("[error] {}:{line}: {message}", path.display())
+                })
+                .collect::<Vec<_>>()
+                .join("\n");
+            bail!(
+                "pack registries and content are out of sync:\n{errors}\n\
+                 After registry renames, regenerate cache-derived content with \
+                 `REV=647 cargo regen-content`."
+            );
+        }
+        if unregistered > 0 {
+            info!("pack_all: {unregistered} unregistered content section(s) won't be packed");
+        }
+        Ok(())
+    }
 }
 
 #[cfg(since_647)]
 fn load_component_hashes(path: &Path, interfaces: &PackFile) -> HashMap<String, i32> {
     let mut map = HashMap::new();
-    let Ok(text) = std::fs::read_to_string(path) else {
+    let Ok(text) = fs::read_to_string(path) else {
         return map;
     };
     for line in text.lines() {
@@ -326,10 +435,10 @@ pub fn validate_config_packs(source_dir: &Path, pack_dir: &Path) -> Result<()> {
 #[cfg(since_647)]
 fn crawl_config_names(source_dir: &Path, ext: &str) -> Vec<String> {
     let mut names = Vec::new();
-    let mut seen = std::collections::HashSet::new();
+    let mut seen = HashSet::new();
     let files = collect_config_files(source_dir, ext);
     for path in &files {
-        let Ok(text) = std::fs::read_to_string(path) else {
+        let Ok(text) = fs::read_to_string(path) else {
             continue;
         };
         for line in text.lines() {
@@ -357,6 +466,6 @@ fn save_pack_file(path: &Path, pack: &PackFile) -> Result<()> {
         .iter()
         .map(|(id, name)| format!("{id}={name}\n"))
         .collect();
-    std::fs::write(path, content)?;
+    fs::write(path, content)?;
     Ok(())
 }

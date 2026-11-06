@@ -42,11 +42,11 @@ fn open(engine: &Engine, pid: u16, iface: u16) -> bool {
     engine.harness_player(pid).unwrap().is_interface_open(iface)
 }
 
-/// `IF_BUTTON1` as `Class199.method1317` writes it: `p4(com) ip2_alt1(obj)
-/// ip2(slot)`, with no obj or slot for a plain button.
+/// `IF_BUTTON1` as `Class199.method1317` writes it: `p4(com) p2_alt3(obj)
+/// p2_alt1(slot)`, with no obj or slot for a plain button.
 fn button1(com: i32) -> Vec<u8> {
     let mut p = ClientPacket::new();
-    p.p4(com).ip2_alt1(0xFFFF).ip2(0xFFFF);
+    p.p4(com).p2_alt3(0xFFFF).p2_alt1(0xFFFF);
     p.finish()
 }
 

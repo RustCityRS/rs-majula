@@ -1,11 +1,11 @@
 use super::binary_assets::unpack_binary_archive;
+use crate::archive;
 use anyhow::Result;
-use rs_dat2::CacheStore;
-use rs_dat2::archive;
+use rs_io::js5::Js5Store;
 use std::path::Path;
 use tracing::info;
 
-pub fn unpack_quickchat(store: &mut CacheStore, content_dir: &Path) -> Result<u32> {
+pub fn unpack_quickchat(store: &mut Js5Store, content_dir: &Path) -> Result<u32> {
     let mut total = 0;
     for &aid in &[archive::QUICKCHAT, archive::QUICKCHAT_GLOBAL] {
         if !store.has_archive(aid) {

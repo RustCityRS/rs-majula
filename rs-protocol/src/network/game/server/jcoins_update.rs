@@ -18,7 +18,7 @@ pub struct JcoinsUpdate {
 #[cfg(since_647)]
 impl ServerProtMessage for JcoinsUpdate {
     fn encode(&self, buf: &mut Packet) {
-        buf.ip4(self.balance);
+        buf.p4_alt1(self.balance);
     }
 
     fn sizeof(&self) -> usize {

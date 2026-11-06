@@ -8,13 +8,10 @@ license.workspace = true
 
 [dependencies]
 rs-crypto = { workspace = true }
-rs-dat2 = { workspace = true }
 rs-io = { workspace = true }
 rs-ver = { workspace = true }
 rs-protocol-macros = { workspace = true }
 anyhow = { workspace = true }
-bytes = { workspace = true }
-num-bigint = "0.4"
 tracing = { workspace = true }
 
 [build-dependencies]

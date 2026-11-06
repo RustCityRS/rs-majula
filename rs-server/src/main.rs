@@ -30,7 +30,7 @@ use tokio::sync::mpsc::UnboundedSender;
 use tokio::sync::{mpsc, watch};
 use tokio::time::{self, Duration};
 use tokio_tungstenite::WebSocketStream;
-use tokio_tungstenite::tungstenite::{Bytes, Message};
+use tokio_tungstenite::tungstenite::Message;
 use tracing::{Level, debug, error, info, warn};
 use tracing_subscriber::Layer;
 use tracing_subscriber::prelude::__tracing_subscriber_SubscriberExt;
@@ -705,7 +705,7 @@ async fn bootstrap(
         Box<CacheStore>,
         ScriptProvider,
         rs_pack::startup::InterfaceLayout,
-        rs_dat2::CacheStore,
+        rs_io::js5::Js5Store,
     ) = {
         let result = rs_pack::pack_all(
             Path::new(rs_pack::CONTENT_DIR),
@@ -727,7 +727,7 @@ async fn bootstrap(
         // XTEA map keys: landscape decryption at load time and rebuild
         // packets at runtime both read the globally-installed store.
         let keys_path = Path::new(rs_pack::CONTENT_DIR).join("keys.json");
-        match rs_dat2::xtea::XteaKeyStore::load(&keys_path) {
+        match rs_pack::cache::map::XteaKeyStore::load(&keys_path) {
             Ok(keys) => keys.install_global(),
             Err(e) => tracing::warn!("No XTEA keys at {}: {e}", keys_path.display()),
         }
@@ -1523,8 +1523,7 @@ impl Socket {
                 stream.write_all(data).await?;
             }
             SocketType::WebSocket(ws) => {
-                ws.send(Message::Binary(Bytes::copy_from_slice(data)))
-                    .await?;
+                ws.send(Message::Binary(data.to_vec().into())).await?;
             }
         }
         Ok(())
@@ -1537,7 +1536,7 @@ impl Socket {
                 Ok(Some(data))
             }
             SocketType::WebSocket(ws) => {
-                ws.send(Message::Binary(Bytes::from(data))).await?;
+                ws.send(Message::Binary(data.into())).await?;
                 Ok(None)
             }
         }

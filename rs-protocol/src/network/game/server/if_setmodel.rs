@@ -34,7 +34,7 @@ pub struct IfSetModel {
 #[cfg(since_647)]
 impl ServerProtMessage for IfSetModel {
     fn encode(&self, buf: &mut Packet) {
-        buf.ip2_alt1(self.model);
+        buf.p2_alt3(self.model);
         buf.p4(self.com);
     }
 

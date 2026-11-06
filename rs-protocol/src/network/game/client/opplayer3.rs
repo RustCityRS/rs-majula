@@ -23,7 +23,7 @@ impl ClientProtMessage for OpPlayer3 {
 #[cfg(since_647)]
 impl ClientProtMessage for OpPlayer3 {
     fn decode(buf: &mut Packet, _: usize) -> Self {
-        let pid = buf.ig2();
+        let pid = buf.g2_alt1();
         let ctrl = buf.g1() != 0;
         OpPlayer3 { pid, ctrl }
     }

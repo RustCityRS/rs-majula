@@ -6,6 +6,8 @@ use rs_grid::mapsquare_coord::MapsquareCoordGrid;
 use rs_io::Packet;
 #[cfg(before_647)]
 use rs_io::bz2::bz2_decompress;
+#[cfg(since_647)]
+use rs_io::js5::compression::decompress;
 use rs_pack::cache::CacheStore;
 use rs_pack::cache::dbrow::DbRowValue;
 use rs_pack::types::{LocAngle, LocLayer, LocShape, ParamValue, ScriptVarType};
@@ -206,26 +208,12 @@ struct MapsquareData {
 /// (`[type:1][len:4][payload]`, gzip or uncompressed) by the cache bridge.
 #[cfg(since_647)]
 fn decompress_map(data: &[u8]) -> Packet {
-    match rs_dat2::compression::decompress(data) {
+    match decompress(data) {
         Ok(bytes) => Packet::from(bytes.to_vec()),
         Err(e) => {
             tracing::warn!("Failed to decompress map data: {e}");
             Packet::new(0)
         }
-    }
-}
-
-/// Rev-647 landscape id deltas can exceed the 15-bit smart range, so they
-/// are encoded as a chain of smarts summed until a non-32767 terminator.
-#[cfg(since_647)]
-fn glargesmart(buf: &mut Packet) -> i32 {
-    let mut total = 0i32;
-    loop {
-        let seg = buf.gsmart1or2();
-        if seg != 32767 {
-            return total + seg;
-        }
-        total += 32767;
     }
 }
 
@@ -236,7 +224,7 @@ fn read_loc_id_offset(buf: &mut Packet) -> i32 {
 
 #[cfg(since_647)]
 fn read_loc_id_offset(buf: &mut Packet) -> i32 {
-    glargesmart(buf)
+    buf.gextended1or2()
 }
 
 impl GameMap {

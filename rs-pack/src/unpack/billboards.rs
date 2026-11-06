@@ -1,32 +1,32 @@
+use crate::archive;
 use anyhow::Result;
-use rs_dat2::CacheStore;
+use rs_io::js5::Js5Store;
+use std::fs::{self, File};
 use std::io::Write;
 use std::path::Path;
 use tracing::{info, warn};
 
-const ARCHIVE_BILLBOARDS: u8 = 29;
-
-pub fn unpack_billboards(store: &mut CacheStore, content_dir: &Path) -> Result<u32> {
+pub fn unpack_billboards(store: &mut Js5Store, content_dir: &Path) -> Result<u32> {
     let archive_dir = content_dir.join("billboards").join("_unpack");
-    std::fs::create_dir_all(&archive_dir)?;
+    fs::create_dir_all(&archive_dir)?;
 
-    let group_count = store.group_count(ARCHIVE_BILLBOARDS).unwrap_or(0);
+    let group_count = store.group_count(archive::BILLBOARDS).unwrap_or(0);
     let out_path = archive_dir.join("all.billboard");
-    let mut file = std::fs::File::create(&out_path)?;
+    let mut file = File::create(&out_path)?;
     let mut written = 0u32;
 
     for gid in 0..group_count {
-        let Some(group) = store.read_group(ARCHIVE_BILLBOARDS, gid)? else {
+        let Some(group) = store.read_group(archive::BILLBOARDS, gid)? else {
             continue;
         };
 
         for entry in &group.entries {
-            if entry.data.is_empty() {
+            if entry.data().is_empty() {
                 continue;
             }
 
             writeln!(file, "[billboard_{}]", entry.id)?;
-            let data = &entry.data;
+            let data = entry.data();
             let mut pos = 0;
 
             loop {

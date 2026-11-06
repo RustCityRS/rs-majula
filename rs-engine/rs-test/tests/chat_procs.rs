@@ -63,7 +63,7 @@ fn text_of(texts: &[(i32, String)], com: i32) -> Option<&str> {
         .map(|(_, t)| t.as_str())
 }
 
-/// Every IF_SETMODEL, `ip2_alt1(model) p4(com)`, as (com, model).
+/// Every IF_SETMODEL, `p2_alt3(model) p4(com)`, as (com, model).
 fn setmodels(packets: &[(u16, Vec<u8>)]) -> Vec<(i32, u16)> {
     let opcode = ServerProt::IfSetModel as u16;
     packets
@@ -76,7 +76,7 @@ fn setmodels(packets: &[(u16, Vec<u8>)]) -> Vec<(i32, u16)> {
         .collect()
 }
 
-/// Every IF_SETANIM, `ip4(com) ip2(seq)`, as (com, seq).
+/// Every IF_SETANIM, `p4_alt1(com) p2_alt1(seq)`, as (com, seq).
 fn setanims(packets: &[(u16, Vec<u8>)]) -> Vec<(i32, u16)> {
     let opcode = ServerProt::IfSetAnim as u16;
     packets
@@ -91,7 +91,7 @@ fn setanims(packets: &[(u16, Vec<u8>)]) -> Vec<(i32, u16)> {
         .collect()
 }
 
-/// Every IF_SETOBJECT, `ip4(com) p4_alt3(scale) p2(obj)`, as (com, obj).
+/// Every IF_SETOBJECT, `p4_alt1(com) p4_alt3(scale) p2(obj)`, as (com, obj).
 fn setobjects(packets: &[(u16, Vec<u8>)]) -> Vec<(i32, u16)> {
     let opcode = ServerProt::IfSetObject as u16;
     packets
@@ -104,14 +104,14 @@ fn setobjects(packets: &[(u16, Vec<u8>)]) -> Vec<(i32, u16)> {
         .collect()
 }
 
-/// Every IF_SETHIDE, `p4_alt1(com) p1_alt1(hidden)`, as (com, hidden).
+/// Every IF_SETHIDE, `p4_alt3(com) p1_alt2(hidden)`, as (com, hidden).
 fn sethides(packets: &[(u16, Vec<u8>)]) -> Vec<(i32, bool)> {
     let opcode = ServerProt::IfSetHide as u16;
     packets
         .iter()
         .filter(|(op, _)| *op == opcode)
         .map(|(_, p)| {
-            // p4_alt1 writes `>>16, >>24, v, >>8`; p1_alt1 writes `-v`.
+            // p4_alt3 writes `>>16, >>24, v, >>8`; p1_alt2 writes `-v`.
             let com = i32::from_be_bytes([p[1], p[0], p[3], p[2]]);
             (com, p[4] != 0)
         })

@@ -20,9 +20,9 @@ pub struct IfOpensub {
 #[cfg(since_647)]
 impl ServerProtMessage for IfOpensub {
     fn encode(&self, buf: &mut Packet) {
-        buf.ip2_alt1(self.interface);
-        buf.p4_alt1(self.com);
-        buf.p1_alt3(self.walkable);
+        buf.p2_alt3(self.interface);
+        buf.p4_alt3(self.com);
+        buf.p1_alt1(self.walkable);
     }
 
     fn sizeof(&self) -> usize {

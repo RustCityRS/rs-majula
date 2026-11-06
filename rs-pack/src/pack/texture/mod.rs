@@ -1,9 +1,11 @@
 #[cfg(before_647)]
 use super::pack_registry::PackRegistry;
+#[cfg(before_647)]
+use crate::archive::JagArchive;
+#[cfg(since_647)]
+use crate::archive::{self, ArchiveVersions};
 #[cfg(since_647)]
 use crate::cache::texture::{OP_NAMES, TextureDef, TextureOp};
-#[cfg(since_647)]
-use crate::config_blob::ConfigBlob;
 #[cfg(since_647)]
 use crate::pack::js5::{PreparedGroup, load_group_files, stamp_path, write_archive};
 #[cfg(before_647)]
@@ -14,14 +16,12 @@ use crate::startup::{is_up_to_date, newest_mtime, write_stamp};
 use anyhow::Result;
 #[cfg(since_647)]
 use rayon::prelude::*;
-#[cfg(since_647)]
-use rs_dat2::CacheStore;
-#[cfg(since_647)]
-use rs_dat2::archive::{self, ArchiveVersions};
-#[cfg(since_647)]
-use rs_dat2::reference::FileInfo;
 #[cfg(before_647)]
-use rs_io::jag::{JagCompression, JagFile};
+use rs_io::jag::JagFile;
+#[cfg(since_647)]
+use rs_io::js5::Js5Store;
+#[cfg(since_647)]
+use rs_io::js5::reference::FileInfo;
 use std::collections::HashMap;
 use std::fs;
 #[cfg(before_647)]
@@ -77,15 +77,14 @@ pub fn pack_textures_jag(registry: &PackRegistry, content_dir: &Path) -> Vec<u8>
     }
 
     debug!("Packed textures into textures Jag");
-    jag.build(JagCompression::PerFile)
+    jag.build(JagArchive::Textures.compression())
 }
 
 #[cfg(since_647)]
 pub fn pack_archive(
-    store: &mut CacheStore,
+    store: &mut Js5Store,
     content_dir: &Path,
     output_dir: &Path,
-    client_data_dir: &Path,
     versions: &HashMap<u8, ArchiveVersions>,
     force_rebuild: bool,
 ) -> Result<()> {
@@ -122,19 +121,10 @@ pub fn pack_archive(
         })
         .collect();
 
-    let mut blob = ConfigBlob::new();
-    for (gid, data) in encoded {
-        blob.add(&gid.to_string(), data);
-    }
-    blob.save(&client_data_dir.join("textures"))?;
-
-    let gids: Vec<u32> = blob.keys().filter_map(|k| k.parse::<u32>().ok()).collect();
-
-    let prepared: Vec<PreparedGroup> = gids
+    let prepared: Vec<PreparedGroup> = encoded
         .par_iter()
-        .map(|gid| {
-            let mut group =
-                PreparedGroup::new(aid, *gid, blob.get(&gid.to_string()).unwrap(), versions)?;
+        .map(|(gid, data)| {
+            let mut group = PreparedGroup::new(aid, *gid, data, versions)?;
             group.files = vec![FileInfo {
                 id: 0,
                 name_hash: None,

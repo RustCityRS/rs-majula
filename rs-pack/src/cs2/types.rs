@@ -5,7 +5,10 @@
 //! Maps integer constants to named references (^obj_name, etc.) based on
 //! opcode parameter type annotations and pack file lookups.
 
+use super::ir::{Expr, Instruction};
+use super::opcodes::*;
 use std::collections::HashMap;
+use std::fs;
 use std::path::Path;
 
 /// Which semantic type an integer argument represents.
@@ -90,7 +93,6 @@ impl TypeResolver {
     /// Get the argument types for an opcode. Returns a slice where
     /// index 0 = first arg popped (last pushed), etc.
     pub fn opcode_arg_types(opcode: u16) -> &'static [ArgType] {
-        use super::opcodes::*;
         match opcode {
             // oc_* — first arg is obj
             OC_NAME | OC_COST | OC_STACKABLE | OC_CERT | OC_UNCERT | OC_MEMBERS | OC_WEIGHT
@@ -162,10 +164,7 @@ impl TypeResolver {
 
     /// Infer return types for a script by analyzing captured return values.
     /// Returns a vec of ArgTypes for each int return position.
-    pub fn infer_return_types(
-        &self,
-        returns: &[(Vec<super::ir::Expr>, Vec<super::ir::Expr>)],
-    ) -> Vec<ArgType> {
+    pub fn infer_return_types(&self, returns: &[(Vec<Expr>, Vec<Expr>)]) -> Vec<ArgType> {
         if returns.is_empty() {
             return Vec::new();
         }
@@ -184,7 +183,7 @@ impl TypeResolver {
             for (ints, _) in returns {
                 if let Some(expr) = ints.get(pos) {
                     match expr {
-                        super::ir::Expr::IntConstant(v) => constants.push(*v),
+                        Expr::IntConstant(v) => constants.push(*v),
                         _ => has_non_constant = true,
                     }
                 }
@@ -223,11 +222,9 @@ impl TypeResolver {
 /// Scans all scripts' IR for proc calls whose return values flow
 /// into typed opcode parameters.
 pub fn infer_return_types_from_callers(
-    all_instructions: &HashMap<u32, Vec<super::ir::Instruction>>,
+    all_instructions: &HashMap<u32, Vec<Instruction>>,
     meta: &mut HashMap<u32, super::ScriptMeta>,
 ) {
-    use super::ir::{Expr, Instruction};
-
     // For each script, scan its instructions for typed usage of proc returns
     let mut inferred: HashMap<u32, Vec<(usize, ArgType)>> = HashMap::new();
 
@@ -268,10 +265,9 @@ pub fn infer_return_types_from_callers(
 }
 
 fn check_expr_for_typed_proc_usage(
-    expr: &super::ir::Expr,
+    expr: &Expr,
     inferred: &mut HashMap<u32, Vec<(usize, ArgType)>>,
 ) {
-    use super::ir::Expr;
     if let Expr::Operation { opcode, args } = expr {
         let type_sig = TypeResolver::opcode_arg_types(*opcode);
         for (i, arg) in args.iter().enumerate() {
@@ -291,7 +287,7 @@ fn check_expr_for_typed_proc_usage(
 fn load_pack(dir: &Path, name: &str) -> HashMap<i32, String> {
     let path = dir.join(name);
     let mut map = HashMap::new();
-    if let Ok(content) = std::fs::read_to_string(&path) {
+    if let Ok(content) = fs::read_to_string(&path) {
         for line in content.lines() {
             let line = line.trim();
             if let Some((id_str, name)) = line.split_once('=') {

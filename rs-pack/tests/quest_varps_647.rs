@@ -18,18 +18,21 @@
 
 #![cfg(since_647)]
 
+use rs_io::js5::Js5Store;
+use rs_pack::cs2::decompile;
 use std::collections::BTreeMap;
+use std::fs;
 use std::path::Path;
 
 /// varp id -> the completion values the client's quest table gives it.
 fn client_quest_table(root: &Path) -> BTreeMap<u32, Vec<i32>> {
     let mut store =
-        rs_dat2::CacheStore::open(root.join("expected")).expect("the reference cache in expected/");
+        Js5Store::open(root.join("expected")).expect("the reference cache in expected/");
     let group = store
         .read_group(12, 2193)
         .expect("read clientscript 2193")
         .expect("clientscript 2193 exists");
-    let source = rs_pack::cs2::decompile(&group.entries[0].data, 2193).expect("decompile 2193");
+    let source = decompile(group.entries[0].data(), 2193).expect("decompile 2193");
 
     // Each case is `~script_2157(%varp63, 6)`, or -- decompiled without
     // the callee's signature, as here -- `~script_2157;` followed by
@@ -84,7 +87,7 @@ fn quest_varps_named_from_289_are_the_clients() {
         table.len()
     );
 
-    let pack = std::fs::read_to_string(root.join("content/647/pack/varp.pack")).unwrap();
+    let pack = fs::read_to_string(root.join("content/647/pack/varp.pack")).unwrap();
     let names: BTreeMap<u32, &str> = pack
         .lines()
         .filter_map(|l| {

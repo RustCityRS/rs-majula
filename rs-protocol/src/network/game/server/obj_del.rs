@@ -27,8 +27,8 @@ impl ServerProtMessage for ObjDel {
 #[cfg(since_647)]
 impl ServerProtMessage for ObjDel {
     fn encode(&self, buf: &mut Packet) {
-        buf.p1_alt1(self.coord);
-        buf.ip2_alt1(self.id);
+        buf.p1_alt2(self.coord);
+        buf.p2_alt3(self.id);
     }
 
     fn sizeof(&self) -> usize {

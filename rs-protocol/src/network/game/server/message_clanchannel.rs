@@ -1,6 +1,5 @@
 #[cfg(since_647)]
 use crate::network::game::server_prot::ServerProt;
-use crate::network::game::server_prot_message::jstr_len;
 #[cfg(since_647)]
 use crate::network::game::server_prot_message::{ServerProtMessage, ServerProtMessageInfo};
 #[cfg(since_647)]
@@ -35,7 +34,7 @@ impl ServerProtMessage for MessageClanchannel {
 
     fn sizeof(&self) -> usize {
         size_of_val(&self.affined)
-            + jstr_len(&self.sender)
+            + Packet::sizejstr(&self.sender)
             + size_of_val(&self.msg_uid_hi)
             + 3 // msg_uid_lo
             + size_of_val(&self.tier)

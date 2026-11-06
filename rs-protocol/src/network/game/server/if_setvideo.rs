@@ -19,7 +19,7 @@ pub struct IfSetVideo {
 #[cfg(since_647)]
 impl ServerProtMessage for IfSetVideo {
     fn encode(&self, buf: &mut Packet) {
-        buf.ip2(self.video);
+        buf.p2_alt1(self.video);
         buf.p4(self.com);
     }
 

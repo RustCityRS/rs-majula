@@ -51,25 +51,25 @@ impl<'a> ClientPacket<'a> {
     }
 
     /// `-buffer[pos++] & 0xFF`
-    fn g1_alt1(&mut self) -> i32 {
+    fn g1_alt2(&mut self) -> i32 {
         self.pos += 1;
         -self.b(self.pos - 1) & 0xFF
     }
 
     /// `128 - buffer[pos++] & 0xFF`
-    fn g1_alt2(&mut self) -> i32 {
+    fn g1_alt3(&mut self) -> i32 {
         self.pos += 1;
         (128 - self.b(self.pos - 1)) & 0xFF
     }
 
     /// `buffer[pos++] - 128 & 0xFF`
-    fn g1_alt3(&mut self) -> i32 {
+    fn g1_alt1(&mut self) -> i32 {
         self.pos += 1;
         (self.b(self.pos - 1) - 128) & 0xFF
     }
 
     /// Big-endian 32.
-    fn g4(&mut self) -> i32 {
+    fn g4s(&mut self) -> i32 {
         self.pos += 4;
         (self.b(self.pos - 1) & 0xFF)
             + ((self.b(self.pos - 2) & 0xFF) << 8)
@@ -78,13 +78,13 @@ impl<'a> ClientPacket<'a> {
     }
 
     /// `buffer[pos++]`, signed
-    fn g1b(&mut self) -> i32 {
+    fn g1s(&mut self) -> i32 {
         self.pos += 1;
         self.b(self.pos - 1)
     }
 
     /// `g2`, then `-= 0x10000` above `0x7fff`
-    fn g2b(&mut self) -> i32 {
+    fn g2s(&mut self) -> i32 {
         let v = self.g2();
         if v > 0x7fff { v - 0x10000 } else { v }
     }
@@ -96,7 +96,7 @@ impl<'a> ClientPacket<'a> {
     }
 
     /// `(b[-1] - 128 & 0xFF) + ((b[-2] & 0xFF) << 8)`
-    fn g2_alt1(&mut self) -> i32 {
+    fn g2_alt2(&mut self) -> i32 {
         self.pos += 2;
         ((self.b(self.pos - 1) - 128) & 0xFF) + ((self.b(self.pos - 2) & 0xFF) << 8)
     }
@@ -111,19 +111,19 @@ impl<'a> ClientPacket<'a> {
     }
 
     /// `(b[-1] & 0xFF) << 8) + (b[-2] & 0xFF)`
-    fn ig2(&mut self) -> i32 {
+    fn g2_alt1(&mut self) -> i32 {
         self.pos += 2;
         ((self.b(self.pos - 1) & 0xFF) << 8) + (self.b(self.pos - 2) & 0xFF)
     }
 
     /// `(b[-1] & 0xFF) << 8) + (b[-2] - 128 & 0xFF)`
-    fn ig2_alt1(&mut self) -> i32 {
+    fn g2_alt3(&mut self) -> i32 {
         self.pos += 2;
         ((self.b(self.pos - 1) & 0xFF) << 8) + ((self.b(self.pos - 2) - 128) & 0xFF)
     }
 
     /// `b[-2]<<16 | b[-1]<<24 | b[-3]<<8 | b[-4]` (little-endian-ish)
-    fn ig4(&mut self) -> i32 {
+    fn g4s_alt1(&mut self) -> i32 {
         self.pos += 4;
         ((self.b(self.pos - 2) & 0xFF) << 16)
             + ((self.b(self.pos - 1) & 0xFF) << 24)
@@ -132,7 +132,7 @@ impl<'a> ClientPacket<'a> {
     }
 
     /// `b[-2] | b[-3]<<24 | b[-4]<<16 | b[-1]<<8`
-    fn g4_alt1(&mut self) -> i32 {
+    fn g4s_alt3(&mut self) -> i32 {
         self.pos += 4;
         (self.b(self.pos - 2) & 0xFF)
             + ((self.b(self.pos - 3) & 0xFF) << 24)
@@ -141,7 +141,7 @@ impl<'a> ClientPacket<'a> {
     }
 
     /// `b[-4]<<8 | b[-2]<<24 | b[-1]<<16 | b[-3]`
-    fn g4_alt2(&mut self) -> i32 {
+    fn g4s_alt2(&mut self) -> i32 {
         self.pos += 4;
         ((self.b(self.pos - 4) & 0xFF) << 8)
             + ((self.b(self.pos - 2) & 0xFF) << 24)
@@ -191,8 +191,8 @@ fn varp_small_matches_client() {
             val: value as u8,
         });
         let mut p = ClientPacket::new(&bytes);
-        // g1b_alt2 == g1_alt2 sign-extended
-        let raw = p.g1_alt2();
+        // g1b_alt2 == g1_alt3 sign-extended
+        let raw = p.g1_alt3();
         let got = if raw > 127 { raw - 256 } else { raw };
         assert_eq!(got, value, "value round-trip for {value}");
         assert_eq!(p.g2(), 1240, "varp id");
@@ -200,7 +200,7 @@ fn varp_small_matches_client() {
     }
 }
 
-/// Client: `g2 varp`, `g4_alt2 value`.
+/// Client: `g2 varp`, `g4s_alt2 value`.
 #[test]
 fn varp_large_matches_client() {
     use rs_protocol::network::game::server::varp_large::VarpLarge;
@@ -210,7 +210,7 @@ fn varp_large_matches_client() {
     });
     let mut p = ClientPacket::new(&bytes);
     assert_eq!(p.g2(), 1240);
-    assert_eq!(p.g4_alt2(), 0x0123_4567);
+    assert_eq!(p.g4s_alt2(), 0x0123_4567);
     p.done(bytes.len());
 }
 
@@ -218,27 +218,27 @@ fn varp_large_matches_client() {
 // Zone headers -- the base coord is a ZONE INDEX; the client shifts it << 3.
 // ---------------------------------------------------------------------------
 
-/// Client: `g1_alt1 level`, `g1b x << 3`, `g1b_alt2 z << 3`.
+/// Client: `g1_alt2 level`, `g1s x << 3`, `g1b_alt2 z << 3`.
 #[test]
 fn update_zone_partial_follows_matches_client() {
     use rs_protocol::network::game::server::update_zone_partial_follows::UpdateZonePartialFollows;
     let bytes = encode(&UpdateZonePartialFollows { x: 6, z: 9, y: 2 });
     let mut p = ClientPacket::new(&bytes);
-    assert_eq!(p.g1_alt1(), 2, "level");
+    assert_eq!(p.g1_alt2(), 2, "level");
     assert_eq!(p.g1() << 3, 48, "x base tiles (zone 6 -> 48)");
-    assert_eq!(p.g1_alt2() << 3, 72, "z base tiles (zone 9 -> 72)");
+    assert_eq!(p.g1_alt3() << 3, 72, "z base tiles (zone 9 -> 72)");
     p.done(bytes.len());
 }
 
-/// Client: `g1_alt3 level`, `g1b x`, `g1b_alt1 z`.
+/// Client: `g1_alt1 level`, `g1s x`, `g1b_alt1 z`.
 #[test]
 fn update_zone_full_follows_matches_client() {
     use rs_protocol::network::game::server::update_zone_full_follows::UpdateZoneFullFollows;
     let bytes = encode(&UpdateZoneFullFollows { x: 6, z: 9, y: 2 });
     let mut p = ClientPacket::new(&bytes);
-    assert_eq!(p.g1_alt3(), 2, "level");
+    assert_eq!(p.g1_alt1(), 2, "level");
     assert_eq!(p.g1(), 6, "x zone index");
-    assert_eq!(p.g1_alt1(), 9, "z zone index");
+    assert_eq!(p.g1_alt2(), 9, "z zone index");
     p.done(bytes.len());
 }
 
@@ -246,7 +246,7 @@ fn update_zone_full_follows_matches_client() {
 // Zone payloads (ZoneProt, AClass17.java)
 // ---------------------------------------------------------------------------
 
-/// Client OBJ_ADD: `ig2_alt1 count`, `g1 coord`, `ig2_alt1 obj_id`.
+/// Client OBJ_ADD: `g2_alt3 count`, `g1 coord`, `g2_alt3 obj_id`.
 #[test]
 fn obj_add_matches_client() {
     use rs_protocol::network::game::server::obj_add::ObjAdd;
@@ -256,13 +256,13 @@ fn obj_add_matches_client() {
         count: 1000,
     });
     let mut p = ClientPacket::new(&bytes);
-    assert_eq!(p.ig2_alt1(), 1000, "count");
+    assert_eq!(p.g2_alt3(), 1000, "count");
     assert_eq!(p.g1(), 0x35, "packed local coord");
-    assert_eq!(p.ig2_alt1(), 995, "obj id");
+    assert_eq!(p.g2_alt3(), 995, "obj id");
     p.done(bytes.len());
 }
 
-/// Client OBJ_DEL: `g1_alt1 coord`, `ig2_alt1 obj_id`.
+/// Client OBJ_DEL: `g1_alt2 coord`, `g2_alt3 obj_id`.
 #[test]
 fn obj_del_matches_client() {
     use rs_protocol::network::game::server::obj_del::ObjDel;
@@ -271,8 +271,8 @@ fn obj_del_matches_client() {
         id: 995,
     });
     let mut p = ClientPacket::new(&bytes);
-    assert_eq!(p.g1_alt1(), 0x35, "packed local coord");
-    assert_eq!(p.ig2_alt1(), 995, "obj id");
+    assert_eq!(p.g1_alt2(), 0x35, "packed local coord");
+    assert_eq!(p.g2_alt3(), 995, "obj id");
     p.done(bytes.len());
 }
 
@@ -298,7 +298,7 @@ fn obj_count_matches_client() {
 // Interface prots
 // ---------------------------------------------------------------------------
 
-/// Client IF_OPENSUB: `ig2_alt1 sub`, `g4_alt1 parent_hash`, `g1_alt3 walkable`.
+/// Client IF_OPENSUB: `g2_alt3 sub`, `g4s_alt3 parent_hash`, `g1_alt1 walkable`.
 #[test]
 fn if_opensub_matches_client() {
     use rs_protocol::network::game::server::if_opensub::IfOpensub;
@@ -310,26 +310,26 @@ fn if_opensub_matches_client() {
         walkable: 1,
     });
     let mut p = ClientPacket::new(&bytes);
-    assert_eq!(p.ig2_alt1(), 747, "sub interface id");
-    assert_eq!(p.g4_alt1(), parent_hash, "parent component hash");
-    assert_eq!(p.g1_alt3(), 1, "walkable");
+    assert_eq!(p.g2_alt3(), 747, "sub interface id");
+    assert_eq!(p.g4s_alt3(), parent_hash, "parent component hash");
+    assert_eq!(p.g1_alt1(), 1, "walkable");
     p.done(bytes.len());
 }
 
-/// Client IF_OPENTOP: `ig2 interface`, `g1_alt3 flag`.
+/// Client IF_OPENTOP: `g2_alt1 interface`, `g1_alt1 flag`.
 #[test]
 fn if_opentop_matches_client() {
     use rs_protocol::network::game::server::if_opentop::IfOpentop;
     let bytes = encode(&IfOpentop { interface: 746 });
     let mut p = ClientPacket::new(&bytes);
-    assert_eq!(p.ig2(), 746, "toplevel interface id");
-    assert_eq!(p.g1_alt3(), 0, "mode flag");
+    assert_eq!(p.g2_alt1(), 746, "toplevel interface id");
+    assert_eq!(p.g1_alt1(), 0, "mode flag");
     p.done(bytes.len());
 }
 
-/// Client IF_SETCOLOUR: `g4_alt2 hash`, `ig2_alt1 colour`.
+/// Client IF_SETCOLOUR: `g4s_alt2 hash`, `g2_alt3 colour`.
 ///
-/// Regression: previously `ip4` + `p2` -- right byte count, wrong order.
+/// Regression: previously `p4_alt1` + `p2` -- right byte count, wrong order.
 #[test]
 fn if_setcolour_matches_client() {
     use rs_protocol::network::game::server::if_setcolour::IfSetColour;
@@ -339,14 +339,14 @@ fn if_setcolour_matches_client() {
         colour: 0x7ABC,
     });
     let mut p = ClientPacket::new(&bytes);
-    assert_eq!(p.g4_alt2(), hash, "component hash");
-    assert_eq!(p.ig2_alt1(), 0x7ABC, "colour");
+    assert_eq!(p.g4s_alt2(), hash, "component hash");
+    assert_eq!(p.g2_alt3(), 0x7ABC, "colour");
     p.done(bytes.len());
 }
 
-/// Client IF_SETPOSITION: `g4_alt1 hash`, `ig2b_alt1 x`, `ig2b_alt1 y`.
+/// Client IF_SETPOSITION: `g4s_alt3 hash`, `ig2b_alt1 x`, `ig2b_alt1 y`.
 ///
-/// Regression: previously `ip4` + `p2` + `p2`.
+/// Regression: previously `p4_alt1` + `p2` + `p2`.
 #[test]
 fn if_setposition_matches_client() {
     use rs_protocol::network::game::server::if_setposition::IfSetPosition;
@@ -357,9 +357,9 @@ fn if_setposition_matches_client() {
         y: 250,
     });
     let mut p = ClientPacket::new(&bytes);
-    assert_eq!(p.g4_alt1(), hash, "component hash");
-    assert_eq!(p.ig2_alt1(), 120, "x");
-    assert_eq!(p.ig2_alt1(), 250, "y");
+    assert_eq!(p.g4s_alt3(), hash, "component hash");
+    assert_eq!(p.g2_alt3(), 120, "x");
+    assert_eq!(p.g2_alt3(), 250, "y");
     p.done(bytes.len());
 }
 
@@ -372,7 +372,7 @@ fn create_check_name_matches_client() {
     for response in [0u8, 1, 2] {
         let bytes = encode(&CreateCheckName { response });
         let mut p = ClientPacket::new(&bytes);
-        assert_eq!(p.g1_alt1(), response as i32, "response {response}");
+        assert_eq!(p.g1_alt2(), response as i32, "response {response}");
         p.done(bytes.len());
     }
 }
@@ -381,7 +381,7 @@ fn create_check_name_matches_client() {
 // Misc
 // ---------------------------------------------------------------------------
 
-/// Client UPDATE_STAT: `g4_alt2 xp`, `g1 skill`, `g1_alt1 level`.
+/// Client UPDATE_STAT: `g4s_alt2 xp`, `g1 skill`, `g1_alt2 level`.
 #[test]
 fn update_stat_matches_client() {
     use rs_protocol::network::game::server::update_stat::UpdateStat;
@@ -391,20 +391,20 @@ fn update_stat_matches_client() {
         exp: 123_456,
     });
     let mut p = ClientPacket::new(&bytes);
-    assert_eq!(p.g4_alt2(), 123_456, "xp");
+    assert_eq!(p.g4s_alt2(), 123_456, "xp");
     assert_eq!(p.g1(), 23, "skill id");
-    assert_eq!(p.g1_alt1(), 42, "level");
+    assert_eq!(p.g1_alt2(), 42, "level");
     p.done(bytes.len());
 }
 
-/// Client SET_MAP_FLAG: `g1_alt2 x`, `g1_alt2 z`.
+/// Client SET_MAP_FLAG: `g1_alt3 x`, `g1_alt3 z`.
 #[test]
 fn set_map_flag_matches_client() {
     use rs_protocol::network::game::server::set_map_flag::SetMapFlag;
     let bytes = encode(&SetMapFlag { x: 33, z: 61 });
     let mut p = ClientPacket::new(&bytes);
-    assert_eq!(p.g1_alt2(), 33, "x");
-    assert_eq!(p.g1_alt2(), 61, "z");
+    assert_eq!(p.g1_alt3(), 33, "x");
+    assert_eq!(p.g1_alt3(), 61, "z");
     p.done(bytes.len());
 }
 
@@ -422,9 +422,9 @@ fn loc_anim_matches_client() {
         };
         let bytes = encode(&message);
         let mut p = ClientPacket::new(&bytes);
-        assert_eq!(p.g1_alt1(), 0x35);
+        assert_eq!(p.g1_alt2(), 0x35);
         assert_eq!(p.g1(), 10 << 2 | 1);
-        assert_eq!(p.ig2(), seq as i32);
+        assert_eq!(p.g2_alt1(), seq as i32);
         p.done(4);
         assert_eq!(message.sizeof(), bytes.len());
     }
@@ -459,9 +459,9 @@ fn map_projanim_matches_client() {
     assert_eq!(coord & 0x80, 0, "flag");
     assert_eq!(coord >> 3 & 0x7, 3, "x within the zone");
     assert_eq!(coord & 0x7, 5, "z within the zone");
-    assert_eq!(c.g1b(), -4, "dst dx");
-    assert_eq!(c.g1b(), 6, "dst dz");
-    assert_eq!(c.g2b(), -43, "target");
+    assert_eq!(c.g1s(), -4, "dst dx");
+    assert_eq!(c.g1s(), 6, "dst dz");
+    assert_eq!(c.g2s(), -43, "target");
     assert_eq!(c.g2(), 91, "spotanim");
     assert_eq!(c.g1(), 43, "src height");
     assert_eq!(c.g1(), 31, "dst height");
@@ -477,7 +477,7 @@ fn map_projanim_matches_client() {
 // ---------------------------------------------------------------------------
 
 /// `AClass13.method622(const_speed, z, x, var_speed, height)` is fed
-/// `g1_alt1 x; ig2_alt1 height << 2; g1_alt2 z; g1_alt1 const; g1_alt2 var`.
+/// `g1_alt2 x; g2_alt3 height << 2; g1_alt3 z; g1_alt2 const; g1_alt3 var`.
 #[test]
 fn cam_lookat_matches_client() {
     use rs_protocol::network::game::server::cam_lookat::CamLookat;
@@ -489,16 +489,16 @@ fn cam_lookat_matches_client() {
         var_speed: 100,
     });
     let mut c = ClientPacket::new(&bytes);
-    assert_eq!(c.g1_alt1(), 40, "x");
-    assert_eq!(c.ig2_alt1() << 2, 300 << 2, "height, scaled by the client");
-    assert_eq!(c.g1_alt2(), 61, "z");
-    assert_eq!(c.g1_alt1(), 5, "const speed");
-    assert_eq!(c.g1_alt2(), 100, "var speed: 100 and up snaps");
+    assert_eq!(c.g1_alt2(), 40, "x");
+    assert_eq!(c.g2_alt3() << 2, 300 << 2, "height, scaled by the client");
+    assert_eq!(c.g1_alt3(), 61, "z");
+    assert_eq!(c.g1_alt2(), 5, "const speed");
+    assert_eq!(c.g1_alt3(), 100, "var speed: 100 and up snaps");
     c.done(6);
 }
 
 /// `Class36.method269(var, x, true, const, z, height)` is fed
-/// `g1_alt3 x; g1_alt1 z; g1_alt3 var; g2 height << 2; g1_alt3 const`.
+/// `g1_alt1 x; g1_alt2 z; g1_alt1 var; g2 height << 2; g1_alt1 const`.
 #[test]
 fn cam_moveto_matches_client() {
     use rs_protocol::network::game::server::cam_moveto::CamMoveto;
@@ -510,15 +510,15 @@ fn cam_moveto_matches_client() {
         var_speed: 100,
     });
     let mut c = ClientPacket::new(&bytes);
-    assert_eq!(c.g1_alt3(), 40, "x");
-    assert_eq!(c.g1_alt1(), 61, "z");
-    assert_eq!(c.g1_alt3(), 100, "var speed: 100 and up snaps");
+    assert_eq!(c.g1_alt1(), 40, "x");
+    assert_eq!(c.g1_alt2(), 61, "z");
+    assert_eq!(c.g1_alt1(), 100, "var speed: 100 and up snaps");
     assert_eq!(c.g2() << 2, 300 << 2, "height, scaled by the client");
-    assert_eq!(c.g1_alt3(), 5, "const speed");
+    assert_eq!(c.g1_alt1(), 5, "const speed");
     c.done(6);
 }
 
-/// `g1_alt1 jitter; g1 amplitude; ig2_alt1 cycle; g1 type; g1_alt3
+/// `g1_alt2 jitter; g1 amplitude; g2_alt3 cycle; g1 type; g1_alt1
 /// frequency`, stored per axis and read back by `Class237`'s
 /// `random(-jitter..=jitter) + sin(frequency / 100 * cycle) * amplitude`.
 #[test]
@@ -532,16 +532,16 @@ fn cam_shake_matches_client() {
         cycle: 0,
     });
     let mut c = ClientPacket::new(&bytes);
-    assert_eq!(c.g1_alt1(), 3, "jitter");
+    assert_eq!(c.g1_alt2(), 3, "jitter");
     assert_eq!(c.g1(), 25, "amplitude");
-    assert_eq!(c.ig2_alt1(), 0, "starting cycle");
+    assert_eq!(c.g2_alt3(), 0, "starting cycle");
     assert_eq!(c.g1(), 4, "axis");
-    assert_eq!(c.g1_alt3(), 60, "frequency");
+    assert_eq!(c.g1_alt1(), 60, "frequency");
     c.done(6);
 }
 
-/// Opcode 126 is SPOTANIM_SPECIFIC, not MAP_ANIM (109): `g1_alt2 packed;
-/// g1_alt3 channel; g4 target; g2 spotanim; ig2 height; ig2_alt1 delay`.
+/// Opcode 126 is SPOTANIM_SPECIFIC, not MAP_ANIM (109): `g1_alt3 packed;
+/// g1_alt1 channel; g4s target; g2 spotanim; g2_alt1 height; g2_alt3 delay`.
 #[test]
 fn spotanim_specific_matches_client() {
     use rs_protocol::network::game::server::spotanim_specific::SpotanimSpecific;
@@ -559,16 +559,16 @@ fn spotanim_specific_matches_client() {
         delay: 30,
     });
     let mut c = ClientPacket::new(&bytes);
-    let packed = c.g1_alt2();
+    let packed = c.g1_alt3();
     assert_eq!(packed & 0x7, 2, "rotation");
     assert_eq!(packed >> 3 & 0xF, 15, "no label");
-    assert_eq!(c.g1_alt3(), 1, "channel");
-    let target = c.g4();
+    assert_eq!(c.g1_alt1(), 1, "channel");
+    let target = c.g4s();
     assert!(target >> 30 == 0 && target >> 29 != 0, "an npc target");
     assert_eq!(target & 0xFFFF, 4231, "npc index");
     assert_eq!(c.g2(), 74, "spotanim");
-    assert_eq!(c.ig2(), 92, "height");
-    assert_eq!(c.ig2_alt1(), 30, "delay");
+    assert_eq!(c.g2_alt1(), 92, "height");
+    assert_eq!(c.g2_alt3(), 30, "delay");
     c.done(12);
 }
 
@@ -601,7 +601,7 @@ fn text_carries_2011_markup() {
     assert_eq!(message.sizeof(), bytes.len());
 }
 
-/// Client (`MapAreaConfig`, MESSAGE_GAME): `gSmart1or2 type`, `g4`, `g1
+/// Client (`MapAreaConfig`, MESSAGE_GAME): `gSmart1or2 type`, `g4s`, `g1
 /// mask`, a name when mask bit 0 is set (and a second when bit 1 is), then
 /// the text. 289's client read a trade request off the end of a game message
 /// (`<name>:tradereq:`); 2011's is message type 100 from a name, which its
@@ -618,7 +618,7 @@ fn trade_request_is_2011s_type_100() {
     let bytes = encode(&message);
     let mut p = ClientPacket::new(&bytes);
     assert_eq!(p.gsmart1or2(), 100, "type");
-    assert_eq!(p.g4(), 0);
+    assert_eq!(p.g4s(), 0);
     assert_eq!(p.g1(), 1, "a name, no second one");
     assert_eq!(p.gjstr(), "Bob Smith");
     assert_eq!(p.gjstr(), "wishes to trade with you.");
@@ -632,7 +632,7 @@ fn trade_request_is_2011s_type_100() {
     let bytes = encode(&plain);
     let mut p = ClientPacket::new(&bytes);
     assert_eq!(p.gsmart1or2(), 0);
-    assert_eq!(p.g4(), 0);
+    assert_eq!(p.g4s(), 0);
     assert_eq!(p.g1(), 0);
     assert_eq!(p.gjstr(), "Sending trade offer...");
     p.done(bytes.len());
@@ -644,7 +644,7 @@ fn trade_request_is_2011s_type_100() {
 
 /// Client (`MapAreaConfig`, UPDATE_INV_FULL): `g2 inv`, `g1 flags` (bit 0:
 /// the other player's copy of the inv, which trade's other offer shows),
-/// `g2 size`, then per slot `g1 count` (255: `ig4`) and `g2_alt1 obj + 1`.
+/// `g2 size`, then per slot `g1 count` (255: `g4s_alt1`) and `g2_alt2 obj + 1`.
 #[test]
 fn update_inv_full_matches_client() {
     use rs_protocol::network::game::server::update_inv_full::{InvItem, UpdateInvFull};
@@ -671,9 +671,9 @@ fn update_inv_full_matches_client() {
         for _ in 0..3 {
             let mut count = p.g1();
             if count == 255 {
-                count = p.ig4();
+                count = p.g4s_alt1();
             }
-            slots.push((p.g2_alt1() - 1, count));
+            slots.push((p.g2_alt2() - 1, count));
         }
         assert_eq!(slots, [(995, 100_000), (-1, 0), (1351, 1)]);
         p.done(bytes.len());
@@ -685,8 +685,8 @@ fn update_inv_full_matches_client() {
 // ---------------------------------------------------------------------------
 
 /// Client (`MapAreaConfig`, RUNCLIENTSCRIPT): `gjstr types`, then for each
-/// type from the LAST to the first, `gjstr` for an `s` and `g4` otherwise into
-/// that type's own position, then `g4 script`. So the type string runs in
+/// type from the LAST to the first, `gjstr` for an `s` and `g4s` otherwise into
+/// that type's own position, then `g4s script`. So the type string runs in
 /// argument order and the values come last argument first.
 ///
 /// Regression: the type string went out reversed too. With one type of
@@ -720,10 +720,10 @@ fn run_client_script_matches_client() {
         if t == 's' {
             strs[i] = p.gjstr();
         } else {
-            ints[i] = p.g4();
+            ints[i] = p.g4s();
         }
     }
-    assert_eq!(p.g4(), 150, "script id");
+    assert_eq!(p.g4s(), 150, "script id");
     assert_eq!(&ints[..2], &[621 << 16, 93]);
     assert_eq!(&strs[2..], &["Value".to_string(), "Sell 1".to_string()]);
     p.done(bytes.len());

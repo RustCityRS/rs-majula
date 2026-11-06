@@ -1225,7 +1225,6 @@ Each `p2(length)` records the byte length of the corresponding entry in the dat 
 | `p2(v)`    | Write 2 bytes big-endian (unsigned short)                   |
 | `p3(v)`    | Write 3 bytes big-endian                                    |
 | `p4(v)`    | Write 4 bytes big-endian (signed int)                       |
-| `pbool(v)` | Write 1 byte: 0 = false, 1 = true                           |
 | `pjstr(v)` | Write string bytes followed by byte 10 (newline terminator) |
 
 #### Source Text Format
@@ -1377,7 +1376,7 @@ Centrepiece (`_8`) is checked first.
 | 71     | offsety       | `p2(value)`                                                                                         |
 | 72     | offsetz       | `p2(value)`                                                                                         |
 | 73     | forcedecor    | Flag opcode. Emitted when `forcedecor=yes`.                                                         |
-| 249    | params        | `p1(count)` then per param: `p3(param_id) pbool(is_string) [p4(int_value)                           | pjstr(str_value)]` |
+| 249    | params        | `p1(count)` then per param: `p1(is_string as u8) p3(param_id) [p4(int_value)                           | pjstr(str_value)]` |
 | 250    | debugname     | `pjstr(debugname)` (server only)                                                                    |
 
 Client CRC: 891497087
@@ -1658,7 +1657,7 @@ Structs are simple containers of param key-value pairs.
 
 | Opcode | Field     | Format                                                                                          |
 |--------|-----------|-------------------------------------------------------------------------------------------------|
-| 249    | params    | `p1(count)` then per param: `p3(param_id) pbool(is_string) [p4(int_value) \| pjstr(str_value)]` |
+| 249    | params    | `p1(count)` then per param: `p1(is_string as u8) p3(param_id) [p4(int_value) \| pjstr(str_value)]` |
 | 250    | debugname | `pjstr(debugname)`                                                                              |
 
 ##### HUNT (Server-Only)
@@ -2376,7 +2375,7 @@ The server stream includes two additional fields per component that the client s
 
 ```
 pjstr(debug_name)    -- human-readable component name (e.g., "inventory:com_5")
-pbool(is_overlay)    -- true if type is "overlay" rather than "layer"
+p1(is_overlay as u8)    -- true if type is "overlay" rather than "layer"
 ```
 
 ##### Common Fields (Both Client and Server)
@@ -2427,7 +2426,7 @@ for each script:
 
 ```
 p2(scroll)                 -- scroll height in pixels
-pbool(hide)                -- initially hidden
+p1(hide as u8)                -- initially hidden
 p1(child_count)            -- number of child components
 for each child:
     [client only] p2(child_id)
@@ -2440,13 +2439,13 @@ Note: child IDs are only written to the client stream. The server stream omits t
 **Inv (type 2)**
 
 ```
-pbool(draggable)           -- items can be dragged
-pbool(interactable)        -- items can be interacted with
-pbool(usable)              -- items can be used on targets
+p1(draggable as u8)           -- items can be dragged
+p1(interactable as u8)        -- items can be interacted with
+p1(usable as u8)              -- items can be used on targets
 p1(margin_x)               -- horizontal slot margin
 p1(margin_y)               -- vertical slot margin
 for slot 1..20:
-    pbool(has_slot)
+    p1(has_slot as u8)
     if has_slot:
         p2(offset_x)       -- sprite X offset within slot
         p2(offset_y)       -- sprite Y offset within slot
@@ -2460,15 +2459,15 @@ Slot definitions use colon-separated format: `slot1=sprite_name:x,y`.
 **Rect (type 3)**
 
 ```
-pbool(fill)                -- filled or outline only
+p1(fill as u8)                -- filled or outline only
 ```
 
 **Text (type 4)**
 
 ```
-pbool(center)              -- center-aligned text
+p1(center as u8)              -- center-aligned text
 p1(font)                   -- font ID (0-3)
-pbool(shadowed)            -- text shadow enabled
+p1(shadowed as u8)            -- text shadow enabled
 pjstr(text)                -- default text content
 pjstr(activetext)          -- text when component is active/selected
 ```
@@ -2521,13 +2520,13 @@ p2(yan)                    -- Y-axis rotation angle
 **Invtext (type 7)**
 
 ```
-pbool(center)              -- center-aligned text
+p1(center as u8)              -- center-aligned text
 p1(font)                   -- font ID (0-3)
-pbool(shadowed)            -- text shadow enabled
+p1(shadowed as u8)            -- text shadow enabled
 p4(colour)                 -- text color (hex RGB)
 p2(margin_x)               -- horizontal margin
 p2(margin_y)               -- vertical margin
-pbool(interactable)        -- items can be interacted with
+p1(interactable as u8)        -- items can be interacted with
 for option 1..5:
     pjstr(option_text)     -- right-click menu option text
 ```

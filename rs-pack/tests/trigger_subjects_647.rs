@@ -17,9 +17,11 @@
 
 #![cfg(since_647)]
 
+use std::fmt::Debug;
 use std::path::Path;
 use std::sync::{Arc, Mutex};
 use tracing::field::{Field, Visit};
+use tracing::subscriber::with_default;
 use tracing_subscriber::Layer;
 use tracing_subscriber::layer::{Context, SubscriberExt};
 
@@ -30,7 +32,7 @@ impl<S: tracing::Subscriber> Layer<S> for Unresolved {
     fn on_event(&self, event: &tracing::Event<'_>, _: Context<'_, S>) {
         struct Message(String);
         impl Visit for Message {
-            fn record_debug(&mut self, field: &Field, value: &dyn std::fmt::Debug) {
+            fn record_debug(&mut self, field: &Field, value: &dyn Debug) {
                 if field.name() == "message" {
                     self.0 = format!("{value:?}");
                 }
@@ -49,7 +51,7 @@ fn every_trigger_subject_resolves() {
     let content = Path::new(env!("CARGO_MANIFEST_DIR")).join("../content/647");
     let seen = Arc::new(Mutex::new(Vec::new()));
     let subscriber = tracing_subscriber::registry().with(Unresolved(seen.clone()));
-    tracing::subscriber::with_default(subscriber, || {
+    with_default(subscriber, || {
         runec::compile_memory(&content.join("scripts"), Some(&content.join("pack")), false)
             .expect("content/647 compiles")
     });

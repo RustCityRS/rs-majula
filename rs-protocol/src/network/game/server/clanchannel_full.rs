@@ -1,6 +1,5 @@
 #[cfg(since_647)]
 use crate::network::game::server_prot::ServerProt;
-use crate::network::game::server_prot_message::jstr_len;
 #[cfg(since_647)]
 use crate::network::game::server_prot_message::{ServerProtMessage, ServerProtMessageInfo};
 #[cfg(since_647)]
@@ -80,7 +79,7 @@ impl ServerProtMessage for ClanchannelFull {
                     + size_of_val(&ch.flags)
                     + size_of_val(&ch.link_id)
                     + size_of_val(&ch.update_num)
-                    + jstr_len(&ch.name)
+                    + Packet::sizejstr(&ch.name)
                     + 1
                     + size_of_val(&ch.rank_kick)
                     + size_of_val(&ch.rank_talk)
@@ -94,8 +93,8 @@ impl ServerProtMessage for ClanchannelFull {
                             sz += size_of_val(&u.user_hash.unwrap_or(0));
                         }
                         if use_names {
-                            sz += u.display_name.as_ref().map_or(1, |s| jstr_len(s));
-                            sz += u.real_name.as_ref().map_or(1, |s| jstr_len(s));
+                            sz += u.display_name.as_ref().map_or(1, |s| Packet::sizejstr(s));
+                            sz += u.real_name.as_ref().map_or(1, |s| Packet::sizejstr(s));
                         }
                         sz
                     })

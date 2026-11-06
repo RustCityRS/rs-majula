@@ -1,4 +1,6 @@
 #[cfg(since_647)]
+use crate::archive::INTERFACES as INTERFACE_ARCHIVE;
+#[cfg(since_647)]
 use crate::cache::r#if::HookArg;
 use crate::cache::r#if::IfTypeRaw;
 #[cfg(before_647)]
@@ -12,15 +14,13 @@ use crate::types::{Font, IfButtonType, PlayerStat};
 use anyhow::Result;
 #[cfg(since_647)]
 use anyhow::{Context, Result};
-#[cfg(since_647)]
-use rs_dat2::CacheStore;
-#[cfg(since_647)]
-use rs_dat2::archive::INTERFACES as INTERFACE_ARCHIVE;
 use rs_io::Packet;
-#[cfg(since_647)]
-use rs_io::crc::getcrc;
 #[cfg(before_647)]
 use rs_io::jag::JagFile;
+#[cfg(since_647)]
+use rs_io::js5::Js5Store;
+#[cfg(since_647)]
+use rs_io::js5::compression::Container;
 #[cfg(since_647)]
 use serde::{Deserialize, Serialize};
 #[cfg(before_647)]
@@ -660,7 +660,7 @@ pub fn unpack_interface(
 }
 
 #[cfg(since_647)]
-pub fn unpack_interfaces(store: &mut CacheStore, content_dir: &Path) -> Result<u32> {
+pub fn unpack_interfaces(store: &mut Js5Store, content_dir: &Path) -> Result<u32> {
     let if_dir = content_dir.join("interfaces").join("_unpack");
     fs::create_dir_all(&if_dir)?;
 
@@ -679,21 +679,7 @@ pub fn unpack_interfaces(store: &mut CacheStore, content_dir: &Path) -> Result<u
             continue;
         }
 
-        let comp_type = raw[0];
-        let compressed_len = u32::from_be_bytes([raw[1], raw[2], raw[3], raw[4]]) as usize;
-        let header_size = if comp_type == 0 { 5 } else { 9 };
-        let decompressed_len = if comp_type != 0 && raw.len() >= 9 {
-            u32::from_be_bytes([raw[5], raw[6], raw[7], raw[8]])
-        } else {
-            compressed_len as u32
-        };
-        let container_end = header_size + compressed_len;
-        let version = if raw.len() >= container_end + 2 {
-            u16::from_be_bytes([raw[container_end], raw[container_end + 1]])
-        } else {
-            0
-        };
-        let crc = getcrc(&raw, 0, container_end.min(raw.len())) as u32;
+        let container = Container::parse(&raw)?;
 
         let Some(group) = store
             .read_group(INTERFACE_ARCHIVE, group_id)
@@ -706,11 +692,11 @@ pub fn unpack_interfaces(store: &mut CacheStore, content_dir: &Path) -> Result<u
         let mut comp_count = 0u32;
 
         for entry in &group.entries {
-            if entry.data.is_empty() {
+            if entry.data().is_empty() {
                 continue;
             }
             let comp = IfTypeRaw::decode(
-                &mut Packet::from(entry.data.to_vec()),
+                &mut Packet::from(entry.data().to_vec()),
                 entry.id as u16,
                 group_id as i32,
             );
@@ -725,11 +711,11 @@ pub fn unpack_interfaces(store: &mut CacheStore, content_dir: &Path) -> Result<u
         manifest.groups.push(InterfaceGroupEntry {
             group_id,
             file_name,
-            compression: comp_type,
-            version,
-            compressed_len: compressed_len as u32,
-            decompressed_len,
-            crc,
+            compression: container.compression as u8,
+            version: container.version.unwrap_or(0),
+            compressed_len: container.compressed_len,
+            decompressed_len: container.uncompressed_len,
+            crc: container.crc(),
             component_count: comp_count,
         });
         written += 1;

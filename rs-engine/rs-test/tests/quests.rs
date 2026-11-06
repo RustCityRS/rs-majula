@@ -2,7 +2,7 @@
 //!
 //! 2011's quest tab (questlist_v4, interface 190) is one list, a row per 2011
 //! quest id (clientscript 2193); View, a row's op 1, is IF_BUTTON1 on
-//! component 18 with the row as its slot (`p4(com) ip2_alt1(obj) ip2(slot)`),
+//! component 18 with the row as its slot (`p4(com) p2_alt3(obj) p2_alt1(slot)`),
 //! answered by `[if_button1,questlist_v4:com18]`. The server
 //! opens that quest's 289 journal on 2011's journal scroll
 //! (questjournal_scroll, interface 275: the name on component 2, `ifquestname`,
@@ -51,7 +51,7 @@ fn view_on_cooks_assistant_opens_its_2011_journal() {
         client.packets();
 
         let mut p = ClientPacket::new();
-        p.p4(QUEST_LIST).ip2_alt1(-1).ip2(COOKS_ASSISTANT);
+        p.p4(QUEST_LIST).p2_alt3(-1).p2_alt1(COOKS_ASSISTANT);
         client.send(ClientProt::IfButton1, &p.finish());
         let mut texts = Vec::new();
         for _ in 0..3 {

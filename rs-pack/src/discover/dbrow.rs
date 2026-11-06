@@ -13,12 +13,11 @@
 //! Removed names leave their ids unused (gaps), so other content referencing
 //! ids stays valid across runs.
 
+use anyhow::{Context, Result};
 use std::collections::{BTreeMap, BTreeSet};
-use std::fs;
+use std::fs::{self, File};
 use std::io::Write;
 use std::path::{Path, PathBuf};
-
-use anyhow::{Context, Result};
 use tracing::{debug, info, warn};
 
 /// Summary of one discovery pass.
@@ -200,7 +199,7 @@ fn write_pack(path: &Path, names: &BTreeSet<String>, _force: bool) -> Result<(us
         removed
     );
 
-    let mut f = fs::File::create(path).with_context(|| format!("creating {}", path.display()))?;
+    let mut f = File::create(path).with_context(|| format!("creating {}", path.display()))?;
     for (id, name) in &id_to_debugname {
         writeln!(f, "{}={}", id, name)?;
     }

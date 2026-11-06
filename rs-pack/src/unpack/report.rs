@@ -1,3 +1,7 @@
+#[cfg(before_647)]
+use super::namecrack;
+#[cfg(before_647)]
+use crate::archive::JAG_ARCHIVES;
 #[cfg(since_647)]
 use anyhow::Result;
 #[cfg(before_647)]
@@ -8,6 +12,9 @@ use rs_io::jag::JagFile;
 use std::collections::{BTreeMap, BTreeSet, HashSet};
 #[cfg(before_647)]
 use std::fmt::{Display, Write as _};
+use std::fs;
+#[cfg(before_647)]
+use std::io;
 #[cfg(since_647)]
 use std::path::Path;
 #[cfg(before_647)]
@@ -97,9 +104,9 @@ impl CrcReport {
         });
     }
 
-    pub fn write(&self, output_dir: &Path) -> std::io::Result<()> {
+    pub fn write(&self, output_dir: &Path) -> io::Result<()> {
         let dir = output_dir.join("_crc");
-        std::fs::create_dir_all(&dir)?;
+        fs::create_dir_all(&dir)?;
         let path = dir.join("report.txt");
 
         let mut out = String::new();
@@ -109,7 +116,7 @@ impl CrcReport {
             "# cache    = CRC computed from the cache being unpacked (the source/expected dir)\n",
         );
         out.push_str(
-            "# constant = hard-coded jag_crc::* / config_crc::* value for the active revision\n",
+            "# constant = hard-coded archive::EXPECTED_CRCS / config_crc::* value for the active revision\n",
         );
         out.push('\n');
         out.push_str("# JAG archive CRCs (cache CRC over each archive's raw bytes)\n");
@@ -168,7 +175,7 @@ impl CrcReport {
             }
         }
 
-        std::fs::write(&path, &out)?;
+        fs::write(&path, &out)?;
         if mismatches == 0 {
             info!("CRC report: all CRCs match - {}", path.display());
         } else {
@@ -250,7 +257,7 @@ impl LeftoverReport {
             return;
         }
         let targets: Vec<i32> = self.unknown_jag.iter().map(|u| u.hash).collect();
-        let cracked = super::namecrack::crack(&targets);
+        let cracked = namecrack::crack(&targets);
         for entry in &mut self.unknown_jag {
             if let Some(names) = cracked.get(&entry.hash) {
                 entry.candidates = names.clone();
@@ -291,13 +298,13 @@ impl LeftoverReport {
         empty
     }
 
-    pub fn write(&self, output_dir: &Path) -> std::io::Result<()> {
+    pub fn write(&self, output_dir: &Path) -> io::Result<()> {
         let dir = output_dir.join("_leftover");
-        std::fs::create_dir_all(&dir)?;
+        fs::create_dir_all(&dir)?;
         let path = dir.join("report.txt");
 
         if self.is_empty() {
-            std::fs::write(&path, "No unaccounted data detected during unpack.\n")?;
+            fs::write(&path, "No unaccounted data detected during unpack.\n")?;
             info!("Leftover report: no unaccounted data - {}", path.display());
             return Ok(());
         }
@@ -364,7 +371,7 @@ impl LeftoverReport {
             }
         }
 
-        std::fs::write(&path, &out)?;
+        fs::write(&path, &out)?;
 
         // One concise warning per category - the file holds the detail.
         warn!(
@@ -459,7 +466,7 @@ impl MapDiff {
 
 #[cfg(before_647)]
 impl PackDiffReport {
-    pub fn compare(committed_dir: &Path, unpacked_dir: &Path) -> std::io::Result<Self> {
+    pub fn compare(committed_dir: &Path, unpacked_dir: &Path) -> io::Result<Self> {
         let committed = collect_pack_files(committed_dir)?;
         let unpacked = collect_pack_files(unpacked_dir)?;
 
@@ -518,11 +525,7 @@ impl PackDiffReport {
         Ok(report)
     }
 
-    pub fn compare_maps(
-        &mut self,
-        committed_maps: &Path,
-        unpacked_maps: &Path,
-    ) -> std::io::Result<()> {
+    pub fn compare_maps(&mut self, committed_maps: &Path, unpacked_maps: &Path) -> io::Result<()> {
         let committed = collect_map_squares(committed_maps)?;
         let unpacked = collect_map_squares(unpacked_maps)?;
         self.maps = Some(MapDiff {
@@ -534,9 +537,9 @@ impl PackDiffReport {
         Ok(())
     }
 
-    pub fn write(&self, output_dir: &Path) -> std::io::Result<()> {
+    pub fn write(&self, output_dir: &Path) -> io::Result<()> {
         let dir = output_dir.join("_packdiff");
-        std::fs::create_dir_all(&dir)?;
+        fs::create_dir_all(&dir)?;
         let path = dir.join("report.txt");
 
         let compared = self.files.len() + self.unchanged_files;
@@ -570,7 +573,7 @@ impl PackDiffReport {
                 .unwrap();
             }
             out.push_str(&footer);
-            std::fs::write(&path, &out)?;
+            fs::write(&path, &out)?;
             info!(
                 "Pack-diff report: no id deltas across {compared} unpacked .pack file(s) vs {} - {}",
                 self.committed_dir.display(),
@@ -647,7 +650,7 @@ impl PackDiffReport {
         }
 
         out.push_str(&footer);
-        std::fs::write(&path, &out)?;
+        fs::write(&path, &out)?;
         let map_clause = match &self.maps {
             Some(m) if m.has_delta() => {
                 format!(", maps +{} -{}", m.added.len(), m.removed.len())
@@ -665,7 +668,7 @@ impl PackDiffReport {
 }
 
 #[cfg(before_647)]
-fn collect_pack_files(root: &Path) -> std::io::Result<BTreeMap<String, PathBuf>> {
+fn collect_pack_files(root: &Path) -> io::Result<BTreeMap<String, PathBuf>> {
     let mut files = BTreeMap::new();
     if root.exists() {
         collect_packs_into(root, root, &mut files)?;
@@ -678,8 +681,8 @@ fn collect_packs_into(
     root: &Path,
     dir: &Path,
     files: &mut BTreeMap<String, PathBuf>,
-) -> std::io::Result<()> {
-    for entry in std::fs::read_dir(dir)? {
+) -> io::Result<()> {
+    for entry in fs::read_dir(dir)? {
         let path = entry?.path();
         if path.is_dir() {
             collect_packs_into(root, &path, files)?;
@@ -693,8 +696,8 @@ fn collect_packs_into(
 }
 
 #[cfg(before_647)]
-fn parse_pack(path: &Path) -> std::io::Result<BTreeMap<String, String>> {
-    let text = std::fs::read_to_string(path)?;
+fn parse_pack(path: &Path) -> io::Result<BTreeMap<String, String>> {
+    let text = fs::read_to_string(path)?;
     let mut map = BTreeMap::new();
     for line in text.lines() {
         if let Some((id, name)) = line.split_once('=') {
@@ -710,10 +713,10 @@ fn id_key(id: &str) -> (i64, String) {
 }
 
 #[cfg(before_647)]
-fn collect_map_squares(dir: &Path) -> std::io::Result<BTreeSet<(u8, u8)>> {
+fn collect_map_squares(dir: &Path) -> io::Result<BTreeSet<(u8, u8)>> {
     let mut squares = BTreeSet::new();
     if dir.exists() {
-        for entry in std::fs::read_dir(dir)? {
+        for entry in fs::read_dir(dir)? {
             if let Some(sq) = entry?
                 .path()
                 .file_name()
@@ -810,24 +813,13 @@ fn crc_status(computed: i32, expected: Option<i32>) -> (&'static str, bool) {
     }
 }
 
-#[cfg(all(since_244, before_647))]
+#[cfg(before_647)]
 fn idx0_of(name: &str) -> Option<usize> {
-    Some(match name {
-        "title" => 1,
-        "config" => 2,
-        "interface" => 3,
-        "media" => 4,
-        "versionlist" => 5,
-        "textures" => 6,
-        "wordenc" => 7,
-        "sounds" => 8,
-        _ => return None,
-    })
-}
-
-#[cfg(rev = "225")]
-fn idx0_of(_name: &str) -> Option<usize> {
-    None
+    JAG_ARCHIVES
+        .iter()
+        .find(|kind| kind.name() == name)?
+        .id()
+        .map(|id| id as usize)
 }
 
 #[cfg(since_647)]
@@ -883,7 +875,7 @@ pub(super) fn write_report(results: &[StepResult], report_path: &Path) -> Result
         ));
     }
     report_text.push_str(&format!("\n{} steps, {} failed\n", results.len(), failures));
-    std::fs::write(report_path, &report_text)?;
+    fs::write(report_path, &report_text)?;
     info!("Unpack complete. Report: {}", report_path.display());
     if failures > 0 {
         error!("{failures} unpack steps failed — see report");

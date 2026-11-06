@@ -35,11 +35,11 @@ pub struct OpPlayerT {
 #[cfg(since_647)]
 impl ClientProtMessage for OpPlayerT {
     fn decode(buf: &mut Packet, _: usize) -> Self {
-        let pid = buf.g2_alt1();
-        let slot = buf.ig2();
+        let pid = buf.g2_alt2();
+        let slot = buf.g2_alt1();
         let com = buf.g4s() as u32;
-        let ctrl = buf.g1_alt2() != 0;
-        let obj = buf.ig2();
+        let ctrl = buf.g1_alt3() != 0;
+        let obj = buf.g2_alt1();
         OpPlayerT {
             pid,
             obj,

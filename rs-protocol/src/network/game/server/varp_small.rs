@@ -26,7 +26,7 @@ impl ServerProtMessage for VarpSmall {
 #[cfg(since_647)]
 impl ServerProtMessage for VarpSmall {
     fn encode(&self, buf: &mut Packet) {
-        buf.p1_alt2(self.val);
+        buf.p1_alt3(self.val);
         buf.p2(self.id);
     }
 

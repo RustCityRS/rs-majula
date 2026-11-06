@@ -35,7 +35,7 @@ use midi::MidiProvider;
 #[cfg(since_647)]
 use rs_crypto::huffman::Huffman;
 #[cfg(since_647)]
-use rs_dat2::CacheStore as Js5CacheStore;
+use rs_io::js5::Js5Store;
 #[cfg(rev = "225")]
 use seq_frame::SeqFrameProvider;
 use std::collections::HashMap;
@@ -302,7 +302,7 @@ impl VarValue {
 impl CacheStore {
     pub fn from_packed_config(
         config: PackedConfig,
-        cache: &mut Js5CacheStore,
+        cache: &mut Js5Store,
         server_dir: &Path,
     ) -> Result<Box<CacheStore>> {
         let (mut mapsquares, mapcrcs) = loader::load_mapsquares(cache)?;

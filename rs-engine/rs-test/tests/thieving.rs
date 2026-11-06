@@ -1,8 +1,8 @@
 //! Thieving from 289, at 2011's npcs, stalls and chests.
 //!
-//! Each case clicks as the 647 client does (`OPNPC3`: `g1_alt2(ctrl)
-//! g2_alt1(npc)`; `OPLOC1`/`OPLOC2`: `ig2(loc) g1_alt1(ctrl) g2_alt1(z)
-//! ig2_alt1(x)`) with the player at 99 Thieving, so 289's success rolls
+//! Each case clicks as the 647 client does (`OPNPC3`: `g1_alt3(ctrl)
+//! g2_alt2(npc)`; `OPLOC1`/`OPLOC2`: `g2_alt1(loc) g1_alt2(ctrl) g2_alt2(z)
+//! g2_alt3(x)`) with the player at 99 Thieving, so 289's success rolls
 //! almost always pass, and waits for the outcome.
 //!
 //! - A Lumbridge man (2011's `man_7873`-`man_7879`, void-634's
@@ -51,12 +51,16 @@ const MARKETTHIEF: u16 = 174;
 fn op_loc(client: &mut HarnessClient, prot: ClientProt, (loc, x, z): (u16, u16, u16)) {
     let mut p = ClientPacket::new();
     match prot {
-        ClientProt::OpLoc1 => p.ip2(z as i32).ip2(loc as i32).p1(0).p2_alt1(x as i32),
-        _ => p
-            .ip2(loc as i32)
-            .p1_alt1(0)
+        ClientProt::OpLoc1 => p
             .p2_alt1(z as i32)
-            .ip2_alt1(x as i32),
+            .p2_alt1(loc as i32)
+            .p1(0)
+            .p2_alt2(x as i32),
+        _ => p
+            .p2_alt1(loc as i32)
+            .p1_alt2(0)
+            .p2_alt2(z as i32)
+            .p2_alt3(x as i32),
     };
     client.send(prot, &p.finish());
 }
@@ -139,7 +143,7 @@ fn a_lumbridge_man_s_pocket_pays_three_coins() {
             .expect("a man of Lumbridge");
         let mut client = thief(engine, "pickpocket", x + 1, z);
         let mut p = ClientPacket::new();
-        p.p1_alt2(0).p2_alt1(nid as i32);
+        p.p1_alt3(0).p2_alt2(nid as i32);
         client.send(ClientProt::OpNpc3, &p.finish());
         let said = run(engine, &mut client, 20, |e, pid| count(e, pid, "coins") > 0);
         assert_eq!(
@@ -355,7 +359,7 @@ fn a_stunned_player_cannot_walk() {
             .find(|&(tx, tz)| !rsmod::is_flagged(tx, tz, 0, 0x100 | 0x200000))
             .expect("a walkable tile near the thief");
         let mut p = ClientPacket::new();
-        p.ip2(dx as i32).p1_alt3(0).p2(dz as i32);
+        p.p2_alt1(dx as i32).p1_alt1(0).p2(dz as i32);
         client.send(ClientProt::MoveGameClick, &p.finish());
         let said = run(engine, &mut client, 5, |_, _| false);
         assert!(said.contains(&"You're stunned!".to_string()), "{said:?}");

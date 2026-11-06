@@ -19,8 +19,8 @@ pub struct IfSetGraphic {
 #[cfg(since_647)]
 impl ServerProtMessage for IfSetGraphic {
     fn encode(&self, buf: &mut Packet) {
-        buf.ip4(self.com);
-        buf.p2_alt1(self.graphic);
+        buf.p4_alt1(self.com);
+        buf.p2_alt2(self.graphic);
     }
 
     fn sizeof(&self) -> usize {

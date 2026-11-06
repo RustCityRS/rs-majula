@@ -1,6 +1,5 @@
 #[cfg(since_647)]
 use crate::network::game::server_prot::ServerProt;
-use crate::network::game::server_prot_message::jstr_len;
 #[cfg(since_647)]
 use crate::network::game::server_prot_message::{ServerProtMessage, ServerProtMessageInfo};
 #[cfg(since_647)]
@@ -42,10 +41,10 @@ impl ServerProtMessage for UpdateIgnorelistFull {
             .entries
             .iter()
             .map(|e| {
-                jstr_len(&e.name)
-                    + jstr_len(&e.display_name)
-                    + jstr_len(&e.prev_name)
-                    + jstr_len(&e.prev_display_name)
+                Packet::sizejstr(&e.name)
+                    + Packet::sizejstr(&e.display_name)
+                    + Packet::sizejstr(&e.prev_name)
+                    + Packet::sizejstr(&e.prev_display_name)
             })
             .sum::<usize>()
     }

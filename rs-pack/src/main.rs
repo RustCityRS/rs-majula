@@ -1,7 +1,24 @@
-use std::path::PathBuf;
-
 use anyhow::Result;
-use clap::{Parser, Subcommand};
+#[cfg(since_647)]
+use anyhow::{Context, bail};
+use clap::{ArgAction, Parser, Subcommand};
+#[cfg(since_647)]
+use rs_pack::archive::ARCHIVE_IDS;
+#[cfg(since_647)]
+use rs_pack::openrs2;
+#[cfg(before_647)]
+use rs_pack::pyxel;
+use rs_pack::unpack;
+#[cfg(since_647)]
+use rs_pack::unpack::Domains;
+#[cfg(since_647)]
+use std::fs;
+#[cfg(since_647)]
+use std::path::Path;
+use std::path::PathBuf;
+#[cfg(since_647)]
+use std::str::from_utf8;
+use tracing_subscriber::EnvFilter;
 
 #[derive(Parser)]
 #[command(author, version, about = "RuneScape Config Pack Tool")]
@@ -22,7 +39,7 @@ enum Commands {
         pack: PathBuf,
         /// Strict CRC verification against the original cache (`--verify false`
         /// to pack edited/custom content that intentionally differs)
-        #[arg(long, action = clap::ArgAction::Set, default_value_t = true)]
+        #[arg(long, action = ArgAction::Set, default_value_t = true)]
         verify: bool,
         #[arg(long, default_value = "true")]
         members: bool,
@@ -92,8 +109,8 @@ enum Commands {
 fn main() -> Result<()> {
     tracing_subscriber::fmt()
         .with_env_filter(
-            tracing_subscriber::EnvFilter::try_from_default_env()
-                .unwrap_or_else(|_| tracing_subscriber::EnvFilter::new("info,runec=error")),
+            EnvFilter::try_from_default_env()
+                .unwrap_or_else(|_| EnvFilter::new("info,runec=error")),
         )
         .init();
 
@@ -150,9 +167,9 @@ fn main() -> Result<()> {
             force,
         } => fetch(cache, &output, &work_dir, keys, force)?,
         #[cfg(before_647)]
-        Commands::ToPyxel { source } => rs_pack::pyxel::content_to_pyxel(&source)?,
+        Commands::ToPyxel { source } => pyxel::content_to_pyxel(&source)?,
         #[cfg(before_647)]
-        Commands::FromPyxel { source } => rs_pack::pyxel::content_from_pyxel(&source)?,
+        Commands::FromPyxel { source } => pyxel::content_from_pyxel(&source)?,
         Commands::Unpack {
             expected,
             output,
@@ -164,17 +181,13 @@ fn main() -> Result<()> {
         } => {
             let pack = pack.unwrap_or_else(|| output.join("pack"));
             #[cfg(before_647)]
-            rs_pack::unpack::unpack_all(&expected, &output, &pack)?;
+            unpack::unpack_all(&expected, &output, &pack)?;
             #[cfg(since_647)]
             match only {
-                None => rs_pack::unpack::unpack_all(&expected, &output, &pack)?,
-                Some(list) => rs_pack::unpack::unpack(
-                    &expected,
-                    &output,
-                    &pack,
-                    rs_pack::unpack::Domains::parse(&list)?,
-                    &work_dir,
-                )?,
+                None => unpack::unpack_all(&expected, &output, &pack)?,
+                Some(list) => {
+                    unpack::unpack(&expected, &output, &pack, Domains::parse(&list)?, &work_dir)?
+                }
             }
         }
     }
@@ -185,14 +198,11 @@ fn main() -> Result<()> {
 #[cfg(since_647)]
 fn fetch(
     cache: Option<u32>,
-    output: &std::path::Path,
-    work_dir: &std::path::Path,
+    output: &Path,
+    work_dir: &Path,
     keys: Option<PathBuf>,
     force: bool,
 ) -> Result<()> {
-    use anyhow::{Context, bail};
-    use rs_pack::openrs2;
-
     let id = cache
         .or(openrs2::default_cache_id())
         .context("this revision has no OpenRS2 reference cache; pass --cache")?;
@@ -214,8 +224,8 @@ fn fetch(
         tracing::info!("extracted {} files into {}", files.len(), output.display());
     }
 
-    let archives = rs_pack::startup::MASTER_INDEX_ORDER;
-    let mismatches = openrs2::verify_reference_tables(output, id, &archives, work_dir)?;
+    let archives = ARCHIVE_IDS;
+    let mismatches = openrs2::verify_reference_tables(output, id, archives, work_dir)?;
     if !mismatches.is_empty() {
         for m in &mismatches {
             tracing::error!(
@@ -237,13 +247,11 @@ fn fetch(
         archives.len()
     );
 
-    let keys = keys.unwrap_or_else(|| std::path::Path::new(rs_pack::CONTENT_DIR).join("keys.json"));
+    let keys = keys.unwrap_or_else(|| Path::new(rs_pack::CONTENT_DIR).join("keys.json"));
     let local = openrs2::parse_keys(
-        &std::fs::read_to_string(&keys).with_context(|| format!("reading {}", keys.display()))?,
+        &fs::read_to_string(&keys).with_context(|| format!("reading {}", keys.display()))?,
     )?;
-    let remote = openrs2::parse_keys(std::str::from_utf8(&openrs2::get_bytes(
-        &openrs2::keys_url(id),
-    )?)?)?;
+    let remote = openrs2::parse_keys(from_utf8(&openrs2::get_bytes(&openrs2::keys_url(id))?)?)?;
     // Extra local keys are expected: squares rebuilt from donor caches are
     // re-encrypted with their committed key. Only a missing or different key
     // means the committed file is wrong.

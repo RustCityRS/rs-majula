@@ -278,7 +278,7 @@ fn pack_single_typed_value(packed: &mut PackedData, ty: &str, v: &str) {
 
 /// Pack MEL op15 complex format.
 ///
-/// Value: "count,<count*2 x g2b values>,<g4>,count2,<count2 x g4>,<count x g1b>"
+/// Value: "count,<count*2 x g2b values>,<g4>,count2,<count2 x g4>,<count x g1s>"
 fn pack_mel_op15(packed: &mut PackedData, value: &str) {
     let values: Vec<&str> = value.split(',').map(str::trim).collect();
     let mut idx = 0;
@@ -311,7 +311,7 @@ fn pack_mel_op15(packed: &mut PackedData, value: &str) {
         idx += 1;
     }
 
-    // count x g1b
+    // count x g1s
     for _ in 0..count {
         let v: i8 = values.get(idx).and_then(|v| v.parse().ok()).unwrap_or(0);
         packed.p1(v as u8);
@@ -361,5 +361,20 @@ fn pack_params(packed: &mut PackedData, value: &str) {
             packed.p4(v);
         }
         idx += 1;
+    }
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn signed_byte_content_tags_preserve_their_payloads() {
+        let mut packed = PackedData::new(1);
+        packed.start_entry();
+        pack_generic_prop(&mut packed, "op1_g1b", "-89");
+        pack_generic_prop(&mut packed, "op2_g1b_g2", "-1,4660");
+        packed.finish_entry();
+        assert_eq!(packed.dat[2..], [1, 167, 2, 255, 0x12, 0x34, 0]);
     }
 }

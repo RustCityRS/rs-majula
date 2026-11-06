@@ -125,11 +125,11 @@ impl ServerProtMessage for RebuildNormal {
         }
 
         // Header
-        buf.ip2(chunk_x);
+        buf.p2_alt1(chunk_x);
         let login_val: u8 = if self.login { 1 } else { 0 };
-        buf.p1_alt1(login_val);
-        buf.p1_alt1(0); // build_area_idx
-        buf.ip2_alt1(chunk_z);
+        buf.p1_alt2(login_val);
+        buf.p1_alt2(0); // build_area_idx
+        buf.p2_alt3(chunk_z);
 
         // XTEA keys (4 × i32 BE per mapsquare)
         for keys in &self.xtea_keys {

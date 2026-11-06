@@ -1,9 +1,20 @@
 #[cfg(since_647)]
-use anyhow::Result;
+use crate::archive;
 #[cfg(since_647)]
-use rs_dat2::compression::{self, Xtea};
+use anyhow::{Context, Result};
 #[cfg(since_647)]
-use rs_io::crc::getcrc;
+use rs_io::js5::java_string_hash;
+#[cfg(since_647)]
+use serde::Deserialize;
+#[cfg(since_647)]
+use std::{
+    collections::HashMap,
+    fs,
+    path::Path,
+    sync::{Arc, OnceLock},
+};
+#[cfg(since_647)]
+use tracing::info;
 
 #[derive(Debug, Clone)]
 pub struct TerrainData {
@@ -526,53 +537,90 @@ pub(crate) fn glargesmart(cur: &mut &[u8]) -> i32 {
     }
 }
 
+/// XTEA keys for map region decryption, keyed by name hash of "l{mx}_{mz}".
 #[cfg(since_647)]
-pub fn decrypt_and_decompress(raw: &[u8], keys: &[i32; 4]) -> Result<Vec<u8>> {
-    if raw.len() < 5 {
-        anyhow::bail!("container too short ({} bytes)", raw.len());
-    }
-
-    let all_zero = keys.iter().all(|&k| k == 0);
-
-    let mut buf = raw.to_vec();
-    if buf.len() >= 7 {
-        let comp_type = buf[0];
-        let compressed_len = u32::from_be_bytes([buf[1], buf[2], buf[3], buf[4]]) as usize;
-        let header_size = if comp_type == 0 { 5 } else { 9 };
-        let container_end = header_size + compressed_len;
-        if buf.len() > container_end {
-            buf.truncate(container_end);
-        }
-    }
-
-    if !all_zero {
-        let encrypted_section = &mut buf[5..];
-        let block_len = (encrypted_section.len() >> 3) << 3;
-        if block_len > 0 {
-            let u32_keys: [u32; 4] = [
-                keys[0] as u32,
-                keys[1] as u32,
-                keys[2] as u32,
-                keys[3] as u32,
-            ];
-            Xtea::decrypt(&mut encrypted_section[..block_len], &u32_keys)
-                .map_err(|_| anyhow::anyhow!("XTEA decryption failed"))?;
-        }
-    }
-
-    let decompressed =
-        compression::decompress(&buf).map_err(|e| anyhow::anyhow!("decompress failed: {}", e))?;
-    Ok(decompressed.to_vec())
+#[derive(Clone)]
+pub struct XteaKeyStore {
+    keys: Arc<HashMap<i32, [i32; 4]>>,
 }
 
 #[cfg(since_647)]
-pub fn container_crc(raw: &[u8], compression_type: u8) -> u32 {
-    let header_size: usize = if compression_type == 0 { 5 } else { 9 };
-    let compressed_len = if raw.len() >= 5 {
-        u32::from_be_bytes([raw[1], raw[2], raw[3], raw[4]]) as usize
-    } else {
-        0
-    };
-    let container_end = (header_size + compressed_len).min(raw.len());
-    getcrc(raw, 0, container_end) as u32
+static GLOBAL: OnceLock<XteaKeyStore> = OnceLock::new();
+
+#[cfg(since_647)]
+impl XteaKeyStore {
+    /// Load XTEA keys from an OpenRS2-format keys.json file.
+    pub fn load(path: &Path) -> anyhow::Result<Self> {
+        let map = load_xtea_keys(path)?;
+        info!("Loaded {} XTEA keys from {:?}", map.len(), path);
+        Ok(Self {
+            keys: Arc::new(map),
+        })
+    }
+
+    /// Install `self` as the process-wide singleton used by encoders.
+    ///
+    /// First call wins; subsequent calls are ignored (matches
+    /// `OnceLock::set`'s semantics). Call this once during server
+    /// startup, after loading keys.
+    pub fn install_global(self) {
+        let _ = GLOBAL.set(self);
+    }
+
+    /// Access the global key store, if one has been installed.
+    pub fn global() -> Option<&'static XteaKeyStore> {
+        GLOBAL.get()
+    }
+
+    /// Look up XTEA keys for a landscape group by map square coordinates.
+    /// Computes the name hash of "l{mx}_{mz}" and looks it up.
+    pub fn get(&self, mx: u32, mz: u32) -> [i32; 4] {
+        let name = format!("l{}_{}", mx, mz);
+        let hash = java_string_hash(&name);
+        self.keys.get(&hash).copied().unwrap_or([0; 4])
+    }
+
+    /// Collect XTEA keys for every mapsquare covering the 104-tile build
+    /// area centered on `(player_x, player_z)`, in the order the rev-647
+    /// client expects (outer loop `mx_lo..=mx_hi`, inner `mz_lo..=mz_hi`).
+    pub fn snapshot_build_area(&self, player_x: u16, player_z: u16) -> Vec<[i32; 4]> {
+        let chunk_x = (player_x >> 3) as u32;
+        let chunk_z = (player_z >> 3) as u32;
+        let build_size: u32 = 104;
+        let half_chunks = build_size >> 4; // 6
+
+        let mx_lo = (chunk_x.wrapping_sub(half_chunks)) >> 3;
+        let mx_hi = (chunk_x + half_chunks) >> 3;
+        let mz_lo = (chunk_z.wrapping_sub(half_chunks)) >> 3;
+        let mz_hi = (chunk_z + half_chunks) >> 3;
+
+        let mut keys = Vec::with_capacity(((mx_hi - mx_lo + 1) * (mz_hi - mz_lo + 1)) as usize);
+        for mx in mx_lo..=mx_hi {
+            for mz in mz_lo..=mz_hi {
+                keys.push(self.get(mx, mz));
+            }
+        }
+        keys
+    }
+}
+
+#[cfg(since_647)]
+pub fn load_xtea_keys(keys_path: &Path) -> Result<HashMap<i32, [i32; 4]>> {
+    #[derive(Deserialize)]
+    struct KeyEntry {
+        archive: u8,
+        key: [i32; 4],
+        name_hash: i32,
+    }
+
+    let data = fs::read_to_string(keys_path)
+        .with_context(|| format!("reading {}", keys_path.display()))?;
+    let entries: Vec<KeyEntry> = serde_json::from_str(&data)?;
+    let mut map = HashMap::new();
+    for entry in entries {
+        if entry.archive == archive::MAPS {
+            map.insert(entry.name_hash, entry.key);
+        }
+    }
+    Ok(map)
 }

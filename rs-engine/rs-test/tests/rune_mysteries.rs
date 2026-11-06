@@ -6,8 +6,8 @@
 //! - Aubury (npc 5913, Varrock's rune shop) trades on op4 and teleports on op5
 //!   in 2011 (cache 786), where 289 traded on op3 and teleported on op4.
 //!
-//! The ops are the client's (OPNPC3: `p1_alt2(ctrl) p2_alt1(nid)`; OPNPC4:
-//! `p1_alt2(ctrl) ip2_alt1(nid)`; OPNPC5: `p1_alt1(ctrl) ip2(nid)`). The
+//! The ops are the client's (OPNPC3: `p1_alt3(ctrl) p2_alt2(nid)`; OPNPC4:
+//! `p1_alt3(ctrl) p2_alt3(nid)`; OPNPC5: `p1_alt2(ctrl) p2_alt1(nid)`). The
 //! essence mine is map square 45,75.
 
 #![cfg(since_647)]
@@ -103,7 +103,7 @@ fn sedridor_teleports_a_player_who_finished_the_quest() {
     runner::on_loaded_engine(|engine| {
         let (mut client, nid) = visitor(engine, "apprentice", SEDRIDOR, COMPLETE);
         let mut p = ClientPacket::new();
-        p.p1_alt2(0).p2_alt1(nid as i32);
+        p.p1_alt3(0).p2_alt2(nid as i32);
         client.send(ClientProt::OpNpc3, &p.finish());
         let said = run(engine, &mut client, 12);
         assert!(
@@ -114,7 +114,7 @@ fn sedridor_teleports_a_player_who_finished_the_quest() {
         // Before the quest is done, he will not.
         let (mut client, nid) = visitor(engine, "novice", SEDRIDOR, 0);
         let mut p = ClientPacket::new();
-        p.p1_alt2(0).p2_alt1(nid as i32);
+        p.p1_alt3(0).p2_alt2(nid as i32);
         client.send(ClientProt::OpNpc3, &p.finish());
         let said = run(engine, &mut client, 8);
         assert!(!in_the_mine(engine, client.pid), "stays; said {said:?}");
@@ -131,7 +131,7 @@ fn aubury_trades_on_op4_and_teleports_on_op5() {
     runner::on_loaded_engine(|engine| {
         let (mut client, nid) = visitor(engine, "runebuyer", AUBURY, COMPLETE);
         let mut p = ClientPacket::new();
-        p.p1_alt2(0).ip2_alt1(nid as i32);
+        p.p1_alt3(0).p2_alt3(nid as i32);
         client.send(ClientProt::OpNpc4, &p.finish());
         let said = run(engine, &mut client, 6);
         assert!(
@@ -144,7 +144,7 @@ fn aubury_trades_on_op4_and_teleports_on_op5() {
 
         let (mut client, nid) = visitor(engine, "runetraveller", AUBURY, COMPLETE);
         let mut p = ClientPacket::new();
-        p.p1_alt1(0).ip2(nid as i32);
+        p.p1_alt2(0).p2_alt1(nid as i32);
         client.send(ClientProt::OpNpc5, &p.finish());
         let said = run(engine, &mut client, 12);
         assert!(

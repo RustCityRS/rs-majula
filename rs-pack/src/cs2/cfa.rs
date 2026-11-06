@@ -4,7 +4,10 @@
 //! Uses a simple forward-scan algorithm that detects common patterns without
 //! a full dominator-tree analysis. Sufficient for the majority of CS2 scripts.
 
+use super::opcodes;
 use crate::cs2::ir::*;
+use std::collections::BTreeMap;
+use std::mem::take;
 
 /// A structured control-flow construct.
 #[derive(Debug, Clone)]
@@ -66,7 +69,7 @@ fn split_into_blocks(instructions: &[Instruction]) -> Vec<BasicBlock> {
                 if !current_instrs.is_empty() || current_label.is_some() {
                     blocks.push(BasicBlock {
                         label: current_label,
-                        instructions: std::mem::take(&mut current_instrs),
+                        instructions: take(&mut current_instrs),
                     });
                 }
                 current_label = Some(*lbl);
@@ -78,7 +81,7 @@ fn split_into_blocks(instructions: &[Instruction]) -> Vec<BasicBlock> {
                 current_instrs.push(instr.clone());
                 blocks.push(BasicBlock {
                     label: current_label.take(),
-                    instructions: std::mem::take(&mut current_instrs),
+                    instructions: take(&mut current_instrs),
                 });
             }
             _ => {
@@ -330,8 +333,7 @@ fn structure_blocks(blocks: &[BasicBlock], start_idx: usize) -> Construct {
         // Switch
         Instruction::Switch { expr, cases } => {
             // Group cases by target label, track block indices
-            let mut target_cases: std::collections::BTreeMap<u32, Vec<i32>> =
-                std::collections::BTreeMap::new();
+            let mut target_cases: BTreeMap<u32, Vec<i32>> = BTreeMap::new();
             let mut max_case_block = start_idx;
             for &(key, target) in cases {
                 target_cases.entry(target).or_default().push(key);
@@ -593,26 +595,18 @@ fn negate_condition(expr: Expr) -> Expr {
     match expr {
         Expr::Operation { opcode, args } => {
             let negated = match opcode {
-                super::opcodes::BRANCH_EQUALS => super::opcodes::BRANCH_NOT,
-                super::opcodes::BRANCH_NOT => super::opcodes::BRANCH_EQUALS,
-                super::opcodes::BRANCH_LESS_THAN => super::opcodes::BRANCH_GREATER_THAN_OR_EQUALS,
-                super::opcodes::BRANCH_GREATER_THAN => super::opcodes::BRANCH_LESS_THAN_OR_EQUALS,
-                super::opcodes::BRANCH_LESS_THAN_OR_EQUALS => super::opcodes::BRANCH_GREATER_THAN,
-                super::opcodes::BRANCH_GREATER_THAN_OR_EQUALS => super::opcodes::BRANCH_LESS_THAN,
-                super::opcodes::BRANCH_EQUALS_LONG => super::opcodes::BRANCH_NOT_LONG,
-                super::opcodes::BRANCH_NOT_LONG => super::opcodes::BRANCH_EQUALS_LONG,
-                super::opcodes::BRANCH_LESS_THAN_LONG => {
-                    super::opcodes::BRANCH_GREATER_THAN_OR_EQUALS_LONG
-                }
-                super::opcodes::BRANCH_GREATER_THAN_LONG => {
-                    super::opcodes::BRANCH_LESS_THAN_OR_EQUALS_LONG
-                }
-                super::opcodes::BRANCH_LESS_THAN_OR_EQUALS_LONG => {
-                    super::opcodes::BRANCH_GREATER_THAN_LONG
-                }
-                super::opcodes::BRANCH_GREATER_THAN_OR_EQUALS_LONG => {
-                    super::opcodes::BRANCH_LESS_THAN_LONG
-                }
+                opcodes::BRANCH_EQUALS => opcodes::BRANCH_NOT,
+                opcodes::BRANCH_NOT => opcodes::BRANCH_EQUALS,
+                opcodes::BRANCH_LESS_THAN => opcodes::BRANCH_GREATER_THAN_OR_EQUALS,
+                opcodes::BRANCH_GREATER_THAN => opcodes::BRANCH_LESS_THAN_OR_EQUALS,
+                opcodes::BRANCH_LESS_THAN_OR_EQUALS => opcodes::BRANCH_GREATER_THAN,
+                opcodes::BRANCH_GREATER_THAN_OR_EQUALS => opcodes::BRANCH_LESS_THAN,
+                opcodes::BRANCH_EQUALS_LONG => opcodes::BRANCH_NOT_LONG,
+                opcodes::BRANCH_NOT_LONG => opcodes::BRANCH_EQUALS_LONG,
+                opcodes::BRANCH_LESS_THAN_LONG => opcodes::BRANCH_GREATER_THAN_OR_EQUALS_LONG,
+                opcodes::BRANCH_GREATER_THAN_LONG => opcodes::BRANCH_LESS_THAN_OR_EQUALS_LONG,
+                opcodes::BRANCH_LESS_THAN_OR_EQUALS_LONG => opcodes::BRANCH_GREATER_THAN_LONG,
+                opcodes::BRANCH_GREATER_THAN_OR_EQUALS_LONG => opcodes::BRANCH_LESS_THAN_LONG,
                 _ => return Expr::Operation { opcode, args },
             };
             Expr::Operation {

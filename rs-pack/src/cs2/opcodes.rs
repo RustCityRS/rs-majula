@@ -2,6 +2,8 @@
 //!
 //! Constants verified against the rev-647 deob client (Class47.java / FileSystem.java).
 
+use crate::cs2::ir::Expr;
+
 // ---------------------------------------------------------------------------
 // Core control flow (verified from Class47.java execute_script)
 // ---------------------------------------------------------------------------
@@ -4278,8 +4280,7 @@ pub fn is_calc_arithmetic(opcode: u16) -> bool {
 }
 
 /// Whether an expression tree contains nested arithmetic (needs calc wrapper).
-pub fn needs_calc(expr: &crate::cs2::ir::Expr) -> bool {
-    use crate::cs2::ir::Expr;
+pub fn needs_calc(expr: &Expr) -> bool {
     match expr {
         Expr::Operation { opcode, args } if is_calc_arithmetic(*opcode) => args
             .iter()

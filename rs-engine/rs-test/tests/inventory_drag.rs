@@ -63,10 +63,10 @@ fn drag(engine: &mut Engine, held: &[(u16, u16)], from: u16, to: u16) -> Vec<Opt
 
     let mut p = ClientPacket::new();
     p.p4(BACKPACK)
-        .ip2_alt1(from as i32)
-        .ip2_alt1(28 + to as i32)
+        .p2_alt3(from as i32)
+        .p2_alt3(28 + to as i32)
         .p4_alt2(BACKPACK)
-        .ip2(from_obj as i32)
+        .p2_alt1(from_obj as i32)
         .p2(-1);
     client.send(ClientProt::IfButtonD, &p.finish());
     engine.cycle();

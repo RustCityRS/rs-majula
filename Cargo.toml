@@ -19,7 +19,6 @@ members = [
     "rs-console/api",
     "rs-db",
     "rs-engine/rs-test",
-    "rs-dat2",
     "rs-pack",
     "rs-protocol",
     "rs-protocol/macros",
@@ -65,7 +64,7 @@ tracing-subscriber = { version = "0.3", features = ["env-filter", "json"] }
 tracing-appender = "0.2"
 
 # Cryptography
-rs-crypto = "0.2"
+rs-crypto = "0.3"
 hmac = "0.13"
 sha1 = "0.11"
 sha2 = "0.11"
@@ -88,9 +87,7 @@ mimalloc = "0.1"
 libmimalloc-sys = { version = "0.1", features = ["extended"] }
 
 # MISC
-bytes = "1"
-lzma-rs = "0.3"
-rs-io = "0.3"
+rs-io = "0.4"
 rs-pathfinder = "0.1"
 rs-runec = "0.4.1"
 num_enum = "0.7"
@@ -113,7 +110,6 @@ flate2 = "1"
 zstd = "0.14"
 
 # Internal crates
-rs-dat2 = { path = "rs-dat2" }
 rs-protocol = { path = "rs-protocol" }
 rs-protocol-macros = { path = "rs-protocol/macros" }
 rs-cam = { path = "rs-engine/rs-cam" }

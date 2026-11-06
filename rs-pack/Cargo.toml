@@ -18,7 +18,6 @@ path = "src/main.rs"
 rs-io = { workspace = true }
 rs-ver = { workspace = true }
 rs-runec = { workspace = true }
-rs-dat2 = { workspace = true }
 
 clap = { workspace = true }
 anyhow = { workspace = true }
@@ -34,7 +33,7 @@ serde_json = { workspace = true }
 serde = { workspace = true }
 image = { version = "0.25", default-features = false, features = ["png"] }
 rayon = "1"
-rs-crypto = "0.2"
+rs-crypto = { workspace = true }
 ureq = { workspace = true }
 
 [build-dependencies]

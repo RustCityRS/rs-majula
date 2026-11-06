@@ -18,7 +18,7 @@ pub struct Setdraworder {
 #[cfg(since_647)]
 impl ServerProtMessage for Setdraworder {
     fn encode(&self, buf: &mut Packet) {
-        buf.p1_alt1(self.mode);
+        buf.p1_alt2(self.mode);
     }
 
     fn sizeof(&self) -> usize {

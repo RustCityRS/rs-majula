@@ -14,10 +14,11 @@
 #![cfg(since_647)]
 
 use std::collections::BTreeSet;
-use std::path::Path;
+use std::fs;
+use std::path::{Path, PathBuf};
 
-fn configs(dir: &Path, out: &mut Vec<std::path::PathBuf>) {
-    for entry in std::fs::read_dir(dir).unwrap().flatten() {
+fn configs(dir: &Path, out: &mut Vec<PathBuf>) {
+    for entry in fs::read_dir(dir).unwrap().flatten() {
         let path = entry.path();
         if path.is_dir() {
             if path.file_name().is_some_and(|n| n != "_unpack") {
@@ -36,7 +37,7 @@ fn configs(dir: &Path, out: &mut Vec<std::path::PathBuf>) {
 fn every_config_category_is_registered() {
     let root = Path::new(env!("CARGO_MANIFEST_DIR")).join("..");
     let registered: BTreeSet<String> =
-        std::fs::read_to_string(root.join("content/647/pack/category.pack"))
+        fs::read_to_string(root.join("content/647/pack/category.pack"))
             .unwrap()
             .lines()
             .filter_map(|l| l.split_once('=').map(|(_, n)| n.trim().to_string()))
@@ -48,7 +49,7 @@ fn every_config_category_is_registered() {
 
     let mut missing = Vec::new();
     for path in files {
-        let text = std::fs::read_to_string(&path).unwrap();
+        let text = fs::read_to_string(&path).unwrap();
         for (n, line) in text.lines().enumerate() {
             if let Some(name) = line.trim().strip_prefix("category=") {
                 if !registered.contains(name) {

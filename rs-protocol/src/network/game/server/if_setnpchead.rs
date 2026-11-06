@@ -34,7 +34,7 @@ pub struct IfSetNpcHead {
 #[cfg(since_647)]
 impl ServerProtMessage for IfSetNpcHead {
     fn encode(&self, buf: &mut Packet) {
-        buf.ip2(self.npc);
+        buf.p2_alt1(self.npc);
         buf.p4_alt2(self.com);
     }
 

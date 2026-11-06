@@ -34,10 +34,10 @@ impl ServerProtMessage for ObjReveal {
 #[cfg(since_647)]
 impl ServerProtMessage for ObjReveal {
     fn encode(&self, buf: &mut Packet) {
-        buf.ip2_alt1(self.id);
+        buf.p2_alt3(self.id);
         buf.p2(self.receiver);
-        buf.p1_alt1(self.coord);
-        buf.ip2_alt1(self.count);
+        buf.p1_alt2(self.coord);
+        buf.p2_alt3(self.count);
     }
 
     fn sizeof(&self) -> usize {

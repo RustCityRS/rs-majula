@@ -1,5 +1,6 @@
 use rs_io::Packet;
 use rustc_hash::FxHashMap;
+use std::fs;
 use std::path::Path;
 use std::sync::Arc;
 
@@ -61,8 +62,8 @@ impl ScriptProvider {
     }
 
     pub fn io(&mut self, dat_path: &Path, idx_path: &Path) -> anyhow::Result<()> {
-        let dat = std::fs::read(dat_path)?;
-        let idx = std::fs::read(idx_path)?;
+        let dat = fs::read(dat_path)?;
+        let idx = fs::read(idx_path)?;
         *self = Self::from_bytes(&dat, &idx);
         Ok(())
     }

@@ -29,9 +29,9 @@ impl ServerProtMessage for LocAnim {
 #[cfg(since_647)]
 impl ServerProtMessage for LocAnim {
     fn encode(&self, buf: &mut Packet) {
-        buf.p1_alt1(self.coord);
+        buf.p1_alt2(self.coord);
         buf.p1(self.shape_angle);
-        buf.ip2(self.seq);
+        buf.p2_alt1(self.seq);
     }
 
     fn sizeof(&self) -> usize {

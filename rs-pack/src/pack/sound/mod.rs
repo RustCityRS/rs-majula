@@ -1,5 +1,7 @@
+#[cfg(before_647)]
+use crate::archive::JagArchive;
 #[cfg(since_647)]
-use crate::config_blob::ConfigBlob;
+use crate::archive::{self, ArchiveVersions};
 #[cfg(since_647)]
 use crate::pack::js5::{
     PreparedGroup, load_group_files, stamp_path, write_archive, write_empty_archive,
@@ -14,14 +16,12 @@ use crate::startup::{is_up_to_date, newest_mtime, write_stamp};
 use anyhow::Result;
 #[cfg(since_647)]
 use rayon::prelude::*;
-#[cfg(since_647)]
-use rs_dat2::CacheStore;
-#[cfg(since_647)]
-use rs_dat2::archive::{self, ArchiveVersions};
 #[cfg(before_647)]
 use rs_io::Packet;
 #[cfg(before_647)]
-use rs_io::jag::{JagCompression, JagFile};
+use rs_io::jag::JagFile;
+#[cfg(since_647)]
+use rs_io::js5::Js5Store;
 use std::collections::HashMap;
 use std::fs;
 use std::path::Path;
@@ -79,15 +79,14 @@ pub fn pack_sounds(registry: &PackRegistry, content_dir: &Path, pack_dir: &Path)
     jag.write("sounds.dat", out.data[..out.pos].to_vec());
 
     debug!("Packed {} synths into sounds Jag", count);
-    jag.build(JagCompression::PerFile)
+    jag.build(JagArchive::Sounds.compression())
 }
 
 #[cfg(since_647)]
 pub fn pack_archive(
-    store: &mut CacheStore,
+    store: &mut Js5Store,
     content_dir: &Path,
     output_dir: &Path,
-    client_data_dir: &Path,
     versions: &HashMap<u8, ArchiveVersions>,
     force_rebuild: bool,
 ) -> Result<()> {
@@ -113,28 +112,12 @@ pub fn pack_archive(
         return Ok(());
     }
 
-    let mut blob = ConfigBlob::new();
-    for (gid, path) in &group_files {
-        let data = fs::read(path).unwrap();
-        blob.add(&gid.to_string(), data);
-    }
-    blob.save(&client_data_dir.join("sounds"))?;
-
     let prepared: Vec<PreparedGroup> = group_files
         .par_iter()
-        .map(|(gid, _)| {
-            PreparedGroup::new(aid, *gid, blob.get(&gid.to_string()).unwrap(), versions)
-        })
+        .map(|(gid, path)| PreparedGroup::new(aid, *gid, &fs::read(path)?, versions))
         .collect::<Result<Vec<_>>>()?;
 
-    write_archive(
-        store,
-        aid,
-        format,
-        versions,
-        prepared,
-        "→ data/pack/client/sounds blob",
-    )?;
+    write_archive(store, aid, format, versions, prepared, "from synths")?;
     write_stamp(&synth_stamp)?;
     Ok(())
 }

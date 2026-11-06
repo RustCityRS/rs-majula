@@ -1,4 +1,6 @@
+use std::iter::repeat_n;
 use std::path::Path;
+use std::{fs, io};
 
 pub struct Indexed {
     pub image_id: Vec<u8>,
@@ -15,7 +17,7 @@ pub fn write(
     width: u32,
     height: u32,
     pixels: &[u8],
-) -> std::io::Result<()> {
+) -> io::Result<()> {
     let entries = palette.len() / 3;
     let mut out = Vec::with_capacity(18 + image_id.len() + entries * 3 + pixels.len());
     out.extend_from_slice(&[
@@ -46,12 +48,11 @@ pub fn write(
         let row = &pixels[y * width as usize..(y + 1) * width as usize];
         out.extend_from_slice(row);
     }
-    std::fs::write(path, out)
+    fs::write(path, out)
 }
 
 pub fn read(path: &Path) -> Indexed {
-    let data =
-        std::fs::read(path).unwrap_or_else(|e| panic!("Cannot open {}: {e}", path.display()));
+    let data = fs::read(path).unwrap_or_else(|e| panic!("Cannot open {}: {e}", path.display()));
     let fail = |msg: &str| -> ! { panic!("{}: {msg}", path.display()) };
     if data.len() < 18 {
         fail("not a TGA file");
@@ -108,7 +109,7 @@ pub fn read(path: &Path) -> Indexed {
             if control & 0x80 != 0 {
                 let v = data[pos];
                 pos += 1;
-                pixels.extend(std::iter::repeat_n(v, run));
+                pixels.extend(repeat_n(v, run));
             } else {
                 pixels.extend_from_slice(&data[pos..pos + run]);
                 pos += run;

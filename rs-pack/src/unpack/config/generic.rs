@@ -1,7 +1,8 @@
 use anyhow::Result;
-use rs_dat2::CacheStore;
 use rs_io::Packet;
+use rs_io::js5::Js5Store;
 use rs_ver::STRING_TERMINATOR;
+use std::fs::File;
 use std::io::Write;
 use std::path::Path;
 use tracing::info;
@@ -22,7 +23,7 @@ pub const KNOWN_CONFIG_GROUPS: &[(u32, &str)] = &[
 ];
 
 pub fn unpack_config_group(
-    store: &mut CacheStore,
+    store: &mut Js5Store,
     group_id: u32,
     type_name: &str,
     output_dir: &Path,
@@ -33,7 +34,7 @@ pub fn unpack_config_group(
     };
 
     let out_path = output_dir.join(format!("all.{type_name}"));
-    let mut file = std::fs::File::create(&out_path)?;
+    let mut file = File::create(&out_path)?;
 
     let mut sorted: Vec<_> = group.entries.iter().collect();
     sorted.sort_by_key(|e| e.id);
@@ -41,13 +42,13 @@ pub fn unpack_config_group(
     let mut written = 0u32;
 
     for entry in sorted {
-        if entry.data.is_empty() {
+        if entry.data().is_empty() {
             continue;
         }
 
         writeln!(file, "[{type_name}_{}]", entry.id)?;
 
-        let mut reader = Packet::from(entry.data.to_vec());
+        let mut reader = Packet::from(entry.data().to_vec());
         loop {
             if reader.remaining() == 0 {
                 break;
@@ -74,7 +75,7 @@ pub fn unpack_config_group(
 }
 
 pub fn unpack_raw_config_group(
-    store: &mut CacheStore,
+    store: &mut Js5Store,
     group_id: u32,
     output_dir: &Path,
 ) -> Result<u32> {
@@ -576,7 +577,7 @@ fn decode_mel(group_id: u32, r: &mut Packet, opcode: u8) -> Result<Vec<(String, 
             vec![("op14_str".into(), v)]
         }
         15 => {
-            // Complex: g1 count, count*2 x g2b, g4, g1 count2, count2 x g4, count x g1b
+            // Complex: g1 count, count*2 x g2b, g4, g1 count2, count2 x g4, count x g1s
             let count = r.g1();
             let mut vals = Vec::new();
             vals.push(count.to_string());

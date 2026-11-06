@@ -6,11 +6,11 @@
 //! bridge to Gunnarsgrunn instead of south of Falador (2011 wiki, Air altar:
 //! moved 17 September 2009) -- so the rows carry 2011's tiles, from
 //! the 2011 map's placements and `void-634`. The cases use a talisman on the
-//! air ruins as the client does (OPLOCT: `p2_alt1(obj) p2_alt1(slot) p2(z)
-//! p4_alt2(com) p2_alt1(x) p1_alt3(ctrl) ip2(loc)`), bind essence at the air
-//! altar (OPLOC1: `ip2(z) ip2(loc) p1(ctrl) p2_alt1(x)`), and step back out
+//! air ruins as the client does (OPLOCT: `p2_alt2(obj) p2_alt2(slot) p2(z)
+//! p4_alt2(com) p2_alt2(x) p1_alt1(ctrl) p2_alt1(loc)`), bind essence at the air
+//! altar (OPLOC1: `p2_alt1(z) p2_alt1(loc) p1(ctrl) p2_alt2(x)`), and step back out
 //! through the temple's portal. The essence mine's portal, a loc at 289, is
-//! one of four npcs in 2011 (OPNPC1: `p1_alt2(ctrl) p2(nid)`).
+//! one of four npcs in 2011 (OPNPC1: `p1_alt3(ctrl) p2(nid)`).
 
 #![cfg(since_647)]
 
@@ -98,7 +98,10 @@ fn until_moved_to(
 
 fn oploc1(client: &mut HarnessClient, (loc, x, z): (u16, u16, u16)) {
     let mut p = ClientPacket::new();
-    p.ip2(z as i32).ip2(loc as i32).p1(0).p2_alt1(x as i32);
+    p.p2_alt1(z as i32)
+        .p2_alt1(loc as i32)
+        .p1(0)
+        .p2_alt2(x as i32);
     client.send(ClientProt::OpLoc1, &p.finish());
 }
 
@@ -122,13 +125,13 @@ fn runecrafting_at_2011s_air_temple() {
 
         let (loc, x, z) = AIR_RUINS;
         let mut p = ClientPacket::new();
-        p.p2_alt1(talisman as i32)
-            .p2_alt1(0)
+        p.p2_alt2(talisman as i32)
+            .p2_alt2(0)
             .p2(z as i32)
             .p4_alt2(BACKPACK)
-            .p2_alt1(x as i32)
-            .p1_alt3(0)
-            .ip2(loc as i32);
+            .p2_alt2(x as i32)
+            .p1_alt1(0)
+            .p2_alt1(loc as i32);
         client.send(ClientProt::OpLocT, &p.finish());
         let said = until_moved_to(engine, &mut client, AIR_INSIDE);
         assert_eq!(
@@ -210,7 +213,7 @@ fn the_essence_mine_portals_are_2011s_npcs() {
             .map(|n| n.npc.uid.nid())
             .unwrap();
         let mut p = ClientPacket::new();
-        p.p1_alt2(0).p2(nid as i32);
+        p.p1_alt3(0).p2(nid as i32);
         client.send(ClientProt::OpNpc1, &p.finish());
         let mut said = Vec::new();
         for _ in 0..30 {

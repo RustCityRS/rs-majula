@@ -4,10 +4,10 @@
 //! Leaf."); 2011's herbs are already named -- "Grimy guam", op Clean -- and
 //! cleaning one says nothing (void-634's `HerbCleaning`, and the 2007 game).
 //! The cases clean a grimy guam as the client does (IF_BUTTON1 on the
-//! backpack: `p4(com) ip2_alt1(obj) ip2(slot)`), put the clean guam into a
+//! backpack: `p4(com) p2_alt3(obj) p2_alt1(slot)`), put the clean guam into a
 //! vial of water, and mix an eye of newt into the result for an attack
-//! potion, both by use-on (IF_BUTTONT: `p4(to_com) ip2(to_slot)
-//! ip2(from_slot) p2_alt1(from_obj) ip4(from_com) p2(to_obj)`). 289's
+//! potion, both by use-on (IF_BUTTONT: `p4(to_com) p2_alt1(to_slot)
+//! p2_alt1(from_slot) p2_alt2(from_obj) p4_alt1(from_com) p2(to_obj)`). 289's
 //! 3-dose potions share their names with the brewing structs that make them;
 //! the potions here are 647's (`attack_potion__3`), which the port missed
 //! until the porter learned names that start with a digit. Herblore pays
@@ -64,10 +64,10 @@ fn messages(engine: &mut Engine, client: &mut HarnessClient, ticks: usize) -> Ve
 fn use_on(client: &mut HarnessClient, (from, from_obj): (u16, u16), (to, to_obj): (u16, u16)) {
     let mut p = ClientPacket::new();
     p.p4(BACKPACK)
-        .ip2(to as i32)
-        .ip2(from as i32)
-        .p2_alt1(from_obj as i32)
-        .ip4(BACKPACK)
+        .p2_alt1(to as i32)
+        .p2_alt1(from as i32)
+        .p2_alt2(from_obj as i32)
+        .p4_alt1(BACKPACK)
         .p2(to_obj as i32);
     client.send(ClientProt::IfButtonT, &p.finish());
 }
@@ -103,7 +103,7 @@ fn cleaning_and_brewing_on_2011s_herbs() {
 
         // Clean: the herb is cleaned in its slot, for 2.5 xp, in silence.
         let mut p = ClientPacket::new();
-        p.p4(BACKPACK).ip2_alt1(grimy as i32).ip2(0);
+        p.p4(BACKPACK).p2_alt3(grimy as i32).p2_alt1(0);
         client.send(ClientProt::IfButton1, &p.finish());
         let said = messages(engine, &mut client, 2);
         let player = engine.harness_player(client.pid).unwrap();
@@ -166,7 +166,7 @@ fn drinking_an_antifire_resists_dragonfire_for_600_ticks() {
 
         // Drink, op1 on the backpack.
         let mut p = ClientPacket::new();
-        p.p4(BACKPACK).ip2_alt1(four as i32).ip2(0);
+        p.p4(BACKPACK).p2_alt3(four as i32).p2_alt1(0);
         client.send(ClientProt::IfButton1, &p.finish());
         let said = messages(engine, &mut client, 1);
         let drunk_at = engine.clock as i32;

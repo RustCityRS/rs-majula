@@ -1,6 +1,7 @@
 use crate::types::Font;
 use crate::unpack;
 use rs_io::jag::JagFile;
+use std::fs;
 use std::path::Path;
 use tracing::debug;
 
@@ -34,10 +35,10 @@ pub fn unpack_title(jag: &JagFile, output_dir: &Path) -> anyhow::Result<()> {
     let font_dir = output_dir.join("fonts");
     let binary_dir = output_dir.join("binary");
     let meta_dir = title_dir.join("meta");
-    std::fs::create_dir_all(&title_dir)?;
-    std::fs::create_dir_all(&font_dir)?;
-    std::fs::create_dir_all(&binary_dir)?;
-    std::fs::create_dir_all(&meta_dir)?;
+    fs::create_dir_all(&title_dir)?;
+    fs::create_dir_all(&font_dir)?;
+    fs::create_dir_all(&binary_dir)?;
+    fs::create_dir_all(&meta_dir)?;
 
     let font_names: Vec<&str> = Font::ALL.iter().map(|f| f.name()).collect();
 
@@ -91,7 +92,7 @@ pub fn unpack_title(jag: &JagFile, output_dir: &Path) -> anyhow::Result<()> {
     unpack::write_index_order(&title_dir, &keys)?;
 
     if let Some(dat) = jag.read("title.dat") {
-        std::fs::write(binary_dir.join("title.jpg"), &dat.data)?;
+        fs::write(binary_dir.join("title.jpg"), &dat.data)?;
     }
 
     let mut title_order = Vec::new();
@@ -102,7 +103,7 @@ pub fn unpack_title(jag: &JagFile, output_dir: &Path) -> anyhow::Result<()> {
         }
     }
     let title_order_content = title_order.join("\n") + "\n";
-    std::fs::write(meta_dir.join("title.order"), &title_order_content)?;
+    fs::write(meta_dir.join("title.order"), &title_order_content)?;
 
     debug!("Unpacked title JAG ({} entries)", title_order.len());
     Ok(())

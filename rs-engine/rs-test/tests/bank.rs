@@ -8,7 +8,7 @@
 //! (op4, varp 1249) and All but one (op7), and asks for X with clientscript 108.
 //! A booth's Use-quickly opens it; 2011's booths are reached from two sides
 //! (their forceapproach 10), which the server now keeps as the client does.
-//! A backpack or bank op is IF_BUTTON{n}: `p4(com) ip2_alt1(obj) ip2(slot)`;
+//! A backpack or bank op is IF_BUTTON{n}: `p4(com) p2_alt3(obj) p2_alt1(slot)`;
 //! RESUME_P_COUNTDIALOG is `p4(number)`.
 
 #![cfg(since_647)]
@@ -61,7 +61,7 @@ fn of(packets: &[(u16, Vec<u8>)], prot: ServerProt) -> impl Iterator<Item = &Vec
         .map(|(_, p)| p)
 }
 
-/// Each IF_SETEVENTS: `p2_alt1(from) p4_alt3(events) p4_alt3(com) ip2_alt1(to)`.
+/// Each IF_SETEVENTS: `p2_alt2(from) p4_alt3(events) p4_alt3(com) p2_alt3(to)`.
 fn events(packets: &[(u16, Vec<u8>)]) -> Vec<(i32, u16, u16, i32)> {
     of(packets, ServerProt::IfSetEvents)
         .map(|p| {
@@ -115,7 +115,7 @@ fn button(client: &mut HarnessClient, op: u8, com: i32, obj: u16, slot: u16) {
         _ => ClientProt::IfButton10,
     };
     let mut p = ClientPacket::new();
-    p.p4(com).ip2_alt1(obj as i32).ip2(slot as i32);
+    p.p4(com).p2_alt3(obj as i32).p2_alt1(slot as i32);
     client.send(prot, &p.finish());
 }
 
@@ -156,13 +156,16 @@ fn use_booth(engine: &mut Engine, client: &mut HarnessClient, op: u8) -> Vec<(u1
         ticks(engine, client, 2);
         let mut p = ClientPacket::new();
         if op == 2 {
-            p.ip2(loc as i32)
-                .p1_alt1(0)
-                .p2_alt1(z as i32)
-                .ip2_alt1(x as i32);
+            p.p2_alt1(loc as i32)
+                .p1_alt2(0)
+                .p2_alt2(z as i32)
+                .p2_alt3(x as i32);
             client.send(ClientProt::OpLoc2, &p.finish());
         } else {
-            p.ip2(z as i32).ip2(loc as i32).p1(0).p2_alt1(x as i32);
+            p.p2_alt1(z as i32)
+                .p2_alt1(loc as i32)
+                .p1(0)
+                .p2_alt2(x as i32);
             client.send(ClientProt::OpLoc1, &p.finish());
         }
         packets = ticks(engine, client, 4);
@@ -335,7 +338,7 @@ fn a_varrock_booth_s_use_talks_to_the_teller_behind_it() {
         engine.harness_telejump(client.pid, 3182, 0, 3436);
         ticks(engine, &mut client, 3);
         let mut p = ClientPacket::new();
-        p.ip2(3436).ip2(782).p1(0).p2_alt1(3181);
+        p.p2_alt1(3436).p2_alt1(782).p1(0).p2_alt2(3181);
         client.send(ClientProt::OpLoc1, &p.finish());
         let packets = ticks(engine, &mut client, 4);
         let player = engine.harness_player(client.pid).unwrap();
@@ -460,10 +463,10 @@ fn game_messages(packets: &[(u16, Vec<u8>)]) -> Vec<String> {
 fn bank_drag(client: &mut HarnessClient, from: u16, from_obj: u16, to_com: i32, to_slot: i32) {
     let mut p = ClientPacket::new();
     p.p4(BANK_INV)
-        .ip2_alt1(from as i32)
-        .ip2_alt1(to_slot)
+        .p2_alt3(from as i32)
+        .p2_alt3(to_slot)
         .p4_alt2(to_com)
-        .ip2(from_obj as i32)
+        .p2_alt1(from_obj as i32)
         .p2(-1);
     client.send(ClientProt::IfButtonD, &p.finish());
 }

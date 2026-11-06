@@ -29,9 +29,9 @@ impl ServerProtMessage for LocAddChange {
 #[cfg(since_647)]
 impl ServerProtMessage for LocAddChange {
     fn encode(&self, buf: &mut Packet) {
-        buf.p1_alt2(self.coord);
-        buf.p1_alt1(self.shape_angle);
-        buf.p2_alt1(self.id);
+        buf.p1_alt3(self.coord);
+        buf.p1_alt2(self.shape_angle);
+        buf.p2_alt2(self.id);
     }
 
     fn sizeof(&self) -> usize {

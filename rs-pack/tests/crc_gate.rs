@@ -29,10 +29,12 @@
 //! `REV=647 cargo test -p rs-pack --test crc_gate -- --ignored`
 #![cfg(rev = "647")]
 
+use rs_io::js5::{Js5Store, compute_group_crc};
+use rs_pack::archive::ARCHIVE_IDS;
+use rs_pack::openrs2;
 use std::collections::BTreeMap;
 use std::path::{Path, PathBuf};
-
-use rs_pack::openrs2;
+use std::{env, fs};
 
 const NAMES: [&str; 35] = [
     "anims",
@@ -147,7 +149,7 @@ fn assembled_cache_matches_openrs2_group_by_group() {
     // Integration tests run with cwd = rs-pack/; the pipeline's paths
     // (CONTENT_DIR, target/pack/<REV>) are workspace-root relative.
     if !Path::new(rs_pack::CONTENT_DIR).exists() {
-        std::env::set_current_dir("..").expect("chdir to workspace root");
+        env::set_current_dir("..").expect("chdir to workspace root");
     }
     let id = openrs2::default_cache_id().unwrap();
     let source = Path::new(rs_pack::CONTENT_DIR);
@@ -156,7 +158,7 @@ fn assembled_cache_matches_openrs2_group_by_group() {
     // verify=false: compare here and report every archive, rather than
     // panicking inside the pipeline on the first divergence.
     let result = rs_pack::pack_all(source, pack, false, true).expect("pack_all failed");
-    let mut store = rs_dat2::CacheStore::open(&result.cache_dir).expect("open built cache");
+    let mut store = Js5Store::open(&result.cache_dir).expect("open built cache");
 
     let known: BTreeMap<u8, &Known> = KNOWN.iter().map(|k| (k.archive, k)).collect();
     let mut failures = Vec::new();
@@ -167,15 +169,15 @@ fn assembled_cache_matches_openrs2_group_by_group() {
         "Archive", "OpenRS2", "Ours"
     );
     println!("{}", "-".repeat(64));
-    for (pos, &aid) in rs_pack::startup::MASTER_INDEX_ORDER.iter().enumerate() {
+    for (pos, &aid) in ARCHIVE_IDS.iter().enumerate() {
         let theirs_raw = openrs2::fetch_group_cached(&api_dir(), id, 255, aid as u32)
             .unwrap_or_else(|e| panic!("fetching (255, {aid}) from OpenRS2: {e:#}"));
         let ours_raw = store
             .read_raw_group_bytes(255, aid as u32)
             .unwrap()
             .unwrap_or_else(|| panic!("our cache has no reference table for archive {aid}"));
-        let theirs_crc = rs_dat2::compute_group_crc(&theirs_raw);
-        let ours_crc = rs_dat2::compute_group_crc(&ours_raw);
+        let theirs_crc = compute_group_crc(&theirs_raw);
+        let ours_crc = compute_group_crc(&ours_raw);
 
         let diff = openrs2::diff_reference_tables(
             &openrs2::parse_reference_container(&ours_raw).unwrap(),
@@ -230,7 +232,7 @@ fn assembled_cache_matches_openrs2_group_by_group() {
     );
 
     // 3. Every committed key opens its landscape group in our cache.
-    let keys = std::fs::read_to_string(source.join("keys.json")).unwrap();
+    let keys = fs::read_to_string(source.join("keys.json")).unwrap();
     let keys = openrs2::parse_keys(&keys).unwrap();
     let bad: Vec<_> = keys
         .iter()
@@ -368,13 +370,13 @@ fn summarise(diff: &openrs2::TableDiff) -> String {
 }
 
 /// Write our copy and OpenRS2's copy of one group side by side for diffing.
-fn dump_group(store: &mut rs_dat2::CacheStore, id: u32, aid: u8, gid: u32) {
+fn dump_group(store: &mut Js5Store, id: u32, aid: u8, gid: u32) {
     let dir = Path::new("target").join("crc_gate").join(aid.to_string());
-    let _ = std::fs::create_dir_all(&dir);
+    let _ = fs::create_dir_all(&dir);
     if let Ok(Some(ours)) = store.read_raw_group_bytes(aid, gid) {
-        let _ = std::fs::write(dir.join(format!("{gid}.ours.dat")), &ours);
+        let _ = fs::write(dir.join(format!("{gid}.ours.dat")), &ours);
     }
     if let Ok(theirs) = openrs2::fetch_group_cached(&api_dir(), id, aid, gid) {
-        let _ = std::fs::write(dir.join(format!("{gid}.openrs2.dat")), &theirs);
+        let _ = fs::write(dir.join(format!("{gid}.openrs2.dat")), &theirs);
     }
 }

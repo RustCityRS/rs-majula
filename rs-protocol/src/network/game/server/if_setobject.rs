@@ -37,7 +37,7 @@ pub struct IfSetObject {
 #[cfg(since_647)]
 impl ServerProtMessage for IfSetObject {
     fn encode(&self, buf: &mut Packet) {
-        buf.ip4(self.com);
+        buf.p4_alt1(self.com);
         buf.p4_alt3(self.scale);
         buf.p2(self.obj);
     }

@@ -1,7 +1,7 @@
-use std::path::Path;
-
 use crate::sheet::{self, Parsed};
 use crate::tga;
+use std::fs;
+use std::path::Path;
 
 pub fn read_group(path: &Path) -> Parsed {
     let sheet = tga::read(path);
@@ -10,7 +10,7 @@ pub fn read_group(path: &Path) -> Parsed {
 
 pub fn read_index_order(archive_dir: &Path) -> Vec<String> {
     let path = archive_dir.join("meta").join("index.order");
-    std::fs::read_to_string(&path)
+    fs::read_to_string(&path)
         .unwrap_or_else(|e| panic!("Cannot read {}: {e}", path.display()))
         .lines()
         .filter(|l| !l.is_empty())

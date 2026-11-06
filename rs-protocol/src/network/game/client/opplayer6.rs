@@ -13,7 +13,7 @@ pub struct OpPlayer6 {
 
 impl ClientProtMessage for OpPlayer6 {
     fn decode(buf: &mut Packet, _: usize) -> Self {
-        let (ctrl, pid) = (buf.g1() != 0, buf.g2_alt1());
+        let (ctrl, pid) = (buf.g1() != 0, buf.g2_alt2());
         OpPlayer6 { pid, ctrl }
     }
 }

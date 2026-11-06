@@ -4,8 +4,6 @@ use crate::{ConnectionGuard, ConnectionPermit, ServerIO, Socket};
 #[cfg(since_647)]
 use anyhow::anyhow;
 use anyhow::bail;
-#[cfg(since_647)]
-use bytes::Bytes;
 use mpsc::{Sender, UnboundedReceiver, UnboundedSender};
 use num_enum::TryFromPrimitive;
 #[cfg(before_647)]
@@ -26,9 +24,9 @@ use rs_protocol::network::game::client_prot::ClientProt;
 #[cfg(since_647)]
 use rs_protocol::network::game::client_prot_frame::ClientProtFrame;
 #[cfg(since_647)]
-use rs_protocol::network::game::server_prot_message::jstr_len;
-#[cfg(since_647)]
 use rs_protocol::{CheckEmailResponse, CreateAccountResponse};
+#[cfg(since_647)]
+use std::borrow::Cow;
 #[cfg(since_244)]
 use std::collections::VecDeque;
 #[cfg(since_244)]
@@ -332,7 +330,7 @@ async fn process_login(mut client: Socket, kind: HandshakeType) -> anyhow::Resul
 
 #[cfg(since_647)]
 async fn send_lobby_response(client: &mut Socket, display_name: &str) -> anyhow::Result<()> {
-    let len = u8::try_from(59 + jstr_len(display_name))?;
+    let len = u8::try_from(59 + Packet::sizejstr(display_name))?;
     let mut pkt = Packet::new(1 + len as usize);
     pkt.p1(len);
 
@@ -597,7 +595,7 @@ async fn send_js5_file(
         .get(archive, file as u32)
         .unwrap_or_else(|| {
             warn!("JS5 missing: archive={archive} group={file}");
-            Bytes::from_static(&[0; 5])
+            Cow::Borrowed(&[0; 5])
         });
     let reply = Js5Response {
         archive,

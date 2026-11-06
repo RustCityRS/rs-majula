@@ -1,16 +1,16 @@
 #[cfg(since_647)]
-use bytes::Bytes;
-#[cfg(since_647)]
-use num_bigint::{BigInt, Sign};
-#[cfg(since_647)]
 use rs_crypto::rsa::RsaKey;
-#[cfg(since_647)]
-use rs_crypto::whirlpool;
-#[cfg(since_647)]
-use rs_dat2::CacheStore;
 use rs_io::Packet;
 #[cfg(since_647)]
 use rs_io::crc::getcrc;
+#[cfg(since_647)]
+use rs_io::js5::Js5Store;
+#[cfg(since_647)]
+use rs_io::js5::compression::Container;
+#[cfg(since_647)]
+use rs_io::js5::reference::encode_master_index;
+#[cfg(since_647)]
+use std::borrow::Cow;
 #[cfg(since_647)]
 use std::collections::HashMap;
 #[cfg(since_647)]
@@ -80,25 +80,27 @@ impl Js5Response<'_> {
 #[cfg(since_647)]
 #[derive(Clone)]
 pub struct Js5Cache {
-    hot: Arc<HashMap<(u8, u32), Bytes>>,
-    store: Arc<Mutex<CacheStore>>,
+    hot: Arc<HashMap<(u8, u32), Vec<u8>>>,
+    store: Arc<Mutex<Js5Store>>,
 }
 
 #[cfg(since_647)]
 impl Js5Cache {
-    pub fn preload(mut cache: CacheStore, private_key: &RsaKey) -> anyhow::Result<Self> {
+    pub fn preload(mut cache: Js5Store, private_key: &RsaKey) -> anyhow::Result<Self> {
         let mut hot = HashMap::new();
         let archive_count = cache.group_count(255).unwrap_or(27) as u8;
-        let empty = Bytes::from_static(&[0, 0, 0, 0, 4, 5, 1, 0, 0]);
         for archive in 0..archive_count {
             let data = cache
                 .read_raw_group_bytes(255, archive as u32)
                 .ok()
                 .flatten()
-                .unwrap_or_else(|| empty.clone());
+                .unwrap_or_else(|| vec![0, 0, 0, 0, 4, 5, 1, 0, 0]);
             hot.insert((255, archive as u32), data);
         }
-        let master = Self::build_master_index_blob(&hot, archive_count, private_key);
+        let master = encode_master_index(
+            (0..archive_count as u32).map(|archive| (hot[&(255, archive)].as_ref(), 0)),
+            private_key,
+        );
         hot.insert((255, 255), master);
         info!(
             "JS5 cache ready: {} reference groups pre-loaded, remaining served on demand",
@@ -110,45 +112,15 @@ impl Js5Cache {
         })
     }
 
-    fn build_master_index_blob(
-        groups: &HashMap<(u8, u32), Bytes>,
-        archive_count: u8,
-        private_key: &RsaKey,
-    ) -> Bytes {
-        let payload_len = 1 + archive_count as usize * 72;
-        let mut buf = Packet::new(5 + payload_len + private_key.n.bits().div_ceil(8) as usize + 1);
-        buf.p1(0);
-        buf.p4(0);
-        buf.p1(archive_count);
-        for archive in 0..archive_count as u32 {
-            let data = groups.get(&(255, archive));
-            buf.p4(data.map_or(0, |data| getcrc(data, 0, data.len())));
-            buf.p4(0);
-            let hash = data.map_or([0; 64], |data| whirlpool(data));
-            buf.pdata(&hash, 0, hash.len());
-        }
-        let mut signed = [10; 65];
-        signed[1..].copy_from_slice(&whirlpool(&buf.data[5..buf.pos]));
-        let signature = BigInt::from_bytes_be(Sign::Plus, &signed)
-            .modpow(&private_key.d, &private_key.n)
-            .to_signed_bytes_be();
-        buf.pdata(&signature, 0, signature.len());
-        buf.psize4((buf.pos - 5) as i32);
-        buf.data.truncate(buf.pos);
-        Bytes::from(buf.data)
-    }
-
-    pub fn get(&self, archive: u8, group: u32) -> Option<Bytes> {
+    pub fn get(&self, archive: u8, group: u32) -> Option<Cow<'_, [u8]>> {
         if let Some(data) = self.hot.get(&(archive, group)) {
-            return Some(data.clone());
+            return Some(Cow::Borrowed(data));
         }
         let mut store = self.store.lock().unwrap();
-        let data = store.read_raw_group_bytes(archive, group).ok()??;
-        if archive != 255 && data.len() > 2 {
-            Some(data.slice(..data.len() - 2))
-        } else {
-            Some(data)
-        }
+        let mut data = store.read_raw_group_bytes(archive, group).ok()??;
+        let len = Container::parse(&data).ok()?.data.len();
+        data.truncate(len);
+        Some(Cow::Owned(data))
     }
 
     pub fn prefetch_crcs(&self) -> [i32; 27] {
@@ -165,8 +137,6 @@ impl Js5Cache {
 #[cfg(test)]
 mod tests {
     use super::*;
-    #[cfg(since_647)]
-    use rs_crypto::rsa::parse_rsa_key_from_pem;
 
     #[cfg(before_647)]
     #[test]
@@ -227,63 +197,5 @@ mod tests {
                 assert_eq!(data, expected);
             }
         }
-    }
-
-    #[cfg(since_647)]
-    #[test]
-    fn master_index_signature_matches_the_served_reference_tables() {
-        const TEST_KEY_PEM: &str = "-----BEGIN PRIVATE KEY-----
-MIIEvAIBADANBgkqhkiG9w0BAQEFAASCBKYwggSiAgEAAoIBAQCdQzsEvIb5dBQ3
-XzRy+69J5EnVsgZehslAlxWbhUgbO6eF4BHXT5Y+9r8/wY7AefZzGWgzNyHwxm1w
-Ws5Jn60r/ff4Njca9Eft9NWx3j124xOxFxtGqjBDTa1mXzTHbqyHNEjuK43tWWyW
-vXjpcfusuv48qmGFRjbhPmqGgtQaqTrtgyoWanbgGcKAygZ4zIWR/NQv4WvD17vg
-v1sVlyhUZbtshTed/OlXCrVn7kT/9ZfWAgY3y6dHHqtO4c+M4LJe/DyfLBxyHDKf
-owI4CMXSfM+fEGEvkVRKhP8MjvlISS3AupagGc6oS+RPTa+IFJX0hJXG7ir4OreR
-DqCsGv9xAgMBAAECggEAHADaw48mocjvyKRlXIxAvHGwTCM1SyPJNn0w1c639lF7
-FTW/N43ufSvHBn1bBB8zqW8+xM/udUeAOV+SGD4cwhapT0OoMF6LaG4Ol2uxmjf5
-S7GHo9+uVG3CkNYnOdQVWMYQroiG71rbIUSAAWHQpQNvPjJAx1CneRh6M5WcW1q7
-qV3ipEq58U2GPKlHhlOxGOtZmsArNHOuO5r90gitLOpnoa26Bb+ojFn1tDjIVRPo
-s3LSmPLv/KT9Od0SFFAwW/tYywrE5VfUIbKaTtbYA/VtoZkPnjr3SK57tsyTDhYq
-CTNhaQ+bt9RUfx7h5T2CyUnfEdk2vLMSJMn52d07+QKBgQDPqlDJegXmjEGnr4CO
-vUEcVV5GfERVd63Sr510qnm0V6lWekT8HV9hgRbTA/DqsHbicWVpZmgh7ss+51r3
-hsTEGsw1INPScNLKpvGDT1sMGmf73W9zeeJ/osWB5pizpk5LawoBK1xKr46xtUTf
-rmOjAW6kdGLSAntfm8iZ/pLxqwKBgQDB3a8nC6AM+HfQL2fS6OH8SUn0XNZi7ir+
-IpVjCiT5BQmC6OuFFtgYRBtpsQUxpKXCs1/kHentglXAZyAYF5vOaSKhhhN/Tvhi
-R0EMdL2LgMT8quMbQ/6liw9fjLTnd2VzCtrdOQzorERdIHm4HL4RB22uYMwA88cA
-vcV2sIjvUwKBgAsSQ3haXxIpjB6KhsoVYPFHw9zyJxp/ZO8EmdpsdEyfF9Iadq8S
-SdGC9lqNrTx16ACulv+FjCuy9XcHEpx7vOXPn+99Lo3bogFX4SxlAK+mgMC2z4hS
-iTbQ0MLaLm31gdsXe9MQIr2AmpTy2xcpzvoTy3hNFC+qHjW8snczUVY9AoGASeWL
-fzGiN296lCONyso0Yes5wmik2573Slm6Yb8bKsStxHWuWNPFWTKU1GvClBKzkIy5
-L4XrhjoZH7bvd99/52UR60nlIrDiYuvQMsRI/+T8sWceHGWFqmpgWMaUqmpLhFeN
-56d4cTRA9tKLMw/ZrzoKp96DxJUntPOhUkWmXLsCgYA6pJ3eC5sGDBrxxtthe/I+
-15vlSF1LIVaTK1j/rUDCrfcISBUDwiX3iAY4kcntLrAFhLze2fJ7D5XY1Lahfd54
-YECBv/SeBfxkckIJOj9bPbi7zXVtWXRrcj8+e6tF16WeemxvOGRY++OQ1+ktQMwn
-4eEwZa3l2FKL9vv9/l6eVA==
------END PRIVATE KEY-----";
-
-        let keys = parse_rsa_key_from_pem(TEST_KEY_PEM).unwrap();
-        let reference = Bytes::from_static(&[0, 0, 0, 0, 4, 5, 1, 0, 0]);
-        let groups = HashMap::from([((255, 0), reference.clone()), ((255, 1), reference.clone())]);
-        let container = Js5Cache::build_master_index_blob(&groups, 2, &keys);
-        assert_eq!(container[0], 0);
-        assert_eq!(
-            u32::from_be_bytes(container[1..5].try_into().unwrap()) as usize,
-            container.len() - 5
-        );
-        assert_eq!(container[5], 2);
-        for entry in container[6..150].as_chunks::<72>().0 {
-            assert_eq!(
-                i32::from_be_bytes(entry[..4].try_into().unwrap()),
-                getcrc(&reference, 0, reference.len())
-            );
-            assert_eq!(&entry[4..8], &[0; 4]);
-            assert_eq!(&entry[8..], &whirlpool(&reference));
-        }
-        let signed = BigInt::from_signed_bytes_be(&container[150..])
-            .modpow(&keys.e, &keys.n)
-            .to_signed_bytes_be();
-        assert_eq!(signed.len(), 65);
-        assert_eq!(signed[0], 10);
-        assert_eq!(&signed[1..], &whirlpool(&container[5..150]));
     }
 }

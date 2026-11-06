@@ -1,7 +1,7 @@
 #[cfg(since_647)]
-use crate::cache::r#if::{HookArg, IfTypeRaw, OpKey};
+use crate::archive::{self, ArchiveVersions};
 #[cfg(since_647)]
-use crate::config_blob::ConfigBlob;
+use crate::cache::r#if::{HookArg, IfTypeRaw, OpKey};
 #[cfg(before_647)]
 use crate::config_crc;
 #[cfg(since_647)]
@@ -24,9 +24,9 @@ use anyhow::Result;
 #[cfg(since_647)]
 use rayon::prelude::*;
 #[cfg(since_647)]
-use rs_dat2::archive::{self, ArchiveVersions};
+use rs_io::js5::{Js5Store, encode_group_entries};
 #[cfg(since_647)]
-use rs_dat2::{CacheStore, encode_group_entries};
+use std::collections::BTreeMap;
 use std::collections::HashMap;
 use std::fs;
 use std::path::Path;
@@ -301,7 +301,7 @@ pub fn pack_interfaces(
 
         // server only
         server.pjstr(registry.interface.get_by_id(id).unwrap());
-        server.pbool(src.get("type").map(|t| t == "overlay").unwrap_or(false));
+        server.p1(src.get("type").map(|t| t == "overlay").unwrap_or(false) as u8);
 
         let com_type = IfComponentType::from_config_str(src.get("type").unwrap());
         client.p1(com_type as u8);
@@ -509,9 +509,9 @@ pub fn pack_interfaces(
         // Type-specific fields
         if com_type == IfComponentType::Layer {
             client.p2(get_num(src.get("scroll"), 0));
-            client.pbool(get_bool(src.get("hide")));
+            client.p1(get_bool(src.get("hide")) as u8);
             server.p2(get_num(src.get("scroll"), 0));
-            server.pbool(get_bool(src.get("hide")));
+            server.p1(get_bool(src.get("hide")) as u8);
 
             #[cfg(rev = "225")]
             {
@@ -537,16 +537,16 @@ pub fn pack_interfaces(
         }
 
         if com_type == IfComponentType::Inv {
-            client.pbool(get_bool(src.get("draggable")));
-            client.pbool(get_bool(src.get("interactable")));
-            client.pbool(get_bool(src.get("usable")));
+            client.p1(get_bool(src.get("draggable")) as u8);
+            client.p1(get_bool(src.get("interactable")) as u8);
+            client.p1(get_bool(src.get("usable")) as u8);
             #[cfg(since_245_2)]
-            client.pbool(get_bool(src.get("swappable")));
-            server.pbool(get_bool(src.get("draggable")));
-            server.pbool(get_bool(src.get("interactable")));
-            server.pbool(get_bool(src.get("usable")));
+            client.p1(get_bool(src.get("swappable")) as u8);
+            server.p1(get_bool(src.get("draggable")) as u8);
+            server.p1(get_bool(src.get("interactable")) as u8);
+            server.p1(get_bool(src.get("usable")) as u8);
             #[cfg(since_245_2)]
-            server.pbool(get_bool(src.get("swappable")));
+            server.p1(get_bool(src.get("swappable")) as u8);
 
             if let Some(margin) = src.get("margin") {
                 let (x, y) = parse_margin(margin, 0, 0);
@@ -564,8 +564,8 @@ pub fn pack_interfaces(
             for j in 1..=20 {
                 let slot_key = format!("slot{j}");
                 if let Some(slot) = src.get(&slot_key) {
-                    client.pbool(true);
-                    server.pbool(true);
+                    client.p1(1);
+                    server.p1(1);
                     let (x, y, sprite) = parse_slot_offset(slot);
                     client.p2(x);
                     client.p2(y);
@@ -574,8 +574,8 @@ pub fn pack_interfaces(
                     server.p2(y);
                     server.pjstr(sprite);
                 } else {
-                    client.pbool(false);
-                    server.pbool(false);
+                    client.p1(0);
+                    server.p1(0);
                 }
             }
 
@@ -586,20 +586,20 @@ pub fn pack_interfaces(
         }
 
         if com_type == IfComponentType::Rect {
-            client.pbool(get_bool(src.get("fill")));
-            server.pbool(get_bool(src.get("fill")));
+            client.p1(get_bool(src.get("fill")) as u8);
+            server.p1(get_bool(src.get("fill")) as u8);
         }
 
         if com_type == IfComponentType::Text {
-            client.pbool(get_bool(src.get("center")));
+            client.p1(get_bool(src.get("center")) as u8);
             client.p1(Font::from_config_str(src.get("font").unwrap()) as u8);
-            client.pbool(get_bool(src.get("shadowed")));
+            client.p1(get_bool(src.get("shadowed")) as u8);
             client.pjstr(get_string(src.get("text")));
             client.pjstr(get_string(src.get("activetext")));
 
-            server.pbool(get_bool(src.get("center")));
+            server.p1(get_bool(src.get("center")) as u8);
             server.p1(Font::from_config_str(src.get("font").unwrap()) as u8);
-            server.pbool(get_bool(src.get("shadowed")));
+            server.p1(get_bool(src.get("shadowed")) as u8);
             server.pjstr(get_string(src.get("text")));
             server.pjstr(get_string(src.get("activetext")));
         }
@@ -706,16 +706,16 @@ pub fn pack_interfaces(
         }
 
         if com_type == IfComponentType::InvText {
-            client.pbool(get_bool(src.get("center")));
+            client.p1(get_bool(src.get("center")) as u8);
             client.p1(Font::from_config_str(src.get("font").unwrap()) as u8);
-            client.pbool(get_bool(src.get("shadowed")));
+            client.p1(get_bool(src.get("shadowed")) as u8);
             parse_hex(get_colour(src.get("colour")), |v| {
                 client.p4(v);
             });
 
-            server.pbool(get_bool(src.get("center")));
+            server.p1(get_bool(src.get("center")) as u8);
             server.p1(Font::from_config_str(src.get("font").unwrap()) as u8);
-            server.pbool(get_bool(src.get("shadowed")));
+            server.p1(get_bool(src.get("shadowed")) as u8);
             parse_hex(get_colour(src.get("colour")), |v| {
                 server.p4(v);
             });
@@ -726,8 +726,8 @@ pub fn pack_interfaces(
             server.p2(x);
             server.p2(y);
 
-            client.pbool(get_bool(src.get("interactable")));
-            server.pbool(get_bool(src.get("interactable")));
+            client.p1(get_bool(src.get("interactable")) as u8);
+            server.p1(get_bool(src.get("interactable")) as u8);
 
             for j in 1..=5 {
                 client.pjstr(get_string(src.get(&format!("option{j}"))));
@@ -784,11 +784,10 @@ fn load_order(path: &Path) -> Result<Vec<u16>> {
 
 #[cfg(since_647)]
 pub fn pack_archive(
-    store: &mut CacheStore,
+    store: &mut Js5Store,
     content_dir: &Path,
     output_dir: &Path,
     pack_dir: &Path,
-    client_data_dir: &Path,
     versions: &HashMap<u8, ArchiveVersions>,
     force_rebuild: bool,
 ) -> Result<()> {
@@ -805,8 +804,6 @@ pub fn pack_archive(
         info!("  archive {:>2} (interfaces) -- up to date, skipping", aid);
         return Ok(());
     }
-
-    let interface_blob_path = client_data_dir.join("interface");
 
     let iface_pack =
         PackFile::load(&pack_dir.join("interface.pack")).unwrap_or_else(|_| PackFile::empty());
@@ -858,7 +855,7 @@ pub fn pack_archive(
     }
     if_files.sort_by_key(|(gid, _)| *gid);
 
-    let encoded_groups: Vec<(u32, Vec<u8>)> = if_files
+    let encoded_groups: BTreeMap<u32, Vec<u8>> = if_files
         .par_iter()
         .map(|(gid, path)| {
             let text = fs::read_to_string(path).unwrap();
@@ -877,21 +874,10 @@ pub fn pack_archive(
         })
         .collect();
 
-    let mut blob = ConfigBlob::new();
-    for (gid, group_data) in encoded_groups {
-        blob.add(&gid.to_string(), group_data);
-    }
-    blob.save(&interface_blob_path)?;
-
-    let mut blob_groups: Vec<(u32, &[u8])> = blob
-        .keys()
-        .filter_map(|k| k.parse::<u32>().ok().map(|gid| (gid, blob.get(k).unwrap())))
-        .collect();
-    blob_groups.sort_by_key(|(gid, _)| *gid);
-    let gids: Vec<_> = blob_groups.iter().map(|(gid, _)| *gid).collect();
+    let gids: Vec<_> = encoded_groups.keys().copied().collect();
     let name_hashes = load_name_hashes(pack_dir, aid, &gids);
 
-    let prepared: Vec<PreparedGroup> = blob_groups
+    let prepared: Vec<PreparedGroup> = encoded_groups
         .par_iter()
         .map(|(gid, group_data)| {
             let mut group = PreparedGroup::new(aid, *gid, group_data, versions)?;
@@ -949,7 +935,7 @@ pub fn encode_component(comp: &IfTypeRaw) -> Vec<u8> {
         out.p2(comp.scroll_width);
         out.p2(comp.scroll);
         if var2 < 0 {
-            out.pbool(comp.no_click_through);
+            out.p1(comp.no_click_through as u8);
         }
     }
 
@@ -961,8 +947,8 @@ pub fn encode_component(comp: &IfTypeRaw) -> Vec<u8> {
         out.p1(comp.trans);
         out.p1(comp.outline);
         out.p4(comp.graphic_shadow);
-        out.pbool(comp.vflip);
-        out.pbool(comp.hflip);
+        out.p1(comp.vflip as u8);
+        out.p1(comp.hflip as u8);
         out.p4(comp.colour);
     }
 
@@ -1002,21 +988,21 @@ pub fn encode_component(comp: &IfTypeRaw) -> Vec<u8> {
         out.p1(comp.text_style);
         out.p1(comp.text_halign);
         out.p1(comp.text_valign);
-        out.pbool(comp.shadowed);
+        out.p1(comp.shadowed as u8);
         out.p4(comp.colour);
         out.p1(comp.trans);
     }
 
     if comp.com_type == IfComponentType::Rect {
         out.p4(comp.colour);
-        out.pbool(comp.fill);
+        out.p1(comp.fill as u8);
         out.p1(comp.trans);
     }
 
     if comp.com_type == IfComponentType::Line {
         out.p1(comp.line_width);
         out.p4(comp.colour);
-        out.pbool(comp.line_rtl);
+        out.p1(comp.line_rtl as u8);
     }
 
     out.p3(comp.active_properties as i32);

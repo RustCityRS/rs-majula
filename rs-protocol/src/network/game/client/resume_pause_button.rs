@@ -28,8 +28,8 @@ pub struct ResumePauseButton {
 #[cfg(since_647)]
 impl ClientProtMessage for ResumePauseButton {
     fn decode(buf: &mut Packet, _: usize) -> Self {
-        let slot = buf.ig2();
-        let com = buf.g4_alt2() as u32;
+        let slot = buf.g2_alt1();
+        let com = buf.g4s_alt2() as u32;
         ResumePauseButton { com, slot }
     }
 }
