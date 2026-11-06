@@ -20,6 +20,7 @@ pub struct TableDiff {
     pub crc: Vec<u32>,
     /// Groups in both whose CRC agrees but whose version does not.
     pub version: Vec<u32>,
+    pub metadata: Vec<u32>,
     /// The table header (format, table version, named, whirlpooled) differs.
     pub header: bool,
 }
@@ -27,24 +28,26 @@ pub struct TableDiff {
 impl TableDiff {
     /// Every group that differs in any way, sorted.
     pub fn groups(&self) -> Vec<u32> {
-        let mut all: Vec<u32> = [&self.only_ours, &self.only_theirs, &self.crc, &self.version]
-            .into_iter()
-            .flatten()
-            .copied()
-            .collect();
+        let mut all: Vec<u32> = [
+            &self.only_ours,
+            &self.only_theirs,
+            &self.crc,
+            &self.version,
+            &self.metadata,
+        ]
+        .into_iter()
+        .flatten()
+        .copied()
+        .collect();
         all.sort_unstable();
+        all.dedup();
         all
     }
 }
 
 pub fn diff_reference_tables(ours: &ReferenceTable, theirs: &ReferenceTable) -> TableDiff {
-    let index = |t: &ReferenceTable| -> BTreeMap<u32, (u32, u32)> {
-        t.groups
-            .iter()
-            .map(|g| (g.id, (g.crc, g.version)))
-            .collect()
-    };
-    let (o, t) = (index(ours), index(theirs));
+    let o: BTreeMap<_, _> = ours.groups.iter().map(|g| (g.id, g)).collect();
+    let t: BTreeMap<_, _> = theirs.groups.iter().map(|g| (g.id, g)).collect();
     let mut diff = TableDiff {
         header: (ours.format, ours.version, ours.named, ours.whirlpooled)
             != (
@@ -55,12 +58,27 @@ pub fn diff_reference_tables(ours: &ReferenceTable, theirs: &ReferenceTable) -> 
             ),
         ..TableDiff::default()
     };
-    for (id, (crc, version)) in &o {
-        match t.get(id) {
-            None => diff.only_ours.push(*id),
-            Some((c, _)) if c != crc => diff.crc.push(*id),
-            Some((_, v)) if v != version => diff.version.push(*id),
-            Some(_) => {}
+    for (&id, ours) in &o {
+        let Some(theirs) = t.get(&id) else {
+            diff.only_ours.push(id);
+            continue;
+        };
+        if ours.crc != theirs.crc {
+            diff.crc.push(id);
+        }
+        if ours.version != theirs.version {
+            diff.version.push(id);
+        }
+        if ours.name_hash != theirs.name_hash
+            || ours.whirlpool != theirs.whirlpool
+            || ours.file_count != theirs.file_count
+            || !ours
+                .files
+                .iter()
+                .map(|f| (f.id, f.name_hash))
+                .eq(theirs.files.iter().map(|f| (f.id, f.name_hash)))
+        {
+            diff.metadata.push(id);
         }
     }
     diff.only_theirs = t.keys().filter(|id| !o.contains_key(id)).copied().collect();

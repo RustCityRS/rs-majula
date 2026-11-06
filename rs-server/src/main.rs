@@ -386,7 +386,7 @@ struct Args {
     /// Rev-647 signs the JS5 master index over a 65-byte plaintext, which
     /// needs a wider modulus than the 512-bit `.keys/private.pem` — and that
     /// pair is embedded in the committed pre-647 clients, so 647 gets its own
-    /// 2048-bit pair (matched by the deob-647 client bundle).
+    /// 2048-bit pair (matched by the RSA-patched vanilla 647 client).
     #[cfg(since_647)]
     #[arg(long, default_value = ".keys/private-647.pem")]
     private_key: PathBuf,

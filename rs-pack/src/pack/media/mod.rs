@@ -102,6 +102,7 @@ pub fn pack_archive(
     for &(aid, dir_name) in &[
         (archive::SPRITES, "sprites"),
         (archive::LOADING_SPRITES, "loading_sprites"),
+        (archive::LOADING_SPRITES_RAW, "loading_sprites_raw"),
     ] {
         let format = archive::archive_format(aid).unwrap();
         let unpack_dir = content_dir.join(dir_name).join("_unpack");
@@ -148,27 +149,22 @@ pub fn pack_archive(
 
         let prepared: Vec<PreparedGroup> = group_ids
             .par_iter()
-            .filter_map(|&gid| {
+            .map(|&gid| -> Result<PreparedGroup> {
                 let group_dir = unpack_dir.join(gid.to_string());
-                match encode_sprite_group_from_dir(&group_dir) {
-                    Ok(Some(b)) => Some((gid, b)),
-                    Ok(None) => None,
-                    Err(e) => {
-                        tracing::warn!("sprite group {}: encode failed ({}), skipping", gid, e);
-                        None
-                    }
-                }
-            })
-            .filter_map(|(gid, data)| {
-                let mut group = PreparedGroup::new(aid, gid, &data, versions).ok()?;
+                let data = encode_sprite_group_from_dir(&group_dir)
+                    .with_context(|| format!("encoding sprite group {}", group_dir.display()))?
+                    .with_context(|| {
+                        format!("sprite group {} contains no images", group_dir.display())
+                    })?;
+                let mut group = PreparedGroup::new(aid, gid, &data, versions)?;
                 group.name_hash = name_hashes.get(&gid).copied().unwrap_or(-1);
                 group.files = vec![FileInfo {
                     id: 0,
                     name_hash: None,
                 }];
-                Some(group)
+                Ok(group)
             })
-            .collect();
+            .collect::<Result<_>>()?;
 
         insert_archive(store, aid, format, versions, prepared, "PNG encode")?;
     }

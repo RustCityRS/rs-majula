@@ -55,23 +55,21 @@
             <h2>RuneScape &mdash; revision 647 (May 2011)</h2>
             <p>
                 Revision 647 has no browser port &mdash; it plays through the
-                deobfuscated Java desktop client, which streams the cache from
+                original Java client with patched RSA keys, which streams the cache from
                 this server over JS5.
             </p>
             <p>
                 1. <a href="/client.jar">Download client.jar</a>
-                (requires Java 11+)
+                (Java 17 or 21)
             </p>
             <p>
-                2. The client fetches its configuration from
-                <code>http://127.0.0.1/jav_config.ws</code>, so this server's
-                HTTP listener must be on port 80:
+                2. Start the server:
             </p>
-            <p><code>cargo run -p rs-server -- --http-port 80</code></p>
+            <p><code>REV=647 cargo run --profile dev-opt -p rs-server</code></p>
             <p>
-                3. Launch the client (world <%= nodeid %>):
+                3. Launch the client from a separate terminal on the same computer:
             </p>
-            <p><code>java -jar client.jar</code></p>
+            <p><code>java -Xmx512m -cp client.jar client <%= Number(nodeid) + 3584 %> <%= Number(nodeid) + 3584 %> <%= Number(nodeid) + 3584 %> live english game0</code></p>
             <p>
                 Log in with any username and password &mdash; accounts are
                 created on first login.

@@ -1,10 +1,13 @@
-//! Full offline comparison against the original OpenRS2 786 reference tables.
+//! Full offline comparison against the original OpenRS2 274 reference tables.
 //! Run with `REV=647 cargo test -p rs-pack --test crc_gate -- --ignored`.
 #![cfg(rev = "647")]
 
 use rs_crypto::whirlpool;
+use rs_io::js5::compression::compress_best;
 use rs_io::js5::compute_group_crc;
-use rs_pack::archive::ARCHIVE_IDS;
+use rs_io::js5::reference::encode_reference_table;
+use rs_pack::archive::{self, ARCHIVE_IDS, EXPECTED_CRCS};
+use rs_pack::cache::js5::PackedCache;
 use serde::Deserialize;
 #[path = "support/reference.rs"]
 mod reference;
@@ -12,7 +15,7 @@ use std::collections::BTreeMap;
 use std::path::Path;
 use std::{env, fs};
 
-const NAMES: [&str; 35] = [
+const NAMES: [&str; 36] = [
     "anims",
     "bases",
     "config",
@@ -47,25 +50,24 @@ const NAMES: [&str; 35] = [
     "shaders",
     "loading_sprites",
     "loading_screens",
+    "loading_sprites_raw",
     "worldmap_locs",
 ];
 
-/// A known, explained divergence of one archive from OpenRS2 786.
+/// A known, explained divergence of one archive from OpenRS2 274.
 struct Known {
     archive: u8,
     /// Groups whose CRC, version or presence differs. Must be exact, sorted.
     groups: &'static [u32],
-    /// The table container differs even with every group accounted for.
-    table_only: bool,
     #[allow(dead_code)] // read by people, not code
     why: &'static str,
 }
 
-/// Exact divergences from OpenRS2 786.
+/// Exact divergences from OpenRS2 274.
 const KNOWN: &[Known] = &[
     Known {
         archive: 5,
-        // The 29 landscape squares whose 786 keys nobody has (OpenRS2 lists
+        // The 29 landscape squares whose 274 keys nobody has (OpenRS2 lists
         // none), rebuilt from donor caches and re-encrypted with the committed
         // key, plus the terrain of 4 of them: m51_53, m33_76, m48_50, m42_58.
         groups: &[
@@ -73,12 +75,11 @@ const KNOWN: &[Known] = &[
             3592, 3812, 3816, 3818, 3822, 3826, 3835, 3865, 3890, 4005, 4037, 4041, 4045, 4074,
             5040, 5158, 5206,
         ],
-        table_only: false,
-        why: "donor-restored landscapes: 786's copies are unreadable without keys",
+        why: "donor-restored landscapes: 274's copies are unreadable without keys",
     },
     Known {
         archive: 7,
-        // All 197 are groups 786 does not have at all; no 786 model is
+        // All 197 are groups 274 does not have at all; no 274 model is
         // altered. Models the server overlay configs reference that Jagex did
         // not ship in this cache.
         groups: &[
@@ -98,19 +99,11 @@ const KNOWN: &[Known] = &[
             51105, 51106, 51107, 51108, 51109, 51111, 51112, 51113, 51114, 51115, 51116, 51117,
             51118, 51119, 51120, 51121, 51122, 51123, 51124, 51125, 51126, 51127, 51128, 51129,
         ],
-        table_only: false,
-        why: "models added for server overlay configs, absent from 786",
-    },
-    Known {
-        archive: 12,
-        groups: &[],
-        table_only: true,
-        why: "every clientscript group matches; only the table container's compression differs",
+        why: "models added for server overlay configs, absent from 274",
     },
     Known {
         archive: 16,
         groups: &[3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 17, 18, 19, 20, 21, 35],
-        table_only: false,
         why: "loc config groups restored from donor caches, plus the woodcutting tree overlays",
     },
 ];
@@ -123,14 +116,12 @@ fn assembled_cache_matches_openrs2_group_by_group() {
     if !Path::new(rs_pack::CONTENT_DIR).exists() {
         env::set_current_dir("..").expect("chdir to workspace root");
     }
-    let id = 786;
+    let id = 274;
     let source = Path::new(rs_pack::CONTENT_DIR);
     let pack = Path::new(rs_pack::PACK_DIR);
 
-    // verify=false: compare here and report every archive, rather than
-    // panicking inside the pipeline on the first divergence.
-    let result = rs_pack::pack_all(source, pack, false, true).expect("pack_all failed");
-    let store = result.cache;
+    let result = rs_pack::pack_all(source, pack, true, true).expect("pack_all failed");
+    let mut store = result.cache;
 
     let known: BTreeMap<u8, &Known> = KNOWN.iter().map(|k| (k.archive, k)).collect();
     let mut failures = Vec::new();
@@ -164,6 +155,7 @@ fn assembled_cache_matches_openrs2_group_by_group() {
         }
         let theirs_crc = compute_group_crc(&theirs_raw);
         let ours_crc = compute_group_crc(ours_raw);
+        assert_eq!(Some(ours_crc as i32), EXPECTED_CRCS[pos], "archive {aid}");
 
         let diff = reference::diff_reference_tables(
             &reference::parse_reference_container(ours_raw).unwrap(),
@@ -183,25 +175,16 @@ fn assembled_cache_matches_openrs2_group_by_group() {
             println!("    {differing:?}");
         }
 
-        match judge(&differing, ours_crc == theirs_crc, known.get(&aid).copied()) {
-            Verdict::Explained => {}
-            Verdict::Groups { new, fixed } => {
-                failures.push(format!(
-                    "{} (archive {aid}): {} unexplained group(s) {new:?}; {} listed in KNOWN now match {fixed:?}",
-                    NAMES[pos],
-                    new.len(),
-                    fixed.len(),
-                ));
-            }
-            Verdict::Container => failures.push(format!(
-                "{} (archive {aid}): every group is accounted for but the table container                  differs (ours {ours_crc:#010x}, OpenRS2 {theirs_crc:#010x}){}",
-                NAMES[pos],
-                if diff.header { " -- the header differs" } else { "" },
-            )),
-            Verdict::StaleTableOnly => failures.push(format!(
-                "{} (archive {aid}): the table container now matches; drop `table_only`",
-                NAMES[pos]
-            )),
+        let expected = known.get(&aid).map_or(&[][..], |k| k.groups);
+        if differing != expected {
+            failures.push(format!(
+                "archive {aid}: differing groups {differing:?}, expected {expected:?}"
+            ));
+        }
+        if diff.header || differing.is_empty() && ours_crc != theirs_crc {
+            failures.push(format!(
+                "archive {aid}: reference table differs from OpenRS2 unexpectedly"
+            ));
         }
     }
 
@@ -231,94 +214,80 @@ fn assembled_cache_matches_openrs2_group_by_group() {
         bad.len(),
         keys.len()
     );
+
+    rejects_corrupt_cache(&mut store);
 }
 
-/// The gate's ruling on one archive.
-#[derive(Debug, PartialEq, Eq)]
-enum Verdict {
-    /// Matches OpenRS2, or differs exactly as [`KNOWN`] says.
-    Explained,
-    /// The differing groups are not the known set: `new` differ unexplained,
-    /// `fixed` are listed in [`KNOWN`] but match now.
-    Groups { new: Vec<u32>, fixed: Vec<u32> },
-    /// Every group agrees, yet the container differs and is not `table_only`.
-    Container,
-    /// [`KNOWN`] says `table_only`, but the container matches now.
-    StaleTableOnly,
-}
-
-fn judge(differing: &[u32], container_matches: bool, known: Option<&Known>) -> Verdict {
-    let expected: &[u32] = known.map_or(&[], |k| k.groups);
-    let table_only = known.is_some_and(|k| k.table_only);
-    if differing != expected {
-        return Verdict::Groups {
-            new: differing
-                .iter()
-                .filter(|g| !expected.contains(g))
-                .copied()
-                .collect(),
-            fixed: expected
-                .iter()
-                .filter(|g| !differing.contains(g))
-                .copied()
-                .collect(),
+fn rejects_corrupt_cache(store: &mut PackedCache) {
+    for &aid in ARCHIVE_IDS {
+        let Some(group) = store.tables[&aid].groups.first() else {
+            continue;
         };
+        let gid = group.id;
+        let raw = store.groups.get_mut(&(aid, gid)).unwrap();
+        raw[5] ^= 1;
+        let error = archive::verify_crcs(store, true).unwrap_err().to_string();
+        assert!(
+            error.contains(&format!("archive {aid} group {gid}:")),
+            "{error}"
+        );
+        store.groups.get_mut(&(aid, gid)).unwrap()[5] ^= 1;
     }
-    match (differing.is_empty(), container_matches, table_only) {
-        (true, false, false) => Verdict::Container,
-        (true, true, true) => Verdict::StaleTableOnly,
-        _ => Verdict::Explained,
-    }
-}
 
-#[test]
-fn judge_rules_on_every_shape_of_divergence() {
-    let known = |groups: &'static [u32], table_only| Known {
-        archive: 0,
-        groups,
-        table_only,
-        why: "",
-    };
-    // Clean archive, nothing listed.
-    assert_eq!(judge(&[], true, None), Verdict::Explained);
-    // An unlisted group differs.
-    assert_eq!(
-        judge(&[4], false, None),
-        Verdict::Groups {
-            new: vec![4],
-            fixed: vec![]
-        }
-    );
-    // Exactly the listed groups differ; the container differs with them.
-    assert_eq!(
-        judge(&[1, 2], false, Some(&known(&[1, 2], false))),
-        Verdict::Explained
-    );
-    // A listed group started to match: the list must shrink.
-    assert_eq!(
-        judge(&[1], false, Some(&known(&[1, 2], false))),
-        Verdict::Groups {
-            new: vec![],
-            fixed: vec![2]
-        }
-    );
-    // Groups agree but the container does not, and nothing says why.
-    assert_eq!(judge(&[], false, None), Verdict::Container);
-    // ... unless the table alone is known to be encoded differently.
-    assert_eq!(
-        judge(&[], false, Some(&known(&[], true))),
-        Verdict::Explained
-    );
-    // That allowance goes stale once the container matches.
-    assert_eq!(
-        judge(&[], true, Some(&known(&[], true))),
-        Verdict::StaleTableOnly
-    );
+    // A self-consistent replacement in a formerly skipped donor group must fail too.
+    for (aid, gid) in [(5, 80), (7, 526), (16, 3)] {
+        let original = store.groups[&(aid, gid)].clone();
+        let raw = store.groups.get_mut(&(aid, gid)).unwrap();
+        raw[5] ^= 1;
+        let crc = compute_group_crc(&raw[..raw.len() - 2]);
+        let table = store.tables.get_mut(&aid).unwrap();
+        let index = table
+            .groups
+            .iter()
+            .position(|group| group.id == gid)
+            .unwrap();
+        let old_crc = table.groups[index].crc;
+        table.groups[index].crc = crc;
+        let encoded = compress_best(&encode_reference_table(table), true, true, None).unwrap();
+        let reference = store.groups.insert((255, aid as u32), encoded).unwrap();
+        let error = archive::verify_crcs(store, true).unwrap_err().to_string();
+        assert!(error.contains(&format!("archive {aid}: got")), "{error}");
+        archive::verify_crcs(store, false).expect("custom content remains supported");
+        store.tables.get_mut(&aid).unwrap().groups[index].crc = old_crc;
+        store.groups.insert((aid, gid), original);
+        store.groups.insert((255, aid as u32), reference);
+    }
+
+    let key = (32, store.tables[&32].groups[0].id);
+    let original = store.groups.remove(&key).unwrap();
+    let error = archive::verify_crcs(store, true).unwrap_err().to_string();
+    assert!(error.contains("missing payload"), "{error}");
+    store.groups.insert(key, original);
+
+    let last = store.groups.get_mut(&key).unwrap().pop().unwrap();
+    let error = archive::verify_crcs(store, true).unwrap_err().to_string();
+    assert!(error.contains("invalid version trailer"), "{error}");
+    store.groups.get_mut(&key).unwrap().push(last);
+
+    store.tables.get_mut(&32).unwrap().groups[0].name_hash ^= 1;
+    let error = archive::verify_crcs(store, true).unwrap_err().to_string();
+    assert!(error.contains("reference metadata differs"), "{error}");
+    store.tables.get_mut(&32).unwrap().groups[0].name_hash ^= 1;
+
+    let reference = store.groups.remove(&(255, 32)).unwrap();
+    let error = archive::verify_crcs(store, true).unwrap_err().to_string();
+    assert!(error.contains("missing reference container"), "{error}");
+    store.groups.insert((255, 32), reference);
+
+    store.groups.insert((35, 0), vec![0; 7]);
+    let error = archive::verify_crcs(store, true).unwrap_err().to_string();
+    assert!(error.contains("unreferenced containers"), "{error}");
+    store.groups.remove(&(35, 0));
+    archive::verify_crcs(store, true).unwrap();
 }
 
 #[test]
 fn known_group_lists_are_sorted_and_unique() {
-    // `judge` compares against `TableDiff::groups()`, which is sorted.
     for k in KNOWN {
         assert!(
             k.groups.windows(2).all(|w| w[0] < w[1]),
@@ -342,6 +311,7 @@ fn summarise(diff: &reference::TableDiff) -> String {
         ("openrs2-only", &diff.only_theirs),
         ("crc", &diff.crc),
         ("version", &diff.version),
+        ("metadata", &diff.metadata),
     ] {
         if !ids.is_empty() {
             parts.push(format!("{label} {}", ids.len()));

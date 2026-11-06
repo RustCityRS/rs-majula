@@ -475,9 +475,6 @@ async fn route(
             ),
             Body::Owned(JAV_CONFIG.to_vec()),
         ),
-        // The deob-647 Java desktop client, downloadable from the launcher
-        // page. Read from disk per request — it is a 2.4 MB LFS artifact,
-        // too heavy to embed in the binary like jav_config.
         #[cfg(since_647)]
         "/client.jar" => match tokio::fs::read("public/647/client.jar").await {
             Ok(bytes) => {

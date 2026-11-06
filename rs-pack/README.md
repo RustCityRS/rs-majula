@@ -26,6 +26,20 @@ for packing and validation are released before engine initialization.
 The script compiler uses the same private registry copy as older revisions to protect
 `script.pack` when multiple worlds start together. Compiled bytecode stays in memory.
 
+CRC verification covers all 36 archives and every group payload at startup. Reference
+containers must match fixed CRCs, their metadata must match the in-memory tables, and each
+group must match its CRC, version trailer and optional Whirlpool digest. Missing and extra
+containers fail validation. No archives or groups are skipped. The maps, models and loc
+reference CRCs include the committed donor restorations and authored overlays; the other
+33 reference containers match [OpenRS2 cache 274](https://archive.openrs2.org/caches/runescape/274),
+build 647. `--verify false` allows intentional source edits while still checking container integrity.
+
+Loading-screen JPEGs are copied byte-for-byte from source. Their untagged four-channel
+color data can display incorrectly in generic image previews. The vanilla client probes
+JVM JPEG support and requests archive 34 when decoding fails. Its original fallback sprites
+are included as PNG sources under `loading_sprites_raw`, with exact group and reference
+CRCs from cache 274. Archive 35 is unused in that reference cache.
+
 Check the source pack and run the offline group-level regression:
 
 ```bash

@@ -128,7 +128,7 @@ See [`rs-ether/README.md`](rs-ether/README.md) for more on the sidecar.
 **In a browser.** Open http://localhost:8080/ in any browser with WebAssembly, phones
 included.
 
-**With the original Java client.** Find `public/<REV>/client.jar` for your revision and run:
+**With the original Java client (225–289).** Find `public/<REV>/client.jar` for your revision and run:
 
 ```bash
 java -cp client.jar client 10 0 highmem members 10
@@ -632,8 +632,9 @@ REV = "289"
 
 647 is a JS5 (dat2) revision. Its cache is built from `content/647/` when the server starts
 and goes to the client over JS5, so there is no JAGGRAB, no HTTP cache and no web client. It
-plays through the deobfuscated Java desktop client in `public/647/client.jar`, which reads its
-settings from `http://127.0.0.1/jav_config.ws`, so the server's HTTP listener goes on port 80.
+plays through the original Java client in `public/647/client.jar`, with only its login and
+JS5 RSA moduli patched to match `.keys/public-647.pem`. All other class and resource bytes
+match [OpenRS2 client 31063](https://archive.openrs2.org/clients/31063).
 
 The complete unpacked cache is included in `content/647/`. Startup packs these sources
 straight into memory, including the client JS5 groups and server definitions. No cache
@@ -641,9 +642,24 @@ download, regeneration command or intermediate disk cache is needed.
 
 ```bash
 docker compose up -d
-REV=647 cargo run --profile dev-opt -p rs-server -- --http-port 80
-java -jar public/647/client.jar
+REV=647 cargo run --profile dev-opt -p rs-server
+java -Xmx512m -cp public/647/client.jar client 3594 3594 3594 live english game0
 ```
+
+Run the client in a separate terminal with Java 17 or 21. Its built-in desktop launcher
+connects to localhost; the three server IDs select ports `40000 + id`, so `3594` reaches
+the default server port `43594`. This launcher does not use `jav_config.ws` or HTTP port 80.
+
+To reproduce the RSA patch, or verify that no other client changes are present:
+
+```bash
+python deploy/patch_client_647.py
+python deploy/patch_client_647.py --check
+```
+
+The patcher downloads a hash-pinned original JAR. Pass `--original <path>` to use a local
+copy instead. The original SHA-256 is
+`b7d38915a8fb878d2e2762ba63dac195e68fc8a7ecd9dcc1e738e17f875b6086`.
 
 The `_unpack` directories are versioned source assets. Config sections beside them add to,
 or override, sections of the same name. Map spawns and donor assets are overlaid at pack

@@ -100,7 +100,7 @@ fn pack_filename_for_archive(archive_id: u8) -> &'static str {
         23 => "worldmap_data",
         30 => "dlls",
         31 => "shaders",
-        32 => "loading_sprites",
+        32 | 34 => "loading_sprites",
         33 => "loading_backgrounds",
         _ => "unknown",
     }
@@ -175,7 +175,12 @@ pub fn insert_archive(
         whirlpooled: format.whirlpooled,
         groups: group_infos,
     };
-    let raw = compress_best(&encode_reference_table(&table), true, true, None)?;
+    let raw = compress_best(
+        &encode_reference_table(&table),
+        true,
+        true,
+        archive::codec_override(255, aid as u32),
+    )?;
     store.groups.insert((255, aid as u32), raw);
     info!(
         "  archive {:>2} ({}) -- {} groups, table_version={} {}",

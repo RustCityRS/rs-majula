@@ -553,17 +553,15 @@ pub fn unpack_all_sprites(store: &mut Js5Store, content_dir: &Path) -> Result<Un
     total.sprites += s.sprites;
     total.failed += s.failed;
 
-    if store.has_archive(archive::LOADING_SPRITES) {
-        info!(
-            "Unpacking loading sprites (archive {})...",
-            archive::LOADING_SPRITES
-        );
-        let s = unpack_sprites(
-            store,
-            archive::LOADING_SPRITES,
-            "loading_sprites",
-            content_dir,
-        )?;
+    for (aid, name) in [
+        (archive::LOADING_SPRITES, "loading_sprites"),
+        (archive::LOADING_SPRITES_RAW, "loading_sprites_raw"),
+    ] {
+        if !store.has_archive(aid) {
+            continue;
+        }
+        info!("Unpacking loading sprites (archive {aid})...");
+        let s = unpack_sprites(store, aid, name, content_dir)?;
         info!(
             "  {} groups, {} sprites, {} failed",
             s.groups, s.sprites, s.failed

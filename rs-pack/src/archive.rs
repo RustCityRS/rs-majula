@@ -2,7 +2,11 @@
 use crate::cache::js5::PackedCache;
 use anyhow::Result;
 #[cfg(since_647)]
-use anyhow::anyhow;
+use anyhow::{Context, anyhow, ensure};
+#[cfg(since_647)]
+use rayon::prelude::*;
+#[cfg(since_647)]
+use rs_crypto::whirlpool;
 #[cfg(since_647)]
 use rs_io::crc;
 #[cfg(before_647)]
@@ -10,7 +14,9 @@ use rs_io::jag::JagCompression;
 #[cfg(all(since_244, before_647))]
 use rs_io::js5::Js5Store;
 #[cfg(since_647)]
-use rs_io::js5::compression::CompressionType;
+use rs_io::js5::compression::{CompressionType, Container, decompress};
+#[cfg(since_647)]
+use rs_io::js5::reference::encode_reference_table;
 #[cfg(since_647)]
 use std::collections::HashMap;
 #[cfg(any(rev = "225", since_647))]
@@ -235,18 +241,18 @@ pub const EXPECTED_CRCS: &[Option<i32>] = &[
     Some(0xfc33c82a_u32 as i32), // [ 2] config
     Some(0x7cfecb48_u32 as i32), // [ 3] interfaces
     Some(0xe67d0ac1_u32 as i32), // [ 4] synths
-    None,                        // [ 5] maps (0x83bd3157)
+    Some(0x364bc307_u32 as i32), // [ 5] maps, with restored donor squares
     Some(0x35c79755_u32 as i32), // [ 6] music
-    None,                        // [ 7] models (0x99bc666e)
+    Some(0x202a3927_u32 as i32), // [ 7] models, with donor additions
     Some(0x746d69f2_u32 as i32), // [ 8] sprites
     Some(0x89dc3959_u32 as i32), // [ 9] textures
     Some(0x2976276a_u32 as i32), // [10] binary
     Some(0xa4581da5_u32 as i32), // [11] jingles
-    None,                        // [12] clientscripts (0xac5b8029)
+    Some(0xac5b8029_u32 as i32), // [12] clientscripts
     Some(0x986d3e87_u32 as i32), // [13] fontmetrics
     Some(0x9590ca32_u32 as i32), // [14] vorbis
     Some(0x2ec553fe_u32 as i32), // [15] instruments
-    None,                        // [16] config_loc (0x63048bf1)
+    Some(0x5749b077_u32 as i32), // [16] config_loc, with donor and authored overlays
     Some(0x01eb855a_u32 as i32), // [17] config_enum
     Some(0x28a3b763_u32 as i32), // [18] config_npc
     Some(0xb1a2e4b3_u32 as i32), // [19] config_obj
@@ -264,7 +270,8 @@ pub const EXPECTED_CRCS: &[Option<i32>] = &[
     Some(0xd397dfdb_u32 as i32), // [31] shaders
     Some(0x907d8a9e_u32 as i32), // [32] loading_sprites
     Some(0x8c760e1c_u32 as i32), // [33] loading_screens
-    Some(0x2457425c_u32 as i32), // [34] worldmap_locs (archive id 36 — no idx34/idx35)
+    Some(0xe70e7822_u32 as i32), // [34] loading_sprites_raw
+    Some(0x2457425c_u32 as i32), // [35] worldmap_locs (archive id 36; no idx35)
 ];
 
 #[cfg(since_244)]
@@ -335,6 +342,8 @@ pub const SHADERS: u8 = 31;
 pub const LOADING_SPRITES: u8 = 32;
 #[cfg(since_647)]
 pub const LOADING_SCREENS: u8 = 33;
+#[cfg(since_647)]
+pub const LOADING_SPRITES_RAW: u8 = 34;
 #[cfg(since_647)]
 pub const WORLDMAP_LOCS: u8 = 36;
 #[cfg(since_647)]
@@ -750,6 +759,15 @@ pub const ARCHIVES: &[ArchiveFormat] = &[
         content_dir: "loading_backgrounds",
     },
     ArchiveFormat {
+        id: LOADING_SPRITES_RAW,
+        format: REF_FORMAT_VERSIONED,
+        named: true,
+        whirlpooled: false,
+        allow_uncompressed: false,
+        allow_bzip2: true,
+        content_dir: "loading_sprites_raw",
+    },
+    ArchiveFormat {
         id: WORLDMAP_LOCS,
         format: REF_FORMAT_LEGACY,
         named: false,
@@ -773,6 +791,7 @@ pub fn archive_format(id: u8) -> Option<&'static ArchiveFormat> {
 pub fn codec_override(archive_id: u8, group_id: u32) -> Option<CompressionType> {
     match (archive_id, group_id) {
         (CONFIG, CONFIG_GROUP_STRUCT) => Some(CompressionType::Gzip),
+        (255, id) if id == CLIENTSCRIPT as u32 => Some(CompressionType::Gzip),
         _ => None,
     }
 }
@@ -907,40 +926,82 @@ pub fn load_versions_dir(dir: &Path) -> Result<VersionTable> {
 
 #[cfg(since_647)]
 pub fn verify_crcs(store: &PackedCache, strict: bool) -> Result<()> {
-    let mut mismatches: Vec<String> = Vec::new();
-    info!("CRC gate: verifying 35 archives against OpenRS2 786...");
-    for (pos, &aid) in ARCHIVE_IDS.iter().enumerate() {
-        let actual = match store.groups.get(&(255, aid as u32)) {
-            Some(raw) => crc::getcrc(raw, 0, raw.len()),
-            _ => 0,
-        };
-        match EXPECTED_CRCS[pos] {
-            Some(expected) if expected == actual => {
-                info!("  archive {aid:>2}: OK ({actual:#010x})");
+    info!(
+        "CRC gate: verifying all {} archives and group payloads...",
+        ARCHIVE_IDS.len()
+    );
+    ensure!(
+        store.tables.len() == ARCHIVE_IDS.len(),
+        "CRC gate: expected {} reference tables, got {}",
+        ARCHIVE_IDS.len(),
+        store.tables.len()
+    );
+    let groups: usize = ARCHIVE_IDS
+        .par_iter()
+        .enumerate()
+        .map(|(pos, &aid)| -> Result<usize> {
+            let raw = store.groups.get(&(255, aid as u32))
+                .with_context(|| format!("CRC gate: archive {aid}: missing reference container"))?;
+            let expected = EXPECTED_CRCS[pos]
+                .with_context(|| format!("CRC gate: archive {aid}: missing expected CRC"))?;
+            let actual = crc::getcrc(raw, 0, raw.len());
+            if actual != expected {
+                ensure!(
+                    !strict,
+                    "CRC gate: archive {aid}: got {actual:#010x}, expected {expected:#010x}"
+                );
+                warn!("CRC gate: archive {aid}: got {actual:#010x}, expected {expected:#010x} (verification disabled)");
             }
-            Some(expected) => {
-                warn!("  archive {aid:>2}: MISMATCH got {actual:#010x}, expected {expected:#010x}");
-                mismatches.push(format!(
-                    "archive {aid}: got {actual:#010x}, expected {expected:#010x}"
-                ));
-            }
-            None => {
-                info!("  archive {aid:>2}: skipped, known divergence ({actual:#010x})");
-            }
-        }
-    }
-    if mismatches.is_empty() {
-        info!("CRC gate: all 31 verified archives match OpenRS2 786 (4 known divergences skipped)");
-    } else if strict {
-        panic!(
-            "CRC gate: {} archive(s) diverge from OpenRS2 786:\n  {}",
-            mismatches.len(),
-            mismatches.join("\n  "),
+            let table = store.tables.get(&aid)
+                .with_context(|| format!("CRC gate: archive {aid}: missing reference table"))?;
+            ensure!(
+                encode_reference_table(table) == decompress(raw)?.as_ref(),
+                "CRC gate: archive {aid}: reference metadata differs from its container"
+            );
+            table.groups.par_iter().try_for_each(|group| -> Result<()> {
+                let raw = store.groups.get(&(aid, group.id))
+                    .with_context(|| format!("CRC gate: archive {aid} group {}: missing payload", group.id))?;
+                let container = Container::parse(raw)
+                    .with_context(|| format!("CRC gate: archive {aid} group {}: invalid container", group.id))?;
+                ensure!(
+                    raw.len() == container.data.len() + 2
+                        && container.version == Some(group.version as u16),
+                    "CRC gate: archive {aid} group {}: invalid version trailer",
+                    group.id
+                );
+                let actual = container.crc();
+                ensure!(
+                    actual == group.crc,
+                    "CRC gate: archive {aid} group {}: got {actual:#010x}, expected {:#010x}",
+                    group.id,
+                    group.crc
+                );
+                if let Some(digest) = group.whirlpool {
+                    ensure!(
+                        whirlpool(container.data) == digest,
+                        "CRC gate: archive {aid} group {}: Whirlpool mismatch",
+                        group.id
+                    );
+                }
+                Ok(())
+            })?;
+            Ok(table.groups.len())
+        })
+        .sum::<Result<usize>>()?;
+    ensure!(
+        store.groups.len() == groups + ARCHIVE_IDS.len(),
+        "CRC gate: unreferenced containers: expected {}, got {}",
+        groups + ARCHIVE_IDS.len(),
+        store.groups.len()
+    );
+    if strict {
+        info!(
+            "CRC gate: verified {} archives and {groups} group payloads (no skips)",
+            ARCHIVE_IDS.len()
         );
     } else {
-        warn!(
-            "CRC gate: {} archive(s) diverge from OpenRS2 786",
-            mismatches.len()
+        info!(
+            "Cache integrity: verified {groups} group payloads; reference CRC enforcement disabled"
         );
     }
     Ok(())
