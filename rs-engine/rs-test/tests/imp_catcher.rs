@@ -11,6 +11,7 @@ use rs_engine::harness::HarnessClient;
 use rs_pack::cache::VarValue;
 use rs_test::runner;
 use rs_test::talk::{converse, settexts, talk_to};
+use rsmod::rsmod::collision::collision_strategy::CollisionType;
 
 static TURN: std::sync::Mutex<()> = std::sync::Mutex::new(());
 
@@ -38,10 +39,24 @@ fn visitor(engine: &mut Engine, stage: i32, objs: &[&str]) -> (HarnessClient, u1
             )
         })
         .expect("Mizgog is spawned");
-    let (sx, sz) = [(1, 0), (-1, 0), (0, 1), (0, -1), (1, 1), (-1, -1)]
+    // One step from Mizgog, so no wall stands between (he wanders).
+    let (sx, sz) = [(1i8, 0i8), (-1, 0), (0, 1), (0, -1)]
         .into_iter()
-        .map(|(dx, dz)| (x.wrapping_add_signed(dx), z.wrapping_add_signed(dz)))
-        .find(|&(x, z)| !rsmod::is_flagged(x, z, 2, 0x100 | 0x200000))
+        .find(|&(dx, dz)| {
+            rsmod::can_travel(2, x, z, dx, dz, 1, 0, CollisionType::Normal)
+                && !rsmod::is_flagged(
+                    x.wrapping_add_signed(dx as i16),
+                    z.wrapping_add_signed(dz as i16),
+                    2,
+                    0x100 | 0x200000,
+                )
+        })
+        .map(|(dx, dz)| {
+            (
+                x.wrapping_add_signed(dx as i16),
+                z.wrapping_add_signed(dz as i16),
+            )
+        })
         .expect("a walkable tile beside Mizgog");
     engine.harness_telejump(client.pid, sx, 2, sz);
     let varp = *engine.cache.varps.debugnames.get("imp").unwrap();

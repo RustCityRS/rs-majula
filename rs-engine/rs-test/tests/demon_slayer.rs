@@ -624,7 +624,11 @@ fn delrith_is_banished_with_the_player_s_incantation() {
             p.p1_alt2(0).p2_alt3(nid as i32);
             client.send(ClientProt::OpNpc2, &p.finish());
             let mut said = Vec::new();
-            for _ in 0..300 {
+            for tick in 0..300 {
+                // The engine drops a client silent for 100 ticks.
+                if tick % 20 == 0 {
+                    client.send(ClientProt::NoTimeout, &[]);
+                }
                 engine.cycle();
                 said.extend(HarnessClient::game_messages(&client.packets()));
                 if find(engine, weakened).is_some() {
