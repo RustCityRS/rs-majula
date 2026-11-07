@@ -17,8 +17,7 @@ switch_obj (last_useitem)
     case red_dye : @craft_dyes(purple_dye);
     case yellow_dye : @craft_dyes(green_dye);
     case black_cape, cape, yellow_cape, green_cape, purple_cape, orange_cape : @craft_capes(last_useitem, blue_dye);
-    // Goblin Diplomacy's goblin mail waits for the quest's port.
-    // case goblin_mail : ~dye_goblin_mail_armour(blue_dye, blue_goblin_mail, "blue");
+    case goblin_mail : ~dye_goblin_mail_armour(blue_dye, blue_goblin_mail, "blue");
     case default : ~displaymessage(^dm_default);
 }
 
@@ -51,7 +50,7 @@ switch_obj (last_useitem)
 switch_obj (last_useitem) 
 {
     case black_cape, cape, cape_1021, yellow_cape, green_cape, purple_cape : @craft_capes(last_useitem, orange_dye);
-    // case goblin_mail : ~dye_goblin_mail_armour(orange_dye, orange_goblin_mail, "orange");
+    case goblin_mail : ~dye_goblin_mail_armour(orange_dye, orange_goblin_mail, "orange");
     case default : ~displaymessage(^dm_default);
 }
 //----------------------

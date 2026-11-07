@@ -1,0 +1,15 @@
+// Goblin mail dyed for Goblin Diplomacy (289's goblin_mail.rs2), on 2011's objs. 2011's message
+// is "You dye the goblin armour blue." (2011-06-14 recording, YouTube jxkBytyfG-U, chat history),
+// where 289's mail-first path said "dark blue" (its dye-first path already said "blue").
+[opheldu,goblin_mail]
+switch_obj (last_useitem) {
+    case orange_dye : ~dye_goblin_mail_armour(orange_dye, orange_goblin_mail, "orange");
+    case blue_dye : ~dye_goblin_mail_armour(blue_dye, blue_goblin_mail, "blue");
+    case default : ~displaymessage(^dm_default);
+}
+
+[proc,dye_goblin_mail_armour](namedobj $dye, namedobj $armour, string $message)
+inv_del(inv, goblin_mail, 1);
+inv_del(inv, $dye, 1);
+inv_add(inv, $armour, 1);
+mes("You dye the goblin armour <$message>.");

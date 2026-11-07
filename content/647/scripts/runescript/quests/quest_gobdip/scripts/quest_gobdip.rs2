@@ -1,0 +1,193 @@
+// Goblin Diplomacy as May 2011 had it: the reworked quest (2011 wiki, Goblin Diplomacy,
+// 2011-05-09, "Rework"), on 289's quest_gobdip.rs2. Sources, all in
+// runescape/target/refs/gobdip/transcript_0614.md:
+// - 2011-06-14 recording (YouTube jxkBytyfG-U): the whole quest, box for box;
+// - 2011-08-29 (Cj9wpHsm7w4): "Why are you arguing...?" and "Wouldn't you prefer peace?";
+// - 2011-07-29 (sd-mP2PG7HQ): the start with 289's short argument.
+// What changed from 289:
+// - the quest starts at the generals (no Falador bartender), stage 0 -> 2;
+// - the generals open with one of three arguments, picked at random here: the recordings show
+//   the long one and the short one each at the start, so it is not the stage (how 2011 chose is
+//   not known);
+// - after an answer, the menu leaves out the option just asked;
+// - each armour is handed over by "I have some <colour> armour here", and Grubfoot tries it on
+//   in the changing room (a timed box, the minimap blacked out), reappearing in that colour
+//   (%varplayerbit_1782, npc_4495);
+// - the generals' lines are 2011's; 289's are gone except its two answers, word for word.
+// Unknown, so 289's or left out: the answers to "You should wear red" and "You should wear
+// green" (only the player's line is said); the wiki's "Where am I meant to get orange armour?"
+// (where it sits in the menus is not shown); what is said without the armour in hand (289's).
+
+[proc,gobdip_wartface](string $line)
+~chatnpc_specific("General Wartface", general_wartface_4494, $line);
+
+[proc,gobdip_bentnoze](string $line)
+~chatnpc_specific("General Bentnoze", general_bentnoze_4493, $line);
+
+// Talk-to either general. $from is the one spoken to (289's short argument differs by general).
+[label,goblin_diplomacy_talk](npc $from)
+if (%varplayerbit_2378 = ^gobdip_complete) {
+    @goblin_diplomacy_completed;
+}
+def_int $argument = random(3);
+if ($argument = 0) {
+    ~gobdip_wartface("<p,goblinchat>We should wear green armour!");
+    ~gobdip_bentnoze("<p,goblinchat>Green armour? Are you stupid?");
+    ~gobdip_wartface("<p,goblinchat>You stupid! Only stupid goblins think red armour better!");
+    ~gobdip_bentnoze("<p,goblinchat>No they don't! Me think red armour better!");
+    ~gobdip_wartface("<p,goblinchat>That because you stupid!");
+    ~gobdip_bentnoze("<p,goblinchat>Me not stupid!");
+    ~gobdip_wartface("<p,goblinchat>Then why you not like green armour?");
+    ~gobdip_bentnoze("<p,goblinchat>Because red armour better!");
+    ~gobdip_wartface("<p,goblinchat>Only stupid goblins think that! You stupid!");
+} else if ($argument = 1) {
+    // 289's greetings, as the 2011-06-14 (353.9s) and 07-29 (104.6s) recordings show them.
+    if ($from = general_wartface_4494) {
+        ~gobdip_wartface("<p,goblinchat>Green armour best.");
+        ~gobdip_bentnoze("<p,goblinchat>No, no, red every time.");
+        ~gobdip_wartface("<p,goblinchat>Go away, human, we busy.");
+    } else {
+        ~gobdip_bentnoze("<p,goblinchat>Red armour best.");
+        ~gobdip_wartface("<p,goblinchat>No, it has to be green!");
+        ~gobdip_bentnoze("<p,goblinchat>Go away, human, we busy.");
+    }
+} else {
+    ~gobdip_wartface("<p,goblinchat>I tell all goblins in village to wear green armour now!");
+    ~gobdip_bentnoze("<p,goblinchat>They not listen to you! I already tell them wear red armour!");
+    ~gobdip_wartface("<p,goblinchat>They listen to me not you! They know me bigger general!");
+    ~gobdip_bentnoze("<p,goblinchat>Me bigger general! They listen to me!");
+    ~gobdip_wartface("<p,goblinchat>Human! What colour armour they wearing out there?");
+    ~chatplayer("<p,neutral>Half of them are wearing red and half of them green.");
+    ~gobdip_wartface("<p,goblinchat>Shut up, human! They wearing green armour really! Human lying because he scared of you!");
+    ~gobdip_bentnoze("<p,goblinchat>Human scared of me not you! Then you think me bigger general!");
+    ~gobdip_wartface("<p,goblinchat>What? Me mean...");
+}
+@goblin_diplomacy_menu(0);
+
+// The generals' menu. $asked is the option just answered (1 or 2), left out of it, as the
+// 2011-08-29 recording shows (186.9s, 198.7s); 0 shows all three.
+[label,goblin_diplomacy_menu](int $asked)
+def_string $third = "Do you want me to pick an armour colour for you?";
+if (%varplayerbit_2378 = ^gobdip_will_bring_armour) {
+    $third = "I have some orange armour here";
+} else if (%varplayerbit_2378 = ^gobdip_gave_orange) {
+    $third = "I have some blue armour here";
+} else if (%varplayerbit_2378 = ^gobdip_gave_blue) {
+    $third = "I have some brown armour here";
+}
+def_int $option;
+if ($asked = 1) {
+    $option = ~p_choice2("Wouldn't you prefer peace?", 2, $third, 3);
+} else if ($asked = 2) {
+    $option = ~p_choice2("Why are you arguing about the colour of your armour?", 1, $third, 3);
+} else {
+    $option = ~p_choice3("Why are you arguing about the colour of your armour?", 1, "Wouldn't you prefer peace?", 2, $third, 3);
+}
+if ($option = 1) {
+    ~chatplayer("<p,confused>Why are you arguing about the colour of your armour?");
+    ~gobdip_bentnoze("<p,goblinchat>We decide to celebrate goblin new century by changing colour of our armour, brown get boring after a bit. We want change.");
+    ~gobdip_wartface("<p,goblinchat>Problem is they want different change to us.");
+    @goblin_diplomacy_menu(1);
+}
+if ($option = 2) {
+    ~chatplayer("<p,confused>Wouldn't you prefer peace?");
+    ~gobdip_wartface("<p,goblinchat>Yeah peace is good as long as it peace wearing green armour.");
+    ~gobdip_bentnoze("<p,goblinchat>But green too much like skin. Nearly make you look naked!");
+    @goblin_diplomacy_menu(2);
+}
+switch_int (%varplayerbit_2378) {
+    case ^gobdip_will_bring_armour : @goblin_diplomacy_hand_over(orange_goblin_mail, "orange", ^gobdip_grubfoot_orange);
+    case ^gobdip_gave_orange : @goblin_diplomacy_hand_over(blue_goblin_mail, "blue", ^gobdip_grubfoot_blue);
+    case ^gobdip_gave_blue : @goblin_diplomacy_hand_over(goblin_mail, "brown", ^gobdip_grubfoot_brown);
+    case default : @goblin_diplomacy_pick_colour;
+}
+
+[label,goblin_diplomacy_pick_colour]
+~chatplayer("<p,quiz>Do you want me to pick an armour colour for you?");
+~gobdip_wartface("<p,goblinchat>Yes as long as you pick green.");
+~gobdip_bentnoze("<p,goblinchat>No you have to pick red!");
+def_int $option = ~p_choice3("You should wear red", 1, "You should wear green", 2, "What about a different colour?", 3);
+if ($option = 1) {
+    // No source shows the generals' answer.
+    ~chatplayer("<p,neutral>You should wear red.");
+    return;
+}
+if ($option = 2) {
+    // No source shows the generals' answer.
+    ~chatplayer("<p,neutral>You should wear green.");
+    return;
+}
+~chatplayer("<p,quiz>What about a different colour? Not green or red?");
+~gobdip_bentnoze("<p,goblinchat>That would mean me wrong... but at least Wartface not right!");
+~gobdip_wartface("<p,goblinchat>Me dunno what that look like. Have to see armour before we decide.");
+~gobdip_bentnoze("<p,goblinchat>Human! You bring us armour in new colour!");
+~gobdip_wartface("<p,goblinchat>What colour we try?");
+~gobdip_bentnoze("<p,goblinchat>Orange armour might be good.");
+~gobdip_wartface("<p,goblinchat>Yep bring us orange armour.");
+%varplayerbit_2378 = ^gobdip_will_bring_armour;
+
+// "I have some <colour> armour here": Grubfoot tries it on (2011-06-14, 357.2-367.1s orange,
+// 379.8-389.6s blue, 409.4-417.8s brown).
+[label,goblin_diplomacy_hand_over](namedobj $mail, string $colour, int $grubfoot)
+~chatplayer("<p,neutral>I have some <$colour> armour here.");
+if (inv_total(inv, $mail) = 0) {
+    // 289's, unverified: no recording shows the option chosen without the armour.
+    ~gobdip_wartface("<p,goblinchat>Have you got some <$colour> goblin armour yet?");
+    ~chatplayer("<p,bored>Err, no.");
+    ~gobdip_wartface("<p,goblinchat>Come back when you have some.");
+    return;
+}
+~gobdip_wartface("<p,goblinchat>Grubfoot!");
+~chatnpc_specific("Grubfoot", npc_4495, "<p,goblinchat>Yes General Wartface sir?");
+~gobdip_wartface("<p,goblinchat>Put on this armour!");
+inv_del(inv, $mail, 1);
+~gobdip_changing_room(calc(%varplayerbit_2378 + 1), $grubfoot, $colour);
+~chatnpc_specific("Grubfoot", npc_4495, "<p,goblinchat>What do you think?");
+if (%varplayerbit_2378 = ^gobdip_gave_orange) {
+    ~gobdip_wartface("<p,goblinchat>No I don't like that much.");
+    ~gobdip_bentnoze("<p,goblinchat>It clashes with skin colour.");
+    ~gobdip_wartface("<p,goblinchat>We need darker colour, like blue.");
+    ~gobdip_bentnoze("<p,goblinchat>Yeah blue might be good.");
+    ~gobdip_wartface("<p,goblinchat>Human! Get us blue armour!");
+    return;
+}
+if (%varplayerbit_2378 = ^gobdip_gave_blue) {
+    ~gobdip_bentnoze("<p,goblinchat>That not right. Not goblin colour at all.");
+    ~gobdip_wartface("<p,goblinchat>Goblins wear dark earthy colours like brown.");
+    ~gobdip_bentnoze("<p,goblinchat>Yeah brown might be good.");
+    ~gobdip_wartface("<p,goblinchat>Human! Get us brown armour!");
+    ~chatplayer("<p,quiz>I thought that was the armour you were changing from. Never mind, anything is worth a try.");
+    return;
+}
+~gobdip_wartface("<p,goblinchat>That colour quite nice. Me can see myself wearing that.");
+~gobdip_bentnoze("<p,goblinchat>It a deal then. Brown armour it is.");
+~gobdip_wartface("<p,goblinchat>Thank you for sorting out our argument. Take this gold bar as reward!");
+queue(goblin_diplomacy_complete_quest, 0, 0);
+
+// The changing room: a timed box, the minimap blacked out (MINIMAP_TOGGLE 2), and Grubfoot back
+// in the new colour. The 2011-06-14 recording holds "Grubfoot goes into the changing room..."
+// about 3 seconds (360.3-363.4s) and "...And emerges wearing <colour> armour." under a second.
+// The recording's close camera and Grubfoot's walk are to be matched in-client.
+[proc,gobdip_changing_room](int $stage, int $grubfoot, string $colour)
+%varplayerbit_2378 = $stage;
+minimap_toggle(2);
+~mesbox_np("Grubfoot goes into the changing room...");
+p_delay(4);
+%varplayerbit_1782 = $grubfoot;
+~mesbox_np("...And emerges wearing <$colour> armour.");
+p_delay(1);
+minimap_toggle(0);
+
+[queue,goblin_diplomacy_complete_quest]
+%varplayerbit_2378 = ^gobdip_complete;
+stat_advance(crafting, 2000);
+inv_add(inv, gold_bar, 1);
+session_log(^log_adventure, "Quest complete: Goblin Diplomacy");
+// 2011's scroll (2011-06-14, 419s): goblin mail pictured, "5 Quest Points", "200 Crafting XP",
+// "A gold bar".
+~send_quest_complete2(^questlist_gobdip, goblin_mail, 250, ^gobdip_questpoints, "You have completed the Goblin Diplomacy Quest!", "200 Crafting XP|A gold bar");
+
+// 289's, after the quest: no 2011 source shows it.
+[label,goblin_diplomacy_completed]
+~gobdip_wartface("<p,goblinchat>Now you've solved our argument we|gotta think of something else to do.");
+~gobdip_bentnoze("<p,goblinchat>Yep, we bored now.");

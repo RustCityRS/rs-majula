@@ -106,7 +106,7 @@ if (%imp = ^imp_complete) {
 if (%druidquest = ^druid_complete) {
     $questpoints = add($questpoints, ^druid_questpoints);
 }
-if (%goblinquest = ^gobdip_complete) {
+if (%varplayerbit_2378 = ^gobdip_complete) {
     $questpoints = add($questpoints, ^gobdip_questpoints); 
 }
 if (%sheep = ^sheep_complete) {
