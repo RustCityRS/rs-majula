@@ -20,6 +20,11 @@
 if (%vampire = ^vampire_complete | %vampire = ^quest_vampire_not_started) {
     return;
 }
+// Staked, the Count is dead until the quest is over: he does not rise again
+// for Morgan's errand.
+if (%vampire_count_slain = ^true) {
+    return;
+}
 npc_findallany(0_48_152_9_49, 15, ^vis_off);
 while (npc_findnext = true) {
     if (npc_type = count_draynor & %npc_attacking_uid = uid) {
@@ -50,8 +55,10 @@ while (npc_findnext = true) {
 //  16  the coffin lies open and empty, cutting the Count off on it, and he
 //      rises from the floor (seq 3328) on 3081,9777, facing the camera
 //      (+8.0s);
-//  19  he turns to the player, who gets up (seq 3110); the Count stands
-//      where he rose.
+//  19  he turns to the player, who gets up (seq 3110). Then he wanders, and
+//      attacks a player who comes within 5 tiles (all three recordings: he
+//      moves about the floor on his own until the player comes to him;
+//      "aggressive: yes", 2011 wiki, Count Draynor).
 // The camera holds until the player engages him (count_draynor.rs2). Its
 // tiles, heights and speeds are fitted to the recordings' frames in the 647
 // client. The look's constant speed of 1 lets the client's angles reach the

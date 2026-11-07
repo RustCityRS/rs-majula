@@ -216533,11 +216533,6 @@ param=combat_xp_multiplier,100
 timer=1
 // osrs stats and Vislvl match 1:1
 // https://raw.githubusercontent.com/Joshua-F/osrs-dumps/refs/heads/master/config/dump.npc npc_3481
-// Risen from the coffin cutscene, he stands where he rose until the player
-// comes to him (the 2010-10-15, 2011-02-19 and 2011-05-30 recordings: 3-8
-// seconds without a step); the default range of 5 walked him off, and past
-// his ai_timer's 10 tiles.
-wanderrange=0
 
 [count_draynor_9357]
 readyanim=seq_1669

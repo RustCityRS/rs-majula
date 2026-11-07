@@ -542,9 +542,9 @@ fn lookat(payload: &[u8]) -> (u16, u8, u8) {
 /// the track unlocked at once, the player's push on the lid at tick 6, the
 /// stake failing at tick 9 and the player thrown back a tile at 10, the
 /// camera's three fitted moves, the coffin left open and empty as the Count
-/// rises on 3081,9777 at tick 16; he stays there, the player's camera comes
-/// back when the player goes to attack him, and the coffin closes once he
-/// has gone.
+/// rises on 3081,9777 at tick 16; he wanders there, the player's camera
+/// comes back when the player goes to attack him, and the coffin closes once
+/// he has gone.
 #[test]
 fn the_coffin_plays_2011s_cutscene() {
     let _turn = TURN.lock().unwrap_or_else(|e| e.into_inner());
@@ -652,10 +652,16 @@ fn the_coffin_plays_2011s_cutscene() {
             loc_at(engine, "coffin_163", COFFIN.1, COFFIN.2),
             "the coffin lies open and empty"
         );
-        // He stands where he rose.
+        // He wanders near where he rose (all three recordings), and does not
+        // go while the player is in the room.
         ticks(engine, &mut client, 10);
         let c = engine.get_npc(nid).expect("he stays").npc.pathing.coord;
-        assert_eq!((c.x(), c.z()), (3081, 9777));
+        assert!(
+            (c.x() as i32 - 3081).abs() <= 5 && (c.z() as i32 - 9777).abs() <= 5,
+            "within his wander range: {},{}",
+            c.x(),
+            c.z()
+        );
         // The player goes for him: the camera is the player's again.
         let mut p = ClientPacket::new();
         p.p1_alt2(0).p2_alt3(nid as i32);
@@ -695,4 +701,47 @@ fn loc_at(engine: &Engine, name: &str, x: u16, z: u16) -> bool {
         .zone(x, 0, z)
         .and_then(|zone| zone.get_loc(x, z, id))
         .is_some()
+}
+
+/// Once the Count is staked, the coffin does not raise him again before the
+/// quest ends at Morgan.
+#[test]
+fn a_staked_count_does_not_rise_again() {
+    let _turn = TURN.lock().unwrap_or_else(|e| e.into_inner());
+    runner::on_loaded_engine(|engine| {
+        let _ = engine.script_errors.take();
+        let count = npc_type(engine, "count_draynor");
+        let mut client = login(engine, (3079, 0, 9786), 2, 1, &[("stake", 1)]);
+        client.packets();
+        let mut p = ClientPacket::new();
+        p.p2_alt1(COFFIN.2 as i32)
+            .p2_alt1(COFFIN.0 as i32)
+            .p1(0)
+            .p2_alt2(COFFIN.1 as i32);
+        client.send(ClientProt::OpLoc1, &p.finish());
+        let mut said = Vec::new();
+        for _ in 0..25 {
+            engine.cycle();
+            said.extend(
+                HarnessClient::game_messages(&client.packets())
+                    .into_iter()
+                    .map(|(_, m)| m),
+            );
+        }
+        no_script_errors(engine, "a second opening");
+        assert!(said.is_empty(), "no cutscene: {said:?}");
+        assert!(
+            !engine
+                .npc_list
+                .npcs
+                .iter()
+                .flatten()
+                .any(|n| n.npc.uid.id() == count),
+            "no Count"
+        );
+        assert!(
+            loc_at(engine, "coffin", COFFIN.1, COFFIN.2),
+            "the coffin stays shut"
+        );
+    });
 }

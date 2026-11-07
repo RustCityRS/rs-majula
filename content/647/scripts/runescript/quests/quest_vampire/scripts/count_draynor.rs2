@@ -101,9 +101,14 @@ if (%vampire < ^vampire_complete) {
     %vampire_count_slain = ^true;
 }
 
+// He goes when the player leaves him, or after a while (npc_add's 500 ticks;
+// "he disappears after a period of time", 2011 wiki, Vampire Slayer). 289
+// sent him when the player was 10 tiles off; 2011's rises 9 tiles from
+// where the cutscene throws the player and wanders 5, so leaving is 20
+// tiles: the basement's stairs, not a wander.
 [ai_timer,count_draynor]
 if (finduid(%npc_attacking_uid) = true) {
-    if (npc_range(coord) > 10 | coordy(coord) ! coordy(npc_coord)) {
+    if (npc_range(coord) > 20 | coordy(coord) ! coordy(npc_coord)) {
         // A player who leaves without attacking him gets the camera back.
         cam_reset;
         ~quest_vampire_coffin_close;
