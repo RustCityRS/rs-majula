@@ -1,0 +1,20 @@
+// Hetty's cauldron (289's quest_hetty.rs2). At 2011 it is loc 2024, a multiloc on varp 67
+// (%hetty): it offers "Drink-from" only once the ingredients are in (2, cauldron_14339), and
+// none before or after (cauldron_14338, cache 786). So 289's "As nice as that looks I think
+// I'll give it a miss for now." cannot be reached and is not ported.
+// Witch's Potion is a miniquest at 2011 (cache 786's quest 178: 0 quest points; no quest list
+// row, clientscript 2193): no scroll, no quest point and no journal (289's hetty_journal.rs2).
+// The reward is unchanged, 325 Magic experience (2011 wiki, Witch's Potion, 2011-04-18). What
+// 2011 showed on finishing is not known: every recording found predates the change.
+[oploc1,loc_2024]
+if(%hetty ! ^hetty_objects_given) {
+    return;
+}
+~mesbox("You drink from the cauldron, it tastes horrible! You feel yourself imbued with power.");
+queue(hetty_quest_complete, 0, 0);
+
+[queue,hetty_quest_complete]
+%hetty = ^hetty_complete;
+stat_advance(magic, 3250);
+session_log(^log_adventure, "Quest complete: Witch's Potion");
+// 289's: ~send_quest_complete(questlist:hetty, eye_of_newt, 250, ^hetty_questpoints, "You have completed the\\nWitches Potion Quest!");

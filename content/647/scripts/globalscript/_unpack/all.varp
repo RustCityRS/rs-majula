@@ -290,7 +290,13 @@ scope=perm
 [varplayer_66]
 
 // 67
-[varplayer_67]
+[hetty]
+// 289's hetty (Witch's Potion), on the cache's varp 67. Cache 786's quest 178 ("Witch's
+// Potion", 0 quest points) counts it from 1 to 3, as 289's stages do, and Hetty's cauldron
+// (loc 2024) reads it, offering "Drink-from" only at 2 (cauldron_14339): so it is
+// transmitted. 2011's miniquest has no quest list row (clientscript 2193).
+transmit=yes
+scope=perm
 
 // 68
 [biohazard]
