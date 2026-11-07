@@ -319,3 +319,71 @@ fn veronica_and_oddenstein_answer_every_branch() {
         }
     });
 }
+
+/// 2011's ending (2011-05-04 recording, YouTube sbY-Uq0JI4M, 462.5-477s): the three parts handed
+/// in, Ernest's thanks with his clucks, and cache struct_516's reward, 3,000 coins, 10 eggs and
+/// 300 feathers, where 289 paid 300 coins.
+#[test]
+fn ernest_pays_2011s_reward() {
+    let _turn = TURN.lock().unwrap_or_else(|e| e.into_inner());
+    runner::on_loaded_engine(|engine| {
+        let (nid, x, y, z) = beside(engine, "professor_oddenstein");
+        let mut client = login(engine, "ernest_reward", (x, y, z));
+        let haunted = varp(engine, "haunted");
+        let inv = *engine.cache.invs.debugnames.get("inv").unwrap();
+        let obj = |e: &Engine, n: &str| *e.cache.objs.debugnames.get(n).unwrap();
+        let parts = [
+            obj(engine, "pressure_gauge"),
+            obj(engine, "oil_can"),
+            obj(engine, "rubber_tube"),
+        ];
+        let player = engine.harness_player_mut(client.pid).unwrap();
+        player.vars.set(haunted, VarValue::Int(2));
+        let pack = player.invs.get_mut(&inv).unwrap();
+        for (slot, part) in parts.into_iter().enumerate() {
+            pack.set(slot as u16, part, 1);
+        }
+        ticks(engine, &mut client, 2);
+        talk_to(&mut client, nid);
+        // The machine runs for ~5 ticks with no box open between "Give 'em here then." and
+        // Ernest's thanks: one converse per side of that pause.
+        let mut talk = rs_test::talk::converse(engine, &mut client, &[], 120);
+        talk.texts
+            .extend(rs_test::talk::converse(engine, &mut client, &[], 120).texts);
+        for line in [
+            "I have everything!",
+            "How can *cluck* I ever thank you?",
+            "A cash reward is always nice...",
+            "You may as well have these eggs and *cluck* feathers I mysteriously *bwark* found in my pockets.",
+        ] {
+            assert!(talk.said(line), "2011 shows {line:?}; {:?}", talk.texts);
+        }
+        for _ in 0..10 {
+            engine.cycle();
+        }
+        assert!(
+            said("Ernest hands you 3,000 coins, 10 eggs and 300 feathers."),
+            "{:?}",
+            rs_vm::ops::test::calls_for("mes")
+        );
+        let pack = engine
+            .harness_player(client.pid)
+            .unwrap()
+            .invs
+            .get(&inv)
+            .unwrap();
+        assert_eq!(pack.total(obj(engine, "coins")), 3000);
+        assert_eq!(pack.total(obj(engine, "egg")), 10);
+        assert_eq!(pack.total(obj(engine, "feather")), 300);
+        assert_eq!(
+            engine
+                .harness_player(client.pid)
+                .unwrap()
+                .vars
+                .get(haunted)
+                .as_int(),
+            3,
+            "Ernest the Chicken complete"
+        );
+    });
+}

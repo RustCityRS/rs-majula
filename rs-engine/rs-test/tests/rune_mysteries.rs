@@ -153,3 +153,116 @@ fn aubury_trades_on_op4_and_teleports_on_op5() {
         );
     });
 }
+
+/// 2011's Sedridor (2011-05-22 recording, YouTube VIE8MXrw-7M, 131.9-156.6s): "That's me", the
+/// talisman taken without a choice, "Wow! This is incredible!", the research package for Aubury
+/// and his directions to Varrock's south-east quarter.
+#[test]
+fn sedridor_takes_the_talisman_and_sends_a_research_package() {
+    let _turn = TURN.lock().unwrap_or_else(|e| e.into_inner());
+    runner::on_loaded_engine(|engine| {
+        let (mut client, nid) = visitor(engine, "sedridor_2011", SEDRIDOR, 1);
+        let inv = *engine.cache.invs.debugnames.get("inv").unwrap();
+        let talisman = *engine.cache.objs.debugnames.get("air_talisman").unwrap();
+        let package = *engine
+            .cache
+            .objs
+            .debugnames
+            .get("research_package")
+            .unwrap();
+        engine
+            .harness_player_mut(client.pid)
+            .unwrap()
+            .invs
+            .get_mut(&inv)
+            .unwrap()
+            .set(0, talisman, 1);
+        rs_test::talk::talk_to(&mut client, nid);
+        let talk = rs_test::talk::converse(
+            engine,
+            &mut client,
+            &["I'm looking for the head wizard.", "Yes, certainly."],
+            200,
+        );
+        assert!(talk.unanswered.is_none(), "{:?}", talk.unanswered);
+        for line in [
+            "Welcome, adventurer, to the world-renowned Wizards' Tower. How may I help you?",
+            "That's me, but why would you be doing that?",
+            "Just some crude amulet, I'll wager.",
+            "Okay, here you are.",
+            "You give the talisman to the wizard.",
+            "Wow! This is incredible!",
+            "It is a secret so powerful that it destroyed the original Wizards' Tower many centuries ago!",
+            "Aubury's rune store is in the south-east quarter.",
+            "The head wizard gives you a research package.",
+        ] {
+            assert!(talk.said(line), "2011 shows {line:?}; {:?}", talk.texts);
+        }
+        assert!(
+            !talk.said("No, I'll only give it to the head wizard."),
+            "2011 asks nothing before the talisman"
+        );
+        let pack = engine
+            .harness_player(client.pid)
+            .unwrap()
+            .invs
+            .get(&inv)
+            .unwrap();
+        assert_eq!(pack.total(talisman), 0, "the talisman is given");
+        assert_eq!(pack.total(package), 1, "the research package");
+    });
+}
+
+/// 2011's ending (2011-05-22 recording, 301.5-321.5s): Sedridor takes the research notes, tells
+/// the rune essence's story in 2011's words, and hands back the air talisman in an item box.
+#[test]
+fn sedridor_takes_the_notes_and_returns_the_talisman() {
+    let _turn = TURN.lock().unwrap_or_else(|e| e.into_inner());
+    runner::on_loaded_engine(|engine| {
+        let (mut client, nid) = visitor(engine, "sedridor_notes", SEDRIDOR, 5);
+        let inv = *engine.cache.invs.debugnames.get("inv").unwrap();
+        let notes = *engine.cache.objs.debugnames.get("research_notes").unwrap();
+        let talisman = *engine.cache.objs.debugnames.get("air_talisman").unwrap();
+        engine
+            .harness_player_mut(client.pid)
+            .unwrap()
+            .invs
+            .get_mut(&inv)
+            .unwrap()
+            .set(0, notes, 1);
+        rs_test::talk::talk_to(&mut client, nid);
+        let talk = rs_test::talk::converse(engine, &mut client, &[], 300);
+        assert!(talk.unanswered.is_none(), "{:?}", talk.unanswered);
+        for line in [
+            "May I have them?",
+            "You have been nothing but helpful, adventurer. In return, I can let you in on the secret of our research.",
+            "So, only you and Aubury know the teleport spell to the rune essence?",
+            "No, there are others. When you speak to them, they will know you and grant you access to that place when asked.",
+            "You give the research notes to Sedridor. He gives you an air talisman.",
+        ] {
+            assert!(talk.said(line), "2011 shows {line:?}; {:?}", talk.texts);
+        }
+        for _ in 0..4 {
+            engine.cycle();
+        }
+        let pack = engine
+            .harness_player(client.pid)
+            .unwrap()
+            .invs
+            .get(&inv)
+            .unwrap();
+        assert_eq!(pack.total(notes), 0, "the notes are given");
+        assert_eq!(pack.total(talisman), 1, "the air talisman comes back");
+        let varp = *engine.cache.varps.debugnames.get("runemysteries").unwrap();
+        assert_eq!(
+            engine
+                .harness_player(client.pid)
+                .unwrap()
+                .vars
+                .get(varp)
+                .as_int(),
+            COMPLETE,
+            "Rune Mysteries complete"
+        );
+    });
+}

@@ -6,7 +6,8 @@ switch_int(%haunted) {
 }
 
 [label,oddenstein_nonquest]
-~chatnpc("<p,neutral>Be careful in here.|Lots of dangerous equipment in here.");
+// 2011-05-04 recording (YouTube sbY-Uq0JI4M, 74.3-93.6s): 2011's words, where recorded.
+~chatnpc("<p,neutral>Be careful in here, there's lots of dangerous equipment.");
 @multi2("What does this machine do?", oddenstein_machine, "Is this your house?", oddenstein_house);
 
 [label,oddenstein_machine]
@@ -19,15 +20,16 @@ switch_int(%haunted) {
 ~chatnpc("<p,neutral>No, I'm just one of the tenants.|It belongs to the count|who lives in the basement.");
 
 [label,oddenstein_looking]
+~chatnpc("<p,neutral>Be careful in here, there's lots of dangerous equipment.");
 def_int $option = ~p_choice3("I'm looking for a guy called Ernest.", 1, "What does this machine do?", 2, "Is this your house?", 3);
 if($option = 1) {
     ~chatplayer("<p,quiz>I'm looking for a guy called Ernest.");
-    ~chatnpc("<p,happy>Ah Ernest, top notch bloke.|He's helping me with my experiments.");
-    ~chatplayer("<p,quiz>So you know where he is then?");
+    ~chatnpc("<p,happy>Ah, Ernest - top notch bloke - he's helping me with my experiments.");
+    ~chatplayer("<p,quiz>So you know where he is?");
     ~chatnpc("<p,happy>He's that chicken over there.");
-    ~chatplayer("<p,confused>Ernest is a chicken?|Are you sure?");
-    ~chatnpc("<p,happy>Oh, he isn't normally a chicken,|or at least he wasn't|until he helped me test my pouletmorph machine.");
-    ~chatnpc("<p,happy>It was originally going to be called a transmutation machine. But after testing pouletmorph seems more appropriate.");
+    ~chatplayer("<p,confused>Ernest is a chicken? Are you sure?");
+    ~chatnpc("<p,happy>Oh, he isn't normally a chicken, or, at least, he wasn't until he helped me test my pouletmorph machine.");
+    ~chatnpc("<p,happy>It was originally going to be called a transmutation machine, but after testing it, pouletmorph seems more appropriate.");
     @multi2("I'm glad Veronica didn't actually get engaged to a chicken.", oddenstein_chicken, "Change him back this instant!", oddenstein_change_back);
 } else if($option = 2) {
     @oddenstein_machine;
@@ -48,12 +50,15 @@ if($option = 1) {
 @oddenstein_not_easy;
 
 [label,oddenstein_not_easy]
-~chatnpc("<p,confused>Um, it's not so easy...");
-~chatnpc("<p,sad>My machine is broken,|and the house gremlins|have run off with some vital bits.");
-~chatplayer("<p,neutral>Well I can look out for them.");
-~chatnpc("<p,neutral>That would be a help.|They'll be somewhere in the manor house or its grounds,|the gremlins never go further than the entrance gate.");
+~chatnpc("<p,confused>Umm... It's not so easy...");
+~chatnpc("<p,sad>My machine is broken, and this house has long been pestered by poltergeists. They seem to reap joy from hiding my belongings and, in this case, the vital parts to my machine.");
+~chatplayer("<p,neutral>Well, I can look for them.");
+~chatnpc("<p,neutral>That would be a huge help. They'll be somewhere in the manor house or its grounds outside.");
 %haunted = ^haunted_spoken_to_oddenstein;
-~chatnpc("<p,neutral>I'm missing the pressure gauge and a rubber tube.|They've also taken my oil can,|which I'm going to need to get this thing started again.");
+~chatnpc("<p,neutral>I'm missing the pressure gauge and a rubber tube. They've also taken my oil can, which I'm going to need to get this thing started again.");
+~chatplayer("<p,quiz>Any clues?");
+~chatnpc("<p,neutral>Well, I wouldn't be surprised if you found something in my IQ-testing room under the manor where I test my...creations.");
+~chatnpc("<p,neutral>Oh, and if I were you, I'd stay away from the coffin in the basement. Even the poltergeists daren't go near it.");
 
 [label,oddenstein_items]
 ~chatnpc("<p,quiz>Have you found anything yet?");
@@ -61,25 +66,23 @@ if(inv_total(inv, pressure_gauge) > 0 & inv_total(inv, oil_can) > 0 & inv_total(
     ~chatplayer("<p,happy>I have everything!");
     ~chatnpc("<p,happy>Give 'em here then.");
     if_close;
-    mes("You give a rubber tube, a pressure gauge, ");
+    // 2011-05-04 recording (466.1-475.7s).
+    mes("You give a rubber tube, a pressure gauge");
     mes("and a can of oil to the professor.");
     p_delay(1);
     mes("Oddenstein starts up the machine.");
     p_delay(2);
     mes("The machine hums and shakes.");
     p_delay(2);
-    mes("Suddenly a ray shoots out of the machine at the chicken.");
-    p_delay(1);
     ~change_ernest;
     inv_del(inv, pressure_gauge, 1);
     inv_del(inv, oil_can, 1);
     inv_del(inv, rubber_tube, 1);
     %haunted = ^haunted_complete;
     queue(haunted_quest_complete, 0, 0); // reward is queued as soon as changetype completes in OSRS
-    ~chatnpc_specific("Ernest", ernest, "<p,happy>Thank you <text_gender("sir", "m'lady")>.|It was dreadfully irritating being a chicken.|How can I ever thank you?");
-    ~chatplayer("<p,shifty>Well a cash reward is always nice...");
-    ~chatnpc_specific("Ernest", ernest, "<p,neutral>Of course, of course.");
-    ~mesbox("Ernest hands you 300 coins.");
+    ~chatnpc_specific("Ernest", ernest, "<p,happy>Thank you <text_gender("sir", "m'lady")>. It was dreadfully irritating being a chicken. How can *cluck* I ever thank you?");
+    ~chatplayer("<p,shifty>A cash reward is always nice...");
+    ~chatnpc_specific("Ernest", ernest, "<p,neutral>Of course, of course. You may as well have these eggs and *cluck* feathers I mysteriously *bwark* found in my pockets.");
 } else if(inv_total(inv, pressure_gauge) > 0 | inv_total(inv, oil_can) > 0 | inv_total(inv, rubber_tube) > 0) {
     def_string $player_items = "";
     def_string $oddenstein_items = "";
