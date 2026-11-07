@@ -11,6 +11,10 @@ if ($tele_back_coord = ^essence_mine_to_brimstail) {
 } else {
     ~essence_teleport_cast(true);
 }
+// osrs is 100 but 70 lines up better with our different sound synth
+spotanim_pl(curse_impact, 124, 70);
+// IncompleteProjectile(id = 109, startHeight = 31, endHeigsht = 31, delay = 61, angle = 16, distOffset = 128)
+p_delay(4);
 // select random coord
 def_coord $coord = enum(int, coord, essence_mine_teleports, random(enum_getoutputcount(essence_mine_teleports)));
 // select random coord at a radius of 1
@@ -34,9 +38,10 @@ def_coord $coord = map_findsquare(%exit_essence_mine_coord, 0, 2, ^map_findsquar
 p_telejump($coord);
 
 [proc,essence_teleport_cast](boolean $anim)
-// The teleporter's cast, for the essence mine and Aubury's 2011 teleport back to the Wizards'
-// Tower (Rune Mysteries 2011-05-22, YouTube VIE8MXrw-7M, 243-247s: "Senventior disthine
-// molenko!" over him, the curse graphic round the player, then the jump).
+// The teleporter's cast up to the curse's impact, for the essence mine and Aubury's 2011
+// teleport back to the Wizards' Tower (Rune Mysteries 2011-05-22, YouTube VIE8MXrw-7M,
+// 243-247s: "Senventior disthine molenko!" over him). Each caller times the impact rings and
+// the jump: 2011's are measured only for the teleport back.
 if_close;
 // this is lowercase
 npc_say("Senventior disthine molenko!");
@@ -46,7 +51,3 @@ if ($anim = true) {
 spotanim_npc(curse_casting, 92, 0);
 sound_synth(curse_all, 1, 0);
 def_int $duration = ~player_projectile(npc_coord, coord, uid, curse_travel, 31, 31, 61, 16, 0, 128, 5);
-// osrs is 100 but 70 lines up better with our different sound synth
-spotanim_pl(curse_impact, 124, 70);
-// IncompleteProjectile(id = 109, startHeight = 31, endHeigsht = 31, delay = 61, angle = 16, distOffset = 128)	
-p_delay(4);

@@ -83,4 +83,12 @@ if ($choice = 2) {
 // The essence mine's cast, words and all (the recording, 243-247s), to the bridge north of
 // the tower, where the recording lands (refs/runemys/sg/tp_full.png).
 ~essence_teleport_cast(true);
+// The jump comes three ticks after his words, the curse's rings with it: both 2011 recordings
+// show the rings and "Loading - please wait." 1.9-2.0s after the words (VIE8MXrw-7M at 10 fps,
+// 242.8 -> 244.7/244.8s; NBvmMylvOY8, 383 -> 385s), the rings still round the player on the
+// bridge. The rings start 0.1s before the load freezes the scene (1.7s), as 2011's do, so they
+// show round the player in the shop too. The essence mine's 289 timing (rings at 1.4s, jump
+// at five ticks) is not this.
+spotanim_pl(curse_impact, 124, 85);
+p_delay(2);
 p_telejump(^aubury_wizard_tower_bridge);
