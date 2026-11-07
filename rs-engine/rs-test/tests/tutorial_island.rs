@@ -32,6 +32,7 @@ use rs_engine::Engine;
 use rs_engine::harness::HarnessClient;
 use rs_entity::player::StaffModLevel;
 use rs_pack::cache::VarValue;
+use rs_pack::types::NpcStat;
 use rs_protocol::network::game::client_prot::ClientProt;
 use rs_test::runner;
 use rs_vm::state::ExecutionState;
@@ -438,4 +439,137 @@ fn a_2011_player_wields_a_bronze_dagger_off_the_island() {
             "wielded"
         );
     });
+}
+
+/// 289's tutorial rat (tutorial/scripts/npcs/tut_giant_rat.rs2) bites with
+/// 2011's melee mark, as every npc melee hit paints (hitmark.rs2), not the
+/// plain mark a bare damage gets. Fought for 60 ticks, every bite it paints
+/// is a melee hit, its crit or a miss, and at least one lands.
+#[test]
+fn the_tutorial_rat_bites_with_the_melee_mark() {
+    let _turn = TURN.lock().unwrap_or_else(|e| e.into_inner());
+    runner::on_loaded_engine(|engine| {
+        let mut client = developer(engine, "ratbitten", (3258, 3270));
+        cheat(&mut client, "npcadd newbiegiantrat");
+        engine.cycle();
+        // Off the rat's 2x2 tiles, and a few ticks for the client to see it.
+        engine.harness_telejump(client.pid, 3255, 0, 3270);
+        for _ in 0..3 {
+            engine.cycle();
+        }
+        client.packets();
+        let rat = rat_beside(engine);
+        // Alive the whole fight: the bites are under test, not the kill.
+        engine.get_npc_mut(rat).unwrap().npc.stats.levels[NpcStat::Hitpoints as usize] = 3000;
+        rs_vm::ops::test::set_recording(true);
+        rs_vm::ops::test::forget_calls();
+        let mut p = ClientPacket::new();
+        p.p1_alt2(0).p2_alt3(rat as i32);
+        client.send(ClientProt::OpNpc2, &p.finish());
+        let mut bites = Vec::new();
+        let mut said = Vec::new();
+        for tick in 0..60 {
+            engine.cycle();
+            for (_, m) in HarnessClient::game_messages(&client.packets()) {
+                said.push(m);
+            }
+            if tick % 20 == 0 {
+                client.send(ClientProt::NoTimeout, &[]);
+            }
+            for call in rs_vm::ops::test::calls_for("damage") {
+                let parts: Vec<i32> = call.split(',').map(|v| v.parse().unwrap()).collect();
+                bites.push((parts[0], parts[1]));
+            }
+            rs_vm::ops::test::forget_calls();
+        }
+        rs_vm::ops::test::set_recording(false);
+        assert!(
+            bites.iter().all(|(mark, _)| [0, 8, 10].contains(mark)),
+            "melee, its crit or a miss: {bites:?}"
+        );
+        assert!(
+            bites
+                .iter()
+                .any(|(mark, amount)| (*mark == 0 || *mark == 10) && *amount > 0),
+            "a bite lands: {bites:?}; said {said:?}; rat hp {:?}",
+            engine
+                .get_npc(rat)
+                .map(|n| n.npc.stats.levels[NpcStat::Hitpoints as usize])
+        );
+    });
+}
+
+/// 289's tutorial rat spares the player's last hitpoint, 10 life points at
+/// 647 (`%life_points`, varbit 7198: varp 1240 bits 1-15). At 10, a bite it
+/// paints is a miss; it still swings.
+#[test]
+fn the_tutorial_rat_spares_the_last_hitpoint() {
+    let _turn = TURN.lock().unwrap_or_else(|e| e.into_inner());
+    runner::on_loaded_engine(|engine| {
+        let mut client = developer(engine, "ratspared", (3258, 3270));
+        cheat(&mut client, "npcadd newbiegiantrat");
+        cheat(&mut client, "setvar life_points 10");
+        engine.cycle();
+        engine.harness_telejump(client.pid, 3255, 0, 3270);
+        for _ in 0..3 {
+            engine.cycle();
+        }
+        client.packets();
+        let pid = client.pid;
+        let life = |engine: &Engine| {
+            (engine.harness_player(pid).unwrap().vars.get(1240).as_int() >> 1) & 0x7FFF
+        };
+        assert_eq!(life(engine), 10);
+        let rat = rat_beside(engine);
+        // Alive the whole fight: the bites are under test, not the kill.
+        engine.get_npc_mut(rat).unwrap().npc.stats.levels[NpcStat::Hitpoints as usize] = 3000;
+        rs_vm::ops::test::set_recording(true);
+        rs_vm::ops::test::forget_calls();
+        let mut p = ClientPacket::new();
+        p.p1_alt2(0).p2_alt3(rat as i32);
+        client.send(ClientProt::OpNpc2, &p.finish());
+        let mut bites = Vec::new();
+        for tick in 0..40 {
+            let before = life(engine);
+            engine.cycle();
+            client.packets();
+            if tick % 20 == 0 {
+                client.send(ClientProt::NoTimeout, &[]);
+            }
+            for call in rs_vm::ops::test::calls_for("damage") {
+                let parts: Vec<i32> = call.split(',').map(|v| v.parse().unwrap()).collect();
+                bites.push((tick, before, parts[0], parts[1]));
+            }
+            rs_vm::ops::test::forget_calls();
+        }
+        rs_vm::ops::test::set_recording(false);
+        assert!(
+            bites
+                .iter()
+                .all(|(_, before, _, amount)| *before > 10 || *amount == 0),
+            "nothing bitten off the last 10: {bites:?}"
+        );
+        assert!(
+            bites.iter().any(|(_, _, mark, _)| *mark == 8),
+            "the rat swings: {bites:?}"
+        );
+        assert!(life(engine) > 0);
+    });
+}
+
+/// The rat `npcadd` put down in the cow field (3258,3270), not one of the
+/// island's own.
+fn rat_beside(engine: &Engine) -> u16 {
+    let id = *engine.cache.npcs.debugnames.get("newbiegiantrat").unwrap();
+    engine
+        .npc_list
+        .npcs
+        .iter()
+        .flatten()
+        .find(|n| {
+            let c = n.npc.pathing.coord;
+            n.npc.uid.id() == id && c.x().abs_diff(3258) <= 2 && c.z().abs_diff(3270) <= 2
+        })
+        .map(|n| n.npc.uid.nid())
+        .expect("the rat npcadd spawned")
 }

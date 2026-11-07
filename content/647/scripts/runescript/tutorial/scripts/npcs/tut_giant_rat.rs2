@@ -39,12 +39,15 @@ def_int $maxhit = ~npc_melee_maxhit;
 def_int $damage = 0;
 
 if_close; // close the player interface when taking a hit.
-if (stat(hitpoints) = 1) {
+// 289 spares the last hitpoint; at 647 that is 10 life points (%life_points,
+// content's pool; stat(hitpoints) is the level and never falls with a hit).
+if (%life_points <= 10) {
     $damage = 0;
 } else if (randominc($attack_roll) > randominc($defence_roll)) {
     $damage = randominc($maxhit);
 }
-queue(combat_damage_player, 1, $damage);
+// A bite is a melee hit: 2011 paints it with the melee mark (hitmark.rs2).
+queue(combat_damage_player, 1, ~combat_hit($damage, ^hitmark_melee, $maxhit));
 queue*(playerhit_n_retaliate, 1)(npc_uid);
 ~npc_set_attack_vars;
 
