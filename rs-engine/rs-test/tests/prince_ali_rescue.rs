@@ -278,3 +278,36 @@ fn aggie_makes_dyes_from_her_2011_menu() {
         assert!(errors.is_empty(), "{errors:?}");
     });
 }
+
+/// Ned's 2011 menus (2011-04-22 recording, YouTube I7lbQxahe_w, 209.7-219.4s): the first is
+/// titled "Choose an option:", the decline reads "No thanks, Ned, I don't need any.", and the
+/// wool menu offers "How about some sort of a wig?".
+#[test]
+fn ned_offers_2011s_menus() {
+    let _turn = TURN.lock().unwrap_or_else(|e| e.into_inner());
+    runner::on_loaded_engine(|engine| {
+        let _ = engine.script_errors.take();
+        let mut client = visit(engine, "ned", 20, 0);
+        let talk = converse(
+            engine,
+            &mut client,
+            &[
+                "Ned, could you make other things from wool?",
+                "How about some sort of a wig?",
+            ],
+            200,
+        );
+        assert_eq!(talk.unanswered, None, "{:?}", talk.texts);
+        for line in [
+            "Choose an option:",
+            "No thanks, Ned, I don't need any.",
+            "I am sure I can. What are you thinking of?",
+            "How about some sort of a wig?",
+            "Well... That's an interesting thought. Yes, I think I could do something. Give me 3 balls of wool and I might be able to do it.",
+        ] {
+            assert!(talk.said(line), "2011 shows {line:?}; {:?}", talk.texts);
+        }
+        let errors = engine.script_errors.take();
+        assert!(errors.is_empty(), "{errors:?}");
+    });
+}

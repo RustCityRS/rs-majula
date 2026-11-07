@@ -31,25 +31,34 @@ if (last_useitem = crandor_map) {
 [label,standard_ned]
 // 2011-04-22 recording (YouTube I7lbQxahe_w): see prince_fix_2011 in the commit.
 ~chatnpc("<p,happy>Why, hello there, <text_gender("lad", "lass")>. Me friends call me Ned. I was a man of the sea, but it's past me now. Could I be making or selling you some rope?");
+// The 2011-04-22 recording's menu (I7lbQxahe_w, 209.7s) is titled "Choose an option:" and
+// has a fourth option, "Anything interesting happening in Draynor Village?", whose answer no
+// source shows: it is left out. The Crandor option's menus (members) take the same title.
 def_int $option;
 if(%princequest >= ^prince_spoken_osman & %princequest < ^prince_saved) {
     if (~quest_dragon_getting_map_parts = true & %dragon_ned_hired = ^false) {
-        @multi4("You're a sailor? Could you take me to the island of Crandor?", ned_dragon_slayer_before_hired, "Ned, could you make other things from wool?", ned_other_things, "Yes, I would like some rope.", ned_start_rope_purchase, "No thanks, Ned. I don't need any.", ned_decline_rope);
+        $option = ~p_choice4_header("You're a sailor? Could you take me to the island of Crandor?", 1, "Ned, could you make other things from wool?", 2, "Yes, I would like some rope.", 3, "No thanks, Ned, I don't need any.", 4, "Choose an option:");
     } else {
-        @multi3("Ned, could you make other things from wool?", ned_other_things, "Yes, I would like some rope.", ned_start_rope_purchase, "No thanks, Ned. I don't need any.", ned_decline_rope);
+        $option = ~p_choice3_header("Ned, could you make other things from wool?", 2, "Yes, I would like some rope.", 3, "No thanks, Ned, I don't need any.", 4, "Choose an option:");
     }
 } else {
     if (~quest_dragon_getting_map_parts = true & %dragon_ned_hired = ^false) {
-        @multi3("You're a sailor? Could you take me to the island of Crandor?", ned_dragon_slayer_before_hired, "Yes, I would like some rope.", ned_start_rope_purchase, "No thanks, Ned. I don't need any.", ned_decline_rope);
+        $option = ~p_choice3_header("You're a sailor? Could you take me to the island of Crandor?", 1, "Yes, I would like some rope.", 3, "No thanks, Ned, I don't need any.", 4, "Choose an option:");
     } else {
-        @multi2("Yes, I would like some rope.", ned_start_rope_purchase, "No thanks, Ned. I don't need any.", ned_decline_rope);
+        $option = ~p_choice2_header("Yes, I would like some rope.", 3, "No thanks, Ned, I don't need any.", 4, "Choose an option:");
     }
+}
+switch_int ($option) {
+    case 1 : @ned_dragon_slayer_before_hired;
+    case 2 : @ned_other_things;
+    case 3 : @ned_start_rope_purchase;
+    case default : @ned_decline_rope;
 }
 
 [label,ned_other_things]
 ~chatplayer("<p,quiz>Ned, could you make other things from wool?");
 ~chatnpc("<p,happy>I am sure I can. What are you thinking of?");
-@multi3("Could you knit me a sweater?", ned_sweater, "How about some sort of wig?", ned_wig, "Could you repair the arrow holes in the back of my shirt?", ned_arrow_holes);
+@multi3("Could you knit me a sweater?", ned_sweater, "How about some sort of a wig?", ned_wig, "Could you repair the arrow holes in the back of my shirt?", ned_arrow_holes);
 
 [label,ned_start_rope_purchase]
 ~chatplayer("<p,neutral>Yes, I would like some rope.");
@@ -72,7 +81,7 @@ inv_del(inv, coins, 15);
 inv_add(inv, rope, 1);
 
 [label,ned_decline_rope]
-~chatplayer("<p,neutral>No thanks, Ned. I don't need any.");
+~chatplayer("<p,neutral>No thanks, Ned, I don't need any.");
 ~chatnpc("<p,neutral>Well, old Neddy is always here if you do.|Tell your friends. I can always be using the business.");
 
 [label,ned_get_wool]
@@ -103,7 +112,7 @@ inv_add(inv, rope, 1);
 ~chatplayer("<p,neutral>Thanks Ned. Maybe next time they will attack me face to face.");
 
 [label,ned_wig]
-~chatplayer("<p,quiz>How about some sort of wig?");
+~chatplayer("<p,quiz>How about some sort of a wig?");
 ~chatnpc("<p,happy>Well... That's an interesting thought. Yes, I think I could do something. Give me 3 balls of wool and I might be able to do it.");
 if(inv_total(inv, ball_of_wool) < 3) {
     ~chatplayer("<p,happy>Great, I will get some. I think a wig would be useful.");
