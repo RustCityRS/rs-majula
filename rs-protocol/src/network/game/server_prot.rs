@@ -483,6 +483,7 @@ server_prot! {
     CamRemoveroof = 36,
     IfSetPosition = 37,
     IfOpensub = 38,
+    MinimapToggle = 40,
     ClansettingsDelta = 41,
     IfSetColour = 43,
     LocAddChange = 44,

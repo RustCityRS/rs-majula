@@ -344,6 +344,21 @@ fn if_setcolour_matches_client() {
     p.done(bytes.len());
 }
 
+/// Client MINIMAP_TOGGLE (`ServerProt.java`: id 40, size 1; `MapAreaConfig.java:808`: `g1`
+/// into the minimap state, 2 = blacked out, as 2011's cutscenes show it).
+#[test]
+fn minimap_toggle_matches_client() {
+    use rs_protocol::network::game::server::minimap_toggle::MinimapToggle;
+    use rs_protocol::network::game::server_prot::ServerProt;
+    assert_eq!(ServerProt::MinimapToggle as u8, 40);
+    let message = MinimapToggle { minimap_type: 2 };
+    let bytes = encode(&message);
+    assert_eq!(message.sizeof(), 1);
+    let mut p = ClientPacket::new(&bytes);
+    assert_eq!(p.g1(), 2, "minimap state");
+    p.done(1);
+}
+
 /// Client IF_SETGRAPHIC (`MapAreaConfig.java`): `ig4 hash` (little-endian, this reader's
 /// `g4s_alt1`), then `g2_alt1 graphic` (high byte, low byte + 128: this reader's `g2_alt2`).
 #[test]

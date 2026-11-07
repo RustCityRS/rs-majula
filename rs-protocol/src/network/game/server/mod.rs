@@ -125,7 +125,7 @@ pub mod message_quickchat_private;
 pub mod message_quickchat_private_echo;
 pub mod midi_jingle;
 pub mod midi_song;
-#[cfg(all(since_274, before_647))]
+#[cfg(since_274)]
 pub mod minimap_toggle;
 #[cfg(since_647)]
 pub mod npc_anim_specific;

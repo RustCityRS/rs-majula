@@ -509,6 +509,11 @@
 [command,lowmem]()(boolean)
 // info: Set the player's identity kit
 [command,setidkit](idkit $kit, int $color)
+// info: Change the active_player type of minimap displayed (0 normal, 1 no clicks, 2 blacked
+// out): 647's MINIMAP_TOGGLE (prot 40), as 2011's cutscenes black it out
+[command,minimap_toggle](int $type)
+// info: Change the secondary active_player type of minimap displayed
+[command,.minimap_toggle](int $type)
 // info: Set the player's skill level for games room
 // (289's declaration: content ported from 289 calls it; the engine has the op)
 [command,set_skill_level](int $level)

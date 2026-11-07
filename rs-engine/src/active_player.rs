@@ -1341,14 +1341,9 @@ impl ActivePlayer {
     /// blacked out).
     #[cfg(since_274)]
     pub fn minimap_toggle(&mut self, minimap_type: u8) {
-        #[cfg(before_647)]
         self.write(
             rs_protocol::network::game::server::minimap_toggle::MinimapToggle { minimap_type },
         );
-        // TODO(647): port with the interface milestone — no rev-647
-        // MINIMAP_TOGGLE packet is modelled yet.
-        #[cfg(since_647)]
-        let _ = minimap_type;
     }
 
     /// Recolors an interface component model, remapping `src` color to `dst`.
