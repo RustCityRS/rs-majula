@@ -42,11 +42,13 @@ while (npc_findnext = true) {
 //      3112) with him;
 //  10  he stabs down into the coffin with the stake (seq 2992, the stake in
 //      hand; May 2011, 22.2s-22.4s), and it fails;
-//  12  he is thrown back (seq 3108) a tile west, onto the floor by the
-//      candelabra (May 2011, 22.5s-23.0s);
+//  11  he is thrown back (seq 3108) a tile west, onto the floor by the
+//      candelabra (May 2011, 22.5s-23.0s): the throw cuts the stab off
+//      just after its strike (0.36-0.48s in), before its slow 0.72s
+//      recovery, so the stab is quick, as May 2011's is;
 //  13  the Count sits up, stands and raises his arms (seq 3322), and the
-//      camera lifts and draws back a little;
-//  14  the player lies there (seq 3109) while the Count rises;
+//      camera lifts and draws back a little; the player lies there (seq
+//      3109) while the Count rises;
 //  16  the camera pulls back to the floor below the dais;
 //  21  the coffin lies open and empty, and the Count rises from the floor
 //      (seq 3328) on 3081,9777, facing the camera;
@@ -75,18 +77,17 @@ if (loc_find(0_48_152_8_57, coffin) = true) {
 p_delay(3);
 mes("You stab the vampire with the stake, but it does not go deep enough.");
 anim(seq_2992, 0);
-p_delay(1);
+p_delay(0);
 anim(seq_3108, 0);
 p_exactmove(0_48_152_7_58, 0_48_152_6_58, 0, 30, ^exact_east);
-p_delay(0);
+p_delay(1);
 if (loc_find(0_48_152_8_57, coffin) = true) {
     loc_anim(seq_3322);
 }
 cam_moveto(0_48_152_6_48, 840, 0, 90);
 cam_lookat(0_48_152_8_54, 350, 1, 90);
-p_delay(0);
 anim(seq_3109, 0);
-p_delay(1);
+p_delay(2);
 cam_moveto(0_48_152_6_43, 520, 0, 16);
 p_delay(4);
 if_openoverlay(null);

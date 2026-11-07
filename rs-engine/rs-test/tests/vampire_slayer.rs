@@ -629,8 +629,8 @@ fn the_coffin_plays_2011s_cutscene() {
             [
                 (6, seq("seq_2991")),
                 (10, seq("seq_2992")),
-                (12, seq("seq_3108")),
-                (14, seq("seq_3109")),
+                (11, seq("seq_3108")),
+                (13, seq("seq_3109")),
                 (25, seq("seq_3110"))
             ],
             "the player's seqs (tick, seq)"
