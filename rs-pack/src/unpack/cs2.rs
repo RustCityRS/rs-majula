@@ -3,12 +3,13 @@ use crate::archive;
 use crate::cache::ScriptVarType;
 use crate::cache::param::ParamTypeRaw;
 use crate::cache::provider::CacheType;
-use crate::cs2::{script::Script, source};
 use crate::pack::names::AssetNames;
 use anyhow::{Context, Result, ensure};
 use rs_io::Packet;
 use rs_io::js5::Js5Store;
 use runec::clientscript;
+use runec::clientscript::decode::Script;
+use runec::clientscript::decompile::{decompile, infer_signatures};
 use runec::symbol::SymbolKind;
 use runec::types::Type;
 use std::collections::{BTreeMap, BTreeSet, HashMap, HashSet};
@@ -115,12 +116,12 @@ pub fn unpack_cs2_scripts(cache_dir: &Path, output_dir: &Path, pack_dir: &Path) 
     }
     let commands =
         clientscript::load_commands(&pack_dir.join("cs2_command.pack"), &dir.join("engine.cs2"))?;
-    let signatures = source::infer_signatures(&scripts, &names, &params, &commands, &mut registry)?;
+    let signatures = infer_signatures(&scripts, &names, &params, &commands, &mut registry)?;
     let mut sources = Vec::new();
     let mut texts = Vec::new();
     let mut paths = HashMap::new();
     for info in &groups {
-        let text = source::decompile(
+        let text = decompile(
             &scripts[&info.id],
             info.id,
             &names,

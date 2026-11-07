@@ -1,7 +1,6 @@
 #![cfg(rev = "647")]
 
 use rs_pack::archive;
-use rs_pack::cs2::{assembly, script::Script};
 use rs_pack::pack::{
     media,
     model::source,
@@ -108,28 +107,6 @@ fn quickchat_references_use_their_own_category_registry() {
         assert!(text.contains(&format!("target={domain}_0\n")));
         assert_eq!(asset::pack(archive, 0, &text, &names).unwrap(), data);
     }
-}
-
-#[test]
-fn script_labels_follow_inserted_instructions() {
-    let format =
-        runec::clientscript::format::Format::load(&content().join("pack/cs2_command.pack"))
-            .unwrap();
-    let names = names();
-    let text = "name=\"\"\nlocal_int_count=0\nlocal_string_count=0\nlocal_long_count=0\nint_param_count=0\nstring_param_count=0\nlong_param_count=0\n\
-        op3 \"£=http:x\"\nstart: op51 switch0\nop6 end\ncase: op0 7\nend: op21 0\n[switch0@start]\n10=case\n";
-    let bytes = assembly::pack(text, &names).unwrap();
-    let script = Script::decode(&bytes, &format).unwrap();
-    assert_eq!(script.string_operands[0].as_deref(), Some("£=http:x"));
-    assert_eq!(script.int_operands[2], 1);
-    assert_eq!(script.switches[0], [(10, 1)]);
-    let readable = assembly::unpack(&bytes, &names, &format).unwrap();
-    assert!(readable.contains("[switch0@L1]\n10=L3"));
-    assert_eq!(assembly::pack(&readable, &names).unwrap(), bytes);
-    let edited = assembly::pack(&text.replace("case:", "op0 99\ncase:"), &names).unwrap();
-    let script = Script::decode(&edited, &format).unwrap();
-    assert_eq!(script.int_operands[2], 2);
-    assert_eq!(script.switches[0], [(10, 2)]);
 }
 
 #[test]

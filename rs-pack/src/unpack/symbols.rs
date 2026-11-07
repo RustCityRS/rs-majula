@@ -41,8 +41,6 @@ pub struct TypeReport {
     pub added: u32,
     /// Entries kept from the existing pack (hand-maintained names).
     pub preserved: u32,
-    /// Entries skipped (e.g. null/empty cache names).
-    pub skipped: u32,
 }
 
 /// Aggregate report for a `discover_symbols` run.

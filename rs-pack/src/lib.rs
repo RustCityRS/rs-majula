@@ -105,10 +105,6 @@ use tracing::{debug, warn};
 pub mod archive;
 pub mod back;
 pub mod cache;
-#[cfg(since_647)]
-pub mod cs2;
-#[cfg(since_647)]
-pub mod discover;
 pub mod pack;
 #[cfg(before_647)]
 pub mod pyxel;

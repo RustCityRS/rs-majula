@@ -5,8 +5,6 @@ use crate::archive::CONFIG_UNKNOWN_GROUPS;
 #[cfg(before_647)]
 use crate::archive::{JagArchive, JagSource};
 #[cfg(since_647)]
-use crate::discover::discover_symbols;
-#[cfg(since_647)]
 use crate::pack::pack::FileCache;
 #[cfg(before_647)]
 use crate::pack::pack::pack_assets;
@@ -53,6 +51,8 @@ use std::rc::Rc;
 #[cfg(before_647)]
 use std::thread;
 #[cfg(since_647)]
+use symbols::discover_symbols;
+#[cfg(since_647)]
 use tracing::info;
 #[cfg(before_647)]
 use tracing::{debug, warn};
@@ -78,6 +78,8 @@ pub mod shaders;
 pub mod song;
 #[cfg(before_647)]
 pub mod sound;
+#[cfg(since_647)]
+mod symbols;
 pub mod texture;
 #[cfg(before_647)]
 pub mod title;

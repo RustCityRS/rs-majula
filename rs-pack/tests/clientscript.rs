@@ -2,9 +2,8 @@
 
 use rs_io::js5::Js5Store;
 use rs_pack::archive;
-use rs_pack::cs2::{script::Script, source};
 use rs_pack::pack::names::AssetNames;
-use runec::clientscript::{self, Source, format::Format};
+use runec::clientscript::{self, Source, decode::Script, decompile as source, format::Format};
 use runec::types::Type;
 use std::collections::HashMap;
 use std::fs;
@@ -385,7 +384,12 @@ fn dump_formatting_preserves_local_slots_grouping_constants_and_bare_calls() {
         generated.contains("if_setsize(op6205, ^setsize_abs, ^setsize_abs, $component1);"),
         "{generated}"
     );
-    assert!(generated.contains("93, 1, \"IIsiiY\""), "{generated}");
+    assert!(
+        generated.contains(
+            r#"cc_setoninvtransmit("addtooltip($component0, $component1, \"text\", 25, 180){inv}");"#
+        ),
+        "{generated}"
+    );
     assert!(!generated.contains("op6205()"));
     let parsed = Source::parse(&generated, path).unwrap();
     clientscript::register(&parsed.file, &HashMap::new(), &mut registry).unwrap();
