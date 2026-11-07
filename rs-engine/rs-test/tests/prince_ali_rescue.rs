@@ -5,9 +5,14 @@
 
 #![cfg(since_647)]
 
+#[path = "../../../rs-protocol/tests/support/client_packet.rs"]
+mod client_packet;
+
+use client_packet::ClientPacket;
 use rs_engine::Engine;
 use rs_engine::harness::HarnessClient;
 use rs_pack::cache::VarValue;
+use rs_protocol::network::game::client_prot::ClientProt;
 use rs_test::runner;
 use rs_test::talk::{converse, explore, talk_to};
 use rsmod::rsmod::collision::collision_strategy::CollisionType;
@@ -203,6 +208,72 @@ fn aggie_mixes_skin_paste_without_flour() {
         for o in [ashes, berries, water] {
             assert_eq!(pack.total(o), 0, "Aggie keeps {o}");
         }
+        let errors = engine.script_errors.take();
+        assert!(errors.is_empty(), "{errors:?}");
+    });
+}
+
+/// 2011's Make-dyes (cache 786 op3; the 2011-04-22 recording, YouTube I7lbQxahe_w,
+/// 186.8-191.2s): a menu titled "What dye do you want Aggie to make for you?" with each dye's
+/// price, "Could you make me some yellow dye, please?", and the dye at once.
+#[test]
+fn aggie_makes_dyes_from_her_2011_menu() {
+    let _turn = TURN.lock().unwrap_or_else(|e| e.into_inner());
+    runner::on_loaded_engine(|engine| {
+        let backpack = *engine.cache.invs.debugnames.get("inv").unwrap();
+        let (coins, onion, yellow) = (
+            obj(engine, "coins"),
+            obj(engine, "onion"),
+            obj(engine, "yellow_dye"),
+        );
+        let _ = engine.script_errors.take();
+        engine.harness_reset();
+        let mut client: HarnessClient =
+            engine.harness_login_returning("aggie_dyes").expect("login");
+        for _ in 0..10 {
+            engine.cycle();
+        }
+        let (nid, x, y, z) = beside(engine, "aggie");
+        engine.harness_telejump(client.pid, x, y, z);
+        let pack = engine
+            .harness_player_mut(client.pid)
+            .unwrap()
+            .invs
+            .get_mut(&backpack)
+            .unwrap();
+        pack.set(0, coins, 5);
+        pack.set(1, onion, 2);
+        for _ in 0..3 {
+            engine.cycle();
+        }
+        client.packets();
+        let mut p = ClientPacket::new();
+        p.p1_alt3(0).p2_alt2(nid as i32);
+        client.send(ClientProt::OpNpc3, &p.finish());
+        let talk = converse(
+            engine,
+            &mut client,
+            &["Yellow dye (requires 5 coins and 2 onions)."],
+            200,
+        );
+        assert_eq!(talk.unanswered, None, "{:?}", talk.texts);
+        for line in [
+            "What dye do you want Aggie to make for you?",
+            "Red dye (requires 5 coins and 3 lots of redberries).",
+            "Blue dye (requires 5 coins and 2 woad leaves).",
+            "Could you make me some yellow dye, please?",
+            "You hand the onions and payment to Aggie. Aggie produces a yellow bottle and hands it to you.",
+        ] {
+            assert!(talk.said(line), "2011 shows {line:?}; {:?}", talk.texts);
+        }
+        let pack = engine
+            .harness_player(client.pid)
+            .unwrap()
+            .invs
+            .get(&backpack)
+            .unwrap();
+        assert_eq!(pack.total(yellow), 1, "the yellow dye");
+        assert_eq!((pack.total(coins), pack.total(onion)), (0, 0), "paid");
         let errors = engine.script_errors.take();
         assert!(errors.is_empty(), "{errors:?}");
     });

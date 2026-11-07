@@ -92,43 +92,66 @@ if($option = 1) {
     ~chatnpc("<p,neutral>You are easily pleased with yourself then.|When you need dyes, come to me.");
 }
 
-[label,aggie_yellow_dye]
-if(inv_total(inv, onion) < 2) {
-    ~mesbox("You don't have enough onions to make the yellow dye!");
-    return;
-} else if(inv_total(inv, coins) < 5) {
-    ~mesbox("You don't have enough coins to pay for the dye!");
+// 2011's Make-dyes (cache 786 op3), as the 2011-04-22 Prince Ali Rescue recording shows it
+// (YouTube I7lbQxahe_w, 186.8-191.2s) and void-634's Aggie.kt has it word for word: a menu
+// titled "What dye do you want Aggie to make for you?" with each dye's price, "Could you make
+// me some yellow dye, please?", then the hand-over at once (void-634's walk to the cauldron
+// does not show). The missing-ingredient boxes are 289's, unverified.
+[opnpc3,aggie]
+def_int $choice = ~p_choice3_header("Red dye (requires 5 coins and 3 lots of redberries).", 1, "Blue dye (requires 5 coins and 2 woad leaves).", 2, "Yellow dye (requires 5 coins and 2 onions).", 3, "What dye do you want Aggie to make for you?");
+if ($choice = 1) {
+    ~chatplayer("<p,neutral>Could you make me some red dye, please?");
+    if (~aggie_can_make(redberries, 3, "You don't have enough berries to make the red dye!") = true) @aggie_give_red_dye;
     return;
 }
+if ($choice = 2) {
+    ~chatplayer("<p,neutral>Could you make me some blue dye, please?");
+    if (~aggie_can_make(woad_leaf, 2, "You don't have enough woad leaves to make the blue dye!") = true) @aggie_give_blue_dye;
+    return;
+}
+~chatplayer("<p,neutral>Could you make me some yellow dye, please?");
+if (~aggie_can_make(onion, 2, "You don't have enough onions to make the yellow dye!") = true) @aggie_give_yellow_dye;
+
+// 289's checks: the ingredient first, then the 5 coins.
+[proc,aggie_can_make](obj $ingredient, int $count, string $lacking)(boolean)
+if (inv_total(inv, $ingredient) < $count) {
+    ~mesbox($lacking);
+    return(false);
+}
+if (inv_total(inv, coins) < 5) {
+    ~mesbox("You don't have enough coins to pay for the dye!");
+    return(false);
+}
+return(true);
+
+[label,aggie_yellow_dye]
+if (~aggie_can_make(onion, 2, "You don't have enough onions to make the yellow dye!") = false) return;
 ~chatplayer("<p,neutral>Okay, make me some yellow dye please.");
+@aggie_give_yellow_dye;
+
+[label,aggie_give_yellow_dye]
 inv_del(inv, coins, 5);
 inv_del(inv, onion, 2);
 inv_add(inv, yellow_dye, 1);
 ~objbox(yellow_dye, "You hand the onions and payment to Aggie. Aggie produces a yellow bottle and hands it to you.", 250, 0, ^objbox_height);
 
 [label,aggie_red_dye]
-if(inv_total(inv, redberries) < 3) {
-    ~mesbox("You don't have enough berries to make the red dye!");
-    return;
-} else if(inv_total(inv, coins) < 5) {
-    ~mesbox("You don't have enough coins to pay for the dye!");
-    return;
-}
+if (~aggie_can_make(redberries, 3, "You don't have enough berries to make the red dye!") = false) return;
 ~chatplayer("<p,neutral>Okay, make me some red dye please.");
+@aggie_give_red_dye;
+
+[label,aggie_give_red_dye]
 inv_del(inv, coins, 5);
 inv_del(inv, redberries, 3);
 inv_add(inv, red_dye, 1);
 ~objbox(red_dye, "You hand the berries and payment to Aggie.|Aggie takes a red bottle from nowhere and hands it to you.", 250, 0, ^objbox_height);
 
 [label,aggie_blue_dye]
-if(inv_total(inv, woad_leaf) < 2) {
-    ~mesbox("You don't have enough woad leaves to make the blue dye!");
-    return;
-} else if(inv_total(inv, coins) < 5) {
-    ~mesbox("You don't have enough coins to pay for the dye!");
-    return;
-}
+if (~aggie_can_make(woad_leaf, 2, "You don't have enough woad leaves to make the blue dye!") = false) return;
 ~chatplayer("<p,neutral>Okay, make me some blue dye please.");
+@aggie_give_blue_dye;
+
+[label,aggie_give_blue_dye]
 inv_del(inv, coins, 5);
 inv_del(inv, woad_leaf, 2);
 inv_add(inv, blue_dye, 1);
