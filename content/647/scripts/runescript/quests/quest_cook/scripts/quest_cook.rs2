@@ -40,8 +40,10 @@ if ($option = 1) {
 
 [label,cooks_assistant_whats_wrong]
 ~chatplayer("<p,neutral>What's wrong?");
-~chatnpc("<p,scared>Oh dear, oh dear, oh dear, I'm in a terrible terrible mess! It's the Duke's birthday today, and I should be making him a lovely big birthday cake using special ingredients...");
-~chatnpc("<p,scared>...but I've forgotten to get the ingredients. I'll never get them in time now. He'll sack me! What will I do? I have four children and a goat to look after. Would you help me? Please?");
+// 2011-05-20 recording, 82.1s: "terrible, terrible" and "lovely, big" (void-634 has no commas).
+~chatnpc("<p,scared>Oh dear, oh dear, oh dear, I'm in a terrible, terrible mess! It's the Duke's birthday today, and I should be making him a lovely, big birthday cake using special ingredients...");
+// 83.4s: "What ever will I do?" (void-634 has "What will I do?").
+~chatnpc("<p,scared>...but I've forgotten to get the ingredients. I'll never get them in time now. He'll sack me! What ever will I do? I have four children and a goat to look after. Would you help me? Please?");
 // 2011-05-20 recording (84-86s): 2011's quest-start window (quest_intro.rs2), not void-634's
 // chat choice "Start the Cook's Assistant quest?". After No, 289's and void's lines below are
 // unverified: no 2011 recording of it is found.
@@ -49,7 +51,8 @@ if (~quest_intro(struct_512) = true) {
     ~chatplayer("<p,happy>I'm always happy to help a cook in distress.");
     %cookquest = 1;
     ~send_quest_progress(^questlist_cook, %cookquest, ^cook_complete);
-    ~chatnpc("<p,happy>Oh thank you, thank you. I must tell you that this is no ordinary cake, though - only the best ingredients will do! I need a super large egg, top-quality milk and some extra fine flour.");
+    // 2011-05-20 recording, 88.1s: "Oh, thank you".
+    ~chatnpc("<p,happy>Oh, thank you, thank you. I must tell you that this is no ordinary cake, though - only the best ingredients will do! I need a super large egg, top-quality milk and some extra fine flour.");
     ~chatplayer("<p,quiz>Where can I find those, then?");
     @cooks_assistant_where;
 }
@@ -58,7 +61,8 @@ if (~quest_intro(struct_512) = true) {
 
 [label,cooks_assistant_where]
 ~chatnpc("<p,quiz>That's the problem: I don't exactly know. I usually send my assistant to get them for me but he quit.");
-~chatnpc("<p,neutral>I've marked some places on your world map in red. You might want to consider investigating them.");
+// 2011-05-20 recording, 91.1s: "around the local area".
+~chatnpc("<p,neutral>I've marked some places around the local area on your world map in red. You might want to consider investigating them.");
 
 [label,cooks_assistant_inprogress]
 ~chatnpc("<p,sad>How are you getting on with finding the ingredients?");
@@ -93,10 +97,11 @@ if (inv_total(inv, bucket_of_milk) > 0 & %cookquest_milk = ^false) {
     ~chatnpc("<p,neutral>Not bad, but not good enough. There's a milk maid that looks after the cows to the north-east. She might have some advice.");
 }
 if (%cookquest_egg = ^true & %cookquest_flour = ^true & %cookquest_milk = ^true) {
-    ~chatnpc("<p,happy>You've brought me everything I need I am saved! Thank you!");
-    ~chatplayer("<p,happy>So, do I get to go to the Duke's party?");
+    // 2011-05-20 recording, 395.1-399.5s: "need!", "So do" and "one day I'll".
+    ~chatnpc("<p,happy>You've brought me everything I need! I am saved! Thank you!");
+    ~chatplayer("<p,happy>So do I get to go to the Duke's party?");
     ~chatnpc("<p,sad>I'm afraid not. Only the big cheeses get to dine with the Duke.");
-    ~chatplayer("<p,neutral>Well, maybe one day, I'll be important enough to sit at the Duke's table.");
+    ~chatplayer("<p,neutral>Well, maybe one day I'll be important enough to sit at the Duke's table.");
     ~chatnpc("<p,neutral>Maybe, but I won't be holding my breath.");
     if (inv_freespace(inv) < 2) {
         ~chatnpc("<p,neutral>Ah, I have some rewards for you but your inventory seems to be full.");
@@ -250,7 +255,8 @@ inv_add(inv, coins, 500);
 inv_add(inv, cert_sardine, 20);
 session_log(^log_adventure, "Quest complete: Cook's Assistant");
 // ~send_quest_complete(^questlist_cook, cake, 250, ^cook_questpoints, "You have completed the Cooks' Quest!");
-~send_quest_complete(^questlist_cook, cake, 250, ^cook_questpoints, "You have completed the Cook's Assistant Quest!");
+// 2011-05-20 recording (404s): the scroll reads "You have completed Cook's Assistant!".
+~send_quest_complete(^questlist_cook, cake, 250, ^cook_questpoints, "You have completed Cook's Assistant!");
 if_settext(questscroll_ver3:com11, "300 Cooking XP");
 if_settext(questscroll_ver3:com12, "500 coins");
 if_settext(questscroll_ver3:com13, "20 sardines");

@@ -27,11 +27,12 @@ def_int $option = ~p_choice3("Give me a quest please.", 1, "Give me a quest or e
 if ($option = 1) {
     ~chatplayer("<p,neutral>Give me a quest please.");
     ~chatnpc("<p,happy>Well seeing as you asked nicely... I could do with some help.");
-    ~chatnpc("<p,sad>The wizard Grayzag next door decided he didn't like me so he enlisted an army of hundreds of imps.");
+    ~chatnpc("<p,sad>The wizard Grayzag next door decided he didn't like me so he enlisted an army of hundreds of imps"); // 2011-05-18 recording: no full stop
     ~chatnpc("<p,sad>These imps stole all sorts of my things. Most of these things I don't really care about, just eggs and balls of string and things.");
     ~chatnpc("<p,sad>But they stole my four magical beads. There was a red one, a yellow one, a black one, and a white one.");
     ~chatnpc("<p,sad>These imps have now spread out all over the kingdom. Could you get my beads back for me?");
-    def_int $start = ~p_choice2_header("Yes.", 1, "No.", 2, "Start the Imp Catcher quest?");
+    // 2011-05-18 recording: "Select an Option", not void's "Start the Imp Catcher quest?"
+    def_int $start = ~p_choice2("I'll try.", 1, "I've better things to do than chase imps.", 2);
     if ($start = 2) {
         ~chatplayer("<p,neutral>I've better things to do than chase imps.");
         ~chatnpc("<p,angry>Well if you're not interested in the quests I have to give you, don't waste my time by asking me for them.");
@@ -137,5 +138,5 @@ spotanim_map(spotanim_714, 2_48_49_30_27, 100, 0);
 sound_synth(synth_1633, 1, 0);
 p_delay(6);
 cam_reset;
-mes("The wizard hands you an amulet.");
+mes("The Wizard hands you an amulet."); // 2011-05-18 recording: capital W
 queue(imp_quest_complete, 0, 0);

@@ -26,7 +26,9 @@ if (%sheep < ^sheep_complete) {
 @fred_fully_completed;
 
 [label,fred_job_not_started]
-def_int $option = ~p_choice3("I'm looking for something to kill.", 1, "I'm lost.", 2, "I'm looking for work.", 3);
+// 2011-02-09 recording (YouTube IyyPb7PxYYE, 35.0s): this menu's title is "Choose an option"
+// (his later menus say "Select an Option").
+def_int $option = ~p_choice3_header("I'm looking for something to kill.", 1, "I'm lost.", 2, "I'm looking for work.", 3, "Choose an option");
 if ($option = 1) {
     @fred_something_to_kill;
 }
@@ -133,11 +135,12 @@ def_string $first = "How many more balls of wool do you need?";
 if ($balls > 0) {
     $first = "I have some balls of black wool for you.";
 }
+// 2011-02-09 recording (402.9s): this menu's title is "Choose an option" too.
 def_int $option;
 if (%the_thing_interacted = ^true) {
-    $option = ~p_choice3($first, 1, "Can you remind me how to get balls of wool?", 2, "Fred! Fred! I've seen 'The Thing!'", 3);
+    $option = ~p_choice3_header($first, 1, "Can you remind me how to get balls of wool?", 2, "Fred! Fred! I've seen 'The Thing!'", 3, "Choose an option");
 } else {
-    $option = ~p_choice2($first, 1, "Can you remind me how to get balls of wool?", 2);
+    $option = ~p_choice2_header($first, 1, "Can you remind me how to get balls of wool?", 2, "Choose an option");
 }
 if ($option = 3) {
     @fred_seen_the_thing;
@@ -209,7 +212,8 @@ if ($needed > 1) {
 }
 %sheep = ^sheep_last_wool;
 ~chatplayer("<p,happy>That's the last of them.");
-~chatnpc("<p,happy>A pleasure doing business with you. You can shear my sheep whenever you want. You could even sell the wool to the Grand Exchange.");
+// 2011-02-09 recording (409s): "on the Grand Exchange" (void-634 has "to").
+~chatnpc("<p,happy>A pleasure doing business with you. You can shear my sheep whenever you want. You could even sell the wool on the Grand Exchange.");
 ~chatnpc("<p,angry>But that's the white ones only, mind you!");
 ~chatnpc("<p,sad>Anyway, I guess I'd better pay you.");
 queue(sheep_complete, 0, 0);

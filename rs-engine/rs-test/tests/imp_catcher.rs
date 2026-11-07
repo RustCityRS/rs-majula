@@ -97,7 +97,7 @@ fn mizgog_gives_the_quest_when_asked_nicely() {
         let talk = converse(
             engine,
             &mut client,
-            &["Give me a quest please.", "Yes."],
+            &["Give me a quest please.", "I'll try."],
             60,
         );
         assert!(talk.unanswered.is_none(), "{:?}", talk.unanswered);
@@ -148,7 +148,7 @@ fn mizgog_takes_the_four_beads_for_an_amulet_of_accuracy() {
         assert!(
             talk.messages
                 .iter()
-                .any(|m| m == "The wizard hands you an amulet."),
+                .any(|m| m == "The Wizard hands you an amulet."),
             "the cutscene's end; said {:?}",
             talk.messages
         );
