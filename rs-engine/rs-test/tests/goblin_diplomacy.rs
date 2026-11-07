@@ -360,3 +360,15 @@ fn the_crate_behind_the_generals_hut_gives_goblin_mail() {
         assert!(errors.is_empty(), "{errors:?}");
     });
 }
+
+/// 2011's generals (npcs 4493 and 4494) take 289's generals' wander range, 3.
+#[test]
+fn the_generals_wander_as_289s_did() {
+    runner::on_loaded_engine(|engine| {
+        for name in ["general_bentnoze_4493", "general_wartface_4494"] {
+            let id = *engine.cache.npcs.debugnames.get(name).unwrap();
+            let general = engine.cache.npcs.get_by_id(id).unwrap();
+            assert_eq!(general.wanderrange, 3, "{name}");
+        }
+    });
+}
