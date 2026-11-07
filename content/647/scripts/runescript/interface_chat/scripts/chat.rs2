@@ -10,15 +10,24 @@
 //   multi4: title=1, line1=2, line2=3, line3=4, line4=5, thin_swords=8, wide_swords=9
 //   multi5: title=1, line1=2, line2=3, line3=4, line4=5, line5=6, thin_swords=9, wide_swords=10
 
-// Wrapping: 2011's chat lines (chat1-4, npc_chat1-4) are 350 wide in q8_full
-// (font 497) and its message lines (message1-5) 441 wide in q8_full, where
-// 2004's were 380 and 470 in p12_full; wrapped at 2004's widths in the wrong
-// font, long lines ran past the box.
+// Wrapping: 2011 wrapped chat lines (chat1-4, npc_chat1-4) at 380 in q8_full
+// (font 497), wider than their 350-wide line components: the client centres
+// and overflows them. Measured on 2011 recordings, from where each line ends
+// (runescape/target/port-tools/wrapwidth.py): every greedy-wrapped line is at
+// most 380 wide and the next word would pass it, e.g. Doric's "Could you get
+// me 6 clay, 4 copper ore, and 2 iron ore," (380; 2011-04-19), the Cook's
+// "them in time now. He'll sack me! What ever will I do? I" (380; 2011-05-20),
+// and Captain Rovin's "moron who got his job because his great-grandfather"
+// (351; "was" makes 381; 2011-04-20). Old quests' text keeps Jagex's own
+// breaks (Keli's, Gypsy Aris's "just south / of this city.").
+// Message boxes (message1-5) wrap at 470: 2011-04-22 shows the 450-wide "You
+// put a piece of your soft clay in your hand. As you touch the" on one line
+// (the next word makes 483); 470 is 2004's width, in that range.
 
 // ── Player Chat ─────────────────────────────────────────────────────────────
 
 [proc,chatplayer](string $string)
-split_init($string, 350, 4, q8_full)
+split_init($string, 380, 4, q8_full)
 def_int $page = 0
 def_int $pagetotal = split_pagecount
 while ($page < $pagetotal) {
@@ -82,7 +91,7 @@ if_openchat($iface)
 // active npc (a door's guard, a quest npc out of sight), so it faces no one.
 // 289's chatnpc turns the active npc to the player.
 [proc,chatnpc_specific](string $npc_name, npc $npc, string $string)
-split_init($string, 350, 4, q8_full)
+split_init($string, 380, 4, q8_full)
 def_int $page = 0
 def_int $pagetotal = split_pagecount
 while ($page < $pagetotal) {
@@ -119,7 +128,7 @@ if ($lines > 4) {
 if_openchat($iface)
 
 [proc,mesbox](string $string)
-split_init($string, 441, 5, q8_full)
+split_init($string, 470, 5, q8_full)
 def_int $page = 0
 def_int $pagetotal = split_pagecount
 while ($page < $pagetotal) {
@@ -164,7 +173,7 @@ if ($lines = 0) {
 }
 
 [proc,.mesbox](string $string)
-split_init($string, 441, 5, q8_full);
+split_init($string, 470, 5, q8_full);
 def_int $page = 0;
 def_int $pagetotal = split_pagecount;
 while ($page < $pagetotal) {
@@ -497,7 +506,7 @@ jump($label5);
 // ── Convenience wrappers (auto-detect active NPC) ─────────────────────────
 
 [proc,chatnpc](string $string)
-split_init($string, 350, 4, q8_full)
+split_init($string, 380, 4, q8_full)
 def_int $page = 0
 def_int $pagetotal = split_pagecount
 while ($page < $pagetotal) {
@@ -515,7 +524,7 @@ while ($page < $pagetotal) {
 // teller), who turns to the player from where it stands (playerface, not
 // playerfaceclose) unless it is fighting. 2011's line width, as chatnpc.
 [proc,chatnpcrange](string $string)
-split_init($string, 350, 4, q8_full)
+split_init($string, 380, 4, q8_full)
 def_int $page = 0
 def_int $pagetotal = split_pagecount
 while ($page < $pagetotal) {
@@ -533,7 +542,7 @@ while ($page < $pagetotal) {
 // (it carries on with its work); the player still faces it. 2011's line
 // width, as chatnpc.
 [proc,chatnpcnoturn](string $string)
-split_init($string, 350, 4, q8_full);
+split_init($string, 380, 4, q8_full);
 def_int $page = 0;
 def_int $pagetotal = split_pagecount;
 while ($page < $pagetotal) {
@@ -547,7 +556,7 @@ while ($page < $pagetotal) {
 // 289's .chatnpc, .chatnpcrange and .chatnpcnoturn: the same three, spoken by
 // the script's second npc (.npc), as when one npc answers for another.
 [proc,.chatnpc](string $string)
-split_init($string, 350, 4, q8_full);
+split_init($string, 380, 4, q8_full);
 def_int $page = 0;
 def_int $pagetotal = split_pagecount;
 while ($page < $pagetotal) {
@@ -562,7 +571,7 @@ while ($page < $pagetotal) {
 }
 
 [proc,.chatnpcrange](string $string)
-split_init($string, 350, 4, q8_full);
+split_init($string, 380, 4, q8_full);
 def_int $page = 0;
 def_int $pagetotal = split_pagecount;
 while ($page < $pagetotal) {
@@ -577,7 +586,7 @@ while ($page < $pagetotal) {
 }
 
 [proc,.chatnpcnoturn](string $string)
-split_init($string, 350, 4, q8_full);
+split_init($string, 380, 4, q8_full);
 def_int $page = 0;
 def_int $pagetotal = split_pagecount;
 while ($page < $pagetotal) {
@@ -632,7 +641,7 @@ if ($lines = 0) {
 }
 
 [proc,chatnpc_model](string $npc_name, int $chathead, string $string)
-split_init($string, 350, 4, q8_full);
+split_init($string, 380, 4, q8_full);
 def_int $page = 0;
 def_int $pagetotal = split_pagecount;
 while ($page < $pagetotal) {
@@ -688,7 +697,7 @@ if ($lines = 0) {
 }
 
 [proc,chatnc_cutscene](string $npc_name, npc $npc, string $string)
-split_init($string, 350, 4, q8_full);
+split_init($string, 380, 4, q8_full);
 def_int $page = 0;
 def_int $pagetotal = split_pagecount;
 while ($page < $pagetotal) {

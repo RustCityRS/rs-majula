@@ -147,11 +147,11 @@ fn chat_lines(packets: &[(u16, Vec<u8>)]) -> Vec<String> {
         .collect()
 }
 
-/// 2011's chat lines are 350 wide in q8_full (font 497); 289 wrapped at 380
-/// in p12_full, and its long lines ran past the box. The Cook's "What's
-/// wrong?" answer is his longest.
+/// 2011 wrapped chat lines at 380 in q8_full (font 497), past their 350-wide
+/// components. The Cook's "What's wrong?" answer ends its lines where the
+/// 2011-05-20 recording (YouTube PnoZkxqcszs, 82.1s and 83.4s) does.
 #[test]
-fn the_cook_s_long_answer_fits_2011_s_chat_box() {
+fn the_cook_s_long_answer_wraps_as_2011_s_does() {
     runner::on_loaded_engine(|engine| {
         let cook = *engine.cache.npcs.debugnames.get("cook").expect("npc cook");
         let (nid, x, z) = engine
@@ -204,13 +204,31 @@ fn the_cook_s_long_answer_fits_2011_s_chat_box() {
             resume(&mut client, (iface as i32) << 16 | (4 + lines_in as i32));
         }
         let font = engine.cache.fonts.get_by_id(497).expect("q8_full");
-        assert!(lines.len() > 3, "the Cook's answer; sent {lines:?}");
         for line in &lines {
             assert!(
-                font.string_width(line) <= 350,
+                font.string_width(line) <= 380,
                 "{line:?} is {} wide in q8_full",
                 font.string_width(line)
             );
         }
+        let recorded = [
+            "Oh dear, oh dear, oh dear, I'm in a terrible, terrible",
+            "mess! It's the Duke's birthday today, and I should be",
+            "making him a lovely, big birthday cake using special",
+            "ingredients...",
+            "...but I've forgotten to get the ingredients. I'll never get",
+            "them in time now. He'll sack me! What ever will I do? I",
+            "have four children and a goat to look after. Would you",
+            "help me? Please?",
+        ];
+        let start = lines
+            .iter()
+            .position(|l| l == recorded[0])
+            .unwrap_or_else(|| panic!("2011's first line; sent {lines:?}"));
+        assert_eq!(
+            &lines[start..start + recorded.len()],
+            &recorded[..],
+            "2011's line ends; sent {lines:?}"
+        );
     });
 }
