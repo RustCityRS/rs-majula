@@ -304,3 +304,59 @@ fn goblin_mail_dyes_as_2011_says() {
         );
     });
 }
+
+/// The crate behind the generals' hut (loc 16559, 46_54 15,58): "You find some goblin armour."
+/// in an item box, before the quest is started (2011-05-27 recording, YouTube coiqGsbSVks, 66s).
+#[test]
+fn the_crate_behind_the_generals_hut_gives_goblin_mail() {
+    let _turn = TURN.lock().unwrap_or_else(|e| e.into_inner());
+    runner::on_loaded_engine(|engine| {
+        let inv = *engine.cache.invs.debugnames.get("inv").unwrap();
+        let mail = obj(engine, "goblin_mail");
+        let _ = engine.script_errors.take();
+        engine.harness_reset();
+        let mut client: HarnessClient = engine
+            .harness_login_returning("gobdip_crate")
+            .expect("login");
+        for _ in 0..10 {
+            engine.cycle();
+        }
+        let (loc, x, z) = (16559u16, 2959u16, 3514u16);
+        let (sx, sz) = [(1i16, 0i16), (0, -1), (-1, 0), (0, 1)]
+            .into_iter()
+            .map(|(dx, dz)| (x.wrapping_add_signed(dx), z.wrapping_add_signed(dz)))
+            .find(|&(x, z)| !rsmod::is_flagged(x, z, 0, 0x100 | 0x200000))
+            .expect("a walkable tile beside the crate");
+        engine.harness_telejump(client.pid, sx, 0, sz);
+        for _ in 0..3 {
+            engine.cycle();
+        }
+        client.packets();
+        let mut p = ClientPacket::new();
+        p.p2_alt1(z as i32)
+            .p2_alt1(loc as i32)
+            .p1(0)
+            .p2_alt2(x as i32);
+        client.send(ClientProt::OpLoc1, &p.finish());
+        let talk = converse(engine, &mut client, &[], 60);
+        assert!(
+            talk.said("You find some goblin armour."),
+            "{:?}",
+            talk.texts
+        );
+        assert!(
+            talk.messages.is_empty(),
+            "no chat message: {:?}",
+            talk.messages
+        );
+        let pack = engine
+            .harness_player(client.pid)
+            .unwrap()
+            .invs
+            .get(&inv)
+            .unwrap();
+        assert_eq!(pack.total(mail), 1, "the goblin mail");
+        let errors = engine.script_errors.take();
+        assert!(errors.is_empty(), "{errors:?}");
+    });
+}
