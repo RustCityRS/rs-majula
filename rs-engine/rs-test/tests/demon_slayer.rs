@@ -501,7 +501,7 @@ fn water_washes_the_drain_key_into_the_sewer() {
         let talk = converse(engine, &mut client, &[], 60);
         no_script_errors(engine, "the drain");
         assert!(
-            talk.said("You pick up an old rusty key."),
+            talk.said("You pick up an old, rusty key."),
             "{:?}",
             talk.texts
         );
