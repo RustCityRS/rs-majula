@@ -375,7 +375,7 @@ fn captain_rovin_gives_his_key() {
                 "Yes, I know, but this is important.",
                 "There's a demon",
                 "Yes, very.",
-                "It's not them",
+                "They're not going to fight",
                 "Sir Prysin said",
                 "Why did he give you",
             ],

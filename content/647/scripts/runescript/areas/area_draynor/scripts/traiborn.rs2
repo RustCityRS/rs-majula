@@ -95,7 +95,7 @@ switch_int (~p_choice2("So aren't you a wizard?", 1, "Oh I'd better stop talking
 [label,traiborn_need_a_key]
 ~chatplayer("<p,neutral>I need to get a key given to you by Sir Prysin.");
 ~chatnpc("<p,confused>Sir Prysin? Who's that? What would I want his key for?");
-switch_int (~p_choice3("He told me you were looking after it for him.", 1, "He's one of the King's knights.", 2, "Well, have you got any keys knocking around?", 3)) {
+switch_int (~p_choice3("He told me you were looking after it for him.", 1, "He's one of the king's knights.", 2, "Well, have you got any keys knocking around?", 3)) {
     case 1 :
         ~chatplayer("<p,neutral>He told me you were looking after it for him.");
         ~chatnpc("<p,confused>That wasn't very clever of him. I'd lose my head if it wasn't screwed on. Go and tell him to find someone else to look after his valuables in future.");
@@ -107,7 +107,7 @@ switch_int (~p_choice3("He told me you were looking after it for him.", 1, "He's
             case 2 : @traiborn_any_keys;
         }
     case 2 :
-        ~chatplayer("<p,neutral>He's one of the King's knights.");
+        ~chatplayer("<p,neutral>He's one of the king's knights.");
         ~chatnpc("<p,happy>Say, I remember one of the King's knights. He had nice shoes...");
         ~chatnpc("<p,sad>...and didn't like my homemade spinach rolls. Would you like a spinach roll?");
         switch_int (~p_choice2("Yes please.", 1, "Just tell me if you have the key.", 2)) {
@@ -158,11 +158,11 @@ switch_int (~p_choice2("Err I'd better be off really.", 1, "Well, have you got a
 
 [label,traiborn_any_keys]
 ~chatplayer("<p,neutral>Well, have you got any keys knocking around?");
-~chatnpc("<p,confused>Now you come to mention it, yes I do have a key. It's in my special closet of valuable stuff. Now how do I get into that?");
-~chatnpc("<p,confused>I sealed it using one of my magic rituals. So it would make sense that another ritual would open it again.");
-~chatplayer("<p,neutral>So do you know what ritual to use?");
+~chatnpc("<p,confused>Now you come to mention it, yes I do have a key. It's in my special closet of valuable stuff. Now, how do I get into that?");
+~chatnpc("<p,confused>I sealed it using one of my magic rituals. It would make sense, then, that another ritual would open it again.");
+~chatplayer("<p,neutral>Do you know what ritual to use?");
 ~chatnpc("<p,neutral>Let me think a second.");
-~chatnpc("<p,confused>Yes a simple drazier style ritual should suffice. Hmm, main problem with that is I'll need 25 sets of bones. Now where am I going to get hold of something like that?");
+~chatnpc("<p,confused>Yes, a simple drazier-style ritual should suffice. Hmm, main problem with that is I'll need 25 sets of bones. Now, where am I going to get hold of something like that?");
 switch_int (~p_choice2("Hmm, that's too bad. I really need that key.", 1, "I'll help get the bones for you.", 2)) {
     case 1 :
         ~chatplayer("<p,sad>Hmm, that's too bad. I really need that key.");
@@ -172,7 +172,7 @@ switch_int (~p_choice2("Hmm, that's too bad. I really need that key.", 1, "I'll 
         if (%demon_slayer = ^demon_key_hunt) {
             %demon_slayer_bones = ^demon_bones_wanted;
         }
-        ~chatnpc("<p,neutral>Ooh that would be very good of you.");
+        ~chatnpc("<p,neutral>Ooh, that would be very good of you.");
         ~chatplayer("<p,neutral>Okay, I'll speak to you when I've got some bones.");
 }
 
@@ -196,7 +196,8 @@ if (%demon_slayer_bones > 0) {
 npc_anim(seq_4602, 0); // void-634: traiborn_bone_spell
 spotanim_npc(spotanim_777, 0, 0); // void-634: traiborn_bone_spell
 sound_synth(synth_2973, 1, 0); // void-634: demon_slayer_bone_spell
-~chatnpc("<p,confused>Wings of dark and colour too, Spreading in the morning dew; Locked away I have a key; Return it now, please, unto me.");
+// 2011-04-20 recording (415.6s): the verse on four lines.
+~chatnpc("<p,confused>Wings of dark and colour too,|Spreading in the morning dew;|Locked away I have a key;|Return it now, please, unto me.");
 sound_synth(synth_2977, 1, 0); // void-634: demon_slayer_cupboard_appear
 if_close;
 // The closet: 2011's wardrobe_17434 (void-634's demon_slayer_spell_wardrobe),

@@ -27,7 +27,7 @@ if($option = 1) {
 
 [label,osman_instructions]
 ~chatplayer("<p,neutral>The chancellor trusts me. I have come for instructions.");
-~chatnpc("<p,shifty>Our prince is captive by the Lady Keli.|We just need to make the rescue.|There are two things we need you to do.");
+~chatnpc("<p,shifty>Our prince is captive by the Lady Keli. We just need to make the rescue. There are two things we need you to do.");
 def_int $option = ~p_choice2("What is the first thing I must do?", 1, "What is the second thing you need?", 2);
 if($option = 1) {
     ~chatplayer("<p,neutral>What is the first thing I must do?");
@@ -57,7 +57,7 @@ if($option = 1) {
 }
 
 [label,osman_second_thing]
-~chatnpc("<p,shifty>We need the key, or we need a copy made.|If you can get some soft clay then you can copy the key...");
+~chatnpc("<p,shifty>We need the key, or we need a copy made. If you can get some soft clay then you can copy the key...");
 ~chatnpc("<p,shifty>...If you can convince Lady Keli to show it to you|for a moment. She is very boastful.|It should not be too hard.");
 ~chatnpc("<p,shifty>Bring the imprint to me, with a bar of bronze.");
 def_int $option = ~p_choice3("What is the first thing I must do?", 1, "What exactly is the second thing you need?", 2, "Okay, I better go find some things.", 3);

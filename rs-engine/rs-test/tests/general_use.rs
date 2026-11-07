@@ -437,7 +437,15 @@ fn varrock_s_manhole_opens_closes_and_climbs_down() {
         op_loc1(&mut client, loc_id("manhole"), MANHOLE.0, MANHOLE.2);
         cycles(engine, 6);
         op_loc1(&mut client, loc_id("manholeopen"), MANHOLE.0, MANHOLE.2);
-        cycles(engine, 10);
+        // 2011 asks first (2011-04-20 recording, 319.3-320.3s).
+        let talk = rs_test::talk::converse(engine, &mut client, &["Yes, please."], 30);
+        assert!(
+            talk.said("This sewer looks quite dangerous, are you sure you want to enter?"),
+            "{:?}",
+            talk.texts
+        );
+        assert!(talk.said("Enter the sewer?"), "{:?}", talk.texts);
+        cycles(engine, 6);
         assert!(said("You climb down through the manhole."));
         let (x, _, z) = coord(engine, client.pid);
         assert!(z > 9600, "in the sewer: at {x},{z}");

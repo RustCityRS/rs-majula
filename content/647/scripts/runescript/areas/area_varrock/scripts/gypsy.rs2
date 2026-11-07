@@ -18,9 +18,10 @@ if (%demon_slayer = ^demon_not_started) {
     if (~player_combat_level < 15) {
         ~mesbox("Before starting this quest, be aware that your combat level is lower than the recommended level of 15.");
     }
-    switch_int (~p_choice4("Okay, here you go.", 1, "Who are you calling young one?!", 2, "No, I don't believe in that stuff.", 3, "With silver?", 4)) {
+    // 2011-04-20 recording (78.2s): this title, and "'young one'?".
+    switch_int (~p_choice4_header("Okay, here you go.", 1, "Who are you calling 'young one'?", 2, "No, I don't believe in that stuff.", 3, "With silver?", 4, "What would you like to say?")) {
         case 1 : @gypsy_aris_here_you_go;
-        // 289's words: void-634's read "Who are you called 'young one'?".
+        // 2011's words (78.2s): 289 has "young one?!", void-634 "Who are you called 'young one'?".
         case 2 : @gypsy_aris_who_you_calling_young;
         case 3 : @gypsy_aris_not_believer;
         case 4 : @gypsy_aris_with_silver;
@@ -68,14 +69,15 @@ sound_synth(synth_2975, 1, 0); // void-634: demon_slayer_crystal_ball_end
 ~chatnpc("<p,sad>He tried to destroy this city 150 years ago. He was stopped just in time by the great hero Wally.");
 ~chatnpc("<p,sad>Using his magic sword Silverlight, Wally managed to trap the demon in the stone circle just south of this city.");
 ~chatnpc("<p,shock>Ye gods! Silverlight was the sword you were holding in my vision! You are the one destined to stop the demon this time.");
-switch_int (~p_choice3("How am I meant to fight a demon who can destroy cities?", 1, "Okay, where is he? I'll kill him for you.", 2, "Wally doesn't sound like a very heroic name.", 3)) {
+// 2011-04-20 recording (95.5s): this title.
+switch_int (~p_choice3_header("How am I meant to fight a demon who can destroy cities?", 1, "Okay, where is he? I'll kill him for you.", 2, "Wally doesn't sound like a very heroic name.", 3, "What would you like to say?")) {
     case 1 : @gypsy_aris_city_destroyer_wally;
     case 2 : @gypsy_aris_where_is_he;
     case 3 : @gypsy_aris_not_very_heroic_name;
 }
 
 [label,gypsy_aris_who_you_calling_young]
-~chatplayer("<p,angry>Who are you calling young one?!");
+~chatplayer("<p,angry>Who are you calling 'young one'?");
 ~chatnpc("<p,neutral>You have been on this world a relatively short time. At least compared to me.");
 ~chatnpc("<p,neutral>So, do you want your fortune told or not?");
 switch_int (~p_choice3("Okay, here you go.", 1, "No, I don't believe in that stuff.", 2, "Ooh, how old are you then?", 3)) {
@@ -139,7 +141,8 @@ switch_int (~p_choice5("Okay, where is he? I'll kill him for you.", 1, "Wally do
 @gypsy_aris_how_to_do;
 
 [label,gypsy_aris_how_to_do]
-switch_int (~p_choice3("How am I meant to fight a demon who can destroy cities?", 1, "Okay, where is he? I'll kill him for you.", 2, "So, how did Wally kill Delrith?", 3)) {
+// 2011-04-20 recording (100.9s): this title.
+switch_int (~p_choice3_header("How am I meant to fight a demon who can destroy cities?", 1, "Okay, where is he? I'll kill him for you.", 2, "So, how did Wally kill Delrith?", 3, "What would you like to say?")) {
     case 1 : @gypsy_aris_city_destroyer_wally;
     case 2 : @gypsy_aris_where_is_he;
     case 3 : @gypsy_aris_how_wally_won;

@@ -9,6 +9,14 @@ loc_change(manholeopen, 400);
 
 [oploc1,manholeopen]
 mes("You climb down through the manhole.");
+// 2011-04-20 recording (YouTube bHxrbaUN3AI, 318.6-321s): Varrock's sewer asks first, after the
+// line above. Other manholes aren't recorded.
+if (loc_coord = 0_50_54_37_2) {
+    ~mesbox("This sewer looks quite dangerous, are you sure you want to enter?");
+    if (~p_choice2_header("Yes, please.", 1, "No, thank you.", 2, "Enter the sewer?") = 2) {
+        return;
+    }
+}
 // The landing is void-634's record of each manhole's climb
 // (ladders+stairs/configs/loc_tele_2011.dbrow): the one at 0_50_54_37_2 lands
 // a tile west of 289's (dx -1). 289's own climb is the fallback.

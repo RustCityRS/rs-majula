@@ -55,7 +55,7 @@ if(%princequest = ^prince_guard_drunk) {
     ~chatnpc("<p,neutral>Good luck with the guard. When the guard is out you can tie up Keli.");
 } else {
     ~chatplayer("<p,neutral>I am here to help you free the prince.");
-    ~chatnpc("<p,neutral>Your employment is known to me.|Now, do you know all that we need to make the break?");
+    ~chatnpc("<p,neutral>Your employment is known to me. Now, do you know all that we need to make the break?");
     @multi4("I must make a disguise. What do you suggest?", leela_disguise, "I need to get the key made.", leela_need_key, "What can I do with the guards?", leela_guards, "I will go and get the rest of the escape equipment.", leela_rest_escape);
 }
 
@@ -66,7 +66,7 @@ if(%princequest = ^prince_guard_drunk) {
 if(inv_total(inv, wig) >= 1) {
     ~chatnpc("<p,neutral>The wig you have got, well done.");
 } else {
-    ~chatnpc("<p,neutral>You need a wig, maybe made from wool. If you find someone who can work with wool ask them about it. There's a witch nearby may be able to help you dye it.");
+    ~chatnpc("<p,neutral>You need a wig, maybe made from wool. If you find someone who can work with wool ask them about it. There's a witch nearby who may be able to help you dye it.");
 }
 
 if(inv_total(inv, pink_skirt) >= 1) {
@@ -86,7 +86,7 @@ if(inv_total(inv, wig) >= 1 & inv_total(inv, pink_skirt) >= 1 & inv_total(inv, p
 }
 
 if(inv_total(inv, rope) >= 1) {
-    ~chatnpc("<p,shifty>You have the rope I see, to tie up Keli.|That will be the most dangerous part of the plan.");
+    ~chatnpc("<p,shifty>You have rope I see, to tie up Keli.  That will be the most dangerous part of the plan.");
 } else {
     ~chatnpc("<p,shifty>You will still need some rope to tie up Keli, of course. I heard that there was a good rope maker around here...");
 }
@@ -94,7 +94,7 @@ if(inv_total(inv, rope) >= 1) {
 
 [label,leela_need_key]
 ~chatplayer("<p,neutral>I need to get the key made.");
-~chatnpc("<p,neutral>Yes, that is most important.|There is no way you can get the real key.|It is on a chain around Keli's neck. Almost impossible to steal.");
+~chatnpc("<p,neutral>Yes, that is most important.  There is no way you can get the real key. It is on a chain around Keli's neck. Almost impossible to steal.");
 ~chatnpc("<p,shifty>Get some soft clay and get her to show you the key somehow. Then take the print, with bronze, to my father.");
 @multi3("I must make a disguise. What do you suggest?", leela_disguise, "What can I do with the guards?", leela_guards, "I will go and get the rest of the escape equipment.", leela_rest_escape);
 

@@ -29,7 +29,8 @@ if (last_useitem = crandor_map) {
 ~progress_clue_easy(trail_clue_easy_simple021, "Ned has given you another clue!");
 
 [label,standard_ned]
-~chatnpc("<p,neutral>Why hello there, me friends call me Ned.|I was a man of the sea, but it's past me now.|Could I be making or selling you some rope?");
+// 2011-04-22 recording (YouTube I7lbQxahe_w): see prince_fix_2011 in the commit.
+~chatnpc("<p,happy>Why, hello there, <text_gender("lad", "lass")>. Me friends call me Ned. I was a man of the sea, but it's past me now. Could I be making or selling you some rope?");
 def_int $option;
 if(%princequest >= ^prince_spoken_osman & %princequest < ^prince_saved) {
     if (~quest_dragon_getting_map_parts = true & %dragon_ned_hired = ^false) {
@@ -103,7 +104,7 @@ inv_add(inv, rope, 1);
 
 [label,ned_wig]
 ~chatplayer("<p,quiz>How about some sort of wig?");
-~chatnpc("<p,happy>Well... That's an interesting thought.|Yes, I think I could do something.|Give me 3 balls of wool and I might be able to do it.");
+~chatnpc("<p,happy>Well... That's an interesting thought. Yes, I think I could do something. Give me 3 balls of wool and I might be able to do it.");
 if(inv_total(inv, ball_of_wool) < 3) {
     ~chatplayer("<p,happy>Great, I will get some. I think a wig would be useful.");
     return;
@@ -119,7 +120,7 @@ if(inv_total(inv, ball_of_wool) >= 3) {
     inv_add(inv, plainwig, 1);
     ~chatnpc("<p,happy>Here you go, how's that for a quick effort?|Not bad I think!");
     ~mesbox("Ned gives you a pretty good wig.");
-    ~chatplayer("<p,neutral>Thanks Ned, there's more to you than meets the eye.");
+    ~chatplayer("<p,neutral>Thanks Ned! There's more to you than meets the eye.");
 }
 
 [label,ned_come_back]
