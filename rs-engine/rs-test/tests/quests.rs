@@ -96,3 +96,43 @@ fn view_on_cooks_assistant_opens_its_2011_journal() {
         );
     });
 }
+
+/// View on Doric's Quest (row 3) opens its journal with 2011's not-started text, as the
+/// 2010-08-17 recording (YouTube I3zXxHk5zY0, 8-11s) shows it: one colour, "north of", and the
+/// line wrapped before "Falador.".
+#[test]
+fn view_on_dorics_quest_opens_its_2011_journal() {
+    runner::on_loaded_engine(|engine| {
+        engine.harness_reset();
+        let mut client = engine
+            .harness_login_returning("doric_reader")
+            .expect("login");
+        engine.cycle();
+        client.packets();
+
+        let mut p = ClientPacket::new();
+        p.p4(QUEST_LIST).p2_alt3(-1).p2_alt1(3);
+        client.send(ClientProt::IfButton1, &p.finish());
+        let mut texts = Vec::new();
+        for _ in 0..3 {
+            engine.cycle();
+            texts.extend(settexts(&client.packets()));
+        }
+        let text = |com: u32| {
+            texts
+                .iter()
+                .find(|(c, _)| *c == com)
+                .map(|(_, t)| t.as_str())
+        };
+        assert_eq!(
+            text(JOURNAL_NAME),
+            Some("<col=800000>Doric's Quest"),
+            "sent {texts:?}"
+        );
+        assert_eq!(
+            text(JOURNAL_LINE_1),
+            Some("<col=000080>I can start this quest by speaking to Doric who is north of"),
+            "sent {texts:?}"
+        );
+    });
+}
