@@ -4,20 +4,13 @@ if(%runemysteries < ^runemysteries_complete) {
     mes("You need to have completed the Rune Mysteries Quest to use this feature.");
     return;
 }
-if_close;
 %exit_essence_mine_coord = $tele_back_coord;
-// this is lowercase
-npc_say("Senventior disthine molenko!");
-if ($tele_back_coord ! ^essence_mine_to_brimstail) { // brimstall anim buggy, need gnome equivalent (or no anim like OSRS)
-    npc_anim(human_castcurse, 0); // No anim in osrs
+if ($tele_back_coord = ^essence_mine_to_brimstail) {
+    // brimstall anim buggy, need gnome equivalent (or no anim like OSRS)
+    ~essence_teleport_cast(false);
+} else {
+    ~essence_teleport_cast(true);
 }
-spotanim_npc(curse_casting, 92, 0);
-sound_synth(curse_all, 1, 0);
-def_int $duration = ~player_projectile(npc_coord, coord, uid, curse_travel, 31, 31, 61, 16, 0, 128, 5);
-// osrs is 100 but 70 lines up better with our different sound synth
-spotanim_pl(curse_impact, 124, 70);
-// IncompleteProjectile(id = 109, startHeight = 31, endHeigsht = 31, delay = 61, angle = 16, distOffset = 128)	
-p_delay(4);
 // select random coord
 def_coord $coord = enum(int, coord, essence_mine_teleports, random(enum_getoutputcount(essence_mine_teleports)));
 // select random coord at a radius of 1
@@ -39,3 +32,21 @@ if (%exit_essence_mine_coord = null) {
 }
 def_coord $coord = map_findsquare(%exit_essence_mine_coord, 0, 2, ^map_findsquare_lineofwalk);
 p_telejump($coord);
+
+[proc,essence_teleport_cast](boolean $anim)
+// The teleporter's cast, for the essence mine and Aubury's 2011 teleport back to the Wizards'
+// Tower (Rune Mysteries 2011-05-22, YouTube VIE8MXrw-7M, 243-247s: "Senventior disthine
+// molenko!" over him, the curse graphic round the player, then the jump).
+if_close;
+// this is lowercase
+npc_say("Senventior disthine molenko!");
+if ($anim = true) {
+    npc_anim(human_castcurse, 0); // No anim in osrs
+}
+spotanim_npc(curse_casting, 92, 0);
+sound_synth(curse_all, 1, 0);
+def_int $duration = ~player_projectile(npc_coord, coord, uid, curse_travel, 31, 31, 61, 16, 0, 128, 5);
+// osrs is 100 but 70 lines up better with our different sound synth
+spotanim_pl(curse_impact, 124, 70);
+// IncompleteProjectile(id = 109, startHeight = 31, endHeigsht = 31, delay = 61, angle = 16, distOffset = 128)	
+p_delay(4);

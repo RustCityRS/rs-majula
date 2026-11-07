@@ -1,31 +1,33 @@
+// Aubury. The Rune Mysteries hand-over is the 2011-05-22 recording's (YouTube VIE8MXrw-7M,
+// 229-247s; target/refs/runemys), box for box: his greeting, the menu "Yes, please." /
+// "No, thank you." / "I've been sent here with a package for you.", the package for the notes
+// at once (289 makes you talk to him again), and a teleport back to the Wizards' Tower.
+// Unverified, as no 2011 recording of them is found: the shop and "No, thank you." replies,
+// the lost-package and revisit lines (289's) and the menu after the quest (289's options).
 [opnpc1,aubury]
-if(%runemysteries = ^runemysteries_given_package) {
-    ~chatnpc("<p,neutral>My gratitude to you adventurer for bringing me these research notes. I notice that you brought the head wizard a special talisman that was the key to our finally unlocking the puzzle.");
-    ~chatnpc("<p,neutral>Combined with the information I had already already collated regarding the Rune Essence, I think we have finally unlocked the power to");
-    ~chatnpc("<p,neutral>...no. I am getting ahead of myself. Please take this summary of my research back to the head wizard at the Wizards' Tower. I trust his judgement on whether to let you in on our little secret or not.");
-    %runemysteries = ^runemysteries_received_notes;
-    inv_add(inv, research_notes, 1);
-    ~mesbox("Aubury gives you his research notes.");
-} else if(%runemysteries = ^runemysteries_received_notes) {
+if (%runemysteries = ^runemysteries_given_package) {
+    // 289's in-between stage, which 2011 never sets; a save left at it gets the notes.
+    @aubury_notes;
+} else if (%runemysteries = ^runemysteries_received_notes) {
     ~chatnpc("<p,neutral>I suggest you take those research notes of mine back to the head wizard at the Wizards' Tower.");
-    if(~obj_gettotal(research_notes) = 0) {
+    if (~obj_gettotal(research_notes) = 0) {
         ~chatplayer("<p,neutral>I can't... I lost them...");
         ~chatnpc("<p,neutral>Well, luckily I have duplicates. It's a good thing they are written in code, I would not want the wrong kind of person to get access to the information contained within.");
         inv_add(inv, research_notes, 1);
     } else {
-       ~chatplayer("<p,neutral>Ok then, I will do that.");
-       ~chatnpc("<p,neutral>Unless you were talking to me because you wished to buy some runes?");
-       @multi2("Yes please!", aubury_shop, "Oh, it's a rune shop. No thank you, then.", aubury_no);
+        ~chatplayer("<p,neutral>Ok then, I will do that.");
+        ~chatnpc("<p,neutral>Unless you were talking to me because you wished to buy some runes?");
+        @multi2("Yes, please.", aubury_shop, "No, thank you.", aubury_no);
     }
     return;
 } else {
     ~chatnpc("<p,happy>Do you want to buy some runes?");
-    if(%runemysteries = ^runemysteries_complete) {
-        @multi3("Yes please!", aubury_shop, "Oh, it's a rune shop. No thank you, then.", aubury_no, "Can you teleport me to the Rune Essence?", aubury_ess);
+    if (%runemysteries = ^runemysteries_complete) {
+        @multi3("Yes, please.", aubury_shop, "No, thank you.", aubury_no, "Can you teleport me to the Rune Essence?", aubury_ess);
     } else if (%runemysteries = ^runemysteries_received_package & inv_total(inv, research_package) > 0) {
-        @multi3("Yes please!", aubury_shop, "Oh, it's a rune shop. No thank you, then.", aubury_no, "I have been sent here with a package for you.", aubury_package);
+        @multi3("Yes, please.", aubury_shop, "No, thank you.", aubury_no, "I've been sent here with a package for you.", aubury_package);
     } else {
-        @multi2("Yes please!", aubury_shop, "Oh, it's a rune shop. No thank you, then.", aubury_no);
+        @multi2("Yes, please.", aubury_shop, "No, thank you.", aubury_no);
     }
 }
 
@@ -42,7 +44,7 @@ if(last_useitem = research_package & %runemysteries = ^runemysteries_received_pa
 [label,aubury_shop] ~openshop_activenpc;
 
 [label,aubury_no]
-~chatplayer("<p,happy>Oh, it's a rune shop. No thank you, then.");
+~chatplayer("<p,happy>No, thank you.");
 ~chatnpc("<p,happy>Well, if you find someone who does want runes, please send them my way.");
 
 [label,aubury_ess]
@@ -50,8 +52,8 @@ if(last_useitem = research_package & %runemysteries = ^runemysteries_received_pa
 @teleport_to_essence_mine(^essence_mine_to_aubury);
 
 [label,aubury_package]
-~chatplayer("<p,neutral>I have been sent here with a package for you. It's from the head wizard at the Wizards' Tower.");
-~chatnpc("<p,shock>Really? But... surely he can't have..? Please, let me have it, it must be extremely important for him to have sent a stranger.");
+~chatplayer("<p,neutral>I've been sent here with a package for you. It's from Sedridor, the head wizard at the Wizards' Tower.");
+~chatnpc("<p,shock>Really? Surely he can't have...? Please, let me have it.");
 if(inv_total(inv, research_package) = 0) {
     ~chatplayer("<p,confused>Uh... yeah... about that... I kind of don't have it with me...");
     ~chatnpc("<p,confused>What kind of person tells me they have a delivery for me, but not with them? Honestly.");
@@ -61,4 +63,24 @@ if(inv_total(inv, research_package) = 0) {
 ~mesbox("You hand Aubury the research package.");
 inv_del(inv, research_package, 1);
 %runemysteries = ^runemysteries_given_package;
-~chatnpc("<p,neutral>This... is incredible. Please, give me a few moments to quickly look over this, and then talk to me again.");
+@aubury_notes;
+
+[label,aubury_notes]
+~chatnpc("<p,neutral>My gratitude, adventurer, for bringing me this research package.");
+~chatnpc("<p,neutral>Combined with the information I have already collated regarding rune essence, I think we have finally unlocked the power to...");
+~chatnpc("<p,neutral>No, I'm getting ahead of myself. Take this summary of my research back to Sedridor in the basement of the Wizards' Tower. He will know whether or not to let you in on our little secret.");
+%runemysteries = ^runemysteries_received_notes;
+inv_add(inv, research_notes, 1);
+~mesbox("Aubury gives you his research notes.");
+~chatnpc("<p,neutral>Now, I'm sure I can spare a couple of runes for such a worthy cause as these notes. Do you want me to teleport you back?");
+def_int $choice = ~p_choice2_header("Yes, please.", 1, "No, thank you.", 2, "Teleport back to the Wizards' Tower?");
+if ($choice = 2) {
+    // Unverified: the recording takes the teleport.
+    ~chatplayer("<p,neutral>No, thank you.");
+    return;
+}
+~chatplayer("<p,neutral>Yes, please.");
+// The essence mine's cast, words and all (the recording, 243-247s), to the bridge north of
+// the tower, where the recording lands (refs/runemys/sg/tp_full.png).
+~essence_teleport_cast(true);
+p_telejump(^aubury_wizard_tower_bridge);

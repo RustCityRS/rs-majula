@@ -266,3 +266,86 @@ fn sedridor_takes_the_notes_and_returns_the_talisman() {
         );
     });
 }
+
+/// Where Aubury's 2011 teleport lands: the bridge north of the Wizards' Tower
+/// (refs/runemys/sg/tp_full.png, pinned in client B by its minimap).
+const BRIDGE: (u16, u16) = (3113, 3186);
+
+/// 2011's hand-over (2011-05-22 recording, YouTube VIE8MXrw-7M, 229-247s): the package for the
+/// notes at once, without 289's second talk, then "Teleport back to the Wizards' Tower?", Yes,
+/// and his essence-mine cast onto the bridge north of the tower.
+#[test]
+fn aubury_takes_the_package_and_teleports_the_player_back() {
+    let _turn = TURN.lock().unwrap_or_else(|e| e.into_inner());
+    runner::on_loaded_engine(|engine| {
+        let inv = *engine.cache.invs.debugnames.get("inv").unwrap();
+        let package = *engine
+            .cache
+            .objs
+            .debugnames
+            .get("research_package")
+            .unwrap();
+        let notes = *engine.cache.objs.debugnames.get("research_notes").unwrap();
+        let varp = *engine.cache.varps.debugnames.get("runemysteries").unwrap();
+        for (name, answer) in [
+            ("aubury_yes", "Yes, please."),
+            ("aubury_no", "No, thank you."),
+        ] {
+            let (mut client, nid) = visitor(engine, name, AUBURY, 3);
+            engine
+                .harness_player_mut(client.pid)
+                .unwrap()
+                .invs
+                .get_mut(&inv)
+                .unwrap()
+                .set(0, package, 1);
+            let start = engine.harness_player(client.pid).unwrap().pathing.coord;
+            rs_test::talk::talk_to(&mut client, nid);
+            let talk = rs_test::talk::converse(
+                engine,
+                &mut client,
+                &["I've been sent here with a package for you.", answer],
+                300,
+            );
+            assert!(talk.unanswered.is_none(), "{:?}", talk.unanswered);
+            for line in [
+                "Do you want to buy some runes?",
+                "I've been sent here with a package for you. It's from Sedridor, the head wizard at the Wizards' Tower.",
+                "Really? Surely he can't have...? Please, let me have it.",
+                "You hand Aubury the research package.",
+                "My gratitude, adventurer, for bringing me this research package.",
+                "Combined with the information I have already collated regarding rune essence, I think we have finally unlocked the power to...",
+                "No, I'm getting ahead of myself. Take this summary of my research back to Sedridor in the basement of the Wizards' Tower. He will know whether or not to let you in on our little secret.",
+                "Aubury gives you his research notes.",
+                "Now, I'm sure I can spare a couple of runes for such a worthy cause as these notes. Do you want me to teleport you back?",
+                "Teleport back to the Wizards' Tower?",
+            ] {
+                assert!(talk.said(line), "2011 shows {line:?}; {:?}", talk.texts);
+            }
+            for _ in 0..10 {
+                engine.cycle();
+            }
+            let player = engine.harness_player(client.pid).unwrap();
+            let pack = player.invs.get(&inv).unwrap();
+            assert_eq!(pack.total(package), 0, "the package is given");
+            assert_eq!(pack.total(notes), 1, "the notes at once");
+            assert_eq!(player.vars.get(varp).as_int(), 5, "notes received");
+            let at = player.pathing.coord;
+            if answer == "Yes, please." {
+                assert_eq!(
+                    (at.x(), at.z(), at.y()),
+                    (BRIDGE.0, BRIDGE.1, 0),
+                    "on the bridge"
+                );
+            } else {
+                // Talk-to walks a step up to him, so the map square, not the tile.
+                assert_eq!(
+                    (at.x() / 64, at.z() / 64, at.y()),
+                    (start.x() / 64, start.z() / 64, 0),
+                    "stays in Varrock, at {:?}",
+                    (at.x(), at.z())
+                );
+            }
+        }
+    });
+}
