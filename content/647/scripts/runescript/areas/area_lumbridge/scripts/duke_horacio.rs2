@@ -22,22 +22,26 @@ else @duke_rune_mysteries_in_progress;
 
 [label,duke_rune_mysteries_start]
 ~chatplayer("<p,quiz>Have you any quests for me?");
-~chatnpc("<p,neutral>Well, it's not really a quest but I recently discovered this strange talisman.");
-~chatnpc("<p,neutral>It seems to be mystical and I have never seen anything like it before. Would you take it to the head wizard at");
-~chatnpc("<p,neutral>the Wizards' Tower for me? It's just south-west of here and should not take you very long at all. I would be awfully grateful.");
-def_int $option = ~p_choice2("Sure, no problem.", 1, "Not right now.", 2);
-if ($option = 1) {
+// 2011-05-22 recording (YouTube VIE8MXrw-7M, 25.5-32.8s): 2011's lines, then 2011's quest-start
+// window (quest_intro.rs2, cache struct_524) where 289 asks in a chat choice.
+~chatnpc("<p,neutral>Well, it's not really a quest, but I recently discovered this strange talisman.");
+~chatnpc("<p,neutral>It's not like anything I have seen before. Would you take it to the head wizard in the basement of");
+~chatnpc("<p,neutral>the Wizards' Tower for me? It should not take you very long at all and I would be awfully grateful.");
+if (~quest_intro(struct_524) = true) {
     ~chatplayer("<p,happy>Sure, no problem.");
     %runemysteries = ^runemysteries_started;
     ~send_quest_progress(^questlist_runemysteries, %runemysteries, ^runemysteries_complete);
-    ~chatnpc("<p,happy>Thank you very much, stranger. I am sure the head wizard will reward you for such an interesting find.");
-    // https://youtu.be/khWXGF8spNs?t=40, inv space check prob added later during OSRS (chisel dialogue doesn't have anything related)
-    ~mesbox("The Duke hands you an @blu@air talisman.");
+    ~chatnpc("<p,happy>Thank you very much, stranger.");
+    ~chatnpc("<p,happy>I am sure the head wizard will reward you for such an interesting find.");
+    // An item box with the talisman's picture; "talisman" in dark blue, read as 2011's navy
+    // (the video's darkest pixels of the word are (68,59,103) on the beige box).
+    ~objbox(air_talisman, "The Duke hands you a <col=000080>talisman</col>.", 250, 0, 0);
     inv_add(inv, air_talisman, 1);
-} else if($option = 2) {
-    ~chatplayer("<p,neutral>Not right now.");
-    ~chatnpc("<p,sad>As you wish, stranger, although I have this strange feeling that it is important. Unfortunately, I cannot leave my castle unattended.");
+    return;
 }
+// After No: 289's lines. No 2011 recording of it is found.
+~chatplayer("<p,neutral>Not right now.");
+~chatnpc("<p,sad>As you wish, stranger, although I have this strange feeling that it is important. Unfortunately, I cannot leave my castle unattended.");
 
 [label,duke_rune_mysteries_in_progress]
 if(~obj_gettotal(air_talisman) = 0) {

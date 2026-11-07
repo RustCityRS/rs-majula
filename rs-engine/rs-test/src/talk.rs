@@ -35,13 +35,17 @@ pub struct Conversation {
     pub texts: Vec<String>,
     pub messages: Vec<String>,
     pub unanswered: Option<Vec<String>>,
+    pub packets: Vec<(u16, Vec<u8>)>,
 }
 
 impl Conversation {
     /// Whether the texts set during it contain `needle`. A chat box sets each
-    /// wrapped line as its own text, so the lines are joined with spaces first.
+    /// wrapped line as its own text, so the lines are joined with spaces first;
+    /// an item box sets one text with its lines joined by `<br>`, which also
+    /// reads as a space.
     pub fn said(&self, needle: &str) -> bool {
-        self.texts.join(" ").contains(needle)
+        let joined = self.texts.join(" ");
+        joined.contains(needle) || joined.replace("<br>", " ").contains(needle)
     }
 }
 
@@ -63,7 +67,25 @@ pub fn settexts(packets: &[(u16, Vec<u8>)]) -> Vec<(u32, String)> {
                 .iter()
                 .position(|&b| b == 0)
                 .map_or(p.len(), |i| 4 + i);
-            (com, String::from_utf8_lossy(&p[4..end]).into_owned())
+            (com, cp1252(&p[4..end]))
+        })
+        .collect()
+}
+
+/// CP-1252 bytes, as the server writes text (rs-io `pjstr`), back to a string.
+pub fn cp1252(bytes: &[u8]) -> String {
+    const HIGH: [char; 32] = [
+        '\u{20AC}', '\u{81}', '\u{201A}', '\u{192}', '\u{201E}', '\u{2026}', '\u{2020}',
+        '\u{2021}', '\u{2C6}', '\u{2030}', '\u{160}', '\u{2039}', '\u{152}', '\u{8D}', '\u{17D}',
+        '\u{8F}', '\u{90}', '\u{2018}', '\u{2019}', '\u{201C}', '\u{201D}', '\u{2022}', '\u{2013}',
+        '\u{2014}', '\u{2DC}', '\u{2122}', '\u{161}', '\u{203A}', '\u{153}', '\u{9D}', '\u{17E}',
+        '\u{178}',
+    ];
+    bytes
+        .iter()
+        .map(|&b| match b {
+            0x80..=0x9F => HIGH[usize::from(b - 0x80)],
+            _ => char::from(b),
         })
         .collect()
 }
@@ -110,6 +132,7 @@ pub fn converse(
                 .into_iter()
                 .map(|(_, t)| t),
         );
+        out.packets.extend(packets);
         let Some(player) = engine.harness_player(client.pid) else {
             break;
         };

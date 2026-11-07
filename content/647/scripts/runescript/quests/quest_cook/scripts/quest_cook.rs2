@@ -42,8 +42,10 @@ if ($option = 1) {
 ~chatplayer("<p,neutral>What's wrong?");
 ~chatnpc("<p,scared>Oh dear, oh dear, oh dear, I'm in a terrible terrible mess! It's the Duke's birthday today, and I should be making him a lovely big birthday cake using special ingredients...");
 ~chatnpc("<p,scared>...but I've forgotten to get the ingredients. I'll never get them in time now. He'll sack me! What will I do? I have four children and a goat to look after. Would you help me? Please?");
-def_int $option = ~p_choice2_header("Yes.", 1, "No.", 2, "Start the Cook's Assistant quest?");
-if ($option = 1) {
+// 2011-05-20 recording (84-86s): 2011's quest-start window (quest_intro.rs2), not void-634's
+// chat choice "Start the Cook's Assistant quest?". After No, 289's and void's lines below are
+// unverified: no 2011 recording of it is found.
+if (~quest_intro(struct_512) = true) {
     ~chatplayer("<p,happy>I'm always happy to help a cook in distress.");
     %cookquest = 1;
     ~send_quest_progress(^questlist_cook, %cookquest, ^cook_complete);

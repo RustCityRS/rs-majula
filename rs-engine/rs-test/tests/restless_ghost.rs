@@ -140,20 +140,34 @@ fn beside(engine: &Engine, npc: u16) -> (u16, (u16, u16)) {
     (nid, (x + 1, z))
 }
 
+/// "I'm looking for a quest." opens 2011's quest-start window (interface 178), and its Yes
+/// (component 73, IF_BUTTON1 `p4(com) p2_alt3(obj) p2_alt1(slot)`) starts the quest with 2011's
+/// lines (2011-04-20 and 2011-06-24 recordings).
 #[test]
 fn father_aereck_starts_the_quest() {
     runner::on_loaded_engine(|engine| {
         let (nid, at) = beside(engine, AERECK);
         let mut client = player(engine, 0, &[], None, at);
         talk_to(&mut client, nid);
-        let talk = converse(
-            engine,
-            &mut client,
-            &["I'm looking for a quest.", "Okay, let me help then."],
-            60,
-        );
+        let talk = converse(engine, &mut client, &["I'm looking for a quest."], 60);
         assert!(talk.unanswered.is_none(), "{:?}", talk.unanswered);
-        assert!(talk.said("He has a little shack"));
+        assert!(
+            engine
+                .harness_player(client.pid)
+                .unwrap()
+                .is_interface_open(178),
+            "the quest-start window; {:?}",
+            talk.texts
+        );
+        let mut p = ClientPacket::new();
+        p.p4((178 << 16) | 73).p2_alt3(0xFFFF).p2_alt1(0xFFFF);
+        client.send(ClientProt::IfButton1, &p.finish());
+        let talk = converse(engine, &mut client, &[], 60);
+        assert!(
+            talk.said("He's currently living in a little shack in the south of Lumbridge Swamps, near the coast."),
+            "{:?}",
+            talk.texts
+        );
         assert_eq!(stage(engine, &client), 1);
     });
 }

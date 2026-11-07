@@ -1336,6 +1336,14 @@ pub trait ScriptPlayer {
     /// * `model` - The model ID to display.
     fn if_setmodel(&mut self, com: i32, model: u16);
 
+    /// Sets the graphic (a sprite) displayed on an interface component.
+    ///
+    /// # Arguments
+    /// * `com` - The interface component ID.
+    /// * `graphic` - The sprite ID to display.
+    #[cfg(since_647)]
+    fn if_setgraphic(&mut self, com: i32, graphic: u16);
+
     /// Sets an NPC chathead model on an interface component.
     ///
     /// # Arguments

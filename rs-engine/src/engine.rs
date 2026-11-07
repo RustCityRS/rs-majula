@@ -6133,6 +6133,17 @@ impl ScriptPlayer for ActivePlayer {
         self.if_setmodel(com, model);
     }
 
+    /// Sets the graphic (a sprite) displayed on an interface component.
+    ///
+    /// # Call Stack
+    ///
+    /// **Called by:** VM ops via `ScriptPlayer` trait
+    /// **Calls:** `ActivePlayer::if_setgraphic`
+    #[cfg(since_647)]
+    fn if_setgraphic(&mut self, com: i32, graphic: u16) {
+        self.if_setgraphic(com, graphic);
+    }
+
     /// Sets an NPC chathead model on an interface component.
     ///
     /// # Call Stack

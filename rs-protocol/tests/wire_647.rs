@@ -344,6 +344,22 @@ fn if_setcolour_matches_client() {
     p.done(bytes.len());
 }
 
+/// Client IF_SETGRAPHIC (`MapAreaConfig.java`): `ig4 hash` (little-endian, this reader's
+/// `g4s_alt1`), then `g2_alt1 graphic` (high byte, low byte + 128: this reader's `g2_alt2`).
+#[test]
+fn if_setgraphic_matches_client() {
+    use rs_protocol::network::game::server::if_setgraphic::IfSetGraphic;
+    let hash = (178i32 << 16) | 79;
+    let bytes = encode(&IfSetGraphic {
+        com: hash,
+        graphic: 2379,
+    });
+    let mut p = ClientPacket::new(&bytes);
+    assert_eq!(p.g4s_alt1(), hash, "component hash");
+    assert_eq!(p.g2_alt2(), 2379, "graphic");
+    p.done(bytes.len());
+}
+
 /// Client IF_SETPOSITION: `g4s_alt3 hash`, `ig2b_alt1 x`, `ig2b_alt1 y`.
 ///
 /// Regression: previously `p4_alt1` + `p2` + `p2`.

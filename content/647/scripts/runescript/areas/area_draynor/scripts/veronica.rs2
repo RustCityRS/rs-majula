@@ -6,21 +6,22 @@ switch_int (%haunted) {
 }
 
 [label,haunted_start]
-~chatnpc("<p,shock>Can you please help me?|I'm in a terrible spot of trouble.");
-def_int $option = ~p_choice2("Aha, sounds like a quest. I'll help.", 1, "No, I'm looking for something to kill.", 2);
-if($option = 1) {
+// 2011-05-04 recording (YouTube sbY-Uq0JI4M, 25.6-37.5s): Veronica tells her story first, then
+// 2011's quest-start window asks (quest_intro.rs2, cache struct_516). 289 asks first, in a chat
+// choice, and tells it after in other words.
+~chatnpc("<p,shock>Can you please help me? I'm in a terrible spot of trouble. My fiancé, Ernest, and I came upon this house.");
+~chatnpc("<p,neutral>Seeing as we were a little lost, Ernest decided to go in and ask for directions.");
+~chatnpc("<p,neutral>That was an hour ago...and that house looks spooky. Can you go and see if you can find him for me?");
+if (~quest_intro(struct_516) = true) {
     ~chatplayer("<p,happy>Aha, sounds like a quest. I'll help.");
-    ~chatnpc("<p,neutral>Yes yes, I suppose it is a quest.|My fiance Ernest and I came upon this house here.");
-    ~chatnpc("<p,neutral>Seeing as we were a little lost|Ernest decided to go in and ask for directions.");
-    ~chatnpc("<p,neutral>That was an hour ago.|That house looks very spooky,|can you go and see if you can find him for me?");
     %haunted = ^haunted_started;
     ~send_quest_progress(^questlist_haunted, %haunted, 3);
-    ~chatplayer("<p,neutral>Ok, I'll see what I can do.");
-    ~chatnpc("<p,happy>Thank you, thank you.|I'm very grateful.");
-} else if($option = 2) {
-    ~chatplayer("<p,neutral>No, I'm looking for something to kill.");
-    ~chatnpc("<p,shock>Oooh, you violent person you.");
+    ~chatnpc("<p,happy>Thank you, thank you. I'm very grateful. I think I spotted some lights flashing in one of the top floor windows, so you may want to head up there first.");
+    return;
 }
+// After No: 289's lines. No 2011 recording of it is found.
+~chatplayer("<p,neutral>No, I'm looking for something to kill.");
+~chatnpc("<p,shock>Oooh, you violent person you.");
 
 [label,veronica_sweetheart]
 ~chatnpc("<p,quiz>Have you found my sweetheart yet?");

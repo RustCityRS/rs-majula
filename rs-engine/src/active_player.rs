@@ -1206,6 +1206,14 @@ impl ActivePlayer {
         self.write(rs_protocol::network::game::server::if_setmodel::IfSetModel { com, model });
     }
 
+    /// Sets the graphic (a sprite) displayed on an interface component.
+    #[cfg(since_647)]
+    pub fn if_setgraphic(&mut self, com: i32, graphic: u16) {
+        self.write(
+            rs_protocol::network::game::server::if_setgraphic::IfSetGraphic { com, graphic },
+        );
+    }
+
     /// Sets an NPC head model on an interface component.
     pub fn if_setnpchead(&mut self, com: i32, npc: u16) {
         #[cfg(before_647)]

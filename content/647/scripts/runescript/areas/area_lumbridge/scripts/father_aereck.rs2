@@ -24,24 +24,25 @@ switch_int (~p_choice3("Who's Saradomin?", 1, "Nice place you've got here.", 2, 
         ~chatplayer("<p,happy>I'm looking for a quest.");
         // void-634; 289's lines are the same but where noted
         ~chatnpc("<p,happy>That's lucky, I need someone to do a quest for me.");
-        switch_int (~p_choice2("Okay, let me help then.", 1, "Actually, I don't have time right now.", 2)) {
-            case 1 :
-                %prieststart = ^priest_started;
-                ~send_quest_progress(^questlist_priest, %prieststart, ^priest_complete);
-                ~chatplayer("<p,happy>Okay, let me help then.");
-                ~chatnpc("<p,happy>Thank you. The problem is, there is a ghost in the church graveyard. I would like you to get rid of it.");
-                ~chatnpc("<p,happy>If you need any help, my friend Father Urhney is an expert on ghosts.");
-                // void-634; 289's "somewhere in the swamps south of here"
-                ~chatnpc("<p,happy>I believe he is currently living as a hermit in Lumbridge swamp. He has a little shack in the far west of the swamps.");
-                ~chatnpc("<p,neutral>Exit the graveyard through the south gate to reach the swamp. I'm sure if you told him that I sent you he'd be willing to help.");
-                ~chatnpc("<p,happy>My name is Father Aereck by the way. Pleased to meet you.");
-                ~chatplayer("<p,happy>Likewise.");
-                ~chatnpc("<p,neutral>Take care travelling through the swamps, I have heard they can be quite dangerous.");
-                ~chatplayer("<p,happy>I will, thanks.");
-            case 2 :
-                ~chatplayer("<p,neutral>Actually, I don't have time right now.");
-                ~chatnpc("<p,sad>Oh well. If you do have some spare time on your hands, come back and talk to me.");
+        // 2011-06-24 recording (YouTube iZmUDYaw2Cc, 45-69s): 2011's quest-start window
+        // (quest_intro.rs2, cache struct_522) where void-634 asks in a chat choice, and 2011's
+        // lines after it.
+        if (~quest_intro(struct_522) = true) {
+            %prieststart = ^priest_started;
+            ~send_quest_progress(^questlist_priest, %prieststart, ^priest_complete);
+            ~chatplayer("<p,happy>Okay, let me help then.");
+            ~chatnpc("<p,happy>Thank you. The problem is there's a ghost in the graveyard crypt just south of this church. I would like you to get rid of it.");
+            ~chatnpc("<p,happy>You'll need the help of my friend, Father Urhney, who is a bit of a ghost expert.");
+            ~chatnpc("<p,happy>He's currently living in a little shack in the south of Lumbridge Swamps, near the coast.");
+            ~chatnpc("<p,happy>My name is Father Aereck, by the way. Pleased to meet you.");
+            ~chatplayer("<p,happy>Likewise.");
+            ~chatnpc("<p,neutral>Take care travelling through the swamps. To get there just follow the path south, through the graveyard.");
+            ~chatplayer("<p,happy>I will, thanks.");
+            return;
         }
+        // After No: void-634's lines. No 2011 recording of it is found.
+        ~chatplayer("<p,neutral>Actually, I don't have time right now.");
+        ~chatnpc("<p,sad>Oh well. If you do have some spare time on your hands, come back and talk to me.");
 }
 
 // 289, void-634

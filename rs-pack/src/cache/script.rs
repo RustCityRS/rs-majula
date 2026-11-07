@@ -447,6 +447,8 @@ pub const RUNCLIENTSCRIPT_STAR: u16 = 5013;
 pub const SENDVARC_STR: u16 = 5015;
 #[cfg(since_647)]
 pub const LAST_TARGETCOM: u16 = 5016;
+#[cfg(since_647)]
+pub const IF_SETGRAPHIC: u16 = 5017;
 pub const SOFTTIMER: u16 = 2103;
 pub const SOUND_SYNTH: u16 = 2104;
 pub const SPOTANIM_PL: u16 = 2105;

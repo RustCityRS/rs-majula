@@ -468,6 +468,14 @@ pub fn build<E: ScriptEngine + 'static>() -> OpsRegistry {
             player.if_setmodel(com, model);
         });
 
+        // 5017: 647's IF_SETGRAPHIC, a sprite on a component.
+        #[cfg(since_647)]
+        active_player_mut!(m, IF_SETGRAPHIC => |s, player| {
+            let graphic = s.pop_int_as::<u16>()?;
+            let com = s.pop_int();
+            player.if_setgraphic(com, graphic);
+        });
+
         // 2042
         active_player_mut!(m, IF_SETNPCHEAD => |s, player| {
             let npc = s.pop_int_as::<u16>()?;

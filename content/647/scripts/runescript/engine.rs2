@@ -285,6 +285,8 @@
 [command,.if_setobject](component $component, obj $obj, int $scale)
 // info: Set a component's model
 [command,if_setmodel](component $component, int $model)
+// info: Set a component's graphic (a sprite): 647's IF_SETGRAPHIC
+[command,if_setgraphic](component $component, graphic $graphic)
 // info: Open the tutorial modal mode ("sticky" interface)
 [command,tut_open](interface $interface)
 // info: Close the tutorial modal mode (back to normal gameplay)
