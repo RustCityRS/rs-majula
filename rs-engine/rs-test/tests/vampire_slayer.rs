@@ -280,6 +280,7 @@ fn the_count_is_staked_and_morgan_ends_the_quest() {
                 .p2_alt2(COFFIN.1 as i32);
             client.send(ClientProt::OpLoc1, &p.finish());
             let mut said = Vec::new();
+            let mut hammered: Option<usize> = None;
             let mut risen = false;
             let mut risen_at = 0;
             // The Count's last life points and tile, and the tick he went.
@@ -305,11 +306,12 @@ fn the_count_is_staked_and_morgan_ends_the_quest() {
                         player.stats.xp[ATTACK],
                     ));
                 }
-                said.extend(
-                    HarnessClient::game_messages(&client.packets())
-                        .into_iter()
-                        .map(|(_, m)| m),
-                );
+                for (_, m) in HarnessClient::game_messages(&client.packets()) {
+                    if m == "You hammer the stake into the vampire's chest!" {
+                        hammered = Some(tick);
+                    }
+                    said.push(m);
+                }
                 // A harness client sends nothing on its own: without this
                 // the engine drops it after 100 silent ticks.
                 if tick % 20 == 0 {
@@ -342,7 +344,12 @@ fn the_count_is_staked_and_morgan_ends_the_quest() {
                             client.send(ClientProt::OpNpc2, &p.finish());
                         }
                     }
-                    None if risen => break,
+                    None if risen => {
+                        if let Some(h) = hammered {
+                            said.push(format!("(gone {} ticks after the hammer)", tick - h));
+                        }
+                        break;
+                    }
                     None => {}
                 }
                 if said.iter().any(|m| m.contains("regenerate")) {
@@ -382,6 +389,12 @@ fn the_count_is_staked_and_morgan_ends_the_quest() {
         );
         let said = fight(engine, &mut client);
         no_script_errors(engine, "the fight");
+        // He turns to dust over his 12s seq 12604 (spotanim 567 with it),
+        // and goes a tick before it loops back to its start.
+        assert!(
+            said.iter().any(|m| m == "(gone 20 ticks after the hammer)"),
+            "{said:?}"
+        );
         assert!(
             said.iter()
                 .any(|m| m == "You hammer the stake into the vampire's chest!"),
@@ -500,7 +513,7 @@ fn the_count_fights_on_his_own_skeleton() {
         for (param, seq) in [
             ("attack_anim", 3331),
             ("defend_anim", 3332),
-            ("death_anim", 3112),
+            ("death_anim", 12604),
         ] {
             let value = params.get(&pack_id("param", param));
             assert!(

@@ -5,9 +5,25 @@
 // now specifically used"), and the quest waits for Morgan. Without garlic,
 // each of the player's hits of 0 heals him 10 life points (2011 wiki, Vampire
 // Slayer).
+// Staked, he hunches over, turns to white dust and crumbles away (2011-02-19
+// recording, 96.0s-98.2s): his seq 12604 with spotanim 567 (model 51051,
+// seq 12605) on him, both 12s long. 12604 loops back to its start when it
+// ends, so he goes a tick before it does, the dust all but gone.
 [ai_queue4,count_draynor]
 ~quest_vampire_coffin_close;
-gosub(npc_death);
+npc_walk(npc_coord);
+npc_setmode(none);
+npc_arrivedelay;
+if (finduid(%npc_aggressive_player) = true) {
+    if (npc_param(death_sound) ! null) {
+        ~sound_within_distance(npc_param(death_sound), 0, npc_coord, 12);
+    }
+    %lastcombat = null;
+}
+npc_anim(npc_param(death_anim), 0);
+spotanim_npc(spotanim_567, 0, 0);
+npc_delay(18);
+npc_del;
 
 // The coffin cutscene's camera (quest_vampire.rs2) holds until the player
 // engages him: in the 2010-10-15 and 2011-02-19 recordings it gives the
@@ -93,7 +109,9 @@ if (inv_total(inv, stake_hammer) = 0) {
 p_delay(1);
 mes("You hammer the stake into the vampire's chest!");
 inv_del(inv, stake, 1);
-anim(human_stake2, 0); // 289's human_stake (806) is not in cache 786; 929 is its only stake
+// The rework's stake hammer blow (seq 12606, the hammer in hand), as the
+// player strikes in the 2011-02-19 recording at 96.0s-98.2s.
+anim(seq_12606, 0);
 npc_setmode(none);
 npc_walk(npc_coord);
 npc_queue(4, 0, 0);

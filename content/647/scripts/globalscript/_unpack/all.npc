@@ -216521,11 +216521,8 @@ param=damagetype,^crush_style
 // a human animation (289's punch and block, the death default, vamp_claw)
 // twists him. Of the other seqs on that skeleton, 3331 and 3332 are the two
 // combat-priority (6) ones; played on him in client B, 3331 swings an arm
-// down (attack), 3332 draws in behind the cape (block), and 3112 falls to
-// the ground (death).
 param=attack_anim,seq_3331
 param=defend_anim,seq_3332
-param=death_anim,seq_3112
 param=attack_sound,vampire_attack
 param=defend_sound,vampire_hit
 param=death_sound,vampire_death
@@ -216533,6 +216530,9 @@ param=combat_xp_multiplier,100
 timer=1
 // osrs stats and Vislvl match 1:1
 // https://raw.githubusercontent.com/Joshua-F/osrs-dumps/refs/heads/master/config/dump.npc npc_3481
+// down (attack), 3332 draws in behind the cape (block), and 12604 turns him
+// to dust (death, count_draynor.rs2; 3112 is the coffin's lid sliding off).
+param=death_anim,seq_12604
 
 [count_draynor_9357]
 readyanim=seq_1669
