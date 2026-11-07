@@ -1,0 +1,17 @@
+[proc,clientscript_2828](string $string)
+def_int $int = 0;
+$int = calc(paraheight($string, 346, p12_full) * 15);
+if ($int > 48) {
+    $int = calc(paraheight($string, 328, p12_full) * 15);
+}
+if ($int > 48) {
+    if_setscrollsize(0, $int, quest_intro:com58);
+    ~scrollbar_vertical(quest_intro:com4, quest_intro:com58, "scrollbar_dragger_v2,3", "scrollbar_dragger_v2,0", "scrollbar_dragger_v2,1", "scrollbar_dragger_v2,2", "scrollbar_v2,0", "scrollbar_v2,1");
+    if_setsize(334, 48, ^setsize_abs, ^setsize_abs, quest_intro:com58);
+    if_setsize(16384, $int, ^setsize_rel, ^setsize_abs, quest_intro:com7);
+    if_setsize(16384, $int, ^setsize_rel, ^setsize_abs, quest_intro:com8);
+    if_settextalign(^settextalign_left, ^settextalign_top, 0, quest_intro:com59);
+} else {
+    if_setsize(354, 48, ^setsize_abs, ^setsize_abs, quest_intro:com58);
+    if_settextalign(^settextalign_left, ^settextalign_centre, 0, quest_intro:com59);
+}

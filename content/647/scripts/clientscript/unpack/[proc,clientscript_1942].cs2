@@ -1,0 +1,29 @@
+[proc,clientscript_1942]
+if (%varc_int_560 = false) {
+    %varc_int_559 = min(255, calc(%varc_int_559 + 6));
+    if (%varc_int_559 = 255) {
+        %varc_int_560 = 1;
+    }
+} else if (%varc_int_560 = true) {
+    %varc_int_559 = max(60, calc(%varc_int_559 - 6));
+    if (%varc_int_559 = 60) {
+        %varc_int_560 = 0;
+    }
+}
+if_settrans(%varc_int_559, sc_in_game_overlay:com14);
+if (%varc_int_561 < 4) {
+    if (if_gethide(sc_in_game_overlay:com18) = true) {
+        %varc_int_562 = min(20, calc(%varc_int_562 + 1));
+        if (%varc_int_562 = 20) {
+            %varc_int_562 = 0;
+            if_sethide(false, sc_in_game_overlay:com18);
+        }
+    } else {
+        %varc_int_562 = min(35, calc(%varc_int_562 + 1));
+        if (%varc_int_562 = 35) {
+            %varc_int_562 = 0;
+            if_sethide(true, sc_in_game_overlay:com18);
+            %varc_int_561 = min(4, calc(%varc_int_561 + 1));
+        }
+    }
+}

@@ -1,0 +1,120 @@
+// Bank preset — fills bank with common items for testing.
+// Adapted from 2004scape's [debugproc,bank_preset] for rev 647 item names.
+
+[debugproc,bank_preset]
+if_close
+if (p_finduid(uid) = true) {
+    inv_clear(bank)
+
+    // Currency & rares
+    inv_add(bank, coins, ^max_32bit_int)
+
+    // Combat gear
+    inv_add(bank, abyssal_whip, 255)
+    inv_add(bank, dragon_scimitar, 255)
+    inv_add(bank, rune_scimitar, 255)
+    inv_add(bank, rune_platebody, 255)
+    inv_add(bank, rune_platelegs, 255)
+    inv_add(bank, rune_full_helm, 255)
+    inv_add(bank, rune_kiteshield, 255)
+    inv_add(bank, rune_chainbody, 255)
+    inv_add(bank, rune_med_helm, 255)
+    inv_add(bank, amulet_of_fury, 255)
+    inv_add(bank, dragon_boots, 255)
+    inv_add(bank, ring_of_wealth, 255)
+    inv_add(bank, rune_crossbow, 255)
+
+    // Runes
+    inv_add(bank, fire_rune, ^max_32bit_int)
+    inv_add(bank, water_rune, ^max_32bit_int)
+    inv_add(bank, air_rune, ^max_32bit_int)
+    inv_add(bank, earth_rune, ^max_32bit_int)
+    inv_add(bank, death_rune, ^max_32bit_int)
+    inv_add(bank, nature_rune, ^max_32bit_int)
+    inv_add(bank, blood_rune, ^max_32bit_int)
+    inv_add(bank, law_rune, ^max_32bit_int)
+    inv_add(bank, chaos_rune, ^max_32bit_int)
+    inv_add(bank, soul_rune, ^max_32bit_int)
+    inv_add(bank, cosmic_rune, ^max_32bit_int)
+    inv_add(bank, astral_rune, ^max_32bit_int)
+
+    // Potions (4-dose) — TODO: add to obj.pack
+    // inv_add(bank, prayer_potion_4, 255)
+    // inv_add(bank, super_attack_4, 255)
+    // inv_add(bank, super_strength_4, 255)
+    // inv_add(bank, super_defence_4, 255)
+    // inv_add(bank, saradomin_brew_4, 255)
+
+    // Food
+    inv_add(bank, shark, 65535)
+    inv_add(bank, lobster, 65535)
+    inv_add(bank, swordfish, 65535)
+    inv_add(bank, monkfish, 65535)
+    inv_add(bank, tuna, 65535)
+
+    // Raw food
+    inv_add(bank, raw_shark, 65535)
+    inv_add(bank, raw_lobster, 65535)
+
+    // Bones
+    inv_add(bank, dragon_bones, ^max_32bit_int)
+    inv_add(bank, big_bones, ^max_32bit_int)
+    inv_add(bank, bones, ^max_32bit_int)
+
+    // Woodcutting
+    inv_add(bank, rune_hatchet, 255)
+    inv_add(bank, dragon_hatchet, 255)
+    inv_add(bank, adamant_hatchet, 255)
+    inv_add(bank, mithril_hatchet, 255)
+    inv_add(bank, steel_hatchet, 255)
+    inv_add(bank, iron_hatchet, 255)
+    inv_add(bank, bronze_hatchet, 255)
+    inv_add(bank, logs, 65535)
+    inv_add(bank, oak_logs, 65535)
+    inv_add(bank, willow_logs, 65535)
+    inv_add(bank, maple_logs, 65535)
+    inv_add(bank, yew_logs, 65535)
+    inv_add(bank, magic_logs, 65535)
+
+    // Mining
+    inv_add(bank, rune_pickaxe, 255)
+    inv_add(bank, adamant_pickaxe, 255)
+    inv_add(bank, mithril_pickaxe, 255)
+    inv_add(bank, steel_pickaxe, 255)
+    inv_add(bank, iron_pickaxe, 255)
+    inv_add(bank, bronze_pickaxe, 255)
+    inv_add(bank, coal, 65535)
+    inv_add(bank, iron_ore, 65535)
+    inv_add(bank, mithril_ore, 65535)
+    inv_add(bank, adamantite_ore, 65535)
+    inv_add(bank, runite_ore, 65535)
+    inv_add(bank, gold_ore, 65535)
+    inv_add(bank, copper_ore, 65535)
+    inv_add(bank, tin_ore, 65535)
+
+    // Smithing
+    inv_add(bank, rune_bar, 65535)
+    inv_add(bank, adamant_bar, 65535)
+    inv_add(bank, mithril_bar, 65535)
+    inv_add(bank, steel_bar, 65535)
+    inv_add(bank, iron_bar, 65535)
+    inv_add(bank, gold_bar, 65535)
+    inv_add(bank, bronze_bar, 65535)
+
+    // Fishing
+    inv_add(bank, fly_fishing_rod, 255)
+    inv_add(bank, harpoon, 255)
+    inv_add(bank, lobster_pot, 255)
+    inv_add(bank, small_fishing_net, 255)
+    inv_add(bank, feather, ^max_32bit_int)
+    inv_add(bank, fishing_bait, ^max_32bit_int)
+
+    // Tools
+    inv_add(bank, chisel, 255)
+    inv_add(bank, hammer, 255)
+    inv_add(bank, tinderbox, 255)
+    inv_add(bank, knife, 255)
+    inv_add(bank, rope, 255)
+
+    mes("Bank preset loaded.")
+}

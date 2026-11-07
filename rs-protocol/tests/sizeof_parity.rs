@@ -1,3 +1,7 @@
+//! The jag-era server packets (225 to 289). Rev 647's encoders are sized in
+//! `wire_647*.rs`.
+#![cfg(before_647)]
+
 use std::any::type_name;
 use std::collections::BTreeSet;
 

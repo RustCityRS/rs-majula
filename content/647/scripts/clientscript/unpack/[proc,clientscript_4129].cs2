@@ -1,0 +1,3 @@
+[proc,clientscript_4129](coord $coord0, coord $coord1)(coord)
+return(coordpack($coord1, calc(coordx($coord0) - coordx(0_55_70_0_0)), calc(coordy($coord0) - coordy(0_55_70_0_0)), calc(coordz($coord0) - coordz(0_55_70_0_0))));
+return(-1);

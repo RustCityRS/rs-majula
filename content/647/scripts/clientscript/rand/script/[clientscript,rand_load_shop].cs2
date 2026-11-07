@@ -1,0 +1,165 @@
+[clientscript,rand_load_shop](component $component0)
+def_int $int1 = if_getwidth($component0);
+def_int $int2 = if_getheight($component0);
+def_int $int3 = 0;
+def_int $int4 = 0;
+def_int $int5 = 0;
+def_enum $enum6 = enum_2987;
+def_enum $enum7 = enum_2988;
+if (map_members = true) {
+    if (%varc_int_1320 = 2) {
+        $enum6 = enum_2989;
+        $enum7 = enum_2990;
+    } else if (%varc_int_1320 = 3) {
+        $enum6 = enum_2991;
+        $enum7 = enum_2992;
+    } else if (%varc_int_1320 = 4) {
+        $enum6 = enum_2993;
+        $enum7 = enum_2994;
+    } else {
+        $enum6 = enum_2987;
+        $enum7 = enum_2988;
+    }
+} else if (%varc_int_1320 = 2) {
+    $enum6 = enum_2997;
+    $enum7 = enum_2998;
+} else if (%varc_int_1320 = 3) {
+    $enum6 = enum_2999;
+    $enum7 = enum_3000;
+} else if (%varc_int_1320 = 4) {
+    $enum6 = enum_3001;
+    $enum7 = enum_3002;
+} else {
+    $enum6 = enum_2995;
+    $enum7 = enum_2996;
+}
+cc_deleteall($component0);
+cc_deleteall(dungeon_shop:com25);
+cc_create($component0, ^iftype_text, $int3);
+$int3 = calc($int3 + 1);
+cc_setsize(31, 12, ^setsize_abs, ^setsize_abs);
+cc_setposition(0, 0, ^setpos_abs_left, ^setpos_abs_top);
+cc_settextfont(p11_full);
+cc_settextalign(^settextalign_left, ^settextalign_centre, 0);
+cc_settext("Resources:");
+cc_setcolour(0xc69b01);
+cc_settextshadow(true);
+cc_create($component0, ^iftype_graphic, $int3);
+$int3 = calc($int3 + 1);
+cc_setsize(160, 12, ^setsize_abs, ^setsize_abs);
+cc_setposition(0, 7, ^setpos_abs_left, ^setpos_abs_top);
+cc_setgraphic("v2_borders_slim,11");
+$int5 = calc($int5 + 20);
+def_int $int8 = $int3;
+while (calc($int3 - $int8) < calc(enum_getoutputcount($enum6) * 5)) {
+    cc_create($component0, ^iftype_graphic, $int3);
+    cc_setsize(48, 52, ^setsize_abs, ^setsize_abs);
+    cc_setposition($int4, $int5, ^setpos_abs_left, ^setpos_abs_top);
+    cc_setgraphic("km_shoptile,0");
+    cc_setopbase("<col=ff981f><oc_name(enum(105, 79, $enum6, calc(($int3 - $int8) / 5)))></col>");
+    cc_setop(1, "Info");
+    cc_setop(2, "Buy 1");
+    cc_setop(3, "Buy 5");
+    cc_setop(4, "Buy 10");
+    cc_setop(5, "Buy 50");
+    cc_setop(6, "Buy 250");
+    cc_setop(10, "Examine");
+    cc_setonmouseover("clientscript_2261(^event_com, calc($int3 + 1), false)");
+    cc_setonmouseleave("clientscript_2261(^event_com, calc($int3 + 1), true)");
+    cc_create($component0, ^iftype_graphic, calc($int3 + 1));
+    cc_setsize(48, 52, ^setsize_abs, ^setsize_abs);
+    cc_setposition($int4, $int5, ^setpos_abs_left, ^setpos_abs_top);
+    cc_setgraphic("km_shoptile,1");
+    cc_sethide(true);
+    cc_create($component0, ^iftype_graphic, calc($int3 + 2));
+    cc_setsize(36, 32, ^setsize_abs, ^setsize_abs);
+    cc_setposition(calc($int4 + 6), calc($int5 + 4), ^setpos_abs_left, ^setpos_abs_top);
+    cc_setobject_nonum(enum(105, 79, $enum6, calc(($int3 - $int8) / 5)), 1);
+    cc_setgraphicshadow(0x302020);
+    cc_setoutline(1);
+    cc_create($component0, ^iftype_graphic, calc($int3 + 3));
+    cc_setsize(12, 12, ^setsize_abs, ^setsize_abs);
+    cc_setposition(calc($int4 + 2), calc($int5 + 38), ^setpos_abs_left, ^setpos_abs_top);
+    cc_setgraphic("km_shopitems,1");
+    cc_create($component0, ^iftype_text, calc($int3 + 4));
+    cc_setsize(31, 12, ^setsize_abs, ^setsize_abs);
+    cc_setposition(calc($int4 + 13), calc($int5 + 39), ^setpos_abs_left, ^setpos_abs_top);
+    cc_settextfont(p11_full);
+    cc_settextalign(^settextalign_right, ^settextalign_centre, 0);
+    cc_settext(~tostring_shortform(~rand_buyprice(enum(105, 79, $enum6, calc(($int3 - $int8) / 5)))));
+    cc_setcolour(0xe2e2a2);
+    cc_settextshadow(true);
+    $int4 = calc($int4 + 50);
+    if (calc($int4 + 48) > $int1) {
+        $int4 = 0;
+        $int5 = calc($int5 + 54);
+    }
+    $int3 = calc($int3 + 5);
+}
+if ($int4 ! 0) {
+    $int4 = 0;
+    $int5 = calc($int5 + 52);
+}
+cc_create($component0, ^iftype_text, $int3);
+$int3 = calc($int3 + 1);
+cc_setsize(31, 12, ^setsize_abs, ^setsize_abs);
+cc_setposition(0, calc($int5 + 10), ^setpos_abs_left, ^setpos_abs_top);
+cc_settextfont(p11_full);
+cc_settextalign(^settextalign_left, ^settextalign_centre, 0);
+cc_settext("Tools:");
+cc_setcolour(0xc69b01);
+cc_settextshadow(true);
+cc_create($component0, ^iftype_graphic, $int3);
+$int3 = calc($int3 + 1);
+cc_setsize(160, 12, ^setsize_abs, ^setsize_abs);
+cc_setposition(0, calc($int5 + 17), ^setpos_abs_left, ^setpos_abs_top);
+cc_setgraphic("v2_borders_slim,11");
+$int5 = calc($int5 + 30);
+$int8 = $int3;
+while (calc($int3 - $int8) < calc(enum_getoutputcount($enum7) * 5)) {
+    cc_create($component0, ^iftype_graphic, $int3);
+    cc_setsize(48, 52, ^setsize_abs, ^setsize_abs);
+    cc_setposition($int4, $int5, ^setpos_abs_left, ^setpos_abs_top);
+    cc_setgraphic("km_shoptile,0");
+    cc_setopbase("<col=ff981f><oc_name(enum(105, 79, $enum7, calc(($int3 - $int8) / 5)))></col>");
+    cc_setop(1, "Info");
+    cc_setop(2, "Buy 1");
+    cc_setop(3, "Buy 5");
+    cc_setop(4, "Buy 10");
+    cc_setop(5, "Buy 50");
+    cc_setop(6, "Buy 250");
+    cc_setop(10, "Examine");
+    cc_setonmouseover("clientscript_2261(^event_com, calc($int3 + 1), false)");
+    cc_setonmouseleave("clientscript_2261(^event_com, calc($int3 + 1), true)");
+    cc_create($component0, ^iftype_graphic, calc($int3 + 1));
+    cc_setsize(48, 52, ^setsize_abs, ^setsize_abs);
+    cc_setposition($int4, $int5, ^setpos_abs_left, ^setpos_abs_top);
+    cc_setgraphic("km_shoptile,1");
+    cc_sethide(true);
+    cc_create($component0, ^iftype_graphic, calc($int3 + 2));
+    cc_setsize(36, 32, ^setsize_abs, ^setsize_abs);
+    cc_setposition(calc($int4 + 6), calc($int5 + 4), ^setpos_abs_left, ^setpos_abs_top);
+    cc_setobject_nonum(enum(105, 79, $enum7, calc(($int3 - $int8) / 5)), 1);
+    cc_setgraphicshadow(0x302020);
+    cc_setoutline(1);
+    cc_create($component0, ^iftype_graphic, calc($int3 + 3));
+    cc_setsize(12, 12, ^setsize_abs, ^setsize_abs);
+    cc_setposition(calc($int4 + 2), calc($int5 + 38), ^setpos_abs_left, ^setpos_abs_top);
+    cc_setgraphic("km_shopitems,1");
+    cc_create($component0, ^iftype_text, calc($int3 + 4));
+    cc_setsize(31, 12, ^setsize_abs, ^setsize_abs);
+    cc_setposition(calc($int4 + 13), calc($int5 + 39), ^setpos_abs_left, ^setpos_abs_top);
+    cc_settextfont(p11_full);
+    cc_settextalign(^settextalign_right, ^settextalign_centre, 0);
+    cc_settext(~tostring_shortform(~rand_buyprice(enum(105, 79, $enum7, calc(($int3 - $int8) / 5)))));
+    cc_setcolour(0xe2e2a2);
+    cc_settextshadow(true);
+    $int4 = calc($int4 + 50);
+    if (calc($int4 + 48) > $int1) {
+        $int4 = 0;
+        $int5 = calc($int5 + 54);
+    }
+    $int3 = calc($int3 + 5);
+}
+if_setscrollsize(0, calc($int5 + 52), $component0);
+~scrollbar_vertical(dungeon_shop:com25, $component0, "scrollbar_dragger_v2,3", "scrollbar_dragger_v2,0", "scrollbar_dragger_v2,1", "scrollbar_dragger_v2,2", "scrollbar_v2,0", "scrollbar_v2,1");

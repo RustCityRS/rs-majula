@@ -1,0 +1,43 @@
+[opheldu,_category_111]
+if(oc_category(last_item) = category_111) {
+    @decant_potion(last_item, last_useitem);
+}
+if (oc_category(last_item) = category_22 & last_item ! achey_tree_logs) {
+    if(%morttonquest < ^mortton_created_sacred_oil) {
+        mes("This sacred oil doesn't seem fresh. You should make your own.");
+        return;
+    }
+    @create_sacred_logs(last_item, last_slot, last_useitem, last_useslot);
+} else {
+    ~displaymessage(^dm_default);
+}
+
+[label,create_sacred_logs](obj $logs, int $logs_slot, obj $oil, int $oil_slot)
+def_int $doses = oc_param($oil, dose_count);
+def_struct $struct = oc_param($logs, funeral_pyre_struct);
+def_int $level_req = struct_param($struct, pyre_level);
+def_int $doses_req = struct_param($struct, pyre_required_doses);
+def_namedobj $product = struct_param($struct, pyre_log_output);
+
+if($doses < $doses_req) {
+    mes("<oc_name($logs)>: This needs <tostring($doses_req)> doses of sacred oil.");
+    return;
+}
+
+//https://youtu.be/-DIv3WwUHW0?si=F6NT4ANrVN1-a3Iq&t=96
+mes("You use the <oc_name($oil)> on the <oc_name($logs)> and get <oc_name($product)>.");
+
+if(%morttonquest = ^mortton_created_sacred_oil) {
+    %morttonquest = ^mortton_created_pyre_logs;
+}
+
+if($doses = $doses_req) {
+    inv_setslot(inv, $oil_slot, vial, 1);
+} else if(sub($doses,$doses_req) = 2) {
+    inv_setslot(inv, $oil_slot, sacred_oil__2, 1);
+} else {
+    inv_setslot(inv, $oil_slot, sacred_oil__1, 1);
+}
+inv_setslot(inv, $logs_slot, $product, 1);
+stat_advance(firemaking, struct_param($struct, pyre_create_experience));
+

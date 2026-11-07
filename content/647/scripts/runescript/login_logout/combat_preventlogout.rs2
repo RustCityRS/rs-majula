@@ -1,0 +1,6 @@
+// From 289's logout.rs2: the proc other ported content calls,
+// until the rest of that file is ported.
+[proc,combat_preventlogout]
+p_preventlogout("You can't log out until 10 seconds after the end of combat.", 16);
+[proc,.combat_preventlogout]
+.p_preventlogout("You can't log out until 10 seconds after the end of combat.", 16);

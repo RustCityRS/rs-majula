@@ -1,10 +1,22 @@
+// From rev 647 the anti-cheat is inert: it judges the jag-era client's
+// reports (heartbeats, op checks, mouse and camera input) and 647 sends
+// none of them, so what reads them goes unused there.
+#![cfg_attr(
+    since_647,
+    allow(dead_code, unused_variables, unused_imports, unreachable_code)
+)]
+
 use super::format::{Entry, Reader};
 use super::input::{Input, InputDecoder, Timed, decode};
 use flate2::read::DeflateDecoder;
+#[cfg(before_647)]
 use rs_protocol::network::game::client::client_cheat::ClientCheat;
+#[cfg(before_647)]
 use rs_protocol::network::game::client::message_private::MessagePrivate;
+#[cfg(before_647)]
 use rs_protocol::network::game::client::message_public::MessagePublic;
 use rs_protocol::network::game::client_prot::ClientProt;
+#[cfg(before_647)]
 use rs_util::base37::{to_raw_username, to_screen_name};
 use rs_util::wordpack;
 use serde_json::{Map, Value, json};
@@ -85,6 +97,13 @@ fn click_time_minimaps(inputs: &mut [Value], clicks: &[u32]) {
 /// A line the player typed and sent: what to type for the client to send it
 /// again, and how the timeline puts it.
 fn typed_line(prot: &ClientProt, data: &[u8]) -> Option<(String, String)> {
+    // Rev 647's chat packets differ, and its sessions aren't replayed yet.
+    #[cfg(since_647)]
+    {
+        let _ = (prot, data);
+        None
+    }
+    #[cfg(before_647)]
     match prot {
         ClientProt::MessagePublic => {
             let msg: MessagePublic = decode(data)?;
@@ -332,11 +351,12 @@ impl Builder {
         self.open = None;
 
         let mut header = extra;
+        #[cfg(before_647)]
         header.insert(
             "logout".into(),
             json!(rs_protocol::network::game::server_prot::ServerProt::Logout as u8),
         );
-        #[cfg(any(rev = "225", since_254))]
+        #[cfg(any(rev = "225", all(since_254, before_647)))]
         header.insert(
             "cameraOp".into(),
             json!(ClientProt::EventCameraPosition as u8),
@@ -536,6 +556,8 @@ mod tests {
         assert_eq!(nothing_header["notes"], json!([]));
     }
 
+    // 647's sessions are not replayed yet (`typed_line`).
+    #[cfg(before_647)]
     #[test]
     fn types_sent_chat_again() {
         let mut rec = Vec::new();

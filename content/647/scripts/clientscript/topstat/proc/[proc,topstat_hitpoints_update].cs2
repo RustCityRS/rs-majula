@@ -1,0 +1,12 @@
+[proc,topstat_hitpoints_update]
+if (getwindowmode >= 2) {
+    if_setgraphic(1207, health_orb:com1);
+    if_setgraphic(1207, health_orb:com2);
+    if_setposition(25, 1, ^setpos_abs_left, ^setpos_abs_top, health_orb:com3);
+    if_setposition(3, 15, ^setpos_abs_left, ^setpos_abs_top, health_orb:com8);
+} else {
+    if_setgraphic(1206, health_orb:com1);
+    if_setgraphic(1206, health_orb:com2);
+    if_setposition(1, 1, ^setpos_abs_left, ^setpos_abs_top, health_orb:com3);
+    if_setposition(31, 15, ^setpos_abs_left, ^setpos_abs_top, health_orb:com8);
+}

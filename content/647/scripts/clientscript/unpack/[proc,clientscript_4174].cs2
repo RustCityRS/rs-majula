@@ -1,0 +1,6 @@
+[proc,clientscript_4174](int $int)
+if (testbit(%varbit_642, $int) = true) {
+    .cc_sethide(false);
+} else {
+    .cc_sethide(true);
+}

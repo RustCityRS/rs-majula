@@ -122,7 +122,7 @@ impl ClientGameHandler for InvButtonD {
             .is_some_and(|root| !root.overlay);
 
         let result = engine_mut().run_script_by_trigger(
-            (ServerTriggerType::InvButtonD, Some(self.com), None),
+            (ServerTriggerType::InvButtonD, Some(self.com as i32), None),
             Some(ScriptSubject::Player(active.player.uid)),
             None,
             Some(protect),

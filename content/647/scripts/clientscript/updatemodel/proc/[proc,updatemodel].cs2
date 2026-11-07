@@ -1,0 +1,6 @@
+[proc,updatemodel](int $int)
+if ($int = false) {
+    if_setmodel(enum(105, 109, enum_839, %varbit_6764), db8241499:com19);
+} else {
+    if_setmodel(enum(105, 109, enum_838, $int), db8241499:com19);
+}

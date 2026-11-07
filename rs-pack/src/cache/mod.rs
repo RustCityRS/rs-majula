@@ -1,6 +1,3 @@
-use std::collections::HashMap;
-use std::sync::Arc;
-
 use crate::cache::category::CategoryTypeProvider;
 use crate::cache::dbrow::DbRowTypeProvider;
 use crate::cache::dbtable::DbTableTypeProvider;
@@ -23,27 +20,44 @@ use crate::cache::varbit::VarbitTypeProvider;
 use crate::cache::varn::VarnTypeProvider;
 use crate::cache::varp::VarPlayerTypeProvider;
 use crate::cache::vars::VarsTypeProvider;
-#[cfg(since_244)]
+#[cfg(all(since_244, before_647))]
 use crate::types::OndemandBlobs;
 use crate::types::{MapSquareCrcs, MapSquareCsv, MapSquares};
 use dbtable::DbTableIndex;
 use font::FontTypeProvider;
 use midi::MidiProvider;
+#[cfg(since_647)]
+use rs_crypto::huffman::Huffman;
 #[cfg(rev = "225")]
 use seq_frame::SeqFrameProvider;
+use std::collections::HashMap;
+#[cfg(before_647)]
+use std::sync::Arc;
 use wordenc::WordEncProvider;
+
+#[cfg(since_647)]
+pub use midi::MIDI_JINGLE_BASE;
 
 pub mod category;
 pub mod dbrow;
 pub mod dbtable;
+mod decode;
 pub mod r#enum;
 pub mod flo;
+#[cfg(since_647)]
+pub mod flu;
 pub mod font;
 pub mod hunt;
 pub mod idk;
 pub mod r#if;
 pub mod inv;
+#[cfg(since_647)]
+pub mod js5;
+pub mod lenient;
+#[cfg(since_647)]
+pub mod loader;
 pub mod loc;
+pub mod map;
 pub mod mesanim;
 pub mod midi;
 pub mod npc;
@@ -55,6 +69,8 @@ pub mod seq;
 pub mod seq_frame;
 pub mod spotanim;
 pub mod r#struct;
+#[cfg(since_647)]
+pub mod texture;
 #[cfg(since_254)]
 pub mod varbit;
 pub mod varn;
@@ -63,15 +79,19 @@ pub mod vars;
 pub mod wordenc;
 
 pub struct CacheStore {
+    #[cfg(before_647)]
     pub crctable_bytes: Arc<[u8]>,
+    #[cfg(before_647)]
     pub crc_buffer32: i32,
     #[cfg(all(since_244, before_274))]
     pub ondemand_zip: Arc<[u8]>,
     #[cfg(all(since_244, before_274))]
     pub build: Arc<[u8]>,
-    #[cfg(since_244)]
+    #[cfg(all(since_244, before_647))]
     pub ondemand: OndemandBlobs,
+    #[cfg(before_647)]
     pub crcs: HashMap<&'static str, i32>,
+    #[cfg(before_647)]
     pub jags: HashMap<&'static str, Arc<[u8]>>,
     pub mapsquares: MapSquares,
     pub mapcrcs: MapSquareCrcs,
@@ -108,9 +128,12 @@ pub struct CacheStore {
     pub midi_ids: HashMap<Box<str>, u16>,
     #[cfg(since_254)]
     pub midi_tick_lengths: Box<[Option<u16>]>,
+    #[cfg(before_647)]
     pub static_assets: HashMap<Box<str>, Arc<[u8]>>,
     pub multimap: MapSquareCsv,
     pub freemap: MapSquareCsv,
+    #[cfg(since_647)]
+    pub huffman: Huffman,
 }
 
 pub use crate::types::ScriptVarType;
@@ -143,6 +166,26 @@ pub enum VarValue {
     Idkit(i32),
     DbRow(i32),
     Midi(i32),
+    #[cfg(since_647)]
+    Cursor(i32),
+    #[cfg(since_647)]
+    MapArea(i32),
+    #[cfg(since_647)]
+    Graphic(i32),
+    #[cfg(since_647)]
+    Jingle(i32),
+    #[cfg(since_647)]
+    ChatCat(i32),
+    #[cfg(since_647)]
+    Model(i32),
+    #[cfg(since_647)]
+    Texture(i32),
+    #[cfg(since_647)]
+    Bas(i32),
+    #[cfg(since_647)]
+    Vorbis(i32),
+    #[cfg(since_647)]
+    MapElement(i32),
 }
 
 impl VarValue {
@@ -174,36 +217,33 @@ impl VarValue {
             ScriptVarType::Idkit => VarValue::Idkit(value),
             ScriptVarType::DbRow => VarValue::DbRow(value),
             ScriptVarType::Midi => VarValue::Midi(value),
+            #[cfg(since_647)]
+            ScriptVarType::Cursor => VarValue::Cursor(value),
+            #[cfg(since_647)]
+            ScriptVarType::MapArea => VarValue::MapArea(value),
+            #[cfg(since_647)]
+            ScriptVarType::Graphic => VarValue::Graphic(value),
+            #[cfg(since_647)]
+            ScriptVarType::Jingle => VarValue::Jingle(value),
+            #[cfg(since_647)]
+            ScriptVarType::ChatCat => VarValue::ChatCat(value),
+            #[cfg(since_647)]
+            ScriptVarType::Model => VarValue::Model(value),
+            #[cfg(since_647)]
+            ScriptVarType::Texture => VarValue::Texture(value),
+            #[cfg(since_647)]
+            ScriptVarType::Bas => VarValue::Bas(value),
+            #[cfg(since_647)]
+            ScriptVarType::Vorbis => VarValue::Vorbis(value),
+            #[cfg(since_647)]
+            ScriptVarType::MapElement => VarValue::MapElement(value),
         }
     }
 
     pub fn default_for(var_type: ScriptVarType) -> Self {
         match var_type {
             ScriptVarType::Int | ScriptVarType::AutoInt => VarValue::Int(0),
-            ScriptVarType::String => VarValue::String(String::new()),
-            ScriptVarType::Boolean => VarValue::Boolean(-1),
-            ScriptVarType::Obj => VarValue::Obj(-1),
-            ScriptVarType::NamedObj => VarValue::NamedObj(-1),
-            ScriptVarType::Npc => VarValue::Npc(-1),
-            ScriptVarType::Loc => VarValue::Loc(-1),
-            ScriptVarType::Component => VarValue::Component(-1),
-            ScriptVarType::Interface => VarValue::Interface(-1),
-            ScriptVarType::Enum => VarValue::Enum(-1),
-            ScriptVarType::Struct => VarValue::Struct(-1),
-            ScriptVarType::Coord => VarValue::Coord(-1),
-            ScriptVarType::Category => VarValue::Category(-1),
-            ScriptVarType::Spotanim => VarValue::Spotanim(-1),
-            ScriptVarType::Inv => VarValue::Inv(-1),
-            ScriptVarType::Synth => VarValue::Synth(-1),
-            ScriptVarType::Seq => VarValue::Seq(-1),
-            ScriptVarType::Stat => VarValue::Stat(-1),
-            ScriptVarType::NpcStat => VarValue::NpcStat(-1),
-            ScriptVarType::Varp => VarValue::Varp(-1),
-            ScriptVarType::PlayerUid => VarValue::PlayerUid(-1),
-            ScriptVarType::NpcUid => VarValue::NpcUid(-1),
-            ScriptVarType::Idkit => VarValue::Idkit(-1),
-            ScriptVarType::DbRow => VarValue::DbRow(-1),
-            ScriptVarType::Midi => VarValue::Midi(-1),
+            _ => Self::from_int(var_type, -1),
         }
     }
 
@@ -235,6 +275,17 @@ impl VarValue {
             | VarValue::Idkit(v)
             | VarValue::DbRow(v)
             | VarValue::Midi(v) => *v,
+            #[cfg(since_647)]
+            VarValue::Cursor(v)
+            | VarValue::MapArea(v)
+            | VarValue::Graphic(v)
+            | VarValue::Jingle(v)
+            | VarValue::ChatCat(v)
+            | VarValue::Model(v)
+            | VarValue::Texture(v)
+            | VarValue::Bas(v)
+            | VarValue::Vorbis(v)
+            | VarValue::MapElement(v) => *v,
         }
     }
 }

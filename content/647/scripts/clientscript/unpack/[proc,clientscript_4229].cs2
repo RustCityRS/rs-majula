@@ -1,0 +1,6 @@
+[proc,clientscript_4229](int $int, string $string)
+if ((inv_total(inv, ogre_bow) > 0 | (inv_getobj(worn, 3) = ogre_bow | (inv_total(inv, comp_ogre_bow) > 0 | inv_getobj(worn, 3) = comp_ogre_bow))) & %chompybird_kills >= $int) {
+    .cc_settext("<$string><br>Kills: <tostring($int)>");
+    return;
+}
+.cc_settext("<$string><br><col=ff0000>Kills: <tostring($int)>");

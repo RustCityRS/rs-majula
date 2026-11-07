@@ -1,0 +1,7 @@
+[clientscript,fade2_flash_timer](component $component0, int $int1, int $int2, int $int3, int $int4)
+def_int $int5 = if_gettrans($component0);
+def_int $int6 = min(max(calc($int5 + $int1), $int3), $int4);
+if ($int6 = $int3 | $int6 = $int4) {
+    if_setontimer("fade2_flash_timer($component0, $int2, $int1, $int3, $int4)", $component0);
+}
+if_settrans($int6, $component0);

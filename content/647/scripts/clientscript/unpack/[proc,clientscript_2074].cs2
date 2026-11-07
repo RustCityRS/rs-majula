@@ -1,0 +1,6 @@
+[proc,clientscript_2074]
+if (%varc_int_632 = false) {
+    if_settext("Players needed", snp_waiting_room:com8);
+} else {
+    if_settext("Players in game", snp_waiting_room:com8);
+}

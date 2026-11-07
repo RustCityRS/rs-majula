@@ -1,0 +1,11 @@
+[proc,mole_darkness](component $component)
+switch_int (%varbit_278) {
+    case 1:
+        if_settrans(200, $component);
+    case 2:
+        if_settrans(150, $component);
+    case 3:
+        if_settrans(50, $component);
+    case default:
+        if_settrans(255, $component);
+}

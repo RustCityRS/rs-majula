@@ -1,0 +1,4 @@
+[proc,clientscript_2774](component $component)
+sound_synth(synth_2277, 1, 0);
+if_setcolour(^yellow, $component);
+if_setontimer("clientscript_2775(calc(clientclock + 15), ^event_com)", $component);

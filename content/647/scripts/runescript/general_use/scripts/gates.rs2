@@ -1,0 +1,255 @@
+// Generic gate handling, ported from rs-majula
+// (ref/rs-majula/content/scripts/general_use/scripts/gates.rs2 +
+//  doors/scripts/door_procs.rs2 :: movecoord_loc_return).
+//
+// A double gate is two adjacent `wall_straight` leaves: a `main` (no mirror) and
+// an `outer` (mirror=yes). Each leaf has a closed loc (op1=Open) and an open loc
+// (op1=Close) paired through the `next_loc_stage` param. Clicking EITHER leaf
+// opens (or closes) BOTH together: the main swaps itself then scans the zone for
+// its adjacent outer partner and swaps that too; clicking the outer first finds
+// the main and defers to it. The leaves swing to different offsets (1 vs 2 tiles
+// via gate_set_close) so they fold apart correctly.
+//
+// All VM ops used (loc_coord/loc_angle/loc_category/loc_param/loc_del/loc_add/
+// loc_findallzone/loc_findnext/movecoord/distance) are implemented in
+// rs-engine/rs-vm/src/ops/loc.rs. 289 played door_open/door_close here, its
+// todo doubting gates had their own sounds yet; void-634's gates do (its
+// Door.kt plays <material>gate_open/_close for any gate; no 2011 source
+// found), so these play those.
+
+// ── Mirrored gates ─────────────────────────────────────────────────────────
+//
+// A gate leaf hinges at one end and swings a quarter turn about it. Which end
+// is a property of the placement, not of the loc: 647 places the same pair both
+// ways round, so the leaf these tables treat as the main sometimes has its
+// partner -- and therefore its hinge -- on the other side.
+//
+// rev 225 marks the mirrored leaf `mirror=yes` in the loc config and wired only
+// two gates, both unmirrored, so the case never arose there and the original has
+// no branch for it. The shape to copy is the one the *door* scripts already
+// have: `~open_and_close_metal_gate` (open_and_close_doors.rs2, ported from
+// `content/289/scripts/doors/scripts/open_and_close_doors.rs2`) takes a
+// `$mirrored` flag, and its sibling `~open_and_close_metal_gate2` there says the
+// same thing a second way -- it leaves the destination tile alone and turns the
+// leaf the other way, `modulo(add($angle, 3), 4)` in place of
+// `modulo(add($angle, 1), 4)`.
+//
+// That second form is what is used here, with the two rotations swapped because
+// a gate leaf opens on `angle + 3` where a door opens on `angle + 1`. It works
+// because a `wall_straight` sits on one *edge* of its tile: a leaf on tile T
+// turned north and the same leaf on the tile south of T turned south are the
+// same wall. Turning the open leaf the other way therefore slides it one tile
+// along the wall, which is exactly a hinge at the far end -- the mirror image --
+// while the tile written stays the one the unmirrored fold names, so the swing
+// model in `barrier_audit` still describes both.
+//
+// Rather than carry a new flag, the side is *discovered*: look for the partner
+// where an unmirrored gate would put it, and if it is not there, look on the
+// other side. That needs no data change and stays correct if a placement is
+// re-roled later. Closing rediscovers it the same way, off the open pair -- and
+// that is the second reason the mirror rides on the rotation rather than on the
+// destination tile. Both leaves fold into the same line either way round, so
+// once they are open their rotation is the only thing left that still says which
+// end they came off.
+//
+// The scan also fixes a latent bug in the original. `loc_findallzone` searches
+// one 8x8 zone, and a partner one tile away can sit in the *next* zone -- so a
+// gate on a zone boundary could never find its own other half. Both candidate
+// tiles are scanned in their own zones now.
+
+// Which side is the outer leaf on? false = the standard side, true = mirrored.
+// Answered before anything is moved, because the scan changes the active loc.
+// Matches the partner's *exact* tile, not "somewhere within a tile". The side
+// is the whole question here, and `loc_findallzone` searches an 8x8 zone -- the
+// two candidate tiles are adjacent, so they almost always sit in the same zone
+// and a `distance <= 1` test matches the partner from either side. That made
+// this always answer "unmirrored", and a mirrored gate folded the wrong way
+// while looking like it worked.
+[proc,gate_outer_side](coord $main_coord, int $angle, category $want)(boolean)
+def_coord $standard = ~get_pair_coord($main_coord, $angle, false);
+def_coord $flipped = ~get_pair_coord($main_coord, $angle, true);
+loc_findallzone($standard);
+while (loc_findnext = true) {
+    if (loc_coord = $standard & loc_category = $want) {
+        return(false);
+    }
+}
+loc_findallzone($flipped);
+while (loc_findnext = true) {
+    if (loc_coord = $flipped & loc_category = $want) {
+        return(true);
+    }
+}
+return(false);
+
+[proc,gate_set_open](int $angle, boolean $outer)(int, int)
+def_int $x = 0;
+def_int $z = 0;
+switch_int($angle) {
+    case ^loc_west : $z = -1;
+    case ^loc_north : $x = -1;
+    case ^loc_east : $z = 1;
+    case ^loc_south : $x = 1;
+}
+if ($outer = true) {
+    switch_int($angle) {
+        case ^loc_west : return (calc($x + 1), $z);
+        case ^loc_north : return ($x, calc($z - 1));
+        case ^loc_east : return (calc($x - 1), $z);
+        case ^loc_south : return ($x, calc($z + 1));
+    }
+}
+return ($x, $z);
+
+[proc,gate_set_close](int $angle, int $mod)(int, int)
+def_int $x = 0;
+def_int $z = 0;
+switch_int($angle) {
+    case ^loc_west : $x = -1;
+    case ^loc_north : $z = 1;
+    case ^loc_east : $x = 1;
+    case ^loc_south : $z = -1;
+}
+return (calc($x * $mod), calc($z * $mod));
+
+[proc,get_pair_coord](coord $main_coord, int $angle, boolean $outer)(coord)
+def_int $dir = 1;
+if ($outer = true) {
+    $dir = -1;
+}
+switch_int($angle) {
+    case ^loc_west : return (movecoord($main_coord, 0, 0, calc($dir * 1)));
+    case ^loc_north : return (movecoord($main_coord, calc($dir * 1), 0, 0));
+    case ^loc_east : return (movecoord($main_coord, 0, 0, calc($dir * -1)));
+    case ^loc_south : return (movecoord($main_coord, calc($dir * -1), 0, 0));
+}
+return ($main_coord);
+
+[proc,open_gate]
+def_int $orig_angle = loc_angle;
+def_coord $orig_coord = loc_coord;
+def_loc $orig_loc = loc_type;
+def_loc $main_stage = loc_param(next_loc_stage);
+
+// Find the partner's side first. The scan moves the active loc, so everything
+// the main needs is read out above and it is re-activated by `loc_find` after.
+def_boolean $mirrored = ~gate_outer_side($orig_coord, $orig_angle, gate_outer_closed);
+
+def_int $mx; def_int $mz;
+$mx, $mz = ~gate_set_close($orig_angle, 1);
+def_int $ox; def_int $oz;
+$ox, $oz = ~gate_set_close($orig_angle, 2);
+def_coord $main_open = movecoord($orig_coord, $mx, 0, $mz);
+def_coord $outer_open = movecoord($orig_coord, $ox, 0, $oz);
+
+// A mirrored gate hinges at the far end, which on these tiles is the same wall
+// turned the other way.
+def_int $open_angle = modulo(add($orig_angle, 3), 4);
+if ($mirrored = true) {
+    $open_angle = modulo(add($orig_angle, 1), 4);
+}
+
+if (loc_find($orig_coord, $orig_loc) = false) {
+    return;
+}
+sound_synth(gate_open, 1, 0);
+// Temp note: dur does not need updated
+loc_del(500);
+loc_add($main_open, $main_stage, $open_angle, wall_straight, 500);
+loc_findallzone(~get_pair_coord($orig_coord, $orig_angle, $mirrored));
+while (loc_findnext = true) {
+    if (distance($orig_coord, loc_coord) <= 1 & loc_category = gate_outer_closed) {
+        loc_del(500);
+        loc_add($outer_open, loc_param(next_loc_stage), $open_angle, wall_straight, 500);
+        return;
+    }
+}
+
+[proc,close_gate]
+def_int $orig_angle = loc_angle;
+def_coord $orig_coord = loc_coord;
+def_loc $orig_loc = loc_type;
+def_loc $main_stage = loc_param(next_loc_stage);
+
+def_boolean $mirrored = ~gate_outer_side($orig_coord, $orig_angle, gate_outer_open);
+
+def_int $mx; def_int $mz;
+$mx, $mz = ~gate_set_open($orig_angle, false);
+def_int $ox; def_int $oz;
+$ox, $oz = ~gate_set_open($orig_angle, true);
+def_coord $main_closed = movecoord($orig_coord, $mx, 0, $mz);
+def_coord $outer_closed = movecoord($orig_coord, $ox, 0, $oz);
+
+// The mirrored pair was opened turned the other way, so it unfolds the other
+// way: the closed angle is the open angle's other neighbour, the main steps
+// back against its own fold, and the outer closes on the mirrored side of it.
+// `~gate_set_open` cannot answer for this case -- it names the outer's tile
+// from the standard side only.
+def_int $closed_angle = modulo(add($orig_angle, 1), 4);
+def_int $bx = 0;
+def_int $bz = 0;
+if ($mirrored = true) {
+    $closed_angle = modulo(add($orig_angle, 3), 4);
+    $bx, $bz = ~gate_set_close($closed_angle, -1);
+    $main_closed = movecoord($orig_coord, $bx, 0, $bz);
+    $outer_closed = ~get_pair_coord($main_closed, $closed_angle, true);
+}
+
+if (loc_find($orig_coord, $orig_loc) = false) {
+    return;
+}
+sound_synth(gate_close, 1, 0);
+// Temp note: dur does not need updated
+loc_del(500);
+loc_add($main_closed, $main_stage, $closed_angle, wall_straight, 500);
+loc_findallzone(~get_pair_coord($orig_coord, $orig_angle, $mirrored));
+while (loc_findnext = true) {
+    if (distance($orig_coord, loc_coord) <= 1 & loc_category = gate_outer_open) {
+        loc_del(500);
+        loc_add($outer_closed, loc_param(next_loc_stage), $closed_angle, wall_straight, 500);
+        return;
+    }
+}
+
+// Clicking the outer leaf defers to the main, which does the work for both.
+// Looks on either side for the same reason `~gate_outer_side` does: the main is
+// on the mirrored side for a mirrored gate, and may be in the next zone.
+[proc,open_outer_gate]
+def_coord $orig_coord = loc_coord;
+def_int $angle = loc_angle;
+loc_findallzone(~get_pair_coord($orig_coord, $angle, true));
+while (loc_findnext = true) {
+    if (distance($orig_coord, loc_coord) <= 1 & loc_category = gate_main_closed) {
+        ~open_gate;
+        return;
+    }
+}
+loc_findallzone(~get_pair_coord($orig_coord, $angle, false));
+while (loc_findnext = true) {
+    if (distance($orig_coord, loc_coord) <= 1 & loc_category = gate_main_closed) {
+        ~open_gate;
+        return;
+    }
+}
+
+[oploc1,_gate_main_closed] ~open_gate;
+[oploc1,_gate_outer_closed] ~open_outer_gate;
+
+[oploc1,_gate_main_open] ~close_gate;
+[oploc1,_gate_outer_open]
+def_coord $orig_coord = loc_coord;
+def_int $angle = loc_angle;
+loc_findallzone(~get_pair_coord($orig_coord, $angle, true));
+while (loc_findnext = true) {
+    if (distance($orig_coord, loc_coord) <= 1 & loc_category = gate_main_open) {
+        ~close_gate;
+        return;
+    }
+}
+loc_findallzone(~get_pair_coord($orig_coord, $angle, false));
+while (loc_findnext = true) {
+    if (distance($orig_coord, loc_coord) <= 1 & loc_category = gate_main_open) {
+        ~close_gate;
+        return;
+    }
+}

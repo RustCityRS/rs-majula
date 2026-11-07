@@ -1,0 +1,19 @@
+[proc,clientscript_269]()(int)
+def_int $int = 0;
+if (%varc_int_1104 ! 0) {
+    $int = calc($int + 1);
+}
+if (%varc_int_1105 ! 0) {
+    $int = calc($int + 1);
+}
+if (%varc_int_1106 ! 0) {
+    $int = calc($int + 1);
+}
+if (%varc_int_1107 ! 0) {
+    $int = calc($int + 1);
+}
+if (%varc_int_1108 ! 0) {
+    $int = calc($int + 1);
+}
+return($int);
+return(0);

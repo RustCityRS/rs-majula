@@ -1,0 +1,12 @@
+#testscript
+
+// A loc's param resolves in its declared type, as a npc's or obj's does.
+// 647's loc packer resolved only obj, loc, seq and npc names and wrote any
+// other value, a coord too, as a string: the monkey bars' start and end
+// tiles (skill_agility/configs/shortcuts.loc) read as no coord, and the
+// shortcut walked the player nowhere.
+[label,test_a_loc_coord_param_is_a_coord]
+assert_eq(coordx(lc_param(monkey_bars_29375, start_coord)), 3120)
+assert_eq(coordz(lc_param(monkey_bars_29375, start_coord)), 9964)
+assert_eq(coordx(lc_param(monkey_bars_29375, end_coord)), 3121)
+assert_eq(coordz(lc_param(monkey_bars_29375, end_coord)), 9969)

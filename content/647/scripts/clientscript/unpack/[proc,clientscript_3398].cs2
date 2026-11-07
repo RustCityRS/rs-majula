@@ -1,0 +1,16 @@
+[proc,clientscript_3398](int $int0, char $int1, component $int2)
+switch_int ($int0) {
+    case 84:
+        ~clientscript_3400;
+        return;
+    case 13:
+        if (if_gethide(wy7834917:com102) = false) {
+            ~lobbyscreen_report_abuse_help_close(fm8721267:com64, fm8721267:com65, fm8721267:com51, fm8721267:com43, fm8721267:com0);
+        } else {
+            ~clientscript_3391;
+        }
+        return;
+    case 1:
+        ~lobbyscreen_report_abuse_help(2, fm8721267:com64, fm8721267:com65, fm8721267:com51, fm8721267:com43, fm8721267:com0);
+        return;
+}

@@ -1,0 +1,8 @@
+[proc,clientscript_460](component $component)
+if (stat_base(strength) < 25) {
+    if_settext("<col=c80000>A Strength level of <tostring(25)> is required.</col>", $component);
+} else if (%varbit_2086 < 1) {
+    if_settext("<col=c80000>1 Commendation required.</col>", $component);
+} else {
+    if_settext("<tostring(calc(pow(stat_base(strength), 2) / 600 * 35))> XP per Commendation.", $component);
+}

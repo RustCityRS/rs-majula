@@ -140,7 +140,18 @@ fn handle(op: u8, nid: u16, active: &mut ActivePlayer) -> Result<(), ScriptError
         return Ok(());
     }
 
-    let npc_type = engine.npcs().get_by_id(npc_type_id);
+    // A 647 multi-npc offers the options of the npc it shows as (Osman, a
+    // multi-npc with none of its own, has Talk-to); its trigger stays its own,
+    // as a multiloc's does (oploc.rs).
+    #[cfg(since_647)]
+    let Some(shown_type_id) = active.shown_npc(npc_type_id) else {
+        active.unset_map_flag();
+        active.clear_pending_action()?;
+        return Ok(());
+    };
+    #[cfg(before_647)]
+    let shown_type_id = npc_type_id;
+    let npc_type = engine.npcs().get_by_id(shown_type_id);
     if let Some(nt) = &npc_type {
         if let Some(ops) = &nt.op {
             if ops.get((op - 1) as usize).is_none_or(|o| o.is_none()) {

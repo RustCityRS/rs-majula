@@ -1,0 +1,12 @@
+[clientscript,rand_smithing_update_text](component $component0, int $int1, string $string0, string $string1)
+if ($int1 ! 1) {
+    if_setop(1, "Make 1 <$string1>(<tostring($int1)>) ", $component0);
+    if_setop(2, "Make 5 <$string1>(<tostring(calc($int1 * 5))>)", $component0);
+    if_setop(3, "Make X <$string1>", $component0);
+    if_setop(4, "Make All <$string1>", $component0);
+    return;
+}
+if_setop(1, "Make 1 <$string0>", $component0);
+if_setop(2, "Make 5 <$string1>", $component0);
+if_setop(3, "Make X <$string1>", $component0);
+if_setop(4, "Make All <$string1>", $component0);

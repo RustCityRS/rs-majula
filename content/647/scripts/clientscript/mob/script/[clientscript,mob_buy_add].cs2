@@ -1,0 +1,6 @@
+[clientscript,mob_buy_add]
+if (%varc_int_846 < 10) {
+    %varc_int_846 = calc(%varc_int_846 + 1);
+}
+if_settext(tostring(%varc_int_846), mob_squad_buy:com30);
+~clientscript_2565;

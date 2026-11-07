@@ -1,0 +1,13 @@
+[proc,bank_cert_button]
+def_string $string = "";
+if (%bankcert = false) {
+    if_setgraphic("bank_buttons_new2,0", bank_v2_main:com19);
+    if_setgraphic("bank_buttons_new1,4", bank_v2_main:com20);
+    $string = "Switch to note withdrawal mode";
+} else {
+    if_setgraphic("bank_buttons_new2,2", bank_v2_main:com19);
+    if_setgraphic("bank_buttons_new1,5", bank_v2_main:com20);
+    $string = "Switch to item withdrawal mode";
+}
+if_setop(1, $string, bank_v2_main:com19);
+if_setonmouserepeat("addtooltip(^event_com, bank_v2_main:com119, $string, 25, 150)", bank_v2_main:com19);

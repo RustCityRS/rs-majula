@@ -1,0 +1,13 @@
+[duel2accept]
+type=player_uid
+protect=no
+
+[duelstatus]
+type=int
+protect=no
+
+[dueloptions]
+// 289's duel screen reads this varp; 2011's reads its own (varp 286 and its
+// varbits), and 2190 is past the client's varps, so it is not transmitted.
+protect=no
+

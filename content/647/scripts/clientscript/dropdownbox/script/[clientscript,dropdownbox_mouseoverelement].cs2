@@ -1,0 +1,4 @@
+[clientscript,dropdownbox_mouseoverelement](component $component0, int $int1, int $colour2)
+if (cc_find($component0, $int1) = true) {
+    cc_setcolour($colour2);
+}

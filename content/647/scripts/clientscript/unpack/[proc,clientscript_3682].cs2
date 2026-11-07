@@ -1,0 +1,7 @@
+[proc,clientscript_3682]
+if (string_length(%varc_string_196) = false & %varc_int_5 ! 14) {
+    if_setgraphic("music_header_icons,8", music_v3:com17);
+    ~meslayer_mode14;
+} else {
+    ~music_search_close;
+}

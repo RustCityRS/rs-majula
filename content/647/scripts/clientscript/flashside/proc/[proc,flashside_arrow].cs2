@@ -1,0 +1,12 @@
+[proc,flashside_arrow]
+if (%varbit_3756 = calc(16 + 1)) {
+    ~arrow_set(toplevel_fullscreen:com_orb_energy, -1, toplevel:com_orb_energy, -1);
+} else if (%varbit_3756 = calc(17 + 1)) {
+    ~arrow_set(toplevel_fullscreen:com172, -1, toplevel:com183, -1);
+} else if (%varbit_3756 = calc(18 + 1)) {
+    ~arrow_set(toplevel_fullscreen:com178, -1, toplevel:com179, -1);
+} else if (%varbit_3756 = calc(19 + 1)) {
+    ~arrow_set(toplevel_fullscreen:com171, -1, toplevel:com177, -1);
+} else {
+    ~arrow_set(~getsideicon_resizeable(calc(%varbit_3756 - 1)), -1, ~getsideicon(calc(%varbit_3756 - 1)), -1);
+}

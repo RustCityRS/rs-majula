@@ -1,0 +1,34 @@
+[proc,clientscript_854](int $int)(int)
+if ($int = 10) {
+    return(0);
+}
+if ($int = false) {
+    return(1);
+}
+if ($int = true) {
+    return(1);
+}
+if ($int = 2) {
+    return(1);
+}
+if ($int = 3) {
+    return(1);
+}
+if ($int = 4) {
+    return(2);
+}
+if ($int = 5) {
+    return(2);
+}
+if ($int = 6) {
+    return(2);
+}
+if ($int = 7) {
+    return(2);
+}
+if ($int = 8) {
+    return(2);
+}
+if ($int = 9) {
+    return(3);
+}

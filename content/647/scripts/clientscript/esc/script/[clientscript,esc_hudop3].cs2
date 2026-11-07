@@ -1,0 +1,14 @@
+[clientscript,esc_hudop3](int $int0, int $int1, component $component2)
+if ($int1 = true) {
+    if ($int0 = false) {
+        if_setgraphic("km_help_button,3", $component2);
+    } else {
+        if_setgraphic("km_help_button,2", $component2);
+        ~deltooltip_action(task_side:com136);
+    }
+} else if ($int0 = false) {
+    if_setgraphic("km_help_button,1", $component2);
+} else {
+    if_setgraphic("km_help_button,0", $component2);
+    ~deltooltip_action(task_side:com136);
+}

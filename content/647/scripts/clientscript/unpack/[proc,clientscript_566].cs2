@@ -1,0 +1,4 @@
+[proc,clientscript_566](component $component)
+if (if_getgraphic($component) = 5456) {
+    if_setgraphic(5455, $component);
+}

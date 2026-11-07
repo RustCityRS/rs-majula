@@ -1,0 +1,179 @@
+// - edit: elvarg was reworked after the dragon slayer rework. So no ap
+// - im guessing dragons worked the same
+// [ai_queue1,babydragon] ~npc_default_retaliate_ap;
+// [ai_queue1,babybluedragon] ~npc_default_retaliate_ap;
+// [ai_queue1,green_dragon] ~npc_default_retaliate_ap;
+// [ai_queue1,red_dragon] ~npc_default_retaliate_ap;
+// [ai_queue1,blue_dragon] ~npc_default_retaliate_ap;
+// [ai_queue1,black_dragon] ~npc_default_retaliate_ap;
+
+// [ai_applayer2,babydragon] @dragon_ai_applayer2;
+// [ai_applayer2,babybluedragon] @dragon_ai_applayer2;
+// [ai_applayer2,green_dragon] @dragon_ai_applayer2;
+// [ai_applayer2,red_dragon] @dragon_ai_applayer2;
+// [ai_applayer2,blue_dragon] @dragon_ai_applayer2;
+// [ai_applayer2,black_dragon] @dragon_ai_applayer2;
+
+[ai_opplayer2,green_dragon] @dragon_ai_opplayer2;
+[ai_opplayer2,blue_dragon] @dragon_ai_opplayer2;
+[ai_opplayer2,red_dragon] @dragon_ai_opplayer2;
+[ai_opplayer2,black_dragon] @dragon_ai_opplayer2;
+
+// 2011's other chromatic dragons, 4669-4684 (cache 786 names each a Red, Black,
+// Green or Blue dragon), take 289's dragon configs (npc_clones_2011.npc: void-634's
+// clones, or the 2011 npc of that name and level), so they fight as 289's do.
+[ai_opplayer2,red_dragon_4669] @dragon_ai_opplayer2;
+[ai_opplayer2,red_dragon_4670] @dragon_ai_opplayer2;
+[ai_opplayer2,red_dragon_4671] @dragon_ai_opplayer2;
+[ai_opplayer2,red_dragon_4672] @dragon_ai_opplayer2;
+[ai_opplayer2,black_dragon_4673] @dragon_ai_opplayer2;
+[ai_opplayer2,black_dragon_4674] @dragon_ai_opplayer2;
+[ai_opplayer2,black_dragon_4675] @dragon_ai_opplayer2;
+[ai_opplayer2,black_dragon_4676] @dragon_ai_opplayer2;
+[ai_opplayer2,green_dragon_4677] @dragon_ai_opplayer2;
+[ai_opplayer2,green_dragon_4678] @dragon_ai_opplayer2;
+[ai_opplayer2,green_dragon_4679] @dragon_ai_opplayer2;
+[ai_opplayer2,green_dragon_4680] @dragon_ai_opplayer2;
+[ai_opplayer2,blue_dragon_4681] @dragon_ai_opplayer2;
+[ai_opplayer2,blue_dragon_4682] @dragon_ai_opplayer2;
+[ai_opplayer2,blue_dragon_4683] @dragon_ai_opplayer2;
+[ai_opplayer2,blue_dragon_4684] @dragon_ai_opplayer2;
+
+// edit: elvarg was reworked after the dragon slayer rework.
+// [label,dragon_ai_applayer2]
+// // mes("<tostring(map_clock)>: Ap");
+// if (%npc_action_delay > map_clock) {
+//     return;
+// }
+// if (~npc_check_notcombat = false) {
+//     npc_setmode(null);
+//     return;
+// }
+// if (~npc_check_notcombat_self = false) {
+//     return;
+// }
+// // 1/2 chance to switch to op, with line of walk check (same as elvarg for now)
+// if (random(2) = 0 & lineofwalk(npc_coord, coord) = true) {
+//     npc_setmode(opplayer2);
+// }
+// ~dragon_fire;
+
+
+[label,dragon_ai_opplayer2]
+// mes("<tostring(map_clock)>: Op");
+if (%npc_action_delay > map_clock) {
+    return;
+}
+if (~npc_check_notcombat = false) {
+    npc_setmode(null);
+    return;
+}
+if (~npc_check_notcombat_self = false) {
+    return;
+}
+// edit: elvarg was reworked after the dragon slayer rework.
+// 1/8 chance to switch back to ap (same as elvarg for now)
+// if (random(8) = 0) {
+//     npc_setmode(applayer2);
+// }
+
+// 1/4 chance to dragon fire (same as pre reworked elvarg)
+if (random(4) = 0) {
+    ~dragon_fire;
+} else {
+    ~dragon_melee;
+}
+
+[proc,dragon_melee]
+if (%death = ^true) {
+    npc_setmode(null);
+    return;
+}
+if (%npc_action_delay > map_clock) return;
+if (~npc_check_notcombat = false) {
+    npc_setmode(null);
+    return;
+}
+if (~npc_check_notcombat_self = false) {
+    return;
+}
+// dont use shield animation for the head attack: https://www.youtube.com/watch?v=lsXJDBPxW2k&t=32s
+// still works this way in osrs
+def_obj $weapon = inv_getobj(worn, ^wearpos_rhand);
+if (random(2) = 0) {
+    npc_anim(dragon_attack, 0);
+    anim(%com_defendanim, 0);
+} else {
+    // The chromatic dragons were remodelled on 5 July 2010 (2011 wiki, Green
+    // dragon; Black dragon: every dragon but the King Black Dragon), and
+    // void-634 gives them one melee animation (12252). 289's head attack (seq
+    // 91, frames 3:184:1210 ...) is in frame group 1210, and void-634 gives it
+    // to the King Black Dragon (king_black_dragon_attack); these dragons'
+    // 12250-12252 and 14245 are all frame group 2931 (cache 786; void-634
+    // dragon.anims.toml).
+    npc_anim(dragon_attack, 0);
+    if ($weapon ! null & (map_members ! ^false | oc_members($weapon) ! true)) {
+        anim(oc_param($weapon, defend_anim), 0);
+    } else {
+        anim(human_unarmedblock, 0);
+    }
+}
+if (npc_param(attack_sound) ! null) {
+    sound_synth(npc_param(attack_sound), 1, 0);
+}
+~npc_meleeattack;
+
+[proc,dragon_fire]
+if_close;
+// 289's fire is spotanim 1 at height 92, before the dragon: the old dragon's
+// (model 17549, seq 86). The remodelled dragons' fire is spotanim 2465 on the
+// dragon itself (void-634's dragon_breath_shoot, height 0): model 55460 on
+// seq 13166, whose frames run 127 client cycles in all, as the breath seq
+// 14245's do, so the two play together (cache 786).
+spotanim_npc(dragon_breath_shoot, 0, 0);
+// The remodelled dragons breathe with seq 14245: void-634's
+// colour_dragon_breath, whose frames are group 2931, the remodelled dragons'
+// (cache 786).
+npc_anim(colour_dragon_breath, 0);
+sound_synth(dragonbreath, 1, 30);
+%npc_action_delay = add(map_clock, 4);
+
+def_int $attack_roll = ~npc_magic_attack_roll;
+def_int $defence_roll = ~player_defence_roll_specific(npc_param(damagetype));
+
+// damage player
+// 2011 counts life points, ten to 289's hitpoint, so 289's max hits are
+// ten times over: 500 unprotected, as the 2011 wiki has it ("500+", Green
+// dragon), 50 behind the shield, 100 under Protect from Magic.
+def_int $maxhit = 300;
+// 2011's shield and prayer messages are the 2011 wiki's (Protect from Magic,
+// 8 May 2011). It quotes the shield's without an end mark, so 289's "!" is
+// kept. 289 has no prayer message; the wiki gives "Your prayers help resist
+// some of the dragonfire!", and later in the same paragraph, with antifire,
+// "Your prayers resist some of the dragon fire".
+if (inv_total(worn, anti_dragon_shield) > 0) {
+    $maxhit = 50;
+    mes("Your shield absorbs most of the dragon's fiery breath!");
+} else if (%prayer12 = ^true) {
+    $maxhit = 100;
+    mes("Your prayers help resist some of the dragonfire!");
+} else if (randominc($attack_roll) > randominc($defence_roll)) {
+    $maxhit = add($maxhit, 200);
+    // these messages only show for unprotected or antifire protected players
+    mes("You're horribly burnt by the dragon fire!");
+} else {
+    mes("You manage to resist some of the dragon fire!");
+}
+
+if (map_clock < %dragonresist) {
+    $maxhit = sub($maxhit, 150);
+    // The PR's 289 says "Your potion protects you from the heat of the
+    // dragon's breath!" (an Old School video); 2011's wording is the 2011
+    // wiki's (Protect from Magic, 8 May 2011).
+    mes("Your potion slightly protects you from the heat of the dragon's breath.");
+}
+
+def_int $damage = randominc(max($maxhit, 0));
+queue(combat_damage_player, 0, $damage);
+queue*(playerhit_n_retaliate, 0)(npc_uid);
+~npc_set_attack_vars;

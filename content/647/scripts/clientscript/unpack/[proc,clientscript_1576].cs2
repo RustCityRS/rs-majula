@@ -1,0 +1,15 @@
+[proc,clientscript_1576](component $component0, component $component1)
+def_string $string = %varc_string_209;
+def_int $int2 = if_getwidth($component0);
+if (parawidth($string, 2147483647, q8_full) > $int2) {
+    while (parawidth("<$string>...", 2147483647, q8_full) > $int2) {
+        $string = substring($string, 0, calc(string_length($string) - 1));
+    }
+    $string = "<$string>...";
+    if_setonmouserepeat("addtooltip(^event_com, $component1, %varc_string_209, 25, 5000)", $component0);
+    if_setonmouseleave("deltooltip($component1)", $component0);
+} else {
+    if_setonmouserepeat(null, $component0);
+    if_setonmouseleave(null, $component0);
+}
+if_settext($string, $component0);

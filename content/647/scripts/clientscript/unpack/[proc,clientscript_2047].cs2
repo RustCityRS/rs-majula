@@ -1,0 +1,49 @@
+[proc,clientscript_2047]
+if (~clientscript_1103 = true & %skill_creation_amount >= %skill_creation_maximum) {
+    if_settext("All", skillmulti2010_numbers:com17);
+} else {
+    if_settext(tostring(%skill_creation_amount), skillmulti2010_numbers:com17);
+}
+def_string $string = ~clientscript_1111;
+if (if_gethide(skillmulti2010:com14) = false) {
+    if_setpausetext($string, skillmulti2010:com14);
+}
+if (if_gethide(skillmulti2010:com15) = false) {
+    if_setpausetext($string, skillmulti2010:com15);
+}
+if (if_gethide(skillmulti2010:com16) = false) {
+    if_setpausetext($string, skillmulti2010:com16);
+}
+if (if_gethide(skillmulti2010:com17) = false) {
+    if_setpausetext($string, skillmulti2010:com17);
+}
+if (if_gethide(skillmulti2010:com18) = false) {
+    if_setpausetext($string, skillmulti2010:com18);
+}
+if (if_gethide(skillmulti2010:com19) = false) {
+    if_setpausetext($string, skillmulti2010:com19);
+}
+if (if_gethide(skillmulti2010:com20) = false) {
+    if_setpausetext($string, skillmulti2010:com20);
+}
+if (if_gethide(skillmulti2010:com21) = false) {
+    if_setpausetext($string, skillmulti2010:com21);
+}
+if (if_gethide(skillmulti2010:com22) = false) {
+    if_setpausetext($string, skillmulti2010:com22);
+}
+if (if_gethide(skillmulti2010:com23) = false) {
+    if_setpausetext($string, skillmulti2010:com23);
+}
+if (if_gethide(skillmulti2010:com24) = false) {
+    if_setpausetext($string, skillmulti2010:com24);
+}
+if (if_gethide(skillmulti2010:com25) = false) {
+    if_setpausetext($string, skillmulti2010:com25);
+}
+if (if_gethide(skillmulti2010:com26) = false) {
+    if_setpausetext($string, skillmulti2010:com26);
+}
+if (if_gethide(skillmulti2010:com27) = false) {
+    if_setpausetext($string, skillmulti2010:com27);
+}

@@ -1,0 +1,15 @@
+[clientscript,rabbit_shop_init]
+~verticalgradient(rabbit_shop:com3, ^black, 0x453d32, 0, 0);
+~verticalgradient(rabbit_shop:com4, 0x453d32, 0x5c5b63, 0, 0);
+if_sethide(true, rabbit_shop:com9);
+~v2_stone_button_filled(rabbit_shop:com14);
+if_setonmouseover("v2_stone_button_in_filled(^event_com)", rabbit_shop:com14);
+if_setonmouseleave("v2_stone_button_filled(^event_com)", rabbit_shop:com14);
+if_setonop("comp_sethide(true, rabbit_shop:com9)", rabbit_shop:com14);
+~v2_stone_button_filled(rabbit_shop:com16);
+if_setonmouseover("v2_stone_button_in_filled(^event_com)", rabbit_shop:com16);
+if_setonmouseleave("v2_stone_button_filled(^event_com)", rabbit_shop:com16);
+if_setonop("comp_sethide(true, rabbit_shop:com9)", rabbit_shop:com16);
+~rabbit_shop_pointsupdate;
+if_setonvartransmit("rabbit_shop_pointsupdate(){varp_1195}", rabbit_shop:com1);
+if_setonstattransmit("rabbit_shop_pointsupdate(){farming}", rabbit_shop:com1);

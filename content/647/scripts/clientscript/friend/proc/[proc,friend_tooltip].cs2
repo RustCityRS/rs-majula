@@ -1,0 +1,43 @@
+[proc,friend_tooltip](component $component0, int $int1, int $int2, int $int3, component $component4, component $component5, component $component6, fontmetrics $fontmetrics7, string $string)
+def_int $int8 = 0;
+def_int $int9 = 0;
+def_int $int10 = 0;
+def_int $int11 = 0;
+if (%varc_int_1 < calc(clientclock + 25)) {
+    if (%varc_int_1 < clientclock) {
+        %varc_int_1 = clientclock;
+    }
+    %varc_int_1 = calc(%varc_int_1 + 2);
+    return;
+}
+%varc_int_1 = calc(clientclock + 25 + 10);
+if (%varc_int_2 ! 1) {
+    $int10 = calc(parawidth($string, 2147483647, $fontmetrics7) + 8);
+    $int11 = paraheight($string, $int10, $fontmetrics7);
+    if ($int11 > 1) {
+        $int11 = calc($int11 * 15);
+    } else {
+        $int11 = 17;
+    }
+    if (cc_find($component0, $int1) = true) {
+        $int8 = calc(if_getx($component4) + cc_getx + $int2 + 3);
+        $int9 = calc(if_gety($component4) + cc_gety + $int3 - $int11 - if_getscrolly($component4));
+    } else {
+        return;
+    }
+    if ($int8 < 0) {
+        $int8 = 0;
+    } else if (calc($int8 + $int10) > calc(if_getx($component4) + if_getwidth($component4))) {
+        $int8 = calc($int8 - ($int8 + $int10 - (if_getx($component4) + if_getwidth($component4))));
+    }
+    if ($int9 < 0) {
+        $int9 = 0;
+    } else if (calc($int9 + $int11) > calc(if_gety($component4) + if_getheight($component4))) {
+        $int9 = calc($int9 - ($int9 + $int11 - (if_gety($component4) + if_getheight($component4))));
+    }
+    if_sethide(false, $component5);
+    if_setsize($int10, $int11, ^setsize_abs, ^setsize_abs, $component5);
+    if_setposition($int8, $int9, ^setpos_abs_left, ^setpos_abs_top, $component5);
+    if_settext($string, $component6);
+    %varc_int_2 = 1;
+}

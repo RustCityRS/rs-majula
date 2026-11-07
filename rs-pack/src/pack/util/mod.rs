@@ -1,7 +1,18 @@
-use crate::pack::pack_registry::PackRegistry;
+#[cfg(since_647)]
+use crate::pack::config::param::type_name_to_char;
+use crate::pack::pack_registry::{PackFile, PackRegistry};
+#[cfg(since_647)]
+use crate::pack::packed_data::PackedData;
 use crate::pack::util::colour::RecolType;
+#[cfg(before_647)]
 use crate::types::ScriptVarType;
+use rs_io::crc;
+#[cfg(since_647)]
+use std::array::from_fn;
+#[cfg(since_647)]
+use std::collections::BTreeMap;
 use std::fmt::Display;
+use std::fs;
 use std::path::{Path, PathBuf};
 use std::str::FromStr;
 
@@ -42,71 +53,32 @@ pub fn parse_bool<F>(value: &str, callback: F)
 where
     F: FnOnce(bool),
 {
-    if value != "true"
-        && value != "false"
-        && value != "0"
-        && value != "1"
-        && value != "yes"
-        && value != "no"
-    {
-        panic!("Invalid boolean value '{value}'")
-    }
-    callback(value == "yes" || value == "true" || value == "1");
+    callback(match value {
+        "true" | "yes" | "1" => true,
+        "false" | "no" | "0" => false,
+        _ => panic!("Invalid boolean value '{value}'"),
+    });
 }
 
-pub fn parse_anim<F>(registry: &PackRegistry, value: &str, callback: F)
-where
-    F: FnOnce(u16),
-{
-    if let Some(val) = registry.anim.get_by_debugname(value) {
-        callback(val);
+pub fn parse_ref(pack: &PackFile, kind: &str, value: &str, callback: impl FnOnce(u16)) {
+    let id = if value == "null" {
+        u16::MAX
+    } else if let Some(id) = pack.get_by_debugname(value) {
+        #[cfg(since_647)]
+        let id =
+            u16::try_from(id).unwrap_or_else(|_| panic!("{kind} reference exceeds 65535: {value}"));
+        id
     } else {
-        panic!("Anim not found for value: '{value}'");
-    }
-}
-
-pub fn parse_category<F>(registry: &PackRegistry, value: &str, callback: F)
-where
-    F: FnOnce(u16),
-{
-    if let Some(val) = registry.category.get_by_debugname(value) {
-        callback(val);
-    } else {
-        panic!("Category not found for value: '{value}'");
-    }
-}
-
-pub fn parse_hunt<F>(registry: &PackRegistry, value: &str, callback: F)
-where
-    F: FnOnce(u16),
-{
-    if let Some(val) = registry.hunt.get_by_debugname(value) {
-        callback(val);
-    } else {
-        panic!("Hunt not found for value: '{value}'");
-    }
-}
-
-pub fn parse_inv<F>(registry: &PackRegistry, value: &str, callback: F)
-where
-    F: FnOnce(u16),
-{
-    if let Some(val) = registry.inv.get_by_debugname(value) {
-        callback(val);
-    } else {
-        panic!("Inv not found for value: '{value}'");
-    }
-}
-
-pub fn parse_loc<F>(registry: &PackRegistry, value: &str, callback: F)
-where
-    F: FnOnce(u16),
-{
-    if let Some(val) = registry.loc.get_by_debugname(value) {
-        callback(val);
-    } else {
-        panic!("Loc not found for value: '{value}'");
-    }
+        let number = value
+            .strip_prefix(kind)
+            .and_then(|suffix| suffix.strip_prefix('_'))
+            .and_then(|suffix| suffix.split('_').next())
+            .unwrap_or(value);
+        number
+            .parse()
+            .unwrap_or_else(|_| panic!("Unknown {kind}: {value}"))
+    };
+    callback(id);
 }
 
 pub fn parse_model_kind<F>(registry: &PackRegistry, kind: &str, key: &str, value: &str, callback: F)
@@ -116,100 +88,12 @@ where
     if let Some(rest) = key.strip_prefix(kind)
         && let Ok(idx) = rest.parse::<usize>()
     {
-        parse_model(registry, value, |v| {
+        parse_ref(&registry.model, "model", value, |v| {
             callback((idx, v));
         });
         return;
     }
     panic!("Invalid model format for key: '{key}' with value: '{value}'");
-}
-
-pub fn parse_model<F>(registry: &PackRegistry, value: &str, callback: F)
-where
-    F: FnOnce(u16),
-{
-    if let Some(val) = registry.model.get_by_debugname(value) {
-        callback(val);
-    } else {
-        panic!("Model not found for value: '{value}'");
-    }
-}
-
-pub fn parse_npc<F>(registry: &PackRegistry, value: &str, callback: F)
-where
-    F: FnOnce(u16),
-{
-    if let Some(val) = registry.npc.get_by_debugname(value) {
-        callback(val);
-    } else {
-        panic!("Npc not found for value: '{value}'");
-    }
-}
-
-pub fn parse_obj<F>(registry: &PackRegistry, value: &str, callback: F)
-where
-    F: FnOnce(u16),
-{
-    if let Some(val) = registry.obj.get_by_debugname(value) {
-        callback(val);
-    } else {
-        panic!("Obj not found for value: '{value}'");
-    }
-}
-
-pub fn parse_param<F>(registry: &PackRegistry, value: &str, callback: F)
-where
-    F: FnOnce(u16),
-{
-    if let Some(val) = registry.param.get_by_debugname(value) {
-        callback(val);
-    } else {
-        panic!("Param not found for value: '{value}'");
-    }
-}
-
-pub fn parse_seq<F>(registry: &PackRegistry, value: &str, callback: F)
-where
-    F: FnOnce(u16),
-{
-    if let Some(val) = registry.seq.get_by_debugname(value) {
-        callback(val);
-    } else {
-        panic!("Seq not found for value: '{value}'");
-    }
-}
-
-pub fn parse_texture<F>(registry: &PackRegistry, value: &str, callback: F)
-where
-    F: FnOnce(u16),
-{
-    if let Some(val) = registry.texture.get_by_debugname(value) {
-        callback(val);
-    } else {
-        panic!("Texture not found for value: '{value}'");
-    }
-}
-
-pub fn parse_varn<F>(registry: &PackRegistry, value: &str, callback: F)
-where
-    F: FnOnce(u16),
-{
-    if let Some(val) = registry.varn.get_by_debugname(value) {
-        callback(val);
-    } else {
-        panic!("Varn not found for value: '{value}'");
-    }
-}
-
-pub fn parse_varp<F>(registry: &PackRegistry, value: &str, callback: F)
-where
-    F: FnOnce(u16),
-{
-    if let Some(val) = registry.varp.get_by_debugname(value) {
-        callback(val);
-    } else {
-        panic!("Varp not found for value: '{value}'");
-    }
 }
 
 pub fn parse_recol<F>(key: &str, value: &str, callback: F)
@@ -235,7 +119,7 @@ where
 {
     if let Some(rest) = key.strip_prefix("retex") {
         let (num_part, suffix) = rest.split_at(rest.len().saturating_sub(1));
-        parse_texture(registry, value, |v| {
+        parse_ref(&registry.texture, "texture", value, |v| {
             if let Ok(idx) = num_part.parse::<usize>() {
                 match suffix {
                     "s" => callback(RecolType::S(idx, v)),
@@ -253,7 +137,10 @@ pub fn parse_script_var_type<F>(value: &str, callback: F)
 where
     F: FnOnce(char),
 {
+    #[cfg(before_647)]
     callback(ScriptVarType::from_type_name(value).to_char());
+    #[cfg(since_647)]
+    callback(type_name_to_char(value));
 }
 
 pub fn parse_coord(value: &str) -> Option<i32> {
@@ -281,7 +168,7 @@ pub fn parse_coord(value: &str) -> Option<i32> {
 
 pub fn walk(path: &Path) -> Vec<PathBuf> {
     let mut results = Vec::new();
-    let Ok(entries) = std::fs::read_dir(path) else {
+    let Ok(entries) = fs::read_dir(path) else {
         return results;
     };
     for entry in entries.flatten() {
@@ -296,7 +183,7 @@ pub fn walk(path: &Path) -> Vec<PathBuf> {
 }
 
 pub fn load_order(path: &Path) -> Vec<u16> {
-    let Ok(text) = std::fs::read_to_string(path) else {
+    let Ok(text) = fs::read_to_string(path) else {
         return Vec::new();
     };
     text.lines()
@@ -320,4 +207,105 @@ pub fn parse_csv_values(s: &str) -> Vec<String> {
     }
     vals.push(current.trim().to_string());
     vals
+}
+
+#[cfg(since_647)]
+pub fn pack_pairs(
+    packed: &mut PackedData,
+    code: u8,
+    source: &[(usize, u16)],
+    dest: &[(usize, u16)],
+) {
+    if source.is_empty() {
+        return;
+    }
+    assert_eq!(
+        source.len(),
+        dest.len(),
+        "Mismatched recolour or retexture pairs"
+    );
+    packed.p1(code);
+    packed.p1(u8::try_from(source.len()).expect("Too many recolour or retexture pairs"));
+    for ((_, source), (_, dest)) in source.iter().zip(dest) {
+        packed.p2(*source);
+        packed.p2(*dest);
+    }
+}
+
+#[cfg(since_647)]
+pub fn config_key_index(key: &str, prefix: &str) -> Option<usize> {
+    key.strip_prefix(prefix)?.parse().ok()
+}
+
+#[cfg(since_647)]
+pub fn parse_numbers<T: FromStr, const N: usize>(value: &str) -> [T; N] {
+    let mut values = value.split(',');
+    let result = from_fn(|_| {
+        values
+            .next()
+            .and_then(|v| v.trim().parse().ok())
+            .unwrap_or_else(|| panic!("Invalid numeric tuple: {value}"))
+    });
+    assert!(values.next().is_none(), "Too many values: {value}");
+    result
+}
+
+#[cfg(since_647)]
+pub fn pack_indexed_pairs(
+    packed: &mut PackedData,
+    code: u8,
+    props: &[(String, String)],
+    first: char,
+) {
+    let mut pairs = BTreeMap::new();
+    for (key, value) in props {
+        let index: u8 = key[5..key.len() - 1].parse().expect("Invalid pair index");
+        assert!(index > 0, "Pair index starts at 1: {key}");
+        let pair = pairs.entry(index).or_insert([0u16; 2]);
+        pair[usize::from(!key.ends_with(first))] =
+            value.trim().parse().expect("Invalid pair value");
+    }
+    if let Some((&count, _)) = pairs.last_key_value() {
+        packed.p1(code);
+        packed.p1(count);
+        for index in 1..=count {
+            for value in pairs.get(&index).copied().unwrap_or_default() {
+                packed.p2(value);
+            }
+        }
+    }
+}
+
+#[cfg(since_647)]
+pub fn pack_indexed_values<F: Fn(&mut PackedData, &str)>(
+    packed: &mut PackedData,
+    code: u8,
+    props: &[(String, String)],
+    prefix: &str,
+    write: F,
+) {
+    let values: BTreeMap<_, _> = props
+        .iter()
+        .map(|(key, value)| {
+            let index = u8::try_from(config_key_index(key, prefix).expect("Invalid value index"))
+                .expect("Too many values");
+            assert!(index > 0, "Value index starts at 1: {key}");
+            (index, value.as_str())
+        })
+        .collect();
+    if let Some((&count, _)) = values.last_key_value() {
+        packed.p1(code);
+        packed.p1(count);
+        for index in 1..=count {
+            write(packed, values.get(&index).copied().unwrap_or("0"));
+        }
+    }
+}
+
+pub fn verify_crc(name: &str, data: &[u8], expected: i32) {
+    let actual = crc::getcrc(data, 0, data.len());
+    assert_eq!(
+        actual, expected,
+        "CRC mismatch ['{name}']: Got: {actual}, Expected: {expected}"
+    );
 }

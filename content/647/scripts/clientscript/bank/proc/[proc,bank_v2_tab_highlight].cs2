@@ -1,0 +1,30 @@
+[proc,bank_v2_tab_highlight](int $int)
+if_setgraphic("bank_tabs,3", bank_v2_main:com62);
+if_setgraphic("bank_tabs,3", bank_v2_main:com60);
+if_setgraphic("bank_tabs,3", bank_v2_main:com58);
+if_setgraphic("bank_tabs,3", bank_v2_main:com56);
+if_setgraphic("bank_tabs,3", bank_v2_main:com54);
+if_setgraphic("bank_tabs,3", bank_v2_main:com52);
+if_setgraphic("bank_tabs,3", bank_v2_main:com50);
+if_setgraphic("bank_tabs,3", bank_v2_main:com48);
+if_setgraphic("bank_tabs,3", bank_v2_main:com46);
+switch_int ($int) {
+    case 1:
+        if_setgraphic("bank_tabs,1", bank_v2_main:com62);
+    case 2:
+        if_setgraphic("bank_tabs,1", bank_v2_main:com60);
+    case 3:
+        if_setgraphic("bank_tabs,1", bank_v2_main:com58);
+    case 4:
+        if_setgraphic("bank_tabs,1", bank_v2_main:com56);
+    case 5:
+        if_setgraphic("bank_tabs,1", bank_v2_main:com54);
+    case 6:
+        if_setgraphic("bank_tabs,1", bank_v2_main:com52);
+    case 7:
+        if_setgraphic("bank_tabs,1", bank_v2_main:com50);
+    case 8:
+        if_setgraphic("bank_tabs,1", bank_v2_main:com48);
+    case 9:
+        if_setgraphic("bank_tabs,1", bank_v2_main:com46);
+}

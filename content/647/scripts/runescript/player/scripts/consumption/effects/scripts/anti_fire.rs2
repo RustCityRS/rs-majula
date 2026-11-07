@@ -1,0 +1,45 @@
+[label,consume_effect_antidragon]
+sound_synth(drink, 1, 0); // 289's liquid; drink is void-634's name for synth 2401
+anim(human_eat, 0);
+def_obj $consumable = last_item;
+// 289's duration, 600 ticks: 2011's is the same, 6 minutes a dose (2011
+// wiki, Antifire). 2011 also warns "Your resistance to dragonfire is about
+// to run out" and, about 15 seconds on, "has run out" (same page); 289 has
+// no timer for it, so neither is sent yet.
+%dragonresist = calc(map_clock + 600);
+// change item to its next stage. default is null
+inv_setslot(inv, last_slot, oc_param($consumable, next_obj_stage), 1);
+~consume_effect_messages($consumable, stat(hitpoints), false);
+
+[proc,set_antifire_login]
+if (%dragonresist < 1) {
+    return;
+}
+%dragonresist = add(map_clock, %dragonresist);
+
+[proc,set_antifire_logout]
+if (%dragonresist < map_clock) {
+    %dragonresist = null;
+    return;
+}
+%dragonresist = sub(%dragonresist, map_clock);
+
+#testscript
+
+// Logging out keeps the time left; logging in counts it from then.
+[label,test_antifire_survives_logout]
+setup_player("test_player");
+%dragonresist = calc(map_clock + 100);
+~set_antifire_logout;
+assert_eq(%dragonresist, 100);
+~set_antifire_login;
+assert_eq(%dragonresist, calc(map_clock + 100));
+
+// An antifire that ran out before logout is gone.
+[label,test_antifire_spent_before_logout_is_gone]
+setup_player("test_player");
+%dragonresist = calc(map_clock - 1);
+~set_antifire_logout;
+assert_null(%dragonresist);
+~set_antifire_login;
+assert_null(%dragonresist);

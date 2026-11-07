@@ -1,0 +1,9 @@
+[clientscript,rand_update_progress_bar]
+if_settext(%varc_string_315, rand_overlay:com14);
+if (%varc_int_1233 > 200) {
+    %varc_int_1233 = 200;
+}
+def_int $int = %varc_int_1233;
+$int = calc($int * 37 / 40 + 14);
+if_setsize($int, 18, ^setsize_minus, ^setsize_abs, rand_overlay:com16);
+if_setposition(calc($int + 1), 15, ^setpos_abs_left, ^setpos_abs_top, rand_overlay:com17);

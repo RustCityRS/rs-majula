@@ -1,0 +1,4 @@
+[proc,clientscript_1191](component $component0, fontmetrics $fontmetrics1)
+if (getlanguage ! 0) {
+    if_settextfont($fontmetrics1, $component0);
+}

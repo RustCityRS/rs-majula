@@ -1,0 +1,6 @@
+[proc,topstat_button_mouseleave](component $component0, int $int1)
+if (getwindowmode >= 2) {
+    if_setgraphic(1207, $component0);
+} else {
+    if_setgraphic(1206, $component0);
+}

@@ -1,0 +1,7 @@
+[proc,clientscript_2334](int $int)
+if_settext(enum(105, 115, enum_950, $int), chatbox_background:com125);
+if_setvflip(false, chatbox_background:com131);
+if_sethide(true, chatbox_background:com78);
+if_sethide(true, chatbox_background:com79);
+if_sethide(true, chatbox_background:com77);
+if_sethide(true, chatbox_background:com69);

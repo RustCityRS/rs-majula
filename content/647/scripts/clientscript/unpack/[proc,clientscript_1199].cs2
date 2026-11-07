@@ -1,0 +1,9 @@
+[proc,clientscript_1199]
+switch_int (%varc_int_1401) {
+    case 0:
+        if_setcolour(0xffb400, rand_dungeon_rewards_v2:com327);
+    case 1:
+        if_setcolour(^green, rand_dungeon_rewards_v2:com327);
+    case 2:
+        if_setcolour(^red, rand_dungeon_rewards_v2:com327);
+}

@@ -1,0 +1,22 @@
+[clientscript,lobbyscreen_report_abuse_stage1_keyboard](int $int0, char $int1, component $component2)
+switch_int ($int0) {
+    case 84:
+        ~lobbyscreen_report_abuse_stage1_next;
+        return;
+    case 13:
+        ~ondialogabort_clever;
+        return;
+    case 96, 97, 98, 99, 102, 103:
+        %varc_int_1097 = ~clientscript_1553($int0, %varc_int_1097, %varc_string_277);
+        ~clientscript_1879(wy7834916:com27, wy7834916:com28, %varc_string_277);
+        return;
+    case -1, 85, 101:
+        if (char_isprintable($int1) = true | ($int0 = 85 | $int0 = 101)) {
+            if ($int0 = -1 & string_length(removetags(append_char("", $int1))) = false) {
+                return;
+            }
+            %varc_string_277, %varc_int_1097 = ~clientscript_802(%varc_int_1097, %varc_string_277, 2, $int0, $int1);
+            if_settext(%varc_string_277, $component2);
+            ~clientscript_1879(wy7834916:com27, wy7834916:com28, %varc_string_277);
+        }
+}

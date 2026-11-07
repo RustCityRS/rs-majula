@@ -1,0 +1,59 @@
+// 289's tutorial_text (title, line1-line4) is cache 786's interface 372,
+// tutorial_text: com0 the title, com1-com6 six lines, Line1 to Line6 until set.
+// 289 writes four lines, as here, and the last two are emptied.
+//
+// 289 opens it with TUT_OPEN, which 2011's client does not have (647's server
+// prots, rs-protocol server_prot.rs; the engine's tut_open sends nothing at
+// 647). It goes on the chatbox's foreground slot, chatbox:com7 (752:7, a
+// 506x130 layer at 5,5), the size of 372's own root layer (506x129, com7),
+// and the slot void-634 mounts chatbox interfaces on (interface_types.toml,
+// chat_foreground). Dialogues go on another slot (chatbox:com_dialogue_box),
+// so they leave it open. It opens before its text is set, the title too (289
+// sets the title before the pages): a reopened interface starts from the
+// cache's text.
+[proc,tutorialstep_page](string $title, int $page)
+def_int $lines = split_linecount($page);
+
+def_interface $interface = null;
+if ($lines = 0) {
+    // sanity check
+    return;
+}
+$interface = tutorial_text;
+tut_open($interface);
+if_opensub($interface, chatbox:com7, ^true);
+if_settext(tutorial_text:com0, $title);
+if ($lines = 1) {
+    if_settext(tutorial_text:com1, split_get($page, 0));
+    if_settext(tutorial_text:com2, "");
+    if_settext(tutorial_text:com3, "");
+    if_settext(tutorial_text:com4, "");
+} else if ($lines = 2) {
+    if_settext(tutorial_text:com1, split_get($page, 0));
+    if_settext(tutorial_text:com2, split_get($page, 1));
+    if_settext(tutorial_text:com3, "");
+    if_settext(tutorial_text:com4, "");
+} else if ($lines = 3) {
+    if_settext(tutorial_text:com1, split_get($page, 0));
+    if_settext(tutorial_text:com2, split_get($page, 1));
+    if_settext(tutorial_text:com3, split_get($page, 2));
+    if_settext(tutorial_text:com4, "");
+} else if ($lines = 4) {
+    if_settext(tutorial_text:com1, split_get($page, 0));
+    if_settext(tutorial_text:com2, split_get($page, 1));
+    if_settext(tutorial_text:com3, split_get($page, 2));
+    if_settext(tutorial_text:com4, split_get($page, 3));
+}
+if_settext(tutorial_text:com5, "");
+if_settext(tutorial_text:com6, "");
+
+// Updated the split init to match what's shown in this 2006 vid
+// https://youtu.be/Quwc_TfPW8Q?t=33
+[proc,tutorialstep](string $title, string $string)
+split_init($string, 450, 4, q8_full);
+def_int $page = 0;
+def_int $pagetotal = split_pagecount;
+while ($page < $pagetotal) {
+    ~tutorialstep_page($title, $page);
+    $page = calc($page + 1);
+}

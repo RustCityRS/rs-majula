@@ -1,0 +1,28 @@
+[proc,enum_var](stat $stat)(int)
+if ($stat = runecrafting) {
+    return(%varc_int_54);
+}
+if ($stat = crafting) {
+    return(%varc_int_55);
+}
+if ($stat = fletching) {
+    return(%varc_int_57);
+}
+if ($stat = cooking) {
+    return(%varc_int_58);
+}
+if ($stat = construction) {
+    return(%varc_int_60);
+}
+if ($stat = herblore) {
+    return(%varc_int_61);
+}
+if ($stat = magic) {
+    return(%varc_int_64);
+}
+if ($stat = smithing) {
+    return(%varc_int_66);
+}
+if ($stat = farming) {
+    return(%varc_int_62);
+}

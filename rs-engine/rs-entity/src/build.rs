@@ -5,8 +5,18 @@ pub const MAX_PLAYERS: usize = 2048;
 /// Maximum number of NPCs supported by the engine.
 #[cfg(before_254)]
 pub const MAX_NPCS: usize = 8192;
-#[cfg(since_254)]
+#[cfg(all(since_254, before_647))]
 pub const MAX_NPCS: usize = 16384;
+/// Rev-647: the npc-info add format carries a 15-bit npc id.
+#[cfg(since_647)]
+pub const MAX_NPCS: usize = 32768;
+
+/// Number of player skills.
+#[cfg(before_647)]
+pub const STAT_COUNT: usize = 21;
+/// Rev-647 adds construction, hunter, summoning and dungeoneering.
+#[cfg(since_647)]
+pub const STAT_COUNT: usize = 25;
 
 /// A compact set of entity IDs backed by a bit vector for O(1) membership checks
 /// and an ordered ID list for iteration.
@@ -148,6 +158,19 @@ pub struct BuildArea {
     pub last_resize: u32,
     pub nearby_players: Vec<u16>,
     pub nearby_npcs: Vec<u16>,
+    /// Rev-647 4-pass GPI state: per-slot NSN flags (bit 0 = "skipped last
+    /// tick", cycled each tick), last-known packed mapsquare and coord per
+    /// slot, and the local/external slot partition driving the pass order.
+    #[cfg(since_647)]
+    pub nsn_flags: Box<[u8; MAX_PLAYERS]>,
+    #[cfg(since_647)]
+    pub player_mapsquares: Box<[u32; MAX_PLAYERS]>,
+    #[cfg(since_647)]
+    pub player_last_coords: Box<[CoordGrid; MAX_PLAYERS]>,
+    #[cfg(since_647)]
+    pub local_player_indices: Vec<u16>,
+    #[cfg(since_647)]
+    pub external_player_indices: Vec<u16>,
 }
 
 impl BuildArea {
@@ -177,7 +200,60 @@ impl BuildArea {
             last_resize: 0,
             nearby_players: Vec::with_capacity(BuildArea::PREFERRED_PLAYERS as usize),
             nearby_npcs: Vec::with_capacity(BuildArea::PREFERRED_NPCS as usize),
+            #[cfg(since_647)]
+            nsn_flags: Box::new([0; MAX_PLAYERS]),
+            #[cfg(since_647)]
+            player_mapsquares: Box::new([0; MAX_PLAYERS]),
+            #[cfg(since_647)]
+            player_last_coords: Box::new([CoordGrid::new(0, 0, 0); MAX_PLAYERS]),
+            #[cfg(since_647)]
+            local_player_indices: Vec::with_capacity(MAX_PLAYERS),
+            #[cfg(since_647)]
+            external_player_indices: Vec::with_capacity(MAX_PLAYERS),
         }
+    }
+
+    /// Rev-647: reset the GPI NSN state for a fresh login. Every slot except
+    /// self starts external; self is tracked from its login coordinate.
+    #[cfg(since_647)]
+    pub fn init_nsn_state(&mut self, self_pid: u16, coord: CoordGrid) {
+        self.nsn_flags.fill(0);
+        self.player_mapsquares.fill(0);
+        self.player_last_coords.fill(CoordGrid::new(0, 0, 0));
+        self.players.insert(self_pid);
+        self.player_last_coords[self_pid as usize] = coord;
+        self.player_mapsquares[self_pid as usize] = Self::pack_mapsquare(coord);
+        self.local_player_indices.clear();
+        self.external_player_indices.clear();
+        for i in 1..MAX_PLAYERS as u16 {
+            if i == self_pid {
+                self.local_player_indices.push(i);
+            } else {
+                self.external_player_indices.push(i);
+            }
+        }
+    }
+
+    /// Rev-647: shift the per-slot NSN flags and rebuild the local/external
+    /// partition for the next tick's 4-pass encode.
+    #[cfg(since_647)]
+    pub fn cycle_nsn_flags(&mut self) {
+        self.local_player_indices.clear();
+        self.external_player_indices.clear();
+        for i in 1..MAX_PLAYERS as u16 {
+            self.nsn_flags[i as usize] >>= 1;
+            if self.players.contains(i) {
+                self.local_player_indices.push(i);
+            } else {
+                self.external_player_indices.push(i);
+            }
+        }
+    }
+
+    /// Rev-647: 18-bit packed region `level << 16 | x/64 << 8 | z/64`.
+    #[cfg(since_647)]
+    pub fn pack_mapsquare(coord: CoordGrid) -> u32 {
+        ((coord.y() as u32) << 16) | ((coord.x() as u32 >> 6) << 8) | (coord.z() as u32 >> 6)
     }
 
     /// Clears all tracked state in the build area.

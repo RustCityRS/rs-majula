@@ -1,0 +1,17 @@
+[clientscript,v2_small_button_in_filled](component $component0)
+cc_deleteall($component0);
+def_int $int1 = if_getwidth($component0);
+def_int $int2 = if_getheight($component0);
+def_int $int3 = calc($int1 - 9);
+def_int $int4 = calc($int2 - 9);
+def_int $int5 = calc($int1 - 18);
+def_int $int6 = calc($int2 - 18);
+~create_graphic($component0, 0, tradebacking_dark, 0, 0, $int1, $int2);
+~create_graphic($component0, 1, 1267, 0, 0, 9, 9);
+~create_graphic($component0, 2, 1268, $int3, 0, 9, 9);
+~create_graphic($component0, 3, 1269, 0, $int4, 9, 9);
+~create_graphic($component0, 4, 1270, $int3, $int4, 9, 9);
+~create_graphic($component0, 5, 1271, 0, 9, 9, $int6);
+~create_graphic($component0, 6, 1272, 9, 0, $int5, 9);
+~create_graphic($component0, 7, 1273, $int3, 9, 9, $int6);
+~create_graphic($component0, 8, 1274, 9, $int4, $int5, 9);

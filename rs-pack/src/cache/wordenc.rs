@@ -35,6 +35,20 @@ pub struct WordEncProvider {
 }
 
 impl WordEncProvider {
+    /// Rev-647 chat is huffman-coded and unfiltered (matching the source
+    /// repo), so the provider carries no word lists.
+    #[cfg(since_647)]
+    pub fn empty() -> WordEncProvider {
+        WordEncProvider {
+            bads: Box::new([]),
+            bad_combinations: Box::new([]),
+            fragments: Box::new([]),
+            tlds: Box::new([]),
+            tld_types: Box::new([]),
+            domains: Box::new([]),
+        }
+    }
+
     pub fn from_jag(jag_bytes: &[u8]) -> WordEncProvider {
         let jag = JagFile::from(jag_bytes.to_vec());
 

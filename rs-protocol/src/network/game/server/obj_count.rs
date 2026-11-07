@@ -14,6 +14,24 @@ pub struct ObjCount {
     pub new_count: u16,
 }
 
+#[cfg(before_647)]
+impl ServerProtMessage for ObjCount {
+    fn encode(&self, buf: &mut Packet) {
+        buf.p1(self.coord);
+        buf.p2(self.id);
+        buf.p2(self.old_count);
+        buf.p2(self.new_count);
+    }
+
+    fn sizeof(&self) -> usize {
+        size_of_val(&self.coord)
+            + size_of_val(&self.id)
+            + size_of_val(&self.old_count)
+            + size_of_val(&self.new_count)
+    }
+}
+
+#[cfg(since_647)]
 impl ServerProtMessage for ObjCount {
     fn encode(&self, buf: &mut Packet) {
         buf.p1(self.coord);

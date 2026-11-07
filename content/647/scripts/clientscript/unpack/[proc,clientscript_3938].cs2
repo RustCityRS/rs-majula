@@ -1,0 +1,8 @@
+[proc,clientscript_3938]
+if (%varc_int_1411 = true) {
+    %varc_int_1411 = 0;
+    if_setgraphic("check_box_2,1", account_create:com28);
+} else {
+    %varc_int_1411 = 1;
+    if_setgraphic("check_box_2,3", account_create:com28);
+}

@@ -1,0 +1,575 @@
+// 289's gold and silver jewellery (skill_crafting/scripts/jewellery/
+// jewellery.rs2) on 2011's interfaces, crafting_gold (446) and
+// crafting_silver_casting (438), opened as 289's were: a gold or silver bar
+// used on a furnace (smelting.rs2). The 2011 wiki's Crafting page (18 May
+// 2011) agrees: "Gold items are made by using a gold bar with a furnace, while
+// carrying a mould"; "Silver items can be crafted by using a Silver Bar on a
+// Furnace while carrying the proper mould".
+//
+// 289's gold interface (crafting_jewelry) put its items in three inv rows
+// (crafting_make_rings, _necklaces and _amulets, invisible stand-ins in the
+// gem slots) with Make 1, 5 and 10. 2011's has a model and a button over it
+// for each item, Make 1, 5, All and X on each, and no script of its own: the
+// server puts each item in its model (if_setobject) and hides the button of
+// what cannot be made, as void-634's Jewellery.kt does. Its ids are the
+// cache's (positional; void-634's crafting.ifaces.toml, make_mould_slayer,
+// agrees). void-634 opens 446 on members' worlds and 675, the same without
+// the slayer ring and the keys, on free ones; 446 serves both here.
+//
+// 2011's gold interface adds bracelets, onyx, the slayer ring and the gold
+// elemental key, and its silver interface the lightning rod, tiara,
+// Silvthrill rod, demonic sigil, silver bolts, Silvthril chain and silver key,
+// which 289 does not make: they stay hidden until they are ported.
+
+// 2011's buttons, Make 1, 5, All and X on each item, where 289 had Make 1, 5
+// and 10 on each inv slot (inv_button1-3).
+// Gold ring
+[if_button1,crafting_gold:com82] @craft_gold(gold_ring, 1);
+[if_button2,crafting_gold:com82] @craft_gold(gold_ring, 5);
+[if_button3,crafting_gold:com82] @craft_gold(gold_ring, ^crafting_make_all);
+[if_button4,crafting_gold:com82] @craft_gold(gold_ring, ^crafting_make_x);
+// Sapphire ring
+[if_button1,crafting_gold:com84] @craft_gold(sapphire_ring, 1);
+[if_button2,crafting_gold:com84] @craft_gold(sapphire_ring, 5);
+[if_button3,crafting_gold:com84] @craft_gold(sapphire_ring, ^crafting_make_all);
+[if_button4,crafting_gold:com84] @craft_gold(sapphire_ring, ^crafting_make_x);
+// Emerald ring
+[if_button1,crafting_gold:com86] @craft_gold(emerald_ring, 1);
+[if_button2,crafting_gold:com86] @craft_gold(emerald_ring, 5);
+[if_button3,crafting_gold:com86] @craft_gold(emerald_ring, ^crafting_make_all);
+[if_button4,crafting_gold:com86] @craft_gold(emerald_ring, ^crafting_make_x);
+// Ruby ring
+[if_button1,crafting_gold:com88] @craft_gold(ruby_ring, 1);
+[if_button2,crafting_gold:com88] @craft_gold(ruby_ring, 5);
+[if_button3,crafting_gold:com88] @craft_gold(ruby_ring, ^crafting_make_all);
+[if_button4,crafting_gold:com88] @craft_gold(ruby_ring, ^crafting_make_x);
+// Diamond ring
+[if_button1,crafting_gold:com90] @craft_gold(diamond_ring, 1);
+[if_button2,crafting_gold:com90] @craft_gold(diamond_ring, 5);
+[if_button3,crafting_gold:com90] @craft_gold(diamond_ring, ^crafting_make_all);
+[if_button4,crafting_gold:com90] @craft_gold(diamond_ring, ^crafting_make_x);
+// Dragonstone ring
+[if_button1,crafting_gold:com92] @craft_gold(dragonstone_ring, 1);
+[if_button2,crafting_gold:com92] @craft_gold(dragonstone_ring, 5);
+[if_button3,crafting_gold:com92] @craft_gold(dragonstone_ring, ^crafting_make_all);
+[if_button4,crafting_gold:com92] @craft_gold(dragonstone_ring, ^crafting_make_x);
+// Gold necklace
+[if_button1,crafting_gold:com68] @craft_gold(gold_necklace, 1);
+[if_button2,crafting_gold:com68] @craft_gold(gold_necklace, 5);
+[if_button3,crafting_gold:com68] @craft_gold(gold_necklace, ^crafting_make_all);
+[if_button4,crafting_gold:com68] @craft_gold(gold_necklace, ^crafting_make_x);
+// Sapphire necklace
+[if_button1,crafting_gold:com70] @craft_gold(sapphire_necklace, 1);
+[if_button2,crafting_gold:com70] @craft_gold(sapphire_necklace, 5);
+[if_button3,crafting_gold:com70] @craft_gold(sapphire_necklace, ^crafting_make_all);
+[if_button4,crafting_gold:com70] @craft_gold(sapphire_necklace, ^crafting_make_x);
+// Emerald necklace
+[if_button1,crafting_gold:com72] @craft_gold(emerald_necklace, 1);
+[if_button2,crafting_gold:com72] @craft_gold(emerald_necklace, 5);
+[if_button3,crafting_gold:com72] @craft_gold(emerald_necklace, ^crafting_make_all);
+[if_button4,crafting_gold:com72] @craft_gold(emerald_necklace, ^crafting_make_x);
+// Ruby necklace
+[if_button1,crafting_gold:com74] @craft_gold(ruby_necklace, 1);
+[if_button2,crafting_gold:com74] @craft_gold(ruby_necklace, 5);
+[if_button3,crafting_gold:com74] @craft_gold(ruby_necklace, ^crafting_make_all);
+[if_button4,crafting_gold:com74] @craft_gold(ruby_necklace, ^crafting_make_x);
+// Diamond necklace
+[if_button1,crafting_gold:com76] @craft_gold(diamond_necklace, 1);
+[if_button2,crafting_gold:com76] @craft_gold(diamond_necklace, 5);
+[if_button3,crafting_gold:com76] @craft_gold(diamond_necklace, ^crafting_make_all);
+[if_button4,crafting_gold:com76] @craft_gold(diamond_necklace, ^crafting_make_x);
+// Dragon necklace
+[if_button1,crafting_gold:com78] @craft_gold(dragonstone_necklace, 1);
+[if_button2,crafting_gold:com78] @craft_gold(dragonstone_necklace, 5);
+[if_button3,crafting_gold:com78] @craft_gold(dragonstone_necklace, ^crafting_make_all);
+[if_button4,crafting_gold:com78] @craft_gold(dragonstone_necklace, ^crafting_make_x);
+// Gold amulet
+[if_button1,crafting_gold:com53] @craft_gold(unstrung_gold_amulet, 1);
+[if_button2,crafting_gold:com53] @craft_gold(unstrung_gold_amulet, 5);
+[if_button3,crafting_gold:com53] @craft_gold(unstrung_gold_amulet, ^crafting_make_all);
+[if_button4,crafting_gold:com53] @craft_gold(unstrung_gold_amulet, ^crafting_make_x);
+// Sapphire amulet
+[if_button1,crafting_gold:com55] @craft_gold(unstrung_sapphire_amulet, 1);
+[if_button2,crafting_gold:com55] @craft_gold(unstrung_sapphire_amulet, 5);
+[if_button3,crafting_gold:com55] @craft_gold(unstrung_sapphire_amulet, ^crafting_make_all);
+[if_button4,crafting_gold:com55] @craft_gold(unstrung_sapphire_amulet, ^crafting_make_x);
+// Emerald amulet
+[if_button1,crafting_gold:com57] @craft_gold(unstrung_emerald_amulet, 1);
+[if_button2,crafting_gold:com57] @craft_gold(unstrung_emerald_amulet, 5);
+[if_button3,crafting_gold:com57] @craft_gold(unstrung_emerald_amulet, ^crafting_make_all);
+[if_button4,crafting_gold:com57] @craft_gold(unstrung_emerald_amulet, ^crafting_make_x);
+// Ruby amulet
+[if_button1,crafting_gold:com59] @craft_gold(unstrung_ruby_amulet, 1);
+[if_button2,crafting_gold:com59] @craft_gold(unstrung_ruby_amulet, 5);
+[if_button3,crafting_gold:com59] @craft_gold(unstrung_ruby_amulet, ^crafting_make_all);
+[if_button4,crafting_gold:com59] @craft_gold(unstrung_ruby_amulet, ^crafting_make_x);
+// Diamond amulet
+[if_button1,crafting_gold:com61] @craft_gold(unstrung_diamond_amulet, 1);
+[if_button2,crafting_gold:com61] @craft_gold(unstrung_diamond_amulet, 5);
+[if_button3,crafting_gold:com61] @craft_gold(unstrung_diamond_amulet, ^crafting_make_all);
+[if_button4,crafting_gold:com61] @craft_gold(unstrung_diamond_amulet, ^crafting_make_x);
+// Dragonstone amulet
+[if_button1,crafting_gold:com63] @craft_gold(unstrung_dragonstone_amulet, 1);
+[if_button2,crafting_gold:com63] @craft_gold(unstrung_dragonstone_amulet, 5);
+[if_button3,crafting_gold:com63] @craft_gold(unstrung_dragonstone_amulet, ^crafting_make_all);
+[if_button4,crafting_gold:com63] @craft_gold(unstrung_dragonstone_amulet, ^crafting_make_x);
+
+// 289 stopped transmitting its three inv rows here; 2011's interface has none.
+// [if_close,crafting_jewelry]
+// inv_stoptransmit(crafting_jewelry:rings_inv);
+// inv_stoptransmit(crafting_jewelry:necklaces_inv);
+// inv_stoptransmit(crafting_jewelry:amulets_inv);
+
+//--- Label to open, and handle the gold jewelry interface
+[label,craft_gold_interface]()
+p_arrivedelay();
+
+// each gem total
+def_int $diamond_total = inv_total(inv, diamond);
+def_int $ruby_total = inv_total(inv, ruby);
+def_int $emerald_total = inv_total(inv, emerald);
+def_int $sapphire_total = inv_total(inv, sapphire);
+def_int $dragonstone_total = inv_total(inv, dragonstone);
+// https://i.imgur.com/BwS99Hp.png
+// from https://web.archive.org/web/20051025132703/http://www.runeweb.net/index.php?page=rs2-crafting
+// check if player has the corresponding moulds
+// 289 put an item in an inv slot (inv_setslot) where it could be made and
+// emptied the slot (inv_delslot) where not; 2011 shows the item in its model
+// and its button over it, or 289's black stand-in with no button. 289's
+// if_setobject zooms (110, 100, 75) are 2011's counts: 2011 zooms each item
+// as its obj does (the 647 client's IF_SETOBJECT reads a count and takes
+// the zoom from the obj's zoom2d).
+if (inv_total(inv, ring_mould) > 0) {
+    if_sethide(crafting_gold:com17, true); // hide "You need a ring mould to craft rings."
+    if_sethide(crafting_gold:com18, false);
+
+    // 289's gold ring always sat in its first slot (crafting_make_rings' stock)
+    if_setobject(crafting_gold:com81, gold_ring, 1);
+    if_sethide(crafting_gold:com82, false);
+    // if they have one or more of corresponding gem, show corresponding ring
+    if ($sapphire_total > 0) {
+        if_sethide(crafting_gold:com84, false);
+        if_setobject(crafting_gold:com83, sapphire_ring, 1);
+    } else {
+        if_sethide(crafting_gold:com84, true);
+        if_setobject(crafting_gold:com83, black_ring, 1);
+    }
+    if ($emerald_total > 0) {
+        if_sethide(crafting_gold:com86, false);
+        if_setobject(crafting_gold:com85, emerald_ring, 1);
+    } else {
+        if_sethide(crafting_gold:com86, true);
+        if_setobject(crafting_gold:com85, black_ring, 1);
+    }
+    if ($ruby_total > 0) {
+        if_sethide(crafting_gold:com88, false);
+        if_setobject(crafting_gold:com87, ruby_ring, 1);
+    } else {
+        if_sethide(crafting_gold:com88, true);
+        if_setobject(crafting_gold:com87, black_ring, 1);
+    }
+    if ($diamond_total > 0) {
+        if_sethide(crafting_gold:com90, false);
+        if_setobject(crafting_gold:com89, diamond_ring, 1);
+    } else {
+        if_sethide(crafting_gold:com90, true);
+        if_setobject(crafting_gold:com89, black_ring, 1);
+    }
+    if ($dragonstone_total > 0) {
+        if_sethide(crafting_gold:com92, false);
+        if_setobject(crafting_gold:com91, dragonstone_ring, 1);
+    } else {
+        if_sethide(crafting_gold:com92, true);
+        if_setobject(crafting_gold:com91, black_ring, 1);
+    }
+} else {
+    // normalize: show "You need a ring mould to craft rings." (default)
+    if_sethide(crafting_gold:com17, false);
+    // normalize: hide ring selection layer
+    if_sethide(crafting_gold:com18, true);
+}
+if (inv_total(inv, necklace_mould) > 0) {
+    if_sethide(crafting_gold:com21, true); // hide "You need a necklace mould to craft necklaces."
+    if_sethide(crafting_gold:com23, false);
+
+    if_setobject(crafting_gold:com67, gold_necklace, 1);
+    if_sethide(crafting_gold:com68, false);
+    // if they have one or more of corresponding gem, show corresponding necklace
+    if ($sapphire_total > 0) {
+        if_sethide(crafting_gold:com70, false);
+        if_setobject(crafting_gold:com69, sapphire_necklace, 1);
+    } else {
+        if_sethide(crafting_gold:com70, true);
+        if_setobject(crafting_gold:com69, black_necklace, 1);
+    }
+    if ($emerald_total > 0) {
+        if_sethide(crafting_gold:com72, false);
+        if_setobject(crafting_gold:com71, emerald_necklace, 1);
+    } else {
+        if_sethide(crafting_gold:com72, true);
+        if_setobject(crafting_gold:com71, black_necklace, 1);
+    }
+    if ($ruby_total > 0) {
+        if_sethide(crafting_gold:com74, false);
+        if_setobject(crafting_gold:com73, ruby_necklace, 1);
+    } else {
+        if_sethide(crafting_gold:com74, true);
+        if_setobject(crafting_gold:com73, black_necklace, 1);
+    }
+    if ($diamond_total > 0) {
+        if_sethide(crafting_gold:com76, false);
+        if_setobject(crafting_gold:com75, diamond_necklace, 1);
+    } else {
+        if_sethide(crafting_gold:com76, true);
+        if_setobject(crafting_gold:com75, black_necklace, 1);
+    }
+    if ($dragonstone_total > 0) {
+        if_sethide(crafting_gold:com78, false);
+        if_setobject(crafting_gold:com77, dragon_necklace, 1);
+    } else {
+        if_sethide(crafting_gold:com78, true);
+        if_setobject(crafting_gold:com77, black_necklace, 1);
+    }
+} else {
+    // normalize: show "You need a necklace mould to craft necklaces." (default)
+    if_sethide(crafting_gold:com21, false);
+    // normalize: hide necklace selection layer
+    if_sethide(crafting_gold:com23, true);
+}
+if (inv_total(inv, amulet_mould) > 0) {
+    if_sethide(crafting_gold:com26, true); // hide "You need a amulet mould to craft amulets."
+    if_sethide(crafting_gold:com27, false);
+
+    if_setobject(crafting_gold:com52, gold_amulet, 1);
+    if_sethide(crafting_gold:com53, false);
+    // if they have one or more of corresponding gem, show corresponding amulet
+    if ($sapphire_total > 0) {
+        //sets slot to the invisable amulet
+        if_sethide(crafting_gold:com55, false);
+        if_setobject(crafting_gold:com54, sapphire_amulet, 1);
+    } else {
+        if_sethide(crafting_gold:com55, true);
+        if_setobject(crafting_gold:com54, black_amulet, 1);
+    }
+    if ($emerald_total > 0) {
+        if_sethide(crafting_gold:com57, false);
+        if_setobject(crafting_gold:com56, emerald_amulet, 1);
+    } else {
+        if_sethide(crafting_gold:com57, true);
+        if_setobject(crafting_gold:com56, black_amulet, 1);
+    }
+    if ($ruby_total > 0) {
+        if_sethide(crafting_gold:com59, false);
+        if_setobject(crafting_gold:com58, ruby_amulet, 1);
+    } else {
+        if_sethide(crafting_gold:com59, true);
+        if_setobject(crafting_gold:com58, black_amulet, 1);
+    }
+    if ($diamond_total > 0) {
+        if_sethide(crafting_gold:com61, false);
+        if_setobject(crafting_gold:com60, diamond_amulet, 1);
+    } else {
+        if_sethide(crafting_gold:com61, true);
+        if_setobject(crafting_gold:com60, black_amulet, 1);
+    }
+    if ($dragonstone_total > 0) {
+        if_sethide(crafting_gold:com63, false);
+        if_setobject(crafting_gold:com62, dragonstone_ammy, 1);
+    } else {
+        if_sethide(crafting_gold:com63, true);
+        if_setobject(crafting_gold:com62, black_amulet, 1);
+    }
+} else {
+    // normalize: show "You need an amulet mould to craft amulets." (default)
+    if_sethide(crafting_gold:com26, false);
+    // normalize: hide amulet selection layer
+    if_sethide(crafting_gold:com27, true);
+}
+// 2011's onyx items and slayer ring, and its bracelets' row (title, model,
+// "You need a bracelet mould", items), which 289 does not make. Its keys' row
+// is hidden in the cache.
+if_sethide(crafting_gold:com93, true);
+if_sethide(crafting_gold:com94, true);
+if_sethide(crafting_gold:com95, true);
+if_sethide(crafting_gold:com96, true);
+if_sethide(crafting_gold:com97, true);
+if_sethide(crafting_gold:com79, true);
+if_sethide(crafting_gold:com80, true);
+if_sethide(crafting_gold:com64, true);
+if_sethide(crafting_gold:com65, true);
+if_sethide(crafting_gold:com28, true);
+if_sethide(crafting_gold:com29, true);
+if_sethide(crafting_gold:com30, true);
+if_sethide(crafting_gold:com31, true);
+// open jewelry interface
+if_openmain(crafting_gold);
+//----------------------
+
+
+//--- Label to check if the player has high enough level
+//--- also calcs the real count of jewelry, and calls the weakqueue
+// 289 took the item from the clicked inv slot (inv_getobj) and its struct from
+// the item (crafting_jewelry_struct); 2011's button gives the struct.
+[label,craft_gold](struct $struct, int $count)
+def_namedobj $gem = struct_param($struct, gem);
+// check if mems objs are selected
+// 289 checked for the dragonstone slots' stand-ins (invis_ring5,
+// invis_necklace5, invis_amulet5).
+if ($gem = dragonstone) {
+    if (map_members = ^false) {
+        mes(^mes_members_feature);
+        return;
+    }
+}
+// 2011's Make X (op4 in cache 786) asks how many, as void-634's Jewellery.kt
+// does ("Enter amount:"); its Make All makes as many as the bars and gems
+// make.
+if ($count = ^crafting_make_x) {
+    p_countdialog;
+    if (last_int <= 0) return;
+    $count = last_int;
+} else if ($count = ^crafting_make_all) {
+    $count = add(inv_total(inv, gold_bar), inv_total(inv, perfect__gold_bar));
+    if ($gem ! null) {
+        $count = min($count, inv_total(inv, $gem));
+    }
+}
+def_int $level = struct_param($struct, levelrequired);
+if (stat(crafting) < $level) {
+    if_close;
+    ~mesbox("You need at least level <tostring($level)> Crafting to make that.");
+    return;
+}
+// macro event
+if (afk_event = ^true) {
+    ~macro_event_general_spawn(~macro_event_set_random);
+    return;
+}
+// ****** FOR WEAKQUEUE *******
+// // make sure the player doesnt produce more than they can
+// // the gem_total is only 0 when the player selects gold crafting
+// def_int $gem_total = inv_total(inv,  struct_param($struct, gem));
+// if ($gem_total = 0) {
+//     $count = min($count, inv_total(inv, gold_bar));
+// } else {
+//     $count = min(min($count, inv_total(inv, gold_bar)), $gem_total);
+// }
+// ****** FOR WEAKQUEUE *******
+def_int $productexp = struct_param($struct, productexp);
+def_namedobj $product = struct_param($struct, product);
+if_close;
+// 289's human_furnace keeps its id, seq 899, and its furnace sound is
+// void-634's smelt_bar, synth 2725, as smelting has them (smelting.rs2).
+anim(seq_899, 0);
+sound_synth(furnace, 1, 0);
+p_delay(2);
+~crafting_gold($product, $gem, $productexp, $count);
+// weakqueue(crafting_gold, 1, $productexp, $gem, $product, $count);
+//----------------------
+
+[proc,crafting_gold](namedobj $product, namedobj $gem, int $productexp, int $count)
+
+def_obj $bar = gold_bar;
+if (inv_total(inv, perfect__gold_bar) >= 1) {
+    // Tested on OSRS: if normal gold bar and perfect gold bar are both in inventory, the perfect gold bar gets used first,
+    // even if the normal gold bar was explicitly used on the furnace. If you select normal ruby ring with normal gold bar
+    // and you have a perfect bar in your inv, a perfect ring will be made instead (and only one, even if you have more
+    // gold bars and selected make x).
+    $bar = perfect__gold_bar;
+    if ($product = ruby_necklace) {
+        $product = perfect__necklace;
+    }
+    else if ($product = ruby_ring) {
+        $product = perfect__ring;
+    }
+}
+inv_del(inv, $bar, 1);
+
+if ($gem ! null) {
+    inv_del(inv, $gem, 1);
+}
+inv_add(inv, $product, 1);
+
+// 289 pays with stat_advance, here and below; 2011's xp counter
+// counts what ~givexp pays (player/scripts/xp.rs2).
+~givexp(crafting, $productexp);
+
+if ($bar = gold_bar) {
+    // No message for perfect gold items https://youtu.be/e8btuenT4nE?t=729
+    mes("You make <~add_article(lowercase(oc_name($product)))>.");
+}
+$count = calc($count - 1);
+if ($count < 1) {
+    return;
+}
+
+// check if player has enough gold bars or gems
+if (inv_total(inv, $bar) < 1) {
+    ~mesbox("You don't have enough gold bars to make any more.");
+    return;
+}
+if (inv_total(inv, $gem) < 1 & $gem ! null) {
+    ~mesbox("You don't have enough <lowercase(oc_name($gem))>s to make any more.");
+    return;
+}
+
+anim(seq_899, 0);
+sound_synth(furnace, 1, 0);
+p_delay(2);
+~crafting_gold($product, $gem, $productexp, $count);
+
+
+// 289 asked in skill_multi2, or skill_multi3 with the sickle when it held a
+// sickle mould on a members' world, and said "You require a mould to make
+// that." of a mould it lacked. 2011 asks in its silver casting interface,
+// whose rows show the item with Make 1, 5, All and X under its mould, or "You
+// need a ... mould to make this item." in a layer the server shows instead
+// (cache 786; void-634's SilverCasting.kt writes the same over the item).
+// https://web.archive.org/web/20060111201853im_/http://www.runeweb.net/Roth/Creature_Quest/10.PNG
+// should prob always show holy/unholy and show others depending on inv moulds?
+[label,craft_silver]
+// if(inv_total(inv, sickle_mould) > 0 & map_members = ^true) {
+//     $product, $count = ~skill_multi3(nostringsnake, 0, -10, 175, "\\n\\n\\n\\nSymbol of Zamorak",
+//        nostringstar, 0, -10, 175, "\\n\\n\\n\\nSymbol of Saradomin",
+//        silver_sickle, 0, -15, 175, "\\n\\n\\n\\n@blu@Silver sickle"
+//     );
+// } else {
+//     $product, $count = ~skill_multi2(nostringsnake, 0, -10, 175, "\\n\\n\\n\\nSymbol of Zamorak",
+//        nostringstar, 0, -10, 175, "\\n\\n\\n\\nSymbol of Saradomin"
+//     );
+// }
+~craft_silver_row(crafting_silver_casting:com15, crafting_silver_casting:com17, crafting_silver_casting:com19, crafting_silver_casting:com20, holy_mould, unstrung_symbol);
+~craft_silver_row(crafting_silver_casting:com22, crafting_silver_casting:com24, crafting_silver_casting:com26, crafting_silver_casting:com27, unholy_mould, unstrung_emblem);
+if (map_members = ^true) {
+    ~craft_silver_row(crafting_silver_casting:com29, crafting_silver_casting:com31, crafting_silver_casting:com33, crafting_silver_casting:com34, sickle_mould, silver_sickle);
+} else {
+    if_sethide(crafting_silver_casting:com29, true);
+    if_sethide(crafting_silver_casting:com33, true);
+}
+// 2011's rows that 289 does not make; their mould layers are hidden in the
+// cache.
+if_sethide(crafting_silver_casting:com36, true);
+if_sethide(crafting_silver_casting:com43, true);
+if_sethide(crafting_silver_casting:com50, true);
+if_sethide(crafting_silver_casting:com58, true);
+if_sethide(crafting_silver_casting:com65, true);
+if_sethide(crafting_silver_casting:com72, true);
+if_sethide(crafting_silver_casting:com78, true);
+if_openmain(crafting_silver_casting);
+
+// A row of 2011's silver casting interface: the item and its buttons with the
+// mould, the mould and "You need a ... mould" without.
+[proc,craft_silver_row](component $make, component $make_model, component $need, component $need_model, namedobj $mould, namedobj $product)
+if (inv_total(inv, $mould) > 0) {
+    if_sethide($make, false);
+    if_sethide($need, true);
+    if_setobject($make_model, $product, 1);
+} else {
+    if_sethide($make, true);
+    if_sethide($need, false);
+    if_setobject($need_model, $mould, 1);
+}
+
+// 2011's buttons, Make 1, 5, All and X, where 289 asked in skill_multi.
+// Saradomin symbol
+[if_button1,crafting_silver_casting:com16] @craft_silver_make(unstrung_symbol, 1);
+[if_button2,crafting_silver_casting:com16] @craft_silver_make(unstrung_symbol, 5);
+[if_button3,crafting_silver_casting:com16] @craft_silver_make(unstrung_symbol, ^crafting_make_all);
+[if_button4,crafting_silver_casting:com16] @craft_silver_make(unstrung_symbol, ^crafting_make_x);
+// Zamorak symbol
+[if_button1,crafting_silver_casting:com23] @craft_silver_make(unstrung_emblem, 1);
+[if_button2,crafting_silver_casting:com23] @craft_silver_make(unstrung_emblem, 5);
+[if_button3,crafting_silver_casting:com23] @craft_silver_make(unstrung_emblem, ^crafting_make_all);
+[if_button4,crafting_silver_casting:com23] @craft_silver_make(unstrung_emblem, ^crafting_make_x);
+// Silver sickle
+[if_button1,crafting_silver_casting:com30] @craft_silver_make(silver_sickle, 1);
+[if_button2,crafting_silver_casting:com30] @craft_silver_make(silver_sickle, 5);
+[if_button3,crafting_silver_casting:com30] @craft_silver_make(silver_sickle, ^crafting_make_all);
+[if_button4,crafting_silver_casting:com30] @craft_silver_make(silver_sickle, ^crafting_make_x);
+
+// 289's craft_silver from its choice on.
+[label,craft_silver_make](namedobj $product, int $count)
+// 2011's Make X (op4 in cache 786) asks how many, as void-634's
+// SilverCasting.kt does; its Make All makes as many as the bars make.
+if ($count = ^crafting_make_x) {
+    p_countdialog;
+    if (last_int <= 0) return;
+    $count = last_int;
+} else if ($count = ^crafting_make_all) {
+    $count = inv_total(inv, silver_bar);
+}
+if_close;
+
+if($count = 0) {
+    return;
+}
+
+if(map_members = ^false & oc_members($product) = true) {
+    mes(^mes_members_do_that);
+    return;
+}
+
+def_struct $struct = oc_param($product, crafting_jewelry_struct);
+def_namedobj $mould = struct_param($struct, mould);
+if(inv_total(inv, $mould) = 0) {
+    ~mesbox("You require a mould to make that.");
+    return;
+}
+
+def_int $level = struct_param($struct, levelrequired);
+if (stat(crafting) < $level) {
+    ~mesbox("You need at least level <tostring($level)> Crafting to make that.");
+    return;
+}
+
+// macro event
+if (afk_event = ^true) {
+    ~macro_event_general_spawn(~macro_event_set_random);
+    return;
+}
+@process_craft_silver($struct, $product, $count);
+
+[label,process_craft_silver](struct $struct, namedobj $product, int $count)
+anim(seq_899, 0);
+sound_synth(furnace, 1, 0);
+// initial is 2t, afterwards is 3t cause processing order, not action_delay dependennt
+weakqueue*(craft_silver, 2)($struct, $product, $count);
+
+[queue,craft_silver](struct $struct, namedobj $product, int $count)
+if(inv_total(inv, silver_bar) = 0) {
+    // https://youtu.be/WJ2gW6dx_vo?si=Hl5EcZQoyaxqyr_P&t=121
+    mes("You have run out of silver bars.");
+    return;
+}
+inv_del(inv, silver_bar, 1);
+inv_add(inv, $product, 1);
+~givexp(crafting, struct_param($struct, productexp));
+// Confirmed, no period at the end. https://i.imgur.com/sCKRVO9.png
+mes("You make <~add_article(struct_param($struct, name_text))>");
+if(sub($count, 1) < 1) {
+    return;
+}
+@process_craft_silver($struct, $product, sub($count, 1));
+
+//******************* WEAKQUEUES NOT-USED UNTIL SEPT 2004 *******************
+// //--- weakqueue to craft gold jewelry, should craft jewelry at a rate of 3 ticks.
+// //    And should repeat until the specified count is reached.
+// [weakqueue,crafting_gold](int $productexp, namedobj $gem, namedobj $product, int $count)
+// //mes(oc_name($product));
+// //mes(tostring($count));
+
+// inv_del(inv, gold_bar, 1);
+// inv_del(inv, $gem, 1);
+// inv_add(inv, $product, 1);
+// stat_advance(crafting, $productexp);
+
+// $count = calc($count - 1);
+// if ($count < 1) {
+//     return;
+// }
+// // these go after
+// anim(human_furnace, 0);
+// sound_synth(furnace, 1, 0);
+// // requeue itself
+// weakqueue(crafting_gold, 3, $productexp, $gem, $product, $count);
+// //----------------------

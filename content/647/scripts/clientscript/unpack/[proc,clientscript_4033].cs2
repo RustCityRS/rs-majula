@@ -1,0 +1,16 @@
+[proc,clientscript_4033](int $int0, int $int1)
+def_graphic $graphic2 = null;
+if ($int1 = true) {
+    if ($int0 = false) {
+        $graphic2 = "check_box_2,3";
+    } else {
+        $graphic2 = "check_box_2,2";
+        ~deltooltip_action(task_main:com152);
+    }
+} else if ($int0 = false) {
+    $graphic2 = "check_box_2,1";
+} else {
+    $graphic2 = "check_box_2,0";
+    ~deltooltip_action(task_main:com152);
+}
+if_setgraphic($graphic2, task_main:com142);

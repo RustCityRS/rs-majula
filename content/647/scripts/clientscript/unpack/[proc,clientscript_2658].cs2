@@ -1,0 +1,9 @@
+[proc,clientscript_2658]
+%varbit_6302 = calc(%varbit_6302 + 1);
+if (%varbit_6302 >= calc(cam_getpathcount(0) - 1)) {
+    %varbit_6302 = 0;
+    if_setonchattransmit_2426(null, mah3_heistsplines:com0);
+    return;
+}
+cam_startpath(0, %varbit_6302, 600, 400, 1, %varbit_6302);
+if_setonchattransmit_2426("clientscript_2658()", mah3_heistsplines:com0);

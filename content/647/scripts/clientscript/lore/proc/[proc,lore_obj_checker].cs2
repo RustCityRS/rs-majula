@@ -1,0 +1,53 @@
+[proc,lore_obj_checker](obj $obj0)(obj, obj, obj, obj, obj, obj, obj, obj, obj, obj, int, int, int, int, int, int, int, int, int, int)
+def_obj $array0();
+def_int $array1();
+def_obj $array0(10);
+def_int $array1(10);
+def_int $int1 = 0;
+if (oc_weight($obj0, param_538) ! null) {
+    $array0($int1) = oc_weight($obj0, param_538);
+    $array1($int1) = oc_weight($obj0, param_539);
+    $int1 = calc($int1 + 1);
+}
+if (oc_weight($obj0, param_540) ! null) {
+    $array0($int1) = oc_weight($obj0, param_540);
+    $array1($int1) = oc_weight($obj0, param_541);
+    $int1 = calc($int1 + 1);
+}
+if (oc_weight($obj0, param_542) ! null) {
+    $array0($int1) = oc_weight($obj0, param_542);
+    $array1($int1) = oc_weight($obj0, param_543);
+    $int1 = calc($int1 + 1);
+}
+if (oc_weight($obj0, param_697) ! null) {
+    $array0($int1) = oc_weight($obj0, param_697);
+    $array1($int1) = oc_weight($obj0, param_698);
+    $int1 = calc($int1 + 1);
+}
+if (oc_weight($obj0, param_699) ! null) {
+    $array0($int1) = oc_weight($obj0, param_699);
+    $array1($int1) = oc_weight($obj0, param_700);
+    $int1 = calc($int1 + 1);
+}
+if (oc_weight($obj0, param_701) ! null) {
+    $array0($int1) = oc_weight($obj0, param_701);
+    $array1($int1) = oc_weight($obj0, param_702);
+    $int1 = calc($int1 + 1);
+}
+if (oc_weight($obj0, param_703) ! null) {
+    $array0($int1) = oc_weight($obj0, param_703);
+    $array1($int1) = oc_weight($obj0, param_704);
+    $int1 = calc($int1 + 1);
+}
+if (oc_weight($obj0, param_705) ! null) {
+    $array0($int1) = oc_weight($obj0, param_705);
+    $array1($int1) = oc_weight($obj0, param_706);
+    $int1 = calc($int1 + 1);
+}
+if (oc_weight($obj0, param_707) ! null) {
+    $array0($int1) = oc_weight($obj0, param_707);
+    $array1($int1) = oc_weight($obj0, param_708);
+    $int1 = calc($int1 + 1);
+}
+return($array0(0), $array0(1), $array0(2), $array0(3), $array0(4), $array0(5), $array0(6), $array0(7), $array0(8), $array0(9), $array1(0), $array1(1), $array1(2), $array1(3), $array1(4), $array1(5), $array1(6), $array1(7), $array1(8), $array1(9));
+return(null, null, null, null, null, null, null, null, null, null, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);

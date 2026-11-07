@@ -1,0 +1,4 @@
+[clientscript,clan_motto_text_init](component $component0, component $component1, component $component2)
+if_setonkey("clan_motto_text_input($component0, $component1, ^event_keychar, ^event_key, $component2)", $component0);
+if_setonclick("clan_motto_text_click($component0, $component2, ^event_mousex)", $component0);
+if_setontimer("caret_flash(clientclock, $component2)", $component0);

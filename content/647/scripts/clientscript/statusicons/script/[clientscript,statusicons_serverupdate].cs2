@@ -1,0 +1,8 @@
+[clientscript,statusicons_serverupdate]
+if (%varc_int_616 = true) {
+    if_sethide(false, hs3423786:com1);
+} else {
+    %varc_int_616 = 0;
+    if_sethide(true, hs3423786:com1);
+    ~statusicons_deltooltip;
+}

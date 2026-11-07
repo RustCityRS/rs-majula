@@ -1,7 +1,9 @@
 pub use rs_entity::build::*;
 
 use crate::active_npc::ActiveNpc;
-use crate::info::{NpcSnapshot, PlayerSnapshot};
+use crate::info::NpcSnapshot;
+#[cfg(before_647)]
+use crate::info::PlayerSnapshot;
 use rs_grid::CoordGrid;
 use rs_zone::zone_map::ZoneMap;
 
@@ -14,7 +16,9 @@ pub trait ActiveBuildArea {
     /// Fully rebuilds the tracked player list by clearing existing entries,
     /// resetting view distance to the preferred value, and repopulating
     /// from nearby zones. Reads the per-tick [`PlayerSnapshot`] snapshot rather than the
-    /// live player array.
+    /// live player array. (Rev-647 player tracking is slot-global — the
+    /// 4-pass GPI protocol discovers players without zone queries.)
+    #[cfg(before_647)]
     fn rebuild_players(
         &mut self,
         snap: &[PlayerSnapshot],
@@ -33,6 +37,7 @@ pub trait ActiveBuildArea {
     /// that pass the visibility filter and are within view distance. Reads the
     /// per-tick [`PlayerSnapshot`] snapshot; `self_pid` is excluded (it is taken out of
     /// the live array during its own encode, so it must not see itself).
+    #[cfg(before_647)]
     fn get_nearby_players(
         &mut self,
         snap: &[PlayerSnapshot],
@@ -51,6 +56,7 @@ pub trait ActiveBuildArea {
     /// Returns `true` if the given player should be included in the nearby
     /// list (not the observer, present, not already tracked, same level, and
     /// within view distance), read from the [`PlayerSnapshot`] snapshot.
+    #[cfg(before_647)]
     fn filter_player(
         &self,
         snap: &[PlayerSnapshot],
@@ -86,6 +92,7 @@ impl ActiveBuildArea for BuildArea {
     /// # Side Effects
     /// * Clears and repopulates `self.players` and `self.nearby_players`.
     /// * May reduce `self.view_distance`.
+    #[cfg(before_647)]
     #[inline]
     fn rebuild_players(
         &mut self,
@@ -147,6 +154,7 @@ impl ActiveBuildArea for BuildArea {
     /// # Safety
     /// Uses unsafe pointer arithmetic on the `players` slice for performance;
     /// callers must guarantee that player IDs from zones are valid indices.
+    #[cfg(before_647)]
     #[inline]
     fn get_nearby_players(
         &mut self,
@@ -273,6 +281,7 @@ impl ActiveBuildArea for BuildArea {
     /// # Safety
     /// Uses unsafe pointer arithmetic on the `players` slice for performance.
     #[inline]
+    #[cfg(before_647)]
     fn filter_player(
         &self,
         snap: &[PlayerSnapshot],

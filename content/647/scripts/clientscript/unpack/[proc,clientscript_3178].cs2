@@ -1,0 +1,8 @@
+[proc,clientscript_3178](component $component)
+if (%varc_int_6 = false) {
+    %varc_int_6 = 1;
+    if_setgraphic("check_box_2,2", $component);
+} else {
+    %varc_int_6 = 0;
+    if_setgraphic("check_box_2,0", $component);
+}

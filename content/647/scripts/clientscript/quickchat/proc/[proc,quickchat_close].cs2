@@ -1,0 +1,12 @@
+[proc,quickchat_close]
+if_sethide(false, chatbox_background:com50);
+if_setonkey("chatdefault_onkey(^event_key, ^event_keychar)", chatbox_background:com55);
+if_sethide(true, chatbox_background:com0);
+def_int $int = 0;
+while (enum(105, 73, enum_1550, $int) ! null) {
+    if_setonkey(null, enum(105, 73, enum_1550, $int));
+    $int = calc($int + 1);
+}
+if (getwindowmode >= 2) {
+    ~subchanged;
+}

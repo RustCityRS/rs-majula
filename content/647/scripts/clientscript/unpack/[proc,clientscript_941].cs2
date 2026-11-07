@@ -1,0 +1,72 @@
+[proc,clientscript_941](component $component)
+%varc_int_988 = 0;
+%varc_int_989 = 0;
+%varc_int_990 = 0;
+%varc_int_991 = 0;
+switch_component ($component) {
+    case magic:com7:
+        ~deltooltip_action(magic:com96);
+        if (%varbit_6459 = true) {
+            if_setgraphic(1701, $component);
+        }
+    case magic:com9:
+        ~deltooltip_action(magic:com96);
+        if (%varbit_6462 = true) {
+            if_setgraphic(1701, $component);
+        }
+    case magic:com11:
+        ~deltooltip_action(magic:com96);
+        if (%varbit_6461 = true) {
+            if_setgraphic(1701, $component);
+        }
+    case magic:com13:
+        ~deltooltip_action(magic:com96);
+        if (%varbit_6460 = true) {
+            if_setgraphic(1701, $component);
+        }
+    case magic_lunar:com5:
+        ~deltooltip_action(magic_lunar:com64);
+        if (%varbit_6463 = true) {
+            if_setgraphic(1701, $component);
+        }
+    case magic_lunar:com9:
+        ~deltooltip_action(magic_lunar:com64);
+        if (%varbit_6464 = true) {
+            if_setgraphic(1701, $component);
+        }
+    case magic_lunar:com7:
+        ~deltooltip_action(magic_lunar:com64);
+        if (%varbit_6465 = true) {
+            if_setgraphic(1701, $component);
+        }
+    case magic_zaros:com5:
+        ~deltooltip_action(magic_zaros:com53);
+        if (%varbit_6466 = true) {
+            if_setgraphic(1701, $component);
+        }
+    case magic_zaros:com7:
+        ~deltooltip_action(magic_zaros:com53);
+        if (%varbit_6467 = true) {
+            if_setgraphic(1701, $component);
+        }
+    case rand_magic:com7:
+        ~deltooltip_action(rand_magic:com72);
+        if (%varbit_7348 = true) {
+            if_setgraphic(1701, $component);
+        }
+    case rand_magic:com9:
+        ~deltooltip_action(rand_magic:com72);
+        if (%varbit_7351 = true) {
+            if_setgraphic(1701, $component);
+        }
+    case rand_magic:com11:
+        ~deltooltip_action(rand_magic:com72);
+        if (%varbit_7350 = true) {
+            if_setgraphic(1701, $component);
+        }
+    case rand_magic:com13:
+        ~deltooltip_action(rand_magic:com72);
+        if (%varbit_7349 = true) {
+            if_setgraphic(1701, $component);
+        }
+}

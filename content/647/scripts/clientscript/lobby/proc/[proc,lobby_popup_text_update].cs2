@@ -1,0 +1,2 @@
+[proc,lobby_popup_text_update](string $string)
+if_settext($string, lobbyscreen:com224);

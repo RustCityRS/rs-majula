@@ -128,7 +128,7 @@ impl ClientGameHandler for OpHeldT {
         active.player.info.clear_face_entity_player();
 
         let result = engine_mut().run_script_by_trigger(
-            (ServerTriggerType::OpHeldT, Some(spell_com), None),
+            (ServerTriggerType::OpHeldT, Some(spell_com as i32), None),
             Some(ScriptSubject::Player(active.player.uid)),
             None,
             Some(true),

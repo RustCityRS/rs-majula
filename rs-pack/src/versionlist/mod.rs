@@ -1,9 +1,9 @@
+use crate::archive;
+use rs_io::jag::JagFile;
+use rs_io::js5::Js5Store;
 use std::collections::HashMap;
 use std::path::Path;
-
-use rs_io::jag::JagFile;
-
-use rs_io::js5::Js5Store;
+use std::{fs, io};
 
 #[derive(Clone, Copy, Debug)]
 pub struct MapEntry {
@@ -93,19 +93,21 @@ pub struct VersionListMeta {
 }
 
 impl VersionListMeta {
-    pub fn extract(jag: &JagFile, cache: &Js5Store) -> Self {
+    pub fn extract(jag: &JagFile, cache: &mut Js5Store) -> Self {
         let file_count = (0..).take_while(|&i| jag.get(i).is_some()).count();
         let order = (0..file_count)
             .filter_map(|i| name_for_hash(jag.file_hash(i)).map(String::from))
             .collect();
 
-        let absent_only = |index: usize, name: &str| -> Vec<i32> {
+        let mut absent_only = |index: u8, name: &str| -> Vec<i32> {
             read_i32_table(jag, name)
                 .into_iter()
                 .enumerate()
                 .map(|(id, c)| {
                     if cache
-                        .read(index, id, false)
+                        .read_raw_group_bytes(index, id as u32)
+                        .ok()
+                        .flatten()
                         .filter(|d| !d.is_empty())
                         .is_some()
                     {
@@ -120,15 +122,15 @@ impl VersionListMeta {
         Self {
             order,
             model_version: read_u16_table(jag, "model_version"),
-            model_crc: absent_only(1, "model_crc"),
+            model_crc: absent_only(archive::MODELS, "model_crc"),
             model_flags: jag.read("model_index").map(|p| p.data).unwrap_or_default(),
             anim_version: read_u16_table(jag, "anim_version"),
-            anim_crc: absent_only(2, "anim_crc"),
+            anim_crc: absent_only(archive::ANIMS, "anim_crc"),
             anim_index: jag.read("anim_index").map(|p| p.data).unwrap_or_default(),
             midi_version: read_u16_table(jag, "midi_version"),
-            midi_crc: absent_only(3, "midi_crc"),
+            midi_crc: absent_only(archive::MIDI, "midi_crc"),
             map_version: read_u16_table(jag, "map_version"),
-            map_crc: absent_only(4, "map_crc"),
+            map_crc: absent_only(archive::MAPS, "map_crc"),
             maps: jag
                 .read("map_index")
                 .map(|p| parse_map_index(&p.data))
@@ -136,9 +138,9 @@ impl VersionListMeta {
         }
     }
 
-    pub fn write(&self, dir: &Path) -> std::io::Result<()> {
-        std::fs::create_dir_all(dir)?;
-        std::fs::write(dir.join("order"), self.order.join("\n") + "\n")?;
+    pub fn write(&self, dir: &Path) -> io::Result<()> {
+        fs::create_dir_all(dir)?;
+        fs::write(dir.join("order"), self.order.join("\n") + "\n")?;
 
         let mut versions = String::from(
             "# <table> count <n> default <v>, then exceptions '<table> <id> <version>'\n",
@@ -152,7 +154,7 @@ impl VersionListMeta {
                 }
             }
         }
-        std::fs::write(dir.join("versions"), versions)?;
+        fs::write(dir.join("versions"), versions)?;
 
         let mut model = String::from(
             "# id  flags(hex bitfield: 0x80 player-chathead, 0x40/0x20 inv, 0x10/0x8 worn, 0x4 static, 0x2 dynamic, 0x1 tutorial)\n",
@@ -160,13 +162,13 @@ impl VersionListMeta {
         for (id, &f) in self.model_flags.iter().enumerate() {
             model += &format!("{id} 0x{f:02x}\n");
         }
-        std::fs::write(dir.join("model"), model)?;
+        fs::write(dir.join("model"), model)?;
 
         let mut anim_index = String::from("# frame  flags\n");
         for (frame, &c) in self.anim_index.as_chunks::<2>().0.iter().enumerate() {
             anim_index += &format!("{frame} {}\n", u16::from_be_bytes(c));
         }
-        std::fs::write(dir.join("anim_index"), anim_index)?;
+        fs::write(dir.join("anim_index"), anim_index)?;
 
         // map_index: loc_file is always land_file + 1, so it is omitted and derived.
         let mut map_index =
@@ -180,7 +182,7 @@ impl VersionListMeta {
                 if m.free2play { "free2play" } else { "members" }
             );
         }
-        std::fs::write(dir.join("map_index"), map_index)?;
+        fs::write(dir.join("map_index"), map_index)?;
 
         let mut absent = String::from(
             "# index(1=model 2=anim 3=midi 4=map)  id  crc - stale crcs of referenced-but-absent files (signed i32, as getcrc returns)\n",
@@ -192,7 +194,7 @@ impl VersionListMeta {
                 }
             }
         }
-        std::fs::write(dir.join("absent_crc"), absent)?;
+        fs::write(dir.join("absent_crc"), absent)?;
         Ok(())
     }
 
@@ -366,7 +368,7 @@ pub(crate) fn read_i32_table(jag: &JagFile, name: &str) -> Vec<i32> {
 }
 
 fn data_lines(dir: &Path, name: &str) -> impl Iterator<Item = String> {
-    std::fs::read_to_string(dir.join(name))
+    fs::read_to_string(dir.join(name))
         .unwrap_or_default()
         .lines()
         .map(|l| l.trim().to_string())

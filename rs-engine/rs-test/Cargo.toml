@@ -1,0 +1,30 @@
+[package]
+name = "rs-test"
+version.workspace = true
+edition.workspace = true
+rust-version.workspace = true
+authors.workspace = true
+license.workspace = true
+
+[dependencies]
+rs-engine = { workspace = true, features = ["harness"] }
+rs-entity = { workspace = true }
+rs-inv = { workspace = true }
+rs-pack = { workspace = true }
+rs-pathfinder = { workspace = true }
+rs-protocol = { workspace = true }
+rs-util = { workspace = true }
+rs-runec = { workspace = true }
+rs-vm = { workspace = true }
+
+anyhow = { workspace = true }
+clap = { workspace = true }
+tracing = { workspace = true }
+tracing-subscriber = { workspace = true }
+tokio = { workspace = true }
+
+[build-dependencies]
+rs-ver = { workspace = true }
+
+[lints]
+workspace = true

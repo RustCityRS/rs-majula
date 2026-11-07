@@ -1,0 +1,35 @@
+[clientscript,clan_chat_onload]
+def_component $component0 = clan_chat:com53;
+if_setontimer("clientscript_4431(^event_com)", $component0);
+def_int $int1 = 0;
+if (clanchannel2_find_affined = true) {
+    %varc_int_53 = 0;
+    if_sethook1421("clan_chat_onclantransmit(^event_com)", $component0);
+    if_sethook1420("clan_chat_onclantransmit(^event_com)", $component0);
+    if_setscrollsize(0, 0, $component0);
+    if_setscrollpos(0, 0, $component0);
+    if_setmouseover_cursor(149, clan_chat:com27);
+    if_sethide(false, clan_chat:com22);
+    ~clientscript_4470;
+    ~clientscript_4436($component0, %varc_int_1035);
+    ~clientscript_4447;
+}
+def_int $int2 = 0;
+def_int $int3 = 19;
+while ($int2 < calc(500 + 100)) {
+    if (calc($int2 % 2) ! 0) {
+        cc_create(clan_chat:com12, ^iftype_rectangle, if_getchildcount(clan_chat:com12));
+        cc_setsize(16384, $int3, ^setsize_rel, ^setsize_abs);
+        cc_setposition(0, calc($int2 * $int3), ^setpos_abs_left, ^setpos_abs_top);
+        cc_setcolour(0x232220);
+        cc_setfill(true);
+        cc_settrans(128);
+        cc_create(clan_chat:com4, ^iftype_rectangle, if_getchildcount(clan_chat:com4));
+        cc_setsize(16384, $int3, ^setsize_rel, ^setsize_abs);
+        cc_setposition(0, calc($int2 * $int3), ^setpos_abs_left, ^setpos_abs_top);
+        cc_setcolour(0x232220);
+        cc_setfill(true);
+        cc_settrans(128);
+    }
+    $int2 = calc($int2 + 1);
+}

@@ -1,0 +1,6 @@
+[proc,clientscript_4550](interface $interface)(int)
+if (if_hasoverlay_ver_2704(le4294793:com4, $interface) = true | (if_hasoverlay_ver_2704(toplevel_fullscreen:com_main_screen, $interface) = true | if_hasoverlay_ver_2704(toplevel:com_main_screen, $interface) = true)) {
+    return(1);
+}
+return(0);
+return(-1);

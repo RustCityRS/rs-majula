@@ -1,0 +1,4 @@
+// From 289's duel_arena_settings.rs2: the proc other ported content calls,
+// until the rest of that file is ported.
+[proc,duel_arena_movement_check]()(int)
+return(testbit(%dueloptions, ^no_movement));

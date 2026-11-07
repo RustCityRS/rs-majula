@@ -1,0 +1,159 @@
+[largeroot_gnome]
+name=Root
+desc=A large root.
+model=model_loc_1339
+width=3
+length=3
+blockrange=no
+op1=Search
+active=yes
+category=grandtree_root
+
+[largeroot2_gnome]
+name=Root
+desc=A large root.
+model=model_loc_1340
+width=3
+length=3
+blockrange=no
+op1=Search
+active=yes
+category=grandtree_root
+
+[grandtree_cupboardclosed]
+name=Cupboard
+desc=This may be worth opening.
+model=model_loc_367
+length=2
+forceapproach=east
+op1=Open
+param=cupboard_other,grandtree_cupboardopen
+
+[grandtree_cupboardopen]
+name=Cupboard
+desc=This may be worth opening.
+model=model_loc_370
+length=2
+forceapproach=east
+op2=Search
+op3=Close
+param=cupboard_other,grandtree_cupboardclosed
+
+[grandtree_chestclosed]
+name=Closed chest
+desc=I wonder what's inside.
+model=wooden_chest
+op1=Open
+forceapproach=north
+
+[grandtree_chestopen]
+model=model_loc_76
+active=no
+
+[grandtree_fencegate_l]
+name=Gate
+desc=A wooden gate.
+model=model_loc_47
+op1=Open
+active=yes
+blockrange=no
+category=shipyard_gate
+
+[grandtree_fencegate_r]
+name=Gate
+desc=A wooden gate.
+model=model_loc_47
+mirror=yes
+op1=Open
+active=yes
+category=shipyard_gate
+
+[grandtree_pillart]
+name=Pillar
+desc=Wonder what this pillar is for?
+model=model_loc_2440
+blockrange=no
+active=yes
+category=grandtree_pillar
+
+[grandtree_pillaru]
+name=Pillar
+desc=Wonder what this pillar is for?
+model=model_loc_2440
+blockrange=no
+active=yes
+category=grandtree_pillar
+
+[grandtree_pillarz]
+name=Pillar
+desc=Wonder what this pillar is for?
+model=model_loc_2440
+blockrange=no
+active=yes
+category=grandtree_pillar
+
+[grandtree_pillaro]
+name=Pillar
+desc=Wonder what this pillar is for?
+model=model_loc_2440
+blockrange=no
+active=yes
+category=grandtree_pillar
+
+[grandtree_trapdoorclosed]
+name=Trapdoor
+desc=I wonder what's under it?
+model=model_loc_2444
+active=yes
+op1=Open
+mapscene=43
+
+[grandtree_trapdooropen]
+model=model_loc_2445
+active=no
+mapscene=43
+
+[grandtree_trapdoorunder]
+name=Trap door
+desc=This leads to somewhere...but where?
+model=model_loc_2444
+active=yes
+op1=Open
+mapscene=43
+
+[grandtree_climbtree]
+name=Tree
+desc=I reckon I could climb that!
+model=model_loc_1134
+active=yes
+op1=Climb-up
+
+[grandtree_downtree]
+name=Tree
+desc=I reckon I could climb that!
+model=model_loc_1137
+active=yes
+op1=Climb-down
+
+[grandtree_daconiarocks1]
+name=Daconia rocks
+desc=Some magical rocks.
+model=plainrock1
+recol1s=6342
+recol1d=4264
+
+[grandtree_daconiarocks2]
+name=Daconia rocks
+desc=Some magical rocks.
+model=plainrock2
+recol1s=6342
+recol1d=4264
+
+[grandtree_rootdoor]
+name=Roots
+desc=There's something behind these roots.
+model=model_loc_2451
+width=4
+hillskew=yes
+op1=Push
+active=yes

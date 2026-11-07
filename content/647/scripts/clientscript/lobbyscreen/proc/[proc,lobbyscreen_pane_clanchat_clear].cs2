@@ -1,0 +1,11 @@
+[proc,lobbyscreen_pane_clanchat_clear](component $component0, component $component1, component $component2, component $component3, component $component4, component $component5)
+cc_deleteall($component0);
+cc_deleteall($component1);
+cc_deleteall($component2);
+cc_deleteall($component3);
+if_sethide(false, lobbyscreen_pane_clanchat:com12);
+if_settext("Not in chat", lobbyscreen_pane_clanchat:com18);
+if_setsize(if_getwidth(lobbyscreen_pane_clanchat:com39), if_getheight(lobbyscreen_pane_clanchat:com38), ^setsize_abs, ^setsize_abs, lobbyscreen_pane_clanchat:com39);
+if_setscrollsize(0, 0, lobbyscreen_pane_clanchat:com45);
+if_setscrollpos(0, 0, lobbyscreen_pane_clanchat:com45);
+~scrollbar_resize(lobbyscreen_pane_clanchat:com46, lobbyscreen_pane_clanchat:com45, 0);

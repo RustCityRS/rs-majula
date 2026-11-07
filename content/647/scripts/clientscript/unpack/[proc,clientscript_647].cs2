@@ -1,0 +1,12 @@
+[proc,clientscript_647](component $component0, component $component1, int $int2, int $int3, string $string)
+def_int $int4 = 0;
+if (%varc_int_2 = true) {
+    while ($int4 < 6) {
+        ~deltooltip_action(~clientscript_626($int4));
+        $int4 = calc($int4 + 1);
+    }
+}
+if (if_gethide(stockmarket:com17) = true) {
+    return;
+}
+~addtooltip_action($component0, $component1, $string, $int2, $int3);

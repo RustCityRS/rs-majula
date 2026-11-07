@@ -1,0 +1,12 @@
+[proc,clientscript_4102](int $int)
+if ($int = false) {
+    if_setgraphic(4324, stats:com206);
+    if_setgraphic(4324, stats:com207);
+    if_setgraphic(4325, stats:com208);
+    if_setgraphic("task_arrow,1", stats:com210);
+} else {
+    if_setgraphic(4322, stats:com206);
+    if_setgraphic(4322, stats:com207);
+    if_setgraphic(4323, stats:com208);
+    if_setgraphic("task_arrow,0", stats:com210);
+}

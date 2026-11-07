@@ -1,0 +1,4 @@
+[clientscript,clanwars_overlay_status_timecounter](component $component0, int $int1, int $int2)
+def_int $int3 = calc(clientclock - $int1);
+%varc_int_265 = max(calc($int2 - $int3 / 30), 0);
+~clientscript_1790($component0);

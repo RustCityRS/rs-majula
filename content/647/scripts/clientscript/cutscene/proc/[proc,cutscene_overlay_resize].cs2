@@ -1,0 +1,3 @@
+[proc,cutscene_overlay_resize]
+~clientscript_1098;
+if_setsize(viewport_getmousecoord, ^setsize_abs, ^setsize_abs, toplevel_fullscreen:com_wide_screen);

@@ -1,0 +1,19 @@
+[proc,lobbyscreen_loadpanels]
+if_openoverlay(59375790, 907);
+~clientscript_2998;
+if_openoverlay(59375791, 910);
+~clientscript_3103;
+if_openoverlay(59375792, 909);
+~clientscript_3023;
+~lobbyscreen_pane_friendslist_chat_load(lobbyscreen_pane_friendslist:com49);
+~clientscript_3043(lobbyscreen_pane_friendslist:com66);
+if_openoverlay(59375794, 912);
+~lobbyscreen_pane_clanchat_load(59768841);
+~lobbyscreen_pane_clanchat_chat_load(lobbyscreen_pane_clanchat:com10);
+if_openoverlay(59375793, 589);
+~lobbyscreen_pane_friendschat_load(38600715);
+~lobbyscreen_pane_friendschat_chat_load(lobbyscreen_pane_friendschat:com12);
+if_openoverlay(59375795, 911);
+~lobbyscreen_options_load;
+if_setonchattransmit_2418("lobbyscreen_chat_handler(lobbyscreen_pane_friendslist:com49, lobbyscreen_pane_clanchat:com10, lobbyscreen_pane_friendschat:com12)", lobbyscreen:com13);
+%varc_int_1275, %varc_int_1276, %varc_int_1510 = ~lobbyscreen_chat_count;

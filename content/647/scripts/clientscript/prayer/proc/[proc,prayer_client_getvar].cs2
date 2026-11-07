@@ -1,0 +1,113 @@
+[proc,prayer_client_getvar](int $int0)(int)
+def_struct $struct1 = enum(105, 74, enum_2279, $int0);
+if (%varbit_6840 = true) {
+    $struct1 = enum(105, 74, enum_863, $int0);
+    switch_struct ($struct1) {
+        case struct_888:
+            return(%varbit_6820);
+        case struct_889:
+            return(%varbit_6821);
+        case struct_890:
+            return(%varbit_6822);
+        case struct_891:
+            return(%varbit_6823);
+        case struct_892:
+            return(%varbit_6824);
+        case struct_893:
+            return(%varbit_6825);
+        case struct_894:
+            return(%varbit_6826);
+        case struct_895:
+            return(%varbit_6827);
+        case struct_896:
+            return(%varbit_6828);
+        case struct_897:
+            return(%varbit_6829);
+        case struct_898:
+            return(%varbit_6830);
+        case struct_899:
+            return(%varbit_6831);
+        case struct_900:
+            return(%varbit_6832);
+        case struct_901:
+            return(%varbit_6833);
+        case struct_902:
+            return(%varbit_6834);
+        case struct_903:
+            return(%varbit_6835);
+        case struct_904:
+            return(%varbit_6836);
+        case struct_905:
+            return(%varbit_6837);
+        case struct_906:
+            return(%varbit_6838);
+        case struct_907:
+            return(%varbit_6839);
+        case default:
+            return(0);
+    }
+}
+switch_struct ($struct1) {
+    case struct_660:
+        return(%prayer0);
+    case struct_661:
+        return(%prayer1);
+    case struct_662:
+        return(%prayer2);
+    case struct_663:
+        return(%prayer3);
+    case struct_664:
+        return(%prayer4);
+    case struct_665:
+        return(%prayer5);
+    case struct_666:
+        return(%prayer6);
+    case struct_667:
+        return(%prayer7);
+    case struct_668:
+        return(%prayer8);
+    case struct_669:
+        return(%prayer9);
+    case struct_670:
+        return(%prayer10);
+    case struct_671:
+        return(%prayer11);
+    case struct_672:
+        return(%prayer12);
+    case struct_673:
+        return(%prayer13);
+    case struct_674:
+        return(%prayer14);
+    case struct_675:
+        return(%varbit_5957);
+    case struct_676:
+        return(%varbit_5958);
+    case struct_677:
+        return(%varbit_5959);
+    case struct_678:
+        return(%varbit_5960);
+    case struct_679:
+        return(%varbit_5961);
+    case struct_680:
+        return(%varbit_5962);
+    case struct_681:
+        return(%varbit_5963);
+    case struct_682:
+        return(%varbit_5964);
+    case struct_683:
+        return(%varbit_5965);
+    case struct_684:
+        return(%varbit_5966);
+    case struct_685:
+        return(%varbit_5967);
+    case struct_1005:
+        return(%varbit_7768);
+    case struct_686:
+        return(%varbit_5968);
+    case struct_1006:
+        return(%varbit_7769);
+    case struct_1029:
+        return(%varbit_7381);
+    case default:
+        return(0);
+}

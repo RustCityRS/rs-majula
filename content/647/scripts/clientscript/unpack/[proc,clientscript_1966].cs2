@@ -1,0 +1,6 @@
+[proc,clientscript_1966](component $component)
+if (%xplamp_stat > 0) {
+    if_setcolour(^white, $component);
+} else {
+    if_setcolour(0x969696, $component);
+}

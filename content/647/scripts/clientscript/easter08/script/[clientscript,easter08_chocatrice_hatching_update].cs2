@@ -1,0 +1,8 @@
+[clientscript,easter08_chocatrice_hatching_update]
+if (%varbit_4532 = true & %varc_int_118 < 253) {
+    %varc_int_118 = calc(%varc_int_118 + 3);
+    if_settrans(calc(255 - %varc_int_118), ba4602563:com3);
+} else if (%varbit_4532 = false & %varc_int_118 > 3) {
+    %varc_int_118 = calc(%varc_int_118 - 3);
+    if_settrans(calc(255 - %varc_int_118), ba4602563:com3);
+}

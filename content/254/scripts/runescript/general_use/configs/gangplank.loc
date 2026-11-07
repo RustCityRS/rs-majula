@@ -1,0 +1,99 @@
+[sarimshipplank_on]
+name=Gangplank
+desc=Handy for boarding boats.
+model=model_loc_69
+op1=Cross
+active=yes
+category=gangplank_board
+param=board_message,You must speak to the Customs Officer before it will set sail.
+
+[sarimshipplank_off]
+name=Gangplank
+desc=Handy for boarding boats.
+model=model_loc_69
+op1=Cross
+active=yes
+category=gangplank_disembark
+
+[karamjashipplank_on]
+name=Gangplank
+desc=Handy for boarding boats.
+model=model_loc_69
+op1=Cross
+active=yes
+category=gangplank_board
+param=board_message,You must speak to one of the sailors before it will set sail.
+
+[karamjashipplank_off]
+name=Gangplank
+desc=Handy for boarding boats.
+model=model_loc_69
+op1=Cross
+active=yes
+category=gangplank_disembark
+
+[brimhavenshipplank_on]
+name=Gangplank
+desc=Handy for boarding boats.
+model=model_loc_69
+op1=Cross
+active=yes
+category=gangplank_board
+param=board_message,You must speak to Captain Barnaby before it will set sail.
+
+[brimhavenshipplank_off]
+name=Gangplank
+desc=Handy for boarding boats.
+model=model_loc_69
+op1=Cross
+active=yes
+category=gangplank_disembark
+
+[ardougneshipplank_on]
+name=Gangplank
+desc=Handy for boarding boats.
+model=model_loc_69
+op1=Cross
+active=yes
+category=gangplank_board
+param=board_message,You must speak to the Customs Officer before it will set sail.
+
+[ardougneshipplank_off]
+name=Gangplank
+desc=Handy for boarding boats.
+model=model_loc_69
+op1=Cross
+active=yes
+category=gangplank_disembark
+
+[ship_to_entrana_on]
+name=Gangplank
+desc=Handy for boarding the ship.
+model=model_loc_69
+active=yes
+op1=Cross
+category=gangplank_board
+
+[ship_to_entrana_off]
+name=Gangplank
+desc=Handy for boarding the ship.
+model=model_loc_69
+active=yes
+op1=Cross
+category=gangplank_disembark
+
+[ship_from_entrana_on]
+name=Gangplank
+desc=Handy for boarding the ship.
+model=model_loc_69
+active=yes
+op1=Cross
+category=gangplank_board
+
+[ship_from_entrana_off]
+name=Gangplank
+desc=Handy for boarding the ship.
+model=model_loc_69
+active=yes
+op1=Cross
+category=gangplank_disembark

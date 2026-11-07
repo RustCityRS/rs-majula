@@ -252,7 +252,92 @@ impl Engine {
                     action,
                     outcome,
                 } => self.moderated(moderator37, target37, action, outcome),
+                // Rev-647 p_setdisplayname outcome: apply the claim to the
+                // player, then resume their DisplayNamePending script with
+                // last_int (1 = set, 0 = taken, -1 = error) and last_string
+                // (the formatted screen name).
+                #[cfg(since_647)]
+                DbResponse::SetDisplayNameResult {
+                    user37,
+                    name,
+                    result,
+                } => self.apply_display_name_result(user37, name, result),
+                #[cfg(since_647)]
+                DbResponse::MoreSuggestions {
+                    user37,
+                    suggestions,
+                } => {
+                    if let Some(pid) = self.find_pid_by_user37(user37)
+                        && let Some(active) = self.player_list.get_mut(pid)
+                    {
+                        active.player.name_suggestions.extend(suggestions);
+                        active.player.name_suggestion_page += 1;
+                    }
+                }
             }
+        }
+    }
+
+    /// Applies a display-name claim outcome and resumes the requesting
+    /// player's `DisplayNamePending` script.
+    #[cfg(since_647)]
+    fn apply_display_name_result(
+        &mut self,
+        user37: u64,
+        name: String,
+        result: crate::clients::client_db::SetDisplayNameResult,
+    ) {
+        use crate::clients::client_db::SetDisplayNameResult;
+        use rs_util::base37::to_screen_name;
+        use rs_vm::state::ExecutionState;
+        use rs_vm::subject::ScriptSubject;
+
+        let Some(pid) = self.find_pid_by_user37(user37) else {
+            return;
+        };
+        let resume = if let Some(active) = self.player_list.get_mut(pid) {
+            let last_int = match result {
+                SetDisplayNameResult::Success { user37: name37 } => {
+                    let screen_name = to_screen_name(&name);
+                    info!(
+                        "Display name '{}' applied for pid={} (hash {})",
+                        screen_name, pid, name37
+                    );
+                    active.player.display_name = Some(screen_name);
+                    1
+                }
+                SetDisplayNameResult::NameTaken { suggestions } => {
+                    active.player.name_suggestions = suggestions;
+                    active.player.name_suggestion_page = 0;
+                    0
+                }
+                SetDisplayNameResult::Error => {
+                    warn!("Display name '{}' failed for pid={}", name, pid);
+                    -1
+                }
+            };
+            let screen_name = to_screen_name(&name);
+            if let Some(state) = &mut active.player.state.active_script
+                && state.execution == ExecutionState::DisplayNamePending
+            {
+                state.last_int = Some(last_int);
+                state.last_string = Some(screen_name);
+                Some(((**state).clone(), active.player.uid))
+            } else {
+                None
+            }
+        } else {
+            None
+        };
+        if let Some((state, uid)) = resume
+            && let Err(e) = self.run_script_by_state(
+                state,
+                Some(ScriptSubject::Player(uid)),
+                Some(true),
+                Some(true),
+            )
+        {
+            warn!("display-name resume failed for pid={}: {e}", pid);
         }
     }
 }

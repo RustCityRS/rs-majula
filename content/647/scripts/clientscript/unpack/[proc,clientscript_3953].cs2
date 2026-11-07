@@ -1,0 +1,20 @@
+[proc,clientscript_3953](int $int)
+%varc_string_327 = %varc_string_326;
+if (string_length(%varc_string_326) <= 0) {
+    ~create_error("Please enter your Email address again here.", account_create:com100);
+    return;
+}
+if (compare(%varc_string_122, %varc_string_326) ! 0) {
+    ~create_error("Please ensure both Email addresses match.", account_create:com100);
+    return;
+}
+if (if_getgraphic(account_create:com81) = "symbols_1,5") {
+    ~create_error(if_gettext(account_create:com124), account_create:com100);
+    return;
+}
+if_setgraphic("symbols_1,3", account_create:com100);
+if_sethide(true, account_create:com105);
+if_sethide(true, account_create:com22);
+if ($int = true) {
+    ~create_focus(7, 1);
+}

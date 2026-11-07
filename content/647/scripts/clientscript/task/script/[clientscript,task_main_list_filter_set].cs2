@@ -1,0 +1,6 @@
+[clientscript,task_main_list_filter_set]
+def_int $int = 0;
+if (%varbit_8580 = false) {
+    $int = 1;
+}
+~task_main_list_populate(999, 999, $int);

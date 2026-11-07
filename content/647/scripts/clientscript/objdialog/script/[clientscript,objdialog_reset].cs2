@@ -1,0 +1,15 @@
+[clientscript,objdialog_reset](string $string)
+if_sethide(true, chatbox:com8);
+if_sethide(true, chatbox:com3);
+if_sethide(false, chatbox:com7);
+if_setonkey("objdialog_onkey(^event_key, ^event_keychar)", objdialog:com9);
+if_settext($string, objdialog:com6);
+if_sethide(false, objdialog:com5);
+if_setobject(null, -1, objdialog:com15);
+~opt_header;
+%varc_string_22 = "";
+if_settext("*", objdialog:com9);
+cc_deleteall(objdialog:com4);
+if_setscrollsize(0, 15, objdialog:com4);
+~scrollbar_vertical(objdialog:com8, objdialog:com4, "scrollbar_dragger_v2,3", "scrollbar_dragger_v2,0", "scrollbar_dragger_v2,1", "scrollbar_dragger_v2,2", "scrollbar_v2,0", "scrollbar_v2,1");
+if_sethook1423("objdialog_ondialogabort()", objdialog:com9);

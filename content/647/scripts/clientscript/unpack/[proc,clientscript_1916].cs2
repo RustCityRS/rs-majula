@@ -1,0 +1,21 @@
+[proc,clientscript_1916](component $component)
+if ($component = sc_processing:com99 & %varc_int_583 > 0) {
+    if_setcolour(^white, $component);
+    return;
+}
+if ($component = sc_processing:com101 & %varc_int_584 > 0) {
+    if_setcolour(^white, $component);
+    return;
+}
+if ($component = sc_processing:com103 & %varc_int_585 > 0) {
+    if_setcolour(^white, $component);
+    return;
+}
+if ($component = sc_processing:com105 & %varc_int_586 > 0) {
+    if_setcolour(^white, $component);
+    return;
+}
+if ($component = sc_processing:com107 & %varc_int_587 > 0) {
+    if_setcolour(^white, $component);
+    return;
+}

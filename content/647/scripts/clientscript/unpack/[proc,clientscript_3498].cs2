@@ -1,0 +1,61 @@
+[proc,clientscript_3498](int $int0, int $int1)
+def_component $component2 = cu3592376:com74;
+def_component $component3 = cu3592376:com78;
+def_component $component4 = cu3592376:com80;
+def_int $int5 = calc(10 + 10 * $int0);
+def_int $int6 = if_gety(cu3592376:com135);
+switch_int ($int6) {
+    case -22:
+        $int6 = $int0;
+    case -137:
+        $int6 = calc($int0 + 11);
+    case -222:
+        $int6 = calc($int0 + 17);
+    case -277:
+        $int6 = calc($int0 + 29);
+    case -400:
+        $int6 = calc($int0 + 35);
+    case -500:
+        $int6 = calc($int0 + 47);
+    case default:
+        $int6 = $int0;
+}
+if ($int1 ! 0) {
+    $int6 = $int1;
+}
+sound_synth(synth_8809, 1, 0);
+if_setposition(0, $int5, ^setpos_abs_left, ^setpos_abs_top, $component2);
+if_settext(tostring($int6), $component3);
+switch_int ($int0) {
+    case 1:
+        if_settext(if_gettext(cu3592376:com44), $component4);
+    case 2:
+        if_settext(if_gettext(cu3592376:com46), $component4);
+    case 3:
+        if_settext(if_gettext(cu3592376:com48), $component4);
+    case 4:
+        if_settext(if_gettext(cu3592376:com50), $component4);
+    case 5:
+        if_settext(if_gettext(cu3592376:com52), $component4);
+    case 6:
+        if_settext(if_gettext(cu3592376:com54), $component4);
+    case 7:
+        if_settext(if_gettext(cu3592376:com56), $component4);
+    case 8:
+        if_settext(if_gettext(cu3592376:com58), $component4);
+    case 9:
+        if_settext(if_gettext(cu3592376:com60), $component4);
+    case 10:
+        if_settext(if_gettext(cu3592376:com62), $component4);
+    case 11:
+        if_settext(if_gettext(cu3592376:com64), $component4);
+    case 12:
+        if_settext(if_gettext(cu3592376:com66), $component4);
+    case 13:
+        if_settext(if_gettext(cu3592376:com68), $component4);
+    case 14:
+        if_settext(if_gettext(cu3592376:com70), $component4);
+    case 15:
+        if_settext(if_gettext(cu3592376:com72), $component4);
+    case default:
+}

@@ -1,0 +1,30 @@
+[clientscript,clan_create_text_input](component $component0, component $component1, char $int2, int $int3, component $component4)
+%varc_string_348 = if_gettext($component0);
+switch_int ($int3) {
+    case 84:
+        if (compare("", %varc_string_348) ! 0) {
+            ~clan_create_return;
+        }
+    case 96, 97, 98, 99, 102, 103:
+        if (key_isdown_ctrl = false) {
+            return;
+        }
+        ~clientscript_1553($int3, %varc_int_1504, %varc_string_348);
+    case 85:
+        if (string_length(%varc_string_348) > 0) {
+            %varc_string_348 = substring(%varc_string_348, 0, calc(string_length(%varc_string_348) - 1));
+        }
+    case default:
+        if (string_length(%varc_string_348) < 20) {
+            %varc_string_348 = ~add_to_inputstring(%varc_string_348, 0, $int3, $int2);
+        }
+}
+%varc_int_1504 = ~clientscript_1552(%varc_int_1504, %varc_string_348, 5631, $component0, -1);
+if_setposition(%varc_int_1504, if_gety($component4), ^setpos_abs_left, ^setpos_abs_top, $component4);
+if_settext("<tostring(string_length(%varc_string_348))>/20", $component1);
+if (string_length(%varc_string_348) >= 15) {
+    if_setcolour(0xdd0000, $component1);
+} else {
+    if_setcolour(0x1f1d19, $component1);
+}
+if_settext(%varc_string_348, $component0);

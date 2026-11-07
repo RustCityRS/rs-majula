@@ -1,0 +1,9 @@
+// 289's demonstart, on its id, 222: cache 786 splits it into Demon Slayer's
+// varbits (2561 the stage, 2562-2566 the incantation's order, 2567
+// Silverlight, 2568 the drain key, 2569 Delrith summoned, 6922 the sword
+// case), which 2011's quest list and multilocs read, so the client must see it.
+[demon_slayer_bones]
+scope=perm
+
+// Sir Prysin's sword in hand (varbit 6923, bit 20) while he takes Silverlight
+// out of its case: npc_9359 shows sir_prysin_4657 at 1.

@@ -1,0 +1,16 @@
+[proc,clientscript_517]
+def_string $string = "<col=ff0000>Lots!";
+if (%xp_counter >= -1 & %xp_counter < 2147483647) {
+    $string = op4124(calc(%xp_counter / 10), 1);
+}
+def_int $int = op4125($string, 495);
+if_setsize(max(calc($int + 38), 90), 106, ^setsize_abs, ^setsize_abs, toplevel:com21);
+if_setsize(max(calc($int + 40), 90), 106, ^setsize_abs, ^setsize_abs, toplevel_fullscreen:com181);
+if_settext($string, toplevel_fullscreen:com198);
+if_settext($string, toplevel:com37);
+if (getlanguage = true) {
+    if_setgraphic(3066, toplevel:com24);
+    if_setgraphic(3066, toplevel_fullscreen:com185);
+}
+~clientscript_3367;
+~clientscript_3337;

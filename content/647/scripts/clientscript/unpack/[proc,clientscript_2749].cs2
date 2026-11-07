@@ -1,0 +1,7 @@
+[proc,clientscript_2749](int $int)
+if_settext(enum(105, 115, enum_950, $int), dob_confirm_login:com46);
+if_setvflip(false, dob_confirm_login:com60);
+if_sethide(true, dob_confirm_login:com98);
+if_sethide(true, dob_confirm_login:com99);
+if_sethide(true, dob_confirm_login:com89);
+if_sethide(true, dob_confirm_login:com27);

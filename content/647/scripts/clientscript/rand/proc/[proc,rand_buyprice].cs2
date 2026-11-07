@@ -1,0 +1,3 @@
+[proc,rand_buyprice](int $int)(int)
+return(scale(oc_cost($int), 100, oc_weight($int, param_1046)));
+return(0);

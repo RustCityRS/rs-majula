@@ -37,7 +37,10 @@ impl ClientGameHandler for ResumePauseButton {
     fn handle(self, active: &mut ActivePlayer) -> Result<(), ScriptError> {
         active.watch_op(Op::Other);
         active.watch_note("Click here to continue");
-        active.player.last_com = Some(self.com);
+        #[cfg(before_647)]
+        {
+            active.player.last_com = Some(self.com);
+        }
         let Some(state) = &active.player.state.active_script else {
             return Err(ScriptError::Client(
                 "Player does not have an active script!".to_string(),
@@ -49,9 +52,24 @@ impl ClientGameHandler for ResumePauseButton {
                 "Player does not have an active pause button!".to_string(),
             ));
         }
+        let state = (**state).clone();
+
+        // The 647 client names the pause button it clicked. A dialogue of
+        // several -- a choice, an item to make -- reads that as `last_com`;
+        // left alone it would still hold whatever button came before.
+        #[cfg(since_647)]
+        {
+            let iface = (self.com >> 16) as u16;
+            if !active.player.is_interface_open(iface) {
+                return Err(ScriptError::Client(format!(
+                    "Interface is not visible: {iface}"
+                )));
+            }
+            active.player.last_com = self.com as i32;
+        }
 
         engine_mut().run_script_by_state(
-            (**state).clone(),
+            state,
             Some(ScriptSubject::Player(active.player.uid)),
             Some(true),
             Some(true),

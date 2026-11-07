@@ -1,0 +1,18 @@
+// A random event on demand: `::~macro_event <event>` (macro_events.constant:
+// 7 the Mime, 8 the Maze) brings its npc as the event timer's roll would.
+[debugproc,macro_event](int $event)
+if_close;
+if (p_finduid(uid) = true) {
+    ~macro_events_varps_reset;
+    ~macro_event_general_spawn($event);
+} else {
+    @please_finish;
+}
+
+// The gift a solved event gives: `::~macro_event_gift <event>`.
+[debugproc,macro_event_gift](int $event)
+if (p_finduid(uid) = true) {
+    ~macro_event_give_gift($event);
+} else {
+    @please_finish;
+}

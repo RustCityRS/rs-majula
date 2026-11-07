@@ -1,0 +1,22 @@
+[proc,prayer_init_buttons]
+if (%varc_int_181 = true) {
+    cc_deleteall(prayer:com7);
+    cc_deleteall(prayer:com8);
+    if_sethide(false, prayer:com42);
+    if_sethide(true, prayer:com0);
+    ~prayer_load_customise(prayer:com42);
+    ~prayer_load_buttons(prayer:com8);
+    if_sethide(true, prayer:com9);
+    cc_deleteall(prayer:com6);
+    if_setscrollpos(0, 0, prayer:com5);
+    if_setsize(16384, 16384, ^setsize_rel, ^setsize_rel, prayer:com5);
+} else {
+    cc_deleteall(prayer:com42);
+    if_sethide(true, prayer:com42);
+    if_sethide(false, prayer:com0);
+    ~prayer_load_buttons(prayer:com8);
+    ~prayer_load_glow(prayer:com7);
+    if_sethide(false, prayer:com9);
+    if_setsize(16384, calc(if_getheight(prayer:com9) + if_getheight(prayer:com0)), ^setsize_rel, ^setsize_minus, prayer:com5);
+    ~prayer_refresh_scrollbar;
+}

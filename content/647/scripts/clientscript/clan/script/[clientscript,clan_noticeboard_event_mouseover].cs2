@@ -1,0 +1,5 @@
+[clientscript,clan_noticeboard_event_mouseover](component $component)
+if (if_getgraphic($component) = "aif_notetabs,4") {
+    return;
+}
+if_setgraphic("aif_notetabs,1", $component);

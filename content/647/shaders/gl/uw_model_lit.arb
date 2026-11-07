@@ -1,0 +1,68 @@
+!!ARBvp1.0
+ATTRIB  iPos         = vertex.position;
+ATTRIB  iNormal      = vertex.normal;
+ATTRIB  iColour      = vertex.color;
+ATTRIB  iTexCoord    = vertex.texcoord[0];
+OUTPUT  oPos         = result.position;
+OUTPUT  oColour      = result.color;
+OUTPUT  oTexCoord0   = result.texcoord[0];
+OUTPUT  oTexCoord1   = result.texcoord[1];
+OUTPUT  oFogCoord    = result.fogcoord;
+PARAM   fogParams    = program.local[0];
+PARAM   waterPlane   = program.local[1];
+PARAM   pMatrix[4]   = { state.matrix.projection };
+PARAM   mvMatrix[4]  = { state.matrix.modelview };
+PARAM   texMatrix[4] = { state.matrix.texture[0] };
+TEMP    viewPos, viewNormal, fogFactor, depth, colour, ndotl;
+# Calculate the vertex's eye coordinates
+DP4   viewPos.x, mvMatrix[0], iPos;
+DP4   viewPos.y, mvMatrix[1], iPos;
+DP4   viewPos.z, mvMatrix[2], iPos;
+DP4   viewPos.w, mvMatrix[3], iPos;
+# Calculate a fog factor based on the vertex's depth into the screen
+SUB   fogFactor.x, -viewPos.z, fogParams.x;
+MUL   fogFactor.x, fogFactor.x, 0.001953125;
+# Calculate a fog factor based on the vertex's depth below the water
+DP4   depth, waterPlane, viewPos;
+MAD   fogFactor.y, -depth, fogParams.z, fogParams.w;
+# We're going to shift the vertex towards the water plane where the distance fog will cover up what we're doing.
+SUB   fogFactor.z, -viewPos.z, fogParams.y;
+MUL   fogFactor.z, fogFactor.z, 0.00390625;
+# Clamp the fog factors
+MIN   fogFactor, fogFactor, 1;
+MAX   fogFactor, fogFactor, 0;
+# Shift the vertex towards the water plane dependant on it's depth into the screen
+MUL   fogFactor.z, fogFactor.z, -depth;
+MAD   viewPos.xyz, waterPlane.xyzw, fogFactor.zzzz, viewPos.xyzw;
+# Use the foggiest of the two fog factors
+MAX   oTexCoord1.xyz, fogFactor.xxxx, fogFactor.yyyy;
+MOV   oTexCoord1.w, 1;
+# Calculate the view space normal
+DP3   viewNormal.x, mvMatrix[0], iNormal;
+DP3   viewNormal.y, mvMatrix[1], iNormal;
+DP3   viewNormal.z, mvMatrix[2], iNormal;
+# Calculate the diffuse terms for the light
+DP3   ndotl.x, viewNormal, state.light[0].position;
+DP3   ndotl.y, viewNormal, state.light[1].position;
+# Clamp the lighting values
+MAX   ndotl, ndotl, 0;
+# Calculate the lighting for the vertex, start with the ambient
+MOV   colour, state.lightmodel.ambient;
+# Add the two lights contributions
+MAD   colour, state.light[0].diffuse, ndotl.xxxx, colour;
+MAD   colour, state.light[1].diffuse, ndotl.yyyy, colour;
+# Perform the final diffuse modulation
+MUL   oColour, iColour, colour;
+# Calculate the vertex's clip coordinates
+DP4   oPos.x, pMatrix[0], viewPos;
+DP4   oPos.y, pMatrix[1], viewPos;
+DP4   oPos.z, pMatrix[2], viewPos;
+DP4   oPos.w, pMatrix[3], viewPos;
+# The fog coord is simply the vertex's camera space depth
+MOV   oFogCoord.x, viewPos.z;
+# Transfer the base texture coordinate
+DP4   oTexCoord0.x, texMatrix[0], iTexCoord;
+DP4   oTexCoord0.y, texMatrix[1], iTexCoord;
+DP4   oTexCoord0.z, texMatrix[2], iTexCoord;
+MOV   oTexCoord0.w, 1;
+END

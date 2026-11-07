@@ -1,0 +1,35 @@
+[clientscript,acs_shanty_overlay_timer]
+if (%varc_int_1468 > 100 & %varc_int_1468 <= 355) {
+    if_settrans(calc(255 - (%varc_int_1468 - 100)), acs_shanty_overlay:com0);
+}
+if (%varc_int_1468 > 100 & %varc_int_1468 <= 150) {
+    if_setposition(calc(-35 + (%varc_int_1468 - 100)), 122, ^setpos_abs_left, ^setpos_abs_top, acs_shanty_overlay:com4);
+}
+if (%varc_int_1468 > 200 & %varc_int_1468 <= 455) {
+    if_setposition(calc(-255 + (%varc_int_1468 - 200)), 70, ^setpos_abs_left, ^setpos_abs_top, acs_shanty_overlay:com1);
+}
+if (%varc_int_1468 > 250 & %varc_int_1468 <= 505) {
+    if_setposition(calc(-255 + (%varc_int_1468 - 250)), 85, ^setpos_abs_left, ^setpos_abs_top, acs_shanty_overlay:com2);
+}
+if (%varc_int_1468 > 300 & %varc_int_1468 <= 555) {
+    if_setposition(calc(-255 + (%varc_int_1468 - 300)), 100, ^setpos_abs_left, ^setpos_abs_top, acs_shanty_overlay:com3);
+}
+if (%varc_int_1468 > 500 & %varc_int_1468 <= 755) {
+    if_setposition(calc(0 - (%varc_int_1468 - 500)), 70, ^setpos_abs_left, ^setpos_abs_top, acs_shanty_overlay:com1);
+}
+if (%varc_int_1468 > 550 & %varc_int_1468 <= 805) {
+    if_setposition(calc(0 - (%varc_int_1468 - 550)), 85, ^setpos_abs_left, ^setpos_abs_top, acs_shanty_overlay:com2);
+}
+if (%varc_int_1468 > 600 & %varc_int_1468 <= 855) {
+    if_setposition(calc(0 - (%varc_int_1468 - 600)), 100, ^setpos_abs_left, ^setpos_abs_top, acs_shanty_overlay:com3);
+}
+if (%varc_int_1468 = 700) {
+    if_setmodelangle(0, 0, 0, 210, 0, 1750, acs_shanty_overlay:com4);
+}
+if (%varc_int_1468 > 700 & %varc_int_1468 <= 955) {
+    if_settrans(calc(%varc_int_1468 - 700), acs_shanty_overlay:com0);
+}
+if (%varc_int_1468 > 700 & %varc_int_1468 <= 750) {
+    if_setposition(calc(0 - (%varc_int_1468 - 700)), 122, ^setpos_abs_left, ^setpos_abs_top, acs_shanty_overlay:com4);
+}
+%varc_int_1468 = calc(%varc_int_1468 + 1);

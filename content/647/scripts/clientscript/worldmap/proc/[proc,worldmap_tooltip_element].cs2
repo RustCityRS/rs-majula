@@ -1,0 +1,6 @@
+[proc,worldmap_tooltip_element](int $int0, int $int1, string $string)
+if (%varbit_6177 = true) {
+    cc_deleteall(worldmap:com57);
+    return;
+}
+~worldmap_tooltip($string, calc($int0 + 3), calc($int1 + 3));

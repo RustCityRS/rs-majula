@@ -1,0 +1,17 @@
+[proc,meslayer_mode11]
+if (%varc_int_11 = true) {
+    ~clientscript_675;
+}
+if (getwindowmode >= 2) {
+    if_sethide(false, toplevel_fullscreen:com_chatbox);
+}
+if_sethide(false, chatbox:com3);
+if_sethide(true, chatbox:com7);
+if_sethide(true, chatbox:com8);
+if_settext("Enter the name of the item you wish to search for:", chatbox:com4);
+%varc_int_5 = 11;
+~meslayer_setupinput("");
+if_setonclick(null, chatbox:com3);
+~clientscript_2026;
+if_setonkey("meslayer_onkey(^event_key, ^event_keychar)", chatbox:com5);
+~opt_header;

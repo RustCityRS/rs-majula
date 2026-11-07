@@ -1,0 +1,2 @@
+[clientscript,prayer_level](component $component)
+if_settext("<tostring(stat(prayer))> / <tostring(stat_base(prayer))>", $component);

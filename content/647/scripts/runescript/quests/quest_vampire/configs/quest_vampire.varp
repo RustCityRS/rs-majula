@@ -1,0 +1,5 @@
+// 289's vampire, on its id, 178. Cache 786 reads its bits 0-1 as the quest's
+// stage (varbit 6914; clientscript 2193 completes it at 3), so 289's stages
+// 0-3 hold as they were, and the client must see it.
+[vampire_count_slain]
+scope=perm

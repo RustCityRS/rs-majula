@@ -1,0 +1,14 @@
+[proc,clientscript_1928]
+def_int $int = 1;
+while ($int <= 6) {
+    if ($int = %varc_int_544) {
+        if_sethide(false, enum(105, 73, enum_2031, $int));
+        if_setcolour(^white, enum(105, 73, enum_2030, $int));
+        if_setcolour(^white, enum(105, 73, enum_2029, $int));
+    } else {
+        if_sethide(true, enum(105, 73, enum_2031, $int));
+        if_setcolour(0xc8aa64, enum(105, 73, enum_2030, $int));
+        if_setcolour(0xc8aa64, enum(105, 73, enum_2029, $int));
+    }
+    $int = calc($int + 1);
+}

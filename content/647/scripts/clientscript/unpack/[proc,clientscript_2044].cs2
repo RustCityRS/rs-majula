@@ -1,0 +1,76 @@
+[proc,clientscript_2044]
+if_sethide(true, target:com2);
+if_sethide(true, target:com3);
+if_sethide(true, target:com10);
+if_sethide(true, target:com8);
+if_sethide(true, target:com4);
+if_sethide(true, target:com6);
+if_sethide(true, target:com5);
+if_sethide(true, target:com11);
+if_sethide(true, target:com9);
+if_sethide(true, target:com7);
+if_sethide(true, target:com12);
+if_sethide(true, target:com31);
+if_sethide(true, target:com30);
+if_sethide(true, target:com29);
+if_sethide(true, target:com28);
+if_sethide(true, target:com27);
+if_sethide(true, target:com26);
+if_sethide(true, target:com25);
+if_sethide(true, target:com24);
+if_sethide(true, target:com23);
+if_sethide(true, target:com22);
+switch_int (%varp_158) {
+    case 0:
+        if_sethide(false, target:com2);
+    case 1:
+        if_sethide(false, target:com3);
+    case 2:
+        if_sethide(false, target:com10);
+    case 3:
+        if_sethide(false, target:com8);
+    case 4:
+        if_sethide(false, target:com4);
+    case 5:
+        if_sethide(false, target:com6);
+    case 6:
+        if_sethide(false, target:com5);
+    case 7:
+        if_sethide(false, target:com11);
+    case 8:
+        if_sethide(false, target:com9);
+    case 9:
+        if_sethide(false, target:com7);
+    case 10:
+        if_sethide(false, target:com12);
+}
+if (%varp_156 < 2) {
+    if_sethide(false, target:com31);
+}
+if (%varp_156 < 3) {
+    if_sethide(false, target:com30);
+}
+if (%varp_156 < 4) {
+    if_sethide(false, target:com29);
+}
+if (%varp_156 < 5) {
+    if_sethide(false, target:com28);
+}
+if (%varp_156 < 6) {
+    if_sethide(false, target:com27);
+}
+if (%varp_156 < 7) {
+    if_sethide(false, target:com26);
+}
+if (%varp_156 < 8) {
+    if_sethide(false, target:com25);
+}
+if (%varp_156 < 9) {
+    if_sethide(false, target:com24);
+}
+if (%varp_156 < 10) {
+    if_sethide(false, target:com23);
+}
+if (%varp_156 < 11) {
+    if_sethide(false, target:com22);
+}

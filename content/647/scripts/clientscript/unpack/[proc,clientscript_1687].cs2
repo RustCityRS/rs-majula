@@ -1,0 +1,6 @@
+[proc,clientscript_1687]
+if (%varc_int_1044 < calc(cam_getpathcount(0) - 1)) {
+    %varc_int_1044 = calc(%varc_int_1044 + 1);
+    cam_startpath(0, %varc_int_1044, 200, 200, 1, %varc_int_1044);
+    if_setonchattransmit_2426("clientscript_1679()", mah4_cutscene_overlay:com0);
+}

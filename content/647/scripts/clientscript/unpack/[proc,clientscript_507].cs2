@@ -1,0 +1,6 @@
+[proc,clientscript_507](component $component0, component $component1, component $component2, component $component3, component $component4, component $component5, component $component6)
+if_setoninvtransmit("clientscript_712($component0, $component1, $component2, $component3, $component4, $component5, $component6){inv_541}", $component0);
+if_setonvartransmit("clientscript_712($component0, $component1, $component2, $component3, $component4, $component5, $component6){varp_259}", $component0);
+~clanwars_setup_createbox($component0, 0, 0, 0);
+~clanwars_setup_createbox($component4, 0, 0, 0);
+~clientscript_713($component0, $component1, $component2, $component3, $component4, $component5, $component6);

@@ -1,0 +1,14 @@
+[proc,clientscript_279](int $int0, component $component1)
+def_string $string = "";
+switch_int ($int0) {
+    case 1:
+        $string = "Found the perfect tackle for three species.";
+    case 2:
+        $string = "Found the perfect tackle for all six species.";
+    case 3:
+        $string = "Achieved an average rating of at least 80%.";
+    case 4:
+        $string = "At least 80% of fish caught were the heaviest species.";
+}
+if_setonmouserepeat("addtooltip(^event_com, fishcomp_scores:com57, $string, 25, 128)", $component1);
+if_setonmouseleave("deltooltip(fishcomp_scores:com57)", $component1);

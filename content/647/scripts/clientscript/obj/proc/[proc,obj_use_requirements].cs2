@@ -1,0 +1,12 @@
+[proc,obj_use_requirements](obj $obj)(int)
+if (~obj_use_skill_requirements($obj) = false) {
+    return(0);
+}
+if (~obj_use_quest_requirements($obj) = false) {
+    return(0);
+}
+if (~obj_use_special_requirements($obj) = false) {
+    return(0);
+}
+return(1);
+return(-1);

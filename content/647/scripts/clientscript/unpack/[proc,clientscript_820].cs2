@@ -1,0 +1,16 @@
+[proc,clientscript_820]
+if (%varbit_4286 ! 101) {
+    if_settext("<tostring(%varbit_4286)>%", lore_cats_side:com19);
+    if (%varbit_4286 > 74) {
+        if_setcolour(^red, lore_cats_side:com19);
+    } else {
+        if_setcolour(^white, lore_cats_side:com19);
+    }
+} else {
+    if_settext("NA", lore_cats_side:com19);
+}
+if (%varbit_4285 ! 101) {
+    if_settext("<tostring(%varbit_4285)>%", lore_cats_side:com17);
+} else {
+    if_settext("NA", lore_cats_side:com17);
+}

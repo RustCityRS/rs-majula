@@ -1,0 +1,93 @@
+#testscript
+
+// 289's armour block sound (skill_combat/scripts/combat.rs2's
+// ~combat_defend_sound, player/scripts/damage.rs2): a hit of nothing plays the
+// worn shield's defend_sound, else the worn body's, with 289's loops 0 and
+// delay 20. The synths are cache 786's with the bytes of 289's: swordclash6
+// 1978, swordclash3 1975, leather_hit 1064, brassclash2 1976.
+// A test player has 10 hitpoints, so at most 100 life points.
+
+// A rune kiteshield blocks with swordclash6.
+[label,test_a_rune_kiteshield_blocks_with_its_clash]
+setup_player("test_player")
+%life_points = 100;
+inv_setslot(worn, ^wearpos_lhand, rune_kiteshield, 1);
+~player_combat_stat;
+~damage_self(0);
+assert_called_with("sound_synth", "1978,0,20")
+
+// Without a shield the body's: a rune platebody's swordclash3.
+[label,test_a_rune_platebody_blocks_with_its_clash]
+setup_player("test_player")
+%life_points = 100;
+inv_setslot(worn, ^wearpos_torso, rune_platebody, 1);
+~player_combat_stat;
+~damage_self(0);
+assert_called_with("sound_synth", "1975,0,20")
+
+// The shield wins over the body.
+[label,test_the_shield_s_sound_wins_over_the_body_s]
+setup_player("test_player")
+%life_points = 100;
+inv_setslot(worn, ^wearpos_torso, rune_platebody, 1);
+inv_setslot(worn, ^wearpos_lhand, rune_kiteshield, 1);
+~player_combat_stat;
+~damage_self(0);
+assert_called_with("sound_synth", "1978,0,20")
+assert_called("sound_synth", 1)
+
+// Leather (its configs, 289's leather_gear.obj, are not ported; 647's
+// wearpos.obj carries the sound) blocks with leather_hit.
+[label,test_a_leather_body_blocks_with_leather_hit]
+setup_player("test_player")
+%life_points = 100;
+inv_setslot(worn, ^wearpos_torso, leather_body, 1);
+~player_combat_stat;
+~damage_self(0);
+assert_called_with("sound_synth", "1064,0,20")
+
+// 289's brassclash2 is 786's 1976 by its bytes, not 647's brassclash2 (513).
+[label,test_an_iron_kiteshield_blocks_with_289_s_brassclash2]
+setup_player("test_player")
+%life_points = 100;
+inv_setslot(worn, ^wearpos_lhand, iron_kiteshield, 1);
+~player_combat_stat;
+~damage_self(0);
+assert_called_with("sound_synth", "1976,0,20")
+
+// A hit that lands plays the one human hit sound (~human_hit_sound), not the
+// armour's.
+[label,test_a_landed_hit_is_not_a_block]
+setup_player("test_player")
+%life_points = 100;
+inv_setslot(worn, ^wearpos_lhand, rune_kiteshield, 1);
+~player_combat_stat;
+~damage_self(10);
+assert_eq(%life_points, 90)
+assert_called("sound_synth", 1)
+
+// 289's last resort, human_block_1, has no cache 786 synth: an unarmoured
+// block is silent.
+[label,test_an_unarmoured_block_is_silent]
+setup_player("test_player")
+%life_points = 100;
+~player_combat_stat;
+~damage_self(0);
+assert_called("sound_synth", 0)
+
+// 289's anti-dragon shield config (289's antidragonbreathshield, obj 1540)
+// reaches 2011's anti_dragon_shield: its bonuses (7/9/8/2/8, as the 2011 wiki's
+// Anti-dragon shield gives them) and shield category.
+[label,test_the_anti_dragon_shield_has_289_s_bonuses]
+assert_eq(oc_param(anti_dragon_shield, stabdefence), 7)
+assert_eq(oc_param(anti_dragon_shield, slashdefence), 9)
+assert_eq(oc_param(anti_dragon_shield, crushdefence), 8)
+assert_eq(oc_param(anti_dragon_shield, magicdefence), 2)
+assert_eq(oc_param(anti_dragon_shield, rangedefence), 8)
+assert_true(oc_category(anti_dragon_shield) = armour_shield)
+
+// 289's adamant fire arrows light into its lit ones (289's adamant_litarrow,
+// obj 2539), which reach 2011's 2539 with their range bonus.
+[label,test_adamant_fire_arrows_light_into_2539]
+assert_true(oc_param(adamant_fire_arrows, next_obj_stage) = adamant_fire_arrows_2539)
+assert_eq(oc_param(adamant_fire_arrows_2539, rangebonus), 31)

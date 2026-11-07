@@ -1,0 +1,17 @@
+[proc,clientscript_2073](int $int)
+switch_int ($int) {
+    case 18087988, 18087940:
+        if_sethide(false, mp2233645:com79);
+        if_sethide(true, mp2233645:com80);
+        if_sethide(true, mp2233645:com78);
+    case 18087987, 18087957:
+        if_sethide(true, mp2233645:com79);
+        if_sethide(true, mp2233645:com80);
+        if_sethide(false, mp2233645:com78);
+    case 18087958, 18087941:
+        if_sethide(true, mp2233645:com79);
+        if_sethide(false, mp2233645:com80);
+        if_sethide(true, mp2233645:com78);
+    case default:
+        return;
+}

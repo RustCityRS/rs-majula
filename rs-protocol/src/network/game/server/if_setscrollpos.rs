@@ -11,18 +11,37 @@ use rs_io::{Packet, PacketFrame};
 #[cfg(since_245_2)]
 use rs_protocol_macros::server_prot;
 
-#[cfg(since_245_2)]
+#[cfg(all(since_245_2, before_647))]
 #[server_prot(IfSetScrollPos, Buffered, Fixed)]
 pub struct IfSetScrollPos {
     pub com: u16,
     pub y: u16,
 }
 
-#[cfg(since_245_2)]
+#[cfg(all(since_245_2, before_647))]
 impl ServerProtMessage for IfSetScrollPos {
     fn encode(&self, buf: &mut Packet) {
         buf.p2(self.com);
         buf.p2(self.y);
+    }
+
+    fn sizeof(&self) -> usize {
+        size_of_val(&self.com) + size_of_val(&self.y)
+    }
+}
+
+#[cfg(since_647)]
+#[server_prot(IfSetScrollPos, Buffered, Fixed)]
+pub struct IfSetScrollPos {
+    pub com: i32,
+    pub y: u16,
+}
+
+#[cfg(since_647)]
+impl ServerProtMessage for IfSetScrollPos {
+    fn encode(&self, buf: &mut Packet) {
+        buf.p4_alt2(self.com);
+        buf.p2_alt2(self.y);
     }
 
     fn sizeof(&self) -> usize {

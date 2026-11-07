@@ -1,0 +1,125 @@
+// 289's glass (skill_crafting/scripts/glass/glass.rs2): sand from 2011's sand
+// pits (sandpit.loc), glass at the furnace (smelting.rs2) and glassblowing.
+// 289's seqs keep their ids under their placeholder names (the unpacked seqs
+// are keyed by them): the glassblower 884, the
+// furnace 899. The furnace's sound is void-634's smelt_bar (synth 2725, as
+// smelting has it); sound ids moved between 289 and 2011.
+//
+// 2011's glassblowing also makes fishbowls, lantern lenses, light orbs and
+// candle and oil lanterns, which 289 does not; they wait for their port (2011
+// wiki, Glassblowing pipe, 26 March 2011, lists all but the oil lantern).
+[oplocu,_sand_pit]
+if (last_useitem = bucket) @sand_fill;
+~displaymessage(^dm_default);
+
+[opheldu,glassblowing_pipe]
+if (last_useitem = molten_glass) @craft_glass_interface;
+
+[opheldu,molten_glass]
+if (last_useitem = glassblowing_pipe) @craft_glass_interface;
+// The Observatory Quest's lens waits for the quest's port.
+// if (last_useitem = lens_mould) @craft_telescope_disc;
+
+[label,sand_fill]
+if (map_members = ^false) {
+    mes(^mes_members_feature);
+    return;
+}
+anim(human_fillbucket_sandpit, 0);
+inv_del(inv, bucket, 1);
+inv_add(inv, bucket_of_sand, 1);
+mes("You fill the bucket with sand.");
+
+[label,smelt_glass]
+if (map_members = ^false) {
+    mes(^mes_members_feature);
+    return;
+}
+// just a guess for now. level failure:
+if (stat(crafting) < 1) {
+    ~mesbox("You need at least 1 Crafting to make Glass.");
+    return;
+}
+// check if enough soda ash
+if (inv_total(inv, soda_ash) < 1) {
+    ~mesbox("You need some Soda Ash to make Glass.");
+    return;
+}
+// check if enough sand
+if (inv_total(inv, bucket_of_sand) < 1) {
+    ~mesbox("You need some Sand to make Glass.");
+    return;
+}
+// delete and add items in this order
+inv_del(inv, bucket_of_sand, 1);
+inv_add(inv, bucket, 1);
+inv_del(inv, soda_ash, 1);
+inv_add(inv, molten_glass, 1);
+// play anim and sound
+anim(seq_899,0);
+sound_synth(furnace, 1, 0);
+// success message
+mes("You heat the sand and soda ash in the furnace to make glass.");
+// give xp
+// 289 pays with stat_advance, here and below; 2011's xp counter
+// counts what ~givexp pays (player/scripts/xp.rs2).
+~givexp(crafting, 200);
+
+
+[label,craft_glass_interface]
+if (map_members = ^false) {
+    mes(^mes_members_feature);
+    return;
+}
+def_namedobj $item;
+def_int $process_count;
+$item, $process_count = ~skill_multi3(
+    beer_glass, 0, 5, 200, "\\n\\n\\n\\nBeer Glass",
+    vial, 2, 10, 180, "\\n\\n\\n\\nVial",
+    unpowered_orb, 2, -10, 200, "\\n\\n\\n\\nOrb"
+);
+if ($item = null) {
+    ~displaymessage(^dm_default);
+    return;
+}
+if($process_count = 0) {
+    return;
+}
+def_struct $struct = oc_param($item, crafting_glass_struct);
+def_string $name = struct_param($struct, productmessage);
+def_int $level = struct_param($struct, levelrequire);
+def_int $exp = struct_param($struct, productexp);
+if (stat(crafting) < $level) {
+    mes("You need level <tostring($level)> Crafting to make <$name>.");
+    return;
+}
+@process_glassblowing($item, $name, $level, $exp, $process_count);
+
+[label,process_glassblowing](namedobj $glass_item, string $name, int $level, int $exp, int $process_count)
+anim(seq_884, 0);
+if (%action_delay < map_clock) {
+    %action_delay = add(map_clock, 2);
+}
+weakqueue*(crafting_glass, sub(%action_delay, map_clock))($glass_item, $name, $level, $exp, $process_count);
+
+[queue,crafting_glass](namedobj $item, string $name, int $level, int $exp, int $process_count)
+if(inv_total(inv, molten_glass) = 0) {
+    // https://youtu.be/ECEHs-_yPR8?si=HPUk34cIPey4qBQU&t=97
+    mes("You have run out of molten glass.");
+    anim(null, 20);
+    return;
+}
+// delete molten glass
+inv_del(inv, molten_glass, 1);
+// add item
+inv_add(inv, $item, 1);
+// display game message
+mes("You make <$name>.");
+// give xp
+~givexp(crafting, $exp);
+if(sub($process_count, 1) < 1) {
+    anim(null, 20);
+    return;
+}
+%action_delay = add(map_clock, 2);
+@process_glassblowing($item, $name, $level, $exp, sub($process_count, 1));

@@ -1,0 +1,53 @@
+[clientscript,build_lists_varclientstrings]
+def_int $int0 = 0;
+def_int $int1 = 0;
+if (%varbit_7520 = false) {
+    $int1 = ~clientscript_1416(conq_set_formation:com156, $int1);
+} else {
+    $int0 = ~clientscript_1403(conq_set_formation:com156, $int0);
+}
+if (%varbit_7521 = false) {
+    $int1 = ~clientscript_1416(conq_set_formation:com157, $int1);
+} else {
+    $int0 = ~clientscript_1403(conq_set_formation:com157, $int0);
+}
+if (%varbit_7526 = false) {
+    $int1 = ~clientscript_1416(conq_set_formation:com158, $int1);
+} else {
+    $int0 = ~clientscript_1403(conq_set_formation:com158, $int0);
+}
+if (%varbit_7527 = false) {
+    $int1 = ~clientscript_1416(conq_set_formation:com159, $int1);
+} else {
+    $int0 = ~clientscript_1403(conq_set_formation:com159, $int0);
+}
+if (%varbit_7530 = false) {
+    $int1 = ~clientscript_1416(conq_set_formation:com160, $int1);
+} else {
+    $int0 = ~clientscript_1403(conq_set_formation:com160, $int0);
+}
+if (%varbit_7531 = false) {
+    $int1 = ~clientscript_1416(conq_set_formation:com161, $int1);
+} else {
+    $int0 = ~clientscript_1403(conq_set_formation:com161, $int0);
+}
+if (%varbit_7532 = false) {
+    $int1 = ~clientscript_1416(conq_set_formation:com162, $int1);
+} else {
+    $int0 = ~clientscript_1403(conq_set_formation:com162, $int0);
+}
+if (%varbit_7533 = false) {
+    $int1 = ~clientscript_1416(conq_set_formation:com163, $int1);
+} else {
+    $int0 = ~clientscript_1403(conq_set_formation:com163, $int0);
+}
+if (%varbit_7534 = false) {
+    $int1 = ~clientscript_1416(conq_set_formation:com164, $int1);
+} else {
+    $int0 = ~clientscript_1403(conq_set_formation:com164, $int0);
+}
+if (%varbit_7535 = false) {
+    $int1 = ~clientscript_1416(conq_set_formation:com165, $int1);
+} else {
+    $int0 = ~clientscript_1403(conq_set_formation:com165, $int0);
+}

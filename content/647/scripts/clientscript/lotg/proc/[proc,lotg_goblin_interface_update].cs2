@@ -1,0 +1,37 @@
+[proc,lotg_goblin_interface_update](int $int)
+if ($int = true) {
+    if_setgraphic("miscgraphics,11", oy9019425:com69);
+    if_setmodel(model_29248, oy9019425:com39);
+} else {
+    if_setgraphic("miscgraphics,10", oy9019425:com69);
+}
+if ($int = 2) {
+    if_setgraphic("miscgraphics,11", oy9019425:com72);
+    if_setmodel(model_29242, oy9019425:com39);
+} else {
+    if_setgraphic("miscgraphics,10", oy9019425:com72);
+}
+if ($int = 3) {
+    if_setgraphic("miscgraphics,11", oy9019425:com75);
+    if_setmodel(model_29237, oy9019425:com39);
+} else {
+    if_setgraphic("miscgraphics,10", oy9019425:com75);
+}
+if ($int = 4) {
+    if_setgraphic("miscgraphics,11", oy9019425:com78);
+    if_setmodel(model_29245, oy9019425:com39);
+} else {
+    if_setgraphic("miscgraphics,10", oy9019425:com78);
+}
+if ($int = 5) {
+    if_setgraphic("miscgraphics,11", oy9019425:com81);
+    if_setmodel(model_29246, oy9019425:com39);
+} else {
+    if_setgraphic("miscgraphics,10", oy9019425:com81);
+}
+if ($int = 6) {
+    if_setgraphic("miscgraphics,11", oy9019425:com84);
+    if_setmodel(model_29241, oy9019425:com39);
+} else {
+    if_setgraphic("miscgraphics,10", oy9019425:com84);
+}

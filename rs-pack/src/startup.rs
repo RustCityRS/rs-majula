@@ -1,0 +1,375 @@
+use crate::cache::CacheStore;
+use crate::cache::category::CategoryType;
+use crate::cache::dbrow::DbRowType;
+use crate::cache::dbtable::{DbTableIndex, DbTableType};
+use crate::cache::r#enum::{EnumType, EnumTypeRaw};
+use crate::cache::flo::FloTypeRaw;
+use crate::cache::font::FontTypeProvider;
+use crate::cache::hunt::HuntType;
+use crate::cache::idk::IdkTypeRaw;
+use crate::cache::r#if::IfTypeProvider;
+use crate::cache::inv::InvTypeRaw;
+use crate::cache::js5::PackedCache;
+use crate::cache::loader;
+use crate::cache::loc::{LocType, LocTypeRaw};
+use crate::cache::map::XteaKeyStore;
+use crate::cache::mesanim::MesAnimType;
+use crate::cache::midi::{self, MidiProvider};
+use crate::cache::npc::NpcTypeRaw;
+use crate::cache::obj::{ObjContext, ObjTypeRaw};
+use crate::cache::param::{ParamType, ParamTypeRaw};
+use crate::cache::provider::{CacheType, TypeProvider};
+use crate::cache::script::ScriptProvider;
+use crate::cache::seq::SeqTypeRaw;
+use crate::cache::spotanim::SpotAnimTypeRaw;
+use crate::cache::r#struct::StructTypeRaw;
+use crate::cache::varbit::VarbitType;
+use crate::cache::varn::VarnType;
+use crate::cache::varp::VarPlayerTypeRaw;
+use crate::cache::vars::VarsType;
+use crate::cache::wordenc::WordEncProvider;
+use crate::pack::other::map;
+use crate::pack::pack;
+use crate::pack::pack_registry::PackedFile;
+use crate::pack::packed_data::PackedData;
+use crate::types::ParamValue;
+use crate::zone_csv::load_csv_zones;
+use crate::{archive, compile_scripts, unwrap_thread};
+use anyhow::{Context, Result};
+use std::collections::{HashMap, HashSet};
+use std::path::Path;
+use std::time::Instant;
+use std::{fs, thread};
+use tracing::info;
+
+pub struct PackResult {
+    pub store: Box<CacheStore>,
+    pub scripts: ScriptProvider,
+    pub layout: InterfaceLayout,
+    pub cache: PackedCache,
+}
+
+/// Well-known component indices per toplevel, derived from interface.pack.
+///
+/// Allows the engine to resolve `if_openmain` etc. to the correct
+/// `if_opensub` parent component without hardcoded constants.
+#[derive(Debug, Clone, Default)]
+pub struct InterfaceLayout {
+    /// interface_id → component_id for the `com_main_screen` target.
+    pub main_screen: HashMap<u16, u16>,
+    /// interface_id → component_id for the `com_wide_screen` target: the
+    /// toplevel's full-size main slot (548:8 fixed, 746:6 resizable,
+    /// `void-634`'s `wide_screen` with 746's +1 drift).
+    pub wide_screen: HashMap<u16, u16>,
+    /// The main-screen interfaces that open in `wide_screen` instead: the
+    /// content `wide_screen_enum` (2011's skill guide, whose own backdrop
+    /// fills its slot).
+    pub wide_screen_ifaces: HashSet<u16>,
+    /// interface_id → component_id for the `com_overlay_tab` target, the slot
+    /// over the side panels that side modals mount on.
+    pub overlay_tab: HashMap<u16, u16>,
+    /// interface_id → component_id for the `com_overlay` target, the
+    /// full-size slot over the game view that `if_openoverlay` mounts on
+    /// (548:7, 746:8: `void-634`'s `overlay` with 746's +1 drift).
+    pub overlay: HashMap<u16, u16>,
+    /// interface_id → component_id for the `com_chatbox` target.
+    pub chatbox: HashMap<u16, u16>,
+    /// component_id → interface_id (root_layer) for interface listener cleanup.
+    pub component_roots: HashMap<u16, i32>,
+    /// Parent component hash (`chatbox_iface << 16 | dialogue_box_index`) where
+    /// dialogue_box interfaces (npc/player chat, message box, multi-choice)
+    /// mount. Rev-647: the chatbox interface (752) hosts the dialogue_box at
+    /// child component 13 — matching void `dialogue_box parent="chat_box"
+    /// index=13`. Dialogues nest *inside* the chatbox frame here, rather than
+    /// replacing it at `toplevel:com_chatbox`. 0 if the chatbox interface
+    /// wasn't found.
+    pub dialogue_parent_hash: i32,
+    /// Per-interface override of the chatbox dialogue slot: dialogue interface
+    /// id → parent component hash it mounts on. Sourced from the content
+    /// `dialogue_slot_enum` (e.g. objbox/doubleobjbox → chatbox child 12,
+    /// `dialogue_box_small`). Any dialogue *not* in this map uses
+    /// `dialogue_parent_hash` (the default `dialogue_box` slot, child 13).
+    pub dialogue_slots: HashMap<u16, i32>,
+}
+
+impl InterfaceLayout {
+    /// Chatbox child component hash an interface mounts on when opened as a
+    /// chat dialogue: its `dialogue_slots` override, else the default slot.
+    pub fn dialogue_slot(&self, iface: u16) -> i32 {
+        self.dialogue_slots
+            .get(&iface)
+            .copied()
+            .unwrap_or(self.dialogue_parent_hash)
+    }
+}
+
+pub fn pack_all(
+    content_dir: &Path,
+    pack_dir: &Path,
+    verify: bool,
+    members: bool,
+) -> Result<PackResult> {
+    let start = Instant::now();
+    let (packed, scripts) = thread::scope(|scope| {
+        let scripts = scope.spawn(|| compile_scripts(content_dir, pack_dir));
+        let packed = pack::pack_cache(content_dir, pack_dir, verify);
+        (packed, unwrap_thread("scripts", scripts.join()))
+    });
+    let (assets, cache) = packed?;
+    let scripts = scripts?;
+    info!(
+        "Assets and scripts packed in {:.2}s",
+        start.elapsed().as_secs_f64()
+    );
+    archive::verify_crcs(&cache, verify)?;
+    let map_dirs = map::source_dirs(content_dir);
+    let spawns = map::pack_spawns(&map_dirs, pack_dir)?;
+    let obj_spawns = map::pack_obj_spawns(&map_dirs, pack_dir)?;
+    let store = load_cache(
+        &assets,
+        &cache,
+        content_dir,
+        pack_dir,
+        &spawns,
+        &obj_spawns,
+        members,
+    )?;
+    let mut layout = load_interface_layout(pack_dir);
+    load_dialogue_slots(pack_dir, &store.enums, &mut layout);
+    load_wide_screen_ifaces(pack_dir, &store.enums, &mut layout);
+    info!(
+        "Pack complete in {:.2}s: {} groups, {} scripts",
+        start.elapsed().as_secs_f64(),
+        cache.groups.len(),
+        scripts.count()
+    );
+    Ok(PackResult {
+        store,
+        scripts,
+        layout,
+        cache,
+    })
+}
+
+fn load_cache(
+    assets: &HashMap<String, PackedFile>,
+    cache: &PackedCache,
+    content_dir: &Path,
+    pack_dir: &Path,
+    spawns: &PackedData,
+    obj_spawns: &PackedData,
+    members: bool,
+) -> Result<Box<CacheStore>> {
+    let npcs = load_config::<NpcTypeRaw, _>(assets, "npc", ())?;
+    let params: TypeProvider<ParamType> = load_config::<ParamTypeRaw, _>(assets, "param", ())?;
+    let objs = load_config::<ObjTypeRaw, _>(
+        assets,
+        "obj",
+        ObjContext {
+            members,
+            autodisable_params: params.types.iter().map(|p| p.autodisable).collect(),
+        },
+    )?;
+    let seqs = load_config::<SeqTypeRaw, _>(assets, "seq", ())?;
+    let enums = load_config::<EnumTypeRaw, _>(assets, "enum", ())?;
+    let structs = load_config::<StructTypeRaw, _>(assets, "struct", ())?;
+    let varbits = load_config::<VarbitType, _>(assets, "varbit", ())?;
+    let varps = load_config::<VarPlayerTypeRaw, _>(assets, "varp", ())?;
+    let idks = load_config::<IdkTypeRaw, _>(assets, "idk", ())?;
+    let hunts = load_config::<HuntType, _>(assets, "hunt", ())?;
+    let flos = load_config::<FloTypeRaw, _>(assets, "flo", ())?;
+    let spotanims = load_config::<SpotAnimTypeRaw, _>(assets, "spotanim", ())?;
+    let invs = load_config::<InvTypeRaw, _>(assets, "inv", ())?;
+    let mesanims = load_config::<MesAnimType, _>(assets, "mesanim", ())?;
+    let varns = load_config::<VarnType, _>(assets, "varn", ())?;
+    let varss = load_config::<VarsType, _>(assets, "vars", ())?;
+    let dbtables = load_config::<DbTableType, _>(assets, "dbtable", ())?;
+    let dbrows = load_config::<DbRowType, _>(assets, "dbrow", ())?;
+    let categories = load_config::<CategoryType, _>(assets, "category", ())?;
+
+    let locs = load_config::<LocTypeRaw, LocType>(assets, "loc", ())?;
+
+    let keys = XteaKeyStore::load(&content_dir.join("keys.json"))?;
+    let (mut mapsquares, mapcrcs) = loader::load_mapsquares(cache, &keys)?;
+    let huffman = loader::load_huffman(cache)?;
+    let fonts = FontTypeProvider::from_cache(cache);
+    loader::merge_server_layer(spawns, "map", 'n', &mut mapsquares);
+    loader::merge_server_layer(obj_spawns, "objspawn", 'o', &mut mapsquares);
+
+    let db_index = DbTableIndex::build(&dbtables, &dbrows);
+    Ok(Box::new(CacheStore {
+        mapsquares,
+        mapcrcs,
+        objs,
+        invs,
+        varps,
+        varbits,
+        dbrows,
+        dbtables,
+        db_index,
+        enums,
+        flos,
+        hunts,
+        idks,
+        locs,
+        mesanims,
+        npcs,
+        params,
+        seqs,
+        spotanims,
+        structs,
+        varns,
+        varss,
+        categories,
+        interfaces: IfTypeProvider {
+            names: HashMap::new(),
+            types: Vec::new(),
+        },
+        fonts,
+        wordenc: WordEncProvider::empty(),
+        songs: MidiProvider {
+            names: HashMap::new(),
+            midis: Box::new([]),
+        },
+        jingles: MidiProvider {
+            names: HashMap::new(),
+            midis: Box::new([]),
+        },
+        midi_ids: midi::load_midi_ids(pack_dir),
+        midi_tick_lengths: midi::load_midi_tick_lengths(cache),
+        multimap: load_csv_zones(&content_dir.join("maps/multiway.csv")),
+        freemap: load_csv_zones(&content_dir.join("maps/free2play.csv")),
+        huffman,
+    }))
+}
+
+/// Rev-647 chatbox child component that hosts dialogue_box interfaces
+/// (npc/player chat, message box, multi-choice). Matches void's
+/// `dialogue_box parent="chat_box" index=13`.
+const DIALOGUE_BOX_INDEX: i32 = 13;
+
+/// Scan interface.pack for well-known component names and build an [`InterfaceLayout`].
+fn load_interface_layout(pack_dir: &Path) -> InterfaceLayout {
+    let mut layout = InterfaceLayout::default();
+    let path = pack_dir.join("interface.pack");
+    let Ok(contents) = fs::read_to_string(&path) else {
+        return layout;
+    };
+    for line in contents.lines() {
+        let line = line.trim();
+        let Some((id_str, name)) = line.split_once('=') else {
+            continue;
+        };
+        let Some((iface_str, comp_str)) = id_str.split_once(':') else {
+            // Top-level interface line `<id>=<name>` (no component). Capture the
+            // chatbox interface id so dialogues can mount on its dialogue_box
+            // child instead of clobbering the chatbox at `toplevel:com_chatbox`.
+            if name == "chatbox"
+                && let Ok(iface) = id_str.parse::<u16>()
+            {
+                layout.dialogue_parent_hash = ((iface as i32) << 16) | DIALOGUE_BOX_INDEX;
+            }
+            continue;
+        };
+        let (Ok(iface), Ok(comp)) = (iface_str.parse::<u16>(), comp_str.parse::<u16>()) else {
+            continue;
+        };
+        if name == "com_main_screen" {
+            layout.main_screen.insert(iface, comp);
+        } else if name == "com_wide_screen" {
+            layout.wide_screen.insert(iface, comp);
+        } else if name == "com_overlay_tab" {
+            layout.overlay_tab.insert(iface, comp);
+        } else if name == "com_overlay" {
+            layout.overlay.insert(iface, comp);
+        } else if name == "com_chatbox" {
+            layout.chatbox.insert(iface, comp);
+        }
+        layout.component_roots.insert(comp, iface as i32);
+    }
+    layout
+}
+
+/// Populate `layout.dialogue_slots` from the content `dialogue_slot_enum`.
+///
+/// The enum maps a dialogue interface id (key) → the chatbox child component
+/// hash it mounts on (value), e.g. objbox/doubleobjbox →
+/// `chatbox:com_dialogue_box_small` (752:12). The value is already a full
+/// component hash (resolved symbolically at pack time), so it is the parent the
+/// engine opens against — no slot-index math. The default `dialogue_box` slot
+/// (752:13) is implicit; only exceptions appear in the enum. It's a server-only
+/// enum, so its id is resolved from `enum.pack` by name and read out of the
+/// already-loaded enum TypeProvider. Absent/empty enum → no overrides.
+fn load_dialogue_slots(
+    pack_dir: &Path,
+    enums: &TypeProvider<EnumType>,
+    layout: &mut InterfaceLayout,
+) {
+    const ENUM_NAME: &str = "dialogue_slot_enum";
+    let Ok(contents) = fs::read_to_string(pack_dir.join("enum.pack")) else {
+        return;
+    };
+    let enum_id = contents.lines().find_map(|line| {
+        let (id, name) = line.trim().split_once('=')?;
+        (name == ENUM_NAME)
+            .then(|| id.parse::<u16>().ok())
+            .flatten()
+    });
+    let Some(enum_id) = enum_id else { return };
+    let Some(def) = enums.get_by_id(enum_id) else {
+        return;
+    };
+    for (&iface, value) in &def.values {
+        if let ParamValue::Int(parent_hash) = value {
+            layout.dialogue_slots.insert(iface as u16, *parent_hash);
+        }
+    }
+    info!(
+        "  dialogue slots: {} override(s) from {ENUM_NAME}",
+        layout.dialogue_slots.len()
+    );
+}
+
+/// Populate `layout.wide_screen_ifaces` from the content `wide_screen_enum`:
+/// interface id (key) → true for each main-screen interface the content opens
+/// in the toplevel's full-size slot (void-634's `wide_screen` interfaces and
+/// the level-up details). Absent/empty enum → none.
+fn load_wide_screen_ifaces(
+    pack_dir: &Path,
+    enums: &TypeProvider<EnumType>,
+    layout: &mut InterfaceLayout,
+) {
+    const ENUM_NAME: &str = "wide_screen_enum";
+    let Ok(contents) = fs::read_to_string(pack_dir.join("enum.pack")) else {
+        return;
+    };
+    let Some(def) = contents
+        .lines()
+        .find_map(|line| {
+            let (id, name) = line.trim().split_once('=')?;
+            (name == ENUM_NAME)
+                .then(|| id.parse::<u16>().ok())
+                .flatten()
+        })
+        .and_then(|id| enums.get_by_id(id))
+    else {
+        return;
+    };
+    for (&iface, value) in &def.values {
+        if let ParamValue::Int(1) = value {
+            layout.wide_screen_ifaces.insert(iface as u16);
+        }
+    }
+}
+
+fn load_config<Raw: CacheType, Stored: From<Raw>>(
+    assets: &HashMap<String, PackedFile>,
+    name: &str,
+    ctx: Raw::Context,
+) -> Result<TypeProvider<Stored>> {
+    let data = &assets
+        .get(name)
+        .with_context(|| format!("Missing {name} config"))?
+        .server;
+    TypeProvider::from_indexed_bytes::<Raw>(&data.dat, &data.idx, ctx)
+}

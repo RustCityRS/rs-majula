@@ -1,0 +1,34 @@
+[proc,clientscript_4267]
+def_int $int = calc(%varbit_9065 * 10);
+if_settext(~tostring_spacer($int, ","), lunarfm_rewards_new:com191);
+if (%varbit_9067 > 0) {
+    if_setgraphic(null, lunarfm_rewards_new:com131);
+}
+if (%varbit_9067 > 1) {
+    if_setgraphic(null, lunarfm_rewards_new:com127);
+}
+if (%varbit_9067 > 2) {
+    if_setgraphic(null, lunarfm_rewards_new:com123);
+}
+if (%varbit_9067 > 3) {
+    if_setgraphic(null, lunarfm_rewards_new:com119);
+}
+if (%varbit_9067 > 4) {
+    if_setgraphic(null, lunarfm_rewards_new:com115);
+}
+if (%varbit_9067 > 5) {
+    if_setgraphic(null, lunarfm_rewards_new:com111);
+}
+if (%varbit_9067 > 6) {
+    if_setgraphic(null, lunarfm_rewards_new:com107);
+}
+if (%varbit_9067 > 7) {
+    if_setgraphic(null, lunarfm_rewards_new:com103);
+    if_setgraphic(null, lunarfm_rewards_new:com127);
+    if_setgraphic(null, lunarfm_rewards_new:com206);
+    if_setgraphic(null, lunarfm_rewards_new:com211);
+    if_setgraphic(null, lunarfm_rewards_new:com216);
+    if_setgraphic(null, lunarfm_rewards_new:com221);
+    if_setgraphic(null, lunarfm_rewards_new:com226);
+    if_setgraphic(null, lunarfm_rewards_new:com231);
+}

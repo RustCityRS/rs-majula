@@ -1,0 +1,6 @@
+[clientscript,friends_chat_onclantransmit](component $int)
+if (hud_test(72679429, -1) = true) {
+    if_setontimer("friends_chat_minimenu_timer()", friends_chat:com5);
+    return;
+}
+~clientscript_518;

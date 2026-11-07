@@ -1,0 +1,22 @@
+[proc,clan_switch_tab](int $int)
+if_sethide(true, fz7368400:com64);
+if_sethide(true, fz7368400:com67);
+if_sethide(true, fz7368400:com68);
+if_sethide(true, fz7368400:com69);
+if_sethide(true, fz7368400:com70);
+if_sethide(true, fz7368400:com167);
+if_sethide(true, fz7368400:com179);
+if_sethide(true, fz7368400:com191);
+switch_int ($int) {
+    case 72417450:
+        if_sethide(false, fz7368400:com64);
+        if_sethide(false, fz7368400:com67);
+        if_sethide(false, fz7368400:com167);
+    case 72417462:
+        if_sethide(false, fz7368400:com68);
+        if_sethide(false, fz7368400:com69);
+        if_sethide(false, fz7368400:com179);
+    case 72417474:
+        if_sethide(false, fz7368400:com70);
+        if_sethide(false, fz7368400:com191);
+}

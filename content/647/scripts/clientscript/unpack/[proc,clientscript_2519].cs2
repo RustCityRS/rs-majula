@@ -1,0 +1,30 @@
+[proc,clientscript_2519](int $int0)
+def_int $int1 = ~clientscript_2520;
+switch_int ($int0) {
+    case 42860558:
+        if (%varc_int_847 > 0) {
+            %varc_int_847 = calc(%varc_int_847 - 1);
+            if_settext(tostring(%varc_int_847), mob_special_units:com13);
+        }
+    case 42860606:
+        if (%varc_int_848 > 0) {
+            %varc_int_848 = calc(%varc_int_848 - 1);
+            if_settext(tostring(%varc_int_848), mob_special_units:com61);
+        }
+    case 42860598:
+        if (%varc_int_849 > 0) {
+            %varc_int_849 = calc(%varc_int_849 - 1);
+            if_settext(tostring(%varc_int_849), mob_special_units:com53);
+        }
+    case 42860590:
+        if (%varc_int_850 > 0) {
+            %varc_int_850 = calc(%varc_int_850 - 1);
+            if_settext(tostring(%varc_int_850), mob_special_units:com45);
+        }
+    case 42860615:
+        if (%varc_int_851 > 0) {
+            %varc_int_851 = calc(%varc_int_851 - 1);
+            if_settext(tostring(%varc_int_851), mob_special_units:com70);
+        }
+}
+~clientscript_2517;

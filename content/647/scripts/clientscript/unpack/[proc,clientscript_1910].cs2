@@ -1,0 +1,11 @@
+[proc,clientscript_1910]
+if_sethide(false, sc_processing:com16);
+if_sethide(false, sc_processing:com76);
+if_sethide(true, sc_processing:com17);
+if_sethide(true, sc_processing:com77);
+if_sethide(true, sc_processing:com18);
+if_sethide(true, sc_processing:com78);
+if_sethide(true, sc_processing:com19);
+if_sethide(true, sc_processing:com79);
+if_sethide(true, sc_processing:com75);
+%varc_int_582 = 0;

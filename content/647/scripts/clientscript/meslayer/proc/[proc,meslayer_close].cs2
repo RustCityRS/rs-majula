@@ -1,0 +1,11 @@
+[proc,meslayer_close](int $int)
+if ($int = false | $int = %varc_int_5) {
+    if_sethide(true, chatbox:com3);
+    if_sethide(true, chatbox:com7);
+    if_sethide(false, chatbox:com8);
+    ~clientscript_2026;
+    %varc_int_5 = 0;
+}
+if (getwindowmode >= 2) {
+    ~subchanged;
+}

@@ -1,0 +1,12 @@
+[proc,clientscript_2862]
+if (%varc_int_1074 = false) {
+    if (%varc_int_1071 = 19) {
+        %varc_int_1071 = 0;
+    } else {
+        %varc_int_1071 = calc(%varc_int_1071 + 1);
+    }
+} else if (%varc_int_1074 = true) {
+    %varc_int_1072 = coordpack(%varc_int_1072, 1, 0, 0);
+} else {
+    cam_clear_5509;
+}

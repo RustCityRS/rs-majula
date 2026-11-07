@@ -1,0 +1,6 @@
+[proc,clientscript_1178]
+%varc_int_548 = max(0, calc(%varc_int_548 - 1));
+if_settext(tostring(calc(%varc_int_548 * 2 / 100)), hs3423786:com5);
+if (%varc_int_548 <= 0) {
+    if_setontimer(null, hs3423786:com5);
+}

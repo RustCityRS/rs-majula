@@ -1,26 +1,21 @@
-use crate::config_crc;
+use super::config_entry;
 use crate::pack::pack::{FileCache, parse_config_sections_cached};
 use crate::pack::pack_registry::{PackRegistry, PackedFile};
 use crate::pack::packed_data::PackedData;
-use crate::pack::util::{parse_bool, parse_hex, parse_texture};
+#[cfg(before_647)]
+use crate::pack::util::parse_ref;
+use crate::pack::util::{parse_bool, parse_hex};
 use anyhow::Result;
-use rs_io::crc;
 use std::collections::HashMap;
-use tracing::debug;
 
 pub fn pack_flos(
     file_cache: &FileCache,
     registry: &PackRegistry,
     constants: &HashMap<String, String>,
-    verify: bool,
 ) -> Result<PackedFile> {
     let pack = &registry.flo;
 
-    let files = file_cache.collect("flo");
-    debug!("  Found {} .flo files", files.len());
-
-    let configs = parse_config_sections_cached(file_cache, "flo", constants);
-    debug!("  Parsed {} flo configs", configs.len());
+    let configs = parse_config_sections_cached(file_cache, "flo", constants)?;
 
     let mut server = PackedData::new(pack.max);
     let mut client = PackedData::new(pack.max);
@@ -29,12 +24,10 @@ pub fn pack_flos(
         server.start_entry();
         client.start_entry();
 
-        let Some(debugname) = pack.get_by_id(id) else {
-            panic!("Unknown flo id: {id}");
-        };
-
-        let Some(props) = configs.get(debugname) else {
-            panic!("Unknown flo config: {debugname}");
+        let Some((debugname, props)) = config_entry("flo", pack, &configs, id) else {
+            server.finish_entry();
+            client.finish_entry();
+            continue;
         };
 
         for (key, value) in props {
@@ -47,21 +40,50 @@ pub fn pack_flos(
                     server.p3(v);
                 }),
 
+                #[cfg(since_647)]
+                "color" => {
+                    let v: u32 = value.parse().expect("Invalid floor value");
+                    server.p1(1);
+                    server.p3(v as i32);
+                    client.p1(1);
+                    client.p3(v as i32);
+                }
+
                 // 2
-                "texture" => parse_texture(registry, value, |v| {
+                #[cfg(before_647)]
+                "texture" => parse_ref(&registry.texture, "texture", value, |v| {
                     client.p1(2);
                     client.p1(v as u8);
                     server.p1(2);
                     server.p1(v as u8);
                 }),
 
+                #[cfg(since_647)]
+                "texture_u8" => {
+                    let v: u8 = value.parse().expect("Invalid floor value");
+                    server.p1(2);
+                    server.p1(v);
+                    client.p1(2);
+                    client.p1(v);
+                }
+
                 // 3
+                #[cfg(before_647)]
                 "overlay" => parse_bool(value, |v| {
                     if v {
                         client.p1(3);
                         server.p1(3);
                     }
                 }),
+
+                #[cfg(since_647)]
+                "texture" => {
+                    let v: u16 = value.parse().expect("Invalid floor value");
+                    server.p1(3);
+                    server.p2(v);
+                    client.p1(3);
+                    client.p2(v);
+                }
 
                 // 5
                 "occlude" => parse_bool(value, |v| {
@@ -71,12 +93,91 @@ pub fn pack_flos(
                     }
                 }),
 
+                #[cfg(since_647)]
+                "op5_occlude_false" => {
+                    server.p1(5);
+                    client.p1(5);
+                }
+
+                #[cfg(since_647)]
+                "water_color" => {
+                    let v: u32 = value.parse().expect("Invalid floor value");
+                    server.p1(7);
+                    server.p3(v as i32);
+                    client.p1(7);
+                    client.p3(v as i32);
+                }
+
+                #[cfg(since_647)]
+                "op8_flomark" => {
+                    server.p1(8);
+                    client.p1(8);
+                }
+
+                #[cfg(since_647)]
+                "op9_u16" => {
+                    let v: u16 = value.parse().expect("Invalid floor value");
+                    server.p1(9);
+                    server.p2(v);
+                    client.p1(9);
+                    client.p2(v);
+                }
+
+                #[cfg(since_647)]
+                "op10_bool34_false" => {
+                    server.p1(10);
+                    client.p1(10);
+                }
+
+                #[cfg(since_647)]
+                "op11_u8" => {
+                    let v: u8 = value.parse().expect("Invalid floor value");
+                    server.p1(11);
+                    server.p1(v);
+                    client.p1(11);
+                    client.p1(v);
+                }
+
+                #[cfg(since_647)]
+                "op12_bool33_true" => {
+                    server.p1(12);
+                    client.p1(12);
+                }
+
+                #[cfg(since_647)]
+                "op13_u24" => {
+                    let v: u32 = value.parse().expect("Invalid floor value");
+                    server.p1(13);
+                    server.p3(v as i32);
+                    client.p1(13);
+                    client.p3(v as i32);
+                }
+
+                #[cfg(since_647)]
+                "op14_u8" => {
+                    let v: u8 = value.parse().expect("Invalid floor value");
+                    server.p1(14);
+                    server.p1(v);
+                    client.p1(14);
+                    client.p1(v);
+                }
+
+                #[cfg(since_647)]
+                "op16_u8" => {
+                    let v: u8 = value.parse().expect("Invalid floor value");
+                    server.p1(16);
+                    server.p1(v);
+                    client.p1(16);
+                    client.p1(v);
+                }
+
                 // not found
                 _ => panic!("Unrecognized flo config key: {key}"),
             }
         }
 
         // 6
+        #[cfg(before_647)]
         if !debugname.starts_with("flo_") {
             // yes, this was originally transmitted!
             client.p1(6);
@@ -85,17 +186,15 @@ pub fn pack_flos(
             server.pjstr(debugname);
         }
 
+        #[cfg(since_647)]
+        {
+            server.p1(250);
+            server.pjstr(debugname);
+        }
+
         // done
         server.finish_entry();
         client.finish_entry();
-    }
-
-    if verify {
-        let crc = crc::getcrc(&client.dat, 0, client.dat.len());
-        let expected = config_crc::FLO;
-        if crc != expected {
-            panic!("CRC mismatch ['flo']: Got: {crc}, Expected: {expected}");
-        }
     }
 
     Ok(PackedFile {

@@ -1,0 +1,10 @@
+// 289 reads its hitpoints stat; 2011's life points are %life_points.
+[proc,ring_of_life_check]
+if (p_finduid(uid) = true) {
+    if (inv_getobj(worn, ^wearpos_ring) ! ring_of_life | map_members = ^false | ~wilderness_level(coord) > 30 | %life_points > scale(10, 100, multiply(stat_base(hitpoints), 10)) | ~pre_tele_checks(coord) = false) {
+        return;
+    }
+    mes("Your Ring of Life saves you and is destroyed in the process.");
+    inv_delslot(worn, ^wearpos_ring);
+    ~player_teleport_normal(map_findsquare(0_50_50_21_18, 0, 2, ^map_findsquare_lineofwalk));
+}

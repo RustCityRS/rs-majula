@@ -1,0 +1,37 @@
+[proc,clientscript_1121]
+def_component $component0 = enum(105, 73, enum_729, %varbit_276);
+def_int $int1 = 0;
+def_int $int2 = 0;
+def_component $component3 = null;
+def_component $component4 = null;
+switch_int (%varbit_357) {
+    case 0:
+        $component3 = magic:com93;
+        $component4 = magic:com92;
+    case 1:
+        $component3 = magic_zaros:com50;
+        $component4 = magic_zaros:com49;
+    case 3:
+        $component3 = rand_magic:com69;
+        $component4 = rand_magic:com68;
+    case default:
+        return;
+}
+if (%varbit_276 = true) {
+    if (%varbit_6521 = 3) {
+        ~clientscript_948;
+    } else if (%varbit_6521 = 28) {
+        ~clientscript_1331;
+    }
+}
+if ($component0 ! null & %varbit_275 = true) {
+    $int1 = calc(if_getx($component0) - 2);
+    $int2 = calc(if_gety($component0) - 2);
+    if_setposition($int1, $int2, ^setpos_abs_left, ^setpos_abs_top, $component3);
+    if_setposition($int1, $int2, ^setpos_abs_left, ^setpos_abs_top, $component4);
+    if_sethide(false, $component3);
+    if_sethide(false, $component4);
+    return;
+}
+if_sethide(true, $component3);
+if_sethide(true, $component4);

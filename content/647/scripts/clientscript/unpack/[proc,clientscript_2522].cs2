@@ -1,0 +1,6 @@
+[proc,clientscript_2522](component $component)
+if (%varbit_6375 = true) {
+    if_setgraphic("radio_buttons,1", $component);
+} else {
+    if_setgraphic("radio_buttons,0", $component);
+}

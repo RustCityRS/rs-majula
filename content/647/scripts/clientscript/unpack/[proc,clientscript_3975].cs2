@@ -1,0 +1,25 @@
+[proc,clientscript_3975]
+def_component $component = null;
+if_sethide(true, task_side:com63);
+if_sethide(true, task_side:com143);
+if_sethide(true, task_side:com148);
+if_sethide(true, task_side:com153);
+if_sethide(true, task_side:com158);
+if_sethide(true, task_side:com164);
+switch_int (%varbit_8577) {
+    case 1:
+        $component = task_side:com63;
+    case 2:
+        $component = task_side:com143;
+    case 3:
+        $component = task_side:com148;
+    case 4:
+        $component = task_side:com153;
+    case 5:
+        $component = task_side:com158;
+    case 6:
+        $component = task_side:com164;
+}
+if ($component ! null) {
+    if_sethide(false, $component);
+}

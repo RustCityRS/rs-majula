@@ -1,0 +1,18 @@
+// 2011's hitmarks are cache configs (config group 46, `_unpack/all.hitmark`):
+// 0-2 a hit with the melee, ranged or magic icon, 3 a plain hit, 6 poison, 7
+// disease, 8 a miss (no number), 9 a heal -- void-634's HitSplat.Mark agrees.
+// 289's block, damage and poison (0, 1, 2) are 2011's 8, 3 and 6.
+^hitmark_block = 8
+^hitmark_damage = 3
+^hitmark_poison = 6
+
+// 2011 paints a combat hit with its style: melee, ranged or magic (0-2), a
+// ring of recoil's with the reflect mark (4) (2011 wiki, Hitsplat,
+// 2011-04-13), and a critical combat hit with its style's crit (+10, the
+// larger font, gold) -- void-634 CombatHitsplats and Weapon.mark. The wiki
+// gives the gold splat to a max hit; void-634's crit rule is hitmark.rs2's.
+^hitmark_melee = 0
+^hitmark_ranged = 1
+^hitmark_magic = 2
+^hitmark_reflect = 4
+^hitmark_crit = 10

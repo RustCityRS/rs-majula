@@ -1,0 +1,8 @@
+[proc,clientscript_462](component $component)
+if (stat_base(defence) < 25) {
+    if_settext("<col=c80000>A Defence level of <tostring(25)> is required.</col>", $component);
+} else if (%varbit_2086 < 1) {
+    if_settext("<col=c80000>1 Commendation required.</col>", $component);
+} else {
+    if_settext("<tostring(calc(pow(stat_base(defence), 2) / 600 * 35))> XP per Commendation.", $component);
+}

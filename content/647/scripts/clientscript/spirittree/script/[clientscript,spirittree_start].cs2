@@ -1,0 +1,22 @@
+[clientscript,spirittree_start]
+cc_deleteall(spirittree:com7);
+if (%varp_1469 = -1) {
+    return;
+}
+def_int $int0 = 0;
+def_int $int1 = 10;
+def_int $int2 = 0;
+def_int $int3 = 0;
+def_string $string = "";
+while ($int2 ! -1) {
+    $int2, $string = ~spirittree_data($int3);
+    if ($int2 = true) {
+        $int1 = calc($int1 + ~spirittree_entry($string, $int0, $int1, $int3));
+        $int0 = calc($int0 + 1);
+    }
+    $int3 = calc($int3 + 1);
+}
+if_setscrollsize(296, $int1, spirittree:com7);
+if ($int1 > 240) {
+    ~scrollbar_vertical(spirittree:com8, spirittree:com7, "scrollbar_parchment_dragger_v2,3", "scrollbar_parchment_dragger_v2,0", "scrollbar_parchment_dragger_v2,1", "scrollbar_parchment_dragger_v2,2", "scrollbar_parchment_v2,0", "scrollbar_parchment_v2,1");
+}

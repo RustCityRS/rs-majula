@@ -1,0 +1,7 @@
+[clientscript,bank_v2_help_init]
+~bank_v2_help_showpage(0);
+~bank_v2_help_slotsused(bank_v2_help:com41, bank_v2_help:com42, bank_v2_help:com43, bank_v2_help:com44);
+~clientscript_2957(bank_v2_help:com52);
+if_setonvarctransmit("bank_v2_help_slotsused(bank_v2_help:com41, bank_v2_help:com42, bank_v2_help:com43, bank_v2_help:com44){varc_int_192, varc_int_1038, varc_int_1324}", bank_v2_help:com13);
+if_setonvartransmit("clientscript_1655(){varp_638}", bank_v2_help:com13);
+~clientscript_1656;

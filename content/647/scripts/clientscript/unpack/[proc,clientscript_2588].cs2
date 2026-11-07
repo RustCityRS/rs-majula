@@ -1,0 +1,79 @@
+[proc,clientscript_2588]
+~clientscript_2587;
+def_obj $obj0 = null;
+switch_int (%varc_int_929) {
+    case 0:
+        $obj0 = inv_getobj(inv, %varc_int_930);
+    case 1:
+        $obj0 = inv_getobj(inv, %varc_int_931);
+    case 2:
+        $obj0 = inv_getobj(inv, %varc_int_932);
+    case 3:
+        $obj0 = inv_getobj(inv, %varc_int_933);
+    case 4:
+        $obj0 = inv_getobj(inv, %varc_int_934);
+    case 5:
+        $obj0 = inv_getobj(inv, %varc_int_935);
+    case 6:
+        $obj0 = inv_getobj(inv, %varc_int_936);
+    case 7:
+        $obj0 = inv_getobj(inv, %varc_int_937);
+    case 8:
+        $obj0 = inv_getobj(inv, %varc_int_938);
+    case 9:
+        $obj0 = inv_getobj(inv, %varc_int_939);
+}
+if ($obj0 = null) {
+    return;
+}
+def_int $int1 = oc_weight($obj0, param_805);
+switch_int (%varc_int_929) {
+    case 0:
+        if (%varbit_6385 ! 0 & %varbit_6385 ! $int1) {
+            $int1 = %varbit_6385;
+        }
+    case 1:
+        if (%varbit_6386 ! 0 & %varbit_6386 ! $int1) {
+            $int1 = %varbit_6386;
+        }
+    case 2:
+        if (%varbit_6387 ! 0 & %varbit_6387 ! $int1) {
+            $int1 = %varbit_6387;
+        }
+    case 3:
+        if (%varbit_6388 ! 0 & %varbit_6388 ! $int1) {
+            $int1 = %varbit_6388;
+        }
+    case 4:
+        if (%varbit_6389 ! 0 & %varbit_6389 ! $int1) {
+            $int1 = %varbit_6389;
+        }
+    case 5:
+        if (%varbit_6390 ! 0 & %varbit_6390 ! $int1) {
+            $int1 = %varbit_6390;
+        }
+    case 6:
+        if (%varbit_6391 ! 0 & %varbit_6391 ! $int1) {
+            $int1 = %varbit_6391;
+        }
+    case 7:
+        if (%varbit_6392 ! 0 & %varbit_6392 ! $int1) {
+            $int1 = %varbit_6392;
+        }
+    case 8:
+        if (%varbit_6393 ! 0 & %varbit_6393 ! $int1) {
+            $int1 = %varbit_6393;
+        }
+    case 9:
+        if (%varbit_6394 ! 0 & %varbit_6394 ! $int1) {
+            $int1 = %varbit_6394;
+        }
+}
+switch_int ($int1) {
+    case 1:
+        if_setgraphic("radio_buttons,1", mob_squad_exchange:com102);
+    case 2:
+        if_setgraphic("radio_buttons,1", mob_squad_exchange:com104);
+    case 3:
+        if_setgraphic("radio_buttons,1", mob_squad_exchange:com103);
+}

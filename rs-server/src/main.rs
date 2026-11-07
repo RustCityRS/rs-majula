@@ -6,9 +6,10 @@ use futures_util::StreamExt;
 use mpsc::{UnboundedReceiver, unbounded_channel};
 use rs_crypto::rsa::{RsaKey, load_rsa_key};
 use rs_db::LoginDevice;
+use rs_engine::LoginRequest;
+use rs_engine::TickStats;
 use rs_engine::{CycleResult, Engine};
 use rs_engine::{EtherInbound, EtherOutbound, ether_client_task};
-use rs_engine::{LoginRequest, TickStats};
 use rs_pack::cache::CacheStore;
 use rs_pack::cache::script::ScriptProvider;
 use rs_util::net::limit_address;
@@ -16,6 +17,7 @@ use rs_util::os::{disable_huge_pages, raise_open_files, raise_thread_priority, s
 use std::collections::HashMap;
 use std::fs;
 use std::io::IsTerminal;
+use std::mem::{replace, take};
 use std::net::{IpAddr, SocketAddr};
 use std::path::{Path, PathBuf};
 use std::process::{Command, Stdio};
@@ -28,7 +30,7 @@ use tokio::sync::mpsc::UnboundedSender;
 use tokio::sync::{mpsc, watch};
 use tokio::time::{self, Duration};
 use tokio_tungstenite::WebSocketStream;
-use tokio_tungstenite::tungstenite::{Bytes, Message};
+use tokio_tungstenite::tungstenite::Message;
 use tracing::{Level, debug, error, info, warn};
 use tracing_subscriber::Layer;
 use tracing_subscriber::prelude::__tracing_subscriber_SubscriberExt;
@@ -46,6 +48,7 @@ use time::MissedTickBehavior;
 mod admin;
 mod device;
 mod http;
+#[cfg(before_647)]
 mod jaggrab;
 mod metrics;
 mod recovery;
@@ -377,13 +380,25 @@ struct Args {
     tcp_port: Option<u16>,
     #[arg(long)]
     jaggrab_port: Option<u16>,
+    #[cfg(before_647)]
     #[arg(long, default_value = ".keys/private.pem")]
+    private_key: PathBuf,
+    /// Rev-647 signs the JS5 master index over a 65-byte plaintext, which
+    /// needs a wider modulus than the 512-bit `.keys/private.pem` — and that
+    /// pair is embedded in the committed pre-647 clients, so 647 gets its own
+    /// 2048-bit pair (matched by the RSA-patched vanilla 647 client).
+    #[cfg(since_647)]
+    #[arg(long, default_value = ".keys/private-647.pem")]
     private_key: PathBuf,
     #[arg(long, default_value_t = true, action = clap::ArgAction::Set)]
     members: bool,
     #[arg(long, default_value = "1")]
     multi_xp: u8,
+    #[cfg(before_647)]
     #[arg(long, default_value = "true")]
+    client_pathfinder: bool,
+    #[cfg(since_647)]
+    #[arg(long, default_value = "false")]
     client_pathfinder: bool,
     #[arg(long, action = clap::ArgAction::Set)]
     staff_isolation: Option<bool>,
@@ -501,6 +516,10 @@ impl SharedCache {
 #[derive(Clone)]
 pub struct ServerIO {
     cache: SharedCache,
+    /// Rev-647 cache delivery: archive-255 reference tables + signed master
+    /// index and group containers are served from memory.
+    #[cfg(since_647)]
+    js5: rs_protocol::js5::Js5Cache,
     rsa: &'static RsaKey,
     new_player_tx: UnboundedSender<LoginRequest>,
 }
@@ -662,7 +681,16 @@ async fn bootstrap(
 ) -> Result<()> {
     let host = args.host.clone();
     let http = args.http_port.unwrap_or(8070 + args.node_id as u16);
+    #[cfg(before_647)]
     let tcp = args.tcp_port.unwrap_or(43584 + args.node_id as u16);
+    #[cfg(since_647)]
+    let tcp = args.tcp_port.unwrap_or(39991 + args.node_id as u16);
+    #[cfg(since_647)]
+    if !(40001..=55535).contains(&tcp) {
+        bail!("647 standalone client requires --tcp-port between 40001 and 55535");
+    }
+    // Rev-647 clients fetch the cache over JS5, not JAGGRAB.
+    #[cfg(before_647)]
     let jaggrab = args.jaggrab_port.unwrap_or(tcp + 1);
 
     info!("RuneScape Private Server (Rev {}) starting", REVISION);
@@ -680,6 +708,22 @@ async fn bootstrap(
     // Before the pack churns the heap: see init_collision.
     rs_engine::init_collision();
     info!("Compiling content assets & building cache...");
+    #[cfg(since_647)]
+    let rs_pack::startup::PackResult {
+        store,
+        scripts,
+        layout,
+        cache: js5_cache,
+    } = rs_pack::pack_all(
+        Path::new(rs_pack::CONTENT_DIR),
+        Path::new(rs_pack::PACK_DIR),
+        args.verify,
+        args.members,
+    )?;
+    #[cfg(since_647)]
+    rs_pack::cache::map::XteaKeyStore::load(&Path::new(rs_pack::CONTENT_DIR).join("keys.json"))?
+        .install_global();
+    #[cfg(before_647)]
     let (store, scripts) = rs_pack::pack_all(
         Path::new(rs_pack::CONTENT_DIR),
         Path::new(rs_pack::PACK_DIR),
@@ -689,7 +733,7 @@ async fn bootstrap(
     let cache_ptr_val = Box::into_raw(store) as usize;
     let cache: &'static CacheStore = unsafe { &*(cache_ptr_val as *const CacheStore) };
 
-    #[cfg(since_244)]
+    #[cfg(all(since_244, before_647))]
     for (archive, files) in cache.ondemand.iter().enumerate() {
         for (file, blob) in files.iter().enumerate() {
             if blob.len() > u16::MAX as usize {
@@ -707,6 +751,13 @@ async fn bootstrap(
     let rsa: &'static RsaKey = Box::leak(Box::new(load_rsa_key(rsa_path)?));
     // The client page's device check changes with the login key, every deploy.
     device::init(&fs::read(rsa_path)?);
+
+    // Rev-647 cache delivery: archive-255 reference tables + signed master
+    // index and group containers are served from memory.
+    #[cfg(since_647)]
+    let js5 = rs_protocol::js5::Js5Cache::new(js5_cache.groups, rsa)?;
+    #[cfg(since_647)]
+    drop(js5_cache.tables);
 
     let (ether_tx, ether_rx) = {
         let (outbound_tx, outbound_rx) = unbounded_channel::<EtherOutbound>();
@@ -794,6 +845,8 @@ async fn bootstrap(
         scripts,
         cache,
         cache_ptr_val as *mut CacheStore,
+        #[cfg(since_647)]
+        layout,
         stats_tx,
         reload_world_tx,
         args.node_id,
@@ -866,8 +919,16 @@ async fn bootstrap(
     #[cfg(not(debug_assertions))]
     drop(trigger_rx);
 
+    #[cfg(before_647)]
     let server_state = ServerIO {
         cache: SharedCache(cache),
+        rsa,
+        new_player_tx,
+    };
+    #[cfg(since_647)]
+    let server_state = ServerIO {
+        cache: SharedCache(cache),
+        js5,
         rsa,
         new_player_tx,
     };
@@ -889,15 +950,26 @@ async fn bootstrap(
         http: http_guard,
         jaggrab: jaggrab_guard,
     } = guards;
+    // A 647 client fetches its cache over JS5, not JAGGRAB.
+    #[cfg(since_647)]
+    drop(jaggrab_guard);
 
     info!("Accepting HTTP connections on: {}:{}", host, http);
+    #[cfg(before_647)]
     info!("Webclient available at: http://localhost:{}/rs2.cgi", http);
+    #[cfg(before_647)]
     if !cache.static_assets.contains_key("/mapview.js") {
         warn!("public/mapview.js is missing: the world map and the console's live map won't load");
     }
+    #[cfg(before_647)]
     if args.jaggrab_only {
         info!("--jaggrab-only: cache downloads over HTTP will 404 to force the JAGGRAB fallback");
     }
+    #[cfg(since_647)]
+    info!(
+        "Client config available at: http://localhost:{}/jav_config.ws",
+        http
+    );
     tokio::spawn(http::serve(
         host.to_string(),
         http,
@@ -916,13 +988,16 @@ async fn bootstrap(
             .map(|origin| &*Box::leak(origin.into_boxed_str())),
     ));
 
-    info!("Accepting JAGGRAB connections on: {}:{}", host, jaggrab);
-    tokio::spawn(jaggrab::serve(
-        host.to_string(),
-        jaggrab,
-        server_state.cache,
-        jaggrab_guard,
-    ));
+    #[cfg(before_647)]
+    {
+        info!("Accepting JAGGRAB connections on: {}:{}", host, jaggrab);
+        tokio::spawn(jaggrab::serve(
+            host.to_string(),
+            jaggrab,
+            server_state.cache,
+            jaggrab_guard,
+        ));
+    }
 
     info!("Accepting TCP connections on: {}:{}", host, tcp);
     socket::serve(host, tcp, server_state, guard, js5_guard).await
@@ -1170,6 +1245,7 @@ async fn reload_coordinator(
         while watch_rx.try_recv().is_ok() {}
 
         match result {
+            #[cfg(before_647)]
             Ok(Ok((store, scripts))) => {
                 let elapsed = start.elapsed();
                 info!(
@@ -1177,6 +1253,17 @@ async fn reload_coordinator(
                     elapsed.as_secs_f64() * 1000.0
                 );
                 let _ = result_tx.send((store, scripts));
+            }
+            // Rev-647: the cache is rebuilt + CRC-gated, but the world swap
+            // channel expects the jag-era CacheStore — not wired yet.
+            #[cfg(since_647)]
+            Ok(Ok(_pack_result)) => {
+                let elapsed = start.elapsed();
+                info!(
+                    "Hot-reload: JS5 cache packed in memory in {:.2}ms (rev-647 world swap not wired yet)",
+                    elapsed.as_secs_f64() * 1000.0
+                );
+                let _ = &result_tx;
             }
             Ok(Err(e)) => error!("Hot-reload pack failed: {e:#}"),
             Err(e) => error!("Hot-reload task panicked: {e}"),
@@ -1319,6 +1406,7 @@ async fn engine_tick(
 
 pub struct Socket {
     socket_type: SocketType,
+    read_buf: Vec<u8>,
     pub addr: SocketAddr,
     pub server_io: ServerIO,
     pub guard: ConnectionGuard,
@@ -1345,6 +1433,7 @@ impl Socket {
     ) -> Self {
         Self {
             socket_type: SocketType::Tcp(stream),
+            read_buf: Vec::new(),
             addr,
             server_io,
             guard,
@@ -1362,6 +1451,7 @@ impl Socket {
     ) -> Self {
         Self {
             socket_type: SocketType::WebSocket(Box::new(stream)),
+            read_buf: Vec::new(),
             addr,
             server_io: server_state,
             guard,
@@ -1371,6 +1461,24 @@ impl Socket {
     }
 
     pub async fn read(&mut self) -> Result<Option<Vec<u8>>> {
+        if !self.read_buf.is_empty() {
+            return Ok(Some(take(&mut self.read_buf)));
+        }
+        self.read_transport().await
+    }
+
+    pub async fn read_exact(&mut self, len: usize) -> Result<Vec<u8>> {
+        while self.read_buf.len() < len {
+            let Some(bytes) = self.read_transport().await? else {
+                bail!("{}: connection closed", self.addr);
+            };
+            self.read_buf.extend_from_slice(&bytes);
+        }
+        let remaining = self.read_buf.split_off(len);
+        Ok(replace(&mut self.read_buf, remaining))
+    }
+
+    async fn read_transport(&mut self) -> Result<Option<Vec<u8>>> {
         match &mut self.socket_type {
             SocketType::Tcp(stream) => {
                 let mut buf = vec![0u8; 512];
@@ -1397,8 +1505,7 @@ impl Socket {
                 stream.write_all(data).await?;
             }
             SocketType::WebSocket(ws) => {
-                ws.send(Message::Binary(Bytes::copy_from_slice(data)))
-                    .await?;
+                ws.send(Message::Binary(data.to_vec().into())).await?;
             }
         }
         Ok(())
@@ -1411,7 +1518,7 @@ impl Socket {
                 Ok(Some(data))
             }
             SocketType::WebSocket(ws) => {
-                ws.send(Message::Binary(Bytes::from(data))).await?;
+                ws.send(Message::Binary(data.into())).await?;
                 Ok(None)
             }
         }
@@ -1442,5 +1549,44 @@ impl Socket {
             }
         }
         Ok(())
+    }
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn the_on_by_default_switches_can_be_turned_off() {
+        let args = Args::try_parse_from(["rs-server"]).unwrap();
+        assert!(args.members && args.verify);
+
+        let args =
+            Args::try_parse_from(["rs-server", "--members", "false", "--verify", "false"]).unwrap();
+        assert!(!args.members && !args.verify);
+    }
+
+    #[test]
+    fn client_pathfinder_stays_a_plain_flag() {
+        assert!(
+            Args::try_parse_from(["rs-server"])
+                .unwrap()
+                .client_pathfinder
+        );
+        assert!(
+            Args::try_parse_from(["rs-server", "--client-pathfinder"])
+                .unwrap()
+                .client_pathfinder
+        );
+    }
+
+    #[test]
+    fn no_tui_stays_a_plain_flag() {
+        assert!(!Args::try_parse_from(["rs-server"]).unwrap().no_tui);
+        assert!(
+            Args::try_parse_from(["rs-server", "--no-tui"])
+                .unwrap()
+                .no_tui
+        );
     }
 }

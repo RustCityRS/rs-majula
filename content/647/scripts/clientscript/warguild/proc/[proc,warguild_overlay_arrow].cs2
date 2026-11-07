@@ -1,0 +1,11 @@
+[proc,warguild_overlay_arrow](component $component0, int $int1)
+if_sethide(false, $component0);
+if_settrans(0, $component0);
+if ($int1 = true) {
+    if_setgraphic("red_green_arrows,0", $component0);
+    if_setposition(0, 22, ^setpos_abs_right, ^setpos_abs_top, $component0);
+} else {
+    if_setgraphic("red_green_arrows,1", $component0);
+    if_setposition(0, calc(1 - if_getheight($component0)), ^setpos_abs_right, ^setpos_abs_top, $component0);
+}
+if_setontimer("warguild_slide_arrow($component0, $int1)", $component0);

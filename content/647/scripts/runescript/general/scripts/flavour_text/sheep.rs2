@@ -1,0 +1,40 @@
+// https://youtu.be/597gMc5j14E?si=oXUOSwc7dvzmwOMl&t=237
+// Seems to be 20-40 ticks
+
+// 289's sheared sheep, npc 42, is 2011's `sheep`.
+[ai_timer,sheep] @sheep_baa;
+
+[ai_timer,sheepunsheered] @sheep_baa;
+
+// 2011's other sheep, shorn and unshorn (cache 786 names each "Sheep";
+// npc_clones_2011.npc: void-634's clones of sheep), baa as 289's do. Not the
+// lambs (5146, 5147), which the 2011 wiki has as non-interactive characters
+// (Lamb, 20 May 2011; Li'l lamb, 13 May 2011), nor 3579, two penguins dressed
+// as a sheep (2011 wiki, Sheep (penguins), 21 May 2011): no source has them baa.
+[ai_timer,sheep_1762] @sheep_baa;
+[ai_timer,sheep_1763] @sheep_baa;
+[ai_timer,sheep_1764] @sheep_baa;
+[ai_timer,sheep_1765] @sheep_baa;
+[ai_timer,sheep_5148] @sheep_baa;
+[ai_timer,sheep_5149] @sheep_baa;
+[ai_timer,sheep_5150] @sheep_baa;
+[ai_timer,sheep_5151] @sheep_baa;
+[ai_timer,sheep_5152] @sheep_baa;
+[ai_timer,sheep_5153] @sheep_baa;
+[ai_timer,sheep_5154] @sheep_baa;
+[ai_timer,sheep_5155] @sheep_baa;
+[ai_timer,sheep_5156] @sheep_baa;
+[ai_timer,sheep_5157] @sheep_baa;
+[ai_timer,sheep_5158] @sheep_baa;
+[ai_timer,sheep_5159] @sheep_baa;
+[ai_timer,sheep_5160] @sheep_baa;
+[ai_timer,sheep_5161] @sheep_baa;
+[ai_timer,sheep_5162] @sheep_baa;
+[ai_timer,sheep_5163] @sheep_baa;
+[ai_timer,sheep_8876] @sheep_baa;
+[ai_timer,sheep_8877] @sheep_baa;
+
+// 289's line (the 2011 wiki's Sheep, 18 May 2011, quotes none).
+[label,sheep_baa]
+npc_settimer(add(20, random(20)));
+npc_say("Baa!");

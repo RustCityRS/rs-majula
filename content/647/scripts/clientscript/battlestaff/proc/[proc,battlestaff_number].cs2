@@ -1,0 +1,35 @@
+[proc,battlestaff_number]()(int)
+def_int $int = 0;
+if (%varbit_8150 = true) {
+    if (%varbit_4069 > 79) {
+        $int = 0;
+    } else {
+        $int = calc(80 - %varbit_4069);
+    }
+} else if (%varbit_3976 = true) {
+    if (%varbit_4069 > 63) {
+        $int = 0;
+    } else {
+        $int = calc(64 - %varbit_4069);
+    }
+} else if (%varbit_3975 = true) {
+    if (%varbit_4069 > 31) {
+        $int = 0;
+    } else {
+        $int = calc(32 - %varbit_4069);
+    }
+} else if (%varbit_3974 = true) {
+    if (%varbit_4069 > 15) {
+        $int = 0;
+    } else {
+        $int = calc(16 - %varbit_4069);
+    }
+} else if (%varbit_3974 = false) {
+    if (%varbit_4069 > 7) {
+        $int = 0;
+    } else {
+        $int = calc(8 - %varbit_4069);
+    }
+}
+return($int);
+return(0);

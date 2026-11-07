@@ -1,0 +1,108 @@
+[proc,cc_open_interface]()
+%character_part = 1;
+
+def_int $hair_count = enum_getoutputcount(enum_3304);
+def_int $hair_index = random($hair_count);
+def_int $hair = -1;
+def_int $hair_struct = enum(105, 74, enum_3304, $hair_index);
+if ($hair_struct ! -1) {
+    $hair = struct_param($hair_struct, param_788);
+    if ($hair ! -1) { setidkit($hair, 0); }
+}
+%character_creation_hair_style = $hair_index;
+
+def_int $colour_count = enum_getoutputcount(enum_2345);
+def_int $colour_index = random($colour_count);
+def_int $hair_colour = enum(105, 105, enum_2345, $colour_index);
+if ($hair_colour ! -1) {
+    setidkcolour(0, $hair_colour);
+    sendvarc(1015, $hair_colour);
+}
+
+if ($hair ! -1) { sendvarc(1008, $hair); }
+sendvarc(1009, 14);
+
+if_opentop(playerdesign4);
+allowdesign(^true);
+~cc_enable_events();
+~cc_transmit_invs();
+
+[proc,cc_send_makeover_varcs]()
+sendvarc(1008, 0)
+sendvarc(1009, 14)
+sendvarc(1010, 18)
+sendvarc(1011, 26)
+sendvarc(1012, 34)
+sendvarc(1013, 38)
+sendvarc(1014, 42)
+sendvarc(1015, 0)
+sendvarc(1016, 0)
+sendvarc(1017, 0)
+sendvarc(1018, 0)
+
+[proc,cc_transmit_invs]()
+inv_transmit(inv_463, playerdesign4:com45)
+inv_transmit(inv_486, playerdesign4:com45)
+inv_transmit(inv_499, playerdesign4:com45)
+inv_transmit(inv_585, playerdesign4:com45)
+inv_transmit(inv_586, playerdesign4:com45)
+inv_transmit(inv_587, playerdesign4:com45)
+inv_transmit(inv_588, playerdesign4:com45)
+inv_transmit(inv_589, playerdesign4:com45)
+inv_transmit(inv_590, playerdesign4:com45)
+inv_transmit(inv_591, playerdesign4:com45)
+inv_transmit(inv_592, playerdesign4:com45)
+inv_transmit(inv_593, playerdesign4:com45)
+inv_transmit(inv_594, playerdesign4:com45)
+inv_transmit(inv_595, playerdesign4:com45)
+inv_transmit(inv_596, playerdesign4:com45)
+inv_transmit(inv_597, playerdesign4:com45)
+inv_transmit(inv_598, playerdesign4:com45)
+inv_transmit(inv_599, playerdesign4:com45)
+
+[proc,cc_enable_events]()
+if_setevents(playerdesign4:com45, 0, 20, ^if_op1, 0, 0, ^false, ^false)
+if_setevents(playerdesign4:com107, 0, 200, ^if_op1, 0, 0, ^false, ^false)
+if_setevents(playerdesign4:com111, 0, 200, ^if_op1, 0, 0, ^false, ^false)
+if_setevents(playerdesign4:com102, 0, 0, ^if_op1, 0, 0, ^false, ^false)
+if_setevents(playerdesign4:com117, 0, 0, ^if_op1, 0, 0, ^false, ^false)
+if_setevents(playerdesign4:com38, 0, 0, ^if_op1, 0, 0, ^false, ^false)
+if_setevents(playerdesign4:com39, 0, 0, ^if_op1, 0, 0, ^false, ^false)
+if_setevents(playerdesign4:com95, 0, 0, ^if_op1, 0, 0, ^false, ^false)
+if_setevents(playerdesign4:com96, 0, 0, ^if_op1, 0, 0, ^false, ^false)
+if_setevents(playerdesign4:com97, 0, 0, ^if_op1, 0, 0, ^false, ^false)
+if_setevents(playerdesign4:com98, 0, 0, ^if_op1, 0, 0, ^false, ^false)
+if_setevents(playerdesign4:com99, 0, 0, ^if_op1, 0, 0, ^false, ^false)
+if_setevents(playerdesign4:com100, 0, 0, ^if_op1, 0, 0, ^false, ^false)
+if_setevents(playerdesign4:com48, 0, 0, ^if_op1, 0, 0, ^false, ^false)
+if_setevents(playerdesign4:com49, 0, 0, ^if_op1, 0, 0, ^false, ^false)
+if_setevents(playerdesign4:com50, 0, 0, ^if_op1, 0, 0, ^false, ^false)
+if_setevents(playerdesign4:com51, 0, 0, ^if_op1, 0, 0, ^false, ^false)
+if_setevents(playerdesign4:com52, 0, 0, ^if_op1, 0, 0, ^false, ^false)
+if_setevents(playerdesign4:com53, 0, 0, ^if_op1, 0, 0, ^false, ^false)
+if_setevents(playerdesign4:com54, 0, 0, ^if_op1, 0, 0, ^false, ^false)
+if_setevents(playerdesign4:com55, 0, 0, ^if_op1, 0, 0, ^false, ^false)
+if_setevents(playerdesign4:com56, 0, 0, ^if_op1, 0, 0, ^false, ^false)
+if_setevents(playerdesign4:com57, 0, 0, ^if_op1, 0, 0, ^false, ^false)
+if_setevents(playerdesign4:com58, 0, 0, ^if_op1, 0, 0, ^false, ^false)
+if_setevents(playerdesign4:com59, 0, 0, ^if_op1, 0, 0, ^false, ^false)
+if_setevents(playerdesign4:com60, 0, 0, ^if_op1, 0, 0, ^false, ^false)
+if_setevents(playerdesign4:com61, 0, 0, ^if_op1, 0, 0, ^false, ^false)
+if_setevents(playerdesign4:com62, 0, 0, ^if_op1, 0, 0, ^false, ^false)
+if_setevents(playerdesign4:com63, 0, 0, ^if_op1, 0, 0, ^false, ^false)
+if_setevents(playerdesign4:com64, 0, 0, ^if_op1, 0, 0, ^false, ^false)
+if_setevents(playerdesign4:com65, 0, 0, ^if_op1, 0, 0, ^false, ^false)
+if_setevents(playerdesign4:com66, 0, 0, ^if_op1, 0, 0, ^false, ^false)
+if_setevents(playerdesign4:com67, 0, 0, ^if_op1, 0, 0, ^false, ^false)
+if_setevents(playerdesign4:com83, 0, 0, ^if_op1, 0, 0, ^false, ^false)
+if_setevents(playerdesign4:com84, 0, 0, ^if_op1, 0, 0, ^false, ^false)
+if_setevents(playerdesign4:com85, 0, 0, ^if_op1, 0, 0, ^false, ^false)
+if_setevents(playerdesign4:com86, 0, 0, ^if_op1, 0, 0, ^false, ^false)
+if_setevents(playerdesign4:com87, 0, 0, ^if_op1, 0, 0, ^false, ^false)
+if_setevents(playerdesign4:com88, 0, 0, ^if_op1, 0, 0, ^false, ^false)
+if_setevents(playerdesign4:com158, 0, 0, ^if_op1, 0, 0, ^false, ^false)
+if_setevents(playerdesign4:com159, 0, 0, ^if_op1, 0, 0, ^false, ^false)
+if_setevents(playerdesign4:com160, 0, 0, ^if_op1, 0, 0, ^false, ^false)
+if_setevents(playerdesign4:com164, 0, 0, ^if_op1, 0, 0, ^false, ^false)
+if_setevents(playerdesign4:com165, 0, 0, ^if_op1, 0, 0, ^false, ^false)
+if_setevents(playerdesign4:com166, 0, 0, ^if_op1, 0, 0, ^false, ^false)

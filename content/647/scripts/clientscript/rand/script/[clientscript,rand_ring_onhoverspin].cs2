@@ -1,0 +1,15 @@
+[clientscript,rand_ring_onhoverspin](component $component0)
+def_component $component1 = $component0;
+switch_component ($component0) {
+    case rand_ring_interface:com184:
+        $component1 = rand_ring_interface:com257;
+    case rand_ring_interface:com185:
+        $component1 = rand_ring_interface:com242;
+    case rand_ring_interface:com186:
+        $component1 = rand_ring_interface:com227;
+    case rand_ring_interface:com187:
+        $component1 = rand_ring_interface:com212;
+}
+if (if_gettrans($component1) > 220) {
+    if_settrans(calc(if_gettrans($component1) - 2), $component1);
+}

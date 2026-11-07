@@ -1,0 +1,6 @@
+[clientscript,tzhaar_fightpit_foesremaining]
+if (%varp_560 < 1) {
+    if_settext("You're the Winner!", tzhaar_fightpit:com1);
+} else {
+    if_settext("Foes Remaining: <tostring(%varp_560)>", tzhaar_fightpit:com1);
+}

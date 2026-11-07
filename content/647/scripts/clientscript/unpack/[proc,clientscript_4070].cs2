@@ -1,0 +1,5 @@
+[proc,clientscript_4070](int $int)
+if (clientclock > calc($int + 25)) {
+    %varc_int_1431 = 0;
+    if_setontimer(null, warguild_token_choice:com68);
+}

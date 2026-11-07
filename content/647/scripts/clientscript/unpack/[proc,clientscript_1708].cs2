@@ -1,0 +1,3 @@
+[proc,clientscript_1708](stat $stat)(int)
+return(calc(~clientscript_1709($stat) + ~clientscript_1710($stat)));
+return(0);

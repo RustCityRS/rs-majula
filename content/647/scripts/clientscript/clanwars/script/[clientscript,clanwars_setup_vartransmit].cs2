@@ -1,0 +1,51 @@
+[clientscript,clanwars_setup_vartransmit]
+if (%varc_int_246 ! %varbit_5280) {
+    %varc_int_246 = %varbit_5280;
+    ~clientscript_1770;
+}
+if (%varc_int_247 ! %varbit_5281) {
+    %varc_int_247 = %varbit_5281;
+    ~togglebox_variablebits;
+}
+if (~bool_to_int(%varc_int_248) ! %varbit_5282) {
+    %varc_int_248 = ~int_to_bool(%varbit_5282);
+    ~clientscript_1772;
+}
+if (~bool_to_int(%varc_int_249) ! %varbit_5283) {
+    %varc_int_249 = ~int_to_bool(%varbit_5283);
+    ~clientscript_1773;
+}
+if (~bool_to_int(%varc_int_250) ! %varbit_5284) {
+    %varc_int_250 = ~int_to_bool(%varbit_5284);
+    ~clanwars_resynch_melee;
+}
+if (%varc_int_252 ! %varbit_5286) {
+    %varc_int_252 = %varbit_5286;
+    ~clanwars_resynch_magic;
+}
+if (~bool_to_int(%varc_int_251) ! %varbit_5285) {
+    %varc_int_251 = ~int_to_bool(%varbit_5285);
+    ~clanwars_resynch_ranged;
+}
+if (~bool_to_int(%varc_int_256) ! %varbit_5290) {
+    %varc_int_256 = ~int_to_bool(%varbit_5290);
+    ~clanwars_resynch_prayer;
+}
+if (~bool_to_int(%varc_int_253) ! %varbit_5287) {
+    %varc_int_253 = ~int_to_bool(%varbit_5287);
+    ~clanwars_resynch_summoning;
+}
+if (~bool_to_int(%varc_int_254) ! %varbit_5288) {
+    %varc_int_254 = ~int_to_bool(%varbit_5288);
+    ~clanwars_resynch_food;
+}
+if (~bool_to_int(%varc_int_255) ! %varbit_5289) {
+    %varc_int_255 = ~int_to_bool(%varbit_5289);
+    ~clanwars_resynch_potions;
+}
+if (%varc_int_257 ! %varbit_5292) {
+    %varc_int_257 = %varbit_5292;
+    ~clientscript_1781;
+}
+%varc_int_258 = ~int_to_bool(%varbit_5293);
+~clanwars_resynch_accept;

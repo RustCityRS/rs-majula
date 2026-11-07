@@ -1,0 +1,18 @@
+[proc,clientscript_753]
+if (%varbit_4286 ! 101) {
+    if_settext("<tostring(%varbit_4286)>%", lore_stats_side:com48);
+    if (%varbit_4286 > 74) {
+        if_setcolour(^red, lore_stats_side:com48);
+    } else {
+        if_setcolour(^white, lore_stats_side:com48);
+    }
+} else {
+    if_settext("NA", lore_stats_side:com48);
+}
+if (%varbit_4285 ! 101) {
+    if_settext("<tostring(%varbit_4285)>%", lore_stats_side:com45);
+    if_settext("<tostring(%varbit_4285)>%", lore_stats_side:com46);
+} else {
+    if_settext("NA", lore_stats_side:com45);
+    if_settext("NA", lore_stats_side:com46);
+}

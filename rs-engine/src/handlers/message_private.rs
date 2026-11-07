@@ -1,12 +1,25 @@
+// TODO(647): port with the chat/social milestone — rev-647 private chat is
+// name-addressed with a huffman-compressed body, not the user37/wordpack
+// format handled here.
+#[cfg(before_647)]
 use crate::active_player::ActivePlayer;
+#[cfg(before_647)]
 use crate::clients::client_ether::EtherOutbound;
+#[cfg(before_647)]
 use crate::counters::{self, AutoBan, CHAT_PRIVATE, COUNTERS};
+#[cfg(before_647)]
 use crate::engine::engine;
+#[cfg(before_647)]
 use crate::handlers::ClientGameHandler;
+#[cfg(before_647)]
 use rs_protocol::network::game::client::message_private::MessagePrivate;
+#[cfg(before_647)]
 use rs_util::base37::is_valid_userhash;
+#[cfg(before_647)]
 use rs_util::wordpack::{pack, unpack};
+#[cfg(before_647)]
 use rs_vm::ScriptError;
+#[cfg(before_647)]
 use rs_vm::engine::{ScriptEngine, ScriptPlayer};
 
 /// Handles the `MessagePrivate` client protocol message.
@@ -39,6 +52,7 @@ use rs_vm::engine::{ScriptEngine, ScriptPlayer};
 ///
 /// **Called by:** `ActivePlayer::decode_and_handle` (via `ClientGameHandler` dispatch)
 /// **Calls:** `cache().wordenc.filter`, `pack`/`unpack`, `EtherOutbound::PrivateMessage`
+#[cfg(before_647)]
 impl ClientGameHandler for MessagePrivate {
     fn handle(self, active: &mut ActivePlayer) -> Result<(), ScriptError> {
         let engine = engine();

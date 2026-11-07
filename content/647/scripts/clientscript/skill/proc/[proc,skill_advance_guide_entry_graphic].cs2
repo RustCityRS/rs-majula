@@ -1,0 +1,7 @@
+[proc,skill_advance_guide_entry_graphic](int $int0, int $int1, int $int2)(int, graphic, string, string)
+if ($int0 = 7) {
+    return(~skill_advance_guide_entry_prayer_graphic($int1, $int2));
+}
+if ($int0 = 4) {
+    return(~skill_advance_guide_entry_magic_graphic($int1, $int2));
+}

@@ -1,0 +1,13 @@
+[clientscript,stock_offerprice_market]
+if (%varp_1109 = -1) {
+    %varc_int_85 = 1;
+    return;
+}
+def_int $int = %varp_1114;
+if ($int < 0) {
+    %varc_int_85 = 1;
+} else {
+    %varc_int_85 = %varp_1114;
+}
+if_settext("<op4124(%varc_int_85, 1)> gp", stockmarket:com153);
+~sm_offerprice_settimer;

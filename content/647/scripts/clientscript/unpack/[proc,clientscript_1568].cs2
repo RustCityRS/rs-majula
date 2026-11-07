@@ -1,0 +1,6 @@
+[proc,clientscript_1568](component $component)
+if (getlanguage = true) {
+    if_setgraphic("km_camerakeys,12", $component);
+} else {
+    if_setgraphic("km_camerakeys,10", $component);
+}

@@ -1,0 +1,5 @@
+[clientscript,stockcollect_onload]
+if_setoninvtransmit("stockcollect_refresh(){inv_523, inv_524, inv_525, inv_526, inv_527, inv_528, inv_540}", stockcollect:com16);
+if_sethook1425("stockcollect_refresh()", stockcollect:com16);
+if_setonvartransmit("stockcollect_refresh(){varp_1267, varp_1269}", stockcollect:com16);
+~stockcollect_refresh;

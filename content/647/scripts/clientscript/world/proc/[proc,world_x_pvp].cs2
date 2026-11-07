@@ -1,0 +1,6 @@
+[proc,world_x_pvp]()(string)
+if (~clientscript_1431 = true) {
+    return("World <tostring(active_toplevelinterface)> (PvP)");
+} else {
+    return("World <tostring(active_toplevelinterface)>");
+}

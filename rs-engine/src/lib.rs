@@ -11,6 +11,9 @@ pub mod counters;
 mod engine;
 mod game_map;
 mod handlers;
+/// Headless harness for `rs-test`; see [`harness::HarnessClient`].
+#[cfg(all(feature = "harness", since_647))]
+pub mod harness;
 mod info;
 mod phases;
 mod player_save;

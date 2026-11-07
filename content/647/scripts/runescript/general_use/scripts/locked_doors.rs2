@@ -1,0 +1,36 @@
+[oploc1,lockeddoor1]
+p_arrivedelay;
+mes("You try and open the door..."); // https://i.imgur.com/5SsIm4g.png
+p_delay(1);
+mes("The door is locked tight, I can't open it.");
+
+// 2011's own permanently locked doors.
+//
+// The third kind of locked door, and the one that hides best. It is not a
+// Thieving door -- there is no Pick-lock op to give it away -- and its op list
+// is byte for byte an ordinary door's, just `op1=Open`. Only the loc's *name*
+// says "Locked door". Wired generically it would swing open like any other,
+// which is why the name is part of the exclusion rule that keeps these out of
+// doors.rs2.
+//
+// There is nothing behind them: they exist to tell you no. 289 spells that as
+// two messages a tick apart, which is what makes it read as an attempt rather
+// than a refusal.
+//
+// 289 wires lockeddoor1 only (above). The six ids below are every loc in the 647 cache named "Locked door" whose
+// only op is Open and which the landscape actually places -- 90 placements
+// between them. The unplaced ones (2134-2136, 2138-2140, 49600) are left alone,
+// as are `unlocked_door` 2137/2141, which are doors that merely say so.
+
+[oploc1,locked_door_26189] ~locked_door_message;
+[oploc1,locked_door_37197] ~locked_door_message;
+[oploc1,locked_door_49601] ~locked_door_message;
+[oploc1,locked_door_49602] ~locked_door_message;
+[oploc1,locked_door_52381] ~locked_door_message;
+[oploc1,locked_door_52382] ~locked_door_message;
+
+[proc,locked_door_message]
+p_arrivedelay;
+mes("You try and open the door...");
+p_delay(1);
+mes("The door is locked tight, I can't open it.");

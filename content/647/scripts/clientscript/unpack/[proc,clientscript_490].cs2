@@ -1,0 +1,66 @@
+[proc,clientscript_490]
+def_struct $struct0 = ~clientscript_488(%varbit_7539);
+def_struct $struct1 = ~clientscript_488(%varbit_7540);
+def_struct $struct2 = ~clientscript_488(%varbit_7541);
+def_struct $struct3 = ~clientscript_488(%varbit_7542);
+def_component $component4 = ~clientscript_489(%varbit_7539);
+def_component $component5 = ~clientscript_489(%varbit_7540);
+def_component $component6 = ~clientscript_489(%varbit_7541);
+def_component $component7 = ~clientscript_489(%varbit_7542);
+if_setcolour(0xff981f, conq_buy_army:com58);
+if_setcolour(0xff981f, conq_buy_army:com60);
+if_setcolour(0xff981f, conq_buy_army:com62);
+if_setcolour(0xff981f, conq_buy_army:com64);
+if_setcolour(0xff981f, conq_buy_army:com68);
+if_setcolour(0xff981f, conq_buy_army:com70);
+if_setcolour(0xff981f, conq_buy_army:com72);
+if_setcolour(0xff981f, conq_buy_army:com74);
+if_setcolour(0xff981f, conq_buy_army:com66);
+if ($component4 ! null) {
+    if_setcolour(0x585042, $component4);
+}
+if ($component5 ! null) {
+    if_setcolour(0x585042, $component5);
+}
+if ($component6 ! null) {
+    if_setcolour(0x585042, $component6);
+}
+if ($component7 ! null) {
+    if_setcolour(0x585042, $component7);
+}
+if ($struct0 = null) {
+    if_sethide(true, conq_buy_army:com96);
+    if_sethide(false, conq_buy_army:com97);
+} else {
+    if_sethide(false, conq_buy_army:com96);
+    if_sethide(true, conq_buy_army:com97);
+    if_settext(struct_param($struct0, param_1150), conq_buy_army:com100);
+    if_setgraphic(struct_param($struct0, param_1153), conq_buy_army:com99);
+}
+if ($struct1 = null) {
+    if_sethide(true, conq_buy_army:com90);
+    if_sethide(false, conq_buy_army:com93);
+} else {
+    if_sethide(false, conq_buy_army:com90);
+    if_sethide(true, conq_buy_army:com93);
+    if_settext(struct_param($struct1, param_1150), conq_buy_army:com92);
+    if_setgraphic(struct_param($struct1, param_1153), conq_buy_army:com91);
+}
+if ($struct2 = null) {
+    if_sethide(true, conq_buy_army:com84);
+    if_sethide(false, conq_buy_army:com87);
+} else {
+    if_sethide(false, conq_buy_army:com84);
+    if_sethide(true, conq_buy_army:com87);
+    if_settext(struct_param($struct2, param_1150), conq_buy_army:com86);
+    if_setgraphic(struct_param($struct2, param_1153), conq_buy_army:com85);
+}
+if ($struct3 = null) {
+    if_sethide(true, conq_buy_army:com78);
+    if_sethide(false, conq_buy_army:com81);
+} else {
+    if_sethide(false, conq_buy_army:com78);
+    if_sethide(true, conq_buy_army:com81);
+    if_settext(struct_param($struct3, param_1150), conq_buy_army:com80);
+    if_setgraphic(struct_param($struct3, param_1153), conq_buy_army:com79);
+}

@@ -1,0 +1,6 @@
+[proc,clientscript_3999](int $int)(int)
+if ($int = 4091 | ($int = 4092 | ($int = 450 | ($int = 4094 | ($int = 4095 | $int = 4093))))) {
+    return(1);
+} else {
+    return(0);
+}

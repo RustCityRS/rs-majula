@@ -1,0 +1,2 @@
+[proc,skillcape_set_line](int $int)
+if_setposition(0, calc($int + 1), ^setpos_abs_left, ^setpos_abs_top, skillcape_colour:com19);

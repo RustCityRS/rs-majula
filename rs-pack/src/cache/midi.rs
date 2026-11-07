@@ -1,7 +1,22 @@
+#[cfg(since_647)]
+use crate::archive;
+#[cfg(since_647)]
+use crate::cache::js5::PackedCache;
+#[cfg(since_647)]
+use crate::pack::packed_data::PackedData;
+#[cfg(since_647)]
+use anyhow::{Result, bail};
+#[cfg(since_647)]
+use rayon::prelude::*;
+use rs_io::Packet;
 use rs_io::bz2::bz2_decompress;
 use rs_io::crc::getcrc;
 use std::collections::HashMap;
 use std::sync::Arc;
+#[cfg(since_647)]
+use std::{fs, path::Path};
+#[cfg(since_647)]
+use tracing::info;
 
 pub struct MidiType {
     pub name: Box<str>,
@@ -71,42 +86,17 @@ fn decompress_song(data: &[u8]) -> Vec<u8> {
     bz2_decompress(&data[4..], size, true, 0)
 }
 
-fn read_u16_be(data: &[u8], offset: usize) -> u16 {
-    ((data[offset] as u16) << 8) | data[offset + 1] as u16
-}
-
-fn read_u32_be(data: &[u8], offset: usize) -> u32 {
-    ((data[offset] as u32) << 24)
-        | ((data[offset + 1] as u32) << 16)
-        | ((data[offset + 2] as u32) << 8)
-        | data[offset + 3] as u32
-}
-
-fn read_u32_le(data: &[u8], offset: usize) -> u32 {
-    (data[offset] as u32)
-        | ((data[offset + 1] as u32) << 8)
-        | ((data[offset + 2] as u32) << 16)
-        | ((data[offset + 3] as u32) << 24)
-}
-
 fn read_chunk_id(data: &[u8], offset: usize) -> &[u8] {
     &data[offset..offset + 4]
 }
 
-fn read_var_len(data: &[u8], mut offset: usize, limit: usize) -> Option<(u32, usize)> {
-    let mut value: u32 = 0;
-    for _ in 0..4 {
-        if offset >= limit {
-            return None;
-        }
-        let byte = data[offset];
-        offset += 1;
-        value = (value << 7) | (byte & 0x7F) as u32;
-        if byte & 0x80 == 0 {
-            return Some((value, offset));
-        }
-    }
-    None
+fn read_var_len(data: &[u8], offset: usize, limit: usize) -> Option<(u32, usize)> {
+    let end = (offset + 4).min(limit);
+    data.get(offset..end)?
+        .iter()
+        .position(|byte| byte & 0x80 == 0)?;
+    let mut buf = Packet { data, pos: offset };
+    Some((buf.gmidivarlen(), buf.pos))
 }
 
 fn unwrap_riff_midi(data: &[u8]) -> Option<&[u8]> {
@@ -125,7 +115,7 @@ fn unwrap_riff_midi(data: &[u8]) -> Option<&[u8]> {
     let mut offset = 12;
     while offset + 8 <= data.len() {
         let id = read_chunk_id(data, offset);
-        let size = read_u32_le(data, offset + 4) as usize;
+        let size = Packet::from(&data[offset + 4..]).g4s_alt1() as u32 as usize;
         offset += 8;
 
         if offset + size > data.len() {
@@ -148,7 +138,7 @@ struct TempoEvent {
     order: u32,
 }
 
-fn parse_midi_length(src: &[u8]) -> Option<u32> {
+pub(crate) fn parse_midi_length(src: &[u8]) -> Option<u32> {
     let data = unwrap_riff_midi(src)?;
 
     if data.len() < 14 {
@@ -160,15 +150,15 @@ fn parse_midi_length(src: &[u8]) -> Option<u32> {
         return None;
     }
 
-    let header_length = read_u32_be(data, offset + 4) as usize;
+    let header_length = Packet::from(&data[offset + 4..]).g4s() as u32 as usize;
     offset += 8;
     if header_length < 6 || offset + header_length > data.len() {
         return None;
     }
 
-    let format = read_u16_be(data, offset);
-    let track_count = read_u16_be(data, offset + 2);
-    let division = read_u16_be(data, offset + 4);
+    let format = Packet::from(&data[offset..]).g2();
+    let track_count = Packet::from(&data[offset + 2..]).g2();
+    let division = Packet::from(&data[offset + 4..]).g2();
     offset += header_length;
 
     if format > 2 || track_count == 0 {
@@ -188,7 +178,7 @@ fn parse_midi_length(src: &[u8]) -> Option<u32> {
             return None;
         }
 
-        let track_length = read_u32_be(data, offset + 4) as usize;
+        let track_length = Packet::from(&data[offset + 4..]).g4s() as u32 as usize;
         offset += 8;
         let track_end = offset + track_length;
         if track_end > data.len() {
@@ -215,7 +205,11 @@ fn parse_midi_length(src: &[u8]) -> Option<u32> {
                 status = running_status;
             } else {
                 offset += 1;
-                if status < 0xF0 {
+                // At 647 a meta event sets the running status too: the 647
+                // client's MIDI (rebuilt from Jagex's columns, `Linkable_Sub25`)
+                // writes a meta event's next data bytes under it. A standard
+                // file never leans on it, a meta event cancelling running status.
+                if status < 0xF0 || (cfg!(since_647) && status == 0xFF) {
                     running_status = status;
                 }
             }
@@ -324,4 +318,467 @@ fn parse_midi_length(src: &[u8]) -> Option<u32> {
     }
 
     Some((total_us / 1000) as u32)
+}
+
+#[cfg(since_647)]
+pub const MIDI_JINGLE_BASE: usize = 10000;
+
+#[cfg(since_647)]
+pub(crate) fn load_midi_ids(pack_dir: &Path) -> HashMap<Box<str>, u16> {
+    let mut ids = HashMap::new();
+    for stem in ["songs", "jingles"] {
+        let path = pack_dir.join(format!("{stem}.pack"));
+        let Ok(text) = fs::read_to_string(&path) else {
+            continue;
+        };
+        for line in text.lines() {
+            let Some((id, name)) = line.split_once('=') else {
+                continue;
+            };
+            if let Ok(id) = id.trim().parse::<u16>() {
+                ids.insert(name.trim().into(), id);
+            }
+        }
+    }
+    ids
+}
+
+#[cfg(since_647)]
+pub(crate) fn load_midi_tick_lengths(cache: &PackedCache) -> Box<[Option<u16>]> {
+    let mut lengths: Vec<Option<u16>> = Vec::new();
+    for (archive, base) in [(archive::SONGS, 0), (archive::JINGLES, MIDI_JINGLE_BASE)] {
+        let Some(table) = cache.reference_table(archive) else {
+            continue;
+        };
+        let groups: Vec<_> = table
+            .groups
+            .par_iter()
+            .filter_map(|group| {
+                let data = cache
+                    .read_group_raw_decompressed(archive, group.id)
+                    .ok()??;
+                let ms = decode_jagex_midi(&data)
+                    .ok()
+                    .and_then(|smf| parse_midi_length(&smf))?;
+                Some((
+                    base + group.id as usize,
+                    ((ms as f64 / 600.0).ceil() as u32 + 1) as u16,
+                ))
+            })
+            .collect();
+        for (i, ticks) in groups {
+            if i >= lengths.len() {
+                lengths.resize(i + 1, None);
+            }
+            lengths[i] = Some(ticks);
+        }
+    }
+    info!(
+        "Loaded {} song and jingle lengths",
+        lengths.iter().flatten().count()
+    );
+    lengths.into_boxed_slice()
+}
+
+#[cfg(since_647)]
+pub fn decode_jagex_midi(data: &[u8]) -> Result<Vec<u8>> {
+    if data.len() < 3 {
+        bail!("MIDI data too short: {} bytes", data.len());
+    }
+
+    let mut pos = data.len() - 3;
+    let num_tracks = data[pos] as usize;
+    pos += 1;
+    let division = Packet::from(&data[pos..]).g2();
+
+    let mut header_size = num_tracks * 10 + 14;
+    pos = 0;
+
+    let mut tempo_count = 0usize;
+    let mut note_on_count = 0usize;
+    let mut note_off_count = 0usize;
+    let mut control_count = 0usize;
+    let mut pitch_bend_count = 0usize;
+    let mut channel_pressure_count = 0usize;
+    let mut poly_pressure_count = 0usize;
+    let mut program_change_count = 0usize;
+
+    for _ in 0..num_tracks {
+        let mut prev: i32 = -1;
+        loop {
+            let opcode = data[pos] as i32;
+            pos += 1;
+            if opcode != prev {
+                header_size += 1;
+            }
+            prev = opcode & 0xF;
+            if opcode == 7 {
+                break;
+            }
+            match prev {
+                23 if opcode == 23 => tempo_count += 1,
+                0 => note_on_count += 1,
+                1 => note_off_count += 1,
+                2 => control_count += 1,
+                3 => pitch_bend_count += 1,
+                4 => channel_pressure_count += 1,
+                5 => poly_pressure_count += 1,
+                6 => program_change_count += 1,
+                _ => {
+                    if opcode == 23 {
+                        tempo_count += 1;
+                    }
+                }
+            }
+        }
+    }
+
+    let delta_size_estimate = header_size
+        + tempo_count * 5
+        + (note_on_count + note_off_count + control_count + pitch_bend_count + poly_pressure_count)
+            * 2
+        + channel_pressure_count
+        + program_change_count;
+    let _ = delta_size_estimate;
+
+    let delta_start = pos;
+    let total_events = num_tracks
+        + tempo_count
+        + control_count
+        + note_on_count
+        + note_off_count
+        + pitch_bend_count
+        + channel_pressure_count
+        + poly_pressure_count
+        + program_change_count;
+
+    let mut deltas = Packet { data, pos };
+    for _ in 0..total_events {
+        if !data[deltas.pos..].iter().any(|byte| byte & 0x80 == 0) {
+            bail!("unexpected EOF in MIDI delta at {}", deltas.pos);
+        }
+        deltas.gmidivarlen();
+    }
+    pos = deltas.pos;
+    let after_deltas = pos;
+
+    let mut controller_zero_or_32 = 0usize;
+    let mut controller_1 = 0usize;
+    let mut controller_33 = 0usize;
+    let mut controller_7 = 0usize;
+    let mut controller_39 = 0usize;
+    let mut controller_10 = 0usize;
+    let mut controller_42 = 0usize;
+    let mut controller_99 = 0usize;
+    let mut controller_98 = 0usize;
+    let mut controller_101 = 0usize;
+    let mut controller_100 = 0usize;
+    let mut controller_switch = 0usize;
+    let mut controller_other = 0usize;
+
+    let mut cc_num: u8 = 0;
+    for _ in 0..control_count {
+        cc_num = cc_num.wrapping_add(data[pos]) & 0x7F;
+        pos += 1;
+        match cc_num {
+            0 | 32 => controller_zero_or_32 += 1,
+            1 => controller_1 += 1,
+            33 => controller_33 += 1,
+            7 => controller_7 += 1,
+            39 => controller_39 += 1,
+            10 => controller_10 += 1,
+            42 => controller_42 += 1,
+            99 => controller_99 += 1,
+            98 => controller_98 += 1,
+            101 => controller_101 += 1,
+            100 => controller_100 += 1,
+            64 | 65 | 120 | 121 | 123 => controller_switch += 1,
+            _ => controller_other += 1,
+        }
+    }
+
+    let mut section_pos = pos;
+    let switch_off = section_pos;
+    section_pos += controller_switch;
+    let poly_pressure_off = section_pos;
+    section_pos += poly_pressure_count;
+    let chan_pressure_off = section_pos;
+    section_pos += channel_pressure_count;
+    let pitch_bend_hi_off = section_pos;
+    section_pos += pitch_bend_count;
+    let mod_wheel_off = section_pos;
+    section_pos += controller_1;
+    let volume_off = section_pos;
+    section_pos += controller_7;
+    let pan_off = section_pos;
+    section_pos += controller_10;
+    let note_vel_off = section_pos;
+    section_pos += note_on_count + note_off_count + poly_pressure_count;
+    let note_pitch_off = section_pos;
+    section_pos += note_on_count;
+    let other_cc_off = section_pos;
+    section_pos += controller_other;
+    let note_off_vel_off = section_pos;
+    section_pos += note_off_count;
+    let mod_wheel_fine_off = section_pos;
+    section_pos += controller_33;
+    let volume_fine_off = section_pos;
+    section_pos += controller_39;
+    let pan_fine_off = section_pos;
+    section_pos += controller_42;
+    let bank_off = section_pos;
+    section_pos += controller_zero_or_32 + program_change_count;
+    let pitch_bend_lo_off = section_pos;
+    section_pos += pitch_bend_count;
+    let nrpn_msb_off = section_pos;
+    section_pos += controller_99;
+    let nrpn_lsb_off = section_pos;
+    section_pos += controller_98;
+    let rpn_msb_off = section_pos;
+    section_pos += controller_101;
+    let rpn_lsb_off = section_pos;
+    section_pos += controller_100;
+    let tempo_off = section_pos;
+
+    let mut out = PackedData::default();
+    out.p4(0x4D546864);
+    out.p4(6);
+    out.p2(if num_tracks > 1 { 1 } else { 0 });
+    out.p2(num_tracks as u16);
+    out.p2(division);
+
+    let mut c_opcode = 0usize;
+    let mut deltas = Packet::from(&data[delta_start..after_deltas]);
+    let mut c_cc_num = after_deltas;
+    let mut c_switch = switch_off;
+    let mut c_poly_pressure = poly_pressure_off;
+    let mut c_chan_pressure = chan_pressure_off;
+    let mut c_pitch_bend_hi = pitch_bend_hi_off;
+    let mut c_mod_wheel = mod_wheel_off;
+    let mut c_volume = volume_off;
+    let mut c_pan = pan_off;
+    let mut c_note_vel = note_vel_off;
+    let mut c_note_pitch = note_pitch_off;
+    let mut c_other_cc = other_cc_off;
+    let mut c_note_off_vel = note_off_vel_off;
+    let mut c_mod_wheel_fine = mod_wheel_fine_off;
+    let mut c_volume_fine = volume_fine_off;
+    let mut c_pan_fine = pan_fine_off;
+    let mut c_bank = bank_off;
+    let mut c_pitch_bend_lo = pitch_bend_lo_off;
+    let mut c_nrpn_msb = nrpn_msb_off;
+    let mut c_nrpn_lsb = nrpn_lsb_off;
+    let mut c_rpn_msb = rpn_msb_off;
+    let mut c_rpn_lsb = rpn_lsb_off;
+    let mut c_tempo = tempo_off;
+
+    let mut channel_xor: i32 = 0;
+    let mut pitch_delta: i32 = 0;
+    let mut note_on_vel_delta: i32 = 0;
+    let mut note_off_vel_delta: i32 = 0;
+    let mut pitch_bend_delta: i32 = 0;
+    let mut chan_press_delta: i32 = 0;
+    let mut poly_press_delta: i32 = 0;
+    let mut cc_val_accum = [0i32; 128];
+    let mut cc_num_running: u8 = 0;
+
+    for _ in 0..num_tracks {
+        out.p4(0x4D54726B);
+        let size_pos = out.dat.len();
+        out.p4(0);
+        let track_start = out.dat.len();
+
+        let mut prev_status: i32 = -1;
+
+        loop {
+            let delta = deltas.gmidivarlen() as i32;
+            out.pvarint(delta.max(0) as u32);
+
+            let opcode = data[c_opcode] as i32;
+            c_opcode += 1;
+            let is_new_status = opcode != prev_status;
+            prev_status = opcode & 0xF;
+
+            if opcode == 7 {
+                if is_new_status {
+                    out.p1(0xFF);
+                }
+                out.p1(0x2F);
+                out.p1(0x00);
+                let track_size = (out.dat.len() - track_start) as u32;
+                Packet::from(&mut out.dat[size_pos..size_pos + 4]).p4(track_size as i32);
+                break;
+            }
+
+            if opcode == 23 {
+                if is_new_status {
+                    out.p1(0xFF);
+                }
+                out.p1(0x51);
+                out.p1(0x03);
+                out.p1(data[c_tempo]);
+                c_tempo += 1;
+                out.p1(data[c_tempo]);
+                c_tempo += 1;
+                out.p1(data[c_tempo]);
+                c_tempo += 1;
+            } else {
+                channel_xor ^= opcode >> 4;
+                let event_type = opcode & 0xF;
+
+                match event_type {
+                    0 => {
+                        if is_new_status {
+                            out.p1((channel_xor + 144) as u8);
+                        }
+                        pitch_delta = pitch_delta.wrapping_add(data[c_note_vel] as i8 as i32);
+                        c_note_vel += 1;
+                        note_on_vel_delta =
+                            note_on_vel_delta.wrapping_add(data[c_note_pitch] as i8 as i32);
+                        c_note_pitch += 1;
+                        out.p1((pitch_delta & 0x7F) as u8);
+                        out.p1((note_on_vel_delta & 0x7F) as u8);
+                    }
+                    1 => {
+                        if is_new_status {
+                            out.p1((channel_xor + 128) as u8);
+                        }
+                        pitch_delta = pitch_delta.wrapping_add(data[c_note_vel] as i8 as i32);
+                        c_note_vel += 1;
+                        note_off_vel_delta =
+                            note_off_vel_delta.wrapping_add(data[c_note_off_vel] as i8 as i32);
+                        c_note_off_vel += 1;
+                        out.p1((pitch_delta & 0x7F) as u8);
+                        out.p1((note_off_vel_delta & 0x7F) as u8);
+                    }
+                    2 => {
+                        if is_new_status {
+                            out.p1((channel_xor + 176) as u8);
+                        }
+                        cc_num_running = cc_num_running.wrapping_add(data[c_cc_num]) & 0x7F;
+                        c_cc_num += 1;
+                        out.p1(cc_num_running);
+
+                        let cc_val_byte: i8 = match cc_num_running {
+                            0 | 32 => {
+                                let v = data[c_bank] as i8;
+                                c_bank += 1;
+                                v
+                            }
+                            1 => {
+                                let v = data[c_mod_wheel] as i8;
+                                c_mod_wheel += 1;
+                                v
+                            }
+                            33 => {
+                                let v = data[c_mod_wheel_fine] as i8;
+                                c_mod_wheel_fine += 1;
+                                v
+                            }
+                            7 => {
+                                let v = data[c_volume] as i8;
+                                c_volume += 1;
+                                v
+                            }
+                            39 => {
+                                let v = data[c_volume_fine] as i8;
+                                c_volume_fine += 1;
+                                v
+                            }
+                            10 => {
+                                let v = data[c_pan] as i8;
+                                c_pan += 1;
+                                v
+                            }
+                            42 => {
+                                let v = data[c_pan_fine] as i8;
+                                c_pan_fine += 1;
+                                v
+                            }
+                            99 => {
+                                let v = data[c_nrpn_msb] as i8;
+                                c_nrpn_msb += 1;
+                                v
+                            }
+                            98 => {
+                                let v = data[c_nrpn_lsb] as i8;
+                                c_nrpn_lsb += 1;
+                                v
+                            }
+                            101 => {
+                                let v = data[c_rpn_msb] as i8;
+                                c_rpn_msb += 1;
+                                v
+                            }
+                            100 => {
+                                let v = data[c_rpn_lsb] as i8;
+                                c_rpn_lsb += 1;
+                                v
+                            }
+                            64 | 65 | 120 | 121 | 123 => {
+                                let v = data[c_switch] as i8;
+                                c_switch += 1;
+                                v
+                            }
+                            _ => {
+                                let v = data[c_other_cc] as i8;
+                                c_other_cc += 1;
+                                v
+                            }
+                        };
+                        let accumulated =
+                            cc_val_byte as i32 + cc_val_accum[cc_num_running as usize];
+                        cc_val_accum[cc_num_running as usize] = accumulated;
+                        out.p1((accumulated & 0x7F) as u8);
+                    }
+                    3 => {
+                        if is_new_status {
+                            out.p1((channel_xor + 224) as u8);
+                        }
+                        pitch_bend_delta =
+                            pitch_bend_delta.wrapping_add(data[c_pitch_bend_lo] as i8 as i32);
+                        c_pitch_bend_lo += 1;
+                        pitch_bend_delta = pitch_bend_delta
+                            .wrapping_add((data[c_pitch_bend_hi] as i8 as i32) << 7);
+                        c_pitch_bend_hi += 1;
+                        out.p1((pitch_bend_delta & 0x7F) as u8);
+                        out.p1((pitch_bend_delta >> 7 & 0x7F) as u8);
+                    }
+                    4 => {
+                        if is_new_status {
+                            out.p1((channel_xor + 208) as u8);
+                        }
+                        chan_press_delta =
+                            chan_press_delta.wrapping_add(data[c_chan_pressure] as i8 as i32);
+                        c_chan_pressure += 1;
+                        out.p1((chan_press_delta & 0x7F) as u8);
+                    }
+                    5 => {
+                        if is_new_status {
+                            out.p1((channel_xor + 160) as u8);
+                        }
+                        pitch_delta = pitch_delta.wrapping_add(data[c_note_vel] as i8 as i32);
+                        c_note_vel += 1;
+                        poly_press_delta =
+                            poly_press_delta.wrapping_add(data[c_poly_pressure] as i8 as i32);
+                        c_poly_pressure += 1;
+                        out.p1((pitch_delta & 0x7F) as u8);
+                        out.p1((poly_press_delta & 0x7F) as u8);
+                    }
+                    6 => {
+                        if is_new_status {
+                            out.p1((channel_xor + 192) as u8);
+                        }
+                        out.p1(data[c_bank]);
+                        c_bank += 1;
+                    }
+                    _ => {
+                        bail!("unknown MIDI event type {}", event_type);
+                    }
+                }
+            }
+        }
+    }
+
+    Ok(out.dat)
 }

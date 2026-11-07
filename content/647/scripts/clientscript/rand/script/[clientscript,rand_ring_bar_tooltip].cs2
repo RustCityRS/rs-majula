@@ -1,0 +1,60 @@
+[clientscript,rand_ring_bar_tooltip](component $component0, int $int1)
+def_string $string0 = "";
+def_string $string1 = "";
+def_component $component2 = rand_ring_interface:com302;
+switch_int (%varc_int_1184) {
+    case 1:
+        if ($component0 = rand_ring_interface:com134) {
+            $string0 = enum(105, 115, enum_3089, %varbit_8053);
+            $string1 = enum(105, 115, enum_3089, calc(%varbit_8053 + 1));
+        } else if ($component0 = rand_ring_interface:com41) {
+            $string0 = enum(105, 115, enum_3090, %varbit_8054);
+            $string1 = enum(105, 115, enum_3090, calc(%varbit_8054 + 1));
+            $component2 = rand_ring_interface:com301;
+        } else if ($component0 = rand_ring_interface:com83) {
+            $string0 = enum(105, 115, enum_3091, %varbit_8055);
+            $string1 = enum(105, 115, enum_3091, calc(%varbit_8055 + 1));
+            $component2 = rand_ring_interface:com300;
+        }
+    case 2:
+        if ($component0 = rand_ring_interface:com134) {
+            $string0 = enum(105, 115, enum_3092, %varbit_8056);
+            $string1 = enum(105, 115, enum_3092, calc(%varbit_8056 + 1));
+        } else if ($component0 = rand_ring_interface:com41) {
+            $string0 = enum(105, 115, enum_3093, %varbit_8057);
+            $string1 = enum(105, 115, enum_3093, calc(%varbit_8057 + 1));
+            $component2 = rand_ring_interface:com301;
+        } else if ($component0 = rand_ring_interface:com83) {
+            $string0 = enum(105, 115, enum_3094, %varbit_8058);
+            $string1 = enum(105, 115, enum_3094, calc(%varbit_8058 + 1));
+            $component2 = rand_ring_interface:com300;
+        }
+    case 3:
+        if ($component0 = rand_ring_interface:com134) {
+            $string0 = enum(105, 115, enum_3095, %varbit_8059);
+            $string1 = enum(105, 115, enum_3095, calc(%varbit_8059 + 1));
+        } else if ($component0 = rand_ring_interface:com41) {
+            $string0 = enum(105, 115, enum_3096, %varbit_8060);
+            $string1 = enum(105, 115, enum_3096, calc(%varbit_8060 + 1));
+            $component2 = rand_ring_interface:com301;
+        } else if ($component0 = rand_ring_interface:com83) {
+            $string0 = enum(105, 115, enum_3097, %varbit_8061);
+            $string1 = enum(105, 115, enum_3097, calc(%varbit_8061 + 1));
+            $component2 = rand_ring_interface:com300;
+        }
+    case 4:
+        if ($component0 = rand_ring_interface:com134) {
+            $string0 = enum(105, 115, enum_3098, %varbit_8062);
+            $string1 = enum(105, 115, enum_3098, calc(%varbit_8062 + 1));
+        } else if ($component0 = rand_ring_interface:com41) {
+            $string0 = enum(105, 115, enum_3099, %varbit_8063);
+            $string1 = enum(105, 115, enum_3099, calc(%varbit_8063 + 1));
+            $component2 = rand_ring_interface:com301;
+        } else if ($component0 = rand_ring_interface:com83) {
+            $string0 = enum(105, 115, enum_3100, %varbit_8064);
+            $string1 = enum(105, 115, enum_3100, calc(%varbit_8064 + 1));
+            $component2 = rand_ring_interface:com300;
+        }
+}
+def_string $string2 = "Current - <$string0><br>Next - <$string1>";
+~addtooltip_action_dynamic($component0, $int1, $component2, $string2, 25, if_getwidth(if_getlayer($component2)));

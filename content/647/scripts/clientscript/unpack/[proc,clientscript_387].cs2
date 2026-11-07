@@ -1,0 +1,140 @@
+[proc,clientscript_387](boolean $boolean0)
+def_string $string0 = "Select Character";
+def_string $string1 = "Select Style";
+def_string $string2 = "Style";
+def_int $int1 = 0;
+$int1 = max(max(calc(op4125($string0, 468) + 40), op4125($string1, 468)), op4125($string2, 468));
+if_setposition(0, 0, ^setpos_abs_left, ^setpos_abs_top, playerdesign4:com36);
+~clientscript_362(playerdesign4:com36, $string0, $int1);
+~clientscript_362(playerdesign4:com37, $string1, $int1);
+def_int $int2 = if_getchildcount(playerdesign4:com37);
+if (cc_find(playerdesign4:com37, calc($int2 - 1)) = true) {
+    cc_sethide(true);
+}
+cc_create(playerdesign4:com37, ^iftype_text, $int2);
+cc_setsize(0, 0, ^setsize_minus, ^setsize_minus);
+cc_setposition(0, 0, ^setpos_abs_centre, ^setpos_abs_centre);
+cc_settextfont(welcome_font_small);
+cc_setcolour(0x241b12);
+cc_settextalign(^settextalign_centre, ^settextalign_centre, 0);
+cc_settextshadow(false);
+cc_settext($string2);
+cc_sethide(true);
+$string0, $string1 = if_getop(1, playerdesign4:com38), if_getop(1, playerdesign4:com39);
+def_int $int3 = enum_getoutputcount(enum_3280);
+def_int $int4 = 0;
+def_int $int5 = 0;
+def_int $int6 = 73;
+def_enum $enum7 = enum_3278;
+$int2 = calc(if_getx(playerdesign4:com36) + $int1 + 20);
+$int1 = calc(max(op4125($string0, 495), op4125($string1, 495)) + 30);
+if_setposition($int2, if_gety(playerdesign4:com38), ^setpos_abs_left, ^setpos_abs_top, playerdesign4:com38);
+~playerdesign4_button(playerdesign4:com38, $string0, $int1, "");
+$int2 = calc($int2 + $int1 + 10);
+if_setposition($int2, if_gety(playerdesign4:com38), ^setpos_abs_left, ^setpos_abs_top, playerdesign4:com39);
+~playerdesign4_button(playerdesign4:com39, $string1, $int1, "");
+$int4 = min($int3, enum_getoutputcount($enum7));
+$int5 = calc(($int4 + 1) / 2);
+$int1 = max(calc($int5 * $int6 + (89 - $int6)), scale(4, 5, 765));
+if_setsize($int1, 26, ^setsize_abs, ^setsize_minus, playerdesign4:com35);
+if_setsize($int1, if_getheight(playerdesign4:com35), ^setsize_abs, ^setsize_abs, playerdesign4:com114);
+if_setsize(0, 180, ^setsize_minus, ^setsize_abs, playerdesign4:com47);
+if_setposition(0, 237, ^setpos_abs_centre, ^setpos_abs_top, playerdesign4:com71);
+if_setsize(calc($int1 - ($int2 + if_getwidth(playerdesign4:com39) + 42)), if_getheight(playerdesign4:com40), ^setsize_abs, ^setsize_abs, playerdesign4:com40);
+if_setposition(if_getx(playerdesign4:com40), if_gety(playerdesign4:com38), ^setpos_abs_left, ^setpos_abs_top, playerdesign4:com40);
+~clientscript_389;
+def_int $int8 = calc(%varc_int_197 - 1);
+if ($int8 <= -1) {
+    if_sethide(true, playerdesign4:com37);
+    if_sethide(true, playerdesign4:com115);
+    if_sethide(true, playerdesign4:com117);
+    if_sethide(true, playerdesign4:com112);
+    if_sethide(true, playerdesign4:com113);
+} else {
+    if_sethide(false, playerdesign4:com37);
+    if_sethide(false, playerdesign4:com115);
+    if (%character_creation_multipage = true & %character_creation_page = false) {
+        if_sethide(true, playerdesign4:com117);
+    } else {
+        if_sethide(false, playerdesign4:com117);
+    }
+    if_sethide(false, playerdesign4:com112);
+    if_sethide(false, playerdesign4:com113);
+}
+def_component $component9 = null;
+def_string $string3 = "";
+def_graphic $graphic10 = null;
+def_int $int11 = 0;
+def_int $int12 = 1;
+def_struct $struct13 = enum(105, 74, $enum7, $int8);
+~playerdesign4_backdrop($struct13);
+$int2 = calc(if_getheight(playerdesign4:com47) - (89 + 17));
+while ($int11 < $int4) {
+    $component9 = enum(105, 73, enum_3280, $int11);
+    if ($component9 ! null) {
+        if ($int11 < $int5) {
+            if ($int11 = $int8) {
+                if_setposition(calc($int6 * $int11), 0, ^setpos_abs_left, ^setpos_abs_top, $component9);
+            } else {
+                if_setposition(calc($int6 * $int11), $int2, ^setpos_abs_left, ^setpos_abs_bottom, $component9);
+            }
+            if ($int11 <= $int8 | $int8 <= -1) {
+                if_setzorder_front($component9);
+            } else {
+                if_setzorder_back($component9);
+            }
+        } else {
+            if ($int11 = $int8) {
+                if_setposition(calc($int6 * ($int11 - $int5)), 17, ^setpos_abs_left, ^setpos_abs_bottom, $component9);
+            } else {
+                if_setposition(calc($int6 * ($int11 - $int5)), 0, ^setpos_abs_left, ^setpos_abs_bottom, $component9);
+            }
+            if ($int8 < $int5 | $int11 <= $int8) {
+                if_setzorder_front($component9);
+            }
+        }
+        if_setsize(89, 89, ^setsize_abs, ^setsize_abs, $component9);
+        $struct13 = enum(105, 74, $enum7, $int11);
+        if ($struct13 ! null) {
+            if ($boolean0 = true) {
+                $string3 = enum(74, 115, enum_3279, $struct13);
+                $graphic10 = struct_param($struct13, param_1162);
+            } else {
+                $string3 = struct_param($struct13, param_1160);
+                $graphic10 = struct_param($struct13, param_1161);
+            }
+            if ($int11 = $int8) {
+                $int12 = 1;
+            } else {
+                $int12 = 0;
+            }
+            ~playerdesign4_box($component9, $int8, enum_3280, $graphic10, true, 51, 61, 2, $string3, $int12, "");
+            if_setonop("clientscript_351(^event_op, calc($int11 + 1))", $component9);
+        } else {
+            ~playerdesign4_box($component9, -1, null, null, false, 0, 0, 0, "", 0, "");
+        }
+    }
+    $int11 = calc($int11 + 1);
+}
+while ($int11 < $int3) {
+    $component9 = enum(105, 73, enum_3280, $int11);
+    if ($component9 ! null) {
+        if_sethide(true, $component9);
+    }
+    $int11 = calc($int11 + 1);
+}
+if ($int8 >= $int5) {
+    $int11 = calc($int4 - 1);
+    while ($int11 >= $int8) {
+        $component9 = enum(105, 73, enum_3280, $int11);
+        if ($component9 ! null) {
+            if_setzorder_front($component9);
+        }
+        $int11 = calc($int11 - 1);
+    }
+} else {
+    $component9 = enum(105, 73, enum_3280, $int8);
+    if ($component9 ! null) {
+        if_setzorder_front($component9);
+    }
+}

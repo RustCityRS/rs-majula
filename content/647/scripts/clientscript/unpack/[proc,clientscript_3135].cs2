@@ -1,0 +1,7 @@
+[proc,clientscript_3135](int $int)
+if (%varc_int_998 = $int | %varc_int_999 = $int) {
+    ~clientscript_3139($int);
+} else {
+    ~clientscript_3137($int);
+}
+return;

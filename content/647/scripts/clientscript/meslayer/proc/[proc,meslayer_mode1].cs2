@@ -1,0 +1,29 @@
+[proc,meslayer_mode1](string $string)
+if (%varc_int_5 > 1) {
+    return;
+}
+if (getwindowmode >= 2) {
+    if_sethide(false, toplevel_fullscreen:com_chatbox);
+}
+if_settextfont(q8_full, chatbox:com4);
+if_settextfont(q8_full, chatbox:com5);
+if_setsize(0, 20, ^setsize_minus, ^setsize_minus, chatbox:com4);
+if_setsize(0, 20, ^setsize_minus, ^setsize_abs, chatbox:com5);
+if_setposition(0, 0, ^setpos_abs_centre, ^setpos_abs_top, chatbox:com4);
+if_setposition(0, 0, ^setpos_abs_centre, ^setpos_abs_bottom, chatbox:com5);
+if_sethide(false, chatbox:com3);
+if_sethide(true, chatbox:com7);
+if_sethide(true, chatbox:com8);
+if_settext($string, chatbox:com4);
+if_settext("Click here to continue", chatbox:com5);
+%varc_int_5 = 1;
+if_setonclick("meslayer_close()", chatbox:com3);
+if_setonkey(null, chatbox:com5);
+if_setcolour(0x000080, chatbox:com5);
+if_setonmouserepeat("text_colour_swapper(^event_com, 16777215)", chatbox:com5);
+if_setonmouseleave("text_colour_swapper(^event_com, 128)", chatbox:com5);
+~opt_header;
+if_sethide(true, chatbox:com6);
+if_setontimer(null, chatbox:com5);
+if_setonclick(null, chatbox:com5);
+if_sethook1424("clientscript_3450(1)", chatbox:com5);

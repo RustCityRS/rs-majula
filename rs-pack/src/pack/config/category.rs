@@ -1,8 +1,8 @@
-﻿use crate::pack::pack_registry::{PackRegistry, PackedFile};
+﻿use crate::pack::pack_registry::PackRegistry;
 use crate::pack::packed_data::PackedData;
 use tracing::debug;
 
-pub fn pack_categories(registry: &PackRegistry) -> anyhow::Result<PackedFile> {
+pub fn pack_categories(registry: &PackRegistry) -> anyhow::Result<PackedData> {
     let category = &registry.category;
 
     debug!("  Found {} .categories", category.max);
@@ -24,8 +24,5 @@ pub fn pack_categories(registry: &PackRegistry) -> anyhow::Result<PackedFile> {
         server.finish_entry();
     }
 
-    Ok(PackedFile {
-        server,
-        client: None,
-    })
+    Ok(server)
 }

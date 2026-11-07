@@ -1,0 +1,11 @@
+[clientscript,task_side_pin_hover](int $int)
+if ($int = false) {
+    if_setgraphic(4324, task_side:com118);
+    if_setgraphic(4324, task_side:com119);
+    if_setgraphic(4325, task_side:com89);
+} else {
+    if_setgraphic(4322, task_side:com118);
+    if_setgraphic(4322, task_side:com119);
+    if_setgraphic(4323, task_side:com89);
+    ~deltooltip_action(task_side:com136);
+}

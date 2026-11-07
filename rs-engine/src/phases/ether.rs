@@ -2,8 +2,11 @@ use crate::clients::client_ether::{EtherInbound, EtherOutbound, max_friends_cap}
 use crate::engine::Engine;
 use rs_entity::build::MAX_PLAYERS;
 use rs_protocol::LoginResponse;
+#[cfg(before_647)]
 use rs_protocol::network::game::server::message_private::MessagePrivate;
+#[cfg(before_647)]
 use rs_protocol::network::game::server::update_friendlist::UpdateFriendList;
+#[cfg(before_647)]
 use rs_protocol::network::game::server::update_ignorelist::UpdateIgnoreList;
 use rs_vm::engine::ScriptPlayer;
 use tracing::warn;
@@ -45,6 +48,7 @@ impl Engine {
                 Err(_) => break,
             };
             match msg {
+                #[cfg(before_647)]
                 EtherInbound::UpdateFriendList {
                     target37,
                     friend37,
@@ -63,6 +67,11 @@ impl Engine {
                         });
                     }
                 }
+                // TODO(647): port with the social milestone — rev-647
+                // UPDATE_FRIENDLIST is a name-based full-list packet.
+                #[cfg(since_647)]
+                EtherInbound::UpdateFriendList { .. } => {}
+                #[cfg(before_647)]
                 EtherInbound::UpdateIgnoreList { target37, users37 } => {
                     if let Some(pid) = self.find_pid_by_user37(target37)
                         && let Some(active) = self.get_player_mut(pid)
@@ -72,6 +81,11 @@ impl Engine {
                         active.ignores = signed;
                     }
                 }
+                // TODO(647): port with the social milestone — rev-647 uses
+                // the name-based UPDATE_IGNORELIST_FULL packet.
+                #[cfg(since_647)]
+                EtherInbound::UpdateIgnoreList { .. } => {}
+                #[cfg(before_647)]
                 EtherInbound::MessagePrivate {
                     recipient37,
                     sender37,
@@ -90,6 +104,10 @@ impl Engine {
                         });
                     }
                 }
+                // TODO(647): port with the chat/social milestone — rev-647
+                // MESSAGE_PRIVATE is name-addressed with a huffman body.
+                #[cfg(since_647)]
+                EtherInbound::MessagePrivate { .. } => {}
                 EtherInbound::FriendListComplete { target37 } => {
                     #[cfg(since_254)]
                     if let Some(pid) = self.find_pid_by_user37(target37)

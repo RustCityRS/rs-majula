@@ -1,0 +1,21 @@
+#testscript
+
+// 289's prayer robes (skill_prayer/configs/robes.obj) carry their prayer
+// bonuses at 647.
+[label,test_prayer_robes_carry_289s_prayer_bonus]
+assert_eq(oc_param(monkrobetop, prayerbonus), 6);
+assert_eq(oc_param(monk_s_robe, prayerbonus), 5);
+assert_eq(oc_param(druidrobetop, prayerbonus), 4);
+assert_eq(oc_param(druid_s_robe, prayerbonus), 4);
+assert_eq(oc_param(shade_robe, prayerbonus), 5);
+assert_eq(oc_param(blackrobebottom, prayerbonus), 4);
+
+// Worn, they count in the bonuses 647's equipment screen shows.
+[label,test_monks_robes_worn_give_11_prayer]
+setup_player("test_player");
+inv_setslot(worn, ^wearpos_torso, monkrobetop, 1);
+inv_setslot(worn, ^wearpos_legs, monk_s_robe, 1);
+def_int $a; def_int $b; def_int $c; def_int $d; def_int $e; def_int $f; def_int $g;
+def_int $h; def_int $i; def_int $j; def_int $k; def_int $prayer; def_int $m;
+$a, $b, $c, $d, $e, $f, $g, $h, $i, $j, $k, $prayer, $m = ~equip_get_bonuses;
+assert_eq($prayer, 11);

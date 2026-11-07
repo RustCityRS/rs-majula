@@ -1,0 +1,6 @@
+[clientscript,csi_jury_tooltip](component $component0, component $component1, int $int2)
+if (~clientscript_3441 = true) {
+    ~addtooltip_action_dynamic($component0, -1, $component1, ~clientscript_3443($int2), 50, 150);
+} else {
+    ~addtooltip_action_dynamic($component0, -1, $component1, "A member of the Jury.", 50, 150);
+}

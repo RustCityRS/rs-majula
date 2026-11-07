@@ -1,0 +1,17 @@
+// Procs ported content calls from quests not yet ported. Each stands in for
+// its quest and does nothing until the quest's own file arrives; then delete
+// it here (the quest's port defines it).
+
+// Black Knights' Fortress (quest_blackknight.rs2): the fortress knights
+// attack whoever climbs into their room. 289's ladders.rs2 calls it.
+[proc,black_knights_aggro](coord $first_search_coord, coord $all_search_coord)
+
+// The Grand Tree (quest_grandtree.rs2): Charlie appears in the jail during
+// the quest. 289's ladders.rs2 calls it.
+[proc,grandtree_spawn_charlie]
+
+// The Knight's Sword (quest_squire.rs2): Sir Vyvin guards his cupboard once
+// the quest reaches it. 289's cupboards.rs2 calls it only when %squire is 5
+// or more; nothing in 647 sets %squire yet.
+[proc,vyvin_distracted]()(boolean)
+return(true);

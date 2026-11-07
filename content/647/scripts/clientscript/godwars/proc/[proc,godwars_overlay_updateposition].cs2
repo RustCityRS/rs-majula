@@ -1,0 +1,6 @@
+[proc,godwars_overlay_updateposition](component $component)
+if (getwindowmode >= 2) {
+    if_setposition(calc(if_getwidth(toplevel_fullscreen:com10) + 10), 10, ^setpos_abs_right, ^setpos_abs_top, $component);
+} else {
+    if_setposition(10, 10, ^setpos_abs_right, ^setpos_abs_top, $component);
+}

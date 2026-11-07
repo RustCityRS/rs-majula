@@ -1,0 +1,2 @@
+[proc,lobby_worldswitcher_drawlist]
+if_setontimer("lobby_worldswitcher_timer()", lobbyscreen_pane_worldselect:com0);

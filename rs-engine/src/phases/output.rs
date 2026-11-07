@@ -36,6 +36,8 @@ impl Engine {
     /// **Calls:** `player_info`, `npc_info`, `update_map`, `update_zones`,
     ///   `update_invs`, `update_stats`, `update_afk_zones`, `encode`
     pub(crate) fn outputs(&mut self) {
+        #[cfg(since_647)]
+        self.broadcast_public_chats();
         let pids = self.player_list.take_pids();
         let mut start = 0;
         // Held out here, so a panic mid-keyframe can't drop the player: they
@@ -46,6 +48,7 @@ impl Engine {
                 for &pid in &pids[start..] {
                     if self.process_output(pid) {
                         taken = self.player_list.players[pid as usize].take();
+                        #[cfg(before_647)]
                         if let Some(active) = &mut taken {
                             self.replay_keyframe(active);
                         }
@@ -71,6 +74,56 @@ impl Engine {
         self.player_list.put_pids(pids);
     }
 
+    /// Rev-647 public chat: deliver each pending message as MESSAGE_PUBLIC
+    /// packets to every player in the speaker's tracked (in-view) set — the
+    /// GPI system keeps `build_area.players` current each tick.
+    #[cfg(since_647)]
+    fn broadcast_public_chats(&mut self) {
+        use rs_grid::CoordGrid;
+
+        let pids = self.player_list.take_pids();
+        let mut chats: Vec<(u16, CoordGrid, u16, u8, usize, Vec<u8>)> = Vec::new();
+        for &pid in &pids {
+            if let Some(active) = self.player_list.players[pid as usize].as_mut()
+                && let Some(chat) = active.player.pending_public_chat.take()
+            {
+                chats.push((
+                    pid,
+                    active.player.pathing.coord,
+                    chat.0,
+                    chat.1,
+                    chat.2,
+                    chat.3,
+                ));
+            }
+        }
+
+        for (sender_pid, sender_coord, effects, rights, char_count, huffman_data) in chats {
+            let receivers: Vec<u16> = match self.player_list.players[sender_pid as usize].as_ref() {
+                Some(sender) => sender.player.build_area.players.iter().to_vec(),
+                None => continue,
+            };
+            for recv_pid in receivers {
+                if let Some(receiver) = self.player_list.players[recv_pid as usize].as_mut() {
+                    let in_range = CoordGrid::in_distance(
+                        &receiver.player.pathing.coord,
+                        sender_coord,
+                        receiver.player.build_area.view_distance,
+                    );
+                    if in_range {
+                        receiver.message_public(
+                            sender_pid,
+                            effects,
+                            rights,
+                            char_count,
+                            huffman_data.clone(),
+                        );
+                    }
+                }
+            }
+        }
+        self.player_list.put_pids(pids);
+    }
     /// Encodes player `pid`'s output in their slot. Whether a replay
     /// keyframe is due.
     #[inline(always)]

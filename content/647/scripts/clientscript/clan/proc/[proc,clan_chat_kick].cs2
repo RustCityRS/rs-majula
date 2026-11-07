@@ -1,0 +1,39 @@
+[proc,clan_chat_kick](string $string)
+def_int $int0 = -1;
+def_int $int1 = -1;
+def_int $int2 = -1;
+def_int $int3 = -1;
+$int0 = clanchannel2_findname($string);
+if ($int0 >= 0) {
+    if ($int0 = -1) {
+        return;
+    }
+    $int1 = clanchannel2_getuserrank($int0);
+    $int2 = clanchannel2_findname(removetags(docheat));
+    if ($int2 >= 0) {
+        if ($int2 = $int0) {
+            tutorial_openchat(43, 0, "You cannot temporarily ban yourself.");
+            return;
+        }
+        $int3 = clanchannel2_getuserrank($int2);
+        if ($int2 = -1) {
+            return;
+        }
+        if ($int3 > clanchannel2_getrankkick) {
+            if ($int1 > -1) {
+                tutorial_openchat(43, 0, "You can only temporarily ban guests.");
+                tutorial_openchat(43, 0, "A clan admin can remove your clanmate.");
+            } else if ($int3 > $int1) {
+                clanchannel2_kickuser(clanchannel2_findname($string));
+                chat_setmode(2);
+                chat_sendpublic("[Attempting to kick/ban <$string> from this channel.]");
+            } else {
+                tutorial_openchat(43, 0, "You can only kick people with a lower rank than yourself.");
+            }
+        } else {
+            tutorial_openchat(43, 0, "You do not have sufficient rank to kick.");
+        }
+    }
+} else {
+    tutorial_openchat(43, 0, "Could not find that guest to kick from your Clan Chat.");
+}

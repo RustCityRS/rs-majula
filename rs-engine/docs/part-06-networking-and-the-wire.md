@@ -375,7 +375,7 @@ pre-coalesced block. The two exceptions:
    `write_exactmove`, its coordinates rebased to the observer's build-area zone origin via `CoordGrid::zone_origin`.
 
 `write_blocks` (`info.rs:857-908`) is the canonical field-by-field encoder used for self-observation and all
-low-definition blocks. It writes the header (with `BigInfo` for wide masks via `ip2`), then each field in bit order
+low-definition blocks. It writes the header (with `BigInfo` for wide masks via `p2_alt1`), then each field in bit order
 through `renderer.write` (which dispatches variable buffers vs. slots, `renderer.rs:555-582`), ending with the inline
 `ExactMove`. The pre-coalescer in `compute_info` is, by construction, a copy of this exact sequence sans `ExactMove` —
 that is what makes the `memcpy` byte-identical.
@@ -502,21 +502,22 @@ The full primitive set:
 |----------------------------------|------------|-------------------------------------------|-------------------------------|
 | `p1`/`g1`/`g1s`                  | 1          | identity (`g1s` sign-extends)             | byte                          |
 | `p2`/`g2`/`g2s`                  | 2          | big-endian (`.to_be()`)                   | short                         |
-| `ip2`/`ig2`                      | 2          | little-endian (`.to_le()`)                | "inverse" short               |
+| `p2_alt1`/`g2_alt1`/`g2s_alt1`      | 2          | little-endian                             | short                         |
 | `p3`/`g3`                        | 3          | big-endian 24-bit                         | medium int                    |
 | `p4`/`g4s`                       | 4          | big-endian                                | int (always signed in Java)   |
-| `ip4`/`ig4s`                     | 4          | little-endian                             | inverse int                   |
+| `p4_alt1`/`g4s_alt1`                     | 4          | little-endian                             | inverse int                   |
 | `p8`/`g8s`                       | 8          | big-endian                                | long                          |
-| `p1_alt1/2/3`, `g1_alt*`         | 1          | `-v`, `128-v`, `v+128`                    | obfuscated byte transforms    |
-| `p2_alt1`, `ip2_alt1`, `g2_alt1` | 2          | mixed-endian + `+128` on low byte         | obfuscated short              |
-| `p4_alt1/2/3`, `g4_alt1/2`       | 4          | byte-rotated orderings                    | obfuscated int                |
+| `p1_alt1/2/3`, `g1_alt1/2/3`     | 1          | writes: `v+128`, `-v`, `128-v`; reads invert | byte transforms             |
+| `p2_alt2/3`, `g2_alt2/3`         | 2          | BE/LE with low-byte bias: write +128, read -128 | short transforms          |
+| `p4_alt2/3`, `g4s_alt2/3`         | 4          | byte-rotated orderings                    | int transforms                |
 | `pjstr`/`gjstr`                  | var        | CP-1252, terminator byte                  | Java string (`\n`=10 or `\0`) |
-| `psmart1or2(s)`                  | 1–2        | `<128`→1B, else 2B (`+32768`/`+49152`)    | "smart" varint                |
-| `psmart2or4`                     | 2–4        | `<32767`→2B, else 4B with `0x80` flag     | extended smart                |
+| `psmart1or2`/`gsmart1or2`        | 1-2        | unsigned: <128 uses 1 byte, else +32768   | smart integer                 |
+| `psmart1or2s`/`gsmart1or2s`        | 1-2        | signed: -64..63 uses 1 byte (+64), else +49152 | signed smart integer       |
+| `psmart2or4null`                     | 2–4        | `<32767`→2B, else 4B with `0x80` flag     | extended smart                |
 | `pdata`/`gdata`                  | var        | `memcpy`                                  | raw blob                      |
 | `bits/bytes`, `pbit/gbit`        | bit        | MSB-first bit packing via `pos2`          | player/npc info movement bits |
-| `psize1/psize2/psize4`           | back-patch | writes a length at `pos - size - {1,2,4}` | var-frame length prefix       |
-| `rsaenc/rsadec`                  | var        | RSA via `num_bigint` (CRT on decode)      | login block                   |
+| `psize1`/`psize2`/`psize4`       | back-patch | writes a length at `pos - size - {1,2,4}`  | var-frame length prefix       |
+| `rsaencrypt/rsadecrypt`                  | var        | RSA via `num_bigint` (CRT on decode)      | login block                   |
 
 Two design choices matter for fidelity. First, the **alt transforms** (`+128`, negate, mixed-endian) faithfully
 reproduce the obfuscated byte orderings the original client uses on selected fields — they are not gratuitous, they are
@@ -954,7 +955,7 @@ The flow in `handshake` (`socket.rs:14`):
    11). The version byte must equal `client.version` (mismatch → `RuneScapeUpdated` = 6).
 5. **CRC table.** Nine `g4s` cache CRCs are read and every one must exist in `cache.crctable`, else `RuneScapeUpdated`.
    This forces clients to run the exact cache revision the server serves.
-6. **RSA block.** `buf.rsadec(RsaFrame::Byte, rsa)` (`packet.rs:597`) decrypts the RSA-enveloped tail using the private
+6. **RSA block.** `buf.rsadecrypt(RsaFrame::Byte, rsa)` (`packet.rs:597`) decrypts the RSA-enveloped tail using the private
    key via the **Chinese Remainder Theorem** (`dp/dq/qinv`) for speed. Inside: a magic byte (must be 10, else
    `Rejected`), four `g4s` ISAAC seed words, a discarded uid word, and two `gjstr(10)` strings — username (≤12 chars)
    and password (≤20). Bad credentials → `InvalidCredentials` = 3.
@@ -983,8 +984,8 @@ active (they are not encrypted):
 | 9    | `TooManyConnections` |      |                    |
 | 10   | `BadSession`         |      |                    |
 
-`ServiceOpcode::GameLogin = 14` (`lib.rs:32`) is the top-level service byte; this codebase implements only the
-game-login service.
+`HandshakeType` in `rs-server/src/socket.rs` selects login and cache services. Revision 647 also
+dispatches lobby login and the account-service stubs. Login blocks decode in `rs-protocol/src/login.rs`.
 
 ```mermaid
 sequenceDiagram
@@ -997,7 +998,7 @@ sequenceDiagram
     S->>S: per-IP guard (else TooManyConnections=9)
     C->>S: loginType(16/18) | len | version | crcs[9] | RSA block
     S->>S: validate version (RuneScapeUpdated=6) & crcs
-    S->>K: rsadec(RsaFrame::Byte) [CRT]
+    S->>K: rsadecrypt(RsaFrame::Byte) [CRT]
     K-->>S: magic=10 | seed[4] | uid | username | password
     S->>K: IsaacPair::from_client_seeds (decode=seed, encode=seed+50)
     S->>Eng: LoginRequest (handle, user, pass, addr)

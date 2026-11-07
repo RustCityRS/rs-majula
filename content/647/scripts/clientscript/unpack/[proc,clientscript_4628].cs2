@@ -1,0 +1,6 @@
+[proc,clientscript_4628]
+%varc_int_1518 = -1;
+%varc_string_126 = "";
+if (if_find(clan_chat:com20) = true) {
+    cc_setontimer("clientscript_4629(0)");
+}

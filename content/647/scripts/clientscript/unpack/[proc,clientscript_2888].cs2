@@ -1,0 +1,8 @@
+[proc,clientscript_2888]
+if (getwindowmode >= 2) {
+    if_setposition(0, 287, ^setpos_abs_left, ^setpos_abs_top, ma6343905:com56);
+    if_setposition(0, 254, ^setpos_abs_left, ^setpos_abs_top, ma6343905:com55);
+} else {
+    if_setposition(18, 40, ^setpos_abs_right, ^setpos_abs_top, ma6343905:com56);
+    if_setposition(18, 7, ^setpos_abs_right, ^setpos_abs_top, ma6343905:com55);
+}

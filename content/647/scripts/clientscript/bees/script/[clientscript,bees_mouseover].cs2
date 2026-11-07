@@ -1,0 +1,3 @@
+[clientscript,bees_mouseover](component $component)
+if_setmodelanim(swarm_attack, $component);
+sound_synth(swarm_attack, 1, 0);

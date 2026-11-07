@@ -1,0 +1,26 @@
+[proc,clientscript_861]
+if_sethide(false, catcon_calibration_puzzle_control:com29);
+if_sethide(true, catcon_calibration_puzzle_control:com30);
+if_sethide(true, catcon_calibration_puzzle_control:com31);
+if_sethide(true, catcon_calibration_puzzle_control:com32);
+if_sethide(true, catcon_calibration_puzzle_control:com33);
+if_sethide(true, catcon_calibration_puzzle_control:com34);
+if_sethide(true, catcon_calibration_puzzle_control:com35);
+if (%varc_int_108 > 0) {
+    if_sethide(false, catcon_calibration_puzzle_control:com30);
+}
+if (%varc_int_108 > 1) {
+    if_sethide(false, catcon_calibration_puzzle_control:com31);
+}
+if (%varc_int_108 > 2) {
+    if_sethide(false, catcon_calibration_puzzle_control:com32);
+}
+if (%varc_int_108 > 3) {
+    if_sethide(false, catcon_calibration_puzzle_control:com33);
+}
+if (%varc_int_108 > 4) {
+    if_sethide(false, catcon_calibration_puzzle_control:com34);
+}
+if (%varc_int_108 > 5) {
+    if_sethide(false, catcon_calibration_puzzle_control:com35);
+}

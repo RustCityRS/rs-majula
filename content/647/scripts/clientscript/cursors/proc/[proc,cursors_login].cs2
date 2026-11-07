@@ -1,0 +1,9 @@
+[proc,cursors_login]
+hud_setoffsets_5426(36, 41);
+hud_setoffsets_5427(46, -1);
+if (%varc_int_987 = true | %varc_int_987 = false) {
+    set_clientopt_6028(%varc_int_987);
+} else {
+    %varc_int_987 = 1;
+    set_clientopt_6028(%varc_int_987);
+}

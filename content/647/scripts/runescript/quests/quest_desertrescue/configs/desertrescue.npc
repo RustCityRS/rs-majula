@@ -1,0 +1,57 @@
+// Hitpoints are 2011's life points: 289's times ten, or void-634's where it has the npc.
+[desertminingmercenary2]
+desc=He looks a bit aggressive.
+wanderrange=1
+maxrange=1
+respawnrate=100
+hitpoints=600
+attack=32
+strength=32
+defence=39
+magic=0
+ranged=0
+param=attackbonus,9
+param=strengthbonus,14
+param=stabdefence,17
+param=slashdefence,15
+param=crushdefence,19
+param=magicdefence,-3
+param=rangedefence,19
+param=damagetype,^slash_style
+param=attack_anim,human_sword_slash
+param=defend_anim,human_sword_def
+param=attack_sound,hacksword_slash
+param=defend_sound,blade2_mail
+// osrs stats and Vislvl match 1:1
+// desertminingcamp guards,mercenarys,mercenary captain,rowdy guards share same seqs + param stats.
+// https://raw.githubusercontent.com/Joshua-F/osrs-dumps/refs/heads/master/config/dump.npc npc_4669
+
+[rowdymineguard]
+desc=He looks a bit aggressive and rowdy.
+wanderrange=3
+maxrange=40
+huntrange=1
+hitpoints=600
+attack=32
+strength=32
+defence=32
+magic=0
+ranged=0
+param=attackbonus,9
+param=strengthbonus,14
+param=stabdefence,17
+param=slashdefence,15
+param=crushdefence,19
+param=magicdefence,-3
+param=rangedefence,19
+param=damagetype,^slash_style
+param=attack_anim,human_sword_slash
+param=defend_anim,human_sword_def
+param=attack_sound,hacksword_slash
+param=defend_sound,blade2_mail
+huntmode=cowardly
+// osrs stats and Vislvl match 1:1
+// stats taken from osrs cache...
+// https://oldschool.runescape.wiki/w/Guard_(Desert_Mining_Camp)#Brown_hair
+// desertminingcamp guards,mercenarys,mercenary captain,rowdy guards share same seqs + param stats.
+// https://raw.githubusercontent.com/Joshua-F/osrs-dumps/refs/heads/master/config/dump.npc npc_4654

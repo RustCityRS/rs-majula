@@ -1,0 +1,9 @@
+// 289's Imp Catcher completion, line for line, on 647's quest list
+// (^questlist_imp). The 2011 wiki's Imp Catcher (2011-05-16) gives the same
+// reward: 1 quest point, an amulet of accuracy and 875 Magic experience.
+[queue,imp_quest_complete]
+%imp = ^imp_complete;
+inv_add(inv, amulet_of_accuracy, 1);
+stat_advance(magic, 8750);
+session_log(^log_adventure, "Quest complete: Imp Catcher");
+~send_quest_complete(^questlist_imp, amulet_of_accuracy, 200, ^imp_questpoints, "You have completed the<br>Imp Catcher Quest!");

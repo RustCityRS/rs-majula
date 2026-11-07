@@ -1,0 +1,28 @@
+[clientscript,clan_motto_text_input](component $component0, component $component1, char $int2, int $int3, component $component4)
+%varc_string_345 = if_gettext($component0);
+switch_int ($int3) {
+    case 84:
+        ~clan_motto_return;
+    case 96, 97, 98, 99, 102, 103:
+        if (key_isdown_ctrl = false) {
+            return;
+        }
+        ~clientscript_1553($int3, %varc_int_1496, %varc_string_345);
+    case 85:
+        if (string_length(%varc_string_345) > 0) {
+            %varc_string_345 = substring(%varc_string_345, 0, calc(string_length(%varc_string_345) - 1));
+        }
+    case default:
+        if (string_length(%varc_string_345) < 80) {
+            %varc_string_345 = ~add_to_inputstring(%varc_string_345, 0, $int3, $int2);
+        }
+}
+%varc_int_1496 = ~clientscript_1552(%varc_int_1496, %varc_string_345, 5631, $component0, -1);
+if_setposition(%varc_int_1496, if_gety($component4), ^setpos_abs_left, ^setpos_abs_top, $component4);
+if_settext("<tostring(string_length(%varc_string_345))>/80", $component1);
+if (string_length(%varc_string_345) >= 70) {
+    if_setcolour(0xdd0000, $component1);
+} else {
+    if_setcolour(0x1f1d19, $component1);
+}
+if_settext(%varc_string_345, $component0);

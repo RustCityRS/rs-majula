@@ -1,0 +1,7 @@
+[proc,machinima_camera_down]
+if (%varc_int_1069 >= 100) {
+    %varc_int_1069 = calc(%varc_int_1069 - 50);
+}
+if (%varc_int_1073 > %varc_int_1069) {
+    %varc_int_1073 = %varc_int_1069;
+}

@@ -1,0 +1,15 @@
+[proc,clientscript_1773]
+if (%varc_int_249 = false) {
+    if_setcolour(^black, clanwars_setup:com111);
+    if_setcolour(0xff981f, clanwars_setup:com112);
+    if_sethide(true, clanwars_setup:com114);
+    if_setcolour(0xff981f, clanwars_setup:com115);
+    if_settext("...you keep<br>your items.", clanwars_setup:com115);
+} else {
+    if_setcolour(^red, clanwars_setup:com111);
+    if_setcolour(^yellow, clanwars_setup:com112);
+    if_sethide(false, clanwars_setup:com114);
+    if_setcolour(^yellow, clanwars_setup:com115);
+    if_settext("...you DROP ALL your items.", clanwars_setup:com115);
+}
+~clanwars_updateside;

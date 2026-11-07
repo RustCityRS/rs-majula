@@ -1,0 +1,8 @@
+[clientscript,mob_locator_onload]
+if_sethide(false, mob_locator:com10);
+if_sethide(true, mob_locator:com11);
+if_setgraphic("bank_tabs,2", mob_locator:com51);
+if_setgraphic("bank_tabs,3", mob_locator:com49);
+if_setobject_nonum(copper_ore, 1, mob_locator:com52);
+if_setobject_nonum(logs, 1, mob_locator:com50);
+~mob_locator_resource_setup;

@@ -1,0 +1,163 @@
+[clientscript,rand_ring_interface_timer]
+def_enum $enum0 = enum(105, 103, enum_3088, %varc_int_1184);
+def_int $int1 = 0;
+if (%varc_int_1186 < 17) {
+    switch_int (%varc_int_1184) {
+        case 1:
+            if (%varbit_8053 = 10) {
+                if_sethide(true, rand_ring_interface:com139);
+            } else {
+                if_sethide(false, rand_ring_interface:com139);
+            }
+            if (%varbit_8054 = 10) {
+                if_sethide(true, rand_ring_interface:com46);
+            } else {
+                if_sethide(false, rand_ring_interface:com46);
+            }
+            if (%varbit_8055 = 10) {
+                if_sethide(true, rand_ring_interface:com88);
+            } else {
+                if_sethide(false, rand_ring_interface:com88);
+            }
+        case 2:
+            if (%varbit_8056 = 10) {
+                if_sethide(true, rand_ring_interface:com139);
+            } else {
+                if_sethide(false, rand_ring_interface:com139);
+            }
+            if (%varbit_8057 = 10) {
+                if_sethide(true, rand_ring_interface:com46);
+            } else {
+                if_sethide(false, rand_ring_interface:com46);
+            }
+            if (%varbit_8058 = 10) {
+                if_sethide(true, rand_ring_interface:com88);
+            } else {
+                if_sethide(false, rand_ring_interface:com88);
+            }
+        case 3:
+            if (%varbit_8059 = 10) {
+                if_sethide(true, rand_ring_interface:com139);
+            } else {
+                if_sethide(false, rand_ring_interface:com139);
+            }
+            if (%varbit_8060 = 10) {
+                if_sethide(true, rand_ring_interface:com46);
+            } else {
+                if_sethide(false, rand_ring_interface:com46);
+            }
+            if (%varbit_8061 = 10) {
+                if_sethide(true, rand_ring_interface:com88);
+            } else {
+                if_sethide(false, rand_ring_interface:com88);
+            }
+        case 4:
+            if (%varbit_8062 = 10) {
+                if_sethide(true, rand_ring_interface:com139);
+            } else {
+                if_sethide(false, rand_ring_interface:com139);
+            }
+            if (%varbit_8063 = 10) {
+                if_sethide(true, rand_ring_interface:com46);
+            } else {
+                if_sethide(false, rand_ring_interface:com46);
+            }
+            if (%varbit_8064 = 10) {
+                if_sethide(true, rand_ring_interface:com88);
+            } else {
+                if_sethide(false, rand_ring_interface:com88);
+            }
+    }
+    if_setposition(if_getx(rand_ring_interface:com112), calc(if_gety(rand_ring_interface:com112) + 4), ^setpos_abs_left, ^setpos_abs_top, rand_ring_interface:com112);
+    if_setposition(if_getx(rand_ring_interface:com27), calc(if_gety(rand_ring_interface:com27) + 4), ^setpos_abs_left, ^setpos_abs_top, rand_ring_interface:com27);
+    if_setposition(if_getx(rand_ring_interface:com26), calc(if_gety(rand_ring_interface:com26) + 4), ^setpos_abs_left, ^setpos_abs_top, rand_ring_interface:com26);
+    %varc_int_1186 = calc(1 + %varc_int_1186);
+} else if (%varc_int_1186 < 33) {
+    if_setposition(if_getx(rand_ring_interface:com27), calc(if_gety(rand_ring_interface:com27) + 4), ^setpos_abs_left, ^setpos_abs_top, rand_ring_interface:com27);
+    if_setposition(if_getx(rand_ring_interface:com26), calc(if_gety(rand_ring_interface:com26) + 4), ^setpos_abs_left, ^setpos_abs_top, rand_ring_interface:com26);
+    %varc_int_1186 = calc(1 + %varc_int_1186);
+} else if (%varc_int_1186 < 49) {
+    if_setposition(if_getx(rand_ring_interface:com26), calc(if_gety(rand_ring_interface:com26) + 4), ^setpos_abs_left, ^setpos_abs_top, rand_ring_interface:com26);
+    %varc_int_1186 = calc(1 + %varc_int_1186);
+} else if (%varc_int_1186 < 69) {
+    $int1 = scale(calc(%varc_int_1186 - 48), 20, 100);
+    switch_int (%varc_int_1184) {
+        case 1:
+            if_setsize(scale(scale(16384, 100, calc(%varbit_8053 * 10)), 100, $int1), 16384, ^setsize_rel, ^setsize_rel, rand_ring_interface:com160);
+            if (%varbit_8053 = 10) {
+                if_sethide(true, rand_ring_interface:com139);
+            } else {
+                if_sethide(false, rand_ring_interface:com139);
+            }
+            if_setsize(scale(scale(16384, 100, calc(%varbit_8054 * 10)), 100, $int1), 16384, ^setsize_rel, ^setsize_rel, rand_ring_interface:com67);
+            if (%varbit_8054 = 10) {
+                if_sethide(true, rand_ring_interface:com46);
+            } else {
+                if_sethide(false, rand_ring_interface:com46);
+            }
+            if_setsize(scale(scale(16384, 100, calc(%varbit_8055 * 10)), 100, $int1), 16384, ^setsize_rel, ^setsize_rel, rand_ring_interface:com109);
+            if (%varbit_8055 = 10) {
+                if_sethide(true, rand_ring_interface:com88);
+            } else {
+                if_sethide(false, rand_ring_interface:com88);
+            }
+        case 2:
+            if_setsize(scale(scale(16384, 100, calc(%varbit_8056 * 10)), 100, $int1), 16384, ^setsize_rel, ^setsize_rel, rand_ring_interface:com160);
+            if (%varbit_8056 = 10) {
+                if_sethide(true, rand_ring_interface:com139);
+            } else {
+                if_sethide(false, rand_ring_interface:com139);
+            }
+            if_setsize(scale(scale(16384, 100, calc(%varbit_8057 * 10)), 100, $int1), 16384, ^setsize_rel, ^setsize_rel, rand_ring_interface:com67);
+            if (%varbit_8057 = 10) {
+                if_sethide(true, rand_ring_interface:com46);
+            } else {
+                if_sethide(false, rand_ring_interface:com46);
+            }
+            if_setsize(scale(scale(16384, 100, calc(%varbit_8058 * 10)), 100, $int1), 16384, ^setsize_rel, ^setsize_rel, rand_ring_interface:com109);
+            if (%varbit_8058 = 10) {
+                if_sethide(true, rand_ring_interface:com88);
+            } else {
+                if_sethide(false, rand_ring_interface:com88);
+            }
+        case 3:
+            if_setsize(scale(scale(16384, 100, calc(%varbit_8059 * 10)), 100, $int1), 16384, ^setsize_rel, ^setsize_rel, rand_ring_interface:com160);
+            if (%varbit_8059 = 10) {
+                if_sethide(true, rand_ring_interface:com139);
+            } else {
+                if_sethide(false, rand_ring_interface:com139);
+            }
+            if_setsize(scale(scale(16384, 100, calc(%varbit_8060 * 10)), 100, $int1), 16384, ^setsize_rel, ^setsize_rel, rand_ring_interface:com67);
+            if (%varbit_8060 = 10) {
+                if_sethide(true, rand_ring_interface:com46);
+            } else {
+                if_sethide(false, rand_ring_interface:com46);
+            }
+            if_setsize(scale(scale(16384, 100, calc(%varbit_8061 * 10)), 100, $int1), 16384, ^setsize_rel, ^setsize_rel, rand_ring_interface:com109);
+            if (%varbit_8061 = 10) {
+                if_sethide(true, rand_ring_interface:com88);
+            } else {
+                if_sethide(false, rand_ring_interface:com88);
+            }
+        case 4:
+            if_setsize(scale(scale(16384, 100, calc(%varbit_8062 * 10)), 100, $int1), 16384, ^setsize_rel, ^setsize_rel, rand_ring_interface:com160);
+            if (%varbit_8062 = 10) {
+                if_sethide(true, rand_ring_interface:com139);
+            } else {
+                if_sethide(false, rand_ring_interface:com139);
+            }
+            if_setsize(scale(scale(16384, 100, calc(%varbit_8063 * 10)), 100, $int1), 16384, ^setsize_rel, ^setsize_rel, rand_ring_interface:com67);
+            if (%varbit_8063 = 10) {
+                if_sethide(true, rand_ring_interface:com46);
+            } else {
+                if_sethide(false, rand_ring_interface:com46);
+            }
+            if_setsize(scale(scale(16384, 100, calc(%varbit_8064 * 10)), 100, $int1), 16384, ^setsize_rel, ^setsize_rel, rand_ring_interface:com109);
+            if (%varbit_8064 = 10) {
+                if_sethide(true, rand_ring_interface:com88);
+            } else {
+                if_sethide(false, rand_ring_interface:com88);
+            }
+    }
+    %varc_int_1186 = calc(1 + %varc_int_1186);
+}

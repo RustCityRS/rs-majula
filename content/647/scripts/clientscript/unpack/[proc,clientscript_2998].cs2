@@ -1,0 +1,31 @@
+[proc,clientscript_2998]
+~clientscript_2999;
+if_setonclick("clientscript_3002(0)", ix926645:com41);
+if_setonclick("clientscript_3002(1)", ix926645:com29);
+if_setonclick("clientscript_3002(2)", ix926645:com17);
+if_setonclick("clientscript_3002(3)", ix926645:com55);
+def_int $int = 0;
+if (if_getgraphic(ix926645:com34) = 2672) {
+    $int = 0;
+} else if (if_getgraphic(ix926645:com22) = 2672) {
+    $int = 1;
+} else if (if_getgraphic(ix926645:com10) = 2672) {
+    $int = 2;
+} else if (if_getgraphic(ix926645:com48) = 2672) {
+    $int = 3;
+}
+switch_int ($int) {
+    case 0:
+        ~clientscript_3006(0, ~clientscript_3011(0));
+    case 1:
+        ~clientscript_3006(1, ~clientscript_3011(1));
+    case 2:
+        ~clientscript_3006(2, ~clientscript_3011(2));
+    case 3:
+        ~clientscript_3006(3, ~clientscript_3011(3));
+}
+if_sethide(false, ix926645:com2);
+~clientscript_3001;
+if_setontimer("clientscript_3000()", ix926645:com1);
+if_openoverlay(59441194, 908);
+~lobby_message_of_the_week;

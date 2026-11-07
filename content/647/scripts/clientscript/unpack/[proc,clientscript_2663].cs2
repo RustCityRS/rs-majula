@@ -1,0 +1,7 @@
+[proc,clientscript_2663]
+def_component $component0 = enum(105, 73, enum_2566, %varbit_6297);
+def_component $component1 = enum(105, 73, enum_2565, %varbit_6297);
+if (if_getx($component0) > 0) {
+    if_setposition(calc(if_getx($component0) - 1), if_gety($component0), ^setpos_abs_left, ^setpos_abs_top, $component0);
+    if_setposition(calc(if_getx($component1) - 1), if_gety($component1), ^setpos_abs_left, ^setpos_abs_top, $component1);
+}

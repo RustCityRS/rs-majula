@@ -1,0 +1,15 @@
+[clientscript,topstat_prayer_custom](component $component)
+if (%varc_int_181 = true) {
+    if (%varbit_6840 = true) {
+        if_setop(2, "Finish quick curse selection", $component);
+        if_settext("Select your quick curses:", prayer:com46);
+    } else {
+        if_setop(2, "Finish quick prayer selection", $component);
+        if_settext("Select your quick prayers:", prayer:com46);
+    }
+} else if (%varbit_6840 = true) {
+    if_setop(2, "Select quick curses", $component);
+} else {
+    if_setop(2, "Select quick prayers", $component);
+}
+~topstat_prayer_button_update;

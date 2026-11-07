@@ -1,0 +1,4 @@
+[proc,clientscript_1196](int $int0, int $int1)
+if (clientclock > calc($int1 + 50)) {
+    ~clientscript_1197($int0);
+}

@@ -1,0 +1,8 @@
+[proc,clientscript_1679]
+~clientscript_1678;
+switch_int (%varc_int_1044) {
+    case 0:
+        ~clientscript_1687;
+    case default:
+        if_setonchattransmit_2426(null, mah4_cutscene_overlay:com0);
+}

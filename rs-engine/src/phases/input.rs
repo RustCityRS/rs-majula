@@ -124,14 +124,17 @@ impl Engine {
     /// with a move request and a queued script can't walk (see
     /// `process_movement`). Clears waypoints if the player is delayed.
     ///
-    /// The move click handlers already queued the waypoints. An op's route
-    /// comes from the move click the client sends with it; the player phase
-    /// re-paths only to a moving target.
+    /// The move click handlers already queued the waypoints. Before 647 an
+    /// op's route comes from the move click the client sends with it; the
+    /// player phase re-paths only to a moving target. 647's client sends an
+    /// op alone (its run flag is in the op packet), so the server paths to
+    /// the target here, on the tick the op arrives.
     ///
     /// # Side Effects
     ///
     /// * Sets `active.player.move_request`.
     /// * Clears waypoints when the player is delayed.
+    /// * At 647, queues the path to an op's target.
     #[inline(always)]
     fn post_process(active: &mut ActivePlayer) {
         if !active.player.move_clicked && !active.player.opcalled {
@@ -144,5 +147,20 @@ impl Engine {
         }
 
         active.player.move_request = active.busy() || !active.player.opcalled;
+
+        #[cfg(since_647)]
+        {
+            use rs_vm::trigger::ServerTriggerType;
+            let target_op = active.player.interaction.target_op;
+            let following = target_op == Some(ServerTriggerType::ApPlayer3 as u8)
+                || target_op == Some(ServerTriggerType::OpPlayer3 as u8);
+            let client_pathfinder = crate::engine::engine().client_pathfinder;
+            if !following
+                && active.player.opcalled
+                && (!active.player.pathing.has_waypoints() || !client_pathfinder)
+            {
+                Self::path_to_target(active as *mut ActivePlayer, client_pathfinder);
+            }
+        }
     }
 }

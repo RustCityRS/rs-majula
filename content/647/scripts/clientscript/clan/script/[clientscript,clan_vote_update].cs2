@@ -1,0 +1,34 @@
+[clientscript,clan_vote_update]
+if (%varp_2134 = %varc_int_1499) {
+    if_settext("You have voted.", clan_voting:com82);
+} else {
+    if_settext("You have not yet voted.<br>How would you like to vote?", clan_voting:com82);
+}
+if (%varbit_9151 = false) {
+    if_settext("Results of last vote:", clan_voting:com12);
+} else if (%varbit_9154 = true | %varbit_9154 = false) {
+    if_settext("Vote open for less than a minute.", clan_voting:com12);
+} else {
+    if_settext("Vote open for less than <tostring(%varbit_9154)> minutes.", clan_voting:com12);
+}
+def_int $int0 = calc(%varbit_9149 + %varbit_9150);
+def_int $int1 = 0;
+def_int $int2 = 0;
+if ($int0 > 0) {
+    if ($int0 = %varbit_9149) {
+        $int1 = 100;
+    } else if ($int0 = %varbit_9150) {
+        $int2 = 100;
+    } else {
+        $int1 = calc(100 * %varbit_9149 / $int0);
+        if (%varbit_9150 = false) {
+            $int2 = 0;
+        } else {
+            $int2 = calc(100 - $int1);
+        }
+    }
+}
+if_settext(tostring(%varbit_9149), clan_voting:com7);
+if_settext(tostring(%varbit_9150), clan_voting:com8);
+~aif_progressbar_set($int1, clan_voting:com59, clan_voting:com64);
+~aif_progressbar_set($int2, clan_voting:com69, clan_voting:com74);

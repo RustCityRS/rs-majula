@@ -1,0 +1,8 @@
+[clientscript,rand_map_reset]
+%varc_int_1149 = 0;
+%varc_int_1150 = 0;
+%varc_int_1151 = 0;
+%varc_int_1152 = 0;
+cc_deleteall(rand_dungeon_map:com3);
+cc_deleteall(rand_dungeon_map:com5);
+cc_deleteall(rand_dungeon_map:com4);

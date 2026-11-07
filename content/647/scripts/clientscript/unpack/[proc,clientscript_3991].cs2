@@ -1,0 +1,209 @@
+[proc,clientscript_3991](int $int0)
+def_struct $struct1 = null;
+def_int $int2 = 0;
+def_struct $struct3 = null;
+if ($int0 = 4095) {
+    $int0 = 4094;
+}
+def_string $string0 = "";
+def_string $string1 = "";
+def_string $string2 = "";
+def_graphic $graphic4 = null;
+def_string $string3 = "";
+def_graphic $graphic5 = null;
+def_string $string4 = "";
+def_graphic $graphic6 = null;
+def_int $int7 = 0;
+def_int $int8 = 0;
+$struct1 = enum(105, 74, enum_3483, $int0);
+if ($struct1 ! null) {
+    $string0 = struct_param($struct1, param_1266);
+    $string1 = struct_param($struct1, param_1273);
+    $int8 = struct_param($struct1, param_1293);
+    $int7 = ~task_get_progress($int0);
+    $int2 = calc((struct_param($struct1, param_1293) - 1) * 5 + struct_param($struct1, param_1272));
+    $struct3 = enum(105, 74, enum_3494, $int2);
+    $graphic5 = enum(105, 100, enum_3491, struct_param($struct1, param_1267));
+    $graphic4 = enum(105, 100, enum_3492, struct_param($struct1, param_1272));
+    $string3 = append("Difficulty : ", enum(105, 115, enum_3488, struct_param($struct1, param_1272)));
+    $string4 = append("Area : ", enum(105, 115, enum_3487, struct_param($struct1, param_1267)));
+    if (struct_param($struct1, param_1270) ! 4094) {
+        $graphic6 = struct_param(enum(105, 74, enum_2252, struct_param($struct1, param_1270)), param_952);
+        $string2 = struct_param(enum(105, 74, enum_2252, struct_param($struct1, param_1270)), param_951);
+    } else {
+        $graphic6 = struct_param($struct1, param_1271);
+        $string2 = struct_param($struct1, param_1292);
+    }
+} else {
+    $string0 = "Couldn't find the Task's struct.";
+    $string1 = "Couldn't find the Task's struct.";
+    $string2 = "Couldn't find the Task's struct.";
+}
+if_settext($string0, task_main:com34);
+if_settext($string1, task_main:com63);
+def_string $string5 = "";
+if (compare($string2, "") = false) {
+    if (%varbit_8601 < 10) {
+        $string5 = "ten";
+    } else if (%varbit_8601 < 25) {
+        $string5 = "forty";
+    } else if (%varbit_8601 < 50) {
+        $string5 = "160";
+    } else if (%varbit_8601 < 100) {
+        $string5 = "640";
+    } else {
+        $string5 = "2560";
+    }
+    $string2 = "Completing this Task will earn you <$string5> coins.";
+}
+if_settext($string2, task_main:com50);
+if_settextfont(p12_full, task_main:com50);
+if_settextalign(^settextalign_left, ^settextalign_centre, 0, task_main:com50);
+if_setsize(if_getwidth(task_main:com50), paraheight($string1, if_getwidth(task_main:com50), p12_full), ^setsize_abs, ^setsize_abs, task_main:com50);
+if_setgraphic($graphic6, task_main:com37);
+if_setgraphic($graphic5, task_main:com39);
+if_setgraphic($graphic4, task_main:com36);
+if_settext($string3, task_main:com35);
+if_settext($string4, task_main:com38);
+if_sethide(true, task_main:com155);
+if_sethide(true, task_main:com156);
+if_sethide(true, task_main:com157);
+if_sethide(true, task_main:com158);
+if_sethide(true, task_main:com159);
+if_sethide(true, task_main:com160);
+if_sethide(true, task_main:com161);
+if_sethide(true, task_main:com162);
+if_sethide(true, task_main:com163);
+if_sethide(true, task_main:com164);
+def_int $int9 = 0;
+def_string $string6 = "";
+def_colour $colour10 = ^black;
+$int9, $string6, $colour10 = ~task_requirements($int0);
+if_settext($string6, task_main:com1);
+if_setcolour($colour10, task_main:com1);
+if_setsize(if_getwidth(task_main:com1), paraheight($string1, if_getwidth(task_main:com1), p12_full), ^setsize_abs, ^setsize_abs, task_main:com1);
+if_setposition(9, 16, ^setpos_abs_left, ^setpos_abs_top, task_main:com1);
+if ($int9 = true & ~task_get_progress($int0) ! 2) {
+    if_sethide(false, task_main:com41);
+} else {
+    if_sethide(true, task_main:com41);
+}
+def_int $int11 = 34;
+def_int $int12 = $int11;
+def_int $int13 = 0;
+while ($int13 < 10) {
+    $int12 = ~task_requirement($int11, $int0, $int13, enum(105, 73, enum_3493, $int13));
+    if ($int12 = $int11) {
+        $int13 = 10;
+    } else {
+        $int13 = calc($int13 + 1);
+        $int11 = $int12;
+    }
+}
+%varc_int_1420 = calc($int11 + 3);
+def_int $int14 = 4094;
+if_sethide(true, task_main:com2);
+if_sethide(true, task_main:com3);
+if_sethide(true, task_main:com4);
+if_sethide(true, task_main:com5);
+if_sethide(true, task_main:com6);
+if_sethide(true, task_main:com7);
+if_sethide(true, task_main:com8);
+if_sethide(true, task_main:com9);
+if_sethide(true, task_main:com10);
+if_sethide(true, task_main:com11);
+if_sethide(true, task_main:com12);
+if_sethide(true, task_main:com13);
+$int11 = 10;
+if (compare(struct_param($struct1, param_1274), "") ! 0 & $int0 ! 4095) {
+    if (struct_param($struct1, param_1282) ! -1) {
+        $int14 = $int0;
+    }
+    $int11 = ~clientscript_3992(1, $int11, struct_param($struct1, param_1274), task_main:com2, $int14, task_main:com3, task_main:com81);
+}
+$int14 = 4094;
+if (compare(struct_param($struct1, param_1275), "") ! 0 & $int0 ! 4095) {
+    if (struct_param($struct1, param_1283) ! -1) {
+        $int14 = $int0;
+    }
+    $int11 = ~clientscript_3992(2, $int11, struct_param($struct1, param_1275), task_main:com4, $int14, task_main:com5, task_main:com81);
+}
+$int14 = 4094;
+if (compare(struct_param($struct1, param_1276), "") ! 0 & $int0 ! 4095) {
+    if (struct_param($struct1, param_1284) ! -1) {
+        $int14 = $int0;
+    }
+    $int11 = ~clientscript_3992(3, $int11, struct_param($struct1, param_1276), task_main:com6, $int14, task_main:com7, task_main:com81);
+}
+$int14 = 4094;
+if (compare(struct_param($struct1, param_1277), "") ! 0 & $int0 ! 4095) {
+    if (struct_param($struct1, param_1285) ! -1) {
+        $int14 = $int0;
+    }
+    $int11 = ~clientscript_3992(4, $int11, struct_param($struct1, param_1277), task_main:com8, $int14, task_main:com9, task_main:com81);
+}
+$int14 = 4094;
+if (compare(struct_param($struct1, param_1278), "") ! 0 & $int0 ! 4095) {
+    if (struct_param($struct1, param_1286) ! -1) {
+        $int14 = $int0;
+    }
+    $int11 = ~clientscript_3992(5, $int11, struct_param($struct1, param_1278), task_main:com10, $int14, task_main:com11, task_main:com81);
+}
+$int14 = 4094;
+if (compare(struct_param($struct1, param_1279), "") ! 0 & $int0 ! 4095) {
+    if (struct_param($struct1, param_1287) ! -1) {
+        $int14 = $int0;
+    }
+    $int11 = ~clientscript_3992(6, $int11, struct_param($struct1, param_1279), task_main:com12, $int14, task_main:com13, task_main:com81);
+}
+%varc_int_1418 = calc($int11 + 3);
+if_sethide(true, task_main:com51);
+if_sethide(true, task_main:com52);
+if_sethide(true, task_main:com53);
+if_sethide(true, task_main:com54);
+if_sethide(true, task_main:com55);
+if_sethide(true, task_main:com56);
+if_sethide(true, task_main:com57);
+if_sethide(true, task_main:com58);
+$int11 = 10;
+$int11 = ~clientscript_3992(0, $int11, $string2, task_main:com50, 4094, null, task_main:com85);
+if ($struct3 ! null & $struct3 ! struct_1645) {
+    $int11 = ~clientscript_3992(0, $int11, struct_param($struct3, param_1273), task_main:com51, 4094, null, task_main:com85);
+    $int11 = ~clientscript_3992(0, $int11, struct_param($struct3, param_1292), task_main:com52, 4094, null, task_main:com85);
+    if (compare(struct_param($struct3, param_1274), "") ! 0) {
+        $int11 = ~clientscript_3992(0, $int11, struct_param($struct3, param_1274), task_main:com53, 4094, null, task_main:com85);
+    }
+    if (compare(struct_param($struct3, param_1275), "") ! 0) {
+        $int11 = ~clientscript_3992(0, $int11, struct_param($struct3, param_1275), task_main:com54, 4094, null, task_main:com85);
+    }
+    if (compare(struct_param($struct3, param_1276), "") ! 0) {
+        $int11 = ~clientscript_3992(0, $int11, struct_param($struct3, param_1276), task_main:com55, 4094, null, task_main:com85);
+    }
+    if (compare(struct_param($struct3, param_1277), "") ! 0) {
+        $int11 = ~clientscript_3992(0, $int11, struct_param($struct3, param_1277), task_main:com56, 4094, null, task_main:com85);
+    }
+    if (compare(struct_param($struct3, param_1278), "") ! 0) {
+        $int11 = ~clientscript_3992(0, $int11, struct_param($struct3, param_1278), task_main:com57, 4094, null, task_main:com85);
+    }
+    if (compare(struct_param($struct3, param_1279), "") ! 0) {
+        $int11 = ~clientscript_3992(0, $int11, struct_param($struct3, param_1279), task_main:com58, 4094, null, task_main:com85);
+    }
+} else if (%varbit_8601 > %varbit_8602) {
+    $string2 = "You're already owed a reward! You may claim it from Explorer Jack or any other taskmaster, or increase it by completing more Tasks. ";
+    if (%varp_1959 > 0) {
+        $string2 = append($string2, "You are also owed one or more items.");
+    }
+    $int11 = ~clientscript_3992(0, $int11, $string2, task_main:com52, 4094, null, task_main:com85);
+}
+%varc_int_1419 = $int11;
+if (~clientscript_3999($int0) = false) {
+    ~clientscript_4019(0);
+    if_sethide(false, task_main:com92);
+    if_sethide(false, task_main:com83);
+    if_setgraphic("task_tab,4", task_main:com26);
+    if_setgraphic("task_tab,4", task_main:com28);
+    if_setgraphic("task_tab,5", task_main:com27);
+    if_sethide(true, task_main:com84);
+    if_sethide(true, task_main:com82);
+    if_sethide(true, task_main:com86);
+}

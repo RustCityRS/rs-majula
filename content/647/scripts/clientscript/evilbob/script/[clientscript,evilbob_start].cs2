@@ -1,0 +1,20 @@
+[clientscript,evilbob_start](component $int0, component $component1)
+if (~bool_to_int(%varc_int_679) = false) {
+    return;
+}
+if_sethide(false, $component1);
+if (%varc_int_677 = -1 | %varc_int_678 = -1) {
+    return;
+}
+if (%varc_int_675 = -1 | %varc_int_676 = -1) {
+    %varc_int_675 = 56070889;
+    %varc_int_676 = 56087272;
+}
+def_int $int2 = calc(randominc(50) + 50);
+cam_allocpath(0, 2);
+cam_addwaypoint(0, 0, %varc_int_675, 450, %varc_int_675, calc(450 + $int2 / 2), 0);
+cam_addwaypoint(0, 1, %varc_int_676, calc(450 + $int2), %varc_int_676, calc(450 + $int2 * 2), 0);
+cam_allocpath(1, 2);
+cam_addwaypoint(1, 0, %varc_int_677, 250, %varc_int_677, 250, 0);
+cam_addwaypoint(1, 1, %varc_int_678, 150, %varc_int_678, 150, 0);
+cam_startpath(0, 0, 200, 200, 1, 0);

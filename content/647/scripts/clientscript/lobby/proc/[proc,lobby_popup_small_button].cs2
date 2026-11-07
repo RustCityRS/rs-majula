@@ -1,0 +1,14 @@
+[proc,lobby_popup_small_button](component $component0, component $component1, component $component2, component $component3, int $int4, string $string0, string $string1)
+def_graphic $graphic5 = "set_but_end_1,0";
+def_graphic $graphic6 = "set_but_end_1,0";
+def_graphic $graphic7 = "set_but_fill_1,0";
+if_setonmouseleave("lobbyscreen_button_highlight($component1, $graphic5, $component2, $graphic7, $component3, $graphic6)", $component0);
+if_setgraphic($graphic5, $component1);
+if_setgraphic($graphic7, $component2);
+if_setgraphic($graphic6, $component3);
+$graphic5 = "set_but_end_1,1";
+$graphic6 = "set_but_end_1,1";
+$graphic7 = "set_but_fill_1,1";
+if_setonmouseover("lobbyscreen_button_highlight($component1, $graphic5, $component2, $graphic7, $component3, $graphic6)", $component0);
+if_settext($string0, lobbyscreen:com230);
+if_setop(1, $string1, lobbyscreen:com225);

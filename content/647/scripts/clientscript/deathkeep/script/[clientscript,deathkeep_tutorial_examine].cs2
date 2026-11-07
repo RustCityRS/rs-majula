@@ -1,0 +1,4 @@
+[clientscript,deathkeep_tutorial_examine](int $int, string $string)
+if ($int = 10) {
+    tutorial_openchat(27, 0, $string);
+}

@@ -1,0 +1,138 @@
+[proc,snapshot_highlight_button](int $int0, int $int1)
+def_component $component2 = null;
+def_component $component3 = null;
+def_component $component4 = null;
+def_int $int5 = 1;
+switch_int ($int0) {
+    case default:
+        ~clientscript_675;
+    case 38928641:
+        $component2 = snapshot_main_v2:com253;
+        $component3 = snapshot_main_v2:com254;
+        $component4 = snapshot_main_v2:com255;
+    case 38928642:
+        $component2 = snapshot_main_v2:com284;
+        $component3 = snapshot_main_v2:com285;
+        $component4 = snapshot_main_v2:com286;
+    case 38928643:
+        $component2 = snapshot_main_v2:com260;
+        $component3 = snapshot_main_v2:com261;
+        $component4 = snapshot_main_v2:com262;
+    case 38928648:
+        $component2 = snapshot_main_v2:com280;
+        $component3 = snapshot_main_v2:com281;
+        $component4 = snapshot_main_v2:com282;
+    case 38928649:
+        $component2 = snapshot_main_v2:com276;
+        $component3 = snapshot_main_v2:com277;
+        $component4 = snapshot_main_v2:com278;
+    case 38928650:
+        $component2 = snapshot_main_v2:com267;
+        $component3 = snapshot_main_v2:com268;
+        $component4 = snapshot_main_v2:com269;
+    case 38928655:
+        $component2 = snapshot_main_v2:com272;
+        $component3 = snapshot_main_v2:com273;
+        $component4 = snapshot_main_v2:com274;
+    case 38928672:
+        $component2 = snapshot_main_v2:com237;
+        $component3 = snapshot_main_v2:com238;
+        $component4 = snapshot_main_v2:com239;
+    case 38928673:
+        $component2 = snapshot_main_v2:com295;
+        $component3 = snapshot_main_v2:com296;
+        $component4 = snapshot_main_v2:com297;
+    case 38928674:
+        $component2 = snapshot_main_v2:com291;
+        $component3 = snapshot_main_v2:com292;
+        $component4 = snapshot_main_v2:com293;
+    case 38928683:
+        $component2 = snapshot_main_v2:com241;
+        $component3 = snapshot_main_v2:com242;
+        $component4 = snapshot_main_v2:com243;
+    case 38928684:
+        $component2 = snapshot_main_v2:com245;
+        $component3 = snapshot_main_v2:com246;
+        $component4 = snapshot_main_v2:com247;
+    case 38928690:
+        $component2 = snapshot_main_v2:com249;
+        $component3 = snapshot_main_v2:com250;
+        $component4 = snapshot_main_v2:com251;
+    case 38928685:
+        $component2 = snapshot_main_v2:com302;
+        $component3 = snapshot_main_v2:com303;
+        $component4 = snapshot_main_v2:com304;
+    case 38928386:
+        $component2 = snapshot_main_v2:com11;
+        $component3 = snapshot_main_v2:com12;
+        $component4 = snapshot_main_v2:com13;
+        $int5 = 0;
+    case 38928460:
+        $component2 = snapshot_main_v2:com77;
+        $component3 = snapshot_main_v2:com78;
+        $component4 = snapshot_main_v2:com79;
+        $int5 = 0;
+    case 38928387:
+        $component2 = snapshot_main_v2:com4;
+        $component3 = snapshot_main_v2:com5;
+        $component4 = snapshot_main_v2:com6;
+        $int5 = 0;
+    case 38928438:
+        $component2 = snapshot_main_v2:com55;
+        $component3 = snapshot_main_v2:com56;
+        $component4 = snapshot_main_v2:com57;
+        $int5 = 0;
+    case 38928509:
+        $component2 = snapshot_main_v2:com126;
+        $component3 = snapshot_main_v2:com127;
+        $component4 = snapshot_main_v2:com128;
+        $int5 = 0;
+    case 38928514:
+        $component2 = snapshot_main_v2:com131;
+        $component3 = snapshot_main_v2:com132;
+        $component4 = snapshot_main_v2:com133;
+        $int5 = 0;
+}
+if ($int1 = false) {
+    if ($int5 = true) {
+        if ($component2 ! null) {
+            if_setgraphic("miscgraphics4,0", $component2);
+        }
+        if ($component3 ! null) {
+            if_setgraphic("miscgraphics4,1", $component3);
+        }
+        if ($component4 ! null) {
+            if_setgraphic("miscgraphics4,2", $component4);
+        }
+    } else {
+        if ($component2 ! null) {
+            if_setgraphic("miscgraphics5,0", $component2);
+        }
+        if ($component3 ! null) {
+            if_setgraphic("miscgraphics5,1", $component3);
+        }
+        if ($component4 ! null) {
+            if_setgraphic("miscgraphics5,2", $component4);
+        }
+    }
+} else if ($int5 = true) {
+    if ($component2 ! null) {
+        if_setgraphic("miscgraphics4,3", $component2);
+    }
+    if ($component3 ! null) {
+        if_setgraphic("miscgraphics4,4", $component3);
+    }
+    if ($component4 ! null) {
+        if_setgraphic("miscgraphics4,5", $component4);
+    }
+} else {
+    if ($component2 ! null) {
+        if_setgraphic("miscgraphics5,3", $component2);
+    }
+    if ($component3 ! null) {
+        if_setgraphic("miscgraphics5,4", $component3);
+    }
+    if ($component4 ! null) {
+        if_setgraphic("miscgraphics5,5", $component4);
+    }
+}

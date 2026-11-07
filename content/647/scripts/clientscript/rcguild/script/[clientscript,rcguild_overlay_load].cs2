@@ -1,0 +1,12 @@
+[clientscript,rcguild_overlay_load]
+if_setmodel(null, rcguild_overlay:com15);
+if_setmodel(null, rcguild_overlay:com16);
+if_setmodel(null, rcguild_overlay:com17);
+if_setmodel(null, rcguild_overlay:com18);
+if_setmodel(null, rcguild_overlay:com19);
+if_setmodel(null, rcguild_overlay:com20);
+if_setmodel(null, rcguild_overlay:com21);
+if_setmodel(null, rcguild_overlay:com22);
+if_setmodelanim(seq_10139, rcguild_overlay:com33);
+if_setmodelanim(seq_10139, rcguild_overlay:com42);
+if_sethide(true, rcguild_overlay:com1);

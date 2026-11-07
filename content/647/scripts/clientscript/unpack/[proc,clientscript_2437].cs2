@@ -1,0 +1,23 @@
+[proc,clientscript_2437]
+def_int $int0 = 0;
+def_int $int1 = 0;
+def_int $int2 = 0;
+switch_int (%varc_int_816) {
+    case 0:
+        return;
+    case 1:
+        $int2 = %varc_int_817;
+    case 2:
+        $int2 = scale(%varc_int_817, 125, 100);
+    case 3:
+        $int2 = scale(%varc_int_817, 150, 100);
+    case default:
+        $int2 = scale(%varc_int_817, 175, 100);
+}
+if ($int2 > 100) {
+    $int2 = 100;
+}
+$int0 = enum(105, 105, enum_1090, $int2);
+$int1 = enum(105, 105, enum_1091, $int2);
+if_setposition(91, $int0, ^setpos_abs_right, ^setpos_abs_top, trawler_game_overlay:com11);
+if_setsize(18, $int1, ^setsize_abs, ^setsize_abs, trawler_game_overlay:com11);

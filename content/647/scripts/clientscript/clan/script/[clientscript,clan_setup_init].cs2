@@ -1,0 +1,4 @@
+[clientscript,clan_setup_init]
+if_setscrollsize(0, 0, clan_setup:com6);
+if_setscrollpos(0, 0, clan_setup:com6);
+~scrollbar_vertical(clan_setup:com5, clan_setup:com6, "aif_scrollbar_dragger_2,3", "aif_scrollbar_dragger_2,0", "aif_scrollbar_dragger_2,1", "aif_scrollbar_dragger_2,2", "aif_scrollbar_arrow_2,1", "aif_scrollbar_arrow_2,0");

@@ -1,0 +1,8 @@
+[clientscript,xbows_setfont]
+if (getlanguage = 2 | getlanguage = 3) {
+    if_settextfont(p11_full, xbows_pouch:com16);
+    if_settextfont(p11_full, xbows_pouch:com17);
+    if_settextfont(p11_full, xbows_pouch:com18);
+    if_settextfont(p11_full, xbows_pouch:com19);
+    if_settextfont(p11_full, xbows_pouch:com20);
+}

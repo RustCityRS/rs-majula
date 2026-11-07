@@ -1,0 +1,355 @@
+// Helper procs used by tests below
+[proc,demo_add](int $a, int $b)(int)
+return(calc($a + $b))
+
+[proc,demo_greet](string $name)(string)
+return("Hello, <$name>!")
+
+[proc,demo_fib_iter](int $n)(int)
+def_int $a = 0
+def_int $b = 1
+def_int $i = 0
+while ($i < $n) {
+    def_int $temp = $b
+    $b = calc($a + $b)
+    $a = $temp
+    $i = calc($i + 1)
+}
+return($a)
+
+#testscript
+
+// ── Assertions ──────────────────────────────────────────────────
+[label,test_assert_eq]
+assert_eq(calc(2 + 3), 5)
+
+[label,test_assert_not_eq]
+assert_not_eq(10, 20)
+
+[label,test_assert_str_eq]
+assert_str_eq("hello world", "hello world")
+
+[label,test_assert_true]
+assert_true(true)
+
+[label,test_assert_false]
+assert_false(false)
+
+[label,test_assert_gt]
+assert_gt(10, 5)
+
+[label,test_assert_lt]
+assert_lt(3, 7)
+
+[label,test_assert_gte]
+assert_gte(10, 5)
+assert_gte(5, 5)
+
+[label,test_assert_lte]
+assert_lte(3, 7)
+assert_lte(5, 5)
+
+[label,test_assert_null]
+assert_null(-1)
+
+[label,test_assert_not_null]
+assert_not_null(42)
+
+// ── Arithmetic ──────────────────────────────────────────────────
+[label,test_calc_add]
+assert_eq(calc(100 + 200), 300)
+
+[label,test_calc_subtract]
+assert_eq(calc(50 - 80), -30)
+
+[label,test_calc_multiply]
+assert_eq(calc(7 * 8), 56)
+
+[label,test_calc_divide]
+assert_eq(calc(100 / 3), 33)
+
+[label,test_calc_modulo]
+assert_eq(calc(17 % 5), 2)
+
+[label,test_calc_compound]
+assert_eq(calc((10 + 5) * 2), 30)
+
+[label,test_calc_order_of_operations]
+assert_eq(calc(2 + 3 * 4), 14)
+
+// ── Control flow ────────────────────────────────────────────────
+[label,test_if_true_branch]
+def_int $x = 10
+def_int $result = 0
+if ($x > 5) {
+    $result = 1
+} else {
+    $result = 2
+}
+assert_eq($result, 1)
+
+[label,test_if_false_branch]
+def_int $x = 3
+def_int $result = 0
+if ($x > 5) {
+    $result = 1
+} else {
+    $result = 2
+}
+assert_eq($result, 2)
+
+[label,test_if_else_if_chain]
+def_int $x = 50
+def_string $tier = "none"
+if ($x >= 90) {
+    $tier = "S"
+} else if ($x >= 70) {
+    $tier = "A"
+} else if ($x >= 50) {
+    $tier = "B"
+} else {
+    $tier = "C"
+}
+assert_str_eq($tier, "B")
+
+[label,test_while_sum]
+def_int $sum = 0
+def_int $i = 1
+while ($i <= 10) {
+    $sum = calc($sum + $i)
+    $i = calc($i + 1)
+}
+assert_eq($sum, 55)
+
+[label,test_switch_case_match]
+def_int $day = 3
+def_string $name = "unknown"
+switch_int ($day) {
+    case 1 : $name = "Monday"
+    case 2 : $name = "Tuesday"
+    case 3 : $name = "Wednesday"
+    case default : $name = "other"
+}
+assert_str_eq($name, "Wednesday")
+
+[label,test_switch_default]
+def_int $day = 99
+def_string $name = "unknown"
+switch_int ($day) {
+    case 1 : $name = "Monday"
+    case default : $name = "other"
+}
+assert_str_eq($name, "other")
+
+[label,test_switch_multi_case]
+def_int $val = 2
+def_string $result = "no"
+switch_int ($val) {
+    case 1, 2, 3 : $result = "low"
+    case 4, 5, 6 : $result = "mid"
+    case default : $result = "high"
+}
+assert_str_eq($result, "low")
+
+// ── Variables ───────────────────────────────────────────────────
+[label,test_local_var_default]
+def_int $x
+assert_eq($x, 0)
+
+[label,test_local_string_default]
+def_string $s
+assert_str_eq($s, "")
+
+// ── Proc calls ──────────────────────────────────────────────────
+[label,test_proc_return_value]
+def_int $result = ~demo_add(7, 8)
+assert_eq($result, 15)
+
+[label,test_proc_string_return]
+def_string $result = ~demo_greet("World")
+assert_str_eq($result, "Hello, World!")
+
+[label,test_proc_fibonacci]
+def_int $result = ~demo_fib_iter(10)
+assert_eq($result, 55)
+
+[label,test_proc_nested_calls]
+def_int $result = ~demo_add(~demo_add(1, 2), ~demo_add(3, 4))
+assert_eq($result, 10)
+
+// ── String interpolation ────────────────────────────────────────
+[label,test_string_interpolation]
+def_int $hp = 99
+def_string $msg = "HP: <tostring($hp)>"
+assert_str_eq($msg, "HP: 99")
+
+[label,test_string_concat]
+def_string $first = "Rune"
+def_string $second = "Scape"
+def_string $combined = "<$first><$second>"
+assert_str_eq($combined, "RuneScape")
+
+// ── Logical operators ───────────────────────────────────────────
+[label,test_logical_and_true]
+def_int $result = 0
+if (5 < 10 & 10 < 20) {
+    $result = 1
+}
+assert_eq($result, 1)
+
+[label,test_logical_and_false]
+def_int $result = 0
+if (15 < 10 & 10 < 20) {
+    $result = 1
+}
+assert_eq($result, 0)
+
+[label,test_logical_or_true]
+def_int $result = 0
+if (15 < 10 | 5 < 10) {
+    $result = 1
+}
+assert_eq($result, 1)
+
+[label,test_logical_or_false]
+def_int $result = 0
+if (15 < 10 | 25 < 10) {
+    $result = 1
+}
+assert_eq($result, 0)
+
+// ── Engine integration ──────────────────────────────────────────
+[label,test_player_name]
+setup_player("test_player")
+def_string $name = name
+assert_str_eq($name, "test_player")
+
+// Where a new player spawns is the engine's call, not this test's: jump to a
+// known tile and read it back through coord / coordx / coordy / coordz.
+[label,test_player_coord]
+setup_player("test_player")
+p_telejump(0_50_50_22_22)
+def_coord $c = coord
+def_int $x = coordx($c)
+def_int $y = coordy($c)
+def_int $z = coordz($c)
+assert_eq($x, 3222)
+assert_eq($y, 0)
+assert_eq($z, 3222)
+
+[label,test_stat_add]
+setup_player("test_player")
+def_int $before = stat(attack)
+assert_eq($before, 1)
+stat_add(attack, 49, 0)
+def_int $after = stat(attack)
+assert_eq($after, 50)
+
+[label,test_tick_advancement]
+setup_player("test_player")
+def_int $t0 = map_clock
+test_tick(2)
+def_int $t1 = map_clock
+assert_eq(calc($t1 - $t0), 2)
+
+[label,test_multi_tick]
+setup_player("test_player")
+def_int $t0 = map_clock
+test_tick(3)
+def_int $t1 = map_clock
+test_tick(2)
+def_int $t2 = map_clock
+assert_eq(calc($t1 - $t0), 3)
+assert_eq(calc($t2 - $t0), 5)
+
+// ── Multi-player ────────────────────────────────────────────────
+[label,test_spawn_player_and_switch]
+setup_player("test_player")
+def_playeruid $default_uid = uid
+assert_str_eq(name, "test_player")
+
+def_playeruid $alice_uid = setup_player("alice")
+assert_str_eq(name, "alice")
+
+def_playeruid $bob_uid = setup_player("bob")
+assert_str_eq(name, "bob")
+
+finduid($default_uid)
+assert_str_eq(name, "test_player")
+
+finduid($alice_uid)
+assert_str_eq(name, "alice")
+
+finduid($bob_uid)
+assert_str_eq(name, "bob")
+
+[label,test_finduid_self]
+setup_player("test_player")
+def_playeruid $my_uid = uid
+finduid($my_uid)
+assert_str_eq(name, "test_player")
+
+[label,test_finduid_after_switch]
+setup_player("test_player")
+def_playeruid $original_uid = uid
+setup_player("other")
+assert_str_eq(name, "other")
+finduid($original_uid)
+assert_str_eq(name, "test_player")
+
+[label,test_p_finduid_after_switch]
+setup_player("test_player")
+def_playeruid $original_uid = uid
+setup_player("other")
+assert_str_eq(name, "other")
+p_finduid($original_uid)
+assert_str_eq(name, "test_player")
+
+[label,test_spawn_player_independent_stats]
+setup_player("statcheck")
+finduid(uid)
+assert_str_eq(name, "statcheck")
+// A player who has not chosen a display name goes by their account name, as
+// the chatbox header shows it (interface_chat/chat.rs2).
+assert_str_eq(displayname, "Statcheck")
+stat_add(attack, 49, 0)
+assert_eq(stat(attack), 50)
+assert_eq(stat(attack), 50)
+
+setup_player("test_player")
+finduid(uid)
+assert_str_eq(name, "test_player")
+assert_str_eq(displayname, "Test Player")
+stat_add(attack, 49, 0)
+assert_eq(stat(attack), 50)
+assert_eq(stat(attack), 50)
+
+// ── Multiple assertions in one test ─────────────────────────────
+[label,test_multiple_assertions]
+def_int $a = 10
+def_int $b = 20
+def_int $sum = calc($a + $b)
+assert_eq($sum, 30)
+assert_gt($sum, $a)
+assert_gt($sum, $b)
+assert_not_eq($a, $b)
+assert_true(true)
+
+// ── The runner itself ───────────────────────────────────────────
+// expect_fail inverts the verdict, so each of these passes only because the
+// runner caught the failure it sets up. If an assertion, the call log or a
+// wait_for timeout ever stopped failing, the label would fail.
+[label,test_runner_catches_a_failed_assert]
+expect_fail
+assert_eq(1, 2)
+
+[label,test_runner_catches_a_wrong_message]
+setup_player("test_player")
+expect_fail
+mes("one thing")
+assert_called_with("mes", "another thing")
+
+[label,test_runner_catches_a_wait_timeout]
+setup_player("test_player")
+expect_fail
+wait_for("mes", 2)

@@ -1,0 +1,23 @@
+[proc,clientscript_4362](int $int0, component $component1, component $component2, component $component3, int $int4, int $int5, int $int6, int $int7, int $int8, int $int9, int $int10, int $int11, long $long)
+if ($int9 = false | ($int8 = false | $int6 = false)) {
+    if_setgraphic("aif_notetabs,4", $component2);
+    return;
+}
+def_enum $enum12 = enum(105, 103, enum_3689, $int6);
+def_string $string = "<fromdate($int4)> at <enum(105, 115, enum_3695, $int5)>";
+if (%clansetting_varbit_5 = false) {
+    $string = "<$string> Game Time";
+} else {
+    $string = "<$string> Clan Local Time";
+}
+$string = "<$string><br><br>World <tostring($int9)> at <br><enum(105, 115, enum_3696, $int8)><br><br><enum(105, 115, enum_3687, $int6)>";
+if ($enum12 ! null & $int7 > 0) {
+    $string = "<$string><br><enum(105, 115, $enum12, $int7)>";
+}
+$string = "<$string><br><br>Open to <enum(105, 115, enum_3716, $int10)>";
+if ($int11 = true) {
+    $string = "<$string><br>Attendance is mandatory";
+}
+if_setonop("clan_noticeboard_event_show($int0, $string, $long, $component2, $int4, $int5, $int9, $int8, $int6)", $component1);
+if_setgraphic(enum(105, 100, enum_3688, $int6), $component3);
+if_setgraphic("aif_notetabs,0", $component2);

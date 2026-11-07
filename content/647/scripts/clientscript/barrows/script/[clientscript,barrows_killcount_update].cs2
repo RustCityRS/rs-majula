@@ -1,0 +1,42 @@
+[clientscript,barrows_killcount_update]
+def_string $string = "";
+def_int $int0 = 0;
+def_int $int1 = 0;
+if (%varbit_457 = true) {
+    $string = append($string, "Ahrim<br>");
+    $int0 = calc($int0 + 1);
+    $int1 = calc($int1 + 1);
+}
+if (%varbit_458 = true) {
+    $string = append($string, "Dharok<br>");
+    $int0 = calc($int0 + 1);
+    $int1 = calc($int1 + 1);
+}
+if (%varbit_459 = true) {
+    $string = append($string, "Guthan<br>");
+    $int0 = calc($int0 + 1);
+    $int1 = calc($int1 + 1);
+}
+if (%varbit_460 = true) {
+    $string = append($string, "Karil<br>");
+    $int0 = calc($int0 + 1);
+    $int1 = calc($int1 + 1);
+}
+if (%varbit_461 = true) {
+    $string = append($string, "Torag<br>");
+    $int0 = calc($int0 + 1);
+    $int1 = calc($int1 + 1);
+}
+if (%varbit_462 = true) {
+    $string = append($string, "Verac<br>");
+    $int0 = calc($int0 + 1);
+    $int1 = calc($int1 + 1);
+}
+if (compare($string, "") = false) {
+    $string = "None";
+    $int0 = 1;
+}
+def_int $int2 = calc(52 + $int0 * 12);
+if_setsize(if_getwidth(barrows_overlay:com1), $int2, ^setsize_abs, ^setsize_abs, barrows_overlay:com1);
+if_settext($string, barrows_overlay:com3);
+if_settext(tostring(max(0, calc(%varbit_464 - $int1))), barrows_overlay:com6);

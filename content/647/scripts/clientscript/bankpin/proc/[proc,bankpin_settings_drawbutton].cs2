@@ -1,0 +1,18 @@
+[proc,bankpin_settings_drawbutton](component $component0, int $int1, string $string)
+if ($int1 = true) {
+    ~v2_stone_button_in_filled_proc($component0);
+} else {
+    ~v2_stone_button_out_filled($component0);
+}
+cc_create($component0, ^iftype_text, if_getchildcount($component0));
+cc_setsize(0, 0, ^setsize_minus, ^setsize_minus);
+cc_setposition(0, 0, ^setpos_abs_centre, ^setpos_abs_centre);
+cc_settextfont(p12_full);
+cc_settextshadow(true);
+cc_settextalign(^settextalign_centre, ^settextalign_centre, 0);
+if ($int1 = true) {
+    cc_setcolour(^white);
+} else {
+    cc_setcolour(0xff981f);
+}
+cc_settext($string);

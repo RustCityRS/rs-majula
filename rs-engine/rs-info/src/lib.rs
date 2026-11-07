@@ -2,16 +2,12 @@ use std::ops::{Deref, DerefMut};
 mod renderer;
 
 pub use renderer::{NpcRenderer, PlayerRenderer};
-use rs_protocol::network::game::info_prot::{NpcInfoProt, PlayerInfoProt};
+pub use rs_protocol::network::game::info_prot::{NpcInfoProt, PlayerInfoProt};
 
 /// Discriminator for selecting the correct protocol mask bits when setting
 /// face-entity or face-coord updates on an entity.
 ///
-/// NPC and Player info protocols use different bitmask values for the same
-/// logical operations (e.g., `FaceEntity` is `0x4` for both, but `FaceCoord`
-/// is `0x80` for NPCs and `0x20` for Players). This enum abstracts over
-/// that difference so that shared logic in [`EntityMasks`] can operate
-/// generically on either entity type.
+/// Selects the revision's NPC or player mask values for shared [`EntityMasks`] logic.
 #[repr(u8)]
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
 pub enum FocusKind {
@@ -27,8 +23,8 @@ impl FocusKind {
     ///
     /// # Returns
     ///
-    /// * `NpcInfoProt::FaceEntity as u16` (`0x4`) when `self` is [`FocusKind::Npc`].
-    /// * `PlayerInfoProt::FaceEntity as u16` (`0x4`) when `self` is [`FocusKind::Player`].
+    /// * `NpcInfoProt::FaceEntity as u16` when `self` is [`FocusKind::Npc`].
+    /// * `PlayerInfoProt::FaceEntity as u16` when `self` is [`FocusKind::Player`].
     ///
     /// # Call Stack
     ///
@@ -46,8 +42,8 @@ impl FocusKind {
     ///
     /// # Returns
     ///
-    /// * `NpcInfoProt::FaceCoord as u16` (`0x80`) when `self` is [`FocusKind::Npc`].
-    /// * `PlayerInfoProt::FaceCoord as u16` (`0x20`) when `self` is [`FocusKind::Player`].
+    /// * `NpcInfoProt::FaceCoord as u16` when `self` is [`FocusKind::Npc`].
+    /// * `PlayerInfoProt::FaceCoord as u16` when `self` is [`FocusKind::Player`].
     ///
     /// # Call Stack
     ///
@@ -129,12 +125,12 @@ pub struct EntityMasksCold {
     pub anim_delay: Option<u8>,
     pub anim_protect: bool,
     pub say: Option<Box<str>>,
-    pub damage_taken: Option<u8>,
+    pub damage_taken: Option<u16>,
     pub damage_type: Option<u8>,
     pub damage_current: Option<u8>,
     pub damage_base: Option<u8>,
     #[cfg(since_244)]
-    pub damage2_taken: Option<u8>,
+    pub damage2_taken: Option<u16>,
     #[cfg(since_244)]
     pub damage2_type: Option<u8>,
     #[cfg(since_244)]
@@ -158,6 +154,10 @@ pub struct EntityMasksCold {
     pub exactmove_finish: Option<u16>,
     pub exactmove_dir: Option<u8>,
     pub changetype: Option<u16>,
+    #[cfg(since_647)]
+    pub move_type: Option<u8>,
+    #[cfg(since_647)]
+    pub temp_move_type: Option<u8>,
 }
 
 impl Deref for EntityMasks {
@@ -242,6 +242,10 @@ impl EntityMasks {
                 exactmove_finish: None,
                 exactmove_dir: None,
                 changetype: None,
+                #[cfg(since_647)]
+                move_type: None,
+                #[cfg(since_647)]
+                temp_move_type: None,
             }),
         }
     }
@@ -251,7 +255,7 @@ impl EntityMasks {
     ///
     /// `bit` is the rev-specific `Damage` mask bit (`PlayerInfoProt::Damage`
     /// for players, `NpcInfoProt::Damage` for npcs).
-    pub fn apply_damage(&mut self, taken: u8, damage_type: u8, current: u8, base: u8, bit: u16) {
+    pub fn apply_damage(&mut self, taken: u16, damage_type: u8, current: u8, base: u8, bit: u16) {
         self.damage_taken = Some(taken);
         self.damage_type = Some(damage_type);
         self.damage_current = Some(current);
@@ -270,7 +274,7 @@ impl EntityMasks {
     #[cfg(since_244)]
     pub fn apply_damage2(
         &mut self,
-        taken: u8,
+        taken: u16,
         damage_type: u8,
         current: u8,
         base: u8,
@@ -412,6 +416,11 @@ impl EntityMasks {
         self.exactmove_finish = None;
         self.exactmove_dir = None;
         self.changetype = None;
+        #[cfg(since_647)]
+        {
+            self.move_type = None;
+            self.temp_move_type = None;
+        }
     }
 
     /// Check backing the `masks == 0` early-out in [`reset`](Self::reset):

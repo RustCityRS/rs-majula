@@ -1,0 +1,13 @@
+[clientscript,rand_ring_onexitspin](component $component0)
+def_component $component1 = $component0;
+switch_component ($component0) {
+    case rand_ring_interface:com184:
+        $component1 = rand_ring_interface:com257;
+    case rand_ring_interface:com185:
+        $component1 = rand_ring_interface:com242;
+    case rand_ring_interface:com186:
+        $component1 = rand_ring_interface:com227;
+    case rand_ring_interface:com187:
+        $component1 = rand_ring_interface:com212;
+}
+if_settrans(255, $component1);

@@ -1,0 +1,6 @@
+[proc,clientscript_2633](component $component)
+if ($component ! mob_side_command:com0) {
+    ~v2_stone_button($component);
+}
+if_settext("", mob_side_command:com28);
+if_settext("", mob_side_command:com29);

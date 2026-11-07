@@ -18,12 +18,18 @@ pub struct MapProjAnim {
     pub start_delay: u16,
     pub end_delay: u16,
     pub peak: u8,
+    #[cfg(before_647)]
     pub arc: u8,
+    #[cfg(since_647)]
+    pub arc: u16,
 }
 
 impl ServerProtMessage for MapProjAnim {
     fn encode(&self, buf: &mut Packet) {
+        #[cfg(before_647)]
         buf.p1(self.coord);
+        #[cfg(since_647)]
+        buf.p1(((self.coord >> 4 & 7) << 3) | (self.coord & 7));
         buf.p1(self.dx as u8);
         buf.p1(self.dz as u8);
         buf.p2(self.target as u16);
@@ -33,7 +39,10 @@ impl ServerProtMessage for MapProjAnim {
         buf.p2(self.start_delay);
         buf.p2(self.end_delay);
         buf.p1(self.peak);
+        #[cfg(before_647)]
         buf.p1(self.arc);
+        #[cfg(since_647)]
+        buf.p2(self.arc);
     }
 
     fn sizeof(&self) -> usize {

@@ -1,0 +1,6 @@
+[proc,meslayer_setupinput](string $string)
+if_settext(escape($string), chatbox:com5);
+%varc_string_22 = $string;
+%varc_int_1029 = string_length($string);
+if_setonclick("clientscript_1556(^event_mousex, ^event_com, ^event_subid)", chatbox:com5);
+~clientscript_1557;

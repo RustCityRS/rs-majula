@@ -1,0 +1,8 @@
+[clientscript,mob_tutorial_status_update]
+if (%varc_int_825 < 1) {
+    %varc_int_825 = 6;
+}
+if (%varc_int_825 > 0) {
+    %varc_int_825 = calc(%varc_int_825 - 1);
+}
+if_settext(tostring(%varc_int_825), mob_status_overlay:com35);

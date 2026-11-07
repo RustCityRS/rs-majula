@@ -1,0 +1,25 @@
+[proc,notes_build](int $int0, int $int1, colour $colour2, string $string)(int)
+def_int $int3 = if_getwidth(notes:com9);
+$string = escape(~clientscript_2446($string));
+cc_create(notes:com9, ^iftype_text, $int1);
+cc_setposition(0, calc($int0 * 15 + 5), ^setpos_abs_left, ^setpos_abs_top);
+def_int $int4 = paraheight($string, $int3, p11_full);
+cc_setsize(0, calc($int4 * 14), ^setsize_minus, ^setsize_abs);
+cc_setcolour($colour2);
+cc_settext($string);
+cc_settextfont(p11_full);
+cc_settextalign(^settextalign_left, ^settextalign_centre, 14);
+cc_settextshadow(true);
+cc_setondrag("notes_drag(^event_com, ^event_subid, ^event_mousey)");
+cc_setondragcomplete("notes_drag_end(^event_dragcom)");
+if (%varp_1439 = $int1) {
+    cc_setop(1, "Unselect");
+} else {
+    cc_setop(1, "Select");
+}
+cc_setop(2, "Edit");
+cc_setop(3, "Colour");
+cc_setop(4, "Delete");
+cc_setdragdeadzone(14);
+return(calc($int0 + $int4));
+return(0);

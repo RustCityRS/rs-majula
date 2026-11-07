@@ -1,0 +1,50 @@
+// 289's hay, by id: 2011 spells 289's "Hay Bails" and "Hay bail" Hay bales
+// and Hay bale (cache 786 names of 298, 299 and 304).
+[oploc1,hay_bales]
+mes("You search the hay bales...");
+@search_haybale();
+
+[oploc1,hay_bales_299]
+mes("You search the hay bales...");
+@search_haybale();
+
+[oploc1,haystack]
+mes("You search the haystack...");
+@search_haybale();
+
+[oploc1,hay_bale]
+mes("You search the hay bale...");
+@search_haybale();
+
+// 2011's own hay with op1 Search (cache 786), searched as 289's: 786's map
+// puts hay_bale_36892, hay_bales_36894 and hay_bales_36896 on 289 hay spots,
+// and all seven in map squares 49_51, 50_51 and 36_90.
+[oploc1,hay_bales_36894] @search_hay_bales;
+[oploc1,hay_bales_36895] @search_hay_bales;
+[oploc1,hay_bales_36896] @search_hay_bales;
+[oploc1,hay_bales_36897] @search_hay_bales;
+[oploc1,hay_bales_36898] @search_hay_bales;
+[oploc1,hay_bale_36892] @search_hay_bale;
+[oploc1,hay_bale_36893] @search_hay_bale;
+
+[label,search_hay_bales]
+mes("You search the hay bales...");
+@search_haybale();
+
+[label,search_hay_bale]
+mes("You search the hay bale...");
+@search_haybale();
+
+[label,search_haybale]()
+anim(human_pickupfloor, 0);
+p_delay(2);
+def_int $rand = random(100);
+if ($rand < 2) {
+    queue(damage_player, 0, 1);
+    ~chatplayer("<p,angry>Ow! There's something sharp in there!");
+} else if ($rand < 12) {
+    inv_add(inv, needle, 1);
+    ~chatplayer("<p,happy>Wow! A needle!|Now what are the chances of finding that?");
+} else {
+    mes("You find nothing of interest.");
+}

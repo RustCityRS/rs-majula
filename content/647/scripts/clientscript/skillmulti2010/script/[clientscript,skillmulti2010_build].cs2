@@ -1,0 +1,146 @@
+[clientscript,skillmulti2010_build]
+if_setonop("clientscript_2023(^event_op, 1)", skillmulti2010_numbers:com19);
+if_setonop("clientscript_2023(^event_op, -1)", skillmulti2010_numbers:com20);
+~clientscript_2020(1, "1", 41, skillmulti2010_numbers:com5);
+~clientscript_2020(5, "5", 41, skillmulti2010_numbers:com6);
+~clientscript_2020(10, "10", 41, skillmulti2010_numbers:com7);
+def_int $int0 = if_getwidth(skillmulti2010_numbers:com9);
+def_int $int1 = if_getwidth(skillmulti2010:com3);
+def_int $int2 = calc($int1 - $int0 - (41 * 3 + 5 * 2));
+def_int $int3 = 0;
+def_int $int4 = 0;
+def_string $string0 = "All";
+def_string $string1 = "Custom";
+if (~clientscript_1103 = true) {
+    $int3 = calc(max(op4125($string0, 494), op4125($string1, 494)) + 20);
+    ~clientscript_2020(%skill_creation_maximum, $string0, $int3, skillmulti2010_numbers:com8);
+    ~clientscript_2020(-1, $string1, $int3, skillmulti2010:com6);
+    $int2 = calc($int2 - ($int3 * 2 + 5));
+    $int4 = scale(2, 5, $int2);
+    if_setposition($int4, 0, ^setpos_abs_left, ^setpos_abs_centre, skillmulti2010_numbers:com8);
+    $int4 = calc($int4 + $int3 + 5);
+    if_setposition($int4, 0, ^setpos_abs_left, ^setpos_abs_centre, skillmulti2010:com6);
+    $int4 = calc($int4 + $int3);
+    $int4 = calc($int4 + $int2 / 5);
+    if_setposition($int4, 0, ^setpos_abs_left, ^setpos_abs_centre, skillmulti2010_numbers:com5);
+    $int4 = calc($int4 + 41 + 5);
+    if_setposition($int4, 0, ^setpos_abs_left, ^setpos_abs_centre, skillmulti2010_numbers:com6);
+    $int4 = calc($int4 + 41 + 5);
+    if_setposition($int4, 0, ^setpos_abs_left, ^setpos_abs_centre, skillmulti2010_numbers:com7);
+} else {
+    if_sethide(true, skillmulti2010_numbers:com8);
+    if_sethide(true, skillmulti2010:com6);
+    $int4 = calc($int2 / 2);
+    if_setposition($int4, 0, ^setpos_abs_left, ^setpos_abs_centre, skillmulti2010_numbers:com5);
+    $int4 = calc($int4 + 41 + 5);
+    if_setposition($int4, 0, ^setpos_abs_left, ^setpos_abs_centre, skillmulti2010_numbers:com6);
+    $int4 = calc($int4 + 41 + 5);
+    if_setposition($int4, 0, ^setpos_abs_left, ^setpos_abs_centre, skillmulti2010_numbers:com7);
+}
+if_setposition(calc($int0 - 5), 0, ^setpos_abs_right, ^setpos_abs_centre, skillmulti2010_numbers:com2);
+if_setposition($int0, 0, ^setpos_abs_right, ^setpos_abs_centre, skillmulti2010:com5);
+def_int $int5 = calc($int1 - $int0);
+if (%varc_int_92 = true) {
+    if_setsize(calc($int5 + 5), 0, ^setsize_abs, ^setsize_minus, skillmulti2010_numbers:com2);
+    if_setsize($int5, 0, ^setsize_abs, ^setsize_minus, skillmulti2010:com5);
+    ~clientscript_2192(0, $int5);
+} else {
+    if_setsize(5, 0, ^setsize_abs, ^setsize_minus, skillmulti2010_numbers:com2);
+    if_setsize(0, 0, ^setsize_abs, ^setsize_minus, skillmulti2010:com5);
+    ~clientscript_2192(1, $int5);
+}
+if_setsize(calc(if_getx(skillmulti2010_numbers:com1) * 2 + $int0), 0, ^setsize_minus, ^setsize_minus, skillmulti2010_numbers:com1);
+$string1 = "Show/Hide additional number buttons";
+def_graphic $graphic6 = 3883;
+if_setonmouserepeat("clientscript_1160(^event_com, -1, skillmulti2010:com29, $string1, 25, 519)", skillmulti2010_numbers:com21);
+if_setonmouseleave("deltooltip_graphic_swapper(skillmulti2010:com29, skillmulti2010_numbers:com22, $graphic6)", skillmulti2010_numbers:com21);
+$int2 = calc((70 - 56) / 2);
+$int3 = 0;
+if (%varc_int_755 ! -1) {
+    $int3 = parawidth(%varc_string_132, 2147483647, p11_full);
+}
+if (%varc_int_756 ! -1) {
+    $int3 = max(parawidth(%varc_string_133, 2147483647, p11_full), $int3);
+}
+if (%varc_int_757 ! -1) {
+    $int3 = max(parawidth(%varc_string_134, 2147483647, p11_full), $int3);
+}
+if (%varc_int_758 ! -1) {
+    $int3 = max(parawidth(%varc_string_135, 2147483647, p11_full), $int3);
+}
+if (%varc_int_759 ! -1) {
+    $int3 = max(parawidth(%varc_string_136, 2147483647, p11_full), $int3);
+}
+if (%varc_int_760 ! -1) {
+    $int3 = max(parawidth(%varc_string_137, 2147483647, p11_full), $int3);
+}
+if (%varc_int_1139 ! -1) {
+    $int3 = max(parawidth(%varc_string_280, 2147483647, p11_full), $int3);
+}
+if (%varc_int_1140 ! -1) {
+    $int3 = max(parawidth(%varc_string_281, 2147483647, p11_full), $int3);
+}
+if (%varc_int_1141 ! -1) {
+    $int3 = max(parawidth(%varc_string_282, 2147483647, p11_full), $int3);
+}
+if (%varc_int_1142 ! -1) {
+    $int3 = max(parawidth(%varc_string_283, 2147483647, p11_full), $int3);
+}
+if (%varc_int_120 ! -1) {
+    $int3 = max(parawidth(%varc_string_275, 2147483647, p11_full), $int3);
+}
+if (%varc_int_185 ! -1) {
+    $int3 = max(parawidth(%varc_string_316, 2147483647, p11_full), $int3);
+}
+if (%varc_int_87 ! -1) {
+    $int3 = max(parawidth(%varc_string_317, 2147483647, p11_full), $int3);
+}
+if (%varc_int_90 ! -1) {
+    $int3 = max(parawidth(%varc_string_318, 2147483647, p11_full), $int3);
+}
+$int3 = calc($int3 + 4);
+$int3 = max(calc($int3 + 4 * 2), 56);
+$int4 = ~skillmulti2010_menubutton($int2, $int3, $int2, %varc_int_755, %varc_string_132, skillmulti2010:com14);
+$int4 = ~skillmulti2010_menubutton($int4, $int3, $int2, %varc_int_756, %varc_string_133, skillmulti2010:com15);
+$int4 = ~skillmulti2010_menubutton($int4, $int3, $int2, %varc_int_757, %varc_string_134, skillmulti2010:com16);
+$int4 = ~skillmulti2010_menubutton($int4, $int3, $int2, %varc_int_758, %varc_string_135, skillmulti2010:com17);
+$int4 = ~skillmulti2010_menubutton($int4, $int3, $int2, %varc_int_759, %varc_string_136, skillmulti2010:com18);
+$int4 = ~skillmulti2010_menubutton($int4, $int3, $int2, %varc_int_760, %varc_string_137, skillmulti2010:com19);
+$int4 = ~skillmulti2010_menubutton($int4, $int3, $int2, %varc_int_1139, %varc_string_280, skillmulti2010:com20);
+$int4 = ~skillmulti2010_menubutton($int4, $int3, $int2, %varc_int_1140, %varc_string_281, skillmulti2010:com21);
+$int4 = ~skillmulti2010_menubutton($int4, $int3, $int2, %varc_int_1141, %varc_string_282, skillmulti2010:com22);
+$int4 = ~skillmulti2010_menubutton($int4, $int3, $int2, %varc_int_1142, %varc_string_283, skillmulti2010:com23);
+$int4 = ~skillmulti2010_menubutton($int4, $int3, $int2, %varc_int_120, %varc_string_275, skillmulti2010:com24);
+$int4 = ~skillmulti2010_menubutton($int4, $int3, $int2, %varc_int_185, %varc_string_316, skillmulti2010:com25);
+$int4 = ~skillmulti2010_menubutton($int4, $int3, $int2, %varc_int_87, %varc_string_317, skillmulti2010:com26);
+$int4 = ~skillmulti2010_menubutton($int4, $int3, $int2, %varc_int_90, %varc_string_318, skillmulti2010:com27);
+~clientscript_2047;
+$int3 = calc(if_getwidth(skillmulti2010:com7) - 50);
+def_graphic $graphic7 = "sm_select_body_button,0";
+$graphic6 = "sm_select_body_button,2";
+def_graphic $graphic8 = "sm_select_body_button,1";
+def_graphic $graphic9 = "sm_select_body_button,3";
+if ($int4 > $int3) {
+    if_setsize($int3, 0, ^setsize_abs, ^setsize_minus, skillmulti2010:com13);
+    if_setscrollsize($int4, 0, skillmulti2010:com13);
+    if_setscrollpos(%varc_int_93, 0, skillmulti2010:com13);
+    if_setonmouserepeat("skillmulti2010_scroller(^event_com, $graphic8, -4)", skillmulti2010:com11);
+    if_setonmouserepeat("skillmulti2010_scroller(^event_com, $graphic9, 4)", skillmulti2010:com12);
+    if_setonhold("skillmulti2010_scroller(^event_com, $graphic8, -6)", skillmulti2010:com11);
+    if_setonhold("skillmulti2010_scroller(^event_com, $graphic9, 6)", skillmulti2010:com12);
+    if_setonmouseleave("graphic_swapper(^event_com, $graphic7)", skillmulti2010:com11);
+    if_setonmouseleave("graphic_swapper(^event_com, $graphic6)", skillmulti2010:com12);
+    ~clientscript_2370;
+} else {
+    if_setsize($int4, 0, ^setsize_abs, ^setsize_minus, skillmulti2010:com13);
+    if_setscrollsize(0, 0, skillmulti2010:com13);
+    if_setscrollpos(0, 0, skillmulti2010:com13);
+    if_clearhooks(skillmulti2010:com11);
+    if_clearhooks(skillmulti2010:com12);
+    if_settrans(150, skillmulti2010:com11);
+    if_settrans(150, skillmulti2010:com12);
+}
+if_setgraphic($graphic7, skillmulti2010:com11);
+if_setgraphic($graphic6, skillmulti2010:com12);
+if_setonvarctransmit("skillmulti2010_build(){varc_int_754}", skillmulti2010:com2);
+if_setonvartransmit("clientscript_2025(){varp_1363}", skillmulti2010:com2);

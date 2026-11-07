@@ -1,0 +1,6 @@
+// 2011's shop interface (shop_template, 620): the first of the varcs that hold
+// each slot's base stock, which the client prices by (clientscript 2721:
+// 946-985, slots 0-39), and the components the client draws a slot of stock
+// with, the first carrying its ops (clientscript 2723).
+^shop_stockbase_varc = 946
+^shop_slot_components = 6

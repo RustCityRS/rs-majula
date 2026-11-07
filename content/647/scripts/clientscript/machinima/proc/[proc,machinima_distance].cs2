@@ -1,0 +1,16 @@
+[proc,machinima_distance](coord $coord0, coord $coord1)(int)
+def_int $int2 = 0;
+def_int $int3 = 0;
+$int2 = calc(coordx($coord0) - coordx($coord1));
+if ($int2 < 0) {
+    $int2 = calc($int2 * -1);
+}
+$int3 = calc(coordz($coord0) - coordz($coord1));
+if ($int3 < 0) {
+    $int3 = calc($int3 * -1);
+}
+if ($int2 > $int3) {
+    return($int2);
+} else {
+    return($int3);
+}

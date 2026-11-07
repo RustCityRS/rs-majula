@@ -1,0 +1,17 @@
+[proc,clientscript_2840]
+%varc_int_1068 = calc(%varc_int_1068 + 1);
+switch_int (%varc_int_1068) {
+    case default:
+        if_setonchattransmit_2426("clientscript_2840()", nom_cutscene_controller:com0);
+        cam_startpath(0, %varc_int_1068, 400, 400, 1, %varc_int_1068);
+    case 1:
+        if_setonchattransmit_2426("clientscript_2840()", nom_cutscene_controller:com0);
+        cam_startpath(0, %varc_int_1068, 400, 0, 1, %varc_int_1068);
+    case 2:
+        if_setonchattransmit_2426(null, nom_cutscene_controller:com0);
+    case 3:
+        if_setonchattransmit_2426("clientscript_2840()", nom_cutscene_controller:com0);
+        cam_startpath(0, %varc_int_1068, 650, 700, 1, %varc_int_1068);
+    case 5:
+        if_setonchattransmit_2426(null, nom_cutscene_controller:com0);
+}

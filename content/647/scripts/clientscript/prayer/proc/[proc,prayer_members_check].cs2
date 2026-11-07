@@ -1,0 +1,13 @@
+[proc,prayer_members_check](int $int)(int)
+if (%varbit_6840 = true) {
+    if (struct_param(enum(105, 74, enum_863, $int), param_739) = true) {
+        return(1);
+    } else {
+        return(0);
+    }
+}
+if (struct_param(enum(105, 74, enum_2279, $int), param_739) = true) {
+    return(1);
+} else {
+    return(0);
+}

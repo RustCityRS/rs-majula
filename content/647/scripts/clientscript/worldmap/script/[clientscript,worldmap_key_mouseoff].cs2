@@ -1,0 +1,5 @@
+[clientscript,worldmap_key_mouseoff](component $component0, int $int1, int $colour2)
+if (cc_find($component0, $int1) = true) {
+    cc_setcolour($colour2);
+}
+~deltooltip_action(worldmap:com57);

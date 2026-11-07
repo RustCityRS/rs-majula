@@ -74,6 +74,8 @@ pub fn build<E: ScriptEngine + 'static>() -> OpsRegistry {
         active_loc!(m, LOC_CHANGE => |s, loc| {
             let duration = s.pop_int();
             let id = s.pop_int_as::<u16>()?;
+            #[cfg(since_647)]
+            crate::ops::test::record_call(LOC_CHANGE, "loc_change", &id.to_string());
             if let Some(changed) = engine_mut::<E>().change_loc(loc, id, duration as u64)? {
                 set_active_loc(s, changed, s.int_operand() != 0);
             }

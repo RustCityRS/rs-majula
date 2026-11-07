@@ -1,0 +1,4 @@
+[clientscript,scrollbar_vertical_jump](component $component0, component $int1, int $int2)
+if (cc_find($component0, 1) = true) {
+    if_opensidemodal(0, calc(cc_getheight / 2));
+}

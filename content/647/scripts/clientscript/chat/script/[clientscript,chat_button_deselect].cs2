@@ -1,0 +1,5 @@
+[clientscript,chat_button_deselect](int $int)
+if (%varc_int_42 = $int) {
+    %varc_int_42 = -1;
+    ~redraw_chat_buttons;
+}

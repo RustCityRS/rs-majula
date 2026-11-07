@@ -1,0 +1,151 @@
+// 289's spinning (skill_crafting/scripts/spinning/spinning.rs2) on 2011's
+// spinning wheels (spinning_wheels.loc). 289's human_spinningwheel (seq 894)
+// and the wheel's turning (seq 466) keep their ids, which 2011's cache still
+// has, under their placeholder names (the unpacked seqs are keyed by them);
+// void-634 spins with seq 896, which is 289's human_cooking, so 289's stays.
+// The sound is void-634's spinning (synth 2590, crafting.sounds.toml); sound
+// ids moved between 289 and 2011.
+[oplocu,_spinning_wheel]
+if(loc_type = viking_spinningwheel) {
+    if(%viking < ^viking_complete) {
+        mes("Only Fremenniks may use this spinning wheel.");
+        return;
+    }
+}
+switch_obj (last_useitem)
+{
+    case wool : @craft_spinning(last_useitem);
+    // 2011's black wool, from Fred's black sheep (void-634's SpinningWheel).
+    case black_wool : @craft_spinning(last_useitem);
+    case flax :
+        if (map_members = ^false) {
+            mes(^mes_members_feature);
+            return;
+        }
+        @craft_spinning(last_useitem);
+    case golden_fleece : // this still delays after other objs were changed to use weakqueue, also not weakqueueable until after 2007
+        if (map_members = ^false) {
+            mes(^mes_members_feature);
+            return;
+        }
+        anim(seq_894, 0);
+        loc_anim(seq_466);
+        sound_synth(spinning, 1, 0);
+        inv_del(inv, golden_fleece, 1);
+        inv_add(inv, golden_wool, 1);
+        mes("You spin the fleece into some golden string.");
+        // 289 pays with stat_advance, here and below; 2011's xp counter
+        // counts what ~givexp pays (player/scripts/xp.rs2).
+        ~givexp(crafting, 25);
+        p_delay(2);
+    case ball_of_wool : ~objbox(ball_of_wool, "You have already spun this wool.", 250, 0, divide(^objbox_height, 2));
+    case bow_string : ~objbox(bow_string, "You have already spun this bow string.", 250, 0, divide(^objbox_height, 2));
+    case golden_wool : ~objbox(golden_wool, "You have already spun this wool.", 250, 0, divide(^objbox_height, 2));
+    case default : ~displaymessage(^dm_default);
+}
+
+[oploc2,_spinning_wheel]
+if(loc_type = viking_spinningwheel) {
+    if(%viking < ^viking_complete) {
+        ~mesbox("Only Fremenniks may use this spinning wheel.");
+        return;
+    }
+}
+def_int $amt = 0;
+def_int _$count = 0; // 289's, never read
+def_obj $obj;
+
+// https://web.archive.org/web/20050525015428/http://runers2.fc2web.com/Lumbridge.htm
+// While Fred's job is on, black wool comes between them (void-634's
+// SpinningWheel fibres, black_wool offered only then).
+if (~sheep_job_on = true) {
+    $obj, $amt = ~skill_make("What would you like to spin?", ^skill_make_make, 28, wool, black_wool, flax, null, null);
+} else {
+    $obj, $amt = ~skill_multi2_header(
+        "What would you like to spin?",
+        wool, 0, -2, 200, "\\n\\n\\n\\nWool",
+        flax, 0, -3, 200, "\\n\\n\\n\\nFlax"
+    );
+}
+def_struct $struct = oc_param($obj, crafting_spinning_struct);
+
+if ($obj = flax & map_members = ^false) {
+    mes(^mes_members_crafting);
+    return;
+}
+
+def_int $level = struct_param($struct, levelrequire);
+if (stat(crafting) < $level) {
+    ~mesbox("You need level <tostring($level)> Crafting to make that.");
+    return;
+}
+
+if ($amt = 0) {
+    return;
+}
+
+// Make sure the player has an item to spin
+if (inv_total(inv, $obj) = 0) {
+    // https://youtu.be/U7QIAbcMKU4?si=QJv8TzKWe5P4C9Z8&t=47
+    mes("You'll need <lowercase(oc_name($obj))> to make that.");
+    return;
+}
+
+// macro event
+if (afk_event = ^true) {
+    ~macro_event_general_spawn(~macro_event_set_random);
+    return;
+}
+
+// play human animation
+anim(seq_894, 0);
+loc_anim(seq_466);
+sound_synth(spinning, 1, 0);
+weakqueue*(crafting_spinning, 3)($obj, $struct, $amt, loc_type, loc_coord);
+
+[label,process_spin](obj $spinning_obj, struct $struct, int $amt, loc $loc, coord $coord)
+if (inv_total(inv, $spinning_obj) = 0) {
+    mes("You have run out of <lowercase(oc_name($spinning_obj))>.");
+    return;
+}
+if(loc_find($coord, $loc) = true) {
+    anim(seq_894, 0);
+    loc_anim(seq_466);
+    sound_synth(spinning, 1, 0);
+    weakqueue*(crafting_spinning, 2)($spinning_obj, $struct, $amt, $loc, $coord);
+}
+
+[queue,crafting_spinning](obj $spinning_obj, struct $struct, int $amt, loc $loc, coord $coord)
+inv_del(inv, struct_param($struct, ingredient), 1);
+inv_add(inv, struct_param($struct, product), 1);
+mes(struct_param($struct, processmessage));
+~givexp(crafting, struct_param($struct, productexp));
+$amt = sub($amt, 1);
+if ($amt = 0) {
+    return;
+}
+@process_spin($spinning_obj, $struct, $amt, $loc, $coord);
+
+// delay spinning
+[label,craft_spinning](obj $spinning_obj)
+def_struct $struct = oc_param($spinning_obj, crafting_spinning_struct);
+// check if we have the required level
+def_int $level = struct_param($struct, levelrequire);
+if (stat(crafting) < $level) {
+    ~mesbox("You need level <tostring($level)> Crafting to make that.");
+    return;
+}
+// macro event
+if (afk_event = ^true) {
+    ~macro_event_general_spawn(~macro_event_set_random);
+    return;
+}
+// play human animation
+anim(seq_894, 0);
+loc_anim(seq_466);
+sound_synth(spinning, 1, 0);
+inv_del(inv, struct_param($struct, ingredient), 1);
+inv_add(inv, struct_param($struct, product), 1);
+mes(struct_param($struct, productmessage));
+~givexp(crafting, struct_param($struct, productexp));
+p_delay(2);

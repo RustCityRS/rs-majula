@@ -1,0 +1,46 @@
+[proc,clientscript_2220]
+if (%varbit_7324 = true) {
+    if_sethide(true, kj1016328:com121);
+} else {
+    if_sethide(false, kj1016328:com121);
+}
+if (%varbit_7325 = true) {
+    if_sethide(true, kj1016328:com122);
+} else {
+    if_sethide(false, kj1016328:com122);
+}
+if (%varbit_7326 = true) {
+    if_sethide(true, kj1016328:com123);
+} else {
+    if_sethide(false, kj1016328:com123);
+}
+if_settext(tostring(%varc_int_1126), kj1016328:com154);
+if_settext(tostring(%varc_int_1127), kj1016328:com148);
+if_settext(tostring(%varc_int_1128), kj1016328:com142);
+if_settext(tostring(%varc_int_1129), kj1016328:com112);
+if_settext(tostring(%varc_int_1131), kj1016328:com136);
+if_settext(tostring(%varc_int_1130), kj1016328:com130);
+if_settext("Total Workers: <tostring(%varc_int_1135)>", kj1016328:com155);
+if_settext("<tostring(%varp_1687)>/15", kj1016328:com115);
+if_settext("<tostring(%varp_1688)>/15", kj1016328:com117);
+if_settext("<tostring(%varp_1686)>/15", kj1016328:com116);
+if_settext("<tostring(%varp_1689)>/7", kj1016328:com120);
+if_settext("<tostring(%varp_1690)>/7", kj1016328:com118);
+if_settext("<tostring(%varp_1691)>/7", kj1016328:com119);
+~clientscript_2221;
+if_settext("Turn <tostring(%varp_1674)>/15", kj1016328:com20);
+if (%varc_int_1132 = false) {
+    if_setgraphic("warning_icons,1", kj1016328:com121);
+} else {
+    if_setgraphic("warning_icons,2", kj1016328:com121);
+}
+if (%varc_int_1134 = false) {
+    if_setgraphic("warning_icons,1", kj1016328:com122);
+} else {
+    if_setgraphic("warning_icons,2", kj1016328:com122);
+}
+if (%varc_int_1133 = false) {
+    if_setgraphic("warning_icons,1", kj1016328:com123);
+} else {
+    if_setgraphic("warning_icons,2", kj1016328:com123);
+}

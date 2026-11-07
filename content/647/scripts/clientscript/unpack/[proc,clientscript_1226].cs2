@@ -1,0 +1,102 @@
+[proc,clientscript_1226](int $int)
+if_sethide(true, zw4121725:com15);
+if_sethide(true, zw4121725:com14);
+if_setgraphic("radio_buttons,0", zw4121725:com35);
+if_sethide(true, zw4121725:com13);
+if_sethide(true, zw4121725:com12);
+if_setgraphic("radio_buttons,0", zw4121725:com34);
+if_sethide(true, zw4121725:com11);
+if_sethide(true, zw4121725:com10);
+if_setgraphic("radio_buttons,0", zw4121725:com33);
+if_sethide(true, zw4121725:com9);
+if_sethide(true, zw4121725:com8);
+if_setgraphic("radio_buttons,0", zw4121725:com39);
+if_sethide(true, zw4121725:com7);
+if_sethide(true, zw4121725:com6);
+if_setgraphic("radio_buttons,0", zw4121725:com37);
+if_sethide(true, zw4121725:com5);
+if_sethide(true, zw4121725:com4);
+if_setgraphic("radio_buttons,0", zw4121725:com36);
+if_sethide(true, zw4121725:com3);
+if_sethide(true, zw4121725:com2);
+if_setgraphic("radio_buttons,0", zw4121725:com38);
+if (player_isfemale = true) {
+    switch_int ($int) {
+        case 0:
+            if_sethide(false, zw4121725:com15);
+            if_setgraphic("radio_buttons,1", zw4121725:com35);
+        case 1:
+            if_sethide(false, zw4121725:com13);
+            if_setgraphic("radio_buttons,1", zw4121725:com34);
+        case 2:
+            if_sethide(false, zw4121725:com11);
+            if_setgraphic("radio_buttons,1", zw4121725:com33);
+        case 3:
+            if_sethide(false, zw4121725:com9);
+            if_setgraphic("radio_buttons,1", zw4121725:com39);
+        case 4:
+            if_sethide(false, zw4121725:com7);
+            if_setgraphic("radio_buttons,1", zw4121725:com37);
+        case 5:
+            if_sethide(false, zw4121725:com5);
+            if_setgraphic("radio_buttons,1", zw4121725:com36);
+        case 6:
+            if_sethide(false, zw4121725:com3);
+            if_setgraphic("radio_buttons,1", zw4121725:com38);
+    }
+} else {
+    switch_int ($int) {
+        case 0:
+            if_sethide(false, zw4121725:com14);
+            if_setgraphic("radio_buttons,1", zw4121725:com35);
+        case 1:
+            if_sethide(false, zw4121725:com12);
+            if_setgraphic("radio_buttons,1", zw4121725:com34);
+        case 2:
+            if_sethide(false, zw4121725:com10);
+            if_setgraphic("radio_buttons,1", zw4121725:com33);
+        case 3:
+            if_sethide(false, zw4121725:com8);
+            if_setgraphic("radio_buttons,1", zw4121725:com39);
+        case 4:
+            if_sethide(false, zw4121725:com6);
+            if_setgraphic("radio_buttons,1", zw4121725:com37);
+        case 5:
+            if_sethide(false, zw4121725:com4);
+            if_setgraphic("radio_buttons,1", zw4121725:com36);
+        case 6:
+            if_sethide(false, zw4121725:com2);
+            if_setgraphic("radio_buttons,1", zw4121725:com38);
+    }
+}
+if (player_isfemale = true) {
+    if_sethide(false, zw4121725:com20);
+    if_sethide(false, zw4121725:com22);
+    if_sethide(false, zw4121725:com24);
+    if_sethide(false, zw4121725:com26);
+    if_sethide(false, zw4121725:com28);
+    if_sethide(false, zw4121725:com30);
+    if_sethide(false, zw4121725:com32);
+    if_sethide(true, zw4121725:com19);
+    if_sethide(true, zw4121725:com21);
+    if_sethide(true, zw4121725:com23);
+    if_sethide(true, zw4121725:com25);
+    if_sethide(true, zw4121725:com27);
+    if_sethide(true, zw4121725:com29);
+    if_sethide(true, zw4121725:com31);
+} else {
+    if_sethide(true, zw4121725:com20);
+    if_sethide(true, zw4121725:com22);
+    if_sethide(true, zw4121725:com24);
+    if_sethide(true, zw4121725:com26);
+    if_sethide(true, zw4121725:com28);
+    if_sethide(true, zw4121725:com30);
+    if_sethide(true, zw4121725:com32);
+    if_sethide(false, zw4121725:com19);
+    if_sethide(false, zw4121725:com21);
+    if_sethide(false, zw4121725:com23);
+    if_sethide(false, zw4121725:com25);
+    if_sethide(false, zw4121725:com27);
+    if_sethide(false, zw4121725:com29);
+    if_sethide(false, zw4121725:com31);
+}

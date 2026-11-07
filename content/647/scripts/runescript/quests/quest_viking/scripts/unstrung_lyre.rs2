@@ -1,0 +1,13 @@
+// From 289's viking_olaf.rs2: the one label 289's cooking calls into, until the quest is ported.
+[label,craft_unstrung_lyre]
+if(stat(crafting) < 40) {
+    ~mesbox("You need to have a Crafting level of 40 to make a lyre."); // osrs
+    return;
+}
+mes("You craft an unstrung lyre out of the branch.");
+anim(human_fletching, 0);
+p_delay(0);
+inv_del(inv, branch, 1);
+inv_add(inv, unstrung_lyre, 1);
+stat_advance(crafting, 10);
+

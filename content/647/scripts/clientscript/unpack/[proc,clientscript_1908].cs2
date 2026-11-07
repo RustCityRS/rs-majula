@@ -1,0 +1,156 @@
+[proc,clientscript_1908]
+def_int $int = 12;
+def_string $string = "";
+if_setsize(16, calc(%varc_int_564 * 100 / $int * 16384 / 100), ^setsize_abs, ^setsize_rel, sc_remaining_clay:com138);
+if_setsize(16, calc(%varc_int_565 * 100 / $int * 16384 / 100), ^setsize_abs, ^setsize_rel, sc_remaining_clay:com139);
+if_setsize(16, calc(%varc_int_566 * 100 / $int * 16384 / 100), ^setsize_abs, ^setsize_rel, sc_remaining_clay:com140);
+if_setsize(16, calc(%varc_int_567 * 100 / $int * 16384 / 100), ^setsize_abs, ^setsize_rel, sc_remaining_clay:com144);
+if_setsize(16, calc(%varc_int_568 * 100 / $int * 16384 / 100), ^setsize_abs, ^setsize_rel, sc_remaining_clay:com148);
+if_setsize(16, calc(%varc_int_569 * 100 / $int * 16384 / 100), ^setsize_abs, ^setsize_rel, sc_remaining_clay:com82);
+if_setsize(16, calc(%varc_int_570 * 100 / $int * 16384 / 100), ^setsize_abs, ^setsize_rel, sc_remaining_clay:com86);
+if_setsize(16, calc(%varc_int_571 * 100 / $int * 16384 / 100), ^setsize_abs, ^setsize_rel, sc_remaining_clay:com90);
+if_setsize(16, calc(%varc_int_572 * 100 / $int * 16384 / 100), ^setsize_abs, ^setsize_rel, sc_remaining_clay:com94);
+if_setsize(16, calc(%varc_int_573 * 100 / $int * 16384 / 100), ^setsize_abs, ^setsize_rel, sc_remaining_clay:com61);
+if_setsize(16, calc(%varc_int_574 * 100 / $int * 16384 / 100), ^setsize_abs, ^setsize_rel, sc_remaining_clay:com65);
+if_setsize(16, calc(%varc_int_575 * 100 / $int * 16384 / 100), ^setsize_abs, ^setsize_rel, sc_remaining_clay:com69);
+if_setsize(16, calc(%varc_int_576 * 100 / $int * 16384 / 100), ^setsize_abs, ^setsize_rel, sc_remaining_clay:com73);
+if_setsize(16, calc(%varc_int_577 * 100 / $int * 16384 / 100), ^setsize_abs, ^setsize_rel, sc_remaining_clay:com103);
+if_setsize(16, calc(%varc_int_578 * 100 / $int * 16384 / 100), ^setsize_abs, ^setsize_rel, sc_remaining_clay:com107);
+if_setsize(16, calc(%varc_int_579 * 100 / $int * 16384 / 100), ^setsize_abs, ^setsize_rel, sc_remaining_clay:com111);
+if_setsize(16, calc(%varc_int_580 * 100 / $int * 16384 / 100), ^setsize_abs, ^setsize_rel, sc_remaining_clay:com115);
+if (%varc_int_564 = false) {
+    $string = "There are no class 1 clay locations in the area.";
+} else if (%varc_int_564 = true) {
+    $string = "There is 1 class 1 clay location in the area.";
+} else {
+    $string = "There are <tostring(%varc_int_564)> class 1 clay locations in the area.";
+}
+if_setonmouserepeat("addtooltip(^event_com, sc_remaining_clay:com49, $string, 25, 100)", sc_remaining_clay:com138);
+if (%varc_int_565 = false) {
+    $string = "There are no class 2 fishing locations in the area.";
+} else if (%varc_int_565 = true) {
+    $string = "There is 1 class 2 fishing location in the area.";
+} else {
+    $string = "There are <tostring(%varc_int_565)> class 2 fishing locations in the area.";
+}
+if_setonmouserepeat("addtooltip(^event_com, sc_remaining_clay:com49, $string, 25, 100)", sc_remaining_clay:com139);
+if (%varc_int_566 = false) {
+    $string = "There are no class 3 fishing locations in the area.";
+} else if (%varc_int_566 = true) {
+    $string = "There is 1 class 3 fishing location in the area.";
+} else {
+    $string = "There are <tostring(%varc_int_566)> class 3 fishing locations in the area.";
+}
+if_setonmouserepeat("addtooltip(^event_com, sc_remaining_clay:com49, $string, 25, 100)", sc_remaining_clay:com140);
+if (%varc_int_567 = false) {
+    $string = "There are no class 4 fishing locations in the area.";
+} else if (%varc_int_567 = true) {
+    $string = "There is 1 class 4 fishing location in the area.";
+} else {
+    $string = "There are <tostring(%varc_int_567)> class 4 fishing locations in the area.";
+}
+if_setonmouserepeat("addtooltip(^event_com, sc_remaining_clay:com49, $string, 25, 100)", sc_remaining_clay:com144);
+if (%varc_int_568 = false) {
+    $string = "There are no class 5 fishing locations in the area.";
+} else if (%varc_int_568 = true) {
+    $string = "There is 1 class 5 fishing location in the area.";
+} else {
+    $string = "There are <tostring(%varc_int_568)> class 5 fishing locations in the area.";
+}
+if_setonmouserepeat("addtooltip(^event_com, sc_remaining_clay:com49, $string, 25, 100)", sc_remaining_clay:com148);
+if (%varc_int_569 = false) {
+    $string = "There are no class 2 mining locations in the area.";
+} else if (%varc_int_569 = true) {
+    $string = "There is 1 class 2 mining location in the area.";
+} else {
+    $string = "There are <tostring(%varc_int_569)> class 2 mining locations in the area.";
+}
+if_setonmouserepeat("addtooltip(^event_com, sc_remaining_clay:com49, $string, 25, 100)", sc_remaining_clay:com82);
+if (%varc_int_570 = false) {
+    $string = "There are no class 3 mining locations in the area.";
+} else if (%varc_int_570 = true) {
+    $string = "There is 1 class 3 mining location in the area.";
+} else {
+    $string = "There are <tostring(%varc_int_570)> class 3 mining locations in the area.";
+}
+if_setonmouserepeat("addtooltip(^event_com, sc_remaining_clay:com49, $string, 25, 100)", sc_remaining_clay:com86);
+if (%varc_int_571 = false) {
+    $string = "There are no class 4 mining locations in the area.";
+} else if (%varc_int_571 = true) {
+    $string = "There is 1 class 4 mining location in the area.";
+} else {
+    $string = "There are <tostring(%varc_int_571)> class 4 mining locations in the area.";
+}
+if_setonmouserepeat("addtooltip(^event_com, sc_remaining_clay:com49, $string, 25, 100)", sc_remaining_clay:com90);
+if (%varc_int_572 = false) {
+    $string = "There are no class 5 mining locations in the area.";
+} else if (%varc_int_572 = true) {
+    $string = "There is 1 class 5 mining location in the area.";
+} else {
+    $string = "There are <tostring(%varc_int_572)> class 5 mining locations in the area.";
+}
+if_setonmouserepeat("addtooltip(^event_com, sc_remaining_clay:com49, $string, 25, 100)", sc_remaining_clay:com94);
+if (%varc_int_573 = false) {
+    $string = "There are no class 2 woodcutting locations in the area.";
+} else if (%varc_int_573 = true) {
+    $string = "There is 1 class 2 woodcutting location in the area.";
+} else {
+    $string = "There are <tostring(%varc_int_573)> class 2 woodcutting locations in the area.";
+}
+if_setonmouserepeat("addtooltip(^event_com, sc_remaining_clay:com49, $string, 25, 100)", sc_remaining_clay:com61);
+if (%varc_int_574 = false) {
+    $string = "There are no class 3 woodcutting locations in the area.";
+} else if (%varc_int_574 = true) {
+    $string = "There is 1 class 3 woodcutting location in the area.";
+} else {
+    $string = "There are <tostring(%varc_int_574)> class 3 woodcutting locations in the area.";
+}
+if_setonmouserepeat("addtooltip(^event_com, sc_remaining_clay:com49, $string, 25, 100)", sc_remaining_clay:com65);
+if (%varc_int_575 = false) {
+    $string = "There are no class 4 woodcutting locations in the area.";
+} else if (%varc_int_575 = true) {
+    $string = "There is 1 class 4 woodcutting location in the area.";
+} else {
+    $string = "There are <tostring(%varc_int_575)> class 4 woodcutting locations in the area.";
+}
+if_setonmouserepeat("addtooltip(^event_com, sc_remaining_clay:com49, $string, 25, 100)", sc_remaining_clay:com69);
+if (%varc_int_576 = false) {
+    $string = "There are no class 5 woodcutting locations in the area.";
+} else if (%varc_int_576 = true) {
+    $string = "There is 1 class 5 woodcutting location in the area.";
+} else {
+    $string = "There are <tostring(%varc_int_576)> class 5 woodcutting locations in the area.";
+}
+if_setonmouserepeat("addtooltip(^event_com, sc_remaining_clay:com49, $string, 25, 100)", sc_remaining_clay:com73);
+if (%varc_int_577 = false) {
+    $string = "There are no class 2 hunting locations in the area.";
+} else if (%varc_int_577 = true) {
+    $string = "There is 1 class 2 hunting location in the area.";
+} else {
+    $string = "There are <tostring(%varc_int_577)> class 2 hunting locations in the area.";
+}
+if_setonmouserepeat("addtooltip(^event_com, sc_remaining_clay:com49, $string, 25, 100)", sc_remaining_clay:com103);
+if (%varc_int_578 = false) {
+    $string = "There are no class 3 hunting locations in the area.";
+} else if (%varc_int_578 = true) {
+    $string = "There is 1 class 3 hunting location in the area.";
+} else {
+    $string = "There are <tostring(%varc_int_578)> class 3 hunting locations in the area.";
+}
+if_setonmouserepeat("addtooltip(^event_com, sc_remaining_clay:com49, $string, 25, 100)", sc_remaining_clay:com107);
+if (%varc_int_579 = false) {
+    $string = "There are no class 4 hunting locations in the area.";
+} else if (%varc_int_579 = true) {
+    $string = "There is 1 class 4 hunting location in the area.";
+} else {
+    $string = "There are <tostring(%varc_int_579)> class 4 hunting locations in the area.";
+}
+if_setonmouserepeat("addtooltip(^event_com, sc_remaining_clay:com49, $string, 25, 100)", sc_remaining_clay:com111);
+if (%varc_int_580 = false) {
+    $string = "There are no class 5 hunting locations in the area.";
+} else if (%varc_int_580 = true) {
+    $string = "There is 1 class 5 hunting location in the area.";
+} else {
+    $string = "There are <tostring(%varc_int_580)> class 5 hunting locations in the area.";
+}
+if_setonmouserepeat("addtooltip(^event_com, sc_remaining_clay:com49, $string, 25, 100)", sc_remaining_clay:com115);

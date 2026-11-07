@@ -1,0 +1,6 @@
+[proc,text_plural_noun](int $int, string $string0, string $string1)(string)
+if ($int = true) {
+    return($string0);
+}
+return($string1);
+return("");

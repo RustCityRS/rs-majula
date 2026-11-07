@@ -1,0 +1,20 @@
+[proc,bank_v2_get_newtab]()(int)
+if (%bank_tab_1 = false) {
+    return(2);
+} else if (%bank_tab_2 = false) {
+    return(3);
+} else if (%bank_tab_3 = false) {
+    return(4);
+} else if (%bank_tab_4 = false) {
+    return(5);
+} else if (%bank_tab_5 = false) {
+    return(6);
+} else if (%bank_tab_6 = false) {
+    return(7);
+} else if (%bank_tab_7 = false) {
+    return(8);
+} else if (%bank_tab_8 = false) {
+    return(9);
+} else {
+    return(-1);
+}

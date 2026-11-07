@@ -1,0 +1,4 @@
+[clientscript,clan_noticeboard_build](component $component)
+if (ignore_count = true) {
+    ~clan_noticeboard_build($component);
+}

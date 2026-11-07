@@ -1,0 +1,12 @@
+[clientscript,vm_set_tooltip](component $component0, int $int1)
+def_string $string = "Empty display";
+switch_int ($int1) {
+    case 0:
+        if_setonmouserepeat("addtooltip(^event_com, vm_map_basement:com40, $string, 25, 180)", $component0);
+    case 1:
+        if_setonmouserepeat("addtooltip(^event_com, vm_map_digsite:com40, $string, 25, 180)", $component0);
+    case 2:
+        if_setonmouserepeat("addtooltip(^event_com, vm_map_timeline1:com52, $string, 25, 180)", $component0);
+    case 3:
+        if_setonmouserepeat("addtooltip(^event_com, vm_map_timeline2:com38, $string, 25, 180)", $component0);
+}

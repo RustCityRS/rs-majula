@@ -1,0 +1,22 @@
+[proc,skill_advance_guide_subsection_title_summoning](int $int)(int, string)
+switch_int ($int) {
+    case 0:
+        return("Familiars", 1);
+    case 1:
+        return("Summoning Scrolls", 1);
+    case 2:
+        return("Pets", 1);
+    case 3:
+        return("Equipment", 1);
+    case 4:
+        return("Other", 1);
+    case 5:
+        return("Activities", 1);
+    case 6:
+        return("Dungeoneering", 1);
+    case 7:
+        return("Milestones", 1);
+    case default:
+        return("", -1);
+}
+return("", 0);

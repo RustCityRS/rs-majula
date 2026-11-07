@@ -1,0 +1,19 @@
+[clientscript,stock_offercount_1000]
+def_int $int0 = 0;
+def_int $int1 = 0;
+if (%varp_1113 = false) {
+    if (%varc_int_84 <= 2147482647) {
+        %varc_int_84 = calc(%varc_int_84 + 1000);
+    }
+} else {
+    $int0 = inv_total(inv, %varp_1109);
+    if (%varp_1109 ! oc_cert(%varp_1109)) {
+        $int1 = inv_total(inv, oc_cert(%varp_1109));
+    }
+    %varc_int_84 = $int0;
+    if (%varc_int_84 <= 1000000000 & $int1 <= 1000000000) {
+        %varc_int_84 = calc(%varc_int_84 + $int1);
+    }
+}
+if_settext(op4124(%varc_int_84, 1), stockmarket:com148);
+~sm_offercount_settimer;

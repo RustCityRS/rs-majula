@@ -1,0 +1,10 @@
+[proc,clientscript_2416](component $component)
+if (%varc_int_805 = 2 | %varc_int_805 = 8) {
+    if_setop(1, "Cut wire", $component);
+} else if (%varc_int_805 = 3 | %varc_int_805 = 9) {
+    if_setop(1, "Replace wire", $component);
+} else if (%varc_int_805 = 4 | %varc_int_805 = 10) {
+    if_setop(1, "Repair wire", $component);
+} else {
+    if_setop(1, "Inspect", $component);
+}

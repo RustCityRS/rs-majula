@@ -1,0 +1,96 @@
+[proc,bankpin_shuffle](int $int0)
+def_boolean $boolean1 = true;
+def_boolean $boolean2 = false;
+switch_int (%varbit_1010) {
+    case 0:
+        if_settext("First click the FIRST digit.", bankpin_main:com28);
+        if_settext("?", bankpin_main:com1);
+        if_settext("?", bankpin_main:com2);
+        if_settext("?", bankpin_main:com3);
+        if_settext("?", bankpin_main:com4);
+    case 1:
+        if_settext("Now click the SECOND digit.", bankpin_main:com28);
+        if_settext("*", bankpin_main:com1);
+        if_settext("?", bankpin_main:com2);
+        if_settext("?", bankpin_main:com3);
+        if_settext("?", bankpin_main:com4);
+    case 2:
+        if_settext("Time for the THIRD digit.", bankpin_main:com28);
+        if_settext("*", bankpin_main:com1);
+        if_settext("*", bankpin_main:com2);
+        if_settext("?", bankpin_main:com3);
+        if_settext("?", bankpin_main:com4);
+    case 3:
+        if_settext("Finally, the FOURTH digit.", bankpin_main:com28);
+        if_settext("*", bankpin_main:com1);
+        if_settext("*", bankpin_main:com2);
+        if_settext("*", bankpin_main:com3);
+        if_settext("?", bankpin_main:com4);
+        $boolean1, $boolean2 = false, true;
+    case default:
+        if_settext("Please wait...", bankpin_main:com28);
+        if_settext("*", bankpin_main:com1);
+        if_settext("*", bankpin_main:com2);
+        if_settext("*", bankpin_main:com3);
+        if_settext("*", bankpin_main:com4);
+        $boolean1, $boolean2 = true, true;
+}
+def_int $int3 = 0;
+if ($int0 = false) {
+    while ($int3 < 10) {
+        if_sethide($boolean1, enum(105, 73, enum_3555, $int3));
+        if_sethide($boolean2, enum(105, 73, enum_3554, $int3));
+        $int3 = calc($int3 + 1);
+    }
+    return;
+}
+def_int $int4 = random(10);
+def_int $array0(10);
+$array0(0) = $int4;
+$array0(1) = calc(($int4 + 1) % 10);
+$array0(2) = calc(($int4 + 2) % 10);
+$array0(3) = calc(($int4 + 3) % 10);
+$array0(4) = calc(($int4 + 4) % 10);
+$array0(5) = calc(($int4 + 5) % 10);
+$array0(6) = calc(($int4 + 6) % 10);
+$array0(7) = calc(($int4 + 7) % 10);
+$array0(8) = calc(($int4 + 8) % 10);
+$array0(9) = calc(($int4 + 9) % 10);
+def_int $int5 = 0;
+while ($int3 < 10) {
+    $int5 = random(9);
+    $int4 = $array0(9);
+    $array0(9) = $array0($int5);
+    $array0($int5) = $int4;
+    if_setposition(calc(25 - randominc(50)), calc(20 - randominc(40)), ^setpos_abs_centre, ^setpos_abs_centre, enum(105, 73, enum_3557, $int3));
+    if_sethide($boolean1, enum(105, 73, enum_3555, $int3));
+    if_sethide($boolean2, enum(105, 73, enum_3554, $int3));
+    $int3 = calc($int3 + 1);
+}
+def_int $int6 = if_getwidth(bankpin_main:com6);
+def_int $int7 = if_getheight(bankpin_main:com6);
+def_int $int8 = calc((if_getwidth(bankpin_main:com5) - $int6) / 3);
+def_int $int9 = calc((if_getheight(bankpin_main:com5) - $int7) / 2);
+def_int $int10 = calc($int8 * 2);
+def_int $int11 = calc($int9 * 2);
+def_int $int12 = calc($int8 * 3);
+if_setposition(0, 0, ^setpos_abs_left, ^setpos_abs_top, enum(105, 73, enum_3556, $array0(0)));
+if_setposition(0, 0, ^setpos_abs_left, ^setpos_abs_top, enum(105, 73, enum_3555, $array0(0)));
+if_setposition($int8, 0, ^setpos_abs_left, ^setpos_abs_top, enum(105, 73, enum_3556, $array0(1)));
+if_setposition($int8, 0, ^setpos_abs_left, ^setpos_abs_top, enum(105, 73, enum_3555, $array0(1)));
+if_setposition($int10, 0, ^setpos_abs_left, ^setpos_abs_top, enum(105, 73, enum_3556, $array0(2)));
+if_setposition($int10, 0, ^setpos_abs_left, ^setpos_abs_top, enum(105, 73, enum_3555, $array0(2)));
+if_setposition($int12, 0, ^setpos_abs_left, ^setpos_abs_top, enum(105, 73, enum_3556, $array0(3)));
+if_setposition($int12, 0, ^setpos_abs_left, ^setpos_abs_top, enum(105, 73, enum_3555, $array0(3)));
+if_setposition(0, $int9, ^setpos_abs_left, ^setpos_abs_top, enum(105, 73, enum_3556, $array0(4)));
+if_setposition(0, $int9, ^setpos_abs_left, ^setpos_abs_top, enum(105, 73, enum_3555, $array0(4)));
+if_setposition($int8, $int9, ^setpos_abs_left, ^setpos_abs_top, enum(105, 73, enum_3556, $array0(5)));
+if_setposition($int8, $int9, ^setpos_abs_left, ^setpos_abs_top, enum(105, 73, enum_3555, $array0(5)));
+if_setposition($int10, $int9, ^setpos_abs_left, ^setpos_abs_top, enum(105, 73, enum_3556, $array0(6)));
+if_setposition($int10, $int9, ^setpos_abs_left, ^setpos_abs_top, enum(105, 73, enum_3555, $array0(6)));
+if_setposition(0, $int11, ^setpos_abs_left, ^setpos_abs_top, enum(105, 73, enum_3556, $array0(7)));
+if_setposition(0, $int11, ^setpos_abs_left, ^setpos_abs_top, enum(105, 73, enum_3555, $array0(7)));
+if_setposition($int8, $int11, ^setpos_abs_left, ^setpos_abs_top, enum(105, 73, enum_3556, $array0(8)));
+if_setposition($int8, $int11, ^setpos_abs_left, ^setpos_abs_top, enum(105, 73, enum_3555, $array0(8)));
+if_setposition($int10, $int11, ^setpos_abs_left, ^setpos_abs_top, enum(105, 73, enum_3556, $array0(9)));
+if_setposition($int10, $int11, ^setpos_abs_left, ^setpos_abs_top, enum(105, 73, enum_3555, $array0(9)));

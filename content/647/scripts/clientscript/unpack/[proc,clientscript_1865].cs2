@@ -1,0 +1,5 @@
+[proc,clientscript_1865](int $int0, obj $int1)
+if ($int0 ! 1) {
+    return;
+}
+mes(enum(111, 115, enum_2024, $int1));

@@ -1,0 +1,87 @@
+// Find and list all NPCs of a given type near the player
+[debugproc,npc_find1](npc $npc)
+def_int $count = 0;
+npc_findall(coord, $npc, 15, 0)
+while (npc_findnext = true) {
+    mes("Found <npc_name> at <tostring(coordx(npc_coord))>,<tostring(coordz(npc_coord))> level <tostring(coordy(npc_coord))>")
+    $count = calc($count + 1);
+}
+mes("Total: <tostring($count)> <nc_name($npc)> found within 15 tiles")
+
+// Find all NPCs of any type near the player
+[debugproc,npc_findall]()
+def_int $count = 0;
+npc_findallany(coord, 10, 0)
+while (npc_findnext = true) {
+    mes("<npc_name> (id=<tostring(npc_type)>) at <tostring(coordx(npc_coord))>,<tostring(coordz(npc_coord))>")
+    $count = calc($count + 1);
+}
+mes("Total: <tostring($count)> NPCs within 10 tiles")
+
+// Hunt for the nearest player from an NPC's perspective
+[debugproc,huntall_primary]()
+def_int $count = 0;
+huntall(coord, 10, 0)
+while (huntnext = true) {
+    mes("Hunt found player: <displayname> at distance <tostring(distance(coord, .coord))>")
+    $count = calc($count + 1);
+}
+mes("Total: <tostring($count)> players found via huntall")
+
+// Spawn an NPC at the player's location
+[debugproc,npc_spawn](npc $npc)
+npc_add(coord, $npc, 100)
+mes("Spawned <nc_name($npc)> at your location (100 tick duration)")
+
+// Info about the targeted NPC (click an NPC first, then run this)
+[debugproc,npc]()
+npc_findallany(coord, 5, 0)
+if (npc_findnext = true) {
+    mes("NPC: <npc_name> (type=<tostring(npc_type)>)")
+    mes("  coord: <tostring(coordx(npc_coord))>,<tostring(coordz(npc_coord))>,<tostring(coordy(npc_coord))>")
+    mes("  hp: <tostring(npc_stat(hitpoints))>/<tostring(npc_basestat(hitpoints))>")
+    mes("  range from you: <tostring(npc_range(coord))>")
+}
+
+// Delete the nearest NPC (within 5 tiles) to test the respawn path. World-spawn
+// (Respawn-lifecycle) NPCs deactivate and reappear at their spawn point after the
+// npc's respawn timer (respawn_rate ticks, default 100 ticks ~= 60s). Script-spawned
+// (Despawn-lifecycle) NPCs are removed permanently. Stand next to an NPC, run ::killnpc,
+// watch it vanish, then return after its respawn timer.
+// NOTE: named `killnpc` (not `npc_del`) to avoid colliding with the [command,npc_del] engine command.
+[debugproc,killnpc]()
+npc_findallany(coord, 5, 0)
+if (npc_findnext = true) {
+    mes("Deleting <npc_name> (type=<tostring(npc_type)>) at <tostring(coordx(npc_coord))>,<tostring(coordz(npc_coord))> - watch for respawn")
+    npc_del
+} else {
+    mes("No NPC within 5 tiles to delete")
+}
+
+// info: Play a spotanim (graphic) on the nearest NPC to verify 647 npc spotanim
+// rendering (npc-info mask 0x20). Run ::spotnpc <id> next to an NPC; watch the
+// graphic appear and confirm the client does NOT disconnect (a wrong byte count
+// would gnp). Height 92 (~chest), delay 0. See npc-info-format.md.
+// Takes a raw spotanim id (int) so it doesn't depend on spotanim name
+// resolution — any valid id (0..~2683) exercises the npc-info wire format.
+[debugproc,spotnpc](int $id)
+npc_findallany(coord, 5, 0)
+if (npc_findnext = true) {
+    mes("Spotanim <tostring($id)> on <npc_name>")
+    spotanim_npc($id, 92, 0)
+} else {
+    mes("No NPC within 5 tiles")
+}
+
+// info: Play a seq on the nearest npc of a type, to see which of its
+// animations is which. Run ::animnpc <npc> <id> beside it. Takes a raw seq id
+// (int), as ::spotnpc takes a spotanim's.
+[debugproc,animnpc](npc $npc, int $id)
+if (npc_find(coord, $npc, 8, 0) = true) {
+    mes("Seq <tostring($id)> on <npc_name>");
+    // Held still, so the seq plays where it can be watched.
+    npc_setmode(none);
+    npc_anim($id, 0);
+} else {
+    mes("No <nc_name($npc)> within 8 tiles");
+}

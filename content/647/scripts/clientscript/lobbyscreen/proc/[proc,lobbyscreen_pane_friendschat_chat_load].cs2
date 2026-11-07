@@ -1,0 +1,5 @@
+[proc,lobbyscreen_pane_friendschat_chat_load](component $component)
+if_sethook1420("lobbyscreen_pane_friendschat_chat_build($component)", $component);
+if_sethook1421("lobbyscreen_pane_friendschat_chat_build($component)", $component);
+if_setonchattransmit_2418("lobbyscreen_pane_friendschat_chat_build($component)", $component);
+~lobbyscreen_pane_friendschat_chat_build($component);

@@ -1,0 +1,8 @@
+[clientscript,stock_offercount_minus]
+def_string $string = "null";
+if (%varc_int_84 > 0) {
+    %varc_int_84 = calc(%varc_int_84 - 1);
+    $string = op4124(%varc_int_84, 1);
+    if_settext($string, stockmarket:com148);
+    ~sm_offercount_settimer;
+}

@@ -1,0 +1,92 @@
+[proc,getsidehidden](int $int)(int)
+if (getwindowmode >= 2) {
+    switch_int ($int) {
+        case 0:
+            return(if_gethide(toplevel_fullscreen:com_tab0));
+        case 1:
+            return(if_gethide(toplevel_fullscreen:com_tab1));
+        case 2:
+            return(if_gethide(toplevel_fullscreen:com_tab2));
+        case 3:
+            return(if_gethide(toplevel_fullscreen:com_tab3));
+        case 4:
+            return(if_gethide(toplevel_fullscreen:com_tab4));
+        case 5:
+            return(if_gethide(toplevel_fullscreen:com_tab5));
+        case 6:
+            return(if_gethide(toplevel_fullscreen:com_tab6));
+        case 7:
+            return(if_gethide(toplevel_fullscreen:com_tab7));
+        case 8:
+            return(if_gethide(toplevel_fullscreen:com_tab8));
+        case 9:
+            return(if_gethide(toplevel_fullscreen:com_tab9));
+        case 10:
+            return(if_gethide(toplevel_fullscreen:com_tab10));
+        case 11:
+            return(if_gethide(toplevel_fullscreen:com_tab11));
+        case 12:
+            return(if_gethide(toplevel_fullscreen:com_tab12));
+        case 13:
+            return(if_gethide(toplevel_fullscreen:com_tab13));
+        case 14:
+            return(if_gethide(toplevel_fullscreen:com_tab14));
+        case 15:
+            return(if_gethide(toplevel_fullscreen:com_tab15));
+        case 95:
+            return(if_gethide(toplevel_fullscreen:com104));
+        case 99:
+            return(if_gethide(toplevel_fullscreen:com105));
+        case 98:
+            if (if_hasoverlay(toplevel_fullscreen:com85) = true) {
+                return(if_gethide(toplevel_fullscreen:com85));
+            }
+            return(1);
+    }
+} else {
+    switch_int ($int) {
+        case 0:
+            return(if_gethide(toplevel:com_tab0));
+        case 1:
+            return(if_gethide(toplevel:com_tab1));
+        case 2:
+            return(if_gethide(toplevel:com_tab2));
+        case 3:
+            return(if_gethide(toplevel:com_tab3));
+        case 4:
+            return(if_gethide(toplevel:com_tab4));
+        case 5:
+            return(if_gethide(toplevel:com_tab5));
+        case 6:
+            return(if_gethide(toplevel:com_tab6));
+        case 7:
+            return(if_gethide(toplevel:com_tab7));
+        case 8:
+            return(if_gethide(toplevel:com_tab8));
+        case 9:
+            return(if_gethide(toplevel:com_tab9));
+        case 10:
+            return(if_gethide(toplevel:com_tab10));
+        case 11:
+            return(if_gethide(toplevel:com_tab11));
+        case 12:
+            return(if_gethide(toplevel:com_tab12));
+        case 13:
+            return(if_gethide(toplevel:com_tab13));
+        case 14:
+            return(if_gethide(toplevel:com_tab14));
+        case 15:
+            return(if_gethide(toplevel:com_tab15));
+        case 95:
+            return(if_gethide(toplevel:com220));
+        case 99:
+            return(if_gethide(toplevel:com221));
+        case 98:
+            if (if_hasoverlay(toplevel:com199) = true) {
+                return(if_gethide(toplevel:com199));
+            }
+            return(1);
+    }
+}
+return(-1);
+return(-1);

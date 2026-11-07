@@ -10,7 +10,9 @@ use axum::response::{IntoResponse, Response};
 use rs_db::{Db, NewsSummary, Passwords};
 use rs_pack::cache::wordenc::WordEncProvider;
 use std::net::{IpAddr, SocketAddr};
-use std::path::{Path, PathBuf};
+#[cfg(before_647)]
+use std::path::Path;
+use std::path::PathBuf;
 use tokio::sync::Semaphore;
 use tokio::task::spawn_blocking;
 use tracing::error;
@@ -102,8 +104,14 @@ impl SiteConfig {
 /// Builds the game's chat filter from `content/<REV>/wordenc`, the same way
 /// the game server does. `None` if that folder doesn't exist.
 pub fn load_wordenc() -> Option<WordEncProvider> {
-    let jag = rs_pack::pack::wordenc::pack_wordenc(Path::new(rs_pack::CONTENT_DIR));
-    (!jag.is_empty()).then(|| WordEncProvider::from_jag(&jag))
+    #[cfg(before_647)]
+    {
+        let jag = rs_pack::pack::wordenc::pack_wordenc(Path::new(rs_pack::CONTENT_DIR));
+        (!jag.is_empty()).then(|| WordEncProvider::from_jag(&jag))
+    }
+    // Rev 647's content has no wordenc folder yet.
+    #[cfg(since_647)]
+    None
 }
 
 /// Any handler failure: logged, and shown to the visitor as a bare 500.

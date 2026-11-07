@@ -1,0 +1,50 @@
+[proc,login_dologin]
+%varc_int_1100 = -1;
+if (login_getint_5623 = false & (string_length(%varc_string_32) = false | string_length(%varc_string_33) = false)) {
+    ~login_open(11);
+    return;
+}
+def_int $int0 = 0;
+def_int $int1 = 0;
+def_int $int2 = 0;
+def_int $int3 = 0;
+if (is_unsigned = true & (~clientscript_2727 = true & %varc_int_547 = false)) {
+    %varc_int_174 = 12;
+    if_sethide(false, loginscreen:com28);
+    sound_jingle(349, 0);
+    ~clientscript_3412(loginscreen:com42, loginscreen:com43);
+    $int2 = if_getwidth(loginscreen:com43);
+    $int3 = if_getwidth(loginscreen:com43);
+    $int0 = max(337, calc(op4125(if_gettext(loginscreen:com42), 591) + 31));
+    $int3 = max(152, calc(paraheight(if_gettext(loginscreen:com43), $int2, b12_full) * 16));
+    $int1 = max(252, calc($int3 + 100));
+    if_setsize($int2, $int3, ^setsize_abs, ^setsize_abs, loginscreen:com43);
+    if_setsize($int0, $int1, ^setsize_abs, ^setsize_abs, loginscreen:com28);
+    if_sethide(true, loginscreen:com26);
+    if_sethide(true, loginscreen:com27);
+    return;
+}
+%varc_int_200 = 0;
+%varc_int_201 = 0;
+def_component $component4 = login:com52;
+def_component $component5 = login:com42;
+if (login_getint_5623 = true) {
+    $component4 = south_progress9:com54;
+    $component5 = south_progress9:com50;
+}
+if_settext("Logging in...", $component4);
+if_setonclick(null, $component5);
+~login_popup(-3, 0, "Logging In - Please Wait", 1, null, 0, -1, "", 0, "");
+%varc_int_1100 = -3;
+def_string $string0 = %varc_string_32;
+def_string $string1 = %varc_string_33;
+if (login_getint_5623 = true) {
+    $string0 = "";
+    $string1 = "";
+}
+if (is_unsigned = true) {
+    login_start($string0, $string1, 0);
+} else {
+    login_start_reconnect($string0, $string1);
+}
+if_setontimer("login_reply()", login:com5);

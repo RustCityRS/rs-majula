@@ -1,0 +1,42 @@
+[proc,clientscript_1601](int $int0)
+def_component $component1 = null;
+def_component $component2 = null;
+switch_int (randominc(2)) {
+    case 0:
+        sound_synth(synth_7813, 1, 0);
+    case 1:
+        sound_synth(synth_7817, 1, 0);
+    case 2:
+        sound_synth(synth_7818, 1, 0);
+}
+switch_int ($int0) {
+    case 63701023:
+        $component1 = fg2007942:com3;
+        $component2 = fg2007942:com4;
+    case 63701017:
+        $component1 = fg2007942:com4;
+        $component2 = fg2007942:com5;
+    case 63701012:
+        $component1 = fg2007942:com5;
+        $component2 = fg2007942:com6;
+    case 63701007:
+        $component1 = fg2007942:com6;
+        $component2 = fg2007942:com7;
+    case 63701003:
+        $component1 = fg2007942:com7;
+        $component2 = fg2007942:com6;
+    case 63701008:
+        $component1 = fg2007942:com6;
+        $component2 = fg2007942:com5;
+    case 63701013:
+        $component1 = fg2007942:com5;
+        $component2 = fg2007942:com4;
+    case 63701018:
+        $component1 = fg2007942:com4;
+        $component2 = fg2007942:com3;
+    case default:
+        ~clientscript_675;
+}
+if_sethide(true, $component1);
+if_sethide(false, $component2);
+return;

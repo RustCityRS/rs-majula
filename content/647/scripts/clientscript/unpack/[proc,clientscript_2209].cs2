@@ -1,0 +1,20 @@
+[proc,clientscript_2209]
+if_settext("Correct <tostring(%varp_1703)>/5", af714023:com3);
+%varc_int_1137 = 0;
+if_setontimer(null, af714023:com1);
+if_setposition(0, 120, ^setpos_abs_left, ^setpos_abs_top, af714023:com10);
+if_setposition(0, 120, ^setpos_abs_left, ^setpos_abs_top, af714023:com11);
+if_setposition(0, 120, ^setpos_abs_left, ^setpos_abs_top, af714023:com12);
+if_setposition(0, 120, ^setpos_abs_left, ^setpos_abs_top, af714023:com13);
+if_setposition(0, 120, ^setpos_abs_left, ^setpos_abs_top, af714023:com6);
+if_setposition(0, 120, ^setpos_abs_left, ^setpos_abs_top, af714023:com7);
+if_setposition(0, 120, ^setpos_abs_left, ^setpos_abs_top, af714023:com8);
+if_setposition(0, 120, ^setpos_abs_left, ^setpos_abs_top, af714023:com9);
+if_sethide(true, af714023:com10);
+if_sethide(true, af714023:com11);
+if_sethide(true, af714023:com12);
+if_sethide(true, af714023:com13);
+if_sethide(true, af714023:com6);
+if_sethide(true, af714023:com7);
+if_sethide(true, af714023:com8);
+if_sethide(true, af714023:com9);

@@ -1,0 +1,7 @@
+[proc,chatout_add](string $string)
+~chatout_set(%varc_int_4, $string);
+%varc_int_4 = calc(%varc_int_4 + 1);
+if (%varc_int_4 >= 20) {
+    %varc_int_4 = 0;
+}
+%character_creation_name_required = -1;

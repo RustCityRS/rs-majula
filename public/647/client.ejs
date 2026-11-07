@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>RuneScape</title>
+
+    <meta charset="utf-8">
+
+    <style>
+        body,
+        td,
+        p {
+            font-family: Arial, Helvetica, sans-serif;
+            font-size: 13px;
+            color: white;
+        }
+
+        body {
+            margin: 0px 0px;
+            overflow: auto;
+            background-color: black;
+        }
+
+        center {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            box-sizing: border-box;
+        }
+
+        a {
+            color: #90b8e0;
+        }
+
+        .panel {
+            max-width: 560px;
+            text-align: left;
+            border: 1px solid #382418;
+            padding: 16px 24px;
+            background-color: #101010;
+        }
+
+        code {
+            font-family: Consolas, monospace;
+            color: #c8e0a0;
+        }
+    </style>
+</head>
+
+<body>
+    <center>
+        <div class="panel">
+            <h2>RuneScape &mdash; revision 647 (May 2011)</h2>
+            <p>
+                Revision 647 has no browser port &mdash; it plays through the
+                original Java client with patched RSA keys, which streams the cache from
+                this server over JS5.
+            </p>
+            <p>
+                1. <a href="/client.jar">Download client.jar</a>
+                (Java 17 or 21)
+            </p>
+            <p>
+                2. Start the server:
+            </p>
+            <p><code>REV=647 cargo run --profile dev-opt -p rs-server</code></p>
+            <p>
+                3. Launch the client from a separate terminal on the same computer:
+            </p>
+            <p><code>java --add-opens=java.base/java.lang=ALL-UNNAMED -Xmx512m -cp client.jar client <%= Number(nodeid) - 9 %> <%= Number(nodeid) - 9 %> <%= Number(nodeid) - 9 %> live english game0</code></p>
+            <p>
+                Log in with any username and password &mdash; accounts are
+                created on first login.
+            </p>
+        </div>
+    </center>
+</body>
+
+</html>

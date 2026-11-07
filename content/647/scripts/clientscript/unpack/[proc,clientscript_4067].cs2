@@ -1,0 +1,13 @@
+[proc,clientscript_4067](component $component)
+switch_component ($component) {
+    case warguild_token_choice:com22:
+        if_setposition(-160, 13, ^setpos_abs_centre, ^setpos_abs_top, $component);
+    case warguild_token_choice:com23:
+        if_setposition(-80, 13, ^setpos_abs_centre, ^setpos_abs_top, $component);
+    case warguild_token_choice:com24:
+        if_setposition(0, 13, ^setpos_abs_centre, ^setpos_abs_top, $component);
+    case warguild_token_choice:com26:
+        if_setposition(80, 13, ^setpos_abs_centre, ^setpos_abs_top, $component);
+    case warguild_token_choice:com25:
+        if_setposition(160, 13, ^setpos_abs_centre, ^setpos_abs_top, $component);
+}

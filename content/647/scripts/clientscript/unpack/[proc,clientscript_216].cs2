@@ -1,0 +1,22 @@
+[proc,clientscript_216]
+%varc_int_790 = 1;
+if_sethide(true, snapshot_main_v2:com61);
+if_sethide(true, snapshot_main_v2:com34);
+if_sethide(true, snapshot_main_v2:com33);
+if_sethide(true, snapshot_main_v2:com148);
+if_sethide(true, snapshot_main_v2:com149);
+if_sethide(true, snapshot_main_v2:com150);
+if_sethide(true, snapshot_main_v2:com151);
+if_sethide(true, snapshot_main_v2:com165);
+if_sethide(true, snapshot_main_v2:com166);
+if_sethide(true, snapshot_main_v2:com104);
+if_sethide(true, snapshot_main_v2:com120);
+if_sethide(true, snapshot_main_v2:com62);
+if_sethide(true, snapshot_main_v2:com117);
+if_sethide(true, snapshot_main_v2:com121);
+if (getlanguage = true) {
+    if_sethide(false, snapshot_main_v2:com61);
+    ~snapshot_update_select_button;
+} else {
+    if_sethide(false, snapshot_main_v2:com33);
+}

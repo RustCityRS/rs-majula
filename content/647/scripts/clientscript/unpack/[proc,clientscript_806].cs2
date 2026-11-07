@@ -1,0 +1,13 @@
+[proc,clientscript_806]()(colour)
+def_colour $colour = 0x555555;
+if (headicon_count > 75) {
+    $colour = ^green;
+} else if (headicon_count > 50) {
+    $colour = ^yellow;
+} else if (headicon_count > 25) {
+    $colour = 0xff981f;
+} else {
+    $colour = ^red;
+}
+return($colour);
+return(^black);

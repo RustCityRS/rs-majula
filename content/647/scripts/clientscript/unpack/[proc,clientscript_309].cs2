@@ -1,0 +1,23 @@
+[proc,clientscript_309](maparea $maparea0, component $component1, int $int2)
+def_int $int3 = 0;
+if (%varc_int_623 ! -1 & maparea_getbycoord(%varc_int_623) = $maparea0) {
+    $int3 = ~clientscript_292(%varc_int_624, $component1, $int2, $int3);
+}
+if (%varc_int_625 ! -1 & maparea_getbycoord(%varc_int_625) = $maparea0) {
+    $int3 = ~clientscript_292(%varc_int_626, $component1, $int2, $int3);
+}
+if (%varc_int_627 ! -1 & maparea_getbycoord(%varc_int_627) = $maparea0) {
+    $int3 = ~clientscript_292(%varc_int_628, $component1, $int2, $int3);
+}
+if (%varc_int_629 ! -1 & maparea_getbycoord(%varc_int_629) = $maparea0) {
+    $int3 = ~clientscript_292(%varc_int_630, $component1, $int2, $int3);
+}
+if (%varp_1159 ! -1 & maparea_getbycoord(%varp_1159) = $maparea0) {
+    $int3 = ~clientscript_292(struct_972, $component1, $int2, $int3);
+}
+if (%varc_int_940 ! -1 & maparea_getbycoord(%varc_int_940) = $maparea0) {
+    $int3 = ~clientscript_292(%varc_int_941, $component1, $int2, $int3);
+}
+if (%varc_int_674 ! -1 & maparea_getbycoord(%varc_int_674) = $maparea0) {
+    $int3 = ~clientscript_292(struct_280, $component1, $int2, $int3);
+}

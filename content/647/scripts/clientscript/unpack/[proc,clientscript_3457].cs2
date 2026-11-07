@@ -1,0 +1,36 @@
+[proc,clientscript_3457](component $component0, int $int1)
+def_int $int2 = calc(clientclock - $int1);
+if ($int2 < 100 & %varc_int_1281 > 0) {
+    cam_lookat(%varc_int_1285, %varc_int_1286, 3000, %varc_int_1282);
+    cam_moveto(%varc_int_1283, %varc_int_1284, 3000, %varc_int_1282);
+    return;
+} else if ($int2 < 200 & %varc_int_1281 > 1) {
+    cam_lookat(%varc_int_1289, %varc_int_1290, 0, %varc_int_1282);
+    cam_moveto(%varc_int_1287, %varc_int_1288, 0, %varc_int_1282);
+    return;
+} else if ($int2 < 300 & %varc_int_1281 > 2) {
+    cam_lookat(%varc_int_1293, %varc_int_1294, 0, %varc_int_1282);
+    cam_moveto(%varc_int_1291, %varc_int_1292, 0, %varc_int_1282);
+    return;
+} else if ($int2 < 400 & %varc_int_1281 > 3) {
+    cam_lookat(%varc_int_1297, %varc_int_1298, 0, %varc_int_1282);
+    cam_moveto(%varc_int_1295, %varc_int_1296, 0, %varc_int_1282);
+    return;
+} else if ($int2 < 500 & %varc_int_1281 > 4) {
+    cam_lookat(%varc_int_1301, %varc_int_1302, 0, %varc_int_1282);
+    cam_moveto(%varc_int_1299, %varc_int_1300, 0, %varc_int_1282);
+    return;
+} else if ($int2 < 600 & %varc_int_1281 > 5) {
+    cam_lookat(%varc_int_1305, %varc_int_1306, 0, %varc_int_1282);
+    cam_moveto(%varc_int_1303, %varc_int_1304, 0, %varc_int_1282);
+    return;
+} else if ($int2 < 700 & %varc_int_1281 > 6) {
+    cam_lookat(%varc_int_1309, %varc_int_1310, 0, %varc_int_1282);
+    cam_moveto(%varc_int_1307, %varc_int_1308, 0, %varc_int_1282);
+    return;
+} else if ($int2 < 800 & %varc_int_1281 > 7) {
+    cam_lookat(%varc_int_1313, %varc_int_1314, 0, %varc_int_1282);
+    cam_moveto(%varc_int_1311, %varc_int_1312, 0, %varc_int_1282);
+    return;
+}
+if_setontimer(null, $component0);

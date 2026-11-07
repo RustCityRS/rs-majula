@@ -3,18 +3,29 @@ use crate::active_player::ActivePlayer;
 use crate::build::ActiveBuildArea;
 use crate::engine::{OtherPlayers, engine};
 use crate::watch::Target;
-use rs_entity::{BuildArea, MAX_NPCS, MAX_PLAYERS};
+#[cfg(before_647)]
+use rs_entity::MAX_PLAYERS;
+use rs_entity::{BuildArea, MAX_NPCS};
+#[cfg(since_647)]
+use rs_entity::{dir_delta, face_dir};
 use rs_grid::CoordGrid;
+#[cfg(before_647)]
 use rs_info::Visibility;
 use rs_info::{NpcRenderer, PlayerRenderer};
 use rs_io::Packet;
 use rs_io::packet::BitWriter;
 use rs_protocol::network::game::MAX_PACKET_SIZE;
 use rs_protocol::network::game::info_prot::{NpcInfoProt, PlayerInfoProt};
+#[cfg(since_647)]
+use rs_protocol::network::game::server::npc_info::add_direction;
 use rs_zone::zone_map::ZoneMap;
 
 /// The most an info packet's body holds: its opcode and length take 3 bytes.
 const BYTES_LIMIT: usize = MAX_PACKET_SIZE - 3;
+#[cfg(before_647)]
+const PLAYER_BUFFER_SIZE: usize = MAX_PACKET_SIZE;
+#[cfg(since_647)]
+const PLAYER_BUFFER_SIZE: usize = u16::MAX as usize;
 
 /// Compact per-tick snapshot of the handful of player fields the hot
 /// `write_players` loop reads, indexed by pid.
@@ -81,9 +92,7 @@ impl PlayerSnapshot {
 
 /// Compact per-tick snapshot of the NPC fields the hot `write_npcs` loop reads,
 /// indexed by nid. Mirrors [`PlayerSnapshot`] but without `VIS_HARD` (NPCs are not
-/// visibility-filtered). NPC high-def blocks are fully pre-coalesced, so the
-/// keep/move path never touches the live `ActiveNpc` at all; only the remove
-/// path does, to decrement `observers`.
+/// visibility-filtered).
 #[derive(Clone, Copy)]
 #[repr(C)]
 pub struct NpcSnapshot {
@@ -98,6 +107,8 @@ impl NpcSnapshot {
     pub const PRESENT: u8 = 1 << 0;
     pub const ACTIVE: u8 = 1 << 1;
     pub const TELE: u8 = 1 << 2;
+    #[cfg(since_647)]
+    pub const CRAWL: u8 = 1 << 3;
 
     pub const ABSENT: NpcSnapshot = NpcSnapshot {
         coord: 0,
@@ -112,11 +123,8 @@ impl NpcSnapshot {
         self.flags = 0;
     }
 
-    /// Whether the tracked NPC should be removed from the observer's view this
-    /// tick. The `!PRESENT` case (despawned) maps to the old `None` arm (no
-    /// observer decrement); the other conditions map to the old
-    /// `Some(..) if cond` arm (decrement then remove). NPCs are not
-    /// visibility-filtered, so there is no `VIS_HARD`.
+    /// Whether the tracked NPC has despawned, teleported, become inactive,
+    /// or left the observer's level or view distance.
     #[inline(always)]
     pub fn should_remove(&self, obs_coord: CoordGrid, obs_y: u8, view_distance: u8) -> bool {
         self.flags & NpcSnapshot::PRESENT == 0
@@ -125,6 +133,81 @@ impl NpcSnapshot {
             || !CoordGrid::in_distance(&obs_coord, CoordGrid::from(self.coord), view_distance)
             || self.flags & NpcSnapshot::ACTIVE == 0
     }
+}
+
+#[cfg(since_647)]
+const MAX_LOCAL_PLAYERS: usize = 255;
+
+#[cfg(since_647)]
+const WALK_DIR_MAP: [i32; 8] = [5, 6, 7, 3, 4, 0, 1, 2];
+#[cfg(since_647)]
+const NPC_DIR_MAP: [i32; 8] = [7, 0, 1, 6, 2, 5, 4, 3];
+
+#[cfg(since_647)]
+fn encode_skip(bw: &mut BitWriter, buf: &mut Packet, count: usize) {
+    if count == 0 {
+        bw.pbit::<2>(buf, 0);
+    } else if count < 32 {
+        bw.pbit::<2>(buf, 1);
+        bw.pbit::<5>(buf, count as i32);
+    } else if count < 256 {
+        bw.pbit::<2>(buf, 2);
+        bw.pbit::<8>(buf, count as i32);
+    } else {
+        bw.pbit::<2>(buf, 3);
+        bw.pbit::<11>(buf, count as i32);
+    }
+}
+
+#[cfg(since_647)]
+fn update_coordinates(bw: &mut BitWriter, buf: &mut Packet, last: u32, current: u32) {
+    let last_plane = (last >> 16) & 0x3;
+    let last_rx = (last >> 8) & 0xFF;
+    let last_rz = last & 0xFF;
+    let cur_plane = (current >> 16) & 0x3;
+    let cur_rx = (current >> 8) & 0xFF;
+    let cur_rz = current & 0xFF;
+    let dp = cur_plane.wrapping_sub(last_plane) & 0x3;
+    let dx = cur_rx as i32 - last_rx as i32;
+    let dz = cur_rz as i32 - last_rz as i32;
+
+    if last_rx == cur_rx && last_rz == cur_rz {
+        bw.pbit::<2>(buf, 1);
+        bw.pbit::<2>(buf, dp as i32);
+    } else if dx.abs() <= 1 && dz.abs() <= 1 {
+        let dir = WALK_DIR_MAP[face_dir(0, 0, dx, dz) as usize] as u32;
+        bw.pbit::<2>(buf, 2);
+        bw.pbit::<5>(buf, ((dp << 3) | dir) as i32);
+    } else {
+        bw.pbit::<2>(buf, 3);
+        bw.pbit::<18>(
+            buf,
+            (((dz as u32) & 0xFF) + (((dx as u32) & 0xFF) << 8) + (dp << 16)) as i32,
+        );
+    }
+}
+
+#[cfg(since_647)]
+fn run_index(dx: i32, dz: i32) -> Option<i32> {
+    Some(match (dx, dz) {
+        (-2, -2) => 0,
+        (-1, -2) => 1,
+        (0, -2) => 2,
+        (1, -2) => 3,
+        (2, -2) => 4,
+        (-2, -1) => 5,
+        (2, -1) => 6,
+        (-2, 0) => 7,
+        (2, 0) => 8,
+        (-2, 1) => 9,
+        (2, 1) => 10,
+        (-2, 2) => 11,
+        (-1, 2) => 12,
+        (0, 2) => 13,
+        (1, 2) => 14,
+        (2, 2) => 15,
+        _ => return None,
+    })
 }
 
 /// Encodes the player info update packet for a single game tick.
@@ -136,15 +219,21 @@ impl NpcSnapshot {
 pub struct PlayerInfo {
     buf: Packet,
     updates: Packet,
+    #[cfg(before_647)]
     tracked: Vec<u16>,
     bw: BitWriter,
 }
 
 impl PlayerInfo {
+    #[cfg(before_647)]
     const BITS_ADD: usize = 11 + 5 + 5 + 1 + 1;
+    #[cfg(before_647)]
     const BITS_RUN: usize = 1 + 2 + 3 + 3 + 1;
+    #[cfg(before_647)]
     const BITS_WALK: usize = 1 + 2 + 3 + 1;
+    #[cfg(before_647)]
     const BITS_EXTEND: usize = 1 + 2;
+    #[cfg(before_647)]
     const BITS_END: usize = 11;
 
     /// Creates a new `PlayerInfo` encoder with pre-allocated buffers.
@@ -156,8 +245,9 @@ impl PlayerInfo {
     #[inline(always)]
     pub fn new() -> PlayerInfo {
         PlayerInfo {
-            buf: Packet::new(MAX_PACKET_SIZE),
-            updates: Packet::new(MAX_PACKET_SIZE),
+            buf: Packet::new(PLAYER_BUFFER_SIZE),
+            updates: Packet::new(PLAYER_BUFFER_SIZE),
+            #[cfg(before_647)]
             tracked: Vec::with_capacity(BuildArea::PREFERRED_PLAYERS as usize),
             bw: BitWriter::new(),
         }
@@ -201,31 +291,51 @@ impl PlayerInfo {
         dz: i32,
         rebuild: bool,
     ) -> (&[u8], &[u8]) {
-        let (px, py, pz) = (
-            active.player.pathing.coord.x(),
-            active.player.pathing.coord.y(),
-            active.player.pathing.coord.z(),
-        );
-        let self_pid = active.player.uid.pid();
-        let build: &mut BuildArea = &mut active.player.build_area;
+        #[cfg(before_647)]
+        {
+            let (px, py, pz) = (
+                active.player.pathing.coord.x(),
+                active.player.pathing.coord.y(),
+                active.player.pathing.coord.z(),
+            );
+            let self_pid = active.player.uid.pid();
+            let build: &mut BuildArea = &mut active.player.build_area;
 
-        if rebuild || dx > build.view_distance as i32 || dz > build.view_distance as i32 {
-            build.rebuild_players(snap, map, px, py, pz, self_pid);
-        } else {
-            build.resize();
+            if rebuild || dx > build.view_distance as i32 || dz > build.view_distance as i32 {
+                if active.watch.checking() {
+                    let clock = engine().clock;
+                    for &pid in build.players.iter() {
+                        active.watch.anticheat.lost(Target::Player(pid), clock);
+                    }
+                }
+                build.rebuild_players(snap, map, px, py, pz, self_pid);
+            } else {
+                build.resize();
+            }
+        }
+        #[cfg(since_647)]
+        {
+            let _ = (map, dx, dz, rebuild);
+            active.player.build_area.resize();
         }
 
         self.updates.pos = 0;
         self.bw.reset();
 
-        self.write_local_player(renderer, active);
-        self.write_players(players, snap, renderer, active);
-        self.write_new_players(map, players, snap, renderer, active);
-        if self.updates.pos > 0 {
-            self.bw
-                .pbit::<{ Self::BITS_END }>(&mut self.buf, MAX_PLAYERS as i32 - 1);
+        #[cfg(before_647)]
+        {
+            self.write_local_player(renderer, active);
+            self.write_players(players, snap, renderer, active);
+            self.write_new_players(map, players, snap, renderer, active);
+            if self.updates.pos > 0 {
+                self.bw
+                    .pbit::<{ Self::BITS_END }>(&mut self.buf, MAX_PLAYERS as i32 - 1);
+            }
         }
+        #[cfg(since_647)]
+        self.write_players(players, snap, renderer, active);
         self.bw.finish(&mut self.buf);
+        #[cfg(before_647)]
         debug_assert!(self.buf.pos + self.updates.pos <= BYTES_LIMIT);
         unsafe {
             (
@@ -246,6 +356,7 @@ impl PlayerInfo {
     /// **Calls:** [`teleport`](Self::teleport), [`run`](Self::run),
     /// [`walk`](Self::walk), [`extend`](Self::extend), [`idle`](Self::idle)
     #[inline(always)]
+    #[cfg(before_647)]
     fn write_local_player(&mut self, renderer: &mut PlayerRenderer, active: &ActivePlayer) {
         let len: usize = renderer.highdefinitions(active.player.uid.pid());
         if active.player.pathing.tele {
@@ -284,6 +395,7 @@ impl PlayerInfo {
     /// **Calls:** [`remove`](Self::remove), [`run`](Self::run),
     /// [`walk`](Self::walk), [`extend`](Self::extend), [`idle`](Self::idle)
     #[inline(always)]
+    #[cfg(before_647)]
     fn write_players(
         &mut self,
         players: OtherPlayers<'_>,
@@ -355,6 +467,58 @@ impl PlayerInfo {
         active.player.build_area.players.retain_bits();
     }
 
+    #[cfg(since_647)]
+    fn write_players(
+        &mut self,
+        players: OtherPlayers<'_>,
+        snap: &[PlayerSnapshot],
+        renderer: &mut PlayerRenderer,
+        active: &mut ActivePlayer,
+    ) {
+        let self_pid = active.player.uid.pid();
+        let self_coord = active.player.pathing.coord;
+        let view_dist = active.player.build_area.view_distance;
+        let mut additions: usize = 0;
+
+        self.write_local_players(
+            snap, renderer, active, self_pid, self_coord, true, view_dist,
+        );
+        self.bw.finish(&mut self.buf);
+
+        self.write_local_players(
+            snap, renderer, active, self_pid, self_coord, false, view_dist,
+        );
+        self.bw.finish(&mut self.buf);
+
+        self.write_external_players(
+            players,
+            snap,
+            renderer,
+            active,
+            self_pid,
+            self_coord,
+            true,
+            &mut additions,
+            view_dist,
+        );
+        self.bw.finish(&mut self.buf);
+
+        self.write_external_players(
+            players,
+            snap,
+            renderer,
+            active,
+            self_pid,
+            self_coord,
+            false,
+            &mut additions,
+            view_dist,
+        );
+        self.bw.finish(&mut self.buf);
+
+        active.player.build_area.cycle_nsn_flags();
+    }
+
     /// Writes add-entries for newly visible players that are not yet tracked.
     ///
     /// Queries the build area for nearby players, skips those already tracked
@@ -365,6 +529,7 @@ impl PlayerInfo {
     /// **Called by:** [`encode`](Self::encode)
     /// **Calls:** [`add`](Self::add)
     #[inline(always)]
+    #[cfg(before_647)]
     fn write_new_players(
         &mut self,
         map: &ZoneMap,
@@ -434,6 +599,7 @@ impl PlayerInfo {
     /// **Calls:** [`lowdefinition`](Self::lowdefinition)
     #[allow(clippy::too_many_arguments)]
     #[inline(always)]
+    #[cfg(before_647)]
     fn add(
         &mut self,
         renderer: &mut PlayerRenderer,
@@ -473,14 +639,17 @@ impl PlayerInfo {
     /// # Call Stack
     /// **Called by:** [`write_players`](Self::write_players)
     #[inline(always)]
+    #[cfg(before_647)]
     fn remove(&mut self, active: &mut ActivePlayer, other: u16) {
         // 1 + 2 = 3 bits
         self.bw.pbit::<3>(&mut self.buf, (1 << 2) | 3);
         active.player.build_area.players.remove_bit(other);
-        active
-            .watch
-            .anticheat
-            .lost(Target::Player(other), engine().clock);
+        if active.watch.checking() {
+            active
+                .watch
+                .anticheat
+                .lost(Target::Player(other), engine().clock);
+        }
     }
 
     /// Encodes a teleport movement entry (21 bits) with absolute position
@@ -501,6 +670,7 @@ impl PlayerInfo {
     /// [`write_players`](Self::write_players)
     #[allow(clippy::too_many_arguments)]
     #[inline(always)]
+    #[cfg(before_647)]
     fn teleport(
         &mut self,
         renderer: &mut PlayerRenderer,
@@ -540,6 +710,7 @@ impl PlayerInfo {
     /// **Called by:** [`write_local_player`](Self::write_local_player),
     /// [`write_players`](Self::write_players)
     #[inline(always)]
+    #[cfg(before_647)]
     fn run(
         &mut self,
         renderer: &mut PlayerRenderer,
@@ -573,6 +744,7 @@ impl PlayerInfo {
     /// **Called by:** [`write_local_player`](Self::write_local_player),
     /// [`write_players`](Self::write_players)
     #[inline(always)]
+    #[cfg(before_647)]
     fn walk(
         &mut self,
         renderer: &mut PlayerRenderer,
@@ -597,6 +769,7 @@ impl PlayerInfo {
     /// **Called by:** [`write_local_player`](Self::write_local_player),
     /// [`write_players`](Self::write_players)
     #[inline(always)]
+    #[cfg(before_647)]
     fn extend(
         &mut self,
         renderer: &mut PlayerRenderer,
@@ -611,6 +784,7 @@ impl PlayerInfo {
     /// Encodes an idle entry (1 bit = 0), indicating no movement and no
     /// update blocks for this player.
     #[inline(always)]
+    #[cfg(before_647)]
     fn idle(&mut self) {
         self.bw.pbit::<1>(&mut self.buf, 0);
     }
@@ -621,6 +795,7 @@ impl PlayerInfo {
     /// # Call Stack
     /// **Calls:** [`write_blocks`](Self::write_blocks)
     #[inline(always)]
+    #[cfg(before_647)]
     fn highdefinition(
         &mut self,
         renderer: &mut PlayerRenderer,
@@ -654,6 +829,7 @@ impl PlayerInfo {
     /// branch reproduces exactly the non-self, non-ExactMove path
     /// (`pdata(high_block(pid))` with no tail).
     #[inline(always)]
+    #[cfg(before_647)]
     fn highdefinition_tracked(
         &mut self,
         players: OtherPlayers<'_>,
@@ -684,12 +860,13 @@ impl PlayerInfo {
     fn lowdefinition(
         &mut self,
         renderer: &mut PlayerRenderer,
-        active: &mut ActivePlayer,
+        #[cfg_attr(since_647, allow(unused_variables))] active: &mut ActivePlayer,
         other: &ActivePlayer,
     ) {
         let pid = other.player.uid.pid();
         let mut masks = other.player.info.masks;
 
+        #[cfg(before_647)]
         if let Some(last_appearance) = other.player.info.last_appearance
             && !active
                 .player
@@ -705,6 +882,11 @@ impl PlayerInfo {
             masks &= !(PlayerInfoProt::Appearance as u16);
         }
 
+        #[cfg(since_647)]
+        if renderer.has(pid, PlayerInfoProt::Appearance) {
+            masks |= PlayerInfoProt::Appearance as u16;
+        }
+
         if let Some(face_entity) = other.player.info.face_entity {
             if !renderer.has(pid, PlayerInfoProt::FaceEntity) {
                 renderer.cache_face_entity(pid, face_entity);
@@ -713,27 +895,40 @@ impl PlayerInfo {
         }
 
         if !renderer.has(pid, PlayerInfoProt::FaceCoord) {
-            if let (Some(face_x), Some(face_z)) =
-                (other.player.info.face_x, other.player.info.face_z)
-            {
-                renderer.cache_face_coord(pid, face_x, face_z);
-            } else if let (Some(orientation_x), Some(orientation_z)) = (
-                other.player.info.orientation_x,
-                other.player.info.orientation_z,
-            ) {
-                renderer.cache_face_coord(pid, orientation_x, orientation_z);
-            } else {
-                renderer.cache_face_coord(
-                    pid,
-                    CoordGrid::fine(other.player.pathing.coord.x(), 1),
-                    CoordGrid::fine(other.player.pathing.coord.z(), 1),
-                );
-            }
+            let (x, z) = other
+                .player
+                .info
+                .face_x
+                .zip(other.player.info.face_z)
+                .or_else(|| {
+                    other
+                        .player
+                        .info
+                        .orientation_x
+                        .zip(other.player.info.orientation_z)
+                })
+                .unwrap_or_else(|| {
+                    (
+                        CoordGrid::fine(other.player.pathing.coord.x(), 1),
+                        CoordGrid::fine(other.player.pathing.coord.z(), 1),
+                    )
+                });
+            #[cfg(before_647)]
+            renderer.cache_face_coord(pid, x, z);
+            #[cfg(since_647)]
+            renderer.cache_face_coord(pid, x, z, other.player.pathing.coord);
         }
 
         masks |= PlayerInfoProt::FaceCoord as u16;
 
+        #[cfg(before_647)]
         self.write_blocks(renderer, active, other, masks);
+        #[cfg(since_647)]
+        {
+            renderer.cache_move_type(pid);
+            masks |= PlayerInfoProt::MoveType as u16;
+            self.write_blocks(renderer, pid, masks);
+        }
     }
 
     /// Writes the individual update blocks (appearance, anim, face entity,
@@ -752,6 +947,7 @@ impl PlayerInfo {
     /// **Called by:** [`highdefinition`](Self::highdefinition),
     /// [`lowdefinition`](Self::lowdefinition)
     #[inline(always)]
+    #[cfg(before_647)]
     fn write_blocks(
         &mut self,
         renderer: &mut PlayerRenderer,
@@ -761,7 +957,7 @@ impl PlayerInfo {
     ) {
         let pid = other.player.uid.pid();
         if masks > 0xff {
-            self.updates.ip2(masks | PlayerInfoProt::BigInfo as u16);
+            self.updates.p2_alt1(masks | PlayerInfoProt::BigInfo as u16);
         } else {
             self.updates.p1(masks as u8);
         }
@@ -809,6 +1005,43 @@ impl PlayerInfo {
         }
     }
 
+    #[cfg(since_647)]
+    fn write_blocks(&mut self, renderer: &PlayerRenderer, pid: u16, masks: u16) {
+        let wire = PlayerInfoProt::mask(masks);
+        let (header, len) = PlayerInfoProt::header(wire);
+        self.updates.pdata(&header, 0, len);
+        if wire & PlayerInfoProt::FaceCoord as u32 != 0 {
+            renderer.write(&mut self.updates, pid, PlayerInfoProt::FaceCoord);
+        }
+        if wire & PlayerInfoProt::TempMoveType as u32 != 0 {
+            renderer.write(&mut self.updates, pid, PlayerInfoProt::TempMoveType);
+        }
+        if wire & PlayerInfoProt::Anim as u32 != 0 {
+            renderer.write(&mut self.updates, pid, PlayerInfoProt::Anim);
+        }
+        if wire & PlayerInfoProt::MoveType as u32 != 0 {
+            renderer.write(&mut self.updates, pid, PlayerInfoProt::MoveType);
+        }
+        if wire & PlayerInfoProt::ExactMove as u32 != 0 {
+            renderer.write(&mut self.updates, pid, PlayerInfoProt::ExactMove);
+        }
+        if wire & PlayerInfoProt::Damage as u32 != 0 {
+            renderer.write(&mut self.updates, pid, PlayerInfoProt::Damage);
+        }
+        if wire & PlayerInfoProt::FaceEntity as u32 != 0 {
+            renderer.write(&mut self.updates, pid, PlayerInfoProt::FaceEntity);
+        }
+        if wire & PlayerInfoProt::SpotAnim as u32 != 0 {
+            renderer.write(&mut self.updates, pid, PlayerInfoProt::SpotAnim);
+        }
+        if wire & PlayerInfoProt::Say as u32 != 0 {
+            renderer.write(&mut self.updates, pid, PlayerInfoProt::Say);
+        }
+        if wire & PlayerInfoProt::Appearance as u32 != 0 {
+            renderer.write(&mut self.updates, pid, PlayerInfoProt::Appearance);
+        }
+    }
+
     /// Checks whether the buffer has room for the given number of additional
     /// bits and bytes without exceeding the packet size limit.
     ///
@@ -820,6 +1053,7 @@ impl PlayerInfo {
     /// `true` if the combined bit buffer (rounded up to bytes) plus the
     /// update buffer plus the new data fits within [`BYTES_LIMIT`].
     #[inline(always)]
+    #[cfg(before_647)]
     fn fits(&self, bits_to_add: usize, bytes_to_add: usize) -> bool {
         ((self.bw.bitpos() + bits_to_add + 7) >> 3) + self.updates.pos + bytes_to_add <= BYTES_LIMIT
     }
@@ -834,6 +1068,7 @@ impl PlayerInfo {
     /// [`BuildArea::forget_untracked_appearances`]).
     ///
     /// Reads the observer's state without changing it.
+    #[cfg(before_647)]
     pub fn keyframe(
         renderer: &mut PlayerRenderer,
         players: OtherPlayers<'_>,
@@ -913,6 +1148,7 @@ impl PlayerInfo {
 
     /// What a keyframe shows of `other`: its appearance and which way it
     /// faces, as a new observer's add does.
+    #[cfg(before_647)]
     fn keyframe_masks(renderer: &mut PlayerRenderer, other: &ActivePlayer) -> u16 {
         let pid = other.player.uid.pid();
         let mut masks = 0;
@@ -943,6 +1179,294 @@ impl PlayerInfo {
         }
         masks | PlayerInfoProt::FaceCoord as u16
     }
+
+    #[cfg(since_647)]
+    #[allow(clippy::too_many_arguments)]
+    fn write_local_players(
+        &mut self,
+        snap: &[PlayerSnapshot],
+        renderer: &mut PlayerRenderer,
+        observer: &mut ActivePlayer,
+        self_pid: u16,
+        self_coord: CoordGrid,
+        nsn: bool,
+        view_dist: u8,
+    ) {
+        let mut skip: i32 = -1;
+        let local_count = observer.player.build_area.local_player_indices.len();
+
+        for i in 0..local_count {
+            let index = observer.player.build_area.local_player_indices[i] as usize;
+            let flag_set = (observer.player.build_area.nsn_flags[index] & 0x1) != 0;
+            if nsn == flag_set {
+                continue;
+            }
+
+            let is_self = index as u16 == self_pid;
+
+            let (removing, updating, moved) = if is_self {
+                let has_masks = renderer.highdefinitions(self_pid) > 0;
+                let moved = observer.player.pathing.tele || observer.player.pathing.walk_dir != -1;
+                (false, has_masks, moved)
+            } else {
+                let s = unsafe { *snap.get_unchecked(index) };
+                if s.flags & PlayerSnapshot::PRESENT != 0 {
+                    let removing = !CoordGrid::from(s.coord).in_distance(self_coord, view_dist)
+                        || CoordGrid::from(s.coord).y() != self_coord.y()
+                        || s.flags & PlayerSnapshot::ACTIVE == 0
+                        || s.flags & PlayerSnapshot::VIS_HARD != 0;
+                    let has_masks = renderer.highdefinitions(index as u16) > 0;
+                    let moved = s.flags & PlayerSnapshot::TELE != 0 || s.walk_dir != -1;
+                    (removing, has_masks, moved)
+                } else {
+                    (true, false, false)
+                }
+            };
+
+            let active = removing || updating || moved;
+
+            if !active {
+                skip += 1;
+                observer.player.build_area.nsn_flags[index] |= 2;
+                continue;
+            }
+
+            if skip >= 0 {
+                self.bw.pbit::<1>(&mut self.buf, 0);
+                encode_skip(&mut self.bw, &mut self.buf, skip as usize);
+                skip = -1;
+            }
+
+            self.bw.pbit::<1>(&mut self.buf, 1);
+            self.write_player(snap, renderer, observer, index, is_self, removing);
+        }
+
+        if skip >= 0 {
+            self.bw.pbit::<1>(&mut self.buf, 0);
+            encode_skip(&mut self.bw, &mut self.buf, skip as usize);
+        }
+    }
+
+    #[cfg(since_647)]
+    fn write_player(
+        &mut self,
+        snap: &[PlayerSnapshot],
+        renderer: &mut PlayerRenderer,
+        observer: &mut ActivePlayer,
+        index: usize,
+        is_self: bool,
+        removing: bool,
+    ) {
+        if removing {
+            self.bw.pbit::<1>(&mut self.buf, 0);
+            self.bw.pbit::<2>(&mut self.buf, 0);
+            self.validate_coordinates(snap, observer, index);
+            observer.player.build_area.players.remove(index as u16);
+            if observer.watch.checking() {
+                observer
+                    .watch
+                    .anticheat
+                    .lost(Target::Player(index as u16), engine().clock);
+            }
+            return;
+        }
+
+        let (tele, walk_dir, run_dir, coord) = if is_self {
+            (
+                observer.player.pathing.tele,
+                observer.player.pathing.walk_dir,
+                observer.player.pathing.run_dir,
+                observer.player.pathing.coord,
+            )
+        } else {
+            let s = unsafe { *snap.get_unchecked(index) };
+            (
+                s.flags & PlayerSnapshot::TELE != 0,
+                s.walk_dir,
+                s.run_dir,
+                CoordGrid::from(s.coord),
+            )
+        };
+
+        let has_blocks = renderer.highdefinitions(index as u16) > 0;
+
+        if tele {
+            let last = observer.player.build_area.player_last_coords[index];
+            let dx = coord.x() as i32 - last.x() as i32;
+            let dz = coord.z() as i32 - last.z() as i32;
+            let dl = coord.y() as i32 - last.y() as i32;
+            let local = dx.abs() <= 15 && dz.abs() <= 15;
+
+            self.bw.pbit::<1>(&mut self.buf, has_blocks as i32);
+            self.bw.pbit::<2>(&mut self.buf, 3);
+            if local {
+                self.bw.pbit::<1>(&mut self.buf, 0);
+                self.bw.pbit::<12>(
+                    &mut self.buf,
+                    ((dl as u32 & 0x3) << 10) as i32
+                        | ((dx as u32 & 0x1F) << 5) as i32
+                        | (dz as u32 & 0x1F) as i32,
+                );
+            } else {
+                self.bw.pbit::<1>(&mut self.buf, 1);
+                self.bw.pbit::<30>(
+                    &mut self.buf,
+                    ((dl as u32 & 0x3) << 28) as i32
+                        | ((dx as u32 & 0x3FFF) << 14) as i32
+                        | (dz as u32 & 0x3FFF) as i32,
+                );
+            }
+
+            if has_blocks {
+                self.highdefinition(renderer, index as u16);
+            }
+            observer.player.build_area.player_last_coords[index] = coord;
+        } else if run_dir != -1 {
+            let (wx, wz) = dir_delta(walk_dir);
+            let (rx, rz) = dir_delta(run_dir);
+            let dx = wx as i32 + rx as i32;
+            let dz = wz as i32 + rz as i32;
+            self.bw.pbit::<1>(&mut self.buf, has_blocks as i32);
+            if let Some(ri) = run_index(dx, dz) {
+                self.bw.pbit::<2>(&mut self.buf, 2);
+                self.bw.pbit::<4>(&mut self.buf, ri);
+            } else {
+                self.bw.pbit::<2>(&mut self.buf, 1);
+                self.bw.pbit::<3>(
+                    &mut self.buf,
+                    WALK_DIR_MAP[face_dir(0, 0, dx, dz).max(0) as usize],
+                );
+            }
+            if has_blocks {
+                self.highdefinition(renderer, index as u16);
+            }
+            observer.player.build_area.player_last_coords[index] = coord;
+        } else if walk_dir != -1 {
+            self.bw.pbit::<1>(&mut self.buf, has_blocks as i32);
+            self.bw.pbit::<2>(&mut self.buf, 1);
+            self.bw
+                .pbit::<3>(&mut self.buf, WALK_DIR_MAP[walk_dir as usize]);
+            if has_blocks {
+                self.highdefinition(renderer, index as u16);
+            }
+            observer.player.build_area.player_last_coords[index] = coord;
+        } else if has_blocks {
+            self.bw.pbit::<1>(&mut self.buf, 1);
+            self.bw.pbit::<2>(&mut self.buf, 0);
+            self.highdefinition(renderer, index as u16);
+        }
+    }
+
+    #[cfg(since_647)]
+    #[allow(clippy::too_many_arguments)]
+    fn write_external_players(
+        &mut self,
+        players: OtherPlayers<'_>,
+        snap: &[PlayerSnapshot],
+        renderer: &mut PlayerRenderer,
+        observer: &mut ActivePlayer,
+        self_pid: u16,
+        self_coord: CoordGrid,
+        nsn: bool,
+        additions: &mut usize,
+        view_dist: u8,
+    ) {
+        let mut skip: i32 = -1;
+        let external_count = observer.player.build_area.external_player_indices.len();
+        let local_count = observer.player.build_area.local_player_indices.len();
+
+        for i in 0..external_count {
+            let index = observer.player.build_area.external_player_indices[i] as usize;
+            let flag_clear = (observer.player.build_area.nsn_flags[index] & 0x1) == 0;
+            if nsn == flag_clear {
+                continue;
+            }
+
+            let s = unsafe { *snap.get_unchecked(index) };
+            let adding = s.flags & PlayerSnapshot::PRESENT != 0
+                && (local_count + *additions) < MAX_LOCAL_PLAYERS
+                && index as u16 != self_pid
+                && s.flags & PlayerSnapshot::ACTIVE != 0
+                && s.flags & PlayerSnapshot::VIS_HARD == 0
+                && CoordGrid::from(s.coord).in_distance(self_coord, view_dist)
+                && CoordGrid::from(s.coord).y() == self_coord.y();
+
+            if !adding {
+                skip += 1;
+                observer.player.build_area.nsn_flags[index] |= 2;
+                continue;
+            }
+
+            if skip >= 0 {
+                self.bw.pbit::<1>(&mut self.buf, 0);
+                encode_skip(&mut self.bw, &mut self.buf, skip as usize);
+                skip = -1;
+            }
+
+            self.bw.pbit::<1>(&mut self.buf, 1);
+            self.add_player(players, snap, renderer, observer, index);
+            *additions += 1;
+        }
+
+        if skip >= 0 {
+            self.bw.pbit::<1>(&mut self.buf, 0);
+            encode_skip(&mut self.bw, &mut self.buf, skip as usize);
+        }
+    }
+
+    #[cfg(since_647)]
+    fn add_player(
+        &mut self,
+        players: OtherPlayers<'_>,
+        snap: &[PlayerSnapshot],
+        renderer: &mut PlayerRenderer,
+        observer: &mut ActivePlayer,
+        index: usize,
+    ) {
+        let coord = CoordGrid::from(unsafe { *snap.get_unchecked(index) }.coord);
+
+        self.bw.pbit::<2>(&mut self.buf, 0);
+        self.validate_coordinates(snap, observer, index);
+        self.bw.pbit::<6>(&mut self.buf, (coord.x() & 0x3F) as i32);
+        self.bw.pbit::<6>(&mut self.buf, (coord.z() & 0x3F) as i32);
+        self.bw.pbit::<1>(&mut self.buf, 1);
+
+        let other = unsafe { players.get(index as u16).unwrap_unchecked() };
+        self.lowdefinition(renderer, observer, other);
+
+        observer.player.build_area.players.insert(index as u16);
+        observer.player.build_area.player_last_coords[index] = coord;
+        observer.player.build_area.nsn_flags[index] |= 2;
+    }
+
+    #[cfg(since_647)]
+    fn validate_coordinates(
+        &mut self,
+        snap: &[PlayerSnapshot],
+        observer: &mut ActivePlayer,
+        index: usize,
+    ) {
+        let current_packed = observer.player.build_area.player_mapsquares[index];
+        let s = unsafe { *snap.get_unchecked(index) };
+        let new_packed = if s.flags & PlayerSnapshot::PRESENT != 0 {
+            BuildArea::pack_mapsquare(CoordGrid::from(s.coord))
+        } else {
+            current_packed
+        };
+        let updating = new_packed != current_packed;
+
+        self.bw.pbit::<1>(&mut self.buf, updating as i32);
+        if updating {
+            update_coordinates(&mut self.bw, &mut self.buf, current_packed, new_packed);
+            observer.player.build_area.player_mapsquares[index] = new_packed;
+        }
+    }
+
+    #[cfg(since_647)]
+    fn highdefinition(&mut self, renderer: &mut PlayerRenderer, pid: u16) {
+        let block = renderer.high_block(pid);
+        self.updates.pdata(block, 0, block.len());
+    }
 }
 
 /// Encodes the NPC info update packet for a single game tick.
@@ -962,15 +1486,24 @@ impl NpcInfo {
     const BITS_ADD: usize = 13 + 11 + 5 + 5 + 1;
     #[cfg(all(since_254, before_274))]
     const BITS_ADD: usize = 14 + 11 + 5 + 5 + 1;
-    #[cfg(since_274)]
+    #[cfg(all(since_274, before_647))]
     const BITS_ADD: usize = 14 + 11 + 5 + 5 + 1 + 1;
+    #[cfg(before_647)]
     const BITS_RUN: usize = 1 + 2 + 3 + 3 + 1;
+    #[cfg(since_647)]
+    const BITS_RUN: usize = 1 + 2 + 1 + 3 + 3 + 1;
+    #[cfg(since_647)]
+    const BITS_CRAWL: usize = 1 + 2 + 1 + 3 + 1;
+    #[cfg(since_647)]
+    const BITS_ADD: usize = 15 + 2 + 5 + 1 + 3 + 5 + 14 + 1;
     const BITS_WALK: usize = 1 + 2 + 3 + 1;
     const BITS_EXTEND: usize = 1 + 2;
     #[cfg(before_254)]
     const BITS_END: usize = 13;
-    #[cfg(since_254)]
+    #[cfg(all(since_254, before_647))]
     const BITS_END: usize = 14;
+    #[cfg(since_647)]
+    const BITS_END: usize = 15;
 
     /// Creates a new `NpcInfo` encoder with pre-allocated buffers.
     ///
@@ -1030,6 +1563,12 @@ impl NpcInfo {
             || dx > BuildArea::PREFERRED_VIEW_DISTANCE as i32
             || dz > BuildArea::PREFERRED_VIEW_DISTANCE as i32
         {
+            if active.watch.checking() {
+                let clock = engine().clock;
+                for &nid in build.npcs.iter() {
+                    active.watch.anticheat.lost(Target::Npc(nid), clock);
+                }
+            }
             build.rebuild_npcs(npcs);
         }
 
@@ -1038,7 +1577,7 @@ impl NpcInfo {
 
         self.write_npcs(npcs, nsnap, renderer, active);
         self.write_new_npcs(map, npcs, nsnap, renderer, active);
-        if self.updates.pos > 0 {
+        if cfg!(since_647) || self.updates.pos > 0 {
             self.bw
                 .pbit::<{ Self::BITS_END }>(&mut self.buf, MAX_NPCS as i32 - 1);
         }
@@ -1082,19 +1621,8 @@ impl NpcInfo {
 
         for i in 0..self.tracked.len() {
             let nid = self.tracked[i];
-            // Movement decision from the compact snapshot. `!PRESENT` reproduces
-            // the old `None => remove` (despawned/removed NPC: no observer
-            // decrement). A present-but-out-of-view/inactive NPC matches the old
-            // `Some(..) if cond` arm: decrement `observers` on the live NPC and
-            // remove. The keep/move path never touches the ~1.5 KB ActiveNpc;
-            // NPC high-def blocks are fully pre-coalesced so even the extend
-            // path only needs `nid`.
             let s = unsafe { *nsnap.get_unchecked(nid as usize) };
             if s.should_remove(obs_coord, obs_y, BuildArea::PREFERRED_VIEW_DISTANCE) {
-                // Decrement the observer count only for an NPC that is still
-                // present but leaving view (the old `Some(..) if cond` arm). A
-                // despawned NPC (`!PRESENT`) maps to the old `None` arm, which
-                // did not decrement.
                 if s.flags & NpcSnapshot::PRESENT != 0 {
                     unsafe {
                         if let Some(other) = (*npcs.as_mut_ptr().add(nid as usize)).as_mut() {
@@ -1108,25 +1636,59 @@ impl NpcInfo {
 
             let len: usize = s.len as usize;
             let later = (self.tracked.len() - i - 1) * NpcInfo::BITS_RUN + NpcInfo::BITS_END;
-            if s.run_dir != -1 {
+            let running = s.run_dir != -1;
+            #[cfg(since_647)]
+            let crawl = s.flags & NpcSnapshot::CRAWL != 0;
+            #[cfg(since_647)]
+            let running = running || (crawl && s.walk_dir != -1);
+            if running {
                 // 1 + 2 + 3 + 3 + 1 = 10 bits
-                let extend = len > 0 && self.fits(NpcInfo::BITS_RUN + later, len);
-                self.bw.pbit::<10>(
-                    &mut self.buf,
-                    (((1 << 2) | 2) << 7)
-                        | ((s.walk_dir as i32) << 4)
-                        | ((s.run_dir as i32) << 1)
-                        | (extend as i32),
-                );
+                #[cfg(before_647)]
+                let extend = {
+                    let extend = len > 0 && self.fits(NpcInfo::BITS_RUN + later, len);
+                    self.bw.pbit::<10>(
+                        &mut self.buf,
+                        (((1 << 2) | 2) << 7)
+                            | ((s.walk_dir as i32) << 4)
+                            | ((s.run_dir as i32) << 1)
+                            | (extend as i32),
+                    );
+                    extend
+                };
+                #[cfg(since_647)]
+                let extend = {
+                    let bits = if crawl {
+                        Self::BITS_CRAWL
+                    } else {
+                        Self::BITS_RUN
+                    };
+                    let extend = len > 0 && self.fits(bits + later, len);
+                    self.bw
+                        .pbit::<4>(&mut self.buf, (1 << 3) | (2 << 1) | !crawl as i32);
+                    self.bw
+                        .pbit::<3>(&mut self.buf, NPC_DIR_MAP[s.walk_dir as usize]);
+                    if !crawl {
+                        self.bw
+                            .pbit::<3>(&mut self.buf, NPC_DIR_MAP[s.run_dir as usize]);
+                    }
+                    self.bw.pbit::<1>(&mut self.buf, extend as i32);
+                    extend
+                };
                 if extend {
                     self.highdefinition(renderer, nid);
                 }
             } else if s.walk_dir != -1 {
                 // 1 + 2 + 3 + 1 = 7 bits
                 let extend = len > 0 && self.fits(NpcInfo::BITS_WALK + later, len);
+                #[cfg(before_647)]
                 self.bw.pbit::<7>(
                     &mut self.buf,
                     (((1 << 2) | 1) << 4) | ((s.walk_dir as i32) << 1) | (extend as i32),
+                );
+                #[cfg(since_647)]
+                self.bw.pbit::<7>(
+                    &mut self.buf,
+                    (((1 << 2) | 1) << 4) | (NPC_DIR_MAP[s.walk_dir as usize] << 1) | extend as i32,
                 );
                 if extend {
                     self.highdefinition(renderer, nid);
@@ -1186,8 +1748,8 @@ impl NpcInfo {
                 return;
             }
             if let Some(other) = unsafe { &mut *npcs.as_mut_ptr().add(nid as usize) } {
-                let len: usize = NpcRenderer::LOW_LEN + renderer.highdefinitions(nid);
-                if !self.fits(NpcInfo::BITS_ADD + NpcInfo::BITS_END, len) {
+                let len = NpcRenderer::LOW_LEN + renderer.highdefinitions(nid);
+                if !self.fits(Self::BITS_ADD + Self::BITS_END, len) {
                     return;
                 }
                 self.add(
@@ -1235,23 +1797,43 @@ impl NpcInfo {
         ntype: u16,
         x: i32,
         z: i32,
-        #[cfg_attr(before_274, allow(unused_variables))] jump: bool,
+        #[cfg_attr(any(before_274, since_647), allow(unused_variables))] jump: bool,
     ) {
         // 13/14 + 11 = 24/25 bits, then 5 + 5 + (1) + 1 = 11/12 bits (35/36/37 total, split for i32)
         #[cfg(before_254)]
         self.bw
             .pbit::<24>(&mut self.buf, ((nid as i32) << 11) | (ntype as i32));
-        #[cfg(since_254)]
+        #[cfg(all(since_254, before_647))]
         self.bw
             .pbit::<25>(&mut self.buf, ((nid as i32) << 11) | (ntype as i32));
         #[cfg(before_274)]
         self.bw
             .pbit::<11>(&mut self.buf, ((x & 0x1F) << 6) | ((z & 0x1F) << 1) | 1);
-        #[cfg(since_274)]
+        #[cfg(all(since_274, before_647))]
         self.bw.pbit::<12>(
             &mut self.buf,
             ((x & 0x1F) << 7) | ((z & 0x1F) << 2) | ((jump as i32) << 1) | 1,
         );
+        #[cfg(since_647)]
+        {
+            self.bw.pbit::<15>(&mut self.buf, nid as i32);
+            self.bw
+                .pbit::<2>(&mut self.buf, other.npc.pathing.coord.y() as i32);
+            self.bw.pbit::<5>(&mut self.buf, x);
+            self.bw.pbit::<1>(&mut self.buf, 1);
+            let facing = other.npc.facing().map(|(fx, fz)| {
+                let size = other.npc.pathing.size;
+                (
+                    CoordGrid::fine(other.npc.pathing.coord.x(), size) as i32 - fx as i32,
+                    CoordGrid::fine(other.npc.pathing.coord.z(), size) as i32 - fz as i32,
+                )
+            });
+            self.bw
+                .pbit::<3>(&mut self.buf, add_direction(facing) as i32);
+            self.bw.pbit::<5>(&mut self.buf, z);
+            self.bw.pbit::<14>(&mut self.buf, ntype as i32);
+            self.bw.pbit::<1>(&mut self.buf, 0);
+        }
         self.lowdefinition(renderer, other);
         active.player.build_area.npcs.insert(other.npc.uid.nid());
     }
@@ -1276,10 +1858,12 @@ impl NpcInfo {
         // 1 + 2 = 3 bits
         self.bw.pbit::<3>(&mut self.buf, (1 << 2) | 3);
         active.player.build_area.npcs.remove_bit(other);
-        active
-            .watch
-            .anticheat
-            .lost(Target::Npc(other), engine().clock);
+        if active.watch.checking() {
+            active
+                .watch
+                .anticheat
+                .lost(Target::Npc(other), engine().clock);
+        }
     }
 
     /// Writes the pre-coalesced high-definition update block for an NPC with a
@@ -1327,10 +1911,14 @@ impl NpcInfo {
             {
                 renderer.cache_face_coord(nid, orientation_x, orientation_z);
             } else {
+                #[cfg(before_647)]
+                let size = 1;
+                #[cfg(since_647)]
+                let size = other.npc.pathing.size;
                 renderer.cache_face_coord(
                     nid,
-                    CoordGrid::fine(other.npc.pathing.coord.x(), 1),
-                    CoordGrid::fine(other.npc.pathing.coord.z(), 1),
+                    CoordGrid::fine(other.npc.pathing.coord.x(), size),
+                    CoordGrid::fine(other.npc.pathing.coord.z(), size),
                 );
             }
         }
@@ -1353,6 +1941,7 @@ impl NpcInfo {
     /// **Called by:** [`highdefinition`](Self::highdefinition),
     /// [`lowdefinition`](Self::lowdefinition)
     #[inline(always)]
+    #[cfg(before_647)]
     fn write_blocks(&mut self, renderer: &mut NpcRenderer, nid: u16, masks: u16) {
         self.updates.p1(masks as u8);
         // ----
@@ -1385,6 +1974,34 @@ impl NpcInfo {
         }
     }
 
+    #[cfg(since_647)]
+    fn write_blocks(&mut self, renderer: &NpcRenderer, nid: u16, masks: u16) {
+        let wire = NpcInfoProt::mask(masks);
+        let (header, len) = NpcInfoProt::header(wire);
+        self.updates.pdata(&header, 0, len);
+        if wire & NpcInfoProt::ChangeType as u32 != 0 {
+            renderer.write(&mut self.updates, nid, NpcInfoProt::ChangeType);
+        }
+        if wire & NpcInfoProt::FaceCoord as u32 != 0 {
+            renderer.write(&mut self.updates, nid, NpcInfoProt::FaceCoord);
+        }
+        if wire & NpcInfoProt::SpotAnim as u32 != 0 {
+            renderer.write(&mut self.updates, nid, NpcInfoProt::SpotAnim);
+        }
+        if wire & NpcInfoProt::FaceEntity as u32 != 0 {
+            renderer.write(&mut self.updates, nid, NpcInfoProt::FaceEntity);
+        }
+        if wire & NpcInfoProt::Say as u32 != 0 {
+            renderer.write(&mut self.updates, nid, NpcInfoProt::Say);
+        }
+        if wire & NpcInfoProt::Damage as u32 != 0 {
+            renderer.write(&mut self.updates, nid, NpcInfoProt::Damage);
+        }
+        if wire & NpcInfoProt::Anim as u32 != 0 {
+            renderer.write(&mut self.updates, nid, NpcInfoProt::Anim);
+        }
+    }
+
     /// Checks whether the buffer has room for the given number of additional
     /// bits and bytes without exceeding the NPC info packet size limit.
     ///
@@ -1405,6 +2022,7 @@ impl NpcInfo {
     /// More than one when they don't all fit in one.
     ///
     /// Reads the observer's state without changing it.
+    #[cfg(before_647)]
     pub fn keyframe(
         renderer: &mut NpcRenderer,
         npcs: &[Option<Box<ActiveNpc>>],
@@ -1478,6 +2096,7 @@ impl NpcInfo {
 
     /// What a keyframe shows of `other`: which way it faces, as a new
     /// observer's add does.
+    #[cfg(before_647)]
     fn keyframe_masks(renderer: &mut NpcRenderer, other: &ActiveNpc) -> u16 {
         let nid = other.npc.uid.nid();
         let mut masks = 0;
@@ -1503,5 +2122,437 @@ impl NpcInfo {
             }
         }
         masks | NpcInfoProt::FaceCoord as u16
+    }
+}
+
+#[cfg(all(test, since_647))]
+mod client_decode_tests {
+    use super::*;
+    use crate::clients::client_game::create_io;
+    use rs_crypto::isaac::IsaacPair;
+    use rs_entity::{Player, PlayerUid};
+    use rs_info::EntityMasks;
+    use rs_protocol::network::game::info_prot::{NpcInfoProt, PlayerInfoProt};
+    use rs_var::VarSet;
+
+    fn observer() -> ActivePlayer {
+        let coord = CoordGrid::new(3222, 0, 3218);
+        let mut player = Player::new(
+            PlayerUid::new("observer".into(), 1),
+            coord,
+            VarSet::new([].into_iter()),
+            false,
+        );
+        player.build_area.init_nsn_state(1, coord);
+        ActivePlayer {
+            player,
+            handle: Box::new(create_io(IsaacPair::new(&[0; 4], &[0; 4])).handle),
+            buffered: Vec::new(),
+            client_limit: 0,
+            user_limit: 0,
+            restricted_limit: 0,
+            remote_ip: None,
+            muted_until: None,
+            unread_messages: 0,
+            last_report: None,
+            last_social: None,
+            friends: Vec::new(),
+            ignores: Vec::new(),
+            watch: Box::default(),
+            capture: None,
+        }
+    }
+
+    fn bits(bytes: &[u8], pos: &mut usize, count: usize) -> u32 {
+        let mut value = 0;
+        for _ in 0..count {
+            value = (value << 1) | u32::from(bytes[*pos >> 3] >> (7 - (*pos & 7)) & 1);
+            *pos += 1;
+        }
+        value
+    }
+
+    #[test]
+    fn npc_movement_survives_a_full_update_buffer() {
+        let mut active = observer();
+        let mut renderer = NpcRenderer::new();
+        let mut info = NpcInfo::new();
+        let mut snap = vec![NpcSnapshot::ABSENT; MAX_NPCS];
+        let mut npcs = (0..MAX_NPCS).map(|_| None).collect::<Vec<_>>();
+        let mut masks = EntityMasks::new();
+        masks.masks = NpcInfoProt::Say as u16;
+        masks.say = Some("a".repeat(1000).into());
+        for nid in 1..=250 {
+            active.player.build_area.npcs.insert(nid);
+            renderer.compute_info(nid as usize, &masks);
+            snap[nid as usize] = NpcSnapshot {
+                coord: active.player.pathing.coord.packed(),
+                len: renderer.highdefinitions(nid) as u16,
+                walk_dir: 1,
+                run_dir: if nid % 3 == 0 { 4 } else { -1 },
+                flags: NpcSnapshot::PRESENT
+                    | NpcSnapshot::ACTIVE
+                    | if nid % 3 == 1 { NpcSnapshot::CRAWL } else { 0 },
+            };
+        }
+        let (movement, updates) = info.encode(
+            &mut renderer,
+            &mut npcs,
+            &snap,
+            &ZoneMap::new(),
+            &mut active,
+            0,
+            0,
+            false,
+        );
+        assert!(movement.len() + updates.len() <= MAX_PACKET_SIZE - 3);
+        let mut pos = 0;
+        assert_eq!(bits(movement, &mut pos, 8), 250);
+        let mut blocks = 0;
+        for nid in 1..=250 {
+            assert_eq!(bits(movement, &mut pos, 1), 1);
+            if nid % 3 == 2 {
+                assert_eq!(bits(movement, &mut pos, 2), 1);
+                assert_eq!(bits(movement, &mut pos, 3), 0);
+            } else {
+                assert_eq!(bits(movement, &mut pos, 2), 2);
+                assert_eq!(bits(movement, &mut pos, 1), u32::from(nid % 3 == 0));
+                assert_eq!(bits(movement, &mut pos, 3), 0);
+                if nid % 3 == 0 {
+                    assert_eq!(bits(movement, &mut pos, 3), 2);
+                }
+            }
+            blocks += bits(movement, &mut pos, 1) as usize;
+        }
+        assert_eq!(bits(movement, &mut pos, 15), 32767);
+        assert_eq!((pos + 7) >> 3, movement.len());
+        assert!(blocks > 0 && blocks < 250);
+        assert_eq!(updates.len(), blocks * 1002);
+    }
+
+    struct Reader<'a> {
+        b: &'a [u8],
+        pos: usize,
+    }
+
+    impl Reader<'_> {
+        fn byte(&mut self) -> i32 {
+            self.pos += 1;
+            self.b[self.pos - 1] as i8 as i32
+        }
+        fn g1(&mut self) -> i32 {
+            self.byte() & 0xFF
+        }
+        fn g1_alt2(&mut self) -> i32 {
+            -self.byte() & 0xFF
+        }
+        fn g1_alt3(&mut self) -> i32 {
+            (128 - self.byte()) & 0xFF
+        }
+        fn g1_alt1(&mut self) -> i32 {
+            (self.byte() - 128) & 0xFF
+        }
+        fn g2(&mut self) -> i32 {
+            let hi = self.g1();
+            (hi << 8) | self.g1()
+        }
+        fn g2_alt1(&mut self) -> i32 {
+            let lo = self.g1();
+            lo | (self.g1() << 8)
+        }
+        fn g2_alt2(&mut self) -> i32 {
+            let hi = self.g1();
+            let lo = (self.byte() - 128) & 0xFF;
+            (hi << 8) | lo
+        }
+        fn g2_alt3(&mut self) -> i32 {
+            let lo = (self.byte() - 128) & 0xFF;
+            lo | (self.g1() << 8)
+        }
+        fn g4s_alt3(&mut self) -> i32 {
+            let (a, b, c, d) = (self.g1(), self.g1(), self.g1(), self.g1());
+            c | (b << 24) | (a << 16) | (d << 8)
+        }
+        fn gsmart(&mut self) -> i32 {
+            if self.b[self.pos] < 128 {
+                self.g1()
+            } else {
+                self.g2() - 32768
+            }
+        }
+        fn gjstr(&mut self) -> String {
+            let start = self.pos;
+            while self.b[self.pos] != 0 {
+                self.pos += 1;
+            }
+            self.pos += 1;
+            String::from_utf8_lossy(&self.b[start..self.pos - 1]).into_owned()
+        }
+        fn hits(&mut self, count: i32) -> Vec<(i32, i32, i32, i32)> {
+            (0..count)
+                .map(|_| (self.gsmart(), self.gsmart(), self.gsmart(), self.g1()))
+                .collect()
+        }
+    }
+
+    fn two_hits(info: &mut EntityMasks) {
+        info.damage_type = Some(1);
+        info.damage_taken = Some(25);
+        info.damage_current = Some(75);
+        info.damage_base = Some(100);
+        info.damage2_type = Some(2);
+        info.damage2_taken = Some(150);
+        info.damage2_current = Some(60);
+        info.damage2_base = Some(100);
+    }
+
+    #[test]
+    fn appearance_blocks_read_back_through_the_client() {
+        let mut active = observer();
+        let mut renderer = PlayerRenderer::new();
+        active.player.display_name = Some("Appearance".into());
+        active.player.colours = [1, 2, 3, 4, 5];
+        active.player.info.readyanim = Some(1426);
+        active.player.info.masks = PlayerInfoProt::Appearance as u16;
+        for gender in [0, 1] {
+            active.player.gender = gender;
+            for (headicons, prayer) in [(0, -1), (8, 0), (16, 1), (32, 2), (56, 2)] {
+                active.player.headicons = headicons;
+                active.generateappearance(17);
+                assert_eq!(active.player.info.last_appearance, Some(17));
+                renderer.compute_info(1, &active.player.info, active.player.pathing.coord);
+                let bytes = renderer.high_block(1);
+                let mut r = Reader { b: bytes, pos: 0 };
+                assert_eq!(r.g1(), 0x4);
+                assert_eq!(r.g1_alt3() as usize, bytes.len() - 2);
+                assert_eq!(r.g1(), gender as i32);
+                assert_eq!((r.byte(), r.byte(), r.byte()), (-1, -1, prayer));
+                assert_eq!(r.g1(), 0);
+                for kit in [0, 0, 0, 0, 274, 0, 282, 292, 256, 289, 298, 266] {
+                    let hi = r.g1();
+                    let value = if hi == 0 { 0 } else { (hi << 8) | r.g1() };
+                    assert_eq!(value, kit);
+                }
+                assert_eq!(r.g2(), 0);
+                for colour in 1..=5 {
+                    assert_eq!(r.g1(), colour);
+                }
+                assert_eq!(r.g2(), 1426);
+                assert_eq!(r.gjstr(), "Appearance");
+                assert_eq!(r.g1(), active.player.combat_level as i32);
+                assert_eq!((r.g1(), r.g1(), r.g1()), (0, 255, 0));
+                assert_eq!(r.pos, bytes.len());
+                renderer.remove_temporary();
+            }
+        }
+    }
+
+    #[test]
+    fn appearance_transmog_and_skill_level_read_back_through_the_client() {
+        let mut active = observer();
+        let mut renderer = PlayerRenderer::new();
+        active.player.gender = 1;
+        active.player.transmog = Some(4231);
+        active.player.skill_level = 1500;
+        active.player.display_name = Some("Transmog".into());
+        active.player.info.masks = PlayerInfoProt::Appearance as u16;
+        active.generateappearance(18);
+        renderer.compute_info(1, &active.player.info, active.player.pathing.coord);
+        let bytes = renderer.high_block(1);
+        let mut r = Reader { b: bytes, pos: 0 };
+        assert_eq!(r.g1(), 0x4);
+        assert_eq!(r.g1_alt3() as usize, bytes.len() - 2);
+        assert_eq!(r.g1(), 0x1 | 0x4);
+        assert_eq!((r.byte(), r.byte(), r.byte(), r.g1()), (-1, -1, -1, 0));
+        assert_eq!((r.g2(), r.g2(), r.g1()), (65535, 4231, 0));
+        for _ in 0..5 {
+            assert_eq!(r.g1(), 0);
+        }
+        assert_eq!(r.g2(), 1426);
+        assert_eq!(r.gjstr(), "Transmog");
+        assert_eq!(r.g1(), active.player.combat_level as i32);
+        assert_eq!((r.g2(), r.g1()), (1500, 0));
+        assert_eq!(r.pos, bytes.len());
+    }
+
+    #[test]
+    fn npc_blocks_read_back_through_the_client() {
+        let mut renderer = NpcRenderer::new();
+        let mut info = EntityMasks::new();
+        info.masks = NpcInfoProt::ChangeType as u16
+            | NpcInfoProt::FaceCoord as u16
+            | NpcInfoProt::SpotAnim as u16
+            | NpcInfoProt::FaceEntity as u16
+            | NpcInfoProt::Say as u16
+            | NpcInfoProt::Damage as u16
+            | NpcInfoProt::Damage2 as u16
+            | NpcInfoProt::Anim as u16;
+        info.changetype = Some(4231);
+        info.face_x = Some(3222 * 2 + 1);
+        info.face_z = Some(3218 * 2 + 1);
+        info.spotanim = Some(74);
+        info.spotanim_height = Some(92);
+        info.spotanim_delay = Some(5);
+        info.face_entity = Some(0x8000 + 12);
+        info.say = Some("Moo".into());
+        two_hits(&mut info);
+        info.anim_id = Some(5577);
+        info.anim_delay = Some(3);
+        renderer.compute_info(9, &info);
+        let mut npc_info = NpcInfo::new();
+        npc_info.highdefinition(&renderer, 9);
+        let bytes = &npc_info.updates.data[..npc_info.updates.pos];
+
+        let mut r = Reader { b: bytes, pos: 0 };
+        let mut mask = r.g1();
+        if mask & 0x8 != 0 {
+            mask += r.g1() << 8;
+        }
+        if mask & 0x100 != 0 {
+            mask += r.g1() << 16;
+        }
+        assert_eq!(
+            mask,
+            0x2 | 0x4 | 0x20 | 0x10 | 0x40 | 0x1 | 0x80,
+            "mask bits"
+        );
+
+        assert_eq!(r.g2(), 4231, "0x2 change type");
+        assert_eq!(
+            (r.g2(), r.g2_alt1()),
+            (3222 * 2 + 1, 3218 * 2 + 1),
+            "0x4 face coord, fine"
+        );
+        assert_eq!(r.g2_alt3(), 74, "0x20 spotanim id");
+        assert_eq!(r.g4s_alt3(), 92 << 16 | 5, "0x20 spotanim height and delay");
+        assert_eq!(r.g1_alt1() >> 3 & 0xF, 15, "0x20 no attachment");
+        assert_eq!(r.g2_alt1(), 0x8000 + 12, "0x10 face entity");
+        assert_eq!(r.gjstr(), "Moo", "0x40 say");
+        let count = r.g1_alt1();
+        assert_eq!(
+            r.hits(count),
+            vec![(1, 25, 0, 75 * 255 / 100), (2, 150, 0, 60 * 255 / 100)],
+            "0x1 both hits in one block"
+        );
+        for channel in 0..4 {
+            assert_eq!(r.g2_alt2(), 5577, "0x80 anim channel {channel}");
+        }
+        assert_eq!(r.g1_alt2(), 3, "0x80 anim delay");
+        assert_eq!(r.pos, bytes.len(), "the client reads every byte written");
+    }
+
+    #[test]
+    fn player_blocks_read_back_through_the_client() {
+        let mut renderer = PlayerRenderer::new();
+        let mut info = EntityMasks::new();
+        info.masks = PlayerInfoProt::Anim as u16
+            | PlayerInfoProt::Damage as u16
+            | PlayerInfoProt::Damage2 as u16
+            | PlayerInfoProt::FaceEntity as u16
+            | PlayerInfoProt::SpotAnim as u16
+            | PlayerInfoProt::Say as u16;
+        info.anim_id = Some(879);
+        info.anim_delay = Some(3);
+        two_hits(&mut info);
+        info.face_entity = Some(42);
+        info.spotanim = Some(90);
+        info.spotanim_height = Some(100);
+        info.spotanim_delay = Some(30);
+        info.say = Some("Hi".into());
+        renderer.compute_info(7, &info, CoordGrid::new(3222, 0, 3218));
+        let mut player_info = PlayerInfo::new();
+        player_info.highdefinition(&mut renderer, 7);
+        let bytes = &player_info.updates.data[..player_info.updates.pos];
+
+        let mut r = Reader { b: bytes, pos: 0 };
+        let mut mask = r.g1();
+        if mask & 0x20 != 0 {
+            mask += r.g1() << 8;
+        }
+        if mask & 0x8000 != 0 {
+            mask += r.g1() << 16;
+        }
+        assert_eq!(mask & !0x20, 0x80 | 0x2 | 0x10 | 0x40 | 0x200, "mask bits");
+
+        for channel in 0..4 {
+            assert_eq!(r.g2(), 879, "0x80 anim channel {channel}");
+        }
+        assert_eq!(r.g1_alt1(), 3, "0x80 anim delay");
+        let count = r.g1();
+        assert_eq!(
+            r.hits(count),
+            vec![(1, 25, 0, 75 * 255 / 100), (2, 150, 0, 60 * 255 / 100)],
+            "0x2 both hits in one block"
+        );
+        assert_eq!(r.g2_alt3(), 42, "0x10 face entity");
+        assert_eq!(r.g2_alt2(), 90, "0x40 spotanim id");
+        assert_eq!(
+            r.g4s_alt3(),
+            100 << 16 | 30,
+            "0x40 spotanim height and delay"
+        );
+        assert_eq!(r.g1_alt3() >> 3 & 0xF, 15, "0x40 no attachment");
+        assert_eq!(r.gjstr(), "Hi", "0x200 say");
+        assert_eq!(r.pos, bytes.len(), "the client reads every byte written");
+    }
+
+    #[test]
+    fn a_new_observer_receives_the_players_persistent_facing() {
+        let mut renderer = PlayerRenderer::new();
+        let mut active = observer();
+        let mut other = observer();
+        other.player.uid = PlayerUid::new("other".into(), 7);
+        other.player.info.last_appearance_info = Some(vec![1, 2, 3].into_boxed_slice());
+        other.player.info.masks = PlayerInfoProt::Appearance as u16;
+        renderer.compute_info(7, &other.player.info, other.player.pathing.coord);
+        renderer.remove_temporary();
+        other.player.info.masks = 0;
+        other.player.info.face_entity = Some(42);
+        other.player.info.orientation_x = Some(CoordGrid::fine(3223, 1));
+        other.player.info.orientation_z = Some(CoordGrid::fine(3218, 1));
+
+        let mut info = PlayerInfo::new();
+        info.lowdefinition(&mut renderer, &mut active, &other);
+        let mut r = Reader {
+            b: &info.updates.data[..info.updates.pos],
+            pos: 0,
+        };
+        assert_eq!(r.g1(), 0x1 | 0x4 | 0x8 | 0x10);
+        assert_eq!(r.g2_alt2(), 0x3000);
+        assert_eq!(r.g1(), 1);
+        assert_eq!(r.g2_alt3(), 42);
+        assert_eq!(&r.b[r.pos..], &[125, 1, 2, 3]);
+        assert!(renderer.high_block(7).is_empty());
+    }
+
+    #[test]
+    fn a_life_point_hit_past_255_reads_back_whole() {
+        let mut renderer = PlayerRenderer::new();
+        let mut info = EntityMasks::new();
+        info.apply_damage(300, 3, 128, u8::MAX, PlayerInfoProt::Damage as u16);
+        renderer.compute_info(7, &info, CoordGrid::new(3222, 0, 3218));
+        let mut player_info = PlayerInfo::new();
+        player_info.highdefinition(&mut renderer, 7);
+        let bytes = &player_info.updates.data[..player_info.updates.pos];
+
+        let mut r = Reader { b: bytes, pos: 0 };
+        assert_eq!(r.g1(), 0x2, "the hits mask alone");
+        let count = r.g1();
+        assert_eq!(r.hits(count), vec![(3, 300, 0, 128)]);
+        assert_eq!(r.pos, bytes.len(), "the client reads every byte written");
+
+        renderer.remove_temporary();
+        info.masks = PlayerInfoProt::Damage2 as u16;
+        info.damage2_taken = info.damage_taken;
+        info.damage2_type = info.damage_type;
+        info.damage2_current = info.damage_current;
+        info.damage2_base = info.damage_base;
+        renderer.compute_info(7, &info, CoordGrid::new(3222, 0, 3218));
+        player_info.updates.pos = 0;
+        player_info.write_blocks(&renderer, 7, info.masks);
+        assert_eq!(
+            &player_info.updates.data[..player_info.updates.pos],
+            renderer.high_block(7),
+        );
     }
 }

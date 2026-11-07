@@ -1,0 +1,6 @@
+[proc,login_getreply]()(int)
+if (is_unsigned = true) {
+    return(login_getint_5607);
+} else {
+    return(login_getint_5617);
+}

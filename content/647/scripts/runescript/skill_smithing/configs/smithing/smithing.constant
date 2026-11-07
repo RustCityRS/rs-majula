@@ -1,0 +1,10 @@
+// 2011's anvil interface (smithing_new, 300) has no script of its own to
+// colour a slot's bars, as 289's did from %smithbars: the server does. Enough
+// bars are 289's colour for them (smithing.if's activecolour); too few, the
+// interface's own colour for its bar text (cache 786, 15243295).
+^smithing_bars_rgb = 0x00C000
+^smithing_nobars_rgb = 0xE8981F
+
+// 2011's Make X and Make All, where 289 had Make 1, 5 and 10.
+^smithing_make_x = 0
+^smithing_make_all = -1

@@ -1,0 +1,7 @@
+[proc,clientscript_2318](int $int)
+if ($int ! 1) {
+    return;
+}
+sound_synth(synth_2266, 1, 0);
+%bank_hidden = calc(1 - %bank_hidden);
+~bank_v2_showequipscreen;

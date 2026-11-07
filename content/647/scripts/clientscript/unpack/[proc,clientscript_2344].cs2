@@ -1,0 +1,17 @@
+[proc,clientscript_2344]
+if (%varc_int_770 < cam_getpathcount(0)) {
+    %varc_int_770 = calc(%varc_int_770 + 1);
+    switch_int (%varc_int_770) {
+        case default:
+            if_setonchattransmit_2426(null, jp4568160:com0);
+            cam_startpath(0, %varc_int_770, 900, 500, 1, %varc_int_770);
+        case 9, 10, 11:
+            if_setonchattransmit_2426("clientscript_2344()", jp4568160:com0);
+            cam_startpath(0, %varc_int_770, 900, 900, 1, %varc_int_770);
+        case 12:
+            if_setonchattransmit_2426(null, jp4568160:com0);
+            cam_startpath(0, %varc_int_770, 900, 100, 1, %varc_int_770);
+    }
+} else {
+    %varc_int_770 = 0;
+}

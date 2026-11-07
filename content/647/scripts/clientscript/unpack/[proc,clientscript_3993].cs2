@@ -1,0 +1,27 @@
+[proc,clientscript_3993]
+def_int $int0 = 1;
+def_component $component1 = null;
+while ($int0 < calc(enum_getoutputcount(enum_3489) - 1)) {
+    $component1 = enum(105, 73, enum_3489, $int0);
+    if_setposition(14, calc(($int0 - 1) * if_getheight($component1)), ^setpos_abs_left, ^setpos_abs_top, $component1);
+    if_setcolour(^black, $component1);
+    $component1 = enum(105, 73, enum_3490, $int0);
+    if ($component1 ! null) {
+        if_setposition(1, calc(2 + ($int0 - 1) * if_getheight($component1)), ^setpos_abs_left, ^setpos_abs_top, $component1);
+    }
+    $int0 = calc($int0 + 1);
+}
+$component1 = enum(105, 73, enum_3489, 62);
+if_setposition(14, calc(($int0 - 1) * if_getheight($component1)), ^setpos_abs_left, ^setpos_abs_top, $component1);
+if_setcolour(^black, $component1);
+$component1 = enum(105, 73, enum_3490, 62);
+if_setposition(1, calc(2 + ($int0 - 1) * if_getheight($component1)), ^setpos_abs_left, ^setpos_abs_top, $component1);
+$int0 = calc($int0 + 1);
+$component1 = enum(105, 73, enum_3489, 0);
+if_setposition(14, calc(($int0 - 1) * if_getheight($component1)), ^setpos_abs_left, ^setpos_abs_top, $component1);
+if_setcolour(0xfff9eb, $component1);
+$component1 = enum(105, 73, enum_3490, 0);
+if_setposition(1, calc(2 + ($int0 - 1) * if_getheight($component1)), ^setpos_abs_left, ^setpos_abs_top, $component1);
+def_int $int2 = calc($int0 * if_getheight($component1));
+if_setscrollsize(0, $int2, task_main:com119);
+~scrollbar_vertical(task_main:com115, task_main:com119, 4288, 4286, 4285, 4287, 4290, 4289);

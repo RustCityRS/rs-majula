@@ -1,0 +1,12 @@
+[proc,clan_chat_clearlist]
+if_sethide(true, clan_chat:com27);
+if_clearops(clan_chat:com27);
+if_setscrollpos(0, 0, clan_chat:com25);
+if_sethide(false, clan_chat:com29);
+~scrollbar_vertical(clan_chat:com29, clan_chat:com25, "aif_scrollbar_dragger_2,3", "aif_scrollbar_dragger_2,0", "aif_scrollbar_dragger_2,1", "aif_scrollbar_dragger_2,2", "aif_scrollbar_arrow_2,1", "aif_scrollbar_arrow_2,0");
+if_setgraphic("aif_clanchat_icons,13", clan_chat:com86);
+if_sethide(true, clan_chat:com13);
+if_setsize(1, 19, ^setsize_abs, ^setsize_abs, clan_chat:com20);
+%varc_int_1518 = -1;
+%varc_string_126 = "";
+if_settext("", clan_chat:com26);

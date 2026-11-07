@@ -1,0 +1,1853 @@
+[proc,task_get_progress](int $int)(int)
+if (struct_param(enum(105, 74, enum_3483, $int), param_1270) ! 4094) {
+    return(~ql4_getprogress(struct_param(enum(105, 74, enum_3483, $int), param_1270)));
+} else {
+    switch_int ($int) {
+        case default:
+            return(0);
+        case 0:
+            if (%varbit_6598 = true) {
+                return(2);
+            }
+        case 1:
+            if (%varbit_6599 = true) {
+                return(2);
+            }
+        case 2:
+            if (%varbit_6600 = true) {
+                return(2);
+            }
+        case 3:
+            if (%varbit_6601 = true) {
+                return(2);
+            }
+        case 4:
+            if (%varbit_6602 = true) {
+                return(2);
+            }
+        case 5:
+            if (%varbit_6603 = true) {
+                return(2);
+            }
+        case 6:
+            if (%varbit_6604 = true) {
+                return(2);
+            }
+        case 7:
+            if (%varbit_6605 = true) {
+                return(2);
+            }
+        case 8:
+            if (%varbit_6606 = true) {
+                return(2);
+            }
+        case 9:
+            if (%varbit_6607 = true) {
+                return(2);
+            }
+        case 10:
+            if (%varbit_6608 = true) {
+                return(2);
+            }
+        case 11:
+            if (%varbit_6609 = true) {
+                return(2);
+            }
+        case 12:
+            if (%varbit_1421 = true) {
+                return(2);
+            }
+        case 13:
+            if (%varbit_6611 = true) {
+                return(2);
+            }
+        case 14:
+            if (%varbit_6612 = true) {
+                return(2);
+            }
+        case 15:
+            if (%varbit_6613 = true) {
+                return(2);
+            }
+        case 16:
+            if (%varbit_6614 = true) {
+                return(2);
+            }
+        case 17:
+            if (%varbit_6615 = true) {
+                return(2);
+            }
+        case 18:
+            if (%varbit_6616 = true) {
+                return(2);
+            }
+        case 19:
+            if (%varbit_6617 = true) {
+                return(2);
+            }
+        case 20:
+            if (%varbit_6618 = true) {
+                return(2);
+            }
+        case 21:
+            if (%varbit_6619 = true) {
+                return(2);
+            }
+        case 22:
+            if (%varbit_6620 = true) {
+                return(2);
+            }
+        case 23:
+            if (%varbit_6622 = true) {
+                return(2);
+            }
+        case 24:
+            if (%varbit_6623 = true) {
+                return(2);
+            }
+        case 25:
+            if (%varbit_6624 = true) {
+                return(2);
+            }
+        case 26:
+            if (%varbit_6625 = true) {
+                return(2);
+            }
+        case 27:
+            if (%varbit_6626 = true) {
+                return(2);
+            }
+        case 28:
+            if (%varbit_6627 = true) {
+                return(2);
+            }
+        case 29:
+            if (%varbit_6628 = true) {
+                return(2);
+            }
+        case 30:
+            if (%varbit_6629 = true) {
+                return(2);
+            }
+        case 31:
+            if (%varbit_6630 = true) {
+                return(2);
+            }
+        case 32:
+            if (%varbit_6631 = true) {
+                return(2);
+            }
+        case 33:
+            if (%varbit_6632 = true) {
+                return(2);
+            }
+        case 34:
+            if (%varbit_6633 = true) {
+                return(2);
+            }
+        case 35:
+            if (%varbit_6634 = true) {
+                return(2);
+            }
+        case 36:
+            if (%varbit_6635 = true) {
+                return(2);
+            }
+        case 37:
+            if (%varbit_6636 = true) {
+                return(2);
+            }
+        case 38:
+            if (%varbit_6637 = true) {
+                return(2);
+            }
+        case 39:
+            if (%varbit_6639 = true) {
+                return(2);
+            }
+        case 40:
+            if (%varbit_6640 = true) {
+                return(2);
+            }
+        case 41:
+            if (%varbit_6641 = true) {
+                return(2);
+            }
+        case 42:
+            if (%varbit_6642 = true) {
+                return(2);
+            }
+        case 43:
+            if (%varbit_6643 = true) {
+                return(2);
+            }
+        case 44:
+            if (%varbit_6644 = true) {
+                return(2);
+            }
+        case 45:
+            if (%varbit_6645 = true) {
+                return(2);
+            }
+        case 46:
+            if (%varbit_6646 = true) {
+                return(2);
+            }
+        case 47:
+            if (%varbit_6647 = true) {
+                return(2);
+            }
+        case 48:
+            if (%varbit_6648 = true) {
+                return(2);
+            }
+        case 49:
+            if (%varbit_6649 = true) {
+                return(2);
+            }
+        case 50:
+            if (%varbit_6650 = true) {
+                return(2);
+            }
+        case 51:
+            if (%varbit_6651 = true) {
+                return(2);
+            }
+        case 52:
+            if (%varbit_6652 = true) {
+                return(2);
+            }
+        case 53:
+            if (%varbit_6653 = true) {
+                return(2);
+            }
+        case 54:
+            if (%varbit_6654 = true) {
+                return(2);
+            }
+        case 55:
+            if (%varbit_6655 = true) {
+                return(2);
+            }
+        case 56:
+            if (%varbit_6658 = true) {
+                return(2);
+            }
+        case 57:
+            if (%varbit_6659 = true) {
+                return(2);
+            }
+        case 58:
+            if (%varbit_6660 = true) {
+                return(2);
+            }
+        case 59:
+            if (%varbit_6661 = true) {
+                return(2);
+            }
+        case 60:
+            if (%varbit_6662 = 63) {
+                return(2);
+            } else if (%varbit_6662 > 0) {
+                return(1);
+            }
+        case 61:
+            if (%varbit_4949 = true) {
+                return(2);
+            }
+        case 62:
+            if (%varbit_4950 = true) {
+                return(2);
+            }
+        case 63:
+            if (%varbit_4951 = true) {
+                return(2);
+            }
+        case 64:
+            if (%varbit_4952 = true) {
+                return(2);
+            }
+        case 65:
+            if (%varbit_4953 = true) {
+                return(2);
+            }
+        case 66:
+            if (%varbit_4954 = true) {
+                return(2);
+            }
+        case 67:
+            if (%varbit_4955 = true) {
+                return(2);
+            }
+        case 68:
+            if (%varbit_4956 = true) {
+                return(2);
+            }
+        case 69:
+            if (%varbit_4957 = true) {
+                return(2);
+            }
+        case 70:
+            if (%varbit_4958 = true) {
+                return(2);
+            }
+        case 71:
+            if (%varbit_4959 = true) {
+                return(2);
+            }
+        case 72:
+            if (%varbit_4960 = true) {
+                return(2);
+            }
+        case 73:
+            if (%varbit_4961 = true) {
+                return(2);
+            }
+        case 74:
+            if (%varbit_4962 = true) {
+                return(2);
+            }
+        case 75:
+            if (%varbit_4963 = true) {
+                return(2);
+            }
+        case 76:
+            if (%varbit_4964 = true) {
+                return(2);
+            }
+        case 77:
+            if (%varbit_4965 = true) {
+                return(2);
+            }
+        case 78:
+            if (%varbit_4966 = true) {
+                return(2);
+            }
+        case 79:
+            if (%varbit_4967 = true) {
+                return(2);
+            }
+        case 80:
+            if (%varbit_4968 = true) {
+                return(2);
+            }
+        case 81:
+            if (%varbit_4969 = true) {
+                return(2);
+            }
+        case 82:
+            if (%varbit_4970 = true) {
+                return(2);
+            }
+        case 83:
+            if (%varbit_4971 = true) {
+                return(2);
+            }
+        case 84:
+            if (%varbit_4972 = true) {
+                return(2);
+            }
+        case 85:
+            if (%varbit_4973 = true) {
+                return(2);
+            }
+        case 86:
+            if (%varbit_4974 = true) {
+                return(2);
+            }
+        case 87:
+            if (%varbit_4975 = true) {
+                return(2);
+            }
+        case 88:
+            if (%varbit_4976 = true) {
+                return(2);
+            }
+        case 89:
+            if (%varbit_4977 = true) {
+                return(2);
+            }
+        case 90:
+            if (%varbit_4978 = true) {
+                return(2);
+            }
+        case 91:
+            if (%varbit_4979 = true) {
+                return(2);
+            }
+        case 92:
+            if (%varbit_4980 = true) {
+                return(2);
+            }
+        case 93:
+            if (%varbit_4981 = true) {
+                return(2);
+            }
+        case 94:
+            if (%varbit_4982 = true) {
+                return(2);
+            }
+        case 95:
+            if (%varbit_4983 = true) {
+                return(2);
+            }
+        case 96:
+            if (%varbit_4984 = true) {
+                return(2);
+            }
+        case 97:
+            if (%varbit_4985 = true) {
+                return(2);
+            }
+        case 98:
+            if (%varbit_4986 = true) {
+                return(2);
+            }
+        case 99:
+            if (%varbit_4987 = true) {
+                return(2);
+            }
+        case 100:
+            if (%varbit_4988 = true) {
+                return(2);
+            }
+        case 101:
+            if (%varbit_4989 = true) {
+                return(2);
+            }
+        case 102:
+            if (%varbit_4991 = true) {
+                return(2);
+            }
+        case 103:
+            if (%varbit_4992 = true) {
+                return(2);
+            }
+        case 104:
+            if (%varbit_4993 = true) {
+                return(2);
+            }
+        case 105:
+            if (%varbit_4994 = true) {
+                return(2);
+            }
+        case 106:
+            if (%varbit_4995 = true) {
+                return(2);
+            }
+        case 107:
+            if (%varbit_4996 = true) {
+                return(2);
+            }
+        case 108:
+            if (%varbit_4997 = true) {
+                return(2);
+            }
+        case 109:
+            if (%varbit_4998 = true) {
+                return(2);
+            }
+        case 110:
+            if (%varbit_4999 = true) {
+                return(2);
+            }
+        case 111:
+            if (%varbit_5998 = true) {
+                return(2);
+            }
+        case 112:
+            if (%varbit_5001 = true) {
+                return(2);
+            }
+        case 113:
+            if (%varbit_5002 = true) {
+                return(2);
+            }
+        case 114:
+            if (%varbit_5003 = true) {
+                return(2);
+            }
+        case 351:
+            if (%varbit_8180 = true) {
+                return(2);
+            }
+        case 352:
+            if (%varbit_8181 = true) {
+                return(2);
+            }
+        case 353:
+            if (%varbit_8188 = true) {
+                return(2);
+            }
+        case 354:
+            if (%varbit_8191 = true) {
+                return(2);
+            }
+        case 355:
+            if (%varbit_8192 = true) {
+                return(2);
+            }
+        case 356:
+            if (%varbit_8193 = true) {
+                return(2);
+            }
+        case 357:
+            if (%varbit_8194 = true) {
+                return(2);
+            }
+        case 115:
+            if (%varbit_5691 = true) {
+                return(2);
+            }
+        case 116:
+            if (%varbit_5692 = true) {
+                return(2);
+            }
+        case 117:
+            if (%varbit_5693 = true) {
+                return(2);
+            }
+        case 118:
+            if (%varbit_5694 = true) {
+                return(2);
+            }
+        case 119:
+            if (%varbit_5695 = true) {
+                return(2);
+            }
+        case 120:
+            if (%varbit_5696 = true) {
+                return(2);
+            }
+        case 121:
+            if (%varbit_5697 = true) {
+                return(2);
+            }
+        case 122:
+            if (%varbit_5698 = true) {
+                return(2);
+            }
+        case 123:
+            if (%varbit_5699 = true) {
+                return(2);
+            }
+        case 124:
+            if (%varbit_5700 = true) {
+                return(2);
+            }
+        case 125:
+            if (%varbit_5701 = true) {
+                return(2);
+            }
+        case 126:
+            if (%varbit_5702 = true) {
+                return(2);
+            }
+        case 127:
+            if (%varbit_5703 = true) {
+                return(2);
+            }
+        case 128:
+            if (%varbit_5704 = true) {
+                return(2);
+            }
+        case 129:
+            if (%varbit_5705 = 3) {
+                return(2);
+            } else if (%varbit_5705 > 0) {
+                return(1);
+            }
+        case 130:
+            if (%varbit_5706 = true) {
+                return(2);
+            }
+        case 131:
+            if (%varbit_5707 = true) {
+                return(2);
+            }
+        case 132:
+            if (%varbit_5723 = true) {
+                return(2);
+            }
+        case 133:
+            if (%varbit_5709 = 3) {
+                return(2);
+            } else if (%varbit_5709 > 0) {
+                return(1);
+            }
+        case 134:
+            if (%varbit_5710 = true) {
+                return(2);
+            }
+        case 135:
+            if (%varbit_5711 = true) {
+                return(2);
+            }
+        case 136:
+            if (%varbit_5712 = true) {
+                return(2);
+            }
+        case 137:
+            if (%varbit_5713 = true) {
+                return(2);
+            }
+        case 138:
+            if (%varbit_5714 = true) {
+                return(2);
+            }
+        case 139:
+            if (%varbit_5715 = true) {
+                return(2);
+            }
+        case 140:
+            if (%varbit_5716 = true) {
+                return(2);
+            }
+        case 141:
+            if (%varbit_5717 = true) {
+                return(2);
+            }
+        case 142:
+            if (%varbit_5718 = true) {
+                return(2);
+            }
+        case 143:
+            if (%varbit_5719 = true) {
+                return(2);
+            }
+        case 144:
+            if (%varbit_5720 = true) {
+                return(2);
+            }
+        case 145:
+            if (%varbit_5721 = true) {
+                return(2);
+            }
+        case 146:
+            if (%varbit_5722 = true) {
+                return(2);
+            }
+        case 147:
+            if (%varbit_5708 = true) {
+                return(2);
+            }
+        case 148:
+            if (%varbit_5724 = true) {
+                return(2);
+            }
+        case 149:
+            if (%varbit_5725 = true) {
+                return(2);
+            }
+        case 150:
+            if (%varbit_5726 = true) {
+                return(2);
+            }
+        case 151:
+            if (%varbit_5727 = true) {
+                return(2);
+            }
+        case 309:
+            if (%varbit_8114 = true) {
+                return(2);
+            }
+        case 310:
+            if (%varbit_8115 = true) {
+                return(2);
+            }
+        case 311:
+            if (%varbit_8116 = true) {
+                return(2);
+            }
+        case 312:
+            if (%varbit_8117 = true) {
+                return(2);
+            }
+        case 313:
+            if (%varbit_8118 = true) {
+                return(2);
+            }
+        case 314:
+            if (%varbit_8119 = true) {
+                return(2);
+            }
+        case 315:
+            if (%varbit_8120 = true) {
+                return(2);
+            }
+        case 152:
+            if (%varbit_5648 = true) {
+                return(2);
+            }
+        case 153:
+            if (%varbit_5649 = true) {
+                return(2);
+            }
+        case 154:
+            if (%varbit_5650 = true) {
+                return(2);
+            }
+        case 155:
+            if (%varbit_5651 = true) {
+                return(2);
+            }
+        case 156:
+            if (%varbit_5652 = true) {
+                return(2);
+            }
+        case 157:
+            if (%varbit_5653 = true) {
+                return(2);
+            }
+        case 158:
+            if (%varbit_5654 = true) {
+                return(2);
+            }
+        case 159:
+            if (%varbit_5655 = true) {
+                return(2);
+            }
+        case 160:
+            if (%varbit_5656 = true) {
+                return(2);
+            }
+        case 161:
+            if (%varbit_5657 = true) {
+                return(2);
+            }
+        case 162:
+            if (%varbit_5658 = true) {
+                return(2);
+            }
+        case 163:
+            if (%varbit_5659 = true) {
+                return(2);
+            }
+        case 164:
+            if (%varbit_5660 = true) {
+                return(2);
+            }
+        case 165:
+            if (%varbit_5661 = true) {
+                return(2);
+            }
+        case 166:
+            if (%varbit_5662 = true) {
+                return(2);
+            }
+        case 167:
+            if (%varbit_5663 = true) {
+                return(2);
+            }
+        case 168:
+            if (%varbit_5664 = true) {
+                return(2);
+            }
+        case 169:
+            if (%varbit_5665 = true) {
+                return(2);
+            }
+        case 170:
+            if (%varbit_5666 = true) {
+                return(2);
+            }
+        case 171:
+            if (%varbit_5667 = true) {
+                return(2);
+            }
+        case 172:
+            if (%varbit_5668 = true) {
+                return(2);
+            }
+        case 173:
+            if (%varbit_5669 = true) {
+                return(2);
+            }
+        case 174:
+            if (%varbit_5670 = true) {
+                return(2);
+            }
+        case 175:
+            if (%varbit_5671 = true) {
+                return(2);
+            }
+        case 176:
+            if (%varbit_5672 = true) {
+                return(2);
+            }
+        case 177:
+            if (%varbit_5673 = true) {
+                return(2);
+            }
+        case 178:
+            if (%varbit_5674 = true) {
+                return(2);
+            }
+        case 179:
+            if (%varbit_5675 = true) {
+                return(2);
+            }
+        case 180:
+            if (%varbit_5676 = true) {
+                return(2);
+            }
+        case 181:
+            if (%varbit_5677 = true) {
+                return(2);
+            }
+        case 428:
+            if (%varbit_9067 > 0) {
+                return(2);
+            }
+        case 316:
+            if (%varbit_8231 = true) {
+                return(2);
+            }
+        case 317:
+            if (%varbit_8232 = true) {
+                return(2);
+            }
+        case 318:
+            if (%varbit_8233 = true) {
+                return(2);
+            }
+        case 319:
+            if (%varbit_8234 = true) {
+                return(2);
+            }
+        case 320:
+            if (%varbit_8235 = true) {
+                return(2);
+            }
+        case 321:
+            if (%varbit_8236 = true) {
+                return(2);
+            }
+        case 322:
+            if (%varbit_8237 = true) {
+                return(2);
+            }
+        case 323:
+            if (%varbit_8238 = true) {
+                return(2);
+            }
+        case 417:
+            if (%varbit_8239 = true) {
+                return(2);
+            }
+        case 182:
+            if (%varbit_3566 = 5) {
+                return(2);
+            } else if (%varbit_3566 > 0) {
+                return(1);
+            }
+        case 183:
+            if (%varbit_3567 = true) {
+                return(2);
+            }
+        case 184:
+            if (%varbit_3568 = true) {
+                return(2);
+            }
+        case 185:
+            if (%varbit_3569 = true) {
+                return(2);
+            }
+        case 186:
+            if (%varbit_3570 = true) {
+                return(2);
+            }
+        case 187:
+            if (%varbit_3571 = true) {
+                return(2);
+            }
+        case 188:
+            if (%varbit_3572 = true) {
+                return(2);
+            }
+        case 189:
+            if (%varbit_3573 = 5) {
+                return(2);
+            } else if (%varbit_3573 > 0) {
+                return(1);
+            }
+        case 190:
+            if (%varbit_3574 = true) {
+                return(2);
+            }
+        case 191:
+            if (%varbit_3575 = true) {
+                return(2);
+            }
+        case 192:
+            if (%varbit_3579 = true) {
+                return(2);
+            }
+        case 193:
+            if (%varbit_3580 = true) {
+                return(2);
+            }
+        case 194:
+            if (%varbit_3581 = true) {
+                return(2);
+            }
+        case 195:
+            if (%varbit_3582 = true) {
+                return(2);
+            }
+        case 196:
+            if (%varbit_3583 = true) {
+                return(2);
+            }
+        case 197:
+            if (%varbit_3584 = true) {
+                return(2);
+            }
+        case 198:
+            if (%varbit_3585 = true) {
+                return(2);
+            }
+        case 199:
+            if (%varbit_3586 = true) {
+                return(2);
+            }
+        case 200:
+            if (%varbit_3587 = true) {
+                return(2);
+            }
+        case 201:
+            if (%varbit_3588 = true) {
+                return(2);
+            }
+        case 202:
+            if (%varbit_3589 = true) {
+                return(2);
+            }
+        case 203:
+            if (%varbit_3590 = true) {
+                return(2);
+            }
+        case 204:
+            if (%varbit_3591 = true) {
+                return(2);
+            }
+        case 205:
+            if (%varbit_3592 = true) {
+                return(2);
+            }
+        case 206:
+            if (%varbit_3593 = true) {
+                return(2);
+            }
+        case 207:
+            if (%varbit_3594 = true) {
+                return(2);
+            }
+        case 208:
+            if (%varbit_3595 = true) {
+                return(2);
+            }
+        case 209:
+            if (%varbit_3596 = true) {
+                return(2);
+            }
+        case 210:
+            if (%varbit_3597 = true) {
+                return(2);
+            }
+        case 211:
+            if (%varbit_3600 = true) {
+                return(2);
+            }
+        case 212:
+            if (%varbit_3601 = true) {
+                return(2);
+            }
+        case 213:
+            if (%varbit_3602 = true) {
+                return(2);
+            }
+        case 214:
+            if (%varbit_3603 = true) {
+                return(2);
+            }
+        case 215:
+            if (%varbit_3604 = true) {
+                return(2);
+            }
+        case 216:
+            if (%varbit_3605 = true) {
+                return(2);
+            }
+        case 217:
+            if (%varbit_3606 = true) {
+                return(2);
+            }
+        case 218:
+            if (%varbit_3607 = 5) {
+                return(2);
+            } else if (%varbit_3607 > 0) {
+                return(1);
+            }
+        case 219:
+            if (%varbit_3608 = true) {
+                return(2);
+            }
+        case 220:
+            if (%varbit_3609 = true) {
+                return(2);
+            }
+        case 324:
+            if (%varbit_8121 = true) {
+                return(2);
+            }
+        case 325:
+            if (%varbit_8122 = true) {
+                return(2);
+            }
+        case 326:
+            if (%varbit_8123 = true) {
+                return(2);
+            }
+        case 327:
+            if (%varbit_8124 = true) {
+                return(2);
+            }
+        case 328:
+            if (%varbit_8125 = true) {
+                return(2);
+            }
+        case 329:
+            if (%varbit_8126 = true) {
+                return(2);
+            }
+        case 330:
+            if (%varbit_8127 = true) {
+                return(2);
+            }
+        case 331:
+            if (%varbit_8128 = true) {
+                return(2);
+            }
+        case 221:
+            if (%varbit_5782 = 5) {
+                return(2);
+            } else if (%varbit_5782 > 0) {
+                return(1);
+            }
+        case 222:
+            if (%varbit_5783 = true) {
+                return(2);
+            }
+        case 223:
+            if (%varbit_5784 = true) {
+                return(2);
+            }
+        case 224:
+            if (%varbit_5785 = true) {
+                return(2);
+            }
+        case 225:
+            if (%varbit_5786 = true) {
+                return(2);
+            }
+        case 226:
+            if (%varbit_5787 = 5) {
+                return(2);
+            }
+        case 227:
+            if (%varbit_5788 = 5) {
+                return(2);
+            } else if (%varbit_5788 > 0) {
+                return(1);
+            }
+        case 228:
+            if (%varbit_5789 = 5) {
+                return(2);
+            } else if (%varbit_5789 > 0) {
+                return(1);
+            }
+        case 229:
+            if (%varbit_5790 = true) {
+                return(2);
+            }
+        case 230:
+            if (%varbit_5791 = true) {
+                return(2);
+            }
+        case 231:
+            if (%varbit_5792 = true) {
+                return(2);
+            }
+        case 232:
+            if (%varbit_5793 = true) {
+                return(2);
+            }
+        case 233:
+            if (%varbit_5794 = true) {
+                return(2);
+            }
+        case 234:
+            if (%varbit_5795 = true) {
+                return(2);
+            }
+        case 235:
+            if (%varbit_5796 = true) {
+                return(2);
+            }
+        case 236:
+            if (%varbit_5797 = 15) {
+                return(2);
+            } else if (%varbit_5797 > 0) {
+                return(1);
+            }
+        case 237:
+            if (%varbit_5798 = true) {
+                return(2);
+            }
+        case 238:
+            if (%varbit_5799 = true) {
+                return(2);
+            }
+        case 239:
+            if (%varbit_5800 = true) {
+                return(2);
+            }
+        case 240:
+            if (%varbit_5801 = true) {
+                return(2);
+            }
+        case 241:
+            if (%varbit_5802 = true) {
+                return(2);
+            }
+        case 242:
+            if (%varbit_5803 = true) {
+                return(2);
+            }
+        case 243:
+            if (%varbit_5804 = true) {
+                return(2);
+            }
+        case 244:
+            if (%varbit_5805 = 15) {
+                return(2);
+            } else if (%varbit_5805 > 0) {
+                return(1);
+            }
+        case 245:
+            if (%varbit_5806 = true) {
+                return(2);
+            }
+        case 246:
+            if (%varbit_5807 = 5) {
+                return(2);
+            } else if (%varbit_5807 > 0) {
+                return(1);
+            }
+        case 247:
+            if (%varbit_5808 = true) {
+                return(2);
+            }
+        case 248:
+            if (%varbit_5809 = true) {
+                return(2);
+            }
+        case 249:
+            if (%varbit_5810 = true) {
+                return(2);
+            }
+        case 250:
+            if (%varbit_5811 = true) {
+                return(2);
+            }
+        case 251:
+            if (%varbit_5812 = true) {
+                return(2);
+            }
+        case 252:
+            if (%varbit_5813 = true) {
+                return(2);
+            }
+        case 253:
+            if (%varbit_5814 = 5) {
+                return(2);
+            } else if (%varbit_5814 > 0) {
+                return(1);
+            }
+        case 254:
+            if (%varbit_5815 = 5) {
+                return(2);
+            } else if (%varbit_5815 > 0) {
+                return(1);
+            }
+        case 255:
+            if (%varbit_5816 = 5) {
+                return(2);
+            } else if (%varbit_5816 > 0) {
+                return(1);
+            }
+        case 332:
+            if (%varbit_8205 = true) {
+                return(2);
+            }
+        case 333:
+            if (%varbit_8212 = true) {
+                return(2);
+            }
+        case 334:
+            if (%varbit_8217 = true) {
+                return(2);
+            }
+        case 335:
+            if (%varbit_8221 = true) {
+                return(2);
+            }
+        case 336:
+            if (%varbit_8224 = true) {
+                return(2);
+            }
+        case 256:
+            if (%varbit_3986 = true) {
+                return(2);
+            }
+        case 257:
+            if (%varbit_3987 = true) {
+                return(2);
+            }
+        case 258:
+            if (%varbit_3988 = true) {
+                return(2);
+            }
+        case 259:
+            if (%varbit_3989 = true) {
+                return(2);
+            }
+        case 260:
+            if (%varbit_3990 = true) {
+                return(2);
+            }
+        case 261:
+            if (%varbit_3991 = true) {
+                return(2);
+            }
+        case 262:
+            if (%varbit_3992 = true) {
+                return(2);
+            }
+        case 263:
+            if (%varbit_3993 = true) {
+                return(2);
+            }
+        case 264:
+            if (%varbit_3994 = true) {
+                return(2);
+            }
+        case 265:
+            if (%varbit_3995 = true) {
+                return(2);
+            }
+        case 266:
+            if (%varbit_3996 = true) {
+                return(2);
+            }
+        case 267:
+            if (%varbit_3997 = true) {
+                return(2);
+            }
+        case 268:
+            if (%varbit_3998 = true) {
+                return(2);
+            }
+        case 269:
+            if (%varbit_3999 = true) {
+                return(2);
+            }
+        case 270:
+            if (%varbit_4000 = true) {
+                return(2);
+            }
+        case 271:
+            if (%varbit_4001 = true) {
+                return(2);
+            }
+        case 272:
+            if (%varbit_4002 = true) {
+                return(2);
+            }
+        case 273:
+            if (%varbit_4004 = true) {
+                return(2);
+            }
+        case 274:
+            if (%varbit_4005 = true) {
+                return(2);
+            }
+        case 275:
+            if (%varbit_4003 = true) {
+                return(2);
+            }
+        case 276:
+            if (%varbit_4007 = true) {
+                return(2);
+            }
+        case 277:
+            if (%varbit_4008 = true) {
+                return(2);
+            }
+        case 278:
+            if (%varbit_4009 = true) {
+                return(2);
+            }
+        case 279:
+            if (%varbit_4010 = true) {
+                return(2);
+            }
+        case 280:
+            if (%varbit_4011 = true) {
+                return(2);
+            }
+        case 281:
+            if (%varbit_4012 = 4) {
+                return(2);
+            } else if (%varbit_4012 > 0) {
+                return(1);
+            }
+        case 282:
+            if (%varbit_4013 = true) {
+                return(2);
+            }
+        case 283:
+            if (%varbit_4014 = true) {
+                return(2);
+            }
+        case 284:
+            if (%varbit_4015 = true) {
+                return(2);
+            }
+        case 285:
+            if (%varbit_4016 = true) {
+                return(2);
+            }
+        case 286:
+            if (%varbit_4017 = true) {
+                return(2);
+            }
+        case 287:
+            if (%varbit_4018 = true) {
+                return(2);
+            }
+        case 288:
+            if (%varbit_4019 = true) {
+                return(2);
+            }
+        case 289:
+            if (%varbit_4020 = true) {
+                return(2);
+            }
+        case 290:
+            if (%varbit_4021 = true) {
+                return(2);
+            }
+        case 291:
+            if (%varbit_4022 = true) {
+                return(2);
+            }
+        case 292:
+            if (%varbit_4023 = true) {
+                return(2);
+            }
+        case 293:
+            if (%varbit_4024 = true) {
+                return(2);
+            }
+        case 294:
+            if (%varbit_4025 = true) {
+                return(2);
+            }
+        case 295:
+            if (%varbit_4026 = true) {
+                return(2);
+            }
+        case 296:
+            if (%varbit_4027 = true) {
+                return(2);
+            }
+        case 297:
+            if (%varbit_4028 = true) {
+                return(2);
+            }
+        case 298:
+            if (%varbit_4029 = true) {
+                return(2);
+            }
+        case 299:
+            if (%varbit_4030 = true) {
+                return(2);
+            }
+        case 300:
+            if (%varbit_4031 = true) {
+                return(2);
+            }
+        case 301:
+            if (%varbit_4032 = true) {
+                return(2);
+            }
+        case 302:
+            if (%varbit_4033 = true) {
+                return(2);
+            }
+        case 303:
+            if (%varbit_4034 = true) {
+                return(2);
+            }
+        case 304:
+            if (%varbit_4035 = true) {
+                return(2);
+            }
+        case 305:
+            if (%varbit_4036 = true) {
+                return(2);
+            }
+        case 306:
+            if (%varbit_4037 = true) {
+                return(2);
+            }
+        case 307:
+            if (%varbit_4038 = true) {
+                return(2);
+            }
+        case 308:
+            if (%varbit_4039 = true) {
+                return(2);
+            }
+        case 337:
+            if (%varbit_8136 = true) {
+                return(2);
+            }
+        case 338:
+            if (%varbit_8137 = true) {
+                return(2);
+            }
+        case 339:
+            if (%varbit_8138 = true) {
+                return(2);
+            }
+        case 340:
+            if (%varbit_8139 = true) {
+                return(2);
+            }
+        case 341:
+            if (%varbit_8140 = true) {
+                return(2);
+            }
+        case 342:
+            if (%varbit_8141 = true) {
+                return(2);
+            }
+        case 343:
+            if (%varbit_8145 = true) {
+                return(2);
+            }
+        case 344:
+            if (%varbit_8146 = true) {
+                return(2);
+            }
+        case 345:
+            if (%varbit_8148 = true) {
+                return(2);
+            }
+        case 358:
+            if (%varbit_8517 = true) {
+                return(2);
+            }
+        case 359:
+            if (%varbit_8518 = true) {
+                return(2);
+            }
+        case 360:
+            if (%varbit_8519 = true) {
+                return(2);
+            }
+        case 361:
+            if (%varbit_8520 = true) {
+                return(2);
+            }
+        case 362:
+            if (%varbit_8521 = true) {
+                return(2);
+            }
+        case 363:
+            if (%varbit_8522 = true) {
+                return(2);
+            }
+        case 412:
+            if (%varbit_8523 = true) {
+                return(2);
+            }
+        case 365:
+            if (%varbit_8524 = true) {
+                return(2);
+            }
+        case 413:
+            if (%varbit_8525 = true) {
+                return(2);
+            }
+        case 366:
+            if (%varbit_8526 = true) {
+                return(2);
+            }
+        case 368:
+            if (%varbit_8527 = true) {
+                return(2);
+            }
+        case 369:
+            if (%varbit_8528 = true) {
+                return(2);
+            }
+        case 370:
+            if (%varbit_8529 = true) {
+                return(2);
+            }
+        case 367:
+            if (%varbit_8530 = true) {
+                return(2);
+            }
+        case 371:
+            if (%varbit_8531 = true) {
+                return(2);
+            }
+        case 372:
+            if (%varbit_8532 = true) {
+                return(2);
+            }
+        case 373:
+            if (%varbit_8533 = true) {
+                return(2);
+            }
+        case 374:
+            if (%varbit_8534 = true) {
+                return(2);
+            }
+        case 375:
+            if (%varbit_8535 = true) {
+                return(2);
+            }
+        case 376:
+            if (%varbit_8536 = true) {
+                return(2);
+            }
+        case 377:
+            if (%varbit_8537 = true) {
+                return(2);
+            }
+        case 378:
+            if (%varbit_8538 = true) {
+                return(2);
+            }
+        case 379:
+            if (%varbit_8539 = true) {
+                return(2);
+            }
+        case 380:
+            if (%varbit_8540 = true) {
+                return(2);
+            }
+        case 381:
+            if (%varbit_8541 = true) {
+                return(2);
+            }
+        case 382:
+            if (%varbit_8542 = true) {
+                return(2);
+            }
+        case 383:
+            if (%varbit_8543 = true) {
+                return(2);
+            }
+        case 384:
+            if (%varbit_8544 = true) {
+                return(2);
+            }
+        case 385:
+            if (%varbit_8545 = true) {
+                return(2);
+            }
+        case 386:
+            if (%varbit_8546 = true) {
+                return(2);
+            }
+        case 387:
+            if (%varbit_8547 = true) {
+                return(2);
+            }
+        case 388:
+            if (%varbit_8548 = true) {
+                return(2);
+            }
+        case 389:
+            if (%varbit_8549 = true) {
+                return(2);
+            }
+        case 390:
+            if (%varbit_8550 = true) {
+                return(2);
+            }
+        case 391:
+            if (%varbit_8551 = true) {
+                return(2);
+            }
+        case 392:
+            if (%varbit_8552 = true) {
+                return(2);
+            }
+        case 393:
+            if (%varbit_8553 = true) {
+                return(2);
+            }
+        case 394:
+            if (%varbit_8554 = true) {
+                return(2);
+            }
+        case 395:
+            if (%varbit_8555 = true) {
+                return(2);
+            }
+        case 396:
+            if (%varbit_8556 = true) {
+                return(2);
+            }
+        case 397:
+            if (%varbit_8557 = true) {
+                return(2);
+            }
+        case 398:
+            if (%varbit_8558 = true) {
+                return(2);
+            }
+        case 399:
+            if (%varbit_8559 = true) {
+                return(2);
+            }
+        case 414:
+            if (%varbit_8560 = true) {
+                return(2);
+            }
+        case 415:
+            if (%varbit_8573 = true) {
+                return(2);
+            }
+        case 416:
+            if (%varbit_8574 = true) {
+                return(2);
+            }
+        case 400:
+            if (%varbit_8561 = true) {
+                return(2);
+            }
+        case 401:
+            if (%varbit_8562 = true) {
+                return(2);
+            }
+        case 402:
+            if (%varbit_8563 = true) {
+                return(2);
+            }
+        case 403:
+            if (%varbit_8564 = true) {
+                return(2);
+            }
+        case 404:
+            if (%varbit_8565 = true) {
+                return(2);
+            }
+        case 405:
+            if (%varbit_8566 = true) {
+                return(2);
+            }
+        case 406:
+            if (%varbit_8567 = true) {
+                return(2);
+            }
+        case 407:
+            if (%varbit_8568 = true) {
+                return(2);
+            }
+        case 408:
+            if (%varbit_8569 = true) {
+                return(2);
+            }
+        case 409:
+            if (%varbit_8570 = true) {
+                return(2);
+            }
+        case 410:
+            if (%varbit_8571 = true) {
+                return(2);
+            }
+        case 411:
+            if (%varbit_8572 = true) {
+                return(2);
+            }
+        case 418:
+            if (%varbit_8781 = true) {
+                return(2);
+            }
+        case 3522:
+            if (%learning_the_ropes >= 7) {
+                return(2);
+            }
+        case 3500:
+            if (%learning_the_ropes > 7) {
+                return(2);
+            }
+        case 3501:
+            if (%learning_the_ropes > 10) {
+                return(2);
+            }
+        case 3505:
+            if (%learning_the_ropes > 49) {
+                return(2);
+            }
+        case 3511:
+            if (%learning_the_ropes > 95) {
+                return(2);
+            }
+        case 3502:
+            if (%learning_the_ropes > 15) {
+                return(2);
+            }
+        case 3503:
+            if (%learning_the_ropes > 30) {
+                return(2);
+            }
+        case 3504:
+            if (%learning_the_ropes > 40) {
+                return(2);
+            }
+        case 3506:
+            if (%learning_the_ropes > 55) {
+                return(2);
+            }
+        case 3508:
+            if (%learning_the_ropes > 60) {
+                return(2);
+            }
+        case 3509:
+            if (%learning_the_ropes > 62) {
+                return(2);
+            }
+        case 3507:
+            if (%learning_the_ropes > 75) {
+                return(2);
+            }
+        case 3523:
+            if (%learning_the_ropes > 70) {
+                return(2);
+            }
+        case 3510:
+            if (%learning_the_ropes > 90) {
+                return(2);
+            }
+        case 3512:
+            if (%learning_the_ropes > 115) {
+                return(2);
+            }
+        case 3513:
+            if (%learning_the_ropes > 127) {
+                return(2);
+            }
+        case 3514:
+            if (%learning_the_ropes > 165) {
+                return(2);
+            }
+        case 3515:
+            if (%learning_the_ropes > 160) {
+                return(2);
+            }
+        case 3516:
+            if (%learning_the_ropes > 160) {
+                return(2);
+            }
+        case 3517:
+            if (stat_base(woodcutting) > 1 | stat_base(mining) > 1) {
+                return(2);
+            }
+        case 3518:
+            if (stat_base(woodcutting) > 1 | stat_base(mining) > 1) {
+                return(2);
+            }
+        case 3519:
+            if (%learning_the_ropes > 170) {
+                return(2);
+            }
+        case 3520:
+            if (%varbit_6494 > 2) {
+                return(2);
+            }
+        case 422:
+            if (%varbit_9013 = 3) {
+                return(2);
+            }
+        case 423:
+            if (%varbit_9015 = true) {
+                return(2);
+            }
+        case 424:
+            if (%varbit_9016 = true) {
+                return(2);
+            }
+        case 425:
+            if (%varbit_9018 = true) {
+                return(2);
+            }
+        case 419:
+            if (%varbit_9019 = true) {
+                return(2);
+            }
+        case 420:
+            if (%varbit_9010 = true) {
+                return(2);
+            }
+        case 421:
+            if (%varbit_9011 = 3) {
+                return(2);
+            } else if (%varbit_9011 > 0) {
+                return(1);
+            }
+        case 426:
+            if (%varbit_9020 = true) {
+                return(2);
+            }
+        case 427:
+            if (%varbit_9027 = true) {
+                return(2);
+            }
+        case 3525:
+            if (%varbit_9021 = true) {
+                return(2);
+            }
+        case 3526:
+            if (%varbit_9022 = true) {
+                return(2);
+            }
+        case 3527:
+            if (%varbit_9023 = true) {
+                return(2);
+            }
+        case 3528:
+            if (%varbit_9024 = true) {
+                return(2);
+            }
+        case 3529:
+            if (%varbit_9025 = true) {
+                return(2);
+            }
+        case 3530:
+            if (%varbit_9026 = true) {
+                return(2);
+            }
+    }
+}
+return(0);
+return(0);

@@ -1,0 +1,265 @@
+// Cook's Assistant at 2011: the quest's second rework (15 December 2009, 2011
+// wiki, Cook's Assistant). The cook wants a super large egg, top-quality milk
+// and extra fine flour, which the player brings one at a time
+// (%cookquest_egg, _milk, _flour); the reward adds 500 coins and 20 noted
+// sardines. Dialogue: void-634's Cook. 289's labels, which the rework
+// replaced, follow as comments.
+[label,cooks_assistant_start]
+def_int $option = ~p_choice4("What's wrong?", 1, "Can you make me a cake?", 2, "You don't look very happy.", 3, "Nice hat!", 4);
+if ($option = 1) {
+    @cooks_assistant_whats_wrong;
+} else if ($option = 2) {
+    ~chatplayer("<p,happy>Can you make me a cake?");
+    ~chatnpc("<p,sad>*sniff* Don't talk to me about cakes...");
+    @cooks_assistant_whats_wrong;
+} else if ($option = 3) {
+    ~chatplayer("<p,neutral>You don't look very happy.");
+    ~chatnpc("<p,sad>No, I'm not. The world is caving in around me - I am overcome by dark feelings of impending doom.");
+    $option = ~p_choice2("What's wrong?", 1, "I'd take the rest of the day off if I were you.", 2);
+    if ($option = 1) {
+        @cooks_assistant_whats_wrong;
+    }
+    ~chatplayer("<p,neutral>I'd take the rest of the day off if I were you.");
+    ~chatnpc("<p,sad>No, that's the worst thing I could do. I'd get in terrible trouble.");
+    ~chatplayer("<p,neutral>Well maybe you need to take a holiday...");
+    ~chatnpc("<p,sad>That would be nice, but the Duke doesn't allow holidays for core staff.");
+    ~chatplayer("<p,neutral>Hmm, why not run away to the sea and start a new life as a Pirate?");
+    ~chatnpc("<p,sad>My wife gets sea sick, and I have an irrational fear of eyepatches. I don't see it working myself.");
+    ~chatplayer("<p,neutral>I'm afraid I've run out of ideas.");
+    ~chatnpc("<p,sad>I know I'm doomed.");
+    @cooks_assistant_whats_wrong;
+} else if ($option = 4) {
+    ~chatplayer("<p,happy>Nice hat!");
+    ~chatnpc("<p,sad>Err thank you. It's a pretty ordinary cooks hat really.");
+    ~chatplayer("<p,happy>Still, suits you. The trousers are pretty special too.");
+    ~chatnpc("<p,sad>Its all standard cook's issue uniform...");
+    ~chatplayer("<p,happy>The whole hat, apron, stripey trousers ensemble - it works. It make you looks like a real cook.");
+    ~chatnpc("<p,angry>I am a real cook! I haven't got time to be chatting about Culinary Fashion. I am in desperate need of help!");
+    @cooks_assistant_whats_wrong;
+}
+
+[label,cooks_assistant_whats_wrong]
+~chatplayer("<p,neutral>What's wrong?");
+~chatnpc("<p,scared>Oh dear, oh dear, oh dear, I'm in a terrible terrible mess! It's the Duke's birthday today, and I should be making him a lovely big birthday cake using special ingredients...");
+~chatnpc("<p,scared>...but I've forgotten to get the ingredients. I'll never get them in time now. He'll sack me! What will I do? I have four children and a goat to look after. Would you help me? Please?");
+def_int $option = ~p_choice2_header("Yes.", 1, "No.", 2, "Start the Cook's Assistant quest?");
+if ($option = 1) {
+    ~chatplayer("<p,happy>I'm always happy to help a cook in distress.");
+    %cookquest = 1;
+    ~send_quest_progress(^questlist_cook, %cookquest, ^cook_complete);
+    ~chatnpc("<p,happy>Oh thank you, thank you. I must tell you that this is no ordinary cake, though - only the best ingredients will do! I need a super large egg, top-quality milk and some extra fine flour.");
+    ~chatplayer("<p,quiz>Where can I find those, then?");
+    @cooks_assistant_where;
+}
+~chatplayer("<p,neutral>No, I don't feel like it. Maybe later.");
+~chatnpc("<p,sad>Fine. I always knew you Adventurer types were callous beasts. Go on your merry way!");
+
+[label,cooks_assistant_where]
+~chatnpc("<p,quiz>That's the problem: I don't exactly know. I usually send my assistant to get them for me but he quit.");
+~chatnpc("<p,neutral>I've marked some places on your world map in red. You might want to consider investigating them.");
+
+[label,cooks_assistant_inprogress]
+~chatnpc("<p,sad>How are you getting on with finding the ingredients?");
+if (inv_total(inv, top_quality_milk) > 0) {
+    ~objbox(top_quality_milk, "You give the top-quality milk to the cook.", 250, 0, 0);
+    inv_del(inv, top_quality_milk, 1);
+    %cookquest_milk = ^true;
+    ~chatplayer("<p,happy>Here's some top-quality milk.");
+}
+if (inv_total(inv, extra_fine_flour) > 0) {
+    ~objbox(extra_fine_flour, "You give the extra fine flour to the cook.", 250, 0, 0);
+    inv_del(inv, extra_fine_flour, 1);
+    %cookquest_flour = ^true;
+    ~chatplayer("<p,happy>Here's the extra fine flour.");
+}
+if (inv_total(inv, super_large_egg) > 0) {
+    ~objbox(super_large_egg, "You give the super large egg to the cook.", 250, 0, 0);
+    inv_del(inv, super_large_egg, 1);
+    %cookquest_egg = ^true;
+    ~chatplayer("<p,happy>Here's a super large egg.");
+}
+if (inv_total(inv, egg) > 0 & %cookquest_egg = ^false) {
+    ~chatplayer("<p,neutral>I've this egg.");
+    ~chatnpc("<p,neutral>No, I need a super large egg. You'll probably find one near the local chickens.");
+}
+if (inv_total(inv, pot_of_flour) > 0 & %cookquest_flour = ^false) {
+    ~chatplayer("<p,neutral>I've this flour.");
+    ~chatnpc("<p,neutral>That's not fine enough. I imagine if you speak with Millie at the mill to the north she'll help you out.");
+}
+if (inv_total(inv, bucket_of_milk) > 0 & %cookquest_milk = ^false) {
+    ~chatplayer("<p,neutral>I've this milk.");
+    ~chatnpc("<p,neutral>Not bad, but not good enough. There's a milk maid that looks after the cows to the north-east. She might have some advice.");
+}
+if (%cookquest_egg = ^true & %cookquest_flour = ^true & %cookquest_milk = ^true) {
+    ~chatnpc("<p,happy>You've brought me everything I need I am saved! Thank you!");
+    ~chatplayer("<p,happy>So, do I get to go to the Duke's party?");
+    ~chatnpc("<p,sad>I'm afraid not. Only the big cheeses get to dine with the Duke.");
+    ~chatplayer("<p,neutral>Well, maybe one day, I'll be important enough to sit at the Duke's table.");
+    ~chatnpc("<p,neutral>Maybe, but I won't be holding my breath.");
+    if (inv_freespace(inv) < 2) {
+        ~chatnpc("<p,neutral>Ah, I have some rewards for you but your inventory seems to be full.");
+        return;
+    }
+    queue(cooks_quest_complete, 0, 0);
+    return;
+}
+if (%cookquest_egg = ^true | %cookquest_flour = ^true | %cookquest_milk = ^true) {
+    ~chatnpc("<p,sad>Thanks for the ingredients you have got so far. Please get the rest quickly. I'm running out of time! The Duke will throw me out onto the street!");
+} else {
+    ~chatplayer("<p,neutral>I haven't got any of them yet, I'm still looking.");
+    ~chatnpc("<p,sad>Please get the ingredients quickly. I'm running out of time! The Duke will throw me out onto the street!");
+}
+def_string $need = "You still need to get:";
+if (%cookquest_milk = ^false) {
+    $need = append($need, " Some top-quality milk.");
+}
+if (%cookquest_flour = ^false) {
+    $need = append($need, " Some extra fine flour.");
+}
+if (%cookquest_egg = ^false) {
+    $need = append($need, " A super large egg.");
+}
+~mesbox($need);
+def_int $option = ~p_choice2("I'll get right on it.", 1, "Where can I find the ingredients?", 2);
+if ($option = 2) {
+    @cooks_assistant_where;
+}
+~chatplayer("<p,happy>I'll get right on it.");
+
+[label,cooks_assistant_completed]
+~chatnpc("<p,happy>Hello, friend, how is the adventuring going?");
+def_int $option = ~p_choice3("I'm getting strong and mighty.", 1, "I keep on dying.", 2, "Can I use your range?", 3);
+if ($option = 1) {
+    ~chatplayer("<p,happy>I'm getting strong and mighty. Grr.");
+    ~chatnpc("<p,happy>Glad to hear it.");
+} else if ($option = 2) {
+    ~chatplayer("<p,sad>I keep on dying.");
+    ~chatnpc("<p,happy>Ah, well, at least you keep coming back to life too!");
+} else if ($option = 3) {
+    ~chatplayer("<p,neutral>Can I use your range?");
+    ~chatnpc("<p,happy>Go ahead! It's very good range; it's better than most other ranges.");
+    ~chatnpc("<p,happy>It's called the Cook-o-Matic 25 and it uses a combination of state-of-the-art temperature regulation and magic.");
+    ~chatplayer("<p,neutral>Will it mean my food will burn less often?");
+    ~chatnpc("<p,happy>As long as the food is fairly easy to cook in the first place!");
+    if (inv_total(inv, cook_o_matic_manual) > 0) {
+        ~chatnpc("<p,happy>The manual you have in your inventory should tell you more.");
+    } else if (inv_freespace(inv) = 0) {
+        ~chatnpc("<p,sad>I'd give you the manual, but you don't have room to take it. Ask me again when you have some space.");
+    } else {
+        ~chatnpc("<p,happy>Here, take this manual. It should tell you everything you need to know about this range.");
+        inv_add(inv, cook_o_matic_manual, 1);
+        ~objbox(cook_o_matic_manual, "The cook hands you a manual.", 250, 0, 0);
+    }
+    ~chatplayer("<p,neutral>Thanks!");
+}
+
+// 289's Cook's Assistant, which 2011's rework replaced:
+// [label,cooks_assistant_start]
+// def_int $option = ~p_choice4("What's wrong?", 1, "Well you could give me all your money!", 2, "You don't look very happy.", 3, "Nice hat!", 4);
+
+// if($option = 1) {
+//     @cooks_assistant_whats_wrong;
+// } else if($option = 2) {
+//     ~chatplayer("<p,neutral>Well you could give me all your money!");
+//     ~chatnpc("<p,sad>Haha, very funny!");
+// } else if($option = 3) {
+//     ~chatplayer("<p,neutral>You don't look very happy.");
+//     ~chatnpc("<p,sad>No, I'm not.");
+//     $option = ~p_choice2("What's wrong?", 1, "I'd take the rest of the day off if I were you.", 2);
+//     if($option = 1) {
+//         @cooks_assistant_whats_wrong;
+//     } else if($option = 2) {
+//         ~chatplayer("<p,neutral>I'd take the rest of the day off if I were you.");
+//         ~chatnpc("<p,sad>No, that's the worst thing I could do - I'd get in terrible trouble.");
+//         @cooks_assistant_whats_wrong;
+//     }
+// } else if ($option = 4) {
+//     ~chatplayer("<p,happy>Nice hat!");
+//     ~chatnpc("<p,sad>Err thank you. It's a pretty ordinary cooks hat really.");
+// }
+
+// [label,cooks_assistant_whats_wrong]
+// ~chatplayer("<p,neutral>What's wrong?");
+// ~chatnpc("<p,scared>Ooh dear, I'm in a terrible mess!|It's the Duke's birthday today,|I'm meant to be making him a big cake for this evening.");
+// ~chatnpc("<p,sad>Unfortunately, I've forgotten to buy some of the ingredients. I'll never get them in time now. I don't suppose you could help me?");
+// def_int $option = ~p_choice2("Yes, I'll help you.", 1, "No, I don't feel like it. Maybe later.", 2);
+
+// if($option = 1) {
+//     %cookquest = 1;
+//     ~send_quest_progress(^questlist_cook, %cookquest, ^cook_complete);
+//     ~chatplayer("<p,happy>Yes, I'll help you.");
+//     // https://storage.googleapis.com/tannerdino/images/cook2.jpg
+//     ~chatnpc("<p,happy>Oh thank you, thank you. I need milk, an egg and flour.|I'd be very grateful if you can get them to me."); // auto break will break the line early
+// } else if($option = 2) {
+//     ~chatplayer("<p,neutral>No, I don't feel like it. Maybe later.");
+//     ~chatnpc("<p,sad>OK, suit yourself!");
+// }
+
+// [label,cooks_assistant_inprogress]
+// ~chatnpc("<p,sad>How are you getting on with finding the ingredients?");
+
+// if(inv_total(inv, pot_of_flour) > 0 & inv_total(inv, egg) > 0 & inv_total(inv, bucket_of_milk) > 0) {
+//     @cooks_assistant_completion;
+// }
+
+// if(inv_total(inv, pot_of_flour) = 0 & inv_total(inv, egg) = 0 & inv_total(inv, bucket_of_milk) = 0) {
+//     ~chatplayer("<p,neutral>I'm afraid I don't have any yet!");
+//     ~chatnpc("<p,sad>Oh dear, oh dear!|I need flour, eggs and milk.|Without them I am doomed!");
+//     return;
+// } else {
+//     ~chatplayer("<p,happy>I have found some of the things you asked for.");
+//     if(inv_total(inv, bucket_of_milk) > 0) {
+//         ~chatplayer("<p,happy>I have some milk.");
+//     }
+//     if(inv_total(inv, pot_of_flour) > 0) {
+//         ~chatplayer("<p,happy>I have some flour.");
+//     }
+//     if(inv_total(inv, egg) > 0) {
+//         ~chatplayer("<p,happy>I have an egg.");
+//     }
+// }
+// ~chatnpc("<p,sad>Great, but can you get the other ingredients as well?|You still need to find...");
+// if(inv_total(inv, bucket_of_milk) = 0) {
+//     ~chatnpc("<p,happy>Some milk.");
+// }
+// if(inv_total(inv, pot_of_flour) = 0) {
+//     ~chatnpc("<p,happy>Some flour.");
+// }
+// if(inv_total(inv, egg) = 0) {
+//     ~chatnpc("<p,happy>An egg.");
+// }
+// ~chatplayer("<p,happy>OK, I'll try and find that for you.");
+
+// [label,cooks_assistant_completion]
+// ~chatplayer("<p,happy>I now have everything you need for your cake!");
+// ~chatplayer("<p,happy>Milk, flour, and an egg!");
+// ~chatnpc("<p,happy>I am saved, thank you!");
+// ~mesbox("You give some milk, an egg and some flour to the cook.");
+// inv_del(inv, egg, 1);
+// inv_del(inv, bucket_of_milk, 1);
+// inv_del(inv, pot_of_flour, 1);
+// queue(cooks_quest_complete, 0, 0);
+
+[queue,cooks_quest_complete]
+%cookquest = ^cook_complete;
+stat_advance(cooking, 3000);
+// 2011: 500 coins and 20 noted sardines (the rework of 15 December 2009).
+inv_add(inv, coins, 500);
+inv_add(inv, cert_sardine, 20);
+session_log(^log_adventure, "Quest complete: Cook's Assistant");
+// ~send_quest_complete(^questlist_cook, cake, 250, ^cook_questpoints, "You have completed the Cooks' Quest!");
+~send_quest_complete(^questlist_cook, cake, 250, ^cook_questpoints, "You have completed the Cook's Assistant Quest!");
+if_settext(questscroll_ver3:com11, "300 Cooking XP");
+if_settext(questscroll_ver3:com12, "500 coins");
+if_settext(questscroll_ver3:com13, "20 sardines");
+if_settext(questscroll_ver3:com14, "Access to the cook's range");
+
+[oplocu,cooking_range]
+if (%cookquest < ^cook_complete) {
+    if(npc_find(coord, cook, 5, 0) = true) {
+        ~chatnpc("<p,angry>Hey! Who said you could use that?");
+    }
+    return;
+} else {
+    @attempt_cook_item(last_useitem);
+}

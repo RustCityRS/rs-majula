@@ -2,8 +2,14 @@ use crate::active_player::ActivePlayer;
 use crate::counters::{self, CHAT_PUBLIC, COUNTERS};
 use crate::engine::engine;
 use crate::handlers::ClientGameHandler;
+#[cfg(since_647)]
+use rs_entity::player::CHAT_MODE_CLAN;
+#[cfg(since_647)]
+use rs_io::cp1252::{decode_string, encode_string};
 use rs_protocol::network::game::client::message_public::MessagePublic;
+#[cfg(before_647)]
 use rs_protocol::network::game::info_prot::PlayerInfoProt;
+#[cfg(before_647)]
 use rs_util::wordpack::{pack, unpack};
 use rs_vm::ScriptError;
 use rs_vm::engine::{ScriptEngine, ScriptPlayer};
@@ -14,11 +20,13 @@ use rs_vm::engine::{ScriptEngine, ScriptPlayer};
 /// `3` = shake, `4` = scroll and `5` = slide.
 #[cfg(before_289)]
 const MAX_CHAT_EFFECT: u8 = 2;
-#[cfg(since_289)]
+#[cfg(all(since_289, before_647))]
 const MAX_CHAT_EFFECT: u8 = 5;
 
+#[cfg(before_647)]
 const MAX_CHAT_COLOUR: u8 = 11;
 
+#[cfg(before_647)]
 const MAX_CHAT_LEN: usize = 100;
 
 /// Handles the `MessagePublic` client protocol message.
@@ -49,6 +57,7 @@ const MAX_CHAT_LEN: usize = 100;
 ///
 /// **Called by:** `ActivePlayer::decode_and_handle` (via `ClientGameHandler` dispatch)
 /// **Calls:** `cache().wordenc.filter`, `pack`/`unpack`
+#[cfg(before_647)]
 impl ClientGameHandler for MessagePublic {
     fn handle(self, active: &mut ActivePlayer) -> Result<(), ScriptError> {
         let clock = engine().clock;
@@ -79,6 +88,62 @@ impl ClientGameHandler for MessagePublic {
         counters::add(&COUNTERS.chat[CHAT_PUBLIC], 1);
         active.log_chat(None, text);
 
+        Ok(())
+    }
+}
+
+#[cfg(since_647)]
+const CLAN_CHAT: i32 = 11;
+
+#[cfg(since_647)]
+impl ClientGameHandler for MessagePublic {
+    fn handle(self, active: &mut ActivePlayer) -> Result<(), ScriptError> {
+        if active.player.chat_mode == CHAT_MODE_CLAN {
+            active.message_game_typed(CLAN_CHAT, "You must be in a clan chat to talk.");
+            return Ok(());
+        }
+        let clock = engine().clock;
+        let char_count = self.chars as usize;
+        if active.last_social == Some(clock)
+            || self.colour > 11
+            || self.effect > 5
+            || !(1..=80).contains(&char_count)
+        {
+            return Ok(());
+        }
+        if active.is_muted() {
+            counters::add(&COUNTERS.chat_muted[CHAT_PUBLIC], 1);
+            return Ok(());
+        }
+
+        let mut bytes = self.bytes;
+        let len = bytes.len();
+        bytes.resize(len.max(char_count << 2), 0);
+        let mut decoded = vec![0; char_count];
+        let consumed = engine()
+            .cache
+            .huffman
+            .decode(&bytes, 0, &mut decoded, char_count);
+        if consumed > len {
+            return Err(ScriptError::Client("Truncated chat message".to_string()));
+        }
+        let text = decode_string(&decoded);
+        let message = engine().wordenc().filter(&text);
+        let mut decoded = encode_string(&message);
+        if let Some(first) = decoded.first_mut() {
+            first.make_ascii_uppercase();
+        }
+        let char_count = decoded.len();
+        let mut encoded = vec![0; char_count << 2];
+        let len = engine().cache.huffman.encode(&decoded, &mut encoded);
+        encoded.truncate(len);
+
+        active.last_social = Some(clock);
+        counters::add(&COUNTERS.chat[CHAT_PUBLIC], 1);
+        active.log_chat(None, text);
+        let effects = self.effect as u16 | (self.colour as u16) << 8;
+        let rights = active.staffmodlevel();
+        active.player.pending_public_chat = Some((effects, rights, char_count, encoded));
         Ok(())
     }
 }

@@ -1,0 +1,22 @@
+[proc,meslayer_mode6](string $string)
+if (%varc_int_1413 = false) {
+    return;
+}
+if (%varc_int_11 = true) {
+    mes("You can't do that while you're reporting abuse.");
+    return;
+}
+if (getwindowmode >= 2) {
+    if_sethide(false, toplevel_fullscreen:com_chatbox);
+}
+%varc_string_23 = $string;
+if_sethide(false, chatbox:com3);
+if_sethide(true, chatbox:com7);
+if_sethide(true, chatbox:com8);
+if_settext("Enter message to send to <%varc_string_23>", chatbox:com4);
+%varc_int_5 = 6;
+~meslayer_setupinput("");
+if_setonclick(null, chatbox:com3);
+~clientscript_2026;
+if_setonkey("meslayer_onkey(^event_key, ^event_keychar)", chatbox:com5);
+~opt_header;

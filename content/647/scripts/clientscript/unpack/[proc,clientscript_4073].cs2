@@ -1,0 +1,8 @@
+[proc,clientscript_4073]
+if (%varbit_8669 = false) {
+    %varc_int_1432 = 0;
+    ~warguild_show_single(warguild_token_choice:com2);
+} else {
+    %varc_int_1432 = 0;
+    ~warguild_show_multi(warguild_token_choice:com3);
+}

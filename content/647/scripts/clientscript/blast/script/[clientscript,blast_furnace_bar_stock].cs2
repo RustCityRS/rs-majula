@@ -1,0 +1,73 @@
+[clientscript,blast_furnace_bar_stock]
+if_settext("Bronze: <tostring(%varbit_941)>", blast_furnace_bar_stock:com42);
+if (%varbit_941 > 0) {
+    if_setcolour(0xff981f, blast_furnace_bar_stock:com44);
+    if_setcolour(0xff981f, blast_furnace_bar_stock:com42);
+} else {
+    if_setcolour(0x999999, blast_furnace_bar_stock:com44);
+    if_setcolour(0x999999, blast_furnace_bar_stock:com42);
+}
+if_settext("Iron: <tostring(%varbit_942)>", blast_furnace_bar_stock:com39);
+if (%varbit_942 > 0) {
+    if_setcolour(0xff981f, blast_furnace_bar_stock:com41);
+    if_setcolour(0xff981f, blast_furnace_bar_stock:com39);
+} else {
+    if_setcolour(0x999999, blast_furnace_bar_stock:com41);
+    if_setcolour(0x999999, blast_furnace_bar_stock:com39);
+}
+if_settext("Steel: <tostring(%varbit_943)>", blast_furnace_bar_stock:com37);
+if (%varbit_943 > 0) {
+    if_setcolour(0xff981f, blast_furnace_bar_stock:com38);
+    if_setcolour(0xff981f, blast_furnace_bar_stock:com37);
+} else {
+    if_setcolour(0x999999, blast_furnace_bar_stock:com38);
+    if_setcolour(0x999999, blast_furnace_bar_stock:com37);
+}
+if_settext("Mithril: <tostring(%varbit_944)>", blast_furnace_bar_stock:com34);
+if (%varbit_944 > 0) {
+    if_setcolour(0xff981f, blast_furnace_bar_stock:com35);
+    if_setcolour(0xff981f, blast_furnace_bar_stock:com34);
+} else {
+    if_setcolour(0x999999, blast_furnace_bar_stock:com35);
+    if_setcolour(0x999999, blast_furnace_bar_stock:com34);
+}
+if_settext("Adamantite: <tostring(%varbit_945)>", blast_furnace_bar_stock:com31);
+if (%varbit_945 > 0) {
+    if_setcolour(0xff981f, blast_furnace_bar_stock:com32);
+    if_setcolour(0xff981f, blast_furnace_bar_stock:com31);
+} else {
+    if_setcolour(0x999999, blast_furnace_bar_stock:com32);
+    if_setcolour(0x999999, blast_furnace_bar_stock:com31);
+}
+if_settext("Runite: <tostring(%varbit_946)>", blast_furnace_bar_stock:com28);
+if (%varbit_946 > 0) {
+    if_setcolour(0xff981f, blast_furnace_bar_stock:com29);
+    if_setcolour(0xff981f, blast_furnace_bar_stock:com28);
+} else {
+    if_setcolour(0x999999, blast_furnace_bar_stock:com29);
+    if_setcolour(0x999999, blast_furnace_bar_stock:com28);
+}
+if_settext("Silver: <tostring(%varbit_948)>", blast_furnace_bar_stock:com25);
+if (%varbit_948 > 0) {
+    if_setcolour(0xff981f, blast_furnace_bar_stock:com26);
+    if_setcolour(0xff981f, blast_furnace_bar_stock:com25);
+} else {
+    if_setcolour(0x999999, blast_furnace_bar_stock:com26);
+    if_setcolour(0x999999, blast_furnace_bar_stock:com25);
+}
+if_settext("Gold: <tostring(%varbit_947)>", blast_furnace_bar_stock:com22);
+if (%varbit_947 > 0) {
+    if_setcolour(0xff981f, blast_furnace_bar_stock:com23);
+    if_setcolour(0xff981f, blast_furnace_bar_stock:com22);
+} else {
+    if_setcolour(0x999999, blast_furnace_bar_stock:com23);
+    if_setcolour(0x999999, blast_furnace_bar_stock:com22);
+}
+if_settext("Perfect Gold: <tostring(%varbit_958)>", blast_furnace_bar_stock:com2);
+if (%varbit_958 > 0) {
+    if_setcolour(0xff981f, blast_furnace_bar_stock:com4);
+    if_setcolour(0xff981f, blast_furnace_bar_stock:com2);
+} else {
+    if_setcolour(0x999999, blast_furnace_bar_stock:com4);
+    if_setcolour(0x999999, blast_furnace_bar_stock:com2);
+}

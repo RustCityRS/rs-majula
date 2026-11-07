@@ -233,7 +233,7 @@ fn handle(
     let result = engine_mut().run_script_by_trigger(
         (
             trigger,
-            Some(obj.id),
+            Some(obj.id as i32),
             Some(obj.category.map(|x| x as i32).unwrap_or(-1)),
         ),
         Some(ScriptSubject::Player(active.player.uid)),

@@ -1,0 +1,5 @@
+[proc,clientscript_1869](component $component)
+if (calc(clientclock % 50) ! 0) {
+    return;
+}
+~clientscript_1870($component);

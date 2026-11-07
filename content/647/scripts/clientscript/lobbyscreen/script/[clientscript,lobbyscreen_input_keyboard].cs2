@@ -1,0 +1,22 @@
+[clientscript,lobbyscreen_input_keyboard](int $int0, char $int1, component $component2, int $int3, int $int4, string $string)
+switch_int ($int0) {
+    case 84:
+        ~lobbyscreen_input_ok($int4, $string);
+        return;
+    case 13:
+        ~lobbyscreen_input_close;
+        return;
+    case 96, 97, 98, 99, 102, 103:
+        if ($int4 ! -1 & $int4 ! 6) {
+            %varc_int_1097 = ~clientscript_1553($int0, %varc_int_1097, %varc_string_277);
+            ~clientscript_1875(lobbyscreen:com140, lobbyscreen:com141, %varc_string_277);
+        }
+        return;
+    case -1, 85, 101:
+        if ($int4 ! -1 & ($int4 ! 6 & (char_isprintable($int1) = true | ($int0 = 85 | $int0 = 101)))) {
+            %varc_string_277, %varc_int_1097 = ~clientscript_802(%varc_int_1097, %varc_string_277, $int3, $int0, $int1);
+            if_settext(escape(%varc_string_277), $component2);
+            ~clientscript_1875(lobbyscreen:com140, lobbyscreen:com141, %varc_string_277);
+        }
+        return;
+}

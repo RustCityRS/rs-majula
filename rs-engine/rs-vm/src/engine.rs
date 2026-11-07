@@ -196,6 +196,24 @@ pub trait ScriptEngine {
     where
         Self: Sized;
 
+    /// Runs the `opheld{op}` trigger for the item `obj_id` at `slot` in the
+    /// player's inventory (rev-647 `p_opheld` command). Sets the player's
+    /// last_item/last_slot context first. Ops 1-5 map to OpHeld1-5; ops 6-10
+    /// have no opheld trigger and are a no-op (handled inline by if_button).
+    #[cfg(since_647)]
+    fn run_opheld(&mut self, uid: PlayerUid, op: i32, obj_id: u16, slot: i32);
+
+    /// Rev-647 `p_setdisplayname`: asks the DB service to validate and claim
+    /// `name` for the player. The saves phase resumes the player's
+    /// `DisplayNamePending` script with the result.
+    #[cfg(since_647)]
+    fn request_set_display_name(&mut self, uid: PlayerUid, name: String);
+
+    /// Rev-647 `p_request_more_suggestions`: asks the DB service for another
+    /// batch of available display-name suggestions.
+    #[cfg(since_647)]
+    fn request_more_suggestions(&mut self, uid: PlayerUid);
+
     /// Appends every NPC in the zone containing `coord` to `out`, so a
     /// search over many zones can reuse one buffer.
     fn extend_zone_npcs(&self, coord: CoordGrid, out: &mut Vec<NpcRef>);
@@ -633,6 +651,15 @@ pub trait ScriptPlayer {
     /// The [`PlayerUid`] that uniquely identifies this player across the session.
     fn uid(&self) -> PlayerUid;
 
+    /// Returns the name the player is shown by (`displayname`).
+    ///
+    /// # Returns
+    /// The screen name of the player's login; from 647, the display name the
+    /// player claimed (`p_setdisplayname`) when there is one.
+    fn display_name(&self) -> String {
+        self.uid().screen_name()
+    }
+
     /// Returns the player's current packed coordinate.
     ///
     /// # Returns
@@ -662,6 +689,11 @@ pub trait ScriptPlayer {
     /// # Returns
     /// The target slot index as `i32`.
     fn last_targetslot(&self) -> i32;
+
+    /// Returns the component the last drag ended on (`iface << 16 | com`),
+    /// or `-1` if none.
+    #[cfg(since_647)]
+    fn last_targetcom(&self) -> i32;
 
     /// Returns the item type ID from the last interaction.
     ///
@@ -922,6 +954,15 @@ pub trait ScriptPlayer {
     /// * `damage_type` - The hitmark type identifier.
     fn damage(&mut self, amount: u8, damage_type: u8);
 
+    /// Paints a 647 hitsplat; content has already taken the life points off.
+    ///
+    /// # Arguments
+    /// * `amount` - The hit in life points.
+    /// * `hitmark` - The hitmark config id.
+    /// * `healthbar` - The overhead bar's fill, 0-255.
+    #[cfg(since_647)]
+    fn hit(&mut self, amount: u16, hitmark: u8, healthbar: u8);
+
     /// Finds the player with the most hero points on this entity.
     ///
     /// # Returns
@@ -1036,6 +1077,73 @@ pub trait ScriptPlayer {
     /// # Arguments
     /// * `msg` - The message text to display.
     fn mes(&mut self, msg: &str);
+
+    /// Rev-647 client window mode (0 = fixed, 1 = resizable), from the login
+    /// block.
+    #[cfg(since_647)]
+    fn window_mode(&self) -> u8;
+
+    /// Rev-647: opens a toplevel (root) interface.
+    #[cfg(since_647)]
+    fn if_opentop(&mut self, com: u16);
+
+    /// Rev-647: mounts a sub-interface at a parent component hash
+    /// (`interface << 16 | component`).
+    #[cfg(since_647)]
+    fn if_opensub(&mut self, sub_id: u16, parent_hash: i32, walkable: u8);
+
+    /// Rev-647: closes whatever sub-interface is mounted at the parent
+    /// component hash.
+    #[cfg(since_647)]
+    fn if_closesub(&mut self, component_hash: i32);
+
+    /// Rev-647: moves the sub-interface mounted at `from` onto `to`, closing
+    /// whatever `to` held, without reloading it.
+    #[cfg(since_647)]
+    fn if_movesub(&mut self, from: i32, to: i32);
+
+    /// Rev-647: sets the client-side event mask for a component slot range.
+    #[cfg(since_647)]
+    fn if_setevents(&mut self, com: i32, slot1: u16, slot2: u16, settings: i32);
+
+    /// Rev-647: transmits a client variable (varc).
+    #[cfg(since_647)]
+    fn sendvarc(&mut self, id: u16, val: i32);
+
+    /// Rev-647: transmits a string client variable (varc string).
+    #[cfg(since_647)]
+    fn sendvarc_str(&mut self, id: u16, val: &str);
+
+    /// Rev-647: invokes a clientscript (cs2) with no parameters.
+    #[cfg(since_647)]
+    fn runclientscript(&mut self, script_id: i32);
+
+    /// Rev-647: invokes a clientscript (cs2) with typed int/string parameters
+    /// (`runclientscript*`).
+    #[cfg(since_647)]
+    fn runclientscript_with_params(&mut self, script_id: i32, args: Vec<ScriptArgument>);
+
+    /// Rev-647: applies the character-design preview varcs (1008-1019) to the
+    /// player's body kit and colours.
+    #[cfg(since_647)]
+    fn applydesign(&mut self);
+
+    /// Rev-647: display-name suggestions fetched by the DB when a requested
+    /// name is taken (`p_get_suggestion` reads them 3 per page).
+    #[cfg(since_647)]
+    fn name_suggestions(&self) -> &[String];
+
+    /// Rev-647: current page into `name_suggestions` (3 names per page).
+    #[cfg(since_647)]
+    fn suggestion_page(&self) -> usize;
+
+    /// Rev-647: advances to the next suggestion page, if one exists.
+    #[cfg(since_647)]
+    fn next_suggestion_page(&mut self);
+
+    /// Rev-647: returns to the previous suggestion page, if any.
+    #[cfg(since_647)]
+    fn prev_suggestion_page(&mut self);
 
     /// Sends a game message to the player's chatbox with automatic line wrapping.
     ///
@@ -1202,49 +1310,49 @@ pub trait ScriptPlayer {
     /// # Arguments
     /// * `com` - The interface component ID.
     /// * `seq` - The sequence (animation) ID to display.
-    fn if_setanim(&mut self, com: u16, seq: u16);
+    fn if_setanim(&mut self, com: i32, seq: u16);
 
     /// Sets the colour of an interface component.
     ///
     /// # Arguments
     /// * `com` - The interface component ID.
     /// * `colour` - The RGB15 colour value.
-    fn if_setcolour(&mut self, com: u16, colour: u16);
+    fn if_setcolour(&mut self, com: i32, colour: u16);
 
     /// Shows or hides an interface component.
     ///
     /// # Arguments
     /// * `com` - The interface component ID.
     /// * `hide` - `true` to hide, `false` to show.
-    fn if_sethide(&mut self, com: u16, hide: bool);
+    fn if_sethide(&mut self, com: i32, hide: bool);
 
     /// Sets the model displayed on an interface component.
     ///
     /// # Arguments
     /// * `com` - The interface component ID.
     /// * `model` - The model ID to display.
-    fn if_setmodel(&mut self, com: u16, model: u16);
+    fn if_setmodel(&mut self, com: i32, model: u16);
 
     /// Sets an NPC chathead model on an interface component.
     ///
     /// # Arguments
     /// * `com` - The interface component ID.
     /// * `npc` - The NPC type ID whose head model to display.
-    fn if_setnpchead(&mut self, com: u16, npc: u16);
+    fn if_setnpchead(&mut self, com: i32, npc: u16);
 
     /// Displays an object model on an interface component at the given zoom level.
     ///
     /// # Arguments
     /// * `com` - The interface component ID.
     /// * `obj` - The object (item) type ID.
-    /// * `zoom` - The zoom level for the model display.
-    fn if_setobject(&mut self, com: u16, obj: u16, zoom: u16);
+    /// * `scale` - The zoom level for the model display.
+    fn if_setobject(&mut self, com: i32, obj: u16, scale: i32);
 
     /// Sets the player's own chathead model on an interface component.
     ///
     /// # Arguments
     /// * `com` - The interface component ID.
-    fn if_setplayerhead(&mut self, com: u16);
+    fn if_setplayerhead(&mut self, com: i32);
 
     /// Sets the position of an interface component.
     ///
@@ -1252,11 +1360,11 @@ pub trait ScriptPlayer {
     /// * `com` - The interface component ID.
     /// * `x` - The X position in interface coordinates.
     /// * `y` - The Y position in interface coordinates.
-    fn if_setposition(&mut self, com: u16, x: u16, y: u16);
+    fn if_setposition(&mut self, com: i32, x: u16, y: u16);
 
     /// Sets the scrollbar position on an interface component.
     #[cfg(since_245_2)]
-    fn if_setscrollpos(&mut self, com: u16, y: u16);
+    fn if_setscrollpos(&mut self, com: i32, y: u16);
 
     /// Opens a modal overlay interface component.
     #[cfg(since_244)]
@@ -1319,7 +1427,7 @@ pub trait ScriptPlayer {
     /// # Arguments
     /// * `com` - The interface component ID.
     /// * `text` - The text string to display.
-    fn if_settext(&mut self, com: u16, text: &str);
+    fn if_settext(&mut self, com: i32, text: &str);
 
     /// Plays a MIDI jingle (short musical effect) for the player.
     ///
@@ -1595,7 +1703,7 @@ pub trait ScriptPlayer {
     /// # Arguments
     /// * `inv_id` - The inventory definition ID.
     /// * `com` - The interface component ID that will display the inventory.
-    fn add_inv_transmit(&mut self, inv_id: u16, com: u16);
+    fn add_inv_transmit(&mut self, inv_id: u16, com: crate::ComId);
 
     /// Checks whether a given interface component has a transmit binding.
     ///
@@ -1604,14 +1712,13 @@ pub trait ScriptPlayer {
     ///
     /// # Returns
     /// `Some(inv_id)` if the component is bound, `None` otherwise.
-    fn has_inv_transmit(&self, com: u16) -> Option<u16>;
+    fn has_inv_transmit(&self, com: crate::ComId) -> Option<u16>;
 
-    /// Removes all transmit bindings for the given inventory.
+    /// Removes every transmit binding of the given interface component.
     ///
     /// # Arguments
-    /// * `inv_id` - The inventory definition ID whose transmit bindings
-    ///   should be cleared.
-    fn clear_inv_transmits(&mut self, inv_id: u16);
+    /// * `com` - The interface component whose bindings should be cleared.
+    fn clear_inv_transmits(&mut self, com: crate::ComId);
 
     /// Registers a cross-player inventory listener: mirrors another player's
     /// inventory onto an interface component (`invother_transmit`).
@@ -1620,7 +1727,7 @@ pub trait ScriptPlayer {
     /// * `com` - The interface component ID that will display the inventory.
     /// * `inv_id` - The inventory definition ID to display.
     /// * `uid` - The script-uid of the source player whose inventory is shown.
-    fn add_inv_other_transmit(&mut self, com: u16, inv_id: u16, uid: i32);
+    fn add_inv_other_transmit(&mut self, com: crate::ComId, inv_id: u16, uid: i32);
 
     /// Returns the cross-player inventory listener bound to a component, if any.
     ///
@@ -1629,7 +1736,7 @@ pub trait ScriptPlayer {
     ///
     /// # Returns
     /// `Some((uid, inv_id))` if `com` mirrors another player's inventory, else `None`.
-    fn has_inv_other_transmit(&self, com: u16) -> Option<(i32, u16)>;
+    fn has_inv_other_transmit(&self, com: crate::ComId) -> Option<(i32, u16)>;
 
     /// Appends a waypoint to the player's movement queue.
     ///
@@ -1689,7 +1796,7 @@ pub trait ScriptPlayer {
     ///
     /// # Arguments
     /// * `com` - The spell or use component id to key the interaction trigger on.
-    fn set_interaction_spell(&mut self, com: u16);
+    fn set_interaction_spell(&mut self, com: crate::ComId);
 
     /// Checks whether the player is within operable distance of a location.
     ///
@@ -1850,9 +1957,9 @@ pub trait ScriptNpc {
     /// Applies damage to the NPC and displays a hitsplat.
     ///
     /// # Arguments
-    /// * `amount` - The damage amount.
+    /// * `amount` - The damage amount; at 647, in life points, which pass 255.
     /// * `damage_type` - The type of hitsplat to display (e.g. melee, ranged, poison).
-    fn damage(&mut self, amount: u8, damage_type: u8);
+    fn damage(&mut self, amount: u16, damage_type: u8);
 
     /// Awards hero points to a player for contributing damage to this NPC.
     ///

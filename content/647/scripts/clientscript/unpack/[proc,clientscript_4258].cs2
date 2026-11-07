@@ -1,0 +1,9 @@
+[proc,clientscript_4258](component $component)
+if (if_find($component) = true) {
+    cc_setposition(0, 0, ^setpos_abs_centre, ^setpos_abs_centre);
+    cc_setsize(16, 15, ^setsize_abs, ^setsize_abs);
+    cc_setgraphic("aif_bronze_close_button_1,1");
+    cc_setonmouseover("clientscript_4209($component, 0)");
+    cc_setonmouseleave("clientscript_4209($component, 1)");
+    cc_settrans(255);
+}

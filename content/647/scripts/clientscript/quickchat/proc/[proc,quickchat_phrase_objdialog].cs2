@@ -1,0 +1,40 @@
+[proc,quickchat_phrase_objdialog](int $int0, int $int1)
+%varc_int_161 = $int1;
+%varc_int_128 = -1;
+%varc_int_129 = 0;
+%varc_string_30 = "";
+def_string $string = quickchat_phrase_gettext($int0);
+if (%varc_int_126 = true) {
+    $string = "To <%varc_string_27>: <col=800000><$string>";
+} else if (%varc_int_126 = 2) {
+    $string = "[<col=0000ff><clan_getchatowner><col=000000>]: <col=800000><$string>";
+} else if (%varc_int_126 = 8) {
+    if (clanchannel2_find_affined = true) {
+        $string = "[<col=0000ff><clanchannel2_getname><col=000000>]: <col=800000><$string>";
+    }
+} else if (%varc_int_126 = 10) {
+    if (clanchannel2_find = true) {
+        $string = "[<col=0000ff><clanchannel2_getname><col=000000>]: <col=800000><$string>";
+    }
+} else {
+    $string = "<col=0000ff><$string>";
+}
+if_sethide(true, chatbox_background:com50);
+if_setonkey(null, chatbox_background:com55);
+if_sethide(false, chatbox_background:com0);
+if_sethide(true, chatbox_background:com7);
+if_sethide(true, chatbox_background:com9);
+if_sethide(false, chatbox_background:com13);
+if_sethide(true, chatbox_background:com17);
+if_sethide(true, chatbox_background:com1);
+if_sethide(false, chatbox_background:com3);
+if_setcolour(^black, chatbox_background:com3);
+if_settextfont(p12_full, chatbox_background:com3);
+if_settextalign(^settextalign_left, ^settextalign_centre, 0, chatbox_background:com3);
+if_settext($string, chatbox_background:com3);
+if_settextshadow(false, chatbox_background:com3);
+cc_deleteall(chatbox_background:com16);
+if_settext("Search for: *", chatbox_background:com14);
+if_setonkey("quickchat_phrase_objdialog_onkey(^event_key, ^event_keychar, chatbox_background:com1, chatbox_background:com14, chatbox_background:com16, chatbox_background:com15, $int0, 0)", chatbox_background:com13);
+if_setscrollsize(0, 0, chatbox_background:com16);
+~scrollbar_resize(chatbox_background:com15, chatbox_background:com16, 0);

@@ -1,0 +1,19 @@
+[proc,clientscript_810]
+if (map_members = true & %show_summoning_orb = true) {
+    if_sethide(false, summoning_orb:com2);
+    if_sethide(false, summoning_orb:com3);
+    if_sethide(false, summoning_orb:com6);
+    if_sethide(false, summoning_orb:com4);
+    if_sethide(false, summoning_orb:com7);
+    ~clientscript_817(summoning);
+    if_sethide(false, summoning_orb:com5);
+    if_setcolour(~clientscript_805(summoning), summoning_orb:com5);
+    if_settext(tostring(stat(summoning)), summoning_orb:com5);
+} else {
+    if_sethide(true, summoning_orb:com2);
+    if_sethide(true, summoning_orb:com3);
+    if_sethide(true, summoning_orb:com5);
+    if_sethide(true, summoning_orb:com6);
+    if_sethide(true, summoning_orb:com4);
+    if_sethide(true, summoning_orb:com7);
+}

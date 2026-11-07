@@ -1,0 +1,25 @@
+[proc,clientscript_1325](component $component0, component $component1, component $component2, component $component3, component $component4, component $component5)
+if_setmodel(enum(105, 109, enum_1595, calc(%varbit_2511 / 10)), $component0);
+if_setmodel(enum(105, 109, enum_1595, calc(%varbit_2511 % 10)), $component1);
+if_setobject_nonum(%varp_850, 1, $component5);
+if (%varbit_2540 = false) {
+    if_setmodel(model_17219, $component3);
+    if_setmodel(null, $component2);
+    if_setmodel(null, $component4);
+    return;
+}
+if (%varbit_2540 > %varbit_2511) {
+    if_setmodel(model_17219, $component3);
+    if_setmodel(model_17221, $component2);
+    if_setmodel(model_17217, $component4);
+    return;
+}
+if (%varbit_2540 < %varbit_2511) {
+    if_setmodel(model_17219, $component3);
+    if_setmodel(model_17220, $component2);
+    if_setmodel(model_17218, $component4);
+    return;
+}
+if_setmodel(model_17216, $component3);
+if_setmodel(null, $component2);
+if_setmodel(null, $component4);

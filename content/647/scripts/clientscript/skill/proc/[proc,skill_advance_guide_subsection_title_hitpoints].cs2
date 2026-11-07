@@ -1,0 +1,12 @@
+[proc,skill_advance_guide_subsection_title_hitpoints](int $int)(int, string)
+if ($int = false) {
+    return("Constitution", 0);
+}
+if ($int = true) {
+    return("Armour", 0);
+}
+if ($int = 2) {
+    return("Milestones", 0);
+}
+return("", -1);
+return("", 0);

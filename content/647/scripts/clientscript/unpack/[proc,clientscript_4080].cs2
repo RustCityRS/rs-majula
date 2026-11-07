@@ -1,0 +1,10 @@
+[proc,clientscript_4080]
+if (if_find(xmas10_seal_scoring:com0) = true) {
+    cc_setgraphic("set_but_end_2,1");
+}
+if (if_find(xmas10_seal_scoring:com2) = true) {
+    cc_setgraphic("set_but_end_2,4");
+}
+if (if_find(xmas10_seal_scoring:com1) = true) {
+    cc_setgraphic("set_but_fill_2,1");
+}

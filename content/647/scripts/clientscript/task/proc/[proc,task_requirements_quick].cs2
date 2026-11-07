@@ -1,0 +1,22 @@
+[proc,task_requirements_quick](int $int)(int)
+if ($int >= 4091) {
+    return(0);
+}
+if ($int >= 4000 & $int <= 4027) {
+    return(0);
+}
+if (~task_get_progress($int) = 2) {
+    return(2);
+} else if (~clientscript_3994($int) = true) {
+    if (~clientscript_3999($int) = true) {
+        return(0);
+    } else {
+        return(1);
+    }
+} else if (map_members = false & struct_param(enum(105, 74, enum_3483, $int), param_1290) = 2) {
+    return(0);
+} else if (~task_requirements_fulfilled($int) = false) {
+    return(0);
+} else {
+    return(1);
+}

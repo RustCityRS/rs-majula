@@ -3,6 +3,7 @@ use rs_protocol::network::game::server::ServerProtMessage;
 use rs_protocol::network::game::server::loc_add_change::LocAddChange;
 use rs_protocol::network::game::server::loc_anim::LocAnim;
 use rs_protocol::network::game::server::loc_del::LocDel;
+#[cfg(before_647)]
 use rs_protocol::network::game::server::loc_merge::LocMerge;
 use rs_protocol::network::game::server::map_anim::MapAnim;
 use rs_protocol::network::game::server::map_projanim::MapProjAnim;
@@ -12,6 +13,7 @@ use rs_protocol::network::game::server::obj_del::ObjDel;
 use rs_protocol::network::game::server::obj_reveal::ObjReveal;
 #[cfg(since_289)]
 use rs_protocol::network::game::server::sound_area::SoundArea;
+use rs_protocol::network::game::zone_prot::ZoneProt;
 
 /// Generates the [`ZoneMessage`] enum and its mechanical `encode_zone` /
 /// `sizeof_zone` matches from a single variant list.
@@ -48,7 +50,10 @@ macro_rules! zone_messages {
             /// Advances `buf.pos` by `1 + message.sizeof()` bytes.
             pub fn encode_zone(&self, buf: &mut Packet) {
                 match self {
-                    $($(#[$meta])* Self::$variant(m) => encode(m, buf),)+
+                    $($(#[$meta])* Self::$variant(m) => {
+                        buf.p1(ZoneProt::$variant as u8);
+                        m.encode(buf);
+                    },)+
                 }
             }
 
@@ -78,24 +83,10 @@ zone_messages! {
     LocAddChange(LocAddChange),
     LocDel(LocDel),
     LocAnim(LocAnim),
+    #[cfg(before_647)]
     LocMerge(LocMerge),
     MapAnim(MapAnim),
     MapProjAnim(MapProjAnim),
     #[cfg(since_289)]
     SoundArea(SoundArea),
-}
-
-/// Writes a protocol opcode byte followed by the encoded message payload into `buf`.
-///
-/// # Arguments
-///
-/// * `message` -- The server protocol message to encode.
-/// * `buf` -- The packet buffer to write into.
-///
-/// # Side Effects
-///
-/// Advances `buf.pos` by `1 + message.sizeof()` bytes.
-fn encode<M: ServerProtMessage>(message: &M, buf: &mut Packet) {
-    buf.p1(M::PROT as u8);
-    message.encode(buf);
 }

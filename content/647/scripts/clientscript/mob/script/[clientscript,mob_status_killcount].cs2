@@ -1,0 +1,2 @@
+[clientscript,mob_status_killcount](component $component)
+if_settext(tostring(%varbit_6382), $component);

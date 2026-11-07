@@ -1,0 +1,34 @@
+[proc,clientscript_851](int $int)(int)
+if ($int = 10) {
+    return(0);
+}
+if ($int = false) {
+    return(%varbit_4400);
+}
+if ($int = true) {
+    return(%varbit_4404);
+}
+if ($int = 2) {
+    return(%varbit_4408);
+}
+if ($int = 3) {
+    return(%varbit_4412);
+}
+if ($int = 4) {
+    return(%varbit_4416);
+}
+if ($int = 5) {
+    return(%varbit_4420);
+}
+if ($int = 6) {
+    return(%varbit_4424);
+}
+if ($int = 7) {
+    return(%varbit_4428);
+}
+if ($int = 8) {
+    return(%varbit_4432);
+}
+if ($int = 9) {
+    return(%varbit_4436);
+}

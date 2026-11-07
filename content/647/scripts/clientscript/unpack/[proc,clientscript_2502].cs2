@@ -1,0 +1,11 @@
+[proc,clientscript_2502]
+switch_int (%varc_int_838) {
+    case 1:
+        if_sethide(false, ad4580426:com58);
+    case 2:
+        if_sethide(false, ad4580426:com55);
+    case 3:
+        if_sethide(false, ad4580426:com57);
+    case 4:
+        if_sethide(false, ad4580426:com56);
+}

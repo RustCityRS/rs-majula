@@ -1,0 +1,19 @@
+[proc,clientscript_3436](model $model0, component $component1, component $component2, string $string)
+if_setmodel($model0, at9292818:com57);
+if_settext($string, at9292818:com59);
+if_sethide(true, at9292818:com39);
+if_sethide(true, at9292818:com11);
+if_sethide(true, at9292818:com7);
+if_sethide(true, at9292818:com3);
+if_sethide(true, at9292818:com23);
+if_sethide(true, at9292818:com19);
+if_sethide(true, at9292818:com15);
+if_sethide(false, $component1);
+if_setgraphic(4041, at9292818:com24);
+if_setgraphic(4041, at9292818:com20);
+if_setgraphic(4041, at9292818:com16);
+if_setgraphic(4041, at9292818:com12);
+if_setgraphic(4041, at9292818:com8);
+if_setgraphic(4041, at9292818:com4);
+if_setgraphic(4041, at9292818:com0);
+if_setgraphic(4043, $component2);

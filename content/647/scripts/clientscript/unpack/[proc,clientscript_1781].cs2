@@ -1,0 +1,16 @@
+[proc,clientscript_1781]
+def_int $int = 0;
+while ($int <= 4) {
+    if (cc_find(clanwars_setup:com141, calc($int * 4)) = true) {
+        if (%varc_int_257 = $int) {
+            cc_setgraphic("options_radio_buttons,2");
+            ~clanwars_focuslayer(clanwars_setup:com141, clanwars_setup:com142, clanwars_setup:com141, calc($int * 4 + 3));
+        } else if (map_members = false & struct_param(enum(105, 74, enum_1604, $int), param_557) = true) {
+            cc_setgraphic("options_radio_buttons,1");
+        } else {
+            cc_setgraphic("options_radio_buttons,0");
+        }
+    }
+    $int = calc($int + 1);
+}
+~clanwars_updateside;

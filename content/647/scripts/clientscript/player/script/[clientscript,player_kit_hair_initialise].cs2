@@ -1,0 +1,44 @@
+[clientscript,player_kit_hair_initialise]
+cc_deleteall(player_kit_hair:com1);
+~clientscript_1088(player_kit_hair:com1, 22);
+cc_deleteall(player_kit_hair:com9);
+~verticalgradient(player_kit_hair:com9, 0x483f33, 0x302922, 0, 0);
+~clientscript_2647(player_kit_hair:com9);
+cc_deleteall(player_kit_hair:com12);
+~verticalgradient(player_kit_hair:com12, 0x483f33, 0x302922, 0, 0);
+~player_kit_player_create(player_kit_hair:com12, 380, 100);
+~clientscript_2647(player_kit_hair:com12);
+def_string $string = "Choose a hairstyle";
+if (player_isfemale = true) {
+    if_setsize(if_getwidth(player_kit_hair:com8), if_getheight(player_kit_hair:com13), ^setsize_abs, ^setsize_abs, player_kit_hair:com13);
+    if_sethide(true, player_kit_hair:com5);
+    if_setonvarctransmit("player_kit_hair_redraw(){varc_int_1008, varc_int_1015}", player_kit_hair:com1);
+    if_setonvartransmit(null, player_kit_hair:com1);
+} else {
+    if_setsize(calc(if_getwidth(player_kit_hair:com8) - (if_getwidth(player_kit_hair:com5) + 5)), if_getheight(player_kit_hair:com13), ^setsize_abs, ^setsize_abs, player_kit_hair:com13);
+    if_sethide(false, player_kit_hair:com5);
+    %varc_int_774 = ~int_to_bool(%varbit_6084);
+    if_setgraphic("player_kit_fancy,4", player_kit_hair:com6);
+    if_setgraphic("player_kit_fancy_off,3", player_kit_hair:com7);
+    if_setonop("clientscript_2830(^event_op, false)", player_kit_hair:com6);
+    if_setonop("clientscript_2830(^event_op, true)", player_kit_hair:com7);
+    if_setonmouserepeat("clientscript_1160(^event_com, -1, player_kit_hair:com22, $string, 25, 512)", player_kit_hair:com6);
+    if_setonmouseleave("deltooltip(player_kit_hair:com22)", player_kit_hair:com6);
+    $string = "Choose your facial hair";
+    if_setonmouserepeat("clientscript_1160(^event_com, -1, player_kit_hair:com22, $string, 25, 512)", player_kit_hair:com7);
+    if_setonmouseleave("deltooltip(player_kit_hair:com22)", player_kit_hair:com7);
+    if_setonvarctransmit("player_kit_hair_redraw(){varc_int_1008, varc_int_1009, varc_int_1015}", player_kit_hair:com1);
+    if_setonvartransmit("player_kit_hair_vartransmit(){varp_1057}", player_kit_hair:com1);
+}
+cc_deleteall(player_kit_hair:com13);
+~verticalgradient(player_kit_hair:com13, 0x483f33, 0x302922, 0, 0);
+cc_create(player_kit_hair:com13, ^iftype_model, if_getchildcount(player_kit_hair:com13));
+cc_setsize(0, 0, ^setsize_minus, ^setsize_minus);
+cc_setposition(0, 0, ^setpos_abs_centre, ^setpos_abs_centre);
+cc_setplayermodel_self;
+cc_setmodelangle(5, 15, 40, 1870, 0, 2400);
+cc_setmodelanim(chatidle2);
+~clientscript_2647(player_kit_hair:com13);
+cc_deleteall(player_kit_hair:com15);
+~clientscript_2647(player_kit_hair:com15);
+~player_kit_hair_redraw;

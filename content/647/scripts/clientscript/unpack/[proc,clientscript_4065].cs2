@@ -1,0 +1,49 @@
+[proc,clientscript_4065](component $component)
+~clientscript_4066;
+switch_component ($component) {
+    case warguild_token_choice:com22:
+        if_setgraphic(4444, warguild_token_choice:com19);
+        if_settext("Currently selected: Balance tokens - earned through the keg balancing minigame.", warguild_token_choice:com46);
+        if_setposition(-160, 13, ^setpos_abs_centre, ^setpos_abs_top, $component);
+        if (%varbit_8666 < 200) {
+            ~clientscript_4061;
+        } else {
+            ~clientscript_4062;
+        }
+    case warguild_token_choice:com23:
+        if_setgraphic(4445, warguild_token_choice:com17);
+        if_settext("Currently selected: Strength tokens - earned through the shot put minigame.", warguild_token_choice:com46);
+        if_setposition(-80, 13, ^setpos_abs_centre, ^setpos_abs_top, $component);
+        if (%varbit_8662 < 200) {
+            ~clientscript_4061;
+        } else {
+            ~clientscript_4062;
+        }
+    case warguild_token_choice:com24:
+        if_setgraphic(4446, warguild_token_choice:com15);
+        if_settext("Currently selected: Combat tokens - earned through the animator minigame.", warguild_token_choice:com46);
+        if_setposition(0, 13, ^setpos_abs_centre, ^setpos_abs_top, $component);
+        if (%varbit_8665 < 200) {
+            ~clientscript_4061;
+        } else {
+            ~clientscript_4062;
+        }
+    case warguild_token_choice:com26:
+        if_setgraphic(4447, warguild_token_choice:com13);
+        if_settext("Currently selected: Defence tokens - earned through the catapult minigame.", warguild_token_choice:com46);
+        if_setposition(80, 13, ^setpos_abs_centre, ^setpos_abs_top, $component);
+        if (%varbit_8663 < 200) {
+            ~clientscript_4061;
+        } else {
+            ~clientscript_4062;
+        }
+    case warguild_token_choice:com25:
+        if_setgraphic(4448, warguild_token_choice:com11);
+        if_settext("Currently selected: Attack tokens - earned through the dummy minigame.", warguild_token_choice:com46);
+        if_setposition(160, 13, ^setpos_abs_centre, ^setpos_abs_top, $component);
+        if (%varbit_8664 < 200) {
+            ~clientscript_4061;
+        } else {
+            ~clientscript_4062;
+        }
+}

@@ -1,0 +1,123 @@
+#[cfg(before_647)]
+use super::ModelCategory;
+use super::UnpackedPacks;
+use crate::cache::spotanim::SpotAnimTypeRaw;
+use std::collections::HashMap;
+
+pub fn emit_spotanim_props(
+    def: &SpotAnimTypeRaw,
+    registry: &mut UnpackedPacks,
+    _reverse_hsl: &HashMap<u16, u16>,
+) -> Vec<(String, String)> {
+    #[cfg(since_647)]
+    let recol_s = def.recol_s.as_deref().unwrap_or_default();
+    #[cfg(since_647)]
+    let recol_d = def.recol_d.as_deref().unwrap_or_default();
+    #[cfg(since_647)]
+    let retex_s = def.retex_s.as_deref().unwrap_or_default();
+    #[cfg(since_647)]
+    let retex_d = def.retex_d.as_deref().unwrap_or_default();
+    let mut p: Vec<(u8, String, String)> = Vec::new();
+    #[cfg(before_647)]
+    {
+        if def.opcode_order.contains(&1) {
+            super::model_ref(def.model, "spotanim", ModelCategory::Spotanim, registry);
+        }
+        if def.hasalpha {
+            p.push((3, "hasalpha".into(), "yes".into()));
+        }
+        for (base, suffix, colours) in [(40, "s", &def.recol_s), (50, "d", &def.recol_d)] {
+            if let Some(colours) = colours {
+                for (slot, &colour) in colours.iter().enumerate() {
+                    p.push((
+                        base + slot as u8,
+                        format!("recol{}{suffix}", slot + 1),
+                        _reverse_hsl
+                            .get(&colour)
+                            .copied()
+                            .unwrap_or(colour)
+                            .to_string(),
+                    ));
+                }
+            }
+        }
+    }
+    if def.opcode_order.contains(&1) {
+        let name = registry
+            .config_name("model", def.model as u32)
+            .map(|s| s.to_string())
+            .unwrap_or_else(|| format!("model_{}", def.model));
+        p.push((1, "model".into(), name));
+    }
+    if let Some(anim) = def.anim {
+        let name = registry
+            .config_name("seq", anim as u32)
+            .map(|s| s.to_string())
+            .unwrap_or_else(|| format!("seq_{}", anim));
+        p.push((2, "anim".into(), name));
+    }
+    if def.opcode_order.contains(&4) || def.resizeh != 128 {
+        p.push((4, "resizeh".into(), def.resizeh.to_string()));
+    }
+    if def.opcode_order.contains(&5) || def.resizev != 128 {
+        p.push((5, "resizev".into(), def.resizev.to_string()));
+    }
+    if def.opcode_order.contains(&6) || def.angle != 0 {
+        p.push((6, "angle".into(), def.angle.to_string()));
+    }
+    if def.opcode_order.contains(&7) || def.ambient != 0 {
+        p.push((7, "ambient".into(), def.ambient.to_string()));
+    }
+    if def.opcode_order.contains(&8) || def.contrast != 0 {
+        p.push((8, "contrast".into(), def.contrast.to_string()));
+    }
+    #[cfg(since_647)]
+    if def.op9 {
+        p.push((9, "op9_animmode3_param8224".into(), "yes".into()));
+    }
+    #[cfg(since_647)]
+    if def.op10 {
+        p.push((10, "op10_flag".into(), "yes".into()));
+    }
+    #[cfg(since_647)]
+    if def.op11 {
+        p.push((11, "op11_animmode1".into(), "yes".into()));
+    }
+    #[cfg(since_647)]
+    if def.op12 {
+        p.push((12, "op12_animmode4".into(), "yes".into()));
+    }
+    #[cfg(since_647)]
+    if def.op13 {
+        p.push((13, "op13_animmode5".into(), "yes".into()));
+    }
+    #[cfg(since_647)]
+    if def.opcode_order.contains(&14) {
+        p.push((14, "op14_animmode2_u8".into(), def.op14.to_string()));
+    }
+    #[cfg(since_647)]
+    if def.opcode_order.contains(&15) {
+        p.push((15, "op15_animmode3_u16".into(), def.op15.to_string()));
+    }
+    #[cfg(since_647)]
+    if def.opcode_order.contains(&16) {
+        p.push((16, "op16_animmode3_i32".into(), def.op16.to_string()));
+    }
+    #[cfg(since_647)]
+    if !recol_d.is_empty() {
+        for i in 0..recol_d.len() {
+            let n = i + 1;
+            p.push((40, format!("recol{n}d"), recol_d[i].to_string()));
+            p.push((40, format!("recol{n}s"), recol_s[i].to_string()));
+        }
+    }
+    #[cfg(since_647)]
+    if !retex_d.is_empty() {
+        for i in 0..retex_d.len() {
+            let n = i + 1;
+            p.push((41, format!("retex{n}d"), retex_d[i].to_string()));
+            p.push((41, format!("retex{n}s"), retex_s[i].to_string()));
+        }
+    }
+    super::reorder_by_opcode(&def.opcode_order, p)
+}

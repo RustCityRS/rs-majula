@@ -1,0 +1,51 @@
+[clientscript,playerdesign4_submit_name](int $int0, int $int1, int $int2)
+if ($int2 = true) {
+    %varc_int_1412 = 1;
+}
+switch_int ($int0) {
+    case default:
+        if ($int2 = true) {
+            resume_stringdialog(%varc_string_330);
+        }
+    case 1:
+        if ($int2 = true) {
+            resume_stringdialog(%varc_string_331);
+        }
+        %varc_string_330 = %varc_string_331;
+    case 2:
+        if ($int2 = true) {
+            resume_stringdialog(%varc_string_332);
+        }
+        %varc_string_330 = %varc_string_332;
+    case 3:
+        if ($int2 = true) {
+            resume_stringdialog(%varc_string_333);
+        }
+        %varc_string_330 = %varc_string_333;
+    case 4:
+        if ($int2 = true) {
+            resume_stringdialog(%varc_string_334);
+        }
+        %varc_string_330 = %varc_string_334;
+    case 5:
+        if ($int2 = true) {
+            resume_stringdialog(%varc_string_335);
+        }
+        %varc_string_330 = %varc_string_335;
+    case 6:
+        if ($int2 = true) {
+            resume_stringdialog(%varc_string_336);
+        }
+        %varc_string_330 = %varc_string_336;
+}
+def_component $component3 = playerdesign4:com181;
+def_component $component4 = playerdesign4:com182;
+def_component $component5 = playerdesign4:com183;
+if ($int1 = false) {
+    $component3 = no_displayname:com59;
+    $component4 = no_displayname:com60;
+    $component5 = no_displayname:com61;
+}
+if_settext(%varc_string_330, $component4);
+%varc_int_1099 = string_length(%varc_string_330);
+~clientscript_3218($component3, $component4, $component5, %varc_string_330, 16);

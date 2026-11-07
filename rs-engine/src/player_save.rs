@@ -20,7 +20,7 @@ const SAV_MAGIC: u16 = 0x2004;
 const SAV_VERSION: u16 = 8;
 
 /// Total number of player stats (skills).
-const STAT_COUNT: usize = 21;
+const STAT_COUNT: usize = rs_entity::build::STAT_COUNT;
 
 // ---- PlayerProfile: shared representation for DB and binary ----
 
@@ -46,8 +46,8 @@ pub struct PlayerProfile {
     pub gender: u8,
     pub runenergy: u16,
     pub playtime: i32,
-    pub stats: [i32; 21],
-    pub levels: [u8; 21],
+    pub stats: [i32; STAT_COUNT],
+    pub levels: [u8; STAT_COUNT],
     pub varps: Vec<(u16, i32)>,
     pub invs: Vec<PlayerProfileInv>,
     pub afk_zones: [u32; 2],
@@ -56,6 +56,11 @@ pub struct PlayerProfile {
     pub private_chat: u8,
     pub trade_chat: u8,
     pub last_date: i64,
+    /// Rev-647: display name claimed via `p_setdisplayname`. Loaded with the
+    /// profile but written only by the claim itself (never by the profile
+    /// save), and absent from the binary `.sav` fallback format.
+    #[cfg(since_647)]
+    pub display_name: Option<String>,
 }
 
 /// Extracts a [`PlayerProfile`] from a live [`Player`] entity.
@@ -129,6 +134,8 @@ pub fn extract_profile(player: &Player, cache: &CacheStore) -> PlayerProfile {
         private_chat: player.private as u8,
         trade_chat: player.trade as u8,
         last_date: player.last_date,
+        #[cfg(since_647)]
+        display_name: player.display_name.clone(),
     }
 }
 
@@ -167,6 +174,10 @@ pub fn apply_profile(profile: &PlayerProfile, player: &mut Player, cache: &Cache
     player.last_afk_zone = profile.last_afk_zone;
     player.last_date = profile.last_date;
     player.last_login_date = profile.last_date;
+    #[cfg(since_647)]
+    {
+        player.display_name = profile.display_name.clone();
+    }
 
     player.public = ChatSettingsPublic::from_u8(profile.public_chat);
     player.private = ChatSettingsPrivate::from_u8(profile.private_chat);
@@ -218,7 +229,25 @@ pub fn apply_profile(profile: &PlayerProfile, player: &mut Player, cache: &Cache
 /// # Returns
 /// A `Vec<u8>` containing the complete binary save data.
 pub fn save_binary(profile: &PlayerProfile, cache: &CacheStore) -> Vec<u8> {
-    let mut sav = Packet::new(5000);
+    // `Packet` writes by index without growing, so size to a safe upper
+    // bound rather than a fixed 5000. The varp block writes 4 bytes for
+    // EVERY cache varp (not just the player's) — ~2100 at rev-647, which
+    // alone overflows the old 5000 ceiling — and each inv slot takes up to
+    // 7 bytes over its capacity.
+    let varp_bytes = cache.varps.count() * 4;
+    let inv_bytes: usize = profile
+        .invs
+        .iter()
+        .map(|i| {
+            let cap = cache
+                .invs
+                .get_by_id(i.inv_type)
+                .map(|t| t.size as usize)
+                .unwrap_or(28);
+            4 + cap * 7
+        })
+        .sum();
+    let mut sav = Packet::new(1024 + varp_bytes + inv_bytes);
 
     sav.p2(SAV_MAGIC);
     sav.p2(SAV_VERSION);
@@ -376,8 +405,8 @@ pub fn load_binary(data: &[u8]) -> Result<PlayerProfile, &'static str> {
         sav.g2() as i32
     };
 
-    let mut stats = [0i32; 21];
-    let mut levels = [1u8; 21];
+    let mut stats = [0i32; STAT_COUNT];
+    let mut levels = [1u8; STAT_COUNT];
     for i in 0..STAT_COUNT {
         stats[i] = sav.g4s();
         levels[i] = sav.g1();
@@ -472,6 +501,10 @@ pub fn load_binary(data: &[u8]) -> Result<PlayerProfile, &'static str> {
         private_chat,
         trade_chat,
         last_date,
+        // The binary .sav fallback predates display names; the DB column is
+        // authoritative and re-applies on the next DB-backed login.
+        #[cfg(since_647)]
+        display_name: None,
     })
 }
 

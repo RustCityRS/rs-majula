@@ -1,0 +1,6 @@
+[proc,clientscript_2361](int $int0)
+if (%varbit_8271 = false) {
+    return;
+}
+def_component $component1 = enum(105, 73, enum_2352, %varbit_8271);
+if_setparam_int(param_1224, $int0, $component1);

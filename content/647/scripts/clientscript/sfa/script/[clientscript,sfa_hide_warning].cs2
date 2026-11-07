@@ -1,0 +1,7 @@
+[clientscript,sfa_hide_warning](int $int)
+if (clientclock > calc($int + 200)) {
+    if_setontimer(null, ma6343905:com58);
+    if_sethide(true, ma6343905:com58);
+} else if (clientclock > calc($int + 150)) {
+    if_settrans(min(calc(if_gettrans(ma6343905:com58) + 10), 255), ma6343905:com58);
+}

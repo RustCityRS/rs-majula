@@ -128,7 +128,7 @@ See [`rs-ether/README.md`](rs-ether/README.md) for more on the sidecar.
 **In a browser.** Open http://localhost:8080/ in any browser with WebAssembly, phones
 included.
 
-**With the original Java client.** Find `public/<REV>/client.jar` for your revision and run:
+**With the original Java client (225–289).** Find `public/<REV>/client.jar` for your revision and run:
 
 ```bash
 java -cp client.jar client 10 0 highmem members 10
@@ -558,7 +558,7 @@ before `migrate`).
 |---|---|---|
 | `--host <HOST>` | `0.0.0.0` | Address the game and HTTP ports listen on. |
 | `--http-port <PORT>` | `8070 + node_id` (`8080`) | The web client and cache files. |
-| `--tcp-port <PORT>` | `43584 + node_id` (`43594`) | The game protocol port. |
+| `--tcp-port <PORT>` | `43584 + node_id` (`43594`); 647: `39991 + node_id` (`40001`) | The game protocol port. |
 | `--private-key <PATH>` | `.keys/private.pem` | The RSA private key for the login handshake. |
 | `--real-ip-header <NAME>` | unset | The header a reverse proxy puts the player's address in (e.g. `x-real-ip`), for per-address connection and login limits. Only set it when the proxy is the only way in, or players can fake their address. In a list such as `x-forwarded-for`, the last entry is used. |
 | `--site-origin <ORIGINS>` | unset (`RS_SITE_ORIGIN`) | The website's addresses, space-separated (e.g. `"https://rustcity.org https://www.rustcity.org"`). Only these may frame the client page, and only these get the browser's game id from `/uid` (for the website's account recovery form). When unset, any site can frame it and `/uid` tells nobody. WebSockets always have to come from a page this world served. |
@@ -626,6 +626,62 @@ REV = "289"
 | **254** | 7 Sep 2004 | [Quest Journals and Chompy Hats](https://runescape.wiki/w/Update:Quest_Journals_and_Chompy_Hats), [Agility, Potions and Parties!](https://runescape.wiki/w/Update:Agility,_Potions_and_Parties!), [New Random Events!](https://runescape.wiki/w/Update:New_Random_Events!), [Death Plateau](https://runescape.wiki/w/Update:Death_Plateau_Quest), [Troll Stronghold](https://runescape.wiki/w/Update:Troll_Stronghold_Quest), [Herblore Additions](https://runescape.wiki/w/Update:Herblore_Additions), [Situation in the Sands](https://runescape.wiki/w/Update:Situation_in_the_Sands) |
 | **274** | 24 Nov 2004 | [Tai Bwo Wannai Trio](https://runescape.wiki/w/Update:Tai_Bwo_Wannai_Trio), [Plague City Part 4](https://runescape.wiki/w/Update:Plague_City_Part_4_Released), [Skills, Duels and the Kalphite](https://runescape.wiki/w/Update:Skills,_Duels_and_the_Kalphite), [Eadgar's Ruse](https://runescape.wiki/w/Update:Eadgars_Ruse), [Morytania Expansion](https://runescape.wiki/w/Update:Morytania_Expansion), [Mort'ton, Shades and Mage Armour](https://runescape.wiki/w/Update:Mortton_Shades_and_Mage_Armour), [Mage Armour Updated](https://runescape.wiki/w/Update:Mage_Armour_Updated), [Treasure Trails and Changes](https://runescape.wiki/w/Update:Treasure_Trails_and_Changes), [The Fremennik Trials](https://runescape.wiki/w/Update:The_Fremennik_Trials), [Horror From The Deep](https://runescape.wiki/w/Update:Horror_From_The_Deep), [Burthorpe Games Room](https://runescape.wiki/w/Update:Burthorpe_Games_Room) |
 | **289** | 17 Jan 2005 | [Throne Of Miscellania](https://runescape.wiki/w/Update:Throne_Of_Miscellania), [Monkey Madness](https://runescape.wiki/w/Update:Monkey_Madness), [Various Small Changes](https://runescape.wiki/w/Update:Various_Small_Changes.), [More Small Changes](https://runescape.wiki/w/Update:More_Small_Changes), [Castle Wars](https://runescape.wiki/w/Update:Castle_Wars), [Changes to Castle Wars](https://runescape.wiki/w/Update:Changes_to_Castle_Wars), [Santa, Flax and Castlewars](https://runescape.wiki/w/Update:Santa,_Flax_and_Castlewars), [The Haunted Mine](https://runescape.wiki/w/Update:The_Haunted_Mine), [Troll Romance, Banks and Chat](https://runescape.wiki/w/Update:Troll_Romance,_Banks_and_Chat), [In Search Of The Myreque](https://runescape.wiki/w/Update:In_Search_Of_The_Myreque), [Trawler Game Update](https://runescape.wiki/w/Update:Trawler_Game_Update), [Karamja Dungeon](https://runescape.wiki/w/Update:Karamja_Dungeon) |
+| **647** | 17 May 2011 | The 2011 game, from [OpenRS2 cache 786](https://archive.openrs2.org/caches/runescape/786), with 289's content ported to it and 2011's changes made where they are known. See [Revision 647](#revision-647). |
+
+### Revision 647
+
+647 is a JS5 (dat2) revision. Its cache is built from `content/647/` when the server starts
+and goes to the client over JS5, so there is no JAGGRAB, no HTTP cache and no web client. It
+plays through the original Java client in `public/647/client.jar`, with only its login and
+JS5 RSA moduli patched to match `.keys/public-647.pem`. All other class and resource bytes
+match [OpenRS2 client 31063](https://archive.openrs2.org/clients/31063).
+
+The complete unpacked cache is included in `content/647/`. Startup packs these sources
+straight into memory, including the client JS5 groups and server definitions. No cache
+download, regeneration command or intermediate disk cache is needed.
+
+```bash
+docker compose up -d
+REV=647 cargo run --profile dev-opt -p rs-server
+java --add-opens=java.base/java.lang=ALL-UNNAMED -Xmx512m \
+  -cp public/647/client.jar client 1 1 1 live english game0
+```
+
+Run the client in a separate terminal with Java 17 or 21. The `--add-opens` flag permits
+the stock native-library loader to load the Software, OpenGL and DirectX renderers.
+Its built-in desktop launcher connects to localhost; the three server IDs select ports
+`40000 + id`, so World 1 uses the default server port `40001`. Node 10 is World 1, node 11
+is World 2, and so on. This launcher does not use `jav_config.ws` or HTTP port 80.
+The lobby advertises the world ID matching the server's listening port. Custom
+TCP ports must be between 40001 and 55535; use `port - 40000` for the client's server IDs.
+
+To reproduce the RSA patch, or verify that no other client changes are present:
+
+```bash
+python deploy/patch_client_647.py
+python deploy/patch_client_647.py --check
+```
+
+The patcher downloads a hash-pinned original JAR. Pass `--original <path>` to use a local
+copy instead. The original SHA-256 is
+`b7d38915a8fb878d2e2762ba63dac195e68fc8a7ecd9dcc1e738e17f875b6086`.
+
+Assets are versioned directly in their folders, such as `models`, `animations`, `sprites`
+and `maps`. Server scripts live in `scripts/runescript`, client scripts in `scripts/clientscript`,
+and shared `.gs2` procedures and configs in `scripts/globalscript`. Each compiler loads its own
+folder plus globalscript. Shared procedures may only reference shared configs, constants and
+procedures; references into the other target's private folder are compilation errors.
+Config imports use `scripts/globalscript/_unpack`; authored config sections add to or override
+sections of the same name. Update filenames, headers and references when renaming a `.pack`
+entry. See [647 source formats](rs-pack/README.md#647-source-formats) for editing and repacking.
+
+Startup checks the original config and archive CRCs. Use `--verify false` for deliberate
+client-content changes. The full group comparison runs offline against the committed
+reference tables:
+
+```bash
+REV=647 cargo test -p rs-pack --test crc_gate -- --ignored
+```
 
 ----
 

@@ -1,0 +1,15 @@
+[clientscript,lobby_down_collapse](int $int)
+switch_int ($int) {
+    case 85:
+        if (if_gethide(wy7834917:com102) = true) {
+            ~lobbyscreen_report_abuse_stage2_back;
+        }
+    case 1:
+        ~lobbyscreen_report_abuse_help(1, wy7834917:com112, wy7834917:com113, wy7834917:com110, wy7834917:com102, wy7834917:com18);
+    case 13:
+        if (if_gethide(wy7834917:com102) = false) {
+            ~lobbyscreen_report_abuse_help_close(wy7834917:com112, wy7834917:com113, wy7834917:com110, wy7834917:com102, wy7834917:com18);
+        } else {
+            ~lobbyscreen_report_abuse_stage2_close;
+        }
+}

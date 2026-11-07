@@ -1,0 +1,16 @@
+[clientscript,camera_control](int $int)
+if (key_isdown_ctrl = true) {
+    return;
+}
+if (%varc_int_173 ! 1) {
+    switch_int ($int) {
+        case 1:
+            cam_clear_5507;
+        case 2:
+            cam_clear_5508;
+        case 3:
+            cam_clear_5509;
+        case 4:
+            cam_clear_5510;
+    }
+}

@@ -1,0 +1,56 @@
+[proc,skill_advance_guide_subsection_title](int $int0, int $int1)(int, string)
+switch_int ($int0) {
+    case 1:
+        return(~skill_advance_guide_subsection_title_attack($int1));
+    case 2:
+        return(~skill_advance_guide_subsection_title_strength($int1));
+    case 5:
+        return(~skill_advance_guide_subsection_title_defence($int1));
+    case 3:
+        return(~skill_advance_guide_subsection_title_ranged($int1));
+    case 7:
+        return(~skill_advance_guide_subsection_title_prayer($int1));
+    case 4:
+        return(~skill_advance_guide_subsection_title_magic($int1));
+    case 6:
+        return(~skill_advance_guide_subsection_title_hitpoints($int1));
+    case 8:
+        return(~skill_advance_guide_subsection_title_agility($int1));
+    case 9:
+        return(~skill_advance_guide_subsection_title_herblore($int1));
+    case 10:
+        return(~skill_advance_guide_subsection_title_thieving($int1));
+    case 11:
+        return(~skill_advance_guide_subsection_title_crafting($int1));
+    case 19:
+        return(~skill_advance_guide_subsection_title_fletching($int1));
+    case 13:
+        return(~skill_advance_guide_subsection_title_mining($int1));
+    case 14:
+        return(~skill_advance_guide_subsection_title_smithing($int1));
+    case 15:
+        return(~skill_advance_guide_subsection_title_fishing($int1));
+    case 16:
+        return(~skill_advance_guide_subsection_title_cooking($int1));
+    case 17:
+        return(~skill_advance_guide_subsection_title_firemaking($int1));
+    case 18:
+        return(~skill_advance_guide_subsection_title_woodcutting($int1));
+    case 12:
+        return(~skill_advance_guide_subsection_title_runecraft($int1));
+    case 20:
+        return(~skill_advance_guide_subsection_title_slayer($int1));
+    case 21:
+        return(~skill_advance_guide_subsection_title_farming($int1));
+    case 22:
+        return(~skill_advance_guide_subsection_title_construction($int1));
+    case 23:
+        return(~skill_advance_guide_subsection_title_hunter($int1));
+    case 24:
+        return(~skill_advance_guide_subsection_title_summoning($int1));
+    case 25:
+        return(~skill_advance_guide_subsection_title_dungeoneering($int1));
+    case default:
+        return("", -1);
+}
+return("", 0);

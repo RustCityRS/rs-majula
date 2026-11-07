@@ -1,0 +1,6 @@
+[clientscript,worldmap_toggleoverview]
+if (if_gethide(worldmap:com46) = true) {
+    ~worldmap_showoverview(1);
+} else {
+    ~worldmap_showoverview(0);
+}

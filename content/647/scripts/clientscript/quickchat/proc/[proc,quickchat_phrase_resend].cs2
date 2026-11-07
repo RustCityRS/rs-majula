@@ -1,0 +1,23 @@
+[proc,quickchat_phrase_resend]
+%varc_int_126 = %varc_int_131;
+%varc_string_27 = %varc_string_28;
+%varc_int_127 = 0;
+if (if_gethide(chatbox_background:com0) = true) {
+    if (getwindowmode >= 2) {
+        if_setgraphic(chat_background, chatbox:com1);
+        if_setalpha(0, chatbox:com1);
+        if_sethide(false, chatbox:com1);
+        if_sethide(false, chatbox:com2);
+    }
+    if_sethide(true, chatbox_background:com50);
+    if_setonkey(null, chatbox_background:com55);
+    if_sethide(false, chatbox_background:com0);
+    if_sethide(true, chatbox_background:com7);
+    if_sethide(true, chatbox_background:com9);
+    if_sethide(true, chatbox_background:com13);
+    if_sethide(false, chatbox_background:com17);
+    if_sethide(false, chatbox_background:com1);
+    if_sethide(true, chatbox_background:com3);
+    if_setscrollpos(0, 0, chatbox_background:com17);
+}
+~quickchat_phrase(chatbox_background:com1, %varc_int_130, -1);

@@ -1,0 +1,25 @@
+[clientscript,graphics_options_countdown](int $int0, int $int1, int $int2, boolean $boolean3, boolean $boolean4)
+def_int $int5 = calc($int0 - clientclock);
+if ($int5 <= 0) {
+    ~graphics_options_decision(0, $int1, $int2, 1, $boolean3, $boolean4);
+    return;
+}
+def_int $int6 = getwindowmode;
+if (testbit($int1, 1) = true & $int6 ! 3) {
+    ~graphics_options_decision(0, $int1, $int2, 1, $boolean3, $boolean4);
+    return;
+}
+def_component $component7 = toplevel_fullscreen:com80;
+if ($int2 = true) {
+    if ($int6 = true) {
+        $component7 = toplevel:com20;
+    }
+    if (if_hasoverlay($component7) = false) {
+        ~graphics_options_opencountdown($int1, $boolean3, $boolean4);
+    }
+    if_settext("Reverting in: <tostring(calc($int5 / 50))>", graphics_confirm:com16);
+} else if ($int2 = 2) {
+    if_settext("Reverting in: <tostring(calc($int5 / 50))>", lobbyscreen:com115);
+} else {
+    if_settext("Reverting in: <tostring(calc($int5 / 50))>", loginscreen:com54);
+}

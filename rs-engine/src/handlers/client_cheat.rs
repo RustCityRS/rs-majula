@@ -18,6 +18,7 @@ use rs_pack::cache::inv::InvType;
 use rs_pack::cache::loc::LocType;
 use rs_pack::cache::npc::NpcType;
 use rs_pack::cache::obj::ObjType;
+#[cfg(since_254)]
 use rs_pack::cache::provider::CacheType;
 use rs_pack::cache::seq::SeqType;
 use rs_pack::cache::spotanim::SpotAnimType;
@@ -66,27 +67,28 @@ use tracing::{error, info};
 ///   or [`cheat_maintainer`] depending on the player's staff level
 impl ClientGameHandler for ClientCheat {
     fn handle(self, active: &mut ActivePlayer) -> Result<(), ScriptError> {
-        if self.cheat.len() > 80 {
+        let input = self.cheat;
+        if input.len() > 80 {
             return Err(ScriptError::Client(format!(
                 "Client cheat command was too long: {}",
-                self.cheat.len()
+                input.len()
             )));
         }
 
-        let input_lower = self.cheat.to_lowercase();
+        let input_lower = input.to_lowercase();
         let mut args = input_lower.split(' ');
         let cmd = args.next().unwrap_or_default();
         if cmd.is_empty() {
             return Err(ScriptError::Client(format!(
                 "Client cheat command was not found for input: {}",
-                self.cheat
+                input
             )));
         }
 
         // What jagex moderators and maintainers do goes on their record for
         // the console (player moderators' mutes are logged as moderation).
         if active.player.staff_mod_level.is_isolated() {
-            active.log_session(log_type::STAFF_COMMAND as i32, &format!("::{}", self.cheat));
+            active.log_session(log_type::STAFF_COMMAND as i32, &format!("::{input}"));
         }
 
         match active.player.staff_mod_level {
@@ -183,6 +185,9 @@ fn cheat_jagex_moderator(
 ///   [`cheat_moderate`]).
 ///
 /// Reached directly by player moderators, and by higher staff cascading down.
+// The single-binding match is intentional scaffolding: new commands slot in
+// as arms above the fall-through.
+#[allow(clippy::match_single_binding)]
 fn cheat_player_moderator(
     cmd: &str,
     mut args: Split<'_, char>,
@@ -199,6 +204,9 @@ fn cheat_player_moderator(
 ///
 /// This is the base of the staff-level fall-through chain that all higher
 /// levels cascade down to.
+// The single-binding match is intentional scaffolding: new commands slot in
+// as arms above the fall-through.
+#[allow(clippy::match_single_binding)]
 fn cheat_normal(
     _cmd: &str,
     _args: Split<'_, char>,
@@ -293,6 +301,20 @@ fn cheat_debugproc(
             ScriptVarType::NpcUid => {}
             ScriptVarType::DbRow => {}
             ScriptVarType::Midi => {}
+            #[cfg(since_647)]
+            ScriptVarType::Cursor
+            | ScriptVarType::MapArea
+            | ScriptVarType::Graphic
+            | ScriptVarType::Jingle
+            | ScriptVarType::ChatCat
+            | ScriptVarType::Model
+            | ScriptVarType::Texture
+            | ScriptVarType::Bas
+            | ScriptVarType::Vorbis
+            | ScriptVarType::MapElement => {
+                let value = args.next().unwrap_or("0");
+                params.push(ScriptArgument::Int(value.parse::<i32>().unwrap_or(0)));
+            }
         }
     }
 
@@ -671,13 +693,16 @@ fn spawn_bots(center: CoordGrid, count: u16, grid_size: u16) -> u16 {
         bot.player.pathing.tele = true;
         bot.player.pathing.jump = true;
 
-        bot.player.info.readyanim = Some(808);
-        bot.player.info.turnanim = Some(823);
-        bot.player.info.walkanim = Some(819);
-        bot.player.info.walkanim_b = Some(820);
-        bot.player.info.walkanim_l = Some(821);
-        bot.player.info.walkanim_r = Some(822);
-        bot.player.info.runanim = Some(824);
+        #[cfg(before_647)]
+        {
+            bot.player.info.readyanim = Some(808);
+            bot.player.info.turnanim = Some(823);
+            bot.player.info.walkanim = Some(819);
+            bot.player.info.walkanim_b = Some(820);
+            bot.player.info.walkanim_l = Some(821);
+            bot.player.info.walkanim_r = Some(822);
+            bot.player.info.runanim = Some(824);
+        }
 
         bot.buildappearance(0);
 

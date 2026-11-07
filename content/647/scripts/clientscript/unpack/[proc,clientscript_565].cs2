@@ -1,0 +1,107 @@
+[proc,clientscript_565]
+def_int $int0 = 50;
+def_int $int1 = 45;
+def_string $string = ~magic_tostring(%varbit_4138);
+if (%varbit_4140 > 0) {
+    if_sethide(false, ei718467:com33);
+    if_settext(tostring(%varbit_4140), ei718467:com35);
+    if_settext(tostring(%varbit_4143), ei718467:com32);
+    if_settext("<$string> Coins", ei718467:com30);
+    if (%varbit_4144 = false) {
+        if_setgraphic("staticons2,8", ei718467:com15);
+        if_setposition($int0, $int1, ^setpos_abs_left, ^setpos_abs_top, ei718467:com15);
+        if_sethide(false, ei718467:com2);
+        $int1 = calc($int1 + 29);
+    } else {
+        if_sethide(true, ei718467:com2);
+    }
+    if (%varbit_4145 = false) {
+        if_setgraphic("staticons2,10", ei718467:com16);
+        if_setposition($int0, $int1, ^setpos_abs_left, ^setpos_abs_top, ei718467:com16);
+        if_sethide(false, ei718467:com3);
+        $int1 = calc($int1 + 29);
+    } else {
+        if_sethide(true, ei718467:com3);
+    }
+    if (%varbit_4146 = false) {
+        if_setgraphic("staticons,4", ei718467:com17);
+        if_setposition($int0, $int1, ^setpos_abs_left, ^setpos_abs_top, ei718467:com17);
+        if_sethide(false, ei718467:com4);
+        $int1 = calc($int1 + 29);
+    } else {
+        if_sethide(true, ei718467:com4);
+    }
+    if (%varbit_4147 = false) {
+        if_setgraphic("staticons2,11", ei718467:com18);
+        if_setposition($int0, $int1, ^setpos_abs_left, ^setpos_abs_top, ei718467:com18);
+        if_sethide(false, ei718467:com5);
+        $int1 = calc($int1 + 29);
+    } else {
+        if_sethide(true, ei718467:com5);
+    }
+    if (%varbit_4151 = false) {
+        if_setgraphic("staticons,6", ei718467:com20);
+        if_setposition($int0, $int1, ^setpos_abs_left, ^setpos_abs_top, ei718467:com20);
+        if_sethide(false, ei718467:com7);
+        $int1 = calc($int1 + 29);
+    } else {
+        if_sethide(true, ei718467:com7);
+    }
+    if (%varbit_4152 = true) {
+        if_setgraphic("staticons2,12", ei718467:com21);
+        if_setposition($int0, $int1, ^setpos_abs_left, ^setpos_abs_top, ei718467:com21);
+        if_sethide(false, ei718467:com8);
+        $int1 = calc($int1 + 29);
+    } else {
+        if_sethide(true, ei718467:com8);
+    }
+    if (%varbit_4276 = true) {
+        if_setgraphic("staticons2,7", ei718467:com19);
+        if_setposition($int0, $int1, ^setpos_abs_left, ^setpos_abs_top, ei718467:com19);
+        if_sethide(false, ei718467:com6);
+        $int1 = calc($int1 + 29);
+    } else {
+        if_sethide(true, ei718467:com6);
+    }
+    $int0 = 8;
+    $int1 = 45;
+    if (%varbit_4148 = false) {
+        if_setgraphic("staticons,3", ei718467:com22);
+        if_setposition($int0, $int1, ^setpos_abs_left, ^setpos_abs_top, ei718467:com22);
+        if_sethide(false, ei718467:com9);
+        $int1 = calc($int1 + 29);
+    } else {
+        if_sethide(true, ei718467:com9);
+    }
+    if (%varbit_4149 = false) {
+        if_setgraphic("staticons,0", ei718467:com23);
+        if_setposition($int0, $int1, ^setpos_abs_left, ^setpos_abs_top, ei718467:com23);
+        if_sethide(false, ei718467:com10);
+        $int1 = calc($int1 + 29);
+    } else {
+        if_sethide(true, ei718467:com10);
+    }
+    if (%varbit_4150 = false) {
+        if_setgraphic("staticons,5", ei718467:com24);
+        if_setposition($int0, $int1, ^setpos_abs_left, ^setpos_abs_top, ei718467:com24);
+        if_sethide(false, ei718467:com11);
+        $int1 = calc($int1 + 29);
+    } else {
+        if_sethide(true, ei718467:com11);
+    }
+} else {
+    if_setgraphic(null, ei718467:com15);
+    if_setgraphic(null, ei718467:com16);
+    if_setgraphic(null, ei718467:com17);
+    if_setgraphic(null, ei718467:com18);
+    if_setgraphic(null, ei718467:com20);
+    if_setgraphic(null, ei718467:com21);
+    if_setgraphic(null, ei718467:com22);
+    if_setgraphic(null, ei718467:com24);
+    if_setgraphic(null, ei718467:com23);
+    if_setgraphic(null, ei718467:com19);
+    if_settext(" ", ei718467:com32);
+    if_settext(" ", ei718467:com30);
+    if_settext(" ", ei718467:com26);
+    if_sethide(true, ei718467:com33);
+}

@@ -1,0 +1,9 @@
+[proc,clientscript_2232]
+if (%varc_int_1127 < 15 & ~clientscript_2240 < %varc_int_1135) {
+    sound_synth(synth_8729, 1, 0);
+    %varc_int_1131 = calc(%varc_int_1131 + 1);
+} else {
+    %varp_1685 = 1;
+    sound_synth(synth_2277, 1, 0);
+}
+~clientscript_2220;

@@ -1,0 +1,11 @@
+[proc,clientscript_936](obj $obj0)(string)
+def_string $string = "";
+def_int $int1 = oc_weight($obj0, param_763);
+switch_int (oc_weight($obj0, param_762)) {
+    case 1:
+        return(~clientscript_913(%varp_322, 10, "Part of quest: Tai Bwo Wannai Trio"));
+    case 2:
+        return(~clientscript_913(%varbit_4310, 10, "Complete: Chaos Tunnels"));
+    case default:
+        return("");
+}

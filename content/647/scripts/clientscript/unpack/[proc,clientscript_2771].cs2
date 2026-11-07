@@ -1,0 +1,16 @@
+[proc,clientscript_2771](component $component0, int $int1)
+def_int $int2 = calc(clientclock - $int1);
+if ($int2 >= 181 | %varc_int_1007 ! 1) {
+    if_setontimer(null, $component0);
+    return;
+}
+if (calc($int2 % 25) = false) {
+    switch_int (randominc(2)) {
+        case 0:
+            sound_synth(synth_6645, 1, 0);
+        case 1:
+            sound_synth(synth_6644, 1, 0);
+        case 2:
+            sound_synth(synth_6643, 1, 0);
+    }
+}

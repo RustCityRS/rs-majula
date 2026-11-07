@@ -1,0 +1,45 @@
+[proc,bank_v2_get_tab_range](int $int0)(int, int)
+def_int $int1 = 0;
+def_int $int2 = 0;
+def_int $int3 = 0;
+if ($int0 = false) {
+    $int1, $int2 = ~bank_v2_get_tab_range(9);
+    $int1 = $int2;
+    $int3, $int2 = ~bank_v2_get_tab_range(1);
+    return($int1, $int2);
+}
+if ($int0 = true) {
+    return(0, 516);
+}
+$int1 = 0;
+$int2 = %bank_tab_1;
+if ($int0 >= 3) {
+    $int1 = $int2;
+    $int2 = calc($int1 + %bank_tab_2);
+}
+if ($int0 >= 4) {
+    $int1 = $int2;
+    $int2 = calc($int1 + %bank_tab_3);
+}
+if ($int0 >= 5) {
+    $int1 = $int2;
+    $int2 = calc($int1 + %bank_tab_4);
+}
+if ($int0 >= 6) {
+    $int1 = $int2;
+    $int2 = calc($int1 + %bank_tab_5);
+}
+if ($int0 >= 7) {
+    $int1 = $int2;
+    $int2 = calc($int1 + %bank_tab_6);
+}
+if ($int0 >= 8) {
+    $int1 = $int2;
+    $int2 = calc($int1 + %bank_tab_7);
+}
+if ($int0 >= 9) {
+    $int1 = $int2;
+    $int2 = calc($int1 + %bank_tab_8);
+}
+return($int1, $int2);
+return(0, 0);

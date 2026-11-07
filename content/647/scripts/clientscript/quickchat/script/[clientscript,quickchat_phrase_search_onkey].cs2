@@ -1,0 +1,106 @@
+[clientscript,quickchat_phrase_search_onkey](int $int0, char $int1, component $component2, component $component3, component $component4, component $component5, int $int6)
+if ($int0 = 104) {
+    if ($int6 = false) {
+        return;
+    }
+    if (%varc_int_128 <= 0) {
+        %varc_int_128 = calc($int6 - 1);
+    } else {
+        %varc_int_128 = calc(%varc_int_128 - 1);
+    }
+    if (cc_find($component4, calc(%varc_int_128 + 1)) = true) {
+        if (.cc_find($component4, 0) = true) {
+            .cc_setposition(cc_getx, cc_gety, ^setpos_abs_left, ^setpos_abs_top);
+            .cc_setsize(cc_getwidth, cc_getheight, ^setsize_abs, ^setsize_abs);
+            .cc_setcolour(0x577e45);
+            .cc_setfill(true);
+        }
+        if (cc_gety < if_getscrolly($component4)) {
+            ~scrollbar_resize($component5, $component4, calc(if_getscrolly($component4) - cc_getheight));
+        } else if (calc(cc_gety + cc_getheight) > calc(if_getheight($component4) + if_getscrolly($component4))) {
+            ~scrollbar_resize($component5, $component4, if_getscrollheight($component4));
+        }
+    }
+    return;
+}
+if ($int0 = 105) {
+    if ($int6 = false) {
+        return;
+    }
+    if (%varc_int_128 = calc($int6 - 1)) {
+        %varc_int_128 = 0;
+    } else {
+        %varc_int_128 = calc(%varc_int_128 + 1);
+    }
+    if (cc_find($component4, calc(%varc_int_128 + 1)) = true) {
+        if (.cc_find($component4, 0) = true) {
+            .cc_setposition(cc_getx, cc_gety, ^setpos_abs_left, ^setpos_abs_top);
+            .cc_setsize(cc_getwidth, cc_getheight, ^setsize_abs, ^setsize_abs);
+            .cc_setcolour(0x577e45);
+            .cc_setfill(true);
+        }
+        if (calc(cc_gety + cc_getheight) > calc(if_getheight($component4) + if_getscrolly($component4))) {
+            ~scrollbar_resize($component5, $component4, calc(if_getscrolly($component4) + cc_getheight));
+        } else if (cc_gety < if_getscrolly($component4)) {
+            ~scrollbar_resize($component5, $component4, 0);
+        }
+    }
+    return;
+}
+if ($int0 = 102) {
+    ~quickchat_open(%varc_int_126, %varc_string_27);
+    return;
+}
+if ($int0 = 13) {
+    ~quickchat_close;
+    return;
+}
+def_int $int7 = string_length(%varc_string_30);
+def_int $int8 = quickchat_search(%varc_string_30, 0);
+def_int $int9 = 0;
+def_int $int10 = -1;
+if ($int0 = 84) {
+    if (%varc_int_128 < 0) {
+        if ($int7 > 0) {
+            %varc_int_129 = 0;
+            if_setontimer(null, $component3);
+            ~quickchat_phrase_search_refreshsearch($component2, $component4, $component5);
+        } else {
+            ~quickchat_close;
+        }
+    } else if ($int8 > 0 & cc_find($component4, calc(%varc_int_128 + 1)) = true) {
+        while ($int9 < $int8) {
+            $int10 = quickchat_search_next;
+            if (compare(cc_gettext, quickchat_phrase_gettext($int10)) = false) {
+                ~quickchat_phrase($component2, $int10, 0);
+                return;
+            }
+            $int9 = calc($int9 + 1);
+        }
+    }
+    return;
+}
+if ($int0 = 85) {
+    if ($int7 > 0) {
+        %varc_string_30 = substring(%varc_string_30, 0, calc($int7 - 1));
+    } else if (%varc_int_127 = false) {
+        ~quickchat_close;
+    } else {
+        %varc_int_128 = -1;
+        if_sethide(true, chatbox_background:com7);
+        if_sethide(true, chatbox_background:com9);
+        if_sethide(true, chatbox_background:com13);
+        if_sethide(false, chatbox_background:com17);
+        if_sethide(false, chatbox_background:com1);
+        if_sethide(true, chatbox_background:com3);
+        ~quickchat_return($component2, 0);
+        return;
+    }
+} else if (char_isprintable($int1) = true & $int7 < 80) {
+    %varc_string_30 = removetags(append_char(%varc_string_30, $int1));
+} else {
+    return;
+}
+if_settext("Search for: <%varc_string_30>*", $component3);
+%varc_int_129 = 50;
+if_setontimer("clientscript_1903($component2, $component3, $component4, $component5)", $component3);

@@ -1,0 +1,18 @@
+[clientscript,gradient_borderforums]
+def_boolean $boolean = -1;
+if (%character_creation_female ! %varc_int_196 | %varc_int_197 ! %character_creation_style) {
+    $boolean = ~int_to_bool(%character_creation_female);
+    %varc_int_196 = %character_creation_female;
+    %varc_int_197 = %character_creation_style;
+    ~clientscript_387($boolean);
+    %varc_int_86 = %character_creation_sub_style;
+    ~clientscript_390($boolean);
+} else if (%varc_int_86 ! %character_creation_sub_style) {
+    %varc_int_86 = %character_creation_sub_style;
+    ~clientscript_390(~int_to_bool(%varc_int_196));
+}
+if (%varc_int_1020 ! %character_part) {
+    %varc_int_1020 = %character_part;
+    ~playerdesign4_rebuildmenu;
+}
+~clientscript_2741;

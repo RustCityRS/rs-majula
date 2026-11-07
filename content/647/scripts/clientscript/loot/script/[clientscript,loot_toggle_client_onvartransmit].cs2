@@ -1,0 +1,12 @@
+[clientscript,loot_toggle_client_onvartransmit](component $component)
+if (%varbit_4072 = true | %varbit_4073 = true) {
+    if_setgraphic("loot_icon,2", $component);
+} else if (%varbit_4071 = true) {
+    if (%varbit_4465 = true) {
+        if_setgraphic("loot_icon,3", $component);
+    } else {
+        if_setgraphic("loot_icon,0", $component);
+    }
+} else {
+    if_setgraphic("loot_icon,1", $component);
+}

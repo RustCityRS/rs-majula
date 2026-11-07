@@ -5,7 +5,6 @@ use crate::network::game::client_prot_message::ClientProtMessageInfo;
 use rs_io::Packet;
 use rs_protocol_macros::client_prot;
 
-/// An input event the client tracked. Spots are `(x, y)` on the game frame.
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
 pub enum TrackedEvent {
     Press { x: i16, y: i16, right: bool },
@@ -18,30 +17,21 @@ pub enum TrackedEvent {
     Enter,
     Leave,
 }
-
-/// A tracked event, `gap` 10ms steps after the one before (capped at 250).
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
 pub struct Tracked {
     pub gap: u8,
     pub event: TrackedEvent,
 }
-
-/// The client's input since its last report, while the server has
-/// tracking on.
 #[client_prot(VarShort { min: 0 }, ClientEvent)]
 pub struct EventTracking {
     pub events: Vec<Tracked>,
 }
-
-/// A packed `x | y << 10`.
 fn spot(pos: i32) -> (i16, i16) {
     ((pos & 0x3ff) as i16, (pos >> 10) as i16)
 }
 
 impl ClientProtMessage for EventTracking {
     fn decode(buf: &mut Packet, len: usize) -> Self {
-        // A kind byte, the gap, then 0 to 3 bytes the kind says: a body cut
-        // short (or an unknown kind) keeps the events before.
         let mut events = Vec::with_capacity(len / 3);
         while len - buf.pos >= 2 {
             let kind = buf.data[buf.pos];

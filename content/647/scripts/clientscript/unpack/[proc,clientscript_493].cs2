@@ -1,0 +1,83 @@
+[proc,clientscript_493](component $component0, int $int1)
+def_int $int2 = 0;
+def_colour $colour3 = ^black;
+def_struct $struct4 = null;
+switch_component ($component0) {
+    case default:
+        return;
+    case conq_buy_army:com58:
+        $int2 = 1;
+    case conq_buy_army:com60:
+        $int2 = 2;
+    case conq_buy_army:com62:
+        $int2 = 3;
+    case conq_buy_army:com64:
+        $int2 = 4;
+    case conq_buy_army:com68:
+        $int2 = 5;
+    case conq_buy_army:com70:
+        $int2 = 6;
+    case conq_buy_army:com72:
+        $int2 = 7;
+    case conq_buy_army:com74:
+        $int2 = 8;
+    case conq_buy_army:com66:
+        $int2 = 9;
+}
+if ($int1 = true) {
+    $colour3 = ^white;
+} else {
+    $colour3 = 0xff981f;
+}
+if (%varbit_7539 ! $int2 & (%varbit_7540 ! $int2 & (%varbit_7541 ! $int2 & %varbit_7542 ! $int2))) {
+    if_setcolour($colour3, $component0);
+    if ($int1 = true) {
+        $struct4 = ~clientscript_488($int2);
+        if ($struct4 ! null) {
+            if_sethide(true, conq_buy_army:com49);
+            if_sethide(false, conq_buy_army:com50);
+            if_sethide(false, conq_buy_army:com51);
+            if_sethide(false, conq_buy_army:com52);
+            if_sethide(false, conq_buy_army:com53);
+            if_sethide(false, conq_buy_army:com54);
+            if_settext(struct_param($struct4, param_1150), conq_buy_army:com51);
+            if_setgraphic(struct_param($struct4, param_1153), conq_buy_army:com50);
+            if_settext(struct_param($struct4, param_1151), conq_buy_army:com52);
+            if_settext(append("Cooldown: ", tostring(struct_param($struct4, param_1155))), conq_buy_army:com53);
+            if_settext(append("Cost: ", tostring(struct_param($struct4, param_1154))), conq_buy_army:com54);
+        }
+    } else {
+        switch_int (%varbit_7515) {
+            case default:
+                $struct4 = null;
+            case 1:
+                $struct4 = ~clientscript_488(%varbit_7539);
+            case 2:
+                $struct4 = ~clientscript_488(%varbit_7540);
+            case 3:
+                $struct4 = ~clientscript_488(%varbit_7541);
+            case 4:
+                $struct4 = ~clientscript_488(%varbit_7542);
+        }
+        if ($struct4 = null) {
+            if_sethide(false, conq_buy_army:com49);
+            if_sethide(true, conq_buy_army:com50);
+            if_sethide(true, conq_buy_army:com51);
+            if_sethide(true, conq_buy_army:com52);
+            if_sethide(true, conq_buy_army:com53);
+            if_sethide(true, conq_buy_army:com54);
+        } else {
+            if_sethide(true, conq_buy_army:com49);
+            if_sethide(false, conq_buy_army:com50);
+            if_sethide(false, conq_buy_army:com51);
+            if_sethide(false, conq_buy_army:com52);
+            if_sethide(false, conq_buy_army:com53);
+            if_sethide(false, conq_buy_army:com54);
+            if_settext(struct_param($struct4, param_1150), conq_buy_army:com51);
+            if_setgraphic(struct_param($struct4, param_1153), conq_buy_army:com50);
+            if_settext(struct_param($struct4, param_1151), conq_buy_army:com52);
+            if_settext(append("Cooldown: ", tostring(struct_param($struct4, param_1155))), conq_buy_army:com53);
+            if_settext(append("Cost: ", tostring(struct_param($struct4, param_1154))), conq_buy_army:com54);
+        }
+    }
+}

@@ -1,0 +1,58 @@
+// 2011's pickpocketable npcs beyond 289's: void-634's pickpocket table, where
+// the 647 cache gives the npc Pickpocket (op3; memberop3 on most). Each joins
+// the 289 row of its kind in pickpocket.dbrow.
+
+[opnpc3,farmer_1757] @attempt_pick_pocket(npc_type); // farmer_lumbridge (1757), farmer
+[opnpc3,farmer_1758] @attempt_pick_pocket(npc_type); // farmer_lumbridge_3 (1758), farmer
+[opnpc3,guard_296] @attempt_pick_pocket(npc_type); // guard_edgeville (296), guard
+[opnpc3,guard_297] @attempt_pick_pocket(npc_type); // guard_edgeville_2 (297), guard
+[opnpc3,guard_298] @attempt_pick_pocket(npc_type); // guard_edgeville_3 (298), guard
+[opnpc3,guard_299] @attempt_pick_pocket(npc_type); // guard_edgeville_4 (299), guard
+[opnpc3,guard_3407] @attempt_pick_pocket(npc_type); // guard_edgeville_6 (3407), guard
+[opnpc3,guard_3408] @attempt_pick_pocket(npc_type); // guard_edgeville_7 (3408), guard
+[opnpc3,guard_3228] @attempt_pick_pocket(npc_type); // guard_falador (3228), guard
+[opnpc3,guard_3229] @attempt_pick_pocket(npc_type); // guard_falador_2 (3229), guard
+[opnpc3,guard_3230] @attempt_pick_pocket(npc_type); // guard_falador_3 (3230), guard
+[opnpc3,guard_3231] @attempt_pick_pocket(npc_type); // guard_falador_4 (3231), guard
+[opnpc3,guard_3232] @attempt_pick_pocket(npc_type); // guard_falador_5 (3232), guard
+[opnpc3,guard_3233] @attempt_pick_pocket(npc_type); // guard_falador_6 (3233), guard
+[opnpc3,guard_3241] @attempt_pick_pocket(npc_type); // guard_falador_7 (3241), guard
+[opnpc3,guard_4307] @attempt_pick_pocket(npc_type); // guard_ham_store_rooms (4307), guard
+[opnpc3,guard_4308] @attempt_pick_pocket(npc_type); // guard_ham_store_rooms_2 (4308), guard
+[opnpc3,guard_4309] @attempt_pick_pocket(npc_type); // guard_ham_store_rooms_3 (4309), guard
+[opnpc3,guard_4310] @attempt_pick_pocket(npc_type); // guard_ham_store_rooms_4 (4310), guard
+[opnpc3,guard_4311] @attempt_pick_pocket(npc_type); // guard_ham_store_rooms_5 (4311), guard
+[opnpc3,guard_5919] @attempt_pick_pocket(npc_type); // guard_varrock (5919), guard
+[opnpc3,guard_5920] @attempt_pick_pocket(npc_type); // guard_varrock_2 (5920), guard
+[opnpc3,guard_2699] @attempt_pick_pocket(npc_type); // port_sarim_guard (2699), guard
+[opnpc3,guard_2700] @attempt_pick_pocket(npc_type); // port_sarim_guard_1 (2700), guard
+[opnpc3,guard_2701] @attempt_pick_pocket(npc_type); // port_sarim_guard_2 (2701), guard
+[opnpc3,guard_2702] @attempt_pick_pocket(npc_type); // port_sarim_guard_3 (2702), guard
+[opnpc3,guard_2703] @attempt_pick_pocket(npc_type); // port_sarim_guard_4 (2703), guard
+[opnpc3,man_7873] @attempt_pick_pocket(npc_type); // lumbridge_man (7873), man
+[opnpc3,man_7874] @attempt_pick_pocket(npc_type); // lumbridge_man_2 (7874), man
+[opnpc3,man_7875] @attempt_pick_pocket(npc_type); // lumbridge_man_3 (7875), man
+[opnpc3,man_7876] @attempt_pick_pocket(npc_type); // lumbridge_man_4 (7876), man
+[opnpc3,man_7877] @attempt_pick_pocket(npc_type); // lumbridge_man_5 (7877), man
+[opnpc3,man_7878] @attempt_pick_pocket(npc_type); // lumbridge_man_6 (7878), man
+[opnpc3,man_7879] @attempt_pick_pocket(npc_type); // lumbridge_man_7 (7879), man
+[opnpc3,paladin_2256] @attempt_pick_pocket(npc_type); // paladin_2 (2256), paladin
+[opnpc3,woman_7880] @attempt_pick_pocket(npc_type); // lumbridge_woman (7880), woman
+[opnpc3,woman_7881] @attempt_pick_pocket(npc_type); // lumbridge_woman_2 (7881), woman
+[opnpc3,woman_7882] @attempt_pick_pocket(npc_type); // lumbridge_woman_3 (7882), woman
+[opnpc3,woman_7883] @attempt_pick_pocket(npc_type); // lumbridge_woman_4 (7883), woman
+[opnpc3,woman_7884] @attempt_pick_pocket(npc_type); // lumbridge_woman_5 (7884), woman
+
+// 2011's npcs that fight as 289's man, woman or guard (npc_clones_2011.npc) and
+// that the 647 cache gives Pickpocket (memberop3; op3 on 8173), so 289's
+// pickpocketing of their kind. Not the thieves, muggers, monks, crafters,
+// strangers or King Roald who fight as 289's man: the cache gives them no
+// Pickpocket.
+[opnpc3,hengel] @attempt_pick_pocket(npc_type); // hengel (2683), man
+[opnpc3,anja] @attempt_pick_pocket(npc_type); // anja (2684), woman
+[opnpc3,drunken_man] @attempt_pick_pocket(npc_type); // drunken_man_falador (3222), man
+[opnpc3,cuffs] @attempt_pick_pocket(npc_type); // cuffs (3237), man
+[opnpc3,narf] @attempt_pick_pocket(npc_type); // narf (3238), man
+[opnpc3,rusty] @attempt_pick_pocket(npc_type); // rusty (3239), man
+[opnpc3,jeff] @attempt_pick_pocket(npc_type); // jeff (3240), man
+[opnpc3,guard_8173] @attempt_pick_pocket(npc_type); // guard_defender_of_varrock (8173), guard

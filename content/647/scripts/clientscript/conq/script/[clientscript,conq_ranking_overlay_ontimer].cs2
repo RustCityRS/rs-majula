@@ -1,0 +1,6 @@
+[clientscript,conq_ranking_overlay_ontimer](component $component)
+if (if_gettrans($component) > 0) {
+    if_settrans(max(calc(if_gettrans($component) - 1), 0), $component);
+} else {
+    if_setontimer(null, $component);
+}

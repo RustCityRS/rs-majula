@@ -1,0 +1,16 @@
+[proc,clientscript_2438]
+def_int $int0 = 0;
+def_int $int1 = 0;
+def_int $int2 = scale(%varbit_651, 1000, 100);
+if ($int2 > 100) {
+    $int2 = 100;
+}
+$int0 = enum(105, 105, enum_1090, $int2);
+$int1 = enum(105, 105, enum_1091, $int2);
+if_setposition(40, $int0, ^setpos_abs_right, ^setpos_abs_top, trawler_game_overlay:com14);
+if_setsize(18, $int1, ^setsize_abs, ^setsize_abs, trawler_game_overlay:com14);
+if ($int2 < 25) {
+    if_setcolour(0xff9900, trawler_game_overlay:com14);
+} else {
+    if_setcolour(0x006600, trawler_game_overlay:com14);
+}

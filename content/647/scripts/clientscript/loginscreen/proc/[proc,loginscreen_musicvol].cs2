@@ -1,0 +1,5 @@
+[proc,loginscreen_musicvol](component $component0, component $component1)
+if_setdraggable($component0, -1, $component1);
+def_int $int2 = calc(if_getwidth($component0) - if_getwidth($component1));
+def_int $int3 = scale(get_clientopt_6119, 255, $int2);
+if_setposition($int3, 0, ^setpos_abs_left, ^setpos_abs_top, $component1);

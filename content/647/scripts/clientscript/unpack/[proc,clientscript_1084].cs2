@@ -1,0 +1,7 @@
+[proc,clientscript_1084](int $int0, component $component1, int $int2)
+if (if_gethide(enum(105, 73, enum_1550, calc($int0 + 1))) = true) {
+    return;
+}
+if (cc_find($component1, $int2) = true) {
+    cc_sethide(true);
+}

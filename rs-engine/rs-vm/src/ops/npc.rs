@@ -60,7 +60,13 @@ pub fn build<E: ScriptEngine + 'static>() -> OpsRegistry {
             if npc.last_movement() < clock.saturating_sub(1) {
                 return Ok(());
             }
-            if npc.last_movement() == clock - 1 {
+            // On the world's first tick there is no tick before it; at 647 a
+            // move then is as recent as one on the last tick.
+            #[cfg(before_647)]
+            let last_tick = clock - 1;
+            #[cfg(since_647)]
+            let last_tick = clock.saturating_sub(1);
+            if npc.last_movement() == last_tick {
                 npc.delay(clock + 1);
             } else {
                 npc.delay(clock + 2);
@@ -115,8 +121,18 @@ pub fn build<E: ScriptEngine + 'static>() -> OpsRegistry {
 
         // 2509
         active_npc_mut!(m, NPC_DAMAGE => |s, npc| {
-            let amount = s.pop_int_as::<u8>()?;
+            // 2011's npc hits are life points, which pass a byte (2011 wiki,
+            // Constitution: monsters have up to 30,000).
+            #[cfg(since_647)]
+            let amount = s.pop_int_as::<u16>()?;
+            #[cfg(before_647)]
+            let amount = u16::from(s.pop_int_as::<u8>()?);
             let damage_type = s.pop_int_as::<u8>()?;
+            #[cfg(since_647)]
+            if crate::ops::test::recording() {
+                let arg = format!("{damage_type},{amount}");
+                crate::ops::test::record_call(NPC_DAMAGE, "npc_damage", &arg);
+            }
             npc.damage(amount, damage_type);
         });
 
@@ -380,6 +396,34 @@ pub fn build<E: ScriptEngine + 'static>() -> OpsRegistry {
                 .npcs()
                 .get_by_id(npc.uid().id())
                 .ok_or(ScriptError::NpcNotFound(npc.uid().id() as i32))?;
+            // A 2011 multi-npc (npc_9359, Sir Prysin) has no name of its own:
+            // it is named as the type the active player's var shows, as the
+            // client names it.
+            #[cfg(since_647)]
+            let npc_type = match (npc_type.multinpc.is_some(), get_active_player::<E>(s, false)) {
+                (true, Ok(player)) => {
+                    use crate::engine::ScriptPlayer as _;
+                    let value = match npc_type.multivar {
+                        Some(rs_pack::types::MultiVar::Varbit(id)) => engine::<E>()
+                            .varbits()
+                            .get_by_id(id)
+                            .map(|v| {
+                                let start = v.start_bit as u32;
+                                let width = v.end_bit as u32 - start + 1;
+                                let mask = if width >= 32 { u32::MAX } else { (1u32 << width) - 1 };
+                                ((player.get_var(v.basevar).as_int() as u32 >> start) & mask) as i32
+                            })
+                            .unwrap_or(-1),
+                        Some(rs_pack::types::MultiVar::Varp(id)) => player.get_var(id).as_int(),
+                        None => -1,
+                    };
+                    npc_type
+                        .multi_npc(value)
+                        .and_then(|id| engine::<E>().npcs().get_by_id(id))
+                        .unwrap_or(npc_type)
+                }
+                _ => npc_type,
+            };
             s.push_string(npc_type.name.as_deref().unwrap_or(npc_type.debugname().unwrap_or("null")));
         });
 
@@ -612,7 +656,18 @@ pub fn build<E: ScriptEngine + 'static>() -> OpsRegistry {
         active_npc_mut!(m, SPOTANIM_NPC => |s, npc| {
             let delay = s.pop_int_as::<u16>()?;
             let height = s.pop_int_as::<u16>()?;
+            // At 647 `null` is no spotanim: 65535, which the client reads as
+            // -1. 289's ranged npcs pass their `proj_launch`, null for one with
+            // none. Before 647 it is a script error, as upstream has it.
+            #[cfg(before_647)]
             let id = s.pop_int_as::<u16>()?;
+            #[cfg(since_647)]
+            let id = u16::try_from(s.pop_int()).unwrap_or(u16::MAX);
+            #[cfg(since_647)]
+            if crate::ops::test::recording() {
+                let arg = format!("{id},{height},{delay}");
+                crate::ops::test::record_call(SPOTANIM_NPC, "spotanim_npc", &arg);
+            }
             npc.spotanim(id, height, delay);
         });
 

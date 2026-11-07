@@ -1,0 +1,5 @@
+[proc,clientscript_1716]
+if (%varc_int_1063 ! %varbit_6840) {
+    %varc_int_1063 = %varbit_6840;
+    ~prayer_init_buttons;
+}

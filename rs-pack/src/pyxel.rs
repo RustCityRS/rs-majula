@@ -1,13 +1,16 @@
-use std::collections::HashMap;
-use std::io::{Read, Write};
-use std::path::Path;
-
-use anyhow::{Context, Result, bail};
-use serde_json::{Value, json};
-
 use crate::back::{CANVAS_H, CANVAS_W, FRAME};
 use crate::unpack::{DecodedGroup, write_group_sheet};
 use crate::{sheet, tga};
+use anyhow::{Context, Result, bail};
+use png::{BitDepth, ColorType, Decoder, Encoder};
+use serde_json::{Map, Value, json};
+use std::collections::HashMap;
+use std::collections::hash_map::Entry;
+use std::fs::{self, File};
+use std::io::{Cursor, Read, Write};
+use std::path::Path;
+use zip::write::SimpleFileOptions;
+use zip::{CompressionMethod, ZipArchive, ZipWriter};
 
 type Rgb = (u8, u8, u8);
 type PaletteIndex = HashMap<Rgb, u8>;
@@ -31,9 +34,9 @@ fn frame_order(name: &str) -> usize {
 fn png_encode(w: usize, h: usize, rgba: &[u8]) -> Vec<u8> {
     let mut out = Vec::new();
     {
-        let mut enc = png::Encoder::new(&mut out, w as u32, h as u32);
-        enc.set_color(png::ColorType::Rgba);
-        enc.set_depth(png::BitDepth::Eight);
+        let mut enc = Encoder::new(&mut out, w as u32, h as u32);
+        enc.set_color(ColorType::Rgba);
+        enc.set_depth(BitDepth::Eight);
         let mut writer = enc.write_header().expect("png header");
         writer.write_image_data(rgba).expect("png data");
     }
@@ -41,7 +44,7 @@ fn png_encode(w: usize, h: usize, rgba: &[u8]) -> Vec<u8> {
 }
 
 fn png_decode(bytes: &[u8]) -> Result<(usize, usize, Vec<u8>)> {
-    let mut reader = png::Decoder::new(std::io::Cursor::new(bytes))
+    let mut reader = Decoder::new(Cursor::new(bytes))
         .read_info()
         .context("png read_info")?;
     let size = reader
@@ -52,8 +55,8 @@ fn png_decode(bytes: &[u8]) -> Result<(usize, usize, Vec<u8>)> {
     buf.truncate(info.buffer_size());
     let (w, h) = (info.width as usize, info.height as usize);
     let rgba = match info.color_type {
-        png::ColorType::Rgba => buf,
-        png::ColorType::Rgb => {
+        ColorType::Rgba => buf,
+        ColorType::Rgb => {
             let mut out = vec![0u8; w * h * 4];
             for i in 0..w * h {
                 out[i * 4..i * 4 + 3].copy_from_slice(&buf[i * 3..i * 3 + 3]);
@@ -67,12 +70,11 @@ fn png_decode(bytes: &[u8]) -> Result<(usize, usize, Vec<u8>)> {
 }
 
 fn zip_write(path: &Path, entries: &[(String, Vec<u8>)]) -> Result<()> {
-    let mut zw = zip::ZipWriter::new(std::fs::File::create(path)?);
+    let mut zw = ZipWriter::new(File::create(path)?);
     for (name, data) in entries {
         zw.start_file(
             name.as_str(),
-            zip::write::SimpleFileOptions::default()
-                .compression_method(zip::CompressionMethod::Deflated),
+            SimpleFileOptions::default().compression_method(CompressionMethod::Deflated),
         )?;
         zw.write_all(data)?;
     }
@@ -81,7 +83,7 @@ fn zip_write(path: &Path, entries: &[(String, Vec<u8>)]) -> Result<()> {
 }
 
 fn zip_read(path: &Path) -> Result<HashMap<String, Vec<u8>>> {
-    let mut archive = zip::ZipArchive::new(std::fs::File::open(path)?)?;
+    let mut archive = ZipArchive::new(File::open(path)?)?;
     let mut map = HashMap::new();
     for i in 0..archive.len() {
         let mut f = archive.by_index(i)?;
@@ -128,7 +130,7 @@ fn resolve_palette(
             if rgba[o + 3] == 0 || key == (255, 0, 255) {
                 continue;
             }
-            if let std::collections::hash_map::Entry::Vacant(slot) = idx.entry(key) {
+            if let Entry::Vacant(slot) = idx.entry(key) {
                 let next = palette.len() / 3;
                 if next >= u8::MAX as usize {
                     bail!(
@@ -160,7 +162,7 @@ fn rgba_to_frame(rgba: &[u8], rgb2idx: &PaletteIndex) -> Vec<u8> {
 
 fn palette_json(palette: &[u8]) -> Value {
     let n = palette.len() / 3;
-    let mut colors = serde_json::Map::new();
+    let mut colors = Map::new();
     for i in 0..n {
         let c = i * 3;
         colors.insert(
@@ -213,7 +215,7 @@ fn write_group(path: &Path, name: &str, g: &DecodedGroup) -> Result<()> {
     if g.frames.len() > 1 {
         let (cols, rows) = sheet::grid(tw, th, g.frames.len());
         let (cw, ch) = (cols * tw, rows * th);
-        let mut tile_refs = serde_json::Map::new();
+        let mut tile_refs = Map::new();
         let mut composite = vec![0u8; cw * ch * 4];
         let mut tiles: Vec<(String, Vec<u8>)> = Vec::new();
         for (i, frame) in g.frames.iter().enumerate() {
@@ -264,7 +266,7 @@ fn write_group(path: &Path, name: &str, g: &DecodedGroup) -> Result<()> {
 fn write_back(path: &Path, pieces: &[(String, DecodedGroup)]) -> Result<()> {
     let palette = &pieces[0].1.palette;
     let mut layer_pngs: Vec<(String, Vec<u8>)> = Vec::new();
-    let mut layers = serde_json::Map::new();
+    let mut layers = Map::new();
     for (i, (name, g)) in pieces.iter().enumerate() {
         let (ox, oy, _, _) =
             frame_entry(name).with_context(|| format!("unknown back piece {name}"))?;
@@ -457,8 +459,8 @@ pub fn content_to_pyxel(content_dir: &Path) -> Result<()> {
             continue;
         }
         let out = dir.join("pyxel");
-        std::fs::create_dir_all(&out)?;
-        let mut tgas: Vec<String> = std::fs::read_dir(&dir)?
+        fs::create_dir_all(&out)?;
+        let mut tgas: Vec<String> = fs::read_dir(&dir)?
             .filter_map(|e| e.ok())
             .filter_map(|e| e.file_name().into_string().ok())
             .filter_map(|n| n.strip_suffix(".tga").map(str::to_string))
@@ -500,7 +502,7 @@ pub fn content_from_pyxel(content_dir: &Path) -> Result<()> {
         if !src.is_dir() {
             continue;
         }
-        let mut names: Vec<String> = std::fs::read_dir(&src)?
+        let mut names: Vec<String> = fs::read_dir(&src)?
             .filter_map(|e| e.ok())
             .filter_map(|e| e.file_name().into_string().ok())
             .filter_map(|n| n.strip_suffix(".pyxel").map(str::to_string))

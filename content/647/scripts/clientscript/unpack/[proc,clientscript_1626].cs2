@@ -1,0 +1,14 @@
+[proc,clientscript_1626]
+def_string $string0 = "Curtsy";
+def_string $string1 = "Bow";
+if (player_isfemale > 0) {
+    if_setgraphic("emotes,47", emotes:com4);
+    if_setonmouserepeat("addtooltip(^event_com, emotes:com54, $string0, 50, 150)", emotes:com4);
+    if_setop(1, $string0, emotes:com4);
+    if_setop(2, $string1, emotes:com4);
+} else {
+    if_setgraphic("emotes,3", emotes:com4);
+    if_setonmouserepeat("addtooltip(^event_com, emotes:com54, $string1, 50, 150)", emotes:com4);
+    if_setop(2, $string0, emotes:com4);
+    if_setop(1, $string1, emotes:com4);
+}

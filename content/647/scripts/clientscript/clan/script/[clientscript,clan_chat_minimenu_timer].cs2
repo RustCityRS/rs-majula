@@ -1,0 +1,8 @@
+[clientscript,clan_chat_minimenu_timer]
+if (hud_test(72744974, -1) = true) {
+    return;
+}
+if_setontimer(null, clan_chat:com14);
+if (clanchannel2_find_affined = true) {
+    ~clientscript_4451;
+}

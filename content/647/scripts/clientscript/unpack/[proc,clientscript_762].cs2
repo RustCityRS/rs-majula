@@ -1,0 +1,10 @@
+[proc,clientscript_762](int $int)(int)
+if ($int = false) {
+    return(6);
+} else if ($int = true) {
+    return(117);
+} else if ($int = 2) {
+    return(228);
+} else if ($int = 3) {
+    return(340);
+}

@@ -1,0 +1,37 @@
+[clientscript,statue_bag_init](component $component0)
+cc_deleteall($component0);
+def_int $int1 = 0;
+def_int $int2 = 0;
+def_int $int3 = 0;
+def_int $int4 = 6;
+def_int $int5 = 5;
+if ($int4 > 1) {
+    if (if_getscrollwidth($component0) > 0) {
+        $int2 = calc((if_getscrollwidth($component0) - 36 * $int4) / ($int4 - 1));
+    } else {
+        $int2 = calc((if_getwidth($component0) - 36 * $int4) / ($int4 - 1));
+    }
+}
+if ($int5 > 1) {
+    if (if_getscrollheight($component0) > 0) {
+        $int3 = calc((if_getscrollheight($component0) - 32 * $int5) / ($int5 - 1));
+    } else {
+        $int3 = calc((if_getheight($component0) - 32 * $int5) / ($int5 - 1));
+    }
+}
+while ($int1 < 30) {
+    cc_create($component0, ^iftype_graphic, $int1);
+    cc_setsize(36, 32, ^setsize_abs, ^setsize_abs);
+    cc_setposition(calc((36 + $int2) * ($int1 % $int4)), calc($int1 / $int4 * (32 + $int3)), ^setpos_abs_left, ^setpos_abs_top);
+    cc_setobject_scaled(enum(105, 79, enum_3272, $int1), testbit(%varc_int_1352, $int1));
+    if (testbit(%varc_int_1352, $int1) = true) {
+        cc_setop(1, "Take<col=ff9040>");
+        cc_setoutline(2);
+    } else {
+        cc_settrans(100);
+    }
+    cc_setop(5, "Examine<col=ff9040>");
+    cc_setopbase("<col=ff981f><enum(105, 115, enum_3274, $int1)> Piece");
+    cc_setonop("clientscript_3679(^event_com, $int1)");
+    $int1 = calc($int1 + 1);
+}

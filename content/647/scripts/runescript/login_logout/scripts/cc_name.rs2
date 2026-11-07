@@ -1,0 +1,121 @@
+[queue,cc_open_name]
+runclientscript("playerdesign4_open_name_entry()")
+if_sethide(playerdesign4:com155, false)
+if_sethide(playerdesign4:com156, true)
+
+[if_button,playerdesign4:com117]
+if (p_finduid(uid) = true) {
+    runclientscript("playerdesign4_open_name_entry()")
+    if_sethide(playerdesign4:com155, false)
+    if_sethide(playerdesign4:com156, true)
+    @cc_name_loop;
+}
+
+//TODO
+[proc,create_check_username](string $input)(boolean)
+return(true);
+
+
+[label,cc_name_loop]
+p_stringdialog
+def_string $name = last_string;
+if (~create_check_username($name) = false) {
+    p_prev_suggestions
+    sendvarc_str(330, "")
+    if_settext(playerdesign4:com154, "Invalid Name")
+    if_sethide(playerdesign4:com155, true)
+    if_sethide(playerdesign4:com156, false)
+    if_sethide(playerdesign4:com164, true)
+    ~cc_send_suggestions();
+    runclientscript("playerdesign4_open_name_entry()")
+    sendvarc_str(330, "")
+    sendvarc(1099, string_length(""))
+    runclientscript("clientscript_3218(playerdesign4:com181, playerdesign4:com182, playerdesign4:com183, \"\", 16)")
+    @cc_name_loop;
+}
+p_setdisplayname($name);
+def_int $result = last_int;
+def_string $formatted = last_string;
+if ($result = 1) {
+    queue(character_created, 0, 0);
+} else {
+    sendvarc_str(330, $formatted)
+    if_settext(playerdesign4:com154, "'<$formatted>' is not available.")
+    if_sethide(playerdesign4:com155, true)
+    if_sethide(playerdesign4:com156, false)
+    if_sethide(playerdesign4:com164, true)
+    ~cc_send_suggestions();
+    runclientscript("playerdesign4_open_name_entry()")
+    sendvarc_str(330, $formatted)
+    sendvarc(1099, string_length($formatted))
+    runclientscript("clientscript_3218(playerdesign4:com181, playerdesign4:com182, playerdesign4:com183, $formatted, 16)")
+    @cc_name_loop;
+}
+
+//Continue button
+[if_button,playerdesign4:com166]
+if (p_finduid(uid) = true) {
+    runclientscript("playerdesign4_submit_name(0, 1, 1)")
+}
+
+// More suggestions button
+[if_button,playerdesign4:com165]
+if (p_finduid(uid) = true) {
+    p_request_more_suggestions
+    queue(cc_more_suggestions, 1, 0)
+}
+
+// Previous suggestions button
+[if_button,playerdesign4:com164]
+if (p_finduid(uid) = true) {
+    p_prev_suggestions
+    ~cc_send_suggestions();
+}
+
+// Sending more suggestions
+[queue,cc_more_suggestions]
+~cc_send_suggestions();
+if_sethide(playerdesign4:com164, false)
+
+[if_button,playerdesign4:com158]
+if (p_finduid(uid) = true) {
+    runclientscript("playerdesign4_submit_name(1, 1, 0)")
+}
+
+[if_button,playerdesign4:com159]
+if (p_finduid(uid) = true) {
+    runclientscript("playerdesign4_submit_name(2, 1, 0)")
+}
+
+[if_button,playerdesign4:com160]
+if (p_finduid(uid) = true) {
+    runclientscript("playerdesign4_submit_name(3, 1, 0)")
+}
+
+
+[proc,cc_send_suggestions]()
+def_string $s0 = p_get_suggestion(0);
+def_string $s1 = p_get_suggestion(1);
+def_string $s2 = p_get_suggestion(2);
+// varc_str 331-336: used by CS2 3945 when user clicks a suggestion (delayed OK — clicks are future ticks)
+sendvarc_str(331, $s0)
+sendvarc_str(332, $s1)
+sendvarc_str(333, $s2)
+sendvarc_str(334, ^string_empty)
+sendvarc_str(335, ^string_empty)
+sendvarc_str(336, ^string_empty)
+// display text immediately (if_settext is not delayed like sendvarc_str)
+if_settext(playerdesign4:com158, $s0)
+if_settext(playerdesign4:com159, $s1)
+if_settext(playerdesign4:com160, $s2)
+// set button ops immediately via script params (not delayed)
+runclientscript("clientscript_3946(1, $s0, $s1, $s2, ^string_empty, ^string_empty, ^string_empty)")
+
+[queue,character_created]
+allowdesign(^false)
+%learning_the_ropes = 1001;
+setgender(%character_creation_female);
+applydesign;
+buildappearance(worn)
+~open_game_frame()
+~login_finish()

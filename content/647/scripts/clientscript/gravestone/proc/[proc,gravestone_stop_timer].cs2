@@ -1,0 +1,12 @@
+[proc,gravestone_stop_timer]
+%varc_int_815 = 0;
+~statusicons_deltooltip;
+if (getwindowmode < 2) {
+    if_setontimer(null, toplevel:com11);
+    if_sethide(true, toplevel:com13);
+    if_sethide(true, toplevel:com12);
+} else {
+    if_setontimer(null, toplevel_fullscreen:com11);
+    if_sethide(true, toplevel_fullscreen:com166);
+    if_sethide(true, toplevel_fullscreen:com165);
+}

@@ -1,0 +1,21 @@
+[clientscript,ecosystem_tutorial_camera](component $component)
+switch_int (%varc_int_1406) {
+    case default:
+        cam_clear_5503;
+    case 1:
+        ~ecosystem_tutorial_cam_1($component);
+    case 2:
+        ~ecosystem_tutorial_cam_2($component);
+    case 3:
+        ~ecosystem_tutorial_cam_3($component);
+    case 4:
+        ~ecosystem_tutorial_cam_4($component);
+    case 5:
+        ~ecosystem_tutorial_cam_5($component);
+    case 6:
+        ~ecosystem_tutorial_cam_6($component);
+    case 7:
+        ~ecosystem_tutorial_cam_7($component);
+    case 8:
+        ~ecosystem_tutorial_cam_8($component);
+}

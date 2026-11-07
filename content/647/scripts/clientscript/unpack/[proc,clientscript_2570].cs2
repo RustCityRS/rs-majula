@@ -1,0 +1,79 @@
+[proc,clientscript_2570]
+def_int $int0 = 0;
+def_int $int1 = 0;
+def_obj $obj2 = null;
+%varc_int_930 = -1;
+%varc_int_931 = -1;
+%varc_int_932 = -1;
+%varc_int_933 = -1;
+%varc_int_934 = -1;
+%varc_int_935 = -1;
+%varc_int_936 = -1;
+%varc_int_937 = -1;
+%varc_int_938 = -1;
+%varc_int_939 = -1;
+if (%varbit_6429 > 0 & %varbit_6429 < 11) {
+    %varc_int_929 = calc(%varbit_6429 - 1);
+} else {
+    %varc_int_929 = 0;
+}
+while ($int1 < 10 & $int0 < 28) {
+    $obj2 = inv_getobj(inv, $int0);
+    if (oc_weight($obj2, param_802) = true | oc_weight($obj2, param_803) = true) {
+        if_settext("Squad <tostring(calc($int1 + 1))>", enum(105, 73, enum_2423, $int1));
+        if (oc_weight($obj2, param_806) = false) {
+            if_setgraphic(2023, enum(105, 73, enum_2427, $int1));
+        } else if (oc_weight($obj2, param_806) = true) {
+            if_setgraphic(2022, enum(105, 73, enum_2427, $int1));
+        }
+        if (oc_weight($obj2, param_805) = true) {
+            if_setgraphic(2016, enum(105, 73, enum_2426, $int1));
+        } else if (oc_weight($obj2, param_805) = 2) {
+            if_setgraphic(2018, enum(105, 73, enum_2426, $int1));
+        } else if (oc_weight($obj2, param_805) = 3) {
+            if_setgraphic(2017, enum(105, 73, enum_2426, $int1));
+        }
+        if (oc_weight($obj2, param_803) = true) {
+            if_setcolour(0xcc0000, enum(105, 73, enum_2429, $int1));
+        } else {
+            if_setcolour(^black, enum(105, 73, enum_2429, $int1));
+        }
+        switch_int ($int1) {
+            case 0:
+                %varc_int_930 = $int0;
+            case 1:
+                %varc_int_931 = $int0;
+            case 2:
+                %varc_int_932 = $int0;
+            case 3:
+                %varc_int_933 = $int0;
+            case 4:
+                %varc_int_934 = $int0;
+            case 5:
+                %varc_int_935 = $int0;
+            case 6:
+                %varc_int_936 = $int0;
+            case 7:
+                %varc_int_937 = $int0;
+            case 8:
+                %varc_int_938 = $int0;
+            case 9:
+                %varc_int_939 = $int0;
+        }
+        $int1 = calc($int1 + 1);
+    }
+    $int0 = calc($int0 + 1);
+}
+if ($int1 < 10) {
+    while ($int1 < 10) {
+        if_settext("No squad", enum(105, 73, enum_2423, $int1));
+        if_settext("", enum(105, 73, enum_2424, $int1));
+        if_setgraphic(null, enum(105, 73, enum_2427, $int1));
+        if_setgraphic(null, enum(105, 73, enum_2426, $int1));
+        if_setonop(null, enum(105, 73, enum_2422, $int1));
+        if_clearops(enum(105, 73, enum_2422, $int1));
+        $int1 = calc($int1 + 1);
+    }
+}
+~clientscript_2599;
+~clientscript_2573;

@@ -1,0 +1,7 @@
+[clientscript,mob_formation_onload]
+def_int $int = 1;
+%varc_int_837 = %varbit_6350;
+~mob_formation_setops;
+if (%varc_int_837 > 0 & %varc_int_837 <= 9) {
+    ~mob_formation_click(enum(105, 73, enum_2400, %varc_int_837));
+}

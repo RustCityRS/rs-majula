@@ -1,0 +1,6 @@
+[proc,clientscript_1886](component $component)
+if (%varbit_4895 = 3 & %learning_the_ropes < 125) {
+    if_sethide(true, $component);
+} else {
+    if_sethide(false, $component);
+}

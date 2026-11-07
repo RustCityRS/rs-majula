@@ -1,0 +1,48 @@
+// 289's Vampire Slayer (quests/quest_vampire) as 2011 has it since its rework
+// of 15 December 2009 (2011 wiki, Vampire Slayer, Stake hammer, Dr. Harlow):
+// - Dr Harlow, at the Blue Moon Inn, gives a stake and a stake hammer for a
+//   beer, and the stake is driven in with the stake hammer;
+// - without garlic, each of the player's hits of 0 heals the Count 10 life
+//   points;
+// - the quest ends at Morgan once the Count is staked, and every stake, in
+//   the backpack or the bank, goes then.
+// Lines are 289's: no 2011 source quotes the reworked quest's.
+//
+// Waiting: 2011 plays a cutscene when the coffin opens (the player's stake
+// fails to go in, and the Count teleports out); and a player the Count kills
+// before the quest wakes in a cell (2011 wiki, Vampire Slayer). Neither is
+// described closely enough to port.
+
+// 2011's coffin, loc 158, at 3080,9785 in Draynor Manor's basement: Open is
+// its only op (289's had Search and Close once open).
+[oploc1,coffin]
+if (%vampire = ^vampire_complete | %vampire = ^quest_vampire_not_started) {
+    return;
+}
+npc_findallany(0_48_152_9_56, 6, ^vis_off);
+while (npc_findnext = true) {
+    if (npc_type = count_draynor & %npc_attacking_uid = uid) {
+        return;
+    }
+}
+p_delay(4);
+npc_add(0_48_152_9_56, count_draynor, 500);
+%npc_attacking_uid = uid;
+npc_sethuntmode(aggressive_melee_extra);
+npc_sethunt(5);
+
+[proc,quest_vampire_set_progress](int $stage)
+%vampire = $stage;
+~send_quest_progress(^questlist_vampire, %vampire, ^vampire_complete);
+
+// At Morgan, the Count staked: 289's reward (4825 Attack xp, 3 quest points;
+// 2011's too), and the stakes go (2011 wiki, Stake: "all stakes in a player's
+// inventory and bank vanish automatically upon completion of the quest").
+[proc,quest_vampire_complete]
+inv_del(inv, stake, inv_total(inv, stake));
+inv_del(bank, stake, inv_total(bank, stake));
+%vampire_count_slain = ^false;
+stat_advance(attack, 48250);
+~quest_vampire_set_progress(^vampire_complete);
+session_log(^log_adventure, "Quest complete: Vampire Slayer");
+~send_quest_complete2(^questlist_vampire, stake, 250, ^vampire_questpoints, "You have completed the<br>Vampire Slayer Quest!", "4825 Attack XP");

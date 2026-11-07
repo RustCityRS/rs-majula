@@ -1,0 +1,4 @@
+[proc,clientscript_3000]
+if (calc(clientclock % 50) = false) {
+    ~clientscript_3001;
+}

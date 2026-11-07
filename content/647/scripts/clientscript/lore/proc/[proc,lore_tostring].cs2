@@ -1,0 +1,9 @@
+[proc,lore_tostring](int $int)(string)
+if ($int >= 999999) {
+    return("*");
+}
+if ($int >= 10000) {
+    return(append(tostring(calc($int / 1000)), "K"));
+}
+return(tostring($int));
+return("");

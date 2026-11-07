@@ -1,0 +1,11 @@
+[clientscript,pmsetup_clanbackground](component $component0, component $component1, component $component2, int $int3)
+def_int $int4 = getwindowmode;
+if ($int4 ! 1) {
+    if ($int3 ! 1) {
+        return;
+    }
+} else if ($int3 = true) {
+    return;
+}
+~pmsetup_clanbackground($component1, $component2, $int4);
+if_setontimer("pmsetup_clanbackground(^event_com, $component1, $component2, $int4)", $component0);

@@ -1,0 +1,51 @@
+[proc,clientscript_920](int $int0)(int)
+%varc_int_742 = 0;
+def_string $string = "";
+def_int $int1 = 0;
+if (%varc_int_741 ! -1) {
+    if (compare(oc_iop(%varc_int_741, 2), "Wear") = false | compare(oc_iop(%varc_int_741, 2), "Wield") = false) {
+        $int1 = 1;
+    }
+    if_setobject_nonum(%varc_int_741, -1, obj_info:com13);
+    if_setobject_nonum(%varc_int_741, -1, obj_info:com14);
+    if (map_members = false & oc_members(%varc_int_741) = true) {
+        ~clientscript_922("This is a members item. Additional information is not available on this world.", ^settextalign_centre, $int0);
+    } else {
+        $string = ~obj_warning;
+        if (compare($string, "") ! 0) {
+            ~clientscript_922($string, ^settextalign_centre, $int0);
+            %varc_int_742 = calc(%varc_int_742 + 1);
+        }
+        ~clientscript_921(%varc_string_25, ^settextalign_centre, $int0);
+        if (compare(oc_weight(%varc_int_741, param_690), "") ! 0) {
+            ~clientscript_921(" ", ^settextalign_centre, $int0);
+            ~clientscript_921(oc_weight(%varc_int_741, param_690), ^settextalign_centre, $int0);
+        }
+        if (calc(oc_weight(%varc_int_741, param_740) % 2) = true) {
+            if (compare(%varc_string_26, "") ! 0 & $int1 = true) {
+                ~clientscript_921(%varc_string_26, ^settextalign_left, $int0);
+            }
+            if (compare(%varc_string_34, "") ! 0) {
+                ~clientscript_921(%varc_string_34, ^settextalign_left, $int0);
+            }
+        } else {
+            if (compare(%varc_string_34, "") ! 0) {
+                ~clientscript_921(%varc_string_34, ^settextalign_left, $int0);
+            }
+            if (compare(%varc_string_26, "") ! 0 & $int1 = true) {
+                ~clientscript_921(%varc_string_26, ^settextalign_left, $int0);
+            }
+        }
+        $string = ~clientscript_912(%varc_int_741);
+        if (compare($string, "") ! 0) {
+            ~clientscript_921($string, ^settextalign_left, $int0);
+        }
+        if (compare(%varc_string_35, "") ! 0 & $int1 = true) {
+            ~clientscript_923(%varc_string_35, %varc_string_36, %varc_string_52, $int0);
+        }
+    }
+} else {
+    ~clientscript_921("Select an item to see its information.", ^settextalign_centre, $int0);
+}
+return(calc(6 * 2 + %varc_int_742 * 11));
+return(0);

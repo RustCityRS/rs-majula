@@ -1,0 +1,14 @@
+[proc,clientscript_1332]
+if (%varbit_275 = true) {
+    if_setontimer(null, advisor_tutorial_chat:com5);
+    if_sethide(true, advisor_tutorial_chat:com7);
+    if_setgraphic(null, advisor_tutorial_chat:com4);
+} else if (~current_side_if = 7) {
+    if_settext("To set Wind Rush to auto-cast, click on the flashing spell icon. You can hover over spell icons to read a brief description of the spell and the runes required to cast it.", advisor_tutorial_chat:com7);
+    if_settext("", advisor_tutorial_chat:com6);
+    if_setgraphic("magicon,50", advisor_tutorial_chat:com4);
+} else {
+    if_settext("Click on the Magic icon to open your magic spellbook.", advisor_tutorial_chat:com7);
+    if_settext("", advisor_tutorial_chat:com6);
+    if_setgraphic("stonemenusideicons,7", advisor_tutorial_chat:com4);
+}

@@ -1,13 +1,15 @@
-use super::map::{ParsedMap, TILE_COUNT, TileData, tile_index, zone_key};
-use crate::cache::flo::FloType;
+use super::map::{ParsedMap, TILE_COUNT, tile_index, zone_key};
+use crate::cache::flo::{FloType, FloTypeRaw};
 use crate::cache::loc::LocTypeRaw;
+use crate::cache::map::TerrainTile;
 use crate::cache::npc::NpcTypeRaw;
-use crate::cache::provider::{CacheType, TypeProvider};
+use crate::cache::provider::TypeProvider;
 use crate::pack::util::media::{emit_group, read_group};
 use crate::pack::util::palette;
 use crate::types::{LocShape, MapSquareCsv};
 use rs_io::jag::{JagCompression, JagFile};
 use std::collections::HashMap;
+use std::fs;
 use std::path::Path;
 use tracing::debug;
 
@@ -58,7 +60,7 @@ impl WorldmapBuilder {
         &mut self,
         mx: u8,
         mz: u8,
-        tiles: &[TileData; TILE_COUNT],
+        tiles: &[TerrainTile; TILE_COUNT],
         map: &ParsedMap,
     ) {
         if self
@@ -74,20 +76,20 @@ impl WorldmapBuilder {
         } else {
             0
         };
-        let bridged = |x: usize, z: usize| tiles[tile_index(1, x, z)].flags.max(0) & 0x2 != 0;
+        let bridged = |x: usize, z: usize| tiles[tile_index(1, x, z)].flags.unwrap_or(0) & 0x2 != 0;
 
         self.underlay.extend_from_slice(&[mx, mz]);
         self.overlay.extend_from_slice(&[mx, mz]);
         for x in 0..64 {
             for z in 0..64 {
                 let tile = &tiles[tile_index(level as usize + bridged(x, z) as usize, x, z)];
-                self.underlay.push(tile.underlay.max(0) as u8);
-                if tile.overlay == -1 {
-                    self.overlay.push(0);
-                } else {
-                    self.overlay.push(tile.overlay as u8);
+                self.underlay.push(tile.underlay_id.unwrap_or(0));
+                if let Some(overlay) = tile.overlay_id {
+                    self.overlay.push(overlay);
                     self.overlay
-                        .push(((tile.shape.max(0) << 2) + tile.rotation.max(0)) as u8);
+                        .push((tile.overlay_shape << 2) + tile.overlay_rotation);
+                } else {
+                    self.overlay.push(0);
                 }
             }
         }
@@ -144,7 +146,7 @@ impl WorldmapBuilder {
         multimap: &MapSquareCsv,
         freemap: &MapSquareCsv,
     ) -> Vec<u8> {
-        let flos = TypeProvider::<FloType>::from_bytes::<FloType>(flo_dat, ());
+        let flos = TypeProvider::<FloType>::from_bytes::<FloTypeRaw>(flo_dat, ());
         let locs = TypeProvider::<LocTypeRaw>::from_bytes::<LocTypeRaw>(loc_dat, ());
         let npcs = TypeProvider::<NpcTypeRaw>::from_bytes::<NpcTypeRaw>(npc_dat, ());
 
@@ -202,8 +204,8 @@ impl WorldmapBuilder {
         jag.write("b12_full.dat", b12_full);
         for font in FONTS {
             let path = worldmap_dir.join(format!("{font}.fm"));
-            let data = std::fs::read(&path)
-                .unwrap_or_else(|e| panic!("Cannot read {}: {e}", path.display()));
+            let data =
+                fs::read(&path).unwrap_or_else(|e| panic!("Cannot read {}: {e}", path.display()));
             jag.write(&format!("{font}.dat"), data);
         }
         jag.write("mapdots.dat", mapdots);
@@ -235,7 +237,7 @@ fn encode_locs(square: &[SquareLoc], locs: &TypeProvider<LocTypeRaw>, out: &mut 
         let tile = (loc.x as usize) << 6 | loc.z as usize;
 
         if walls[tile] == 0 {
-            walls[tile] = wall(loc.shape, loc.angle, ty.active == Some(true));
+            walls[tile] = wall(loc.shape, loc.angle, ty.active == Some(1));
         }
         if ty.mapscene.is_some() {
             mapscenes[tile] = ty.mapscene;
@@ -310,8 +312,8 @@ fn zone_flags(squares: &[(u8, u8)], zones: &MapSquareCsv) -> Vec<u8> {
 /// hue/saturation/lightness) and the overlay colour it draws (rgb).
 fn floorcol(worldmap_dir: &Path, flos: &TypeProvider<FloType>) -> Vec<u8> {
     let path = worldmap_dir.join("floorcol.txt");
-    let text = std::fs::read_to_string(&path)
-        .unwrap_or_else(|e| panic!("Cannot read {}: {e}", path.display()));
+    let text =
+        fs::read_to_string(&path).unwrap_or_else(|e| panic!("Cannot read {}: {e}", path.display()));
     let table: HashMap<&str, (u32, u32)> = text
         .lines()
         .map(|line| line.split("//").next().unwrap_or("").trim())
@@ -387,8 +389,8 @@ fn sprite(index: &mut Vec<u8>, name: &str, path: &Path) -> Vec<u8> {
 
 /// labels.dat from `=text,x,z,font` lines.
 fn labels(path: &Path) -> Vec<u8> {
-    let text = std::fs::read_to_string(path)
-        .unwrap_or_else(|e| panic!("Cannot read {}: {e}", path.display()));
+    let text =
+        fs::read_to_string(path).unwrap_or_else(|e| panic!("Cannot read {}: {e}", path.display()));
     let lines: Vec<&str> = text
         .lines()
         .filter_map(|line| line.strip_prefix('='))

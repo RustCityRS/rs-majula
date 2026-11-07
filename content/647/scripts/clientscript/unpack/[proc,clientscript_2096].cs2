@@ -1,0 +1,11 @@
+[proc,clientscript_2096]
+if (%varc_int_654 < 100) {
+    %varc_int_654 = calc(%varc_int_654 + 1);
+}
+if (%varc_int_654 = 50) {
+    if_setcolour(^white, di9181176:com13);
+}
+if (%varc_int_654 = 100) {
+    if_setcolour(0xff2323, di9181176:com13);
+    %varc_int_654 = 0;
+}

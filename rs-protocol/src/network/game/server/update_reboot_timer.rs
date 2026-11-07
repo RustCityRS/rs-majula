@@ -1,4 +1,4 @@
-﻿use crate::network::game::server::ServerProtMessage;
+use crate::network::game::server::ServerProtMessage;
 use crate::network::game::server_prot::ServerProt;
 use crate::network::game::server_prot_message::ServerProtMessageInfo;
 use crate::network::game::server_prot_priority::ServerProtPriority;

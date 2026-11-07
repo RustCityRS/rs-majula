@@ -1,0 +1,5 @@
+[proc,bank_v2_rebuild]
+if (%varc_int_193 <= clientclock) {
+    %varc_int_193 = calc(clientclock + 10);
+    if_setontimer("bank_v2_rebuild_delayed(%varc_int_193)", bank_v2_main:com93);
+}

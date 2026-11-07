@@ -1,0 +1,134 @@
+[proc,clientscript_3472](component $component0, component $component1)
+switch_int (%varc_int_1007) {
+    case 51:
+        cc_deleteall($component0);
+        ~tutorial3_fadeout(^black, 100, $component0);
+    case 52:
+        if (%varc_int_1065 = -1 | (calc(coordx(coord) - coordx(%varc_int_1065)) > 128 | calc(coordz(coord) - coordz(%varc_int_1065)) > 128)) {
+            %varc_int_1065 = ~coord_0_0(coord);
+        }
+        ~tutorial3_fadein(75, $component0);
+        cam_allocpath(0, 2);
+        cam_allocpath(1, 2);
+        cam_addwaypoint(0, 0, ~clientscript_3474(0, 30, 26), 500, ~clientscript_3474(0, 29, 26), 500, 0);
+        cam_addwaypoint(1, 0, ~clientscript_3474(0, 33, 26), 250, ~clientscript_3474(0, 33, 26), 250, 0);
+        cam_addwaypoint(0, 1, ~clientscript_3474(0, 20, 30), 600, ~clientscript_3474(0, 20, 30), 500, 0);
+        cam_addwaypoint(1, 1, ~clientscript_3474(0, 23, 26), 250, ~clientscript_3474(0, 23, 26), 250, 0);
+        cam_startpath(0, 0, 150, 150, 1, 0);
+    case 53:
+        cam_allocpath(0, 3);
+        cam_allocpath(1, 3);
+        cam_addwaypoint(0, 0, ~clientscript_3474(0, 7, 26), 425, ~clientscript_3474(0, 6, 26), 425, 0);
+        cam_addwaypoint(1, 0, ~clientscript_3474(0, 13, 25), 275, ~clientscript_3474(0, 13, 25), 275, 0);
+        cam_addwaypoint(0, 1, ~clientscript_3474(0, 5, 28), 425, ~clientscript_3474(0, 6, 26), 425, 0);
+        cam_addwaypoint(1, 1, ~clientscript_3474(0, 11, 27), 275, ~clientscript_3474(0, 11, 27), 275, 0);
+        cam_addwaypoint(0, 2, ~clientscript_3474(0, 3, 26), 425, ~clientscript_3474(0, 3, 27), 425, 0);
+        cam_addwaypoint(1, 2, ~clientscript_3474(0, 11, 26), 275, ~clientscript_3474(0, 11, 26), 275, 0);
+        if_setonchattransmit_2426("clientscript_3473($component0, 1, 50, 0, 0, 0)", $component0);
+        cam_startpath(0, 0, 150, 50, 1, 0);
+    case 54:
+        if_setonchattransmit_2426(null, $component0);
+        ~tutorial3_fadeout(^black, 25, $component0);
+    case 55:
+        ~tutorial3_fadein(25, $component0);
+        cam_allocpath(0, 4);
+        cam_allocpath(1, 4);
+        cam_addwaypoint(0, 0, ~clientscript_3474(0, 79, 16), 800, ~clientscript_3474(0, 79, 16), 800, 0);
+        cam_addwaypoint(1, 0, ~clientscript_3474(0, 73, 18), 325, ~clientscript_3474(0, 73, 18), 325, 0);
+        cam_addwaypoint(0, 1, ~clientscript_3474(0, 81, 17), 900, ~clientscript_3474(0, 81, 17), 900, 0);
+        cam_addwaypoint(1, 1, ~clientscript_3474(0, 73, 17), 275, ~clientscript_3474(0, 73, 17), 275, 0);
+        cam_addwaypoint(0, 2, ~clientscript_3474(0, 82, 19), 1000, ~clientscript_3474(0, 82, 19), 1000, 0);
+        cam_addwaypoint(1, 2, ~clientscript_3474(0, 73, 16), 225, ~clientscript_3474(0, 73, 16), 225, 0);
+        cam_addwaypoint(0, 3, ~clientscript_3474(0, 82, 16), 1100, ~clientscript_3474(0, 82, 16), 1100, 0);
+        cam_addwaypoint(1, 3, ~clientscript_3474(0, 73, 17), 175, ~clientscript_3474(0, 73, 17), 175, 0);
+        if_setonchattransmit_2426("clientscript_3473($component0, 1, 175, 125, 125, 0)", $component0);
+        cam_startpath(0, 0, 150, 175, 1, 0);
+    case 56:
+        ~tutorial3_fadein(25, $component0);
+        cam_allocpath(0, 2);
+        cam_allocpath(1, 2);
+        cam_addwaypoint(0, 0, ~clientscript_3474(0, 3, 28), 425, ~clientscript_3474(0, 3, 27), 425, 0);
+        cam_addwaypoint(1, 0, ~clientscript_3474(0, 11, 26), 275, ~clientscript_3474(0, 11, 26), 275, 0);
+        cam_addwaypoint(0, 1, ~clientscript_3474(0, 0, 25), 425, ~clientscript_3474(0, 0, 26), 425, 0);
+        cam_addwaypoint(1, 1, ~clientscript_3474(0, 11, 26), 275, ~clientscript_3474(0, 11, 26), 275, 0);
+        cam_startpath(0, 0, 75, 0, 1, 0);
+    case 57:
+        ~tutorial3_fadein(25, $component0);
+        cam_allocpath(0, 2);
+        cam_allocpath(1, 2);
+        cam_addwaypoint(0, 0, ~clientscript_3474(0, 123, 15), 800, ~clientscript_3474(0, 123, 15), 800, 0);
+        cam_addwaypoint(1, 0, ~clientscript_3474(0, 114, 11), 175, ~clientscript_3474(0, 114, 11), 175, 0);
+        cam_addwaypoint(0, 1, ~clientscript_3474(0, 120, 10), 600, ~clientscript_3474(0, 120, 10), 600, 0);
+        cam_addwaypoint(1, 1, ~clientscript_3474(0, 114, 12), 275, ~clientscript_3474(0, 114, 12), 275, 0);
+        cam_startpath(0, 0, 100, 0, 1, 0);
+    case 58:
+        ~tutorial3_fadein(25, $component0);
+        cam_allocpath(0, 2);
+        cam_allocpath(1, 2);
+        cam_addwaypoint(0, 0, ~clientscript_3474(0, 7, 26), 400, ~clientscript_3474(0, 7, 26), 400, 0);
+        cam_addwaypoint(1, 0, ~clientscript_3474(0, 11, 27), 275, ~clientscript_3474(0, 11, 27), 275, 0);
+        cam_addwaypoint(0, 1, ~clientscript_3474(0, 8, 29), 400, ~clientscript_3474(0, 8, 29), 400, 0);
+        cam_addwaypoint(1, 1, ~clientscript_3474(0, 11, 28), 275, ~clientscript_3474(0, 11, 28), 275, 0);
+        cam_startpath(0, 0, 50, 0, 1, 0);
+    case 59:
+        if_setonchattransmit_2426(null, $component0);
+        ~tutorial3_fadeout(^black, 75, $component0);
+    case 60:
+        ~tutorial3_fadein(75, $component0);
+        cam_allocpath(0, 2);
+        cam_allocpath(1, 2);
+        cam_addwaypoint(0, 0, ~clientscript_3474(0, 43, 28), 700, ~clientscript_3474(0, 42, 28), 700, 0);
+        cam_addwaypoint(1, 0, ~clientscript_3474(0, 31, 24), 200, ~clientscript_3474(0, 31, 24), 200, 0);
+        cam_addwaypoint(0, 1, ~clientscript_3474(0, 36, 25), 425, ~clientscript_3474(0, 36, 25), 425, 0);
+        cam_addwaypoint(1, 1, ~clientscript_3474(0, 32, 27), 275, ~clientscript_3474(0, 32, 27), 275, 0);
+        cam_startpath(0, 0, 125, 0, 1, 0);
+    case 61:
+        ~tutorial3_fadein(50, $component0);
+        cam_allocpath(0, 3);
+        cam_allocpath(1, 3);
+        cam_addwaypoint(0, 0, ~clientscript_3474(0, 40, 90), 1200, ~clientscript_3474(0, 35, 90), 1200, -2000);
+        cam_addwaypoint(1, 0, ~clientscript_3474(0, 24, 110), 425, ~clientscript_3474(0, 24, 110), 425, 0);
+        cam_addwaypoint(0, 1, ~clientscript_3474(0, 15, 97), 600, ~clientscript_3474(0, 14, 97), 600, 500);
+        cam_addwaypoint(1, 1, ~clientscript_3474(0, 29, 110), 400, ~clientscript_3474(0, 29, 110), 400, 0);
+        cam_addwaypoint(0, 2, ~clientscript_3474(0, 22, 102), 500, ~clientscript_3474(0, 22, 102), 500, 0);
+        cam_addwaypoint(1, 2, ~clientscript_3474(0, 30, 111), 375, ~clientscript_3474(0, 30, 111), 375, 0);
+        if_setonchattransmit_2426("clientscript_3473($component0, 1, 400, 100, 100, 0)", $component0);
+        cam_startpath(0, 0, 400, 400, 1, 0);
+    case 62:
+        if_setonchattransmit_2426(null, $component0);
+        cam_allocpath(0, 2);
+        cam_allocpath(1, 2);
+        cam_addwaypoint(0, 0, ~clientscript_3474(0, 34, 120), 450, ~clientscript_3474(0, 29, 120), 450, 0);
+        cam_addwaypoint(1, 0, ~clientscript_3474(0, 30, 112), 225, ~clientscript_3474(0, 30, 112), 225, 0);
+        cam_addwaypoint(0, 1, ~clientscript_3474(0, 33, 116), 300, ~clientscript_3474(0, 33, 116), 300, 0);
+        cam_addwaypoint(1, 1, ~clientscript_3474(0, 30, 111), 225, ~clientscript_3474(0, 30, 111), 225, 0);
+        cam_startpath(0, 0, 50, 100, 1, 0);
+    case 63:
+        ~tutorial3_fadein(50, $component0);
+        ~clanwars_ffa(1, $component1, love_cutscenes:com5, love_cutscenes:com6, love_cutscenes:com7, love_cutscenes:com8, null, 1);
+        if_sethide(false, $component1);
+        cam_allocpath(0, 3);
+        cam_allocpath(1, 3);
+        cam_addwaypoint(0, 0, ~clientscript_3474(1, 64, 98), 500, ~clientscript_3474(1, 66, 96), 500, 0);
+        cam_addwaypoint(1, 0, ~clientscript_3474(1, 90, 98), 500, ~clientscript_3474(1, 90, 98), 500, 0);
+        cam_addwaypoint(0, 1, ~clientscript_3474(1, 90, 80), 1000, ~clientscript_3474(1, 88, 80), 950, 0);
+        cam_addwaypoint(1, 1, ~clientscript_3474(1, 91, 98), 500, ~clientscript_3474(1, 91, 98), 500, 0);
+        cam_addwaypoint(0, 2, ~clientscript_3474(1, 91, 87), 1000, ~clientscript_3474(1, 91, 87), 1000, 0);
+        cam_addwaypoint(1, 2, ~clientscript_3474(1, 90, 98), 500, ~clientscript_3474(1, 90, 98), 500, 0);
+        if_setonchattransmit_2426("clientscript_3473($component0, 1, 200, 0, 0, 0)", $component0);
+        cam_startpath(0, 0, 700, 700, 1, 0);
+    case 64:
+        if_setonchattransmit_2426(null, $component0);
+        cam_allocpath(0, 2);
+        cam_allocpath(1, 2);
+        cam_addwaypoint(0, 0, ~clientscript_3474(1, 91, 91), 800, ~clientscript_3474(1, 91, 91), 800, 0);
+        cam_addwaypoint(1, 0, ~clientscript_3474(1, 91, 98), 450, ~clientscript_3474(1, 91, 98), 450, 0);
+        cam_addwaypoint(0, 1, ~clientscript_3474(1, 91, 94), 750, ~clientscript_3474(1, 91, 94), 750, 0);
+        cam_addwaypoint(1, 1, ~clientscript_3474(1, 91, 98), 425, ~clientscript_3474(1, 91, 98), 425, 0);
+        cam_startpath(0, 0, 75, 0, 1, 0);
+    case 65:
+        if_sethide(true, $component1);
+        ~tutorial3_fadein(75, $component0);
+    case default:
+        cam_clear_5512;
+}

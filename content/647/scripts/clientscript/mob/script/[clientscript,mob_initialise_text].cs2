@@ -1,0 +1,19 @@
+[clientscript,mob_initialise_text]
+def_int $int = 1;
+while (enum(105, 73, enum_2451, $int) ! mob_chat:com24) {
+    if_settext("", enum(105, 73, enum_2451, $int));
+    $int = calc($int + 1);
+}
+if_settext("Welcome to Mobilising Armies.", mob_chat:com25);
+switch_int (%varbit_6352) {
+    case 1:
+        if_setgraphic(1906, mob_chat:com50);
+    case 2:
+        if_setgraphic(1904, mob_chat:com50);
+    case 3:
+        if_setgraphic(1905, mob_chat:com50);
+    case 4:
+        if_setgraphic(1907, mob_chat:com50);
+}
+~scrollbar_ondrag_doscroll(mob_chat:com45, mob_chat:com46, if_getscrollheight(mob_chat:com46), 1);
+if_setonkey("mob_chat_onkey(^event_key, ^event_keychar)", mob_chat:com48);

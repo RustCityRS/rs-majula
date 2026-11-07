@@ -1,0 +1,8 @@
+[proc,clientscript_2159](int $int0, int $int1, int $int2, int $int3)(int)
+if ($int0 = false & $int2 = false) {
+    return(0);
+} else if ($int0 < $int1 & $int2 < $int3) {
+    return(1);
+}
+return(2);
+return(0);

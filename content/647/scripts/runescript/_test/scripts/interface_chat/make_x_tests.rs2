@@ -1,0 +1,30 @@
+#testscript
+
+// 2011's make-X amount (interface_chat/scripts/skill_make.rs2,
+// ~skill_make_amount, as void-634 keeps skill_creation_amount): a first make
+// starts at 1, the player's last amount stands (0 included), and an amount
+// above the maximum comes down to it and stays down, which the client still
+// labels All. %skill_creation_saved holds the amount plus 1.
+
+[label,test_make_x_starts_at_1_and_remembers_the_last_amount]
+setup_player("test_player");
+%skill_creation_saved = 0;
+~skill_make_amount(28);
+assert_eq(%skill_creation_amount, 1);
+assert_eq(%skill_creation_saved, 2);
+%skill_creation_saved = 6;
+~skill_make_amount(28);
+assert_eq(%skill_creation_amount, 5);
+assert_eq(%skill_creation_maximum, 28);
+%skill_creation_saved = 1;
+~skill_make_amount(28);
+assert_eq(%skill_creation_amount, 0);
+
+[label,test_make_x_keeps_all_when_fewer_can_be_made]
+setup_player("test_player");
+// All chosen with a full backpack of 28, then a make of at most 10.
+%skill_creation_saved = 29;
+~skill_make_amount(10);
+assert_eq(%skill_creation_amount, 10);
+assert_eq(%skill_creation_saved, 11);
+assert_eq(%skill_creation_maximum, 10);

@@ -1,0 +1,4 @@
+[proc,dropdownbox_getselected](int $int0, component $component1)(int)
+def_int $int2 = calc(($int0 + if_getscrolly($component1)) / 15);
+return($int2);
+return(0);

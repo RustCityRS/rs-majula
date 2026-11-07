@@ -1,0 +1,8 @@
+[proc,clientscript_1030](int $int)
+if_sethide(true, quickchat_tutorial:com17);
+if_sethide(false, quickchat_tutorial:com35);
+cc_deleteall(quickchat_tutorial:com23);
+cc_deleteall(quickchat_tutorial:com25);
+if_setonclick("clientscript_1031()", quickchat_tutorial:com30);
+if_settext("Safety Guide", quickchat_tutorial:com30);
+~quickchat_tutorial_displaydata(enum(105, 115, enum_1485, 0));

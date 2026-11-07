@@ -44,3 +44,6 @@ pub mod player;
 pub mod server;
 pub mod string;
 pub mod r#struct;
+/// `#testscript` commands, registered only by the headless runner.
+#[cfg(since_647)]
+pub mod test;

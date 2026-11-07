@@ -1,3 +1,5 @@
+use crate::pack::packed_data::PackedData;
+use anyhow::Result;
 use rs_io::Packet;
 use rustc_hash::FxHashMap;
 
@@ -16,6 +18,21 @@ pub struct TypeProvider<T> {
 }
 
 impl<T> TypeProvider<T> {
+    pub fn from_indexed_bytes<Raw>(dat: &[u8], idx: &[u8], ctx: Raw::Context) -> Result<Self>
+    where
+        Raw: CacheType,
+        T: From<Raw>,
+    {
+        let raws = PackedData::entries(dat, idx)?
+            .map(|(id, data)| {
+                let mut raw = Raw::new(id);
+                raw.decode(&mut Packet::from(data.to_vec()));
+                raw
+            })
+            .collect();
+        Ok(Self::from_types(raws, ctx))
+    }
+
     pub fn from_bytes<Raw>(dat: &[u8], ctx: Raw::Context) -> TypeProvider<T>
     where
         Raw: CacheType,
@@ -32,9 +49,18 @@ impl<T> TypeProvider<T> {
             raws.push(entry);
         }
 
+        Self::from_types::<Raw>(raws, ctx)
+    }
+
+    pub fn from_types<Raw>(mut raws: Vec<Raw>, ctx: Raw::Context) -> TypeProvider<T>
+    where
+        Raw: CacheType,
+        T: From<Raw>,
+    {
         Raw::post_decode(&mut raws, &ctx);
 
-        let mut debugnames = FxHashMap::with_capacity_and_hasher(count, Default::default());
+        let count = raws.len();
+        let mut debugnames = FxHashMap::default();
         let mut types = Vec::with_capacity(count);
 
         for (index, raw) in raws.into_iter().enumerate() {
@@ -55,11 +81,28 @@ impl<T> TypeProvider<T> {
         self.types.get(id as usize)
     }
 
+    #[cfg(since_647)]
+    pub fn map<U>(self, f: impl FnMut(T) -> U) -> TypeProvider<U> {
+        TypeProvider {
+            debugnames: self.debugnames,
+            types: self.types.into_vec().into_iter().map(f).collect(),
+        }
+    }
+
     pub fn get_by_debugname(&self, name: &str) -> Option<&T> {
         self.debugnames.get(name).and_then(|&id| self.get_by_id(id))
     }
 
     pub fn count(&self) -> usize {
         self.types.len()
+    }
+}
+
+impl<T> Default for TypeProvider<T> {
+    fn default() -> Self {
+        Self {
+            debugnames: FxHashMap::default(),
+            types: Box::new([]),
+        }
     }
 }

@@ -1,0 +1,90 @@
+[proc,ql4_skill_requirements_cache]()(int)
+def_stat $stat = struct_param(%varc_int_699, param_871);
+if (struct_param(%varc_int_699, param_897) = true & calc(stat_base(attack) + stat_base(strength)) < 130) {
+    return(0);
+}
+if ($stat = null) {
+    return(1);
+}
+if (stat_base($stat) < struct_param(%varc_int_699, param_872)) {
+    return(0);
+}
+$stat = struct_param(%varc_int_699, param_873);
+if ($stat = null) {
+    return(1);
+}
+if (stat_base($stat) < struct_param(%varc_int_699, param_874)) {
+    return(0);
+}
+$stat = struct_param(%varc_int_699, param_875);
+if ($stat = null) {
+    return(1);
+}
+if (stat_base($stat) < struct_param(%varc_int_699, param_876)) {
+    return(0);
+}
+$stat = struct_param(%varc_int_699, param_877);
+if ($stat = null) {
+    return(1);
+}
+if (stat_base($stat) < struct_param(%varc_int_699, param_878)) {
+    return(0);
+}
+$stat = struct_param(%varc_int_699, param_879);
+if ($stat = null) {
+    return(1);
+}
+if (stat_base($stat) < struct_param(%varc_int_699, param_880)) {
+    return(0);
+}
+$stat = struct_param(%varc_int_699, param_881);
+if ($stat = null) {
+    return(1);
+}
+if (stat_base($stat) < struct_param(%varc_int_699, param_882)) {
+    return(0);
+}
+$stat = struct_param(%varc_int_699, param_883);
+if ($stat = null) {
+    return(1);
+}
+if (stat_base($stat) < struct_param(%varc_int_699, param_884)) {
+    return(0);
+}
+$stat = struct_param(%varc_int_699, param_885);
+if ($stat = null) {
+    return(1);
+}
+if (stat_base($stat) < struct_param(%varc_int_699, param_886)) {
+    return(0);
+}
+$stat = struct_param(%varc_int_699, param_887);
+if ($stat = null) {
+    return(1);
+}
+if (stat_base($stat) < struct_param(%varc_int_699, param_888)) {
+    return(0);
+}
+$stat = struct_param(%varc_int_699, param_889);
+if ($stat = null) {
+    return(1);
+}
+if (stat_base($stat) < struct_param(%varc_int_699, param_890)) {
+    return(0);
+}
+$stat = struct_param(%varc_int_699, param_891);
+if ($stat = null) {
+    return(1);
+}
+if (stat_base($stat) < struct_param(%varc_int_699, param_892)) {
+    return(0);
+}
+$stat = struct_param(%varc_int_699, param_893);
+if ($stat = null) {
+    return(1);
+}
+if (stat_base($stat) < struct_param(%varc_int_699, param_894)) {
+    return(0);
+}
+return(1);
+return(-1);

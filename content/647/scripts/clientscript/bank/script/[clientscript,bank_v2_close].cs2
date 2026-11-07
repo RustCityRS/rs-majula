@@ -1,0 +1,5 @@
+[clientscript,bank_v2_close]
+if (%varc_int_188 = true) {
+    ~bank_v2_searchmode_off;
+}
+~clientscript_675;

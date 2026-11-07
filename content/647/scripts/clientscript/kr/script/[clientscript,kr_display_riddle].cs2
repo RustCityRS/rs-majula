@@ -1,0 +1,34 @@
+[clientscript,kr_display_riddle]
+if (%varc_int_40 = false) {
+    if_settext("Show riddle", kr_jewellery_boxes:com6);
+    if_setop(1, "Show", kr_jewellery_boxes:com6);
+    if_sethide(false, kr_jewellery_boxes:com7);
+    if_sethide(false, kr_jewellery_boxes:com8);
+    if_sethide(false, kr_jewellery_boxes:com9);
+    if_sethide(false, kr_jewellery_boxes:com10);
+    if_sethide(false, kr_jewellery_boxes:com11);
+    if_sethide(false, kr_jewellery_boxes:com12);
+    if_sethide(false, kr_jewellery_boxes:com13);
+    if_sethide(false, kr_jewellery_boxes:com14);
+    if_sethide(true, kr_jewellery_boxes:com3);
+    if_sethide(true, kr_jewellery_boxes:com5);
+    %varc_int_40 = 1;
+} else {
+    if_settext("Hide riddle", kr_jewellery_boxes:com6);
+    if_setop(1, "Hide", kr_jewellery_boxes:com6);
+    if_settext("You seek the grail of old,<br>but no longer is it a goblet of gold.<br>Among these nine will you find what you seek,<br>but be careful and don't peek!<br>A wrong choice will expel you,<br>so consider carefully each clue.<br><br>Three boxes contain only air,<br>beware of three boxes, for danger lurks there.<br>Two hold only rubbish but would fool you with disguise,<br>only one box holds your prize.<br><br>Clues will give the information you need,<br><br>rubbish always sits to the right of danger, pay heed.<br>There is nothing helpful in boxes great in height,<br>and boxes on either end will not end your plight.<br>A tall or small box will only bring you anger,<br>but a square box will not put you in danger.", kr_jewellery_boxes:com18);
+    if_setcolour(^black, kr_jewellery_boxes:com18);
+    if_sethide(true, kr_jewellery_boxes:com7);
+    if_sethide(true, kr_jewellery_boxes:com8);
+    if_sethide(true, kr_jewellery_boxes:com9);
+    if_sethide(true, kr_jewellery_boxes:com10);
+    if_sethide(true, kr_jewellery_boxes:com11);
+    if_sethide(true, kr_jewellery_boxes:com12);
+    if_sethide(true, kr_jewellery_boxes:com13);
+    if_sethide(true, kr_jewellery_boxes:com14);
+    if_sethide(false, kr_jewellery_boxes:com3);
+    if_sethide(false, kr_jewellery_boxes:com5);
+    if_setscrollsize(190, 520, kr_jewellery_boxes:com19);
+    ~scrollbar_vertical(kr_jewellery_boxes:com5, kr_jewellery_boxes:com19, "scrollbar_dragger_v2,3", "scrollbar_dragger_v2,0", "scrollbar_dragger_v2,1", "scrollbar_dragger_v2,2", "scrollbar_v2,0", "scrollbar_v2,1");
+    %varc_int_40 = 0;
+}

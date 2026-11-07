@@ -1,0 +1,6 @@
+[clientscript,ii_timer_display](component $component)
+if (%varbit_7191 = false) {
+    if_sethide(true, $component);
+} else {
+    if_sethide(false, $component);
+}

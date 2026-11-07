@@ -1,0 +1,6 @@
+[proc,clientscript_3587](component $component)
+if (~clientscript_3589(13) = ~clientscript_3590(12)) {
+    ~trail_success($component);
+} else {
+    ~trail_failure($component);
+}

@@ -1,0 +1,6 @@
+[clientscript,bank_v2_bankitemdrop](component $component0)
+def_int $int1 = enum(73, 105, enum_1613, $component0);
+if ($int1 ! -1 & $int1 ! %open_bank_tab) {
+    ~bank_v2_tab_highlight($int1);
+    if_setontimer("bank_v2_tab_highlight_revert(calc(clientclock + 15), ^event_com)", $component0);
+}

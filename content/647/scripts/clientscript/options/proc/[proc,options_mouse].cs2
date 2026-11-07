@@ -1,0 +1,12 @@
+[proc,options_mouse]
+def_string $string = "null";
+if (%option_mouse = false) {
+    if_setgraphic("options_boxes,1", options:com6);
+    $string = "Mouse buttons<br>(currently 2)";
+    if_setonmouserepeat("addtooltip(^event_com, options:com20, $string, 25, 180)", options:com6);
+} else if (%option_mouse = true) {
+    if_setgraphic("options_boxes,0", options:com6);
+    $string = "Mouse buttons<br>(currently 1)";
+    if_setonmouserepeat("addtooltip(^event_com, options:com20, $string, 25, 180)", options:com6);
+}
+%varc_int_2 = 0;

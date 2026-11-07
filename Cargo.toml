@@ -18,6 +18,7 @@ members = [
     "rs-console",
     "rs-console/api",
     "rs-db",
+    "rs-engine/rs-test",
     "rs-pack",
     "rs-protocol",
     "rs-protocol/macros",
@@ -37,7 +38,7 @@ repository = "https://github.com/RustCityRS/rs-majula"
 
 [workspace.dependencies]
 # Async runtime
-tokio = { version = "1.53", features = ["full"] }
+tokio = { version = "1.54", features = ["full"] }
 sqlx = { version = "0.9", default-features = false, features = ["runtime-tokio", "postgres", "macros", "migrate"] }
 tokio-tungstenite = "0.30"
 futures-util = "0.3"
@@ -46,6 +47,9 @@ futures-util = "0.3"
 axum = "0.8"
 tower-http = { version = "0.7", features = ["fs", "set-header"] }
 minijinja = { version = "3", features = ["serde"] }
+
+# Serialization
+sailfish = "0.11"
 
 # Security
 argon2 = "0.6"
@@ -60,7 +64,7 @@ tracing-subscriber = { version = "0.3", features = ["env-filter", "json"] }
 tracing-appender = "0.2"
 
 # Cryptography
-rs-crypto = "0.2"
+rs-crypto = "0.3"
 hmac = "0.13"
 sha1 = "0.11"
 sha2 = "0.11"
@@ -70,6 +74,7 @@ getrandom = "0.4"
 
 # HTTP/Networking
 reqwest = { version = "0.13", default-features = false, features = ["json"] }
+ureq = "3.5"
 
 # Fast hashing for integer keys
 rustc-hash = "2"
@@ -82,9 +87,9 @@ mimalloc = "0.1"
 libmimalloc-sys = { version = "0.1", features = ["extended"] }
 
 # MISC
-rs-io = "0.3"
+rs-io = "0.4"
 rs-pathfinder = "0.1"
-rs-runec = "0.4"
+rs-runec = "0.5"
 num_enum = "0.7"
 notify = "8.2"
 
@@ -97,7 +102,7 @@ crossterm = { version = "0.29", features = ["event-stream"] }
 sysinfo = { version = "0.40", default-features = false, features = ["system"] }
 
 # Sprite authoring docs (PyxelEdit .pyxel = zip of PNGs + JSON)
-zip = { version = "9.0", default-features = false, features = ["deflate"] }
+zip = { version = "9.4", default-features = false, features = ["deflate"] }
 png = "0.18"
 serde = { version = "1", features = ["derive"] }
 serde_json = "1"

@@ -1,0 +1,12 @@
+// From 289's duel_arena_settings.rs2: the proc other ported content calls,
+// until the rest of that file is ported.
+[proc,duel_arena_spec_check]()(boolean)
+if (~in_duel_arena(coord) = false) {
+    return(true);
+}
+if (testbit(%dueloptions, ^no_specs) = ^true) {
+    mes("Use of special attacks has been turned off for this duel."); // https://youtu.be/YkJQDvB14-U?t=327
+    %sa_attack = ^false;
+    return(false);
+}
+return(true);

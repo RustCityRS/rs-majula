@@ -1,0 +1,8 @@
+[proc,clientscript_1156]
+if (get_clientopt_6117 = false) {
+    if_setgraphic("radio_buttons,0", sound_options:com51);
+    if_setgraphic("radio_buttons,1", sound_options:com49);
+} else {
+    if_setgraphic("radio_buttons,0", sound_options:com49);
+    if_setgraphic("radio_buttons,1", sound_options:com51);
+}

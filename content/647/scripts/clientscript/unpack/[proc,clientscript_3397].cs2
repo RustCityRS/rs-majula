@@ -1,0 +1,19 @@
+[proc,clientscript_3397]
+if_settext(%varc_string_279, fm8721267:com18);
+def_graphic $graphic0 = "login_lobby_button,10";
+def_graphic $graphic1 = "login_lobby_button,11";
+if (compare(%varc_string_279, "") ! 0) {
+    if_settext("Reporting: <%varc_string_279>", fm8721267:com40);
+    if_settrans(0, fm8721267:com10);
+    if_settrans(0, fm8721267:com11);
+    if_settrans(0, fm8721267:com12);
+    if_settrans(0, fm8721267:com13);
+    if_setonmouseover("lobbyscreen_button_highlight(fm8721267:com10, $graphic0, fm8721267:com11, $graphic1, fm8721267:com12, $graphic0)", fm8721267:com9);
+} else {
+    if_settext("Report Abuse: Select Player", fm8721267:com40);
+    if_settrans(100, fm8721267:com10);
+    if_settrans(100, fm8721267:com11);
+    if_settrans(100, fm8721267:com12);
+    if_settrans(100, fm8721267:com13);
+    if_setonmouseover(null, fm8721267:com9);
+}

@@ -1,0 +1,5 @@
+[proc,clientscript_2883]
+if (%varbit_4393 = true | %varbit_542 = true) {
+    return;
+}
+~addtooltip_action(music_v3:com11, music_v3:com16, "Clear playlist", 25, 189);

@@ -1,0 +1,40 @@
+// 289's smithing structs (skill_smithing/configs/smithing/smithing.struct),
+// server-only at 647; their bars as 2011 names them. 289's name param is
+// name_text here (registered as name it shadows the `name` command). 289's
+// invcolumn1-5 are left out: they name 289's inv columns, which 2011's anvil
+// interface has no use for (smithing.dbtable's slot).
+[smithing_bronze_bar]
+param=name_text,bronze
+param=levelrequired,1
+param=xpperbar,125
+param=namedobj,bronze_bar
+
+[smithing_iron_bar]
+param=name_text,iron
+param=levelrequired,15
+param=xpperbar,250
+param=namedobj,iron_bar
+
+[smithing_steel_bar]
+param=name_text,steel
+param=levelrequired,30
+param=xpperbar,375
+param=namedobj,steel_bar
+
+[smithing_mithril_bar]
+param=name_text,mithril
+param=levelrequired,50
+param=xpperbar,500
+param=namedobj,mithril_bar
+
+[smithing_adamantite_bar]
+param=name_text,adamantite
+param=levelrequired,70
+param=xpperbar,625
+param=namedobj,adamant_bar
+
+[smithing_runite_bar]
+param=name_text,runite
+param=levelrequired,85
+param=xpperbar,750
+param=namedobj,rune_bar

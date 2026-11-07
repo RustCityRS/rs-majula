@@ -1,0 +1,14 @@
+[proc,clientscript_514]
+def_int $int0 = 0;
+def_int $int1 = 0;
+if (getwindowmode >= 2) {
+    $int0 = if_getwidth(toplevel_fullscreen:com_wide_screen);
+    $int1 = if_getheight(toplevel_fullscreen:com_wide_screen);
+    if (%varc_int_51 < $int0) {
+        %varc_int_51 = calc(%varc_int_51 + 15);
+        if_setsize(%varc_int_51, $int1, ^setsize_abs, ^setsize_abs, pog_door_hatch_close:com1);
+    }
+} else if (%varc_int_51 < 512) {
+    %varc_int_51 = calc(%varc_int_51 + 15);
+    if_setsize(%varc_int_51, 334, ^setsize_abs, ^setsize_abs, pog_door_hatch_close:com1);
+}

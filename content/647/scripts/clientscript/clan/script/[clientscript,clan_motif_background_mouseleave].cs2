@@ -1,0 +1,8 @@
+[clientscript,clan_motif_background_mouseleave](int $int0, component $component1)
+if (cc_find($component1, $int0) = true) {
+    if ($component1 = fz7368400:com65 & calc(%varbit_9086 - 1) = $int0 | $component1 = fz7368400:com62 & calc(%varbit_9087 - 1) = $int0) {
+        cc_setgraphic("aif_bronze_icon_button_1,3");
+    } else {
+        cc_setgraphic("aif_bronze_icon_button_1,0");
+    }
+}

@@ -1,0 +1,6 @@
+[proc,clientscript_1714](stat $stat0, int $int1)(int)
+if (stat_base($stat0) ! 0) {
+    return(calc($int1 * 100 / stat_base($stat0)));
+} else {
+    return(0);
+}

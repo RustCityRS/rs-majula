@@ -1,0 +1,26 @@
+[proc,clientscript_3359]()(int, obj, string)
+switch_int (%varp_448) {
+    case default:
+        return(3, "Snaring Wave (Tier 1)", snaring_wave__tier_1);
+    case 17945:
+        return(3, "Snaring Wave (Tier 1)", snaring_wave__tier_1);
+    case 17946:
+        return(13, "Snaring Wave (Tier 2)", snaring_wave__tier_2);
+    case 17947:
+        return(23, "Snaring Wave (Tier 3)", snaring_wave__tier_3);
+    case 17948:
+        return(33, "Snaring Wave (Tier 4)", snaring_wave__tier_4);
+    case 17949:
+        return(43, "Snaring Wave (Tier 5)", snaring_wave__tier_5);
+    case 17950:
+        return(53, "Snaring Wave (Tier 6)", snaring_wave__tier_6);
+    case 17951:
+        return(63, "Snaring Wave (Tier 7)", snaring_wave__tier_7);
+    case 17952:
+        return(73, "Snaring Wave (Tier 8)", snaring_wave__tier_8);
+    case 17953:
+        return(83, "Snaring Wave (Tier 9)", snaring_wave__tier_9);
+    case 17954:
+        return(93, "Snaring Wave (Tier 10)", snaring_wave__tier_10);
+}
+return(0, "", null);

@@ -1,0 +1,194 @@
+// ────────────────────────────────────────────────────────────
+// Diagnostic edge-case tests — each [debugproc] tests one
+// diagnostic message. Uncomment a section to verify it errors.
+// ────────────────────────────────────────────────────────────
+
+// ── GENERIC_TYPE_MISMATCH: int given but string expected ──
+// [debugproc,test_type_mismatch]
+// def_int $n = 100
+// mes($n)
+
+// ── COMMAND_REFERENCE_UNRESOLVED: nonexistent command ──
+// [debugproc,test_bad_command]
+// nonexistent_command("hello")
+
+// ── PROC_REFERENCE_UNRESOLVED: nonexistent proc ──
+// [debugproc,test_bad_proc]
+// ~nonexistent_proc()
+
+// ── JUMP_REFERENCE_UNRESOLVED: nonexistent label ──
+// [debugproc,test_bad_jump]
+// @nonexistent_label
+
+// ── LOCAL_REFERENCE_UNRESOLVED: undefined variable ──
+// [debugproc,test_bad_local]
+// def_int $x = $undefined_var
+
+// ── GAME_REFERENCE_UNRESOLVED: undefined game var ──
+// [debugproc,test_bad_gamevar]
+// %undefined_gamevar = 5
+
+// ── CONSTANT_REFERENCE_UNRESOLVED: undefined constant ──
+// [debugproc,test_bad_constant]
+// def_int $x = ^undefined_constant
+
+// ── SCRIPT_LOCAL_REDECLARATION: duplicate variable ──
+// [debugproc,test_redefine]
+// def_int $x = 1
+// def_int $x = 2
+
+// ── CONDITION_INVALID_NODE_TYPE: non-binary condition ──
+// [debugproc,test_bad_condition]
+// if (5) {
+//     mes("bad")
+// }
+
+// ── ARITHMETIC_INVALID_TYPE: string in calc ──
+// [debugproc,test_bad_calc]
+// def_string $s = "hello"
+// def_int $x = calc($s + 1)
+
+// ── SWITCH_INVALID_TYPE: string switch ──
+// [debugproc,test_string_switch]
+// def_string $s = "hello"
+// switch_string ($s) {
+//     case "a" : mes("a")
+// }
+
+// ── SWITCH_CASE_NOT_CONSTANT: variable in case value ──
+// [debugproc,test_nonconstant_case]
+// def_int $x = 5
+// def_int $y = 3
+// switch_int ($x) {
+//     case $y : mes("match")
+// }
+
+// ── BINOP_INVALID_TYPES: string equality comparison ──
+// [debugproc,test_string_eq]
+// def_string $a = "hello"
+// def_string $b = "world"
+// if ($a = $b) {
+//     mes("equal")
+// }
+
+// ── SCRIPT_TRIGGER_NO_PARAMETERS: debugproc with params ──
+// [debugproc,test_debug_params](int $x)
+// mes("bad")
+
+// ── SCRIPT_TRIGGER_NO_RETURNS: debugproc with returns ──
+// [debugproc,test_debug_returns]()(int)
+// return(5)
+
+// ── LOCAL_ARRAY_REFERENCE_NOINDEX: array without index ──
+// [debugproc,test_array_noindex]
+// def_int $arr(5)
+// def_int $val = $arr
+
+// ── LOCAL_REFERENCE_NOT_ARRAY: index on non-array ──
+// [debugproc,test_nonarray_index]
+// def_int $x = 5
+// def_int $val = $x(0)
+
+// ── CONDITION_NOT_VALID: nested condition in non-logical ──
+// [debugproc,test_nested_condition]
+// def_int $a = 1
+// def_int $b = 2
+// def_int $c = 3
+// def_int $d = 4
+// if (($a < $b) = ($c < $d)) {
+//     mes("bad")
+// }
+
+// ── SWITCH_DUPLICATE_DEFAULT: two defaults ──
+// [debugproc,test_dup_default]
+// def_int $x = 1
+// switch_int ($x) {
+//     case 1 : mes("one")
+//     case default : mes("d1")
+//     case default : mes("d2")
+// }
+
+// ── EXPRESSION_STATEMENT_NO_SIDE_EFFECT: discarded value ──
+// [debugproc,test_discard]
+// def_int $x = 5
+// $x
+
+// ────────────────────────────────────────────────────────────
+// The tests below verify that VALID code compiles cleanly.
+// ────────────────────────────────────────────────────────────
+
+[proc,typecheck_helper](int $n)(int)
+return(calc($n + 1))
+
+[debugproc,test_valid_types]
+def_int $x = 1
+def_string $s = "hello"
+def_int $result = ~typecheck_helper($x)
+mes("<tostring($result)>")
+mes($s)
+
+[debugproc,test_valid_switch]
+def_int $x = 5
+switch_int ($x) {
+    case 1 : mes("one")
+    case 2, 3 : mes("two or three")
+    case default : mes("other")
+}
+
+[debugproc,test_valid_condition]
+def_int $a = 1
+def_int $b = 2
+if ($a < $b) {
+    mes("less")
+} else if ($a = $b) {
+    mes("equal")
+} else {
+    mes("greater")
+}
+
+[debugproc,test_valid_while]
+def_int $i = 0
+while ($i < 5) {
+    mes("<tostring($i)>")
+    $i = calc($i + 1)
+}
+
+[debugproc,test_valid_array]
+def_int $arr(3)
+$arr(0) = 10
+$arr(1) = 20
+$arr(2) = 30
+def_int $val = $arr(1)
+mes("<tostring($val)>")
+
+[debugproc,test_valid_logical]
+def_int $a = 1
+def_int $b = 2
+def_int $c = 3
+if ($a < $b & $b < $c) {
+    mes("ascending")
+}
+if ($a = 1 | $b = 1) {
+    mes("one of them is 1")
+}
+
+// ── CASE_WITHOUT_SWITCH: case outside switch ──
+// [debugproc,test_case_no_switch]
+// case 1: mes("bad")
+
+// ── RETURN_ORPHAN: return outside script ──
+// Currently cannot be triggered from source because the parser
+// requires a [trigger,name] header before any statements.
+// The guard fires if return_types context is None in the type checker.
+
+// ── GENERIC_UNRESOLVED_SYMBOL: bare identifier not in any registry ──
+// [debugproc,test_unresolved_symbol]
+// def_int $x = completely_bogus_identifier
+
+// ── UNSUPPORTED_SYMBOLTYPE_TO_TYPE: symbol found but wrong kind ──
+// (defensive check — cannot be triggered from source because each
+// registry only stores the expected SymbolKind)
+
+// 2026-05-28T17:33:04.393274Z ERROR runec: error: Type mismatch: 'npc_mode' was given but 'int' was expected.
+// [debugproc,bad_tostring_type]
+// mes("<tostring(npc_getmode)>");

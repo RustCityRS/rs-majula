@@ -1,0 +1,3 @@
+[clientscript,objdialog_select](obj $int)
+if_openmainmodal($int);
+~objdialog_close;

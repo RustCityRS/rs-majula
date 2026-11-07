@@ -1,0 +1,27 @@
+[proc,clan_noticeboard_event_edit_selection](int $int)
+if_sethide(true, es2622858:com267);
+if_sethide(true, es2622858:com276);
+if_sethide(true, es2622858:com285);
+if_sethide(true, es2622858:com294);
+if_sethide(true, es2622858:com303);
+if_sethide(true, es2622858:com312);
+if_sethide(true, es2622858:com321);
+if_sethide(true, es2622858:com330);
+switch_int ($int) {
+    case 71958796:
+        if_sethide(false, es2622858:com267);
+    case 71958805:
+        if_sethide(false, es2622858:com276);
+    case 71958814:
+        if_sethide(false, es2622858:com285);
+    case 71958823:
+        if_sethide(false, es2622858:com294);
+    case 71958832:
+        if_sethide(false, es2622858:com303);
+    case 71958841:
+        if_sethide(false, es2622858:com312);
+    case 71958850:
+        if_sethide(false, es2622858:com321);
+    case 71958859:
+        if_sethide(false, es2622858:com330);
+}

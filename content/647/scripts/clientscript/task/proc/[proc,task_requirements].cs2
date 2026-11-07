@@ -1,0 +1,26 @@
+[proc,task_requirements](int $int)(int, colour, string)
+if ($int >= 4091) {
+    return(0, "", ^black);
+}
+if ($int >= 4000 & $int <= 4027) {
+    return(0, "", ^black);
+}
+if (struct_param(enum(105, 74, enum_3483, $int), param_1294) = false) {
+    return(1, "There are no requirements for this Task.", ^green);
+}
+if (~task_get_progress($int) = 2) {
+    return(2, "You have completed this Task.", ^green);
+} else if (~clientscript_3994($int) = true) {
+    if (~clientscript_3999($int) = true) {
+        return(0, "", ^green);
+    } else {
+        return(1, "You currently have this Task pinned.", 0x8f572b);
+    }
+} else if (map_members = false & struct_param(enum(105, 74, enum_3483, $int), param_1290) = 2) {
+    return(0, "This Task cannot be completed in the free game.", ^red);
+} else if (~task_requirements_fulfilled($int) = false) {
+    return(0, "You lack one or more prerequisites needed to complete this Task.", ^red);
+} else {
+    return(1, "You have the requirements to complete this Task.", ^green);
+}
+return(0, "", ^black);

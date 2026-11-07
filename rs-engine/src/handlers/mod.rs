@@ -1,19 +1,31 @@
 pub mod anticheat;
 pub mod chat_setmode;
 pub mod client_cheat;
+#[cfg(since_647)]
+pub mod client_status;
 pub mod close_modal;
 #[cfg(any(rev = "225", since_254))]
 pub mod event;
 #[cfg(before_274)]
 pub mod event_tracking;
+#[cfg(since_647)]
+pub mod examine;
+#[cfg(since_647)]
+pub mod face_square;
 pub mod friendlist_add;
 pub mod friendlist_del;
 pub mod idk_savedesign;
 pub mod idle_timer;
 pub mod if_button;
+#[cfg(since_647)]
+pub mod if_buttond;
+#[cfg(since_647)]
+pub mod if_buttont;
 pub mod ignorelist_add;
 pub mod ignorelist_del;
+#[cfg(before_647)]
 pub mod inv_button;
+#[cfg(before_647)]
 pub mod inv_buttond;
 pub mod map_build_complete;
 pub mod message_private;
@@ -21,8 +33,11 @@ pub mod message_public;
 pub mod move_click;
 pub mod no_timeout;
 pub mod op_common;
+#[cfg(before_647)]
 pub mod opheld;
+#[cfg(before_647)]
 pub mod opheldt;
+#[cfg(before_647)]
 pub mod opheldu;
 pub mod oploc;
 pub mod oploct;
@@ -39,9 +54,15 @@ pub mod opplayeru;
 #[cfg(rev = "225")]
 pub mod rebuild_get_maps;
 pub mod resume_p_countdialog;
+#[cfg(since_647)]
+pub mod resume_p_string_dialog;
 pub mod resume_pause_button;
 pub mod send_snapshot;
 pub mod tut_clickside;
+#[cfg(since_647)]
+pub mod unsupported;
+#[cfg(since_647)]
+pub mod window_status;
 
 use crate::active_player::ActivePlayer;
 use rs_vm::ScriptError;

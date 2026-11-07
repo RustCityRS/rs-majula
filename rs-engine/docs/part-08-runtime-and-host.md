@@ -175,7 +175,7 @@ channels exist:
    automatic even on panic.
 3. Read the login block, validate `LoginType`, payload length, client version, and the 9 archive CRCs against
    `cache.crctable` (`socket.rs:34-60`), rejecting with the appropriate `LoginResponse`.
-4. RSA-decrypt the encrypted block (`buf.rsadec(RsaFrame::Byte, ...)`, `socket.rs:61`), check the magic byte (`== 10`),
+4. RSA-decrypt the encrypted block (`buf.rsadecrypt(RsaFrame::Byte, ...)`, `socket.rs:61`), check the magic byte (`== 10`),
    read the 4 ISAAC seed words, the uid, and the Base37 username/password as `gjstr` strings (`socket.rs:67-82`).
 5. Derive the ISAAC pair from the client seeds (`IsaacPair::from_client_seeds`, `socket.rs:84`) and call `create_io` (
    `socket.rs:85`).
@@ -699,7 +699,7 @@ outbound path on the dominant TCP transport (see `network_loop` below).
    version against `args.version` (else `RuneScapeUpdated`) — exact wire fidelity with the original 225 client.
 5. **CRC table.** Read 9 archive CRCs and verify every one is in `cache.crctable` (else `RuneScapeUpdated`,
    `socket.rs:48–60`). This is what forces a client with a stale cache to re-download.
-6. **RSA block.** `buf.rsadec(RsaFrame::Byte, rsa)` decrypts the enciphered tail, then checks the magic byte `== 10` (
+6. **RSA block.** `buf.rsadecrypt(RsaFrame::Byte, rsa)` decrypts the enciphered tail, then checks the magic byte `== 10` (
    `socket.rs:61–66`).
 7. **ISAAC seeds + credentials.** Read four session seeds, a uid, then `username` (≤12) and `password` (≤20) as
    length-prefixed strings, with bounds enforced (`InvalidCredentials` on violation).

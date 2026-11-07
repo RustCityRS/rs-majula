@@ -1,0 +1,13 @@
+[proc,clientscript_1123](component $component)
+switch_int (%varbit_804) {
+    case 1:
+        if_setobject(red_toad, 300, $component);
+    case 2:
+        if_setobject(green_toad, 300, $component);
+    case 3:
+        if_setobject(blue_toad, 300, $component);
+    case 4:
+        if_setobject(yellow_toad, 300, $component);
+    case default:
+        if_setobject(null, 300, $component);
+}

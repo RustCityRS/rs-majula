@@ -1,0 +1,14 @@
+[clientscript,ecosystem_rotate_model](component $component0)
+def_int $int1 = if_getmodelangle_y($component0);
+def_int $int2 = if_getmodelangle_x($component0);
+def_int $int3 = if_getmodelangle_z($component0);
+def_int $int4 = if_getmodelzoom($component0);
+def_int $int5 = if_getmodelxof($component0);
+def_int $int6 = if_getmodelyof($component0);
+def_int $int7 = 0;
+if ($int1 = 2047) {
+    $int7 = 0;
+} else {
+    $int7 = calc($int1 + 1);
+}
+if_setmodelangle($int5, $int6, $int2, $int7, $int3, $int4, $component0);

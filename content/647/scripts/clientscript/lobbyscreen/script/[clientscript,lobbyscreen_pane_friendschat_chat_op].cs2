@@ -1,0 +1,17 @@
+[clientscript,lobbyscreen_pane_friendschat_chat_op](int $int, string $string0, string $string1)
+switch_int ($int) {
+    case 1:
+        if (friend_test(removetags($string1)) = false) {
+            friend_add(removetags($string1));
+        }
+    case 2:
+        if (friend_test(removetags($string1)) = false) {
+            ignore_add(removetags($string1));
+        }
+    case 3:
+        ~lobbyscreen_input("Send message to <$string0>", "", 0, $string1, "");
+    case 5:
+        ~clientscript_3177($string0, 0);
+    case 10:
+        ~friendschat_kick(removetags($string1));
+}

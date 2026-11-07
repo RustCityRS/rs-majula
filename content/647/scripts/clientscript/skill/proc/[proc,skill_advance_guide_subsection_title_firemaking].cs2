@@ -1,0 +1,24 @@
+[proc,skill_advance_guide_subsection_title_firemaking](int $int)(int, string)
+switch_int ($int) {
+    case 0:
+        return("Firemaking", 0);
+    case 1:
+        return("Barbarian fires", 1);
+    case 2:
+        return("Pyre ships", 1);
+    case 3:
+        return("Equipment", 0);
+    case 4:
+        return("Beacons", 1);
+    case 5:
+        return("Other", 0);
+    case 6:
+        return("Activities", 1);
+    case 7:
+        return("Dungeoneering", 0);
+    case 8:
+        return("Milestones", 0);
+    case default:
+        return("", -1);
+}
+return("", 0);

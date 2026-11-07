@@ -1,0 +1,33 @@
+[clientscript,lobby_popup_throbber]
+def_int $int = login_getint_5613;
+if ($int ! -3 & %varc_int_1322 = false) {
+    if_setontimer(null, lobbyscreen:com223);
+    return;
+}
+if (%varc_int_1322 = true & $int = -3) {
+    %varc_int_1322 = 0;
+}
+if (clientclock < %varc_int_1092) {
+    return;
+}
+%varc_int_1092 = calc(clientclock + 5);
+switch_graphic (if_getgraphic(lobbyscreen:com223)) {
+    case "loading_wheel_1,0":
+        if_setgraphic("loading_wheel_1,1", lobbyscreen:com223);
+    case "loading_wheel_1,1":
+        if_setgraphic("loading_wheel_1,2", lobbyscreen:com223);
+    case "loading_wheel_1,2":
+        if_setgraphic("loading_wheel_1,3", lobbyscreen:com223);
+    case "loading_wheel_1,3":
+        if_setgraphic("loading_wheel_1,4", lobbyscreen:com223);
+    case "loading_wheel_1,4":
+        if_setgraphic("loading_wheel_1,5", lobbyscreen:com223);
+    case "loading_wheel_1,5":
+        if_setgraphic("loading_wheel_1,6", lobbyscreen:com223);
+    case "loading_wheel_1,6":
+        if_setgraphic("loading_wheel_1,7", lobbyscreen:com223);
+    case "loading_wheel_1,7":
+        if_setgraphic("loading_wheel_1,0", lobbyscreen:com223);
+    case default:
+        if_setgraphic("loading_wheel_1,0", lobbyscreen:com223);
+}

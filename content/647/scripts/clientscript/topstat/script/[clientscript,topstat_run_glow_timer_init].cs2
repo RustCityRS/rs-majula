@@ -1,0 +1,2 @@
+[clientscript,topstat_run_glow_timer_init](component $component)
+if_setontimer("topstat_run_glow_timer($component)", $component);

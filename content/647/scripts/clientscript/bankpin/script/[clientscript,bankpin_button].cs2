@@ -1,0 +1,7 @@
+[clientscript,bankpin_button](int $int)
+if ($int ! 1) {
+    return;
+}
+%varbit_1010 = min(calc(%varbit_1010 + 1), 3);
+sound_synth(synth_1041, 1, 0);
+~bankpin_shuffle(1);

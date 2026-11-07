@@ -1,0 +1,7 @@
+[proc,sm_offercount_settimer]
+if (%varc_int_82 <= 0) {
+    %varc_int_82 = 100;
+} else {
+    %varc_int_82 = calc(%varc_int_82 + 10);
+}
+if_setontimer("clientscript_603()", stockmarket:com148);

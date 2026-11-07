@@ -1,0 +1,51 @@
+[proc,playerdesign4_backdrop](struct $struct)
+if ($struct = %varc_int_543 & $struct ! null) {
+    return;
+}
+%varc_int_543 = $struct;
+switch_struct ($struct) {
+    case struct_1112:
+        if_openoverlay(67371042, 1033);
+    case struct_1118:
+        if_openoverlay(67371042, 1043);
+    case struct_1120:
+        if_openoverlay(67371042, 1032);
+    case struct_1127:
+        if_openoverlay(67371042, 1038);
+    case struct_1125:
+        if_openoverlay(67371042, 1034);
+    case struct_1122:
+        if_openoverlay(67371042, 1036);
+    case struct_1128:
+        if_openoverlay(67371042, 1044);
+    case struct_1129:
+        if_openoverlay(67371042, 1042);
+    case struct_1119:
+        if_openoverlay(67371042, 1041);
+    case struct_1114:
+        if_openoverlay(67371042, 1029);
+    case struct_1124:
+        if_openoverlay(67371042, 1030);
+    case struct_1121:
+        if_openoverlay(67371042, 1031);
+    case struct_1115:
+        if_openoverlay(67371042, 1046);
+    case struct_1130:
+        if_openoverlay(67371042, 1047);
+    case struct_1116:
+        if_openoverlay(67371042, 1045);
+    case struct_1126:
+        if_openoverlay(67371042, 1049);
+    case struct_1131:
+        if_openoverlay(67371042, 1035);
+    case struct_1117:
+        if_openoverlay(67371042, 1039);
+    case struct_1113:
+        if_openoverlay(67371042, 1048);
+    case struct_1123:
+        if_openoverlay(67371042, 1037);
+    case default:
+        if_openoverlay(67371042, 1033);
+    case null:
+        if_closeoverlay(67371042);
+}

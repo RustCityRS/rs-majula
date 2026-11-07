@@ -1,0 +1,6 @@
+[proc,clientscript_4563](component $component0, int $int1)
+if_sethide(true, lobbyscreen_pane_friendschat:com54);
+if_sethide(true, lobbyscreen_pane_friendschat:com34);
+if (cc_find($component0, $int1) = true) {
+    cc_setonmouserepeat(null);
+}

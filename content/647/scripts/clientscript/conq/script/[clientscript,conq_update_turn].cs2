@@ -1,0 +1,20 @@
+[clientscript,conq_update_turn](int $int)
+if (%varc_int_1363 = $int) {
+    return;
+}
+if_setonvarctransmit("conq_update_turn(%varc_int_1363){varc_int_1363}", conq_scroll_overlay:com1);
+%varc_int_1389 = 0;
+if (%varc_int_1363 = %varbit_7510) {
+    if_sethide(false, conq_side_turn:com33);
+    if_sethide(true, conq_side_turn:com32);
+    if_sethide(true, conq_side_turn:com24);
+    if_settext("Your Turn", conq_scroll_overlay:com26);
+    sound_song_alt(3439, 1, 0, 255);
+} else {
+    if_sethide(true, conq_side_turn:com33);
+    if_sethide(true, conq_side_turn:com24);
+    if_settext("Opponent's Turn", conq_scroll_overlay:com26);
+    if (if_gethide(conq_side_turn:com7) = true) {
+        if_sethide(false, conq_side_turn:com32);
+    }
+}

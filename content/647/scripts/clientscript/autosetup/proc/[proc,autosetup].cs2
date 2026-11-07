@@ -1,0 +1,26 @@
+[proc,autosetup](int $int0)
+def_int $int1 = 0;
+def_int $int2 = 0;
+$int1, $int2 = autosetup_begin;
+~clientscript_2593($int1);
+if ($int1 = true | $int1 = 3) {
+    ~graphics_options_startcountdown(1, $int0, true, false);
+    return;
+} else {
+    %varc_int_1240 = 3;
+    %varc_int_1277 = 0;
+    setdesiredtoolkit($int1, 1);
+    if ($int0 = 3) {
+        if (login_getint_5623 = true) {
+            ~loginscreen_setactivemenu(5);
+            if_setontimer("login_delay(south_progress9:com50, 0)", south_progress9:com50);
+        } else if (~userflowflags(1) = true) {
+            ~loginscreen_setactivemenu(11);
+        } else {
+            ~loginscreen_setactivemenu(11);
+        }
+    } else {
+        ~graphics_options_rebuild($int1, getwindowmode, ~graphics_options_reviewoptions($int1), $int0);
+    }
+    return;
+}

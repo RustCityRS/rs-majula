@@ -1,0 +1,61 @@
+[clientscript,warguild_tag_setup]
+switch_int (%varbit_8648) {
+    case 1:
+        if_setposition(-130, 0, ^setpos_abs_centre, ^setpos_abs_top, enum(105, 73, enum_755, 1));
+    case 2:
+        if_setposition(-130, 0, ^setpos_abs_centre, ^setpos_abs_top, enum(105, 73, enum_755, 2));
+    case 3:
+        if_setposition(-130, 0, ^setpos_abs_centre, ^setpos_abs_top, enum(105, 73, enum_755, 3));
+    case 4:
+        if_setposition(-130, 0, ^setpos_abs_centre, ^setpos_abs_top, enum(105, 73, enum_755, 4));
+    case 5:
+        if_setposition(-130, 0, ^setpos_abs_centre, ^setpos_abs_top, enum(105, 73, enum_755, 5));
+}
+switch_int (%varbit_8649) {
+    case 1:
+        if_setposition(-65, 0, ^setpos_abs_centre, ^setpos_abs_top, enum(105, 73, enum_755, 1));
+    case 2:
+        if_setposition(-65, 0, ^setpos_abs_centre, ^setpos_abs_top, enum(105, 73, enum_755, 2));
+    case 3:
+        if_setposition(-65, 0, ^setpos_abs_centre, ^setpos_abs_top, enum(105, 73, enum_755, 3));
+    case 4:
+        if_setposition(-65, 0, ^setpos_abs_centre, ^setpos_abs_top, enum(105, 73, enum_755, 4));
+    case 5:
+        if_setposition(-65, 0, ^setpos_abs_centre, ^setpos_abs_top, enum(105, 73, enum_755, 5));
+}
+switch_int (%varbit_8650) {
+    case 1:
+        if_setposition(0, 0, ^setpos_abs_centre, ^setpos_abs_top, enum(105, 73, enum_755, 1));
+    case 2:
+        if_setposition(0, 0, ^setpos_abs_centre, ^setpos_abs_top, enum(105, 73, enum_755, 2));
+    case 3:
+        if_setposition(0, 0, ^setpos_abs_centre, ^setpos_abs_top, enum(105, 73, enum_755, 3));
+    case 4:
+        if_setposition(0, 0, ^setpos_abs_centre, ^setpos_abs_top, enum(105, 73, enum_755, 4));
+    case 5:
+        if_setposition(0, 0, ^setpos_abs_centre, ^setpos_abs_top, enum(105, 73, enum_755, 5));
+}
+switch_int (%varbit_8651) {
+    case 1:
+        if_setposition(65, 0, ^setpos_abs_centre, ^setpos_abs_top, enum(105, 73, enum_755, 1));
+    case 2:
+        if_setposition(65, 0, ^setpos_abs_centre, ^setpos_abs_top, enum(105, 73, enum_755, 2));
+    case 3:
+        if_setposition(65, 0, ^setpos_abs_centre, ^setpos_abs_top, enum(105, 73, enum_755, 3));
+    case 4:
+        if_setposition(65, 0, ^setpos_abs_centre, ^setpos_abs_top, enum(105, 73, enum_755, 4));
+    case 5:
+        if_setposition(65, 0, ^setpos_abs_centre, ^setpos_abs_top, enum(105, 73, enum_755, 5));
+}
+switch_int (%varbit_8652) {
+    case 1:
+        if_setposition(130, 0, ^setpos_abs_centre, ^setpos_abs_top, enum(105, 73, enum_755, 1));
+    case 2:
+        if_setposition(130, 0, ^setpos_abs_centre, ^setpos_abs_top, enum(105, 73, enum_755, 2));
+    case 3:
+        if_setposition(130, 0, ^setpos_abs_centre, ^setpos_abs_top, enum(105, 73, enum_755, 3));
+    case 4:
+        if_setposition(130, 0, ^setpos_abs_centre, ^setpos_abs_top, enum(105, 73, enum_755, 4));
+    case 5:
+        if_setposition(130, 0, ^setpos_abs_centre, ^setpos_abs_top, enum(105, 73, enum_755, 5));
+}

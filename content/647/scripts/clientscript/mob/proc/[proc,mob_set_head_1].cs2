@@ -1,0 +1,8 @@
+[proc,mob_set_head_1]
+if (%varc_int_908 = true) {
+    if_setgraphic(1949, mob_side_units:com68);
+} else if (%varc_int_908 = 2) {
+    if_setgraphic(1946, mob_side_units:com68);
+} else if (%varc_int_908 = 3) {
+    if_setgraphic(1947, mob_side_units:com68);
+}

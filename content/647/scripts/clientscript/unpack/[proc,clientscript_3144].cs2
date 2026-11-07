@@ -1,0 +1,22 @@
+[proc,clientscript_3144](component $component0, component $component1, int $int2, int $int3, string $string)
+if (cc_find($component0, $int2) = true) {
+    if_sethide(false, lobbyscreen_pane_worldselect:com65);
+    if_sethide(false, lobbyscreen_pane_worldselect:com66);
+    if_setposition(if_getx(lobbyscreen_pane_worldselect:com65), cc_gety, ^setpos_abs_left, ^setpos_abs_top, lobbyscreen_pane_worldselect:com65);
+    if_setposition(if_getx(lobbyscreen_pane_worldselect:com66), cc_gety, ^setpos_abs_left, ^setpos_abs_top, lobbyscreen_pane_worldselect:com66);
+}
+if (cc_find($component1, $int2) = true) {
+    if (cc_getgraphic = 1541) {
+        cc_setgraphic(1542);
+    } else if (cc_getgraphic = 1545) {
+        cc_setgraphic(1546);
+    }
+}
+if ($int3 = true) {
+    if_setcolour(0x606060, lobbyscreen_pane_worldselect:com65);
+    if_setcolour(0x404040, lobbyscreen_pane_worldselect:com66);
+} else {
+    if_setcolour(0x606060, lobbyscreen_pane_worldselect:com66);
+    if_setcolour(0x404040, lobbyscreen_pane_worldselect:com65);
+}
+return;

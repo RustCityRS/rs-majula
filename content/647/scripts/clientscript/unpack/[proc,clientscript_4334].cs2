@@ -1,0 +1,3 @@
+[proc,clientscript_4334](component $component0, component $component1)
+if_setcolour(hsv_to_rgb(%clansetting_int_18), $component0);
+if_setcolour(hsv_to_rgb(%clansetting_int_19), $component1);

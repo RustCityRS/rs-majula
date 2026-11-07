@@ -1,0 +1,19 @@
+[clientscript,lunarfm_rewards_onload]
+~clientscript_4267;
+~clientscript_4274;
+if_settext("", lunarfm_rewards_new:com76);
+if_settext("Select a reward for more information.", lunarfm_rewards_new:com78);
+if_settext("", lunarfm_rewards_new:com80);
+if_sethide(true, lunarfm_rewards_new:com81);
+if_sethide(true, lunarfm_rewards_new:com154);
+if_sethide(true, lunarfm_rewards_new:com151);
+if_sethide(false, lunarfm_rewards_new:com149);
+if_sethide(false, lunarfm_rewards_new:com150);
+if_sethide(false, lunarfm_rewards_new:com155);
+if (%varbit_9067 < 8) {
+    ~clientscript_4270;
+    if_settext("Spells", lunarfm_rewards_new:com76);
+} else {
+    ~clientscript_4272;
+    if_settext("Wishes", lunarfm_rewards_new:com76);
+}

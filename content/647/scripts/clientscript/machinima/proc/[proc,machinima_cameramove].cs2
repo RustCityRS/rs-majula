@@ -1,0 +1,18 @@
+[proc,machinima_cameramove]
+def_int $int = 0;
+if (%varc_int_1074 = false) {
+    cam_lookat(~clientscript_2865(%varc_int_1070, %varc_int_1071), %varc_int_1073, 0, 25);
+    cam_moveto(%varc_int_1070, %varc_int_1069, 0, 25);
+    $int = ~clientscript_2867(%varc_int_1070, ~clientscript_2865(%varc_int_1070, %varc_int_1071));
+} else if (%varc_int_1074 = true) {
+    cam_moveto(%varc_int_1070, %varc_int_1069, 20, 3);
+    cam_lookat(%varc_int_1072, 50, 20, 3);
+    $int = ~clientscript_2867(%varc_int_1070, %varc_int_1072);
+} else {
+    cam_followcoord(%varc_int_1070);
+}
+if ($int = false) {
+    %varc_int_1075 = 0;
+} else {
+    %varc_int_1075 = calc(($int - 1) * 8191);
+}

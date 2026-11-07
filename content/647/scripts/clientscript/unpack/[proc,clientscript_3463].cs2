@@ -1,0 +1,12 @@
+[proc,clientscript_3463](component $component0, coord $int1)
+if (%varc_int_1007 ! 22) {
+    if_setontimer(null, $component0);
+    return;
+}
+if (coord = $int1) {
+    return;
+}
+sound_synth(synth_4874, 1, 0);
+cam_moveto(coordpack(coord, 0, 0, -3), 1500, 1, 75);
+cam_lookat(coord, 0, 1, 15);
+if_setontimer("clientscript_3463(^event_com, coord)", $component0);

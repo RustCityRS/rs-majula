@@ -1,0 +1,22 @@
+[proc,login_open](int $int0)
+def_int $int1 = ~login_getreply;
+if ($int1 = -3 | ($int1 = 21 | $int1 = true)) {
+    return;
+}
+if_settext(%varc_string_32, login:com65);
+if_settext(~clientscript_2949(%varc_string_33), login:com71);
+if (string_length(%varc_string_32) > 0) {
+    %varc_int_174 = 4;
+} else {
+    %varc_int_174 = 3;
+}
+if (%varc_int_174 = 3) {
+    %varc_int_1099 = string_length(%varc_string_32);
+    ~clientscript_3237(login:com64, login:com65, login:com66, %varc_string_32, 3);
+} else {
+    %varc_int_1099 = string_length(~clientscript_2949(%varc_string_33));
+    ~clientscript_3237(login:com70, login:com71, login:com72, ~clientscript_2949(%varc_string_33), 4);
+}
+if_sethide(false, loginscreen:com26);
+if_sethide(false, login:com4);
+~clientscript_3964;

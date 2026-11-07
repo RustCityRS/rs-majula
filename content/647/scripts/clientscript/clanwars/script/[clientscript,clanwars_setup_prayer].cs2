@@ -1,0 +1,10 @@
+[clientscript,clanwars_setup_prayer](int $int)
+if (~clanwars_setup_clicktest($int) = false) {
+    return;
+}
+if (%varc_int_256 = false) {
+    %varc_int_256 = 1;
+} else {
+    %varc_int_256 = 0;
+}
+~clanwars_resynch_prayer;

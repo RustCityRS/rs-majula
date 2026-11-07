@@ -1,0 +1,68 @@
+[clientscript,inventory_init](component $component0, int $int1)
+if ($int1 = true) {
+    %varc_int_1031 = 0;
+}
+def_int $int2 = inv_size(inv);
+def_int $int3 = calc($int2 * 2 - 1);
+def_int $int4 = 0;
+while ($int4 <= $int3) {
+    if (cc_find($component0, $int4) = false) {
+        cc_create($component0, ^iftype_graphic, $int4);
+        cc_setsize(36, 32, ^setsize_abs, ^setsize_abs);
+        if ($int4 < $int2) {
+            cc_setgraphicshadow(0x302020);
+            cc_setontargetenter("inventory_targetmode(true, ^event_com, ^event_subid)");
+            cc_setontargetleave("inventory_targetmode(false, ^event_com, ^event_subid)");
+            cc_setdragbehaviour(2);
+            cc_setdragdeadzone(5);
+            cc_setdragdeadtime(5);
+            cc_setondragcomplete("inventory_drag(^event_com, ^event_subid, ^event_dragcom, ^event_dragsubid)");
+            cc_setonop("clientscript_1620(^event_com, ^event_subid, 100, 0, 8)");
+        } else {
+            cc_setcolour(^black);
+            cc_settrans(255);
+            cc_sethide(false);
+        }
+    }
+    $int4 = calc($int4 + 1);
+}
+def_int $int5 = calc($int2 / 4);
+def_int $int6 = calc((if_getwidth($component0) - 4 * 36) / 3);
+def_int $int7 = calc((if_getheight($component0) - $int5 * 32) / 6);
+def_obj $obj8 = null;
+$int3 = calc(%varc_int_1031 - 1);
+$int4 = 0;
+while ($int4 < $int2) {
+    if (cc_find($component0, $int4) = true) {
+        cc_clearops;
+        cc_setposition(calc($int4 % 4 * (36 + $int6)), calc($int4 / 4 * (32 + $int7)), ^setpos_abs_left, ^setpos_abs_top);
+        $obj8 = inv_getobj(inv, $int4);
+        if ($obj8 ! null) {
+            cc_sethide(false);
+            cc_setobject($obj8, inv_getnum(inv, $int4));
+            if ($int4 = $int3) {
+                cc_setoutline(2);
+            } else {
+                cc_setoutline(1);
+            }
+            ~inventory_setophelds($obj8);
+            cc_setdraggable($component0, -1);
+        } else {
+            cc_sethide(true);
+            cc_setonvartransmit(null);
+            cc_setobject(null, 0);
+            cc_setoutline(1);
+            if ($int4 = $int3) {
+                %varc_int_1031 = 0;
+            }
+        }
+    }
+    $int4 = calc($int4 + 1);
+}
+$int4 = 0;
+while ($int4 < $int2) {
+    if (cc_find($component0, calc($int2 + $int4)) = true) {
+        cc_setposition(calc($int4 % 4 * (36 + $int6)), calc($int4 / 4 * (32 + $int7)), ^setpos_abs_left, ^setpos_abs_top);
+    }
+    $int4 = calc($int4 + 1);
+}

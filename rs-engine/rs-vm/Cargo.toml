@@ -18,6 +18,12 @@ num_enum = { workspace = true }
 itoa = { workspace = true }
 rustc-hash = { workspace = true }
 
+[dev-dependencies]
+# The compiler's own trigger table, so the engine's discriminants can be
+# checked against the bytes rs-compiler actually emits rather than against a
+# hand-copied list. Dev-only: nothing at runtime reads it.
+rs-runec = { workspace = true }
+
 [build-dependencies]
 rs-ver = { workspace = true }
 

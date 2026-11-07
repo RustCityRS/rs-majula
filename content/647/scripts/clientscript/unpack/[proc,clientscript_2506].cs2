@@ -1,0 +1,3 @@
+[proc,clientscript_2506](component $component)
+%varc_int_839 = calc(%varbit_6351 - %varbit_6427);
+if_settext(~tostring_spacer(%varc_int_839, ","), $component);

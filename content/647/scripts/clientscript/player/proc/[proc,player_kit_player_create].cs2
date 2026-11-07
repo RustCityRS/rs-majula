@@ -1,0 +1,13 @@
+[proc,player_kit_player_create](component $component0, int $int1, int $int2)
+cc_create($component0, ^iftype_model, if_getchildcount($component0));
+cc_setsize(0, 0, ^setsize_minus, ^setsize_minus);
+cc_setposition(0, 0, ^setpos_abs_centre, ^setpos_abs_centre);
+cc_setplayermodel_snapshot;
+cc_setmodelangle(0, $int2, 0, 0, 0, $int1);
+if (%varc_int_779 ! -1) {
+    cc_setmodelanim(bas_getidle(%varc_int_779));
+} else {
+    cc_setmodelanim(bas_getidle(1426));
+}
+cc_setonvarctransmit("clientscript_1517(^event_com, ^event_subid){varc_int_779}");
+cc_setonclick("clientscript_347(^event_com, ^event_subid, ^event_mousex)");

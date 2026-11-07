@@ -1,0 +1,9 @@
+[proc,lobbyscreen_report_abuse_stage1_next]
+if (string_length(%varc_string_277) <= 0) {
+    return;
+}
+%varc_string_279 = %varc_string_277;
+~ondialogabort_clever;
+if (string_length(%varc_string_279) > 0) {
+    ~clientscript_3190;
+}

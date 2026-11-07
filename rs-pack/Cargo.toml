@@ -5,6 +5,7 @@ edition.workspace = true
 rust-version.workspace = true
 authors.workspace = true
 license.workspace = true
+default-run = "rs-pack"
 
 [lib]
 path = "src/lib.rs"
@@ -15,6 +16,7 @@ path = "src/main.rs"
 
 [dependencies]
 rs-io = { workspace = true }
+rs-ver = { workspace = true }
 rs-runec = { workspace = true }
 
 clap = { workspace = true }
@@ -28,9 +30,14 @@ rustc-hash = { workspace = true }
 zip = { workspace = true }
 png = { workspace = true }
 serde_json = { workspace = true }
+rayon = "1"
+rs-crypto = { workspace = true }
 
 [build-dependencies]
 rs-ver = { workspace = true }
+
+[dev-dependencies]
+rs-runec = { workspace = true }
 
 [lints]
 workspace = true

@@ -1,15 +1,15 @@
-use std::collections::HashMap;
-use std::path::{Path, PathBuf};
-
 use crate::pack::other::map::encode_jm2;
 use crate::pack::util::walk;
 use crate::pack::versionlist::build_version_list;
 use crate::types::OndemandBlobs;
 use crate::unpack::model;
 use crate::versionlist::VersionListMeta;
-use rs_io::js5::Js5Store;
+use rs_io::gz::gz_compress;
 #[cfg(before_274)]
-use rs_io::js5::js5zip;
+use rs_io::zip::fflate;
+use std::collections::HashMap;
+use std::fs;
+use std::path::{Path, PathBuf};
 use tracing::{debug, warn};
 
 pub struct OndemandArtifacts {
@@ -51,86 +51,61 @@ fn warn_missing_referenced_models(
 }
 
 fn stage(
-    bulk: &mut Js5Store,
-    index: usize,
     versions: &[u16],
     absent: &[i32],
     label: &str,
     warn_missing: bool,
     mut resolve: impl FnMut(usize) -> Option<Vec<u8>>,
-) {
-    for (id, &version) in versions.iter().enumerate() {
+) -> Vec<Box<[u8]>> {
+    versions.iter().enumerate().map(|(id, &version)| {
         if absent.get(id).copied().unwrap_or(0) != 0 {
-            continue;
+            return Box::default();
         }
-        match resolve(id) {
-            Some(data) => bulk.write_compressed(index, id, &data, version),
-            None if warn_missing && version != 0 => warn!(
-                "packing: {label} {id} is in the version list but missing from content; cache will omit it"
-            ),
-            None => {}
+        let Some(data) = resolve(id) else {
+            if warn_missing && version != 0 {
+                warn!("packing: {label} {id} is in the version list but missing from content; cache will omit it");
+            }
+            return Box::default();
+        };
+        let mut blob = gz_compress(&data);
+        if version != 0 {
+            blob.extend_from_slice(&version.to_be_bytes());
         }
-    }
-    bulk.ensure_file_count(index, versions.len());
-    debug!("  idx{index}: {} {label} slots", versions.len());
+        blob.into_boxed_slice()
+    }).collect()
 }
 
 fn stage_bulk(
     content_dir: &Path,
     pack_dir: &Path,
     meta: &VersionListMeta,
-    count: usize,
-) -> (Js5Store, Vec<bool>) {
-    let mut bulk = Js5Store::create(count);
-
+) -> (OndemandBlobs, Vec<bool>) {
     // idx1: models (.ob2), resolved through their pack name.
     let model_names = model::load_existing_pack(pack_dir, "model");
     let ob2 = stem_paths(&content_dir.join("models"), "ob2");
-    stage(
-        &mut bulk,
-        1,
-        &meta.model_version,
-        &meta.model_crc,
-        "model",
-        false,
-        |id| {
-            let name = model_names.get(&(id as u16))?;
-            std::fs::read(ob2.get(name)?).ok()
-        },
-    );
+    let models = stage(&meta.model_version, &meta.model_crc, "model", false, |id| {
+        let name = model_names.get(&(id as u16))?;
+        fs::read(ob2.get(name)?).ok()
+    });
     warn_missing_referenced_models(&model_names, &ob2);
 
     // idx2: anims (.anim), named directly by id.
     let anim_dir = content_dir.join("models").join("anim");
-    stage(
-        &mut bulk,
-        2,
-        &meta.anim_version,
-        &meta.anim_crc,
-        "anim",
-        true,
-        |id| std::fs::read(anim_dir.join(format!("anim_{id}.anim"))).ok(),
-    );
+    let anims = stage(&meta.anim_version, &meta.anim_crc, "anim", true, |id| {
+        fs::read(anim_dir.join(format!("anim_{id}.anim"))).ok()
+    });
 
     // idx3: midi (.mid under songs/ or jingles/); record which ids are jingles.
     let midi_names = model::load_existing_pack(pack_dir, "midi");
     let songs = stem_paths(&content_dir.join("songs"), "mid");
     let jingles = stem_paths(&content_dir.join("jingles"), "mid");
     let mut midi_jingles = vec![false; meta.midi_version.len()];
-    stage(
-        &mut bulk,
-        3,
-        &meta.midi_version,
-        &meta.midi_crc,
-        "midi",
-        true,
-        |id| {
-            let name = midi_names.get(&(id as u16))?;
-            let jingle = jingles.get(name);
-            midi_jingles[id] = jingle.is_some();
-            std::fs::read(songs.get(name).or(jingle)?).ok()
-        },
-    );
+    let midi = stage(&meta.midi_version, &meta.midi_crc, "midi", true, |id| {
+        let name = midi_names.get(&(id as u16))?;
+        let jingle = jingles.get(name);
+        midi_jingles[id] = jingle.is_some();
+        fs::read(songs.get(name).or(jingle)?).ok()
+    });
 
     // idx4: maps. Each .jm2 square encodes to a land + loc blob, placed at its
     // land_file / loc_file ids so the dat lands in ascending file-id order.
@@ -138,7 +113,7 @@ fn stage_bulk(
     let mut maps: Vec<Option<Vec<u8>>> = vec![None; meta.map_version.len()];
     for entry in &meta.maps {
         let path = maps_dir.join(format!("m{}_{}.jm2", entry.map_x(), entry.map_z()));
-        let Ok(jm2) = std::fs::read(&path) else {
+        let Ok(jm2) = fs::read(&path) else {
             warn!(
                 "packing: map m{}_{} is in the version list but missing from content; cache will omit it",
                 entry.map_x(),
@@ -168,41 +143,32 @@ fn stage_bulk(
             *slot = Some(loc);
         }
     }
-    for (id, blob) in maps.iter().enumerate() {
-        if let Some(blob) = blob {
-            bulk.write_compressed(4, id, blob, meta.map_version[id]);
-        }
-    }
-    bulk.ensure_file_count(4, meta.map_version.len());
+    let maps = stage(&meta.map_version, &meta.map_crc, "map", false, |id| {
+        maps[id].take()
+    });
     debug!("  idx4: {} map squares", meta.maps.len());
-
-    (bulk, midi_jingles)
+    (vec![models, anims, midi, maps], midi_jingles)
 }
 
-pub fn build_ondemand_artifacts(
-    content_dir: &Path,
-    pack_dir: &Path,
-    count: usize,
-) -> OndemandArtifacts {
+pub fn build_ondemand_artifacts(content_dir: &Path, pack_dir: &Path) -> OndemandArtifacts {
     let meta = VersionListMeta::read(&pack_dir.join("version_list"));
-    let (bulk, midi_jingles) = stage_bulk(content_dir, pack_dir, &meta, count);
-
-    let blobs = (1..count)
-        .map(|index| {
-            (0..bulk.count(index))
-                .map(|id| {
-                    bulk.read(index, id, false)
-                        .unwrap_or_default()
-                        .into_boxed_slice()
-                })
-                .collect()
-        })
-        .collect();
+    let (blobs, midi_jingles) = stage_bulk(content_dir, pack_dir, &meta);
 
     OndemandArtifacts {
-        version_list: build_version_list(&bulk, &meta, &midi_jingles),
+        version_list: build_version_list(&blobs, &meta, &midi_jingles),
         #[cfg(before_274)]
-        zip: js5zip(&bulk, count),
+        zip: build_zip(&blobs),
         blobs,
     }
+}
+
+#[cfg(before_274)]
+fn build_zip(blobs: &OndemandBlobs) -> Vec<u8> {
+    fflate(blobs.iter().enumerate().flat_map(|(archive, groups)| {
+        groups
+            .iter()
+            .enumerate()
+            .filter(|(_, data)| !data.is_empty())
+            .map(move |(id, data)| (format!("{}.{id}", archive + 1), data.as_ref()))
+    }))
 }

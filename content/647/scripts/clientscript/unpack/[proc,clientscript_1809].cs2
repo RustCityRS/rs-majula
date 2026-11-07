@@ -1,0 +1,13 @@
+[proc,clientscript_1809](component $component0, component $component1, component $component2)
+def_string $string = "";
+if (string_length(%varc_string_38) > 0) {
+    $string = ~clientscript_1814(%varc_string_38);
+    if_settext($string, $component1);
+    if_setsize(parawidth($string, 512, b12_full), 15, ^setsize_abs, ^setsize_abs, $component1);
+} else {
+    if_settext("", $component1);
+    if_setsize(0, 15, ^setsize_abs, ^setsize_abs, $component1);
+}
+%varc_int_267 = -1;
+%varc_string_39 = "";
+~clientscript_1811($component0, $component1, $component2);

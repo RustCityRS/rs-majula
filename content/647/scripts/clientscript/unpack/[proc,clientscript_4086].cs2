@@ -1,0 +1,10 @@
+[proc,clientscript_4086]
+if (if_find(xmas10_snowball:com3) = true) {
+    cc_setgraphic("set_but_end_2,2");
+}
+if (if_find(xmas10_snowball:com4) = true) {
+    cc_setgraphic("set_but_end_2,5");
+}
+if (if_find(xmas10_snowball:com5) = true) {
+    cc_setgraphic("set_but_fill_2,2");
+}

@@ -1,0 +1,3 @@
+[clientscript,conq_action_cam_reset]
+cam_followcoord(%varc_int_1353);
+if_setontimer("clientscript_421(%varc_int_1355, %varc_int_1356, 0)", conq_scroll_overlay:com0);

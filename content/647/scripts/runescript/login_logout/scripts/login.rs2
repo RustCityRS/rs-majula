@@ -1,0 +1,216 @@
+[login,_]
+mes("Welcome to RuneScape.")
+// register the timers that replenish stats (ported from rev-225);
+// hp is separate so rapid heal/restore can retune it independently
+settimer(stat_regen, 100);
+settimer(stat_boost_restore, 100);
+// +1 life point per 10 ticks (~6s) = 10 LP/min base recovery (wiki
+// Constitution, 2011-05-12: "one life point about every six seconds").
+settimer(health_regen, 10);
+// Bonus-XP elapsed clock: re-arm the per-minute timer each login (timers aren't
+// saved). The elapsed total itself PERSISTS across logout (varp_1644 = scope=perm),
+// so the multiplier keeps decaying with cumulative game-time during the event —
+// relogging must NOT reset it back to 2.7x. The timer no-ops while the event is off.
+settimer(doublexp_elapsed, 100);
+// Seed/clamp current life points (granular varbit life_points 7198; persists
+// via varp_1240). New players (and stale/invalid values) start full; a valid
+// persisted HP value is kept.
+def_int $hp_max = calc(stat(hitpoints) * 10);
+if (%life_points < 1 | %life_points > $hp_max) {
+    %life_points = $hp_max;
+}
+// 289's login hooks (login_logout/login.rs2), as their systems are ported.
+// Music: nothing plays yet, so the square's [mapzone] plays its track
+// (music.rs2). 289's %musicplay = 1 (Auto) went with 2011's music player's
+// buttons; 2011's song end and automatic unlocks start here instead.
+%currentsong = null;
+softtimer(music_end, 1);
+~music_unlock_automatic;
+~thieving_stall_timers_login;
+// random event timer
+settimer(general_macro_events, 500);
+// for logout out during a general macro event, they respawn when you log back in
+// queue: 
+// - https://youtu.be/T0ulsgorBkY?list=PLn23LiLYLb1Y3P9S9qZbijcJihiD416jT
+// - https://youtu.be/HwGAzcmvF9k?list=PLn23LiLYLb1Y3P9S9qZbijcJihiD416jT
+// npc spawns only after interface is closed
+queue(macro_event_login, 0, 0);
+// so antifire persists after logging back in
+~set_antifire_login;
+if (%learning_the_ropes < 1000) {
+    ~cc_open_interface();
+    return;
+}
+~open_game_frame()
+~login_finish()
+// 289's resume of its Tutorial Island (tutorial/). 289 resumed any unfinished
+// island; here only one the player entered (%tutorial past 0): 2011's new
+// players spawn on the island without entering it (tutorial.rs2).
+if (%tutorial > ^newbie_basics_instructor_start & %tutorial < ^tutorial_complete & ~in_tutorial_island(coord) = true) {
+    @start_tutorial;
+}
+
+[proc,login_finish]()
+cam_reset
+set_player_op(null, 2, ^false);
+set_player_op("Follow", 3, ^false);
+set_player_op("Trade with", 4, ^false);
+set_player_op(null, 5, ^false);
+
+[proc,open_game_frame]()
+if (getwindowmode = 1) {
+    if_opentop(toplevel)
+} else {
+    if_opentop(toplevel_fullscreen)
+}
+~initalltabs()
+~initorbs()
+
+[proc,initorbs]()
+// The summoning orb (interface 747) is members-only and stays blank until
+// show_summoning_orb (varbit 4280 = varp_1160 bit 23) is set -- the client's
+// [proc,subchanged] hides 747:8 whenever it reads 0. void rev-634 defaults the
+// var to true and re-sends it on every `interfaceOpened("summoning_orb")`, so
+// seed it here, before the mount, and only on a members world.
+def_int $summoning = ^false;
+if (map_members = ^true) {
+    $summoning = ^true;
+    %show_summoning_orb = ^true;
+}
+
+if (getwindowmode = 1) {
+    if_opensub(health_orb, toplevel:com_orb_health, ^true)
+    if_opensub(topstat_prayer, toplevel:com_orb_prayer, ^true)
+    if_opensub(topstat_run, toplevel:com_orb_energy, ^true)
+    if ($summoning = ^true) {
+        if_opensub(summoning_orb, toplevel:com_orb_summoning, ^true)
+    }
+    if_opensub(chatbox_tabs, toplevel:com_chatbox_tabs, ^true)
+    if_opensub(chatbox, toplevel:com_chatbox, ^true)
+    // split/private chat overlay (matches void rev-634 gameframe); sits in the
+    // 512x69 slot just below the chatbox
+    if_opensub(private_chat, toplevel:com_private_chat, ^true)
+} else {
+    if_opensub(health_orb, toplevel_fullscreen:com_orb_health, ^true)
+    if_opensub(topstat_prayer, toplevel_fullscreen:com_orb_prayer, ^true)
+    if_opensub(topstat_run, toplevel_fullscreen:com_orb_energy, ^true)
+    if ($summoning = ^true) {
+        if_opensub(summoning_orb, toplevel_fullscreen:com_orb_summoning, ^true)
+    }
+    if_opensub(chatbox_tabs, toplevel_fullscreen:com_chatbox_tabs, ^true)
+    if_opensub(chatbox, toplevel_fullscreen:com_chatbox, ^true)
+    if_opensub(private_chat, toplevel_fullscreen:com_private_chat, ^true)
+}
+
+if_opensub(chatbox_background, chatbox:com_chatbox_background, ^true)
+
+// The prayer orb's quick prayers, selecting (varc 181) and on (182), which
+// void-634's server sends as the orb opens (PrayerList.kt). The client
+// starts both at -1, and the prayer book offers Activate only while 181 is 0
+// (clientscript 1237): unsent, no prayer can be clicked. Quick prayers
+// themselves are not ported.
+sendvarc(181, 0)
+sendvarc(182, 0)
+
+[proc,initalltabs]()
+inv_transmit(inv, inventory:inv)
+inv_transmit(worn, wornitems:worn)
+
+// Worn equipment needs no if_setevents: interface 387's slot components have
+// their ops (active_properties) and per-slot inv-94 binding (oninvtransmit /
+// invtransmit_list) baked into the cache def, so transmitting worn (inv 94)
+// above is enough — same as void, which uses no if_setevents for it either.
+
+if (getwindowmode = 1) {
+    if_opensub(combat_side, toplevel:com_tab0, ^true)
+    if_opensub(task_side, toplevel:com_tab1, ^true)
+    if_opensub(stats, toplevel:com_tab2, ^true)
+    if_opensub(questlist_v4, toplevel:com_tab3, ^true)
+    if_opensub(inventory, toplevel:com_tab4, ^true)
+    if_opensub(wornitems, toplevel:com_tab5, ^true)
+    if_opensub(prayer, toplevel:com_tab6, ^true)
+    if_opensub(magic, toplevel:com_tab7, ^true)
+    if_opensub(friends2, toplevel:com_tab9, ^true)
+    if_opensub(friends_chat, toplevel:com_tab10, ^true)
+    if_opensub(clan_chat, toplevel:com_tab11, ^true)
+    if_opensub(options, toplevel:com_tab12, ^true)
+    if_opensub(emotes, toplevel:com_tab13, ^true)
+    if_opensub(music_v3, toplevel:com_tab14, ^true)
+    if_opensub(notes, toplevel:com_tab15, ^true)
+} else {
+    if_opensub(combat_side, toplevel_fullscreen:com_tab0, ^true)
+    if_opensub(task_side, toplevel_fullscreen:com_tab1, ^true)
+    if_opensub(stats, toplevel_fullscreen:com_tab2, ^true)
+    if_opensub(questlist_v4, toplevel_fullscreen:com_tab3, ^true)
+    if_opensub(inventory, toplevel_fullscreen:com_tab4, ^true)
+    if_opensub(wornitems, toplevel_fullscreen:com_tab5, ^true)
+    if_opensub(prayer, toplevel_fullscreen:com_tab6, ^true)
+    if_opensub(magic, toplevel_fullscreen:com_tab7, ^true)
+    if_opensub(friends2, toplevel_fullscreen:com_tab9, ^true)
+    if_opensub(friends_chat, toplevel_fullscreen:com_tab10, ^true)
+    if_opensub(clan_chat, toplevel_fullscreen:com_tab11, ^true)
+    if_opensub(options, toplevel_fullscreen:com_tab12, ^true)
+    if_opensub(emotes, toplevel_fullscreen:com_tab13, ^true)
+    if_opensub(music_v3, toplevel_fullscreen:com_tab14, ^true)
+    if_opensub(notes, toplevel_fullscreen:com_tab15, ^true)
+}
+
+// Every tab's events follow its if_opensub. Opening a sub where one is already
+// open closes it first, and the client's close drops every event the server
+// set on that interface (Class83.method563): at login the tabs are not yet
+// open, but 289's death runs ~initalltabs again, and events sent before the
+// re-open were gone -- the backpack lost its ops after every death.
+def_int $inv_ops = ~inv_ops(^if_op1, ^if_op2, ^if_op3, ^no_op, ^no_op, ^no_op, ^if_op7, ^if_op8, ^no_op, ^if_op10);
+def_int $inv_useon = ~inv_useon(^useon_grounditem, ^useon_npc, ^useon_loc, ^useon_player, ^no_op, ^useon_component, ^no_op);
+if_setevents(inventory:inv, 0, 27, $inv_ops, $inv_useon, 1, ^true, ^true)
+
+// Interface 149's inventory is drawn as two banks of 28 components (cs2 1613):
+// 0-27 carry the item graphic and are hidden whenever their slot is empty,
+// while 28-55 sit at the same grid positions and are never hidden. Because the
+// client's interface walk skips hidden components, bank 0-27 alone can only be
+// a drop target where an item already is -- which is why dragging onto an
+// occupied slot worked and dragging onto an empty one silently did nothing.
+//
+// Unlocking bank 28-55 for drag alone gives every slot, full or empty, a
+// visible drop target. No ops and no useon: these are backing sprites, not
+// items. Depth stays 0 deliberately -- it is what stops the client treating
+// them as drag *sources*, so an item can never be picked up off an empty slot.
+//
+// Bank 28-55 draws after bank 0-27, so it wins the drop-target search in both
+// cases and the client always reports a target slot of 28+slot. The
+// [inv_buttond,inventory:inv] trigger takes the offset back off.
+if_setevents(inventory:inv, 28, 55, ^no_op, ^no_op, 0, ^true, ^false)
+
+// combat_side's style buttons (11-14) carry no op of their own: script 1142
+// names them from the weapon, and the server lets op1 through, as void-634's
+// unlockAll does. They are static components, whose events the client keys at
+// slot -1 (client.get_active_properties: child_id is -1).
+if_setevents(combat_side:style1, -1, -1, ^if_op1, 0, 0, ^false, ^false)
+if_setevents(combat_side:style2, -1, -1, ^if_op1, 0, 0, ^false, ^false)
+if_setevents(combat_side:style3, -1, -1, ^if_op1, 0, 0, ^false, ^false)
+if_setevents(combat_side:style4, -1, -1, ^if_op1, 0, 0, ^false, ^false)
+
+// The quest tab's list (questlist_v4, 190) is a row per 2011 quest id; View is
+// op1 on rows 0-300, as void-634 unlocks it (QuestJournals.kt). Points:
+// void-634's total, 311 (varp 904; quests.toml); the wiki's is 316 (see
+// general/configs/quest_interface.constant).
+if_setevents(questlist_v4:com18, 0, 300, ^if_op1, 0, 0, ^false, ^false)
+%quest_points_total = ^quest_points_total;
+~update_questlist;
+
+// The prayer book (prayer, 271) draws its prayers as com8's children, by
+// slot in enum 2279's order (clientscript 1236); Activate is op1. 2011's
+// client offers it on all thirty (void-634 unlocks 0-29): here on 289's
+// fifteen, as 2011's own are not ported.
+if_setevents(prayer:com8, 0, 2, ^if_op1, 0, 0, ^false, ^false)
+if_setevents(prayer:com8, 5, 10, ^if_op1, 0, 0, ^false, ^false)
+if_setevents(prayer:com8, 13, 15, ^if_op1, 0, 0, ^false, ^false)
+if_setevents(prayer:com8, 17, 19, ^if_op1, 0, 0, ^false, ^false)
+
+// The music player's list (music_v3, 187) is com1's children, two a track
+// for its 980 places (clientscript 828: the name at index * 2, the playlist
+// button at index * 2 + 1). Play (op1) and Unlock hint (op2) are a name's
+// (clientscripts 3680, 3681); the playlist's ops are not ported.
+if_setevents(music_v3:com1, 0, 1959, or(^if_op1, ^if_op2), 0, 0, ^false, ^false)
+
+~update_all(inv_getobj(worn, ^wearpos_rhand));

@@ -2,6 +2,8 @@ mod afk;
 pub mod anticheat;
 pub mod format;
 pub mod input;
+// Replay keyframes in the jag-era protocol; rev 647 keeps none yet.
+#[cfg(before_647)]
 mod keyframe;
 pub mod menu;
 #[cfg(since_254)]

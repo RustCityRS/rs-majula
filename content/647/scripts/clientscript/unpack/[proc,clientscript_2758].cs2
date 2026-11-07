@@ -1,0 +1,4 @@
+[proc,clientscript_2758](component $component)
+if_setonvartransmit("clientscript_2759(^event_com){varp_466}", $component);
+if_setonvarctransmit("clientscript_2759(^event_com){varc_int_173}", $component);
+~clientscript_2760($component);

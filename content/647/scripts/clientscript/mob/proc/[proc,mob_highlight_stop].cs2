@@ -1,0 +1,18 @@
+[proc,mob_highlight_stop]
+%varc_int_904 = 0;
+if_setontimer(null, mob_side_command:com2);
+if_setgraphic(1914, mob_side_command:com2);
+if_setontimer(null, mob_side_command:com8);
+if_setgraphic(1915, mob_side_command:com8);
+if_setontimer(null, mob_side_command:com7);
+if_setgraphic(1916, mob_side_command:com7);
+if_setontimer(null, mob_side_command:com22);
+if_setgraphic(1917, mob_side_command:com22);
+if_setontimer(null, mob_side_command:com23);
+if_setgraphic(1921, mob_side_command:com23);
+if_setontimer(null, mob_side_command:com6);
+if_setgraphic(1918, mob_side_command:com6);
+if_setontimer(null, mob_side_command:com20);
+if_setgraphic(1919, mob_side_command:com20);
+if_setontimer(null, mob_side_command:com21);
+if_setgraphic(1920, mob_side_command:com21);

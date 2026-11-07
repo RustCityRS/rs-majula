@@ -1,0 +1,8 @@
+[proc,lobbyscreen_input_close]
+~lobbyscreen_input_clear;
+if_sethide(true, lobbyscreen:com30);
+if (if_gethide(enum(105, 73, enum_941, 5)) = false) {
+    ~clientscript_3161(1);
+} else if (if_gethide(enum(105, 73, enum_941, 3)) = false) {
+    ~clientscript_4556(1);
+}

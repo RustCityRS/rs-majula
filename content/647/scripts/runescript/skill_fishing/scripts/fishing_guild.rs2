@@ -1,0 +1,44 @@
+// 289's guild door is loc_2025, which 2011 does not have: its guild was
+// reworked on 23 March 2010 (2011 wiki, Master fisher) and is entered by the
+// double gate 49014 and 49016 at 2613-2614,3386 (cache 786 map; 2011 wiki,
+// Fishing Guild: "The fishing guild gates"). barriers.loc wires those as
+// ordinary gates, which open for a while to anyone; 289 lets a player through
+// its door and shuts it behind them, and 2011's gates would need the same
+// walk-through on a double gate. That belongs with the doors, so the level
+// check waits for them.
+// [oploc1,loc_2025]
+// // check if high enough fishing level
+// def_boolean $is_inside = ~check_axis(coord, loc_coord, loc_angle);
+// if ($is_inside = false) {
+//     if (stat(fishing) < 68) {
+//         if (npc_find(coord, master_fisher, 10, 0) = true) {
+//             ~chatnpc("<p,happy>Hello, only the top fishers are allowed in here, you need a fishing level of 68 to enter.");
+//         }
+//         return;
+//     }
+// }
+// ~open_and_close_door(loc_param(next_loc_stage), $is_inside, false);
+
+[opnpc1,master_fisher]
+if (stat(fishing) < 68) {
+    ~chatnpc("<p,happy>Hello, I'm afraid only the top fishers are allowed to use our premier fishing facilities.");
+} else {
+    // https://storage.googleapis.com/tannerdino/images/rshemenster2.gif
+    ~chatnpc("<p,happy>Hello, welcome to the fishing guild.  Please|feel free to make use of any of our facilities.");
+}
+
+
+// todo - facial animations.
+// todo - linebreaks.
+[opnpc1,roachey]
+~chatnpc("<p,neutral>Would you like to buy some fishing equipment,|or sell some fish?"); //imgur.com/CkMVc4S
+
+def_int $option = ~p_choice2("Yes please.", 0, "No thank you.", 1);
+
+switch_int ($option) {
+    case 0 :
+        ~chatplayer("<p,neutral>Yes please.");
+        ~openshop_activenpc;
+
+    case 1 : ~chatplayer("<p,neutral>No thank you.");
+}

@@ -1,0 +1,77 @@
+// Entered from the engine, not from a trigger. `WindowStatus` (rev-647
+// WINDOW_STATUS, opcode 69) runs `[proc,switch_window_mode]` by name when the
+// display mode changes -- rs-engine/src/handlers/window_status.rs. There is no
+// switch_window_mode trigger type in `ServerTriggerType`, so the header that
+// used to head this file could never fire: the compiler gave it a lookup of
+// -1, which is never inserted into `ScriptProvider::lookups`.
+[proc,switch_window_mode]()
+def_int $old_mode;
+if (getwindowmode = 1) {
+    $old_mode = 2;
+    if_opentop(toplevel)
+} else {
+    $old_mode = 1;
+    if_opentop(toplevel_fullscreen)
+}
+~movealltabs($old_mode)
+~moveorbs($old_mode)
+
+[proc,moveorbs](int $old_mode)
+if ($old_mode = 1) {
+    if_movesub(toplevel:com_orb_health, toplevel_fullscreen:com_orb_health)
+    if_movesub(toplevel:com_orb_prayer, toplevel_fullscreen:com_orb_prayer)
+    if_movesub(toplevel:com_orb_energy, toplevel_fullscreen:com_orb_energy)
+    if_movesub(toplevel:com_orb_summoning, toplevel_fullscreen:com_orb_summoning)
+    if_movesub(toplevel:com_chatbox_tabs, toplevel_fullscreen:com_chatbox_tabs)
+    if_movesub(toplevel:com_chatbox, toplevel_fullscreen:com_chatbox)
+    if_movesub(toplevel:com_main_screen, toplevel_fullscreen:com_main_screen)
+    if_movesub(toplevel:com_wide_screen, toplevel_fullscreen:com_wide_screen)
+    if_movesub(toplevel:com_overlay_tab, toplevel_fullscreen:com_overlay_tab)
+    if_movesub(toplevel:com_overlay, toplevel_fullscreen:com_overlay)
+} else {
+    if_movesub(toplevel_fullscreen:com_orb_health, toplevel:com_orb_health)
+    if_movesub(toplevel_fullscreen:com_orb_prayer, toplevel:com_orb_prayer)
+    if_movesub(toplevel_fullscreen:com_orb_energy, toplevel:com_orb_energy)
+    if_movesub(toplevel_fullscreen:com_orb_summoning, toplevel:com_orb_summoning)
+    if_movesub(toplevel_fullscreen:com_chatbox_tabs, toplevel:com_chatbox_tabs)
+    if_movesub(toplevel_fullscreen:com_chatbox, toplevel:com_chatbox)
+    if_movesub(toplevel_fullscreen:com_main_screen, toplevel:com_main_screen)
+    if_movesub(toplevel_fullscreen:com_wide_screen, toplevel:com_wide_screen)
+    if_movesub(toplevel_fullscreen:com_overlay_tab, toplevel:com_overlay_tab)
+    if_movesub(toplevel_fullscreen:com_overlay, toplevel:com_overlay)
+}
+
+[proc,movealltabs](int $old_mode)
+if ($old_mode = 1) {
+    if_movesub(toplevel:com_tab0, toplevel_fullscreen:com_tab0)
+    if_movesub(toplevel:com_tab1, toplevel_fullscreen:com_tab1)
+    if_movesub(toplevel:com_tab2, toplevel_fullscreen:com_tab2)
+    if_movesub(toplevel:com_tab3, toplevel_fullscreen:com_tab3)
+    if_movesub(toplevel:com_tab4, toplevel_fullscreen:com_tab4)
+    if_movesub(toplevel:com_tab5, toplevel_fullscreen:com_tab5)
+    if_movesub(toplevel:com_tab6, toplevel_fullscreen:com_tab6)
+    if_movesub(toplevel:com_tab7, toplevel_fullscreen:com_tab7)
+    if_movesub(toplevel:com_tab9, toplevel_fullscreen:com_tab9)
+    if_movesub(toplevel:com_tab10, toplevel_fullscreen:com_tab10)
+    if_movesub(toplevel:com_tab11, toplevel_fullscreen:com_tab11)
+    if_movesub(toplevel:com_tab12, toplevel_fullscreen:com_tab12)
+    if_movesub(toplevel:com_tab13, toplevel_fullscreen:com_tab13)
+    if_movesub(toplevel:com_tab14, toplevel_fullscreen:com_tab14)
+    if_movesub(toplevel:com_tab15, toplevel_fullscreen:com_tab15)
+} else {
+    if_movesub(toplevel_fullscreen:com_tab0, toplevel:com_tab0)
+    if_movesub(toplevel_fullscreen:com_tab1, toplevel:com_tab1)
+    if_movesub(toplevel_fullscreen:com_tab2, toplevel:com_tab2)
+    if_movesub(toplevel_fullscreen:com_tab3, toplevel:com_tab3)
+    if_movesub(toplevel_fullscreen:com_tab4, toplevel:com_tab4)
+    if_movesub(toplevel_fullscreen:com_tab5, toplevel:com_tab5)
+    if_movesub(toplevel_fullscreen:com_tab6, toplevel:com_tab6)
+    if_movesub(toplevel_fullscreen:com_tab7, toplevel:com_tab7)
+    if_movesub(toplevel_fullscreen:com_tab9, toplevel:com_tab9)
+    if_movesub(toplevel_fullscreen:com_tab10, toplevel:com_tab10)
+    if_movesub(toplevel_fullscreen:com_tab11, toplevel:com_tab11)
+    if_movesub(toplevel_fullscreen:com_tab12, toplevel:com_tab12)
+    if_movesub(toplevel_fullscreen:com_tab13, toplevel:com_tab13)
+    if_movesub(toplevel_fullscreen:com_tab14, toplevel:com_tab14)
+    if_movesub(toplevel_fullscreen:com_tab15, toplevel:com_tab15)
+}

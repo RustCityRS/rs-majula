@@ -1,0 +1,251 @@
+[proc,rebuildchatbox]
+def_int $int0 = 0;
+def_int $int1 = 0;
+def_int $int2 = 0;
+def_component $component3 = null;
+def_int $int4 = 0;
+def_int $int5 = 1;
+def_int $int6 = 1;
+if (%varc_int_41 = 3) {
+    $int4 = 1;
+}
+while ($int1 < 100) {
+    if (~panetest($int1) = true & ~filtertest($int1, $int4) = true) {
+        $int0 = calc($int0 + 1);
+    }
+    $int1 = calc($int1 + 1);
+}
+def_int $int7 = calc(if_getheight(chatbox_background:com58) / 14);
+def_int $int8 = 0;
+if ($int0 < $int7) {
+    $int0 = $int7;
+    while ($int8 < $int7) {
+        ~clientscript_85(enum(105, 73, enum_579, $int8));
+        $int8 = calc($int8 + 1);
+    }
+}
+if_setscrollsize(463, calc($int0 * 14 + 2), chatbox_background:com58);
+~scrollbar_resize(chatbox_background:com59, chatbox_background:com58, calc(%varc_int_7 + if_getscrollheight(chatbox_background:com58) - %varc_int_8));
+%varc_int_7 = if_getscrolly(chatbox_background:com58);
+%varc_int_8 = if_getscrollheight(chatbox_background:com58);
+if ($int0 < 100) {
+    ~clientscript_85(enum(105, 73, enum_579, $int0));
+}
+def_int $int9 = -1;
+def_int $int10 = ~clientscript_4467;
+def_int $int11 = -1;
+def_int $int12 = ~clientscript_1891;
+$int1 = 0;
+%varc_int_132 = -1;
+def_string $string0 = "<col=0000ff>";
+def_string $string1 = "<col=800000>";
+def_string $string2 = "<col=800080>";
+def_string $string3 = "<col=00ff00>";
+def_colour $colour13 = ^black;
+def_colour $colour14 = ^black;
+def_colour $colour15 = ^black;
+def_colour $colour16 = ^black;
+def_string $string4 = "<col=000000>";
+if (getwindowmode >= 2) {
+    $string0 = "<col=7fa9ff>";
+    $string1 = "<col=ff5256>";
+    $string2 = "<col=ff78d9>";
+    $string3 = "<col=96ff7d>";
+    $colour16 = ^white;
+    $string4 = "<col=ffffff>";
+    $colour14 = enum(105, 105, enum_3724, %varbit_3612);
+    $colour13 = enum(105, 105, enum_3723, %varbit_9188);
+    $colour15 = enum(105, 105, enum_3726, %varbit_9191);
+} else {
+    $colour14 = enum(105, 105, enum_3724, %varbit_3612);
+    $colour13 = enum(105, 105, enum_3723, %varbit_9188);
+    $colour15 = enum(105, 105, enum_3726, %varbit_9191);
+}
+while ($int1 < 100) {
+    if (~panetest($int1) = true & ~filtertest($int1, $int4) = true) {
+        $int0 = calc($int0 - 1);
+        $component3 = enum(105, 73, enum_579, $int0);
+        $int2 = chat_gethistory_length($int1);
+        if_setcolour($colour16, $component3);
+        switch_int ($int2) {
+            case 0, 4, 27, 28, 29, 11, 43, 103, 104, 109, 110, 26, 30, 31:
+                if_settext(chat_gethistory_bytypeandline($int1), $component3);
+                if ($int5 = true & ($int2 = false | ($int2 = 4 | ($int2 = 27 | ($int2 = 28 | ($int2 = 29 | ($int2 = 26 | ($int2 = 30 | $int2 = 31)))))))) {
+                    %varc_int_1269 = chat_gethistory_crown($int1);
+                    $int5 = 0;
+                }
+            case 1, 2:
+                if_settext("<player_getdisplayname($int1)>: <$string0><chat_gethistory_bytypeandline($int1)>", $component3);
+            case 3:
+                if_settext("From <player_getdisplayname($int1)>: <$string1><chat_gethistory_bytypeandline($int1)>", $component3);
+            case 100:
+                if_settext("<$string2><player_getdisplayname($int1)> <chat_gethistory_bytypeandline($int1)>", $component3);
+            case 5:
+                if_settext("<$string1><chat_gethistory_bytypeandline($int1)>", $component3);
+            case 6:
+                if_settext("To <player_getdisplayname($int1)>: <$string1><chat_gethistory_bytypeandline($int1)>", $component3);
+            case 7:
+                if_settext("From <player_getdisplayname($int1)>: <$string1><chat_gethistory_bytypeandline($int1)>", $component3);
+            case 101:
+                if_settext("<col=7e3200><player_getdisplayname($int1)> <chat_gethistory_bytypeandline($int1)>", $component3);
+            case 41:
+                if_setcolour($colour14, $component3);
+                if_settext("<$string4>[</col><$string0><chat_gethistory_name($int1)></col><$string4>] <player_getdisplayname($int1)>: </col><chat_gethistory_bytypeandline($int1)>", $component3);
+            case 9:
+                if_setcolour($colour13, $component3);
+                if_settext("<$string4>[</col><$string0><chat_gethistory_name($int1)></col><$string4>] <player_getdisplayname($int1)>: </col><chat_gethistory_bytypeandline($int1)>", $component3);
+            case 44:
+                if_setcolour($colour15, $component3);
+                if_settext("<$string4>[</col><$string0><chat_gethistory_name($int1)></col><$string4>] <player_getdisplayname($int1)>: </col><chat_gethistory_bytypeandline($int1)>", $component3);
+            case 117:
+                if_settext("<col=7e3200><chat_gethistory_bytypeandline($int1)>", $component3);
+            case 102:
+                if_settext("<col=8a2be2><player_getdisplayname($int1)> <chat_gethistory_bytypeandline($int1)>", $component3);
+            case 105:
+                if_settext("<col=7e3200><player_getdisplayname($int1)> <chat_gethistory_bytypeandline($int1)>", $component3);
+            case 106:
+                if_settext("<col=7e3200><player_getdisplayname($int1)> <chat_gethistory_bytypeandline($int1)>", $component3);
+            case 107:
+                if_settext("<col=7e3200><player_getdisplayname($int1)> <chat_gethistory_bytypeandline($int1)>", $component3);
+            case 118:
+                if_settext("<col=7e3200><player_getdisplayname($int1)> <chat_gethistory_bytypeandline($int1)>", $component3);
+            case 17:
+                if (compare(removetags(chat_playername), removetags(player_getdisplayname($int1))) ! 0 & quickchat_phrase_getautocount(chat_gethistory_rank($int1)) > 0) {
+                    if_settext("<player_getdisplayname($int1)><img=3>: <$string0><chat_gethistory_bytypeandline($int1)>", $component3);
+                } else {
+                    if_settext("<player_getdisplayname($int1)>: <$string0><chat_gethistory_bytypeandline($int1)>", $component3);
+                }
+            case 18:
+                if (compare(removetags(chat_playername), removetags(player_getdisplayname($int1))) ! 0 & quickchat_phrase_getautocount(chat_gethistory_rank($int1)) > 0) {
+                    if_settext("From <player_getdisplayname($int1)><img=3>: <$string1><chat_gethistory_bytypeandline($int1)>", $component3);
+                } else {
+                    if_settext("From <player_getdisplayname($int1)>: <$string1><chat_gethistory_bytypeandline($int1)>", $component3);
+                }
+            case 19:
+                if_settext("To <player_getdisplayname($int1)>: <$string1><chat_gethistory_bytypeandline($int1)>", $component3);
+            case 42:
+                if_setcolour($colour14, $component3);
+                if (compare(removetags(chat_playername), removetags(player_getdisplayname($int1))) ! 0 & quickchat_phrase_getautocount(chat_gethistory_rank($int1)) > 0) {
+                    if_settext("<$string4>[</col><$string0><chat_gethistory_name($int1)></col><$string4>] <player_getdisplayname($int1)><img=3>: </col><chat_gethistory_bytypeandline($int1)>", $component3);
+                } else {
+                    if_settext("<$string4>[</col><$string0><chat_gethistory_name($int1)></col><$string4>] <player_getdisplayname($int1)>: </col><chat_gethistory_bytypeandline($int1)>", $component3);
+                }
+            case 45:
+                if_setcolour($colour15, $component3);
+                if (compare(removetags(chat_playername), removetags(player_getdisplayname($int1))) ! 0 & quickchat_phrase_getautocount(chat_gethistory_rank($int1)) > 0) {
+                    if_settext("<$string4>[</col><$string0><chat_gethistory_name($int1)></col><$string4>] <player_getdisplayname($int1)><img=3>: </col><chat_gethistory_bytypeandline($int1)>", $component3);
+                } else {
+                    if_settext("<$string4>[</col><$string0><chat_gethistory_name($int1)></col><$string4>] <player_getdisplayname($int1)>: </col><chat_gethistory_bytypeandline($int1)>", $component3);
+                }
+            case 20:
+                if_setcolour($colour13, $component3);
+                if (compare(removetags(chat_playername), removetags(player_getdisplayname($int1))) ! 0 & quickchat_phrase_getautocount(chat_gethistory_rank($int1)) > 0) {
+                    if_settext("<$string4>[</col><$string0><chat_gethistory_name($int1)></col><$string4>] <player_getdisplayname($int1)><img=3>: </col><chat_gethistory_bytypeandline($int1)>", $component3);
+                } else {
+                    if_settext("<$string4>[</col><$string0><chat_gethistory_name($int1)></col><$string4>] <player_getdisplayname($int1)>: </col><chat_gethistory_bytypeandline($int1)>", $component3);
+                }
+            case 108:
+                if_settext("<col=7e3200><player_getdisplayname($int1)> <chat_gethistory_bytypeandline($int1)>", $component3);
+            case 111, 112:
+                if_settext("<col=7e3200><player_getdisplayname($int1)> <chat_gethistory_bytypeandline($int1)>", $component3);
+            case 113, 114:
+                if_settext("<col=7e3200><player_getdisplayname($int1)> <chat_gethistory_bytypeandline($int1)>", $component3);
+            case 115:
+                if_settext("<col=7f0000><player_getdisplayname($int1)> <chat_gethistory_bytypeandline($int1)>", $component3);
+            case 116:
+                if_settext(chat_gethistory_bytypeandline($int1), $component3);
+        }
+        if_clearops($component3);
+        if_setonop("chat_op(^event_op, chat_gethistory_message($int1), $int1)", $component3);
+        if_setopbase("<col=ffffff><removetags(player_getdisplayname($int1))>", $component3);
+        switch_int ($int2) {
+            case 1, 2, 3, 7, 41, 44, 9, 6:
+                if (compare(removetags(chat_playername), removetags(player_getdisplayname($int1))) ! 0) {
+                    if (friend_test(chat_gethistory_message($int1)) = true) {
+                        if (is_quickchat_only = false & is_subscriber = false) {
+                            if_setop(6, "Message", $component3);
+                        }
+                    } else {
+                        if_setop(6, "Add friend", $component3);
+                        if_setop(7, "Add ignore", $component3);
+                    }
+                    if (staffmodlevel > 0 | autosetup_isactive > 0) {
+                        if_setop(8, "Report abuse", $component3);
+                    }
+                    if ($int2 = 41 & $int10 = true) {
+                        if_setop(10, "Kick/ban", $component3);
+                    }
+                    if ($int2 = 9 & $int12 = true) {
+                        if_setop(10, "Kick/ban", $component3);
+                    }
+                }
+            case 100:
+                if_setop(1, "Accept trade", $component3);
+            case 101, 105, 106, 107, 113, 114, 118:
+                if_setop(2, "Accept challenge", $component3);
+            case 102:
+                if_setop(3, "Give assistance", $component3);
+            case 111:
+                if_setop(4, "Open invitation", $component3);
+            case 112:
+                if_setop(3, "Vote", $component3);
+            case 17, 18, 42, 45, 20:
+                if (compare(removetags(chat_playername), removetags(player_getdisplayname($int1))) ! 0) {
+                    if (friend_test(chat_gethistory_message($int1)) = true) {
+                        if (is_quickchat_only = false & is_subscriber = false) {
+                            if_setop(6, "Message", $component3);
+                        }
+                    } else {
+                        if_setop(6, "Add friend", $component3);
+                        if_setop(7, "Add ignore", $component3);
+                    }
+                    if ($int2 = 42 & $int10 = true) {
+                        if_setop(10, "Kick/ban", $component3);
+                    }
+                    if ($int2 = 20 & $int12 = true) {
+                        if_setop(10, "Kick/ban", $component3);
+                    }
+                    if (quickchat_phrase_getautocount(chat_gethistory_rank($int1)) > 0) {
+                        if (%varc_int_132 = -1) {
+                            %varc_int_132 = chat_gethistory_rank($int1);
+                            %varc_string_29 = player_getdisplayname($int1);
+                            if ($int2 = 20) {
+                                %varc_int_133 = 6;
+                                if_setop(9, "Quick Response", $component3);
+                            }
+                            if ($int2 = 42) {
+                                %varc_int_133 = 9;
+                                if_setop(9, "Quick Response", $component3);
+                            }
+                            if ($int2 = 45) {
+                                %varc_int_133 = 11;
+                                if_setop(9, "Quick Response", $component3);
+                            } else if ($int2 = 18) {
+                                %varc_int_133 = 5;
+                                if (friend_test(chat_gethistory_message($int1)) = true) {
+                                    if_setop(9, "Quick Response", $component3);
+                                }
+                            } else {
+                                %varc_int_133 = 4;
+                                if_setop(9, "Quick Response", $component3);
+                            }
+                        } else {
+                            if_setop(9, "Quick Response", $component3);
+                        }
+                    }
+                }
+            case 108:
+                if_setop(10, "Accept alliance", $component3);
+            case 117:
+                if_setop(5, "View invite from", $component3);
+        }
+    }
+    if ($int6 = true) {
+        switch_int (chat_gethistory_length($int1)) {
+            case 3, 7, 18:
+                %varc_string_276 = removetags(chat_gethistory_message($int1));
+                $int6 = 0;
+        }
+    }
+    $int1 = calc($int1 + 1);
+}

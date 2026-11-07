@@ -1,0 +1,25 @@
+[proc,displayname_simplify](string $string)(string)
+$string = lowercase(removetags($string));
+def_int $int0 = string_length($string);
+def_int $int1 = 0;
+$string = ~find_and_replace($string, "_", " ");
+$string = ~find_and_replace($string, "-", " ");
+$string = ~find_and_replace($string, " ", " ");
+while (string_indexof_string($string, " ", 0) = false & $int0 > 0) {
+    $string = substring($string, 1, $int0);
+    $int0 = string_length($string);
+}
+while (string_indexof_string($string, " ", calc($int0 - 1)) = calc($int0 - 1) & $int0 > 0) {
+    $string = substring($string, 0, calc($int0 - 1));
+    $int0 = string_length($string);
+}
+while (string_indexof_string($string, " ", 0) = false & $int0 > 0) {
+    $string = substring($string, 1, $int0);
+    $int0 = string_length($string);
+}
+while (string_indexof_string($string, " ", calc($int0 - 1)) = calc($int0 - 1) & $int0 > 0) {
+    $string = substring($string, 0, calc($int0 - 1));
+    $int0 = string_length($string);
+}
+return($string);
+return("");

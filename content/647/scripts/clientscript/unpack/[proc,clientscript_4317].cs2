@@ -1,0 +1,24 @@
+[proc,clientscript_4317](component $component0, int $int1)
+def_int $int2 = 0;
+if (clanchannel2_find_affined = true) {
+    if ($int1 < 0 | $int1 >= clanchannel2_getusercount) {
+        %varc_int_1518 = -1;
+        %varc_string_126 = "";
+        mes("That person isn't in your clan channel.");
+        return;
+    }
+    if (cc_find($component0, $int1) = true) {
+        $int2 = cc_gety;
+    }
+    %varc_int_1518 = $int1;
+    %varc_string_126 = clanchannel2_getusername($int1);
+    if (if_find(clan_chat:com20) = true) {
+        cc_setsize(1, 19, ^setsize_abs, ^setsize_abs);
+        cc_setposition(0, $int2, ^setpos_abs_right, ^setpos_abs_top);
+        cc_setontimer("clientscript_4629(1)");
+        if_sethide(false, clan_chat:com13);
+        if_setposition(0, $int2, ^setpos_abs_right, ^setpos_abs_top, clan_chat:com13);
+    }
+} else {
+    mes("You must be in your clan channel to do that.");
+}

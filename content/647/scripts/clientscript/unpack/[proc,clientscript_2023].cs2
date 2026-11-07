@@ -1,0 +1,8 @@
+[proc,clientscript_2023](int $int0, int $int1)
+if ($int0 ! 1) {
+    return;
+}
+%skill_creation_amount = max(min(calc(%skill_creation_amount + $int1), %skill_creation_maximum), 0);
+~clientscript_2047;
+if_setontimer("skillmulti2010_blocker(calc(clientclock + 15))", skillmulti2010:com28);
+if_sethide(false, skillmulti2010:com28);

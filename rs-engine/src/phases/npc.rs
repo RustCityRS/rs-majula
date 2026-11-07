@@ -447,7 +447,7 @@ impl Engine {
         let uid = active.npc.uid;
         let type_id = uid.id();
         let category = active.npc.category.map(|c| c as i32);
-        let trigger = (ServerTriggerType::AiTimer, Some(type_id), category);
+        let trigger = (ServerTriggerType::AiTimer, Some(type_id as i32), category);
         if engine()
             .script_by_key(trigger.0, trigger.1, trigger.2)
             .is_some()
@@ -518,7 +518,9 @@ impl Engine {
 
                 let trigger = ServerTriggerType::try_from(request.script_id as u8);
                 if let Ok(trigger) = trigger {
-                    if let Some(script) = engine().script_by_key(trigger, Some(type_id), category) {
+                    if let Some(script) =
+                        engine().script_by_key(trigger, Some(type_id as i32), category)
+                    {
                         let mut state = engine_mut().build_state(
                             script,
                             Some(ScriptSubject::Npc(uid)),
@@ -1189,7 +1191,7 @@ impl Engine {
                     .and_then(|t| t.category)
                     .map(|c| c as i32);
                 if let Err(e) = engine_mut().run_script_by_trigger(
-                    (trigger, Some(type_id), category),
+                    (trigger, Some(type_id as i32), category),
                     Some(ScriptSubject::Npc(uid)),
                     None,
                     None,
@@ -1728,7 +1730,7 @@ impl Engine {
                     let type_id = active.npc.uid.id();
                     let category = active.npc.category.map(|c| c as i32);
                     if let Err(e) = engine_mut().run_script_by_trigger(
-                        (trigger, Some(type_id), category),
+                        (trigger, Some(type_id as i32), category),
                         Some(ScriptSubject::Npc(uid)),
                         target_subject,
                         None,
@@ -1756,7 +1758,7 @@ impl Engine {
                 if let Some(trigger) = trigger {
                     let category = active.npc.category.map(|c| c as i32);
                     if let Err(e) = engine_mut().run_script_by_trigger(
-                        (trigger, Some(type_id), category),
+                        (trigger, Some(type_id as i32), category),
                         Some(ScriptSubject::Npc(uid)),
                         target_subject,
                         None,

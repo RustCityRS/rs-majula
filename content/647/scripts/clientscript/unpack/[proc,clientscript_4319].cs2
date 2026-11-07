@@ -1,0 +1,42 @@
+[proc,clientscript_4319](int $int0, int $int1)
+def_int $int2 = 0;
+def_int $int3 = 0;
+def_component $component4 = pe6859048:com16;
+def_component $component5 = pe6859048:com15;
+def_component $component6 = pe6859048:com34;
+def_component $component7 = pe6859048:com171;
+def_component $component8 = pe6859048:com13;
+def_int $int9 = 71827492;
+if ($int0 > 0) {
+    $int2 = calc($int0 - 1);
+} else {
+    $int2 = 0;
+    $int3 = if_getheight($component4);
+    if ($int1 = false) {
+        $int3 = calc($int3 + 6);
+        if_setvflip(false, $component6);
+        if_setvflip(false, $component7);
+        if_setop(1, "Hide", $component8);
+        if_setonop("clientscript_4319(0, 1)", $component8);
+    } else {
+        if_sethide(true, pe6859048:com29);
+        $int3 = calc($int3 - 6);
+        if_setvflip(true, $component6);
+        if_setvflip(true, $component7);
+        if_setop(1, "Show", $component8);
+        if_setonop("clientscript_4319(0, 0)", $component8);
+    }
+    $int3 = min($int3, 224);
+    $int3 = max($int3, 115);
+    if_setsize(if_getwidth($component4), $int3, ^setsize_abs, ^setsize_abs, $component4);
+    if_setsize(if_getwidth($component5), calc($int3 - 62), ^setsize_abs, ^setsize_minus, $component5);
+    if ($int1 = false & $int3 >= 224) {
+        if_sethide(false, pe6859048:com29);
+        if_setontimer(null, $component4);
+    } else if ($int1 = true & $int3 <= 115) {
+        if_setontimer(null, $component4);
+    } else {
+        if_setontimer("clientscript_4319($int2, $int1)", $component4);
+    }
+    ~clientscript_4302;
+}

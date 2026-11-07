@@ -5,6 +5,7 @@ use crate::network::game::server_prot_priority::ServerProtPriority;
 use rs_io::{Packet, PacketFrame};
 use rs_protocol_macros::server_prot;
 
+#[cfg(before_647)]
 #[server_prot(UpdateInvFull, Immediate, VarShort)]
 pub struct UpdateInvFull<'a> {
     pub com: u16,
@@ -52,7 +53,7 @@ impl ServerProtMessage for UpdateInvFull<'_> {
     }
 }
 
-#[cfg(since_289)]
+#[cfg(all(since_289, before_647))]
 impl ServerProtMessage for UpdateInvFull<'_> {
     fn encode(&self, buf: &mut Packet) {
         // only send up to the last slot in use (anything beyond is cleared by the client)
@@ -93,11 +94,67 @@ impl ServerProtMessage for UpdateInvFull<'_> {
     }
 }
 
+#[cfg(before_647)]
 impl UpdateInvFull<'_> {
     fn find_max_pos(&self) -> usize {
         self.objs
             .iter()
             .rposition(Option::is_some)
             .map_or(0, |i| i + 1)
+    }
+}
+
+/// One populated inventory slot. `None` in `UpdateInvFull::slots`
+/// represents an empty slot.
+#[cfg(since_647)]
+#[derive(Debug, Clone, Copy)]
+pub struct InvItem {
+    pub id: u16,
+    pub count: u32,
+}
+
+#[cfg(since_647)]
+#[server_prot(UpdateInvFull, Immediate, VarShort)]
+pub struct UpdateInvFull {
+    pub inv_id: u16,
+    /// The other player's copy of the inv (flags bit 0): the client keeps
+    /// it apart from the player's own, as trade's other offer.
+    pub other: bool,
+    pub capacity: u16,
+    pub slots: Vec<Option<InvItem>>,
+}
+
+#[cfg(since_647)]
+impl ServerProtMessage for UpdateInvFull {
+    fn encode(&self, buf: &mut Packet) {
+        buf.p2(self.inv_id);
+        buf.p1(self.other as u8);
+        buf.p2(self.capacity);
+        for slot in &self.slots {
+            match slot {
+                Some(item) => {
+                    if item.count >= 255 {
+                        buf.p1(255);
+                        buf.p4_alt1(item.count as i32);
+                    } else {
+                        buf.p1(item.count as u8);
+                    }
+                    let id_plus_one = item.id + 1;
+                    buf.p1((id_plus_one >> 8) as u8);
+                    buf.p1_alt1(id_plus_one as u8);
+                }
+                None => {
+                    buf.p1(0);
+                    buf.p1(0);
+                    buf.p1_alt1(0);
+                }
+            }
+        }
+    }
+
+    fn sizeof(&self) -> usize {
+        // 5-byte header + 3–7 bytes per slot; oversize slightly so the
+        // buffer is never under-allocated for sparse / dense inventories.
+        (3 + self.capacity as usize * 7).max(64)
     }
 }

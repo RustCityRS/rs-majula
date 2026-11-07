@@ -1,0 +1,58 @@
+[proc,task_kudos_available]()(int)
+def_int $int = 88;
+if (%varbit_5387 = 250) {
+    $int = calc($int + 5);
+}
+if (%demon_slayer >= 3) {
+    $int = calc($int + 5);
+}
+if (%itexamlevel >= 9) {
+    $int = calc($int + 5);
+}
+if (%varbit_358 = 15) {
+    $int = calc($int + 10);
+}
+if (%varbit_6001 >= 45) {
+    $int = calc($int + 10);
+}
+if (%grandtree >= 160) {
+    $int = calc($int + 5);
+}
+if (%hazeelcultquest >= 9) {
+    $int = calc($int + 5);
+}
+if (%varbit_1990 >= 430) {
+    $int = calc($int + 5);
+}
+if (%varbit_1383 >= 4) {
+    $int = calc($int + 5);
+}
+if (%varbit_5075 = 20) {
+    $int = calc($int + 5);
+}
+if (%arthur >= 7) {
+    $int = calc($int + 5);
+}
+if (%itgronigen >= 7) {
+    $int = calc($int + 5);
+}
+if (%priestperil >= 61) {
+    $int = calc($int + 5);
+}
+if (%runemysteries >= 6) {
+    $int = calc($int + 5);
+}
+if (%varp_145 >= 7 | %varp_146 >= 4) {
+    $int = calc($int + 5);
+}
+if (%varbit_1028 >= 70) {
+    $int = calc($int + 5);
+}
+if (%varp_26 >= 80) {
+    $int = calc($int + 5);
+}
+if (%varbit_3523 >= 150) {
+    $int = calc($int + 5);
+}
+return($int);
+return(0);

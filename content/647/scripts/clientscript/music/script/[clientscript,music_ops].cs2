@@ -1,0 +1,15 @@
+[clientscript,music_ops](int $int0, int $int1)
+if ($int0 = 2) {
+    ~music_search_close;
+    if ($int1 < 500) {
+        if (~music_track_unlocked($int1) = true & enum(105, 105, enum_1350, $int1) = false) {
+            mes("This track was unlocked <enum_string(enum_1349, $int1)>");
+        } else {
+            mes("This track unlocks <enum_string(enum_1349, $int1)>");
+        }
+    } else if (~music_track_unlocked($int1) = true & enum(105, 105, enum_1350, $int1) = false) {
+        mes("This track was unlocked <enum_string(enum_952, $int1)>");
+    } else {
+        mes("This track unlocks <enum_string(enum_952, $int1)>");
+    }
+}

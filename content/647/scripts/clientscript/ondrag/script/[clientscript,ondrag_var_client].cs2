@@ -1,0 +1,9 @@
+[clientscript,ondrag_var_client](int $int0)
+def_string $string = "";
+def_int $int1 = -1;
+if (cc_find(snapshot_main_v2:com94, $int0) = true) {
+    %varc_string_24 = cc_getopbase;
+    %varc_int_792 = %varc_int_791;
+    ~snapshot_selected_highlight;
+    ~snapshot_update_select_button;
+}

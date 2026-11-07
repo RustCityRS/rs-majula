@@ -1,0 +1,6 @@
+[clientscript,lobbyscreen_pane_clanchat_join]
+if (clan_getchatsize > 0) {
+    clan_getchatleavechat;
+} else {
+    ~lobbyscreen_input("Join Chat Channel", "", 8, "", "");
+}

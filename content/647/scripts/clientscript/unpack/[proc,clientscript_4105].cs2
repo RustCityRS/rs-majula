@@ -1,0 +1,66 @@
+[proc,clientscript_4105](component $component0, component $component1, component $component2, component $component3, component $component4)
+if (%varc_int_729 > 1) {
+    if_settext("<op4124(%varc_int_729, 1)> coins", $component0);
+} else if (%varc_int_729 = true) {
+    if_settext("1 coin", $component0);
+} else if (%varc_int_729 = false) {
+    if_settext("Nothing", $component0);
+} else {
+    if_settext("Lots!", $component0);
+}
+if (%varc_int_697 > 1) {
+    if_settext("<op4124(%varc_int_697, 1)> coins", $component1);
+} else if (%varc_int_697 = true) {
+    if_settext("1 coin", $component1);
+} else if (%varc_int_697 = false) {
+    if_settext("<col=ff0000>Nothing</col>", $component1);
+} else {
+    if_settext("Lots!", $component1);
+}
+def_string $string = "<col=ff0000>Unknown</col>";
+def_int $int5 = 0;
+if (%varc_int_729 < 0) {
+    if (%varc_int_697 < 0) {
+        if_settext($string, $component2);
+        if_sethide(true, $component3);
+    } else {
+        if_settext($string, $component2);
+        if_sethide(false, $component3);
+        if_setgraphic("catcon_catapult_arrows,2", $component3);
+        if_setposition(~clientscript_4106($string, $component4), 0, ^setpos_abs_left, ^setpos_abs_bottom, $component3);
+    }
+} else if (%varc_int_697 < 0) {
+    $string = "Unknown";
+    if_settext($string, $component2);
+    if_sethide(false, $component3);
+    if_setgraphic("catcon_catapult_arrows,0", $component3);
+    if_setposition(~clientscript_4106($string, $component4), 0, ^setpos_abs_right, ^setpos_abs_bottom, $component3);
+} else {
+    $int5 = calc(%varc_int_729 - %varc_int_697);
+    if ($int5 > 0) {
+        if ($int5 = true) {
+            $string = "<col=ff0000>1 coin</col>";
+        } else {
+            $string = "<col=ff0000><op4124($int5, 1)> coins</col>";
+        }
+        if_settext($string, $component2);
+        if_sethide(false, $component3);
+        if_setgraphic("catcon_catapult_arrows,2", $component3);
+        if_setposition(~clientscript_4106($string, $component4), 0, ^setpos_abs_left, ^setpos_abs_bottom, $component3);
+    } else if ($int5 < 0) {
+        $int5 = calc(0 - $int5);
+        if ($int5 = true) {
+            $string = "1 coin";
+        } else {
+            $string = "<op4124($int5, 1)> coins";
+        }
+        if_settext($string, $component2);
+        if_sethide(false, $component3);
+        if_setgraphic("catcon_catapult_arrows,0", $component3);
+        if_setposition(~clientscript_4106($string, $component4), 0, ^setpos_abs_right, ^setpos_abs_bottom, $component3);
+    } else {
+        $string = "No net transfer";
+        if_settext($string, $component2);
+        if_sethide(true, $component3);
+    }
+}

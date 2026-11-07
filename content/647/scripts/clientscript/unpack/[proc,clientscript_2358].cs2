@@ -1,0 +1,22 @@
+[proc,clientscript_2358](component $component0)
+def_int $int1 = enum(73, 105, enum_2125, $component0);
+def_int $int2 = enum(73, 105, enum_2124, $component0);
+def_int $int3 = 1;
+if (%varp_1893 = -1) {
+    if ($int2 = true) {
+        $int3 = testbit(%varp_1890, $int1);
+    } else if ($int2 = 2) {
+        $int3 = testbit(%varp_1891, $int1);
+    } else {
+        $int3 = testbit(%varp_1892, $int1);
+    }
+    if ($int3 = false) {
+        if_setzorder_back($component0);
+    }
+    return;
+}
+def_struct $struct4 = enum(73, 74, enum_704, %varp_1893);
+def_int $int5 = struct_param($struct4, param_1222);
+def_int $int6 = struct_param($struct4, param_1223);
+def_component $component7 = enum(73, 73, enum_1592, %varp_1893);
+if_setposition($int5, $int6, ^setpos_abs_left, ^setpos_abs_top, $component7);

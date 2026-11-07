@@ -1,0 +1,9 @@
+[proc,clanwars_setup_clicktest](int $int)(int)
+if (%varp_1149 = -1) {
+    return(0);
+}
+if ($int ! 1) {
+    return(0);
+}
+return(1);
+return(-1);

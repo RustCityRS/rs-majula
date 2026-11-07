@@ -1,0 +1,6 @@
+[proc,clientscript_2580]
+if_setcolour(0x666666, mob_squad_exchange:com116);
+if_clearops(mob_squad_exchange:com110);
+if_clearops(mob_squad_exchange:com111);
+if_setonclick("clientscript_2606(^event_com)", mob_squad_exchange:com110);
+if_setonclick("clientscript_2606(^event_com)", mob_squad_exchange:com111);

@@ -1,0 +1,4 @@
+[clientscript,afr_newspaper_open]
+def_int $int = clientclock;
+if_setontimer("clientscript_827($int)", afr_newspaper_interface:com2);
+sound_synth(synth_4437, 1, 58);

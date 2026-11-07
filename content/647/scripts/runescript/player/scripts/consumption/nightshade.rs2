@@ -1,0 +1,11 @@
+// 289's player/scripts/consumption/nightshade.rs2. 2011's cave nightshade
+// (2398, 289's nightshade) has Eat on op4 (cache 786 iop4; 289's had it on
+// op2). 289's 15 hitpoints are 2011's 150 life points: 2011 wiki, Cave
+// nightshade (2011-04-06), "this causes 150 life points of damage", with the
+// same two messages and "Ahhhh! What have I done!".
+[opheld4,cave_nightshade]
+inv_delslot(inv, last_slot);
+mes("You eat the nightshade...");
+mes("The nightshade was highly poisonous.");
+queue(damage_player, 0, 150);
+~chatplayer("<p,angry>Ahhhh! What have I done!");

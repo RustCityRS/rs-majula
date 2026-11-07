@@ -1,0 +1,7 @@
+[proc,fishcomp_show_history]
+if_setsize(if_getwidth(fishcomp_overlay:com1), 185, ^setsize_abs, ^setsize_abs, fishcomp_overlay:com1);
+if_setonop("fishcomp_hide_history()", fishcomp_overlay:com23);
+if_settext("Hide", fishcomp_overlay:com31);
+~scrollbar_vertical(fishcomp_overlay:com5, fishcomp_overlay:com6, "scrollbar_dragger_v2,3", "scrollbar_dragger_v2,0", "scrollbar_dragger_v2,1", "scrollbar_dragger_v2,2", "scrollbar_v2,0", "scrollbar_v2,1");
+if_setvflip(true, fishcomp_overlay:com29);
+if_setvflip(true, fishcomp_overlay:com30);

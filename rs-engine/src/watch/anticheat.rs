@@ -1,3 +1,11 @@
+// From rev 647 the anti-cheat is inert: it judges the jag-era client's
+// reports (heartbeats, op checks, mouse and camera input) and 647 sends
+// none of them, so what reads them goes unused there.
+#![cfg_attr(
+    since_647,
+    allow(dead_code, unused_variables, unused_imports, unreachable_code)
+)]
+
 use super::Target;
 use super::afk::AntiAfk;
 use super::input::{Input, InputDecoder, Timed};
@@ -10,16 +18,17 @@ use super::slots::{Slot, SlotClicks, SlotStats};
 use Field::*;
 use rs_db::{LoginDevice, ReplayReport};
 use rs_entity::{BuildArea, MAX_NPCS, MAX_PLAYERS};
-#[cfg(since_254)]
+#[cfg(all(since_254, before_647))]
 use rs_protocol::network::game::client::event_applet_focus::EventAppletFocus;
-#[cfg(any(rev = "225", since_254))]
+#[cfg(any(rev = "225", all(since_254, before_647)))]
 use rs_protocol::network::game::client::event_camera_position::EventCameraPosition;
-#[cfg(since_254)]
+#[cfg(all(since_254, before_647))]
 use rs_protocol::network::game::client::event_mouse_click::EventMouseClick;
-#[cfg(since_254)]
+#[cfg(all(since_254, before_647))]
 use rs_protocol::network::game::client::event_mouse_move::EventMouseMove;
 #[cfg(before_274)]
 use rs_protocol::network::game::client::event_tracking::EventTracking;
+#[cfg(before_647)]
 use rs_protocol::network::game::client::move_minimapclick::MinimapTrailer;
 use rs_protocol::network::game::client::unpack_coord;
 use rs_protocol::network::game::client_prot::ClientProt;
@@ -559,23 +568,40 @@ impl AntiCheat {
             return;
         }
         match prot {
+            #[cfg(before_647)]
             ClientProt::AnticheatCycleLogic1 => self.heartbeat(0, data),
+            #[cfg(before_647)]
             ClientProt::AnticheatCycleLogic2 => self.heartbeat(1, data),
+            #[cfg(before_647)]
             ClientProt::AnticheatCycleLogic3 => self.heartbeat(2, data),
+            #[cfg(before_647)]
             ClientProt::AnticheatCycleLogic4 => self.heartbeat(3, data),
+            #[cfg(before_647)]
             ClientProt::AnticheatCycleLogic5 => self.heartbeat(4, data),
+            #[cfg(before_647)]
             ClientProt::AnticheatCycleLogic6 => self.heartbeat(5, data),
             #[cfg(since_254)]
+            #[cfg(before_647)]
             ClientProt::AnticheatCycleLogic7 => self.heartbeat(6, data),
+            #[cfg(before_647)]
             ClientProt::AnticheatOpLogic1 => self.op_check(0, data),
+            #[cfg(before_647)]
             ClientProt::AnticheatOpLogic2 => self.op_check(1, data),
+            #[cfg(before_647)]
             ClientProt::AnticheatOpLogic3 => self.op_check(2, data),
+            #[cfg(before_647)]
             ClientProt::AnticheatOpLogic4 => self.op_check(3, data),
+            #[cfg(before_647)]
             ClientProt::AnticheatOpLogic5 => self.op_check(4, data),
+            #[cfg(before_647)]
             ClientProt::AnticheatOpLogic6 => self.op_check(5, data),
+            #[cfg(before_647)]
             ClientProt::AnticheatOpLogic7 => self.op_check(6, data),
+            #[cfg(before_647)]
             ClientProt::AnticheatOpLogic8 => self.op_check(7, data),
+            #[cfg(before_647)]
             ClientProt::AnticheatOpLogic9 => self.op_check(8, data),
+            #[cfg(before_647)]
             ClientProt::IdleTimer => {
                 self.idle_reports += 1;
                 self.afk.idle();
@@ -585,7 +611,7 @@ impl AntiCheat {
     }
 
     /// An `EVENT_MOUSE_MOVE`, `ms` into the session.
-    #[cfg(since_254)]
+    #[cfg(all(since_254, before_647))]
     pub fn mouse_move(&mut self, ms: u32, msg: &EventMouseMove) {
         if self.off {
             return;
@@ -595,7 +621,7 @@ impl AntiCheat {
     }
 
     /// An `EVENT_MOUSE_CLICK`, `ms` into the session on tick `clock`.
-    #[cfg(since_254)]
+    #[cfg(all(since_254, before_647))]
     pub fn mouse_click(&mut self, ms: u32, clock: u32, msg: &EventMouseClick) {
         if self.off {
             return;
@@ -605,7 +631,7 @@ impl AntiCheat {
     }
 
     /// An `EVENT_APPLET_FOCUS`, `ms` into the session.
-    #[cfg(since_254)]
+    #[cfg(all(since_254, before_647))]
     pub fn focus(&mut self, ms: u32, clock: u32, msg: &EventAppletFocus) {
         if self.off {
             return;
@@ -615,7 +641,7 @@ impl AntiCheat {
     }
 
     /// An `EVENT_CAMERA_POSITION`, `ms` into the session.
-    #[cfg(any(rev = "225", since_254))]
+    #[cfg(any(rev = "225", all(since_254, before_647)))]
     pub fn camera(&mut self, ms: u32, msg: &EventCameraPosition) {
         if self.off {
             return;
@@ -838,6 +864,7 @@ impl AntiCheat {
 
     /// A minimap click: its `path`, and the bytes the client sends after it.
     /// `at` is the tile the world has the player on.
+    #[cfg(before_647)]
     pub fn minimap(
         &mut self,
         path: &[u32],
@@ -1366,6 +1393,7 @@ impl Spread {
 /// A tile's offset into the client's map.
 /// Whether a minimap click's trailer is one the real client could send: its
 /// fixed bytes, and everything else in the range the client keeps it to.
+#[cfg(before_647)]
 pub fn plausible(t: &MinimapTrailer) -> bool {
     (t.magic1, t.magic2, t.magic3) == (57, 89, 63)
         && (-73..=72).contains(&t.x)
@@ -1378,6 +1406,7 @@ pub fn plausible(t: &MinimapTrailer) -> bool {
 
 /// The tile in the client's map a minimap click lands on, worked out as the
 /// client does from what it sent.
+#[cfg(before_647)]
 fn minimap_tile(t: &MinimapTrailer) -> (i32, i32) {
     let yaw = (i32::from(t.yaw) + i32::from(t.angle)) & 0x7ff;
     let scale = i32::from(t.zoom) + 256;
@@ -1393,6 +1422,7 @@ fn minimap_tile(t: &MinimapTrailer) -> (i32, i32) {
 }
 
 /// The client's sine or cosine table entry `i` (2048 to a turn, 16.16).
+#[cfg(before_647)]
 fn table(f: fn(f64) -> f64, i: i32) -> i32 {
     (f(f64::from(i) * std::f64::consts::PI / 1024.0) * 65536.0) as i32
 }
@@ -1452,6 +1482,8 @@ mod tests {
         assert!(!matches(&parts, &[1]));
     }
 
+    // The jag-era anticheat packets; rev 647 has none.
+    #[cfg(before_647)]
     #[test]
     fn real_heartbeats_pass() {
         let mut ac = AntiCheat::default();
@@ -1483,6 +1515,8 @@ mod tests {
         assert_eq!(ac.report(0).flags, ["modified_client"]);
     }
 
+    // The jag-era anticheat packets; rev 647 has none.
+    #[cfg(before_647)]
     #[test]
     fn heartbeats_off_the_loop_s_beat_are_forged() {
         let beat = |index: usize| match index {
@@ -1528,6 +1562,8 @@ mod tests {
         assert_eq!(run(1.0 / LOOP_BEATS[0].2), ["forged_heartbeats"]);
     }
 
+    // The jag-era anticheat packets; rev 647 has none.
+    #[cfg(before_647)]
     #[test]
     fn op_checks_are_mirrored() {
         let mut ac = AntiCheat::default();
@@ -1649,6 +1685,7 @@ mod tests {
     /// A minimap click 10 px right of and 20 px above the centre, camera
     /// facing north, untilted and unzoomed: 10 * 32 and 20 * 32 fine units
     /// from the player drawn mid-tile at (52, 52) in a map from (3152, 3152).
+    #[cfg(before_647)]
     fn minimap_click() -> (Vec<u32>, MinimapTrailer) {
         let trailer = MinimapTrailer {
             x: 10,
@@ -1670,6 +1707,7 @@ mod tests {
     const BASE: MapBase = MapBase { x: 3152, z: 3152 };
 
     #[test]
+    #[cfg(before_647)]
     fn real_minimap_clicks_pass() {
         let mut ac = AntiCheat::default();
         let (path, trailer) = minimap_click();
@@ -1686,6 +1724,7 @@ mod tests {
     }
 
     #[test]
+    #[cfg(before_647)]
     fn forged_minimap_clicks_are_flagged() {
         let (path, trailer) = minimap_click();
         let forgeries = [
@@ -1717,6 +1756,7 @@ mod tests {
         assert!(ac.report(0).flags.is_empty());
     }
 
+    #[cfg(before_647)]
     #[test]
     fn minimap_clicks_far_from_the_player_are_flagged() {
         let mut ac = AntiCheat::default();

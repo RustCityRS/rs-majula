@@ -1,0 +1,31 @@
+[proc,clientscript_2878]
+~deltooltip_action(music_v3:com16);
+%varc_int_1 = 0;
+cc_deleteall(music_v3:com9);
+while (if_getchildcount(music_v3:com9) < 12) {
+    cc_create(music_v3:com9, ^iftype_text, if_getchildcount(music_v3:com9));
+}
+while (if_getchildcount(music_v3:com9) < 24) {
+    cc_create(music_v3:com9, ^iftype_graphic, if_getchildcount(music_v3:com9));
+}
+def_int $int = 5;
+$int = ~clientscript_2879(0, %varbit_7081, $int);
+$int = ~clientscript_2879(1, %varbit_7082, $int);
+$int = ~clientscript_2879(2, %varbit_7083, $int);
+$int = ~clientscript_2879(3, %varbit_7084, $int);
+$int = ~clientscript_2879(4, %varbit_7085, $int);
+$int = ~clientscript_2879(5, %varbit_7086, $int);
+$int = ~clientscript_2879(6, %varbit_7087, $int);
+$int = ~clientscript_2879(7, %varbit_7088, $int);
+$int = ~clientscript_2879(8, %varbit_7089, $int);
+$int = ~clientscript_2879(9, %varbit_7090, $int);
+$int = ~clientscript_2879(10, %varbit_7091, $int);
+$int = ~clientscript_2879(11, %varbit_7092, $int);
+if (%varbit_7081 = 32767 & %varc_int_1077 = true) {
+    if_sethide(false, music_v3:com14);
+} else {
+    if_sethide(true, music_v3:com14);
+}
+cc_create(music_v3:com9, ^iftype_text, if_getchildcount(music_v3:com9));
+cc_setposition(15, $int, ^setpos_abs_left, ^setpos_abs_top);
+cc_setsize(150, $int, ^setsize_abs, ^setsize_minus);

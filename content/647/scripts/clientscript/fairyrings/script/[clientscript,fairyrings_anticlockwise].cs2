@@ -1,0 +1,39 @@
+[clientscript,fairyrings_anticlockwise](int $int)
+%varc_int_157 = 1;
+if (%varc_int_125 >= calc(clientclock - 5)) {
+    return;
+}
+if ($int = 48103425) {
+    switch_int (%varc_int_122) {
+        case 0:
+            %varc_int_122 = 512;
+        case 512:
+            %varc_int_122 = 1024;
+        case 1024:
+            %varc_int_122 = 1536;
+        case default:
+            %varc_int_122 = 0;
+    }
+} else if ($int = 48103430) {
+    switch_int (%varc_int_123) {
+        case 0:
+            %varc_int_123 = 512;
+        case 512:
+            %varc_int_123 = 1024;
+        case 1024:
+            %varc_int_123 = 1536;
+        case default:
+            %varc_int_123 = 0;
+    }
+} else if ($int = 48103435) {
+    switch_int (%varc_int_124) {
+        case 0:
+            %varc_int_124 = 512;
+        case 512:
+            %varc_int_124 = 1024;
+        case 1024:
+            %varc_int_124 = 1536;
+        case default:
+            %varc_int_124 = 0;
+    }
+}

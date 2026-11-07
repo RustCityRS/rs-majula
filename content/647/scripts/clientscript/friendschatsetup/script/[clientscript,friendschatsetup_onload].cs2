@@ -1,0 +1,10 @@
+[clientscript,friendschatsetup_onload](component $component0, component $component1)
+if_sethook1420("friendschatsetup_onfriendtransmit($component0, $component1)", $component0);
+if_setscrollsize(0, 0, $component0);
+if_setscrollpos(0, 0, $component0);
+~scrollbar_vertical($component1, $component0, "aif_scrollbar_dragger_2,3", "aif_scrollbar_dragger_2,0", "aif_scrollbar_dragger_2,1", "aif_scrollbar_dragger_2,2", "aif_scrollbar_arrow_2,1", "aif_scrollbar_arrow_2,0");
+~clientscript_1895($component0, $component1);
+if (is_subscriber = true) {
+    if_settext("Friends Chat channel:", friendschatsetup:com27);
+    if_setop(1, "Enable", friendschatsetup:com22);
+}

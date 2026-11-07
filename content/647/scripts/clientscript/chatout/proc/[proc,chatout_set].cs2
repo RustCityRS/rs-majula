@@ -1,0 +1,48 @@
+[proc,chatout_set](int $int, string $string)
+if ($int < 10) {
+    if ($int < 5) {
+        if ($int = false) {
+            %varc_string_2 = $string;
+        } else if ($int = true) {
+            %varc_string_3 = $string;
+        } else if ($int = 2) {
+            %varc_string_4 = $string;
+        } else if ($int = 3) {
+            %varc_string_5 = $string;
+        } else if ($int = 4) {
+            %varc_string_6 = $string;
+        }
+    } else if ($int = 5) {
+        %varc_string_7 = $string;
+    } else if ($int = 6) {
+        %varc_string_8 = $string;
+    } else if ($int = 7) {
+        %varc_string_9 = $string;
+    } else if ($int = 8) {
+        %varc_string_10 = $string;
+    } else if ($int = 9) {
+        %varc_string_11 = $string;
+    }
+} else if ($int < 15) {
+    if ($int = 10) {
+        %varc_string_12 = $string;
+    } else if ($int = 11) {
+        %varc_string_13 = $string;
+    } else if ($int = 12) {
+        %varc_string_14 = $string;
+    } else if ($int = 13) {
+        %varc_string_15 = $string;
+    } else if ($int = 14) {
+        %varc_string_16 = $string;
+    }
+} else if ($int = 15) {
+    %varc_string_17 = $string;
+} else if ($int = 16) {
+    %varc_string_18 = $string;
+} else if ($int = 17) {
+    %varc_string_19 = $string;
+} else if ($int = 18) {
+    %varc_string_20 = $string;
+} else if ($int = 19) {
+    %varc_string_21 = $string;
+}

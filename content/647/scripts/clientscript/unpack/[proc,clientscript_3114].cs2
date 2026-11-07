@@ -1,0 +1,5 @@
+[proc,clientscript_3114](int $int)
+if (clientclock > $int) {
+    ~lobby_worldswitcher_drawlist;
+}
+return;

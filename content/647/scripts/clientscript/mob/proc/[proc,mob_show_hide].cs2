@@ -1,0 +1,10 @@
+[proc,mob_show_hide]
+if (if_gethide(mob_chat:com1) = false) {
+    if_sethide(true, mob_chat:com1);
+    if_sethide(false, mob_chat:com47);
+    if_sethflip(false, mob_chat:com50);
+} else {
+    if_sethide(false, mob_chat:com1);
+    if_sethide(true, mob_chat:com47);
+    if_sethflip(true, mob_chat:com50);
+}

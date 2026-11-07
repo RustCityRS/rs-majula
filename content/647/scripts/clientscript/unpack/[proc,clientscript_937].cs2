@@ -1,0 +1,28 @@
+[proc,clientscript_937]
+cc_deleteall(trademain:com32);
+def_int $int0 = 0;
+def_int $int1 = 0;
+def_int $int2 = 4;
+def_int $int3 = 7;
+if (if_getscrollwidth(trademain:com32) > 0) {
+    $int0 = calc((if_getscrollwidth(trademain:com32) - 36 * $int2) / ($int2 - 1));
+} else {
+    $int0 = calc((if_getwidth(trademain:com32) - 36 * $int2) / ($int2 - 1));
+}
+if (if_getscrollheight(trademain:com32) > 0) {
+    $int1 = calc((if_getscrollheight(trademain:com32) - 32 * $int3) / ($int3 - 1));
+} else {
+    $int1 = calc((if_getheight(trademain:com32) - 32 * $int3) / ($int3 - 1));
+}
+def_int $int4 = 0;
+def_int $int5 = -1;
+while ($int4 < inv_size(tradeoffer)) {
+    cc_create(trademain:com32, ^iftype_rectangle, $int4);
+    cc_setsize(36, 32, ^setsize_abs, ^setsize_abs);
+    cc_setposition(calc((36 + $int0) * ($int4 % $int2)), calc($int4 / $int2 * (32 + $int1)), ^setpos_abs_left, ^setpos_abs_top);
+    cc_setfill(true);
+    cc_setcolour(^red);
+    cc_settrans(255);
+    $int4 = calc($int4 + 1);
+}
+if_setoninvtransmit("clientscript_938(){tradeoffer}", trademain:com32);

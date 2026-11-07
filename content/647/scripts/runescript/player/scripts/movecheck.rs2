@@ -1,0 +1,8 @@
+// 289's player/scripts/movecheck.rs2: a stunned player (thieving.rs2 sets
+// %stunned and walktrigger(stunned)) cannot walk until the stun ends.
+[walktrigger,stunned]
+if (map_clock < %stunned) {
+    mes("You're stunned!");
+    p_walk(coord);
+    walktrigger(stunned);
+}

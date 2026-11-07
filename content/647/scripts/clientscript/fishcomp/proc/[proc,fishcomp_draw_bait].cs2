@@ -1,0 +1,21 @@
+[proc,fishcomp_draw_bait]
+def_string $string = "None";
+switch_int (%varc_int_1109) {
+    case 1:
+        $string = "Worm";
+    case 2:
+        $string = "Maggot";
+    case 4:
+        $string = "Locust";
+    case 3:
+        $string = "Cricket";
+    case 5:
+        $string = "Cray";
+    case 6:
+        $string = "Shrimp";
+    case 7:
+        $string = "Green moth";
+    case 8:
+        $string = "Grey moth";
+}
+if_settext($string, fishcomp_side:com51);

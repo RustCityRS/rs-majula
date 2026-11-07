@@ -1,0 +1,26 @@
+[proc,skill_advance_guide_subsection_title_agility](int $int)(int, string)
+switch_int ($int) {
+    case 0:
+        return("Courses", 1);
+    case 1:
+        return("Areas", 1);
+    case 2:
+        return("Shortcuts", 1);
+    case 3:
+        return("Barbarian", 1);
+    case 4:
+        return("Multiple Catch", 1);
+    case 5:
+        return("Multiple Pickpocket", 1);
+    case 6:
+        return("Barehanded", 1);
+    case 7:
+        return("Other", 1);
+    case 8:
+        return("Dungeoneering", 1);
+    case 9:
+        return("Milestones", 1);
+    case default:
+        return("", -1);
+}
+return("", 0);

@@ -1,0 +1,12 @@
+[proc,clientscript_1103]()(int)
+if (%varc_int_754 = true) {
+    return(0);
+}
+if (%varc_int_754 = 9) {
+    return(0);
+}
+if (%varc_int_754 = 12) {
+    return(0);
+}
+return(1);
+return(-1);

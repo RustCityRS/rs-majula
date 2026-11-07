@@ -1,0 +1,21 @@
+[proc,clientscript_943](int $int0, int $int1, int $int2, int $colour3)
+def_enum $enum4 = struct_param(enum(105, 74, enum_169, $int0), param_782);
+if (map_members = false) {
+    mes("More advanced grouping options are available on a members' world.");
+} else if (%learning_the_ropes < 1000) {
+    mes("More advanced grouping options will be available when you've finished the Tutorial.");
+} else {
+    if (%varc_int_693 = $int1) {
+        %varc_int_694 = calc((1 + %varc_int_694) % 2);
+    } else {
+        %varc_int_693 = $int1;
+        %varc_int_694 = 0;
+    }
+    ~ql4_sort($int0, %varc_int_693, %varc_int_694, %varc_int_692, %varc_int_1103);
+    ~dropdownbox_close(questlist_v4:com16, questlist_v4:com14, questlist_v4:com15, null, 1);
+    if (cc_find(questlist_v4:com16, 2) = true) {
+        cc_settext(enum(105, 115, $enum4, $int1));
+        cc_setcolour($colour3);
+        cc_setonmouseleave("dropdownbox_mouseoutelement(questlist_v4:com16, 2, $colour3)");
+    }
+}

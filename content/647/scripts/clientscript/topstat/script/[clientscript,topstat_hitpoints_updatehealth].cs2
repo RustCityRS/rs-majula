@@ -1,0 +1,34 @@
+[clientscript,topstat_hitpoints_updatehealth](component $component0, component $component1, component $component2, component $component3, component $component4, component $component5)
+if (%poison > 0) {
+    if_setgraphic("topstat_fill_full,10", $component2);
+    if_setgraphic("topstat_fill_full,10", $component3);
+    if_sethide(true, $component0);
+    if_sethide(false, $component1);
+    if_setop(1, "Use cure (p)", $component1);
+} else if (%varp_456 > 0) {
+    if_setgraphic("statesconsider,3", $component2);
+    if_setgraphic("statesconsider,3", $component3);
+    if_sethide(true, $component0);
+    if_sethide(false, $component1);
+    if_setop(1, "Use cure (d)", $component1);
+} else {
+    if_setgraphic("topstat_fill_full,0", $component2);
+    if_setgraphic("topstat_fill_full,0", $component3);
+    if_sethide(false, $component0);
+    if_sethide(true, $component1);
+    if_clearops($component1);
+}
+if_setsize(0, calc(16384 - max(min(scale(%life_points, ~clientscript_2916, 16384), 16384), 0)), ^setsize_minus, ^setsize_rel, $component3);
+if_setsize(0, calc(16384 - max(min(scale(~clientscript_2915, ~clientscript_2916, 16384), 16384), 0)), ^setsize_minus, ^setsize_rel, $component4);
+if_settext(tostring(%life_points), $component5);
+def_int $int6 = scale(%life_points, ~clientscript_2916, 100);
+if ($int6 > 75) {
+    if_setcolour(^green, $component5);
+} else if ($int6 > 50) {
+    if_setcolour(^yellow, $component5);
+} else if ($int6 > 25) {
+    if_setcolour(0xff981f, $component5);
+} else {
+    if_setcolour(^red, $component5);
+}
+~topstat_hitpoints_update;

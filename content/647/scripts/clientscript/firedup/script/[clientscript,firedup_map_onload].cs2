@@ -1,0 +1,119 @@
+[clientscript,firedup_map_onload]
+def_string $string = enum(105, 115, enum_1711, %varbit_5145);
+switch_int (%varbit_5145) {
+    case 1:
+        if_sethide(false, firedup_beacon_map:com17);
+        if_setonmouserepeat("addtooltip(^event_com, firedup_beacon_map:com2, $string, 25, 130)", firedup_beacon_map:com17);
+    case 2:
+        if_sethide(false, firedup_beacon_map:com18);
+        if_setonmouserepeat("addtooltip(^event_com, firedup_beacon_map:com2, $string, 25, 160)", firedup_beacon_map:com18);
+    case 3:
+        if_sethide(false, firedup_beacon_map:com19);
+        if_setonmouserepeat("addtooltip(^event_com, firedup_beacon_map:com2, $string, 25, 200)", firedup_beacon_map:com19);
+    case 4:
+        if_sethide(false, firedup_beacon_map:com20);
+        if_setonmouserepeat("addtooltip(^event_com, firedup_beacon_map:com2, $string, 25, 200)", firedup_beacon_map:com20);
+    case 5:
+        if_sethide(false, firedup_beacon_map:com21);
+        if_setonmouserepeat("addtooltip(^event_com, firedup_beacon_map:com2, $string, 25, 200)", firedup_beacon_map:com21);
+    case 6:
+        if_sethide(false, firedup_beacon_map:com22);
+        if_setonmouserepeat("addtooltip(^event_com, firedup_beacon_map:com2, $string, 25, 200)", firedup_beacon_map:com22);
+    case 7:
+        if_sethide(false, firedup_beacon_map:com23);
+        if_setonmouserepeat("addtooltip(^event_com, firedup_beacon_map:com2, $string, 25, 200)", firedup_beacon_map:com23);
+    case 8:
+        if_sethide(false, firedup_beacon_map:com24);
+        if_setonmouserepeat("addtooltip(^event_com, firedup_beacon_map:com2, $string, 25, 200)", firedup_beacon_map:com24);
+    case 9:
+        if_sethide(false, firedup_beacon_map:com25);
+        if_setonmouserepeat("addtooltip(^event_com, firedup_beacon_map:com2, $string, 25, 200)", firedup_beacon_map:com25);
+    case 10:
+        if_sethide(false, firedup_beacon_map:com26);
+        if_setonmouserepeat("addtooltip(^event_com, firedup_beacon_map:com2, $string, 25, 200)", firedup_beacon_map:com26);
+    case 11:
+        if_sethide(false, firedup_beacon_map:com27);
+        if_setonmouserepeat("addtooltip(^event_com, firedup_beacon_map:com2, $string, 25, 200)", firedup_beacon_map:com27);
+    case 12:
+        if_sethide(false, firedup_beacon_map:com28);
+        if_setonmouserepeat("addtooltip(^event_com, firedup_beacon_map:com2, $string, 25, 200)", firedup_beacon_map:com28);
+    case default:
+        return;
+}
+%varc_int_2 = 0;
+switch_int (%varbit_5145) {
+    case 1:
+        if (%varbit_5168 = true) {
+            ~clientscript_804;
+        } else {
+            ~firedup_map_info(%varbit_5145);
+        }
+    case 2:
+        if (%varbit_5169 = true) {
+            ~clientscript_804;
+        } else {
+            ~firedup_map_info(%varbit_5145);
+        }
+    case 3:
+        if (%varbit_5170 = true) {
+            ~clientscript_804;
+        } else {
+            ~firedup_map_info(%varbit_5145);
+        }
+    case 4:
+        if (%varbit_5171 = true) {
+            ~clientscript_804;
+        } else {
+            ~firedup_map_info(%varbit_5145);
+        }
+    case 5:
+        if (%varbit_5172 = true) {
+            ~clientscript_804;
+        } else {
+            ~firedup_map_info(%varbit_5145);
+        }
+    case 6:
+        if (%varbit_5173 = true) {
+            ~clientscript_804;
+        } else {
+            ~firedup_map_info(%varbit_5145);
+        }
+    case 7:
+        if (%varbit_5174 = true) {
+            ~clientscript_804;
+        } else {
+            ~firedup_map_info(%varbit_5145);
+        }
+    case 8:
+        if (%varbit_5175 = true) {
+            ~clientscript_804;
+        } else {
+            ~firedup_map_info(%varbit_5145);
+        }
+    case 9:
+        if (%varbit_5176 = true) {
+            ~clientscript_804;
+        } else {
+            ~firedup_map_info(%varbit_5145);
+        }
+    case 10:
+        if (%varbit_5177 = true) {
+            ~clientscript_804;
+        } else {
+            ~firedup_map_info(%varbit_5145);
+        }
+    case 11:
+        if (%varbit_5178 = true) {
+            ~clientscript_804;
+        } else {
+            ~firedup_map_info(%varbit_5145);
+        }
+    case 12:
+        if (%varbit_5179 = true) {
+            ~clientscript_804;
+        } else {
+            ~firedup_map_info(%varbit_5145);
+        }
+    case default:
+        return;
+}

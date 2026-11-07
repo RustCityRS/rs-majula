@@ -1,0 +1,12 @@
+[clientscript,inventory_targetmode](boolean $int0, component $component1, int $int2)
+if ($int0 = true) {
+    if (cc_find($component1, $int2) = true) {
+        cc_setoutline(2);
+    }
+    %varc_int_1031 = calc(1 + $int2);
+} else {
+    if (cc_find($component1, $int2) = true) {
+        cc_setoutline(1);
+    }
+    %varc_int_1031 = 0;
+}

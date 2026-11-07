@@ -1,0 +1,13 @@
+[proc,clientscript_3593](int $int)(enum)
+switch_int ($int) {
+    case default:
+        return(enum_3142);
+    case 2:
+        return(enum_3145);
+    case 3:
+        return(enum_3148);
+    case 4:
+        return(enum_3151);
+    case 5:
+        return(enum_3154);
+}

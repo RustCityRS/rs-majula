@@ -1,0 +1,75 @@
+[proc,lobbyscreen_load](int $int0, int $int1)
+if ($int1 = false) {
+    ~loginscreen_initialisecamera(lobbyscreen:com14, lobbyscreen:com15, lobbyscreen:com16, lobbyscreen_pane_options:com16, lobbyscreen_pane_options:com22, lobbyscreen_pane_options:com21);
+}
+if_setgraphic(culling_4x3, lobbyscreen:com237);
+if_setgraphic(culling_4x2, lobbyscreen:com238);
+if_setgraphic(culling_4x4, lobbyscreen:com239);
+if_setgraphic(culling_4x5, lobbyscreen:com240);
+if_setgraphic(culling_4x7, lobbyscreen:com241);
+if_setgraphic(culling_4x6, lobbyscreen:com242);
+if_setgraphic(culling_4x8, lobbyscreen:com243);
+if_setgraphic(culling_4x9, lobbyscreen:com244);
+if_setgraphic("corner_flourish,0", lobbyscreen:com246);
+if_setgraphic("corner_flourish,0", lobbyscreen:com248);
+if_setgraphic("corner_flourish,0", lobbyscreen:com251);
+if_setgraphic("corner_frame_1,2", lobbyscreen:com215);
+if_setvflip(true, lobbyscreen:com215);
+if_sethflip(true, lobbyscreen:com215);
+if_setgraphic("corner_frame_1,2", lobbyscreen:com219);
+if_setvflip(true, lobbyscreen:com219);
+if_sethflip(false, lobbyscreen:com219);
+if_setgraphic("corner_frame_1,2", lobbyscreen:com216);
+if_setvflip(false, lobbyscreen:com216);
+if_sethflip(true, lobbyscreen:com216);
+if_setgraphic("corner_frame_1,2", lobbyscreen:com220);
+if_setvflip(false, lobbyscreen:com220);
+if_sethflip(false, lobbyscreen:com220);
+if_sethook1427("lobby_resize()", lobbyscreen:com13);
+def_int $int2 = string_indexof_string(%varc_string_32, "@", 0);
+if ($int2 = -1) {
+    %varc_int_1414 = 1;
+} else {
+    %varc_int_1414 = 2;
+}
+if ((get_accountinfo_6912 = false | compare(substring(docheat, 0, 1), "#") = false) & $int0 = false) {
+    %varc_int_1322 = 1;
+    %varc_int_200 = 0;
+    ~lobby_popup(-3, 0, "Logging In - Please Wait", 1, null, 0, -1, "", "", 0, "", "");
+    %varc_int_1100 = -3;
+    if ($int1 < 50) {
+        $int1 = calc($int1 + 1);
+        if_setontimer("lobbyscreen_load(false, $int1)", lobbyscreen:com13);
+        return;
+    }
+    if (worldlist_fetch = false) {
+        if_setontimer("lobbyscreen_load(false, $int1)", lobbyscreen:com13);
+        return;
+    }
+    if_setontimer(null, lobbyscreen:com13);
+    login_hopworld(0);
+    if_setontimer("lobbyscreen_entergametimer(lobbyscreen:com13, active_toplevelinterface)", lobbyscreen:com13);
+    return;
+}
+if_sethide(false, lobbyscreen:com17);
+if_sethide(true, lobbyscreen:com30);
+~lobby_popup_close;
+~lobbyscreen_loadpanels;
+~lobbyscreen_tabswitch(0);
+~lobbyscreen_loginbutton_text(1);
+%varc_string_277 = "";
+%varc_int_547 = 0;
+mes("Welcome to the RuneScape Lobby.");
+tutorial_openchat(43, 0, "Welcome to the RuneScape Lobby.");
+if (is_subscriber = true) {
+    mes("Users restricted to quick-chat cannot send messages from the Lobby.");
+    tutorial_openchat(43, 0, "Users restricted to quick-chat cannot send messages from the Lobby.");
+}
+~toplevel_minimenu_setup;
+if_setonkey("clientscript_1328(^event_key)", lobbyscreen:com13);
+def_string $string = ~clientscript_2781;
+if (string_length($string) > 0) {
+    ~lobby_popup_size(-3000, 0, "<$string><br> ", 0, "loadingwheel,8", 1, 0, "Re-Subscribe Now", "Re-Subscribe Now", 1, "Close", "Close", 350);
+}
+if_setontimer("clientscript_1868(lobbyscreen:com18)", lobbyscreen:com18);
+~lobby_resize;

@@ -1,0 +1,6 @@
+[proc,worldmap_vartransmit_effects]
+if (%varbit_6176 = true) {
+    worldmap_setflag_5231(950, 1);
+} else {
+    worldmap_setflag_5231(950, 0);
+}

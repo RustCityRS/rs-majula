@@ -1,0 +1,8 @@
+[clientscript,clan_click_pm]
+def_string $string = removetags(if_gettext(clan_info:com98));
+if (friend_test($string) = false) {
+    mes("Attempting to add <$string> to your Friends List.");
+    friend_add($string);
+} else {
+    mes("You've already added <$string> to your friends list.");
+}

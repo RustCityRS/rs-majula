@@ -33,6 +33,11 @@ serde_json = { workspace = true }
 flate2 = { workspace = true }
 zstd = { workspace = true }
 
+[features]
+# The headless harness: socketless players and the engine-typed `#testscript`
+# commands. Enabled by `rs-test`; the server binary never builds it.
+harness = []
+
 [build-dependencies]
 rs-ver = { workspace = true }
 

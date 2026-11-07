@@ -1,0 +1,209 @@
+[proc,sidebook_build](component $component0, component $component1, component $component2)
+cc_deleteall($component0);
+cc_deleteall($component1);
+cc_deleteall($component2);
+%varc_int_656 = min(%varc_int_656, calc(%varc_int_657 - 1));
+def_int $int3 = 0;
+if (%varc_int_658 > 0 | (%varc_int_659 > 0 | (%varc_int_660 > 0 | (%varc_int_661 > 0 | (%varc_int_662 > 0 | (%varc_int_663 > 0 | (%varc_int_664 > 0 | (%varc_int_665 > 0 | (%varc_int_666 > 0 | (%varc_int_667 > 0 | (%varc_int_668 > 0 | (%varc_int_669 > 0 | (%varc_int_670 > 0 | (%varc_int_658 > 13 | (%varc_int_672 > 0 | %varc_int_673 > 0))))))))))))))) {
+    $int3 = 1;
+}
+if ($int3 = false | %varc_int_656 > 0) {
+    cc_create($component2, ^iftype_text, if_getchildcount($component2));
+    cc_setsize(2, 14, ^setsize_minus, ^setsize_abs);
+    cc_setposition(0, 0, ^setpos_abs_centre, ^setpos_abs_bottom);
+    cc_settextalign(^settextalign_centre, ^settextalign_centre, 0);
+    cc_settextfont(p11_full);
+    cc_setcolour(0xff981f);
+    if ($int3 = false) {
+        cc_settext("<tostring(calc(%varc_int_656 + 1))> / <tostring(%varc_int_657)>");
+    } else {
+        cc_settext("<tostring(%varc_int_656)> / <tostring(calc(%varc_int_657 - 1))>");
+    }
+}
+if (%varc_int_656 > 0) {
+    cc_create($component2, ^iftype_text, if_getchildcount($component2));
+    cc_setsize(2, 17, ^setsize_minus, ^setsize_minus);
+    cc_setposition(0, 1, ^setpos_abs_centre, ^setpos_abs_top);
+    cc_settextalign(^settextalign_left, ^settextalign_top, 0);
+    cc_settextfont(p12_full);
+    cc_setcolour(0xff981f);
+    switch_int (%varc_int_656) {
+        case 1:
+            cc_settext(%varc_string_73);
+        case 2:
+            cc_settext(%varc_string_74);
+        case 3:
+            cc_settext(%varc_string_75);
+        case 4:
+            cc_settext(%varc_string_76);
+        case 5:
+            cc_settext(%varc_string_77);
+        case 6:
+            cc_settext(%varc_string_78);
+        case 7:
+            cc_settext(%varc_string_79);
+        case 8:
+            cc_settext(%varc_string_80);
+        case 9:
+            cc_settext(%varc_string_81);
+        case 10:
+            cc_settext(%varc_string_82);
+        case 11:
+            cc_settext(%varc_string_83);
+        case 12:
+            cc_settext(%varc_string_84);
+        case 13:
+            cc_settext(%varc_string_85);
+        case 14:
+            cc_settext(%varc_string_86);
+        case 15:
+            cc_settext(%varc_string_87);
+        case 16:
+            cc_settext(%varc_string_88);
+        case 17:
+            cc_settext(%varc_string_89);
+        case 18:
+            cc_settext(%varc_string_90);
+        case 19:
+            cc_settext(%varc_string_91);
+        case 20:
+            cc_settext(%varc_string_92);
+        case 21:
+            cc_settext(%varc_string_93);
+        case 22:
+            cc_settext(%varc_string_94);
+        case 23:
+            cc_settext(%varc_string_95);
+        case 24:
+            cc_settext(%varc_string_96);
+        case 25:
+            cc_settext(%varc_string_97);
+        case 26:
+            cc_settext(%varc_string_98);
+        case 27:
+            cc_settext(%varc_string_99);
+        case 28:
+            cc_settext(%varc_string_100);
+        case 29:
+            cc_settext(%varc_string_101);
+        case 30:
+            cc_settext(%varc_string_102);
+        case 31:
+            cc_settext(%varc_string_103);
+        case 32:
+            cc_settext(%varc_string_104);
+        case 33:
+            cc_settext(%varc_string_105);
+        case 34:
+            cc_settext(%varc_string_106);
+        case 35:
+            cc_settext(%varc_string_107);
+        case 36:
+            cc_settext(%varc_string_108);
+        case 37:
+            cc_settext(%varc_string_109);
+        case 38:
+            cc_settext(%varc_string_110);
+        case 39:
+            cc_settext(%varc_string_111);
+        case 40:
+            cc_settext(%varc_string_112);
+        case 41:
+            cc_settext(%varc_string_113);
+        case 42:
+            cc_settext(%varc_string_114);
+        case 43:
+            cc_settext(%varc_string_115);
+        case 44:
+            cc_settext(%varc_string_116);
+        case 45:
+            cc_settext(%varc_string_117);
+        case 46:
+            cc_settext(%varc_string_118);
+        case 47:
+            cc_settext(%varc_string_119);
+        case 48:
+            cc_settext(%varc_string_120);
+        case 49:
+            cc_settext(%varc_string_121);
+    }
+    return;
+}
+def_int $int4 = 0;
+def_string $string = "";
+def_int $int5 = 0;
+while ($int4 < 16) {
+    switch_int ($int4) {
+        case 0:
+            $string = %varc_string_57;
+            $int5 = %varc_int_658;
+        case 1:
+            $string = %varc_string_58;
+            $int5 = %varc_int_659;
+        case 2:
+            $string = %varc_string_59;
+            $int5 = %varc_int_660;
+        case 3:
+            $string = %varc_string_60;
+            $int5 = %varc_int_661;
+        case 4:
+            $string = %varc_string_61;
+            $int5 = %varc_int_662;
+        case 5:
+            $string = %varc_string_62;
+            $int5 = %varc_int_663;
+        case 6:
+            $string = %varc_string_63;
+            $int5 = %varc_int_664;
+        case 7:
+            $string = %varc_string_64;
+            $int5 = %varc_int_665;
+        case 8:
+            $string = %varc_string_65;
+            $int5 = %varc_int_666;
+        case 9:
+            $string = %varc_string_66;
+            $int5 = %varc_int_667;
+        case 10:
+            $string = %varc_string_67;
+            $int5 = %varc_int_668;
+        case 11:
+            $string = %varc_string_68;
+            $int5 = %varc_int_669;
+        case 12:
+            $string = %varc_string_69;
+            $int5 = %varc_int_670;
+        case 13:
+            $string = %varc_string_70;
+            $int5 = %varc_int_671;
+        case 14:
+            $string = %varc_string_71;
+            $int5 = %varc_int_672;
+        case 15:
+            $string = %varc_string_72;
+            $int5 = %varc_int_673;
+        case default:
+            $string = "";
+            $int5 = 0;
+    }
+    if (string_length($string) > 0) {
+        cc_create($component2, ^iftype_text, if_getchildcount($component2));
+        if ($int4 = calc(16 - 1)) {
+            cc_setsize(6, 17, ^setsize_minus, ^setsize_abs);
+        } else {
+            cc_setsize(2, 12, ^setsize_minus, ^setsize_abs);
+        }
+        cc_setposition(0, calc($int4 * 12 + 1), ^setpos_abs_centre, ^setpos_abs_top);
+        cc_settextalign(^settextalign_left, ^settextalign_top, 0);
+        cc_settextfont(p12_full);
+        cc_setcolour(0xff981f);
+        cc_settext($string);
+        if ($int5 > 0) {
+            cc_setop(1, "Go");
+            cc_setonop("clientscript_2065(^event_op, $int5, $component0, $component1, $component2)");
+            cc_setonmouseover("cc_text_colour_swapper(^event_com, ^event_subid, 16777215)");
+            cc_setonmouseleave("cc_text_colour_swapper(^event_com, ^event_subid, 16750623)");
+        }
+    }
+    $int4 = calc($int4 + 1);
+}

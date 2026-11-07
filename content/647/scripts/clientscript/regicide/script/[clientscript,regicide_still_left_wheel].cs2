@@ -1,0 +1,8 @@
+[clientscript,regicide_still_left_wheel](component $component)
+if (testbit(%varp_331, 26) = true) {
+    if_setmodelangle(0, 0, 512, 1024, 0, 1000, $component);
+} else if (testbit(%varp_331, 27) = true) {
+    if_setmodelangle(0, 0, 512, 1536, 0, 1000, $component);
+} else if (testbit(%varp_331, 28) = true) {
+    if_setmodelangle(0, 0, 512, 0, 0, 1000, $component);
+}

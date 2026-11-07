@@ -1,0 +1,21 @@
+[clientscript,trek_follower_space]
+if_settext(tostring(calc(15 - %varbit_3433)), trek_follower_inv:com16);
+~mass_cc_settext(trek_follower_inv:com14, 0, tostring(%varbit_3414));
+~mass_cc_settext(trek_follower_inv:com14, 1, tostring(%varbit_3415));
+~mass_cc_settext(trek_follower_inv:com14, 2, tostring(%varbit_3416));
+~mass_cc_settext(trek_follower_inv:com14, 3, tostring(%varbit_3417));
+~mass_cc_settext(trek_follower_inv:com14, 4, tostring(%varbit_3418));
+~mass_cc_settext(trek_follower_inv:com14, 5, tostring(%varbit_3419));
+~mass_cc_settext(trek_follower_inv:com14, 6, tostring(%varbit_3420));
+~mass_cc_settext(trek_follower_inv:com14, 7, tostring(%varbit_3421));
+~mass_cc_settext(trek_follower_inv:com14, 8, tostring(%varbit_3422));
+~mass_cc_settext(trek_follower_inv:com14, 9, tostring(%varbit_3423));
+~mass_cc_settext(trek_follower_inv:com14, 10, tostring(%varbit_3424));
+~mass_cc_settext(trek_follower_inv:com14, 11, tostring(%varbit_3425));
+~mass_cc_settext(trek_follower_inv:com14, 12, tostring(%varbit_3426));
+~mass_cc_settext(trek_follower_inv:com14, 13, tostring(%varbit_3427));
+~mass_cc_settext(trek_follower_inv:com14, 14, tostring(%varbit_3428));
+~mass_cc_settext(trek_follower_inv:com14, 15, tostring(%varbit_3429));
+~mass_cc_settext(trek_follower_inv:com14, 16, tostring(%varbit_3430));
+~mass_cc_settext(trek_follower_inv:com14, 17, tostring(%varbit_3431));
+~mass_cc_settext(trek_follower_inv:com14, 18, tostring(%varbit_3432));

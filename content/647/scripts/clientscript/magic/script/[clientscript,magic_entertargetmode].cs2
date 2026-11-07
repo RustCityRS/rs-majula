@@ -1,0 +1,5 @@
+[clientscript,magic_entertargetmode](component $component)
+if_setoutline(2, $component);
+if (and(if_gettargetmask($component), 32) ! 0) {
+    ~if_switchside(4);
+}

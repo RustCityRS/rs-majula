@@ -1,0 +1,10 @@
+[proc,clientscript_2070](int $int0, int $int1, component $component2, component $component3, component $component4)
+if ($int0 ! 1) {
+    return;
+}
+if ($int1 >= %varc_int_657 | $int1 < 0) {
+    return;
+}
+%varc_int_656 = $int1;
+sound_song_alt(3550, 1, 0, 100);
+~sidebook_build($component2, $component3, $component4);

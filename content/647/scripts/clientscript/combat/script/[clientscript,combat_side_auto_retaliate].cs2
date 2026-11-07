@@ -1,0 +1,6 @@
+[clientscript,combat_side_auto_retaliate](component $component)
+if (%option_nodef = true) {
+    if_settext("Auto Retaliate <br>(Off)", $component);
+} else {
+    if_settext("Auto Retaliate <br>(On)", $component);
+}

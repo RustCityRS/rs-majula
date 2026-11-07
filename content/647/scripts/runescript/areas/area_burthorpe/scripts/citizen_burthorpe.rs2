@@ -1,0 +1,31 @@
+[opnpc1,_citizen_burthorpe]
+~chatplayer("<p,neutral>Hi!");
+if(%death_equiproom = ^death_complete) {
+    @citizen_burthorpe_postquest;
+}
+switch_int(random(12)) {
+    case 0 : ~chatnpc("<p,angry>Let me at 'em!");
+    case 1 : ~chatnpc("<p,angry>Go away!");
+    case 2 : ~chatnpc("<p,happy>Hi!");
+    case 3 : ~chatnpc("<p,scared>The Imperial Guard can no longer protect us!");
+    case 4 : ~chatnpc("<p,scared>The trolls are coming!");
+    case 5 : ~chatnpc("<p,scared>Trolls!");
+    case 6 : ~chatnpc("<p,angry>The White Knights will soon have control!");
+    case 7 : ~chatnpc("<p,scared>The trolls took my baby son!");
+    case 8 : ~chatnpc("<p,neutral>Hello stranger.");
+    case 9 : ~chatnpc("<p,scared>Run!");
+    case 10 : ~chatnpc("<p,angry>Trolls? Schmolls!");
+    case 11 :
+        ~chatnpc("<p,happy>Welcome to Burthorpe!");
+        ~chatplayer("<p,happy>Thanks!");
+}
+
+[label,citizen_burthorpe_postquest]
+switch_int(random(6)) {
+    case 0 : ~chatnpc("<p,happy>Surely we are safe now!");
+    case 1 : ~chatnpc("<p,happy>I heard about what you did, thank you!");
+    case 2 : ~chatnpc("<p,happy>I hear the Imperial Guard are preparing an attack!");
+    case 3 : ~chatnpc("<p,happy>I heard about what you did, thank you!");
+    case 4 : ~chatnpc("<p,happy>Thank you so much!");
+    case 5 : ~chatnpc("<p,sad>The White Knights are still going to take over.");
+}

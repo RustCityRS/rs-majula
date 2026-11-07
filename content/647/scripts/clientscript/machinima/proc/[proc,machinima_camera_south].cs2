@@ -1,0 +1,7 @@
+[proc,machinima_camera_south]
+if (~clientscript_2869(coordpack(%varc_int_1070, 0, 0, -1)) = true) {
+    return;
+}
+if (~machinima_distance(coord, coordpack(%varc_int_1070, 0, 0, -1)) < 31) {
+    %varc_int_1070 = coordpack(%varc_int_1070, 0, 0, -1);
+}

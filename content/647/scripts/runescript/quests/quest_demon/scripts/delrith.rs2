@@ -1,0 +1,136 @@
+// Delrith in the stone circle south of Varrock (void-634's
+// demon_slayer_stone_circle: 3221-3234, 3363-3376). 2011 (2011 wiki, Demon
+// Slayer): walking in with Silverlight, the dark wizards summon him; he is
+// fought until he collapses, then Banish asks for the incantation; a wrong one
+// revives him and the fight goes on; the right one sends him back.
+//
+// Waiting: 2011 plays the summoning as a cutscene (Denath and three dark
+// wizards, the table lighting, Delrith rising) in an instance of the circle,
+// fenced by an energy barrier (void-634's Delrith.kt). Without instances he
+// rises at the stone table in the world, where anyone may see him, and one
+// Delrith answers every player on that step of the quest.
+[zone,0_50_52_16_32] settimer(demon_slayer_stone_circle, 1);
+[zone,0_50_52_24_32] settimer(demon_slayer_stone_circle, 1);
+[zone,0_50_52_32_32] settimer(demon_slayer_stone_circle, 1);
+[zone,0_50_52_16_40] settimer(demon_slayer_stone_circle, 1);
+[zone,0_50_52_24_40] settimer(demon_slayer_stone_circle, 1);
+[zone,0_50_52_32_40] settimer(demon_slayer_stone_circle, 1);
+[zone,0_50_52_16_48] settimer(demon_slayer_stone_circle, 1);
+[zone,0_50_52_24_48] settimer(demon_slayer_stone_circle, 1);
+[zone,0_50_52_32_48] settimer(demon_slayer_stone_circle, 1);
+
+[timer,demon_slayer_stone_circle]
+if (%demon_slayer ! ^demon_key_hunt | %demon_slayer_silverlight = ^false
+    | inzone(0_50_52_16_32, 0_50_52_39_55, coord) = false) {
+    cleartimer(demon_slayer_stone_circle);
+    return;
+}
+if (inzone(0_50_52_21_35, 0_50_52_34_48, coord) = false) {
+    return;
+}
+cleartimer(demon_slayer_stone_circle);
+if (npc_find(0_50_52_27_41, delrith, 8, 0) = true | npc_find(0_50_52_27_41, weakened_delrith, 8, 0) = true) {
+    return;
+}
+// He rises off the stone table (loc_17454 at 3227,3369) and steps south
+// (void-634: delrith_appear, then to 3227,3367); a second visit finds him
+// already summoned, the table shattered.
+if (%demon_slayer_summoned = ^false) {
+    %demon_slayer_summoned = ^true;
+    npc_add(0_50_52_27_41, delrith, 500);
+    npc_anim(seq_4623, 0); // void-634: delrith_appear
+    sound_synth(synth_2974, 1, 10); // void-634: demon_slayer_break_table
+    sound_synth(synth_2980, 1, 0); // void-634: demon_slayer_delrith_appear
+    npc_walk(0_50_52_27_39);
+    return;
+}
+npc_add(0_50_52_27_39, delrith, 500);
+
+// 289's: at no life points he is not killed but weakened (2011's Weakened
+// Delrith, whose only op is Banish), for 100 ticks, then himself again.
+[ai_queue3,delrith]
+if (finduid(%npc_aggressive_player) = false) {
+    npc_statheal(hitpoints, 0, 100);
+    return;
+}
+npc_changetype(weakened_delrith, 100);
+npc_setmode(none);
+npc_walk(npc_coord);
+queue(demon_slayer_delrith_weakened, 0, 0);
+
+[queue,demon_slayer_delrith_weakened]
+p_stopaction;
+
+[opnpc1,weakened_delrith]
+if (%demon_slayer ! ^demon_key_hunt | %demon_slayer_silverlight = ^false) {
+    return;
+}
+~chatplayer("<p,angry>Now what was that incantation again?");
+def_boolean $correct = true;
+def_int $place = 1;
+def_int $option;
+def_string $word;
+while ($place <= 5) {
+    $option = ~p_choice5("Carlem", 1, "Aber", 2, "Camerinthum", 3, "Purchai", 4, "Gabindo", 5);
+    $word = ~demon_slayer_banish_word($option);
+    if (~demon_slayer_banish_place($option) ! $place) {
+        $correct = false;
+    }
+    if ($place = 5) {
+        say("<$word>!");
+        ~chatplayer("<p,neutral><$word>!");
+    } else {
+        say("<$word>...");
+        ~chatplayer("<p,neutral><$word>...");
+    }
+    $place = calc($place + 1);
+}
+if ($correct = false) {
+    // 2011 wiki: "If you choose the wrong incantation, Delrith will be
+    // revived and the fight will resume until you defeat him again."
+    npc_anim(seq_4620, 0); // void-634: delrith_continue
+    ~mesbox("The vortex collapses. That was the wrong incantation.");
+    if (npc_type = weakened_delrith) {
+        npc_changetype_keepall(delrith, ^max_32bit_int);
+        npc_statheal(hitpoints, 0, 100);
+    }
+    return;
+}
+npc_anim(demon_death, 0); // void-634: delrith_death (4624)
+sound_synth(synth_2981, 1, 0); // void-634: demon_slayer_delrith_banished
+~mesbox("Delrith is sucked into the vortex...");
+npc_del;
+~mesbox("...back into the dark dimension from which he came.");
+// 2011 wiki: "the player will do a victory cheer by raising Silverlight".
+anim(seq_12625, 0); // void-634: silverlight_showoff
+spotanim_pl(spotanim_778, 0, 0); // void-634: silverlight_sparkle
+%demon_slayer = ^demon_complete;
+%demon_slayer_aber = 0;
+%demon_slayer_camerinthum = 0;
+%demon_slayer_carlem = 0;
+%demon_slayer_gabindo = 0;
+%demon_slayer_purchai = 0;
+session_log(^log_adventure, "Quest complete: Demon Slayer");
+~send_quest_complete2(^questlist_demon, silverlight, 250, ^demon_questpoints, "You have completed the<br>Demon Slayer Quest!", "Silverlight");
+
+// Banish's menu, void-634's order: the word, and its place in this player's
+// incantation.
+[proc,demon_slayer_banish_place](int $option)(int)
+switch_int ($option) {
+    case 1 : return(%demon_slayer_carlem);
+    case 2 : return(%demon_slayer_aber);
+    case 3 : return(%demon_slayer_camerinthum);
+    case 4 : return(%demon_slayer_purchai);
+    case 5 : return(%demon_slayer_gabindo);
+}
+return(0);
+
+[proc,demon_slayer_banish_word](int $option)(string)
+switch_int ($option) {
+    case 1 : return("Carlem");
+    case 2 : return("Aber");
+    case 3 : return("Camerinthum");
+    case 4 : return("Purchai");
+    case 5 : return("Gabindo");
+}
+return("null");

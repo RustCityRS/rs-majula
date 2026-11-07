@@ -1,4 +1,5 @@
 use std::collections::HashMap;
+use std::str::from_utf8;
 
 const CHARSET: &[u8] = b"abcdefghijklmnopqrstuvwxyz0123456789";
 const MAX_BASE_LEN: usize = 6;
@@ -85,7 +86,7 @@ fn crack_with(targets: &[i32], max_len: usize) -> HashMap<i32, Vec<String>> {
 
 fn enumerate(max: usize, f: &mut impl FnMut(&str, u32)) {
     fn go(buf: &mut Vec<u8>, hash: u32, max: usize, f: &mut impl FnMut(&str, u32)) {
-        f(std::str::from_utf8(buf).unwrap(), hash);
+        f(from_utf8(buf).unwrap(), hash);
         if buf.len() == max {
             return;
         }

@@ -1,0 +1,4 @@
+[clientscript,meslayer_varc_update]
+if (%varc_int_5 = false) {
+    ~meslayer_close(0);
+}

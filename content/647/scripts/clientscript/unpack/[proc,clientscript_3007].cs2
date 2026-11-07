@@ -1,0 +1,12 @@
+[proc,clientscript_3007](component $component0, component $component1, component $component2, component $component3, component $component4, component $component5, component $component6)
+if_setsize(13, 88, ^setsize_abs, ^setsize_abs, $component1);
+if_setgraphic(4681, $component1);
+if_setsize(26, 88, ^setsize_minus, ^setsize_abs, $component2);
+if_setgraphic(4682, $component2);
+if_setsize(13, 88, ^setsize_abs, ^setsize_abs, $component3);
+if_setgraphic(4684, $component3);
+if_setgraphic(2670, $component5);
+if_setsize(13, 88, ^setsize_abs, ^setsize_abs, $component6);
+if_setgraphic(4683, $component6);
+if_setonmouseover(null, $component0);
+if_setonmouseleave(null, $component0);

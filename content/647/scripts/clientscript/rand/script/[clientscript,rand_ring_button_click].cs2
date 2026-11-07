@@ -1,0 +1,125 @@
+[clientscript,rand_ring_button_click](int $int0)
+sound_synth(synth_9499, 1, 0);
+if_setposition(if_getx(rand_ring_interface:com112), 52, ^setpos_abs_left, ^setpos_abs_top, rand_ring_interface:com112);
+if_setposition(if_getx(rand_ring_interface:com27), 52, ^setpos_abs_left, ^setpos_abs_top, rand_ring_interface:com27);
+if_setposition(if_getx(rand_ring_interface:com26), 52, ^setpos_abs_left, ^setpos_abs_top, rand_ring_interface:com26);
+if_setsize(0, 16384, ^setsize_rel, ^setsize_rel, rand_ring_interface:com160);
+if_setsize(0, 16384, ^setsize_rel, ^setsize_rel, rand_ring_interface:com67);
+if_setsize(0, 16384, ^setsize_rel, ^setsize_rel, rand_ring_interface:com109);
+if_sethide(true, rand_ring_interface:com254);
+if_sethide(true, rand_ring_interface:com239);
+if_sethide(true, rand_ring_interface:com224);
+if_sethide(true, rand_ring_interface:com209);
+if_settrans(255, rand_ring_interface:com257);
+if_settrans(255, rand_ring_interface:com242);
+if_settrans(255, rand_ring_interface:com227);
+if_settrans(255, rand_ring_interface:com212);
+if_sethide(true, rand_ring_interface:com194);
+if_sethide(true, rand_ring_interface:com195);
+if_sethide(true, rand_ring_interface:com196);
+if_sethide(true, rand_ring_interface:com197);
+if_sethide(true, rand_ring_interface:com261);
+switch_int (%varc_int_1184) {
+    case 1:
+        if (%varbit_8065 = true) {
+            if_settext("In use", rand_ring_interface:com139);
+        } else {
+            if_settext("Switch-to", rand_ring_interface:com139);
+        }
+        if (%varbit_8065 = 2) {
+            if_settext("In use", rand_ring_interface:com46);
+        } else {
+            if_settext("Switch-to", rand_ring_interface:com46);
+        }
+        if (%varbit_8065 = 3) {
+            if_settext("In use", rand_ring_interface:com88);
+        } else {
+            if_settext("Switch-to", rand_ring_interface:com88);
+        }
+    case 2:
+        if (%varbit_8065 = 4) {
+            if_settext("In use", rand_ring_interface:com139);
+        } else {
+            if_settext("Switch-to", rand_ring_interface:com139);
+        }
+        if (%varbit_8065 = 5) {
+            if_settext("In use", rand_ring_interface:com46);
+        } else {
+            if_settext("Switch-to", rand_ring_interface:com46);
+        }
+        if (%varbit_8065 = 6) {
+            if_settext("In use", rand_ring_interface:com88);
+        } else {
+            if_settext("Switch-to", rand_ring_interface:com88);
+        }
+    case 3:
+        if (%varbit_8065 = 7) {
+            if_settext("In use", rand_ring_interface:com139);
+        } else {
+            if_settext("Switch-to", rand_ring_interface:com139);
+        }
+        if (%varbit_8065 = 8) {
+            if_settext("In use", rand_ring_interface:com46);
+        } else {
+            if_settext("Switch-to", rand_ring_interface:com46);
+        }
+        if (%varbit_8065 = 9) {
+            if_settext("In use", rand_ring_interface:com88);
+        } else {
+            if_settext("Switch-to", rand_ring_interface:com88);
+        }
+    case 4:
+        if (%varbit_8065 = 10) {
+            if_settext("In use", rand_ring_interface:com139);
+        } else {
+            if_settext("Switch-to", rand_ring_interface:com139);
+        }
+        if (%varbit_8065 = 11) {
+            if_settext("In use", rand_ring_interface:com46);
+        } else {
+            if_settext("Switch-to", rand_ring_interface:com46);
+        }
+        if (%varbit_8065 = 12) {
+            if_settext("In use", rand_ring_interface:com88);
+        } else {
+            if_settext("Switch-to", rand_ring_interface:com88);
+        }
+}
+switch_int ($int0) {
+    case 65077505:
+        if_sethide(false, rand_ring_interface:com254);
+        if_sethide(false, rand_ring_interface:com194);
+        %varc_int_1184 = 1;
+        if_setcolour(0xff3264, rand_ring_interface:com134);
+        if_setcolour(0xff3264, rand_ring_interface:com41);
+        if_setcolour(0xff3264, rand_ring_interface:com83);
+    case 65077490:
+        if_sethide(false, rand_ring_interface:com239);
+        if_sethide(false, rand_ring_interface:com195);
+        %varc_int_1184 = 2;
+        if_setcolour(0x96ff96, rand_ring_interface:com134);
+        if_setcolour(0x96ff96, rand_ring_interface:com41);
+        if_setcolour(0x96ff96, rand_ring_interface:com83);
+    case 65077475:
+        if_sethide(false, rand_ring_interface:com224);
+        if_sethide(false, rand_ring_interface:com196);
+        %varc_int_1184 = 3;
+        if_setcolour(0x00c8ff, rand_ring_interface:com134);
+        if_setcolour(0x00c8ff, rand_ring_interface:com41);
+        if_setcolour(0x00c8ff, rand_ring_interface:com83);
+    case 65077460:
+        if_sethide(false, rand_ring_interface:com209);
+        if_sethide(false, rand_ring_interface:com197);
+        %varc_int_1184 = 4;
+        if_setcolour(^white, rand_ring_interface:com134);
+        if_setcolour(^white, rand_ring_interface:com41);
+        if_setcolour(^white, rand_ring_interface:com83);
+}
+def_enum $enum1 = enum(105, 103, enum_3088, %varc_int_1184);
+if_settext(struct_param(enum(105, 74, $enum1, 1), param_1089), rand_ring_interface:com132);
+if_settext(struct_param(enum(105, 74, $enum1, 1), param_1090), rand_ring_interface:com133);
+if_settext(struct_param(enum(105, 74, $enum1, 2), param_1089), rand_ring_interface:com39);
+if_settext(struct_param(enum(105, 74, $enum1, 2), param_1090), rand_ring_interface:com40);
+if_settext(struct_param(enum(105, 74, $enum1, 3), param_1089), rand_ring_interface:com81);
+if_settext(struct_param(enum(105, 74, $enum1, 3), param_1090), rand_ring_interface:com82);
+%varc_int_1186 = 0;

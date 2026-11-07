@@ -1,0 +1,4 @@
+[proc,clientscript_1607]
+def_seq $seq = seq_12411;
+if_setmodelanim($seq, boothpreview:com54);
+if_setplayermodel_self(boothpreview:com54);

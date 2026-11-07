@@ -1,6 +1,9 @@
 use crate::active_player::{ActivePlayer, EnginePlayer};
 use crate::handlers::ClientGameHandler;
 use crate::handlers::op_common::{action_target, in_build_area, spell_component_ok, zone_obj};
+#[cfg(since_647)]
+use crate::handlers::opobju;
+#[cfg(before_647)]
 use crate::watch::{Target, Using};
 use rs_entity::InteractionTarget;
 use rs_grid::CoordGrid;
@@ -9,35 +12,21 @@ use rs_vm::ScriptError;
 use rs_vm::engine::ScriptPlayer;
 use rs_vm::trigger::ServerTriggerType;
 
-/// Handles the `OpObjT` (cast spell on ground object) client protocol message.
-///
-/// Processes a "use spell on ground object" interaction. Validates that the spell
-/// component (`com`) is acceptable for object targets and visible, that the target
-/// coordinates are within the player's build area, and that the ground object
-/// exists in the zone. Sets up an approach-style interaction (`ApObjT`) keyed on
-/// the spell component id that will trigger the corresponding script once the
-/// player reaches the object.
-///
-/// # Arguments
-///
-/// * `active` - The active player whose client sent this message.
-///
-/// # Returns
-///
-/// * `Ok(())` on success or if the player is delayed / target is invalid.
-///
-/// # Side Effects
-///
-/// * Clears pending action and unsets the map flag on early exit conditions.
-/// * Sets up an `InteractionTarget::Obj` interaction with approach mode on the player.
-/// * Records the spell component as the interaction subject and sets `opcalled`.
-///
-/// # Call Stack
-///
-/// **Called by:** `ActivePlayer::decode_and_handle` (via `ClientGameHandler` dispatch)
-/// **Calls:** `ActivePlayer::clear_pending_action`, `player.set_interaction`
 impl ClientGameHandler for OpObjT {
     fn handle(self, active: &mut ActivePlayer) -> Result<(), ScriptError> {
+        #[cfg(since_647)]
+        if self.obj2 != u16::MAX {
+            return opobju::handle(
+                self.x,
+                self.z,
+                self.obj,
+                self.com as i32,
+                self.slot,
+                self.obj2,
+                active,
+            );
+        }
+        #[cfg(before_647)]
         active.watch_use(
             Using::Spell(self.com),
             Target::Obj {
@@ -47,20 +36,20 @@ impl ClientGameHandler for OpObjT {
             },
         );
         if active.player.state.delayed {
-            // normal: cannot interact while delayed
             active.unset_map_flag();
             return Ok(());
         }
 
+        #[cfg(before_647)]
         let spell_com = self.com;
+        #[cfg(since_647)]
+        let spell_com = self.com as i32;
         if !spell_component_ok(active, spell_com, action_target::OBJ) {
-            // bad client or lag: component is not acceptable for this packet, or not visible
             active.unset_map_flag();
             return Ok(());
         }
 
         if !in_build_area(active, self.x, self.z) {
-            // bad client: tile is not visible on client
             active.unset_map_flag();
             return Ok(());
         }
@@ -68,7 +57,6 @@ impl ClientGameHandler for OpObjT {
         let y = active.player.pathing.coord.y();
         let receiver = active.uid().username37();
         let Some(obj) = zone_obj(self.x, y, self.z, self.obj, receiver) else {
-            // bad client or lag: obj does not exist
             active.unset_map_flag();
             return Ok(());
         };

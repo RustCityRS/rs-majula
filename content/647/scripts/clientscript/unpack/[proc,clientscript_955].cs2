@@ -1,0 +1,4 @@
+[proc,clientscript_955]
+if (%varbit_4540 = 3 & (inv_total(worn, stone_of_power) = false & (inv_total(inv, stone_of_power) = false & (inv_total(worn, stone_of_power_12846) = false & (inv_total(inv, stone_of_power_12846) = false & (inv_total(worn, stone_of_power_12847) = false & (inv_total(inv, stone_of_power_12847) = false & (inv_total(worn, stone_of_power_12848) = false & (inv_total(inv, stone_of_power_12848) = false & (inv_total(worn, stone_of_power_12849) = false & inv_total(inv, stone_of_power_12849) = false)))))))))) {
+    if_sethide(false, dz3147372:com24);
+}

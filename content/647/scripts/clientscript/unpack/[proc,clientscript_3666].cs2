@@ -1,0 +1,3 @@
+[proc,clientscript_3666](int $int)(int)
+return(enum(105, 105, ~clientscript_3669(%varbit_7392), calc(($int + %varbit_7388) % enum_getoutputcount(~clientscript_3669(%varbit_7392)))));
+return(0);

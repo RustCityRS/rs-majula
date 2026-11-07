@@ -1,0 +1,13 @@
+[proc,clientscript_4143]
+def_string $string = "null";
+if (%varbit_8780 = true) {
+    if_setgraphic(4584, options:com3);
+    $string = "Toggle Profanity Filter<br>(filter is currently off)";
+    if_setonmouserepeat("addtooltip(^event_com, options:com20, $string, 25, 180)", options:com3);
+    %varc_int_2 = 0;
+} else if (%varbit_8780 = false) {
+    if_setgraphic(4583, options:com3);
+    $string = "Toggle Profanity Filter<br>(filter is currently on)";
+    if_setonmouserepeat("addtooltip(^event_com, options:com20, $string, 25, 180)", options:com3);
+    %varc_int_2 = 0;
+}

@@ -1,0 +1,13 @@
+[proc,clientscript_2626]
+if_settargetcursor(0, 1, mob_side_command:com13);
+if_settargetcursor(2, 3, mob_side_command:com14);
+if (%varbit_6357 = 2) {
+    if_settargetcursor(4, 5, mob_side_command:com16);
+    if_settargetcursor(12, 13, mob_side_command:com17);
+} else if (%varbit_6357 = 3) {
+    if_settargetcursor(6, 7, mob_side_command:com16);
+} else if (%varbit_6357 = 4) {
+    if_settargetcursor(10, 11, mob_side_command:com16);
+    if_settargetcursor(8, 9, mob_side_command:com17);
+}
+~mob_side_command_status_icon;

@@ -1,0 +1,7 @@
+[proc,worldmap_elements_samemap_scroll](int $int0, int $int1)
+sound_synth(synth_2266, 1, 0);
+if ($int1 = false) {
+    worldmap_setcoord_5214($int0);
+} else {
+    worldmap_setcoord_5221($int0);
+}

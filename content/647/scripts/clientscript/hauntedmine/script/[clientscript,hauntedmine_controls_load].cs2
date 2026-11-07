@@ -1,0 +1,57 @@
+[clientscript,hauntedmine_controls_load]
+if (testbit(%varp_383, 1) = true) {
+    if_setmodel(model_4912, hauntedmine_controls:com134);
+}
+if (testbit(%varp_383, 2) = true) {
+    if_setmodel(model_4912, hauntedmine_controls:com135);
+}
+if (testbit(%varp_383, 3) = true) {
+    if_setmodel(model_4913, hauntedmine_controls:com136);
+}
+if (testbit(%varp_383, 4) = true) {
+    if_setmodel(model_4912, hauntedmine_controls:com137);
+}
+if (testbit(%varp_383, 5) = true) {
+    if_setmodel(model_4912, hauntedmine_controls:com138);
+}
+if (testbit(%varp_383, 6) = true) {
+    if_setmodel(model_4913, hauntedmine_controls:com139);
+}
+if (testbit(%varp_383, 7) = true) {
+    if_setmodel(model_4913, hauntedmine_controls:com140);
+}
+if (testbit(%varp_383, 8) = true) {
+    if_setmodel(model_4912, hauntedmine_controls:com141);
+}
+if (%varp_383 > 8191) {
+    if_sethide(true, hauntedmine_controls:com186);
+    if_setgraphic("combatboxes,3", hauntedmine_controls:com146);
+}
+if (testbit(%varp_383, 14) = true) {
+    if_setmodel(model_4910, hauntedmine_controls:com174);
+    if_setmodelanim(seq_1456, hauntedmine_controls:com174);
+}
+if (testbit(%varp_383, 15) = true) {
+    if_setmodel(model_4910, hauntedmine_controls:com172);
+    if_setmodelanim(seq_1456, hauntedmine_controls:com172);
+}
+if (testbit(%varp_383, 16) = true) {
+    if_setmodel(model_4910, hauntedmine_controls:com176);
+    if_setmodelanim(seq_1456, hauntedmine_controls:com176);
+}
+if (testbit(%varp_383, 17) = true) {
+    if_setmodel(model_4910, hauntedmine_controls:com178);
+    if_setmodelanim(seq_1455, hauntedmine_controls:com178);
+}
+if (testbit(%varp_383, 18) = true) {
+    if_setmodel(model_4910, hauntedmine_controls:com180);
+    if_setmodelanim(seq_1455, hauntedmine_controls:com180);
+}
+if (testbit(%varp_383, 19) = true) {
+    if_setmodel(model_4910, hauntedmine_controls:com183);
+    if_setmodelanim(seq_1453, hauntedmine_controls:com183);
+}
+if (testbit(%varp_383, 20) = true) {
+    if_setmodel(model_4910, hauntedmine_controls:com185);
+    if_setmodelanim(seq_1453, hauntedmine_controls:com185);
+}

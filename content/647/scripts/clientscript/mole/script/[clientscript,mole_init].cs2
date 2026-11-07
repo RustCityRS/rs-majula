@@ -1,0 +1,4 @@
+[clientscript,mole_init](component $component0, component $component1)
+if_setmodelanim(seq_3320, $component1);
+if_setonvartransmit("mole_darkness($component0){varp_425}", $component0);
+~mole_darkness($component0);

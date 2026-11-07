@@ -131,6 +131,29 @@ pub enum DbRequest {
         user37: u64,
         reply: oneshot::Sender<SyncOutcome>,
     },
+    /// Rev-647 `p_setdisplayname`: validate and claim `display_name` for the
+    /// account keyed by `user37`.
+    #[cfg(since_647)]
+    SetDisplayName {
+        user37: u64,
+        display_name: String,
+    },
+    /// Rev-647 `p_request_more_suggestions`: another batch of free names.
+    #[cfg(since_647)]
+    MoreSuggestions {
+        user37: u64,
+    },
+}
+
+/// Outcome of a rev-647 display-name claim.
+#[cfg(since_647)]
+pub enum SetDisplayNameResult {
+    /// The name was claimed; `user37` is its base-37 hash.
+    Success { user37: u64 },
+    /// The name is taken (or disallowed); suggestions are free names.
+    NameTaken { suggestions: Vec<String> },
+    /// Invalid, or the database failed.
+    Error,
 }
 
 /// How a [`DbRequest::SyncLocal`] went.
@@ -208,6 +231,20 @@ pub enum LoadResult {
 
 /// A response sent from the database client task back to the engine.
 pub enum DbResponse {
+    /// Rev-647: outcome of a [`DbRequest::SetDisplayName`] claim, keyed by the
+    /// requesting account.
+    #[cfg(since_647)]
+    SetDisplayNameResult {
+        user37: u64,
+        name: String,
+        result: SetDisplayNameResult,
+    },
+    /// Rev-647: a fresh batch of free display-name suggestions.
+    #[cfg(since_647)]
+    MoreSuggestions {
+        user37: u64,
+        suggestions: Vec<String>,
+    },
     DbReady,
     DbDisconnected,
     AuthResponse {
@@ -348,6 +385,28 @@ async fn prune_logs_task(config: DbConfig) {
 /// heartbeat's reconcile cleans up any claim a dropped release would have
 /// freed.
 fn handle_offline(req: DbRequest, response_tx: &UnboundedSender<DbResponse>) {
+    #[cfg(since_647)]
+    match req {
+        DbRequest::SetDisplayName {
+            user37,
+            display_name,
+        } => {
+            let _ = response_tx.send(DbResponse::SetDisplayNameResult {
+                user37,
+                name: display_name,
+                result: SetDisplayNameResult::Error,
+            });
+            return;
+        }
+        DbRequest::MoreSuggestions { user37 } => {
+            let _ = response_tx.send(DbResponse::MoreSuggestions {
+                user37,
+                suggestions: Vec::new(),
+            });
+            return;
+        }
+        _ => {}
+    }
     if let DbRequest::Logs { logs } = &req {
         drop_logs(logs);
     }
@@ -877,6 +936,8 @@ async fn run_requests(
             }
             DbRequest::Load { login, user37 } => {
                 let result = claim(db, config.node_id, user37).await?;
+                #[cfg(since_647)]
+                let result = with_display_name(db, user37, result).await;
                 let _ = response_tx.send(DbResponse::LoadResponse {
                     login,
                     user37,
@@ -915,6 +976,26 @@ async fn run_requests(
                     }
                 };
                 let _ = reply.send(outcome);
+            }
+            #[cfg(since_647)]
+            DbRequest::SetDisplayName {
+                user37,
+                display_name,
+            } => {
+                let result = set_display_name(db, user37, &display_name).await;
+                let _ = response_tx.send(DbResponse::SetDisplayNameResult {
+                    user37,
+                    name: display_name,
+                    result,
+                });
+            }
+            #[cfg(since_647)]
+            DbRequest::MoreSuggestions { user37 } => {
+                let suggestions = free_name_suggestions(db, user37, 3).await;
+                let _ = response_tx.send(DbResponse::MoreSuggestions {
+                    user37,
+                    suggestions,
+                });
             }
             DbRequest::Release { user37 } => {
                 // Unsynced local data means the database copy is stale:
@@ -1386,6 +1467,103 @@ pub fn profile_from_save(save: PlayerSave) -> PlayerProfile {
         private_chat: save.private_chat as u8,
         trade_chat: save.trade_chat as u8,
         last_date: save.last_date,
+        // Rev 647: the account's display name, which isn't part of the
+        // save; the load fills it in (`with_display_name`).
+        #[cfg(since_647)]
+        display_name: None,
+    }
+}
+
+/// Rev-647 `p_setdisplayname`: validates `display_name` (the names a player
+/// may register, [`rs_db::validate_name`]; none with "jagex" or "mod") and
+/// claims it for the account `own_user37` if no other player has it.
+#[cfg(since_647)]
+async fn set_display_name(db: &Db, own_user37: u64, display_name: &str) -> SetDisplayNameResult {
+    let Ok(name) = rs_db::validate_name(display_name) else {
+        return SetDisplayNameResult::Error;
+    };
+    let lower = name.display.to_lowercase();
+    if lower.contains("jagex") || lower.contains("mod") {
+        let suggestions = free_name_suggestions(db, own_user37, 3).await;
+        return SetDisplayNameResult::NameTaken { suggestions };
+    }
+    match db.claim_display_name(own_user37, &name).await {
+        Ok(true) => {
+            info!(
+                "Display name '{}' set for {}",
+                name.display,
+                to_raw_username(own_user37)
+            );
+            SetDisplayNameResult::Success { user37: name.hash }
+        }
+        Ok(false) => {
+            let suggestions = free_name_suggestions(db, own_user37, 3).await;
+            SetDisplayNameResult::NameTaken { suggestions }
+        }
+        Err(e) => {
+            error!("DB set_display_name failed: {e}");
+            SetDisplayNameResult::Error
+        }
+    }
+}
+
+/// A random `PrefixSuffixNNN` display-name candidate.
+#[cfg(since_647)]
+fn random_name(rng: &mut rs_util::random::JavaRandom) -> String {
+    const PREFIXES: &[&str] = &[
+        "Iron", "Dark", "Storm", "Blaze", "Frost", "Shadow", "Rune", "Dusk", "Ember", "Moon",
+        "Wolf", "Stone", "Vale", "Ash", "Cinder", "Dawn", "Gloom", "Jade", "Onyx", "Mist", "Bolt",
+        "Hex", "Drift", "Flint", "Thorn", "Vex", "Echo", "Grim", "Zeal", "Flux", "Prof", "Smith",
+        "Fire", "Ice", "Earth", "Water", "Air", "Mind", "Body", "Soul",
+    ];
+    const SUFFIXES: &[&str] = &[
+        "blade", "shade", "fall", "hawk", "fury", "fly", "light", "vale", "spark", "peak", "rune",
+        "forge", "ward", "drift", "crest", "reign", "born", "strike", "keep", "gaze", "bane",
+        "doe", "wolf", "fox", "eagle", "raven", "owl", "sparrow", "jay", "crow", "parrot",
+    ];
+    let prefix = PREFIXES[rng.next_int_bound(PREFIXES.len() as i32) as usize];
+    let suffix = SUFFIXES[rng.next_int_bound(SUFFIXES.len() as i32) as usize];
+    let num = 100 + rng.next_int_bound(9900);
+    format!("{prefix}{suffix}{num}")
+}
+
+/// Up to `count` random names `own_user37` could claim (bounded tries, so a
+/// crowded table can't loop forever).
+#[cfg(since_647)]
+async fn free_name_suggestions(db: &Db, own_user37: u64, count: usize) -> Vec<String> {
+    let seed = SystemTime::now()
+        .duration_since(UNIX_EPOCH)
+        .map_or(0, |d| d.as_nanos() as i64);
+    let mut rng = rs_util::random::JavaRandom::new(seed);
+    let mut suggestions = Vec::with_capacity(count);
+    for _ in 0..count * 10 {
+        if suggestions.len() >= count {
+            break;
+        }
+        let Ok(name) = rs_db::validate_name(&random_name(&mut rng)) else {
+            continue;
+        };
+        if db
+            .display_name_free(own_user37, &name)
+            .await
+            .unwrap_or(false)
+        {
+            suggestions.push(name.display);
+        }
+    }
+    suggestions
+}
+
+/// Rev 647: a loaded profile carries the account's display name, which the
+/// player is shown and known by (`p_setdisplayname` claims a new one).
+#[cfg(since_647)]
+async fn with_display_name(db: &Db, user37: u64, result: LoadResult) -> LoadResult {
+    match result {
+        LoadResult::Loaded(Some(mut profile)) => {
+            profile.display_name = db.display_name(user37).await.ok().flatten();
+            LoadResult::Loaded(Some(profile))
+        }
+        other => other,
     }
 }
 
@@ -1404,8 +1582,8 @@ mod tests {
             gender: 1,
             runenergy: 9000,
             playtime: 600,
-            stats: [1154; 21],
-            levels: [10; 21],
+            stats: [1154; rs_entity::build::STAT_COUNT],
+            levels: [10; rs_entity::build::STAT_COUNT],
             varps: vec![(281, 1000), (1000, -1)],
             invs: vec![
                 PlayerProfileInv {
@@ -1423,6 +1601,8 @@ mod tests {
             private_chat: 2,
             trade_chat: 3,
             last_date: 1_700_000_000,
+            #[cfg(since_647)]
+            display_name: None,
         };
 
         let back = profile_from_save(to_save(&profile));
@@ -1848,8 +2028,8 @@ mod tests {
     #[test]
     fn short_arrays_are_padded() {
         let back = profile_from_save(PlayerSave::default());
-        assert_eq!(back.levels, [1; 21]);
-        assert_eq!(back.stats, [0; 21]);
+        assert_eq!(back.levels, [1; rs_entity::build::STAT_COUNT]);
+        assert_eq!(back.stats, [0; rs_entity::build::STAT_COUNT]);
         assert!(back.invs.is_empty());
     }
 }

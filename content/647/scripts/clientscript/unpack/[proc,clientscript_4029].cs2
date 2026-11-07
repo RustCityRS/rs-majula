@@ -1,0 +1,7 @@
+[proc,clientscript_4029](int $int)
+if ($int = false) {
+    if_setgraphic(4304, task_main:com106);
+} else {
+    if_setgraphic(4302, task_main:com106);
+    ~deltooltip_action(task_main:com97);
+}

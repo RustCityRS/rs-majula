@@ -1,0 +1,92 @@
+[proc,lobbyscreen_tabswitch](int $int)
+if (enum(105, 73, enum_941, $int) = null) {
+    return;
+}
+if (if_gethide(enum(105, 73, enum_941, $int)) = false) {
+    return;
+}
+if_sethide(true, enum(105, 73, enum_941, 0));
+if_sethide(true, enum(105, 73, enum_941, 1));
+if_sethide(true, enum(105, 73, enum_941, 2));
+if_sethide(true, enum(105, 73, enum_941, 5));
+if_sethide(true, enum(105, 73, enum_941, 3));
+if_sethide(true, enum(105, 73, enum_941, 4));
+if_setcolour(0xebe0bc, lobbyscreen:com205);
+if_setcolour(0xebe0bc, lobbyscreen:com202);
+if_setcolour(0xebe0bc, lobbyscreen:com200);
+if_setcolour(0xebe0bc, lobbyscreen:com198);
+if_setcolour(0xebe0bc, lobbyscreen:com255);
+if_setcolour(0xebe0bc, lobbyscreen:com196);
+if_setgraphic(4672, lobbyscreen:com204);
+if_setgraphic(4672, lobbyscreen:com12);
+if_setgraphic(4672, lobbyscreen:com11);
+if_setgraphic(4672, lobbyscreen:com10);
+if_setgraphic(4672, lobbyscreen:com254);
+if_setgraphic(4672, lobbyscreen:com9);
+if_setonmouseover("text_colour_swapper(lobbyscreen:com205, 16448250)", lobbyscreen:com188);
+if_setonmouseover("text_colour_swapper(lobbyscreen:com202, 16448250)", lobbyscreen:com189);
+if_setonmouseover("text_colour_swapper(lobbyscreen:com200, 16448250)", lobbyscreen:com190);
+if_setonmouseover("text_colour_swapper(lobbyscreen:com198, 16448250)", lobbyscreen:com192);
+if_setonmouseover("text_colour_swapper(lobbyscreen:com255, 16448250)", lobbyscreen:com191);
+if_setonmouseover("text_colour_swapper(lobbyscreen:com196, 16448250)", lobbyscreen:com193);
+if_setonmouseleave("text_colour_swapper(lobbyscreen:com205, 15458492)", lobbyscreen:com188);
+if_setonmouseleave("text_colour_swapper(lobbyscreen:com202, 15458492)", lobbyscreen:com189);
+if_setonmouseleave("text_colour_swapper(lobbyscreen:com200, 15458492)", lobbyscreen:com190);
+if_setonmouseleave("text_colour_swapper(lobbyscreen:com198, 15458492)", lobbyscreen:com192);
+if_setonmouseleave("text_colour_swapper(lobbyscreen:com255, 15458492)", lobbyscreen:com191);
+if_setonmouseleave("text_colour_swapper(lobbyscreen:com196, 15458492)", lobbyscreen:com193);
+if ($int ! 5) {
+    ~clientscript_3161(0);
+}
+if ($int ! 3) {
+    ~clientscript_4556(0);
+}
+if ($int = true) {
+    if_setposition(0, 3, ^setpos_abs_centre, ^setpos_abs_bottom, lobbyscreen:com18);
+    if_setsize(655, 26, ^setsize_abs, ^setsize_minus, lobbyscreen:com17);
+    worldlist_setfavorite(1);
+} else {
+    if_setposition(0, 241, ^setpos_abs_centre, ^setpos_abs_centre, lobbyscreen:com18);
+    if_setsize(655, 477, ^setsize_abs, ^setsize_abs, lobbyscreen:com17);
+    worldlist_setfavorite(0);
+}
+if ($int = 4) {
+    if_sethide(true, lobbyscreen:com29);
+} else {
+    if_sethide(false, lobbyscreen:com29);
+}
+if_sethide(false, enum(105, 73, enum_941, $int));
+switch_int ($int) {
+    case 0:
+        if_setgraphic(4671, lobbyscreen:com204);
+        if_setonmouseover(null, lobbyscreen:com188);
+        if_setonmouseleave(null, lobbyscreen:com188);
+        cc_deleteall(lobbyscreen:com188);
+    case 1:
+        if_setgraphic(4671, lobbyscreen:com12);
+        if_setonmouseover(null, lobbyscreen:com189);
+        if_setonmouseleave(null, lobbyscreen:com189);
+        cc_deleteall(lobbyscreen:com189);
+    case 2:
+        if_setgraphic(4671, lobbyscreen:com11);
+        if_setonmouseover(null, lobbyscreen:com190);
+        if_setonmouseleave(null, lobbyscreen:com190);
+        cc_deleteall(lobbyscreen:com190);
+    case 5:
+        if_setgraphic(4671, lobbyscreen:com10);
+        if_setonmouseover(null, lobbyscreen:com192);
+        if_setonmouseleave(null, lobbyscreen:com192);
+        cc_deleteall(lobbyscreen:com192);
+        ~clientscript_3161(1);
+    case 3:
+        if_setgraphic(4671, lobbyscreen:com254);
+        if_setonmouseover(null, lobbyscreen:com191);
+        if_setonmouseleave(null, lobbyscreen:com191);
+        cc_deleteall(lobbyscreen:com191);
+        ~clientscript_4556(1);
+    case 4:
+        if_setgraphic(4671, lobbyscreen:com9);
+        if_setonmouseover(null, lobbyscreen:com193);
+        if_setonmouseleave(null, lobbyscreen:com193);
+        cc_deleteall(lobbyscreen:com193);
+}

@@ -1,0 +1,31 @@
+[clientscript,fairyrings_vartransmit]
+switch_int (%varbit_2341) {
+    case default:
+        %varc_int_122 = 0;
+    case 1:
+        %varc_int_122 = 1536;
+    case 2:
+        %varc_int_122 = 1024;
+    case 3:
+        %varc_int_122 = 512;
+}
+switch_int (%varbit_2342) {
+    case default:
+        %varc_int_123 = 0;
+    case 1:
+        %varc_int_123 = 1536;
+    case 2:
+        %varc_int_123 = 1024;
+    case 3:
+        %varc_int_123 = 512;
+}
+switch_int (%varbit_2343) {
+    case default:
+        %varc_int_124 = 0;
+    case 1:
+        %varc_int_124 = 1536;
+    case 2:
+        %varc_int_124 = 1024;
+    case 3:
+        %varc_int_124 = 512;
+}

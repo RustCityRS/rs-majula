@@ -1,0 +1,109 @@
+[proc,clientscript_336]
+def_int $int0 = 0;
+def_int $int1 = 0;
+def_int $int2 = 0;
+if (%varc_int_1243 < stat_xp(attack)) {
+    $int2 = calc(stat_xp(attack) - %varc_int_1243);
+    $int0, $int1 = ~get_bonus_amount($int0, $int1, $int2, 0);
+}
+if (%varc_int_1244 < stat_xp(strength)) {
+    $int2 = calc(stat_xp(strength) - %varc_int_1244);
+    $int0, $int1 = ~get_bonus_amount($int0, $int1, $int2, 0);
+}
+if (%varc_int_1245 < stat_xp(defence)) {
+    $int2 = calc(stat_xp(defence) - %varc_int_1245);
+    $int0, $int1 = ~get_bonus_amount($int0, $int1, $int2, 0);
+}
+if (%varc_int_1246 < stat_xp(ranged)) {
+    $int2 = calc(stat_xp(ranged) - %varc_int_1246);
+    $int0, $int1 = ~get_bonus_amount($int0, $int1, $int2, 0);
+}
+if (%varc_int_1247 < stat_xp(prayer)) {
+    $int2 = calc(stat_xp(prayer) - %varc_int_1247);
+    $int0, $int1 = ~get_bonus_amount($int0, $int1, $int2, 0);
+}
+if (%varc_int_1248 < stat_xp(magic)) {
+    $int2 = calc(stat_xp(magic) - %varc_int_1248);
+    $int0, $int1 = ~get_bonus_amount($int0, $int1, $int2, 0);
+}
+if (%varc_int_1249 < stat_xp(runecrafting)) {
+    $int2 = calc(stat_xp(runecrafting) - %varc_int_1249);
+    $int0, $int1 = ~get_bonus_amount($int0, $int1, $int2, 0);
+}
+if (%varc_int_1250 < stat_xp(hitpoints)) {
+    $int2 = calc(stat_xp(hitpoints) - %varc_int_1250);
+    $int0, $int1 = ~get_bonus_amount($int0, $int1, $int2, 0);
+}
+if (%varc_int_1251 < stat_xp(crafting)) {
+    $int2 = calc(stat_xp(crafting) - %varc_int_1251);
+    $int0, $int1 = ~get_bonus_amount($int0, $int1, $int2, 0);
+}
+if (%varc_int_1252 < stat_xp(mining)) {
+    $int2 = calc(stat_xp(mining) - %varc_int_1252);
+    $int0, $int1 = ~get_bonus_amount($int0, $int1, $int2, 0);
+}
+if (%varc_int_1253 < stat_xp(smithing)) {
+    $int2 = calc(stat_xp(smithing) - %varc_int_1253);
+    $int0, $int1 = ~get_bonus_amount($int0, $int1, $int2, 0);
+}
+if (%varc_int_1254 < stat_xp(fishing)) {
+    $int2 = calc(stat_xp(fishing) - %varc_int_1254);
+    $int0, $int1 = ~get_bonus_amount($int0, $int1, $int2, 0);
+}
+if (%varc_int_1255 < stat_xp(cooking)) {
+    $int2 = calc(stat_xp(cooking) - %varc_int_1255);
+    $int0, $int1 = ~get_bonus_amount($int0, $int1, $int2, 0);
+}
+if (%varc_int_1256 < stat_xp(firemaking)) {
+    $int2 = calc(stat_xp(firemaking) - %varc_int_1256);
+    $int0, $int1 = ~get_bonus_amount($int0, $int1, $int2, 0);
+}
+if (%varc_int_1257 < stat_xp(woodcutting)) {
+    $int2 = calc(stat_xp(woodcutting) - %varc_int_1257);
+    $int0, $int1 = ~get_bonus_amount($int0, $int1, $int2, 0);
+}
+if (%varc_int_1258 < stat_xp(agility)) {
+    $int2 = calc(stat_xp(agility) - %varc_int_1258);
+    $int0, $int1 = ~get_bonus_amount($int0, $int1, $int2, 0);
+}
+if (%varc_int_1259 < stat_xp(herblore)) {
+    $int2 = calc(stat_xp(herblore) - %varc_int_1259);
+    $int0, $int1 = ~get_bonus_amount($int0, $int1, $int2, 0);
+}
+if (%varc_int_1260 < stat_xp(thieving)) {
+    $int2 = calc(stat_xp(thieving) - %varc_int_1260);
+    $int0, $int1 = ~get_bonus_amount($int0, $int1, $int2, 0);
+}
+if (%varc_int_1261 < stat_xp(fletching)) {
+    $int2 = calc(stat_xp(fletching) - %varc_int_1261);
+    $int0, $int1 = ~get_bonus_amount($int0, $int1, $int2, 0);
+}
+if (%varc_int_1262 < stat_xp(slayer)) {
+    $int2 = calc(stat_xp(slayer) - %varc_int_1262);
+    $int0, $int1 = ~get_bonus_amount($int0, $int1, $int2, 0);
+}
+if (%varc_int_1263 < stat_xp(farming)) {
+    $int2 = calc(stat_xp(farming) - %varc_int_1263);
+    $int0, $int1 = ~get_bonus_amount($int0, $int1, $int2, 0);
+}
+if (%varc_int_1264 < stat_xp(construction)) {
+    $int2 = calc(stat_xp(construction) - %varc_int_1264);
+    $int0, $int1 = ~get_bonus_amount($int0, $int1, $int2, 0);
+}
+if (%varc_int_1265 < stat_xp(hunter)) {
+    $int2 = calc(stat_xp(hunter) - %varc_int_1265);
+    $int0, $int1 = ~get_bonus_amount($int0, $int1, $int2, 0);
+}
+if (%varc_int_1266 < stat_xp(summoning)) {
+    $int2 = calc(stat_xp(summoning) - %varc_int_1266);
+    $int0, $int1 = ~get_bonus_amount($int0, $int1, $int2, 0);
+}
+if (%varc_int_1267 < stat_xp(dungeoneering)) {
+    $int2 = calc(stat_xp(dungeoneering) - %varc_int_1267);
+    $int0, $int1 = ~get_bonus_amount($int0, $int1, $int2, 0);
+}
+if ($int0 = false) {
+    return;
+} else {
+    ~clientscript_337($int0, $int1);
+}

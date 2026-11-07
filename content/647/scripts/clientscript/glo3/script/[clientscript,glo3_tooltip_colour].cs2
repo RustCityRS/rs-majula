@@ -1,0 +1,4 @@
+[clientscript,glo3_tooltip_colour](component $component0, int $int1, component $component2, string $string)
+if (if_find($component0) = true) {
+    ~clientscript_1163($component0, $int1, $component2, "<$string><cc_getparam(param_718)>", 0, 180);
+}

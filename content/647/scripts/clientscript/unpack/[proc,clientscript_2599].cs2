@@ -1,0 +1,88 @@
+[proc,clientscript_2599]
+def_obj $array0();
+def_int $array1();
+def_int $array2();
+def_int $int0 = 0;
+def_int $int1 = 0;
+def_int $int2 = 0;
+def_obj $obj3 = null;
+def_obj $array0(10);
+def_int $array1(10);
+def_int $array2(10);
+def_int $int4 = 0;
+while ($int1 < 28 & $int2 < 10) {
+    $obj3 = inv_getobj(inv, $int1);
+    if ($obj3 ! null & (oc_weight($obj3, param_802) = true | oc_weight($obj3, param_803) = true)) {
+        $array0($int2) = $obj3;
+        $int2 = calc($int2 + 1);
+    }
+    $int1 = calc($int1 + 1);
+}
+$obj3 = null;
+$array1(0) = %varbit_6405;
+$array1(1) = %varbit_6406;
+$array1(2) = %varbit_6407;
+$array1(3) = %varbit_6408;
+$array1(4) = %varbit_6409;
+$array1(5) = %varbit_6410;
+$array1(6) = %varbit_6411;
+$array1(7) = %varbit_6412;
+$array1(8) = %varbit_6413;
+$array1(9) = %varbit_6414;
+$int1 = 0;
+while ($int1 < 10) {
+    if ($array0($int1) ! null) {
+        if (oc_weight($obj3, param_803) = true) {
+            $array2($int1) = calc(%varbit_6405 * 50);
+        }
+        if (oc_weight($array0($int1), param_803) = true & $array1($int1) = true) {
+            $array2($int1) = 50;
+            $int4 = calc($int4 + $array2($int1));
+        }
+        if_settext("Cost: <tostring($array2($int1))>", enum(105, 73, enum_2424, $int1));
+    }
+    $int1 = calc($int1 + 1);
+}
+if_settext(tostring($array2(%varc_int_929)), mob_squad_exchange:com101);
+%varc_int_928 = $int4;
+if_settext(tostring(%varc_int_928), mob_squad_exchange:com126);
+if_settext("Remaining investment credits: <tostring(calc(%varbit_6351 - %varc_int_928))>", mob_squad_exchange:com128);
+if (%varc_int_928 <= %varbit_6351) {
+    if_setgraphic("mob_exchange_tick,0", mob_squad_exchange:com123);
+    if_setonop("clientscript_2605()", mob_squad_exchange:com122);
+    if_setop(1, "Apply changes", mob_squad_exchange:com122);
+    if_setonmouseover("v2_stone_button_in(^event_com)", mob_squad_exchange:com122);
+    if_setcolour(0xff9935, mob_squad_exchange:com126);
+    if_setonclick(null, mob_squad_exchange:com122);
+} else {
+    if_setgraphic("mob_exchange_tick,1", mob_squad_exchange:com123);
+    if_setonop(null, mob_squad_exchange:com122);
+    if_clearops(mob_squad_exchange:com122);
+    if_setonmouseover(null, mob_squad_exchange:com122);
+    if_setcolour(0xff1111, mob_squad_exchange:com126);
+    if_setonclick("clientscript_2606(^event_com)", mob_squad_exchange:com122);
+}
+$int1 = 0;
+while ($int1 < 10) {
+    if ($array0($int1) ! null & oc_weight($array0($int1), param_803) = true) {
+        $int0 = calc($int0 + 50);
+    }
+    $int1 = calc($int1 + 1);
+}
+if ($int0 > 0) {
+    if_settext("Resupply all<br>(<tostring($int0)>)", mob_squad_exchange:com124);
+}
+if (%varbit_6351 >= $int0 & $int0 > 0) {
+    if_setcolour(0xff9935, mob_squad_exchange:com124);
+    if_setonop("clientscript_2603()", mob_squad_exchange:com119);
+    if_setop(1, "Resupply all", mob_squad_exchange:com119);
+    if_setonmouseover("v2_stone_button_in(^event_com)", mob_squad_exchange:com119);
+    if_setonclick(null, mob_squad_exchange:com119);
+} else {
+    if_settext("Resupply all", mob_squad_exchange:com124);
+    if_setcolour(0x666666, mob_squad_exchange:com124);
+    if_setonop(null, mob_squad_exchange:com119);
+    if_clearops(mob_squad_exchange:com119);
+    if_setonmouseover(null, mob_squad_exchange:com119);
+    if_setonclick("clientscript_2606(^event_com)", mob_squad_exchange:com119);
+}

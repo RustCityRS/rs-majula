@@ -1,0 +1,24 @@
+// Hitpoints are 2011's life points: 289's times ten, or void-634's where it has the npc.
+[death_sherpa]
+desc=An experienced Sherpa.
+wanderrange=5
+
+[death_man_indoors1]
+desc=A citizen of Burthorpe.
+wanderrange=5
+maxrange=7
+moverestrict=indoors
+respawnrate=50
+hitpoints=100
+attack=3
+strength=8
+defence=3
+param=stabdefence,-12
+param=slashdefence,-12
+param=crushdefence,-12
+param=magicdefence,-12
+param=rangedefence,-12
+param=damagetype,^crush_style
+category=citizen_burthorpe
+// stats dumped from osrs (transmitted)
+

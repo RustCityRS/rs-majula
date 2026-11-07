@@ -1,0 +1,9 @@
+[proc,clientscript_2355](boolean $int0, int $int1)
+%varc_int_92 = $int0;
+if ($int0 = true) {
+    if_setontimer("skillmulti2010_expand($int1)", skillmulti2010_numbers:com21);
+    ~clientscript_2192(0, $int1);
+} else {
+    if_setontimer("skillmulti2010_expand(0)", skillmulti2010_numbers:com21);
+    ~clientscript_2192(1, $int1);
+}

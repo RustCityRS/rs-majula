@@ -1,0 +1,44 @@
+[proc,clientscript_1465]
+def_string $string0 = "Total number of <col=ba1626>free</col> bank slots used";
+def_string $string1 = "Total number of <col=ba1626>member</col> bank slots used";
+def_string $string2 = "Total number of <col=ba1626>demo</col> bank slots used";
+def_int $int0 = 0;
+def_int $int1 = 0;
+if (~clientscript_3287 = true) {
+    $int0 = calc(516 - 439 + 1);
+    $int1 = calc(516 - $int0);
+} else {
+    $int0 = calc(516 - 439 + 1 - 10);
+    $int1 = calc(516 - 10 - $int0);
+}
+def_int $int2 = %varc_int_1038;
+def_int $int3 = calc(%varc_int_192 - $int2);
+def_int $int4 = calc(($int0 - $int2) * -1);
+def_int $int5 = calc($int3 - (439 - 1));
+if_sethide(false, bank_v2_main:com22);
+if_sethide(true, bank_v2_main:com23);
+if ($int5 > 0) {
+    $int2 = calc($int2 + $int5);
+    $int3 = calc(439 - 1);
+    if ($int5 = true) {
+        $string0 = "Total number of <col=ba1626>free</col> bank slots used<br><col=ba1626>Note: this includes an overflow of 1 member item</col>";
+    } else {
+        $string0 = "Total number of <col=ba1626>free</col> bank slots used<br><col=ba1626>Note: this includes an overflow of <tostring($int5)> member items</col>";
+    }
+    $string1 = "Total number of <col=ba1626>member</col> bank slots used";
+} else if ($int4 > 0) {
+    $int3 = calc($int3 + $int4);
+    $int2 = $int0;
+    $string0 = "Total number of <col=ba1626>free</col> bank slots used";
+    if ($int4 = true) {
+        $string1 = "Total number of <col=ba1626>member</col> bank slots used<br><col=ba1626>Note: this includes an overflow of 1 free item</col>";
+    } else {
+        $string1 = "Total number of <col=ba1626>member</col> bank slots used<br><col=ba1626>Note: this includes an overflow of <tostring($int4)> free items</col>";
+    }
+}
+if_settext(tostring($int2), bank_v2_main:com29);
+if_settext(tostring($int3), bank_v2_main:com31);
+if_setonmouserepeat("clientscript_1160(^event_com, -1, bank_v2_main:com119, $string0, 25, 150)", bank_v2_main:com29);
+if_setonmouserepeat("clientscript_1160(^event_com, -1, bank_v2_main:com119, $string1, 25, 150)", bank_v2_main:com31);
+if_settext(tostring($int0), bank_v2_main:com30);
+if_settext(tostring($int1), bank_v2_main:com32);

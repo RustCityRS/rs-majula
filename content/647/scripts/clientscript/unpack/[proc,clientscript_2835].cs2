@@ -1,0 +1,17 @@
+[proc,clientscript_2835]
+def_int $int0 = calc(coordx(coord) - coordx(coord) % 64);
+def_int $int1 = calc(coordz(coord) - coordz(coord) % 64);
+def_coord $coord2 = coordpack(0_0_0_0_0, $int0, 0, $int1);
+cam_allocpath(0, 4);
+cam_allocpath(1, 4);
+cam_addwaypoint(0, 0, ~clientscript_2808($coord2, 0_52_91_8_8, 0_52_91_33_28), 1185, ~clientscript_2808($coord2, 0_52_91_8_8, 0_52_91_35_28), 1030, 0);
+cam_addwaypoint(1, 0, ~clientscript_2808($coord2, 0_52_91_8_8, 0_52_91_33_19), 338, ~clientscript_2808($coord2, 0_52_91_8_8, 0_52_91_33_21), 338, 0);
+cam_addwaypoint(0, 1, ~clientscript_2808($coord2, 0_52_91_8_8, 0_52_91_38_25), 790, ~clientscript_2808($coord2, 0_52_91_8_8, 0_52_91_38_23), 705, 0);
+cam_addwaypoint(1, 1, ~clientscript_2808($coord2, 0_52_91_8_8, 0_52_91_33_25), 338, ~clientscript_2808($coord2, 0_52_91_8_8, 0_52_91_33_26), 338, 0);
+cam_addwaypoint(0, 2, ~clientscript_2808($coord2, 0_52_91_8_8, 0_52_91_33_22), 620, ~clientscript_2808($coord2, 0_52_91_8_8, 0_52_91_33_24), 580, 0);
+cam_addwaypoint(1, 2, ~clientscript_2808($coord2, 0_52_91_8_8, 0_52_91_33_29), 338, ~clientscript_2808($coord2, 0_52_91_8_8, 0_52_91_33_31), 338, 0);
+cam_addwaypoint(0, 3, ~clientscript_2808($coord2, 0_52_91_8_8, 0_52_91_33_35), 495, ~clientscript_2808($coord2, 0_52_91_8_8, 0_52_91_33_37), 445, 0);
+cam_addwaypoint(1, 3, ~clientscript_2808($coord2, 0_52_91_8_8, 0_52_91_33_38), 338, ~clientscript_2808($coord2, 0_52_91_8_8, 0_52_91_33_40), 338, 0);
+%varc_int_1068 = 0;
+if_setonchattransmit_2426("clientscript_2836()", nom_cutscene_controller:com0);
+cam_startpath(0, 0, 400, 400, 1, 0);

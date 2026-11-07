@@ -1,13 +1,36 @@
-use std::collections::HashMap;
-use std::path::{Path, PathBuf};
-
+#[cfg(before_647)]
+use crate::archive::JagArchive;
+#[cfg(since_647)]
+use crate::archive::{self, ArchiveVersions};
+#[cfg(since_647)]
+use crate::cache::js5::PackedCache;
+#[cfg(since_647)]
+use crate::pack::js5::{PreparedGroup, insert_archive, insert_empty_archive};
+#[cfg(since_647)]
+use crate::pack::names::AssetNames;
+#[cfg(since_647)]
+use crate::pack::other::asset;
+#[cfg(before_647)]
+use crate::pack::pack_registry::PackRegistry;
+#[cfg(before_647)]
+use crate::pack::util;
+#[cfg(since_647)]
+use anyhow::Result;
+#[cfg(since_647)]
+use rayon::prelude::*;
+#[cfg(before_647)]
 use rs_io::Packet;
-use rs_io::jag::{JagCompression, JagFile};
+#[cfg(before_647)]
+use rs_io::jag::JagFile;
+use std::collections::HashMap;
+use std::fs;
+use std::path::Path;
+#[cfg(before_647)]
+use std::path::PathBuf;
+#[cfg(before_647)]
 use tracing::debug;
 
-use crate::pack::pack_registry::PackRegistry;
-use crate::pack::util;
-
+#[cfg(before_647)]
 pub fn pack_sounds(registry: &PackRegistry, content_dir: &Path, pack_dir: &Path) -> Vec<u8> {
     let synth_dir = content_dir.join("synth");
     if !synth_dir.exists() {
@@ -39,7 +62,7 @@ pub fn pack_sounds(registry: &PackRegistry, content_dir: &Path, pack_dir: &Path)
         let Some(path) = name_to_file.get(name) else {
             continue;
         };
-        let Ok(data) = std::fs::read(path) else {
+        let Ok(data) = fs::read(path) else {
             continue;
         };
 
@@ -54,5 +77,42 @@ pub fn pack_sounds(registry: &PackRegistry, content_dir: &Path, pack_dir: &Path)
     jag.write("sounds.dat", out.data[..out.pos].to_vec());
 
     debug!("Packed {} synths into sounds Jag", count);
-    jag.build(JagCompression::PerFile)
+    jag.build(JagArchive::Sounds.compression())
 }
+
+#[cfg(since_647)]
+pub fn pack_archive(
+    store: &mut PackedCache,
+    content_dir: &Path,
+    pack_dir: &Path,
+    versions: &HashMap<u8, ArchiveVersions>,
+) -> Result<()> {
+    let aid = archive::SYNTH;
+    let format = archive::archive_format(aid).unwrap();
+    let names = AssetNames::load(pack_dir)?;
+    let group_files = names.files(&content_dir.join(format.content_dir), "synth", &["synth"])?;
+
+    if group_files.is_empty() {
+        insert_empty_archive(store, aid, format, versions)?;
+
+        return Ok(());
+    }
+
+    let prepared: Vec<PreparedGroup> = group_files
+        .par_iter()
+        .map(|(gid, path)| {
+            let data = asset::pack_group(aid, *gid, &fs::read_to_string(path)?, &names)?;
+            PreparedGroup::new(aid, *gid, &data, versions)
+        })
+        .collect::<Result<Vec<_>>>()?;
+
+    insert_archive(store, aid, format, versions, prepared, "from synths")?;
+
+    Ok(())
+}
+#[cfg(since_647)]
+pub mod instrument;
+#[cfg(since_647)]
+pub mod vorbis;
+#[cfg(since_647)]
+pub mod vorbis_setup;

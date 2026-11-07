@@ -1,0 +1,14 @@
+[clientscript,logout_init]
+if (is_unsigned = false) {
+    if_settext("When you have finished playing<br>RuneScape, always use a<br>button below to exit the game and logout safely.", logout:com0);
+    if_settext("Exit to Lobby", logout:com5);
+    if_setop(1, "Exit to Lobby", logout:com5);
+    if_sethide(false, logout:com6);
+    if_settext("Exit to Login", logout:com10);
+    if_setop(1, "Exit to Login", logout:com10);
+} else {
+    if_settext("When you have finished playing<br>RuneScape, always use the<br>button below to exit the game and logout safely.", logout:com0);
+    if_settext("Click here to log out", logout:com5);
+    if_setop(1, "Logout", logout:com5);
+    if_sethide(true, logout:com6);
+}

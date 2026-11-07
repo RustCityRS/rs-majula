@@ -1,0 +1,21 @@
+[clientscript,snapshot_main_load]
+%varc_int_6 = 0;
+if (autosetup_getvalue = 5 | autosetup_getvalue = 6) {
+    if_settext("Suggest to mute this player for 48 hours", snapshot_main_v2:com83);
+    if_settext("Suggest to mute this player for 48 hours", snapshot_main_v2:com10);
+    if_settext("Suggest to mute this player for 48 hours", snapshot_main_v2:com60);
+} else {
+    if_settext("Mute this player for 48 hours", snapshot_main_v2:com83);
+    if_settext("Mute this player for 48 hours", snapshot_main_v2:com10);
+    if_settext("Mute this player for 48 hours", snapshot_main_v2:com60);
+}
+%varc_int_11 = 1;
+if (getlanguage ! 1) {
+    ~clientscript_216;
+    ~clientscript_246;
+    return;
+}
+if_setonvarcstrtransmit("snapshot_name_update(){varc_string_24}", snapshot_main_v2:com32);
+%varc_int_792 = -1;
+~clientscript_224;
+~clientscript_216;

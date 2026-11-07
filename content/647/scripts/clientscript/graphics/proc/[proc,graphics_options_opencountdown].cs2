@@ -1,0 +1,22 @@
+[proc,graphics_options_opencountdown](int $int0, boolean $boolean1, boolean $boolean2)
+if (getwindowmode = true) {
+    if_openoverlay(35913748, 883);
+} else {
+    if_openoverlay(48889936, 883);
+}
+if_sethide(false, toplevel_fullscreen:com80);
+if_sethide(false, toplevel:com20);
+~clientscript_1151(graphics_confirm:com18);
+~clientscript_1151(graphics_confirm:com21);
+if_setonmouseover("graphics_options_countdownmouseover(true, graphics_confirm:com18, graphics_confirm:com19)", graphics_confirm:com17);
+if_setonmouseleave("graphics_options_countdownmouseover(false, graphics_confirm:com18, graphics_confirm:com19)", graphics_confirm:com17);
+if_setonmouseover("graphics_options_countdownmouseover(true, graphics_confirm:com21, graphics_confirm:com22)", graphics_confirm:com20);
+if_setonmouseleave("graphics_options_countdownmouseover(false, graphics_confirm:com21, graphics_confirm:com22)", graphics_confirm:com20);
+if_setonclick("graphics_options_decision(true, $int0, 1, $boolean1, $boolean2)", graphics_confirm:com17);
+if_setonclick("graphics_options_decision(false, $int0, 1, $boolean1, $boolean2)", graphics_confirm:com20);
+if_sethide(false, toplevel:com190);
+if_sethide(false, toplevel:com68);
+if_sethide(false, toplevel:com193);
+if_sethide(false, toplevel:com202);
+if_sethide(false, toplevel:com162);
+if_sethide(false, toplevel:com114);

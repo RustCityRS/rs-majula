@@ -1,0 +1,8 @@
+[proc,mapsquare_setactivemenu]()(int)
+def_int $int = 0;
+$int = calc(%varbit_5706 + %varbit_5707 + %varbit_5723 + %varbit_5710 + %varbit_5711 + %varbit_5712 + %varbit_5713 + %varbit_5714 + %varbit_5715 + %varbit_5716 + %varbit_5717);
+if (%varbit_5709 = 3) {
+    $int = calc($int + 1);
+}
+return($int);
+return(0);

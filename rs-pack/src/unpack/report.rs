@@ -1,9 +1,27 @@
-use std::collections::{BTreeMap, BTreeSet, HashSet};
-use std::fmt::{Display, Write as _};
-use std::path::{Path, PathBuf};
-
+#[cfg(before_647)]
+use super::namecrack;
+#[cfg(before_647)]
+use crate::archive::JAG_ARCHIVES;
+#[cfg(since_647)]
+use anyhow::{Result, ensure};
+#[cfg(before_647)]
 use rs_io::crc;
+#[cfg(before_647)]
 use rs_io::jag::JagFile;
+#[cfg(before_647)]
+use std::collections::{BTreeMap, BTreeSet, HashSet};
+#[cfg(before_647)]
+use std::fmt::{Display, Write as _};
+use std::fs;
+#[cfg(before_647)]
+use std::io;
+#[cfg(since_647)]
+use std::path::Path;
+#[cfg(before_647)]
+use std::path::{Path, PathBuf};
+#[cfg(since_647)]
+use tracing::{error, info};
+#[cfg(before_647)]
 use tracing::{info, warn};
 
 pub struct RecordLeftover {
@@ -12,6 +30,7 @@ pub struct RecordLeftover {
     pub bytes: usize,
 }
 
+#[cfg(before_647)]
 struct ArchiveCrc {
     name: String,
     idx0_file: Option<usize>,
@@ -19,13 +38,14 @@ struct ArchiveCrc {
     expected: Option<i32>,
 }
 
+#[cfg(before_647)]
 struct ConfigCrc {
     name: String,
     computed: i32,
     expected: i32,
 }
 
-#[cfg(since_244)]
+#[cfg(all(since_244, before_647))]
 struct Js5OndemandCrc {
     table: &'static str,
     id: usize,
@@ -34,6 +54,7 @@ struct Js5OndemandCrc {
     recomputed: Option<i32>,
 }
 
+#[cfg(before_647)]
 #[derive(Default)]
 pub struct CrcReport {
     archives: Vec<ArchiveCrc>,
@@ -42,6 +63,7 @@ pub struct CrcReport {
     js5_ondemand: Vec<Js5OndemandCrc>,
 }
 
+#[cfg(before_647)]
 impl CrcReport {
     pub fn new() -> Self {
         Self::default()
@@ -82,9 +104,9 @@ impl CrcReport {
         });
     }
 
-    pub fn write(&self, output_dir: &Path) -> std::io::Result<()> {
+    pub fn write(&self, output_dir: &Path) -> io::Result<()> {
         let dir = output_dir.join("_crc");
-        std::fs::create_dir_all(&dir)?;
+        fs::create_dir_all(&dir)?;
         let path = dir.join("report.txt");
 
         let mut out = String::new();
@@ -94,7 +116,7 @@ impl CrcReport {
             "# cache    = CRC computed from the cache being unpacked (the source/expected dir)\n",
         );
         out.push_str(
-            "# constant = hard-coded jag_crc::* / config_crc::* value for the active revision\n",
+            "# constant = hard-coded archive::EXPECTED_CRCS / config_crc::* value for the active revision\n",
         );
         out.push('\n');
         out.push_str("# JAG archive CRCs (cache CRC over each archive's raw bytes)\n");
@@ -153,7 +175,7 @@ impl CrcReport {
             }
         }
 
-        std::fs::write(&path, &out)?;
+        fs::write(&path, &out)?;
         if mismatches == 0 {
             info!("CRC report: all CRCs match - {}", path.display());
         } else {
@@ -166,6 +188,7 @@ impl CrcReport {
     }
 }
 
+#[cfg(before_647)]
 struct UnknownJagFile {
     archive: String,
     id: usize,
@@ -176,7 +199,7 @@ struct UnknownJagFile {
     candidates: Vec<String>,
 }
 
-#[cfg(since_244)]
+#[cfg(all(since_244, before_647))]
 struct Js5Unread {
     index: usize,
     file: usize,
@@ -184,6 +207,7 @@ struct Js5Unread {
     reason: &'static str,
 }
 
+#[cfg(before_647)]
 #[derive(Default)]
 pub struct LeftoverReport {
     unknown_jag: Vec<UnknownJagFile>,
@@ -195,6 +219,7 @@ pub struct LeftoverReport {
     extra_indices: Vec<usize>,
 }
 
+#[cfg(before_647)]
 impl LeftoverReport {
     pub fn new() -> Self {
         Self::default()
@@ -232,7 +257,7 @@ impl LeftoverReport {
             return;
         }
         let targets: Vec<i32> = self.unknown_jag.iter().map(|u| u.hash).collect();
-        let cracked = super::namecrack::crack(&targets);
+        let cracked = namecrack::crack(&targets);
         for entry in &mut self.unknown_jag {
             if let Some(names) = cracked.get(&entry.hash) {
                 entry.candidates = names.clone();
@@ -273,13 +298,13 @@ impl LeftoverReport {
         empty
     }
 
-    pub fn write(&self, output_dir: &Path) -> std::io::Result<()> {
+    pub fn write(&self, output_dir: &Path) -> io::Result<()> {
         let dir = output_dir.join("_leftover");
-        std::fs::create_dir_all(&dir)?;
+        fs::create_dir_all(&dir)?;
         let path = dir.join("report.txt");
 
         if self.is_empty() {
-            std::fs::write(&path, "No unaccounted data detected during unpack.\n")?;
+            fs::write(&path, "No unaccounted data detected during unpack.\n")?;
             info!("Leftover report: no unaccounted data - {}", path.display());
             return Ok(());
         }
@@ -346,7 +371,7 @@ impl LeftoverReport {
             }
         }
 
-        std::fs::write(&path, &out)?;
+        fs::write(&path, &out)?;
 
         // One concise warning per category - the file holds the detail.
         warn!(
@@ -385,6 +410,7 @@ impl LeftoverReport {
     }
 }
 
+#[cfg(before_647)]
 pub struct PackDiffReport {
     committed_dir: PathBuf,
     unpacked_dir: PathBuf,
@@ -394,6 +420,7 @@ pub struct PackDiffReport {
     maps: Option<MapDiff>,
 }
 
+#[cfg(before_647)]
 struct PackFileDiff {
     name: String,
     is_new_file: bool,
@@ -401,11 +428,13 @@ struct PackFileDiff {
     removed: Vec<IdEntry>,
 }
 
+#[cfg(before_647)]
 struct IdEntry {
     id: String,
     name: String,
 }
 
+#[cfg(before_647)]
 struct MapDiff {
     unpacked_dir: PathBuf,
     added: Vec<(u8, u8)>,
@@ -413,6 +442,7 @@ struct MapDiff {
     unchanged: usize,
 }
 
+#[cfg(before_647)]
 impl MapDiff {
     fn has_delta(&self) -> bool {
         !self.added.is_empty() || !self.removed.is_empty()
@@ -434,8 +464,9 @@ impl MapDiff {
     }
 }
 
+#[cfg(before_647)]
 impl PackDiffReport {
-    pub fn compare(committed_dir: &Path, unpacked_dir: &Path) -> std::io::Result<Self> {
+    pub fn compare(committed_dir: &Path, unpacked_dir: &Path) -> io::Result<Self> {
         let committed = collect_pack_files(committed_dir)?;
         let unpacked = collect_pack_files(unpacked_dir)?;
 
@@ -494,11 +525,7 @@ impl PackDiffReport {
         Ok(report)
     }
 
-    pub fn compare_maps(
-        &mut self,
-        committed_maps: &Path,
-        unpacked_maps: &Path,
-    ) -> std::io::Result<()> {
+    pub fn compare_maps(&mut self, committed_maps: &Path, unpacked_maps: &Path) -> io::Result<()> {
         let committed = collect_map_squares(committed_maps)?;
         let unpacked = collect_map_squares(unpacked_maps)?;
         self.maps = Some(MapDiff {
@@ -510,9 +537,9 @@ impl PackDiffReport {
         Ok(())
     }
 
-    pub fn write(&self, output_dir: &Path) -> std::io::Result<()> {
+    pub fn write(&self, output_dir: &Path) -> io::Result<()> {
         let dir = output_dir.join("_packdiff");
-        std::fs::create_dir_all(&dir)?;
+        fs::create_dir_all(&dir)?;
         let path = dir.join("report.txt");
 
         let compared = self.files.len() + self.unchanged_files;
@@ -546,7 +573,7 @@ impl PackDiffReport {
                 .unwrap();
             }
             out.push_str(&footer);
-            std::fs::write(&path, &out)?;
+            fs::write(&path, &out)?;
             info!(
                 "Pack-diff report: no id deltas across {compared} unpacked .pack file(s) vs {} - {}",
                 self.committed_dir.display(),
@@ -623,7 +650,7 @@ impl PackDiffReport {
         }
 
         out.push_str(&footer);
-        std::fs::write(&path, &out)?;
+        fs::write(&path, &out)?;
         let map_clause = match &self.maps {
             Some(m) if m.has_delta() => {
                 format!(", maps +{} -{}", m.added.len(), m.removed.len())
@@ -640,7 +667,8 @@ impl PackDiffReport {
     }
 }
 
-fn collect_pack_files(root: &Path) -> std::io::Result<BTreeMap<String, PathBuf>> {
+#[cfg(before_647)]
+fn collect_pack_files(root: &Path) -> io::Result<BTreeMap<String, PathBuf>> {
     let mut files = BTreeMap::new();
     if root.exists() {
         collect_packs_into(root, root, &mut files)?;
@@ -648,12 +676,13 @@ fn collect_pack_files(root: &Path) -> std::io::Result<BTreeMap<String, PathBuf>>
     Ok(files)
 }
 
+#[cfg(before_647)]
 fn collect_packs_into(
     root: &Path,
     dir: &Path,
     files: &mut BTreeMap<String, PathBuf>,
-) -> std::io::Result<()> {
-    for entry in std::fs::read_dir(dir)? {
+) -> io::Result<()> {
+    for entry in fs::read_dir(dir)? {
         let path = entry?.path();
         if path.is_dir() {
             collect_packs_into(root, &path, files)?;
@@ -666,8 +695,9 @@ fn collect_packs_into(
     Ok(())
 }
 
-fn parse_pack(path: &Path) -> std::io::Result<BTreeMap<String, String>> {
-    let text = std::fs::read_to_string(path)?;
+#[cfg(before_647)]
+fn parse_pack(path: &Path) -> io::Result<BTreeMap<String, String>> {
+    let text = fs::read_to_string(path)?;
     let mut map = BTreeMap::new();
     for line in text.lines() {
         if let Some((id, name)) = line.split_once('=') {
@@ -677,14 +707,16 @@ fn parse_pack(path: &Path) -> std::io::Result<BTreeMap<String, String>> {
     Ok(map)
 }
 
+#[cfg(before_647)]
 fn id_key(id: &str) -> (i64, String) {
     (id.parse::<i64>().unwrap_or(i64::MAX), id.to_string())
 }
 
-fn collect_map_squares(dir: &Path) -> std::io::Result<BTreeSet<(u8, u8)>> {
+#[cfg(before_647)]
+fn collect_map_squares(dir: &Path) -> io::Result<BTreeSet<(u8, u8)>> {
     let mut squares = BTreeSet::new();
     if dir.exists() {
-        for entry in std::fs::read_dir(dir)? {
+        for entry in fs::read_dir(dir)? {
             if let Some(sq) = entry?
                 .path()
                 .file_name()
@@ -698,6 +730,7 @@ fn collect_map_squares(dir: &Path) -> std::io::Result<BTreeSet<(u8, u8)>> {
     Ok(squares)
 }
 
+#[cfg(before_647)]
 fn parse_map_square(name: &str) -> Option<(u8, u8)> {
     let (x, z) = name
         .strip_suffix(".jm2")?
@@ -706,6 +739,7 @@ fn parse_map_square(name: &str) -> Option<(u8, u8)> {
     Some((x.parse().ok()?, z.parse().ok()?))
 }
 
+#[cfg(before_647)]
 fn unknown_row(
     archive: impl Display,
     id: impl Display,
@@ -717,6 +751,7 @@ fn unknown_row(
     format!("{archive:<16}{id:>6}{hash:>14}{packed:>11}{unpacked:>11}{crc:>16}\n")
 }
 
+#[cfg(before_647)]
 fn archive_crc_row(
     name: impl Display,
     idx0: impl Display,
@@ -727,6 +762,7 @@ fn archive_crc_row(
     format!("{name:<16}{idx0:<6}{cache:>11}{constant:>15}  {status}\n")
 }
 
+#[cfg(before_647)]
 fn config_crc_row(
     ty: impl Display,
     cache: impl Display,
@@ -736,7 +772,7 @@ fn config_crc_row(
     format!("{ty:<16}{cache:>11}{constant:>15}  {status}\n")
 }
 
-#[cfg(since_244)]
+#[cfg(all(since_244, before_647))]
 fn js5_ondemand_row(
     table: impl Display,
     id: impl Display,
@@ -748,15 +784,17 @@ fn js5_ondemand_row(
     format!("{table:<8}{id:<8}{version:<9}{listed:>11}{recomputed:>15}  {status}\n")
 }
 
+#[cfg(before_647)]
 fn dat_trailing_row(ty: impl Display, bytes: impl Display) -> String {
     format!("{ty:<16}{bytes}\n")
 }
 
+#[cfg(before_647)]
 fn record_trailing_row(ty: impl Display, id: impl Display, bytes: impl Display) -> String {
     format!("{ty:<16}{id:<8}{bytes}\n")
 }
 
-#[cfg(since_244)]
+#[cfg(all(since_244, before_647))]
 fn js5_unread_row(
     index: impl Display,
     file: impl Display,
@@ -766,6 +804,7 @@ fn js5_unread_row(
     format!("{index:<8}{file:<8}{size:<11}{reason}\n")
 }
 
+#[cfg(before_647)]
 fn crc_status(computed: i32, expected: Option<i32>) -> (&'static str, bool) {
     match expected {
         Some(e) if e == computed => ("OK", false),
@@ -774,22 +813,74 @@ fn crc_status(computed: i32, expected: Option<i32>) -> (&'static str, bool) {
     }
 }
 
-#[cfg(since_244)]
+#[cfg(before_647)]
 fn idx0_of(name: &str) -> Option<usize> {
-    Some(match name {
-        "title" => 1,
-        "config" => 2,
-        "interface" => 3,
-        "media" => 4,
-        "versionlist" => 5,
-        "textures" => 6,
-        "wordenc" => 7,
-        "sounds" => 8,
-        _ => return None,
-    })
+    JAG_ARCHIVES
+        .iter()
+        .find(|kind| kind.name() == name)?
+        .id()
+        .map(|id| id as usize)
 }
 
-#[cfg(rev = "225")]
-fn idx0_of(_name: &str) -> Option<usize> {
-    None
+#[cfg(since_647)]
+/// One line per unpack step for the run report.
+pub(super) struct StepResult {
+    name: &'static str,
+    outcome: String,
+    ok: bool,
+}
+
+#[cfg(since_647)]
+/// Run one unpack step, recording success/failure without aborting the run.
+pub(super) fn step<F>(results: &mut Vec<StepResult>, name: &'static str, f: F)
+where
+    F: FnOnce() -> Result<String>,
+{
+    info!("Unpacking {name}...");
+    match f() {
+        Ok(outcome) => {
+            if !outcome.is_empty() {
+                info!("  {name}: {outcome}");
+            }
+            results.push(StepResult {
+                name,
+                outcome,
+                ok: true,
+            });
+        }
+        Err(e) => {
+            error!("  {name} FAILED: {e:#}");
+            results.push(StepResult {
+                name,
+                outcome: format!("ERROR: {e:#}"),
+                ok: false,
+            });
+        }
+    }
+}
+
+#[cfg(since_647)]
+pub(super) fn write_report(results: &[StepResult], report_path: &Path) -> Result<()> {
+    let mut report_text = String::from("rev-647 unpack report\n=====================\n");
+    let mut failures = 0usize;
+    for r in results {
+        if !r.ok {
+            failures += 1;
+        }
+        report_text.push_str(&format!(
+            "{} {:<24} {}\n",
+            if r.ok { "OK  " } else { "FAIL" },
+            r.name,
+            r.outcome
+        ));
+    }
+    report_text.push_str(&format!("\n{} steps, {} failed\n", results.len(), failures));
+    fs::write(report_path, &report_text)?;
+    info!("Unpack complete. Report: {}", report_path.display());
+    ensure!(
+        failures == 0,
+        "{failures} unpack steps failed; see {}",
+        report_path.display()
+    );
+    Ok(())
 }

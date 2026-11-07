@@ -1,0 +1,8 @@
+[proc,clientscript_467](component $component)
+if (stat_base(prayer) < 25) {
+    if_settext("<col=c80000>A Prayer level of <tostring(25)> is required.</col>", $component);
+} else if (%varbit_2086 < 1) {
+    if_settext("<col=c80000>1 Commendation required.</col>", $component);
+} else {
+    if_settext("<tostring(calc(pow(stat_base(prayer), 2) / 600 * 18))> XP per Commendation.", $component);
+}

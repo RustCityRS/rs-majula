@@ -1,0 +1,5 @@
+[proc,clientscript_2899]
+if_sethide(false, ma6343905:com58);
+if_settrans(0, ma6343905:com58);
+def_int $int = clientclock;
+if_setontimer("sfa_hide_warning($int)", ma6343905:com58);

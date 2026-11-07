@@ -1,0 +1,7 @@
+[proc,clientscript_1168](int $int0, component $int1, string $string)
+if (calc(clientclock % 50) ! 0) {
+    return;
+}
+if (cc_find(exchange_interface_experts:com16, $int0) = true) {
+    cc_settext($string);
+}

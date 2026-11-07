@@ -1,0 +1,6 @@
+[proc,clientscript_4250]
+def_int $int = if_getwidth(toplevel:com3);
+if (getwindowmode >= 2) {
+    $int = if_getwidth(toplevel_fullscreen:com0);
+}
+mes("<tostring($int)>.");

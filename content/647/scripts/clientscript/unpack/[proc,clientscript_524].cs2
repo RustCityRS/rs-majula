@@ -1,0 +1,43 @@
+[proc,clientscript_524](component $component0, component $component1)
+def_int $int2 = 0;
+if (%varbit_4103 >= 300000) {
+    if_setcolour(^red, $component0);
+    return;
+}
+if ($component0 = assister_interface:com45) {
+    $int2 = %varbit_4090;
+}
+if ($component0 = assister_interface:com47) {
+    $int2 = %varbit_4091;
+}
+if ($component0 = assister_interface:com49) {
+    $int2 = %varbit_4093;
+}
+if ($component0 = assister_interface:com51) {
+    $int2 = %varbit_4095;
+}
+if ($component0 = assister_interface:com53) {
+    $int2 = %varbit_4096;
+}
+if ($component0 = assister_interface:com55) {
+    $int2 = %varbit_4098;
+}
+if ($component0 = assister_interface:com57) {
+    $int2 = %varbit_4100;
+}
+if ($component0 = assister_interface:com59) {
+    $int2 = %varbit_4101;
+}
+if ($component0 = assister_interface:com61) {
+    $int2 = %varbit_4102;
+}
+if ($component0 = assister_interface:com83 | $component0 = assister_interface:com84) {
+    $int2 = 1;
+}
+if ($int2 = true) {
+    if_setcolour(0xfab432, $component0);
+    if_setcolour(0xfab432, $component1);
+} else {
+    if_setcolour(0x606060, $component0);
+    if_setcolour(0x606060, $component1);
+}

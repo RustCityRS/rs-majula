@@ -1,0 +1,5 @@
+// 289's quest_cog.rs2, as far as ported content needs it: Clock Tower's
+// progress, which ~count_questpoints reads.
+
+[proc,get_cog_progress]()(int)
+return(getbit_range(%cogquest, 0, 3));

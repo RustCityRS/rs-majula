@@ -1,0 +1,103 @@
+// https://www.youtube.com/watch?v=cz0FGYbfzzk
+// https://www.youtube.com/watch?v=IC2n8t76DDY
+[advancestat,attack] @levelup(enum(int, stat, stats, ^attack));
+[advancestat,strength] @levelup(enum(int, stat, stats, ^strength));
+[advancestat,ranged] @levelup(enum(int, stat, stats, ^ranged));
+[advancestat,magic] @levelup(enum(int, stat, stats, ^magic));
+[advancestat,defence] @levelup(enum(int, stat, stats, ^defence));
+[advancestat,hitpoints] @levelup(enum(int, stat, stats, ^hitpoints));
+[advancestat,prayer] @levelup(enum(int, stat, stats, ^prayer));
+[advancestat,agility] @levelup(enum(int, stat, stats, ^agility));
+[advancestat,herblore] @levelup(enum(int, stat, stats, ^herblore));
+[advancestat,thieving] @levelup(enum(int, stat, stats, ^thieving));
+[advancestat,crafting] @levelup(enum(int, stat, stats, ^crafting));
+[advancestat,runecraft] @levelup(enum(int, stat, stats, ^runecraft));
+[advancestat,mining] @levelup(enum(int, stat, stats, ^mining));
+[advancestat,smithing] @levelup(enum(int, stat, stats, ^smithing));
+[advancestat,fishing] @levelup(enum(int, stat, stats, ^fishing));
+[advancestat,cooking] @levelup(enum(int, stat, stats, ^cooking));
+[advancestat,firemaking] @levelup(enum(int, stat, stats, ^firemaking));
+[advancestat,woodcutting] @levelup(enum(int, stat, stats, ^woodcutting));
+[advancestat,fletching] @levelup(enum(int, stat, stats, ^fletching));
+
+[label,levelup](stat $stat)
+db_find(levelup:stat, $stat);
+def_dbrow $unlock_row = db_findnext;
+if ($unlock_row = null) {
+    return;
+}
+def_int $level = stat_base($stat);
+def_string $message = db_getfield($unlock_row, levelup:message, 0);
+mes($message);
+// play the fireworks
+spotanim_pl(levelup_anim, 124, 0);
+// sound_synth(firework, 1, 0); Was an osrs addition apparently
+// https://secure.runescape.com/m=news/shades-of-mortton-rework?oldschool=1
+// https://www.reddit.com/r/2007scape/comments/l7yh5p/the_new_level_up_fireworks_noise_is_extremely/
+// 2011's wiki (Skills) lists a "Level up fireworks" sound that "plays when you
+// level up in any skill"; its 2011 id is not known (the fireworks' seq carries
+// none), so none plays.
+// 289 plays the stat's second jingle at a level that unlocks something
+// (levelup_unlocks.enum). 2011's "changes ... to be slightly more complex,
+// whenever the skill reaches level 50" (2011 wiki, Skills).
+// def_enum $unlocks_levels = db_getfield($unlock_row, levelup:unlocks_levels, 0);
+// def_boolean $has_unlocks = false;
+// if ($unlocks_levels ! null) {
+//     $has_unlocks = ~enum_containsintvalue($unlocks_levels, $level);
+// }
+// play the jingle
+def_midi $jingle;
+if ($level < 50) {
+    $jingle = db_getfield($unlock_row, levelup:levelup_jingle, 0);
+} else {
+    $jingle = db_getfield($unlock_row, levelup:unlocks_jingle, 0);
+}
+~music_jingle($jingle);
+// 2011: the stat's icon flashes in the stats tab until it is clicked
+// (skill_guide.rs2), and the level-up box shows the stat's icon. Both are bits
+// of %skill_stat_flash (varp 1179).
+~levelup_flash($unlock_row);
+// the level up dialogue box
+if_settext(db_getfield($unlock_row, levelup:title, 0), db_getfield($unlock_row, levelup:title_text, 0));
+if_settext(db_getfield($unlock_row, levelup:body, 0), "<db_getfield($unlock_row, levelup:level_prefix, 0)> <tostring($level)>!");
+if_openchat(db_getfield($unlock_row, levelup:interface, 0));
+p_pausebutton;
+// if ($has_unlocks = false) {
+//     return;
+// }
+// 2011's level-up box tells the player what a level unlocks is in the stats
+// tab ("Open your stats menu and click on the flashing icon for more
+// information.", interface 740 in cache 786), where the level-up messages are
+// read (2011 wiki, Update:Level-up Messages, 21 May 2008); so this shows no
+// unlock messages after it: 289's levelup_unlocks_*.rs2 are not applicable
+// (tools/port_289_not_applicable.tsv).
+// jump(~levelup_unlocks($stat));
+
+// 2011: the stat's bit of %skill_stat_flash (varp 1179) lights its icon in the
+// stats tab (clientscript 970) until it is clicked, and %level_up_icon
+// (varbit 4757, the same varp's top bits) puts its icon in the box
+// (clientscript 971), as void-634's LevelUp.kt does.
+[proc,levelup_flash](dbrow $row)
+%skill_stat_flash = setbit(%skill_stat_flash, db_getfield($row, levelup:flash_bit, 0));
+%level_up_icon = db_getfield($row, levelup:icon, 0);
+
+// 289's unlock messages after a level-up (levelup_unlocks.rs2 and
+// levelup_unlocks_<stat>.rs2), which 2011 does not show (above):
+// [proc,levelup_unlocks]
+// [label,levelup_agility]
+// [label,levelup_attack]
+// [label,levelup_cooking]
+// [label,levelup_crafting]
+// [label,levelup_defence]
+// [label,levelup_firemaking]
+// [label,levelup_fishing]
+// [label,levelup_fletching]
+// [label,levelup_herblore]
+// [label,levelup_magic]
+// [label,levelup_mining]
+// [label,levelup_prayer]
+// [label,levelup_ranged]
+// [label,levelup_runecraft]
+// [label,levelup_smithing]
+// [label,levelup_thieving]
+// [label,levelup_woodcutting]

@@ -1,0 +1,29 @@
+[proc,clientscript_4247](int $int0, int $int1, int $int2, colour $colour3, fontmetrics $fontmetrics4, string $string)
+if ($colour3 = 0xffffffff) {
+    $colour3 = ^white;
+}
+if ($fontmetrics4 = null) {
+    $fontmetrics4 = nj566125;
+}
+if_sethide(true, toplevel_fullscreen:com182);
+if_sethide(true, toplevel:com195);
+if (compare($string, "") = false) {
+    return;
+}
+if_settext($string, toplevel:com235);
+if_setposition($int0, $int1, ^setpos_abs_right, ^setpos_abs_bottom, toplevel:com195);
+if_setcolour($colour3, toplevel:com235);
+if_settextfont($fontmetrics4, toplevel:com235);
+if ($int2 = true) {
+    if_sethide(false, toplevel:com237);
+    if_sethide(true, toplevel:com238);
+} else {
+    if_sethide(true, toplevel:com237);
+    if_sethide(false, toplevel:com238);
+}
+if_sethide(false, toplevel:com195);
+if (compare($string, "The '?' icon will add an arrow to the screen which points to your destination.") = false & getlanguage = false) {
+    if_sethide(false, toplevel:com236);
+} else {
+    if_sethide(true, toplevel:com236);
+}

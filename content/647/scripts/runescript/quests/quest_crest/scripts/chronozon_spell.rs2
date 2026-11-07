@@ -1,0 +1,13 @@
+// From 289's crest_chronozon.rs2: the proc other ported content calls,
+// until the rest of that file is ported.
+[proc,chronozon_spell](int $spell) 
+switch_int ($spell) {
+    case ^wind_blast : 
+        ~chronozon_weaken(^crest_wind_blast_used);
+    case ^water_blast :
+        ~chronozon_weaken(^crest_water_blast_used);
+    case ^earth_blast :
+        ~chronozon_weaken(^crest_earth_blast_used);
+    case ^fire_blast :
+        ~chronozon_weaken(^crest_fire_blast_used);
+}

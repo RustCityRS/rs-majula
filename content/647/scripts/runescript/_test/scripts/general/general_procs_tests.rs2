@@ -1,0 +1,87 @@
+#testscript
+
+// 289's small general procs, ported as it has them
+// (general/scripts/{sequence,slash_checker}.rs2,
+// enchanted_jewellry/ring_of_forging.rs2).
+
+[label,test_general_ring_of_forging_melts_after_140_ores]
+setup_player("test_player");
+inv_clear(worn);
+inv_setslot(worn, ^wearpos_ring, ring_of_forging, 1);
+%ring_of_forging = 138;
+~lose_charge_ring_of_forging;
+assert_eq(%ring_of_forging, 139);
+assert_eq(inv_total(worn, ring_of_forging), 1);
+~lose_charge_ring_of_forging;
+assert_eq(%ring_of_forging, 0);
+assert_eq(inv_total(worn, ring_of_forging), 0);
+assert_called_with("mes", "Your Ring of Forging has melted.");
+
+[label,test_general_slash_checker_returns_a_wielded_slashing_weapon]
+setup_player("test_player");
+inv_clear(worn);
+assert_null(~slash_checker);
+// No slash animation of its own: the param's default, the unarmed punch.
+inv_setslot(worn, ^wearpos_rhand, coins, 1);
+assert_null(~slash_checker);
+inv_setslot(worn, ^wearpos_rhand, bronze_scimitar, 1);
+assert_eq(~slash_checker, bronze_scimitar);
+
+[label,test_general_seqlength20ms_is_a_thirtieth_of_seqlength]
+assert_eq(~seqlength20ms(human_sword_slash), divide(seqlength(human_sword_slash), 30));
+
+// 289's flavour text (general/scripts/flavour_text/{zombies,chickens}.rs2):
+// a zombie's or chicken's own [ai_timer] stands in for the poison timer
+// ([ai_timer,_], npc_poison.rs2), so a poisoned one moans or squawks and
+// takes no poison. A man, with none of its own, takes the poison.
+[label,test_general_a_poisoned_zombie_moans_and_takes_no_poison]
+setup_player("test_player");
+p_telejump(0_50_50_40_50);
+npc_add(movecoord(coord, 3, 0, 0), zombie, 200);
+def_npc_uid $npc = npc_uid;
+def_int $hp = npc_stat(hitpoints);
+~npc_poison_start(6);
+// Out of its reach, so that no fight but the poison touches it.
+p_telejump(movecoord(coord, -20, 0, 0));
+test_tick(35);
+assert_true(npc_finduid($npc));
+assert_eq(npc_stat(hitpoints), $hp);
+
+[label,test_general_a_poisoned_zombie_clone_moans_and_takes_no_poison]
+setup_player("test_player");
+p_telejump(0_50_50_40_50);
+npc_add(movecoord(coord, 3, 0, 0), zombie_5293, 200);
+def_npc_uid $npc = npc_uid;
+def_int $hp = npc_stat(hitpoints);
+~npc_poison_start(6);
+// Out of its reach, so that no fight but the poison touches it.
+p_telejump(movecoord(coord, -20, 0, 0));
+test_tick(35);
+assert_true(npc_finduid($npc));
+assert_eq(npc_stat(hitpoints), $hp);
+
+[label,test_general_a_poisoned_chicken_takes_no_poison]
+setup_player("test_player");
+p_telejump(0_50_50_40_50);
+npc_add(movecoord(coord, 3, 0, 0), chicken, 200);
+def_npc_uid $npc = npc_uid;
+def_int $hp = npc_stat(hitpoints);
+~npc_poison_start(6);
+// Out of its reach, so that no fight but the poison touches it.
+p_telejump(movecoord(coord, -20, 0, 0));
+test_tick(35);
+assert_true(npc_finduid($npc));
+assert_eq(npc_stat(hitpoints), $hp);
+
+[label,test_general_a_poisoned_man_takes_the_poison]
+setup_player("test_player");
+p_telejump(0_50_50_40_50);
+npc_add(movecoord(coord, 3, 0, 0), man, 200);
+def_npc_uid $npc = npc_uid;
+def_int $hp = npc_stat(hitpoints);
+~npc_poison_start(6);
+// Out of its reach, so that no fight but the poison touches it.
+p_telejump(movecoord(coord, -20, 0, 0));
+test_tick(35);
+assert_true(npc_finduid($npc));
+assert_lt(npc_stat(hitpoints), $hp);

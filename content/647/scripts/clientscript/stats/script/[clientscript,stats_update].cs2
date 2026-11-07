@@ -1,0 +1,68 @@
+[clientscript,stats_update](int $int0, int $int1, int $int2, int $int3, int $int4, int $int5, int $int6, stat $stat7, component $component8, component $component9)
+if (%varc_int_80 = false) {
+    return;
+}
+def_int $int10 = 0;
+def_int $int11 = 0;
+def_int $int12 = 0;
+def_int $int13 = 0;
+def_int $int14 = 0;
+def_int $int15 = 0;
+def_int $int16 = 0;
+def_int $int17 = 0;
+def_int $int18 = 0;
+def_string $string0 = "";
+def_string $string1 = "<enum(83, 115, enum_680, $stat7)>: <tostring(stat($stat7))>/<tostring(stat_base($stat7))>";
+if (cc_find($component9, $int0) = true & (parawidth($string1, 190, p12_full) < cc_getwidth & %varc_int_80 = stat_base($stat7))) {
+    cc_settext($string1);
+    if (cc_find($component9, $int1) = true) {
+        cc_settext(~tostring_spacer(stat_xp($stat7), ","));
+    }
+    if (stat_base($stat7) < 99 & cc_find($component9, $int2) = true) {
+        cc_settext(~tostring_spacer(calc(enum(105, 105, enum_716, calc(stat_base($stat7) + 1)) - stat_xp($stat7)), ","));
+    }
+    if (~clientscript_4036(enum(83, 105, enum_1482, $stat7)) = true) {
+        $int12, $int10, $int11 = ~clientscript_4037(enum(83, 105, enum_1482, $stat7));
+        $int17 = $int10;
+        if ($int12 = true) {
+            $int17 = enum(105, 105, enum_716, $int10);
+        }
+        $int18 = max(0, calc($int17 - stat_xp($stat7)));
+        $string0 = ~tostring_spacer($int18, ",");
+        if (cc_find($component9, $int5) = true) {
+            if ($int12 = true) {
+                $int15 = enum(105, 105, enum_716, $int11);
+                $int16 = enum(105, 105, enum_716, $int10);
+                if (calc($int16 - $int15) ! 0) {
+                    $int13 = scale(calc(stat_xp($stat7) - $int15), calc($int16 - $int15), 100);
+                } else {
+                    $int13 = -1;
+                }
+            } else if (calc($int10 - $int11) ! 0) {
+                $int13 = scale(calc(stat_xp($stat7) - $int11), calc($int10 - $int11), 100);
+            } else {
+                $int13 = -1;
+            }
+            if ($int13 > 100) {
+                $int13 = 100;
+            }
+            $int13 = max($int13, 0);
+            $int14 = calc($int13 * ($int6 - 4));
+            $int14 = calc($int14 / 100);
+            cc_setsize($int14, 16, ^setsize_abs, ^setsize_abs);
+            if (cc_find($component9, $int4) = true) {
+                if ($int13 > 47) {
+                    cc_setcolour(^black);
+                }
+                cc_settext("<tostring($int13)>%");
+            }
+            if (cc_find($component9, $int3) = true) {
+                cc_settext($string0);
+            }
+        }
+    }
+    return;
+}
+cc_deleteall($component9);
+%varc_int_80 = stat_base($stat7);
+~stats_mouseover_create($component8, $stat7, $component9);

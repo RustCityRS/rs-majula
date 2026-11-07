@@ -1,0 +1,66 @@
+[proc,clientscript_1092](int $int)
+if ($int = true) {
+    if (%varbit_1892 = 60) {
+        if_setcolour(^green, hundred_subquest_journal:com2);
+    } else if (%varbit_1892 = false) {
+        if_setcolour(^red, hundred_subquest_journal:com2);
+    } else {
+        if_setcolour(^yellow, hundred_subquest_journal:com2);
+    }
+} else if ($int = 2) {
+    if (%varbit_1867 = 40) {
+        if_setcolour(^green, hundred_subquest_journal:com3);
+    } else if (%varbit_1867 = false) {
+        if_setcolour(^red, hundred_subquest_journal:com3);
+    } else {
+        if_setcolour(^yellow, hundred_subquest_journal:com3);
+    }
+} else if ($int = 3) {
+    if (%varbit_1895 = 110) {
+        if_setcolour(^green, hundred_subquest_journal:com4);
+    } else if (%varbit_1895 = false) {
+        if_setcolour(^red, hundred_subquest_journal:com4);
+    } else {
+        if_setcolour(^yellow, hundred_subquest_journal:com4);
+    }
+} else if ($int = 4) {
+    if (%varbit_1896 = 5) {
+        if_setcolour(^green, hundred_subquest_journal:com5);
+    } else if (%varbit_1896 = false) {
+        if_setcolour(^red, hundred_subquest_journal:com5);
+    } else {
+        if_setcolour(^yellow, hundred_subquest_journal:com5);
+    }
+} else if ($int = 5) {
+    if (%varbit_1878 = 5) {
+        if_setcolour(^green, hundred_subquest_journal:com6);
+    } else if (%varbit_1878 = false) {
+        if_setcolour(^red, hundred_subquest_journal:com6);
+    } else {
+        if_setcolour(^yellow, hundred_subquest_journal:com6);
+    }
+} else if ($int = 6) {
+    if (%varbit_1910 = 20) {
+        if_setcolour(^green, hundred_subquest_journal:com7);
+    } else if (%varbit_1910 = false) {
+        if_setcolour(^red, hundred_subquest_journal:com7);
+    } else {
+        if_setcolour(^yellow, hundred_subquest_journal:com7);
+    }
+} else if ($int = 7) {
+    if (%varbit_1904 = 170) {
+        if_setcolour(^green, hundred_subquest_journal:com8);
+    } else if (%varbit_1904 = false) {
+        if_setcolour(^red, hundred_subquest_journal:com8);
+    } else {
+        if_setcolour(^yellow, hundred_subquest_journal:com8);
+    }
+} else if ($int = 8) {
+    if (%varbit_1914 = 50) {
+        if_setcolour(^green, hundred_subquest_journal:com9);
+    } else if (%varbit_1914 = false) {
+        if_setcolour(^red, hundred_subquest_journal:com9);
+    } else {
+        if_setcolour(^yellow, hundred_subquest_journal:com9);
+    }
+}
