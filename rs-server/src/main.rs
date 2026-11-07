@@ -394,7 +394,11 @@ struct Args {
     members: bool,
     #[arg(long, default_value = "1")]
     multi_xp: u8,
+    #[cfg(before_647)]
     #[arg(long, default_value = "true")]
+    client_pathfinder: bool,
+    #[cfg(since_647)]
+    #[arg(long, default_value = "false")]
     client_pathfinder: bool,
     #[arg(long, action = clap::ArgAction::Set)]
     staff_isolation: Option<bool>,
