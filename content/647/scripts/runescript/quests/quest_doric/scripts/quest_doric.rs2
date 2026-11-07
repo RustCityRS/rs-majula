@@ -1,0 +1,144 @@
+// Doric's Quest as of May 2011 (cache 786). 289's quest_doric reworked to 2011's
+// version. Sources, in this order:
+//   R  = the 2011 recordings: 2011-04-19 (YouTube ycSbSwi-IPk) and 2011-07-29
+//        (v7tHg6zuI_s) agree word for word, and 2011-12-19 (f9aiiusl_Cs) too;
+//        2011-03-01 (taW_2QpJQuU) still has 2010's five-option menu.
+//   W  = the 2011 wiki, Doric's Quest (2011-04-21) and Doric (2011-05-18).
+//   V  = void-634's Doric.kt, unverified: no recording found shows the line.
+//   289 = 289's quest_doric, kept where nothing later says otherwise.
+// Rework (W): Doric makes pickaxes, hands the player a bronze pickaxe when
+// the quest starts, and pays 180 coins, 1,300 Mining xp and the use of his
+// anvils.
+
+[opnpc1,doric]
+// 289: Treasure Trail.
+if (map_members = ^true & inv_total(inv, trail_clue_easy_simple022) = 1) {
+    @trail_doric;
+}
+if (%doricquest = 0) {
+    @doric_not_started;
+} else if (%doricquest = ^doric_complete) {
+    @doric_post_complete;
+} else {
+    @doric_materials;
+}
+
+[label,doric_not_started]
+~chatnpc("<p,quiz>Hello traveller, what brings you to my humble smithy?"); // R
+// R: 2011's four options (2010's five became four, ending in "Ask about
+// something else.", between 2011-03-01 and 2011-04-19).
+switch_int (~p_choice4("I wanted to use your anvils.", 1, "I want to use your whetstone.", 2, "Mind your own business, shortstuff!", 3, "Ask about something else.", 4)) {
+    case 1 :
+        ~chatplayer("<p,neutral>I wanted to use your anvils."); // R
+        ~chatnpc("<p,neutral>My anvils get enough work with my own use. I make pickaxes, and it takes a lot of hard work. If you could get me some more materials, then I could let you use them."); // R
+        @doric_start_choice;
+    case 2 :
+        ~chatplayer("<p,neutral>I want to use your whetstone."); // V
+        ~chatnpc("<p,neutral>The whetstone is for more advanced smithing, but I could let you use it as well as my anvils if you could get me some more materials."); // V
+        @doric_start_choice;
+    case 3 :
+        ~chatplayer("<p,angry>Mind your own business, shortstuff!"); // V (289 has the same line)
+        ~chatnpc("<p,angry>How nice to meet someone with such pleasant manners. Do come again when you need to shout at someone smaller than you!"); // V = 289
+    case 4 :
+        @doric_something_else;
+}
+
+// What "Ask about something else." opens isn't in any recording found: V's
+// two 2010 top-level options, unverified as 2011's submenu.
+[label,doric_something_else]
+switch_int (~p_choice2("I was just checking out the landscape.", 1, "What do you make here?", 2)) {
+    case 1 :
+        ~chatplayer("<p,neutral>I was just checking out the landscape."); // V
+        ~chatnpc("<p,happy>Hope you like it. I do enjoy the solitude of my little home. If you get time, please say hi to my friends in the Dwarven Mine."); // V
+        if (~p_choice2("Dwarven Mine?", 1, "Will do!", 2) = 1) {
+            ~chatplayer("<p,quiz>Dwarven Mine?"); // V
+            ~chatnpc("<p,happy>Yep, the entrance is in the side of Ice Mountain just to the east of here. They're a friendly bunch. Stop in at Nurmof's store and buy one of my pickaxes!"); // V
+        } else {
+            ~chatplayer("<p,happy>Will do!"); // V
+        }
+    case 2 :
+        ~chatplayer("<p,quiz>What do you make here?"); // V
+        ~chatnpc("<p,happy>I make pickaxes. I am the best maker of pickaxes in the whole of Gielinor."); // V (W: "self-proclaimed best maker of pickaxes")
+        ~chatplayer("<p,quiz>Do you have any to sell?"); // V = 289
+        ~chatnpc("<p,neutral>Sorry, but I've got a running order with Nurmof."); // V (W: "a running order with Nurmof")
+        if (~p_choice2("Who's Nurmof?", 1, "Ah, fair enough.", 2) = 1) {
+            ~chatplayer("<p,quiz>Who's Nurmof?"); // V
+            ~chatnpc("<p,happy>Nurmof has a store over in the Dwarven Mine. You can find the entrance on the side of Ice Mountain to the east of here."); // V
+        } else {
+            ~chatplayer("<p,neutral>Ah, fair enough."); // V
+        }
+}
+
+[label,doric_start_choice]
+// R: the choice is titled "Select an Option" (V's "Start Doric's Quest?" is not 2011's).
+if (~p_choice2("Yes, I will get you the materials.", 1, "No, hitting rocks is for the boring people, sorry.", 2) = 2) {
+    ~chatplayer("<p,bored>No, hitting rocks is for the boring people, sorry."); // V = 289
+    ~chatnpc("<p,confused>That is your choice. Nice to meet you anyway."); // V = 289
+    return;
+}
+~chatplayer("<p,happy>Yes, I will get you the materials."); // R
+%doricquest = 10;
+~send_quest_progress(^questlist_doric, %doricquest, ^doric_complete);
+// W: Doric hands the player a bronze pickaxe. With no room it lands at the
+// player's feet (V).
+if (inv_freespace(inv) > 0) {
+    inv_add(inv, bronze_pickaxe, 1);
+} else {
+    obj_add(coord, bronze_pickaxe, 1, ^lootdrop_duration);
+}
+~chatnpc("<p,neutral>Clay is what I use more than anything, to make casts. Could you get me 6 clay, 4 copper ore, and 2 iron ore, please? I could pay a little, and let you use my anvils. Take this pickaxe with you just in case you need it."); // R
+// R: the next choice follows at once. W: a player who already has the ores
+// talks to Doric again (V's "what a coincidence" hand-in is not 2011's).
+@doric_where_choice;
+
+[label,doric_where_choice]
+if (~p_choice2("Where can I find those?", 1, "Certainly, I'll be right back!", 2) = 2) {
+    ~chatplayer("<p,happy>Certainly, I'll be right back!"); // R
+    return;
+}
+~chatplayer("<p,quiz>Where can I find those?"); // R
+~chatnpc("<p,happy>You'll be able to find all those ores in the rocks just inside the Dwarven Mine. Head east from here and you'll find the entrance in the side of Ice Mountain."); // R
+if (stat(mining) < 15) {
+    ~chatplayer("<p,sad>But I'm not a good enough miner to get iron ore."); // V
+    ~chatnpc("<p,neutral>Oh well, you could practice mining until you can. Can't beat a bit of mining - it's a useful skill. Failing that, you might be able to find a more experienced adventurer to buy the iron ore off."); // V
+}
+
+[label,doric_materials]
+~chatnpc("<p,quiz>Have you got my materials yet, traveller?"); // R
+if (inv_total(inv, clay) < 6 | inv_total(inv, copper_ore) < 4 | inv_total(inv, iron_ore) < 2) {
+    ~chatplayer("<p,sad>Sorry, I don't have them all yet."); // V = 289
+    ~chatnpc("<p,neutral>Not to worry, stick at it. Remember, I need 6 clay, 4 copper ore, and 2 iron ore."); // V (289 drops the comma before "and")
+    @doric_where_choice; // V
+}
+~chatplayer("<p,happy>I have everything you need."); // R (V has "!")
+~chatnpc("<p,happy>Many thanks. Pass them here, please. I can spare you some coins for your trouble, and please use my anvils any time you want."); // R (V has "Many thanks!")
+inv_del(inv, clay, 6);
+inv_del(inv, copper_ore, 4);
+inv_del(inv, iron_ore, 2);
+// R: an item box shows a pile of dark and orange chunks (2011-07-29, 252.8s),
+// which looks like copper ore's model (V uses copper ore). Compare in-client.
+~objbox(copper_ore, "You hand the clay, copper, and iron to Doric.", 250, 0, ^objbox_height); // R
+// R: no "Doric hands you 180 coins." line in 2011's chat; the coins are paid
+// silently with the reward (W).
+queue(doric_quest_complete, 0, 0);
+
+[label,doric_post_complete]
+~chatnpc("<p,neutral>Hello traveller, how is your metalworking coming along?"); // V = 289
+~chatplayer("<p,neutral>Not too bad, Doric."); // V (289: "Not too bad, thanks Doric.")
+~chatnpc("<p,happy>Good, the love of metal is a thing close to my heart."); // V = 289
+
+// W: 1 quest point, 180 coins, 1,300 Mining xp and Doric's anvils. R: the
+// scroll lists "1 Quest Point / 1300 Mining XP / 180 coins / Use of Doric's
+// Anvils" beside a light grey pickaxe on a brown handle (2011-07-29, 256s): a steel
+// pickaxe, as 289 has it.
+[queue,doric_quest_complete]
+%doricquest = ^doric_complete;
+inv_add(inv, coins, 180);
+stat_advance(mining, 13000);
+session_log(^log_adventure, "Quest complete: Doric's Quest");
+~send_quest_complete(^questlist_doric, steel_pickaxe, 250, ^doric_questpoints, "You have completed Doric's Quest!");
+
+[label,trail_doric]
+// 289: https://www.youtube.com/watch?v=Smadil97tFc
+~chatnpc("<p,neutral>So, you've come to the right place?");
+~progress_clue_easy(trail_clue_easy_simple022, "Doric has given you another clue scroll!");
