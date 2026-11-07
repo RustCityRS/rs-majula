@@ -92,8 +92,8 @@ pub fn unpack_archive(
         .context("Missing asset reference table")?
         .groups
         .clone();
-    let world_maps = if aid == archive::WORLDMAP_DATA {
-        unpack_world_maps(store, &dir, &names)?
+    let world_maps = if aid == archive::WORLDMAP {
+        unpack_world_maps(store, content_dir, &names)?
     } else {
         Vec::new()
     };
@@ -121,7 +121,7 @@ pub fn unpack_archive(
             }
             let body = asset::unpack(aid, info.id, entry.data(), &names)
                 .with_context(|| format!("{aid}/{}/{}", info.id, entry.id))?;
-            if aid == archive::WORLDMAP_DATA {
+            if aid == archive::WORLDMAP {
                 text.push_str(&write_worldmap_squares(&path, entry.id, &body)?);
             } else {
                 text.push_str(&body);
@@ -133,7 +133,7 @@ pub fn unpack_archive(
         let original = store
             .read_group_raw_decompressed(aid, info.id)?
             .context("Missing asset payload")?;
-        let source = (aid == archive::WORLDMAP_DATA)
+        let source = (aid == archive::WORLDMAP)
             .then(|| worldmap_source::read_squares(&path, &text))
             .transpose()?;
         let packed = asset::pack_group(aid, info.id, source.as_deref().unwrap_or(&text), &names)?;
@@ -150,9 +150,13 @@ pub fn unpack_archive(
     Ok(groups.len() as u32)
 }
 
-/// Writes the `.wma` source and gives the groups it holds, once it reads back to their bytes.
-fn unpack_world_maps(store: &mut Js5Store, dir: &Path, names: &AssetNames) -> Result<Vec<u32>> {
-    let aid = archive::WORLDMAP_DATA;
+/// Writes the `.wma` config and gives the groups it holds, once it reads back to their bytes.
+fn unpack_world_maps(
+    store: &mut Js5Store,
+    content_dir: &Path,
+    names: &AssetNames,
+) -> Result<Vec<u32>> {
+    let aid = archive::WORLDMAP;
     let kind = archive_name(aid);
     let details = names.id(kind, wma::DETAILS)?;
     let group = store
@@ -179,17 +183,15 @@ fn unpack_world_maps(store: &mut Js5Store, dir: &Path, names: &AssetNames) -> Re
         original.push((id, entry_bytes(&group.entries)));
     }
     let text = wma::emit(&maps, names)?;
-    let maps = wma::parse(&text, names)?;
-    let mut packed = vec![maps.iter().map(wma::encode_details).collect::<Vec<_>>()];
-    packed.extend(
-        maps.iter()
-            .filter(|map| !map.elements.is_empty())
-            .map(|map| map.elements.iter().map(wma::encode_element).collect()),
-    );
+    let mut packed = wma::groups(wma::parse(&text, names)?, names)?;
+    packed.sort_by_key(|(id, _)| *id);
+    original.sort_by_key(|(id, _)| *id);
     ensure!(
-        packed.len() == original.len() && packed.iter().zip(&original).all(|(a, (_, b))| a == b),
+        packed == original,
         "World map text round trip changed bytes"
     );
+    let dir = content_dir.join("scripts/globalscript/_unpack");
+    fs::create_dir_all(&dir)?;
     fs::write(dir.join(wma::SOURCE), text)?;
     Ok(original.into_iter().map(|(id, _)| id).collect())
 }

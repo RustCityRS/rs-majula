@@ -92,19 +92,20 @@ PNG previews or `manifest.json` files in `content/647`.
 | `textures`, `materials` | `.texture` procedural operations, gradients, curves and shapes; `.material` rendering properties grouped by texture |
 | `scripts/clientscript` | `.cs2` RuneScript-style source with typed procedures, commands, conditions and loops |
 | `scripts/globalscript` | `.gs2` procedures compiled for both targets, shared configs and constants |
-| `synth`, `music_samples` | `.synth` envelopes, oscillators and filters; `.instrument` key maps and sample references |
+| `synth`, `instruments` | `.synth` envelopes, oscillators and filters; `.instrument` key maps and sample references |
 | `songs`, `jingles` | Standard `.mid` files |
 | `vorbis` | Standard `.ogg` packets, `.sample` playback and loop metadata, and the shared `.vorbis` setup as text |
 | `fontmetrics`, `binary` | `.fontmetrics` glyph widths/bearings and `.huffman` code lengths |
 | `defaults` | `graphics.defaults`, `unknown1.defaults` and `wearpos.defaults` named properties |
 | `loading_backgrounds` | `.screen` sequences and layout elements with named fonts and sprites |
-| `worldmap_data` | `all.wma` map details and static elements; `.fm` area palettes; `.fms` map squares with coordinates and named floors/locs |
+| `worldmap` | `.fm` area palettes; `.fms` map squares with coordinates and named floors/locs |
 | `shaders` | Direct3D `.shader` assembly and constant tables; original OpenGL `.arb`/`.glsl` source |
 | `dlls` | Original native libraries under their platform and library names |
 
-Billboards, particles and quickchat are configs like the rest, in
+Billboards, particles, quickchat and world map details are configs like the rest, in
 `scripts/globalscript/_unpack` (`all.billboard`, `all.particleemitter`, `all.particleeffector`,
-`all.quickchatcat`, `all.quickchatphrase`).
+`all.quickchatcat`, `all.quickchatphrase`, `all.wma`). A `.wma` block is one map's details and
+static elements; its position in the cache is its `wma.pack` id.
 
 Names come from `pack/*.pack`. Assets without recovered names use stable names such as
 `model_123`, rather than guessed names. References resolve through those same registries;
@@ -113,7 +114,7 @@ reference. The text files in `versions` and the `.hashes`/`.fileids` registries 
 original JS5 versions, file ordering and hashes required for byte-identical reference tables.
 Unpacking exports this metadata and copies the keys used to decode maps into the output tree.
 
-World-map areas list `square=main/file_1/m50_50.fms` paths relative to their `.fm` file.
+World-map areas list `square=main/file_4/m50_50.fms` paths relative to their `.fm` file.
 Each square file contains the original 64-by-64 square or its 8-by-8 chunks. Keep the
 listed order: a square revisited later uses a numbered part such as `m50_50_2.fms`.
 The area palette stays in `.fm`. Packing reads one square at a time and combines

@@ -305,7 +305,7 @@ pub const FONTMETRICS: u8 = 13;
 #[cfg(since_647)]
 pub const VORBIS: u8 = 14;
 #[cfg(since_647)]
-pub const MUSIC_SAMPLES: u8 = 15;
+pub const INSTRUMENTS: u8 = 15;
 #[cfg(since_647)]
 pub const CONFIG_LOC: u8 = 16;
 #[cfg(since_647)]
@@ -321,7 +321,7 @@ pub const CONFIG_SPOTANIM: u8 = 21;
 #[cfg(since_647)]
 pub const CONFIG_VARBIT: u8 = 22;
 #[cfg(since_647)]
-pub const WORLDMAP_DATA: u8 = 23;
+pub const WORLDMAP: u8 = 23;
 #[cfg(since_647)]
 pub const QUICKCHAT: u8 = 24;
 /// Quickchat categories and phrases of the global archive carry on from here.
@@ -654,13 +654,13 @@ pub const ARCHIVES: &[ArchiveFormat] = &[
         content_dir: "vorbis",
     },
     ArchiveFormat {
-        id: MUSIC_SAMPLES,
+        id: INSTRUMENTS,
         format: REF_FORMAT_VERSIONED,
         named: false,
         whirlpooled: false,
         allow_uncompressed: false,
         allow_bzip2: false,
-        content_dir: "music_samples",
+        content_dir: "instruments",
     },
     ArchiveFormat {
         id: CONFIG_LOC,
@@ -726,13 +726,13 @@ pub const ARCHIVES: &[ArchiveFormat] = &[
         content_dir: "config",
     },
     ArchiveFormat {
-        id: WORLDMAP_DATA,
+        id: WORLDMAP,
         format: REF_FORMAT_VERSIONED,
         named: true,
         whirlpooled: false,
         allow_uncompressed: true,
         allow_bzip2: true,
-        content_dir: "worldmap_data",
+        content_dir: "worldmap",
     },
     ArchiveFormat {
         id: QUICKCHAT,

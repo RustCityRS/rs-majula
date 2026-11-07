@@ -31,7 +31,7 @@ fn worldmap_squares_preserve_chunk_order_and_edits() {
     let dir = Path::new(env!("CARGO_TARGET_TMPDIR"))
         .join(format!("editable-worldmap-{}", std::process::id()));
     let path = dir.join("main.fm");
-    let aid = archive::WORLDMAP_DATA;
+    let aid = archive::WORLDMAP;
     let mut data = vec![0, 0];
     for (x, chunk_x) in [(50, 0), (50, 1), (51, 0), (50, 2)] {
         data.extend_from_slice(&[1, x, 51, chunk_x, 0]);

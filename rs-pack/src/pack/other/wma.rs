@@ -1,11 +1,15 @@
-use crate::pack::names::AssetNames;
+use crate::archive;
+use crate::pack::names::{AssetNames, archive_name};
 use crate::pack::packed_data::PackedData;
 use anyhow::{Context, Result, bail, ensure};
 use rs_io::Packet;
 use rs_ver::STRING_TERMINATOR;
+use std::collections::BTreeMap;
 use std::fmt::Write;
 
-/// The file holding every map, among a world map archive's sources.
+/// The config kind: `.wma` files, with ids from `wma.pack`.
+pub const KIND: &str = "wma";
+/// The `_unpack` config unpacking writes every map to.
 pub const SOURCE: &str = "all.wma";
 /// The group holding every map's details.
 pub const DETAILS: &str = "details";
@@ -134,6 +138,34 @@ pub fn encode_element(element: &Element) -> Vec<u8> {
     out.p2(element.element);
     out.p1(element.members);
     out.dat
+}
+
+/// The archive groups the maps pack into, by group id: every map's details, in `wma.pack`
+/// order, then each map's elements.
+pub fn groups(maps: Vec<WorldMap>, names: &AssetNames) -> Result<Vec<(u32, Vec<Vec<u8>>)>> {
+    let mut ordered = BTreeMap::new();
+    for map in maps {
+        let id = names.id(KIND, &map.group)?;
+        if let Some(previous) = ordered.insert(id, map) {
+            bail!("Duplicate {KIND}: {}", previous.group);
+        }
+    }
+    // Details are stored by position, which is the map's id.
+    if let Some((missing, _)) = (0..).zip(ordered.keys()).find(|(id, have)| id != *have) {
+        bail!("Missing {KIND}: {}", names.name(KIND, missing));
+    }
+    let kind = archive_name(archive::WORLDMAP);
+    let mut groups = vec![(
+        names.id(kind, DETAILS)?,
+        ordered.values().map(encode_details).collect(),
+    )];
+    for map in ordered.values().filter(|map| !map.elements.is_empty()) {
+        groups.push((
+            names.id(kind, &elements_group(&map.group))?,
+            map.elements.iter().map(encode_element).collect(),
+        ));
+    }
+    Ok(groups)
 }
 
 pub fn emit(maps: &[WorldMap], names: &AssetNames) -> Result<String> {

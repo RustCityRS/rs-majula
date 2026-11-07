@@ -16,7 +16,7 @@ pub fn pack_file(
 ) -> Result<Vec<(u32, Vec<u8>)>> {
     let text = fs::read_to_string(path).with_context(|| path.display().to_string())?;
     pack_sections(aid, gid, &text, names, |body| {
-        if aid == archive::WORLDMAP_DATA {
+        if aid == archive::WORLDMAP {
             worldmap_source::pack_squares(path, body, names)
         } else {
             pack(aid, gid, body, names)
@@ -27,7 +27,7 @@ pub fn pack_file(
 pub fn entry_kind(aid: u8, gid: u32) -> Option<&'static str> {
     match (aid, gid) {
         (archive::LOADING_SCREENS, 1) => Some("screen"),
-        (archive::WORLDMAP_DATA, _) => Some("file"),
+        (archive::WORLDMAP, _) => Some("file"),
         _ => None,
     }
 }
@@ -101,9 +101,9 @@ pub fn extension(aid: u8) -> Option<&'static str> {
         archive::MATERIALS => "material",
         archive::DEFAULTS => "defaults",
         archive::SYNTH => "synth",
-        archive::MUSIC_SAMPLES => "instrument",
+        archive::INSTRUMENTS => "instrument",
         archive::LOADING_SCREENS => "screen",
-        archive::WORLDMAP_DATA => "fm",
+        archive::WORLDMAP => "fm",
         _ => return None,
     })
 }
@@ -143,9 +143,9 @@ fn transcode(aid: u8, gid: u32, c: &mut TextCodec<'_>) -> Result<()> {
         archive::FONTMETRICS => font(c),
         archive::MATERIALS => material(c),
         archive::SYNTH => synth(c),
-        archive::MUSIC_SAMPLES => instrument::transcode(c),
+        archive::INSTRUMENTS => instrument::transcode(c),
         archive::LOADING_SCREENS => loading::transcode(gid, c),
-        archive::WORLDMAP_DATA => worldmap_source::transcode(c),
+        archive::WORLDMAP => worldmap_source::transcode(c),
         _ => bail!("Unsupported text asset {aid}/{gid}"),
     }
 }

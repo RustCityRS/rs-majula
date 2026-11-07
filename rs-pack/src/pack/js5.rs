@@ -3,9 +3,10 @@ use crate::cache::js5::PackedCache;
 use crate::pack::model::source as model_source;
 use crate::pack::names::{AssetNames, archive_name};
 use crate::pack::other::{asset, wma};
+use crate::pack::pack::collect_config_files;
 use crate::pack::pack_registry::PackFile;
 use crate::pack::sound::{vorbis, vorbis_setup};
-use anyhow::{Context, Result};
+use anyhow::{Context, Result, ensure};
 use rayon::prelude::*;
 use rs_crypto::whirlpool;
 use rs_io::js5::compression::compress_best;
@@ -68,7 +69,7 @@ fn pack_filename_for_archive(archive_id: u8) -> &'static str {
         10 => "binary",
         12 => "clientscript",
         13 => "fontmetrics",
-        23 => "worldmap_data",
+        23 => "worldmap",
         30 => "dlls",
         31 => "shaders",
         32 | 34 => "loading_sprites",
@@ -245,8 +246,8 @@ const SIMPLE_ARCHIVES: &[u8] = &[
     archive::CLIENTSCRIPT,
     archive::FONTMETRICS,
     archive::VORBIS,
-    archive::MUSIC_SAMPLES,
-    archive::WORLDMAP_DATA,
+    archive::INSTRUMENTS,
+    archive::WORLDMAP,
     archive::MATERIALS,
     archive::DEFAULTS,
     archive::DLLS,
@@ -254,29 +255,26 @@ const SIMPLE_ARCHIVES: &[u8] = &[
     archive::WORLDMAP_LOCS,
 ];
 
-/// The groups a world map's `.wma` source makes: every map's details, and its elements.
+/// The groups the `.wma` configs make: every map's details, and its elements.
 fn pack_world_maps(
-    dir: &Path,
+    scripts_dir: &Path,
     pack_dir: &Path,
     names: &AssetNames,
     versions: &HashMap<u8, ArchiveVersions>,
 ) -> Result<Vec<PreparedGroup>> {
-    let aid = archive::WORLDMAP_DATA;
-    let path = dir.join(wma::SOURCE);
-    let text = fs::read_to_string(&path).with_context(|| path.display().to_string())?;
-    let maps = wma::parse(&text, names).with_context(|| path.display().to_string())?;
-    let mut groups: Vec<(u32, Vec<Vec<u8>>)> = vec![(
-        names.id(archive_name(aid), wma::DETAILS)?,
-        maps.iter().map(wma::encode_details).collect(),
-    )];
-    for map in &maps {
-        if !map.elements.is_empty() {
-            groups.push((
-                names.id(archive_name(aid), &wma::elements_group(&map.group))?,
-                map.elements.iter().map(wma::encode_element).collect(),
-            ));
-        }
+    let aid = archive::WORLDMAP;
+    let mut maps = Vec::new();
+    for path in collect_config_files(scripts_dir, wma::KIND) {
+        let text = fs::read_to_string(&path).with_context(|| path.display().to_string())?;
+        maps.extend(wma::parse(&text, names).with_context(|| path.display().to_string())?);
     }
+    ensure!(
+        !maps.is_empty(),
+        "No .{} configs in {}",
+        wma::KIND,
+        scripts_dir.display()
+    );
+    let groups = wma::groups(maps, names)?;
     let gids: Vec<u32> = groups.iter().map(|(gid, _)| *gid).collect();
     let name_hashes = load_name_hashes(pack_dir, aid, &gids);
     groups
@@ -427,9 +425,9 @@ pub fn pack_asset_archives(
                 })
                 .collect::<Result<Vec<_>>>()?;
             let mut prepared = prepared;
-            if aid == archive::WORLDMAP_DATA {
+            if aid == archive::WORLDMAP {
                 prepared.extend(pack_world_maps(
-                    &content_dir.join(format.content_dir),
+                    &content_dir.join("scripts"),
                     pack_dir,
                     &names,
                     versions,
