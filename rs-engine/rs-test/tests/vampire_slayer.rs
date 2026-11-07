@@ -619,16 +619,18 @@ fn the_coffin_plays_2011s_cutscene() {
             10,
             "{said:?}"
         );
-        // May 2011's player: the push on the lid (2991), thrown back (3108),
-        // lying (3109), up again as the Count turns (3110); frame set 2897's.
+        // May 2011's player: the push on the lid (2991), the stake (2992),
+        // thrown back (3108), lying (3109), up again as the Count turns
+        // (3110); frame set 2897's.
         let seq = |n: &str| pack_id("seq", n).to_string();
         let played: Vec<_> = played.iter().map(|(t, s)| (t - open, s.clone())).collect();
         assert_eq!(
             played,
             [
                 (6, seq("seq_2991")),
-                (10, seq("seq_3108")),
-                (12, seq("seq_3109")),
+                (10, seq("seq_2992")),
+                (12, seq("seq_3108")),
+                (14, seq("seq_3109")),
                 (25, seq("seq_3110"))
             ],
             "the player's seqs (tick, seq)"
