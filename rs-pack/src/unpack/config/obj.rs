@@ -164,32 +164,33 @@ pub fn emit_obj_props(
     if let (Some(src), Some(dst)) = (&def.recol_s, &def.recol_d) {
         for i in 0..src.len() {
             let n = i + 1;
-            p.push((
-                40,
-                format!("recol{n}s"),
-                super::recol_value(src[i], dst[i], _reverse_hsl).to_string(),
-            ));
-            p.push((
-                40,
-                format!("recol{n}d"),
-                super::recol_value(dst[i], src[i], _reverse_hsl).to_string(),
-            ));
+            #[cfg(before_647)]
+            {
+                p.push((
+                    40,
+                    format!("recol{n}s"),
+                    super::recol_value(src[i], dst[i], _reverse_hsl).to_string(),
+                ));
+                p.push((
+                    40,
+                    format!("recol{n}d"),
+                    super::recol_value(dst[i], src[i], _reverse_hsl).to_string(),
+                ));
+            }
+            #[cfg(since_647)]
+            {
+                let [(ks, vs), (kd, vd)] = super::recol_pair(n, src[i], dst[i], _reverse_hsl);
+                p.push((40, ks, vs));
+                p.push((40, kd, vd));
+            }
         }
     }
     #[cfg(since_647)]
-    if let (Some(dst), Some(src)) = (&def.retex_d, &def.retex_s) {
-        for i in 0..dst.len() {
+    if let (Some(dst), Some(src)) = (&def.retex_s, &def.retex_d) {
+        for i in 0..src.len() {
             let n = i + 1;
-            p.push((
-                41,
-                format!("retex{n}d"),
-                super::recol_value(dst[i], src[i], _reverse_hsl).to_string(),
-            ));
-            p.push((
-                41,
-                format!("retex{n}s"),
-                super::recol_value(src[i], dst[i], _reverse_hsl).to_string(),
-            ));
+            p.push((41, format!("retex{n}s"), registry.named("texture", src[i])));
+            p.push((41, format!("retex{n}d"), registry.named("texture", dst[i])));
         }
     }
     #[cfg(since_647)]
@@ -248,7 +249,7 @@ pub fn emit_obj_props(
         p.push((95, "2dzan".into(), def.zan2d.to_string()));
     }
     if def.opcode_order.contains(&96) || def.dummyitem as u8 != 0 {
-        p.push((96, "dummyobj".into(), (def.dummyitem as u8).to_string()));
+        p.push((96, "dummyitem".into(), (def.dummyitem as u8).to_string()));
     }
     if def.opcode_order.contains(&97) || def.certlink.unwrap_or(0) != 0 {
         p.push((
@@ -353,24 +354,40 @@ pub fn emit_obj_props(
     }
     #[cfg(since_647)]
     if let Some((a, b)) = def.cursor1 {
-        p.push((127, "cursor1".into(), format!("{a},{b}")));
+        p.push((
+            127,
+            "cursor1".into(),
+            format!("{},{}", a + 1, registry.reference("cursor", b)),
+        ));
     }
     #[cfg(since_647)]
     if let Some((a, b)) = def.cursor2 {
-        p.push((128, "cursor2".into(), format!("{a},{b}")));
+        p.push((
+            128,
+            "cursor2".into(),
+            format!("{},{}", a + 1, registry.reference("cursor", b)),
+        ));
     }
     #[cfg(since_647)]
     if let Some((a, b)) = def.icursor1 {
-        p.push((129, "icursor1".into(), format!("{a},{b}")));
+        p.push((
+            129,
+            "icursor1".into(),
+            format!("{},{}", a + 1, registry.reference("cursor", b)),
+        ));
     }
     #[cfg(since_647)]
     if let Some((a, b)) = def.icursor2 {
-        p.push((130, "icursor2".into(), format!("{a},{b}")));
+        p.push((
+            130,
+            "icursor2".into(),
+            format!("{},{}", a + 1, registry.reference("cursor", b)),
+        ));
     }
     #[cfg(since_647)]
     if let Some(quests) = &def.quests {
-        for (i, q) in quests.iter().enumerate() {
-            p.push((132, format!("quest{}", i + 1), q.to_string()));
+        for q in quests.iter() {
+            p.push((132, "quest".into(), q.to_string()));
         }
     }
     #[cfg(since_647)]

@@ -1,4 +1,0 @@
-[proc,clientscript_238](int $int)
-if (cc_find(snapshot_main_v2:com93, $int) = true) {
-    cc_settrans(255);
-}

@@ -1,0 +1,1068 @@
+// 434:0
+[com_0]
+type=layer
+x=-1
+y=-2
+width=512
+height=334
+transmitop=10
+op10=   
+
+// 434:1
+[com_1]
+type=rectangle
+x=104
+y=231
+width=315
+height=82
+colour=0x000000
+fill=yes
+
+// 434:2
+[com_2]
+type=rectangle
+x=103
+y=230
+width=317
+height=83
+colour=0x726451
+
+// 434:3
+[com_3]
+type=model
+x=164
+y=72
+width=50
+height=51
+model=null
+modelangle=165,1894,0
+modelzoom=400
+transmitop=1
+op1=Make
+onmouseover=script1955(interface_434:com_13)
+onmouseleave=batta_hide_layer(interface_434:com_13)
+
+// 434:4
+[com_4]
+type=model
+x=246
+y=28
+width=35
+height=23
+layer=com_13
+model=model_2743
+modelorigin=1,1
+modelangle=327,1909,0
+modelzoom=528
+
+// 434:5
+[com_5]
+type=model
+x=49
+y=33
+width=27
+height=16
+layer=com_13
+model=model_2573
+modelorigin=0,2
+modelangle=336,1891,0
+modelzoom=784
+
+// 434:6
+[com_6]
+type=model
+x=116
+y=33
+width=27
+height=16
+layer=com_13
+model=model_2573
+modelorigin=0,2
+modelangle=336,1891,0
+modelzoom=784
+
+// 434:7
+[com_7]
+type=model
+x=186
+y=33
+width=27
+height=16
+layer=com_13
+model=model_2573
+modelorigin=0,2
+modelangle=336,1891,0
+modelzoom=784
+
+// 434:8
+[com_8]
+type=text
+x=254
+y=60
+width=30
+height=14
+layer=com_13
+textfont=p12_full
+text=%1/4
+textshadow=yes
+colour=0xff0000
+onload=batta_set_text(event_com, equa_leaves, 4)
+oninvtransmit=batta_set_text(event_com, equa_leaves, 4){inv}
+
+// 434:9
+[com_9]
+type=text
+x=58
+y=60
+width=29
+height=14
+layer=com_13
+textfont=p12_full
+text=%1/1
+textshadow=yes
+colour=0xff0000
+onload=batta_set_text(event_com, pineapple_chunks, 1)
+oninvtransmit=batta_set_text(event_com, pineapple_chunks, 1){inv}
+
+// 434:10
+[com_10]
+type=text
+x=125
+y=60
+width=29
+height=14
+layer=com_13
+textfont=p12_full
+text=%1/1
+textshadow=yes
+colour=0xff0000
+onload=batta_set_text(event_com, orange_chunks, 1)
+oninvtransmit=batta_set_text(event_com, orange_chunks, 1){inv}
+
+// 434:11
+[com_11]
+type=text
+x=194
+y=60
+width=29
+height=14
+layer=com_13
+textfont=p12_full
+text=%1/1
+textshadow=yes
+colour=0xff0000
+onload=batta_set_text(event_com, lime_chunks, 1)
+oninvtransmit=batta_set_text(event_com, lime_chunks, 1){inv}
+
+// 434:12
+[com_12]
+type=text
+x=5
+y=5
+width=310
+height=15
+layer=com_13
+textfont=p12_full
+text=Fruit Batta
+textalignh=centre
+textshadow=yes
+colour=0xd6a046
+
+// 434:13
+[com_13]
+type=layer
+x=99
+y=229
+width=318
+height=82
+hide=yes
+
+// 434:14
+[com_14]
+type=model
+x=285
+y=72
+width=50
+height=50
+model=null
+modelangle=165,1894,0
+modelzoom=400
+transmitop=1
+op1=Make
+onmouseover=script1955(interface_434:com_24)
+onmouseleave=batta_hide_layer(interface_434:com_24)
+
+// 434:15
+[com_15]
+type=model
+x=42
+y=27
+width=35
+height=23
+layer=com_24
+model=model_2743
+modelorigin=1,1
+modelangle=327,1909,0
+modelzoom=528
+
+// 434:16
+[com_16]
+type=model
+x=120
+y=33
+width=35
+height=36
+layer=com_24
+model=model_2668
+modelorigin=-16,-11
+modelangle=376,2047,0
+modelzoom=338
+
+// 434:17
+[com_17]
+type=model
+x=190
+y=25
+width=24
+height=29
+layer=com_24
+model=model_2431
+modelorigin=0,7
+modelangle=321,1885,0
+modelzoom=656
+
+// 434:18
+[com_18]
+type=model
+x=255
+y=31
+width=29
+height=27
+layer=com_24
+model=model_2365
+modelorigin=0,5
+modelangle=228,1885,0
+modelzoom=784
+
+// 434:19
+[com_19]
+type=text
+x=48
+y=60
+width=29
+height=14
+layer=com_24
+textfont=p12_full
+text=%1/1
+textshadow=yes
+colour=0xff0000
+onload=batta_set_text(event_com, equa_leaves, 1)
+oninvtransmit=batta_set_text(event_com, equa_leaves, 1){inv}
+
+// 434:20
+[com_20]
+type=text
+x=114
+y=60
+width=29
+height=14
+layer=com_24
+textfont=p12_full
+text=%1/1
+textshadow=yes
+colour=0xff0000
+onload=batta_set_text(event_com, toad_s_legs, 1)
+oninvtransmit=batta_set_text(event_com, toad_s_legs, 1){inv}
+
+// 434:21
+[com_21]
+type=text
+x=190
+y=60
+width=29
+height=14
+layer=com_24
+textfont=p12_full
+text=%1/1
+textshadow=yes
+colour=0xff0000
+onload=batta_set_text(event_com, gnome_spice, 1)
+oninvtransmit=batta_set_text(event_com, gnome_spice, 1){inv}
+
+// 434:22
+[com_22]
+type=text
+x=261
+y=60
+width=29
+height=14
+layer=com_24
+textfont=p12_full
+text=%1/1
+textshadow=yes
+colour=0xff0000
+onload=batta_set_text(event_com, cheese, 1)
+oninvtransmit=batta_set_text(event_com, cheese, 1){inv}
+
+// 434:23
+[com_23]
+type=text
+x=9
+y=4
+width=314
+height=15
+layer=com_24
+textfont=p12_full
+text=Toad Batta
+textalignh=centre
+textshadow=yes
+colour=0xd6a046
+
+// 434:24
+[com_24]
+type=layer
+x=96
+y=230
+width=322
+height=82
+hide=yes
+
+// 434:25
+[com_25]
+type=model
+x=125
+y=146
+width=50
+height=50
+model=null
+modelangle=165,1894,0
+modelzoom=400
+transmitop=1
+op1=Make
+onmouseover=script1955(interface_434:com_33)
+onmouseleave=batta_hide_layer(interface_434:com_33)
+
+// 434:26
+[com_26]
+type=model
+x=80
+y=23
+width=24
+height=29
+layer=com_33
+model=model_2431
+modelorigin=0,7
+modelangle=321,1885,0
+modelzoom=656
+
+// 434:27
+[com_27]
+type=model
+x=141
+y=33
+width=34
+height=25
+layer=com_33
+model=model_2519
+modelorigin=0,-4
+modelangle=321,1885,0
+modelzoom=1040
+
+// 434:28
+[com_28]
+type=model
+x=210
+y=30
+width=29
+height=27
+layer=com_33
+model=model_2365
+modelorigin=0,5
+modelangle=228,1885,0
+modelzoom=784
+
+// 434:29
+[com_29]
+type=text
+x=81
+y=60
+width=29
+height=14
+layer=com_33
+textfont=p12_full
+text=%1/1
+textshadow=yes
+colour=0xff0000
+onload=batta_set_text(event_com, gnome_spice, 1)
+oninvtransmit=batta_set_text(event_com, gnome_spice, 1){inv}
+
+// 434:30
+[com_30]
+type=text
+x=147
+y=60
+width=29
+height=14
+layer=com_33
+textfont=p12_full
+text=%1/1
+textshadow=yes
+colour=0xff0000
+onload=batta_set_text(event_com, king_worm, 1)
+oninvtransmit=batta_set_text(event_com, king_worm, 1){inv}
+
+// 434:31
+[com_31]
+type=text
+x=213
+y=60
+width=29
+height=14
+layer=com_33
+textfont=p12_full
+text=%1/1
+textshadow=yes
+colour=0xff0000
+onload=batta_set_text(event_com, cheese, 1)
+oninvtransmit=batta_set_text(event_com, cheese, 1){inv}
+
+// 434:32
+[com_32]
+type=text
+x=6
+y=4
+width=309
+height=17
+layer=com_33
+textfont=p12_full
+text=Worm Batta
+textalignh=centre
+textshadow=yes
+colour=0xd6a03c
+
+// 434:33
+[com_33]
+type=layer
+x=100
+y=230
+width=323
+height=83
+hide=yes
+
+// 434:34
+[com_34]
+type=model
+x=229
+y=146
+width=50
+height=50
+model=null
+modelangle=165,1894,0
+modelzoom=400
+transmitop=1
+op1=Make
+onmouseover=script1955(interface_434:com_46)
+onmouseleave=batta_hide_layer(interface_434:com_46)
+
+// 434:35
+[com_35]
+type=model
+x=26
+y=33
+width=19
+height=16
+layer=com_46
+model=model_2632
+modelorigin=0,7
+modelzoom=528
+
+// 434:36
+[com_36]
+type=model
+x=83
+y=32
+width=19
+height=18
+layer=com_46
+model=model_2750
+modelorigin=0,8
+modelzoom=528
+
+// 434:37
+[com_37]
+type=model
+x=137
+y=31
+width=33
+height=22
+layer=com_46
+model=model_8195
+modelorigin=1,3
+modelangle=210,1852,0
+modelzoom=1552
+
+// 434:38
+[com_38]
+type=model
+x=198
+y=25
+width=38
+height=28
+layer=com_46
+model=model_2808
+modelorigin=4,10
+modelangle=114,1801,0
+modelzoom=656
+
+// 434:39
+[com_39]
+type=model
+x=267
+y=30
+width=29
+height=27
+layer=com_46
+model=model_2365
+modelorigin=0,5
+modelangle=228,1885,0
+modelzoom=784
+
+// 434:40
+[com_40]
+type=text
+x=23
+y=60
+width=31
+height=14
+layer=com_46
+textfont=p12_full
+text=%1/2
+textshadow=yes
+colour=0xff0000
+onload=batta_set_text(event_com, tomato, 2)
+oninvtransmit=batta_set_text(event_com, tomato, 2){inv}
+
+// 434:41
+[com_41]
+type=text
+x=80
+y=60
+width=29
+height=14
+layer=com_46
+textfont=p12_full
+text=%1/1
+textshadow=yes
+colour=0xff0000
+onload=batta_set_text(event_com, onion, 1)
+oninvtransmit=batta_set_text(event_com, onion, 1){inv}
+
+// 434:42
+[com_42]
+type=text
+x=142
+y=60
+width=29
+height=14
+layer=com_46
+textfont=p12_full
+text=%1/1
+textshadow=yes
+colour=0xff0000
+onload=batta_set_text(event_com, cabbage, 1)
+oninvtransmit=batta_set_text(event_com, cabbage, 1){inv}
+
+// 434:43
+[com_43]
+type=text
+x=208
+y=60
+width=29
+height=14
+layer=com_46
+textfont=p12_full
+text=%1/1
+textshadow=yes
+colour=0xff0000
+onload=batta_set_text(event_com, dwellberries, 1)
+oninvtransmit=batta_set_text(event_com, dwellberries, 1){inv}
+
+// 434:44
+[com_44]
+type=text
+x=270
+y=60
+width=29
+height=14
+layer=com_46
+textfont=p12_full
+text=%1/1
+textshadow=yes
+colour=0xff0000
+onload=batta_set_text(event_com, cheese, 1)
+oninvtransmit=batta_set_text(event_com, cheese, 1){inv}
+
+// 434:45
+[com_45]
+type=text
+x=4
+y=4
+width=312
+height=16
+layer=com_46
+textfont=p12_full
+text=Vegetable Batta
+textalignh=centre
+textshadow=yes
+colour=0xd6a046
+
+// 434:46
+[com_46]
+type=layer
+x=101
+y=229
+width=318
+height=83
+hide=yes
+
+// 434:47
+[com_47]
+type=model
+x=341
+y=147
+width=50
+height=50
+model=null
+modelangle=165,1894,0
+modelzoom=400
+transmitop=1
+op1=Make
+onmouseover=script1955(interface_434:com_53)
+onmouseleave=batta_hide_layer(interface_434:com_53)
+
+// 434:48
+[com_48]
+type=model
+x=111
+y=34
+width=20
+height=21
+layer=com_53
+model=model_2632
+modelorigin=0,4
+modelangle=336,1891,0
+modelzoom=528
+
+// 434:49
+[com_49]
+type=model
+x=178
+y=30
+width=29
+height=27
+layer=com_53
+model=model_2365
+modelorigin=0,5
+modelangle=228,1885,0
+modelzoom=784
+
+// 434:50
+[com_50]
+type=text
+x=110
+y=60
+width=29
+height=14
+layer=com_53
+textfont=p12_full
+text=%1/1
+textshadow=yes
+colour=0xff0000
+onload=batta_set_text(event_com, tomato, 1)
+oninvtransmit=batta_set_text(event_com, tomato, 1){inv}
+
+// 434:51
+[com_51]
+type=text
+x=181
+y=60
+width=29
+height=14
+layer=com_53
+textfont=p12_full
+text=%1/1
+textshadow=yes
+colour=0xff0000
+onload=batta_set_text(event_com, cheese, 1)
+oninvtransmit=batta_set_text(event_com, cheese, 1){inv}
+
+// 434:52
+[com_52]
+type=text
+y=3
+width=313
+height=16
+layer=com_53
+textfont=p12_full
+text=Cheese And Tomato Batta
+textalignh=centre
+textshadow=yes
+colour=0xd6a046
+
+// 434:53
+[com_53]
+type=layer
+x=103
+y=229
+width=320
+height=83
+hide=yes
+
+// 434:54
+[com_54]
+type=text
+x=253
+y=5
+width=61
+height=15
+layer=com_13
+textfont=p12_full
+text=level 25
+textalignh=right
+textshadow=yes
+colour=0xff0000
+onload=batta_set_level(event_com, 25)
+
+// 434:55
+[com_55]
+type=text
+x=253
+y=5
+width=61
+height=14
+layer=com_24
+textfont=p12_full
+text=level 26
+textalignh=right
+textshadow=yes
+colour=0xff0000
+onload=batta_set_level(event_com, 26)
+
+// 434:56
+[com_56]
+type=text
+x=253
+y=5
+width=61
+height=14
+layer=com_33
+textfont=p12_full
+text=level 27
+textalignh=right
+textshadow=yes
+colour=0xff0000
+onload=batta_set_level(event_com, 27)
+
+// 434:57
+[com_57]
+type=text
+x=253
+y=5
+width=61
+height=14
+layer=com_53
+textfont=p12_full
+text=level 29
+textalignh=right
+textshadow=yes
+colour=0xff0000
+onload=batta_set_level(event_com, 29)
+
+// 434:58
+[com_58]
+type=text
+x=253
+y=5
+width=61
+height=14
+layer=com_46
+textfont=p12_full
+text=level 28
+textalignh=right
+textshadow=yes
+colour=0xff0000
+onload=batta_set_level(event_com, 28)
+
+// 434:59
+[com_59]
+type=text
+x=138
+y=117
+width=90
+height=27
+textfont=p12_full
+text=Fruit Batta
+textalignh=centre
+textshadow=yes
+colour=0xcc0000
+
+// 434:60
+[com_60]
+type=text
+x=263
+y=116
+width=90
+height=27
+textfont=p12_full
+text=Toad Batta
+textalignh=centre
+textshadow=yes
+colour=0xcc0000
+
+// 434:61
+[com_61]
+type=text
+x=103
+y=185
+width=90
+height=26
+textfont=p12_full
+text=Worm Batta
+textalignh=centre
+textshadow=yes
+colour=0xcc0000
+
+// 434:62
+[com_62]
+type=text
+x=210
+y=186
+width=91
+height=27
+textfont=p12_full
+text=Vegetable Batta
+textalignh=centre
+textshadow=yes
+colour=0xcc0000
+
+// 434:63
+[com_63]
+type=text
+x=320
+y=186
+width=90
+height=27
+textfont=p12_full
+text=Cheese & tomato Batta
+textalignh=centre
+textshadow=yes
+colour=0xcc0000
+
+// 434:64
+[com_64]
+type=rectangle
+x=17
+y=25
+width=488
+height=305
+layer=com_0
+colour=0x000000
+fill=yes
+trans=200
+transmitop=10
+opbase=  
+op10=    
+
+// 434:65
+[com_65]
+type=graphic
+x=14
+y=25
+width=485
+height=300
+layer=com_0
+graphic=tradebacking
+tiling=yes
+colour=0x000000
+transmitop=10
+op10=    
+
+// 434:66
+[com_66]
+type=graphic
+y=53
+width=32
+height=241
+layer=com_0
+graphic="v2_stone_borders,1"
+tiling=yes
+colour=0x000000
+transmitop=10
+op10=    
+
+// 434:67
+[com_67]
+type=graphic
+x=13
+y=20
+width=32
+height=32
+layer=com_0
+graphic="v2_stone_borders,4"
+colour=0x000000
+transmitop=10
+op10=    
+
+// 434:68
+[com_68]
+type=graphic
+x=480
+y=51
+width=32
+height=243
+layer=com_0
+graphic="v2_stone_borders,3"
+tiling=yes
+colour=0x000000
+transmitop=10
+op10=    
+
+// 434:69
+[com_69]
+type=graphic
+x=44
+y=7
+width=424
+height=34
+layer=com_0
+graphic="v2_stone_borders,0"
+tiling=yes
+colour=0x000000
+transmitop=10
+op10=    
+
+// 434:70
+[com_70]
+type=graphic
+x=45
+y=306
+width=423
+height=32
+layer=com_0
+graphic="v2_stone_borders,2"
+tiling=yes
+colour=0x000000
+transmitop=10
+op10=    
+
+// 434:71
+[com_71]
+type=graphic
+x=474
+y=30
+width=16
+height=16
+layer=com_0
+graphic="v2_stone_close_button,0"
+colour=0x000000
+transmitop=1,10
+op1=Close
+op10=    
+onmouseover=graphic_swapper(event_com, "v2_stone_close_button,1")
+onmouseleave=graphic_swapper(event_com, "v2_stone_close_button,0")
+onop=closebutton_click
+
+// 434:72
+[com_72]
+type=graphic
+x=13
+y=294
+width=32
+height=32
+layer=com_0
+graphic="v2_stone_borders,6"
+colour=0x000000
+transmitop=10
+op10=    
+
+// 434:73
+[com_73]
+type=graphic
+x=468
+y=20
+width=32
+height=32
+layer=com_0
+graphic="v2_stone_borders,5"
+colour=0x000000
+transmitop=10
+op10=    
+
+// 434:74
+[com_74]
+type=graphic
+x=468
+y=294
+width=32
+height=32
+layer=com_0
+graphic="v2_stone_borders,7"
+colour=0x000000
+transmitop=10
+op10=    
+
+// 434:75
+[com_75]
+type=graphic
+x=24
+y=35
+width=465
+height=32
+layer=com_0
+graphic="v2_stone_borders,8"
+tiling=yes
+colour=0x000000
+transmitop=10
+op10=    
+
+// 434:76
+[com_76]
+type=graphic
+x=13
+y=37
+width=32
+height=32
+layer=com_0
+graphic="v2_stone_borders,9"
+colour=0x000000
+transmitop=10
+op10=    
+
+// 434:77
+[com_77]
+type=graphic
+x=468
+y=37
+width=32
+height=32
+layer=com_0
+graphic="v2_stone_borders,10"
+colour=0x000000
+transmitop=10
+op10=    
+
+// 434:78
+[com_78]
+type=text
+x=26
+y=29
+width=467
+height=18
+layer=com_0
+textfont=b12_full
+text=Gnome Battas
+textalignh=centre
+textshadow=yes
+colour=0xff9900
+onload=batta_main_text
+oninvtransmit=batta_main_text{inv}

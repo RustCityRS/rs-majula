@@ -1,6 +1,0 @@
-[proc,clientscript_1170]
-if (if_gettrans(godwars_overlay:com1) > %varc_int_1435) {
-    if_settrans(max(50, calc(if_gettrans(godwars_overlay:com1) - 1)), godwars_overlay:com1);
-} else {
-    if_settrans(min(255, calc(if_gettrans(godwars_overlay:com1) + 1)), godwars_overlay:com1);
-}

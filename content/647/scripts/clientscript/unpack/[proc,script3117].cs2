@@ -1,0 +1,108 @@
+// 3117
+[proc,script3117](int $int0, int $int1, int $int2, string $string0, string $string1, int $int3, int $int4)(graphic, string, graphic, int, graphic, int, graphic, string, string)
+def_graphic $graphic5 = null;
+def_graphic $graphic6 = null;
+def_int $rgb7 = ^black;
+def_int $rgb8 = ^black;
+def_string $string2 = "";
+def_graphic $graphic9 = null;
+def_graphic $graphic10 = null;
+def_int $int11 = 0;
+def_int $int12 = 0;
+def_int $int13 = 0;
+def_int $int14 = 0;
+def_int $int15 = 0;
+def_string $string3 = "";
+def_string $string4 = "";
+if (testbit($int1, 0) = ^true) {
+    $int11 = 1;
+} else {
+    $int11 = 0;
+}
+if (testbit($int1, 1) = ^true) {
+    $int12 = 1;
+} else {
+    $int12 = 0;
+}
+if (testbit($int1, 2) = ^true) {
+    $int13 = 1;
+} else {
+    $int13 = 0;
+}
+if (testbit($int1, 3) = ^true) {
+    $int14 = 1;
+} else {
+    $int14 = 0;
+}
+if (testbit($int1, 4) = ^true) {
+    $int15 = 1;
+} else {
+    $int15 = 0;
+}
+if (map_lang = 0) {
+    if ($int15 = 1) {
+        $graphic9 = enum(int, graphic, enum_730, 1);
+        $string2 = $string0;
+    } else if (string_length($string0) > 1) {
+        $graphic9 = enum(int, graphic, enum_730, 1);
+        $string2 = $string0;
+    } else {
+        $graphic9 = enum(int, graphic, enum_1810, $int4);
+        $string2 = $string1;
+    }
+} else {
+    if (map_lang = 1) {
+        $graphic9 = graphic_1517;
+    } else if (map_lang = 2) {
+        $graphic9 = enum(int, graphic, enum_1810, 74);
+    } else if (map_lang = 3) {
+        $graphic9 = enum(int, graphic, enum_1810, 31);
+    }
+    if ($int15 = 1) {
+        $string2 = $string0;
+    } else if (string_length($string0) > 1) {
+        $string2 = $string0;
+    } else if (map_lang = 1) {
+        $string2 = "German";
+    } else if (map_lang = 2) {
+        $string2 = "French";
+    } else if (map_lang = 3) {
+        $string2 = "Portuguese";
+    }
+}
+if ($int11 = 0) {
+    $graphic5 = "world_select_stars,1";
+    $rgb8 = 0xfcfcfc;
+    $string3 = "Free";
+} else {
+    $graphic5 = "world_select_stars,0";
+    $rgb8 = 0xfcfc64;
+    $string3 = "Members";
+}
+if ($int14 = 1) {
+    $graphic10 = "options_radio_buttons,2";
+} else {
+    $graphic10 = "options_radio_buttons,1";
+}
+if ($int0 = %varclient_998) {
+    $rgb7 = 0x203211;
+    $graphic6 = graphic_1541;
+} else if ($int0 = %varclient_999) {
+    $rgb7 = 0x203c11;
+    $graphic6 = graphic_1541;
+} else {
+    if (calc($int2 % 2) = 0) {
+        $rgb7 = 0x201911;
+    } else {
+        $rgb7 = 0x292016;
+    }
+    $graphic6 = graphic_1545;
+}
+if ($int3 >= 1980) {
+    $string4 = "FULL";
+} else if ($int3 >= 0) {
+    $string4 = tostring($int3);
+} else {
+    $string4 = "OFFLINE";
+}
+return($graphic9, $string2, $graphic5, $rgb8, $graphic10, $rgb7, $graphic6, $string3, $string4);

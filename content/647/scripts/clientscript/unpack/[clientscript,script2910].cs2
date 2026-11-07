@@ -1,0 +1,11 @@
+// 2910
+[clientscript,script2910](component $component0, component $component1)
+if (compare(if_gettext($component1), "Hide") = 0) {
+    if_setontimer("ii_resize_if(false, 24, calc(if_getheight(if_getlayer($component0)) - 24), 0, $component0)", $component0);
+    if_settext("Show", $component1);
+    if_setop(1, "Show", $component1);
+} else {
+    if_setontimer("ii_resize_if(true, 24, calc(if_getheight(if_getlayer($component0)) - 24), 0, $component0)", $component0);
+    if_settext("Hide", $component1);
+    if_setop(1, "Hide", $component1);
+}

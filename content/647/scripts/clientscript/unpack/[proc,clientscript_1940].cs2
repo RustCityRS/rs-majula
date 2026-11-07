@@ -1,5 +1,0 @@
-[proc,clientscript_1940]
-def_int $int = calc(clientclock + %varc_int_557 * 3000);
-if ($int < %varc_int_556) {
-    %varc_int_556 = $int;
-}

@@ -1,6 +1,7 @@
+// 1427
 [clientscript,advisor_flash_icon](component $component0)
 def_int $int1 = calc(clientclock % 32);
-if (%varc_int_1024 = %varbit_6521 & %varc_int_1024 ! 0) {
+if (%varclient_1024 = %varplayerbit_6521 & %varclient_1024 ! 0) {
     if ($int1 < 8) {
         if_settrans(0, $component0);
     } else if ($int1 < 16) {

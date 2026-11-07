@@ -1,7 +1,0 @@
-[proc,clientscript_1759](component $component0, component $component1)
-if (%varc_int_220 > 0) {
-    if_sethide(false, $component0);
-} else {
-    if_sethide(true, $component0);
-}
-if_settext(tostring(%varc_int_220), $component1);

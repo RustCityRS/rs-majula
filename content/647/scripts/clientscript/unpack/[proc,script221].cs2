@@ -1,0 +1,22 @@
+// 221
+[proc,script221]
+if (compare(%varclient_1543, "") = 0) {
+    ~script675;
+    return;
+}
+%varclient_790 = 3;
+if_sethide(true, snapshot_main_v2:com_33);
+if_sethide(true, snapshot_main_v2:com_34);
+if_sethide(true, snapshot_main_v2:com_61);
+if_sethide(true, snapshot_main_v2:com_148);
+if_sethide(true, snapshot_main_v2:com_149);
+if_sethide(true, snapshot_main_v2:com_150);
+if_sethide(true, snapshot_main_v2:com_151);
+if_sethide(true, snapshot_main_v2:com_165);
+if_sethide(true, snapshot_main_v2:com_166);
+if_sethide(true, snapshot_main_v2:com_104);
+if_sethide(false, snapshot_main_v2:com_120);
+if_sethide(true, snapshot_main_v2:com_62);
+if_sethide(true, snapshot_main_v2:com_117);
+if_sethide(true, snapshot_main_v2:com_121);
+if_settext("Ignore <%varclient_1543>?", snapshot_main_v2:com_135);

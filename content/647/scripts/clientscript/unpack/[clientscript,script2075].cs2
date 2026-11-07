@@ -1,0 +1,13 @@
+// 2075
+[clientscript,script2075]
+def_int $int0 = 0;
+if (%varclient_632 = 0) {
+    if (calc(10 - %varclient_633) > 0) {
+        $int0 = calc(10 - %varclient_633);
+    } else {
+        $int0 = 0;
+    }
+    if_settext(tostring($int0), snp_waiting_room:com_3);
+} else {
+    if_settext(tostring(%varclient_637), snp_waiting_room:com_3);
+}

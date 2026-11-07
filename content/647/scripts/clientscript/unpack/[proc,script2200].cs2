@@ -1,0 +1,12 @@
+// 2200
+[proc,script2200]
+switch_int (random(4)) {
+    case 0 :
+        %varclient_1136 = interface_932:com_6;
+    case 1 :
+        %varclient_1136 = interface_932:com_7;
+    case 2 :
+        %varclient_1136 = interface_932:com_8;
+    case 3 :
+        %varclient_1136 = interface_932:com_9;
+}

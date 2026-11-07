@@ -1,0 +1,16 @@
+// 4053
+[clientscript,script4053]
+switch_int (%varplayerbit_8661) {
+    case 0 :
+        if_settext("Using multiple token types", warguild_token_overlay:com_26);
+    case 1 :
+        if_settext("Using attack tokens", warguild_token_overlay:com_26);
+    case 2 :
+        if_settext("Using defence tokens", warguild_token_overlay:com_26);
+    case 3 :
+        if_settext("Using strength tokens", warguild_token_overlay:com_26);
+    case 4 :
+        if_settext("Using combat tokens", warguild_token_overlay:com_26);
+    case 5 :
+        if_settext("Using balance tokens", warguild_token_overlay:com_26);
+}

@@ -1,0 +1,8 @@
+// 656
+[proc,script656]
+if (cc_find(lore_stats_side:com_74, 0) = true) {
+    cc_delete;
+}
+if (cc_find(summoning_orb:com_17, 0) = true) {
+    cc_delete;
+}

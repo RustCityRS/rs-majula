@@ -1,0 +1,7 @@
+// 4625
+[clientscript,script4625]
+if (compare(%varclient_1872, "") ! 0 & compare(%varclient_1872, null) ! 0) {
+    %varclient_1873 = %varclient_1872;
+} else {
+    %varclient_1873 = "";
+}

@@ -1,0 +1,14 @@
+// 1123
+[clientscript,script1123](component $component0)
+switch_int (%varplayerbit_804) {
+    case 1 :
+        if_setobject(red_toad, 300, $component0);
+    case 2 :
+        if_setobject(green_toad, 300, $component0);
+    case 3 :
+        if_setobject(blue_toad, 300, $component0);
+    case 4 :
+        if_setobject(yellow_toad, 300, $component0);
+    case default :
+        if_setobject(null, 300, $component0);
+}

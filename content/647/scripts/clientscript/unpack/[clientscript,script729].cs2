@@ -1,0 +1,119 @@
+// 729
+[clientscript,script729]
+~script730(air_talisman, rcguild_rewards:com_17, rcguild_rewards:com_16);
+~script730(mind_talisman, rcguild_rewards:com_31, rcguild_rewards:com_30);
+~script730(water_talisman, rcguild_rewards:com_35, rcguild_rewards:com_34);
+~script730(earth_talisman, rcguild_rewards:com_25, rcguild_rewards:com_24);
+~script730(fire_talisman, rcguild_rewards:com_27, rcguild_rewards:com_26);
+~script730(body_talisman, rcguild_rewards:com_19, rcguild_rewards:com_18);
+~script730(chaos_talisman, rcguild_rewards:com_21, rcguild_rewards:com_20);
+~script730(law_talisman, rcguild_rewards:com_29, rcguild_rewards:com_28);
+~script730(nature_talisman, rcguild_rewards:com_33, rcguild_rewards:com_32);
+~script730(cosmic_talisman, rcguild_rewards:com_23, rcguild_rewards:com_22);
+~script730(runecrafter_hat_13625, rcguild_rewards:com_49, rcguild_rewards:com_48);
+~script730(runecrafter_robe_13624, rcguild_rewards:com_55, rcguild_rewards:com_54);
+~script730(runecrafter_skirt_13627, rcguild_rewards:com_61, rcguild_rewards:com_60);
+~script730(runecrafter_gloves_13628, rcguild_rewards:com_67, rcguild_rewards:com_66);
+~script730(runecrafter_hat_13615, rcguild_rewards:com_51, rcguild_rewards:com_50);
+~script730(runecrafter_robe, rcguild_rewards:com_57, rcguild_rewards:com_56);
+~script730(runecrafter_skirt, rcguild_rewards:com_63, rcguild_rewards:com_62);
+~script730(runecrafter_gloves, rcguild_rewards:com_69, rcguild_rewards:com_68);
+~script730(runecrafter_hat_13620, rcguild_rewards:com_53, rcguild_rewards:com_52);
+~script730(runecrafter_robe_13619, rcguild_rewards:com_59, rcguild_rewards:com_58);
+~script730(runecrafter_skirt_13622, rcguild_rewards:com_65, rcguild_rewards:com_64);
+~script730(runecrafter_gloves_13623, rcguild_rewards:com_71, rcguild_rewards:com_70);
+~script730(air_altar_teleport, rcguild_rewards:com_87, rcguild_rewards:com_86);
+~script730(earth_altar_teleport, rcguild_rewards:com_97, rcguild_rewards:com_96);
+~script730(water_altar_teleport, rcguild_rewards:com_109, rcguild_rewards:com_108);
+~script730(fire_altar_teleport, rcguild_rewards:com_99, rcguild_rewards:com_98);
+~script730(mind_altar_teleport, rcguild_rewards:com_103, rcguild_rewards:com_102);
+~script730(body_altar_teleport, rcguild_rewards:com_89, rcguild_rewards:com_88);
+~script730(law_altar_teleport, rcguild_rewards:com_101, rcguild_rewards:com_100);
+~script730(chaos_altar_teleport, rcguild_rewards:com_91, rcguild_rewards:com_90);
+~script730(cosmic_altar_teleport, rcguild_rewards:com_93, rcguild_rewards:com_92);
+~script730(nature_altar_teleport, rcguild_rewards:com_105, rcguild_rewards:com_104);
+~script730(death_altar_teleport, rcguild_rewards:com_95, rcguild_rewards:com_94);
+~script730(blood_altar_teleport, rcguild_rewards:com_111, rcguild_rewards:com_110);
+~script730(runecrafting_guild_teleport, rcguild_rewards:com_113, rcguild_rewards:com_112);
+~script730(astral_altar_teleport, rcguild_rewards:com_107, rcguild_rewards:com_106);
+~script730(runecrafting_staff, rcguild_rewards:com_117, rcguild_rewards:com_116);
+~script730(cert_blankrune, rcguild_rewards:com_119, rcguild_rewards:com_118);
+if_settext("1 token each", rcguild_rewards:com_119);
+switch_int (%varplayer_1278) {
+    case 1438 :
+        if_setcolour(^white, rcguild_rewards:com_16);
+    case 1440 :
+        if_setcolour(^white, rcguild_rewards:com_24);
+    case 1442 :
+        if_setcolour(^white, rcguild_rewards:com_26);
+    case 1444 :
+        if_setcolour(^white, rcguild_rewards:com_34);
+    case 1448 :
+        if_setcolour(^white, rcguild_rewards:com_30);
+    case 1446 :
+        if_setcolour(^white, rcguild_rewards:com_18);
+    case 1458 :
+        if_setcolour(^white, rcguild_rewards:com_28);
+    case 1452 :
+        if_setcolour(^white, rcguild_rewards:com_20);
+    case 1462 :
+        if_setcolour(^white, rcguild_rewards:com_32);
+    case 1454 :
+        if_setcolour(^white, rcguild_rewards:com_22);
+    case 13625 :
+        if_setcolour(^white, rcguild_rewards:com_48);
+    case 13624 :
+        if_setcolour(^white, rcguild_rewards:com_54);
+    case 13627 :
+        if_setcolour(^white, rcguild_rewards:com_60);
+    case 13628 :
+        if_setcolour(^white, rcguild_rewards:com_66);
+    case 13615 :
+        if_setcolour(^white, rcguild_rewards:com_50);
+    case 13614 :
+        if_setcolour(^white, rcguild_rewards:com_56);
+    case 13617 :
+        if_setcolour(^white, rcguild_rewards:com_62);
+    case 13618 :
+        if_setcolour(^white, rcguild_rewards:com_68);
+    case 13620 :
+        if_setcolour(^white, rcguild_rewards:com_52);
+    case 13619 :
+        if_setcolour(^white, rcguild_rewards:com_58);
+    case 13622 :
+        if_setcolour(^white, rcguild_rewards:com_64);
+    case 13623 :
+        if_setcolour(^white, rcguild_rewards:com_70);
+    case 13599 :
+        if_setcolour(^white, rcguild_rewards:com_86);
+    case 13601 :
+        if_setcolour(^white, rcguild_rewards:com_108);
+    case 13602 :
+        if_setcolour(^white, rcguild_rewards:com_96);
+    case 13603 :
+        if_setcolour(^white, rcguild_rewards:com_98);
+    case 13600 :
+        if_setcolour(^white, rcguild_rewards:com_102);
+    case 13604 :
+        if_setcolour(^white, rcguild_rewards:com_88);
+    case 13608 :
+        if_setcolour(^white, rcguild_rewards:com_100);
+    case 13606 :
+        if_setcolour(^white, rcguild_rewards:com_90);
+    case 13607 :
+        if_setcolour(^white, rcguild_rewards:com_104);
+    case 13605 :
+        if_setcolour(^white, rcguild_rewards:com_92);
+    case 13609 :
+        if_setcolour(^white, rcguild_rewards:com_94);
+    case 13610 :
+        if_setcolour(^white, rcguild_rewards:com_110);
+    case 13598 :
+        if_setcolour(^white, rcguild_rewards:com_112);
+    case 13611 :
+        if_setcolour(^white, rcguild_rewards:com_106);
+    case 13629 :
+        if_setcolour(^white, rcguild_rewards:com_116);
+    case 1437 :
+        if_setcolour(^white, rcguild_rewards:com_118);
+}

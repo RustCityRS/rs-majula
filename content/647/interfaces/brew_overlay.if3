@@ -1,0 +1,553 @@
+// 415:0
+[com_0]
+type=layer
+width=75
+height=150
+ymode=abs_centre
+
+// 415:1
+[com_1]
+type=model
+x=11
+y=17
+width=39
+height=37
+layer=com_0
+model=model_15694
+modelorigin=0,-1
+modelangle=515,0,0
+modelzoom=360
+
+// 415:2
+[com_2]
+type=model
+x=12
+y=58
+width=38
+height=28
+layer=com_0
+model=model_15695
+modelorigin=0,-6
+modelangle=534,2047,0
+modelzoom=600
+
+// 415:3
+[com_3]
+type=model
+x=8
+y=97
+width=47
+height=23
+layer=com_0
+model=model_15688
+modelorigin=2,-2
+modelangle=531,2041,0
+modelzoom=1007
+
+// 415:4
+[com_4]
+type=text
+x=62
+y=25
+width=9
+height=14
+layer=com_0
+textfont=b12_full
+text=0
+textshadow=yes
+colour=0x910000
+onload=script1757(brew_overlay:com_7, brew_overlay:com_4)
+onvarctransmit=script1757(brew_overlay:com_7, brew_overlay:com_4){varclient_219}
+
+// 415:5
+[com_5]
+type=text
+x=62
+y=60
+width=9
+height=14
+layer=com_0
+textfont=b12_full
+text=0
+textshadow=yes
+colour=0x910000
+onload=script1758(brew_overlay:com_8, brew_overlay:com_5)
+onvarctransmit=script1758(brew_overlay:com_8, brew_overlay:com_5){varclient_218}
+
+// 415:6
+[com_6]
+type=text
+x=62
+y=94
+width=9
+height=14
+layer=com_0
+textfont=b12_full
+text=0
+textshadow=yes
+colour=0x910000
+onload=script1759(brew_overlay:com_9, brew_overlay:com_6)
+onvarctransmit=script1759(brew_overlay:com_9, brew_overlay:com_6){varclient_220}
+
+// 415:7
+[com_7]
+type=model
+x=13
+y=38
+width=36
+height=15
+layer=com_0
+hide=yes
+model=model_15693
+modelorigin=1,-7
+modelangle=327,3,0
+modelzoom=400
+
+// 415:8
+[com_8]
+type=model
+x=13
+y=69
+width=36
+height=15
+layer=com_0
+hide=yes
+model=model_15693
+modelorigin=1,-7
+modelangle=327,3,0
+modelzoom=400
+
+// 415:9
+[com_9]
+type=model
+x=13
+y=108
+width=36
+height=15
+layer=com_0
+hide=yes
+model=model_15693
+modelorigin=1,-7
+modelangle=327,3,0
+modelzoom=400
+
+// 415:10
+[com_10]
+type=model
+x=169
+y=41
+width=32
+height=26
+model=model_15666
+modelorigin=-1,-1
+modelangle=348,15,0
+modelzoom=700
+
+// 415:11
+[com_11]
+type=model
+x=214
+y=44
+width=30
+height=24
+model=model_15703
+modelorigin=1,-2
+modelangle=405,42,0
+modelzoom=700
+
+// 415:12
+[com_12]
+type=model
+x=268
+y=40
+width=25
+height=30
+model=model_15689
+modelorigin=-1,7
+modelangle=444,3,0
+modelzoom=600
+
+// 415:13
+[com_13]
+type=model
+x=306
+y=44
+width=41
+height=24
+model=model_15699
+modelorigin=0,-5
+modelangle=483,18,0
+modelzoom=790
+
+// 415:14
+[com_14]
+type=model
+x=358
+y=44
+width=35
+height=25
+model=model_15659
+modelorigin=-1,0
+modelangle=390,30,0
+modelzoom=700
+
+// 415:15
+[com_15]
+type=model
+x=19
+y=38
+width=29
+height=29
+model=model_15677
+modelorigin=0,2
+modelangle=402,0,0
+modelzoom=700
+
+// 415:16
+[com_16]
+type=model
+x=70
+y=38
+width=29
+height=29
+model=model_15679
+modelorigin=0,2
+modelangle=402,0,0
+modelzoom=700
+
+// 415:17
+[com_17]
+type=model
+x=119
+y=38
+width=29
+height=29
+model=model_15681
+modelorigin=0,2
+modelangle=402,0,0
+modelzoom=700
+
+// 415:18
+[com_18]
+type=layer
+width=184
+height=73
+xmode=abs_right
+ymode=abs_bottom
+
+// 415:19
+[com_19]
+type=layer
+x=420
+y=13
+width=69
+height=68
+
+// 415:20
+[com_20]
+type=model
+x=24
+y=14
+width=23
+height=48
+layer=com_19
+model=model_15696
+modelangle=468,0,0
+modelzoom=850
+
+// 415:21
+[com_21]
+type=layer
+x=420
+y=13
+width=69
+height=68
+hide=yes
+
+// 415:22
+[com_22]
+type=model
+x=24
+y=14
+width=23
+height=48
+layer=com_21
+model=model_15670
+modelangle=468,0,0
+modelzoom=850
+
+// 415:23
+[com_23]
+type=layer
+x=420
+y=13
+width=69
+height=68
+hide=yes
+
+// 415:24
+[com_24]
+type=model
+x=24
+y=14
+width=23
+height=48
+layer=com_23
+model=model_15723
+modelangle=468,0,0
+modelzoom=850
+modelanim=seq_4262
+
+// 415:25
+[com_25]
+type=layer
+x=420
+y=13
+width=69
+height=68
+hide=yes
+
+// 415:26
+[com_26]
+type=model
+x=24
+y=14
+width=23
+height=48
+layer=com_25
+model=model_15722
+modelangle=468,0,0
+modelzoom=850
+modelanim=seq_4262
+
+// 415:27
+[com_27]
+type=layer
+x=420
+y=13
+width=69
+height=68
+hide=yes
+
+// 415:28
+[com_28]
+type=model
+x=24
+y=14
+width=23
+height=48
+layer=com_27
+model=model_15698
+modelangle=468,0,0
+modelzoom=850
+modelanim=seq_4262
+
+// 415:29
+[com_29]
+type=layer
+x=420
+y=13
+width=69
+height=68
+hide=yes
+
+// 415:30
+[com_30]
+type=model
+x=21
+y=7
+width=29
+height=61
+layer=com_29
+model=model_15668
+modelorigin=0,1
+modelangle=468,0,0
+modelzoom=656
+modelanim=seq_4262
+
+// 415:31
+[com_31]
+type=text
+x=29
+y=23
+width=9
+height=14
+textfont=b12_full
+text=0
+textshadow=yes
+colour=0x910000
+onload=brew_boiler1(brew_overlay:com_15, brew_overlay:com_31)
+onvarctransmit=brew_boiler1(brew_overlay:com_15, brew_overlay:com_31){varclient_228}
+
+// 415:32
+[com_32]
+type=text
+x=80
+y=23
+width=9
+height=14
+textfont=b12_full
+text=0
+textshadow=yes
+colour=0x910000
+onload=brew_boiler2(brew_overlay:com_16, brew_overlay:com_32)
+onvarctransmit=brew_boiler2(brew_overlay:com_16, brew_overlay:com_32){varclient_229}
+
+// 415:33
+[com_33]
+type=text
+x=129
+y=23
+width=9
+height=14
+textfont=b12_full
+text=0
+textshadow=yes
+colour=0x910000
+onload=brew_boiler3(brew_overlay:com_17, brew_overlay:com_33)
+onvarctransmit=brew_boiler3(brew_overlay:com_17, brew_overlay:com_33){varclient_230}
+
+// 415:34
+[com_34]
+type=text
+x=180
+y=23
+width=9
+height=14
+textfont=b12_full
+text=0
+textshadow=yes
+colour=0x910000
+onload=brew_bitternut(brew_overlay:com_10, brew_overlay:com_34)
+onvarctransmit=brew_bitternut(brew_overlay:com_10, brew_overlay:com_34){varclient_223}
+
+// 415:35
+[com_35]
+type=text
+x=225
+y=23
+width=9
+height=14
+textfont=b12_full
+text=0
+textshadow=yes
+colour=0x910000
+onload=script1753(brew_overlay:com_11, brew_overlay:com_35)
+onvarctransmit=script1753(brew_overlay:com_11, brew_overlay:com_35){varclient_224}
+
+// 415:36
+[com_36]
+type=text
+x=276
+y=23
+width=9
+height=14
+textfont=b12_full
+text=0
+textshadow=yes
+colour=0x910000
+onload=brew_buckets(brew_overlay:com_12, brew_overlay:com_36)
+onvarctransmit=brew_buckets(brew_overlay:com_12, brew_overlay:com_36){varclient_226}
+
+// 415:37
+[com_37]
+type=text
+x=322
+y=24
+width=9
+height=14
+textfont=b12_full
+text=0
+textshadow=yes
+colour=0x910000
+onload=brew_colourwater(brew_overlay:com_13, brew_overlay:com_37)
+oninvtransmit=brew_colourwater(brew_overlay:com_13, brew_overlay:com_37){worn}
+onvarctransmit=brew_colourwater(brew_overlay:com_13, brew_overlay:com_37){varclient_227}
+
+// 415:38
+[com_38]
+type=text
+x=371
+y=24
+width=9
+height=14
+textfont=b12_full
+text=0
+textshadow=yes
+colour=0x910000
+onload=brew_bark(brew_overlay:com_14, brew_overlay:com_38)
+onvarctransmit=brew_bark(brew_overlay:com_14, brew_overlay:com_38){varclient_225}
+
+// 415:39
+[com_39]
+type=text
+y=2
+width=120
+height=14
+xmode=abs_centre
+layer=com_18
+textfont=p12_full
+text=Current Score
+textalignh=centre
+textshadow=yes
+colour=0xff981f
+
+// 415:40
+[com_40]
+type=model
+x=-1
+width=175
+height=45
+xmode=abs_centre
+ymode=abs_centre
+layer=com_18
+model=model_10119
+modelorigin=0,-8
+modelangle=288,0,0
+modelzoom=912
+
+// 415:41
+[com_41]
+type=text
+x=-25
+y=22
+width=9
+height=14
+xmode=abs_centre
+layer=com_18
+textfont=b12_full
+text=0
+colour=0x990000
+onload=brew_redscore(event_com)
+onvarctransmit=brew_redscore(event_com){varclient_221}
+
+// 415:42
+[com_42]
+type=text
+x=25
+y=22
+width=9
+height=14
+xmode=abs_centre
+layer=com_18
+textfont=b12_full
+text=0
+colour=0x0000cc
+onload=brew_bluescore(event_com)
+onvarctransmit=brew_bluescore(event_com){varclient_222}
+
+// 415:43
+[com_43]
+type=text
+y=5
+height=14
+widthmode=minus
+xmode=abs_centre
+ymode=abs_bottom
+layer=com_18
+textfont=p12_full
+textalignh=centre
+textshadow=yes
+colour=0xff981f
+onload=brew_time(event_com)
+onvarctransmit=brew_time(event_com){varclient_231}

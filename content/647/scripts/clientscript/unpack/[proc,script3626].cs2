@@ -1,0 +1,27 @@
+// 3626
+[proc,script3626](enum $enum0, enum $enum1, enum $enum2, enum $enum3, int $int4, int $int5, int $int6)
+def_int $int7 = 0;
+def_int $int8 = enum_getoutputcount($enum0);
+def_component $component9 = null;
+def_int $int10 = 0;
+def_int $int11 = 0;
+def_int $int12 = 0;
+def_int $int13 = 0;
+sound_synth(synth_9506, 1, 0);
+while ($int7 < $int8) {
+    $component9 = enum(int, component, $enum0, $int7);
+    $int10 = enum(int, int, $enum3, calc(($int7 + $int4) % $int8));
+    $int13 = calc(($int10 + $int5) % enum_getoutputcount(enum_3170));
+    if (if_find($component9) = true) {
+        if (cc_param(param_1103) ! cc_param(param_1104)) {
+            if_setobject(enum(int, namedobj, enum_3170, cc_param(param_1104)), -1, $component9);
+        }
+        cc_setparam_int(param_1103, $int10);
+        cc_setparam_int(param_1104, $int13);
+        $int11 = cc_param(param_1101);
+        $int12 = cc_param(param_1102);
+        cc_setposition($int11, $int12, ^setpos_abs_left, ^setpos_abs_top);
+    }
+    if_setontimer("script3628($component9, $int11, $int12, calc(25 * enum(int, int, $enum1, $int7)), calc(25 * enum(int, int, $enum2, $int7)), enum(int, namedobj, enum_3170, $int13), $int13, 0, $int6)", $component9);
+    $int7 = calc($int7 + 1);
+}

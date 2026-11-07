@@ -1,9 +1,10 @@
+// 401
 [clientscript,chatmodal_build](component $component0, component $component1, component $component2)
-def_string $string = %varc_string_320;
-if (string_length(%varc_string_319) > 0 & %option_mouse = true) {
-    $string = %varc_string_319;
+def_string $string0 = %varclient_1839;
+if (string_length(%varclient_1838) > 0 & %option_mouse = 1) {
+    $string0 = %varclient_1838;
 }
-if (cc_find($component1, 0) = true & compare($string, cc_gettext) = false) {
+if (cc_find($component1, 0) = true & compare($string0, cc_gettext) = 0) {
     return;
 }
 cc_deleteall($component0);
@@ -13,11 +14,11 @@ def_int $int3 = if_getwidth($component0);
 def_int $int4 = 0;
 if_setscrollpos(0, 0, $component1);
 if_setposition($int4, 0, ^setpos_abs_left, ^setpos_abs_centre, $component1);
-def_int $int5 = calc(paraheight($string, $int3, tutorial_font) * 12 + 3);
+def_int $int5 = calc(paraheight($string0, $int3, tutorial_font) * 12 + 3);
 if ($int5 > if_getheight($component0)) {
     $int3 = calc($int3 - (if_getwidth($component2) + 5));
     if_setsize($int3, 0, ^setsize_abs, ^setsize_minus, $component1);
-    $int5 = calc(paraheight($string, $int3, tutorial_font) * 12 + 3);
+    $int5 = calc(paraheight($string0, $int3, tutorial_font) * 12 + 3);
     if_setscrollsize(0, $int5, $component1);
     if_sethide(false, $component2);
     ~scrollbar_vertical($component2, $component1, "scrollbar_dragger_v2,3", "scrollbar_dragger_v2,0", "scrollbar_dragger_v2,1", "scrollbar_dragger_v2,2", "scrollbar_v2,0", "scrollbar_v2,1");
@@ -34,5 +35,5 @@ cc_settextfont(tutorial_font);
 cc_settextalign(^settextalign_centre, ^settextalign_centre, 0);
 cc_setcolour(^black);
 cc_settextshadow(false);
-cc_settext($string);
-if_settextfont(tutorial_font, gn4240974:com4);
+cc_settext($string0);
+if_settextfont(tutorial_font, interface_200:com_4);

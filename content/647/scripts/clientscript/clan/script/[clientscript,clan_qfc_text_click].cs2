@@ -1,4 +1,5 @@
+// 4370
 [clientscript,clan_qfc_text_click](component $component0, component $component1, int $int2)
-%varc_string_346 = if_gettext($component0);
-%varc_int_1498 = ~clientscript_1552(%varc_int_1498, %varc_string_346, 5631, $component0, -1);
-if_setposition(%varc_int_1498, 5, ^setpos_abs_left, ^setpos_abs_top, $component1);
+%varclient_1865 = if_gettext($component0);
+%varclient_1498 = ~script1552(%varclient_1498, %varclient_1865, graphic_5631, $component0, -1);
+if_setposition(%varclient_1498, 5, ^setpos_abs_left, ^setpos_abs_top, $component1);

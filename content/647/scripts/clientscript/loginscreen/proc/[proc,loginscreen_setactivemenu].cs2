@@ -1,2 +1,3 @@
-[proc,loginscreen_setactivemenu](int $int)
-~loginscreen_setactivemenu_full($int, 0, 0);
+// 1174
+[proc,loginscreen_setactivemenu](int $int0)
+~loginscreen_setactivemenu_full($int0, false, false);

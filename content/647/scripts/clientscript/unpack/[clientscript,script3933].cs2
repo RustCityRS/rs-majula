@@ -1,0 +1,10 @@
+// 3933
+[clientscript,script3933](component $component0, int $rgb1, boolean $boolean2, int $int3, component $component4, int $int5)
+if_setcolour($rgb1, $component0);
+if ($boolean2 = true) {
+    if_setgraphic(enum(int, graphic, enum_3480, $int3), $component4);
+} else if ($int5 = $int3) {
+    if_setgraphic(enum(int, graphic, enum_736, $int3), $component4);
+} else {
+    if_setgraphic(enum(int, graphic, enum_735, $int3), $component4);
+}

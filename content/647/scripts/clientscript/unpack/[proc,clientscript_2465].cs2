@@ -1,6 +1,0 @@
-[proc,clientscript_2465](int $int)(int)
-if (if_hasoverlay(~getsidelayer($int)) = true) {
-    return(1);
-}
-return(0);
-return(-1);

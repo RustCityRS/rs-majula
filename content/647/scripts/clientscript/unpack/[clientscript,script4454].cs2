@@ -1,0 +1,12 @@
+// 4454
+[clientscript,script4454](component $component0, int $int1)
+if (activeclanchannel_find_listened = true) {
+    if_setontimer(null, clan_chat:com_52);
+    ~script4444(%varclient_1506);
+} else {
+    if_setgraphic("aif_clanchat_icons,13", clan_chat:com_96);
+    if (calc(clientclock - $int1) > 200) {
+        ~script4445;
+        if_setontimer("script4454($component0, clientclock)", clan_chat:com_52);
+    }
+}

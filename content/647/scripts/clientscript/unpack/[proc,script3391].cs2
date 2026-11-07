@@ -1,0 +1,7 @@
+// 3391
+[proc,script3391]
+if_closesubclient(lobbyscreen:com_43);
+if_sethide(true, lobbyscreen:com_35);
+if (if_gethide(enum(int, component, enum_941, 5)) = false) {
+    ~script3161(1);
+}

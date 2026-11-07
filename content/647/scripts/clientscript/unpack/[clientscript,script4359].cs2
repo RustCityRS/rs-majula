@@ -1,0 +1,7 @@
+// 4359
+[clientscript,script4359](component $component0)
+if (activeclansettings_find_listened = true) {
+    ~clan_noticeboard_build($component0);
+} else {
+    if_setonclansettingstransmit("clan_noticeboard_build($component0)", $component0);
+}

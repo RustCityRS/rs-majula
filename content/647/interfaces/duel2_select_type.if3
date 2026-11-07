@@ -1,0 +1,303 @@
+// 640:0
+[com_0]
+type=rectangle
+x=149
+y=71
+width=227
+height=158
+colour=0x000000
+fill=yes
+trans=200
+
+// 640:1
+[com_1]
+type=graphic
+x=147
+y=72
+width=222
+height=149
+graphic=tradebacking
+tiling=yes
+colour=0x000000
+opbase= 
+
+// 640:2
+[com_2]
+type=graphic
+x=128
+y=97
+width=32
+height=95
+graphic="v2_stone_borders,1"
+tiling=yes
+colour=0x000000
+
+// 640:3
+[com_3]
+type=graphic
+x=141
+y=65
+width=32
+height=32
+graphic="v2_stone_borders,4"
+colour=0x000000
+
+// 640:4
+[com_4]
+type=graphic
+x=351
+y=96
+width=32
+height=97
+graphic="v2_stone_borders,3"
+tiling=yes
+colour=0x000000
+
+// 640:5
+[com_5]
+type=graphic
+x=173
+y=52
+width=167
+height=26
+graphic="v2_stone_borders,0"
+tiling=yes
+colour=0x000000
+opbase= 
+
+// 640:6
+[com_6]
+type=graphic
+x=173
+y=204
+width=167
+height=32
+graphic="v2_stone_borders,2"
+tiling=yes
+colour=0x000000
+opbase= 
+
+// 640:7
+[com_7]
+type=graphic
+x=141
+y=192
+width=32
+height=32
+graphic="v2_stone_borders,6"
+colour=0x000000
+
+// 640:8
+[com_8]
+type=graphic
+x=339
+y=65
+width=32
+height=32
+graphic="v2_stone_borders,5"
+colour=0x000000
+
+// 640:9
+[com_9]
+type=graphic
+x=339
+y=192
+width=32
+height=32
+graphic="v2_stone_borders,7"
+colour=0x000000
+
+// 640:10
+[com_10]
+type=graphic
+x=173
+y=76
+width=165
+height=32
+graphic="v2_borders_slim,11"
+tiling=yes
+colour=0x000000
+
+// 640:11
+[com_11]
+type=graphic
+x=173
+y=109
+width=165
+height=32
+graphic="v2_borders_slim,11"
+tiling=yes
+colour=0x000000
+
+// 640:12
+[com_12]
+type=graphic
+x=173
+y=122
+width=165
+height=32
+graphic="v2_borders_slim,11"
+tiling=yes
+colour=0x000000
+
+// 640:13
+[com_13]
+type=graphic
+x=173
+y=155
+width=165
+height=32
+graphic="v2_borders_slim,11"
+tiling=yes
+colour=0x000000
+
+// 640:14
+[com_14]
+type=graphic
+x=160
+y=93
+width=32
+height=32
+graphic="v2_borders_slim,12"
+colour=0x000000
+
+// 640:15
+[com_15]
+type=graphic
+x=325
+y=93
+width=32
+height=32
+graphic="v2_borders_slim,12"
+colour=0x000000
+opbase= 
+
+// 640:16
+[com_16]
+type=graphic
+x=160
+y=139
+width=32
+height=32
+graphic="v2_borders_slim,12"
+colour=0x000000
+
+// 640:17
+[com_17]
+type=graphic
+x=325
+y=139
+width=32
+height=32
+graphic="v2_borders_slim,12"
+colour=0x000000
+opbase= 
+
+// 640:18
+[com_18]
+type=text
+x=202
+y=101
+width=109
+height=15
+textfont=p11_full
+text=Friendly Duel
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xff981f
+transmitop=1
+op1=Select
+opcursor0=cursor_46
+onmouseover=text_colour_swapper(event_com, ^white)
+onmouseleave=text_colour_swapper(event_com, 0xff981f)
+onvartransmit=duel2_select_type_vartrans{varplayer_283}
+
+// 640:19
+[com_19]
+type=text
+x=202
+y=150
+width=109
+height=15
+textfont=p11_full
+text=Staked Duel
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xff981f
+transmitop=1
+op1=Select
+opcursor0=cursor_46
+onmouseover=text_colour_swapper(event_com, ^white)
+onmouseleave=text_colour_swapper(event_com, 0xff981f)
+
+// 640:20
+[com_20]
+type=text
+x=191
+y=183
+width=130
+height=30
+textfont=b12_full
+text=Challenge!
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xff981f
+transmitop=1
+op1=Next-Screen
+onmouseover=text_colour_swapper(event_com, ^white)
+onmouseleave=text_colour_swapper(event_com, 0xff981f)
+
+// 640:21
+[com_21]
+type=graphic
+x=188
+y=150
+width=15
+height=15
+graphic="radio_buttons,0"
+tiling=yes
+colour=0x000000
+transmitop=1
+op1=Ok
+
+// 640:22
+[com_22]
+type=graphic
+x=188
+y=101
+width=15
+height=15
+graphic="radio_buttons,0"
+tiling=yes
+colour=0x000000
+transmitop=1
+op1=Ok
+
+// 640:23
+[com_23]
+type=layer
+x=191
+y=183
+width=130
+height=30
+onload=v2_stone_button(event_com)
+onmouseover=v2_stone_button_in(event_com)
+onmouseleave=v2_stone_button(event_com)
+
+// 640:24
+[com_24]
+type=graphic
+x=345
+y=74
+width=16
+height=16
+graphic="v2_stone_close_button,0"
+colour=0x000000
+transmitop=1
+op1=Close
+onmouseover=graphic_swapper(event_com, "v2_stone_close_button,1")
+onmouseleave=graphic_swapper(event_com, "v2_stone_close_button,0")
+onop=closebutton_click

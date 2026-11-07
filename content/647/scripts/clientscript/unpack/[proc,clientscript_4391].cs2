@@ -1,8 +1,0 @@
-[proc,clientscript_4391](component $component0)
-def_texture $texture1 = null;
-def_texture $texture2 = null;
-if (ignore_getname = true) {
-    $texture1, $texture2 = ~clan_motif_decode(%varbit_9086, %varbit_9087, 0);
-    if_setmodel_retexture(0, 1024, $texture1, $component0);
-    if_setmodel_retexture(1, 1057, $texture2, $component0);
-}

@@ -1,13 +1,14 @@
+// 1265
 [proc,options_chat]
-def_string $string = "null";
-if (%option_chat = true) {
-    if_setgraphic("options_boxes,0", options:com4);
-    $string = "Chat effects<br>(currently off)";
-    if_setonmouserepeat("addtooltip(^event_com, options:com20, $string, 25, 180)", options:com4);
-    %varc_int_2 = 0;
-} else if (%option_chat = false) {
-    if_setgraphic("options_boxes,1", options:com4);
-    $string = "Chat effects<br>(currently on)";
-    if_setonmouserepeat("addtooltip(^event_com, options:com20, $string, 25, 180)", options:com4);
-    %varc_int_2 = 0;
+def_string $string0 = null;
+if (%option_chat = 1) {
+    if_setgraphic("options_boxes,0", options:com_4);
+    $string0 = "Chat effects<br>(currently off)";
+    if_setonmouserepeat("addtooltip(event_com, options:com_20, $string0, 25, 180)", options:com_4);
+    %varclient_2 = 0;
+} else if (%option_chat = 0) {
+    if_setgraphic("options_boxes,1", options:com_4);
+    $string0 = "Chat effects<br>(currently on)";
+    if_setonmouserepeat("addtooltip(event_com, options:com_20, $string0, 25, 180)", options:com_4);
+    %varclient_2 = 0;
 }

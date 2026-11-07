@@ -36,24 +36,24 @@ sendvarc(754, $verb); // the verb: ^skill_make_make, ^skill_make_cook, ...
 ~skill_make_item(1142, 283, $obj10);
 ~skill_make_amount($maximum);
 if_openchat(skillmulti2010);
-if_opensub(skillmulti2010_numbers, skillmulti2010:com4, ^false);
-if_settext(skillmulti2010_numbers:com1, $text);
-if_setevents(skillmulti2010_numbers:com8, 0, 0, ^if_op1, 0, 0, ^false, ^false);
+if_opensub(skillmulti2010_numbers, skillmulti2010:com_4, ^false);
+if_settext(skillmulti2010_numbers:com_1, $text);
+if_setevents(skillmulti2010_numbers:com_8, 0, 0, ^if_op1, 0, 0, ^false, ^false);
 p_pausebutton;
 def_component $com = last_com;
 if_close;
 def_int $amount = %skill_creation_amount;
 switch_component ($com) {
-    case skillmulti2010:com14 : return($obj1, $amount);
-    case skillmulti2010:com15 : return($obj2, $amount);
-    case skillmulti2010:com16 : return($obj3, $amount);
-    case skillmulti2010:com17 : return($obj4, $amount);
-    case skillmulti2010:com18 : return($obj5, $amount);
-    case skillmulti2010:com19 : return($obj6, $amount);
-    case skillmulti2010:com20 : return($obj7, $amount);
-    case skillmulti2010:com21 : return($obj8, $amount);
-    case skillmulti2010:com22 : return($obj9, $amount);
-    case skillmulti2010:com23 : return($obj10, $amount);
+    case skillmulti2010:com_14 : return($obj1, $amount);
+    case skillmulti2010:com_15 : return($obj2, $amount);
+    case skillmulti2010:com_16 : return($obj3, $amount);
+    case skillmulti2010:com_17 : return($obj4, $amount);
+    case skillmulti2010:com_18 : return($obj5, $amount);
+    case skillmulti2010:com_19 : return($obj6, $amount);
+    case skillmulti2010:com_20 : return($obj7, $amount);
+    case skillmulti2010:com_21 : return($obj8, $amount);
+    case skillmulti2010:com_22 : return($obj9, $amount);
+    case skillmulti2010:com_23 : return($obj10, $amount);
     case default : return(null, 0);
 }
 
@@ -66,27 +66,27 @@ sendvarc($varc, $obj);
 sendvarc_str($varc_name, oc_name($obj));
 
 // The number panel. All is the maximum; +1 stops at it, -1 at nothing.
-[if_button,skillmulti2010_numbers:com5]
+[if_button,skillmulti2010_numbers:com_5]
 %skill_creation_amount = 1;
 %skill_creation_saved = add(%skill_creation_amount, 1);
 
-[if_button,skillmulti2010_numbers:com6]
+[if_button,skillmulti2010_numbers:com_6]
 %skill_creation_amount = min(5, %skill_creation_maximum);
 %skill_creation_saved = add(%skill_creation_amount, 1);
 
-[if_button,skillmulti2010_numbers:com7]
+[if_button,skillmulti2010_numbers:com_7]
 %skill_creation_amount = min(10, %skill_creation_maximum);
 %skill_creation_saved = add(%skill_creation_amount, 1);
 
-[if_button,skillmulti2010_numbers:com8]
+[if_button,skillmulti2010_numbers:com_8]
 %skill_creation_amount = %skill_creation_maximum;
 %skill_creation_saved = add(%skill_creation_amount, 1);
 
-[if_button,skillmulti2010_numbers:com19]
+[if_button,skillmulti2010_numbers:com_19]
 %skill_creation_amount = min(add(%skill_creation_amount, 1), %skill_creation_maximum);
 %skill_creation_saved = add(%skill_creation_amount, 1);
 
-[if_button,skillmulti2010_numbers:com20]
+[if_button,skillmulti2010_numbers:com_20]
 %skill_creation_amount = max(sub(%skill_creation_amount, 1), 0);
 %skill_creation_saved = add(%skill_creation_amount, 1);
 

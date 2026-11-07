@@ -6,8 +6,9 @@ use crate::pack::util::colour::RecolType;
 #[cfg(before_647)]
 use crate::pack::util::colour::rgb15_to_hsl16;
 #[cfg(since_647)]
-use crate::pack::util::{pack_pairs, parse_retex};
+use crate::pack::util::{pack_pairs, parse_number, parse_ref, parse_retex};
 use crate::pack::util::{parse_bool, parse_model_kind, parse_recol};
+#[cfg(before_647)]
 use crate::types::BodyType;
 use anyhow::Result;
 use std::collections::HashMap;
@@ -63,6 +64,7 @@ pub fn pack_idks(
             }
             match key.as_str() {
                 // 1
+                #[cfg(before_647)]
                 "type" => {
                     let v = BodyType::from_config_str(value);
                     client.p1(1);
@@ -71,7 +73,21 @@ pub fn pack_idks(
                     server.p1(v as u8);
                 }
 
+                #[cfg(since_647)]
+                "bodypart" => parse_number(value, |v: u8| {
+                    client.p1(1);
+                    client.p1(v);
+                    server.p1(1);
+                    server.p1(v);
+                }),
+
                 // 2
+                #[cfg(since_647)]
+                "model" => parse_ref(&registry.model, "model", value, |v| {
+                    models.push((models.len() + 1, v));
+                }),
+
+                #[cfg(before_647)]
                 _ if key.starts_with("model") => {
                     parse_model_kind(registry, "model", key, value, |v| models.push((v.0, v.1)))
                 }

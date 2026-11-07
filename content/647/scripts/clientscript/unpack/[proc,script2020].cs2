@@ -1,0 +1,36 @@
+// 2020
+[proc,script2020](int $int0, string $string0, int $int1, component $component2)
+cc_deleteall($component2);
+cc_create($component2, ^iftype_graphic, 0);
+cc_setsize(10, 0, ^setsize_minus, ^setsize_minus);
+cc_setposition(0, 0, ^setpos_abs_centre, ^setpos_abs_centre);
+cc_setgraphic(graphic_3859);
+cc_create($component2, ^iftype_graphic, 1);
+cc_setsize(6, 0, ^setsize_abs, ^setsize_minus);
+cc_setposition(0, 0, ^setpos_abs_left, ^setpos_abs_centre);
+cc_setgraphic(graphic_3857);
+cc_create($component2, ^iftype_graphic, 2);
+cc_setsize(6, 0, ^setsize_abs, ^setsize_minus);
+cc_setposition(0, 0, ^setpos_abs_right, ^setpos_abs_centre);
+cc_setgraphic(graphic_3858);
+cc_create($component2, ^iftype_text, 3);
+cc_setsize(0, 0, ^setsize_minus, ^setsize_minus);
+cc_setposition(0, 0, ^setpos_abs_centre, ^setpos_abs_centre);
+cc_settextfont(p11_full);
+cc_settextalign(^settextalign_centre, ^settextalign_centre, 0);
+cc_setcolour(0xff981f);
+cc_settextshadow(true);
+cc_settext($string0);
+if_setsize($int1, 26, ^setsize_abs, ^setsize_abs, $component2);
+if_sethide(false, $component2);
+if_setonmouseover("script2021(event_com, true)", $component2);
+if_setonmouseleave("script2021(event_com, false)", $component2);
+if ($int0 = -1) {
+    if_clearops($component2);
+    if_setpausetext($string0, $component2);
+    if_setonclick("script2022(1, $int0)", $component2);
+} else {
+    if_setop(1, $string0, $component2);
+    if_setpausetext("", $component2);
+    if_setonop("script2022(event_op, $int0)", $component2);
+}

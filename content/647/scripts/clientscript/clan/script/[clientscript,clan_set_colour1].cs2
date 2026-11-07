@@ -1,2 +1,3 @@
-[clientscript,clan_set_colour1](component $component)
-if_setcolour(hsv_to_rgb(%varp_2096), $component);
+// 4403
+[clientscript,clan_set_colour1](component $component0)
+if_setcolour(hsvtorgb(%varplayer_2096), $component0);

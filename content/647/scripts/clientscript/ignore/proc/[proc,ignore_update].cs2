@@ -1,19 +1,20 @@
+// 129
 [proc,ignore_update]
-cc_deleteall(friends2:com4);
-def_int $int0 = ignores_count;
+cc_deleteall(friends2:com_4);
+def_int $int0 = ignore_count;
 if ($int0 < 0) {
-    if_settext("Loading Ignore List.<br>Please wait.", friends2:com46);
-    if_sethide(false, friends2:com46);
-    if_settext("", friends2:com35);
+    if_settext("Loading Ignore List.<br>Please wait.", friends2:com_46);
+    if_sethide(false, friends2:com_46);
+    if_settext("", friends2:com_35);
     return;
 }
-if_settext("<tostring($int0)> / <tostring(100)>", friends2:com35);
-if_settext("", friends2:com46);
-if_sethide(true, friends2:com46);
-def_component $component1 = friends2:com4;
-def_component $component2 = friends2:com2;
-def_component $component3 = friends2:com3;
-def_component $component4 = friends2:com31;
+if_settext("<tostring($int0)> / <tostring(100)>", friends2:com_35);
+if_settext("", friends2:com_46);
+if_sethide(true, friends2:com_46);
+def_component $component1 = friends2:com_4;
+def_component $component2 = friends2:com_2;
+def_component $component3 = friends2:com_3;
+def_component $component4 = friends2:com_31;
 def_int $int5 = 0;
 def_string $string0 = "";
 def_string $string1 = "";
@@ -30,25 +31,25 @@ cc_deleteall($component2);
 while ($int5 < $int0) {
     $int8 = calc($int5 * 2);
     $int9 = calc($int5 * $int10);
-    $string0, $string1 = ignores_getname($int5);
+    $string0, $string1 = ignore_getname($int5);
     if (compare($string1, "") ! 0) {
         $int6 = 1;
     } else {
         $int6 = 0;
     }
-    if ($int6 = true) {
+    if ($int6 = 1) {
         $string2 = "      <$string0>";
     } else {
         $string2 = $string0;
     }
-    cc_create(friends2:com4, ^iftype_text, $int8);
+    cc_create(friends2:com_4, ^iftype_text, $int8);
     cc_setsize(168, $int10, ^setsize_abs, ^setsize_abs);
     cc_setposition(0, $int9, ^setpos_abs_left, ^setpos_abs_top);
     cc_setcolour(0xa4997d);
     cc_settextfont(verdana_11pt_regular);
     cc_settextshadow(true);
     cc_settextalign(^settextalign_left, ^settextalign_top, 0);
-    if ($int6 = true) {
+    if ($int6 = 1) {
         cc_settext("      <$string2>");
     } else {
         cc_settext($string2);
@@ -56,26 +57,26 @@ while ($int5 < $int0) {
     cc_settext($string2);
     cc_setopbase("<col=ffffff><$string0>");
     cc_setop(1, "Remove");
-    cc_setonop("ignore_op(clan_getchatclanid($int5))");
-    if ($int6 = true) {
-        $int7 = calc(op4125("Last known as: <$string1>", 3793) + 8);
-        if ($int7 > if_getwidth(friends2:com4)) {
+    cc_setonop("ignore_op(ignore_getname_unfiltered($int5))");
+    if ($int6 = 1) {
+        $int7 = calc(stringwidth("Last known as: <$string1>", verdana_11pt_regular) + 8);
+        if ($int7 > if_getwidth(friends2:com_4)) {
             $string3 = "Last known as:<br><$string1>";
         } else {
             $string3 = "Last known as: <$string1>";
         }
-        cc_setonmouserepeat("clientscript_1594(friends2:com52, ^event_com, ^event_subid, $string3, ^event_mousex, ^event_mousey)");
-        cc_setonmouseleave("deltooltip(friends2:com52)");
+        cc_setonmouserepeat("script1594(friends2:com_52, event_com, event_comsubid, $string3, event_mousex, event_mousey)");
+        cc_setonmouseleave("deltooltip(friends2:com_52)");
     }
-    cc_create(friends2:com4, ^iftype_graphic, calc($int8 + 1));
+    cc_create(friends2:com_4, ^iftype_graphic, calc($int8 + 1));
     cc_setgraphic(friends_changed_name);
     cc_setsize(14, 14, ^setsize_abs, ^setsize_abs);
     cc_setposition(0, $int9, ^setpos_abs_left, ^setpos_abs_top);
-    if ($int6 = false) {
+    if ($int6 = 0) {
         cc_sethide(true);
     }
     if (calc($int5 % 2) ! 0) {
-        cc_create(friends2:com2, ^iftype_rectangle, if_getchildcount($component2));
+        cc_create(friends2:com_2, ^iftype_rectangle, if_getnextsubid($component2));
         cc_setsize(16384, $int10, ^setsize_rel, ^setsize_abs);
         cc_setposition(0, $int9, ^setpos_abs_left, ^setpos_abs_top);
         cc_setcolour(0x232220);
@@ -87,7 +88,7 @@ while ($int5 < $int0) {
 while ($int5 < $int11) {
     $int9 = calc($int5 * $int10);
     if (calc($int5 % 2) ! 0) {
-        cc_create(friends2:com2, ^iftype_rectangle, if_getchildcount($component2));
+        cc_create(friends2:com_2, ^iftype_rectangle, if_getnextsubid($component2));
         cc_setsize(16384, $int10, ^setsize_rel, ^setsize_abs);
         cc_setposition(0, $int9, ^setpos_abs_left, ^setpos_abs_top);
         cc_setcolour(0x232220);

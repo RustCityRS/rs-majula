@@ -1,14 +1,15 @@
+// 2500
 [proc,mob_formation_click](component $component0)
 def_int $int1 = 1;
-while ($int1 <= 9 | enum(105, 73, enum_2400, $int1) ! mob_formation:com25) {
-    if (enum(105, 73, enum_2400, $int1) ! $component0) {
-        if_setgraphic("radio_buttons,0", enum(105, 73, enum_2400, $int1));
+while ($int1 <= 9 | enum(int, component, enum_2400, $int1) ! mob_formation:com_25) {
+    if (enum(int, component, enum_2400, $int1) ! $component0) {
+        if_setgraphic("radio_buttons,0", enum(int, component, enum_2400, $int1));
     } else {
         if_setgraphic("radio_buttons,1", $component0);
-        %varc_int_837 = $int1;
+        %varclient_837 = $int1;
     }
     $int1 = calc($int1 + 1);
 }
-if (%varc_int_837 > 0 & %varc_int_837 <= 9) {
-    if_setmodel(enum(105, 109, enum_2399, %varc_int_837), mob_formation:com39);
+if (%varclient_837 > 0 & %varclient_837 <= 9) {
+    if_setmodel(enum(int, model, enum_2399, %varclient_837), mob_formation:com_39);
 }

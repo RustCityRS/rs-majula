@@ -1,0 +1,6 @@
+// 1144
+[clientscript,script1144](component $component0)
+if (spline_length(0) = 7) {
+    cam_movealong(0, 5, 600, 400, 1, 5);
+}
+if_setoncamfinished(null, $component0);

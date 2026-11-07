@@ -1,0 +1,7 @@
+// 2891
+[clientscript,script2891](int $int0, component $component1)
+if (clientclock >= $int0) {
+    ~component_flash_stop(interface_476:com_17);
+    if_sethide(true, interface_476:com_17);
+    if_setontimer(null, $component1);
+}

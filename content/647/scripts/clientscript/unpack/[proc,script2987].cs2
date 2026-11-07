@@ -1,0 +1,6 @@
+// 2987
+[proc,script2987](component $component0, component $component1, component $component2, component $component3)
+if_sethide(false, $component0);
+if_sethide(false, $component1);
+if_sethide(false, $component3);
+if_sethide(true, $component2);

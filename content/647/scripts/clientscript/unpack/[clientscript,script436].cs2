@@ -1,0 +1,9 @@
+// 436
+[clientscript,script436](component $component0)
+if ($component0 = wm60_153_t22_60:com_22) {
+    if_setgraphic("radio_buttons,1", wm60_153_t22_60:com_21);
+    if_setgraphic("radio_buttons,0", wm60_153_t22_60:com_23);
+} else {
+    if_setgraphic("radio_buttons,0", wm60_153_t22_60:com_21);
+    if_setgraphic("radio_buttons,1", wm60_153_t22_60:com_23);
+}

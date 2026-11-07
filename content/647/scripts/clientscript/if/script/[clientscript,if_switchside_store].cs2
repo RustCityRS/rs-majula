@@ -1,2 +1,3 @@
+// 3286
 [clientscript,if_switchside_store]
-%varc_int_10 = calc(~current_side_if + 100);
+%varclient_10 = calc(~current_side_if + 100);

@@ -29,7 +29,7 @@ if_openmain(xplamp);
 [if_button,xplamp:herblore] @xplamp_select(herblore);
 [if_button,xplamp:thieving] @xplamp_select(thieving);
 [if_button,xplamp:crafting] @xplamp_select(crafting);
-[if_button,xplamp:runecraft] @xplamp_select(runecrafting);
+[if_button,xplamp:runecraft] @xplamp_select(runecraft);
 [if_button,xplamp:mining] @xplamp_select(mining);
 [if_button,xplamp:smithing] @xplamp_select(smithing);
 [if_button,xplamp:fishing] @xplamp_select(fishing);
@@ -60,7 +60,7 @@ switch_int (%xplamp_stat) {
     case ^xplamp_herblore : @xplamp_confirm(herblore);
     case ^xplamp_thieving : @xplamp_confirm(thieving);
     case ^xplamp_crafting : @xplamp_confirm(crafting);
-    case ^xplamp_runecraft : @xplamp_confirm(runecrafting);
+    case ^xplamp_runecraft : @xplamp_confirm(runecraft);
     case ^xplamp_mining : @xplamp_confirm(mining);
     case ^xplamp_smithing : @xplamp_confirm(smithing);
     case ^xplamp_fishing : @xplamp_confirm(fishing);
@@ -95,7 +95,7 @@ switch_stat ($stat) {
     case herblore : @xplamp_select_stat(^xplamp_herblore);
     case thieving : @xplamp_select_stat(^xplamp_thieving);
     case crafting : @xplamp_select_stat(^xplamp_crafting);
-    case runecrafting : @xplamp_select_stat(^xplamp_runecraft);
+    case runecraft : @xplamp_select_stat(^xplamp_runecraft);
     case mining : @xplamp_select_stat(^xplamp_mining);
     case smithing : @xplamp_select_stat(^xplamp_smithing);
     case fishing : @xplamp_select_stat(^xplamp_fishing);

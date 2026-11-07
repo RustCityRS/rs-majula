@@ -1,0 +1,3273 @@
+// 300:0
+[com_0]
+type=rectangle
+x=5
+y=25
+width=508
+height=305
+colour=0x000000
+fill=yes
+trans=200
+
+// 300:1
+[com_1]
+type=graphic
+x=7
+y=25
+width=498
+height=300
+graphic=tradebacking
+tiling=yes
+colour=0xffffffff
+
+// 300:2
+[com_2]
+type=graphic
+x=-13
+y=57
+width=32
+height=241
+graphic="v2_stone_borders,1"
+tiling=yes
+colour=0xffffffff
+opbase= 
+
+// 300:3
+[com_3]
+type=graphic
+y=20
+width=32
+height=32
+graphic="v2_stone_borders,4"
+colour=0xffffffff
+
+// 300:4
+[com_4]
+type=graphic
+x=492
+y=51
+width=32
+height=243
+graphic="v2_stone_borders,3"
+tiling=yes
+colour=0xffffffff
+
+// 300:5
+[com_5]
+type=graphic
+x=32
+y=7
+width=448
+height=34
+graphic="v2_stone_borders,0"
+tiling=yes
+colour=0xffffffff
+
+// 300:6
+[com_6]
+type=graphic
+x=32
+y=306
+width=448
+height=32
+graphic="v2_stone_borders,2"
+tiling=yes
+colour=0xffffffff
+
+// 300:7
+[com_7]
+type=graphic
+y=294
+width=32
+height=32
+graphic="v2_stone_borders,6"
+colour=0xffffffff
+
+// 300:8
+[com_8]
+type=graphic
+x=480
+y=20
+width=32
+height=32
+graphic="v2_stone_borders,5"
+colour=0xffffffff
+
+// 300:9
+[com_9]
+type=graphic
+x=480
+y=294
+width=32
+height=32
+graphic="v2_stone_borders,7"
+colour=0xffffffff
+
+// 300:10
+[com_10]
+type=graphic
+x=11
+y=35
+width=490
+height=32
+graphic="v2_stone_borders,8"
+tiling=yes
+colour=0xffffffff
+
+// 300:11
+[com_11]
+type=graphic
+y=37
+width=32
+height=32
+graphic="v2_stone_borders,9"
+colour=0xffffffff
+
+// 300:12
+[com_12]
+type=graphic
+x=480
+y=37
+width=32
+height=32
+graphic="v2_stone_borders,10"
+colour=0xffffffff
+
+// 300:13
+[com_13]
+type=graphic
+x=486
+y=30
+width=16
+height=16
+graphic="v2_stone_close_button,0"
+colour=0xffffffff
+transmitop=1
+op1=Close
+onmouseover=graphic_swapper(event_com, "v2_stone_close_button,1")
+onmouseleave=graphic_swapper(event_com, "v2_stone_close_button,0")
+onclick=closebutton_click
+
+// 300:14
+[com_14]
+type=text
+x=139
+y=30
+width=223
+height=20
+textfont=b12_full
+text=Smithing
+textalignh=centre
+textshadow=yes
+colour=0xff991f
+
+// 300:15
+[com_15]
+type=layer
+x=6
+y=55
+width=484
+height=264
+scrollwidth=366
+scrollheight=375
+
+// 300:16
+[com_16]
+type=layer
+x=487
+y=55
+width=16
+height=264
+opbase= 
+onload=script870(event_com, smithing_new:com_15, "scrollbar_dragger_v2,3", "scrollbar_dragger_v2,0", "scrollbar_dragger_v2,1", "scrollbar_dragger_v2,2", "scrollbar_v2,0", "scrollbar_v2,1")
+
+// 300:17
+[com_17]
+type=layer
+x=4
+y=5
+width=109
+height=32
+layer=com_15
+
+// 300:18
+[com_18]
+type=graphic
+width=36
+height=32
+layer=com_17
+outline=1
+colour=0xffffffff
+
+// 300:19
+[com_19]
+type=text
+x=35
+y=-1
+width=75
+height=21
+layer=com_17
+textfont=p11_full
+text=Dagger
+textalignv=centre
+colour=0x000000
+
+// 300:20
+[com_20]
+type=text
+x=36
+y=20
+width=55
+height=12
+layer=com_17
+textfont=p11_full
+text=1 Bar
+textshadow=yes
+colour=0xe8981f
+
+// 300:21
+[com_21]
+type=text
+width=109
+height=32
+layer=com_17
+textfont=q8_full
+textalignh=centre
+textshadow=yes
+colour=0x000000
+transmitop=1
+op1=Make All Daggers
+
+// 300:22
+[com_22]
+type=text
+width=109
+height=32
+layer=com_17
+textfont=q8_full
+textalignh=centre
+textshadow=yes
+colour=0x000000
+transmitop=1
+op1=Make X Daggers
+
+// 300:23
+[com_23]
+type=text
+width=109
+height=32
+layer=com_17
+textfont=q8_full
+textalignh=centre
+textshadow=yes
+colour=0x000000
+transmitop=1
+op1=Make 5 Daggers
+
+// 300:24
+[com_24]
+type=text
+width=109
+height=32
+layer=com_17
+textfont=q8_full
+textalignh=centre
+textshadow=yes
+colour=0x000000
+transmitop=1
+op1=Make 1 Dagger
+
+// 300:25
+[com_25]
+type=layer
+x=121
+y=5
+width=109
+height=32
+layer=com_15
+
+// 300:26
+[com_26]
+type=graphic
+width=36
+height=32
+layer=com_25
+outline=1
+colour=0xffffffff
+
+// 300:27
+[com_27]
+type=text
+x=35
+y=-1
+width=75
+height=21
+layer=com_25
+textfont=p11_full
+text=Hatchet
+textalignv=centre
+colour=0x000000
+
+// 300:28
+[com_28]
+type=text
+x=36
+y=20
+width=45
+height=12
+layer=com_25
+textfont=p11_full
+text=1 Bar
+textalignv=centre
+textshadow=yes
+colour=0xe8981f
+
+// 300:29
+[com_29]
+type=text
+width=109
+height=32
+layer=com_25
+textfont=q8_full
+textalignh=centre
+textshadow=yes
+colour=0x000000
+transmitop=1
+op1=Make All Hatchets
+
+// 300:30
+[com_30]
+type=text
+width=109
+height=32
+layer=com_25
+textfont=q8_full
+textalignh=centre
+textshadow=yes
+colour=0x000000
+transmitop=1
+op1=Make X Hatchets
+
+// 300:31
+[com_31]
+type=text
+width=109
+height=32
+layer=com_25
+textfont=q8_full
+textalignh=centre
+textshadow=yes
+colour=0x000000
+transmitop=1
+op1=Make 5 Hatchets
+
+// 300:32
+[com_32]
+type=text
+width=109
+height=32
+layer=com_25
+textfont=q8_full
+textalignh=centre
+textshadow=yes
+colour=0x000000
+transmitop=1
+op1=Make 1 Hatchet
+
+// 300:33
+[com_33]
+type=layer
+x=238
+y=5
+width=109
+height=32
+layer=com_15
+
+// 300:34
+[com_34]
+type=graphic
+width=36
+height=32
+layer=com_33
+outline=1
+colour=0xffffffff
+
+// 300:35
+[com_35]
+type=text
+x=35
+y=-1
+width=75
+height=21
+layer=com_33
+textfont=p11_full
+text=Mace
+textalignv=centre
+colour=0x000000
+
+// 300:36
+[com_36]
+type=text
+x=36
+y=20
+width=45
+height=12
+layer=com_33
+textfont=p11_full
+text=1 Bar
+textalignv=centre
+textshadow=yes
+colour=0xe8981f
+
+// 300:37
+[com_37]
+type=text
+width=109
+height=32
+layer=com_33
+textfont=q8_full
+textalignh=centre
+textshadow=yes
+colour=0x000000
+transmitop=1
+op1=Make All Maces
+
+// 300:38
+[com_38]
+type=text
+width=109
+height=32
+layer=com_33
+textfont=q8_full
+textalignh=centre
+textshadow=yes
+colour=0x000000
+transmitop=1
+op1=Make X Maces
+
+// 300:39
+[com_39]
+type=text
+width=109
+height=32
+layer=com_33
+textfont=q8_full
+textalignh=centre
+textshadow=yes
+colour=0x000000
+transmitop=1
+op1=Make 5 Maces
+
+// 300:40
+[com_40]
+type=text
+width=109
+height=32
+layer=com_33
+textfont=q8_full
+textalignh=centre
+textshadow=yes
+colour=0x000000
+transmitop=1
+op1=Make 1 Mace
+
+// 300:41
+[com_41]
+type=layer
+x=368
+y=5
+width=109
+height=32
+layer=com_15
+
+// 300:42
+[com_42]
+type=graphic
+width=36
+height=32
+layer=com_41
+outline=1
+colour=0xffffffff
+
+// 300:43
+[com_43]
+type=text
+x=35
+y=-1
+width=75
+height=21
+layer=com_41
+textfont=p11_full
+text=Medium helm
+textalignv=centre
+colour=0x000000
+
+// 300:44
+[com_44]
+type=text
+x=36
+y=20
+width=45
+height=12
+layer=com_41
+textfont=p11_full
+text=1 Bar
+textalignv=centre
+textshadow=yes
+colour=0xe8981f
+
+// 300:45
+[com_45]
+type=text
+width=109
+height=32
+layer=com_41
+textfont=q8_full
+textalignh=centre
+textshadow=yes
+colour=0x000000
+transmitop=1
+op1=Make All Medium helms
+
+// 300:46
+[com_46]
+type=text
+width=109
+height=32
+layer=com_41
+textfont=q8_full
+textalignh=centre
+textshadow=yes
+colour=0x000000
+transmitop=1
+op1=Make X Medium helms
+
+// 300:47
+[com_47]
+type=text
+width=109
+height=32
+layer=com_41
+textfont=q8_full
+textalignh=centre
+textshadow=yes
+colour=0x000000
+transmitop=1
+op1=Make 5 Medium helms
+
+// 300:48
+[com_48]
+type=text
+width=109
+height=32
+layer=com_41
+textfont=q8_full
+textalignh=centre
+textshadow=yes
+colour=0x000000
+transmitop=1
+op1=Make 1 Medium helm
+
+// 300:49
+[com_49]
+type=layer
+x=4
+y=57
+width=114
+height=32
+layer=com_15
+
+// 300:50
+[com_50]
+type=graphic
+width=36
+height=32
+layer=com_49
+outline=1
+colour=0xffffffff
+
+// 300:51
+[com_51]
+type=text
+x=35
+y=-1
+width=78
+height=21
+layer=com_49
+textfont=p11_full
+text=Crossbow bolts
+textalignv=centre
+colour=0x000000
+
+// 300:52
+[com_52]
+type=text
+x=36
+y=20
+width=55
+height=12
+layer=com_49
+textfont=p11_full
+text=1 Bar
+textshadow=yes
+colour=0xe8981f
+
+// 300:53
+[com_53]
+type=text
+width=114
+height=32
+layer=com_49
+textfont=q8_full
+textalignh=centre
+textshadow=yes
+colour=0x000000
+transmitop=1
+op1=Make All Bolts
+
+// 300:54
+[com_54]
+type=text
+width=114
+height=32
+layer=com_49
+textfont=q8_full
+textalignh=centre
+textshadow=yes
+colour=0x000000
+transmitop=1
+op1=Make X Bolts
+
+// 300:55
+[com_55]
+type=text
+width=114
+height=32
+layer=com_49
+textfont=q8_full
+textalignh=centre
+textshadow=yes
+colour=0x000000
+transmitop=1
+op1=Make 5 Bolts
+
+// 300:56
+[com_56]
+type=text
+width=114
+height=32
+layer=com_49
+textfont=q8_full
+textalignh=centre
+textshadow=yes
+colour=0x000000
+transmitop=1
+op1=Make 1 Bolt
+
+// 300:57
+[com_57]
+type=layer
+x=121
+y=57
+width=109
+height=32
+layer=com_15
+
+// 300:58
+[com_58]
+type=graphic
+width=36
+height=32
+layer=com_57
+outline=1
+colour=0xffffffff
+
+// 300:59
+[com_59]
+type=text
+x=35
+y=-1
+width=75
+height=21
+layer=com_57
+textfont=p11_full
+text=Sword
+textalignv=centre
+colour=0x000000
+
+// 300:60
+[com_60]
+type=text
+x=36
+y=20
+width=55
+height=12
+layer=com_57
+textfont=p11_full
+text=1 Bar
+textshadow=yes
+colour=0xe8981f
+
+// 300:61
+[com_61]
+type=text
+width=109
+height=32
+layer=com_57
+textfont=q8_full
+textalignh=centre
+textshadow=yes
+colour=0x000000
+transmitop=1
+op1=Make All Swords
+
+// 300:62
+[com_62]
+type=text
+width=109
+height=32
+layer=com_57
+textfont=q8_full
+textalignh=centre
+textshadow=yes
+colour=0x000000
+transmitop=1
+op1=Make X Swords
+
+// 300:63
+[com_63]
+type=text
+width=109
+height=32
+layer=com_57
+textfont=q8_full
+textalignh=centre
+textshadow=yes
+colour=0x000000
+transmitop=1
+op1=Make 5 Swords
+
+// 300:64
+[com_64]
+type=text
+width=109
+height=32
+layer=com_57
+textfont=q8_full
+textalignh=centre
+textshadow=yes
+colour=0x000000
+transmitop=1
+op1=Make 1 Sword
+
+// 300:65
+[com_65]
+type=layer
+x=238
+y=57
+width=124
+height=32
+layer=com_15
+hide=yes
+
+// 300:66
+[com_66]
+type=graphic
+width=36
+height=32
+layer=com_65
+outline=1
+colour=0xffffffff
+
+// 300:67
+[com_67]
+type=text
+x=35
+y=-1
+width=90
+height=21
+layer=com_65
+textfont=p11_full
+text=Dart tips
+textalignv=centre
+colour=0x000000
+
+// 300:68
+[com_68]
+type=text
+x=36
+y=20
+width=55
+height=12
+layer=com_65
+textfont=p11_full
+text=1 Bar
+textshadow=yes
+colour=0xe8981f
+
+// 300:69
+[com_69]
+type=text
+width=124
+height=32
+layer=com_65
+textfont=q8_full
+textalignh=centre
+textshadow=yes
+colour=0x000000
+transmitop=1
+op1=Make All Dart tips
+
+// 300:70
+[com_70]
+type=text
+width=124
+height=32
+layer=com_65
+textfont=q8_full
+textalignh=centre
+textshadow=yes
+colour=0x000000
+transmitop=1
+op1=Make X Dart tips
+
+// 300:71
+[com_71]
+type=text
+width=124
+height=32
+layer=com_65
+textfont=q8_full
+textalignh=centre
+textshadow=yes
+colour=0x000000
+transmitop=1
+op1=Make 5 Dart tips
+
+// 300:72
+[com_72]
+type=text
+width=124
+height=32
+layer=com_65
+textfont=q8_full
+textalignh=centre
+textshadow=yes
+colour=0x000000
+transmitop=1
+op1=Make 1 Dart tip
+
+// 300:73
+[com_73]
+type=layer
+x=368
+y=57
+width=109
+height=32
+layer=com_15
+
+// 300:74
+[com_74]
+type=graphic
+width=36
+height=32
+layer=com_73
+outline=1
+colour=0xffffffff
+
+// 300:75
+[com_75]
+type=text
+x=35
+y=-1
+width=75
+height=21
+layer=com_73
+textfont=p11_full
+text=Nails
+textalignv=centre
+colour=0x000000
+
+// 300:76
+[com_76]
+type=text
+x=36
+y=20
+width=55
+height=12
+layer=com_73
+textfont=p11_full
+text=1 Bar
+textshadow=yes
+colour=0xe8981f
+
+// 300:77
+[com_77]
+type=text
+width=109
+height=32
+layer=com_73
+textfont=q8_full
+textalignh=centre
+textshadow=yes
+colour=0x000000
+transmitop=1
+op1=Make All Nails
+
+// 300:78
+[com_78]
+type=text
+width=109
+height=32
+layer=com_73
+textfont=q8_full
+textalignh=centre
+textshadow=yes
+colour=0x000000
+transmitop=1
+op1=Make X Nails
+
+// 300:79
+[com_79]
+type=text
+width=109
+height=32
+layer=com_73
+textfont=q8_full
+textalignh=centre
+textshadow=yes
+colour=0x000000
+transmitop=1
+op1=Make 5 Nails
+
+// 300:80
+[com_80]
+type=text
+width=109
+height=32
+layer=com_73
+textfont=q8_full
+textalignh=centre
+textshadow=yes
+colour=0x000000
+transmitop=1
+op1=Make 1 Nail
+
+// 300:81
+[com_81]
+type=layer
+x=4
+y=109
+width=109
+height=32
+layer=com_15
+hide=yes
+
+// 300:82
+[com_82]
+type=graphic
+width=36
+height=32
+layer=com_81
+outline=1
+colour=0xffffffff
+
+// 300:83
+[com_83]
+type=text
+x=35
+y=-1
+width=75
+height=21
+layer=com_81
+textfont=p11_full
+text=Bronze wire
+textalignv=centre
+colour=0x000000
+
+// 300:84
+[com_84]
+type=text
+x=36
+y=20
+width=55
+height=12
+layer=com_81
+textfont=p11_full
+text=1 Bar
+textshadow=yes
+colour=0xe8981f
+
+// 300:85
+[com_85]
+type=text
+width=109
+height=32
+layer=com_81
+textfont=q8_full
+textalignh=centre
+textshadow=yes
+colour=0x000000
+transmitop=1
+op1=Make All Wires
+
+// 300:86
+[com_86]
+type=text
+width=109
+height=32
+layer=com_81
+textfont=q8_full
+textalignh=centre
+textshadow=yes
+colour=0x000000
+transmitop=1
+op1=Make X Wires
+
+// 300:87
+[com_87]
+type=text
+width=109
+height=32
+layer=com_81
+textfont=q8_full
+textalignh=centre
+textshadow=yes
+colour=0x000000
+transmitop=1
+op1=Make 5 Wires
+
+// 300:88
+[com_88]
+type=text
+width=109
+height=32
+layer=com_81
+textfont=q8_full
+textalignh=centre
+textshadow=yes
+colour=0x000000
+transmitop=1
+op1=Make 1 Wire
+
+// 300:89
+[com_89]
+type=layer
+x=4
+y=109
+width=109
+height=32
+layer=com_15
+hide=yes
+
+// 300:90
+[com_90]
+type=graphic
+width=36
+height=32
+layer=com_89
+outline=1
+colour=0xffffffff
+
+// 300:91
+[com_91]
+type=text
+x=35
+y=-1
+width=75
+height=21
+layer=com_89
+textfont=p11_full
+text=Spit iron
+textalignv=centre
+colour=0x000000
+
+// 300:92
+[com_92]
+type=text
+x=36
+y=20
+width=55
+height=12
+layer=com_89
+textfont=p11_full
+text=1 Bar
+textshadow=yes
+colour=0xe8981f
+
+// 300:93
+[com_93]
+type=text
+width=109
+height=32
+layer=com_89
+textfont=q8_full
+textalignh=centre
+textshadow=yes
+colour=0x000000
+transmitop=1
+op1=Make All Iron spits
+
+// 300:94
+[com_94]
+type=text
+width=109
+height=32
+layer=com_89
+textfont=q8_full
+textalignh=centre
+textshadow=yes
+colour=0x000000
+transmitop=1
+op1=Make X Iron spits
+
+// 300:95
+[com_95]
+type=text
+width=109
+height=32
+layer=com_89
+textfont=q8_full
+textalignh=centre
+textshadow=yes
+colour=0x000000
+transmitop=1
+op1=Make 5 Iron spits
+
+// 300:96
+[com_96]
+type=text
+width=109
+height=32
+layer=com_89
+textfont=q8_full
+textalignh=centre
+textshadow=yes
+colour=0x000000
+transmitop=1
+op1=Make 1 Iron spit
+
+// 300:97
+[com_97]
+type=layer
+x=4
+y=109
+width=109
+height=32
+layer=com_15
+hide=yes
+
+// 300:98
+[com_98]
+type=graphic
+width=36
+height=32
+layer=com_97
+outline=1
+colour=0xffffffff
+
+// 300:99
+[com_99]
+type=text
+x=35
+y=-1
+width=75
+height=21
+layer=com_97
+textfont=p11_full
+text=Studs
+textalignv=centre
+colour=0x000000
+
+// 300:100
+[com_100]
+type=text
+x=36
+y=20
+width=55
+height=12
+layer=com_97
+textfont=p11_full
+text=1 Bar
+textshadow=yes
+colour=0xe8981f
+
+// 300:101
+[com_101]
+type=text
+width=109
+height=32
+layer=com_97
+textfont=q8_full
+textalignh=centre
+textshadow=yes
+colour=0x000000
+transmitop=1
+op1=Make All Studs
+
+// 300:102
+[com_102]
+type=text
+width=109
+height=32
+layer=com_97
+textfont=q8_full
+textalignh=centre
+textshadow=yes
+colour=0x000000
+transmitop=1
+op1=Make X Studs
+
+// 300:103
+[com_103]
+type=text
+width=109
+height=32
+layer=com_97
+textfont=q8_full
+textalignh=centre
+textshadow=yes
+colour=0x000000
+transmitop=1
+op1=Make 5 Studs
+
+// 300:104
+[com_104]
+type=text
+width=109
+height=32
+layer=com_97
+textfont=q8_full
+textalignh=centre
+textshadow=yes
+colour=0x000000
+transmitop=1
+op1=Make 1 Stud
+
+// 300:105
+[com_105]
+type=layer
+x=121
+y=109
+width=109
+height=32
+layer=com_15
+
+// 300:106
+[com_106]
+type=graphic
+width=36
+height=32
+layer=com_105
+outline=1
+colour=0xffffffff
+
+// 300:107
+[com_107]
+type=text
+x=35
+y=-1
+width=75
+height=21
+layer=com_105
+textfont=p11_full
+text=Arrow tips
+textalignv=centre
+colour=0x000000
+
+// 300:108
+[com_108]
+type=text
+x=36
+y=20
+width=55
+height=12
+layer=com_105
+textfont=p11_full
+text=1 Bar
+textshadow=yes
+colour=0xe8981f
+
+// 300:109
+[com_109]
+type=text
+width=109
+height=32
+layer=com_105
+textfont=q8_full
+textalignh=centre
+textshadow=yes
+colour=0x000000
+transmitop=1
+op1=Make All Arrow tips
+
+// 300:110
+[com_110]
+type=text
+width=109
+height=32
+layer=com_105
+textfont=q8_full
+textalignh=centre
+textshadow=yes
+colour=0x000000
+transmitop=1
+op1=Make X Arrow tips
+
+// 300:111
+[com_111]
+type=text
+width=109
+height=32
+layer=com_105
+textfont=q8_full
+textalignh=centre
+textshadow=yes
+colour=0x000000
+transmitop=1
+op1=Make 5 Arrow tips
+
+// 300:112
+[com_112]
+type=text
+width=109
+height=32
+layer=com_105
+textfont=q8_full
+textalignh=centre
+textshadow=yes
+colour=0x000000
+transmitop=1
+op1=Make 1 Arrow tip
+
+// 300:113
+[com_113]
+type=layer
+x=238
+y=109
+width=109
+height=32
+layer=com_15
+
+// 300:114
+[com_114]
+type=graphic
+width=36
+height=32
+layer=com_113
+outline=1
+colour=0xffffffff
+
+// 300:115
+[com_115]
+type=text
+x=35
+y=-1
+width=75
+height=21
+layer=com_113
+textfont=p11_full
+text=Scimitar
+textalignv=centre
+colour=0x000000
+
+// 300:116
+[com_116]
+type=text
+x=36
+y=20
+width=55
+height=12
+layer=com_113
+textfont=p11_full
+text=2 Bars
+textshadow=yes
+colour=0xe8981f
+
+// 300:117
+[com_117]
+type=text
+width=109
+height=32
+layer=com_113
+textfont=q8_full
+textalignh=centre
+textshadow=yes
+colour=0x000000
+transmitop=1
+op1=Make All Scimitars
+
+// 300:118
+[com_118]
+type=text
+width=109
+height=32
+layer=com_113
+textfont=q8_full
+textalignh=centre
+textshadow=yes
+colour=0x000000
+transmitop=1
+op1=Make X Scimitars
+
+// 300:119
+[com_119]
+type=text
+width=109
+height=32
+layer=com_113
+textfont=q8_full
+textalignh=centre
+textshadow=yes
+colour=0x000000
+transmitop=1
+op1=Make 5 Scimitars
+
+// 300:120
+[com_120]
+type=text
+width=109
+height=32
+layer=com_113
+textfont=q8_full
+textalignh=centre
+textshadow=yes
+colour=0x000000
+transmitop=1
+op1=Make 1 Scimitar
+
+// 300:121
+[com_121]
+type=layer
+x=368
+y=109
+width=112
+height=32
+layer=com_15
+
+// 300:122
+[com_122]
+type=graphic
+width=36
+height=32
+layer=com_121
+outline=1
+colour=0xffffffff
+
+// 300:123
+[com_123]
+type=text
+x=35
+y=-1
+width=75
+height=21
+layer=com_121
+textfont=p11_full
+text=Crossbow limbs
+textalignv=centre
+colour=0x000000
+
+// 300:124
+[com_124]
+type=text
+x=36
+y=20
+width=55
+height=12
+layer=com_121
+textfont=p11_full
+text=1 Bar
+textshadow=yes
+colour=0xe8981f
+
+// 300:125
+[com_125]
+type=text
+width=112
+height=32
+layer=com_121
+textfont=q8_full
+textalignh=centre
+textshadow=yes
+colour=0x000000
+transmitop=1
+op1=Make All Crossbow limbs
+
+// 300:126
+[com_126]
+type=text
+width=112
+height=32
+layer=com_121
+textfont=q8_full
+textalignh=centre
+textshadow=yes
+colour=0x000000
+transmitop=1
+op1=Make X Crossbow limbs
+
+// 300:127
+[com_127]
+type=text
+width=112
+height=32
+layer=com_121
+textfont=q8_full
+textalignh=centre
+textshadow=yes
+colour=0x000000
+transmitop=1
+op1=Make 5 Crossbow limbs
+
+// 300:128
+[com_128]
+type=text
+width=112
+height=32
+layer=com_121
+textfont=q8_full
+textalignh=centre
+textshadow=yes
+colour=0x000000
+transmitop=1
+op1=Make 1 Crossbow limb
+
+// 300:129
+[com_129]
+type=layer
+x=4
+y=161
+width=109
+height=32
+layer=com_15
+
+// 300:130
+[com_130]
+type=graphic
+width=36
+height=32
+layer=com_129
+outline=1
+colour=0xffffffff
+
+// 300:131
+[com_131]
+type=text
+x=35
+y=-1
+width=75
+height=21
+layer=com_129
+textfont=p11_full
+text=Longsword
+textalignv=centre
+colour=0x000000
+
+// 300:132
+[com_132]
+type=text
+x=36
+y=20
+width=55
+height=12
+layer=com_129
+textfont=p11_full
+text=2 Bars
+textshadow=yes
+colour=0xe8981f
+
+// 300:133
+[com_133]
+type=text
+width=109
+height=32
+layer=com_129
+textfont=q8_full
+textalignh=centre
+textshadow=yes
+colour=0x000000
+transmitop=1
+op1=Make All Longswords
+
+// 300:134
+[com_134]
+type=text
+width=109
+height=32
+layer=com_129
+textfont=q8_full
+textalignh=centre
+textshadow=yes
+colour=0x000000
+transmitop=1
+op1=Make X Longswords
+
+// 300:135
+[com_135]
+type=text
+width=109
+height=32
+layer=com_129
+textfont=q8_full
+textalignh=centre
+textshadow=yes
+colour=0x000000
+transmitop=1
+op1=Make 5 Longswords
+
+// 300:136
+[com_136]
+type=text
+width=109
+height=32
+layer=com_129
+textfont=q8_full
+textalignh=centre
+textshadow=yes
+colour=0x000000
+transmitop=1
+op1=Make 1 Longsword
+
+// 300:137
+[com_137]
+type=layer
+x=121
+y=161
+width=109
+height=32
+layer=com_15
+
+// 300:138
+[com_138]
+type=graphic
+width=36
+height=32
+layer=com_137
+outline=1
+colour=0xffffffff
+
+// 300:139
+[com_139]
+type=text
+x=35
+y=-1
+width=75
+height=21
+layer=com_137
+textfont=p11_full
+text=Throwing knife
+textalignv=centre
+colour=0x000000
+
+// 300:140
+[com_140]
+type=text
+x=36
+y=20
+width=55
+height=12
+layer=com_137
+textfont=p11_full
+text=1 Bar
+textshadow=yes
+colour=0xe8981f
+
+// 300:141
+[com_141]
+type=text
+width=109
+height=32
+layer=com_137
+textfont=q8_full
+textalignh=centre
+textshadow=yes
+colour=0x000000
+transmitop=1
+op1=Make All Throwing knives
+
+// 300:142
+[com_142]
+type=text
+width=109
+height=32
+layer=com_137
+textfont=q8_full
+textalignh=centre
+textshadow=yes
+colour=0x000000
+transmitop=1
+op1=Make X Throwing knives
+
+// 300:143
+[com_143]
+type=text
+width=109
+height=32
+layer=com_137
+textfont=q8_full
+textalignh=centre
+textshadow=yes
+colour=0x000000
+transmitop=1
+op1=Make 5 Throwing knives
+
+// 300:144
+[com_144]
+type=text
+width=109
+height=32
+layer=com_137
+textfont=q8_full
+textalignh=centre
+textshadow=yes
+colour=0x000000
+transmitop=1
+op1=Make 1 Throwing knife
+
+// 300:145
+[com_145]
+type=layer
+x=238
+y=161
+width=109
+height=32
+layer=com_15
+
+// 300:146
+[com_146]
+type=graphic
+width=36
+height=32
+layer=com_145
+outline=1
+colour=0xffffffff
+
+// 300:147
+[com_147]
+type=text
+x=35
+y=-1
+width=75
+height=21
+layer=com_145
+textfont=p11_full
+text=Full helm
+textalignv=centre
+colour=0x000000
+
+// 300:148
+[com_148]
+type=text
+x=36
+y=20
+width=55
+height=12
+layer=com_145
+textfont=p11_full
+text=2 Bars
+textshadow=yes
+colour=0xe8981f
+
+// 300:149
+[com_149]
+type=text
+width=109
+height=32
+layer=com_145
+textfont=q8_full
+textalignh=centre
+textshadow=yes
+colour=0x000000
+transmitop=1
+op1=Make All Full helms
+
+// 300:150
+[com_150]
+type=text
+width=109
+height=32
+layer=com_145
+textfont=q8_full
+textalignh=centre
+textshadow=yes
+colour=0x000000
+transmitop=1
+op1=Make X Full helms
+
+// 300:151
+[com_151]
+type=text
+width=109
+height=32
+layer=com_145
+textfont=q8_full
+textalignh=centre
+textshadow=yes
+colour=0x000000
+transmitop=1
+op1=Make 5 Full helms
+
+// 300:152
+[com_152]
+type=text
+width=109
+height=32
+layer=com_145
+textfont=q8_full
+textalignh=centre
+textshadow=yes
+colour=0x000000
+transmitop=1
+op1=Make 1 Full helm
+
+// 300:153
+[com_153]
+type=layer
+x=368
+y=161
+width=109
+height=32
+layer=com_15
+
+// 300:154
+[com_154]
+type=graphic
+width=36
+height=32
+layer=com_153
+outline=1
+colour=0xffffffff
+
+// 300:155
+[com_155]
+type=text
+x=35
+y=-1
+width=75
+height=21
+layer=com_153
+textfont=p11_full
+text=Square shield
+textalignv=centre
+colour=0x000000
+
+// 300:156
+[com_156]
+type=text
+x=36
+y=20
+width=55
+height=12
+layer=com_153
+textfont=p11_full
+text=2 Bars
+textshadow=yes
+colour=0xe8981f
+
+// 300:157
+[com_157]
+type=text
+width=109
+height=32
+layer=com_153
+textfont=q8_full
+textalignh=centre
+textshadow=yes
+colour=0x000000
+transmitop=1
+op1=Make All Square shields
+
+// 300:158
+[com_158]
+type=text
+width=109
+height=32
+layer=com_153
+textfont=q8_full
+textalignh=centre
+textshadow=yes
+colour=0x000000
+transmitop=1
+op1=Make X Square shields
+
+// 300:159
+[com_159]
+type=text
+width=109
+height=32
+layer=com_153
+textfont=q8_full
+textalignh=centre
+textshadow=yes
+colour=0x000000
+transmitop=1
+op1=Make 5 Square shields
+
+// 300:160
+[com_160]
+type=text
+width=109
+height=32
+layer=com_153
+textfont=q8_full
+textalignh=centre
+textshadow=yes
+colour=0x000000
+transmitop=1
+op1=Make 1 Square shield
+
+// 300:161
+[com_161]
+type=layer
+x=4
+y=213
+width=118
+height=32
+layer=com_15
+hide=yes
+
+// 300:162
+[com_162]
+type=graphic
+width=36
+height=32
+layer=com_161
+outline=1
+colour=0xffffffff
+
+// 300:163
+[com_163]
+type=text
+x=35
+y=-1
+width=82
+height=21
+layer=com_161
+textfont=p11_full
+text=Bullseye lantern
+textalignv=centre
+colour=0x000000
+
+// 300:164
+[com_164]
+type=text
+x=36
+y=20
+width=55
+height=12
+layer=com_161
+textfont=p11_full
+text=1 Bar
+textshadow=yes
+colour=0xe8981f
+
+// 300:165
+[com_165]
+type=text
+width=109
+height=32
+layer=com_161
+textfont=q8_full
+textalignh=centre
+textshadow=yes
+colour=0x000000
+transmitop=1
+op1=Make All Lanterns
+
+// 300:166
+[com_166]
+type=text
+width=109
+height=32
+layer=com_161
+textfont=q8_full
+textalignh=centre
+textshadow=yes
+colour=0x000000
+transmitop=1
+op1=Make X Lanterns
+
+// 300:167
+[com_167]
+type=text
+width=109
+height=32
+layer=com_161
+textfont=q8_full
+textalignh=centre
+textshadow=yes
+colour=0x000000
+transmitop=1
+op1=Make 5 Lanterns
+
+// 300:168
+[com_168]
+type=text
+width=109
+height=32
+layer=com_161
+textfont=q8_full
+textalignh=centre
+textshadow=yes
+colour=0x000000
+transmitop=1
+op1=Make 1 Lantern
+
+// 300:169
+[com_169]
+type=layer
+x=121
+y=213
+width=109
+height=32
+layer=com_15
+hide=yes
+
+// 300:170
+[com_170]
+type=graphic
+width=36
+height=32
+layer=com_169
+outline=1
+colour=0xffffffff
+
+// 300:171
+[com_171]
+type=text
+x=35
+y=-1
+width=75
+height=21
+layer=com_169
+textfont=p11_full
+text=Grapple tip
+textalignv=centre
+colour=0x000000
+
+// 300:172
+[com_172]
+type=text
+x=36
+y=20
+width=55
+height=12
+layer=com_169
+textfont=p11_full
+text=1 Bar
+textshadow=yes
+colour=0xe8981f
+
+// 300:173
+[com_173]
+type=text
+width=109
+height=32
+layer=com_169
+textfont=q8_full
+textalignh=centre
+textshadow=yes
+colour=0x000000
+transmitop=1
+op1=Make All Grapple tips
+
+// 300:174
+[com_174]
+type=text
+width=109
+height=32
+layer=com_169
+textfont=q8_full
+textalignh=centre
+textshadow=yes
+colour=0x000000
+transmitop=1
+op1=Make X Grapple tips
+
+// 300:175
+[com_175]
+type=text
+width=109
+height=32
+layer=com_169
+textfont=q8_full
+textalignh=centre
+textshadow=yes
+colour=0x000000
+transmitop=1
+op1=Make 5 Grapple tips
+
+// 300:176
+[com_176]
+type=text
+width=109
+height=32
+layer=com_169
+textfont=q8_full
+textalignh=centre
+textshadow=yes
+colour=0x000000
+transmitop=1
+op1=Make 1 Grapple tip
+
+// 300:177
+[com_177]
+type=layer
+x=238
+y=213
+width=109
+height=32
+layer=com_15
+
+// 300:178
+[com_178]
+type=graphic
+width=36
+height=32
+layer=com_177
+outline=1
+colour=0xffffffff
+
+// 300:179
+[com_179]
+type=text
+x=35
+y=-1
+width=75
+height=21
+layer=com_177
+textfont=p11_full
+text=Warhammer
+textalignv=centre
+colour=0x000000
+
+// 300:180
+[com_180]
+type=text
+x=36
+y=20
+width=55
+height=12
+layer=com_177
+textfont=p11_full
+text=3 Bars
+textshadow=yes
+colour=0xe8981f
+
+// 300:181
+[com_181]
+type=text
+width=109
+height=32
+layer=com_177
+textfont=q8_full
+textalignh=centre
+textshadow=yes
+colour=0x000000
+transmitop=1
+op1=Make All Warhammers
+
+// 300:182
+[com_182]
+type=text
+width=109
+height=32
+layer=com_177
+textfont=q8_full
+textalignh=centre
+textshadow=yes
+colour=0x000000
+transmitop=1
+op1=Make X Warhammers
+
+// 300:183
+[com_183]
+type=text
+width=109
+height=32
+layer=com_177
+textfont=q8_full
+textalignh=centre
+textshadow=yes
+colour=0x000000
+transmitop=1
+op1=Make 5 Warhammers
+
+// 300:184
+[com_184]
+type=text
+width=109
+height=32
+layer=com_177
+textfont=q8_full
+textalignh=centre
+textshadow=yes
+colour=0x000000
+transmitop=1
+op1=Make 1 Warhammer
+
+// 300:185
+[com_185]
+type=layer
+x=368
+y=213
+width=109
+height=32
+layer=com_15
+
+// 300:186
+[com_186]
+type=graphic
+width=36
+height=32
+layer=com_185
+outline=1
+colour=0xffffffff
+
+// 300:187
+[com_187]
+type=text
+x=35
+y=-1
+width=75
+height=21
+layer=com_185
+textfont=p11_full
+text=Battleaxe
+textalignv=centre
+colour=0x000000
+
+// 300:188
+[com_188]
+type=text
+x=36
+y=20
+width=55
+height=12
+layer=com_185
+textfont=p11_full
+text=3 Bars
+textshadow=yes
+colour=0xe8981f
+
+// 300:189
+[com_189]
+type=text
+width=109
+height=32
+layer=com_185
+textfont=q8_full
+textalignh=centre
+textshadow=yes
+colour=0x000000
+transmitop=1
+op1=Make All Battleaxes
+
+// 300:190
+[com_190]
+type=text
+width=109
+height=32
+layer=com_185
+textfont=q8_full
+textalignh=centre
+textshadow=yes
+colour=0x000000
+transmitop=1
+op1=Make X Battleaxes
+
+// 300:191
+[com_191]
+type=text
+width=109
+height=32
+layer=com_185
+textfont=q8_full
+textalignh=centre
+textshadow=yes
+colour=0x000000
+transmitop=1
+op1=Make 5 Battleaxes
+
+// 300:192
+[com_192]
+type=text
+width=109
+height=32
+layer=com_185
+textfont=q8_full
+textalignh=centre
+textshadow=yes
+colour=0x000000
+transmitop=1
+op1=Make 1 Battleaxe
+
+// 300:193
+[com_193]
+type=layer
+x=4
+y=265
+width=109
+height=32
+layer=com_15
+
+// 300:194
+[com_194]
+type=graphic
+width=36
+height=32
+layer=com_193
+outline=1
+colour=0xffffffff
+
+// 300:195
+[com_195]
+type=text
+x=35
+y=-1
+width=75
+height=21
+layer=com_193
+textfont=p11_full
+text=Chainbody
+textalignv=centre
+colour=0x000000
+
+// 300:196
+[com_196]
+type=text
+x=36
+y=20
+width=55
+height=12
+layer=com_193
+textfont=p11_full
+text=3 Bars
+textshadow=yes
+colour=0xe8981f
+
+// 300:197
+[com_197]
+type=text
+width=109
+height=32
+layer=com_193
+textfont=q8_full
+textalignh=centre
+textshadow=yes
+colour=0x000000
+transmitop=1
+op1=Make All Chainbodies
+
+// 300:198
+[com_198]
+type=text
+width=109
+height=32
+layer=com_193
+textfont=q8_full
+textalignh=centre
+textshadow=yes
+colour=0x000000
+transmitop=1
+op1=Make X Chainbodies
+
+// 300:199
+[com_199]
+type=text
+width=109
+height=32
+layer=com_193
+textfont=q8_full
+textalignh=centre
+textshadow=yes
+colour=0x000000
+transmitop=1
+op1=Make 5 Chainbodies
+
+// 300:200
+[com_200]
+type=text
+width=109
+height=32
+layer=com_193
+textfont=q8_full
+textalignh=centre
+textshadow=yes
+colour=0x000000
+transmitop=1
+op1=Make 1 Chainbody
+
+// 300:201
+[com_201]
+type=layer
+x=121
+y=265
+width=109
+height=32
+layer=com_15
+
+// 300:202
+[com_202]
+type=graphic
+width=36
+height=32
+layer=com_201
+outline=1
+colour=0xffffffff
+
+// 300:203
+[com_203]
+type=text
+x=35
+y=-1
+width=75
+height=21
+layer=com_201
+textfont=p11_full
+text=Kiteshield
+textalignv=centre
+colour=0x000000
+
+// 300:204
+[com_204]
+type=text
+x=36
+y=20
+width=55
+height=12
+layer=com_201
+textfont=p11_full
+text=3 Bars
+textshadow=yes
+colour=0xe8981f
+
+// 300:205
+[com_205]
+type=text
+width=109
+height=32
+layer=com_201
+textfont=q8_full
+textalignh=centre
+textshadow=yes
+colour=0x000000
+transmitop=1
+op1=Make All Kite shields
+
+// 300:206
+[com_206]
+type=text
+width=109
+height=32
+layer=com_201
+textfont=q8_full
+textalignh=centre
+textshadow=yes
+colour=0x000000
+transmitop=1
+op1=Make X Kite shields
+
+// 300:207
+[com_207]
+type=text
+width=109
+height=32
+layer=com_201
+textfont=q8_full
+textalignh=centre
+textshadow=yes
+colour=0x000000
+transmitop=1
+op1=Make 5 Kite shields
+
+// 300:208
+[com_208]
+type=text
+width=109
+height=32
+layer=com_201
+textfont=q8_full
+textalignh=centre
+textshadow=yes
+colour=0x000000
+transmitop=1
+op1=Make 1 Kite shield
+
+// 300:209
+[com_209]
+type=layer
+x=238
+y=265
+width=109
+height=32
+layer=com_15
+hide=yes
+
+// 300:210
+[com_210]
+type=graphic
+width=36
+height=32
+layer=com_209
+outline=1
+colour=0xffffffff
+
+// 300:211
+[com_211]
+type=text
+x=35
+y=-1
+width=75
+height=21
+layer=com_209
+textfont=p11_full
+text=Claws
+textalignv=centre
+colour=0x000000
+
+// 300:212
+[com_212]
+type=text
+x=36
+y=20
+width=55
+height=12
+layer=com_209
+textfont=p11_full
+text=2 Bars
+textshadow=yes
+colour=0xe8981f
+
+// 300:213
+[com_213]
+type=text
+width=109
+height=32
+layer=com_209
+textfont=q8_full
+textalignh=centre
+textshadow=yes
+colour=0x000000
+transmitop=1
+op1=Make All Claws
+
+// 300:214
+[com_214]
+type=text
+width=109
+height=32
+layer=com_209
+textfont=q8_full
+textalignh=centre
+textshadow=yes
+colour=0x000000
+transmitop=1
+op1=Make X Claws
+
+// 300:215
+[com_215]
+type=text
+width=109
+height=32
+layer=com_209
+textfont=q8_full
+textalignh=centre
+textshadow=yes
+colour=0x000000
+transmitop=1
+op1=Make 5 Claws
+
+// 300:216
+[com_216]
+type=text
+width=109
+height=32
+layer=com_209
+textfont=q8_full
+textalignh=centre
+textshadow=yes
+colour=0x000000
+transmitop=1
+op1=Make 1 Claw
+
+// 300:217
+[com_217]
+type=layer
+x=364
+y=265
+width=118
+height=32
+layer=com_15
+
+// 300:218
+[com_218]
+type=graphic
+width=36
+height=32
+layer=com_217
+outline=1
+colour=0xffffffff
+
+// 300:219
+[com_219]
+type=text
+x=35
+y=-1
+width=85
+height=21
+layer=com_217
+textfont=p11_full
+text=2-h sword
+textalignv=centre
+colour=0x000000
+
+// 300:220
+[com_220]
+type=text
+x=36
+y=20
+width=55
+height=12
+layer=com_217
+textfont=p11_full
+text=3 Bars
+textshadow=yes
+colour=0xe8981f
+
+// 300:221
+[com_221]
+type=text
+width=109
+height=32
+layer=com_217
+textfont=q8_full
+textalignh=centre
+textshadow=yes
+colour=0x000000
+transmitop=1
+op1=Make All 2-handed swords
+
+// 300:222
+[com_222]
+type=text
+width=109
+height=32
+layer=com_217
+textfont=q8_full
+textalignh=centre
+textshadow=yes
+colour=0x000000
+transmitop=1
+op1=Make X 2-handed swords
+
+// 300:223
+[com_223]
+type=text
+width=109
+height=32
+layer=com_217
+textfont=q8_full
+textalignh=centre
+textshadow=yes
+colour=0x000000
+transmitop=1
+op1=Make 5 2-handed swords
+
+// 300:224
+[com_224]
+type=text
+width=109
+height=32
+layer=com_217
+textfont=q8_full
+textalignh=centre
+textshadow=yes
+colour=0x000000
+transmitop=1
+op1=Make 1 2-handed sword
+
+// 300:225
+[com_225]
+type=layer
+x=4
+y=317
+width=109
+height=32
+layer=com_15
+
+// 300:226
+[com_226]
+type=graphic
+width=36
+height=32
+layer=com_225
+outline=1
+colour=0xffffffff
+
+// 300:227
+[com_227]
+type=text
+x=35
+y=-1
+width=75
+height=21
+layer=com_225
+textfont=p11_full
+text=Plateskirt
+textalignv=centre
+colour=0x000000
+
+// 300:228
+[com_228]
+type=text
+x=36
+y=20
+width=55
+height=12
+layer=com_225
+textfont=p11_full
+text=3 Bars
+textshadow=yes
+colour=0xe8981f
+
+// 300:229
+[com_229]
+type=text
+width=109
+height=32
+layer=com_225
+textfont=q8_full
+textalignh=centre
+textshadow=yes
+colour=0x000000
+transmitop=1
+op1=Make All Plateskirts
+
+// 300:230
+[com_230]
+type=text
+width=109
+height=32
+layer=com_225
+textfont=q8_full
+textalignh=centre
+textshadow=yes
+colour=0x000000
+transmitop=1
+op1=Make X Plateskirts
+
+// 300:231
+[com_231]
+type=text
+width=109
+height=32
+layer=com_225
+textfont=q8_full
+textalignh=centre
+textshadow=yes
+colour=0x000000
+transmitop=1
+op1=Make 5 Plateskirts
+
+// 300:232
+[com_232]
+type=text
+width=109
+height=32
+layer=com_225
+textfont=q8_full
+textalignh=centre
+textshadow=yes
+colour=0x000000
+transmitop=1
+op1=Make 1 Plateskirt
+
+// 300:233
+[com_233]
+type=layer
+x=116
+y=317
+width=190
+height=32
+layer=com_15
+
+// 300:234
+[com_234]
+type=graphic
+width=36
+height=32
+layer=com_233
+outline=1
+colour=0xffffffff
+
+// 300:235
+[com_235]
+type=text
+x=35
+y=-1
+width=75
+height=21
+layer=com_233
+textfont=p11_full
+text=Platelegs
+textalignv=centre
+colour=0x000000
+
+// 300:236
+[com_236]
+type=text
+x=36
+y=20
+width=55
+height=12
+layer=com_233
+textfont=p11_full
+text=3 Bars
+textshadow=yes
+colour=0xe8981f
+
+// 300:237
+[com_237]
+type=text
+width=109
+height=32
+layer=com_233
+textfont=q8_full
+textalignh=centre
+textshadow=yes
+colour=0x000000
+transmitop=1
+op1=Make All Platelegs
+
+// 300:238
+[com_238]
+type=text
+width=109
+height=32
+layer=com_233
+textfont=q8_full
+textalignh=centre
+textshadow=yes
+colour=0x000000
+transmitop=1
+op1=Make X Platelegs
+
+// 300:239
+[com_239]
+type=text
+width=109
+height=32
+layer=com_233
+textfont=q8_full
+textalignh=centre
+textshadow=yes
+colour=0x000000
+transmitop=1
+op1=Make 5 Platelegs
+
+// 300:240
+[com_240]
+type=text
+width=109
+height=32
+layer=com_233
+textfont=q8_full
+textalignh=centre
+textshadow=yes
+colour=0x000000
+transmitop=1
+op1=Make 1 Platelegs
+
+// 300:241
+[com_241]
+type=layer
+x=238
+y=317
+width=109
+height=32
+layer=com_15
+
+// 300:242
+[com_242]
+type=graphic
+width=36
+height=32
+layer=com_241
+outline=1
+colour=0xffffffff
+
+// 300:243
+[com_243]
+type=text
+x=35
+y=-1
+width=75
+height=21
+layer=com_241
+textfont=p11_full
+text=Platebody
+textalignv=centre
+colour=0x000000
+
+// 300:244
+[com_244]
+type=text
+x=36
+y=20
+width=55
+height=12
+layer=com_241
+textfont=p11_full
+text=5 Bars
+textshadow=yes
+colour=0xe8981f
+
+// 300:245
+[com_245]
+type=text
+width=109
+height=32
+layer=com_241
+textfont=q8_full
+textalignh=centre
+textshadow=yes
+colour=0x000000
+transmitop=1
+op1=Make All Platebodies
+
+// 300:246
+[com_246]
+type=text
+width=109
+height=32
+layer=com_241
+textfont=q8_full
+textalignh=centre
+textshadow=yes
+colour=0x000000
+transmitop=1
+op1=Make X Platebodies
+
+// 300:247
+[com_247]
+type=text
+width=109
+height=32
+layer=com_241
+textfont=q8_full
+textalignh=centre
+textshadow=yes
+colour=0x000000
+transmitop=1
+op1=Make 5 Platebodies
+
+// 300:248
+[com_248]
+type=text
+width=109
+height=32
+layer=com_241
+textfont=q8_full
+textalignh=centre
+textshadow=yes
+colour=0x000000
+transmitop=1
+op1=Make 1 Platebody
+
+// 300:249
+[com_249]
+type=layer
+x=6
+y=55
+width=484
+height=264
+hide=yes
+
+// 300:250
+[com_250]
+type=layer
+x=4
+y=5
+width=109
+height=32
+layer=com_249
+
+// 300:251
+[com_251]
+type=graphic
+width=36
+height=32
+layer=com_250
+outline=1
+colour=0xffffffff
+
+// 300:252
+[com_252]
+type=text
+x=35
+y=-1
+width=75
+height=21
+layer=com_250
+textfont=p11_full
+text=Crossbow bolts
+textalignv=centre
+colour=0x000000
+
+// 300:253
+[com_253]
+type=text
+x=36
+y=20
+width=55
+height=12
+layer=com_250
+textfont=p11_full
+text=1 Bar
+textshadow=yes
+colour=0xe8981f
+
+// 300:254
+[com_254]
+type=text
+width=109
+height=32
+layer=com_250
+textfont=q8_full
+textalignh=centre
+textshadow=yes
+colour=0x000000
+transmitop=1
+op1=Make All Bolts
+
+// 300:255
+[com_255]
+type=text
+width=109
+height=32
+layer=com_250
+textfont=q8_full
+textalignh=centre
+textshadow=yes
+colour=0x000000
+transmitop=1
+op1=Make X Bolts
+
+// 300:256
+[com_256]
+type=text
+width=109
+height=32
+layer=com_250
+textfont=q8_full
+textalignh=centre
+textshadow=yes
+colour=0x000000
+transmitop=1
+op1=Make 5 Bolts
+
+// 300:257
+[com_257]
+type=text
+width=109
+height=32
+layer=com_250
+textfont=q8_full
+textalignh=centre
+textshadow=yes
+colour=0x000000
+transmitop=1
+op1=Make 1 Bolt
+
+// 300:258
+[com_258]
+type=layer
+x=121
+y=5
+width=109
+height=32
+layer=com_249
+
+// 300:259
+[com_259]
+type=graphic
+width=36
+height=32
+layer=com_258
+outline=1
+colour=0xffffffff
+
+// 300:260
+[com_260]
+type=text
+x=35
+y=-1
+width=75
+height=21
+layer=com_258
+textfont=p11_full
+text=Crossbow limbs
+textalignv=centre
+colour=0x000000
+
+// 300:261
+[com_261]
+type=text
+x=36
+y=20
+width=55
+height=12
+layer=com_258
+textfont=p11_full
+text=1 Bar
+textshadow=yes
+colour=0xe8981f
+
+// 300:262
+[com_262]
+type=text
+width=109
+height=32
+layer=com_258
+textfont=q8_full
+textalignh=centre
+textshadow=yes
+colour=0x000000
+transmitop=1
+op1=Make All Crossbow limbs
+
+// 300:263
+[com_263]
+type=text
+width=109
+height=32
+layer=com_258
+textfont=q8_full
+textalignh=centre
+textshadow=yes
+colour=0x000000
+transmitop=1
+op1=Make X Crossbow limbs
+
+// 300:264
+[com_264]
+type=text
+width=109
+height=32
+layer=com_258
+textfont=q8_full
+textalignh=centre
+textshadow=yes
+colour=0x000000
+transmitop=1
+op1=Make 5 Crossbow limbs
+
+// 300:265
+[com_265]
+type=text
+width=109
+height=32
+layer=com_258
+textfont=q8_full
+textalignh=centre
+textshadow=yes
+colour=0x000000
+transmitop=1
+op1=Make 1 Crossbow limb
+
+// 300:266
+[com_266]
+type=layer
+x=364
+y=317
+width=109
+height=42
+layer=com_15
+hide=yes
+
+// 300:267
+[com_267]
+type=graphic
+width=36
+height=32
+layer=com_266
+outline=1
+colour=0xffffffff
+
+// 300:268
+[com_268]
+type=text
+x=35
+y=-1
+width=75
+height=21
+layer=com_266
+textfont=p11_full
+text=Pickaxe
+colour=0x000000
+
+// 300:269
+[com_269]
+type=text
+x=36
+y=20
+width=55
+height=12
+layer=com_266
+textfont=p11_full
+text=2 Bars
+textshadow=yes
+colour=0xe8981f
+
+// 300:270
+[com_270]
+type=text
+width=109
+height=32
+layer=com_266
+textfont=q8_full
+textalignh=centre
+textshadow=yes
+colour=0x000000
+transmitop=1
+op1=Make All Pickaxes
+
+// 300:271
+[com_271]
+type=text
+width=109
+height=32
+layer=com_266
+textfont=q8_full
+textalignh=centre
+textshadow=yes
+colour=0x000000
+transmitop=1
+op1=Make X Pickaxes
+
+// 300:272
+[com_272]
+type=text
+width=109
+height=32
+layer=com_266
+textfont=q8_full
+textalignh=centre
+textshadow=yes
+colour=0x000000
+transmitop=1
+op1=Make 5 Pickaxes
+
+// 300:273
+[com_273]
+type=text
+width=109
+height=32
+layer=com_266
+textfont=q8_full
+textalignh=centre
+textshadow=yes
+colour=0x000000
+transmitop=1
+op1=Make 1 Pickaxe

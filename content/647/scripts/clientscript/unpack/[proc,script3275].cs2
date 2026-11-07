@@ -1,0 +1,14 @@
+// 3275
+[proc,script3275]()(int)
+if (%varclient_1196 = 1) {
+    switch_int (%varclient_1188) {
+        case 3 :
+            return(9500);
+        case 2 :
+            return(9500);
+        case default :
+            return(9500);
+    }
+} else {
+    return(10000);
+}

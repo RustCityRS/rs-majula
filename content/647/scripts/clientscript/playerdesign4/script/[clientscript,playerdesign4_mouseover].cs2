@@ -1,11 +1,12 @@
-[clientscript,playerdesign4_mouseover](component $component0, int $int1, int $int2, int $int3, boolean $int4)
+// 373
+[clientscript,playerdesign4_mouseover](component $component0, int $int1, int $int2, int $int3, boolean $boolean4)
 def_component $component5 = null;
 if ($int1 = -1) {
     $component5 = if_getlayer($component0);
 } else {
     $component5 = $component0;
 }
-if ($int4 = true) {
+if ($boolean4 = true) {
     if ($int1 = -1 & if_find($component0) = true | cc_find($component0, $int1) = true) {
         .cc_create($component5, ^iftype_rectangle, $int2);
         .cc_setsize(calc(cc_getwidth - $int3 * 2), calc(cc_getheight - $int3 * 2), ^setsize_abs, ^setsize_abs);

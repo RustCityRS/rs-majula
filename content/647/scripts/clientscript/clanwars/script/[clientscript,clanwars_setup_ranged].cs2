@@ -1,10 +1,11 @@
-[clientscript,clanwars_setup_ranged](int $int)
-if (~clanwars_setup_clicktest($int) = false) {
+// 1828
+[clientscript,clanwars_setup_ranged](int $int0)
+if (~clanwars_setup_clicktest($int0) = false) {
     return;
 }
-if (%varc_int_251 = false) {
-    %varc_int_251 = 1;
+if (%varclient_251 = false) {
+    %varclient_251 = true;
 } else {
-    %varc_int_251 = 0;
+    %varclient_251 = false;
 }
 ~clanwars_resynch_ranged;

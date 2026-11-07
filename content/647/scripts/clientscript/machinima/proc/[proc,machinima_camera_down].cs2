@@ -1,7 +1,8 @@
+// 2859
 [proc,machinima_camera_down]
-if (%varc_int_1069 >= 100) {
-    %varc_int_1069 = calc(%varc_int_1069 - 50);
+if (%varclient_1069 >= 100) {
+    %varclient_1069 = calc(%varclient_1069 - 50);
 }
-if (%varc_int_1073 > %varc_int_1069) {
-    %varc_int_1073 = %varc_int_1069;
+if (%varclient_1073 > %varclient_1069) {
+    %varclient_1073 = %varclient_1069;
 }

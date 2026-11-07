@@ -222,9 +222,9 @@ pub struct LocTypeRaw {
     #[cfg(since_647)]
     pub op167: i32,
     #[cfg(since_647)]
-    pub unknown_168: bool,
+    pub bgsound_vorbis: bool,
     #[cfg(since_647)]
-    pub unknown_169: bool,
+    pub randomsound_vorbis: bool,
     #[cfg(since_647)]
     pub op170: i32,
     #[cfg(since_647)]
@@ -358,9 +358,9 @@ impl CacheType for LocTypeRaw {
             #[cfg(since_647)]
             op167: 0,
             #[cfg(since_647)]
-            unknown_168: false,
+            bgsound_vorbis: false,
             #[cfg(since_647)]
-            unknown_169: false,
+            randomsound_vorbis: false,
             #[cfg(since_647)]
             op170: 0,
             #[cfg(since_647)]
@@ -562,9 +562,9 @@ impl CacheType for LocTypeRaw {
                 #[cfg(since_647)]
                 167 => self.op167 = buf.g2() as i32,
                 #[cfg(since_647)]
-                168 => self.unknown_168 = true,
+                168 => self.bgsound_vorbis = true,
                 #[cfg(since_647)]
-                169 => self.unknown_169 = true,
+                169 => self.randomsound_vorbis = true,
                 #[cfg(since_647)]
                 170 => self.op170 = buf.gsmart1or2(),
                 #[cfg(since_647)]

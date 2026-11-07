@@ -1,8 +1,0 @@
-[proc,clientscript_1551](int $int0, int $int1, int $int2, string $string)(int)
-$string = ~clientscript_1602($string);
-$int0 = min(string_length($string), $int0);
-if ($int0 <= 0) {
-    return($int2);
-}
-return(calc(op4125(substring($string, 0, $int0), $int1) + $int2));
-return(0);

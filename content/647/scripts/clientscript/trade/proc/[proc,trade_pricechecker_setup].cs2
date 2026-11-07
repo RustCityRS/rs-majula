@@ -1,3 +1,4 @@
+// 2184
 [proc,trade_pricechecker_setup](component $component0, component $component1, component $component2)
 cc_deleteall($component0);
 def_int $int3 = calc((if_getwidth($component0) - 5 * 36) / 6);
@@ -6,7 +7,7 @@ def_obj $obj5 = null;
 def_int $int6 = 0;
 def_int $int7 = 0;
 def_int $int8 = 0;
-if (player_getlevel_byxp(90) < inv_size(tradeoffer)) {
+if (inv_freespace(tradeoffer) < inv_size(tradeoffer)) {
     while ($int4 < inv_size(tradeoffer)) {
         $int6 = inv_getnum(tradeoffer, $int4);
         cc_create($component0, ^iftype_graphic, calc($int4 * 2));
@@ -34,11 +35,11 @@ if (player_getlevel_byxp(90) < inv_size(tradeoffer)) {
             .cc_settextfont(p11_full);
             .cc_setcolour(^white);
             .cc_settextshadow(true);
-            $int7 = ~clientscript_2185($int4);
+            $int7 = ~script2185($int4);
             if ($int6 > 1) {
-                .cc_settext("<op4124($int6, 1)> x <op4124($int7, 1)><br>= <op4124(calc($int6 * $int7), 1)>");
+                .cc_settext("<tostring_localised($int6, true)> x <tostring_localised($int7, true)><br>= <tostring_localised(calc($int6 * $int7), true)>");
             } else {
-                .cc_settext(op4124($int7, 1));
+                .cc_settext(tostring_localised($int7, true));
             }
         } else {
             cc_setsize(0, 0, ^setsize_abs, ^setsize_abs);
@@ -66,7 +67,7 @@ if ($int8 > if_getheight($component0)) {
     if_setposition(-8, if_gety($component0), ^setpos_abs_centre, ^setpos_abs_top, $component0);
     ~scrollbar_vertical($component1, $component0, "scrollbar_dragger_v2,3", "scrollbar_dragger_v2,0", "scrollbar_dragger_v2,1", "scrollbar_dragger_v2,2", "scrollbar_v2,0", "scrollbar_v2,1");
     if (cc_find($component1, 1) = true) {
-        ~scrollbar_vertical_doscroll($component1, $component0, if_getscrolly($component0), 1);
+        ~scrollbar_vertical_doscroll($component1, $component0, if_getscrolly($component0), true);
     }
 } else {
     if_setscrollsize(0, 0, $component0);
@@ -74,8 +75,8 @@ if ($int8 > if_getheight($component0)) {
     cc_deleteall($component1);
     if_setposition(0, if_gety($component0), ^setpos_abs_centre, ^setpos_abs_top, $component0);
 }
-if (%varc_int_728 < 0) {
+if (%varclient_728 < 0) {
     if_settext("Total value:<br>---", $component2);
 } else {
-    if_settext("Total value:<br><op4124(%varc_int_728, 1)>", $component2);
+    if_settext("Total value:<br><tostring_localised(%varclient_728, true)>", $component2);
 }

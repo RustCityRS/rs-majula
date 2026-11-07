@@ -1,7 +1,0 @@
-[proc,clientscript_3167](component $component0, int $int1, int $int2)
-def_component $component3 = lobbyscreen_pane_clanchat:com48;
-if (cc_find($component0, $int1) = true) {
-    if_sethide(false, $component3);
-    if_setposition(if_getx($component3), cc_gety, ^setpos_abs_left, ^setpos_abs_top, $component3);
-    cc_setonmouserepeat("clientscript_3168($component0, $int1, calc(clientclock + 25), $int2, ^event_mousex, ^event_mousey)");
-}

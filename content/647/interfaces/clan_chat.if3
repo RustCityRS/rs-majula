@@ -1,0 +1,1213 @@
+// 1110:0
+[com_0]
+type=rectangle
+widthmode=minus
+heightmode=minus
+xmode=abs_right
+ymode=abs_bottom
+layer=com_13
+colour=0x35322f
+fill=yes
+trans=127
+
+// 1110:1
+[com_1]
+type=line
+widthmode=minus
+xmode=abs_centre
+layer=com_13
+colour=0x524a40
+
+// 1110:2
+[com_2]
+type=graphic
+width=17
+height=17
+xmode=abs_centre
+ymode=abs_centre
+layer=com_76
+graphic="aif_clanchat_icons,0"
+
+// 1110:3
+[com_3]
+type=layer
+widthmode=minus
+heightmode=minus
+onload=clan_chat_onload
+
+// 1110:4
+[com_4]
+type=layer
+widthmode=minus
+heightmode=minus
+ymode=abs_bottom
+layer=com_9
+hide=yes
+
+// 1110:5
+[com_5]
+type=layer
+x=11
+width=8
+widthmode=minus
+heightmode=minus
+ymode=abs_bottom
+layer=com_9
+
+// 1110:6
+[com_6]
+type=layer
+x=2
+width=8
+widthmode=minus
+heightmode=minus
+xmode=abs_right
+layer=com_9
+
+// 1110:7
+[com_7]
+type=layer
+x=2
+width=8
+widthmode=minus
+heightmode=minus
+xmode=abs_right
+layer=com_9
+
+// 1110:8
+[com_8]
+type=layer
+x=2
+width=8
+widthmode=minus
+heightmode=minus
+layer=com_9
+
+// 1110:9
+[com_9]
+type=layer
+y=21
+width=174
+height=209
+layer=com_36
+
+// 1110:10
+[com_10]
+type=layer
+widthmode=minus
+heightmode=minus
+layer=com_41
+hide=yes
+
+// 1110:11
+[com_11]
+type=layer
+x=6
+width=8
+widthmode=minus
+heightmode=minus
+layer=com_41
+
+// 1110:12
+[com_12]
+type=layer
+widthmode=minus
+heightmode=minus
+ymode=abs_bottom
+layer=com_25
+hide=yes
+
+// 1110:13
+[com_13]
+type=layer
+height=19
+widthmode=minus
+layer=com_25
+hide=yes
+
+// 1110:14
+[com_14]
+type=layer
+x=11
+width=8
+widthmode=minus
+heightmode=minus
+ymode=abs_bottom
+layer=com_25
+
+// 1110:15
+[com_15]
+type=layer
+x=2
+width=8
+widthmode=minus
+heightmode=minus
+ymode=abs_bottom
+layer=com_25
+
+// 1110:16
+[com_16]
+type=layer
+width=9
+heightmode=minus
+xmode=abs_right
+layer=com_25
+
+// 1110:17
+[com_17]
+type=layer
+x=9
+width=159
+heightmode=minus
+xmode=abs_right
+layer=com_25
+
+// 1110:18
+[com_18]
+type=layer
+x=9
+width=159
+heightmode=minus
+xmode=abs_right
+layer=com_25
+
+// 1110:19
+[com_19]
+type=layer
+x=31
+width=115
+height=208
+layer=com_25
+
+// 1110:20
+[com_20]
+type=layer
+x=1
+width=1
+height=19
+xmode=abs_right
+layer=com_25
+noclickthrough=yes
+
+// 1110:21
+[com_21]
+type=rectangle
+x=1
+widthmode=minus
+heightmode=minus
+layer=com_20
+colour=0x524a40
+fill=yes
+
+// 1110:22
+[com_22]
+type=layer
+x=12
+width=17
+height=17
+ymode=abs_centre
+layer=com_20
+
+// 1110:23
+[com_23]
+type=layer
+x=31
+width=17
+height=17
+ymode=abs_centre
+layer=com_20
+hide=yes
+
+// 1110:24
+[com_24]
+type=graphic
+x=1
+width=9
+height=19
+layer=com_20
+graphic="aif_browngrad_whole_btn,3"
+transmitop=1
+op1=Hide options
+onop=script4627
+
+// 1110:25
+[com_25]
+type=layer
+y=21
+width=174
+height=208
+layer=com_34
+
+// 1110:26
+[com_26]
+type=text
+height=20
+widthmode=minus
+layer=com_34
+textfont=p11_full
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xb59b84
+
+// 1110:27
+[com_27]
+type=layer
+x=74
+width=4
+heightmode=minus
+ymode=abs_centre
+layer=com_19
+hide=yes
+transmitop=10
+dragdepth=1
+op10=  
+dragrenderbehaviour=1
+ondragcomplete=clan_chat_list_refresh(event_mousex)
+
+// 1110:28
+[com_28]
+type=graphic
+width=2
+heightmode=minus
+xmode=abs_centre
+ymode=abs_centre
+layer=com_27
+graphic=friends_line
+tiling=yes
+trans=179
+colour=0xffffffff
+transmitop=10
+op10=  
+
+// 1110:29
+[com_29]
+type=layer
+x=174
+y=21
+width=16
+height=208
+layer=com_34
+hide=yes
+
+// 1110:30
+[com_30]
+type=layer
+x=2
+y=236
+width=17
+height=17
+layer=com_34
+
+// 1110:31
+[com_31]
+type=layer
+x=20
+y=236
+width=17
+height=17
+layer=com_34
+
+// 1110:32
+[com_32]
+type=layer
+x=38
+y=236
+width=17
+height=17
+layer=com_34
+
+// 1110:33
+[com_33]
+type=layer
+x=56
+y=236
+width=17
+height=17
+layer=com_34
+
+// 1110:34
+[com_34]
+type=layer
+widthmode=minus
+heightmode=minus
+layer=com_53
+
+// 1110:35
+[com_35]
+type=layer
+widthmode=minus
+heightmode=minus
+layer=com_51
+hide=yes
+
+// 1110:36
+[com_36]
+type=layer
+widthmode=minus
+heightmode=minus
+layer=com_52
+hide=yes
+
+// 1110:37
+[com_37]
+type=layer
+x=31
+y=21
+width=115
+height=209
+layer=com_36
+
+// 1110:38
+[com_38]
+type=layer
+x=74
+width=4
+heightmode=minus
+ymode=abs_centre
+layer=com_37
+hide=yes
+dragdepth=1
+dragrenderbehaviour=1
+ondragcomplete=script4443(event_mousex)
+
+// 1110:39
+[com_39]
+type=graphic
+width=2
+heightmode=minus
+xmode=abs_centre
+ymode=abs_centre
+layer=com_38
+graphic=friends_line
+tiling=yes
+trans=179
+
+// 1110:40
+[com_40]
+type=layer
+y=22
+width=16
+height=207
+xmode=abs_right
+layer=com_35
+
+// 1110:41
+[com_41]
+type=layer
+y=22
+width=174
+height=207
+layer=com_35
+
+// 1110:42
+[com_42]
+type=layer
+y=20
+width=190
+height=210
+layer=com_35
+noclickthrough=yes
+
+// 1110:43
+[com_43]
+type=layer
+x=2
+y=236
+width=17
+height=17
+layer=com_35
+
+// 1110:44
+[com_44]
+type=layer
+x=20
+y=236
+width=17
+height=17
+layer=com_35
+
+// 1110:45
+[com_45]
+type=graphic
+widthmode=minus
+heightmode=minus
+layer=com_3
+hide=yes
+graphic=window_texture_2
+
+// 1110:46
+[com_46]
+type=rectangle
+height=19
+widthmode=minus
+xmode=abs_centre
+layer=com_3
+colour=0x141210
+fill=yes
+trans=128
+
+// 1110:47
+[com_47]
+type=rectangle
+y=20
+width=190
+height=210
+layer=com_3
+colour=0x170801
+fill=yes
+trans=218
+
+// 1110:48
+[com_48]
+type=rectangle
+height=31
+widthmode=minus
+xmode=abs_centre
+ymode=abs_bottom
+layer=com_3
+colour=0x141210
+fill=yes
+trans=128
+
+// 1110:49
+[com_49]
+type=line
+y=19
+widthmode=minus
+xmode=abs_centre
+layer=com_3
+colour=0x4a4138
+
+// 1110:50
+[com_50]
+type=line
+y=31
+widthmode=minus
+xmode=abs_centre
+ymode=abs_bottom
+layer=com_3
+colour=0x4a4138
+
+// 1110:51
+[com_51]
+type=layer
+widthmode=minus
+heightmode=minus
+layer=com_3
+
+// 1110:52
+[com_52]
+type=layer
+widthmode=minus
+heightmode=minus
+layer=com_3
+
+// 1110:53
+[com_53]
+type=layer
+widthmode=minus
+heightmode=minus
+layer=com_3
+
+// 1110:54
+[com_54]
+type=graphic
+x=168
+y=7
+width=17
+height=17
+ymode=abs_bottom
+layer=com_3
+graphic="aif_chat_navigation_btn,2"
+transmitop=1
+op1=Show clan ignore list
+onmouseleave=deltooltip(clan_chat:com_60)
+onop=script4459
+onmouserepeat=aif_tooltip(clan_chat:com_60, event_com, -1, "Clan ban list.", 120, verdana_11pt_regular, verdana_11pt_regular, ^white, 13, 4, 0, event_mousex, event_mousey)
+
+// 1110:55
+[com_55]
+type=graphic
+x=168
+y=7
+width=17
+height=17
+ymode=abs_bottom
+layer=com_3
+hide=yes
+graphic="aif_chat_navigation_btn,8"
+
+// 1110:56
+[com_56]
+type=graphic
+x=130
+y=7
+width=17
+height=17
+ymode=abs_bottom
+layer=com_3
+graphic="aif_chat_navigation_btn,1"
+transmitop=1
+op1=Show clan
+onmouseleave=deltooltip(clan_chat:com_60)
+onop=script4455
+onmouserepeat=aif_tooltip(clan_chat:com_60, event_com, -1, "Clan Chat.", 120, verdana_11pt_regular, verdana_11pt_regular, ^white, 13, 4, 0, event_mousex, event_mousey)
+
+// 1110:57
+[com_57]
+type=graphic
+x=130
+y=7
+width=17
+height=17
+ymode=abs_bottom
+layer=com_3
+graphic="aif_chat_navigation_btn,7"
+
+// 1110:58
+[com_58]
+type=graphic
+x=149
+y=7
+width=17
+height=17
+ymode=abs_bottom
+layer=com_3
+graphic="aif_chat_navigation_btn,0"
+transmitop=1
+op1=Show guest clan
+onmouseleave=deltooltip(clan_chat:com_60)
+onop=script4457
+onmouserepeat=aif_tooltip(clan_chat:com_60, event_com, -1, "Visited Clan Chat.", 120, verdana_11pt_regular, verdana_11pt_regular, ^white, 13, 4, 0, event_mousex, event_mousey)
+
+// 1110:59
+[com_59]
+type=graphic
+x=149
+y=7
+width=17
+height=17
+ymode=abs_bottom
+layer=com_3
+hide=yes
+graphic="aif_chat_navigation_btn,6"
+
+// 1110:60
+[com_60]
+type=layer
+widthmode=minus
+heightmode=minus
+layer=com_3
+
+// 1110:61
+[com_61]
+type=rectangle
+widthmode=minus
+heightmode=minus
+layer=com_67
+colour=0x000000
+fill=yes
+trans=167
+
+// 1110:62
+[com_62]
+type=text
+x=9
+width=32
+widthmode=minus
+heightmode=minus
+ymode=abs_centre
+layer=com_67
+textfont=p11_full
+text=Loading.<br><br>Please wait...
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xb59b84
+
+// 1110:63
+[com_63]
+type=layer
+x=174
+y=31
+width=16
+height=209
+ymode=abs_bottom
+layer=com_36
+
+// 1110:64
+[com_64]
+type=layer
+y=20
+height=210
+widthmode=minus
+layer=com_36
+noclickthrough=yes
+
+// 1110:65
+[com_65]
+type=text
+height=20
+widthmode=minus
+layer=com_36
+textfont=p11_full
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xb59b84
+
+// 1110:66
+[com_66]
+type=layer
+x=2
+y=236
+width=17
+height=17
+layer=com_36
+
+// 1110:67
+[com_67]
+type=layer
+y=20
+height=210
+widthmode=minus
+layer=com_34
+noclickthrough=yes
+
+// 1110:68
+[com_68]
+type=layer
+x=74
+y=236
+width=17
+height=17
+layer=com_34
+
+// 1110:69
+[com_69]
+type=rectangle
+widthmode=minus
+heightmode=minus
+layer=com_64
+colour=0x000000
+fill=yes
+trans=167
+
+// 1110:70
+[com_70]
+type=text
+x=9
+width=32
+widthmode=minus
+heightmode=minus
+ymode=abs_centre
+layer=com_64
+textfont=p11_full
+text=You are not currently<br>a guest in a Clan Chat.<br><br>To join a Clan Chat as a<br>guest, click the join icon<br>and enter the name of<br>the clan you wish to chat with.
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xb59b84
+
+// 1110:71
+[com_71]
+type=rectangle
+widthmode=minus
+heightmode=minus
+layer=com_42
+colour=0x000000
+fill=yes
+trans=167
+
+// 1110:72
+[com_72]
+type=text
+widthmode=minus
+heightmode=minus
+xmode=abs_centre
+ymode=abs_centre
+layer=com_42
+textfont=p11_full
+text=Loading.<br><br>Please wait...
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xb59b84
+
+// 1110:73
+[com_73]
+type=layer
+widthmode=minus
+heightmode=minus
+layer=com_31
+onload=script4525(event_com, struct_1800)
+
+// 1110:74
+[com_74]
+type=layer
+widthmode=minus
+heightmode=minus
+layer=com_31
+onload=script4525(event_com, struct_1801)
+
+// 1110:75
+[com_75]
+type=layer
+widthmode=minus
+heightmode=minus
+layer=com_31
+onload=script4525(event_com, struct_1802)
+
+// 1110:76
+[com_76]
+type=layer
+widthmode=minus
+heightmode=minus
+layer=com_31
+transmitop=1
+op1=Clan Details
+onload=script4213(event_com)
+onmouseleave=deltooltip(clan_chat:com_60)
+onmouserepeat=aif_tooltip(clan_chat:com_60, event_com, -1, "Clan details.", 120, verdana_11pt_regular, verdana_11pt_regular, ^white, 13, 4, 0, event_mousex, event_mousey)
+
+// 1110:77
+[com_77]
+type=layer
+widthmode=minus
+heightmode=minus
+layer=com_32
+onload=script4525(event_com, struct_1800)
+
+// 1110:78
+[com_78]
+type=layer
+widthmode=minus
+heightmode=minus
+layer=com_32
+onload=script4525(event_com, struct_1801)
+
+// 1110:79
+[com_79]
+type=layer
+widthmode=minus
+heightmode=minus
+layer=com_32
+onload=script4525(event_com, struct_1802)
+
+// 1110:80
+[com_80]
+type=layer
+widthmode=minus
+heightmode=minus
+layer=com_32
+transmitop=1
+op1=Clan Settings
+onload=script4213(event_com)
+onmouseleave=deltooltip(clan_chat:com_60)
+onmouserepeat=aif_tooltip(clan_chat:com_60, event_com, -1, "Clan settings.", 120, verdana_11pt_regular, verdana_11pt_regular, ^white, 13, 4, 0, event_mousex, event_mousey)
+
+// 1110:81
+[com_81]
+type=graphic
+width=17
+height=17
+xmode=abs_centre
+ymode=abs_centre
+layer=com_80
+graphic="aif_clanchat_icons,1"
+
+// 1110:82
+[com_82]
+type=layer
+widthmode=minus
+heightmode=minus
+layer=com_30
+onload=script4525(event_com, struct_1800)
+
+// 1110:83
+[com_83]
+type=layer
+widthmode=minus
+heightmode=minus
+layer=com_30
+onload=script4525(event_com, struct_1801)
+
+// 1110:84
+[com_84]
+type=layer
+widthmode=minus
+heightmode=minus
+layer=com_30
+onload=script4525(event_com, struct_1802)
+
+// 1110:85
+[com_85]
+type=layer
+widthmode=minus
+heightmode=minus
+layer=com_30
+transmitop=1
+op1=Join Clan Channel
+onload=script4213(event_com)
+onmouseleave=deltooltip(clan_chat:com_60)
+onmouserepeat=aif_tooltip(clan_chat:com_60, event_com, -1, "Join your clan chat channel.", 120, verdana_11pt_regular, verdana_11pt_regular, ^white, 13, 4, 0, event_mousex, event_mousey)
+
+// 1110:86
+[com_86]
+type=graphic
+width=17
+height=17
+xmode=abs_centre
+ymode=abs_centre
+layer=com_85
+graphic="aif_clanchat_icons,12"
+
+// 1110:87
+[com_87]
+type=layer
+widthmode=minus
+heightmode=minus
+layer=com_33
+onload=script4525(event_com, struct_1800)
+
+// 1110:88
+[com_88]
+type=layer
+widthmode=minus
+heightmode=minus
+layer=com_33
+onload=script4525(event_com, struct_1801)
+
+// 1110:89
+[com_89]
+type=layer
+widthmode=minus
+heightmode=minus
+layer=com_33
+onload=script4525(event_com, struct_1802)
+
+// 1110:90
+[com_90]
+type=layer
+widthmode=minus
+heightmode=minus
+layer=com_33
+targetmask=player
+targetverb=Invite
+targetcursor2=cursor_176
+onload=script4213(event_com)
+onmouseleave=deltooltip(clan_chat:com_60)
+ontargetleave=script4430(event_com, clan_chat:com_91)
+ontargetenter=clan_invite_button(event_com, clan_chat:com_91)
+onmouserepeat=aif_tooltip(clan_chat:com_60, event_com, -1, "Invite.<br>Recruiters can click this, then click on the player to invite.", 120, verdana_11pt_regular, verdana_11pt_regular, ^white, 13, 4, 0, event_mousex, event_mousey)
+
+// 1110:91
+[com_91]
+type=graphic
+width=17
+height=17
+xmode=abs_centre
+ymode=abs_centre
+layer=com_90
+graphic="aif_clanchat_icons,2"
+
+// 1110:92
+[com_92]
+type=layer
+widthmode=minus
+heightmode=minus
+layer=com_66
+onload=script4525(event_com, struct_1800)
+
+// 1110:93
+[com_93]
+type=layer
+widthmode=minus
+heightmode=minus
+layer=com_66
+onload=script4525(event_com, struct_1801)
+
+// 1110:94
+[com_94]
+type=layer
+widthmode=minus
+heightmode=minus
+layer=com_66
+onload=script4525(event_com, struct_1802)
+
+// 1110:95
+[com_95]
+type=layer
+widthmode=minus
+heightmode=minus
+layer=com_66
+transmitop=1
+op1=Join Clan Channel
+onload=script4213(event_com)
+onmouseleave=deltooltip(clan_chat:com_60)
+onmouserepeat=aif_tooltip(clan_chat:com_60, event_com, -1, "Join another<br>clan's clanchat.", 120, verdana_11pt_regular, verdana_11pt_regular, ^white, 13, 4, 0, event_mousex, event_mousey)
+
+// 1110:96
+[com_96]
+type=graphic
+width=17
+height=17
+xmode=abs_centre
+ymode=abs_centre
+layer=com_95
+graphic="aif_clanchat_icons,13"
+
+// 1110:97
+[com_97]
+type=layer
+widthmode=minus
+heightmode=minus
+layer=com_43
+onload=script4525(event_com, struct_1800)
+
+// 1110:98
+[com_98]
+type=layer
+widthmode=minus
+heightmode=minus
+layer=com_43
+onload=script4525(event_com, struct_1801)
+
+// 1110:99
+[com_99]
+type=layer
+widthmode=minus
+heightmode=minus
+layer=com_43
+onload=script4525(event_com, struct_1802)
+
+// 1110:100
+[com_100]
+type=layer
+widthmode=minus
+heightmode=minus
+layer=com_43
+transmitop=1
+op1=Add ban
+onload=script4213(event_com)
+onmouseleave=deltooltip(clan_chat:com_60)
+onmouserepeat=aif_tooltip(clan_chat:com_60, event_com, -1, "Ban a player from the clan, so they cannot enter the chat until removed from this list.", 120, verdana_11pt_regular, verdana_11pt_regular, ^white, 13, 4, 0, event_mousex, event_mousey)
+
+// 1110:101
+[com_101]
+type=graphic
+width=17
+height=17
+xmode=abs_centre
+ymode=abs_centre
+layer=com_100
+graphic="aif_clanchat_icons,6"
+
+// 1110:102
+[com_102]
+type=layer
+widthmode=minus
+heightmode=minus
+layer=com_44
+onload=script4525(event_com, struct_1800)
+
+// 1110:103
+[com_103]
+type=layer
+widthmode=minus
+heightmode=minus
+layer=com_44
+onload=script4525(event_com, struct_1801)
+
+// 1110:104
+[com_104]
+type=layer
+widthmode=minus
+heightmode=minus
+layer=com_44
+onload=script4525(event_com, struct_1802)
+
+// 1110:105
+[com_105]
+type=layer
+widthmode=minus
+heightmode=minus
+layer=com_44
+transmitop=1
+op1=Remove ban
+onload=script4213(event_com)
+onmouseleave=deltooltip(clan_chat:com_60)
+onmouserepeat=aif_tooltip(clan_chat:com_60, event_com, -1, "Remove a player from the clan ban list.", 120, verdana_11pt_regular, verdana_11pt_regular, ^white, 13, 4, 0, event_mousex, event_mousey)
+
+// 1110:106
+[com_106]
+type=graphic
+width=17
+height=17
+xmode=abs_centre
+ymode=abs_centre
+layer=com_105
+graphic="aif_clanchat_icons,5"
+
+// 1110:107
+[com_107]
+type=layer
+widthmode=minus
+heightmode=minus
+layer=com_22
+onload=script4525(event_com, struct_1800)
+
+// 1110:108
+[com_108]
+type=layer
+widthmode=minus
+heightmode=minus
+layer=com_22
+onload=script4525(event_com, struct_1801)
+
+// 1110:109
+[com_109]
+type=layer
+widthmode=minus
+heightmode=minus
+layer=com_22
+transmitop=1
+op1=Temporary kick/ban
+onload=script4213(event_com)
+onmouseleave=deltooltip(clan_chat:com_60)
+onop=clan_chat_kick_button
+onmouserepeat=aif_tooltip(clan_chat:com_60, event_com, -1, "Temporarily kick & ban a guest.", 80, verdana_11pt_regular, verdana_11pt_regular, ^white, 13, 4, 3, event_mousex, event_mousey)
+
+// 1110:110
+[com_110]
+type=layer
+widthmode=minus
+heightmode=minus
+layer=com_22
+noclickthrough=yes
+onmouseleave=deltooltip(clan_chat:com_60)
+onmouserepeat=aif_tooltip(clan_chat:com_60, event_com, -1, "If you have a high enough rank, this allows you to temporarily kick & ban a guest.", 80, verdana_11pt_regular, verdana_11pt_regular, ^white, 13, 4, 3, event_mousex, event_mousey)
+
+// 1110:111
+[com_111]
+type=rectangle
+widthmode=minus
+heightmode=minus
+layer=com_110
+colour=0x000000
+fill=yes
+trans=128
+
+// 1110:112
+[com_112]
+type=graphic
+width=17
+height=17
+xmode=abs_centre
+ymode=abs_centre
+layer=com_109
+graphic="aif_clanchat_icons,10"
+
+// 1110:113
+[com_113]
+type=layer
+widthmode=minus
+heightmode=minus
+layer=com_68
+onload=script4525(event_com, struct_1800)
+
+// 1110:114
+[com_114]
+type=layer
+widthmode=minus
+heightmode=minus
+layer=com_68
+onload=script4525(event_com, struct_1801)
+
+// 1110:115
+[com_115]
+type=layer
+widthmode=minus
+heightmode=minus
+layer=com_68
+transmitop=1
+op1=Leave Clan
+onload=script4213(event_com)
+onmouseleave=deltooltip(clan_chat:com_60)
+onmouserepeat=aif_tooltip(clan_chat:com_60, event_com, -1, "Leave your clan completely.<br>You will need to be re-invited to join again.", 120, verdana_11pt_regular, verdana_11pt_regular, ^white, 13, 4, 0, event_mousex, event_mousey)
+
+// 1110:116
+[com_116]
+type=graphic
+width=17
+height=17
+xmode=abs_centre
+ymode=abs_centre
+layer=com_115
+graphic="aif_clanchat_icons,11"
+
+// 1110:117
+[com_117]
+type=layer
+widthmode=minus
+heightmode=minus
+layer=com_23
+onload=script4525(event_com, struct_1800)
+
+// 1110:118
+[com_118]
+type=layer
+widthmode=minus
+heightmode=minus
+layer=com_23
+onload=script4525(event_com, struct_1801)
+
+// 1110:119
+[com_119]
+type=layer
+widthmode=minus
+heightmode=minus
+layer=com_23
+transmitop=1
+op1=Permanently ban
+onload=script4213(event_com)
+onmouseleave=deltooltip(clan_chat:com_60)
+onop=meslayer_mode16
+onmouserepeat=aif_tooltip(clan_chat:com_60, event_com, -1, "Permanently ban a guest.", 80, verdana_11pt_regular, verdana_11pt_regular, ^white, 13, 4, 3, event_mousex, event_mousey)
+
+// 1110:120
+[com_120]
+type=layer
+widthmode=minus
+heightmode=minus
+layer=com_23
+noclickthrough=yes
+
+// 1110:121
+[com_121]
+type=graphic
+width=17
+height=17
+xmode=abs_centre
+ymode=abs_centre
+layer=com_119
+graphic="aif_clanchat_icons,6"
+
+// 1110:122
+[com_122]
+type=line
+y=18
+widthmode=minus
+layer=com_13
+colour=0x524a40
+
+// 1110:123
+[com_123]
+type=rectangle
+widthmode=minus
+heightmode=minus
+layer=com_120
+colour=0x000000
+fill=yes
+trans=128

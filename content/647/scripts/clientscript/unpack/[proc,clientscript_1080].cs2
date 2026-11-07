@@ -1,5 +1,0 @@
-[proc,clientscript_1080](component $component0, int $int1)
-if (cc_find($component0, $int1) = true) {
-    cc_sethide(false);
-    cc_setcolour(0x577e45);
-}

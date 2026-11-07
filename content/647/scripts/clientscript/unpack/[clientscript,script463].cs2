@@ -1,0 +1,9 @@
+// 463
+[clientscript,script463](component $component0)
+if (stat_base(hitpoints) < 25) {
+    if_settext("<col=c80000>A Constitution level of <tostring(25)> is required.</col>", $component0);
+} else if (%varplayerbit_2086 < 1) {
+    if_settext("<col=c80000>1 Commendation required.</col>", $component0);
+} else {
+    if_settext("<tostring(calc(pow(stat_base(hitpoints), 2) / 600 * 35))> XP per Commendation.", $component0);
+}

@@ -1,4 +1,5 @@
+// 2053
 [clientscript,worldmap_op](int $int0, component $component1, coord $coord2)
-if ($int0 = true) {
-    if_setontimer("clientscript_2054(calc(clientclock + 3), $component1, $coord2)", $component1);
+if ($int0 = 1) {
+    if_setontimer("script2054(calc(clientclock + 3), $component1, $coord2)", $component1);
 }

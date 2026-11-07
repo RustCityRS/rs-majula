@@ -1,4 +1,5 @@
-[proc,wolf_pouch_checker](obj $obj)(int)
+// 795
+[proc,wolf_pouch_checker](obj $obj0)(int)
 if (inv_total(inv, wolf_bones) < 1) {
     return(0);
 }
@@ -12,4 +13,3 @@ if (inv_total(inv, pouch_12525) < 1) {
     return(0);
 }
 return(1);
-return(0);

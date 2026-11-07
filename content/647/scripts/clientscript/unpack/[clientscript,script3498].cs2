@@ -1,0 +1,62 @@
+// 3498
+[clientscript,script3498](int $int0, int $int1)
+def_component $component2 = interface_994:com_74;
+def_component $component3 = interface_994:com_78;
+def_component $component4 = interface_994:com_80;
+def_int $int5 = calc(10 + 10 * $int0);
+def_int $int6 = if_gety(interface_994:com_135);
+switch_int ($int6) {
+    case -22 :
+        $int6 = $int0;
+    case -137 :
+        $int6 = calc($int0 + 11);
+    case -222 :
+        $int6 = calc($int0 + 17);
+    case -277 :
+        $int6 = calc($int0 + 29);
+    case -400 :
+        $int6 = calc($int0 + 35);
+    case -500 :
+        $int6 = calc($int0 + 47);
+    case default :
+        $int6 = $int0;
+}
+if ($int1 ! 0) {
+    $int6 = $int1;
+}
+sound_synth(synth_8809, 1, 0);
+if_setposition(0, $int5, ^setpos_abs_left, ^setpos_abs_top, $component2);
+if_settext(tostring($int6), $component3);
+switch_int ($int0) {
+    case 1 :
+        if_settext(if_gettext(interface_994:com_44), $component4);
+    case 2 :
+        if_settext(if_gettext(interface_994:com_46), $component4);
+    case 3 :
+        if_settext(if_gettext(interface_994:com_48), $component4);
+    case 4 :
+        if_settext(if_gettext(interface_994:com_50), $component4);
+    case 5 :
+        if_settext(if_gettext(interface_994:com_52), $component4);
+    case 6 :
+        if_settext(if_gettext(interface_994:com_54), $component4);
+    case 7 :
+        if_settext(if_gettext(interface_994:com_56), $component4);
+    case 8 :
+        if_settext(if_gettext(interface_994:com_58), $component4);
+    case 9 :
+        if_settext(if_gettext(interface_994:com_60), $component4);
+    case 10 :
+        if_settext(if_gettext(interface_994:com_62), $component4);
+    case 11 :
+        if_settext(if_gettext(interface_994:com_64), $component4);
+    case 12 :
+        if_settext(if_gettext(interface_994:com_66), $component4);
+    case 13 :
+        if_settext(if_gettext(interface_994:com_68), $component4);
+    case 14 :
+        if_settext(if_gettext(interface_994:com_70), $component4);
+    case 15 :
+        if_settext(if_gettext(interface_994:com_72), $component4);
+    case default :
+}

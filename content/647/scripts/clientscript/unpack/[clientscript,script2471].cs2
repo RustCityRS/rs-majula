@@ -1,0 +1,5 @@
+// 2471
+[clientscript,script2471]
+if_sethide(true, enum(npc, component, enum_1092, %varplayer_1174));
+if_setgraphic("topstat_fill_full,3", summoning_orb:com_3);
+if_sethide(true, summoning_orb:com_8);

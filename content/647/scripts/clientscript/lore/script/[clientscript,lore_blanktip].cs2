@@ -1,4 +1,5 @@
-[clientscript,lore_blanktip](int $int0, component $component1, component $component2, int $int3, string $string)
+// 782
+[clientscript,lore_blanktip](int $int0, component $component1, component $component2, int $int3, string $string0)
 cc_deleteall($component1);
 def_int $int4 = calc(2 + 13 * paraheight("This space is reserved", 177, p12_full));
 def_int $int5 = calc(2 + 13 * paraheight("You cannot make this pouch.", 177, p11_full));

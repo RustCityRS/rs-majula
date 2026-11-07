@@ -1,0 +1,7 @@
+// 2083
+[clientscript,script2083]
+if (%varclient_639 > 0) {
+    if_settext("<tostring(%varclient_639)>%", interface_836:com_11);
+} else {
+    if_settext("---", interface_836:com_11);
+}

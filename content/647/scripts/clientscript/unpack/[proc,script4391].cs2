@@ -1,0 +1,9 @@
+// 4391
+[proc,script4391](component $component0)
+def_texture $texture1 = null;
+def_texture $texture2 = null;
+if (activeclansettings_find_affined = true) {
+    $texture1, $texture2 = ~clan_motif_decode(%varplayerbit_9086, %varplayerbit_9087, 0);
+    if_setretex(0, texture_1024, $texture1, $component0);
+    if_setretex(1, texture_1057, $texture2, $component0);
+}

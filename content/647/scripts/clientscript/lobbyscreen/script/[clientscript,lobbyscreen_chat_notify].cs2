@@ -1,3 +1,4 @@
+// 3407
 [clientscript,lobbyscreen_chat_notify](int $int0, component $component1, component $component2)
 if (if_gethide($component1) = false) {
     cc_deleteall($component2);

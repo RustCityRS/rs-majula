@@ -1,45 +1,45 @@
-[proc,obj_use_skill_requirements](obj $obj0)(int)
-def_stat $stat1 = oc_weight($obj0, param_770);
+// 931
+[proc,obj_use_skill_requirements](obj $obj0)(boolean)
+def_stat $stat1 = oc_param($obj0, param_770);
 if ($stat1 = null) {
-    return(1);
+    return(true);
 }
-if (stat_base($stat1) < oc_weight($obj0, param_771)) {
-    return(0);
+if (stat_base($stat1) < oc_param($obj0, param_771)) {
+    return(false);
 }
-$stat1 = oc_weight($obj0, param_772);
+$stat1 = oc_param($obj0, param_772);
 if ($stat1 = null) {
-    return(1);
+    return(true);
 }
-if (stat_base($stat1) < oc_weight($obj0, param_773)) {
-    return(0);
+if (stat_base($stat1) < oc_param($obj0, param_773)) {
+    return(false);
 }
-$stat1 = oc_weight($obj0, param_774);
+$stat1 = oc_param($obj0, param_774);
 if ($stat1 = null) {
-    return(1);
+    return(true);
 }
-if (stat_base($stat1) < oc_weight($obj0, param_775)) {
-    return(0);
+if (stat_base($stat1) < oc_param($obj0, param_775)) {
+    return(false);
 }
-$stat1 = oc_weight($obj0, param_776);
+$stat1 = oc_param($obj0, param_776);
 if ($stat1 = null) {
-    return(1);
+    return(true);
 }
-if (stat_base($stat1) < oc_weight($obj0, param_777)) {
-    return(0);
+if (stat_base($stat1) < oc_param($obj0, param_777)) {
+    return(false);
 }
-$stat1 = oc_weight($obj0, param_778);
+$stat1 = oc_param($obj0, param_778);
 if ($stat1 = null) {
-    return(1);
+    return(true);
 }
-if (stat_base($stat1) < oc_weight($obj0, param_779)) {
-    return(0);
+if (stat_base($stat1) < oc_param($obj0, param_779)) {
+    return(false);
 }
-$stat1 = oc_weight($obj0, param_780);
+$stat1 = oc_param($obj0, param_780);
 if ($stat1 = null) {
-    return(1);
+    return(true);
 }
-if (stat_base($stat1) < oc_weight($obj0, param_781)) {
-    return(0);
+if (stat_base($stat1) < oc_param($obj0, param_781)) {
+    return(false);
 }
-return(1);
-return(-1);
+return(true);

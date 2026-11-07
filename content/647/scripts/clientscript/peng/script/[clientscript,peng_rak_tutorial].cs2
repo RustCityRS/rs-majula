@@ -1,38 +1,39 @@
+// 2421
 [clientscript,peng_rak_tutorial]
-if_setmodel(model_46997, jl783128:com13);
-if_setmodel(model_46976, jl783128:com15);
-if_setmodel(model_46974, jl783128:com14);
-if_setmodel(model_46995, jl783128:com16);
-if_setmodel(model_46986, jl783128:com17);
-if (%varc_int_737 = true) {
-    if_setmodel(model_46982, jl783128:com13);
+if_setmodel(model_46997, interface_674:com_13);
+if_setmodel(model_46976, interface_674:com_15);
+if_setmodel(model_46974, interface_674:com_14);
+if_setmodel(model_46995, interface_674:com_16);
+if_setmodel(model_46986, interface_674:com_17);
+if (%varclient_737 = 1) {
+    if_setmodel(model_46982, interface_674:com_13);
     sound_synth(synth_6691, 1, 0);
-    if_sethide(true, jl783128:com10);
-} else if (%varc_int_737 = 2) {
-    if_setmodel(model_46979, jl783128:com15);
+    if_sethide(true, interface_674:com_10);
+} else if (%varclient_737 = 2) {
+    if_setmodel(model_46979, interface_674:com_15);
     sound_synth(synth_6694, 1, 0);
-    if_setmodel(model_46964, jl783128:com6);
-} else if (%varc_int_737 = 3) {
-    if_setmodel(model_46989, jl783128:com14);
-    if_setmodel(model_46956, jl783128:com6);
-} else if (%varc_int_737 = 4) {
-    if_setmodel(model_46981, jl783128:com16);
+    if_setmodel(model_46964, interface_674:com_6);
+} else if (%varclient_737 = 3) {
+    if_setmodel(model_46989, interface_674:com_14);
+    if_setmodel(model_46956, interface_674:com_6);
+} else if (%varclient_737 = 4) {
+    if_setmodel(model_46981, interface_674:com_16);
     sound_synth(synth_6695, 1, 0);
-    if_setmodel(model_46965, jl783128:com6);
-} else if (%varc_int_737 = 5) {
-    if_setmodel(model_46996, jl783128:com17);
+    if_setmodel(model_46965, interface_674:com_6);
+} else if (%varclient_737 = 5) {
+    if_setmodel(model_46996, interface_674:com_17);
     sound_synth(synth_6690, 1, 0);
-    if_sethide(false, jl783128:com5);
-} else if (%varc_int_737 = 6) {
-    if_setmodelanim(seq_11761, jl783128:com9);
-} else if (%varc_int_737 = 7) {
-    if_setmodelanim(seq_11760, jl783128:com9);
-} else if (%varc_int_737 = 8) {
-    if_setmodelanim(seq_11759, jl783128:com9);
-} else if (%varc_int_737 = 9) {
-    if_setmodelanim(seq_11763, jl783128:com9);
-} else if (%varc_int_737 = 10) {
-    if_setmodelanim(seq_11764, jl783128:com9);
-} else if (%varc_int_737 = 11) {
-    if_setmodelanim(seq_11765, jl783128:com9);
+    if_sethide(false, interface_674:com_5);
+} else if (%varclient_737 = 6) {
+    if_setmodelanim(seq_11761, interface_674:com_9);
+} else if (%varclient_737 = 7) {
+    if_setmodelanim(seq_11760, interface_674:com_9);
+} else if (%varclient_737 = 8) {
+    if_setmodelanim(seq_11759, interface_674:com_9);
+} else if (%varclient_737 = 9) {
+    if_setmodelanim(seq_11763, interface_674:com_9);
+} else if (%varclient_737 = 10) {
+    if_setmodelanim(seq_11764, interface_674:com_9);
+} else if (%varclient_737 = 11) {
+    if_setmodelanim(seq_11765, interface_674:com_9);
 }

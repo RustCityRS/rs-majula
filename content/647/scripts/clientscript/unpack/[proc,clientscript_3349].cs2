@@ -1,6 +1,0 @@
-[proc,clientscript_3349]
-if (%varc_int_1177 = false) {
-    ~clientscript_1163(rand_party_side:com66, -1, rand_party_side:com114, "P3: Shared XP is ON", 25, 200);
-} else {
-    ~clientscript_1163(rand_party_side:com66, -1, rand_party_side:com114, "P3: Shared XP is OFF", 25, 200);
-}

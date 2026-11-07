@@ -1,9 +1,10 @@
+// 564
 [clientscript,chatbox_resize_load]
-if (%varc_int_1037 > calc(if_getheight(toplevel_fullscreen:com1) - 117)) {
+if (%varclient_1037 > calc(if_getheight(toplevel_fullscreen:com_1) - 117)) {
     ~chatbox_resize_reset(1);
 } else {
     ~chatbox_resize_window;
 }
-if_setdraggable(toplevel_fullscreen:com71, -1, toplevel_fullscreen:com72);
-if_setondrag("chatbox_resize_drag(^event_mousey, false)", toplevel_fullscreen:com72);
-if_setondragcomplete("chatbox_resize_drag(^event_mousey, true)", toplevel_fullscreen:com72);
+if_setdraggable(toplevel_fullscreen:com_71, -1, toplevel_fullscreen:com_72);
+if_setondrag("chatbox_resize_drag(event_mousey, false)", toplevel_fullscreen:com_72);
+if_setondragcomplete("chatbox_resize_drag(event_mousey, true)", toplevel_fullscreen:com_72);

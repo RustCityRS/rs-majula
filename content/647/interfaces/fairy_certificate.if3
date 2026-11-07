@@ -1,0 +1,67 @@
+// 123:0
+[com_0]
+type=model
+x=58
+y=7
+width=397
+height=326
+model=model_7445
+modelorigin=18,5
+modelangle=0,2047,0
+modelzoom=179
+
+// 123:1
+[com_1]
+type=text
+x=131
+y=100
+width=264
+height=17
+textfont=q8_full
+text=Certificate of Advanced Healing
+textalignh=centre
+textshadow=yes
+colour=0xeb9a2f
+
+// 123:2
+[com_2]
+type=text
+x=130
+y=116
+width=265
+height=17
+textfont=q8_full
+text=From PoxStead College.
+textalignh=centre
+textshadow=yes
+colour=0xeb9a2f
+
+// 123:3
+[com_3]
+type=text
+x=207
+y=187
+width=191
+height=54
+textfont=p11_full
+text=Signed Dr Foster-MMD, PRD<br>Head Of<br>Magical Healing.
+textlineheight=14
+textalignh=centre
+textshadow=yes
+colour=0xeb9a2f
+
+// 123:4
+[com_4]
+type=graphic
+x=403
+y=36
+width=26
+height=23
+graphic="close_buttons,2"
+colour=0x000000
+transmitop=1,10
+op1=Close
+op10=        
+onmouseover=graphic_swapper(event_com, "close_buttons,3")
+onmouseleave=graphic_swapper(event_com, "close_buttons,2")
+onop=closebutton_click

@@ -1,4 +1,5 @@
+// 1547
 [clientscript,meslayer_varc_update]
-if (%varc_int_5 = false) {
+if (%varclient_5 = 0) {
     ~meslayer_close(0);
 }

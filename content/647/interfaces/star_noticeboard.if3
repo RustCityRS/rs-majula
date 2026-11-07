@@ -1,0 +1,179 @@
+// 787:0
+[com_0]
+type=rectangle
+x=69
+y=141
+width=516
+height=278
+colour=0x000000
+fill=yes
+trans=200
+transmitop=10
+op10= 
+
+// 787:1
+[com_1]
+type=model
+y=8
+width=563
+height=435
+xmode=abs_centre
+ymode=abs_centre
+model=model_42151
+modelorigin=0,360
+modelzoom=238
+transmitop=10
+op10= 
+
+// 787:2
+[com_2]
+type=layer
+x=32
+y=26
+width=579
+height=389
+xmode=abs_centre
+ymode=abs_centre
+transmitop=10
+op10= 
+
+// 787:3
+[com_3]
+type=graphic
+x=472
+y=8
+width=26
+height=23
+layer=com_2
+graphic="close_buttons,6"
+colour=0x000000
+transmitop=1,10
+op1=Close
+op10= 
+onmouseover=graphic_swapper(event_com, "close_buttons,7")
+onmouseleave=graphic_swapper(event_com, "close_buttons,6")
+onop=closebutton_click
+
+// 787:4
+[com_4]
+type=text
+x=278
+y=122
+width=170
+height=32
+textfont=quill_oblique_large
+text=Discovered by:
+textshadow=yes
+colour=0xbf751d
+
+// 787:5
+[com_5]
+type=text
+x=68
+y=122
+width=147
+height=32
+textfont=quill_oblique_large
+text=Landing time:
+textshadow=yes
+colour=0xbf751d
+
+// 787:6
+[com_6]
+type=text
+x=68
+y=162
+width=147
+height=24
+textfont=p12_full
+colour=0xbf751d
+
+// 787:7
+[com_7]
+type=text
+x=68
+y=192
+width=147
+height=24
+textfont=p12_full
+colour=0xbf751d
+
+// 787:8
+[com_8]
+type=text
+x=68
+y=222
+width=147
+height=24
+textfont=p12_full
+colour=0xbf751d
+
+// 787:9
+[com_9]
+type=text
+x=68
+y=252
+width=147
+height=24
+textfont=p12_full
+colour=0xbf751d
+
+// 787:10
+[com_10]
+type=text
+x=68
+y=282
+width=147
+height=24
+textfont=p12_full
+colour=0xbf751d
+
+// 787:11
+[com_11]
+type=text
+x=278
+y=162
+width=170
+height=24
+textfont=p12_full
+colour=0xbf751d
+
+// 787:12
+[com_12]
+type=text
+x=278
+y=192
+width=170
+height=24
+textfont=p12_full
+colour=0xbf751d
+
+// 787:13
+[com_13]
+type=text
+x=278
+y=222
+width=170
+height=24
+textfont=p12_full
+colour=0xbf751d
+
+// 787:14
+[com_14]
+type=text
+x=278
+y=252
+width=170
+height=24
+textfont=p12_full
+colour=0xbf751d
+
+// 787:15
+[com_15]
+type=text
+x=278
+y=282
+width=170
+height=24
+textfont=p12_full
+colour=0xbf751d

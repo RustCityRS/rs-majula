@@ -98,6 +98,26 @@ pub enum LocShape {
     GroundDecor = 22,
 }
 
+/// The key a dump prints each shape id as.
+#[cfg(since_647)]
+const LOC_SHAPE_KEYS: &[u8; 23] = b"1234QWERT589ASDFGHZXCV0";
+
+#[cfg(since_647)]
+pub fn loc_shape_key(shape: u8) -> char {
+    LOC_SHAPE_KEYS[shape as usize] as char
+}
+
+#[cfg(since_647)]
+pub fn loc_shape_from_key(key: &str) -> Option<u8> {
+    let [key] = key.as_bytes() else {
+        return None;
+    };
+    LOC_SHAPE_KEYS
+        .iter()
+        .position(|shape| shape == key)
+        .map(|shape| shape as u8)
+}
+
 impl LocShape {
     pub const fn suffix(self) -> &'static str {
         match self {
@@ -239,6 +259,7 @@ pub enum ForceApproach {
 }
 
 impl ForceApproach {
+    #[cfg(before_647)]
     pub fn from_config_str(s: &str) -> Self {
         match s {
             "north" => Self::North,
@@ -246,6 +267,41 @@ impl ForceApproach {
             "south" => Self::South,
             "west" => Self::West,
             _ => panic!("Invalid forceapproach value: {s}"),
+        }
+    }
+
+    /// One or more comma separated sides; each clears its bit.
+    #[cfg(since_647)]
+    pub fn from_config_str(s: &str) -> Self {
+        let bits = s.split(',').fold(0b1111, |bits, side| {
+            bits & !match side.trim() {
+                "north" => 0b0001,
+                "east" => 0b0010,
+                "south" => 0b0100,
+                "west" => 0b1000,
+                _ => panic!("Invalid forceapproach value: {s}"),
+            }
+        });
+        Self::try_from(bits).expect("Invalid forceapproach")
+    }
+
+    #[cfg(since_647)]
+    pub fn config_str(self) -> String {
+        let bits = self as u8;
+        let sides: Vec<_> = [
+            (0b0001, "north"),
+            (0b0010, "east"),
+            (0b0100, "south"),
+            (0b1000, "west"),
+        ]
+        .into_iter()
+        .filter(|(bit, _)| bits & bit == 0)
+        .map(|(_, side)| side)
+        .collect();
+        if sides.is_empty() {
+            bits.to_string()
+        } else {
+            sides.join(",")
         }
     }
 }

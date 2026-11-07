@@ -1,0 +1,6 @@
+// 2899
+[clientscript,script2899]
+if_sethide(false, interface_476:com_58);
+if_settrans(0, interface_476:com_58);
+def_int $int0 = clientclock;
+if_setontimer("sfa_hide_warning($int0)", interface_476:com_58);

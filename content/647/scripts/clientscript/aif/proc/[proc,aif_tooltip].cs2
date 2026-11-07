@@ -1,18 +1,19 @@
-[proc,aif_tooltip](component $component0, component $component1, int $int2, int $int3, fontmetrics $fontmetrics4, fontmetrics $fontmetrics5, colour $colour6, int $int7, int $int8, int $int9, int $int10, int $int11, string $string)
-if (%varc_int_1 < calc(clientclock + 25)) {
-    if (%varc_int_1 < clientclock) {
-        %varc_int_1 = clientclock;
+// 4539
+[proc,aif_tooltip](component $component0, component $component1, int $int2, string $string0, int $int3, fontmetrics $fontmetrics4, graphic $graphic5, int $rgb6, int $int7, int $int8, int $int9, int $int10, int $int11)
+if (%varclient_1 < calc(clientclock + 25)) {
+    if (%varclient_1 < clientclock) {
+        %varclient_1 = clientclock;
     }
-    %varc_int_1 = calc(%varc_int_1 + 2);
+    %varclient_1 = calc(%varclient_1 + 2);
     return;
 }
-%varc_int_1 = calc(clientclock + 25 + 10);
+%varclient_1 = calc(clientclock + 25 + 10);
 def_int $int12 = 0;
 def_int $int13 = 0;
-if (.cc_find($component0, calc(if_getchildcount($component0) - 1)) = true & ((cc_find($component1, $int2) = true | $int2 = -1 & if_find($component1) = true) & .cc_getgraphic = 5613)) {
+if (.cc_find($component0, calc(if_getnextsubid($component0) - 1)) = true & (cc_find($component1, $int2) = true | $int2 = -1 & if_find($component1) = true) & .cc_getgraphic = graphic_5613) {
     switch_int ($int9) {
-        case 3:
-            if (.cc_get2dangle = false) {
+        case 3 :
+            if (.cc_get2dangle = 0) {
                 $int13 = if_getheight($component0);
                 $int12 = calc(~cc_gety_absolute + $int11 - (~if_gety_absolute($component0) + $int13 / 2));
                 $int13 = calc(($int13 - 35) / 2);
@@ -20,7 +21,7 @@ if (.cc_find($component0, calc(if_getchildcount($component0) - 1)) = true & ((cc
                 .cc_setposition(0, $int12, ^setpos_abs_right, ^setpos_abs_centre);
                 return;
             }
-        case 1:
+        case 1 :
             if (.cc_get2dangle = 32768) {
                 $int13 = if_getheight($component0);
                 $int12 = calc(~cc_gety_absolute + $int11 - (~if_gety_absolute($component0) + $int13 / 2));
@@ -29,7 +30,7 @@ if (.cc_find($component0, calc(if_getchildcount($component0) - 1)) = true & ((cc
                 .cc_setposition(0, $int12, ^setpos_abs_left, ^setpos_abs_centre);
                 return;
             }
-        case 0:
+        case 0 :
             if (.cc_get2dangle = 49152) {
                 $int13 = if_getwidth($component0);
                 $int12 = calc(~cc_getx_absolute + $int10 - (~if_getx_absolute($component0) + $int13 / 2));
@@ -38,7 +39,7 @@ if (.cc_find($component0, calc(if_getchildcount($component0) - 1)) = true & ((cc
                 .cc_setposition($int12, 0, ^setpos_abs_centre, ^setpos_abs_bottom);
                 return;
             }
-        case default:
+        case default :
             if (.cc_get2dangle = 16384) {
                 $int13 = if_getwidth($component0);
                 $int12 = calc(~cc_getx_absolute + $int10 - (~if_getx_absolute($component0) + $int13 / 2));
@@ -49,4 +50,4 @@ if (.cc_find($component0, calc(if_getchildcount($component0) - 1)) = true & ((cc
             }
     }
 }
-~aif_tooltip_draw($component0, $component1, $int2, $string, $int3, $fontmetrics4, $fontmetrics5, $colour6, $int7, $int8, $int9, $int10, $int11);
+~aif_tooltip_draw($component0, $component1, $int2, $string0, $int3, $fontmetrics4, $graphic5, $rgb6, $int7, $int8, $int9, $int10, $int11);

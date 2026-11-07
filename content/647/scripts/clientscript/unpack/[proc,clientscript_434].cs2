@@ -1,8 +1,0 @@
-[proc,clientscript_434]
-if (%varbit_7509 = false) {
-    if_setgraphic("radio_buttons,1", wm60_153_t22_60:com21);
-    if_setgraphic("radio_buttons,0", wm60_153_t22_60:com23);
-} else {
-    if_setgraphic("radio_buttons,0", wm60_153_t22_60:com21);
-    if_setgraphic("radio_buttons,1", wm60_153_t22_60:com23);
-}

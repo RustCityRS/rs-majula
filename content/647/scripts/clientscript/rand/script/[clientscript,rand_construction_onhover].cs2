@@ -1,15 +1,16 @@
-[clientscript,rand_construction_onhover](int $int)
-switch_int ($int) {
-    case 65208432:
-        if_sethide(false, rand_start_room_construction:com125);
-    case 65208343:
-        if_sethide(false, rand_start_room_construction:com39);
-    case 65208415:
-        if_sethide(false, rand_start_room_construction:com107);
-    case 65208398:
-        if_sethide(false, rand_start_room_construction:com90);
-    case 65208381:
-        if_sethide(false, rand_start_room_construction:com73);
-    case 65208364:
-        if_sethide(false, rand_start_room_construction:com57);
+// 3496
+[clientscript,rand_construction_onhover](component $component0)
+switch_component ($component0) {
+    case rand_start_room_construction:com_112 :
+        if_sethide(false, rand_start_room_construction:com_125);
+    case rand_start_room_construction:com_23 :
+        if_sethide(false, rand_start_room_construction:com_39);
+    case rand_start_room_construction:com_95 :
+        if_sethide(false, rand_start_room_construction:com_107);
+    case rand_start_room_construction:com_78 :
+        if_sethide(false, rand_start_room_construction:com_90);
+    case rand_start_room_construction:com_61 :
+        if_sethide(false, rand_start_room_construction:com_73);
+    case rand_start_room_construction:com_44 :
+        if_sethide(false, rand_start_room_construction:com_57);
 }

@@ -1,0 +1,679 @@
+// 589:0
+[com_0]
+type=graphic
+width=15
+height=31
+layer=com_40
+graphic=graphic_4690
+
+// 589:1
+[com_1]
+type=graphic
+x=15
+width=30
+height=31
+widthmode=minus
+layer=com_40
+graphic=graphic_4691
+
+// 589:2
+[com_2]
+type=graphic
+width=15
+height=31
+xmode=abs_right
+layer=com_40
+graphic=graphic_4692
+
+// 589:3
+[com_3]
+type=graphic
+width=23
+height=23
+layer=com_50
+graphic=kick_icon
+onmouseleave=deltooltip(lobbyscreen_pane_friendschat:com_35)
+onmouserepeat=addtooltip(event_com, lobbyscreen_pane_friendschat:com_35, "Here you can enter a user to temporarily kick/ban from the friendschat channel.", 25, 185)
+
+// 589:4
+[com_4]
+type=rectangle
+width=23
+height=23
+layer=com_50
+hide=yes
+colour=0xffffff
+fill=yes
+trans=215
+
+// 589:5
+[com_5]
+type=layer
+widthmode=minus
+heightmode=minus
+
+// 589:6
+[com_6]
+type=layer
+width=4273
+height=148
+widthmode=proportion
+heightmode=minus
+layer=com_5
+
+// 589:7
+[com_7]
+type=layer
+width=4273
+height=148
+widthmode=proportion
+heightmode=minus
+xmode=abs_right
+layer=com_5
+op10= 
+
+// 589:8
+[com_8]
+type=model
+x=1
+y=-1
+width=103
+height=232
+xmode=abs_centre
+ymode=abs_bottom
+layer=com_7
+model=model_52348
+modelorigin=-2,115
+modelangle=87,112,0
+modelzoom=705
+op10= 
+
+// 589:9
+[com_9]
+type=model
+x=-2
+y=-1
+width=103
+height=231
+xmode=abs_centre
+ymode=abs_bottom
+layer=com_6
+model=model_52348
+modelorigin=1,115
+modelangle=85,1939,0
+modelzoom=705
+
+// 589:10
+[com_10]
+type=text
+width=7867
+height=32
+widthmode=proportion
+xmode=abs_centre
+layer=com_5
+textfont=verdana_15pt_regular
+text=Friends Chat Channel
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xebe0bc
+
+// 589:11
+[com_11]
+type=layer
+y=32
+width=7867
+height=185
+widthmode=proportion
+heightmode=minus
+xmode=abs_centre
+layer=com_5
+op10=   
+
+// 589:12
+[com_12]
+type=layer
+x=10
+y=35
+width=20
+height=113
+widthmode=minus
+ymode=abs_bottom
+layer=com_5
+op10=  
+
+// 589:13
+[com_13]
+type=layer
+x=10
+width=8192
+height=32
+widthmode=proportion
+ymode=abs_bottom
+layer=com_5
+
+// 589:14
+[com_14]
+type=layer
+x=10
+width=37
+height=31
+xmode=abs_right
+ymode=abs_bottom
+layer=com_5
+op1=Report Abuse
+op10=    
+onmouseleave=deltooltip(lobbyscreen_pane_friendschat:com_15)
+onop=script3176("", false)
+onmouserepeat=addtooltip(event_com, lobbyscreen_pane_friendschat:com_15, "Report abuse", 25, 200)
+
+// 589:15
+[com_15]
+type=layer
+x=10
+width=100
+height=31
+xmode=abs_right
+ymode=abs_bottom
+layer=com_5
+
+// 589:16
+[com_16]
+type=graphic
+width=36
+height=31
+xmode=abs_right
+layer=com_14
+graphic=graphic_4655
+colour=0xffffffff
+op10=    
+onmouseover=graphic_swapper(event_com, graphic_4656)
+onmouseleave=graphic_swapper(event_com, graphic_4655)
+
+// 589:17
+[com_17]
+type=text
+width=75
+height=16
+layer=com_13
+textfont=verdana_11pt_regular
+text=Talking in: 
+textlineheight=12
+textalignh=right
+textalignv=centre
+textshadow=yes
+colour=0xebe0bc
+
+// 589:18
+[com_18]
+type=text
+width=75
+height=16
+ymode=abs_bottom
+layer=com_13
+textfont=verdana_11pt_regular
+text=Owner: 
+textlineheight=12
+textalignh=right
+textalignv=centre
+textshadow=yes
+colour=0xebe0bc
+op10= 
+
+// 589:19
+[com_19]
+type=text
+x=80
+width=80
+height=16
+widthmode=minus
+layer=com_13
+textfont=verdana_11pt_regular
+text=Not in chat
+textlineheight=12
+textalignv=centre
+textshadow=yes
+colour=0xebe0bc
+op10= 
+
+// 589:20
+[com_20]
+type=text
+x=80
+width=80
+height=16
+widthmode=minus
+ymode=abs_bottom
+layer=com_13
+textfont=verdana_11pt_regular
+text=None
+textlineheight=12
+textalignv=centre
+textshadow=yes
+colour=0xebe0bc
+op10=  
+
+// 589:21
+[com_21]
+type=layer
+widthmode=minus
+heightmode=minus
+layer=com_12
+op10=  
+
+// 589:22
+[com_22]
+type=layer
+x=2
+y=2
+width=4
+height=4
+widthmode=minus
+heightmode=minus
+layer=com_12
+
+// 589:23
+[com_23]
+type=layer
+x=2
+y=2
+width=20
+height=19
+widthmode=minus
+heightmode=minus
+layer=com_22
+op10=  
+
+// 589:24
+[com_24]
+type=layer
+x=2
+y=2
+width=16
+height=19
+heightmode=minus
+xmode=abs_right
+layer=com_22
+op10=   
+
+// 589:25
+[com_25]
+type=rectangle
+y=15
+height=2
+widthmode=minus
+ymode=abs_bottom
+layer=com_22
+colour=0x0e0b09
+fill=yes
+op10=   
+
+// 589:26
+[com_26]
+type=layer
+x=2
+y=2
+width=4
+height=13
+widthmode=minus
+ymode=abs_bottom
+layer=com_22
+
+// 589:27
+[com_27]
+type=text
+widthmode=minus
+heightmode=minus
+layer=com_26
+textfont=p11_full
+textalignv=centre
+textshadow=yes
+
+// 589:28
+[com_28]
+type=rectangle
+width=1
+height=12
+layer=com_26
+hide=yes
+colour=0x999999
+fill=yes
+op10= 
+
+// 589:29
+[com_29]
+type=rectangle
+widthmode=minus
+heightmode=minus
+layer=com_21
+colour=0xc9b997
+op10=  
+
+// 589:30
+[com_30]
+type=rectangle
+x=1
+y=1
+width=2
+height=2
+widthmode=minus
+heightmode=minus
+layer=com_21
+colour=0x000000
+op10=   
+
+// 589:31
+[com_31]
+type=rectangle
+x=2
+y=2
+width=4
+height=4
+widthmode=minus
+heightmode=minus
+layer=com_21
+colour=0x292016
+fill=yes
+op10=    
+
+// 589:32
+[com_32]
+type=layer
+height=35
+widthmode=minus
+heightmode=minus
+layer=com_11
+
+// 589:33
+[com_33]
+type=layer
+height=32
+widthmode=minus
+ymode=abs_bottom
+layer=com_11
+
+// 589:34
+[com_34]
+type=layer
+x=15
+y=50
+width=100
+height=17
+layer=com_11
+hide=yes
+op10=   
+
+// 589:35
+[com_35]
+type=layer
+x=-199
+y=-32
+width=765
+height=503
+layer=com_11
+
+// 589:36
+[com_36]
+type=rectangle
+widthmode=minus
+heightmode=minus
+layer=com_34
+colour=0x000000
+op10=   
+
+// 589:37
+[com_37]
+type=rectangle
+x=1
+y=1
+width=2
+height=2
+widthmode=minus
+heightmode=minus
+layer=com_34
+colour=0xffffa0
+fill=yes
+op10=   
+
+// 589:38
+[com_38]
+type=text
+x=4
+width=8
+widthmode=minus
+heightmode=minus
+layer=com_34
+textfont=p12_full
+textalignv=centre
+colour=0x000000
+op10=   
+
+// 589:39
+[com_39]
+type=layer
+height=32
+widthmode=minus
+ymode=abs_bottom
+layer=com_33
+op1=Join Friends Chat
+op10= 
+onop=lobbyscreen_pane_friendschat_join
+
+// 589:40
+[com_40]
+type=layer
+widthmode=minus
+heightmode=minus
+layer=com_39
+onmouseover=lobbyscreen_button_highlight(lobbyscreen_pane_friendschat:com_0, graphic_4693, lobbyscreen_pane_friendschat:com_1, graphic_4694, lobbyscreen_pane_friendschat:com_2, graphic_4695)
+onmouseleave=lobbyscreen_button_highlight(lobbyscreen_pane_friendschat:com_0, graphic_4690, lobbyscreen_pane_friendschat:com_1, graphic_4691, lobbyscreen_pane_friendschat:com_2, graphic_4692)
+
+// 589:41
+[com_41]
+type=text
+widthmode=minus
+heightmode=minus
+layer=com_39
+textfont=verdana_13pt_regular
+text=Join Friends Chat Channel
+textlineheight=12
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xebe0bc
+op10= 
+
+// 589:42
+[com_42]
+type=layer
+widthmode=minus
+heightmode=minus
+layer=com_32
+op10= 
+
+// 589:43
+[com_43]
+type=layer
+x=2
+y=36
+width=4
+height=38
+widthmode=minus
+heightmode=minus
+layer=com_32
+
+// 589:44
+[com_44]
+type=layer
+x=2
+y=2
+width=4
+height=34
+widthmode=minus
+layer=com_32
+op10=  
+
+// 589:45
+[com_45]
+type=rectangle
+x=10649
+y=2
+width=2
+height=4
+heightmode=minus
+xmode=proportion_left
+layer=com_32
+colour=0x453718
+op10=  
+
+// 589:46
+[com_46]
+type=rectangle
+widthmode=minus
+heightmode=minus
+layer=com_44
+colour=0x382e22
+fill=yes
+op10=  
+
+// 589:47
+[com_47]
+type=text
+width=10651
+height=2
+widthmode=proportion
+heightmode=minus
+layer=com_44
+textfont=verdana_13pt_regular
+text=Name
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xebe0bc
+op10=  
+
+// 589:48
+[com_48]
+type=text
+width=5639
+height=2
+widthmode=proportion
+heightmode=minus
+xmode=abs_right
+layer=com_44
+textfont=verdana_13pt_regular
+text=Status
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xebe0bc
+op10=   
+
+// 589:49
+[com_49]
+type=rectangle
+height=2
+widthmode=minus
+ymode=abs_bottom
+layer=com_44
+colour=0x0e0b09
+fill=yes
+op10=   
+
+// 589:50
+[com_50]
+type=layer
+x=4
+y=4
+width=23
+height=23
+layer=com_44
+hide=yes
+op1=Kick/ban
+onmouseover=comp_sethide(false, lobbyscreen_pane_friendschat:com_4)
+onmouseleave=comp_sethide(true, lobbyscreen_pane_friendschat:com_4)
+onop=lobbyscreen_pane_friendschat_kick
+
+// 589:51
+[com_51]
+type=layer
+width=16
+widthmode=minus
+heightmode=minus
+layer=com_43
+op10=  
+
+// 589:52
+[com_52]
+type=layer
+width=16
+heightmode=minus
+xmode=abs_right
+layer=com_43
+op10=   
+
+// 589:53
+[com_53]
+type=layer
+widthmode=minus
+heightmode=minus
+layer=com_51
+op10=    
+
+// 589:54
+[com_54]
+type=rectangle
+height=15
+widthmode=minus
+layer=com_51
+hide=yes
+colour=0x606060
+fill=yes
+op10=  
+
+// 589:55
+[com_55]
+type=layer
+widthmode=minus
+heightmode=minus
+layer=com_51
+op10=   
+
+// 589:56
+[com_56]
+type=layer
+widthmode=minus
+heightmode=minus
+layer=com_51
+op10=    
+
+// 589:57
+[com_57]
+type=layer
+widthmode=minus
+heightmode=minus
+xmode=abs_right
+layer=com_51
+op10=    
+
+// 589:58
+[com_58]
+type=rectangle
+widthmode=minus
+heightmode=minus
+layer=com_42
+colour=0xc9b997
+op10= 
+
+// 589:59
+[com_59]
+type=rectangle
+x=1
+y=1
+width=2
+height=2
+widthmode=minus
+heightmode=minus
+layer=com_42
+colour=0x000000
+op10=  

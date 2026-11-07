@@ -1,0 +1,596 @@
+// 1078:0
+[com_0]
+type=layer
+width=16384
+height=16384
+widthmode=proportion
+heightmode=proportion
+layer=com_1
+
+// 1078:1
+[com_1]
+type=layer
+width=190
+height=261
+
+// 1078:2
+[com_2]
+type=layer
+x=58
+y=107
+width=75
+height=29
+ymode=abs_centre
+
+// 1078:3
+[com_3]
+type=graphic
+width=12
+height=18
+ymode=abs_centre
+layer=com_2
+graphic="aif_progress_bar_frame_3,0"
+
+// 1078:4
+[com_4]
+type=graphic
+width=12
+height=18
+xmode=abs_right
+ymode=abs_centre
+layer=com_2
+graphic="aif_progress_bar_frame_3,0"
+hflip=yes
+
+// 1078:5
+[com_5]
+type=graphic
+width=12
+height=18
+widthmode=minus
+xmode=abs_centre
+ymode=abs_centre
+layer=com_2
+graphic="aif_progress_bar_frame_3,1"
+tiling=yes
+hflip=yes
+
+// 1078:6
+[com_6]
+type=layer
+x=6
+width=12
+height=19
+widthmode=minus
+ymode=abs_centre
+layer=com_2
+
+// 1078:7
+[com_7]
+type=layer
+width=16384
+height=16384
+widthmode=proportion
+heightmode=proportion
+ymode=abs_centre
+layer=com_6
+onvartransmit=script4241{varplayer_2077}
+
+// 1078:8
+[com_8]
+type=graphic
+width=6
+height=8
+ymode=abs_centre
+layer=com_7
+graphic="aif_progress_bar_fill_3,0"
+
+// 1078:9
+[com_9]
+type=graphic
+width=6
+height=8
+xmode=abs_right
+ymode=abs_centre
+layer=com_7
+graphic="aif_progress_bar_fill_3,2"
+
+// 1078:10
+[com_10]
+type=graphic
+width=6
+height=8
+widthmode=minus
+xmode=abs_centre
+ymode=abs_centre
+layer=com_7
+graphic="aif_progress_bar_fill_3,1"
+tiling=yes
+
+// 1078:11
+[com_11]
+type=graphic
+x=15
+y=118
+width=30
+height=47
+widthmode=minus
+graphic="v2_borders_slim,11"
+tiling=yes
+
+// 1078:12
+[com_12]
+type=layer
+x=62
+y=57
+width=66
+height=66
+
+// 1078:13
+[com_13]
+type=text
+x=19
+y=143
+width=150
+height=16
+textfont=p11_full
+text=Repair
+textalignh=centre
+textshadow=yes
+
+// 1078:14
+[com_14]
+type=layer
+width=16384
+height=16384
+widthmode=proportion
+heightmode=proportion
+layer=com_12
+onload=script4205(event_com, struct_1746)
+
+// 1078:15
+[com_15]
+type=layer
+width=16384
+height=16384
+widthmode=proportion
+heightmode=proportion
+layer=com_12
+onload=script4205(event_com, struct_1747)
+
+// 1078:16
+[com_16]
+type=layer
+width=16384
+height=16384
+widthmode=proportion
+heightmode=proportion
+layer=com_12
+onload=script4205(event_com, struct_1748)
+
+// 1078:17
+[com_17]
+type=layer
+width=16384
+height=16384
+widthmode=proportion
+heightmode=proportion
+layer=com_12
+onload=script4205(event_com, struct_1749)
+
+// 1078:18
+[com_18]
+type=layer
+width=16384
+height=16384
+widthmode=proportion
+heightmode=proportion
+layer=com_12
+
+// 1078:19
+[com_19]
+type=graphic
+x=7
+y=7
+width=14
+height=14
+widthmode=minus
+heightmode=minus
+layer=com_18
+
+// 1078:20
+[com_20]
+type=model
+x=7
+y=7
+width=14
+height=14
+widthmode=minus
+heightmode=minus
+layer=com_18
+model=null
+modelzoom=1600
+modelobjwidth=52
+modelobjheight=52
+
+// 1078:21
+[com_21]
+type=layer
+width=16384
+height=16384
+widthmode=proportion
+heightmode=proportion
+layer=com_12
+hide=yes
+noclickthrough=yes
+onload=script4205(event_com, struct_1750)
+
+// 1078:22
+[com_22]
+type=rectangle
+width=16391
+height=16391
+widthmode=proportion
+heightmode=proportion
+xmode=abs_centre
+ymode=abs_centre
+layer=com_21
+colour=0x000000
+fill=yes
+trans=150
+
+// 1078:23
+[com_23]
+type=graphic
+x=8
+y=8
+width=50
+height=50
+layer=com_12
+graphic="quest_icons_large3,3"
+
+// 1078:24
+[com_24]
+type=layer
+x=7
+y=7
+width=52
+height=52
+layer=com_12
+onvartransmit=script4237{varplayer_2077}
+ontimer=script4238(70647832, acs_battleships_side:com_28, acs_battleships_side:com_30)
+
+// 1078:25
+[com_25]
+type=layer
+width=66
+height=66
+layer=com_12
+targetmask=obj,coord
+opbase=Cannon
+targetverb=Fire
+onload=script4236(event_com)
+
+// 1078:26
+[com_26]
+type=layer
+width=52
+height=52
+layer=com_24
+
+// 1078:27
+[com_27]
+type=layer
+width=8199
+height=16391
+widthmode=proportion
+heightmode=proportion
+layer=com_26
+
+// 1078:28
+[com_28]
+type=graphic
+x=-25
+y=-25
+width=104
+height=104
+layer=com_27
+graphic=aif_timer_mask
+2dangle=65353
+trans=64
+colour=0x0f0f0f
+
+// 1078:29
+[com_29]
+type=layer
+width=8199
+height=16391
+widthmode=proportion
+heightmode=proportion
+xmode=abs_right
+layer=com_26
+
+// 1078:30
+[com_30]
+type=graphic
+x=-53
+y=-25
+width=104
+height=104
+layer=com_29
+graphic=aif_timer_mask
+2dangle=65353
+trans=64
+hflip=yes
+colour=0x0f0f0f
+
+// 1078:31
+[com_31]
+type=layer
+x=62
+y=158
+width=66
+height=66
+
+// 1078:32
+[com_32]
+type=layer
+width=16384
+height=16384
+widthmode=proportion
+heightmode=proportion
+layer=com_31
+onload=script4205(event_com, struct_1746)
+
+// 1078:33
+[com_33]
+type=layer
+width=16384
+height=16384
+widthmode=proportion
+heightmode=proportion
+layer=com_31
+onload=script4205(event_com, struct_1747)
+
+// 1078:34
+[com_34]
+type=layer
+width=16384
+height=16384
+widthmode=proportion
+heightmode=proportion
+layer=com_31
+onload=script4205(event_com, struct_1748)
+
+// 1078:35
+[com_35]
+type=layer
+width=16384
+height=16384
+widthmode=proportion
+heightmode=proportion
+layer=com_31
+onload=script4205(event_com, struct_1749)
+
+// 1078:36
+[com_36]
+type=layer
+width=16384
+height=16384
+widthmode=proportion
+heightmode=proportion
+layer=com_31
+transmitop=1
+op1=Select
+opcursor0=cursor_46
+onload=script4213(event_com)
+
+// 1078:37
+[com_37]
+type=layer
+width=16384
+height=16384
+widthmode=proportion
+heightmode=proportion
+layer=com_31
+
+// 1078:38
+[com_38]
+type=graphic
+x=7
+y=7
+width=14
+height=14
+widthmode=minus
+heightmode=minus
+layer=com_37
+
+// 1078:39
+[com_39]
+type=model
+x=7
+y=7
+width=14
+height=14
+widthmode=minus
+heightmode=minus
+layer=com_37
+model=null
+modelzoom=1600
+modelobjwidth=52
+modelobjheight=52
+
+// 1078:40
+[com_40]
+type=rectangle
+width=16391
+height=16391
+widthmode=proportion
+heightmode=proportion
+xmode=abs_centre
+ymode=abs_centre
+layer=com_43
+colour=0x000000
+fill=yes
+trans=150
+
+// 1078:41
+[com_41]
+type=graphic
+x=8
+y=8
+width=50
+height=50
+layer=com_31
+graphic="quest_icons_large3,2"
+
+// 1078:42
+[com_42]
+type=layer
+width=66
+height=66
+layer=com_31
+transmitop=1
+op1=Repair-ship
+
+// 1078:43
+[com_43]
+type=layer
+width=16391
+height=16391
+widthmode=proportion
+heightmode=proportion
+layer=com_31
+hide=yes
+noclickthrough=yes
+onload=script4205(event_com, struct_1750)
+
+// 1078:44
+[com_44]
+type=layer
+width=16391
+height=16384
+widthmode=proportion
+heightmode=proportion
+layer=com_0
+
+// 1078:45
+[com_45]
+type=layer
+width=16384
+height=23
+widthmode=proportion
+xmode=abs_centre
+layer=com_44
+
+// 1078:46
+[com_46]
+type=text
+y=-1
+width=16391
+height=4
+widthmode=proportion
+heightmode=minus
+xmode=abs_centre
+ymode=abs_centre
+layer=com_45
+textfont=palatino_linotype_18pt_regular
+text=Zomboat Control
+textalignh=centre
+textalignv=centre
+colour=0x000000
+onload=script4210(event_com, palatino_linotype_18pt_regular, 0xebe0bc, ^black)
+
+// 1078:47
+[com_47]
+type=text
+y=1
+width=16391
+height=4
+widthmode=proportion
+heightmode=minus
+xmode=abs_centre
+ymode=abs_centre
+layer=com_45
+textfont=palatino_linotype_18pt_regular
+text=Zomboat Control
+textalignh=centre
+textalignv=centre
+colour=0x000000
+onload=script4210(event_com, palatino_linotype_18pt_regular, 0xebe0bc, ^black)
+
+// 1078:48
+[com_48]
+type=text
+x=-1
+width=16391
+height=4
+widthmode=proportion
+heightmode=minus
+xmode=abs_centre
+ymode=abs_centre
+layer=com_45
+textfont=palatino_linotype_18pt_regular
+text=Zomboat Control
+textalignh=centre
+textalignv=centre
+colour=0x000000
+onload=script4210(event_com, palatino_linotype_18pt_regular, 0xebe0bc, ^black)
+
+// 1078:49
+[com_49]
+type=text
+x=1
+width=16391
+height=4
+widthmode=proportion
+heightmode=minus
+xmode=abs_centre
+ymode=abs_centre
+layer=com_45
+textfont=palatino_linotype_18pt_regular
+text=Zomboat Control
+textalignh=centre
+textalignv=centre
+colour=0x000000
+onload=script4210(event_com, palatino_linotype_18pt_regular, 0xebe0bc, ^black)
+
+// 1078:50
+[com_50]
+type=text
+width=16391
+height=4
+widthmode=proportion
+heightmode=minus
+xmode=abs_centre
+ymode=abs_centre
+layer=com_45
+textfont=palatino_linotype_18pt_regular
+text=Zomboat Control
+textalignh=centre
+textalignv=centre
+colour=0xebe0bc
+onload=script4210(event_com, palatino_linotype_18pt_regular, 0xebe0bc, ^black)
+
+// 1078:51
+[com_51]
+type=text
+x=19
+y=42
+width=150
+height=16
+textfont=p11_full
+text=FIRE!
+textalignh=centre
+textshadow=yes
+
+// 1078:52
+[com_52]
+type=graphic
+x=15
+y=17
+width=30
+height=47
+widthmode=minus
+graphic="v2_borders_slim,11"
+tiling=yes

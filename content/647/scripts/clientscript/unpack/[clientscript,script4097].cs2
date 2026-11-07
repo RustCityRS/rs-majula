@@ -1,0 +1,24 @@
+// 4097
+[clientscript,script4097](component $component0, int $int1, string $string0)
+cc_deleteall($component0);
+cc_create($component0, ^iftype_graphic, if_getnextsubid($component0));
+cc_setsize(8, $int1, ^setsize_abs, ^setsize_abs);
+cc_setposition(0, 0, ^setpos_abs_left, ^setpos_abs_top);
+cc_setgraphic("tooltip_body_1,0");
+cc_create($component0, ^iftype_graphic, if_getnextsubid($component0));
+cc_setsize(8, $int1, ^setsize_abs, ^setsize_abs);
+cc_setposition(0, 0, ^setpos_abs_right, ^setpos_abs_top);
+cc_setgraphic("tooltip_body_1,2");
+cc_create($component0, ^iftype_graphic, if_getnextsubid($component0));
+cc_setsize(16, $int1, ^setsize_minus, ^setsize_abs);
+cc_setposition(0, 0, ^setpos_abs_centre, ^setpos_abs_top);
+cc_setgraphic("tooltip_body_1,1");
+cc_create($component0, ^iftype_text, if_getnextsubid($component0));
+cc_setsize(20, $int1, ^setsize_minus, ^setsize_abs);
+cc_setposition(0, 1, ^setpos_abs_centre, ^setpos_abs_top);
+cc_settextfont(p11_full);
+cc_settextalign(^settextalign_centre, ^settextalign_centre, 0);
+cc_setcolour(^black);
+cc_settextshadow(false);
+cc_settext($string0);
+if_sethide(false, $component0);

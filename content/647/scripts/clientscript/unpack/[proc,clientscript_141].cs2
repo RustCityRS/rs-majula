@@ -1,7 +1,0 @@
-[proc,clientscript_141]
-if (%offer_modified = true) {
-    if_sethide(false, trademain:com39);
-}
-if (%other_offer_modified = true) {
-    if_sethide(false, trademain:com40);
-}

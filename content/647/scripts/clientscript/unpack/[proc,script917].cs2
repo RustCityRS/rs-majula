@@ -1,0 +1,47 @@
+// 917
+[proc,script917]
+cc_deleteall(obj_info:com_8);
+%varclient_742 = 0;
+def_int $int0 = 0;
+if_setcolour(%varclient_1241, obj_info:com_2);
+if_setcolour(%varclient_1241, obj_info:com_14);
+if_setcolour(%varclient_1241, obj_info:com_22);
+if_setcolour(%varclient_1241, obj_info:com_24);
+if (%varclient_743 ! null) {
+    $int0 = inv_total(inv, %varclient_743);
+    ~script919;
+    if_sethide(false, obj_info:com_15);
+    if_setsize(16384, 147, ^setsize_rel, ^setsize_abs, obj_info:com_6);
+} else {
+    $int0 = inv_total(inv, coins);
+    if_setobject_nonum(null, -1, obj_info:com_23);
+    if_sethide(true, obj_info:com_15);
+    if_setsize(16384, 187, ^setsize_rel, ^setsize_abs, obj_info:com_6);
+    if (%varplayer_1109 ! null & calc(%varplayer_1111 * %varplayer_1110) > $int0) {
+        if_setcolour(^red, obj_info:com_25);
+    } else {
+        if_setcolour(%varclient_1241, obj_info:com_25);
+    }
+}
+if ($int0 = 0) {
+    if_settext("You have no <enum(obj, string, enum_62, %varclient_743)>.", obj_info:com_25);
+} else if ($int0 = 1) {
+    if_settext("You have one <enum(obj, string, enum_923, %varclient_743)>.", obj_info:com_25);
+} else {
+    if_settext("You have <~tostring_shortform($int0)> <enum(obj, string, enum_62, %varclient_743)>.", obj_info:com_25);
+}
+def_int $int1 = 181;
+def_int $int2 = ~script920($int1);
+if ($int2 > if_getheight(obj_info:com_8)) {
+    $int1 = 165;
+    cc_deleteall(obj_info:com_8);
+    $int2 = ~script920($int1);
+} else {
+    cc_deleteall(obj_info:com_9);
+}
+if_setscrollsize($int1, $int2, obj_info:com_8);
+if_setsize($int1, 6, ^setsize_abs, ^setsize_minus, obj_info:com_8);
+if_setscrollpos(0, 0, obj_info:com_8);
+if ($int2 > if_getheight(obj_info:com_8)) {
+    ~scrollbar_vertical(obj_info:com_9, obj_info:com_8, "scrollbar_dragger_v2,3", "scrollbar_dragger_v2,0", "scrollbar_dragger_v2,1", "scrollbar_dragger_v2,2", "scrollbar_v2,0", "scrollbar_v2,1");
+}

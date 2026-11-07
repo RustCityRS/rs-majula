@@ -1,0 +1,12 @@
+// 4066
+[proc,script4066]
+if_setgraphic(graphic_4459, warguild_token_choice:com_19);
+if_setgraphic(graphic_4460, warguild_token_choice:com_17);
+if_setgraphic(graphic_4461, warguild_token_choice:com_15);
+if_setgraphic(graphic_4462, warguild_token_choice:com_13);
+if_setgraphic(graphic_4463, warguild_token_choice:com_11);
+if_setposition(-160, 18, ^setpos_abs_centre, ^setpos_abs_top, warguild_token_choice:com_22);
+if_setposition(-80, 18, ^setpos_abs_centre, ^setpos_abs_top, warguild_token_choice:com_23);
+if_setposition(0, 18, ^setpos_abs_centre, ^setpos_abs_top, warguild_token_choice:com_24);
+if_setposition(80, 18, ^setpos_abs_centre, ^setpos_abs_top, warguild_token_choice:com_26);
+if_setposition(160, 18, ^setpos_abs_centre, ^setpos_abs_top, warguild_token_choice:com_25);

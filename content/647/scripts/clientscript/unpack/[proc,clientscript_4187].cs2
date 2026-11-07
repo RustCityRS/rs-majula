@@ -1,6 +1,0 @@
-[proc,clientscript_4187](int $int)
-if (clientclock < $int) {
-    return;
-}
-if_setontimer(null, interface_1072:com83);
-if_sethide(true, interface_1072:com83);

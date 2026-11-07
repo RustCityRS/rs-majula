@@ -1,0 +1,9 @@
+// 4015
+[clientscript,script4015]
+if (if_gethide(task_main:com_119) = true) {
+    if_sethide(false, task_main:com_119);
+    if_sethide(false, task_main:com_115);
+} else {
+    if_sethide(true, task_main:com_119);
+    if_sethide(true, task_main:com_115);
+}

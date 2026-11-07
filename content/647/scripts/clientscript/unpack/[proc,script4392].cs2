@@ -1,0 +1,14 @@
+// 4392
+[proc,script4392](component $component0)
+if (%varplayer_2094 > 0) {
+    if_setrecol(0, 31690, %varplayer_2094, $component0);
+}
+if (%varplayer_2095 > 0) {
+    if_setrecol(1, 60362, %varplayer_2095, $component0);
+}
+if (%varplayer_2096 > 0) {
+    if_setrecol(3, 55246, %varplayer_2096, $component0);
+}
+if (%varplayer_2097 > 0) {
+    if_setrecol(4, 17358, %varplayer_2097, $component0);
+}

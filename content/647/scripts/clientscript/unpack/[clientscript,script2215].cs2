@@ -1,0 +1,8 @@
+// 2215
+[clientscript,script2215]
+if (if_gety(interface_932:com_14) < 180) {
+    if_setontimer("script2215", interface_932:com_1);
+    if_setposition(if_getx(interface_932:com_14), calc(2 + if_gety(interface_932:com_14)), ^setpos_abs_left, ^setpos_abs_top, interface_932:com_14);
+} else {
+    %varclient_1137 = 0;
+}

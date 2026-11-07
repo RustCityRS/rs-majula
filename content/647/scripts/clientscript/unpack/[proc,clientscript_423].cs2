@@ -1,6 +1,0 @@
-[proc,clientscript_423]
-if (%varc_int_1353 ! -1) {
-    cam_followcoord(%varc_int_1353);
-} else if (%varc_int_1354 ! -1) {
-    cam_followcoord(%varc_int_1354);
-}

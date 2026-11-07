@@ -1,19 +1,20 @@
-[proc,playerdesign4_getcolours](struct $struct)(int, int, int)
+// 360
+[proc,playerdesign4_getcolours](struct $struct0)(int, int, int)
 switch_int (%character_creation_hair_style) {
-    case default:
-        return(struct_param($struct, param_1187), struct_param($struct, param_1188), struct_param($struct, param_1189));
-    case 1:
-        return(struct_param($struct, param_1190), struct_param($struct, param_1191), struct_param($struct, param_1192));
-    case 2:
-        return(struct_param($struct, param_1193), struct_param($struct, param_1194), struct_param($struct, param_1195));
-    case 3:
-        return(struct_param($struct, param_1196), struct_param($struct, param_1197), struct_param($struct, param_1198));
-    case 4:
-        return(struct_param($struct, param_1199), struct_param($struct, param_1200), struct_param($struct, param_1201));
-    case 5:
-        return(struct_param($struct, param_1202), struct_param($struct, param_1203), struct_param($struct, param_1204));
-    case 6:
-        return(struct_param($struct, param_1205), struct_param($struct, param_1206), struct_param($struct, param_1207));
-    case 7:
-        return(struct_param($struct, param_1208), struct_param($struct, param_1209), struct_param($struct, param_1210));
+    case default :
+        return(struct_param($struct0, param_1187), struct_param($struct0, param_1188), struct_param($struct0, param_1189));
+    case 1 :
+        return(struct_param($struct0, param_1190), struct_param($struct0, param_1191), struct_param($struct0, param_1192));
+    case 2 :
+        return(struct_param($struct0, param_1193), struct_param($struct0, param_1194), struct_param($struct0, param_1195));
+    case 3 :
+        return(struct_param($struct0, param_1196), struct_param($struct0, param_1197), struct_param($struct0, param_1198));
+    case 4 :
+        return(struct_param($struct0, param_1199), struct_param($struct0, param_1200), struct_param($struct0, param_1201));
+    case 5 :
+        return(struct_param($struct0, param_1202), struct_param($struct0, param_1203), struct_param($struct0, param_1204));
+    case 6 :
+        return(struct_param($struct0, param_1205), struct_param($struct0, param_1206), struct_param($struct0, param_1207));
+    case 7 :
+        return(struct_param($struct0, param_1208), struct_param($struct0, param_1209), struct_param($struct0, param_1210));
 }

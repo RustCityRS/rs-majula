@@ -1,0 +1,19 @@
+// 4494
+[clientscript,script4494](component $component0, struct $struct1)
+if ($component0 = null | $struct1 = null) {
+    return;
+}
+def_int $int2 = struct_param($struct1, param_1346);
+if ($int2 = 2) {
+    if_setonmouseover("script4159(event_com, 0, 0)", $component0);
+    if_setonmouseleave("script4159(event_com, 1, 0)", $component0);
+} else if ($int2 = 3) {
+    if_setonclick("script4162(event_com)", $component0);
+    if_setonrelease("script4163(event_com)", $component0);
+} else if ($int2 = 4) {
+    ~script4208($component0, 0);
+    if_sethide(true, $component0);
+} else if ($int2 = 5) {
+    return;
+}
+~script4496($component0, $struct1);

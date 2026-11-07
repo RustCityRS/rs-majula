@@ -1,0 +1,377 @@
+// 633:0
+[com_0]
+type=rectangle
+x=17
+y=25
+width=488
+height=305
+colour=0x000000
+fill=yes
+trans=200
+
+// 633:1
+[com_1]
+type=graphic
+x=14
+y=25
+width=485
+height=300
+graphic=tradebacking
+tiling=yes
+colour=0xffffffff
+
+// 633:2
+[com_2]
+type=graphic
+y=53
+width=32
+height=241
+graphic="v2_stone_borders,1"
+tiling=yes
+colour=0xffffffff
+
+// 633:3
+[com_3]
+type=graphic
+x=13
+y=20
+width=32
+height=32
+graphic="v2_stone_borders,4"
+colour=0xffffffff
+
+// 633:4
+[com_4]
+type=graphic
+x=480
+y=51
+width=32
+height=243
+graphic="v2_stone_borders,3"
+tiling=yes
+colour=0xffffffff
+
+// 633:5
+[com_5]
+type=graphic
+x=44
+y=7
+width=424
+height=34
+graphic="v2_stone_borders,0"
+tiling=yes
+colour=0xffffffff
+
+// 633:6
+[com_6]
+type=graphic
+x=45
+y=306
+width=423
+height=32
+graphic="v2_stone_borders,2"
+tiling=yes
+colour=0xffffffff
+
+// 633:7
+[com_7]
+type=graphic
+x=13
+y=294
+width=32
+height=32
+graphic="v2_stone_borders,6"
+colour=0xffffffff
+
+// 633:8
+[com_8]
+type=graphic
+x=468
+y=20
+width=32
+height=32
+graphic="v2_stone_borders,5"
+colour=0xffffffff
+
+// 633:9
+[com_9]
+type=graphic
+x=468
+y=294
+width=32
+height=32
+graphic="v2_stone_borders,7"
+colour=0xffffffff
+
+// 633:10
+[com_10]
+type=graphic
+x=24
+y=35
+width=465
+height=32
+graphic="v2_stone_borders,8"
+tiling=yes
+colour=0xffffffff
+
+// 633:11
+[com_11]
+type=graphic
+x=13
+y=37
+width=32
+height=32
+graphic="v2_stone_borders,9"
+colour=0xffffffff
+
+// 633:12
+[com_12]
+type=graphic
+x=468
+y=37
+width=32
+height=32
+graphic="v2_stone_borders,10"
+colour=0xffffffff
+
+// 633:13
+[com_13]
+type=model
+x=31
+y=63
+width=65
+height=241
+model=model_3276
+modelorigin=5,113
+modelangle=105,312,0
+modelzoom=1031
+
+// 633:14
+[com_14]
+type=layer
+x=344
+y=262
+width=105
+height=43
+
+// 633:15
+[com_15]
+type=text
+x=30
+y=30
+width=450
+height=16
+textfont=b12_full
+text=You are Victorious!
+textalignh=centre
+textshadow=yes
+colour=0xe1981f
+
+// 633:16
+[com_16]
+type=rectangle
+x=6
+y=6
+width=94
+height=32
+layer=com_14
+colour=0x000000
+fill=yes
+
+// 633:17
+[com_17]
+type=text
+x=6
+y=6
+width=93
+height=32
+layer=com_14
+textfont=p12_full
+text=Close
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0x008000
+transmitop=1
+op1=Claim
+onmouseover=text_colour_swapper(event_com, 0x00ab00)
+onmouseleave=text_colour_swapper(event_com, 0x008000)
+onop=closebutton_click
+
+// 633:18
+[com_18]
+type=graphic
+x=346
+y=264
+width=32
+height=32
+graphic="v2_stone_borders,4"
+colour=0xffffffff
+
+// 633:19
+[com_19]
+type=graphic
+x=346
+y=272
+width=32
+height=32
+graphic="v2_stone_borders,6"
+colour=0xffffffff
+
+// 633:20
+[com_20]
+type=graphic
+x=416
+y=264
+width=32
+height=32
+graphic="v2_stone_borders,5"
+colour=0xffffffff
+
+// 633:21
+[com_21]
+type=graphic
+x=416
+y=272
+width=32
+height=32
+graphic="v2_stone_borders,7"
+colour=0xffffffff
+
+// 633:22
+[com_22]
+type=graphic
+x=376
+y=251
+width=42
+height=37
+graphic="v2_stone_borders,0"
+tiling=yes
+colour=0xffffffff
+
+// 633:23
+[com_23]
+type=graphic
+x=375
+y=284
+width=43
+height=32
+graphic="v2_stone_borders,2"
+tiling=yes
+colour=0xffffffff
+
+// 633:24
+[com_24]
+type=model
+x=348
+y=154
+width=100
+height=88
+model=model_3278
+modelorigin=-1,28
+modelangle=2047,514,0
+modelzoom=1275
+
+// 633:25
+[com_25]
+type=graphic
+x=474
+y=30
+width=16
+height=16
+graphic="v2_stone_close_button,0"
+colour=0xffffffff
+transmitop=1
+op1=Close
+onmouseover=graphic_swapper(event_com, "v2_stone_close_button,1")
+onmouseleave=graphic_swapper(event_com, "v2_stone_close_button,0")
+onop=closebutton_click
+
+// 633:26
+[com_26]
+type=layer
+x=467
+y=23
+width=32
+height=32
+hide=yes
+
+// 633:27
+[com_27]
+type=text
+x=129
+y=112
+width=122
+height=15
+textfont=p12_full
+text=The Defeated:
+textshadow=yes
+colour=0xbf751d
+
+// 633:28
+[com_28]
+type=text
+x=129
+y=138
+width=51
+height=14
+textfont=p12_full
+text=Name:
+textshadow=yes
+colour=0xbf751d
+
+// 633:29
+[com_29]
+type=text
+x=129
+y=162
+width=34
+height=14
+textfont=p12_full
+text=Combat Level:
+textshadow=yes
+colour=0xbf751d
+
+// 633:30
+[com_30]
+type=text
+x=215
+y=162
+width=31
+height=13
+textfont=p12_full
+text=126
+textshadow=yes
+colour=0xaaaaaa
+
+// 633:31
+[com_31]
+type=text
+x=173
+y=138
+width=182
+height=14
+textfont=p12_full
+text=Crunchy
+textshadow=yes
+colour=0xaaaaaa
+onvarcstrtransmit=script1640(event_com, interface_633:com_33, p12_full){varclient_1793}
+
+// 633:32
+[com_32]
+type=layer
+width=16384
+height=16391
+widthmode=proportion
+heightmode=proportion
+
+// 633:33
+[com_33]
+type=layer
+x=198
+y=144
+width=59
+height=14
+layer=com_32
+transmitop=10
+op10=    

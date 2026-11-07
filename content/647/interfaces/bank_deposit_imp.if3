@@ -1,0 +1,177 @@
+// 478:0
+[com_0]
+type=rectangle
+x=86
+y=23
+width=366
+height=247
+colour=0x000000
+fill=yes
+trans=200
+
+// 478:1
+[com_1]
+type=graphic
+x=88
+y=20
+width=355
+height=242
+graphic=tradebacking
+tiling=yes
+colour=0x000000
+
+// 478:2
+[com_2]
+type=graphic
+x=82
+y=20
+width=32
+height=32
+graphic="v2_stone_borders,4"
+colour=0x000000
+
+// 478:3
+[com_3]
+type=graphic
+x=114
+y=248
+width=304
+height=33
+graphic="v2_stone_borders,2"
+tiling=yes
+colour=0x000000
+
+// 478:4
+[com_4]
+type=graphic
+x=113
+y=7
+width=305
+height=41
+graphic="v2_stone_borders,0"
+tiling=yes
+colour=0x000000
+
+// 478:5
+[com_5]
+type=graphic
+x=82
+y=236
+width=32
+height=32
+graphic="v2_stone_borders,6"
+colour=0x000000
+
+// 478:6
+[com_6]
+type=graphic
+x=418
+y=20
+width=32
+height=32
+graphic="v2_stone_borders,5"
+colour=0x000000
+
+// 478:7
+[com_7]
+type=graphic
+x=418
+y=236
+width=32
+height=32
+graphic="v2_stone_borders,7"
+colour=0x000000
+
+// 478:8
+[com_8]
+type=graphic
+x=89
+y=38
+width=354
+height=40
+graphic="v2_stone_borders,8"
+tiling=yes
+colour=0x000000
+
+// 478:9
+[com_9]
+type=graphic
+x=82
+y=40
+width=32
+height=32
+graphic="v2_stone_borders,9"
+colour=0x000000
+
+// 478:10
+[com_10]
+type=graphic
+x=69
+y=60
+width=32
+height=176
+graphic="v2_stone_borders,1"
+tiling=yes
+colour=0x000000
+
+// 478:11
+[com_11]
+type=graphic
+x=430
+y=52
+width=33
+height=184
+graphic="v2_stone_borders,3"
+tiling=yes
+colour=0x000000
+
+// 478:12
+[com_12]
+type=text
+x=90
+y=32
+width=344
+height=16
+textfont=b12_full
+text=Imp Release Negotiation Form
+textalignh=centre
+textshadow=yes
+colour=0xff981f
+
+// 478:13
+[com_13]
+type=text
+x=89
+y=230
+width=352
+height=26
+textfont=p12_full
+text=Select an item or stack of items to deposit. <br>You can deposit up to 2 items or stacks.
+textalignh=centre
+textshadow=yes
+colour=0xff981f
+opbase=IFSEdit: ITEM:  @name imp_deposit_instructions @type 3 @x    88 @y    232 @wid  352 @hei  26 @lay   @lyid -1 @hide false @scrw 0 @scrh 0 @col  16777215 @fill false @tran 0 @swid 1 @idgr  @rot  0 @tile false @outl 0 @scol 0 @hfli false @vfli false @idmo  @x2of 0 @y2of 0 @2xan 0 @2yan 0 @2zan 0 @zoom 400 @anim  @orth false @font 1 @text Select an item or stack of items to deposit.<br><col=ff7000>You can deposit up to 2 items or stacks. @vspa 0 @hcen 1 @vcen 0 @shad true @opna  @tavb  @targ false @onlo  @oncl  @onho  @onre  @onmo  @onml  @ondr  @ontl  @onte  @onvt  @onit  @onst  @onti  @onop  @ondc  @onda  @oncr  @onmr  @oscr  @iscp false @drdz 0 @drdt 0 @op1   @op2   @op3   @op4   @op5   @op6   @op7   @op8   @op9   @op10  @drla  @drta false @paus false @tarm 0 @clie 0 @end
+
+// 478:14
+[com_14]
+type=layer
+x=102
+y=69
+width=324
+height=165
+oninvtransmit=imp_bank_setup{inv}
+
+// 478:15
+[com_15]
+type=graphic
+x=419
+y=28
+width=26
+height=23
+graphic="close_buttons,0"
+colour=0x000000
+transmitop=1
+op1=Close
+onmouseover=graphic_swapper(event_com, "close_buttons,1")
+onmouseleave=graphic_swapper(event_com, "close_buttons,0")
+onop=closebutton_click

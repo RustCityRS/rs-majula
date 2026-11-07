@@ -1,0 +1,79 @@
+// 4183
+[clientscript,script4183](int $int0)
+if ($int0 = 70254730) {
+    if_sethide(false, interface_1072:com_135);
+    if_sethide(true, interface_1072:com_147);
+    if_sethide(true, interface_1072:com_159);
+    if_sethide(true, interface_1072:com_171);
+    if_setmodel(model_63848, interface_1072:com_48);
+    if_setmodel(model_63838, interface_1072:com_74);
+    if_setmodel(model_63824, interface_1072:com_80);
+    if_setmodel(model_63837, interface_1072:com_88);
+    if_setmodel(model_63823, interface_1072:com_93);
+    if_settext(tostring(1), interface_1072:com_46);
+    if_settext(tostring(1), interface_1072:com_71);
+    if_settext(tostring(2), interface_1072:com_72);
+    if_settext(tostring(1), interface_1072:com_12);
+    if_settext(tostring(4), interface_1072:com_13);
+    if_settext(tostring(1), interface_1072:com_6);
+    if_settext(tostring(6), interface_1072:com_7);
+    if_settext(tostring(1), interface_1072:com_2);
+    if_settext(tostring(8), interface_1072:com_3);
+} else if ($int0 = 70254742) {
+    if_sethide(true, interface_1072:com_135);
+    if_sethide(false, interface_1072:com_147);
+    if_sethide(true, interface_1072:com_159);
+    if_sethide(true, interface_1072:com_171);
+    if_setmodel(model_63835, interface_1072:com_48);
+    if_setmodel(model_63825, interface_1072:com_74);
+    if_setmodel(model_63845, interface_1072:com_80);
+    if_setmodel(model_63828, interface_1072:com_88);
+    if_setmodel(model_63841, interface_1072:com_93);
+    if_settext(tostring(9), interface_1072:com_46);
+    if_settext(tostring(4), interface_1072:com_71);
+    if_settext(tostring(7), interface_1072:com_72);
+    if_settext(tostring(3), interface_1072:com_12);
+    if_settext(tostring(12), interface_1072:com_13);
+    if_settext(tostring(3), interface_1072:com_6);
+    if_settext(tostring(14), interface_1072:com_7);
+    if_settext(tostring(2), interface_1072:com_2);
+    if_settext(tostring(16), interface_1072:com_3);
+} else if ($int0 = 70254754) {
+    if_sethide(true, interface_1072:com_135);
+    if_sethide(true, interface_1072:com_147);
+    if_sethide(false, interface_1072:com_159);
+    if_sethide(true, interface_1072:com_171);
+    if_setmodel(model_63827, interface_1072:com_48);
+    if_setmodel(model_63833, interface_1072:com_74);
+    if_setmodel(model_63831, interface_1072:com_80);
+    if_setmodel(model_63842, interface_1072:com_88);
+    if_setmodel(model_63856, interface_1072:com_93);
+    if_settext(tostring(12), interface_1072:com_46);
+    if_settext(tostring(9), interface_1072:com_71);
+    if_settext(tostring(17), interface_1072:com_72);
+    if_settext(tostring(6), interface_1072:com_12);
+    if_settext(tostring(24), interface_1072:com_13);
+    if_settext(tostring(4), interface_1072:com_6);
+    if_settext(tostring(22), interface_1072:com_7);
+    if_settext(tostring(4), interface_1072:com_2);
+    if_settext(tostring(30), interface_1072:com_3);
+} else if ($int0 = 70254766) {
+    if_sethide(true, interface_1072:com_135);
+    if_sethide(true, interface_1072:com_147);
+    if_sethide(true, interface_1072:com_159);
+    if_sethide(false, interface_1072:com_171);
+    if_setmodel(model_63836, interface_1072:com_48);
+    if_setmodel(model_63851, interface_1072:com_74);
+    if_setmodel(model_63855, interface_1072:com_80);
+    if_setmodel(model_63832, interface_1072:com_88);
+    if_setmodel(model_63834, interface_1072:com_93);
+    if_settext(tostring(75), interface_1072:com_46);
+    if_settext(tostring(40), interface_1072:com_71);
+    if_settext(tostring(80), interface_1072:com_72);
+    if_settext(tostring(30), interface_1072:com_12);
+    if_settext(tostring(120), interface_1072:com_13);
+    if_settext(tostring(25), interface_1072:com_6);
+    if_settext(tostring(150), interface_1072:com_7);
+    if_settext(tostring(18), interface_1072:com_2);
+    if_settext(tostring(144), interface_1072:com_3);
+}

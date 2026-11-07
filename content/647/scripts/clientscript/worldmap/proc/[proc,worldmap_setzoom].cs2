@@ -1,3 +1,4 @@
+// 1372
 [proc,worldmap_setzoom]
-minimap_setmark(%varc_int_172);
-if_settext("<tostring(%varc_int_172)>%", worldmap:com14);
+worldmap_setzoom(%varclient_172);
+if_settext("<tostring(%varclient_172)>%", worldmap:com_14);

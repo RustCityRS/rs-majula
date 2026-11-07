@@ -1,19 +1,20 @@
-[proc,friend_tooltip](component $component0, int $int1, int $int2, int $int3, component $component4, component $component5, component $component6, fontmetrics $fontmetrics7, string $string)
+// 2468
+[proc,friend_tooltip](component $component0, int $int1, string $string0, int $int2, int $int3, component $component4, component $component5, component $component6, fontmetrics $fontmetrics7)
 def_int $int8 = 0;
 def_int $int9 = 0;
 def_int $int10 = 0;
 def_int $int11 = 0;
-if (%varc_int_1 < calc(clientclock + 25)) {
-    if (%varc_int_1 < clientclock) {
-        %varc_int_1 = clientclock;
+if (%varclient_1 < calc(clientclock + 25)) {
+    if (%varclient_1 < clientclock) {
+        %varclient_1 = clientclock;
     }
-    %varc_int_1 = calc(%varc_int_1 + 2);
+    %varclient_1 = calc(%varclient_1 + 2);
     return;
 }
-%varc_int_1 = calc(clientclock + 25 + 10);
-if (%varc_int_2 ! 1) {
-    $int10 = calc(parawidth($string, 2147483647, $fontmetrics7) + 8);
-    $int11 = paraheight($string, $int10, $fontmetrics7);
+%varclient_1 = calc(clientclock + 25 + 10);
+if (%varclient_2 ! 1) {
+    $int10 = calc(parawidth($string0, ^max_32bit_int, $fontmetrics7) + 8);
+    $int11 = paraheight($string0, $int10, $fontmetrics7);
     if ($int11 > 1) {
         $int11 = calc($int11 * 15);
     } else {
@@ -38,6 +39,6 @@ if (%varc_int_2 ! 1) {
     if_sethide(false, $component5);
     if_setsize($int10, $int11, ^setsize_abs, ^setsize_abs, $component5);
     if_setposition($int8, $int9, ^setpos_abs_left, ^setpos_abs_top, $component5);
-    if_settext($string, $component6);
-    %varc_int_2 = 1;
+    if_settext($string0, $component6);
+    %varclient_2 = 1;
 }

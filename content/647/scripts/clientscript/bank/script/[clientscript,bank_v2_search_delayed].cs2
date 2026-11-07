@@ -1,7 +1,8 @@
-[clientscript,bank_v2_search_delayed](int $int)
-if (clientclock >= $int) {
-    if (%varc_int_5 = 11) {
-        ~bank_v2_show_search(%varc_string_138);
+// 1476
+[clientscript,bank_v2_search_delayed](int $int0)
+if (clientclock >= $int0) {
+    if (%varclient_5 = 11) {
+        ~bank_v2_show_search(%varclient_1657);
     }
-    if_setontimer(null, bank_v2_main:com17);
+    if_setontimer(null, bank_v2_main:com_17);
 }

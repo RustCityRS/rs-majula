@@ -1,0 +1,29 @@
+// 3340
+[clientscript,script3340](component $component0)
+def_graphic $graphic1 = null;
+def_graphic $graphic2 = null;
+def_graphic $graphic3 = null;
+if (map_lang = 1) {
+    if (%varclient_1176 = 0) {
+        $graphic1 = "rand_xp_but,7";
+        $graphic2 = "rand_xp_but,6";
+        $graphic3 = "rand_xp_but,8";
+    } else {
+        $graphic1 = "rand_xp_but,10";
+        $graphic2 = "rand_xp_but,9";
+        $graphic3 = "rand_xp_but,11";
+    }
+} else if (%varclient_1176 = 0) {
+    $graphic1 = "rand_xp_but,1";
+    $graphic2 = "rand_xp_but,0";
+    $graphic3 = "rand_xp_but,2";
+} else {
+    $graphic1 = "rand_xp_but,4";
+    $graphic2 = "rand_xp_but,3";
+    $graphic3 = "rand_xp_but,5";
+}
+if_setgraphic($graphic2, $component0);
+if_setonmouseover("graphic_swapper(event_com, $graphic1)", $component0);
+if_setonmouseleave("graphic_swapper(event_com, $graphic2)", $component0);
+if_setonclick("graphic_swapper(event_com, $graphic3)", $component0);
+~deltooltip_action(rand_party_side:com_114);

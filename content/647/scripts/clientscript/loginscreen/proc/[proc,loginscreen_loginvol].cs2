@@ -1,19 +1,20 @@
+// 2007
 [proc,loginscreen_loginvol](component $component0, component $component1, int $int2, int $int3)
 if_setdraggable($component0, -1, $component1);
 def_int $int4 = calc(if_getwidth($component0) - if_getwidth($component1));
-def_int $int5 = scale(get_clientopt_6143, 255, $int4);
+def_int $int5 = scale(detailget_loginvol, 255, $int4);
 if_setposition($int5, 0, ^setpos_abs_left, ^setpos_abs_top, $component1);
-if (get_clientopt_6143 > 0) {
-    if ($int3 = true) {
-        if_setgraphic(4123, loginscreen:com107);
+if (detailget_loginvol > 0) {
+    if ($int3 = 1) {
+        if_setgraphic(graphic_4123, loginscreen:com_107);
     } else {
-        if_setgraphic(4118, loginscreen:com107);
+        if_setgraphic(graphic_4118, loginscreen:com_107);
     }
-} else if ($int3 = true) {
-    if_setgraphic(4124, loginscreen:com107);
+} else if ($int3 = 1) {
+    if_setgraphic(graphic_4124, loginscreen:com_107);
 } else {
-    if_setgraphic(4119, loginscreen:com107);
+    if_setgraphic(graphic_4119, loginscreen:com_107);
 }
-if ($int2 = true) {
-    %varc_int_1394 = get_clientopt_6143;
+if ($int2 = 1) {
+    %varclient_1394 = detailget_loginvol;
 }

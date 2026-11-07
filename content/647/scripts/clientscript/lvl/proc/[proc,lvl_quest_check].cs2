@@ -1,1636 +1,1636 @@
-[proc,lvl_quest_check](stat $stat0, int $int1)(obj, int, string)
+// 1023
+[proc,lvl_quest_check](stat $stat0, int $int1)(string, obj, int)
 def_int $int2 = stat_base($stat0);
-def_string $string = "null";
+def_string $string0 = null;
 def_obj $obj3 = null;
 def_int $int4 = 0;
 switch_int ($int1) {
-    case 0:
+    case 0 :
         if ($stat0 = mining & stat_base($stat0) = 10) {
-            $string, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
+            $string0, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
         }
         if (%squire = 7) {
             $int4 = 0;
         }
-    case 1:
-        if ($stat0 = false & stat_base($stat0) = 15) {
-            $string, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
+    case 1 :
+        if ($stat0 = attack & stat_base($stat0) = 15) {
+            $string0, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
         }
         if ($stat0 = prayer & stat_base($stat0) = 25) {
-            $string, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
+            $string0, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
         }
-        if (%varbit_3550 = 11) {
+        if (%varplayerbit_3550 = 11) {
             $int4 = 0;
         }
-    case 2:
-        if ($stat0 = true & stat_base($stat0) = 30) {
-            $string, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
+    case 2 :
+        if ($stat0 = defence & stat_base($stat0) = 30) {
+            $string0, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
         }
         if ($stat0 = mining & stat_base($stat0) = 40) {
-            $string, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
+            $string0, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
         }
         if ($stat0 = smithing & stat_base($stat0) = 50) {
-            $string, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
+            $string0, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
         }
-        if (%varbit_299 > 109) {
+        if (%varplayerbit_299 > 109) {
             $int4 = 0;
         }
-    case 3:
+    case 3 :
         if ($stat0 = cooking & stat_base($stat0) = 30) {
-            $string, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
+            $string0, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
         }
         if ($stat0 = fletching & stat_base($stat0) = 5) {
-            $string, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
+            $string0, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
         }
         if ($stat0 = ranged & stat_base($stat0) = 30) {
-            $string, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
+            $string0, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
         }
         if (%chompybird = 65) {
             $int4 = 0;
         }
-    case 4:
+    case 4 :
         if ($stat0 = agility & stat_base($stat0) = 42) {
-            $string, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
+            $string0, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
         }
         if ($stat0 = crafting & stat_base($stat0) = 45) {
-            $string, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
+            $string0, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
         }
         if ($stat0 = ranged & stat_base($stat0) = 40) {
-            $string, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
+            $string0, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
         }
         if ($stat0 = smithing & stat_base($stat0) = 50) {
-            $string, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
+            $string0, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
         }
-        if (%varp_655 > 130) {
+        if (%varplayer_655 > 130) {
             $int4 = 0;
         }
-    case 5:
+    case 5 :
         if ($stat0 = crafting & stat_base($stat0) = 20) {
-            $string, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
+            $string0, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
         }
         if ($stat0 = thieving & stat_base($stat0) = 25) {
-            $string, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
+            $string0, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
         }
-        if (%varp_399 > 6) {
+        if (%varplayer_399 > 6) {
             $int4 = 0;
         }
-    case 6:
+    case 6 :
         if ($stat0 = agility & stat_base($stat0) = 26) {
-            $string, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
+            $string0, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
         }
         if ($stat0 = construction & stat_base($stat0) = 5) {
-            $string, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
+            $string0, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
         }
         if ($stat0 = crafting & stat_base($stat0) = 32) {
-            $string, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
+            $string0, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
         }
         if ($stat0 = magic & stat_base($stat0) = 33) {
-            $string, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
+            $string0, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
         }
         if ($stat0 = mining & stat_base($stat0) = 20) {
-            $string, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
+            $string0, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
         }
         if ($stat0 = strength & stat_base($stat0) = 40) {
-            $string, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
+            $string0, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
         }
         if ($stat0 = thieving & stat_base($stat0) = 22) {
-            $string, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
+            $string0, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
         }
-        if (%varbit_2573 = 320) {
+        if (%varplayerbit_2573 = 320) {
             $int4 = 0;
         }
-    case 7:
+    case 7 :
         if ($stat0 = firemaking & stat_base($stat0) = 50) {
-            $string, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
+            $string0, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
         }
         if ($stat0 = magic & stat_base($stat0) = 50) {
-            $string, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
+            $string0, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
         }
         if ($stat0 = slayer & stat_base($stat0) = 10) {
-            $string, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
+            $string0, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
         }
         if ($stat0 = thieving & stat_base($stat0) = 53) {
-            $string, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
+            $string0, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
         }
-        if (%varbit_358 = 15) {
+        if (%varplayerbit_358 = 15) {
             $int4 = 0;
         }
-    case 8:
+    case 8 :
         if ($stat0 = fletching & stat_base($stat0) = 50) {
-            $string, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
+            $string0, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
         }
-        if ($stat0 = runecrafting & stat_base($stat0) = 50) {
-            $string, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
+        if ($stat0 = runecraft & stat_base($stat0) = 50) {
+            $string0, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
         }
         if ($stat0 = smithing & stat_base($stat0) = 65) {
-            $string, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
+            $string0, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
         }
-        if (%varbit_1465 = 80) {
+        if (%varplayerbit_1465 = 80) {
             $int4 = 0;
         }
-    case 9:
+    case 9 :
         if ($stat0 = herblore & stat_base($stat0) = 10) {
-            $string, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
+            $string0, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
         }
         if ($stat0 = agility & stat_base($stat0) = 10) {
-            $string, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
+            $string0, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
         }
         if ($stat0 = thieving & stat_base($stat0) = 25) {
-            $string, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
+            $string0, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
         }
         if (%itexamlevel = 9) {
             $int4 = 0;
         }
-    case 10:
+    case 10 :
         if ($stat0 = herblore & stat_base($stat0) = 31) {
-            $string, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
+            $string0, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
         }
         if (%eadgar_quest = 110) {
             $int4 = 0;
         }
-    case 11:
+    case 11 :
         if ($stat0 = hunter & stat_base($stat0) = 27) {
-            $string, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
+            $string0, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
         }
-        if (%varbit_2780 = 40) {
+        if (%varplayerbit_2780 = 40) {
             $int4 = 0;
         }
-    case 12:
+    case 12 :
         if ($stat0 = crafting & stat_base($stat0) = 20) {
-            $string, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
+            $string0, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
         }
         if ($stat0 = mining & stat_base($stat0) = 20) {
-            $string, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
+            $string0, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
         }
         if ($stat0 = smithing & stat_base($stat0) = 20) {
-            $string, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
+            $string0, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
         }
-        if (testbit(%varp_299, 20) = true) {
+        if (testbit(%varplayer_299, 20) = ^true) {
             $int4 = 0;
         }
-    case 13:
+    case 13 :
         if ($stat0 = crafting & stat_base($stat0) = 50) {
-            $string, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
+            $string0, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
         }
         if ($stat0 = firemaking & stat_base($stat0) = 45) {
-            $string, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
+            $string0, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
         }
         if ($stat0 = magic & stat_base($stat0) = 39) {
-            $string, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
+            $string0, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
         }
         if ($stat0 = prayer & stat_base($stat0) = 43) {
-            $string, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
+            $string0, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
         }
-        if (%varbit_1560 > 69) {
+        if (%varplayerbit_1560 > 69) {
             $int4 = 0;
         }
-    case 14:
+    case 14 :
         if ($stat0 = farming & stat_base($stat0) = 49) {
-            $string, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
+            $string0, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
         }
         if ($stat0 = herblore & stat_base($stat0) = 57) {
-            $string, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
+            $string0, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
         }
         if ($stat0 = thieving & stat_base($stat0) = 40) {
-            $string, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
+            $string0, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
         }
-        if (%varbit_2326 > 80) {
+        if (%varplayerbit_2326 > 80) {
             $int4 = 0;
         }
-    case 15:
+    case 15 :
         if ($stat0 = crafting & stat_base($stat0) = 40) {
-            $string, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
+            $string0, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
         }
         if ($stat0 = magic & stat_base($stat0) = 59) {
-            $string, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
+            $string0, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
         }
         if ($stat0 = mining & stat_base($stat0) = 40) {
-            $string, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
+            $string0, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
         }
         if ($stat0 = smithing & stat_base($stat0) = 40) {
-            $string, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
+            $string0, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
         }
         if (%crestquest = 11) {
             $int4 = 0;
         }
-    case 16:
+    case 16 :
         if ($stat0 = fishing & stat_base($stat0) = 10) {
-            $string, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
+            $string0, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
         }
         if (%fishingcompo = 5) {
             $int4 = 0;
         }
-    case 17:
+    case 17 :
         if ($stat0 = cooking & stat_base($stat0) = 22) {
-            $string, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
+            $string0, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
         }
         if ($stat0 = farming & stat_base($stat0) = 17) {
-            $string, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
+            $string0, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
         }
-        if (%varbit_822 >= 140) {
+        if (%varplayerbit_822 >= 140) {
             $int4 = 0;
         }
-    case 18:
+    case 18 :
         if ($stat0 = crafting & stat_base($stat0) = 40) {
-            $string, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
+            $string0, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
         }
         if ($stat0 = fletching & stat_base($stat0) = 25) {
-            $string, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
+            $string0, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
         }
         if ($stat0 = woodcutting & stat_base($stat0) = 40) {
-            $string, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
+            $string0, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
         }
         if (%viking > 9) {
             $int4 = 0;
         }
-    case 19:
+    case 19 :
         if ($stat0 = farming & stat_base($stat0) = 25) {
-            $string, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
+            $string0, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
         }
-        if (%varbit_961 = 60) {
+        if (%varplayerbit_961 = 60) {
             $int4 = 0;
         }
-    case 20:
+    case 20 :
         if ($stat0 = agility & stat_base($stat0) = 25) {
-            $string, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
+            $string0, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
         }
         if ($stat0 = cooking & stat_base($stat0) = 20) {
-            $string, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
+            $string0, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
         }
-        if (%varbit_217 > 7) {
+        if (%varplayerbit_217 > 7) {
             $int4 = 0;
         }
-    case 21:
+    case 21 :
         if ($stat0 = crafting & stat_base($stat0) = 12) {
-            $string, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
+            $string0, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
         }
         if ($stat0 = firemaking & stat_base($stat0) = 16) {
-            $string, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
+            $string0, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
         }
         if ($stat0 = magic & stat_base($stat0) = 33) {
-            $string, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
+            $string0, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
         }
         if ($stat0 = thieving & stat_base($stat0) = 14) {
-            $string, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
+            $string0, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
         }
-        if (%varbit_571 > 49) {
+        if (%varplayerbit_571 > 49) {
             $int4 = 0;
         }
-    case 22:
+    case 22 :
         if ($stat0 = crafting & stat_base($stat0) = 20) {
-            $string, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
+            $string0, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
         }
         if ($stat0 = thieving & stat_base($stat0) = 25) {
-            $string, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
+            $string0, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
         }
-        if (%varbit_346 > 9) {
+        if (%varplayerbit_346 > 9) {
             $int4 = 0;
         }
-    case 23:
+    case 23 :
         if ($stat0 = agility & stat_base($stat0) = 25) {
-            $string, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
+            $string0, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
         }
         if (%grandtree >= 160) {
             $int4 = 0;
         }
-    case 24:
+    case 24 :
         if ($stat0 = crafting & stat_base($stat0) = 49) {
-            $string, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
+            $string0, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
         }
         if ($stat0 = thieving & stat_base($stat0) = 17) {
-            $string, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
+            $string0, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
         }
-        if (%varbit_1527 > 159) {
+        if (%varplayerbit_1527 > 159) {
             $int4 = 0;
         }
-    case 25:
+    case 25 :
         if ($stat0 = agility & stat_base($stat0) = 15) {
-            $string, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
+            $string0, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
         }
         if ($stat0 = crafting & stat_base($stat0) = 35) {
-            $string, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
+            $string0, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
         }
-        if (%varp_382 = 11) {
+        if (%varplayer_382 = 11) {
             $int4 = 0;
         }
-    case 26:
+    case 26 :
         if ($stat0 = cooking & stat_base($stat0) = 53) {
-            $string, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
+            $string0, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
         }
         if ($stat0 = fishing & stat_base($stat0) = 53) {
-            $string, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
+            $string0, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
         }
         if ($stat0 = herblore & stat_base($stat0) = 25) {
-            $string, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
+            $string0, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
         }
         if ($stat0 = mining & stat_base($stat0) = 50) {
-            $string, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
+            $string0, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
         }
         if (%heroquest = 15) {
             $int4 = 0;
         }
-    case 27:
+    case 27 :
         if ($stat0 = agility & stat_base($stat0) = 35) {
-            $string, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
+            $string0, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
         }
-        if (%varbit_34 > 9) {
+        if (%varplayerbit_34 > 9) {
             $int4 = 0;
         }
-    case 28:
+    case 28 :
         if ($stat0 = crafting & stat_base($stat0) = 25) {
-            $string, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
+            $string0, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
         }
         if ($stat0 = magic & stat_base($stat0) = 7) {
-            $string, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
+            $string0, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
         }
         if ($stat0 = mining & stat_base($stat0) = 15) {
-            $string, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
+            $string0, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
         }
-        if (%varbit_1990 > 420) {
+        if (%varplayerbit_1990 > 420) {
             $int4 = 0;
         }
-    case 29:
+    case 29 :
         if ($stat0 = herblore & stat_base($stat0) = 3) {
-            $string, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
+            $string0, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
         }
         if (%junglepotion > 11) {
             $int4 = 0;
         }
-    case 30:
+    case 30 :
         if ($stat0 = agility & stat_base($stat0) = 50) {
-            $string, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
+            $string0, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
         }
         if ($stat0 = crafting & stat_base($stat0) = 50) {
-            $string, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
+            $string0, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
         }
         if ($stat0 = herblore & stat_base($stat0) = 45) {
-            $string, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
+            $string0, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
         }
         if ($stat0 = magic & stat_base($stat0) = 56) {
-            $string, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
+            $string0, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
         }
         if ($stat0 = mining & stat_base($stat0) = 52) {
-            $string, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
+            $string0, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
         }
         if ($stat0 = prayer & stat_base($stat0) = 42) {
-            $string, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
+            $string0, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
         }
         if ($stat0 = smithing & stat_base($stat0) = 50) {
-            $string, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
+            $string0, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
         }
         if ($stat0 = strength & stat_base($stat0) = 50) {
-            $string, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
+            $string0, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
         }
         if ($stat0 = thieving & stat_base($stat0) = 50) {
-            $string, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
+            $string0, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
         }
         if ($stat0 = woodcutting & stat_base($stat0) = 50) {
-            $string, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
+            $string0, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
         }
         if (%legendsquest = 75) {
             $int4 = 0;
         }
-    case 31:
+    case 31 :
         if ($stat0 = crafting & stat_base($stat0) = 31) {
-            $string, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
+            $string0, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
         }
         if ($stat0 = woodcutting & stat_base($stat0) = 36) {
-            $string, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
+            $string0, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
         }
         if (%zanaris = 6) {
             $int4 = 0;
         }
-    case 32:
+    case 32 :
         if ($stat0 = agility & stat_base($stat0) = 13) {
-            $string, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
+            $string0, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
         }
         if ($stat0 = mining & stat_base($stat0) = 17) {
-            $string, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
+            $string0, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
         }
         if ($stat0 = thieving & stat_base($stat0) = 13) {
-            $string, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
+            $string0, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
         }
-        if (%varbit_532 > 10) {
+        if (%varplayerbit_532 > 10) {
             $int4 = 0;
         }
-    case 33:
+    case 33 :
         if ($stat0 = crafting & stat_base($stat0) = 61) {
-            $string, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
+            $string0, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
         }
-        if ($stat0 = true & stat_base($stat0) = 40) {
-            $string, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
+        if ($stat0 = defence & stat_base($stat0) = 40) {
+            $string0, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
         }
         if ($stat0 = firemaking & stat_base($stat0) = 49) {
-            $string, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
+            $string0, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
         }
         if ($stat0 = herblore & stat_base($stat0) = 5) {
-            $string, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
+            $string0, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
         }
         if ($stat0 = magic & stat_base($stat0) = 65) {
-            $string, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
+            $string0, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
         }
         if ($stat0 = mining & stat_base($stat0) = 60) {
-            $string, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
+            $string0, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
         }
         if ($stat0 = woodcutting & stat_base($stat0) = 55) {
-            $string, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
+            $string0, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
         }
-        if (%varbit_2448 = 190) {
+        if (%varplayerbit_2448 = 190) {
             $int4 = 0;
         }
-    case 34:
+    case 34 :
         if ($stat0 = crafting & stat_base($stat0) = 20) {
-            $string, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
+            $string0, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
         }
         if ($stat0 = magic & stat_base($stat0) = 7) {
-            $string, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
+            $string0, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
         }
         if ($stat0 = smithing & stat_base($stat0) = 40) {
-            $string, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
+            $string0, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
         }
-        if (%varbit_1383 > 3) {
+        if (%varplayerbit_1383 > 3) {
             $int4 = 0;
         }
-    case 35:
+    case 35 :
         if ($stat0 = thieving & stat_base($stat0) = 30) {
-            $string, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
+            $string0, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
         }
-        if (%varbit_334 > 27) {
+        if (%varplayerbit_334 > 27) {
             $int4 = 0;
         }
-    case 36:
+    case 36 :
         if ($stat0 = agility & stat_base($stat0) = 20) {
-            $string, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
+            $string0, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
         }
-        if (%varbit_260 > 69) {
+        if (%varplayerbit_260 > 69) {
             $int4 = 0;
         }
-    case 37:
+    case 37 :
         if ($stat0 = ranged & stat_base($stat0) = 60) {
-            $string, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
+            $string0, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
         }
         if ($stat0 = thieving & stat_base($stat0) = 50) {
-            $string, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
+            $string0, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
         }
-        if (%varp_517 > 7) {
+        if (%varplayer_517 > 7) {
             $int4 = 0;
         }
-    case 38:
+    case 38 :
         if ($stat0 = agility & stat_base($stat0) = 25) {
-            $string, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
+            $string0, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
         }
-        if (%varp_387 > 100) {
+        if (%varplayer_387 > 100) {
             $int4 = 0;
         }
-    case 39:
+    case 39 :
         if ($stat0 = farming & stat_base($stat0) = 29) {
-            $string, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
+            $string0, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
         }
         if ($stat0 = woodcutting & stat_base($stat0) = 10) {
-            $string, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
+            $string0, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
         }
-        if (%varbit_2790 > 310) {
+        if (%varplayerbit_2790 > 310) {
             $int4 = 0;
         }
-    case 40:
+    case 40 :
         if ($stat0 = crafting & stat_base($stat0) = 18) {
-            $string, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
+            $string0, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
         }
         if (%druidspirit = 110) {
             $int4 = 0;
         }
-    case 41:
+    case 41 :
         if ($stat0 = agility & stat_base($stat0) = 36) {
-            $string, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
+            $string0, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
         }
         if ($stat0 = crafting & stat_base($stat0) = 25) {
-            $string, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
+            $string0, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
         }
         if ($stat0 = herblore & stat_base($stat0) = 18) {
-            $string, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
+            $string0, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
         }
         if ($stat0 = smithing & stat_base($stat0) = 30) {
-            $string, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
+            $string0, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
         }
-        if (%varp_416 > 275) {
+        if (%varplayer_416 > 275) {
             $int4 = 0;
         }
-    case 42:
+    case 42 :
         if ($stat0 = agility & stat_base($stat0) = 56) {
-            $string, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
+            $string0, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
         }
         if (%regicide_quest > 14) {
             $int4 = 0;
         }
-    case 43:
+    case 43 :
         if ($stat0 = agility & stat_base($stat0) = 40) {
-            $string, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
+            $string0, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
         }
         if ($stat0 = slayer & stat_base($stat0) = 40) {
-            $string, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
+            $string0, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
         }
-        if (%varbit_2140 > 20) {
+        if (%varplayerbit_2140 > 20) {
             $int4 = 0;
         }
-    case 44:
+    case 44 :
         if ($stat0 = prayer & stat_base($stat0) = 31) {
-            $string, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
+            $string0, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
         }
         if (%scorpcatcher = 6) {
             $int4 = 0;
         }
-    case 45:
+    case 45 :
         if ($stat0 = firemaking & stat_base($stat0) = 30) {
-            $string, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
+            $string0, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
         }
         if (%seaslugquest >= 12) {
             $int4 = 0;
         }
-    case 46:
+    case 46 :
         if ($stat0 = crafting & stat_base($stat0) = 20) {
-            $string, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
+            $string0, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
         }
         if ($stat0 = herblore & stat_base($stat0) = 15) {
-            $string, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
+            $string0, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
         }
         if (%morttonquest = 85) {
             $int4 = 0;
         }
-    case 47:
+    case 47 :
         if ($stat0 = crafting & stat_base($stat0) = 30) {
-            $string, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
+            $string0, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
         }
-        if (%varbit_1372 > 124) {
+        if (%varplayerbit_1372 > 124) {
             $int4 = 0;
         }
-    case 48:
+    case 48 :
         if ($stat0 = agility & stat_base($stat0) = 32) {
-            $string, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
+            $string0, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
         }
         if ($stat0 = crafting & stat_base($stat0) = 20) {
-            $string, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
+            $string0, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
         }
         if (%zombiequeen > 14) {
             $int4 = 0;
         }
-    case 49:
+    case 49 :
         if ($stat0 = magic & stat_base($stat0) = 33) {
-            $string, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
+            $string0, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
         }
         if ($stat0 = mining & stat_base($stat0) = 37) {
-            $string, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
+            $string0, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
         }
         if ($stat0 = ranged & stat_base($stat0) = 37) {
-            $string, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
+            $string0, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
         }
         if ($stat0 = thieving & stat_base($stat0) = 37) {
-            $string, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
+            $string0, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
         }
-        if (%varbit_1444 > 59) {
+        if (%varplayerbit_1444 > 59) {
             $int4 = 0;
         }
-    case 50:
+    case 50 :
         if ($stat0 = cooking & stat_base($stat0) = 62) {
-            $string, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
+            $string0, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
         }
         if ($stat0 = crafting & stat_base($stat0) = 40) {
-            $string, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
+            $string0, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
         }
         if ($stat0 = firemaking & stat_base($stat0) = 42) {
-            $string, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
+            $string0, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
         }
         if ($stat0 = fishing & stat_base($stat0) = 62) {
-            $string, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
+            $string0, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
         }
         if ($stat0 = magic & stat_base($stat0) = 66) {
-            $string, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
+            $string0, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
         }
         if ($stat0 = smithing & stat_base($stat0) = 45) {
-            $string, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
+            $string0, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
         }
-        if (%varbit_2098 >= 200) {
+        if (%varplayerbit_2098 >= 200) {
             $int4 = 0;
         }
-    case 51:
+    case 51 :
         if ($stat0 = agility & stat_base($stat0) = 15) {
-            $string, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
+            $string0, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
         }
         if ($stat0 = cooking & stat_base($stat0) = 30) {
-            $string, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
+            $string0, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
         }
         if ($stat0 = fishing & stat_base($stat0) = 5) {
-            $string, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
+            $string0, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
         }
         if (%tbwt_main = 6) {
             $int4 = 0;
         }
-    case 52:
+    case 52 :
         if ($stat0 = crafting & stat_base($stat0) = 20) {
-            $string, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
+            $string0, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
         }
         if ($stat0 = firemaking & stat_base($stat0) = 49) {
-            $string, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
+            $string0, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
         }
         if ($stat0 = mining & stat_base($stat0) = 20) {
-            $string, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
+            $string0, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
         }
-        if (%varbit_451 > 1) {
+        if (%varplayerbit_451 > 1) {
             $int4 = 0;
         }
-    case 53:
+    case 53 :
         if ($stat0 = ranged & stat_base($stat0) = 40) {
-            $string, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
+            $string0, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
         }
         if ($stat0 = thieving & stat_base($stat0) = 42) {
-            $string, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
+            $string0, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
         }
-        if (%varp_26 = 80 | %varp_26 = 90) {
+        if (%varplayer_26 = 80 | %varplayer_26 = 90) {
             $int4 = 0;
         }
-    case 54:
+    case 54 :
         if ($stat0 = fletching & stat_base($stat0) = 10) {
-            $string, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
+            $string0, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
         }
         if ($stat0 = smithing & stat_base($stat0) = 20) {
-            $string, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
+            $string0, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
         }
         if (%desertrescue = 30) {
             $int4 = 0;
         }
-    case 55:
+    case 55 :
         if ($stat0 = thieving & stat_base($stat0) = 21) {
-            $string, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
+            $string0, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
         }
         if (%totemquest = 5) {
             $int4 = 0;
         }
-    case 56:
+    case 56 :
         if ($stat0 = agility & stat_base($stat0) = 28) {
-            $string, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
+            $string0, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
         }
-        if (%varp_385 > 44) {
+        if (%varplayer_385 > 44) {
             $int4 = 0;
         }
-    case 57:
+    case 57 :
         if ($stat0 = agility & stat_base($stat0) = 15) {
-            $string, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
+            $string0, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
         }
         if (%troll_quest = 50) {
             $int4 = 0;
         }
-    case 58:
+    case 58 :
         if ($stat0 = ranged & stat_base($stat0) = 25) {
-            $string, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
+            $string0, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
         }
-        if (%varp_161 = 10) {
+        if (%varplayer_161 = 10) {
             $int4 = 0;
         }
-    case 59:
+    case 59 :
         if ($stat0 = agility & stat_base($stat0) = 25) {
-            $string, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
+            $string0, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
         }
         if ($stat0 = herblore & stat_base($stat0) = 14) {
-            $string, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
+            $string0, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
         }
         if ($stat0 = magic & stat_base($stat0) = 14) {
-            $string, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
+            $string0, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
         }
         if ($stat0 = mining & stat_base($stat0) = 40) {
-            $string, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
+            $string0, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
         }
         if ($stat0 = thieving & stat_base($stat0) = 15) {
-            $string, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
+            $string0, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
         }
         if (%itwatchtower > 12) {
             $int4 = 0;
         }
-    case 60:
-        if ($stat0 = false & stat_base($stat0) = 20) {
-            $string, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
+    case 60 :
+        if ($stat0 = attack & stat_base($stat0) = 20) {
+            $string0, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
         }
         if (%grail = 10) {
             $int4 = 0;
         }
-    case 61:
+    case 61 :
         if ($stat0 = construction & stat_base($stat0) = 5) {
-            $string, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
+            $string0, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
         }
         if ($stat0 = magic & stat_base($stat0) = 46) {
-            $string, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
+            $string0, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
         }
-        if (%varbit_2497 = 60) {
+        if (%varplayerbit_2497 = 60) {
             $int4 = 0;
         }
-    case 62:
+    case 62 :
         if ($stat0 = agility & stat_base($stat0) = 23) {
-            $string, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
+            $string0, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
         }
         if ($stat0 = thieving & stat_base($stat0) = 23) {
-            $string, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
+            $string0, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
         }
-        if (%varbit_2258 = 13) {
+        if (%varplayerbit_2258 = 13) {
             $int4 = 0;
         }
-    case 63:
+    case 63 :
         if ($stat0 = crafting & stat_base($stat0) = 19) {
-            $string, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
+            $string0, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
         }
         if ($stat0 = ranged & stat_base($stat0) = 30) {
-            $string, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
+            $string0, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
         }
         if ($stat0 = slayer & stat_base($stat0) = 18) {
-            $string, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
+            $string0, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
         }
         if ($stat0 = woodcutting & stat_base($stat0) = 35) {
-            $string, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
+            $string0, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
         }
-        if (%varbit_3185 = 240) {
+        if (%varplayerbit_3185 = 240) {
             $int4 = 0;
         }
-    case 64:
+    case 64 :
         if ($stat0 = magic & stat_base($stat0) = 20) {
-            $string, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
+            $string0, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
         }
         if ($stat0 = smithing & stat_base($stat0) = 30) {
-            $string, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
+            $string0, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
         }
-        if (%varbit_2639 = 11) {
+        if (%varplayerbit_2639 = 11) {
             $int4 = 0;
         }
-    case 65:
+    case 65 :
         if ($stat0 = crafting & stat_base($stat0) = 36) {
-            $string, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
+            $string0, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
         }
         if ($stat0 = farming & stat_base($stat0) = 30) {
-            $string, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
+            $string0, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
         }
         if ($stat0 = firemaking & stat_base($stat0) = 20) {
-            $string, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
+            $string0, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
         }
-        if (%varbit_2866 = 200) {
+        if (%varplayerbit_2866 = 200) {
             $int4 = 0;
         }
-    case 66:
+    case 66 :
         if ($stat0 = construction & stat_base($stat0) = 30) {
-            $string, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
+            $string0, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
         }
         if ($stat0 = crafting & stat_base($stat0) = 16) {
-            $string, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
+            $string0, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
         }
         if ($stat0 = prayer & stat_base($stat0) = 50) {
-            $string, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
+            $string0, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
         }
-        if (%varp_980 > 129) {
+        if (%varplayer_980 > 129) {
             $int4 = 0;
         }
-    case 67:
+    case 67 :
         if ($stat0 = crafting & stat_base($stat0) = 30) {
-            $string, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
+            $string0, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
         }
-        if ($stat0 = runecrafting & stat_base($stat0) = 30) {
-            $string, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
+        if ($stat0 = runecraft & stat_base($stat0) = 30) {
+            $string0, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
         }
         if ($stat0 = slayer & stat_base($stat0) = 30) {
-            $string, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
+            $string0, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
         }
         if ($stat0 = thieving & stat_base($stat0) = 30) {
-            $string, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
+            $string0, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
         }
-        if (%varbit_2610 = 14) {
+        if (%varplayerbit_2610 = 14) {
             $int4 = 0;
         }
-    case 68:
+    case 68 :
         if ($stat0 = agility & stat_base($stat0) = 30) {
-            $string, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
+            $string0, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
         }
         if ($stat0 = construction & stat_base($stat0) = 34) {
-            $string, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
+            $string0, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
         }
         if ($stat0 = crafting & stat_base($stat0) = 30) {
-            $string, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
+            $string0, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
         }
         if ($stat0 = hunter & stat_base($stat0) = 10) {
-            $string, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
+            $string0, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
         }
-        if (%varbit_3293 = 135) {
+        if (%varplayerbit_3293 = 135) {
             $int4 = 0;
         }
-    case 69:
+    case 69 :
         if ($stat0 = agility & stat_base($stat0) = 40) {
-            $string, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
+            $string0, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
         }
         if ($stat0 = construction & stat_base($stat0) = 20) {
-            $string, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
+            $string0, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
         }
         if ($stat0 = crafting & stat_base($stat0) = 46) {
-            $string, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
+            $string0, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
         }
         if ($stat0 = woodcutting & stat_base($stat0) = 56) {
-            $string, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
+            $string0, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
         }
-        if (%varbit_3311 = 340) {
+        if (%varplayerbit_3311 = 340) {
             $int4 = 0;
         }
-    case 70:
+    case 70 :
         if ($stat0 = construction & stat_base($stat0) = 10) {
-            $string, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
+            $string0, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
         }
-        if (%varbit_3337 = 18) {
+        if (%varplayerbit_3337 = 18) {
             $int4 = 0;
         }
-    case 71:
-        if ($stat0 = runecrafting & stat_base($stat0) = 35) {
-            $string, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
+    case 71 :
+        if ($stat0 = runecraft & stat_base($stat0) = 35) {
+            $string0, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
         }
-        if (%varbit_3523 > 149) {
+        if (%varplayerbit_3523 > 149) {
             $int4 = 0;
         }
-    case 72:
+    case 72 :
         if ($stat0 = firemaking & stat_base($stat0) = 40) {
             ~lvl_quest_report($stat0, $int2, $int1);
         }
         if ($stat0 = woodcutting & stat_base($stat0) = 50) {
-            $string, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
+            $string0, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
         }
-        if (%varbit_3534 = 80) {
+        if (%varplayerbit_3534 = 80) {
             $int4 = 0;
         }
-    case 73:
+    case 73 :
         if ($stat0 = agility & stat_base($stat0) = 59) {
-            $string, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
+            $string0, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
         }
         if ($stat0 = farming & stat_base($stat0) = 45) {
-            $string, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
+            $string0, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
         }
         if ($stat0 = herblore & stat_base($stat0) = 52) {
-            $string, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
+            $string0, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
         }
         if ($stat0 = thieving & stat_base($stat0) = 58) {
-            $string, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
+            $string0, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
         }
         if ($stat0 = woodcutting & stat_base($stat0) = 71) {
-            $string, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
+            $string0, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
         }
-        if (%varbit_2783 = 60) {
+        if (%varplayerbit_2783 = 60) {
             $int4 = 0;
         }
-    case 74:
+    case 74 :
         if ($stat0 = magic & stat_base($stat0) = 45) {
-            $string, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
+            $string0, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
         }
-        if ($stat0 = true & stat_base($stat0) = 65) {
-            $string, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
+        if ($stat0 = defence & stat_base($stat0) = 65) {
+            $string0, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
         }
-        if (%varbit_3888 = 90) {
+        if (%varplayerbit_3888 = 90) {
             $int4 = 0;
         }
-    case 75:
+    case 75 :
         if ($stat0 = agility & stat_base($stat0) = 45) {
-            $string, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
+            $string0, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
         }
         if ($stat0 = ranged & stat_base($stat0) = 47) {
-            $string, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
+            $string0, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
         }
         if ($stat0 = slayer & stat_base($stat0) = 56) {
-            $string, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
+            $string0, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
         }
         if ($stat0 = thieving & stat_base($stat0) = 56) {
-            $string, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
+            $string0, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
         }
         if ($stat0 = strength & stat_base($stat0) = 60) {
-            $string, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
+            $string0, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
         }
-        if (%varbit_3954 = 200) {
+        if (%varplayerbit_3954 = 200) {
             $int4 = 0;
         }
-    case 76:
+    case 76 :
         if ($stat0 = agility & stat_base($stat0) = 55) {
-            $string, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
+            $string0, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
         }
         if ($stat0 = farming & stat_base($stat0) = 53) {
-            $string, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
+            $string0, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
         }
         if ($stat0 = slayer & stat_base($stat0) = 59) {
-            $string, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
+            $string0, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
         }
         if ($stat0 = woodcutting & stat_base($stat0) = 72) {
-            $string, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
+            $string0, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
         }
-        if (%varbit_4055 = 65) {
+        if (%varplayerbit_4055 = 65) {
             $int4 = 0;
         }
-    case 77:
+    case 77 :
         if ($stat0 = prayer & stat_base($stat0) = 30) {
-            $string, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
+            $string0, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
         }
         if ($stat0 = agility & stat_base($stat0) = 36) {
-            $string, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
+            $string0, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
         }
         if ($stat0 = thieving & stat_base($stat0) = 36) {
-            $string, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
+            $string0, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
         }
         if ($stat0 = fishing & stat_base($stat0) = 36) {
-            $string, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
+            $string0, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
         }
         if ($stat0 = herblore & stat_base($stat0) = 37) {
-            $string, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
+            $string0, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
         }
-        if (%varbit_4105 = 18) {
+        if (%varplayerbit_4105 = 18) {
             $int4 = 0;
         }
-    case 78:
+    case 78 :
         if ($stat0 = cooking & stat_base($stat0) = 10) {
-            $string, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
+            $string0, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
         }
-        if (%varbit_1850 = true) {
+        if (%varplayerbit_1850 = 1) {
             $int4 = 0;
         }
-    case 79:
+    case 79 :
         if ($stat0 = cooking & stat_base($stat0) = 31) {
-            $string, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
+            $string0, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
         }
-        if (%varbit_1895 = 110) {
+        if (%varplayerbit_1895 = 110) {
             $int4 = 0;
         }
-    case 80:
+    case 80 :
         if ($stat0 = cooking & stat_base($stat0) = 40) {
-            $string, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
+            $string0, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
         }
-        if (%varbit_1896 = 5) {
+        if (%varplayerbit_1896 = 5) {
             $int4 = 0;
         }
-    case 81:
+    case 81 :
         if ($stat0 = cooking & stat_base($stat0) = 25) {
-            $string, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
+            $string0, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
         }
-        if (%varbit_1878 = 5) {
+        if (%varplayerbit_1878 = 5) {
             $int4 = 0;
         }
-    case 82:
+    case 82 :
         if ($stat0 = cooking & stat_base($stat0) = 41) {
-            $string, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
+            $string0, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
         }
         if ($stat0 = firemaking & stat_base($stat0) = 20) {
-            $string, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
+            $string0, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
         }
-        if (%varbit_1904 = 170) {
+        if (%varplayerbit_1904 = 170) {
             $int4 = 0;
         }
-    case 83:
+    case 83 :
         if ($stat0 = cooking & stat_base($stat0) = 70) {
-            $string, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
+            $string0, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
         }
         if ($stat0 = agility & stat_base($stat0) = 48) {
-            $string, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
+            $string0, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
         }
-        if (%varbit_1914 = 50) {
+        if (%varplayerbit_1914 = 50) {
             $int4 = 0;
         }
-    case 84:
+    case 84 :
         if ($stat0 = hunter & stat_base($stat0) = 48) {
-            $string, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
+            $string0, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
         }
         if ($stat0 = firemaking & stat_base($stat0) = 51) {
-            $string, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
+            $string0, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
         }
         if ($stat0 = woodcutting & stat_base($stat0) = 58) {
-            $string, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
+            $string0, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
         }
-        if (%varbit_4321 = 200) {
+        if (%varplayerbit_4321 = 200) {
             $int4 = 0;
         }
-    case 85:
+    case 85 :
         if ($stat0 = mining & stat_base($stat0) = 46) {
-            $string, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
+            $string0, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
         }
-        if (%varbit_4505 = 100) {
+        if (%varplayerbit_4505 = 100) {
             $int4 = 0;
         }
-    case 86:
+    case 86 :
         if ($stat0 = construction & stat_base($stat0) = 44) {
-            $string, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
+            $string0, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
         }
         if ($stat0 = fletching & stat_base($stat0) = 42) {
-            $string, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
+            $string0, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
         }
-        if (%varbit_4396 = 60) {
+        if (%varplayerbit_4396 = 60) {
             $int4 = 0;
         }
-    case 87:
+    case 87 :
         if ($stat0 = agility & stat_base($stat0) = 50) {
-            $string, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
+            $string0, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
         }
         if ($stat0 = firemaking & stat_base($stat0) = 21) {
-            $string, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
+            $string0, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
         }
         if ($stat0 = thieving & stat_base($stat0) = 60) {
-            $string, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
+            $string0, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
         }
         if ($stat0 = strength & stat_base($stat0) = 60) {
-            $string, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
+            $string0, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
         }
-        if (%varbit_4230 = 700) {
+        if (%varplayerbit_4230 = 700) {
             $int4 = 0;
         }
-    case 88:
+    case 88 :
         if ($stat0 = crafting & stat_base($stat0) = 42) {
-            $string, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
+            $string0, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
         }
         if ($stat0 = farming & stat_base($stat0) = 40) {
-            $string, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
+            $string0, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
         }
         if ($stat0 = fishing & stat_base($stat0) = 50) {
-            $string, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
+            $string0, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
         }
         if ($stat0 = prayer & stat_base($stat0) = 47) {
-            $string, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
+            $string0, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
         }
         if ($stat0 = slayer & stat_base($stat0) = 42) {
-            $string, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
+            $string0, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
         }
-        if (%varp_600 > 18) {
+        if (%varplayer_600 > 18) {
             $int4 = 0;
         }
-    case 89:
+    case 89 :
         if ($stat0 = construction & stat_base($stat0) = 20) {
-            $string, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
+            $string0, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
         }
         if ($stat0 = agility & stat_base($stat0) = 29) {
-            $string, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
+            $string0, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
         }
         if ($stat0 = crafting & stat_base($stat0) = 47) {
-            $string, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
+            $string0, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
         }
         if ($stat0 = magic & stat_base($stat0) = 49) {
-            $string, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
+            $string0, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
         }
         if ($stat0 = mining & stat_base($stat0) = 35) {
-            $string, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
+            $string0, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
         }
         if ($stat0 = slayer & stat_base($stat0) = 31) {
-            $string, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
+            $string0, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
         }
         if ($stat0 = firemaking & stat_base($stat0) = 40) {
-            $string, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
+            $string0, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
         }
-        if (%varbit_4569 = 500) {
+        if (%varplayerbit_4569 = 500) {
             $int4 = 0;
         }
-    case 90:
-        if ($stat0 = false & stat_base($stat0) = 40) {
-            $string, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
+    case 90 :
+        if ($stat0 = attack & stat_base($stat0) = 40) {
+            $string0, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
         }
         if ($stat0 = mining & stat_base($stat0) = 41) {
-            $string, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
+            $string0, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
         }
         if ($stat0 = crafting & stat_base($stat0) = 43) {
-            $string, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
+            $string0, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
         }
         if ($stat0 = strength & stat_base($stat0) = 45) {
-            $string, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
+            $string0, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
         }
         if ($stat0 = construction & stat_base($stat0) = 50) {
-            $string, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
+            $string0, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
         }
-        if (%varbit_4700 = 63) {
+        if (%varplayerbit_4700 = 63) {
             $int4 = 0;
         }
-    case 91:
+    case 91 :
         if ($stat0 = construction & stat_base($stat0) = 10) {
-            $string, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
+            $string0, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
         }
         if ($stat0 = farming & stat_base($stat0) = 10) {
-            $string, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
+            $string0, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
         }
         if ($stat0 = hunter & stat_base($stat0) = 10) {
-            $string, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
+            $string0, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
         }
         if ($stat0 = thieving & stat_base($stat0) = 11) {
-            $string, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
+            $string0, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
         }
-        if (%varbit_4684 = 150) {
+        if (%varplayerbit_4684 = 150) {
             $int4 = 0;
         }
-    case 92:
+    case 92 :
         if ($stat0 = slayer & stat_base($stat0) = 35) {
-            $string, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
+            $string0, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
         }
         if ($stat0 = crafting & stat_base($stat0) = 25) {
-            $string, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
+            $string0, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
         }
-        if (%varbit_4764 = 250) {
+        if (%varplayerbit_4764 = 250) {
             $int4 = 0;
         }
-    case 93:
+    case 93 :
         if ($stat0 = agility & stat_base($stat0) = 60) {
-            $string, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
+            $string0, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
         }
         if ($stat0 = thieving & stat_base($stat0) = 63) {
-            $string, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
+            $string0, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
         }
         if ($stat0 = crafting & stat_base($stat0) = 66) {
-            $string, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
+            $string0, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
         }
         if ($stat0 = smithing & stat_base($stat0) = 69) {
-            $string, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
+            $string0, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
         }
-        if (%varbit_4797 = 100) {
+        if (%varplayerbit_4797 = 100) {
             $int4 = 0;
         }
-    case 94:
+    case 94 :
         if ($stat0 = construction & stat_base($stat0) = 40) {
-            $string, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
+            $string0, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
         }
         if ($stat0 = farming & stat_base($stat0) = 26) {
-            $string, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
+            $string0, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
         }
         if ($stat0 = prayer & stat_base($stat0) = 35) {
-            $string, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
+            $string0, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
         }
         if ($stat0 = summoning & stat_base($stat0) = 19) {
-            $string, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
+            $string0, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
         }
-        if (%varbit_5032 = 80) {
+        if (%varplayerbit_5032 = 80) {
             $int4 = 0;
         }
-    case 95:
+    case 95 :
         if ($stat0 = firemaking & stat_base($stat0) = 43) {
-            $string, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
+            $string0, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
         }
-        if (%varbit_5133 >= 90) {
+        if (%varplayerbit_5133 >= 90) {
             $int4 = 0;
         }
-    case 96:
+    case 96 :
         if ($stat0 = firemaking & stat_base($stat0) = 47) {
-            $string, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
+            $string0, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
         }
         if ($stat0 = hunter & stat_base($stat0) = 35) {
-            $string, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
+            $string0, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
         }
         if ($stat0 = mining & stat_base($stat0) = 45) {
-            $string, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
+            $string0, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
         }
         if ($stat0 = prayer & stat_base($stat0) = 55) {
-            $string, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
+            $string0, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
         }
         if ($stat0 = summoning & stat_base($stat0) = 23) {
-            $string, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
+            $string0, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
         }
         if ($stat0 = woodcutting & stat_base($stat0) = 37) {
-            $string, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
+            $string0, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
         }
-        if (%varbit_5331 = 35) {
+        if (%varplayerbit_5331 = 35) {
             $int4 = 0;
         }
-    case 97:
+    case 97 :
         if ($stat0 = hunter & stat_base($stat0) = 51) {
-            $string, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
+            $string0, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
         }
         if ($stat0 = agility & stat_base($stat0) = 51) {
-            $string, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
+            $string0, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
         }
         if ($stat0 = smithing & stat_base($stat0) = 54) {
-            $string, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
+            $string0, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
         }
         if ($stat0 = mining & stat_base($stat0) = 59) {
-            $string, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
+            $string0, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
         }
-        if (%varbit_5387 >= 250) {
+        if (%varplayerbit_5387 >= 250) {
             $int4 = 0;
         }
-    case 98:
-        if ($stat0 = true & stat_base($stat0) = 65) {
-            $string, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
+    case 98 :
+        if ($stat0 = defence & stat_base($stat0) = 65) {
+            $string0, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
         }
         if ($stat0 = magic & stat_base($stat0) = 75) {
-            $string, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
+            $string0, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
         }
         if ($stat0 = herblore & stat_base($stat0) = 65) {
-            $string, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
+            $string0, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
         }
         if ($stat0 = thieving & stat_base($stat0) = 60) {
-            $string, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
+            $string0, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
         }
         if ($stat0 = hunter & stat_base($stat0) = 55) {
-            $string, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
+            $string0, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
         }
         if ($stat0 = farming & stat_base($stat0) = 65) {
-            $string, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
+            $string0, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
         }
         if ($stat0 = summoning & stat_base($stat0) = 23) {
-            $string, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
+            $string0, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
         }
-        if (~clientscript_395 = true & ($stat0 = strength | $stat0 = false)) {
-            $string, $obj3, $int4 = ~clientscript_2042($stat0, $int2, $int1);
+        if (~script395 = 1 & ($stat0 = strength | $stat0 = attack)) {
+            $string0, $obj3, $int4 = ~script2042($stat0, $int2, $int1);
         }
-        if (%varbit_5491 >= 910) {
+        if (%varplayerbit_5491 >= 910) {
             $int4 = 0;
         }
-    case 99:
+    case 99 :
         if ($stat0 = firemaking & stat_base($stat0) = 55) {
-            $string, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
+            $string0, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
         }
         if ($stat0 = crafting & stat_base($stat0) = 52) {
-            $string, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
+            $string0, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
         }
         if ($stat0 = fletching & stat_base($stat0) = 53) {
-            $string, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
+            $string0, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
         }
-        if (%varbit_5761 = 30) {
+        if (%varplayerbit_5761 = 30) {
             $int4 = 0;
         }
-    case 100:
+    case 100 :
         if ($stat0 = thieving & stat_base($stat0) = 46) {
-            $string, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
+            $string0, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
         }
         if ($stat0 = agility & stat_base($stat0) = 46) {
-            $string, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
+            $string0, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
         }
         if ($stat0 = strength & stat_base($stat0) = 46) {
-            $string, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
+            $string0, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
         }
-        if (%varbit_1938 >= 110) {
+        if (%varplayerbit_1938 >= 110) {
             $int4 = 0;
         }
-    case 101:
+    case 101 :
         if ($stat0 = hunter & stat_base($stat0) = 41) {
-            $string, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
+            $string0, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
         }
         if ($stat0 = agility & stat_base($stat0) = 50) {
-            $string, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
+            $string0, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
         }
         if ($stat0 = magic & stat_base($stat0) = 57) {
-            $string, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
+            $string0, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
         }
         if ($stat0 = herblore & stat_base($stat0) = 43) {
-            $string, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
+            $string0, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
         }
-        if (%varbit_6001 >= 45) {
+        if (%varplayerbit_6001 >= 45) {
             $int4 = 0;
         }
-    case 102:
+    case 102 :
         if ($stat0 = mining & stat_base($stat0) = 8) {
-            $string, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
+            $string0, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
         }
         if ($stat0 = magic & stat_base($stat0) = 10) {
-            $string, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
+            $string0, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
         }
         if ($stat0 = firemaking & stat_base($stat0) = 6) {
-            $string, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
+            $string0, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
         }
         if ($stat0 = woodcutting & stat_base($stat0) = 10) {
-            $string, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
+            $string0, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
         }
-        if (%varbit_6048 = 250) {
+        if (%varplayerbit_6048 = 250) {
             $int4 = 0;
         }
-    case 103:
+    case 103 :
         if ($stat0 = construction & stat_base($stat0) = 35) {
-            $string, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
+            $string0, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
         }
         if ($stat0 = cooking & stat_base($stat0) = 35) {
-            $string, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
+            $string0, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
         }
         if ($stat0 = crafting & stat_base($stat0) = 35) {
-            $string, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
+            $string0, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
         }
         if ($stat0 = prayer & stat_base($stat0) = 35) {
-            $string, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
+            $string0, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
         }
         if ($stat0 = magic & stat_base($stat0) = 35) {
-            $string, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
+            $string0, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
         }
-        if (%varbit_6112 = 60) {
+        if (%varplayerbit_6112 = 60) {
             $int4 = 0;
         }
-    case 104:
+    case 104 :
         if ($stat0 = thieving & stat_base($stat0) = 38) {
-            $string, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
+            $string0, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
         }
         if ($stat0 = construction & stat_base($stat0) = 45) {
-            $string, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
+            $string0, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
         }
         if ($stat0 = hunter & stat_base($stat0) = 45) {
-            $string, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
+            $string0, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
         }
-        if (%varbit_6180 = 140) {
+        if (%varplayerbit_6180 = 140) {
             $int4 = 0;
         }
-    case 105:
+    case 105 :
         if ($stat0 = summoning & stat_base($stat0) = 41) {
-            $string, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
+            $string0, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
         }
         if ($stat0 = mining & stat_base($stat0) = 64) {
-            $string, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
+            $string0, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
         }
         if ($stat0 = slayer & stat_base($stat0) = 37) {
-            $string, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
+            $string0, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
         }
         if ($stat0 = agility & stat_base($stat0) = 61) {
-            $string, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
+            $string0, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
         }
         if ($stat0 = strength & stat_base($stat0) = 64) {
-            $string, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
+            $string0, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
         }
         if ($stat0 = ranged & stat_base($stat0) = 64) {
-            $string, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
+            $string0, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
         }
         if ($stat0 = thieving & stat_base($stat0) = 66) {
-            $string, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
+            $string0, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
         }
-    case 106:
+    case 106 :
         if ($stat0 = hunter & stat_base($stat0) = 61) {
-            $string, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
+            $string0, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
         }
         if ($stat0 = firemaking & stat_base($stat0) = 61) {
-            $string, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
+            $string0, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
         }
         if ($stat0 = strength & stat_base($stat0) = 69) {
-            $string, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
+            $string0, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
         }
-        if (%varbit_6471 = 90) {
+        if (%varplayerbit_6471 = 90) {
             $int4 = 0;
         }
-    case 107:
+    case 107 :
         if ($stat0 = agility & stat_base($stat0) = 69) {
-            $string, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
+            $string0, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
         }
         if ($stat0 = fletching & stat_base($stat0) = 70) {
-            $string, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
+            $string0, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
         }
         if ($stat0 = ranged & stat_base($stat0) = 75) {
-            $string, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
+            $string0, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
         }
         if ($stat0 = woodcutting & stat_base($stat0) = 75) {
-            $string, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
+            $string0, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
         }
-        if (%varbit_6553 = 46) {
+        if (%varplayerbit_6553 = 46) {
             $int4 = 0;
         }
-    case 108:
+    case 108 :
         if ($stat0 = prayer & stat_base($stat0) = 50) {
-            $string, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
+            $string0, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
         }
-        if (%varbit_6775 = 90) {
+        if (%varplayerbit_6775 = 90) {
             $int4 = 0;
         }
-    case 109:
-        if ($stat0 = false & stat_base($stat0) = 75) {
-            $string, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
+    case 109 :
+        if ($stat0 = attack & stat_base($stat0) = 75) {
+            $string0, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
         }
         if ($stat0 = strength & stat_base($stat0) = 75) {
-            $string, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
+            $string0, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
         }
         if ($stat0 = slayer & stat_base($stat0) = 65) {
-            $string, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
+            $string0, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
         }
-        if (%varbit_6883 >= 147) {
+        if (%varplayerbit_6883 >= 147) {
             $int4 = 0;
         }
-    case 110:
+    case 110 :
         if ($stat0 = magic & stat_base($stat0) = 75) {
-            $string, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
+            $string0, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
         }
         if ($stat0 = prayer & stat_base($stat0) = 70) {
-            $string, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
+            $string0, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
         }
         if ($stat0 = mining & stat_base($stat0) = 66) {
-            $string, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
+            $string0, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
         }
         if ($stat0 = hunter & stat_base($stat0) = 65) {
-            $string, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
+            $string0, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
         }
         if ($stat0 = construction & stat_base($stat0) = 60) {
-            $string, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
+            $string0, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
         }
-        if (%varbit_6962 = 12) {
+        if (%varplayerbit_6962 = 12) {
             $int4 = 0;
         }
-    case 111:
+    case 111 :
         if ($stat0 = magic & stat_base($stat0) = 27) {
-            $string, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
+            $string0, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
         }
-        if ($stat0 = runecrafting & stat_base($stat0) = 20) {
-            $string, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
+        if ($stat0 = runecraft & stat_base($stat0) = 20) {
+            $string0, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
         }
         if ($stat0 = construction & stat_base($stat0) = 25) {
-            $string, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
+            $string0, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
         }
-        if (%varbit_7050 = 35) {
+        if (%varplayerbit_7050 = 35) {
             $int4 = 0;
         }
-    case 112:
+    case 112 :
         if ($stat0 = thieving & stat_base($stat0) = 24) {
-            $string, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
+            $string0, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
         }
-        if (%varbit_7794 = 15) {
+        if (%varplayerbit_7794 = 15) {
             $int4 = 0;
         }
-    case 113:
+    case 113 :
         if ($stat0 = thieving & stat_base($stat0) = 41) {
-            $string, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
+            $string0, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
         }
-        if (%varbit_7795 = 2) {
+        if (%varplayerbit_7795 = 2) {
             $int4 = 0;
         }
-    case 114:
+    case 114 :
         if ($stat0 = thieving & stat_base($stat0) = 62) {
-            $string, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
+            $string0, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
         }
         if ($stat0 = herblore & stat_base($stat0) = 46) {
-            $string, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
+            $string0, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
         }
         if ($stat0 = agility & stat_base($stat0) = 40) {
-            $string, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
+            $string0, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
         }
-        if (%varbit_7796 = 30) {
+        if (%varplayerbit_7796 = 30) {
             $int4 = 0;
         }
-    case 115:
+    case 115 :
         if ($stat0 = farming & stat_base($stat0) = 54) {
-            $string, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
+            $string0, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
         }
         if ($stat0 = thieving & stat_base($stat0) = 51) {
-            $string, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
+            $string0, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
         }
         if ($stat0 = magic & stat_base($stat0) = 59) {
-            $string, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
+            $string0, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
         }
         if ($stat0 = summoning & stat_base($stat0) = 37) {
-            $string, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
+            $string0, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
         }
         if ($stat0 = crafting & stat_base($stat0) = 36) {
-            $string, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
+            $string0, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
         }
-        if (%varbit_7826 > 170) {
+        if (%varplayerbit_7826 > 170) {
             $int4 = 0;
         }
-    case 116:
-        if ($stat0 = true & stat_base($stat0) = 33) {
-            $string, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
+    case 116 :
+        if ($stat0 = defence & stat_base($stat0) = 33) {
+            $string0, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
         }
         if ($stat0 = smithing & stat_base($stat0) = 33) {
-            $string, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
+            $string0, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
         }
-        if (%varbit_7871 = 11) {
+        if (%varplayerbit_7871 = 11) {
             $int4 = 0;
         }
-    case 117:
+    case 117 :
         if ($stat0 = strength & stat_base($stat0) = 42) {
-            $string, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
+            $string0, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
         }
-        if ($stat0 = false & stat_base($stat0) = 35) {
-            $string, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
+        if ($stat0 = attack & stat_base($stat0) = 35) {
+            $string0, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
         }
-        if (%varbit_7958 = 90) {
+        if (%varplayerbit_7958 = 90) {
             $int4 = 0;
         }
-    case 118:
+    case 118 :
         if ($stat0 = magic & stat_base($stat0) = 77) {
-            $string, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
+            $string0, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
         }
         if ($stat0 = construction & stat_base($stat0) = 68) {
-            $string, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
+            $string0, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
         }
         if ($stat0 = smithing & stat_base($stat0) = 68) {
-            $string, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
+            $string0, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
         }
         if ($stat0 = crafting & stat_base($stat0) = 67) {
-            $string, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
+            $string0, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
         }
-        if (%varbit_8045 >= 150) {
+        if (%varplayerbit_8045 >= 150) {
             $int4 = 0;
         }
-    case 119:
+    case 119 :
         if ($stat0 = construction & stat_base($stat0) = 47) {
-            $string, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
+            $string0, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
         }
         if ($stat0 = herblore & stat_base($stat0) = 49) {
-            $string, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
+            $string0, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
         }
         if ($stat0 = hunter & stat_base($stat0) = 46) {
-            $string, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
+            $string0, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
         }
         if ($stat0 = mining & stat_base($stat0) = 47) {
-            $string, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
+            $string0, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
         }
         if ($stat0 = summoning & stat_base($stat0) = 48) {
-            $string, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
+            $string0, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
         }
         if ($stat0 = thieving & stat_base($stat0) = 54) {
-            $string, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
+            $string0, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
         }
         if ($stat0 = woodcutting & stat_base($stat0) = 52) {
-            $string, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
+            $string0, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
         }
-        if (%varbit_7451 = 63) {
+        if (%varplayerbit_7451 = 63) {
             $int4 = 0;
         }
-    case 120:
-        if ($stat0 = false & stat_base($stat0) = 78) {
-            $string, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
+    case 120 :
+        if ($stat0 = attack & stat_base($stat0) = 78) {
+            $string0, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
         }
         if ($stat0 = construction & stat_base($stat0) = 70) {
-            $string, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
+            $string0, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
         }
         if ($stat0 = crafting & stat_base($stat0) = 70) {
-            $string, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
+            $string0, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
         }
         if ($stat0 = firemaking & stat_base($stat0) = 71) {
-            $string, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
+            $string0, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
         }
         if ($stat0 = magic & stat_base($stat0) = 80) {
-            $string, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
+            $string0, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
         }
         if ($stat0 = smithing & stat_base($stat0) = 70) {
-            $string, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
+            $string0, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
         }
         if ($stat0 = strength & stat_base($stat0) = 78) {
-            $string, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
+            $string0, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
         }
         if ($stat0 = summoning & stat_base($stat0) = 55) {
-            $string, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
+            $string0, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
         }
-        if ($stat0 = true & stat_base($stat0) = 10) {
-            $string, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
+        if ($stat0 = defence & stat_base($stat0) = 10) {
+            $string0, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
         }
-        if (%varbit_8248 = 40) {
+        if (%varplayerbit_8248 = 40) {
             $int4 = 0;
         }
-    case 121:
+    case 121 :
         if ($stat0 = strength & stat_base($stat0) = 77) {
-            $string, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
+            $string0, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
         }
         if ($stat0 = smithing & stat_base($stat0) = 70) {
-            $string, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
+            $string0, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
         }
         if ($stat0 = mining & stat_base($stat0) = 68) {
-            $string, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
+            $string0, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
         }
-        if (%varbit_8704 = 90) {
+        if (%varplayerbit_8704 = 90) {
             $int4 = 0;
         }
-    case 122:
+    case 122 :
         if ($stat0 = agility & stat_base($stat0) = 64) {
-            $string, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
+            $string0, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
         }
         if ($stat0 = thieving & stat_base($stat0) = 64) {
-            $string, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
+            $string0, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
         }
         if ($stat0 = construction & stat_base($stat0) = 62) {
-            $string, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
+            $string0, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
         }
-        if ($stat0 = runecrafting & stat_base($stat0) = 61) {
-            $string, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
+        if ($stat0 = runecraft & stat_base($stat0) = 61) {
+            $string0, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
         }
-        if (%varbit_5332 >= 120) {
+        if (%varplayerbit_5332 >= 120) {
             $int4 = 0;
         }
-    case 123:
-        if ($stat0 = true & stat_base($stat0) = 40) {
-            $string, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
+    case 123 :
+        if ($stat0 = defence & stat_base($stat0) = 40) {
+            $string0, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
         }
         if ($stat0 = crafting & stat_base($stat0) = 41) {
-            $string, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
+            $string0, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
         }
-        if ($stat0 = runecrafting & stat_base($stat0) = 39) {
-            $string, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
+        if ($stat0 = runecraft & stat_base($stat0) = 39) {
+            $string0, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
         }
         if ($stat0 = smithing & stat_base($stat0) = 42) {
-            $string, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
+            $string0, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
         }
         if ($stat0 = thieving & stat_base($stat0) = 39) {
-            $string, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
+            $string0, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
         }
-        if (%varbit_998 >= 9) {
+        if (%varplayerbit_998 >= 9) {
             $int4 = 0;
         }
-    case 124:
+    case 124 :
         if ($stat0 = construction & stat_base($stat0) = 62) {
-            $string, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
+            $string0, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
         }
         if ($stat0 = dungeoneering & stat_base($stat0) = 50) {
-            $string, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
+            $string0, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
         }
         if ($stat0 = slayer & stat_base($stat0) = 61) {
-            $string, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
+            $string0, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
         }
         if ($stat0 = summoning & stat_base($stat0) = 65) {
-            $string, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
+            $string0, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
         }
         if ($stat0 = smithing & stat_base($stat0) = 74) {
-            $string, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
+            $string0, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
         }
-        if ($stat0 = true & stat_base($stat0) = 76) {
-            $string, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
+        if ($stat0 = defence & stat_base($stat0) = 76) {
+            $string0, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
         }
         if ($stat0 = thieving & stat_base($stat0) = 74) {
-            $string, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
+            $string0, $obj3, $int4 = ~lvl_quest_report($stat0, $int2, $int1);
         }
-        if (%varbit_8961 >= 200) {
+        if (%varplayerbit_8961 >= 200) {
             $int4 = 0;
         }
-    case default:
+    case default :
         $int4 = -1;
 }
-return($string, $obj3, $int4);
-return("", null, 0);
+return($string0, $obj3, $int4);

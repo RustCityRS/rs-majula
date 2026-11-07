@@ -1,6 +1,0 @@
-[proc,clientscript_2509](int $int)(int)
-if (%varc_int_840 <= calc(~clientscript_2687 - $int)) {
-    return(1);
-} else {
-    return(0);
-}

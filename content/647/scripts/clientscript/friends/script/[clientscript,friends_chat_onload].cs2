@@ -1,13 +1,14 @@
+// 195
 [clientscript,friends_chat_onload](component $component0, int $int1)
-if_sethook1421("friends_chat_onclantransmit(^event_com)", $component0);
-if_sethook1420("friends_chat_onclantransmit(^event_com)", $component0);
-~clientscript_1600;
-def_component $component2 = friends_chat:com4;
+if_setonclantransmit("friends_chat_onclantransmit(event_com)", $component0);
+if_setonfriendtransmit("friends_chat_onclantransmit(event_com)", $component0);
+~script1600;
+def_component $component2 = friends_chat:com_4;
 def_int $int3 = 0;
 def_int $int4 = 19;
 while ($int3 < 500) {
     if (calc($int3 % 2) ! 0) {
-        cc_create($component2, ^iftype_rectangle, if_getchildcount($component2));
+        cc_create($component2, ^iftype_rectangle, if_getnextsubid($component2));
         cc_setsize(16384, $int4, ^setsize_rel, ^setsize_abs);
         cc_setposition(0, calc($int3 * $int4), ^setpos_abs_left, ^setpos_abs_top);
         cc_setcolour(0x232220);

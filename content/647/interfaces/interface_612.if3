@@ -1,0 +1,44 @@
+// 612:0
+[com_0]
+type=rectangle
+y=1
+width=514
+height=336
+colour=0x46341d
+fill=yes
+trans=160
+
+// 612:1
+[com_1]
+type=model
+x=30
+y=16
+width=179
+height=306
+model=model_28316
+modelangle=535,2038,0
+modelzoom=679
+
+// 612:2
+[com_2]
+type=model
+x=256
+y=12
+width=195
+height=315
+model=model_28324
+modelangle=535,2038,0
+modelzoom=679
+
+// 612:3
+[com_3]
+type=graphic
+x=461
+y=17
+width=26
+height=23
+graphic="close_buttons,6"
+colour=0x000000
+onmouseover=graphic_swapper(event_com, "close_buttons,7")
+onmouseleave=graphic_swapper(event_com, "close_buttons,6")
+onclick=closebutton_click

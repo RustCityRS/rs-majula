@@ -1,0 +1,15 @@
+// 2090
+[clientscript,script2090]
+def_int $int0 = 0;
+def_int $int1 = 0;
+$int0 = enum(int, int, enum_723, %varclient_649);
+$int1 = enum(int, int, enum_2196, %varclient_649);
+if (%varclient_649 < 15) {
+    if_setcolour(0x3366ff, interface_836:com_61);
+} else if (%varclient_649 > 15) {
+    if_setcolour(0xe12323, interface_836:com_61);
+} else {
+    if_setcolour(0x666666, interface_836:com_61);
+}
+if_setposition($int0, 66, ^setpos_abs_right, ^setpos_abs_top, interface_836:com_61);
+if_setsize($int1, 8, ^setsize_abs, ^setsize_abs, interface_836:com_61);

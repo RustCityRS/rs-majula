@@ -1,0 +1,13 @@
+// 394
+[clientscript,script394](component $component0)
+if (%varclient_1391 = 0) {
+    if_settrans(max(calc(if_gettrans($component0) - 10), 0), $component0);
+    if (if_gettrans($component0) = 0) {
+        %varclient_1391 = 1;
+    }
+} else {
+    if_settrans(min(calc(if_gettrans($component0) + 10), 255), $component0);
+    if (if_gettrans($component0) = 255) {
+        %varclient_1391 = 0;
+    }
+}

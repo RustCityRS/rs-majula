@@ -1,0 +1,22 @@
+// 949
+[proc,script949]
+if (%varclient_1198 = 1) {
+    if_sethide(false, rand_dungeon_rewards_v2:com_322);
+    if_sethide(false, rand_dungeon_rewards_v2:com_323);
+}
+if (%varclient_1199 = 1) {
+    if_sethide(false, rand_dungeon_rewards_v2:com_321);
+    if_sethide(false, rand_dungeon_rewards_v2:com_324);
+}
+if (%varclient_1200 = 1) {
+    if_sethide(false, rand_dungeon_rewards_v2:com_320);
+    if_sethide(false, rand_dungeon_rewards_v2:com_325);
+}
+if (%varclient_1201 = 1) {
+    if_sethide(false, rand_dungeon_rewards_v2:com_319);
+    if_sethide(false, rand_dungeon_rewards_v2:com_326);
+}
+if (%varclient_1202 = 1) {
+    if_sethide(false, rand_dungeon_rewards_v2:com_318);
+    if_sethide(false, rand_dungeon_rewards_v2:com_327);
+}

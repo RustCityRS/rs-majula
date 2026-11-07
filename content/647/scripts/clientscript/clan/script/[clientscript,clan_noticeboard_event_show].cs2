@@ -1,45 +1,46 @@
-[clientscript,clan_noticeboard_event_show](int $int0, component $component1, int $int2, int $int3, int $int4, int $int5, int $int6, string $string, long $long)
-if_settext($string, clan_noticeboard:com107);
+// 4363
+[clientscript,clan_noticeboard_event_show](int $int0, string $string0, clanforumqfc $clanforumqfc0, component $component1, int $int2, int $int3, int $int4, int $int5, int $int6)
+if_settext($string0, clan_noticeboard:com_107);
 if_setgraphic("aif_notetabs,1", $component1);
-if ($long ! -1L) {
-    if_setonop("clientscript_4330($long)", clan_noticeboard:com163);
-    if_sethide(true, clan_noticeboard:com166);
+if ($clanforumqfc0 ! null) {
+    if_setonop("script4330($clanforumqfc0)", clan_noticeboard:com_163);
+    if_sethide(true, clan_noticeboard:com_166);
 } else {
-    if_clearops(clan_noticeboard:com163);
-    if_sethide(false, clan_noticeboard:com166);
+    if_clearops(clan_noticeboard:com_163);
+    if_sethide(false, clan_noticeboard:com_166);
 }
-if (ignore_count = true) {
-    if (~clientscript_4616($int2, $int3) > 0 & ($int4 > 0 & ($int5 > 0 & $int6 > 0))) {
-        if_sethide(false, clan_noticeboard:com108);
+if (activeclansettings_find_listened = true) {
+    if (~script4616($int2, $int3) > 0 & $int4 > 0 & $int5 > 0 & $int6 > 0) {
+        if_sethide(false, clan_noticeboard:com_108);
     }
-    ~clientscript_4621(clan_noticeboard:com0);
+    ~script4621(clan_noticeboard:com_0);
 } else {
-    if_sethide(true, clan_noticeboard:com108);
+    if_sethide(true, clan_noticeboard:com_108);
 }
-%varp_2128 = $int0;
+%varplayer_2128 = $int0;
 switch_int ($int0) {
-    case 1:
-        if_setgraphic("aif_notetabs,3", clan_noticeboard:com6);
-    case 2:
-        if_setgraphic("aif_notetabs,3", clan_noticeboard:com123);
-    case 3:
-        if_setgraphic("aif_notetabs,3", clan_noticeboard:com126);
-    case 4:
-        if_setgraphic("aif_notetabs,3", clan_noticeboard:com129);
-    case 5:
-        if_setgraphic("aif_notetabs,3", clan_noticeboard:com132);
-    case 6:
-        if_setgraphic("aif_notetabs,3", clan_noticeboard:com135);
-    case 7:
-        if_setgraphic("aif_notetabs,3", clan_noticeboard:com138);
-    case 8:
-        if_setgraphic("aif_notetabs,3", clan_noticeboard:com141);
+    case 1 :
+        if_setgraphic("aif_notetabs,3", clan_noticeboard:com_6);
+    case 2 :
+        if_setgraphic("aif_notetabs,3", clan_noticeboard:com_123);
+    case 3 :
+        if_setgraphic("aif_notetabs,3", clan_noticeboard:com_126);
+    case 4 :
+        if_setgraphic("aif_notetabs,3", clan_noticeboard:com_129);
+    case 5 :
+        if_setgraphic("aif_notetabs,3", clan_noticeboard:com_132);
+    case 6 :
+        if_setgraphic("aif_notetabs,3", clan_noticeboard:com_135);
+    case 7 :
+        if_setgraphic("aif_notetabs,3", clan_noticeboard:com_138);
+    case 8 :
+        if_setgraphic("aif_notetabs,3", clan_noticeboard:com_141);
 }
-~clan_noticeboard_event_mouseleave(clan_noticeboard:com6, 1);
-~clan_noticeboard_event_mouseleave(clan_noticeboard:com123, 2);
-~clan_noticeboard_event_mouseleave(clan_noticeboard:com126, 3);
-~clan_noticeboard_event_mouseleave(clan_noticeboard:com129, 4);
-~clan_noticeboard_event_mouseleave(clan_noticeboard:com132, 5);
-~clan_noticeboard_event_mouseleave(clan_noticeboard:com135, 6);
-~clan_noticeboard_event_mouseleave(clan_noticeboard:com138, 7);
-~clan_noticeboard_event_mouseleave(clan_noticeboard:com141, 8);
+~clan_noticeboard_event_mouseleave(clan_noticeboard:com_6, 1);
+~clan_noticeboard_event_mouseleave(clan_noticeboard:com_123, 2);
+~clan_noticeboard_event_mouseleave(clan_noticeboard:com_126, 3);
+~clan_noticeboard_event_mouseleave(clan_noticeboard:com_129, 4);
+~clan_noticeboard_event_mouseleave(clan_noticeboard:com_132, 5);
+~clan_noticeboard_event_mouseleave(clan_noticeboard:com_135, 6);
+~clan_noticeboard_event_mouseleave(clan_noticeboard:com_138, 7);
+~clan_noticeboard_event_mouseleave(clan_noticeboard:com_141, 8);

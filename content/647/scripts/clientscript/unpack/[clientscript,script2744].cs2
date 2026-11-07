@@ -1,0 +1,69 @@
+// 2744
+[clientscript,script2744]
+def_int $int0 = 0;
+while ($int0 < 31) {
+    cc_create(dob_confirm_login:com_86, ^iftype_text, $int0);
+    cc_setsize(46, 20, ^setsize_abs, ^setsize_abs);
+    cc_setposition(4, calc($int0 * 20), ^setpos_abs_left, ^setpos_abs_top);
+    cc_settextfont(b12_full);
+    cc_settextalign(^settextalign_centre, ^settextalign_centre, 0);
+    cc_settext(tostring(calc($int0 + 1)));
+    cc_setcolour(^white);
+    cc_setop(1, "Select");
+    cc_setonop("script2748($int0)");
+    cc_setonmouseover("cc_text_colour_swapper(event_com, event_comsubid, 0xff3000)");
+    cc_setonmouseleave("cc_text_colour_swapper(event_com, event_comsubid, ^white)");
+    $int0 = calc($int0 + 1);
+}
+if_setscrollsize(0, calc($int0 * 20), dob_confirm_login:com_86);
+~scrollbar_vertical(dob_confirm_login:com_87, dob_confirm_login:com_86, "scrollbar_dragger_v2,3", "scrollbar_dragger_v2,0", "scrollbar_dragger_v2,1", "scrollbar_dragger_v2,2", "scrollbar_v2,0", "scrollbar_v2,1");
+$int0 = 0;
+while ($int0 < 12) {
+    cc_create(dob_confirm_login:com_98, ^iftype_text, $int0);
+    cc_setsize(158, 20, ^setsize_abs, ^setsize_abs);
+    cc_setposition(4, calc($int0 * 20), ^setpos_abs_left, ^setpos_abs_top);
+    cc_settextfont(b12_full);
+    cc_settextalign(^settextalign_centre, ^settextalign_centre, 0);
+    cc_settext(enum(int, string, enum_950, $int0));
+    cc_setcolour(^white);
+    cc_setop(1, "Select");
+    cc_setonop("script2749($int0)");
+    cc_setonmouseover("cc_text_colour_swapper(event_com, event_comsubid, 0xff3000)");
+    cc_setonmouseleave("cc_text_colour_swapper(event_com, event_comsubid, ^white)");
+    $int0 = calc($int0 + 1);
+}
+if_setscrollsize(0, calc($int0 * 20), dob_confirm_login:com_98);
+~scrollbar_vertical(dob_confirm_login:com_99, dob_confirm_login:com_98, "scrollbar_dragger_v2,3", "scrollbar_dragger_v2,0", "scrollbar_dragger_v2,1", "scrollbar_dragger_v2,2", "scrollbar_v2,0", "scrollbar_v2,1");
+$int0 = 0;
+while ($int0 < 90) {
+    cc_create(dob_confirm_login:com_110, ^iftype_text, $int0);
+    cc_setsize(70, 20, ^setsize_abs, ^setsize_abs);
+    cc_setposition(6, calc($int0 * 20 + 1), ^setpos_abs_left, ^setpos_abs_top);
+    cc_settextfont(b12_full);
+    cc_settextalign(^settextalign_centre, ^settextalign_centre, 0);
+    cc_settext(tostring(calc(2009 - $int0)));
+    cc_setcolour(^white);
+    cc_setop(1, "Select");
+    cc_setonop("script2750($int0)");
+    cc_setonmouseover("cc_text_colour_swapper(event_com, event_comsubid, 0xff3000)");
+    cc_setonmouseleave("cc_text_colour_swapper(event_com, event_comsubid, ^white)");
+    $int0 = calc($int0 + 1);
+}
+if_setscrollsize(0, calc($int0 * 20), dob_confirm_login:com_110);
+~scrollbar_vertical(dob_confirm_login:com_111, dob_confirm_login:com_110, "scrollbar_dragger_v2,3", "scrollbar_dragger_v2,0", "scrollbar_dragger_v2,1", "scrollbar_dragger_v2,2", "scrollbar_v2,0", "scrollbar_v2,1");
+if_sethide(true, dob_confirm_login:com_86);
+if_sethide(true, dob_confirm_login:com_77);
+if_sethide(true, dob_confirm_login:com_87);
+if_sethide(true, dob_confirm_login:com_98);
+if_sethide(true, dob_confirm_login:com_89);
+if_sethide(true, dob_confirm_login:com_99);
+if_sethide(true, dob_confirm_login:com_110);
+if_sethide(true, dob_confirm_login:com_111);
+if_sethide(true, dob_confirm_login:com_101);
+if_sethide(true, dob_confirm_login:com_26);
+if_sethide(true, dob_confirm_login:com_27);
+if_sethide(true, dob_confirm_login:com_28);
+if_sethide(false, dob_confirm_login:com_29);
+if_sethide(false, dob_confirm_login:com_45);
+if_sethide(false, dob_confirm_login:com_61);
+if_sethide(true, dob_confirm_login:com_113);

@@ -1,0 +1,48 @@
+// 818
+[proc,script818](int $int0)
+def_string $string0 = "No information is available about this beacon.";
+switch_int ($int0) {
+    case 1 :
+        if_setmodel(model_41805, firedup_beacon_map:com_3);
+        if_setonmouserepeat("addtooltip(event_com, firedup_beacon_map:com_2, $string0, 25, 130)", firedup_beacon_map:com_3);
+    case 2 :
+        if_setmodel(model_41805, firedup_beacon_map:com_4);
+        if_setonmouserepeat("addtooltip(event_com, firedup_beacon_map:com_2, $string0, 25, 160)", firedup_beacon_map:com_4);
+    case 3 :
+        if_setmodel(model_41805, firedup_beacon_map:com_5);
+        if_setonmouserepeat("addtooltip(event_com, firedup_beacon_map:com_2, $string0, 25, 200)", firedup_beacon_map:com_5);
+    case 4 :
+        if_setmodel(model_41805, firedup_beacon_map:com_6);
+        if_setonmouserepeat("addtooltip(event_com, firedup_beacon_map:com_2, $string0, 25, 200)", firedup_beacon_map:com_6);
+    case 5 :
+        if_setmodel(model_41805, firedup_beacon_map:com_7);
+        if_setonmouserepeat("addtooltip(event_com, firedup_beacon_map:com_2, $string0, 25, 200)", firedup_beacon_map:com_7);
+    case 6 :
+        if_setmodel(model_41805, firedup_beacon_map:com_8);
+        if_setonmouserepeat("addtooltip(event_com, firedup_beacon_map:com_2, $string0, 25, 200)", firedup_beacon_map:com_8);
+    case 7 :
+        if_setmodel(model_41805, firedup_beacon_map:com_9);
+        if_setonmouserepeat("addtooltip(event_com, firedup_beacon_map:com_2, $string0, 25, 200)", firedup_beacon_map:com_9);
+    case 8 :
+        if_setmodel(model_41805, firedup_beacon_map:com_10);
+        if_setonmouserepeat("addtooltip(event_com, firedup_beacon_map:com_2, $string0, 25, 200)", firedup_beacon_map:com_10);
+    case 9 :
+        if_setmodel(model_41805, firedup_beacon_map:com_11);
+        if_setonmouserepeat("addtooltip(event_com, firedup_beacon_map:com_2, $string0, 25, 200)", firedup_beacon_map:com_11);
+    case 10 :
+        if_setmodel(model_41805, firedup_beacon_map:com_12);
+        if_setonmouserepeat("addtooltip(event_com, firedup_beacon_map:com_2, $string0, 25, 200)", firedup_beacon_map:com_12);
+    case 11 :
+        if_setmodel(model_41805, firedup_beacon_map:com_13);
+        if_setonmouserepeat("addtooltip(event_com, firedup_beacon_map:com_2, $string0, 25, 200)", firedup_beacon_map:com_13);
+    case 12 :
+        if_setmodel(model_41805, firedup_beacon_map:com_14);
+        if_setonmouserepeat("addtooltip(event_com, firedup_beacon_map:com_2, $string0, 25, 200)", firedup_beacon_map:com_14);
+    case 13 :
+        if_setmodel(model_41805, firedup_beacon_map:com_15);
+        if_setonmouserepeat("addtooltip(event_com, firedup_beacon_map:com_2, $string0, 25, 200)", firedup_beacon_map:com_15);
+    case 14 :
+        if_setmodel(model_41805, firedup_beacon_map:com_16);
+        if_setonmouserepeat("addtooltip(event_com, firedup_beacon_map:com_2, $string0, 25, 200)", firedup_beacon_map:com_16);
+}
+%varclient_2 = 0;

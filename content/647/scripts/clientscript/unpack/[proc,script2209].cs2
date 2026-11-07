@@ -1,0 +1,21 @@
+// 2209
+[proc,script2209]
+if_settext("Correct <tostring(%varplayer_1703)>/5", interface_932:com_3);
+%varclient_1137 = 0;
+if_setontimer(null, interface_932:com_1);
+if_setposition(0, 120, ^setpos_abs_left, ^setpos_abs_top, interface_932:com_10);
+if_setposition(0, 120, ^setpos_abs_left, ^setpos_abs_top, interface_932:com_11);
+if_setposition(0, 120, ^setpos_abs_left, ^setpos_abs_top, interface_932:com_12);
+if_setposition(0, 120, ^setpos_abs_left, ^setpos_abs_top, interface_932:com_13);
+if_setposition(0, 120, ^setpos_abs_left, ^setpos_abs_top, interface_932:com_6);
+if_setposition(0, 120, ^setpos_abs_left, ^setpos_abs_top, interface_932:com_7);
+if_setposition(0, 120, ^setpos_abs_left, ^setpos_abs_top, interface_932:com_8);
+if_setposition(0, 120, ^setpos_abs_left, ^setpos_abs_top, interface_932:com_9);
+if_sethide(true, interface_932:com_10);
+if_sethide(true, interface_932:com_11);
+if_sethide(true, interface_932:com_12);
+if_sethide(true, interface_932:com_13);
+if_sethide(true, interface_932:com_6);
+if_sethide(true, interface_932:com_7);
+if_sethide(true, interface_932:com_8);
+if_sethide(true, interface_932:com_9);

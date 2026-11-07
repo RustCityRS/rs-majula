@@ -117,6 +117,14 @@ fn every_config_param_value_names_something() {
             if value.starts_with('^') || value == "null" || value.parse::<i64>().is_ok() {
                 continue;
             }
+            // What a table's entry goes by without a name still names its id.
+            if value
+                .strip_prefix(kind)
+                .and_then(|rest| rest.strip_prefix('_'))
+                .is_some_and(|id| id.parse::<u32>().is_ok())
+            {
+                continue;
+            }
             let known = names.entry(kind).or_insert_with(|| {
                 fs::read_to_string(root.join(format!("pack/{kind}.pack")))
                     .unwrap()

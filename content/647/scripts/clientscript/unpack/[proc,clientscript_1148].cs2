@@ -1,6 +1,0 @@
-[proc,clientscript_1148](int $int0, component $component1, graphic $graphic2, graphic $graphic3, boolean $int4)
-if ($int4 = true) {
-    if_setgraphic($graphic3, $component1);
-} else {
-    if_setgraphic($graphic2, $component1);
-}

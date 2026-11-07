@@ -1,25 +1,25 @@
-[proc,displayname_simplify](string $string)(string)
-$string = lowercase(removetags($string));
-def_int $int0 = string_length($string);
+// 4591
+[proc,displayname_simplify](string $string0)(string)
+$string0 = lowercase(removetags($string0));
+def_int $int0 = string_length($string0);
 def_int $int1 = 0;
-$string = ~find_and_replace($string, "_", " ");
-$string = ~find_and_replace($string, "-", " ");
-$string = ~find_and_replace($string, " ", " ");
-while (string_indexof_string($string, " ", 0) = false & $int0 > 0) {
-    $string = substring($string, 1, $int0);
-    $int0 = string_length($string);
+$string0 = ~find_and_replace($string0, "_", " ");
+$string0 = ~find_and_replace($string0, "-", " ");
+$string0 = ~find_and_replace($string0, " ", " ");
+while (string_indexof_string($string0, " ", 0) = 0 & $int0 > 0) {
+    $string0 = substring($string0, 1, $int0);
+    $int0 = string_length($string0);
 }
-while (string_indexof_string($string, " ", calc($int0 - 1)) = calc($int0 - 1) & $int0 > 0) {
-    $string = substring($string, 0, calc($int0 - 1));
-    $int0 = string_length($string);
+while (string_indexof_string($string0, " ", calc($int0 - 1)) = calc($int0 - 1) & $int0 > 0) {
+    $string0 = substring($string0, 0, calc($int0 - 1));
+    $int0 = string_length($string0);
 }
-while (string_indexof_string($string, " ", 0) = false & $int0 > 0) {
-    $string = substring($string, 1, $int0);
-    $int0 = string_length($string);
+while (string_indexof_string($string0, " ", 0) = 0 & $int0 > 0) {
+    $string0 = substring($string0, 1, $int0);
+    $int0 = string_length($string0);
 }
-while (string_indexof_string($string, " ", calc($int0 - 1)) = calc($int0 - 1) & $int0 > 0) {
-    $string = substring($string, 0, calc($int0 - 1));
-    $int0 = string_length($string);
+while (string_indexof_string($string0, " ", calc($int0 - 1)) = calc($int0 - 1) & $int0 > 0) {
+    $string0 = substring($string0, 0, calc($int0 - 1));
+    $int0 = string_length($string0);
 }
-return($string);
-return("");
+return($string0);

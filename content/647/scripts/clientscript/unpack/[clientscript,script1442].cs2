@@ -1,0 +1,51 @@
+// 1442
+[clientscript,script1442]
+switch_int (%journey_number) {
+    case 0 :
+        return;
+    case 1 :
+        if_sethide(false, ship_journey:com_55);
+        if_setmodelanim(sarim_entrana, ship_journey:com_54);
+    case 2 :
+        if_sethide(false, ship_journey:com_47);
+        if_setmodelanim(entrana_sarim, ship_journey:com_53);
+    case 3 :
+        if_sethide(false, ship_journey:com_45);
+        if_setmodelanim(sarim_crandor, ship_journey:com_56);
+    case 5 :
+        if_sethide(false, ship_journey:com_44);
+        if_setmodelanim(sarim_karamja, ship_journey:com_58);
+    case 6 :
+        if_sethide(false, ship_journey:com_43);
+        if_setmodelanim(karamja_sarim, ship_journey:com_59);
+    case 7 :
+        if_sethide(false, ship_journey:com_42);
+        if_setmodelanim(seq_636, ship_journey:com_60);
+    case 8 :
+        if_sethide(false, ship_journey:com_41);
+        if_setmodelanim(seq_637, ship_journey:com_61);
+    case 10 :
+        if_sethide(false, ship_journey:com_39);
+        if_setmodelanim(cairn_khazzard, ship_journey:com_63);
+    case 11 :
+        if_sethide(false, ship_journey:com_38);
+        if_setmodelanim(khazzard_trawler, ship_journey:com_64);
+    case 12 :
+        if_sethide(false, ship_journey:com_37);
+        if_setmodelanim(trawler_khazzard, ship_journey:com_65);
+    case 13 :
+        if_sethide(false, ship_journey:com_36);
+        if_setmodelanim(cairn_sarim, ship_journey:com_66);
+    case 14 :
+        if_sethide(false, ship_journey:com_35);
+        if_setmodelanim(seq_3545, ship_journey:com_67);
+    case 15 :
+        if_sethide(false, ship_journey:com_34);
+        if_setmodelanim(seq_3546, ship_journey:com_68);
+    case 16 :
+        if_sethide(false, ship_journey:com_33);
+        if_setmodelanim(seq_3476, ship_journey:com_69);
+    case 17 :
+        if_sethide(false, ship_journey:com_32);
+        if_setmodelanim(seq_3477, ship_journey:com_52);
+}

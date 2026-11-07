@@ -5,6 +5,7 @@ use anyhow::Result;
 use crate::pack::pack::{FileCache, parse_config_sections_cached};
 use crate::pack::pack_registry::{PackRegistry, PackedFile};
 use crate::pack::packed_data::PackedData;
+use crate::pack::util::{parse_hex, parse_number, parse_ref};
 
 pub fn pack_flus(
     file_cache: &FileCache,
@@ -31,27 +32,30 @@ pub fn pack_flus(
 
         for (key, value) in props {
             match key.as_str() {
-                "color" => {
-                    let v: u32 = value.parse().expect("Invalid flu value");
+                // 1
+                "colour" => parse_hex(value, |v| {
                     client.p1(1);
-                    client.p3(v as i32);
-                }
-                "texture" => {
-                    let v: u16 = value.parse().expect("Invalid flu value");
+                    client.p3(v);
+                }),
+
+                // 2
+                "material" => parse_ref(&registry.texture, "texture", value, |v| {
                     client.p1(2);
                     client.p2(v);
-                }
-                "size" => {
-                    let v: u16 = value.parse().expect("Invalid flu value");
+                }),
+
+                // 3
+                "texturescale" => parse_number(value, |v: u16| {
                     client.p1(3);
                     client.p2(v);
-                }
-                "op4_clearbool201" => {
-                    client.p1(4);
-                }
-                "op5_clearbool202" => {
-                    client.p1(5);
-                }
+                }),
+
+                // 4
+                "hardshadow" => client.p1(4),
+
+                // 5
+                "occlude" => client.p1(5),
+
                 _ => panic!("Unrecognized flu config key: {key}"),
             }
         }

@@ -1,5 +1,6 @@
+// 1792
 [clientscript,clanwars_overlay_rules](component $component0, component $component1, component $component2, component $component3, component $component4, int $int5)
-if (%varbit_5283 = false) {
+if (%varplayerbit_5283 = 0) {
     if_setcolour(0xff981f, $component3);
     if_setcolour(0xff981f, $component4);
     if_setgraphic(tex_brown, $component1);

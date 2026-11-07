@@ -1,0 +1,228 @@
+// 59:0
+[com_0]
+type=text
+x=-56
+y=23
+width=96
+height=12
+xmode=abs_centre
+textfont=p11_full
+text=Zamorak = %1
+textalignh=centre
+textshadow=yes
+onload=script1368
+onvartransmit=script1368{varplayer_378, varplayer_377, varplayer_380}
+
+// 59:1
+[com_1]
+type=text
+x=50
+y=23
+width=111
+height=12
+xmode=abs_centre
+textfont=p11_full
+text=%1 = Saradomin
+textalignh=centre
+textshadow=yes
+
+// 59:2
+[com_2]
+type=text
+x=35
+y=38
+width=11
+height=11
+textfont=p11_full
+colour=0x55c855
+
+// 59:3
+[com_3]
+type=text
+x=35
+y=73
+width=11
+height=11
+textfont=p11_full
+colour=0x55c855
+onvartransmit=script1368{varplayer_378, varplayer_377}
+
+// 59:4
+[com_4]
+type=graphic
+y=28
+width=32
+height=32
+colour=0xffffffff
+
+// 59:5
+[com_5]
+type=graphic
+y=62
+width=32
+height=32
+colour=0xffffffff
+
+// 59:6
+[com_6]
+type=text
+x=2
+y=23
+width=68
+height=11
+xmode=abs_right
+textfont=p11_full
+text=%1 min
+textalignh=centre
+
+// 59:7
+[com_7]
+type=text
+x=-7
+y=-46
+width=4
+height=4
+xmode=abs_centre
+ymode=abs_centre
+textfont=p12_full
+textalignh=centre
+textshadow=yes
+colour=0xffff00
+
+// 59:8
+[com_8]
+type=layer
+y=6
+width=153
+height=148
+ymode=abs_bottom
+
+// 59:9
+[com_9]
+type=text
+x=33
+y=16
+width=90
+height=14
+layer=com_8
+textfont=p11_full
+text=Health %1%
+colour=0x00ff00
+transmitop=10
+op10= 
+
+// 59:10
+[com_10]
+type=text
+x=33
+y=44
+width=90
+height=14
+layer=com_8
+textfont=p11_full
+text=Locked
+colour=0x00ff00
+transmitop=10
+op10= 
+
+// 59:11
+[com_11]
+type=text
+x=33
+y=70
+width=90
+height=14
+layer=com_8
+textfont=p11_full
+text=Collapsed
+colour=0x00ff00
+transmitop=10
+op10= 
+
+// 59:12
+[com_12]
+type=text
+x=33
+y=97
+width=90
+height=14
+layer=com_8
+textfont=p11_full
+text=Collapsed
+colour=0x00ff00
+transmitop=10
+op10= 
+
+// 59:13
+[com_13]
+type=text
+x=33
+y=122
+width=90
+height=14
+layer=com_8
+textfont=p11_full
+text=Operational
+colour=0x00ff00
+transmitop=10
+op10= 
+
+// 59:14
+[com_14]
+type=graphic
+x=2
+y=2
+width=32
+height=32
+layer=com_8
+colour=0xffffffff
+transmitop=10
+op10= 
+
+// 59:15
+[com_15]
+type=graphic
+x=2
+y=36
+width=32
+height=32
+layer=com_8
+colour=0xffffffff
+transmitop=10
+op10= 
+
+// 59:16
+[com_16]
+type=graphic
+x=2
+y=62
+width=32
+height=32
+layer=com_8
+colour=0xffffffff
+transmitop=10
+op10= 
+
+// 59:17
+[com_17]
+type=graphic
+x=1
+y=87
+width=32
+height=32
+layer=com_8
+colour=0xffffffff
+transmitop=10
+op10= 
+
+// 59:18
+[com_18]
+type=graphic
+x=2
+y=114
+width=32
+height=32
+layer=com_8
+colour=0xffffffff
+transmitop=10
+op10= 

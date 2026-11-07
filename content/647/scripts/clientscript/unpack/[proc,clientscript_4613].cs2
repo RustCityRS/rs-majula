@@ -1,8 +1,0 @@
-[proc,clientscript_4613](component $component)
-if (%varbit_9254 = false & (%varbit_9255 = false & (%varbit_9256 = false & %varbit_9257 = false))) {
-    return;
-}
-if_setmodel_recolour(0, 65214, %varbit_9254, $component);
-if_setmodel_recolour(1, 65200, %varbit_9255, $component);
-if_setmodel_recolour(3, 65186, %varbit_9256, $component);
-if_setmodel_recolour(4, 62995, %varbit_9257, $component);

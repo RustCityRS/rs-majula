@@ -1,8 +1,9 @@
+// 2352
 [clientscript,xbows_setfont]
-if (getlanguage = 2 | getlanguage = 3) {
-    if_settextfont(p11_full, xbows_pouch:com16);
-    if_settextfont(p11_full, xbows_pouch:com17);
-    if_settextfont(p11_full, xbows_pouch:com18);
-    if_settextfont(p11_full, xbows_pouch:com19);
-    if_settextfont(p11_full, xbows_pouch:com20);
+if (map_lang = 2 | map_lang = 3) {
+    if_settextfont(p11_full, xbows_pouch:com_16);
+    if_settextfont(p11_full, xbows_pouch:com_17);
+    if_settextfont(p11_full, xbows_pouch:com_18);
+    if_settextfont(p11_full, xbows_pouch:com_19);
+    if_settextfont(p11_full, xbows_pouch:com_20);
 }

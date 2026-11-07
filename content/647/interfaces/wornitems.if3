@@ -1,0 +1,604 @@
+// 387:0
+[com_0]
+type=graphic
+y=20
+width=32
+height=160
+xmode=abs_centre
+graphic="v2_stone_borders,1"
+tiling=yes
+colour=0xffffffff
+
+// 387:1
+[com_1]
+type=line
+x=3
+y=20
+height=160
+xmode=abs_centre
+colour=0x000000
+
+// 387:2
+[com_2]
+type=graphic
+x=-56
+y=95
+width=32
+height=85
+xmode=abs_centre
+graphic="v2_stone_borders,1"
+tiling=yes
+colour=0xffffffff
+
+// 387:3
+[com_3]
+type=graphic
+x=56
+y=95
+width=32
+height=85
+xmode=abs_centre
+graphic="v2_stone_borders,1"
+tiling=yes
+hflip=yes
+colour=0xffffffff
+
+// 387:4
+[com_4]
+type=graphic
+y=43
+width=80
+height=32
+xmode=abs_centre
+graphic="v2_stone_borders,2"
+tiling=yes
+vflip=yes
+colour=0xffffffff
+
+// 387:5
+[com_5]
+type=graphic
+y=82
+width=110
+height=32
+xmode=abs_centre
+graphic="v2_stone_borders,2"
+tiling=yes
+vflip=yes
+colour=0xffffffff
+
+// 387:6
+[worn]
+type=layer
+y=4
+width=36
+height=36
+xmode=abs_centre
+
+// 387:7
+[com_7]
+type=graphic
+width=36
+height=36
+xmode=abs_centre
+ymode=abs_centre
+layer=worn
+graphic="miscgraphics,0"
+colour=0xffffffff
+
+// 387:8
+[hat_slot]
+type=graphic
+widthmode=minus
+heightmode=minus
+xmode=abs_centre
+ymode=abs_centre
+layer=worn
+colour=0xffffffff
+transmitop=1,2,3,4,5,6,10
+op1=*
+op2=*
+op3=*
+op4=*
+op5=*
+op6=*
+op10=*
+onload=wornitems_slot(event_com, 0)
+oninvtransmit=wornitems_slot(event_com, 0){worn}
+
+// 387:9
+[com_9]
+type=layer
+x=-41
+y=43
+width=36
+height=36
+xmode=abs_centre
+
+// 387:10
+[com_10]
+type=graphic
+width=36
+height=36
+xmode=abs_centre
+ymode=abs_centre
+layer=com_9
+graphic="miscgraphics,0"
+colour=0xffffffff
+
+// 387:11
+[cape_slot]
+type=graphic
+widthmode=minus
+heightmode=minus
+xmode=abs_centre
+ymode=abs_centre
+layer=com_9
+colour=0xffffffff
+transmitop=1,2,3,4,5,6,10
+op1=*
+op2=*
+op3=*
+op4=*
+op5=*
+op6=*
+op10=* 
+onload=wornitems_slot(event_com, 1)
+oninvtransmit=wornitems_slot(event_com, 1){worn}
+
+// 387:12
+[com_12]
+type=layer
+y=43
+width=36
+height=36
+xmode=abs_centre
+
+// 387:13
+[com_13]
+type=graphic
+width=36
+height=36
+xmode=abs_centre
+ymode=abs_centre
+layer=com_12
+graphic="miscgraphics,0"
+colour=0xffffffff
+
+// 387:14
+[amulet_slot]
+type=graphic
+widthmode=minus
+heightmode=minus
+xmode=abs_centre
+ymode=abs_centre
+layer=com_12
+colour=0xffffffff
+transmitop=1,2,3,4,5,6,10
+op1=*
+op2=*
+op3=*
+op4=*
+op5=*
+op6=*
+op10=*
+onload=wornitems_slot(event_com, 2)
+oninvtransmit=wornitems_slot(event_com, 2){worn}
+
+// 387:15
+[com_15]
+type=layer
+x=-56
+y=82
+width=36
+height=36
+xmode=abs_centre
+
+// 387:16
+[com_16]
+type=graphic
+width=36
+height=36
+xmode=abs_centre
+ymode=abs_centre
+layer=com_15
+graphic="miscgraphics,0"
+colour=0xffffffff
+
+// 387:17
+[weapon_slot]
+type=graphic
+widthmode=minus
+heightmode=minus
+xmode=abs_centre
+ymode=abs_centre
+layer=com_15
+colour=0xffffffff
+transmitop=1,2,3,4,5,6,10
+op1=*
+op2=*
+op3=*
+op4=*
+op5=*
+op6=*
+op10=*
+onload=wornitems_slot(event_com, 3)
+oninvtransmit=wornitems_slot(event_com, 3){worn}
+
+// 387:18
+[com_18]
+type=layer
+y=82
+width=36
+height=36
+xmode=abs_centre
+
+// 387:19
+[com_19]
+type=graphic
+width=36
+height=36
+xmode=abs_centre
+ymode=abs_centre
+layer=com_18
+graphic="miscgraphics,0"
+colour=0xffffffff
+
+// 387:20
+[chest_slot]
+type=graphic
+widthmode=minus
+heightmode=minus
+xmode=abs_centre
+ymode=abs_centre
+layer=com_18
+colour=0xffffffff
+transmitop=1,2,3,4,5,6,10
+op1=*
+op2=*
+op3=*
+op4=*
+op5=*
+op6=*
+op10=*
+onload=wornitems_slot(event_com, 4)
+oninvtransmit=wornitems_slot(event_com, 4){worn}
+
+// 387:21
+[com_21]
+type=layer
+x=56
+y=82
+width=36
+height=36
+xmode=abs_centre
+
+// 387:22
+[com_22]
+type=graphic
+width=36
+height=36
+xmode=abs_centre
+ymode=abs_centre
+layer=com_21
+graphic="miscgraphics,0"
+colour=0xffffffff
+
+// 387:23
+[shield_slot]
+type=graphic
+widthmode=minus
+heightmode=minus
+xmode=abs_centre
+ymode=abs_centre
+layer=com_21
+colour=0xffffffff
+transmitop=1,2,3,4,5,6,10
+op1=*
+op2=*
+op3=*
+op4=*
+op5=*
+op6=*
+op10=*
+onload=wornitems_slot(event_com, 5)
+oninvtransmit=wornitems_slot(event_com, 5){worn}
+
+// 387:24
+[com_24]
+type=layer
+y=122
+width=36
+height=36
+xmode=abs_centre
+
+// 387:25
+[com_25]
+type=graphic
+width=36
+height=36
+xmode=abs_centre
+ymode=abs_centre
+layer=com_24
+graphic="miscgraphics,0"
+colour=0xffffffff
+
+// 387:26
+[legs_slot]
+type=graphic
+widthmode=minus
+heightmode=minus
+xmode=abs_centre
+ymode=abs_centre
+layer=com_24
+colour=0xffffffff
+transmitop=1,2,3,4,5,6,10
+op1=*
+op2=*
+op3=*
+op4=*
+op5=*
+op6=*
+op10=* 
+onload=wornitems_slot(event_com, 7)
+oninvtransmit=wornitems_slot(event_com, 7){worn}
+
+// 387:27
+[com_27]
+type=layer
+x=-56
+y=162
+width=36
+height=36
+xmode=abs_centre
+
+// 387:28
+[com_28]
+type=graphic
+width=36
+height=36
+xmode=abs_centre
+ymode=abs_centre
+layer=com_27
+graphic="miscgraphics,0"
+colour=0xffffffff
+
+// 387:29
+[hands_slot]
+type=graphic
+widthmode=minus
+heightmode=minus
+xmode=abs_centre
+ymode=abs_centre
+layer=com_27
+colour=0xffffffff
+transmitop=1,2,3,4,5,6,10
+op1=*
+op2=*
+op3=*
+op4=*
+op5=*
+op6=*
+op10=* 
+onload=wornitems_slot(event_com, 9)
+oninvtransmit=wornitems_slot(event_com, 9){worn}
+
+// 387:30
+[com_30]
+type=layer
+y=162
+width=36
+height=36
+xmode=abs_centre
+
+// 387:31
+[com_31]
+type=graphic
+width=36
+height=36
+xmode=abs_centre
+ymode=abs_centre
+layer=com_30
+graphic="miscgraphics,0"
+colour=0xffffffff
+
+// 387:32
+[feet_slot]
+type=graphic
+widthmode=minus
+heightmode=minus
+xmode=abs_centre
+ymode=abs_centre
+layer=com_30
+colour=0xffffffff
+transmitop=1,2,3,4,5,6,10
+op1=*
+op2=*
+op3=*
+op4=*
+op5=*
+op6=*
+op10=*
+onload=wornitems_slot(event_com, 10)
+oninvtransmit=wornitems_slot(event_com, 10){worn}
+
+// 387:33
+[com_33]
+type=layer
+x=56
+y=162
+width=36
+height=36
+xmode=abs_centre
+
+// 387:34
+[com_34]
+type=graphic
+width=36
+height=36
+xmode=abs_centre
+ymode=abs_centre
+layer=com_33
+graphic="miscgraphics,0"
+colour=0xffffffff
+
+// 387:35
+[ring_slot]
+type=graphic
+widthmode=minus
+heightmode=minus
+xmode=abs_centre
+ymode=abs_centre
+layer=com_33
+colour=0xffffffff
+transmitop=1,2,3,4,5,6,10
+op1=*
+op2=*
+op3=*
+op4=*
+op5=*
+op6=*
+op10=*
+onload=wornitems_slot(event_com, 12)
+oninvtransmit=wornitems_slot(event_com, 12){worn}
+
+// 387:36
+[com_36]
+type=layer
+x=41
+y=43
+width=36
+height=36
+xmode=abs_centre
+
+// 387:37
+[com_37]
+type=graphic
+width=36
+height=36
+xmode=abs_centre
+ymode=abs_centre
+layer=com_36
+graphic="miscgraphics,0"
+colour=0xffffffff
+
+// 387:38
+[ammo_slot]
+type=graphic
+widthmode=minus
+heightmode=minus
+xmode=abs_centre
+ymode=abs_centre
+layer=com_36
+colour=0xffffffff
+transmitop=1,2,3,4,5,6,10
+op1=*
+op2=*
+op3=*
+op4=*
+op5=*
+op6=*
+op10=*
+onload=wornitems_slot(event_com, 13)
+oninvtransmit=wornitems_slot(event_com, 13){worn}
+
+// 387:39
+[com_39]
+type=layer
+x=-55
+y=208
+width=40
+height=40
+xmode=abs_centre
+transmitop=1
+op1=Show Equipment Stats
+onload=script1150(wornitems:com_40)
+onmouseover=script1152(wornitems:com_40)
+onmouseleave=script1150(wornitems:com_40)
+
+// 387:40
+[com_40]
+type=layer
+widthmode=minus
+heightmode=minus
+xmode=abs_centre
+ymode=abs_centre
+layer=com_39
+
+// 387:41
+[com_41]
+type=graphic
+width=32
+height=32
+xmode=abs_centre
+ymode=abs_centre
+layer=com_39
+graphic="options_icons,16"
+colour=0xffffffff
+
+// 387:42
+[com_42]
+type=layer
+y=208
+width=40
+height=40
+xmode=abs_centre
+transmitop=1
+op1=Show Price-checker
+onload=script1150(wornitems:com_43)
+onmouseover=script1152(wornitems:com_43)
+onmouseleave=script1150(wornitems:com_43)
+
+// 387:43
+[com_43]
+type=layer
+widthmode=minus
+heightmode=minus
+xmode=abs_centre
+ymode=abs_centre
+layer=com_42
+
+// 387:44
+[com_44]
+type=graphic
+width=32
+height=31
+xmode=abs_centre
+ymode=abs_centre
+layer=com_42
+graphic=bank_bag
+colour=0xffffffff
+
+// 387:45
+[com_45]
+type=layer
+x=55
+y=208
+width=40
+height=40
+xmode=abs_centre
+transmitop=1
+op1=Show Items Kept on Death
+onload=script1150(wornitems:com_46)
+onmouseover=script1152(wornitems:com_46)
+onmouseleave=script1150(wornitems:com_46)
+
+// 387:46
+[com_46]
+type=layer
+widthmode=minus
+heightmode=minus
+xmode=abs_centre
+ymode=abs_centre
+layer=com_45
+
+// 387:47
+[com_47]
+type=graphic
+width=32
+height=32
+xmode=abs_centre
+ymode=abs_centre
+layer=com_45
+graphic="options_icons,18"
+colour=0xffffffff

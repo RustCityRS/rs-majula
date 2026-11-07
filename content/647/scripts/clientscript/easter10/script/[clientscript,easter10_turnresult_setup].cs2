@@ -1,50 +1,51 @@
+// 2241
 [clientscript,easter10_turnresult_setup]
-if_settext("+ <tostring(%varp_1693)> ( <tostring(%varp_1687)> )<br>+ <tostring(%varp_1692)> ( <tostring(%varp_1686)> )<br>+ <tostring(%varp_1694)> ( <tostring(%varp_1688)> )<br>", ag2635914:com106);
-if_settext("+ <tostring(%varp_1695)> ( <tostring(%varp_1689)> )<br>+ <tostring(%varp_1697)> ( <tostring(%varp_1690)> )<br>+ <tostring(%varp_1696)> ( <tostring(%varp_1691)> )<br>", ag2635914:com108);
-if (%varbit_7324 = true) {
-    if_settext("WORKING", ag2635914:com113);
-    if_setcolour(^green, ag2635914:com113);
+if_settext("+ <tostring(%varplayer_1693)> ( <tostring(%varplayer_1687)> )<br>+ <tostring(%varplayer_1692)> ( <tostring(%varplayer_1686)> )<br>+ <tostring(%varplayer_1694)> ( <tostring(%varplayer_1688)> )<br>", interface_929:com_106);
+if_settext("+ <tostring(%varplayer_1695)> ( <tostring(%varplayer_1689)> )<br>+ <tostring(%varplayer_1697)> ( <tostring(%varplayer_1690)> )<br>+ <tostring(%varplayer_1696)> ( <tostring(%varplayer_1691)> )<br>", interface_929:com_108);
+if (%varplayerbit_7324 = 1) {
+    if_settext("WORKING", interface_929:com_113);
+    if_setcolour(^green, interface_929:com_113);
 } else {
     sound_synth(synth_8723, 10, 0);
-    if_settext("NEEDS REPAIR", ag2635914:com113);
-    if_setcolour(^red, ag2635914:com113);
+    if_settext("NEEDS REPAIR", interface_929:com_113);
+    if_setcolour(^red, interface_929:com_113);
 }
-if (%varbit_7326 = true) {
-    if_settext("WORKING", ag2635914:com112);
-    if_setcolour(^green, ag2635914:com112);
+if (%varplayerbit_7326 = 1) {
+    if_settext("WORKING", interface_929:com_112);
+    if_setcolour(^green, interface_929:com_112);
 } else {
     sound_synth(synth_8723, 10, 1);
-    if_settext("NEEDS REPAIR", ag2635914:com112);
-    if_setcolour(^red, ag2635914:com112);
+    if_settext("NEEDS REPAIR", interface_929:com_112);
+    if_setcolour(^red, interface_929:com_112);
 }
-if (%varbit_7325 = true) {
-    if_settext("WORKING", ag2635914:com114);
-    if_setcolour(^green, ag2635914:com114);
+if (%varplayerbit_7325 = 1) {
+    if_settext("WORKING", interface_929:com_114);
+    if_setcolour(^green, interface_929:com_114);
 } else {
     sound_synth(synth_8723, 10, 2);
-    if_settext("NEEDS REPAIR", ag2635914:com114);
-    if_setcolour(^red, ag2635914:com114);
+    if_settext("NEEDS REPAIR", interface_929:com_114);
+    if_setcolour(^red, interface_929:com_114);
 }
-if_settext(tostring(calc(%varc_int_1135 / 5)), ag2635914:com102);
-switch_int (%varp_1698) {
-    case 5:
-        if_settext("Your workers uncover a hidden stash and you receive", ag2635914:com104);
-        if_settext("3 extra resources.", ag2635914:com105);
+if_settext(tostring(calc(%varclient_1135 / 5)), interface_929:com_102);
+switch_int (%varplayer_1698) {
+    case 5 :
+        if_settext("Your workers uncover a hidden stash and you receive", interface_929:com_104);
+        if_settext("3 extra resources.", interface_929:com_105);
         sound_synth(synth_8728, 1, 0);
-    case 6:
-        if_settext("An accident at work has taken place. As a result you have", ag2635914:com104);
-        if_settext("lost 3 resources.", ag2635914:com105);
+    case 6 :
+        if_settext("An accident at work has taken place. As a result you have", interface_929:com_104);
+        if_settext("lost 3 resources.", interface_929:com_105);
         sound_synth(synth_8723, 10, 0);
-    case 7:
-        if_settext("The paint machine is out of glaze and requires a repair to work at full efficiency.", ag2635914:com104);
-        if_settext("Painter needs repair.", ag2635914:com105);
-    case 8:
-        if_settext("The conveyor team needs re-training in order to work at full efficiency.", ag2635914:com104);
-        if_settext("Conveyor needs repair.", ag2635914:com105);
-    case 9:
-        if_settext("The oven is coated in soot. It requires a repair to work at full efficiency.", ag2635914:com104);
-        if_settext("Oven needs repair.", ag2635914:com105);
-    case default:
-        if_settext("", ag2635914:com104);
-        if_settext("Nothing unusual happened.", ag2635914:com105);
+    case 7 :
+        if_settext("The paint machine is out of glaze and requires a repair to work at full efficiency.", interface_929:com_104);
+        if_settext("Painter needs repair.", interface_929:com_105);
+    case 8 :
+        if_settext("The conveyor team needs re-training in order to work at full efficiency.", interface_929:com_104);
+        if_settext("Conveyor needs repair.", interface_929:com_105);
+    case 9 :
+        if_settext("The oven is coated in soot. It requires a repair to work at full efficiency.", interface_929:com_104);
+        if_settext("Oven needs repair.", interface_929:com_105);
+    case default :
+        if_settext("", interface_929:com_104);
+        if_settext("Nothing unusual happened.", interface_929:com_105);
 }

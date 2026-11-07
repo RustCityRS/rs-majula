@@ -1,3 +1,4 @@
+// 1963
 [clientscript,pest_mouseover](component $component0, int $int1)
 if (%xplamp_stat ! $int1) {
     if_settext("<col=ff981f><removetags(if_gettext($component0))></col>", $component0);

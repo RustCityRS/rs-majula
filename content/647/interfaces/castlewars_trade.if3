@@ -1,0 +1,3784 @@
+// 60:0
+[com_0]
+type=layer
+width=512
+height=334
+transmitop=10
+op10= 
+
+// 60:1
+[com_1]
+type=layer
+x=27
+y=48
+width=144
+height=30
+transmitop=1,10
+op1=Decorative armour rewards
+op10=  
+onmouseover=script3429(castlewars_trade:com_2, castlewars_trade:com_3, castlewars_trade:com_4, "lobby_buttons,2", "lobby_buttons,3", "lobby_buttons,2")
+onmouseleave=script3429(castlewars_trade:com_2, castlewars_trade:com_3, castlewars_trade:com_4, "lobby_buttons,0", "lobby_buttons,1", "lobby_buttons,0")
+onop=settingpopovers
+
+// 60:2
+[com_2]
+type=graphic
+width=18
+height=16384
+heightmode=proportion
+layer=com_1
+graphic="lobby_buttons,0"
+colour=0xffffffff
+transmitop=10
+op10=  
+
+// 60:3
+[com_3]
+type=graphic
+x=17
+width=113
+height=16384
+heightmode=proportion
+layer=com_1
+graphic="lobby_buttons,1"
+colour=0xffffffff
+transmitop=10
+op10=  
+
+// 60:4
+[com_4]
+type=graphic
+width=18
+height=16384
+heightmode=proportion
+xmode=abs_right
+layer=com_1
+graphic="lobby_buttons,0"
+hflip=yes
+colour=0xffffffff
+transmitop=10
+op10=  
+
+// 60:5
+[com_5]
+type=layer
+y=48
+width=144
+height=30
+xmode=abs_centre
+transmitop=1,10
+op1=Consumable rewards
+op10=   
+onmouseover=script3429(castlewars_trade:com_6, castlewars_trade:com_7, castlewars_trade:com_8, "lobby_buttons,2", "lobby_buttons,3", "lobby_buttons,2")
+onmouseleave=script3429(castlewars_trade:com_6, castlewars_trade:com_7, castlewars_trade:com_8, "lobby_buttons,0", "lobby_buttons,1", "lobby_buttons,0")
+onop=script3420
+
+// 60:6
+[com_6]
+type=graphic
+width=18
+height=16391
+heightmode=proportion
+layer=com_5
+graphic="lobby_buttons,0"
+colour=0xffffffff
+transmitop=10
+op10=   
+
+// 60:7
+[com_7]
+type=graphic
+x=16
+width=113
+height=16391
+heightmode=proportion
+layer=com_5
+graphic="lobby_buttons,1"
+colour=0xffffffff
+transmitop=10
+op10=   
+
+// 60:8
+[com_8]
+type=graphic
+width=18
+height=16384
+heightmode=proportion
+xmode=abs_right
+layer=com_5
+graphic="lobby_buttons,0"
+hflip=yes
+colour=0xffffffff
+transmitop=10
+op10=   
+
+// 60:9
+[com_9]
+type=layer
+x=340
+y=48
+width=144
+height=30
+transmitop=1,10
+op1=Misc rewards
+op10=   
+onmouseover=script3429(castlewars_trade:com_10, castlewars_trade:com_11, castlewars_trade:com_12, "lobby_buttons,2", "lobby_buttons,3", "lobby_buttons,2")
+onmouseleave=script3429(castlewars_trade:com_10, castlewars_trade:com_11, castlewars_trade:com_12, "lobby_buttons,0", "lobby_buttons,1", "lobby_buttons,0")
+onop=castlewars_misc_button
+
+// 60:10
+[com_10]
+type=graphic
+width=18
+height=16384
+heightmode=proportion
+layer=com_9
+graphic="lobby_buttons,0"
+colour=0xffffffff
+transmitop=10
+op10=   
+
+// 60:11
+[com_11]
+type=graphic
+x=16
+width=113
+height=16384
+heightmode=proportion
+layer=com_9
+graphic="lobby_buttons,1"
+colour=0xffffffff
+transmitop=10
+op10=   
+
+// 60:12
+[com_12]
+type=graphic
+width=18
+height=16384
+heightmode=proportion
+xmode=abs_right
+layer=com_9
+graphic="lobby_buttons,0"
+hflip=yes
+colour=0xffffffff
+transmitop=10
+op10=   
+
+// 60:13
+[com_13]
+type=text
+width=15564
+height=15564
+widthmode=proportion
+heightmode=proportion
+xmode=abs_centre
+ymode=abs_centre
+layer=com_9
+textfont=p12_full
+text=Miscellaneous
+textalignh=centre
+textalignv=centre
+colour=0x000000
+transmitop=10
+op10=   
+
+// 60:14
+[com_14]
+type=layer
+y=23
+width=92
+height=7
+xmode=abs_centre
+layer=com_9
+hide=yes
+transmitop=10
+op10=  
+
+// 60:15
+[com_15]
+type=line
+y=4
+width=4096
+widthmode=proportion
+xmode=abs_centre
+layer=com_14
+linewid=2
+colour=0x000000
+transmitop=10
+op10=  
+
+// 60:16
+[com_16]
+type=text
+width=15564
+height=15564
+widthmode=proportion
+heightmode=proportion
+xmode=abs_centre
+ymode=abs_centre
+layer=com_5
+textfont=p12_full
+text=Consumables
+textalignh=centre
+textalignv=centre
+colour=0x000000
+transmitop=10
+op10=   
+
+// 60:17
+[com_17]
+type=layer
+y=23
+width=92
+height=7
+xmode=abs_centre
+layer=com_5
+hide=yes
+transmitop=10
+op10=  
+
+// 60:18
+[com_18]
+type=line
+y=4
+width=4096
+widthmode=proportion
+xmode=abs_centre
+layer=com_17
+linewid=2
+colour=0x000000
+transmitop=10
+op10=  
+
+// 60:19
+[com_19]
+type=text
+width=15564
+height=15564
+widthmode=proportion
+heightmode=proportion
+xmode=abs_centre
+ymode=abs_centre
+layer=com_1
+textfont=p12_full
+text=Decorative Armour
+textalignh=centre
+textalignv=centre
+colour=0x000000
+transmitop=10
+op10=  
+
+// 60:20
+[com_20]
+type=layer
+y=23
+width=92
+height=7
+xmode=abs_centre
+layer=com_1
+transmitop=10
+op10= 
+
+// 60:21
+[com_21]
+type=line
+y=4
+width=4096
+widthmode=proportion
+xmode=abs_centre
+layer=com_20
+linewid=2
+colour=0x000000
+transmitop=10
+op10= 
+
+// 60:22
+[com_22]
+type=graphic
+x=9
+y=42
+width=495
+height=76
+layer=com_0
+graphic=graphic_2045
+tiling=yes
+colour=0xffffffff
+transmitop=10
+opbase=  
+op10=  
+
+// 60:23
+[com_23]
+type=graphic
+x=10
+y=110
+width=493
+height=171
+layer=com_0
+graphic=km_middlefillcolour
+colour=0xffffffff
+transmitop=10
+op10= 
+
+// 60:24
+[com_24]
+type=graphic
+x=10
+y=280
+width=492
+height=46
+layer=com_0
+graphic=graphic_2044
+tiling=yes
+colour=0xffffffff
+transmitop=10
+op10= 
+
+// 60:25
+[com_25]
+type=graphic
+x=489
+y=25
+width=22
+height=281
+layer=com_0
+graphic="v2_stone_borders,3"
+tiling=yes
+colour=0xffffffff
+transmitop=10
+opbase= 
+op10=  
+
+// 60:26
+[com_26]
+type=graphic
+x=15
+y=312
+width=477
+height=23
+layer=com_0
+graphic="v2_stone_borders,2"
+tiling=yes
+colour=0xffffffff
+transmitop=10
+op10=  
+
+// 60:27
+[com_27]
+type=graphic
+x=35
+y=22
+width=459
+height=32
+layer=com_0
+graphic="v2_stone_borders,36"
+tiling=yes
+colour=0xffffffff
+transmitop=10
+opbase= 
+op10=  
+
+// 60:28
+[com_28]
+type=graphic
+x=477
+y=300
+width=32
+height=32
+layer=com_0
+graphic="v2_stone_borders,7"
+colour=0xffffffff
+transmitop=10
+opbase= 
+op10=  
+
+// 60:29
+[com_29]
+type=graphic
+x=3
+y=300
+width=32
+height=32
+layer=com_0
+graphic="v2_stone_borders,6"
+colour=0xffffffff
+transmitop=10
+op10=  
+
+// 60:30
+[com_30]
+type=graphic
+x=-10
+y=25
+width=37
+height=276
+layer=com_0
+graphic="v2_stone_borders,1"
+tiling=yes
+colour=0xffffffff
+transmitop=10
+opbase= 
+op10=  
+
+// 60:31
+[com_31]
+type=graphic
+x=3
+y=22
+width=32
+height=32
+layer=com_0
+graphic="v2_stone_borders,35"
+colour=0xffffffff
+transmitop=10
+opbase= 
+op10=  
+
+// 60:32
+[com_32]
+type=graphic
+x=477
+y=22
+width=32
+height=32
+layer=com_0
+graphic="v2_stone_borders,37"
+colour=0xffffffff
+transmitop=10
+opbase= 
+op10=  
+
+// 60:33
+[com_33]
+type=graphic
+x=483
+y=26
+width=16
+height=16
+layer=com_0
+graphic="v2_stone_close_button,0"
+colour=0xffffffff
+transmitop=1,10
+op1=Close
+op10=  
+onmouseover=graphic_swapper(event_com, "v2_stone_close_button,1")
+onmouseleave=graphic_swapper(event_com, "v2_stone_close_button,0")
+onop=closebutton_click
+
+// 60:34
+[com_34]
+type=text
+x=-10
+y=26
+width=443
+height=17
+xmode=abs_centre
+layer=com_0
+textfont=b12_full
+text=Castle Wars Ticket Exchange
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xff991f
+transmitop=10
+op10= 
+
+// 60:35
+[com_35]
+type=graphic
+x=12
+y=85
+width=7
+height=93
+layer=com_0
+graphic=graphic_3159
+colour=0xffffffff
+
+// 60:36
+[com_36]
+type=graphic
+x=18
+y=85
+width=475
+height=93
+layer=com_0
+graphic=graphic_3160
+colour=0xffffffff
+
+// 60:37
+[com_37]
+type=graphic
+x=492
+y=85
+width=7
+height=93
+layer=com_0
+graphic=graphic_3159
+hflip=yes
+colour=0xffffffff
+
+// 60:38
+[com_38]
+type=graphic
+x=12
+y=185
+width=7
+height=93
+layer=com_0
+graphic=graphic_3159
+colour=0xffffffff
+
+// 60:39
+[com_39]
+type=graphic
+x=17
+y=185
+width=475
+height=93
+layer=com_0
+graphic=graphic_3160
+colour=0xffffffff
+
+// 60:40
+[com_40]
+type=graphic
+x=492
+y=185
+width=7
+height=93
+layer=com_0
+graphic=graphic_3159
+hflip=yes
+colour=0xffffffff
+
+// 60:41
+[com_41]
+type=layer
+x=16
+y=196
+width=67
+height=101
+layer=com_0
+
+// 60:42
+[com_42]
+type=layer
+x=16
+y=86
+width=67
+height=101
+layer=com_0
+
+// 60:43
+[com_43]
+type=text
+x=4
+y=63
+width=16384
+height=20
+widthmode=proportion
+layer=com_42
+textfont=p11_full
+text=Tickets :
+textalignv=centre
+textshadow=yes
+colour=0xccccff
+
+// 60:44
+[com_44]
+type=text
+x=4
+y=55
+width=16384
+height=20
+widthmode=proportion
+layer=com_41
+textfont=p11_full
+text=Tickets :
+textalignv=centre
+textshadow=yes
+colour=0xccccff
+
+// 60:45
+[com_45]
+type=layer
+x=84
+y=74
+width=415
+height=229
+onload=script3422
+
+// 60:46
+[com_46]
+type=layer
+x=84
+y=74
+width=415
+height=229
+hide=yes
+onload=script3423
+
+// 60:47
+[com_47]
+type=layer
+x=57
+y=20
+width=37
+height=75
+layer=com_46
+transmitop=1,2,10
+opbase=Ballista base
+op1=Buy
+op2=Examine
+op10= 
+onmouseover=script3426(event_com)
+onmouseleave=script3427
+
+// 60:48
+[com_48]
+type=layer
+x=103
+y=20
+width=37
+height=75
+layer=com_46
+transmitop=1,2,10
+opbase=Ballista bolt stack
+op1=Buy
+op2=Examine
+op10= 
+onmouseover=script3426(event_com)
+onmouseleave=script3427
+
+// 60:49
+[com_49]
+type=layer
+x=149
+y=20
+width=37
+height=75
+layer=com_46
+transmitop=1,2,10
+opbase=Ballista bow
+op1=Buy
+op2=Examine
+op10= 
+onmouseover=script3426(event_com)
+onmouseleave=script3427
+
+// 60:50
+[com_50]
+type=rectangle
+width=16384
+height=16384
+widthmode=proportion
+heightmode=proportion
+layer=com_49
+colour=0x333300
+transmitop=10
+op10=   
+onmouseover=text_colour_swapper(event_com, 0xff9933)
+onmouseleave=text_colour_swapper(event_com, 0x333300)
+
+// 60:51
+[com_51]
+type=rectangle
+width=16384
+height=16384
+widthmode=proportion
+heightmode=proportion
+layer=com_49
+colour=0x000000
+fill=yes
+trans=185
+transmitop=10
+op10=   
+
+// 60:52
+[com_52]
+type=text
+width=16384
+height=20
+widthmode=proportion
+xmode=abs_centre
+ymode=abs_bottom
+layer=com_49
+textfont=p11_full
+text=XXXX
+textlineheight=16
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xccccff
+transmitop=10
+op10= 
+
+// 60:53
+[com_53]
+type=graphic
+x=1
+y=3
+width=32
+height=32
+xmode=abs_centre
+layer=com_49
+colour=0xffffffff
+transmitop=10
+op10= 
+
+// 60:54
+[com_54]
+type=layer
+x=6
+y=20
+width=37
+height=75
+xmode=abs_centre
+layer=com_46
+transmitop=1,2,10
+opbase=Ballista chamber
+op1=Buy
+op2=Examine
+op10= 
+onmouseover=script3426(event_com)
+onmouseleave=script3427
+
+// 60:55
+[com_55]
+type=layer
+x=241
+y=20
+width=37
+height=75
+layer=com_46
+transmitop=1,2,10
+opbase=Ballista ammo
+op1=Buy
+op2=Examine
+op10= 
+onmouseover=script3426(event_com)
+onmouseleave=script3427
+
+// 60:56
+[com_56]
+type=layer
+x=58
+y=122
+width=37
+height=75
+layer=com_46
+transmitop=1,2,10
+opbase=Melee potion set
+op1=Buy
+op2=Examine
+op10= 
+onmouseover=script3426(event_com)
+onmouseleave=script3427
+
+// 60:57
+[com_57]
+type=layer
+x=-39
+y=122
+width=37
+height=75
+xmode=abs_centre
+layer=com_46
+transmitop=1,2,10
+opbase=Ranged potion set
+op1=Buy
+op2=Examine
+op10= 
+onmouseover=script3426(event_com)
+onmouseleave=script3427
+
+// 60:58
+[com_58]
+type=layer
+x=242
+y=122
+width=37
+height=75
+layer=com_46
+transmitop=1,2,10
+opbase=Magic potion set
+op1=Buy
+op2=Examine
+op10= 
+onmouseover=script3426(event_com)
+onmouseleave=script3427
+
+// 60:59
+[com_59]
+type=rectangle
+width=16384
+height=16384
+widthmode=proportion
+heightmode=proportion
+layer=com_58
+colour=0x333300
+transmitop=10
+op10=   
+onmouseover=text_colour_swapper(event_com, 0xff9933)
+onmouseleave=text_colour_swapper(event_com, 0x333300)
+
+// 60:60
+[com_60]
+type=rectangle
+width=16384
+height=16384
+widthmode=proportion
+heightmode=proportion
+layer=com_58
+colour=0x000000
+fill=yes
+trans=185
+transmitop=10
+op10=   
+
+// 60:61
+[com_61]
+type=text
+width=16384
+height=20
+widthmode=proportion
+xmode=abs_centre
+ymode=abs_bottom
+layer=com_58
+textfont=p11_full
+text=XXXX
+textlineheight=16
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xccccff
+transmitop=10
+op10= 
+
+// 60:62
+[com_62]
+type=graphic
+x=1
+y=3
+width=32
+height=32
+xmode=abs_centre
+layer=com_58
+colour=0xffffffff
+transmitop=10
+op10= 
+
+// 60:63
+[com_63]
+type=rectangle
+width=16384
+height=16384
+widthmode=proportion
+heightmode=proportion
+layer=com_57
+colour=0x333300
+transmitop=10
+op10=   
+onmouseover=text_colour_swapper(event_com, 0xff9933)
+onmouseleave=text_colour_swapper(event_com, 0x333300)
+
+// 60:64
+[com_64]
+type=rectangle
+width=16384
+height=16384
+widthmode=proportion
+heightmode=proportion
+layer=com_57
+colour=0x000000
+fill=yes
+trans=185
+transmitop=10
+op10=   
+
+// 60:65
+[com_65]
+type=text
+width=16384
+height=20
+widthmode=proportion
+xmode=abs_centre
+ymode=abs_bottom
+layer=com_57
+textfont=p11_full
+text=XXXX
+textlineheight=16
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xccccff
+transmitop=10
+op10= 
+
+// 60:66
+[com_66]
+type=graphic
+x=1
+y=3
+width=32
+height=32
+xmode=abs_centre
+layer=com_57
+colour=0xffffffff
+transmitop=10
+op10= 
+
+// 60:67
+[com_67]
+type=rectangle
+width=16384
+height=16384
+widthmode=proportion
+heightmode=proportion
+layer=com_56
+colour=0x333300
+transmitop=10
+op10=   
+onmouseover=text_colour_swapper(event_com, 0xff9933)
+onmouseleave=text_colour_swapper(event_com, 0x333300)
+
+// 60:68
+[com_68]
+type=rectangle
+width=16384
+height=16384
+widthmode=proportion
+heightmode=proportion
+layer=com_56
+colour=0x000000
+fill=yes
+trans=185
+transmitop=10
+op10=   
+
+// 60:69
+[com_69]
+type=text
+width=16384
+height=20
+widthmode=proportion
+xmode=abs_centre
+ymode=abs_bottom
+layer=com_56
+textfont=p11_full
+text=XXXX
+textlineheight=16
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xccccff
+transmitop=10
+op10= 
+
+// 60:70
+[com_70]
+type=graphic
+x=1
+y=3
+width=32
+height=32
+xmode=abs_centre
+layer=com_56
+colour=0xffffffff
+transmitop=10
+op10= 
+
+// 60:71
+[com_71]
+type=rectangle
+width=16384
+height=16384
+widthmode=proportion
+heightmode=proportion
+layer=com_55
+colour=0x333300
+transmitop=10
+op10=   
+onmouseover=text_colour_swapper(event_com, 0xff9933)
+onmouseleave=text_colour_swapper(event_com, 0x333300)
+
+// 60:72
+[com_72]
+type=rectangle
+width=16384
+height=16384
+widthmode=proportion
+heightmode=proportion
+layer=com_55
+colour=0x000000
+fill=yes
+trans=185
+transmitop=10
+op10=   
+
+// 60:73
+[com_73]
+type=text
+width=16384
+height=20
+widthmode=proportion
+xmode=abs_centre
+ymode=abs_bottom
+layer=com_55
+textfont=p11_full
+text=XXXX
+textlineheight=16
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xccccff
+transmitop=10
+op10= 
+
+// 60:74
+[com_74]
+type=graphic
+x=1
+y=3
+width=32
+height=32
+xmode=abs_centre
+layer=com_55
+colour=0xffffffff
+transmitop=10
+op10= 
+
+// 60:75
+[com_75]
+type=rectangle
+width=16384
+height=16384
+widthmode=proportion
+heightmode=proportion
+layer=com_54
+colour=0x333300
+transmitop=10
+op10=   
+onmouseover=text_colour_swapper(event_com, 0xff9933)
+onmouseleave=text_colour_swapper(event_com, 0x333300)
+
+// 60:76
+[com_76]
+type=rectangle
+width=16384
+height=16384
+widthmode=proportion
+heightmode=proportion
+layer=com_54
+colour=0x000000
+fill=yes
+trans=185
+transmitop=10
+op10=   
+
+// 60:77
+[com_77]
+type=text
+width=16384
+height=20
+widthmode=proportion
+xmode=abs_centre
+ymode=abs_bottom
+layer=com_54
+textfont=p11_full
+text=XXXX
+textlineheight=16
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xccccff
+transmitop=10
+op10= 
+
+// 60:78
+[com_78]
+type=graphic
+x=1
+y=3
+width=32
+height=32
+xmode=abs_centre
+layer=com_54
+colour=0xffffffff
+transmitop=10
+op10= 
+
+// 60:79
+[com_79]
+type=rectangle
+width=16384
+height=16384
+widthmode=proportion
+heightmode=proportion
+layer=com_48
+colour=0x333300
+transmitop=10
+op10=   
+onmouseover=text_colour_swapper(event_com, 0xff9933)
+onmouseleave=text_colour_swapper(event_com, 0x333300)
+
+// 60:80
+[com_80]
+type=rectangle
+width=16384
+height=16384
+widthmode=proportion
+heightmode=proportion
+layer=com_48
+colour=0x000000
+fill=yes
+trans=185
+transmitop=10
+op10=   
+
+// 60:81
+[com_81]
+type=text
+width=16384
+height=20
+widthmode=proportion
+xmode=abs_centre
+ymode=abs_bottom
+layer=com_48
+textfont=p11_full
+text=XXXX
+textlineheight=16
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xccccff
+transmitop=10
+op10= 
+
+// 60:82
+[com_82]
+type=graphic
+x=1
+y=3
+width=32
+height=32
+xmode=abs_centre
+layer=com_48
+colour=0xffffffff
+transmitop=10
+op10= 
+
+// 60:83
+[com_83]
+type=rectangle
+width=16391
+height=16391
+widthmode=proportion
+heightmode=proportion
+layer=com_47
+colour=0x333300
+transmitop=10
+op10=   
+onmouseover=text_colour_swapper(event_com, 0xff9933)
+onmouseleave=text_colour_swapper(event_com, 0x333300)
+
+// 60:84
+[com_84]
+type=rectangle
+width=16391
+height=16391
+widthmode=proportion
+heightmode=proportion
+layer=com_47
+colour=0x000000
+fill=yes
+trans=185
+transmitop=10
+op10=   
+
+// 60:85
+[com_85]
+type=text
+width=16384
+height=20
+widthmode=proportion
+xmode=abs_centre
+ymode=abs_bottom
+layer=com_47
+textfont=p11_full
+text=XXXX
+textlineheight=16
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xccccff
+transmitop=10
+op10= 
+
+// 60:86
+[com_86]
+type=graphic
+x=1
+y=3
+width=32
+height=32
+xmode=abs_centre
+layer=com_47
+colour=0xffffffff
+transmitop=10
+op10= 
+
+// 60:87
+[com_87]
+type=layer
+x=84
+y=74
+width=415
+height=229
+hide=yes
+onload=script3424
+
+// 60:88
+[com_88]
+type=layer
+x=14
+y=284
+width=484
+height=39
+
+// 60:89
+[com_89]
+type=rectangle
+width=1
+height=2
+widthmode=minus
+heightmode=minus
+layer=com_88
+colour=0x000000
+trans=40
+
+// 60:90
+[com_90]
+type=rectangle
+x=1
+y=2
+width=1
+height=2
+widthmode=minus
+heightmode=minus
+layer=com_88
+colour=0x999999
+trans=36
+
+// 60:91
+[com_91]
+type=rectangle
+x=1
+y=1
+width=2
+height=2
+widthmode=minus
+heightmode=minus
+layer=com_88
+colour=0x333333
+fill=yes
+
+// 60:92
+[com_92]
+type=text
+x=4
+width=7
+height=16384
+widthmode=minus
+heightmode=proportion
+layer=com_88
+textfont=p11_full
+text=-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xccccff
+onload=script3427
+
+// 60:93
+[com_93]
+type=layer
+x=4
+y=20
+width=37
+height=75
+layer=com_87
+transmitop=1,2,10
+opbase=Saradomin team cape
+op1=Buy
+op2=Examine
+op10=   
+onmouseover=script3426(event_com)
+onmouseleave=script3427
+
+// 60:94
+[com_94]
+type=rectangle
+width=16384
+height=16384
+widthmode=proportion
+heightmode=proportion
+layer=com_93
+colour=0x333300
+transmitop=10
+op10=      
+onmouseover=text_colour_swapper(event_com, 0xff9933)
+onmouseleave=text_colour_swapper(event_com, 0x333300)
+
+// 60:95
+[com_95]
+type=rectangle
+width=16384
+height=16384
+widthmode=proportion
+heightmode=proportion
+layer=com_93
+colour=0x000000
+fill=yes
+trans=185
+transmitop=10
+op10=      
+
+// 60:96
+[com_96]
+type=text
+width=16384
+height=20
+widthmode=proportion
+xmode=abs_centre
+ymode=abs_bottom
+layer=com_93
+textfont=p11_full
+text=XXXX
+textlineheight=16
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xccccff
+transmitop=10
+op10=    
+
+// 60:97
+[com_97]
+type=graphic
+x=1
+y=3
+width=32
+height=32
+xmode=abs_centre
+layer=com_93
+colour=0xffffffff
+transmitop=10
+op10=    
+
+// 60:98
+[com_98]
+type=layer
+x=50
+y=20
+width=37
+height=75
+layer=com_87
+transmitop=1,2,10
+opbase=Zamorak team cape
+op1=Buy
+op2=Examine
+op10=   
+onmouseover=script3426(event_com)
+onmouseleave=script3427
+
+// 60:99
+[com_99]
+type=rectangle
+width=16384
+height=16384
+widthmode=proportion
+heightmode=proportion
+layer=com_98
+colour=0x333300
+transmitop=10
+op10=     
+onmouseover=text_colour_swapper(event_com, 0xff9933)
+onmouseleave=text_colour_swapper(event_com, 0x333300)
+
+// 60:100
+[com_100]
+type=rectangle
+width=16384
+height=16384
+widthmode=proportion
+heightmode=proportion
+layer=com_98
+colour=0x000000
+fill=yes
+trans=185
+transmitop=10
+op10=     
+
+// 60:101
+[com_101]
+type=text
+width=16384
+height=20
+widthmode=proportion
+xmode=abs_centre
+ymode=abs_bottom
+layer=com_98
+textfont=p11_full
+text=XXXX
+textlineheight=16
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xccccff
+transmitop=10
+op10=   
+
+// 60:102
+[com_102]
+type=graphic
+x=1
+y=3
+width=32
+height=32
+xmode=abs_centre
+layer=com_98
+colour=0xffffffff
+transmitop=10
+op10=   
+
+// 60:103
+[com_103]
+type=layer
+x=95
+y=20
+width=37
+height=75
+layer=com_87
+transmitop=1,2,10
+opbase=Saradomin team hood
+op1=Buy
+op2=Examine
+op10=  
+onmouseover=script3426(event_com)
+onmouseleave=script3427
+
+// 60:104
+[com_104]
+type=rectangle
+width=16384
+height=16384
+widthmode=proportion
+heightmode=proportion
+layer=com_103
+colour=0x333300
+transmitop=10
+op10=     
+onmouseover=text_colour_swapper(event_com, 0xff9933)
+onmouseleave=text_colour_swapper(event_com, 0x333300)
+
+// 60:105
+[com_105]
+type=rectangle
+width=16384
+height=16384
+widthmode=proportion
+heightmode=proportion
+layer=com_103
+colour=0x000000
+fill=yes
+trans=185
+transmitop=10
+op10=     
+
+// 60:106
+[com_106]
+type=text
+width=16384
+height=20
+widthmode=proportion
+xmode=abs_centre
+ymode=abs_bottom
+layer=com_103
+textfont=p11_full
+text=XXXX
+textlineheight=16
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xccccff
+transmitop=10
+op10=   
+
+// 60:107
+[com_107]
+type=graphic
+x=1
+y=3
+width=32
+height=32
+xmode=abs_centre
+layer=com_103
+colour=0xffffffff
+transmitop=10
+op10=   
+
+// 60:108
+[com_108]
+type=layer
+x=140
+y=20
+width=37
+height=75
+layer=com_87
+transmitop=1,2,10
+opbase=Zamorak team hood
+op1=Buy
+op2=Examine
+op10=  
+onmouseover=script3426(event_com)
+onmouseleave=script3427
+
+// 60:109
+[com_109]
+type=layer
+x=184
+y=20
+width=37
+height=75
+layer=com_87
+transmitop=1,2,10
+opbase=Castle Wars flag cape
+op1=Buy
+op2=Examine
+op10=  
+onmouseover=script3426(event_com)
+onmouseleave=script3427
+
+// 60:110
+[com_110]
+type=layer
+x=230
+y=20
+width=37
+height=75
+layer=com_87
+transmitop=1,2,10
+opbase=Castle Wars kills cape
+op1=Buy
+op2=Examine
+op10=  
+onmouseover=script3426(event_com)
+onmouseleave=script3427
+
+// 60:111
+[com_111]
+type=layer
+x=278
+y=20
+width=37
+height=75
+layer=com_87
+transmitop=1,2,10
+opbase=Castle Wars hobbyist cape
+op1=Buy
+op2=Examine
+op10=  
+onmouseover=script3426(event_com)
+onmouseleave=script3427
+
+// 60:112
+[com_112]
+type=layer
+x=323
+y=20
+width=37
+height=75
+layer=com_87
+transmitop=1,2,10
+opbase=Castle Wars enthusiast cape
+op1=Buy
+op2=Examine
+op10=  
+onmouseover=script3426(event_com)
+onmouseleave=script3427
+
+// 60:113
+[com_113]
+type=layer
+x=366
+y=20
+width=37
+height=75
+layer=com_87
+transmitop=1,2,10
+opbase=Castle Wars professional cape
+op1=Buy
+op2=Examine
+op10=  
+onmouseover=script3426(event_com)
+onmouseleave=script3427
+
+// 60:114
+[com_114]
+type=layer
+x=2
+y=122
+width=37
+height=75
+layer=com_87
+transmitop=1,2,10
+opbase=Guthix halo
+op1=Buy
+op2=Examine
+op10=  
+onmouseover=script3426(event_com)
+onmouseleave=script3427
+
+// 60:115
+[com_115]
+type=layer
+x=92
+y=122
+width=37
+height=75
+layer=com_87
+transmitop=1,2,10
+opbase=Saradomin halo
+op1=Buy
+op2=Examine
+op10=  
+onmouseover=script3426(event_com)
+onmouseleave=script3427
+
+// 60:116
+[com_116]
+type=layer
+x=182
+y=122
+width=37
+height=75
+layer=com_87
+transmitop=1,2,10
+opbase=Zamorak halo
+op1=Buy
+op2=Examine
+op10=  
+onmouseover=script3426(event_com)
+onmouseleave=script3427
+
+// 60:117
+[com_117]
+type=layer
+x=276
+y=122
+width=37
+height=75
+layer=com_87
+transmitop=1,2,10
+opbase=Faithful shield
+op1=Buy
+op2=Examine
+op10=  
+onmouseover=script3426(event_com)
+onmouseleave=script3427
+
+// 60:118
+[com_118]
+type=layer
+x=364
+y=122
+width=37
+height=75
+layer=com_87
+transmitop=1,2,10
+opbase=Castle Wars Manual
+op1=Buy
+op2=Examine
+op10=  
+onmouseover=script3426(event_com)
+onmouseleave=script3427
+
+// 60:119
+[com_119]
+type=rectangle
+width=16384
+height=16384
+widthmode=proportion
+heightmode=proportion
+layer=com_118
+colour=0x333300
+transmitop=10
+op10=    
+onmouseover=text_colour_swapper(event_com, 0xff9933)
+onmouseleave=text_colour_swapper(event_com, 0x333300)
+
+// 60:120
+[com_120]
+type=rectangle
+width=16384
+height=16384
+widthmode=proportion
+heightmode=proportion
+layer=com_118
+colour=0x000000
+fill=yes
+trans=185
+transmitop=10
+op10=    
+
+// 60:121
+[com_121]
+type=text
+width=16384
+height=20
+widthmode=proportion
+xmode=abs_centre
+ymode=abs_bottom
+layer=com_118
+textfont=p11_full
+text=XXXX
+textlineheight=16
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xccccff
+transmitop=10
+op10=  
+
+// 60:122
+[com_122]
+type=graphic
+x=1
+y=3
+width=32
+height=32
+xmode=abs_centre
+layer=com_118
+colour=0xffffffff
+transmitop=10
+op10=  
+
+// 60:123
+[com_123]
+type=rectangle
+width=16384
+height=16384
+widthmode=proportion
+heightmode=proportion
+layer=com_117
+colour=0x333300
+transmitop=10
+op10=    
+onmouseover=text_colour_swapper(event_com, 0xff9933)
+onmouseleave=text_colour_swapper(event_com, 0x333300)
+
+// 60:124
+[com_124]
+type=rectangle
+width=16384
+height=16384
+widthmode=proportion
+heightmode=proportion
+layer=com_117
+colour=0x000000
+fill=yes
+trans=185
+transmitop=10
+op10=    
+
+// 60:125
+[com_125]
+type=text
+width=16384
+height=20
+widthmode=proportion
+xmode=abs_centre
+ymode=abs_bottom
+layer=com_117
+textfont=p11_full
+text=XXXX
+textlineheight=16
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xccccff
+transmitop=10
+op10=  
+
+// 60:126
+[com_126]
+type=graphic
+x=1
+y=3
+width=32
+height=32
+xmode=abs_centre
+layer=com_117
+colour=0xffffffff
+transmitop=10
+op10=  
+
+// 60:127
+[com_127]
+type=rectangle
+width=16384
+height=16384
+widthmode=proportion
+heightmode=proportion
+layer=com_116
+colour=0x333300
+transmitop=10
+op10=    
+onmouseover=text_colour_swapper(event_com, 0xff9933)
+onmouseleave=text_colour_swapper(event_com, 0x333300)
+
+// 60:128
+[com_128]
+type=rectangle
+width=16384
+height=16384
+widthmode=proportion
+heightmode=proportion
+layer=com_116
+colour=0x000000
+fill=yes
+trans=185
+transmitop=10
+op10=    
+
+// 60:129
+[com_129]
+type=text
+width=16384
+height=20
+widthmode=proportion
+xmode=abs_centre
+ymode=abs_bottom
+layer=com_116
+textfont=p11_full
+text=XXXX
+textlineheight=16
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xccccff
+transmitop=10
+op10=  
+
+// 60:130
+[com_130]
+type=graphic
+x=1
+y=3
+width=32
+height=32
+xmode=abs_centre
+layer=com_116
+colour=0xffffffff
+transmitop=10
+op10=  
+
+// 60:131
+[com_131]
+type=rectangle
+width=16384
+height=16384
+widthmode=proportion
+heightmode=proportion
+layer=com_115
+colour=0x333300
+transmitop=10
+op10=    
+onmouseover=text_colour_swapper(event_com, 0xff9933)
+onmouseleave=text_colour_swapper(event_com, 0x333300)
+
+// 60:132
+[com_132]
+type=rectangle
+width=16384
+height=16384
+widthmode=proportion
+heightmode=proportion
+layer=com_115
+colour=0x000000
+fill=yes
+trans=185
+transmitop=10
+op10=    
+
+// 60:133
+[com_133]
+type=text
+width=16384
+height=20
+widthmode=proportion
+xmode=abs_centre
+ymode=abs_bottom
+layer=com_115
+textfont=p11_full
+text=XXXX
+textlineheight=16
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xccccff
+transmitop=10
+op10=  
+
+// 60:134
+[com_134]
+type=graphic
+x=1
+y=3
+width=32
+height=32
+xmode=abs_centre
+layer=com_115
+colour=0xffffffff
+transmitop=10
+op10=  
+
+// 60:135
+[com_135]
+type=rectangle
+width=16384
+height=16384
+widthmode=proportion
+heightmode=proportion
+layer=com_114
+colour=0x333300
+transmitop=10
+op10=    
+onmouseover=text_colour_swapper(event_com, 0xff9933)
+onmouseleave=text_colour_swapper(event_com, 0x333300)
+
+// 60:136
+[com_136]
+type=rectangle
+width=16384
+height=16384
+widthmode=proportion
+heightmode=proportion
+layer=com_114
+colour=0x000000
+fill=yes
+trans=185
+transmitop=10
+op10=    
+
+// 60:137
+[com_137]
+type=text
+width=16384
+height=20
+widthmode=proportion
+xmode=abs_centre
+ymode=abs_bottom
+layer=com_114
+textfont=p11_full
+text=XXXX
+textlineheight=16
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xccccff
+transmitop=10
+op10=  
+
+// 60:138
+[com_138]
+type=graphic
+x=1
+y=3
+width=32
+height=32
+xmode=abs_centre
+layer=com_114
+colour=0xffffffff
+transmitop=10
+op10=  
+
+// 60:139
+[com_139]
+type=rectangle
+width=16384
+height=16384
+widthmode=proportion
+heightmode=proportion
+layer=com_113
+colour=0x333300
+transmitop=10
+op10=    
+onmouseover=text_colour_swapper(event_com, 0xff9933)
+onmouseleave=text_colour_swapper(event_com, 0x333300)
+
+// 60:140
+[com_140]
+type=rectangle
+width=16384
+height=16384
+widthmode=proportion
+heightmode=proportion
+layer=com_113
+colour=0x000000
+fill=yes
+trans=185
+transmitop=10
+op10=    
+
+// 60:141
+[com_141]
+type=text
+width=16384
+height=20
+widthmode=proportion
+xmode=abs_centre
+ymode=abs_bottom
+layer=com_113
+textfont=p11_full
+text=XXXX
+textlineheight=16
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xccccff
+transmitop=10
+op10=  
+
+// 60:142
+[com_142]
+type=graphic
+x=1
+y=3
+width=32
+height=32
+xmode=abs_centre
+layer=com_113
+colour=0xffffffff
+transmitop=10
+op10=  
+
+// 60:143
+[com_143]
+type=rectangle
+width=16384
+height=16384
+widthmode=proportion
+heightmode=proportion
+layer=com_112
+colour=0x333300
+transmitop=10
+op10=    
+onmouseover=text_colour_swapper(event_com, 0xff9933)
+onmouseleave=text_colour_swapper(event_com, 0x333300)
+
+// 60:144
+[com_144]
+type=rectangle
+width=16384
+height=16384
+widthmode=proportion
+heightmode=proportion
+layer=com_112
+colour=0x000000
+fill=yes
+trans=185
+transmitop=10
+op10=    
+
+// 60:145
+[com_145]
+type=text
+width=16384
+height=20
+widthmode=proportion
+xmode=abs_centre
+ymode=abs_bottom
+layer=com_112
+textfont=p11_full
+text=XXXX
+textlineheight=16
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xccccff
+transmitop=10
+op10=  
+
+// 60:146
+[com_146]
+type=graphic
+x=1
+y=3
+width=32
+height=32
+xmode=abs_centre
+layer=com_112
+colour=0xffffffff
+transmitop=10
+op10=  
+
+// 60:147
+[com_147]
+type=rectangle
+width=16384
+height=16384
+widthmode=proportion
+heightmode=proportion
+layer=com_111
+colour=0x333300
+transmitop=10
+op10=    
+onmouseover=text_colour_swapper(event_com, 0xff9933)
+onmouseleave=text_colour_swapper(event_com, 0x333300)
+
+// 60:148
+[com_148]
+type=rectangle
+width=16384
+height=16384
+widthmode=proportion
+heightmode=proportion
+layer=com_111
+colour=0x000000
+fill=yes
+trans=185
+transmitop=10
+op10=    
+
+// 60:149
+[com_149]
+type=text
+width=16384
+height=20
+widthmode=proportion
+xmode=abs_centre
+ymode=abs_bottom
+layer=com_111
+textfont=p11_full
+text=XXXX
+textlineheight=16
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xccccff
+transmitop=10
+op10=  
+
+// 60:150
+[com_150]
+type=graphic
+x=1
+y=3
+width=32
+height=32
+xmode=abs_centre
+layer=com_111
+colour=0xffffffff
+transmitop=10
+op10=  
+
+// 60:151
+[com_151]
+type=rectangle
+width=16384
+height=16384
+widthmode=proportion
+heightmode=proportion
+layer=com_110
+colour=0x333300
+transmitop=10
+op10=    
+onmouseover=text_colour_swapper(event_com, 0xff9933)
+onmouseleave=text_colour_swapper(event_com, 0x333300)
+
+// 60:152
+[com_152]
+type=rectangle
+width=16384
+height=16384
+widthmode=proportion
+heightmode=proportion
+layer=com_110
+colour=0x000000
+fill=yes
+trans=185
+transmitop=10
+op10=    
+
+// 60:153
+[com_153]
+type=text
+width=16384
+height=20
+widthmode=proportion
+xmode=abs_centre
+ymode=abs_bottom
+layer=com_110
+textfont=p11_full
+text=XXXX
+textlineheight=16
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xccccff
+transmitop=10
+op10=  
+
+// 60:154
+[com_154]
+type=graphic
+x=1
+y=3
+width=32
+height=32
+xmode=abs_centre
+layer=com_110
+colour=0xffffffff
+transmitop=10
+op10=  
+
+// 60:155
+[com_155]
+type=rectangle
+width=16384
+height=16384
+widthmode=proportion
+heightmode=proportion
+layer=com_109
+colour=0x333300
+transmitop=10
+op10=    
+onmouseover=text_colour_swapper(event_com, 0xff9933)
+onmouseleave=text_colour_swapper(event_com, 0x333300)
+
+// 60:156
+[com_156]
+type=rectangle
+width=16384
+height=16384
+widthmode=proportion
+heightmode=proportion
+layer=com_109
+colour=0x000000
+fill=yes
+trans=185
+transmitop=10
+op10=    
+
+// 60:157
+[com_157]
+type=text
+width=16384
+height=20
+widthmode=proportion
+xmode=abs_centre
+ymode=abs_bottom
+layer=com_109
+textfont=p11_full
+text=XXXX
+textlineheight=16
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xccccff
+transmitop=10
+op10=  
+
+// 60:158
+[com_158]
+type=graphic
+x=1
+y=3
+width=32
+height=32
+xmode=abs_centre
+layer=com_109
+colour=0xffffffff
+transmitop=10
+op10=  
+
+// 60:159
+[com_159]
+type=rectangle
+width=16384
+height=16384
+widthmode=proportion
+heightmode=proportion
+layer=com_108
+colour=0x333300
+transmitop=10
+op10=    
+onmouseover=text_colour_swapper(event_com, 0xff9933)
+onmouseleave=text_colour_swapper(event_com, 0x333300)
+
+// 60:160
+[com_160]
+type=rectangle
+width=16384
+height=16384
+widthmode=proportion
+heightmode=proportion
+layer=com_108
+colour=0x000000
+fill=yes
+trans=185
+transmitop=10
+op10=    
+
+// 60:161
+[com_161]
+type=text
+width=16384
+height=20
+widthmode=proportion
+xmode=abs_centre
+ymode=abs_bottom
+layer=com_108
+textfont=p11_full
+text=XXXX
+textlineheight=16
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xccccff
+transmitop=10
+op10=  
+
+// 60:162
+[com_162]
+type=graphic
+x=1
+y=3
+width=32
+height=32
+xmode=abs_centre
+layer=com_108
+colour=0xffffffff
+transmitop=10
+op10=  
+
+// 60:163
+[com_163]
+type=layer
+y=122
+width=37
+height=75
+layer=com_45
+transmitop=1,2
+opbase=Intricate decorative helm
+op1=Buy
+op2=Examine
+onmouseover=script3426(event_com)
+onmouseleave=script3427
+
+// 60:164
+[com_164]
+type=layer
+x=41
+y=122
+width=37
+height=75
+layer=com_45
+transmitop=1,2
+opbase=Intricate decorative platebody
+op1=Buy
+op2=Examine
+onmouseover=script3426(event_com)
+onmouseleave=script3427
+
+// 60:165
+[com_165]
+type=layer
+x=83
+y=122
+width=37
+height=75
+layer=com_45
+transmitop=1,2
+opbase=Intricate decorative platelegs
+op1=Buy
+op2=Examine
+onmouseover=script3426(event_com)
+onmouseleave=script3427
+
+// 60:166
+[com_166]
+type=layer
+x=125
+y=122
+width=37
+height=75
+layer=com_45
+transmitop=1,2
+opbase=Intricate decorative shield
+op1=Buy
+op2=Examine
+onmouseover=script3426(event_com)
+onmouseleave=script3427
+
+// 60:167
+[com_167]
+type=layer
+x=167
+y=122
+width=37
+height=75
+layer=com_45
+transmitop=1,2
+opbase=Intricate decorative sword
+op1=Buy
+op2=Examine
+onmouseover=script3426(event_com)
+onmouseleave=script3427
+
+// 60:168
+[com_168]
+type=layer
+x=208
+y=122
+width=37
+height=75
+layer=com_45
+transmitop=1,2
+opbase=Profound decorative helm
+op1=Buy
+op2=Examine
+onmouseover=script3426(event_com)
+onmouseleave=script3427
+
+// 60:169
+[com_169]
+type=layer
+x=250
+y=122
+width=37
+height=75
+layer=com_45
+transmitop=1,2
+opbase=Profound decorative platebody
+op1=Buy
+op2=Examine
+onmouseover=script3426(event_com)
+onmouseleave=script3427
+
+// 60:170
+[com_170]
+type=layer
+x=291
+y=122
+width=37
+height=75
+layer=com_45
+transmitop=1,2
+opbase=Profound decorative platelegs
+op1=Buy
+op2=Examine
+onmouseover=script3426(event_com)
+onmouseleave=script3427
+
+// 60:171
+[com_171]
+type=layer
+x=332
+y=122
+width=37
+height=75
+layer=com_45
+transmitop=1,2
+opbase=Profound decorative shield
+op1=Buy
+op2=Examine
+onmouseover=script3426(event_com)
+onmouseleave=script3427
+
+// 60:172
+[com_172]
+type=layer
+x=373
+y=122
+width=37
+height=75
+layer=com_45
+transmitop=1,2
+opbase=Profound decorative sword
+op1=Buy
+op2=Examine
+onmouseover=script3426(event_com)
+onmouseleave=script3427
+
+// 60:173
+[com_173]
+type=layer
+y=20
+width=37
+height=75
+layer=com_45
+transmitop=1,2
+opbase=Basic decorative helm
+op1=Buy
+op2=Examine
+onmouseover=script3426(event_com)
+onmouseleave=script3427
+
+// 60:174
+[com_174]
+type=rectangle
+width=16384
+height=16384
+widthmode=proportion
+heightmode=proportion
+layer=com_173
+colour=0x333300
+transmitop=10
+op10=  
+onmouseover=text_colour_swapper(event_com, 0xff9933)
+onmouseleave=text_colour_swapper(event_com, 0x333300)
+
+// 60:175
+[com_175]
+type=rectangle
+width=16384
+height=16384
+widthmode=proportion
+heightmode=proportion
+layer=com_173
+colour=0x000000
+fill=yes
+trans=185
+transmitop=10
+op10=  
+
+// 60:176
+[com_176]
+type=text
+width=16384
+height=20
+widthmode=proportion
+xmode=abs_centre
+ymode=abs_bottom
+layer=com_173
+textfont=p11_full
+text=XXXX
+textlineheight=16
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xccccff
+
+// 60:177
+[com_177]
+type=graphic
+x=1
+y=3
+width=32
+height=32
+xmode=abs_centre
+layer=com_173
+colour=0xffffffff
+
+// 60:178
+[com_178]
+type=layer
+x=41
+y=20
+width=37
+height=75
+layer=com_45
+transmitop=1,2
+opbase=Basic decorative platebody
+op1=Buy
+op2=Examine
+onmouseover=script3426(event_com)
+onmouseleave=script3427
+
+// 60:179
+[com_179]
+type=rectangle
+width=16384
+height=16384
+widthmode=proportion
+heightmode=proportion
+layer=com_178
+colour=0x333300
+transmitop=10
+op10=  
+onmouseover=text_colour_swapper(event_com, 0xff9933)
+onmouseleave=text_colour_swapper(event_com, 0x333300)
+
+// 60:180
+[com_180]
+type=rectangle
+width=16384
+height=16384
+widthmode=proportion
+heightmode=proportion
+layer=com_178
+colour=0x000000
+fill=yes
+trans=185
+transmitop=10
+op10=  
+
+// 60:181
+[com_181]
+type=text
+width=16384
+height=20
+widthmode=proportion
+xmode=abs_centre
+ymode=abs_bottom
+layer=com_178
+textfont=p11_full
+text=XXXX
+textlineheight=16
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xccccff
+
+// 60:182
+[com_182]
+type=graphic
+x=1
+y=3
+width=32
+height=32
+xmode=abs_centre
+layer=com_178
+colour=0xffffffff
+
+// 60:183
+[com_183]
+type=layer
+x=83
+y=20
+width=37
+height=75
+layer=com_45
+transmitop=1,2
+opbase=Basic decorative platelegs
+op1=Buy
+op2=Examine
+onmouseover=script3426(event_com)
+onmouseleave=script3427
+
+// 60:184
+[com_184]
+type=rectangle
+width=16384
+height=16384
+widthmode=proportion
+heightmode=proportion
+layer=com_183
+colour=0x333300
+transmitop=10
+op10=  
+onmouseover=text_colour_swapper(event_com, 0xff9933)
+onmouseleave=text_colour_swapper(event_com, 0x333300)
+
+// 60:185
+[com_185]
+type=rectangle
+width=16384
+height=16384
+widthmode=proportion
+heightmode=proportion
+layer=com_183
+colour=0x000000
+fill=yes
+trans=185
+transmitop=10
+op10=  
+
+// 60:186
+[com_186]
+type=text
+width=16384
+height=20
+widthmode=proportion
+xmode=abs_centre
+ymode=abs_bottom
+layer=com_183
+textfont=p11_full
+text=XXXX
+textlineheight=16
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xccccff
+
+// 60:187
+[com_187]
+type=graphic
+x=1
+y=3
+width=32
+height=32
+xmode=abs_centre
+layer=com_183
+colour=0xffffffff
+
+// 60:188
+[com_188]
+type=layer
+x=125
+y=20
+width=37
+height=75
+layer=com_45
+transmitop=1,2
+opbase=Basic decorative shield
+op1=Buy
+op2=Examine
+onmouseover=script3426(event_com)
+onmouseleave=script3427
+
+// 60:189
+[com_189]
+type=rectangle
+width=16384
+height=16384
+widthmode=proportion
+heightmode=proportion
+layer=com_188
+colour=0x333300
+transmitop=10
+op10=  
+onmouseover=text_colour_swapper(event_com, 0xff9933)
+onmouseleave=text_colour_swapper(event_com, 0x333300)
+
+// 60:190
+[com_190]
+type=rectangle
+width=16384
+height=16384
+widthmode=proportion
+heightmode=proportion
+layer=com_188
+colour=0x000000
+fill=yes
+trans=185
+transmitop=10
+op10=  
+
+// 60:191
+[com_191]
+type=text
+width=16384
+height=20
+widthmode=proportion
+xmode=abs_centre
+ymode=abs_bottom
+layer=com_188
+textfont=p11_full
+text=XXXX
+textlineheight=16
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xccccff
+
+// 60:192
+[com_192]
+type=graphic
+x=1
+y=3
+width=32
+height=32
+xmode=abs_centre
+layer=com_188
+colour=0xffffffff
+
+// 60:193
+[com_193]
+type=layer
+x=167
+y=20
+width=37
+height=75
+layer=com_45
+transmitop=1,2
+opbase=Basic decorative sword
+op1=Buy
+op2=Examine
+onmouseover=script3426(event_com)
+onmouseleave=script3427
+
+// 60:194
+[com_194]
+type=rectangle
+width=16384
+height=16384
+widthmode=proportion
+heightmode=proportion
+layer=com_193
+colour=0x333300
+transmitop=10
+op10=  
+onmouseover=text_colour_swapper(event_com, 0xff9933)
+onmouseleave=text_colour_swapper(event_com, 0x333300)
+
+// 60:195
+[com_195]
+type=rectangle
+width=16384
+height=16384
+widthmode=proportion
+heightmode=proportion
+layer=com_193
+colour=0x000000
+fill=yes
+trans=185
+transmitop=10
+op10=  
+
+// 60:196
+[com_196]
+type=text
+width=16384
+height=20
+widthmode=proportion
+xmode=abs_centre
+ymode=abs_bottom
+layer=com_193
+textfont=p11_full
+text=XXXX
+textlineheight=16
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xccccff
+
+// 60:197
+[com_197]
+type=graphic
+x=1
+y=3
+width=32
+height=32
+xmode=abs_centre
+layer=com_193
+colour=0xffffffff
+
+// 60:198
+[com_198]
+type=layer
+x=208
+y=20
+width=37
+height=75
+layer=com_45
+transmitop=1,2
+opbase=Detailed decorative helm
+op1=Buy
+op2=Examine
+onmouseover=script3426(event_com)
+onmouseleave=script3427
+
+// 60:199
+[com_199]
+type=rectangle
+width=16384
+height=16384
+widthmode=proportion
+heightmode=proportion
+layer=com_198
+colour=0x333300
+transmitop=10
+op10=  
+onmouseover=text_colour_swapper(event_com, 0xff9933)
+onmouseleave=text_colour_swapper(event_com, 0x333300)
+
+// 60:200
+[com_200]
+type=rectangle
+width=16384
+height=16384
+widthmode=proportion
+heightmode=proportion
+layer=com_198
+colour=0x000000
+fill=yes
+trans=185
+transmitop=10
+op10=  
+
+// 60:201
+[com_201]
+type=text
+width=16384
+height=20
+widthmode=proportion
+xmode=abs_centre
+ymode=abs_bottom
+layer=com_198
+textfont=p11_full
+text=XXXX
+textlineheight=16
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xccccff
+
+// 60:202
+[com_202]
+type=graphic
+x=1
+y=3
+width=32
+height=32
+xmode=abs_centre
+layer=com_198
+colour=0xffffffff
+
+// 60:203
+[com_203]
+type=layer
+x=250
+y=20
+width=37
+height=75
+layer=com_45
+transmitop=1,2
+opbase=Detailed decorative platebody
+op1=Buy
+op2=Examine
+onmouseover=script3426(event_com)
+onmouseleave=script3427
+
+// 60:204
+[com_204]
+type=rectangle
+width=16384
+height=16384
+widthmode=proportion
+heightmode=proportion
+layer=com_203
+colour=0x333300
+transmitop=10
+op10=  
+onmouseover=text_colour_swapper(event_com, 0xff9933)
+onmouseleave=text_colour_swapper(event_com, 0x333300)
+
+// 60:205
+[com_205]
+type=rectangle
+width=16384
+height=16384
+widthmode=proportion
+heightmode=proportion
+layer=com_203
+colour=0x000000
+fill=yes
+trans=185
+transmitop=10
+op10=  
+
+// 60:206
+[com_206]
+type=text
+width=16384
+height=20
+widthmode=proportion
+xmode=abs_centre
+ymode=abs_bottom
+layer=com_203
+textfont=p11_full
+text=XXXX
+textlineheight=16
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xccccff
+
+// 60:207
+[com_207]
+type=graphic
+x=1
+y=3
+width=32
+height=32
+xmode=abs_centre
+layer=com_203
+colour=0xffffffff
+
+// 60:208
+[com_208]
+type=layer
+x=291
+y=20
+width=37
+height=75
+layer=com_45
+transmitop=1,2
+opbase=Detailed decorative platelegs
+op1=Buy
+op2=Examine
+onmouseover=script3426(event_com)
+onmouseleave=script3427
+
+// 60:209
+[com_209]
+type=rectangle
+width=16384
+height=16384
+widthmode=proportion
+heightmode=proportion
+layer=com_208
+colour=0x333300
+transmitop=10
+op10=  
+onmouseover=text_colour_swapper(event_com, 0xff9933)
+onmouseleave=text_colour_swapper(event_com, 0x333300)
+
+// 60:210
+[com_210]
+type=rectangle
+width=16384
+height=16384
+widthmode=proportion
+heightmode=proportion
+layer=com_208
+colour=0x000000
+fill=yes
+trans=185
+transmitop=10
+op10=  
+
+// 60:211
+[com_211]
+type=text
+width=16384
+height=20
+widthmode=proportion
+xmode=abs_centre
+ymode=abs_bottom
+layer=com_208
+textfont=p11_full
+text=XXXX
+textlineheight=16
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xccccff
+
+// 60:212
+[com_212]
+type=graphic
+x=1
+y=3
+width=32
+height=32
+xmode=abs_centre
+layer=com_208
+colour=0xffffffff
+
+// 60:213
+[com_213]
+type=layer
+x=332
+y=20
+width=37
+height=75
+layer=com_45
+transmitop=1,2
+opbase=Detailed decorative shield
+op1=Buy
+op2=Examine
+onmouseover=script3426(event_com)
+onmouseleave=script3427
+
+// 60:214
+[com_214]
+type=rectangle
+width=16384
+height=16384
+widthmode=proportion
+heightmode=proportion
+layer=com_213
+colour=0x333300
+transmitop=10
+op10=  
+onmouseover=text_colour_swapper(event_com, 0xff9933)
+onmouseleave=text_colour_swapper(event_com, 0x333300)
+
+// 60:215
+[com_215]
+type=rectangle
+width=16384
+height=16384
+widthmode=proportion
+heightmode=proportion
+layer=com_213
+colour=0x000000
+fill=yes
+trans=185
+transmitop=10
+op10=  
+
+// 60:216
+[com_216]
+type=text
+width=16384
+height=20
+widthmode=proportion
+xmode=abs_centre
+ymode=abs_bottom
+layer=com_213
+textfont=p11_full
+text=XXXX
+textlineheight=16
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xccccff
+
+// 60:217
+[com_217]
+type=graphic
+x=1
+y=3
+width=32
+height=32
+xmode=abs_centre
+layer=com_213
+colour=0xffffffff
+
+// 60:218
+[com_218]
+type=layer
+x=372
+y=20
+width=37
+height=75
+layer=com_45
+transmitop=1,2
+opbase=Detailed decorative sword
+op1=Buy
+op2=Examine
+onmouseover=script3426(event_com)
+onmouseleave=script3427
+
+// 60:219
+[com_219]
+type=rectangle
+width=16384
+height=16384
+widthmode=proportion
+heightmode=proportion
+layer=com_218
+colour=0x333300
+transmitop=10
+op10=  
+onmouseover=text_colour_swapper(event_com, 0xff9933)
+onmouseleave=text_colour_swapper(event_com, 0x333300)
+
+// 60:220
+[com_220]
+type=rectangle
+width=16384
+height=16384
+widthmode=proportion
+heightmode=proportion
+layer=com_218
+colour=0x000000
+fill=yes
+trans=185
+transmitop=10
+op10=  
+
+// 60:221
+[com_221]
+type=text
+width=16384
+height=20
+widthmode=proportion
+xmode=abs_centre
+ymode=abs_bottom
+layer=com_218
+textfont=p11_full
+text=XXXX
+textlineheight=16
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xccccff
+
+// 60:222
+[com_222]
+type=graphic
+x=1
+y=3
+width=32
+height=32
+xmode=abs_centre
+layer=com_218
+colour=0xffffffff
+
+// 60:223
+[com_223]
+type=rectangle
+width=16384
+height=16384
+widthmode=proportion
+heightmode=proportion
+layer=com_172
+colour=0x333300
+transmitop=10
+op10=  
+onmouseover=text_colour_swapper(event_com, 0xff9933)
+onmouseleave=text_colour_swapper(event_com, 0x333300)
+
+// 60:224
+[com_224]
+type=rectangle
+width=16384
+height=16384
+widthmode=proportion
+heightmode=proportion
+layer=com_172
+colour=0x000000
+fill=yes
+trans=185
+transmitop=10
+op10=  
+
+// 60:225
+[com_225]
+type=text
+width=16384
+height=20
+widthmode=proportion
+xmode=abs_centre
+ymode=abs_bottom
+layer=com_172
+textfont=p11_full
+text=XXXX
+textlineheight=16
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xccccff
+
+// 60:226
+[com_226]
+type=graphic
+x=1
+y=3
+width=32
+height=32
+xmode=abs_centre
+layer=com_172
+colour=0xffffffff
+
+// 60:227
+[com_227]
+type=rectangle
+width=16384
+height=16384
+widthmode=proportion
+heightmode=proportion
+layer=com_171
+colour=0x333300
+transmitop=10
+op10=  
+onmouseover=text_colour_swapper(event_com, 0xff9933)
+onmouseleave=text_colour_swapper(event_com, 0x333300)
+
+// 60:228
+[com_228]
+type=rectangle
+width=16384
+height=16384
+widthmode=proportion
+heightmode=proportion
+layer=com_171
+colour=0x000000
+fill=yes
+trans=185
+transmitop=10
+op10=  
+
+// 60:229
+[com_229]
+type=text
+width=16384
+height=20
+widthmode=proportion
+xmode=abs_centre
+ymode=abs_bottom
+layer=com_171
+textfont=p11_full
+text=XXXX
+textlineheight=16
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xccccff
+
+// 60:230
+[com_230]
+type=graphic
+x=1
+y=3
+width=32
+height=32
+xmode=abs_centre
+layer=com_171
+colour=0xffffffff
+
+// 60:231
+[com_231]
+type=rectangle
+width=16384
+height=16384
+widthmode=proportion
+heightmode=proportion
+layer=com_170
+colour=0x333300
+transmitop=10
+op10=  
+onmouseover=text_colour_swapper(event_com, 0xff9933)
+onmouseleave=text_colour_swapper(event_com, 0x333300)
+
+// 60:232
+[com_232]
+type=rectangle
+width=16384
+height=16384
+widthmode=proportion
+heightmode=proportion
+layer=com_170
+colour=0x000000
+fill=yes
+trans=185
+transmitop=10
+op10=  
+
+// 60:233
+[com_233]
+type=text
+width=16384
+height=20
+widthmode=proportion
+xmode=abs_centre
+ymode=abs_bottom
+layer=com_170
+textfont=p11_full
+text=XXXX
+textlineheight=16
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xccccff
+
+// 60:234
+[com_234]
+type=graphic
+x=1
+y=3
+width=32
+height=32
+xmode=abs_centre
+layer=com_170
+colour=0xffffffff
+
+// 60:235
+[com_235]
+type=rectangle
+width=16384
+height=16384
+widthmode=proportion
+heightmode=proportion
+layer=com_169
+colour=0x333300
+transmitop=10
+op10=  
+onmouseover=text_colour_swapper(event_com, 0xff9933)
+onmouseleave=text_colour_swapper(event_com, 0x333300)
+
+// 60:236
+[com_236]
+type=rectangle
+width=16384
+height=16384
+widthmode=proportion
+heightmode=proportion
+layer=com_169
+colour=0x000000
+fill=yes
+trans=185
+transmitop=10
+op10=  
+
+// 60:237
+[com_237]
+type=text
+width=16384
+height=20
+widthmode=proportion
+xmode=abs_centre
+ymode=abs_bottom
+layer=com_169
+textfont=p11_full
+text=XXXX
+textlineheight=16
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xccccff
+
+// 60:238
+[com_238]
+type=graphic
+x=1
+y=3
+width=32
+height=32
+xmode=abs_centre
+layer=com_169
+colour=0xffffffff
+
+// 60:239
+[com_239]
+type=rectangle
+width=16384
+height=16384
+widthmode=proportion
+heightmode=proportion
+layer=com_168
+colour=0x333300
+transmitop=10
+op10=  
+onmouseover=text_colour_swapper(event_com, 0xff9933)
+onmouseleave=text_colour_swapper(event_com, 0x333300)
+
+// 60:240
+[com_240]
+type=rectangle
+width=16384
+height=16384
+widthmode=proportion
+heightmode=proportion
+layer=com_168
+colour=0x000000
+fill=yes
+trans=185
+transmitop=10
+op10=  
+
+// 60:241
+[com_241]
+type=text
+width=16384
+height=20
+widthmode=proportion
+xmode=abs_centre
+ymode=abs_bottom
+layer=com_168
+textfont=p11_full
+text=XXXX
+textlineheight=16
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xccccff
+
+// 60:242
+[com_242]
+type=graphic
+x=1
+y=3
+width=32
+height=32
+xmode=abs_centre
+layer=com_168
+colour=0xffffffff
+
+// 60:243
+[com_243]
+type=rectangle
+width=16384
+height=16384
+widthmode=proportion
+heightmode=proportion
+layer=com_167
+colour=0x333300
+transmitop=10
+op10=  
+onmouseover=text_colour_swapper(event_com, 0xff9933)
+onmouseleave=text_colour_swapper(event_com, 0x333300)
+
+// 60:244
+[com_244]
+type=rectangle
+width=16384
+height=16384
+widthmode=proportion
+heightmode=proportion
+layer=com_167
+colour=0x000000
+fill=yes
+trans=185
+transmitop=10
+op10=  
+
+// 60:245
+[com_245]
+type=text
+width=16384
+height=20
+widthmode=proportion
+xmode=abs_centre
+ymode=abs_bottom
+layer=com_167
+textfont=p11_full
+text=XXXX
+textlineheight=16
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xccccff
+
+// 60:246
+[com_246]
+type=graphic
+x=1
+y=3
+width=32
+height=32
+xmode=abs_centre
+layer=com_167
+colour=0xffffffff
+
+// 60:247
+[com_247]
+type=rectangle
+width=16384
+height=16384
+widthmode=proportion
+heightmode=proportion
+layer=com_166
+colour=0x333300
+transmitop=10
+op10=  
+onmouseover=text_colour_swapper(event_com, 0xff9933)
+onmouseleave=text_colour_swapper(event_com, 0x333300)
+
+// 60:248
+[com_248]
+type=rectangle
+width=16384
+height=16384
+widthmode=proportion
+heightmode=proportion
+layer=com_166
+colour=0x000000
+fill=yes
+trans=185
+transmitop=10
+op10=  
+
+// 60:249
+[com_249]
+type=text
+width=16384
+height=20
+widthmode=proportion
+xmode=abs_centre
+ymode=abs_bottom
+layer=com_166
+textfont=p11_full
+text=XXXX
+textlineheight=16
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xccccff
+
+// 60:250
+[com_250]
+type=graphic
+x=1
+y=3
+width=32
+height=32
+xmode=abs_centre
+layer=com_166
+colour=0xffffffff
+
+// 60:251
+[com_251]
+type=rectangle
+width=16384
+height=16384
+widthmode=proportion
+heightmode=proportion
+layer=com_165
+colour=0x333300
+transmitop=10
+op10=  
+onmouseover=text_colour_swapper(event_com, 0xff9933)
+onmouseleave=text_colour_swapper(event_com, 0x333300)
+
+// 60:252
+[com_252]
+type=rectangle
+width=16384
+height=16384
+widthmode=proportion
+heightmode=proportion
+layer=com_165
+colour=0x000000
+fill=yes
+trans=185
+transmitop=10
+op10=  
+
+// 60:253
+[com_253]
+type=text
+width=16384
+height=20
+widthmode=proportion
+xmode=abs_centre
+ymode=abs_bottom
+layer=com_165
+textfont=p11_full
+text=XXXX
+textlineheight=16
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xccccff
+
+// 60:254
+[com_254]
+type=graphic
+x=1
+y=3
+width=32
+height=32
+xmode=abs_centre
+layer=com_165
+colour=0xffffffff
+
+// 60:255
+[com_255]
+type=rectangle
+width=16384
+height=16384
+widthmode=proportion
+heightmode=proportion
+layer=com_164
+colour=0x333300
+transmitop=10
+op10=  
+onmouseover=text_colour_swapper(event_com, 0xff9933)
+onmouseleave=text_colour_swapper(event_com, 0x333300)
+
+// 60:256
+[com_256]
+type=rectangle
+width=16384
+height=16384
+widthmode=proportion
+heightmode=proportion
+layer=com_164
+colour=0x000000
+fill=yes
+trans=185
+transmitop=10
+op10=  
+
+// 60:257
+[com_257]
+type=text
+width=16384
+height=20
+widthmode=proportion
+xmode=abs_centre
+ymode=abs_bottom
+layer=com_164
+textfont=p11_full
+text=XXXX
+textlineheight=16
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xccccff
+
+// 60:258
+[com_258]
+type=graphic
+x=1
+y=3
+width=32
+height=32
+xmode=abs_centre
+layer=com_164
+colour=0xffffffff
+
+// 60:259
+[com_259]
+type=rectangle
+width=16384
+height=16384
+widthmode=proportion
+heightmode=proportion
+layer=com_163
+colour=0x333300
+transmitop=10
+op10=  
+onmouseover=text_colour_swapper(event_com, 0xff9933)
+onmouseleave=text_colour_swapper(event_com, 0x333300)
+
+// 60:260
+[com_260]
+type=rectangle
+width=16384
+height=16384
+widthmode=proportion
+heightmode=proportion
+layer=com_163
+colour=0x000000
+fill=yes
+trans=185
+transmitop=10
+op10=  
+
+// 60:261
+[com_261]
+type=text
+width=16384
+height=20
+widthmode=proportion
+xmode=abs_centre
+ymode=abs_bottom
+layer=com_163
+textfont=p11_full
+text=XXXX
+textlineheight=16
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xccccff
+
+// 60:262
+[com_262]
+type=graphic
+x=1
+y=3
+width=32
+height=32
+xmode=abs_centre
+layer=com_163
+colour=0xffffffff

@@ -1,9 +1,10 @@
+// 2978
 [proc,ecosystem_tutorial_cam_2](component $component0)
 def_coord $coord1 = ~coord_0_0(coord);
-cam_allocpath(0, 2);
-cam_allocpath(1, 2);
-cam_addwaypoint(0, 0, coordpack($coord1, 23, 0, 25), 700, coordpack($coord1, 23, 0, 25), 700, 0);
-cam_addwaypoint(1, 0, coordpack($coord1, 31, 0, 33), 400, coordpack($coord1, 31, 0, 22), 400, 0);
-cam_addwaypoint(0, 1, coordpack($coord1, 31, 0, 25), 800, coordpack($coord1, 31, 0, 25), 800, 0);
-cam_addwaypoint(1, 1, coordpack($coord1, 31, 0, 33), 300, coordpack($coord1, 31, 0, 33), 300, 0);
-cam_startpath(0, 0, 450, 450, 1, 0);
+spline_new(0, 2);
+spline_new(1, 2);
+spline_addpoint(0, 0, movecoord($coord1, 23, 0, 25), 700, movecoord($coord1, 23, 0, 25), 700, 0);
+spline_addpoint(1, 0, movecoord($coord1, 31, 0, 33), 400, movecoord($coord1, 31, 0, 22), 400, 0);
+spline_addpoint(0, 1, movecoord($coord1, 31, 0, 25), 800, movecoord($coord1, 31, 0, 25), 800, 0);
+spline_addpoint(1, 1, movecoord($coord1, 31, 0, 33), 300, movecoord($coord1, 31, 0, 33), 300, 0);
+cam_movealong(0, 0, 450, 450, 1, 0);

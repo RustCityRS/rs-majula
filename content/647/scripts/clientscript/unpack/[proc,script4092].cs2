@@ -1,0 +1,15 @@
+// 4092
+[proc,script4092](component $component0, component $component1, component $component2)
+if (~script2728 = 1) {
+    if ($component1 ! null & if_getnextsubid($component1) <= 0) {
+        ~script4093($component0, $component1);
+    }
+    ~script4089;
+} else {
+    if ($component1 ! null & if_getnextsubid($component1) > 0) {
+        cc_deleteall($component1);
+        if_setontimer(null, $component0);
+        if_sethide(true, $component1);
+    }
+    if_sethide(true, $component2);
+}

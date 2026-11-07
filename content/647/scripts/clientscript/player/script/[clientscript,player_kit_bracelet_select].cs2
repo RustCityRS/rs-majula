@@ -1,6 +1,7 @@
+// 331
 [clientscript,player_kit_bracelet_select](component $component0, int $int1)
 def_int $int2 = 0;
-if (player_isfemale = true) {
+if (gender = 1) {
     $int2 = enum_getoutputcount(enum_2363);
 } else {
     $int2 = enum_getoutputcount(enum_2132);

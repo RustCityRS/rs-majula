@@ -2,6 +2,8 @@ use super::UnpackedPacks;
 #[cfg(since_647)]
 use super::order::emit_params;
 use crate::cache::loc::LocTypeRaw;
+#[cfg(since_647)]
+use crate::types::loc_shape_key;
 use std::collections::HashMap;
 
 pub fn emit_loc_props(
@@ -12,6 +14,8 @@ pub fn emit_loc_props(
     if def.raw_opcodes.len() > 1
         && (cfg!(since_647) || super::has_repeated_opcodes(&def.opcode_order))
     {
+        #[cfg(since_647)]
+        let (bgsound_vorbis, randomsound_vorbis) = (def.bgsound_vorbis, def.randomsound_vorbis);
         return super::emit_repeated::<LocTypeRaw>(
             def.id,
             &def.raw_opcodes,
@@ -22,6 +26,11 @@ pub fn emit_loc_props(
             |value| {
                 value.opcode_order.clear();
                 value.raw_opcodes.clear();
+                #[cfg(since_647)]
+                {
+                    value.bgsound_vorbis = bgsound_vorbis;
+                    value.randomsound_vorbis = randomsound_vorbis;
+                }
             },
         );
     }
@@ -96,25 +105,20 @@ pub fn emit_loc_props(
     #[cfg(since_647)]
     let model_code = if def.hd_models.is_some() { 5 } else { 1 };
     #[cfg(since_647)]
-    for (prefix, models) in [
+    for (key, models) in [
         (
-            if model_code == 5 { "model_sd" } else { "model" },
+            if model_code == 5 { "modelhd" } else { "model" },
             &def.models,
         ),
-        ("model_hd", &def.hd_models),
+        ("modelsd", &def.hd_models),
     ] {
-        if let Some(models) = models {
-            for (index, model) in models.iter().enumerate() {
-                let ids = model
-                    .models
-                    .iter()
-                    .map(u16::to_string)
-                    .collect::<Vec<_>>()
-                    .join(";");
+        for group in models.as_deref().unwrap_or_default() {
+            let shape = loc_shape_key(group.shape);
+            for &model in &group.models {
                 p.push((
                     model_code,
-                    format!("{prefix}{}", index + 1),
-                    format!("{},{}", model.shape as i8, ids),
+                    key.into(),
+                    format!("{shape},{}", registry.reference("model", model)),
                 ));
             }
         }
@@ -142,7 +146,12 @@ pub fn emit_loc_props(
 
     #[cfg(since_647)]
     if def.opcode_order.contains(&19) || def.active.is_some() {
-        p.push((19, "active".into(), def.active.unwrap_or(0).to_string()));
+        let active = match def.active.unwrap_or(0) {
+            0 => "no".to_owned(),
+            1 => "yes".to_owned(),
+            other => other.to_string(),
+        };
+        p.push((19, "active".into(), active));
     }
 
     #[cfg(since_647)]
@@ -158,12 +167,21 @@ pub fn emit_loc_props(
         p.push((23, "occlude".into(), "yes".into()));
     }
 
+    #[cfg(before_647)]
     if def.opcode_order.contains(&24) || def.anim.is_some() {
         let name = registry
             .config_name("seq", def.anim.unwrap_or(u16::MAX) as u32)
             .map(|s| s.to_string())
             .unwrap_or_else(|| format!("seq_{}", def.anim.unwrap_or(u16::MAX)));
         p.push((24, "anim".into(), name));
+    }
+    #[cfg(since_647)]
+    if def.opcode_order.contains(&24) || def.anim.is_some() {
+        p.push((
+            24,
+            "anim".into(),
+            registry.reference("seq", def.anim.unwrap_or(u16::MAX)),
+        ));
     }
 
     if def.hasalpha {
@@ -172,7 +190,7 @@ pub fn emit_loc_props(
 
     #[cfg(since_647)]
     if def.interact_type == 1 {
-        p.push((27, "interact_type1".into(), "yes".into()));
+        p.push((27, "blockwalk".into(), "yes".into()));
     }
 
     if def.opcode_order.contains(&28) || def.wallwidth != 16 {
@@ -196,16 +214,25 @@ pub fn emit_loc_props(
     #[cfg(since_647)]
     if let (Some(src), Some(dst)) = (&def.recol_s, &def.recol_d) {
         for i in 0..src.len() {
-            p.push((40, format!("recol{}s", i + 1), src[i].to_string()));
-            p.push((40, format!("recol{}d", i + 1), dst[i].to_string()));
+            let [(ks, vs), (kd, vd)] = super::recol_pair(i + 1, src[i], dst[i], _reverse_hsl);
+            p.push((40, ks, vs));
+            p.push((40, kd, vd));
         }
     }
 
     #[cfg(since_647)]
     if let (Some(src), Some(dst)) = (&def.retex_s, &def.retex_d) {
         for i in 0..src.len() {
-            p.push((41, format!("retex{}s", i + 1), src[i].to_string()));
-            p.push((41, format!("retex{}d", i + 1), dst[i].to_string()));
+            p.push((
+                41,
+                format!("retex{}s", i + 1),
+                registry.named("texture", src[i]),
+            ));
+            p.push((
+                41,
+                format!("retex{}d", i + 1),
+                registry.named("texture", dst[i]),
+            ));
         }
     }
 
@@ -238,26 +265,28 @@ pub fn emit_loc_props(
 
     #[cfg(since_647)]
     if def.opcode_order.contains(&69) || def.forceapproach as u8 != 0 {
-        p.push((
-            69,
-            "forceapproach".into(),
-            (def.forceapproach as u8).to_string(),
-        ));
+        p.push((69, "forceapproach".into(), def.forceapproach.config_str()));
     }
 
-    if def.opcode_order.contains(&70) || def.offsetx != 0 {
-        let raw = def.offsetx as u16;
-        p.push((70, "offsetx".into(), raw.to_string()));
+    #[cfg(before_647)]
+    for (code, key, value) in [
+        (70, "offsetx", def.offsetx),
+        (71, "offsety", def.offsety),
+        (72, "offsetz", def.offsetz),
+    ] {
+        if def.opcode_order.contains(&code) || value != 0 {
+            p.push((code, key.into(), (value as u16).to_string()));
+        }
     }
-
-    if def.opcode_order.contains(&71) || def.offsety != 0 {
-        let raw = def.offsety as u16;
-        p.push((71, "offsety".into(), raw.to_string()));
-    }
-
-    if def.opcode_order.contains(&72) || def.offsetz != 0 {
-        let raw = def.offsetz as u16;
-        p.push((72, "offsetz".into(), raw.to_string()));
+    #[cfg(since_647)]
+    for (code, key, value) in [
+        (70, "offsetx", def.offsetx),
+        (71, "offsety", def.offsety),
+        (72, "offsetz", def.offsetz),
+    ] {
+        if def.opcode_order.contains(&code) || value != 0 {
+            p.push((code, key.into(), value.to_string()));
+        }
     }
 
     if def.forcedecor {
@@ -271,154 +300,151 @@ pub fn emit_loc_props(
 
     #[cfg(since_647)]
     if def.opcode_order.contains(&75) || def.raiseobject.is_some() {
-        p.push((
-            75,
-            "raiseobject".into(),
-            def.raiseobject.unwrap_or(0).to_string(),
-        ));
+        let raise = match def.raiseobject.unwrap_or(0) {
+            0 => "no".to_owned(),
+            1 => "yes".to_owned(),
+            other => other.to_string(),
+        };
+        p.push((75, "raiseobject".into(), raise));
     }
 
-    // so reorder_by_opcode keeps them together.
     #[cfg(since_647)]
     if let Some(multiloc) = &def.multiloc {
-        let default_transform = *multiloc.last().unwrap_or(&-1);
-        let entries = &multiloc[..multiloc.len().saturating_sub(1)];
-        let op = if def.opcode_order.contains(&92) || default_transform != -1 {
-            92
-        } else {
-            77
-        };
-        let name = |prefix: &str, id: i32| {
-            if id == -1 {
-                return "null".to_string();
-            }
-            registry
-                .config_name(prefix, id as u32)
-                .filter(|name| registry.config_id(prefix, name) == Some(id as u32))
-                .map(str::to_string)
-                .unwrap_or_else(|| format!("{prefix}_{id}"))
-        };
-        if def.transform_varbit != -1 {
-            p.push((op, "multivar".into(), name("varbit", def.transform_varbit)));
-        }
-        if def.transform_varp != -1 {
-            p.push((op, "multivar".into(), name("varp", def.transform_varp)));
-        }
-        if op == 92 {
-            p.push((
-                op,
-                "multiloc".into(),
-                format!("default,{}", name("loc", default_transform)),
-            ));
-        }
-        for (i, t) in entries.iter().enumerate() {
-            p.push((op, "multiloc".into(), format!("{i},{}", name("loc", *t))));
-        }
+        let has_default =
+            def.opcode_order.contains(&92) || multiloc.last().copied().unwrap_or(-1) != -1;
+        p.extend(super::multi_lines(
+            (if has_default { 92 } else { 77 }, "multiloc"),
+            "loc",
+            has_default,
+            (def.transform_varbit, def.transform_varp),
+            multiloc,
+            registry,
+        ));
     }
 
     #[cfg(since_647)]
     if def.opcode_order.contains(&78) || def.ambient_sfx_id != 0 {
+        let kind = if def.bgsound_vorbis {
+            "vorbis"
+        } else {
+            "synth"
+        };
         p.push((
             78,
-            "ambient_sfx".into(),
-            format!("{},{}", def.ambient_sfx_id, def.ambient_sfx_range),
+            "bgsound".into(),
+            format!(
+                "{},{}",
+                registry.reference(kind, def.ambient_sfx_id as u16),
+                def.ambient_sfx_range
+            ),
         ));
     }
 
     #[cfg(since_647)]
     if let Some(ids) = &def.sfx_random_ids {
-        let id_str = ids
-            .iter()
-            .map(|v| v.to_string())
-            .collect::<Vec<_>>()
-            .join(";");
-        p.push((
-            79,
-            "ambient_sfx_random".into(),
-            format!(
-                "{},{},{},{}",
-                def.sfx_random_pri, def.sfx_random_sec, def.ambient_sfx_range, id_str
-            ),
-        ));
+        let kind = if def.randomsound_vorbis {
+            "vorbis"
+        } else {
+            "synth"
+        };
+        let mut values = vec![
+            def.sfx_random_pri.to_string(),
+            def.sfx_random_sec.to_string(),
+            def.ambient_sfx_range.to_string(),
+        ];
+        values.extend(ids.iter().map(|&id| registry.reference(kind, id)));
+        p.push((79, "randomsound".into(), values.join(",")));
     }
 
     #[cfg(since_647)]
     if def.hillskew == 2 {
         p.push((
             81,
-            "hillskew_t2".into(),
-            (def.hillskew_param / 256).to_string(),
+            "hillchange".into(),
+            format!("tree_skew,{}", def.hillskew_param / 256),
         ));
     }
 
     #[cfg(since_647)]
     if def.hide_minimap {
-        p.push((82, "hidden".into(), "yes".into()));
+        p.push((82, "istexture".into(), "yes".into()));
     }
 
     #[cfg(since_647)]
     if !def.minimap_visible {
-        p.push((88, "nominimap_visible".into(), "yes".into()));
+        p.push((88, "hardshadow".into(), "no".into()));
     }
 
     #[cfg(since_647)]
     if !def.blocks_npcs {
-        p.push((89, "noblocks_npcs".into(), "yes".into()));
+        p.push((89, "randomanimframe".into(), "no".into()));
     }
 
     #[cfg(since_647)]
     if def.unknown_90 {
-        p.push((90, "op90".into(), "yes".into()));
+        p.push((90, "unknown90".into(), "yes".into()));
     }
 
     #[cfg(since_647)]
     if def.members_only {
-        p.push((91, "members_only".into(), "yes".into()));
+        p.push((91, "members".into(), "yes".into()));
     }
 
-    // Disambiguate by range: if param fits in 0..65535, use t3_u16.
+    // Disambiguate by range: if param fits in 0..65535, it is the 2 byte form.
     #[cfg(since_647)]
     if def.hillskew == 3 {
-        if def.hillskew_param >= 0 && def.hillskew_param <= 65535 {
-            p.push((93, "hillskew_t3_u16".into(), def.hillskew_param.to_string()));
+        let code = if (0..=65535).contains(&def.hillskew_param) {
+            93
         } else {
-            p.push((
-                162,
-                "hillskew_t3_i32".into(),
-                def.hillskew_param.to_string(),
-            ));
-        }
+            162
+        };
+        p.push((
+            code,
+            "hillchange".into(),
+            format!("rotate,{}", def.hillskew_param),
+        ));
     }
 
     #[cfg(since_647)]
     if def.hillskew == 4 {
-        p.push((94, "hillskew_t4".into(), "yes".into()));
+        p.push((94, "hillchange".into(), "ceiling_skew".into()));
     }
 
     #[cfg(since_647)]
     if def.hillskew == 5 {
-        let raw = (def.hillskew_param & 0xFFFF) as u16;
-        p.push((95, "hillskew_t5".into(), raw.to_string()));
+        p.push((
+            95,
+            "hillchange".into(),
+            format!("skew_to_fit,{}", def.hillskew_param & 0xffff),
+        ));
     }
 
     #[cfg(since_647)]
     if def.unknown_97 {
-        p.push((97, "op97".into(), "yes".into()));
+        p.push((97, "msirotate".into(), "yes".into()));
     }
 
     #[cfg(since_647)]
     if def.unknown_98 {
-        p.push((98, "op98".into(), "yes".into()));
+        p.push((98, "hasparticles".into(), "yes".into()));
     }
 
     #[cfg(since_647)]
-    if let Some((a, b)) = def.cursor_op1 {
-        p.push((99, "cursor1".into(), format!("{},{}", a, b)));
+    if let Some((op, cursor)) = def.cursor_op1 {
+        p.push((
+            99,
+            "cursor1".into(),
+            format!("{},{}", op + 1, registry.reference("cursor", cursor)),
+        ));
     }
 
     #[cfg(since_647)]
-    if let Some((a, b)) = def.cursor_op2 {
-        p.push((100, "cursor2".into(), format!("{},{}", a, b)));
+    if let Some((op, cursor)) = def.cursor_op2 {
+        p.push((
+            100,
+            "cursor2".into(),
+            format!("{},{}", op + 1, registry.reference("cursor", cursor)),
+        ));
     }
 
     #[cfg(since_647)]
@@ -432,46 +458,50 @@ pub fn emit_loc_props(
 
     #[cfg(since_647)]
     if def.opcode_order.contains(&102) || def.msi_id != -1 {
-        p.push((102, "msi_id".into(), def.msi_id.to_string()));
+        p.push((
+            102,
+            "msi".into(),
+            registry.reference("msi", def.msi_id as u16),
+        ));
     }
 
     #[cfg(since_647)]
     if def.opcode_order.contains(&103) {
-        p.push((103, "occlude_off".into(), "yes".into()));
+        p.push((103, "occlude".into(), "no".into()));
     }
 
     #[cfg(since_647)]
     if def.opcode_order.contains(&104) || def.interaction_side_flags != 255 {
         p.push((
             104,
-            "interaction_sides".into(),
+            "bgsoundvolume".into(),
             def.interaction_side_flags.to_string(),
         ));
     }
 
     #[cfg(since_647)]
     if def.unknown_105 {
-        p.push((105, "op105".into(), "yes".into()));
+        p.push((105, "unknown105".into(), "yes".into()));
     }
 
     #[cfg(since_647)]
     if let (Some(ids), Some(weights)) = (&def.random_anim_ids, &def.random_anim_weights) {
-        for (i, (id, w)) in ids.iter().zip(weights.iter()).enumerate() {
-            let name = registry
-                .config_name("seq", *id as u32)
-                .map(|s| s.to_string())
-                .unwrap_or_else(|| format!("seq_{id}"));
+        for (&id, weight) in ids.iter().zip(weights.iter()) {
             p.push((
                 106,
-                format!("random_anim{}", i + 1),
-                format!("{},{}", name, w),
+                "anim".into(),
+                format!("{},{weight}", registry.reference("seq", id)),
             ));
         }
     }
 
     #[cfg(since_647)]
     if def.opcode_order.contains(&107) || def.map_element != -1 {
-        p.push((107, "mapelement".into(), def.map_element.to_string()));
+        p.push((
+            107,
+            "mapelement".into(),
+            registry.reference("mel", def.map_element as u16),
+        ));
     }
 
     #[cfg(since_647)]
@@ -479,7 +509,7 @@ pub fn emit_loc_props(
         if let Some(text) = opt {
             p.push((
                 150 + slot as u8,
-                format!("memberop{}", slot + 1),
+                format!("membersop{}", slot + 1),
                 text.to_string(),
             ));
         }
@@ -487,16 +517,18 @@ pub fn emit_loc_props(
 
     #[cfg(since_647)]
     if let Some(quests) = &def.quest_ids {
-        for (i, q) in quests.iter().enumerate() {
-            p.push((160, format!("quest{}", i + 1), q.to_string()));
-        }
+        let quests: Vec<_> = quests
+            .iter()
+            .map(|&quest| registry.reference("quest", quest))
+            .collect();
+        p.push((160, "quest".into(), quests.join(",")));
     }
 
     #[cfg(since_647)]
     if def.opcode_order.contains(&163) || def.op163 != [0; 4] {
         p.push((
             163,
-            "op163".into(),
+            "tint".into(),
             format!(
                 "{},{},{},{}",
                 def.op163[0], def.op163[1], def.op163[2], def.op163[3]
@@ -506,61 +538,51 @@ pub fn emit_loc_props(
 
     #[cfg(since_647)]
     if def.opcode_order.contains(&164) || def.op164 != 0 {
-        p.push((164, "op164".into(), def.op164.to_string()));
+        p.push((164, "unknown164".into(), def.op164.to_string()));
     }
 
     #[cfg(since_647)]
     if def.opcode_order.contains(&165) || def.op165 != 0 {
-        p.push((165, "op165".into(), def.op165.to_string()));
+        p.push((165, "unknown165".into(), def.op165.to_string()));
     }
 
     #[cfg(since_647)]
     if def.opcode_order.contains(&166) || def.op166 != 0 {
-        p.push((166, "op166".into(), def.op166.to_string()));
+        p.push((166, "unknown166".into(), def.op166.to_string()));
     }
 
     #[cfg(since_647)]
     if def.opcode_order.contains(&167) || def.op167 != 0 {
-        p.push((167, "op167".into(), def.op167.to_string()));
-    }
-
-    #[cfg(since_647)]
-    if def.unknown_168 {
-        p.push((168, "op168".into(), "yes".into()));
-    }
-
-    #[cfg(since_647)]
-    if def.unknown_169 {
-        p.push((169, "op169".into(), "yes".into()));
+        p.push((167, "raiseobjectgrounddecor".into(), def.op167.to_string()));
     }
 
     #[cfg(since_647)]
     if def.opcode_order.contains(&170) || def.op170 != 0 {
-        p.push((170, "op170".into(), def.op170.to_string()));
+        p.push((170, "unknown170".into(), def.op170.to_string()));
     }
 
     #[cfg(since_647)]
     if def.opcode_order.contains(&171) || def.op171 != 0 {
-        p.push((171, "op171".into(), def.op171.to_string()));
+        p.push((171, "unknown171".into(), def.op171.to_string()));
     }
 
     #[cfg(since_647)]
     if def.opcode_order.contains(&173) || def.op173 != (0, 0) {
         p.push((
             173,
-            "op173".into(),
+            "bgsoundrate".into(),
             format!("{},{}", def.op173.0, def.op173.1),
         ));
     }
 
     #[cfg(since_647)]
     if def.unknown_177 {
-        p.push((177, "op177".into(), "yes".into()));
+        p.push((177, "unknown177".into(), "yes".into()));
     }
 
     #[cfg(since_647)]
     if def.opcode_order.contains(&178) || def.op178 != 0 {
-        p.push((178, "op178".into(), def.op178.to_string()));
+        p.push((178, "bgsounddropoffrange".into(), def.op178.to_string()));
     }
 
     #[cfg(since_647)]

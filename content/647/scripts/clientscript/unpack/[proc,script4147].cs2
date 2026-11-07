@@ -1,0 +1,9 @@
+// 4147
+[proc,script4147](component $component0, int $int1, int $int2, string $string0)
+if_sethide(false, $component0);
+if_setpausetext($string0, $component0);
+if_setsize(16, $int1, ^setsize_minus, ^setsize_abs, $component0);
+if_setposition(0, $int2, ^setpos_abs_centre, ^setpos_abs_centre, $component0);
+~bankpin_settings_drawbutton($component0, $string0, false);
+if_setonmouserepeat("bankpin_settings_drawbutton($component0, $string0, true)", $component0);
+if_setonmouseleave("bankpin_settings_drawbutton($component0, $string0, false)", $component0);

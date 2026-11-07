@@ -1,9 +1,0 @@
-[proc,clientscript_4367]
-def_string $string = escape(clipboard_gettext);
-if (string_length($string) <= 13) {
-    %varc_string_346 = $string;
-    %varc_int_1498 = string_length(%varc_string_346);
-    %varc_int_1498 = ~clientscript_1552(%varc_int_1498, %varc_string_346, 5631, clan_qfc_input:com38, -1);
-    if_setposition(%varc_int_1498, if_gety(clan_qfc_input:com39), ^setpos_abs_left, ^setpos_abs_top, clan_qfc_input:com39);
-    if_settext(%varc_string_346, clan_qfc_input:com38);
-}

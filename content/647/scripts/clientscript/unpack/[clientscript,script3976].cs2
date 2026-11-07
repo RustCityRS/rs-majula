@@ -1,0 +1,20 @@
+// 3976
+[clientscript,script3976](int $int0, int $int1, int $int2)
+if ($int2 ! 1) {
+    return;
+}
+~deltooltip_action(task_side:com_163);
+%varclient_1416 = $int1;
+if_sethide(true, task_side:com_92);
+if_sethide(true, task_side:com_94);
+if_sethide(false, task_side:com_125);
+if_sethide(false, task_side:com_122);
+if (~script3999($int0) = 1) {
+    if (%varplayerbit_8588 = 4094) {
+        ~script3977(%varplayerbit_8587);
+    } else {
+        return;
+    }
+} else {
+    ~script3977($int0);
+}

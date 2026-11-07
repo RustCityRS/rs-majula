@@ -1,2 +1,3 @@
-[proc,friendschat_kick_mes](string $string)
-tutorial_openchat(11, 0, $string);
+// 1890
+[proc,friendschat_kick_mes](string $string0)
+mes_typed(^chattype_friendschatnotification, 0, $string0);

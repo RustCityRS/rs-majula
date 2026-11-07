@@ -1,8 +1,0 @@
-[proc,clientscript_3964]
-if (%varc_int_1414 = true) {
-    if_settext("Username:", login:com36);
-} else if (%varc_int_1414 = 2) {
-    if_settext("Email:", login:com36);
-} else {
-    if_settext("Login:", login:com36);
-}

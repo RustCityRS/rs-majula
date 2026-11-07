@@ -1,0 +1,22 @@
+// 3970
+[clientscript,script3970]
+def_int $int0 = if_gettrans(interface_1055:com_3);
+if (%varclient_1427 < 190) {
+    %varclient_1427 = calc(%varclient_1427 + 1);
+} else if ($int0 < 255) {
+    $int0 = min(calc($int0 + 4), 255);
+    if_settrans($int0, interface_1055:com_2);
+    if_settrans($int0, interface_1055:com_3);
+    if_settrans($int0, interface_1055:com_4);
+    if_settrans($int0, interface_1055:com_5);
+    if_settrans($int0, interface_1055:com_6);
+    if_settrans($int0, interface_1055:com_7);
+    if_settrans($int0, interface_1055:com_8);
+    if_settrans($int0, interface_1055:com_9);
+    if_settrans($int0, interface_1055:com_10);
+    if_settrans($int0, interface_1055:com_11);
+} else {
+    if_setontimer(null, interface_1055:com_0);
+    if_sethide(true, interface_1055:com_1);
+    %varclient_1427 = 0;
+}

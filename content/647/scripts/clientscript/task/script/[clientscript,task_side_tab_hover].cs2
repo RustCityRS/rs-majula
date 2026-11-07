@@ -1,46 +1,47 @@
-[clientscript,task_side_tab_hover](int $int)
-switch_int ($int) {
-    case 0:
-        if_setgraphic("task_tab,0", task_side:com16);
-        if_setgraphic("task_tab,0", task_side:com18);
-        if_setgraphic("task_tab,1", task_side:com17);
-        if_setgraphic("task_tab,0", task_side:com11);
-        if_setgraphic("task_tab,0", task_side:com13);
-        if_setgraphic("task_tab,1", task_side:com12);
-        if_setgraphic("task_tab,0", task_side:com31);
-        if_setgraphic("task_tab,0", task_side:com33);
-        if_setgraphic("task_tab,1", task_side:com32);
-        if_setgraphic("task_tab,0", task_side:com21);
-        if_setgraphic("task_tab,0", task_side:com23);
-        if_setgraphic("task_tab,1", task_side:com22);
-        if_setgraphic("task_tab,0", task_side:com44);
-        if_setgraphic("task_tab,0", task_side:com46);
-        if_setgraphic("task_tab,1", task_side:com45);
-        if_setgraphic("task_tab,0", task_side:com39);
-        if_setgraphic("task_tab,0", task_side:com41);
-        if_setgraphic("task_tab,1", task_side:com40);
-    case 1:
-        if_setgraphic("task_tab,2", task_side:com16);
-        if_setgraphic("task_tab,2", task_side:com18);
-        if_setgraphic("task_tab,3", task_side:com17);
-    case 2:
-        if_setgraphic("task_tab,2", task_side:com11);
-        if_setgraphic("task_tab,2", task_side:com13);
-        if_setgraphic("task_tab,3", task_side:com12);
-    case 3:
-        if_setgraphic("task_tab,2", task_side:com31);
-        if_setgraphic("task_tab,2", task_side:com33);
-        if_setgraphic("task_tab,3", task_side:com32);
-    case 4:
-        if_setgraphic("task_tab,2", task_side:com21);
-        if_setgraphic("task_tab,2", task_side:com23);
-        if_setgraphic("task_tab,3", task_side:com22);
-    case 5:
-        if_setgraphic("task_tab,2", task_side:com44);
-        if_setgraphic("task_tab,2", task_side:com46);
-        if_setgraphic("task_tab,3", task_side:com45);
-    case 6:
-        if_setgraphic("task_tab,2", task_side:com39);
-        if_setgraphic("task_tab,2", task_side:com41);
-        if_setgraphic("task_tab,3", task_side:com40);
+// 4010
+[clientscript,task_side_tab_hover](int $int0)
+switch_int ($int0) {
+    case 0 :
+        if_setgraphic("task_tab,0", task_side:com_16);
+        if_setgraphic("task_tab,0", task_side:com_18);
+        if_setgraphic("task_tab,1", task_side:com_17);
+        if_setgraphic("task_tab,0", task_side:com_11);
+        if_setgraphic("task_tab,0", task_side:com_13);
+        if_setgraphic("task_tab,1", task_side:com_12);
+        if_setgraphic("task_tab,0", task_side:com_31);
+        if_setgraphic("task_tab,0", task_side:com_33);
+        if_setgraphic("task_tab,1", task_side:com_32);
+        if_setgraphic("task_tab,0", task_side:com_21);
+        if_setgraphic("task_tab,0", task_side:com_23);
+        if_setgraphic("task_tab,1", task_side:com_22);
+        if_setgraphic("task_tab,0", task_side:com_44);
+        if_setgraphic("task_tab,0", task_side:com_46);
+        if_setgraphic("task_tab,1", task_side:com_45);
+        if_setgraphic("task_tab,0", task_side:com_39);
+        if_setgraphic("task_tab,0", task_side:com_41);
+        if_setgraphic("task_tab,1", task_side:com_40);
+    case 1 :
+        if_setgraphic("task_tab,2", task_side:com_16);
+        if_setgraphic("task_tab,2", task_side:com_18);
+        if_setgraphic("task_tab,3", task_side:com_17);
+    case 2 :
+        if_setgraphic("task_tab,2", task_side:com_11);
+        if_setgraphic("task_tab,2", task_side:com_13);
+        if_setgraphic("task_tab,3", task_side:com_12);
+    case 3 :
+        if_setgraphic("task_tab,2", task_side:com_31);
+        if_setgraphic("task_tab,2", task_side:com_33);
+        if_setgraphic("task_tab,3", task_side:com_32);
+    case 4 :
+        if_setgraphic("task_tab,2", task_side:com_21);
+        if_setgraphic("task_tab,2", task_side:com_23);
+        if_setgraphic("task_tab,3", task_side:com_22);
+    case 5 :
+        if_setgraphic("task_tab,2", task_side:com_44);
+        if_setgraphic("task_tab,2", task_side:com_46);
+        if_setgraphic("task_tab,3", task_side:com_45);
+    case 6 :
+        if_setgraphic("task_tab,2", task_side:com_39);
+        if_setgraphic("task_tab,2", task_side:com_41);
+        if_setgraphic("task_tab,3", task_side:com_40);
 }

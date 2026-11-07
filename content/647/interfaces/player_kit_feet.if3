@@ -1,0 +1,215 @@
+// 728:0
+[com_0]
+type=rectangle
+x=5
+y=5
+width=480
+height=300
+xmode=abs_centre
+ymode=abs_centre
+colour=0x000000
+fill=yes
+trans=200
+
+// 728:1
+[com_1]
+type=layer
+width=480
+height=300
+xmode=abs_centre
+ymode=abs_centre
+onload=player_kit_feet_initialise
+
+// 728:2
+[com_2]
+type=graphic
+width=4
+height=4
+widthmode=minus
+heightmode=minus
+xmode=abs_centre
+ymode=abs_centre
+layer=com_1
+graphic=tradebacking
+tiling=yes
+colour=0x000000
+
+// 728:3
+[com_3]
+type=text
+height=36
+widthmode=minus
+xmode=abs_centre
+layer=com_1
+textfont=b12_full
+text=Yrsa's Shoe Store
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xff981f
+
+// 728:4
+[com_4]
+type=graphic
+x=10
+y=10
+width=16
+height=16
+xmode=abs_right
+layer=com_1
+graphic="v2_stone_close_button,0"
+colour=0x000000
+transmitop=1
+op1=Close
+onmouseover=graphic_swapper(event_com, "v2_stone_close_button,1")
+onmouseleave=graphic_swapper(event_com, "v2_stone_close_button,0")
+onop=closebutton_click
+
+// 728:5
+[com_5]
+type=layer
+x=10
+y=10
+width=188
+height=250
+ymode=abs_bottom
+layer=com_1
+
+// 728:6
+[com_6]
+type=layer
+widthmode=minus
+heightmode=minus
+xmode=abs_centre
+ymode=abs_centre
+layer=com_5
+
+// 728:7
+[com_7]
+type=layer
+x=2
+width=20
+height=4
+widthmode=minus
+heightmode=minus
+ymode=abs_centre
+layer=com_5
+
+// 728:8
+[com_8]
+type=layer
+x=2
+width=16
+height=4
+heightmode=minus
+xmode=abs_right
+ymode=abs_centre
+layer=com_5
+hide=yes
+
+// 728:9
+[com_9]
+type=layer
+x=203
+y=10
+width=136
+height=250
+ymode=abs_bottom
+layer=com_1
+
+// 728:10
+[com_10]
+type=layer
+x=10
+y=40
+width=126
+height=200
+xmode=abs_right
+layer=com_1
+
+// 728:11
+[com_11]
+type=layer
+widthmode=minus
+heightmode=minus
+xmode=abs_centre
+ymode=abs_centre
+layer=com_10
+
+// 728:12
+[com_12]
+type=layer
+x=2
+width=4
+height=4
+widthmode=minus
+heightmode=minus
+ymode=abs_centre
+layer=com_10
+
+// 728:13
+[com_13]
+type=layer
+x=2
+width=16
+height=4
+heightmode=minus
+xmode=abs_right
+ymode=abs_centre
+layer=com_10
+hide=yes
+
+// 728:14
+[com_14]
+type=layer
+x=20
+y=10
+width=106
+height=255
+heightmode=minus
+xmode=abs_right
+ymode=abs_bottom
+layer=com_1
+transmitop=1
+op1=Confirm
+
+// 728:15
+[com_15]
+type=layer
+widthmode=minus
+heightmode=minus
+xmode=abs_centre
+ymode=abs_centre
+layer=com_14
+onload=v2_stone_button_filled(event_com)
+onmouseover=v2_stone_button_in_filled(event_com)
+onmouseleave=v2_stone_button_filled(event_com)
+
+// 728:16
+[com_16]
+type=text
+widthmode=minus
+heightmode=minus
+xmode=abs_centre
+ymode=abs_centre
+layer=com_14
+textfont=p12_full
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xff981f
+onmouseover=text_colour_swapper(event_com, ^white)
+onmouseleave=text_colour_swapper(event_com, 0xff981f)
+
+// 728:17
+[com_17]
+type=layer
+widthmode=minus
+heightmode=minus
+xmode=abs_centre
+ymode=abs_centre
+
+// 728:18
+[com_18]
+type=layer
+layer=com_17

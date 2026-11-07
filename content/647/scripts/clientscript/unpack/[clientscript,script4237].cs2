@@ -1,0 +1,7 @@
+// 4237
+[clientscript,script4237]
+if (%varclient_1495 = 0 & %varplayerbit_8960 > 0) {
+    %varclient_1495 = clientclock;
+} else {
+    return;
+}

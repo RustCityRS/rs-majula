@@ -1,0 +1,36 @@
+// 4420
+[proc,script4420]
+if_settext("Event", clan_info:com_60);
+if_sethide(false, clan_info:com_58);
+if_sethide(false, clan_info:com_59);
+switch_int (%varclansetting_130) {
+    case 1 :
+        ~script4421(clan_info:com_50, clan_info:com_51, %varclansetting_98, %varclansetting_106, %varclansetting_82, %varclansetting_90, %varclansetting_74, %varclansetting_114, %varclansetting_65, %varclansetting_132, %varclansetting_122);
+    case 2 :
+        ~script4421(clan_info:com_50, clan_info:com_51, %varclansetting_99, %varclansetting_107, %varclansetting_83, %varclansetting_91, %varclansetting_75, %varclansetting_115, %varclansetting_66, %varclansetting_133, %varclansetting_123);
+    case 3 :
+        ~script4421(clan_info:com_50, clan_info:com_51, %varclansetting_100, %varclansetting_108, %varclansetting_84, %varclansetting_92, %varclansetting_76, %varclansetting_116, %varclansetting_67, %varclansetting_134, %varclansetting_124);
+    case 4 :
+        ~script4421(clan_info:com_50, clan_info:com_51, %varclansetting_101, %varclansetting_109, %varclansetting_85, %varclansetting_93, %varclansetting_77, %varclansetting_117, %varclansetting_68, %varclansetting_135, %varclansetting_125);
+    case 5 :
+        ~script4421(clan_info:com_50, clan_info:com_51, %varclansetting_102, %varclansetting_110, %varclansetting_86, %varclansetting_94, %varclansetting_78, %varclansetting_118, %varclansetting_69, %varclansetting_136, %varclansetting_126);
+    case 6 :
+        ~script4421(clan_info:com_50, clan_info:com_51, %varclansetting_103, %varclansetting_111, %varclansetting_87, %varclansetting_95, %varclansetting_79, %varclansetting_119, %varclansetting_70, %varclansetting_137, %varclansetting_127);
+    case 7 :
+        ~script4421(clan_info:com_50, clan_info:com_51, %varclansetting_104, %varclansetting_112, %varclansetting_88, %varclansetting_96, %varclansetting_80, %varclansetting_120, %varclansetting_71, %varclansetting_138, %varclansetting_128);
+    case 8 :
+        ~script4421(clan_info:com_50, clan_info:com_51, %varclansetting_105, %varclansetting_113, %varclansetting_89, %varclansetting_97, %varclansetting_81, %varclansetting_121, %varclansetting_72, %varclansetting_139, %varclansetting_129);
+    case default :
+        if_setonmouseover(null, clan_info:com_54);
+        if_setonmouseleave(null, clan_info:com_54);
+        if_setonmouseover(null, clan_info:com_56);
+        if_setonmouseleave(null, clan_info:com_55);
+        if_setonmouseover(null, clan_info:com_56);
+        if_setonmouseleave(null, clan_info:com_56);
+        if_settext("Events (none)", clan_info:com_60);
+        if_sethide(true, clan_info:com_58);
+        if_sethide(true, clan_info:com_59);
+        if_settext("", clan_info:com_50);
+        if_settext("", clan_info:com_51);
+        if_setonclick(null, clan_info:com_57);
+}

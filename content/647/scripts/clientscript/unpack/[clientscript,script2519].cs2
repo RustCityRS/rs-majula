@@ -1,0 +1,31 @@
+// 2519
+[clientscript,script2519](component $component0)
+def_int $int1 = ~script2520;
+switch_component ($component0) {
+    case mob_special_units:com_14 :
+        if (%varclient_847 > 0) {
+            %varclient_847 = calc(%varclient_847 - 1);
+            if_settext(tostring(%varclient_847), mob_special_units:com_13);
+        }
+    case mob_special_units:com_62 :
+        if (%varclient_848 > 0) {
+            %varclient_848 = calc(%varclient_848 - 1);
+            if_settext(tostring(%varclient_848), mob_special_units:com_61);
+        }
+    case mob_special_units:com_54 :
+        if (%varclient_849 > 0) {
+            %varclient_849 = calc(%varclient_849 - 1);
+            if_settext(tostring(%varclient_849), mob_special_units:com_53);
+        }
+    case mob_special_units:com_46 :
+        if (%varclient_850 > 0) {
+            %varclient_850 = calc(%varclient_850 - 1);
+            if_settext(tostring(%varclient_850), mob_special_units:com_45);
+        }
+    case mob_special_units:com_71 :
+        if (%varclient_851 > 0) {
+            %varclient_851 = calc(%varclient_851 - 1);
+            if_settext(tostring(%varclient_851), mob_special_units:com_70);
+        }
+}
+~script2517;

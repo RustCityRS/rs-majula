@@ -1,4 +1,5 @@
-[proc,playerdesign4_colourhighlight](component $component0, component $component1, int $int2, colour $colour3, colour $colour4, int $int5, int $int6)
+// 376
+[proc,playerdesign4_colourhighlight](component $component0, component $component1, int $int2, int $rgb3, int $rgb4, int $int5, int $int6)
 if ($component1 = null) {
     cc_create($component0, ^iftype_rectangle, $int6);
     cc_sethide(true);
@@ -29,29 +30,29 @@ cc_create($component0, ^iftype_rectangle, $int6);
 cc_setsize(calc($int9 - 2), 2, ^setsize_abs, ^setsize_abs);
 cc_setposition(calc($int7 + 1), $int8, ^setpos_abs_left, ^setpos_abs_top);
 cc_setfill(true);
-cc_setcolour($colour3);
+cc_setcolour($rgb3);
 cc_create($component0, ^iftype_rectangle, calc($int6 + 1));
 cc_setsize(calc($int9 - 2), 2, ^setsize_abs, ^setsize_abs);
 cc_setposition(calc($int7 + 1), calc($int8 + $int10 - 2), ^setpos_abs_left, ^setpos_abs_top);
 cc_setfill(true);
-cc_setcolour($colour4);
+cc_setcolour($rgb4);
 cc_create($component0, ^iftype_rectangle, calc($int6 + 2));
 cc_setsize(2, calc($int10 - 2), ^setsize_abs, ^setsize_abs);
 cc_setposition($int7, calc($int8 + 1), ^setpos_abs_left, ^setpos_abs_top);
 cc_setfill(true);
-cc_setcolour($colour4);
+cc_setcolour($rgb4);
 cc_create($component0, ^iftype_rectangle, calc($int6 + 3));
 cc_setsize(2, calc($int10 - 2), ^setsize_abs, ^setsize_abs);
 cc_setposition(calc($int7 + $int9 - 2), calc($int8 + 1), ^setpos_abs_left, ^setpos_abs_top);
 cc_setfill(true);
-cc_setcolour($colour4);
+cc_setcolour($rgb4);
 cc_create($component0, ^iftype_rectangle, calc($int6 + 4));
 cc_setsize(2, calc(($int10 - 2) / 2), ^setsize_abs, ^setsize_abs);
 cc_setposition($int7, calc($int8 + 1), ^setpos_abs_left, ^setpos_abs_top);
 cc_setfill(true);
-cc_setcolour($colour3);
+cc_setcolour($rgb3);
 cc_create($component0, ^iftype_rectangle, calc($int6 + 5));
 cc_setsize(2, calc(($int10 - 2) / 2), ^setsize_abs, ^setsize_abs);
 cc_setposition(calc($int7 + $int9 - 2), calc($int8 + 1), ^setpos_abs_left, ^setpos_abs_top);
 cc_setfill(true);
-cc_setcolour($colour3);
+cc_setcolour($rgb3);

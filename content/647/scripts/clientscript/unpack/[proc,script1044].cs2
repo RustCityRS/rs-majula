@@ -1,0 +1,79 @@
+// 1044
+[proc,script1044](chatphrase $chatphrase0)
+%varclient_128 = -1;
+def_string $string0 = chatphrase_gettext($chatphrase0);
+if (%varclient_126 = 1) {
+    $string0 = "To <%varclient_1546>: <col=800000><$string0>";
+} else if (%varclient_126 = 2) {
+    $string0 = "[<col=0000ff><clan_getchatdisplayname><col=000000>]: <col=800000><$string0>";
+} else if (%varclient_126 = 8) {
+    if (activeclanchannel_find_affined = true) {
+        $string0 = "[<col=0000ff><activeclanchannel_getclanname><col=000000>]: <col=800000><$string0>";
+    }
+} else if (%varclient_126 = 10) {
+    if (activeclanchannel_find_listened = true) {
+        $string0 = "[<col=0000ff><activeclanchannel_getclanname><col=000000>]: <col=800000><$string0>";
+    }
+} else {
+    $string0 = "<col=0000ff><$string0>";
+}
+if_sethide(true, chatbox_background:com_50);
+if_setonkey(null, chatbox_background:com_55);
+if_sethide(false, chatbox_background:com_0);
+if_sethide(true, chatbox_background:com_7);
+if_sethide(false, chatbox_background:com_9);
+if_sethide(true, chatbox_background:com_13);
+if_sethide(true, chatbox_background:com_17);
+if_sethide(true, chatbox_background:com_1);
+if_sethide(false, chatbox_background:com_3);
+if_setcolour(^black, chatbox_background:com_3);
+if_settextfont(p12_full, chatbox_background:com_3);
+if_settextalign(^settextalign_left, ^settextalign_centre, 0, chatbox_background:com_3);
+if_settext($string0, chatbox_background:com_3);
+if_settextshadow(false, chatbox_background:com_3);
+cc_deleteall(chatbox_background:com_12);
+def_enum $enum1 = chatphrase_getdynamiccommandparam_enum($chatphrase0, %varclient_134, 0);
+cc_create(chatbox_background:com_12, ^iftype_rectangle, 0);
+def_int $int2 = if_getwidth(chatbox_background:com_12);
+def_int $int3 = calc($int2 - 8);
+def_int $int4 = 1;
+def_int $int5 = 0;
+def_int $intarray0(250);
+def_int $int6 = 0;
+$string0 = enum(int, string, $enum1, 0);
+while (compare("", $string0) ! 0 & $int4 < 250) {
+    cc_create(chatbox_background:com_12, ^iftype_text, $int4);
+    cc_setposition(4, calc(14 * $int5), ^setpos_abs_left, ^setpos_abs_top);
+    cc_setsize($int3, 14, ^setsize_abs, ^setsize_abs);
+    cc_setcolour(^black);
+    cc_settext($string0);
+    cc_settextfont(p12_full);
+    cc_settextshadow(false);
+    cc_setonmouseover("script1045($int4, chatbox_background:com_12, $int5)");
+    cc_setonclick("quickchat_phrase_int(chatbox_background:com_1, $chatphrase0, calc($int4 - 1))");
+    $intarray0($int5) = $int5;
+    $string0 = enum(int, string, $enum1, $int4);
+    $int4 = calc($int4 + 1);
+    $int5 = calc($int5 + 1);
+}
+$int6 = calc($int5 - 1);
+if (compare(enum(int, string, $enum1, 1000), "non-alpha") ! 0) {
+    ~script520(intarray0, 0, $int6, $enum1);
+    $int5 = 0;
+    while ($int5 <= $int6) {
+        if (cc_find(chatbox_background:com_12, calc($intarray0($int5) + 1)) = true) {
+            cc_setposition(4, calc(14 * $int5), ^setpos_abs_left, ^setpos_abs_top);
+            cc_setonmouseover("script1045(calc($intarray0($int5) + 1), chatbox_background:com_12, $int5)");
+        }
+        $int5 = calc($int5 + 1);
+    }
+}
+$int5 = 0;
+while ($int5 < 250) {
+    ~script1384($int5, $intarray0($int5));
+    $int5 = calc($int5 + 1);
+}
+if_setonkey("script1046(event_keycode, event_keychar, chatbox_background:com_1, chatbox_background:com_12, chatbox_background:com_11, $chatphrase0, calc($int4 - 1))", chatbox_background:com_12);
+if_setscrollsize(0, calc(14 * ($int4 - 1)), chatbox_background:com_12);
+~scrollbar_vertical(chatbox_background:com_11, chatbox_background:com_12, "scrollbar_dragger_v2,3", "scrollbar_dragger_v2,0", "scrollbar_dragger_v2,1", "scrollbar_dragger_v2,2", "scrollbar_v2,0", "scrollbar_v2,1");
+~scrollbar_resize(chatbox_background:com_11, chatbox_background:com_12, 0);

@@ -1,17 +1,18 @@
+// 2128
 [proc,macro_beekeeper_setcomponent](component $component0, int $int1)
 switch_int ($int1) {
-    case 1:
+    case 1 :
         if_setmodel(model_16036, $component0);
-        if_setmodelangle(0, 0, ~clientscript_686(%varc_int_680, 2048), %varc_int_681, ~clientscript_686(%varc_int_682, 2048), 800, $component0);
-    case 2:
+        if_setmodelangle(0, 0, ~script686(%varclient_680, 2048), %varclient_681, ~script686(%varclient_682, 2048), 800, $component0);
+    case 2 :
         if_setmodel(model_16025, $component0);
-        if_setmodelangle(0, 17, ~clientscript_686(%varc_int_683, 2048), %varc_int_684, ~clientscript_686(%varc_int_685, 2048), 800, $component0);
-    case 3:
+        if_setmodelangle(0, 17, ~script686(%varclient_683, 2048), %varclient_684, ~script686(%varclient_685, 2048), 800, $component0);
+    case 3 :
         if_setmodel(model_16022, $component0);
-        if_setmodelangle(0, 0, ~clientscript_686(%varc_int_686, 2048), %varc_int_687, ~clientscript_686(%varc_int_688, 2048), 800, $component0);
-    case 4:
+        if_setmodelangle(0, 0, ~script686(%varclient_686, 2048), %varclient_687, ~script686(%varclient_688, 2048), 800, $component0);
+    case 4 :
         if_setmodel(model_16034, $component0);
-        if_setmodelangle(0, 0, ~clientscript_686(%varc_int_689, 2048), %varc_int_690, ~clientscript_686(%varc_int_691, 2048), 800, $component0);
-    case default:
+        if_setmodelangle(0, 0, ~script686(%varclient_689, 2048), %varclient_690, ~script686(%varclient_691, 2048), 800, $component0);
+    case default :
         if_setmodel(null, $component0);
 }

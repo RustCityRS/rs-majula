@@ -1,60 +1,61 @@
+// 3054
 [proc,lobbyscreen_pane_friendslist_chat_build](component $component0)
-if (hud_test(59572276, -1) = true) {
+if (minimenuopen(lobbyscreen_pane_friendslist:com_52, -1) = true) {
     if_setontimer("lobbyscreen_pane_friendslist_chat_build($component0)", $component0);
     return;
 }
-cc_deleteall(lobbyscreen_pane_friendslist:com52);
+cc_deleteall(lobbyscreen_pane_friendslist:com_52);
 def_string $string0 = "<col=ff5256>";
 def_int $int1 = 0;
 def_int $int2 = 0;
-def_int $int3 = 0;
+def_int $chattype3 = ^chattype_gamemessage;
 def_string $string1 = "";
 def_string $string2 = "";
 while ($int2 < 100) {
-    $int3 = chat_gethistory_length($int2);
-    $string1 = player_getdisplayname($int2);
-    $string2 = chat_gethistory_message($int2);
-    switch_int ($int3) {
-        case 0, 4, 27, 28, 29, 26, 30, 31:
-            $int1 = ~lobbyscreen_pane_friendslist_chat_line($int1, chat_gethistory_bytypeandline($int2), 0, "", "", $int3);
-        case 3:
-            $int1 = ~lobbyscreen_pane_friendslist_chat_line($int1, "From <$string1>: <$string0><chat_gethistory_bytypeandline($int2)>", 1, $string1, $string2, $int3);
-            %varc_string_276 = $string2;
-        case 5:
-            $int1 = ~lobbyscreen_pane_friendslist_chat_line($int1, "<$string0><chat_gethistory_bytypeandline($int2)>", 1, $string1, $string2, $int3);
-        case 6:
-            $int1 = ~lobbyscreen_pane_friendslist_chat_line($int1, "To <$string1>: <$string0><chat_gethistory_bytypeandline($int2)>", 1, $string1, $string2, $int3);
-        case 7:
-            $int1 = ~lobbyscreen_pane_friendslist_chat_line($int1, "From <$string1>: <$string0><chat_gethistory_bytypeandline($int2)>", 1, $string1, $string2, $int3);
-            %varc_string_276 = $string2;
-        case 18:
-            $int1 = ~lobbyscreen_pane_friendslist_chat_line($int1, "From <$string1>: <$string0><chat_gethistory_bytypeandline($int2)>", 1, $string1, $string2, $int3);
-            %varc_string_276 = $string2;
-        case 19:
-            $int1 = ~lobbyscreen_pane_friendslist_chat_line($int1, "To <$string1>: <$string0><chat_gethistory_bytypeandline($int2)>", 1, $string1, $string2, $int3);
-        case 115:
-            $int1 = ~lobbyscreen_pane_friendslist_chat_line($int1, "<col=ff0000><chat_gethistory_bytypeandline($int2)></col>", 0, "", "", $int3);
+    $chattype3 = chat_gethistorytype($int2);
+    $string1 = chat_gethistoryname($int2);
+    $string2 = unknown_command_5019($int2);
+    switch_int ($chattype3) {
+        case ^chattype_gamemessage, ^chattype_engine, ^chattype_obj_examine, ^chattype_npc_examine, ^chattype_loc_examine, ^chattype_snapshotfeedback, ^chattype_friendnotification, ^chattype_ignorenotification :
+            $int1 = ~lobbyscreen_pane_friendslist_chat_line($int1, chat_gethistorymessage($int2), 0, "", "", $chattype3);
+        case ^chattype_privatechat :
+            $int1 = ~lobbyscreen_pane_friendslist_chat_line($int1, "From <$string1>: <$string0><chat_gethistorymessage($int2)>", 1, $string1, $string2, $chattype3);
+            %varclient_1795 = $string2;
+        case ^chattype_loginlogoutnotification :
+            $int1 = ~lobbyscreen_pane_friendslist_chat_line($int1, "<$string0><chat_gethistorymessage($int2)>", 1, $string1, $string2, $chattype3);
+        case ^chattype_privatechatout :
+            $int1 = ~lobbyscreen_pane_friendslist_chat_line($int1, "To <$string1>: <$string0><chat_gethistorymessage($int2)>", 1, $string1, $string2, $chattype3);
+        case ^chattype_modprivatechat :
+            $int1 = ~lobbyscreen_pane_friendslist_chat_line($int1, "From <$string1>: <$string0><chat_gethistorymessage($int2)>", 1, $string1, $string2, $chattype3);
+            %varclient_1795 = $string2;
+        case ^chattype_quickchat_private_incoming :
+            $int1 = ~lobbyscreen_pane_friendslist_chat_line($int1, "From <$string1>: <$string0><chat_gethistorymessage($int2)>", 1, $string1, $string2, $chattype3);
+            %varclient_1795 = $string2;
+        case ^chattype_quickchat_private_outgoing :
+            $int1 = ~lobbyscreen_pane_friendslist_chat_line($int1, "To <$string1>: <$string0><chat_gethistorymessage($int2)>", 1, $string1, $string2, $chattype3);
+        case ^chattype_system_broadcast :
+            $int1 = ~lobbyscreen_pane_friendslist_chat_line($int1, "<col=ff0000><chat_gethistorymessage($int2)></col>", 0, "", "", $chattype3);
     }
     $int2 = calc($int2 + 1);
 }
-def_int $int4 = calc(if_getheight(lobbyscreen_pane_friendslist:com52) / 15);
+def_int $int4 = calc(if_getheight(lobbyscreen_pane_friendslist:com_52) / 15);
 $int2 = 0;
 def_int $int5 = 0;
 if ($int1 < $int4) {
     $int5 = calc($int4 - $int1);
     while ($int2 < $int5) {
-        $int1 = ~lobbyscreen_pane_friendslist_chat_line($int1, "", 0, "", "", 0);
+        $int1 = ~lobbyscreen_pane_friendslist_chat_line($int1, "", 0, "", "", ^chattype_gamemessage);
         $int2 = calc($int2 + 1);
     }
 }
 def_int $int6 = max(calc($int1 * 15), calc($int4 * 15));
-if ($int6 > if_getheight(lobbyscreen_pane_friendslist:com52)) {
-    if_setscrollsize(0, $int6, lobbyscreen_pane_friendslist:com52);
-    ~scrollbar_resize(lobbyscreen_pane_friendslist:com53, lobbyscreen_pane_friendslist:com52, calc(%varc_int_1122 + if_getscrollheight(lobbyscreen_pane_friendslist:com52) - %varc_int_1123));
+if ($int6 > if_getheight(lobbyscreen_pane_friendslist:com_52)) {
+    if_setscrollsize(0, $int6, lobbyscreen_pane_friendslist:com_52);
+    ~scrollbar_resize(lobbyscreen_pane_friendslist:com_53, lobbyscreen_pane_friendslist:com_52, calc(%varclient_1122 + if_getscrollheight(lobbyscreen_pane_friendslist:com_52) - %varclient_1123));
 } else {
-    if_setscrollsize(0, 0, lobbyscreen_pane_friendslist:com52);
-    if_setscrollpos(0, 0, lobbyscreen_pane_friendslist:com52);
-    ~scrollbar_resize(lobbyscreen_pane_friendslist:com53, lobbyscreen_pane_friendslist:com52, 0);
+    if_setscrollsize(0, 0, lobbyscreen_pane_friendslist:com_52);
+    if_setscrollpos(0, 0, lobbyscreen_pane_friendslist:com_52);
+    ~scrollbar_resize(lobbyscreen_pane_friendslist:com_53, lobbyscreen_pane_friendslist:com_52, 0);
 }
-%varc_int_1122 = if_getscrolly(lobbyscreen_pane_friendslist:com52);
-%varc_int_1123 = if_getscrollheight(lobbyscreen_pane_friendslist:com52);
+%varclient_1122 = if_getscrolly(lobbyscreen_pane_friendslist:com_52);
+%varclient_1123 = if_getscrollheight(lobbyscreen_pane_friendslist:com_52);

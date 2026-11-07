@@ -1,6 +1,0 @@
-[proc,clientscript_2371]
-if (%equipment_bank_button = true) {
-    if_sethide(false, equip_screen2:com48);
-} else {
-    if_sethide(true, equip_screen2:com48);
-}

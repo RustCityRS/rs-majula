@@ -1,0 +1,31 @@
+// 3968
+[clientscript,script3968]
+if (%varclient_1429 = 1 | %varclient_1425 = %varclient_1426) {
+    return;
+}
+%varclient_1427 = 0;
+def_struct $struct0 = enum(int, struct, enum_3483, %varclient_1425);
+def_int $int1 = 1;
+if (getwindowmode >= 2) {
+    if (if_gethide(toplevel_fullscreen:com_23) = true | if_getgraphic(toplevel_fullscreen:com_23) = null) {
+        $int1 = 0;
+    }
+} else if (if_gethide(toplevel:com_140) = true | if_getgraphic(toplevel:com_140) = null) {
+    $int1 = 0;
+}
+if (%learning_the_ropes = 1000) {
+    if_setonop("script3976(%varclient_1425, 1, $int1)", interface_1055:com_2);
+} else {
+    if_setonop(null, interface_1055:com_2);
+}
+if (if_gethide(interface_1055:com_12) = true & if_gethide(interface_1055:com_1) = true) {
+    if ($struct0 ! null) {
+        if_settrans(255, interface_1055:com_13);
+        if_setontimer("script3969", interface_1055:com_12);
+        if_sethide(false, interface_1055:com_12);
+    } else {
+        if_sethide(true, interface_1055:com_1);
+        if_sethide(true, interface_1055:com_12);
+    }
+}
+%varclient_1426 = %varclient_1425;

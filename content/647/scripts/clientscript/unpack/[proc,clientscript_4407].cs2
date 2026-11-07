@@ -1,7 +1,0 @@
-[proc,clientscript_4407](component $component0, component $component1, component $component2, int $int3, int $int4)
-def_int $int5 = if_getheight($component1);
-def_colour $colour6 = calc(($int5 - $int4) * 64 / $int5);
-if_setcolour($colour6, $component0);
-%varbit_9088 = calc($colour6 % 64);
-~clan_set_line($int4);
-if_setcolour(hsv_to_rgb(%varp_2098), $component2);

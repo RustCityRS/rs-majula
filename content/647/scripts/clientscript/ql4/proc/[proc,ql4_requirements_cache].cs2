@@ -1,18 +1,18 @@
-[proc,ql4_requirements_cache]()(int)
+// 2149
+[proc,ql4_requirements_cache]()(boolean)
 if (~ql4_quest_requirements_cache = false) {
-    return(0);
+    return(false);
 }
-if (%qp < struct_param(%varc_int_699, param_895)) {
-    return(0);
+if (%qp < struct_param(%varclient_699, param_895)) {
+    return(false);
 }
-if (%varc_int_698 < struct_param(%varc_int_699, param_896)) {
-    return(0);
+if (%varclient_698 < struct_param(%varclient_699, param_896)) {
+    return(false);
 }
 if (~ql4_skill_requirements_cache = false) {
-    return(0);
+    return(false);
 }
-if (struct_param(%varc_int_699, param_898) = true & ~ql4_special_requirements(struct_param(%varc_int_699, param_847)) = false) {
-    return(0);
+if (struct_param(%varclient_699, param_898) = 1 & ~ql4_special_requirements(struct_param(%varclient_699, param_847)) = false) {
+    return(false);
 }
-return(1);
-return(-1);
+return(true);

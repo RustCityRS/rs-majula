@@ -1,3 +1,4 @@
+// 2994
 [proc,cc_add_graphic](component $component0, int $int1, int $int2, int $int3, int $int4, int $int5, graphic $graphic6, boolean $boolean7, boolean $boolean8, boolean $boolean9, int $int10)
 cc_create($component0, ^iftype_graphic, $int1);
 cc_setsize($int2, $int3, ^setsize_abs, ^setsize_abs);

@@ -1,33 +1,34 @@
-[clientscript,rand_interface_click](int $int)
-switch_int ($int) {
-    case 61145353:
-        if (%varc_int_1184 ! 1 & %varc_int_1198 = true) {
-            %varc_int_1184 = 1;
+// 3272
+[clientscript,rand_interface_click](int $int0)
+switch_int ($int0) {
+    case 61145353 :
+        if (%varclient_1184 ! 1 & %varclient_1198 = 1) {
+            %varclient_1184 = 1;
         } else {
-            %varc_int_1184 = 0;
+            %varclient_1184 = 0;
         }
-    case 61145354:
-        if (%varc_int_1184 ! 2 & %varc_int_1199 = true) {
-            %varc_int_1184 = 2;
+    case 61145354 :
+        if (%varclient_1184 ! 2 & %varclient_1199 = 1) {
+            %varclient_1184 = 2;
         } else {
-            %varc_int_1184 = 0;
+            %varclient_1184 = 0;
         }
-    case 61145364:
-        if (%varc_int_1184 ! 3 & %varc_int_1200 = true) {
-            %varc_int_1184 = 3;
+    case 61145364 :
+        if (%varclient_1184 ! 3 & %varclient_1200 = 1) {
+            %varclient_1184 = 3;
         } else {
-            %varc_int_1184 = 0;
+            %varclient_1184 = 0;
         }
-    case 61145374:
-        if (%varc_int_1184 ! 4 & %varc_int_1201 = true) {
-            %varc_int_1184 = 4;
+    case 61145374 :
+        if (%varclient_1184 ! 4 & %varclient_1201 = 1) {
+            %varclient_1184 = 4;
         } else {
-            %varc_int_1184 = 0;
+            %varclient_1184 = 0;
         }
-    case 61145384:
-        if (%varc_int_1184 ! 5 & %varc_int_1202 = true) {
-            %varc_int_1184 = 5;
+    case 61145384 :
+        if (%varclient_1184 ! 5 & %varclient_1202 = 1) {
+            %varclient_1184 = 5;
         } else {
-            %varc_int_1184 = 0;
+            %varclient_1184 = 0;
         }
 }

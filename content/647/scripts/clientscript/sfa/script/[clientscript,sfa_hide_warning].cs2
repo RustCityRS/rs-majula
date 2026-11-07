@@ -1,7 +1,8 @@
-[clientscript,sfa_hide_warning](int $int)
-if (clientclock > calc($int + 200)) {
-    if_setontimer(null, ma6343905:com58);
-    if_sethide(true, ma6343905:com58);
-} else if (clientclock > calc($int + 150)) {
-    if_settrans(min(calc(if_gettrans(ma6343905:com58) + 10), 255), ma6343905:com58);
+// 2900
+[clientscript,sfa_hide_warning](int $int0)
+if (clientclock > calc($int0 + 200)) {
+    if_setontimer(null, interface_476:com_58);
+    if_sethide(true, interface_476:com_58);
+} else if (clientclock > calc($int0 + 150)) {
+    if_settrans(min(calc(if_gettrans(interface_476:com_58) + 10), 255), interface_476:com_58);
 }

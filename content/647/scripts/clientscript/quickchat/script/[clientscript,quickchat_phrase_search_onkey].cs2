@@ -1,14 +1,15 @@
-[clientscript,quickchat_phrase_search_onkey](int $int0, char $int1, component $component2, component $component3, component $component4, component $component5, int $int6)
-if ($int0 = 104) {
-    if ($int6 = false) {
+// 1901
+[clientscript,quickchat_phrase_search_onkey](int $key0, char $char1, component $component2, component $component3, component $component4, component $component5, int $int6)
+if ($key0 = ^key_page_up) {
+    if ($int6 = 0) {
         return;
     }
-    if (%varc_int_128 <= 0) {
-        %varc_int_128 = calc($int6 - 1);
+    if (%varclient_128 <= 0) {
+        %varclient_128 = calc($int6 - 1);
     } else {
-        %varc_int_128 = calc(%varc_int_128 - 1);
+        %varclient_128 = calc(%varclient_128 - 1);
     }
-    if (cc_find($component4, calc(%varc_int_128 + 1)) = true) {
+    if (cc_find($component4, calc(%varclient_128 + 1)) = true) {
         if (.cc_find($component4, 0) = true) {
             .cc_setposition(cc_getx, cc_gety, ^setpos_abs_left, ^setpos_abs_top);
             .cc_setsize(cc_getwidth, cc_getheight, ^setsize_abs, ^setsize_abs);
@@ -23,16 +24,16 @@ if ($int0 = 104) {
     }
     return;
 }
-if ($int0 = 105) {
-    if ($int6 = false) {
+if ($key0 = ^key_page_down) {
+    if ($int6 = 0) {
         return;
     }
-    if (%varc_int_128 = calc($int6 - 1)) {
-        %varc_int_128 = 0;
+    if (%varclient_128 = calc($int6 - 1)) {
+        %varclient_128 = 0;
     } else {
-        %varc_int_128 = calc(%varc_int_128 + 1);
+        %varclient_128 = calc(%varclient_128 + 1);
     }
-    if (cc_find($component4, calc(%varc_int_128 + 1)) = true) {
+    if (cc_find($component4, calc(%varclient_128 + 1)) = true) {
         if (.cc_find($component4, 0) = true) {
             .cc_setposition(cc_getx, cc_gety, ^setpos_abs_left, ^setpos_abs_top);
             .cc_setsize(cc_getwidth, cc_getheight, ^setsize_abs, ^setsize_abs);
@@ -47,32 +48,32 @@ if ($int0 = 105) {
     }
     return;
 }
-if ($int0 = 102) {
-    ~quickchat_open(%varc_int_126, %varc_string_27);
+if ($key0 = ^key_home) {
+    ~quickchat_open(%varclient_126, %varclient_1546);
     return;
 }
-if ($int0 = 13) {
+if ($key0 = ^key_escape) {
     ~quickchat_close;
     return;
 }
-def_int $int7 = string_length(%varc_string_30);
-def_int $int8 = quickchat_search(%varc_string_30, 0);
+def_int $int7 = string_length(%varclient_1549);
+def_int $int8 = chatphrase_find(%varclient_1549, false);
 def_int $int9 = 0;
-def_int $int10 = -1;
-if ($int0 = 84) {
-    if (%varc_int_128 < 0) {
+def_chatphrase $chatphrase10 = null;
+if ($key0 = ^key_return) {
+    if (%varclient_128 < 0) {
         if ($int7 > 0) {
-            %varc_int_129 = 0;
+            %varclient_129 = 0;
             if_setontimer(null, $component3);
             ~quickchat_phrase_search_refreshsearch($component2, $component4, $component5);
         } else {
             ~quickchat_close;
         }
-    } else if ($int8 > 0 & cc_find($component4, calc(%varc_int_128 + 1)) = true) {
+    } else if ($int8 > 0 & cc_find($component4, calc(%varclient_128 + 1)) = true) {
         while ($int9 < $int8) {
-            $int10 = quickchat_search_next;
-            if (compare(cc_gettext, quickchat_phrase_gettext($int10)) = false) {
-                ~quickchat_phrase($component2, $int10, 0);
+            $chatphrase10 = chatphrase_findnext;
+            if (compare(cc_gettext, chatphrase_gettext($chatphrase10)) = 0) {
+                ~quickchat_phrase($component2, $chatphrase10, 0);
                 return;
             }
             $int9 = calc($int9 + 1);
@@ -80,27 +81,27 @@ if ($int0 = 84) {
     }
     return;
 }
-if ($int0 = 85) {
+if ($key0 = ^key_backspace) {
     if ($int7 > 0) {
-        %varc_string_30 = substring(%varc_string_30, 0, calc($int7 - 1));
-    } else if (%varc_int_127 = false) {
+        %varclient_1549 = substring(%varclient_1549, 0, calc($int7 - 1));
+    } else if (%varclient_127 = 0) {
         ~quickchat_close;
     } else {
-        %varc_int_128 = -1;
-        if_sethide(true, chatbox_background:com7);
-        if_sethide(true, chatbox_background:com9);
-        if_sethide(true, chatbox_background:com13);
-        if_sethide(false, chatbox_background:com17);
-        if_sethide(false, chatbox_background:com1);
-        if_sethide(true, chatbox_background:com3);
+        %varclient_128 = -1;
+        if_sethide(true, chatbox_background:com_7);
+        if_sethide(true, chatbox_background:com_9);
+        if_sethide(true, chatbox_background:com_13);
+        if_sethide(false, chatbox_background:com_17);
+        if_sethide(false, chatbox_background:com_1);
+        if_sethide(true, chatbox_background:com_3);
         ~quickchat_return($component2, 0);
         return;
     }
-} else if (char_isprintable($int1) = true & $int7 < 80) {
-    %varc_string_30 = removetags(append_char(%varc_string_30, $int1));
+} else if (char_isprintable($char1) = true & $int7 < 80) {
+    %varclient_1549 = removetags(append_char(%varclient_1549, $char1));
 } else {
     return;
 }
-if_settext("Search for: <%varc_string_30>*", $component3);
-%varc_int_129 = 50;
-if_setontimer("clientscript_1903($component2, $component3, $component4, $component5)", $component3);
+if_settext("Search for: <%varclient_1549>*", $component3);
+%varclient_129 = 50;
+if_setontimer("script1903($component2, $component3, $component4, $component5)", $component3);

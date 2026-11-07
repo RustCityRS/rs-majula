@@ -1,19 +1,20 @@
-[proc,bank_v2_get_firstslot](int $int)(int)
-switch_int ($int) {
-    case 2:
+// 1470
+[proc,bank_v2_get_firstslot](int $int0)(int)
+switch_int ($int0) {
+    case 2 :
         return(0);
-    case 3:
+    case 3 :
         return(%bank_tab_1);
-    case 4:
+    case 4 :
         return(calc(%bank_tab_1 + %bank_tab_2));
-    case 5:
+    case 5 :
         return(calc(%bank_tab_1 + %bank_tab_2 + %bank_tab_3));
-    case 6:
+    case 6 :
         return(calc(%bank_tab_1 + %bank_tab_2 + %bank_tab_3 + %bank_tab_4));
-    case 7:
+    case 7 :
         return(calc(%bank_tab_1 + %bank_tab_2 + %bank_tab_3 + %bank_tab_4 + %bank_tab_5));
-    case 8:
+    case 8 :
         return(calc(%bank_tab_1 + %bank_tab_2 + %bank_tab_3 + %bank_tab_4 + %bank_tab_5 + %bank_tab_6));
-    case 9:
+    case 9 :
         return(calc(%bank_tab_1 + %bank_tab_2 + %bank_tab_3 + %bank_tab_4 + %bank_tab_5 + %bank_tab_6 + %bank_tab_7));
 }

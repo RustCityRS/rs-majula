@@ -1,0 +1,20 @@
+// 700
+[proc,script700](int $int0)(int)
+switch_int ($int0) {
+    case 1 :
+        return(%varplayerbit_1000);
+    case 2 :
+        return(%varplayerbit_1001);
+    case 3 :
+        return(%varplayerbit_1002);
+    case 4 :
+        return(%varplayerbit_1003);
+    case 5 :
+        return(%varplayerbit_1004);
+    case 6 :
+        return(%varplayerbit_1005);
+    case 7 :
+        return(%varplayerbit_1006);
+    case 8 :
+        return(%varplayerbit_1009);
+}

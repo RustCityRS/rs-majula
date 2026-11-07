@@ -1,8 +1,0 @@
-[proc,clientscript_2638]
-if (%varc_int_903 = false) {
-    if_setgraphic(2023, mob_side_command:com26);
-    if_settext("Light", mob_side_command:com10);
-} else if (%varc_int_903 = true) {
-    if_setgraphic(2022, mob_side_command:com26);
-    if_settext("Heavy", mob_side_command:com10);
-}

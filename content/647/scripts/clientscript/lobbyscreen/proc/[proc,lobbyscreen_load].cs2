@@ -1,75 +1,76 @@
-[proc,lobbyscreen_load](int $int0, int $int1)
-if ($int1 = false) {
-    ~loginscreen_initialisecamera(lobbyscreen:com14, lobbyscreen:com15, lobbyscreen:com16, lobbyscreen_pane_options:com16, lobbyscreen_pane_options:com22, lobbyscreen_pane_options:com21);
+// 1299
+[proc,lobbyscreen_load](boolean $boolean0, int $int1)
+if ($int1 = 0) {
+    ~loginscreen_initialisecamera(lobbyscreen:com_14, lobbyscreen:com_15, lobbyscreen:com_16, lobbyscreen_pane_options:com_16, lobbyscreen_pane_options:com_22, lobbyscreen_pane_options:com_21);
 }
-if_setgraphic(culling_4x3, lobbyscreen:com237);
-if_setgraphic(culling_4x2, lobbyscreen:com238);
-if_setgraphic(culling_4x4, lobbyscreen:com239);
-if_setgraphic(culling_4x5, lobbyscreen:com240);
-if_setgraphic(culling_4x7, lobbyscreen:com241);
-if_setgraphic(culling_4x6, lobbyscreen:com242);
-if_setgraphic(culling_4x8, lobbyscreen:com243);
-if_setgraphic(culling_4x9, lobbyscreen:com244);
-if_setgraphic("corner_flourish,0", lobbyscreen:com246);
-if_setgraphic("corner_flourish,0", lobbyscreen:com248);
-if_setgraphic("corner_flourish,0", lobbyscreen:com251);
-if_setgraphic("corner_frame_1,2", lobbyscreen:com215);
-if_setvflip(true, lobbyscreen:com215);
-if_sethflip(true, lobbyscreen:com215);
-if_setgraphic("corner_frame_1,2", lobbyscreen:com219);
-if_setvflip(true, lobbyscreen:com219);
-if_sethflip(false, lobbyscreen:com219);
-if_setgraphic("corner_frame_1,2", lobbyscreen:com216);
-if_setvflip(false, lobbyscreen:com216);
-if_sethflip(true, lobbyscreen:com216);
-if_setgraphic("corner_frame_1,2", lobbyscreen:com220);
-if_setvflip(false, lobbyscreen:com220);
-if_sethflip(false, lobbyscreen:com220);
-if_sethook1427("lobby_resize()", lobbyscreen:com13);
-def_int $int2 = string_indexof_string(%varc_string_32, "@", 0);
+if_setgraphic(battle_title_widescreen_2, lobbyscreen:com_237);
+if_setgraphic(battle_title_widescreen_1, lobbyscreen:com_238);
+if_setgraphic(battle_title_widescreen_3, lobbyscreen:com_239);
+if_setgraphic(battle_title_widescreen_4, lobbyscreen:com_240);
+if_setgraphic(battle_title_widescreen_6, lobbyscreen:com_241);
+if_setgraphic(battle_title_widescreen_5, lobbyscreen:com_242);
+if_setgraphic(battle_title_widescreen_7, lobbyscreen:com_243);
+if_setgraphic(battle_title_widescreen_8, lobbyscreen:com_244);
+if_setgraphic("corner_flourish,0", lobbyscreen:com_246);
+if_setgraphic("corner_flourish,0", lobbyscreen:com_248);
+if_setgraphic("corner_flourish,0", lobbyscreen:com_251);
+if_setgraphic("corner_frame_1,2", lobbyscreen:com_215);
+if_setvflip(true, lobbyscreen:com_215);
+if_sethflip(true, lobbyscreen:com_215);
+if_setgraphic("corner_frame_1,2", lobbyscreen:com_219);
+if_setvflip(true, lobbyscreen:com_219);
+if_sethflip(false, lobbyscreen:com_219);
+if_setgraphic("corner_frame_1,2", lobbyscreen:com_216);
+if_setvflip(false, lobbyscreen:com_216);
+if_sethflip(true, lobbyscreen:com_216);
+if_setgraphic("corner_frame_1,2", lobbyscreen:com_220);
+if_setvflip(false, lobbyscreen:com_220);
+if_sethflip(false, lobbyscreen:com_220);
+if_setonresize("lobby_resize", lobbyscreen:com_13);
+def_int $int2 = string_indexof_string(%varclient_1551, "@", 0);
 if ($int2 = -1) {
-    %varc_int_1414 = 1;
+    %varclient_1414 = 1;
 } else {
-    %varc_int_1414 = 2;
+    %varclient_1414 = 2;
 }
-if ((get_accountinfo_6912 = false | compare(substring(docheat, 0, 1), "#") = false) & $int0 = false) {
-    %varc_int_1322 = 1;
-    %varc_int_200 = 0;
+if ((userdetail_lobby_playage = 0 | compare(substring(chat_playername, 0, 1), "#") = 0) & $boolean0 = false) {
+    %varclient_1322 = 1;
+    %varclient_200 = 0;
     ~lobby_popup(-3, 0, "Logging In - Please Wait", 1, null, 0, -1, "", "", 0, "", "");
-    %varc_int_1100 = -3;
+    %varclient_1100 = -3;
     if ($int1 < 50) {
         $int1 = calc($int1 + 1);
-        if_setontimer("lobbyscreen_load(false, $int1)", lobbyscreen:com13);
+        if_setontimer("lobbyscreen_load(false, $int1)", lobbyscreen:com_13);
         return;
     }
     if (worldlist_fetch = false) {
-        if_setontimer("lobbyscreen_load(false, $int1)", lobbyscreen:com13);
+        if_setontimer("lobbyscreen_load(false, $int1)", lobbyscreen:com_13);
         return;
     }
-    if_setontimer(null, lobbyscreen:com13);
-    login_hopworld(0);
-    if_setontimer("lobbyscreen_entergametimer(lobbyscreen:com13, active_toplevelinterface)", lobbyscreen:com13);
+    if_setontimer(null, lobbyscreen:com_13);
+    unknown_command_5612(0);
+    if_setontimer("lobbyscreen_entergametimer(lobbyscreen:com_13, map_world)", lobbyscreen:com_13);
     return;
 }
-if_sethide(false, lobbyscreen:com17);
-if_sethide(true, lobbyscreen:com30);
+if_sethide(false, lobbyscreen:com_17);
+if_sethide(true, lobbyscreen:com_30);
 ~lobby_popup_close;
 ~lobbyscreen_loadpanels;
 ~lobbyscreen_tabswitch(0);
 ~lobbyscreen_loginbutton_text(1);
-%varc_string_277 = "";
-%varc_int_547 = 0;
+%varclient_1796 = "";
+%varclient_547 = 0;
 mes("Welcome to the RuneScape Lobby.");
-tutorial_openchat(43, 0, "Welcome to the RuneScape Lobby.");
-if (is_subscriber = true) {
+mes_typed(^chattype_clanmessage, 0, "Welcome to the RuneScape Lobby.");
+if (userdetail_quickchat = true) {
     mes("Users restricted to quick-chat cannot send messages from the Lobby.");
-    tutorial_openchat(43, 0, "Users restricted to quick-chat cannot send messages from the Lobby.");
+    mes_typed(^chattype_clanmessage, 0, "Users restricted to quick-chat cannot send messages from the Lobby.");
 }
 ~toplevel_minimenu_setup;
-if_setonkey("clientscript_1328(^event_key)", lobbyscreen:com13);
-def_string $string = ~clientscript_2781;
-if (string_length($string) > 0) {
-    ~lobby_popup_size(-3000, 0, "<$string><br> ", 0, "loadingwheel,8", 1, 0, "Re-Subscribe Now", "Re-Subscribe Now", 1, "Close", "Close", 350);
+if_setonkey("script1328(event_keycode)", lobbyscreen:com_13);
+def_string $string0 = ~script2781;
+if (string_length($string0) > 0) {
+    ~lobby_popup_size(-3000, 0, "<$string0><br> ", 0, "loadingwheel,8", 1, 0, "Re-Subscribe Now", "Re-Subscribe Now", 1, "Close", "Close", 350);
 }
-if_setontimer("clientscript_1868(lobbyscreen:com18)", lobbyscreen:com18);
+if_setontimer("script1868(lobbyscreen:com_18)", lobbyscreen:com_18);
 ~lobby_resize;

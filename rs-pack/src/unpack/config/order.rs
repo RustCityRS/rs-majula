@@ -64,12 +64,15 @@ pub(super) fn emit_params(
             let name = packs
                 .config_name("param", key as u32)
                 .map(str::to_string)
-                .unwrap_or_else(|| key.to_string());
-            let (kind, value) = match value {
-                ParamValue::Int(value) => ("paramint", value.to_string()),
-                ParamValue::String(value) => ("paramstr", value.into_string()),
+                .unwrap_or_else(|| format!("param_{key}"));
+            let value = match value {
+                ParamValue::Int(value) => {
+                    let ty = packs.param_types.get(&(key as u32));
+                    packs.typed_value(ty.map_or("int", String::as_str), value)
+                }
+                ParamValue::String(value) => value.into_string(),
             };
-            (249, kind.into(), format!("{name},{value}"))
+            (249, "param".into(), format!("{name},{value}"))
         })
         .collect()
 }

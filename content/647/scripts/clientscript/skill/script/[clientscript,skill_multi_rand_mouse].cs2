@@ -1,6 +1,7 @@
-[clientscript,skill_multi_rand_mouse](component $component)
-if (%option_mouse = false) {
-    if_settext("Right-click the object to see more options.", $component);
+// 2268
+[clientscript,skill_multi_rand_mouse](component $component0)
+if (%option_mouse = 0) {
+    if_settext("Right-click the object to see more options.", $component0);
 } else {
-    if_settext("Click the object to see more options.", $component);
+    if_settext("Click the object to see more options.", $component0);
 }

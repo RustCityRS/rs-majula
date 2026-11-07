@@ -1,6 +1,7 @@
-[clientscript,combat_side_auto_retaliate_graphic](component $component)
-if (%option_nodef = true) {
-    if_setgraphic(1409, $component);
+// 1140
+[clientscript,combat_side_auto_retaliate_graphic](component $component0)
+if (%option_nodef = 1) {
+    if_setgraphic(graphic_1409, $component0);
 } else {
-    if_setgraphic("combatboxes_very_large,1", $component);
+    if_setgraphic("combatboxes_very_large,1", $component0);
 }

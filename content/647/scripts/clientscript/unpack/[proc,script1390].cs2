@@ -1,0 +1,9 @@
+// 1390
+[proc,script1390](component $component0, component $component1, string $string0)
+if_setposition(~script1551(%varclient_1098, $string0, p11_full, if_getx($component0)), 1, ^setpos_abs_left, ^setpos_abs_centre, $component1);
+if (applet_hasfocus = true) {
+    if_sethide(false, $component1);
+} else {
+    if_sethide(true, $component1);
+}
+if_setontimer("lobbyscreen_pane_clanchat_caret_flash(clientclock, $component1)", $component0);

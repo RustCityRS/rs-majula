@@ -1,0 +1,12 @@
+// 447
+[proc,script447](component $component0, component $component1, component $component2)
+def_string $string0 = if_gettext($component2);
+def_int $int3 = if_getwidth($component2);
+def_int $int4 = paraheight($string0, $int3, p11_full);
+def_int $int5 = calc($int4 * 10 + 5);
+if ($int5 > if_getheight($component1)) {
+    if_setscrollsize(0, $int5, $component1);
+    ~scrollbar_vertical($component0, $component1, graphic_2598, graphic_2595, graphic_2596, graphic_2597, graphic_2593, graphic_2594);
+    if_settextalign(^settextalign_centre, ^settextalign_top, 0, $component2);
+    if_setsize(if_getwidth($component2), $int5, ^setsize_abs, ^setsize_abs, $component2);
+}

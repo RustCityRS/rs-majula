@@ -1,5 +1,0 @@
-[proc,clientscript_48]
-if (%varc_int_1034 = true & (%varc_int_1027 = true & string_length(%varc_string_202) > 0)) {
-    clan_leavechat2(%varc_string_202);
-    %varc_int_1034 = 2;
-}

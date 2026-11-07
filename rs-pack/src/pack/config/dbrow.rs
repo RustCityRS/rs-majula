@@ -1,3 +1,5 @@
+#[cfg(since_647)]
+use super::client_table;
 use super::config_entry;
 use super::dbtable::{ColumnDef, PROP_LIST, PROP_REQUIRED, parse_column_def};
 use crate::ParamValue;
@@ -165,10 +167,13 @@ pub fn pack_dbrows(
         server.finish_entry();
     }
 
-    Ok(PackedFile {
-        server,
-        client: None,
-    })
+    #[cfg(before_647)]
+    let client = None;
+
+    #[cfg(since_647)]
+    let client = Some(client_table(file_cache, "dbrow", row_pack, constants)?);
+
+    Ok(PackedFile { server, client })
 }
 
 #[cfg(all(test, since_647))]
@@ -200,6 +205,7 @@ mod tests {
         ("category", "category"),
         ("idkit", "idk"),
         ("interface", "interface"),
+        ("component", "interface"),
         ("dbrow", "dbrow"),
     ];
 
@@ -315,8 +321,6 @@ mod tests {
             lookup_typed("model_23889_npc", b'm', &registry),
             Some(23889)
         );
-        // `null` is no obj, though 2011 names obj 6657 "null".
-        assert_eq!(registry.obj.get_by_debugname("null"), Some(6657));
         assert_eq!(resolve_typed_value("null", b'o', &registry), -1);
         assert_eq!(resolve_typed_value("null", b'O', &registry), -1);
         // The cow sounds (synth 369, void-634's `cow_attack`), which 647

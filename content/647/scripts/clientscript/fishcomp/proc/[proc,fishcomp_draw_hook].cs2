@@ -1,17 +1,18 @@
+// 265
 [proc,fishcomp_draw_hook]
-def_string $string = "None";
-switch_int (%varc_int_1110) {
-    case 1:
-        $string = "Standard";
-    case 3:
-        $string = "Large";
-    case 2:
-        $string = "Slim";
-    case 4:
-        $string = "Bone";
-    case 5:
-        $string = "Wooden";
-    case 6:
-        $string = "Double";
+def_string $string0 = "None";
+switch_int (%varclient_1110) {
+    case 1 :
+        $string0 = "Standard";
+    case 3 :
+        $string0 = "Large";
+    case 2 :
+        $string0 = "Slim";
+    case 4 :
+        $string0 = "Bone";
+    case 5 :
+        $string0 = "Wooden";
+    case 6 :
+        $string0 = "Double";
 }
-if_settext($string, fishcomp_side:com52);
+if_settext($string0, fishcomp_side:com_52);

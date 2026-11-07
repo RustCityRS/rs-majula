@@ -1,9 +1,0 @@
-[proc,clientscript_3396](int $int0)
-def_string $string = "";
-def_int $int1 = -1;
-if (cc_find(fm8721267:com27, $int0) = true) {
-    %varc_string_279 = cc_getopbase;
-    %varc_int_792 = %varc_int_791;
-    ~clientscript_3395;
-    ~clientscript_3397;
-}

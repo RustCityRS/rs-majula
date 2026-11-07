@@ -1,5 +1,6 @@
+// 2470
 [proc,friend_deltooltip](component $component0, component $component1)
 if_settext("", $component1);
 if_sethide(true, $component0);
-%varc_int_2 = 0;
-%varc_int_1 = 0;
+%varclient_2 = 0;
+%varclient_1 = 0;

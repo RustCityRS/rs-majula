@@ -1,0 +1,17 @@
+// 3469
+[clientscript,script3469](component $component0, int $int1)
+switch_int (randominc(2)) {
+    case 0 :
+        sound_synth(synth_6645, 1, random(15));
+    case 1 :
+        sound_synth(synth_6644, 1, random(15));
+    case 2 :
+        sound_synth(synth_6643, 1, random(15));
+}
+if ($int1 < calc(spline_length(0) - 2)) {
+    cam_movealong(0, $int1, 3100, 3300, 1, $int1);
+    if_setoncamfinished("script3469($component0, calc($int1 + 1))", $component0);
+    return;
+}
+cam_movealong(0, $int1, 1000, 0, 1, $int1);
+if_setoncamfinished(null, $component0);

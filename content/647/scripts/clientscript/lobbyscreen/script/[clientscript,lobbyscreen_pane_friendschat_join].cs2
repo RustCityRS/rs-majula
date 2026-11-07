@@ -1,6 +1,7 @@
+// 4557
 [clientscript,lobbyscreen_pane_friendschat_join]
-if (clan_getchatsize > 0) {
-    clan_getchatleavechat;
+if (clan_getchatcount > 0) {
+    clan_leavechat;
 } else {
     ~lobbyscreen_input("Join Chat Channel", "", 5, "", "");
 }

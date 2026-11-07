@@ -1,0 +1,1068 @@
+// 909:0
+[com_0]
+type=graphic
+y=1
+width=15
+height=31
+layer=com_64
+graphic=graphic_4690
+
+// 909:1
+[com_1]
+type=graphic
+x=15
+y=1
+width=30
+height=31
+widthmode=minus
+layer=com_64
+graphic=graphic_4691
+
+// 909:2
+[com_2]
+type=graphic
+y=1
+width=15
+height=31
+xmode=abs_right
+layer=com_64
+graphic=graphic_4692
+
+// 909:3
+[com_3]
+type=graphic
+y=1
+width=15
+height=31
+layer=com_27
+graphic=graphic_4690
+
+// 909:4
+[com_4]
+type=graphic
+x=15
+y=1
+width=30
+height=31
+widthmode=minus
+layer=com_27
+graphic=graphic_4691
+
+// 909:5
+[com_5]
+type=graphic
+y=1
+width=15
+height=31
+xmode=abs_right
+layer=com_27
+graphic=graphic_4692
+
+// 909:6
+[com_6]
+type=graphic
+y=1
+width=15
+height=31
+layer=com_25
+graphic=graphic_4690
+
+// 909:7
+[com_7]
+type=graphic
+x=15
+y=1
+width=30
+height=31
+widthmode=minus
+layer=com_25
+graphic=graphic_4691
+
+// 909:8
+[com_8]
+type=graphic
+y=1
+width=15
+height=31
+xmode=abs_right
+layer=com_25
+graphic=graphic_4692
+
+// 909:9
+[com_9]
+type=graphic
+y=1
+width=15
+height=31
+layer=com_72
+graphic=graphic_4690
+
+// 909:10
+[com_10]
+type=graphic
+x=15
+y=1
+width=30
+height=31
+widthmode=minus
+layer=com_72
+graphic=graphic_4691
+
+// 909:11
+[com_11]
+type=graphic
+y=1
+width=15
+height=31
+xmode=abs_right
+layer=com_72
+graphic=graphic_4692
+
+// 909:12
+[com_12]
+type=graphic
+y=1
+width=15
+height=31
+layer=com_70
+graphic=graphic_4690
+
+// 909:13
+[com_13]
+type=layer
+widthmode=minus
+heightmode=minus
+
+// 909:14
+[com_14]
+type=text
+x=10
+width=7864
+height=32
+widthmode=proportion
+layer=com_13
+textfont=verdana_15pt_regular
+text=Friends List
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xebe0bc
+
+// 909:15
+[com_15]
+type=text
+x=10
+y=29
+width=7864
+height=13
+widthmode=proportion
+layer=com_13
+textfont=p11_full
+text=Click on your friends to send them a private message.
+textlineheight=12
+textalignh=centre
+textalignv=centre
+colour=0xebe0bc
+
+// 909:16
+[com_16]
+type=layer
+x=10
+y=46
+width=7864
+height=199
+widthmode=proportion
+heightmode=minus
+layer=com_13
+op10=  
+
+// 909:17
+[com_17]
+type=text
+x=10
+width=7867
+height=32
+widthmode=proportion
+xmode=abs_right
+layer=com_13
+textfont=verdana_15pt_regular
+text=Ignore List
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xebe0bc
+op10= 
+
+// 909:18
+[com_18]
+type=text
+x=10
+y=29
+width=7867
+height=13
+widthmode=proportion
+xmode=abs_right
+layer=com_13
+textfont=p11_full
+text=Messages from players on this list will not be shown.
+textlineheight=12
+textalignh=centre
+textalignv=centre
+colour=0xebe0bc
+op10= 
+
+// 909:19
+[com_19]
+type=layer
+height=35
+widthmode=minus
+heightmode=minus
+layer=com_16
+
+// 909:20
+[com_20]
+type=layer
+widthmode=minus
+heightmode=minus
+layer=com_19
+
+// 909:21
+[com_21]
+type=rectangle
+widthmode=minus
+heightmode=minus
+layer=com_20
+colour=0xc9b997
+
+// 909:22
+[com_22]
+type=rectangle
+x=1
+y=1
+width=2
+height=2
+widthmode=minus
+heightmode=minus
+layer=com_20
+colour=0x000000
+op10= 
+
+// 909:23
+[com_23]
+type=layer
+height=32
+widthmode=minus
+ymode=abs_bottom
+layer=com_16
+
+// 909:24
+[com_24]
+type=layer
+width=7998
+widthmode=proportion
+heightmode=minus
+ymode=abs_bottom
+layer=com_23
+op1=Add Friend
+op10= 
+onop=script3048
+
+// 909:25
+[com_25]
+type=layer
+widthmode=minus
+heightmode=minus
+layer=com_24
+onmouseover=lobbyscreen_button_highlight(lobbyscreen_pane_friendslist:com_6, graphic_4693, lobbyscreen_pane_friendslist:com_7, graphic_4694, lobbyscreen_pane_friendslist:com_8, graphic_4695)
+onmouseleave=lobbyscreen_button_highlight(lobbyscreen_pane_friendslist:com_6, graphic_4690, lobbyscreen_pane_friendslist:com_7, graphic_4691, lobbyscreen_pane_friendslist:com_8, graphic_4692)
+
+// 909:26
+[com_26]
+type=layer
+width=7998
+widthmode=proportion
+heightmode=minus
+xmode=abs_right
+ymode=abs_bottom
+layer=com_23
+op1=Remove Friend
+op10=  
+onop=script3049
+
+// 909:27
+[com_27]
+type=layer
+widthmode=minus
+heightmode=minus
+layer=com_26
+onmouseover=lobbyscreen_button_highlight(lobbyscreen_pane_friendslist:com_3, graphic_4693, lobbyscreen_pane_friendslist:com_4, graphic_4694, lobbyscreen_pane_friendslist:com_5, graphic_4695)
+onmouseleave=lobbyscreen_button_highlight(lobbyscreen_pane_friendslist:com_3, graphic_4690, lobbyscreen_pane_friendslist:com_4, graphic_4691, lobbyscreen_pane_friendslist:com_5, graphic_4692)
+
+// 909:28
+[com_28]
+type=text
+widthmode=minus
+heightmode=minus
+xmode=abs_centre
+ymode=abs_centre
+layer=com_26
+textfont=verdana_13pt_regular
+text=Remove Friend
+textlineheight=12
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xebe0bc
+op10=   
+
+// 909:29
+[com_29]
+type=text
+widthmode=minus
+heightmode=minus
+xmode=abs_centre
+ymode=abs_centre
+layer=com_24
+textfont=verdana_13pt_regular
+text=Add Friend
+textlineheight=12
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xebe0bc
+op10=  
+
+// 909:30
+[com_30]
+type=layer
+x=2
+y=2
+width=4
+height=4
+widthmode=minus
+heightmode=minus
+layer=com_19
+op10= 
+
+// 909:31
+[com_31]
+type=rectangle
+x=10632
+y=2
+width=2
+height=4
+heightmode=minus
+xmode=proportion_left
+layer=com_19
+colour=0x453718
+
+// 909:32
+[com_32]
+type=layer
+x=119
+y=82
+width=82
+height=18
+layer=com_19
+hide=yes
+op10=    
+
+// 909:33
+[com_33]
+type=rectangle
+width=16391
+height=16391
+widthmode=proportion
+heightmode=proportion
+layer=com_32
+colour=0xffffa0
+fill=yes
+op10=    
+
+// 909:34
+[com_34]
+type=rectangle
+width=16391
+height=16391
+widthmode=proportion
+heightmode=proportion
+layer=com_32
+colour=0x000000
+op10=    
+
+// 909:35
+[com_35]
+type=text
+width=16391
+height=16391
+widthmode=proportion
+heightmode=proportion
+layer=com_32
+textfont=p11_full
+textlineheight=14
+textalignh=centre
+textalignv=centre
+colour=0x000000
+op10=    
+
+// 909:36
+[com_36]
+type=layer
+height=34
+widthmode=minus
+layer=com_30
+
+// 909:37
+[com_37]
+type=rectangle
+widthmode=minus
+heightmode=minus
+layer=com_36
+colour=0x382e22
+fill=yes
+
+// 909:38
+[com_38]
+type=text
+width=10658
+height=2
+widthmode=proportion
+heightmode=minus
+layer=com_36
+textfont=verdana_13pt_regular
+text=Name
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xebe0bc
+
+// 909:39
+[com_39]
+type=text
+width=5648
+height=2
+widthmode=proportion
+heightmode=minus
+xmode=abs_right
+layer=com_36
+textfont=verdana_13pt_regular
+text=Status
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xebe0bc
+op10= 
+
+// 909:40
+[com_40]
+type=rectangle
+height=2
+widthmode=minus
+ymode=abs_bottom
+layer=com_36
+colour=0x0e0b09
+fill=yes
+op10= 
+
+// 909:41
+[com_41]
+type=layer
+y=34
+width=16
+height=34
+widthmode=minus
+heightmode=minus
+layer=com_30
+op10= 
+
+// 909:42
+[com_42]
+type=layer
+widthmode=minus
+heightmode=minus
+layer=com_41
+
+// 909:43
+[com_43]
+type=rectangle
+height=15
+widthmode=minus
+layer=com_41
+hide=yes
+colour=0x606060
+fill=yes
+op10= 
+
+// 909:44
+[com_44]
+type=layer
+widthmode=minus
+heightmode=minus
+layer=com_41
+op10=  
+
+// 909:45
+[com_45]
+type=layer
+widthmode=minus
+heightmode=minus
+layer=com_41
+op10= 
+
+// 909:46
+[com_46]
+type=layer
+widthmode=minus
+heightmode=minus
+xmode=abs_right
+layer=com_41
+op10= 
+
+// 909:47
+[com_47]
+type=layer
+y=34
+width=16
+height=34
+heightmode=minus
+xmode=abs_right
+layer=com_30
+op10= 
+
+// 909:48
+[com_48]
+type=layer
+x=10
+y=46
+width=7864
+height=199
+widthmode=proportion
+heightmode=minus
+xmode=abs_right
+layer=com_13
+op10=   
+
+// 909:49
+[com_49]
+type=layer
+y=35
+width=20
+height=113
+widthmode=minus
+xmode=abs_centre
+ymode=abs_bottom
+layer=com_13
+op10= 
+
+// 909:50
+[com_50]
+type=layer
+widthmode=minus
+heightmode=minus
+layer=com_49
+op10= 
+
+// 909:51
+[com_51]
+type=layer
+x=2
+y=2
+width=4
+height=4
+widthmode=minus
+heightmode=minus
+layer=com_49
+
+// 909:52
+[com_52]
+type=layer
+x=2
+y=2
+width=20
+height=4
+widthmode=minus
+heightmode=minus
+ymode=abs_bottom
+layer=com_51
+op10= 
+
+// 909:53
+[com_53]
+type=layer
+x=2
+y=2
+width=16
+height=4
+heightmode=minus
+xmode=abs_right
+layer=com_51
+op10=  
+
+// 909:54
+[com_54]
+type=rectangle
+widthmode=minus
+heightmode=minus
+layer=com_50
+colour=0xc9b997
+op10= 
+
+// 909:55
+[com_55]
+type=rectangle
+x=1
+y=1
+width=2
+height=2
+widthmode=minus
+heightmode=minus
+layer=com_50
+colour=0x000000
+op10=  
+
+// 909:56
+[com_56]
+type=rectangle
+x=2
+y=2
+width=4
+height=4
+widthmode=minus
+heightmode=minus
+layer=com_50
+colour=0x292016
+fill=yes
+op10=   
+
+// 909:57
+[com_57]
+type=layer
+x=10
+width=4761
+height=32
+widthmode=proportion
+ymode=abs_bottom
+layer=com_13
+op1=Toggle
+op2=Everybody
+op3=Friends
+op4=Nobody
+op10=  
+onop=script3046(event_op)
+
+// 909:58
+[com_58]
+type=layer
+x=10
+width=36
+height=31
+xmode=abs_right
+ymode=abs_bottom
+layer=com_13
+op1=Report Abuse
+op10=   
+onmouseleave=deltooltip(lobbyscreen_pane_friendslist:com_59)
+onop=script3176("", false)
+onmouserepeat=addtooltip(event_com, lobbyscreen_pane_friendslist:com_59, "Report abuse", 25, 200)
+
+// 909:59
+[com_59]
+type=layer
+x=10
+width=100
+height=31
+xmode=abs_right
+ymode=abs_bottom
+layer=com_13
+
+// 909:60
+[com_60]
+type=graphic
+width=36
+height=31
+xmode=abs_right
+layer=com_58
+graphic=graphic_4655
+colour=0xffffffff
+op10=   
+onmouseover=graphic_swapper(event_com, graphic_4656)
+onmouseleave=graphic_swapper(event_com, graphic_4655)
+
+// 909:61
+[com_61]
+type=layer
+y=140
+width=20
+height=302
+heightmode=minus
+xmode=abs_centre
+ymode=abs_bottom
+layer=com_13
+op10= 
+
+// 909:62
+[com_62]
+type=layer
+height=15
+widthmode=minus
+ymode=abs_bottom
+layer=com_61
+noclickthrough=yes
+op10= 
+
+// 909:63
+[com_63]
+type=graphic
+width=8
+height=13
+xmode=abs_centre
+ymode=abs_centre
+layer=com_62
+graphic=graphic_3130
+alpha=yes
+colour=0xffffffff
+op10= 
+
+// 909:64
+[com_64]
+type=layer
+widthmode=minus
+heightmode=minus
+layer=com_57
+onmouseover=lobbyscreen_button_highlight(lobbyscreen_pane_friendslist:com_0, graphic_4693, lobbyscreen_pane_friendslist:com_1, graphic_4694, lobbyscreen_pane_friendslist:com_2, graphic_4695)
+onmouseleave=lobbyscreen_button_highlight(lobbyscreen_pane_friendslist:com_0, graphic_4690, lobbyscreen_pane_friendslist:com_1, graphic_4691, lobbyscreen_pane_friendslist:com_2, graphic_4692)
+
+// 909:65
+[com_65]
+type=text
+y=2
+height=12
+widthmode=minus
+xmode=abs_centre
+layer=com_57
+textfont=verdana_11pt_regular
+text=Show online status to:
+textlineheight=12
+textalignh=centre
+textshadow=yes
+colour=0xebe0bc
+op10=    
+
+// 909:66
+[com_66]
+type=text
+y=2
+height=12
+widthmode=minus
+xmode=abs_centre
+ymode=abs_bottom
+layer=com_57
+textfont=verdana_13pt_regular
+text=Everybody
+textlineheight=12
+textalignh=centre
+textalignv=bottom
+textshadow=yes
+colour=0xebe0bc
+op10=     
+
+// 909:67
+[com_67]
+type=layer
+height=35
+widthmode=minus
+heightmode=minus
+layer=com_48
+
+// 909:68
+[com_68]
+type=layer
+height=32
+widthmode=minus
+ymode=abs_bottom
+layer=com_48
+
+// 909:69
+[com_69]
+type=layer
+width=7864
+widthmode=proportion
+heightmode=minus
+ymode=abs_bottom
+layer=com_68
+op1=Add Name
+op10= 
+onop=script3050
+
+// 909:70
+[com_70]
+type=layer
+widthmode=minus
+heightmode=minus
+layer=com_69
+onmouseover=lobbyscreen_button_highlight(lobbyscreen_pane_friendslist:com_12, graphic_4693, lobbyscreen_pane_friendslist:com_93, graphic_4694, lobbyscreen_pane_friendslist:com_94, graphic_4695)
+onmouseleave=lobbyscreen_button_highlight(lobbyscreen_pane_friendslist:com_12, graphic_4690, lobbyscreen_pane_friendslist:com_93, graphic_4691, lobbyscreen_pane_friendslist:com_94, graphic_4692)
+
+// 909:71
+[com_71]
+type=layer
+width=7998
+widthmode=proportion
+heightmode=minus
+xmode=abs_right
+ymode=abs_bottom
+layer=com_68
+op1=Remove Name
+op10=   
+onop=script3051
+
+// 909:72
+[com_72]
+type=layer
+widthmode=minus
+heightmode=minus
+layer=com_71
+onmouseover=lobbyscreen_button_highlight(lobbyscreen_pane_friendslist:com_9, graphic_4693, lobbyscreen_pane_friendslist:com_10, graphic_4694, lobbyscreen_pane_friendslist:com_11, graphic_4695)
+onmouseleave=lobbyscreen_button_highlight(lobbyscreen_pane_friendslist:com_9, graphic_4690, lobbyscreen_pane_friendslist:com_10, graphic_4691, lobbyscreen_pane_friendslist:com_11, graphic_4692)
+
+// 909:73
+[com_73]
+type=text
+widthmode=minus
+heightmode=minus
+xmode=abs_centre
+ymode=abs_centre
+layer=com_71
+textfont=verdana_13pt_regular
+text=Remove Name
+textlineheight=12
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xebe0bc
+op10=    
+
+// 909:74
+[com_74]
+type=text
+widthmode=minus
+heightmode=minus
+xmode=abs_centre
+ymode=abs_centre
+layer=com_69
+textfont=verdana_13pt_regular
+text=Add Name
+textlineheight=12
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xebe0bc
+op10=   
+
+// 909:75
+[com_75]
+type=layer
+widthmode=minus
+heightmode=minus
+layer=com_67
+
+// 909:76
+[com_76]
+type=layer
+x=2
+y=2
+width=4
+height=4
+widthmode=minus
+heightmode=minus
+layer=com_67
+
+// 909:77
+[com_77]
+type=layer
+height=34
+widthmode=minus
+layer=com_76
+op10= 
+
+// 909:78
+[com_78]
+type=layer
+y=34
+width=16
+height=34
+widthmode=minus
+heightmode=minus
+layer=com_76
+op10=  
+
+// 909:79
+[com_79]
+type=layer
+y=34
+width=16
+height=34
+heightmode=minus
+xmode=abs_right
+layer=com_76
+op10= 
+
+// 909:80
+[com_80]
+type=layer
+x=143
+y=84
+width=82
+height=18
+layer=com_76
+hide=yes
+op10=     
+
+// 909:81
+[com_81]
+type=rectangle
+width=16391
+height=16391
+widthmode=proportion
+heightmode=proportion
+layer=com_80
+colour=0xffffa0
+fill=yes
+op10=     
+
+// 909:82
+[com_82]
+type=rectangle
+width=16391
+height=16391
+widthmode=proportion
+heightmode=proportion
+layer=com_80
+colour=0x000000
+op10=     
+
+// 909:83
+[com_83]
+type=text
+width=16391
+height=16391
+widthmode=proportion
+heightmode=proportion
+layer=com_80
+textfont=p11_full
+textlineheight=14
+textalignh=centre
+textalignv=centre
+colour=0x000000
+op10=     
+
+// 909:84
+[com_84]
+type=layer
+widthmode=minus
+heightmode=minus
+layer=com_78
+
+// 909:85
+[com_85]
+type=rectangle
+height=15
+widthmode=minus
+layer=com_78
+hide=yes
+colour=0x606060
+fill=yes
+op10=  
+
+// 909:86
+[com_86]
+type=layer
+widthmode=minus
+heightmode=minus
+layer=com_78
+
+// 909:87
+[com_87]
+type=layer
+widthmode=minus
+heightmode=minus
+layer=com_78
+
+// 909:88
+[com_88]
+type=rectangle
+widthmode=minus
+heightmode=minus
+layer=com_77
+colour=0x382e22
+fill=yes
+op10= 
+
+// 909:89
+[com_89]
+type=text
+height=2
+widthmode=minus
+heightmode=minus
+layer=com_77
+textfont=verdana_13pt_regular
+text=Name
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xebe0bc
+op10= 
+
+// 909:90
+[com_90]
+type=rectangle
+height=2
+widthmode=minus
+ymode=abs_bottom
+layer=com_77
+colour=0x0e0b09
+fill=yes
+op10=  
+
+// 909:91
+[com_91]
+type=rectangle
+widthmode=minus
+heightmode=minus
+layer=com_75
+colour=0xc9b997
+op10= 
+
+// 909:92
+[com_92]
+type=rectangle
+x=1
+y=1
+width=2
+height=2
+widthmode=minus
+heightmode=minus
+layer=com_75
+colour=0x000000
+op10=  
+
+// 909:93
+[com_93]
+type=graphic
+x=15
+y=1
+width=30
+height=31
+widthmode=minus
+layer=com_70
+graphic=graphic_4691
+
+// 909:94
+[com_94]
+type=graphic
+y=1
+width=15
+height=31
+xmode=abs_right
+layer=com_70
+graphic=graphic_4692

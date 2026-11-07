@@ -72,7 +72,7 @@ facesquare(0_48_152_9_58);
 p_delay(0);
 cam_moveto(0_48_152_6_49, 750, 0, 100);
 cam_lookat(0_48_152_8_54, 300, 0, 100);
-if_openoverlay(fv1144926);
+if_openoverlay(interface_170);
 p_delay(2);
 anim(seq_2991, 0);
 if (loc_find(0_48_152_8_57, coffin) = true) {

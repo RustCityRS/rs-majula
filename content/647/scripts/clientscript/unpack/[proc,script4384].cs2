@@ -1,0 +1,16 @@
+// 4384
+[proc,script4384](int $int0, int $int1, int $int2)(graphic, graphic)
+def_graphic $graphic3 = enum(int, graphic, enum_3686, $int0);
+def_graphic $graphic4 = enum(int, graphic, enum_3686, $int1);
+if ($int2 = 1 & %varclansetting_10 = 1) {
+    $graphic3 = clan_icon_generic_runestone_r;
+    $graphic4 = clan_icon_generic_runestone_s;
+} else {
+    if ($graphic3 = null) {
+        $graphic3 = clan_icon_generic_runestone_r;
+    }
+    if ($graphic4 = null) {
+        $graphic4 = clan_icon_generic_runestone_s;
+    }
+}
+return($graphic3, $graphic4);

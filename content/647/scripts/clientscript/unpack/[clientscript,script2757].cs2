@@ -1,0 +1,10 @@
+// 2757
+[clientscript,script2757](int $int0)
+if (%varclient_173 = 1 | %varplayerbit_542 = 1 | $int0 ! 1) {
+    return;
+}
+if (cam_getangle_xa < 150) {
+    cam_forceangle(150, 0);
+} else {
+    cam_forceangle(149, 0);
+}

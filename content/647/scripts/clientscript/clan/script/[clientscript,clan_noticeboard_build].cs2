@@ -1,4 +1,5 @@
-[clientscript,clan_noticeboard_build](component $component)
-if (ignore_count = true) {
-    ~clan_noticeboard_build($component);
+// 4360
+[clientscript,clan_noticeboard_build](component $component0)
+if (activeclansettings_find_listened = true) {
+    ~clan_noticeboard_build($component0);
 }

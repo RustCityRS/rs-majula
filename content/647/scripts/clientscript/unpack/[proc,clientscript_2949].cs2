@@ -1,9 +1,0 @@
-[proc,clientscript_2949](string $string)(string)
-def_int $int = string_length($string);
-$string = "";
-while ($int > 0) {
-    $string = "<$string>*";
-    $int = calc($int - 1);
-}
-return($string);
-return("");

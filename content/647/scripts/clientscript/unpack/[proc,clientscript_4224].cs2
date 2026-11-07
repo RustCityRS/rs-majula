@@ -1,8 +1,0 @@
-[proc,clientscript_4224](int $int)
-if ($int = 61145417) {
-    if_sethide(true, rand_dungeon_rewards_v2:com329);
-    if_sethide(false, rand_dungeon_rewards_v2:com330);
-} else {
-    if_sethide(true, rand_dungeon_rewards_v2:com330);
-    if_sethide(false, rand_dungeon_rewards_v2:com329);
-}

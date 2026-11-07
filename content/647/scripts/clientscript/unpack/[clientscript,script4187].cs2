@@ -1,0 +1,7 @@
+// 4187
+[clientscript,script4187](int $int0)
+if (clientclock < $int0) {
+    return;
+}
+if_setontimer(null, interface_1072:com_83);
+if_sethide(true, interface_1072:com_83);

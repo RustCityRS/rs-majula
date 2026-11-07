@@ -1,5 +1,6 @@
-[clientscript,lobby_friends_ignoreop](int $int, string $string)
-if ($int = true) {
-    ignore_del($string);
-    ~clientscript_3037;
+// 3042
+[clientscript,lobby_friends_ignoreop](int $int0, string $string0)
+if ($int0 = 1) {
+    ignore_del($string0);
+    ~script3037;
 }

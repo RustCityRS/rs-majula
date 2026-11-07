@@ -1,3 +1,4 @@
+// 3390
 [proc,graphics_options_button_highlight](component $component0, graphic $graphic1, component $component2, graphic $graphic3, component $component4, graphic $graphic5)
 if ($component0 ! null) {
     if_setgraphic($graphic1, $component0);

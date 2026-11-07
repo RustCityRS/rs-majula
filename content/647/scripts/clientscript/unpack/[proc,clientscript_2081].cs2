@@ -1,6 +1,0 @@
-[proc,clientscript_2081]
-if (%varc_int_639 > 0) {
-    if_settext(tostring(%varc_int_641), tv1998864:com10);
-} else {
-    if_settext("---", tv1998864:com10);
-}

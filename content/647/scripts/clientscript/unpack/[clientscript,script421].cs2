@@ -1,0 +1,68 @@
+// 421
+[clientscript,script421](int $int0, int $int1, int $int2)
+def_int $int3 = 0;
+def_int $int4 = 0;
+def_int $int5 = 5;
+def_int $int6 = 5;
+def_int $int7 = 0;
+def_int $int8 = 0;
+def_int $int9 = 0;
+def_int $int10 = 0;
+if (cam_getangle_xa < $int0) {
+    $int9 = calc($int0 - cam_getangle_xa);
+} else if (cam_getangle_xa > $int0) {
+    $int9 = calc(cam_getangle_xa - $int0);
+}
+if (cam_getangle_ya < $int1) {
+    $int8 = calc($int1 - cam_getangle_ya);
+    $int7 = calc(2047 - $int1 + cam_getangle_ya);
+    if ($int7 > $int8) {
+        $int10 = $int8;
+        $int5, $int6 = ~script422($int9, $int10);
+        cam_forceangle(cam_getangle_xa, min(calc(cam_getangle_ya + $int6), $int1));
+    } else {
+        $int10 = $int7;
+        $int5, $int6 = ~script422($int9, $int10);
+        if ($int2 = 0) {
+            cam_forceangle(cam_getangle_xa, max(calc(cam_getangle_ya - $int6), 0));
+        } else {
+            cam_forceangle(cam_getangle_xa, max(calc(cam_getangle_ya - $int6), $int1));
+        }
+        if (cam_getangle_ya = 0 & $int2 = 0) {
+            cam_forceangle(cam_getangle_xa, 2047);
+            if_setontimer("script421($int0, $int1, 1)", conq_scroll_overlay:com_0);
+        }
+    }
+} else if (cam_getangle_ya > $int1) {
+    $int8 = calc(2047 - cam_getangle_ya + $int1);
+    $int7 = calc(cam_getangle_ya - $int1);
+    if ($int7 > $int8) {
+        $int10 = $int8;
+        $int5, $int6 = ~script422($int9, $int10);
+        if ($int2 = 0) {
+            cam_forceangle(cam_getangle_xa, min(calc(cam_getangle_ya + $int6), 2047));
+        } else {
+            cam_forceangle(cam_getangle_xa, min(calc(cam_getangle_ya + $int6), $int1));
+        }
+        if (cam_getangle_ya = 2047 & $int2 = 0) {
+            cam_forceangle(cam_getangle_xa, 0);
+            if_setontimer("script421($int0, $int1, 1)", conq_scroll_overlay:com_0);
+        }
+    } else {
+        $int10 = $int7;
+        $int5, $int6 = ~script422($int9, $int10);
+        cam_forceangle(cam_getangle_xa, max(calc(cam_getangle_ya - $int6), $int1));
+    }
+} else {
+    $int4 = 1;
+}
+if (cam_getangle_xa < $int0) {
+    cam_forceangle(min(calc(cam_getangle_xa + $int5), $int0), cam_getangle_ya);
+} else if (cam_getangle_xa > $int0) {
+    cam_forceangle(max(calc(cam_getangle_xa - $int5), $int0), cam_getangle_ya);
+} else {
+    $int3 = 1;
+}
+if ($int3 = 1 & $int4 = 1) {
+    if_setontimer(null, conq_scroll_overlay:com_0);
+}

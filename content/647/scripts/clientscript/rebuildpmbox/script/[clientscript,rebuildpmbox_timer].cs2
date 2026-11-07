@@ -1,6 +1,7 @@
+// 1562
 [clientscript,rebuildpmbox_timer]
-if (hud_test(49414144, -1) = true) {
+if (minimenuopen(private_chat:com_0, -1) = true) {
     return;
 }
-if_setontimer(null, private_chat:com0);
+if_setontimer(null, private_chat:com_0);
 ~rebuildpmbox;

@@ -1,4 +1,5 @@
-[proc,task_side_list_tooltip](component $component0, string $string)
+// 3982
+[proc,task_side_list_tooltip](component $component0, string $string0)
 def_int $int1 = 0;
 def_int $int2 = 0;
 def_int $int3 = 0;
@@ -6,28 +7,28 @@ def_int $int4 = 0;
 def_int $int5 = 0;
 def_int $int6 = 0;
 def_int $int7 = 178;
-def_component $component8 = task_side:com163;
+def_component $component8 = task_side:com_163;
 def_int $int9 = 0;
 def_int $int10 = 0;
 def_component $component11 = null;
 if (if_find($component0) = true) {
-    if (%varc_int_1 < calc(clientclock + 45)) {
-        if (%varc_int_1 < clientclock) {
-            %varc_int_1 = clientclock;
+    if (%varclient_1 < calc(clientclock + 45)) {
+        if (%varclient_1 < clientclock) {
+            %varclient_1 = clientclock;
         }
-        %varc_int_1 = calc(%varc_int_1 + 2);
+        %varclient_1 = calc(%varclient_1 + 2);
         return;
     }
-    %varc_int_1 = calc(clientclock + 55);
-    if (%varc_int_2 ! 1) {
+    %varclient_1 = calc(clientclock + 55);
+    if (%varclient_2 ! 1) {
         $int1 = calc(cc_getx + 5);
         $int2 = calc(cc_gety + cc_getheight + 5);
-        $component11 = task_side:com98;
+        $component11 = task_side:com_98;
         if ($component11 ! null & $int7 >= if_getwidth($component11)) {
             $int7 = if_getwidth($component11);
         }
-        $int9 = calc(4 + parawidth($string, calc($int7 - 4), p12_full));
-        $int10 = calc(4 + 16 * paraheight($string, calc($int7 - 4), p12_full));
+        $int9 = calc(4 + parawidth($string0, calc($int7 - 4), p12_full));
+        $int10 = calc(4 + 16 * paraheight($string0, calc($int7 - 4), p12_full));
         if ($component11 ! null) {
             $int3 = calc($int1 - if_getscrollx($component11));
             $int4 = calc($int2 - if_getscrolly($component11));
@@ -73,10 +74,10 @@ if (if_find($component0) = true) {
         cc_create($component8, ^iftype_text, 2);
         cc_setsize(calc($int7 - 4), if_getheight($component8), ^setsize_abs, ^setsize_abs);
         cc_setposition(2, 0, ^setpos_abs_left, ^setpos_abs_top);
-        cc_settext($string);
+        cc_settext($string0);
         cc_settextalign(^settextalign_left, ^settextalign_centre, 16);
         cc_settextfont(p12_full);
         cc_setcolour(0xeeeeee);
-        %varc_int_2 = 1;
+        %varclient_2 = 1;
     }
 }

@@ -1,0 +1,61 @@
+// 139:0
+[com_0]
+type=layer
+width=512
+height=334
+xmode=abs_right
+
+// 139:1
+[com_1]
+type=rectangle
+x=397
+y=4
+width=111
+height=60
+layer=com_0
+colour=0x46341d
+fill=yes
+trans=160
+onload=gnomeball_overlay_cs
+onvartransmit=gnomeball_overlay_cs{varplayer_143}
+
+// 139:2
+[com_2]
+type=text
+x=401
+y=7
+width=103
+height=14
+layer=com_0
+textfont=p12_full
+text=Gnomeball
+textalignh=centre
+textshadow=yes
+colour=0xff981f
+
+// 139:3
+[com_3]
+type=text
+x=401
+y=22
+width=103
+height=14
+layer=com_0
+textfont=p12_full
+text=Score
+textalignh=centre
+textshadow=yes
+colour=0xff981f
+
+// 139:4
+[com_4]
+type=text
+x=401
+y=40
+width=103
+height=14
+layer=com_0
+textfont=b12_full
+textalignh=centre
+textshadow=yes
+colour=0xaf0000

@@ -1,0 +1,61 @@
+// 1370
+[clientscript,script1370](component $component0, component $component1, int $int2, int $int3)
+if (worldmap_isloaded = false) {
+    return;
+}
+def_int $int4 = 1;
+def_int $int5 = 0;
+def_int $int6 = 0;
+def_int $int7 = 0;
+def_int $int8 = 0;
+def_int $int9 = 0;
+def_int $int10 = 0;
+def_int $int11 = 0;
+def_int $int12 = 0;
+def_int $int13 = 0;
+def_int $int14 = 0;
+def_int $int15 = %varclient_172;
+if ($int2 > 0) {
+    switch_int (%varclient_172) {
+        case 50 :
+            %varclient_172 = 37;
+        case 75 :
+            %varclient_172 = 50;
+        case 100 :
+            %varclient_172 = 75;
+        case 200 :
+            %varclient_172 = 100;
+        case default :
+            %varclient_172 = 37;
+            $int4 = 0;
+    }
+} else {
+    switch_int (%varclient_172) {
+        case 37 :
+            %varclient_172 = 50;
+        case 50 :
+            %varclient_172 = 75;
+        case 75 :
+            %varclient_172 = 100;
+        case 100 :
+            %varclient_172 = 200;
+        case default :
+            %varclient_172 = 200;
+            $int4 = 0;
+    }
+    if ($int3 = 1 & $int15 < 200) {
+        $int5, $int6 = worldmap_getsize;
+        $int9, $int10 = if_getwidth($component1), if_getheight($component1);
+        if ($int5 > 0 & $int6 > 0) {
+            $int7, $int8 = worldmap_getdisplayposition;
+            $int11 = calc(get_mousex - ~if_getx_absolute($component1) - $int9 / 2);
+            $int12 = calc(get_mousey - ~if_gety_absolute($component1) - $int10 / 2);
+            $int13, $int14 = scale($int5, $int9, $int11), scale($int6, $int10, $int12);
+            $int7 = calc($int7 + $int13);
+            $int8 = calc($int8 - $int14);
+            if_setontimer("script2054(calc(clientclock + 1), $component0, movecoord(0_0_0_0_0, $int7, 0, $int8))", $component0);
+        }
+    }
+}
+~worldmap_setzoom;
+~script305($int4);

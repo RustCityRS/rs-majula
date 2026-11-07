@@ -1,0 +1,37 @@
+// 893
+[clientscript,script893]
+if (%varclient_112 < 10) {
+    %varclient_112 = calc(%varclient_112 + 1);
+    return;
+}
+%varclient_112 = 0;
+def_int $int0 = calc(20 - 0);
+def_int $int1 = calc(80 - 0);
+def_int $int2 = calc($int1 / $int0);
+def_int $int3 = calc(%varplayerbit_4523 * $int2);
+if (%varclient_111 < $int3) {
+    %varclient_111 = calc(%varclient_111 + 1);
+} else if (%varclient_111 > $int3) {
+    %varclient_111 = calc(%varclient_111 - 1);
+}
+if (%varclient_114 = 0) {
+    if (%varclient_113 > 0) {
+        %varclient_113 = calc(%varclient_113 - 1);
+    } else {
+        %varclient_114 = 1;
+    }
+} else if (%varclient_113 < 4) {
+    %varclient_113 = calc(%varclient_113 + 1);
+} else {
+    %varclient_114 = 0;
+}
+def_int $int4 = calc(%varclient_111 + (%varclient_113 + 2));
+def_int $int5 = calc(1024 / $int1);
+$int4 = calc($int4 * $int5);
+$int4 = calc($int4 + 512);
+$int4 = calc(2048 - $int4);
+if_setmodelangle(0, 0, 0, 0, $int4, 388, interface_717:com_4);
+def_int $int6 = calc(enum(int, int, enum_1422, %varplayerbit_4519) * (1024 / $int0));
+$int6 = calc($int6 + 512);
+$int6 = calc(2048 - $int6);
+if_setmodelangle(0, 0, 0, 0, $int6, 365, interface_717:com_3);

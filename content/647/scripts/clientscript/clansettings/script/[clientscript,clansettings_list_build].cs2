@@ -1,4 +1,5 @@
+// 4300
 [clientscript,clansettings_list_build]
-if (ignore_getname = true) {
+if (activeclansettings_find_affined = true) {
     ~clansettings_list_build;
 }

@@ -1,0 +1,9 @@
+// 707
+[clientscript,script707]
+if (getwindowmode >= 2) {
+    if_setposition(220, 11, ^setpos_abs_right, ^setpos_abs_top, catcon_calibration_puzzle:com_19);
+} else {
+    if_setposition(12, 11, ^setpos_abs_right, ^setpos_abs_top, catcon_calibration_puzzle:com_19);
+}
+%varclient_215 = 255;
+%varclient_216 = 0;

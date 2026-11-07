@@ -1,0 +1,7 @@
+// 4331
+[clientscript,script4331](component $component0, component $component1)
+def_int $int2 = -1;
+def_int $int3 = -1;
+if (activeclansettings_find_listened = true) {
+    ~script4332($component0, $component1);
+}

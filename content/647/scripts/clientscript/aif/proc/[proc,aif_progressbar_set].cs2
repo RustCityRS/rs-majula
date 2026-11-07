@@ -1,3 +1,4 @@
+// 4542
 [proc,aif_progressbar_set](int $int0, component $component1, component $component2)
 $int0 = min(100, $int0);
 $int0 = max(0, $int0);
@@ -6,4 +7,4 @@ if ($component1 = null) {
 }
 def_int $int3 = calc($int0 * 16384 / 100);
 if_setsize($int3, if_getheight($component1), ^setsize_rel, ^setsize_abs, $component1);
-~clientscript_4212($component2, "<tostring($int0)>%", verdana_11pt_regular, 0xd5d9d3, ^black);
+~script4212($component2, "<tostring($int0)>%", verdana_11pt_regular, 0xd5d9d3, ^black);

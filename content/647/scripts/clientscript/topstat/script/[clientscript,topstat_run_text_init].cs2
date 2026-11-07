@@ -1,3 +1,4 @@
-[clientscript,topstat_run_text_init](component $component)
-~topstat_run_text_update($component);
-if_sethook1422("topstat_run_text_update($component)", $component);
+// 772
+[clientscript,topstat_run_text_init](component $component0)
+~topstat_run_text_update($component0);
+if_setonmisctransmit("topstat_run_text_update($component0)", $component0);

@@ -1,0 +1,10 @@
+// 2224
+[clientscript,script2224]
+if (%varclient_1127 < 15 & ~script2240 < %varclient_1135) {
+    sound_synth(synth_8729, 1, 0);
+    %varclient_1126 = calc(%varclient_1126 + 1);
+} else {
+    %varplayer_1685 = 1;
+    sound_synth(synth_2277, 1, 0);
+}
+~script2220;

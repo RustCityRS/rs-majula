@@ -1,6 +1,7 @@
+// 204
 [clientscript,friends_chat_minimenu_timer]
-if (hud_test(72679429, -1) = true) {
+if (minimenuopen(friends_chat:com_5, -1) = true) {
     return;
 }
-if_setontimer(null, friends_chat:com5);
-~clientscript_518;
+if_setontimer(null, friends_chat:com_5);
+~script518;

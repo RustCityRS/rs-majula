@@ -1,6 +1,7 @@
-[proc,updatemodel](int $int)
-if ($int = false) {
-    if_setmodel(enum(105, 109, enum_839, %varbit_6764), db8241499:com19);
+// 1675
+[proc,updatemodel](int $int0)
+if ($int0 = 0) {
+    if_setmodel(enum(int, model, enum_839, %varplayerbit_6764), interface_84:com_19);
 } else {
-    if_setmodel(enum(105, 109, enum_838, $int), db8241499:com19);
+    if_setmodel(enum(int, model, enum_838, $int0), interface_84:com_19);
 }

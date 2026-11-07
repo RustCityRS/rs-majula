@@ -1,0 +1,10 @@
+// 3141
+[proc,script3141](int $int0, string $string0)
+if (worldlist_switch($int0, $string0) = true) {
+    %varclient_547 = 0;
+    ~script3143(0, "Switched to game world <tostring($int0)>");
+} else {
+    ~script3143(1, "Sorry, we couldn't contact world <tostring($int0)>.<br>Please choose a different world.");
+}
+~script3116;
+return;

@@ -1,0 +1,5 @@
+// 2503
+[clientscript,script2503]
+if (%varclient_837 > 0 & %varclient_837 <= 9) {
+    if_settext(enum(int, string, enum_2403, %varclient_837), interface_291:com_33);
+}

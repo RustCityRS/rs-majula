@@ -1,7 +1,0 @@
-[clientscript,ondialogabort_clever]
-~lobbyscreen_report_abuse_stage1_clear;
-if_closeoverlay(59375685);
-if_sethide(true, lobbyscreen:com34);
-if (if_gethide(enum(105, 73, enum_941, 5)) = false) {
-    ~clientscript_3161(1);
-}

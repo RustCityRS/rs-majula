@@ -1,3 +1,4 @@
+// 2971
 [proc,ecosystem_build_interface](int $int0, int $int1)
 def_string $string0 = "";
 def_string $string1 = "";
@@ -5,82 +6,82 @@ def_string $string2 = "";
 def_model $model2 = null;
 def_component $component3 = null;
 switch_int ($int0) {
-    case default:
+    case default :
         $string0 = "Unknown";
         $string1 = "This should not get here.";
         $string2 = "This should never get here.";
         $model2 = model_62129;
-        $component3 = crosstiled:com69;
-    case 0:
+        $component3 = crosstiled:com_69;
+    case 0 :
         $string0 = "Nothing.";
         $string1 = "There are no requirements for building this feature.";
         $string2 = "This feature is an abscence of anything. Oddly, some creatures prefer the minimalist approach.";
         $model2 = model_62129;
-        $component3 = crosstiled:com69;
-    case 1:
+        $component3 = crosstiled:com_69;
+    case 1 :
         $string0 = "Pond";
         $string1 = "You need a Construction level of 65 to build a pond.";
         $string2 = "Ponds attract creatures with an affinity for water. They are essentially very small, man-made lakes...or glorified puddles, depending on your view.";
-        $component3 = crosstiled:com68;
+        $component3 = crosstiled:com_68;
         $model2 = model_62128;
-    case 2:
+    case 2 :
         $string0 = "Tall grass";
         $string1 = "You need a Construction level of 62 to build tall grass.";
         $string2 = "Tall grass is favoured by creatures who sneak and hide. It's also a favourite with people too lazy to trim their lawn. Essentially, it's a patch of land allowed to grow wild.";
-        $component3 = crosstiled:com70;
+        $component3 = crosstiled:com_70;
         $model2 = model_62134;
-    case 3:
+    case 3 :
         $string0 = "Abandoned house";
         $string1 = "You need a Construction level of 57 to build an abandoned house.";
         $string2 = "Something approximating an abandoned house: popular amongst creatures that think they're domesticated.";
-        $component3 = crosstiled:com71;
+        $component3 = crosstiled:com_71;
         $model2 = model_62132;
-    case 4:
+    case 4 :
         $string0 = "Thermal vent";
         $string1 = "You need a Construction level of 59 to build a thermal vent.";
         $string2 = "A home-made volcano, or, at least, something that looks like one. These are popular among earthy creatures.";
-        $component3 = crosstiled:com72;
+        $component3 = crosstiled:com_72;
         $model2 = model_62133;
-    case 5:
+    case 5 :
         $string0 = "Standing stones";
         $string1 = "You need a Construction level of 70 to build standing stones.";
         $string2 = "A circle of home-made mystical stones, popular among creatures that are more magically inclined.";
-        $component3 = crosstiled:com73;
+        $component3 = crosstiled:com_73;
         $model2 = model_62136;
-    case 6:
+    case 6 :
         $string0 = "Dark pit";
         $string1 = "You need a Construction level of 80 to build a dark pit.";
         $string2 = "A deep, dark, endless pit, popular among the more sinister creatures. Don't look too closely: you might fall in.";
-        $component3 = crosstiled:com74;
+        $component3 = crosstiled:com_74;
         $model2 = model_62131;
-    case 7:
+    case 7 :
         $string0 = "Boneyard";
         $string1 = "You need a Construction level of 56 to build a boneyard.";
         $string2 = "An animal graveyard, or a collection of well-made bone mockeries. Popular among scavengers and sinister creatures.";
-        $component3 = crosstiled:com75;
+        $component3 = crosstiled:com_75;
         $model2 = model_62135;
 }
-~clientscript_2973;
+~script2973;
 if (stat(construction) < $int1) {
-    if_setcolour(0xcccc00, crosstiled:com37);
+    if_setcolour(0xcccc00, crosstiled:com_37);
     $string2 = append($string2, "<br><br>You can pay Papa Mambo to build this for you.");
 } else {
-    if_setcolour(0x00cc00, crosstiled:com37);
+    if_setcolour(0x00cc00, crosstiled:com_37);
 }
-if_settext($string0, crosstiled:com37);
-if_settext($string1, crosstiled:com38);
-if_settext($string2, crosstiled:com36);
-if_setmodel($model2, crosstiled:com35);
-if_sethide(true, crosstiled:com69);
-if_sethide(true, crosstiled:com68);
-if_sethide(true, crosstiled:com70);
-if_sethide(true, crosstiled:com71);
-if_sethide(true, crosstiled:com72);
-if_sethide(true, crosstiled:com73);
-if_sethide(true, crosstiled:com74);
-if_sethide(true, crosstiled:com75);
+if_settext($string0, crosstiled:com_37);
+if_settext($string1, crosstiled:com_38);
+if_settext($string2, crosstiled:com_36);
+if_setmodel($model2, crosstiled:com_35);
+if_sethide(true, crosstiled:com_69);
+if_sethide(true, crosstiled:com_68);
+if_sethide(true, crosstiled:com_70);
+if_sethide(true, crosstiled:com_71);
+if_sethide(true, crosstiled:com_72);
+if_sethide(true, crosstiled:com_73);
+if_sethide(true, crosstiled:com_74);
+if_sethide(true, crosstiled:com_75);
 if ($component3 ! null) {
     if_sethide(false, $component3);
 } else {
-    if_sethide(false, crosstiled:com69);
+    if_sethide(false, crosstiled:com_69);
 }

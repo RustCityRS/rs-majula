@@ -21,6 +21,7 @@
 
 use rs_pack::pack::names::AssetNames;
 use runec::clientscript;
+use runec::clientscript::decompile::script_name;
 use runec::parser::{Expr, Statement};
 use std::collections::BTreeMap;
 use std::fs;
@@ -49,11 +50,14 @@ fn client_quest_table(root: &Path) -> BTreeMap<u32, Vec<i32>> {
                         let Expr::ProcCall { name, args, .. } = value else {
                             continue;
                         };
-                        let pairs: &[(usize, usize)] = match name.as_str() {
-                            "clientscript_2157" => &[(0, 1)],
-                            "clientscript_2158" => &[(0, 2)],
-                            "clientscript_2159" => &[(0, 1), (2, 3)],
-                            _ => continue,
+                        let pairs: &[(usize, usize)] = if *name == script_name(names, 2157) {
+                            &[(0, 1)]
+                        } else if *name == script_name(names, 2158) {
+                            &[(0, 2)]
+                        } else if *name == script_name(names, 2159) {
+                            &[(0, 1), (2, 3)]
+                        } else {
+                            continue;
                         };
                         for &(var, value) in pairs {
                             if let (Expr::GameVar(name, _), Expr::IntLiteral(value)) =

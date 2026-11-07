@@ -1,0 +1,50 @@
+// 4350
+[proc,script4350]
+def_enum $enum0 = null;
+def_int $int1 = 0;
+switch_int (%varplayer_2128) {
+    case 1 :
+        $int1 = %varplayerbit_9091;
+    case 2 :
+        $int1 = %varplayerbit_9092;
+    case 3 :
+        $int1 = %varplayerbit_9093;
+    case 4 :
+        $int1 = %varplayerbit_9094;
+    case 5 :
+        $int1 = %varplayerbit_9095;
+    case 6 :
+        $int1 = %varplayerbit_9096;
+    case 7 :
+        $int1 = %varplayerbit_9097;
+    case 8 :
+        $int1 = %varplayerbit_9098;
+}
+if ($int1 > 0) {
+    $enum0 = enum(int, enum, enum_3689, $int1);
+    if ($enum0 ! null) {
+        if_sethide(true, interface_1098:com_134);
+        if_setscrollpos(0, 0, interface_1098:com_139);
+        switch_int (%varplayer_2128) {
+            case 1 :
+                ~script4499($enum0, 1, enum(int, string, $enum0, %varplayerbit_9131), enum_getoutputcount($enum0), 4, interface_1098:com_128, interface_1098:com_138, interface_1098:com_140, interface_1098:com_139, interface_1098:com_262);
+            case 2 :
+                ~script4499($enum0, 1, enum(int, string, $enum0, %varplayerbit_9132), enum_getoutputcount($enum0), 4, interface_1098:com_128, interface_1098:com_138, interface_1098:com_140, interface_1098:com_139, interface_1098:com_262);
+            case 3 :
+                ~script4499($enum0, 1, enum(int, string, $enum0, %varplayerbit_9133), enum_getoutputcount($enum0), 4, interface_1098:com_128, interface_1098:com_138, interface_1098:com_140, interface_1098:com_139, interface_1098:com_262);
+            case 4 :
+                ~script4499($enum0, 1, enum(int, string, $enum0, %varplayerbit_9134), enum_getoutputcount($enum0), 4, interface_1098:com_128, interface_1098:com_138, interface_1098:com_140, interface_1098:com_139, interface_1098:com_262);
+            case 5 :
+                ~script4499($enum0, 1, enum(int, string, $enum0, %varplayerbit_9135), enum_getoutputcount($enum0), 4, interface_1098:com_128, interface_1098:com_138, interface_1098:com_140, interface_1098:com_139, interface_1098:com_262);
+            case 6 :
+                ~script4499($enum0, 1, enum(int, string, $enum0, %varplayerbit_9136), enum_getoutputcount($enum0), 4, interface_1098:com_128, interface_1098:com_138, interface_1098:com_140, interface_1098:com_139, interface_1098:com_262);
+            case 7 :
+                ~script4499($enum0, 1, enum(int, string, $enum0, %varplayerbit_9137), enum_getoutputcount($enum0), 4, interface_1098:com_128, interface_1098:com_138, interface_1098:com_140, interface_1098:com_139, interface_1098:com_262);
+            case 8 :
+                ~script4499($enum0, 1, enum(int, string, $enum0, %varplayerbit_9138), enum_getoutputcount($enum0), 4, interface_1098:com_128, interface_1098:com_138, interface_1098:com_140, interface_1098:com_139, interface_1098:com_262);
+        }
+        return;
+    }
+}
+~script4501(interface_1098:com_128, "Select a sub-type");
+if_sethide(false, interface_1098:com_134);

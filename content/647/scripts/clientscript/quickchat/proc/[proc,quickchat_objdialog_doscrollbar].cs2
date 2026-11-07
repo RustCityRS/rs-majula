@@ -1,3 +1,4 @@
+// 1042
 [proc,quickchat_objdialog_doscrollbar](component $component0, component $component1)
 def_int $int2 = if_getheight($component0);
 def_int $int3 = if_getscrollheight($component0);

@@ -1,3 +1,4 @@
+// 2120
 [clientscript,ame_rewards_select](int $int0, component $component1, int $int2, component $component3, component $component4)
 if ($int0 ! 1) {
     return;
@@ -13,7 +14,7 @@ while ($int5 < inv_size(ame_rewards)) {
     }
     $int5 = calc($int5 + 1);
 }
-if_settext("Confirm:<br><enum(105, 115, enum_2238, $int2)>", $component4);
+if_settext("Confirm:<br><enum(int, string, enum_2238, $int2)>", $component4);
 cc_deleteall($component3);
 def_graphic $graphic6 = "wild_ditch_sign_button,0";
 $int5 = 0;
@@ -24,9 +25,9 @@ while ($int5 < inv_size(ame_rewards)) {
         cc_setposition(0, 0, ^setpos_abs_left, ^setpos_abs_top);
         cc_setgraphic($graphic6);
         cc_sethide(false);
-        cc_setonmouseleave("cc_graphic_swapper(^event_com, ^event_subid, $graphic6)");
+        cc_setonmouseleave("cc_graphic_swapper(event_com, event_comsubid, $graphic6)");
         $graphic6 = "wild_ditch_sign_button,1";
-        cc_setonmouseover("cc_graphic_swapper(^event_com, ^event_subid, $graphic6)");
+        cc_setonmouseover("cc_graphic_swapper(event_com, event_comsubid, $graphic6)");
         cc_setop(1, "Confirm");
         return;
     } else {

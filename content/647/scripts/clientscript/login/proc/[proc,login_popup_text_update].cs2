@@ -1,6 +1,7 @@
-[proc,login_popup_text_update](string $string)
-def_component $component = login:com11;
-if (login_getint_5623 = true) {
-    $component = south_progress9:com4;
+// 3233
+[proc,login_popup_text_update](string $string0)
+def_component $component0 = login:com_11;
+if (unknown_command_5623 = true) {
+    $component0 = south_progress9:com_4;
 }
-if_settext($string, $component);
+if_settext($string0, $component0);

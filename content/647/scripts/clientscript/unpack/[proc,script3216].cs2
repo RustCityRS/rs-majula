@@ -1,0 +1,224 @@
+// 3216
+[proc,script3216](int $key0, char $char1)
+if (create_reply = -3) {
+    return;
+}
+def_string $string0 = "";
+def_int $int2 = 0;
+def_int $int3 = 0;
+def_int $int4 = 0;
+def_int $int5 = 0;
+switch_int (%varclient_174) {
+    case 6 :
+        switch_int ($key0) {
+            case ^key_escape :
+                ~create_exit;
+                return;
+            case ^key_return, ^key_tab :
+                if (%varclient_175 >= clientclock) {
+                    return;
+                }
+                if ($key0 = ^key_tab & keyheld_shift = true) {
+                    ~create_focus(15, 1);
+                } else {
+                    ~create_focus(14, 1);
+                }
+                return;
+            case ^key_left, ^key_right, ^key_up, ^key_down, ^key_home, ^key_end :
+                %varclient_1099 = ~script1553($key0, %varclient_1099, %varclient_1641);
+                ~script3218(account_create:com_87, account_create:com_31, account_create:com_88, %varclient_1641, 6);
+                return;
+        }
+        if (string_length(%varclient_1641) >= 320 & $key0 ! ^key_backspace & $key0 ! ^key_del) {
+            return;
+        }
+        if (string_indexof_char("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!#$%&'*+-/=?^_.{}~@", $char1, 0) ! -1 | $key0 = ^key_backspace | $key0 = ^key_del) {
+            %varclient_1641, %varclient_1099 = ~script802(%varclient_1099, %varclient_1641, 3, $key0, $char1);
+            if_settext(%varclient_1641, account_create:com_31);
+            ~script3218(account_create:com_87, account_create:com_31, account_create:com_88, %varclient_1641, 6);
+        }
+        return;
+    case 14 :
+        switch_int ($key0) {
+            case ^key_escape :
+                ~create_exit;
+                return;
+            case ^key_return, ^key_tab :
+                if (%varclient_175 >= clientclock) {
+                    return;
+                }
+                if ($key0 = ^key_tab & keyheld_shift = true) {
+                    ~create_focus(6, 1);
+                } else {
+                    ~create_focus(7, 1);
+                }
+                return;
+            case ^key_left, ^key_right, ^key_up, ^key_down, ^key_home, ^key_end :
+                %varclient_1099 = ~script1553($key0, %varclient_1099, %varclient_1845);
+                ~script3218(account_create:com_106, account_create:com_107, account_create:com_108, %varclient_1845, 14);
+                return;
+        }
+        if (string_length(%varclient_1845) >= 320 & $key0 ! ^key_backspace & $key0 ! ^key_del) {
+            return;
+        }
+        if (string_indexof_char("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!#$%&'*+-/=?^_.{}~@", $char1, 0) ! -1 | $key0 = ^key_backspace | $key0 = ^key_del) {
+            %varclient_1845, %varclient_1099 = ~script802(%varclient_1099, %varclient_1845, 3, $key0, $char1);
+            if_settext(%varclient_1845, account_create:com_107);
+            ~script3218(account_create:com_106, account_create:com_107, account_create:com_108, %varclient_1845, 14);
+        }
+        return;
+    case 7 :
+        switch_int ($key0) {
+            case ^key_escape :
+                ~create_exit;
+                return;
+            case ^key_return, ^key_tab :
+                if (%varclient_175 >= clientclock) {
+                    return;
+                }
+                if ($key0 = ^key_tab & keyheld_shift = true) {
+                    ~create_focus(14, 1);
+                } else {
+                    ~create_focus(8, 1);
+                }
+                return;
+            case ^key_left, ^key_right, ^key_up, ^key_down, ^key_home, ^key_end :
+                %varclient_1099 = ~script1553($key0, %varclient_1099, %varclient_1643);
+                ~script3218(account_create:com_77, account_create:com_78, account_create:com_79, ~script2949(%varclient_1643), 7);
+                return;
+        }
+        if (string_length(%varclient_1643) > 20 & $key0 ! ^key_backspace & $key0 ! ^key_del) {
+            return;
+        }
+        %varclient_1643, %varclient_1099 = ~script802(%varclient_1099, %varclient_1643, 0, $key0, $char1);
+        if_settext(~script2949(%varclient_1643), account_create:com_78);
+        ~script3218(account_create:com_77, account_create:com_78, account_create:com_79, ~script2949(%varclient_1643), 7);
+        return;
+    case 8 :
+        switch_int ($key0) {
+            case ^key_escape :
+                ~create_exit;
+                return;
+            case ^key_return, ^key_tab :
+                if (%varclient_175 >= clientclock) {
+                    return;
+                }
+                if ($key0 = ^key_tab & keyheld_shift = true) {
+                    ~create_focus(7, 1);
+                } else {
+                    ~create_focus(15, 1);
+                }
+                return;
+            case ^key_left, ^key_right, ^key_up, ^key_down, ^key_home, ^key_end :
+                %varclient_1099 = ~script1553($key0, %varclient_1099, %varclient_1644);
+                ~script3218(account_create:com_67, account_create:com_68, account_create:com_69, ~script2949(%varclient_1644), 8);
+                return;
+        }
+        if (string_length(%varclient_1644) > 20 & $key0 ! ^key_backspace & $key0 ! ^key_del) {
+            return;
+        }
+        %varclient_1644, %varclient_1099 = ~script802(%varclient_1099, %varclient_1644, 0, $key0, $char1);
+        if_settext(~script2949(%varclient_1644), account_create:com_68);
+        ~script3218(account_create:com_67, account_create:com_68, account_create:com_69, ~script2949(%varclient_1644), 8);
+        return;
+    case 15 :
+        switch_int ($key0) {
+            case ^key_escape :
+                ~create_exit;
+                return;
+            case ^key_return, ^key_tab :
+                if (%varclient_175 >= clientclock) {
+                    return;
+                }
+                if ($key0 = ^key_tab & keyheld_shift = true) {
+                    ~create_focus(8, 1);
+                } else if ($key0 = ^key_return & string_length(%varclient_1641) > 0 & string_length(%varclient_1845) > 0 & string_length(%varclient_1643) > 0 & string_length(%varclient_1644) > 0 & %varclient_1407 ! 0) {
+                    ~create_go(0);
+                    return;
+                } else {
+                    ~create_focus(6, 1);
+                }
+                return;
+            case ^key_left, ^key_right, ^key_up, ^key_down, ^key_home, ^key_end :
+                %varclient_1099 = ~script1553($key0, %varclient_1099, tostring(%varclient_1407));
+                ~script3218(account_create:com_113, account_create:com_30, account_create:com_114, tostring(%varclient_1407), 15);
+                return;
+        }
+        if (string_length(tostring(%varclient_1407)) >= 3 & $key0 ! ^key_backspace & $key0 ! ^key_del) {
+            return;
+        }
+        if (string_length(tostring(%varclient_1407)) = 3) {
+            $int3 = calc(%varclient_1407 / 100);
+            $int4 = calc((%varclient_1407 - $int3 * 100) / 10);
+            $int5 = calc(%varclient_1407 - ($int3 * 100 + $int4 * 10));
+        } else if (string_length(tostring(%varclient_1407)) = 2) {
+            $int3 = calc(%varclient_1407 / 10);
+            $int4 = calc(%varclient_1407 - $int3 * 10);
+        }
+        if (char_isnumeric($char1) = true) {
+            $int2 = string_indexof_char("0123456789", $char1, 0);
+            if (%varclient_1407 < 1) {
+                %varclient_1407 = $int2;
+            } else {
+                %varclient_1407 = calc(%varclient_1407 * 10 + $int2);
+            }
+            %varclient_1099 = string_length(tostring(%varclient_1407));
+        } else if ($key0 = ^key_backspace) {
+            if (%varclient_1099 >= 3) {
+                %varclient_1407 = calc(%varclient_1407 / 10);
+            } else if (%varclient_1099 = 2) {
+                if (string_length(tostring(%varclient_1407)) = 3) {
+                    %varclient_1407 = calc($int3 * 10 + $int5);
+                } else if (string_length(tostring(%varclient_1407)) = 2) {
+                    %varclient_1407 = calc(%varclient_1407 / 10);
+                } else {
+                    %varclient_1407 = 0;
+                    %varclient_1099 = 0;
+                }
+            } else if (%varclient_1099 = 1) {
+                if (string_length(tostring(%varclient_1407)) = 3) {
+                    %varclient_1407 = calc(%varclient_1407 - $int3 * 100);
+                } else if (string_length(tostring(%varclient_1407)) = 2) {
+                    %varclient_1407 = calc(%varclient_1407 - $int3 * 10);
+                } else {
+                    %varclient_1407 = 0;
+                    %varclient_1099 = 0;
+                }
+            } else {
+                return;
+            }
+            %varclient_1099 = max(calc(%varclient_1099 - 1), 0);
+        } else if ($key0 = ^key_del) {
+            if (%varclient_1099 >= 3) {
+                return;
+            } else if (%varclient_1099 = 2) {
+                if (string_length(tostring(%varclient_1407)) = 3) {
+                    %varclient_1407 = calc(%varclient_1407 / 10);
+                } else {
+                    %varclient_1099 = string_length(tostring(%varclient_1407));
+                }
+            } else if (%varclient_1099 = 1) {
+                if (string_length(tostring(%varclient_1407)) = 3) {
+                    %varclient_1407 = calc($int3 * 10 + $int5);
+                } else if (string_length(tostring(%varclient_1407)) = 2) {
+                    %varclient_1407 = calc(%varclient_1407 / 10);
+                } else {
+                    return;
+                }
+            } else if (string_length(tostring(%varclient_1407)) = 3) {
+                %varclient_1407 = calc(%varclient_1407 - $int3 * 100);
+            } else if (string_length(tostring(%varclient_1407)) = 2) {
+                %varclient_1407 = $int4;
+            } else {
+                %varclient_1407 = 0;
+            }
+        }
+        if (%varclient_1407 < 1) {
+            if_settext("", account_create:com_30);
+            ~script3218(account_create:com_113, account_create:com_30, account_create:com_114, "", 15);
+        } else {
+            if_settext(tostring(%varclient_1407), account_create:com_30);
+            ~script3218(account_create:com_113, account_create:com_30, account_create:com_114, tostring(%varclient_1407), 15);
+        }
+        return;
+}

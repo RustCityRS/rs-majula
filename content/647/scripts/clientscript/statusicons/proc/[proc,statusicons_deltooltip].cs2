@@ -1,13 +1,14 @@
+// 1952
 [proc,statusicons_deltooltip]
 def_component $component0 = null;
 def_component $component1 = null;
 if (getwindowmode < 2) {
-    $component0 = toplevel:com15;
-    $component1 = toplevel:com224;
+    $component0 = toplevel:com_15;
+    $component1 = toplevel:com_224;
 } else {
-    $component0 = toplevel_fullscreen:com13;
-    $component1 = toplevel_fullscreen:com164;
+    $component0 = toplevel_fullscreen:com_13;
+    $component1 = toplevel_fullscreen:com_164;
 }
 if_settext("", $component1);
 if_sethide(true, $component0);
-%varc_int_2 = 0;
+%varclient_2 = 0;

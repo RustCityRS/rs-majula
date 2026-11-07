@@ -1,2 +1,3 @@
+// 690
 [clientscript,equipscreen_weight]
-if_settext("<tostring(opcount)> kg", equip_screen2:com24);
+if_settext("<tostring(runweight_visible)> kg", equip_screen2:com_24);

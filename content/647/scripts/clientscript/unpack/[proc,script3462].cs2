@@ -1,0 +1,38 @@
+// 3462
+[proc,script3462](component $component0, component $component1, component $component2, component $component3)
+switch_int (%varclient_1007) {
+    case 21 :
+        if_sethide(true, $component1);
+        cc_deleteall($component0);
+        ~tutorial3_fadeout(^black, 75, $component0);
+    case 22 :
+        if_sethide(false, $component1);
+        cc_deleteall($component1);
+        ~script1088($component1, 0);
+        cc_deleteall($component2);
+        cc_create($component2, ^iftype_model, 0);
+        cc_setsize(0, 85, ^setsize_minus, ^setsize_abs);
+        cc_setposition(0, 0, ^setpos_abs_centre, ^setpos_abs_top);
+        cc_setplayermodel_self;
+        cc_setmodelangle(0, 30, 0, 0, 0, 850);
+        cc_setmodelanim(seq_14230);
+        cc_setontimer("script3464(event_com, event_comsubid)");
+        ~script2647($component2);
+        if_setsize(if_getwidth($component2), calc(paraheight(if_gettext($component3), if_getwidth($component3), p11_full) * 10 + 75), ^setsize_abs, ^setsize_abs, $component2);
+        cam_moveto(movecoord(coord, 0, 0, -3), 1500, 1000, 100);
+        cam_lookat(coord, 0, 1000, 100);
+        ~tutorial3_fadein(75, $component0);
+        if_setontimer("script3463(event_com, coord)", $component0);
+    case 23 :
+        if_setontimer(null, $component0);
+        ~tutorial3_fadeout(^black, 25, $component0);
+    case 24 :
+        cam_smoothreset;
+        cc_deleteall($component1);
+        cc_deleteall($component2);
+        if_sethide(true, $component1);
+        ~tutorial3_fadein(25, $component0);
+    case default :
+        if_sethide(true, $component1);
+        cam_smoothreset;
+}

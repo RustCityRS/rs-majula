@@ -86,7 +86,7 @@ PNG previews or `manifest.json` files in `content/647`.
 |---|---|
 | `animations`, `skeletons` | `.anim` frames and `.base` bone transforms, masks and labels |
 | `models` | `.model` vertex coordinates, triangle indices, colours, named materials, texture mappings and particle attachments |
-| `interfaces` | `.if` component properties, named asset references and clientscript hooks |
+| `interfaces` | `.if3` components by position, named asset references and hooks written as script calls (`onop=closebutton_click`, `onmouseover=graphic_swapper(event_com, "name,1")`) |
 | `maps` | `.jm2` terrain, named loc placements and server spawns, using the existing map text layout |
 | `sprites`, `loading_sprites`, `loading_sprites_raw` | Indexed `.tga` sheets with `.sprite` frame metadata; `.alpha.tga` masks where needed; original JPEGs |
 | `textures`, `materials` | `.texture` procedural operations, gradients, curves and shapes; `.material` rendering properties grouped by texture |
@@ -96,13 +96,15 @@ PNG previews or `manifest.json` files in `content/647`.
 | `songs`, `jingles` | Standard `.mid` files |
 | `vorbis` | Standard `.ogg` packets, `.sample` playback and loop metadata, and the shared `.vorbis` setup as text |
 | `fontmetrics`, `binary` | `.fontmetrics` glyph widths/bearings and `.huffman` code lengths |
-| `billboards` | One `.billboard` file per billboard, with its own named section; packed together in JS5 group 0 |
-| `particles`, `defaults` | `.particle` and `.defaults` named properties/opcodes |
-| `quickchat`, `quickchat_global` | `.quickchat` categories, phrases, responses and named enum references |
+| `defaults` | `graphics.defaults`, `unknown1.defaults` and `wearpos.defaults` named properties |
 | `loading_backgrounds` | `.screen` sequences and layout elements with named fonts and sprites |
-| `worldmap_data` | `.fm` area metadata and static elements; `.fms` map squares with coordinates and named floors/locs |
+| `worldmap_data` | `all.wma` map details and static elements; `.fm` area palettes; `.fms` map squares with coordinates and named floors/locs |
 | `shaders` | Direct3D `.shader` assembly and constant tables; original OpenGL `.arb`/`.glsl` source |
 | `dlls` | Original native libraries under their platform and library names |
+
+Billboards, particles and quickchat are configs like the rest, in
+`scripts/globalscript/_unpack` (`all.billboard`, `all.particleemitter`, `all.particleeffector`,
+`all.quickchatcat`, `all.quickchatphrase`).
 
 Names come from `pack/*.pack`. Assets without recovered names use stable names such as
 `model_123`, rather than guessed names. References resolve through those same registries;

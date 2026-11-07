@@ -1,4 +1,5 @@
-[clientscript,lore_topstat_magic_leavetargetmode](component $component)
-if (if_find($component) = true) {
+// 698
+[clientscript,lore_topstat_magic_leavetargetmode](component $component0)
+if (if_find($component0) = true) {
     cc_setoutline(0);
 }

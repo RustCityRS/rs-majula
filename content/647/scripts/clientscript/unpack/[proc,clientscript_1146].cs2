@@ -1,9 +1,0 @@
-[proc,clientscript_1146](int $int)(colour)
-if ($int >= 10000000) {
-    return(0x00ff80);
-} else if ($int >= 100000) {
-    return(^white);
-} else {
-    return(^yellow);
-}
-return(^black);

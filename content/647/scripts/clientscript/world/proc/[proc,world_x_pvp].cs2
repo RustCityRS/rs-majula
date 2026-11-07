@@ -1,6 +1,7 @@
+// 1889
 [proc,world_x_pvp]()(string)
-if (~clientscript_1431 = true) {
-    return("World <tostring(active_toplevelinterface)> (PvP)");
+if (~script1431 = 1) {
+    return("World <tostring(map_world)> (PvP)");
 } else {
-    return("World <tostring(active_toplevelinterface)>");
+    return("World <tostring(map_world)>");
 }

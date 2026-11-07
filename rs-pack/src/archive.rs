@@ -324,6 +324,9 @@ pub const CONFIG_VARBIT: u8 = 22;
 pub const WORLDMAP_DATA: u8 = 23;
 #[cfg(since_647)]
 pub const QUICKCHAT: u8 = 24;
+/// Quickchat categories and phrases of the global archive carry on from here.
+#[cfg(since_647)]
+pub const QUICKCHAT_GLOBAL_FIRST: u16 = 0x8000;
 #[cfg(since_647)]
 pub const QUICKCHAT_GLOBAL: u8 = 25;
 #[cfg(since_647)]
@@ -352,15 +355,37 @@ pub const REFERENCE_TABLES: u8 = 255;
 #[cfg(since_647)]
 pub const CONFIG_GROUP_FLU: u32 = 1;
 #[cfg(since_647)]
+pub const CONFIG_GROUP_HUNT: u32 = 2;
+#[cfg(since_647)]
 pub const CONFIG_GROUP_IDK: u32 = 3;
 #[cfg(since_647)]
 pub const CONFIG_GROUP_FLO: u32 = 4;
 #[cfg(since_647)]
 pub const CONFIG_GROUP_INV: u32 = 5;
 #[cfg(since_647)]
+pub const CONFIG_GROUP_MESANIM: u32 = 7;
+#[cfg(since_647)]
 pub const CONFIG_GROUP_PARAM: u32 = 11;
 #[cfg(since_647)]
+pub const CONFIG_GROUP_VARCSTR: u32 = 15;
+#[cfg(since_647)]
 pub const CONFIG_GROUP_VARP: u32 = 16;
+#[cfg(since_647)]
+pub const CONFIG_GROUP_AREA: u32 = 18;
+#[cfg(since_647)]
+pub const CONFIG_GROUP_VARC: u32 = 19;
+#[cfg(since_647)]
+pub const CONFIG_GROUP_VAROBJ: u32 = 20;
+#[cfg(since_647)]
+pub const CONFIG_GROUP_VARPSTR: u32 = 21;
+#[cfg(since_647)]
+pub const CONFIG_GROUP_VARS: u32 = 22;
+#[cfg(since_647)]
+pub const CONFIG_GROUP_VARSSTR: u32 = 23;
+#[cfg(since_647)]
+pub const CONFIG_GROUP_VARN: u32 = 24;
+#[cfg(since_647)]
+pub const CONFIG_GROUP_VARNBIT: u32 = 25;
 #[cfg(since_647)]
 pub const CONFIG_GROUP_STRUCT: u32 = 26;
 #[cfg(since_647)]
@@ -376,9 +401,23 @@ pub const CONFIG_GROUP_QUEST: u32 = 35;
 #[cfg(since_647)]
 pub const CONFIG_GROUP_MEL: u32 = 36;
 #[cfg(since_647)]
+pub const CONFIG_GROUP_DBTABLE: u32 = 40;
+#[cfg(since_647)]
+pub const CONFIG_GROUP_DBROW: u32 = 41;
+#[cfg(since_647)]
+pub const CONFIG_GROUP_CONTROLLER: u32 = 42;
+#[cfg(since_647)]
+pub const CONFIG_GROUP_VARCON: u32 = 43;
+#[cfg(since_647)]
+pub const CONFIG_GROUP_CONFIG44: u32 = 44;
+#[cfg(since_647)]
 pub const CONFIG_GROUP_HITMARK: u32 = 46;
 #[cfg(since_647)]
-pub const CONFIG_GROUP_VARCLAN: u32 = 54;
+pub const CONFIG_GROUP_VARCLAN: u32 = 47;
+#[cfg(since_647)]
+pub const CONFIG_GROUP_ITEMCODE: u32 = 48;
+#[cfg(since_647)]
+pub const CONFIG_GROUP_VARCLANSETTING: u32 = 54;
 
 /// Mapping from config file names (as produced by the pack step into
 /// `data/pack/client/config/`) to their group IDs within archive 2 (CONFIG).
@@ -389,11 +428,17 @@ pub const CONFIG_GROUP_VARCLAN: u32 = 54;
 #[cfg(since_647)]
 pub const CONFIG_GROUPS: &[(&str, u32)] = &[
     ("flu", CONFIG_GROUP_FLU),
+    ("hunt", CONFIG_GROUP_HUNT),
     ("idk", CONFIG_GROUP_IDK),
     ("flo", CONFIG_GROUP_FLO),
     ("inv", CONFIG_GROUP_INV),
+    ("mesanim", CONFIG_GROUP_MESANIM),
     ("param", CONFIG_GROUP_PARAM),
+    ("varcs", CONFIG_GROUP_VARCSTR),
     ("varp", CONFIG_GROUP_VARP),
+    ("varc", CONFIG_GROUP_VARC),
+    ("vars", CONFIG_GROUP_VARS),
+    ("varn", CONFIG_GROUP_VARN),
     ("struct", CONFIG_GROUP_STRUCT),
     ("light", CONFIG_GROUP_LIGHT),
     ("bas", CONFIG_GROUP_BAS),
@@ -401,15 +446,36 @@ pub const CONFIG_GROUPS: &[(&str, u32)] = &[
     ("msi", CONFIG_GROUP_MSI),
     ("quest", CONFIG_GROUP_QUEST),
     ("mel", CONFIG_GROUP_MEL),
+    ("dbtable", CONFIG_GROUP_DBTABLE),
+    ("dbrow", CONFIG_GROUP_DBROW),
     ("hitmark", CONFIG_GROUP_HITMARK),
-    ("varclansetting", CONFIG_GROUP_VARCLAN),
+    ("varclansetting", CONFIG_GROUP_VARCLANSETTING),
 ];
 
-/// Unknown config groups in archive 2 packed as raw binary. The pack step
-/// stores these as `configN.dat`/`configN.idx`.
+/// Tables the cache holds empty, packed from their files: extension, group,
+/// the name a section takes, and the packed table's CRC. Groups 21 and 23 are
+/// the string var tables; 37, 38, 39 and 45 have no known name.
 #[cfg(since_647)]
-pub const CONFIG_UNKNOWN_GROUPS: &[u32] = &[
-    2, 7, 15, 18, 19, 20, 21, 22, 23, 24, 25, 37, 38, 39, 40, 41, 42, 43, 44, 45, 47, 48,
+pub const CONFIG_EMPTY_TABLES: &[(&str, u32, &str, i32)] = &[
+    ("area", CONFIG_GROUP_AREA, "area", 402829966),
+    ("varobj", CONFIG_GROUP_VAROBJ, "varobject", -1949850762),
+    ("config21", CONFIG_GROUP_VARPSTR, "config21", -1751999962),
+    ("config23", CONFIG_GROUP_VARSSTR, "config23", -1095511195),
+    ("varnbit", CONFIG_GROUP_VARNBIT, "varnpcbit", -1298439089),
+    ("config37", 37, "config37", 477744615),
+    ("config38", 38, "config38", -430249901),
+    ("config39", 39, "config39", 583011186),
+    (
+        "controller",
+        CONFIG_GROUP_CONTROLLER,
+        "controller",
+        -1179041704,
+    ),
+    ("varcon", CONFIG_GROUP_VARCON, "config43", 1930184948),
+    ("config44", CONFIG_GROUP_CONFIG44, "config44", 812315341),
+    ("config45", 45, "config45", 260531396),
+    ("varclan", CONFIG_GROUP_VARCLAN, "varclan", -1864459835),
+    ("itemcode", CONFIG_GROUP_ITEMCODE, "itemcode", -430249901),
 ];
 
 #[cfg(since_647)]

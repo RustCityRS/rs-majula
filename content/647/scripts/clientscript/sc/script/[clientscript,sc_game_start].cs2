@@ -1,7 +1,8 @@
+// 1938
 [clientscript,sc_game_start]
-%varc_int_556 = calc(clientclock + 2000 * 30);
-%varc_int_559 = 255;
-%varc_int_560 = 0;
-%varc_int_561 = 0;
-%varc_int_562 = 0;
-if_settextshadow(false, sc_in_game_overlay:com15);
+%varclient_556 = calc(clientclock + 2000 * 30);
+%varclient_559 = 255;
+%varclient_560 = 0;
+%varclient_561 = 0;
+%varclient_562 = 0;
+if_settextshadow(false, sc_in_game_overlay:com_15);

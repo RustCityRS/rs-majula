@@ -1,0 +1,5 @@
+// 1999
+[clientscript,script1999](component $component0)
+~script2001($component0, %shop);
+if_setonvartransmit("script2000($component0, %shop){varplayer_1081}", $component0);
+return;

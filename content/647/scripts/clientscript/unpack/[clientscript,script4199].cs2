@@ -1,0 +1,30 @@
+// 4199
+[clientscript,script4199](component $component0)
+if_setgraphic(graphic_5416, $component0);
+if_sethide(false, interface_891:com_76);
+if_sethide(false, interface_891:com_65);
+if ($component0 = interface_891:com_56) {
+    if_settext("Cannon Room", interface_891:com_75);
+    if_settext("62+", interface_891:com_77);
+    if_settext("(Members only) Fix up broken cannons. This offers fast XP, for medium resource costs.", interface_891:com_78);
+}
+if ($component0 = interface_891:com_57) {
+    if_settext("Burial Armour Room", interface_891:com_75);
+    if_settext("30-70", interface_891:com_77);
+    if_settext("Forge burial armour in line with the taskmaster's orders. Different XP rates at a range of resource costs.", interface_891:com_78);
+}
+if ($component0 = interface_891:com_58) {
+    if_settext("Ceremonial Sword Room", interface_891:com_75);
+    if_settext("70+", interface_891:com_77);
+    if_settext("(Members Only) Smith beautiful ceremonial swords. High XP rate, for reasonably high resource costs.", interface_891:com_78);
+}
+if ($component0 = interface_891:com_59) {
+    if_settext("Track Room", interface_891:com_75);
+    if_settext("1-30", interface_891:com_77);
+    if_settext("Build up sections of mine cart tracks. Low XP rate, no resource costs.", interface_891:com_78);
+}
+if ($component0 = interface_891:com_60) {
+    if_settext("Reward Shop", interface_891:com_75);
+    if_settext("--", interface_891:com_77);
+    if_settext("Purchase unique rewards using respect earned in the workshop.", interface_891:com_78);
+}

@@ -1,0 +1,26 @@
+// 3359
+[proc,script3359]()(int, string, obj)
+switch_obj (%varplayer_448) {
+    case default :
+        return(3, "Snaring Wave (Tier 1)", snaring_wave__tier_1);
+    case cub_stormbringer_pouch :
+        return(3, "Snaring Wave (Tier 1)", snaring_wave__tier_1);
+    case little_stormbringer_pouch :
+        return(13, "Snaring Wave (Tier 2)", snaring_wave__tier_2);
+    case "naïve_stormbringer_pouch" :
+        return(23, "Snaring Wave (Tier 3)", snaring_wave__tier_3);
+    case keen_stormbringer_pouch :
+        return(33, "Snaring Wave (Tier 4)", snaring_wave__tier_4);
+    case brave_stormbringer_pouch :
+        return(43, "Snaring Wave (Tier 5)", snaring_wave__tier_5);
+    case brah_stormbringer_pouch :
+        return(53, "Snaring Wave (Tier 6)", snaring_wave__tier_6);
+    case naabe_stormbringer_pouch :
+        return(63, "Snaring Wave (Tier 7)", snaring_wave__tier_7);
+    case wise_stormbringer_pouch :
+        return(73, "Snaring Wave (Tier 8)", snaring_wave__tier_8);
+    case adept_stormbringer_pouch :
+        return(83, "Snaring Wave (Tier 9)", snaring_wave__tier_9);
+    case sachem_stormbringer_pouch :
+        return(93, "Snaring Wave (Tier 10)", snaring_wave__tier_10);
+}

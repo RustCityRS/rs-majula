@@ -1,0 +1,36 @@
+// 919
+[proc,script919]
+def_int $int0 = inv_total(inv, %varclient_743);
+def_string $string0 = "Cost:";
+def_int $int1 = -1;
+if (%varclient_744 = 0) {
+    $string0 = "None available";
+} else if (%varclient_744 = -1) {
+    $string0 = "Free sample!";
+} else {
+    $int1 = %varclient_744;
+}
+if_settext($string0, obj_info:com_24);
+if ($int1 > $int0) {
+    if_setcolour(^red, obj_info:com_25);
+} else {
+    if_setcolour(%varclient_1241, obj_info:com_25);
+}
+if ($int1 > -1) {
+    if_setobject_alwaysnum(%varclient_743, $int1, obj_info:com_23);
+} else {
+    if_setobject_nonum(null, -1, obj_info:com_23);
+}
+if (%varclient_744 = -1) {
+    if_settext("Take", obj_info:com_22);
+    if_setop(1, "Take 1", obj_info:com_21);
+    if_setop(2, "Take 5", obj_info:com_21);
+    if_setop(3, "Take 10", obj_info:com_21);
+    if_setop(4, "Take 50", obj_info:com_21);
+} else {
+    if_settext("Buy", obj_info:com_22);
+    if_setop(1, "Buy 1", obj_info:com_21);
+    if_setop(2, "Buy 5", obj_info:com_21);
+    if_setop(3, "Buy 10", obj_info:com_21);
+    if_setop(4, "Buy 50", obj_info:com_21);
+}

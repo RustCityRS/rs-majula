@@ -1,4 +1,5 @@
+// 585
 [clientscript,stockmarket_onload]
-if_setonvartransmit("clientscript_588(){varp_1109}", stockmarket:com127);
-if_sethook1425("stockmarket_onstocktransmit()", stockmarket:com15);
-~clientscript_621;
+if_setonvartransmit("script588{varplayer_1109}", stockmarket:com_127);
+if_setonstocktransmit("stockmarket_onstocktransmit", stockmarket:com_15);
+~script621;

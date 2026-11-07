@@ -1,3 +1,4 @@
+// 1095
 [proc,cutscene_overlay_clamp]
-~clientscript_1097;
-if_setsize(viewport_getmousecoord, ^setsize_abs, ^setsize_abs, toplevel_fullscreen:com_wide_screen);
+~script1097;
+if_setsize(viewport_geteffectivesize, ^setsize_abs, ^setsize_abs, toplevel_fullscreen:com_wide_screen);

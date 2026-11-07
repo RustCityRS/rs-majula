@@ -1,0 +1,91 @@
+// 536:0
+[com_0]
+type=layer
+x=89
+y=12
+width=300
+height=300
+layer=com_4
+
+// 536:1
+[com_1]
+type=layer
+x=86
+y=50
+width=300
+height=250
+layer=com_4
+
+// 536:2
+[com_2]
+type=graphic
+x=359
+y=33
+width=26
+height=23
+layer=com_4
+graphic="close_buttons,6"
+colour=0x000000
+transmitop=1
+op1=Close
+onmouseover=graphic_swapper(grim_recipe:com_2, "close_buttons,7")
+onmouseleave=graphic_swapper(grim_recipe:com_2, "close_buttons,6")
+onop=closebutton_click
+
+// 536:3
+[com_3]
+type=model
+x=297
+y=54
+width=66
+height=87
+layer=com_4
+model=model_25941
+modelorigin=-11,153
+modelangle=207,564,0
+modelzoom=656
+
+// 536:4
+[com_4]
+type=layer
+width=512
+height=334
+xmode=proportion_centre
+ymode=proportion_centre
+
+// 536:5
+[com_5]
+type=model
+x=-10
+y=-10
+width=327
+height=329
+layer=com_0
+model=model_25920
+modelorigin=9,-36
+modelangle=507,2044,0
+modelzoom=656
+
+// 536:6
+[com_6]
+type=text
+x=14
+y=30
+width=329
+height=17
+layer=com_1
+textfont=q8_full
+text=Shrink-Me-Quick Recipe
+colour=0x46320a
+
+// 536:7
+[com_7]
+type=text
+x=7
+y=72
+width=297
+height=136
+layer=com_1
+textfont=q8_full
+text=1x leaf of tarromin,                        1x shrunken ogleroot.                                                                 Mix the tarromin in a vial of water, then add the shrunken ogleroot. Drink when standing within an area prepared with glyphs for this potion to have full effect. Take one dose only, for a new perspective on the world...
+colour=0x46320a

@@ -1,0 +1,149 @@
+// 35:0
+[com_0]
+type=model
+width=483
+height=322
+xmode=abs_centre
+ymode=abs_centre
+model=model_47690
+modelorigin=0,170
+modelzoom=416
+
+// 35:1
+[com_1]
+type=text
+y=29
+width=150
+height=14
+xmode=abs_centre
+layer=com_9
+textfont=p12_full
+text=Getting Status....
+textalignh=centre
+textalignv=centre
+textshadow=yes
+
+// 35:2
+[com_2]
+type=text
+y=92
+width=150
+height=14
+xmode=abs_centre
+layer=com_9
+textfont=p12_full
+text=Getting Status....
+textalignh=centre
+textalignv=centre
+textshadow=yes
+
+// 35:3
+[com_3]
+type=text
+y=155
+width=150
+height=14
+xmode=abs_centre
+layer=com_9
+textfont=p12_full
+text=Getting Status....
+textalignh=centre
+textalignv=centre
+textshadow=yes
+
+// 35:4
+[com_4]
+type=text
+y=47
+width=445
+height=34
+xmode=abs_centre
+layer=com_9
+textfont=p11_full
+text=This increases as you complete battles.<br>It affects the amount you can invest in scenarios,<br>the amount of reward credits you receive when a game ends<br>and which floors of the officer tower you can access.
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xf5ac57
+
+// 35:5
+[com_5]
+type=text
+y=106
+width=445
+height=34
+xmode=abs_centre
+layer=com_9
+textfont=p11_full
+text=These are credits you receive after completing a game.<br>You can spend these on rewards by talking<br>to the officers in the officer tower.
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xf5ac57
+
+// 35:6
+[com_6]
+type=text
+y=169
+width=445
+height=34
+xmode=abs_centre
+layer=com_9
+textfont=p11_full
+text=This is the total value of the commodities you have invested.<br>You spend these when recruiting squads and special units,<br>and you can invest them in a scenario to receive greater reward credits.
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xf5ac57
+
+// 35:7
+[com_7]
+type=text
+x=36
+y=307
+width=445
+height=16
+textfont=p12_full
+text=A breakdown of your Mobilising Armies statistics.
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xbf751d
+
+// 35:8
+[com_8]
+type=text
+y=54
+width=283
+height=19
+xmode=abs_centre
+textfont=b12_full
+text=Your Statistics
+textalignh=centre
+textshadow=yes
+colour=0xe1981f
+
+// 35:9
+[com_9]
+type=layer
+x=44
+y=74
+width=437
+height=240
+scrollheight=602
+
+// 35:10
+[com_10]
+type=graphic
+x=380
+y=49
+width=26
+height=23
+graphic="close_buttons,6"
+colour=0xffffffff
+transmitop=1,10
+op1=Close
+op10= 
+onmouseover=graphic_swapper(event_com, "close_buttons,7")
+onmouseleave=graphic_swapper(event_com, "close_buttons,6")
+onop=closebutton_click

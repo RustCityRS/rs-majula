@@ -1,0 +1,96 @@
+// 1946
+[clientscript,script1946]
+def_int $int0 = 0;
+def_string $string0 = "";
+if_setonmouseleave("deltooltip(sc_scores:com_5)", sc_scores:com_10);
+if (%varclient_589 = 99999992) {
+    if_settext("You abandon the game!", sc_scores:com_81);
+    if_settext("You abandon the game.<br><br>The mystics don't seem happy and scowl at you, muttering unpleasant sentiments under their breath.<br><br>You notice that you received no score as a result.", sc_scores:com_17);
+    if_settext("-100%", sc_scores:com_58);
+    if_settext("", sc_scores:com_32);
+    if_settext("", sc_scores:com_33);
+    $string0 = "The awards tab is not available when you leave a game early.";
+    if_setonmouserepeat("addtooltip(sc_scores:com_10, sc_scores:com_5, $string0, 25, 189)", sc_scores:com_10);
+} else {
+    if (%varclient_588 = 1) {
+        if_settext(tostring(%varclient_597), sc_scores:com_32);
+        if_settext(tostring(%varclient_598), sc_scores:com_33);
+    } else {
+        if_settext(tostring(%varclient_598), sc_scores:com_32);
+        if_settext(tostring(%varclient_597), sc_scores:com_33);
+    }
+    if (%varclient_588 = %varclient_589) {
+        if_settext("Your valiant team takes the victory!", sc_scores:com_81);
+        if ($int0 = 1) {
+            if_settext("With the heroic conquest of all resources and facilities, your team have ripped success from the feeble fingers of your unworthy foes.<br><br>The mystics stand in awe of your power, and you hear them praising you in excited whispers.<br><br>You notice that they have increased your score as a reward.", sc_scores:com_17);
+        } else {
+            if_settext("The heroic, skillful and brave deeds of your team have ripped success from the feeble fingers of your unworthy foes.<br><br>The mystics stand in awe of your power, and you hear them praising you in excited whispers.<br><br>You notice that they have increased your score as a reward.", sc_scores:com_17);
+        }
+        if_settext("+10%", sc_scores:com_58);
+    } else if (%varclient_589 = 0) {
+        if_settext("The game was a draw!", sc_scores:com_81);
+        if_settext("As if ordained by fate, the teams were equally brave and skillful, resulting in a draw.<br><br>The mystics nod knowingly, and you hear them discussing how the balance of the universe is reflected beautifully in the conflict's outcome.<br><br>", sc_scores:com_17);
+        if_settext("+0%", sc_scores:com_58);
+    } else {
+        if_settext("The enemy team has defeated you!", sc_scores:com_81);
+        if ($int0 = 1) {
+            if_settext("Despite your best efforts, your team was beaten; the victory snatched away as the enemy took control of all resources and facilities.<br><br>The mystics frown at you, and shake their heads sadly.<br><br>You hear them arguing over whether they overestimated you, or if you were just unlucky.", sc_scores:com_17);
+        }
+        if_settext("Despite your best efforts, your team was beaten; the victory snatched away by your fearsome foes.<br><br>The mystics frown at you, and shake their heads sadly.<br><br>You hear them arguing over whether they overestimated you, or if you were just unlucky.", sc_scores:com_17);
+        if_settext("+0%", sc_scores:com_58);
+    }
+}
+if_settext(tostring(%varclient_590), sc_scores:com_59);
+if_settext(tostring(%varclient_590), sc_scores:com_59);
+if_settext(tostring(%varclient_591), sc_scores:com_60);
+if_settext(tostring(%varclient_592), sc_scores:com_61);
+if_settext(tostring(%varclient_593), sc_scores:com_62);
+if_settext(tostring(%varclient_594), sc_scores:com_23);
+if_settext(tostring(%varclient_595), sc_scores:com_25);
+if (%varclient_589 ! 99999992) {
+    if_settext(tostring(%varclient_596), sc_scores:com_63);
+} else {
+    if_settext(tostring(0), sc_scores:com_63);
+}
+if (%varclient_600 > 0 | %varclient_603 > 0) {
+    if_settext(tostring(%varclient_599), sc_scores:com_136);
+    if_settext(tostring(%varclient_600), sc_scores:com_135);
+    if_settext(tostring(%varclient_601), sc_scores:com_139);
+    if_settext(tostring(%varclient_602), sc_scores:com_140);
+    if_settext(tostring(%varclient_603), sc_scores:com_138);
+    if_settext(tostring(%varclient_604), sc_scores:com_137);
+    if_settext(tostring(%varclient_605), sc_scores:com_141);
+    if_settext(tostring(%varclient_606), sc_scores:com_142);
+    ~sc_output_name(%varclient_1563, sc_scores:com_118, sc_scores:com_143, p12_full);
+    ~sc_output_name(%varclient_1564, sc_scores:com_117, sc_scores:com_143, p12_full);
+    ~sc_output_name(%varclient_1565, sc_scores:com_121, sc_scores:com_143, p12_full);
+    ~sc_output_name(%varclient_1566, sc_scores:com_122, sc_scores:com_143, p12_full);
+    ~sc_output_name(%varclient_1567, sc_scores:com_120, sc_scores:com_143, p12_full);
+    ~sc_output_name(%varclient_1568, sc_scores:com_119, sc_scores:com_143, p12_full);
+    ~sc_output_name(%varclient_1569, sc_scores:com_123, sc_scores:com_143, p12_full);
+    ~sc_output_name(%varclient_1570, sc_scores:com_124, sc_scores:com_143, p12_full);
+    if (%varclient_607 > 0) {
+        if_settext(tostring(%varclient_607), sc_scores:com_127);
+    }
+    if (%varclient_608 > 0) {
+        if_settext(tostring(%varclient_608), sc_scores:com_126);
+    }
+    if (%varclient_609 > 0) {
+        if_settext(tostring(%varclient_609), sc_scores:com_130);
+    }
+    if (%varclient_610 > 0) {
+        if_settext(tostring(%varclient_610), sc_scores:com_131);
+    }
+    if (%varclient_611 > 0) {
+        if_settext(tostring(%varclient_611), sc_scores:com_129);
+    }
+    if (%varclient_612 > 0) {
+        if_settext(tostring(%varclient_612), sc_scores:com_128);
+    }
+    if (%varclient_613 > 0) {
+        if_settext(tostring(%varclient_613), sc_scores:com_132);
+    }
+    if (%varclient_614 > 0) {
+        if_settext(tostring(%varclient_614), sc_scores:com_133);
+    }
+}

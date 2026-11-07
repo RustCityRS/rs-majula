@@ -1,409 +1,410 @@
+// 1395
 [clientscript,misc_both_manage_states]
-if (%varbit_2140 >= 30) {
-    if_sethide(false, misc_both_manage:com22);
-    if_sethide(false, misc_both_manage:com24);
+if (%varplayerbit_2140 >= 30) {
+    if_sethide(false, misc_both_manage:com_22);
+    if_sethide(false, misc_both_manage:com_24);
 } else {
-    if_sethide(true, misc_both_manage:com22);
-    if_sethide(true, misc_both_manage:com24);
+    if_sethide(true, misc_both_manage:com_22);
+    if_sethide(true, misc_both_manage:com_24);
 }
-if_settext(tostring(%varbit_74), misc_both_manage:com115);
-if (%varbit_83 > 0) {
-    if_setcolour(^white, misc_both_manage:com87);
+if_settext(tostring(%varplayerbit_74), misc_both_manage:com_115);
+if (%varplayerbit_83 > 0) {
+    if_setcolour(^white, misc_both_manage:com_87);
 } else {
-    if_setcolour(^black, misc_both_manage:com87);
+    if_setcolour(^black, misc_both_manage:com_87);
 }
-if (%varbit_83 > 1) {
-    if_setcolour(^white, misc_both_manage:com88);
+if (%varplayerbit_83 > 1) {
+    if_setcolour(^white, misc_both_manage:com_88);
 } else {
-    if_setcolour(^black, misc_both_manage:com88);
+    if_setcolour(^black, misc_both_manage:com_88);
 }
-if (%varbit_83 > 2) {
-    if_setcolour(^white, misc_both_manage:com89);
+if (%varplayerbit_83 > 2) {
+    if_setcolour(^white, misc_both_manage:com_89);
 } else {
-    if_setcolour(^black, misc_both_manage:com89);
+    if_setcolour(^black, misc_both_manage:com_89);
 }
-if (%varbit_83 > 3) {
-    if_setcolour(^white, misc_both_manage:com91);
+if (%varplayerbit_83 > 3) {
+    if_setcolour(^white, misc_both_manage:com_91);
 } else {
-    if_setcolour(^black, misc_both_manage:com91);
+    if_setcolour(^black, misc_both_manage:com_91);
 }
-if (%varbit_83 > 4) {
-    if_setcolour(^white, misc_both_manage:com92);
+if (%varplayerbit_83 > 4) {
+    if_setcolour(^white, misc_both_manage:com_92);
 } else {
-    if_setcolour(^black, misc_both_manage:com92);
+    if_setcolour(^black, misc_both_manage:com_92);
 }
-if (%varbit_83 > 5) {
-    if_setcolour(^white, misc_both_manage:com93);
+if (%varplayerbit_83 > 5) {
+    if_setcolour(^white, misc_both_manage:com_93);
 } else {
-    if_setcolour(^black, misc_both_manage:com93);
+    if_setcolour(^black, misc_both_manage:com_93);
 }
-if (%varbit_83 > 6) {
-    if_setcolour(^white, misc_both_manage:com94);
+if (%varplayerbit_83 > 6) {
+    if_setcolour(^white, misc_both_manage:com_94);
 } else {
-    if_setcolour(^black, misc_both_manage:com94);
+    if_setcolour(^black, misc_both_manage:com_94);
 }
-if (%varbit_83 > 7) {
-    if_setcolour(^white, misc_both_manage:com95);
+if (%varplayerbit_83 > 7) {
+    if_setcolour(^white, misc_both_manage:com_95);
 } else {
-    if_setcolour(^black, misc_both_manage:com95);
+    if_setcolour(^black, misc_both_manage:com_95);
 }
-if (%varbit_83 > 8) {
-    if_setcolour(^white, misc_both_manage:com96);
+if (%varplayerbit_83 > 8) {
+    if_setcolour(^white, misc_both_manage:com_96);
 } else {
-    if_setcolour(^black, misc_both_manage:com96);
+    if_setcolour(^black, misc_both_manage:com_96);
 }
-if (%varbit_83 > 9) {
-    if_setcolour(^white, misc_both_manage:com97);
+if (%varplayerbit_83 > 9) {
+    if_setcolour(^white, misc_both_manage:com_97);
 } else {
-    if_setcolour(^black, misc_both_manage:com97);
+    if_setcolour(^black, misc_both_manage:com_97);
 }
-if (%varbit_84 > 0) {
-    if_setcolour(^white, misc_both_manage:com44);
+if (%varplayerbit_84 > 0) {
+    if_setcolour(^white, misc_both_manage:com_44);
 } else {
-    if_setcolour(^black, misc_both_manage:com44);
+    if_setcolour(^black, misc_both_manage:com_44);
 }
-if (%varbit_84 > 1) {
-    if_setcolour(^white, misc_both_manage:com45);
+if (%varplayerbit_84 > 1) {
+    if_setcolour(^white, misc_both_manage:com_45);
 } else {
-    if_setcolour(^black, misc_both_manage:com45);
+    if_setcolour(^black, misc_both_manage:com_45);
 }
-if (%varbit_84 > 2) {
-    if_setcolour(^white, misc_both_manage:com46);
+if (%varplayerbit_84 > 2) {
+    if_setcolour(^white, misc_both_manage:com_46);
 } else {
-    if_setcolour(^black, misc_both_manage:com46);
+    if_setcolour(^black, misc_both_manage:com_46);
 }
-if (%varbit_84 > 3) {
-    if_setcolour(^white, misc_both_manage:com47);
+if (%varplayerbit_84 > 3) {
+    if_setcolour(^white, misc_both_manage:com_47);
 } else {
-    if_setcolour(^black, misc_both_manage:com47);
+    if_setcolour(^black, misc_both_manage:com_47);
 }
-if (%varbit_84 > 4) {
-    if_setcolour(^white, misc_both_manage:com48);
+if (%varplayerbit_84 > 4) {
+    if_setcolour(^white, misc_both_manage:com_48);
 } else {
-    if_setcolour(^black, misc_both_manage:com48);
+    if_setcolour(^black, misc_both_manage:com_48);
 }
-if (%varbit_84 > 5) {
-    if_setcolour(^white, misc_both_manage:com49);
+if (%varplayerbit_84 > 5) {
+    if_setcolour(^white, misc_both_manage:com_49);
 } else {
-    if_setcolour(^black, misc_both_manage:com49);
+    if_setcolour(^black, misc_both_manage:com_49);
 }
-if (%varbit_84 > 6) {
-    if_setcolour(^white, misc_both_manage:com50);
+if (%varplayerbit_84 > 6) {
+    if_setcolour(^white, misc_both_manage:com_50);
 } else {
-    if_setcolour(^black, misc_both_manage:com50);
+    if_setcolour(^black, misc_both_manage:com_50);
 }
-if (%varbit_84 > 7) {
-    if_setcolour(^white, misc_both_manage:com51);
+if (%varplayerbit_84 > 7) {
+    if_setcolour(^white, misc_both_manage:com_51);
 } else {
-    if_setcolour(^black, misc_both_manage:com51);
+    if_setcolour(^black, misc_both_manage:com_51);
 }
-if (%varbit_84 > 8) {
-    if_setcolour(^white, misc_both_manage:com52);
+if (%varplayerbit_84 > 8) {
+    if_setcolour(^white, misc_both_manage:com_52);
 } else {
-    if_setcolour(^black, misc_both_manage:com52);
+    if_setcolour(^black, misc_both_manage:com_52);
 }
-if (%varbit_84 > 9) {
-    if_setcolour(^white, misc_both_manage:com53);
+if (%varplayerbit_84 > 9) {
+    if_setcolour(^white, misc_both_manage:com_53);
 } else {
-    if_setcolour(^black, misc_both_manage:com53);
+    if_setcolour(^black, misc_both_manage:com_53);
 }
-if (%varbit_82 > 0) {
-    if_setcolour(^white, misc_both_manage:com74);
+if (%varplayerbit_82 > 0) {
+    if_setcolour(^white, misc_both_manage:com_74);
 } else {
-    if_setcolour(^black, misc_both_manage:com74);
+    if_setcolour(^black, misc_both_manage:com_74);
 }
-if (%varbit_82 > 1) {
-    if_setcolour(^white, misc_both_manage:com75);
+if (%varplayerbit_82 > 1) {
+    if_setcolour(^white, misc_both_manage:com_75);
 } else {
-    if_setcolour(^black, misc_both_manage:com75);
+    if_setcolour(^black, misc_both_manage:com_75);
 }
-if (%varbit_82 > 2) {
-    if_setcolour(^white, misc_both_manage:com76);
+if (%varplayerbit_82 > 2) {
+    if_setcolour(^white, misc_both_manage:com_76);
 } else {
-    if_setcolour(^black, misc_both_manage:com76);
+    if_setcolour(^black, misc_both_manage:com_76);
 }
-if (%varbit_82 > 3) {
-    if_setcolour(^white, misc_both_manage:com77);
+if (%varplayerbit_82 > 3) {
+    if_setcolour(^white, misc_both_manage:com_77);
 } else {
-    if_setcolour(^black, misc_both_manage:com77);
+    if_setcolour(^black, misc_both_manage:com_77);
 }
-if (%varbit_82 > 4) {
-    if_setcolour(^white, misc_both_manage:com78);
+if (%varplayerbit_82 > 4) {
+    if_setcolour(^white, misc_both_manage:com_78);
 } else {
-    if_setcolour(^black, misc_both_manage:com78);
+    if_setcolour(^black, misc_both_manage:com_78);
 }
-if (%varbit_82 > 5) {
-    if_setcolour(^white, misc_both_manage:com79);
+if (%varplayerbit_82 > 5) {
+    if_setcolour(^white, misc_both_manage:com_79);
 } else {
-    if_setcolour(^black, misc_both_manage:com79);
+    if_setcolour(^black, misc_both_manage:com_79);
 }
-if (%varbit_82 > 6) {
-    if_setcolour(^white, misc_both_manage:com80);
+if (%varplayerbit_82 > 6) {
+    if_setcolour(^white, misc_both_manage:com_80);
 } else {
-    if_setcolour(^black, misc_both_manage:com80);
+    if_setcolour(^black, misc_both_manage:com_80);
 }
-if (%varbit_82 > 7) {
-    if_setcolour(^white, misc_both_manage:com81);
+if (%varplayerbit_82 > 7) {
+    if_setcolour(^white, misc_both_manage:com_81);
 } else {
-    if_setcolour(^black, misc_both_manage:com81);
+    if_setcolour(^black, misc_both_manage:com_81);
 }
-if (%varbit_82 > 8) {
-    if_setcolour(^white, misc_both_manage:com82);
+if (%varplayerbit_82 > 8) {
+    if_setcolour(^white, misc_both_manage:com_82);
 } else {
-    if_setcolour(^black, misc_both_manage:com82);
+    if_setcolour(^black, misc_both_manage:com_82);
 }
-if (%varbit_82 > 9) {
-    if_setcolour(^white, misc_both_manage:com83);
+if (%varplayerbit_82 > 9) {
+    if_setcolour(^white, misc_both_manage:com_83);
 } else {
-    if_setcolour(^black, misc_both_manage:com83);
+    if_setcolour(^black, misc_both_manage:com_83);
 }
-if (%varbit_81 > 0) {
-    if_setcolour(^white, misc_both_manage:com58);
+if (%varplayerbit_81 > 0) {
+    if_setcolour(^white, misc_both_manage:com_58);
 } else {
-    if_setcolour(^black, misc_both_manage:com58);
+    if_setcolour(^black, misc_both_manage:com_58);
 }
-if (%varbit_81 > 1) {
-    if_setcolour(^white, misc_both_manage:com59);
+if (%varplayerbit_81 > 1) {
+    if_setcolour(^white, misc_both_manage:com_59);
 } else {
-    if_setcolour(^black, misc_both_manage:com59);
+    if_setcolour(^black, misc_both_manage:com_59);
 }
-if (%varbit_81 > 2) {
-    if_setcolour(^white, misc_both_manage:com60);
+if (%varplayerbit_81 > 2) {
+    if_setcolour(^white, misc_both_manage:com_60);
 } else {
-    if_setcolour(^black, misc_both_manage:com60);
+    if_setcolour(^black, misc_both_manage:com_60);
 }
-if (%varbit_81 > 3) {
-    if_setcolour(^white, misc_both_manage:com61);
+if (%varplayerbit_81 > 3) {
+    if_setcolour(^white, misc_both_manage:com_61);
 } else {
-    if_setcolour(^black, misc_both_manage:com61);
+    if_setcolour(^black, misc_both_manage:com_61);
 }
-if (%varbit_81 > 4) {
-    if_setcolour(^white, misc_both_manage:com62);
+if (%varplayerbit_81 > 4) {
+    if_setcolour(^white, misc_both_manage:com_62);
 } else {
-    if_setcolour(^black, misc_both_manage:com62);
+    if_setcolour(^black, misc_both_manage:com_62);
 }
-if (%varbit_81 > 5) {
-    if_setcolour(^white, misc_both_manage:com63);
+if (%varplayerbit_81 > 5) {
+    if_setcolour(^white, misc_both_manage:com_63);
 } else {
-    if_setcolour(^black, misc_both_manage:com63);
+    if_setcolour(^black, misc_both_manage:com_63);
 }
-if (%varbit_81 > 6) {
-    if_setcolour(^white, misc_both_manage:com64);
+if (%varplayerbit_81 > 6) {
+    if_setcolour(^white, misc_both_manage:com_64);
 } else {
-    if_setcolour(^black, misc_both_manage:com64);
+    if_setcolour(^black, misc_both_manage:com_64);
 }
-if (%varbit_81 > 7) {
-    if_setcolour(^white, misc_both_manage:com65);
+if (%varplayerbit_81 > 7) {
+    if_setcolour(^white, misc_both_manage:com_65);
 } else {
-    if_setcolour(^black, misc_both_manage:com65);
+    if_setcolour(^black, misc_both_manage:com_65);
 }
-if (%varbit_81 > 8) {
-    if_setcolour(^white, misc_both_manage:com66);
+if (%varplayerbit_81 > 8) {
+    if_setcolour(^white, misc_both_manage:com_66);
 } else {
-    if_setcolour(^black, misc_both_manage:com66);
+    if_setcolour(^black, misc_both_manage:com_66);
 }
-if (%varbit_81 > 9) {
-    if_setcolour(^white, misc_both_manage:com70);
+if (%varplayerbit_81 > 9) {
+    if_setcolour(^white, misc_both_manage:com_70);
 } else {
-    if_setcolour(^black, misc_both_manage:com70);
+    if_setcolour(^black, misc_both_manage:com_70);
 }
-if (%varbit_2131 > 0) {
-    if_setcolour(^white, misc_both_manage:com124);
+if (%varplayerbit_2131 > 0) {
+    if_setcolour(^white, misc_both_manage:com_124);
 } else {
-    if_setcolour(^black, misc_both_manage:com124);
+    if_setcolour(^black, misc_both_manage:com_124);
 }
-if (%varbit_2131 > 1) {
-    if_setcolour(^white, misc_both_manage:com125);
+if (%varplayerbit_2131 > 1) {
+    if_setcolour(^white, misc_both_manage:com_125);
 } else {
-    if_setcolour(^black, misc_both_manage:com125);
+    if_setcolour(^black, misc_both_manage:com_125);
 }
-if (%varbit_2131 > 2) {
-    if_setcolour(^white, misc_both_manage:com126);
+if (%varplayerbit_2131 > 2) {
+    if_setcolour(^white, misc_both_manage:com_126);
 } else {
-    if_setcolour(^black, misc_both_manage:com126);
+    if_setcolour(^black, misc_both_manage:com_126);
 }
-if (%varbit_2131 > 3) {
-    if_setcolour(^white, misc_both_manage:com127);
+if (%varplayerbit_2131 > 3) {
+    if_setcolour(^white, misc_both_manage:com_127);
 } else {
-    if_setcolour(^black, misc_both_manage:com127);
+    if_setcolour(^black, misc_both_manage:com_127);
 }
-if (%varbit_2131 > 4) {
-    if_setcolour(^white, misc_both_manage:com128);
+if (%varplayerbit_2131 > 4) {
+    if_setcolour(^white, misc_both_manage:com_128);
 } else {
-    if_setcolour(^black, misc_both_manage:com128);
+    if_setcolour(^black, misc_both_manage:com_128);
 }
-if (%varbit_2131 > 5) {
-    if_setcolour(^white, misc_both_manage:com129);
+if (%varplayerbit_2131 > 5) {
+    if_setcolour(^white, misc_both_manage:com_129);
 } else {
-    if_setcolour(^black, misc_both_manage:com129);
+    if_setcolour(^black, misc_both_manage:com_129);
 }
-if (%varbit_2131 > 6) {
-    if_setcolour(^white, misc_both_manage:com130);
+if (%varplayerbit_2131 > 6) {
+    if_setcolour(^white, misc_both_manage:com_130);
 } else {
-    if_setcolour(^black, misc_both_manage:com130);
+    if_setcolour(^black, misc_both_manage:com_130);
 }
-if (%varbit_2131 > 7) {
-    if_setcolour(^white, misc_both_manage:com131);
+if (%varplayerbit_2131 > 7) {
+    if_setcolour(^white, misc_both_manage:com_131);
 } else {
-    if_setcolour(^black, misc_both_manage:com131);
+    if_setcolour(^black, misc_both_manage:com_131);
 }
-if (%varbit_2131 > 8) {
-    if_setcolour(^white, misc_both_manage:com132);
+if (%varplayerbit_2131 > 8) {
+    if_setcolour(^white, misc_both_manage:com_132);
 } else {
-    if_setcolour(^black, misc_both_manage:com132);
+    if_setcolour(^black, misc_both_manage:com_132);
 }
-if (%varbit_2131 > 9) {
-    if_setcolour(^white, misc_both_manage:com133);
+if (%varplayerbit_2131 > 9) {
+    if_setcolour(^white, misc_both_manage:com_133);
 } else {
-    if_setcolour(^black, misc_both_manage:com133);
+    if_setcolour(^black, misc_both_manage:com_133);
 }
-if (%varbit_2132 > 0) {
-    if_setcolour(^white, misc_both_manage:com145);
+if (%varplayerbit_2132 > 0) {
+    if_setcolour(^white, misc_both_manage:com_145);
 } else {
-    if_setcolour(^black, misc_both_manage:com145);
+    if_setcolour(^black, misc_both_manage:com_145);
 }
-if (%varbit_2132 > 1) {
-    if_setcolour(^white, misc_both_manage:com146);
+if (%varplayerbit_2132 > 1) {
+    if_setcolour(^white, misc_both_manage:com_146);
 } else {
-    if_setcolour(^black, misc_both_manage:com146);
+    if_setcolour(^black, misc_both_manage:com_146);
 }
-if (%varbit_2132 > 2) {
-    if_setcolour(^white, misc_both_manage:com147);
+if (%varplayerbit_2132 > 2) {
+    if_setcolour(^white, misc_both_manage:com_147);
 } else {
-    if_setcolour(^black, misc_both_manage:com147);
+    if_setcolour(^black, misc_both_manage:com_147);
 }
-if (%varbit_2132 > 3) {
-    if_setcolour(^white, misc_both_manage:com148);
+if (%varplayerbit_2132 > 3) {
+    if_setcolour(^white, misc_both_manage:com_148);
 } else {
-    if_setcolour(^black, misc_both_manage:com148);
+    if_setcolour(^black, misc_both_manage:com_148);
 }
-if (%varbit_2132 > 4) {
-    if_setcolour(^white, misc_both_manage:com149);
+if (%varplayerbit_2132 > 4) {
+    if_setcolour(^white, misc_both_manage:com_149);
 } else {
-    if_setcolour(^black, misc_both_manage:com149);
+    if_setcolour(^black, misc_both_manage:com_149);
 }
-if (%varbit_2132 > 5) {
-    if_setcolour(^white, misc_both_manage:com150);
+if (%varplayerbit_2132 > 5) {
+    if_setcolour(^white, misc_both_manage:com_150);
 } else {
-    if_setcolour(^black, misc_both_manage:com150);
+    if_setcolour(^black, misc_both_manage:com_150);
 }
-if (%varbit_2132 > 6) {
-    if_setcolour(^white, misc_both_manage:com151);
+if (%varplayerbit_2132 > 6) {
+    if_setcolour(^white, misc_both_manage:com_151);
 } else {
-    if_setcolour(^black, misc_both_manage:com151);
+    if_setcolour(^black, misc_both_manage:com_151);
 }
-if (%varbit_2132 > 7) {
-    if_setcolour(^white, misc_both_manage:com152);
+if (%varplayerbit_2132 > 7) {
+    if_setcolour(^white, misc_both_manage:com_152);
 } else {
-    if_setcolour(^black, misc_both_manage:com152);
+    if_setcolour(^black, misc_both_manage:com_152);
 }
-if (%varbit_2132 > 8) {
-    if_setcolour(^white, misc_both_manage:com153);
+if (%varplayerbit_2132 > 8) {
+    if_setcolour(^white, misc_both_manage:com_153);
 } else {
-    if_setcolour(^black, misc_both_manage:com153);
+    if_setcolour(^black, misc_both_manage:com_153);
 }
-if (%varbit_2132 > 9) {
-    if_setcolour(^white, misc_both_manage:com154);
+if (%varplayerbit_2132 > 9) {
+    if_setcolour(^white, misc_both_manage:com_154);
 } else {
-    if_setcolour(^black, misc_both_manage:com154);
+    if_setcolour(^black, misc_both_manage:com_154);
 }
-if (%varp_1888 > 0) {
-    if_setcolour(^white, misc_both_manage:com98);
+if (%varplayer_1888 > 0) {
+    if_setcolour(^white, misc_both_manage:com_98);
 } else {
-    if_setcolour(^black, misc_both_manage:com98);
+    if_setcolour(^black, misc_both_manage:com_98);
 }
-if (%varp_1888 > 1) {
-    if_setcolour(^white, misc_both_manage:com99);
+if (%varplayer_1888 > 1) {
+    if_setcolour(^white, misc_both_manage:com_99);
 } else {
-    if_setcolour(^black, misc_both_manage:com99);
+    if_setcolour(^black, misc_both_manage:com_99);
 }
-if (%varp_1888 > 2) {
-    if_setcolour(^white, misc_both_manage:com100);
+if (%varplayer_1888 > 2) {
+    if_setcolour(^white, misc_both_manage:com_100);
 } else {
-    if_setcolour(^black, misc_both_manage:com100);
+    if_setcolour(^black, misc_both_manage:com_100);
 }
-if (%varp_1888 > 3) {
-    if_setcolour(^white, misc_both_manage:com101);
+if (%varplayer_1888 > 3) {
+    if_setcolour(^white, misc_both_manage:com_101);
 } else {
-    if_setcolour(^black, misc_both_manage:com101);
+    if_setcolour(^black, misc_both_manage:com_101);
 }
-if (%varp_1888 > 4) {
-    if_setcolour(^white, misc_both_manage:com104);
+if (%varplayer_1888 > 4) {
+    if_setcolour(^white, misc_both_manage:com_104);
 } else {
-    if_setcolour(^black, misc_both_manage:com104);
+    if_setcolour(^black, misc_both_manage:com_104);
 }
-if (%varp_1888 > 5) {
-    if_setcolour(^white, misc_both_manage:com105);
+if (%varplayer_1888 > 5) {
+    if_setcolour(^white, misc_both_manage:com_105);
 } else {
-    if_setcolour(^black, misc_both_manage:com105);
+    if_setcolour(^black, misc_both_manage:com_105);
 }
-if (%varp_1888 > 6) {
-    if_setcolour(^white, misc_both_manage:com106);
+if (%varplayer_1888 > 6) {
+    if_setcolour(^white, misc_both_manage:com_106);
 } else {
-    if_setcolour(^black, misc_both_manage:com106);
+    if_setcolour(^black, misc_both_manage:com_106);
 }
-if (%varp_1888 > 7) {
-    if_setcolour(^white, misc_both_manage:com107);
+if (%varplayer_1888 > 7) {
+    if_setcolour(^white, misc_both_manage:com_107);
 } else {
-    if_setcolour(^black, misc_both_manage:com107);
+    if_setcolour(^black, misc_both_manage:com_107);
 }
-if (%varp_1888 > 8) {
-    if_setcolour(^white, misc_both_manage:com108);
+if (%varplayer_1888 > 8) {
+    if_setcolour(^white, misc_both_manage:com_108);
 } else {
-    if_setcolour(^black, misc_both_manage:com108);
+    if_setcolour(^black, misc_both_manage:com_108);
 }
-if (%varp_1888 > 9) {
-    if_setcolour(^white, misc_both_manage:com109);
+if (%varplayer_1888 > 9) {
+    if_setcolour(^white, misc_both_manage:com_109);
 } else {
-    if_setcolour(^black, misc_both_manage:com109);
+    if_setcolour(^black, misc_both_manage:com_109);
 }
-if (%varp_1888 > 10) {
-    if_setcolour(^white, misc_both_manage:com110);
+if (%varplayer_1888 > 10) {
+    if_setcolour(^white, misc_both_manage:com_110);
 } else {
-    if_setcolour(^black, misc_both_manage:com110);
+    if_setcolour(^black, misc_both_manage:com_110);
 }
-if (%varp_1888 > 11) {
-    if_setcolour(^white, misc_both_manage:com111);
+if (%varplayer_1888 > 11) {
+    if_setcolour(^white, misc_both_manage:com_111);
 } else {
-    if_setcolour(^black, misc_both_manage:com111);
+    if_setcolour(^black, misc_both_manage:com_111);
 }
-if (%varp_1888 > 12) {
-    if_setcolour(^white, misc_both_manage:com112);
+if (%varplayer_1888 > 12) {
+    if_setcolour(^white, misc_both_manage:com_112);
 } else {
-    if_setcolour(^black, misc_both_manage:com112);
+    if_setcolour(^black, misc_both_manage:com_112);
 }
-if (%varp_1888 > 13) {
-    if_setcolour(^white, misc_both_manage:com113);
+if (%varplayer_1888 > 13) {
+    if_setcolour(^white, misc_both_manage:com_113);
 } else {
-    if_setcolour(^black, misc_both_manage:com113);
+    if_setcolour(^black, misc_both_manage:com_113);
 }
-if (%varp_1888 > 14) {
-    if_setcolour(^white, misc_both_manage:com114);
+if (%varplayer_1888 > 14) {
+    if_setcolour(^white, misc_both_manage:com_114);
 } else {
-    if_setcolour(^black, misc_both_manage:com114);
+    if_setcolour(^black, misc_both_manage:com_114);
 }
-if (%varbit_2134 = true) {
-    if_setgraphic("miscgraphics,10", misc_both_manage:com155);
-    if_setgraphic("miscgraphics,11", misc_both_manage:com157);
+if (%varplayerbit_2134 = 1) {
+    if_setgraphic("miscgraphics,10", misc_both_manage:com_155);
+    if_setgraphic("miscgraphics,11", misc_both_manage:com_157);
 } else {
-    if_setgraphic("miscgraphics,11", misc_both_manage:com155);
-    if_setgraphic("miscgraphics,10", misc_both_manage:com157);
+    if_setgraphic("miscgraphics,11", misc_both_manage:com_155);
+    if_setgraphic("miscgraphics,10", misc_both_manage:com_157);
 }
-if (%varbit_2133 = false) {
-    if_setgraphic("miscgraphics,11", misc_both_manage:com134);
-    if_setgraphic("miscgraphics,10", misc_both_manage:com135);
-    if_setgraphic("miscgraphics,10", misc_both_manage:com136);
-} else if (%varbit_2133 = true) {
-    if_setgraphic("miscgraphics,10", misc_both_manage:com134);
-    if_setgraphic("miscgraphics,11", misc_both_manage:com135);
-    if_setgraphic("miscgraphics,10", misc_both_manage:com136);
+if (%varplayerbit_2133 = 0) {
+    if_setgraphic("miscgraphics,11", misc_both_manage:com_134);
+    if_setgraphic("miscgraphics,10", misc_both_manage:com_135);
+    if_setgraphic("miscgraphics,10", misc_both_manage:com_136);
+} else if (%varplayerbit_2133 = 1) {
+    if_setgraphic("miscgraphics,10", misc_both_manage:com_134);
+    if_setgraphic("miscgraphics,11", misc_both_manage:com_135);
+    if_setgraphic("miscgraphics,10", misc_both_manage:com_136);
 } else {
-    if_setgraphic("miscgraphics,10", misc_both_manage:com134);
-    if_setgraphic("miscgraphics,10", misc_both_manage:com135);
-    if_setgraphic("miscgraphics,11", misc_both_manage:com136);
+    if_setgraphic("miscgraphics,10", misc_both_manage:com_134);
+    if_setgraphic("miscgraphics,10", misc_both_manage:com_135);
+    if_setgraphic("miscgraphics,11", misc_both_manage:com_136);
 }
-if (%varbit_135 = false) {
-    if_setgraphic("miscgraphics,10", misc_both_manage:com120);
+if (%varplayerbit_135 = 0) {
+    if_setgraphic("miscgraphics,10", misc_both_manage:com_120);
 } else {
-    if_setgraphic("miscgraphics,11", misc_both_manage:com120);
+    if_setgraphic("miscgraphics,11", misc_both_manage:com_120);
 }

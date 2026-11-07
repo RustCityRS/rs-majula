@@ -1,9 +1,0 @@
-[proc,clientscript_1947]
-if (%varc_int_600 < 1 & %varc_int_603 < 1) {
-    mes("The awards tab is not available for this scoring.");
-} else {
-    if_sethide(true, sc_scores:com84);
-    if_sethide(false, sc_scores:com85);
-    if_sethide(true, sc_scores:com86);
-    if_sethide(false, sc_scores:com144);
-}

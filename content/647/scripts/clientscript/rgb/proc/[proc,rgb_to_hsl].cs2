@@ -1,3 +1,4 @@
+// 4127
 [proc,rgb_to_hsl](int $int0, int $int1, int $int2)(int, int, int)
 def_int $int3 = min($int0, min($int1, $int2));
 def_int $int4 = max($int0, max($int1, $int2));
@@ -22,4 +23,3 @@ if ($int5 ! 0) {
     }
 }
 return($int6, $int7, $int8);
-return(0, 0, 0);

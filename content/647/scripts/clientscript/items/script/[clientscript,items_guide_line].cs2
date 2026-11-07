@@ -1,4 +1,5 @@
-[clientscript,items_guide_line](component $component)
-%varc_int_783 = 0;
-if_setmodel(null, player_kit_jewel:com83);
-~player_kit_bracelet_load($component);
+// 327
+[clientscript,items_guide_line](component $component0)
+%varclient_783 = 0;
+if_setmodel(null, player_kit_jewel:com_83);
+~player_kit_bracelet_load($component0);

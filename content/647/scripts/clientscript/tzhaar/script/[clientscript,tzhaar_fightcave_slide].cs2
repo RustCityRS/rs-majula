@@ -1,3 +1,4 @@
+// 1228
 [clientscript,tzhaar_fightcave_slide](component $component0, component $component1, component $component2, int $int3)
 def_int $int4 = if_getheight($component0);
 def_int $int5 = calc(clientclock - $int3);

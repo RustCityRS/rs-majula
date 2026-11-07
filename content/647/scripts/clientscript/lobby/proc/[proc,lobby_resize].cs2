@@ -1,10 +1,11 @@
+// 4041
 [proc,lobby_resize]
-def_int $int = 0;
+def_int $int0 = 0;
 if (getwindowmode < 2) {
-    if_setsize(0, 0, ^setsize_minus, ^setsize_minus, lobbyscreen:com245);
+    if_setsize(0, 0, ^setsize_minus, ^setsize_minus, lobbyscreen:com_245);
 } else {
-    if_setsize(956, 503, ^setsize_abs, ^setsize_abs, lobbyscreen:com245);
+    if_setsize(956, 503, ^setsize_abs, ^setsize_abs, lobbyscreen:com_245);
 }
-if (get_clientopt_6139 = 2 & getwindowmode ! 1) {
-    if_setsize(800, 503, ^setsize_abs, ^setsize_abs, lobbyscreen:com245);
+if (detailget_maxscreensize = 2 & getwindowmode ! ^windowmode_small) {
+    if_setsize(800, 503, ^setsize_abs, ^setsize_abs, lobbyscreen:com_245);
 }

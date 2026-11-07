@@ -207,12 +207,16 @@ fn transcode(c: &mut TextCodec<'_>, modern: bool) -> Result<()> {
         if flags & 2 != 0 {
             let count = c.number("emitters", Number::U8)?;
             for i in 0..count {
-                c.reference(&format!("emitter{i}.type"), Number::U16, "emitter")?;
+                c.reference(&format!("emitter{i}.type"), Number::U16, "particleemitter")?;
                 c.number(&format!("emitter{i}.face"), Number::U16)?;
             }
             let count = c.number("effectors", Number::U8)?;
             for i in 0..count {
-                c.reference(&format!("effector{i}.type"), Number::U16, "effector")?;
+                c.reference(
+                    &format!("effector{i}.type"),
+                    Number::U16,
+                    "particleeffector",
+                )?;
                 c.number(&format!("effector{i}.vertex"), Number::U16)?;
             }
         }

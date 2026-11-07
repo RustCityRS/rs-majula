@@ -1,6 +1,6 @@
 // Ported from Jordan's rev-225: player/configs/stat.enum
 // Extended for rev-647: slayer, farming, hunter, construction, summoning,
-// dungeoneering; `runecraft` renamed to our 647 symbol `runecrafting`.
+// dungeoneering.
 [stats]
 inputtype=int
 outputtype=stat
@@ -16,7 +16,7 @@ val=8,agility
 val=9,herblore
 val=10,thieving
 val=11,crafting
-val=12,runecrafting
+val=12,runecraft
 val=13,mining
 val=14,smithing
 val=15,fishing
@@ -45,7 +45,7 @@ val=5,defence
 val=6,hitpoints
 val=7,prayer
 val=8,crafting
-val=9,runecrafting
+val=9,runecraft
 val=10,mining
 val=11,smithing
 val=12,fishing
@@ -71,7 +71,7 @@ val=agility,Agility
 val=herblore,Herblore
 val=thieving,Thieving
 val=crafting,Crafting
-val=runecrafting,Runecrafting
+val=runecraft,Runecrafting
 val=mining,Mining
 val=smithing,Smithing
 val=fishing,Fishing
@@ -101,7 +101,7 @@ val=agility,^true
 val=herblore,^true
 val=thieving,^true
 val=crafting,^false
-val=runecrafting,^false
+val=runecraft,^false
 val=mining,^false
 val=smithing,^false
 val=fishing,^false

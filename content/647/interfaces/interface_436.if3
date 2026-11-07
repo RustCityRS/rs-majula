@@ -1,0 +1,1367 @@
+// 436:0
+[com_0]
+type=layer
+x=-1
+y=-2
+width=512
+height=334
+transmitop=10
+op10=    
+
+// 436:1
+[com_1]
+type=rectangle
+x=104
+y=231
+width=318
+height=82
+colour=0x000000
+fill=yes
+
+// 436:2
+[com_2]
+type=rectangle
+x=103
+y=230
+width=319
+height=83
+colour=0x726451
+
+// 436:3
+[com_3]
+type=model
+x=110
+y=69
+width=52
+height=55
+model=null
+modelzoom=656
+transmitop=1
+op1=Make
+onmouseover=script1955(interface_436:com_15)
+onmouseleave=batta_hide_layer(interface_436:com_15)
+
+// 436:4
+[com_4]
+type=model
+x=24
+y=15
+width=32
+height=33
+layer=com_15
+model=null
+modelorigin=0,15
+modelzoom=912
+
+// 436:5
+[com_5]
+type=model
+x=78
+y=18
+width=21
+height=32
+layer=com_15
+model=null
+modelorigin=0,15
+modelzoom=912
+
+// 436:6
+[com_6]
+type=model
+x=128
+y=28
+width=32
+height=30
+layer=com_15
+model=null
+modelorigin=0,5
+modelangle=201,1813,0
+modelzoom=656
+
+// 436:7
+[com_7]
+type=model
+x=195
+y=27
+width=32
+height=31
+layer=com_15
+model=null
+modelorigin=0,4
+modelangle=324,2038,0
+modelzoom=784
+
+// 436:8
+[com_8]
+type=model
+x=263
+y=33
+width=32
+height=21
+layer=com_15
+model=null
+modelorigin=0,3
+modelangle=324,2038,0
+modelzoom=784
+
+// 436:9
+[com_9]
+type=text
+x=27
+y=64
+width=31
+height=14
+layer=com_15
+textfont=p12_full
+text=%1/2
+textshadow=yes
+colour=0xff0000
+onload=batta_set_text(event_com, vodka, 2)
+oninvtransmit=batta_set_text(event_com, vodka, 2){inv}
+
+// 436:10
+[com_10]
+type=text
+x=78
+y=64
+width=29
+height=14
+layer=com_15
+textfont=p12_full
+text=%1/1
+textshadow=yes
+colour=0xff0000
+onload=batta_set_text(event_com, gin, 1)
+oninvtransmit=batta_set_text(event_com, gin, 1){inv}
+
+// 436:11
+[com_11]
+type=text
+x=134
+y=64
+width=29
+height=14
+layer=com_15
+textfont=p12_full
+text=%1/1
+textshadow=yes
+colour=0xff0000
+onload=batta_set_text(event_com, orange, 1)
+oninvtransmit=batta_set_text(event_com, orange, 1){inv}
+
+// 436:12
+[com_12]
+type=text
+x=200
+y=64
+width=29
+height=14
+layer=com_15
+textfont=p12_full
+text=%1/1
+textshadow=yes
+colour=0xff0000
+onload=batta_set_text(event_com, lime, 1)
+oninvtransmit=batta_set_text(event_com, lime, 1){inv}
+
+// 436:13
+[com_13]
+type=text
+x=268
+y=64
+width=29
+height=14
+layer=com_15
+textfont=p12_full
+text=%1/1
+textshadow=yes
+colour=0xff0000
+onload=batta_set_text(event_com, lemon, 1)
+oninvtransmit=batta_set_text(event_com, lemon, 1){inv}
+
+// 436:14
+[com_14]
+type=text
+x=6
+y=4
+width=310
+height=15
+layer=com_15
+textfont=p12_full
+text=Wizard Blizzard
+textalignh=centre
+textshadow=yes
+colour=0xd6a046
+
+// 436:15
+[com_15]
+type=layer
+x=100
+y=229
+width=318
+height=82
+hide=yes
+
+// 436:16
+[com_16]
+type=model
+x=222
+y=69
+width=52
+height=55
+model=null
+modelangle=165,1894,0
+modelzoom=656
+transmitop=1
+op1=Make
+onmouseover=script1955(interface_436:com_22)
+onmouseleave=batta_hide_layer(interface_436:com_22)
+
+// 436:17
+[com_17]
+type=model
+x=102
+y=13
+width=32
+height=31
+layer=com_22
+model=null
+modelorigin=0,15
+modelzoom=912
+
+// 436:18
+[com_18]
+type=model
+x=170
+y=34
+width=32
+height=16
+layer=com_22
+model=null
+modelorigin=0,3
+modelangle=324,2038,0
+modelzoom=784
+
+// 436:19
+[com_19]
+type=text
+x=108
+y=62
+width=29
+height=14
+layer=com_22
+textfont=p12_full
+text=%1/1
+textshadow=yes
+colour=0xff0000
+onload=batta_set_text(event_com, vodka, 1)
+oninvtransmit=batta_set_text(event_com, vodka, 1){inv}
+
+// 436:20
+[com_20]
+type=text
+x=173
+y=62
+width=30
+height=14
+layer=com_22
+textfont=p12_full
+text=%1/3
+textshadow=yes
+colour=0xff0000
+onload=batta_set_text(event_com, lime, 3)
+oninvtransmit=batta_set_text(event_com, lime, 3){inv}
+
+// 436:21
+[com_21]
+type=text
+x=6
+y=4
+width=310
+height=15
+layer=com_22
+textfont=p12_full
+text=Short Green Guy
+textalignh=centre
+textshadow=yes
+colour=0xd6a046
+
+// 436:22
+[com_22]
+type=layer
+x=100
+y=229
+width=318
+height=82
+hide=yes
+
+// 436:23
+[com_23]
+type=model
+x=334
+y=69
+width=52
+height=55
+model=null
+modelzoom=656
+transmitop=1
+op1=Make
+onmouseover=script1955(interface_436:com_31)
+onmouseleave=batta_hide_layer(interface_436:com_31)
+
+// 436:24
+[com_24]
+type=model
+x=82
+y=21
+width=32
+height=28
+layer=com_31
+model=null
+modelorigin=1,13
+modelzoom=1168
+
+// 436:25
+[com_25]
+type=model
+x=142
+y=30
+width=32
+height=32
+layer=com_31
+model=null
+modelorigin=0,3
+modelangle=324,2038,0
+modelzoom=784
+
+// 436:26
+[com_26]
+type=model
+x=202
+y=28
+width=32
+height=32
+layer=com_31
+model=null
+modelorigin=0,5
+modelangle=201,1813,0
+modelzoom=656
+
+// 436:27
+[com_27]
+type=text
+x=89
+y=64
+width=29
+height=14
+layer=com_31
+textfont=p12_full
+text=%1/1
+textshadow=yes
+colour=0xff0000
+onload=batta_set_text(event_com, pineapple, 1)
+oninvtransmit=batta_set_text(event_com, pineapple, 1){inv}
+
+// 436:28
+[com_28]
+type=text
+x=148
+y=64
+width=29
+height=14
+layer=com_31
+textfont=p12_full
+text=%1/1
+textshadow=yes
+colour=0xff0000
+onload=batta_set_text(event_com, lemon, 1)
+oninvtransmit=batta_set_text(event_com, lemon, 1){inv}
+
+// 436:29
+[com_29]
+type=text
+x=207
+y=64
+width=29
+height=14
+layer=com_31
+textfont=p12_full
+text=%1/1
+textshadow=yes
+colour=0xff0000
+onload=batta_set_text(event_com, orange, 1)
+oninvtransmit=batta_set_text(event_com, orange, 1){inv}
+
+// 436:30
+[com_30]
+type=text
+x=6
+y=4
+width=310
+height=15
+layer=com_31
+textfont=p12_full
+text=Fruit Blast
+textalignh=centre
+textshadow=yes
+colour=0xd6a046
+
+// 436:31
+[com_31]
+type=layer
+x=100
+y=230
+width=318
+height=82
+hide=yes
+
+// 436:32
+[com_32]
+type=model
+x=76
+y=147
+width=52
+height=55
+model=null
+modelzoom=656
+transmitop=1
+op1=Make
+onmouseover=script1955(interface_436:com_40)
+onmouseleave=batta_hide_layer(interface_436:com_40)
+
+// 436:33
+[com_33]
+type=model
+x=82
+y=33
+width=32
+height=32
+layer=com_40
+model=null
+modelzoom=1168
+
+// 436:34
+[com_34]
+type=model
+x=193
+y=30
+width=32
+height=32
+layer=com_40
+model=null
+modelangle=324,2038,0
+modelzoom=784
+
+// 436:35
+[com_35]
+type=model
+x=141
+y=31
+width=32
+height=32
+layer=com_40
+model=null
+modelangle=201,1813,0
+modelzoom=656
+
+// 436:36
+[com_36]
+type=text
+x=87
+y=64
+width=31
+height=14
+layer=com_40
+textfont=p12_full
+text=%1/2
+textshadow=yes
+colour=0xff0000
+onload=batta_set_text(event_com, pineapple, 2)
+oninvtransmit=batta_set_text(event_com, pineapple, 2){inv}
+
+// 436:37
+[com_37]
+type=text
+x=146
+y=64
+width=29
+height=14
+layer=com_40
+textfont=p12_full
+text=%1/1
+textshadow=yes
+colour=0xff0000
+onload=batta_set_text(event_com, orange, 1)
+oninvtransmit=batta_set_text(event_com, orange, 1){inv}
+
+// 436:38
+[com_38]
+type=text
+x=201
+y=64
+width=29
+height=14
+layer=com_40
+textfont=p12_full
+text=%1/1
+textshadow=yes
+colour=0xff0000
+onload=batta_set_text(event_com, lemon, 1)
+oninvtransmit=batta_set_text(event_com, lemon, 1){inv}
+
+// 436:39
+[com_39]
+type=text
+x=6
+y=4
+width=310
+height=15
+layer=com_40
+textfont=p12_full
+text=Pineapple Punch
+textalignh=centre
+textshadow=yes
+colour=0xd6a046
+
+// 436:40
+[com_40]
+type=layer
+x=100
+y=230
+width=318
+height=82
+hide=yes
+
+// 436:41
+[com_41]
+type=model
+x=180
+y=147
+width=52
+height=55
+model=null
+modelangle=165,1894,0
+modelzoom=656
+transmitop=1
+op1=Make
+onmouseover=script1955(interface_436:com_49)
+onmouseleave=batta_hide_layer(interface_436:com_49)
+
+// 436:42
+[com_42]
+type=model
+x=91
+y=30
+width=32
+height=32
+layer=com_49
+model=null
+modelzoom=912
+
+// 436:43
+[com_43]
+type=model
+x=144
+y=30
+width=32
+height=32
+layer=com_49
+model=null
+modelzoom=912
+
+// 436:44
+[com_44]
+type=model
+x=197
+y=30
+width=32
+height=32
+layer=com_49
+model=null
+modelzoom=1040
+
+// 436:45
+[com_45]
+type=text
+x=97
+y=64
+width=29
+height=14
+layer=com_49
+textfont=p12_full
+text=%1/1
+textshadow=yes
+colour=0xff0000
+onload=batta_set_text(event_com, vodka, 1)
+oninvtransmit=batta_set_text(event_com, vodka, 1){inv}
+
+// 436:46
+[com_46]
+type=text
+x=151
+y=64
+width=29
+height=14
+layer=com_49
+textfont=p12_full
+text=%1/1
+textshadow=yes
+colour=0xff0000
+onload=batta_set_text(event_com, gin, 1)
+oninvtransmit=batta_set_text(event_com, gin, 1){inv}
+
+// 436:47
+[com_47]
+type=text
+x=201
+y=64
+width=29
+height=14
+layer=com_49
+textfont=p12_full
+text=%1/1
+textshadow=yes
+colour=0xff0000
+onload=batta_set_text(event_com, dwellberries, 1)
+oninvtransmit=batta_set_text(event_com, dwellberries, 1){inv}
+
+// 436:48
+[com_48]
+type=text
+x=6
+y=4
+width=310
+height=15
+layer=com_49
+textfont=p12_full
+text=Drunk Dragon
+textalignh=centre
+textshadow=yes
+colour=0xd6a046
+
+// 436:49
+[com_49]
+type=layer
+x=100
+y=230
+width=318
+height=82
+hide=yes
+
+// 436:50
+[com_50]
+type=model
+x=278
+y=147
+width=52
+height=55
+model=null
+modelangle=165,1894,0
+modelzoom=656
+transmitop=1
+op1=Make
+onmouseover=script1955(interface_436:com_60)
+onmouseleave=batta_hide_layer(interface_436:com_60)
+
+// 436:51
+[com_51]
+type=model
+x=56
+y=30
+width=32
+height=32
+layer=com_60
+model=null
+modelzoom=912
+
+// 436:52
+[com_52]
+type=model
+x=117
+y=29
+width=32
+height=32
+layer=com_60
+model=null
+modelangle=327,1909,0
+modelzoom=528
+
+// 436:53
+[com_53]
+type=model
+x=171
+y=30
+width=32
+height=32
+layer=com_60
+model=null
+modelangle=162,1672,0
+modelzoom=784
+
+// 436:54
+[com_54]
+type=model
+x=224
+y=29
+width=32
+height=32
+layer=com_60
+model=null
+modelzoom=400
+
+// 436:55
+[com_55]
+type=text
+x=61
+y=64
+width=29
+height=14
+layer=com_60
+textfont=p12_full
+text=%1/1
+textshadow=yes
+colour=0xff0000
+onload=batta_set_text(event_com, whisky, 1)
+oninvtransmit=batta_set_text(event_com, whisky, 1){inv}
+
+// 436:56
+[com_56]
+type=text
+x=120
+y=64
+width=29
+height=14
+layer=com_60
+textfont=p12_full
+text=%1/1
+textshadow=yes
+colour=0xff0000
+onload=batta_set_text(event_com, equa_leaves, 1)
+oninvtransmit=batta_set_text(event_com, equa_leaves, 1){inv}
+
+// 436:57
+[com_57]
+type=text
+x=175
+y=64
+width=29
+height=14
+layer=com_60
+textfont=p12_full
+text=%1/1
+textshadow=yes
+colour=0xff0000
+onload=batta_set_text(event_com, bucket_of_milk, 1)
+oninvtransmit=batta_set_text(event_com, bucket_of_milk, 1){inv}
+
+// 436:58
+[com_58]
+type=text
+x=229
+y=64
+width=29
+height=14
+layer=com_60
+textfont=p12_full
+text=%1/1
+textshadow=yes
+colour=0xff0000
+onload=batta_set_text(event_com, chocolate_bar, 1)
+oninvtransmit=batta_set_text(event_com, chocolate_bar, 1){inv}
+
+// 436:59
+[com_59]
+type=text
+x=6
+y=4
+width=310
+height=15
+layer=com_60
+textfont=p12_full
+text=Chocolate Saturday
+textalignh=centre
+textshadow=yes
+colour=0xd6a046
+
+// 436:60
+[com_60]
+type=layer
+x=100
+y=230
+width=318
+height=82
+hide=yes
+
+// 436:61
+[com_61]
+type=model
+x=384
+y=147
+width=52
+height=55
+model=null
+modelangle=165,1894,0
+modelzoom=656
+transmitop=1
+op1=Make
+onmouseover=script1955(interface_436:com_73)
+onmouseleave=batta_hide_layer(interface_436:com_73)
+
+// 436:62
+[com_62]
+type=model
+x=24
+y=30
+width=32
+height=32
+layer=com_73
+model=null
+modelzoom=912
+
+// 436:63
+[com_63]
+type=model
+x=77
+y=30
+width=32
+height=32
+layer=com_73
+model=null
+modelzoom=912
+
+// 436:64
+[com_64]
+type=model
+x=135
+y=30
+width=32
+height=32
+layer=com_73
+model=null
+modelzoom=912
+
+// 436:65
+[com_65]
+type=model
+x=195
+y=31
+width=32
+height=32
+layer=com_73
+model=null
+modelangle=201,1813,0
+modelzoom=656
+
+// 436:66
+[com_66]
+type=model
+x=262
+y=30
+width=32
+height=32
+layer=com_73
+model=null
+modelangle=324,2038,0
+modelzoom=784
+
+// 436:67
+[com_67]
+type=text
+x=29
+y=64
+width=29
+height=14
+layer=com_73
+textfont=p12_full
+text=%1/1
+textshadow=yes
+colour=0xff0000
+onload=batta_set_text(event_com, vodka, 1)
+oninvtransmit=batta_set_text(event_com, vodka, 1){inv}
+
+// 436:68
+[com_68]
+type=text
+x=83
+y=64
+width=29
+height=14
+layer=com_73
+textfont=p12_full
+text=%1/1
+textshadow=yes
+colour=0xff0000
+onload=batta_set_text(event_com, brandy, 1)
+oninvtransmit=batta_set_text(event_com, brandy, 1){inv}
+
+// 436:69
+[com_69]
+type=text
+x=141
+y=64
+width=29
+height=14
+layer=com_73
+textfont=p12_full
+text=%1/1
+textshadow=yes
+colour=0xff0000
+onload=batta_set_text(event_com, gin, 1)
+oninvtransmit=batta_set_text(event_com, gin, 1){inv}
+
+// 436:70
+[com_70]
+type=text
+x=199
+y=64
+width=29
+height=14
+layer=com_73
+textfont=p12_full
+text=%1/1
+textshadow=yes
+colour=0xff0000
+onload=batta_set_text(event_com, orange, 1)
+oninvtransmit=batta_set_text(event_com, orange, 1){inv}
+
+// 436:71
+[com_71]
+type=text
+x=266
+y=64
+width=31
+height=14
+layer=com_73
+textfont=p12_full
+text=%1/2
+textshadow=yes
+colour=0xff0000
+onload=batta_set_text(event_com, lemon, 2)
+oninvtransmit=batta_set_text(event_com, lemon, 2){inv}
+
+// 436:72
+[com_72]
+type=text
+x=6
+y=4
+width=310
+height=15
+layer=com_73
+textfont=p12_full
+text=Blurberry Special
+textalignh=centre
+textshadow=yes
+colour=0xd6a046
+
+// 436:73
+[com_73]
+type=layer
+x=100
+y=230
+width=318
+height=82
+hide=yes
+
+// 436:74
+[com_74]
+type=text
+x=250
+y=4
+width=65
+height=15
+layer=com_31
+textfont=p12_full
+text=level 6
+textalignh=right
+textshadow=yes
+colour=0xff0000
+onload=batta_set_level(event_com, 6)
+
+// 436:75
+[com_75]
+type=text
+x=250
+y=4
+width=65
+height=15
+layer=com_40
+textfont=p12_full
+text=level 8
+textalignh=right
+textshadow=yes
+colour=0xff0000
+onload=batta_set_level(event_com, 8)
+
+// 436:76
+[com_76]
+type=text
+x=250
+y=4
+width=65
+height=15
+layer=com_15
+textfont=p12_full
+text=level 18
+textalignh=right
+textshadow=yes
+colour=0xff0000
+onload=batta_set_level(event_com, 18)
+
+// 436:77
+[com_77]
+type=text
+x=250
+y=4
+width=65
+height=15
+layer=com_22
+textfont=p12_full
+text=level 20
+textalignh=right
+textshadow=yes
+colour=0xff0000
+onload=batta_set_level(event_com, 20)
+
+// 436:78
+[com_78]
+type=text
+x=250
+y=4
+width=65
+height=15
+layer=com_60
+textfont=p12_full
+text=level 33
+textalignh=right
+textshadow=yes
+colour=0xff0000
+onload=batta_set_level(event_com, 33)
+
+// 436:79
+[com_79]
+type=text
+x=250
+y=4
+width=65
+height=15
+layer=com_73
+textfont=p12_full
+text=level 37
+textalignh=right
+textshadow=yes
+colour=0xff0000
+
+// 436:80
+[com_80]
+type=text
+x=250
+y=4
+width=65
+height=15
+layer=com_49
+textfont=p12_full
+text=level 32
+textalignh=right
+textshadow=yes
+colour=0xff0000
+onload=batta_set_level(event_com, 32)
+
+// 436:81
+[com_81]
+type=text
+x=91
+y=123
+width=90
+height=25
+textfont=p12_full
+text=Wizard Blizzard
+textalignh=centre
+textshadow=yes
+colour=0xff0000
+
+// 436:82
+[com_82]
+type=text
+x=207
+y=123
+width=90
+height=25
+textfont=p12_full
+text=Short Green Guy
+textalignh=centre
+textshadow=yes
+colour=0xff0000
+
+// 436:83
+[com_83]
+type=text
+x=315
+y=123
+width=90
+height=25
+textfont=p12_full
+text=Fruit Blast
+textalignh=centre
+textshadow=yes
+colour=0xff0000
+
+// 436:84
+[com_84]
+type=text
+x=54
+y=202
+width=90
+height=25
+textfont=p12_full
+text=Pineapple Punch
+textalignh=centre
+textshadow=yes
+colour=0xff0000
+
+// 436:85
+[com_85]
+type=text
+x=161
+y=202
+width=90
+height=25
+textfont=p12_full
+text=Drunk Dragon
+textalignh=centre
+textshadow=yes
+colour=0xff0000
+
+// 436:86
+[com_86]
+type=text
+x=266
+y=202
+width=90
+height=25
+textfont=p12_full
+text=Chocolate Saturday
+textalignh=centre
+textshadow=yes
+colour=0xff0000
+
+// 436:87
+[com_87]
+type=text
+x=363
+y=202
+width=90
+height=25
+textfont=p12_full
+text=Blurberry Special
+textalignh=centre
+textshadow=yes
+colour=0xff0000
+
+// 436:88
+[com_88]
+type=rectangle
+x=17
+y=25
+width=488
+height=305
+layer=com_0
+colour=0x000000
+fill=yes
+trans=200
+transmitop=10
+opbase=  
+op10=     
+
+// 436:89
+[com_89]
+type=graphic
+x=14
+y=25
+width=485
+height=300
+layer=com_0
+graphic=tradebacking
+tiling=yes
+colour=0x000000
+transmitop=10
+op10=     
+
+// 436:90
+[com_90]
+type=graphic
+y=53
+width=32
+height=241
+layer=com_0
+graphic="v2_stone_borders,1"
+tiling=yes
+colour=0x000000
+transmitop=10
+op10=     
+
+// 436:91
+[com_91]
+type=graphic
+x=13
+y=20
+width=32
+height=32
+layer=com_0
+graphic="v2_stone_borders,4"
+colour=0x000000
+transmitop=10
+op10=     
+
+// 436:92
+[com_92]
+type=graphic
+x=480
+y=51
+width=32
+height=243
+layer=com_0
+graphic="v2_stone_borders,3"
+tiling=yes
+colour=0x000000
+transmitop=10
+op10=     
+
+// 436:93
+[com_93]
+type=graphic
+x=44
+y=7
+width=424
+height=34
+layer=com_0
+graphic="v2_stone_borders,0"
+tiling=yes
+colour=0x000000
+transmitop=10
+op10=     
+
+// 436:94
+[com_94]
+type=graphic
+x=45
+y=306
+width=423
+height=32
+layer=com_0
+graphic="v2_stone_borders,2"
+tiling=yes
+colour=0x000000
+transmitop=10
+op10=     
+
+// 436:95
+[com_95]
+type=graphic
+x=474
+y=30
+width=16
+height=16
+layer=com_0
+graphic="v2_stone_close_button,0"
+colour=0x000000
+transmitop=1,10
+op1=Close
+op10=     
+onmouseover=graphic_swapper(event_com, "v2_stone_close_button,1")
+onmouseleave=graphic_swapper(event_com, "v2_stone_close_button,0")
+onop=closebutton_click
+
+// 436:96
+[com_96]
+type=graphic
+x=13
+y=294
+width=32
+height=32
+layer=com_0
+graphic="v2_stone_borders,6"
+colour=0x000000
+transmitop=10
+op10=     
+
+// 436:97
+[com_97]
+type=graphic
+x=468
+y=20
+width=32
+height=32
+layer=com_0
+graphic="v2_stone_borders,5"
+colour=0x000000
+transmitop=10
+op10=     
+
+// 436:98
+[com_98]
+type=graphic
+x=468
+y=294
+width=32
+height=32
+layer=com_0
+graphic="v2_stone_borders,7"
+colour=0x000000
+transmitop=10
+op10=     
+
+// 436:99
+[com_99]
+type=graphic
+x=24
+y=35
+width=465
+height=32
+layer=com_0
+graphic="v2_stone_borders,8"
+tiling=yes
+colour=0x000000
+transmitop=10
+op10=     
+
+// 436:100
+[com_100]
+type=graphic
+x=13
+y=37
+width=32
+height=32
+layer=com_0
+graphic="v2_stone_borders,9"
+colour=0x000000
+transmitop=10
+op10=     
+
+// 436:101
+[com_101]
+type=graphic
+x=468
+y=37
+width=32
+height=32
+layer=com_0
+graphic="v2_stone_borders,10"
+colour=0x000000
+transmitop=10
+op10=     
+
+// 436:102
+[com_102]
+type=text
+x=23
+y=30
+width=471
+height=15
+layer=com_0
+textfont=b12_full
+text=Gnome Cocktails
+textalignh=centre
+textshadow=yes
+colour=0xff9900
+onload=cocktail_main_text
+oninvtransmit=cocktail_main_text{inv}

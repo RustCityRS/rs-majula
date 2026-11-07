@@ -1,0 +1,13 @@
+// 1720
+[proc,script1720]()(int)
+def_int $int0 = 0;
+$int0 = calc($int0 + 1);
+$int0 = calc($int0 + 1);
+$int0 = calc($int0 + 1);
+$int0 = calc($int0 + 1);
+$int0 = calc($int0 + 1);
+$int0 = calc($int0 + 1);
+$int0 = calc($int0 + 1);
+$int0 = calc($int0 + 1);
+$int0 = calc($int0 + 1);
+return($int0);

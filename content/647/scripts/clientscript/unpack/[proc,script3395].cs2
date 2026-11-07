@@ -1,0 +1,12 @@
+// 3395
+[proc,script3395]
+def_int $int0 = 0;
+while ($int0 < if_getnextsubid(interface_979:com_25)) {
+    if (cc_find(interface_979:com_25, $int0) = true) {
+        cc_settrans(255);
+    }
+    $int0 = calc($int0 + 1);
+}
+if (cc_find(interface_979:com_25, %varclient_792) = true) {
+    cc_settrans(0);
+}

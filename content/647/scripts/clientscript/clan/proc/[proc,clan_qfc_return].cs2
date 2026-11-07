@@ -1,6 +1,7 @@
-[proc,clan_qfc_return](int $int)
-if ($int = true) {
-    resume_clanforumqfcdialog(%varc_string_346);
+// 4372
+[proc,clan_qfc_return](int $int0)
+if ($int0 = 1) {
+    resume_clanforumqfcdialog(%varclient_1865);
 } else {
     resume_clanforumqfcdialog("");
 }

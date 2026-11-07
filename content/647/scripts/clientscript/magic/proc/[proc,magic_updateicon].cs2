@@ -1,7 +1,8 @@
+// 21
 [proc,magic_updateicon](component $component0, graphic $graphic1, graphic $graphic2, int $int3, obj $obj4, int $int5, obj $obj6, int $int7, obj $obj8, int $int9, obj $obj10, int $int11)
-if (stat(magic) < $int3 & (%varbit_9071 = false | $component0 ! magic_lunar:com24 & ($component0 ! magic_lunar:com27 & ($component0 ! magic_lunar:com33 & ($component0 ! magic_lunar:com44 & $component0 ! magic_lunar:com41))))) {
-    if (%varbit_4089 = true) {
-        if (%varp_1092 < $int3 | enum(73, 105, enum_1061, $component0) = false) {
+if (stat(magic) < $int3 & (%varplayerbit_9071 = 0 | $component0 ! magic_lunar:com_24 & $component0 ! magic_lunar:com_27 & $component0 ! magic_lunar:com_33 & $component0 ! magic_lunar:com_44 & $component0 ! magic_lunar:com_41)) {
+    if (%varplayerbit_4089 = 1) {
+        if (%varplayer_1092 < $int3 | enum(component, int, enum_1061, $component0) = 0) {
             if_setgraphic($graphic2, $component0);
             return;
         }

@@ -1,16 +1,16 @@
-[proc,skill_advance_guide_subsection_title_slayer](int $int)(int, string)
-switch_int ($int) {
-    case 0:
+// 987
+[proc,skill_advance_guide_subsection_title_slayer](int $int0)(string, int)
+switch_int ($int0) {
+    case 0 :
         return("Equipment", 1);
-    case 1:
+    case 1 :
         return("Monsters", 1);
-    case 2:
+    case 2 :
         return("Slayer Masters", 1);
-    case 3:
+    case 3 :
         return("Dungeoneering", 1);
-    case 4:
+    case 4 :
         return("Milestones", 1);
-    case default:
+    case default :
         return("", -1);
 }
-return("", 0);

@@ -1,92 +1,92 @@
-[proc,getsidehidden](int $int)(int)
+// 1314
+[proc,getsidehidden](int $int0)(boolean)
 if (getwindowmode >= 2) {
-    switch_int ($int) {
-        case 0:
+    switch_int ($int0) {
+        case 0 :
             return(if_gethide(toplevel_fullscreen:com_tab0));
-        case 1:
+        case 1 :
             return(if_gethide(toplevel_fullscreen:com_tab1));
-        case 2:
+        case 2 :
             return(if_gethide(toplevel_fullscreen:com_tab2));
-        case 3:
+        case 3 :
             return(if_gethide(toplevel_fullscreen:com_tab3));
-        case 4:
+        case 4 :
             return(if_gethide(toplevel_fullscreen:com_tab4));
-        case 5:
+        case 5 :
             return(if_gethide(toplevel_fullscreen:com_tab5));
-        case 6:
+        case 6 :
             return(if_gethide(toplevel_fullscreen:com_tab6));
-        case 7:
+        case 7 :
             return(if_gethide(toplevel_fullscreen:com_tab7));
-        case 8:
+        case 8 :
             return(if_gethide(toplevel_fullscreen:com_tab8));
-        case 9:
+        case 9 :
             return(if_gethide(toplevel_fullscreen:com_tab9));
-        case 10:
+        case 10 :
             return(if_gethide(toplevel_fullscreen:com_tab10));
-        case 11:
+        case 11 :
             return(if_gethide(toplevel_fullscreen:com_tab11));
-        case 12:
+        case 12 :
             return(if_gethide(toplevel_fullscreen:com_tab12));
-        case 13:
+        case 13 :
             return(if_gethide(toplevel_fullscreen:com_tab13));
-        case 14:
+        case 14 :
             return(if_gethide(toplevel_fullscreen:com_tab14));
-        case 15:
+        case 15 :
             return(if_gethide(toplevel_fullscreen:com_tab15));
-        case 95:
-            return(if_gethide(toplevel_fullscreen:com104));
-        case 99:
-            return(if_gethide(toplevel_fullscreen:com105));
-        case 98:
-            if (if_hasoverlay(toplevel_fullscreen:com85) = true) {
-                return(if_gethide(toplevel_fullscreen:com85));
+        case 95 :
+            return(if_gethide(toplevel_fullscreen:com_104));
+        case 99 :
+            return(if_gethide(toplevel_fullscreen:com_105));
+        case 98 :
+            if (if_hassub(toplevel_fullscreen:com_85) = true) {
+                return(if_gethide(toplevel_fullscreen:com_85));
             }
-            return(1);
+            return(true);
     }
 } else {
-    switch_int ($int) {
-        case 0:
+    switch_int ($int0) {
+        case 0 :
             return(if_gethide(toplevel:com_tab0));
-        case 1:
+        case 1 :
             return(if_gethide(toplevel:com_tab1));
-        case 2:
+        case 2 :
             return(if_gethide(toplevel:com_tab2));
-        case 3:
+        case 3 :
             return(if_gethide(toplevel:com_tab3));
-        case 4:
+        case 4 :
             return(if_gethide(toplevel:com_tab4));
-        case 5:
+        case 5 :
             return(if_gethide(toplevel:com_tab5));
-        case 6:
+        case 6 :
             return(if_gethide(toplevel:com_tab6));
-        case 7:
+        case 7 :
             return(if_gethide(toplevel:com_tab7));
-        case 8:
+        case 8 :
             return(if_gethide(toplevel:com_tab8));
-        case 9:
+        case 9 :
             return(if_gethide(toplevel:com_tab9));
-        case 10:
+        case 10 :
             return(if_gethide(toplevel:com_tab10));
-        case 11:
+        case 11 :
             return(if_gethide(toplevel:com_tab11));
-        case 12:
+        case 12 :
             return(if_gethide(toplevel:com_tab12));
-        case 13:
+        case 13 :
             return(if_gethide(toplevel:com_tab13));
-        case 14:
+        case 14 :
             return(if_gethide(toplevel:com_tab14));
-        case 15:
+        case 15 :
             return(if_gethide(toplevel:com_tab15));
-        case 95:
-            return(if_gethide(toplevel:com220));
-        case 99:
-            return(if_gethide(toplevel:com221));
-        case 98:
-            if (if_hasoverlay(toplevel:com199) = true) {
-                return(if_gethide(toplevel:com199));
+        case 95 :
+            return(if_gethide(toplevel:com_220));
+        case 99 :
+            return(if_gethide(toplevel:com_221));
+        case 98 :
+            if (if_hassub(toplevel:com_199) = true) {
+                return(if_gethide(toplevel:com_199));
             }
-            return(1);
+            return(true);
     }
 }
-return(-1);
-return(-1);
+return(null);

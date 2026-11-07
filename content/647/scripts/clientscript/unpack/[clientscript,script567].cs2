@@ -1,0 +1,150 @@
+// 567
+[clientscript,script567](component $component0)
+def_int $int1 = 0;
+def_int $int2 = 0;
+def_int $int3 = 0;
+def_int $int4 = 0;
+if ($component0 = interface_1072:com_201) {
+    switch_int (%varplayerbit_8876) {
+        case 0 :
+            $int1 = 1;
+        case 1 :
+            $int1 = 9;
+        case 2 :
+            $int1 = 12;
+        case 3 :
+            $int1 = 75;
+    }
+    $int3 = calc($int1 * %varplayerbit_8877);
+    if (calc(%varplayerbit_8857 - $int3) > 0) {
+        if_setcolour(^green, interface_1072:com_53);
+        $int3 = calc(%varplayerbit_8857 - $int3);
+    } else {
+        if_setcolour(^red, interface_1072:com_53);
+        $int3 = 0;
+    }
+} else if ($component0 = interface_1072:com_213) {
+    switch_int (%varplayerbit_8876) {
+        case 0 :
+            $int1 = 1;
+            $int2 = 2;
+        case 1 :
+            $int1 = 4;
+            $int2 = 7;
+        case 2 :
+            $int1 = 9;
+            $int2 = 17;
+        case 3 :
+            $int1 = 40;
+            $int2 = 80;
+    }
+    $int3 = calc($int1 * %varplayerbit_8877);
+    if (calc(%varplayerbit_8857 - $int3) > 0) {
+        if_setcolour(^green, interface_1072:com_53);
+        $int3 = calc(%varplayerbit_8857 - $int3);
+    } else {
+        if_setcolour(^red, interface_1072:com_53);
+        $int3 = 0;
+    }
+    $int4 = calc($int2 * %varplayerbit_8877);
+    if (calc(%varplayerbit_8865 - $int4) > 0) {
+        if_setcolour(^green, interface_1072:com_49);
+        $int4 = calc(%varplayerbit_8865 - $int4);
+    } else {
+        if_setcolour(^red, interface_1072:com_49);
+        $int4 = 0;
+    }
+} else if ($component0 = interface_1072:com_225) {
+    switch_int (%varplayerbit_8876) {
+        case 0 :
+            $int1 = 1;
+            $int2 = 4;
+        case 1 :
+            $int1 = 3;
+            $int2 = 12;
+        case 2 :
+            $int1 = 6;
+            $int2 = 24;
+        case 3 :
+            $int1 = 30;
+            $int2 = 120;
+    }
+    $int3 = calc($int1 * %varplayerbit_8877);
+    if (calc(%varplayerbit_8859 - $int3) > 0) {
+        if_setcolour(^green, interface_1072:com_57);
+        $int3 = calc(%varplayerbit_8859 - $int3);
+    } else {
+        if_setcolour(^red, interface_1072:com_57);
+        $int3 = 0;
+    }
+    $int4 = calc($int2 * %varplayerbit_8877);
+    if (calc(%varplayerbit_8865 - $int4) > 0) {
+        if_setcolour(^green, interface_1072:com_49);
+        $int4 = calc(%varplayerbit_8865 - $int4);
+    } else {
+        if_setcolour(^red, interface_1072:com_49);
+        $int4 = 0;
+    }
+} else if ($component0 = interface_1072:com_237) {
+    switch_int (%varplayerbit_8876) {
+        case 0 :
+            $int1 = 1;
+            $int2 = 6;
+        case 1 :
+            $int1 = 3;
+            $int2 = 14;
+        case 2 :
+            $int1 = 4;
+            $int2 = 22;
+        case 3 :
+            $int1 = 25;
+            $int2 = 150;
+    }
+    $int3 = calc($int1 * %varplayerbit_8877);
+    if (calc(%varplayerbit_8862 - $int3) > 0) {
+        if_setcolour(^green, interface_1072:com_61);
+        $int3 = calc(%varplayerbit_8862 - $int3);
+    } else {
+        if_setcolour(^red, interface_1072:com_61);
+        $int3 = 0;
+    }
+    $int4 = calc($int2 * %varplayerbit_8877);
+    if (calc(%varplayerbit_8865 - $int4) > 0) {
+        if_setcolour(^green, interface_1072:com_49);
+        $int4 = calc(%varplayerbit_8865 - $int4);
+    } else {
+        if_setcolour(^red, interface_1072:com_49);
+        $int4 = 0;
+    }
+} else if ($component0 = interface_1072:com_249) {
+    switch_int (%varplayerbit_8876) {
+        case 0 :
+            $int1 = 1;
+            $int2 = 8;
+        case 1 :
+            $int1 = 2;
+            $int2 = 16;
+        case 2 :
+            $int1 = 4;
+            $int2 = 30;
+        case 3 :
+            $int1 = 18;
+            $int2 = 144;
+    }
+    $int3 = calc($int1 * %varplayerbit_8877);
+    if (calc(%varplayerbit_8863 - $int3) > 0) {
+        if_setcolour(^green, interface_1072:com_65);
+        $int3 = calc(%varplayerbit_8863 - $int3);
+    } else {
+        if_setcolour(^red, interface_1072:com_65);
+        $int3 = 0;
+    }
+    $int4 = calc($int2 * %varplayerbit_8877);
+    if (calc(%varplayerbit_8865 - $int4) > 0) {
+        if_setcolour(^green, interface_1072:com_49);
+        $int4 = calc(%varplayerbit_8865 - $int4);
+    } else {
+        if_setcolour(^red, interface_1072:com_49);
+        $int4 = 0;
+    }
+}

@@ -1,7 +1,8 @@
+// 2440
 [clientscript,trawler_catch_amount]
-def_int $int = calc(%varc_int_819 / 2);
-if ($int < 1) {
-    if_settext("Catch: Nothing", trawler_game_overlay:com17);
+def_int $int0 = calc(%varclient_819 / 2);
+if ($int0 < 1) {
+    if_settext("Catch: Nothing", trawler_game_overlay:com_17);
 } else {
-    if_settext("Catch: <tostring($int)> Fish", trawler_game_overlay:com17);
+    if_settext("Catch: <tostring($int0)> Fish", trawler_game_overlay:com_17);
 }

@@ -1,6 +1,0 @@
-[proc,clientscript_4328](component $component)
-if (%clansetting_varbit_11 = false) {
-    if_setgraphic(enum(105, 100, enum_3721, %clansetting_varbit_7), $component);
-} else {
-    if_setgraphic(enum(105, 100, enum_3721, 0), $component);
-}

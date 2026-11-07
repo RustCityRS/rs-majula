@@ -1,6 +1,0 @@
-[proc,clientscript_4232](component $component)
-if (if_find($component) = true) {
-    cc_setonmouseover("clientscript_4209($component, 0)");
-    cc_setonmouseleave("clientscript_4209($component, 1)");
-    cc_settrans(255);
-}

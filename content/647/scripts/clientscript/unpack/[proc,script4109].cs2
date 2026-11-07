@@ -1,0 +1,8 @@
+// 4109
+[proc,script4109](int $int0, component $component1, component $component2, component $component3, component $component4, component $component5)
+def_int $int6 = if_getwidth($component5);
+$int0 = max(min($int0, calc(if_getwidth($component4) - $int6)), 0);
+def_int $int7 = if_getx($component4);
+if_setsize(calc($int7 + $int0), 0, ^setsize_abs, ^setsize_minus, $component2);
+if_setsize(calc($int7 + $int0 + $int6), 0, ^setsize_minus, ^setsize_minus, $component3);
+if_setposition($int0, 0, ^setpos_abs_left, ^setpos_abs_centre, $component5);

@@ -1,0 +1,87 @@
+// 563
+[clientscript,script563]
+def_int $int0 = 50;
+def_int $int1 = 45;
+if_settext(tostring(%varplayerbit_4143), interface_641:com_4);
+if (%varplayerbit_4144 = 0) {
+    if_setgraphic("staticons2,8", interface_641:com_27);
+    if_setposition($int0, $int1, ^setpos_abs_left, ^setpos_abs_top, interface_641:com_27);
+    if_sethide(false, interface_641:com_12);
+    $int1 = calc($int1 + 29);
+} else {
+    if_sethide(true, interface_641:com_12);
+}
+if (%varplayerbit_4145 = 0) {
+    if_setgraphic("staticons2,10", interface_641:com_28);
+    if_setposition($int0, $int1, ^setpos_abs_left, ^setpos_abs_top, interface_641:com_28);
+    if_sethide(false, interface_641:com_13);
+    $int1 = calc($int1 + 29);
+} else {
+    if_sethide(true, interface_641:com_13);
+}
+if (%varplayerbit_4146 = 0) {
+    if_setgraphic("staticons,4", interface_641:com_29);
+    if_setposition($int0, $int1, ^setpos_abs_left, ^setpos_abs_top, interface_641:com_29);
+    if_sethide(false, interface_641:com_14);
+    $int1 = calc($int1 + 29);
+} else {
+    if_sethide(true, interface_641:com_14);
+}
+if (%varplayerbit_4147 = 0) {
+    if_setgraphic("staticons2,11", interface_641:com_30);
+    if_setposition($int0, $int1, ^setpos_abs_left, ^setpos_abs_top, interface_641:com_30);
+    if_sethide(false, interface_641:com_15);
+    $int1 = calc($int1 + 29);
+} else {
+    if_sethide(true, interface_641:com_15);
+}
+if (%varplayerbit_4151 = 0) {
+    if_setgraphic("staticons,6", interface_641:com_32);
+    if_setposition($int0, $int1, ^setpos_abs_left, ^setpos_abs_top, interface_641:com_32);
+    if_sethide(false, interface_641:com_17);
+    $int1 = calc($int1 + 29);
+} else {
+    if_sethide(true, interface_641:com_17);
+}
+if (%varplayerbit_4152 = 1) {
+    if_setgraphic("staticons2,12", interface_641:com_33);
+    if_setposition($int0, $int1, ^setpos_abs_left, ^setpos_abs_top, interface_641:com_33);
+    if_sethide(false, interface_641:com_18);
+    $int1 = calc($int1 + 29);
+} else {
+    if_sethide(true, interface_641:com_18);
+}
+if (%varplayerbit_4276 = 1) {
+    if_setgraphic("staticons2,7", interface_641:com_31);
+    if_setposition($int0, $int1, ^setpos_abs_left, ^setpos_abs_top, interface_641:com_31);
+    if_sethide(false, interface_641:com_16);
+    $int1 = calc($int1 + 29);
+} else {
+    if_sethide(true, interface_641:com_16);
+}
+$int0 = 8;
+$int1 = 45;
+if (%varplayerbit_4148 = 0) {
+    if_setgraphic("staticons,3", interface_641:com_34);
+    if_setposition($int0, $int1, ^setpos_abs_left, ^setpos_abs_top, interface_641:com_34);
+    if_sethide(false, interface_641:com_19);
+    $int1 = calc($int1 + 29);
+} else {
+    if_sethide(true, interface_641:com_19);
+}
+if (%varplayerbit_4149 = 0) {
+    if_setgraphic("staticons,0", interface_641:com_35);
+    if_setposition($int0, $int1, ^setpos_abs_left, ^setpos_abs_top, interface_641:com_35);
+    if_sethide(false, interface_641:com_20);
+    $int1 = calc($int1 + 29);
+} else {
+    if_sethide(true, interface_641:com_20);
+}
+if (%varplayerbit_4150 = 0) {
+    if_setgraphic("staticons,5", interface_641:com_36);
+    if_setposition($int0, $int1, ^setpos_abs_left, ^setpos_abs_top, interface_641:com_36);
+    if_sethide(false, interface_641:com_21);
+    $int1 = calc($int1 + 29);
+} else {
+    if_sethide(true, interface_641:com_21);
+}

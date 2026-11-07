@@ -1,4 +1,0 @@
-[proc,clientscript_1860](int $int0, seq $seq1)
-if (cc_find(quest_lunar_contact_npc_spell_v2:com22, $int0) = true) {
-    cc_setmodelanim($seq1);
-}

@@ -1,4 +1,6 @@
 use super::config_entry;
+#[cfg(since_647)]
+use super::mark_client_params;
 use crate::pack::config::param::parse_params;
 use crate::pack::pack::{FileCache, parse_config_sections_cached};
 use crate::pack::pack_registry::{PackRegistry, PackedFile};
@@ -9,11 +11,11 @@ use crate::pack::util::*;
 use crate::types::ForceApproach;
 #[cfg(before_647)]
 use crate::types::LocShape;
+#[cfg(since_647)]
+use crate::types::loc_shape_from_key;
 use anyhow::Result;
 #[cfg(since_647)]
 use anyhow::{Context, bail};
-#[cfg(since_647)]
-use std::collections::BTreeMap;
 use std::collections::HashMap;
 
 #[cfg(before_647)]
@@ -40,6 +42,11 @@ pub fn pack_locs(
             loc_ids.entry(name).or_insert(id);
         }
     }
+
+    #[cfg(since_647)]
+    let client_params = file_cache
+        .client_count("param", &registry.param, constants)?
+        .unwrap_or(0);
 
     let mut server = PackedData::new(pack.max);
     let mut client = PackedData::new(pack.max);
@@ -68,6 +75,9 @@ pub fn pack_locs(
             continue;
         }
 
+        #[cfg(since_647)]
+        let props = &mark_client_params(props, &registry.param, client_params);
+
         #[cfg(before_647)]
         let mut src_models: Vec<&str> = Vec::new();
         #[cfg(before_647)]
@@ -85,9 +95,9 @@ pub fn pack_locs(
         #[cfg(before_647)]
         let mut desc = None;
 
-        for group in props.chunk_by(|a, b| batch_code(&a.0) == batch_code(&b.0)) {
+        for group in props.chunk_by(|a, b| batch_code(a) == batch_code(b)) {
             #[cfg(since_647)]
-            if batch_code(&group[0].0) != 0 {
+            if batch_code(&group[0]) != 0 {
                 let start = client.dat.len();
                 pack_batch(&mut client, group, registry, param_types, debugname)?;
                 server.dat.extend_from_slice(&client.dat[start..]);
@@ -138,7 +148,11 @@ pub fn pack_locs(
                         client.p1(v);
                     }),
 
-                    // 17
+                    // 17 or 27
+                    #[cfg(since_647)]
+                    "blockwalk" => parse_bool(value, |v| client.p1(if v { 27 } else { 17 })),
+
+                    #[cfg(before_647)]
                     "blockwalk" => parse_bool(value, |v| {
                         if !v {
                             client.p1(17);
@@ -187,7 +201,11 @@ pub fn pack_locs(
                         }
                     }),
 
-                    // 23
+                    // 23 or 103
+                    #[cfg(since_647)]
+                    "occlude" => parse_bool(value, |v| client.p1(if v { 23 } else { 103 })),
+
+                    #[cfg(before_647)]
                     "occlude" => parse_bool(value, |v| {
                         if v {
                             client.p1(23);
@@ -204,13 +222,6 @@ pub fn pack_locs(
                     "hasalpha" => parse_bool(value, |v| {
                         if v {
                             client.p1(25);
-                        }
-                    }),
-
-                    #[cfg(since_647)]
-                    "interact_type1" => parse_bool(value, |v| {
-                        if v {
-                            client.p1(27);
                         }
                     }),
 
@@ -325,21 +336,42 @@ pub fn pack_locs(
                     }
 
                     // 70
+                    #[cfg(before_647)]
                     "offsetx" => parse_number(value, |v| {
                         client.p1(70);
                         client.p2(v);
                     }),
 
+                    #[cfg(since_647)]
+                    "offsetx" => parse_number(value, |v: i16| {
+                        client.p1(70);
+                        client.p2(v as u16);
+                    }),
+
                     // 71
+                    #[cfg(before_647)]
                     "offsety" => parse_number(value, |v| {
                         client.p1(71);
                         client.p2(v);
                     }),
 
+                    #[cfg(since_647)]
+                    "offsety" => parse_number(value, |v: i16| {
+                        client.p1(71);
+                        client.p2(v as u16);
+                    }),
+
                     // 72
+                    #[cfg(before_647)]
                     "offsetz" => parse_number(value, |v| {
                         client.p1(72);
                         client.p2(v);
+                    }),
+
+                    #[cfg(since_647)]
+                    "offsetz" => parse_number(value, |v: i16| {
+                        client.p1(72);
+                        client.p2(v as u16);
                     }),
 
                     // 73
@@ -390,267 +422,254 @@ pub fn pack_locs(
                         multiloc.push((idx, loc_name.trim()));
                     }
 
+                    // 78, and 168 when the sound is a vorbis file
                     #[cfg(since_647)]
-                    "ambient_sfx" => {
-                        if let Some((id_s, range_s)) = value.split_once(',') {
-                            client.p1(78);
-                            client.p2(id_s.trim().parse::<u16>().expect("Invalid loc value"));
-                            client.p1(range_s.trim().parse::<u8>().expect("Invalid loc value"));
+                    "bgsound" => {
+                        let (sound, range) = value
+                            .split_once(',')
+                            .with_context(|| format!("{debugname}: invalid bgsound '{value}'"))?;
+                        let (id, vorbis) = parse_sound(registry, sound.trim());
+                        client.p1(78);
+                        client.p2(id);
+                        parse_number(range.trim(), |v: u8| client.p1(v));
+                        if vorbis {
+                            client.p1(168);
                         }
                     }
 
+                    // 79, and 169 when the sounds are vorbis files
                     #[cfg(since_647)]
-                    "ambient_sfx_random" => {
-                        let parts: Vec<&str> = value.splitn(4, ',').collect();
-                        if parts.len() == 4 {
-                            client.p1(79);
-                            client.p2(parts[0].trim().parse::<u16>().expect("Invalid loc value"));
-                            client.p2(parts[1].trim().parse::<u16>().expect("Invalid loc value"));
-                            client.p1(parts[2].trim().parse::<u8>().expect("Invalid loc value"));
-                            let ids: Vec<u16> = if parts[3].is_empty() {
-                                Vec::new()
-                            } else {
-                                parts[3]
-                                    .split(';')
-                                    .map(|s| s.trim().parse::<u16>().expect("Invalid loc value"))
-                                    .collect()
-                            };
-                            client.p1(ids.len() as u8);
-                            for id in &ids {
-                                client.p2(*id);
-                            }
+                    "randomsound" => {
+                        let parts: Vec<_> = value.split(',').collect();
+                        let [min, max, range, sounds @ ..] = &parts[..] else {
+                            bail!("{debugname}: invalid randomsound '{value}'");
+                        };
+                        client.p1(79);
+                        parse_number(min.trim(), |v: u16| client.p2(v));
+                        parse_number(max.trim(), |v: u16| client.p2(v));
+                        parse_number(range.trim(), |v: u8| client.p1(v));
+                        client.p1(u8::try_from(sounds.len())?);
+                        let mut vorbis = false;
+                        for sound in sounds {
+                            let (id, is_vorbis) = parse_sound(registry, sound.trim());
+                            vorbis |= is_vorbis;
+                            client.p2(id);
+                        }
+                        if vorbis {
+                            client.p1(169);
                         }
                     }
 
+                    // 81, 93, 94, 95 or 162
                     #[cfg(since_647)]
-                    "hillskew_t2" => {
-                        client.p1(81);
-                        client.p1(value.parse::<u8>().expect("Invalid loc value"));
+                    "hillchange" => {
+                        let (mode, param) = value
+                            .split_once(',')
+                            .map_or((value.as_str(), ""), |(mode, param)| (mode, param.trim()));
+                        match mode {
+                            "tree_skew" => parse_number(param, |v: u8| {
+                                client.p1(81);
+                                client.p1(v);
+                            }),
+                            "rotate" => parse_number(param, |v: i32| {
+                                if let Ok(v) = u16::try_from(v) {
+                                    client.p1(93);
+                                    client.p2(v);
+                                } else {
+                                    client.p1(162);
+                                    client.p4(v);
+                                }
+                            }),
+                            "ceiling_skew" => client.p1(94),
+                            "skew_to_fit" => parse_number(param, |v: u16| {
+                                client.p1(95);
+                                client.p2(v);
+                            }),
+                            _ => bail!("{debugname}: invalid hillchange '{value}'"),
+                        }
                     }
 
+                    // 82
                     #[cfg(since_647)]
-                    "hidden" => parse_bool(value, |v| {
+                    "istexture" => parse_bool(value, |v| {
                         if v {
                             client.p1(82);
                         }
                     }),
 
+                    // 88
                     #[cfg(since_647)]
-                    "nominimap_visible" => parse_bool(value, |v| {
-                        if v {
+                    "hardshadow" => parse_bool(value, |v| {
+                        if !v {
                             client.p1(88);
                         }
                     }),
 
+                    // 89
                     #[cfg(since_647)]
-                    "noblocks_npcs" => parse_bool(value, |v| {
-                        if v {
+                    "randomanimframe" => parse_bool(value, |v| {
+                        if !v {
                             client.p1(89);
                         }
                     }),
 
+                    // 90
                     #[cfg(since_647)]
-                    "op90" => parse_bool(value, |v| {
+                    "unknown90" => parse_bool(value, |v| {
                         if v {
                             client.p1(90);
                         }
                     }),
 
+                    // 91
                     #[cfg(since_647)]
-                    "members_only" => parse_bool(value, |v| {
+                    "members" => parse_bool(value, |v| {
                         if v {
                             client.p1(91);
                         }
                     }),
 
+                    // 97
                     #[cfg(since_647)]
-                    "hillskew_t3_u16" => {
-                        client.p1(93);
-                        client.p2(value.parse::<u16>().expect("Invalid loc value"));
-                    }
-
-                    #[cfg(since_647)]
-                    "hillskew_t4" => parse_bool(value, |v| {
-                        if v {
-                            client.p1(94);
-                        }
-                    }),
-
-                    #[cfg(since_647)]
-                    "hillskew_t5" => {
-                        client.p1(95);
-                        client.p2(value.parse::<u16>().expect("Invalid loc value"));
-                    }
-
-                    #[cfg(since_647)]
-                    "op97" => parse_bool(value, |v| {
+                    "msirotate" => parse_bool(value, |v| {
                         if v {
                             client.p1(97);
                         }
                     }),
 
+                    // 98
                     #[cfg(since_647)]
-                    "op98" => parse_bool(value, |v| {
+                    "hasparticles" => parse_bool(value, |v| {
                         if v {
                             client.p1(98);
                         }
                     }),
 
+                    // 99
                     #[cfg(since_647)]
-                    "cursor1" => {
-                        if let Some((a_s, b_s)) = value.split_once(',') {
-                            client.p1(99);
-                            client.p1(a_s.trim().parse::<u8>().expect("Invalid loc value"));
-                            client.p2(b_s.trim().parse::<u16>().expect("Invalid loc value"));
-                        }
-                    }
+                    "cursor1" => pack_cursor(&mut client, 99, value, registry),
 
+                    // 100
                     #[cfg(since_647)]
-                    "cursor2" => {
-                        if let Some((a_s, b_s)) = value.split_once(',') {
-                            client.p1(100);
-                            client.p1(a_s.trim().parse::<u8>().expect("Invalid loc value"));
-                            client.p2(b_s.trim().parse::<u16>().expect("Invalid loc value"));
-                        }
-                    }
+                    "cursor2" => pack_cursor(&mut client, 100, value, registry),
 
+                    // 101
                     #[cfg(since_647)]
-                    "mapfunction" => {
+                    "mapfunction" => parse_number(value, |v: u8| {
                         client.p1(101);
-                        client.p1(value.parse::<u8>().expect("Invalid loc value"));
-                    }
-
-                    #[cfg(since_647)]
-                    "msi_id" => {
-                        client.p1(102);
-                        client.p2(value.parse::<u16>().expect("Invalid loc value"));
-                    }
-
-                    #[cfg(since_647)]
-                    "occlude_off" => parse_bool(value, |v| {
-                        if v {
-                            client.p1(103);
-                        }
+                        client.p1(v);
                     }),
 
+                    // 102
                     #[cfg(since_647)]
-                    "interaction_sides" => {
-                        client.p1(104);
-                        client.p1(value.parse::<u8>().expect("Invalid loc value"));
-                    }
+                    "msi" => parse_ref(&registry.msi, "msi", value, |v| {
+                        client.p1(102);
+                        client.p2(v);
+                    }),
 
+                    // 104
                     #[cfg(since_647)]
-                    "op105" => parse_bool(value, |v| {
+                    "bgsoundvolume" => parse_number(value, |v: u8| {
+                        client.p1(104);
+                        client.p1(v);
+                    }),
+
+                    // 105
+                    #[cfg(since_647)]
+                    "unknown105" => parse_bool(value, |v| {
                         if v {
                             client.p1(105);
                         }
                     }),
 
+                    // 107
                     #[cfg(since_647)]
-                    "mapelement" => {
+                    "mapelement" => parse_ref(&registry.mel, "mel", value, |v| {
                         client.p1(107);
-                        client.p2(value.parse::<u16>().expect("Invalid loc value"));
-                    }
+                        client.p2(v);
+                    }),
 
+                    // 150-154
                     #[cfg(since_647)]
-                    "memberop1" | "memberop2" | "memberop3" | "memberop4" | "memberop5" => {
-                        let slot = key.as_bytes()["memberop".len()] - b'1';
-                        client.p1(150 + slot);
+                    "membersop1" | "membersop2" | "membersop3" | "membersop4" | "membersop5" => {
+                        client.p1(149 + key.as_bytes()["membersop".len()] - b'0');
                         client.pjstr(value);
                     }
 
+                    // 163
                     #[cfg(since_647)]
-                    "hillskew_t3_i32" => {
-                        client.p1(162);
-                        client.p4(value.parse::<i32>().expect("Invalid loc value"));
-                    }
-
-                    #[cfg(since_647)]
-                    "op163" => {
-                        let parts: Vec<&str> = value.split(',').collect();
-                        if parts.len() == 4 {
-                            client.p1(163);
-                            for p in &parts {
-                                client
-                                    .p1(p.trim().parse::<i32>().expect("Invalid loc value") as i8
-                                        as u8);
-                            }
+                    "tint" => {
+                        client.p1(163);
+                        for v in parse_numbers::<i8, 4>(value) {
+                            client.p1(v as u8);
                         }
                     }
 
+                    // 164
                     #[cfg(since_647)]
-                    "op164" => {
+                    "unknown164" => parse_number(value, |v: i16| {
                         client.p1(164);
-                        client.p2(value.parse::<i32>().expect("Invalid loc value") as i16 as u16);
-                    }
+                        client.p2(v as u16);
+                    }),
 
+                    // 165
                     #[cfg(since_647)]
-                    "op165" => {
+                    "unknown165" => parse_number(value, |v: i16| {
                         client.p1(165);
-                        client.p2(value.parse::<i32>().expect("Invalid loc value") as i16 as u16);
-                    }
+                        client.p2(v as u16);
+                    }),
 
+                    // 166
                     #[cfg(since_647)]
-                    "op166" => {
+                    "unknown166" => parse_number(value, |v: i16| {
                         client.p1(166);
-                        client.p2(value.parse::<i32>().expect("Invalid loc value") as i16 as u16);
-                    }
+                        client.p2(v as u16);
+                    }),
 
+                    // 167
                     #[cfg(since_647)]
-                    "op167" => {
+                    "raiseobjectgrounddecor" => parse_number(value, |v: u16| {
                         client.p1(167);
-                        client.p2(value.parse::<u16>().expect("Invalid loc value"));
-                    }
-
-                    #[cfg(since_647)]
-                    "op168" => parse_bool(value, |v| {
-                        if v {
-                            client.p1(168);
-                        }
+                        client.p2(v);
                     }),
 
+                    // 170
                     #[cfg(since_647)]
-                    "op169" => parse_bool(value, |v| {
-                        if v {
-                            client.p1(169);
-                        }
-                    }),
-
-                    #[cfg(since_647)]
-                    "op170" => {
+                    "unknown170" => parse_number(value, |v: i32| {
                         client.p1(170);
-                        let v = value.parse::<i32>().expect("Invalid loc value");
                         emit_smart_packed(&mut client, v);
-                    }
+                    }),
 
+                    // 171
                     #[cfg(since_647)]
-                    "op171" => {
+                    "unknown171" => parse_number(value, |v: i32| {
                         client.p1(171);
-                        let v = value.parse::<i32>().expect("Invalid loc value");
                         emit_smart_packed(&mut client, v);
-                    }
+                    }),
 
+                    // 173
                     #[cfg(since_647)]
-                    "op173" => {
-                        if let Some((a_s, b_s)) = value.split_once(',') {
-                            client.p1(173);
-                            client.p2(a_s.trim().parse::<u16>().expect("Invalid loc value"));
-                            client.p2(b_s.trim().parse::<u16>().expect("Invalid loc value"));
+                    "bgsoundrate" => {
+                        client.p1(173);
+                        for v in parse_numbers::<u16, 2>(value) {
+                            client.p2(v);
                         }
                     }
 
+                    // 177
                     #[cfg(since_647)]
-                    "op177" => parse_bool(value, |v| {
+                    "unknown177" => parse_bool(value, |v| {
                         if v {
                             client.p1(177);
                         }
                     }),
 
+                    // 178
                     #[cfg(since_647)]
-                    "op178" => {
+                    "bgsounddropoffrange" => parse_number(value, |v: u8| {
                         client.p1(178);
-                        client.p1(value.parse::<u8>().expect("Invalid loc value"));
-                    }
+                        client.p1(v);
+                    }),
 
                     // 249
                     "param" => {} // handled at the end
@@ -868,16 +887,18 @@ pub fn pack_locs(
     })
 }
 
-fn batch_code(key: &str) -> u8 {
+fn batch_code(prop: &(String, String)) -> u8 {
     #[cfg(since_647)]
     {
-        if config_key_index(key, "model").is_some() {
-            return 1;
-        }
-        if config_key_index(key, "model_sd").is_some()
-            || config_key_index(key, "model_hd").is_some()
-        {
-            return 5;
+        let (key, value) = prop;
+        match key.as_str() {
+            "model" => return 1,
+            "modelhd" | "modelsd" => return 5,
+            "anim" if value.contains(',') => return 106,
+            "quest" => return 160,
+            "multivar" | "multiloc" => return 77,
+            "clientparam" => return 249,
+            _ => {}
         }
         if config_key_index(key, "recolpalette").is_some() {
             return 42;
@@ -888,21 +909,9 @@ fn batch_code(key: &str) -> u8 {
         if key.starts_with("retex") {
             return 41;
         }
-        if config_key_index(key, "random_anim").is_some() {
-            return 106;
-        }
-        if config_key_index(key, "quest").is_some() {
-            return 160;
-        }
-        if matches!(key, "multivar" | "multiloc") {
-            return 77;
-        }
-        if matches!(key, "paramint" | "paramstr") {
-            return 249;
-        }
     }
     #[cfg(before_647)]
-    let _ = key;
+    let _ = prop;
     0
 }
 
@@ -914,134 +923,91 @@ fn pack_batch(
     param_types: &HashMap<String, String>,
     name: &str,
 ) -> Result<()> {
-    let code = batch_code(&props[0].0);
+    let code = batch_code(&props[0]);
     match code {
         1 | 5 => {
             packed.p1(code);
             if code == 1 {
-                pack_models(packed, props, "model", registry);
+                pack_models(packed, props, "model", registry)?;
             } else {
-                pack_models(packed, props, "model_sd", registry);
-                pack_models(packed, props, "model_hd", registry);
+                pack_models(packed, props, "modelhd", registry)?;
+                pack_models(packed, props, "modelsd", registry)?;
             }
         }
-        40 | 41 => pack_indexed_pairs(packed, code, props, 's'),
-        42 | 106 | 160 => {
-            let prefix = match code {
-                42 => "recolpalette",
-                106 => "random_anim",
-                _ => "quest",
-            };
-            let values: BTreeMap<_, _> = props
+        40 => pack_recol_pairs(packed, props),
+        41 => pack_retex_pairs(packed, props, registry),
+        42 => {
+            packed.p1(42);
+            packed.p1(u8::try_from(props.len()).expect("Too many loc values"));
+            for (_, value) in props {
+                parse_number(value, |v: i8| packed.p1(v as u8));
+            }
+        }
+        106 => {
+            packed.p1(106);
+            packed.p1(u8::try_from(props.len()).expect("Too many loc values"));
+            for (_, value) in props {
+                let (seq, weight) = value
+                    .split_once(',')
+                    .with_context(|| format!("{name}: invalid anim '{value}'"))?;
+                parse_ref(&registry.seq, "seq", seq.trim(), |v| packed.p2(v));
+                parse_number(weight.trim(), |v: u8| packed.p1(v));
+            }
+        }
+        160 => {
+            let quests: Vec<_> = props
                 .iter()
-                .map(|(key, value)| {
-                    (
-                        config_key_index(key, prefix).expect("Invalid loc value index"),
-                        value,
-                    )
-                })
+                .flat_map(|(_, value)| value.split(','))
                 .collect();
-            packed.p1(code);
-            packed.p1(u8::try_from(values.len()).expect("Too many loc values"));
-            for value in values.into_values() {
-                match code {
-                    42 => parse_number(value, |v: i8| packed.p1(v as u8)),
-                    160 => parse_number(value, |v| packed.p2(v)),
-                    106 => {
-                        let (seq, weight) = value.split_once(',').expect("Invalid random anim");
-                        parse_ref(&registry.seq, "seq", seq.trim(), |v| packed.p2(v));
-                        parse_number(weight.trim(), |v| packed.p1(v));
-                    }
-                    _ => unreachable!(),
-                }
+            packed.p1(160);
+            packed.p1(u8::try_from(quests.len()).expect("Too many loc quests"));
+            for quest in quests {
+                parse_ref(&registry.quest, "quest", quest.trim(), |v| packed.p2(v));
             }
         }
-        77 => {
-            let mut varbit = u16::MAX;
-            let mut varp = u16::MAX;
-            let mut default = None;
-            let mut locs = BTreeMap::new();
-            for (key, value) in props {
-                if key == "multivar" {
-                    let bit = registry
-                        .varbit
-                        .get_by_debugname(value)
-                        .or_else(|| value.strip_prefix("varbit_")?.parse().ok());
-                    let var = registry
-                        .varp
-                        .get_by_debugname(value)
-                        .or_else(|| value.strip_prefix("varp_")?.parse().ok());
-                    match (bit, var) {
-                        (Some(id), None) => varbit = u16::try_from(id)?,
-                        (None, Some(id)) => varp = u16::try_from(id)?,
-                        (Some(_), Some(_)) => bail!("{name}: ambiguous multivar '{value}'"),
-                        (None, None) => bail!("{name}: unknown multivar '{value}'"),
-                    }
-                } else {
-                    let (index, loc) = value
-                        .split_once(',')
-                        .with_context(|| format!("{name}: invalid multiloc '{value}'"))?;
-                    let loc = loc.trim();
-                    let id = if loc == "null" {
-                        u16::MAX
-                    } else {
-                        u16::try_from(
-                            registry
-                                .loc
-                                .get_by_debugname(loc)
-                                .or_else(|| loc.strip_prefix("loc_")?.parse().ok())
-                                .with_context(|| format!("{name}: unknown multiloc '{loc}'"))?,
-                        )?
-                    };
-                    if index.trim() == "default" {
-                        default = Some(id);
-                    } else {
-                        locs.insert(index.trim().parse::<u8>()?, id);
-                    }
-                }
-            }
-            packed.p1(if default.is_some() { 92 } else { 77 });
-            packed.p2(varbit);
-            packed.p2(varp);
-            if let Some(default) = default {
-                packed.p2(default);
-            }
-            let count = locs.last_key_value().map_or(0, |(&index, _)| index);
-            packed.p1(count);
-            for index in 0..=count {
-                packed.p2(locs.get(&index).copied().unwrap_or(u16::MAX));
-            }
-        }
+        77 => pack_multi(
+            packed,
+            (77, 92),
+            props,
+            ("loc", &registry.loc),
+            registry,
+            name,
+        )?,
         249 => parse_params(registry, param_types, packed, props, name),
         _ => unreachable!(),
     }
     Ok(())
 }
 
+/// The lines of `key`: consecutive ones of a shape are one group.
 #[cfg(since_647)]
 fn pack_models(
     packed: &mut PackedData,
     props: &[(String, String)],
-    prefix: &str,
+    key: &str,
     registry: &PackRegistry,
-) {
-    let models: BTreeMap<_, _> = props
+) -> Result<()> {
+    let models = props
         .iter()
-        .filter_map(|(key, value)| Some((config_key_index(key, prefix)?, value)))
-        .collect();
-    packed.p1(u8::try_from(models.len()).expect("Too many model shapes"));
-    for value in models.into_values() {
-        let (shape, models) = value.split_once(',').expect("Invalid model group");
-        parse_number(shape.trim(), |v: i8| packed.p1(v as u8));
-        let models: Vec<_> = models
-            .split(';')
-            .filter(|model| !model.is_empty())
-            .collect();
-        packed.p1(u8::try_from(models.len()).expect("Too many models"));
-        for model in models {
+        .filter(|(line, _)| line == key)
+        .map(|(_, value)| {
+            value
+                .split_once(',')
+                .with_context(|| format!("Invalid {key} '{value}'"))
+        })
+        .collect::<Result<Vec<_>>>()?;
+    let groups: Vec<_> = models.chunk_by(|a, b| a.0 == b.0).collect();
+    packed.p1(u8::try_from(groups.len()).expect("Too many model shapes"));
+    for group in groups {
+        let shape = loc_shape_from_key(group[0].0.trim())
+            .with_context(|| format!("Invalid {key} shape '{}'", group[0].0))?;
+        packed.p1(shape);
+        packed.p1(u8::try_from(group.len()).expect("Too many models"));
+        for (_, model) in group {
             parse_ref(&registry.model, "model", model.trim(), |v| packed.p2(v));
         }
     }
+    Ok(())
 }
 
 #[cfg(since_647)]

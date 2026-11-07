@@ -1,5 +1,6 @@
-[proc,pmsetup_clanbackground](component $component0, component $component1, int $int2)
-if ($int2 ! 1) {
+// 2730
+[proc,pmsetup_clanbackground](component $component0, component $component1, int $windowmode2)
+if ($windowmode2 ! ^windowmode_small) {
     if_setgraphic(tradebacking, $component0);
     if_setsize(0, 0, ^setsize_minus, ^setsize_minus, $component0);
     if_settiling(true, $component0);

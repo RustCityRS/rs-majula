@@ -1,8 +1,9 @@
-[clientscript,notes_drag_end](component $int)
-if_sethide(true, notes:com10);
-if_setgraphic("notes_add_delete_icons,3", notes:com8);
-%varc_int_821 = 0;
+// 2451
+[clientscript,notes_drag_end](component $component0)
+if_sethide(true, notes:com_10);
+if_setgraphic("notes_add_delete_icons,3", notes:com_8);
+%varclient_821 = 0;
 ~notes_click(0);
-if ($int ! -1) {
-    if_sethide(false, notes:com44);
+if ($component0 ! null) {
+    if_sethide(false, notes:com_44);
 }

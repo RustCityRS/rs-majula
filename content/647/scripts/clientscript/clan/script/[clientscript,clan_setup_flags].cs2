@@ -1,3 +1,4 @@
+// 4322
 [clientscript,clan_setup_flags](component $component0, component $component1, component $component2, component $component3)
 cc_deleteall($component2);
 cc_deleteall($component3);
@@ -20,19 +21,19 @@ while ($int4 < $int15) {
     cc_setsize($int8, $int9, ^setsize_abs, ^setsize_abs);
     cc_setposition($int10, $int11, ^setpos_abs_left, ^setpos_abs_top);
     cc_setgraphic("aif_smalltabs_whole,0");
-    cc_setonvartransmit("clan_flag_highlight_update($int15){varp_2149}");
+    cc_setonvartransmit("clan_flag_highlight_update($int15){varplayer_2149}");
     cc_setonmouseover("clan_flag_background_mouseover($int4, $component2)");
     cc_setonmouseleave("clan_flag_background_mouseleave($int4, $component2)");
     cc_create($component3, ^iftype_graphic, $int4);
     cc_setsize(calc($int8 - 8), calc($int9 - 8), ^setsize_abs, ^setsize_abs);
     cc_setposition(calc($int10 + 4), calc($int11 + 4), ^setpos_abs_left, ^setpos_abs_top);
-    cc_setgraphic(enum(105, 100, enum_3721, $int4));
+    cc_setgraphic(enum(int, graphic, enum_3721, $int4));
     cc_setop(1, "Select");
     cc_setonop("clan_flag_highlight($int4, $component2, $int15)");
-    cc_setonmouserepeat("addtooltip_dynamic($component3, $int4, clan_flag_selection:com37, enum(105, 115, enum_3722, $int4), 20, 350)");
-    cc_setonmouseleave("deltooltip(clan_flag_selection:com37)");
+    cc_setonmouserepeat("addtooltip_dynamic($component3, $int4, clan_flag_selection:com_37, enum(int, string, enum_3722, $int4), 20, 350)");
+    cc_setonmouseleave("deltooltip(clan_flag_selection:com_37)");
     $int4 = calc($int4 + 1);
-    if (calc($int4 % $int12) = false) {
+    if (calc($int4 % $int12) = 0) {
         $int5 = calc($int5 + 1);
     }
 }

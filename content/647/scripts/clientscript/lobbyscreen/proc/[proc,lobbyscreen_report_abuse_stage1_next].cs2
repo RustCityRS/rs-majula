@@ -1,9 +1,10 @@
+// 3183
 [proc,lobbyscreen_report_abuse_stage1_next]
-if (string_length(%varc_string_277) <= 0) {
+if (string_length(%varclient_1796) <= 0) {
     return;
 }
-%varc_string_279 = %varc_string_277;
+%varclient_1798 = %varclient_1796;
 ~ondialogabort_clever;
-if (string_length(%varc_string_279) > 0) {
-    ~clientscript_3190;
+if (string_length(%varclient_1798) > 0) {
+    ~script3190;
 }

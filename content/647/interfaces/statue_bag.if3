@@ -1,0 +1,171 @@
+// 1007:0
+[com_0]
+type=graphic
+x=17
+y=26
+width=480
+height=293
+layer=com_14
+graphic=tradebacking
+tiling=yes
+
+// 1007:1
+[com_1]
+type=graphic
+y=26
+width=28
+height=290
+layer=com_14
+graphic="v2_stone_borders,1"
+tiling=yes
+
+// 1007:2
+[com_2]
+type=graphic
+x=479
+y=26
+width=47
+height=285
+layer=com_14
+graphic="v2_stone_borders,3"
+tiling=yes
+
+// 1007:3
+[com_3]
+type=graphic
+x=15
+y=302
+width=462
+height=26
+layer=com_14
+graphic="v2_stone_borders,2"
+tiling=yes
+
+// 1007:4
+[com_4]
+type=graphic
+x=14
+y=10
+width=464
+height=34
+layer=com_14
+graphic="v2_stone_borders,0"
+tiling=yes
+
+// 1007:5
+[com_5]
+type=graphic
+x=467
+y=290
+width=32
+height=32
+layer=com_14
+graphic="v2_stone_borders,7"
+
+// 1007:6
+[com_6]
+type=graphic
+x=13
+y=290
+width=32
+height=32
+layer=com_14
+graphic="v2_stone_borders,6"
+
+// 1007:7
+[com_7]
+type=graphic
+x=13
+y=23
+width=32
+height=32
+layer=com_14
+graphic="v2_stone_borders,4"
+
+// 1007:8
+[com_8]
+type=graphic
+x=467
+y=23
+width=32
+height=32
+layer=com_14
+graphic="v2_stone_borders,5"
+
+// 1007:9
+[com_9]
+type=graphic
+x=16
+y=38
+width=478
+height=35
+layer=com_14
+graphic="v2_stone_borders,8"
+tiling=yes
+
+// 1007:10
+[com_10]
+type=graphic
+x=13
+y=40
+width=32
+height=32
+layer=com_14
+graphic="v2_stone_borders,9"
+tiling=yes
+
+// 1007:11
+[com_11]
+type=graphic
+x=467
+y=40
+width=32
+height=32
+layer=com_14
+graphic="v2_stone_borders,10"
+tiling=yes
+
+// 1007:12
+[com_12]
+type=graphic
+x=471
+y=32
+width=16
+height=16
+layer=com_14
+graphic="v2_stone_close_button,0"
+transmitop=1
+op1=Close
+onmouseover=graphic_swapper(event_com, "v2_stone_close_button,1")
+onmouseleave=graphic_swapper(event_com, "v2_stone_close_button,0")
+onop=closebutton_click
+
+// 1007:13
+[com_13]
+type=text
+x=25
+y=22
+width=467
+height=38
+layer=com_14
+textfont=b12_full
+text=Statue Collection Bag
+textalignh=centre
+textalignv=centre
+colour=0xff9900
+
+// 1007:14
+[com_14]
+type=layer
+width=512
+height=334
+
+// 1007:15
+[com_15]
+type=layer
+x=34
+y=72
+width=441
+height=229
+onload=statue_bag_init(event_com)
+onvarctransmit=statue_bag_init(event_com){varclient_1352}

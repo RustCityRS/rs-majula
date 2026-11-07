@@ -1,6 +1,7 @@
+// 307
 [proc,worldmap_vartransmit_effects]
-if (%varbit_6176 = true) {
-    worldmap_setflag_5231(950, 1);
+if (%varplayerbit_6176 = 1) {
+    worldmap_disableelementcategory(category_950, true);
 } else {
-    worldmap_setflag_5231(950, 0);
+    worldmap_disableelementcategory(category_950, false);
 }

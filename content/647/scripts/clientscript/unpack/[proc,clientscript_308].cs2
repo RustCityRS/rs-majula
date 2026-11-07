@@ -1,4 +1,0 @@
-[proc,clientscript_308](component $component)
-if_setonkey("worldmap_onkey(^event_key, ^event_keychar, $component, -1)", $component);
-if_settext("Search the map by typing here.", $component);
-if_settextalign(^settextalign_left, ^settextalign_centre, 0, $component);

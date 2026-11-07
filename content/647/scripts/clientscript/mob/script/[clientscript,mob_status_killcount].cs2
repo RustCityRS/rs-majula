@@ -1,2 +1,3 @@
-[clientscript,mob_status_killcount](component $component)
-if_settext(tostring(%varbit_6382), $component);
+// 2608
+[clientscript,mob_status_killcount](component $component0)
+if_settext(tostring(%varplayerbit_6382), $component0);

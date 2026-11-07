@@ -1,0 +1,308 @@
+// 74:0
+[com_0]
+type=text
+x=-1
+width=14
+height=30
+widthmode=minus
+xmode=abs_centre
+layer=com_8
+textfont=p12_full
+text=Scentless potion
+textalignh=centre
+textshadow=yes
+colour=0x872300
+
+// 74:1
+[com_1]
+type=graphic
+x=-1
+y=1
+width=36
+height=32
+xmode=abs_centre
+ymode=abs_bottom
+layer=com_8
+outline=1
+graphicshadow=1
+colour=0x000000
+transmitop=1,2,3,4,10
+opbase=<col=ff9040>Scentless potion
+op1=Store-1
+op2=Store-5
+op3=Store-All
+op4=Store-X
+op10=Examine
+onload=script2968(event_com, scentless_potion__3, ecosystem_potion_storage_side:com_0)
+onmouseover=script2959(event_com)
+oninvtransmit=script2968(event_com, scentless_potion__3, ecosystem_potion_storage_side:com_0){inv}
+
+// 74:2
+[com_2]
+type=text
+x=1
+y=6
+width=24
+height=20
+widthmode=minus
+xmode=abs_centre
+layer=com_7
+textfont=p12_full
+text=Guthix's gift
+textalignh=centre
+textshadow=yes
+colour=0x872300
+
+// 74:3
+[com_3]
+type=graphic
+x=5
+y=1
+width=36
+height=32
+xmode=abs_centre
+ymode=abs_bottom
+layer=com_7
+outline=1
+graphicshadow=1
+colour=0x000000
+transmitop=1,2,3,4,10
+opbase=<col=ff9040>Guthix's gift
+op1=Store-1
+op2=Store-5
+op3=Store-All
+op4=Store-X
+op10=Examine
+onload=script2968(event_com, guthix_s_gift__3, ecosystem_potion_storage_side:com_2)
+onmouseover=script2959(event_com)
+oninvtransmit=script2968(event_com, guthix_s_gift__3, ecosystem_potion_storage_side:com_2){inv}
+
+// 74:4
+[com_4]
+type=text
+y=2
+width=12
+height=27
+widthmode=minus
+xmode=abs_centre
+layer=com_6
+textfont=p12_full
+text=Juju farming potion
+textalignh=centre
+textshadow=yes
+colour=0x872300
+
+// 74:5
+[com_5]
+type=graphic
+x=3
+y=2
+width=36
+height=32
+xmode=abs_centre
+ymode=abs_bottom
+layer=com_6
+outline=1
+graphicshadow=1
+colour=0x000000
+transmitop=1,2,3,4,10
+opbase=<col=ff9040>Juju farming potion
+op1=Store-1
+op2=Store-5
+op3=Store-All
+op4=Store-X
+op10=Examine
+onload=script2968(event_com, juju_farming_potion__3, ecosystem_potion_storage_side:com_4)
+onmouseover=script2959(event_com)
+oninvtransmit=script2968(event_com, juju_farming_potion__3, ecosystem_potion_storage_side:com_4){inv}
+
+// 74:6
+[com_6]
+type=layer
+x=2
+y=12
+width=2
+height=62
+widthmode=minus
+xmode=abs_centre
+layer=com_13
+
+// 74:7
+[com_7]
+type=layer
+x=1
+y=104
+width=7
+height=61
+widthmode=minus
+xmode=abs_centre
+layer=com_13
+
+// 74:8
+[com_8]
+type=layer
+x=2
+y=194
+width=3
+height=60
+widthmode=minus
+xmode=abs_centre
+layer=com_13
+
+// 74:9
+[com_9]
+type=layer
+width=8199
+widthmode=proportion
+heightmode=minus
+ymode=abs_centre
+
+// 74:10
+[com_10]
+type=layer
+y=12
+width=2
+height=60
+widthmode=minus
+xmode=abs_centre
+layer=com_9
+
+// 74:11
+[com_11]
+type=text
+y=1
+width=4
+height=29
+widthmode=minus
+xmode=abs_centre
+layer=com_10
+textfont=p12_full
+text=Juju hunter potion
+textalignh=centre
+textshadow=yes
+colour=0x872300
+
+// 74:12
+[com_12]
+type=graphic
+width=36
+height=32
+xmode=abs_centre
+ymode=abs_bottom
+layer=com_10
+outline=1
+graphicshadow=1
+colour=0x000000
+transmitop=1,2,3,4,10
+opbase=<col=ff9040>Juju hunter potion
+op1=Store-1
+op2=Store-5
+op3=Store-All
+op4=Store-X
+op10=Examine
+onload=script2968(event_com, juju_hunter_potion__3, ecosystem_potion_storage_side:com_11)
+onmouseover=script2959(event_com)
+oninvtransmit=script2968(event_com, juju_hunter_potion__3, ecosystem_potion_storage_side:com_11){inv}
+
+// 74:13
+[com_13]
+type=layer
+width=8199
+widthmode=proportion
+heightmode=minus
+xmode=abs_right
+ymode=abs_centre
+
+// 74:14
+[com_14]
+type=layer
+x=-1
+y=104
+height=60
+widthmode=minus
+xmode=abs_centre
+layer=com_9
+
+// 74:15
+[com_15]
+type=text
+y=1
+width=5
+height=29
+widthmode=minus
+xmode=abs_centre
+layer=com_14
+textfont=p12_full
+text=Saradomin's blessing
+textalignh=centre
+textshadow=yes
+colour=0x872300
+
+// 74:16
+[com_16]
+type=graphic
+width=36
+height=32
+xmode=abs_centre
+ymode=abs_bottom
+layer=com_14
+outline=1
+graphicshadow=1
+colour=0x000000
+transmitop=1,2,3,4,10
+opbase=<col=ff9040>Saradomin's blessing
+op1=Store-1
+op2=Store-5
+op3=Store-All
+op4=Store-X
+op10=Examine
+onload=script2968(event_com, saradomin_s_blessing__3, ecosystem_potion_storage_side:com_15)
+onmouseover=script2959(event_com)
+oninvtransmit=script2968(event_com, saradomin_s_blessing__3, ecosystem_potion_storage_side:com_15){inv}
+
+// 74:17
+[com_17]
+type=layer
+y=194
+width=3
+height=59
+widthmode=minus
+xmode=abs_centre
+layer=com_9
+
+// 74:18
+[com_18]
+type=text
+y=1
+width=19
+height=28
+widthmode=minus
+xmode=abs_centre
+layer=com_17
+textfont=p12_full
+text=Zamorak's favour
+textalignh=centre
+textshadow=yes
+colour=0x872300
+
+// 74:19
+[com_19]
+type=graphic
+width=36
+height=32
+xmode=abs_centre
+ymode=abs_bottom
+layer=com_17
+outline=1
+graphicshadow=1
+colour=0x000000
+transmitop=1,2,3,4,10
+opbase=<col=ff9040>Zamorak's favour
+op1=Store-1
+op2=Store-5
+op3=Store-All
+op4=Store-X
+op10=Examine
+onload=script2968(event_com, zamorak_s_favour__3, ecosystem_potion_storage_side:com_18)
+onmouseover=script2959(event_com)
+oninvtransmit=script2968(event_com, zamorak_s_favour__3, ecosystem_potion_storage_side:com_18){inv}

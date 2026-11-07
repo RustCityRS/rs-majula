@@ -1,4 +1,5 @@
-[proc,ame_costumes_createrow](int $int0, component $component1, string $string)
+// 2122
+[proc,ame_costumes_createrow](string $string0, int $int0, component $component1)
 def_int $int2 = calc($int0 / 10 * 64);
 cc_create($component1, ^iftype_text, calc($int0 - 1));
 cc_setsize(calc(if_getwidth($component1) - 10), 17, ^setsize_abs, ^setsize_abs);
@@ -6,7 +7,7 @@ cc_setposition(5, calc($int2 + 2), ^setpos_abs_left, ^setpos_abs_top);
 cc_settextfont(p12_full);
 cc_settextalign(^settextalign_left, ^settextalign_top, 0);
 cc_setcolour(0xff981f);
-cc_settext($string);
+cc_settext($string0);
 def_int $int3 = 0;
 while ($int3 < 7) {
     ~ame_costumes_createicon(calc($int0 + $int3), $int3, $component1, $int2);
@@ -19,17 +20,17 @@ cc_settextfont(p12_full);
 cc_settextalign(^settextalign_centre, ^settextalign_centre, 0);
 cc_setcolour(0xff981f);
 switch_int ($int0) {
-    case 1:
-        cc_settext("Points:<br><tostring(%varbit_5903)>");
-    case 11:
-        cc_settext("Points:<br><tostring(%varbit_5904)>");
-    case 21:
-        cc_settext("Points:<br><tostring(%varbit_5905)>");
-    case 31:
-        cc_settext("Points:<br><tostring(%varbit_5906)>");
-    case 41:
-        cc_settext("Points:<br><tostring(%varbit_5907)>");
-    case default:
+    case 1 :
+        cc_settext("Points:<br><tostring(%varplayerbit_5903)>");
+    case 11 :
+        cc_settext("Points:<br><tostring(%varplayerbit_5904)>");
+    case 21 :
+        cc_settext("Points:<br><tostring(%varplayerbit_5905)>");
+    case 31 :
+        cc_settext("Points:<br><tostring(%varplayerbit_5906)>");
+    case 41 :
+        cc_settext("Points:<br><tostring(%varplayerbit_5907)>");
+    case default :
         cc_settext("");
 }
 if (calc($int0 + 10) < 43) {

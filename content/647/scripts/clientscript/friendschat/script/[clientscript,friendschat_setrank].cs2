@@ -1,9 +1,10 @@
+// 197
 [clientscript,friendschat_setrank](int $int0, int $int1)
 def_int $int2 = calc($int1 - 1);
 def_string $string0 = "";
 def_string $string1 = "";
 $string0, $string1 = friend_getname($int0);
 friend_setrank($string0, $int2);
-if (cc_find(friendschatsetup:com13, calc($int0 * 2 + 1)) = true) {
-    cc_settext(~clientscript_196($int2));
+if (cc_find(friendschatsetup:com_13, calc($int0 * 2 + 1)) = true) {
+    cc_settext(~script196($int2));
 }

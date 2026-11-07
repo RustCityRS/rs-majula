@@ -1,0 +1,91 @@
+// 25
+[proc,script25]
+def_int $int0 = 0;
+def_int $int1 = 0;
+if ($int0 ! 0) {
+    if (testbit($int0, 0) = ^true) {
+        $int1 = setbit($int1, 0);
+    }
+    if (testbit($int0, 1) = ^true) {
+        $int1 = setbit($int1, 1);
+    }
+    if (testbit($int0, 2) = ^true) {
+        $int1 = setbit($int1, 2);
+    }
+    if (testbit($int0, 3) = ^true) {
+        $int1 = setbit($int1, 3);
+    }
+    %varclient_996 = $int1;
+    $int1 = 0;
+    if (testbit($int0, 4) = ^true) {
+        $int1 = setbit($int1, 0);
+    }
+    if (testbit($int0, 5) = ^true) {
+        $int1 = setbit($int1, 1);
+    }
+    if (testbit($int0, 6) = ^true) {
+        $int1 = setbit($int1, 2);
+    }
+    if (testbit($int0, 7) = ^true) {
+        $int1 = setbit($int1, 3);
+    }
+    %varclient_997 = $int1;
+    $int1 = 0;
+    if (testbit($int0, 14) = ^true) {
+        $int1 = setbit($int1, 0);
+    }
+    if (testbit($int0, 15) = ^true) {
+        $int1 = setbit($int1, 1);
+    }
+    if (testbit($int0, 16) = ^true) {
+        $int1 = setbit($int1, 2);
+    }
+    if (testbit($int0, 17) = ^true) {
+        $int1 = setbit($int1, 3);
+    }
+    if (testbit($int0, 18) = ^true) {
+        $int1 = setbit($int1, 4);
+    }
+    if (testbit($int0, 19) = ^true) {
+        $int1 = setbit($int1, 5);
+    }
+    if (testbit($int0, 20) = ^true) {
+        $int1 = setbit($int1, 6);
+    }
+    if (testbit($int0, 21) = ^true) {
+        $int1 = setbit($int1, 7);
+    }
+    if (testbit($int0, 22) = ^true) {
+        $int1 = setbit($int1, 8);
+    }
+    %varclient_998 = $int1;
+    $int1 = 0;
+    if (testbit($int0, 23) = ^true) {
+        $int1 = setbit($int1, 0);
+    }
+    if (testbit($int0, 24) = ^true) {
+        $int1 = setbit($int1, 1);
+    }
+    if (testbit($int0, 25) = ^true) {
+        $int1 = setbit($int1, 2);
+    }
+    if (testbit($int0, 26) = ^true) {
+        $int1 = setbit($int1, 3);
+    }
+    if (testbit($int0, 27) = ^true) {
+        $int1 = setbit($int1, 4);
+    }
+    if (testbit($int0, 28) = ^true) {
+        $int1 = setbit($int1, 5);
+    }
+    if (testbit($int0, 29) = ^true) {
+        $int1 = setbit($int1, 6);
+    }
+    if (testbit($int0, 30) = ^true) {
+        $int1 = setbit($int1, 7);
+    }
+    if (testbit($int0, 31) = ^true) {
+        $int1 = setbit($int1, 8);
+    }
+    %varclient_999 = $int1;
+}

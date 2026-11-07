@@ -1,8 +1,0 @@
-[proc,clientscript_1611]()(int)
-def_int $int = 0;
-$int = calc(%varbit_4003 + %varbit_4007 + %varbit_4008 + %varbit_4009 + %varbit_4010 + %varbit_4011 + %varbit_4013 + %varbit_4014 + %varbit_4015 + %varbit_4016 + %varbit_4017 + %varbit_4018 + %varbit_4019 + %varbit_4020 + %varbit_4021 + %varbit_4022 + %varbit_4023 + %varbit_4024 + %varbit_4025 + %varbit_4026);
-if (%varbit_4012 = 4) {
-    $int = calc($int + 1);
-}
-return($int);
-return(0);

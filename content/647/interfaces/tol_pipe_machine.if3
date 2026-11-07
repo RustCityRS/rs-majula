@@ -1,0 +1,677 @@
+// 511:0
+[com_0]
+type=rectangle
+width=512
+height=334
+layer=com_1
+colour=0x3b2a1a
+fill=yes
+trans=64
+
+// 511:1
+[com_1]
+type=layer
+width=512
+height=334
+xmode=abs_centre
+ymode=abs_centre
+layer=com_37
+
+// 511:2
+[com_2]
+type=model
+x=40
+y=-34
+width=306
+height=401
+layer=com_1
+model=model_22337
+modelorigin=-4,6
+modelzoom=1050
+
+// 511:3
+[com_3]
+type=layer
+x=66
+y=16
+width=256
+height=261
+layer=com_1
+
+// 511:4
+[com_4]
+type=model
+x=380
+y=147
+width=124
+height=175
+layer=com_1
+model=model_22544
+modelorigin=0,-1
+modelzoom=1050
+transmitop=1
+op1=Select
+opcursor0=cursor_46
+
+// 511:5
+[com_5]
+type=model
+x=356
+y=12
+width=49
+height=107
+layer=com_1
+model=model_22526
+modelorigin=-7,9
+modelzoom=1050
+transmitop=1
+op1=Select
+opcursor0=cursor_46
+
+// 511:6
+[com_6]
+type=model
+x=318
+y=231
+width=50
+height=93
+layer=com_1
+model=model_22546
+modelorigin=2,0
+modelzoom=1050
+transmitop=1
+op1=Select
+opcursor0=cursor_46
+
+// 511:7
+[com_7]
+type=model
+x=445
+y=60
+width=70
+height=70
+layer=com_1
+model=model_22554
+modelorigin=-2,-2
+modelzoom=1050
+transmitop=1
+op1=Select
+opcursor0=cursor_46
+
+// 511:8
+[com_8]
+type=model
+x=327
+y=169
+width=54
+height=59
+layer=com_1
+model=model_22530
+modelorigin=-1,3
+modelzoom=1042
+transmitop=1
+op1=Select
+opcursor0=cursor_46
+
+// 511:9
+[com_9]
+type=layer
+x=237
+y=280
+width=42
+height=45
+layer=com_1
+onmouseover=model_swapper(tol_pipe_machine:com_10, model_22348)
+onmouseleave=model_swapper(tol_pipe_machine:com_10, model_22346)
+
+// 511:10
+[com_10]
+type=model
+x=237
+y=278
+width=48
+height=48
+layer=com_1
+model=model_22346
+modelorigin=-4,-3
+modelangle=54,2002,0
+modelzoom=1256
+transmitop=1
+op1=Rotate
+
+// 511:11
+[com_11]
+type=layer
+x=237
+y=280
+width=42
+height=45
+layer=com_1
+hide=yes
+
+// 511:12
+[com_12]
+type=graphic
+x=467
+y=4
+width=26
+height=23
+layer=com_1
+graphic="close_buttons,6"
+colour=0x000000
+transmitop=1
+op1=Close
+onmouseover=graphic_swapper(event_com, "close_buttons,7")
+onmouseleave=graphic_swapper(event_com, "close_buttons,6")
+onop=closebutton_click
+
+// 511:13
+[com_13]
+type=rectangle
+x=10
+y=53
+width=32
+height=32
+layer=com_1
+colour=0xffff00
+trans=255
+
+// 511:14
+[com_14]
+type=rectangle
+x=8
+y=23
+width=32
+height=32
+layer=com_1
+colour=0xffff00
+trans=255
+
+// 511:15
+[com_15]
+type=layer
+x=101
+y=275
+width=56
+height=34
+layer=com_1
+onmouseover=model_swapper(tol_pipe_machine:com_29, model_22343)
+onmouseleave=model_swapper(tol_pipe_machine:com_29, model_22340)
+
+// 511:16
+[com_16]
+type=layer
+x=101
+y=275
+width=56
+height=33
+layer=com_1
+hide=yes
+
+// 511:17
+[com_17]
+type=layer
+x=103
+y=308
+width=56
+height=29
+layer=com_1
+onmouseover=model_swapper(tol_pipe_machine:com_31, model_22344)
+onmouseleave=model_swapper(tol_pipe_machine:com_31, model_22338)
+
+// 511:18
+[com_18]
+type=layer
+x=103
+y=308
+width=56
+height=30
+layer=com_1
+hide=yes
+
+// 511:19
+[com_19]
+type=layer
+x=167
+y=276
+width=30
+height=55
+layer=com_1
+onmouseover=model_swapper(tol_pipe_machine:com_33, model_22350)
+onmouseleave=model_swapper(tol_pipe_machine:com_33, model_22349)
+
+// 511:20
+[com_20]
+type=layer
+x=167
+y=275
+width=29
+height=56
+layer=com_1
+hide=yes
+
+// 511:21
+[com_21]
+type=layer
+x=199
+y=277
+width=29
+height=56
+layer=com_1
+onmouseover=model_swapper(tol_pipe_machine:com_35, model_22341)
+onmouseleave=model_swapper(tol_pipe_machine:com_35, model_22339)
+
+// 511:22
+[com_22]
+type=layer
+x=199
+y=277
+width=29
+height=56
+layer=com_1
+hide=yes
+
+// 511:23
+[com_23]
+type=model
+x=7
+y=7
+width=55
+height=43
+layer=com_3
+model=model_22351
+modelorigin=0,7
+modelzoom=1050
+
+// 511:24
+[com_24]
+type=model
+x=69
+y=7
+width=55
+height=43
+layer=com_3
+model=model_22352
+modelorigin=0,7
+modelzoom=1050
+
+// 511:25
+[com_25]
+type=model
+x=129
+y=7
+width=55
+height=43
+layer=com_3
+model=model_22351
+modelorigin=0,7
+modelzoom=1050
+
+// 511:26
+[com_26]
+type=model
+x=190
+y=7
+width=55
+height=43
+layer=com_3
+model=model_22352
+modelorigin=0,7
+modelzoom=1050
+
+// 511:27
+[com_27]
+type=model
+x=96
+y=213
+width=56
+height=46
+layer=com_3
+model=model_22353
+modelorigin=-3,-6
+modelzoom=1050
+
+// 511:28
+[com_28]
+type=model
+y=-2
+width=48
+height=48
+layer=com_11
+model=model_22348
+modelorigin=-4,-3
+modelangle=54,2002,0
+modelzoom=1256
+
+// 511:29
+[com_29]
+type=model
+x=1
+y=2
+width=53
+height=30
+layer=com_15
+model=model_22340
+modelorigin=4,0
+modelzoom=1000
+transmitop=1
+op1=Move left
+
+// 511:30
+[com_30]
+type=model
+x=1
+y=2
+width=53
+height=30
+layer=com_16
+model=model_22343
+modelorigin=4,0
+modelzoom=1000
+
+// 511:31
+[com_31]
+type=model
+x=5
+y=-4
+width=54
+height=30
+layer=com_17
+model=model_22338
+modelorigin=8,0
+modelzoom=1000
+transmitop=1
+op1=Move right
+
+// 511:32
+[com_32]
+type=model
+x=5
+y=-4
+width=54
+height=30
+layer=com_18
+model=model_22344
+modelorigin=8,0
+modelzoom=1000
+
+// 511:33
+[com_33]
+type=model
+x=2
+width=30
+height=53
+layer=com_19
+model=model_22349
+modelorigin=0,5
+modelzoom=1000
+transmitop=1
+op1=Move up
+
+// 511:34
+[com_34]
+type=model
+x=2
+y=1
+width=30
+height=53
+layer=com_20
+model=model_22350
+modelorigin=0,5
+modelzoom=1000
+
+// 511:35
+[com_35]
+type=model
+x=-2
+y=2
+width=30
+height=53
+layer=com_21
+model=model_22339
+modelorigin=-1,0
+modelzoom=1000
+transmitop=1
+op1=Move down
+
+// 511:36
+[com_36]
+type=model
+x=-2
+y=2
+width=30
+height=53
+layer=com_22
+model=model_22341
+modelorigin=-1,0
+modelzoom=1000
+
+// 511:37
+[com_37]
+type=layer
+width=16391
+height=16391
+widthmode=proportion
+heightmode=proportion
+xmode=abs_centre
+ymode=abs_centre
+
+// 511:38
+[com_38]
+type=layer
+width=16391
+height=16391
+widthmode=proportion
+heightmode=proportion
+xmode=abs_centre
+ymode=abs_centre
+layer=com_37
+
+// 511:39
+[com_39]
+type=graphic
+x=-260
+width=32
+height=334
+xmode=abs_centre
+ymode=abs_centre
+graphic="v2_stone_borders,1"
+tiling=yes
+colour=0x000000
+
+// 511:40
+[com_40]
+type=graphic
+y=-171
+width=462
+height=32
+xmode=abs_centre
+ymode=abs_centre
+graphic="v2_stone_borders,0"
+tiling=yes
+colour=0x000000
+
+// 511:41
+[com_41]
+type=graphic
+y=170
+width=512
+height=32
+xmode=abs_centre
+ymode=abs_centre
+graphic="v2_stone_borders,2"
+tiling=yes
+colour=0x000000
+
+// 511:42
+[com_42]
+type=graphic
+x=259
+width=32
+height=334
+xmode=abs_centre
+ymode=abs_centre
+graphic="v2_stone_borders,3"
+tiling=yes
+colour=0x000000
+
+// 511:43
+[com_43]
+type=graphic
+x=-247
+y=-158
+width=32
+height=32
+xmode=abs_centre
+ymode=abs_centre
+graphic="v2_stone_borders,4"
+tiling=yes
+colour=0x000000
+
+// 511:44
+[com_44]
+type=graphic
+x=247
+y=-158
+width=32
+height=32
+xmode=abs_centre
+ymode=abs_centre
+graphic="v2_stone_borders,5"
+tiling=yes
+colour=0x000000
+
+// 511:45
+[com_45]
+type=graphic
+x=247
+y=158
+width=32
+height=32
+xmode=abs_centre
+ymode=abs_centre
+graphic="v2_stone_borders,7"
+tiling=yes
+colour=0x000000
+
+// 511:46
+[com_46]
+type=graphic
+x=-247
+y=158
+width=32
+height=32
+xmode=abs_centre
+ymode=abs_centre
+graphic="v2_stone_borders,6"
+tiling=yes
+colour=0x000000
+
+// 511:47
+[com_47]
+type=layer
+width=8192
+height=16391
+widthmode=proportion
+heightmode=proportion
+xmode=abs_right
+ymode=abs_centre
+layer=com_38
+
+// 511:48
+[com_48]
+type=layer
+width=8188
+height=16391
+widthmode=proportion
+heightmode=proportion
+ymode=abs_centre
+layer=com_38
+
+// 511:49
+[com_49]
+type=layer
+width=16391
+height=8192
+widthmode=proportion
+heightmode=proportion
+xmode=abs_centre
+layer=com_38
+
+// 511:50
+[com_50]
+type=layer
+width=16391
+height=8182
+widthmode=proportion
+heightmode=proportion
+xmode=abs_centre
+ymode=abs_bottom
+layer=com_38
+
+// 511:51
+[com_51]
+type=layer
+width=512
+height=334
+xmode=abs_centre
+ymode=abs_centre
+layer=com_38
+
+// 511:52
+[com_52]
+type=graphic
+width=256
+height=16384
+widthmode=minus
+heightmode=proportion
+ymode=abs_centre
+layer=com_48
+graphic=tradebacking
+tiling=yes
+outline=2
+colour=0x000000
+
+// 511:53
+[com_53]
+type=graphic
+width=256
+height=16391
+widthmode=minus
+heightmode=proportion
+xmode=abs_right
+ymode=abs_centre
+layer=com_47
+graphic=tradebacking
+tiling=yes
+outline=2
+colour=0x000000
+
+// 511:54
+[com_54]
+type=graphic
+width=16391
+height=167
+widthmode=proportion
+heightmode=minus
+xmode=abs_centre
+layer=com_49
+graphic=tradebacking
+tiling=yes
+outline=2
+colour=0x000000
+
+// 511:55
+[com_55]
+type=graphic
+width=16391
+height=166
+widthmode=proportion
+heightmode=minus
+xmode=abs_centre
+ymode=abs_bottom
+layer=com_50
+graphic=tradebacking
+tiling=yes
+outline=2
+colour=0x000000

@@ -1,0 +1,753 @@
+// 437:0
+[com_0]
+type=layer
+x=-1
+y=-2
+width=512
+height=334
+transmitop=10
+op10=    
+
+// 437:1
+[com_1]
+type=rectangle
+x=104
+y=231
+width=315
+height=82
+colour=0x000000
+fill=yes
+
+// 437:2
+[com_2]
+type=rectangle
+x=103
+y=230
+width=317
+height=83
+colour=0x726451
+
+// 437:3
+[com_3]
+type=model
+x=171
+y=78
+width=46
+height=31
+model=model_2352
+modelorigin=0,5
+modelangle=165,1894,0
+modelzoom=400
+transmitop=1
+op1=Make
+onmouseover=script1955(interface_437:com_9)
+onmouseleave=batta_hide_layer(interface_437:com_9)
+
+// 437:4
+[com_4]
+type=model
+x=126
+y=25
+width=32
+height=32
+layer=com_9
+model=null
+modelorigin=-14,-1
+modelangle=321,1846,0
+modelzoom=400
+
+// 437:5
+[com_5]
+type=model
+x=178
+y=21
+width=32
+height=32
+layer=com_9
+model=null
+modelorigin=0,6
+modelangle=336,1891,0
+modelzoom=784
+
+// 437:6
+[com_6]
+type=text
+x=117
+y=60
+width=31
+height=14
+layer=com_9
+textfont=p12_full
+text=%1/2
+textshadow=yes
+colour=0xff0000
+onload=batta_set_text(event_com, toad_s_legs, 2)
+oninvtransmit=batta_set_text(event_com, toad_s_legs, 2){inv}
+
+// 437:7
+[com_7]
+type=text
+x=184
+y=60
+width=29
+height=14
+layer=com_9
+textfont=p12_full
+text=%1/1
+textshadow=yes
+colour=0xff0000
+onload=batta_set_text(event_com, gnome_spice, 1)
+oninvtransmit=batta_set_text(event_com, gnome_spice, 1){inv}
+
+// 437:8
+[com_8]
+type=text
+x=5
+y=4
+width=311
+height=15
+layer=com_9
+textfont=p12_full
+text=Toad Crunchies
+textalignh=centre
+textshadow=yes
+colour=0xd6a046
+
+// 437:9
+[com_9]
+type=layer
+x=100
+y=230
+width=318
+height=82
+hide=yes
+
+// 437:10
+[com_10]
+type=model
+x=292
+y=78
+width=46
+height=31
+model=model_2352
+modelorigin=0,5
+modelangle=165,1894,0
+modelzoom=400
+transmitop=1
+op1=Make
+onmouseover=script1955(interface_437:com_16)
+onmouseleave=batta_hide_layer(interface_437:com_16)
+
+// 437:11
+[com_11]
+type=model
+x=112
+y=21
+width=32
+height=32
+layer=com_16
+model=null
+modelorigin=0,6
+modelangle=340,1957,0
+modelzoom=722
+
+// 437:12
+[com_12]
+type=model
+x=184
+y=24
+width=32
+height=32
+layer=com_16
+model=null
+modelangle=321,1885,0
+modelzoom=656
+
+// 437:13
+[com_13]
+type=text
+x=118
+y=60
+width=29
+height=14
+layer=com_16
+textfont=p12_full
+text=%1/1
+textshadow=yes
+colour=0xff0000
+onload=batta_set_text(event_com, gnome_spice, 1)
+oninvtransmit=batta_set_text(event_com, gnome_spice, 1){inv}
+
+// 437:14
+[com_14]
+type=text
+x=194
+y=60
+width=31
+height=14
+layer=com_16
+textfont=p12_full
+text=%1/2
+textshadow=yes
+colour=0xff0000
+onload=batta_set_text(event_com, equa_leaves, 2)
+oninvtransmit=batta_set_text(event_com, equa_leaves, 2){inv}
+
+// 437:15
+[com_15]
+type=text
+x=5
+y=4
+width=310
+height=15
+layer=com_16
+textfont=p12_full
+text=Spicy Crunchies
+textalignh=centre
+textshadow=yes
+colour=0xd6a046
+
+// 437:16
+[com_16]
+type=layer
+x=100
+y=230
+width=322
+height=82
+hide=yes
+
+// 437:17
+[com_17]
+type=model
+x=172
+y=153
+width=46
+height=31
+model=model_2352
+modelorigin=0,5
+modelangle=165,1894,0
+modelzoom=400
+transmitop=1
+op1=Make
+onmouseover=script1955(interface_437:com_25)
+onmouseleave=batta_hide_layer(interface_437:com_25)
+
+// 437:18
+[com_18]
+type=model
+x=75
+y=21
+width=32
+height=32
+layer=com_25
+model=null
+modelorigin=0,7
+modelangle=321,1885,0
+modelzoom=656
+
+// 437:19
+[com_19]
+type=model
+x=141
+y=30
+width=32
+height=32
+layer=com_25
+model=null
+modelorigin=0,-4
+modelangle=321,1885,0
+modelzoom=1040
+
+// 437:20
+[com_20]
+type=model
+x=212
+y=24
+width=32
+height=32
+layer=com_25
+model=null
+modelangle=228,1885,0
+modelzoom=656
+
+// 437:21
+[com_21]
+type=text
+x=81
+y=60
+width=29
+height=14
+layer=com_25
+textfont=p12_full
+text=%1/1
+textshadow=yes
+colour=0xff0000
+onload=batta_set_text(event_com, gnome_spice, 1)
+oninvtransmit=batta_set_text(event_com, gnome_spice, 1){inv}
+
+// 437:22
+[com_22]
+type=text
+x=147
+y=60
+width=31
+height=14
+layer=com_25
+textfont=p12_full
+text=%1/2
+textshadow=yes
+colour=0xff0000
+onload=batta_set_text(event_com, king_worm, 2)
+oninvtransmit=batta_set_text(event_com, king_worm, 2){inv}
+
+// 437:23
+[com_23]
+type=text
+x=213
+y=60
+width=29
+height=14
+layer=com_25
+textfont=p12_full
+text=%1/1
+textshadow=yes
+colour=0xff0000
+onload=batta_set_text(event_com, equa_leaves, 1)
+oninvtransmit=batta_set_text(event_com, equa_leaves, 1){inv}
+
+// 437:24
+[com_24]
+type=text
+x=5
+y=4
+width=310
+height=15
+layer=com_25
+textfont=p12_full
+text=Worm Crunchies
+textalignh=centre
+textshadow=yes
+colour=0xd6a046
+
+// 437:25
+[com_25]
+type=layer
+x=100
+y=230
+width=323
+height=83
+hide=yes
+
+// 437:26
+[com_26]
+type=model
+x=291
+y=153
+width=46
+height=31
+model=model_2352
+modelorigin=0,5
+modelangle=165,1894,0
+modelzoom=400
+transmitop=1
+op1=Make
+onmouseover=script1955(interface_437:com_32)
+onmouseleave=batta_hide_layer(interface_437:com_32)
+
+// 437:27
+[com_27]
+type=model
+x=110
+y=25
+width=32
+height=32
+layer=com_32
+model=null
+modelangle=273,1672,0
+modelzoom=784
+
+// 437:28
+[com_28]
+type=model
+x=172
+y=20
+width=32
+height=32
+layer=com_32
+model=null
+modelorigin=0,8
+modelangle=210,1852,0
+modelzoom=912
+
+// 437:29
+[com_29]
+type=text
+x=115
+y=60
+width=31
+height=14
+layer=com_32
+textfont=p12_full
+text=%1/2
+textshadow=yes
+colour=0xff0000
+onload=batta_set_text(event_com, chocolate_bar, 2)
+oninvtransmit=batta_set_text(event_com, chocolate_bar, 2){inv}
+
+// 437:30
+[com_30]
+type=text
+x=177
+y=60
+width=29
+height=14
+layer=com_32
+textfont=p12_full
+text=%1/1
+textshadow=yes
+colour=0xff0000
+onload=batta_set_text(event_com, gnome_spice, 1)
+oninvtransmit=batta_set_text(event_com, gnome_spice, 1){inv}
+
+// 437:31
+[com_31]
+type=text
+x=5
+y=4
+width=310
+height=15
+layer=com_32
+textfont=p12_full
+text=Chocolate Chip Crunchies
+textalignh=centre
+textshadow=yes
+colour=0xd6a046
+
+// 437:32
+[com_32]
+type=layer
+x=100
+y=230
+width=318
+height=83
+hide=yes
+
+// 437:33
+[com_33]
+type=text
+x=250
+y=5
+width=65
+height=15
+layer=com_9
+textfont=p12_full
+text=level 10
+textalignh=right
+textshadow=yes
+colour=0xff0000
+onload=batta_set_level(event_com, 10)
+
+// 437:34
+[com_34]
+type=text
+x=250
+y=5
+width=65
+height=15
+layer=com_16
+textfont=p12_full
+text=level 12
+textalignh=right
+textshadow=yes
+colour=0xff0000
+onload=batta_set_level(event_com, 12)
+
+// 437:35
+[com_35]
+type=text
+x=250
+y=5
+width=65
+height=15
+layer=com_25
+textfont=p12_full
+text=level 14
+textalignh=right
+textshadow=yes
+colour=0xff0000
+onload=batta_set_level(event_com, 14)
+
+// 437:36
+[com_36]
+type=text
+x=250
+y=5
+width=65
+height=15
+layer=com_32
+textfont=p12_full
+text=level 16
+textalignh=right
+textshadow=yes
+colour=0xff0000
+onload=batta_set_level(event_com, 16)
+
+// 437:37
+[com_37]
+type=text
+x=149
+y=118
+width=90
+height=25
+textfont=p12_full
+text=Toad crunchies
+textalignh=centre
+textshadow=yes
+colour=0xff0000
+
+// 437:38
+[com_38]
+type=text
+x=271
+y=118
+width=90
+height=25
+textfont=p12_full
+text=Spicy crunchies
+textalignh=centre
+textshadow=yes
+colour=0xff0000
+
+// 437:39
+[com_39]
+type=text
+x=149
+y=193
+width=90
+height=25
+textfont=p12_full
+text=Worm crunchies
+textalignh=centre
+textshadow=yes
+colour=0xff0000
+
+// 437:40
+[com_40]
+type=text
+x=268
+y=193
+width=90
+height=25
+textfont=p12_full
+text=Choc chip crunchies
+textalignh=centre
+textshadow=yes
+colour=0xff0000
+
+// 437:41
+[com_41]
+type=rectangle
+x=17
+y=25
+width=488
+height=305
+layer=com_0
+colour=0x000000
+fill=yes
+trans=200
+transmitop=10
+opbase=  
+op10=     
+
+// 437:42
+[com_42]
+type=graphic
+x=14
+y=25
+width=485
+height=300
+layer=com_0
+graphic=tradebacking
+tiling=yes
+colour=0xffffffff
+transmitop=10
+op10=     
+
+// 437:43
+[com_43]
+type=graphic
+y=53
+width=32
+height=241
+layer=com_0
+graphic="v2_stone_borders,1"
+tiling=yes
+colour=0xffffffff
+transmitop=10
+op10=     
+
+// 437:44
+[com_44]
+type=graphic
+x=13
+y=20
+width=32
+height=32
+layer=com_0
+graphic="v2_stone_borders,4"
+colour=0xffffffff
+transmitop=10
+op10=     
+
+// 437:45
+[com_45]
+type=graphic
+x=480
+y=51
+width=32
+height=243
+layer=com_0
+graphic="v2_stone_borders,3"
+tiling=yes
+colour=0xffffffff
+transmitop=10
+op10=     
+
+// 437:46
+[com_46]
+type=graphic
+x=44
+y=7
+width=424
+height=34
+layer=com_0
+graphic="v2_stone_borders,0"
+tiling=yes
+colour=0xffffffff
+transmitop=10
+op10=     
+
+// 437:47
+[com_47]
+type=graphic
+x=45
+y=306
+width=423
+height=32
+layer=com_0
+graphic="v2_stone_borders,2"
+tiling=yes
+colour=0xffffffff
+transmitop=10
+op10=     
+
+// 437:48
+[com_48]
+type=graphic
+x=474
+y=30
+width=16
+height=16
+layer=com_0
+graphic="v2_stone_close_button,0"
+colour=0xffffffff
+transmitop=1,10
+op1=Close
+op10=     
+onmouseover=graphic_swapper(event_com, "v2_stone_close_button,1")
+onmouseleave=graphic_swapper(event_com, "v2_stone_close_button,0")
+onop=closebutton_click
+
+// 437:49
+[com_49]
+type=graphic
+x=13
+y=294
+width=32
+height=32
+layer=com_0
+graphic="v2_stone_borders,6"
+colour=0xffffffff
+transmitop=10
+op10=     
+
+// 437:50
+[com_50]
+type=graphic
+x=468
+y=20
+width=32
+height=32
+layer=com_0
+graphic="v2_stone_borders,5"
+colour=0xffffffff
+transmitop=10
+op10=     
+
+// 437:51
+[com_51]
+type=graphic
+x=468
+y=294
+width=32
+height=32
+layer=com_0
+graphic="v2_stone_borders,7"
+colour=0xffffffff
+transmitop=10
+op10=     
+
+// 437:52
+[com_52]
+type=graphic
+x=24
+y=35
+width=465
+height=32
+layer=com_0
+graphic="v2_stone_borders,8"
+tiling=yes
+colour=0xffffffff
+transmitop=10
+op10=     
+
+// 437:53
+[com_53]
+type=graphic
+x=13
+y=37
+width=32
+height=32
+layer=com_0
+graphic="v2_stone_borders,9"
+colour=0xffffffff
+transmitop=10
+op10=     
+
+// 437:54
+[com_54]
+type=graphic
+x=468
+y=37
+width=32
+height=32
+layer=com_0
+graphic="v2_stone_borders,10"
+colour=0xffffffff
+transmitop=10
+op10=     
+
+// 437:55
+[com_55]
+type=text
+x=24
+y=31
+width=467
+height=17
+layer=com_0
+textfont=b12_full
+text=Gnome Crunchies
+textalignh=centre
+textshadow=yes
+colour=0xff9900
+onload=crunchies_main_text

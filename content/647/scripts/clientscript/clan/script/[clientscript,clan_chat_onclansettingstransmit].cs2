@@ -1,6 +1,7 @@
+// 4433
 [clientscript,clan_chat_onclansettingstransmit]
-if (clanchannel2_find_affined = true) {
+if (activeclanchannel_find_affined = true) {
     ~clan_chat_onclansettingstransmit;
 } else {
-    ~clientscript_4589;
+    ~script4589;
 }

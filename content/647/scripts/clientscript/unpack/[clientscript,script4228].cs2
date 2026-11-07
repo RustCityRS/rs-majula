@@ -1,0 +1,5 @@
+// 4228
+[clientscript,script4228](component $component0, int $int1, int $int2, string $string0)
+if (.cc_find($component0, $int1) = true) {
+    ~script4229($int2, $string0);
+}

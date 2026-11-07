@@ -1,4 +1,5 @@
-[proc,loginscreen_link](int $int, string $string0, string $string1)
+// 2932
+[proc,loginscreen_link](string $string0, string $string1, boolean $boolean0)
 if (compare($string0, "") ! 0 & compare($string1, "") ! 0) {
-    logout_url("loginapplet/loginapplet.ws?ssl=1&expired=0&mod=<$string0>&dest=<$string1>", $int);
+    openurl_nologin("loginapplet/loginapplet.ws?ssl=1&expired=0&mod=<$string0>&dest=<$string1>", $boolean0);
 }

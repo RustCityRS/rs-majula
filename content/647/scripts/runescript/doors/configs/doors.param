@@ -1,9 +1,11 @@
-// 289's doors.param. Its [next_loc_stage] is the cache's own param 1 at 647
-// (_unpack/all.param), so it is not declared again here.
+// 289's doors.param.
+
+[next_loc_stage]
+type=loc
 
 [game_message]
 type=string
-default=null
+default=
 
 [open_sound]
 type=synth

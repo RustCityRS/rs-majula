@@ -1,9 +1,10 @@
+// 3417
 [clientscript,pmsetup_updatesetting](int $int0, int $int1, component $component2, component $component3, component $component4, component $component5, component $component6, component $component7)
 if ($int0 ! 1) {
     return;
 }
 if (%option_pm = $int1) {
-    if ($int1 = false) {
+    if ($int1 = 0) {
         $int1 = 1;
     } else {
         return;

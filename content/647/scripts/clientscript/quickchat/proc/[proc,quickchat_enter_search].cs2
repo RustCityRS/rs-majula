@@ -1,6 +1,7 @@
+// 1900
 [proc,quickchat_enter_search](component $component0, component $component1, int $int2, int $int3)
-%varc_int_159 = 0;
-%varc_int_158 = 0;
+%varclient_159 = 0;
+%varclient_158 = 0;
 def_int $int4 = 0;
 while (cc_find($component0, $int4) = true) {
     if ($int4 = $int2) {
@@ -11,49 +12,49 @@ while (cc_find($component0, $int4) = true) {
             .cc_setcolour(0x969777);
         }
     } else {
-        cc_setonmouseover("clientscript_1082(calc($int3 - 1), $component1, $int4)");
-        cc_setonmouseleave("clientscript_1083(calc($int3 - 1), $component1, $int4)");
+        cc_setonmouseover("script1082(calc($int3 - 1), $component1, $int4)");
+        cc_setonmouseleave("script1083(calc($int3 - 1), $component1, $int4)");
         if (.cc_find($component1, $int4) = true) {
             .cc_sethide(true);
         }
     }
     $int4 = calc($int4 + 1);
 }
-%varc_int_128 = -1;
-%varc_int_129 = 0;
-%varc_string_30 = "";
-def_string $string = "Search phrases...";
-if (%varc_int_126 = true) {
-    $string = "To <%varc_string_27>: <col=800000><$string>";
-} else if (%varc_int_126 = 2) {
-    $string = "[<col=0000ff><clan_getchatowner><col=000000>]: <col=800000><$string>";
-} else if (%varc_int_126 = 8) {
-    if (clanchannel2_find_affined = true) {
-        $string = "[<col=0000ff><clanchannel2_getname><col=000000>]: <col=800000><$string>";
+%varclient_128 = -1;
+%varclient_129 = 0;
+%varclient_1549 = "";
+def_string $string0 = "Search phrases...";
+if (%varclient_126 = 1) {
+    $string0 = "To <%varclient_1546>: <col=800000><$string0>";
+} else if (%varclient_126 = 2) {
+    $string0 = "[<col=0000ff><clan_getchatdisplayname><col=000000>]: <col=800000><$string0>";
+} else if (%varclient_126 = 8) {
+    if (activeclanchannel_find_affined = true) {
+        $string0 = "[<col=0000ff><activeclanchannel_getclanname><col=000000>]: <col=800000><$string0>";
     }
-} else if (%varc_int_126 = 10) {
-    if (clanchannel2_find = true) {
-        $string = "[<col=0000ff><clanchannel2_getname><col=000000>]: <col=800000><$string>";
+} else if (%varclient_126 = 10) {
+    if (activeclanchannel_find_listened = true) {
+        $string0 = "[<col=0000ff><activeclanchannel_getclanname><col=000000>]: <col=800000><$string0>";
     }
 } else {
-    $string = "<col=0000ff><$string>";
+    $string0 = "<col=0000ff><$string0>";
 }
-if_sethide(true, chatbox_background:com50);
-if_setonkey(null, chatbox_background:com55);
-if_sethide(false, chatbox_background:com0);
-if_sethide(true, chatbox_background:com7);
-if_sethide(true, chatbox_background:com9);
-if_sethide(false, chatbox_background:com13);
-if_sethide(true, chatbox_background:com17);
-if_sethide(true, chatbox_background:com1);
-if_sethide(false, chatbox_background:com3);
-if_setcolour(^black, chatbox_background:com3);
-if_settextfont(p12_full, chatbox_background:com3);
-if_settextalign(^settextalign_left, ^settextalign_centre, 0, chatbox_background:com3);
-if_settext($string, chatbox_background:com3);
-if_settextshadow(false, chatbox_background:com3);
-cc_deleteall(chatbox_background:com16);
-if_settext("Search for: *", chatbox_background:com14);
-if_setonkey("quickchat_phrase_search_onkey(^event_key, ^event_keychar, chatbox_background:com1, chatbox_background:com14, chatbox_background:com16, chatbox_background:com15, 0)", chatbox_background:com13);
-if_setscrollsize(0, 0, chatbox_background:com16);
-~scrollbar_resize(chatbox_background:com15, chatbox_background:com16, 0);
+if_sethide(true, chatbox_background:com_50);
+if_setonkey(null, chatbox_background:com_55);
+if_sethide(false, chatbox_background:com_0);
+if_sethide(true, chatbox_background:com_7);
+if_sethide(true, chatbox_background:com_9);
+if_sethide(false, chatbox_background:com_13);
+if_sethide(true, chatbox_background:com_17);
+if_sethide(true, chatbox_background:com_1);
+if_sethide(false, chatbox_background:com_3);
+if_setcolour(^black, chatbox_background:com_3);
+if_settextfont(p12_full, chatbox_background:com_3);
+if_settextalign(^settextalign_left, ^settextalign_centre, 0, chatbox_background:com_3);
+if_settext($string0, chatbox_background:com_3);
+if_settextshadow(false, chatbox_background:com_3);
+cc_deleteall(chatbox_background:com_16);
+if_settext("Search for: *", chatbox_background:com_14);
+if_setonkey("quickchat_phrase_search_onkey(event_keycode, event_keychar, chatbox_background:com_1, chatbox_background:com_14, chatbox_background:com_16, chatbox_background:com_15, 0)", chatbox_background:com_13);
+if_setscrollsize(0, 0, chatbox_background:com_16);
+~scrollbar_resize(chatbox_background:com_15, chatbox_background:com_16, 0);

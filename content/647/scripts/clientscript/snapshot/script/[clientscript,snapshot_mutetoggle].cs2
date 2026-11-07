@@ -1,24 +1,25 @@
+// 134
 [clientscript,snapshot_mutetoggle]
-if (autosetup_getvalue = 5 | autosetup_getvalue = 6) {
-    if_settext("Suggest to mute this player for 48 hours", snapshot_main_v2:com83);
-    if_settext("Suggest to mute this player for 48 hours", snapshot_main_v2:com10);
-    if_settext("Suggest to mute this player for 48 hours", snapshot_main_v2:com60);
+if (playermodlevel = 5 | playermodlevel = 6) {
+    if_settext("Suggest to mute this player for 48 hours", snapshot_main_v2:com_83);
+    if_settext("Suggest to mute this player for 48 hours", snapshot_main_v2:com_10);
+    if_settext("Suggest to mute this player for 48 hours", snapshot_main_v2:com_60);
 } else {
-    if_settext("Mute this player for 48 hours", snapshot_main_v2:com83);
-    if_settext("Mute this player for 48 hours", snapshot_main_v2:com10);
-    if_settext("Mute this player for 48 hours", snapshot_main_v2:com60);
+    if_settext("Mute this player for 48 hours", snapshot_main_v2:com_83);
+    if_settext("Mute this player for 48 hours", snapshot_main_v2:com_10);
+    if_settext("Mute this player for 48 hours", snapshot_main_v2:com_60);
 }
-if (%varc_int_6 = true) {
-    %varc_int_6 = 0;
+if (%varclient_6 = true) {
+    %varclient_6 = false;
 } else {
-    %varc_int_6 = 1;
+    %varclient_6 = true;
 }
-if (%varc_int_6 = false) {
-    if_setgraphic("options_radio_buttons_boxed,0", snapshot_main_v2:com82);
-    if_setgraphic("options_radio_buttons_boxed,0", snapshot_main_v2:com9);
-    if_setgraphic("options_radio_buttons_boxed,0", snapshot_main_v2:com59);
+if (%varclient_6 = false) {
+    if_setgraphic("options_radio_buttons_boxed,0", snapshot_main_v2:com_82);
+    if_setgraphic("options_radio_buttons_boxed,0", snapshot_main_v2:com_9);
+    if_setgraphic("options_radio_buttons_boxed,0", snapshot_main_v2:com_59);
 } else {
-    if_setgraphic("options_radio_buttons_boxed,2", snapshot_main_v2:com82);
-    if_setgraphic("options_radio_buttons_boxed,2", snapshot_main_v2:com9);
-    if_setgraphic("options_radio_buttons_boxed,2", snapshot_main_v2:com59);
+    if_setgraphic("options_radio_buttons_boxed,2", snapshot_main_v2:com_82);
+    if_setgraphic("options_radio_buttons_boxed,2", snapshot_main_v2:com_9);
+    if_setgraphic("options_radio_buttons_boxed,2", snapshot_main_v2:com_59);
 }

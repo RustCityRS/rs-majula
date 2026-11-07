@@ -1,21 +1,22 @@
-[proc,worldmap_arrow_update](component $component0, coord $coord1, struct $struct2, component $component3, int $int4, int $int5, int $int6, int $int7, string $string0)
-if ($coord1 = -1 | $coord1 = false) {
+// 4
+[proc,worldmap_arrow_update](component $component0, coord $coord1, string $string0, struct $struct2, component $component3, int $int4, int $int5, int $int6, int $int7)
+if ($coord1 = null | $coord1 = 0_0_0_0_0) {
     cc_deleteall($component0);
     if_sethide(true, $component0);
     return;
 }
 def_int $int8 = 0;
 def_int $int9 = 0;
-$int8, $int9 = worldmap_coord_to_display($coord1);
+$int8, $int9 = worldmap_getdisplaycoord($coord1);
 if ($int8 < 0 | $int9 < 0) {
-    $coord1 = coordpack(0_0_0_0_0, coordx($coord1), ~clientscript_686(calc(coordy($coord1) - 1), 4), coordz($coord1));
-    $int8, $int9 = worldmap_coord_to_display($coord1);
+    $coord1 = movecoord(0_0_0_0_0, coordx($coord1), ~script686(calc(coordy($coord1) - 1), 4), coordz($coord1));
+    $int8, $int9 = worldmap_getdisplaycoord($coord1);
     if ($int8 < 0 | $int9 < 0) {
-        $coord1 = coordpack(0_0_0_0_0, coordx($coord1), ~clientscript_686(calc(coordy($coord1) - 1), 4), coordz($coord1));
-        $int8, $int9 = worldmap_coord_to_display($coord1);
+        $coord1 = movecoord(0_0_0_0_0, coordx($coord1), ~script686(calc(coordy($coord1) - 1), 4), coordz($coord1));
+        $int8, $int9 = worldmap_getdisplaycoord($coord1);
         if ($int8 < 0 | $int9 < 0) {
-            $coord1 = coordpack(0_0_0_0_0, coordx($coord1), ~clientscript_686(calc(coordy($coord1) - 1), 4), coordz($coord1));
-            $int8, $int9 = worldmap_coord_to_display($coord1);
+            $coord1 = movecoord(0_0_0_0_0, coordx($coord1), ~script686(calc(coordy($coord1) - 1), 4), coordz($coord1));
+            $int8, $int9 = worldmap_getdisplaycoord($coord1);
             if ($int8 < 0 | $int9 < 0) {
                 cc_deleteall($component0);
                 if_sethide(true, $component0);
@@ -68,7 +69,7 @@ def_int $int18 = 0;
 def_string $string1 = "Scroll map";
 def_string $string2 = "";
 if (string_length($string0) > 0) {
-    if ($component0 = worldmap:com36) {
+    if ($component0 = worldmap:com_36) {
         $string2 = "Your position";
     } else {
         $string2 = removetags(~find_and_replace($string0, "<br>", " "));
@@ -76,60 +77,60 @@ if (string_length($string0) > 0) {
     $string1 = "Scroll map:";
 }
 if ($int14 = -1) {
-    ~clientscript_2048($component0, 0, struct_param($struct2, param_130), $int12, $int13, 0, 0, 0, false, false, false, 0, $string2, $string1, $coord1);
+    ~script2048($component0, 0, struct_param($struct2, param_130), $int12, $int13, 0, 0, 0, false, false, false, 0, $string2, $string1, $coord1);
     $int15 = calc($int13 / 2);
     $int16 = calc($int13 / 2);
     $int17 = calc($int12 / 2);
     $int18 = calc($int12 / 2);
-    ~clientscript_2048($component0, 1, struct_param($struct2, param_131), $int12, $int13, 0, 0, 0, false, false, false, 1, "", "", -1);
+    ~script2048($component0, 1, struct_param($struct2, param_131), $int12, $int13, 0, 0, 0, false, false, false, 1, "", "", null);
 } else {
     $int12 = struct_param($struct2, param_136);
     $int13 = struct_param($struct2, param_645);
     switch_int ($int14) {
-        case 0:
-            ~clientscript_2048($component0, 0, struct_param($struct2, param_134), $int12, $int13, 0, calc(0 - $int13 / 2), 49152, false, false, false, 0, $string2, $string1, $coord1);
+        case 0 :
+            ~script2048($component0, 0, struct_param($struct2, param_134), $int12, $int13, 0, calc(0 - $int13 / 2), 49152, false, false, false, 0, $string2, $string1, $coord1);
             $int15 = $int13;
             $int16 = 0;
             $int17 = calc($int12 / 2);
             $int18 = calc($int12 / 2);
-        case 1:
-            ~clientscript_2048($component0, 0, struct_param($struct2, param_135), $int12, $int13, calc($int12 / 2), calc(0 - $int13 / 2), 32768, false, false, false, 0, $string2, $string1, $coord1);
+        case 1 :
+            ~script2048($component0, 0, struct_param($struct2, param_135), $int12, $int13, calc($int12 / 2), calc(0 - $int13 / 2), 32768, false, false, false, 0, $string2, $string1, $coord1);
             $int15 = $int13;
             $int16 = 0;
             $int17 = 0;
             $int18 = $int12;
-        case 2:
-            ~clientscript_2048($component0, 0, struct_param($struct2, param_134), $int12, $int13, calc($int12 / 2), 0, 32768, false, false, false, 0, $string2, $string1, $coord1);
+        case 2 :
+            ~script2048($component0, 0, struct_param($struct2, param_134), $int12, $int13, calc($int12 / 2), 0, 32768, false, false, false, 0, $string2, $string1, $coord1);
             $int15 = calc($int13 / 2);
             $int16 = calc($int13 / 2);
             $int17 = 0;
             $int18 = $int12;
-        case 3:
-            ~clientscript_2048($component0, 0, struct_param($struct2, param_135), $int12, $int13, calc($int12 / 2), calc($int13 / 2), 16384, false, false, false, 0, $string2, $string1, $coord1);
+        case 3 :
+            ~script2048($component0, 0, struct_param($struct2, param_135), $int12, $int13, calc($int12 / 2), calc($int13 / 2), 16384, false, false, false, 0, $string2, $string1, $coord1);
             $int15 = 0;
             $int16 = $int13;
             $int17 = 0;
             $int18 = $int12;
-        case 4:
-            ~clientscript_2048($component0, 0, struct_param($struct2, param_134), $int12, $int13, 0, calc($int13 / 2), 16384, false, false, false, 0, $string2, $string1, $coord1);
+        case 4 :
+            ~script2048($component0, 0, struct_param($struct2, param_134), $int12, $int13, 0, calc($int13 / 2), 16384, false, false, false, 0, $string2, $string1, $coord1);
             $int15 = 0;
             $int16 = $int13;
             $int17 = calc($int12 / 2);
             $int18 = calc($int12 / 2);
-        case 5:
-            ~clientscript_2048($component0, 0, struct_param($struct2, param_135), $int12, $int13, calc(0 - $int12 / 2), calc($int13 / 2), 0, false, false, false, 0, $string2, $string1, $coord1);
+        case 5 :
+            ~script2048($component0, 0, struct_param($struct2, param_135), $int12, $int13, calc(0 - $int12 / 2), calc($int13 / 2), 0, false, false, false, 0, $string2, $string1, $coord1);
             $int15 = 0;
             $int16 = $int13;
             $int17 = $int12;
             $int18 = 0;
-        case 6:
-            ~clientscript_2048($component0, 0, struct_param($struct2, param_134), $int12, $int13, calc(0 - $int12 / 2), 0, 0, false, false, false, 0, $string2, $string1, $coord1);
+        case 6 :
+            ~script2048($component0, 0, struct_param($struct2, param_134), $int12, $int13, calc(0 - $int12 / 2), 0, 0, false, false, false, 0, $string2, $string1, $coord1);
             $int15 = calc($int13 / 2);
             $int16 = calc($int13 / 2);
             $int17 = $int12;
             $int18 = 0;
-        case 7:
-            ~clientscript_2048($component0, 0, struct_param($struct2, param_135), $int12, $int13, calc(0 - $int12 / 2), calc(0 - $int13 / 2), 49152, false, false, false, 0, $string2, $string1, $coord1);
+        case 7 :
+            ~script2048($component0, 0, struct_param($struct2, param_135), $int12, $int13, calc(0 - $int12 / 2), calc(0 - $int13 / 2), 49152, false, false, false, 0, $string2, $string1, $coord1);
             $int15 = $int13;
             $int16 = 0;
             $int17 = $int12;
@@ -173,17 +174,17 @@ if (string_length($string0) > 0) {
     }
     $int25 = calc(($int19 - $int23) / 2);
     $int26 = calc(($int20 - $int24) / 2);
-    ~clientscript_2048($component0, 2, struct_param($struct2, param_646), calc($int19 - $int23 * 2), calc($int20 - $int24 * 2), $int21, $int22, 0, true, false, false, 0, "", "", -1);
-    ~clientscript_2048($component0, 3, $graphic28, calc($int19 - $int23 * 2), $int24, $int21, calc($int22 - $int26), 0, true, false, false, 0, "", "", -1);
-    ~clientscript_2048($component0, 4, $graphic28, calc($int19 - $int23 * 2), $int24, $int21, calc($int22 + $int26), 0, true, false, true, 0, "", "", -1);
-    ~clientscript_2048($component0, 5, $graphic29, $int23, calc($int20 - $int24 * 2), calc($int21 - $int25), $int22, 0, true, false, false, 0, "", "", -1);
-    ~clientscript_2048($component0, 6, $graphic29, $int23, calc($int20 - $int24 * 2), calc($int21 + $int25), $int22, 0, true, true, false, 0, "", "", -1);
-    ~clientscript_2048($component0, 7, $graphic27, $int23, $int24, calc($int21 - $int25), calc($int22 - $int26), 0, false, false, false, 0, "", "", -1);
-    ~clientscript_2048($component0, 8, $graphic27, $int23, $int24, calc($int21 + $int25), calc($int22 - $int26), 0, false, true, false, 0, "", "", -1);
-    ~clientscript_2048($component0, 9, $graphic27, $int23, $int24, calc($int21 - $int25), calc($int22 + $int26), 0, false, false, true, 0, "", "", -1);
-    ~clientscript_2048($component0, 10, $graphic27, $int23, $int24, calc($int21 + $int25), calc($int22 + $int26), 0, false, true, true, 0, "", "", -1);
-    ~clientscript_2051($component0, 11, $string0, $int19, $int20, calc($int21 + 1), calc($int22 + 1), struct_param($struct2, param_653), "", "", -1);
-    ~clientscript_2051($component0, 12, $string0, $int19, $int20, $int21, $int22, struct_param($struct2, param_652), $string2, $string1, $coord1);
+    ~script2048($component0, 2, struct_param($struct2, param_646), calc($int19 - $int23 * 2), calc($int20 - $int24 * 2), $int21, $int22, 0, true, false, false, 0, "", "", null);
+    ~script2048($component0, 3, $graphic28, calc($int19 - $int23 * 2), $int24, $int21, calc($int22 - $int26), 0, true, false, false, 0, "", "", null);
+    ~script2048($component0, 4, $graphic28, calc($int19 - $int23 * 2), $int24, $int21, calc($int22 + $int26), 0, true, false, true, 0, "", "", null);
+    ~script2048($component0, 5, $graphic29, $int23, calc($int20 - $int24 * 2), calc($int21 - $int25), $int22, 0, true, false, false, 0, "", "", null);
+    ~script2048($component0, 6, $graphic29, $int23, calc($int20 - $int24 * 2), calc($int21 + $int25), $int22, 0, true, true, false, 0, "", "", null);
+    ~script2048($component0, 7, $graphic27, $int23, $int24, calc($int21 - $int25), calc($int22 - $int26), 0, false, false, false, 0, "", "", null);
+    ~script2048($component0, 8, $graphic27, $int23, $int24, calc($int21 + $int25), calc($int22 - $int26), 0, false, true, false, 0, "", "", null);
+    ~script2048($component0, 9, $graphic27, $int23, $int24, calc($int21 - $int25), calc($int22 + $int26), 0, false, false, true, 0, "", "", null);
+    ~script2048($component0, 10, $graphic27, $int23, $int24, calc($int21 + $int25), calc($int22 + $int26), 0, false, true, true, 0, "", "", null);
+    ~script2051($component0, 11, $string0, $int19, $int20, calc($int21 + 1), calc($int22 + 1), struct_param($struct2, param_653), "", "", null);
+    ~script2051($component0, 12, $string0, $int19, $int20, $int21, $int22, struct_param($struct2, param_652), $string2, $string1, $coord1);
 } else {
     if (cc_find($component0, 2) = true) {
         cc_delete;

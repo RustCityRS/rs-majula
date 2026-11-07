@@ -1,0 +1,21 @@
+// 4406
+[clientscript,script4406](component $component0, component $component1, component $component2)
+if_setcolour(hsvtorgb(%varplayer_2098), $component2);
+def_int $int3 = if_getheight($component1);
+def_int $int4 = 1;
+if (%varplayerbit_9088 > 0) {
+    $int4 = max(min(calc($int3 - %varplayerbit_9088 * 2), $int3), 0);
+}
+~clan_set_line($int4);
+def_int $int5 = if_getheight($component0);
+def_int $int6 = 0;
+if (%varplayerbit_9089 > 0) {
+    $int6 = max(min(calc($int5 - %varplayerbit_9089 * ($int5 / 8)), $int5), 0);
+    $int6 = max(min(calc($int6 - $int5 / 16), $int5), 0);
+}
+def_int $int7 = 0;
+if (%varplayerbit_9090 > 0) {
+    $int7 = max(min(calc(%varplayerbit_9090 * ($int5 / 128)), $int5), 0);
+}
+if_setcolour(%varplayerbit_9088, $component0);
+~script4411($int7, $int6);

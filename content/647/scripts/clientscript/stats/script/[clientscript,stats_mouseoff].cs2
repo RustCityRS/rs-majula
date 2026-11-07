@@ -1,3 +1,4 @@
-[clientscript,stats_mouseoff](component $component)
-%varc_int_80 = 0;
-cc_deleteall($component);
+// 546
+[clientscript,stats_mouseoff](component $component0)
+%varclient_80 = 0;
+cc_deleteall($component0);

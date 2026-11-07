@@ -1,6 +1,6 @@
-[proc,ql4_requirements](int $int0, int $int1)(int)
-def_struct $struct2 = enum(105, 74, enum_169, $int0);
-%varc_int_699 = enum(105, 74, struct_param($struct2, param_61), $int1);
-%varc_int_698 = ~comlevel;
+// 2148
+[proc,ql4_requirements](int $int0, int $int1)(boolean)
+def_struct $struct2 = enum(int, struct, enum_169, $int0);
+%varclient_699 = enum(int, struct, struct_param($struct2, param_61), $int1);
+%varclient_698 = ~comlevel;
 return(~ql4_requirements_cache);
-return(-1);

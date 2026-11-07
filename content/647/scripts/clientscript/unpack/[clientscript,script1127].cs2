@@ -1,0 +1,19 @@
+// 1127
+[clientscript,script1127](component $component0)
+def_component $component1 = null;
+def_string $string0 = "";
+switch_component ($component0) {
+    case magic:com_2 :
+        $string0 = "Toggle defensive casting.";
+        $component1 = magic:com_96;
+    case magic_zaros:com_18 :
+        $string0 = "Toggle defensive casting.";
+        $component1 = magic_zaros:com_53;
+    case magic_lunar:com_20 :
+        $string0 = "Toggle defensive casting.";
+        $component1 = magic_lunar:com_64;
+    case rand_magic:com_2 :
+        $string0 = "Toggle defensive casting.";
+        $component1 = rand_magic:com_72;
+}
+~addtooltip_action($component0, $component1, $string0, 25, if_getwidth(if_getlayer($component1)));

@@ -1,0 +1,8 @@
+// 4395
+[clientscript,script4395](int $int0)
+if (%varplayerbit_9086 > 0) {
+    ~script4398(calc(%varplayerbit_9086 - 1), interface_1105:com_65, $int0);
+}
+if (%varplayerbit_9087 > 0) {
+    ~script4398(calc(%varplayerbit_9087 - 1), interface_1105:com_62, $int0);
+}

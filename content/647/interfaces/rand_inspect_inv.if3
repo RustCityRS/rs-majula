@@ -1,0 +1,260 @@
+// 953:0
+[com_0]
+type=graphic
+x=1
+y=1
+width=2
+height=2
+widthmode=minus
+heightmode=minus
+graphic=tradebacking
+tiling=yes
+alpha=yes
+colour=0xffffffff
+transmitop=10
+op10=  
+
+// 953:1
+[com_1]
+type=graphic
+y=20
+height=10
+widthmode=minus
+graphic="rand_smithing_edges,5"
+tiling=yes
+colour=0xffffffff
+transmitop=10
+op10=  
+
+// 953:2
+[com_2]
+type=layer
+x=6
+y=53
+width=162
+height=204
+scrollheight=252
+
+// 953:3
+[com_3]
+type=layer
+x=2
+y=53
+width=16
+height=204
+xmode=abs_right
+onload=scrollbar_vertical_graphics(event_com, rand_inspect_inv:com_2, "scrollbar_dragger_v2,3", "scrollbar_dragger_v2,0", "scrollbar_dragger_v2,1", "scrollbar_dragger_v2,2", "scrollbar_v2,0", "scrollbar_v2,1")
+
+// 953:4
+[com_4]
+type=graphic
+y=-2
+width=190
+height=22
+graphic="v2_stone_borders,36"
+tiling=yes
+colour=0xffffffff
+transmitop=10
+op10=    
+
+// 953:5
+[com_5]
+type=graphic
+x=170
+y=2
+width=16
+height=16
+graphic="v2_stone_close_button,0"
+colour=0xffffffff
+transmitop=1
+op1=Close
+onmouseover=graphic_swapper(event_com, "v2_stone_close_button,1")
+onmouseleave=graphic_swapper(event_com, "v2_stone_close_button,0")
+onclick=closebutton_click
+
+// 953:6
+[com_6]
+type=text
+y=2
+width=163
+height=18
+xmode=abs_centre
+textfont=b12_full
+text=Player ~ Name
+textalignh=centre
+textshadow=yes
+colour=0xc69b01
+
+// 953:7
+[com_7]
+type=line
+y=49
+widthmode=minus
+colour=0x000000
+
+// 953:8
+[com_8]
+type=layer
+width=16391
+height=16391
+widthmode=proportion
+heightmode=proportion
+
+// 953:9
+[com_9]
+type=layer
+x=102
+y=39
+width=64
+height=18
+layer=com_8
+
+// 953:10
+[com_10]
+type=layer
+y=24
+width=48
+height=26
+transmitop=1,10
+op1=View-Inventory
+op10=  
+
+// 953:11
+[com_11]
+type=graphic
+y=1
+width=48
+height=26
+layer=com_10
+graphic="tab_but,3"
+colour=0xffffffff
+transmitop=10
+op10=  
+
+// 953:12
+[com_12]
+type=graphic
+y=1
+width=22
+height=22
+xmode=abs_centre
+ymode=abs_centre
+layer=com_10
+graphic="stonemenusideicons,4"
+colour=0xffffffff
+transmitop=10
+op10=  
+
+// 953:13
+[com_13]
+type=layer
+x=47
+y=24
+width=48
+height=26
+transmitop=1,10
+op1=View-Worn
+op10=  
+
+// 953:14
+[com_14]
+type=graphic
+width=48
+height=26
+layer=com_13
+graphic="tab_but,0"
+colour=0xffffffff
+transmitop=10
+op10=   
+onmouseover=graphic_swapper(event_com, "tab_but,1")
+onmouseleave=graphic_swapper(event_com, "tab_but,0")
+onclick=graphic_swapper(event_com, "tab_but,2")
+
+// 953:15
+[com_15]
+type=graphic
+width=22
+height=22
+xmode=abs_centre
+ymode=abs_centre
+layer=com_13
+graphic="stonemenusideicons,5"
+colour=0xffffffff
+transmitop=10
+op10=   
+
+// 953:16
+[com_16]
+type=layer
+x=94
+y=24
+width=48
+height=26
+transmitop=1,10
+op1=View-Bob
+op10=  
+
+// 953:17
+[com_17]
+type=graphic
+width=48
+height=26
+layer=com_16
+graphic="tab_but,0"
+colour=0xffffffff
+transmitop=10
+op10=   
+onmouseover=graphic_swapper(event_com, "tab_but,1")
+onmouseleave=graphic_swapper(event_com, "tab_but,0")
+onclick=graphic_swapper(event_com, "tab_but,2")
+
+// 953:18
+[com_18]
+type=graphic
+width=22
+height=22
+xmode=abs_centre
+ymode=abs_centre
+layer=com_16
+graphic="lore_icons,6"
+colour=0xffffffff
+transmitop=10
+op10=    
+
+// 953:19
+[com_19]
+type=layer
+x=141
+y=24
+width=48
+height=26
+transmitop=1,10
+op1=View-Stats
+op10=  
+
+// 953:20
+[com_20]
+type=graphic
+width=48
+height=26
+layer=com_19
+graphic="tab_but,0"
+colour=0xffffffff
+transmitop=10
+op10=   
+onmouseover=graphic_swapper(event_com, "tab_but,1")
+onmouseleave=graphic_swapper(event_com, "tab_but,0")
+onclick=graphic_swapper(event_com, "tab_but,2")
+
+// 953:21
+[com_21]
+type=graphic
+width=22
+height=22
+xmode=abs_centre
+ymode=abs_centre
+layer=com_19
+graphic="stonemenusideicons,1"
+colour=0xffffffff
+transmitop=10
+op10=     

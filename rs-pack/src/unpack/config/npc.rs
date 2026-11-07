@@ -6,6 +6,7 @@ use super::order::emit_params;
 use crate::cache::npc::NpcTypeRaw;
 use std::collections::HashMap;
 
+#[cfg(before_647)]
 fn name_for_model(id: u16, registry: &UnpackedPacks) -> String {
     registry
         .config_name("model", id as u32)
@@ -13,6 +14,7 @@ fn name_for_model(id: u16, registry: &UnpackedPacks) -> String {
         .unwrap_or_else(|| format!("model_{id}_npc"))
 }
 
+#[cfg(before_647)]
 fn name_for_head_model(id: u16, registry: &UnpackedPacks) -> String {
     registry
         .config_name("model", id as u32)
@@ -21,47 +23,13 @@ fn name_for_head_model(id: u16, registry: &UnpackedPacks) -> String {
 }
 
 #[cfg(since_647)]
-fn name_for_seq(id: i32, registry: &UnpackedPacks) -> String {
-    if id < 0 {
-        return id.to_string();
-    }
-    registry
-        .config_name("seq", id as u32)
-        .map(|s| s.to_string())
-        .unwrap_or_else(|| format!("seq_{id}"))
+fn name_for_model(id: u16, registry: &UnpackedPacks) -> String {
+    registry.reference("model", id)
 }
 
 #[cfg(since_647)]
-fn name_for_varbit(id: i32, registry: &UnpackedPacks) -> String {
-    if id < 0 {
-        return "null".to_string();
-    }
-    registry
-        .config_name("varbit", id as u32)
-        .map(|s| s.to_string())
-        .unwrap_or_else(|| format!("varbit_{id}"))
-}
-
-#[cfg(since_647)]
-fn name_for_varp(id: i32, registry: &UnpackedPacks) -> String {
-    if id < 0 {
-        return "null".to_string();
-    }
-    registry
-        .config_name("varp", id as u32)
-        .map(|s| s.to_string())
-        .unwrap_or_else(|| format!("varp_{id}"))
-}
-
-#[cfg(since_647)]
-fn name_for_npc(id: i32, registry: &UnpackedPacks) -> String {
-    if id < 0 {
-        return "null".to_string();
-    }
-    registry
-        .config_name("npc", id as u32)
-        .map(|s| s.to_string())
-        .unwrap_or_else(|| format!("npc_{id}"))
+fn name_for_head_model(id: u16, registry: &UnpackedPacks) -> String {
+    registry.reference("model", id)
 }
 
 pub fn emit_npc_props(
@@ -72,6 +40,8 @@ pub fn emit_npc_props(
     if def.raw_opcodes.len() > 1
         && (cfg!(since_647) || super::has_repeated_opcodes(&def.opcode_order))
     {
+        #[cfg(since_647)]
+        let vorbis = def.vorbis;
         return super::emit_repeated::<NpcTypeRaw>(
             def.id,
             &def.raw_opcodes,
@@ -82,6 +52,10 @@ pub fn emit_npc_props(
             |value| {
                 value.opcode_order.clear();
                 value.raw_opcodes.clear();
+                #[cfg(since_647)]
+                {
+                    value.vorbis = vorbis;
+                }
             },
         );
     }
@@ -145,16 +119,25 @@ pub fn emit_npc_props(
     }
     if let (Some(src), Some(dst)) = (&def.recol_s, &def.recol_d) {
         for i in 0..src.len() {
-            p.push((
-                40,
-                format!("recol{}s", i + 1),
-                super::recol_value(src[i], dst[i], _reverse_hsl).to_string(),
-            ));
-            p.push((
-                40,
-                format!("recol{}d", i + 1),
-                super::recol_value(dst[i], src[i], _reverse_hsl).to_string(),
-            ));
+            #[cfg(before_647)]
+            {
+                p.push((
+                    40,
+                    format!("recol{}s", i + 1),
+                    super::recol_value(src[i], dst[i], _reverse_hsl).to_string(),
+                ));
+                p.push((
+                    40,
+                    format!("recol{}d", i + 1),
+                    super::recol_value(dst[i], src[i], _reverse_hsl).to_string(),
+                ));
+            }
+            #[cfg(since_647)]
+            {
+                let [(ks, vs), (kd, vd)] = super::recol_pair(i + 1, src[i], dst[i], _reverse_hsl);
+                p.push((40, ks, vs));
+                p.push((40, kd, vd));
+            }
         }
     }
     #[cfg(since_647)]
@@ -163,12 +146,12 @@ pub fn emit_npc_props(
             p.push((
                 41,
                 format!("retex{}s", i + 1),
-                super::recol_value(src[i], dst[i], _reverse_hsl).to_string(),
+                registry.named("texture", src[i]),
             ));
             p.push((
                 41,
                 format!("retex{}d", i + 1),
-                super::recol_value(dst[i], src[i], _reverse_hsl).to_string(),
+                registry.named("texture", dst[i]),
             ));
         }
     }
@@ -191,7 +174,7 @@ pub fn emit_npc_props(
         p.push((93, "minimap".into(), "no".into()));
     }
     if def.opcode_order.contains(&95) || def.vislevel.is_some() {
-        if def.vislevel == Some(0) {
+        if cfg!(before_647) && def.vislevel == Some(0) {
             p.push((95, "vislevel".into(), "hide".into()));
         } else {
             p.push((95, "vislevel".into(), def.vislevel.unwrap_or(0).to_string()));
@@ -229,45 +212,28 @@ pub fn emit_npc_props(
     }
     #[cfg(since_647)]
     if let Some(transforms) = &def.transforms {
-        let op = if transforms.last().copied().unwrap_or(-1) != -1 {
-            118
-        } else {
-            106
-        };
-        p.push((
-            op,
-            "multivar".into(),
-            name_for_varbit(def.transform_varbit, registry),
+        let has_default =
+            def.opcode_order.contains(&118) || transforms.last().copied().unwrap_or(-1) != -1;
+        p.extend(super::multi_lines(
+            (if has_default { 118 } else { 106 }, "multinpc"),
+            "npc",
+            has_default,
+            (def.transform_varbit, def.transform_varp),
+            transforms,
+            registry,
         ));
-        p.push((
-            op,
-            "multivarp".into(),
-            name_for_varp(def.transform_varp, registry),
-        ));
-        let default_transform = *transforms.last().unwrap_or(&-1);
-        let entries = &transforms[..transforms.len().saturating_sub(1)];
-        if default_transform != -1 {
-            p.push((
-                op,
-                "multidefault".into(),
-                name_for_npc(default_transform, registry),
-            ));
-        }
-        for (i, t) in entries.iter().enumerate() {
-            p.push((op, format!("multi{}", i + 1), name_for_npc(*t, registry)));
-        }
     }
     #[cfg(since_647)]
     if !def.clickable {
-        p.push((107, "clickable".into(), "no".into()));
+        p.push((107, "active".into(), "no".into()));
     }
     #[cfg(since_647)]
     if !def.slowwalk {
-        p.push((109, "slowwalk".into(), "no".into()));
+        p.push((109, "walksmoothing".into(), "no".into()));
     }
     #[cfg(since_647)]
     if !def.animateidle {
-        p.push((111, "animateidle".into(), "no".into()));
+        p.push((111, "spotshadow".into(), "no".into()));
     }
     #[cfg(since_647)]
     if def.opcode_order.contains(&113)
@@ -276,7 +242,7 @@ pub fn emit_npc_props(
     {
         p.push((
             113,
-            "shadowcolour".into(),
+            "spotshadowcolour".into(),
             format!(
                 "{},{}",
                 def.primary_shadow_colour, def.secondary_shadow_colour
@@ -290,7 +256,7 @@ pub fn emit_npc_props(
     {
         p.push((
             114,
-            "shadowmod".into(),
+            "spotshadowtrans".into(),
             format!(
                 "{},{}",
                 def.primary_shadow_modifier, def.secondary_shadow_modifier
@@ -299,25 +265,21 @@ pub fn emit_npc_props(
     }
     #[cfg(since_647)]
     if def.opcode_order.contains(&119) || def.walkmask != 0 {
-        p.push((119, "walkmask".into(), def.walkmask.to_string()));
+        p.push((119, "unknown119".into(), def.walkmask.to_string()));
     }
     #[cfg(since_647)]
     if let Some(translations) = &def.translations {
-        for (i, (idx, [x, y, z])) in translations.iter().enumerate() {
-            p.push((
-                121,
-                format!("translate{}", i + 1),
-                format!("{idx},{x},{y},{z}"),
-            ));
+        for (index, [x, y, z]) in translations.iter() {
+            p.push((121, format!("modeloffset{index}"), format!("{x},{y},{z}")));
         }
     }
     #[cfg(since_647)]
     if def.opcode_order.contains(&122) || def.hitbar_sprite != -1 {
-        p.push((122, "hitbar".into(), def.hitbar_sprite.to_string()));
+        p.push((122, "unknown122".into(), def.hitbar_sprite.to_string()));
     }
     #[cfg(since_647)]
     if def.opcode_order.contains(&123) || def.height != -1 {
-        p.push((123, "height".into(), def.height.to_string()));
+        p.push((123, "overlayheight".into(), def.height.to_string()));
     }
     #[cfg(since_647)]
     if def.opcode_order.contains(&125) || def.respawn_direction != 0 {
@@ -327,13 +289,19 @@ pub fn emit_npc_props(
     if def.opcode_order.contains(&127) || def.render_emote != -1 {
         p.push((
             127,
-            "readyanim".into(),
-            name_for_seq(def.render_emote, registry),
+            "bas".into(),
+            registry.reference("bas", def.render_emote as u16),
         ));
     }
     #[cfg(since_647)]
     if def.opcode_order.contains(&128) || def.op128 != 0 {
-        p.push((128, "unknown128".into(), def.op128.to_string()));
+        let mode = match def.op128 {
+            0 => "crawl".to_owned(),
+            1 => "walk".to_owned(),
+            2 => "run".to_owned(),
+            other => other.to_string(),
+        };
+        p.push((128, "defaultmovemode".into(), mode));
     }
     #[cfg(since_647)]
     if def.opcode_order.contains(&134)
@@ -342,18 +310,30 @@ pub fn emit_npc_props(
         || def.walk_sound != -1
         || def.run_sound != -1
     {
-        p.push((134, "idlesound".into(), def.idle_sound.to_string()));
-        p.push((134, "crawlsound".into(), def.crawl_sound.to_string()));
-        p.push((134, "walksound".into(), def.walk_sound.to_string()));
-        p.push((134, "runsound".into(), def.run_sound.to_string()));
-        p.push((134, "sounddistance".into(), def.sound_distance.to_string()));
+        let kind = if def.vorbis { "vorbis" } else { "synth" };
+        let sounds = [
+            def.idle_sound,
+            def.crawl_sound,
+            def.walk_sound,
+            def.run_sound,
+        ]
+        .map(|sound| registry.reference(kind, sound as u16));
+        p.push((
+            134,
+            "bgsound".into(),
+            format!("{},{}", sounds.join(","), def.sound_distance),
+        ));
     }
     #[cfg(since_647)]
     if def.primary_cursor != 0 || def.primary_cursor_op != 0 {
         p.push((
             135,
             "cursor1".into(),
-            format!("{},{}", def.primary_cursor_op, def.primary_cursor),
+            format!(
+                "{},{}",
+                def.primary_cursor_op + 1,
+                registry.reference("cursor", def.primary_cursor as u16)
+            ),
         ));
     }
     #[cfg(since_647)]
@@ -361,47 +341,63 @@ pub fn emit_npc_props(
         p.push((
             136,
             "cursor2".into(),
-            format!("{},{}", def.secondary_cursor_op, def.secondary_cursor),
+            format!(
+                "{},{}",
+                def.secondary_cursor_op + 1,
+                registry.reference("cursor", def.secondary_cursor as u16)
+            ),
         ));
     }
     #[cfg(since_647)]
     if def.opcode_order.contains(&137) || def.attack_cursor != -1 {
-        p.push((137, "attackcursor".into(), def.attack_cursor.to_string()));
+        p.push((
+            137,
+            "cursorattack".into(),
+            registry.reference("cursor", def.attack_cursor as u16),
+        ));
     }
     #[cfg(since_647)]
     if def.opcode_order.contains(&138) || def.army_icon != -1 {
-        p.push((138, "armyicon".into(), def.army_icon.to_string()));
+        p.push((
+            138,
+            "covermarker".into(),
+            registry.reference("sprites", def.army_icon as u16),
+        ));
     }
     #[cfg(since_647)]
     if def.opcode_order.contains(&139) || def.sprite_id != -1 {
-        p.push((139, "spriteid".into(), def.sprite_id.to_string()));
+        p.push((139, "unknown139".into(), def.sprite_id.to_string()));
     }
     #[cfg(since_647)]
     if def.opcode_order.contains(&140) || def.ambient_sound_volume != 0 {
         p.push((
             140,
-            "soundvolume".into(),
+            "bgsoundvolume".into(),
             def.ambient_sound_volume.to_string(),
         ));
     }
     #[cfg(since_647)]
     if def.visible_priority {
-        p.push((141, "visiblepriority".into(), "yes".into()));
+        p.push((141, "familiar".into(), "yes".into()));
     }
     #[cfg(since_647)]
     if def.opcode_order.contains(&142) || def.mapfunction != -1 {
-        p.push((142, "mapfunction".into(), def.mapfunction.to_string()));
+        p.push((
+            142,
+            "mapelement".into(),
+            registry.reference("mel", def.mapfunction as u16),
+        ));
     }
     #[cfg(since_647)]
     if def.invisible_priority {
-        p.push((143, "invisiblepriority".into(), "yes".into()));
+        p.push((143, "alwaysonbottom".into(), "yes".into()));
     }
     #[cfg(since_647)]
     for (slot, opt) in def.members_op.iter().enumerate() {
         if let Some(text) = opt {
             p.push((
                 150 + slot as u8,
-                format!("memberop{}", slot + 1),
+                format!("membersop{}", slot + 1),
                 text.to_string(),
             ));
         }
@@ -424,42 +420,44 @@ pub fn emit_npc_props(
     }
     #[cfg(since_647)]
     if def.main_option_index != -1 {
-        let op = if def.main_option_index == 1 { 158 } else { 159 };
-        p.push((
-            op,
-            "mainoptionindex".into(),
-            def.main_option_index.to_string(),
-        ));
+        let (op, value) = if def.main_option_index == 1 {
+            (158, "yes")
+        } else {
+            (159, "no")
+        };
+        p.push((op, "reprioritiseattackop".into(), value.into()));
     }
     #[cfg(since_647)]
     if let Some(campaigns) = &def.campaigns {
-        for (i, v) in campaigns.iter().enumerate() {
-            p.push((160, format!("campaign{}", i + 1), v.to_string()));
-        }
-    }
-    #[cfg(since_647)]
-    if def.vorbis {
-        p.push((162, "vorbis".into(), "yes".into()));
+        let quests: Vec<_> = campaigns
+            .iter()
+            .map(|&quest| registry.reference("quest", quest as u16))
+            .collect();
+        p.push((160, "quest".into(), quests.join(",")));
     }
     #[cfg(since_647)]
     if def.opcode_order.contains(&163) || def.slayer_type != 0 {
-        p.push((163, "slayertype".into(), def.slayer_type.to_string()));
+        p.push((163, "roughbounding".into(), def.slayer_type.to_string()));
     }
     #[cfg(since_647)]
     if def.opcode_order.contains(&164) || def.sound_rate_min != 0 || def.sound_rate_max != 0 {
         p.push((
             164,
-            "soundrate".into(),
+            "bgsoundrate".into(),
             format!("{},{}", def.sound_rate_min, def.sound_rate_max),
         ));
     }
     #[cfg(since_647)]
     if def.opcode_order.contains(&165) || def.pick_size_shift != 0 {
-        p.push((165, "picksizeshift".into(), def.pick_size_shift.to_string()));
+        p.push((165, "unknown165".into(), def.pick_size_shift.to_string()));
     }
     #[cfg(since_647)]
     if def.opcode_order.contains(&168) || def.sound_range_min != 0 {
-        p.push((168, "soundrangemin".into(), def.sound_range_min.to_string()));
+        p.push((
+            168,
+            "bgsounddropoffrange".into(),
+            def.sound_range_min.to_string(),
+        ));
     }
     #[cfg(since_647)]
     p.extend(emit_params(

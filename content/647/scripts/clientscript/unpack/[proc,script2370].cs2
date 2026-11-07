@@ -1,0 +1,16 @@
+// 2370
+[proc,script2370]
+def_int $int0 = if_getscrollx(skillmulti2010:com_13);
+if ($int0 <= 0) {
+    if_settrans(150, skillmulti2010:com_11);
+    if_setgraphic("sm_select_body_button,0", skillmulti2010:com_11);
+} else {
+    if_settrans(0, skillmulti2010:com_11);
+}
+if ($int0 >= calc(if_getscrollwidth(skillmulti2010:com_13) - if_getwidth(skillmulti2010:com_13))) {
+    if_settrans(150, skillmulti2010:com_12);
+    if_setgraphic("sm_select_body_button,2", skillmulti2010:com_12);
+} else {
+    if_settrans(0, skillmulti2010:com_12);
+}
+%varclient_93 = $int0;

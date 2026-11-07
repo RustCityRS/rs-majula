@@ -1,0 +1,32 @@
+// 2992
+[clientscript,script2992]
+if (%varplayerbit_8386 = 0) {
+    if_sethide(true, interface_311:com_25);
+    if_sethide(false, interface_311:com_26);
+    if_sethide(true, interface_311:com_57);
+    if_sethide(true, interface_311:com_59);
+}
+if (%varplayerbit_8388 = 0) {
+    if_sethide(true, interface_311:com_9);
+    if_sethide(false, interface_311:com_10);
+}
+if (%varplayerbit_8390 = 0) {
+    if_sethide(true, interface_311:com_5);
+    if_sethide(false, interface_311:com_6);
+}
+if (%varplayerbit_8392 = 0) {
+    if_sethide(true, interface_311:com_1);
+    if_sethide(false, interface_311:com_2);
+}
+if (%varplayerbit_8387 = 0) {
+    if_sethide(true, interface_311:com_13);
+    if_sethide(false, interface_311:com_14);
+}
+if (%varplayerbit_8395 = 0) {
+    if_sethide(true, interface_311:com_21);
+    if_sethide(false, interface_311:com_22);
+}
+if (%varplayerbit_8391 = 0) {
+    if_sethide(true, interface_311:com_17);
+    if_sethide(false, interface_311:com_18);
+}

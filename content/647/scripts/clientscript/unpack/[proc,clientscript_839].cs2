@@ -1,7 +1,0 @@
-[proc,clientscript_839]
-sound_synth(synth_4501, 1, 0);
-if (%varbit_4399 = false) {
-    ~clientscript_841(1);
-} else {
-    ~clientscript_841(0);
-}

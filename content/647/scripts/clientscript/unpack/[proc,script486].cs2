@@ -1,0 +1,48 @@
+// 486
+[proc,script486](int $int0)(npc)
+switch_int ($int0) {
+    case default :
+        return(null);
+    case 1 :
+        if (%varplayerbit_7510 = 0) {
+            return(npc_12200);
+        } else {
+            return(npc_12197);
+        }
+    case 2 :
+        if (%varplayerbit_7510 = 0) {
+            return(npc_12205);
+        } else {
+            return(npc_12202);
+        }
+    case 3 :
+        if (%varplayerbit_7510 = 0) {
+            return(npc_12210);
+        } else {
+            return(npc_12207);
+        }
+    case 4 :
+        if (%varplayerbit_7510 = 0) {
+            return(npc_12215);
+        } else {
+            return(npc_12212);
+        }
+    case 5 :
+        if (%varplayerbit_7510 = 0) {
+            return(npc_12219);
+        } else {
+            return(npc_12216);
+        }
+    case 6 :
+        if (%varplayerbit_7510 = 0) {
+            return(npc_12223);
+        } else {
+            return(npc_12220);
+        }
+    case 7 :
+        if (%varplayerbit_7510 = 0) {
+            return(npc_12227);
+        } else {
+            return(npc_12224);
+        }
+}

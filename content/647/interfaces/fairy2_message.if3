@@ -1,0 +1,40 @@
+// 424:0
+[com_0]
+type=model
+x=-13
+y=-60
+width=549
+height=459
+model=model_16051
+modelorigin=-23,8
+modelzoom=126
+
+// 424:1
+[com_1]
+type=text
+x=239
+y=37
+width=32
+height=32
+textfont=lunar_alphabet
+text=THE GODFATHER<br>ATTACKED US.<br> WE HAVE<br>FLED TO SAFETY.<br> IF YOU ARE LOYAL TO <br> HER MAJESTY, FIND<br>US BY USING<br>COORDINATES<br>AIR DLR DJQ AJS
+textlineheight=29
+textalignh=centre
+textshadow=yes
+colour=0x989686
+
+// 424:2
+[com_2]
+type=graphic
+x=481
+y=3
+width=26
+height=23
+graphic="close_buttons,2"
+colour=0x000000
+transmitop=1,10
+op1=Close
+op10=        
+onmouseover=graphic_swapper(event_com, "close_buttons,3")
+onmouseleave=graphic_swapper(event_com, "close_buttons,2")
+onop=closebutton_click

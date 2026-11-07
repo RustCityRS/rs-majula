@@ -1,9 +1,10 @@
-[clientscript,qj_begin_loading](component $component)
-if (%varc_int_771 = true) {
-    if_setontimer("qj_loading_anim($component)", $component);
+// 2353
+[clientscript,qj_begin_loading](component $component0)
+if (%varclient_771 = 1) {
+    if_setontimer("qj_loading_anim($component0)", $component0);
 } else {
-    if_setontimer(null, $component);
-    if_settext("Saving your game and loading QuestHelp", $component);
-    if_sethide(true, $component);
-    if_sethide(false, questjournal_scroll:com14);
+    if_setontimer(null, $component0);
+    if_settext("Saving your game and loading QuestHelp", $component0);
+    if_sethide(true, $component0);
+    if_sethide(false, questjournal_scroll:com_14);
 }

@@ -1,10 +1,11 @@
+// 4572
 [clientscript,lobbyscreen_pane_friendschat_caret_flash](int $int0, component $component1)
-if (clan_getchatsize <= 0) {
-    if_settext("", lobbyscreen_pane_friendschat:com27);
+if (clan_getchatcount <= 0) {
+    if_settext("", lobbyscreen_pane_friendschat:com_27);
     if_sethide(true, $component1);
     return;
 }
-if (calc((clientclock - $int0) % 40) < 20 & has_focus = true) {
+if (calc((clientclock - $int0) % 40) < 20 & applet_hasfocus = true) {
     if_sethide(false, $component1);
 } else {
     if_sethide(true, $component1);

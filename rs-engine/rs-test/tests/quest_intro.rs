@@ -149,7 +149,7 @@ fn scripts(packets: &[(u16, Vec<u8>)]) -> Vec<(i32, Vec<String>)> {
         .collect()
 }
 
-/// %varbit_6924, "Mark on map": bit 29 of varp 1502 (cache 786).
+/// %varplayerbit_6924, "Mark on map": bit 29 of varp 1502 (cache 786).
 fn mark(engine: &Engine, client: &HarnessClient) -> i32 {
     let varp = *engine.cache.varps.debugnames.get("varp_1502").unwrap();
     (engine

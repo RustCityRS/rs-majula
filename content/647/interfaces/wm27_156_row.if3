@@ -1,0 +1,777 @@
+// 629:0
+[com_0]
+type=rectangle
+x=105
+y=15
+width=331
+height=315
+colour=0x000000
+fill=yes
+trans=200
+
+// 629:1
+[com_1]
+type=graphic
+x=104
+y=15
+width=319
+height=302
+graphic=tradebacking
+tiling=yes
+colour=0xffffffff
+
+// 629:2
+[com_2]
+type=graphic
+x=84
+y=40
+width=32
+height=257
+graphic="v2_stone_borders,1"
+tiling=yes
+colour=0xffffffff
+
+// 629:3
+[com_3]
+type=graphic
+x=97
+y=10
+width=32
+height=32
+graphic="v2_stone_borders,4"
+colour=0xffffffff
+
+// 629:4
+[com_4]
+type=graphic
+x=410
+y=40
+width=23
+height=257
+graphic="v2_stone_borders,3"
+tiling=yes
+colour=0xffffffff
+opbase= 
+
+// 629:5
+[com_5]
+type=graphic
+x=129
+y=-3
+width=270
+height=26
+graphic="v2_stone_borders,0"
+tiling=yes
+colour=0xffffffff
+opbase= 
+
+// 629:6
+[com_6]
+type=graphic
+x=129
+y=304
+width=269
+height=24
+graphic="v2_stone_borders,2"
+tiling=yes
+colour=0xffffffff
+opbase= 
+
+// 629:7
+[com_7]
+type=graphic
+x=97
+y=292
+width=32
+height=32
+graphic="v2_stone_borders,6"
+colour=0xffffffff
+
+// 629:8
+[com_8]
+type=graphic
+x=398
+y=10
+width=32
+height=32
+graphic="v2_stone_borders,5"
+colour=0xffffffff
+
+// 629:9
+[com_9]
+type=graphic
+x=398
+y=292
+width=32
+height=32
+graphic="v2_stone_borders,7"
+colour=0xffffffff
+
+// 629:10
+[com_10]
+type=graphic
+x=103
+y=26
+width=319
+height=32
+graphic="v2_stone_borders,23"
+tiling=yes
+colour=0xffffffff
+
+// 629:11
+[com_11]
+type=text
+x=197
+y=20
+width=102
+height=15
+textfont=b12_full
+text=Tournament Value:
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xe1961f
+
+// 629:12
+[com_12]
+type=text
+x=317
+y=20
+width=32
+height=15
+textfont=b12_full
+text=0
+textalignv=centre
+textshadow=yes
+colour=0xff961f
+opbase= 
+
+// 629:13
+[com_13]
+type=graphic
+x=404
+y=19
+width=16
+height=16
+graphic="v2_stone_close_button,0"
+colour=0xffffffff
+transmitop=1
+op1=Close
+onmouseover=graphic_swapper(event_com, "v2_stone_close_button,1")
+onmouseleave=graphic_swapper(event_com, "v2_stone_close_button,0")
+onop=closebutton_click
+
+// 629:14
+[com_14]
+type=layer
+x=115
+y=43
+width=148
+height=16
+hide=yes
+onload=script100(event_com)
+
+// 629:15
+[com_15]
+type=layer
+x=115
+y=62
+width=148
+height=16
+onload=script100(event_com)
+
+// 629:16
+[com_16]
+type=layer
+x=115
+y=81
+width=148
+height=16
+onload=script100(event_com)
+
+// 629:17
+[com_17]
+type=layer
+x=115
+y=100
+width=148
+height=16
+onload=script100(event_com)
+
+// 629:18
+[com_18]
+type=layer
+x=115
+y=119
+width=148
+height=16
+onload=script100(event_com)
+
+// 629:19
+[com_19]
+type=layer
+x=115
+y=138
+width=148
+height=16
+onload=script100(event_com)
+
+// 629:20
+[com_20]
+type=layer
+x=115
+y=157
+width=148
+height=16
+onload=script100(event_com)
+
+// 629:21
+[com_21]
+type=layer
+x=115
+y=176
+width=148
+height=16
+onload=script100(event_com)
+
+// 629:22
+[com_22]
+type=layer
+x=115
+y=195
+width=148
+height=16
+onload=script100(event_com)
+
+// 629:23
+[com_23]
+type=layer
+x=115
+y=214
+width=148
+height=16
+onload=script100(event_com)
+
+// 629:24
+[com_24]
+type=layer
+x=115
+y=233
+width=148
+height=16
+onload=script100(event_com)
+
+// 629:25
+[com_25]
+type=layer
+x=115
+y=252
+width=148
+height=16
+onload=script100(event_com)
+
+// 629:26
+[com_26]
+type=layer
+x=115
+y=271
+width=148
+height=16
+onload=script100(event_com)
+
+// 629:27
+[com_27]
+type=layer
+x=262
+y=43
+width=148
+height=16
+hide=yes
+onload=script100(event_com)
+
+// 629:28
+[com_28]
+type=layer
+x=262
+y=62
+width=148
+height=16
+onload=script100(event_com)
+
+// 629:29
+[com_29]
+type=layer
+x=262
+y=81
+width=148
+height=16
+onload=script100(event_com)
+
+// 629:30
+[com_30]
+type=layer
+x=262
+y=100
+width=148
+height=16
+onload=script100(event_com)
+
+// 629:31
+[com_31]
+type=layer
+x=262
+y=119
+width=148
+height=16
+onload=script100(event_com)
+
+// 629:32
+[com_32]
+type=layer
+x=262
+y=138
+width=148
+height=16
+onload=script100(event_com)
+
+// 629:33
+[com_33]
+type=layer
+x=262
+y=157
+width=148
+height=16
+onload=script100(event_com)
+
+// 629:34
+[com_34]
+type=layer
+x=262
+y=176
+width=148
+height=16
+onload=script100(event_com)
+
+// 629:35
+[com_35]
+type=layer
+x=262
+y=195
+width=148
+height=16
+onload=script100(event_com)
+
+// 629:36
+[com_36]
+type=layer
+x=262
+y=214
+width=148
+height=16
+onload=script100(event_com)
+
+// 629:37
+[com_37]
+type=layer
+x=262
+y=233
+width=148
+height=16
+onload=script100(event_com)
+
+// 629:38
+[com_38]
+type=layer
+x=262
+y=252
+width=148
+height=16
+onload=script100(event_com)
+
+// 629:39
+[com_39]
+type=layer
+x=262
+y=271
+width=148
+height=16
+onload=script100(event_com)
+
+// 629:40
+[com_40]
+type=text
+x=121
+y=45
+width=100
+height=12
+hide=yes
+textfont=p11_full
+text=Rank Required:
+textshadow=yes
+colour=0xe1961f
+
+// 629:41
+[com_41]
+type=text
+x=121
+y=64
+width=100
+height=12
+textfont=p11_full
+text=Entry Fee:
+textshadow=yes
+colour=0xe1961f
+
+// 629:42
+[com_42]
+type=text
+x=121
+y=83
+width=100
+height=12
+textfont=p11_full
+text=Potions:
+textshadow=yes
+colour=0xe1961f
+
+// 629:43
+[com_43]
+type=text
+x=121
+y=102
+width=100
+height=12
+textfont=p11_full
+text=Food:
+textshadow=yes
+colour=0xe1961f
+
+// 629:44
+[com_44]
+type=text
+x=121
+y=121
+width=100
+height=12
+textfont=p11_full
+text=Prayer:
+textshadow=yes
+colour=0xe1961f
+
+// 629:45
+[com_45]
+type=text
+x=121
+y=140
+width=100
+height=12
+textfont=p11_full
+text=Special Attacks:
+textshadow=yes
+colour=0xe1961f
+
+// 629:46
+[com_46]
+type=text
+x=121
+y=159
+width=100
+height=12
+textfont=p11_full
+text=Obstacles:
+textshadow=yes
+colour=0xe1961f
+
+// 629:47
+[com_47]
+type=text
+x=121
+y=178
+width=100
+height=12
+textfont=p11_full
+text=Ranged:
+textshadow=yes
+colour=0xe1961f
+
+// 629:48
+[com_48]
+type=text
+x=121
+y=197
+width=100
+height=12
+textfont=p11_full
+text=Melee:
+textshadow=yes
+colour=0xcc9900
+
+// 629:49
+[com_49]
+type=text
+x=121
+y=216
+width=100
+height=12
+textfont=p11_full
+text=Magic:
+textshadow=yes
+colour=0xe1961f
+
+// 629:50
+[com_50]
+type=text
+x=121
+y=235
+width=100
+height=12
+textfont=p11_full
+text=Heal Between Rounds:
+textshadow=yes
+colour=0xe1961f
+
+// 629:51
+[com_51]
+type=text
+x=121
+y=254
+width=100
+height=12
+textfont=p11_full
+text=Weapon Slots Only:
+textshadow=yes
+colour=0xe1961f
+
+// 629:52
+[com_52]
+type=text
+x=121
+y=273
+width=100
+height=12
+textfont=p11_full
+text=Summoning:
+textshadow=yes
+colour=0xe1961f
+
+// 629:53
+[com_53]
+type=text
+x=273
+y=45
+width=100
+height=12
+hide=yes
+textfont=p11_full
+text=rank
+textshadow=yes
+colour=0xe1961f
+
+// 629:54
+[com_54]
+type=text
+x=273
+y=64
+width=100
+height=12
+textfont=p11_full
+text=fee
+textshadow=yes
+colour=0xe1961f
+
+// 629:55
+[com_55]
+type=text
+x=273
+y=83
+width=100
+height=12
+textfont=p11_full
+text=fee
+textshadow=yes
+colour=0xe1961f
+
+// 629:56
+[com_56]
+type=text
+x=273
+y=102
+width=100
+height=12
+textfont=p11_full
+text=fee
+textshadow=yes
+colour=0xe1961f
+
+// 629:57
+[com_57]
+type=text
+x=273
+y=121
+width=100
+height=12
+textfont=p11_full
+text=fee
+textshadow=yes
+colour=0xe1961f
+
+// 629:58
+[com_58]
+type=text
+x=273
+y=140
+width=100
+height=12
+textfont=p11_full
+text=spec
+textshadow=yes
+colour=0xe1961f
+
+// 629:59
+[com_59]
+type=text
+x=273
+y=159
+width=100
+height=12
+textfont=p11_full
+text=obstacles
+textshadow=yes
+colour=0xe1961f
+
+// 629:60
+[com_60]
+type=text
+x=273
+y=178
+width=100
+height=12
+textfont=p11_full
+text=ranged
+textshadow=yes
+colour=0xe1961f
+
+// 629:61
+[com_61]
+type=text
+x=273
+y=197
+width=100
+height=12
+textfont=p11_full
+text=melee
+textshadow=yes
+colour=0xe1961f
+
+// 629:62
+[com_62]
+type=text
+x=273
+y=216
+width=100
+height=12
+textfont=p11_full
+text=magic
+textshadow=yes
+colour=0xe1961f
+
+// 629:63
+[com_63]
+type=text
+x=273
+y=235
+width=100
+height=12
+textfont=p11_full
+text=heal
+textshadow=yes
+colour=0xe1961f
+
+// 629:64
+[com_64]
+type=text
+x=273
+y=254
+width=100
+height=12
+textfont=p11_full
+text=weapon
+textshadow=yes
+colour=0xe1961f
+
+// 629:65
+[com_65]
+type=text
+x=273
+y=273
+width=100
+height=12
+textfont=p11_full
+text=summon
+textshadow=yes
+colour=0xe1961f
+
+// 629:66
+[com_66]
+type=layer
+x=225
+y=289
+width=71
+height=24
+onload=v2_stone_button(event_com)
+onmouseover=v2_stone_button_in(event_com)
+onmouseleave=v2_stone_button(event_com)
+
+// 629:67
+[com_67]
+type=text
+x=1
+width=71
+height=24
+layer=com_69
+textfont=b12_full
+text=Join
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0x009900
+transmitop=1
+opbase= 
+op1=Join
+onmouseover=text_colour_swapper(event_com, ^white)
+onmouseleave=text_colour_swapper(event_com, 0x009900)
+
+// 629:68
+[com_68]
+type=text
+x=1
+width=71
+height=24
+layer=com_70
+textfont=b12_full
+text=Resign
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0x990000
+transmitop=1
+opbase= 
+op1=Resign
+onmouseover=text_colour_swapper(event_com, ^red)
+onmouseleave=text_colour_swapper(event_com, 0x990000)
+
+// 629:69
+[com_69]
+type=layer
+x=224
+y=289
+width=73
+height=24
+
+// 629:70
+[com_70]
+type=layer
+x=224
+y=289
+width=73
+height=24

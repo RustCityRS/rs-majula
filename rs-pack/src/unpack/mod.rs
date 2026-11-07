@@ -1,15 +1,13 @@
 #[cfg(all(since_244, before_647))]
 use crate::archive;
 #[cfg(since_647)]
-use crate::archive::CONFIG_UNKNOWN_GROUPS;
+use crate::archive::CONFIG_EMPTY_TABLES;
 #[cfg(before_647)]
 use crate::archive::{JagArchive, JagSource};
 #[cfg(since_647)]
 use crate::pack::pack::FileCache;
 #[cfg(before_647)]
 use crate::pack::pack::pack_assets;
-#[cfg(since_647)]
-use crate::pack::pack_registry::PackFile;
 #[cfg(before_647)]
 use crate::pack::pack_registry::{PackRegistry, PackedFile};
 #[cfg(before_647)]
@@ -23,9 +21,7 @@ use crate::{CONFIG_TYPE_CRCS, CONTENT_DIR, PACK_DIR, config_crc, sheet, tga};
 #[cfg(since_647)]
 use crate::{CONFIG_TYPE_CRCS, PACK_DIR};
 #[cfg(since_647)]
-use anyhow::{Result, bail};
-#[cfg(since_647)]
-use config::generic;
+use anyhow::{Result, bail, ensure};
 #[cfg(before_647)]
 use configdiff::ConfigDiffReport;
 #[cfg(all(since_244, before_647))]
@@ -45,6 +41,10 @@ use rs_io::js5::Js5Store;
 #[cfg(before_647)]
 use std::collections::{HashMap, HashSet};
 use std::fs;
+#[cfg(since_647)]
+use std::fs::File;
+#[cfg(since_647)]
+use std::io::Write;
 use std::path::Path;
 #[cfg(before_647)]
 use std::rc::Rc;
@@ -749,6 +749,15 @@ fn unpack_cache(expected_dir: &Path, output_dir: &Path, pack_dir: &Path) -> Resu
     write_report(&results, &output_dir.join("unpack_report.txt"))
 }
 
+/// Writes only the config tables, under `<output>/_unpack`.
+#[cfg(since_647)]
+pub fn unpack_configs_only(cache_dir: &Path, output_dir: &Path, pack_dir: &Path) -> Result<()> {
+    fs::create_dir_all(output_dir.join("_unpack"))?;
+    let mut results = Vec::new();
+    unpack_configs(&mut results, cache_dir, pack_dir, output_dir);
+    write_report(&results, &output_dir.join("unpack_report.txt"))
+}
+
 #[cfg(since_647)]
 fn unpack_configs(
     results: &mut Vec<StepResult>,
@@ -762,21 +771,43 @@ fn unpack_configs(
         step(results, "configs", || Err(error));
     }
 
-    // CacheType structs. Known types get named opcodes; unknown groups get
-    // raw hex dumps.
-    step(results, "generic config groups", || {
+    step(results, "empty config tables", || {
         let mut store = Js5Store::open(cache_dir)?;
-        let seq = PackFile::load(&pack_dir.join("seq.pack"))?;
-        for &(group_id, type_name) in generic::KNOWN_CONFIG_GROUPS {
+        for &(type_name, group_id, section, _) in CONFIG_EMPTY_TABLES {
             info!("  Unpacking {type_name} (group {group_id})...");
-            generic::unpack_config_group(&mut store, group_id, type_name, &config_out, &seq)?;
-        }
-        for &group_id in CONFIG_UNKNOWN_GROUPS {
-            info!("  Unpacking config{group_id} (raw)...");
-            generic::unpack_raw_config_group(&mut store, group_id, &config_out)?;
+            unpack_empty_table(&mut store, group_id, type_name, section, &config_out)?;
         }
         Ok(String::new())
     });
+}
+
+#[cfg(since_647)]
+fn unpack_empty_table(
+    store: &mut Js5Store,
+    group_id: u32,
+    type_name: &str,
+    section: &str,
+    output_dir: &Path,
+) -> Result<()> {
+    let Some(group) = store.read_group(2, group_id)? else {
+        info!("  Archive 2 group {group_id} ({type_name}) absent -- skipping");
+        return Ok(());
+    };
+    let mut file = File::create(output_dir.join(format!("all.{type_name}")))?;
+    let mut entries: Vec<_> = group.entries.iter().collect();
+    entries.sort_by_key(|entry| entry.id);
+    for entry in entries {
+        if entry.data().is_empty() {
+            continue;
+        }
+        ensure!(
+            entry.data() == [0],
+            "{type_name} {} has a body this decoder does not know",
+            entry.id
+        );
+        writeln!(file, "// {}\n[{section}_{}]\n", entry.id, entry.id)?;
+    }
+    Ok(())
 }
 
 #[cfg(since_647)]
@@ -789,11 +820,6 @@ fn unpack_assets(
     step(results, "animations", || {
         let mut store = Js5Store::open(cache_dir)?;
         model::unpack_anims(&mut store, pack_dir, output_dir).map(|n| format!("{n} frames"))
-    });
-    step(results, "interfaces", || {
-        let mut store = Js5Store::open(cache_dir)?;
-        interface::unpack_interfaces(&mut store, output_dir, pack_dir)
-            .map(|n| format!("{n} groups"))
     });
     step(results, "models", || {
         model::unpack_models(cache_dir, pack_dir, output_dir).map(|n| format!("{n} models"))
@@ -816,7 +842,7 @@ fn unpack_assets(
         song::unpack_songs(&mut store, pack_dir, output_dir)
             .map(|n| format!("{n} songs and jingles"))
     });
-    for aid in [1, 4, 10, 13, 15, 23, 24, 25, 26, 27, 28, 29, 33] {
+    for aid in [1, 4, 10, 13, 15, 23, 26, 28, 33] {
         let format = crate::archive::archive_format(aid).unwrap();
         step(results, format.content_dir, || {
             let mut store = Js5Store::open(cache_dir)?;

@@ -1,6 +1,7 @@
+// 1846
 [clientscript,advisor_flashside]
-if (~current_side_if ! 8 & (~clientscript_1569 = false & (if_hasoverlay(~getsidelayer(8)) = true & (%varbit_6521 ! 3 & %varbit_6521 ! 10)))) {
+if (~current_side_if ! 8 & ~script1569 = false & if_hassub(~getsidelayer(8)) = true & %varplayerbit_6521 ! 3 & %varplayerbit_6521 ! 10) {
     ~arrow_set(~getsideicon_resizeable(8), -1, ~getsideicon(8), -1);
-    if_setontimer("flashside_timer_advisor()", toplevel_fullscreen:com19);
-    if_setontimer("flashside_timer_advisor()", toplevel:com127);
+    if_setontimer("flashside_timer_advisor", toplevel_fullscreen:com_19);
+    if_setontimer("flashside_timer_advisor", toplevel:com_127);
 }

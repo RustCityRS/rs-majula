@@ -1,0 +1,7 @@
+// 2074
+[clientscript,script2074]
+if (%varclient_632 = 0) {
+    if_settext("Players needed", snp_waiting_room:com_8);
+} else {
+    if_settext("Players in game", snp_waiting_room:com_8);
+}

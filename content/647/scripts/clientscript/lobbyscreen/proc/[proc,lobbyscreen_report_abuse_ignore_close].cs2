@@ -1,3 +1,4 @@
+// 3205
 [proc,lobbyscreen_report_abuse_ignore_close]
-if_closeoverlay(59375669);
-if_sethide(true, lobbyscreen:com45);
+if_closesubclient(lobbyscreen:com_53);
+if_sethide(true, lobbyscreen:com_45);

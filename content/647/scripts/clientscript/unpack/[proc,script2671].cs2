@@ -1,0 +1,52 @@
+// 2671
+[proc,script2671]
+if (%varplayerbit_6454 = 0) {
+    if_sethide(false, summoning_orb:com_18);
+    if_sethide(true, summoning_orb:com_9);
+} else {
+    if_sethide(true, summoning_orb:com_18);
+    if_sethide(false, summoning_orb:com_9);
+}
+if (%varplayerbit_6454 = 2) {
+    if_sethide(false, summoning_orb:com_23);
+    if_sethide(true, summoning_orb:com_14);
+} else {
+    if_sethide(true, summoning_orb:com_23);
+    if_sethide(false, summoning_orb:com_14);
+}
+if (%varplayerbit_6454 = 3) {
+    if_sethide(false, summoning_orb:com_19);
+    if_sethide(true, summoning_orb:com_10);
+} else {
+    if_sethide(true, summoning_orb:com_19);
+    if_sethide(false, summoning_orb:com_10);
+}
+if (%varplayerbit_6454 = 4) {
+    if_sethide(false, summoning_orb:com_20);
+    if_sethide(true, summoning_orb:com_11);
+} else {
+    if_sethide(true, summoning_orb:com_20);
+    if_sethide(false, summoning_orb:com_11);
+}
+if (%varplayerbit_6454 = 5) {
+    if_sethide(false, summoning_orb:com_21);
+    if_sethide(true, summoning_orb:com_12);
+} else {
+    if_sethide(true, summoning_orb:com_21);
+    if_sethide(false, summoning_orb:com_12);
+}
+if (%varplayerbit_6454 = 6) {
+    if_sethide(false, summoning_orb:com_22);
+    if_sethide(true, summoning_orb:com_13);
+} else {
+    if_sethide(true, summoning_orb:com_22);
+    if_sethide(false, summoning_orb:com_13);
+}
+if (%varplayerbit_6454 = 7) {
+    if_sethide(false, summoning_orb:com_26);
+    if_sethide(true, summoning_orb:com_15);
+} else {
+    if_sethide(true, summoning_orb:com_26);
+    if_sethide(false, summoning_orb:com_15);
+}
+return;

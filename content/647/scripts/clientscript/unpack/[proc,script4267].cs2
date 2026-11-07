@@ -1,0 +1,35 @@
+// 4267
+[proc,script4267]
+def_int $int0 = calc(%varplayerbit_9065 * 10);
+if_settext(~tostring_spacer($int0, ","), lunarfm_rewards_new:com_191);
+if (%varplayerbit_9067 > 0) {
+    if_setgraphic(null, lunarfm_rewards_new:com_131);
+}
+if (%varplayerbit_9067 > 1) {
+    if_setgraphic(null, lunarfm_rewards_new:com_127);
+}
+if (%varplayerbit_9067 > 2) {
+    if_setgraphic(null, lunarfm_rewards_new:com_123);
+}
+if (%varplayerbit_9067 > 3) {
+    if_setgraphic(null, lunarfm_rewards_new:com_119);
+}
+if (%varplayerbit_9067 > 4) {
+    if_setgraphic(null, lunarfm_rewards_new:com_115);
+}
+if (%varplayerbit_9067 > 5) {
+    if_setgraphic(null, lunarfm_rewards_new:com_111);
+}
+if (%varplayerbit_9067 > 6) {
+    if_setgraphic(null, lunarfm_rewards_new:com_107);
+}
+if (%varplayerbit_9067 > 7) {
+    if_setgraphic(null, lunarfm_rewards_new:com_103);
+    if_setgraphic(null, lunarfm_rewards_new:com_127);
+    if_setgraphic(null, lunarfm_rewards_new:com_206);
+    if_setgraphic(null, lunarfm_rewards_new:com_211);
+    if_setgraphic(null, lunarfm_rewards_new:com_216);
+    if_setgraphic(null, lunarfm_rewards_new:com_221);
+    if_setgraphic(null, lunarfm_rewards_new:com_226);
+    if_setgraphic(null, lunarfm_rewards_new:com_231);
+}

@@ -1,0 +1,23 @@
+// 4344
+[proc,script4344]()(string, string, string, string, string, string, string, string, string, string)
+def_string $string0 = "";
+def_string $string1 = "";
+def_string $string2 = "";
+def_string $string3 = "";
+def_string $string4 = "";
+def_string $string5 = "";
+def_string $string6 = "";
+def_string $string7 = "";
+def_string $string8 = "";
+def_string $string9 = "";
+$string0 = ~clan_keyword_get(%varclansetting_25, %varclansetting_26);
+$string1 = ~clan_keyword_get(%varclansetting_27, %varclansetting_28);
+$string2 = ~clan_keyword_get(%varclansetting_29, %varclansetting_30);
+$string3 = ~clan_keyword_get(%varclansetting_31, %varclansetting_32);
+$string4 = ~clan_keyword_get(%varclansetting_33, %varclansetting_34);
+$string5 = ~clan_keyword_get(%varclansetting_35, %varclansetting_36);
+$string6 = ~clan_keyword_get(%varclansetting_37, %varclansetting_38);
+$string7 = ~clan_keyword_get(%varclansetting_39, %varclansetting_40);
+$string8 = ~clan_keyword_get(%varclansetting_41, %varclansetting_42);
+$string9 = ~clan_keyword_get(%varclansetting_43, %varclansetting_44);
+return($string0, $string1, $string2, $string3, $string4, $string5, $string6, $string7, $string8, $string9);

@@ -1,0 +1,241 @@
+// 983:0
+[com_0]
+type=text
+x=19
+y=177
+width=158
+height=32
+textfont=p12_full
+text=Click on the purple<br>orbs to switch view.
+textalignh=centre
+textshadow=yes
+colour=0xff981f
+transmitop=1
+op1=View
+targetverb=View
+
+// 983:1
+[com_1]
+type=layer
+x=38
+y=215
+width=120
+height=40
+transmitop=1
+op1=Stop viewing
+onmouseover=script3429(castlewars_orb:com_2, castlewars_orb:com_3, castlewars_orb:com_4, "lobby_buttons,2", "lobby_buttons,3", "lobby_buttons,2")
+onmouseleave=script3429(castlewars_orb:com_2, castlewars_orb:com_3, castlewars_orb:com_4, "lobby_buttons,0", "lobby_buttons,1", "lobby_buttons,0")
+
+// 983:2
+[com_2]
+type=graphic
+x=1
+width=18
+height=39
+layer=com_1
+graphic="lobby_buttons,0"
+colour=0xffffffff
+
+// 983:3
+[com_3]
+type=graphic
+x=18
+width=84
+height=39
+layer=com_1
+graphic="lobby_buttons,1"
+colour=0xffffffff
+
+// 983:4
+[com_4]
+type=graphic
+x=102
+width=18
+height=39
+layer=com_1
+graphic="lobby_buttons,0"
+hflip=yes
+colour=0xffffffff
+
+// 983:5
+[com_5]
+type=text
+width=16391
+height=16391
+widthmode=proportion
+heightmode=proportion
+layer=com_1
+textfont=b12_full
+text=Stop viewing
+textalignh=centre
+textalignv=centre
+colour=0x000000
+targetverb=Exit
+
+// 983:6
+[com_6]
+type=layer
+x=17
+y=8
+width=160
+height=158
+
+// 983:7
+[com_7]
+type=model
+width=16288
+height=16391
+widthmode=proportion
+heightmode=proportion
+xmode=abs_centre
+ymode=abs_centre
+layer=com_6
+model=model_4854
+modelangle=512,0,0
+modelzoom=414
+modelobjwidth=159
+modelobjheight=158
+transmitop=10
+op10= 
+
+// 983:8
+[com_8]
+type=rectangle
+width=16391
+height=16391
+widthmode=proportion
+heightmode=proportion
+layer=com_6
+colour=0x000000
+
+// 983:9
+[com_9]
+type=layer
+x=115
+y=112
+width=16
+height=16
+layer=com_6
+transmitop=1
+op1=View
+
+// 983:10
+[com_10]
+type=layer
+x=64
+y=64
+width=16
+height=16
+layer=com_6
+transmitop=1
+op1=View
+
+// 983:11
+[com_11]
+type=layer
+x=85
+y=78
+width=16
+height=16
+layer=com_6
+transmitop=1
+op1=View
+
+// 983:12
+[com_12]
+type=layer
+x=7
+y=101
+width=16
+height=16
+layer=com_6
+transmitop=1
+op1=View
+
+// 983:13
+[com_13]
+type=layer
+x=30
+y=29
+width=16
+height=16
+layer=com_6
+transmitop=1
+op1=View
+
+// 983:14
+[com_14]
+type=layer
+x=128
+y=35
+width=16
+height=16
+layer=com_6
+transmitop=1
+op1=View
+
+// 983:15
+[com_15]
+type=graphic
+width=16
+height=17
+layer=com_9
+graphic="castle_wars_ball,0"
+colour=0xffffffff
+onmouseover=graphic_swapper(event_com, "castle_wars_ball,1")
+onmouseleave=graphic_swapper(event_com, "castle_wars_ball,0")
+
+// 983:16
+[com_16]
+type=graphic
+width=16
+height=17
+layer=com_10
+graphic="castle_wars_ball,0"
+colour=0xffffffff
+onmouseover=graphic_swapper(event_com, "castle_wars_ball,1")
+onmouseleave=graphic_swapper(event_com, "castle_wars_ball,0")
+
+// 983:17
+[com_17]
+type=graphic
+width=16
+height=17
+layer=com_11
+graphic="castle_wars_ball,0"
+colour=0xffffffff
+onmouseover=graphic_swapper(event_com, "castle_wars_ball,1")
+onmouseleave=graphic_swapper(event_com, "castle_wars_ball,0")
+
+// 983:18
+[com_18]
+type=graphic
+width=16
+height=17
+layer=com_12
+graphic="castle_wars_ball,0"
+colour=0xffffffff
+onmouseover=graphic_swapper(event_com, "castle_wars_ball,1")
+onmouseleave=graphic_swapper(event_com, "castle_wars_ball,0")
+
+// 983:19
+[com_19]
+type=graphic
+width=16
+height=17
+layer=com_13
+graphic="castle_wars_ball,0"
+colour=0xffffffff
+onmouseover=graphic_swapper(event_com, "castle_wars_ball,1")
+onmouseleave=graphic_swapper(event_com, "castle_wars_ball,0")
+
+// 983:20
+[com_20]
+type=graphic
+width=16
+height=17
+layer=com_14
+graphic="castle_wars_ball,0"
+colour=0xffffffff
+onmouseover=graphic_swapper(event_com, "castle_wars_ball,1")
+onmouseleave=graphic_swapper(event_com, "castle_wars_ball,0")

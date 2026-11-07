@@ -1,8 +1,9 @@
+// 3181
 [proc,lobbyscreen_report_abuse_stage1_clear]
-if_settext("", wy7834916:com27);
-if_setonkey(null, wy7834916:com27);
-if_setonop(null, wy7834916:com16);
-if_sethide(true, wy7834916:com21);
-if_setgraphic("check_box_2,0", wy7834916:com23);
-%varc_string_277 = "";
-%varc_int_1094 = 0;
+if_settext("", interface_914:com_27);
+if_setonkey(null, interface_914:com_27);
+if_setonop(null, interface_914:com_16);
+if_sethide(true, interface_914:com_21);
+if_setgraphic("check_box_2,0", interface_914:com_23);
+%varclient_1796 = "";
+%varclient_1094 = 0;

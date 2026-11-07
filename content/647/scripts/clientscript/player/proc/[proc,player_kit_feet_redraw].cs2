@@ -1,71 +1,72 @@
+// 1506
 [proc,player_kit_feet_redraw]
 def_enum $enum0 = null;
 def_enum $enum1 = null;
-if (player_isfemale = true) {
+if (gender = 1) {
     $enum0 = enum_1137;
     $enum1 = enum_3294;
 } else {
     $enum0 = enum_1136;
     $enum1 = enum_3291;
 }
-cc_deleteall(player_kit_feet:com7);
+cc_deleteall(player_kit_feet:com_7);
 def_int $int2 = 0;
 def_int $int3 = enum_getoutputcount($enum0);
 def_idkit $idkit4 = null;
-def_string $string = "";
+def_string $string0 = "";
 def_int $int5 = 0;
 def_int $int6 = 0;
 while ($int2 < $int3) {
-    $idkit4 = enum(105, 75, $enum0, $int2);
-    $string = enum(105, 115, $enum1, $int2);
-    cc_create(player_kit_feet:com7, ^iftype_graphic, if_getchildcount(player_kit_feet:com7));
+    $idkit4 = enum(int, idkit, $enum0, $int2);
+    $string0 = enum(int, string, $enum1, $int2);
+    cc_create(player_kit_feet:com_7, ^iftype_graphic, if_getnextsubid(player_kit_feet:com_7));
     cc_setsize(17, 17, ^setsize_abs, ^setsize_abs);
     cc_setposition(0, calc($int5 + 1), ^setpos_abs_left, ^setpos_abs_top);
-    .cc_create(player_kit_feet:com7, ^iftype_text, if_getchildcount(player_kit_feet:com7));
+    .cc_create(player_kit_feet:com_7, ^iftype_text, if_getnextsubid(player_kit_feet:com_7));
     .cc_setsize(20, 19, ^setsize_minus, ^setsize_abs);
     .cc_setposition(0, $int5, ^setpos_abs_right, ^setpos_abs_top);
     .cc_settextalign(^settextalign_left, ^settextalign_centre, 0);
     .cc_setcolour(0xff981f);
     .cc_settextfont(p12_full);
-    .cc_settext($string);
-    if ($idkit4 = %varc_int_1014) {
+    .cc_settext($string0);
+    if ($idkit4 = %varclient_1014) {
         cc_setgraphic("options_radio_buttons,2");
         $int6 = $int5;
     } else {
         cc_setgraphic("options_radio_buttons,0");
-        cc_setonmouseover("cc_text_colour_swapper(^event_com, .cc_getid, 16777215)");
-        cc_setonmouseleave("cc_text_colour_swapper(^event_com, .cc_getid, 16750623)");
-        .cc_setonmouseover("cc_text_colour_swapper(^event_com, .cc_getid, 16777215)");
-        .cc_setonmouseleave("cc_text_colour_swapper(^event_com, .cc_getid, 16750623)");
-        cc_setop(1, $string);
-        .cc_setop(1, $string);
-        cc_setonop("clientscript_1507(^event_op, $idkit4)");
-        .cc_setonop("clientscript_1507(^event_op, $idkit4)");
+        cc_setonmouseover("cc_text_colour_swapper(event_com, .cc_getid, ^white)");
+        cc_setonmouseleave("cc_text_colour_swapper(event_com, .cc_getid, 0xff981f)");
+        .cc_setonmouseover("cc_text_colour_swapper(event_com, .cc_getid, ^white)");
+        .cc_setonmouseleave("cc_text_colour_swapper(event_com, .cc_getid, 0xff981f)");
+        cc_setop(1, $string0);
+        .cc_setop(1, $string0);
+        cc_setonop("script1507(event_op, $idkit4)");
+        .cc_setonop("script1507(event_op, $idkit4)");
     }
     $int2 = calc($int2 + 1);
     $int5 = calc($int5 + 19);
 }
-if ($int5 > if_getheight(player_kit_feet:com7)) {
-    if_setsize(20, 4, ^setsize_minus, ^setsize_minus, player_kit_feet:com7);
-    if_setscrollsize(0, $int5, player_kit_feet:com7);
-    if ($int6 < if_getscrolly(player_kit_feet:com7)) {
-        if_setscrollpos(0, calc($int6 - 5), player_kit_feet:com7);
-    } else if (calc($int6 + 19) >= calc(if_getscrolly(player_kit_feet:com7) + if_getheight(player_kit_feet:com7))) {
-        if_setscrollpos(0, calc($int6 + 25 - if_getheight(player_kit_feet:com7)), player_kit_feet:com7);
+if ($int5 > if_getheight(player_kit_feet:com_7)) {
+    if_setsize(20, 4, ^setsize_minus, ^setsize_minus, player_kit_feet:com_7);
+    if_setscrollsize(0, $int5, player_kit_feet:com_7);
+    if ($int6 < if_getscrolly(player_kit_feet:com_7)) {
+        if_setscrollpos(0, calc($int6 - 5), player_kit_feet:com_7);
+    } else if (calc($int6 + 19) >= calc(if_getscrolly(player_kit_feet:com_7) + if_getheight(player_kit_feet:com_7))) {
+        if_setscrollpos(0, calc($int6 + 25 - if_getheight(player_kit_feet:com_7)), player_kit_feet:com_7);
     }
-    if_sethide(false, player_kit_feet:com8);
-    ~scrollbar_vertical(player_kit_feet:com8, player_kit_feet:com7, "scrollbar_dragger_v2,3", "scrollbar_dragger_v2,0", "scrollbar_dragger_v2,1", "scrollbar_dragger_v2,2", "scrollbar_v2,0", "scrollbar_v2,1");
+    if_sethide(false, player_kit_feet:com_8);
+    ~scrollbar_vertical(player_kit_feet:com_8, player_kit_feet:com_7, "scrollbar_dragger_v2,3", "scrollbar_dragger_v2,0", "scrollbar_dragger_v2,1", "scrollbar_dragger_v2,2", "scrollbar_v2,0", "scrollbar_v2,1");
 } else {
-    if_setsize(4, 4, ^setsize_minus, ^setsize_minus, player_kit_feet:com7);
-    if_setscrollsize(0, 0, player_kit_feet:com7);
-    if_setscrollpos(0, 0, player_kit_feet:com7);
-    cc_deleteall(player_kit_feet:com8);
-    if_sethide(true, player_kit_feet:com8);
+    if_setsize(4, 4, ^setsize_minus, ^setsize_minus, player_kit_feet:com_7);
+    if_setscrollsize(0, 0, player_kit_feet:com_7);
+    if_setscrollpos(0, 0, player_kit_feet:com_7);
+    cc_deleteall(player_kit_feet:com_8);
+    if_sethide(true, player_kit_feet:com_8);
 }
-cc_deleteall(player_kit_feet:com12);
+cc_deleteall(player_kit_feet:com_12);
 $int3 = enum_getoutputcount(enum_3297);
 def_int $int7 = 6;
-if (calc((($int3 - 1) / $int7 + 1) * 21) > if_getheight(player_kit_feet:com12)) {
+if (calc((($int3 - 1) / $int7 + 1) * 21) > if_getheight(player_kit_feet:com_12)) {
     $int7 = 5;
 }
 $int2 = 0;
@@ -74,29 +75,29 @@ def_int $int8 = 0;
 def_graphic $graphic9 = null;
 def_int $int10 = 0;
 while ($int2 < $int3) {
-    $string = enum(105, 115, enum_3296, $int2);
-    $int10 = enum(105, 105, enum_3297, $int2);
-    cc_create(player_kit_feet:com12, ^iftype_rectangle, if_getchildcount(player_kit_feet:com12));
+    $string0 = enum(int, string, enum_3296, $int2);
+    $int10 = enum(int, int, enum_3297, $int2);
+    cc_create(player_kit_feet:com_12, ^iftype_rectangle, if_getnextsubid(player_kit_feet:com_12));
     cc_setsize(21, 21, ^setsize_abs, ^setsize_abs);
     cc_setfill(true);
     cc_setposition(calc($int8 * cc_getwidth), $int5, ^setpos_abs_left, ^setpos_abs_top);
-    cc_setcolour(enum(105, 105, enum_753, $int2));
-    cc_setonmouserepeat("clientscript_1160(^event_com, ^event_subid, player_kit_feet:com18, $string, 0, 512)");
-    cc_setonmouseleave("deltooltip(player_kit_feet:com18)");
-    .cc_create(player_kit_feet:com12, ^iftype_graphic, if_getchildcount(player_kit_feet:com12));
+    cc_setcolour(enum(int, int, enum_753, $int2));
+    cc_setonmouserepeat("script1160(event_com, event_comsubid, player_kit_feet:com_18, $string0, 0, 512)");
+    cc_setonmouseleave("deltooltip(player_kit_feet:com_18)");
+    .cc_create(player_kit_feet:com_12, ^iftype_graphic, if_getnextsubid(player_kit_feet:com_12));
     .cc_setsize(cc_getwidth, cc_getheight, ^setsize_abs, ^setsize_abs);
     .cc_setposition(cc_getx, cc_gety, ^setpos_abs_left, ^setpos_abs_top);
-    if ($int10 = %varc_int_1018) {
-        .cc_setgraphic(1043);
+    if ($int10 = %varclient_1018) {
+        .cc_setgraphic(graphic_1043);
         $int6 = $int5;
     } else {
-        $graphic9 = 1041;
+        $graphic9 = graphic_1041;
         .cc_setgraphic($graphic9);
-        .cc_setonmouseleave("cc_graphic_swapper(^event_com, .cc_getid, $graphic9)");
-        $graphic9 = 1042;
-        .cc_setonmouseover("cc_graphic_swapper(^event_com, .cc_getid, $graphic9)");
-        .cc_setop(1, $string);
-        .cc_setonop("player_kit_feet_colourbutton(^event_op, $int10)");
+        .cc_setonmouseleave("cc_graphic_swapper(event_com, .cc_getid, $graphic9)");
+        $graphic9 = graphic_1042;
+        .cc_setonmouseover("cc_graphic_swapper(event_com, .cc_getid, $graphic9)");
+        .cc_setop(1, $string0);
+        .cc_setonop("player_kit_feet_colourbutton(event_op, $int10)");
     }
     $int2 = calc($int2 + 1);
     if ($int8 < calc($int7 - 1)) {
@@ -109,20 +110,20 @@ while ($int2 < $int3) {
 if ($int8 ! 0) {
     $int5 = calc($int5 + 21);
 }
-if ($int5 > if_getheight(player_kit_feet:com12) | $int7 < 6) {
-    if_setsize(20, 4, ^setsize_minus, ^setsize_minus, player_kit_feet:com12);
-    if_setscrollsize(0, $int5, player_kit_feet:com12);
-    if ($int6 < if_getscrolly(player_kit_feet:com12)) {
-        if_setscrollpos(0, calc($int6 - 5), player_kit_feet:com12);
-    } else if (calc($int6 + 21) >= calc(if_getscrolly(player_kit_feet:com12) + if_getheight(player_kit_feet:com12))) {
-        if_setscrollpos(0, calc($int6 + 25 - if_getheight(player_kit_feet:com12)), player_kit_feet:com12);
+if ($int5 > if_getheight(player_kit_feet:com_12) | $int7 < 6) {
+    if_setsize(20, 4, ^setsize_minus, ^setsize_minus, player_kit_feet:com_12);
+    if_setscrollsize(0, $int5, player_kit_feet:com_12);
+    if ($int6 < if_getscrolly(player_kit_feet:com_12)) {
+        if_setscrollpos(0, calc($int6 - 5), player_kit_feet:com_12);
+    } else if (calc($int6 + 21) >= calc(if_getscrolly(player_kit_feet:com_12) + if_getheight(player_kit_feet:com_12))) {
+        if_setscrollpos(0, calc($int6 + 25 - if_getheight(player_kit_feet:com_12)), player_kit_feet:com_12);
     }
-    if_sethide(false, player_kit_feet:com13);
-    ~scrollbar_vertical(player_kit_feet:com13, player_kit_feet:com12, "scrollbar_dragger_v2,3", "scrollbar_dragger_v2,0", "scrollbar_dragger_v2,1", "scrollbar_dragger_v2,2", "scrollbar_v2,0", "scrollbar_v2,1");
+    if_sethide(false, player_kit_feet:com_13);
+    ~scrollbar_vertical(player_kit_feet:com_13, player_kit_feet:com_12, "scrollbar_dragger_v2,3", "scrollbar_dragger_v2,0", "scrollbar_dragger_v2,1", "scrollbar_dragger_v2,2", "scrollbar_v2,0", "scrollbar_v2,1");
 } else {
-    if_setsize(4, 4, ^setsize_minus, ^setsize_minus, player_kit_feet:com12);
-    if_setscrollsize(0, 0, player_kit_feet:com12);
-    if_setscrollpos(0, 0, player_kit_feet:com12);
-    cc_deleteall(player_kit_feet:com13);
-    if_sethide(true, player_kit_feet:com13);
+    if_setsize(4, 4, ^setsize_minus, ^setsize_minus, player_kit_feet:com_12);
+    if_setscrollsize(0, 0, player_kit_feet:com_12);
+    if_setscrollpos(0, 0, player_kit_feet:com_12);
+    cc_deleteall(player_kit_feet:com_13);
+    if_sethide(true, player_kit_feet:com_13);
 }

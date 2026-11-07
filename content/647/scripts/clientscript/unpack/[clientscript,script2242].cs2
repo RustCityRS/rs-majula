@@ -1,0 +1,54 @@
+// 2242
+[clientscript,script2242]
+sound_synth(synth_8727, 3, 0);
+if_settext("Turns taken score: <tostring(%varplayer_1674)> x 101 = <tostring(calc(%varplayer_1674 * 101))>", swear_copris:com_22);
+if_settext("Resources spare: <tostring(calc(%varplayer_1688 + (%varplayer_1687 + %varplayer_1686)))> x -10 = -<tostring(calc((%varplayer_1688 + (%varplayer_1687 + %varplayer_1686)) * 10))>", swear_copris:com_26);
+if (%varplayer_1674 < 16) {
+    if_settext("Completed within turn limit: -100", swear_copris:com_27);
+} else {
+    if_settext("Not completed within turn limit: 0", swear_copris:com_27);
+}
+if_settext("Workers employed: <tostring(%varplayer_1681)> x -10 = -<tostring(calc(%varplayer_1681 * 10))>", swear_copris:com_28);
+if_settext("Turns taken: <tostring(%varplayer_1674)>", swear_copris:com_32);
+if (%varplayerbit_7324 = 0) {
+    if_settext("Oven not repaired: 50", swear_copris:com_23);
+} else {
+    if_settext("Oven repaired: 0", swear_copris:com_23);
+}
+if (%varplayerbit_7326 = 0) {
+    if_settext("Conveyor not repaired: 50", swear_copris:com_24);
+} else {
+    if_settext("Conveyor repaired: 0", swear_copris:com_24);
+}
+if (%varplayerbit_7325 = 0) {
+    if_settext("Painter not repaired: 50", swear_copris:com_25);
+} else {
+    if_settext("Painter repaired: 0", swear_copris:com_25);
+}
+def_int $int0 = 0;
+$int0 = calc(%varplayer_1674 * 101);
+if (%varplayerbit_7325 = 0) {
+    $int0 = calc($int0 + 50);
+}
+if (%varplayerbit_7324 = 0) {
+    $int0 = calc($int0 + 50);
+}
+if (%varplayerbit_7326 = 0) {
+    $int0 = calc($int0 + 50);
+}
+$int0 = calc($int0 - (%varplayer_1688 + (%varplayer_1687 + %varplayer_1686)) * 10);
+if (%varplayer_1674 < 16) {
+    $int0 = calc($int0 - 100);
+}
+$int0 = calc($int0 - %varplayer_1681 * 10);
+if ($int0 < 0) {
+    $int0 = 0;
+}
+if ($int0 > 32768) {
+    $int0 = 32768;
+}
+if ($int0 = %varplayerbit_7339) {
+    if_settext("Final score: <tostring($int0)> (New best score)", swear_copris:com_31);
+} else {
+    if_settext("Final score: <tostring($int0)>", swear_copris:com_31);
+}

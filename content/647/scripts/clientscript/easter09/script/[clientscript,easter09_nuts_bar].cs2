@@ -1,41 +1,42 @@
-[clientscript,easter09_nuts_bar](component $component)
-if (%varc_int_766 = true) {
-    if (if_gety($component) > 100) {
-        if_setposition(if_getx($component), calc(if_gety($component) - 2), ^setpos_abs_left, ^setpos_abs_top, $component);
+// 2328
+[clientscript,easter09_nuts_bar](component $component0)
+if (%varclient_766 = 1) {
+    if (if_gety($component0) > 100) {
+        if_setposition(if_getx($component0), calc(if_gety($component0) - 2), ^setpos_abs_left, ^setpos_abs_top, $component0);
         sound_synth(synth_6422, 1, 0);
-        if (if_gety($component) < 170) {
-            switch_int (%varc_int_765) {
-                case 1:
-                    if_setposition(if_getx(easter09_nuts:com6), calc(if_gety(easter09_nuts:com6) - 2), ^setpos_abs_left, ^setpos_abs_top, easter09_nuts:com6);
-                case 2:
-                    if_setposition(if_getx(easter09_nuts:com7), calc(if_gety(easter09_nuts:com7) - 2), ^setpos_abs_left, ^setpos_abs_top, easter09_nuts:com7);
-                case 3:
-                    if_setposition(if_getx(easter09_nuts:com8), calc(if_gety(easter09_nuts:com8) - 2), ^setpos_abs_left, ^setpos_abs_top, easter09_nuts:com8);
-                case 4:
-                    if_setposition(if_getx(easter09_nuts:com9), calc(if_gety(easter09_nuts:com9) - 2), ^setpos_abs_left, ^setpos_abs_top, easter09_nuts:com9);
+        if (if_gety($component0) < 170) {
+            switch_int (%varclient_765) {
+                case 1 :
+                    if_setposition(if_getx(easter09_nuts:com_6), calc(if_gety(easter09_nuts:com_6) - 2), ^setpos_abs_left, ^setpos_abs_top, easter09_nuts:com_6);
+                case 2 :
+                    if_setposition(if_getx(easter09_nuts:com_7), calc(if_gety(easter09_nuts:com_7) - 2), ^setpos_abs_left, ^setpos_abs_top, easter09_nuts:com_7);
+                case 3 :
+                    if_setposition(if_getx(easter09_nuts:com_8), calc(if_gety(easter09_nuts:com_8) - 2), ^setpos_abs_left, ^setpos_abs_top, easter09_nuts:com_8);
+                case 4 :
+                    if_setposition(if_getx(easter09_nuts:com_9), calc(if_gety(easter09_nuts:com_9) - 2), ^setpos_abs_left, ^setpos_abs_top, easter09_nuts:com_9);
             }
         }
     } else {
-        if_setposition(if_getx($component), 100, ^setpos_abs_left, ^setpos_abs_top, $component);
-        %varc_int_766 = 2;
-        switch_int (%varc_int_765) {
-            case 1:
-                ~clientscript_1411;
-            case 2:
-                ~clientscript_2056;
-            case 3:
-                ~clientscript_2322;
-            case 4:
-                ~clientscript_2324;
+        if_setposition(if_getx($component0), 100, ^setpos_abs_left, ^setpos_abs_top, $component0);
+        %varclient_766 = 2;
+        switch_int (%varclient_765) {
+            case 1 :
+                ~script1411;
+            case 2 :
+                ~script2056;
+            case 3 :
+                ~script2322;
+            case 4 :
+                ~script2324;
         }
     }
-} else if (%varc_int_766 = 2) {
-    if (if_gety($component) < 200) {
-        if_setposition(if_getx($component), calc(if_gety($component) + 2), ^setpos_abs_left, ^setpos_abs_top, $component);
+} else if (%varclient_766 = 2) {
+    if (if_gety($component0) < 200) {
+        if_setposition(if_getx($component0), calc(if_gety($component0) + 2), ^setpos_abs_left, ^setpos_abs_top, $component0);
     } else {
-        if_setposition(if_getx($component), 200, ^setpos_abs_left, ^setpos_abs_top, $component);
-        %varc_int_766 = 0;
-        %varc_int_765 = 0;
-        if_setontimer(null, $component);
+        if_setposition(if_getx($component0), 200, ^setpos_abs_left, ^setpos_abs_top, $component0);
+        %varclient_766 = 0;
+        %varclient_765 = 0;
+        if_setontimer(null, $component0);
     }
 }

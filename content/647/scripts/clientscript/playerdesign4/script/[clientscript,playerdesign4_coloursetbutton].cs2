@@ -1,3 +1,4 @@
+// 358
 [clientscript,playerdesign4_coloursetbutton](int $int0)
 if ($int0 ! 1) {
     return;
@@ -5,90 +6,90 @@ if ($int0 ! 1) {
 sound_synth(synth_9830, 1, 0);
 %character_creation_colour_offset = calc((%character_creation_colour_offset + 1) % 8);
 def_int $int1 = 0;
-def_struct $struct2 = ~clientscript_361(%varc_int_1010, 3);
+def_struct $struct2 = ~script361(%varclient_1010, 3);
 if ($struct2 = null) {
     $struct2 = struct_1076;
 }
 switch_int (calc((%character_creation_hair_style + %character_creation_colour_offset) % 8)) {
-    case default:
+    case default :
         $int1 = struct_param($struct2, param_1187);
-        %varc_int_1016 = $int1;
-        player_setcolour(1, $int1);
+        %varclient_1016 = $int1;
+        basecolour(1, $int1);
         $int1 = struct_param($struct2, param_1188);
-        %varc_int_1017 = $int1;
-        player_setcolour(2, $int1);
+        %varclient_1017 = $int1;
+        basecolour(2, $int1);
         $int1 = struct_param($struct2, param_1189);
-        %varc_int_1018 = $int1;
-        player_setcolour(3, $int1);
-    case 1:
+        %varclient_1018 = $int1;
+        basecolour(3, $int1);
+    case 1 :
         $int1 = struct_param($struct2, param_1190);
-        %varc_int_1016 = $int1;
-        player_setcolour(1, $int1);
+        %varclient_1016 = $int1;
+        basecolour(1, $int1);
         $int1 = struct_param($struct2, param_1191);
-        %varc_int_1017 = $int1;
-        player_setcolour(2, $int1);
+        %varclient_1017 = $int1;
+        basecolour(2, $int1);
         $int1 = struct_param($struct2, param_1192);
-        %varc_int_1018 = $int1;
-        player_setcolour(3, $int1);
-    case 2:
+        %varclient_1018 = $int1;
+        basecolour(3, $int1);
+    case 2 :
         $int1 = struct_param($struct2, param_1193);
-        %varc_int_1016 = $int1;
-        player_setcolour(1, $int1);
+        %varclient_1016 = $int1;
+        basecolour(1, $int1);
         $int1 = struct_param($struct2, param_1194);
-        %varc_int_1017 = $int1;
-        player_setcolour(2, $int1);
+        %varclient_1017 = $int1;
+        basecolour(2, $int1);
         $int1 = struct_param($struct2, param_1195);
-        %varc_int_1018 = $int1;
-        player_setcolour(3, $int1);
-    case 3:
+        %varclient_1018 = $int1;
+        basecolour(3, $int1);
+    case 3 :
         $int1 = struct_param($struct2, param_1196);
-        %varc_int_1016 = $int1;
-        player_setcolour(1, $int1);
+        %varclient_1016 = $int1;
+        basecolour(1, $int1);
         $int1 = struct_param($struct2, param_1197);
-        %varc_int_1017 = $int1;
-        player_setcolour(2, $int1);
+        %varclient_1017 = $int1;
+        basecolour(2, $int1);
         $int1 = struct_param($struct2, param_1198);
-        %varc_int_1018 = $int1;
-        player_setcolour(3, $int1);
-    case 4:
+        %varclient_1018 = $int1;
+        basecolour(3, $int1);
+    case 4 :
         $int1 = struct_param($struct2, param_1199);
-        %varc_int_1016 = $int1;
-        player_setcolour(1, $int1);
+        %varclient_1016 = $int1;
+        basecolour(1, $int1);
         $int1 = struct_param($struct2, param_1200);
-        %varc_int_1017 = $int1;
-        player_setcolour(2, $int1);
+        %varclient_1017 = $int1;
+        basecolour(2, $int1);
         $int1 = struct_param($struct2, param_1201);
-        %varc_int_1018 = $int1;
-        player_setcolour(3, $int1);
-    case 5:
+        %varclient_1018 = $int1;
+        basecolour(3, $int1);
+    case 5 :
         $int1 = struct_param($struct2, param_1202);
-        %varc_int_1016 = $int1;
-        player_setcolour(1, $int1);
+        %varclient_1016 = $int1;
+        basecolour(1, $int1);
         $int1 = struct_param($struct2, param_1203);
-        %varc_int_1017 = $int1;
-        player_setcolour(2, $int1);
+        %varclient_1017 = $int1;
+        basecolour(2, $int1);
         $int1 = struct_param($struct2, param_1204);
-        %varc_int_1018 = $int1;
-        player_setcolour(3, $int1);
-    case 6:
+        %varclient_1018 = $int1;
+        basecolour(3, $int1);
+    case 6 :
         $int1 = struct_param($struct2, param_1205);
-        %varc_int_1016 = $int1;
-        player_setcolour(1, $int1);
+        %varclient_1016 = $int1;
+        basecolour(1, $int1);
         $int1 = struct_param($struct2, param_1206);
-        %varc_int_1017 = $int1;
-        player_setcolour(2, $int1);
+        %varclient_1017 = $int1;
+        basecolour(2, $int1);
         $int1 = struct_param($struct2, param_1207);
-        %varc_int_1018 = $int1;
-        player_setcolour(3, $int1);
-    case 7:
+        %varclient_1018 = $int1;
+        basecolour(3, $int1);
+    case 7 :
         $int1 = struct_param($struct2, param_1208);
-        %varc_int_1016 = $int1;
-        player_setcolour(1, $int1);
+        %varclient_1016 = $int1;
+        basecolour(1, $int1);
         $int1 = struct_param($struct2, param_1209);
-        %varc_int_1017 = $int1;
-        player_setcolour(2, $int1);
+        %varclient_1017 = $int1;
+        basecolour(2, $int1);
         $int1 = struct_param($struct2, param_1210);
-        %varc_int_1018 = $int1;
-        player_setcolour(3, $int1);
+        %varclient_1018 = $int1;
+        basecolour(3, $int1);
 }
 ~playerdesign4_rebuildmenu;

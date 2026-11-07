@@ -1,8 +1,9 @@
-[clientscript,clanwars_setup_stragglers_button](int $int)
-if (~clanwars_setup_clicktest($int) = false) {
+// 1823
+[clientscript,clanwars_setup_stragglers_button](int $int0)
+if (~clanwars_setup_clicktest($int0) = false) {
     return;
 }
-if (%varc_int_248 = true) {
-    %varc_int_248 = 0;
-    ~clientscript_1772;
+if (%varclient_248 = true) {
+    %varclient_248 = false;
+    ~script1772;
 }

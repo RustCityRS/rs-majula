@@ -1,0 +1,18 @@
+// 4074
+[clientscript,script4074](string $string0)
+def_int $int0 = 0;
+$int0 = calc(paraheight($string0, 346, p12_full) * 13);
+if ($int0 > 48) {
+    $int0 = calc(paraheight($string0, 328, p12_full) * 13);
+}
+if ($int0 > 48) {
+    if_setscrollsize(0, $int0, quest_intro:com_65);
+    ~scrollbar_vertical(quest_intro:com_63, quest_intro:com_65, "scrollbar_dragger_v2,3", "scrollbar_dragger_v2,0", "scrollbar_dragger_v2,1", "scrollbar_dragger_v2,2", "scrollbar_v2,0", "scrollbar_v2,1");
+    if_setsize(334, 48, ^setsize_abs, ^setsize_abs, quest_intro:com_65);
+    if_setsize(16384, $int0, ^setsize_rel, ^setsize_abs, quest_intro:com_2);
+    if_setsize(16384, $int0, ^setsize_rel, ^setsize_abs, quest_intro:com_3);
+    if_settextalign(^settextalign_left, ^settextalign_top, 0, quest_intro:com_66);
+} else {
+    if_setsize(354, 48, ^setsize_abs, ^setsize_abs, quest_intro:com_65);
+    if_settextalign(^settextalign_left, ^settextalign_centre, 0, quest_intro:com_66);
+}

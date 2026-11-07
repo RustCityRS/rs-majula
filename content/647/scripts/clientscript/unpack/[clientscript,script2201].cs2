@@ -1,0 +1,10 @@
+// 2201
+[clientscript,script2201]
+if (%varplayer_1701 = 1) {
+    ~script2200;
+} else {
+    ~script2199;
+}
+~script2209;
+if_sethide(false, %varclient_1136);
+if_setontimer("script2210", interface_932:com_1);

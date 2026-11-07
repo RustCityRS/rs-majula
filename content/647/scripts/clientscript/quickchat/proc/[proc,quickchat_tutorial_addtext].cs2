@@ -1,8 +1,9 @@
-[proc,quickchat_tutorial_addtext](int $int0, int $int1, int $int2, int $int3, int $int4, colour $colour5, string $string)
-cc_create(quickchat_tutorial:com25, ^iftype_text, $int0);
+// 1034
+[proc,quickchat_tutorial_addtext](int $int0, int $int1, int $int2, int $int3, int $int4, string $string0, int $rgb5)
+cc_create(quickchat_tutorial:com_25, ^iftype_text, $int0);
 cc_setposition($int1, $int2, ^setpos_abs_left, ^setpos_abs_top);
 cc_setsize($int3, $int4, ^setsize_abs, ^setsize_abs);
-cc_setcolour($colour5);
+cc_setcolour($rgb5);
 cc_settextshadow(true);
 cc_settextfont(p12_full);
-cc_settext($string);
+cc_settext($string0);

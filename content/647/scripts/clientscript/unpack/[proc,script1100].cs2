@@ -1,0 +1,14 @@
+// 1100
+[proc,script1100]()(int)
+def_int $int0 = 0;
+$int0 = calc($int0 + %varplayerbit_3600);
+$int0 = calc($int0 + %varplayerbit_3601);
+$int0 = calc($int0 + %varplayerbit_3602);
+$int0 = calc($int0 + %varplayerbit_3603);
+$int0 = calc($int0 + %varplayerbit_3604);
+$int0 = calc($int0 + %varplayerbit_3605);
+$int0 = calc($int0 + %varplayerbit_3606);
+$int0 = calc($int0 + %varplayerbit_3607);
+$int0 = calc($int0 + %varplayerbit_3608);
+$int0 = calc($int0 + %varplayerbit_3609);
+return($int0);

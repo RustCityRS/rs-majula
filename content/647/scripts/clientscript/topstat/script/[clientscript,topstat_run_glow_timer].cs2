@@ -1,22 +1,23 @@
+// 1410
 [clientscript,topstat_run_glow_timer](component $component0)
 def_int $int1 = 255;
 def_int $int2 = 0;
-if (%varc_int_814 < 256) {
-    $int1 = calc(255 - %varc_int_814);
-} else if (%varc_int_814 < 510) {
-    $int1 = calc(%varc_int_814 % 255);
+if (%varclient_814 < 256) {
+    $int1 = calc(255 - %varclient_814);
+} else if (%varclient_814 < 510) {
+    $int1 = calc(%varclient_814 % 255);
 } else {
     $int1 = 255;
 }
-if (%varc_int_119 = 4) {
+if (%varclient_119 = 4) {
     $int2 = 8;
-} else if (%varc_int_119 = 3) {
+} else if (%varclient_119 = 3) {
     $int2 = 4;
 } else {
     $int1 = 255;
 }
 if_settrans($int1, $component0);
-%varc_int_814 = calc(%varc_int_814 + $int2);
-if (%varc_int_814 > 510) {
-    %varc_int_814 = 0;
+%varclient_814 = calc(%varclient_814 + $int2);
+if (%varclient_814 > 510) {
+    %varclient_814 = 0;
 }

@@ -1,3 +1,4 @@
+// 3020
 [proc,lobbyscreen_input_ok](int $int0, string $string0)
 def_int $int1 = 0;
 def_string $string1 = "";
@@ -6,57 +7,57 @@ def_int $int2 = -1;
 def_string $string3 = "";
 def_string $string4 = "";
 def_int $int3 = -1;
-if (string_length(%varc_string_277) > 0) {
+if (string_length(%varclient_1796) > 0) {
     switch_int ($int0) {
-        case 0:
-            if (string_length(%varc_string_277) > 0 & string_length($string0) > 0) {
-                if (chat_getfilter_private = 2) {
-                    ~clientscript_3047(1);
+        case 0 :
+            if (string_length(%varclient_1796) > 0 & string_length($string0) > 0) {
+                if (chat_getfilter_private = ^chatfilter_off) {
+                    ~script3047(1);
                 }
-                chat_sendprivate(removetags($string0), %varc_string_277);
+                chat_sendprivate(removetags($string0), %varclient_1796);
             }
-        case 1:
+        case 1 :
             if (friend_count < 0) {
                 mes("Unable to update Friends List - system busy.");
-            } else if (string_length(%varc_string_277) > 0) {
-                friend_add(%varc_string_277);
+            } else if (string_length(%varclient_1796) > 0) {
+                friend_add(%varclient_1796);
             }
-        case 2:
-            if (ignores_count < 0) {
+        case 2 :
+            if (ignore_count < 0) {
                 mes("Unable to update Ignore List - system busy.");
-            } else if (string_length(%varc_string_277) > 0) {
-                ignore_add(%varc_string_277);
+            } else if (string_length(%varclient_1796) > 0) {
+                ignore_add(%varclient_1796);
             }
-        case 3:
+        case 3 :
             if (friend_count < 0) {
                 mes("Unable to update Friends List - system busy.");
-            } else if (string_length(%varc_string_277) > 0) {
-                friend_del(%varc_string_277);
+            } else if (string_length(%varclient_1796) > 0) {
+                friend_del(%varclient_1796);
             }
-        case 4:
-            if (ignores_count < 0) {
+        case 4 :
+            if (ignore_count < 0) {
                 mes("Unable to update Ignore List - system busy.");
-            } else if (string_length(%varc_string_277) > 0) {
-                ignore_del(%varc_string_277);
+            } else if (string_length(%varclient_1796) > 0) {
+                ignore_del(%varclient_1796);
             }
-        case 5:
-            if (clan_getchatsize <= 0 & string_length(%varc_string_277) > 0) {
-                clan_leavechat2(%varc_string_277);
+        case 5 :
+            if (clan_getchatcount <= 0 & string_length(%varclient_1796) > 0) {
+                clan_joinchat(%varclient_1796);
             }
-        case 6:
-            %varc_int_1094 = 0;
-            url_request("bugtracker_v4", "index.html", 0);
-        case 7:
-            if (string_length(%varc_string_277) > 0) {
-                ~clan_chat_kick_find(%varc_string_277);
+        case 6 :
+            %varclient_1094 = 0;
+            openurl("bugtracker_v4", "index.html", false);
+        case 7 :
+            if (string_length(%varclient_1796) > 0) {
+                ~clan_chat_kick_find(%varclient_1796);
             }
-        case 9:
-            if (clan_getchatsize > 0 & string_length(%varc_string_277) > 0) {
-                ~friendschat_kick(%varc_string_277);
+        case 9 :
+            if (clan_getchatcount > 0 & string_length(%varclient_1796) > 0) {
+                ~friendschat_kick(%varclient_1796);
             }
     }
 }
-if ($int1 = true) {
+if ($int1 = 1) {
     ~lobbyscreen_input($string1, $string2, $int2, $string3, $string4);
 } else {
     ~lobbyscreen_input_close;

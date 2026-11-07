@@ -1,0 +1,38 @@
+// 3965
+[proc,script3965](component $component0, string $string0, int $int1, string $string1)
+cc_deleteall($component0);
+if_setsize($int1, 27, ^setsize_abs, ^setsize_abs, $component0);
+cc_create($component0, ^iftype_graphic, if_getnextsubid($component0));
+cc_setsize(6, 25, ^setsize_minus, ^setsize_abs);
+cc_setposition(0, 0, ^setpos_abs_centre, ^setpos_abs_centre);
+cc_settiling(true);
+cc_create($component0, ^iftype_graphic, if_getnextsubid($component0));
+cc_setsize(25, 25, ^setsize_abs, ^setsize_abs);
+cc_setposition(0, 0, ^setpos_abs_left, ^setpos_abs_centre);
+cc_create($component0, ^iftype_graphic, if_getnextsubid($component0));
+cc_setsize(25, 25, ^setsize_abs, ^setsize_abs);
+cc_setposition(3, 0, ^setpos_abs_right, ^setpos_abs_centre);
+cc_sethflip(true);
+cc_create($component0, ^iftype_text, if_getnextsubid($component0));
+cc_setsize(0, 0, ^setsize_minus, ^setsize_minus);
+cc_setposition(1, 1, ^setpos_abs_centre, ^setpos_abs_centre);
+cc_settextfont(verdana_11pt_regular);
+cc_setcolour(0xc0b154);
+cc_settextalign(^settextalign_centre, ^settextalign_centre, 0);
+cc_settextshadow(false);
+cc_settext($string0);
+cc_create($component0, ^iftype_text, if_getnextsubid($component0));
+cc_setsize(0, 0, ^setsize_minus, ^setsize_minus);
+cc_setposition(0, 0, ^setpos_abs_centre, ^setpos_abs_centre);
+cc_settextfont(verdana_11pt_regular);
+cc_setcolour(^black);
+cc_settextalign(^settextalign_centre, ^settextalign_centre, 0);
+cc_settextshadow(false);
+cc_settext($string0);
+~script3967($component0, false);
+if_setop(1, $string0, $component0);
+if_setonmouseover("script3966($component0, true)", $component0);
+if (string_length($string1) > 0) {
+    if_setonmouserepeat("playerdesign4_tooltip($string1, event_com, -1, event_mousex)", $component0);
+}
+if_setonmouseleave("script3966($component0, false)", $component0);

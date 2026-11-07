@@ -1,6 +1,0 @@
-[proc,clientscript_2893]
-if (%varc_int_1086 = true) {
-    if_setontimer(null, ma6343905:com24);
-    if_sethide(true, ma6343905:com24);
-    %varc_int_1086 = 0;
-}

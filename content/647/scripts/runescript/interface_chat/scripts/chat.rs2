@@ -146,29 +146,29 @@ if ($lines = 0) {
     // sanity check
     return;
 } else if ($lines = 1) {
-    .if_settext(message1:com1, split_get($page, 0));
+    .if_settext(message1:com_1, split_get($page, 0));
     .if_openchat(message1);
 } else if ($lines = 2) {
-    .if_settext(message2:com1, split_get($page, 0));
-    .if_settext(message2:com2, split_get($page, 1));
+    .if_settext(message2:com_1, split_get($page, 0));
+    .if_settext(message2:com_2, split_get($page, 1));
     .if_openchat(message2);
 } else if ($lines = 3) {
-    .if_settext(message3:com1, split_get($page, 0));
-    .if_settext(message3:com2, split_get($page, 1));
-    .if_settext(message3:com3, split_get($page, 2));
+    .if_settext(message3:com_1, split_get($page, 0));
+    .if_settext(message3:com_2, split_get($page, 1));
+    .if_settext(message3:com_3, split_get($page, 2));
     .if_openchat(message3);
 } else if ($lines = 4) {
-    .if_settext(message4:com1, split_get($page, 0));
-    .if_settext(message4:com2, split_get($page, 1));
-    .if_settext(message4:com3, split_get($page, 2));
-    .if_settext(message4:com4, split_get($page, 3));
+    .if_settext(message4:com_1, split_get($page, 0));
+    .if_settext(message4:com_2, split_get($page, 1));
+    .if_settext(message4:com_3, split_get($page, 2));
+    .if_settext(message4:com_4, split_get($page, 3));
     .if_openchat(message4);
 } else if ($lines = 5) {
-    .if_settext(message5:com1, split_get($page, 0));
-    .if_settext(message5:com2, split_get($page, 1));
-    .if_settext(message5:com3, split_get($page, 2));
-    .if_settext(message5:com4, split_get($page, 3));
-    .if_settext(message5:com5, split_get($page, 4));
+    .if_settext(message5:com_1, split_get($page, 0));
+    .if_settext(message5:com_2, split_get($page, 1));
+    .if_settext(message5:com_3, split_get($page, 2));
+    .if_settext(message5:com_4, split_get($page, 3));
+    .if_settext(message5:com_5, split_get($page, 4));
     .if_openchat(message5);
 }
 
@@ -201,8 +201,8 @@ if (split_linecount($page) = 0) {
     // sanity check
     return;
 }
-if_setobject(objbox:com0, $obj, $scale);
-if_settext(objbox:com1, ~split_page_text($page));
+if_setobject(objbox:com_0, $obj, $scale);
+if_settext(objbox:com_1, ~split_page_text($page));
 if_openchat(objbox);
 
 [proc,objbox](obj $obj, string $string, int $scale, int $x, int $y)
@@ -247,9 +247,9 @@ if ($lines = 0 | $lines > 4) {
     // sanity check
     return;
 }
-if_settext(doubleobjbox:com1, ~split_page_text($page));
-if_setobject(doubleobjbox:com0, $obj_1, $scale1);
-if_setobject(doubleobjbox:com2, $obj_2, $scale2);
+if_settext(doubleobjbox:com_1, ~split_page_text($page));
+if_setobject(doubleobjbox:com_0, $obj_1, $scale1);
+if_setobject(doubleobjbox:com_2, $obj_2, $scale2);
 if_openchat(doubleobjbox);
 
 [proc,doubleobjbox](obj $obj_1, obj $obj_2, string $string, int $scale)
@@ -609,34 +609,34 @@ if ($lines = 0) {
     // sanity check
     return;
 } else if ($lines = 1) {
-    if_setmodel(npcchat1:com2, $chathead);
-    if_setanim(npcchat1:com2, split_getanim($page));
-    if_settext(npcchat1:com3, $npc_name);
-    if_settext(npcchat1:com4, split_get($page, 0));
+    if_setmodel(npcchat1:com_2, $chathead);
+    if_setanim(npcchat1:com_2, split_getanim($page));
+    if_settext(npcchat1:com_3, $npc_name);
+    if_settext(npcchat1:com_4, split_get($page, 0));
     if_openchat(npcchat1);
 } else if ($lines < 3) {
-    if_setmodel(npcchat2:com2, $chathead);
-    if_setanim(npcchat2:com2, split_getanim($page));
-    if_settext(npcchat2:com3, $npc_name);
-    if_settext(npcchat2:com4, split_get($page, 0));
-    if_settext(npcchat2:com5, split_get($page, 1));
+    if_setmodel(npcchat2:com_2, $chathead);
+    if_setanim(npcchat2:com_2, split_getanim($page));
+    if_settext(npcchat2:com_3, $npc_name);
+    if_settext(npcchat2:com_4, split_get($page, 0));
+    if_settext(npcchat2:com_5, split_get($page, 1));
     if_openchat(npcchat2);
 } else if ($lines = 3) {
-    if_setmodel(npcchat3:com2, $chathead);
-    if_setanim(npcchat3:com2, split_getanim($page));
-    if_settext(npcchat3:com3, $npc_name);
-    if_settext(npcchat3:com4, split_get($page, 0));
-    if_settext(npcchat3:com5, split_get($page, 1));
-    if_settext(npcchat3:com6, split_get($page, 2));
+    if_setmodel(npcchat3:com_2, $chathead);
+    if_setanim(npcchat3:com_2, split_getanim($page));
+    if_settext(npcchat3:com_3, $npc_name);
+    if_settext(npcchat3:com_4, split_get($page, 0));
+    if_settext(npcchat3:com_5, split_get($page, 1));
+    if_settext(npcchat3:com_6, split_get($page, 2));
     if_openchat(npcchat3);
 } else if ($lines = 4) {
-    if_setmodel(npcchat4:com2, $chathead);
-    if_setanim(npcchat4:com2, split_getanim($page));
-    if_settext(npcchat4:com3, $npc_name);
-    if_settext(npcchat4:com4, split_get($page, 0));
-    if_settext(npcchat4:com5, split_get($page, 1));
-    if_settext(npcchat4:com6, split_get($page, 2));
-    if_settext(npcchat4:com7, split_get($page, 3));
+    if_setmodel(npcchat4:com_2, $chathead);
+    if_setanim(npcchat4:com_2, split_getanim($page));
+    if_settext(npcchat4:com_3, $npc_name);
+    if_settext(npcchat4:com_4, split_get($page, 0));
+    if_settext(npcchat4:com_5, split_get($page, 1));
+    if_settext(npcchat4:com_6, split_get($page, 2));
+    if_settext(npcchat4:com_7, split_get($page, 3));
     if_openchat(npcchat4);
 }
 
@@ -665,34 +665,34 @@ def_int $lines = split_linecount($page);
 if ($lines = 0) {
     return;
 } else if ($lines = 1) {
-    if_setnpchead(npcchat_np1:com2, $npc);
-    if_setanim(npcchat_np1:com2, split_getanim($page));
-    if_settext(npcchat_np1:com3, $npc_name);
-    if_settext(npcchat_np1:com4, split_get($page, 0));
+    if_setnpchead(npcchat_np1:com_2, $npc);
+    if_setanim(npcchat_np1:com_2, split_getanim($page));
+    if_settext(npcchat_np1:com_3, $npc_name);
+    if_settext(npcchat_np1:com_4, split_get($page, 0));
     if_openchat(npcchat_np1);
 } else if ($lines = 2) {
-    if_setnpchead(npcchat_np2:com2, $npc);
-    if_setanim(npcchat_np2:com2, split_getanim($page));
-    if_settext(npcchat_np2:com3, $npc_name);
-    if_settext(npcchat_np2:com4, split_get($page, 0));
-    if_settext(npcchat_np2:com5, split_get($page, 1));
+    if_setnpchead(npcchat_np2:com_2, $npc);
+    if_setanim(npcchat_np2:com_2, split_getanim($page));
+    if_settext(npcchat_np2:com_3, $npc_name);
+    if_settext(npcchat_np2:com_4, split_get($page, 0));
+    if_settext(npcchat_np2:com_5, split_get($page, 1));
     if_openchat(npcchat_np2);
 } else if ($lines = 3) {
-    if_setnpchead(npcchat_np3:com2, $npc);
-    if_setanim(npcchat_np3:com2, split_getanim($page));
-    if_settext(npcchat_np3:com3, $npc_name);
-    if_settext(npcchat_np3:com4, split_get($page, 0));
-    if_settext(npcchat_np3:com5, split_get($page, 1));
-    if_settext(npcchat_np3:com6, split_get($page, 2));
+    if_setnpchead(npcchat_np3:com_2, $npc);
+    if_setanim(npcchat_np3:com_2, split_getanim($page));
+    if_settext(npcchat_np3:com_3, $npc_name);
+    if_settext(npcchat_np3:com_4, split_get($page, 0));
+    if_settext(npcchat_np3:com_5, split_get($page, 1));
+    if_settext(npcchat_np3:com_6, split_get($page, 2));
     if_openchat(npcchat_np3);
 } else if ($lines = 4) {
-    if_setnpchead(npcchat_np4:com2, $npc);
-    if_setanim(npcchat_np4:com2, split_getanim($page));
-    if_settext(npcchat_np4:com3, $npc_name);
-    if_settext(npcchat_np4:com4, split_get($page, 0));
-    if_settext(npcchat_np4:com5, split_get($page, 1));
-    if_settext(npcchat_np4:com6, split_get($page, 2));
-    if_settext(npcchat_np4:com7, split_get($page, 3));
+    if_setnpchead(npcchat_np4:com_2, $npc);
+    if_setanim(npcchat_np4:com_2, split_getanim($page));
+    if_settext(npcchat_np4:com_3, $npc_name);
+    if_settext(npcchat_np4:com_4, split_get($page, 0));
+    if_settext(npcchat_np4:com_5, split_get($page, 1));
+    if_settext(npcchat_np4:com_6, split_get($page, 2));
+    if_settext(npcchat_np4:com_7, split_get($page, 3));
     if_openchat(npcchat_np4);
 }
 

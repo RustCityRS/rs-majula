@@ -1,0 +1,24 @@
+// 309
+[proc,script309](wma $wma0, component $component1, int $int2)
+def_int $int3 = 0;
+if (%varclient_623 ! null & worldmap_getmap(%varclient_623) = $wma0) {
+    $int3 = ~script292(%varclient_624, $component1, $int2, $int3);
+}
+if (%varclient_625 ! null & worldmap_getmap(%varclient_625) = $wma0) {
+    $int3 = ~script292(%varclient_626, $component1, $int2, $int3);
+}
+if (%varclient_627 ! null & worldmap_getmap(%varclient_627) = $wma0) {
+    $int3 = ~script292(%varclient_628, $component1, $int2, $int3);
+}
+if (%varclient_629 ! null & worldmap_getmap(%varclient_629) = $wma0) {
+    $int3 = ~script292(%varclient_630, $component1, $int2, $int3);
+}
+if (%varplayer_1159 ! null & worldmap_getmap(%varplayer_1159) = $wma0) {
+    $int3 = ~script292(struct_972, $component1, $int2, $int3);
+}
+if (%varclient_940 ! null & worldmap_getmap(%varclient_940) = $wma0) {
+    $int3 = ~script292(%varclient_941, $component1, $int2, $int3);
+}
+if (%varclient_674 ! null & worldmap_getmap(%varclient_674) = $wma0) {
+    $int3 = ~script292(struct_280, $component1, $int2, $int3);
+}

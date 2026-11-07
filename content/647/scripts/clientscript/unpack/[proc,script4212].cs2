@@ -1,0 +1,45 @@
+// 4212
+[proc,script4212](component $component0, string $string0, graphic $graphic1, int $rgb2, int $rgb3)
+if ($component0 = null) {
+    return;
+}
+def_int $int4 = if_getx($component0);
+def_int $int5 = if_gety($component0);
+def_component $component6 = if_getlayer($component0);
+if_settext($string0, $component0);
+cc_deleteall($component6);
+cc_create($component6, ^iftype_text, if_getnextsubid($component6));
+cc_setposition(0, -1, ^setpos_abs_centre, ^setpos_abs_centre);
+cc_setsize(0, 0, ^setsize_minus, ^setsize_minus);
+cc_settextalign(^settextalign_centre, ^settextalign_centre, 0);
+cc_setcolour($rgb3);
+cc_settextfont($graphic1);
+cc_settext($string0);
+cc_create($component6, ^iftype_text, if_getnextsubid($component6));
+cc_setposition(0, 1, ^setpos_abs_centre, ^setpos_abs_centre);
+cc_setsize(0, 0, ^setsize_minus, ^setsize_minus);
+cc_settextalign(^settextalign_centre, ^settextalign_centre, 0);
+cc_setcolour($rgb3);
+cc_settextfont($graphic1);
+cc_settext($string0);
+cc_create($component6, ^iftype_text, if_getnextsubid($component6));
+cc_setposition(-1, 0, ^setpos_abs_centre, ^setpos_abs_centre);
+cc_setsize(0, 0, ^setsize_minus, ^setsize_minus);
+cc_settextalign(^settextalign_centre, ^settextalign_centre, 0);
+cc_setcolour($rgb3);
+cc_settextfont($graphic1);
+cc_settext($string0);
+cc_create($component6, ^iftype_text, if_getnextsubid($component6));
+cc_setposition(1, 0, ^setpos_abs_centre, ^setpos_abs_centre);
+cc_setsize(0, 0, ^setsize_minus, ^setsize_minus);
+cc_settextalign(^settextalign_centre, ^settextalign_centre, 0);
+cc_setcolour($rgb3);
+cc_settextfont($graphic1);
+cc_settext($string0);
+cc_create($component6, ^iftype_text, if_getnextsubid($component6));
+cc_setposition(0, 0, ^setpos_abs_centre, ^setpos_abs_centre);
+cc_setsize(0, 0, ^setsize_minus, ^setsize_minus);
+cc_settextalign(^settextalign_centre, ^settextalign_centre, 0);
+cc_setcolour($rgb2);
+cc_settextfont($graphic1);
+cc_settext($string0);

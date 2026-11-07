@@ -1,9 +1,0 @@
-[proc,clientscript_330](component $component0)
-def_int $int1 = 0;
-if (player_isfemale = true) {
-    $int1 = enum_getoutputcount(enum_2363);
-} else {
-    $int1 = enum_getoutputcount(enum_2132);
-}
-~player_kit_bracelet_display(%varc_int_784);
-~player_kit_select($component0, %varc_int_784, $int1);

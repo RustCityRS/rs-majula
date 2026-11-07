@@ -1,0 +1,9 @@
+// 3964
+[proc,script3964]
+if (%varclient_1414 = 1) {
+    if_settext("Username:", login:com_36);
+} else if (%varclient_1414 = 2) {
+    if_settext("Email:", login:com_36);
+} else {
+    if_settext("Login:", login:com_36);
+}

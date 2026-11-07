@@ -1,5 +1,7 @@
 use crate::archive;
 use crate::pack::pack_registry::PackFile;
+#[cfg(since_647)]
+use crate::pack::util::placeholder_prefix;
 use crate::pack::util::walk;
 use anyhow::{Context, Result, bail, ensure};
 use std::collections::HashMap;
@@ -57,18 +59,18 @@ impl AssetNames {
             .get(kind)
             .and_then(|p| p.get_by_id(id))
             .map(str::to_owned)
-            .unwrap_or_else(|| format!("{kind}_{id}"))
+            .unwrap_or_else(|| format!("{}_{id}", asset_prefix(kind)))
     }
 
     pub fn id(&self, kind: &str, name: &str) -> Result<u32> {
         if let Some(id) = self.packs.get(kind).and_then(|p| p.get_by_debugname(name)) {
             return Ok(id);
         }
-        if let Ok(id) = name
+        let number = name
             .strip_prefix(&format!("{kind}_"))
-            .unwrap_or(name)
-            .parse()
-        {
+            .or_else(|| name.strip_prefix(&format!("{}_", asset_prefix(kind))))
+            .unwrap_or(name);
+        if let Ok(id) = number.parse() {
             return Ok(id);
         }
         bail!("Unknown {kind}: {name}")
@@ -134,7 +136,16 @@ impl AssetNames {
             .get(&group)
             .and_then(|v| v.get(&file))
             .cloned()
-            .unwrap_or_else(|| format!("com{file}"))
+            .unwrap_or_else(|| {
+                #[cfg(before_647)]
+                {
+                    format!("com{file}")
+                }
+                #[cfg(since_647)]
+                {
+                    format!("com_{file}")
+                }
+            })
     }
 
     pub fn component_id(&self, group: u32, name: &str) -> Result<u32> {
@@ -151,6 +162,22 @@ impl AssetNames {
             .parse()
             .with_context(|| format!("Unknown component: {name}"))
     }
+}
+
+/// What an asset of a table goes by without a name of its own. Textures keep
+/// their table's name: their files carry it.
+#[cfg(since_647)]
+fn asset_prefix(kind: &str) -> &str {
+    if kind == "texture" {
+        kind
+    } else {
+        placeholder_prefix(kind)
+    }
+}
+
+#[cfg(before_647)]
+fn asset_prefix(kind: &str) -> &str {
+    kind
 }
 
 pub fn archive_name(id: u8) -> &'static str {
@@ -171,12 +198,8 @@ pub fn archive_name(id: u8) -> &'static str {
         archive::VORBIS => "vorbis",
         archive::MUSIC_SAMPLES => "instrument",
         archive::WORLDMAP_DATA => "worldmap_data",
-        archive::QUICKCHAT => "quickchat",
-        archive::QUICKCHAT_GLOBAL => "quickchat_global",
         archive::MATERIALS => "material",
-        archive::PARTICLES => "particle",
         archive::DEFAULTS => "defaults",
-        archive::BILLBOARDS => "billboard",
         archive::DLLS => "dlls",
         archive::SHADERS => "shaders",
         archive::LOADING_SPRITES | archive::LOADING_SPRITES_RAW => "loading_sprites",

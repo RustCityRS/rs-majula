@@ -1,0 +1,276 @@
+// 986:0
+[com_0]
+type=model
+x=-3
+y=-3
+width=519
+height=342
+model=model_57736
+modelorigin=-10,16
+modelangle=528,0,0
+modelzoom=500
+
+// 986:1
+[com_1]
+type=model
+x=66
+y=30
+width=103
+height=164
+model=model_57722
+modelorigin=0,1
+modelangle=512,0,0
+modelzoom=1936
+
+// 986:2
+[com_2]
+type=text
+x=82
+y=193
+width=70
+height=20
+textfont=b12_full
+text=Culprit
+textalignh=centre
+textshadow=yes
+colour=0xbf751d
+
+// 986:3
+[com_3]
+type=model
+x=301
+y=30
+width=103
+height=164
+model=model_57722
+modelorigin=0,1
+modelangle=512,0,0
+modelzoom=1936
+onvarctransmit=script863{varclient_1393}
+
+// 986:4
+[com_4]
+type=model
+x=240
+y=2
+width=363
+height=432
+model=model_57737
+modelorigin=-28,-54
+modelangle=1944,74,199
+modelzoom=995
+
+// 986:5
+[com_5]
+type=model
+x=196
+y=205
+width=65
+height=100
+hide=yes
+model=model_25798
+modelangle=449,0,0
+modelzoom=3400
+
+// 986:6
+[com_6]
+type=layer
+x=21
+y=215
+width=80
+height=115
+
+// 986:7
+[com_7]
+type=model
+x=13
+y=-4
+width=55
+height=87
+layer=com_6
+model=model_57722
+modelorigin=0,1
+modelangle=512,0,0
+modelzoom=3648
+transmitop=1
+op1=Magnify
+onmouseover=text_colour_swapper(interface_986:com_8, 0xe1981f)
+onmouseleave=text_colour_swapper(interface_986:com_8, 0xbf751d)
+onvarctransmit=script3437{varclient_1392}
+
+// 986:8
+[com_8]
+type=text
+y=77
+width=80
+height=40
+layer=com_6
+textfont=b12_full
+text=Prof. Oddenstein
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xbf751d
+
+// 986:9
+[com_9]
+type=layer
+x=104
+y=215
+width=80
+height=115
+
+// 986:10
+[com_10]
+type=model
+x=13
+y=-7
+width=55
+height=89
+layer=com_9
+model=model_57739
+modelorigin=0,2
+modelangle=512,0,0
+modelzoom=3648
+transmitop=1
+op1=Magnify
+onmouseover=text_colour_swapper(interface_986:com_11, 0xe1981f)
+onmouseleave=text_colour_swapper(interface_986:com_11, 0xbf751d)
+onvarctransmit=script3437{varclient_1392}
+
+// 986:11
+[com_11]
+type=text
+y=77
+width=80
+height=39
+layer=com_9
+textfont=b12_full
+text=Prof. Oddenstein
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xbf751d
+
+// 986:12
+[com_12]
+type=layer
+x=188
+y=215
+width=80
+height=115
+
+// 986:13
+[com_13]
+type=model
+x=13
+y=-7
+width=55
+height=89
+layer=com_12
+model=model_57738
+modelorigin=0,2
+modelangle=512,0,0
+modelzoom=3648
+transmitop=1
+op1=Magnify
+onmouseover=text_colour_swapper(interface_986:com_14, 0xe1981f)
+onmouseleave=text_colour_swapper(interface_986:com_14, 0xbf751d)
+onvarctransmit=script3437{varclient_1392}
+
+// 986:14
+[com_14]
+type=text
+y=76
+width=80
+height=39
+layer=com_12
+textfont=b12_full
+text=Prof. Oddenstein
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xbf751d
+
+// 986:15
+[com_15]
+type=text
+x=277
+y=241
+width=175
+height=83
+textfont=b12_full
+text=Match the culprit's fingerprint to those of the suspect.
+textalignh=centre
+textshadow=yes
+colour=0xbf751d
+transmitop=10
+op10=  
+
+// 986:16
+[com_16]
+type=layer
+x=169
+y=7
+width=108
+height=33
+transmitop=1
+op1=Confirm
+
+// 986:17
+[com_17]
+type=rectangle
+x=3
+y=3
+width=102
+height=27
+layer=com_16
+colour=0x000000
+transmitop=10
+op10=    
+
+// 986:18
+[com_18]
+type=rectangle
+x=4
+y=4
+width=100
+height=25
+layer=com_16
+colour=0x453b2c
+fill=yes
+transmitop=10
+op10=   
+
+// 986:19
+[com_19]
+type=text
+x=19
+y=9
+width=70
+height=20
+layer=com_16
+textfont=b12_full
+text=Confirm Match
+textalignh=centre
+textshadow=yes
+colour=0xbf751d
+transmitop=10
+op10= 
+onmouseover=text_colour_swapper(event_com, 0xe1981f)
+onmouseleave=text_colour_swapper(event_com, 0xbf751d)
+
+// 986:20
+[com_20]
+type=graphic
+x=464
+y=17
+width=26
+height=23
+graphic="close_buttons,2"
+colour=0xffffffff
+transmitop=1
+op1=Close
+onmouseover=graphic_swapper(event_com, "close_buttons,3")
+onmouseleave=graphic_swapper(event_com, "close_buttons,2")
+onclick=closebutton_click

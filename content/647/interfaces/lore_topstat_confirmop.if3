@@ -1,0 +1,403 @@
+// 880:0
+[com_0]
+type=layer
+width=190
+height=261
+transmitop=10
+op10= 
+
+// 880:1
+[com_1]
+type=graphic
+x=12
+y=4
+width=3
+height=31
+graphic=graphic_2037
+colour=0xffffffff
+
+// 880:2
+[com_2]
+type=graphic
+x=12
+y=4
+width=3
+height=31
+xmode=abs_right
+graphic=graphic_2037
+hflip=yes
+colour=0xffffffff
+transmitop=10
+op10= 
+
+// 880:3
+[com_3]
+type=graphic
+y=4
+width=161
+height=31
+xmode=abs_centre
+graphic=graphic_2036
+colour=0xffffffff
+onvartransmit=script2672{varplayer_1494}
+
+// 880:4
+[com_4]
+type=text
+y=12
+width=183
+height=14
+xmode=abs_centre
+textfont=b12_full
+text=Left-click option:
+textalignh=centre
+textshadow=yes
+colour=0xffcc00
+transmitop=10
+op10= 
+
+// 880:5
+[com_5]
+type=graphic
+x=37
+y=235
+width=116
+height=22
+graphic=graphic_2290
+colour=0xffffffff
+transmitop=10
+op10= 
+
+// 880:6
+[com_6]
+type=text
+x=63
+y=238
+width=62
+height=15
+textfont=b12_full
+text=Confirm
+textalignh=centre
+textshadow=yes
+colour=0xffcc00
+transmitop=10
+op10= 
+
+// 880:7
+[com_7]
+type=graphic
+x=12
+y=34
+width=22
+height=22
+graphic="km_radiobutton,0"
+colour=0xffffffff
+transmitop=1,10
+op1=Select
+op10= 
+opcursor0=cursor_46
+onmouseleave=lore_mouseover_text(lore_topstat_confirmop:com_8, 0xff981f)
+onmouserepeat=lore_mouseover_text(lore_topstat_confirmop:com_8, ^white)
+
+// 880:8
+[com_8]
+type=text
+x=43
+y=40
+width=114
+height=15
+textfont=p11_full
+text=Follower details
+textshadow=yes
+colour=0xff9833
+transmitop=1,10
+op1=Select
+op10=   
+opcursor0=cursor_46
+onmouseleave=lore_mouseover_text(lore_topstat_confirmop:com_8, 0xff981f)
+onmouserepeat=lore_mouseover_text(lore_topstat_confirmop:com_8, ^white)
+
+// 880:9
+[com_9]
+type=graphic
+x=12
+y=57
+width=22
+height=22
+graphic="km_radiobutton,0"
+colour=0xffffffff
+transmitop=1
+op1=Select
+opcursor0=cursor_46
+onmouseleave=lore_mouseover_text(lore_topstat_confirmop:com_10, 0xff981f)
+onmouserepeat=lore_mouseover_text(lore_topstat_confirmop:com_10, ^white)
+
+// 880:10
+[com_10]
+type=text
+x=43
+y=63
+width=114
+height=15
+textfont=p11_full
+text=Special move
+textshadow=yes
+colour=0xff981f
+transmitop=1,10
+op1=Select
+op10=  
+opcursor0=cursor_46
+onmouseleave=lore_mouseover_text(lore_topstat_confirmop:com_10, 0xff981f)
+onmouserepeat=lore_mouseover_text(lore_topstat_confirmop:com_10, ^white)
+
+// 880:11
+[com_11]
+type=graphic
+x=12
+y=80
+width=22
+height=22
+graphic="km_radiobutton,0"
+colour=0xffffffff
+transmitop=1,10
+op1=Select
+op10= 
+opcursor0=cursor_46
+onmouseleave=lore_mouseover_text(lore_topstat_confirmop:com_12, 0xff981f)
+onmouserepeat=lore_mouseover_text(lore_topstat_confirmop:com_12, ^white)
+
+// 880:12
+[com_12]
+type=text
+x=43
+y=86
+width=114
+height=15
+textfont=p11_full
+text=Attack
+textshadow=yes
+colour=0xff981f
+transmitop=1,10
+op1=Select
+op10=   
+opcursor0=cursor_46
+onmouseleave=lore_mouseover_text(lore_topstat_confirmop:com_12, 0xff981f)
+onmouserepeat=lore_mouseover_text(lore_topstat_confirmop:com_12, ^white)
+
+// 880:13
+[com_13]
+type=graphic
+x=12
+y=103
+width=22
+height=22
+graphic="km_radiobutton,0"
+colour=0xffffffff
+transmitop=1,10
+op1=Select
+op10= 
+opcursor0=cursor_46
+onmouseleave=lore_mouseover_text(lore_topstat_confirmop:com_14, 0xff981f)
+onmouserepeat=lore_mouseover_text(lore_topstat_confirmop:com_14, ^white)
+
+// 880:14
+[com_14]
+type=text
+x=43
+y=109
+width=114
+height=15
+textfont=p11_full
+text=Call follower
+textshadow=yes
+colour=0xff981f
+transmitop=1,10
+op1=Select
+op10=   
+opcursor0=cursor_46
+onmouseleave=lore_mouseover_text(lore_topstat_confirmop:com_14, 0xff981f)
+onmouserepeat=lore_mouseover_text(lore_topstat_confirmop:com_14, ^white)
+
+// 880:15
+[com_15]
+type=graphic
+x=12
+y=126
+width=22
+height=22
+graphic="km_radiobutton,0"
+colour=0xffffffff
+transmitop=1,10
+op1=Select
+op10= 
+opcursor0=cursor_46
+onmouseleave=lore_mouseover_text(lore_topstat_confirmop:com_16, 0xff981f)
+onmouserepeat=lore_mouseover_text(lore_topstat_confirmop:com_16, ^white)
+
+// 880:16
+[com_16]
+type=text
+x=43
+y=132
+width=114
+height=15
+textfont=p11_full
+text=Dismiss follower
+textshadow=yes
+colour=0xff981f
+transmitop=1,10
+op1=Select
+op10=   
+opcursor0=cursor_46
+onmouseleave=lore_mouseover_text(lore_topstat_confirmop:com_16, 0xff981f)
+onmouserepeat=lore_mouseover_text(lore_topstat_confirmop:com_16, ^white)
+
+// 880:17
+[com_17]
+type=graphic
+x=12
+y=149
+width=22
+height=22
+graphic="km_radiobutton,0"
+colour=0xffffffff
+transmitop=1,10
+op1=Select
+op10= 
+opcursor0=cursor_46
+onmouseleave=lore_mouseover_text(lore_topstat_confirmop:com_18, 0xff981f)
+onmouserepeat=lore_mouseover_text(lore_topstat_confirmop:com_18, ^white)
+
+// 880:18
+[com_18]
+type=text
+x=43
+y=155
+width=114
+height=15
+textfont=p11_full
+text=Take BoB
+textshadow=yes
+colour=0xff981f
+transmitop=1,10
+op1=Select
+op10=   
+opcursor0=cursor_46
+onmouseleave=lore_mouseover_text(lore_topstat_confirmop:com_18, 0xff981f)
+onmouserepeat=lore_mouseover_text(lore_topstat_confirmop:com_18, ^white)
+
+// 880:19
+[com_19]
+type=graphic
+x=12
+y=172
+width=22
+height=22
+graphic="km_radiobutton,0"
+colour=0xffffffff
+transmitop=1,10
+op1=Select
+op10= 
+opcursor0=cursor_46
+onmouseleave=lore_mouseover_text(lore_topstat_confirmop:com_20, 0xff981f)
+onmouserepeat=lore_mouseover_text(lore_topstat_confirmop:com_20, ^white)
+
+// 880:20
+[com_20]
+type=text
+x=43
+y=178
+width=114
+height=15
+textfont=p11_full
+text=Renew familiar
+textshadow=yes
+colour=0xff981f
+transmitop=1,10
+op1=Select
+op10=   
+opcursor0=cursor_46
+onmouseleave=lore_mouseover_text(lore_topstat_confirmop:com_20, 0xff981f)
+onmouserepeat=lore_mouseover_text(lore_topstat_confirmop:com_20, ^white)
+
+// 880:21
+[com_21]
+type=layer
+y=4
+width=122
+height=25
+xmode=abs_centre
+ymode=abs_bottom
+layer=com_0
+transmitop=1,10
+op1=Confirm Selection
+op10= 
+onmouseleave=lore_mouseover_text(lore_topstat_confirmop:com_6, 0xffcc00)
+onmouserepeat=lore_mouseover_text(lore_topstat_confirmop:com_6, ^white)
+
+// 880:22
+[com_22]
+type=graphic
+width=190
+height=46
+ymode=abs_bottom
+layer=com_0
+graphic=graphic_2038
+tiling=yes
+colour=0xffffffff
+transmitop=10
+op10=  
+
+// 880:23
+[com_23]
+type=graphic
+width=190
+height=70
+layer=com_0
+graphic=graphic_2042
+tiling=yes
+colour=0xffffffff
+
+// 880:24
+[com_24]
+type=graphic
+y=69
+width=190
+height=148
+layer=com_0
+graphic=km_middlefillcolour
+tiling=yes
+colour=0xffffffff
+transmitop=10
+op10= 
+
+// 880:25
+[com_25]
+type=graphic
+x=12
+y=195
+width=22
+height=22
+graphic="km_radiobutton,0"
+transmitop=1
+op1=Select
+opcursor0=cursor_46
+onmouseleave=lore_mouseover_text(lore_topstat_confirmop:com_26, 0xff981f)
+onmouserepeat=lore_mouseover_text(lore_topstat_confirmop:com_26, ^white)
+
+// 880:26
+[com_26]
+type=text
+x=43
+y=201
+width=114
+height=15
+textfont=p11_full
+text=Interact
+textshadow=yes
+colour=0xff981f
+transmitop=1
+op1=Select
+opcursor0=cursor_46
+onmouseleave=lore_mouseover_text(lore_topstat_confirmop:com_26, 0xff981f)
+onmouserepeat=lore_mouseover_text(lore_topstat_confirmop:com_26, ^white)

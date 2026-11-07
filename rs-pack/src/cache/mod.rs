@@ -38,7 +38,13 @@ use wordenc::WordEncProvider;
 #[cfg(since_647)]
 pub use midi::MIDI_JINGLE_BASE;
 
+#[cfg(since_647)]
+pub mod bas;
+#[cfg(since_647)]
+pub mod billboard;
 pub mod category;
+#[cfg(since_647)]
+pub mod cursor;
 pub mod dbrow;
 pub mod dbtable;
 mod decode;
@@ -47,6 +53,8 @@ pub mod flo;
 #[cfg(since_647)]
 pub mod flu;
 pub mod font;
+#[cfg(since_647)]
+pub mod hitmark;
 pub mod hunt;
 pub mod idk;
 pub mod r#if;
@@ -55,15 +63,31 @@ pub mod inv;
 pub mod js5;
 pub mod lenient;
 #[cfg(since_647)]
+pub mod light;
+#[cfg(since_647)]
 pub mod loader;
 pub mod loc;
 pub mod map;
+#[cfg(since_647)]
+pub mod mel;
 pub mod mesanim;
 pub mod midi;
+#[cfg(since_647)]
+pub mod msi;
 pub mod npc;
 pub mod obj;
 pub mod param;
+#[cfg(since_647)]
+pub mod particleeffector;
+#[cfg(since_647)]
+pub mod particleemitter;
 pub mod provider;
+#[cfg(since_647)]
+pub mod quest;
+#[cfg(since_647)]
+pub mod quickchatcat;
+#[cfg(since_647)]
+pub mod quickchatphrase;
 pub mod script;
 pub mod seq;
 pub mod seq_frame;

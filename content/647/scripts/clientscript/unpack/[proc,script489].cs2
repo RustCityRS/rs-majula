@@ -1,0 +1,24 @@
+// 489
+[proc,script489](int $int0)(component)
+switch_int ($int0) {
+    case default :
+        return(null);
+    case 1 :
+        return(conq_buy_army:com_58);
+    case 2 :
+        return(conq_buy_army:com_60);
+    case 3 :
+        return(conq_buy_army:com_62);
+    case 4 :
+        return(conq_buy_army:com_64);
+    case 5 :
+        return(conq_buy_army:com_68);
+    case 6 :
+        return(conq_buy_army:com_70);
+    case 7 :
+        return(conq_buy_army:com_72);
+    case 8 :
+        return(conq_buy_army:com_74);
+    case 9 :
+        return(conq_buy_army:com_66);
+}

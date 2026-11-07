@@ -1,4 +1,0 @@
-[proc,clientscript_971]
-if (%level_up_icon > 0) {
-    if_setgraphic(enum(105, 100, enum_1478, %level_up_icon), dialogue_level_up:icon);
-}

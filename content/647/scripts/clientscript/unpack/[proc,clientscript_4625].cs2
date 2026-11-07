@@ -1,6 +1,0 @@
-[proc,clientscript_4625]
-if (compare(%varc_string_353, "") ! 0 & compare(%varc_string_353, "null") ! 0) {
-    %varc_string_354 = %varc_string_353;
-} else {
-    %varc_string_354 = "";
-}

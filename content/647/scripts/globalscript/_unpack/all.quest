@@ -1,1012 +1,1220 @@
+// 0
 [quest_0]
-op9_g1=2
-op1_str2=Cabin Fever
-op3_counted_g2_g4_g4=1,655,10,140
+questpoints=2
+name=Cabin Fever
+masterquestvarp=varplayer_655,10,140
 
+// 1
 [quest_1]
-op9_g1=2
-op1_str2=Tower of Life
-op4_counted_g2_g4_g4=1,3337,2,18
+questpoints=2
+name=Tower of Life
+masterquestvarbit=varplayerbit_3337,2,18
 
+// 2
 [quest_2]
-op9_g1=1
-op1_str2=Scorpion Catcher
-op3_counted_g2_g4_g4=1,76,1,6
+questpoints=1
+name=Scorpion Catcher
+masterquestvarp=scorpcatcher,1,6
 
+// 3
 [quest_3]
-op9_g1=1
-op1_str2=The Golem
-op4_counted_g2_g4_g4=1,346,1,10
+questpoints=1
+name=The Golem
+masterquestvarbit=varplayerbit_346,1,10
 
+// 4
 [quest_4]
-op9_g1=2
-op1_str2=Rocking Out
-op4_counted_g2_g4_g4=1,4797,10,90
+questpoints=2
+name=Rocking Out
+masterquestvarbit=varplayerbit_4797,10,90
 
+// 5
 [quest_5]
-op9_g1=1
-op1_str2=The Path of Glouphrie
-op4_counted_g2_g4_g4=1,3954,1,200
+questpoints=1
+name=The Path of Glouphrie
+masterquestvarbit=varplayerbit_3954,1,200
 
+// 6
 [quest_6]
-op9_g1=1
-op17_g2=2374
-op1_str2=Cook's Assistant
-op3_counted_g2_g4_g4=1,29,1,2
+questpoints=1
+icon=graphic_2374
+name=Cook's Assistant
+masterquestvarp=cookquest,1,2
 
+// 7
 [quest_7]
-op9_g1=4
-op1_str2=Witch's House
-op3_counted_g2_g4_g4=1,226,1,7
+questpoints=4
+name=Witch's House
+masterquestvarp=ballquest,1,7
 
+// 8
 [quest_8]
-op9_g1=1
-op8_flag=yes
-op1_str2=The Elemental Workshop I
-op3_counted_g2_g4_g4=1,299,1,524288
+questpoints=1
+members=true
+name=The Elemental Workshop I
+masterquestvarp=varplayer_299,1,524288
 
+// 9
 [quest_9]
-op9_g1=1
-op1_str2=Priest in Peril
-op3_counted_g2_g4_g4=1,302,1,60
+questpoints=1
+name=Priest in Peril
+masterquestvarp=priestperil,1,60
 
+// 10
 [quest_10]
-op9_g1=3
-op1_str2=Shades of Mort'ton
-op3_counted_g2_g4_g4=1,339,5,85
+questpoints=3
+name=Shades of Mort'ton
+masterquestvarp=morttonquest,5,85
 
+// 11
 [quest_11]
-op2_str2=Love Story
-op6_g1=0
-op7_g1=3
-op17_g2=3139
-op8_flag=yes
-op9_g1=2
-op1_str2=Love Story
-op4_counted_g2_g4_g4=1,8045,5,150
-op13_counted_g2=2,48,163
-op14_counted_g1_g1=4,6,77,22,68,13,68,12,67
+sortname=Love Story
+type=normal
+difficulty=master
+icon=graphic_3139
+members=true
+questpoints=2
+name=Love Story
+masterquestvarbit=varplayerbit_8045,5,150
+questreq=quest_48
+questreq=quest_163
+statreq=magic,77
+statreq=construction,68
+statreq=smithing,68
+statreq=crafting,67
 
+// 12
 [quest_12]
-op9_g1=1
-op1_str2=Slug Menace
-op4_counted_g2_g4_g4=1,2610,1,14
+questpoints=1
+name=Slug Menace
+masterquestvarbit=varplayerbit_2610,1,14
 
+// 13
 [quest_13]
-op9_g1=1
-op1_str2=Death to the Dorgeshuun
-op4_counted_g2_g4_g4=1,2258,1,13
+questpoints=1
+name=Death to the Dorgeshuun
+masterquestvarbit=varplayerbit_2258,1,13
 
+// 14
 [quest_14]
-op9_g1=1
-op1_str2=Spirit of Summer
-op4_counted_g2_g4_g4=1,5032,5,75
+questpoints=1
+name=Spirit of Summer
+masterquestvarbit=varplayerbit_5032,5,75
 
+// 15
 [quest_15]
-op9_g1=4
-op17_g2=2377
-op1_str2=Ernest the Chicken
-op3_counted_g2_g4_g4=1,32,1,3
+questpoints=4
+icon=graphic_2377
+name=Ernest the Chicken
+masterquestvarp=haunted,1,3
 
+// 16
 [quest_16]
-op9_g1=4
-op1_str2=The Watchtower
-op3_counted_g2_g4_g4=1,212,1,13
+questpoints=4
+name=The Watchtower
+masterquestvarp=itwatchtower,1,13
 
+// 17
 [quest_17]
-op9_g1=0
-op1_str2=Romeo and Juliet
-op3_counted_g2_g4_g4=1,144,10,100
+questpoints=0
+name=Romeo and Juliet
+masterquestvarp=varplayer_144,10,100
 
+// 18
 [quest_18]
-op9_g1=1
-op1_str2=Tale of the Muspah
-op4_counted_g2_g4_g4=1,6048,5,250
+questpoints=1
+name=Tale of the Muspah
+masterquestvarbit=varplayerbit_6048,5,250
 
+// 19
 [quest_19]
-op9_g1=2
-op1_str2=In Search of the Myreque
-op3_counted_g2_g4_g4=1,387,5,105
+questpoints=2
+name=In Search of the Myreque
+masterquestvarp=varplayer_387,5,105
 
+// 20
 [quest_20]
-op9_g1=2
-op17_g2=3143
-op1_str2=Swept Away
-op4_counted_g2_g4_g4=1,5448,5,50
+questpoints=2
+icon=graphic_3143
+name=Swept Away
+masterquestvarbit=varplayerbit_5448,5,50
 
+// 21
 [quest_21]
-op9_g1=2
-op1_str2=In Aid of the Myreque
-op3_counted_g2_g4_g4=1,705,20,430
+questpoints=2
+name=In Aid of the Myreque
+masterquestvarp=varplayer_705,20,430
 
+// 22
 [quest_22]
-op9_g1=1
-op1_str2=My Arm's Big Adventure
-op4_counted_g2_g4_g4=1,2790,10,320
+questpoints=1
+name=My Arm's Big Adventure
+masterquestvarbit=varplayerbit_2790,10,320
 
+// 23
 [quest_23]
-op9_g1=2
-op1_str2=Catapult Construction
-op4_counted_g2_g4_g4=1,4396,2,60
+questpoints=2
+name=Catapult Construction
+masterquestvarbit=varplayerbit_4396,2,60
 
+// 24
 [quest_24]
-op9_g1=2
-op1_str2=Lunar Diplomacy
-op4_counted_g2_g4_g4=1,2448,10,190
+questpoints=2
+name=Lunar Diplomacy
+masterquestvarbit=varplayerbit_2448,10,190
 
+// 25
 [quest_25]
-op9_g1=1
-op1_str2=Dealing with Scabaras
-op4_counted_g2_g4_g4=1,4230,100,700
+questpoints=1
+name=Dealing with Scabaras
+masterquestvarbit=varplayerbit_4230,100,700
 
+// 26
 [quest_26]
-op9_g1=2
-op1_str2=The Darkness of Hallowvale
-op4_counted_g2_g4_g4=1,2573,10,320
+questpoints=2
+name=The Darkness of Hallowvale
+masterquestvarbit=varplayerbit_2573,10,320
 
+// 27
 [quest_27]
-op9_g1=1
-op17_g2=2376
-op1_str2=The Restless Ghost
-op3_counted_g2_g4_g4=1,107,1,5
+questpoints=1
+icon=graphic_2376
+name=The Restless Ghost
+masterquestvarp=prieststart,1,5
 
+// 28
 [quest_28]
-op9_g1=3
-op1_str2=Murder Mystery
-op3_counted_g2_g4_g4=1,192,1,2
+questpoints=3
+name=Murder Mystery
+masterquestvarp=murderquest,1,2
 
+// 29
 [quest_29]
-op9_g1=1
-op1_str2=All Fired Up
-op4_counted_g2_g4_g4=1,5133,5,90
+questpoints=1
+name=All Fired Up
+masterquestvarbit=varplayerbit_5133,5,90
 
+// 30
 [quest_30]
-op9_g1=1
-op1_str2=Recipe for Disaster
-op4_counted_g2_g4_g4=1,1850,1,5
+questpoints=1
+name=Recipe for Disaster
+masterquestvarbit=varplayerbit_1850,1,5
 
+// 31
 [quest_31]
-op9_g1=5
-op1_str2=Underground Pass
-op3_counted_g2_g4_g4=1,161,1,10
+questpoints=5
+name=Underground Pass
+masterquestvarp=varplayer_161,1,10
 
+// 32
 [quest_32]
-op9_g1=1
-op1_str2=Grim Tales
-op4_counted_g2_g4_g4=1,2783,1,60
+questpoints=1
+name=Grim Tales
+masterquestvarbit=varplayerbit_2783,1,60
 
+// 33
 [quest_33]
-op9_g1=2
-op1_str2=Fur 'n' Seek
-op4_counted_g2_g4_g4=1,6307,1,5
+questpoints=2
+name=Fur 'n' Seek
+masterquestvarbit=varplayerbit_6307,1,5
 
+// 34
 [quest_34]
-op9_g1=1
-op1_str2=Dwarf Cannon
-op3_counted_g2_g4_g4=1,0,1,11
+questpoints=1
+name=Dwarf Cannon
+masterquestvarp=mcannon,1,11
 
+// 35
 [quest_35]
-op9_g1=2
-op1_str2=Forgiveness of a Chaos Dwarf
-op4_counted_g2_g4_g4=1,6471,10,80
+questpoints=2
+name=Forgiveness of a Chaos Dwarf
+masterquestvarbit=varplayerbit_6471,10,80
 
+// 36
 [quest_36]
-op9_g1=1
-op1_str2=A Soul's Bane
-op4_counted_g2_g4_g4=1,2011,1,13
+questpoints=1
+name=A Soul's Bane
+masterquestvarbit=varplayerbit_2011,1,13
 
+// 37
 [quest_37]
-op9_g1=1
-op1_str2=The Lost Tribe
-op4_counted_g2_g4_g4=1,532,1,11
+questpoints=1
+name=The Lost Tribe
+masterquestvarbit=varplayerbit_532,1,11
 
+// 38
 [quest_38]
-op9_g1=1
-op1_str2=Heroes' Quest
-op3_counted_g2_g4_g4=1,188,1,15
+questpoints=1
+name=Heroes' Quest
+masterquestvarp=heroquest,1,15
 
+// 39
 [quest_39]
-op9_g1=4
-op1_str2=Sheep Herder
-op3_counted_g2_g4_g4=1,60,1,3
+questpoints=4
+name=Sheep Herder
+masterquestvarp=sheepherderquest,1,3
 
+// 40
 [quest_40]
-op9_g1=1
-op1_str2=Tribal Totem
-op3_counted_g2_g4_g4=1,200,1,5
+questpoints=1
+name=Tribal Totem
+masterquestvarp=totemquest,1,5
 
+// 41
 [quest_41]
-op9_g1=1
-op1_str2=As A First Resort...
-op4_counted_g2_g4_g4=1,4321,1,200
+questpoints=1
+name=As A First Resort...
+masterquestvarbit=varplayerbit_4321,1,200
 
+// 42
 [quest_42]
-op9_g1=3
-op1_str2=Lost City
-op3_counted_g2_g4_g4=1,147,1,6
+questpoints=3
+name=Lost City
+masterquestvarp=zanaris,1,6
 
+// 43
 [quest_43]
-op9_g1=1
-op1_str2=Animal Magnetism
-op4_counted_g2_g4_g4=1,3185,10,240
+questpoints=1
+name=Animal Magnetism
+masterquestvarbit=varplayerbit_3185,10,240
 
+// 44
 [quest_44]
-op9_g1=1
-op1_str2=Clock Tower
-op3_counted_g2_g4_g4=1,10,1,8
+questpoints=1
+name=Clock Tower
+masterquestvarp=varplayer_10,1,8
 
+// 45
 [quest_45]
-op9_g1=2
-op1_str2=A Tail of Two Cats
-op4_counted_g2_g4_g4=1,1028,5,70
+questpoints=2
+name=A Tail of Two Cats
+masterquestvarbit=varplayerbit_1028,5,70
 
+// 46
 [quest_46]
-op9_g1=2
-op1_str2=Spirits of the Elid
-op4_counted_g2_g4_g4=1,1444,10,60
+questpoints=2
+name=Spirits of the Elid
+masterquestvarbit=varplayerbit_1444,10,60
 
+// 47
 [quest_47]
-op9_g1=2
-op1_str2=Legacy of Seergaze
-op4_counted_g2_g4_g4=1,4569,10,500
+questpoints=2
+name=Legacy of Seergaze
+masterquestvarbit=varplayerbit_4569,10,500
 
+// 48
 [quest_48]
-op9_g1=2
-op1_str2=Swan Song
-op4_counted_g2_g4_g4=1,2098,10,200
+questpoints=2
+name=Swan Song
+masterquestvarbit=varplayerbit_2098,10,200
 
+// 49
 [quest_49]
-op9_g1=1
-op1_str2=Back to my Roots
-op4_counted_g2_g4_g4=1,4055,1,65
+questpoints=1
+name=Back to my Roots
+masterquestvarbit=varplayerbit_4055,1,65
 
+// 50
 [quest_50]
-op9_g1=3
-op1_str2=The Fremennik Trials
-op3_counted_g2_g4_g4=1,347,1,10
+questpoints=3
+name=The Fremennik Trials
+masterquestvarp=viking,1,10
 
+// 51
 [quest_51]
-op9_g1=3
-op1_str2=Demon Slayer
-op4_counted_g2_g4_g4=1,2561,1,3
+questpoints=3
+name=Demon Slayer
+masterquestvarbit=demon_slayer,1,3
 
+// 52
 [quest_52]
-op9_g1=1
-op1_str2=Wolf Whistle
-op4_counted_g2_g4_g4=1,4302,10,110
+questpoints=1
+name=Wolf Whistle
+masterquestvarbit=varplayerbit_4302,10,110
 
+// 53
 [quest_53]
-op1_str2=Black Knights' Fortress
-op3_counted_g2_g4_g4=1,130,1,4
+name=Black Knights' Fortress
+masterquestvarp=spy,1,4
 
+// 54
 [quest_54]
-op9_g1=2
-op1_str2=Observatory Quest
-op3_counted_g2_g4_g4=1,112,1,7
+questpoints=2
+name=Observatory Quest
+masterquestvarp=itgronigen,1,7
 
+// 55
 [quest_55]
-op9_g1=1
-op17_g2=2408
-op1_str2=Rune Mysteries
-op3_counted_g2_g4_g4=1,63,1,6
+questpoints=1
+icon=quest_icon,15
+name=Rune Mysteries
+masterquestvarp=runemysteries,1,6
 
+// 56
 [quest_56]
-op9_g1=2
-op1_str2=Defender of Varrock
-op4_counted_g2_g4_g4=1,5387,10,250
+questpoints=2
+name=Defender of Varrock
+masterquestvarbit=varplayerbit_5387,10,250
 
+// 57
 [quest_57]
-op9_g1=2
-op1_str2=Between a Rock...
-op4_counted_g2_g4_g4=1,299,10,110
+questpoints=2
+name=Between a Rock...
+masterquestvarbit=varplayerbit_299,10,110
 
+// 58
 [quest_58]
-op9_g1=1
-op1_str2=Plague City
-op3_counted_g2_g4_g4=1,165,1,29
+questpoints=1
+name=Plague City
+masterquestvarp=elenaquest,1,29
 
+// 59
 [quest_59]
-op9_g1=1
-op1_str2=Jungle Potion
-op3_counted_g2_g4_g4=1,175,1,12
+questpoints=1
+name=Jungle Potion
+masterquestvarp=junglepotion,1,12
 
+// 60
 [quest_60]
-op9_g1=2
-op1_str2=Pirate's Treasure
-op3_counted_g2_g4_g4=1,71,1,4
+questpoints=2
+name=Pirate's Treasure
+masterquestvarp=hunt,1,4
 
+// 61
 [quest_61]
-op9_g1=1
-op1_str2=King's Ransom
-op4_counted_g2_g4_g4=1,3888,5,90
+questpoints=1
+name=King's Ransom
+masterquestvarbit=varplayerbit_3888,5,90
 
+// 62
 [quest_62]
-op9_g1=1
-op1_str2=Recruitment Drive
-op4_counted_g2_g4_g4=1,657,1,2
+questpoints=1
+name=Recruitment Drive
+masterquestvarbit=varplayerbit_657,1,2
 
+// 63
 [quest_63]
-op9_g1=1
-op1_str2=Shield of Arrav
-op3_counted_g2_g4_g4=2,145,1,7,146,99999,4
+questpoints=1
+name=Shield of Arrav
+masterquestvarp=varplayer_145,1,7
+masterquestvarp=varplayer_146,99999,4
 
+// 64
 [quest_64]
-op9_g1=3
-op1_str2=Prince Ali Rescue
-op3_counted_g2_g4_g4=1,273,10,110
+questpoints=3
+name=Prince Ali Rescue
+masterquestvarp=princequest,10,110
 
+// 65
 [quest_65]
-op9_g1=5
-op1_str2=The Grand Tree
-op3_counted_g2_g4_g4=1,150,10,160
+questpoints=5
+name=The Grand Tree
+masterquestvarp=grandtree,10,160
 
+// 66
 [quest_66]
-op9_g1=2
-op1_str2=Dragon Slayer
-op3_counted_g2_g4_g4=1,176,1,10
+questpoints=2
+name=Dragon Slayer
+masterquestvarp=dragonquest,1,10
 
+// 67
 [quest_67]
-op9_g1=2
-op1_str2=Rat Catchers
-op4_counted_g2_g4_g4=1,1404,5,127
+questpoints=2
+name=Rat Catchers
+masterquestvarbit=varplayerbit_1404,5,127
 
+// 68
 [quest_68]
-op9_g1=2
-op1_str2=Rag and Bone Man
-op4_counted_g2_g4_g4=1,6178,1,4
+questpoints=2
+name=Rag and Bone Man
+masterquestvarbit=varplayerbit_6178,1,4
 
+// 69
 [quest_69]
-op9_g1=2
-op1_str2=Dig Site
-op3_counted_g2_g4_g4=1,131,1,9
+questpoints=2
+name=Dig Site
+masterquestvarp=itexamlevel,1,9
 
+// 70
 [quest_70]
-op9_g1=2
-op1_str2=Shilo Village
-op3_counted_g2_g4_g4=1,116,1,15
+questpoints=2
+name=Shilo Village
+masterquestvarp=zombiequeen,1,15
 
+// 71
 [quest_71]
-op9_g1=1
-op1_str2=Shadow of the Storm
-op4_counted_g2_g4_g4=1,1372,10,125
+questpoints=1
+name=Shadow of the Storm
+masterquestvarbit=varplayerbit_1372,10,125
 
+// 72
 [quest_72]
-op9_g1=1
-op1_str2=Imp Catcher
-op3_counted_g2_g4_g4=1,160,1,2
+questpoints=1
+name=Imp Catcher
+masterquestvarp=imp,1,2
 
+// 73
 [quest_73]
-op9_g1=2
-op1_str2=Fairy Tale I - Growing Pains
-op4_counted_g2_g4_g4=1,1803,10,90
+questpoints=2
+name=Fairy Tale I - Growing Pains
+masterquestvarbit=varplayerbit_1803,10,90
 
+// 74
 [quest_74]
-op9_g1=2
-op17_g2=3142
-op1_str2=Myths of the White Lands
-op4_counted_g2_g4_g4=1,5733,5,60
+questpoints=2
+icon=graphic_3142
+name=Myths of the White Lands
+masterquestvarbit=varplayerbit_5733,5,60
 
+// 75
 [quest_75]
-op9_g1=1
-op1_str2=Eadgar's Ruse
-op3_counted_g2_g4_g4=1,335,10,110
+questpoints=1
+name=Eadgar's Ruse
+masterquestvarp=eadgar_quest,10,110
 
+// 76
 [quest_76]
-op9_g1=1
-op1_str2=Fishing Contest
-op3_counted_g2_g4_g4=1,11,1,5
+questpoints=1
+name=Fishing Contest
+masterquestvarp=fishingcompo,1,5
 
+// 77
 [quest_77]
-op9_g1=1
-op1_str2=Missing My Mummy
-op4_counted_g2_g4_g4=1,6112,10,60
+questpoints=1
+name=Missing My Mummy
+masterquestvarbit=varplayerbit_6112,10,60
 
+// 78
 [quest_78]
-op9_g1=2
-op1_str2=Tree Gnome Village
-op3_counted_g2_g4_g4=1,111,1,9
+questpoints=2
+name=Tree Gnome Village
+masterquestvarp=treequest,1,9
 
+// 79
 [quest_79]
-op9_g1=2
-op1_str2=Dream Mentor
-op4_counted_g2_g4_g4=1,3618,2,28
+questpoints=2
+name=Dream Mentor
+masterquestvarbit=varplayerbit_3618,2,28
 
+// 80
 [quest_80]
-op9_g1=1
-op1_str2=Smoking Kills
-op4_counted_g2_g4_g4=1,4764,10,250
+questpoints=1
+name=Smoking Kills
+masterquestvarbit=varplayerbit_4764,10,250
 
+// 81
 [quest_81]
-op9_g1=1
-op1_str2=Tears of Guthix
-op4_counted_g2_g4_g4=1,451,1,2
+questpoints=1
+name=Tears of Guthix
+masterquestvarbit=varplayerbit_451,1,2
 
+// 82
 [quest_82]
-op9_g1=2
-op1_str2=Ghosts Ahoy
-op4_counted_g2_g4_g4=1,217,1,8
+questpoints=2
+name=Ghosts Ahoy
+masterquestvarbit=varplayerbit_217,1,8
 
+// 83
 [quest_83]
-op9_g1=1
-op17_g2=3141
-op1_str2=A Void Dance
-op4_counted_g2_g4_g4=1,7451,3,63
+questpoints=1
+icon=graphic_3141
+name=A Void Dance
+masterquestvarbit=varplayerbit_7451,3,63
 
+// 84
 [quest_84]
-op9_g1=1
-op5_g2=30
-op1_str2=Recipe for Disaster: Starting Out
-op4_counted_g2_g4_g4=1,1850,1,2
+questpoints=1
+parent=quest_30
+name=Recipe for Disaster: Starting Out
+masterquestvarbit=varplayerbit_1850,1,2
 
+// 85
 [quest_85]
-op9_g1=1
-op1_str2=Troll Stronghold
-op3_counted_g2_g4_g4=1,317,10,50
+questpoints=1
+name=Troll Stronghold
+masterquestvarp=troll_quest,10,50
 
+// 86
 [quest_86]
-op9_g1=5
-op1_str2=While Guthix Sleeps
-op4_counted_g2_g4_g4=1,5491,10,910
+questpoints=5
+name=While Guthix Sleeps
+masterquestvarbit=varplayerbit_5491,10,910
 
+// 87
 [quest_87]
-op9_g1=1
-op1_str2=In Pyre Need
-op4_counted_g2_g4_g4=1,5761,10,30
+questpoints=1
+name=In Pyre Need
+masterquestvarbit=varplayerbit_5761,10,30
 
+// 88
 [quest_88]
-op9_g1=2
-op1_str2=Great Brain Robbery
-op3_counted_g2_g4_g4=1,980,10,130
+questpoints=2
+name=Great Brain Robbery
+masterquestvarp=varplayer_980,10,130
 
+// 89
 [quest_89]
-op9_g1=2
-op1_str2=Tai Bwo Wannai Trio
-op3_counted_g2_g4_g4=1,320,1,6
+questpoints=2
+name=Tai Bwo Wannai Trio
+masterquestvarp=tbwt_main,1,6
 
+// 90
 [quest_90]
-op9_g1=2
-op1_str2=Troll Romance
-op3_counted_g2_g4_g4=1,385,1,45
+questpoints=2
+name=Troll Romance
+masterquestvarp=varplayer_385,1,45
 
+// 91
 [quest_91]
-op9_g1=1
-op1_str2=Land of the Goblins
-op4_counted_g2_g4_g4=1,4105,1,18
+questpoints=1
+name=Land of the Goblins
+masterquestvarbit=varplayerbit_4105,1,18
 
+// 92
 [quest_92]
-op9_g1=2
-op1_str2=Creature of Fenkenstrain
-op3_counted_g2_g4_g4=1,399,1,8
+questpoints=2
+name=Creature of Fenkenstrain
+masterquestvarp=varplayer_399,1,8
 
+// 93
 [quest_93]
-op9_g1=1
-op1_str2=Waterfall Quest
-op3_counted_g2_g4_g4=1,65,1,8
+questpoints=1
+name=Waterfall Quest
+masterquestvarp=waterfall_quest,1,8
 
+// 94
 [quest_94]
-op9_g1=1
-op1_str2=The Elemental Workshop II
-op4_counted_g2_g4_g4=1,2639,1,11
+questpoints=1
+name=The Elemental Workshop II
+masterquestvarbit=varplayerbit_2639,1,11
 
+// 95
 [quest_95]
-op9_g1=1
-op1_str2=Summer's End
-op4_counted_g2_g4_g4=1,5331,5,35
+questpoints=1
+name=Summer's End
+masterquestvarbit=varplayerbit_5331,5,35
 
+// 96
 [quest_96]
-op9_g1=1
-op1_str2=Kennith's Concerns
-op4_counted_g2_g4_g4=1,4505,5,100
+questpoints=1
+name=Kennith's Concerns
+masterquestvarbit=varplayerbit_4505,5,100
 
+// 97
 [quest_97]
-op9_g1=2
-op1_str2=Enakhra's Lament
-op4_counted_g2_g4_g4=1,1560,10,70
+questpoints=2
+name=Enakhra's Lament
+masterquestvarbit=varplayerbit_1560,10,70
 
+// 98
 [quest_98]
-op9_g1=2
-op1_str2=Forgettable Tale of a Drunken Dwarf
-op4_counted_g2_g4_g4=1,822,10,140
+questpoints=2
+name=Forgettable Tale of a Drunken Dwarf
+masterquestvarbit=varplayerbit_822,10,140
 
+// 99
 [quest_99]
-op9_g1=1
-op1_str2=Doric's Quest
-op3_counted_g2_g4_g4=1,31,10,100
+questpoints=1
+name=Doric's Quest
+masterquestvarp=doricquest,10,100
 
+// 100
 [quest_100]
-op9_g1=3
-op1_str2=Regicide
-op3_counted_g2_g4_g4=1,328,1,13
+questpoints=3
+name=Regicide
+masterquestvarp=regicide_quest,1,13
 
+// 101
 [quest_101]
-op9_g1=2
-op1_str2=A Rum Deal
-op3_counted_g2_g4_g4=1,600,1,19
+questpoints=2
+name=A Rum Deal
+masterquestvarp=varplayer_600,1,19
 
+// 102
 [quest_102]
-op9_g1=2
-op1_str2=Big Chompy Bird Hunting
-op3_counted_g2_g4_g4=1,293,5,65
+questpoints=2
+name=Big Chompy Bird Hunting
+masterquestvarp=chompybird,5,65
 
+// 103
 [quest_103]
-op9_g1=1
-op1_str2=Wanted!
-op4_counted_g2_g4_g4=1,1051,1,11
+questpoints=1
+name=Wanted!
+masterquestvarbit=varplayerbit_1051,1,11
 
+// 104
 [quest_104]
-op9_g1=1
-op1_str2=Zogre Flesh Eaters
-op4_counted_g2_g4_g4=1,487,1,14
+questpoints=1
+name=Zogre Flesh Eaters
+masterquestvarbit=varplayerbit_487,1,14
 
+// 105
 [quest_105]
-op9_g1=2
-op1_str2=Horror from the Deep
-op4_counted_g2_g4_g4=1,34,1,10
+questpoints=2
+name=Horror from the Deep
+masterquestvarbit=varplayerbit_34,1,10
 
+// 106
 [quest_106]
-op9_g1=2
-op1_str2=Fight Arena
-op3_counted_g2_g4_g4=1,17,1,14
+questpoints=2
+name=Fight Arena
+masterquestvarp=arenaquest,1,14
 
+// 107
 [quest_107]
-op9_g1=1
-op1_str2=Enlightened Journey
-op4_counted_g2_g4_g4=1,2866,5,200
+questpoints=1
+name=Enlightened Journey
+masterquestvarbit=varplayerbit_2866,5,200
 
+// 108
 [quest_108]
-op9_g1=6
-op1_str2=Merlin's Crystal
-op3_counted_g2_g4_g4=1,14,1,7
+questpoints=6
+name=Merlin's Crystal
+masterquestvarp=arthur,1,7
 
+// 109
 [quest_109]
-op9_g1=1
-op1_str2=Perils of Ice Mountain
-op4_counted_g2_g4_g4=1,4684,10,140
+questpoints=1
+name=Perils of Ice Mountain
+masterquestvarbit=varplayerbit_4684,10,140
 
+// 110
 [quest_110]
-op9_g1=1
-op1_str2=Roving Elves
-op3_counted_g2_g4_g4=1,402,2,6
+questpoints=1
+name=Roving Elves
+masterquestvarp=varplayer_402,2,6
 
+// 111
 [quest_111]
-op9_g1=4
-op1_str2=Druidic Ritual
-op3_counted_g2_g4_g4=1,80,1,4
+questpoints=4
+name=Druidic Ritual
+masterquestvarp=druidquest,1,4
 
+// 112
 [quest_112]
-op9_g1=2
-op1_str2=Holy Grail
-op3_counted_g2_g4_g4=1,5,2,10
+questpoints=2
+name=Holy Grail
+masterquestvarp=grail,2,10
 
+// 113
 [quest_113]
-op9_g1=2
-op1_str2=The Tourist Trap
-op3_counted_g2_g4_g4=1,197,1,30
+questpoints=2
+name=The Tourist Trap
+masterquestvarp=desertrescue,1,30
 
+// 114
 [quest_114]
-op1_str2=Chosen Commander
-op4_counted_g2_g4_g4=1,1938,10,110
+name=Chosen Commander
+masterquestvarbit=varplayerbit_1938,10,110
 
+// 115
 [quest_115]
-op9_g1=1
-op1_str2=Glorious Memories
-op4_counted_g2_g4_g4=1,6001,3,45
+questpoints=1
+name=Glorious Memories
+masterquestvarbit=varplayerbit_6001,3,45
 
+// 116
 [quest_116]
-op9_g1=1
-op1_str2=Family Crest
-op3_counted_g2_g4_g4=1,148,1,11
+questpoints=1
+name=Family Crest
+masterquestvarp=crestquest,1,11
 
+// 117
 [quest_117]
-op1_str2=Curse of Arrav
-op4_counted_g2_g4_g4=1,6289,10,240
+name=Curse of Arrav
+masterquestvarbit=varplayerbit_6289,10,240
 
+// 118
 [quest_118]
-op9_g1=2
-op1_str2=Garden of Tranquility
-op4_counted_g2_g4_g4=1,961,10,60
+questpoints=2
+name=Garden of Tranquility
+masterquestvarbit=varplayerbit_961,10,60
 
+// 119
 [quest_119]
-op9_g1=4
-op1_str2=Legends' Quest
-op3_counted_g2_g4_g4=1,139,1,75
+questpoints=4
+name=Legends' Quest
+masterquestvarp=legendsquest,1,75
 
+// 120
 [quest_120]
-op9_g1=2
-op1_str2=Haunted Mine
-op3_counted_g2_g4_g4=1,382,1,11
+questpoints=2
+name=Haunted Mine
+masterquestvarp=varplayer_382,1,11
 
+// 121
 [quest_121]
-op9_g1=1
-op1_str2=Sea Slug
-op3_counted_g2_g4_g4=1,159,1,12
+questpoints=1
+name=Sea Slug
+masterquestvarp=seaslugquest,1,12
 
+// 122
 [quest_122]
-op9_g1=1
-op1_str2=Hunt for Red Raktuber
-op4_counted_g2_g4_g4=1,6180,10,140
+questpoints=1
+name=Hunt for Red Raktuber
+masterquestvarbit=varplayerbit_6180,10,140
 
+// 123
 [quest_123]
-op9_g1=1
-op1_str2=Devious Minds
-op4_counted_g2_g4_g4=1,1465,10,80
+questpoints=1
+name=Devious Minds
+masterquestvarbit=varplayerbit_1465,10,80
 
+// 124
 [quest_124]
-op9_g1=3
-op1_str2=Making History
-op4_counted_g2_g4_g4=1,1383,1,4
+questpoints=3
+name=Making History
+masterquestvarbit=varplayerbit_1383,1,4
 
+// 125
 [quest_125]
-op9_g1=1
-op1_str2=Hazeel Cult
-op3_counted_g2_g4_g4=1,223,2,9
+questpoints=1
+name=Hazeel Cult
+masterquestvarp=hazeelcultquest,2,9
 
+// 126
 [quest_126]
-op9_g1=1
-op1_str2=Temple of Ikov
-op3_counted_g2_g4_g4=1,26,10,80
+questpoints=1
+name=Temple of Ikov
+masterquestvarp=varplayer_26,10,80
 
+// 127
 [quest_127]
-op9_g1=1
-op1_str2=Royal Trouble
-op4_counted_g2_g4_g4=1,2140,10,30
+questpoints=1
+name=Royal Trouble
+masterquestvarbit=varplayerbit_2140,10,30
 
+// 128
 [quest_128]
-op9_g1=3
-op1_str2=Biohazard
-op3_counted_g2_g4_g4=1,68,1,16
+questpoints=3
+name=Biohazard
+masterquestvarp=biohazard,1,16
 
+// 129
 [quest_129]
-op9_g1=2
-op1_str2=Mourning's Ends Part II
-op4_counted_g2_g4_g4=1,1103,10,60
+questpoints=2
+name=Mourning's Ends Part II
+masterquestvarbit=varplayerbit_1103,10,60
 
+// 130
 [quest_130]
-op9_g1=3
-op1_str2=Monkey Madness
-op3_counted_g2_g4_g4=1,365,1,9
+questpoints=3
+name=Monkey Madness
+masterquestvarp=varplayer_365,1,9
 
+// 131
 [quest_131]
-op9_g1=1
-op1_str2=Unstable Foundations
-op3_counted_g2_g4_g4=1,281,5,1000
+questpoints=1
+name=Unstable Foundations
+masterquestvarp=learning_the_ropes,5,1000
 
+// 132
 [quest_132]
-op9_g1=3
-op1_str2=Vampire Slayer
-op4_counted_g2_g4_g4=1,6914,1,3
+questpoints=3
+name=Vampire Slayer
+masterquestvarbit=varplayerbit_6914,1,3
 
+// 133
 [quest_133]
-op9_g1=2
-op1_str2=Nature Spirit
-op3_counted_g2_g4_g4=1,307,5,110
+questpoints=2
+name=Nature Spirit
+masterquestvarp=druidspirit,5,110
 
+// 134
 [quest_134]
-op9_g1=2
-op1_str2=The Giant Dwarf
-op4_counted_g2_g4_g4=1,571,5,50
+questpoints=2
+name=The Giant Dwarf
+masterquestvarbit=varplayerbit_571,5,50
 
+// 135
 [quest_135]
-op9_g1=3
-op1_str2=Desert Treasure
-op4_counted_g2_g4_g4=1,358,1,15
+questpoints=3
+name=Desert Treasure
+masterquestvarbit=varplayerbit_358,1,15
 
+// 136
 [quest_136]
-op9_g1=1
-op1_str2=The Feud
-op4_counted_g2_g4_g4=1,334,1,28
+questpoints=1
+name=The Feud
+masterquestvarbit=varplayerbit_334,1,28
 
+// 137
 [quest_137]
-op9_g1=5
-op1_str2=Goblin Diplomacy
-op4_counted_g2_g4_g4=1,2378,1,6
+questpoints=5
+name=Goblin Diplomacy
+masterquestvarbit=varplayerbit_2378,1,6
 
+// 138
 [quest_138]
-op9_g1=1
-op1_str2=Gertrude's Cat
-op3_counted_g2_g4_g4=1,180,1,6
+questpoints=1
+name=Gertrude's Cat
+masterquestvarp=fluffs,1,6
 
+// 139
 [quest_139]
-op9_g1=1
-op1_str2=TokTz-Ket-Dill
-op4_counted_g2_g4_g4=1,4700,5,63
+questpoints=1
+name=TokTz-Ket-Dill
+masterquestvarbit=varplayerbit_4700,5,63
 
+// 140
 [quest_140]
-op9_g1=1
-op1_str2=Death Plateau
-op3_counted_g2_g4_g4=1,314,10,80
+questpoints=1
+name=Death Plateau
+masterquestvarp=death_equiproom,10,80
 
+// 141
 [quest_141]
-op9_g1=2
-op1_str2=Icthlarin's Little Helper
-op4_counted_g2_g4_g4=1,418,1,26
+questpoints=2
+name=Icthlarin's Little Helper
+masterquestvarbit=varplayerbit_418,1,26
 
+// 142
 [quest_142]
-op9_g1=1
-op1_str2=Meeting History
-op4_counted_g2_g4_g4=1,5075,5,20
+questpoints=1
+name=Meeting History
+masterquestvarbit=varplayerbit_5075,5,20
 
+// 143
 [quest_143]
-op9_g1=2
-op1_str2=The Eyes of Glouphrie
-op4_counted_g2_g4_g4=1,2497,10,60
+questpoints=2
+name=The Eyes of Glouphrie
+masterquestvarbit=varplayerbit_2497,10,60
 
+// 144
 [quest_144]
-op9_g1=1
-op1_str2=What Lies Below
-op4_counted_g2_g4_g4=1,3523,5,150
+questpoints=1
+name=What Lies Below
+masterquestvarbit=varplayerbit_3523,5,150
 
+// 145
 [quest_145]
-op9_g1=1
-op1_str2=Cold War
-op4_counted_g2_g4_g4=1,3293,5,135
+questpoints=1
+name=Cold War
+masterquestvarbit=varplayerbit_3293,5,135
 
+// 146
 [quest_146]
-op9_g1=2
-op1_str2=One Small Favour
-op3_counted_g2_g4_g4=1,416,5,285
+questpoints=2
+name=One Small Favour
+masterquestvarp=varplayer_416,5,285
 
+// 147
 [quest_147]
-op9_g1=1
-op1_str2=Monk's Friend
-op3_counted_g2_g4_g4=1,30,10,80
+questpoints=1
+name=Monk's Friend
+masterquestvarp=drunkmonkquest,10,80
 
+// 148
 [quest_148]
-op9_g1=1
-op1_str2=Fremennik Isles
-op4_counted_g2_g4_g4=1,3311,5,340
+questpoints=1
+name=Fremennik Isles
+masterquestvarbit=varplayerbit_3311,5,340
 
+// 149
 [quest_149]
-op9_g1=2
-op1_str2=Eagles' Peak
-op4_counted_g2_g4_g4=1,2780,5,40
+questpoints=2
+name=Eagles' Peak
+masterquestvarbit=varplayerbit_2780,5,40
 
+// 150
 [quest_150]
-op9_g1=1
-op1_str2=The Hand in the Sand
-op4_counted_g2_g4_g4=1,1527,10,160
+questpoints=1
+name=The Hand in the Sand
+masterquestvarbit=varplayerbit_1527,10,160
 
+// 151
 [quest_151]
-op9_g1=2
-op1_str2=Mountain Daughter
-op4_counted_g2_g4_g4=1,260,10,70
+questpoints=2
+name=Mountain Daughter
+masterquestvarbit=varplayerbit_260,10,70
 
+// 152
 [quest_152]
-op9_g1=1
-op1_str2=The Knight's Sword
-op3_counted_g2_g4_g4=1,122,1,7
+questpoints=1
+name=The Knight's Sword
+masterquestvarp=squire,1,7
 
+// 153
 [quest_153]
-op9_g1=1
-op1_str2=Olaf's Quest
-op4_counted_g2_g4_g4=1,3534,10,80
+questpoints=1
+name=Olaf's Quest
+masterquestvarbit=varplayerbit_3534,10,80
 
+// 154
 [quest_154]
-op9_g1=2
-op1_str2=Fairy Tale II - Cure a Queen
-op4_counted_g2_g4_g4=1,2326,10,90
+questpoints=2
+name=Fairy Tale II - Cure a Queen
+masterquestvarbit=varplayerbit_2326,10,90
 
+// 155
 [quest_155]
-op9_g1=1
-op1_str2=Another Slice of H.A.M.
-op4_counted_g2_g4_g4=1,3550,1,11
+questpoints=1
+name=Another Slice of H.A.M.
+masterquestvarbit=varplayerbit_3550,1,11
 
+// 156
 [quest_156]
-op9_g1=2
-op1_str2=Mourning's Ends Part I
-op3_counted_g2_g4_g4=1,517,1,8
+questpoints=2
+name=Mourning's Ends Part I
+masterquestvarp=varplayer_517,1,8
 
+// 157
 [quest_157]
-op9_g1=1
-op1_str2=Throne of Miscellania
-op3_counted_g2_g4_g4=1,359,10,100
+questpoints=1
+name=Throne of Miscellania
+masterquestvarp=varplayer_359,10,100
 
+// 158
 [quest_158]
-op9_g1=1
-op1_str2=Contact!
-op4_counted_g2_g4_g4=1,3274,10,130
+questpoints=1
+name=Contact!
+masterquestvarbit=varplayerbit_3274,10,130
 
+// 159
 [quest_159]
-op9_g1=1
-op5_g2=30
-op1_str2=Recipe for Disaster: Skrach
-op4_counted_g2_g4_g4=1,1904,10,170
+questpoints=1
+parent=quest_30
+name=Recipe for Disaster: Skrach
+masterquestvarbit=varplayerbit_1904,10,170
 
+// 160
 [quest_160]
-op9_g1=1
-op5_g2=30
-op1_str2=Recipe for Disaster: Evil Dave
-op4_counted_g2_g4_g4=1,1878,1,5
+questpoints=1
+parent=quest_30
+name=Recipe for Disaster: Evil Dave
+masterquestvarbit=varplayerbit_1878,1,5
 
+// 161
 [quest_161]
-op9_g1=1
-op5_g2=30
-op1_str2=Recipe for Disaster: Dwarf
-op4_counted_g2_g4_g4=1,1892,10,60
+questpoints=1
+parent=quest_30
+name=Recipe for Disaster: Dwarf
+masterquestvarbit=varplayerbit_1892,10,60
 
+// 162
 [quest_162]
-op9_g1=1
-op5_g2=30
-op1_str2=Recipe for Disaster: Awowogei
-op4_counted_g2_g4_g4=1,1914,5,50
+questpoints=1
+parent=quest_30
+name=Recipe for Disaster: Awowogei
+masterquestvarbit=varplayerbit_1914,5,50
 
+// 163
 [quest_163]
-op9_g1=1
-op5_g2=30
-op1_str2=Recipe for Disaster: Sir Amik Varze
-op4_counted_g2_g4_g4=1,1910,5,20
+questpoints=1
+parent=quest_30
+name=Recipe for Disaster: Sir Amik Varze
+masterquestvarbit=varplayerbit_1910,5,20
 
+// 164
 [quest_164]
-op9_g1=1
-op5_g2=30
-op1_str2=Recipe for Disaster: Pirate Pete
-op4_counted_g2_g4_g4=1,1895,10,110
+questpoints=1
+parent=quest_30
+name=Recipe for Disaster: Pirate Pete
+masterquestvarbit=varplayerbit_1895,10,110
 
+// 165
 [quest_165]
-op9_g1=1
-op5_g2=30
-op1_str2=Recipe for Disaster: Goblin Generals
-op4_counted_g2_g4_g4=1,1867,5,40
+questpoints=1
+parent=quest_30
+name=Recipe for Disaster: Goblin Generals
+masterquestvarbit=varplayerbit_1867,5,40
 
+// 166
 [quest_166]
-op9_g1=1
-op5_g2=30
-op1_str2=Recipe for Disaster: Lumbridge Sage
-op4_counted_g2_g4_g4=1,1896,1,5
+questpoints=1
+parent=quest_30
+name=Recipe for Disaster: Lumbridge Sage
+masterquestvarbit=varplayerbit_1896,1,5
 
+// 167
 [quest_167]
-op9_g1=2
-op1_str2=Within the Light
-op4_counted_g2_g4_g4=1,6553,1,46
+questpoints=2
+name=Within the Light
+masterquestvarbit=varplayerbit_6553,1,46
 
+// 168
 [quest_168]
-op9_g1=2
-op1_str2=The Temple at Senntisten
-op4_counted_g2_g4_g4=1,6775,10,90
+questpoints=2
+name=The Temple at Senntisten
+masterquestvarbit=varplayerbit_6775,10,90
 
+// 169
 [quest_169]
-op9_g1=2
-op1_str2=Blood Runs Deep
-op4_counted_g2_g4_g4=1,6883,3,147
+questpoints=2
+name=Blood Runs Deep
+masterquestvarbit=varplayerbit_6883,3,147
 
+// 170
 [quest_170]
-op9_g1=3
-op1_str2=Nomad's Requiem
-op4_counted_g2_g4_g4=1,6962,1,12
+questpoints=3
+name=Nomad's Requiem
+masterquestvarbit=varplayerbit_6962,1,12
 
+// 171
 [quest_171]
-op9_g1=1
-op1_str2=Rune Mechanics
-op4_counted_g2_g4_g4=1,7050,5,35
+questpoints=1
+name=Rune Mechanics
+masterquestvarbit=varplayerbit_7050,5,35
 
+// 172
 [quest_172]
-op9_g1=1
-op17_g2=3144
-op1_str2=The Blood Pact
-op4_counted_g2_g4_g4=1,7238,10,60
+questpoints=1
+icon=graphic_3144
+name=The Blood Pact
+masterquestvarbit=varplayerbit_7238,10,60
 
+// 173
 [quest_173]
-op9_g1=0
-op17_g2=2375
-op1_str2=Sheep Shearer
-op3_counted_g2_g4_g4=1,179,1,21
+questpoints=0
+icon=graphic_2375
+name=Sheep Shearer
+masterquestvarp=sheep,1,21
 
+// 174
 [quest_174]
-op9_g1=1
-op17_g2=3074
-op1_str2=Buyers and Cellars
-op4_counted_g2_g4_g4=1,7792,5,10
+questpoints=1
+icon=graphic_3074
+name=Buyers and Cellars
+masterquestvarbit=varplayerbit_7792,5,10
 
+// 175
 [quest_175]
-op6_g1=0
-op7_g1=2
-op8_flag=yes
-op9_g1=2
-op17_g2=3131
-op1_str2=Fairy Tale III - Battle at Orks Rift
-op4_counted_g2_g4_g4=1,7826,10,180
+type=normal
+difficulty=experienced
+members=true
+questpoints=2
+icon=graphic_3131
+name=Fairy Tale III - Battle at Orks Rift
+masterquestvarbit=varplayerbit_7826,10,180
 
+// 176
 [quest_176]
-op9_g1=1
-op17_g2=3135
-op1_str2=The Elemental Workshop III
-op4_counted_g2_g4_g4=1,7871,1,5
-op249_params=7,0,694,1,1,948,Search the bookcase in Seers' Village chapel.,1,949,Any pickaxe\, some coal\, a hammer.,1,950,None,1,951,1 Quest Point\, 8\,500 Defence XP\, 8\,500 Smithing XP and 50 pieces of coal.,0,952,3138,0,691,-1
+questpoints=1
+icon=graphic_3135
+name=The Elemental Workshop III
+masterquestvarbit=varplayerbit_7871,1,5
+param=param_694,1
+param=param_948,Search the bookcase in Seers' Village chapel.
+param=param_949,Any pickaxe, some coal, a hammer.
+param=param_950,None
+param=param_951,1 Quest Point, 8,500 Defence XP, 8,500 Smithing XP and 50 pieces of coal.
+param=param_952,"quest_icons_large,9"
+param=param_691,null
 
+// 177
 [quest_177]
-op9_g1=1
-op17_g2=3140
-op1_str2=Quiet Before the Swarm
-op4_counted_g2_g4_g4=1,7958,5,90
+questpoints=1
+icon=graphic_3140
+name=Quiet Before the Swarm
+masterquestvarbit=varplayerbit_7958,5,90
 
+// 178
 [quest_178]
-op9_g1=0
-op17_g2=2393
-op1_str2=Witch's Potion
-op3_counted_g2_g4_g4=1,67,1,3
+questpoints=0
+icon=quest_icon,0
+name=Witch's Potion
+masterquestvarp=varplayer_67,1,3
 
+// 179
 [quest_179]
-op2_str2=Gunnar's Ground
-op6_g1=0
-op7_g1=0
-op17_g2=3145
-op9_g1=0
-op1_str2=Gunnar's Ground
-op4_counted_g2_g4_g4=1,5730,5,100
-op10_counted_g4=1,50777438
-op14_counted_g1_g1=1,12,5
+sortname=Gunnar's Ground
+type=normal
+difficulty=novice
+icon=graphic_3145
+questpoints=0
+name=Gunnar's Ground
+masterquestvarbit=varplayerbit_5730,5,100
+mainstartcoord=0_48_53_27_30
+statreq=crafting,5
 
+// 180
 [quest_180]
-op9_g1=1
-op17_g2=3804
-op1_str2=The Void Stares Back
-op4_counted_g2_g4_g4=1,8248,2,40
+questpoints=1
+icon=graphic_3804
+name=The Void Stares Back
+masterquestvarbit=varplayerbit_8248,2,40
 
+// 181
 [quest_181]
-op2_str2=O Little Town of Daemonheim
-op6_g1=1
-op7_g1=0
-op9_g1=0
-op1_str2=O Little Town of Daemonheim
-op4_counted_g2_g4_g4=1,8671,1,44
+sortname=O Little Town of Daemonheim
+type=seasonal
+difficulty=novice
+questpoints=0
+name=O Little Town of Daemonheim
+masterquestvarbit=varplayerbit_8671,1,44
 
+// 182
 [quest_182]
-op17_g2=836
-op1_str2=Task System
+icon=achievement_diary_icons,1
+name=Task System
 
+// 183
 [quest_183]
-op9_g1=1
-op17_g2=4422
-op1_str2=Do No Evil
-op4_counted_g2_g4_g4=1,8605,10,315
+questpoints=1
+icon=quest_icons_small2,12
+name=Do No Evil
+masterquestvarbit=varplayerbit_8605,10,315
 
+// 184
 [quest_184]
-op2_str2=Partying is Such Sweet Sorrow
-op6_g1=1
-op9_g1=0
-op7_g1=0
-op1_str2=Partying is Such Sweet Sorrow
-op4_counted_g2_g4_g4=1,8300,1,20
+sortname=Partying is Such Sweet Sorrow
+type=seasonal
+questpoints=0
+difficulty=novice
+name=Partying is Such Sweet Sorrow
+masterquestvarbit=varplayerbit_8300,1,20
 
+// 185
 [quest_185]
-op9_g1=2
-op17_g2=3803
-op1_str2=King of the Dwarves
-op4_counted_g2_g4_g4=1,8704,10,90
+questpoints=2
+icon=graphic_3803
+name=King of the Dwarves
+masterquestvarbit=varplayerbit_8704,10,90
 
+// 186
 [quest_186]
-op9_g1=1
-op17_g2=4581
-op1_str2=Prisoner of Glouphrie
-op4_counted_g2_g4_g4=1,5332,1,120
+questpoints=1
+icon=quest_icons_small2,13
+name=Prisoner of Glouphrie
+masterquestvarbit=varplayerbit_5332,1,120
 
+// 187
 [quest_187]
-op9_g1=1
-op17_g2=4582
-op1_str2=The Elemental Workshop IV
-op4_counted_g2_g4_g4=1,998,1,8
-op249_params=7,0,694,1,1,948,Search the bookcase on the ground floor of the Sorcerer's Tower.,1,949,A hammer\, a chisel\, a handful of elemental runes (air\, earth\, water and fire)\, and two primed bars of elemental metal.,1,950,None,1,951,2 Quest Points\, 7\,500 Runecrafting XP\, 9\,000 Crafting XP\, 50 coal and the ability to make and equip elemental cosmic and chaos equipment.,0,952,4436,0,691,-1
+questpoints=1
+icon=quest_icons_small2,14
+name=The Elemental Workshop IV
+masterquestvarbit=varplayerbit_998,1,8
+param=param_694,1
+param=param_948,Search the bookcase on the ground floor of the Sorcerer's Tower.
+param=param_949,A hammer, a chisel, a handful of elemental runes (air, earth, water and fire), and two primed bars of elemental metal.
+param=param_950,None
+param=param_951,2 Quest Points, 7,500 Runecrafting XP, 9,000 Crafting XP, 50 coal and the ability to make and equip elemental cosmic and chaos equipment.
+param=param_952,"quest_icons_large2,13"
+param=param_691,null
 
+// 188
 [quest_188]
-op9_g1=1
-op17_g2=5572
-op1_str2=A Clockwork Syringe
-op4_counted_g2_g4_g4=1,8961,10,210
+questpoints=1
+icon=quest_icons_small2,15
+name=A Clockwork Syringe
+masterquestvarbit=varplayerbit_8961,10,210
 
+// 189
 [quest_189]
-op2_str2=Holly
-op6_g1=1
-op9_g1=0
-op7_g1=0
-op1_str2=Holly
-op4_counted_g2_g4_g4=1,9198,1,60
+sortname=Holly
+type=seasonal
+questpoints=0
+difficulty=novice
+name=Holly
+masterquestvarbit=varplayerbit_9198,1,60
 
+// 190
 [quest_190]
-op2_str2=Hawthorn
-op6_g1=1
-op9_g1=0
-op8_flag=yes
-op7_g1=0
-op1_str2=Hawthorn
-op4_counted_g2_g4_g4=1,9201,1,3
+sortname=Hawthorn
+type=seasonal
+questpoints=0
+members=true
+difficulty=novice
+name=Hawthorn
+masterquestvarbit=varplayerbit_9201,1,3
 

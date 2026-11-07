@@ -1,8 +1,0 @@
-[proc,clientscript_707]
-if (getwindowmode >= 2) {
-    if_setposition(220, 11, ^setpos_abs_right, ^setpos_abs_top, catcon_calibration_puzzle:com19);
-} else {
-    if_setposition(12, 11, ^setpos_abs_right, ^setpos_abs_top, catcon_calibration_puzzle:com19);
-}
-%varc_int_215 = 255;
-%varc_int_216 = 0;

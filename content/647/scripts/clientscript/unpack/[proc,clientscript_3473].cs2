@@ -1,7 +1,0 @@
-[proc,clientscript_3473](component $component0, int $int1, int $int2, int $int3, int $int4, int $int5)
-if ($int1 < calc(cam_getpathcount(0) - 1)) {
-    cam_startpath(0, $int1, $int2, $int3, 1, $int1);
-    if_setonchattransmit_2426("clientscript_3473($component0, calc($int1 + 1), $int4, $int5, 0, 0)", $component0);
-} else {
-    if_setonchattransmit_2426(null, $component0);
-}

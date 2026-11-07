@@ -1,3 +1,4 @@
+// 1540
 [proc,bank_v2_sideupdate](component $component0)
 cc_deleteall($component0);
 def_int $int1 = 0;
@@ -17,11 +18,11 @@ while ($int3 < $int4) {
     $obj5 = inv_getobj(inv, $int3);
     if ($obj5 ! null) {
         $int6 = inv_total(inv, $obj5);
-        $string0, $string1 = oc_weight($obj5, param_1264), oc_weight($obj5, param_1265);
+        $string0, $string1 = oc_param($obj5, param_1264), oc_param($obj5, param_1265);
         if (string_length($string0) <= 0) {
-            if (testbit(%varc_int_96, $int3) = true) {
+            if (testbit(%varclient_96, $int3) = ^true) {
                 $string0 = oc_iop($obj5, 2);
-            } else if (testbit(%varc_int_95, $int3) = true) {
+            } else if (testbit(%varclient_95, $int3) = ^true) {
                 $string0 = "Eat";
             }
         }

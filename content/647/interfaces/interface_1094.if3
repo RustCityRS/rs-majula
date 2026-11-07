@@ -1,0 +1,487 @@
+// 1094:0
+[com_0]
+type=text
+y=12
+width=228
+height=20
+xmode=abs_centre
+layer=com_19
+textfont=b12_full
+text=Type in your desired clan name:
+textalignh=centre
+textalignv=centre
+colour=0x1f1d19
+
+// 1094:1
+[com_1]
+type=layer
+y=87
+width=130
+height=28
+xmode=abs_centre
+layer=com_19
+
+// 1094:2
+[com_2]
+type=layer
+width=13
+height=21
+widthmode=minus
+xmode=abs_centre
+ymode=abs_centre
+layer=com_19
+
+// 1094:3
+[com_3]
+type=graphic
+width=4
+height=4
+heightmode=minus
+xmode=abs_right
+layer=com_1
+graphic=button_dropshadow_left
+tiling=yes
+alpha=yes
+
+// 1094:4
+[com_4]
+type=graphic
+width=4
+height=4
+widthmode=minus
+ymode=abs_bottom
+layer=com_1
+graphic=button_dropshadow_bottom
+tiling=yes
+alpha=yes
+
+// 1094:5
+[com_5]
+type=graphic
+width=4
+height=4
+xmode=abs_right
+ymode=abs_bottom
+layer=com_1
+graphic=button_dropshadow_corner
+alpha=yes
+
+// 1094:6
+[com_6]
+type=layer
+width=4
+height=4
+widthmode=minus
+heightmode=minus
+layer=com_1
+onload=script4201(event_com, struct_1736)
+
+// 1094:7
+[com_7]
+type=layer
+width=4
+height=4
+widthmode=minus
+heightmode=minus
+layer=com_1
+onload=script4201(event_com, struct_1737)
+
+// 1094:8
+[com_8]
+type=layer
+width=4
+height=4
+widthmode=minus
+heightmode=minus
+layer=com_1
+onload=script4201(event_com, struct_1738)
+
+// 1094:9
+[com_9]
+type=layer
+width=4
+height=4
+widthmode=minus
+heightmode=minus
+layer=com_1
+onload=script4201(event_com, struct_1739)
+
+// 1094:10
+[com_10]
+type=layer
+width=4
+height=4
+widthmode=minus
+heightmode=minus
+layer=com_1
+onclick=clan_create_return
+
+// 1094:11
+[com_11]
+type=layer
+width=4
+height=4
+widthmode=minus
+heightmode=minus
+layer=com_1
+
+// 1094:12
+[com_12]
+type=text
+width=8
+height=4
+widthmode=minus
+heightmode=minus
+xmode=abs_centre
+ymode=abs_centre
+layer=com_11
+textfont=verdana_13pt_regular
+textalignh=centre
+textalignv=centre
+colour=0xe1e1e1
+onload=script4210(event_com, verdana_13pt_regular, 0xebe0bc, 0x5a4e3a)
+
+// 1094:13
+[com_13]
+type=layer
+width=4
+height=4
+widthmode=minus
+heightmode=minus
+layer=com_1
+hide=yes
+noclickthrough=yes
+onload=script4201(event_com, struct_1740)
+
+// 1094:14
+[com_14]
+type=rectangle
+width=16391
+height=16391
+widthmode=proportion
+heightmode=proportion
+layer=com_13
+colour=0x000000
+fill=yes
+trans=100
+
+// 1094:15
+[com_15]
+type=text
+y=29
+width=228
+height=20
+xmode=abs_centre
+layer=com_19
+textfont=p11_full
+text=0/20
+textalignh=centre
+textalignv=centre
+colour=0x1f1d19
+
+// 1094:16
+[com_16]
+type=text
+x=1
+y=69
+width=483
+height=18
+xmode=abs_centre
+layer=com_19
+textfont=p11_full
+text=Clan names may only contain A-Z, a-z, 0-9 and space. No special characters e.g. å, ä
+textalignh=centre
+textalignv=centre
+colour=0x1f1d19
+
+// 1094:17
+[com_17]
+type=layer
+widthmode=minus
+heightmode=minus
+xmode=abs_centre
+ymode=abs_centre
+
+// 1094:18
+[com_18]
+type=graphic
+widthmode=minus
+heightmode=minus
+xmode=abs_centre
+ymode=abs_centre
+layer=com_17
+hide=yes
+graphic=window_texture_1
+tiling=yes
+
+// 1094:19
+[com_19]
+type=layer
+width=10
+height=10
+widthmode=minus
+heightmode=minus
+xmode=abs_centre
+ymode=abs_centre
+layer=com_17
+
+// 1094:20
+[com_20]
+type=layer
+widthmode=minus
+heightmode=minus
+layer=com_17
+hide=yes
+
+// 1094:21
+[com_21]
+type=graphic
+width=120
+height=7
+widthmode=minus
+xmode=abs_centre
+layer=com_20
+graphic=aif_window_stone_bot_brdr_left
+tiling=yes
+vflip=yes
+
+// 1094:22
+[com_22]
+type=graphic
+width=60
+height=7
+widthmode=minus
+xmode=abs_centre
+ymode=abs_bottom
+layer=com_20
+graphic=aif_window_stone_bot_brdr_left
+tiling=yes
+
+// 1094:23
+[com_23]
+type=graphic
+width=8
+height=40
+heightmode=minus
+xmode=abs_right
+ymode=abs_centre
+layer=com_20
+graphic=aif_window_stone_close_corner_3
+
+// 1094:24
+[com_24]
+type=graphic
+width=8
+height=190
+heightmode=minus
+xmode=abs_right
+ymode=abs_centre
+layer=com_20
+graphic=aif_window_stone_side_brdr_large
+tiling=yes
+hflip=yes
+
+// 1094:25
+[com_25]
+type=graphic
+y=28
+width=8
+height=68
+layer=com_20
+graphic=aif_window_stone_close_corner_3
+hflip=yes
+
+// 1094:26
+[com_26]
+type=graphic
+y=53
+width=8
+height=43
+xmode=abs_right
+ymode=abs_bottom
+layer=com_20
+graphic=aif_window_stone_side_brdr_small
+hflip=yes
+
+// 1094:27
+[com_27]
+type=graphic
+x=8
+y=7
+width=3
+height=4
+widthmode=minus
+ymode=abs_bottom
+layer=com_20
+graphic=aif_innerwin_dropshadow_1
+tiling=yes
+vflip=yes
+
+// 1094:28
+[com_28]
+type=graphic
+y=7
+width=14
+height=4
+widthmode=minus
+xmode=abs_centre
+layer=com_20
+graphic=aif_innerwin_dropshadow_1
+tiling=yes
+
+// 1094:29
+[com_29]
+type=graphic
+width=8
+height=190
+heightmode=minus
+ymode=abs_centre
+layer=com_20
+graphic=aif_window_stone_side_brdr_large
+tiling=yes
+
+// 1094:30
+[com_30]
+type=graphic
+width=8
+height=40
+heightmode=minus
+ymode=abs_centre
+layer=com_20
+graphic=aif_window_stone_side_brdr_small
+tiling=yes
+
+// 1094:31
+[com_31]
+type=graphic
+width=64
+height=53
+xmode=abs_right
+ymode=abs_bottom
+layer=com_20
+graphic=aif_window_stone_bot_corn
+hflip=yes
+
+// 1094:32
+[com_32]
+type=graphic
+width=64
+height=53
+ymode=abs_bottom
+layer=com_20
+graphic=aif_window_stone_bot_corn
+
+// 1094:33
+[com_33]
+type=graphic
+width=64
+height=53
+layer=com_20
+graphic=aif_window_stone_topl_corn
+
+// 1094:34
+[com_34]
+type=graphic
+width=64
+height=53
+xmode=abs_right
+layer=com_20
+graphic=aif_window_stone_topr_corn
+
+// 1094:35
+[com_35]
+type=layer
+x=4
+y=5
+width=16
+height=15
+xmode=abs_right
+layer=com_20
+
+// 1094:36
+[com_36]
+type=graphic
+width=16384
+height=16384
+widthmode=proportion
+heightmode=proportion
+xmode=abs_right
+layer=com_35
+graphic="aif_bronze_close_button_1,0"
+transmitop=1
+op1=Close
+onop=closebutton_click
+
+// 1094:37
+[com_37]
+type=graphic
+width=16384
+height=16384
+widthmode=proportion
+heightmode=proportion
+xmode=abs_right
+layer=com_35
+graphic="aif_bronze_close_button_1,1"
+trans=255
+onmouseover=script4209(event_com, 0)
+onmouseleave=script4209(event_com, 1)
+
+// 1094:38
+[com_38]
+type=graphic
+width=6
+height=21
+widthmode=minus
+xmode=abs_centre
+ymode=abs_centre
+layer=com_2
+graphic="aif_text_input_3,1"
+tiling=yes
+
+// 1094:39
+[com_39]
+type=graphic
+width=6
+height=21
+ymode=abs_centre
+layer=com_2
+graphic="aif_text_input_3,0"
+tiling=yes
+
+// 1094:40
+[com_40]
+type=graphic
+width=6
+height=21
+xmode=abs_right
+ymode=abs_centre
+layer=com_2
+graphic="aif_text_input_3,2"
+tiling=yes
+
+// 1094:41
+[com_41]
+type=text
+y=-1
+width=12
+height=6
+widthmode=minus
+heightmode=minus
+xmode=abs_centre
+ymode=abs_centre
+layer=com_2
+textfont=graphic_5631
+textalignh=centre
+textalignv=centre
+colour=0x1f1d19
+onload=clan_create_text_init(event_com, interface_1094:com_15, interface_1094:com_42)
+
+// 1094:42
+[com_42]
+type=line
+y=5
+height=10
+xmode=abs_centre
+layer=com_2
+hide=yes
+colour=0xffffff

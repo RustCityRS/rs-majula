@@ -2,10 +2,10 @@ use crate::archive::{self, ArchiveFormat, ArchiveVersions};
 use crate::cache::js5::PackedCache;
 use crate::pack::model::source as model_source;
 use crate::pack::names::{AssetNames, archive_name};
-use crate::pack::other::asset;
+use crate::pack::other::{asset, wma};
 use crate::pack::pack_registry::PackFile;
 use crate::pack::sound::{vorbis, vorbis_setup};
-use anyhow::{Context, Result, ensure};
+use anyhow::{Context, Result};
 use rayon::prelude::*;
 use rs_crypto::whirlpool;
 use rs_io::js5::compression::compress_best;
@@ -15,7 +15,7 @@ use rs_io::js5::{compute_group_crc, detect_file_count, encode_group_entries};
 use runec::clientscript;
 use std::collections::{HashMap, hash_map::Entry};
 use std::fs;
-use std::path::{Path, PathBuf};
+use std::path::Path;
 use std::time::Instant;
 use tracing::{debug, info};
 
@@ -89,6 +89,19 @@ pub struct PreparedGroup {
 }
 
 impl PreparedGroup {
+    /// Keeps the table's files for a group now holding `count` of them.
+    pub fn fit_files(&mut self, count: usize) {
+        self.files.truncate(count);
+        let mut next = self.files.last().map_or(0, |file| file.id + 1);
+        while self.files.len() < count {
+            self.files.push(FileInfo {
+                id: next,
+                name_hash: None,
+            });
+            next += 1;
+        }
+    }
+
     pub fn set_files(&mut self, ids: impl IntoIterator<Item = u32>) {
         self.files = ids
             .into_iter()
@@ -234,16 +247,54 @@ const SIMPLE_ARCHIVES: &[u8] = &[
     archive::VORBIS,
     archive::MUSIC_SAMPLES,
     archive::WORLDMAP_DATA,
-    archive::QUICKCHAT,
-    archive::QUICKCHAT_GLOBAL,
     archive::MATERIALS,
-    archive::PARTICLES,
     archive::DEFAULTS,
-    archive::BILLBOARDS,
     archive::DLLS,
     archive::LOADING_SCREENS,
     archive::WORLDMAP_LOCS,
 ];
+
+/// The groups a world map's `.wma` source makes: every map's details, and its elements.
+fn pack_world_maps(
+    dir: &Path,
+    pack_dir: &Path,
+    names: &AssetNames,
+    versions: &HashMap<u8, ArchiveVersions>,
+) -> Result<Vec<PreparedGroup>> {
+    let aid = archive::WORLDMAP_DATA;
+    let path = dir.join(wma::SOURCE);
+    let text = fs::read_to_string(&path).with_context(|| path.display().to_string())?;
+    let maps = wma::parse(&text, names).with_context(|| path.display().to_string())?;
+    let mut groups: Vec<(u32, Vec<Vec<u8>>)> = vec![(
+        names.id(archive_name(aid), wma::DETAILS)?,
+        maps.iter().map(wma::encode_details).collect(),
+    )];
+    for map in &maps {
+        if !map.elements.is_empty() {
+            groups.push((
+                names.id(archive_name(aid), &wma::elements_group(&map.group))?,
+                map.elements.iter().map(wma::encode_element).collect(),
+            ));
+        }
+    }
+    let gids: Vec<u32> = groups.iter().map(|(gid, _)| *gid).collect();
+    let name_hashes = load_name_hashes(pack_dir, aid, &gids);
+    groups
+        .iter()
+        .map(|(gid, files)| {
+            let entries: Vec<(u32, &[u8])> = files
+                .iter()
+                .enumerate()
+                .map(|(position, data)| (position as u32, data.as_slice()))
+                .collect();
+            let data = encode_group_entries(&entries);
+            let mut group = PreparedGroup::new(aid, *gid, &data, versions)?;
+            group.fit_files(files.len());
+            group.name_hash = name_hashes.get(gid).copied().unwrap_or(-1);
+            Ok(group)
+        })
+        .collect()
+}
 
 pub fn pack_asset_archives(
     store: &mut PackedCache,
@@ -318,19 +369,6 @@ pub fn pack_asset_archives(
                 return Ok(cache);
             }
 
-            if aid == archive::BILLBOARDS {
-                let group = pack_billboards(&group_files, &names, versions)?;
-                insert_archive(
-                    &mut cache,
-                    aid,
-                    format,
-                    versions,
-                    vec![group],
-                    "from billboard sources",
-                )?;
-                return Ok(cache);
-            }
-
             let vorbis = if aid == archive::VORBIS {
                 let path = &group_files
                     .iter()
@@ -388,6 +426,15 @@ pub fn pack_asset_archives(
                     Ok(group)
                 })
                 .collect::<Result<Vec<_>>>()?;
+            let mut prepared = prepared;
+            if aid == archive::WORLDMAP_DATA {
+                prepared.extend(pack_world_maps(
+                    &content_dir.join(format.content_dir),
+                    pack_dir,
+                    &names,
+                    versions,
+                )?);
+            }
 
             insert_archive(
                 &mut cache,
@@ -411,33 +458,6 @@ pub fn pack_asset_archives(
     Ok(())
 }
 
-fn pack_billboards(
-    files: &[(u32, PathBuf)],
-    names: &AssetNames,
-    versions: &HashMap<u8, ArchiveVersions>,
-) -> Result<PreparedGroup> {
-    let mut entries = Vec::with_capacity(files.len());
-    for (id, path) in files {
-        let source = asset::pack_file(archive::BILLBOARDS, 0, path, names)?;
-        ensure!(
-            source.len() == 1 && source[0].0 == *id,
-            "{} must contain only [{}]",
-            path.display(),
-            names.name("billboard", *id)
-        );
-        entries.extend(source);
-    }
-    let data = encode_group_entries(
-        &entries
-            .iter()
-            .map(|(id, data)| (*id, data.as_slice()))
-            .collect::<Vec<_>>(),
-    );
-    let mut group = PreparedGroup::new(archive::BILLBOARDS, 0, &data, versions)?;
-    group.set_files(entries.iter().map(|(id, _)| *id));
-    Ok(group)
-}
-
 pub fn prepare_group(
     archive_id: u8,
     group_id: u32,
@@ -455,99 +475,4 @@ pub fn prepare_group(
     with_version.reserve_exact(2);
     with_version.extend_from_slice(&version.to_be_bytes());
     Ok((with_version, crc))
-}
-
-#[cfg(test)]
-mod tests {
-    use super::{pack_asset_archives, pack_billboards};
-    use crate::archive::{self, ArchiveVersions};
-    use crate::cache::js5::PackedCache;
-    use crate::pack::names::AssetNames;
-    use crate::unpack;
-    use rs_io::js5::compression::decompress;
-    use rs_io::js5::{Js5Store, encode_group_entries};
-    use std::collections::HashMap;
-    use std::fs;
-    use std::path::Path;
-    use std::process;
-
-    #[test]
-    fn billboard_files_preserve_names_and_sparse_ids() {
-        let target = Path::new(env!("CARGO_MANIFEST_DIR")).join("../target");
-        let dir = target.join(format!("billboard-files-{}", process::id()));
-        let pack = dir.join("pack");
-        let source = dir.join("billboards");
-        fs::create_dir_all(&pack).unwrap();
-        fs::create_dir_all(&source).unwrap();
-        let scripts = dir.join("scripts/clientscript");
-        fs::create_dir_all(&scripts).unwrap();
-        fs::write(scripts.join("engine.cs2"), "").unwrap();
-        fs::write(pack.join("clientscript.pack"), "").unwrap();
-        fs::write(pack.join("cs2_command.pack"), "").unwrap();
-        fs::write(pack.join("billboard.pack"), "2=small\n9=large\n").unwrap();
-        let small = "[small]\nopcode=material\nmaterial=texture_7\nopcode=end\n\n";
-        let large = "[large]\nopcode=size\nsize_minus_one=100,200\nopcode=end\n\n";
-        fs::write(source.join("small.billboard"), small).unwrap();
-        fs::write(source.join("large.billboard"), large).unwrap();
-        let names = AssetNames::load(&pack).unwrap();
-        let files = names.files(&source, "billboard", &["billboard"]).unwrap();
-        let aid = archive::BILLBOARDS;
-        let versions = HashMap::from([(
-            aid,
-            ArchiveVersions {
-                table_version: 57,
-                group_versions: HashMap::from([(0, 57)]),
-                group_file_ids: HashMap::new(),
-            },
-        )]);
-        let group = pack_billboards(&files, &names, &versions).unwrap();
-        assert_eq!(group.id, 0);
-        assert_eq!(group.version, 57);
-        assert_eq!(group.files.iter().map(|f| f.id).collect::<Vec<_>>(), [2, 9]);
-        assert_eq!(
-            decompress(&group.raw).unwrap().as_ref(),
-            encode_group_entries(&[(2, &[1, 0, 7, 0]), (9, &[2, 0, 100, 0, 200, 0])])
-        );
-
-        let mut cache = PackedCache::default();
-        pack_asset_archives(&mut cache, &dir, &pack, &versions).unwrap();
-        assert_eq!(cache.tables[&aid].groups.len(), 1);
-        assert_eq!(cache.tables[&aid].groups[0].id, 0);
-        assert_eq!(cache.groups[&(aid, 0)], group.raw);
-        let mut store = Js5Store::create(dir.join("cache"), &[aid]).unwrap();
-        store
-            .write_raw_group(aid, 0, &cache.groups[&(aid, 0)])
-            .unwrap();
-        store
-            .write_reference_table(aid, &cache.tables[&aid])
-            .unwrap();
-        let output = dir.join("unpacked");
-        unpack::asset::unpack_archive(&mut store, aid, &pack, &output).unwrap();
-        let output = output.join("billboards");
-        assert_eq!(fs::read_dir(&output).unwrap().count(), 2);
-        assert_eq!(
-            fs::read_to_string(output.join("small.billboard")).unwrap(),
-            small
-        );
-        assert_eq!(
-            fs::read_to_string(output.join("large.billboard")).unwrap(),
-            large
-        );
-        let files = names.files(&output, "billboard", &["billboard"]).unwrap();
-        let rebuilt = pack_billboards(&files, &names, &versions).unwrap();
-        assert_eq!(rebuilt.raw, cache.groups[&(aid, 0)]);
-
-        fs::write(output.join("small.billboard"), format!("{small}{large}")).unwrap();
-        assert!(pack_billboards(&files, &names, &versions).is_err());
-        fs::write(output.join("small.billboard"), large).unwrap();
-        assert!(pack_billboards(&files, &names, &versions).is_err());
-
-        drop(store);
-        assert!(
-            dir.canonicalize()
-                .unwrap()
-                .starts_with(target.canonicalize().unwrap())
-        );
-        fs::remove_dir_all(dir).unwrap();
-    }
 }

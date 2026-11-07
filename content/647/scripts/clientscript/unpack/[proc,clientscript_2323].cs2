@@ -1,9 +1,0 @@
-[proc,clientscript_2323](component $component)
-if (if_getx($component) < calc(if_getwidth(easter09_nuts:com1) - 1)) {
-    if (if_getx($component) = calc(140 + if_getwidth($component))) {
-        if_setontimer("apply_zoom_item_text1(easter09_nuts:com6)", easter09_nuts:com19);
-    }
-    if_setposition(calc(1 + if_getx($component)), if_gety($component), ^setpos_abs_left, ^setpos_abs_top, $component);
-} else {
-    ~clientscript_2324;
-}

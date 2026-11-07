@@ -1,0 +1,30 @@
+// 4248
+[proc,script4248](string $string0, int $int0, int $int1, int $int2, int $rgb3, graphic $graphic4)
+if ($rgb3 = null) {
+    $rgb3 = ^white;
+}
+if ($graphic4 = null) {
+    $graphic4 = verdana_11pt_regular_multiline;
+}
+if_sethide(true, toplevel_fullscreen:com_182);
+if_sethide(true, toplevel:com_195);
+if (compare($string0, "") = 0) {
+    return;
+}
+if_settext($string0, toplevel_fullscreen:com_238);
+if_setposition($int0, $int1, ^setpos_abs_right, ^setpos_abs_bottom, toplevel_fullscreen:com_182);
+if_setcolour($rgb3, toplevel_fullscreen:com_238);
+if_settextfont($graphic4, toplevel_fullscreen:com_238);
+if ($int2 = 1) {
+    if_sethide(false, toplevel_fullscreen:com_240);
+    if_sethide(true, toplevel_fullscreen:com_241);
+} else {
+    if_sethide(true, toplevel_fullscreen:com_240);
+    if_sethide(false, toplevel_fullscreen:com_241);
+}
+if_sethide(false, toplevel_fullscreen:com_182);
+if (compare($string0, "The '?' icon will add an arrow to the screen which points to your destination.") = 0 & map_lang = 0) {
+    if_sethide(false, toplevel_fullscreen:com_239);
+} else {
+    if_sethide(true, toplevel_fullscreen:com_239);
+}

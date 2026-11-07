@@ -1,0 +1,6 @@
+// 4593
+[proc,script4593](string $string0, component $component0)(int)
+def_int $int1 = calc(paraheight($string0, if_getwidth($component0), p12_full) * 15 + 5);
+if_sethide(false, $component0);
+if_settext($string0, $component0);
+return($int1);

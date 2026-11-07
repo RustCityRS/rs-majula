@@ -1,0 +1,26 @@
+// 3218
+[proc,script3218](component $component0, component $component1, component $component2, string $string0, int $int3)
+if_setposition(~script1551(%varclient_1099, $string0, verdana_11pt_regular, calc(if_getx($component0) + 6)), if_gety($component2), ^setpos_abs_left, ^setpos_abs_top, $component2);
+def_int $int4 = calc(if_getwidth($component0) - 11);
+def_int $int5 = string_length($string0);
+def_string $string1 = "";
+if (%varclient_1099 > 0) {
+    $string1 = substring($string0, 0, min(%varclient_1099, $int5));
+}
+def_int $int6 = calc(stringwidth($string1, verdana_11pt_regular) - $int4);
+if_setposition(6, if_gety($component1), ^setpos_abs_left, ^setpos_abs_top, $component1);
+if_setsize(max(stringwidth($string0, verdana_11pt_regular), $int4), if_getheight($component1), ^setsize_abs, ^setsize_abs, $component1);
+if ($int6 > 0) {
+    if_setposition(calc(if_getx($component1) - $int6), if_gety($component1), ^setpos_abs_left, ^setpos_abs_top, $component1);
+    if_setposition(calc(if_getx($component2) - $int6), if_gety($component2), ^setpos_abs_left, ^setpos_abs_top, $component2);
+}
+if (applet_hasfocus = true) {
+    if_sethide(false, $component2);
+} else {
+    if_sethide(true, $component2);
+}
+if ($int3 = 16) {
+    if_setontimer("script3955(clientclock, $component2)", $component0);
+} else {
+    if_setontimer("create_caret_flash(clientclock, $component2, $int3)", $component0);
+}

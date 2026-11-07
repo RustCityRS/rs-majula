@@ -1,0 +1,24 @@
+// 1599
+[proc,script1599](int $int0)(graphic)
+switch_int ($int0) {
+    case 0 :
+        return("clan_chat_icons,0");
+    case 1 :
+        return("aif_clan_rank_icons,2");
+    case 2 :
+        return("aif_clan_rank_icons,1");
+    case 3 :
+        return("aif_clan_rank_icons,0");
+    case 4 :
+        return("aif_clan_rank_icons,8");
+    case 5 :
+        return("aif_clan_rank_icons,9");
+    case 6 :
+        return("aif_clan_rank_icons,7");
+    case 7 :
+        return("aif_clan_rank_icons,3");
+    case 127 :
+        return("clan_chat_icons,1");
+    case default :
+        return(null);
+}

@@ -1,6 +1,7 @@
-[clientscript,skillmulti2010_blocker](int $int)
-if (clientclock < $int) {
+// 2024
+[clientscript,skillmulti2010_blocker](int $int0)
+if (clientclock < $int0) {
     return;
 }
-if_setontimer(null, skillmulti2010:com28);
-if_sethide(true, skillmulti2010:com28);
+if_setontimer(null, skillmulti2010:com_28);
+if_sethide(true, skillmulti2010:com_28);

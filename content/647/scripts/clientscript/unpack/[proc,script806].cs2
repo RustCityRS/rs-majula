@@ -1,0 +1,13 @@
+// 806
+[proc,script806]()(int)
+def_int $rgb0 = 0x555555;
+if (runenergy_visible > 75) {
+    $rgb0 = ^green;
+} else if (runenergy_visible > 50) {
+    $rgb0 = ^yellow;
+} else if (runenergy_visible > 25) {
+    $rgb0 = 0xff981f;
+} else {
+    $rgb0 = ^red;
+}
+return($rgb0);

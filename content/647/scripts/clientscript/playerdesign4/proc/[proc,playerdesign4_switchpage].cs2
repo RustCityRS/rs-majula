@@ -1,28 +1,29 @@
-[proc,playerdesign4_switchpage](int $int0)
-def_boolean $boolean1 = ~int_to_bool(%varc_int_196);
-if ($int0 = true & %varc_int_197 ! 0) {
+// 386
+[proc,playerdesign4_switchpage](boolean $boolean0)
+def_boolean $boolean1 = ~int_to_bool(%varclient_196);
+if ($boolean0 = true & %varclient_197 ! 0) {
     ~playerdesign4_rebuildmenu;
-    if_sethide(true, playerdesign4:com35);
-    if_sethide(true, playerdesign4:com115);
-    if_sethide(false, playerdesign4:com117);
-    if_sethide(false, playerdesign4:com116);
-    if_sethide(false, playerdesign4:com89);
+    if_sethide(true, playerdesign4:com_35);
+    if_sethide(true, playerdesign4:com_115);
+    if_sethide(false, playerdesign4:com_117);
+    if_sethide(false, playerdesign4:com_116);
+    if_sethide(false, playerdesign4:com_89);
 } else {
-    ~clientscript_387($boolean1);
-    ~clientscript_390($boolean1);
-    if_sethide(false, playerdesign4:com35);
-    if (%varc_int_197 = false) {
-        if_sethide(true, playerdesign4:com115);
-        if_sethide(true, playerdesign4:com117);
+    ~script387($boolean1);
+    ~script390($boolean1);
+    if_sethide(false, playerdesign4:com_35);
+    if (%varclient_197 = 0) {
+        if_sethide(true, playerdesign4:com_115);
+        if_sethide(true, playerdesign4:com_117);
     } else {
-        if_sethide(false, playerdesign4:com115);
-        if (%character_creation_multipage = true & %character_creation_page = false) {
-            if_sethide(true, playerdesign4:com117);
+        if_sethide(false, playerdesign4:com_115);
+        if (%character_creation_multipage = 1 & %character_creation_page = 0) {
+            if_sethide(true, playerdesign4:com_117);
         } else {
-            if_sethide(false, playerdesign4:com117);
+            if_sethide(false, playerdesign4:com_117);
         }
     }
-    if_sethide(true, playerdesign4:com116);
-    if_sethide(true, playerdesign4:com89);
+    if_sethide(true, playerdesign4:com_116);
+    if_sethide(true, playerdesign4:com_89);
 }
 ~playerdesign4_tooltip_clear;

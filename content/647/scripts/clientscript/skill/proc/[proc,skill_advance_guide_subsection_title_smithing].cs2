@@ -1,36 +1,36 @@
-[proc,skill_advance_guide_subsection_title_smithing](int $int)(int, string)
-switch_int ($int) {
-    case 0:
+// 1021
+[proc,skill_advance_guide_subsection_title_smithing](int $int0)(string, int)
+switch_int ($int0) {
+    case 0 :
         return("Smelting", 0);
-    case 1:
+    case 1 :
         return("Bronze", 0);
-    case 2:
+    case 2 :
         return("Blurite", 1);
-    case 3:
+    case 3 :
         return("Iron", 0);
-    case 4:
+    case 4 :
         return("Steel", 0);
-    case 5:
+    case 5 :
         return("Mithril", 0);
-    case 6:
+    case 6 :
         return("Adamantite", 0);
-    case 7:
+    case 7 :
         return("Rune", 0);
-    case 8:
+    case 8 :
         return("Gold", 1);
-    case 9:
+    case 9 :
         return("Elemental", 1);
-    case 10:
+    case 10 :
         return("Artisan Workshop", 0);
-    case 11:
+    case 11 :
         return("Other", 0);
-    case 12:
+    case 12 :
         return("Activities", 1);
-    case 13:
+    case 13 :
         return("Dungeoneering", 0);
-    case 14:
+    case 14 :
         return("Milestones", 0);
-    case default:
+    case default :
         return("", -1);
 }
-return("", 0);

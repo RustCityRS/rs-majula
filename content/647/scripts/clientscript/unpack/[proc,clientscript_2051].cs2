@@ -1,7 +1,0 @@
-[proc,clientscript_2051](component $component0, int $int1, int $int2, int $int3, int $int4, int $int5, colour $colour6, coord $coord7, string $string0, string $string1, string $string2)
-if (cc_find($component0, $int1) = true) {
-    ~worldmap_setuptext($string0, $int2, $int3, $int4, $int5, $colour6, $string1, $string2, $coord7);
-} else {
-    cc_create($component0, ^iftype_text, $int1);
-    ~worldmap_setuptext($string0, $int2, $int3, $int4, $int5, $colour6, $string1, $string2, $coord7);
-}

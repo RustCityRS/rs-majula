@@ -1,22 +1,22 @@
-[proc,skill_advance_guide_subsection_title_woodcutting](int $int)(int, string)
-switch_int ($int) {
-    case 0:
+// 989
+[proc,skill_advance_guide_subsection_title_woodcutting](int $int0)(string, int)
+switch_int ($int0) {
+    case 0 :
         return("Trees", 0);
-    case 1:
+    case 1 :
         return("Hatchets", 0);
-    case 2:
+    case 2 :
         return("Canoes", 0);
-    case 3:
+    case 3 :
         return("Woodcraft", 1);
-    case 4:
+    case 4 :
         return("Other", 0);
-    case 5:
+    case 5 :
         return("Activities", 1);
-    case 6:
+    case 6 :
         return("Dungeoneering", 0);
-    case 7:
+    case 7 :
         return("Milestones", 0);
-    case default:
+    case default :
         return("", -1);
 }
-return("", 0);

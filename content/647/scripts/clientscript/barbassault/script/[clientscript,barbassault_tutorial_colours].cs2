@@ -1,89 +1,90 @@
+// 2329
 [clientscript,barbassault_tutorial_colours]
-if_setcolour(^red, barbassault_tutorial:com4);
-if_setcolour(^red, barbassault_tutorial:com5);
-if_setcolour(^red, barbassault_tutorial:com6);
-if_setcolour(^red, barbassault_tutorial:com7);
-if_setcolour(^red, barbassault_tutorial:com8);
-if_setcolour(^red, barbassault_tutorial:com9);
-if_setcolour(^red, barbassault_tutorial:com10);
-if_setcolour(^red, barbassault_tutorial:com11);
-if_setcolour(^red, barbassault_tutorial:com12);
-if_setcolour(^red, barbassault_tutorial:com13);
-if (%varbit_3264 = true) {
-    if_setcolour(^yellow, barbassault_tutorial:com4);
-} else if (%varbit_3264 = 2) {
-    if_setcolour(^green, barbassault_tutorial:com4);
-    if_setcolour(^yellow, barbassault_tutorial:com5);
-} else if (%varbit_3264 = 3) {
-    if_setcolour(^green, barbassault_tutorial:com4);
-    if_setcolour(^green, barbassault_tutorial:com5);
-    if_setcolour(^yellow, barbassault_tutorial:com6);
-} else if (%varbit_3264 = 4) {
-    if_setcolour(^green, barbassault_tutorial:com4);
-    if_setcolour(^green, barbassault_tutorial:com5);
-    if_setcolour(^green, barbassault_tutorial:com6);
-    if_setcolour(^yellow, barbassault_tutorial:com7);
-} else if (%varbit_3264 = 5) {
-    if_setcolour(^green, barbassault_tutorial:com4);
-    if_setcolour(^green, barbassault_tutorial:com5);
-    if_setcolour(^green, barbassault_tutorial:com6);
-    if_setcolour(^green, barbassault_tutorial:com7);
-    if_setcolour(^yellow, barbassault_tutorial:com8);
-} else if (%varbit_3264 = 6) {
-    if_setcolour(^green, barbassault_tutorial:com4);
-    if_setcolour(^green, barbassault_tutorial:com5);
-    if_setcolour(^green, barbassault_tutorial:com6);
-    if_setcolour(^green, barbassault_tutorial:com7);
-    if_setcolour(^green, barbassault_tutorial:com8);
-    if_setcolour(^yellow, barbassault_tutorial:com9);
-} else if (%varbit_3264 = 7) {
-    if_setcolour(^green, barbassault_tutorial:com4);
-    if_setcolour(^green, barbassault_tutorial:com5);
-    if_setcolour(^green, barbassault_tutorial:com6);
-    if_setcolour(^green, barbassault_tutorial:com7);
-    if_setcolour(^green, barbassault_tutorial:com8);
-    if_setcolour(^green, barbassault_tutorial:com9);
-    if_setcolour(^yellow, barbassault_tutorial:com10);
-} else if (%varbit_3264 = 8) {
-    if_setcolour(^green, barbassault_tutorial:com4);
-    if_setcolour(^green, barbassault_tutorial:com5);
-    if_setcolour(^green, barbassault_tutorial:com6);
-    if_setcolour(^green, barbassault_tutorial:com7);
-    if_setcolour(^green, barbassault_tutorial:com8);
-    if_setcolour(^green, barbassault_tutorial:com9);
-    if_setcolour(^green, barbassault_tutorial:com10);
-    if_setcolour(^yellow, barbassault_tutorial:com11);
-} else if (%varbit_3264 = 9) {
-    if_setcolour(^green, barbassault_tutorial:com4);
-    if_setcolour(^green, barbassault_tutorial:com5);
-    if_setcolour(^green, barbassault_tutorial:com6);
-    if_setcolour(^green, barbassault_tutorial:com7);
-    if_setcolour(^green, barbassault_tutorial:com8);
-    if_setcolour(^green, barbassault_tutorial:com9);
-    if_setcolour(^green, barbassault_tutorial:com10);
-    if_setcolour(^green, barbassault_tutorial:com11);
-    if_setcolour(^yellow, barbassault_tutorial:com12);
-} else if (%varbit_3264 = 10) {
-    if_setcolour(^green, barbassault_tutorial:com4);
-    if_setcolour(^green, barbassault_tutorial:com5);
-    if_setcolour(^green, barbassault_tutorial:com6);
-    if_setcolour(^green, barbassault_tutorial:com7);
-    if_setcolour(^green, barbassault_tutorial:com8);
-    if_setcolour(^green, barbassault_tutorial:com9);
-    if_setcolour(^green, barbassault_tutorial:com10);
-    if_setcolour(^green, barbassault_tutorial:com11);
-    if_setcolour(^green, barbassault_tutorial:com12);
-    if_setcolour(^yellow, barbassault_tutorial:com13);
-} else if (%varbit_3264 = 11) {
-    if_setcolour(^green, barbassault_tutorial:com4);
-    if_setcolour(^green, barbassault_tutorial:com5);
-    if_setcolour(^green, barbassault_tutorial:com6);
-    if_setcolour(^green, barbassault_tutorial:com7);
-    if_setcolour(^green, barbassault_tutorial:com8);
-    if_setcolour(^green, barbassault_tutorial:com9);
-    if_setcolour(^green, barbassault_tutorial:com10);
-    if_setcolour(^green, barbassault_tutorial:com11);
-    if_setcolour(^green, barbassault_tutorial:com12);
-    if_setcolour(^green, barbassault_tutorial:com12);
-    if_setcolour(^green, barbassault_tutorial:com13);
+if_setcolour(^red, barbassault_tutorial:com_4);
+if_setcolour(^red, barbassault_tutorial:com_5);
+if_setcolour(^red, barbassault_tutorial:com_6);
+if_setcolour(^red, barbassault_tutorial:com_7);
+if_setcolour(^red, barbassault_tutorial:com_8);
+if_setcolour(^red, barbassault_tutorial:com_9);
+if_setcolour(^red, barbassault_tutorial:com_10);
+if_setcolour(^red, barbassault_tutorial:com_11);
+if_setcolour(^red, barbassault_tutorial:com_12);
+if_setcolour(^red, barbassault_tutorial:com_13);
+if (%varplayerbit_3264 = 1) {
+    if_setcolour(^yellow, barbassault_tutorial:com_4);
+} else if (%varplayerbit_3264 = 2) {
+    if_setcolour(^green, barbassault_tutorial:com_4);
+    if_setcolour(^yellow, barbassault_tutorial:com_5);
+} else if (%varplayerbit_3264 = 3) {
+    if_setcolour(^green, barbassault_tutorial:com_4);
+    if_setcolour(^green, barbassault_tutorial:com_5);
+    if_setcolour(^yellow, barbassault_tutorial:com_6);
+} else if (%varplayerbit_3264 = 4) {
+    if_setcolour(^green, barbassault_tutorial:com_4);
+    if_setcolour(^green, barbassault_tutorial:com_5);
+    if_setcolour(^green, barbassault_tutorial:com_6);
+    if_setcolour(^yellow, barbassault_tutorial:com_7);
+} else if (%varplayerbit_3264 = 5) {
+    if_setcolour(^green, barbassault_tutorial:com_4);
+    if_setcolour(^green, barbassault_tutorial:com_5);
+    if_setcolour(^green, barbassault_tutorial:com_6);
+    if_setcolour(^green, barbassault_tutorial:com_7);
+    if_setcolour(^yellow, barbassault_tutorial:com_8);
+} else if (%varplayerbit_3264 = 6) {
+    if_setcolour(^green, barbassault_tutorial:com_4);
+    if_setcolour(^green, barbassault_tutorial:com_5);
+    if_setcolour(^green, barbassault_tutorial:com_6);
+    if_setcolour(^green, barbassault_tutorial:com_7);
+    if_setcolour(^green, barbassault_tutorial:com_8);
+    if_setcolour(^yellow, barbassault_tutorial:com_9);
+} else if (%varplayerbit_3264 = 7) {
+    if_setcolour(^green, barbassault_tutorial:com_4);
+    if_setcolour(^green, barbassault_tutorial:com_5);
+    if_setcolour(^green, barbassault_tutorial:com_6);
+    if_setcolour(^green, barbassault_tutorial:com_7);
+    if_setcolour(^green, barbassault_tutorial:com_8);
+    if_setcolour(^green, barbassault_tutorial:com_9);
+    if_setcolour(^yellow, barbassault_tutorial:com_10);
+} else if (%varplayerbit_3264 = 8) {
+    if_setcolour(^green, barbassault_tutorial:com_4);
+    if_setcolour(^green, barbassault_tutorial:com_5);
+    if_setcolour(^green, barbassault_tutorial:com_6);
+    if_setcolour(^green, barbassault_tutorial:com_7);
+    if_setcolour(^green, barbassault_tutorial:com_8);
+    if_setcolour(^green, barbassault_tutorial:com_9);
+    if_setcolour(^green, barbassault_tutorial:com_10);
+    if_setcolour(^yellow, barbassault_tutorial:com_11);
+} else if (%varplayerbit_3264 = 9) {
+    if_setcolour(^green, barbassault_tutorial:com_4);
+    if_setcolour(^green, barbassault_tutorial:com_5);
+    if_setcolour(^green, barbassault_tutorial:com_6);
+    if_setcolour(^green, barbassault_tutorial:com_7);
+    if_setcolour(^green, barbassault_tutorial:com_8);
+    if_setcolour(^green, barbassault_tutorial:com_9);
+    if_setcolour(^green, barbassault_tutorial:com_10);
+    if_setcolour(^green, barbassault_tutorial:com_11);
+    if_setcolour(^yellow, barbassault_tutorial:com_12);
+} else if (%varplayerbit_3264 = 10) {
+    if_setcolour(^green, barbassault_tutorial:com_4);
+    if_setcolour(^green, barbassault_tutorial:com_5);
+    if_setcolour(^green, barbassault_tutorial:com_6);
+    if_setcolour(^green, barbassault_tutorial:com_7);
+    if_setcolour(^green, barbassault_tutorial:com_8);
+    if_setcolour(^green, barbassault_tutorial:com_9);
+    if_setcolour(^green, barbassault_tutorial:com_10);
+    if_setcolour(^green, barbassault_tutorial:com_11);
+    if_setcolour(^green, barbassault_tutorial:com_12);
+    if_setcolour(^yellow, barbassault_tutorial:com_13);
+} else if (%varplayerbit_3264 = 11) {
+    if_setcolour(^green, barbassault_tutorial:com_4);
+    if_setcolour(^green, barbassault_tutorial:com_5);
+    if_setcolour(^green, barbassault_tutorial:com_6);
+    if_setcolour(^green, barbassault_tutorial:com_7);
+    if_setcolour(^green, barbassault_tutorial:com_8);
+    if_setcolour(^green, barbassault_tutorial:com_9);
+    if_setcolour(^green, barbassault_tutorial:com_10);
+    if_setcolour(^green, barbassault_tutorial:com_11);
+    if_setcolour(^green, barbassault_tutorial:com_12);
+    if_setcolour(^green, barbassault_tutorial:com_12);
+    if_setcolour(^green, barbassault_tutorial:com_13);
 }

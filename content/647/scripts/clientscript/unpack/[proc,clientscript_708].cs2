@@ -1,6 +1,0 @@
-[proc,clientscript_708](component $component)
-if (%varbit_5032 < 80) {
-    if_setontimer("clientscript_709($component)", $component);
-} else if (%varbit_5331 < 35) {
-    if_setontimer("clientscript_709($component)", $component);
-}

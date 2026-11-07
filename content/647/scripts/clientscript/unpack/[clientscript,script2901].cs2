@@ -1,0 +1,4 @@
+// 2901
+[clientscript,script2901](component $component0, component $component1, string $string0)
+if_sethide(false, $component0);
+if_settext($string0, $component1);

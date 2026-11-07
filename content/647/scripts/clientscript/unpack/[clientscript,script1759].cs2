@@ -1,0 +1,8 @@
+// 1759
+[clientscript,script1759](component $component0, component $component1)
+if (%varclient_220 > 0) {
+    if_sethide(false, $component0);
+} else {
+    if_sethide(true, $component0);
+}
+if_settext(tostring(%varclient_220), $component1);

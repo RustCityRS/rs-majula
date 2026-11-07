@@ -1,8 +1,9 @@
+// 4418
 [clientscript,clan_click_pm]
-def_string $string = removetags(if_gettext(clan_info:com98));
-if (friend_test($string) = false) {
-    mes("Attempting to add <$string> to your Friends List.");
-    friend_add($string);
+def_string $string0 = removetags(if_gettext(clan_info:com_98));
+if (friend_test($string0) = false) {
+    mes("Attempting to add <$string0> to your Friends List.");
+    friend_add($string0);
 } else {
-    mes("You've already added <$string> to your friends list.");
+    mes("You've already added <$string0> to your friends list.");
 }

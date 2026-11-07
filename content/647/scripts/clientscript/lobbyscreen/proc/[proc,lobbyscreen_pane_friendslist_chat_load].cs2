@@ -1,3 +1,4 @@
-[proc,lobbyscreen_pane_friendslist_chat_load](component $component)
-if_sethook1420("lobbyscreen_pane_friendslist_chat_build($component)", $component);
-~lobbyscreen_pane_friendslist_chat_build($component);
+// 3052
+[proc,lobbyscreen_pane_friendslist_chat_load](component $component0)
+if_setonfriendtransmit("lobbyscreen_pane_friendslist_chat_build($component0)", $component0);
+~lobbyscreen_pane_friendslist_chat_build($component0);

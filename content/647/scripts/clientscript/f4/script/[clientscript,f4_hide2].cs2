@@ -1,9 +1,10 @@
+// 1259
 [clientscript,f4_hide2]
-if (%varbit_305 = true) {
+if (%varplayerbit_305 = 1) {
     return;
 }
-if (%barbarian_course_progress = false) {
-    if_setgraphic("miscgraphics,10", dwarf_rock_schematics_control:com28);
+if (%barbarian_course_progress = 0) {
+    if_setgraphic("miscgraphics,10", dwarf_rock_schematics_control:com_28);
 } else {
-    if_setgraphic("miscgraphics,11", dwarf_rock_schematics_control:com28);
+    if_setgraphic("miscgraphics,11", dwarf_rock_schematics_control:com_28);
 }

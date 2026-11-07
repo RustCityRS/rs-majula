@@ -4,6 +4,7 @@ use super::UnpackedPacks;
 use crate::cache::idk::IdkTypeRaw;
 use std::collections::HashMap;
 
+#[cfg(before_647)]
 fn bodytype_name(v: u8) -> Option<&'static str> {
     Some(match v {
         0 => "man_hair",
@@ -79,17 +80,25 @@ pub fn emit_idk_props(
         }
     }
 
+    #[cfg(before_647)]
     if def.opcode_order.contains(&1) {
         let value = bodytype_name(def.body_type as u8)
             .map(str::to_string)
             .unwrap_or_else(|| (def.body_type as u8).to_string());
         p.push((1, "type".into(), value));
     }
+    #[cfg(since_647)]
+    if def.opcode_order.contains(&1) {
+        p.push((1, "bodypart".into(), (def.body_type as u8).to_string()));
+    }
 
-    if !models.is_empty() {
-        for (i, id) in models.iter().enumerate() {
-            p.push((2, format!("model{}", i + 1), model_name(registry, *id)));
-        }
+    #[cfg(before_647)]
+    for (i, id) in models.iter().enumerate() {
+        p.push((2, format!("model{}", i + 1), model_name(registry, *id)));
+    }
+    #[cfg(since_647)]
+    for id in models {
+        p.push((2, "model".into(), model_name(registry, *id)));
     }
 
     if def.disable {
@@ -99,9 +108,10 @@ pub fn emit_idk_props(
     #[cfg(since_647)]
     if !recol_s.is_empty() {
         for i in 0..recol_s.len() {
-            let n = i + 1;
-            p.push((40, format!("recol{n}s"), recol_s[i].to_string()));
-            p.push((40, format!("recol{n}d"), recol_d[i].to_string()));
+            let [(ks, vs), (kd, vd)] =
+                super::recol_pair(i + 1, recol_s[i], recol_d[i], _reverse_hsl);
+            p.push((40, ks, vs));
+            p.push((40, kd, vd));
         }
     }
 
@@ -109,8 +119,16 @@ pub fn emit_idk_props(
     if !retex_s.is_empty() {
         for i in 0..retex_s.len() {
             let n = i + 1;
-            p.push((41, format!("retex{n}s"), retex_s[i].to_string()));
-            p.push((41, format!("retex{n}d"), retex_d[i].to_string()));
+            p.push((
+                41,
+                format!("retex{n}s"),
+                registry.named("texture", retex_s[i]),
+            ));
+            p.push((
+                41,
+                format!("retex{n}d"),
+                registry.named("texture", retex_d[i]),
+            ));
         }
     }
 

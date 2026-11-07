@@ -1,4 +1,0 @@
-[proc,clientscript_3089](boolean $int, string $string0, string $string1)
-if (compare($string0, "") ! 0 & compare($string1, "") ! 0) {
-    logout_url("loginapplet/loginapplet.ws?ssl=1&expired=0&mod=<$string0>&dest=<$string1>", $int);
-}

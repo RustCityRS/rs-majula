@@ -1,7 +1,8 @@
+// 1473
 [proc,bank_v2_searchmode_on]
-if_setgraphic("bank_buttons_new1,1", bank_v2_main:com18);
-if_setgraphic("bank_buttons_new2,2", bank_v2_main:com17);
+if_setgraphic("bank_buttons_new1,1", bank_v2_main:com_18);
+if_setgraphic("bank_buttons_new2,2", bank_v2_main:com_17);
 ~bank_v2_tab_highlight(0);
 ~bank_v2_show_all;
 ~meslayer_mode11;
-%varc_int_188 = 1;
+%varclient_188 = 1;

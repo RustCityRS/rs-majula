@@ -1,0 +1,175 @@
+// 601:0
+[com_0]
+type=layer
+x=10
+y=10
+width=100
+height=90
+xmode=abs_right
+onload=godwars_overlay_init(event_com, godwars_overlay:com_2, godwars_overlay:com_3, godwars_overlay:com_4, godwars_overlay:com_5, godwars_overlay:com_6, godwars_overlay:com_8, godwars_overlay:com_9, godwars_overlay:com_10, godwars_overlay:com_11, godwars_overlay:com_7, godwars_overlay:com_12)
+
+// 601:1
+[com_1]
+type=rectangle
+width=16384
+height=16384
+widthmode=proportion
+heightmode=proportion
+colour=0x010000
+fill=yes
+trans=255
+ontimer=script1170
+
+// 601:2
+[com_2]
+type=text
+height=15
+widthmode=minus
+xmode=abs_centre
+layer=com_0
+textfont=p11_full
+text=Killcounts
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xff981f
+
+// 601:3
+[com_3]
+type=text
+y=15
+height=15
+widthmode=minus
+xmode=abs_centre
+layer=com_0
+textfont=p11_full
+text=Armadyl kills:
+textalignv=centre
+textshadow=yes
+colour=0xff981f
+
+// 601:4
+[com_4]
+type=text
+y=30
+height=15
+widthmode=minus
+xmode=abs_centre
+layer=com_0
+textfont=p11_full
+text=Bandos kills:
+textalignv=centre
+textshadow=yes
+colour=0xff981f
+
+// 601:5
+[com_5]
+type=text
+y=45
+height=15
+widthmode=minus
+xmode=abs_centre
+layer=com_0
+textfont=p11_full
+text=Saradomin kills:
+textalignv=centre
+textshadow=yes
+colour=0xff981f
+
+// 601:6
+[com_6]
+type=text
+y=60
+height=15
+widthmode=minus
+xmode=abs_centre
+layer=com_0
+textfont=p11_full
+text=Zamorak kills:
+textalignv=centre
+textshadow=yes
+colour=0xff981f
+
+// 601:7
+[com_7]
+type=text
+y=75
+height=15
+widthmode=minus
+xmode=abs_centre
+layer=com_0
+textfont=p11_full
+text=Zaros kills:
+textalignv=centre
+textshadow=yes
+colour=0xff981f
+
+// 601:8
+[com_8]
+type=text
+y=15
+height=15
+widthmode=minus
+xmode=abs_right
+layer=com_0
+textfont=p11_full
+textalignh=right
+textalignv=centre
+textshadow=yes
+colour=0x66ffff
+
+// 601:9
+[com_9]
+type=text
+y=30
+height=15
+widthmode=minus
+xmode=abs_right
+layer=com_0
+textfont=p11_full
+textalignh=right
+textalignv=centre
+textshadow=yes
+colour=0x66ffff
+
+// 601:10
+[com_10]
+type=text
+y=45
+height=15
+widthmode=minus
+xmode=abs_right
+layer=com_0
+textfont=p11_full
+textalignh=right
+textalignv=centre
+textshadow=yes
+colour=0x66ffff
+
+// 601:11
+[com_11]
+type=text
+y=60
+height=15
+widthmode=minus
+xmode=abs_right
+layer=com_0
+textfont=p11_full
+textalignh=right
+textalignv=centre
+textshadow=yes
+colour=0x66ffff
+
+// 601:12
+[com_12]
+type=text
+y=75
+height=15
+widthmode=minus
+xmode=abs_right
+layer=com_0
+textfont=p11_full
+textalignh=right
+textalignv=centre
+textshadow=yes
+colour=0x66ffff

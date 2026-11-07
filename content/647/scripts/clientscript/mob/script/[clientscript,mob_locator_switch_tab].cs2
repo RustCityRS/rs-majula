@@ -1,13 +1,14 @@
-[clientscript,mob_locator_switch_tab](int $int)
-if_sethide(true, mob_locator:com10);
-if_sethide(true, mob_locator:com11);
-if_setgraphic("bank_tabs,3", mob_locator:com51);
-if_setgraphic("bank_tabs,3", mob_locator:com49);
-switch_int ($int) {
-    case 55312435:
-        if_sethide(false, mob_locator:com10);
-        if_setgraphic("bank_tabs,2", mob_locator:com51);
-    case 55312433:
-        if_sethide(false, mob_locator:com11);
-        if_setgraphic("bank_tabs,2", mob_locator:com49);
+// 2487
+[clientscript,mob_locator_switch_tab](component $component0)
+if_sethide(true, mob_locator:com_10);
+if_sethide(true, mob_locator:com_11);
+if_setgraphic("bank_tabs,3", mob_locator:com_51);
+if_setgraphic("bank_tabs,3", mob_locator:com_49);
+switch_component ($component0) {
+    case mob_locator:com_51 :
+        if_sethide(false, mob_locator:com_10);
+        if_setgraphic("bank_tabs,2", mob_locator:com_51);
+    case mob_locator:com_49 :
+        if_sethide(false, mob_locator:com_11);
+        if_setgraphic("bank_tabs,2", mob_locator:com_49);
 }

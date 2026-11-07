@@ -1,0 +1,7 @@
+// 1653
+[proc,script1653]()(boolean)
+if (if_gethide(chatbox:com_8) = true & (if_gethide(chatbox:com_3) = false | if_gethide(chatbox:com_7) = false) | if_hassub(chatbox:com_dialogue_box) = true | if_hassub(chatbox:com_dialogue_box_small) = true | if_hassub(chatbox:com_11) = true | if_hassub(chatbox:com_10) = true | if_gethide(chatbox_background:com_0) = false) {
+    return(true);
+} else {
+    return(false);
+}

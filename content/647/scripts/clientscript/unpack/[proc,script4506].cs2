@@ -1,0 +1,27 @@
+// 4506
+[proc,script4506](component $component0, component $component1, component $component2)
+def_component $component3 = if_getlayer($component0);
+if ($component3 = null) {
+    return;
+}
+def_component $component4 = if_getlayer($component3);
+if ($component4 = null) {
+    return;
+}
+def_component $component5 = if_getlayer($component1);
+if ($component5 = null) {
+    return;
+}
+if_sethide(false, $component3);
+if_setnoclickthrough(true, $component3);
+if ($component2 ! null) {
+    if_sethide(false, $component2);
+}
+def_int $int6 = calc(if_getnextsubid($component0) - 1);
+while ($int6 >= 0) {
+    if (cc_find($component0, $int6) = true & string_length(cc_gettext) > 0) {
+        cc_setop(1, "Select");
+        cc_setonop("script4507(event_comsubid, $component0, $component1)");
+    }
+    $int6 = calc($int6 - 1);
+}

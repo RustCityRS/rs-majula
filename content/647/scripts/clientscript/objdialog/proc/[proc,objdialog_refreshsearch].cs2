@@ -1,11 +1,12 @@
+// 576
 [proc,objdialog_refreshsearch]
-if_setobject(null, -1, objdialog:com15);
-cc_deleteall(objdialog:com4);
-if (string_length(%varc_string_22) > 0) {
-    if_sethide(true, objdialog:com5);
-    ~objdialog_dosearch(%varc_string_22);
+if_setobject(null, -1, objdialog:com_15);
+cc_deleteall(objdialog:com_4);
+if (string_length(%varclient_1541) > 0) {
+    if_sethide(true, objdialog:com_5);
+    ~objdialog_dosearch(%varclient_1541);
 } else {
-    if_sethide(false, objdialog:com5);
-    if_setscrollsize(0, 15, objdialog:com4);
+    if_sethide(false, objdialog:com_5);
+    if_setscrollsize(0, 15, objdialog:com_4);
     ~objdialog_doscrollbar;
 }

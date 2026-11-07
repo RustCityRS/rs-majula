@@ -1,12 +1,13 @@
+// 2655
 [clientscript,generaljournal_setscrollpos](int $int0, int $int1)
 if ($int0 <= 11) {
-    if_setscrollsize(404, 215, mg8076570:com6);
-    ~scrollbar_resize(mg8076570:com7, mg8076570:com6, 0);
+    if_setscrollsize(404, 215, interface_868:com_6);
+    ~scrollbar_resize(interface_868:com_7, interface_868:com_6, 0);
 } else {
-    if_setscrollsize(404, calc($int0 * 20), mg8076570:com6);
-    if ($int1 = true) {
-        ~scrollbar_resize(mg8076570:com7, mg8076570:com6, 0);
+    if_setscrollsize(404, calc($int0 * 20), interface_868:com_6);
+    if ($int1 = 1) {
+        ~scrollbar_resize(interface_868:com_7, interface_868:com_6, 0);
     } else {
-        ~scrollbar_resize(mg8076570:com7, mg8076570:com6, calc($int0 * 20 - 180));
+        ~scrollbar_resize(interface_868:com_7, interface_868:com_6, calc($int0 * 20 - 180));
     }
 }

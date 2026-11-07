@@ -1,0 +1,22 @@
+// 4562
+[clientscript,script4562](component $component0, int $int1, int $int2, int $int3, int $int4, int $int5)
+def_string $string0 = "";
+def_int $int6 = 0;
+def_int $int7 = 0;
+if (clientclock > $int2 & cc_find($component0, $int1) = true) {
+    if_sethide(false, lobbyscreen_pane_friendschat:com_34);
+    $string0 = "Rank: <~script196($int3)>";
+    if_settext($string0, lobbyscreen_pane_friendschat:com_38);
+    if_setsize(calc(if_getx(lobbyscreen_pane_friendschat:com_38) * 2 + stringwidth($string0, p12_full)), if_getheight(lobbyscreen_pane_friendschat:com_34), ^setsize_abs, ^setsize_abs, lobbyscreen_pane_friendschat:com_34);
+    $int6 = calc(cc_getx + $int4 + 3 - if_getscrollx($component0));
+    $int7 = calc(cc_gety + $int5 + if_gety(lobbyscreen_pane_friendschat:com_43) + if_gety(lobbyscreen_pane_friendschat:com_51) - 3 - if_getheight(lobbyscreen_pane_friendschat:com_34) - if_getscrolly($component0));
+    if (calc($int6 + if_getwidth(lobbyscreen_pane_friendschat:com_34)) > if_getwidth(lobbyscreen_pane_friendschat:com_32)) {
+        $int6 = calc(if_getwidth(lobbyscreen_pane_friendschat:com_32) - if_getwidth(lobbyscreen_pane_friendschat:com_34));
+    }
+    if ($int7 < 0) {
+        $int7 = 0;
+    }
+    if_setposition($int6, $int7, ^setpos_abs_left, ^setpos_abs_top, lobbyscreen_pane_friendschat:com_34);
+    cc_setonmouserepeat(null);
+}
+return;

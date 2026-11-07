@@ -1,0 +1,222 @@
+// 187:0
+[com_0]
+type=rectangle
+y=63
+width=190
+height=186
+colour=0x000000
+fill=yes
+trans=200
+onvarctransmit=script2871(0){varclient_1077}
+
+// 187:1
+[com_1]
+type=layer
+y=62
+width=170
+height=187
+opbase= 
+onload=script828
+onvartransmit=music_v3_setcolour{varplayer_1621, varplayer_1622, varplayer_1623, varplayer_1624, varplayer_1625, varplayer_1626, musicmulti_1, musicmulti_2, musicmulti_3, musicmulti_4, musicmulti_5, musicmulti_6, musicmulti_7, musicmulti_8, musicmulti_9, musicmulti_10, musicmulti_11, musicmulti_12, musicmulti_13, musicmulti_14, musicmulti_15, musicmulti_16, musicmulti_17, musicmulti_18, musicmulti_19, musicmulti_20, musicmulti_21, musicmulti_22, musicmulti_23, musicmulti_24, musicmulti_25, musicmulti_26, musicmulti_27, musicmulti_29, musicmulti_30, musicmulti_31}
+
+// 187:2
+[com_2]
+type=layer
+x=174
+y=62
+width=16
+height=187
+
+// 187:3
+[com_3]
+type=layer
+width=190
+height=261
+
+// 187:4
+[com_4]
+type=text
+x=7
+y=40
+width=177
+height=15
+textfont=b12_full
+text=Playing.............................
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xe99900
+transmitop=1
+op1=Add to Playlist
+
+// 187:5
+[com_5]
+type=text
+x=108
+y=4
+width=82
+height=25
+textfont=p11_full
+text=Unlocked:<br>???
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xff9900
+
+// 187:6
+[com_6]
+type=graphic
+y=20
+width=190
+height=32
+graphic="v2_stone_borders,23"
+tiling=yes
+colour=0xffffffff
+transmitop=10
+opbase= 
+op10= 
+
+// 187:7
+[com_7]
+type=graphic
+y=47
+width=190
+height=32
+graphic="v2_stone_borders,23"
+tiling=yes
+colour=0xffffffff
+opbase= 
+
+// 187:8
+[com_8]
+type=graphic
+y=236
+width=190
+height=32
+graphic="v2_stone_borders,23"
+tiling=yes
+colour=0xffffffff
+transmitop=10
+opbase= 
+op10= 
+
+// 187:9
+[com_9]
+type=layer
+y=62
+width=186
+height=187
+onvartransmit=script2877{varplayer_1621, varplayer_1622, varplayer_1623, varplayer_1624, varplayer_1625, varplayer_1626, varplayer_1189}
+
+// 187:10
+[com_10]
+type=graphic
+x=31
+y=6
+width=24
+height=24
+graphic="music_header_icons,2"
+colour=0xffffffff
+transmitop=1
+op1=Playlist on/off
+onmouseleave=deltooltip(music_v3:com_16)
+onvartransmit=script2874{varplayer_1621}
+onop=setintminimenu
+onmouserepeat=script2882
+
+// 187:11
+[com_11]
+type=graphic
+x=57
+y=6
+width=24
+height=24
+graphic="music_header_icons,4"
+colour=0xffffffff
+transmitop=1
+op1=Clear Playlist
+onmouseleave=deltooltip(music_v3:com_16)
+onmouserepeat=script2883
+
+// 187:12
+[com_12]
+type=graphic
+x=5
+y=6
+width=24
+height=24
+graphic="music_header_icons,0"
+colour=0xffffffff
+onmouseleave=deltooltip(music_v3:com_16)
+onmouserepeat=script2880
+onclick=script2871(1)
+
+// 187:13
+[com_13]
+type=graphic
+x=83
+y=6
+width=24
+height=24
+graphic="music_header_icons,5"
+colour=0xffffffff
+transmitop=1
+op1=Shuffle on/off
+onmouseleave=deltooltip(music_v3:com_16)
+onvartransmit=script2876{varplayer_1621}
+onop=script2875
+onmouserepeat=script2884
+
+// 187:14
+[com_14]
+type=text
+x=18
+y=80
+width=157
+height=150
+textfont=p12_full
+text=The Playlist is empty.       You can add songs by returning to the music player and selecting      "Add to playlist" or by clicking one of the "+" icons.  You may add             up to twelve songs.  
+textlineheight=18
+textshadow=yes
+colour=0xff0033
+
+// 187:15
+[com_15]
+type=layer
+width=190
+height=250
+
+// 187:16
+[com_16]
+type=layer
+width=1
+height=1
+layer=com_15
+
+// 187:17
+[com_17]
+type=graphic
+x=31
+y=6
+width=24
+height=24
+graphic="music_header_icons,7"
+colour=0xffffffff
+transmitop=1
+op1=Search
+opcursor0=cursor_56
+onmouseleave=deltooltip(music_v3:com_16)
+onop=script3682
+onmouserepeat=script3684
+
+// 187:18
+[com_18]
+type=text
+x=31
+y=80
+width=152
+height=32
+textfont=p12_full
+text=No matches found!
+textshadow=yes
+colour=0x9999ff

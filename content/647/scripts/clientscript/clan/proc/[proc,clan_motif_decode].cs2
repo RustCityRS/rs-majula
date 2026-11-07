@@ -1,16 +1,16 @@
+// 4383
 [proc,clan_motif_decode](int $int0, int $int1, int $int2)(texture, texture)
-def_texture $texture3 = enum(105, 120, enum_3685, $int0);
-def_texture $texture4 = enum(105, 120, enum_3685, $int1);
-if ($int2 = true & %clansetting_varbit_10 = true) {
-    $texture3 = 1080;
-    $texture4 = 1017;
+def_texture $texture3 = enum(int, texture, enum_3685, $int0);
+def_texture $texture4 = enum(int, texture, enum_3685, $int1);
+if ($int2 = 1 & %varclansetting_10 = 1) {
+    $texture3 = texture_1080;
+    $texture4 = texture_1017;
 } else {
     if ($texture3 = null) {
-        $texture3 = 1080;
+        $texture3 = texture_1080;
     }
     if ($texture4 = null) {
-        $texture4 = 1017;
+        $texture4 = texture_1017;
     }
 }
 return($texture3, $texture4);
-return(null, null);

@@ -1,0 +1,16 @@
+// 3411
+[clientscript,script3411]
+%varclient_1240 = 3;
+%varclient_1277 = 0;
+if (unknown_command_5623 = true) {
+    ~loginscreen_setactivemenu(5);
+    if (%varclient_1273 = 1) {
+        return;
+    } else {
+        if_setontimer("login_delay(south_progress9:com_50, 0)", south_progress9:com_50);
+    }
+} else if (~userflowflags(3) = true) {
+    ~loginscreen_setactivemenu(7);
+} else {
+    ~loginscreen_setactivemenu(11);
+}

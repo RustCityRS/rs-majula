@@ -1,0 +1,8 @@
+// 4605
+[clientscript,script4605](component $component0, component $component1, component $component2, int $int3, int $int4)
+def_int $int5 = if_getheight($component1);
+def_int $int6 = calc(($int5 - $int4) * 64 / $int5);
+if_setcolour($int6, $component0);
+%varplayerbit_9258 = calc($int6 % 64);
+~skillcape_set_line($int4);
+if_setcolour(hsvtorgb(%varplayer_2174), $component2);

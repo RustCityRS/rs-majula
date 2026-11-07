@@ -7,7 +7,7 @@ if_openmain(trail_sextant);
 %temp = 0;
 ~randomize_sextant_pos;
 
-[if_button,trail_sextant:com12] 
+[if_button,trail_sextant:com_12] 
 if(inv_total(inv, watch) = 0 | inv_total(inv, chart) = 0) {
     if_close;
     ~mesbox("You need a watch and navigator's chart to work out your location.");
@@ -47,15 +47,15 @@ if(coordz(coord) > 6400) {
 def_int $needle_pos = ~rand_sextant_needle_pos;
 %temp = setbit_range_toint(%temp, $horizon_rand, 16, 23);
 %temp = setbit_range_toint(%temp, ~rand_sextant_needle_pos, 24, 31);
-if_setanim(trail_sextant:com9, enum(int, seq, sextant_seq_enum, $horizon_rand));
-if_setanim(trail_sextant:com10, enum(int, seq, sextant_seq_enum, ~get_sextant_needle));
-if_setanim(trail_sextant:com11, enum(int, seq, sextant_seq_enum, $horizon_rand));
+if_setanim(trail_sextant:com_9, enum(int, seq, sextant_seq_enum, $horizon_rand));
+if_setanim(trail_sextant:com_10, enum(int, seq, sextant_seq_enum, ~get_sextant_needle));
+if_setanim(trail_sextant:com_11, enum(int, seq, sextant_seq_enum, $horizon_rand));
 // if_setposition(trail_sextant:com_1, 0, ~unpack_negative_8bit(~get_sextant_horizon));
-if_setposition(trail_sextant:com2, 370, calc(33 + ~unpack_negative_8bit(~get_sextant_horizon)));
+if_setposition(trail_sextant:com_2, 370, calc(33 + ~unpack_negative_8bit(~get_sextant_horizon)));
 // if_setposition(trail_sextant:com_2, 0,  ~unpack_negative_8bit(~get_sextant_sun));
-if_setposition(trail_sextant:com5, 409, calc(131 + ~unpack_negative_8bit(~get_sextant_sun)));
+if_setposition(trail_sextant:com_5, 409, calc(131 + ~unpack_negative_8bit(~get_sextant_sun)));
 
-[if_button,trail_sextant:com3]
+[if_button,trail_sextant:com_3]
 if(~get_sextant_frame >= ^trail_sextant_frame_max) { // can't adjust position anymore
     return;
 }
@@ -63,15 +63,15 @@ if(~get_sextant_frame >= ^trail_sextant_frame_max) { // can't adjust position an
 %temp = setbit_range_toint(%temp, calc(~get_sextant_sun - 2), 8, 15);
 %temp = setbit_range_toint(%temp, calc(~get_sextant_frame + 1), 16, 23);
 %temp = setbit_range_toint(%temp, calc(~get_sextant_needle + 1), 24, 31);
-if_setanim(trail_sextant:com9, enum(int, seq, sextant_seq_enum, ~get_sextant_frame));
-if_setanim(trail_sextant:com11, enum(int, seq, sextant_seq_enum, ~get_sextant_frame));
-if_setanim(trail_sextant:com10, enum(int, seq, sextant_seq_enum, ~get_sextant_needle));
+if_setanim(trail_sextant:com_9, enum(int, seq, sextant_seq_enum, ~get_sextant_frame));
+if_setanim(trail_sextant:com_11, enum(int, seq, sextant_seq_enum, ~get_sextant_frame));
+if_setanim(trail_sextant:com_10, enum(int, seq, sextant_seq_enum, ~get_sextant_needle));
 // if_setposition(trail_sextant:com_1, 0, ~unpack_negative_8bit(~get_sextant_horizon));
-if_setposition(trail_sextant:com2, 370, calc(33 + ~unpack_negative_8bit(~get_sextant_horizon)));
+if_setposition(trail_sextant:com_2, 370, calc(33 + ~unpack_negative_8bit(~get_sextant_horizon)));
 // if_setposition(trail_sextant:com_2, 0,  ~unpack_negative_8bit(~get_sextant_sun));
-if_setposition(trail_sextant:com5, 409, calc(131 + ~unpack_negative_8bit(~get_sextant_sun)));
+if_setposition(trail_sextant:com_5, 409, calc(131 + ~unpack_negative_8bit(~get_sextant_sun)));
 
-[if_button,trail_sextant:com4]
+[if_button,trail_sextant:com_4]
 if(~get_sextant_frame <= 0) { // can't adjust position anymore
     return;
 }
@@ -79,33 +79,33 @@ if(~get_sextant_frame <= 0) { // can't adjust position anymore
 %temp = setbit_range_toint(%temp, calc(~get_sextant_sun + 2), 8, 15);
 %temp = setbit_range_toint(%temp, calc(~get_sextant_frame - 1), 16, 23);
 %temp = setbit_range_toint(%temp, calc(~get_sextant_needle - 1), 24, 31);
-if_setanim(trail_sextant:com9, enum(int, seq, sextant_seq_enum, ~get_sextant_frame));
-if_setanim(trail_sextant:com11, enum(int, seq, sextant_seq_enum, ~get_sextant_frame));
-if_setanim(trail_sextant:com10, enum(int, seq, sextant_seq_enum, ~get_sextant_needle));
+if_setanim(trail_sextant:com_9, enum(int, seq, sextant_seq_enum, ~get_sextant_frame));
+if_setanim(trail_sextant:com_11, enum(int, seq, sextant_seq_enum, ~get_sextant_frame));
+if_setanim(trail_sextant:com_10, enum(int, seq, sextant_seq_enum, ~get_sextant_needle));
 // if_setposition(trail_sextant:com_1, 0, ~unpack_negative_8bit(~get_sextant_horizon));
-if_setposition(trail_sextant:com2, 370, calc(33 + ~unpack_negative_8bit(~get_sextant_horizon)));
+if_setposition(trail_sextant:com_2, 370, calc(33 + ~unpack_negative_8bit(~get_sextant_horizon)));
 // if_setposition(trail_sextant:com_2, 0,  ~unpack_negative_8bit(~get_sextant_sun));
-if_setposition(trail_sextant:com5, 409, calc(131 + ~unpack_negative_8bit(~get_sextant_sun)));
+if_setposition(trail_sextant:com_5, 409, calc(131 + ~unpack_negative_8bit(~get_sextant_sun)));
 
-[if_button,trail_sextant:com7]
+[if_button,trail_sextant:com_7]
 if(~get_sextant_needle >= ~get_sextant_needle_max) { // can't adjust position anymore
     return;
 }
 %temp = setbit_range_toint(%temp, calc(~get_sextant_sun + 2), 8, 15);
 %temp = setbit_range_toint(%temp, calc(~get_sextant_needle + 1), 24, 31);
 // if_setposition(trail_sextant:com_2, 0, ~unpack_negative_8bit(~get_sextant_sun));
-if_setposition(trail_sextant:com5, 409, calc(131 + ~unpack_negative_8bit(~get_sextant_sun)));
-if_setanim(trail_sextant:com10, enum(int, seq, sextant_seq_enum, ~get_sextant_needle));
+if_setposition(trail_sextant:com_5, 409, calc(131 + ~unpack_negative_8bit(~get_sextant_sun)));
+if_setanim(trail_sextant:com_10, enum(int, seq, sextant_seq_enum, ~get_sextant_needle));
 
-[if_button,trail_sextant:com8]
+[if_button,trail_sextant:com_8]
 if(~get_sextant_needle <= ~get_sextant_needle_min) { // can't adjust position anymore
     return;
 }
 %temp = setbit_range_toint(%temp, calc(~get_sextant_sun - 2), 8, 15);
 %temp = setbit_range_toint(%temp, calc(~get_sextant_needle - 1), 24, 31);
 // if_setposition(trail_sextant:com_2, 0, ~unpack_negative_8bit(~get_sextant_sun));
-if_setposition(trail_sextant:com5, 409, calc(131 + ~unpack_negative_8bit(~get_sextant_sun)));
-if_setanim(trail_sextant:com10, enum(int, seq, sextant_seq_enum, ~get_sextant_needle));
+if_setposition(trail_sextant:com_5, 409, calc(131 + ~unpack_negative_8bit(~get_sextant_sun)));
+if_setanim(trail_sextant:com_10, enum(int, seq, sextant_seq_enum, ~get_sextant_needle));
 
 // very basic algo to ensure that the randomized position of the needle is "opposite" that of the sun
 // used to prevent a scenario where getting the sun in the middle is impossible (todo: probably needs to be adjusted)

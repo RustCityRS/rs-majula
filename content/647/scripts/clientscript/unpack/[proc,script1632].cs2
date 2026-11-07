@@ -1,0 +1,6 @@
+// 1632
+[proc,script1632]
+if_sethide(true, friends_chat:com_22);
+if_sethide(true, friends_chat:com_20);
+def_int $int0 = if_gety(friends_chat:com_18);
+if_setposition(148, $int0, ^setpos_abs_left, ^setpos_abs_top, friends_chat:com_18);

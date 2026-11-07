@@ -1,2 +1,3 @@
-[clientscript,tourn_rank_update](component $component)
-if_settext(tostring(%varp_1105), $component);
+// 1634
+[clientscript,tourn_rank_update](component $component0)
+if_settext(tostring(%varplayer_1105), $component0);

@@ -1,0 +1,8 @@
+// 3180
+[proc,ondialogabort_clever]
+~lobbyscreen_report_abuse_stage1_clear;
+if_closesubclient(lobbyscreen:com_69);
+if_sethide(true, lobbyscreen:com_34);
+if (if_gethide(enum(int, component, enum_941, 5)) = false) {
+    ~script3161(1);
+}

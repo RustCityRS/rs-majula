@@ -1,8 +1,0 @@
-[proc,clientscript_1700]
-if (%varc_int_1052 = true) {
-    if_settext("Hide stat adjustments.", prayer:com12);
-    if_setop(1, "Hide stat adjustments", prayer:com12);
-} else {
-    if_settext("Show stat adjustments.", prayer:com12);
-    if_setop(1, "Show stat adjustments", prayer:com12);
-}

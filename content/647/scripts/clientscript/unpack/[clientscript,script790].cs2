@@ -1,0 +1,127 @@
+// 790
+[clientscript,script790]
+if (%xplamp_stat = 1) {
+    if_sethide(false, xplamp:com_4);
+} else {
+    if_sethide(true, xplamp:com_4);
+}
+if (%xplamp_stat = 2) {
+    if_sethide(false, xplamp:com_21);
+} else {
+    if_sethide(true, xplamp:com_21);
+}
+if (%xplamp_stat = 3) {
+    if_sethide(false, xplamp:com_22);
+} else {
+    if_sethide(true, xplamp:com_22);
+}
+if (%xplamp_stat = 4) {
+    if_sethide(false, xplamp:com_23);
+} else {
+    if_sethide(true, xplamp:com_23);
+}
+if (%xplamp_stat = 5) {
+    if_sethide(false, xplamp:com_24);
+} else {
+    if_sethide(true, xplamp:com_24);
+}
+if (%xplamp_stat = 6) {
+    if_sethide(false, xplamp:com_25);
+} else {
+    if_sethide(true, xplamp:com_25);
+}
+if (%xplamp_stat = 7) {
+    if_sethide(false, xplamp:com_27);
+} else {
+    if_sethide(true, xplamp:com_27);
+}
+if (%xplamp_stat = 8) {
+    if_sethide(false, xplamp:com_5);
+} else {
+    if_sethide(true, xplamp:com_5);
+}
+if (%xplamp_stat = 9) {
+    if_sethide(false, xplamp:com_6);
+} else {
+    if_sethide(true, xplamp:com_6);
+}
+if (%xplamp_stat = 10) {
+    if_sethide(false, xplamp:com_8);
+} else {
+    if_sethide(true, xplamp:com_8);
+}
+if (%xplamp_stat = 11) {
+    if_sethide(false, xplamp:com_26);
+} else {
+    if_sethide(true, xplamp:com_26);
+}
+if (%xplamp_stat = 12) {
+    if_sethide(false, xplamp:com_9);
+} else {
+    if_sethide(true, xplamp:com_9);
+}
+if (%xplamp_stat = 13) {
+    if_sethide(false, xplamp:com_12);
+} else {
+    if_sethide(true, xplamp:com_12);
+}
+if (%xplamp_stat = 14) {
+    if_sethide(false, xplamp:com_13);
+} else {
+    if_sethide(true, xplamp:com_13);
+}
+if (%xplamp_stat = 15) {
+    if_sethide(false, xplamp:com_7);
+} else {
+    if_sethide(true, xplamp:com_7);
+}
+if (%xplamp_stat = 16) {
+    if_sethide(false, xplamp:com_15);
+} else {
+    if_sethide(true, xplamp:com_15);
+}
+if (%xplamp_stat = 17) {
+    if_sethide(false, xplamp:com_16);
+} else {
+    if_sethide(true, xplamp:com_16);
+}
+if (%xplamp_stat = 18) {
+    if_sethide(false, xplamp:com_17);
+} else {
+    if_sethide(true, xplamp:com_17);
+}
+if (%xplamp_stat = 19) {
+    if_sethide(false, xplamp:com_18);
+} else {
+    if_sethide(true, xplamp:com_18);
+}
+if (%xplamp_stat = 20) {
+    if_sethide(false, xplamp:com_10);
+} else {
+    if_sethide(true, xplamp:com_10);
+}
+if (%xplamp_stat = 21) {
+    if_sethide(false, xplamp:com_11);
+} else {
+    if_sethide(true, xplamp:com_11);
+}
+if (%xplamp_stat = 22) {
+    if_sethide(false, xplamp:com_19);
+} else {
+    if_sethide(true, xplamp:com_19);
+}
+if (%xplamp_stat = 23) {
+    if_sethide(false, xplamp:com_14);
+} else {
+    if_sethide(true, xplamp:com_14);
+}
+if (%xplamp_stat = 24) {
+    if_sethide(false, xplamp:com_20);
+} else {
+    if_sethide(true, xplamp:com_20);
+}
+if (%xplamp_stat = 25) {
+    if_sethide(false, xplamp:com_28);
+} else {
+    if_sethide(true, xplamp:com_28);
+}

@@ -1,9 +1,0 @@
-[proc,clientscript_2881]
-if (%varbit_4393 = true | %varbit_542 = true) {
-    return;
-}
-if (%varc_int_1077 = true) {
-    ~addtooltip_action(music_v3:com12, music_v3:com16, "Click here to access full song list", 25, 189);
-} else {
-    ~addtooltip_action(music_v3:com12, music_v3:com16, "Click here to access playlist", 25, 189);
-}

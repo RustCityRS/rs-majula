@@ -1,8 +1,0 @@
-[proc,clientscript_1879](component $component0, component $component1, string $string)
-if_setposition(~clientscript_1551(%varc_int_1097, $string, 3793, if_getx($component0)), 4, ^setpos_abs_left, ^setpos_abs_top, $component1);
-if (has_focus = true) {
-    if_sethide(false, $component1);
-} else {
-    if_sethide(true, $component1);
-}
-if_setontimer("clientscript_1880(clientclock, $component1)", $component0);

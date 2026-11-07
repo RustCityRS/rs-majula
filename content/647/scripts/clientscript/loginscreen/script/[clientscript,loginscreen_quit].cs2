@@ -1,6 +1,7 @@
+// 3377
 [clientscript,loginscreen_quit]
-if (if_gethide(loginscreen:com48) = false | if_gethide(loginscreen:com49) = false) {
+if (if_gethide(loginscreen:com_48) = false | if_gethide(loginscreen:com_49) = false) {
     ~create_exit;
 } else {
-    logout_ex;
+    quit;
 }

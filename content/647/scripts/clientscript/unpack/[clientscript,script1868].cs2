@@ -1,0 +1,7 @@
+// 1868
+[clientscript,script1868](component $component0)
+if (calc(clientclock % 50) = 0 & reboottimer > 0) {
+    if_setposition(0, -8, ^setpos_abs_centre, ^setpos_abs_centre, lobbyscreen:com_17);
+    ~script1870(lobbyscreen:com_24);
+    if_setontimer("script1869(lobbyscreen:com_24)", $component0);
+}

@@ -1,0 +1,17 @@
+// 3448
+[clientscript,script3448]
+if (%varplayerbit_7933 ! 0) {
+    if_sethide(false, csi_jury_spy:com_30);
+} else {
+    if_sethide(true, csi_jury_spy:com_30);
+}
+switch_int (%varplayerbit_7933) {
+    case 1 :
+        if_setposition(16, 28, ^setpos_abs_left, ^setpos_abs_top, csi_jury_spy:com_30);
+    case 7 :
+        if_setposition(16, 161, ^setpos_abs_left, ^setpos_abs_top, csi_jury_spy:com_30);
+    case 2, 3, 4, 5, 6 :
+        if_setposition(calc(16 + (%varplayerbit_7933 - 1) * 79), 28, ^setpos_abs_left, ^setpos_abs_top, csi_jury_spy:com_30);
+    case 8, 9, 10, 11, 12 :
+        if_setposition(calc(16 + (%varplayerbit_7933 - 7) * 79), 161, ^setpos_abs_left, ^setpos_abs_top, csi_jury_spy:com_30);
+}

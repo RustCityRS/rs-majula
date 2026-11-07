@@ -1,61 +1,61 @@
-[proc,love_puzzle_read_2](int $int)(int)
-switch_int ($int) {
-    case 0:
-        return(%varbit_8023);
-    case 1:
-        return(%varbit_8024);
-    case 2:
-        return(%varbit_8025);
-    case 3:
-        return(%varbit_8026);
-    case 4:
-        return(%varbit_8027);
-    case 5:
-        return(%varbit_8028);
-    case 6:
-        return(%varbit_8029);
-    case 7:
-        return(%varbit_8030);
-    case 8:
-        return(%varbit_8031);
-    case 9:
+// 3483
+[proc,love_puzzle_read_2](int $int0)(int)
+switch_int ($int0) {
+    case 0 :
+        return(%varplayerbit_8023);
+    case 1 :
+        return(%varplayerbit_8024);
+    case 2 :
+        return(%varplayerbit_8025);
+    case 3 :
+        return(%varplayerbit_8026);
+    case 4 :
+        return(%varplayerbit_8027);
+    case 5 :
+        return(%varplayerbit_8028);
+    case 6 :
+        return(%varplayerbit_8029);
+    case 7 :
+        return(%varplayerbit_8030);
+    case 8 :
+        return(%varplayerbit_8031);
+    case 9 :
         return(-1);
-    case 10:
-        return(%varbit_8032);
-    case 11:
-        return(%varbit_8033);
-    case 12:
-        return(%varbit_8034);
-    case 13:
-        return(%varbit_8035);
-    case 14:
+    case 10 :
+        return(%varplayerbit_8032);
+    case 11 :
+        return(%varplayerbit_8033);
+    case 12 :
+        return(%varplayerbit_8034);
+    case 13 :
+        return(%varplayerbit_8035);
+    case 14 :
         return(-1);
-    case 15:
+    case 15 :
         return(-1);
-    case 16:
+    case 16 :
         return(-1);
-    case 17:
-        return(%varbit_8036);
-    case 18:
-        return(%varbit_8037);
-    case 19:
-        return(%varbit_8038);
-    case 20:
-        return(%varbit_8039);
-    case 21:
-        return(%varbit_8040);
-    case 22:
+    case 17 :
+        return(%varplayerbit_8036);
+    case 18 :
+        return(%varplayerbit_8037);
+    case 19 :
+        return(%varplayerbit_8038);
+    case 20 :
+        return(%varplayerbit_8039);
+    case 21 :
+        return(%varplayerbit_8040);
+    case 22 :
         return(-1);
-    case 23:
-        return(%varbit_8041);
-    case 24:
-        return(%varbit_8042);
-    case 25:
-        return(%varbit_8043);
-    case 26:
+    case 23 :
+        return(%varplayerbit_8041);
+    case 24 :
+        return(%varplayerbit_8042);
+    case 25 :
+        return(%varplayerbit_8043);
+    case 26 :
         return(-1);
-    case 27:
-        return(%varbit_8044);
+    case 27 :
+        return(%varplayerbit_8044);
 }
 return(-1);
-return(0);

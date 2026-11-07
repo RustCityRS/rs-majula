@@ -1,2 +1,3 @@
+// 132
 [proc,chatdefault_restore_onkey]
-if_setonkey("chatdefault_onkey(^event_key, ^event_keychar)", chatbox_background:com55);
+if_setonkey("chatdefault_onkey(event_keycode, event_keychar)", chatbox_background:com_55);

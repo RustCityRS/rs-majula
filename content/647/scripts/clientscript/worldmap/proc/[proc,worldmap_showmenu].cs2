@@ -1,63 +1,64 @@
-[proc,worldmap_showmenu](int $int0, component $component1, component $component2, component $component3, component $component4, component $component5)
-if_settext(maparea_getname(worldmap_getstate_5235), worldmap:com20);
+// 291
+[proc,worldmap_showmenu](boolean $boolean0, component $component1, component $component2, component $component3, component $component4, component $component5)
+if_settext(worldmap_getmapname(worldmap_getcurrentmap), worldmap:com_20);
 cc_deleteall($component2);
 cc_deleteall($component3);
-if ($int0 = false) {
+if ($boolean0 = false) {
     if_sethide(true, $component1);
-    if_setgraphic("scrollbar_v2,0", worldmap:com21);
-    if_setonclick("worldmap_showmenu(true, $component1, $component2, $component3, $component4, $component5)", worldmap:com21);
-    if_setonclick("worldmap_showmenu(true, $component1, $component2, $component3, $component4, $component5)", worldmap:com20);
+    if_setgraphic("scrollbar_v2,0", worldmap:com_21);
+    if_setonclick("worldmap_showmenu(true, $component1, $component2, $component3, $component4, $component5)", worldmap:com_21);
+    if_setonclick("worldmap_showmenu(true, $component1, $component2, $component3, $component4, $component5)", worldmap:com_20);
     return;
 }
 if_sethide(false, $component1);
-if_setgraphic("scrollbar_v2,1", worldmap:com21);
-if_setonclick("worldmap_showmenu(false, $component1, $component2, $component3, $component4, $component5)", worldmap:com21);
-if_setonclick("worldmap_showmenu(false, $component1, $component2, $component3, $component4, $component5)", worldmap:com20);
-def_int $array0(calc(40 + 1));
-$array0(0) = 0;
+if_setgraphic("scrollbar_v2,1", worldmap:com_21);
+if_setonclick("worldmap_showmenu(false, $component1, $component2, $component3, $component4, $component5)", worldmap:com_21);
+if_setonclick("worldmap_showmenu(false, $component1, $component2, $component3, $component4, $component5)", worldmap:com_20);
+def_int $intarray0(calc(40 + 1));
+$intarray0(0) = 0;
 def_int $int6 = 1;
 def_int $int7 = 1;
-def_maparea $maparea8 = null;
+def_wma $wma8 = null;
 while ($int6 <= 40) {
-    $maparea8 = enum(105, 96, enum_708, $int6);
-    if ($maparea8 ! null) {
-        $array0($int7) = $int6;
+    $wma8 = enum(int, wma, enum_708, $int6);
+    if ($wma8 ! null) {
+        $intarray0($int7) = $int6;
         $int7 = calc($int7 + 1);
     }
     $int6 = calc($int6 + 1);
 }
-~worldmap_quicksort_menu(0, 1, calc($int7 - 1));
-cc_create($component2, ^iftype_text, if_getchildcount($component2));
+~worldmap_quicksort_menu(intarray0, 1, calc($int7 - 1));
+cc_create($component2, ^iftype_text, if_getnextsubid($component2));
 cc_setposition(0, 0, ^setpos_abs_centre, ^setpos_abs_top);
 cc_setsize(0, 20, ^setsize_minus, ^setsize_abs);
 cc_settextfont(b12_full);
 cc_settextalign(^settextalign_left, ^settextalign_centre, 0);
 cc_setcolour(^white);
-cc_setonmouseover("cc_text_colour_swapper(^event_com, ^event_subid, 11513775)");
-cc_setonmouseleave("cc_text_colour_swapper(^event_com, ^event_subid, 16777215)");
-$maparea8 = enum(105, 96, enum_708, $array0(0));
-cc_settext(maparea_getname($maparea8));
-cc_setonclick("worldmap_choosemap($maparea8, $component1, $component2, $component3, $component4, $component5)");
-~clientscript_309($maparea8, $component2, 0);
+cc_setonmouseover("cc_text_colour_swapper(event_com, event_comsubid, 0xafafaf)");
+cc_setonmouseleave("cc_text_colour_swapper(event_com, event_comsubid, ^white)");
+$wma8 = enum(int, wma, enum_708, $intarray0(0));
+cc_settext(worldmap_getmapname($wma8));
+cc_setonclick("worldmap_choosemap($wma8, $component1, $component2, $component3, $component4, $component5)");
+~script309($wma8, $component2, 0);
 def_int $int9 = cc_getheight;
 def_int $int10 = 0;
 $int6 = 1;
 while ($int6 < $int7) {
-    cc_create($component2, ^iftype_text, if_getchildcount($component2));
+    cc_create($component2, ^iftype_text, if_getnextsubid($component2));
     cc_setposition(0, $int9, ^setpos_abs_centre, ^setpos_abs_top);
     cc_setsize(0, 20, ^setsize_minus, ^setsize_abs);
     cc_settextfont(p12_full);
     cc_settextalign(^settextalign_left, ^settextalign_centre, 0);
     cc_setcolour(^white);
-    cc_setonmouseover("cc_text_colour_swapper(^event_com, ^event_subid, 11513775)");
-    cc_setonmouseleave("cc_text_colour_swapper(^event_com, ^event_subid, 16777215)");
-    $maparea8 = enum(105, 96, enum_708, $array0($int6));
-    cc_settext(maparea_getname($maparea8));
-    cc_setonclick("worldmap_choosemap($maparea8, $component1, $component2, $component3, $component4, $component5)");
-    if ($maparea8 = worldmap_getstate_5235) {
+    cc_setonmouseover("cc_text_colour_swapper(event_com, event_comsubid, 0xafafaf)");
+    cc_setonmouseleave("cc_text_colour_swapper(event_com, event_comsubid, ^white)");
+    $wma8 = enum(int, wma, enum_708, $intarray0($int6));
+    cc_settext(worldmap_getmapname($wma8));
+    cc_setonclick("worldmap_choosemap($wma8, $component1, $component2, $component3, $component4, $component5)");
+    if ($wma8 = worldmap_getcurrentmap) {
         $int10 = $int9;
     }
-    ~clientscript_309($maparea8, $component2, $int9);
+    ~script309($wma8, $component2, $int9);
     $int9 = calc($int9 + cc_getheight);
     $int6 = calc($int6 + 1);
 }

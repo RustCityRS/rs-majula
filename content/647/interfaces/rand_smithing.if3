@@ -1,0 +1,1574 @@
+// 934:0
+[com_0]
+type=rectangle
+x=5
+y=25
+width=508
+height=305
+colour=0x000000
+fill=yes
+trans=200
+
+// 934:1
+[com_1]
+type=rectangle
+x=365
+y=326
+width=1
+hide=yes
+colour=0x000000
+
+// 934:2
+[com_2]
+type=graphic
+x=7
+y=25
+width=14
+height=40
+widthmode=minus
+heightmode=minus
+graphic=rand_smithing_background_fill
+tiling=yes
+alpha=yes
+colour=0xffffffff
+
+// 934:3
+[com_3]
+type=graphic
+x=8
+y=42
+width=10
+height=10
+xmode=abs_right
+graphic="rand_smithing_edges,1"
+colour=0xffffffff
+
+// 934:4
+[com_4]
+type=graphic
+x=7
+y=42
+width=10
+height=10
+graphic="rand_smithing_edges,0"
+colour=0xffffffff
+
+// 934:5
+[com_5]
+type=graphic
+x=7
+y=15
+width=10
+height=10
+ymode=abs_bottom
+graphic="rand_smithing_edges,3"
+colour=0xffffffff
+
+// 934:6
+[com_6]
+type=graphic
+x=8
+y=15
+width=10
+height=10
+xmode=abs_right
+ymode=abs_bottom
+graphic="rand_smithing_edges,2"
+colour=0xffffffff
+
+// 934:7
+[com_7]
+type=graphic
+x=7
+y=52
+width=10
+height=77
+heightmode=minus
+graphic="rand_smithing_edges,4"
+colour=0xffffffff
+
+// 934:8
+[com_8]
+type=graphic
+x=17
+y=42
+width=35
+height=10
+widthmode=minus
+graphic="rand_smithing_edges,5"
+colour=0xffffffff
+
+// 934:9
+[com_9]
+type=graphic
+x=494
+y=52
+width=10
+height=77
+heightmode=minus
+graphic="rand_smithing_edges,6"
+colour=0xffffffff
+
+// 934:10
+[com_10]
+type=graphic
+x=17
+y=309
+width=35
+height=10
+widthmode=minus
+graphic="rand_smithing_edges,7"
+colour=0xffffffff
+
+// 934:11
+[com_11]
+type=graphic
+x=-13
+y=52
+width=32
+height=243
+graphic="v2_stone_borders,1"
+tiling=yes
+colour=0xffffffff
+opbase= 
+
+// 934:12
+[com_12]
+type=graphic
+y=20
+width=32
+height=32
+graphic="v2_stone_borders,35"
+colour=0xffffffff
+
+// 934:13
+[com_13]
+type=graphic
+x=492
+y=51
+width=32
+height=243
+graphic="v2_stone_borders,3"
+tiling=yes
+colour=0xffffffff
+
+// 934:14
+[com_14]
+type=graphic
+x=32
+y=20
+width=64
+height=32
+widthmode=minus
+graphic="v2_stone_borders,36"
+tiling=yes
+colour=0xffffffff
+
+// 934:15
+[com_15]
+type=graphic
+x=32
+y=306
+width=448
+height=32
+graphic="v2_stone_borders,2"
+tiling=yes
+colour=0xffffffff
+
+// 934:16
+[com_16]
+type=graphic
+y=294
+width=32
+height=32
+graphic="v2_stone_borders,6"
+colour=0xffffffff
+
+// 934:17
+[com_17]
+type=graphic
+y=20
+width=32
+height=32
+xmode=abs_right
+graphic="v2_stone_borders,37"
+colour=0xffffffff
+
+// 934:18
+[com_18]
+type=graphic
+x=480
+y=294
+width=32
+height=31
+graphic="v2_stone_borders,7"
+colour=0xffffffff
+
+// 934:19
+[com_19]
+type=graphic
+x=483
+y=23
+width=16
+height=16
+graphic="v2_stone_close_button,0"
+colour=0xffffffff
+transmitop=1
+op1=Close
+onmouseover=graphic_swapper(event_com, "v2_stone_close_button,1")
+onmouseleave=graphic_swapper(event_com, "v2_stone_close_button,0")
+onclick=closebutton_click
+
+// 934:20
+[com_20]
+type=text
+x=139
+y=22
+width=223
+height=20
+textfont=b12_full
+text=Smithing
+textalignh=centre
+textshadow=yes
+colour=0xc69b01
+
+// 934:21
+[com_21]
+type=layer
+x=12
+y=60
+width=24
+height=79
+widthmode=minus
+heightmode=minus
+
+// 934:22
+[com_22]
+type=layer
+width=4096
+height=3276
+widthmode=proportion
+heightmode=proportion
+xmode=proportion_left
+ymode=proportion_top
+layer=com_21
+
+// 934:23
+[com_23]
+type=layer
+x=4096
+width=4096
+height=3276
+widthmode=proportion
+heightmode=proportion
+xmode=proportion_left
+ymode=proportion_top
+layer=com_21
+transmitop=10
+op10= 
+
+// 934:24
+[com_24]
+type=layer
+x=8192
+width=4096
+height=3276
+widthmode=proportion
+heightmode=proportion
+xmode=proportion_left
+ymode=proportion_top
+layer=com_21
+transmitop=10
+op10= 
+
+// 934:25
+[com_25]
+type=graphic
+width=36
+height=32
+layer=com_24
+outline=1
+colour=0xffffffff
+transmitop=10
+op10= 
+
+// 934:26
+[com_26]
+type=text
+x=35
+y=-1
+width=75
+height=21
+layer=com_24
+textfont=p11_full
+textalignv=centre
+colour=0x000000
+transmitop=10
+op10= 
+
+// 934:27
+[com_27]
+type=text
+x=36
+y=20
+width=55
+height=12
+layer=com_24
+textfont=p11_full
+textshadow=yes
+colour=0xe8981f
+transmitop=10
+op10= 
+
+// 934:28
+[com_28]
+type=text
+width=109
+height=32
+layer=com_24
+textfont=q8_full
+textalignh=centre
+textshadow=yes
+colour=0x000000
+transmitop=1,2,3,4,10
+op1=Make 1 Dagger
+op2=Make 1 Dagger
+op3=Make 1 Dagger
+op4=Make 1 Dagger
+op10= 
+
+// 934:29
+[com_29]
+type=layer
+x=12288
+width=4096
+height=3276
+widthmode=proportion
+heightmode=proportion
+xmode=proportion_left
+ymode=proportion_top
+layer=com_21
+transmitop=10
+op10= 
+
+// 934:30
+[com_30]
+type=graphic
+width=36
+height=32
+layer=com_29
+outline=1
+colour=0xffffffff
+transmitop=10
+op10= 
+
+// 934:31
+[com_31]
+type=text
+x=35
+y=-1
+width=75
+height=21
+layer=com_29
+textfont=p11_full
+textalignv=centre
+colour=0x000000
+transmitop=10
+op10= 
+
+// 934:32
+[com_32]
+type=text
+x=36
+y=20
+width=55
+height=12
+layer=com_29
+textfont=p11_full
+textshadow=yes
+colour=0xe8981f
+transmitop=10
+op10= 
+
+// 934:33
+[com_33]
+type=text
+width=109
+height=32
+layer=com_29
+textfont=q8_full
+textalignh=centre
+textshadow=yes
+colour=0x000000
+transmitop=1,2,3,4,10
+op1=Make 1 Dagger
+op2=Make 1 Dagger
+op3=Make 1 Dagger
+op4=Make 1 Dagger
+op10= 
+
+// 934:34
+[com_34]
+type=layer
+y=3276
+width=4096
+height=3276
+widthmode=proportion
+heightmode=proportion
+xmode=proportion_left
+ymode=proportion_top
+layer=com_21
+transmitop=10
+op10= 
+
+// 934:35
+[com_35]
+type=graphic
+width=36
+height=32
+layer=com_34
+outline=1
+colour=0xffffffff
+transmitop=10
+op10= 
+
+// 934:36
+[com_36]
+type=text
+x=35
+y=-1
+width=75
+height=21
+layer=com_34
+textfont=p11_full
+textalignv=centre
+colour=0x000000
+transmitop=10
+op10= 
+
+// 934:37
+[com_37]
+type=text
+x=36
+y=20
+width=55
+height=12
+layer=com_34
+textfont=p11_full
+textshadow=yes
+colour=0xe8981f
+transmitop=10
+op10= 
+
+// 934:38
+[com_38]
+type=text
+width=109
+height=32
+layer=com_34
+textfont=q8_full
+textalignh=centre
+textshadow=yes
+colour=0x000000
+transmitop=1,2,3,4,10
+op1=Make 1 Dagger
+op2=Make 1 Dagger
+op3=Make 1 Dagger
+op4=Make 1 Dagger
+op10= 
+
+// 934:39
+[com_39]
+type=layer
+x=4096
+y=3276
+width=4096
+height=3276
+widthmode=proportion
+heightmode=proportion
+xmode=proportion_left
+ymode=proportion_top
+layer=com_21
+transmitop=10
+op10= 
+
+// 934:40
+[com_40]
+type=graphic
+width=36
+height=32
+layer=com_39
+outline=1
+colour=0xffffffff
+transmitop=10
+op10= 
+
+// 934:41
+[com_41]
+type=text
+x=35
+y=-1
+width=75
+height=21
+layer=com_39
+textfont=p11_full
+textalignv=centre
+colour=0x000000
+transmitop=10
+op10= 
+
+// 934:42
+[com_42]
+type=text
+x=36
+y=20
+width=55
+height=12
+layer=com_39
+textfont=p11_full
+textshadow=yes
+colour=0xe8981f
+transmitop=10
+op10= 
+
+// 934:43
+[com_43]
+type=text
+width=109
+height=32
+layer=com_39
+textfont=q8_full
+textalignh=centre
+textshadow=yes
+colour=0x000000
+transmitop=1,2,3,4,10
+op1=Make 1 Dagger
+op2=Make 1 Dagger
+op3=Make 1 Dagger
+op4=Make 1 Dagger
+op10= 
+
+// 934:44
+[com_44]
+type=layer
+x=8192
+y=3276
+width=4096
+height=3276
+widthmode=proportion
+heightmode=proportion
+xmode=proportion_left
+ymode=proportion_top
+layer=com_21
+transmitop=10
+op10= 
+
+// 934:45
+[com_45]
+type=graphic
+width=36
+height=32
+layer=com_44
+outline=1
+colour=0xffffffff
+transmitop=10
+op10= 
+
+// 934:46
+[com_46]
+type=text
+x=35
+y=-1
+width=75
+height=21
+layer=com_44
+textfont=p11_full
+textalignv=centre
+colour=0x000000
+transmitop=10
+op10= 
+
+// 934:47
+[com_47]
+type=text
+x=36
+y=20
+width=55
+height=12
+layer=com_44
+textfont=p11_full
+textshadow=yes
+colour=0xe8981f
+transmitop=10
+op10= 
+
+// 934:48
+[com_48]
+type=text
+width=109
+height=32
+layer=com_44
+textfont=q8_full
+textalignh=centre
+textshadow=yes
+colour=0x000000
+transmitop=1,2,3,4,10
+op1=Make 1 Dagger
+op2=Make 1 Dagger
+op3=Make 1 Dagger
+op4=Make 1 Dagger
+op10= 
+
+// 934:49
+[com_49]
+type=layer
+x=12288
+y=3276
+width=4096
+height=3276
+widthmode=proportion
+heightmode=proportion
+xmode=proportion_left
+ymode=proportion_top
+layer=com_21
+transmitop=10
+op10= 
+
+// 934:50
+[com_50]
+type=graphic
+width=36
+height=32
+layer=com_49
+outline=1
+colour=0xffffffff
+transmitop=10
+op10= 
+
+// 934:51
+[com_51]
+type=text
+x=35
+y=-1
+width=75
+height=21
+layer=com_49
+textfont=p11_full
+textalignv=centre
+colour=0x000000
+transmitop=10
+op10= 
+
+// 934:52
+[com_52]
+type=text
+x=36
+y=20
+width=55
+height=12
+layer=com_49
+textfont=p11_full
+textshadow=yes
+colour=0xe8981f
+transmitop=10
+op10= 
+
+// 934:53
+[com_53]
+type=text
+width=109
+height=32
+layer=com_49
+textfont=q8_full
+textalignh=centre
+textshadow=yes
+colour=0x000000
+transmitop=1,2,3,4,10
+op1=Make 1 Dagger
+op2=Make 1 Dagger
+op3=Make 1 Dagger
+op4=Make 1 Dagger
+op10= 
+
+// 934:54
+[com_54]
+type=layer
+y=6553
+width=4096
+height=3276
+widthmode=proportion
+heightmode=proportion
+xmode=proportion_left
+ymode=proportion_top
+layer=com_21
+transmitop=10
+op10= 
+
+// 934:55
+[com_55]
+type=graphic
+width=36
+height=32
+layer=com_54
+outline=1
+colour=0xffffffff
+transmitop=10
+op10= 
+
+// 934:56
+[com_56]
+type=text
+x=35
+y=-1
+width=75
+height=21
+layer=com_54
+textfont=p11_full
+textalignv=centre
+colour=0x000000
+transmitop=10
+op10= 
+
+// 934:57
+[com_57]
+type=text
+x=36
+y=20
+width=55
+height=12
+layer=com_54
+textfont=p11_full
+textshadow=yes
+colour=0xe8981f
+transmitop=10
+op10= 
+
+// 934:58
+[com_58]
+type=text
+width=109
+height=32
+layer=com_54
+textfont=q8_full
+textalignh=centre
+textshadow=yes
+colour=0x000000
+transmitop=1,2,3,4,10
+op1=Make 1 Dagger
+op2=Make 1 Dagger
+op3=Make 1 Dagger
+op4=Make 1 Dagger
+op10= 
+
+// 934:59
+[com_59]
+type=layer
+x=4096
+y=6553
+width=4096
+height=3276
+widthmode=proportion
+heightmode=proportion
+xmode=proportion_left
+ymode=proportion_top
+layer=com_21
+transmitop=10
+op10= 
+
+// 934:60
+[com_60]
+type=graphic
+width=36
+height=32
+layer=com_59
+outline=1
+colour=0xffffffff
+transmitop=10
+op10= 
+
+// 934:61
+[com_61]
+type=text
+x=35
+y=-1
+width=75
+height=21
+layer=com_59
+textfont=p11_full
+textalignv=centre
+colour=0x000000
+transmitop=10
+op10= 
+
+// 934:62
+[com_62]
+type=text
+x=36
+y=20
+width=55
+height=12
+layer=com_59
+textfont=p11_full
+textshadow=yes
+colour=0xe8981f
+transmitop=10
+op10= 
+
+// 934:63
+[com_63]
+type=text
+width=109
+height=32
+layer=com_59
+textfont=q8_full
+textalignh=centre
+textshadow=yes
+colour=0x000000
+transmitop=1,2,3,4,10
+op1=Make 1 Dagger
+op2=Make 1 Dagger
+op3=Make 1 Dagger
+op4=Make 1 Dagger
+op10= 
+
+// 934:64
+[com_64]
+type=layer
+x=8192
+y=6553
+width=4096
+height=3276
+widthmode=proportion
+heightmode=proportion
+xmode=proportion_left
+ymode=proportion_top
+layer=com_21
+transmitop=10
+op10= 
+
+// 934:65
+[com_65]
+type=graphic
+width=36
+height=32
+layer=com_64
+outline=1
+colour=0xffffffff
+transmitop=10
+op10= 
+
+// 934:66
+[com_66]
+type=text
+x=35
+y=-1
+width=75
+height=21
+layer=com_64
+textfont=p11_full
+textalignv=centre
+colour=0x000000
+transmitop=10
+op10= 
+
+// 934:67
+[com_67]
+type=text
+x=36
+y=20
+width=55
+height=12
+layer=com_64
+textfont=p11_full
+textshadow=yes
+colour=0xe8981f
+transmitop=10
+op10= 
+
+// 934:68
+[com_68]
+type=text
+width=109
+height=32
+layer=com_64
+textfont=q8_full
+textalignh=centre
+textshadow=yes
+colour=0x000000
+transmitop=1,2,3,4,10
+op1=Make 1 Dagger
+op2=Make 1 Dagger
+op3=Make 1 Dagger
+op4=Make 1 Dagger
+op10= 
+
+// 934:69
+[com_69]
+type=layer
+x=12288
+y=6553
+width=4096
+height=3276
+widthmode=proportion
+heightmode=proportion
+xmode=proportion_left
+ymode=proportion_top
+layer=com_21
+transmitop=10
+op10= 
+
+// 934:70
+[com_70]
+type=graphic
+width=36
+height=32
+layer=com_69
+outline=1
+colour=0xffffffff
+transmitop=10
+op10= 
+
+// 934:71
+[com_71]
+type=text
+x=35
+y=-1
+width=75
+height=21
+layer=com_69
+textfont=p11_full
+textalignv=centre
+colour=0x000000
+transmitop=10
+op10= 
+
+// 934:72
+[com_72]
+type=text
+x=36
+y=20
+width=55
+height=12
+layer=com_69
+textfont=p11_full
+textshadow=yes
+colour=0xe8981f
+transmitop=10
+op10= 
+
+// 934:73
+[com_73]
+type=text
+width=109
+height=32
+layer=com_69
+textfont=q8_full
+textalignh=centre
+textshadow=yes
+colour=0x000000
+transmitop=1,2,3,4,10
+op1=Make 1 Dagger
+op2=Make 1 Dagger
+op3=Make 1 Dagger
+op4=Make 1 Dagger
+op10= 
+
+// 934:74
+[com_74]
+type=layer
+y=9830
+width=4096
+height=3276
+widthmode=proportion
+heightmode=proportion
+xmode=proportion_left
+ymode=proportion_top
+layer=com_21
+transmitop=10
+op10= 
+
+// 934:75
+[com_75]
+type=graphic
+width=36
+height=32
+layer=com_74
+outline=1
+colour=0xffffffff
+transmitop=10
+op10= 
+
+// 934:76
+[com_76]
+type=text
+x=35
+y=-1
+width=75
+height=21
+layer=com_74
+textfont=p11_full
+textalignv=centre
+colour=0x000000
+transmitop=10
+op10= 
+
+// 934:77
+[com_77]
+type=text
+x=36
+y=20
+width=55
+height=12
+layer=com_74
+textfont=p11_full
+textshadow=yes
+colour=0xe8981f
+transmitop=10
+op10= 
+
+// 934:78
+[com_78]
+type=text
+width=109
+height=32
+layer=com_74
+textfont=q8_full
+textalignh=centre
+textshadow=yes
+colour=0x000000
+transmitop=1,2,3,4,10
+op1=Make 1 Dagger
+op2=Make 1 Dagger
+op3=Make 1 Dagger
+op4=Make 1 Dagger
+op10= 
+
+// 934:79
+[com_79]
+type=layer
+x=4096
+y=9830
+width=4096
+height=3276
+widthmode=proportion
+heightmode=proportion
+xmode=proportion_left
+ymode=proportion_top
+layer=com_21
+transmitop=10
+op10= 
+
+// 934:80
+[com_80]
+type=graphic
+width=36
+height=32
+layer=com_79
+outline=1
+colour=0xffffffff
+transmitop=10
+op10= 
+
+// 934:81
+[com_81]
+type=text
+x=35
+y=-1
+width=75
+height=21
+layer=com_79
+textfont=p11_full
+textalignv=centre
+colour=0x000000
+transmitop=10
+op10= 
+
+// 934:82
+[com_82]
+type=text
+x=36
+y=20
+width=55
+height=12
+layer=com_79
+textfont=p11_full
+textshadow=yes
+colour=0xe8981f
+transmitop=10
+op10= 
+
+// 934:83
+[com_83]
+type=text
+width=109
+height=32
+layer=com_79
+textfont=q8_full
+textalignh=centre
+textshadow=yes
+colour=0x000000
+transmitop=1,2,3,4,10
+op1=Make 1 Dagger
+op2=Make 1 Dagger
+op3=Make 1 Dagger
+op4=Make 1 Dagger
+op10= 
+
+// 934:84
+[com_84]
+type=layer
+x=8192
+y=9830
+width=4096
+height=3276
+widthmode=proportion
+heightmode=proportion
+xmode=proportion_left
+ymode=proportion_top
+layer=com_21
+transmitop=10
+op10= 
+
+// 934:85
+[com_85]
+type=graphic
+width=36
+height=32
+layer=com_84
+outline=1
+colour=0xffffffff
+transmitop=10
+op10= 
+
+// 934:86
+[com_86]
+type=text
+x=35
+y=-1
+width=75
+height=21
+layer=com_84
+textfont=p11_full
+textalignv=centre
+colour=0x000000
+transmitop=10
+op10= 
+
+// 934:87
+[com_87]
+type=text
+x=36
+y=20
+width=55
+height=12
+layer=com_84
+textfont=p11_full
+textshadow=yes
+colour=0xe8981f
+transmitop=10
+op10= 
+
+// 934:88
+[com_88]
+type=text
+width=109
+height=32
+layer=com_84
+textfont=q8_full
+textalignh=centre
+textshadow=yes
+colour=0x000000
+transmitop=1,2,3,4,10
+op1=Make 1 Dagger
+op2=Make 1 Dagger
+op3=Make 1 Dagger
+op4=Make 1 Dagger
+op10= 
+
+// 934:89
+[com_89]
+type=layer
+x=12288
+y=9830
+width=4096
+height=3276
+widthmode=proportion
+heightmode=proportion
+xmode=proportion_left
+ymode=proportion_top
+layer=com_21
+transmitop=10
+op10= 
+
+// 934:90
+[com_90]
+type=graphic
+width=36
+height=32
+layer=com_89
+outline=1
+colour=0xffffffff
+transmitop=10
+op10= 
+
+// 934:91
+[com_91]
+type=text
+x=35
+y=-1
+width=75
+height=21
+layer=com_89
+textfont=p11_full
+textalignv=centre
+colour=0x000000
+transmitop=10
+op10= 
+
+// 934:92
+[com_92]
+type=text
+x=36
+y=20
+width=55
+height=12
+layer=com_89
+textfont=p11_full
+textshadow=yes
+colour=0xe8981f
+transmitop=10
+op10= 
+
+// 934:93
+[com_93]
+type=text
+width=109
+height=32
+layer=com_89
+textfont=q8_full
+textalignh=centre
+textshadow=yes
+colour=0x000000
+transmitop=1,2,3,4,10
+op1=Make 1 Dagger
+op2=Make 1 Dagger
+op3=Make 1 Dagger
+op4=Make 1 Dagger
+op10= 
+
+// 934:94
+[com_94]
+type=layer
+y=13107
+width=4096
+height=3276
+widthmode=proportion
+heightmode=proportion
+xmode=proportion_left
+ymode=proportion_top
+layer=com_21
+transmitop=10
+op10= 
+
+// 934:95
+[com_95]
+type=graphic
+width=36
+height=32
+layer=com_94
+outline=1
+colour=0xffffffff
+transmitop=10
+op10= 
+
+// 934:96
+[com_96]
+type=text
+x=35
+y=-1
+width=75
+height=21
+layer=com_94
+textfont=p11_full
+textalignv=centre
+colour=0x000000
+transmitop=10
+op10= 
+
+// 934:97
+[com_97]
+type=text
+x=36
+y=20
+width=55
+height=12
+layer=com_94
+textfont=p11_full
+textshadow=yes
+colour=0xe8981f
+transmitop=10
+op10= 
+
+// 934:98
+[com_98]
+type=text
+width=109
+height=32
+layer=com_94
+textfont=q8_full
+textalignh=centre
+textshadow=yes
+colour=0x000000
+transmitop=1,2,3,4,10
+op1=Make 1 Dagger
+op2=Make 1 Dagger
+op3=Make 1 Dagger
+op4=Make 1 Dagger
+op10= 
+
+// 934:99
+[com_99]
+type=layer
+x=4096
+y=13107
+width=4096
+height=3276
+widthmode=proportion
+heightmode=proportion
+xmode=proportion_left
+ymode=proportion_top
+layer=com_21
+transmitop=10
+op10= 
+
+// 934:100
+[com_100]
+type=graphic
+width=36
+height=32
+layer=com_99
+outline=1
+colour=0xffffffff
+transmitop=10
+op10= 
+
+// 934:101
+[com_101]
+type=text
+x=35
+y=-1
+width=75
+height=21
+layer=com_99
+textfont=p11_full
+textalignv=centre
+colour=0x000000
+transmitop=10
+op10= 
+
+// 934:102
+[com_102]
+type=text
+x=36
+y=20
+width=55
+height=12
+layer=com_99
+textfont=p11_full
+textshadow=yes
+colour=0xe8981f
+transmitop=10
+op10= 
+
+// 934:103
+[com_103]
+type=text
+width=109
+height=32
+layer=com_99
+textfont=q8_full
+textalignh=centre
+textshadow=yes
+colour=0x000000
+transmitop=1,2,3,4,10
+op1=Make 1 Dagger
+op2=Make 1 Dagger
+op3=Make 1 Dagger
+op4=Make 1 Dagger
+op10= 
+
+// 934:104
+[com_104]
+type=layer
+x=8192
+y=13107
+width=4096
+height=3276
+widthmode=proportion
+heightmode=proportion
+xmode=proportion_left
+ymode=proportion_top
+layer=com_21
+transmitop=10
+op10= 
+
+// 934:105
+[com_105]
+type=graphic
+width=36
+height=32
+layer=com_104
+outline=1
+colour=0xffffffff
+transmitop=10
+op10= 
+
+// 934:106
+[com_106]
+type=text
+x=35
+y=-1
+width=75
+height=21
+layer=com_104
+textfont=p11_full
+textalignv=centre
+colour=0x000000
+transmitop=10
+op10= 
+
+// 934:107
+[com_107]
+type=text
+x=36
+y=20
+width=55
+height=12
+layer=com_104
+textfont=p11_full
+textshadow=yes
+colour=0xe8981f
+transmitop=10
+op10= 
+
+// 934:108
+[com_108]
+type=text
+width=109
+height=32
+layer=com_104
+textfont=q8_full
+textalignh=centre
+textshadow=yes
+colour=0x000000
+transmitop=1,2,3,4,10
+op1=Make 1 Dagger
+op2=Make 1 Dagger
+op3=Make 1 Dagger
+op4=Make 1 Dagger
+op10= 
+
+// 934:109
+[com_109]
+type=graphic
+width=36
+height=32
+layer=com_23
+outline=1
+colour=0xffffffff
+transmitop=10
+op10= 
+
+// 934:110
+[com_110]
+type=text
+x=35
+y=-1
+width=75
+height=21
+layer=com_23
+textfont=p11_full
+textalignv=centre
+colour=0x000000
+transmitop=10
+op10= 
+
+// 934:111
+[com_111]
+type=text
+x=36
+y=20
+width=55
+height=12
+layer=com_23
+textfont=p11_full
+textshadow=yes
+colour=0xe8981f
+transmitop=10
+op10= 
+
+// 934:112
+[com_112]
+type=text
+width=109
+height=32
+layer=com_23
+textfont=q8_full
+textalignh=centre
+textshadow=yes
+colour=0x000000
+transmitop=1,2,3,4,10
+op1=Make 1 Dagger
+op2=Make 1 Dagger
+op3=Make 1 Dagger
+op4=Make 1 Dagger
+op10= 
+
+// 934:113
+[com_113]
+type=graphic
+width=36
+height=36
+layer=com_22
+outline=1
+colour=0xffffffff
+
+// 934:114
+[com_114]
+type=text
+x=35
+y=-1
+width=75
+height=21
+layer=com_22
+textfont=p11_full
+textalignv=centre
+colour=0x000000
+
+// 934:115
+[com_115]
+type=text
+x=36
+y=20
+width=55
+height=12
+layer=com_22
+textfont=p11_full
+textshadow=yes
+colour=0xe8981f
+
+// 934:116
+[com_116]
+type=text
+width=109
+height=32
+layer=com_22
+textfont=q8_full
+textalignh=centre
+textshadow=yes
+colour=0x000000
+transmitop=1,2,3,4
+op1=Make 1 Dagger
+op2=Make 1 Dagger
+op3=Make 1 Dagger
+op4=Make 1 Dagger

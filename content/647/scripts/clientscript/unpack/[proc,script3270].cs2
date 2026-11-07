@@ -1,0 +1,10 @@
+// 3270
+[proc,script3270](int $int0, int $int1)(int)
+def_int $int2 = 2;
+if (calc($int0 + ($int2 - 1)) < $int1) {
+    return(calc($int0 + $int2));
+} else if (calc($int0 - ($int2 - 1)) > $int1) {
+    return(calc($int0 - $int2));
+} else {
+    return($int1);
+}

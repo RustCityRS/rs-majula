@@ -1,7 +1,0 @@
-[clientscript,championsarea]
-if (~clientscript_2869(coordpack(%varc_int_1070, 1, 0, 0)) = true) {
-    return;
-}
-if (~machinima_distance(coord, coordpack(%varc_int_1070, 1, 0, 0)) < 31) {
-    %varc_int_1070 = coordpack(%varc_int_1070, 1, 0, 0);
-}

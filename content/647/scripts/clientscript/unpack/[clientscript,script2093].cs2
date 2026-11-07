@@ -1,0 +1,12 @@
+// 2093
+[clientscript,script2093]
+if (%varclient_654 < 100) {
+    %varclient_654 = calc(%varclient_654 + 1);
+}
+if (%varclient_654 = 50) {
+    if_sethide(true, interface_834:com_60);
+}
+if (%varclient_654 = 100) {
+    if_sethide(false, interface_834:com_60);
+    %varclient_654 = 0;
+}

@@ -1,0 +1,10 @@
+// 2882
+[clientscript,script2882]
+if (%varplayerbit_4393 = 1 | %varplayerbit_542 = 1) {
+    return;
+}
+if (%varplayerbit_7078 = 0) {
+    ~addtooltip_action(music_v3:com_10, music_v3:com_16, "Playlist on", 25, 189);
+} else {
+    ~addtooltip_action(music_v3:com_10, music_v3:com_16, "Playlist off", 25, 189);
+}

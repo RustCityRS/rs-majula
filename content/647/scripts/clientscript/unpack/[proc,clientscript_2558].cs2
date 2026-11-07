@@ -1,8 +1,0 @@
-[proc,clientscript_2558](component $component)
-if (if_getgraphic($component) = 1946) {
-    if_setgraphic(1951, $component);
-} else if (if_getgraphic($component) = 1947) {
-    if_setgraphic(1952, $component);
-} else if (if_getgraphic($component) = 1949) {
-    if_setgraphic(1954, $component);
-}

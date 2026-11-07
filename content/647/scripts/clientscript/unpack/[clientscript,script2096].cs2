@@ -1,0 +1,12 @@
+// 2096
+[clientscript,script2096]
+if (%varclient_654 < 100) {
+    %varclient_654 = calc(%varclient_654 + 1);
+}
+if (%varclient_654 = 50) {
+    if_setcolour(^white, interface_834:com_13);
+}
+if (%varclient_654 = 100) {
+    if_setcolour(0xff2323, interface_834:com_13);
+    %varclient_654 = 0;
+}

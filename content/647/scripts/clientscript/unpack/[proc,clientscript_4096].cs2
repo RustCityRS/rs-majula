@@ -1,6 +1,0 @@
-[proc,clientscript_4096](component $component)
-if (if_gethide(toplevel_fullscreen:com128) = false & (if_gethide(toplevel_fullscreen:com20) = false & if_hasoverlay_ver_2705(toplevel_fullscreen:com_tab1, task_side) = true)) {
-    if_sethide(false, $component);
-} else {
-    if_sethide(true, $component);
-}

@@ -1,0 +1,7 @@
+// 1886
+[proc,script1886](component $component0)
+if (%varplayerbit_4895 = 3 & %learning_the_ropes < 125) {
+    if_sethide(true, $component0);
+} else {
+    if_sethide(false, $component0);
+}

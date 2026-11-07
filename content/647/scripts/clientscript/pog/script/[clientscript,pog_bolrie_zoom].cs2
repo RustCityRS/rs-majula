@@ -1,9 +1,10 @@
+// 516
 [clientscript,pog_bolrie_zoom]
-if (%varc_int_52 < 300) {
-    %varc_int_52 = calc(%varc_int_52 + 1);
+if (%varclient_52 < 300) {
+    %varclient_52 = calc(%varclient_52 + 1);
 }
-if (%varc_int_51 > 0 & calc(%varc_int_52 % 3) = false) {
-    %varc_int_51 = calc(%varc_int_51 - 3);
-    %varc_int_50 = calc(%varc_int_50 + 1);
-    if_setmodelangle(0, %varc_int_50, 0, 0, 0, %varc_int_51, xc4139998:com0);
+if (%varclient_51 > 0 & calc(%varclient_52 % 3) = 0) {
+    %varclient_51 = calc(%varclient_51 - 3);
+    %varclient_50 = calc(%varclient_50 + 1);
+    if_setmodelangle(0, %varclient_50, 0, 0, 0, %varclient_51, interface_615:com_0);
 }

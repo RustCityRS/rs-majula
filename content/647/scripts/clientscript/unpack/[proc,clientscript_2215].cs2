@@ -1,7 +1,0 @@
-[proc,clientscript_2215]
-if (if_gety(af714023:com14) < 180) {
-    if_setontimer("clientscript_2215()", af714023:com1);
-    if_setposition(if_getx(af714023:com14), calc(2 + if_gety(af714023:com14)), ^setpos_abs_left, ^setpos_abs_top, af714023:com14);
-} else {
-    %varc_int_1137 = 0;
-}

@@ -16,62 +16,62 @@
 // unnamed in 647's seq.pack). void-634 adds a spotanim to the blow kiss
 // (emotes.gfx.toml, 1702) that 289 does not have; no 2011 source found.
 // [if_button,controls:com_13] cry
-[if_button,emotes:com18] @controls_emote(emote_cry);
+[if_button,emotes:com_18] @controls_emote(emote_cry);
 // [if_button,controls:com_14] think
-[if_button,emotes:com6] @controls_emote(emote_think);
+[if_button,emotes:com_6] @controls_emote(emote_think);
 // [if_button,controls:com_15] wave
-[if_button,emotes:com7] @controls_emote(emote_wave);
+[if_button,emotes:com_7] @controls_emote(emote_wave);
 // [if_button,controls:com_16] bow
-[if_button,emotes:com4] @controls_emote(emote_bow);
+[if_button,emotes:com_4] @controls_emote(emote_bow);
 // [if_button,controls:com_17] angry
-[if_button,emotes:com5] @controls_emote(emote_angry);
+[if_button,emotes:com_5] @controls_emote(emote_angry);
 // [if_button,controls:com_18] dance
-[if_button,emotes:com14] @controls_emote(emote_dance);
+[if_button,emotes:com_14] @controls_emote(emote_dance);
 // [if_button,controls:com_19] beckon
-[if_button,emotes:com10] @controls_emote(emote_beckon);
+[if_button,emotes:com_10] @controls_emote(emote_beckon);
 // [if_button,controls:com_20] yes
-[if_button,emotes:com2] @controls_emote(emote_yes);
+[if_button,emotes:com_2] @controls_emote(emote_yes);
 // [if_button,controls:com_21] no
-[if_button,emotes:com3] @controls_emote(emote_no);
+[if_button,emotes:com_3] @controls_emote(emote_no);
 // [if_button,controls:com_22] laugh
-[if_button,emotes:com12] @controls_emote(emote_laugh);
+[if_button,emotes:com_12] @controls_emote(emote_laugh);
 // [if_button,controls:com_23] cheer
-[if_button,emotes:com9] @controls_emote(emote_cheer);
+[if_button,emotes:com_9] @controls_emote(emote_cheer);
 // [if_button,controls:com_24] clap
-[if_button,emotes:com22] @controls_emote(emote_clap);
+[if_button,emotes:com_22] @controls_emote(emote_clap);
 
 // The Mime's four, locked until the Mime gives them (%emote_access, varp 313,
 // which the 2011 tab redraws on: 464 com1's vartransmit_list).
 // [if_button,controls:com_41] glass wall
-[if_button,emotes:com29]
+[if_button,emotes:com_29]
 if(testbit(%emote_access, ^macro_mime_glass_wall) = ^false) {
     @lockemote_mime_event;
 }
 @controls_emote(emote_glass_wall);
 
 // [if_button,controls:com_42] glass box
-[if_button,emotes:com26]
+[if_button,emotes:com_26]
 if(testbit(%emote_access, ^macro_mime_glass_box) = ^false) {
     @lockemote_mime_event;
 }
 @controls_emote(emote_glass_box);
 
 // [if_button,controls:com_43] climb rope
-[if_button,emotes:com27]
+[if_button,emotes:com_27]
 if(testbit(%emote_access, ^macro_mime_climb_rope) = ^false) {
     @lockemote_mime_event;
 }
 @controls_emote(emote_climbing_rope);
 
 // [if_button,controls:com_44] lean
-[if_button,emotes:com28]
+[if_button,emotes:com_28]
 if(testbit(%emote_access, ^macro_mime_lean) = ^false) {
     @lockemote_mime_event;
 }
 @controls_emote(emote_mime_lean);
 
 // [if_button,controls:com_45] blow kiss
-[if_button,emotes:com19] @controls_emote(seq_1374);
+[if_button,emotes:com_19] @controls_emote(seq_1374);
 
 [label,controls_emote](seq $anim)
 if_close;

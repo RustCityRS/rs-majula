@@ -1,0 +1,9 @@
+// 2212
+[clientscript,script2212]
+if (if_getx(%varclient_1136) < calc(if_getwidth(interface_932:com_1) - 1)) {
+    if_setontimer("script2212", interface_932:com_1);
+    if_setposition(calc(1 + if_getx(%varclient_1136)), if_gety(%varclient_1136), ^setpos_abs_left, ^setpos_abs_top, %varclient_1136);
+} else {
+    if_sethide(true, %varclient_1136);
+    if_setposition(0, 120, ^setpos_abs_left, ^setpos_abs_top, %varclient_1136);
+}

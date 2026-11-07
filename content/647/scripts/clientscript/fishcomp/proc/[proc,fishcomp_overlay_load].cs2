@@ -1,2 +1,3 @@
+// 255
 [proc,fishcomp_overlay_load]
-if_setonvarctransmit("fishcomp_add_result(){varc_int_1111, varc_int_1112, varc_int_1113, varc_int_1114, varc_int_1115, varc_int_1116}", fishcomp_overlay:com0);
+if_setonvarctransmit("fishcomp_add_result{varclient_1111, varclient_1112, varclient_1113, varclient_1114, varclient_1115, varclient_1116}", fishcomp_overlay:com_0);

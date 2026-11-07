@@ -1,0 +1,22 @@
+// 1916
+[clientscript,script1916](component $component0)
+if ($component0 = sc_processing:com_99 & %varclient_583 > 0) {
+    if_setcolour(^white, $component0);
+    return;
+}
+if ($component0 = sc_processing:com_101 & %varclient_584 > 0) {
+    if_setcolour(^white, $component0);
+    return;
+}
+if ($component0 = sc_processing:com_103 & %varclient_585 > 0) {
+    if_setcolour(^white, $component0);
+    return;
+}
+if ($component0 = sc_processing:com_105 & %varclient_586 > 0) {
+    if_setcolour(^white, $component0);
+    return;
+}
+if ($component0 = sc_processing:com_107 & %varclient_587 > 0) {
+    if_setcolour(^white, $component0);
+    return;
+}

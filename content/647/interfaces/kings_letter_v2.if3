@@ -1,0 +1,61 @@
+// 463:0
+[com_0]
+type=model
+x=37
+y=47
+width=445
+height=262
+model=model_3032
+modelorigin=1,-23
+modelangle=400,0,0
+modelzoom=650
+
+// 463:1
+[com_1]
+type=text
+x=115
+y=108
+width=287
+height=94
+textfont=q8_full
+textalignv=unknown_3
+colour=0x000000
+
+// 463:2
+[com_2]
+type=text
+x=168
+y=216
+width=157
+height=46
+textfont=q8_full
+textalignh=centre
+colour=0x000000
+
+// 463:3
+[com_3]
+type=model
+x=349
+y=186
+width=92
+height=146
+model=model_3037
+modelorigin=-10,-36
+modelangle=473,1991,0
+modelzoom=800
+
+// 463:4
+[com_4]
+type=graphic
+x=393
+y=85
+width=26
+height=23
+graphic="close_buttons,2"
+colour=0x000000
+transmitop=1,10
+op1=Close
+op10=         
+onmouseover=graphic_swapper(event_com, "close_buttons,3")
+onmouseleave=graphic_swapper(event_com, "close_buttons,2")
+onop=closebutton_click

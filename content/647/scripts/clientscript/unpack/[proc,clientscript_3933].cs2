@@ -1,9 +1,0 @@
-[proc,clientscript_3933](component $component0, int $colour1, boolean $int2, int $int3, component $component4, int $int5)
-if_setcolour($colour1, $component0);
-if ($int2 = true) {
-    if_setgraphic(enum(105, 100, enum_3480, $int3), $component4);
-} else if ($int5 = $int3) {
-    if_setgraphic(enum(105, 100, enum_736, $int3), $component4);
-} else {
-    if_setgraphic(enum(105, 100, enum_735, $int3), $component4);
-}

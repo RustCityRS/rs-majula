@@ -1,0 +1,18 @@
+// 487
+[clientscript,script487]
+if_setgraphic(graphic_3263, conq_buy_army:com_95);
+if_setgraphic(graphic_3263, conq_buy_army:com_89);
+if_setgraphic(graphic_3263, conq_buy_army:com_83);
+if_setgraphic(graphic_3263, conq_buy_army:com_77);
+switch_int (%varplayerbit_7515) {
+    case default :
+        return;
+    case 1 :
+        if_setgraphic(graphic_3265, conq_buy_army:com_95);
+    case 2 :
+        if_setgraphic(graphic_3265, conq_buy_army:com_89);
+    case 3 :
+        if_setgraphic(graphic_3265, conq_buy_army:com_83);
+    case 4 :
+        if_setgraphic(graphic_3265, conq_buy_army:com_77);
+}

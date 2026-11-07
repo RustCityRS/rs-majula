@@ -1,13 +1,14 @@
+// 1269
 [proc,options_aid]
-def_string $string = "null";
-if (%varp_427 = false) {
-    if_setgraphic("options_boxes,0", options:com7);
-    $string = "Accept aid<br>(currently off)";
-    if_setonmouserepeat("addtooltip(^event_com, options:com20, $string, 25, 180)", options:com7);
-    %varc_int_2 = 0;
-} else if (%varp_427 = true) {
-    if_setgraphic("options_boxes,1", options:com7);
-    $string = "Accept aid<br>(currently on)";
-    if_setonmouserepeat("addtooltip(^event_com, options:com20, $string, 25, 180)", options:com7);
-    %varc_int_2 = 0;
+def_string $string0 = null;
+if (%varplayer_427 = 0) {
+    if_setgraphic("options_boxes,0", options:com_7);
+    $string0 = "Accept aid<br>(currently off)";
+    if_setonmouserepeat("addtooltip(event_com, options:com_20, $string0, 25, 180)", options:com_7);
+    %varclient_2 = 0;
+} else if (%varplayer_427 = 1) {
+    if_setgraphic("options_boxes,1", options:com_7);
+    $string0 = "Accept aid<br>(currently on)";
+    if_setonmouserepeat("addtooltip(event_com, options:com_20, $string0, 25, 180)", options:com_7);
+    %varclient_2 = 0;
 }

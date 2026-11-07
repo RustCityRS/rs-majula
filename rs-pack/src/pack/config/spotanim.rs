@@ -83,7 +83,16 @@ pub fn pack_spotanims(
                 }),
 
                 // 6
+                #[cfg(before_647)]
                 "angle" => parse_number(value, |v| {
+                    client.p1(6);
+                    client.p2(v);
+                    server.p1(6);
+                    server.p2(v);
+                }),
+
+                #[cfg(since_647)]
+                "rotation" => parse_number(value, |v| {
                     client.p1(6);
                     client.p2(v);
                     server.p1(6);
@@ -107,37 +116,37 @@ pub fn pack_spotanims(
                 }),
 
                 #[cfg(since_647)]
-                "op9_animmode3_param8224" => {
+                "unknown9" => {
                     server.p1(9);
                     client.p1(9);
                 }
 
                 #[cfg(since_647)]
-                "op10_flag" => {
+                "allowloop" => {
                     server.p1(10);
                     client.p1(10);
                 }
 
                 #[cfg(since_647)]
-                "op11_animmode1" => {
+                "unknown11" => {
                     server.p1(11);
                     client.p1(11);
                 }
 
                 #[cfg(since_647)]
-                "op12_animmode4" => {
+                "unknown12" => {
                     server.p1(12);
                     client.p1(12);
                 }
 
                 #[cfg(since_647)]
-                "op13_animmode5" => {
+                "unknown13" => {
                     server.p1(13);
                     client.p1(13);
                 }
 
                 #[cfg(since_647)]
-                "op14_animmode2_u8" => {
+                "unknown14" => {
                     let v: u8 = value.parse().expect("Invalid spotanim value");
                     server.p1(14);
                     server.p1(v);
@@ -146,7 +155,7 @@ pub fn pack_spotanims(
                 }
 
                 #[cfg(since_647)]
-                "op15_animmode3_u16" => {
+                "unknown15" => {
                     let v: u16 = value.parse().expect("Invalid spotanim value");
                     server.p1(15);
                     server.p2(v);
@@ -155,7 +164,7 @@ pub fn pack_spotanims(
                 }
 
                 #[cfg(since_647)]
-                "op16_animmode3_i32" => {
+                "unknown16" => {
                     let v: i32 = value.parse().expect("Invalid spotanim value");
                     server.p1(16);
                     server.p4(v);
@@ -206,8 +215,8 @@ pub fn pack_spotanims(
             retex_s.sort_by_key(|(index, _)| *index);
             retex_d.sort_by_key(|(index, _)| *index);
             for stream in [&mut server, &mut client] {
-                pack_pairs(stream, 40, &recol_d, &recol_s);
-                pack_pairs(stream, 41, &retex_d, &retex_s);
+                pack_pairs(stream, 40, &recol_s, &recol_d);
+                pack_pairs(stream, 41, &retex_s, &retex_d);
             }
         }
 

@@ -1,0 +1,105 @@
+// 864:0
+[com_0]
+type=rectangle
+width=16391
+height=16391
+widthmode=proportion
+heightmode=proportion
+colour=0x46341d
+fill=yes
+trans=160
+
+// 864:1
+[com_1]
+type=layer
+width=512
+height=334
+xmode=abs_centre
+ymode=abs_centre
+
+// 864:2
+[com_2]
+type=model
+x=15
+y=23
+width=480
+height=301
+layer=com_1
+model=model_26397
+modelorigin=-2,33
+modelangle=512,0,0
+modelzoom=1009
+
+// 864:3
+[com_3]
+type=text
+x=46
+y=44
+width=291
+height=34
+layer=com_1
+textfont=quill_oblique_large
+text=Spirit Tree
+colour=0x46320a
+
+// 864:4
+[com_4]
+type=text
+x=46
+y=81
+width=291
+height=13
+layer=com_1
+textfont=q8_full
+text=Where would you like to go?
+colour=0x46320a
+
+// 864:5
+[com_5]
+type=rectangle
+x=46
+y=76
+width=200
+height=1
+layer=com_1
+colour=0x46320a
+fill=yes
+trans=200
+
+// 864:6
+[com_6]
+type=graphic
+x=443
+y=40
+width=26
+height=23
+layer=com_1
+graphic="close_buttons,6"
+colour=0xffffffff
+onmouseover=graphic_swapper(spirittree:com_6, "close_buttons,7")
+onmouseleave=graphic_swapper(spirittree:com_6, "close_buttons,6")
+onclick=closebutton_click
+
+// 864:7
+[com_7]
+type=layer
+x=46
+y=100
+width=392
+height=200
+layer=com_1
+transmitop=10
+op10= 
+onload=spirittree_start
+onvartransmit=spirittree_start{varplayer_1469}
+
+// 864:8
+[com_8]
+type=layer
+x=442
+y=100
+width=16
+height=200
+layer=com_1
+transmitop=10
+op10= 

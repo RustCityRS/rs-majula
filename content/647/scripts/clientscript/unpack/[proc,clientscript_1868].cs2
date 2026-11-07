@@ -1,6 +1,0 @@
-[proc,clientscript_1868](component $component)
-if (calc(clientclock % 50) = false & reboottimer > 0) {
-    if_setposition(0, -8, ^setpos_abs_centre, ^setpos_abs_centre, lobbyscreen:com17);
-    ~clientscript_1870(lobbyscreen:com24);
-    if_setontimer("clientscript_1869(lobbyscreen:com24)", $component);
-}

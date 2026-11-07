@@ -1,3 +1,4 @@
+// 1751
 [proc,durationmes](int $int0)(string)
 if ($int0 < 2) {
     return("in a minute");
@@ -8,19 +9,18 @@ if ($int1 > 1) {
     if ($int0 > 1) {
         return("in <tostring($int1)> hours <tostring($int0)> minutes");
     }
-    if ($int0 = true) {
+    if ($int0 = 1) {
         return("in <tostring($int1)> hours 1 minute");
     }
     return("in <tostring($int1)> hours");
 }
-if ($int1 = true) {
+if ($int1 = 1) {
     if ($int0 > 1) {
         return("in 1 hour <tostring($int0)> minutes");
     }
-    if ($int0 = true) {
+    if ($int0 = 1) {
         return("in 1 hour 1 minute");
     }
     return("in 1 hour");
 }
 return("in <tostring($int0)> minutes");
-return("");

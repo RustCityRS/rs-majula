@@ -1,6 +1,0 @@
-[proc,clientscript_4359](component $component)
-if (ignore_count = true) {
-    ~clan_noticeboard_build($component);
-} else {
-    if_sethook1431("clan_noticeboard_build($component)", $component);
-}

@@ -1,0 +1,5 @@
+// 1607
+[clientscript,script1607]
+def_seq $seq0 = seq_12411;
+if_setmodelanim($seq0, boothpreview:com_54);
+if_setplayerhead_self(boothpreview:com_54);

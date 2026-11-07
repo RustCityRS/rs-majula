@@ -1,0 +1,8 @@
+// 2717
+[clientscript,script2717](component $component0)
+if (%shop_sample ! null) {
+    ~script2726($component0, %shop_sample);
+    if_setoninvtransmit("script2725($component0, %shop_sample){%shop_sample}", $component0);
+    if_sethide(false, shop_template:com_22);
+    if_sethide(false, shop_template:com_21);
+}

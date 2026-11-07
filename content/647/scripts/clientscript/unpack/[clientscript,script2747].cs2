@@ -1,0 +1,26 @@
+// 2747
+[clientscript,script2747]
+if (if_gethide(dob_confirm_login:com_110) = true) {
+    if_setvflip(true, dob_confirm_login:com_76);
+    if_sethide(false, dob_confirm_login:com_110);
+    if_sethide(false, dob_confirm_login:com_101);
+    if_sethide(false, dob_confirm_login:com_111);
+    if_sethide(false, dob_confirm_login:com_28);
+} else {
+    if_setvflip(false, dob_confirm_login:com_76);
+    if_sethide(true, dob_confirm_login:com_110);
+    if_sethide(true, dob_confirm_login:com_101);
+    if_sethide(true, dob_confirm_login:com_111);
+    if_sethide(true, dob_confirm_login:com_28);
+}
+if_setvflip(false, dob_confirm_login:com_44);
+if_sethide(true, dob_confirm_login:com_86);
+if_sethide(true, dob_confirm_login:com_77);
+if_sethide(true, dob_confirm_login:com_87);
+if_sethide(true, dob_confirm_login:com_26);
+if_setvflip(false, dob_confirm_login:com_60);
+if_sethide(true, dob_confirm_login:com_98);
+if_sethide(true, dob_confirm_login:com_89);
+if_sethide(true, dob_confirm_login:com_99);
+if_sethide(true, dob_confirm_login:com_27);
+if_sethide(true, dob_confirm_login:com_113);

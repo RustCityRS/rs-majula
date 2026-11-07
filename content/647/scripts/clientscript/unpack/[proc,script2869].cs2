@@ -1,0 +1,9 @@
+// 2869
+[proc,script2869](coord $coord0)(boolean)
+if (~script2868($coord0, 0_34_51_14_16, 0_35_52_45_47) = true) {
+    return(true);
+}
+if (~script2868($coord0, 0_50_43_5_12, 0_50_43_59_55) = true) {
+    return(true);
+}
+return(false);

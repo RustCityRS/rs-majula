@@ -1,7 +1,0 @@
-[proc,clientscript_1040](component $component0, component $component1, component $component2, component $component3, chatphrase $int4)
-%varc_int_129 = calc(%varc_int_129 - 1);
-if (%varc_int_129 > 0) {
-    return;
-}
-if_setontimer(null, $component1);
-~quickchat_objdialog_refreshsearch($component0, $component2, $component3, $int4);

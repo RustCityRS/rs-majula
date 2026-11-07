@@ -1,0 +1,8 @@
+// 2814
+[clientscript,script2814]
+if (%varclient_1065 ! null) {
+    ~script2815;
+    if_setonvarctransmit(null, fade2:com_0);
+} else {
+    if_setonvarctransmit("script2814{varclient_1065}", fade2:com_0);
+}

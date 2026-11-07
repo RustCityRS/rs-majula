@@ -1,19 +1,20 @@
-[clientscript,friend_op](int $int0, int $int1, string $string0)
-if (%varc_int_1413 = false) {
+// 126
+[clientscript,friend_op](int $int0, string $string0, int $int1)
+if (%varclient_1413 = 0) {
     return;
 }
 def_string $string1 = removetags($string0);
 switch_int ($int0) {
-    case 1:
+    case 1 :
         ~meslayer_mode6($string1);
-    case 2:
-        if (clan_getchatusername($int1) = true) {
+    case 2 :
+        if (friend_platform($int1) = 1) {
             ~quickchat_open(1, $string1);
         } else {
             ~quickchat_open(3, $string1);
         }
-    case 3, 4:
+    case 3, 4 :
         mes("That player is currently offline.");
-    case 5:
+    case 5 :
         friend_del($string1);
 }

@@ -1,5 +1,6 @@
+// 4014
 [proc,task_main_list_graphicswapper](int $int0, graphic $graphic1)
-if (cc_find(task_main:com98, $int0) = true & if_gethide(task_main:com119) = true) {
+if (cc_find(task_main:com_98, $int0) = true & if_gethide(task_main:com_119) = true) {
     cc_setgraphic($graphic1);
 }
-~deltooltip_action(task_main:com101);
+~deltooltip_action(task_main:com_101);

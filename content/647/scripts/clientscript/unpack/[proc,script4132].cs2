@@ -1,0 +1,27 @@
+// 4132
+[proc,script4132](component $component0, coord $coord1)
+switch_int (%varclient_1452) {
+    case 201 :
+        cc_deleteall($component0);
+        cc_create($component0, ^iftype_rectangle, 0);
+        cc_setfill(true);
+        cc_setcolour(0x7f0000);
+        cc_setsize(0, 0, ^setsize_minus, ^setsize_minus);
+        cc_setposition(0, 0, ^setpos_abs_left, ^setpos_abs_top);
+        cc_settrans(255);
+        ~script665(^black, 50, $component0, 1);
+    case 202 :
+        ~script667(50, $component0, 1);
+    case 203 :
+        if (cc_find($component0, 0) = true) {
+            cc_setontimer("cc_fade2_flash_timer($component0, 0, 3, -3, 150, 255, 50, 0, vorbis_3581)");
+        }
+    case 204 :
+        cc_deleteall($component0);
+        ~fadeout(^black, 50, $component0);
+    case 205 :
+        ~fadein(50, $component0);
+    case 206 :
+        cc_deleteall($component0);
+}
+return;

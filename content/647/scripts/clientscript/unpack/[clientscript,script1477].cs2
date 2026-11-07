@@ -1,0 +1,19 @@
+// 1477
+[clientscript,script1477]
+if (%varplayerbit_5007 = 0) {
+    if_settext("Quick task:", interface_766:com_36);
+} else {
+    if_settext("Large task:", interface_766:com_36);
+}
+if_settext(tostring(%varplayerbit_4216), interface_766:com_100);
+if_settext(tostring(calc((%varplayerbit_4208 + 1) * 5)), interface_766:com_102);
+if_settext(tostring(%varplayerbit_4217), interface_766:com_91);
+if_settext(tostring(calc((%varplayerbit_4209 + 1) * 5)), interface_766:com_93);
+if_settext(tostring(%varplayerbit_4218), interface_766:com_81);
+if_settext(tostring(calc((%varplayerbit_4210 + 1) * 5)), interface_766:com_83);
+if_settext(tostring(%varplayerbit_4219), interface_766:com_71);
+if_settext(tostring(calc((%varplayerbit_4211 + 1) * 5)), interface_766:com_73);
+if_settext(tostring(%varplayerbit_4220), interface_766:com_61);
+if_settext(tostring(calc((%varplayerbit_4212 + 1) * 5)), interface_766:com_63);
+if_settext(tostring(%varplayerbit_5008), interface_766:com_51);
+if_settext(tostring(calc((%varplayerbit_4213 + 1) * 5)), interface_766:com_53);

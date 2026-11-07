@@ -1,0 +1,39 @@
+// 808
+[clientscript,script808]
+if_sethide(false, health_orb:com_7);
+def_int $int0 = scale(%life_points, ~script2916, 100);
+def_int $int1 = calc(clientclock % 32);
+if ($int0 > 25) {
+    %varclient_615 = 0;
+    if (~script2916 < 200 & %life_points < 45 & $int0 < 100 & stat_base(hitpoints) > 0) {
+        ~script1888;
+    } else {
+        %varclient_1025 = 0;
+    }
+    if (if_gettrans(health_orb:com_7) ! 0) {
+        if_settrans(0, health_orb:com_7);
+    } else {
+        return;
+    }
+} else {
+    if ($int1 = 1) {
+        if (%varclient_615 <= 0) {
+            %varclient_615 = clientclock;
+        }
+        if (calc(clientclock - %varclient_615) < 1500) {
+            sound_synth(synth_5644, 1, 0);
+        }
+        if (stat_base(hitpoints) > 0) {
+            ~script1888;
+        }
+    }
+    if ($int1 < 8) {
+        if_settrans(0, health_orb:com_7);
+    } else if ($int1 < 16) {
+        if_settrans(85, health_orb:com_7);
+    } else if ($int1 < 24) {
+        if_settrans(255, health_orb:com_7);
+    } else {
+        if_settrans(85, health_orb:com_7);
+    }
+}

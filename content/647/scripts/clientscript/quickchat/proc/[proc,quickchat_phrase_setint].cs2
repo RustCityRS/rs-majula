@@ -1,23 +1,24 @@
-[proc,quickchat_phrase_setint](int $int)
-switch_int ($int) {
-    case 0:
-        quickchat_phrase_setcmd_5068(0, %varc_int_135);
-    case 1:
-        quickchat_phrase_setcmd_5068(1, %varc_int_136);
-    case 2:
-        quickchat_phrase_setcmd_5068(2, %varc_int_137);
-    case 3:
-        quickchat_phrase_setcmd_5068(3, %varc_int_138);
-    case 4:
-        quickchat_phrase_setcmd_5068(4, %varc_int_139);
-    case 5:
-        quickchat_phrase_setcmd_5068(5, %varc_int_140);
-    case 6:
-        quickchat_phrase_setcmd_5068(6, %varc_int_141);
-    case 7:
-        quickchat_phrase_setcmd_5068(7, %varc_int_142);
-    case 8:
-        quickchat_phrase_setcmd_5068(8, %varc_int_143);
-    case 9:
-        quickchat_phrase_setcmd_5068(9, %varc_int_144);
+// 1078
+[proc,quickchat_phrase_setint](int $int0)
+switch_int ($int0) {
+    case 0 :
+        activechatphrase_setdynamicint(0, %varclient_135);
+    case 1 :
+        activechatphrase_setdynamicint(1, %varclient_136);
+    case 2 :
+        activechatphrase_setdynamicint(2, %varclient_137);
+    case 3 :
+        activechatphrase_setdynamicint(3, %varclient_138);
+    case 4 :
+        activechatphrase_setdynamicint(4, %varclient_139);
+    case 5 :
+        activechatphrase_setdynamicint(5, %varclient_140);
+    case 6 :
+        activechatphrase_setdynamicint(6, %varclient_141);
+    case 7 :
+        activechatphrase_setdynamicint(7, %varclient_142);
+    case 8 :
+        activechatphrase_setdynamicint(8, %varclient_143);
+    case 9 :
+        activechatphrase_setdynamicint(9, %varclient_144);
 }

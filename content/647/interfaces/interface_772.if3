@@ -1,0 +1,998 @@
+// 772:0
+[com_0]
+type=rectangle
+x=4
+y=22
+width=182
+height=185
+colour=0x27241c
+fill=yes
+
+// 772:1
+[com_1]
+type=graphic
+x=178
+y=21
+width=10
+height=10
+graphic="aif_overlay_frame_gold_corner_1,1"
+2dangle=49152
+hflip=yes
+
+// 772:2
+[com_2]
+type=graphic
+x=178
+y=202
+width=10
+height=10
+graphic="aif_overlay_frame_gold_corner_1,1"
+2dangle=16384
+vflip=yes
+hflip=yes
+
+// 772:3
+[com_3]
+type=graphic
+x=178
+y=31
+width=10
+height=171
+graphic="aif_overlay_frame_gold_corner_1,2"
+vflip=yes
+
+// 772:4
+[com_4]
+type=graphic
+x=1
+y=21
+width=10
+height=10
+graphic="aif_overlay_frame_gold_corner_1,1"
+2dangle=16384
+
+// 772:5
+[com_5]
+type=graphic
+x=1
+y=202
+width=10
+height=10
+graphic="aif_overlay_frame_gold_corner_1,1"
+2dangle=16384
+hflip=yes
+
+// 772:6
+[com_6]
+type=graphic
+x=1
+y=31
+width=10
+height=171
+graphic="aif_overlay_frame_gold_corner_1,2"
+hflip=yes
+
+// 772:7
+[com_7]
+type=graphic
+x=11
+y=21
+width=168
+height=10
+graphic="aif_overlay_frame_gold_corner_1,0"
+tiling=yes
+hflip=yes
+
+// 772:8
+[com_8]
+type=graphic
+x=11
+y=202
+width=168
+height=10
+graphic="aif_overlay_frame_gold_corner_1,0"
+tiling=yes
+vflip=yes
+hflip=yes
+
+// 772:9
+[com_9]
+type=text
+width=189
+height=19
+textfont=verdana_13pt_regular
+text=Controls
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xebe0bc
+
+// 772:10
+[com_10]
+type=graphic
+x=-10
+y=-25
+width=16
+height=16
+xmode=abs_centre
+ymode=abs_centre
+graphic="aif_pump_button,0"
+transmitop=1
+op1=Rotate pillar
+onmouseover=graphic_swapper(event_com, "aif_pump_button,1")
+onmouseleave=graphic_swapper(event_com, "aif_pump_button,0")
+
+// 772:11
+[com_11]
+type=graphic
+x=19
+y=-25
+width=16
+height=16
+xmode=abs_centre
+ymode=abs_centre
+graphic="aif_pump_button,0"
+transmitop=1
+op1=Rotate pillar
+onmouseover=graphic_swapper(event_com, "aif_pump_button,1")
+onmouseleave=graphic_swapper(event_com, "aif_pump_button,0")
+
+// 772:12
+[com_12]
+type=graphic
+x=48
+y=-25
+width=16
+height=16
+xmode=abs_centre
+ymode=abs_centre
+graphic="aif_pump_button,0"
+transmitop=1
+op1=Rotate pillar
+onmouseover=graphic_swapper(event_com, "aif_pump_button,1")
+onmouseleave=graphic_swapper(event_com, "aif_pump_button,0")
+
+// 772:13
+[com_13]
+type=graphic
+x=77
+y=-25
+width=16
+height=16
+xmode=abs_centre
+ymode=abs_centre
+graphic="aif_pump_button,0"
+transmitop=1
+op1=Rotate pillar
+onmouseover=graphic_swapper(event_com, "aif_pump_button,1")
+onmouseleave=graphic_swapper(event_com, "aif_pump_button,0")
+
+// 772:14
+[com_14]
+type=graphic
+x=-10
+y=5
+width=16
+height=16
+xmode=abs_centre
+ymode=abs_centre
+graphic="aif_pump_button,0"
+transmitop=1
+op1=Rotate pillar
+onmouseover=graphic_swapper(event_com, "aif_pump_button,1")
+onmouseleave=graphic_swapper(event_com, "aif_pump_button,0")
+
+// 772:15
+[com_15]
+type=graphic
+x=19
+y=5
+width=16
+height=16
+xmode=abs_centre
+ymode=abs_centre
+graphic="aif_pump_button,0"
+transmitop=1
+op1=Rotate pillar
+onmouseover=graphic_swapper(event_com, "aif_pump_button,1")
+onmouseleave=graphic_swapper(event_com, "aif_pump_button,0")
+
+// 772:16
+[com_16]
+type=graphic
+x=48
+y=5
+width=16
+height=16
+xmode=abs_centre
+ymode=abs_centre
+graphic="aif_pump_button,0"
+transmitop=1
+op1=Rotate pillar
+onmouseover=graphic_swapper(event_com, "aif_pump_button,1")
+onmouseleave=graphic_swapper(event_com, "aif_pump_button,0")
+
+// 772:17
+[com_17]
+type=graphic
+x=77
+y=5
+width=16
+height=16
+xmode=abs_centre
+ymode=abs_centre
+graphic="aif_pump_button,0"
+transmitop=1
+op1=Rotate pillar
+onmouseover=graphic_swapper(event_com, "aif_pump_button,1")
+onmouseleave=graphic_swapper(event_com, "aif_pump_button,0")
+
+// 772:18
+[com_18]
+type=graphic
+x=-10
+y=35
+width=16
+height=16
+xmode=abs_centre
+ymode=abs_centre
+graphic="aif_pump_button,0"
+transmitop=1
+op1=Rotate pillar
+onmouseover=graphic_swapper(event_com, "aif_pump_button,1")
+onmouseleave=graphic_swapper(event_com, "aif_pump_button,0")
+
+// 772:19
+[com_19]
+type=graphic
+x=19
+y=35
+width=16
+height=16
+xmode=abs_centre
+ymode=abs_centre
+graphic="aif_pump_button,0"
+transmitop=1
+op1=Rotate pillar
+onmouseover=graphic_swapper(event_com, "aif_pump_button,1")
+onmouseleave=graphic_swapper(event_com, "aif_pump_button,0")
+
+// 772:20
+[com_20]
+type=graphic
+x=48
+y=35
+width=16
+height=16
+xmode=abs_centre
+ymode=abs_centre
+graphic="aif_pump_button,0"
+transmitop=1
+op1=Rotate pillar
+onmouseover=graphic_swapper(event_com, "aif_pump_button,1")
+onmouseleave=graphic_swapper(event_com, "aif_pump_button,0")
+
+// 772:21
+[com_21]
+type=graphic
+x=77
+y=35
+width=16
+height=16
+xmode=abs_centre
+ymode=abs_centre
+graphic="aif_pump_button,0"
+transmitop=1
+op1=Rotate pillar
+onmouseover=graphic_swapper(event_com, "aif_pump_button,1")
+onmouseleave=graphic_swapper(event_com, "aif_pump_button,0")
+
+// 772:22
+[com_22]
+type=graphic
+x=-10
+y=65
+width=16
+height=16
+xmode=abs_centre
+ymode=abs_centre
+graphic="aif_pump_button,0"
+transmitop=1
+op1=Rotate pillar
+onmouseover=graphic_swapper(event_com, "aif_pump_button,1")
+onmouseleave=graphic_swapper(event_com, "aif_pump_button,0")
+
+// 772:23
+[com_23]
+type=graphic
+x=19
+y=65
+width=16
+height=16
+xmode=abs_centre
+ymode=abs_centre
+graphic="aif_pump_button,0"
+transmitop=1
+op1=Rotate pillar
+onmouseover=graphic_swapper(event_com, "aif_pump_button,1")
+onmouseleave=graphic_swapper(event_com, "aif_pump_button,0")
+
+// 772:24
+[com_24]
+type=graphic
+x=48
+y=65
+width=16
+height=16
+xmode=abs_centre
+ymode=abs_centre
+graphic="aif_pump_button,0"
+transmitop=1
+op1=Rotate pillar
+onmouseover=graphic_swapper(event_com, "aif_pump_button,1")
+onmouseleave=graphic_swapper(event_com, "aif_pump_button,0")
+
+// 772:25
+[com_25]
+type=graphic
+x=77
+y=65
+width=16
+height=16
+xmode=abs_centre
+ymode=abs_centre
+graphic="aif_pump_button,0"
+transmitop=1
+op1=Rotate pillar
+onmouseover=graphic_swapper(event_com, "aif_pump_button,1")
+onmouseleave=graphic_swapper(event_com, "aif_pump_button,0")
+
+// 772:26
+[com_26]
+type=rectangle
+x=-10
+y=-68
+width=4
+height=32
+xmode=abs_centre
+ymode=abs_centre
+colour=0x010100
+fill=yes
+
+// 772:27
+[com_27]
+type=graphic
+x=80
+y=54
+width=10
+height=16
+graphic=aif_pump_handle_1
+2dangle=16384
+onvartransmit=script699(1, event_com){varplayer_2052}
+
+// 772:28
+[com_28]
+type=graphic
+x=-10
+y=-92
+width=16
+height=16
+xmode=abs_centre
+ymode=abs_centre
+graphic="aif_arrow_button_set_1,2"
+transmitop=1
+op1=Move emitter up
+onmouseover=graphic_swapper(event_com, "aif_arrow_button_set_1,6")
+onmouseleave=graphic_swapper(event_com, "aif_arrow_button_set_1,2")
+
+// 772:29
+[com_29]
+type=graphic
+x=-10
+y=-44
+width=16
+height=16
+xmode=abs_centre
+ymode=abs_centre
+graphic="aif_arrow_button_set_1,3"
+transmitop=1
+op1=Move emitter down
+onmouseover=graphic_swapper(event_com, "aif_arrow_button_set_1,7")
+onmouseleave=graphic_swapper(event_com, "aif_arrow_button_set_1,3")
+
+// 772:30
+[com_30]
+type=rectangle
+x=19
+y=-68
+width=4
+height=32
+xmode=abs_centre
+ymode=abs_centre
+colour=0x010100
+fill=yes
+
+// 772:31
+[com_31]
+type=graphic
+x=109
+y=54
+width=10
+height=16
+graphic=aif_pump_handle_1
+2dangle=16384
+onvartransmit=script699(2, event_com){varplayer_2052}
+
+// 772:32
+[com_32]
+type=graphic
+x=19
+y=-92
+width=16
+height=16
+xmode=abs_centre
+ymode=abs_centre
+graphic="aif_arrow_button_set_1,2"
+transmitop=1
+op1=Move emitter up
+onmouseover=graphic_swapper(event_com, "aif_arrow_button_set_1,6")
+onmouseleave=graphic_swapper(event_com, "aif_arrow_button_set_1,2")
+
+// 772:33
+[com_33]
+type=graphic
+x=19
+y=-44
+width=16
+height=16
+xmode=abs_centre
+ymode=abs_centre
+graphic="aif_arrow_button_set_1,3"
+transmitop=1
+op1=Move emitter down
+onmouseover=graphic_swapper(event_com, "aif_arrow_button_set_1,7")
+onmouseleave=graphic_swapper(event_com, "aif_arrow_button_set_1,3")
+
+// 772:34
+[com_34]
+type=rectangle
+x=48
+y=-68
+width=4
+height=32
+xmode=abs_centre
+ymode=abs_centre
+colour=0x010100
+fill=yes
+
+// 772:35
+[com_35]
+type=graphic
+x=138
+y=54
+width=10
+height=16
+graphic=aif_pump_handle_1
+2dangle=16384
+onvartransmit=script699(3, event_com){varplayer_2052}
+
+// 772:36
+[com_36]
+type=graphic
+x=48
+y=-92
+width=16
+height=16
+xmode=abs_centre
+ymode=abs_centre
+graphic="aif_arrow_button_set_1,2"
+transmitop=1
+op1=Move emitter up
+onmouseover=graphic_swapper(event_com, "aif_arrow_button_set_1,6")
+onmouseleave=graphic_swapper(event_com, "aif_arrow_button_set_1,2")
+
+// 772:37
+[com_37]
+type=graphic
+x=48
+y=-44
+width=16
+height=16
+xmode=abs_centre
+ymode=abs_centre
+graphic="aif_arrow_button_set_1,3"
+transmitop=1
+op1=Move emitter down
+onmouseover=graphic_swapper(event_com, "aif_arrow_button_set_1,7")
+onmouseleave=graphic_swapper(event_com, "aif_arrow_button_set_1,3")
+
+// 772:38
+[com_38]
+type=rectangle
+x=77
+y=-68
+width=4
+height=32
+xmode=abs_centre
+ymode=abs_centre
+colour=0x010100
+fill=yes
+
+// 772:39
+[com_39]
+type=graphic
+x=167
+y=54
+width=10
+height=16
+graphic=aif_pump_handle_1
+2dangle=16384
+onvartransmit=script699(4, event_com){varplayer_2052}
+
+// 772:40
+[com_40]
+type=graphic
+x=77
+y=-92
+width=16
+height=16
+xmode=abs_centre
+ymode=abs_centre
+graphic="aif_arrow_button_set_1,2"
+transmitop=1
+op1=Move emitter up
+onmouseover=graphic_swapper(event_com, "aif_arrow_button_set_1,6")
+onmouseleave=graphic_swapper(event_com, "aif_arrow_button_set_1,2")
+
+// 772:41
+[com_41]
+type=graphic
+x=77
+y=-44
+width=16
+height=16
+xmode=abs_centre
+ymode=abs_centre
+graphic="aif_arrow_button_set_1,3"
+transmitop=1
+op1=Move emitter down
+onmouseover=graphic_swapper(event_com, "aif_arrow_button_set_1,7")
+onmouseleave=graphic_swapper(event_com, "aif_arrow_button_set_1,3")
+
+// 772:42
+[com_42]
+type=rectangle
+x=-53
+y=-25
+width=32
+height=4
+xmode=abs_centre
+ymode=abs_centre
+colour=0x010100
+fill=yes
+
+// 772:43
+[com_43]
+type=graphic
+x=37
+y=97
+width=10
+height=16
+graphic=aif_pump_handle_1
+onvartransmit=script699(5, event_com){varplayer_2052}
+
+// 772:44
+[com_44]
+type=graphic
+x=-77
+y=-25
+width=16
+height=16
+xmode=abs_centre
+ymode=abs_centre
+graphic="aif_arrow_button_set_1,0"
+transmitop=1
+op1=Move emitter up
+onmouseover=graphic_swapper(event_com, "aif_arrow_button_set_1,4")
+onmouseleave=graphic_swapper(event_com, "aif_arrow_button_set_1,0")
+
+// 772:45
+[com_45]
+type=graphic
+x=-29
+y=-25
+width=16
+height=16
+xmode=abs_centre
+ymode=abs_centre
+graphic="aif_arrow_button_set_1,1"
+transmitop=1
+op1=Move emitter down
+onmouseover=graphic_swapper(event_com, "aif_arrow_button_set_1,5")
+onmouseleave=graphic_swapper(event_com, "aif_arrow_button_set_1,1")
+
+// 772:46
+[com_46]
+type=rectangle
+x=-53
+y=5
+width=32
+height=4
+xmode=abs_centre
+ymode=abs_centre
+colour=0x010100
+fill=yes
+
+// 772:47
+[com_47]
+type=graphic
+x=37
+y=127
+width=10
+height=16
+graphic=aif_pump_handle_1
+onvartransmit=script699(6, event_com){varplayer_2052}
+
+// 772:48
+[com_48]
+type=graphic
+x=-77
+y=5
+width=16
+height=16
+xmode=abs_centre
+ymode=abs_centre
+graphic="aif_arrow_button_set_1,0"
+transmitop=1
+op1=Move emitter up
+onmouseover=graphic_swapper(event_com, "aif_arrow_button_set_1,4")
+onmouseleave=graphic_swapper(event_com, "aif_arrow_button_set_1,0")
+
+// 772:49
+[com_49]
+type=graphic
+x=-29
+y=5
+width=16
+height=16
+xmode=abs_centre
+ymode=abs_centre
+graphic="aif_arrow_button_set_1,1"
+transmitop=1
+op1=Move emitter down
+onmouseover=graphic_swapper(event_com, "aif_arrow_button_set_1,5")
+onmouseleave=graphic_swapper(event_com, "aif_arrow_button_set_1,1")
+
+// 772:50
+[com_50]
+type=rectangle
+x=-53
+y=35
+width=32
+height=4
+xmode=abs_centre
+ymode=abs_centre
+colour=0x010100
+fill=yes
+
+// 772:51
+[com_51]
+type=graphic
+x=37
+y=157
+width=10
+height=16
+graphic=aif_pump_handle_1
+onvartransmit=script699(7, event_com){varplayer_2052}
+
+// 772:52
+[com_52]
+type=graphic
+x=-77
+y=35
+width=16
+height=16
+xmode=abs_centre
+ymode=abs_centre
+graphic="aif_arrow_button_set_1,0"
+transmitop=1
+op1=Move emitter up
+onmouseover=graphic_swapper(event_com, "aif_arrow_button_set_1,4")
+onmouseleave=graphic_swapper(event_com, "aif_arrow_button_set_1,0")
+
+// 772:53
+[com_53]
+type=graphic
+x=-29
+y=35
+width=16
+height=16
+xmode=abs_centre
+ymode=abs_centre
+graphic="aif_arrow_button_set_1,1"
+transmitop=1
+op1=Move emitter down
+onmouseover=graphic_swapper(event_com, "aif_arrow_button_set_1,5")
+onmouseleave=graphic_swapper(event_com, "aif_arrow_button_set_1,1")
+
+// 772:54
+[com_54]
+type=rectangle
+x=-53
+y=65
+width=32
+height=4
+xmode=abs_centre
+ymode=abs_centre
+colour=0x010100
+fill=yes
+
+// 772:55
+[com_55]
+type=graphic
+x=37
+y=187
+width=10
+height=16
+graphic=aif_pump_handle_1
+onvartransmit=script699(8, event_com){varplayer_2052}
+
+// 772:56
+[com_56]
+type=graphic
+x=-77
+y=65
+width=16
+height=16
+xmode=abs_centre
+ymode=abs_centre
+graphic="aif_arrow_button_set_1,0"
+transmitop=1
+op1=Move emitter up
+onmouseover=graphic_swapper(event_com, "aif_arrow_button_set_1,4")
+onmouseleave=graphic_swapper(event_com, "aif_arrow_button_set_1,0")
+
+// 772:57
+[com_57]
+type=graphic
+x=-29
+y=65
+width=16
+height=16
+xmode=abs_centre
+ymode=abs_centre
+graphic="aif_arrow_button_set_1,1"
+transmitop=1
+op1=Move emitter down
+onmouseover=graphic_swapper(event_com, "aif_arrow_button_set_1,5")
+onmouseleave=graphic_swapper(event_com, "aif_arrow_button_set_1,1")
+
+// 772:58
+[com_58]
+type=layer
+y=223
+width=130
+height=28
+xmode=abs_centre
+
+// 772:59
+[com_59]
+type=layer
+width=16384
+height=16384
+widthmode=proportion
+heightmode=proportion
+layer=com_58
+
+// 772:60
+[com_60]
+type=graphic
+width=4
+height=4
+heightmode=minus
+xmode=abs_right
+layer=com_59
+graphic=button_dropshadow_left
+tiling=yes
+alpha=yes
+
+// 772:61
+[com_61]
+type=graphic
+width=4
+height=4
+widthmode=minus
+ymode=abs_bottom
+layer=com_59
+graphic=button_dropshadow_bottom
+tiling=yes
+alpha=yes
+
+// 772:62
+[com_62]
+type=graphic
+width=4
+height=4
+xmode=abs_right
+ymode=abs_bottom
+layer=com_59
+graphic=button_dropshadow_corner
+alpha=yes
+
+// 772:63
+[com_63]
+type=layer
+width=4
+height=4
+widthmode=minus
+heightmode=minus
+layer=com_58
+
+// 772:64
+[com_64]
+type=graphic
+width=24
+height=22
+widthmode=minus
+heightmode=minus
+xmode=abs_centre
+ymode=abs_centre
+layer=com_63
+graphic="golden_button_fill_1,0"
+tiling=yes
+
+// 772:65
+[com_65]
+type=graphic
+width=12
+height=12
+xmode=abs_right
+layer=com_63
+graphic="golden_button_1,1"
+
+// 772:66
+[com_66]
+type=graphic
+width=12
+height=12
+layer=com_63
+graphic="golden_button_1,1"
+hflip=yes
+
+// 772:67
+[com_67]
+type=graphic
+width=24
+height=12
+widthmode=minus
+xmode=abs_centre
+ymode=abs_bottom
+layer=com_63
+graphic="golden_button_1,10"
+tiling=yes
+
+// 772:68
+[com_68]
+type=graphic
+width=24
+height=12
+widthmode=minus
+xmode=abs_centre
+layer=com_63
+graphic="golden_button_1,0"
+tiling=yes
+
+// 772:69
+[com_69]
+type=graphic
+width=12
+height=12
+xmode=abs_right
+ymode=abs_bottom
+layer=com_63
+graphic="golden_button_1,11"
+
+// 772:70
+[com_70]
+type=graphic
+width=12
+height=12
+ymode=abs_bottom
+layer=com_63
+graphic="golden_button_1,11"
+hflip=yes
+
+// 772:71
+[com_71]
+type=graphic
+width=12
+height=24
+heightmode=minus
+xmode=abs_right
+ymode=abs_centre
+layer=com_63
+graphic="golden_button_fill_1,1"
+tiling=yes
+
+// 772:72
+[com_72]
+type=graphic
+width=12
+height=24
+heightmode=minus
+ymode=abs_centre
+layer=com_63
+graphic="golden_button_fill_1,1"
+tiling=yes
+hflip=yes
+
+// 772:73
+[com_73]
+type=layer
+width=4
+height=4
+widthmode=minus
+heightmode=minus
+layer=com_58
+onload=script4154(event_com)
+
+// 772:74
+[com_74]
+type=layer
+width=4
+height=4
+widthmode=minus
+heightmode=minus
+layer=com_58
+onload=script4156(event_com)
+
+// 772:75
+[com_75]
+type=layer
+width=4
+height=4
+widthmode=minus
+heightmode=minus
+layer=com_58
+transmitop=1
+op1=Power-up
+
+// 772:76
+[com_76]
+type=layer
+width=4
+height=4
+widthmode=minus
+heightmode=minus
+layer=com_58
+
+// 772:77
+[com_77]
+type=text
+width=8
+height=4
+widthmode=minus
+heightmode=minus
+xmode=abs_centre
+ymode=abs_centre
+layer=com_76
+textfont=verdana_13pt_regular
+text=Power Up
+textalignh=centre
+textalignv=centre
+colour=0x0e0d0a
+onload=script4151(event_com)
+
+// 772:78
+[com_78]
+type=graphic
+x=169
+y=3
+width=16
+height=16
+graphic="v2_stone_close_button,0"
+transmitop=1
+op1=Close
+onmouseover=graphic_swapper(event_com, "v2_stone_close_button,1")
+onmouseleave=graphic_swapper(event_com, "v2_stone_close_button,0")
+onop=closebutton_click

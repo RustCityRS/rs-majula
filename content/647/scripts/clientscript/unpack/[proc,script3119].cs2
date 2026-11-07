@@ -1,0 +1,5 @@
+// 3119
+[proc,script3119](component $component0, int $int1)
+cc_deleteall($component0);
+if_sethide(true, $component0);
+return;

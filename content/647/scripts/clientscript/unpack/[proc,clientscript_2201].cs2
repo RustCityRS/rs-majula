@@ -1,9 +1,0 @@
-[proc,clientscript_2201]
-if (%varp_1701 = true) {
-    ~clientscript_2200;
-} else {
-    ~clientscript_2199;
-}
-~clientscript_2209;
-if_sethide(false, %varc_int_1136);
-if_setontimer("clientscript_2210()", af714023:com1);

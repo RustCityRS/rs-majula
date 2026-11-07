@@ -1,0 +1,10 @@
+// 951
+[clientscript,script951]
+switch_int (%varclient_1398) {
+    case 0 :
+        if_setcolour(0xffb400, rand_dungeon_rewards_v2:com_324);
+    case 1 :
+        if_setcolour(^green, rand_dungeon_rewards_v2:com_324);
+    case 2 :
+        if_setcolour(^red, rand_dungeon_rewards_v2:com_324);
+}

@@ -1,0 +1,12 @@
+// 3012
+[proc,script3012](int $int0)(component)
+switch_int ($int0) {
+    case 0 :
+        return(interface_907:com_3);
+    case 1 :
+        return(interface_907:com_4);
+    case 2 :
+        return(interface_907:com_5);
+    case 3 :
+        return(interface_907:com_43);
+}

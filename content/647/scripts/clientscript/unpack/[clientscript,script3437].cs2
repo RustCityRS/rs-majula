@@ -1,0 +1,57 @@
+// 3437
+[clientscript,script3437]
+def_model $model0 = null;
+if (%varplayerbit_7919 < 3) {
+    if (%varplayerbit_7920 = 1) {
+        $model0 = ~script3438(%varplayerbit_7919);
+    }
+    if (%varplayerbit_7920 = 2) {
+        $model0 = ~script3439(%varplayerbit_7919);
+    }
+    if (%varplayerbit_7920 = 3) {
+        $model0 = ~script3440(%varplayerbit_7919);
+    }
+} else if (%varplayerbit_7919 < 6) {
+    if (%varplayerbit_7920 = 1) {
+        $model0 = ~script3439(%varplayerbit_7919);
+    }
+    if (%varplayerbit_7920 = 2) {
+        $model0 = ~script3440(%varplayerbit_7919);
+    }
+    if (%varplayerbit_7920 = 3) {
+        $model0 = ~script3438(%varplayerbit_7919);
+    }
+} else if (%varplayerbit_7919 = 10) {
+    if (%varplayerbit_7920 = 2) {
+        $model0 = ~script3439(%varplayerbit_7919);
+    }
+    if (%varplayerbit_7920 = 3) {
+        $model0 = ~script3440(%varplayerbit_7919);
+    }
+    if (%varplayerbit_7920 = 1) {
+        $model0 = ~script3438(%varplayerbit_7919);
+    }
+} else {
+    if (%varplayerbit_7920 = 1) {
+        $model0 = ~script3440(%varplayerbit_7919);
+    }
+    if (%varplayerbit_7920 = 2) {
+        $model0 = ~script3438(%varplayerbit_7919);
+    }
+    if (%varplayerbit_7920 = 3) {
+        $model0 = ~script3439(%varplayerbit_7919);
+    }
+}
+if_setmodel($model0, interface_986:com_3);
+if (%varplayerbit_7920 ! 0) {
+    if_sethide(false, interface_986:com_5);
+}
+if (%varplayerbit_7920 = 1) {
+    if_setposition(30, 205, ^setpos_abs_left, ^setpos_abs_top, interface_986:com_5);
+} else if (%varplayerbit_7920 = 2) {
+    if_setposition(112, 205, ^setpos_abs_left, ^setpos_abs_top, interface_986:com_5);
+} else if (%varplayerbit_7920 = 3) {
+    if_setposition(196, 205, ^setpos_abs_left, ^setpos_abs_top, interface_986:com_5);
+} else {
+    if_sethide(true, interface_986:com_5);
+}

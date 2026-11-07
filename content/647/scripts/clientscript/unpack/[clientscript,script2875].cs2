@@ -1,0 +1,8 @@
+// 2875
+[clientscript,script2875]
+if (%varplayerbit_7079 = 0) {
+    if_setgraphic("music_header_icons,6", music_v3:com_13);
+} else {
+    if_setgraphic("music_header_icons,5", music_v3:com_13);
+}
+%varclient_2 = 0;

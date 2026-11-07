@@ -1,77 +1,78 @@
+// 365
 [proc,playerdesign4_box_outline](component $component0, int $int1, int $int2)
-if ($int2 = true) {
+if ($int2 = 1) {
     if (cc_find($component0, $int1) = true) {
-        cc_setgraphic(4096);
+        cc_setgraphic(graphic_4096);
     }
     if (cc_find($component0, calc($int1 + 1)) = true) {
-        cc_setgraphic(4096);
+        cc_setgraphic(graphic_4096);
     }
     if (cc_find($component0, calc($int1 + 2)) = true) {
-        cc_setgraphic(4093);
+        cc_setgraphic(graphic_4093);
     }
     if (cc_find($component0, calc($int1 + 3)) = true) {
-        cc_setgraphic(4093);
+        cc_setgraphic(graphic_4093);
     }
     if (cc_find($component0, calc($int1 + 4)) = true) {
-        cc_setgraphic(4090);
+        cc_setgraphic(graphic_4090);
     }
     if (cc_find($component0, calc($int1 + 5)) = true) {
-        cc_setgraphic(4090);
+        cc_setgraphic(graphic_4090);
     }
     if (cc_find($component0, calc($int1 + 6)) = true) {
-        cc_setgraphic(4090);
+        cc_setgraphic(graphic_4090);
     }
     if (cc_find($component0, calc($int1 + 7)) = true) {
-        cc_setgraphic(4090);
+        cc_setgraphic(graphic_4090);
     }
 } else if ($int2 = 2) {
     if (cc_find($component0, $int1) = true) {
-        cc_setgraphic(4095);
+        cc_setgraphic(graphic_4095);
     }
     if (cc_find($component0, calc($int1 + 1)) = true) {
-        cc_setgraphic(4095);
+        cc_setgraphic(graphic_4095);
     }
     if (cc_find($component0, calc($int1 + 2)) = true) {
-        cc_setgraphic(4092);
+        cc_setgraphic(graphic_4092);
     }
     if (cc_find($component0, calc($int1 + 3)) = true) {
-        cc_setgraphic(4092);
+        cc_setgraphic(graphic_4092);
     }
     if (cc_find($component0, calc($int1 + 4)) = true) {
-        cc_setgraphic(4089);
+        cc_setgraphic(graphic_4089);
     }
     if (cc_find($component0, calc($int1 + 5)) = true) {
-        cc_setgraphic(4089);
+        cc_setgraphic(graphic_4089);
     }
     if (cc_find($component0, calc($int1 + 6)) = true) {
-        cc_setgraphic(4089);
+        cc_setgraphic(graphic_4089);
     }
     if (cc_find($component0, calc($int1 + 7)) = true) {
-        cc_setgraphic(4089);
+        cc_setgraphic(graphic_4089);
     }
 } else {
     if (cc_find($component0, $int1) = true) {
-        cc_setgraphic(4097);
+        cc_setgraphic(graphic_4097);
     }
     if (cc_find($component0, calc($int1 + 1)) = true) {
-        cc_setgraphic(4097);
+        cc_setgraphic(graphic_4097);
     }
     if (cc_find($component0, calc($int1 + 2)) = true) {
-        cc_setgraphic(4094);
+        cc_setgraphic(graphic_4094);
     }
     if (cc_find($component0, calc($int1 + 3)) = true) {
-        cc_setgraphic(4094);
+        cc_setgraphic(graphic_4094);
     }
     if (cc_find($component0, calc($int1 + 4)) = true) {
-        cc_setgraphic(4091);
+        cc_setgraphic(graphic_4091);
     }
     if (cc_find($component0, calc($int1 + 5)) = true) {
-        cc_setgraphic(4091);
+        cc_setgraphic(graphic_4091);
     }
     if (cc_find($component0, calc($int1 + 6)) = true) {
-        cc_setgraphic(4091);
+        cc_setgraphic(graphic_4091);
     }
     if (cc_find($component0, calc($int1 + 7)) = true) {
-        cc_setgraphic(4091);
+        cc_setgraphic(graphic_4091);
     }
 }

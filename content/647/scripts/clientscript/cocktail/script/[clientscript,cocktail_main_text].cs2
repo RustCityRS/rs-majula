@@ -1,3 +1,4 @@
+// 1953
 [clientscript,cocktail_main_text]
 def_int $int0 = inv_total(inv, vodka);
 def_int $int1 = inv_total(inv, gin);
@@ -11,163 +12,163 @@ def_int $int8 = inv_total(inv, pineapple);
 def_int $int9 = inv_total(inv, dwellberries);
 def_int $int10 = inv_total(inv, bucket_of_milk);
 def_int $int11 = inv_total(inv, brandy);
-if ($int0 >= 2 & ($int1 >= 1 & ($int3 >= 1 & ($int6 >= 1 & $int4 >= 1)))) {
-    if_setcolour(^green, interface_436:com81);
+if ($int0 >= 2 & $int1 >= 1 & $int3 >= 1 & $int6 >= 1 & $int4 >= 1) {
+    if_setcolour(^green, interface_436:com_81);
 } else {
-    if_setcolour(^red, interface_436:com81);
+    if_setcolour(^red, interface_436:com_81);
 }
 if ($int0 >= 1 & $int6 >= 3) {
-    if_setcolour(^green, interface_436:com82);
+    if_setcolour(^green, interface_436:com_82);
 } else {
-    if_setcolour(^red, interface_436:com82);
+    if_setcolour(^red, interface_436:com_82);
 }
-if ($int8 >= 1 & ($int4 >= 1 & $int3 >= 1)) {
-    if_setcolour(^green, interface_436:com83);
+if ($int8 >= 1 & $int4 >= 1 & $int3 >= 1) {
+    if_setcolour(^green, interface_436:com_83);
 } else {
-    if_setcolour(^red, interface_436:com83);
+    if_setcolour(^red, interface_436:com_83);
 }
-if ($int8 >= 2 & ($int4 >= 1 & $int3 >= 1)) {
-    if_setcolour(^green, interface_436:com84);
+if ($int8 >= 2 & $int4 >= 1 & $int3 >= 1) {
+    if_setcolour(^green, interface_436:com_84);
 } else {
-    if_setcolour(^red, interface_436:com84);
+    if_setcolour(^red, interface_436:com_84);
 }
-if ($int0 >= 1 & ($int1 >= 1 & $int9 >= 1)) {
-    if_setcolour(^green, interface_436:com85);
+if ($int0 >= 1 & $int1 >= 1 & $int9 >= 1) {
+    if_setcolour(^green, interface_436:com_85);
 } else {
-    if_setcolour(^red, interface_436:com85);
+    if_setcolour(^red, interface_436:com_85);
 }
-if ($int2 >= 1 & ($int5 >= 1 & ($int10 >= 1 & $int7 >= 1))) {
-    if_setcolour(^green, interface_436:com86);
+if ($int2 >= 1 & $int5 >= 1 & $int10 >= 1 & $int7 >= 1) {
+    if_setcolour(^green, interface_436:com_86);
 } else {
-    if_setcolour(^red, interface_436:com86);
+    if_setcolour(^red, interface_436:com_86);
 }
-if ($int0 >= 1 & ($int1 >= 1 & ($int11 >= 1 & ($int4 >= 2 & $int3 >= 1)))) {
-    if_setcolour(^green, interface_436:com87);
+if ($int0 >= 1 & $int1 >= 1 & $int11 >= 1 & $int4 >= 2 & $int3 >= 1) {
+    if_setcolour(^green, interface_436:com_87);
 } else {
-    if_setcolour(^red, interface_436:com87);
+    if_setcolour(^red, interface_436:com_87);
 }
 if (inv_total(inv, pineapple) > 0) {
-    if_setobject(pineapple, 100, interface_436:com24);
+    if_setobject(pineapple, 100, interface_436:com_24);
 } else {
-    if_setobject(obj_9497, 100, interface_436:com24);
+    if_setobject(obj_9497, 100, interface_436:com_24);
 }
 if (inv_total(inv, lemon) > 0) {
-    if_setobject(lemon, 140, interface_436:com25);
+    if_setobject(lemon, 140, interface_436:com_25);
 } else {
-    if_setobject(obj_9492, 140, interface_436:com25);
+    if_setobject(obj_9492, 140, interface_436:com_25);
 }
 if (inv_total(inv, orange) > 0) {
-    if_setobject(orange, 140, interface_436:com26);
+    if_setobject(orange, 140, interface_436:com_26);
 } else {
-    if_setobject(obj_9493, 140, interface_436:com26);
+    if_setobject(obj_9493, 140, interface_436:com_26);
 }
 if (inv_total(inv, vodka) > 1) {
-    if_setobject(vodka, 120, interface_436:com4);
+    if_setobject(vodka, 120, interface_436:com_4);
 } else {
-    if_setobject(obj_9491, 120, interface_436:com4);
+    if_setobject(obj_9491, 120, interface_436:com_4);
 }
 if (inv_total(inv, gin) > 0) {
-    if_setobject(gin, 120, interface_436:com5);
+    if_setobject(gin, 120, interface_436:com_5);
 } else {
-    if_setobject(obj_9491, 120, interface_436:com5);
+    if_setobject(obj_9491, 120, interface_436:com_5);
 }
 if (inv_total(inv, orange) > 0) {
-    if_setobject(orange, 140, interface_436:com6);
+    if_setobject(orange, 140, interface_436:com_6);
 } else {
-    if_setobject(obj_9493, 140, interface_436:com6);
+    if_setobject(obj_9493, 140, interface_436:com_6);
 }
 if (inv_total(inv, lime) > 0) {
-    if_setobject(lime, 140, interface_436:com7);
+    if_setobject(lime, 140, interface_436:com_7);
 } else {
-    if_setobject(obj_9555, 140, interface_436:com7);
+    if_setobject(obj_9555, 140, interface_436:com_7);
 }
 if (inv_total(inv, lemon) > 0) {
-    if_setobject(lemon, 140, interface_436:com8);
+    if_setobject(lemon, 140, interface_436:com_8);
 } else {
-    if_setobject(obj_9492, 140, interface_436:com8);
+    if_setobject(obj_9492, 140, interface_436:com_8);
 }
 if (inv_total(inv, vodka) > 0) {
-    if_setobject(vodka, 120, interface_436:com17);
+    if_setobject(vodka, 120, interface_436:com_17);
 } else {
-    if_setobject(obj_9491, 120, interface_436:com17);
+    if_setobject(obj_9491, 120, interface_436:com_17);
 }
 if (inv_total(inv, lime) > 2) {
-    if_setobject(lime, 120, interface_436:com18);
+    if_setobject(lime, 120, interface_436:com_18);
 } else {
-    if_setobject(obj_9555, 140, interface_436:com18);
+    if_setobject(obj_9555, 140, interface_436:com_18);
 }
 if (inv_total(inv, vodka) > 0) {
-    if_setobject(vodka, 120, interface_436:com62);
+    if_setobject(vodka, 120, interface_436:com_62);
 } else {
-    if_setobject(obj_9491, 120, interface_436:com62);
+    if_setobject(obj_9491, 120, interface_436:com_62);
 }
 if (inv_total(inv, gin) > 0) {
-    if_setobject(gin, 120, interface_436:com64);
+    if_setobject(gin, 120, interface_436:com_64);
 } else {
-    if_setobject(obj_9491, 120, interface_436:com64);
+    if_setobject(obj_9491, 120, interface_436:com_64);
 }
 if (inv_total(inv, brandy) > 0) {
-    if_setobject(brandy, 120, interface_436:com63);
+    if_setobject(brandy, 120, interface_436:com_63);
 } else {
-    if_setobject(obj_9556, 120, interface_436:com63);
+    if_setobject(obj_9556, 120, interface_436:com_63);
 }
 if (inv_total(inv, orange) > 0) {
-    if_setobject(orange, 140, interface_436:com65);
+    if_setobject(orange, 140, interface_436:com_65);
 } else {
-    if_setobject(obj_9493, 140, interface_436:com65);
+    if_setobject(obj_9493, 140, interface_436:com_65);
 }
 if (inv_total(inv, lemon) > 1) {
-    if_setobject(lemon, 140, interface_436:com66);
+    if_setobject(lemon, 140, interface_436:com_66);
 } else {
-    if_setobject(obj_9492, 140, interface_436:com66);
+    if_setobject(obj_9492, 140, interface_436:com_66);
 }
 if (inv_total(inv, whisky) > 0) {
-    if_setobject(whisky, 120, interface_436:com51);
+    if_setobject(whisky, 120, interface_436:com_51);
 } else {
-    if_setobject(obj_9491, 120, interface_436:com51);
+    if_setobject(obj_9491, 120, interface_436:com_51);
 }
 if (inv_total(inv, equa_leaves) > 0) {
-    if_setobject(equa_leaves, 120, interface_436:com52);
+    if_setobject(equa_leaves, 120, interface_436:com_52);
 } else {
-    if_setobject(obj_9494, 120, interface_436:com52);
+    if_setobject(obj_9494, 120, interface_436:com_52);
 }
 if (inv_total(inv, chocolate_bar) > 0) {
-    if_setobject(chocolate_bar, 140, interface_436:com54);
+    if_setobject(chocolate_bar, 140, interface_436:com_54);
 } else {
-    if_setobject(obj_9507, 140, interface_436:com54);
+    if_setobject(obj_9507, 140, interface_436:com_54);
 }
 if (inv_total(inv, bucket_of_milk) > 0) {
-    if_setobject(bucket_of_milk, 100, interface_436:com53);
+    if_setobject(bucket_of_milk, 100, interface_436:com_53);
 } else {
-    if_setobject(obj_9495, 100, interface_436:com53);
+    if_setobject(obj_9495, 100, interface_436:com_53);
 }
 if (inv_total(inv, pineapple) > 1) {
-    if_setobject(pineapple, 100, interface_436:com33);
+    if_setobject(pineapple, 100, interface_436:com_33);
 } else {
-    if_setobject(obj_9497, 100, interface_436:com33);
+    if_setobject(obj_9497, 100, interface_436:com_33);
 }
 if (inv_total(inv, lemon) > 0) {
-    if_setobject(lemon, 140, interface_436:com34);
+    if_setobject(lemon, 140, interface_436:com_34);
 } else {
-    if_setobject(obj_9492, 140, interface_436:com34);
+    if_setobject(obj_9492, 140, interface_436:com_34);
 }
 if (inv_total(inv, orange) > 0) {
-    if_setobject(orange, 140, interface_436:com35);
+    if_setobject(orange, 140, interface_436:com_35);
 } else {
-    if_setobject(obj_9493, 140, interface_436:com35);
+    if_setobject(obj_9493, 140, interface_436:com_35);
 }
 if (inv_total(inv, vodka) > 0) {
-    if_setobject(vodka, 120, interface_436:com42);
+    if_setobject(vodka, 120, interface_436:com_42);
 } else {
-    if_setobject(obj_9491, 120, interface_436:com42);
+    if_setobject(obj_9491, 120, interface_436:com_42);
 }
 if (inv_total(inv, gin) > 0) {
-    if_setobject(gin, 120, interface_436:com43);
+    if_setobject(gin, 120, interface_436:com_43);
 } else {
-    if_setobject(obj_9491, 120, interface_436:com43);
+    if_setobject(obj_9491, 120, interface_436:com_43);
 }
 if (inv_total(inv, dwellberries) > 0) {
-    if_setobject(dwellberries, 140, interface_436:com44);
+    if_setobject(dwellberries, 140, interface_436:com_44);
 } else {
-    if_setobject(obj_9496, 140, interface_436:com44);
+    if_setobject(obj_9496, 140, interface_436:com_44);
 }

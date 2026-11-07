@@ -1,0 +1,11 @@
+// 2637
+[clientscript,script2637]
+if (%varclient_902 = 1) {
+    if_setgraphic(graphic_1949, mob_side_command:com_24);
+} else if (%varclient_902 = 2) {
+    if_setgraphic(graphic_1946, mob_side_command:com_24);
+} else if (%varclient_902 = 3) {
+    if_setgraphic(graphic_1947, mob_side_command:com_24);
+}
+if_settext("", mob_side_command:com_28);
+if_settext("", mob_side_command:com_29);

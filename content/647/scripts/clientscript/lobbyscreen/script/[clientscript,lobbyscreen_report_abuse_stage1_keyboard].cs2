@@ -1,22 +1,23 @@
-[clientscript,lobbyscreen_report_abuse_stage1_keyboard](int $int0, char $int1, component $component2)
-switch_int ($int0) {
-    case 84:
+// 3185
+[clientscript,lobbyscreen_report_abuse_stage1_keyboard](int $key0, char $char1, component $component2)
+switch_int ($key0) {
+    case ^key_return :
         ~lobbyscreen_report_abuse_stage1_next;
         return;
-    case 13:
+    case ^key_escape :
         ~ondialogabort_clever;
         return;
-    case 96, 97, 98, 99, 102, 103:
-        %varc_int_1097 = ~clientscript_1553($int0, %varc_int_1097, %varc_string_277);
-        ~clientscript_1879(wy7834916:com27, wy7834916:com28, %varc_string_277);
+    case ^key_left, ^key_right, ^key_up, ^key_down, ^key_home, ^key_end :
+        %varclient_1097 = ~script1553($key0, %varclient_1097, %varclient_1796);
+        ~script1879(interface_914:com_27, interface_914:com_28, %varclient_1796);
         return;
-    case -1, 85, 101:
-        if (char_isprintable($int1) = true | ($int0 = 85 | $int0 = 101)) {
-            if ($int0 = -1 & string_length(removetags(append_char("", $int1))) = false) {
+    case null, ^key_backspace, ^key_del :
+        if (char_isprintable($char1) = true | $key0 = ^key_backspace | $key0 = ^key_del) {
+            if ($key0 = null & string_length(removetags(append_char("", $char1))) = 0) {
                 return;
             }
-            %varc_string_277, %varc_int_1097 = ~clientscript_802(%varc_int_1097, %varc_string_277, 2, $int0, $int1);
-            if_settext(%varc_string_277, $component2);
-            ~clientscript_1879(wy7834916:com27, wy7834916:com28, %varc_string_277);
+            %varclient_1796, %varclient_1097 = ~script802(%varclient_1097, %varclient_1796, 2, $key0, $char1);
+            if_settext(%varclient_1796, $component2);
+            ~script1879(interface_914:com_27, interface_914:com_28, %varclient_1796);
         }
 }

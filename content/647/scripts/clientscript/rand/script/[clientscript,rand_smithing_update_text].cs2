@@ -1,3 +1,4 @@
+// 2263
 [clientscript,rand_smithing_update_text](component $component0, int $int1, string $string0, string $string1)
 if ($int1 ! 1) {
     if_setop(1, "Make 1 <$string1>(<tostring($int1)>) ", $component0);

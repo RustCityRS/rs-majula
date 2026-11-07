@@ -1,0 +1,13 @@
+// 4039
+[clientscript,script4039](int $int0, int $int1)
+if (cc_find(questlist_v4:com_18, $int0) = true) {
+    if ($int1 = 1) {
+        cc_setcolour(^cyan);
+    } else if (~ql4_getprogress($int0) = 2) {
+        cc_setcolour(^green);
+    } else if (~ql4_getprogress($int0) = 1) {
+        cc_setcolour(^yellow);
+    } else {
+        cc_setcolour(^red);
+    }
+}

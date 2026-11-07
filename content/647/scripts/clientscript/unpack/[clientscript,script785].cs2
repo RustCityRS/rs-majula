@@ -1,0 +1,73 @@
+// 785
+[clientscript,script785](component $component0)
+%varclient_988 = 0;
+%varclient_989 = 0;
+%varclient_990 = 0;
+%varclient_991 = 0;
+switch_component ($component0) {
+    case magic:com_7 :
+        %varclient_988 = 1;
+        if (%varplayerbit_6459 = 1) {
+            if_setgraphic(graphic_1702, $component0);
+        }
+    case magic:com_9 :
+        %varclient_989 = 1;
+        if (%varplayerbit_6462 = 1) {
+            if_setgraphic(graphic_1702, $component0);
+        }
+    case magic:com_11 :
+        %varclient_990 = 1;
+        if (%varplayerbit_6461 = 1) {
+            if_setgraphic(graphic_1702, $component0);
+        }
+    case magic:com_13 :
+        %varclient_991 = 1;
+        if (%varplayerbit_6460 = 1) {
+            if_setgraphic(graphic_1702, $component0);
+        }
+    case magic_lunar:com_5 :
+        %varclient_988 = 1;
+        if (%varplayerbit_6463 = 1) {
+            if_setgraphic(graphic_1702, $component0);
+        }
+    case magic_lunar:com_9 :
+        %varclient_990 = 1;
+        if (%varplayerbit_6464 = 1) {
+            if_setgraphic(graphic_1702, $component0);
+        }
+    case magic_lunar:com_7 :
+        %varclient_989 = 1;
+        if (%varplayerbit_6465 = 1) {
+            if_setgraphic(graphic_1702, $component0);
+        }
+    case magic_zaros:com_5 :
+        %varclient_988 = 1;
+        if (%varplayerbit_6466 = 1) {
+            if_setgraphic(graphic_1702, $component0);
+        }
+    case magic_zaros:com_7 :
+        %varclient_989 = 1;
+        if (%varplayerbit_6467 = 1) {
+            if_setgraphic(graphic_1702, $component0);
+        }
+    case rand_magic:com_7 :
+        %varclient_988 = 1;
+        if (%varplayerbit_7348 = 1) {
+            if_setgraphic(graphic_1702, $component0);
+        }
+    case rand_magic:com_9 :
+        %varclient_989 = 1;
+        if (%varplayerbit_7351 = 1) {
+            if_setgraphic(graphic_1702, $component0);
+        }
+    case rand_magic:com_11 :
+        %varclient_990 = 1;
+        if (%varplayerbit_7350 = 1) {
+            if_setgraphic(graphic_1702, $component0);
+        }
+    case rand_magic:com_13 :
+        %varclient_991 = 1;
+        if (%varplayerbit_7349 = 1) {
+            if_setgraphic(graphic_1702, $component0);
+        }
+}

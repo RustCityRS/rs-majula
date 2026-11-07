@@ -1,4 +1,5 @@
-[clientscript,clan_chat_drag](int $int)
-if (clanchannel2_find_affined = true) {
-    ~clientscript_4436(clan_chat:com14, $int);
+// 4452
+[clientscript,clan_chat_drag](int $int0)
+if (activeclanchannel_find_affined = true) {
+    ~script4436(clan_chat:com_14, $int0);
 }

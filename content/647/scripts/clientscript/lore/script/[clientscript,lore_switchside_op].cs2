@@ -1,14 +1,15 @@
+// 2457
 [clientscript,lore_switchside_op](int $int0, int $int1)
-if (if_hasoverlay(toplevel_fullscreen:com_overlay_tab) = true) {
+if (if_hassub(toplevel_fullscreen:com_overlay_tab) = true) {
     return;
 }
-if (if_hasoverlay(~getsidelayer(95)) = false) {
+if (if_hassub(~getsidelayer(95)) = false) {
     return;
 }
-%varc_int_10 = 0;
+%varclient_10 = 0;
 ~if_switchside_op($int0);
-if (%varc_int_168 = $int0) {
-    %varc_int_168 = -1;
+if (%varclient_168 = $int0) {
+    %varclient_168 = -1;
 } else {
-    %varc_int_168 = $int0;
+    %varclient_168 = $int0;
 }

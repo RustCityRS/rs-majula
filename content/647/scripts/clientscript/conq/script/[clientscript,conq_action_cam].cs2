@@ -1,8 +1,9 @@
+// 418
 [clientscript,conq_action_cam]
-if (%varc_int_1354 = -1 | (%varc_int_1357 < 0 | %varc_int_1358 < 0)) {
+if (%varclient_1354 = null | %varclient_1357 < 0 | %varclient_1358 < 0) {
     return;
 }
-cam_followcoord(%varc_int_1354);
-%varc_int_1355 = cam_getangle_ya;
-%varc_int_1356 = cam_getangle_xa;
-if_setontimer("clientscript_421(%varc_int_1357, %varc_int_1358, 0)", conq_scroll_overlay:com0);
+cam_followcoord(%varclient_1354);
+%varclient_1355 = cam_getangle_xa;
+%varclient_1356 = cam_getangle_ya;
+if_setontimer("script421(%varclient_1357, %varclient_1358, 0)", conq_scroll_overlay:com_0);

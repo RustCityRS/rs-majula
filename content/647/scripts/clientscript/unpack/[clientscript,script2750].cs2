@@ -1,0 +1,8 @@
+// 2750
+[clientscript,script2750](int $int0)
+if_settext(tostring(calc(2009 - $int0)), dob_confirm_login:com_62);
+if_sethide(true, dob_confirm_login:com_110);
+if_sethide(true, dob_confirm_login:com_111);
+if_sethide(true, dob_confirm_login:com_101);
+if_sethide(true, dob_confirm_login:com_28);
+if_sethide(false, dob_confirm_login:com_61);

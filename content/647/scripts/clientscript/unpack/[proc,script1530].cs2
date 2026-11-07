@@ -1,0 +1,8 @@
+// 1530
+[proc,script1530]()(int)
+def_int $int0 = 0;
+$int0 = calc(%varplayerbit_3600 + %varplayerbit_3601 + %varplayerbit_3602 + %varplayerbit_3603 + %varplayerbit_3604 + %varplayerbit_3605 + %varplayerbit_3606 + %varplayerbit_3608 + %varplayerbit_3609);
+if (%varplayerbit_3607 = 5) {
+    $int0 = calc($int0 + 1);
+}
+return($int0);

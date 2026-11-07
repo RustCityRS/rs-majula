@@ -1,7 +1,8 @@
+// 1236
 [clientscript,prayer_load_buttons]
-%varc_int_1063 = -1;
-if_setonvartransmit("clientscript_1716(){varp_1584}", prayer:com8);
-if_setonstattransmit("clientscript_1705(){attack, strength, defence, ranged, magic}", prayer:com8);
+%varclient_1063 = -1;
+if_setonvartransmit("script1716{varplayer_1584}", prayer:com_8);
+if_setonstattransmit("script1705{attack, strength, defence, ranged, magic}", prayer:com_8);
 ~prayer_init_buttons;
-cc_deleteall(prayer:com6);
+cc_deleteall(prayer:com_6);
 ~prayer_refresh_scrollbar;

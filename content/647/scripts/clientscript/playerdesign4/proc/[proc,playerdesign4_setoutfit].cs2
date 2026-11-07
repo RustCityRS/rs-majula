@@ -1,80 +1,81 @@
+// 359
 [proc,playerdesign4_setoutfit](struct $struct0, boolean $boolean1)
 def_idkit $idkit2 = null;
 if ($boolean1 = true) {
-    player_setbodytype(2, -1);
-    player_setbodytype(3, -1);
-    player_setbodytype(4, -1);
-    player_setbodytype(5, -1);
-    player_setbodytype(6, -1);
-    player_setbodytype(8, -1);
-    player_setbodytype(14, -1);
-    player_setbodytype(15, -1);
-    %varc_int_1009 = -1;
+    baseidkit(2, null);
+    baseidkit(3, null);
+    baseidkit(4, null);
+    baseidkit(5, null);
+    baseidkit(6, null);
+    baseidkit(8, null);
+    baseidkit(14, null);
+    baseidkit(15, null);
+    %varclient_1009 = null;
     $idkit2 = struct_param($struct0, param_1182);
     if ($idkit2 ! null) {
-        %varc_int_1010 = $idkit2;
-        player_setbodytype(9, $idkit2);
+        %varclient_1010 = $idkit2;
+        baseidkit(9, $idkit2);
     }
     $idkit2 = struct_param($struct0, param_1183);
-    %varc_int_1011 = $idkit2;
-    player_setbodytype(10, $idkit2);
+    %varclient_1011 = $idkit2;
+    baseidkit(10, $idkit2);
     $idkit2 = struct_param($struct0, param_1184);
     if ($idkit2 ! null) {
-        %varc_int_1012 = $idkit2;
-        player_setbodytype(11, $idkit2);
+        %varclient_1012 = $idkit2;
+        baseidkit(11, $idkit2);
     }
     $idkit2 = struct_param($struct0, param_1185);
     if ($idkit2 ! null) {
-        %varc_int_1013 = $idkit2;
-        player_setbodytype(12, $idkit2);
+        %varclient_1013 = $idkit2;
+        baseidkit(12, $idkit2);
     }
     $idkit2 = struct_param($struct0, param_1186);
     if ($idkit2 ! null) {
-        %varc_int_1014 = $idkit2;
-        player_setbodytype(13, $idkit2);
+        %varclient_1014 = $idkit2;
+        baseidkit(13, $idkit2);
     }
 } else {
-    player_setbodytype(9, -1);
-    player_setbodytype(10, -1);
-    player_setbodytype(11, -1);
-    player_setbodytype(12, -1);
-    player_setbodytype(13, -1);
-    player_setbodytype(14, -1);
-    player_setbodytype(15, -1);
+    baseidkit(9, null);
+    baseidkit(10, null);
+    baseidkit(11, null);
+    baseidkit(12, null);
+    baseidkit(13, null);
+    baseidkit(14, null);
+    baseidkit(15, null);
     $idkit2 = struct_param($struct0, param_1182);
     if ($idkit2 ! null) {
-        %varc_int_1010 = $idkit2;
-        player_setbodytype(2, $idkit2);
+        %varclient_1010 = $idkit2;
+        baseidkit(2, $idkit2);
     }
     $idkit2 = struct_param($struct0, param_1183);
-    %varc_int_1011 = $idkit2;
-    player_setbodytype(3, $idkit2);
+    %varclient_1011 = $idkit2;
+    baseidkit(3, $idkit2);
     $idkit2 = struct_param($struct0, param_1184);
     if ($idkit2 ! null) {
-        %varc_int_1012 = $idkit2;
-        player_setbodytype(4, $idkit2);
+        %varclient_1012 = $idkit2;
+        baseidkit(4, $idkit2);
     }
     $idkit2 = struct_param($struct0, param_1185);
     if ($idkit2 ! null) {
-        %varc_int_1013 = $idkit2;
-        player_setbodytype(5, $idkit2);
+        %varclient_1013 = $idkit2;
+        baseidkit(5, $idkit2);
     }
     $idkit2 = struct_param($struct0, param_1186);
     if ($idkit2 ! null) {
-        player_setbodytype(6, $idkit2);
-        %varc_int_1014 = $idkit2;
+        baseidkit(6, $idkit2);
+        %varclient_1014 = $idkit2;
     }
 }
-%varc_int_1016, %varc_int_1017, %varc_int_1018 = ~playerdesign4_getcolours($struct0);
-player_setcolour(1, %varc_int_1016);
-player_setcolour(2, %varc_int_1017);
-player_setcolour(3, %varc_int_1018);
+%varclient_1016, %varclient_1017, %varclient_1018 = ~playerdesign4_getcolours($struct0);
+basecolour(1, %varclient_1016);
+basecolour(2, %varclient_1017);
+basecolour(3, %varclient_1018);
 def_inv $inv3 = null;
 def_struct $struct4 = null;
 def_obj $obj5 = null;
 def_obj $obj6 = null;
-if (%varc_int_86 ! 0) {
-    $struct4 = enum(105, 74, enum_3278, calc(%varc_int_197 - 1));
+if (%varclient_86 ! 0) {
+    $struct4 = enum(int, struct, enum_3278, calc(%varclient_197 - 1));
     if ($struct4 ! null) {
         $inv3 = struct_param($struct4, param_1163);
         if ($inv3 ! null) {
@@ -90,7 +91,7 @@ if (%varc_int_86 ! 0) {
 } else {
     ~playerdesign4_setplayeranim(null, $boolean1);
 }
-player_setwornobject(2, junk_19713);
-player_setwornobject(3, $obj5);
-player_setwornobject(5, $obj6);
+setobj(2, junk_19713);
+setobj(3, $obj5);
+setobj(5, $obj6);
 %character_creation_colour_offset = 0;

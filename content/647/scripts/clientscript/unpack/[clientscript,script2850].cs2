@@ -1,0 +1,25 @@
+// 2850
+[clientscript,script2850]
+%varclient_1069 = 500;
+%varclient_1070 = movecoord(coord, 0, 0, -8);
+%varclient_1071 = 0;
+%varclient_1072 = coord;
+%varclient_1073 = 450;
+%varclient_1074 = 0;
+%varclient_1282 = 25;
+cam_moveto(%varclient_1070, %varclient_1069, 10, 3);
+cam_lookat(~script2865(%varclient_1070, %varclient_1071), %varclient_1073, 10, 3);
+%varclient_1075 = 0;
+%varclient_1076 = 0;
+if_setonkey("script2851(event_com, event_keycode, 0)", interface_475:com_1);
+if_sethide(false, interface_475:com_54);
+if_sethide(false, interface_475:com_7);
+if_sethide(false, interface_475:com_58);
+if_sethide(true, interface_475:com_33);
+if_setgraphic(graphic_1232, interface_475:com_28);
+if_settext("You are now in Aim Mode", interface_475:com_29);
+if_setontimer("script2853(interface_475:com_1, clientclock)", interface_475:com_1);
+if_setontimer("script2852(interface_475:com_7)", interface_475:com_7);
+if_sethide(false, interface_475:com_2);
+if_setontimer("script2870(event_com, calc(clientclock + 150))", interface_475:com_2);
+~script3455;

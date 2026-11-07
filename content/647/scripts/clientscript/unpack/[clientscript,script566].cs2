@@ -1,0 +1,5 @@
+// 566
+[clientscript,script566](component $component0)
+if (if_getgraphic($component0) = graphic_5456) {
+    if_setgraphic(graphic_5455, $component0);
+}

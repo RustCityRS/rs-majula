@@ -1,0 +1,8 @@
+// 511
+[clientscript,script511]
+if (%varclient_51 > 170) {
+    %varclient_51 = calc(%varclient_51 - 1);
+    if_setmodelangle(0, 0, 0, 0, 0, %varclient_51, interface_605:com_0);
+} else {
+    if_setmodel(null, interface_605:com_0);
+}

@@ -1,42 +1,43 @@
+// 1394
 [clientscript,barrows_killcount_update]
-def_string $string = "";
+def_string $string0 = "";
 def_int $int0 = 0;
 def_int $int1 = 0;
-if (%varbit_457 = true) {
-    $string = append($string, "Ahrim<br>");
+if (%varplayerbit_457 = 1) {
+    $string0 = append($string0, "Ahrim<br>");
     $int0 = calc($int0 + 1);
     $int1 = calc($int1 + 1);
 }
-if (%varbit_458 = true) {
-    $string = append($string, "Dharok<br>");
+if (%varplayerbit_458 = 1) {
+    $string0 = append($string0, "Dharok<br>");
     $int0 = calc($int0 + 1);
     $int1 = calc($int1 + 1);
 }
-if (%varbit_459 = true) {
-    $string = append($string, "Guthan<br>");
+if (%varplayerbit_459 = 1) {
+    $string0 = append($string0, "Guthan<br>");
     $int0 = calc($int0 + 1);
     $int1 = calc($int1 + 1);
 }
-if (%varbit_460 = true) {
-    $string = append($string, "Karil<br>");
+if (%varplayerbit_460 = 1) {
+    $string0 = append($string0, "Karil<br>");
     $int0 = calc($int0 + 1);
     $int1 = calc($int1 + 1);
 }
-if (%varbit_461 = true) {
-    $string = append($string, "Torag<br>");
+if (%varplayerbit_461 = 1) {
+    $string0 = append($string0, "Torag<br>");
     $int0 = calc($int0 + 1);
     $int1 = calc($int1 + 1);
 }
-if (%varbit_462 = true) {
-    $string = append($string, "Verac<br>");
+if (%varplayerbit_462 = 1) {
+    $string0 = append($string0, "Verac<br>");
     $int0 = calc($int0 + 1);
     $int1 = calc($int1 + 1);
 }
-if (compare($string, "") = false) {
-    $string = "None";
+if (compare($string0, "") = 0) {
+    $string0 = "None";
     $int0 = 1;
 }
 def_int $int2 = calc(52 + $int0 * 12);
-if_setsize(if_getwidth(barrows_overlay:com1), $int2, ^setsize_abs, ^setsize_abs, barrows_overlay:com1);
-if_settext($string, barrows_overlay:com3);
-if_settext(tostring(max(0, calc(%varbit_464 - $int1))), barrows_overlay:com6);
+if_setsize(if_getwidth(barrows_overlay:com_1), $int2, ^setsize_abs, ^setsize_abs, barrows_overlay:com_1);
+if_settext($string0, barrows_overlay:com_3);
+if_settext(tostring(max(0, calc(%varplayerbit_464 - $int1))), barrows_overlay:com_6);

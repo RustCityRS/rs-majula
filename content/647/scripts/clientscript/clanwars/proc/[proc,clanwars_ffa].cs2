@@ -1,5 +1,6 @@
+// 2784
 [proc,clanwars_ffa](int $int0, component $component1, component $component2, component $component3, component $component4, component $component5, component $component6, int $int7)
-if ($int0 = false | coordx(coord) >= coordx(0_43_86_0_0) & (coordx(coord) <= coordx(3_44_87_63_63) & (coordz(coord) >= coordz(0_43_86_0_0) & coordz(coord) <= coordz(3_44_87_63_63)))) {
+if ($int0 = 0 | coordx(coord) >= coordx(0_43_86_0_0) & coordx(coord) <= coordx(3_44_87_63_63) & coordz(coord) >= coordz(0_43_86_0_0) & coordz(coord) <= coordz(3_44_87_63_63)) {
     if ($component6 ! null) {
         if (coordz(coord) < calc(coordz(0_43_86_0_0) + 8)) {
             if_sethide(false, $component6);
@@ -9,14 +10,14 @@ if ($int0 = false | coordx(coord) >= coordx(0_43_86_0_0) & (coordx(coord) <= coo
             if_sethide(true, $component6);
         }
     }
-    if ($int7 = false & calc(clientclock % 50) ! 0) {
+    if ($int7 = 0 & calc(clientclock % 50) ! 0) {
         return;
     }
     if_setcolour(0xff981f, $component4);
     if_setcolour(0xff981f, $component5);
     if_setgraphic(tex_brown, $component2);
     if_settext("ITEMS ARE<br>SAFE", $component5);
-} else if ($int0 = true | coordx(coord) >= coordx(0_46_86_0_0) & (coordx(coord) <= coordx(3_47_87_63_63) & (coordz(coord) >= coordz(0_46_86_0_0) & coordz(coord) <= coordz(3_47_87_63_63)))) {
+} else if ($int0 = 1 | coordx(coord) >= coordx(0_46_86_0_0) & coordx(coord) <= coordx(3_47_87_63_63) & coordz(coord) >= coordz(0_46_86_0_0) & coordz(coord) <= coordz(3_47_87_63_63)) {
     if ($component6 ! null) {
         if (coordz(coord) < calc(coordz(0_46_86_0_0) + 8)) {
             if_sethide(false, $component6);
@@ -26,7 +27,7 @@ if ($int0 = false | coordx(coord) >= coordx(0_43_86_0_0) & (coordx(coord) <= coo
             if_sethide(true, $component6);
         }
     }
-    if ($int7 = false & calc(clientclock % 50) ! 0) {
+    if ($int7 = 0 & calc(clientclock % 50) ! 0) {
         return;
     }
     if_setcolour(^yellow, $component4);

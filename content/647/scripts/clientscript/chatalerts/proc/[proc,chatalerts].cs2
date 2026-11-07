@@ -1,45 +1,46 @@
+// 192
 [proc,chatalerts]
 if (%learning_the_ropes < 1000) {
     return;
 }
-def_int $int0 = chat_getofflinepm;
-def_int $int1 = 0;
-if ($int0 > %varc_int_43) {
-    if (%varc_int_41 = false) {
-        %varc_int_43 = $int0;
+def_int $int0 = chat_gethistorylength;
+def_int $chattype1 = ^chattype_gamemessage;
+if ($int0 > %varclient_43) {
+    if (%varclient_41 = 0) {
+        %varclient_43 = $int0;
         return;
     }
-    $int0 = calc($int0 - %varc_int_43 - 1);
+    $int0 = calc($int0 - %varclient_43 - 1);
     if ($int0 >= 100) {
         $int0 = 99;
     }
     while ($int0 >= 0) {
-        $int1 = chat_gethistory_length($int0);
+        $chattype1 = chat_gethistorytype($int0);
         if (~filtertest($int0, 0) = true & ~partnercheck($int0) = false) {
-            switch_int ($int1) {
-                case 0, 4, 27, 28, 29, 109, 110, 26, 117:
+            switch_int ($chattype1) {
+                case ^chattype_gamemessage, ^chattype_engine, ^chattype_obj_examine, ^chattype_npc_examine, ^chattype_loc_examine, ^chattype_spam, 110, ^chattype_snapshotfeedback, ^chattype_clan_join :
                     ~chat_alert_enable(1);
-                case 1, 2, 17, 116:
+                case ^chattype_modchat, ^chattype_publicchat, ^chattype_quickchat_public, ^chattype_npc_chat :
                     ~chat_alert_enable(2);
-                case 3, 5, 6, 7, 18, 19, 30, 31:
+                case ^chattype_privatechat, ^chattype_loginlogoutnotification, ^chattype_privatechatout, ^chattype_modprivatechat, ^chattype_quickchat_private_incoming, ^chattype_quickchat_private_outgoing, ^chattype_friendnotification, ^chattype_ignorenotification :
                     ~chat_alert_enable(3);
-                case 9, 11, 107, 20:
+                case ^chattype_friendschat, ^chattype_friendschatnotification, ^chattype_clan_challenge, ^chattype_quickchat_friend_chat :
                     ~chat_alert_enable(4);
-                case 100, 101, 103, 105, 106, 108, 111, 112, 113, 114, 118:
+                case ^chattype_tradereq, ^chattype_challenge, ^chattype_trade_notification, 105, 106, ^chattype_ally_request, ^chattype_dungeon_invite, 112, ^chattype_conquest_regular_challenge, 114, ^chattype_rated_clan_war :
                     ~chat_alert_enable(5);
-                case 102, 104:
+                case ^chattype_assistreq, ^chattype_assist_notification :
                     ~chat_alert_enable(6);
-                case 41, 43, 42:
+                case ^chattype_clanchat, ^chattype_clanmessage, ^chattype_quickchat_clanchat :
                     ~chat_alert_enable(7);
-                case 44, 46, 45:
+                case ^chattype_clanguestchat, ^chattype_clanguestmessage, ^chattype_quickchat_clanguestchat :
                     ~chat_alert_enable(7);
-                case 115:
-                    if (string_length(chat_gethistory_bytypeandline($int0)) > 1) {
+                case ^chattype_system_broadcast :
+                    if (string_length(chat_gethistorymessage($int0)) > 1) {
                         ~chat_alert_enable(1);
                     }
             }
         }
         $int0 = calc($int0 - 1);
     }
-    %varc_int_43 = chat_getofflinepm;
+    %varclient_43 = chat_gethistorylength;
 }

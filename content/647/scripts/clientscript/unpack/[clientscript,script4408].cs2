@@ -1,0 +1,9 @@
+// 4408
+[clientscript,script4408](component $component0, int $int1, component $component2, int $int3, int $int4)
+def_int $int5 = if_getheight($component0);
+def_int $int6 = calc(($int5 - $int4) * 8 / $int5);
+def_int $int7 = calc($int3 * 128 / if_getwidth($component0));
+%varplayerbit_9089 = calc($int6 % 8);
+%varplayerbit_9090 = calc($int7 % 128);
+~script4411($int3, $int4);
+if_setcolour(hsvtorgb(%varplayer_2098), $component2);

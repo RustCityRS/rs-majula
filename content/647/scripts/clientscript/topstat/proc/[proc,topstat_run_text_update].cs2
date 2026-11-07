@@ -1,3 +1,4 @@
-[proc,topstat_run_text_update](component $component)
-if_setcolour(~clientscript_806, $component);
-if_settext(tostring(headicon_count), $component);
+// 1184
+[proc,topstat_run_text_update](component $component0)
+if_setcolour(~script806, $component0);
+if_settext(tostring(runenergy_visible), $component0);

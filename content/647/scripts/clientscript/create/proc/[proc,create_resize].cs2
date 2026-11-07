@@ -1,8 +1,9 @@
+// 3211
 [proc,create_resize]
 if (getwindowmode < 2) {
-    if_setposition(0, 25, ^setpos_abs_centre, ^setpos_abs_centre, account_create:com24);
-    if_setposition(0, 25, ^setpos_abs_centre, ^setpos_abs_centre, account_create:com25);
+    if_setposition(0, 25, ^setpos_abs_centre, ^setpos_abs_centre, account_create:com_24);
+    if_setposition(0, 25, ^setpos_abs_centre, ^setpos_abs_centre, account_create:com_25);
 } else {
-    if_setposition(0, 0, ^setpos_abs_centre, ^setpos_abs_centre, account_create:com24);
-    if_setposition(0, 0, ^setpos_abs_centre, ^setpos_abs_centre, account_create:com25);
+    if_setposition(0, 0, ^setpos_abs_centre, ^setpos_abs_centre, account_create:com_24);
+    if_setposition(0, 0, ^setpos_abs_centre, ^setpos_abs_centre, account_create:com_25);
 }

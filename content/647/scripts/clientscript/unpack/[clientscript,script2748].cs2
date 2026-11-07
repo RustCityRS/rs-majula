@@ -1,0 +1,8 @@
+// 2748
+[clientscript,script2748](int $int0)
+if_settext(tostring(calc($int0 + 1)), dob_confirm_login:com_30);
+if_setvflip(false, dob_confirm_login:com_44);
+if_sethide(true, dob_confirm_login:com_86);
+if_sethide(true, dob_confirm_login:com_87);
+if_sethide(true, dob_confirm_login:com_77);
+if_sethide(true, dob_confirm_login:com_26);

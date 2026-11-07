@@ -1,22 +1,23 @@
-[proc,deathkeep_select_mouseeffect](int $int)
-if ($int = true) {
-    if (cc_find(deathkeep_select:com29, 0) = true) {
+// 749
+[proc,deathkeep_select_mouseeffect](boolean $boolean0)
+if ($boolean0 = true) {
+    if (cc_find(deathkeep_select:com_29, 0) = true) {
         cc_setgraphic("aif_drop_down_button_1,4");
     }
-    if (cc_find(deathkeep_select:com29, 1) = true) {
+    if (cc_find(deathkeep_select:com_29, 1) = true) {
         cc_setgraphic("aif_drop_down_button_1,3");
     }
-    if (cc_find(deathkeep_select:com29, 2) = true) {
+    if (cc_find(deathkeep_select:com_29, 2) = true) {
         cc_setgraphic("aif_drop_down_button_1,5");
     }
 } else {
-    if (cc_find(deathkeep_select:com29, 0) = true) {
+    if (cc_find(deathkeep_select:com_29, 0) = true) {
         cc_setgraphic("aif_drop_down_button_1,1");
     }
-    if (cc_find(deathkeep_select:com29, 1) = true) {
+    if (cc_find(deathkeep_select:com_29, 1) = true) {
         cc_setgraphic("aif_drop_down_button_1,0");
     }
-    if (cc_find(deathkeep_select:com29, 2) = true) {
+    if (cc_find(deathkeep_select:com_29, 2) = true) {
         cc_setgraphic("aif_drop_down_button_1,2");
     }
 }

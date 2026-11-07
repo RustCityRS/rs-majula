@@ -1,3 +1,4 @@
+// 1817
 [proc,clanwars_end_victory](component $component0, component $component1, component $component2, component $component3, component $component4, component $component5)
 if_settext("Victory!", $component0);
 if_setposition(75, 89, ^setpos_abs_left, ^setpos_abs_top, $component0);

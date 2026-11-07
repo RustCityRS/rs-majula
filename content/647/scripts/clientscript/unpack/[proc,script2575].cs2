@@ -1,0 +1,8 @@
+// 2575
+[proc,script2575]
+def_int $int0 = 0;
+while ($int0 < enum_getoutputcount(enum_2428)) {
+    if_setcolour(0x666666, enum(int, component, enum_2428, $int0));
+    $int0 = calc($int0 + 1);
+}
+if_setcolour(0xff0033, enum(int, component, enum_2428, %varclient_929));

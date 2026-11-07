@@ -1,0 +1,4 @@
+// 2506
+[clientscript,script2506](component $component0)
+%varclient_839 = calc(%varplayerbit_6351 - %varplayerbit_6427);
+if_settext(~tostring_spacer(%varclient_839, ","), $component0);

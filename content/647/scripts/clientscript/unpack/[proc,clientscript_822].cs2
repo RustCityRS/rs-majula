@@ -1,9 +1,0 @@
-[proc,clientscript_822](int $int0, int $int1, string $string)(string)
-def_int $int2 = $int0;
-if ($int1 = true) {
-    $string = ~clientscript_823($int2, $string);
-} else {
-    $string = ~clientscript_824($int2, $string);
-}
-return($string);
-return("");

@@ -1,18 +1,19 @@
+// 1969
 [proc,tanning_cost]
 def_int $int0 = 1;
 def_int $int1 = 0;
 while ($int0 <= enum_getoutputcount(enum_2119)) {
-    if (%varc_int_617 = true) {
-        $int1 = enum(105, 105, enum_2022, $int0);
-        if_settext("<tostring($int1)> Coins", enum(105, 73, enum_2119, $int0));
+    if (%varclient_617 = 1) {
+        $int1 = enum(int, int, enum_2022, $int0);
+        if_settext("<tostring($int1)> Coins", enum(int, component, enum_2119, $int0));
     } else {
-        $int1 = enum(105, 105, enum_2021, $int0);
-        if_settext("<tostring($int1)> Coins", enum(105, 73, enum_2119, $int0));
+        $int1 = enum(int, int, enum_2021, $int0);
+        if_settext("<tostring($int1)> Coins", enum(int, component, enum_2119, $int0));
     }
     if (inv_total(inv, coins) >= $int1) {
-        if_setcolour(^green, enum(105, 73, enum_2119, $int0));
+        if_setcolour(^green, enum(int, component, enum_2119, $int0));
     } else {
-        if_setcolour(^red, enum(105, 73, enum_2119, $int0));
+        if_setcolour(^red, enum(int, component, enum_2119, $int0));
     }
     $int0 = calc($int0 + 1);
 }

@@ -1,4 +1,4 @@
-[proc,ql4_quest_requirements](int $int)(int)
-%varc_int_699 = enum(105, 74, enum_2252, $int);
+// 2154
+[proc,ql4_quest_requirements](int $int0)(boolean)
+%varclient_699 = enum(int, struct, enum_2252, $int0);
 return(~ql4_quest_requirements_cache);
-return(-1);

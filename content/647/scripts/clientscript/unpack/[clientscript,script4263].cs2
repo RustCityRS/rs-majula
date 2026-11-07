@@ -1,0 +1,4 @@
+// 4263
+[clientscript,script4263](component $component0, int $int1, int $int2)
+if_setposition($int1, $int2, ^setpos_abs_left, ^setpos_abs_top, $component0);
+if_sethide(false, $component0);

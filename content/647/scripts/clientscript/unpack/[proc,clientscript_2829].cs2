@@ -1,6 +1,0 @@
-[proc,clientscript_2829](component $component)
-if (%varbit_6924 = false) {
-    if_setgraphic("warning_icons,2", $component);
-} else {
-    if_setgraphic("warning_icons,1", $component);
-}

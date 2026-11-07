@@ -1,20 +1,21 @@
+// 412
 [clientscript,conq_scroll_camera](int $int0)
-def_int $int1 = cam_getangle_xa;
+def_int $int1 = cam_getangle_ya;
 def_int $int2 = 0;
-def_coord $coord3 = -1;
+def_coord $coord3 = null;
 def_int $int4 = 0;
 def_int $int5 = 0;
 def_int $int6 = 0;
 def_int $int7 = 0;
-if (%varc_int_1360 < 10) {
-    %varc_int_1360 = calc(%varc_int_1360 + 1);
+if (%varclient_1360 < 10) {
+    %varclient_1360 = calc(%varclient_1360 + 1);
     return;
 }
-if (%varc_int_1359 < 5) {
-    %varc_int_1359 = calc(%varc_int_1359 + 1);
+if (%varclient_1359 < 5) {
+    %varclient_1359 = calc(%varclient_1359 + 1);
     return;
 } else {
-    %varc_int_1359 = 0;
+    %varclient_1359 = 0;
 }
 if ($int1 < 128) {
     $int1 = 1;
@@ -50,182 +51,182 @@ if ($int1 < 128) {
     $int1 = 16;
 }
 switch_int ($int0) {
-    case default:
+    case default :
         return;
-    case 1:
+    case 1 :
         switch_int ($int1) {
-            case 1, 16:
+            case 1, 16 :
                 $int2 = 1;
-            case 2, 3:
+            case 2, 3 :
                 $int2 = 8;
-            case 4, 5:
+            case 4, 5 :
                 $int2 = 7;
-            case 6, 7:
+            case 6, 7 :
                 $int2 = 6;
-            case 8, 9:
+            case 8, 9 :
                 $int2 = 5;
-            case 10, 11:
+            case 10, 11 :
                 $int2 = 4;
-            case 12, 13:
+            case 12, 13 :
                 $int2 = 3;
-            case 14, 15:
+            case 14, 15 :
                 $int2 = 2;
         }
-    case 5:
+    case 5 :
         switch_int ($int1) {
-            case 1, 16:
+            case 1, 16 :
                 $int2 = 5;
-            case 2, 3:
+            case 2, 3 :
                 $int2 = 4;
-            case 4, 5:
+            case 4, 5 :
                 $int2 = 3;
-            case 6, 7:
+            case 6, 7 :
                 $int2 = 2;
-            case 8, 9:
+            case 8, 9 :
                 $int2 = 1;
-            case 10, 11:
+            case 10, 11 :
                 $int2 = 8;
-            case 12, 13:
+            case 12, 13 :
                 $int2 = 7;
-            case 14, 15:
+            case 14, 15 :
                 $int2 = 6;
         }
-    case 7:
+    case 7 :
         switch_int ($int1) {
-            case 1, 16:
+            case 1, 16 :
                 $int2 = 7;
-            case 2, 3:
+            case 2, 3 :
                 $int2 = 6;
-            case 4, 5:
+            case 4, 5 :
                 $int2 = 5;
-            case 6, 7:
+            case 6, 7 :
                 $int2 = 4;
-            case 8, 9:
+            case 8, 9 :
                 $int2 = 3;
-            case 10, 11:
+            case 10, 11 :
                 $int2 = 2;
-            case 12, 13:
+            case 12, 13 :
                 $int2 = 1;
-            case 14, 15:
+            case 14, 15 :
                 $int2 = 8;
         }
-    case 3:
+    case 3 :
         switch_int ($int1) {
-            case 1, 16:
+            case 1, 16 :
                 $int2 = 3;
-            case 2, 3:
+            case 2, 3 :
                 $int2 = 2;
-            case 4, 5:
+            case 4, 5 :
                 $int2 = 1;
-            case 6, 7:
+            case 6, 7 :
                 $int2 = 8;
-            case 8, 9:
+            case 8, 9 :
                 $int2 = 7;
-            case 10, 11:
+            case 10, 11 :
                 $int2 = 6;
-            case 12, 13:
+            case 12, 13 :
                 $int2 = 5;
-            case 14, 15:
+            case 14, 15 :
                 $int2 = 4;
         }
-    case 2:
+    case 2 :
         switch_int ($int1) {
-            case 1, 16:
+            case 1, 16 :
                 $int2 = 2;
-            case 2, 3:
+            case 2, 3 :
                 $int2 = 1;
-            case 4, 5:
+            case 4, 5 :
                 $int2 = 8;
-            case 6, 7:
+            case 6, 7 :
                 $int2 = 7;
-            case 8, 9:
+            case 8, 9 :
                 $int2 = 6;
-            case 10, 11:
+            case 10, 11 :
                 $int2 = 5;
-            case 12, 13:
+            case 12, 13 :
                 $int2 = 4;
-            case 14, 15:
+            case 14, 15 :
                 $int2 = 3;
         }
-    case 4:
+    case 4 :
         switch_int ($int1) {
-            case 1, 16:
+            case 1, 16 :
                 $int2 = 4;
-            case 2, 3:
+            case 2, 3 :
                 $int2 = 3;
-            case 4, 5:
+            case 4, 5 :
                 $int2 = 2;
-            case 6, 7:
+            case 6, 7 :
                 $int2 = 1;
-            case 8, 9:
+            case 8, 9 :
                 $int2 = 8;
-            case 10, 11:
+            case 10, 11 :
                 $int2 = 7;
-            case 12, 13:
+            case 12, 13 :
                 $int2 = 6;
-            case 14, 15:
+            case 14, 15 :
                 $int2 = 5;
         }
-    case 8:
+    case 8 :
         switch_int ($int1) {
-            case 1, 16:
+            case 1, 16 :
                 $int2 = 8;
-            case 2, 3:
+            case 2, 3 :
                 $int2 = 7;
-            case 4, 5:
+            case 4, 5 :
                 $int2 = 6;
-            case 6, 7:
+            case 6, 7 :
                 $int2 = 5;
-            case 8, 9:
+            case 8, 9 :
                 $int2 = 4;
-            case 10, 11:
+            case 10, 11 :
                 $int2 = 3;
-            case 12, 13:
+            case 12, 13 :
                 $int2 = 2;
-            case 14, 15:
+            case 14, 15 :
                 $int2 = 1;
         }
-    case 6:
+    case 6 :
         switch_int ($int1) {
-            case 1, 16:
+            case 1, 16 :
                 $int2 = 6;
-            case 2, 3:
+            case 2, 3 :
                 $int2 = 5;
-            case 4, 5:
+            case 4, 5 :
                 $int2 = 4;
-            case 6, 7:
+            case 6, 7 :
                 $int2 = 3;
-            case 8, 9:
+            case 8, 9 :
                 $int2 = 2;
-            case 10, 11:
+            case 10, 11 :
                 $int2 = 1;
-            case 12, 13:
+            case 12, 13 :
                 $int2 = 8;
-            case 14, 15:
+            case 14, 15 :
                 $int2 = 7;
         }
 }
 switch_int ($int2) {
-    case default:
+    case default :
         return;
-    case 1:
-        $coord3 = coordpack(%varc_int_1353, 0, 0, 1);
-    case 2:
-        $coord3 = coordpack(%varc_int_1353, 1, 0, 1);
-    case 3:
-        $coord3 = coordpack(%varc_int_1353, 1, 0, 0);
-    case 4:
-        $coord3 = coordpack(%varc_int_1353, 1, 0, -1);
-    case 5:
-        $coord3 = coordpack(%varc_int_1353, 0, 0, -1);
-    case 6:
-        $coord3 = coordpack(%varc_int_1353, -1, 0, -1);
-    case 7:
-        $coord3 = coordpack(%varc_int_1353, -1, 0, 0);
-    case 8:
-        $coord3 = coordpack(%varc_int_1353, -1, 0, 1);
+    case 1 :
+        $coord3 = movecoord(%varclient_1353, 0, 0, 1);
+    case 2 :
+        $coord3 = movecoord(%varclient_1353, 1, 0, 1);
+    case 3 :
+        $coord3 = movecoord(%varclient_1353, 1, 0, 0);
+    case 4 :
+        $coord3 = movecoord(%varclient_1353, 1, 0, -1);
+    case 5 :
+        $coord3 = movecoord(%varclient_1353, 0, 0, -1);
+    case 6 :
+        $coord3 = movecoord(%varclient_1353, -1, 0, -1);
+    case 7 :
+        $coord3 = movecoord(%varclient_1353, -1, 0, 0);
+    case 8 :
+        $coord3 = movecoord(%varclient_1353, -1, 0, 1);
 }
-if (%varc_int_1390 = true) {
+if (%varclient_1390 = 1) {
     $int4 = 44;
     $int5 = 35;
     $int6 = 31;
@@ -236,25 +237,25 @@ if (%varc_int_1390 = true) {
     $int6 = 36;
     $int7 = 17;
 }
-if (calc(coordx($coord3) % 64) > $int4 | (calc(coordz($coord3) % 64) > $int6 | (calc(coordx($coord3) % 64) < $int5 | calc(coordz($coord3) % 64) < $int7))) {
-    if_setcolour(0x646464, conq_scroll_overlay:com19);
-    if_setcolour(0x646464, conq_scroll_overlay:com18);
-    if_setcolour(0x646464, conq_scroll_overlay:com20);
-    if_setcolour(0x646464, conq_scroll_overlay:com21);
-    if_setcolour(0x646464, conq_scroll_overlay:com17);
-    if_setcolour(0x646464, conq_scroll_overlay:com15);
-    if_setcolour(0x646464, conq_scroll_overlay:com16);
-    if_setcolour(0x646464, conq_scroll_overlay:com14);
+if (calc(coordx($coord3) % 64) > $int4 | calc(coordz($coord3) % 64) > $int6 | calc(coordx($coord3) % 64) < $int5 | calc(coordz($coord3) % 64) < $int7) {
+    if_setcolour(0x646464, conq_scroll_overlay:com_19);
+    if_setcolour(0x646464, conq_scroll_overlay:com_18);
+    if_setcolour(0x646464, conq_scroll_overlay:com_20);
+    if_setcolour(0x646464, conq_scroll_overlay:com_21);
+    if_setcolour(0x646464, conq_scroll_overlay:com_17);
+    if_setcolour(0x646464, conq_scroll_overlay:com_15);
+    if_setcolour(0x646464, conq_scroll_overlay:com_16);
+    if_setcolour(0x646464, conq_scroll_overlay:com_14);
     return;
 } else {
-    if_setcolour(^black, conq_scroll_overlay:com19);
-    if_setcolour(^black, conq_scroll_overlay:com18);
-    if_setcolour(^black, conq_scroll_overlay:com20);
-    if_setcolour(^black, conq_scroll_overlay:com21);
-    if_setcolour(^black, conq_scroll_overlay:com17);
-    if_setcolour(^black, conq_scroll_overlay:com15);
-    if_setcolour(^black, conq_scroll_overlay:com16);
-    if_setcolour(^black, conq_scroll_overlay:com14);
-    %varc_int_1353 = $coord3;
-    cam_followcoord(%varc_int_1353);
+    if_setcolour(^black, conq_scroll_overlay:com_19);
+    if_setcolour(^black, conq_scroll_overlay:com_18);
+    if_setcolour(^black, conq_scroll_overlay:com_20);
+    if_setcolour(^black, conq_scroll_overlay:com_21);
+    if_setcolour(^black, conq_scroll_overlay:com_17);
+    if_setcolour(^black, conq_scroll_overlay:com_15);
+    if_setcolour(^black, conq_scroll_overlay:com_16);
+    if_setcolour(^black, conq_scroll_overlay:com_14);
+    %varclient_1353 = $coord3;
+    cam_followcoord(%varclient_1353);
 }

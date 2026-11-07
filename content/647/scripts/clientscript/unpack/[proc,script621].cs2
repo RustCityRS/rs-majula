@@ -1,0 +1,66 @@
+// 621
+[proc,script621]
+def_int $int0 = 0;
+def_string $string0 = null;
+~sm_hideall;
+if (%varplayer_1112 = -1 | stockmarket_isofferempty(%varplayer_1112) = true & %varplayer_1113 = -1) {
+    ~deltooltip_action(stockmarket:com_210);
+    if_sethide(false, stockmarket:com_17);
+    ~script628;
+    if_setoninvtransmit(null, stockmarket:com_197);
+    %varclient_83 = 0;
+    %varclient_82 = 0;
+} else {
+    while ($int0 < 6) {
+        ~deltooltip_action(~script626($int0));
+        $int0 = calc($int0 + 1);
+    }
+    if (stockmarket_isofferempty(%varplayer_1112) = false) {
+        if_sethide(false, stockmarket:com_127);
+        if_sethide(false, stockmarket:com_197);
+        ~sm_updateofferlayer(stockmarket_getoffertype(%varplayer_1112), stockmarket_getofferitem(%varplayer_1112), stockmarket_getoffercount(%varplayer_1112), stockmarket_getofferprice(%varplayer_1112));
+        ~sm_updaterunninglayer(%varplayer_1112);
+        if (stockmarket_getoffertype(%varplayer_1112) = 0) {
+            $string0 = "Maximum total cost of purchase";
+        } else {
+            $string0 = "Minimum total value of sale";
+        }
+        if_setonmouserepeat("sm_offer_addtooltip(stockmarket:com_185, stockmarket:com_210, $string0, 25, 300)", stockmarket:com_185);
+        $string0 = tostring_localised(calc(stockmarket_getoffercount(%varplayer_1112) * stockmarket_getofferprice(%varplayer_1112)), true);
+        if_settext("<$string0> gp", stockmarket:com_185);
+    } else {
+        if_sethide(false, stockmarket:com_127);
+        if_sethide(false, stockmarket:com_154);
+        if (%varplayer_1113 = 0) {
+            if_sethide(false, stockmarket:com_188);
+            if (%varplayer_1109 ! null) {
+                if_sethide(true, stockmarket:com_191);
+                if_sethide(true, stockmarket:com_192);
+            } else {
+                if_sethide(false, stockmarket:com_191);
+                if_sethide(false, stockmarket:com_192);
+            }
+            $string0 = "Maximum total cost of purchase";
+        } else {
+            if_sethide(false, stockmarket:com_193);
+            if (%varplayer_1109 ! null) {
+                if_sethide(true, stockmarket:com_195);
+            } else {
+                if_sethide(false, stockmarket:com_195);
+            }
+            $string0 = "Minimum total value of sale";
+        }
+        if_setonmouserepeat("sm_offer_addtooltip(stockmarket:com_185, stockmarket:com_210, $string0, 25, 300)", stockmarket:com_185);
+        if (%varplayer_1111 > 0) {
+            if (%varplayer_1110 > calc(^max_32bit_int / %varplayer_1111)) {
+                if_settext("Too high!", stockmarket:com_185);
+            } else {
+                $string0 = tostring_localised(calc(%varplayer_1110 * %varplayer_1111), true);
+                if_settext("<$string0> gp", stockmarket:com_185);
+            }
+        } else {
+            if_settext("0 gp", stockmarket:com_185);
+        }
+        ~sm_updateofferlayer(%varplayer_1113, %varplayer_1109, %varplayer_1110, %varplayer_1111);
+    }
+}

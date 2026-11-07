@@ -1,0 +1,37 @@
+// 316:0
+[com_0]
+type=layer
+width=200
+height=100
+xmode=abs_right
+onload=tzhaar_fightcave_init(event_com, tzhaar_fightcave:com_1, tzhaar_fightcave:com_2)
+onvartransmit=tzhaar_fightcave_init(event_com, tzhaar_fightcave:com_1, tzhaar_fightcave:com_2){varplayer_639}
+
+// 316:1
+[com_1]
+type=model
+width=138
+height=89
+xmode=abs_centre
+ymode=abs_centre
+layer=com_0
+hide=yes
+model=model_34302
+modelorigin=19,-1
+modelangle=0,0,512
+modelzoom=2500
+
+// 316:2
+[com_2]
+type=text
+widthmode=minus
+heightmode=minus
+xmode=abs_centre
+ymode=abs_centre
+layer=com_0
+hide=yes
+textfont=menu_font_small
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xff8000

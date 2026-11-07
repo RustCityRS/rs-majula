@@ -1,3 +1,4 @@
+// 3077
 [proc,lobby_draw_button](component $component0, graphic $graphic1, graphic $graphic2, graphic $graphic3, graphic $graphic4)
 ~cc_add_graphic($component0, 0, 16, 32, 0, 0, $graphic1, false, false, false, 0);
 ~cc_add_graphic($component0, 1, 32, 32, 16, 0, $graphic2, false, false, false, 0);
@@ -12,5 +13,5 @@ cc_sethide(true);
 ~cc_add_graphic($component0, 5, 16, 32, 0, 0, $graphic3, true, false, false, 0);
 cc_setposition(0, 0, ^setpos_abs_right, ^setpos_abs_top);
 cc_sethide(true);
-if_setonmouseover("clientscript_3078($component0)", $component0);
-if_setonmouseleave("clientscript_3080($component0)", $component0);
+if_setonmouseover("script3078($component0)", $component0);
+if_setonmouseleave("script3080($component0)", $component0);

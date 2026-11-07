@@ -1,0 +1,145 @@
+// 668:0
+[com_0]
+type=text
+x=171
+y=3
+width=132
+height=18
+textfont=q8_full
+text=Pick a Puppy
+textalignh=centre
+colour=0xaa0000
+
+// 668:1
+[com_1]
+type=graphic
+x=304
+y=5
+width=57
+height=13
+graphic="sworddecor,0"
+colour=0xffffffff
+
+// 668:2
+[com_2]
+type=graphic
+x=111
+y=5
+width=57
+height=13
+graphic="sworddecor,1"
+colour=0xffffffff
+
+// 668:3
+[com_3]
+type=model
+x=119
+y=29
+width=39
+height=37
+layer=com_9
+model=model_30551
+modelorigin=4,2
+modelangle=42,1897,0
+modelzoom=325
+transmitop=1
+op1=Pick me
+onmouseleave=deltooltip(interface_668:com_10)
+onmouserepeat=addtooltip(event_com, interface_668:com_10, "Bulldog", 25, 100)
+
+// 668:4
+[com_4]
+type=model
+x=181
+y=28
+width=48
+height=41
+layer=com_9
+model=model_30542
+modelorigin=8,4
+modelangle=75,1885,0
+modelzoom=250
+transmitop=1
+op1=Pick me
+onmouseleave=deltooltip(interface_668:com_10)
+onmouserepeat=addtooltip(event_com, interface_668:com_10, "Dalmatian", 25, 100)
+
+// 668:5
+[com_5]
+type=model
+x=250
+y=32
+width=49
+height=34
+layer=com_9
+model=model_30547
+modelorigin=8,7
+modelangle=45,1879,0
+modelzoom=225
+transmitop=1
+op1=Pick me
+onmouseleave=deltooltip(interface_668:com_10)
+onmouserepeat=addtooltip(event_com, interface_668:com_10, "Greyhound", 25, 100)
+
+// 668:6
+[com_6]
+type=model
+x=312
+y=27
+width=44
+height=43
+layer=com_9
+model=model_30561
+modelorigin=0,2
+modelangle=36,1897,0
+modelzoom=400
+transmitop=1
+op1=Pick me
+onmouseleave=deltooltip(interface_668:com_10)
+onmouserepeat=addtooltip(event_com, interface_668:com_10, "Terrier", 25, 100)
+
+// 668:7
+[com_7]
+type=model
+x=375
+y=24
+width=48
+height=45
+layer=com_9
+model=model_30557
+modelorigin=9,2
+modelangle=39,1918,0
+modelzoom=400
+transmitop=1
+op1=Pick me
+onmouseleave=deltooltip(interface_668:com_10)
+onmouserepeat=addtooltip(event_com, interface_668:com_10, "Sheepdog", 25, 100)
+
+// 668:8
+[com_8]
+type=model
+x=53
+y=28
+width=46
+height=37
+layer=com_9
+model=model_30564
+modelorigin=8,5
+modelangle=2041,1885,0
+modelzoom=375
+transmitop=1
+op1=Pick me
+onmouseleave=deltooltip(interface_668:com_10)
+onmouserepeat=addtooltip(event_com, interface_668:com_10, "Labrador", 25, 100)
+
+// 668:9
+[com_9]
+type=layer
+width=506
+height=129
+
+// 668:10
+[com_10]
+type=layer
+width=506
+height=129

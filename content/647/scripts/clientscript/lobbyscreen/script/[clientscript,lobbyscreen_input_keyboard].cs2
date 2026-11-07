@@ -1,22 +1,23 @@
-[clientscript,lobbyscreen_input_keyboard](int $int0, char $int1, component $component2, int $int3, int $int4, string $string)
-switch_int ($int0) {
-    case 84:
-        ~lobbyscreen_input_ok($int4, $string);
+// 3022
+[clientscript,lobbyscreen_input_keyboard](int $key0, char $char1, component $component2, int $int3, int $int4, string $string0)
+switch_int ($key0) {
+    case ^key_return :
+        ~lobbyscreen_input_ok($int4, $string0);
         return;
-    case 13:
+    case ^key_escape :
         ~lobbyscreen_input_close;
         return;
-    case 96, 97, 98, 99, 102, 103:
+    case ^key_left, ^key_right, ^key_up, ^key_down, ^key_home, ^key_end :
         if ($int4 ! -1 & $int4 ! 6) {
-            %varc_int_1097 = ~clientscript_1553($int0, %varc_int_1097, %varc_string_277);
-            ~clientscript_1875(lobbyscreen:com140, lobbyscreen:com141, %varc_string_277);
+            %varclient_1097 = ~script1553($key0, %varclient_1097, %varclient_1796);
+            ~script1875(lobbyscreen:com_140, lobbyscreen:com_141, %varclient_1796);
         }
         return;
-    case -1, 85, 101:
-        if ($int4 ! -1 & ($int4 ! 6 & (char_isprintable($int1) = true | ($int0 = 85 | $int0 = 101)))) {
-            %varc_string_277, %varc_int_1097 = ~clientscript_802(%varc_int_1097, %varc_string_277, $int3, $int0, $int1);
-            if_settext(escape(%varc_string_277), $component2);
-            ~clientscript_1875(lobbyscreen:com140, lobbyscreen:com141, %varc_string_277);
+    case null, ^key_backspace, ^key_del :
+        if ($int4 ! -1 & $int4 ! 6 & (char_isprintable($char1) = true | $key0 = ^key_backspace | $key0 = ^key_del)) {
+            %varclient_1796, %varclient_1097 = ~script802(%varclient_1097, %varclient_1796, $int3, $key0, $char1);
+            if_settext(escape(%varclient_1796), $component2);
+            ~script1875(lobbyscreen:com_140, lobbyscreen:com_141, %varclient_1796);
         }
         return;
 }

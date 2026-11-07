@@ -1,3 +1,5 @@
+#[cfg(since_647)]
+use super::client_table;
 use super::config_entry;
 use super::param::resolve_typed_value;
 use crate::pack::pack::{FileCache, parse_config_sections_cached};
@@ -106,10 +108,13 @@ pub fn pack_dbtables(
         server.finish_entry();
     }
 
-    Ok(PackedFile {
-        server,
-        client: None,
-    })
+    #[cfg(before_647)]
+    let client = None;
+
+    #[cfg(since_647)]
+    let client = Some(client_table(file_cache, "dbtable", &pack, constants)?);
+
+    Ok(PackedFile { server, client })
 }
 
 pub(super) fn parse_column_def(value: &str) -> ColumnDef {

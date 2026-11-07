@@ -1,0 +1,7 @@
+// 2870
+[clientscript,script2870](component $component0, int $int1)
+if (clientclock >= $int1) {
+    if_sethide(true, $component0);
+    if_setontimer(null, $component0);
+    return;
+}

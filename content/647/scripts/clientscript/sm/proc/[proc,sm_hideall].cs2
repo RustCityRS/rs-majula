@@ -1,16 +1,17 @@
+// 622
 [proc,sm_hideall]
-if (%varp_1118 = true) {
-    if_sethide(false, stockmarket:com17);
-    if_sethide(false, stockmarket:com127);
-    if_sethide(false, stockmarket:com154);
-    if_sethide(false, stockmarket:com188);
-    if_sethide(false, stockmarket:com193);
-    if_sethide(false, stockmarket:com197);
+if (%varplayer_1118 = 1) {
+    if_sethide(false, stockmarket:com_17);
+    if_sethide(false, stockmarket:com_127);
+    if_sethide(false, stockmarket:com_154);
+    if_sethide(false, stockmarket:com_188);
+    if_sethide(false, stockmarket:com_193);
+    if_sethide(false, stockmarket:com_197);
 } else {
-    if_sethide(true, stockmarket:com17);
-    if_sethide(true, stockmarket:com127);
-    if_sethide(true, stockmarket:com154);
-    if_sethide(true, stockmarket:com188);
-    if_sethide(true, stockmarket:com193);
-    if_sethide(true, stockmarket:com197);
+    if_sethide(true, stockmarket:com_17);
+    if_sethide(true, stockmarket:com_127);
+    if_sethide(true, stockmarket:com_154);
+    if_sethide(true, stockmarket:com_188);
+    if_sethide(true, stockmarket:com_193);
+    if_sethide(true, stockmarket:com_197);
 }

@@ -1,0 +1,331 @@
+// 734:0
+[com_0]
+type=rectangle
+x=-2
+width=514
+height=334
+colour=0x404640
+fill=yes
+onvartransmit=fairyrings_vartransmit{varplayer_816}
+ontimer=fairyrings_rotate(interface_734:com_1, interface_734:com_2, interface_734:com_3, interface_734:com_4, interface_734:com_5, interface_734:com_6, interface_734:com_7, interface_734:com_8, interface_734:com_9, interface_734:com_10, interface_734:com_11, interface_734:com_12, interface_734:com_13, interface_734:com_14, interface_734:com_15, interface_734:com_21, interface_734:com_22)
+
+// 734:1
+[com_1]
+type=model
+x=-94
+y=-13
+width=258
+height=364
+model=model_16240
+modelorigin=53,-3
+modelzoom=1000
+
+// 734:2
+[com_2]
+type=model
+x=49
+y=166
+width=70
+height=89
+model=model_16243
+modelorigin=4,-44
+modelzoom=1000
+
+// 734:3
+[com_3]
+type=model
+x=7
+y=124
+width=82
+height=84
+model=model_16247
+modelorigin=40,0
+modelzoom=1000
+
+// 734:4
+[com_4]
+type=model
+x=47
+y=76
+width=74
+height=91
+model=model_16251
+modelorigin=4,45
+modelzoom=1000
+
+// 734:5
+[com_5]
+type=model
+x=72
+y=150
+width=32
+height=32
+model=model_16255
+modelzoom=1000
+
+// 734:6
+[com_6]
+type=model
+x=242
+y=150
+width=32
+height=32
+model=model_16240
+modelzoom=1000
+
+// 734:7
+[com_7]
+type=model
+x=217
+y=166
+width=74
+height=91
+model=model_16259
+modelorigin=4,-45
+modelzoom=1000
+
+// 734:8
+[com_8]
+type=model
+x=242
+y=150
+width=32
+height=32
+model=model_16263
+modelzoom=1000
+
+// 734:9
+[com_9]
+type=model
+x=216
+y=86
+width=84
+height=81
+model=model_16267
+modelorigin=0,40
+modelzoom=1000
+
+// 734:10
+[com_10]
+type=model
+x=242
+y=150
+width=32
+height=32
+model=model_16271
+modelzoom=1000
+
+// 734:11
+[com_11]
+type=model
+x=243
+y=-13
+width=258
+height=364
+model=model_16240
+modelorigin=53,-3
+modelzoom=1000
+
+// 734:12
+[com_12]
+type=model
+x=384
+y=166
+width=74
+height=91
+model=model_16275
+modelorigin=4,-45
+modelzoom=1000
+
+// 734:13
+[com_13]
+type=model
+x=409
+y=150
+width=32
+height=32
+model=model_16279
+modelzoom=1000
+
+// 734:14
+[com_14]
+type=model
+x=409
+y=150
+width=32
+height=32
+model=model_33844
+modelzoom=1000
+
+// 734:15
+[com_15]
+type=model
+x=409
+y=150
+width=32
+height=32
+model=model_16283
+modelzoom=1000
+
+// 734:16
+[com_16]
+type=model
+x=27
+y=174
+width=465
+height=75
+model=model_16236
+modelorigin=-1,-38
+modelangle=1952,0,0
+modelzoom=1000
+
+// 734:17
+[com_17]
+type=model
+x=242
+y=34
+width=32
+height=32
+model=model_10119
+modelangle=514,0,0
+modelzoom=680
+
+// 734:18
+[com_18]
+type=model
+x=242
+y=265
+width=32
+height=32
+model=model_10119
+modelangle=514,0,0
+modelzoom=600
+
+// 734:19
+[com_19]
+type=graphic
+x=455
+y=21
+width=26
+height=23
+graphic="close_buttons,4"
+colour=0x000000
+transmitop=1
+op1=Close
+onmouseover=graphic_swapper(event_com, "close_buttons,5")
+onmouseleave=graphic_swapper(event_com, "close_buttons,4")
+onop=closebutton_click
+
+// 734:20
+[com_20]
+type=text
+x=186
+y=27
+width=142
+height=45
+textfont=q8_full
+text=Choose a combination
+textalignh=centre
+textalignv=centre
+colour=0x402000
+
+// 734:21
+[com_21]
+type=text
+x=172
+y=254
+width=169
+height=53
+textfont=q8_full
+text=Teleport to this location
+textalignh=centre
+textalignv=centre
+colour=0x402000
+transmitop=1
+op1=Teleport
+onmouseover=text_colour_swapper(event_com, ^white)
+onmouseleave=text_colour_swapper(event_com, 0x402000)
+
+// 734:22
+[com_22]
+type=text
+x=172
+y=254
+width=169
+height=53
+hide=yes
+textfont=q8_full
+text=Teleport to this location
+textalignh=centre
+textalignv=centre
+colour=0x402000
+transmitop=1
+op1=Teleport
+onmouseover=text_colour_swapper(event_com, ^white)
+onmouseleave=text_colour_swapper(event_com, 0x402000)
+
+// 734:23
+[com_23]
+type=layer
+x=86
+y=85
+width=83
+height=166
+transmitop=1
+op1=Rotate clockwise
+onop=fairyrings_clockwise(48103425)
+
+// 734:24
+[com_24]
+type=layer
+x=3
+y=85
+width=83
+height=166
+transmitop=1
+op1=Rotate anticlockwise
+onop=fairyrings_anticlockwise(48103425)
+
+// 734:25
+[com_25]
+type=layer
+x=256
+y=85
+width=83
+height=166
+transmitop=1
+op1=Rotate clockwise
+onop=fairyrings_clockwise(48103430)
+
+// 734:26
+[com_26]
+type=layer
+x=173
+y=85
+width=83
+height=166
+transmitop=1
+op1=Rotate anticlockwise
+onop=fairyrings_anticlockwise(48103430)
+
+// 734:27
+[com_27]
+type=layer
+x=425
+y=85
+width=83
+height=166
+transmitop=1
+op1=Rotate clockwise
+onop=fairyrings_clockwise(48103435)
+
+// 734:28
+[com_28]
+type=layer
+x=342
+y=85
+width=83
+height=166
+transmitop=1
+op1=Rotate anticlockwise
+onop=fairyrings_anticlockwise(48103435)

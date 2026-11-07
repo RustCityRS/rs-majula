@@ -1,0 +1,7 @@
+// 2893
+[clientscript,script2893]
+if (%varclient_1086 = 1) {
+    if_setontimer(null, interface_476:com_24);
+    if_sethide(true, interface_476:com_24);
+    %varclient_1086 = 0;
+}

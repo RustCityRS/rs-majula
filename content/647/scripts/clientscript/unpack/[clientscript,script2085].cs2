@@ -1,0 +1,9 @@
+// 2085
+[clientscript,script2085]
+if (%varclient_645 <= 5) {
+    if_setcolour(0x3366ff, interface_836:com_29);
+} else if (%varclient_645 >= 25) {
+    if_setcolour(0xe12323, interface_836:com_29);
+} else {
+    if_setcolour(0x666666, interface_836:com_29);
+}

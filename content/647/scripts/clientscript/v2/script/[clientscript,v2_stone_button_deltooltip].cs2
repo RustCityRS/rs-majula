@@ -1,4 +1,5 @@
+// 2648
 [clientscript,v2_stone_button_deltooltip](component $component0, component $component1)
 cc_deleteall($component0);
-%varc_int_2 = 0;
+%varclient_2 = 0;
 ~v2_stone_button($component1);

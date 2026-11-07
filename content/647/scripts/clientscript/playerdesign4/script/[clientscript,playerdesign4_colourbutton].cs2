@@ -1,21 +1,22 @@
+// 357
 [clientscript,playerdesign4_colourbutton](int $int0, int $int1, int $int2)
 if ($int0 ! 1) {
     return;
 }
 switch_int ($int2) {
-    case 0:
-        %varc_int_1015 = $int1;
-    case 1:
-        %varc_int_1016 = $int1;
-    case 2:
-        %varc_int_1017 = $int1;
-    case 3:
-        %varc_int_1018 = $int1;
-    case 4:
-        %varc_int_1019 = $int1;
-    case default:
+    case 0 :
+        %varclient_1015 = $int1;
+    case 1 :
+        %varclient_1016 = $int1;
+    case 2 :
+        %varclient_1017 = $int1;
+    case 3 :
+        %varclient_1018 = $int1;
+    case 4 :
+        %varclient_1019 = $int1;
+    case default :
         return;
 }
 sound_synth(synth_9830, 1, 0);
-player_setcolour($int2, $int1);
+basecolour($int2, $int1);
 ~playerdesign4_rebuildmenu;

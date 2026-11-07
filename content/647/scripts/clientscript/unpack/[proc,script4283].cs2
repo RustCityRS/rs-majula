@@ -1,0 +1,7 @@
+// 4283
+[proc,script4283]
+if_settext(activeclansettings_getclanname, interface_1095:com_28);
+~script4332(interface_1095:com_50, interface_1095:com_60);
+~script4334(interface_1095:com_70, interface_1095:com_71);
+~script4329(interface_1095:com_29);
+if_sethide(true, interface_1095:com_5);

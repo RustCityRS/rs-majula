@@ -1,0 +1,44 @@
+// 826:0
+[com_0]
+type=model
+width=16807
+height=19088
+widthmode=proportion
+heightmode=proportion
+xmode=abs_centre
+ymode=abs_centre
+model=model_4835
+modelorigin=0,2
+modelangle=512,0,0
+modelzoom=127
+modelnodepth=yes
+modelobjwidth=525
+modelobjheight=389
+onload=fade_in_darkness(event_com)
+onvartransmit=fade_in_darkness(event_com){varplayer_425}
+
+// 826:1
+[com_1]
+type=text
+y=3440
+width=409
+height=131
+xmode=proportion_centre
+ymode=proportion_top
+textfont=quill_caps_large
+text=While Guthix Sleeps
+textalignh=centre
+textshadow=yes
+
+// 826:2
+[com_2]
+type=text
+y=2949
+width=332
+height=61
+xmode=proportion_centre
+ymode=proportion_centre
+textfont=quill_caps_large
+text=Chapter 1
+textalignh=centre
+textshadow=yes

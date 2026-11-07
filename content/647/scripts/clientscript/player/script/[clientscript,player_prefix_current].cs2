@@ -1,6 +1,7 @@
-[clientscript,player_prefix_current](component $component)
-if (%varp_1442 = false) {
-    if_settext("No Prefix", $component);
+// 2144
+[clientscript,player_prefix_current](component $component0)
+if (%varplayer_1442 = 0) {
+    if_settext("No Prefix", $component0);
 } else {
-    if_settext(enum(105, 115, enum_1093, %varp_1442), $component);
+    if_settext(enum(int, string, enum_1093, %varplayer_1442), $component0);
 }

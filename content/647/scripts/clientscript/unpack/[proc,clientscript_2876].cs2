@@ -1,7 +1,0 @@
-[proc,clientscript_2876]
-if (%varbit_7079 = true) {
-    if_setgraphic("music_header_icons,6", music_v3:com13);
-} else {
-    if_setgraphic("music_header_icons,5", music_v3:com13);
-}
-%varc_int_2 = 0;

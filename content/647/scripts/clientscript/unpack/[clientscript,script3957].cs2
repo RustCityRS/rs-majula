@@ -1,0 +1,15 @@
+// 3957
+[clientscript,script3957](component $component0)
+def_graphic $graphic1 = if_getgraphic($component0);
+switch_graphic ($graphic1) {
+    case default :
+        return;
+    case graphic_4117 :
+        if_setgraphic(graphic_4122, $component0);
+    case graphic_4118 :
+        if_setgraphic(graphic_4123, $component0);
+    case graphic_4119 :
+        if_setgraphic(graphic_4124, $component0);
+}
+if_setsize(133, 16, ^setsize_abs, ^setsize_abs, loginscreen:com_81);
+if_setontimer("script3961(0, loginscreen:com_7)", loginscreen:com_7);

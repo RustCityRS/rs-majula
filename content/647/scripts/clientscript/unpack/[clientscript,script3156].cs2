@@ -1,0 +1,5 @@
+// 3156
+[clientscript,script3156](component $component0)
+if (cc_find($component0, 1) = true) {
+    cc_sethide(false);
+}

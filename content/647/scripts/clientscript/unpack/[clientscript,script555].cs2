@@ -1,0 +1,11 @@
+// 555
+[clientscript,script555]
+def_int $int0 = calc((15 - %varplayerbit_4109) * 6);
+if_setposition(0, $int0, ^setpos_abs_left, ^setpos_abs_top, interface_624:com_15);
+if_settext(tostring(%varplayerbit_4109), interface_624:com_70);
+$int0 = calc((15 - %varplayerbit_4110) * 6);
+if_setposition(0, $int0, ^setpos_abs_left, ^setpos_abs_top, interface_624:com_17);
+if_settext(tostring(%varplayerbit_4110), interface_624:com_71);
+$int0 = calc((15 - %varplayerbit_4111) * 6);
+if_setposition(0, $int0, ^setpos_abs_left, ^setpos_abs_top, interface_624:com_19);
+if_settext(tostring(%varplayerbit_4111), interface_624:com_72);

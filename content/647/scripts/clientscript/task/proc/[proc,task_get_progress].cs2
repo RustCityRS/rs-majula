@@ -1,1853 +1,1853 @@
-[proc,task_get_progress](int $int)(int)
-if (struct_param(enum(105, 74, enum_3483, $int), param_1270) ! 4094) {
-    return(~ql4_getprogress(struct_param(enum(105, 74, enum_3483, $int), param_1270)));
+// 3227
+[proc,task_get_progress](int $int0)(int)
+if (struct_param(enum(int, struct, enum_3483, $int0), param_1270) ! 4094) {
+    return(~ql4_getprogress(struct_param(enum(int, struct, enum_3483, $int0), param_1270)));
 } else {
-    switch_int ($int) {
-        case default:
+    switch_int ($int0) {
+        case default :
             return(0);
-        case 0:
-            if (%varbit_6598 = true) {
+        case 0 :
+            if (%varplayerbit_6598 = 1) {
                 return(2);
             }
-        case 1:
-            if (%varbit_6599 = true) {
+        case 1 :
+            if (%varplayerbit_6599 = 1) {
                 return(2);
             }
-        case 2:
-            if (%varbit_6600 = true) {
+        case 2 :
+            if (%varplayerbit_6600 = 1) {
                 return(2);
             }
-        case 3:
-            if (%varbit_6601 = true) {
+        case 3 :
+            if (%varplayerbit_6601 = 1) {
                 return(2);
             }
-        case 4:
-            if (%varbit_6602 = true) {
+        case 4 :
+            if (%varplayerbit_6602 = 1) {
                 return(2);
             }
-        case 5:
-            if (%varbit_6603 = true) {
+        case 5 :
+            if (%varplayerbit_6603 = 1) {
                 return(2);
             }
-        case 6:
-            if (%varbit_6604 = true) {
+        case 6 :
+            if (%varplayerbit_6604 = 1) {
                 return(2);
             }
-        case 7:
-            if (%varbit_6605 = true) {
+        case 7 :
+            if (%varplayerbit_6605 = 1) {
                 return(2);
             }
-        case 8:
-            if (%varbit_6606 = true) {
+        case 8 :
+            if (%varplayerbit_6606 = 1) {
                 return(2);
             }
-        case 9:
-            if (%varbit_6607 = true) {
+        case 9 :
+            if (%varplayerbit_6607 = 1) {
                 return(2);
             }
-        case 10:
-            if (%varbit_6608 = true) {
+        case 10 :
+            if (%varplayerbit_6608 = 1) {
                 return(2);
             }
-        case 11:
-            if (%varbit_6609 = true) {
+        case 11 :
+            if (%varplayerbit_6609 = 1) {
                 return(2);
             }
-        case 12:
-            if (%varbit_1421 = true) {
+        case 12 :
+            if (%varplayerbit_1421 = 1) {
                 return(2);
             }
-        case 13:
-            if (%varbit_6611 = true) {
+        case 13 :
+            if (%varplayerbit_6611 = 1) {
                 return(2);
             }
-        case 14:
-            if (%varbit_6612 = true) {
+        case 14 :
+            if (%varplayerbit_6612 = 1) {
                 return(2);
             }
-        case 15:
-            if (%varbit_6613 = true) {
+        case 15 :
+            if (%varplayerbit_6613 = 1) {
                 return(2);
             }
-        case 16:
-            if (%varbit_6614 = true) {
+        case 16 :
+            if (%varplayerbit_6614 = 1) {
                 return(2);
             }
-        case 17:
-            if (%varbit_6615 = true) {
+        case 17 :
+            if (%varplayerbit_6615 = 1) {
                 return(2);
             }
-        case 18:
-            if (%varbit_6616 = true) {
+        case 18 :
+            if (%varplayerbit_6616 = 1) {
                 return(2);
             }
-        case 19:
-            if (%varbit_6617 = true) {
+        case 19 :
+            if (%varplayerbit_6617 = 1) {
                 return(2);
             }
-        case 20:
-            if (%varbit_6618 = true) {
+        case 20 :
+            if (%varplayerbit_6618 = 1) {
                 return(2);
             }
-        case 21:
-            if (%varbit_6619 = true) {
+        case 21 :
+            if (%varplayerbit_6619 = 1) {
                 return(2);
             }
-        case 22:
-            if (%varbit_6620 = true) {
+        case 22 :
+            if (%varplayerbit_6620 = 1) {
                 return(2);
             }
-        case 23:
-            if (%varbit_6622 = true) {
+        case 23 :
+            if (%varplayerbit_6622 = 1) {
                 return(2);
             }
-        case 24:
-            if (%varbit_6623 = true) {
+        case 24 :
+            if (%varplayerbit_6623 = 1) {
                 return(2);
             }
-        case 25:
-            if (%varbit_6624 = true) {
+        case 25 :
+            if (%varplayerbit_6624 = 1) {
                 return(2);
             }
-        case 26:
-            if (%varbit_6625 = true) {
+        case 26 :
+            if (%varplayerbit_6625 = 1) {
                 return(2);
             }
-        case 27:
-            if (%varbit_6626 = true) {
+        case 27 :
+            if (%varplayerbit_6626 = 1) {
                 return(2);
             }
-        case 28:
-            if (%varbit_6627 = true) {
+        case 28 :
+            if (%varplayerbit_6627 = 1) {
                 return(2);
             }
-        case 29:
-            if (%varbit_6628 = true) {
+        case 29 :
+            if (%varplayerbit_6628 = 1) {
                 return(2);
             }
-        case 30:
-            if (%varbit_6629 = true) {
+        case 30 :
+            if (%varplayerbit_6629 = 1) {
                 return(2);
             }
-        case 31:
-            if (%varbit_6630 = true) {
+        case 31 :
+            if (%varplayerbit_6630 = 1) {
                 return(2);
             }
-        case 32:
-            if (%varbit_6631 = true) {
+        case 32 :
+            if (%varplayerbit_6631 = 1) {
                 return(2);
             }
-        case 33:
-            if (%varbit_6632 = true) {
+        case 33 :
+            if (%varplayerbit_6632 = 1) {
                 return(2);
             }
-        case 34:
-            if (%varbit_6633 = true) {
+        case 34 :
+            if (%varplayerbit_6633 = 1) {
                 return(2);
             }
-        case 35:
-            if (%varbit_6634 = true) {
+        case 35 :
+            if (%varplayerbit_6634 = 1) {
                 return(2);
             }
-        case 36:
-            if (%varbit_6635 = true) {
+        case 36 :
+            if (%varplayerbit_6635 = 1) {
                 return(2);
             }
-        case 37:
-            if (%varbit_6636 = true) {
+        case 37 :
+            if (%varplayerbit_6636 = 1) {
                 return(2);
             }
-        case 38:
-            if (%varbit_6637 = true) {
+        case 38 :
+            if (%varplayerbit_6637 = 1) {
                 return(2);
             }
-        case 39:
-            if (%varbit_6639 = true) {
+        case 39 :
+            if (%varplayerbit_6639 = 1) {
                 return(2);
             }
-        case 40:
-            if (%varbit_6640 = true) {
+        case 40 :
+            if (%varplayerbit_6640 = 1) {
                 return(2);
             }
-        case 41:
-            if (%varbit_6641 = true) {
+        case 41 :
+            if (%varplayerbit_6641 = 1) {
                 return(2);
             }
-        case 42:
-            if (%varbit_6642 = true) {
+        case 42 :
+            if (%varplayerbit_6642 = 1) {
                 return(2);
             }
-        case 43:
-            if (%varbit_6643 = true) {
+        case 43 :
+            if (%varplayerbit_6643 = 1) {
                 return(2);
             }
-        case 44:
-            if (%varbit_6644 = true) {
+        case 44 :
+            if (%varplayerbit_6644 = 1) {
                 return(2);
             }
-        case 45:
-            if (%varbit_6645 = true) {
+        case 45 :
+            if (%varplayerbit_6645 = 1) {
                 return(2);
             }
-        case 46:
-            if (%varbit_6646 = true) {
+        case 46 :
+            if (%varplayerbit_6646 = 1) {
                 return(2);
             }
-        case 47:
-            if (%varbit_6647 = true) {
+        case 47 :
+            if (%varplayerbit_6647 = 1) {
                 return(2);
             }
-        case 48:
-            if (%varbit_6648 = true) {
+        case 48 :
+            if (%varplayerbit_6648 = 1) {
                 return(2);
             }
-        case 49:
-            if (%varbit_6649 = true) {
+        case 49 :
+            if (%varplayerbit_6649 = 1) {
                 return(2);
             }
-        case 50:
-            if (%varbit_6650 = true) {
+        case 50 :
+            if (%varplayerbit_6650 = 1) {
                 return(2);
             }
-        case 51:
-            if (%varbit_6651 = true) {
+        case 51 :
+            if (%varplayerbit_6651 = 1) {
                 return(2);
             }
-        case 52:
-            if (%varbit_6652 = true) {
+        case 52 :
+            if (%varplayerbit_6652 = 1) {
                 return(2);
             }
-        case 53:
-            if (%varbit_6653 = true) {
+        case 53 :
+            if (%varplayerbit_6653 = 1) {
                 return(2);
             }
-        case 54:
-            if (%varbit_6654 = true) {
+        case 54 :
+            if (%varplayerbit_6654 = 1) {
                 return(2);
             }
-        case 55:
-            if (%varbit_6655 = true) {
+        case 55 :
+            if (%varplayerbit_6655 = 1) {
                 return(2);
             }
-        case 56:
-            if (%varbit_6658 = true) {
+        case 56 :
+            if (%varplayerbit_6658 = 1) {
                 return(2);
             }
-        case 57:
-            if (%varbit_6659 = true) {
+        case 57 :
+            if (%varplayerbit_6659 = 1) {
                 return(2);
             }
-        case 58:
-            if (%varbit_6660 = true) {
+        case 58 :
+            if (%varplayerbit_6660 = 1) {
                 return(2);
             }
-        case 59:
-            if (%varbit_6661 = true) {
+        case 59 :
+            if (%varplayerbit_6661 = 1) {
                 return(2);
             }
-        case 60:
-            if (%varbit_6662 = 63) {
+        case 60 :
+            if (%varplayerbit_6662 = 63) {
                 return(2);
-            } else if (%varbit_6662 > 0) {
+            } else if (%varplayerbit_6662 > 0) {
                 return(1);
             }
-        case 61:
-            if (%varbit_4949 = true) {
+        case 61 :
+            if (%varplayerbit_4949 = 1) {
                 return(2);
             }
-        case 62:
-            if (%varbit_4950 = true) {
+        case 62 :
+            if (%varplayerbit_4950 = 1) {
                 return(2);
             }
-        case 63:
-            if (%varbit_4951 = true) {
+        case 63 :
+            if (%varplayerbit_4951 = 1) {
                 return(2);
             }
-        case 64:
-            if (%varbit_4952 = true) {
+        case 64 :
+            if (%varplayerbit_4952 = 1) {
                 return(2);
             }
-        case 65:
-            if (%varbit_4953 = true) {
+        case 65 :
+            if (%varplayerbit_4953 = 1) {
                 return(2);
             }
-        case 66:
-            if (%varbit_4954 = true) {
+        case 66 :
+            if (%varplayerbit_4954 = 1) {
                 return(2);
             }
-        case 67:
-            if (%varbit_4955 = true) {
+        case 67 :
+            if (%varplayerbit_4955 = 1) {
                 return(2);
             }
-        case 68:
-            if (%varbit_4956 = true) {
+        case 68 :
+            if (%varplayerbit_4956 = 1) {
                 return(2);
             }
-        case 69:
-            if (%varbit_4957 = true) {
+        case 69 :
+            if (%varplayerbit_4957 = 1) {
                 return(2);
             }
-        case 70:
-            if (%varbit_4958 = true) {
+        case 70 :
+            if (%varplayerbit_4958 = 1) {
                 return(2);
             }
-        case 71:
-            if (%varbit_4959 = true) {
+        case 71 :
+            if (%varplayerbit_4959 = 1) {
                 return(2);
             }
-        case 72:
-            if (%varbit_4960 = true) {
+        case 72 :
+            if (%varplayerbit_4960 = 1) {
                 return(2);
             }
-        case 73:
-            if (%varbit_4961 = true) {
+        case 73 :
+            if (%varplayerbit_4961 = 1) {
                 return(2);
             }
-        case 74:
-            if (%varbit_4962 = true) {
+        case 74 :
+            if (%varplayerbit_4962 = 1) {
                 return(2);
             }
-        case 75:
-            if (%varbit_4963 = true) {
+        case 75 :
+            if (%varplayerbit_4963 = 1) {
                 return(2);
             }
-        case 76:
-            if (%varbit_4964 = true) {
+        case 76 :
+            if (%varplayerbit_4964 = 1) {
                 return(2);
             }
-        case 77:
-            if (%varbit_4965 = true) {
+        case 77 :
+            if (%varplayerbit_4965 = 1) {
                 return(2);
             }
-        case 78:
-            if (%varbit_4966 = true) {
+        case 78 :
+            if (%varplayerbit_4966 = 1) {
                 return(2);
             }
-        case 79:
-            if (%varbit_4967 = true) {
+        case 79 :
+            if (%varplayerbit_4967 = 1) {
                 return(2);
             }
-        case 80:
-            if (%varbit_4968 = true) {
+        case 80 :
+            if (%varplayerbit_4968 = 1) {
                 return(2);
             }
-        case 81:
-            if (%varbit_4969 = true) {
+        case 81 :
+            if (%varplayerbit_4969 = 1) {
                 return(2);
             }
-        case 82:
-            if (%varbit_4970 = true) {
+        case 82 :
+            if (%varplayerbit_4970 = 1) {
                 return(2);
             }
-        case 83:
-            if (%varbit_4971 = true) {
+        case 83 :
+            if (%varplayerbit_4971 = 1) {
                 return(2);
             }
-        case 84:
-            if (%varbit_4972 = true) {
+        case 84 :
+            if (%varplayerbit_4972 = 1) {
                 return(2);
             }
-        case 85:
-            if (%varbit_4973 = true) {
+        case 85 :
+            if (%varplayerbit_4973 = 1) {
                 return(2);
             }
-        case 86:
-            if (%varbit_4974 = true) {
+        case 86 :
+            if (%varplayerbit_4974 = 1) {
                 return(2);
             }
-        case 87:
-            if (%varbit_4975 = true) {
+        case 87 :
+            if (%varplayerbit_4975 = 1) {
                 return(2);
             }
-        case 88:
-            if (%varbit_4976 = true) {
+        case 88 :
+            if (%varplayerbit_4976 = 1) {
                 return(2);
             }
-        case 89:
-            if (%varbit_4977 = true) {
+        case 89 :
+            if (%varplayerbit_4977 = 1) {
                 return(2);
             }
-        case 90:
-            if (%varbit_4978 = true) {
+        case 90 :
+            if (%varplayerbit_4978 = 1) {
                 return(2);
             }
-        case 91:
-            if (%varbit_4979 = true) {
+        case 91 :
+            if (%varplayerbit_4979 = 1) {
                 return(2);
             }
-        case 92:
-            if (%varbit_4980 = true) {
+        case 92 :
+            if (%varplayerbit_4980 = 1) {
                 return(2);
             }
-        case 93:
-            if (%varbit_4981 = true) {
+        case 93 :
+            if (%varplayerbit_4981 = 1) {
                 return(2);
             }
-        case 94:
-            if (%varbit_4982 = true) {
+        case 94 :
+            if (%varplayerbit_4982 = 1) {
                 return(2);
             }
-        case 95:
-            if (%varbit_4983 = true) {
+        case 95 :
+            if (%varplayerbit_4983 = 1) {
                 return(2);
             }
-        case 96:
-            if (%varbit_4984 = true) {
+        case 96 :
+            if (%varplayerbit_4984 = 1) {
                 return(2);
             }
-        case 97:
-            if (%varbit_4985 = true) {
+        case 97 :
+            if (%varplayerbit_4985 = 1) {
                 return(2);
             }
-        case 98:
-            if (%varbit_4986 = true) {
+        case 98 :
+            if (%varplayerbit_4986 = 1) {
                 return(2);
             }
-        case 99:
-            if (%varbit_4987 = true) {
+        case 99 :
+            if (%varplayerbit_4987 = 1) {
                 return(2);
             }
-        case 100:
-            if (%varbit_4988 = true) {
+        case 100 :
+            if (%varplayerbit_4988 = 1) {
                 return(2);
             }
-        case 101:
-            if (%varbit_4989 = true) {
+        case 101 :
+            if (%varplayerbit_4989 = 1) {
                 return(2);
             }
-        case 102:
-            if (%varbit_4991 = true) {
+        case 102 :
+            if (%varplayerbit_4991 = 1) {
                 return(2);
             }
-        case 103:
-            if (%varbit_4992 = true) {
+        case 103 :
+            if (%varplayerbit_4992 = 1) {
                 return(2);
             }
-        case 104:
-            if (%varbit_4993 = true) {
+        case 104 :
+            if (%varplayerbit_4993 = 1) {
                 return(2);
             }
-        case 105:
-            if (%varbit_4994 = true) {
+        case 105 :
+            if (%varplayerbit_4994 = 1) {
                 return(2);
             }
-        case 106:
-            if (%varbit_4995 = true) {
+        case 106 :
+            if (%varplayerbit_4995 = 1) {
                 return(2);
             }
-        case 107:
-            if (%varbit_4996 = true) {
+        case 107 :
+            if (%varplayerbit_4996 = 1) {
                 return(2);
             }
-        case 108:
-            if (%varbit_4997 = true) {
+        case 108 :
+            if (%varplayerbit_4997 = 1) {
                 return(2);
             }
-        case 109:
-            if (%varbit_4998 = true) {
+        case 109 :
+            if (%varplayerbit_4998 = 1) {
                 return(2);
             }
-        case 110:
-            if (%varbit_4999 = true) {
+        case 110 :
+            if (%varplayerbit_4999 = 1) {
                 return(2);
             }
-        case 111:
-            if (%varbit_5998 = true) {
+        case 111 :
+            if (%varplayerbit_5998 = 1) {
                 return(2);
             }
-        case 112:
-            if (%varbit_5001 = true) {
+        case 112 :
+            if (%varplayerbit_5001 = 1) {
                 return(2);
             }
-        case 113:
-            if (%varbit_5002 = true) {
+        case 113 :
+            if (%varplayerbit_5002 = 1) {
                 return(2);
             }
-        case 114:
-            if (%varbit_5003 = true) {
+        case 114 :
+            if (%varplayerbit_5003 = 1) {
                 return(2);
             }
-        case 351:
-            if (%varbit_8180 = true) {
+        case 351 :
+            if (%varplayerbit_8180 = 1) {
                 return(2);
             }
-        case 352:
-            if (%varbit_8181 = true) {
+        case 352 :
+            if (%varplayerbit_8181 = 1) {
                 return(2);
             }
-        case 353:
-            if (%varbit_8188 = true) {
+        case 353 :
+            if (%varplayerbit_8188 = 1) {
                 return(2);
             }
-        case 354:
-            if (%varbit_8191 = true) {
+        case 354 :
+            if (%varplayerbit_8191 = 1) {
                 return(2);
             }
-        case 355:
-            if (%varbit_8192 = true) {
+        case 355 :
+            if (%varplayerbit_8192 = 1) {
                 return(2);
             }
-        case 356:
-            if (%varbit_8193 = true) {
+        case 356 :
+            if (%varplayerbit_8193 = 1) {
                 return(2);
             }
-        case 357:
-            if (%varbit_8194 = true) {
+        case 357 :
+            if (%varplayerbit_8194 = 1) {
                 return(2);
             }
-        case 115:
-            if (%varbit_5691 = true) {
+        case 115 :
+            if (%varplayerbit_5691 = 1) {
                 return(2);
             }
-        case 116:
-            if (%varbit_5692 = true) {
+        case 116 :
+            if (%varplayerbit_5692 = 1) {
                 return(2);
             }
-        case 117:
-            if (%varbit_5693 = true) {
+        case 117 :
+            if (%varplayerbit_5693 = 1) {
                 return(2);
             }
-        case 118:
-            if (%varbit_5694 = true) {
+        case 118 :
+            if (%varplayerbit_5694 = 1) {
                 return(2);
             }
-        case 119:
-            if (%varbit_5695 = true) {
+        case 119 :
+            if (%varplayerbit_5695 = 1) {
                 return(2);
             }
-        case 120:
-            if (%varbit_5696 = true) {
+        case 120 :
+            if (%varplayerbit_5696 = 1) {
                 return(2);
             }
-        case 121:
-            if (%varbit_5697 = true) {
+        case 121 :
+            if (%varplayerbit_5697 = 1) {
                 return(2);
             }
-        case 122:
-            if (%varbit_5698 = true) {
+        case 122 :
+            if (%varplayerbit_5698 = 1) {
                 return(2);
             }
-        case 123:
-            if (%varbit_5699 = true) {
+        case 123 :
+            if (%varplayerbit_5699 = 1) {
                 return(2);
             }
-        case 124:
-            if (%varbit_5700 = true) {
+        case 124 :
+            if (%varplayerbit_5700 = 1) {
                 return(2);
             }
-        case 125:
-            if (%varbit_5701 = true) {
+        case 125 :
+            if (%varplayerbit_5701 = 1) {
                 return(2);
             }
-        case 126:
-            if (%varbit_5702 = true) {
+        case 126 :
+            if (%varplayerbit_5702 = 1) {
                 return(2);
             }
-        case 127:
-            if (%varbit_5703 = true) {
+        case 127 :
+            if (%varplayerbit_5703 = 1) {
                 return(2);
             }
-        case 128:
-            if (%varbit_5704 = true) {
+        case 128 :
+            if (%varplayerbit_5704 = 1) {
                 return(2);
             }
-        case 129:
-            if (%varbit_5705 = 3) {
+        case 129 :
+            if (%varplayerbit_5705 = 3) {
                 return(2);
-            } else if (%varbit_5705 > 0) {
+            } else if (%varplayerbit_5705 > 0) {
                 return(1);
             }
-        case 130:
-            if (%varbit_5706 = true) {
+        case 130 :
+            if (%varplayerbit_5706 = 1) {
                 return(2);
             }
-        case 131:
-            if (%varbit_5707 = true) {
+        case 131 :
+            if (%varplayerbit_5707 = 1) {
                 return(2);
             }
-        case 132:
-            if (%varbit_5723 = true) {
+        case 132 :
+            if (%varplayerbit_5723 = 1) {
                 return(2);
             }
-        case 133:
-            if (%varbit_5709 = 3) {
+        case 133 :
+            if (%varplayerbit_5709 = 3) {
                 return(2);
-            } else if (%varbit_5709 > 0) {
+            } else if (%varplayerbit_5709 > 0) {
                 return(1);
             }
-        case 134:
-            if (%varbit_5710 = true) {
+        case 134 :
+            if (%varplayerbit_5710 = 1) {
                 return(2);
             }
-        case 135:
-            if (%varbit_5711 = true) {
+        case 135 :
+            if (%varplayerbit_5711 = 1) {
                 return(2);
             }
-        case 136:
-            if (%varbit_5712 = true) {
+        case 136 :
+            if (%varplayerbit_5712 = 1) {
                 return(2);
             }
-        case 137:
-            if (%varbit_5713 = true) {
+        case 137 :
+            if (%varplayerbit_5713 = 1) {
                 return(2);
             }
-        case 138:
-            if (%varbit_5714 = true) {
+        case 138 :
+            if (%varplayerbit_5714 = 1) {
                 return(2);
             }
-        case 139:
-            if (%varbit_5715 = true) {
+        case 139 :
+            if (%varplayerbit_5715 = 1) {
                 return(2);
             }
-        case 140:
-            if (%varbit_5716 = true) {
+        case 140 :
+            if (%varplayerbit_5716 = 1) {
                 return(2);
             }
-        case 141:
-            if (%varbit_5717 = true) {
+        case 141 :
+            if (%varplayerbit_5717 = 1) {
                 return(2);
             }
-        case 142:
-            if (%varbit_5718 = true) {
+        case 142 :
+            if (%varplayerbit_5718 = 1) {
                 return(2);
             }
-        case 143:
-            if (%varbit_5719 = true) {
+        case 143 :
+            if (%varplayerbit_5719 = 1) {
                 return(2);
             }
-        case 144:
-            if (%varbit_5720 = true) {
+        case 144 :
+            if (%varplayerbit_5720 = 1) {
                 return(2);
             }
-        case 145:
-            if (%varbit_5721 = true) {
+        case 145 :
+            if (%varplayerbit_5721 = 1) {
                 return(2);
             }
-        case 146:
-            if (%varbit_5722 = true) {
+        case 146 :
+            if (%varplayerbit_5722 = 1) {
                 return(2);
             }
-        case 147:
-            if (%varbit_5708 = true) {
+        case 147 :
+            if (%varplayerbit_5708 = 1) {
                 return(2);
             }
-        case 148:
-            if (%varbit_5724 = true) {
+        case 148 :
+            if (%varplayerbit_5724 = 1) {
                 return(2);
             }
-        case 149:
-            if (%varbit_5725 = true) {
+        case 149 :
+            if (%varplayerbit_5725 = 1) {
                 return(2);
             }
-        case 150:
-            if (%varbit_5726 = true) {
+        case 150 :
+            if (%varplayerbit_5726 = 1) {
                 return(2);
             }
-        case 151:
-            if (%varbit_5727 = true) {
+        case 151 :
+            if (%varplayerbit_5727 = 1) {
                 return(2);
             }
-        case 309:
-            if (%varbit_8114 = true) {
+        case 309 :
+            if (%varplayerbit_8114 = 1) {
                 return(2);
             }
-        case 310:
-            if (%varbit_8115 = true) {
+        case 310 :
+            if (%varplayerbit_8115 = 1) {
                 return(2);
             }
-        case 311:
-            if (%varbit_8116 = true) {
+        case 311 :
+            if (%varplayerbit_8116 = 1) {
                 return(2);
             }
-        case 312:
-            if (%varbit_8117 = true) {
+        case 312 :
+            if (%varplayerbit_8117 = 1) {
                 return(2);
             }
-        case 313:
-            if (%varbit_8118 = true) {
+        case 313 :
+            if (%varplayerbit_8118 = 1) {
                 return(2);
             }
-        case 314:
-            if (%varbit_8119 = true) {
+        case 314 :
+            if (%varplayerbit_8119 = 1) {
                 return(2);
             }
-        case 315:
-            if (%varbit_8120 = true) {
+        case 315 :
+            if (%varplayerbit_8120 = 1) {
                 return(2);
             }
-        case 152:
-            if (%varbit_5648 = true) {
+        case 152 :
+            if (%varplayerbit_5648 = 1) {
                 return(2);
             }
-        case 153:
-            if (%varbit_5649 = true) {
+        case 153 :
+            if (%varplayerbit_5649 = 1) {
                 return(2);
             }
-        case 154:
-            if (%varbit_5650 = true) {
+        case 154 :
+            if (%varplayerbit_5650 = 1) {
                 return(2);
             }
-        case 155:
-            if (%varbit_5651 = true) {
+        case 155 :
+            if (%varplayerbit_5651 = 1) {
                 return(2);
             }
-        case 156:
-            if (%varbit_5652 = true) {
+        case 156 :
+            if (%varplayerbit_5652 = 1) {
                 return(2);
             }
-        case 157:
-            if (%varbit_5653 = true) {
+        case 157 :
+            if (%varplayerbit_5653 = 1) {
                 return(2);
             }
-        case 158:
-            if (%varbit_5654 = true) {
+        case 158 :
+            if (%varplayerbit_5654 = 1) {
                 return(2);
             }
-        case 159:
-            if (%varbit_5655 = true) {
+        case 159 :
+            if (%varplayerbit_5655 = 1) {
                 return(2);
             }
-        case 160:
-            if (%varbit_5656 = true) {
+        case 160 :
+            if (%varplayerbit_5656 = 1) {
                 return(2);
             }
-        case 161:
-            if (%varbit_5657 = true) {
+        case 161 :
+            if (%varplayerbit_5657 = 1) {
                 return(2);
             }
-        case 162:
-            if (%varbit_5658 = true) {
+        case 162 :
+            if (%varplayerbit_5658 = 1) {
                 return(2);
             }
-        case 163:
-            if (%varbit_5659 = true) {
+        case 163 :
+            if (%varplayerbit_5659 = 1) {
                 return(2);
             }
-        case 164:
-            if (%varbit_5660 = true) {
+        case 164 :
+            if (%varplayerbit_5660 = 1) {
                 return(2);
             }
-        case 165:
-            if (%varbit_5661 = true) {
+        case 165 :
+            if (%varplayerbit_5661 = 1) {
                 return(2);
             }
-        case 166:
-            if (%varbit_5662 = true) {
+        case 166 :
+            if (%varplayerbit_5662 = 1) {
                 return(2);
             }
-        case 167:
-            if (%varbit_5663 = true) {
+        case 167 :
+            if (%varplayerbit_5663 = 1) {
                 return(2);
             }
-        case 168:
-            if (%varbit_5664 = true) {
+        case 168 :
+            if (%varplayerbit_5664 = 1) {
                 return(2);
             }
-        case 169:
-            if (%varbit_5665 = true) {
+        case 169 :
+            if (%varplayerbit_5665 = 1) {
                 return(2);
             }
-        case 170:
-            if (%varbit_5666 = true) {
+        case 170 :
+            if (%varplayerbit_5666 = 1) {
                 return(2);
             }
-        case 171:
-            if (%varbit_5667 = true) {
+        case 171 :
+            if (%varplayerbit_5667 = 1) {
                 return(2);
             }
-        case 172:
-            if (%varbit_5668 = true) {
+        case 172 :
+            if (%varplayerbit_5668 = 1) {
                 return(2);
             }
-        case 173:
-            if (%varbit_5669 = true) {
+        case 173 :
+            if (%varplayerbit_5669 = 1) {
                 return(2);
             }
-        case 174:
-            if (%varbit_5670 = true) {
+        case 174 :
+            if (%varplayerbit_5670 = 1) {
                 return(2);
             }
-        case 175:
-            if (%varbit_5671 = true) {
+        case 175 :
+            if (%varplayerbit_5671 = 1) {
                 return(2);
             }
-        case 176:
-            if (%varbit_5672 = true) {
+        case 176 :
+            if (%varplayerbit_5672 = 1) {
                 return(2);
             }
-        case 177:
-            if (%varbit_5673 = true) {
+        case 177 :
+            if (%varplayerbit_5673 = 1) {
                 return(2);
             }
-        case 178:
-            if (%varbit_5674 = true) {
+        case 178 :
+            if (%varplayerbit_5674 = 1) {
                 return(2);
             }
-        case 179:
-            if (%varbit_5675 = true) {
+        case 179 :
+            if (%varplayerbit_5675 = 1) {
                 return(2);
             }
-        case 180:
-            if (%varbit_5676 = true) {
+        case 180 :
+            if (%varplayerbit_5676 = 1) {
                 return(2);
             }
-        case 181:
-            if (%varbit_5677 = true) {
+        case 181 :
+            if (%varplayerbit_5677 = 1) {
                 return(2);
             }
-        case 428:
-            if (%varbit_9067 > 0) {
+        case 428 :
+            if (%varplayerbit_9067 > 0) {
                 return(2);
             }
-        case 316:
-            if (%varbit_8231 = true) {
+        case 316 :
+            if (%varplayerbit_8231 = 1) {
                 return(2);
             }
-        case 317:
-            if (%varbit_8232 = true) {
+        case 317 :
+            if (%varplayerbit_8232 = 1) {
                 return(2);
             }
-        case 318:
-            if (%varbit_8233 = true) {
+        case 318 :
+            if (%varplayerbit_8233 = 1) {
                 return(2);
             }
-        case 319:
-            if (%varbit_8234 = true) {
+        case 319 :
+            if (%varplayerbit_8234 = 1) {
                 return(2);
             }
-        case 320:
-            if (%varbit_8235 = true) {
+        case 320 :
+            if (%varplayerbit_8235 = 1) {
                 return(2);
             }
-        case 321:
-            if (%varbit_8236 = true) {
+        case 321 :
+            if (%varplayerbit_8236 = 1) {
                 return(2);
             }
-        case 322:
-            if (%varbit_8237 = true) {
+        case 322 :
+            if (%varplayerbit_8237 = 1) {
                 return(2);
             }
-        case 323:
-            if (%varbit_8238 = true) {
+        case 323 :
+            if (%varplayerbit_8238 = 1) {
                 return(2);
             }
-        case 417:
-            if (%varbit_8239 = true) {
+        case 417 :
+            if (%varplayerbit_8239 = 1) {
                 return(2);
             }
-        case 182:
-            if (%varbit_3566 = 5) {
+        case 182 :
+            if (%varplayerbit_3566 = 5) {
                 return(2);
-            } else if (%varbit_3566 > 0) {
+            } else if (%varplayerbit_3566 > 0) {
                 return(1);
             }
-        case 183:
-            if (%varbit_3567 = true) {
+        case 183 :
+            if (%varplayerbit_3567 = 1) {
                 return(2);
             }
-        case 184:
-            if (%varbit_3568 = true) {
+        case 184 :
+            if (%varplayerbit_3568 = 1) {
                 return(2);
             }
-        case 185:
-            if (%varbit_3569 = true) {
+        case 185 :
+            if (%varplayerbit_3569 = 1) {
                 return(2);
             }
-        case 186:
-            if (%varbit_3570 = true) {
+        case 186 :
+            if (%varplayerbit_3570 = 1) {
                 return(2);
             }
-        case 187:
-            if (%varbit_3571 = true) {
+        case 187 :
+            if (%varplayerbit_3571 = 1) {
                 return(2);
             }
-        case 188:
-            if (%varbit_3572 = true) {
+        case 188 :
+            if (%varplayerbit_3572 = 1) {
                 return(2);
             }
-        case 189:
-            if (%varbit_3573 = 5) {
+        case 189 :
+            if (%varplayerbit_3573 = 5) {
                 return(2);
-            } else if (%varbit_3573 > 0) {
+            } else if (%varplayerbit_3573 > 0) {
                 return(1);
             }
-        case 190:
-            if (%varbit_3574 = true) {
+        case 190 :
+            if (%varplayerbit_3574 = 1) {
                 return(2);
             }
-        case 191:
-            if (%varbit_3575 = true) {
+        case 191 :
+            if (%varplayerbit_3575 = 1) {
                 return(2);
             }
-        case 192:
-            if (%varbit_3579 = true) {
+        case 192 :
+            if (%varplayerbit_3579 = 1) {
                 return(2);
             }
-        case 193:
-            if (%varbit_3580 = true) {
+        case 193 :
+            if (%varplayerbit_3580 = 1) {
                 return(2);
             }
-        case 194:
-            if (%varbit_3581 = true) {
+        case 194 :
+            if (%varplayerbit_3581 = 1) {
                 return(2);
             }
-        case 195:
-            if (%varbit_3582 = true) {
+        case 195 :
+            if (%varplayerbit_3582 = 1) {
                 return(2);
             }
-        case 196:
-            if (%varbit_3583 = true) {
+        case 196 :
+            if (%varplayerbit_3583 = 1) {
                 return(2);
             }
-        case 197:
-            if (%varbit_3584 = true) {
+        case 197 :
+            if (%varplayerbit_3584 = 1) {
                 return(2);
             }
-        case 198:
-            if (%varbit_3585 = true) {
+        case 198 :
+            if (%varplayerbit_3585 = 1) {
                 return(2);
             }
-        case 199:
-            if (%varbit_3586 = true) {
+        case 199 :
+            if (%varplayerbit_3586 = 1) {
                 return(2);
             }
-        case 200:
-            if (%varbit_3587 = true) {
+        case 200 :
+            if (%varplayerbit_3587 = 1) {
                 return(2);
             }
-        case 201:
-            if (%varbit_3588 = true) {
+        case 201 :
+            if (%varplayerbit_3588 = 1) {
                 return(2);
             }
-        case 202:
-            if (%varbit_3589 = true) {
+        case 202 :
+            if (%varplayerbit_3589 = 1) {
                 return(2);
             }
-        case 203:
-            if (%varbit_3590 = true) {
+        case 203 :
+            if (%varplayerbit_3590 = 1) {
                 return(2);
             }
-        case 204:
-            if (%varbit_3591 = true) {
+        case 204 :
+            if (%varplayerbit_3591 = 1) {
                 return(2);
             }
-        case 205:
-            if (%varbit_3592 = true) {
+        case 205 :
+            if (%varplayerbit_3592 = 1) {
                 return(2);
             }
-        case 206:
-            if (%varbit_3593 = true) {
+        case 206 :
+            if (%varplayerbit_3593 = 1) {
                 return(2);
             }
-        case 207:
-            if (%varbit_3594 = true) {
+        case 207 :
+            if (%varplayerbit_3594 = 1) {
                 return(2);
             }
-        case 208:
-            if (%varbit_3595 = true) {
+        case 208 :
+            if (%varplayerbit_3595 = 1) {
                 return(2);
             }
-        case 209:
-            if (%varbit_3596 = true) {
+        case 209 :
+            if (%varplayerbit_3596 = 1) {
                 return(2);
             }
-        case 210:
-            if (%varbit_3597 = true) {
+        case 210 :
+            if (%varplayerbit_3597 = 1) {
                 return(2);
             }
-        case 211:
-            if (%varbit_3600 = true) {
+        case 211 :
+            if (%varplayerbit_3600 = 1) {
                 return(2);
             }
-        case 212:
-            if (%varbit_3601 = true) {
+        case 212 :
+            if (%varplayerbit_3601 = 1) {
                 return(2);
             }
-        case 213:
-            if (%varbit_3602 = true) {
+        case 213 :
+            if (%varplayerbit_3602 = 1) {
                 return(2);
             }
-        case 214:
-            if (%varbit_3603 = true) {
+        case 214 :
+            if (%varplayerbit_3603 = 1) {
                 return(2);
             }
-        case 215:
-            if (%varbit_3604 = true) {
+        case 215 :
+            if (%varplayerbit_3604 = 1) {
                 return(2);
             }
-        case 216:
-            if (%varbit_3605 = true) {
+        case 216 :
+            if (%varplayerbit_3605 = 1) {
                 return(2);
             }
-        case 217:
-            if (%varbit_3606 = true) {
+        case 217 :
+            if (%varplayerbit_3606 = 1) {
                 return(2);
             }
-        case 218:
-            if (%varbit_3607 = 5) {
+        case 218 :
+            if (%varplayerbit_3607 = 5) {
                 return(2);
-            } else if (%varbit_3607 > 0) {
+            } else if (%varplayerbit_3607 > 0) {
                 return(1);
             }
-        case 219:
-            if (%varbit_3608 = true) {
+        case 219 :
+            if (%varplayerbit_3608 = 1) {
                 return(2);
             }
-        case 220:
-            if (%varbit_3609 = true) {
+        case 220 :
+            if (%varplayerbit_3609 = 1) {
                 return(2);
             }
-        case 324:
-            if (%varbit_8121 = true) {
+        case 324 :
+            if (%varplayerbit_8121 = 1) {
                 return(2);
             }
-        case 325:
-            if (%varbit_8122 = true) {
+        case 325 :
+            if (%varplayerbit_8122 = 1) {
                 return(2);
             }
-        case 326:
-            if (%varbit_8123 = true) {
+        case 326 :
+            if (%varplayerbit_8123 = 1) {
                 return(2);
             }
-        case 327:
-            if (%varbit_8124 = true) {
+        case 327 :
+            if (%varplayerbit_8124 = 1) {
                 return(2);
             }
-        case 328:
-            if (%varbit_8125 = true) {
+        case 328 :
+            if (%varplayerbit_8125 = 1) {
                 return(2);
             }
-        case 329:
-            if (%varbit_8126 = true) {
+        case 329 :
+            if (%varplayerbit_8126 = 1) {
                 return(2);
             }
-        case 330:
-            if (%varbit_8127 = true) {
+        case 330 :
+            if (%varplayerbit_8127 = 1) {
                 return(2);
             }
-        case 331:
-            if (%varbit_8128 = true) {
+        case 331 :
+            if (%varplayerbit_8128 = 1) {
                 return(2);
             }
-        case 221:
-            if (%varbit_5782 = 5) {
+        case 221 :
+            if (%varplayerbit_5782 = 5) {
                 return(2);
-            } else if (%varbit_5782 > 0) {
+            } else if (%varplayerbit_5782 > 0) {
                 return(1);
             }
-        case 222:
-            if (%varbit_5783 = true) {
+        case 222 :
+            if (%varplayerbit_5783 = 1) {
                 return(2);
             }
-        case 223:
-            if (%varbit_5784 = true) {
+        case 223 :
+            if (%varplayerbit_5784 = 1) {
                 return(2);
             }
-        case 224:
-            if (%varbit_5785 = true) {
+        case 224 :
+            if (%varplayerbit_5785 = 1) {
                 return(2);
             }
-        case 225:
-            if (%varbit_5786 = true) {
+        case 225 :
+            if (%varplayerbit_5786 = 1) {
                 return(2);
             }
-        case 226:
-            if (%varbit_5787 = 5) {
+        case 226 :
+            if (%varplayerbit_5787 = 5) {
                 return(2);
             }
-        case 227:
-            if (%varbit_5788 = 5) {
+        case 227 :
+            if (%varplayerbit_5788 = 5) {
                 return(2);
-            } else if (%varbit_5788 > 0) {
+            } else if (%varplayerbit_5788 > 0) {
                 return(1);
             }
-        case 228:
-            if (%varbit_5789 = 5) {
+        case 228 :
+            if (%varplayerbit_5789 = 5) {
                 return(2);
-            } else if (%varbit_5789 > 0) {
+            } else if (%varplayerbit_5789 > 0) {
                 return(1);
             }
-        case 229:
-            if (%varbit_5790 = true) {
+        case 229 :
+            if (%varplayerbit_5790 = 1) {
                 return(2);
             }
-        case 230:
-            if (%varbit_5791 = true) {
+        case 230 :
+            if (%varplayerbit_5791 = 1) {
                 return(2);
             }
-        case 231:
-            if (%varbit_5792 = true) {
+        case 231 :
+            if (%varplayerbit_5792 = 1) {
                 return(2);
             }
-        case 232:
-            if (%varbit_5793 = true) {
+        case 232 :
+            if (%varplayerbit_5793 = 1) {
                 return(2);
             }
-        case 233:
-            if (%varbit_5794 = true) {
+        case 233 :
+            if (%varplayerbit_5794 = 1) {
                 return(2);
             }
-        case 234:
-            if (%varbit_5795 = true) {
+        case 234 :
+            if (%varplayerbit_5795 = 1) {
                 return(2);
             }
-        case 235:
-            if (%varbit_5796 = true) {
+        case 235 :
+            if (%varplayerbit_5796 = 1) {
                 return(2);
             }
-        case 236:
-            if (%varbit_5797 = 15) {
+        case 236 :
+            if (%varplayerbit_5797 = 15) {
                 return(2);
-            } else if (%varbit_5797 > 0) {
+            } else if (%varplayerbit_5797 > 0) {
                 return(1);
             }
-        case 237:
-            if (%varbit_5798 = true) {
+        case 237 :
+            if (%varplayerbit_5798 = 1) {
                 return(2);
             }
-        case 238:
-            if (%varbit_5799 = true) {
+        case 238 :
+            if (%varplayerbit_5799 = 1) {
                 return(2);
             }
-        case 239:
-            if (%varbit_5800 = true) {
+        case 239 :
+            if (%varplayerbit_5800 = 1) {
                 return(2);
             }
-        case 240:
-            if (%varbit_5801 = true) {
+        case 240 :
+            if (%varplayerbit_5801 = 1) {
                 return(2);
             }
-        case 241:
-            if (%varbit_5802 = true) {
+        case 241 :
+            if (%varplayerbit_5802 = 1) {
                 return(2);
             }
-        case 242:
-            if (%varbit_5803 = true) {
+        case 242 :
+            if (%varplayerbit_5803 = 1) {
                 return(2);
             }
-        case 243:
-            if (%varbit_5804 = true) {
+        case 243 :
+            if (%varplayerbit_5804 = 1) {
                 return(2);
             }
-        case 244:
-            if (%varbit_5805 = 15) {
+        case 244 :
+            if (%varplayerbit_5805 = 15) {
                 return(2);
-            } else if (%varbit_5805 > 0) {
+            } else if (%varplayerbit_5805 > 0) {
                 return(1);
             }
-        case 245:
-            if (%varbit_5806 = true) {
+        case 245 :
+            if (%varplayerbit_5806 = 1) {
                 return(2);
             }
-        case 246:
-            if (%varbit_5807 = 5) {
+        case 246 :
+            if (%varplayerbit_5807 = 5) {
                 return(2);
-            } else if (%varbit_5807 > 0) {
+            } else if (%varplayerbit_5807 > 0) {
                 return(1);
             }
-        case 247:
-            if (%varbit_5808 = true) {
+        case 247 :
+            if (%varplayerbit_5808 = 1) {
                 return(2);
             }
-        case 248:
-            if (%varbit_5809 = true) {
+        case 248 :
+            if (%varplayerbit_5809 = 1) {
                 return(2);
             }
-        case 249:
-            if (%varbit_5810 = true) {
+        case 249 :
+            if (%varplayerbit_5810 = 1) {
                 return(2);
             }
-        case 250:
-            if (%varbit_5811 = true) {
+        case 250 :
+            if (%varplayerbit_5811 = 1) {
                 return(2);
             }
-        case 251:
-            if (%varbit_5812 = true) {
+        case 251 :
+            if (%varplayerbit_5812 = 1) {
                 return(2);
             }
-        case 252:
-            if (%varbit_5813 = true) {
+        case 252 :
+            if (%varplayerbit_5813 = 1) {
                 return(2);
             }
-        case 253:
-            if (%varbit_5814 = 5) {
+        case 253 :
+            if (%varplayerbit_5814 = 5) {
                 return(2);
-            } else if (%varbit_5814 > 0) {
+            } else if (%varplayerbit_5814 > 0) {
                 return(1);
             }
-        case 254:
-            if (%varbit_5815 = 5) {
+        case 254 :
+            if (%varplayerbit_5815 = 5) {
                 return(2);
-            } else if (%varbit_5815 > 0) {
+            } else if (%varplayerbit_5815 > 0) {
                 return(1);
             }
-        case 255:
-            if (%varbit_5816 = 5) {
+        case 255 :
+            if (%varplayerbit_5816 = 5) {
                 return(2);
-            } else if (%varbit_5816 > 0) {
+            } else if (%varplayerbit_5816 > 0) {
                 return(1);
             }
-        case 332:
-            if (%varbit_8205 = true) {
+        case 332 :
+            if (%varplayerbit_8205 = 1) {
                 return(2);
             }
-        case 333:
-            if (%varbit_8212 = true) {
+        case 333 :
+            if (%varplayerbit_8212 = 1) {
                 return(2);
             }
-        case 334:
-            if (%varbit_8217 = true) {
+        case 334 :
+            if (%varplayerbit_8217 = 1) {
                 return(2);
             }
-        case 335:
-            if (%varbit_8221 = true) {
+        case 335 :
+            if (%varplayerbit_8221 = 1) {
                 return(2);
             }
-        case 336:
-            if (%varbit_8224 = true) {
+        case 336 :
+            if (%varplayerbit_8224 = 1) {
                 return(2);
             }
-        case 256:
-            if (%varbit_3986 = true) {
+        case 256 :
+            if (%varplayerbit_3986 = 1) {
                 return(2);
             }
-        case 257:
-            if (%varbit_3987 = true) {
+        case 257 :
+            if (%varplayerbit_3987 = 1) {
                 return(2);
             }
-        case 258:
-            if (%varbit_3988 = true) {
+        case 258 :
+            if (%varplayerbit_3988 = 1) {
                 return(2);
             }
-        case 259:
-            if (%varbit_3989 = true) {
+        case 259 :
+            if (%varplayerbit_3989 = 1) {
                 return(2);
             }
-        case 260:
-            if (%varbit_3990 = true) {
+        case 260 :
+            if (%varplayerbit_3990 = 1) {
                 return(2);
             }
-        case 261:
-            if (%varbit_3991 = true) {
+        case 261 :
+            if (%varplayerbit_3991 = 1) {
                 return(2);
             }
-        case 262:
-            if (%varbit_3992 = true) {
+        case 262 :
+            if (%varplayerbit_3992 = 1) {
                 return(2);
             }
-        case 263:
-            if (%varbit_3993 = true) {
+        case 263 :
+            if (%varplayerbit_3993 = 1) {
                 return(2);
             }
-        case 264:
-            if (%varbit_3994 = true) {
+        case 264 :
+            if (%varplayerbit_3994 = 1) {
                 return(2);
             }
-        case 265:
-            if (%varbit_3995 = true) {
+        case 265 :
+            if (%varplayerbit_3995 = 1) {
                 return(2);
             }
-        case 266:
-            if (%varbit_3996 = true) {
+        case 266 :
+            if (%varplayerbit_3996 = 1) {
                 return(2);
             }
-        case 267:
-            if (%varbit_3997 = true) {
+        case 267 :
+            if (%varplayerbit_3997 = 1) {
                 return(2);
             }
-        case 268:
-            if (%varbit_3998 = true) {
+        case 268 :
+            if (%varplayerbit_3998 = 1) {
                 return(2);
             }
-        case 269:
-            if (%varbit_3999 = true) {
+        case 269 :
+            if (%varplayerbit_3999 = 1) {
                 return(2);
             }
-        case 270:
-            if (%varbit_4000 = true) {
+        case 270 :
+            if (%varplayerbit_4000 = 1) {
                 return(2);
             }
-        case 271:
-            if (%varbit_4001 = true) {
+        case 271 :
+            if (%varplayerbit_4001 = 1) {
                 return(2);
             }
-        case 272:
-            if (%varbit_4002 = true) {
+        case 272 :
+            if (%varplayerbit_4002 = 1) {
                 return(2);
             }
-        case 273:
-            if (%varbit_4004 = true) {
+        case 273 :
+            if (%varplayerbit_4004 = 1) {
                 return(2);
             }
-        case 274:
-            if (%varbit_4005 = true) {
+        case 274 :
+            if (%varplayerbit_4005 = 1) {
                 return(2);
             }
-        case 275:
-            if (%varbit_4003 = true) {
+        case 275 :
+            if (%varplayerbit_4003 = 1) {
                 return(2);
             }
-        case 276:
-            if (%varbit_4007 = true) {
+        case 276 :
+            if (%varplayerbit_4007 = 1) {
                 return(2);
             }
-        case 277:
-            if (%varbit_4008 = true) {
+        case 277 :
+            if (%varplayerbit_4008 = 1) {
                 return(2);
             }
-        case 278:
-            if (%varbit_4009 = true) {
+        case 278 :
+            if (%varplayerbit_4009 = 1) {
                 return(2);
             }
-        case 279:
-            if (%varbit_4010 = true) {
+        case 279 :
+            if (%varplayerbit_4010 = 1) {
                 return(2);
             }
-        case 280:
-            if (%varbit_4011 = true) {
+        case 280 :
+            if (%varplayerbit_4011 = 1) {
                 return(2);
             }
-        case 281:
-            if (%varbit_4012 = 4) {
+        case 281 :
+            if (%varplayerbit_4012 = 4) {
                 return(2);
-            } else if (%varbit_4012 > 0) {
+            } else if (%varplayerbit_4012 > 0) {
                 return(1);
             }
-        case 282:
-            if (%varbit_4013 = true) {
+        case 282 :
+            if (%varplayerbit_4013 = 1) {
                 return(2);
             }
-        case 283:
-            if (%varbit_4014 = true) {
+        case 283 :
+            if (%varplayerbit_4014 = 1) {
                 return(2);
             }
-        case 284:
-            if (%varbit_4015 = true) {
+        case 284 :
+            if (%varplayerbit_4015 = 1) {
                 return(2);
             }
-        case 285:
-            if (%varbit_4016 = true) {
+        case 285 :
+            if (%varplayerbit_4016 = 1) {
                 return(2);
             }
-        case 286:
-            if (%varbit_4017 = true) {
+        case 286 :
+            if (%varplayerbit_4017 = 1) {
                 return(2);
             }
-        case 287:
-            if (%varbit_4018 = true) {
+        case 287 :
+            if (%varplayerbit_4018 = 1) {
                 return(2);
             }
-        case 288:
-            if (%varbit_4019 = true) {
+        case 288 :
+            if (%varplayerbit_4019 = 1) {
                 return(2);
             }
-        case 289:
-            if (%varbit_4020 = true) {
+        case 289 :
+            if (%varplayerbit_4020 = 1) {
                 return(2);
             }
-        case 290:
-            if (%varbit_4021 = true) {
+        case 290 :
+            if (%varplayerbit_4021 = 1) {
                 return(2);
             }
-        case 291:
-            if (%varbit_4022 = true) {
+        case 291 :
+            if (%varplayerbit_4022 = 1) {
                 return(2);
             }
-        case 292:
-            if (%varbit_4023 = true) {
+        case 292 :
+            if (%varplayerbit_4023 = 1) {
                 return(2);
             }
-        case 293:
-            if (%varbit_4024 = true) {
+        case 293 :
+            if (%varplayerbit_4024 = 1) {
                 return(2);
             }
-        case 294:
-            if (%varbit_4025 = true) {
+        case 294 :
+            if (%varplayerbit_4025 = 1) {
                 return(2);
             }
-        case 295:
-            if (%varbit_4026 = true) {
+        case 295 :
+            if (%varplayerbit_4026 = 1) {
                 return(2);
             }
-        case 296:
-            if (%varbit_4027 = true) {
+        case 296 :
+            if (%varplayerbit_4027 = 1) {
                 return(2);
             }
-        case 297:
-            if (%varbit_4028 = true) {
+        case 297 :
+            if (%varplayerbit_4028 = 1) {
                 return(2);
             }
-        case 298:
-            if (%varbit_4029 = true) {
+        case 298 :
+            if (%varplayerbit_4029 = 1) {
                 return(2);
             }
-        case 299:
-            if (%varbit_4030 = true) {
+        case 299 :
+            if (%varplayerbit_4030 = 1) {
                 return(2);
             }
-        case 300:
-            if (%varbit_4031 = true) {
+        case 300 :
+            if (%varplayerbit_4031 = 1) {
                 return(2);
             }
-        case 301:
-            if (%varbit_4032 = true) {
+        case 301 :
+            if (%varplayerbit_4032 = 1) {
                 return(2);
             }
-        case 302:
-            if (%varbit_4033 = true) {
+        case 302 :
+            if (%varplayerbit_4033 = 1) {
                 return(2);
             }
-        case 303:
-            if (%varbit_4034 = true) {
+        case 303 :
+            if (%varplayerbit_4034 = 1) {
                 return(2);
             }
-        case 304:
-            if (%varbit_4035 = true) {
+        case 304 :
+            if (%varplayerbit_4035 = 1) {
                 return(2);
             }
-        case 305:
-            if (%varbit_4036 = true) {
+        case 305 :
+            if (%varplayerbit_4036 = 1) {
                 return(2);
             }
-        case 306:
-            if (%varbit_4037 = true) {
+        case 306 :
+            if (%varplayerbit_4037 = 1) {
                 return(2);
             }
-        case 307:
-            if (%varbit_4038 = true) {
+        case 307 :
+            if (%varplayerbit_4038 = 1) {
                 return(2);
             }
-        case 308:
-            if (%varbit_4039 = true) {
+        case 308 :
+            if (%varplayerbit_4039 = 1) {
                 return(2);
             }
-        case 337:
-            if (%varbit_8136 = true) {
+        case 337 :
+            if (%varplayerbit_8136 = 1) {
                 return(2);
             }
-        case 338:
-            if (%varbit_8137 = true) {
+        case 338 :
+            if (%varplayerbit_8137 = 1) {
                 return(2);
             }
-        case 339:
-            if (%varbit_8138 = true) {
+        case 339 :
+            if (%varplayerbit_8138 = 1) {
                 return(2);
             }
-        case 340:
-            if (%varbit_8139 = true) {
+        case 340 :
+            if (%varplayerbit_8139 = 1) {
                 return(2);
             }
-        case 341:
-            if (%varbit_8140 = true) {
+        case 341 :
+            if (%varplayerbit_8140 = 1) {
                 return(2);
             }
-        case 342:
-            if (%varbit_8141 = true) {
+        case 342 :
+            if (%varplayerbit_8141 = 1) {
                 return(2);
             }
-        case 343:
-            if (%varbit_8145 = true) {
+        case 343 :
+            if (%varplayerbit_8145 = 1) {
                 return(2);
             }
-        case 344:
-            if (%varbit_8146 = true) {
+        case 344 :
+            if (%varplayerbit_8146 = 1) {
                 return(2);
             }
-        case 345:
-            if (%varbit_8148 = true) {
+        case 345 :
+            if (%varplayerbit_8148 = 1) {
                 return(2);
             }
-        case 358:
-            if (%varbit_8517 = true) {
+        case 358 :
+            if (%varplayerbit_8517 = 1) {
                 return(2);
             }
-        case 359:
-            if (%varbit_8518 = true) {
+        case 359 :
+            if (%varplayerbit_8518 = 1) {
                 return(2);
             }
-        case 360:
-            if (%varbit_8519 = true) {
+        case 360 :
+            if (%varplayerbit_8519 = 1) {
                 return(2);
             }
-        case 361:
-            if (%varbit_8520 = true) {
+        case 361 :
+            if (%varplayerbit_8520 = 1) {
                 return(2);
             }
-        case 362:
-            if (%varbit_8521 = true) {
+        case 362 :
+            if (%varplayerbit_8521 = 1) {
                 return(2);
             }
-        case 363:
-            if (%varbit_8522 = true) {
+        case 363 :
+            if (%varplayerbit_8522 = 1) {
                 return(2);
             }
-        case 412:
-            if (%varbit_8523 = true) {
+        case 412 :
+            if (%varplayerbit_8523 = 1) {
                 return(2);
             }
-        case 365:
-            if (%varbit_8524 = true) {
+        case 365 :
+            if (%varplayerbit_8524 = 1) {
                 return(2);
             }
-        case 413:
-            if (%varbit_8525 = true) {
+        case 413 :
+            if (%varplayerbit_8525 = 1) {
                 return(2);
             }
-        case 366:
-            if (%varbit_8526 = true) {
+        case 366 :
+            if (%varplayerbit_8526 = 1) {
                 return(2);
             }
-        case 368:
-            if (%varbit_8527 = true) {
+        case 368 :
+            if (%varplayerbit_8527 = 1) {
                 return(2);
             }
-        case 369:
-            if (%varbit_8528 = true) {
+        case 369 :
+            if (%varplayerbit_8528 = 1) {
                 return(2);
             }
-        case 370:
-            if (%varbit_8529 = true) {
+        case 370 :
+            if (%varplayerbit_8529 = 1) {
                 return(2);
             }
-        case 367:
-            if (%varbit_8530 = true) {
+        case 367 :
+            if (%varplayerbit_8530 = 1) {
                 return(2);
             }
-        case 371:
-            if (%varbit_8531 = true) {
+        case 371 :
+            if (%varplayerbit_8531 = 1) {
                 return(2);
             }
-        case 372:
-            if (%varbit_8532 = true) {
+        case 372 :
+            if (%varplayerbit_8532 = 1) {
                 return(2);
             }
-        case 373:
-            if (%varbit_8533 = true) {
+        case 373 :
+            if (%varplayerbit_8533 = 1) {
                 return(2);
             }
-        case 374:
-            if (%varbit_8534 = true) {
+        case 374 :
+            if (%varplayerbit_8534 = 1) {
                 return(2);
             }
-        case 375:
-            if (%varbit_8535 = true) {
+        case 375 :
+            if (%varplayerbit_8535 = 1) {
                 return(2);
             }
-        case 376:
-            if (%varbit_8536 = true) {
+        case 376 :
+            if (%varplayerbit_8536 = 1) {
                 return(2);
             }
-        case 377:
-            if (%varbit_8537 = true) {
+        case 377 :
+            if (%varplayerbit_8537 = 1) {
                 return(2);
             }
-        case 378:
-            if (%varbit_8538 = true) {
+        case 378 :
+            if (%varplayerbit_8538 = 1) {
                 return(2);
             }
-        case 379:
-            if (%varbit_8539 = true) {
+        case 379 :
+            if (%varplayerbit_8539 = 1) {
                 return(2);
             }
-        case 380:
-            if (%varbit_8540 = true) {
+        case 380 :
+            if (%varplayerbit_8540 = 1) {
                 return(2);
             }
-        case 381:
-            if (%varbit_8541 = true) {
+        case 381 :
+            if (%varplayerbit_8541 = 1) {
                 return(2);
             }
-        case 382:
-            if (%varbit_8542 = true) {
+        case 382 :
+            if (%varplayerbit_8542 = 1) {
                 return(2);
             }
-        case 383:
-            if (%varbit_8543 = true) {
+        case 383 :
+            if (%varplayerbit_8543 = 1) {
                 return(2);
             }
-        case 384:
-            if (%varbit_8544 = true) {
+        case 384 :
+            if (%varplayerbit_8544 = 1) {
                 return(2);
             }
-        case 385:
-            if (%varbit_8545 = true) {
+        case 385 :
+            if (%varplayerbit_8545 = 1) {
                 return(2);
             }
-        case 386:
-            if (%varbit_8546 = true) {
+        case 386 :
+            if (%varplayerbit_8546 = 1) {
                 return(2);
             }
-        case 387:
-            if (%varbit_8547 = true) {
+        case 387 :
+            if (%varplayerbit_8547 = 1) {
                 return(2);
             }
-        case 388:
-            if (%varbit_8548 = true) {
+        case 388 :
+            if (%varplayerbit_8548 = 1) {
                 return(2);
             }
-        case 389:
-            if (%varbit_8549 = true) {
+        case 389 :
+            if (%varplayerbit_8549 = 1) {
                 return(2);
             }
-        case 390:
-            if (%varbit_8550 = true) {
+        case 390 :
+            if (%varplayerbit_8550 = 1) {
                 return(2);
             }
-        case 391:
-            if (%varbit_8551 = true) {
+        case 391 :
+            if (%varplayerbit_8551 = 1) {
                 return(2);
             }
-        case 392:
-            if (%varbit_8552 = true) {
+        case 392 :
+            if (%varplayerbit_8552 = 1) {
                 return(2);
             }
-        case 393:
-            if (%varbit_8553 = true) {
+        case 393 :
+            if (%varplayerbit_8553 = 1) {
                 return(2);
             }
-        case 394:
-            if (%varbit_8554 = true) {
+        case 394 :
+            if (%varplayerbit_8554 = 1) {
                 return(2);
             }
-        case 395:
-            if (%varbit_8555 = true) {
+        case 395 :
+            if (%varplayerbit_8555 = 1) {
                 return(2);
             }
-        case 396:
-            if (%varbit_8556 = true) {
+        case 396 :
+            if (%varplayerbit_8556 = 1) {
                 return(2);
             }
-        case 397:
-            if (%varbit_8557 = true) {
+        case 397 :
+            if (%varplayerbit_8557 = 1) {
                 return(2);
             }
-        case 398:
-            if (%varbit_8558 = true) {
+        case 398 :
+            if (%varplayerbit_8558 = 1) {
                 return(2);
             }
-        case 399:
-            if (%varbit_8559 = true) {
+        case 399 :
+            if (%varplayerbit_8559 = 1) {
                 return(2);
             }
-        case 414:
-            if (%varbit_8560 = true) {
+        case 414 :
+            if (%varplayerbit_8560 = 1) {
                 return(2);
             }
-        case 415:
-            if (%varbit_8573 = true) {
+        case 415 :
+            if (%varplayerbit_8573 = 1) {
                 return(2);
             }
-        case 416:
-            if (%varbit_8574 = true) {
+        case 416 :
+            if (%varplayerbit_8574 = 1) {
                 return(2);
             }
-        case 400:
-            if (%varbit_8561 = true) {
+        case 400 :
+            if (%varplayerbit_8561 = 1) {
                 return(2);
             }
-        case 401:
-            if (%varbit_8562 = true) {
+        case 401 :
+            if (%varplayerbit_8562 = 1) {
                 return(2);
             }
-        case 402:
-            if (%varbit_8563 = true) {
+        case 402 :
+            if (%varplayerbit_8563 = 1) {
                 return(2);
             }
-        case 403:
-            if (%varbit_8564 = true) {
+        case 403 :
+            if (%varplayerbit_8564 = 1) {
                 return(2);
             }
-        case 404:
-            if (%varbit_8565 = true) {
+        case 404 :
+            if (%varplayerbit_8565 = 1) {
                 return(2);
             }
-        case 405:
-            if (%varbit_8566 = true) {
+        case 405 :
+            if (%varplayerbit_8566 = 1) {
                 return(2);
             }
-        case 406:
-            if (%varbit_8567 = true) {
+        case 406 :
+            if (%varplayerbit_8567 = 1) {
                 return(2);
             }
-        case 407:
-            if (%varbit_8568 = true) {
+        case 407 :
+            if (%varplayerbit_8568 = 1) {
                 return(2);
             }
-        case 408:
-            if (%varbit_8569 = true) {
+        case 408 :
+            if (%varplayerbit_8569 = 1) {
                 return(2);
             }
-        case 409:
-            if (%varbit_8570 = true) {
+        case 409 :
+            if (%varplayerbit_8570 = 1) {
                 return(2);
             }
-        case 410:
-            if (%varbit_8571 = true) {
+        case 410 :
+            if (%varplayerbit_8571 = 1) {
                 return(2);
             }
-        case 411:
-            if (%varbit_8572 = true) {
+        case 411 :
+            if (%varplayerbit_8572 = 1) {
                 return(2);
             }
-        case 418:
-            if (%varbit_8781 = true) {
+        case 418 :
+            if (%varplayerbit_8781 = 1) {
                 return(2);
             }
-        case 3522:
+        case 3522 :
             if (%learning_the_ropes >= 7) {
                 return(2);
             }
-        case 3500:
+        case 3500 :
             if (%learning_the_ropes > 7) {
                 return(2);
             }
-        case 3501:
+        case 3501 :
             if (%learning_the_ropes > 10) {
                 return(2);
             }
-        case 3505:
+        case 3505 :
             if (%learning_the_ropes > 49) {
                 return(2);
             }
-        case 3511:
+        case 3511 :
             if (%learning_the_ropes > 95) {
                 return(2);
             }
-        case 3502:
+        case 3502 :
             if (%learning_the_ropes > 15) {
                 return(2);
             }
-        case 3503:
+        case 3503 :
             if (%learning_the_ropes > 30) {
                 return(2);
             }
-        case 3504:
+        case 3504 :
             if (%learning_the_ropes > 40) {
                 return(2);
             }
-        case 3506:
+        case 3506 :
             if (%learning_the_ropes > 55) {
                 return(2);
             }
-        case 3508:
+        case 3508 :
             if (%learning_the_ropes > 60) {
                 return(2);
             }
-        case 3509:
+        case 3509 :
             if (%learning_the_ropes > 62) {
                 return(2);
             }
-        case 3507:
+        case 3507 :
             if (%learning_the_ropes > 75) {
                 return(2);
             }
-        case 3523:
+        case 3523 :
             if (%learning_the_ropes > 70) {
                 return(2);
             }
-        case 3510:
+        case 3510 :
             if (%learning_the_ropes > 90) {
                 return(2);
             }
-        case 3512:
+        case 3512 :
             if (%learning_the_ropes > 115) {
                 return(2);
             }
-        case 3513:
+        case 3513 :
             if (%learning_the_ropes > 127) {
                 return(2);
             }
-        case 3514:
+        case 3514 :
             if (%learning_the_ropes > 165) {
                 return(2);
             }
-        case 3515:
+        case 3515 :
             if (%learning_the_ropes > 160) {
                 return(2);
             }
-        case 3516:
+        case 3516 :
             if (%learning_the_ropes > 160) {
                 return(2);
             }
-        case 3517:
+        case 3517 :
             if (stat_base(woodcutting) > 1 | stat_base(mining) > 1) {
                 return(2);
             }
-        case 3518:
+        case 3518 :
             if (stat_base(woodcutting) > 1 | stat_base(mining) > 1) {
                 return(2);
             }
-        case 3519:
+        case 3519 :
             if (%learning_the_ropes > 170) {
                 return(2);
             }
-        case 3520:
-            if (%varbit_6494 > 2) {
+        case 3520 :
+            if (%varplayerbit_6494 > 2) {
                 return(2);
             }
-        case 422:
-            if (%varbit_9013 = 3) {
+        case 422 :
+            if (%varplayerbit_9013 = 3) {
                 return(2);
             }
-        case 423:
-            if (%varbit_9015 = true) {
+        case 423 :
+            if (%varplayerbit_9015 = 1) {
                 return(2);
             }
-        case 424:
-            if (%varbit_9016 = true) {
+        case 424 :
+            if (%varplayerbit_9016 = 1) {
                 return(2);
             }
-        case 425:
-            if (%varbit_9018 = true) {
+        case 425 :
+            if (%varplayerbit_9018 = 1) {
                 return(2);
             }
-        case 419:
-            if (%varbit_9019 = true) {
+        case 419 :
+            if (%varplayerbit_9019 = 1) {
                 return(2);
             }
-        case 420:
-            if (%varbit_9010 = true) {
+        case 420 :
+            if (%varplayerbit_9010 = 1) {
                 return(2);
             }
-        case 421:
-            if (%varbit_9011 = 3) {
+        case 421 :
+            if (%varplayerbit_9011 = 3) {
                 return(2);
-            } else if (%varbit_9011 > 0) {
+            } else if (%varplayerbit_9011 > 0) {
                 return(1);
             }
-        case 426:
-            if (%varbit_9020 = true) {
+        case 426 :
+            if (%varplayerbit_9020 = 1) {
                 return(2);
             }
-        case 427:
-            if (%varbit_9027 = true) {
+        case 427 :
+            if (%varplayerbit_9027 = 1) {
                 return(2);
             }
-        case 3525:
-            if (%varbit_9021 = true) {
+        case 3525 :
+            if (%varplayerbit_9021 = 1) {
                 return(2);
             }
-        case 3526:
-            if (%varbit_9022 = true) {
+        case 3526 :
+            if (%varplayerbit_9022 = 1) {
                 return(2);
             }
-        case 3527:
-            if (%varbit_9023 = true) {
+        case 3527 :
+            if (%varplayerbit_9023 = 1) {
                 return(2);
             }
-        case 3528:
-            if (%varbit_9024 = true) {
+        case 3528 :
+            if (%varplayerbit_9024 = 1) {
                 return(2);
             }
-        case 3529:
-            if (%varbit_9025 = true) {
+        case 3529 :
+            if (%varplayerbit_9025 = 1) {
                 return(2);
             }
-        case 3530:
-            if (%varbit_9026 = true) {
+        case 3530 :
+            if (%varplayerbit_9026 = 1) {
                 return(2);
             }
     }
 }
-return(0);
 return(0);

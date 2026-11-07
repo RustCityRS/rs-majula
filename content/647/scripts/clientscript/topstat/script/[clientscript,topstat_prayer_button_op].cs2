@@ -1,13 +1,14 @@
-[clientscript,topstat_prayer_button_op](int $int)
-if ($int ! 1) {
+// 2300
+[clientscript,topstat_prayer_button_op](int $int0)
+if ($int0 ! 1) {
     return;
 }
-if (%varp_1397 = false) {
+if (%varplayer_1397 = 0) {
     return;
 }
-if (~bool_to_int(%varc_int_182) = true) {
-    %varc_int_182 = 0;
+if (~bool_to_int(%varclient_182) = 1) {
+    %varclient_182 = false;
 } else {
-    %varc_int_182 = 1;
+    %varclient_182 = true;
 }
 ~topstat_prayer_button_update;

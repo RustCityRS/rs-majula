@@ -1,81 +1,82 @@
+// 2032
 [clientscript,trawler_water_level]
-if_sethide(true, trawler_overlay:com2);
-if_sethide(true, trawler_overlay:com3);
-if_sethide(true, trawler_overlay:com4);
-if_sethide(true, trawler_overlay:com5);
-if_sethide(true, trawler_overlay:com6);
-if_sethide(true, trawler_overlay:com7);
-if_sethide(true, trawler_overlay:com8);
-if_sethide(true, trawler_overlay:com9);
-if_sethide(true, trawler_overlay:com10);
-if_sethide(true, trawler_overlay:com11);
-if_sethide(true, trawler_overlay:com12);
-if_sethide(true, trawler_overlay:com13);
-if_sethide(true, trawler_overlay:com14);
-if_sethide(true, trawler_overlay:com15);
-if_sethide(true, trawler_overlay:com16);
-if_sethide(true, trawler_overlay:com17);
-if_sethide(true, trawler_overlay:com18);
-if_sethide(true, trawler_overlay:com19);
-if_sethide(true, trawler_overlay:com20);
-if_sethide(true, trawler_overlay:com21);
-if (%varp_391 > 0) {
-    if_sethide(false, trawler_overlay:com2);
+if_sethide(true, trawler_overlay:com_2);
+if_sethide(true, trawler_overlay:com_3);
+if_sethide(true, trawler_overlay:com_4);
+if_sethide(true, trawler_overlay:com_5);
+if_sethide(true, trawler_overlay:com_6);
+if_sethide(true, trawler_overlay:com_7);
+if_sethide(true, trawler_overlay:com_8);
+if_sethide(true, trawler_overlay:com_9);
+if_sethide(true, trawler_overlay:com_10);
+if_sethide(true, trawler_overlay:com_11);
+if_sethide(true, trawler_overlay:com_12);
+if_sethide(true, trawler_overlay:com_13);
+if_sethide(true, trawler_overlay:com_14);
+if_sethide(true, trawler_overlay:com_15);
+if_sethide(true, trawler_overlay:com_16);
+if_sethide(true, trawler_overlay:com_17);
+if_sethide(true, trawler_overlay:com_18);
+if_sethide(true, trawler_overlay:com_19);
+if_sethide(true, trawler_overlay:com_20);
+if_sethide(true, trawler_overlay:com_21);
+if (%varplayer_391 > 0) {
+    if_sethide(false, trawler_overlay:com_2);
 }
-if (%varp_391 > 4) {
-    if_sethide(false, trawler_overlay:com3);
+if (%varplayer_391 > 4) {
+    if_sethide(false, trawler_overlay:com_3);
 }
-if (%varp_391 > 9) {
-    if_sethide(false, trawler_overlay:com4);
+if (%varplayer_391 > 9) {
+    if_sethide(false, trawler_overlay:com_4);
 }
-if (%varp_391 > 14) {
-    if_sethide(false, trawler_overlay:com5);
+if (%varplayer_391 > 14) {
+    if_sethide(false, trawler_overlay:com_5);
 }
-if (%varp_391 > 19) {
-    if_sethide(false, trawler_overlay:com6);
+if (%varplayer_391 > 19) {
+    if_sethide(false, trawler_overlay:com_6);
 }
-if (%varp_391 > 24) {
-    if_sethide(false, trawler_overlay:com7);
+if (%varplayer_391 > 24) {
+    if_sethide(false, trawler_overlay:com_7);
 }
-if (%varp_391 > 29) {
-    if_sethide(false, trawler_overlay:com8);
+if (%varplayer_391 > 29) {
+    if_sethide(false, trawler_overlay:com_8);
 }
-if (%varp_391 > 34) {
-    if_sethide(false, trawler_overlay:com9);
+if (%varplayer_391 > 34) {
+    if_sethide(false, trawler_overlay:com_9);
 }
-if (%varp_391 > 39) {
-    if_sethide(false, trawler_overlay:com10);
+if (%varplayer_391 > 39) {
+    if_sethide(false, trawler_overlay:com_10);
 }
-if (%varp_391 > 44) {
-    if_sethide(false, trawler_overlay:com11);
+if (%varplayer_391 > 44) {
+    if_sethide(false, trawler_overlay:com_11);
 }
-if (%varp_391 > 49) {
-    if_sethide(false, trawler_overlay:com12);
+if (%varplayer_391 > 49) {
+    if_sethide(false, trawler_overlay:com_12);
 }
-if (%varp_391 > 54) {
-    if_sethide(false, trawler_overlay:com13);
+if (%varplayer_391 > 54) {
+    if_sethide(false, trawler_overlay:com_13);
 }
-if (%varp_391 > 59) {
-    if_sethide(false, trawler_overlay:com14);
+if (%varplayer_391 > 59) {
+    if_sethide(false, trawler_overlay:com_14);
 }
-if (%varp_391 > 64) {
-    if_sethide(false, trawler_overlay:com15);
+if (%varplayer_391 > 64) {
+    if_sethide(false, trawler_overlay:com_15);
 }
-if (%varp_391 > 69) {
-    if_sethide(false, trawler_overlay:com16);
+if (%varplayer_391 > 69) {
+    if_sethide(false, trawler_overlay:com_16);
 }
-if (%varp_391 > 74) {
-    if_sethide(false, trawler_overlay:com17);
+if (%varplayer_391 > 74) {
+    if_sethide(false, trawler_overlay:com_17);
 }
-if (%varp_391 > 79) {
-    if_sethide(false, trawler_overlay:com18);
+if (%varplayer_391 > 79) {
+    if_sethide(false, trawler_overlay:com_18);
 }
-if (%varp_391 > 84) {
-    if_sethide(false, trawler_overlay:com19);
+if (%varplayer_391 > 84) {
+    if_sethide(false, trawler_overlay:com_19);
 }
-if (%varp_391 > 89) {
-    if_sethide(false, trawler_overlay:com20);
+if (%varplayer_391 > 89) {
+    if_sethide(false, trawler_overlay:com_20);
 }
-if (%varp_391 > 94) {
-    if_sethide(false, trawler_overlay:com21);
+if (%varplayer_391 > 94) {
+    if_sethide(false, trawler_overlay:com_21);
 }

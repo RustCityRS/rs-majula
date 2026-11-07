@@ -1,5 +1,6 @@
-[clientscript,sm_offer_addtooltip](component $component0, component $component1, int $int2, int $int3, string $string)
-if (if_gethide(stockmarket:com17) = false) {
+// 649
+[clientscript,sm_offer_addtooltip](component $component0, component $component1, string $string0, int $int2, int $int3)
+if (if_gethide(stockmarket:com_17) = false) {
     return;
 }
-~addtooltip_action($component0, $component1, $string, $int2, $int3);
+~addtooltip_action($component0, $component1, $string0, $int2, $int3);

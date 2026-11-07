@@ -1,0 +1,995 @@
+// 882:0
+[com_0]
+type=rectangle
+widthmode=minus
+heightmode=minus
+xmode=abs_centre
+ymode=abs_bottom
+layer=com_5
+colour=0x2e2b26
+fill=yes
+
+// 882:1
+[com_1]
+type=rectangle
+width=1
+heightmode=minus
+layer=com_5
+colour=0xb2aa9f
+
+// 882:2
+[com_2]
+type=rectangle
+width=1
+heightmode=minus
+xmode=abs_right
+layer=com_5
+colour=0xb2aa9f
+
+// 882:3
+[com_3]
+type=rectangle
+height=1
+widthmode=minus
+ymode=abs_bottom
+layer=com_5
+colour=0xb2aa9f
+
+// 882:4
+[com_4]
+type=layer
+widthmode=minus
+heightmode=minus
+xmode=abs_centre
+ymode=abs_centre
+op10= 
+
+// 882:5
+[com_5]
+type=layer
+width=100
+height=50
+hide=yes
+noclickthrough=yes
+op10=  
+
+// 882:6
+[com_6]
+type=layer
+x=1
+width=18
+height=1
+widthmode=minus
+heightmode=minus
+layer=com_5
+op10=  
+
+// 882:7
+[com_7]
+type=layer
+x=1
+width=16
+height=1
+heightmode=minus
+xmode=abs_right
+layer=com_5
+op10=  
+
+// 882:8
+[com_8]
+type=layer
+y=1
+width=514
+height=349
+xmode=abs_centre
+ymode=abs_centre
+layer=com_4
+op10=  
+
+// 882:9
+[com_9]
+type=rectangle
+x=5
+y=5
+width=10
+height=10
+widthmode=minus
+heightmode=minus
+layer=com_8
+colour=0x271c00
+fill=yes
+op10=  
+
+// 882:10
+[com_10]
+type=graphic
+x=5
+y=5
+width=16384
+height=16384
+widthmode=proportion
+heightmode=proportion
+layer=com_8
+graphic=window_texture
+tiling=yes
+alpha=yes
+colour=0xffffffff
+op10=   
+
+// 882:11
+[com_11]
+type=graphic
+width=38
+height=38
+layer=com_8
+hflip=yes
+colour=0xffffffff
+op10=  
+
+// 882:12
+[com_12]
+type=graphic
+width=38
+height=38
+ymode=abs_bottom
+layer=com_8
+vflip=yes
+hflip=yes
+colour=0xffffffff
+op10=   
+
+// 882:13
+[com_13]
+type=graphic
+width=38
+height=72
+xmode=abs_right
+layer=com_8
+graphic="corner_frame_5,4"
+colour=0xffffffff
+op10=   
+
+// 882:14
+[com_14]
+type=graphic
+width=38
+height=38
+xmode=abs_right
+ymode=abs_bottom
+layer=com_8
+vflip=yes
+colour=0xffffffff
+op10=    
+
+// 882:15
+[com_15]
+type=graphic
+y=38
+width=7
+height=76
+heightmode=minus
+layer=com_8
+graphic=frame_border_vertical
+tiling=yes
+hflip=yes
+
+// 882:16
+[com_16]
+type=graphic
+x=38
+width=76
+height=7
+widthmode=minus
+layer=com_8
+graphic=frame_border_horizontal
+tiling=yes
+
+// 882:17
+[com_17]
+type=graphic
+x=38
+width=76
+height=7
+widthmode=minus
+ymode=abs_bottom
+layer=com_8
+graphic=frame_border_horizontal
+tiling=yes
+vflip=yes
+
+// 882:18
+[com_18]
+type=graphic
+y=72
+width=7
+height=110
+heightmode=minus
+xmode=abs_right
+layer=com_8
+graphic=frame_border_vertical
+tiling=yes
+
+// 882:19
+[com_19]
+type=layer
+y=6
+width=13
+height=33
+widthmode=minus
+xmode=abs_centre
+layer=com_8
+op10= 
+
+// 882:20
+[com_20]
+type=graphic
+x=3
+y=3
+width=19
+height=17
+xmode=abs_right
+layer=com_19
+graphic="intro_close_button,0"
+colour=0xffffffff
+op10= 
+onmouseover=graphic_swapper(event_com, "intro_close_button,1")
+onmouseleave=graphic_swapper(event_com, "intro_close_button,0")
+
+// 882:21
+[com_21]
+type=text
+widthmode=minus
+heightmode=minus
+xmode=abs_centre
+ymode=abs_centre
+layer=com_19
+textfont=verdana_15pt_regular
+text=Options
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xebe0bc
+op10= 
+
+// 882:22
+[com_22]
+type=layer
+width=501
+height=334
+xmode=abs_centre
+ymode=abs_centre
+layer=com_4
+op10= 
+
+// 882:23
+[com_23]
+type=layer
+width=100
+height=32
+xmode=abs_centre
+ymode=abs_bottom
+layer=com_28
+hide=yes
+op10= 
+onmouseover=graphics_options_button_highlight(loginscreen_graphics_options:com_24, "set_but_end_2,1", loginscreen_graphics_options:com_25, "set_but_fill_2,1", loginscreen_graphics_options:com_26, "set_but_end_2,4")
+onmouseleave=graphics_options_button_highlight(loginscreen_graphics_options:com_24, "set_but_end_2,0", loginscreen_graphics_options:com_25, "set_but_fill_2,0", loginscreen_graphics_options:com_26, "set_but_end_2,3")
+
+// 882:24
+[com_24]
+type=graphic
+width=26
+height=26
+layer=com_23
+graphic="set_but_end_2,0"
+colour=0x000000
+op10= 
+
+// 882:25
+[com_25]
+type=graphic
+x=16
+width=3
+height=26
+widthmode=minus
+layer=com_23
+graphic="set_but_fill_2,0"
+colour=0x000000
+op10=  
+
+// 882:26
+[com_26]
+type=graphic
+width=26
+height=26
+xmode=abs_right
+layer=com_23
+graphic="set_but_end_2,3"
+colour=0x000000
+op10=  
+
+// 882:27
+[com_27]
+type=text
+y=-3
+widthmode=minus
+heightmode=minus
+xmode=abs_centre
+ymode=abs_centre
+layer=com_23
+textfont=verdana_11pt_regular
+text=Back
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xebe0bc
+op10= 
+
+// 882:28
+[com_28]
+type=layer
+height=307
+widthmode=minus
+xmode=abs_centre
+ymode=abs_centre
+layer=com_22
+op10= 
+
+// 882:29
+[com_29]
+type=layer
+y=7
+width=476
+height=106
+xmode=abs_centre
+ymode=abs_bottom
+layer=com_28
+op10= 
+
+// 882:30
+[com_30]
+type=text
+x=5
+y=5
+width=10
+height=16
+widthmode=minus
+layer=com_29
+textfont=verdana_13pt_regular
+text=Volume
+textalignv=centre
+textshadow=yes
+colour=0xebe0bc
+op10=  
+
+// 882:31
+[com_31]
+type=layer
+width=476
+height=81
+xmode=abs_centre
+ymode=abs_bottom
+layer=com_29
+op10= 
+
+// 882:32
+[com_32]
+type=layer
+width=365
+height=81
+layer=com_31
+op10=  
+
+// 882:33
+[com_33]
+type=rectangle
+x=8
+y=8
+width=16
+height=16
+widthmode=minus
+heightmode=minus
+layer=com_32
+colour=0x383530
+fill=yes
+op10=    
+
+// 882:34
+[com_34]
+type=graphic
+width=8
+height=8
+layer=com_32
+graphic="lobby_smlframe,0"
+colour=0xffffffff
+op10=    
+
+// 882:35
+[com_35]
+type=graphic
+x=8
+width=16
+height=8
+widthmode=minus
+layer=com_32
+graphic="lobby_smlframe,1"
+tiling=yes
+colour=0xffffffff
+op10=    
+
+// 882:36
+[com_36]
+type=graphic
+width=8
+height=8
+xmode=abs_right
+ymode=abs_bottom
+layer=com_32
+graphic="lobby_smlframe,0"
+vflip=yes
+hflip=yes
+colour=0xffffffff
+op10=    
+
+// 882:37
+[com_37]
+type=graphic
+y=8
+width=8
+height=16
+heightmode=minus
+layer=com_32
+graphic="lobby_smlframe,2"
+tiling=yes
+colour=0xffffffff
+op10=    
+
+// 882:38
+[com_38]
+type=graphic
+width=8
+height=8
+ymode=abs_bottom
+layer=com_32
+graphic="lobby_smlframe,0"
+vflip=yes
+colour=0xffffffff
+op10=    
+
+// 882:39
+[com_39]
+type=graphic
+width=8
+height=8
+xmode=abs_right
+layer=com_32
+graphic="lobby_smlframe,0"
+hflip=yes
+colour=0xffffffff
+op10=    
+
+// 882:40
+[com_40]
+type=graphic
+y=8
+width=8
+height=16
+heightmode=minus
+xmode=abs_right
+layer=com_32
+graphic="lobby_smlframe,2"
+tiling=yes
+hflip=yes
+colour=0xffffffff
+op10=    
+
+// 882:41
+[com_41]
+type=graphic
+x=8
+width=16
+height=8
+widthmode=minus
+ymode=abs_bottom
+layer=com_32
+graphic="lobby_smlframe,1"
+tiling=yes
+vflip=yes
+colour=0xffffffff
+op10=    
+
+// 882:42
+[com_42]
+type=text
+x=13
+y=13
+width=90
+height=12
+layer=com_31
+textfont=p11_full
+text=MUSIC
+textshadow=yes
+colour=0xebe0bc
+op10= 
+
+// 882:43
+[com_43]
+type=text
+x=13
+y=36
+width=90
+height=12
+layer=com_31
+textfont=p11_full
+text=SOUND EFFECTS
+textshadow=yes
+colour=0xebe0bc
+op10=  
+
+// 882:44
+[com_44]
+type=text
+x=13
+y=59
+width=90
+height=12
+layer=com_31
+textfont=p11_full
+text=AREA SOUNDS
+textshadow=yes
+colour=0xebe0bc
+op10=   
+
+// 882:45
+[com_45]
+type=layer
+x=98
+y=11
+width=144
+height=16
+layer=com_31
+noclickthrough=yes
+op10=    
+
+// 882:46
+[com_46]
+type=graphic
+width=128
+height=16
+xmode=abs_centre
+ymode=abs_centre
+layer=com_45
+graphic=login_lobby_sliderbase
+colour=0xffffffff
+op10=    
+
+// 882:47
+[com_47]
+type=layer
+width=32
+heightmode=minus
+layer=com_45
+noclickthrough=yes
+op10=  
+onclick=loginscreen_slider_click(loginscreen_graphics_options:com_49, loginscreen_graphics_options:com_50, 0, 1)
+
+// 882:48
+[com_48]
+type=layer
+width=32
+heightmode=minus
+xmode=abs_right
+layer=com_45
+noclickthrough=yes
+op10=    
+onclick=loginscreen_slider_click(loginscreen_graphics_options:com_49, loginscreen_graphics_options:com_50, -1, 1)
+
+// 882:49
+[com_49]
+type=layer
+width=112
+heightmode=minus
+xmode=abs_centre
+layer=com_45
+noclickthrough=yes
+op10=    
+onclick=loginscreen_slider_click(loginscreen_graphics_options:com_49, loginscreen_graphics_options:com_50, event_mousex, 1)
+
+// 882:50
+[com_50]
+type=layer
+width=16
+height=16
+ymode=abs_centre
+layer=com_49
+noclickthrough=yes
+op10=   
+dragdeadtime=2
+ondragcomplete=loginscreen_slider_drag(loginscreen_graphics_options:com_49, event_com, event_mousex, 1)
+
+// 882:51
+[com_51]
+type=graphic
+width=16
+height=16
+xmode=abs_centre
+ymode=abs_centre
+layer=com_50
+graphic=login_lobby_sliderbutton
+colour=0xffffffff
+op10=   
+
+// 882:52
+[com_52]
+type=layer
+x=98
+y=34
+width=144
+height=16
+layer=com_31
+noclickthrough=yes
+op10=   
+
+// 882:53
+[com_53]
+type=graphic
+width=128
+height=16
+xmode=abs_centre
+ymode=abs_centre
+layer=com_52
+graphic=login_lobby_sliderbase
+colour=0xffffffff
+op10=   
+
+// 882:54
+[com_54]
+type=layer
+width=32
+heightmode=minus
+layer=com_52
+noclickthrough=yes
+op10= 
+onclick=loginscreen_slider_click(loginscreen_graphics_options:com_56, loginscreen_graphics_options:com_57, 0, 0)
+
+// 882:55
+[com_55]
+type=layer
+width=32
+heightmode=minus
+xmode=abs_right
+layer=com_52
+noclickthrough=yes
+op10=   
+onclick=loginscreen_slider_click(loginscreen_graphics_options:com_56, loginscreen_graphics_options:com_57, -1, 0)
+
+// 882:56
+[com_56]
+type=layer
+width=112
+heightmode=minus
+xmode=abs_centre
+layer=com_52
+noclickthrough=yes
+op10=   
+onclick=loginscreen_slider_click(loginscreen_graphics_options:com_56, loginscreen_graphics_options:com_57, event_mousex, 0)
+
+// 882:57
+[com_57]
+type=layer
+width=16
+height=16
+ymode=abs_centre
+layer=com_56
+noclickthrough=yes
+op10=  
+dragdeadtime=2
+ondragcomplete=loginscreen_slider_drag(loginscreen_graphics_options:com_56, event_com, event_mousex, 0)
+
+// 882:58
+[com_58]
+type=graphic
+width=16
+height=16
+xmode=abs_centre
+ymode=abs_centre
+layer=com_57
+graphic=login_lobby_sliderbutton
+colour=0xffffffff
+op10=  
+
+// 882:59
+[com_59]
+type=layer
+x=98
+y=56
+width=144
+height=16
+layer=com_31
+noclickthrough=yes
+op10=    
+
+// 882:60
+[com_60]
+type=graphic
+width=128
+height=16
+xmode=abs_centre
+ymode=abs_centre
+layer=com_59
+graphic=login_lobby_sliderbase
+colour=0xffffffff
+op10=    
+
+// 882:61
+[com_61]
+type=layer
+width=32
+heightmode=minus
+layer=com_59
+noclickthrough=yes
+op10=  
+onclick=loginscreen_slider_click(loginscreen_graphics_options:com_63, loginscreen_graphics_options:com_64, 0, 2)
+
+// 882:62
+[com_62]
+type=layer
+width=32
+heightmode=minus
+xmode=abs_right
+layer=com_59
+noclickthrough=yes
+op10=    
+onclick=loginscreen_slider_click(loginscreen_graphics_options:com_63, loginscreen_graphics_options:com_64, -1, 2)
+
+// 882:63
+[com_63]
+type=layer
+width=112
+heightmode=minus
+xmode=abs_centre
+layer=com_59
+noclickthrough=yes
+op10=    
+onclick=loginscreen_slider_click(loginscreen_graphics_options:com_63, loginscreen_graphics_options:com_64, event_mousex, 2)
+
+// 882:64
+[com_64]
+type=layer
+width=16
+height=16
+ymode=abs_centre
+layer=com_63
+noclickthrough=yes
+op10=   
+dragdeadtime=2
+ondragcomplete=loginscreen_slider_drag(loginscreen_graphics_options:com_63, event_com, event_mousex, 2)
+
+// 882:65
+[com_65]
+type=graphic
+width=16
+height=16
+xmode=abs_centre
+ymode=abs_centre
+layer=com_64
+graphic=login_lobby_sliderbutton
+colour=0xffffffff
+op10=   
+
+// 882:66
+[com_66]
+type=layer
+width=106
+heightmode=minus
+xmode=abs_right
+layer=com_31
+op10=   
+
+// 882:67
+[com_67]
+type=rectangle
+x=8
+y=8
+width=16
+height=16
+widthmode=minus
+heightmode=minus
+layer=com_66
+colour=0x383530
+fill=yes
+op10=     
+
+// 882:68
+[com_68]
+type=graphic
+width=8
+height=8
+layer=com_66
+graphic="lobby_smlframe,0"
+colour=0xffffffff
+op10=     
+
+// 882:69
+[com_69]
+type=graphic
+x=8
+width=16
+height=8
+widthmode=minus
+layer=com_66
+graphic="lobby_smlframe,1"
+tiling=yes
+colour=0xffffffff
+op10=     
+
+// 882:70
+[com_70]
+type=graphic
+width=8
+height=8
+xmode=abs_right
+ymode=abs_bottom
+layer=com_66
+graphic="lobby_smlframe,0"
+vflip=yes
+hflip=yes
+colour=0xffffffff
+op10=     
+
+// 882:71
+[com_71]
+type=graphic
+y=8
+width=8
+height=16
+heightmode=minus
+layer=com_66
+graphic="lobby_smlframe,2"
+tiling=yes
+colour=0xffffffff
+op10=     
+
+// 882:72
+[com_72]
+type=graphic
+width=8
+height=8
+ymode=abs_bottom
+layer=com_66
+graphic="lobby_smlframe,0"
+vflip=yes
+colour=0xffffffff
+op10=     
+
+// 882:73
+[com_73]
+type=graphic
+width=8
+height=8
+xmode=abs_right
+layer=com_66
+graphic="lobby_smlframe,0"
+hflip=yes
+colour=0xffffffff
+op10=     
+
+// 882:74
+[com_74]
+type=graphic
+y=8
+width=8
+height=16
+heightmode=minus
+xmode=abs_right
+layer=com_66
+graphic="lobby_smlframe,2"
+tiling=yes
+hflip=yes
+colour=0xffffffff
+op10=     
+
+// 882:75
+[com_75]
+type=graphic
+x=8
+width=16
+height=8
+widthmode=minus
+ymode=abs_bottom
+layer=com_66
+graphic="lobby_smlframe,1"
+tiling=yes
+vflip=yes
+colour=0xffffffff
+op10=     
+
+// 882:76
+[com_76]
+type=layer
+width=106
+height=61
+xmode=abs_right
+ymode=abs_centre
+layer=com_31
+op10=  
+
+// 882:77
+[com_77]
+type=text
+height=27
+widthmode=minus
+xmode=abs_centre
+ymode=abs_bottom
+layer=com_76
+textfont=p11_full
+text=Animated<br>background
+textlineheight=13
+textalignh=centre
+textalignv=bottom
+textshadow=yes
+colour=0xebe0bc
+op10=  
+
+// 882:78
+[com_78]
+type=graphic
+width=57
+height=35
+xmode=abs_centre
+layer=com_76
+colour=0xffffffff
+op10=  
+
+// 882:79
+[com_79]
+type=text
+x=269
+y=24
+width=48
+height=12
+layer=com_31
+textfont=p11_full
+text=STEREO
+textshadow=yes
+colour=0xebe0bc
+op10=   
+
+// 882:80
+[com_80]
+type=graphic
+x=317
+y=22
+width=14
+height=14
+layer=com_31
+graphic="check_box_2,0"
+colour=0xffffffff
+op10=           
+onclick=loginscreen_stereo(1, loginscreen_graphics_options:com_82, loginscreen_graphics_options:com_80)
+
+// 882:81
+[com_81]
+type=text
+x=269
+y=47
+width=48
+height=12
+layer=com_31
+textfont=p11_full
+text=MONO
+textshadow=yes
+colour=0xebe0bc
+op10=   
+
+// 882:82
+[com_82]
+type=graphic
+x=317
+y=45
+width=14
+height=14
+layer=com_31
+graphic="check_box_2,0"
+colour=0xffffffff
+op10=            
+onclick=loginscreen_stereo(0, loginscreen_graphics_options:com_82, loginscreen_graphics_options:com_80)

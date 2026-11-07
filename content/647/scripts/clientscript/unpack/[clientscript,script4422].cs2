@@ -1,0 +1,4 @@
+// 4422
+[clientscript,script4422]
+if_sethide(true, clan_info:com_96);
+if_setsize(446, if_getheight(clan_info:com_91), ^setsize_abs, ^setsize_abs, clan_info:com_91);

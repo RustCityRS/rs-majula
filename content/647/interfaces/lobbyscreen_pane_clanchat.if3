@@ -1,0 +1,614 @@
+// 912:0
+[com_0]
+type=rectangle
+width=16391
+height=16391
+widthmode=proportion
+heightmode=proportion
+layer=com_12
+colour=0x000000
+fill=yes
+trans=158
+
+// 912:1
+[com_1]
+type=graphic
+width=23
+height=23
+layer=com_44
+graphic=kick_icon
+onmouseleave=deltooltip(lobbyscreen_pane_clanchat:com_32)
+onmouserepeat=addtooltip(event_com, lobbyscreen_pane_clanchat:com_32, "Here you can enter a user to temporarily kick/ban from the chat channel.", 25, 185)
+
+// 912:2
+[com_2]
+type=rectangle
+width=23
+height=23
+layer=com_44
+hide=yes
+colour=0xffffff
+fill=yes
+trans=215
+
+// 912:3
+[com_3]
+type=layer
+widthmode=minus
+heightmode=minus
+
+// 912:4
+[com_4]
+type=layer
+width=4273
+height=148
+widthmode=proportion
+heightmode=minus
+layer=com_3
+
+// 912:5
+[com_5]
+type=layer
+width=4273
+height=148
+widthmode=proportion
+heightmode=minus
+xmode=abs_right
+layer=com_3
+op10= 
+
+// 912:6
+[com_6]
+type=model
+x=1
+y=-1
+width=103
+height=232
+xmode=abs_centre
+ymode=abs_bottom
+layer=com_5
+model=model_52348
+modelorigin=-2,115
+modelangle=87,112,0
+modelzoom=705
+op10= 
+
+// 912:7
+[com_7]
+type=model
+x=-2
+y=-1
+width=103
+height=231
+xmode=abs_centre
+ymode=abs_bottom
+layer=com_4
+model=model_52348
+modelorigin=1,115
+modelangle=85,1939,0
+modelzoom=705
+
+// 912:8
+[com_8]
+type=text
+width=7867
+height=32
+widthmode=proportion
+xmode=abs_centre
+layer=com_3
+textfont=verdana_15pt_regular
+text=Clan Chat Channel
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xebe0bc
+
+// 912:9
+[com_9]
+type=layer
+y=32
+width=7867
+height=185
+widthmode=proportion
+heightmode=minus
+xmode=abs_centre
+layer=com_3
+op10=   
+
+// 912:10
+[com_10]
+type=layer
+x=10
+y=35
+width=20
+height=113
+widthmode=minus
+ymode=abs_bottom
+layer=com_3
+op10=  
+
+// 912:11
+[com_11]
+type=layer
+x=10
+width=8192
+height=26
+widthmode=proportion
+ymode=abs_bottom
+layer=com_3
+
+// 912:12
+[com_12]
+type=layer
+y=1081
+width=7824
+height=9159
+widthmode=proportion
+heightmode=proportion
+xmode=abs_centre
+ymode=proportion_top
+layer=com_3
+
+// 912:13
+[com_13]
+type=text
+widthmode=minus
+heightmode=minus
+layer=com_12
+textfont=verdana_13pt_regular
+text=If you join a clan<br>you will be able to<br>chat with your<br>clanmates from here.
+textlineheight=16
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xb59b84
+
+// 912:14
+[com_14]
+type=layer
+x=10
+width=37
+height=31
+xmode=abs_right
+ymode=abs_bottom
+layer=com_3
+op1=Report Abuse
+op10=    
+onmouseleave=deltooltip(lobbyscreen_pane_clanchat:com_15)
+onop=script3176("", false)
+onmouserepeat=addtooltip(event_com, lobbyscreen_pane_clanchat:com_15, "Report abuse", 25, 200)
+
+// 912:15
+[com_15]
+type=layer
+x=10
+width=100
+height=31
+xmode=abs_right
+ymode=abs_bottom
+layer=com_3
+
+// 912:16
+[com_16]
+type=graphic
+width=36
+height=31
+xmode=abs_right
+layer=com_14
+graphic=graphic_4655
+colour=0xffffffff
+op10=    
+onmouseover=graphic_swapper(event_com, graphic_4656)
+onmouseleave=graphic_swapper(event_com, graphic_4655)
+
+// 912:17
+[com_17]
+type=text
+width=75
+height=16
+layer=com_11
+textfont=verdana_11pt_regular
+text=Talking in: 
+textlineheight=12
+textalignh=right
+textalignv=centre
+textshadow=yes
+colour=0xebe0bc
+
+// 912:18
+[com_18]
+type=text
+x=80
+width=80
+height=16
+widthmode=minus
+layer=com_11
+textfont=verdana_11pt_regular
+text=Not in chat
+textlineheight=12
+textalignv=centre
+textshadow=yes
+colour=0xebe0bc
+op10= 
+
+// 912:19
+[com_19]
+type=layer
+widthmode=minus
+heightmode=minus
+layer=com_10
+op10=  
+
+// 912:20
+[com_20]
+type=layer
+x=2
+y=2
+width=4
+height=4
+widthmode=minus
+heightmode=minus
+layer=com_10
+
+// 912:21
+[com_21]
+type=layer
+x=2
+y=2
+width=20
+height=19
+widthmode=minus
+heightmode=minus
+layer=com_20
+op10=  
+
+// 912:22
+[com_22]
+type=layer
+x=2
+y=2
+width=16
+height=19
+heightmode=minus
+xmode=abs_right
+layer=com_20
+op10=   
+
+// 912:23
+[com_23]
+type=rectangle
+y=15
+height=2
+widthmode=minus
+ymode=abs_bottom
+layer=com_20
+colour=0x0e0b09
+fill=yes
+op10=   
+
+// 912:24
+[com_24]
+type=layer
+x=2
+y=2
+width=4
+height=13
+widthmode=minus
+ymode=abs_bottom
+layer=com_20
+
+// 912:25
+[com_25]
+type=text
+widthmode=minus
+heightmode=minus
+layer=com_24
+textfont=p11_full
+textalignv=centre
+textshadow=yes
+
+// 912:26
+[com_26]
+type=rectangle
+width=1
+height=12
+layer=com_24
+hide=yes
+colour=0x999999
+fill=yes
+op10= 
+
+// 912:27
+[com_27]
+type=rectangle
+widthmode=minus
+heightmode=minus
+layer=com_19
+colour=0xc9b997
+op10=  
+
+// 912:28
+[com_28]
+type=rectangle
+x=1
+y=1
+width=2
+height=2
+widthmode=minus
+heightmode=minus
+layer=com_19
+colour=0x000000
+op10=   
+
+// 912:29
+[com_29]
+type=rectangle
+x=2
+y=2
+width=4
+height=4
+widthmode=minus
+heightmode=minus
+layer=com_19
+colour=0x292016
+fill=yes
+op10=    
+
+// 912:30
+[com_30]
+type=layer
+height=35
+widthmode=minus
+heightmode=minus
+layer=com_9
+
+// 912:31
+[com_31]
+type=layer
+x=15
+y=50
+width=100
+height=17
+layer=com_9
+hide=yes
+op10=   
+
+// 912:32
+[com_32]
+type=layer
+x=-199
+y=-32
+width=765
+height=503
+layer=com_9
+
+// 912:33
+[com_33]
+type=rectangle
+widthmode=minus
+heightmode=minus
+layer=com_31
+colour=0x000000
+op10=   
+
+// 912:34
+[com_34]
+type=rectangle
+x=1
+y=1
+width=2
+height=2
+widthmode=minus
+heightmode=minus
+layer=com_31
+colour=0xffffa0
+fill=yes
+op10=   
+
+// 912:35
+[com_35]
+type=text
+x=4
+width=8
+widthmode=minus
+heightmode=minus
+layer=com_31
+textfont=p12_full
+textalignv=centre
+colour=0x000000
+op10=   
+
+// 912:36
+[com_36]
+type=layer
+widthmode=minus
+heightmode=minus
+layer=com_30
+op10= 
+
+// 912:37
+[com_37]
+type=layer
+x=2
+y=36
+width=4
+height=38
+widthmode=minus
+heightmode=minus
+layer=com_30
+
+// 912:38
+[com_38]
+type=layer
+x=2
+y=2
+width=4
+height=34
+widthmode=minus
+layer=com_30
+op10=  
+
+// 912:39
+[com_39]
+type=rectangle
+x=10649
+y=2
+width=2
+height=4
+heightmode=minus
+xmode=proportion_left
+layer=com_30
+colour=0x453718
+op10=  
+
+// 912:40
+[com_40]
+type=rectangle
+widthmode=minus
+heightmode=minus
+layer=com_38
+colour=0x382e22
+fill=yes
+op10=  
+
+// 912:41
+[com_41]
+type=text
+width=10651
+height=2
+widthmode=proportion
+heightmode=minus
+layer=com_38
+textfont=verdana_13pt_regular
+text=Name
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xebe0bc
+op10=  
+
+// 912:42
+[com_42]
+type=text
+width=5639
+height=2
+widthmode=proportion
+heightmode=minus
+xmode=abs_right
+layer=com_38
+textfont=verdana_13pt_regular
+text=Status
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xebe0bc
+op10=   
+
+// 912:43
+[com_43]
+type=rectangle
+height=2
+widthmode=minus
+ymode=abs_bottom
+layer=com_38
+colour=0x0e0b09
+fill=yes
+op10=   
+
+// 912:44
+[com_44]
+type=layer
+x=4
+y=4
+width=23
+height=23
+layer=com_38
+hide=yes
+op1=Kick/ban
+onmouseover=comp_sethide(false, lobbyscreen_pane_clanchat:com_2)
+onmouseleave=comp_sethide(true, lobbyscreen_pane_clanchat:com_2)
+onop=script2602
+
+// 912:45
+[com_45]
+type=layer
+width=16
+widthmode=minus
+heightmode=minus
+layer=com_37
+op10=  
+
+// 912:46
+[com_46]
+type=layer
+width=16
+heightmode=minus
+xmode=abs_right
+layer=com_37
+op10=   
+
+// 912:47
+[com_47]
+type=layer
+widthmode=minus
+heightmode=minus
+layer=com_45
+op10=    
+
+// 912:48
+[com_48]
+type=rectangle
+height=15
+widthmode=minus
+layer=com_45
+hide=yes
+colour=0x606060
+fill=yes
+op10=  
+
+// 912:49
+[com_49]
+type=layer
+widthmode=minus
+heightmode=minus
+layer=com_45
+op10=   
+
+// 912:50
+[com_50]
+type=layer
+widthmode=minus
+heightmode=minus
+layer=com_45
+op10=    
+
+// 912:51
+[com_51]
+type=layer
+widthmode=minus
+heightmode=minus
+xmode=abs_right
+layer=com_45
+op10=    
+
+// 912:52
+[com_52]
+type=rectangle
+widthmode=minus
+heightmode=minus
+layer=com_36
+colour=0xc9b997
+op10= 
+
+// 912:53
+[com_53]
+type=rectangle
+x=1
+y=1
+width=2
+height=2
+widthmode=minus
+heightmode=minus
+layer=com_36
+colour=0x000000
+op10=  

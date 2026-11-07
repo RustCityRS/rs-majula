@@ -1,0 +1,459 @@
+// 674:0
+[com_0]
+type=graphic
+width=516
+height=341
+xmode=abs_centre
+ymode=abs_centre
+graphic=tradebacking
+colour=0xffffffff
+onload=peng_rak_tutorial_load
+onvarctransmit=peng_rak_tutorial{varclient_737}
+
+// 674:1
+[com_1]
+type=model
+x=-70
+width=440
+height=307
+xmode=abs_centre
+ymode=abs_centre
+model=model_46955
+modelorigin=18,154
+modelangle=2038,3,0
+modelzoom=566
+modelorthog=yes
+
+// 674:2
+[com_2]
+type=rectangle
+x=187
+width=127
+height=253
+xmode=abs_centre
+ymode=abs_centre
+colour=0x000000
+fill=yes
+trans=155
+
+// 674:3
+[com_3]
+type=layer
+width=512
+height=334
+xmode=abs_centre
+ymode=abs_centre
+
+// 674:4
+[com_4]
+type=layer
+x=-3
+y=2
+width=512
+height=334
+layer=com_12
+
+// 674:5
+[com_5]
+type=model
+x=155
+y=223
+width=57
+height=106
+layer=com_4
+hide=yes
+model=model_46996
+modelorigin=1,4
+modelzoom=348
+
+// 674:6
+[com_6]
+type=model
+x=14
+y=71
+width=143
+height=228
+layer=com_12
+model=model_46967
+modelorigin=4,-8
+modelzoom=433
+
+// 674:7
+[com_7]
+type=model
+x=161
+y=100
+width=39
+height=141
+layer=com_12
+model=model_46961
+modelorigin=-3,-3
+modelangle=0,0,2042
+modelzoom=604
+onmouseleave=deltooltip(interface_674:com_33)
+onmouserepeat=addtooltip(event_com, interface_674:com_33, "Pipe", 50, 150)
+
+// 674:8
+[com_8]
+type=model
+x=197
+y=164
+width=114
+height=124
+layer=com_12
+model=model_46998
+modelorigin=4,-7
+modelzoom=509
+onmouseleave=deltooltip(interface_674:com_33)
+onmouserepeat=addtooltip(event_com, interface_674:com_33, "Valve wheel", 50, 150)
+
+// 674:9
+[com_9]
+type=model
+x=210
+y=42
+width=138
+height=109
+layer=com_12
+model=model_46968
+modelorigin=0,6
+modelangle=2041,2041,0
+modelzoom=478
+transmitop=10
+op10= 
+onmouseleave=deltooltip(interface_674:com_33)
+onmouserepeat=addtooltip(event_com, interface_674:com_33, "Pressure gauge", 50, 150)
+
+// 674:10
+[com_10]
+type=model
+x=15
+y=69
+width=143
+height=196
+layer=com_12
+model=model_46960
+modelorigin=4,10
+modelzoom=400
+
+// 674:11
+[com_11]
+type=layer
+width=512
+height=334
+layer=com_12
+hide=yes
+
+// 674:12
+[com_12]
+type=layer
+width=512
+height=334
+xmode=abs_centre
+ymode=abs_centre
+
+// 674:13
+[com_13]
+type=model
+x=392
+y=73
+width=22
+height=102
+layer=com_4
+model=model_46997
+modelorigin=0,-8
+modelangle=51,2047,0
+modelzoom=348
+transmitop=10
+op10=  
+onmouseleave=deltooltip(interface_674:com_33)
+onmouserepeat=addtooltip(event_com, interface_674:com_33, "Wrench", 50, 150)
+
+// 674:14
+[com_14]
+type=model
+x=478
+y=85
+width=23
+height=78
+layer=com_4
+model=model_46974
+modelorigin=17,-3
+modelangle=22,78,11
+modelzoom=348
+transmitop=10
+op10=  
+onmouseleave=deltooltip(interface_674:com_33)
+onmouserepeat=addtooltip(event_com, interface_674:com_33, "Wire", 50, 150)
+
+// 674:15
+[com_15]
+type=model
+x=435
+y=58
+width=31
+height=110
+layer=com_4
+model=model_46976
+modelorigin=2,-10
+modelangle=39,3,0
+modelzoom=348
+transmitop=10
+op10=  
+onmouseleave=deltooltip(interface_674:com_33)
+onmouserepeat=addtooltip(event_com, interface_674:com_33, "Wire cutter", 50, 150)
+
+// 674:16
+[com_16]
+type=model
+x=394
+y=205
+width=41
+height=35
+layer=com_4
+model=model_46995
+modelorigin=-3,-1
+modelzoom=476
+transmitop=10
+op10=   
+onmouseleave=deltooltip(interface_674:com_33)
+onmouserepeat=addtooltip(event_com, interface_674:com_33, "Tape", 50, 150)
+
+// 674:17
+[com_17]
+type=model
+x=442
+y=166
+width=50
+height=103
+layer=com_4
+model=model_46986
+modelorigin=0,6
+modelangle=45,0,0
+modelzoom=348
+transmitop=10
+op10=   
+onmouseleave=deltooltip(interface_674:com_33)
+onmouserepeat=addtooltip(event_com, interface_674:com_33, "Bellows", 50, 150)
+
+// 674:18
+[com_18]
+type=model
+x=317
+y=162
+width=64
+height=130
+layer=com_4
+hide=yes
+model=model_46970
+modelorigin=-9,-2
+modelzoom=544
+transmitop=10
+op10= 
+onmouseleave=deltooltip(interface_674:com_33)
+onmouserepeat=addtooltip(event_com, interface_674:com_33, "Lever", 50, 150)
+
+// 674:19
+[com_19]
+type=model
+x=317
+y=162
+width=64
+height=130
+layer=com_4
+model=model_46972
+modelorigin=-9,-2
+modelzoom=544
+onmouseleave=deltooltip(interface_674:com_33)
+onmouserepeat=addtooltip(event_com, interface_674:com_33, "Lever", 50, 150)
+
+// 674:20
+[com_20]
+type=graphic
+x=375
+y=37
+width=32
+height=32
+layer=com_3
+graphic="v2_stone_borders_alt,18"
+colour=0xffffffff
+
+// 674:21
+[com_21]
+type=graphic
+x=480
+y=37
+width=32
+height=32
+layer=com_3
+graphic="v2_stone_borders_alt,19"
+colour=0xffffffff
+
+// 674:22
+[com_22]
+type=graphic
+x=375
+y=268
+width=32
+height=32
+layer=com_3
+graphic="v2_stone_borders_alt,20"
+colour=0xffffffff
+opbase= 
+
+// 674:23
+[com_23]
+type=graphic
+x=480
+y=268
+width=32
+height=32
+layer=com_3
+graphic="v2_stone_borders_alt,21"
+colour=0xffffffff
+
+// 674:24
+[com_24]
+type=graphic
+x=407
+y=37
+width=72
+height=32
+layer=com_3
+graphic="v2_stone_borders_alt,8"
+tiling=yes
+colour=0xffffffff
+
+// 674:25
+[com_25]
+type=graphic
+x=506
+y=69
+width=32
+height=199
+layer=com_3
+graphic="v2_stone_borders_alt,13"
+tiling=yes
+colour=0xffffffff
+opbase=mm  
+
+// 674:26
+[com_26]
+type=graphic
+x=375
+y=69
+width=32
+height=199
+layer=com_3
+graphic="v2_stone_borders_alt,13"
+tiling=yes
+colour=0xffffffff
+opbase=  
+
+// 674:27
+[com_27]
+type=graphic
+x=407
+y=294
+width=73
+height=32
+layer=com_3
+graphic="v2_stone_borders_alt,8"
+tiling=yes
+colour=0xffffffff
+
+// 674:28
+[com_28]
+type=model
+x=14
+y=71
+width=143
+height=228
+layer=com_11
+model=model_46964
+modelorigin=4,-8
+modelzoom=433
+transmitop=10
+op10= 
+
+// 674:29
+[com_29]
+type=model
+x=14
+y=71
+width=143
+height=228
+layer=com_11
+model=model_46956
+modelorigin=4,-8
+modelzoom=433
+transmitop=10
+op10=  
+
+// 674:30
+[com_30]
+type=model
+x=14
+y=71
+width=143
+height=228
+layer=com_11
+model=model_46965
+modelorigin=4,-8
+modelzoom=433
+transmitop=10
+op10=   
+
+// 674:31
+[com_31]
+type=model
+x=14
+y=71
+width=143
+height=228
+layer=com_11
+model=model_46966
+modelorigin=4,-8
+modelzoom=433
+transmitop=10
+op10=    
+
+// 674:32
+[com_32]
+type=model
+x=14
+y=71
+width=143
+height=228
+layer=com_11
+model=model_46966
+modelorigin=4,-8
+modelzoom=433
+transmitop=10
+op10=     
+
+// 674:33
+[com_33]
+type=layer
+x=14
+y=252
+width=216
+height=66
+layer=com_12
+
+// 674:34
+[com_34]
+type=graphic
+x=485
+y=10
+width=16
+height=16
+layer=com_12
+graphic="v2_stone_close_button,0"
+colour=0xffffffff
+transmitop=1,10
+op1=Close
+op10=  
+onmouseover=graphic_swapper(event_com, "v2_stone_close_button,1")
+onmouseleave=graphic_swapper(event_com, "v2_stone_close_button,0")
+onop=closebutton_click

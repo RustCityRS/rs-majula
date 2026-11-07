@@ -1,0 +1,19 @@
+// 2938
+[proc,script2938]
+if (%varclient_1199 = 1) {
+    if_settext(%varclient_1830, rand_dungeon_rewards_v2:com_267);
+    if_settext(enum(int, string, enum_2857, %varclient_1209), rand_dungeon_rewards_v2:com_268);
+    if_settext(enum(int, string, enum_2857, %varclient_1210), rand_dungeon_rewards_v2:com_269);
+    if_settext(enum(int, string, enum_2857, %varclient_1211), rand_dungeon_rewards_v2:com_270);
+    if_settext(enum(int, string, enum_2857, %varclient_1212), rand_dungeon_rewards_v2:com_271);
+    if_settext(enum(int, string, enum_2857, %varclient_1213), rand_dungeon_rewards_v2:com_272);
+    if_settext(enum(int, string, enum_2857, %varclient_1214), rand_dungeon_rewards_v2:com_273);
+} else {
+    if_settext("", rand_dungeon_rewards_v2:com_267);
+    if_settext("", rand_dungeon_rewards_v2:com_268);
+    if_settext("", rand_dungeon_rewards_v2:com_269);
+    if_settext("", rand_dungeon_rewards_v2:com_270);
+    if_settext("", rand_dungeon_rewards_v2:com_271);
+    if_settext("", rand_dungeon_rewards_v2:com_272);
+    if_settext("", rand_dungeon_rewards_v2:com_273);
+}

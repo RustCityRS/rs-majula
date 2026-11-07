@@ -1,8 +1,9 @@
-[clientscript,warguild_trans_off](int $int)
-if ($int = 69337132) {
-    if_sethide(true, warguild_token_choice:com31);
-} else if ($int = 69337090) {
-    if_sethide(true, warguild_token_choice:com39);
-} else if ($int = 69337091) {
-    if_sethide(true, warguild_token_choice:com35);
+// 4072
+[clientscript,warguild_trans_off](component $component0)
+if ($component0 = warguild_token_choice:com_44) {
+    if_sethide(true, warguild_token_choice:com_31);
+} else if ($component0 = warguild_token_choice:com_2) {
+    if_sethide(true, warguild_token_choice:com_39);
+} else if ($component0 = warguild_token_choice:com_3) {
+    if_sethide(true, warguild_token_choice:com_35);
 }

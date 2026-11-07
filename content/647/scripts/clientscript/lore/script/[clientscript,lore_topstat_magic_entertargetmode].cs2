@@ -1,7 +1,8 @@
-[clientscript,lore_topstat_magic_entertargetmode](component $component)
-if (if_find($component) = true) {
+// 697
+[clientscript,lore_topstat_magic_entertargetmode](component $component0)
+if (if_find($component0) = true) {
     cc_setoutline(2);
 }
-if (cc_find(lore_stats_side:com74, 0) = true & and(cc_gettargetmask, 32) ! 0) {
+if (cc_find(lore_stats_side:com_74, 0) = true & calc(cc_gettargetmask & 32) ! 0) {
     ~if_switchside(4);
 }

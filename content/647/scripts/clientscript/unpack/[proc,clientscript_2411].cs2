@@ -1,7 +1,0 @@
-[proc,clientscript_2411](obj $obj)
-if (%varbit_995 = false) {
-    ~clientscript_2410(oc_iop($obj, 1), oc_wearpos($obj, 1), oc_iop($obj, 2), oc_wearpos($obj, 2), "", -1, oc_iop($obj, 4), oc_wearpos($obj, 4), oc_iop($obj, 5), oc_wearpos($obj, 5), oc_name($obj));
-} else {
-    ~clientscript_2410("Lletya", oc_wearpos($obj, 1), oc_iop($obj, 2), oc_wearpos($obj, 2), "Temple", oc_wearpos($obj, 1), oc_iop($obj, 4), oc_wearpos($obj, 4), oc_iop($obj, 5), oc_wearpos($obj, 5), oc_name($obj));
-}
-cc_setonvartransmit("clientscript_2412(^event_com, ^event_subid, $obj){varp_1560}");

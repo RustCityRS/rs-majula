@@ -1,11 +1,12 @@
+// 4301
 [proc,clansettings_list_build]
-def_component $component0 = pe6859048:com3;
-def_component $component1 = pe6859048:com4;
-def_component $component2 = pe6859048:com5;
-def_component $component3 = pe6859048:com6;
+def_component $component0 = interface_1096:com_3;
+def_component $component1 = interface_1096:com_4;
+def_component $component2 = interface_1096:com_5;
+def_component $component3 = interface_1096:com_6;
 def_int $int4 = 71827491;
 def_int $int5 = 71827492;
-def_component $component6 = pe6859048:com349;
+def_component $component6 = interface_1096:com_349;
 def_int $int7 = 218;
 def_int $int8 = calc(16384 / 2);
 def_int $int9 = 3;
@@ -40,28 +41,28 @@ cc_deleteall($component3);
 cc_deleteall($component6);
 def_string $string1 = "";
 def_int $int33 = -1;
-$int24 = ignore_test;
+$int24 = activeclansettings_getaffinedcount;
 while ($int23 < $int24) {
     $int22 = calc($int33 / 2 * $int14);
-    $string0 = clanchannel_getstring($int23);
-    $int31 = clanchannel_getbyte_indexed($int23);
-    if (calc(%varc_int_1516 - 1) ! $int31) {
+    $string0 = activeclansettings_getaffineddisplayname($int23);
+    $int31 = activeclansettings_getaffinedrank($int23);
+    if (calc(%varclient_1516 - 1) ! $int31) {
         $int32 = 1;
-        if (%varc_int_1516 = false | %varc_int_1516 = -1) {
+        if (%varclient_1516 = 0 | %varclient_1516 = -1) {
             $int32 = 0;
         }
     } else {
         $int32 = 0;
     }
     cc_create($component0, ^iftype_text, $int23);
-    if ($int32 = false) {
+    if ($int32 = 0) {
         cc_settextfont(verdana_11pt_regular);
         cc_setsize($int8, $int14, ^setsize_rel, ^setsize_abs);
         $int30 = -1;
-        if (clanchannel2_find_affined = true & clanchannel2_findname($string0) > -1) {
-            $int30 = clanchannel2_getuserworld(clanchannel2_findname($string0));
+        if (activeclanchannel_find_affined = true & activeclanchannel_getuserslot($string0) > -1) {
+            $int30 = activeclanchannel_getuserworld(activeclanchannel_getuserslot($string0));
         }
-        if ($int30 = active_toplevelinterface) {
+        if ($int30 = map_world) {
             cc_setcolour(0xa1bd40);
         } else if ($int30 > 0) {
             cc_setcolour(0xffff64);
@@ -72,29 +73,29 @@ while ($int23 < $int24) {
         cc_settext($string0);
     }
     cc_create($component2, ^iftype_graphic, $int23);
-    if ($int32 = false) {
+    if ($int32 = 0) {
         cc_setsize($int19, $int20, ^setsize_abs, ^setsize_abs);
-        cc_setgraphic(enum(105, 100, enum_3712, $int31));
-        $string1 = enum(105, 115, enum_3714, $int31);
-        cc_setonmouserepeat("aif_tooltip(pe6859048:com68, $component2, $int23, $string1, 120, 3793, verdana_11pt_regular, 16777215, 13, 4, 3, ^event_mousex, ^event_mousey)");
-        cc_setonmouseleave("deltooltip(pe6859048:com68)");
+        cc_setgraphic(enum(int, graphic, enum_3712, $int31));
+        $string1 = enum(int, string, enum_3714, $int31);
+        cc_setonmouserepeat("aif_tooltip(interface_1096:com_68, $component2, $int23, $string1, 120, verdana_11pt_regular, verdana_11pt_regular, ^white, 13, 4, 3, event_mousex, event_mousey)");
+        cc_setonmouseleave("deltooltip(interface_1096:com_68)");
     }
     cc_create($component6, ^iftype_graphic, $int23);
-    if ($int32 = false) {
+    if ($int32 = 0) {
         cc_setsize($int19, $int20, ^setsize_abs, ^setsize_abs);
-        if (clanchannel_lookup($int23, 30, 30) = true | $int31 >= 100) {
+        if (activeclansettings_getaffinedextrainfo($int23, 30, 30) = 1 | $int31 >= 100) {
             cc_setgraphic("aif_clan_rank_icons,11");
             $string1 = "Rated Clan<br>Wars Leader";
-            cc_setonmouserepeat("aif_tooltip(pe6859048:com68, $component6, $int23, $string1, 120, 3793, verdana_11pt_regular, 16777215, 13, 4, 3, ^event_mousex, ^event_mousey)");
-            cc_setonmouseleave("deltooltip(pe6859048:com68)");
+            cc_setonmouserepeat("aif_tooltip(interface_1096:com_68, $component6, $int23, $string1, 120, verdana_11pt_regular, verdana_11pt_regular, ^white, 13, 4, 3, event_mousex, event_mousey)");
+            cc_setonmouseleave("deltooltip(interface_1096:com_68)");
         }
     }
     cc_create($component3, ^iftype_graphic, $int23);
-    if ($int32 = false) {
+    if ($int32 = 0) {
         cc_setsize($int25, $int26, ^setsize_abs, ^setsize_abs);
         cc_setgraphic("aif_browngrad_whole_btn,3");
         cc_setop(1, "Show details");
-        cc_setonop("clientscript_4303()");
+        cc_setonop("script4303");
     }
     $int23 = calc($int23 + 1);
 }
@@ -102,7 +103,7 @@ def_int $int34 = 0;
 $int23 = 0;
 def_int $int35 = 0;
 while ($int23 < $int24) {
-    $int35 = clanchannel_getsortedindex($int23);
+    $int35 = activeclansettings_getsortedaffinedslot($int23);
     if (cc_find($component0, $int35) = true & compare(cc_gettext, "") ! 0) {
         if (calc($int34 % 2) ! 0) {
             $int21 = $int7;
@@ -124,6 +125,6 @@ while ($int23 < $int24) {
     }
     $int23 = calc($int23 + 1);
 }
-%varc_int_1517 = $int34;
-~clientscript_4318;
+%varclient_1517 = $int34;
+~script4318;
 return;

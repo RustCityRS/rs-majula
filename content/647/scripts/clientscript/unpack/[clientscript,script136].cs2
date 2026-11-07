@@ -1,0 +1,20 @@
+// 136
+[clientscript,script136](component $component0)
+def_string $string0 = "";
+if ($component0 = pog_coin_machine:com_15) {
+    $string0 = oc_name(%varplayer_1068);
+    if (%varplayer_1068 = null) {
+        $string0 = "Empty";
+    }
+} else if ($component0 = pog_coin_machine:com_16) {
+    $string0 = oc_name(%varplayer_1069);
+    if (%varplayer_1069 = null) {
+        $string0 = "Empty";
+    }
+} else if ($component0 = pog_coin_machine:com_17) {
+    $string0 = oc_name(%varplayer_1070);
+    if (%varplayer_1070 = null) {
+        $string0 = "Empty";
+    }
+}
+~addtooltip_action($component0, pog_coin_machine:com_23, $string0, 25, 199);

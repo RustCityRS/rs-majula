@@ -1,6 +1,7 @@
-[proc,lobbyscreen_pvp_warning](int $int)
-%varc_int_547 = $int;
-if_sethide(true, lobbyscreen:com32);
-if (%varc_int_547 = true) {
-    ~lobbyscreen_entergame(lobbyscreen:com160);
+// 3092
+[proc,lobbyscreen_pvp_warning](int $int0)
+%varclient_547 = $int0;
+if_sethide(true, lobbyscreen:com_32);
+if (%varclient_547 = 1) {
+    ~lobbyscreen_entergame(lobbyscreen:com_160);
 }

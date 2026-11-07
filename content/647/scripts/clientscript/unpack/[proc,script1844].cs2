@@ -1,0 +1,505 @@
+// 1844
+[proc,script1844](int $int0)(int)
+switch_int ($int0) {
+    case 0 :
+        return(%varclient_0);
+    case 1 :
+        return(%varclient_274);
+    case 2 :
+        return(%varclient_275);
+    case 3 :
+        return(%varclient_276);
+    case 4 :
+        return(%varclient_277);
+    case 5 :
+        return(%varclient_278);
+    case 6 :
+        return(%varclient_279);
+    case 7 :
+        return(%varclient_280);
+    case 8 :
+        return(%varclient_281);
+    case 9 :
+        return(%varclient_282);
+    case 10 :
+        return(%varclient_283);
+    case 11 :
+        return(%varclient_284);
+    case 12 :
+        return(%varclient_285);
+    case 13 :
+        return(%varclient_286);
+    case 14 :
+        return(%varclient_287);
+    case 15 :
+        return(%varclient_288);
+    case 16 :
+        return(%varclient_289);
+    case 17 :
+        return(%varclient_290);
+    case 18 :
+        return(%varclient_291);
+    case 19 :
+        return(%varclient_292);
+    case 20 :
+        return(%varclient_293);
+    case 21 :
+        return(%varclient_294);
+    case 22 :
+        return(%varclient_295);
+    case 23 :
+        return(%varclient_296);
+    case 24 :
+        return(%varclient_297);
+    case 25 :
+        return(%varclient_298);
+    case 26 :
+        return(%varclient_299);
+    case 27 :
+        return(%varclient_300);
+    case 28 :
+        return(%varclient_301);
+    case 29 :
+        return(%varclient_302);
+    case 30 :
+        return(%varclient_303);
+    case 31 :
+        return(%varclient_304);
+    case 32 :
+        return(%varclient_305);
+    case 33 :
+        return(%varclient_306);
+    case 34 :
+        return(%varclient_307);
+    case 35 :
+        return(%varclient_308);
+    case 36 :
+        return(%varclient_309);
+    case 37 :
+        return(%varclient_310);
+    case 38 :
+        return(%varclient_311);
+    case 39 :
+        return(%varclient_312);
+    case 40 :
+        return(%varclient_313);
+    case 41 :
+        return(%varclient_314);
+    case 42 :
+        return(%varclient_315);
+    case 43 :
+        return(%varclient_316);
+    case 44 :
+        return(%varclient_317);
+    case 45 :
+        return(%varclient_318);
+    case 46 :
+        return(%varclient_319);
+    case 47 :
+        return(%varclient_320);
+    case 48 :
+        return(%varclient_321);
+    case 49 :
+        return(%varclient_322);
+    case 50 :
+        return(%varclient_323);
+    case 51 :
+        return(%varclient_324);
+    case 52 :
+        return(%varclient_325);
+    case 53 :
+        return(%varclient_326);
+    case 54 :
+        return(%varclient_327);
+    case 55 :
+        return(%varclient_328);
+    case 56 :
+        return(%varclient_329);
+    case 57 :
+        return(%varclient_330);
+    case 58 :
+        return(%varclient_331);
+    case 59 :
+        return(%varclient_332);
+    case 60 :
+        return(%varclient_333);
+    case 61 :
+        return(%varclient_334);
+    case 62 :
+        return(%varclient_335);
+    case 63 :
+        return(%varclient_336);
+    case 64 :
+        return(%varclient_337);
+    case 65 :
+        return(%varclient_338);
+    case 66 :
+        return(%varclient_339);
+    case 67 :
+        return(%varclient_340);
+    case 68 :
+        return(%varclient_341);
+    case 69 :
+        return(%varclient_342);
+    case 70 :
+        return(%varclient_343);
+    case 71 :
+        return(%varclient_344);
+    case 72 :
+        return(%varclient_345);
+    case 73 :
+        return(%varclient_346);
+    case 74 :
+        return(%varclient_347);
+    case 75 :
+        return(%varclient_348);
+    case 76 :
+        return(%varclient_349);
+    case 77 :
+        return(%varclient_350);
+    case 78 :
+        return(%varclient_351);
+    case 79 :
+        return(%varclient_352);
+    case 80 :
+        return(%varclient_353);
+    case 81 :
+        return(%varclient_354);
+    case 82 :
+        return(%varclient_355);
+    case 83 :
+        return(%varclient_356);
+    case 84 :
+        return(%varclient_357);
+    case 85 :
+        return(%varclient_358);
+    case 86 :
+        return(%varclient_359);
+    case 87 :
+        return(%varclient_360);
+    case 88 :
+        return(%varclient_361);
+    case 89 :
+        return(%varclient_362);
+    case 90 :
+        return(%varclient_363);
+    case 91 :
+        return(%varclient_364);
+    case 92 :
+        return(%varclient_365);
+    case 93 :
+        return(%varclient_366);
+    case 94 :
+        return(%varclient_367);
+    case 95 :
+        return(%varclient_368);
+    case 96 :
+        return(%varclient_369);
+    case 97 :
+        return(%varclient_370);
+    case 98 :
+        return(%varclient_371);
+    case 99 :
+        return(%varclient_372);
+    case 100 :
+        return(%varclient_373);
+    case 101 :
+        return(%varclient_374);
+    case 102 :
+        return(%varclient_375);
+    case 103 :
+        return(%varclient_376);
+    case 104 :
+        return(%varclient_377);
+    case 105 :
+        return(%varclient_378);
+    case 106 :
+        return(%varclient_379);
+    case 107 :
+        return(%varclient_380);
+    case 108 :
+        return(%varclient_381);
+    case 109 :
+        return(%varclient_382);
+    case 110 :
+        return(%varclient_383);
+    case 111 :
+        return(%varclient_384);
+    case 112 :
+        return(%varclient_385);
+    case 113 :
+        return(%varclient_386);
+    case 114 :
+        return(%varclient_387);
+    case 115 :
+        return(%varclient_388);
+    case 116 :
+        return(%varclient_389);
+    case 117 :
+        return(%varclient_390);
+    case 118 :
+        return(%varclient_391);
+    case 119 :
+        return(%varclient_392);
+    case 120 :
+        return(%varclient_393);
+    case 121 :
+        return(%varclient_394);
+    case 122 :
+        return(%varclient_395);
+    case 123 :
+        return(%varclient_396);
+    case 124 :
+        return(%varclient_397);
+    case 125 :
+        return(%varclient_398);
+    case 126 :
+        return(%varclient_399);
+    case 127 :
+        return(%varclient_400);
+    case 128 :
+        return(%varclient_401);
+    case 129 :
+        return(%varclient_402);
+    case 130 :
+        return(%varclient_403);
+    case 131 :
+        return(%varclient_404);
+    case 132 :
+        return(%varclient_405);
+    case 133 :
+        return(%varclient_406);
+    case 134 :
+        return(%varclient_407);
+    case 135 :
+        return(%varclient_408);
+    case 136 :
+        return(%varclient_409);
+    case 137 :
+        return(%varclient_410);
+    case 138 :
+        return(%varclient_411);
+    case 139 :
+        return(%varclient_412);
+    case 140 :
+        return(%varclient_413);
+    case 141 :
+        return(%varclient_414);
+    case 142 :
+        return(%varclient_415);
+    case 143 :
+        return(%varclient_416);
+    case 144 :
+        return(%varclient_417);
+    case 145 :
+        return(%varclient_418);
+    case 146 :
+        return(%varclient_419);
+    case 147 :
+        return(%varclient_420);
+    case 148 :
+        return(%varclient_421);
+    case 149 :
+        return(%varclient_422);
+    case 150 :
+        return(%varclient_423);
+    case 151 :
+        return(%varclient_424);
+    case 152 :
+        return(%varclient_425);
+    case 153 :
+        return(%varclient_426);
+    case 154 :
+        return(%varclient_427);
+    case 155 :
+        return(%varclient_428);
+    case 156 :
+        return(%varclient_429);
+    case 157 :
+        return(%varclient_430);
+    case 158 :
+        return(%varclient_431);
+    case 159 :
+        return(%varclient_432);
+    case 160 :
+        return(%varclient_433);
+    case 161 :
+        return(%varclient_434);
+    case 162 :
+        return(%varclient_435);
+    case 163 :
+        return(%varclient_436);
+    case 164 :
+        return(%varclient_437);
+    case 165 :
+        return(%varclient_438);
+    case 166 :
+        return(%varclient_439);
+    case 167 :
+        return(%varclient_440);
+    case 168 :
+        return(%varclient_441);
+    case 169 :
+        return(%varclient_442);
+    case 170 :
+        return(%varclient_443);
+    case 171 :
+        return(%varclient_444);
+    case 172 :
+        return(%varclient_445);
+    case 173 :
+        return(%varclient_446);
+    case 174 :
+        return(%varclient_447);
+    case 175 :
+        return(%varclient_448);
+    case 176 :
+        return(%varclient_449);
+    case 177 :
+        return(%varclient_450);
+    case 178 :
+        return(%varclient_451);
+    case 179 :
+        return(%varclient_452);
+    case 180 :
+        return(%varclient_453);
+    case 181 :
+        return(%varclient_454);
+    case 182 :
+        return(%varclient_455);
+    case 183 :
+        return(%varclient_456);
+    case 184 :
+        return(%varclient_457);
+    case 185 :
+        return(%varclient_458);
+    case 186 :
+        return(%varclient_459);
+    case 187 :
+        return(%varclient_460);
+    case 188 :
+        return(%varclient_461);
+    case 189 :
+        return(%varclient_462);
+    case 190 :
+        return(%varclient_463);
+    case 191 :
+        return(%varclient_464);
+    case 192 :
+        return(%varclient_465);
+    case 193 :
+        return(%varclient_466);
+    case 194 :
+        return(%varclient_467);
+    case 195 :
+        return(%varclient_468);
+    case 196 :
+        return(%varclient_469);
+    case 197 :
+        return(%varclient_470);
+    case 198 :
+        return(%varclient_471);
+    case 199 :
+        return(%varclient_472);
+    case 200 :
+        return(%varclient_473);
+    case 201 :
+        return(%varclient_474);
+    case 202 :
+        return(%varclient_475);
+    case 203 :
+        return(%varclient_476);
+    case 204 :
+        return(%varclient_477);
+    case 205 :
+        return(%varclient_478);
+    case 206 :
+        return(%varclient_479);
+    case 207 :
+        return(%varclient_480);
+    case 208 :
+        return(%varclient_481);
+    case 209 :
+        return(%varclient_482);
+    case 210 :
+        return(%varclient_483);
+    case 211 :
+        return(%varclient_484);
+    case 212 :
+        return(%varclient_485);
+    case 213 :
+        return(%varclient_486);
+    case 214 :
+        return(%varclient_487);
+    case 215 :
+        return(%varclient_488);
+    case 216 :
+        return(%varclient_489);
+    case 217 :
+        return(%varclient_490);
+    case 218 :
+        return(%varclient_491);
+    case 219 :
+        return(%varclient_492);
+    case 220 :
+        return(%varclient_493);
+    case 221 :
+        return(%varclient_494);
+    case 222 :
+        return(%varclient_495);
+    case 223 :
+        return(%varclient_496);
+    case 224 :
+        return(%varclient_497);
+    case 225 :
+        return(%varclient_498);
+    case 226 :
+        return(%varclient_499);
+    case 227 :
+        return(%varclient_500);
+    case 228 :
+        return(%varclient_501);
+    case 229 :
+        return(%varclient_502);
+    case 230 :
+        return(%varclient_503);
+    case 231 :
+        return(%varclient_504);
+    case 232 :
+        return(%varclient_505);
+    case 233 :
+        return(%varclient_506);
+    case 234 :
+        return(%varclient_507);
+    case 235 :
+        return(%varclient_508);
+    case 236 :
+        return(%varclient_509);
+    case 237 :
+        return(%varclient_510);
+    case 238 :
+        return(%varclient_511);
+    case 239 :
+        return(%varclient_512);
+    case 240 :
+        return(%varclient_513);
+    case 241 :
+        return(%varclient_514);
+    case 242 :
+        return(%varclient_515);
+    case 243 :
+        return(%varclient_516);
+    case 244 :
+        return(%varclient_517);
+    case 245 :
+        return(%varclient_518);
+    case 246 :
+        return(%varclient_519);
+    case 247 :
+        return(%varclient_520);
+    case 248 :
+        return(%varclient_521);
+    case 249 :
+        return(%varclient_522);
+}
+return(0);

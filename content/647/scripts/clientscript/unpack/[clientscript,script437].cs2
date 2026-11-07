@@ -1,0 +1,22 @@
+// 437
+[clientscript,script437]
+if_setgraphic("radio_buttons,0", conq_stake_options:com_42);
+if_setgraphic("radio_buttons,0", conq_stake_options:com_43);
+if_setgraphic("radio_buttons,0", conq_stake_options:com_44);
+if_setgraphic("radio_buttons,0", conq_stake_options:com_45);
+if_setgraphic("radio_buttons,0", conq_stake_options:com_46);
+if_setgraphic("radio_buttons,0", conq_stake_options:com_47);
+switch_int (%varplayerbit_8087) {
+    case 0 :
+        if_setgraphic("radio_buttons,1", conq_stake_options:com_42);
+    case 1 :
+        if_setgraphic("radio_buttons,1", conq_stake_options:com_43);
+    case 2 :
+        if_setgraphic("radio_buttons,1", conq_stake_options:com_44);
+    case 3 :
+        if_setgraphic("radio_buttons,1", conq_stake_options:com_45);
+    case 4 :
+        if_setgraphic("radio_buttons,1", conq_stake_options:com_46);
+    case 5 :
+        if_setgraphic("radio_buttons,1", conq_stake_options:com_47);
+}

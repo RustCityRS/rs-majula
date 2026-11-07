@@ -1,9 +1,10 @@
+// 1622
 [clientscript,follower_inv_create]
 def_int $int0 = 0;
 def_int $int1 = 0;
 def_int $int2 = 0;
 while ($int0 <= inv_size(inv_509)) {
-    cc_create(trek_follower_inv:com13, ^iftype_graphic, $int0);
+    cc_create(trek_follower_inv:com_13, ^iftype_graphic, $int0);
     cc_setsize(36, 32, ^setsize_abs, ^setsize_abs);
     cc_setposition(calc(5 + 70 * $int1), calc(40 * $int2), ^setpos_abs_left, ^setpos_abs_top);
     if (inv_getobj(inv_509, $int0) ! null) {
@@ -15,7 +16,7 @@ while ($int0 <= inv_size(inv_509)) {
         cc_setop(4, "Take-back All");
         cc_setop(5, "Take-back X");
     }
-    cc_create(trek_follower_inv:com14, ^iftype_text, $int0);
+    cc_create(trek_follower_inv:com_14, ^iftype_text, $int0);
     cc_settextfont(p11_full);
     cc_setcolour(^yellow);
     cc_setsize(15, 15, ^setsize_abs, ^setsize_abs);

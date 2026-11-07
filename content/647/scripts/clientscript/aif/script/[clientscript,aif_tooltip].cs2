@@ -1,2 +1,3 @@
-[clientscript,aif_tooltip](component $component0, component $component1, int $int2, int $int3, fontmetrics $fontmetrics4, graphic $fontmetrics5, int $colour6, int $int7, int $int8, int $int9, int $int10, int $int11, string $string)
-~aif_tooltip($component0, $component1, $int2, $string, $int3, $fontmetrics4, $fontmetrics5, $colour6, $int7, $int8, $int9, $int10, $int11);
+// 4538
+[clientscript,aif_tooltip](component $component0, component $component1, int $int2, string $string0, int $int3, fontmetrics $fontmetrics4, graphic $graphic5, int $rgb6, int $int7, int $int8, int $int9, int $int10, int $int11)
+~aif_tooltip($component0, $component1, $int2, $string0, $int3, $fontmetrics4, $graphic5, $rgb6, $int7, $int8, $int9, $int10, $int11);

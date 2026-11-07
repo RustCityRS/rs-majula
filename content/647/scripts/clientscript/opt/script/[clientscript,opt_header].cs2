@@ -1,9 +1,0 @@
-[clientscript,opt_header]
-if (getwindowmode >= 2) {
-    if_setgraphic(chat_background, chatbox:com1);
-    if_setalpha(1, chatbox:com1);
-    if_sethide(false, chatbox:com1);
-    if_sethide(false, chatbox:com2);
-    ~chatbox_resize_reset(0);
-    if_sethide(true, toplevel_fullscreen:com72);
-}

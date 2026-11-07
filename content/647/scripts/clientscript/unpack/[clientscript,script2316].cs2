@@ -1,0 +1,8 @@
+// 2316
+[clientscript,script2316](int $int0)
+if_settext(tostring(calc($int0 + 1)), chatbox_background:com_140);
+if_setvflip(false, chatbox_background:com_146);
+if_sethide(true, chatbox_background:com_75);
+if_sethide(true, chatbox_background:com_76);
+if_sethide(true, chatbox_background:com_74);
+if_sethide(true, chatbox_background:com_68);

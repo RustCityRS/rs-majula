@@ -6,7 +6,7 @@ use std::collections::HashMap;
 
 pub fn emit_enum_props(
     def: &EnumTypeRaw,
-    _registry: &mut UnpackedPacks,
+    registry: &mut UnpackedPacks,
     _reverse_hsl: &HashMap<u16, u16>,
 ) -> Vec<(String, String)> {
     let mut props: Vec<(String, String)> = Vec::new();
@@ -26,24 +26,47 @@ pub fn emit_enum_props(
             3 => {
                 // Client defaults to "null", so any op 3 present in the binary
                 // is meaningful — even if the string is empty.
+                #[cfg(before_647)]
+                let key = "defaultstring";
+                #[cfg(since_647)]
+                let key = "default";
                 props.push((
-                    "defaultstring".into(),
+                    key.into(),
                     def.default_str.as_deref().unwrap_or("").to_string(),
                 ));
             }
             4 => {
+                #[cfg(before_647)]
                 props.push(("defaultint".into(), def.default_int.to_string()));
+                #[cfg(since_647)]
+                props.push((
+                    "default".into(),
+                    registry.typed_value(&char_to_type_name(def.outputtype as u8), def.default_int),
+                ));
             }
             5 | 6 if !entries_emitted => {
                 entries_emitted = true;
                 // Entries — emit in decode order, using ordered_entries
                 // which preserves duplicates with their original values.
+                #[cfg(since_647)]
+                let (input, output) = (
+                    char_to_type_name(def.inputtype as u8),
+                    char_to_type_name(def.outputtype as u8),
+                );
                 for (key, value) in &def.ordered_entries {
+                    #[cfg(since_647)]
+                    let key = registry.typed_value(&input, *key);
                     match value {
                         ParamValue::String(s) => {
                             props.push(("val".into(), format!("{key},{s}")));
                         }
+                        #[cfg(before_647)]
                         ParamValue::Int(v) => {
+                            props.push(("val".into(), format!("{key},{v}")));
+                        }
+                        #[cfg(since_647)]
+                        ParamValue::Int(v) => {
+                            let v = registry.typed_value(&output, *v);
                             props.push(("val".into(), format!("{key},{v}")));
                         }
                     }
@@ -52,6 +75,9 @@ pub fn emit_enum_props(
             _ => {}
         }
     }
+
+    #[cfg(before_647)]
+    let _ = registry;
 
     // Fallback: if opcode_order is empty (e.g. hand-written configs), use
     // the legacy fixed order.

@@ -1,7 +1,0 @@
-[proc,clientscript_2605]
-sound_synth(synth_6784, 1, 0);
-if_sethide(false, mob_squad_exchange:com130);
-if_settext("Are you sure you wish to apply the selected changes?", mob_squad_exchange:com132);
-if_sethide(true, mob_squad_exchange:com135);
-if_sethide(false, mob_squad_exchange:com137);
-if_sethide(true, mob_squad_exchange:com134);

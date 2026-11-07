@@ -1,0 +1,96 @@
+// 768:0
+[com_0]
+type=layer
+width=88
+height=122
+xmode=abs_right
+onload=boardgames_rank_update(boardgames_rank_overlay:com_5, boardgames_rank_overlay:com_6, boardgames_rank_overlay:com_1, boardgames_rank_overlay:com_2, boardgames_rank_overlay:com_3, boardgames_rank_overlay:com_4)
+onvartransmit=boardgames_rank_update(boardgames_rank_overlay:com_5, boardgames_rank_overlay:com_6, boardgames_rank_overlay:com_1, boardgames_rank_overlay:com_2, boardgames_rank_overlay:com_3, boardgames_rank_overlay:com_4){varplayer_354, varplayer_353, varplayer_648, varplayer_649}
+onvarctransmit=boardgames_rank_update(boardgames_rank_overlay:com_5, boardgames_rank_overlay:com_6, boardgames_rank_overlay:com_1, boardgames_rank_overlay:com_2, boardgames_rank_overlay:com_3, boardgames_rank_overlay:com_4){varclient_808}
+
+// 768:1
+[com_1]
+type=model
+x=-1
+y=7
+width=69
+height=69
+xmode=abs_centre
+layer=com_0
+hide=yes
+model=model_4607
+modelangle=512,0,0
+modelzoom=1600
+
+// 768:2
+[com_2]
+type=model
+x=-1
+y=5
+width=74
+height=66
+xmode=abs_centre
+layer=com_0
+hide=yes
+model=model_4608
+modelorigin=0,25
+modelzoom=512
+transmitop=10
+op10= 
+
+// 768:3
+[com_3]
+type=model
+x=1
+y=4
+width=73
+height=73
+xmode=abs_centre
+layer=com_0
+hide=yes
+model=model_11101
+modelangle=512,0,0
+modelzoom=459
+transmitop=10
+op10= 
+
+// 768:4
+[com_4]
+type=model
+y=-16
+width=111
+height=111
+xmode=abs_centre
+layer=com_0
+hide=yes
+model=model_11102
+modelangle=512,0,0
+modelzoom=470
+transmitop=10
+op10= 
+
+// 768:5
+[com_5]
+type=text
+y=77
+height=15
+widthmode=minus
+xmode=abs_centre
+layer=com_0
+textfont=p12_full
+textalignh=centre
+textshadow=yes
+colour=0xaaaaaa
+
+// 768:6
+[com_6]
+type=text
+y=96
+height=15
+widthmode=minus
+xmode=abs_centre
+layer=com_0
+textfont=p11_full
+textalignh=centre
+textshadow=yes
+colour=0xaaaaaa

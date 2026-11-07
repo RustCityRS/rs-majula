@@ -1,12 +1,13 @@
+// 2423
 [clientscript,boardgames_sandtimer](component $component0)
 def_seq $seq1 = null;
-if (%varc_int_811 = false) {
+if (%varclient_811 = 0) {
     $seq1 = sandtimer_15secs;
-} else if (%varc_int_811 = true) {
+} else if (%varclient_811 = 1) {
     $seq1 = sandtimer_30secs;
-} else if (%varc_int_811 = 2) {
+} else if (%varclient_811 = 2) {
     $seq1 = sandtimer_60secs;
-} else if (%varc_int_811 = 3) {
+} else if (%varclient_811 = 3) {
     $seq1 = sandtimer_120secs;
 }
 if_setmodelanim(null, $component0);

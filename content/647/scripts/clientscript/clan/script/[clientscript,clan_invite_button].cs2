@@ -1,4 +1,5 @@
+// 4429
 [clientscript,clan_invite_button](component $component0, component $component1)
-if_sethide(false, clan_chat:com89);
+if_sethide(false, clan_chat:com_89);
 if_setgraphic("aif_clanchat_icons,4", $component1);
-if_setontargetleave("clientscript_4430($component0, $component1)", $component0);
+if_setontargetleave("script4430($component0, $component1)", $component0);

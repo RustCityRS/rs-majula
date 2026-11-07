@@ -1,16 +1,17 @@
-[proc,lobbyscreen_report_abuse_submit](int $int)
-if (string_length(%varc_string_279) > 0) {
-    chat_sendabusereport(%varc_string_279, $int, %varc_int_6, "");
+// 3200
+[proc,lobbyscreen_report_abuse_submit](int $int0)
+if (string_length(%varclient_1798) > 0) {
+    chat_sendabusereport(%varclient_1798, $int0, %varclient_6, "");
 }
 ~lobbyscreen_report_abuse_stage2_close;
-if (string_length(%varc_string_279) > 0 & (ignores_test(%varc_string_279) = false & compare(%varc_string_279, chat_playername) ! 0)) {
-    if ($int = 5) {
-        %varc_int_1094 = 1;
+if (string_length(%varclient_1798) > 0 & ignore_test(%varclient_1798) = false & compare(%varclient_1798, chat_playername_unfiltered) ! 0) {
+    if ($int0 = 5) {
+        %varclient_1094 = 1;
     }
     ~lobbyscreen_report_abuse_ignore;
 } else {
-    %varc_int_1094 = 0;
-    if ($int = 5) {
+    %varclient_1094 = 0;
+    if ($int0 = 5) {
         ~lobbyscreen_input_full("", "Open a bug report form?<br>(opens a new window)", 0, 6, "", "", 1);
     }
 }

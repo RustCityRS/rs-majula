@@ -1,0 +1,14 @@
+// 1631
+[clientscript,script1631]
+if (%varclient_1033 <= spline_length(0)) {
+    %varclient_1033 = calc(%varclient_1033 + 1);
+    switch_int (%varclient_1033) {
+        case default :
+            if_setoncamfinished(null, interface_75:com_0);
+        case 2, 4 :
+            if_setoncamfinished("script1631", interface_75:com_0);
+            cam_movealong(0, %varclient_1033, 200, 200, 1, %varclient_1033);
+    }
+} else {
+    %varclient_1033 = 0;
+}

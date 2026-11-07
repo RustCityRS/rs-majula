@@ -1,0 +1,21 @@
+// 209
+[clientscript,script209]
+if (%varplayerbit_6101 < 8) {
+    if_setgraphic("bounty_hunter_timer_icon,0", interface_591:com_10);
+} else if (%varplayerbit_6101 < 15) {
+    if_setgraphic("bounty_hunter_timer_icon,1", interface_591:com_10);
+} else if (%varplayerbit_6101 < 23) {
+    if_setgraphic("bounty_hunter_timer_icon,2", interface_591:com_10);
+} else if (%varplayerbit_6101 < 30) {
+    if_setgraphic("bounty_hunter_timer_icon,3", interface_591:com_10);
+} else if (%varplayerbit_6101 < 38) {
+    if_setgraphic("bounty_hunter_timer_icon,4", interface_591:com_10);
+} else if (%varplayerbit_6101 < 45) {
+    if_setgraphic("bounty_hunter_timer_icon,5", interface_591:com_10);
+} else if (%varplayerbit_6101 < 53) {
+    if_setgraphic("bounty_hunter_timer_icon,6", interface_591:com_10);
+} else if (%varplayerbit_6101 < 60) {
+    if_setgraphic("bounty_hunter_timer_icon,7", interface_591:com_10);
+} else {
+    if_setgraphic("bounty_hunter_timer_icon,8", interface_591:com_10);
+}

@@ -1,8 +1,0 @@
-[proc,clientscript_1141]
-if (~clientscript_1431 = true) {
-    if (getwindowmode < 2) {
-        if_setontimer("clientscript_1175()", toplevel:com9);
-    } else {
-        if_setontimer("clientscript_1175()", toplevel_fullscreen:com14);
-    }
-}

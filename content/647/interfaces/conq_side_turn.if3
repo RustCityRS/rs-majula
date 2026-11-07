@@ -1,0 +1,559 @@
+// 1010:0
+[com_0]
+type=layer
+width=190
+height=261
+
+// 1010:1
+[com_1]
+type=text
+y=5
+width=16391
+height=14
+widthmode=proportion
+layer=com_0
+textfont=b12_full
+text=Turn Options
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xff981f
+transmitop=10
+op10=   
+
+// 1010:2
+[com_2]
+type=graphic
+y=9
+width=190
+height=32
+layer=com_0
+graphic="v2_stone_borders,23"
+tiling=yes
+colour=0xffffffff
+transmitop=10
+op10=   
+
+// 1010:3
+[com_3]
+type=graphic
+y=117
+width=190
+height=32
+layer=com_0
+graphic="v2_stone_borders,23"
+tiling=yes
+colour=0xffffffff
+transmitop=10
+op10=    
+
+// 1010:4
+[com_4]
+type=graphic
+y=75
+width=190
+height=32
+ymode=abs_bottom
+layer=com_0
+graphic="v2_stone_borders,23"
+tiling=yes
+colour=0xffffffff
+transmitop=10
+op10=   
+
+// 1010:5
+[com_5]
+type=graphic
+y=236
+width=190
+height=32
+layer=com_0
+graphic="v2_stone_borders,23"
+tiling=yes
+colour=0xffffffff
+transmitop=10
+op10=   
+
+// 1010:6
+[com_6]
+type=layer
+x=15
+width=190
+height=261
+onvarctransmit=script410(-1){varclient_1361}
+
+// 1010:7
+[com_7]
+type=layer
+width=190
+height=261
+hide=yes
+
+// 1010:8
+[com_8]
+type=graphic
+x=10
+y=119
+width=170
+height=24
+layer=com_7
+graphic=km_middlefillcolour
+
+// 1010:9
+[com_9]
+type=text
+x=4
+width=8
+height=32
+widthmode=minus
+ymode=abs_centre
+layer=com_7
+textfont=b12_full
+text=Commorb Charging
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xff991f
+
+// 1010:10
+[com_10]
+type=graphic
+x=10
+y=119
+width=170
+height=24
+layer=com_7
+graphic=km_middlefillcolour
+trans=255
+ontimer=script394(event_com)
+
+// 1010:11
+[com_11]
+type=rectangle
+x=10
+y=119
+width=170
+height=24
+layer=com_7
+colour=0x000000
+
+// 1010:12
+[com_12]
+type=text
+x=50
+y=36
+width=100
+height=16
+layer=com_6
+textfont=p11_full
+text=Selection Phase
+textshadow=yes
+colour=0x969664
+
+// 1010:13
+[com_13]
+type=graphic
+x=30
+y=34
+width=14
+height=14
+layer=com_6
+graphic="km_tickbox,0"
+colour=0x000000
+
+// 1010:14
+[com_14]
+type=text
+x=50
+y=60
+width=100
+height=16
+layer=com_6
+textfont=p11_full
+text=Movement Phase
+textshadow=yes
+colour=0x969664
+
+// 1010:15
+[com_15]
+type=graphic
+x=30
+y=58
+width=14
+height=14
+layer=com_6
+graphic="km_tickbox,0"
+colour=0x000000
+transmitop=10
+op10= 
+
+// 1010:16
+[com_16]
+type=text
+x=50
+y=84
+width=100
+height=16
+layer=com_6
+textfont=p11_full
+text=Combat Phase
+textshadow=yes
+colour=0x969664
+
+// 1010:17
+[com_17]
+type=graphic
+x=30
+y=82
+width=14
+height=14
+layer=com_6
+graphic="km_tickbox,0"
+colour=0x000000
+transmitop=10
+op10= 
+
+// 1010:18
+[com_18]
+type=text
+x=50
+y=108
+width=100
+height=16
+layer=com_6
+textfont=p11_full
+text=Rally Phase
+textshadow=yes
+colour=0x969664
+
+// 1010:19
+[com_19]
+type=graphic
+x=30
+y=106
+width=14
+height=14
+layer=com_6
+graphic="km_tickbox,0"
+colour=0x000000
+transmitop=10
+op10= 
+
+// 1010:20
+[com_20]
+type=layer
+width=190
+height=261
+
+// 1010:21
+[com_21]
+type=text
+y=139
+width=75
+height=32
+xmode=abs_centre
+layer=com_20
+textfont=p11_full
+text=Turn Time Left<br>0:00
+textalignh=centre
+textshadow=yes
+colour=0xff981f
+
+// 1010:22
+[com_22]
+type=graphic
+x=33
+y=137
+width=27
+height=26
+layer=com_20
+graphic=ra_time
+colour=0x000000
+
+// 1010:23
+[com_23]
+type=layer
+width=190
+height=261
+
+// 1010:24
+[com_24]
+type=layer
+width=16391
+height=16391
+widthmode=proportion
+heightmode=proportion
+layer=com_23
+hide=yes
+
+// 1010:25
+[com_25]
+type=layer
+x=15
+y=14
+width=70
+height=30
+ymode=abs_bottom
+layer=com_24
+transmitop=10
+op10=   
+onload=v2_stone_button(event_com)
+onmouseover=v2_stone_button_in(event_com)
+onmouseleave=v2_stone_button(event_com)
+
+// 1010:26
+[com_26]
+type=graphic
+width=27985
+height=15844
+widthmode=proportion
+heightmode=proportion
+layer=com_25
+graphic=tradebacking
+tiling=yes
+colour=0xffffffff
+transmitop=10
+opbase= 
+op10=  
+
+// 1010:27
+[com_27]
+type=text
+width=16391
+height=16391
+widthmode=proportion
+heightmode=proportion
+xmode=abs_centre
+ymode=abs_centre
+layer=com_25
+textfont=b12_full
+text=Yes
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xff981f
+transmitop=1,10
+op1=Yes
+op10=  
+onmouseover=text_colour_swapper(event_com, ^white)
+onmouseleave=text_colour_swapper(event_com, 0xff981f)
+
+// 1010:28
+[com_28]
+type=layer
+x=15
+y=14
+width=70
+height=30
+xmode=abs_right
+ymode=abs_bottom
+layer=com_24
+transmitop=10
+op10=    
+onload=v2_stone_button(event_com)
+onmouseover=v2_stone_button_in(event_com)
+onmouseleave=v2_stone_button(event_com)
+
+// 1010:29
+[com_29]
+type=graphic
+width=27985
+height=15844
+widthmode=proportion
+heightmode=proportion
+layer=com_28
+graphic=tradebacking
+tiling=yes
+colour=0xffffffff
+transmitop=10
+opbase= 
+op10=   
+
+// 1010:30
+[com_30]
+type=text
+width=16391
+height=16391
+widthmode=proportion
+heightmode=proportion
+xmode=abs_centre
+ymode=abs_centre
+layer=com_28
+textfont=b12_full
+text=No
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xff981f
+transmitop=1,10
+op1=No
+op10=   
+onmouseover=text_colour_swapper(event_com, ^white)
+onmouseleave=text_colour_swapper(event_com, 0xff981f)
+
+// 1010:31
+[com_31]
+type=text
+x=4
+y=45
+width=8
+height=45
+widthmode=minus
+ymode=abs_bottom
+layer=com_24
+textfont=p11_full
+text=You have not yet selected a unit to control; are you sure you want to end the Unit Selection phase?
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xff991f
+
+// 1010:32
+[com_32]
+type=layer
+width=16391
+height=16391
+widthmode=proportion
+heightmode=proportion
+layer=com_23
+hide=yes
+ontimer=conq_skull_swapper
+
+// 1010:33
+[com_33]
+type=layer
+width=16391
+height=16391
+widthmode=proportion
+heightmode=proportion
+layer=com_23
+hide=yes
+
+// 1010:34
+[com_34]
+type=layer
+y=54
+width=130
+height=30
+xmode=abs_centre
+ymode=abs_bottom
+layer=com_33
+transmitop=10
+op10=  
+onload=v2_stone_button(event_com)
+onmouseover=v2_stone_button_in(event_com)
+onmouseleave=v2_stone_button(event_com)
+
+// 1010:35
+[com_35]
+type=graphic
+width=27985
+height=15844
+widthmode=proportion
+heightmode=proportion
+layer=com_34
+graphic=tradebacking
+tiling=yes
+colour=0xffffffff
+transmitop=10
+opbase= 
+op10= 
+
+// 1010:36
+[com_36]
+type=text
+width=16391
+height=16391
+widthmode=proportion
+heightmode=proportion
+xmode=abs_centre
+ymode=abs_centre
+layer=com_34
+textfont=b12_full
+text=End Phase
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xff981f
+transmitop=1,10
+op1=End Phase
+op10= 
+onmouseover=text_colour_swapper(event_com, ^white)
+onmouseleave=text_colour_swapper(event_com, 0xff981f)
+
+// 1010:37
+[com_37]
+type=layer
+y=18
+width=130
+height=30
+xmode=abs_centre
+ymode=abs_bottom
+layer=com_33
+transmitop=10
+op10=  
+onload=v2_stone_button(event_com)
+onmouseover=v2_stone_button_in(event_com)
+onmouseleave=v2_stone_button(event_com)
+
+// 1010:38
+[com_38]
+type=graphic
+width=27985
+height=15844
+widthmode=proportion
+heightmode=proportion
+layer=com_37
+graphic=tradebacking
+tiling=yes
+colour=0xffffffff
+transmitop=10
+opbase= 
+op10= 
+
+// 1010:39
+[com_39]
+type=text
+width=16391
+height=16391
+widthmode=proportion
+heightmode=proportion
+xmode=abs_centre
+ymode=abs_centre
+layer=com_37
+textfont=b12_full
+text=End Turn
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xff981f
+transmitop=1,10
+op1=End Turn
+op10= 
+onmouseover=text_colour_swapper(event_com, ^white)
+onmouseleave=text_colour_swapper(event_com, 0xff981f)
+
+// 1010:40
+[com_40]
+type=rectangle
+y=170
+width=190
+height=79
+layer=com_32
+colour=0x000000
+fill=yes
+trans=200
+
+// 1010:41
+[com_41]
+type=text
+x=54
+y=170
+width=100
+height=79
+layer=com_32
+textfont=p11_full
+text=Opponent's Turn
+textalignv=centre
+textshadow=yes
+colour=0xff991f

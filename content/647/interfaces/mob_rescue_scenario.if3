@@ -1,0 +1,106 @@
+// 38:0
+[com_0]
+type=layer
+width=16391
+height=16391
+widthmode=proportion
+heightmode=proportion
+noclickthrough=yes
+
+// 38:1
+[com_1]
+type=rectangle
+width=16391
+height=16391
+widthmode=proportion
+heightmode=proportion
+layer=com_0
+colour=0x000000
+fill=yes
+
+// 38:2
+[com_2]
+type=model
+x=51
+y=117
+width=486
+height=185
+layer=com_7
+model=model_47696
+modelorigin=21,-20
+modelangle=186,1897,0
+modelzoom=800
+modelanim=seq_11861
+
+// 38:3
+[com_3]
+type=model
+x=240
+y=108
+width=107
+height=116
+layer=com_7
+model=model_47698
+modelorigin=3,30
+modelangle=186,1897,0
+modelzoom=800
+modelanim=seq_11861
+transmitop=10
+op10= 
+
+// 38:4
+[com_4]
+type=model
+x=18
+y=13
+width=85
+height=177
+layer=com_7
+model=model_47490
+modelorigin=0,74
+modelangle=204,1921,0
+modelzoom=800
+transmitop=10
+op10= 
+
+// 38:5
+[com_5]
+type=text
+x=5
+y=-140
+width=400
+height=50
+xmode=abs_centre
+ymode=abs_centre
+layer=com_7
+textfont=quill_oblique_large
+text=Rescue Scenario
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xff981f
+
+// 38:6
+[com_6]
+type=text
+x=30
+y=287
+width=196
+height=31
+layer=com_7
+textfont=p12_full
+text=-------
+textalignv=centre
+textshadow=yes
+colour=0xff9933
+transmitop=10
+op10= 
+
+// 38:7
+[com_7]
+type=layer
+width=512
+height=334
+xmode=abs_centre
+ymode=abs_centre
+layer=com_0

@@ -1,0 +1,5 @@
+// 4416
+[clientscript,script4416](component $component0, component $component1, component $component2)
+if_setgraphic("aif_brown_button_1,3", $component1);
+if_setgraphic("aif_brown_button_1,3", $component2);
+if_setgraphic("aif_brown_button_1,2", $component0);

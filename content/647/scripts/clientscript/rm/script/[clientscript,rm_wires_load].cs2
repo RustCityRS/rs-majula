@@ -1,3 +1,4 @@
+// 2846
 [clientscript,rm_wires_load](component $component0)
 cc_deleteall($component0);
 def_int $int1 = 308;
@@ -8,10 +9,10 @@ while ($int3 < $int4) {
     cc_create($component0, ^iftype_model, $int3);
     cc_setsize(50, 50, ^setsize_abs, ^setsize_abs);
     cc_setposition($int1, $int2, ^setpos_abs_left, ^setpos_abs_top);
-    cc_setmodel(enum(105, 109, enum_903, $int3));
+    cc_setmodel(enum(int, model, enum_903, $int3));
     cc_setmodelangle(0, 0, 512, 0, 0, 2750);
-    cc_setondragcomplete("clientscript_2848(^event_com, ^event_subid, ^event_dragcom, ^event_dragsubid, ^event_mousex, ^event_mousey)");
-    cc_setdragbehaviour(2);
+    cc_setondragcomplete("script2848(event_com, event_comsubid, event_com2, event_comsubid2, event_mousex, event_mousey)");
+    cc_setdragrenderbehaviour(2);
     cc_setdragdeadzone(14);
     cc_setop(1, "Select");
     $int3 = calc($int3 + 1);
@@ -47,4 +48,4 @@ while ($int3 < $int4) {
         $int1 = calc(50 + $int1);
     }
 }
-~clientscript_2847($component0);
+~script2847($component0);

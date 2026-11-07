@@ -1,32 +1,33 @@
+// 111
 [proc,meslayer_mode10]
-if (%varc_int_1413 = false) {
+if (%varclient_1413 = 0) {
     return;
 }
-if (%varc_int_11 = true) {
-    ~clientscript_675;
+if (%varclient_11 = 1) {
+    ~script675;
 }
 if (getwindowmode >= 2) {
     if_sethide(false, toplevel_fullscreen:com_chatbox);
 }
-if_sethide(false, chatbox:com3);
-if_sethide(true, chatbox:com7);
-if_sethide(true, chatbox:com8);
-if_settext("Enter the player name whose channel you wish to join:", chatbox:com4);
-%varc_int_5 = 10;
+if_sethide(false, chatbox:com_3);
+if_sethide(true, chatbox:com_7);
+if_sethide(true, chatbox:com_8);
+if_settext("Enter the player name whose channel you wish to join:", chatbox:com_4);
+%varclient_5 = 10;
 ~meslayer_setupinput("");
-if_setonclick(null, chatbox:com3);
-~clientscript_2026;
-if_setonkey("meslayer_onkey(^event_key, ^event_keychar)", chatbox:com5);
-cc_create(chatbox:com3, ^iftype_text, 0);
+if_setonclick(null, chatbox:com_3);
+~script2026;
+if_setonkey("meslayer_onkey(event_keycode, event_keychar)", chatbox:com_5);
+cc_create(chatbox:com_3, ^iftype_text, 0);
 ~meslayer_setupdynamicbutton;
-if (%varc_int_1027 = true & string_length(%varc_string_202) > 0) {
-    cc_settext("Last name entered: <%varc_string_202>");
+if (%varclient_1027 = 1 & string_length(%varclient_1721) > 0) {
+    cc_settext("Last name entered: <%varclient_1721>");
 } else {
-    %varc_string_202 = removetags(chat_playername);
-    %varc_int_1027 = 1;
-    cc_settext("Your name: <%varc_string_202>");
+    %varclient_1721 = removetags(chat_playername_unfiltered);
+    %varclient_1027 = 1;
+    cc_settext("Your name: <%varclient_1721>");
 }
 cc_setop(1, "Use:");
-cc_setopbase("<col=ff9040><removetags(%varc_string_202)></col>");
-cc_setonop("meslayer_lastname(%varc_int_5, ^event_op, ^event_com, ^event_subid, %varc_string_202)");
+cc_setopbase("<col=ff9040><removetags(%varclient_1721)></col>");
+cc_setonop("meslayer_lastname(%varclient_5, event_op, event_com, event_comsubid, %varclient_1721)");
 ~opt_header;

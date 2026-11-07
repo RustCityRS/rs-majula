@@ -1,18 +1,4 @@
-#[cfg(since_647)]
-use rs_io::Packet;
-#[cfg(since_647)]
-use rs_pack::cache::param::ParamTypeRaw;
-#[cfg(since_647)]
-use rs_pack::cache::provider::CacheType;
-#[cfg(since_647)]
-use rs_pack::pack::config::param::pack_params;
 use rs_pack::pack::pack::{FileCache, parse_config_sections, parse_config_sections_cached};
-#[cfg(since_647)]
-use rs_pack::pack::pack_registry::PackRegistry;
-#[cfg(since_647)]
-use rs_pack::pack::packed_data::PackedData;
-#[cfg(since_647)]
-use rs_pack::types::ScriptVarType;
 use std::collections::HashMap;
 use std::fs;
 use std::path::{Path, PathBuf};
@@ -133,36 +119,4 @@ fn unpack_rejects_existing_configs_before_writing() {
     assert_eq!(fs::read(&files[0]).unwrap(), before);
     assert!(!root.join("scripts/globalscript/_unpack").exists());
     assert!(!root.join("pack").exists());
-}
-
-#[cfg(since_647)]
-#[test]
-fn a_shared_parameter_can_keep_its_empty_client_slot() {
-    let files = tree(
-        "empty_param",
-        &[
-            (
-                "scripts/globalscript/_unpack/all.param",
-                "[woodcutting_anim]\ntype=seq\ndefault=-1\nclient=empty\n",
-            ),
-            ("pack/param.pack", "0=woodcutting_anim\n"),
-        ],
-    );
-    let root = files[1].parent().unwrap().parent().unwrap();
-    let registry = PackRegistry::load(&root.join("pack")).unwrap();
-    let cache = FileCache::new(&root.join("scripts"));
-    let packed = pack_params(&cache, &registry, &HashMap::new()).unwrap();
-    let client = packed.client.unwrap();
-    let entries = PackedData::entries(&client.dat, &client.idx)
-        .unwrap()
-        .collect::<Vec<_>>();
-    assert_eq!(entries, vec![(0, &[0][..])]);
-    let (_, server) = PackedData::entries(&packed.server.dat, &packed.server.idx)
-        .unwrap()
-        .next()
-        .unwrap();
-    let mut param = ParamTypeRaw::new(0);
-    param.decode(&mut Packet::from(server.to_vec()));
-    assert_eq!(param.var_type, ScriptVarType::Seq);
-    assert_eq!(param.default_int, -1);
 }

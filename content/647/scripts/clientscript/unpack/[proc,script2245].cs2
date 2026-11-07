@@ -1,0 +1,19 @@
+// 2245
+[proc,script2245](int $int0, int $int1, int $int2, component $component3, component $component4)(int)
+if ($int2 = $int0) {
+    return($int2);
+}
+if ($int2 < $int0) {
+    $int2 = calc($int2 + ($int1 + 49) / 50);
+    if ($int2 > $int0) {
+        $int2 = $int0;
+    }
+} else if ($int2 > $int0) {
+    $int2 = calc($int2 - ($int1 + 49) / 50);
+    if ($int2 < $int0) {
+        $int2 = $int0;
+    }
+}
+if_setsize(calc(1 + 223 * $int2 / $int1), 10, ^setsize_abs, ^setsize_abs, $component3);
+if_settext(tostring($int2), $component4);
+return($int2);

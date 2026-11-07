@@ -1,9 +1,9 @@
-[proc,clanwars_setup_clicktest](int $int)(int)
-if (%varp_1149 = -1) {
-    return(0);
+// 1820
+[proc,clanwars_setup_clicktest](int $int0)(boolean)
+if (%varplayer_1149 = -1) {
+    return(false);
 }
-if ($int ! 1) {
-    return(0);
+if ($int0 ! 1) {
+    return(false);
 }
-return(1);
-return(-1);
+return(true);

@@ -1,13 +1,14 @@
-[proc,login_link_highlight](component $component0, component $component1, int $int2, int $int3)
-def_string $string = removetags(if_gettext($component1));
+// 3963
+[proc,login_link_highlight](component $component0, component $component1, fontmetrics $fontmetrics2, int $int3)
+def_string $string0 = removetags(if_gettext($component1));
 if ($component0 ! null) {
-    if ($int3 = true) {
-        if_settext("<u=fafafa><$string></u>", $component1);
+    if ($int3 = 1) {
+        if_settext("<u=fafafa><$string0></u>", $component1);
         if_setcolour(0xfafafa, $component1);
-        if_setsize(op4125($string, $int2), if_getheight($component0), ^setsize_abs, ^setsize_abs, $component0);
+        if_setsize(stringwidth($string0, $fontmetrics2), if_getheight($component0), ^setsize_abs, ^setsize_abs, $component0);
     } else {
-        if_settext("<u=c8c8c8><$string></u>", $component1);
+        if_settext("<u=c8c8c8><$string0></u>", $component1);
         if_setcolour(0xc8c8c8, $component1);
-        if_setsize(op4125($string, $int2), if_getheight($component0), ^setsize_abs, ^setsize_abs, $component0);
+        if_setsize(stringwidth($string0, $fontmetrics2), if_getheight($component0), ^setsize_abs, ^setsize_abs, $component0);
     }
 }

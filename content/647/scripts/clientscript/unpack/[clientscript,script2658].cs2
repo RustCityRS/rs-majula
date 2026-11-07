@@ -1,0 +1,10 @@
+// 2658
+[clientscript,script2658]
+%varplayerbit_6302 = calc(%varplayerbit_6302 + 1);
+if (%varplayerbit_6302 >= calc(spline_length(0) - 1)) {
+    %varplayerbit_6302 = 0;
+    if_setoncamfinished(null, mah3_heistsplines:com_0);
+    return;
+}
+cam_movealong(0, %varplayerbit_6302, 600, 400, 1, %varplayerbit_6302);
+if_setoncamfinished("script2658", mah3_heistsplines:com_0);

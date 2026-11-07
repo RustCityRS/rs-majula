@@ -1,0 +1,3189 @@
+// 473:0
+[com_0]
+type=layer
+width=512
+height=334
+
+// 473:1
+[com_1]
+type=layer
+y=280
+width=455
+height=31
+xmode=abs_centre
+
+// 473:2
+[com_2]
+type=rectangle
+width=1
+widthmode=minus
+heightmode=minus
+layer=com_1
+colour=0x000000
+fill=yes
+trans=40
+transmitop=10
+op10=  
+
+// 473:3
+[com_3]
+type=rectangle
+x=1
+y=1
+widthmode=minus
+heightmode=minus
+layer=com_1
+colour=0x999999
+fill=yes
+trans=36
+transmitop=10
+op10=  
+
+// 473:4
+[com_4]
+type=rectangle
+x=1
+y=1
+width=2
+height=2
+widthmode=minus
+heightmode=minus
+layer=com_1
+colour=0x333333
+fill=yes
+transmitop=10
+op10= 
+
+// 473:5
+[com_5]
+type=text
+x=39
+y=3
+width=144
+height=16
+layer=com_1
+textfont=p11_full
+text=Attacker Honour Points:
+colour=0xffff00
+transmitop=10
+op10= 
+
+// 473:6
+[com_6]
+type=text
+x=39
+y=-2
+width=144
+height=16
+ymode=abs_bottom
+layer=com_1
+textfont=p11_full
+text=Defender Honour Points:
+colour=0xffff00
+transmitop=10
+op10= 
+
+// 473:7
+[com_7]
+type=text
+x=255
+y=3
+width=144
+height=16
+layer=com_1
+textfont=p11_full
+text=Collector Honour Points:
+colour=0xffff00
+transmitop=10
+op10= 
+
+// 473:8
+[com_8]
+type=text
+x=255
+y=-3
+width=144
+height=16
+ymode=abs_bottom
+layer=com_1
+textfont=p11_full
+text=Healer Honour Points:
+colour=0xffff00
+transmitop=10
+op10= 
+
+// 473:9
+[com_9]
+type=text
+x=182
+y=3
+width=32
+height=16
+layer=com_1
+textfont=p11_full
+text=999
+colour=0xffff00
+transmitop=10
+op10= 
+
+// 473:10
+[com_10]
+type=text
+x=182
+y=-2
+width=32
+height=16
+ymode=abs_bottom
+layer=com_1
+textfont=p11_full
+text=999
+colour=0xffff00
+transmitop=10
+op10= 
+
+// 473:11
+[com_11]
+type=text
+x=397
+y=3
+width=32
+height=16
+layer=com_1
+textfont=p11_full
+text=999
+colour=0xffff00
+transmitop=10
+op10= 
+
+// 473:12
+[com_12]
+type=text
+x=397
+y=-3
+width=32
+height=16
+ymode=abs_bottom
+layer=com_1
+textfont=p11_full
+text=999
+colour=0xffff00
+transmitop=10
+op10= 
+
+// 473:13
+[com_13]
+type=rectangle
+width=16384
+height=16384
+widthmode=proportion
+heightmode=proportion
+layer=com_0
+colour=0xffff00
+fill=yes
+trans=255
+
+// 473:14
+[com_14]
+type=rectangle
+x=13
+y=23
+width=486
+height=299
+layer=com_0
+colour=0x000000
+fill=yes
+transmitop=10
+op10=     
+
+// 473:15
+[com_15]
+type=rectangle
+x=14
+y=24
+width=486
+height=299
+layer=com_0
+colour=0x000000
+fill=yes
+trans=120
+transmitop=10
+op10=      
+
+// 473:16
+[com_16]
+type=rectangle
+x=15
+y=25
+width=486
+height=299
+layer=com_0
+colour=0x000000
+fill=yes
+trans=150
+transmitop=10
+op10=       
+
+// 473:17
+[com_17]
+type=rectangle
+x=16
+y=26
+width=486
+height=299
+layer=com_0
+colour=0x000000
+fill=yes
+trans=180
+transmitop=10
+op10=        
+
+// 473:18
+[com_18]
+type=rectangle
+x=17
+y=27
+width=486
+height=299
+layer=com_0
+colour=0x000000
+fill=yes
+trans=210
+transmitop=10
+op10=         
+
+// 473:19
+[com_19]
+type=graphic
+x=21
+y=47
+width=470
+height=70
+layer=com_0
+graphic=graphic_2045
+tiling=yes
+colour=0xffffffff
+transmitop=10
+opbase=  
+op10= 
+
+// 473:20
+[com_20]
+type=graphic
+x=21
+y=117
+width=470
+height=151
+layer=com_0
+graphic=km_middlefillcolour
+colour=0xffffffff
+
+// 473:21
+[com_21]
+type=graphic
+x=21
+y=268
+width=470
+height=46
+layer=com_0
+graphic=graphic_2044
+tiling=yes
+colour=0xffffffff
+
+// 473:22
+[com_22]
+type=graphic
+x=479
+y=26
+width=22
+height=281
+layer=com_0
+graphic="v2_stone_borders,3"
+tiling=yes
+colour=0xffffffff
+transmitop=10
+opbase= 
+op10= 
+
+// 473:23
+[com_23]
+type=graphic
+x=15
+y=302
+width=468
+height=23
+layer=com_0
+graphic="v2_stone_borders,2"
+tiling=yes
+colour=0xffffffff
+transmitop=10
+op10= 
+
+// 473:24
+[com_24]
+type=graphic
+x=45
+y=23
+width=422
+height=32
+layer=com_0
+graphic="v2_stone_borders,36"
+tiling=yes
+colour=0xffffffff
+transmitop=10
+opbase= 
+op10= 
+
+// 473:25
+[com_25]
+type=graphic
+x=467
+y=290
+width=32
+height=32
+layer=com_0
+graphic="v2_stone_borders,7"
+colour=0xffffffff
+transmitop=10
+opbase= 
+op10= 
+
+// 473:26
+[com_26]
+type=graphic
+x=13
+y=290
+width=32
+height=32
+layer=com_0
+graphic="v2_stone_borders,6"
+colour=0xffffffff
+transmitop=10
+op10= 
+
+// 473:27
+[com_27]
+type=graphic
+y=26
+width=37
+height=276
+layer=com_0
+graphic="v2_stone_borders,1"
+tiling=yes
+colour=0xffffffff
+transmitop=10
+opbase= 
+op10= 
+
+// 473:28
+[com_28]
+type=graphic
+x=13
+y=23
+width=32
+height=32
+layer=com_0
+graphic="v2_stone_borders,35"
+colour=0xffffffff
+transmitop=10
+opbase= 
+op10= 
+
+// 473:29
+[com_29]
+type=graphic
+x=467
+y=23
+width=32
+height=32
+layer=com_0
+graphic="v2_stone_borders,37"
+colour=0xffffffff
+transmitop=10
+opbase= 
+op10= 
+
+// 473:30
+[com_30]
+type=graphic
+x=471
+y=26
+width=16
+height=16
+layer=com_0
+graphic="v2_stone_close_button,0"
+colour=0xffffffff
+transmitop=1,10
+op1=Close
+op10= 
+onmouseover=graphic_swapper(event_com, "v2_stone_close_button,1")
+onmouseleave=graphic_swapper(event_com, "v2_stone_close_button,0")
+onop=closebutton_click
+
+// 473:31
+[com_31]
+type=text
+y=27
+width=443
+height=17
+xmode=abs_centre
+layer=com_0
+textfont=b12_full
+text=Barbarian Assault Rewards
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xff991f
+onload=barbassault_onload
+
+// 473:32
+[com_32]
+type=layer
+x=27
+y=49
+width=112
+height=31
+transmitop=1,10
+op1=Roles rewards
+op10= 
+onload=v2_stone_button(event_com)
+onmouseover=v2_stone_button_in(event_com)
+onmouseleave=v2_stone_button(event_com)
+onop=barbassault_roles_button
+
+// 473:33
+[com_33]
+type=layer
+x=142
+y=50
+width=112
+height=31
+transmitop=1,10
+op1=Penance armour rewards
+op10= 
+onload=v2_stone_button(event_com)
+onmouseover=v2_stone_button_in(event_com)
+onmouseleave=v2_stone_button(event_com)
+onop=barbassault_armour_button
+
+// 473:34
+[com_34]
+type=layer
+x=257
+y=50
+width=112
+height=31
+transmitop=1,10
+op1=Weapon rewards
+op10= 
+onload=v2_stone_button(event_com)
+onmouseover=v2_stone_button_in(event_com)
+onmouseleave=v2_stone_button(event_com)
+onop=barbassault_weapons_button
+
+// 473:35
+[com_35]
+type=layer
+x=372
+y=49
+width=112
+height=31
+transmitop=1,10
+op1=Misc rewards
+op10= 
+onload=v2_stone_button(event_com)
+onmouseover=v2_stone_button_in(event_com)
+onmouseleave=v2_stone_button(event_com)
+onop=barbassault_misc_button
+
+// 473:36
+[com_36]
+type=text
+width=15564
+height=15564
+widthmode=proportion
+heightmode=proportion
+xmode=abs_centre
+ymode=abs_centre
+layer=com_35
+textfont=p12_full
+text=Misc
+textalignh=centre
+textalignv=centre
+colour=0xffff00
+transmitop=10
+op10= 
+
+// 473:37
+[com_37]
+type=layer
+y=23
+width=92
+height=7
+xmode=abs_centre
+layer=com_35
+hide=yes
+
+// 473:38
+[com_38]
+type=line
+y=4
+width=4103
+widthmode=proportion
+xmode=abs_centre
+layer=com_37
+colour=0xffff00
+
+// 473:39
+[com_39]
+type=layer
+x=25
+y=80
+width=462
+height=200
+hide=yes
+
+// 473:40
+[com_40]
+type=layer
+x=1
+y=39
+width=222
+height=45
+layer=com_39
+transmitop=1
+op1=Buy
+
+// 473:41
+[com_41]
+type=rectangle
+width=16391
+height=16391
+widthmode=proportion
+heightmode=proportion
+layer=com_40
+colour=0x333300
+transmitop=10
+op10= 
+onmouseover=text_colour_swapper(event_com, 0xff9933)
+onmouseleave=text_colour_swapper(event_com, 0x333300)
+
+// 473:42
+[com_42]
+type=rectangle
+width=16391
+height=16391
+widthmode=proportion
+heightmode=proportion
+layer=com_40
+colour=0x000000
+fill=yes
+trans=185
+transmitop=10
+op10= 
+
+// 473:43
+[com_43]
+type=model
+x=4
+width=33
+height=35
+ymode=abs_centre
+layer=com_40
+model=model_20522
+modelorigin=1,0
+modelzoom=3140
+transmitop=10
+op10= 
+
+// 473:44
+[com_44]
+type=text
+x=45
+y=2
+width=173
+height=13
+layer=com_40
+textfont=p11_full
+text=Attacker level up to 2
+textalignv=centre
+transmitop=10
+op10= 
+
+// 473:45
+[com_45]
+type=text
+x=45
+y=2
+width=173
+height=13
+ymode=abs_bottom
+layer=com_40
+textfont=p11_full
+text=100 Attacker points
+textalignv=centre
+colour=0xff0000
+transmitop=10
+op10= 
+
+// 473:46
+[com_46]
+type=text
+x=45
+width=173
+height=13
+ymode=abs_centre
+layer=com_40
+textfont=p11_full
+text=+2 bonus damage
+textalignv=centre
+transmitop=10
+op10= 
+
+// 473:47
+[com_47]
+type=layer
+x=1
+y=97
+width=222
+height=45
+layer=com_39
+transmitop=1
+op1=Buy
+
+// 473:48
+[com_48]
+type=rectangle
+width=16391
+height=16391
+widthmode=proportion
+heightmode=proportion
+layer=com_47
+colour=0x333300
+transmitop=10
+op10= 
+onmouseover=text_colour_swapper(event_com, 0xff9933)
+onmouseleave=text_colour_swapper(event_com, 0x333300)
+
+// 473:49
+[com_49]
+type=rectangle
+width=16391
+height=16391
+widthmode=proportion
+heightmode=proportion
+layer=com_47
+colour=0x000000
+fill=yes
+trans=185
+transmitop=10
+op10= 
+
+// 473:50
+[com_50]
+type=model
+x=4
+width=33
+height=35
+ymode=abs_centre
+layer=com_47
+model=model_20531
+modelorigin=1,0
+modelzoom=3140
+transmitop=10
+op10= 
+
+// 473:51
+[com_51]
+type=text
+x=45
+y=2
+width=173
+height=13
+layer=com_47
+textfont=p11_full
+text=Defender level up to 2
+textalignv=centre
+transmitop=10
+op10= 
+
+// 473:52
+[com_52]
+type=text
+x=45
+y=2
+width=173
+height=13
+ymode=abs_bottom
+layer=com_47
+textfont=p11_full
+text=100 Defender points
+textalignv=centre
+colour=0xff0000
+transmitop=10
+op10= 
+
+// 473:53
+[com_53]
+type=text
+x=45
+width=173
+height=13
+ymode=abs_centre
+layer=com_47
+textfont=p11_full
+text=Lure range 5
+textalignv=centre
+transmitop=10
+op10= 
+
+// 473:54
+[com_54]
+type=layer
+x=236
+y=38
+width=222
+height=45
+layer=com_39
+transmitop=1
+op1=Buy
+
+// 473:55
+[com_55]
+type=rectangle
+width=16384
+height=16384
+widthmode=proportion
+heightmode=proportion
+layer=com_54
+colour=0x333300
+transmitop=10
+op10= 
+onmouseover=text_colour_swapper(event_com, 0xff9933)
+onmouseleave=text_colour_swapper(event_com, 0x333300)
+
+// 473:56
+[com_56]
+type=rectangle
+width=16391
+height=16391
+widthmode=proportion
+heightmode=proportion
+layer=com_54
+colour=0x000000
+fill=yes
+trans=185
+transmitop=10
+op10= 
+
+// 473:57
+[com_57]
+type=model
+x=4
+width=33
+height=35
+ymode=abs_centre
+layer=com_54
+model=model_20526
+modelorigin=1,0
+modelzoom=3140
+transmitop=10
+op10= 
+
+// 473:58
+[com_58]
+type=text
+x=45
+y=2
+width=173
+height=13
+layer=com_54
+textfont=p11_full
+text=Collector level up to 2
+textalignv=centre
+transmitop=10
+op10= 
+
+// 473:59
+[com_59]
+type=text
+x=45
+y=2
+width=173
+height=13
+ymode=abs_bottom
+layer=com_54
+textfont=p11_full
+text=100 Collector points
+textalignv=centre
+colour=0xff0000
+transmitop=10
+op10= 
+
+// 473:60
+[com_60]
+type=text
+x=45
+width=173
+height=13
+ymode=abs_centre
+layer=com_54
+textfont=p11_full
+text=Bag stores 4
+textalignv=centre
+transmitop=10
+op10= 
+
+// 473:61
+[com_61]
+type=layer
+x=236
+y=96
+width=222
+height=45
+layer=com_39
+transmitop=1
+op1=Buy
+
+// 473:62
+[com_62]
+type=rectangle
+width=16384
+height=16384
+widthmode=proportion
+heightmode=proportion
+layer=com_61
+colour=0x333300
+transmitop=10
+op10= 
+onmouseover=text_colour_swapper(event_com, 0xff9933)
+onmouseleave=text_colour_swapper(event_com, 0x333300)
+
+// 473:63
+[com_63]
+type=rectangle
+width=16391
+height=16391
+widthmode=proportion
+heightmode=proportion
+layer=com_61
+colour=0x000000
+fill=yes
+trans=185
+transmitop=10
+op10= 
+
+// 473:64
+[com_64]
+type=model
+x=4
+width=33
+height=35
+ymode=abs_centre
+layer=com_61
+model=model_20538
+modelorigin=1,0
+modelzoom=3140
+transmitop=10
+op10= 
+
+// 473:65
+[com_65]
+type=text
+x=45
+y=2
+width=173
+height=13
+layer=com_61
+textfont=p11_full
+text=Defender level up to 2
+textalignv=centre
+transmitop=10
+op10= 
+
+// 473:66
+[com_66]
+type=text
+x=45
+y=2
+width=173
+height=13
+ymode=abs_bottom
+layer=com_61
+textfont=p11_full
+text=100 Healer points
+textalignv=centre
+colour=0xff0000
+transmitop=10
+op10= 
+
+// 473:67
+[com_67]
+type=text
+x=45
+width=173
+height=13
+ymode=abs_centre
+layer=com_61
+textfont=p11_full
+text=Class 2 healing
+textalignv=centre
+transmitop=10
+op10= 
+
+// 473:68
+[com_68]
+type=layer
+x=25
+y=80
+width=462
+height=200
+
+// 473:69
+[com_69]
+type=layer
+x=3
+y=2
+width=222
+height=45
+layer=com_68
+transmitop=1
+op1=Buy
+
+// 473:70
+[com_70]
+type=layer
+x=3
+y=52
+width=222
+height=45
+layer=com_68
+transmitop=1
+op1=Buy
+
+// 473:71
+[com_71]
+type=layer
+x=3
+y=102
+width=222
+height=45
+layer=com_68
+transmitop=1
+op1=Buy
+
+// 473:72
+[com_72]
+type=layer
+x=3
+y=151
+width=222
+height=45
+layer=com_68
+transmitop=1
+op1=Buy
+
+// 473:73
+[com_73]
+type=layer
+x=236
+y=3
+width=222
+height=45
+layer=com_68
+transmitop=1
+op1=Buy
+
+// 473:74
+[com_74]
+type=layer
+x=236
+y=52
+width=222
+height=45
+layer=com_68
+transmitop=1
+op1=Buy
+
+// 473:75
+[com_75]
+type=layer
+x=236
+y=102
+width=222
+height=45
+layer=com_68
+transmitop=1
+op1=Buy
+
+// 473:76
+[com_76]
+type=layer
+x=236
+y=151
+width=222
+height=45
+layer=com_68
+transmitop=1
+op1=Buy
+
+// 473:77
+[com_77]
+type=rectangle
+width=16384
+height=16384
+widthmode=proportion
+heightmode=proportion
+layer=com_76
+colour=0x333300
+transmitop=10
+op10= 
+onmouseover=text_colour_swapper(event_com, 0xff9933)
+onmouseleave=text_colour_swapper(event_com, 0x333300)
+
+// 473:78
+[com_78]
+type=rectangle
+width=16391
+height=16391
+widthmode=proportion
+heightmode=proportion
+layer=com_76
+colour=0x000000
+fill=yes
+trans=185
+transmitop=10
+op10= 
+
+// 473:79
+[com_79]
+type=model
+x=4
+width=33
+height=35
+ymode=abs_centre
+layer=com_76
+model=model_20549
+modelorigin=1,0
+modelzoom=3140
+transmitop=10
+op10= 
+
+// 473:80
+[com_80]
+type=text
+x=45
+y=2
+width=173
+height=13
+layer=com_76
+textfont=p11_full
+text=Penance gloves
+colour=0xccccff
+transmitop=10
+op10= 
+
+// 473:81
+[com_81]
+type=text
+x=45
+y=2
+width=173
+height=13
+ymode=abs_bottom
+layer=com_76
+textfont=p11_full
+text=150 points in each role
+textalignv=centre
+colour=0xff0000
+transmitop=10
+op10= 
+
+// 473:82
+[com_82]
+type=text
+x=45
+width=173
+height=13
+ymode=abs_centre
+layer=com_76
+textfont=p11_full
+text=Requires Defence 40
+textalignv=centre
+colour=0xccccff
+transmitop=10
+op10= 
+
+// 473:83
+[com_83]
+type=rectangle
+width=16384
+height=16384
+widthmode=proportion
+heightmode=proportion
+layer=com_75
+colour=0x333300
+transmitop=10
+op10= 
+onmouseover=text_colour_swapper(event_com, 0xff9933)
+onmouseleave=text_colour_swapper(event_com, 0x333300)
+
+// 473:84
+[com_84]
+type=rectangle
+width=16391
+height=16391
+widthmode=proportion
+heightmode=proportion
+layer=com_75
+colour=0x000000
+fill=yes
+trans=185
+transmitop=10
+op10= 
+
+// 473:85
+[com_85]
+type=model
+x=4
+width=33
+height=35
+ymode=abs_centre
+layer=com_75
+model=model_20546
+modelorigin=1,0
+modelzoom=3140
+transmitop=10
+op10= 
+
+// 473:86
+[com_86]
+type=text
+x=45
+y=2
+width=173
+height=13
+layer=com_75
+textfont=p11_full
+text=Penance boots
+colour=0xccccff
+transmitop=10
+op10= 
+
+// 473:87
+[com_87]
+type=text
+x=45
+y=2
+width=173
+height=13
+ymode=abs_bottom
+layer=com_75
+textfont=p11_full
+text=100 points in each role
+textalignv=centre
+colour=0xff0000
+transmitop=10
+op10= 
+
+// 473:88
+[com_88]
+type=text
+x=45
+width=173
+height=13
+ymode=abs_centre
+layer=com_75
+textfont=p11_full
+text=Requires Defence 40
+textalignv=centre
+colour=0xccccff
+transmitop=10
+op10= 
+
+// 473:89
+[com_89]
+type=rectangle
+width=16384
+height=16384
+widthmode=proportion
+heightmode=proportion
+layer=com_74
+colour=0x333300
+transmitop=10
+op10= 
+onmouseover=text_colour_swapper(event_com, 0xff9933)
+onmouseleave=text_colour_swapper(event_com, 0x333300)
+
+// 473:90
+[com_90]
+type=rectangle
+width=16391
+height=16391
+widthmode=proportion
+heightmode=proportion
+layer=com_74
+colour=0x000000
+fill=yes
+trans=185
+transmitop=10
+op10= 
+
+// 473:91
+[com_91]
+type=model
+x=4
+width=33
+height=35
+ymode=abs_centre
+layer=com_74
+model=model_20552
+modelorigin=1,0
+modelzoom=3140
+transmitop=10
+op10= 
+
+// 473:92
+[com_92]
+type=text
+x=45
+y=2
+width=173
+height=13
+layer=com_74
+textfont=p11_full
+text=Penance skirt
+colour=0xccccff
+transmitop=10
+op10= 
+
+// 473:93
+[com_93]
+type=text
+x=45
+y=2
+width=173
+height=13
+ymode=abs_bottom
+layer=com_74
+textfont=p11_full
+text=375 points in each role
+colour=0xff0000
+transmitop=10
+op10= 
+
+// 473:94
+[com_94]
+type=text
+x=45
+width=173
+height=13
+ymode=abs_centre
+layer=com_74
+textfont=p11_full
+text=Requires Defence 40
+textalignv=centre
+colour=0xccccff
+transmitop=10
+op10= 
+
+// 473:95
+[com_95]
+type=text
+x=4
+y=2
+width=57
+height=13
+xmode=abs_right
+ymode=abs_bottom
+layer=com_74
+textfont=p11_full
+text=kill queen
+textalignh=right
+textalignv=centre
+colour=0xff0000
+transmitop=10
+op10= 
+
+// 473:96
+[com_96]
+type=rectangle
+width=16384
+height=16384
+widthmode=proportion
+heightmode=proportion
+layer=com_73
+colour=0x333300
+transmitop=10
+op10= 
+onmouseover=text_colour_swapper(event_com, 0xff9933)
+onmouseleave=text_colour_swapper(event_com, 0x333300)
+
+// 473:97
+[com_97]
+type=rectangle
+width=16391
+height=16391
+widthmode=proportion
+heightmode=proportion
+layer=com_73
+colour=0x000000
+fill=yes
+trans=185
+transmitop=10
+op10= 
+
+// 473:98
+[com_98]
+type=model
+x=4
+width=33
+height=35
+ymode=abs_centre
+layer=com_73
+model=model_20557
+modelorigin=1,0
+modelzoom=3140
+transmitop=10
+op10= 
+
+// 473:99
+[com_99]
+type=text
+x=45
+y=2
+width=173
+height=13
+layer=com_73
+textfont=p11_full
+text=Penance torso
+colour=0xccccff
+transmitop=10
+op10= 
+
+// 473:100
+[com_100]
+type=text
+x=45
+y=2
+width=173
+height=13
+ymode=abs_bottom
+layer=com_73
+textfont=p11_full
+text=375 points in each role
+colour=0xff0000
+transmitop=10
+op10= 
+
+// 473:101
+[com_101]
+type=text
+x=45
+width=173
+height=13
+ymode=abs_centre
+layer=com_73
+textfont=p11_full
+text=Requires Defence 40
+textalignv=centre
+colour=0xccccff
+transmitop=10
+op10= 
+
+// 473:102
+[com_102]
+type=text
+x=4
+y=2
+width=57
+height=13
+xmode=abs_right
+ymode=abs_bottom
+layer=com_73
+textfont=p11_full
+text=kill queen
+textalignh=right
+textalignv=centre
+colour=0xff0000
+transmitop=10
+op10= 
+
+// 473:103
+[com_103]
+type=rectangle
+width=16384
+height=16384
+widthmode=proportion
+heightmode=proportion
+layer=com_72
+colour=0x333300
+transmitop=10
+op10= 
+onmouseover=text_colour_swapper(event_com, 0xff9933)
+onmouseleave=text_colour_swapper(event_com, 0x333300)
+
+// 473:104
+[com_104]
+type=rectangle
+width=16391
+height=16391
+widthmode=proportion
+heightmode=proportion
+layer=com_72
+colour=0x000000
+fill=yes
+trans=185
+transmitop=10
+op10= 
+
+// 473:105
+[com_105]
+type=model
+x=4
+width=33
+height=35
+ymode=abs_centre
+layer=com_72
+model=model_20547
+modelorigin=1,0
+modelzoom=3140
+transmitop=10
+op10= 
+
+// 473:106
+[com_106]
+type=text
+x=45
+y=2
+width=173
+height=13
+layer=com_72
+textfont=p11_full
+text=Penance Healer hat
+colour=0xccccff
+transmitop=10
+op10= 
+
+// 473:107
+[com_107]
+type=text
+x=45
+y=2
+width=173
+height=13
+ymode=abs_bottom
+layer=com_72
+textfont=p11_full
+text=275 points in each role
+colour=0xff0000
+transmitop=10
+op10= 
+
+// 473:108
+[com_108]
+type=text
+x=45
+width=173
+height=13
+ymode=abs_centre
+layer=com_72
+textfont=p11_full
+text=Requires Defence 40
+textalignv=centre
+colour=0xccccff
+transmitop=10
+op10= 
+
+// 473:109
+[com_109]
+type=text
+x=4
+y=2
+width=57
+height=13
+xmode=abs_right
+ymode=abs_bottom
+layer=com_72
+textfont=p11_full
+text=kill queen
+textalignh=right
+textalignv=centre
+colour=0xff0000
+transmitop=10
+op10= 
+
+// 473:110
+[com_110]
+type=rectangle
+width=16384
+height=16384
+widthmode=proportion
+heightmode=proportion
+layer=com_71
+colour=0x333300
+transmitop=10
+op10= 
+onmouseover=text_colour_swapper(event_com, 0xff9933)
+onmouseleave=text_colour_swapper(event_com, 0x333300)
+
+// 473:111
+[com_111]
+type=rectangle
+width=16391
+height=16391
+widthmode=proportion
+heightmode=proportion
+layer=com_71
+colour=0x000000
+fill=yes
+trans=185
+transmitop=10
+op10= 
+
+// 473:112
+[com_112]
+type=model
+x=4
+width=33
+height=34
+ymode=abs_centre
+layer=com_71
+model=model_20554
+modelorigin=-1,-1
+modelzoom=3140
+transmitop=10
+op10= 
+
+// 473:113
+[com_113]
+type=text
+x=45
+y=2
+width=173
+height=13
+layer=com_71
+textfont=p11_full
+text=Penance Runner hat
+colour=0xccccff
+transmitop=10
+op10= 
+
+// 473:114
+[com_114]
+type=text
+x=45
+y=2
+width=173
+height=13
+ymode=abs_bottom
+layer=com_71
+textfont=p11_full
+text=275 points in each role
+colour=0xff0000
+transmitop=10
+op10= 
+
+// 473:115
+[com_115]
+type=text
+x=45
+width=173
+height=13
+ymode=abs_centre
+layer=com_71
+textfont=p11_full
+text=Requires Defence 40
+textalignv=centre
+colour=0xccccff
+transmitop=10
+op10= 
+
+// 473:116
+[com_116]
+type=text
+x=4
+y=2
+width=57
+height=13
+xmode=abs_right
+ymode=abs_bottom
+layer=com_71
+textfont=p11_full
+text=kill queen
+textalignh=right
+textalignv=centre
+colour=0xff0000
+transmitop=10
+op10= 
+
+// 473:117
+[com_117]
+type=rectangle
+width=16384
+height=16384
+widthmode=proportion
+heightmode=proportion
+layer=com_70
+colour=0x333300
+transmitop=10
+op10= 
+onmouseover=text_colour_swapper(event_com, 0xff9933)
+onmouseleave=text_colour_swapper(event_com, 0x333300)
+
+// 473:118
+[com_118]
+type=rectangle
+width=16391
+height=16391
+widthmode=proportion
+heightmode=proportion
+layer=com_70
+colour=0x000000
+fill=yes
+trans=185
+transmitop=10
+op10= 
+
+// 473:119
+[com_119]
+type=model
+x=4
+width=33
+height=35
+ymode=abs_centre
+layer=com_70
+model=model_20550
+modelorigin=1,0
+modelzoom=3140
+transmitop=10
+op10= 
+
+// 473:120
+[com_120]
+type=text
+x=45
+y=2
+width=173
+height=13
+layer=com_70
+textfont=p11_full
+text=Penance Ranger hat
+colour=0xccccff
+transmitop=10
+op10= 
+
+// 473:121
+[com_121]
+type=text
+x=45
+y=2
+width=173
+height=13
+ymode=abs_bottom
+layer=com_70
+textfont=p11_full
+text=275 points in each role
+colour=0xff0000
+transmitop=10
+op10= 
+
+// 473:122
+[com_122]
+type=text
+x=45
+width=173
+height=13
+ymode=abs_centre
+layer=com_70
+textfont=p11_full
+text=Requires Defence 40
+textalignv=centre
+colour=0xccccff
+transmitop=10
+op10= 
+
+// 473:123
+[com_123]
+type=text
+x=4
+y=2
+width=57
+height=13
+xmode=abs_right
+ymode=abs_bottom
+layer=com_70
+textfont=p11_full
+text=kill queen
+textalignh=right
+textalignv=centre
+colour=0xff0000
+transmitop=10
+op10= 
+
+// 473:124
+[com_124]
+type=rectangle
+width=16384
+height=16384
+widthmode=proportion
+heightmode=proportion
+layer=com_69
+colour=0x333300
+transmitop=10
+op10= 
+onmouseover=text_colour_swapper(event_com, 0xff9933)
+onmouseleave=text_colour_swapper(event_com, 0x333300)
+
+// 473:125
+[com_125]
+type=rectangle
+width=16391
+height=16391
+widthmode=proportion
+heightmode=proportion
+layer=com_69
+colour=0x000000
+fill=yes
+trans=185
+transmitop=10
+op10= 
+
+// 473:126
+[com_126]
+type=model
+x=4
+width=33
+height=35
+ymode=abs_centre
+layer=com_69
+model=model_20536
+modelorigin=1,0
+modelzoom=3140
+transmitop=10
+op10= 
+
+// 473:127
+[com_127]
+type=text
+x=45
+y=2
+width=173
+height=13
+layer=com_69
+textfont=p11_full
+text=Penance Fighter hat
+colour=0xccccff
+transmitop=10
+op10= 
+
+// 473:128
+[com_128]
+type=text
+x=45
+y=2
+width=173
+height=13
+ymode=abs_bottom
+layer=com_69
+textfont=p11_full
+text=275 points in each role
+colour=0xff0000
+transmitop=10
+op10= 
+
+// 473:129
+[com_129]
+type=text
+x=45
+width=173
+height=13
+ymode=abs_centre
+layer=com_69
+textfont=p11_full
+text=Requires Defence 40
+textalignv=centre
+colour=0xccccff
+transmitop=10
+op10= 
+
+// 473:130
+[com_130]
+type=text
+x=4
+y=2
+width=57
+height=13
+xmode=abs_right
+ymode=abs_bottom
+layer=com_69
+textfont=p11_full
+text=kill queen
+textalignh=right
+textalignv=centre
+colour=0xff0000
+transmitop=10
+op10= 
+
+// 473:131
+[com_131]
+type=layer
+x=25
+y=80
+width=462
+height=200
+hide=yes
+
+// 473:132
+[com_132]
+type=layer
+x=7
+y=13
+width=222
+height=45
+layer=com_131
+transmitop=1,10
+op1=Buy
+op10= 
+
+// 473:133
+[com_133]
+type=layer
+x=232
+y=13
+width=222
+height=45
+layer=com_131
+transmitop=1,10
+op1=Buy
+op10= 
+
+// 473:134
+[com_134]
+type=rectangle
+width=16391
+height=16391
+widthmode=proportion
+heightmode=proportion
+layer=com_133
+colour=0x333300
+transmitop=10
+op10=   
+onmouseover=text_colour_swapper(event_com, 0xff9933)
+onmouseleave=text_colour_swapper(event_com, 0x333300)
+
+// 473:135
+[com_135]
+type=rectangle
+width=16391
+height=16391
+widthmode=proportion
+heightmode=proportion
+layer=com_133
+colour=0x000000
+fill=yes
+trans=185
+transmitop=10
+op10=   
+
+// 473:136
+[com_136]
+type=model
+x=10
+y=1
+width=27
+height=31
+ymode=abs_centre
+layer=com_133
+model=model_51783
+modelorigin=-5,3
+modelangle=122,1822,1678
+modelzoom=1236
+transmitop=10
+op10=   
+
+// 473:137
+[com_137]
+type=line
+x=28
+y=25
+height=10
+layer=com_133
+colour=0xccccff
+
+// 473:138
+[com_138]
+type=line
+x=23
+y=30
+width=10
+layer=com_133
+colour=0xccccff
+
+// 473:139
+[com_139]
+type=text
+x=45
+y=2
+width=173
+height=13
+layer=com_133
+textfont=p11_full
+text=Penance Trident Upgrade
+colour=0xccccff
+transmitop=10
+op10=   
+
+// 473:140
+[com_140]
+type=text
+x=45
+y=2
+width=173
+height=13
+ymode=abs_bottom
+layer=com_133
+textfont=p11_full
+text=A penance trident
+colour=0xff0000
+transmitop=10
+op10=   
+
+// 473:141
+[com_141]
+type=text
+x=45
+width=173
+height=13
+ymode=abs_centre
+layer=com_133
+textfont=p11_full
+text=Upgrades melee stats
+textalignv=centre
+colour=0xccccff
+transmitop=10
+op10=   
+
+// 473:142
+[com_142]
+type=rectangle
+width=16391
+height=16391
+widthmode=proportion
+heightmode=proportion
+layer=com_132
+colour=0x333300
+transmitop=10
+op10=   
+onmouseover=text_colour_swapper(event_com, 0xff9933)
+onmouseleave=text_colour_swapper(event_com, 0x333300)
+
+// 473:143
+[com_143]
+type=rectangle
+width=16391
+height=16391
+widthmode=proportion
+heightmode=proportion
+layer=com_132
+colour=0x000000
+fill=yes
+trans=185
+transmitop=10
+op10=   
+
+// 473:144
+[com_144]
+type=model
+x=8
+y=2
+width=24
+height=32
+ymode=abs_centre
+layer=com_132
+model=model_51543
+modelorigin=-2,2
+modelangle=119,0,1678
+modelzoom=1108
+transmitop=10
+op10=   
+
+// 473:145
+[com_145]
+type=text
+x=45
+y=2
+width=173
+height=13
+layer=com_132
+textfont=p11_full
+text=Penance Trident
+colour=0xccccff
+transmitop=10
+op10=   
+
+// 473:146
+[com_146]
+type=text
+x=45
+y=2
+width=173
+height=13
+ymode=abs_bottom
+layer=com_132
+textfont=p11_full
+text=390 points in each role
+colour=0xff0000
+transmitop=10
+op10=   
+
+// 473:147
+[com_147]
+type=text
+x=45
+width=173
+height=13
+ymode=abs_centre
+layer=com_132
+textfont=p11_full
+text=A 2 handed weapon
+textalignv=centre
+colour=0xccccff
+transmitop=10
+op10=   
+
+// 473:148
+[com_148]
+type=layer
+x=232
+y=130
+width=222
+height=45
+layer=com_131
+transmitop=1,10
+op1=Buy
+op10= 
+
+// 473:149
+[com_149]
+type=layer
+x=6
+y=130
+width=222
+height=45
+layer=com_131
+transmitop=1,10
+op1=Buy
+op10= 
+
+// 473:150
+[com_150]
+type=layer
+x=7
+y=71
+width=222
+height=45
+layer=com_131
+transmitop=1,10
+op1=Buy
+op10= 
+
+// 473:151
+[com_151]
+type=layer
+x=232
+y=71
+width=222
+height=45
+layer=com_131
+transmitop=1,10
+op1=Buy
+op10= 
+
+// 473:152
+[com_152]
+type=rectangle
+width=16391
+height=16391
+widthmode=proportion
+heightmode=proportion
+layer=com_151
+colour=0x333300
+transmitop=10
+op10=  
+onmouseover=text_colour_swapper(event_com, 0xff9933)
+onmouseleave=text_colour_swapper(event_com, 0x333300)
+
+// 473:153
+[com_153]
+type=rectangle
+width=16391
+height=16391
+widthmode=proportion
+heightmode=proportion
+layer=com_151
+colour=0x000000
+fill=yes
+trans=185
+transmitop=10
+op10=  
+
+// 473:154
+[com_154]
+type=model
+x=6
+width=32
+height=32
+ymode=abs_centre
+layer=com_151
+model=null
+modelzoom=836
+transmitop=10
+op10=  
+
+// 473:155
+[com_155]
+type=text
+x=45
+y=2
+width=173
+height=13
+layer=com_151
+textfont=p11_full
+text=Penance Egg Paint (Green)
+colour=0xccccff
+transmitop=10
+op10=  
+
+// 473:156
+[com_156]
+type=text
+x=45
+y=2
+width=173
+height=13
+ymode=abs_bottom
+layer=com_151
+textfont=p11_full
+text=50 points in any role
+colour=0xff0000
+transmitop=10
+op10=  
+
+// 473:157
+[com_157]
+type=text
+x=45
+width=173
+height=13
+ymode=abs_centre
+layer=com_151
+textfont=p11_full
+text=Colour Dark Bow or Abyssal Whip
+textalignv=centre
+colour=0xccccff
+transmitop=10
+op10=  
+
+// 473:158
+[com_158]
+type=rectangle
+width=16391
+height=16391
+widthmode=proportion
+heightmode=proportion
+layer=com_150
+colour=0x333300
+transmitop=10
+op10=  
+onmouseover=text_colour_swapper(event_com, 0xff9933)
+onmouseleave=text_colour_swapper(event_com, 0x333300)
+
+// 473:159
+[com_159]
+type=rectangle
+width=16391
+height=16391
+widthmode=proportion
+heightmode=proportion
+layer=com_150
+colour=0x000000
+fill=yes
+trans=185
+transmitop=10
+op10=  
+
+// 473:160
+[com_160]
+type=model
+x=6
+width=32
+height=32
+ymode=abs_centre
+layer=com_150
+model=null
+modelzoom=836
+transmitop=10
+op10=  
+
+// 473:161
+[com_161]
+type=text
+x=45
+y=2
+width=173
+height=13
+layer=com_150
+textfont=p11_full
+text=Penance Egg Paint (White)
+colour=0xccccff
+transmitop=10
+op10=  
+
+// 473:162
+[com_162]
+type=text
+x=45
+y=2
+width=173
+height=13
+ymode=abs_bottom
+layer=com_150
+textfont=p11_full
+text=50 points in any role
+textalignv=centre
+colour=0xff0000
+transmitop=10
+op10=  
+
+// 473:163
+[com_163]
+type=text
+x=45
+width=173
+height=13
+ymode=abs_centre
+layer=com_150
+textfont=p11_full
+text=Colour Dark Bow or Abyssal Whip
+textalignv=centre
+colour=0xccccff
+transmitop=10
+op10=  
+
+// 473:164
+[com_164]
+type=rectangle
+width=16391
+height=16391
+widthmode=proportion
+heightmode=proportion
+layer=com_149
+colour=0x333300
+transmitop=10
+op10=  
+onmouseover=text_colour_swapper(event_com, 0xff9933)
+onmouseleave=text_colour_swapper(event_com, 0x333300)
+
+// 473:165
+[com_165]
+type=rectangle
+width=16391
+height=16391
+widthmode=proportion
+heightmode=proportion
+layer=com_149
+colour=0x000000
+fill=yes
+trans=185
+transmitop=10
+op10=  
+
+// 473:166
+[com_166]
+type=model
+x=6
+width=32
+height=32
+ymode=abs_centre
+layer=com_149
+model=null
+modelzoom=836
+transmitop=10
+op10=  
+
+// 473:167
+[com_167]
+type=text
+x=45
+y=2
+width=173
+height=13
+layer=com_149
+textfont=p11_full
+text=Penance Egg Paint (Blue)
+colour=0xccccff
+transmitop=10
+op10=  
+
+// 473:168
+[com_168]
+type=text
+x=45
+y=2
+width=173
+height=13
+ymode=abs_bottom
+layer=com_149
+textfont=p11_full
+text=50 points in any role
+textalignv=centre
+colour=0xff0000
+transmitop=10
+op10=  
+
+// 473:169
+[com_169]
+type=text
+x=45
+width=173
+height=13
+ymode=abs_centre
+layer=com_149
+textfont=p11_full
+text=Colour Dark Bow or Abyssal Whip
+textalignv=centre
+colour=0xccccff
+transmitop=10
+op10=  
+
+// 473:170
+[com_170]
+type=rectangle
+width=16391
+height=16391
+widthmode=proportion
+heightmode=proportion
+layer=com_148
+colour=0x333300
+transmitop=10
+op10=  
+onmouseover=text_colour_swapper(event_com, 0xff9933)
+onmouseleave=text_colour_swapper(event_com, 0x333300)
+
+// 473:171
+[com_171]
+type=rectangle
+width=16391
+height=16391
+widthmode=proportion
+heightmode=proportion
+layer=com_148
+colour=0x000000
+fill=yes
+trans=185
+transmitop=10
+op10=  
+
+// 473:172
+[com_172]
+type=model
+x=6
+width=32
+height=32
+ymode=abs_centre
+layer=com_148
+model=null
+modelzoom=836
+transmitop=10
+op10=  
+
+// 473:173
+[com_173]
+type=text
+x=45
+y=2
+width=173
+height=13
+layer=com_148
+textfont=p11_full
+text=Penance egg paint (Yellow)
+colour=0xccccff
+transmitop=10
+op10=  
+
+// 473:174
+[com_174]
+type=text
+x=45
+y=2
+width=173
+height=13
+ymode=abs_bottom
+layer=com_148
+textfont=p11_full
+text=50 points in any role
+colour=0xff0000
+transmitop=10
+op10=  
+
+// 473:175
+[com_175]
+type=text
+x=45
+width=173
+height=13
+ymode=abs_centre
+layer=com_148
+textfont=p11_full
+text=Colour Dark Bow or Abyssal Whip
+textalignv=centre
+colour=0xccccff
+transmitop=10
+op10=  
+
+// 473:176
+[com_176]
+type=layer
+x=25
+y=80
+width=462
+height=200
+hide=yes
+
+// 473:177
+[com_177]
+type=layer
+x=7
+y=13
+width=222
+height=45
+layer=com_176
+transmitop=1
+op1=Buy
+
+// 473:178
+[com_178]
+type=layer
+x=232
+y=13
+width=222
+height=45
+layer=com_176
+transmitop=1
+op1=Buy
+
+// 473:179
+[com_179]
+type=rectangle
+width=16384
+height=16384
+widthmode=proportion
+heightmode=proportion
+layer=com_178
+colour=0x333300
+transmitop=10
+op10=  
+onmouseover=text_colour_swapper(event_com, 0xff9933)
+onmouseleave=text_colour_swapper(event_com, 0x333300)
+
+// 473:180
+[com_180]
+type=rectangle
+width=16391
+height=16391
+widthmode=proportion
+heightmode=proportion
+layer=com_178
+colour=0x000000
+fill=yes
+trans=185
+transmitop=10
+op10=  
+
+// 473:181
+[com_181]
+type=model
+x=7
+y=-1
+width=28
+height=31
+ymode=abs_centre
+layer=com_178
+model=model_51545
+modelorigin=0,5
+modelangle=563,570,0
+modelzoom=852
+transmitop=10
+op10=  
+
+// 473:182
+[com_182]
+type=text
+x=45
+y=2
+width=173
+height=13
+layer=com_178
+textfont=p11_full
+text=Penance Horn Upgrade
+colour=0xccccff
+transmitop=10
+op10=  
+
+// 473:183
+[com_183]
+type=text
+x=45
+y=2
+width=83
+height=13
+ymode=abs_bottom
+layer=com_178
+textfont=p11_full
+text=Lvl 5 in any role
+colour=0xff0000
+transmitop=10
+op10=  
+
+// 473:184
+[com_184]
+type=text
+x=135
+y=2
+width=83
+height=13
+ymode=abs_bottom
+layer=com_178
+textfont=p11_full
+text=A penance horn
+textalignh=right
+colour=0xff0000
+transmitop=10
+op10=  
+
+// 473:185
+[com_185]
+type=text
+x=45
+width=173
+height=13
+ymode=abs_centre
+layer=com_178
+textfont=p11_full
+text=Blow the horn to show your might!
+textalignv=centre
+colour=0xccccff
+transmitop=10
+op10=  
+
+// 473:186
+[com_186]
+type=layer
+x=232
+y=71
+width=222
+height=45
+layer=com_176
+transmitop=1
+op1=Buy
+
+// 473:187
+[com_187]
+type=layer
+x=7
+y=71
+width=222
+height=45
+layer=com_176
+transmitop=1
+op1=Buy
+
+// 473:188
+[com_188]
+type=layer
+x=6
+y=130
+width=222
+height=45
+layer=com_176
+transmitop=1
+op1=Buy
+
+// 473:189
+[com_189]
+type=layer
+x=232
+y=130
+width=222
+height=45
+layer=com_176
+transmitop=1
+op1=Buy
+
+// 473:190
+[com_190]
+type=rectangle
+width=16384
+height=16384
+widthmode=proportion
+heightmode=proportion
+layer=com_189
+colour=0x333300
+transmitop=10
+op10= 
+onmouseover=text_colour_swapper(event_com, 0xff9933)
+onmouseleave=text_colour_swapper(event_com, 0x333300)
+
+// 473:191
+[com_191]
+type=rectangle
+width=16391
+height=16391
+widthmode=proportion
+heightmode=proportion
+layer=com_189
+colour=0x000000
+fill=yes
+trans=185
+transmitop=10
+op10= 
+
+// 473:192
+[com_192]
+type=model
+x=4
+width=33
+height=35
+ymode=abs_centre
+layer=com_189
+model=model_20535
+modelorigin=1,0
+modelzoom=3140
+transmitop=10
+op10= 
+
+// 473:193
+[com_193]
+type=text
+x=45
+y=2
+width=173
+height=13
+layer=com_189
+textfont=p11_full
+text=Gamble points - high items
+colour=0xccccff
+transmitop=10
+op10= 
+
+// 473:194
+[com_194]
+type=text
+x=45
+y=2
+width=173
+height=13
+ymode=abs_bottom
+layer=com_189
+textfont=p11_full
+text=30 points (any role)
+colour=0xff0000
+transmitop=10
+op10= 
+
+// 473:195
+[com_195]
+type=text
+x=45
+width=173
+height=13
+ymode=abs_centre
+layer=com_189
+textfont=p11_full
+text=Receive a random item
+textalignv=centre
+colour=0xccccff
+transmitop=10
+op10= 
+
+// 473:196
+[com_196]
+type=rectangle
+width=16384
+height=16384
+widthmode=proportion
+heightmode=proportion
+layer=com_188
+colour=0x333300
+transmitop=10
+op10= 
+onmouseover=text_colour_swapper(event_com, 0xff9933)
+onmouseleave=text_colour_swapper(event_com, 0x333300)
+
+// 473:197
+[com_197]
+type=rectangle
+width=16391
+height=16391
+widthmode=proportion
+heightmode=proportion
+layer=com_188
+colour=0x000000
+fill=yes
+trans=185
+transmitop=10
+op10= 
+
+// 473:198
+[com_198]
+type=model
+x=4
+width=33
+height=35
+ymode=abs_centre
+layer=com_188
+model=model_20535
+modelorigin=1,0
+modelzoom=3140
+transmitop=10
+op10= 
+
+// 473:199
+[com_199]
+type=text
+x=45
+y=2
+width=173
+height=13
+layer=com_188
+textfont=p11_full
+text=Gamble points - medium items
+colour=0xccccff
+transmitop=10
+op10= 
+
+// 473:200
+[com_200]
+type=text
+x=45
+y=2
+width=173
+height=13
+ymode=abs_bottom
+layer=com_188
+textfont=p11_full
+text=20 points (any role)
+textalignv=centre
+colour=0xff0000
+transmitop=10
+op10= 
+
+// 473:201
+[com_201]
+type=text
+x=45
+width=173
+height=13
+ymode=abs_centre
+layer=com_188
+textfont=p11_full
+text=Receive a random item
+textalignv=centre
+colour=0xccccff
+transmitop=10
+op10= 
+
+// 473:202
+[com_202]
+type=rectangle
+width=16384
+height=16384
+widthmode=proportion
+heightmode=proportion
+layer=com_187
+colour=0x333300
+transmitop=10
+op10= 
+onmouseover=text_colour_swapper(event_com, 0xff9933)
+onmouseleave=text_colour_swapper(event_com, 0x333300)
+
+// 473:203
+[com_203]
+type=rectangle
+width=16391
+height=16391
+widthmode=proportion
+heightmode=proportion
+layer=com_187
+colour=0x000000
+fill=yes
+trans=185
+transmitop=10
+op10= 
+
+// 473:204
+[com_204]
+type=model
+x=4
+width=33
+height=35
+ymode=abs_centre
+layer=com_187
+model=model_20535
+modelorigin=1,0
+modelzoom=3140
+transmitop=10
+op10= 
+
+// 473:205
+[com_205]
+type=text
+x=45
+y=2
+width=173
+height=13
+layer=com_187
+textfont=p11_full
+text=Gamble points - low items
+colour=0xccccff
+transmitop=10
+op10= 
+
+// 473:206
+[com_206]
+type=text
+x=45
+y=2
+width=173
+height=13
+ymode=abs_bottom
+layer=com_187
+textfont=p11_full
+text=10 points (any role)
+textalignv=centre
+colour=0xff0000
+transmitop=10
+op10= 
+
+// 473:207
+[com_207]
+type=text
+x=45
+width=173
+height=13
+ymode=abs_centre
+layer=com_187
+textfont=p11_full
+text=Receive a random item
+textalignv=centre
+colour=0xccccff
+transmitop=10
+op10= 
+
+// 473:208
+[com_208]
+type=rectangle
+width=16384
+height=16384
+widthmode=proportion
+heightmode=proportion
+layer=com_186
+colour=0x333300
+transmitop=10
+op10= 
+onmouseover=text_colour_swapper(event_com, 0xff9933)
+onmouseleave=text_colour_swapper(event_com, 0x333300)
+
+// 473:209
+[com_209]
+type=rectangle
+width=16391
+height=16391
+widthmode=proportion
+heightmode=proportion
+layer=com_186
+colour=0x000000
+fill=yes
+trans=185
+transmitop=10
+op10= 
+
+// 473:210
+[com_210]
+type=model
+x=4
+width=33
+height=35
+ymode=abs_centre
+layer=com_186
+model=model_20537
+modelorigin=1,0
+modelzoom=3140
+transmitop=10
+op10= 
+
+// 473:211
+[com_211]
+type=text
+x=45
+y=2
+width=173
+height=13
+layer=com_186
+textfont=p11_full
+text=Granite body
+colour=0xccccff
+transmitop=10
+op10= 
+
+// 473:212
+[com_212]
+type=text
+x=45
+y=2
+width=173
+height=13
+ymode=abs_bottom
+layer=com_186
+textfont=p11_full
+text=95,000 coins
+colour=0xff0000
+transmitop=10
+op10= 
+
+// 473:213
+[com_213]
+type=text
+x=45
+width=173
+height=13
+ymode=abs_centre
+layer=com_186
+textfont=p11_full
+text=Requires Defence 50
+textalignv=centre
+colour=0xccccff
+transmitop=10
+op10= 
+
+// 473:214
+[com_214]
+type=text
+x=4
+y=2
+width=57
+height=13
+xmode=abs_right
+ymode=abs_bottom
+layer=com_186
+textfont=p11_full
+text=kill queen
+textalignh=right
+textalignv=centre
+colour=0xff0000
+transmitop=10
+op10= 
+
+// 473:215
+[com_215]
+type=rectangle
+width=16384
+height=16384
+widthmode=proportion
+heightmode=proportion
+layer=com_177
+colour=0x333300
+transmitop=10
+op10=  
+onmouseover=text_colour_swapper(event_com, 0xff9933)
+onmouseleave=text_colour_swapper(event_com, 0x333300)
+
+// 473:216
+[com_216]
+type=rectangle
+width=16391
+height=16391
+widthmode=proportion
+heightmode=proportion
+layer=com_177
+colour=0x000000
+fill=yes
+trans=185
+transmitop=10
+op10=  
+
+// 473:217
+[com_217]
+type=model
+x=13
+y=-1
+width=16
+height=25
+ymode=abs_centre
+layer=com_177
+model=model_51544
+modelorigin=0,1
+modelangle=563,501,0
+modelzoom=980
+transmitop=10
+op10=  
+
+// 473:218
+[com_218]
+type=text
+x=45
+y=2
+width=173
+height=13
+layer=com_177
+textfont=p11_full
+text=Penance Horn
+colour=0xccccff
+transmitop=10
+op10=  
+
+// 473:219
+[com_219]
+type=text
+x=45
+y=2
+width=173
+height=13
+ymode=abs_bottom
+layer=com_177
+textfont=p11_full
+text=Free !
+colour=0xff0000
+transmitop=10
+op10=  
+
+// 473:220
+[com_220]
+type=text
+x=45
+width=173
+height=13
+ymode=abs_centre
+layer=com_177
+textfont=p11_full
+text=Lets you earn and spend XP
+textalignv=centre
+colour=0xccccff
+transmitop=10
+op10=  
+
+// 473:221
+[com_221]
+type=text
+width=15564
+height=15564
+widthmode=proportion
+heightmode=proportion
+xmode=abs_centre
+ymode=abs_centre
+layer=com_34
+textfont=p12_full
+text=Weapons
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xffff00
+transmitop=10
+op10= 
+
+// 473:222
+[com_222]
+type=layer
+y=23
+width=92
+height=7
+xmode=abs_centre
+layer=com_34
+hide=yes
+
+// 473:223
+[com_223]
+type=line
+y=4
+width=4103
+widthmode=proportion
+xmode=abs_centre
+layer=com_222
+colour=0xffff00
+
+// 473:224
+[com_224]
+type=text
+width=15564
+height=15564
+widthmode=proportion
+heightmode=proportion
+xmode=abs_centre
+ymode=abs_centre
+layer=com_33
+textfont=p12_full
+text=Penance Armour
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xffff00
+transmitop=10
+op10= 
+
+// 473:225
+[com_225]
+type=layer
+y=23
+width=92
+height=7
+xmode=abs_centre
+layer=com_33
+hide=yes
+
+// 473:226
+[com_226]
+type=line
+y=4
+width=4103
+widthmode=proportion
+xmode=abs_centre
+layer=com_225
+colour=0xffff00
+
+// 473:227
+[com_227]
+type=text
+width=15564
+height=15564
+widthmode=proportion
+heightmode=proportion
+xmode=abs_centre
+ymode=abs_centre
+layer=com_32
+textfont=p12_full
+text=Roles
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xffff00
+transmitop=10
+op10= 
+
+// 473:228
+[com_228]
+type=layer
+y=23
+width=92
+height=7
+xmode=abs_centre
+layer=com_32
+
+// 473:229
+[com_229]
+type=line
+y=4
+width=4096
+widthmode=proportion
+xmode=abs_centre
+layer=com_228
+colour=0xffff00

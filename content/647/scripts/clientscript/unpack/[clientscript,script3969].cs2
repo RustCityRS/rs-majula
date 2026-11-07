@@ -1,0 +1,55 @@
+// 3969
+[clientscript,script3969]
+def_int $int0 = if_gettrans(interface_1055:com_13);
+def_struct $struct1 = null;
+def_int $int2 = 0;
+def_int $int3 = 0;
+def_int $int4 = 0;
+def_graphic $graphic5 = null;
+if (if_gethide(interface_1055:com_1) = true) {
+    if ($int0 > 0) {
+        $int2 = scale($int0, 255, 100);
+        $int2 = calc(100 - $int2);
+        $int3 = calc(scale(270, 100, $int2) + 10);
+        $int4 = calc(scale(100, 100, $int2) + 10);
+        if_setsize(min($int3, 270), min($int4, 100), ^setsize_abs, ^setsize_abs, interface_1055:com_13);
+        $int0 = max(calc($int0 - 8), 0);
+        if_settrans($int0, interface_1055:com_13);
+    } else {
+        $struct1 = enum(int, struct, enum_3483, %varclient_1425);
+        if ($struct1 ! null) {
+            if_setfill(true, interface_1055:com_13);
+            if_settrans(0, interface_1055:com_2);
+            if_settrans(0, interface_1055:com_3);
+            if_settrans(0, interface_1055:com_4);
+            if_settrans(0, interface_1055:com_5);
+            if_settrans(0, interface_1055:com_6);
+            if_settrans(0, interface_1055:com_7);
+            if_settrans(0, interface_1055:com_8);
+            if_settrans(0, interface_1055:com_9);
+            if_settrans(0, interface_1055:com_10);
+            if_settrans(0, interface_1055:com_11);
+            if_settext(struct_param($struct1, param_1266), interface_1055:com_5);
+            if (struct_param($struct1, param_1270) ! 4094) {
+                $graphic5 = struct_param(enum(int, struct, enum_2252, struct_param($struct1, param_1270)), param_952);
+            } else {
+                $graphic5 = struct_param($struct1, param_1271);
+            }
+            if_setgraphic($graphic5, interface_1055:com_3);
+            if_setontimer("script3970", interface_1055:com_0);
+            if_sethide(false, interface_1055:com_1);
+        } else {
+            if_setontimer(null, interface_1055:com_12);
+            if_setontimer(null, interface_1055:com_0);
+            if_sethide(true, interface_1055:com_1);
+            if_sethide(true, interface_1055:com_12);
+        }
+    }
+} else if ($int0 < 255) {
+    $int0 = min(calc($int0 + 8), 255);
+    if_settrans($int0, interface_1055:com_13);
+} else {
+    if_setontimer(null, interface_1055:com_12);
+    if_setfill(false, interface_1055:com_13);
+    if_sethide(true, interface_1055:com_12);
+}

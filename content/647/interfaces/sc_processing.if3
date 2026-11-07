@@ -1,0 +1,1899 @@
+// 813:0
+[com_0]
+type=rectangle
+x=6
+y=5
+width=475
+height=311
+xmode=abs_centre
+ymode=abs_centre
+colour=0x000000
+fill=yes
+trans=188
+
+// 813:1
+[com_1]
+type=rectangle
+y=-1
+width=473
+height=309
+xmode=abs_centre
+ymode=abs_centre
+colour=0x000000
+fill=yes
+trans=233
+
+// 813:2
+[com_2]
+type=layer
+y=-10
+width=512
+height=334
+xmode=abs_centre
+ymode=abs_centre
+
+// 813:3
+[com_3]
+type=rectangle
+x=4
+y=4
+width=105
+height=148
+layer=com_34
+colour=0x000000
+fill=yes
+trans=177
+
+// 813:4
+[com_4]
+type=graphic
+x=8
+y=8
+width=103
+height=145
+layer=com_34
+graphic=tradebacking
+tiling=yes
+colour=0xffffffff
+
+// 813:5
+[com_5]
+type=rectangle
+x=4
+y=4
+width=114
+height=156
+layer=com_34
+colour=0x000000
+fill=yes
+trans=197
+
+// 813:6
+[com_6]
+type=layer
+x=-2
+y=-2
+width=113
+height=156
+xmode=abs_centre
+ymode=abs_centre
+layer=com_34
+
+// 813:7
+[com_7]
+type=graphic
+x=-56
+y=1
+width=32
+height=99
+xmode=abs_centre
+ymode=abs_centre
+layer=com_34
+graphic="v2_stone_borders,1"
+tiling=yes
+colour=0xffffffff
+transmitop=10
+op10=     
+
+// 813:8
+[com_8]
+type=graphic
+x=-43
+y=64
+width=32
+height=32
+xmode=abs_centre
+ymode=abs_centre
+layer=com_34
+graphic="v2_stone_borders,6"
+colour=0xffffffff
+transmitop=10
+op10=   
+
+// 813:9
+[com_9]
+type=graphic
+x=54
+y=3
+width=30
+height=102
+xmode=abs_centre
+ymode=abs_centre
+layer=com_34
+graphic="v2_stone_borders,3"
+tiling=yes
+colour=0xffffffff
+transmitop=10
+op10=      
+
+// 813:10
+[com_10]
+type=graphic
+x=-43
+y=-64
+width=32
+height=32
+xmode=abs_centre
+ymode=abs_centre
+layer=com_34
+graphic="v2_stone_borders,4"
+colour=0xffffffff
+transmitop=10
+op10=   
+
+// 813:11
+[com_11]
+type=graphic
+x=43
+y=-64
+width=32
+height=32
+xmode=abs_centre
+ymode=abs_centre
+layer=com_34
+graphic="v2_stone_borders,5"
+colour=0xffffffff
+transmitop=10
+op10=   
+
+// 813:12
+[com_12]
+type=graphic
+y=75
+width=54
+height=30
+xmode=abs_centre
+ymode=abs_centre
+layer=com_34
+graphic="v2_stone_borders,2"
+tiling=yes
+colour=0xffffffff
+transmitop=10
+op10=   
+
+// 813:13
+[com_13]
+type=graphic
+x=43
+y=64
+width=32
+height=32
+xmode=abs_centre
+ymode=abs_centre
+layer=com_34
+graphic="v2_stone_borders,7"
+colour=0xffffffff
+transmitop=10
+op10=   
+
+// 813:14
+[com_14]
+type=graphic
+x=2
+y=-79
+width=59
+height=29
+xmode=abs_centre
+ymode=abs_centre
+layer=com_34
+graphic="v2_stone_borders,0"
+tiling=yes
+colour=0xffffffff
+transmitop=10
+op10=   
+
+// 813:15
+[com_15]
+type=text
+y=-116
+width=94
+height=49
+xmode=abs_centre
+ymode=abs_centre
+layer=com_62
+textfont=q8_full
+text=What would you like to make?
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xc8aa64
+
+// 813:16
+[com_16]
+type=rectangle
+y=70
+width=16384
+height=270
+widthmode=proportion
+heightmode=minus
+xmode=abs_centre
+layer=com_62
+hide=yes
+colour=0xffffff
+fill=yes
+trans=192
+
+// 813:17
+[com_17]
+type=rectangle
+y=109
+width=16384
+height=270
+widthmode=proportion
+heightmode=minus
+xmode=abs_centre
+layer=com_62
+hide=yes
+colour=0xffffff
+fill=yes
+trans=192
+
+// 813:18
+[com_18]
+type=rectangle
+y=148
+width=16384
+height=270
+widthmode=proportion
+heightmode=minus
+xmode=abs_centre
+layer=com_62
+hide=yes
+colour=0xffffff
+fill=yes
+trans=192
+
+// 813:19
+[com_19]
+type=rectangle
+y=187
+width=16384
+height=270
+widthmode=proportion
+heightmode=minus
+xmode=abs_centre
+layer=com_62
+hide=yes
+colour=0xffffff
+fill=yes
+trans=192
+
+// 813:20
+[com_20]
+type=layer
+y=61
+width=16384
+height=225
+widthmode=proportion
+xmode=abs_centre
+layer=com_62
+
+// 813:21
+[com_21]
+type=graphic
+y=70
+width=107
+height=31
+xmode=abs_centre
+ymode=abs_centre
+layer=com_62
+graphic="v2_borders_slim,11"
+colour=0xffffffff
+transmitop=10
+op10=   
+
+// 813:22
+[com_22]
+type=graphic
+y=31
+width=107
+height=31
+xmode=abs_centre
+ymode=abs_centre
+layer=com_62
+graphic="v2_borders_slim,11"
+colour=0xffffffff
+transmitop=10
+op10=   
+
+// 813:23
+[com_23]
+type=graphic
+y=-8
+width=107
+height=31
+xmode=abs_centre
+ymode=abs_centre
+layer=com_62
+graphic="v2_borders_slim,11"
+colour=0xffffffff
+transmitop=10
+op10=  
+
+// 813:24
+[com_24]
+type=graphic
+y=-47
+width=107
+height=31
+xmode=abs_centre
+ymode=abs_centre
+layer=com_62
+graphic="v2_borders_slim,11"
+colour=0xffffffff
+transmitop=10
+op10=  
+
+// 813:25
+[com_25]
+type=graphic
+y=-86
+width=107
+height=31
+xmode=abs_centre
+ymode=abs_centre
+layer=com_62
+graphic="v2_borders_slim,11"
+colour=0xffffffff
+transmitop=10
+op10=  
+
+// 813:26
+[com_26]
+type=rectangle
+x=34
+y=34
+width=32
+height=32
+layer=com_2
+colour=0xffff00
+trans=255
+onload=sc_processing_init
+
+// 813:27
+[com_27]
+type=rectangle
+x=58
+y=58
+width=32
+height=32
+layer=com_2
+colour=0xffff00
+trans=255
+onload=script1918
+
+// 813:28
+[com_28]
+type=graphic
+y=24
+width=470
+height=305
+xmode=abs_centre
+layer=com_2
+graphic=tradebacking
+tiling=yes
+colour=0xffffffff
+
+// 813:29
+[com_29]
+type=text
+y=5
+width=16384
+height=33
+widthmode=proportion
+xmode=abs_centre
+layer=com_20
+textfont=quill_oblique_large
+text=Weapons
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xc8aa64
+transmitop=1
+op1=Show-weapons
+onmouseover=text_colour_swapper(event_com, ^white)
+onmouseleave=text_colour_swapper(event_com, 0xc8aa64)
+onop=script1910
+
+// 813:30
+[com_30]
+type=text
+y=44
+width=16384
+height=33
+widthmode=proportion
+xmode=abs_centre
+layer=com_20
+textfont=quill_oblique_large
+text=Armour
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xc8aa64
+transmitop=1
+op1=Show-armour
+onmouseover=text_colour_swapper(event_com, ^white)
+onmouseleave=text_colour_swapper(event_com, 0xc8aa64)
+onop=script1911
+
+// 813:31
+[com_31]
+type=text
+y=83
+width=16384
+height=33
+widthmode=proportion
+xmode=abs_centre
+layer=com_20
+textfont=quill_oblique_large
+text=Equipment
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xc8aa64
+transmitop=1
+op1=Show-equipment
+onmouseover=text_colour_swapper(event_com, ^white)
+onmouseleave=text_colour_swapper(event_com, 0xc8aa64)
+onop=script1912
+
+// 813:32
+[com_32]
+type=text
+y=122
+width=16384
+height=33
+widthmode=proportion
+xmode=abs_centre
+layer=com_20
+textfont=quill_oblique_large
+text=Potions
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xc8aa64
+transmitop=1
+op1=Show-potions
+onmouseover=text_colour_swapper(event_com, ^white)
+onmouseleave=text_colour_swapper(event_com, 0xc8aa64)
+onop=script1913
+
+// 813:33
+[com_33]
+type=model
+x=372
+y=36
+width=87
+height=121
+layer=com_2
+model=model_42957
+modelorigin=0,35
+modelangle=199,261,0
+modelzoom=1853
+
+// 813:34
+[com_34]
+type=layer
+x=355
+y=160
+width=120
+height=163
+layer=com_2
+
+// 813:35
+[com_35]
+type=layer
+x=1
+y=17
+width=104
+height=126
+xmode=abs_centre
+ymode=abs_centre
+layer=com_6
+
+// 813:36
+[com_36]
+type=text
+x=2
+y=5
+width=112
+height=30
+xmode=abs_centre
+layer=com_6
+textfont=q8_full
+text=Clay Quality
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xc8aa64
+
+// 813:37
+[com_37]
+type=text
+y=56
+width=124
+height=19
+xmode=abs_centre
+layer=com_78
+textfont=p11_full
+text=Hatchet
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xc8aa64
+transmitop=1,2,3,4,10
+op1=Make-1
+op2=Make-5
+op3=Make-X
+op4=Make-All
+op10=  
+onmouseover=text_colour_swapper(event_com, ^white)
+onmouseleave=text_colour_swapper(event_com, 0xc8aa64)
+onop=sc_processing_select_item(event_com)
+
+// 813:38
+[com_38]
+type=text
+y=80
+width=124
+height=19
+xmode=abs_centre
+layer=com_78
+textfont=p11_full
+text=Pickaxe
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xc8aa64
+transmitop=1,2,3,4,10
+op1=Make-1
+op2=Make-5
+op3=Make-X
+op4=Make-All
+op10=  
+onmouseover=text_colour_swapper(event_com, ^white)
+onmouseleave=text_colour_swapper(event_com, 0xc8aa64)
+onop=sc_processing_select_item(event_com)
+
+// 813:39
+[com_39]
+type=text
+y=104
+width=124
+height=19
+xmode=abs_centre
+layer=com_78
+textfont=p11_full
+text=Harpoon
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xc8aa64
+transmitop=1,2,3,4,10
+op1=Make-1
+op2=Make-5
+op3=Make-X
+op4=Make-All
+op10=  
+onmouseover=text_colour_swapper(event_com, ^white)
+onmouseleave=text_colour_swapper(event_com, 0xc8aa64)
+onop=sc_processing_select_item(event_com)
+
+// 813:40
+[com_40]
+type=text
+y=128
+width=124
+height=19
+xmode=abs_centre
+layer=com_78
+textfont=p11_full
+text=Butterfly net
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xc8aa64
+transmitop=1,2,3,4,10
+op1=Make-1
+op2=Make-5
+op3=Make-X
+op4=Make-All
+op10=  
+onmouseover=text_colour_swapper(event_com, ^white)
+onmouseleave=text_colour_swapper(event_com, 0xc8aa64)
+onop=sc_processing_select_item(event_com)
+
+// 813:41
+[com_41]
+type=text
+y=152
+width=124
+height=19
+xmode=abs_centre
+layer=com_78
+textfont=p11_full
+text=Barrier
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xc8aa64
+transmitop=1,2,3,4,10
+op1=Make-1
+op2=Make-5
+op3=Make-X
+op4=Make-All
+op10=  
+onmouseover=text_colour_swapper(event_com, ^white)
+onmouseleave=text_colour_swapper(event_com, 0xc8aa64)
+onop=sc_processing_select_item(event_com)
+
+// 813:42
+[com_42]
+type=text
+y=176
+width=124
+height=19
+xmode=abs_centre
+layer=com_78
+textfont=p11_full
+text=Food
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xc8aa64
+transmitop=1,2,3,4,10
+op1=Make-1
+op2=Make-5
+op3=Make-X
+op4=Make-All
+op10=  
+onmouseover=text_colour_swapper(event_com, ^white)
+onmouseleave=text_colour_swapper(event_com, 0xc8aa64)
+onop=sc_processing_select_item(event_com)
+
+// 813:43
+[com_43]
+type=text
+y=20
+width=124
+height=19
+xmode=abs_centre
+layer=com_77
+textfont=p11_full
+text=Helm
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xc8aa64
+transmitop=1,2,3,4,10
+op1=Make-1
+op2=Make-5
+op3=Make-X
+op4=Make-All
+op10= 
+onmouseover=text_colour_swapper(event_com, ^white)
+onmouseleave=text_colour_swapper(event_com, 0xc8aa64)
+onop=sc_processing_select_item(event_com)
+
+// 813:44
+[com_44]
+type=text
+y=44
+width=124
+height=19
+xmode=abs_centre
+layer=com_77
+textfont=p11_full
+text=Platelegs
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xc8aa64
+transmitop=1,2,3,4,10
+op1=Make-1
+op2=Make-5
+op3=Make-X
+op4=Make-All
+op10= 
+onmouseover=text_colour_swapper(event_com, ^white)
+onmouseleave=text_colour_swapper(event_com, 0xc8aa64)
+onop=sc_processing_select_item(event_com)
+
+// 813:45
+[com_45]
+type=text
+y=68
+width=124
+height=19
+xmode=abs_centre
+layer=com_77
+textfont=p11_full
+text=Platebody
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xc8aa64
+transmitop=1,2,3,4,10
+op1=Make-1
+op2=Make-5
+op3=Make-X
+op4=Make-All
+op10= 
+onmouseover=text_colour_swapper(event_com, ^white)
+onmouseleave=text_colour_swapper(event_com, 0xc8aa64)
+onop=sc_processing_select_item(event_com)
+
+// 813:46
+[com_46]
+type=text
+y=92
+width=124
+height=19
+xmode=abs_centre
+layer=com_77
+textfont=p11_full
+text=Coif
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xc8aa64
+transmitop=1,2,3,4,10
+op1=Make-1
+op2=Make-5
+op3=Make-X
+op4=Make-All
+op10= 
+onmouseover=text_colour_swapper(event_com, ^white)
+onmouseleave=text_colour_swapper(event_com, 0xc8aa64)
+onop=sc_processing_select_item(event_com)
+
+// 813:47
+[com_47]
+type=text
+y=116
+width=124
+height=19
+xmode=abs_centre
+layer=com_77
+textfont=p11_full
+text=Chaps
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xc8aa64
+transmitop=1,2,3,4,10
+op1=Make-1
+op2=Make-5
+op3=Make-X
+op4=Make-All
+op10= 
+onmouseover=text_colour_swapper(event_com, ^white)
+onmouseleave=text_colour_swapper(event_com, 0xc8aa64)
+onop=sc_processing_select_item(event_com)
+
+// 813:48
+[com_48]
+type=text
+y=140
+width=124
+height=19
+xmode=abs_centre
+layer=com_77
+textfont=p11_full
+text=Hardbody
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xc8aa64
+transmitop=1,2,3,4,10
+op1=Make-1
+op2=Make-5
+op3=Make-X
+op4=Make-All
+op10= 
+onmouseover=text_colour_swapper(event_com, ^white)
+onmouseleave=text_colour_swapper(event_com, 0xc8aa64)
+onop=sc_processing_select_item(event_com)
+
+// 813:49
+[com_49]
+type=text
+y=164
+width=124
+height=19
+xmode=abs_centre
+layer=com_77
+textfont=p11_full
+text=Mage hat
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xc8aa64
+transmitop=1,2,3,4,10
+op1=Make-1
+op2=Make-5
+op3=Make-X
+op4=Make-All
+op10= 
+onmouseover=text_colour_swapper(event_com, ^white)
+onmouseleave=text_colour_swapper(event_com, 0xc8aa64)
+onop=sc_processing_select_item(event_com)
+
+// 813:50
+[com_50]
+type=text
+y=188
+width=124
+height=19
+xmode=abs_centre
+layer=com_77
+textfont=p11_full
+text=Robe bottom
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xc8aa64
+transmitop=1,2,3,4,10
+op1=Make-1
+op2=Make-5
+op3=Make-X
+op4=Make-All
+op10= 
+onmouseover=text_colour_swapper(event_com, ^white)
+onmouseleave=text_colour_swapper(event_com, 0xc8aa64)
+onop=sc_processing_select_item(event_com)
+
+// 813:51
+[com_51]
+type=text
+y=212
+width=124
+height=19
+xmode=abs_centre
+layer=com_77
+textfont=p11_full
+text=Robe top
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xc8aa64
+transmitop=1,2,3,4,10
+op1=Make-1
+op2=Make-5
+op3=Make-X
+op4=Make-All
+op10= 
+onmouseover=text_colour_swapper(event_com, ^white)
+onmouseleave=text_colour_swapper(event_com, 0xc8aa64)
+onop=sc_processing_select_item(event_com)
+
+// 813:52
+[com_52]
+type=text
+y=-110
+width=125
+height=19
+xmode=abs_centre
+ymode=abs_centre
+layer=com_76
+textfont=p11_full
+text=Dagger
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xc8aa64
+transmitop=1,2,3,4,10
+op1=Make-1
+op2=Make-5
+op3=Make-X
+op4=Make-All
+op10= 
+onmouseover=text_colour_swapper(event_com, ^white)
+onmouseleave=text_colour_swapper(event_com, 0xc8aa64)
+onop=sc_processing_select_item(event_com)
+
+// 813:53
+[com_53]
+type=text
+y=-86
+width=125
+height=19
+xmode=abs_centre
+ymode=abs_centre
+layer=com_76
+textfont=p11_full
+text=Scimitar
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xc8aa64
+transmitop=1,2,3,4,10
+op1=Make-1
+op2=Make-5
+op3=Make-X
+op4=Make-All
+op10= 
+onmouseover=text_colour_swapper(event_com, ^white)
+onmouseleave=text_colour_swapper(event_com, 0xc8aa64)
+onop=sc_processing_select_item(event_com)
+
+// 813:54
+[com_54]
+type=text
+y=-62
+width=125
+height=19
+xmode=abs_centre
+ymode=abs_centre
+layer=com_76
+textfont=p11_full
+text=Warhammer
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xc8aa64
+transmitop=1,2,3,4,10
+op1=Make-1
+op2=Make-5
+op3=Make-X
+op4=Make-All
+op10= 
+onmouseover=text_colour_swapper(event_com, ^white)
+onmouseleave=text_colour_swapper(event_com, 0xc8aa64)
+onop=sc_processing_select_item(event_com)
+
+// 813:55
+[com_55]
+type=text
+y=-38
+width=125
+height=19
+xmode=abs_centre
+ymode=abs_centre
+layer=com_76
+textfont=p11_full
+text=Bow
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xc8aa64
+transmitop=1,2,3,4,10
+op1=Make-1
+op2=Make-5
+op3=Make-X
+op4=Make-All
+op10= 
+onmouseover=text_colour_swapper(event_com, ^white)
+onmouseleave=text_colour_swapper(event_com, 0xc8aa64)
+onop=sc_processing_select_item(event_com)
+
+// 813:56
+[com_56]
+type=text
+x=-3
+y=-12
+width=125
+height=19
+xmode=abs_centre
+ymode=abs_centre
+layer=com_76
+textfont=p11_full
+text=Arrows
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xc8aa64
+transmitop=1,2,3,4,10
+op1=Make-15
+op2=Make-75
+op3=Make-X
+op4=Make-All
+op10= 
+onmouseover=text_colour_swapper(event_com, ^white)
+onmouseleave=text_colour_swapper(event_com, 0xc8aa64)
+onop=sc_processing_select_item(event_com)
+
+// 813:57
+[com_57]
+type=text
+y=34
+width=125
+height=19
+xmode=abs_centre
+ymode=abs_centre
+layer=com_76
+textfont=p11_full
+text=Elemental runes
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xc8aa64
+transmitop=1,2,3,4,10
+op1=Make (1 clay)
+op2=Make (5 clay)
+op3=Make (X clay)
+op4=Make (All clay)
+op10= 
+onmouseover=text_colour_swapper(event_com, ^white)
+onmouseleave=text_colour_swapper(event_com, 0xc8aa64)
+onop=sc_processing_select_item(event_com)
+
+// 813:58
+[com_58]
+type=text
+y=58
+width=125
+height=19
+xmode=abs_centre
+ymode=abs_centre
+layer=com_76
+textfont=p11_full
+text=Catalytic runes
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xc8aa64
+transmitop=1,2,3,4,10
+op1=Make (1 clay)
+op2=Make (5 clay)
+op3=Make (X clay)
+op4=Make (All clay)
+op10= 
+onmouseover=text_colour_swapper(event_com, ^white)
+onmouseleave=text_colour_swapper(event_com, 0xc8aa64)
+onop=sc_processing_select_item(event_com)
+
+// 813:59
+[com_59]
+type=text
+y=82
+width=125
+height=19
+xmode=abs_centre
+ymode=abs_centre
+layer=com_76
+textfont=p11_full
+text=Summoning pouch
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xc8aa64
+transmitop=1,2,3,4,10
+op1=Make-1
+op2=Make-5
+op3=Make-X
+op4=Make-All
+op10= 
+onmouseover=text_colour_swapper(event_com, ^white)
+onmouseleave=text_colour_swapper(event_com, 0xc8aa64)
+onop=sc_processing_select_item(event_com)
+
+// 813:60
+[com_60]
+type=text
+y=10
+width=125
+height=19
+xmode=abs_centre
+ymode=abs_centre
+layer=com_76
+textfont=p11_full
+text=Magic staff
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xc8aa64
+transmitop=1,2,3,4,10
+op1=Make-1
+op2=Make-5
+op3=Make-X
+op4=Make-All
+op10= 
+onmouseover=text_colour_swapper(event_com, ^white)
+onmouseleave=text_colour_swapper(event_com, 0xc8aa64)
+onop=sc_processing_select_item(event_com)
+
+// 813:61
+[com_61]
+type=text
+y=106
+width=125
+height=19
+xmode=abs_centre
+ymode=abs_centre
+layer=com_76
+textfont=p11_full
+text=Summoning scroll
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xc8aa64
+transmitop=1,2,3,4,10
+op1=Make (1 clay)
+op2=Make (5 clay)
+op3=Make (X clay)
+op4=Make (All clay)
+op10= 
+onmouseover=text_colour_swapper(event_com, ^white)
+onmouseleave=text_colour_swapper(event_com, 0xc8aa64)
+onop=sc_processing_select_item(event_com)
+
+// 813:62
+[com_62]
+type=layer
+x=27
+y=27
+width=127
+height=299
+layer=com_2
+
+// 813:63
+[com_63]
+type=layer
+x=155
+y=28
+width=189
+height=297
+layer=com_2
+
+// 813:64
+[com_64]
+type=text
+y=32
+width=124
+height=19
+xmode=abs_centre
+layer=com_79
+textfont=p11_full
+text=Prayer potion
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xc8aa64
+transmitop=1,2,3,4,10
+op1=Make-1
+op2=Make-5
+op3=Make-X
+op4=Make-All
+op10=  
+onmouseover=text_colour_swapper(event_com, ^white)
+onmouseleave=text_colour_swapper(event_com, 0xc8aa64)
+onop=sc_processing_select_item(event_com)
+
+// 813:65
+[com_65]
+type=text
+y=56
+width=124
+height=19
+xmode=abs_centre
+layer=com_79
+textfont=p11_full
+text=Energy potion
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xc8aa64
+transmitop=1,2,3,4,10
+op1=Make-1
+op2=Make-5
+op3=Make-X
+op4=Make-All
+op10=  
+onmouseover=text_colour_swapper(event_com, ^white)
+onmouseleave=text_colour_swapper(event_com, 0xc8aa64)
+onop=sc_processing_select_item(event_com)
+
+// 813:66
+[com_66]
+type=text
+y=80
+width=124
+height=19
+xmode=abs_centre
+layer=com_79
+textfont=p11_full
+text=Attack potion
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xc8aa64
+transmitop=1,2,3,4,10
+op1=Make-1
+op2=Make-5
+op3=Make-X
+op4=Make-All
+op10=  
+onmouseover=text_colour_swapper(event_com, ^white)
+onmouseleave=text_colour_swapper(event_com, 0xc8aa64)
+onop=sc_processing_select_item(event_com)
+
+// 813:67
+[com_67]
+type=text
+y=104
+width=124
+height=19
+xmode=abs_centre
+layer=com_79
+textfont=p11_full
+text=Strength potion
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xc8aa64
+transmitop=1,2,3,4,10
+op1=Make-1
+op2=Make-5
+op3=Make-X
+op4=Make-All
+op10=  
+onmouseover=text_colour_swapper(event_com, ^white)
+onmouseleave=text_colour_swapper(event_com, 0xc8aa64)
+onop=sc_processing_select_item(event_com)
+
+// 813:68
+[com_68]
+type=text
+y=128
+width=124
+height=19
+xmode=abs_centre
+layer=com_79
+textfont=p11_full
+text=Ranging potion
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xc8aa64
+transmitop=1,2,3,4,10
+op1=Make-1
+op2=Make-5
+op3=Make-X
+op4=Make-All
+op10=  
+onmouseover=text_colour_swapper(event_com, ^white)
+onmouseleave=text_colour_swapper(event_com, 0xc8aa64)
+onop=sc_processing_select_item(event_com)
+
+// 813:69
+[com_69]
+type=text
+y=152
+width=124
+height=19
+xmode=abs_centre
+layer=com_79
+textfont=p11_full
+text=Defence potion
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xc8aa64
+transmitop=1,2,3,4,10
+op1=Make-1
+op2=Make-5
+op3=Make-X
+op4=Make-All
+op10=  
+onmouseover=text_colour_swapper(event_com, ^white)
+onmouseleave=text_colour_swapper(event_com, 0xc8aa64)
+onop=sc_processing_select_item(event_com)
+
+// 813:70
+[com_70]
+type=text
+y=176
+width=124
+height=19
+xmode=abs_centre
+layer=com_79
+textfont=p11_full
+text=Magic potion
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xc8aa64
+transmitop=1,2,3,4,10
+op1=Make-1
+op2=Make-5
+op3=Make-X
+op4=Make-All
+op10=  
+onmouseover=text_colour_swapper(event_com, ^white)
+onmouseleave=text_colour_swapper(event_com, 0xc8aa64)
+onop=sc_processing_select_item(event_com)
+
+// 813:71
+[com_71]
+type=text
+y=200
+width=124
+height=19
+xmode=abs_centre
+layer=com_79
+textfont=p11_full
+text=Summoning potion
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xc8aa64
+transmitop=1,2,3,4,10
+op1=Make-1
+op2=Make-5
+op3=Make-X
+op4=Make-All
+op10=  
+onmouseover=text_colour_swapper(event_com, ^white)
+onmouseleave=text_colour_swapper(event_com, 0xc8aa64)
+onop=sc_processing_select_item(event_com)
+
+// 813:72
+[com_72]
+type=rectangle
+x=4
+y=32
+width=15003
+height=13908
+widthmode=proportion
+heightmode=proportion
+layer=com_63
+colour=0x000000
+fill=yes
+trans=177
+
+// 813:73
+[com_73]
+type=graphic
+x=7
+y=36
+width=15073
+height=13762
+widthmode=proportion
+heightmode=proportion
+layer=com_63
+graphic=tradebacking
+tiling=yes
+colour=0xffffffff
+
+// 813:74
+[com_74]
+type=rectangle
+x=4
+y=30
+width=182
+height=261
+layer=com_63
+colour=0x000000
+fill=yes
+trans=197
+
+// 813:75
+[com_75]
+type=rectangle
+y=43
+width=125
+height=278
+heightmode=minus
+xmode=abs_centre
+layer=com_63
+hide=yes
+colour=0xffffff
+fill=yes
+trans=192
+
+// 813:76
+[com_76]
+type=layer
+y=35
+width=174
+height=254
+xmode=abs_centre
+layer=com_63
+transmitop=10
+op10= 
+
+// 813:77
+[com_77]
+type=layer
+y=35
+width=174
+height=254
+xmode=abs_centre
+layer=com_63
+hide=yes
+transmitop=10
+op10= 
+
+// 813:78
+[com_78]
+type=layer
+y=35
+width=174
+height=254
+xmode=abs_centre
+layer=com_63
+hide=yes
+transmitop=10
+op10=  
+
+// 813:79
+[com_79]
+type=layer
+y=35
+width=174
+height=254
+xmode=abs_centre
+layer=com_63
+hide=yes
+transmitop=10
+op10=  
+
+// 813:80
+[com_80]
+type=text
+y=-7
+width=376
+height=42
+xmode=abs_centre
+layer=com_63
+textfont=quill_oblique_large
+text=Creation Kiln
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xc8aa64
+
+// 813:81
+[com_81]
+type=graphic
+x=-90
+y=16
+width=32
+height=207
+xmode=abs_centre
+ymode=abs_centre
+layer=com_63
+graphic="v2_stone_borders,1"
+tiling=yes
+colour=0xffffffff
+transmitop=10
+op10=    
+
+// 813:82
+[com_82]
+type=graphic
+x=90
+y=15
+width=32
+height=205
+xmode=abs_centre
+ymode=abs_centre
+layer=com_63
+graphic="v2_stone_borders,3"
+tiling=yes
+colour=0xffffffff
+transmitop=10
+op10=     
+
+// 813:83
+[com_83]
+type=graphic
+x=-77
+y=129
+width=32
+height=32
+xmode=abs_centre
+ymode=abs_centre
+layer=com_63
+graphic="v2_stone_borders,6"
+colour=0xffffffff
+transmitop=10
+op10=  
+
+// 813:84
+[com_84]
+type=graphic
+x=-77
+y=-103
+width=32
+height=32
+xmode=abs_centre
+ymode=abs_centre
+layer=com_63
+graphic="v2_stone_borders,4"
+colour=0xffffffff
+transmitop=10
+op10=  
+
+// 813:85
+[com_85]
+type=graphic
+x=78
+y=-103
+width=32
+height=32
+xmode=abs_centre
+ymode=abs_centre
+layer=com_63
+graphic="v2_stone_borders,5"
+colour=0xffffffff
+transmitop=10
+op10=  
+
+// 813:86
+[com_86]
+type=graphic
+x=78
+y=129
+width=32
+height=32
+xmode=abs_centre
+ymode=abs_centre
+layer=com_63
+graphic="v2_stone_borders,7"
+colour=0xffffffff
+transmitop=10
+op10=  
+
+// 813:87
+[com_87]
+type=graphic
+x=2
+y=141
+width=127
+height=32
+xmode=abs_centre
+ymode=abs_centre
+layer=com_63
+graphic="v2_stone_borders,2"
+tiling=yes
+colour=0xffffffff
+transmitop=10
+op10=  
+
+// 813:88
+[com_88]
+type=graphic
+x=3
+y=-116
+width=131
+height=32
+xmode=abs_centre
+ymode=abs_centre
+layer=com_63
+graphic="v2_stone_borders,0"
+tiling=yes
+colour=0xffffffff
+transmitop=10
+op10=  
+
+// 813:89
+[com_89]
+type=graphic
+x=469
+y=29
+width=16
+height=16
+layer=com_2
+graphic="v2_stone_close_button,0"
+colour=0xffffffff
+transmitop=1
+op1=Close
+onmouseover=graphic_swapper(event_com, "v2_stone_close_button,1")
+onmouseleave=graphic_swapper(event_com, "v2_stone_close_button,0")
+onop=closebutton_click
+
+// 813:90
+[com_90]
+type=graphic
+x=-234
+y=11
+width=32
+height=255
+xmode=abs_centre
+ymode=abs_centre
+layer=com_2
+graphic="v2_stone_borders,1"
+tiling=yes
+colour=0xffffffff
+transmitop=10
+op10=     
+
+// 813:91
+[com_91]
+type=graphic
+x=234
+y=10
+width=32
+height=256
+xmode=abs_centre
+ymode=abs_centre
+layer=com_2
+graphic="v2_stone_borders,3"
+tiling=yes
+colour=0xffffffff
+transmitop=10
+op10=      
+
+// 813:92
+[com_92]
+type=graphic
+x=-221
+y=149
+width=32
+height=32
+xmode=abs_centre
+ymode=abs_centre
+layer=com_2
+graphic="v2_stone_borders,6"
+colour=0xffffffff
+transmitop=10
+op10=   
+
+// 813:93
+[com_93]
+type=graphic
+x=-221
+y=-130
+width=32
+height=32
+xmode=abs_centre
+ymode=abs_centre
+layer=com_2
+graphic="v2_stone_borders,4"
+colour=0xffffffff
+transmitop=10
+op10=   
+
+// 813:94
+[com_94]
+type=graphic
+x=222
+y=-130
+width=32
+height=32
+xmode=abs_centre
+ymode=abs_centre
+layer=com_2
+graphic="v2_stone_borders,5"
+colour=0xffffffff
+transmitop=10
+op10=   
+
+// 813:95
+[com_95]
+type=graphic
+x=222
+y=149
+width=32
+height=32
+xmode=abs_centre
+ymode=abs_centre
+layer=com_2
+graphic="v2_stone_borders,7"
+colour=0xffffffff
+transmitop=10
+op10=   
+
+// 813:96
+[com_96]
+type=graphic
+x=2
+y=161
+width=418
+height=32
+xmode=abs_centre
+ymode=abs_centre
+layer=com_2
+graphic="v2_stone_borders,2"
+tiling=yes
+colour=0xffffffff
+transmitop=10
+op10=   
+
+// 813:97
+[com_97]
+type=graphic
+x=1
+y=-143
+width=415
+height=32
+xmode=abs_centre
+ymode=abs_centre
+layer=com_2
+graphic="v2_stone_borders,0"
+tiling=yes
+colour=0xffffffff
+transmitop=10
+op10=   
+
+// 813:98
+[com_98]
+type=rectangle
+y=-53
+width=89
+height=2477
+heightmode=proportion
+xmode=abs_centre
+ymode=abs_centre
+layer=com_35
+hide=yes
+colour=0xffffff
+fill=yes
+trans=192
+
+// 813:99
+[com_99]
+type=text
+y=2
+width=86
+height=19
+xmode=abs_centre
+layer=com_35
+textfont=p11_full
+text=Class 1 clay
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xc8aa64
+transmitop=1
+op1=Select clay
+onmouseover=script1916(event_com)
+onmouseleave=script1917(event_com)
+
+// 813:100
+[com_100]
+type=rectangle
+y=-29
+width=89
+height=2477
+heightmode=proportion
+xmode=abs_centre
+ymode=abs_centre
+layer=com_35
+hide=yes
+colour=0xffffff
+fill=yes
+trans=192
+
+// 813:101
+[com_101]
+type=text
+y=26
+width=86
+height=19
+xmode=abs_centre
+layer=com_35
+textfont=p11_full
+text=Class 2 clay
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xc8aa64
+transmitop=1
+op1=Select clay
+onmouseover=script1916(event_com)
+onmouseleave=script1917(event_com)
+
+// 813:102
+[com_102]
+type=rectangle
+y=-5
+width=89
+height=2477
+heightmode=proportion
+xmode=abs_centre
+ymode=abs_centre
+layer=com_35
+hide=yes
+colour=0xffffff
+fill=yes
+trans=192
+
+// 813:103
+[com_103]
+type=text
+y=50
+width=86
+height=19
+xmode=abs_centre
+layer=com_35
+textfont=p11_full
+text=Class 3 clay
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xc8aa64
+transmitop=1
+op1=Select clay
+onmouseover=script1916(event_com)
+onmouseleave=script1917(event_com)
+
+// 813:104
+[com_104]
+type=rectangle
+y=19
+width=89
+height=2477
+heightmode=proportion
+xmode=abs_centre
+ymode=abs_centre
+layer=com_35
+hide=yes
+colour=0xffffff
+fill=yes
+trans=192
+
+// 813:105
+[com_105]
+type=text
+y=74
+width=86
+height=19
+xmode=abs_centre
+layer=com_35
+textfont=p11_full
+text=Class 4 clay
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xc8aa64
+transmitop=1
+op1=Select clay
+onmouseover=script1916(event_com)
+onmouseleave=script1917(event_com)
+
+// 813:106
+[com_106]
+type=rectangle
+y=43
+width=89
+height=2477
+heightmode=proportion
+xmode=abs_centre
+ymode=abs_centre
+layer=com_35
+hide=yes
+colour=0xffffff
+fill=yes
+trans=192
+
+// 813:107
+[com_107]
+type=text
+y=96
+width=86
+height=22
+xmode=abs_centre
+layer=com_35
+textfont=p11_full
+text=Class 5 clay
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xc8aa64
+transmitop=1
+op1=Select clay
+onmouseover=script1916(event_com)
+onmouseleave=script1917(event_com)

@@ -1,8 +1,0 @@
-[proc,clientscript_2056]
-def_component $component = easter09_nuts:com7;
-%varc_int_762 = enum(105, 109, enum_208, random(enum_getoutputcount(enum_208)));
-if (%varc_int_762 ! -1) {
-    if_setmodel(%varc_int_762, $component);
-}
-if_setposition(calc(0 - if_getwidth($component)), 120, ^setpos_abs_left, ^setpos_abs_top, $component);
-if_setontimer(null, easter09_nuts:com20);

@@ -1,6 +1,0 @@
-[proc,clientscript_2775](int $int0, component $component1)
-if (clientclock < $int0) {
-    return;
-}
-if_setontimer(null, $component1);
-if_setcolour(0xff3030, $component1);

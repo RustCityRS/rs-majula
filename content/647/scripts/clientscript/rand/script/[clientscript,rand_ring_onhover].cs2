@@ -1,17 +1,18 @@
-[clientscript,rand_ring_onhover](int $int)
-switch_int ($int) {
-    case 65077384:
-        if_sethide(false, rand_ring_interface:com137);
-    case 65077291:
-        if_sethide(false, rand_ring_interface:com44);
-    case 65077333:
-        if_sethide(false, rand_ring_interface:com86);
-    case 65077526:
-        if_setgraphic("login_lobby_button,10", rand_ring_interface:com281);
-        if_setgraphic("login_lobby_button,11", rand_ring_interface:com282);
-        if_setgraphic("login_lobby_button,10", rand_ring_interface:com283);
-    case 65077527:
-        if_setgraphic("login_lobby_button,10", rand_ring_interface:com284);
-        if_setgraphic("login_lobby_button,11", rand_ring_interface:com285);
-        if_setgraphic("login_lobby_button,10", rand_ring_interface:com286);
+// 3492
+[clientscript,rand_ring_onhover](component $component0)
+switch_component ($component0) {
+    case rand_ring_interface:com_136 :
+        if_sethide(false, rand_ring_interface:com_137);
+    case rand_ring_interface:com_43 :
+        if_sethide(false, rand_ring_interface:com_44);
+    case rand_ring_interface:com_85 :
+        if_sethide(false, rand_ring_interface:com_86);
+    case rand_ring_interface:com_278 :
+        if_setgraphic("login_lobby_button,10", rand_ring_interface:com_281);
+        if_setgraphic("login_lobby_button,11", rand_ring_interface:com_282);
+        if_setgraphic("login_lobby_button,10", rand_ring_interface:com_283);
+    case rand_ring_interface:com_279 :
+        if_setgraphic("login_lobby_button,10", rand_ring_interface:com_284);
+        if_setgraphic("login_lobby_button,11", rand_ring_interface:com_285);
+        if_setgraphic("login_lobby_button,10", rand_ring_interface:com_286);
 }

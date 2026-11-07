@@ -1,61 +1,62 @@
+// 2714
 [proc,create_focus](int $int0, int $int1)
-if (login_getint_5609 = -3) {
+if (create_reply = -3) {
     return;
 }
-def_int $int2 = %varc_int_174;
-%varc_int_174 = $int0;
-%varc_int_175 = clientclock;
+def_int $int2 = %varclient_174;
+%varclient_174 = $int0;
+%varclient_175 = clientclock;
 switch_int ($int0) {
-    case 6:
-        if ($int1 = true) {
-            %varc_int_1099 = string_length(%varc_string_122);
-            ~clientscript_3218(account_create:com87, account_create:com31, account_create:com88, %varc_string_122, 6);
+    case 6 :
+        if ($int1 = 1) {
+            %varclient_1099 = string_length(%varclient_1641);
+            ~script3218(account_create:com_87, account_create:com_31, account_create:com_88, %varclient_1641, 6);
         }
-    case 14:
-        if ($int1 = true) {
-            %varc_int_1099 = string_length(%varc_string_326);
-            ~clientscript_3218(account_create:com106, account_create:com107, account_create:com108, %varc_string_326, 14);
+    case 14 :
+        if ($int1 = 1) {
+            %varclient_1099 = string_length(%varclient_1845);
+            ~script3218(account_create:com_106, account_create:com_107, account_create:com_108, %varclient_1845, 14);
         }
-    case 7:
-        if ($int1 = true) {
-            %varc_int_1099 = string_length(%varc_string_124);
-            ~clientscript_3218(account_create:com77, account_create:com78, account_create:com79, ~clientscript_2949(%varc_string_124), 7);
+    case 7 :
+        if ($int1 = 1) {
+            %varclient_1099 = string_length(%varclient_1643);
+            ~script3218(account_create:com_77, account_create:com_78, account_create:com_79, ~script2949(%varclient_1643), 7);
         }
-    case 8:
-        if ($int1 = true) {
-            %varc_int_1099 = string_length(%varc_string_125);
-            ~clientscript_3218(account_create:com67, account_create:com68, account_create:com69, ~clientscript_2949(%varc_string_125), 8);
+    case 8 :
+        if ($int1 = 1) {
+            %varclient_1099 = string_length(%varclient_1644);
+            ~script3218(account_create:com_67, account_create:com_68, account_create:com_69, ~script2949(%varclient_1644), 8);
         }
-    case 15:
-        if ($int1 = true) {
-            if (%varc_int_1407 < 1) {
-                %varc_int_1099 = 0;
-                ~clientscript_3218(account_create:com113, account_create:com30, account_create:com114, "", 15);
+    case 15 :
+        if ($int1 = 1) {
+            if (%varclient_1407 < 1) {
+                %varclient_1099 = 0;
+                ~script3218(account_create:com_113, account_create:com_30, account_create:com_114, "", 15);
             } else {
-                %varc_int_1099 = string_length(tostring(%varc_int_1407));
-                ~clientscript_3218(account_create:com113, account_create:com30, account_create:com114, tostring(%varc_int_1407), 15);
+                %varclient_1099 = string_length(tostring(%varclient_1407));
+                ~script3218(account_create:com_113, account_create:com_30, account_create:com_114, tostring(%varclient_1407), 15);
             }
         }
 }
 if ($int2 = 6 & $int0 ! 6) {
-    if (compare(%varc_string_123, %varc_string_122) ! 0) {
-        ~clientscript_2283(false, true);
+    if (compare(%varclient_1642, %varclient_1641) ! 0) {
+        ~script2283(false, true);
     }
 } else if ($int2 = 14 & $int0 ! 14) {
-    if (compare(%varc_string_327, %varc_string_326) ! 0) {
-        ~clientscript_3953(0);
+    if (compare(%varclient_1846, %varclient_1845) ! 0) {
+        ~script3953(0);
     }
 } else if ($int2 = 7 & $int0 ! 7) {
-    if (compare(%varc_string_328, %varc_string_124) ! 0) {
-        ~clientscript_3228(7, 0, 0);
-        if (string_length(%varc_string_125) > 0) {
-            ~clientscript_3228(8, 1, 0);
+    if (compare(%varclient_1847, %varclient_1643) ! 0) {
+        ~script3228(7, 0, 0);
+        if (string_length(%varclient_1644) > 0) {
+            ~script3228(8, 1, 0);
         }
     }
 } else if ($int2 = 8 & $int0 ! 8) {
-    if (compare(%varc_string_329, %varc_string_125) ! 0) {
-        ~clientscript_3228(8, 1, 0);
+    if (compare(%varclient_1848, %varclient_1644) ! 0) {
+        ~script3228(8, 1, 0);
     }
-} else if ($int2 = 15 & ($int0 ! 15 & %varc_int_1408 ! %varc_int_1407)) {
-    ~clientscript_3954(0);
+} else if ($int2 = 15 & $int0 ! 15 & %varclient_1408 ! %varclient_1407) {
+    ~script3954(0);
 }

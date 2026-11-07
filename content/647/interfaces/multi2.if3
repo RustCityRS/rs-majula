@@ -1,0 +1,116 @@
+// 228:0
+[com_0]
+type=layer
+width=16391
+height=16391
+widthmode=proportion
+heightmode=proportion
+
+// 228:1
+[com_1]
+type=text
+y=1638
+width=480
+height=17
+xmode=abs_centre
+ymode=proportion_top
+layer=com_0
+textfont=q8_full
+text=Select an Option
+textalignh=centre
+colour=0x800000
+
+// 228:2
+[com_2]
+type=text
+x=2
+y=6230
+width=480
+height=17
+xmode=abs_centre
+ymode=proportion_top
+layer=com_0
+textfont=q8_full
+text=option1
+textalignh=centre
+colour=0x000000
+pausebutton=yes
+onmouseover=text_colour_swapper(event_com, ^white)
+onmouseleave=text_colour_swapper(event_com, ^black)
+
+// 228:3
+[com_3]
+type=text
+x=2
+y=10294
+width=480
+height=17
+xmode=abs_centre
+ymode=proportion_top
+layer=com_0
+textfont=q8_full
+text=option2
+textalignh=centre
+colour=0x000000
+pausebutton=yes
+onmouseover=text_colour_swapper(event_com, ^white)
+onmouseleave=text_colour_swapper(event_com, ^black)
+
+// 228:4
+[com_4]
+type=graphic
+width=57
+height=13
+layer=com_6
+graphic="sworddecor,1"
+colour=0x000000
+
+// 228:5
+[com_5]
+type=graphic
+x=280
+width=57
+height=13
+layer=com_6
+graphic="sworddecor,0"
+colour=0x000000
+
+// 228:6
+[com_6]
+type=layer
+y=1638
+width=337
+height=13
+xmode=abs_centre
+ymode=proportion_top
+layer=com_0
+
+// 228:7
+[com_7]
+type=graphic
+width=57
+height=13
+layer=com_9
+graphic="sworddecor,1"
+colour=0x000000
+
+// 228:8
+[com_8]
+type=graphic
+x=419
+width=57
+height=13
+layer=com_9
+graphic="sworddecor,0"
+colour=0x000000
+
+// 228:9
+[com_9]
+type=layer
+y=1638
+width=476
+height=13
+xmode=abs_centre
+ymode=proportion_top
+layer=com_0
+hide=yes

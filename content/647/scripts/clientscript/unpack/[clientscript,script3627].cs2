@@ -1,0 +1,14 @@
+// 3627
+[clientscript,script3627](component $component0, int $int1, int $int2, int $int3, int $int4, namedobj $namedobj5, int $int6, int $int7, int $int8)
+$int7 = calc($int7 + 1);
+if ($int7 = $int8) {
+    if_setontimer(null, $component0);
+    if_setposition($int1, $int2, ^setpos_abs_left, ^setpos_abs_top, $component0);
+    if_setobject($namedobj5, -1, $component0);
+    if (if_find($component0) = true) {
+        cc_setparam_int(param_1103, $int6);
+    }
+    return;
+}
+if_setposition(calc($int1 + $int3 * $int7 / $int8), calc($int2 + $int4 * $int7 / $int8), ^setpos_abs_left, ^setpos_abs_top, $component0);
+if_setontimer("script3627($component0, $int1, $int2, $int3, $int4, $namedobj5, $int6, $int7, $int8)", $component0);

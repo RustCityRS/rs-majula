@@ -11,33 +11,33 @@
 // island on when it is on the tab the step points at (its tut_flash, in
 // tut_chatbox_steps.rs2), so a click on another tab does not hand out the
 // step's items.
-[if_button,toplevel:com128] ~tutorial_tab_clicked(^tab_combat);
-[if_button,toplevel:com130] ~tutorial_tab_clicked(^tab_stats);
-[if_button,toplevel:com131] ~tutorial_tab_clicked(^tab_quests);
-[if_button,toplevel:com132] ~tutorial_tab_clicked(^tab_inventory);
-[if_button,toplevel:com133] ~tutorial_tab_clicked(^tab_equipment);
-[if_button,toplevel:com134] ~tutorial_tab_clicked(^tab_prayer);
-[if_button,toplevel:com135] ~tutorial_tab_clicked(^tab_magic);
-[if_button,toplevel:com99] ~tutorial_tab_clicked(^tab_friends);
-[if_button,toplevel:com102] ~tutorial_tab_clicked(^tab_options);
-[if_button,toplevel:com103] ~tutorial_tab_clicked(^tab_emotes);
-[if_button,toplevel:com104] ~tutorial_tab_clicked(^tab_music);
+[if_button,toplevel:com_128] ~tutorial_tab_clicked(^tab_combat);
+[if_button,toplevel:com_130] ~tutorial_tab_clicked(^tab_stats);
+[if_button,toplevel:com_131] ~tutorial_tab_clicked(^tab_quests);
+[if_button,toplevel:com_132] ~tutorial_tab_clicked(^tab_inventory);
+[if_button,toplevel:com_133] ~tutorial_tab_clicked(^tab_equipment);
+[if_button,toplevel:com_134] ~tutorial_tab_clicked(^tab_prayer);
+[if_button,toplevel:com_135] ~tutorial_tab_clicked(^tab_magic);
+[if_button,toplevel:com_99] ~tutorial_tab_clicked(^tab_friends);
+[if_button,toplevel:com_102] ~tutorial_tab_clicked(^tab_options);
+[if_button,toplevel:com_103] ~tutorial_tab_clicked(^tab_emotes);
+[if_button,toplevel:com_104] ~tutorial_tab_clicked(^tab_music);
 
-[if_button,toplevel_fullscreen:com36] ~tutorial_tab_clicked(^tab_combat);
-[if_button,toplevel_fullscreen:com38] ~tutorial_tab_clicked(^tab_stats);
-[if_button,toplevel_fullscreen:com39] ~tutorial_tab_clicked(^tab_quests);
-[if_button,toplevel_fullscreen:com40] ~tutorial_tab_clicked(^tab_inventory);
-[if_button,toplevel_fullscreen:com41] ~tutorial_tab_clicked(^tab_equipment);
-[if_button,toplevel_fullscreen:com42] ~tutorial_tab_clicked(^tab_prayer);
-[if_button,toplevel_fullscreen:com43] ~tutorial_tab_clicked(^tab_magic);
-[if_button,toplevel_fullscreen:com45] ~tutorial_tab_clicked(^tab_friends);
-[if_button,toplevel_fullscreen:com48] ~tutorial_tab_clicked(^tab_options);
-[if_button,toplevel_fullscreen:com49] ~tutorial_tab_clicked(^tab_emotes);
-[if_button,toplevel_fullscreen:com50] ~tutorial_tab_clicked(^tab_music);
+[if_button,toplevel_fullscreen:com_36] ~tutorial_tab_clicked(^tab_combat);
+[if_button,toplevel_fullscreen:com_38] ~tutorial_tab_clicked(^tab_stats);
+[if_button,toplevel_fullscreen:com_39] ~tutorial_tab_clicked(^tab_quests);
+[if_button,toplevel_fullscreen:com_40] ~tutorial_tab_clicked(^tab_inventory);
+[if_button,toplevel_fullscreen:com_41] ~tutorial_tab_clicked(^tab_equipment);
+[if_button,toplevel_fullscreen:com_42] ~tutorial_tab_clicked(^tab_prayer);
+[if_button,toplevel_fullscreen:com_43] ~tutorial_tab_clicked(^tab_magic);
+[if_button,toplevel_fullscreen:com_45] ~tutorial_tab_clicked(^tab_friends);
+[if_button,toplevel_fullscreen:com_48] ~tutorial_tab_clicked(^tab_options);
+[if_button,toplevel_fullscreen:com_49] ~tutorial_tab_clicked(^tab_emotes);
+[if_button,toplevel_fullscreen:com_50] ~tutorial_tab_clicked(^tab_music);
 
-// 289's ignore tab: 2011's friends tab's "Show ignore" (friends2:com49, op1,
+// 289's ignore tab: 2011's friends tab's "Show ignore" (friends2:com_49, op1,
 // active_properties 2, cache 786).
-[if_button,friends2:com49] ~tutorial_tab_clicked(^tab_tutorial_ignore);
+[if_button,friends2:com_49] ~tutorial_tab_clicked(^tab_tutorial_ignore);
 
 [proc,tutorial_tab_clicked](int $tab)
 if (%tutorial >= ^tutorial_complete | ~in_tutorial_island(coord) = false) {

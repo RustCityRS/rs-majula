@@ -1,6 +1,7 @@
+// 235
 [clientscript,snapshot_confirm_name]
-if (compare(%varc_string_24, "") ! 0) {
-    ~clientscript_220;
+if (compare(%varclient_1543, "") ! 0) {
+    ~script220;
 } else {
-    tutorial_openchat(26, 0, "You must first select a name from the list.");
+    mes_typed(^chattype_snapshotfeedback, 0, "You must first select a name from the list.");
 }

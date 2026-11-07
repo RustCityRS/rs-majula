@@ -1,3 +1,4 @@
+// 1281
 [clientscript,draughts_inv_dragcomplete_swap](inv $inv0, int $int1, int $int2, component $component3)
 if ($int2 = -1) {
     ~draughts_inv_draw_slot($inv0, $int1, $component3, $int1);

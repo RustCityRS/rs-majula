@@ -1,0 +1,51 @@
+// 2312
+[clientscript,script2312]
+def_int $int0 = 0;
+while ($int0 < 31) {
+    cc_create(chatbox_background:com_75, ^iftype_text, $int0);
+    cc_setsize(46, 20, ^setsize_abs, ^setsize_abs);
+    cc_setposition(4, calc($int0 * 20), ^setpos_abs_left, ^setpos_abs_top);
+    cc_settextfont(b12_full);
+    cc_settextalign(^settextalign_centre, ^settextalign_centre, 0);
+    cc_settext(tostring(calc($int0 + 1)));
+    cc_setcolour(^white);
+    cc_setop(1, "Select");
+    cc_setonop("script2316($int0)");
+    cc_setonmouseover("cc_text_colour_swapper(event_com, event_comsubid, ^green)");
+    cc_setonmouseleave("cc_text_colour_swapper(event_com, event_comsubid, ^white)");
+    $int0 = calc($int0 + 1);
+}
+if_setscrollsize(0, calc($int0 * 20), chatbox_background:com_75);
+~scrollbar_vertical(chatbox_background:com_76, chatbox_background:com_75, "scrollbar_dragger_v2,3", "scrollbar_dragger_v2,0", "scrollbar_dragger_v2,1", "scrollbar_dragger_v2,2", "scrollbar_v2,0", "scrollbar_v2,1");
+$int0 = 0;
+while ($int0 < 12) {
+    cc_create(chatbox_background:com_78, ^iftype_text, $int0);
+    cc_setsize(158, 20, ^setsize_abs, ^setsize_abs);
+    cc_setposition(4, calc($int0 * 20), ^setpos_abs_left, ^setpos_abs_top);
+    cc_settextfont(b12_full);
+    cc_settextalign(^settextalign_centre, ^settextalign_centre, 0);
+    cc_settext(enum(int, string, enum_950, $int0));
+    cc_setcolour(^white);
+    cc_setop(1, "Select");
+    cc_setonop("script2334($int0)");
+    cc_setonmouseover("cc_text_colour_swapper(event_com, event_comsubid, ^green)");
+    cc_setonmouseleave("cc_text_colour_swapper(event_com, event_comsubid, ^white)");
+    $int0 = calc($int0 + 1);
+}
+if_setscrollsize(0, calc($int0 * 20), chatbox_background:com_78);
+~scrollbar_vertical(chatbox_background:com_79, chatbox_background:com_78, "scrollbar_dragger_v2,3", "scrollbar_dragger_v2,0", "scrollbar_dragger_v2,1", "scrollbar_dragger_v2,2", "scrollbar_v2,0", "scrollbar_v2,1");
+if_sethide(true, chatbox_background:com_75);
+if_sethide(true, chatbox_background:com_74);
+if_sethide(true, chatbox_background:com_76);
+if_sethide(true, chatbox_background:com_78);
+if_sethide(true, chatbox_background:com_77);
+if_sethide(true, chatbox_background:com_79);
+if_sethide(true, chatbox_background:com_81);
+if_sethide(true, chatbox_background:com_82);
+if_sethide(true, chatbox_background:com_80);
+if_sethide(true, chatbox_background:com_68);
+if_sethide(true, chatbox_background:com_69);
+if_sethide(true, chatbox_background:com_70);
+if_sethide(false, chatbox_background:com_71);
+if_sethide(false, chatbox_background:com_72);
+if_sethide(false, chatbox_background:com_73);

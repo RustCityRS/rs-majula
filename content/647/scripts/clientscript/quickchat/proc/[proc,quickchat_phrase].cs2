@@ -1,10 +1,11 @@
-[proc,quickchat_phrase](component $component0, int $int1, int $int2)
+// 1071
+[proc,quickchat_phrase](component $component0, chatphrase $chatphrase1, int $int2)
 if ($int2 >= 0) {
     ~quickchat_return($component0, $int2);
 }
-%varc_int_134 = 0;
-if (quickchat_phrase_getcmdcount($int1) > 0) {
-    ~quickchat_phrase_setup($component0, $int1);
+%varclient_134 = 0;
+if (chatphrase_getdynamiccommandcount($chatphrase1) > 0) {
+    ~quickchat_phrase_setup($component0, $chatphrase1);
 } else {
-    ~quickchat_phrase_send($int1);
+    ~quickchat_phrase_send($chatphrase1);
 }

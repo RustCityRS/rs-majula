@@ -1,35 +1,36 @@
-[proc,quickchat_phrase_countdialog](int $int)
-%varc_int_129 = 0;
-def_string $string = quickchat_phrase_gettext($int);
-if (%varc_int_126 = true) {
-    $string = "To <%varc_string_27>: <col=800000><$string>";
-} else if (%varc_int_126 = 2) {
-    $string = "[<col=0000ff><clan_getchatowner><col=000000>]: <col=800000><$string>";
-} else if (%varc_int_126 = 8) {
-    if (clanchannel2_find_affined = true) {
-        $string = "[<col=0000ff><clanchannel2_getname><col=000000>]: <col=800000><$string>";
+// 1047
+[proc,quickchat_phrase_countdialog](chatphrase $chatphrase0)
+%varclient_129 = 0;
+def_string $string0 = chatphrase_gettext($chatphrase0);
+if (%varclient_126 = 1) {
+    $string0 = "To <%varclient_1546>: <col=800000><$string0>";
+} else if (%varclient_126 = 2) {
+    $string0 = "[<col=0000ff><clan_getchatdisplayname><col=000000>]: <col=800000><$string0>";
+} else if (%varclient_126 = 8) {
+    if (activeclanchannel_find_affined = true) {
+        $string0 = "[<col=0000ff><activeclanchannel_getclanname><col=000000>]: <col=800000><$string0>";
     }
-} else if (%varc_int_126 = 10) {
-    if (clanchannel2_find = true) {
-        $string = "[<col=0000ff><clanchannel2_getname><col=000000>]: <col=800000><$string>";
+} else if (%varclient_126 = 10) {
+    if (activeclanchannel_find_listened = true) {
+        $string0 = "[<col=0000ff><activeclanchannel_getclanname><col=000000>]: <col=800000><$string0>";
     }
 } else {
-    $string = "<col=0000ff><$string>";
+    $string0 = "<col=0000ff><$string0>";
 }
-if_sethide(true, chatbox_background:com50);
-if_setonkey(null, chatbox_background:com55);
-if_sethide(false, chatbox_background:com0);
-if_sethide(false, chatbox_background:com7);
-if_sethide(true, chatbox_background:com9);
-if_sethide(true, chatbox_background:com13);
-if_sethide(true, chatbox_background:com17);
-if_sethide(true, chatbox_background:com1);
-if_sethide(false, chatbox_background:com3);
-if_setcolour(^black, chatbox_background:com3);
-if_settextfont(p12_full, chatbox_background:com3);
-if_settextalign(^settextalign_left, ^settextalign_centre, 0, chatbox_background:com3);
-if_settext($string, chatbox_background:com3);
-if_settextshadow(false, chatbox_background:com3);
-cc_deleteall(chatbox_background:com7);
-if_settext("Please enter a value: *", chatbox_background:com8);
-if_setonkey("quickchat_phrase_countdialog_onkey(^event_key, ^event_keychar, chatbox_background:com1, chatbox_background:com8, $int)", chatbox_background:com7);
+if_sethide(true, chatbox_background:com_50);
+if_setonkey(null, chatbox_background:com_55);
+if_sethide(false, chatbox_background:com_0);
+if_sethide(false, chatbox_background:com_7);
+if_sethide(true, chatbox_background:com_9);
+if_sethide(true, chatbox_background:com_13);
+if_sethide(true, chatbox_background:com_17);
+if_sethide(true, chatbox_background:com_1);
+if_sethide(false, chatbox_background:com_3);
+if_setcolour(^black, chatbox_background:com_3);
+if_settextfont(p12_full, chatbox_background:com_3);
+if_settextalign(^settextalign_left, ^settextalign_centre, 0, chatbox_background:com_3);
+if_settext($string0, chatbox_background:com_3);
+if_settextshadow(false, chatbox_background:com_3);
+cc_deleteall(chatbox_background:com_7);
+if_settext("Please enter a value: *", chatbox_background:com_8);
+if_setonkey("quickchat_phrase_countdialog_onkey(event_keycode, event_keychar, chatbox_background:com_1, chatbox_background:com_8, $chatphrase0)", chatbox_background:com_7);

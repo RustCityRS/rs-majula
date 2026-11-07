@@ -1,0 +1,22 @@
+// 186:0
+[com_0]
+type=text
+x=4
+y=4
+width=224
+height=8
+widthmode=minus
+heightmode=minus
+layer=com_1
+textfont=quill_oblique_large
+text=Evil Bob wants fish from the Fishing spots beyond this statue.
+textshadow=yes
+colour=0xff981f
+
+// 186:1
+[com_1]
+type=layer
+widthmode=minus
+heightmode=minus
+noclickthrough=yes
+onload=evilbob_load(event_com, macro_evil_bob:com_0)

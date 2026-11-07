@@ -1,0 +1,102 @@
+// 1061:0
+[com_0]
+type=layer
+x=55
+y=7
+width=1010
+height=735
+xmode=proportion_left
+ymode=proportion_top
+
+// 1061:1
+[com_1]
+type=text
+x=298
+y=319
+width=118
+height=32
+xmode=proportion_left
+ymode=proportion_top
+layer=com_0
+textfont=quill_oblique_large
+textshadow=yes
+
+// 1061:2
+[com_2]
+type=layer
+x=8182
+y=185
+width=218
+height=39
+xmode=proportion_right
+ymode=proportion_top
+layer=com_0
+
+// 1061:3
+[com_3]
+type=graphic
+x=1
+width=30
+height=37
+layer=com_2
+graphic="set_but_end_2,0"
+
+// 1061:4
+[com_4]
+type=graphic
+x=143
+width=31
+height=37
+layer=com_2
+graphic="set_but_end_2,3"
+
+// 1061:5
+[com_5]
+type=graphic
+x=26
+width=118
+height=37
+layer=com_2
+graphic="set_but_fill_2,0"
+
+// 1061:6
+[com_6]
+type=text
+x=8
+y=1
+width=173
+height=30
+layer=com_2
+textfont=quill_oblique_large
+text=Throw!
+textalignh=centre
+textshadow=yes
+colour=0xe7e1de
+
+// 1061:7
+[com_7]
+type=model
+x=17
+y=7
+width=19
+height=19
+layer=com_2
+model=model_20470
+modelorigin=-10,9
+modelzoom=400
+
+// 1061:8
+[com_8]
+type=rectangle
+x=-17
+y=-12
+width=252
+height=65
+layer=com_2
+colour=0xffffff
+targetmask=player,coord
+targetverb=Throw snowball
+onmouseover=script4084
+onmouseleave=xmas10_snowball_mouse_leave
+ontargetleave=script4085
+ontargetenter=script4086

@@ -1,15 +1,16 @@
+// 2124
 [clientscript,macro_beekeeper_init](component $component0, component $component1, component $component2, component $component3, component $component4, component $component5, component $component6, component $component7, component $component8)
-%varc_int_681 = random(2048);
-%varc_int_684 = random(2048);
-%varc_int_687 = random(2048);
-%varc_int_690 = random(2048);
-%varc_int_680 = calc(25 - randominc(50));
-%varc_int_682 = calc(25 - randominc(50));
-%varc_int_683 = calc(25 - randominc(50));
-%varc_int_685 = calc(25 - randominc(50));
-%varc_int_686 = calc(25 - randominc(50));
-%varc_int_688 = calc(25 - randominc(50));
-%varc_int_689 = calc(25 - randominc(50));
-%varc_int_691 = calc(25 - randominc(50));
+%varclient_681 = random(2048);
+%varclient_684 = random(2048);
+%varclient_687 = random(2048);
+%varclient_690 = random(2048);
+%varclient_680 = calc(25 - randominc(50));
+%varclient_682 = calc(25 - randominc(50));
+%varclient_683 = calc(25 - randominc(50));
+%varclient_685 = calc(25 - randominc(50));
+%varclient_686 = calc(25 - randominc(50));
+%varclient_688 = calc(25 - randominc(50));
+%varclient_689 = calc(25 - randominc(50));
+%varclient_691 = calc(25 - randominc(50));
 ~macro_beekeeper_update($component1, $component2, $component3, $component4, $component5, $component6, $component7, $component8);
 if_setontimer("macro_beekeeper_timer($component1, $component2, $component3, $component4, $component5, $component6, $component7, $component8)", $component0);

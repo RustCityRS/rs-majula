@@ -1,0 +1,9 @@
+// 1822
+[clientscript,script1822](int $int0, int $int1)
+if (~clanwars_setup_clicktest($int0) = false) {
+    return;
+}
+if (%varclient_247 ! $int1) {
+    %varclient_247 = $int1;
+    ~togglebox_variablebits;
+}

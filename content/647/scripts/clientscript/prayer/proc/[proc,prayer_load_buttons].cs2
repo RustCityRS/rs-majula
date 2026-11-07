@@ -1,3 +1,4 @@
+// 1237
 [proc,prayer_load_buttons](component $component0)
 cc_deleteall($component0);
 def_int $int1 = 5;
@@ -8,13 +9,13 @@ def_int $int5 = 8;
 def_int $int6 = $int5;
 def_int $int7 = 6;
 def_int $int8 = calc(30 + 7);
-if (%varc_int_1052 = true & %varbit_6840 = false) {
+if (%varclient_1052 = 1 & %varplayerbit_6840 = 0) {
     $int5 = 5;
     $int6 = $int5;
     $int8 = calc(30 + 4);
 }
 def_int $int9 = calc(30 + 6);
-if (%varc_int_181 = true) {
+if (%varclient_181 = 1) {
     $int5 = 8;
     $int6 = $int5;
     $int7 = 30;
@@ -24,37 +25,37 @@ if (%varc_int_181 = true) {
 def_struct $struct10 = null;
 def_graphic $graphic11 = null;
 def_graphic $graphic12 = null;
-def_string $string = "";
+def_string $string0 = "";
 def_int $int13 = 0;
 def_int $int14 = 30;
-if (%varbit_6840 = true) {
+if (%varplayerbit_6840 = 1) {
     $int14 = 20;
 }
 while ($int4 < $int14) {
-    $struct10 = enum(105, 74, enum_2279, $int4);
-    if (%varbit_6840 = true) {
-        $struct10 = enum(105, 74, enum_863, $int4);
+    $struct10 = enum(int, struct, enum_2279, $int4);
+    if (%varplayerbit_6840 = 1) {
+        $struct10 = enum(int, struct, enum_863, $int4);
     }
     $graphic12 = struct_param($struct10, param_736);
     $graphic11 = struct_param($struct10, param_735);
-    $string = struct_param($struct10, param_734);
+    $string0 = struct_param($struct10, param_734);
     $int13 = struct_param($struct10, param_737);
     cc_create($component0, ^iftype_graphic, $int4);
     cc_setsize($int2, $int3, ^setsize_abs, ^setsize_abs);
     cc_setposition($int6, $int7, ^setpos_abs_left, ^setpos_abs_top);
     cc_setgraphic($graphic12);
-    if (%varc_int_181 = false) {
+    if (%varclient_181 = 0) {
         cc_setop(1, "Activate<col=ff9040>");
-        cc_setonvartransmit("prayer_varupdate(^event_com, prayer:com7, $int4){activated_prayers, varp_1582}");
-        cc_setonmouserepeat("clientscript_1160(^event_com, ^event_subid, prayer:com49, $string, 25, 190)");
-        if ($int4 = false & %varbit_6521 = 10) {
-            cc_setonvarctransmit("clientscript_1428(^event_com, ^event_subid){varc_int_1024}");
+        cc_setonvartransmit("prayer_varupdate(event_com, prayer:com_7, $int4){activated_prayers, varplayer_1582}");
+        cc_setonmouserepeat("script1160(event_com, event_comsubid, prayer:com_49, $string0, 25, 190)");
+        if ($int4 = 0 & %varplayerbit_6521 = 10) {
+            cc_setonvarctransmit("script1428(event_com, event_comsubid){varclient_1024}");
         }
     }
-    cc_setonstattransmit("prayer_statupdate($int13, $graphic12, $graphic11, ^event_com, ^event_subid){prayer}");
-    cc_setonmouseleave("deltooltip(prayer:com49)");
+    cc_setonstattransmit("prayer_statupdate($int13, $graphic12, $graphic11, event_com, event_comsubid){prayer}");
+    cc_setonmouseleave("deltooltip(prayer:com_49)");
     $int4 = calc($int4 + 1);
-    if (calc($int4 % $int1) = false) {
+    if (calc($int4 % $int1) = 0) {
         $int6 = $int5;
         $int7 = calc($int7 + $int9);
     } else {

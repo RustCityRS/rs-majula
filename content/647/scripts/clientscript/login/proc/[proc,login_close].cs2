@@ -1,5 +1,6 @@
+// 2941
 [proc,login_close]
-if_sethook1427(null, loginscreen:com26);
-%varc_string_33 = "";
-%varc_int_1099 = 0;
-login_void_5602;
+if_setonresize(null, loginscreen:com_26);
+%varclient_1552 = "";
+%varclient_1099 = 0;
+login_resetreply;

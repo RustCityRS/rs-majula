@@ -1,0 +1,6 @@
+// 3632
+[proc,script3632](component $component0)
+if (if_find($component0) = true) {
+    cc_setparam_int(param_1101, cc_getx);
+    cc_setparam_int(param_1102, cc_gety);
+}

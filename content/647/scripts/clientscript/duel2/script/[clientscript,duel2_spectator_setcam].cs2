@@ -1,4 +1,5 @@
-[clientscript,duel2_spectator_setcam](boolean $int)
-if ($int = true | calc(clientclock % 50) = false) {
+// 1193
+[clientscript,duel2_spectator_setcam](boolean $boolean0)
+if ($boolean0 = true | calc(clientclock % 50) = 0) {
     ~duel2_spectator_setcam;
 }

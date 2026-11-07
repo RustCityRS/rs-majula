@@ -1,6 +1,6 @@
 // [if_button,prayer:prayer_rapidrestore]
 // 2011's prayer book is one component, its prayers by slot: prayer.rs2's
-// [if_button1,prayer:com8] comes here.
+// [if_button1,prayer:com_8] comes here.
 [label,prayer_button_rapidrestore]
 if_close;
 if (p_finduid(uid) = true) {

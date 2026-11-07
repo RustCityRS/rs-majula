@@ -1,0 +1,67 @@
+// 1092
+[clientscript,script1092](int $int0)
+if ($int0 = 1) {
+    if (%varplayerbit_1892 = 60) {
+        if_setcolour(^green, hundred_subquest_journal:com_2);
+    } else if (%varplayerbit_1892 = 0) {
+        if_setcolour(^red, hundred_subquest_journal:com_2);
+    } else {
+        if_setcolour(^yellow, hundred_subquest_journal:com_2);
+    }
+} else if ($int0 = 2) {
+    if (%varplayerbit_1867 = 40) {
+        if_setcolour(^green, hundred_subquest_journal:com_3);
+    } else if (%varplayerbit_1867 = 0) {
+        if_setcolour(^red, hundred_subquest_journal:com_3);
+    } else {
+        if_setcolour(^yellow, hundred_subquest_journal:com_3);
+    }
+} else if ($int0 = 3) {
+    if (%varplayerbit_1895 = 110) {
+        if_setcolour(^green, hundred_subquest_journal:com_4);
+    } else if (%varplayerbit_1895 = 0) {
+        if_setcolour(^red, hundred_subquest_journal:com_4);
+    } else {
+        if_setcolour(^yellow, hundred_subquest_journal:com_4);
+    }
+} else if ($int0 = 4) {
+    if (%varplayerbit_1896 = 5) {
+        if_setcolour(^green, hundred_subquest_journal:com_5);
+    } else if (%varplayerbit_1896 = 0) {
+        if_setcolour(^red, hundred_subquest_journal:com_5);
+    } else {
+        if_setcolour(^yellow, hundred_subquest_journal:com_5);
+    }
+} else if ($int0 = 5) {
+    if (%varplayerbit_1878 = 5) {
+        if_setcolour(^green, hundred_subquest_journal:com_6);
+    } else if (%varplayerbit_1878 = 0) {
+        if_setcolour(^red, hundred_subquest_journal:com_6);
+    } else {
+        if_setcolour(^yellow, hundred_subquest_journal:com_6);
+    }
+} else if ($int0 = 6) {
+    if (%varplayerbit_1910 = 20) {
+        if_setcolour(^green, hundred_subquest_journal:com_7);
+    } else if (%varplayerbit_1910 = 0) {
+        if_setcolour(^red, hundred_subquest_journal:com_7);
+    } else {
+        if_setcolour(^yellow, hundred_subquest_journal:com_7);
+    }
+} else if ($int0 = 7) {
+    if (%varplayerbit_1904 = 170) {
+        if_setcolour(^green, hundred_subquest_journal:com_8);
+    } else if (%varplayerbit_1904 = 0) {
+        if_setcolour(^red, hundred_subquest_journal:com_8);
+    } else {
+        if_setcolour(^yellow, hundred_subquest_journal:com_8);
+    }
+} else if ($int0 = 8) {
+    if (%varplayerbit_1914 = 50) {
+        if_setcolour(^green, hundred_subquest_journal:com_9);
+    } else if (%varplayerbit_1914 = 0) {
+        if_setcolour(^red, hundred_subquest_journal:com_9);
+    } else {
+        if_setcolour(^yellow, hundred_subquest_journal:com_9);
+    }
+}

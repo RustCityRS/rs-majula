@@ -38,7 +38,7 @@ fn a_registry_rename_stops_packing() {
     fs::write(pack.join("npc.pack"), "1=guard\n").unwrap();
     fs::write(
         content.join("scripts/globalscript/_unpack/all.npc"),
-        "[guard]\nmultivarp=renamed_varp\nmultivar=null\nmultidefault=-1\nmulti1=1\n",
+        "[guard]\nmultivar=renamed_varp\nmultinpc=1,guard\n",
     )
     .unwrap();
     fs::write(
@@ -59,7 +59,7 @@ fn a_registry_rename_stops_packing() {
             "seq_893",
             "human_shearing",
             "all.npc:2",
-            "reference multivarp=renamed_varp",
+            "reference multivar=renamed_varp",
             "Rename the matching content sections",
         ] {
             assert!(err.contains(expected), "{err}");

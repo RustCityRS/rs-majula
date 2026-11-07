@@ -1,0 +1,17 @@
+// 4318
+[proc,script4318]
+def_component $component0 = interface_1096:com_35;
+def_component $component1 = interface_1096:com_36;
+def_int $int2 = 23;
+def_int $int3 = max(if_getheight($component1), calc((%varclient_1517 / 2 + 1) * $int2));
+def_int $int4 = if_getscrolly($component1);
+if ($int3 > if_getheight(interface_1096:com_36)) {
+    if_setscrollsize(if_getwidth($component1), $int3, $component1);
+    if_setscrollpos(0, $int4, $component1);
+    if_sethide(false, $component0);
+    ~scrollbar_vertical($component0, $component1, "aif_scrollbar_dragger_2,3", "aif_scrollbar_dragger_2,0", "aif_scrollbar_dragger_2,1", "aif_scrollbar_dragger_2,2", "aif_scrollbar_arrow_2,1", "aif_scrollbar_arrow_2,0");
+} else {
+    if_setscrollsize(if_getwidth($component1), if_getheight($component1), $component1);
+    if_setscrollpos(0, 0, $component1);
+    ~scrollbar_vertical($component0, $component1, "aif_scrollbar_dragger_2,3", "aif_scrollbar_dragger_2,0", "aif_scrollbar_dragger_2,1", "aif_scrollbar_dragger_2,2", "aif_scrollbar_arrow_2,1", "aif_scrollbar_arrow_2,0");
+}

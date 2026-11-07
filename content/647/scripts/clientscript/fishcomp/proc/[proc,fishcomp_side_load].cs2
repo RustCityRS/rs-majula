@@ -1,19 +1,20 @@
+// 253
 [proc,fishcomp_side_load]
-if_setonvarctransmit("fishcomp_refresh(){varc_int_1104, varc_int_1105, varc_int_1106, varc_int_1107, varc_int_1108, varc_int_1109, varc_int_1110}", fishcomp_side:com0);
-if_setobject_nonum(obj_15658, 0, fishcomp_side:com80);
-if_setobject_nonum(obj_15661, 0, fishcomp_side:com81);
-if_setobject_nonum(obj_15662, 0, fishcomp_side:com82);
-if_setobject_nonum(obj_15664, 0, fishcomp_side:com83);
-if_setobject_nonum(obj_15665, 0, fishcomp_side:com84);
-if_setobject_nonum(obj_15663, 0, fishcomp_side:com85);
-if_setobject_nonum(obj_15660, 0, fishcomp_side:com86);
-if_setobject_nonum(obj_15659, 0, fishcomp_side:com87);
-if_setonvarctransmit("fishcomp_add_result(){varc_int_1111, varc_int_1113, varc_int_1112, varc_int_1114, varc_int_1115, varc_int_1116, varc_int_1117}", fishcomp_overlay:com0);
-%varc_int_1111 = 0;
-%varc_int_1112 = 0;
-%varc_int_1113 = 0;
-%varc_int_1114 = 0;
-%varc_int_1115 = 0;
-%varc_int_1116 = 0;
-%varc_int_1117 = -1;
-if_setscrollsize(if_getwidth(fishcomp_overlay:com6), if_getheight(fishcomp_overlay:com6), fishcomp_overlay:com6);
+if_setonvarctransmit("fishcomp_refresh{varclient_1104, varclient_1105, varclient_1106, varclient_1107, varclient_1108, varclient_1109, varclient_1110}", fishcomp_side:com_0);
+if_setobject_nonum(obj_15658, 0, fishcomp_side:com_80);
+if_setobject_nonum(obj_15661, 0, fishcomp_side:com_81);
+if_setobject_nonum(obj_15662, 0, fishcomp_side:com_82);
+if_setobject_nonum(obj_15664, 0, fishcomp_side:com_83);
+if_setobject_nonum(obj_15665, 0, fishcomp_side:com_84);
+if_setobject_nonum(obj_15663, 0, fishcomp_side:com_85);
+if_setobject_nonum(obj_15660, 0, fishcomp_side:com_86);
+if_setobject_nonum(obj_15659, 0, fishcomp_side:com_87);
+if_setonvarctransmit("fishcomp_add_result{varclient_1111, varclient_1113, varclient_1112, varclient_1114, varclient_1115, varclient_1116, varclient_1117}", fishcomp_overlay:com_0);
+%varclient_1111 = 0;
+%varclient_1112 = 0;
+%varclient_1113 = 0;
+%varclient_1114 = 0;
+%varclient_1115 = 0;
+%varclient_1116 = 0;
+%varclient_1117 = -1;
+if_setscrollsize(if_getwidth(fishcomp_overlay:com_6), if_getheight(fishcomp_overlay:com_6), fishcomp_overlay:com_6);

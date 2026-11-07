@@ -1,0 +1,23 @@
+// 4112
+[clientscript,script4112](int $int0)
+if (%varplayer_1109 = null) {
+    return;
+}
+def_int $int1 = 0;
+if ($int0 > 100 & %varclient_85 > 2045222520) {
+    $int1 = ^max_32bit_int;
+} else if ($int0 < 100 & %varclient_85 <= 1) {
+    $int1 = 1;
+} else {
+    $int1 = scale($int0, 100, %varclient_85);
+    if ($int1 = %varclient_85) {
+        if ($int0 >= 100) {
+            $int1 = calc($int1 + 1);
+        } else {
+            $int1 = calc($int1 - 1);
+        }
+    }
+}
+%varclient_85 = $int1;
+if_settext("<tostring_localised(%varclient_85, true)> gp", stockmarket:com_153);
+~sm_offerprice_settimer;

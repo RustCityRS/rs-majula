@@ -1,8 +1,9 @@
-[clientscript,graphics_options_countdownmouseover](boolean $int0, component $component1, component $component2)
-if ($int0 = true) {
-    ~clientscript_1166($component1);
+// 2702
+[clientscript,graphics_options_countdownmouseover](boolean $boolean0, component $component1, component $component2)
+if ($boolean0 = true) {
+    ~script1166($component1);
     if_setcolour(^white, $component2);
 } else {
-    ~clientscript_1151($component1);
+    ~script1151($component1);
     if_setcolour(0xff981f, $component2);
 }

@@ -1,0 +1,10 @@
+// 4501
+[proc,script4501](component $component0, string $string0)
+cc_deleteall($component0);
+cc_create($component0, ^iftype_text, if_getnextsubid($component0));
+cc_settext($string0);
+cc_settextfont(verdana_11pt_regular);
+cc_setposition(5, 0, ^setpos_abs_left, ^setpos_abs_centre);
+cc_setsize(5, 16384, ^setsize_minus, ^setsize_rel);
+cc_settextalign(^settextalign_left, ^settextalign_centre, 0);
+cc_setcolour(^black);

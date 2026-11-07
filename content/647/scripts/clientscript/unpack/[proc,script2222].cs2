@@ -1,0 +1,16 @@
+// 2222
+[proc,script2222](int $key0)
+switch_int ($key0) {
+    case ^key_escape :
+        ~loginscreen_setactivemenu(11);
+    case ^key_return :
+        if (if_gethide(account_create_success:com_13) = true) {
+            if (%varclient_1088 = 1) {
+                ~loginscreen_link("dob", "set_members_dob.ws", false);
+            } else {
+                ~loginscreen_setactivemenu(12);
+            }
+        } else {
+            ~script2715;
+        }
+}

@@ -1,21 +1,22 @@
+// 736
 [proc,arrow_set](component $component0, int $int1, component $component2, int $int3)
-def_component $component4 = toplevel_fullscreen:com78;
-def_component $component5 = toplevel:com188;
-def_component $component6 = toplevel:com201;
+def_component $component4 = toplevel_fullscreen:com_78;
+def_component $component5 = toplevel:com_188;
+def_component $component6 = toplevel:com_201;
 if ($component0 = null) {
     if_sethide(true, $component4);
     if_setposition(0, 0, ^setpos_abs_left, ^setpos_abs_top, $component4);
-    if_setontimer(null, toplevel_fullscreen:com18);
+    if_setontimer(null, toplevel_fullscreen:com_18);
     if_sethide(true, $component5);
     if_sethide(true, $component6);
     if_setposition(0, 0, ^setpos_abs_left, ^setpos_abs_top, $component5);
     if_setposition(0, 0, ^setpos_abs_left, ^setpos_abs_top, $component6);
-    if_setontimer(null, toplevel:com115);
+    if_setontimer(null, toplevel:com_115);
     return;
 }
 if_sethide(false, $component4);
-~clientscript_2755($component0, $int1, $component4);
-if_setontimer("clientscript_2754($component0, $int1, $component4)", toplevel_fullscreen:com18);
+~script2755($component0, $int1, $component4);
+if_setontimer("script2754($component0, $int1, $component4)", toplevel_fullscreen:com_18);
 def_int $int7 = 0;
 def_int $int8 = 0;
 def_int $int9 = 0;
@@ -38,7 +39,7 @@ $int14, $int15 = if_getwidth($component11), if_getheight($component11);
 $int16, $int17 = calc($int12 + $int14), calc($int13 + $int15);
 def_int $int18 = 0;
 def_int $int19 = 0;
-if (calc($int7 + $int9) >= $int12 & ($int7 <= $int16 & (calc($int8 + $int10) >= $int13 & $int8 <= $int17))) {
+if (calc($int7 + $int9) >= $int12 & $int7 <= $int16 & calc($int8 + $int10) >= $int13 & $int8 <= $int17) {
     $component4 = $component5;
 } else {
     $component4 = $component6;
@@ -49,5 +50,5 @@ if (calc($int7 + $int9) >= $int12 & ($int7 <= $int16 & (calc($int8 + $int10) >= 
 }
 $int18, $int19 = calc($int7 - $int12), calc($int8 - $int13);
 if_sethide(false, $component4);
-~clientscript_1176($component4, $int7, $int8, $int9, $int10, $int18, $int19, $int12, $int13, $int14, $int15);
-if_setontimer("clientscript_836($component4, $int7, $int8, $int9, $int10, $int18, $int19, $int12, $int13, $int14, $int15)", toplevel:com115);
+~script1176($component4, $int7, $int8, $int9, $int10, $int18, $int19, $int12, $int13, $int14, $int15);
+if_setontimer("script836($component4, $int7, $int8, $int9, $int10, $int18, $int19, $int12, $int13, $int14, $int15)", toplevel:com_115);

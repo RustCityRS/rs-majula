@@ -1,6 +1,7 @@
+// 7
 [clientscript,if_switchside_previous]
-def_int $int0 = calc(%varc_int_10 - 100);
-%varc_int_10 = 0;
+def_int $int0 = calc(%varclient_10 - 100);
+%varclient_10 = 0;
 if ($int0 < -1 | $int0 = ~current_side_if) {
     return;
 }
@@ -8,7 +9,7 @@ def_component $component1 = ~getsidelayer($int0);
 if ($component1 = null) {
     return;
 }
-if (if_hasoverlay($component1) = false) {
+if (if_hassub($component1) = false) {
     return;
 }
 ~if_switchside($int0);

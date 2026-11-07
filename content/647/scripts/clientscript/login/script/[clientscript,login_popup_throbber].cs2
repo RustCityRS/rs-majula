@@ -1,34 +1,35 @@
+// 2951
 [clientscript,login_popup_throbber]
-def_component $component0 = login:com10;
-if (login_getint_5623 = true) {
-    $component0 = south_progress9:com3;
+def_component $component0 = login:com_10;
+if (unknown_command_5623 = true) {
+    $component0 = south_progress9:com_3;
 }
 def_int $int1 = ~login_getreply;
 if ($int1 ! -3) {
     if_setontimer(null, $component0);
     return;
 }
-if (clientclock < %varc_int_1092) {
+if (clientclock < %varclient_1092) {
     return;
 }
-%varc_int_1092 = calc(clientclock + 5);
+%varclient_1092 = calc(clientclock + 5);
 switch_graphic (if_getgraphic($component0)) {
-    case "loading_wheel_1,0":
+    case "loading_wheel_1,0" :
         if_setgraphic("loading_wheel_1,1", $component0);
-    case "loading_wheel_1,1":
+    case "loading_wheel_1,1" :
         if_setgraphic("loading_wheel_1,2", $component0);
-    case "loading_wheel_1,2":
+    case "loading_wheel_1,2" :
         if_setgraphic("loading_wheel_1,3", $component0);
-    case "loading_wheel_1,3":
+    case "loading_wheel_1,3" :
         if_setgraphic("loading_wheel_1,4", $component0);
-    case "loading_wheel_1,4":
+    case "loading_wheel_1,4" :
         if_setgraphic("loading_wheel_1,5", $component0);
-    case "loading_wheel_1,5":
+    case "loading_wheel_1,5" :
         if_setgraphic("loading_wheel_1,6", $component0);
-    case "loading_wheel_1,6":
+    case "loading_wheel_1,6" :
         if_setgraphic("loading_wheel_1,7", $component0);
-    case "loading_wheel_1,7":
+    case "loading_wheel_1,7" :
         if_setgraphic("loading_wheel_1,0", $component0);
-    case default:
+    case default :
         if_setgraphic("loading_wheel_1,0", $component0);
 }

@@ -1,6 +1,7 @@
+// 1904
 [proc,quickchat_phrase_search_refreshsearch](component $component0, component $component1, component $component2)
 cc_deleteall($component1);
-if (string_length(%varc_string_30) > 0) {
+if (string_length(%varclient_1549) > 0) {
     ~quickchat_phrase_search_dosearch($component0, $component1, $component2);
 } else {
     if_setscrollsize(0, 0, $component1);

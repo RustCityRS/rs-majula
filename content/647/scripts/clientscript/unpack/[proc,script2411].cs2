@@ -1,0 +1,8 @@
+// 2411
+[proc,script2411](obj $obj0)
+if (%varplayerbit_995 = 0) {
+    ~script2410(oc_iop($obj0, 1), oc_icursor($obj0, 1), oc_iop($obj0, 2), oc_icursor($obj0, 2), "", null, oc_iop($obj0, 4), oc_icursor($obj0, 4), oc_iop($obj0, 5), oc_icursor($obj0, 5), oc_name($obj0));
+} else {
+    ~script2410("Lletya", oc_icursor($obj0, 1), oc_iop($obj0, 2), oc_icursor($obj0, 2), "Temple", oc_icursor($obj0, 1), oc_iop($obj0, 4), oc_icursor($obj0, 4), oc_iop($obj0, 5), oc_icursor($obj0, 5), oc_name($obj0));
+}
+cc_setonvartransmit("script2412(event_com, event_comsubid, $obj0){varplayer_1560}");

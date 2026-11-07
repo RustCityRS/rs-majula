@@ -1,8 +1,0 @@
-[proc,clientscript_4548]
-def_int $int0 = 0;
-def_int $int1 = 0;
-if (~clientscript_4467 = true) {
-    if_sethide(false, lobbyscreen_pane_clanchat:com44);
-    return;
-}
-~clientscript_2447;

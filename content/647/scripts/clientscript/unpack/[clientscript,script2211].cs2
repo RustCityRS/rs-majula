@@ -1,0 +1,6 @@
+// 2211
+[clientscript,script2211]
+if (if_getx(%varclient_1136) < 339) {
+    if_setontimer("script2211", interface_932:com_1);
+    if_setposition(calc(1 + if_getx(%varclient_1136)), if_gety(%varclient_1136), ^setpos_abs_left, ^setpos_abs_top, %varclient_1136);
+}

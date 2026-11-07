@@ -1,8 +1,0 @@
-[proc,clientscript_3408](component $component, string $string0)
-def_string $string1 = "<u=88ffff><$string0></u>";
-def_string $string2 = "<u=64c8fa><$string0></u>";
-if_setop(1, "Open link", $component);
-if_setonop("objectives_return()", $component);
-if_setcursor_op(1, 146, $component);
-if_setonmouseover("link_rollover($component, 8978431, $string1)", $component);
-if_setonmouseleave("link_rollover($component, 6605050, $string2)", $component);

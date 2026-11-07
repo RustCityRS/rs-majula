@@ -1,0 +1,7 @@
+// 3955
+[clientscript,script3955](int $int0, component $component1)
+if (calc((clientclock - $int0) % 40) < 20 & applet_hasfocus = true & %varclient_1412 = 0) {
+    if_sethide(false, $component1);
+} else {
+    if_sethide(true, $component1);
+}

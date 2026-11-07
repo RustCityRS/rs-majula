@@ -1,6 +1,7 @@
+// 4413
 [clientscript,clan_info_load]
-if (ignore_count = true) {
-    ~clientscript_4415;
+if (activeclansettings_find_listened = true) {
+    ~script4415;
 } else {
-    if_sethook1431("clientscript_4414()", clan_info:com170);
+    if_setonclansettingstransmit("script4414", clan_info:com_170);
 }

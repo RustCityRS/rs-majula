@@ -1,0 +1,8 @@
+// 1242
+[clientscript,script1242](component $component0)
+if_setgraphic("magni_glass,0", $component0);
+if_setonclick("script1950(event_com)", $component0);
+def_coord $coord1 = movecoord(0_0_0_0_0, calc(coordx(coord) - coordx(coord) % 64 + 13), 0, calc(coordz(coord) - coordz(coord) % 64 + 23));
+cam_followcoord($coord1);
+cam_lookat($coord1, 25, 100, 10);
+cam_moveto(movecoord($coord1, 11, 0, 0), 2600, 100, 10);

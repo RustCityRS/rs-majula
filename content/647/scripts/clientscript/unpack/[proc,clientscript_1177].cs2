@@ -1,7 +1,0 @@
-[proc,clientscript_1177]
-if (%varp_1414 = false) {
-    return;
-}
-%varc_int_548 = 540;
-if_settext("10", hs3423786:com5);
-if_setontimer("clientscript_1178()", hs3423786:com5);

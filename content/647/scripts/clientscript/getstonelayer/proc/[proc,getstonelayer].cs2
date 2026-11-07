@@ -1,74 +1,74 @@
-[proc,getstonelayer](int $int)(component)
+// 2458
+[proc,getstonelayer](int $int0)(component)
 if (getwindowmode >= 2) {
-    switch_int ($int) {
-        case 0:
-            return(toplevel_fullscreen:com36);
-        case 1:
-            return(toplevel_fullscreen:com37);
-        case 2:
-            return(toplevel_fullscreen:com38);
-        case 3:
-            return(toplevel_fullscreen:com39);
-        case 4:
-            return(toplevel_fullscreen:com40);
-        case 5:
-            return(toplevel_fullscreen:com41);
-        case 6:
-            return(toplevel_fullscreen:com42);
-        case 7:
-            return(toplevel_fullscreen:com43);
-        case 8:
-            return(toplevel_fullscreen:com44);
-        case 9:
-            return(toplevel_fullscreen:com45);
-        case 10:
-            return(toplevel_fullscreen:com46);
-        case 11:
-            return(toplevel_fullscreen:com47);
-        case 12:
-            return(toplevel_fullscreen:com48);
-        case 13:
-            return(toplevel_fullscreen:com49);
-        case 14:
-            return(toplevel_fullscreen:com50);
-        case 15:
-            return(toplevel_fullscreen:com51);
+    switch_int ($int0) {
+        case 0 :
+            return(toplevel_fullscreen:com_36);
+        case 1 :
+            return(toplevel_fullscreen:com_37);
+        case 2 :
+            return(toplevel_fullscreen:com_38);
+        case 3 :
+            return(toplevel_fullscreen:com_39);
+        case 4 :
+            return(toplevel_fullscreen:com_40);
+        case 5 :
+            return(toplevel_fullscreen:com_41);
+        case 6 :
+            return(toplevel_fullscreen:com_42);
+        case 7 :
+            return(toplevel_fullscreen:com_43);
+        case 8 :
+            return(toplevel_fullscreen:com_44);
+        case 9 :
+            return(toplevel_fullscreen:com_45);
+        case 10 :
+            return(toplevel_fullscreen:com_46);
+        case 11 :
+            return(toplevel_fullscreen:com_47);
+        case 12 :
+            return(toplevel_fullscreen:com_48);
+        case 13 :
+            return(toplevel_fullscreen:com_49);
+        case 14 :
+            return(toplevel_fullscreen:com_50);
+        case 15 :
+            return(toplevel_fullscreen:com_51);
     }
 } else {
-    switch_int ($int) {
-        case 0:
-            return(toplevel:com128);
-        case 1:
-            return(toplevel:com129);
-        case 2:
-            return(toplevel:com130);
-        case 3:
-            return(toplevel:com131);
-        case 4:
-            return(toplevel:com132);
-        case 5:
-            return(toplevel:com133);
-        case 6:
-            return(toplevel:com134);
-        case 7:
-            return(toplevel:com135);
-        case 8:
-            return(toplevel:com98);
-        case 9:
-            return(toplevel:com99);
-        case 10:
-            return(toplevel:com100);
-        case 11:
-            return(toplevel:com101);
-        case 12:
-            return(toplevel:com102);
-        case 13:
-            return(toplevel:com103);
-        case 14:
-            return(toplevel:com104);
-        case 15:
-            return(toplevel:com105);
+    switch_int ($int0) {
+        case 0 :
+            return(toplevel:com_128);
+        case 1 :
+            return(toplevel:com_129);
+        case 2 :
+            return(toplevel:com_130);
+        case 3 :
+            return(toplevel:com_131);
+        case 4 :
+            return(toplevel:com_132);
+        case 5 :
+            return(toplevel:com_133);
+        case 6 :
+            return(toplevel:com_134);
+        case 7 :
+            return(toplevel:com_135);
+        case 8 :
+            return(toplevel:com_98);
+        case 9 :
+            return(toplevel:com_99);
+        case 10 :
+            return(toplevel:com_100);
+        case 11 :
+            return(toplevel:com_101);
+        case 12 :
+            return(toplevel:com_102);
+        case 13 :
+            return(toplevel:com_103);
+        case 14 :
+            return(toplevel:com_104);
+        case 15 :
+            return(toplevel:com_105);
     }
 }
-return(null);
 return(null);

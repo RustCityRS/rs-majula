@@ -1,0 +1,41 @@
+// 485
+[clientscript,script485](component $component0)
+def_npc $npc1 = null;
+def_int $int2 = 0;
+if_setcolour(0xff981f, $component0);
+switch_int (%varplayerbit_7512) {
+    case default :
+        return;
+    case 1 :
+        $npc1 = ~script486(%varplayerbit_7520);
+    case 2 :
+        $npc1 = ~script486(%varplayerbit_7521);
+    case 3 :
+        $npc1 = ~script486(%varplayerbit_7526);
+    case 4 :
+        $npc1 = ~script486(%varplayerbit_7527);
+    case 5 :
+        $npc1 = ~script486(%varplayerbit_7530);
+    case 6 :
+        $npc1 = ~script486(%varplayerbit_7531);
+    case 7 :
+        $npc1 = ~script486(%varplayerbit_7532);
+    case 8 :
+        $npc1 = ~script486(%varplayerbit_7533);
+    case 9 :
+        $npc1 = ~script486(%varplayerbit_7534);
+    case 10 :
+        $npc1 = ~script486(%varplayerbit_7535);
+}
+if ($npc1 = null) {
+    if_sethide(false, conq_buy_army:com_135);
+    if_sethide(true, conq_buy_army:com_115);
+} else {
+    if_setgraphic(nc_param($npc1, param_1148), conq_buy_army:com_2);
+    if_settext(nc_param($npc1, param_1139), conq_buy_army:com_0);
+    if_settext("Movement: <tostring(nc_param($npc1, param_1134))>", conq_buy_army:com_138);
+    if_settext("Damage: <tostring(calc(nc_param($npc1, param_1135) * 100))>", conq_buy_army:com_139);
+    if_settext("Health: <tostring(calc(nc_param($npc1, param_1136) * 100))>", conq_buy_army:com_140);
+    if_settext("Range: <tostring(nc_param($npc1, param_1137))>", conq_buy_army:com_141);
+    if_settext("Cost: <tostring(nc_param($npc1, param_1138))>", conq_buy_army:com_142);
+}

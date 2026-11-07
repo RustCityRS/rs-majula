@@ -1,100 +1,101 @@
-[proc,snapshot_highlight_button](int $int0, int $int1)
+// 243
+[proc,snapshot_highlight_button](component $component0, int $int1)
 def_component $component2 = null;
 def_component $component3 = null;
 def_component $component4 = null;
 def_int $int5 = 1;
-switch_int ($int0) {
-    case default:
-        ~clientscript_675;
-    case 38928641:
-        $component2 = snapshot_main_v2:com253;
-        $component3 = snapshot_main_v2:com254;
-        $component4 = snapshot_main_v2:com255;
-    case 38928642:
-        $component2 = snapshot_main_v2:com284;
-        $component3 = snapshot_main_v2:com285;
-        $component4 = snapshot_main_v2:com286;
-    case 38928643:
-        $component2 = snapshot_main_v2:com260;
-        $component3 = snapshot_main_v2:com261;
-        $component4 = snapshot_main_v2:com262;
-    case 38928648:
-        $component2 = snapshot_main_v2:com280;
-        $component3 = snapshot_main_v2:com281;
-        $component4 = snapshot_main_v2:com282;
-    case 38928649:
-        $component2 = snapshot_main_v2:com276;
-        $component3 = snapshot_main_v2:com277;
-        $component4 = snapshot_main_v2:com278;
-    case 38928650:
-        $component2 = snapshot_main_v2:com267;
-        $component3 = snapshot_main_v2:com268;
-        $component4 = snapshot_main_v2:com269;
-    case 38928655:
-        $component2 = snapshot_main_v2:com272;
-        $component3 = snapshot_main_v2:com273;
-        $component4 = snapshot_main_v2:com274;
-    case 38928672:
-        $component2 = snapshot_main_v2:com237;
-        $component3 = snapshot_main_v2:com238;
-        $component4 = snapshot_main_v2:com239;
-    case 38928673:
-        $component2 = snapshot_main_v2:com295;
-        $component3 = snapshot_main_v2:com296;
-        $component4 = snapshot_main_v2:com297;
-    case 38928674:
-        $component2 = snapshot_main_v2:com291;
-        $component3 = snapshot_main_v2:com292;
-        $component4 = snapshot_main_v2:com293;
-    case 38928683:
-        $component2 = snapshot_main_v2:com241;
-        $component3 = snapshot_main_v2:com242;
-        $component4 = snapshot_main_v2:com243;
-    case 38928684:
-        $component2 = snapshot_main_v2:com245;
-        $component3 = snapshot_main_v2:com246;
-        $component4 = snapshot_main_v2:com247;
-    case 38928690:
-        $component2 = snapshot_main_v2:com249;
-        $component3 = snapshot_main_v2:com250;
-        $component4 = snapshot_main_v2:com251;
-    case 38928685:
-        $component2 = snapshot_main_v2:com302;
-        $component3 = snapshot_main_v2:com303;
-        $component4 = snapshot_main_v2:com304;
-    case 38928386:
-        $component2 = snapshot_main_v2:com11;
-        $component3 = snapshot_main_v2:com12;
-        $component4 = snapshot_main_v2:com13;
+switch_component ($component0) {
+    case default :
+        ~script675;
+    case snapshot_main_v2:com_257 :
+        $component2 = snapshot_main_v2:com_253;
+        $component3 = snapshot_main_v2:com_254;
+        $component4 = snapshot_main_v2:com_255;
+    case snapshot_main_v2:com_258 :
+        $component2 = snapshot_main_v2:com_284;
+        $component3 = snapshot_main_v2:com_285;
+        $component4 = snapshot_main_v2:com_286;
+    case snapshot_main_v2:com_259 :
+        $component2 = snapshot_main_v2:com_260;
+        $component3 = snapshot_main_v2:com_261;
+        $component4 = snapshot_main_v2:com_262;
+    case snapshot_main_v2:com_264 :
+        $component2 = snapshot_main_v2:com_280;
+        $component3 = snapshot_main_v2:com_281;
+        $component4 = snapshot_main_v2:com_282;
+    case snapshot_main_v2:com_265 :
+        $component2 = snapshot_main_v2:com_276;
+        $component3 = snapshot_main_v2:com_277;
+        $component4 = snapshot_main_v2:com_278;
+    case snapshot_main_v2:com_266 :
+        $component2 = snapshot_main_v2:com_267;
+        $component3 = snapshot_main_v2:com_268;
+        $component4 = snapshot_main_v2:com_269;
+    case snapshot_main_v2:com_271 :
+        $component2 = snapshot_main_v2:com_272;
+        $component3 = snapshot_main_v2:com_273;
+        $component4 = snapshot_main_v2:com_274;
+    case snapshot_main_v2:com_288 :
+        $component2 = snapshot_main_v2:com_237;
+        $component3 = snapshot_main_v2:com_238;
+        $component4 = snapshot_main_v2:com_239;
+    case snapshot_main_v2:com_289 :
+        $component2 = snapshot_main_v2:com_295;
+        $component3 = snapshot_main_v2:com_296;
+        $component4 = snapshot_main_v2:com_297;
+    case snapshot_main_v2:com_290 :
+        $component2 = snapshot_main_v2:com_291;
+        $component3 = snapshot_main_v2:com_292;
+        $component4 = snapshot_main_v2:com_293;
+    case snapshot_main_v2:com_299 :
+        $component2 = snapshot_main_v2:com_241;
+        $component3 = snapshot_main_v2:com_242;
+        $component4 = snapshot_main_v2:com_243;
+    case snapshot_main_v2:com_300 :
+        $component2 = snapshot_main_v2:com_245;
+        $component3 = snapshot_main_v2:com_246;
+        $component4 = snapshot_main_v2:com_247;
+    case snapshot_main_v2:com_306 :
+        $component2 = snapshot_main_v2:com_249;
+        $component3 = snapshot_main_v2:com_250;
+        $component4 = snapshot_main_v2:com_251;
+    case snapshot_main_v2:com_301 :
+        $component2 = snapshot_main_v2:com_302;
+        $component3 = snapshot_main_v2:com_303;
+        $component4 = snapshot_main_v2:com_304;
+    case snapshot_main_v2:com_2 :
+        $component2 = snapshot_main_v2:com_11;
+        $component3 = snapshot_main_v2:com_12;
+        $component4 = snapshot_main_v2:com_13;
         $int5 = 0;
-    case 38928460:
-        $component2 = snapshot_main_v2:com77;
-        $component3 = snapshot_main_v2:com78;
-        $component4 = snapshot_main_v2:com79;
+    case snapshot_main_v2:com_76 :
+        $component2 = snapshot_main_v2:com_77;
+        $component3 = snapshot_main_v2:com_78;
+        $component4 = snapshot_main_v2:com_79;
         $int5 = 0;
-    case 38928387:
-        $component2 = snapshot_main_v2:com4;
-        $component3 = snapshot_main_v2:com5;
-        $component4 = snapshot_main_v2:com6;
+    case snapshot_main_v2:com_3 :
+        $component2 = snapshot_main_v2:com_4;
+        $component3 = snapshot_main_v2:com_5;
+        $component4 = snapshot_main_v2:com_6;
         $int5 = 0;
-    case 38928438:
-        $component2 = snapshot_main_v2:com55;
-        $component3 = snapshot_main_v2:com56;
-        $component4 = snapshot_main_v2:com57;
+    case snapshot_main_v2:com_54 :
+        $component2 = snapshot_main_v2:com_55;
+        $component3 = snapshot_main_v2:com_56;
+        $component4 = snapshot_main_v2:com_57;
         $int5 = 0;
-    case 38928509:
-        $component2 = snapshot_main_v2:com126;
-        $component3 = snapshot_main_v2:com127;
-        $component4 = snapshot_main_v2:com128;
+    case snapshot_main_v2:com_125 :
+        $component2 = snapshot_main_v2:com_126;
+        $component3 = snapshot_main_v2:com_127;
+        $component4 = snapshot_main_v2:com_128;
         $int5 = 0;
-    case 38928514:
-        $component2 = snapshot_main_v2:com131;
-        $component3 = snapshot_main_v2:com132;
-        $component4 = snapshot_main_v2:com133;
+    case snapshot_main_v2:com_130 :
+        $component2 = snapshot_main_v2:com_131;
+        $component3 = snapshot_main_v2:com_132;
+        $component4 = snapshot_main_v2:com_133;
         $int5 = 0;
 }
-if ($int1 = false) {
-    if ($int5 = true) {
+if ($int1 = 0) {
+    if ($int5 = 1) {
         if ($component2 ! null) {
             if_setgraphic("miscgraphics4,0", $component2);
         }
@@ -115,7 +116,7 @@ if ($int1 = false) {
             if_setgraphic("miscgraphics5,2", $component4);
         }
     }
-} else if ($int5 = true) {
+} else if ($int5 = 1) {
     if ($component2 ! null) {
         if_setgraphic("miscgraphics4,3", $component2);
     }

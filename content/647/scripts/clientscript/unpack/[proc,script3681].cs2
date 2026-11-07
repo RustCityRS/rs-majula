@@ -1,0 +1,22 @@
+// 3681
+[proc,script3681](int $int0)
+def_string $string0 = "Add to playlist";
+def_string $string1 = "Remove from playlist";
+cc_setop(1, "Play");
+cc_setcolour(^green);
+cc_setonmouseleave("cc_text_colour_swapper(event_com, event_comsubid, ^green)");
+.cc_sethide(false);
+.cc_setonop("script2885(event_com, event_comsubid, 150, 0, 20, event_op)");
+if ($int0 = %varplayerbit_7081 | $int0 = %varplayerbit_7082 | $int0 = %varplayerbit_7083 | $int0 = %varplayerbit_7084 | $int0 = %varplayerbit_7085 | $int0 = %varplayerbit_7086 | $int0 = %varplayerbit_7087 | $int0 = %varplayerbit_7088 | $int0 = %varplayerbit_7089 | $int0 = %varplayerbit_7090 | $int0 = %varplayerbit_7091 | $int0 = %varplayerbit_7092) {
+    .cc_setgraphic("music_icons_new,1");
+    .cc_setop(4, $string1);
+    cc_setop(4, $string1);
+    .cc_setonmouserepeat("script1160(music_v3:com_1, event_comsubid, music_v3:com_16, $string1, 25, 189)");
+    .cc_setonmouseleave("deltooltip(music_v3:com_16)");
+} else {
+    cc_setop(3, $string0);
+    .cc_setop(3, $string0);
+    .cc_setgraphic("music_icons_new,0");
+    .cc_setonmouserepeat("script1160(music_v3:com_1, event_comsubid, music_v3:com_16, $string0, 25, 189)");
+    .cc_setonmouseleave("deltooltip(music_v3:com_16)");
+}

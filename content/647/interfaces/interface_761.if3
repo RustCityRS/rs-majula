@@ -1,0 +1,373 @@
+// 761:0
+[com_0]
+type=rectangle
+width=16455
+height=16734
+widthmode=proportion
+heightmode=proportion
+colour=0x46341d
+fill=yes
+trans=160
+
+// 761:1
+[com_1]
+type=model
+x=27
+y=4
+width=464
+height=47
+layer=com_22
+model=model_40720
+modelorigin=-1,-6
+modelzoom=720
+
+// 761:2
+[com_2]
+type=model
+x=40
+y=80
+width=436
+height=222
+layer=com_22
+model=model_40721
+modelorigin=0,-6
+modelzoom=666
+
+// 761:3
+[com_3]
+type=model
+x=19
+y=59
+width=479
+height=31
+layer=com_22
+model=model_40722
+modelorigin=0,1
+modelzoom=666
+
+// 761:4
+[com_4]
+type=model
+x=19
+y=294
+width=478
+height=30
+layer=com_22
+model=model_40722
+modelorigin=0,-1
+modelangle=1024,1024,0
+modelzoom=666
+
+// 761:5
+[com_5]
+type=graphic
+x=451
+y=61
+width=21
+height=20
+layer=com_22
+graphic="close_buttons,2"
+colour=0xffffffff
+transmitop=1
+op1=Close
+onmouseover=graphic_swapper(event_com, "close_buttons,3")
+onmouseleave=graphic_swapper(event_com, "close_buttons,2")
+onop=closebutton_click
+
+// 761:6
+[com_6]
+type=text
+x=84
+y=5
+width=352
+height=18
+layer=com_22
+textfont=quill_oblique_large
+text=Sir Vant's Requests
+textalignh=centre
+colour=0x46320a
+
+// 761:7
+[com_7]
+type=layer
+x=8
+y=22
+width=499
+height=311
+layer=com_22
+
+// 761:8
+[com_8]
+type=layer
+x=45
+y=83
+width=420
+height=221
+layer=com_22
+onload=script1520
+
+// 761:9
+[com_9]
+type=text
+x=53
+y=62
+width=352
+height=18
+layer=com_22
+textfont=q8_full
+text=Click on the request you wish to know more about:
+colour=0x46320a
+
+// 761:10
+[com_10]
+type=text
+y=8
+width=417
+height=17
+layer=com_8
+textfont=tutorial_font
+text=Defeat the goblin
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0x000080
+transmitop=1
+op1=Read
+opcursor0=cursor_50
+onmouseover=text_colour_swapper(event_com, ^white)
+onmouseleave=script1521(event_com)
+
+// 761:11
+[com_11]
+type=text
+y=25
+width=417
+height=17
+layer=com_8
+textfont=tutorial_font
+text=Prepare to ascend to the surface
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0x000080
+transmitop=1
+op1=Read
+opcursor0=cursor_50
+onmouseover=text_colour_swapper(event_com, ^white)
+onmouseleave=script1521(event_com)
+
+// 761:12
+[com_12]
+type=text
+y=42
+width=417
+height=17
+layer=com_8
+textfont=tutorial_font
+text=Practice Ranged
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0x000080
+transmitop=1
+op1=Read
+opcursor0=cursor_50
+onmouseover=text_colour_swapper(event_com, ^white)
+onmouseleave=script1521(event_com)
+
+// 761:13
+[com_13]
+type=text
+y=59
+width=417
+height=17
+layer=com_8
+textfont=tutorial_font
+text=Fish for crayfish
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0x000080
+transmitop=1
+op1=Read
+opcursor0=cursor_50
+onmouseover=text_colour_swapper(event_com, ^white)
+onmouseleave=script1521(event_com)
+
+// 761:14
+[com_14]
+type=text
+y=76
+width=417
+height=17
+layer=com_8
+textfont=tutorial_font
+text=Cook some crayfish
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0x000080
+transmitop=1
+op1=Read
+opcursor0=cursor_50
+onmouseover=text_colour_swapper(event_com, ^white)
+onmouseleave=script1521(event_com)
+
+// 761:15
+[com_15]
+type=text
+y=93
+width=417
+height=17
+layer=com_8
+textfont=tutorial_font
+text=Obtain a bag of runes
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0x000080
+transmitop=1
+op1=Read
+opcursor0=cursor_50
+onmouseover=text_colour_swapper(event_com, ^white)
+onmouseleave=script1521(event_com)
+
+// 761:16
+[com_16]
+type=text
+y=110
+width=417
+height=17
+layer=com_8
+textfont=tutorial_font
+text=Learn about Prayer
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0x000080
+transmitop=1
+op1=Read
+opcursor0=cursor_50
+onmouseover=text_colour_swapper(event_com, ^white)
+onmouseleave=script1521(event_com)
+
+// 761:17
+[com_17]
+type=text
+y=127
+width=417
+height=17
+layer=com_8
+textfont=tutorial_font
+text=Mine copper and tin
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0x000080
+transmitop=1
+op1=Read
+opcursor0=cursor_50
+onmouseover=text_colour_swapper(event_com, ^white)
+onmouseleave=script1521(event_com)
+
+// 761:18
+[com_18]
+type=text
+y=144
+width=417
+height=17
+layer=com_8
+textfont=tutorial_font
+text=Smith a hatchet
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0x000080
+transmitop=1
+op1=Read
+opcursor0=cursor_50
+onmouseover=text_colour_swapper(event_com, ^white)
+onmouseleave=script1521(event_com)
+
+// 761:19
+[com_19]
+type=text
+y=161
+width=417
+height=17
+layer=com_8
+textfont=tutorial_font
+text=Chop down trees for logs
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0x000080
+transmitop=1
+op1=Read
+opcursor0=cursor_50
+onmouseover=text_colour_swapper(event_com, ^white)
+onmouseleave=script1521(event_com)
+
+// 761:20
+[com_20]
+type=text
+y=178
+width=417
+height=17
+layer=com_8
+textfont=tutorial_font
+text=Prepare a fire
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0x000080
+transmitop=1
+op1=Read
+opcursor0=cursor_50
+onmouseover=text_colour_swapper(event_com, ^white)
+onmouseleave=script1521(event_com)
+
+// 761:21
+[com_21]
+type=text
+x=-2
+y=195
+width=417
+height=17
+layer=com_8
+textfont=tutorial_font
+text=Showdown!
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0x000080
+transmitop=1
+op1=Read
+opcursor0=cursor_50
+onmouseover=text_colour_swapper(event_com, ^white)
+onmouseleave=script1521(event_com)
+
+// 761:22
+[com_22]
+type=layer
+x=7
+y=7
+width=512
+height=334
+xmode=proportion_centre
+ymode=proportion_centre
+
+// 761:23
+[com_23]
+type=text
+y=297
+width=50
+height=32
+widthmode=minus
+xmode=abs_centre
+layer=com_22
+textfont=p11_full
+text=This quest was originally known as 'Learning the Ropes'.
+textalignh=centre
+textalignv=centre
+colour=0x46320a

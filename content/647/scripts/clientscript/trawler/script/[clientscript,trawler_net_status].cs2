@@ -1,8 +1,9 @@
+// 2439
 [clientscript,trawler_net_status]
-if (%varc_int_818 = true) {
-    if_settext("Net: Ripped!", trawler_game_overlay:com16);
-    if_setcolour(0xe12323, trawler_game_overlay:com16);
+if (%varclient_818 = 1) {
+    if_settext("Net: Ripped!", trawler_game_overlay:com_16);
+    if_setcolour(0xe12323, trawler_game_overlay:com_16);
 } else {
-    if_settext("Net: OK", trawler_game_overlay:com16);
-    if_setcolour(0xff9900, trawler_game_overlay:com16);
+    if_settext("Net: OK", trawler_game_overlay:com_16);
+    if_setcolour(0xff9900, trawler_game_overlay:com_16);
 }

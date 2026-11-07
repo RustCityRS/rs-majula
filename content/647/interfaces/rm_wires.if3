@@ -1,0 +1,198 @@
+// 474:0
+[com_0]
+type=graphic
+x=480
+y=7
+width=26
+height=23
+graphic="close_buttons,0"
+colour=0xffffffff
+transmitop=1
+op1=Close
+onop=closebutton_click
+
+// 474:1
+[com_1]
+type=layer
+width=512
+height=334
+onload=rm_wires_load(event_com)
+
+// 474:2
+[com_2]
+type=layer
+width=512
+height=334
+layer=com_1
+
+// 474:3
+[com_3]
+type=model
+x=92
+y=186
+width=194
+height=103
+layer=com_2
+model=model_51717
+modelorigin=6,32
+modelangle=512,0,0
+modelzoom=2500
+transmitop=10
+op10=  
+
+// 474:4
+[com_4]
+type=model
+x=40
+y=32
+width=53
+height=257
+layer=com_2
+model=model_51724
+modelorigin=-19,0
+modelangle=512,0,0
+modelzoom=2550
+transmitop=10
+op10=  
+
+// 474:5
+[com_5]
+type=model
+x=91
+y=-45
+width=195
+height=178
+layer=com_2
+model=model_51729
+modelorigin=0,11
+modelangle=512,0,0
+modelzoom=2500
+transmitop=10
+op10= 
+
+// 474:6
+[com_6]
+type=model
+x=91
+y=64
+width=195
+height=193
+layer=com_2
+model=model_51725
+modelangle=512,0,0
+modelzoom=2500
+transmitop=10
+op10=  
+
+// 474:7
+[com_7]
+type=model
+x=284
+y=32
+width=202
+height=131
+layer=com_2
+model=model_51731
+modelorigin=-1,3
+modelangle=512,0,0
+modelzoom=2500
+transmitop=10
+op10= 
+
+// 474:8
+[com_8]
+type=model
+x=284
+y=158
+width=202
+height=131
+layer=com_2
+model=model_51726
+modelorigin=-1,1
+modelangle=512,0,0
+modelzoom=2500
+transmitop=10
+op10= 
+
+// 474:9
+[com_9]
+type=model
+x=292
+y=38
+width=176
+height=184
+layer=com_2
+model=model_51718
+modelorigin=3,29
+modelangle=512,0,0
+modelzoom=2000
+transmitop=10
+op10= 
+
+// 474:10
+[com_10]
+type=rectangle
+x=352
+y=243
+width=32
+height=36
+layer=com_1
+hide=yes
+colour=0x66cc00
+fill=yes
+trans=139
+
+// 474:11
+[com_11]
+type=layer
+x=308
+y=55
+width=143
+height=150
+layer=com_1
+candrop=yes
+
+// 474:12
+[com_12]
+type=layer
+x=51
+y=282
+width=41
+height=41
+transmitop=1
+op1=Clear Wires
+
+// 474:13
+[com_13]
+type=model
+width=41
+height=41
+layer=com_12
+model=model_51719
+modelangle=512,0,0
+modelzoom=800
+onmouseover=model_swapper(event_com, model_51722)
+onmouseleave=model_swapper(event_com, model_51719)
+
+// 474:14
+[com_14]
+type=layer
+x=100
+y=282
+width=41
+height=41
+transmitop=1,10
+op1=Check Result
+op10= 
+
+// 474:15
+[com_15]
+type=model
+width=41
+height=41
+layer=com_14
+model=model_51730
+modelangle=512,0,0
+modelzoom=800
+onmouseover=model_swapper(event_com, model_51727)
+onmouseleave=model_swapper(event_com, model_51730)

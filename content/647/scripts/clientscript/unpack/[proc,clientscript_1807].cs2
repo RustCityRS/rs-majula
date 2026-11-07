@@ -1,9 +1,0 @@
-[proc,clientscript_1807](component $component0, component $component1, component $component2)
-if (~bool_to_int(%varc_int_266) = false) {
-    %varc_string_38 = "";
-    %varc_string_39 = "";
-    %varc_int_266 = 1;
-}
-~clientscript_1809($component0, $component1, $component2);
-if_setonvarcstrtransmit("clientscript_1808($component0, $component1, $component2){varc_string_38}", $component0);
-if_setonchattransmit_2418("clientscript_1810($component0, $component1, $component2)", $component0);

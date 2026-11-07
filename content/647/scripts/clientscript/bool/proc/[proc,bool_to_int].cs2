@@ -1,6 +1,6 @@
-[proc,bool_to_int](boolean $boolean)(int)
-if ($boolean = true) {
+// 42
+[proc,bool_to_int](boolean $boolean0)(int)
+if ($boolean0 = true) {
     return(1);
 }
-return(0);
 return(0);

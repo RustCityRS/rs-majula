@@ -1,6 +1,7 @@
+// 2948
 [proc,login_getreply]()(int)
-if (is_unsigned = true) {
-    return(login_getint_5607);
+if (unknown_command_5420 = true) {
+    return(login_reply);
 } else {
-    return(login_getint_5617);
+    return(unknown_command_5617);
 }

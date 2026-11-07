@@ -1,5 +1,6 @@
+// 4052
 [clientscript,warguild_slide_arrow](component $component0, int $int1)
-if ($int1 = true) {
+if ($int1 = 1) {
     if (if_gety($component0) < calc(1 - if_getheight($component0))) {
         if_setontimer(null, $component0);
         if_sethide(true, $component0);

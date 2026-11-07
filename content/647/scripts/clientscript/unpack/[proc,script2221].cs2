@@ -1,0 +1,12 @@
+// 2221
+[proc,script2221]
+switch_int (%varplayer_1685) {
+    case 0 :
+        if_settext("", interface_931:com_156);
+    case 1 :
+        if_settext("Not enough workers.", interface_931:com_156);
+    case 2 :
+        if_settext("Not enough resources.", interface_931:com_156);
+    case 3 :
+        if_settext("Worker limit reached.", interface_931:com_156);
+}

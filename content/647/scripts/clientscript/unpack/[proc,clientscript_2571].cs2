@@ -1,6 +1,0 @@
-[proc,clientscript_2571](int $int)
-if (calc(inv_getnum_alwaysnoted(inv, 803) + inv_getnum_alwaysnoted(inv, 802)) < calc(1 + $int)) {
-    return;
-}
-%varc_int_929 = $int;
-~clientscript_2573;

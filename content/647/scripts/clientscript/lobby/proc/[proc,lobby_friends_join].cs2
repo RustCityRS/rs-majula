@@ -1,22 +1,23 @@
+// 1182
 [proc,lobby_friends_join](int $int0)
 if (worldlist_fetch = false) {
-    if_setontimer("lobby_friends_join($int0)", lobbyscreen_pane_friendslist:com14);
+    if_setontimer("lobby_friends_join($int0)", lobbyscreen_pane_friendslist:com_14);
     return;
 } else {
-    if_setontimer(null, lobbyscreen_pane_friendslist:com14);
+    if_setontimer(null, lobbyscreen_pane_friendslist:com_14);
 }
 def_int $int1 = 0;
 def_string $string0 = "";
 def_int $int2 = 0;
 def_string $string1 = "";
-$int2, $string0, $int1, $string0, $int1, $int1, $string1 = worldlist_getbyid($int0);
+$int2, $string0, $int1, $string0, $int1, $int1, $string1 = worldlist_specific($int0);
 if ($int2 = -1) {
     mes("Sorry, you can't join that person.");
-} else if (worldlist_hop($int0, $string1) = true) {
-    %varc_int_547 = 0;
-    ~clientscript_3143(0, "Switched to game world <tostring($int0)>");
-    ~lobbyscreen_entergame(lobbyscreen:com160);
+} else if (worldlist_switch($int0, $string1) = true) {
+    %varclient_547 = 0;
+    ~script3143(0, "Switched to game world <tostring($int0)>");
+    ~lobbyscreen_entergame(lobbyscreen:com_160);
 } else {
-    ~clientscript_3143(1, "Sorry, we couldn't contact world <tostring($int0)>.<br>Please choose a different world.");
+    ~script3143(1, "Sorry, we couldn't contact world <tostring($int0)>.<br>Please choose a different world.");
     mes("Sorry, we couldn't contact world <tostring($int0)>. Please choose a different world.");
 }

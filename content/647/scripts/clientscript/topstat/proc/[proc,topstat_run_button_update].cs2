@@ -1,27 +1,28 @@
-[proc,topstat_run_button_update](component $component)
-if (%varc_int_119 = true) {
-    if_setgraphic("topstat_icon,4", topstat_run:com6);
-    if_setgraphic("statesconsider,0", topstat_run:com3);
-    if_setop(1, "Turn run mode off", $component);
-} else if (%varc_int_119 = false) {
-    if_setgraphic("topstat_icon,2", topstat_run:com6);
-    if_setgraphic("topstat_fill_full,2", topstat_run:com3);
-    if_setop(1, "Turn run mode on", $component);
-} else if (%varc_int_119 = 3) {
-    if_setgraphic("topstat_icon,5", topstat_run:com6);
-} else if (%varc_int_119 = 4) {
-    if_setgraphic("topstat_icon,6", topstat_run:com6);
+// 1741
+[proc,topstat_run_button_update](component $component0)
+if (%varclient_119 = 1) {
+    if_setgraphic("topstat_icon,4", topstat_run:com_6);
+    if_setgraphic("topstat_fill_full,6", topstat_run:com_3);
+    if_setop(1, "Turn run mode off", $component0);
+} else if (%varclient_119 = 0) {
+    if_setgraphic("topstat_icon,2", topstat_run:com_6);
+    if_setgraphic("topstat_fill_full,2", topstat_run:com_3);
+    if_setop(1, "Turn run mode on", $component0);
+} else if (%varclient_119 = 3) {
+    if_setgraphic("topstat_icon,5", topstat_run:com_6);
+} else if (%varclient_119 = 4) {
+    if_setgraphic("topstat_icon,6", topstat_run:com_6);
 }
 if (getwindowmode >= 2) {
-    if_setgraphic(1207, $component);
-    if_setposition(25, 1, ^setpos_abs_left, ^setpos_abs_top, topstat_run:com3);
-    if_setposition(25, 1, ^setpos_abs_left, ^setpos_abs_top, topstat_run:com4);
-    if_setposition(3, 15, ^setpos_abs_left, ^setpos_abs_top, topstat_run:com5);
-    if_setposition(31, 7, ^setpos_abs_left, ^setpos_abs_top, topstat_run:com6);
+    if_setgraphic(graphic_1207, $component0);
+    if_setposition(25, 1, ^setpos_abs_left, ^setpos_abs_top, topstat_run:com_3);
+    if_setposition(25, 1, ^setpos_abs_left, ^setpos_abs_top, topstat_run:com_4);
+    if_setposition(3, 15, ^setpos_abs_left, ^setpos_abs_top, topstat_run:com_5);
+    if_setposition(31, 7, ^setpos_abs_left, ^setpos_abs_top, topstat_run:com_6);
 } else {
-    if_setgraphic(1206, $component);
-    if_setposition(1, 1, ^setpos_abs_left, ^setpos_abs_top, topstat_run:com3);
-    if_setposition(1, 1, ^setpos_abs_left, ^setpos_abs_top, topstat_run:com4);
-    if_setposition(29, 15, ^setpos_abs_left, ^setpos_abs_top, topstat_run:com5);
-    if_setposition(7, 7, ^setpos_abs_left, ^setpos_abs_top, topstat_run:com6);
+    if_setgraphic(graphic_1206, $component0);
+    if_setposition(1, 1, ^setpos_abs_left, ^setpos_abs_top, topstat_run:com_3);
+    if_setposition(1, 1, ^setpos_abs_left, ^setpos_abs_top, topstat_run:com_4);
+    if_setposition(29, 15, ^setpos_abs_left, ^setpos_abs_top, topstat_run:com_5);
+    if_setposition(7, 7, ^setpos_abs_left, ^setpos_abs_top, topstat_run:com_6);
 }

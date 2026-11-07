@@ -1,4 +1,5 @@
+// 383
 [proc,playerdesign4_tooltip_clear]
-cc_deleteall(playerdesign4:com125);
-if_sethide(true, playerdesign4:com125);
-%varc_int_2, %varc_int_773 = -1, -1;
+cc_deleteall(playerdesign4:com_125);
+if_sethide(true, playerdesign4:com_125);
+%varclient_2, %varclient_773 = -1, -1;

@@ -1,5 +1,6 @@
+// 2160
 [proc,ql4_init_general](int $int0)
-def_struct $struct1 = enum(105, 74, enum_169, $int0);
+def_struct $struct1 = enum(int, struct, enum_169, $int0);
 if ($struct1 = null) {
     return;
 }
@@ -16,16 +17,16 @@ def_struct $struct7 = null;
 def_int $int8 = -1;
 def_int $int9 = 0;
 if (map_members = true) {
-    %varc_int_693 = %varbit_4536;
+    %varclient_693 = %varplayerbit_4536;
 } else {
-    %varc_int_693 = 0;
+    %varclient_693 = 0;
 }
-%varc_int_694 = %varbit_4538;
-%varc_int_1103 = %varbit_7264;
-%varc_int_692 = %varbit_4537;
-%varc_int_272 = enum_getoutputcount($enum2);
-while ($int6 < %varc_int_272) {
-    $struct7 = enum(105, 74, $enum2, $int5);
+%varclient_694 = %varplayerbit_4538;
+%varclient_1103 = %varplayerbit_7264;
+%varclient_692 = %varplayerbit_4537;
+%varclient_272 = enum_getoutputcount($enum2);
+while ($int6 < %varclient_272) {
+    $struct7 = enum(int, struct, $enum2, $int5);
     cc_create($component3, ^iftype_text, $int5);
     if ($struct7 ! null) {
         $int6 = calc($int6 + 1);
@@ -37,7 +38,7 @@ while ($int6 < %varc_int_272) {
         cc_settextalign(^settextalign_left, ^settextalign_top, 0);
         cc_settextshadow(true);
         cc_settext(struct_param($struct7, param_845));
-        if ($int8 = -1 & ($struct7 = struct_510 & $int0 = true)) {
+        if ($int8 = -1 & $struct7 = struct_510 & $int0 = 1) {
             $int8 = cc_getid;
         }
     } else {
@@ -45,8 +46,8 @@ while ($int6 < %varc_int_272) {
     }
     $int5 = calc($int5 + 1);
 }
-%varc_int_273 = calc($int5 - 1);
-while ($int5 < calc(%varc_int_273 + 10)) {
+%varclient_273 = calc($int5 - 1);
+while ($int5 < calc(%varclient_273 + 10)) {
     cc_create($component3, ^iftype_text, $int5);
     cc_settextfont(b12_full);
     cc_setsize(0, 30, ^setsize_minus, ^setsize_abs);
@@ -58,8 +59,8 @@ while ($int5 < calc(%varc_int_273 + 10)) {
     cc_settextshadow(true);
     $int5 = calc($int5 + 1);
 }
-~ql4_sort($int0, %varc_int_693, %varc_int_694, %varc_int_692, %varc_int_1103);
+~ql4_sort($int0, %varclient_693, %varclient_694, %varclient_692, %varclient_1103);
 ~scrollbar_vertical($component4, $component3, "scrollbar_dragger_v2,3", "scrollbar_dragger_v2,0", "scrollbar_dragger_v2,1", "scrollbar_dragger_v2,2", "scrollbar_v2,0", "scrollbar_v2,1");
 if ($int8 ! -1) {
-    ~clientscript_214($component3, $int8);
+    ~script214($component3, $int8);
 }

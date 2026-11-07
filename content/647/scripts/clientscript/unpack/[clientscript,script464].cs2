@@ -1,0 +1,9 @@
+// 464
+[clientscript,script464](component $component0)
+if (stat_base(ranged) < 25) {
+    if_settext("<col=c80000>A Ranged level of <tostring(25)> is required.</col>", $component0);
+} else if (%varplayerbit_2086 < 1) {
+    if_settext("<col=c80000>1 Commendation required.</col>", $component0);
+} else {
+    if_settext("<tostring(calc(pow(stat_base(ranged), 2) / 600 * 32))> XP per Commendation.", $component0);
+}

@@ -1,0 +1,7 @@
+// 3047
+[proc,script3047](int $int0)
+switch_int ($int0) {
+    case 0, 1, 2 :
+        chat_setfilter(chat_getfilter_public, $int0, chat_getfilter_trade);
+}
+~script3045;

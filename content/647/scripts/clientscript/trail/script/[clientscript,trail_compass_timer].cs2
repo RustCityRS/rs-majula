@@ -1,3 +1,4 @@
+// 3499
 [clientscript,trail_compass_timer](int $int0, component $component1, component $component2)
 def_int $int3 = 0;
 if ($int0 > 20000000) {
@@ -13,11 +14,11 @@ if (coordz(coord) > 6400 | coordz(coord) > coordz(0_46_69_0_63)) {
         if_setmodelangle(0, 0, 512, calc((if_getmodelangle_y($component1) + 30) % 2047), 40, 275, $component1);
     }
     if_sethide(true, $component2);
-} else if (calc(coordy(coord) - coordy(%varc_int_1323)) > 0) {
+} else if (calc(coordy(coord) - coordy(%varclient_1323)) > 0) {
     if_setmodelangle(0, 0, 512, calc((if_getmodelangle_y($component1) + 30) % 2047), 40, 275, $component1);
     if_sethide(true, $component2);
 } else {
-    $int3 = ~rough_angle(coordx(coord), coordz(coord), coordx(%varc_int_1323), coordz(%varc_int_1323));
+    $int3 = ~rough_angle(coordx(coord), coordz(coord), coordx(%varclient_1323), coordz(%varclient_1323));
     if ($int3 = -1) {
         if_setmodelangle(0, 0, 0, 0, 40, 275, $component1);
         if_sethide(false, $component2);

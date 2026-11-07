@@ -1,0 +1,7 @@
+// 4328
+[proc,script4328](component $component0)
+if (%varclansetting_11 = 0) {
+    if_setgraphic(enum(int, graphic, enum_3721, %varclansetting_7), $component0);
+} else {
+    if_setgraphic(enum(int, graphic, enum_3721, 0), $component0);
+}

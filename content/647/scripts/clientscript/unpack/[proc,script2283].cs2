@@ -1,0 +1,14 @@
+// 2283
+[proc,script2283](boolean $boolean0, boolean $boolean1)
+%varclient_1642 = %varclient_1641;
+if (string_length(%varclient_1641) <= 0) {
+    ~create_error("Please enter your Email address here.", account_create:com_81);
+    return;
+}
+if (~create_check_email(%varclient_1641) = false) {
+    ~create_error("Please enter a valid Email address.", account_create:com_81);
+    return;
+}
+~create_please_wait(1);
+unknown_command_5604(%varclient_1641);
+if_setontimer("script2284($boolean0, $boolean1)", account_create:com_11);

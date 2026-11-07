@@ -1,0 +1,468 @@
+// 1108:0
+[com_0]
+type=rectangle
+x=21
+y=32
+width=485
+height=300
+colour=0x000000
+fill=yes
+trans=200
+
+// 1108:1
+[com_1]
+type=layer
+x=14
+y=25
+width=485
+height=300
+onload=script1087(event_com, 0)
+
+// 1108:2
+[com_2]
+type=graphic
+width=16384
+height=16384
+widthmode=proportion
+heightmode=proportion
+layer=com_1
+graphic=tradebacking
+tiling=yes
+colour=0xffffffff
+
+// 1108:3
+[com_3]
+type=graphic
+x=8
+y=8
+width=16
+height=16
+xmode=abs_right
+layer=com_1
+graphic="v2_stone_close_button,0"
+colour=0xffffffff
+transmitop=1
+op1=Close
+onmouseover=graphic_swapper(event_com, "v2_stone_close_button,1")
+onmouseleave=graphic_swapper(event_com, "v2_stone_close_button,0")
+onop=closebutton_click
+
+// 1108:4
+[com_4]
+type=graphic
+x=4
+y=12
+width=476
+height=32
+layer=com_1
+graphic="v2_stone_borders,23"
+tiling=yes
+colour=0xffffffff
+
+// 1108:5
+[com_5]
+type=graphic
+x=151
+y=27
+width=32
+height=268
+layer=com_1
+graphic="v2_stone_borders,24"
+tiling=yes
+colour=0xffffffff
+
+// 1108:6
+[com_6]
+type=rectangle
+width=16391
+height=20
+widthmode=proportion
+heightmode=minus
+ymode=abs_bottom
+layer=com_12
+colour=0x321f16
+fill=yes
+trans=200
+
+// 1108:7
+[com_7]
+type=graphic
+x=124
+width=32
+height=2
+heightmode=minus
+layer=com_12
+graphic="v2_borders_slim,12"
+tiling=yes
+colour=0xffffffff
+
+// 1108:8
+[com_8]
+type=text
+x=7
+width=130
+height=20
+layer=com_12
+textfont=b12_full
+text=Name:
+textalignv=centre
+textshadow=yes
+colour=0xff981f
+
+// 1108:9
+[com_9]
+type=text
+x=144
+width=129
+height=20
+layer=com_12
+textfont=b12_full
+text=Rank:
+textalignv=centre
+textshadow=yes
+colour=0xff981f
+
+// 1108:10
+[com_10]
+type=graphic
+x=24
+y=259
+width=26
+height=26
+graphic="loot_icon,3"
+colour=0xffffffff
+
+// 1108:11
+[com_11]
+type=text
+x=19
+y=31
+width=471
+height=16
+textfont=b12_full
+text=Friends Chat Setup
+textalignh=centre
+textshadow=yes
+colour=0xff981f
+
+// 1108:12
+[com_12]
+type=layer
+x=194
+y=82
+width=279
+height=234
+onload=clanwars_setup_createbox(event_com, 20, 0, 0)
+
+// 1108:13
+[com_13]
+type=layer
+x=199
+y=103
+width=269
+height=208
+scrollheight=25
+onload=friendschatsetup_onload(event_com, friendschatsetup:com_14)
+
+// 1108:14
+[com_14]
+type=layer
+x=473
+y=103
+width=16
+height=208
+
+// 1108:15
+[com_15]
+type=text
+x=268
+y=59
+width=131
+height=15
+textfont=b12_full
+text=Friends List
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xff981f
+
+// 1108:16
+[com_16]
+type=text
+x=50
+y=270
+width=107
+height=10
+textfont=p11_full
+text=CoinShare
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xff9900
+
+// 1108:17
+[com_17]
+type=layer
+x=24
+y=58
+width=150
+height=35
+onload=v2_stone_button_filled(event_com)
+onmouseover=v2_stone_button_out_filled(event_com)
+onmouseleave=v2_stone_button_filled(event_com)
+
+// 1108:18
+[com_18]
+type=layer
+x=24
+y=98
+width=150
+height=35
+onload=v2_stone_button_filled(event_com)
+onmouseover=v2_stone_button_out_filled(event_com)
+onmouseleave=v2_stone_button_filled(event_com)
+
+// 1108:19
+[com_19]
+type=layer
+x=24
+y=139
+width=150
+height=35
+onload=v2_stone_button_filled(event_com)
+onmouseover=v2_stone_button_out_filled(event_com)
+onmouseleave=v2_stone_button_filled(event_com)
+
+// 1108:20
+[com_20]
+type=layer
+x=24
+y=179
+width=150
+height=35
+onload=v2_stone_button_filled(event_com)
+onmouseover=v2_stone_button_out_filled(event_com)
+onmouseleave=v2_stone_button_filled(event_com)
+
+// 1108:21
+[com_21]
+type=layer
+x=24
+y=219
+width=150
+height=35
+onload=v2_stone_button_filled(event_com)
+onmouseover=v2_stone_button_out_filled(event_com)
+onmouseleave=v2_stone_button_filled(event_com)
+
+// 1108:22
+[com_22]
+type=text
+x=23
+y=53
+width=151
+height=38
+textfont=tutorial_font
+text=Chat disabled
+textalignh=centre
+textalignv=bottom
+textshadow=yes
+transmitop=1,2
+op1=Set prefix
+op2=Disable
+
+// 1108:23
+[com_23]
+type=text
+x=24
+y=96
+width=150
+height=35
+textfont=tutorial_font
+text=Any friends
+textalignh=centre
+textalignv=bottom
+textshadow=yes
+transmitop=1,2,3,4,5,6,7,8,9
+op1=Anyone
+op2=Any friends
+op3=Recruit+
+op4=Corporal+
+op5=Sergeant+
+op6=Lieutenant+
+op7=Captain+
+op8=General+
+op9=Only me
+
+// 1108:24
+[com_24]
+type=text
+x=24
+y=138
+width=150
+height=34
+textfont=tutorial_font
+text=Anyone
+textalignh=centre
+textalignv=bottom
+textshadow=yes
+transmitop=1,2,3,4,5,6,7,8,9
+op1=Anyone
+op2=Any friends
+op3=Recruit+
+op4=Corporal+
+op5=Sergeant+
+op6=Lieutenant+
+op7=Captain+
+op8=General+
+op9=Only me
+
+// 1108:25
+[com_25]
+type=text
+x=24
+y=179
+width=150
+height=33
+textfont=tutorial_font
+text=Only me
+textalignh=centre
+textalignv=bottom
+textshadow=yes
+transmitop=4,5,6,7,8,9
+op4=Corporal+
+op5=Sergeant+
+op6=Lieutenant+
+op7=Captain+
+op8=General+
+op9=Only me
+
+// 1108:26
+[com_26]
+type=text
+x=23
+y=219
+width=151
+height=33
+textfont=tutorial_font
+text=No one
+textalignh=centre
+textalignv=bottom
+textshadow=yes
+transmitop=1,2,3,4,5,6,7,8
+op1=No-one
+op2=Any friends
+op3=Recruit+
+op4=Corporal+
+op5=Sergeant+
+op6=Lieutenant+
+op7=Captain+
+op8=General+
+
+// 1108:27
+[com_27]
+type=text
+x=36
+y=62
+width=125
+height=10
+textfont=p11_full
+text=Chat name:
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xff981f
+
+// 1108:28
+[com_28]
+type=text
+x=36
+y=102
+width=125
+height=10
+textfont=p11_full
+text=Who can enter chat?
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xff981f
+
+// 1108:29
+[com_29]
+type=text
+x=36
+y=143
+width=125
+height=10
+textfont=p11_full
+text=Who can talk on chat?
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xff981f
+
+// 1108:30
+[com_30]
+type=text
+x=36
+y=183
+width=125
+height=10
+textfont=p11_full
+text=Who can kick from chat?
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xff981f
+
+// 1108:31
+[com_31]
+type=text
+x=36
+y=223
+width=125
+height=10
+textfont=p11_full
+text=Who can share loot?
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xff981f
+
+// 1108:32
+[com_32]
+type=text
+x=19
+y=289
+width=162
+height=31
+textfont=p11_full
+text=Right-click on white text to change options.
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xdac378
+
+// 1108:33
+[com_33]
+type=graphic
+x=158
+y=267
+width=15
+height=15
+graphic="radio_buttons,0"
+colour=0xffffffff
+transmitop=1
+op1=Toggle CoinShare
+onvartransmit=script4153{varplayer_1083}
+
+// 1108:34
+[com_34]
+type=layer
+x=14
+y=25
+width=485
+height=300
+hide=yes
+transmitop=10
+op10=    

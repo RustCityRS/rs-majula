@@ -1,10 +1,11 @@
+// 2420
 [clientscript,peng_rak_tutorial_load]
-if_sethide(true, jl783128:com18);
-if_sethide(false, jl783128:com19);
-if_setmodelanim(null, jl783128:com19);
-if_setmodelanim(null, jl783128:com9);
-if_sethide(false, jl783128:com10);
-if_setmodel(model_46967, jl783128:com6);
-if_sethide(true, jl783128:com5);
-if_setmodelanim(seq_11762, jl783128:com9);
-%varc_int_737 = 0;
+if_sethide(true, interface_674:com_18);
+if_sethide(false, interface_674:com_19);
+if_setmodelanim(null, interface_674:com_19);
+if_setmodelanim(null, interface_674:com_9);
+if_sethide(false, interface_674:com_10);
+if_setmodel(model_46967, interface_674:com_6);
+if_sethide(true, interface_674:com_5);
+if_setmodelanim(seq_11762, interface_674:com_9);
+%varclient_737 = 0;

@@ -1,4 +1,4 @@
-[if_button,options:com14]
+[if_button,options:com_14]
 if (p_finduid(uid) = true) {
     if_close;
     if_openmain(graphics_options);
@@ -6,7 +6,7 @@ if (p_finduid(uid) = true) {
     @please_finish;
 }
 
-[if_button,options:com16]
+[if_button,options:com_16]
 if (p_finduid(uid) = true) {
     if_close;
     if_openmain(sound_options);
@@ -54,7 +54,7 @@ mes("Please finish what you're doing first!");
 // 289's mouse buttons, com_8 (%option_mouse 0) and com_9 (1): 2011's toggle.
 // [if_button,options:com_8]
 // [if_button,options:com_9]
-[if_button,options:com6]
+[if_button,options:com_6]
 if_close;
 if (%option_mouse = 0) {
     %option_mouse = 1;
@@ -65,7 +65,7 @@ if (%option_mouse = 0) {
 // 289's chat effects, com_10 (%option_chat 0) and com_11 (1): 2011's toggle.
 // [if_button,options:com_10]
 // [if_button,options:com_11]
-[if_button,options:com4]
+[if_button,options:com_4]
 if_close;
 if (%option_chat = 0) {
     %option_chat = 1;
@@ -78,7 +78,7 @@ if (%option_chat = 0) {
 // does (ChatSetup.kt) and gives it back on Close (com5).
 // [if_button,options:com_47]
 // [if_button,options:com_48]
-[if_button,options:com5]
+[if_button,options:com_5]
 if_close;
 if (getwindowmode = 1) {
     if_opensub(pmsetup, toplevel:com_tab12, ^true);
@@ -86,7 +86,7 @@ if (getwindowmode = 1) {
     if_opensub(pmsetup, toplevel_fullscreen:com_tab12, ^true);
 }
 
-[if_button,pmsetup:com5]
+[if_button,pmsetup:com_5]
 if (getwindowmode = 1) {
     if_opensub(options, toplevel:com_tab12, ^true);
 } else {
@@ -97,25 +97,25 @@ if (getwindowmode = 1) {
 // private chat in that colour, 1-18: the values clientscript 83 gives those
 // buttons and clientscript 3417 writes to varp 287 on the client; 289 had
 // one colour, at 1.
-[if_button,pmsetup:com41] %option_pm = 0;
-[if_button,pmsetup:com49] %option_pm = 1;
-[if_button,pmsetup:com50] %option_pm = 2;
-[if_button,pmsetup:com51] %option_pm = 3;
-[if_button,pmsetup:com52] %option_pm = 4;
-[if_button,pmsetup:com53] %option_pm = 5;
-[if_button,pmsetup:com54] %option_pm = 6;
-[if_button,pmsetup:com55] %option_pm = 7;
-[if_button,pmsetup:com56] %option_pm = 8;
-[if_button,pmsetup:com57] %option_pm = 9;
-[if_button,pmsetup:com58] %option_pm = 10;
-[if_button,pmsetup:com59] %option_pm = 11;
-[if_button,pmsetup:com60] %option_pm = 12;
-[if_button,pmsetup:com61] %option_pm = 13;
-[if_button,pmsetup:com62] %option_pm = 14;
-[if_button,pmsetup:com63] %option_pm = 15;
-[if_button,pmsetup:com64] %option_pm = 16;
-[if_button,pmsetup:com65] %option_pm = 17;
-[if_button,pmsetup:com66] %option_pm = 18;
+[if_button,pmsetup:com_41] %option_pm = 0;
+[if_button,pmsetup:com_49] %option_pm = 1;
+[if_button,pmsetup:com_50] %option_pm = 2;
+[if_button,pmsetup:com_51] %option_pm = 3;
+[if_button,pmsetup:com_52] %option_pm = 4;
+[if_button,pmsetup:com_53] %option_pm = 5;
+[if_button,pmsetup:com_54] %option_pm = 6;
+[if_button,pmsetup:com_55] %option_pm = 7;
+[if_button,pmsetup:com_56] %option_pm = 8;
+[if_button,pmsetup:com_57] %option_pm = 9;
+[if_button,pmsetup:com_58] %option_pm = 10;
+[if_button,pmsetup:com_59] %option_pm = 11;
+[if_button,pmsetup:com_60] %option_pm = 12;
+[if_button,pmsetup:com_61] %option_pm = 13;
+[if_button,pmsetup:com_62] %option_pm = 14;
+[if_button,pmsetup:com_63] %option_pm = 15;
+[if_button,pmsetup:com_64] %option_pm = 16;
+[if_button,pmsetup:com_65] %option_pm = 17;
+[if_button,pmsetup:com_66] %option_pm = 18;
 
 // 289's low-detail options tab (options_ld, game_options_ld.rs2) has the same
 // buttons; 2011 has one options tab for every detail, answered above.

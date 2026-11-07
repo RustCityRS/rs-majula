@@ -1,0 +1,19 @@
+// 4544
+[proc,script4544](component $component0, component $component1, graphic $graphic2, graphic $graphic3, int $int4, int $int5, int $int6, int $int7)
+def_component $component8 = if_getlayer($component0);
+if ($component8 = null) {
+    return;
+}
+if ($int6 = 0 | $int6 = 1) {
+    if (if_getwidth($component8) = $int4) {
+        if_setontimer("script4545(event_com, $int5, $int6, $component1, $graphic2, $int7)", $component8);
+    } else if (if_getwidth($component8) = $int5) {
+        if_setontimer("script4546(event_com, $int4, $int6, $component1, $graphic3, $int7)", $component8);
+    }
+} else if ($int6 = 2 | $int6 = 3) {
+    if (if_getheight($component8) = $int4) {
+        if_setontimer("script4545(event_com, $int5, $int6, $component1, $graphic2, $int7)", $component8);
+    } else if (if_getheight($component8) = $int5) {
+        if_setontimer("script4546(event_com, $int4, $int6, $component1, $graphic3, $int7)", $component8);
+    }
+}

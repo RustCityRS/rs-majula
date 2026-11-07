@@ -1,0 +1,26 @@
+// 3975
+[proc,script3975]
+def_component $component0 = null;
+if_sethide(true, task_side:com_63);
+if_sethide(true, task_side:com_143);
+if_sethide(true, task_side:com_148);
+if_sethide(true, task_side:com_153);
+if_sethide(true, task_side:com_158);
+if_sethide(true, task_side:com_164);
+switch_int (%varplayerbit_8577) {
+    case 1 :
+        $component0 = task_side:com_63;
+    case 2 :
+        $component0 = task_side:com_143;
+    case 3 :
+        $component0 = task_side:com_148;
+    case 4 :
+        $component0 = task_side:com_153;
+    case 5 :
+        $component0 = task_side:com_158;
+    case 6 :
+        $component0 = task_side:com_164;
+}
+if ($component0 ! null) {
+    if_sethide(false, $component0);
+}

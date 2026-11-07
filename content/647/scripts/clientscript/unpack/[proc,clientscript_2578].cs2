@@ -1,6 +1,0 @@
-[proc,clientscript_2578]
-if_setcolour(0x666666, mob_squad_exchange:com114);
-if_setgraphic("warning_icons,1", mob_squad_exchange:com113);
-if_clearops(mob_squad_exchange:com113);
-if_setonop(null, mob_squad_exchange:com113);
-if_setonclick("clientscript_2606(^event_com)", mob_squad_exchange:com113);

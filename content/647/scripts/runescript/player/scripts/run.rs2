@@ -6,7 +6,7 @@
 //
 // Running out of energy turns run off in the engine (Player::update_energy),
 // which pushes %option_run back to the orb itself.
-[if_button1,topstat_run:com1]
+[if_button1,topstat_run:com_1]
 if (p_finduid(uid) = true) {
     p_clearpendingaction; // https://youtu.be/XhJ0tjJ9J60?t=62
     if (%option_run = ^player_run_on) {

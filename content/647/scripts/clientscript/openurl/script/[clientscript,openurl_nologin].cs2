@@ -1,2 +1,3 @@
-[clientscript,openurl_nologin](boolean $int, string $string)
-logout_url($string, $int);
+// 702
+[clientscript,openurl_nologin](string $string0, boolean $boolean0)
+openurl_nologin($string0, $boolean0);

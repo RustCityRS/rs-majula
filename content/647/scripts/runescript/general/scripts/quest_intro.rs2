@@ -8,66 +8,66 @@
 // The text is the quest's cache struct: param_845 the name, param_948 the start point, param_949
 // the required items, param_950 combat, param_951 the rewards, param_952 the picture (cache
 // struct_512's 2379 is the 50x50 chef's hat the Cook's recording shows). No clientscript fills
-// the window or calls its layout procs (clientscript_2827 for the requirements row, 2828 for the
+// the window or calls its layout procs (script2827 for the requirements row, 2828 for the
 // items, 4074 for the rewards: each sizes its row and adds a scrollbar past 48 px), so the server
 // sets the text and runs them.
 //
 // Every button on it is a resume button of the paused dialogue. "Click here to show" and "Mark on
 // map" are answered here and the window waits again; Yes returns true and No false, the window
 // closed. (A separate [if_button] script could not run: the paused dialogue keeps its protected
-// access.) What "Mark on map" marks is not known; its tick is %varbit_6924, which the window's own
+// access.) What "Mark on map" marks is not known; its tick is %varplayerbit_6924, which the window's own
 // clientscript_2829 draws (0 ticked, as both recordings open it; Ernest's player has it off).
 [proc,quest_intro](struct $quest)(boolean)
 if_openmain(quest_intro);
-if_settext(quest_intro:com14, struct_param($quest, param_845));
-if_settext(quest_intro:com52, struct_param($quest, param_948));
+if_settext(quest_intro:com_14, struct_param($quest, param_845));
+if_settext(quest_intro:com_52, struct_param($quest, param_948));
 // Start requirements: every quest that opens this window so far has none, and its recording
 // shows "None.". How 2011 listed real requirements (its structs' param_859 quests and
 // param_871 skill/level pairs) is not known yet.
 def_string $requirements = "None.";
-if_settext(quest_intro:com55, $requirements);
-runclientscript("clientscript_2827($requirements)");
-if_settext(quest_intro:com62, struct_param($quest, param_950));
-if_setgraphic(quest_intro:com79, struct_param($quest, param_952));
-if_addresumebutton(quest_intro:com73);
-if_addresumebutton(quest_intro:com74);
-if_addresumebutton(quest_intro:com57);
-if_addresumebutton(quest_intro:com31);
-if_addresumebutton(quest_intro:com75);
-if_addresumebutton(quest_intro:com76);
+if_settext(quest_intro:com_55, $requirements);
+runclientscript("script2827($requirements)");
+if_settext(quest_intro:com_62, struct_param($quest, param_950));
+if_setgraphic(quest_intro:com_79, struct_param($quest, param_952));
+if_addresumebutton(quest_intro:com_73);
+if_addresumebutton(quest_intro:com_74);
+if_addresumebutton(quest_intro:com_57);
+if_addresumebutton(quest_intro:com_31);
+if_addresumebutton(quest_intro:com_75);
+if_addresumebutton(quest_intro:com_76);
 def_string $text = "";
 while (true) {
     p_pausebutton;
     switch_component (last_com) {
-        case quest_intro:com73 :
+        case quest_intro:com_73 :
             if_close;
             // Ernest the Chicken, 2011-05-04 (38.1s): with "Mark on map" off, the quest starts
             // with this message. With it on (Cook's Assistant, 2011-05-20) nothing is said.
-            if (%varbit_6924 = 1) {
+            if (%varplayerbit_6924 = 1) {
                 mes("The quest area marking has been cleared.");
             }
             return(true);
-        case quest_intro:com74 :
+        case quest_intro:com_74 :
             if_close;
             return(false);
         // "Click here to show": the row's text in place of the button (Ernest's recording, 28-34s).
-        case quest_intro:com57 :
+        case quest_intro:com_57 :
             $text = struct_param($quest, param_949);
-            if_sethide(quest_intro:com56, true);
-            if_sethide(quest_intro:com58, false);
-            if_settext(quest_intro:com59, $text);
-            runclientscript("clientscript_2828($text)");
-        case quest_intro:com31 :
+            if_sethide(quest_intro:com_56, true);
+            if_sethide(quest_intro:com_58, false);
+            if_settext(quest_intro:com_59, $text);
+            runclientscript("script2828($text)");
+        case quest_intro:com_31 :
             $text = struct_param($quest, param_951);
-            if_sethide(quest_intro:com64, true);
-            if_sethide(quest_intro:com65, false);
-            if_settext(quest_intro:com66, $text);
-            runclientscript("clientscript_4074($text)");
-        case quest_intro:com75, quest_intro:com76 :
-            if (%varbit_6924 = 0) {
-                %varbit_6924 = 1;
+            if_sethide(quest_intro:com_64, true);
+            if_sethide(quest_intro:com_65, false);
+            if_settext(quest_intro:com_66, $text);
+            runclientscript("script4074($text)");
+        case quest_intro:com_75, quest_intro:com_76 :
+            if (%varplayerbit_6924 = 0) {
+                %varplayerbit_6924 = 1;
             } else {
-                %varbit_6924 = 0;
+                %varplayerbit_6924 = 0;
             }
     }
 }

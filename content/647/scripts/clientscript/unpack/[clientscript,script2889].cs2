@@ -1,0 +1,22 @@
+// 2889
+[clientscript,script2889]
+def_npc $npc0 = enum(int, npc, enum_927, %varplayerbit_7099);
+def_int $int1 = -1;
+def_int $int2 = -1;
+if ($npc0 ! null) {
+    if (nc_param($npc0, param_956) ! null) {
+        if_setmodel(enum(npc, model, enum_934, nc_param($npc0, param_956)), interface_476:com_45);
+        if_setmodelanim(enum(npc, seq, enum_935, nc_param($npc0, param_956)), interface_476:com_45);
+        if_setgraphic(enum(npc, graphic, enum_932, nc_param($npc0, param_956)), interface_476:com_49);
+        if_settext(enum(npc, string, enum_930, nc_param($npc0, param_956)), interface_476:com_52);
+    }
+    if (nc_param($npc0, param_957) ! null) {
+        if_setmodel(enum(npc, model, enum_934, nc_param($npc0, param_957)), interface_476:com_46);
+        if_setmodelanim(enum(npc, seq, enum_935, nc_param($npc0, param_957)), interface_476:com_46);
+        if_setgraphic(enum(npc, graphic, enum_932, nc_param($npc0, param_957)), interface_476:com_50);
+        if_settext(enum(npc, string, enum_930, nc_param($npc0, param_957)), interface_476:com_53);
+    }
+    if_setgraphic(enum(npc, graphic, enum_933, $npc0), interface_476:com_48);
+    if_setmodel(enum(npc, model, enum_934, $npc0), interface_476:com_44);
+    if_setmodelanim(enum(npc, seq, enum_935, $npc0), interface_476:com_44);
+}

@@ -1,98 +1,98 @@
-[proc,filtertest](int $int0, int $int1)(int)
-switch_int (chat_gethistory_length($int0)) {
-    case -1:
-        return(0);
-    case 0, 4, 27, 28, 29, 1, 110, 26, 30, 31, 115, 116, 117:
-        return(1);
-    case 109:
-        if (%varbit_6161 = true) {
-            return(0);
+// 90
+[proc,filtertest](int $int0, int $int1)(boolean)
+switch_int (chat_gethistorytype($int0)) {
+    case null :
+        return(false);
+    case ^chattype_gamemessage, ^chattype_engine, ^chattype_obj_examine, ^chattype_npc_examine, ^chattype_loc_examine, ^chattype_modchat, 110, ^chattype_snapshotfeedback, ^chattype_friendnotification, ^chattype_ignorenotification, ^chattype_system_broadcast, ^chattype_npc_chat, ^chattype_clan_join :
+        return(true);
+    case ^chattype_spam :
+        if (%varplayerbit_6161 = 1) {
+            return(false);
         }
-        return(1);
-    case 2, 17:
-        if (chat_getfilter_public = false) {
-            return(1);
+        return(true);
+    case ^chattype_publicchat, ^chattype_quickchat_public :
+        if (chat_getfilter_public = ^chatfilter_on) {
+            return(true);
         }
-        if (chat_getfilter_public = true & friend_test(chat_gethistory_message($int0)) = true) {
-            return(1);
+        if (chat_getfilter_public = ^chatfilter_friends & friend_test(unknown_command_5019($int0)) = true) {
+            return(true);
         }
-        return(0);
-    case 3, 18:
-        if (%option_pm > 0 & (%varc_int_41 >= 0 & ($int1 = false & ~partnercheck($int0) = false))) {
-            return(0);
+        return(false);
+    case ^chattype_privatechat, ^chattype_quickchat_private_incoming :
+        if (%option_pm > 0 & %varclient_41 >= 0 & $int1 = 0 & ~partnercheck($int0) = false) {
+            return(false);
         }
-        if (chat_getfilter_private = false) {
-            return(1);
+        if (chat_getfilter_private = ^chatfilter_on) {
+            return(true);
         }
-        if (chat_getfilter_private = true & friend_test(chat_gethistory_message($int0)) = true) {
-            return(1);
+        if (chat_getfilter_private = ^chatfilter_friends & friend_test(unknown_command_5019($int0)) = true) {
+            return(true);
         }
-        return(0);
-    case 100, 101, 105, 106, 108, 111, 112, 113, 114, 118:
-        if (chat_getfilter_trade = false) {
-            return(1);
+        return(false);
+    case ^chattype_tradereq, ^chattype_challenge, 105, 106, ^chattype_ally_request, ^chattype_dungeon_invite, 112, ^chattype_conquest_regular_challenge, 114, ^chattype_rated_clan_war :
+        if (chat_getfilter_trade = ^chatfilter_on) {
+            return(true);
         }
-        if (chat_getfilter_trade = true & friend_test(chat_gethistory_message($int0)) = true) {
-            return(1);
+        if (chat_getfilter_trade = ^chatfilter_friends & friend_test(unknown_command_5019($int0)) = true) {
+            return(true);
         }
-        return(0);
-    case 5, 6, 19:
-        if (%option_pm > 0 & (%varc_int_41 >= 0 & ($int1 = false & ~partnercheck($int0) = false))) {
-            return(0);
+        return(false);
+    case ^chattype_loginlogoutnotification, ^chattype_privatechatout, ^chattype_quickchat_private_outgoing :
+        if (%option_pm > 0 & %varclient_41 >= 0 & $int1 = 0 & ~partnercheck($int0) = false) {
+            return(false);
         }
         if (chat_getfilter_private < 2) {
-            return(1);
+            return(true);
         }
-        return(0);
-    case 7:
-        if (%option_pm > 0 & (%varc_int_41 >= 0 & ($int1 = false & ~partnercheck($int0) = false))) {
-            return(0);
+        return(false);
+    case ^chattype_modprivatechat :
+        if (%option_pm > 0 & %varclient_41 >= 0 & $int1 = 0 & ~partnercheck($int0) = false) {
+            return(false);
         }
-        return(1);
-    case 41, 107, 42, 44, 45:
-        if (%varp_1054 = false) {
-            return(1);
+        return(true);
+    case ^chattype_clanchat, ^chattype_clan_challenge, ^chattype_quickchat_clanchat, ^chattype_clanguestchat, ^chattype_quickchat_clanguestchat :
+        if (%varplayer_1054 = 0) {
+            return(true);
         }
-        if (%varp_1054 = true & friend_test(chat_gethistory_message($int0)) = true) {
-            return(1);
+        if (%varplayer_1054 = 1 & friend_test(unknown_command_5019($int0)) = true) {
+            return(true);
         }
-        return(0);
-    case 9, 20:
-        if (%varp_2159 = false) {
-            return(1);
+        return(false);
+    case ^chattype_friendschat, ^chattype_quickchat_friend_chat :
+        if (%varplayer_2159 = 0) {
+            return(true);
         }
-        if (%varp_2159 = true & friend_test(chat_gethistory_message($int0)) = true) {
-            return(1);
+        if (%varplayer_2159 = 1 & friend_test(unknown_command_5019($int0)) = true) {
+            return(true);
         }
-        return(0);
-    case 102:
-        if (%varp_1055 = false) {
-            return(1);
+        return(false);
+    case ^chattype_assistreq :
+        if (%varplayer_1055 = 0) {
+            return(true);
         }
-        if (%varp_1055 = true & friend_test(chat_gethistory_message($int0)) = true) {
-            return(1);
+        if (%varplayer_1055 = 1 & friend_test(unknown_command_5019($int0)) = true) {
+            return(true);
         }
-        return(0);
-    case 11:
-        if (%varp_2159 < 2) {
-            return(1);
+        return(false);
+    case ^chattype_friendschatnotification :
+        if (%varplayer_2159 < 2) {
+            return(true);
         }
-        return(0);
-    case 43, 46:
-        if (%varp_1054 < 2) {
-            return(1);
+        return(false);
+    case ^chattype_clanmessage, ^chattype_clanguestmessage :
+        if (%varplayer_1054 < 2) {
+            return(true);
         }
-        return(0);
-    case 103:
+        return(false);
+    case ^chattype_trade_notification :
         if (chat_getfilter_trade < 2) {
-            return(1);
+            return(true);
         }
-        return(0);
-    case 104:
-        if (%varp_1055 < 2) {
-            return(1);
+        return(false);
+    case ^chattype_assist_notification :
+        if (%varplayer_1055 < 2) {
+            return(true);
         }
-        return(0);
+        return(false);
 }
-return(1);
-return(-1);
+return(true);

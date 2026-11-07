@@ -1,82 +1,82 @@
-[proc,getsidelayer](int $int)(component)
+// 8
+[proc,getsidelayer](int $int0)(component)
 if (getwindowmode >= 2) {
-    switch_int ($int) {
-        case 0:
+    switch_int ($int0) {
+        case 0 :
             return(toplevel_fullscreen:com_tab0);
-        case 1:
+        case 1 :
             return(toplevel_fullscreen:com_tab1);
-        case 2:
+        case 2 :
             return(toplevel_fullscreen:com_tab2);
-        case 3:
+        case 3 :
             return(toplevel_fullscreen:com_tab3);
-        case 4:
+        case 4 :
             return(toplevel_fullscreen:com_tab4);
-        case 5:
+        case 5 :
             return(toplevel_fullscreen:com_tab5);
-        case 6:
+        case 6 :
             return(toplevel_fullscreen:com_tab6);
-        case 7:
+        case 7 :
             return(toplevel_fullscreen:com_tab7);
-        case 8:
+        case 8 :
             return(toplevel_fullscreen:com_tab8);
-        case 9:
+        case 9 :
             return(toplevel_fullscreen:com_tab9);
-        case 10:
+        case 10 :
             return(toplevel_fullscreen:com_tab10);
-        case 11:
+        case 11 :
             return(toplevel_fullscreen:com_tab11);
-        case 12:
+        case 12 :
             return(toplevel_fullscreen:com_tab12);
-        case 13:
+        case 13 :
             return(toplevel_fullscreen:com_tab13);
-        case 14:
+        case 14 :
             return(toplevel_fullscreen:com_tab14);
-        case 15:
+        case 15 :
             return(toplevel_fullscreen:com_tab15);
-        case 95:
-            return(toplevel_fullscreen:com104);
-        case 99:
-            return(toplevel_fullscreen:com105);
+        case 95 :
+            return(toplevel_fullscreen:com_104);
+        case 99 :
+            return(toplevel_fullscreen:com_105);
     }
 } else {
-    switch_int ($int) {
-        case 0:
+    switch_int ($int0) {
+        case 0 :
             return(toplevel:com_tab0);
-        case 1:
+        case 1 :
             return(toplevel:com_tab1);
-        case 2:
+        case 2 :
             return(toplevel:com_tab2);
-        case 3:
+        case 3 :
             return(toplevel:com_tab3);
-        case 4:
+        case 4 :
             return(toplevel:com_tab4);
-        case 5:
+        case 5 :
             return(toplevel:com_tab5);
-        case 6:
+        case 6 :
             return(toplevel:com_tab6);
-        case 7:
+        case 7 :
             return(toplevel:com_tab7);
-        case 8:
+        case 8 :
             return(toplevel:com_tab8);
-        case 9:
+        case 9 :
             return(toplevel:com_tab9);
-        case 10:
+        case 10 :
             return(toplevel:com_tab10);
-        case 11:
+        case 11 :
             return(toplevel:com_tab11);
-        case 12:
+        case 12 :
             return(toplevel:com_tab12);
-        case 13:
+        case 13 :
             return(toplevel:com_tab13);
-        case 14:
+        case 14 :
             return(toplevel:com_tab14);
-        case 15:
+        case 15 :
             return(toplevel:com_tab15);
-        case 95:
-            return(toplevel:com220);
-        case 99:
-            return(toplevel:com221);
+        case 95 :
+            return(toplevel:com_220);
+        case 99 :
+            return(toplevel:com_221);
     }
 }
-return(null);
 return(null);

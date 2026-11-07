@@ -1,0 +1,111 @@
+// 328:0
+[com_0]
+type=text
+x=42
+y=16
+width=93
+height=13
+xmode=abs_right
+layer=com_7
+textfont=p11_full
+text=Repair State :
+textalignh=right
+textalignv=centre
+textshadow=yes
+colour=0xffff00
+
+// 328:1
+[com_1]
+type=text
+x=13
+y=17
+width=26
+height=11
+xmode=abs_right
+layer=com_7
+textfont=p11_full
+text=****
+textshadow=yes
+colour=0xffff00
+onvartransmit=script1254{varplayer_343, varplayer_344, varplayer_345}
+
+// 328:2
+[com_2]
+type=text
+x=42
+y=30
+width=93
+height=12
+xmode=abs_right
+layer=com_7
+textfont=p11_full
+text=Resources :
+textalignh=right
+textalignv=centre
+textshadow=yes
+colour=0xffff00
+
+// 328:3
+[com_3]
+type=text
+x=13
+y=31
+width=26
+height=11
+xmode=abs_right
+layer=com_7
+textfont=p11_full
+text=****
+textshadow=yes
+colour=0xffff00
+
+// 328:4
+[com_4]
+type=text
+x=43
+y=45
+width=92
+height=13
+xmode=abs_right
+layer=com_7
+textfont=p11_full
+text=Sanctity:
+textalignh=right
+textalignv=centre
+textshadow=yes
+colour=0xffff00
+
+// 328:5
+[com_5]
+type=text
+x=13
+y=45
+width=26
+height=11
+xmode=abs_right
+layer=com_7
+textfont=p11_full
+text=****
+textshadow=yes
+colour=0xffff00
+
+// 328:6
+[com_6]
+type=text
+width=139
+height=16
+xmode=abs_right
+layer=com_7
+textfont=p12_full
+text=* Temple Repair *
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xffff00
+
+// 328:7
+[com_7]
+type=layer
+width=160
+height=74
+xmode=abs_right

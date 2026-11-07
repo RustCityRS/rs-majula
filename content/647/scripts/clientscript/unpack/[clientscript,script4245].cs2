@@ -1,0 +1,7 @@
+// 4245
+[clientscript,script4245](int $int0, int $int1, int $int2, int $rgb3, graphic $graphic4, string $string0)
+if (getwindowmode >= 2) {
+    ~script4248($string0, $int0, $int1, $int2, $rgb3, $graphic4);
+} else {
+    ~script4247($string0, $int0, $int1, $int2, $rgb3, $graphic4);
+}

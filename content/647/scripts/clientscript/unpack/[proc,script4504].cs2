@@ -1,0 +1,14 @@
+// 4504
+[proc,script4504](component $component0)
+def_component $component1 = if_getlayer($component0);
+if ($component1 = null) {
+    return;
+}
+def_int $int2 = calc(if_getnextsubid($component1) - 1);
+while ($int2 >= 0) {
+    if (cc_find($component1, $int2) = true) {
+        cc_clearops;
+    }
+    $int2 = calc($int2 - 1);
+}
+if_sethide(true, $component1);

@@ -1,0 +1,8 @@
+// 4297
+[proc,script4297]
+if_sethide(false, interface_1096:com_41);
+if_sethide(true, interface_1096:com_40);
+if (activeclansettings_find_affined = true) {
+    ~script4501(interface_1096:com_128, enum(int, string, enum_3725, calc(activeclansettings_getranktalk + 1)));
+    ~script4501(interface_1096:com_142, enum(int, string, enum_3716, activeclansettings_getrankkick));
+}

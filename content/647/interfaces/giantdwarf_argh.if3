@@ -1,0 +1,61 @@
+// 136:0
+[com_0]
+type=text
+y=8
+width=85
+height=17
+xmode=abs_centre
+layer=com_4
+textfont=q8_full
+text=Both
+textalignh=centre
+colour=0x800000
+
+// 136:1
+[com_1]
+type=text
+y=67
+width=85
+height=17
+xmode=abs_centre
+layer=com_4
+textfont=q8_full
+text=Argh!
+textalignh=centre
+colour=0x000000
+
+// 136:2
+[com_2]
+type=model
+x=1464
+width=32
+height=32
+xmode=proportion_right
+ymode=abs_centre
+layer=com_4
+model=null
+modelangle=40,166,0
+modelzoom=2150
+transmitop=10
+op10=  
+
+// 136:3
+[com_3]
+type=model
+x=1302
+width=32
+height=32
+xmode=proportion_left
+ymode=abs_centre
+layer=com_4
+model=null
+modelangle=40,166,0
+modelzoom=2150
+transmitop=10
+op10=  
+
+// 136:4
+[com_4]
+type=layer
+width=506
+height=129

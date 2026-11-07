@@ -1,7 +1,0 @@
-[proc,clientscript_2316](int $int)
-if_settext(tostring(calc($int + 1)), chatbox_background:com140);
-if_setvflip(false, chatbox_background:com146);
-if_sethide(true, chatbox_background:com75);
-if_sethide(true, chatbox_background:com76);
-if_sethide(true, chatbox_background:com74);
-if_sethide(true, chatbox_background:com68);

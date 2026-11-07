@@ -1,6 +1,0 @@
-[proc,clientscript_2808](coord $coord0, coord $coord1, coord $coord2)(coord)
-def_coord $coord3 = coordpack(0_0_0_0_0, calc(8 * (coordx($coord1) / 8)), coordy($coord1), calc(8 * (coordz($coord1) / 8)));
-def_int $int4 = calc(coordx($coord2) - coordx($coord3));
-def_int $int5 = calc(coordz($coord2) - coordz($coord3));
-return(coordpack($coord0, $int4, 0, $int5));
-return(-1);

@@ -1,0 +1,14 @@
+// 3453
+[proc,script3453]
+if (%varclient_1281 = 8) {
+    return;
+}
+if (%varclient_1074 = 0) {
+    ~script3454(calc(%varclient_1281 + 1), %varclient_1070, %varclient_1069, ~script2865(%varclient_1070, %varclient_1071), %varclient_1073);
+} else if (%varclient_1074 = 1) {
+    ~script3454(calc(%varclient_1281 + 1), %varclient_1070, %varclient_1069, %varclient_1072, 50);
+} else {
+    return;
+}
+%varclient_1281 = calc(%varclient_1281 + 1);
+if_settext(tostring(%varclient_1281), interface_475:com_78);

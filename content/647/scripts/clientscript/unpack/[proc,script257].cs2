@@ -1,0 +1,101 @@
+// 257
+[proc,script257]
+if (%varclient_1111 = 0 | %varclient_1112 = 0 | %varclient_1113 = 0 | %varclient_1114 = 0 | %varclient_1115 = 0 | %varclient_1116 = 0 | %varclient_1117 = -1) {
+    return;
+}
+def_int $int0 = calc(if_getnextsubid(fishcomp_overlay:com_7) * (18 + 4));
+def_int $int1 = calc((if_getnextsubid(fishcomp_overlay:com_7) + 1) * (18 + 4));
+if_setscrollsize(if_getscrollwidth(fishcomp_overlay:com_6), $int1, fishcomp_overlay:com_6);
+if_setsize(if_getwidth(fishcomp_overlay:com_8), $int1, ^setsize_abs, ^setsize_abs, fishcomp_overlay:com_8);
+cc_create(fishcomp_overlay:com_8, ^iftype_text, if_getnextsubid(fishcomp_overlay:com_8));
+cc_setcolour(0xa4a467);
+cc_setsize(16384, 18, ^setsize_rel, ^setsize_abs);
+cc_setposition(0, $int0, ^setpos_abs_left, ^setpos_abs_bottom);
+cc_settextfont(p11_full);
+cc_settext(~script1668(%varclient_1111));
+cc_settextalign(^settextalign_centre, ^settextalign_centre, 0);
+if_setsize(if_getwidth(fishcomp_overlay:com_7), $int1, ^setsize_abs, ^setsize_abs, fishcomp_overlay:com_7);
+cc_create(fishcomp_overlay:com_7, ^iftype_text, if_getnextsubid(fishcomp_overlay:com_7));
+cc_setcolour(0xa4a467);
+cc_setsize(16384, 18, ^setsize_rel, ^setsize_abs);
+cc_setposition(0, $int0, ^setpos_abs_left, ^setpos_abs_bottom);
+cc_settextfont(p11_full);
+cc_settext(~script276(%varclient_1113));
+cc_settextalign(^settextalign_centre, ^settextalign_centre, 0);
+if_setsize(if_getwidth(fishcomp_overlay:com_9), $int1, ^setsize_abs, ^setsize_abs, fishcomp_overlay:com_9);
+cc_create(fishcomp_overlay:com_9, ^iftype_text, if_getnextsubid(fishcomp_overlay:com_9));
+cc_setcolour(0xa4a467);
+cc_setsize(16384, 18, ^setsize_rel, ^setsize_abs);
+cc_setposition(0, $int0, ^setpos_abs_left, ^setpos_abs_bottom);
+cc_settextfont(p11_full);
+cc_settext(tostring(%varclient_1112));
+cc_settextalign(^settextalign_centre, ^settextalign_centre, 0);
+if_setsize(if_getwidth(fishcomp_overlay:com_10), $int1, ^setsize_abs, ^setsize_abs, fishcomp_overlay:com_10);
+cc_create(fishcomp_overlay:com_10, ^iftype_graphic, if_getnextsubid(fishcomp_overlay:com_10));
+cc_setsize(20, 20, ^setsize_abs, ^setsize_abs);
+cc_setposition(0, calc($int0 + 2), ^setpos_abs_centre, ^setpos_abs_bottom);
+def_string $string0 = "";
+def_obj $obj2 = null;
+switch_int (%varclient_1114) {
+    case 1 :
+        $obj2 = obj_15658;
+        $string0 = "Worm";
+    case 2 :
+        $obj2 = obj_15659;
+        $string0 = "Maggot";
+    case 3 :
+        $obj2 = obj_15662;
+        $string0 = "Cricket";
+    case 4 :
+        $obj2 = obj_15663;
+        $string0 = "Locust";
+    case 5 :
+        $obj2 = obj_15661;
+        $string0 = "Crayfish";
+    case 6 :
+        $obj2 = obj_15660;
+        $string0 = "Shrimp";
+    case 7 :
+        $obj2 = obj_15664;
+        $string0 = "Green moth";
+    case 8 :
+        $obj2 = obj_15665;
+        $string0 = "Grey moth";
+}
+cc_setobject_nonum($obj2, 0);
+cc_setonmouserepeat("addtooltip(event_com, fishcomp_overlay:com_20, $string0, 25, 128)");
+cc_setonmouseleave("deltooltip(fishcomp_overlay:com_20)");
+if_setsize(if_getwidth(fishcomp_overlay:com_11), $int1, ^setsize_abs, ^setsize_abs, fishcomp_overlay:com_11);
+cc_create(fishcomp_overlay:com_11, ^iftype_text, if_getnextsubid(fishcomp_overlay:com_11));
+cc_setcolour(0xa4a467);
+cc_setsize(16384, 18, ^setsize_rel, ^setsize_abs);
+cc_setposition(0, $int0, ^setpos_abs_left, ^setpos_abs_bottom);
+cc_settextfont(p11_full);
+cc_settext(~script278(%varclient_1115));
+cc_settextalign(^settextalign_centre, ^settextalign_centre, 0);
+if_setsize(if_getwidth(fishcomp_overlay:com_12), $int1, ^setsize_abs, ^setsize_abs, fishcomp_overlay:com_12);
+cc_create(fishcomp_overlay:com_12, ^iftype_text, if_getnextsubid(fishcomp_overlay:com_12));
+cc_setcolour(0xa4a467);
+cc_setsize(16384, 18, ^setsize_rel, ^setsize_abs);
+cc_setposition(0, $int0, ^setpos_abs_left, ^setpos_abs_bottom);
+cc_settextfont(p11_full);
+cc_settext(tostring(%varclient_1116));
+cc_settextalign(^settextalign_centre, ^settextalign_centre, 0);
+if_setsize(if_getwidth(fishcomp_overlay:com_13), $int1, ^setsize_abs, ^setsize_abs, fishcomp_overlay:com_13);
+cc_create(fishcomp_overlay:com_13, ^iftype_text, if_getnextsubid(fishcomp_overlay:com_13));
+cc_setcolour(0xa4a467);
+cc_setsize(16384, 18, ^setsize_rel, ^setsize_abs);
+cc_setposition(0, $int0, ^setpos_abs_left, ^setpos_abs_bottom);
+cc_settextfont(p11_full);
+cc_settext("<tostring(%varclient_1117)>%");
+cc_settextalign(^settextalign_centre, ^settextalign_centre, 0);
+if (if_getheight(fishcomp_overlay:com_1) = 185) {
+    ~scrollbar_vertical(fishcomp_overlay:com_5, fishcomp_overlay:com_6, "scrollbar_dragger_v2,3", "scrollbar_dragger_v2,0", "scrollbar_dragger_v2,1", "scrollbar_dragger_v2,2", "scrollbar_v2,0", "scrollbar_v2,1");
+}
+%varclient_1111 = 0;
+%varclient_1112 = 0;
+%varclient_1113 = 0;
+%varclient_1114 = 0;
+%varclient_1115 = 0;
+%varclient_1116 = 0;
+%varclient_1117 = -1;

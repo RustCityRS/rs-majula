@@ -1,23 +1,23 @@
-[proc,bank_v2_get_tab_scrollpos](int $int)(int)
-switch_int ($int) {
-    case 1:
-        return(%varc_int_203);
-    case 2:
-        return(%varc_int_204);
-    case 3:
-        return(%varc_int_205);
-    case 4:
-        return(%varc_int_206);
-    case 5:
-        return(%varc_int_207);
-    case 6:
-        return(%varc_int_208);
-    case 7:
-        return(%varc_int_209);
-    case 8:
-        return(%varc_int_210);
-    case 9:
-        return(%varc_int_211);
+// 704
+[proc,bank_v2_get_tab_scrollpos](int $int0)(int)
+switch_int ($int0) {
+    case 1 :
+        return(%varclient_203);
+    case 2 :
+        return(%varclient_204);
+    case 3 :
+        return(%varclient_205);
+    case 4 :
+        return(%varclient_206);
+    case 5 :
+        return(%varclient_207);
+    case 6 :
+        return(%varclient_208);
+    case 7 :
+        return(%varclient_209);
+    case 8 :
+        return(%varclient_210);
+    case 9 :
+        return(%varclient_211);
 }
-return(0);
 return(0);

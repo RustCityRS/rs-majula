@@ -1,12 +1,13 @@
-[proc,chat_alert_enable](int $int)
-if ($int = %varc_int_41) {
+// 180
+[proc,chat_alert_enable](int $int0)
+if ($int0 = %varclient_41) {
     return;
 }
-if ($int = 3 & (%option_pm > 0 & %varc_int_41 ! -1)) {
+if ($int0 = 3 & %option_pm > 0 & %varclient_41 ! -1) {
     return;
 }
-if (~chat_alert_get($int) > 24) {
+if (~chat_alert_get($int0) > 24) {
     return;
 }
-~chat_alert_set($int, 249);
-if_setontimer("chat_alert_flash($int)", enum(105, 73, enum_683, $int));
+~chat_alert_set($int0, 249);
+if_setontimer("chat_alert_flash($int0)", enum(int, component, enum_683, $int0));

@@ -1,31 +1,32 @@
-[clientscript,playerdesign4_name_onkey](int $int0, char $int1, boolean $int2)
-if (%varc_int_1412 = true) {
+// 3944
+[clientscript,playerdesign4_name_onkey](int $key0, char $char1, boolean $boolean2)
+if (%varclient_1412 = 1) {
     return;
 }
-def_component $component3 = playerdesign4:com181;
-def_component $component4 = playerdesign4:com182;
-def_component $component5 = playerdesign4:com183;
-if ($int2 = false) {
-    $component3 = no_displayname:com59;
-    $component4 = no_displayname:com60;
-    $component5 = no_displayname:com61;
+def_component $component3 = playerdesign4:com_181;
+def_component $component4 = playerdesign4:com_182;
+def_component $component5 = playerdesign4:com_183;
+if ($boolean2 = false) {
+    $component3 = no_displayname:com_59;
+    $component4 = no_displayname:com_60;
+    $component5 = no_displayname:com_61;
 }
-switch_int ($int0) {
-    case 13:
+switch_int ($key0) {
+    case ^key_escape :
         return;
-    case 84:
-        %varc_int_1412 = 1;
+    case ^key_return :
+        %varclient_1412 = 1;
         return;
-    case 96, 97, 98, 99, 102, 103:
-        %varc_int_1099 = ~clientscript_1553($int0, %varc_int_1099, %varc_string_330);
-        ~clientscript_3218($component3, $component4, $component5, %varc_string_330, 16);
+    case ^key_left, ^key_right, ^key_up, ^key_down, ^key_home, ^key_end :
+        %varclient_1099 = ~script1553($key0, %varclient_1099, %varclient_1849);
+        ~script3218($component3, $component4, $component5, %varclient_1849, 16);
         return;
 }
-if (string_length(%varc_string_330) >= 12 & ($int0 ! 85 & $int0 ! 101)) {
+if (string_length(%varclient_1849) >= 12 & $key0 ! ^key_backspace & $key0 ! ^key_del) {
     return;
 }
-if (string_indexof_char("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789 _-", $int1, 0) ! -1 | ($int0 = 85 | $int0 = 101)) {
-    %varc_string_330, %varc_int_1099 = ~clientscript_802(%varc_int_1099, %varc_string_330, 2, $int0, $int1);
-    if_settext(%varc_string_330, $component4);
-    ~clientscript_3218($component3, $component4, $component5, %varc_string_330, 16);
+if (string_indexof_char("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789 _-", $char1, 0) ! -1 | $key0 = ^key_backspace | $key0 = ^key_del) {
+    %varclient_1849, %varclient_1099 = ~script802(%varclient_1099, %varclient_1849, 2, $key0, $char1);
+    if_settext(%varclient_1849, $component4);
+    ~script3218($component3, $component4, $component5, %varclient_1849, 16);
 }

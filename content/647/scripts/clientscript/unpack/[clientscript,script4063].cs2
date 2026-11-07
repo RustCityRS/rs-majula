@@ -1,0 +1,17 @@
+// 4063
+[clientscript,script4063]
+if (%varplayerbit_8669 = 1) {
+    return;
+}
+switch_int (%varplayerbit_8668) {
+    case 1 :
+        ~script4065(warguild_token_choice:com_25);
+    case 4 :
+        ~script4065(warguild_token_choice:com_24);
+    case 5 :
+        ~script4065(warguild_token_choice:com_22);
+    case 3 :
+        ~script4065(warguild_token_choice:com_23);
+    case 2 :
+        ~script4065(warguild_token_choice:com_26);
+}

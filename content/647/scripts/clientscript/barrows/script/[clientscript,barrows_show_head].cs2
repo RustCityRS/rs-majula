@@ -1,25 +1,26 @@
+// 1715
 [clientscript,barrows_show_head]
-def_component $component = null;
-if (%varc_int_1043 = -1) {
+def_component $component0 = null;
+if (%varclient_1043 = null) {
     return;
 }
-switch_int (%varc_int_1043) {
-    case 4761, 4762:
-        $component = barrows_overlay:com10;
-    case 4763, 4764:
-        $component = barrows_overlay:com8;
-    case 4765, 4766:
-        $component = barrows_overlay:com9;
-    case 4767, 4768:
-        $component = barrows_overlay:com11;
-    case 4769, 4770:
-        $component = barrows_overlay:com12;
-    case 4771, 4772:
-        $component = barrows_overlay:com13;
+switch_obj (%varclient_1043) {
+    case obj_4761, obj_4762 :
+        $component0 = barrows_overlay:com_10;
+    case obj_4763, obj_4764 :
+        $component0 = barrows_overlay:com_8;
+    case obj_4765, obj_4766 :
+        $component0 = barrows_overlay:com_9;
+    case obj_4767, obj_4768 :
+        $component0 = barrows_overlay:com_11;
+    case obj_4769, obj_4770 :
+        $component0 = barrows_overlay:com_12;
+    case obj_4771, obj_4772 :
+        $component0 = barrows_overlay:com_13;
 }
-if ($component = null) {
+if ($component0 = null) {
     return;
 }
-if_setobject(%varc_int_1043, -1, $component);
-if_setmodelzoom(1600, $component);
-if_setmodelanim(seq_12554, $component);
+if_setobject(%varclient_1043, -1, $component0);
+if_setmodelzoom(1600, $component0);
+if_setmodelanim(seq_12554, $component0);

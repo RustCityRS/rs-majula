@@ -1,0 +1,64 @@
+// 124:0
+[com_0]
+type=model
+x=13
+y=37
+width=485
+height=282
+model=model_3032
+modelorigin=1,-25
+modelangle=400,0,0
+modelzoom=604
+
+// 124:1
+[com_1]
+type=text
+x=112
+y=106
+width=293
+height=17
+textfont=q8_full
+text=List of Fairy Queen's Symptoms.
+textalignh=centre
+textshadow=yes
+colour=0xffff00
+
+// 124:2
+[com_2]
+type=text
+x=89
+y=129
+width=259
+height=140
+textfont=q8_full
+text= Extremely weak<br>Slow discorporation of ethereal body<br>Drifting in and out of coma<br>Shallow breath<br>Fading magical energy<br>High fever
+textshadow=yes
+colour=0xffff99
+
+// 124:3
+[com_3]
+type=model
+x=347
+y=206
+width=88
+height=61
+model=model_8716
+modelorigin=2,-6
+modelangle=500,138,0
+modelzoom=273
+
+// 124:4
+[com_4]
+type=graphic
+x=401
+y=79
+width=26
+height=23
+graphic="close_buttons,2"
+colour=0x000000
+transmitop=1,10
+op1=Close
+op10=         
+onmouseover=graphic_swapper(event_com, "close_buttons,3")
+onmouseleave=graphic_swapper(event_com, "close_buttons,2")
+onop=closebutton_click

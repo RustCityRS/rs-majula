@@ -1,0 +1,43 @@
+// 1417
+[clientscript,script1417](component $component0)
+if (%varclient_1387 = 1) {
+    return;
+}
+def_int $int1 = ~script1502($component0);
+def_npc $npc2 = null;
+def_int $int3 = if_getx($component0);
+def_int $int4 = if_gety($component0);
+if (%varplayerbit_7516 = $int1) {
+    $npc2 = ~script486(%varplayerbit_7520);
+} else if (%varplayerbit_7517 = $int1) {
+    $npc2 = ~script486(%varplayerbit_7521);
+} else if (%varplayerbit_7518 = $int1) {
+    $npc2 = ~script486(%varplayerbit_7526);
+} else if (%varplayerbit_7519 = $int1) {
+    $npc2 = ~script486(%varplayerbit_7527);
+} else if (%varplayerbit_7522 = $int1) {
+    $npc2 = ~script486(%varplayerbit_7530);
+} else if (%varplayerbit_7523 = $int1) {
+    $npc2 = ~script486(%varplayerbit_7531);
+} else if (%varplayerbit_7524 = $int1) {
+    $npc2 = ~script486(%varplayerbit_7532);
+} else if (%varplayerbit_7525 = $int1) {
+    $npc2 = ~script486(%varplayerbit_7533);
+} else if (%varplayerbit_7528 = $int1) {
+    $npc2 = ~script486(%varplayerbit_7534);
+} else if (%varplayerbit_7529 = $int1) {
+    $npc2 = ~script486(%varplayerbit_7535);
+}
+if ($npc2 ! null) {
+    if_settext(nc_param($npc2, param_1139), conq_set_formation:com_241);
+    if_setsize(calc(stringwidth(nc_param($npc2, param_1139), welcome_font_tiny) + 10), if_getheight(conq_set_formation:com_226), ^setsize_abs, ^setsize_abs, conq_set_formation:com_226);
+    $int3 = calc($int3 + if_getwidth($component0) - 3);
+    $int4 = calc($int4 - if_getheight($component0));
+    if (calc($int3 + if_getwidth(conq_set_formation:com_226)) >= calc(if_getx(conq_set_formation:com_31) + if_getwidth(conq_set_formation:com_31))) {
+        $int3 = calc(if_getx($component0) - if_getwidth(conq_set_formation:com_226) + 3);
+    }
+    if_setposition($int3, $int4, ^setpos_abs_left, ^setpos_abs_top, conq_set_formation:com_226);
+    if_sethide(false, conq_set_formation:com_226);
+} else {
+    if_sethide(true, conq_set_formation:com_226);
+}

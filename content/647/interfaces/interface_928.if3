@@ -1,0 +1,286 @@
+// 928:0
+[com_0]
+type=layer
+width=512
+heightmode=minus
+opbase=  
+
+// 928:1
+[com_1]
+type=layer
+x=-1
+width=16391
+height=16391
+widthmode=proportion
+heightmode=proportion
+layer=com_0
+
+// 928:2
+[com_2]
+type=graphic
+x=-13
+y=33
+width=30
+height=48
+heightmode=minus
+layer=com_1
+graphic="v2_stone_borders,1"
+tiling=yes
+colour=0xffffffff
+
+// 928:3
+[com_3]
+type=graphic
+y=1
+width=32
+height=32
+layer=com_1
+graphic="v2_stone_borders,35"
+colour=0xffffffff
+
+// 928:4
+[com_4]
+type=graphic
+x=171
+y=32
+width=31
+height=56
+heightmode=minus
+layer=com_1
+graphic="v2_stone_borders,3"
+tiling=yes
+colour=0xffffffff
+
+// 928:5
+[com_5]
+type=graphic
+x=31
+y=1
+width=197
+height=28
+layer=com_1
+graphic="v2_stone_borders,36"
+tiling=yes
+colour=0xffffffff
+
+// 928:6
+[com_6]
+type=graphic
+x=14
+y=-11
+width=192
+height=32
+ymode=abs_bottom
+layer=com_1
+graphic="v2_stone_borders,2"
+tiling=yes
+colour=0xffffffff
+
+// 928:7
+[com_7]
+type=graphic
+y=1
+width=32
+height=32
+ymode=abs_bottom
+layer=com_1
+graphic="v2_stone_borders,6"
+colour=0xffffffff
+
+// 928:8
+[com_8]
+type=graphic
+x=159
+y=1
+width=32
+height=32
+layer=com_1
+graphic="v2_stone_borders,37"
+colour=0xffffffff
+
+// 928:9
+[com_9]
+type=graphic
+x=321
+y=1
+width=32
+height=32
+xmode=abs_right
+ymode=abs_bottom
+layer=com_1
+graphic="v2_stone_borders,7"
+colour=0xffffffff
+
+// 928:10
+[com_10]
+type=text
+x=2
+width=189
+height=23
+layer=com_1
+textfont=p11_full
+text=Factory Managment Help 
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xff6600
+
+// 928:11
+[com_11]
+type=layer
+x=4
+y=24
+width=176
+height=228
+layer=com_0
+
+// 928:12
+[com_12]
+type=layer
+x=161
+y=1
+width=16
+height=225
+layer=com_11
+
+// 928:13
+[com_13]
+type=rectangle
+widthmode=minus
+heightmode=minus
+layer=com_12
+colour=0xffff00
+
+// 928:14
+[com_14]
+type=layer
+x=3
+width=158
+height=227
+layer=com_11
+transmitop=10
+op10= 
+
+// 928:15
+[com_15]
+type=layer
+x=7
+y=7
+width=12
+height=11
+widthmode=minus
+heightmode=minus
+layer=com_14
+scrollheight=900
+onload=script2217
+
+// 928:16
+[com_16]
+type=text
+widthmode=minus
+heightmode=minus
+layer=com_15
+textfont=p11_full
+text=Welcome to your factory!<br><br>You have to fulfil an order of 7 Fruitcakes, 7 Nutty Eggs and 7 Tangy Egg Breads for the Easter Bunny. If you can complete the order in less that 15 turns, you will receive an additional reward for your hard work.<br><br>You start with 5 workers.<br><br>You can purchase more workers for 2 random resources each. <br><br>You can have a maximum of 15 workers employed at any time. <br><br>Every turn you pay 1 resource as wages for every 5 workers you have. <br><br>Workers can be allocated to gathering resources, making orders or repairing machines. <br><br>You can have up to 15 of each resource stored. Resources generated over 15 are lost.<br><br>Each finished product takes 2 resources to make.<br><br>Fruit Cake needs: 1 Chocolate, 1 Fruit.<br><br>Nutty Egg needs: 1 Chocolate, 1 Nuts.<br><br>Tangy Egg Bread needs 1 Fruit, 1 Nuts.<br><br>Every turn, there is a chance that something might befall the factory. You may lose some resources, find some bonus resources, or one of your machines might be in need of repair. This will be reported to you, as well as all the other details you need to know in running your factory, when you end your turn.<br><br>If a machine is broken, you can choose to alllocate a worker to repair it, or you can repair it yourself by going to the machine and performing the repair, as you have done so already. Machines that are not repaired will produce 1 less item per turn.<br><br>When you have comepleted the order you will be shown your score. THe lower the Score, the better you have performed. Your score is broken down into the various parts that make it up. WHy not see if you can beat your friends score.<br><br>You can repeat the game as many times as you like during the event.<br><br><br><br> Best of luck! 
+textshadow=yes
+colour=0xffff00
+transmitop=10
+op10= 
+
+// 928:17
+[com_17]
+type=graphic
+width=16384
+height=9
+widthmode=proportion
+layer=com_14
+graphic="v2_stone_button,5"
+colour=0xffffffff
+transmitop=10
+op10= 
+
+// 928:18
+[com_18]
+type=graphic
+width=16384
+height=9
+widthmode=proportion
+ymode=abs_bottom
+layer=com_14
+graphic="v2_stone_button,7"
+colour=0xffffffff
+transmitop=10
+op10= 
+
+// 928:19
+[com_19]
+type=graphic
+width=9
+height=16384
+heightmode=proportion
+layer=com_14
+graphic="v2_stone_button,4"
+colour=0xffffffff
+transmitop=10
+op10= 
+
+// 928:20
+[com_20]
+type=graphic
+width=9
+height=16384
+heightmode=proportion
+xmode=abs_right
+layer=com_14
+graphic="v2_stone_button,6"
+colour=0xffffffff
+transmitop=10
+op10= 
+
+// 928:21
+[com_21]
+type=graphic
+width=9
+height=9
+xmode=abs_right
+ymode=abs_bottom
+layer=com_14
+graphic="v2_stone_button,3"
+colour=0xffffffff
+transmitop=10
+op10= 
+
+// 928:22
+[com_22]
+type=graphic
+width=9
+height=9
+ymode=abs_bottom
+layer=com_14
+graphic="v2_stone_button,2"
+colour=0xffffffff
+transmitop=10
+op10= 
+
+// 928:23
+[com_23]
+type=graphic
+width=9
+height=9
+xmode=abs_right
+layer=com_14
+graphic="v2_stone_button,1"
+colour=0xffffffff
+transmitop=10
+op10= 
+
+// 928:24
+[com_24]
+type=graphic
+width=9
+height=9
+layer=com_14
+graphic="v2_stone_button,0"
+colour=0xffffffff
+transmitop=10
+op10= 

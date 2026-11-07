@@ -1,7 +1,8 @@
+// 609
 [proc,sm_offerprice_settimer]
-if (%varc_int_83 <= 0) {
-    %varc_int_83 = 100;
+if (%varclient_83 <= 0) {
+    %varclient_83 = 100;
 } else {
-    %varc_int_83 = calc(%varc_int_83 + 10);
+    %varclient_83 = calc(%varclient_83 + 10);
 }
-if_setontimer("clientscript_610()", stockmarket:com153);
+if_setontimer("script610", stockmarket:com_153);

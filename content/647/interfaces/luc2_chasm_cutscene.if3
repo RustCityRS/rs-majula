@@ -1,0 +1,164 @@
+// 818:0
+[com_0]
+type=layer
+widthmode=minus
+heightmode=minus
+xmode=abs_centre
+ymode=abs_centre
+hide=yes
+
+// 818:1
+[com_1]
+type=model
+x=-128
+width=266
+height=58474
+heightmode=proportion
+ymode=abs_centre
+layer=com_0
+model=model_44420
+modelorigin=-30,-278
+modelangle=0,1237,0
+modelzoom=288
+modelobjheight=1795
+
+// 818:2
+[com_2]
+type=rectangle
+height=50
+widthmode=minus
+xmode=abs_centre
+ymode=abs_bottom
+layer=com_0
+colour=0x000000
+fill=yes
+trans=225
+
+// 818:3
+[com_3]
+type=rectangle
+height=45
+widthmode=minus
+xmode=abs_centre
+ymode=abs_bottom
+layer=com_0
+colour=0x000000
+fill=yes
+trans=200
+
+// 818:4
+[com_4]
+type=rectangle
+height=40
+widthmode=minus
+xmode=abs_centre
+ymode=abs_bottom
+layer=com_0
+colour=0x000000
+fill=yes
+trans=175
+
+// 818:5
+[com_5]
+type=rectangle
+height=35
+widthmode=minus
+xmode=abs_centre
+ymode=abs_bottom
+layer=com_0
+colour=0x000000
+fill=yes
+trans=150
+
+// 818:6
+[com_6]
+type=rectangle
+height=30
+widthmode=minus
+xmode=abs_centre
+ymode=abs_bottom
+layer=com_0
+colour=0x000000
+fill=yes
+trans=125
+
+// 818:7
+[com_7]
+type=rectangle
+height=25
+widthmode=minus
+xmode=abs_centre
+ymode=abs_bottom
+layer=com_0
+colour=0x000000
+fill=yes
+trans=100
+
+// 818:8
+[com_8]
+type=rectangle
+height=20
+widthmode=minus
+xmode=abs_centre
+ymode=abs_bottom
+layer=com_0
+colour=0x000000
+fill=yes
+trans=75
+
+// 818:9
+[com_9]
+type=rectangle
+height=15
+widthmode=minus
+xmode=abs_centre
+ymode=abs_bottom
+layer=com_0
+colour=0x000000
+fill=yes
+trans=50
+
+// 818:10
+[com_10]
+type=rectangle
+height=10
+widthmode=minus
+xmode=abs_centre
+ymode=abs_bottom
+layer=com_0
+colour=0x000000
+fill=yes
+trans=25
+
+// 818:11
+[com_11]
+type=rectangle
+height=5
+widthmode=minus
+xmode=abs_centre
+ymode=abs_bottom
+layer=com_0
+colour=0x000000
+fill=yes
+
+// 818:12
+[com_12]
+type=rectangle
+widthmode=minus
+heightmode=minus
+xmode=abs_centre
+ymode=abs_centre
+colour=0x000000
+fill=yes
+trans=150
+
+// 818:13
+[com_13]
+type=layer
+widthmode=minus
+heightmode=minus
+xmode=abs_centre
+ymode=abs_centre
+onload=script213(luc2_chasm_cutscene:com_0, luc2_chasm_cutscene:com_1, luc2_chasm_cutscene:com_12, luc2_chasm_cutscene:com_13)
+onvartransmit=script213(luc2_chasm_cutscene:com_0, luc2_chasm_cutscene:com_1, luc2_chasm_cutscene:com_12, luc2_chasm_cutscene:com_13){varplayer_425}
+onvarctransmit=script213(luc2_chasm_cutscene:com_0, luc2_chasm_cutscene:com_1, luc2_chasm_cutscene:com_12, luc2_chasm_cutscene:com_13){varclient_97}

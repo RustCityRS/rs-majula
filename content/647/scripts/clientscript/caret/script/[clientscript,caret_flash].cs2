@@ -1,5 +1,6 @@
+// 1400
 [clientscript,caret_flash](int $int0, component $component1)
-if (calc((clientclock - $int0) % 40) < 20 & has_focus = true) {
+if (calc((clientclock - $int0) % 40) < 20 & applet_hasfocus = true) {
     if_sethide(false, $component1);
 } else {
     if_sethide(true, $component1);

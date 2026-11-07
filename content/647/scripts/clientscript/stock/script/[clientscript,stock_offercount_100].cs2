@@ -1,10 +1,11 @@
+// 600
 [clientscript,stock_offercount_100]
-if (%varp_1113 = false) {
-    if (%varc_int_84 <= 2147483547) {
-        %varc_int_84 = calc(%varc_int_84 + 100);
+if (%varplayer_1113 = 0) {
+    if (%varclient_84 <= 2147483547) {
+        %varclient_84 = calc(%varclient_84 + 100);
     }
 } else {
-    %varc_int_84 = 100;
+    %varclient_84 = 100;
 }
-if_settext(op4124(%varc_int_84, 1), stockmarket:com148);
+if_settext(tostring_localised(%varclient_84, true), stockmarket:com_148);
 ~sm_offercount_settimer;

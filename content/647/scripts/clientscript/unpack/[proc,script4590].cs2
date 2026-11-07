@@ -1,0 +1,23 @@
+// 4590
+[proc,script4590]()(int, int, int, int, int, int)
+def_int $int0 = -1;
+def_int $int1 = -1;
+def_int $int2 = -1;
+def_int $int3 = -1;
+def_int $int4 = -1;
+def_int $int5 = -1;
+if (activeclanchannel_find_affined = true) {
+    $int2 = activeclanchannel_getranktalk;
+    $int0 = activeclanchannel_getuserslot(removetags(chat_playername));
+    if ($int0 >= 0) {
+        $int1 = activeclanchannel_getuserrank($int0);
+    }
+}
+if (activeclanchannel_find_listened = true) {
+    $int5 = activeclanchannel_getranktalk;
+    $int3 = activeclanchannel_getuserslot(removetags(chat_playername));
+    if ($int3 >= 0) {
+        $int4 = activeclanchannel_getuserrank($int3);
+    }
+}
+return($int0, $int1, $int2, $int3, $int4, $int5);

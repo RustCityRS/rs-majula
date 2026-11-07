@@ -1,0 +1,712 @@
+// 696:0
+[com_0]
+type=layer
+x=7
+y=7
+width=512
+height=334
+xmode=proportion_centre
+ymode=proportion_centre
+
+// 696:1
+[com_1]
+type=model
+x=12
+y=-1
+width=487
+height=335
+layer=com_0
+model=model_32409
+modelorigin=-5,-12
+modelzoom=618
+
+// 696:2
+[com_2]
+type=model
+x=16
+y=-2
+width=193
+height=151
+layer=com_0
+model=model_32406
+modelorigin=1,222
+modelzoom=115
+
+// 696:3
+[com_3]
+type=model
+x=413
+y=210
+width=33
+height=34
+layer=com_0
+model=null
+modelorigin=-1,-1
+modelangle=431,1912,0
+modelzoom=2058
+transmitop=1
+op1=Select
+opcursor0=cursor_46
+onmouseover=model_swapper(event_com, model_32408)
+onmouseleave=model_swapper(event_com, null)
+onclick=script877(event_com)
+
+// 696:4
+[com_4]
+type=model
+x=416
+y=244
+width=31
+height=34
+layer=com_0
+model=null
+modelorigin=-1,-1
+modelangle=539,1921,206
+modelzoom=1858
+transmitop=1
+op1=Select
+opcursor0=cursor_46
+onmouseover=model_swapper(event_com, model_32408)
+onmouseleave=model_swapper(event_com, null)
+onclick=script878(event_com)
+
+// 696:5
+[com_5]
+type=text
+x=40
+y=133
+width=175
+height=14
+layer=com_0
+textfont=b12_full
+text=Question:
+colour=0x1e1e2d
+
+// 696:6
+[com_6]
+type=text
+x=215
+y=38
+width=300
+height=65
+layer=com_0
+textfont=quill_oblique_large
+text=Player Safety Test
+colour=0x232330
+
+// 696:7
+[com_7]
+type=graphic
+x=469
+y=9
+width=26
+height=23
+layer=com_0
+graphic="close_buttons,3"
+colour=0x000000
+transmitop=1
+op1=Close
+onmouseover=graphic_swapper(event_com, "close_buttons,2")
+onmouseleave=graphic_swapper(event_com, "close_buttons,3")
+onop=closebutton_click
+
+// 696:8
+[com_8]
+type=text
+x=40
+y=148
+width=388
+height=32
+layer=com_0
+textfont=q8_full
+text=A player has started to ask you personal questions that make you feel uncomfortable. What should you do? 
+colour=0x242330
+
+// 696:9
+[com_9]
+type=text
+x=40
+y=213
+width=363
+height=32
+layer=com_0
+textfont=q8_full
+text=Answer their questions
+colour=0x191930
+
+// 696:10
+[com_10]
+type=text
+x=40
+y=243
+width=363
+height=32
+layer=com_0
+textfont=q8_full
+text=Do not answer any questions and report the player using the Report Abuse button at the bottom of the game screen.
+colour=0x191930
+
+// 696:11
+[com_11]
+type=line
+x=420
+y=216
+width=19
+height=1
+layer=com_0
+linewid=2
+colour=0x0e0e17
+
+// 696:12
+[com_12]
+type=line
+x=420
+y=216
+height=19
+layer=com_0
+linewid=2
+colour=0x0e0e17
+
+// 696:13
+[com_13]
+type=line
+x=419
+y=234
+width=19
+height=1
+layer=com_0
+linewid=2
+colour=0x0e0e17
+
+// 696:14
+[com_14]
+type=line
+x=438
+y=216
+height=20
+layer=com_0
+linewid=2
+colour=0x0e0e17
+
+// 696:15
+[com_15]
+type=line
+x=420
+y=250
+width=19
+height=1
+layer=com_0
+linewid=2
+colour=0x0e0e17
+
+// 696:16
+[com_16]
+type=line
+x=420
+y=250
+height=19
+layer=com_0
+linewid=2
+colour=0x0e0e17
+
+// 696:17
+[com_17]
+type=line
+x=419
+y=268
+width=19
+height=1
+layer=com_0
+linewid=2
+colour=0x0e0e17
+
+// 696:18
+[com_18]
+type=line
+x=438
+y=250
+height=20
+layer=com_0
+linewid=2
+colour=0x0e0e17
+
+// 696:19
+[com_19]
+type=line
+x=193
+y=65
+width=248
+layer=com_0
+colour=0x0e0e17
+
+// 696:20
+[com_20]
+type=layer
+width=513
+height=335
+layer=com_0
+hide=yes
+noclickthrough=yes
+
+// 696:21
+[com_21]
+type=rectangle
+width=512
+height=334
+layer=com_20
+colour=0x46341d
+fill=yes
+trans=160
+
+// 696:22
+[com_22]
+type=graphic
+x=32
+y=79
+width=449
+height=230
+layer=com_20
+graphic=tradebacking
+tiling=yes
+colour=0x000000
+
+// 696:23
+[com_23]
+type=graphic
+x=19
+y=111
+width=25
+height=175
+layer=com_20
+graphic="v2_stone_borders,1"
+tiling=yes
+colour=0x000000
+
+// 696:24
+[com_24]
+type=graphic
+x=32
+y=79
+width=32
+height=32
+layer=com_20
+graphic="v2_stone_borders,4"
+colour=0x000000
+
+// 696:25
+[com_25]
+type=graphic
+x=451
+y=79
+width=32
+height=32
+layer=com_20
+graphic="v2_stone_borders,5"
+tiling=yes
+colour=0x000000
+
+// 696:26
+[com_26]
+type=graphic
+x=63
+y=66
+width=391
+height=32
+layer=com_20
+graphic="v2_stone_borders,0"
+tiling=yes
+colour=0x000000
+
+// 696:27
+[com_27]
+type=graphic
+x=463
+y=110
+width=32
+height=175
+layer=com_20
+graphic="v2_stone_borders,3"
+tiling=yes
+colour=0x000000
+
+// 696:28
+[com_28]
+type=graphic
+x=451
+y=284
+width=32
+height=32
+layer=com_20
+graphic="v2_stone_borders,7"
+tiling=yes
+colour=0x000000
+
+// 696:29
+[com_29]
+type=graphic
+x=32
+y=284
+width=32
+height=32
+layer=com_20
+graphic="v2_stone_borders,6"
+tiling=yes
+colour=0x000000
+
+// 696:30
+[com_30]
+type=graphic
+x=64
+y=296
+width=387
+height=25
+layer=com_20
+graphic="v2_stone_borders,2"
+tiling=yes
+colour=0x000000
+
+// 696:31
+[com_31]
+type=layer
+x=55
+y=94
+width=389
+height=160
+layer=com_20
+hide=yes
+
+// 696:32
+[com_32]
+type=text
+x=16
+y=-4
+width=32
+height=32
+layer=com_31
+textfont=quill_oblique_large
+text=Correct.
+textshadow=yes
+colour=0xccbe8e
+
+// 696:33
+[com_33]
+type=text
+x=1
+y=27
+width=388
+height=105
+layer=com_31
+textfont=q8_full
+text=If you are at all concerned about the behaviour of another player, make sure you report or ignore them.
+textshadow=yes
+colour=0xa49279
+
+// 696:34
+[com_34]
+type=layer
+x=55
+y=94
+width=389
+height=160
+layer=com_20
+hide=yes
+
+// 696:35
+[com_35]
+type=text
+x=16
+y=-4
+width=32
+height=32
+layer=com_34
+textfont=quill_oblique_large
+text=Incorrect.
+textshadow=yes
+colour=0xccbe8e
+
+// 696:36
+[com_36]
+type=text
+x=1
+y=27
+width=390
+height=105
+layer=com_34
+textfont=p12_full
+text=If another player makes you feel uncomfortable by asking lots of personal questions, you can report them using the Report Abuse button. You can also use the ignore function, which can be found at the bottom of your game window.
+textshadow=yes
+colour=0xa49279
+
+// 696:37
+[com_37]
+type=layer
+x=375
+y=255
+width=97
+height=42
+layer=com_20
+
+// 696:38
+[com_38]
+type=layer
+width=97
+height=42
+layer=com_37
+onload=v2_stone_button_filled(event_com)
+onmouseover=v2_stone_button_out_filled(event_com)
+onmouseleave=v2_stone_button_filled(event_com)
+
+// 696:39
+[com_39]
+type=rectangle
+width=97
+height=42
+layer=com_37
+colour=0x000000
+fill=yes
+trans=250
+transmitop=1
+op1=Next
+
+// 696:40
+[com_40]
+type=text
+width=97
+height=42
+layer=com_37
+textfont=quill_oblique_large
+text=Next
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0x909061
+
+// 696:41
+[com_41]
+type=layer
+width=16391
+height=16391
+widthmode=proportion
+heightmode=proportion
+xmode=abs_centre
+ymode=abs_centre
+
+// 696:42
+[com_42]
+type=layer
+width=16391
+height=16391
+widthmode=proportion
+heightmode=proportion
+xmode=abs_centre
+ymode=abs_centre
+layer=com_41
+
+// 696:43
+[com_43]
+type=graphic
+x=-260
+width=32
+height=334
+xmode=abs_centre
+ymode=abs_centre
+graphic="v2_stone_borders,1"
+tiling=yes
+colour=0x000000
+
+// 696:44
+[com_44]
+type=graphic
+y=-171
+width=462
+height=32
+xmode=abs_centre
+ymode=abs_centre
+graphic="v2_stone_borders,0"
+tiling=yes
+colour=0x000000
+
+// 696:45
+[com_45]
+type=graphic
+y=170
+width=512
+height=32
+xmode=abs_centre
+ymode=abs_centre
+graphic="v2_stone_borders,2"
+tiling=yes
+colour=0x000000
+
+// 696:46
+[com_46]
+type=graphic
+x=259
+width=32
+height=334
+xmode=abs_centre
+ymode=abs_centre
+graphic="v2_stone_borders,3"
+tiling=yes
+colour=0x000000
+
+// 696:47
+[com_47]
+type=graphic
+x=-247
+y=-158
+width=32
+height=32
+xmode=abs_centre
+ymode=abs_centre
+graphic="v2_stone_borders,4"
+tiling=yes
+colour=0x000000
+
+// 696:48
+[com_48]
+type=graphic
+x=247
+y=-158
+width=32
+height=32
+xmode=abs_centre
+ymode=abs_centre
+graphic="v2_stone_borders,5"
+tiling=yes
+colour=0x000000
+
+// 696:49
+[com_49]
+type=graphic
+x=247
+y=158
+width=32
+height=32
+xmode=abs_centre
+ymode=abs_centre
+graphic="v2_stone_borders,7"
+tiling=yes
+colour=0x000000
+
+// 696:50
+[com_50]
+type=graphic
+x=-247
+y=158
+width=32
+height=32
+xmode=abs_centre
+ymode=abs_centre
+graphic="v2_stone_borders,6"
+tiling=yes
+colour=0x000000
+
+// 696:51
+[com_51]
+type=layer
+width=8192
+height=16391
+widthmode=proportion
+heightmode=proportion
+xmode=abs_right
+ymode=abs_centre
+layer=com_42
+
+// 696:52
+[com_52]
+type=layer
+width=8188
+height=16391
+widthmode=proportion
+heightmode=proportion
+ymode=abs_centre
+layer=com_42
+
+// 696:53
+[com_53]
+type=layer
+width=16391
+height=8192
+widthmode=proportion
+heightmode=proportion
+xmode=abs_centre
+layer=com_42
+
+// 696:54
+[com_54]
+type=layer
+width=16391
+height=8182
+widthmode=proportion
+heightmode=proportion
+xmode=abs_centre
+ymode=abs_bottom
+layer=com_42
+
+// 696:55
+[com_55]
+type=layer
+width=512
+height=334
+xmode=abs_centre
+ymode=abs_centre
+layer=com_42
+
+// 696:56
+[com_56]
+type=graphic
+width=256
+height=16384
+widthmode=minus
+heightmode=proportion
+ymode=abs_centre
+layer=com_52
+graphic=tradebacking
+tiling=yes
+outline=2
+colour=0x000000
+
+// 696:57
+[com_57]
+type=graphic
+width=256
+height=16391
+widthmode=minus
+heightmode=proportion
+xmode=abs_right
+ymode=abs_centre
+layer=com_51
+graphic=tradebacking
+tiling=yes
+outline=2
+colour=0x000000
+
+// 696:58
+[com_58]
+type=graphic
+width=16391
+height=167
+widthmode=proportion
+heightmode=minus
+xmode=abs_centre
+layer=com_53
+graphic=tradebacking
+tiling=yes
+outline=2
+colour=0x000000
+
+// 696:59
+[com_59]
+type=graphic
+width=16391
+height=166
+widthmode=proportion
+heightmode=minus
+xmode=abs_centre
+ymode=abs_bottom
+layer=com_54
+graphic=tradebacking
+tiling=yes
+outline=2
+colour=0x000000

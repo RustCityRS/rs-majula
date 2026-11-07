@@ -1,0 +1,47 @@
+// 828
+[clientscript,script828]
+~script2872;
+def_int $intarray0(calc(979 + 1));
+def_int $int0 = 0;
+if (%varclient_89 = 0 | %varclient_89 = -1) {
+    %varclient_1715 = "";
+    %varclient_89 = 1;
+}
+while ($int0 <= 979) {
+    $intarray0($int0) = $int0;
+    cc_create(music_v3:com_1, ^iftype_text, calc($int0 * 2));
+    cc_create(music_v3:com_1, ^iftype_graphic, calc($int0 * 2 + 1));
+    $int0 = calc($int0 + 1);
+}
+~script520(intarray0, 0, 979, enum_1347);
+if_setparam_int(param_1133, -1, music_v3:com_4);
+$int0 = 0;
+def_int $int1 = 0;
+def_int $int2 = 0;
+while ($int1 <= 979) {
+    $int0 = $intarray0($int1);
+    if (cc_find(music_v3:com_1, calc($int0 * 2)) = true & .cc_find(music_v3:com_1, calc($int0 * 2 + 1)) = true) {
+        if (enum(int, midi, enum_1351, $int0) ! silence & enum(int, int, enum_1350, $int0) = 0) {
+            cc_settextalign(^settextalign_left, ^settextalign_centre, 0);
+            cc_settext(enum_string(enum_1345, $int0));
+            cc_setsize(150, 15, ^setsize_abs, ^setsize_abs);
+            cc_setonop("music_ops(event_op, $int0)");
+            cc_setopbase(enum_string(enum_1345, $int0));
+            .cc_setopbase(enum_string(enum_1345, $int0));
+            cc_settextshadow(false);
+            cc_settextfont(p11_full);
+            cc_setonmouseover("cc_text_colour_swapper(event_com, event_comsubid, ^white)");
+            .cc_setsize(12, 12, ^setsize_abs, ^setsize_abs);
+            if ($int2 = 0) {
+                if_setparam_int(param_1133, $int0, music_v3:com_4);
+                $int2 = 1;
+            }
+        }
+        if ($int1 < 979) {
+            cc_setparam_int(param_1133, $intarray0(calc($int1 + 1)));
+        }
+    }
+    $int1 = calc($int1 + 1);
+}
+~scrollbar_vertical(music_v3:com_2, music_v3:com_1, "scrollbar_dragger_v2,3", "scrollbar_dragger_v2,0", "scrollbar_dragger_v2,1", "scrollbar_dragger_v2,2", "scrollbar_v2,0", "scrollbar_v2,1");
+~music_v3_refresh;

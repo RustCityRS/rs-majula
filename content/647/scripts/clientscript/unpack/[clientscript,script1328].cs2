@@ -1,0 +1,100 @@
+// 1328
+[clientscript,script1328](int $key0)
+if (if_gethide(lobbyscreen:com_30) = false | if_gethide(lobbyscreen:com_31) = false | if_gethide(lobbyscreen:com_32) = false | if_gethide(lobbyscreen:com_19) = false | if_gethide(lobbyscreen:com_34) = false | if_gethide(lobbyscreen:com_44) = false | if_gethide(lobbyscreen:com_45) = false) {
+    return;
+}
+def_int $int1 = -1;
+if ($key0 = ^key_tab) {
+    if (if_gethide(lobbyscreen:com_174) = false) {
+        $int1 = 0;
+    }
+    if (if_gethide(lobbyscreen:com_175) = false) {
+        $int1 = 1;
+    }
+    if (if_gethide(lobbyscreen:com_176) = false) {
+        $int1 = 2;
+    }
+    if (if_gethide(lobbyscreen:com_177) = false) {
+        $int1 = 3;
+    }
+    if (if_gethide(lobbyscreen:com_178) = false) {
+        $int1 = 5;
+    }
+    if (if_gethide(lobbyscreen:com_179) = false) {
+        $int1 = 4;
+    }
+    if (keyheld_shift = false) {
+        switch_int ($int1) {
+            case 0 :
+                ~lobbyscreen_tabswitch(1);
+                return;
+            case 1 :
+                ~lobbyscreen_tabswitch(2);
+                return;
+            case 2 :
+                ~lobbyscreen_tabswitch(3);
+                return;
+            case 3 :
+                ~lobbyscreen_tabswitch(5);
+                return;
+            case 5 :
+                ~lobbyscreen_tabswitch(4);
+                return;
+            case 4 :
+                ~lobbyscreen_tabswitch(0);
+                return;
+            case default :
+                ~lobbyscreen_tabswitch(0);
+                return;
+        }
+    } else {
+        switch_int ($int1) {
+            case 0 :
+                ~lobbyscreen_tabswitch(4);
+                return;
+            case 1 :
+                ~lobbyscreen_tabswitch(0);
+                return;
+            case 2 :
+                ~lobbyscreen_tabswitch(1);
+                return;
+            case 3 :
+                ~lobbyscreen_tabswitch(2);
+                return;
+            case 5 :
+                ~lobbyscreen_tabswitch(3);
+                return;
+            case 4 :
+                ~lobbyscreen_tabswitch(5);
+                return;
+            case default :
+                ~lobbyscreen_tabswitch(0);
+                return;
+        }
+    }
+}
+def_int $int2 = 0;
+def_string $string0 = "";
+def_string $string1 = "";
+if ($key0 = ^key_return & if_gethide(lobbyscreen:com_176) = false) {
+    if (string_length(%varclient_1795) > 0) {
+        $int2 = friend_getslotfromname(%varclient_1795);
+        if ($int2 ! -1 & userdetail_quickchat = false) {
+            $string0, $string1 = friend_getname($int2);
+            ~lobbyscreen_input("Send message to <$string0>", "", 0, %varclient_1795, "");
+            return;
+        }
+        if (%varclient_1271 > calc(clientclock - 100)) {
+            return;
+        }
+        mes("That player is not on your Friends list.");
+        %varclient_1271 = clientclock;
+        return;
+    }
+    if (%varclient_1271 > calc(clientclock - 100)) {
+        return;
+    }
+    mes("You haven't received any messages to which you can reply.");
+    %varclient_1271 = clientclock;
+    return;
+}

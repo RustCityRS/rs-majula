@@ -1,0 +1,4 @@
+// 3412
+[proc,script3412](component $component0, component $component1)
+if_settext("High-risk Wilderness World", $component0);
+if_settext("Warning: This is a High-risk Wilderness world.<br><br>While you are in the Wilderness on this world, you will not be permitted to use the Protect Item prayer or curse, so you may lose ALL your items when you die.<br><br>You have been warned!", $component1);

@@ -1,0 +1,1456 @@
+// 432:0
+[com_0]
+type=layer
+x=7
+width=512
+height=334
+xmode=proportion_centre
+ymode=proportion_centre
+
+// 432:1
+[com_1]
+type=graphic
+x=14
+y=17
+width=484
+height=315
+layer=com_0
+graphic=tradebacking
+tiling=yes
+colour=0xffffffff
+opbase=  
+
+// 432:2
+[com_2]
+type=graphic
+y=21
+width=30
+height=309
+layer=com_0
+graphic="v2_stone_borders,1"
+tiling=yes
+colour=0xffffffff
+opbase= 
+
+// 432:3
+[com_3]
+type=graphic
+x=479
+y=20
+width=32
+height=309
+layer=com_0
+graphic="v2_stone_borders,3"
+tiling=yes
+colour=0xffffffff
+opbase= 
+
+// 432:4
+[com_4]
+type=graphic
+x=14
+y=313
+width=483
+height=29
+layer=com_0
+graphic="v2_stone_borders,2"
+tiling=yes
+colour=0xffffffff
+
+// 432:5
+[com_5]
+type=graphic
+x=467
+y=301
+width=32
+height=32
+layer=com_0
+graphic="v2_stone_borders,7"
+colour=0xffffffff
+opbase= 
+
+// 432:6
+[com_6]
+type=graphic
+x=13
+y=301
+width=32
+height=32
+layer=com_0
+graphic="v2_stone_borders,6"
+colour=0xffffffff
+
+// 432:7
+[com_7]
+type=graphic
+x=13
+y=16
+width=32
+height=32
+layer=com_0
+graphic="v2_stone_borders,4"
+colour=0xffffffff
+opbase= 
+
+// 432:8
+[com_8]
+type=graphic
+x=467
+y=16
+width=32
+height=32
+layer=com_0
+graphic="v2_stone_borders,5"
+colour=0xffffffff
+opbase= 
+
+// 432:9
+[com_9]
+type=graphic
+x=16
+y=33
+width=478
+height=31
+layer=com_0
+graphic="v2_stone_borders,8"
+tiling=yes
+colour=0xffffffff
+
+// 432:10
+[com_10]
+type=graphic
+x=13
+y=35
+width=32
+height=32
+layer=com_0
+graphic="v2_stone_borders,9"
+tiling=yes
+colour=0xffffffff
+
+// 432:11
+[com_11]
+type=graphic
+x=467
+y=35
+width=32
+height=32
+layer=com_0
+graphic="v2_stone_borders,10"
+tiling=yes
+colour=0xffffffff
+
+// 432:12
+[com_12]
+type=graphic
+x=471
+y=27
+width=16
+height=16
+layer=com_0
+graphic="v2_stone_close_button,0"
+colour=0xffffffff
+transmitop=1
+op1=Close
+onmouseover=graphic_swapper(event_com, "v2_stone_close_button,1")
+onmouseleave=graphic_swapper(event_com, "v2_stone_close_button,0")
+onop=closebutton_click
+
+// 432:13
+[com_13]
+type=text
+x=43
+y=28
+width=421
+height=13
+layer=com_0
+textfont=b12_full
+text=Enchant Crossbow Bolt
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xff981f
+
+// 432:14
+[com_14]
+type=layer
+x=37
+y=96
+width=40
+height=40
+layer=com_0
+transmitop=1,2,3
+opbase=<col=ff9040>Bolts
+op1=Enchant 1 stack of 
+op2=Enchant 5 stacks  of 
+op3=Enchant 10 stacks of 
+
+// 432:15
+[com_15]
+type=text
+x=26
+y=77
+width=60
+height=14
+layer=com_0
+textfont=p12_full
+text=Magic 4
+textalignh=centre
+textshadow=yes
+colour=0xff981f
+onload=xbows_level(event_com, 4)
+onvartransmit=xbows_level(event_com, 4){varplayer_1092}
+
+// 432:16
+[com_16]
+type=text
+x=26
+y=61
+width=60
+height=14
+layer=com_0
+textfont=p12_full
+text=Opal
+textalignh=centre
+textshadow=yes
+colour=0xff981f
+onload=xbows_bolts(event_com, opal_bolts)
+
+// 432:17
+[com_17]
+type=model
+x=34
+y=97
+width=40
+height=44
+layer=com_0
+model=model_16871
+modelorigin=3,-4
+modelangle=483,135,0
+modelzoom=500
+
+// 432:18
+[com_18]
+type=layer
+x=229
+y=96
+width=40
+height=40
+layer=com_0
+transmitop=1,2,3
+opbase=<col=ff9040>Bolts
+op1=Enchant 1 stack of 
+op2=Enchant 5 stacks  of 
+op3=Enchant 10 stacks of 
+
+// 432:19
+[com_19]
+type=text
+x=231
+y=60
+width=49
+height=13
+layer=com_0
+textfont=p12_full
+text=Jade
+textalignh=centre
+textshadow=yes
+colour=0xff981f
+onload=xbows_bolts(event_com, jade_bolts)
+
+// 432:20
+[com_20]
+type=text
+x=220
+y=77
+width=69
+height=14
+layer=com_0
+textfont=p12_full
+text=Magic 14
+textalignh=centre
+textshadow=yes
+colour=0xff981f
+onload=xbows_level(event_com, 14)
+onvartransmit=xbows_level(event_com, 14){varplayer_1092}
+
+// 432:21
+[com_21]
+type=model
+x=227
+y=97
+width=40
+height=44
+layer=com_0
+model=model_16871
+modelorigin=3,-4
+modelangle=483,135,0
+modelzoom=500
+
+// 432:22
+[com_22]
+type=layer
+x=328
+y=95
+width=40
+height=40
+layer=com_0
+transmitop=1,2,3
+opbase=<col=ff9040>Bolts
+op1=Enchant 1 stack of 
+op2=Enchant 5 stacks  of 
+op3=Enchant 10 stacks of 
+
+// 432:23
+[com_23]
+type=text
+x=326
+y=60
+width=47
+height=13
+layer=com_0
+textfont=p12_full
+text=Pearl
+textalignh=centre
+textshadow=yes
+colour=0xff981f
+onload=xbows_bolts(event_com, pearl_bolts)
+
+// 432:24
+[com_24]
+type=text
+x=320
+y=77
+width=62
+height=13
+layer=com_0
+textfont=p12_full
+text=Magic 24
+textalignh=centre
+textshadow=yes
+colour=0xff981f
+onload=xbows_level(event_com, 24)
+onvartransmit=xbows_level(event_com, 24){varplayer_1092}
+
+// 432:25
+[com_25]
+type=model
+x=326
+y=96
+width=40
+height=44
+layer=com_0
+model=model_16871
+modelorigin=3,-4
+modelangle=483,135,0
+modelzoom=500
+
+// 432:26
+[com_26]
+type=layer
+x=47
+y=226
+width=40
+height=40
+layer=com_0
+transmitop=1,2,3
+opbase=<col=ff9040>Bolts
+op1=Enchant 1 stack of 
+op2=Enchant 5 stacks  of 
+op3=Enchant 10 stacks of 
+
+// 432:27
+[com_27]
+type=text
+x=35
+y=207
+width=76
+height=13
+layer=com_0
+textfont=p12_full
+text=Magic 29
+textalignh=centre
+textshadow=yes
+colour=0xff981f
+onload=xbows_level(event_com, 29)
+onvartransmit=xbows_level(event_com, 29){varplayer_1092}
+
+// 432:28
+[com_28]
+type=model
+x=45
+y=227
+width=40
+height=44
+layer=com_0
+model=model_16871
+modelorigin=3,-4
+modelangle=483,135,0
+modelzoom=500
+
+// 432:29
+[com_29]
+type=layer
+x=131
+y=96
+width=40
+height=40
+layer=com_0
+transmitop=1,2,3
+opbase=<col=ff9040>Bolts
+op1=Enchant 1 stack of 
+op2=Enchant 5 stacks  of 
+op3=Enchant 10 stacks of 
+
+// 432:30
+[com_30]
+type=text
+x=120
+y=77
+width=72
+height=13
+layer=com_0
+textfont=p12_full
+text=Magic 7
+textalignh=centre
+textshadow=yes
+colour=0xff981f
+onload=xbows_level(event_com, 7)
+onvartransmit=xbows_level(event_com, 7){varplayer_1092}
+
+// 432:31
+[com_31]
+type=model
+x=128
+y=97
+width=40
+height=44
+layer=com_0
+model=model_16871
+modelorigin=3,-4
+modelangle=483,135,0
+modelzoom=500
+
+// 432:32
+[com_32]
+type=layer
+x=421
+y=96
+width=40
+height=40
+layer=com_0
+transmitop=1,2,3
+opbase=<col=ff9040>Bolts
+op1=Enchant 1 stack of 
+op2=Enchant 5 stacks  of 
+op3=Enchant 10 stacks of 
+
+// 432:33
+[com_33]
+type=text
+x=411
+y=76
+width=62
+height=14
+layer=com_0
+textfont=p12_full
+text=Magic 27
+textalignh=centre
+textshadow=yes
+colour=0xff981f
+onload=xbows_level(event_com, 27)
+onvartransmit=xbows_level(event_com, 27){varplayer_1092}
+
+// 432:34
+[com_34]
+type=model
+x=418
+y=97
+width=40
+height=44
+layer=com_0
+model=model_16871
+modelorigin=3,-4
+modelangle=483,135,0
+modelzoom=500
+
+// 432:35
+[com_35]
+type=layer
+x=133
+y=226
+width=40
+height=40
+layer=com_0
+transmitop=1,2,3
+opbase=<col=ff9040>Bolts
+op1=Enchant 1 stack of 
+op2=Enchant 5 stacks  of 
+op3=Enchant 10 stacks of 
+
+// 432:36
+[com_36]
+type=text
+x=120
+y=206
+width=67
+height=15
+layer=com_0
+textfont=p12_full
+text=Magic 49
+textalignh=centre
+textshadow=yes
+colour=0xff981f
+onload=xbows_level(event_com, 49)
+onvartransmit=xbows_level(event_com, 49){varplayer_1092}
+
+// 432:37
+[com_37]
+type=model
+x=131
+y=227
+width=40
+height=44
+layer=com_0
+model=model_16871
+modelorigin=3,-4
+modelangle=483,135,0
+modelzoom=500
+
+// 432:38
+[com_38]
+type=layer
+x=227
+y=226
+width=40
+height=40
+layer=com_0
+transmitop=1,2,3
+opbase=<col=ff9040>Bolts
+op1=Enchant 1 stack of 
+op2=Enchant 5 stacks  of 
+op3=Enchant 10 stacks of 
+
+// 432:39
+[com_39]
+type=text
+x=215
+y=206
+width=70
+height=13
+layer=com_0
+textfont=p12_full
+text=Magic 57
+textalignh=centre
+textshadow=yes
+colour=0xff981f
+onload=xbows_level(event_com, 57)
+onvartransmit=xbows_level(event_com, 57){varplayer_1092}
+
+// 432:40
+[com_40]
+type=model
+x=224
+y=227
+width=40
+height=44
+layer=com_0
+model=model_16871
+modelorigin=3,-4
+modelangle=483,135,0
+modelzoom=500
+
+// 432:41
+[com_41]
+type=layer
+x=321
+y=226
+width=40
+height=40
+layer=com_0
+transmitop=1,2,3
+opbase=<col=ff9040>Bolts
+op1=Enchant 1 stack of 
+op2=Enchant 5 stacks  of 
+op3=Enchant 10 stacks of 
+
+// 432:42
+[com_42]
+type=text
+x=300
+y=206
+width=95
+height=15
+layer=com_0
+textfont=p12_full
+text=Magic 68
+textalignh=centre
+textshadow=yes
+colour=0xff981f
+onload=xbows_level(event_com, 68)
+onvartransmit=xbows_level(event_com, 68){varplayer_1092}
+
+// 432:43
+[com_43]
+type=model
+x=319
+y=227
+width=40
+height=44
+layer=com_0
+model=model_16871
+modelorigin=3,-4
+modelangle=483,135,0
+modelzoom=500
+
+// 432:44
+[com_44]
+type=layer
+x=420
+y=226
+width=40
+height=40
+layer=com_0
+transmitop=1,2,3
+opbase=<col=ff9040>Bolts
+op1=Enchant 1 stack of 
+op2=Enchant 5 stacks  of 
+op3=Enchant 10 stacks of 
+
+// 432:45
+[com_45]
+type=text
+x=406
+y=206
+width=73
+height=11
+layer=com_0
+textfont=p12_full
+text=Magic 87
+textalignh=centre
+textshadow=yes
+colour=0xff981f
+onload=xbows_level(event_com, 87)
+onvartransmit=xbows_level(event_com, 87){varplayer_1092}
+
+// 432:46
+[com_46]
+type=model
+x=418
+y=227
+width=40
+height=44
+layer=com_0
+model=model_16871
+modelorigin=3,-4
+modelangle=483,135,0
+modelzoom=500
+
+// 432:47
+[com_47]
+type=text
+x=28
+y=167
+width=23
+height=11
+layer=com_0
+textfont=p11_full
+textalignh=centre
+textshadow=yes
+colour=0xc00000
+onload=xbows_init(event_com, cosmic_rune, 1)
+
+// 432:48
+[com_48]
+type=model
+x=30
+y=143
+width=23
+height=23
+layer=com_0
+model=model_2735
+modelangle=512,1024,0
+modelzoom=900
+
+// 432:49
+[com_49]
+type=text
+x=220
+y=167
+width=23
+height=11
+layer=com_0
+textfont=p11_full
+textalignh=centre
+textshadow=yes
+colour=0xc00000
+onload=xbows_init(event_com, cosmic_rune, 1)
+
+// 432:50
+[com_50]
+type=model
+x=222
+y=143
+width=23
+height=23
+layer=com_0
+model=model_2735
+modelangle=512,1024,0
+modelzoom=900
+
+// 432:51
+[com_51]
+type=text
+x=318
+y=167
+width=23
+height=11
+layer=com_0
+textfont=p11_full
+textalignh=centre
+textshadow=yes
+colour=0xc00000
+onload=xbows_init(event_com, cosmic_rune, 1)
+
+// 432:52
+[com_52]
+type=model
+x=320
+y=143
+width=23
+height=23
+layer=com_0
+model=model_2735
+modelangle=512,1024,0
+modelzoom=900
+
+// 432:53
+[com_53]
+type=text
+x=30
+y=297
+width=23
+height=11
+layer=com_0
+textfont=p11_full
+textalignh=centre
+textshadow=yes
+colour=0xc00000
+onload=xbows_init(event_com, cosmic_rune, 1)
+
+// 432:54
+[com_54]
+type=model
+x=32
+y=273
+width=23
+height=23
+layer=com_0
+model=model_2735
+modelangle=512,1024,0
+modelzoom=900
+
+// 432:55
+[com_55]
+type=text
+x=111
+y=167
+width=23
+height=11
+layer=com_0
+textfont=p11_full
+textalignh=centre
+textshadow=yes
+colour=0xc00000
+onload=xbows_init(event_com, cosmic_rune, 1)
+
+// 432:56
+[com_56]
+type=model
+x=113
+y=143
+width=23
+height=23
+layer=com_0
+model=model_2735
+modelangle=512,1024,0
+modelzoom=900
+
+// 432:57
+[com_57]
+type=text
+x=402
+y=167
+width=23
+height=12
+layer=com_0
+textfont=p11_full
+textalignh=centre
+textshadow=yes
+colour=0xc00000
+onload=xbows_init(event_com, cosmic_rune, 1)
+
+// 432:58
+[com_58]
+type=model
+x=404
+y=143
+width=23
+height=23
+layer=com_0
+model=model_2735
+modelangle=512,1024,0
+modelzoom=900
+
+// 432:59
+[com_59]
+type=text
+x=106
+y=297
+width=23
+height=12
+layer=com_0
+textfont=p11_full
+textalignh=centre
+textshadow=yes
+colour=0xc00000
+onload=xbows_init(event_com, cosmic_rune, 1)
+
+// 432:60
+[com_60]
+type=model
+x=108
+y=273
+width=23
+height=23
+layer=com_0
+model=model_2735
+modelangle=512,1024,0
+modelzoom=900
+
+// 432:61
+[com_61]
+type=text
+x=206
+y=297
+width=23
+height=12
+layer=com_0
+textfont=p11_full
+textalignh=centre
+textshadow=yes
+colour=0xc00000
+onload=xbows_init(event_com, cosmic_rune, 1)
+
+// 432:62
+[com_62]
+type=model
+x=208
+y=273
+width=23
+height=23
+layer=com_0
+model=model_2735
+modelangle=512,1024,0
+modelzoom=900
+
+// 432:63
+[com_63]
+type=text
+x=302
+y=297
+width=23
+height=12
+layer=com_0
+textfont=p11_full
+textalignh=centre
+textshadow=yes
+colour=0xc00000
+onload=xbows_init(event_com, cosmic_rune, 1)
+
+// 432:64
+[com_64]
+type=model
+x=305
+y=274
+width=21
+height=21
+layer=com_0
+model=model_2735
+modelangle=512,1024,0
+modelzoom=1028
+
+// 432:65
+[com_65]
+type=text
+x=399
+y=297
+width=23
+height=12
+layer=com_0
+textfont=p11_full
+textalignh=centre
+textshadow=yes
+colour=0xc00000
+onload=xbows_init(event_com, cosmic_rune, 1)
+
+// 432:66
+[com_66]
+type=model
+x=401
+y=273
+width=23
+height=23
+layer=com_0
+model=model_2735
+modelangle=512,1024,0
+modelzoom=900
+
+// 432:67
+[com_67]
+type=model
+x=61
+y=143
+width=23
+height=23
+layer=com_0
+model=model_2405
+modelangle=512,1024,0
+modelzoom=900
+
+// 432:68
+[com_68]
+type=text
+x=59
+y=167
+width=23
+height=11
+layer=com_0
+textfont=p11_full
+textalignh=centre
+textshadow=yes
+colour=0xc00000
+onload=xbows_init(event_com, air_rune, 2)
+
+// 432:69
+[com_69]
+type=model
+x=333
+y=273
+width=23
+height=23
+layer=com_0
+model=model_2737
+modelangle=512,1024,0
+modelzoom=900
+
+// 432:70
+[com_70]
+type=text
+x=331
+y=297
+width=23
+height=12
+layer=com_0
+textfont=p11_full
+textalignh=centre
+textshadow=yes
+colour=0xc00000
+onload=xbows_init(event_com, earth_rune, 15)
+
+// 432:71
+[com_71]
+type=model
+x=254
+y=143
+width=23
+height=23
+layer=com_0
+model=model_2737
+modelangle=512,1024,0
+modelzoom=900
+
+// 432:72
+[com_72]
+type=text
+x=252
+y=167
+width=23
+height=12
+layer=com_0
+textfont=p11_full
+textalignh=centre
+textshadow=yes
+colour=0xc00000
+onload=xbows_init(event_com, earth_rune, 2)
+
+// 432:73
+[com_73]
+type=model
+x=352
+y=143
+width=23
+height=23
+layer=com_0
+model=model_2652
+modelangle=512,1024,0
+modelzoom=900
+
+// 432:74
+[com_74]
+type=text
+x=350
+y=167
+width=23
+height=12
+layer=com_0
+textfont=p11_full
+textalignh=centre
+textshadow=yes
+colour=0xc00000
+onload=xbows_init(event_com, water_rune, 2)
+
+// 432:75
+[com_75]
+type=model
+x=64
+y=273
+width=23
+height=23
+layer=com_0
+model=model_2399
+modelangle=512,1024,0
+modelzoom=900
+
+// 432:76
+[com_76]
+type=text
+x=63
+y=297
+width=23
+height=12
+layer=com_0
+textfont=p11_full
+textalignh=centre
+textshadow=yes
+colour=0xc00000
+onload=xbows_init(event_com, fire_rune, 2)
+
+// 432:77
+[com_77]
+type=model
+x=173
+y=143
+width=23
+height=23
+layer=com_0
+model=model_2481
+modelangle=512,1024,0
+modelzoom=900
+
+// 432:78
+[com_78]
+type=text
+x=172
+y=167
+width=23
+height=12
+layer=com_0
+textfont=p11_full
+textalignh=centre
+textshadow=yes
+colour=0xc00000
+onload=xbows_init(event_com, mind_rune, 1)
+
+// 432:79
+[com_79]
+type=model
+x=143
+y=143
+width=23
+height=23
+layer=com_0
+model=model_2652
+modelangle=512,1024,0
+modelzoom=900
+
+// 432:80
+[com_80]
+type=text
+x=141
+y=167
+width=23
+height=12
+layer=com_0
+textfont=p11_full
+textalignh=centre
+textshadow=yes
+colour=0xc00000
+onload=xbows_init(event_com, water_rune, 1)
+
+// 432:81
+[com_81]
+type=model
+x=168
+y=273
+width=23
+height=23
+layer=com_0
+model=model_2665
+modelangle=512,1024,0
+modelzoom=900
+
+// 432:82
+[com_82]
+type=text
+x=167
+y=297
+width=23
+height=12
+layer=com_0
+textfont=p11_full
+textalignh=centre
+textshadow=yes
+colour=0xc00000
+onload=xbows_init(event_com, blood_rune, 1)
+
+// 432:83
+[com_83]
+type=model
+x=138
+y=273
+width=23
+height=23
+layer=com_0
+model=model_2399
+modelangle=512,1024,0
+modelzoom=900
+
+// 432:84
+[com_84]
+type=text
+x=136
+y=297
+width=23
+height=12
+layer=com_0
+textfont=p11_full
+textalignh=centre
+textshadow=yes
+colour=0xc00000
+onload=xbows_init(event_com, fire_rune, 5)
+
+// 432:85
+[com_85]
+type=model
+x=435
+y=143
+width=23
+height=23
+layer=com_0
+model=model_2405
+modelangle=512,1024,0
+modelzoom=900
+
+// 432:86
+[com_86]
+type=text
+x=434
+y=167
+width=23
+height=12
+layer=com_0
+textfont=p11_full
+textalignh=centre
+textshadow=yes
+colour=0xc00000
+onload=xbows_init(event_com, air_rune, 3)
+
+// 432:87
+[com_87]
+type=model
+x=267
+y=273
+width=23
+height=23
+layer=com_0
+model=model_2382
+modelangle=512,1024,0
+modelzoom=900
+
+// 432:88
+[com_88]
+type=text
+x=265
+y=297
+width=23
+height=11
+layer=com_0
+textfont=p11_full
+textalignh=centre
+textshadow=yes
+colour=0xc00000
+onload=xbows_init(event_com, law_rune, 2)
+
+// 432:89
+[com_89]
+type=model
+x=462
+y=273
+width=23
+height=23
+layer=com_0
+model=model_2645
+modelangle=512,1024,0
+modelzoom=900
+
+// 432:90
+[com_90]
+type=text
+x=460
+y=297
+width=23
+height=12
+layer=com_0
+textfont=p11_full
+textalignh=centre
+textshadow=yes
+colour=0xc00000
+onload=xbows_init(event_com, death_rune, 1)
+
+// 432:91
+[com_91]
+type=model
+x=362
+y=273
+width=23
+height=23
+layer=com_0
+model=model_2434
+modelangle=512,1024,0
+modelzoom=900
+
+// 432:92
+[com_92]
+type=text
+x=360
+y=297
+width=23
+height=12
+layer=com_0
+textfont=p11_full
+textalignh=centre
+textshadow=yes
+colour=0xc00000
+onload=xbows_init(event_com, soul_rune, 1)
+
+// 432:93
+[com_93]
+type=model
+x=464
+y=143
+width=23
+height=23
+layer=com_0
+model=model_2734
+modelangle=512,1024,0
+modelzoom=900
+
+// 432:94
+[com_94]
+type=text
+x=463
+y=167
+width=23
+height=12
+layer=com_0
+textfont=p11_full
+textalignh=centre
+textshadow=yes
+colour=0xc00000
+onload=xbows_init(event_com, nature_rune, 1)
+
+// 432:95
+[com_95]
+type=text
+x=50
+y=299
+width=400
+height=32
+layer=com_0
+textfont=p11_full
+text=Right click on the bolts required to enchant more than one stack of 10.
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xff991f
+
+// 432:96
+[com_96]
+type=text
+x=34
+y=189
+width=78
+height=14
+layer=com_0
+textfont=p12_full
+text=Red Topaz
+textalignh=centre
+textshadow=yes
+colour=0xff981f
+onload=xbows_bolts(event_com, topaz_bolts)
+
+// 432:97
+[com_97]
+type=text
+x=124
+y=60
+width=66
+height=14
+layer=com_0
+textfont=p12_full
+text=Sapphire
+textalignh=centre
+textshadow=yes
+colour=0xff981f
+onload=xbows_bolts(event_com, sapphire_bolts)
+
+// 432:98
+[com_98]
+type=text
+x=411
+y=60
+width=62
+height=13
+layer=com_0
+textfont=p12_full
+text=Emerald
+textalignh=centre
+textshadow=yes
+colour=0xff981f
+onload=xbows_bolts(event_com, emerald_bolts)
+
+// 432:99
+[com_99]
+type=text
+x=131
+y=189
+width=50
+height=13
+layer=com_0
+textfont=p12_full
+text=Ruby
+textalignh=centre
+textshadow=yes
+colour=0xff981f
+onload=xbows_bolts(event_com, ruby_bolts)
+
+// 432:100
+[com_100]
+type=text
+x=217
+y=189
+width=67
+height=13
+layer=com_0
+textfont=p12_full
+text=Diamond
+textalignh=centre
+textshadow=yes
+colour=0xff981f
+onload=xbows_bolts(event_com, diamond_bolts)
+
+// 432:101
+[com_101]
+type=text
+x=300
+y=189
+width=95
+height=15
+layer=com_0
+textfont=p12_full
+text=Dragonstone
+textalignh=centre
+textshadow=yes
+colour=0xff981f
+onload=xbows_bolts(event_com, dragon_bolts)
+
+// 432:102
+[com_102]
+type=text
+x=406
+y=189
+width=73
+height=13
+layer=com_0
+textfont=p12_full
+text=Onyx
+textalignh=centre
+textshadow=yes
+colour=0xff981f
+onload=xbows_bolts(event_com, onyx_bolts)
+
+// 432:103
+[com_103]
+type=model
+x=237
+y=273
+width=23
+height=23
+layer=com_0
+model=model_2737
+modelangle=512,1024,0
+modelzoom=900
+
+// 432:104
+[com_104]
+type=text
+x=235
+y=297
+width=23
+height=12
+layer=com_0
+textfont=p11_full
+textalignh=centre
+textshadow=yes
+colour=0xc00000
+onload=xbows_init(event_com, earth_rune, 10)
+
+// 432:105
+[com_105]
+type=model
+x=431
+y=273
+width=23
+height=23
+layer=com_0
+model=model_2399
+modelangle=512,1024,0
+modelzoom=900
+
+// 432:106
+[com_106]
+type=text
+x=429
+y=297
+width=23
+height=12
+layer=com_0
+textfont=p11_full
+textalignh=centre
+textshadow=yes
+colour=0xc00000
+onload=xbows_init(event_com, fire_rune, 20)
+
+// 432:107
+[com_107]
+type=graphic
+x=45
+y=3
+width=422
+height=32
+layer=com_0
+graphic="v2_stone_borders,0"
+tiling=yes
+colour=0xffffffff
+opbase= 

@@ -1,69 +1,70 @@
+// 2064
 [proc,gnomeglider_update](int $int0)
-if_sethide(true, glidermap:com28);
-if_sethide(true, glidermap:com37);
-if_sethide(true, glidermap:com36);
-if_sethide(true, glidermap:com31);
-if_sethide(true, glidermap:com39);
-if_sethide(true, glidermap:com38);
-if_sethide(true, glidermap:com35);
-if_sethide(true, glidermap:com34);
-if_sethide(true, glidermap:com33);
-if_sethide(true, glidermap:com32);
-if_sethide(true, glidermap:com29);
-if_sethide(true, glidermap:com30);
-if_sethide(true, glidermap:com41);
-if_sethide(true, glidermap:com40);
+if_sethide(true, glidermap:com_28);
+if_sethide(true, glidermap:com_37);
+if_sethide(true, glidermap:com_36);
+if_sethide(true, glidermap:com_31);
+if_sethide(true, glidermap:com_39);
+if_sethide(true, glidermap:com_38);
+if_sethide(true, glidermap:com_35);
+if_sethide(true, glidermap:com_34);
+if_sethide(true, glidermap:com_33);
+if_sethide(true, glidermap:com_32);
+if_sethide(true, glidermap:com_29);
+if_sethide(true, glidermap:com_30);
+if_sethide(true, glidermap:com_41);
+if_sethide(true, glidermap:com_40);
 def_boolean $boolean1 = false;
-if (%varbit_5332 < 120) {
+if (%varplayerbit_5332 < 120) {
     $boolean1 = true;
 }
-if_sethide($boolean1, glidermap:com6);
-if_sethide($boolean1, glidermap:com7);
-if_sethide($boolean1, glidermap:com8);
-if_sethide($boolean1, glidermap:com19);
-if_sethide($boolean1, glidermap:com20);
-if_sethide($boolean1, glidermap:com21);
-if_sethide($boolean1, glidermap:com12);
+if_sethide($boolean1, glidermap:com_6);
+if_sethide($boolean1, glidermap:com_7);
+if_sethide($boolean1, glidermap:com_8);
+if_sethide($boolean1, glidermap:com_19);
+if_sethide($boolean1, glidermap:com_20);
+if_sethide($boolean1, glidermap:com_21);
+if_sethide($boolean1, glidermap:com_12);
 switch_int ($int0) {
-    case 0:
-        if_sethide(false, glidermap:com28);
-    case 1:
-        if_sethide(false, glidermap:com37);
-        if_setmodelanim(seq_786, glidermap:com37);
-    case 2:
-        if_sethide(false, glidermap:com36);
-        if_setmodelanim(seq_786, glidermap:com36);
-    case 3:
-        if_sethide(false, glidermap:com31);
-        if_setmodelanim(human_blown_end_getup_priority, glidermap:com31);
-    case 4:
-        if_sethide(false, glidermap:com39);
-        if_setmodelanim(human_blown_end_getup_priority, glidermap:com39);
-    case 5:
-        if_sethide(false, glidermap:com38);
-        if_setmodelanim(human_blown_end_getup_priority, glidermap:com38);
-    case 6:
-        if_sethide(false, glidermap:com35);
-        if_setmodelanim(human_blown_end_getup_priority, glidermap:com35);
-    case 7:
-        if_sethide(false, glidermap:com34);
-        if_setmodelanim(human_blown_end_getup_priority, glidermap:com34);
-    case 8:
-        if_sethide(false, glidermap:com32);
-        if_setmodelanim(human_blown_end_getup_priority, glidermap:com32);
-    case 9:
-        if_sethide(false, glidermap:com33);
-        if_setmodelanim(human_blown_end_getup_priority, glidermap:com33);
-    case 10:
-        if_sethide(false, glidermap:com29);
-        if_setmodelanim(human_blown_end_getup_priority, glidermap:com29);
-    case 11:
-        if_sethide(false, glidermap:com30);
-        if_setmodelanim(human_blown_end_getup_priority, glidermap:com30);
-    case 12:
-        if_sethide(false, glidermap:com41);
-        if_setmodelanim(seq_786, glidermap:com41);
-    case 13:
-        if_sethide(false, glidermap:com40);
-        if_setmodelanim(seq_786, glidermap:com40);
+    case 0 :
+        if_sethide(false, glidermap:com_28);
+    case 1 :
+        if_sethide(false, glidermap:com_37);
+        if_setmodelanim(seq_786, glidermap:com_37);
+    case 2 :
+        if_sethide(false, glidermap:com_36);
+        if_setmodelanim(seq_786, glidermap:com_36);
+    case 3 :
+        if_sethide(false, glidermap:com_31);
+        if_setmodelanim(human_blown_end_getup_priority, glidermap:com_31);
+    case 4 :
+        if_sethide(false, glidermap:com_39);
+        if_setmodelanim(human_blown_end_getup_priority, glidermap:com_39);
+    case 5 :
+        if_sethide(false, glidermap:com_38);
+        if_setmodelanim(human_blown_end_getup_priority, glidermap:com_38);
+    case 6 :
+        if_sethide(false, glidermap:com_35);
+        if_setmodelanim(human_blown_end_getup_priority, glidermap:com_35);
+    case 7 :
+        if_sethide(false, glidermap:com_34);
+        if_setmodelanim(human_blown_end_getup_priority, glidermap:com_34);
+    case 8 :
+        if_sethide(false, glidermap:com_32);
+        if_setmodelanim(human_blown_end_getup_priority, glidermap:com_32);
+    case 9 :
+        if_sethide(false, glidermap:com_33);
+        if_setmodelanim(human_blown_end_getup_priority, glidermap:com_33);
+    case 10 :
+        if_sethide(false, glidermap:com_29);
+        if_setmodelanim(human_blown_end_getup_priority, glidermap:com_29);
+    case 11 :
+        if_sethide(false, glidermap:com_30);
+        if_setmodelanim(human_blown_end_getup_priority, glidermap:com_30);
+    case 12 :
+        if_sethide(false, glidermap:com_41);
+        if_setmodelanim(seq_786, glidermap:com_41);
+    case 13 :
+        if_sethide(false, glidermap:com_40);
+        if_setmodelanim(seq_786, glidermap:com_40);
 }

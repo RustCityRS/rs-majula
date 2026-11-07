@@ -1,0 +1,1071 @@
+// 985:0
+[com_0]
+type=layer
+width=512
+height=334
+
+// 985:1
+[com_1]
+type=layer
+x=49
+y=51
+width=427
+height=220
+
+// 985:2
+[com_2]
+type=text
+x=28
+y=2
+width=125
+height=17
+layer=com_1
+textfont=b12_full
+text=Red Team Score:
+textalignh=right
+textshadow=yes
+colour=0xff9933
+
+// 985:3
+[com_3]
+type=text
+x=202
+y=2
+width=125
+height=17
+layer=com_1
+textfont=b12_full
+text=Blue Team Score:
+textalignh=right
+textshadow=yes
+colour=0xff9933
+
+// 985:4
+[com_4]
+type=text
+x=8
+y=33
+width=192
+height=17
+layer=com_1
+textfont=p12_full
+text=Red team kills:
+textshadow=yes
+colour=0xff9933
+
+// 985:5
+[com_5]
+type=text
+x=8
+y=52
+width=192
+height=17
+layer=com_1
+textfont=p12_full
+text=Blue team kills:
+textshadow=yes
+colour=0xff9933
+
+// 985:6
+[com_6]
+type=text
+x=8
+y=71
+width=192
+height=17
+layer=com_1
+textfont=p12_full
+text=Player with most kills:
+textshadow=yes
+colour=0xff9933
+
+// 985:7
+[com_7]
+type=text
+x=8
+y=90
+width=192
+height=17
+layer=com_1
+textfont=p12_full
+text=Player with most captures:
+textshadow=yes
+colour=0xff9933
+
+// 985:8
+[com_8]
+type=text
+x=9
+y=126
+width=192
+height=17
+layer=com_1
+textfont=p12_full
+text=Tickets won:
+textshadow=yes
+colour=0xff9933
+
+// 985:9
+[com_9]
+type=text
+x=9
+y=145
+width=192
+height=17
+layer=com_1
+textfont=p12_full
+text=Total tickets:
+textshadow=yes
+colour=0xff9933
+
+// 985:10
+[com_10]
+type=text
+x=9
+y=164
+width=192
+height=17
+layer=com_1
+textfont=p12_full
+text=Your total kills:
+textshadow=yes
+colour=0xff9933
+
+// 985:11
+[com_11]
+type=text
+x=9
+y=183
+width=192
+height=17
+layer=com_1
+textfont=p12_full
+text=Your total captures:
+textshadow=yes
+colour=0xff9933
+
+// 985:12
+[com_12]
+type=text
+x=9
+y=202
+width=192
+height=17
+layer=com_1
+textfont=p12_full
+text=Total games played:
+textshadow=yes
+colour=0xff9933
+
+// 985:13
+[com_13]
+type=text
+x=159
+y=2
+width=40
+height=17
+layer=com_1
+textfont=b12_full
+text=---
+textshadow=yes
+colour=0xff9933
+
+// 985:14
+[com_14]
+type=text
+x=334
+y=2
+width=40
+height=17
+layer=com_1
+textfont=b12_full
+text=---
+textshadow=yes
+colour=0xff9933
+
+// 985:15
+[com_15]
+type=text
+x=213
+y=33
+width=211
+height=17
+layer=com_1
+textfont=p12_full
+text=-----
+textshadow=yes
+colour=0xff9933
+
+// 985:16
+[com_16]
+type=text
+x=213
+y=52
+width=211
+height=17
+layer=com_1
+textfont=p12_full
+text=-----
+textshadow=yes
+colour=0xff9933
+
+// 985:17
+[com_17]
+type=text
+x=213
+y=71
+width=211
+height=17
+layer=com_1
+textfont=p12_full
+text=-----
+textshadow=yes
+colour=0xff9933
+
+// 985:18
+[com_18]
+type=text
+x=213
+y=90
+width=211
+height=17
+layer=com_1
+textfont=p12_full
+text=-----
+textshadow=yes
+colour=0xff9933
+
+// 985:19
+[com_19]
+type=text
+x=214
+y=126
+width=211
+height=17
+layer=com_1
+textfont=p12_full
+text=-----
+textshadow=yes
+colour=0xff9933
+
+// 985:20
+[com_20]
+type=text
+x=214
+y=145
+width=211
+height=17
+layer=com_1
+textfont=p12_full
+text=-----
+textshadow=yes
+colour=0xff9933
+
+// 985:21
+[com_21]
+type=text
+x=214
+y=164
+width=211
+height=17
+layer=com_1
+textfont=p12_full
+text=-----
+textshadow=yes
+colour=0xff9933
+
+// 985:22
+[com_22]
+type=text
+x=214
+y=183
+width=211
+height=17
+layer=com_1
+textfont=p12_full
+text=-----
+textshadow=yes
+colour=0xff9933
+
+// 985:23
+[com_23]
+type=text
+x=214
+y=202
+width=211
+height=17
+layer=com_1
+textfont=p12_full
+text=-----
+textshadow=yes
+colour=0xff9933
+
+// 985:24
+[com_24]
+type=layer
+x=49
+y=281
+width=427
+height=35
+onload=castlewars_game_end_icons
+
+// 985:25
+[com_25]
+type=text
+x=25
+y=10
+width=114
+height=17
+layer=com_24
+textfont=p12_full
+text=Capes unlocked:
+textshadow=yes
+colour=0xff9933
+
+// 985:26
+[com_26]
+type=layer
+x=161
+y=1
+width=32
+height=32
+layer=com_24
+hide=yes
+onmouseleave=deltooltip(interface_985:com_80)
+onmouserepeat=script1160(event_com, event_comsubid, interface_985:com_80, "Castle Wars flag cape - be the one to capture the most flags in a match.", 50, 150)
+
+// 985:27
+[com_27]
+type=rectangle
+width=16391
+height=16391
+widthmode=proportion
+heightmode=proportion
+layer=com_26
+colour=0x000000
+fill=yes
+trans=192
+
+// 985:28
+[com_28]
+type=rectangle
+width=16391
+height=16391
+widthmode=proportion
+heightmode=proportion
+layer=com_26
+colour=0x000000
+
+// 985:29
+[com_29]
+type=graphic
+width=32
+height=32
+layer=com_26
+colour=0xffffffff
+
+// 985:30
+[com_30]
+type=layer
+x=203
+y=1
+width=32
+height=32
+layer=com_24
+hide=yes
+onmouseleave=deltooltip(interface_985:com_80)
+onmouserepeat=script1160(event_com, event_comsubid, interface_985:com_80, "Castle Wars kills cape - be the one to kill the most players in a match.", 50, 150)
+
+// 985:31
+[com_31]
+type=rectangle
+width=16391
+height=16391
+widthmode=proportion
+heightmode=proportion
+layer=com_30
+colour=0x000000
+fill=yes
+trans=192
+
+// 985:32
+[com_32]
+type=rectangle
+width=16391
+height=16391
+widthmode=proportion
+heightmode=proportion
+layer=com_30
+colour=0x000000
+
+// 985:33
+[com_33]
+type=layer
+x=246
+y=1
+width=32
+height=32
+layer=com_24
+hide=yes
+onmouseleave=deltooltip(interface_985:com_80)
+onmouserepeat=script1160(event_com, event_comsubid, interface_985:com_80, "Castle Wars hobbyist cape - complete 500 matches of Castle Wars.", 50, 150)
+
+// 985:34
+[com_34]
+type=rectangle
+width=16391
+height=16391
+widthmode=proportion
+heightmode=proportion
+layer=com_33
+colour=0x000000
+fill=yes
+trans=192
+
+// 985:35
+[com_35]
+type=rectangle
+width=16391
+height=16391
+widthmode=proportion
+heightmode=proportion
+layer=com_33
+colour=0x000000
+
+// 985:36
+[com_36]
+type=layer
+x=288
+y=1
+width=32
+height=32
+layer=com_24
+hide=yes
+onmouseleave=deltooltip(interface_985:com_80)
+onmouserepeat=script1160(event_com, event_comsubid, interface_985:com_80, "Castle Wars enthusiast cape - complete 1,000 matches of Castle Wars.", 50, 150)
+
+// 985:37
+[com_37]
+type=rectangle
+width=16391
+height=16391
+widthmode=proportion
+heightmode=proportion
+layer=com_36
+colour=0x000000
+fill=yes
+trans=192
+
+// 985:38
+[com_38]
+type=rectangle
+width=16391
+height=16391
+widthmode=proportion
+heightmode=proportion
+layer=com_36
+colour=0x000000
+
+// 985:39
+[com_39]
+type=layer
+x=330
+y=1
+width=32
+height=32
+layer=com_24
+hide=yes
+onmouseleave=deltooltip(interface_985:com_80)
+onmouserepeat=script1160(event_com, event_comsubid, interface_985:com_80, "Castle Wars professional cape - complete 5,000 matches of Castle Wars.", 50, 150)
+
+// 985:40
+[com_40]
+type=rectangle
+width=16391
+height=16391
+widthmode=proportion
+heightmode=proportion
+layer=com_39
+colour=0x000000
+fill=yes
+trans=192
+
+// 985:41
+[com_41]
+type=rectangle
+width=16391
+height=16391
+widthmode=proportion
+heightmode=proportion
+layer=com_39
+colour=0x000000
+
+// 985:42
+[com_42]
+type=layer
+x=161
+y=1
+width=32
+height=32
+layer=com_24
+onmouseleave=deltooltip(interface_985:com_80)
+onmouserepeat=script1160(event_com, event_comsubid, interface_985:com_80, "Castle Wars flag cape - be the one to capture the most flags in a match.", 50, 150)
+
+// 985:43
+[com_43]
+type=rectangle
+width=16391
+height=16391
+widthmode=proportion
+heightmode=proportion
+layer=com_42
+colour=0x000000
+fill=yes
+trans=192
+
+// 985:44
+[com_44]
+type=rectangle
+width=16391
+height=16391
+widthmode=proportion
+heightmode=proportion
+layer=com_42
+colour=0x000000
+
+// 985:45
+[com_45]
+type=text
+x=1
+y=2
+width=16
+height=19
+xmode=abs_centre
+ymode=abs_centre
+layer=com_42
+textfont=b12_full
+text=?
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xff9933
+
+// 985:46
+[com_46]
+type=layer
+x=203
+y=1
+width=32
+height=32
+layer=com_24
+onmouseleave=deltooltip(interface_985:com_80)
+onmouserepeat=script1160(event_com, event_comsubid, interface_985:com_80, "Castle Wars kills cape - be the one to kill the most players in a match.", 50, 150)
+
+// 985:47
+[com_47]
+type=rectangle
+width=16391
+height=16391
+widthmode=proportion
+heightmode=proportion
+layer=com_46
+colour=0x000000
+fill=yes
+trans=192
+
+// 985:48
+[com_48]
+type=rectangle
+width=16391
+height=16391
+widthmode=proportion
+heightmode=proportion
+layer=com_46
+colour=0x000000
+
+// 985:49
+[com_49]
+type=text
+x=1
+y=2
+width=16
+height=19
+xmode=abs_centre
+ymode=abs_centre
+layer=com_46
+textfont=b12_full
+text=?
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xff9933
+
+// 985:50
+[com_50]
+type=layer
+x=246
+y=1
+width=32
+height=32
+layer=com_24
+onmouseleave=deltooltip(interface_985:com_80)
+onmouserepeat=script1160(event_com, event_comsubid, interface_985:com_80, "Castle Wars hobbyist cape - complete 500 matches of Castle Wars.", 50, 150)
+
+// 985:51
+[com_51]
+type=rectangle
+width=16391
+height=16391
+widthmode=proportion
+heightmode=proportion
+layer=com_50
+colour=0x000000
+fill=yes
+trans=192
+
+// 985:52
+[com_52]
+type=rectangle
+width=16391
+height=16391
+widthmode=proportion
+heightmode=proportion
+layer=com_50
+colour=0x000000
+
+// 985:53
+[com_53]
+type=text
+x=1
+y=2
+width=16
+height=19
+xmode=abs_centre
+ymode=abs_centre
+layer=com_50
+textfont=b12_full
+text=?
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xff9933
+
+// 985:54
+[com_54]
+type=layer
+x=288
+y=1
+width=32
+height=32
+layer=com_24
+onmouseleave=deltooltip(interface_985:com_80)
+onmouserepeat=script1160(event_com, event_comsubid, interface_985:com_80, "Castle Wars enthusiast cape - complete 1,000 matches of Castle Wars.", 50, 150)
+
+// 985:55
+[com_55]
+type=rectangle
+width=16391
+height=16391
+widthmode=proportion
+heightmode=proportion
+layer=com_54
+colour=0x000000
+fill=yes
+trans=192
+
+// 985:56
+[com_56]
+type=rectangle
+width=16391
+height=16391
+widthmode=proportion
+heightmode=proportion
+layer=com_54
+colour=0x000000
+
+// 985:57
+[com_57]
+type=text
+x=1
+y=2
+width=16
+height=19
+xmode=abs_centre
+ymode=abs_centre
+layer=com_54
+textfont=b12_full
+text=?
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xff9933
+
+// 985:58
+[com_58]
+type=layer
+x=330
+y=1
+width=32
+height=32
+layer=com_24
+onmouseleave=deltooltip(interface_985:com_80)
+onmouserepeat=script1160(event_com, event_comsubid, interface_985:com_80, "Castle Wars professional cape - complete 5,000 matches of Castle Wars.", 50, 150)
+
+// 985:59
+[com_59]
+type=rectangle
+width=16391
+height=16391
+widthmode=proportion
+heightmode=proportion
+layer=com_58
+colour=0x000000
+fill=yes
+trans=192
+
+// 985:60
+[com_60]
+type=rectangle
+width=16391
+height=16391
+widthmode=proportion
+heightmode=proportion
+layer=com_58
+colour=0x000000
+
+// 985:61
+[com_61]
+type=text
+x=1
+y=2
+width=16
+height=19
+xmode=abs_centre
+ymode=abs_centre
+layer=com_58
+textfont=b12_full
+text=?
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xff9933
+
+// 985:62
+[com_62]
+type=graphic
+width=32
+height=32
+layer=com_39
+colour=0xffffffff
+
+// 985:63
+[com_63]
+type=graphic
+width=32
+height=32
+layer=com_36
+colour=0xffffffff
+
+// 985:64
+[com_64]
+type=graphic
+width=32
+height=32
+layer=com_33
+colour=0xffffffff
+
+// 985:65
+[com_65]
+type=graphic
+width=32
+height=32
+layer=com_30
+colour=0xffffffff
+
+// 985:66
+[com_66]
+type=graphic
+x=27
+y=42
+width=461
+height=76
+layer=com_0
+graphic=graphic_2045
+tiling=yes
+colour=0xffffffff
+transmitop=10
+opbase=  
+op10=   
+
+// 985:67
+[com_67]
+type=graphic
+x=25
+y=108
+width=463
+height=171
+layer=com_0
+graphic=km_middlefillcolour
+colour=0xffffffff
+transmitop=10
+op10=  
+
+// 985:68
+[com_68]
+type=graphic
+x=23
+y=277
+width=462
+height=46
+layer=com_0
+graphic=graphic_2044
+tiling=yes
+colour=0xffffffff
+transmitop=10
+op10=  
+
+// 985:69
+[com_69]
+type=graphic
+x=472
+y=26
+width=22
+height=281
+layer=com_0
+graphic="v2_stone_borders,3"
+tiling=yes
+colour=0xffffffff
+transmitop=10
+opbase= 
+op10=   
+
+// 985:70
+[com_70]
+type=graphic
+x=33
+y=308
+width=447
+height=23
+layer=com_0
+graphic="v2_stone_borders,2"
+tiling=yes
+colour=0xffffffff
+transmitop=10
+op10=   
+
+// 985:71
+[com_71]
+type=graphic
+x=24
+y=23
+width=456
+height=32
+layer=com_0
+graphic="v2_stone_borders,36"
+tiling=yes
+colour=0xffffffff
+transmitop=10
+opbase= 
+op10=   
+
+// 985:72
+[com_72]
+type=graphic
+x=460
+y=296
+width=32
+height=32
+layer=com_0
+graphic="v2_stone_borders,7"
+colour=0xffffffff
+transmitop=10
+opbase= 
+op10=   
+
+// 985:73
+[com_73]
+type=graphic
+x=21
+y=296
+width=32
+height=32
+layer=com_0
+graphic="v2_stone_borders,6"
+colour=0xffffffff
+transmitop=10
+op10=   
+
+// 985:74
+[com_74]
+type=graphic
+x=8
+y=26
+width=37
+height=276
+layer=com_0
+graphic="v2_stone_borders,1"
+tiling=yes
+colour=0xffffffff
+transmitop=10
+opbase= 
+op10=   
+
+// 985:75
+[com_75]
+type=graphic
+x=21
+y=23
+width=32
+height=32
+layer=com_0
+graphic="v2_stone_borders,35"
+colour=0xffffffff
+transmitop=10
+opbase= 
+op10=   
+
+// 985:76
+[com_76]
+type=graphic
+x=460
+y=23
+width=32
+height=32
+layer=com_0
+graphic="v2_stone_borders,37"
+colour=0xffffffff
+transmitop=10
+opbase= 
+op10=   
+
+// 985:77
+[com_77]
+type=graphic
+x=466
+y=27
+width=16
+height=16
+layer=com_0
+graphic="v2_stone_close_button,0"
+colour=0xffffffff
+transmitop=1,10
+op1=Close
+op10=   
+onmouseover=graphic_swapper(event_com, "v2_stone_close_button,1")
+onmouseleave=graphic_swapper(event_com, "v2_stone_close_button,0")
+onop=closebutton_click
+
+// 985:78
+[com_78]
+type=text
+x=58
+y=26
+width=373
+height=17
+layer=com_0
+textfont=b12_full
+text=---------
+textalignh=centre
+textshadow=yes
+colour=0xff9933
+
+// 985:79
+[com_79]
+type=layer
+x=10
+y=13
+width=490
+height=315
+transmitop=10
+op10= 
+
+// 985:80
+[com_80]
+type=layer
+x=8
+y=6
+width=471
+height=301
+layer=com_79
+transmitop=10
+op10= 
+
+// 985:81
+[com_81]
+type=graphic
+x=39
+y=78
+width=7
+height=85
+layer=com_0
+graphic=graphic_3159
+colour=0xffffffff
+transmitop=10
+op10= 
+
+// 985:82
+[com_82]
+type=graphic
+x=45
+y=78
+width=422
+height=85
+layer=com_0
+graphic=graphic_3160
+colour=0xffffffff
+transmitop=10
+op10= 
+
+// 985:83
+[com_83]
+type=graphic
+x=466
+y=78
+width=7
+height=85
+layer=com_0
+graphic=graphic_3159
+hflip=yes
+colour=0xffffffff
+transmitop=10
+op10= 
+
+// 985:84
+[com_84]
+type=graphic
+x=39
+y=172
+width=7
+height=103
+layer=com_0
+graphic=graphic_3159
+colour=0xffffffff
+transmitop=10
+op10=  
+
+// 985:85
+[com_85]
+type=graphic
+x=45
+y=172
+width=422
+height=103
+layer=com_0
+graphic=graphic_3160
+colour=0xffffffff
+transmitop=10
+op10=  
+
+// 985:86
+[com_86]
+type=graphic
+x=466
+y=172
+width=7
+height=103
+layer=com_0
+graphic=graphic_3159
+hflip=yes
+colour=0xffffffff
+transmitop=10
+op10=  

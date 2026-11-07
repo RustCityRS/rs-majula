@@ -1,0 +1,9 @@
+// 2238
+[clientscript,script2238]
+sound_synth(synth_8729, 1, 0);
+if (%varclient_1134 = 0) {
+    %varclient_1134 = 1;
+} else {
+    %varclient_1134 = 0;
+}
+~script2220;

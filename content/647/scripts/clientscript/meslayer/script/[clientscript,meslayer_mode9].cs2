@@ -1,35 +1,36 @@
-[clientscript,meslayer_mode9](string $string)
+// 110
+[clientscript,meslayer_mode9](string $string0)
 if (getwindowmode >= 2) {
     if_sethide(false, toplevel_fullscreen:com_chatbox);
 }
-if_sethide(false, chatbox:com3);
-if_sethide(true, chatbox:com7);
-if_sethide(true, chatbox:com8);
-if_settext($string, chatbox:com4);
-%varc_int_5 = 9;
-if (compare("null", %varc_string_350) = false) {
-    %varc_string_350 = "";
+if_sethide(false, chatbox:com_3);
+if_sethide(true, chatbox:com_7);
+if_sethide(true, chatbox:com_8);
+if_settext($string0, chatbox:com_4);
+%varclient_5 = 9;
+if (compare(null, %varclient_1869) = 0) {
+    %varclient_1869 = "";
 }
-if (compare("", %varc_string_350) ! 0) {
-    ~meslayer_setupinput(%varc_string_350);
-    %varc_string_350 = "";
+if (compare("", %varclient_1869) ! 0) {
+    ~meslayer_setupinput(%varclient_1869);
+    %varclient_1869 = "";
 } else {
     ~meslayer_setupinput("");
 }
-if (compare("null", %varc_string_354) = false) {
-    %varc_string_354 = "";
+if (compare(null, %varclient_1873) = 0) {
+    %varclient_1873 = "";
 }
-if_setonclick(null, chatbox:com3);
-~clientscript_2026;
-if_setonkey("meslayer_onkey(^event_key, ^event_keychar)", chatbox:com5);
-if_sethook1423("meslayer_ondialogabort()", chatbox:com5);
-if (compare(%varc_string_354, "") ! 0) {
-    cc_create(chatbox:com3, ^iftype_text, 0);
+if_setonclick(null, chatbox:com_3);
+~script2026;
+if_setonkey("meslayer_onkey(event_keycode, event_keychar)", chatbox:com_5);
+if_setondialogabort("meslayer_ondialogabort", chatbox:com_5);
+if (compare(%varclient_1873, "") ! 0) {
+    cc_create(chatbox:com_3, ^iftype_text, 0);
     ~meslayer_setupdynamicbutton;
-    cc_settext("Last entered: <%varc_string_354>");
+    cc_settext("Last entered: <%varclient_1873>");
     cc_setop(1, "Use:");
-    cc_setopbase("<col=ff9040><removetags(%varc_string_354)></col>");
-    cc_setonop("meslayer_lastname(%varc_int_5, ^event_op, ^event_com, ^event_subid, %varc_string_354)");
-    %varc_string_354 = "";
+    cc_setopbase("<col=ff9040><removetags(%varclient_1873)></col>");
+    cc_setonop("meslayer_lastname(%varclient_5, event_op, event_com, event_comsubid, %varclient_1873)");
+    %varclient_1873 = "";
 }
 ~opt_header;

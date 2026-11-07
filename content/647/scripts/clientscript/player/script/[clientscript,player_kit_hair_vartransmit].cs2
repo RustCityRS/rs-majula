@@ -1,13 +1,14 @@
+// 2736
 [clientscript,player_kit_hair_vartransmit]
-if (%varbit_6084 = true) {
-    if (%varc_int_774 = true) {
+if (%varplayerbit_6084 = 1) {
+    if (%varclient_774 = true) {
         return;
     }
-    %varc_int_774 = 1;
+    %varclient_774 = true;
 } else {
-    if (%varc_int_774 = false) {
+    if (%varclient_774 = false) {
         return;
     }
-    %varc_int_774 = 0;
+    %varclient_774 = false;
 }
 ~player_kit_hair_redraw;

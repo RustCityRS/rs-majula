@@ -1,6 +1,0 @@
-[proc,clientscript_3955](int $int0, component $component1)
-if (calc((clientclock - $int0) % 40) < 20 & (has_focus = true & %varc_int_1412 = false)) {
-    if_sethide(false, $component1);
-} else {
-    if_sethide(true, $component1);
-}

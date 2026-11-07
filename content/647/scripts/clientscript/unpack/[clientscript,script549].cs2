@@ -1,0 +1,11 @@
+// 549
+[clientscript,script549]
+if (%varplayerbit_4109 = 15) {
+    sound_synth(synth_4020, 1, 0);
+    return;
+}
+%varplayerbit_4109 = calc(%varplayerbit_4109 + 1);
+def_int $int0 = calc((15 - %varplayerbit_4109) * 6);
+if_setposition(0, $int0, ^setpos_abs_left, ^setpos_abs_top, interface_624:com_15);
+if_settext(tostring(%varplayerbit_4109), interface_624:com_70);
+sound_synth(synth_4026, 1, 0);

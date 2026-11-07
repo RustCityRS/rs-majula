@@ -1,8 +1,0 @@
-[proc,clientscript_194](int $int)
-if ($int = true) {
-    if (clan_getchatsize > 0) {
-        clan_getchatleavechat;
-    } else {
-        ~meslayer_mode10;
-    }
-}

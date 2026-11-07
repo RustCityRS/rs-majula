@@ -1,0 +1,8 @@
+// 2604
+[clientscript,script2604]
+sound_synth(synth_6784, 1, 0);
+if_sethide(false, mob_squad_exchange:com_130);
+if_settext("Are you sure you wish to reset all your squad contract selections?", mob_squad_exchange:com_132);
+if_sethide(true, mob_squad_exchange:com_135);
+if_sethide(true, mob_squad_exchange:com_137);
+if_sethide(false, mob_squad_exchange:com_134);

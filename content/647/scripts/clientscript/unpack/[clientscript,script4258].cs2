@@ -1,0 +1,10 @@
+// 4258
+[clientscript,script4258](component $component0)
+if (if_find($component0) = true) {
+    cc_setposition(0, 0, ^setpos_abs_centre, ^setpos_abs_centre);
+    cc_setsize(16, 15, ^setsize_abs, ^setsize_abs);
+    cc_setgraphic("aif_bronze_close_button_1,1");
+    cc_setonmouseover("script4209($component0, 0)");
+    cc_setonmouseleave("script4209($component0, 1)");
+    cc_settrans(255);
+}

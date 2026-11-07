@@ -1,8 +1,9 @@
-[proc,create_suggestions_highlight](component $component0, int $int1, string $string)
-if ($int1 = true) {
+// 3226
+[proc,create_suggestions_highlight](component $component0, string $string0, int $int1)
+if ($int1 = 1) {
     if_setcolour(0x43c800, $component0);
-    if_settext("<u=43c800><$string></u>", $component0);
+    if_settext("<u=43c800><$string0></u>", $component0);
 } else {
     if_setcolour(0x339900, $component0);
-    if_settext("<u=339900><$string></u>", $component0);
+    if_settext("<u=339900><$string0></u>", $component0);
 }

@@ -1,8 +1,0 @@
-[proc,clientscript_2892](component $int0, int $int1)
-if (calc(clientclock - $int1) >= 180) {
-    %varc_int_1086 = 1;
-}
-if (calc(clientclock - $int1) >= 1000) {
-    if_setontimer(null, ma6343905:com24);
-    if_sethide(true, ma6343905:com24);
-}

@@ -1,0 +1,32 @@
+// 495
+[clientscript,script495](component $component0)
+def_int $int1 = 0;
+switch_component ($component0) {
+    case default :
+        return;
+    case conq_buy_army:com_144 :
+        $int1 = %varplayerbit_7520;
+    case conq_buy_army:com_146 :
+        $int1 = %varplayerbit_7521;
+    case conq_buy_army:com_148 :
+        $int1 = %varplayerbit_7526;
+    case conq_buy_army:com_150 :
+        $int1 = %varplayerbit_7527;
+    case conq_buy_army:com_152 :
+        $int1 = %varplayerbit_7530;
+    case conq_buy_army:com_154 :
+        $int1 = %varplayerbit_7531;
+    case conq_buy_army:com_156 :
+        $int1 = %varplayerbit_7532;
+    case conq_buy_army:com_158 :
+        $int1 = %varplayerbit_7533;
+    case conq_buy_army:com_160 :
+        $int1 = %varplayerbit_7534;
+    case conq_buy_army:com_162 :
+        $int1 = %varplayerbit_7535;
+}
+if ($int1 = 0) {
+    if_setcolour(0x585042, $component0);
+} else {
+    if_setcolour(0xe6ca98, $component0);
+}

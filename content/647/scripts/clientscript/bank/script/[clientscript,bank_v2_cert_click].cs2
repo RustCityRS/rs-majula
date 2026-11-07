@@ -1,5 +1,6 @@
+// 1485
 [clientscript,bank_v2_cert_click]
-if (%bankcert = false) {
+if (%bankcert = 0) {
     %bankcert = 1;
 } else {
     %bankcert = 0;

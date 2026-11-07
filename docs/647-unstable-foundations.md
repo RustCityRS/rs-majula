@@ -5,7 +5,7 @@ claim names its source. Kinds of claim are kept apart:
 
 - **cache**: cache 786 (configs in `content/647/scripts/globalscript/_unpack/all.*`, maps in
   `content/647/maps/*.jm2`, interfaces in
-  `content/647/interfaces/*.if` (named components), decompiled
+  `content/647/interfaces/*.if3` (named components), decompiled
   clientscripts in `runescape/target/unpack-work/clientscript/_decompiled/<id>.cs2`),
   or the deob client `tools/client-src`.
 - **wiki**: the local 2011 wiki (`wiki.py "<Title>"`), cited as `Title @ revision`.
@@ -291,7 +291,7 @@ Task texts (word for word, `<br>` as in the cache):
 All carry `param_1292` "Completing this Task will help you escape from the
 cellar in which you find yourself." Interface 1080 adds "Once out of the
 cellar, you may 'pin' a Task and refer to it later with this button." (cache
-`1080.if:552`).
+`1080:54`).
 
 Hint buttons (`param_1282..1289`, type coord): every UF value decodes to
 x=6336, z=6337..6383 (e.g. 103815399 -> (6336,6375)); 6337 and 6338 are given
@@ -302,8 +302,8 @@ source found**.
 The first-step "Controls" overlay: interfaces 897 and 1079 (identical; texts
 "Controls", "Arrow keys rotate the camera.", "Click on the ground or minimap to
 walk.", "CTRL + click to run.", "Please rotate the camera to begin.";
-`1079.if:588`). Component 0 binds the four arrow keys (`opkey=0..3,1,96..99`)
-to ops 1-4 with `active_properties=30`; onop cs2 2773 lights the pressed key
+`1079:29`). Component 0 binds the four arrow keys (`opkey1..4=96..99,0,1`)
+to ops 1-4 with `transmitop=1,2,3,4`; onop cs2 2773 lights the pressed key
 (returns while varp281 < 6). How the server learns the camera was rotated
 (inference: the ops reach the server as IF_BUTTON1-4 on 1079:0 / 897:0;
 unverified), and which slot the overlay opens into: **no source found**.
@@ -394,7 +394,8 @@ The quest journal's text (server-sent in 647): **no source found**.
 ## 4. Cutscenes and camera (cache 786: client-side camera paths)
 
 647 runs UF's cutscene camera in the client. Interface 899 (one layer,
-`899.if:7-9`: `onload=i2765`, `hook18=i2765`, `varctransmit_list=1007`) runs
+`899:0`: `onload=tutorial3_cutscenes(event_com)`,
+`onvarctransmit=tutorial3_cutscenes(event_com){varclient_1007}`) runs
 cs2 2765 whenever varc 1007 changes:
 
 | varc 1007 | cs2 |

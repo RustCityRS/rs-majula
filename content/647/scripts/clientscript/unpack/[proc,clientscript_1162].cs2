@@ -1,4 +1,0 @@
-[proc,clientscript_1162]
-def_int $int0 = calc(if_getwidth(sound_options:com48) - if_getwidth(sound_options:com7));
-def_int $int1 = scale(get_clientopt_6120, 127, $int0);
-if_setposition($int1, 0, ^setpos_abs_left, ^setpos_abs_top, sound_options:com7);

@@ -1,38 +1,39 @@
+// 1409
 [proc,boardgames_options_pick_piece]
-if_setgraphic("miscgraphics,10", boardgames_options:com36);
-if_setgraphic("miscgraphics,10", boardgames_options:com37);
-if_setgraphic("miscgraphics,10", boardgames_options:com38);
-if_setgraphic("miscgraphics,10", boardgames_options:com39);
-if_setgraphic("miscgraphics,10", boardgames_options:com40);
-if_setgraphic("miscgraphics,10", boardgames_options:com41);
-if_setgraphic("miscgraphics,10", boardgames_options:com42);
-if_setgraphic("miscgraphics,10", boardgames_options:com43);
-if_setgraphic("miscgraphics,10", boardgames_options:com44);
-if_setgraphic("miscgraphics,10", boardgames_options:com45);
-if_setgraphic("miscgraphics,10", boardgames_options:com46);
-if_setgraphic("miscgraphics,10", boardgames_options:com47);
-if (%boardgames_piece = true) {
-    if_setgraphic("miscgraphics,11", boardgames_options:com36);
+if_setgraphic("miscgraphics,10", boardgames_options:com_36);
+if_setgraphic("miscgraphics,10", boardgames_options:com_37);
+if_setgraphic("miscgraphics,10", boardgames_options:com_38);
+if_setgraphic("miscgraphics,10", boardgames_options:com_39);
+if_setgraphic("miscgraphics,10", boardgames_options:com_40);
+if_setgraphic("miscgraphics,10", boardgames_options:com_41);
+if_setgraphic("miscgraphics,10", boardgames_options:com_42);
+if_setgraphic("miscgraphics,10", boardgames_options:com_43);
+if_setgraphic("miscgraphics,10", boardgames_options:com_44);
+if_setgraphic("miscgraphics,10", boardgames_options:com_45);
+if_setgraphic("miscgraphics,10", boardgames_options:com_46);
+if_setgraphic("miscgraphics,10", boardgames_options:com_47);
+if (%boardgames_piece = 1) {
+    if_setgraphic("miscgraphics,11", boardgames_options:com_36);
 } else if (%boardgames_piece = 2) {
-    if_setgraphic("miscgraphics,11", boardgames_options:com37);
+    if_setgraphic("miscgraphics,11", boardgames_options:com_37);
 } else if (%boardgames_piece = 3) {
-    if_setgraphic("miscgraphics,11", boardgames_options:com38);
+    if_setgraphic("miscgraphics,11", boardgames_options:com_38);
 } else if (%boardgames_piece = 4) {
-    if_setgraphic("miscgraphics,11", boardgames_options:com39);
+    if_setgraphic("miscgraphics,11", boardgames_options:com_39);
 } else if (%boardgames_piece = 5) {
-    if_setgraphic("miscgraphics,11", boardgames_options:com40);
+    if_setgraphic("miscgraphics,11", boardgames_options:com_40);
 } else if (%boardgames_piece = 6) {
-    if_setgraphic("miscgraphics,11", boardgames_options:com41);
+    if_setgraphic("miscgraphics,11", boardgames_options:com_41);
 } else if (%boardgames_piece = 7) {
-    if_setgraphic("miscgraphics,11", boardgames_options:com42);
+    if_setgraphic("miscgraphics,11", boardgames_options:com_42);
 } else if (%boardgames_piece = 8) {
-    if_setgraphic("miscgraphics,11", boardgames_options:com43);
+    if_setgraphic("miscgraphics,11", boardgames_options:com_43);
 } else if (%boardgames_piece = 9) {
-    if_setgraphic("miscgraphics,11", boardgames_options:com44);
+    if_setgraphic("miscgraphics,11", boardgames_options:com_44);
 } else if (%boardgames_piece = 10) {
-    if_setgraphic("miscgraphics,11", boardgames_options:com45);
+    if_setgraphic("miscgraphics,11", boardgames_options:com_45);
 } else if (%boardgames_piece = 11) {
-    if_setgraphic("miscgraphics,11", boardgames_options:com46);
+    if_setgraphic("miscgraphics,11", boardgames_options:com_46);
 } else if (%boardgames_piece = 12) {
-    if_setgraphic("miscgraphics,11", boardgames_options:com47);
+    if_setgraphic("miscgraphics,11", boardgames_options:com_47);
 }

@@ -1,3 +1,4 @@
+// 1432
 [proc,comlevel]()(int)
 def_int $int0 = calc(stat_base(attack) + stat_base(strength));
 def_int $int1 = calc(stat_base(ranged) * 3 / 2);
@@ -16,4 +17,3 @@ if (map_members = true) {
     $int3 = calc(($int3 + stat_base(defence) + stat_base(hitpoints) + stat_base(prayer) / 2) / 4);
 }
 return($int3);
-return(0);

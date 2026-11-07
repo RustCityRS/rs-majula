@@ -1,26 +1,27 @@
+// 4043
 [clientscript,warguild_tag_tick]
-if (%varbit_8655 = false) {
-    if_sethide(true, warguild_token_overlay:com35);
+if (%varplayerbit_8655 = 0) {
+    if_sethide(true, warguild_token_overlay:com_35);
 } else {
-    if_sethide(false, warguild_token_overlay:com35);
+    if_sethide(false, warguild_token_overlay:com_35);
 }
-if (%varbit_8656 = false) {
-    if_sethide(true, warguild_token_overlay:com36);
+if (%varplayerbit_8656 = 0) {
+    if_sethide(true, warguild_token_overlay:com_36);
 } else {
-    if_sethide(false, warguild_token_overlay:com36);
+    if_sethide(false, warguild_token_overlay:com_36);
 }
-if (%varbit_8657 = false) {
-    if_sethide(true, warguild_token_overlay:com37);
+if (%varplayerbit_8657 = 0) {
+    if_sethide(true, warguild_token_overlay:com_37);
 } else {
-    if_sethide(false, warguild_token_overlay:com37);
+    if_sethide(false, warguild_token_overlay:com_37);
 }
-if (%varbit_8658 = false) {
-    if_sethide(true, warguild_token_overlay:com38);
+if (%varplayerbit_8658 = 0) {
+    if_sethide(true, warguild_token_overlay:com_38);
 } else {
-    if_sethide(false, warguild_token_overlay:com38);
+    if_sethide(false, warguild_token_overlay:com_38);
 }
-if (%varbit_8659 = false) {
-    if_sethide(true, warguild_token_overlay:com39);
+if (%varplayerbit_8659 = 0) {
+    if_sethide(true, warguild_token_overlay:com_39);
 } else {
-    if_sethide(false, warguild_token_overlay:com39);
+    if_sethide(false, warguild_token_overlay:com_39);
 }

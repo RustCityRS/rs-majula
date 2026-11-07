@@ -1,0 +1,4921 @@
+// 1011:0
+[com_0]
+type=rectangle
+widthmode=minus
+heightmode=minus
+layer=com_386
+colour=0x201c17
+
+// 1011:1
+[com_1]
+type=rectangle
+x=1
+y=1
+width=2
+height=2
+widthmode=minus
+heightmode=minus
+layer=com_386
+colour=0x595143
+
+// 1011:2
+[com_2]
+type=rectangle
+x=2
+y=2
+width=4
+height=4
+widthmode=minus
+heightmode=minus
+layer=com_386
+colour=0x161410
+fill=yes
+
+// 1011:3
+[com_3]
+type=rectangle
+width=489
+height=275
+layer=com_71
+colour=0x010101
+fill=yes
+trans=75
+
+// 1011:4
+[com_4]
+type=layer
+width=201
+height=100
+xmode=abs_centre
+ymode=abs_centre
+layer=com_71
+
+// 1011:5
+[com_5]
+type=rectangle
+widthmode=minus
+heightmode=minus
+layer=com_25
+colour=0x201c17
+
+// 1011:6
+[com_6]
+type=rectangle
+x=1
+y=1
+width=2
+height=2
+widthmode=minus
+heightmode=minus
+layer=com_25
+colour=0x595143
+
+// 1011:7
+[com_7]
+type=rectangle
+x=2
+y=2
+width=4
+height=4
+widthmode=minus
+heightmode=minus
+layer=com_25
+colour=0x161410
+fill=yes
+
+// 1011:8
+[com_8]
+type=rectangle
+x=3
+y=3
+width=6
+height=16
+widthmode=minus
+layer=com_25
+colour=0x3c312b
+fill=yes
+
+// 1011:9
+[com_9]
+type=text
+x=7
+y=3
+width=100
+height=16
+layer=com_25
+textfont=p11_full
+text=Void Knight Melee Helm
+textalignv=centre
+textshadow=yes
+colour=0xe6ca98
+
+// 1011:10
+[com_10]
+type=rectangle
+x=6
+y=20
+width=25
+height=25
+layer=com_25
+colour=0x34322c
+
+// 1011:11
+[com_11]
+type=model
+x=10
+y=23
+width=17
+height=21
+layer=com_25
+model=model_27166
+modelorigin=0,10
+modelzoom=800
+
+// 1011:12
+[com_12]
+type=text
+x=32
+y=21
+width=111
+height=25
+layer=com_25
+textfont=p11_full
+text=200 Commendations
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xe6ca98
+onload=script468(event_com, 200)
+onvartransmit=script468(event_com, 200){varplayer_719}
+onstattransmit=script468(event_com, 200){attack, strength, defence, hitpoints, ranged, magic, prayer}
+
+// 1011:13
+[com_13]
+type=rectangle
+x=2
+y=46
+width=142
+height=14
+layer=com_25
+colour=0x100602
+fill=yes
+
+// 1011:14
+[com_14]
+type=graphic
+x=3
+y=47
+width=140
+height=12
+layer=com_25
+graphic=graphic_3309
+
+// 1011:15
+[com_15]
+type=text
+x=3
+y=47
+width=140
+height=12
+layer=com_25
+textfont=p11_full
+text=Exchange
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xe6ca98
+transmitop=1
+opbase=<col=ff9040>Void Knight Melee Helm
+op1=Exchange
+onmouseover=text_colour_swapper(event_com, ^white)
+onmouseleave=text_colour_swapper(event_com, 0xe6ca98)
+
+// 1011:16
+[com_16]
+type=rectangle
+widthmode=minus
+heightmode=minus
+layer=com_32
+colour=0x201c17
+
+// 1011:17
+[com_17]
+type=rectangle
+x=1
+y=1
+width=2
+height=2
+widthmode=minus
+heightmode=minus
+layer=com_32
+colour=0x595143
+
+// 1011:18
+[com_18]
+type=rectangle
+x=2
+y=2
+width=4
+height=4
+widthmode=minus
+heightmode=minus
+layer=com_32
+colour=0x161410
+fill=yes
+
+// 1011:19
+[com_19]
+type=graphic
+x=19
+y=49
+width=104
+height=24
+layer=com_69
+graphic=graphic_3254
+colour=0x000000
+
+// 1011:20
+[com_20]
+type=text
+x=21
+y=51
+width=100
+height=22
+layer=com_69
+textfont=p11_full
+text=Experience
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0x8c5000
+transmitop=1
+op1=Experience
+onmouseover=text_colour_swapper(event_com, ^white)
+onmouseleave=text_colour_swapper(event_com, 0x8c5000)
+
+// 1011:21
+[com_21]
+type=graphic
+x=124
+y=49
+width=104
+height=24
+layer=com_69
+graphic=graphic_3253
+colour=0x000000
+
+// 1011:22
+[com_22]
+type=text
+x=126
+y=51
+width=100
+height=22
+layer=com_69
+textfont=p11_full
+text=Equipment
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xff991f
+
+// 1011:23
+[com_23]
+type=graphic
+x=229
+y=49
+width=104
+height=24
+layer=com_69
+graphic=graphic_3254
+colour=0x000000
+
+// 1011:24
+[com_24]
+type=text
+x=231
+y=51
+width=100
+height=22
+layer=com_69
+textfont=p11_full
+text=Consumables
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0x8c5000
+transmitop=1
+op1=Consumables
+onmouseover=text_colour_swapper(event_com, ^white)
+onmouseleave=text_colour_swapper(event_com, 0x8c5000)
+
+// 1011:25
+[com_25]
+type=layer
+x=29
+y=85
+width=146
+height=62
+layer=com_69
+onmouseover=script477(event_com)
+onmouseleave=script478
+
+// 1011:26
+[com_26]
+type=graphic
+x=19
+y=49
+width=104
+height=24
+layer=com_63
+graphic=graphic_3253
+colour=0x000000
+
+// 1011:27
+[com_27]
+type=text
+x=21
+y=51
+width=100
+height=22
+layer=com_63
+textfont=p11_full
+text=Experience
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xff991f
+
+// 1011:28
+[com_28]
+type=graphic
+x=124
+y=49
+width=104
+height=24
+layer=com_63
+graphic=graphic_3254
+colour=0x000000
+
+// 1011:29
+[com_29]
+type=text
+x=126
+y=51
+width=100
+height=22
+layer=com_63
+textfont=p11_full
+text=Equipment
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0x8c5000
+transmitop=1
+op1=Equipment
+onmouseover=text_colour_swapper(event_com, ^white)
+onmouseleave=text_colour_swapper(event_com, 0x8c5000)
+
+// 1011:30
+[com_30]
+type=graphic
+x=229
+y=49
+width=104
+height=24
+layer=com_63
+graphic=graphic_3254
+colour=0x000000
+
+// 1011:31
+[com_31]
+type=text
+x=231
+y=51
+width=100
+height=22
+layer=com_63
+textfont=p11_full
+text=Consumables
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0x8c5000
+transmitop=1
+op1=Consumables
+onmouseover=text_colour_swapper(event_com, ^white)
+onmouseleave=text_colour_swapper(event_com, 0x8c5000)
+
+// 1011:32
+[com_32]
+type=layer
+x=29
+y=85
+width=146
+height=62
+layer=com_63
+
+// 1011:33
+[com_33]
+type=rectangle
+x=3
+y=3
+width=6
+height=16
+widthmode=minus
+layer=com_32
+colour=0x3c312b
+fill=yes
+
+// 1011:34
+[com_34]
+type=text
+x=7
+y=3
+width=100
+height=16
+layer=com_32
+textfont=p11_full
+text=Attack XP
+textalignv=centre
+textshadow=yes
+colour=0xe6ca98
+
+// 1011:35
+[com_35]
+type=rectangle
+x=6
+y=20
+width=25
+height=25
+layer=com_32
+colour=0x34322c
+
+// 1011:36
+[com_36]
+type=layer
+width=512
+height=334
+
+// 1011:37
+[com_37]
+type=layer
+width=512
+height=334
+
+// 1011:38
+[com_38]
+type=graphic
+x=12
+y=27
+width=488
+height=289
+layer=com_36
+graphic=km_middlefillcolour
+
+// 1011:39
+[com_39]
+type=graphic
+x=5
+y=291
+width=32
+height=32
+layer=com_36
+graphic="v2_stone_borders,6"
+
+// 1011:40
+[com_40]
+type=graphic
+x=5
+y=20
+width=32
+height=32
+layer=com_36
+graphic="v2_stone_borders,35"
+
+// 1011:41
+[com_41]
+type=graphic
+x=5
+y=20
+width=32
+height=32
+xmode=abs_right
+layer=com_36
+graphic="v2_stone_borders,37"
+
+// 1011:42
+[com_42]
+type=graphic
+x=5
+y=291
+width=32
+height=32
+xmode=abs_right
+layer=com_36
+graphic="v2_stone_borders,7"
+
+// 1011:43
+[com_43]
+type=graphic
+x=-8
+y=52
+width=32
+height=240
+layer=com_36
+graphic="v2_stone_borders,1"
+tiling=yes
+
+// 1011:44
+[com_44]
+type=graphic
+x=-7
+y=52
+width=32
+height=239
+xmode=abs_right
+layer=com_36
+graphic="v2_stone_borders,3"
+tiling=yes
+
+// 1011:45
+[com_45]
+type=graphic
+x=37
+y=20
+width=438
+height=32
+layer=com_36
+graphic="v2_stone_borders,36"
+tiling=yes
+
+// 1011:46
+[com_46]
+type=graphic
+y=303
+width=444
+height=32
+xmode=abs_centre
+layer=com_36
+graphic="v2_stone_borders,2"
+tiling=yes
+
+// 1011:47
+[com_47]
+type=rectangle
+x=11
+y=41
+width=489
+height=275
+layer=com_36
+colour=0x000000
+
+// 1011:48
+[com_48]
+type=rectangle
+x=12
+y=6
+width=489
+height=275
+layer=com_36
+hide=yes
+colour=0x000000
+
+// 1011:49
+[com_49]
+type=rectangle
+x=13
+y=43
+width=485
+height=271
+layer=com_36
+colour=0x000000
+trans=192
+
+// 1011:50
+[com_50]
+type=rectangle
+x=12
+y=42
+width=487
+height=273
+layer=com_36
+colour=0x000000
+trans=64
+
+// 1011:51
+[com_51]
+type=graphic
+x=481
+y=23
+width=16
+height=16
+layer=com_36
+graphic="v2_stone_close_button,0"
+transmitop=1
+op1=Close
+onmouseover=graphic_swapper(event_com, "v2_stone_close_button,1")
+onmouseleave=graphic_swapper(event_com, "v2_stone_close_button,0")
+onop=closebutton_click
+
+// 1011:52
+[com_52]
+type=rectangle
+x=19
+y=71
+width=473
+height=237
+layer=com_36
+colour=0x5a5349
+
+// 1011:53
+[com_53]
+type=rectangle
+x=19
+y=71
+width=472
+height=236
+layer=com_36
+colour=0x403931
+fill=yes
+
+// 1011:54
+[com_54]
+type=rectangle
+x=21
+y=73
+width=469
+height=233
+layer=com_36
+colour=0x2d261e
+fill=yes
+
+// 1011:55
+[com_55]
+type=rectangle
+x=20
+y=72
+width=471
+height=235
+layer=com_36
+colour=0x000000
+
+// 1011:56
+[com_56]
+type=text
+x=12
+y=23
+width=488
+height=15
+layer=com_36
+textfont=b12_full
+text=Commendation Rewards
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xff981f
+
+// 1011:57
+[com_57]
+type=rectangle
+x=378
+y=51
+width=112
+height=16
+layer=com_37
+colour=0x5a5349
+fill=yes
+
+// 1011:58
+[com_58]
+type=rectangle
+x=378
+y=51
+width=111
+height=15
+layer=com_37
+colour=0x403931
+fill=yes
+
+// 1011:59
+[com_59]
+type=rectangle
+x=377
+y=50
+width=114
+height=18
+layer=com_37
+colour=0x16120f
+
+// 1011:60
+[com_60]
+type=rectangle
+x=379
+y=52
+width=110
+height=14
+layer=com_37
+colour=0x474135
+fill=yes
+
+// 1011:61
+[com_61]
+type=text
+x=380
+y=52
+width=80
+height=14
+layer=com_37
+textfont=p11_full
+text=Commendations:
+textalignv=centre
+textshadow=yes
+colour=0xff991f
+
+// 1011:62
+[com_62]
+type=text
+x=460
+y=52
+width=28
+height=14
+layer=com_37
+textfont=p11_full
+text=250
+textalignh=right
+textalignv=centre
+textshadow=yes
+colour=0xff991f
+onvartransmit=script458(event_com){varplayer_719}
+
+// 1011:63
+[com_63]
+type=layer
+width=512
+height=334
+
+// 1011:64
+[com_64]
+type=graphic
+x=7
+y=19
+width=25
+height=25
+layer=com_32
+graphic="staticons,0"
+colour=0x000000
+
+// 1011:65
+[com_65]
+type=text
+x=32
+y=21
+width=111
+height=25
+layer=com_32
+textfont=p11_full
+text=560 XP per Commendation
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xe6ca98
+onload=script459(event_com)
+onvartransmit=script459(event_com){varplayer_719}
+onstattransmit=script459(event_com){attack}
+
+// 1011:66
+[com_66]
+type=rectangle
+x=2
+y=46
+width=142
+height=14
+layer=com_32
+colour=0x100602
+fill=yes
+
+// 1011:67
+[com_67]
+type=graphic
+x=3
+y=47
+width=46
+height=12
+layer=com_32
+graphic=graphic_3304
+
+// 1011:68
+[com_68]
+type=text
+x=3
+y=48
+width=46
+height=12
+layer=com_32
+textfont=p11_full
+text=1x
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xe6ca98
+transmitop=1
+opbase=<col=ff9040>Attack XP
+op1=Exchange-1
+onmouseover=text_colour_swapper(event_com, ^white)
+onmouseleave=text_colour_swapper(event_com, 0xe6ca98)
+
+// 1011:69
+[com_69]
+type=layer
+width=512
+height=334
+hide=yes
+
+// 1011:70
+[com_70]
+type=layer
+width=512
+height=334
+hide=yes
+
+// 1011:71
+[com_71]
+type=layer
+x=11
+y=41
+width=489
+height=275
+hide=yes
+noclickthrough=yes
+
+// 1011:72
+[com_72]
+type=graphic
+x=19
+y=49
+width=104
+height=24
+layer=com_70
+graphic=graphic_3254
+colour=0x000000
+
+// 1011:73
+[com_73]
+type=text
+x=21
+y=51
+width=100
+height=22
+layer=com_70
+textfont=p11_full
+text=Experience
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0x8c5000
+transmitop=1
+op1=Experience
+onmouseover=text_colour_swapper(event_com, ^white)
+onmouseleave=text_colour_swapper(event_com, 0x8c5000)
+
+// 1011:74
+[com_74]
+type=graphic
+x=124
+y=49
+width=104
+height=24
+layer=com_70
+graphic=graphic_3254
+colour=0x000000
+
+// 1011:75
+[com_75]
+type=text
+x=126
+y=51
+width=100
+height=22
+layer=com_70
+textfont=p11_full
+text=Equipment
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0x8c5000
+transmitop=1
+op1=Equipment
+onmouseover=text_colour_swapper(event_com, ^white)
+onmouseleave=text_colour_swapper(event_com, 0x8c5000)
+
+// 1011:76
+[com_76]
+type=graphic
+x=229
+y=49
+width=104
+height=24
+layer=com_70
+graphic=graphic_3253
+colour=0x000000
+
+// 1011:77
+[com_77]
+type=text
+x=231
+y=51
+width=100
+height=22
+layer=com_70
+textfont=p11_full
+text=Consumables
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xff991f
+
+// 1011:78
+[com_78]
+type=layer
+x=29
+y=85
+width=146
+height=62
+layer=com_70
+
+// 1011:79
+[com_79]
+type=layer
+x=183
+y=85
+width=146
+height=62
+layer=com_70
+
+// 1011:80
+[com_80]
+type=layer
+x=337
+y=85
+width=146
+height=62
+layer=com_70
+
+// 1011:81
+[com_81]
+type=layer
+x=29
+y=159
+width=146
+height=62
+layer=com_70
+
+// 1011:82
+[com_82]
+type=layer
+x=183
+y=159
+width=146
+height=62
+layer=com_70
+
+// 1011:83
+[com_83]
+type=layer
+x=337
+y=159
+width=146
+height=62
+layer=com_70
+
+// 1011:84
+[com_84]
+type=layer
+x=183
+y=232
+width=146
+height=62
+layer=com_70
+
+// 1011:85
+[com_85]
+type=graphic
+x=50
+y=47
+width=46
+height=12
+layer=com_32
+graphic=graphic_3305
+
+// 1011:86
+[com_86]
+type=text
+x=50
+y=48
+width=46
+height=12
+layer=com_32
+textfont=p11_full
+text=10x
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xe6ca98
+transmitop=1
+opbase=<col=ff9040>Attack XP
+op1=Exchange-10
+onmouseover=text_colour_swapper(event_com, ^white)
+onmouseleave=text_colour_swapper(event_com, 0xe6ca98)
+
+// 1011:87
+[com_87]
+type=graphic
+x=97
+y=47
+width=46
+height=12
+layer=com_32
+graphic=graphic_3306
+
+// 1011:88
+[com_88]
+type=text
+x=97
+y=48
+width=46
+height=12
+layer=com_32
+textfont=p11_full
+text=100x
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xe6ca98
+transmitop=1
+opbase=<col=ff9040>Attack XP
+op1=Exchange-100
+onmouseover=text_colour_swapper(event_com, ^white)
+onmouseleave=text_colour_swapper(event_com, 0xe6ca98)
+
+// 1011:89
+[com_89]
+type=layer
+x=183
+y=85
+width=146
+height=62
+layer=com_63
+
+// 1011:90
+[com_90]
+type=rectangle
+widthmode=minus
+heightmode=minus
+layer=com_89
+colour=0x201c17
+
+// 1011:91
+[com_91]
+type=rectangle
+x=1
+y=1
+width=2
+height=2
+widthmode=minus
+heightmode=minus
+layer=com_89
+colour=0x595143
+
+// 1011:92
+[com_92]
+type=rectangle
+x=2
+y=2
+width=4
+height=4
+widthmode=minus
+heightmode=minus
+layer=com_89
+colour=0x161410
+fill=yes
+
+// 1011:93
+[com_93]
+type=rectangle
+x=3
+y=3
+width=6
+height=16
+widthmode=minus
+layer=com_89
+colour=0x3c312b
+fill=yes
+
+// 1011:94
+[com_94]
+type=text
+x=7
+y=3
+width=100
+height=16
+layer=com_89
+textfont=p11_full
+text=Strength XP
+textalignv=centre
+textshadow=yes
+colour=0xe6ca98
+
+// 1011:95
+[com_95]
+type=rectangle
+x=6
+y=20
+width=25
+height=25
+layer=com_89
+colour=0x34322c
+
+// 1011:96
+[com_96]
+type=graphic
+x=6
+y=20
+width=25
+height=25
+layer=com_89
+graphic="staticons,1"
+colour=0x000000
+
+// 1011:97
+[com_97]
+type=text
+x=32
+y=21
+width=111
+height=25
+layer=com_89
+textfont=p11_full
+text=560 XP per Commendation
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xe6ca98
+onload=script460(event_com)
+onvartransmit=script460(event_com){varplayer_719}
+onstattransmit=script460(event_com){strength}
+
+// 1011:98
+[com_98]
+type=rectangle
+x=2
+y=46
+width=142
+height=14
+layer=com_89
+colour=0x100602
+fill=yes
+
+// 1011:99
+[com_99]
+type=graphic
+x=3
+y=47
+width=46
+height=12
+layer=com_89
+graphic=graphic_3304
+
+// 1011:100
+[com_100]
+type=text
+x=3
+y=48
+width=46
+height=12
+layer=com_89
+textfont=p11_full
+text=1x
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xe6ca98
+transmitop=1
+opbase=<col=ff9040>Strength XP
+op1=Exchange-1
+onmouseover=text_colour_swapper(event_com, ^white)
+onmouseleave=text_colour_swapper(event_com, 0xe6ca98)
+
+// 1011:101
+[com_101]
+type=graphic
+x=50
+y=47
+width=46
+height=12
+layer=com_89
+graphic=graphic_3305
+
+// 1011:102
+[com_102]
+type=text
+x=50
+y=48
+width=46
+height=12
+layer=com_89
+textfont=p11_full
+text=10x
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xe6ca98
+transmitop=1
+opbase=<col=ff9040>Strength XP
+op1=Exchange-10
+onmouseover=text_colour_swapper(event_com, ^white)
+onmouseleave=text_colour_swapper(event_com, 0xe6ca98)
+
+// 1011:103
+[com_103]
+type=graphic
+x=97
+y=47
+width=46
+height=12
+layer=com_89
+graphic=graphic_3306
+
+// 1011:104
+[com_104]
+type=text
+x=97
+y=48
+width=46
+height=12
+layer=com_89
+textfont=p11_full
+text=100x
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xe6ca98
+transmitop=1
+opbase=<col=ff9040>Strength XP
+op1=Exchange-100
+onmouseover=text_colour_swapper(event_com, ^white)
+onmouseleave=text_colour_swapper(event_com, 0xe6ca98)
+
+// 1011:105
+[com_105]
+type=layer
+x=337
+y=85
+width=146
+height=62
+layer=com_63
+
+// 1011:106
+[com_106]
+type=rectangle
+widthmode=minus
+heightmode=minus
+layer=com_105
+colour=0x201c17
+
+// 1011:107
+[com_107]
+type=rectangle
+x=1
+y=1
+width=2
+height=2
+widthmode=minus
+heightmode=minus
+layer=com_105
+colour=0x595143
+
+// 1011:108
+[com_108]
+type=rectangle
+x=2
+y=2
+width=4
+height=4
+widthmode=minus
+heightmode=minus
+layer=com_105
+colour=0x161410
+fill=yes
+
+// 1011:109
+[com_109]
+type=rectangle
+x=3
+y=3
+width=6
+height=16
+widthmode=minus
+layer=com_105
+colour=0x3c312b
+fill=yes
+
+// 1011:110
+[com_110]
+type=text
+x=7
+y=3
+width=100
+height=16
+layer=com_105
+textfont=p11_full
+text=Defence XP
+textalignv=centre
+textshadow=yes
+colour=0xe6ca98
+
+// 1011:111
+[com_111]
+type=rectangle
+x=6
+y=20
+width=25
+height=25
+layer=com_105
+colour=0x34322c
+
+// 1011:112
+[com_112]
+type=graphic
+x=6
+y=19
+width=25
+height=25
+layer=com_105
+graphic="staticons,2"
+colour=0x000000
+
+// 1011:113
+[com_113]
+type=text
+x=32
+y=21
+width=111
+height=25
+layer=com_105
+textfont=p11_full
+text=560 XP per Commendation
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xe6ca98
+onload=script462(event_com)
+onvartransmit=script462(event_com){varplayer_719}
+onstattransmit=script462(event_com){defence}
+
+// 1011:114
+[com_114]
+type=rectangle
+x=2
+y=46
+width=142
+height=14
+layer=com_105
+colour=0x100602
+fill=yes
+
+// 1011:115
+[com_115]
+type=graphic
+x=3
+y=47
+width=46
+height=12
+layer=com_105
+graphic=graphic_3304
+
+// 1011:116
+[com_116]
+type=text
+x=3
+y=48
+width=46
+height=12
+layer=com_105
+textfont=p11_full
+text=1x
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xe6ca98
+transmitop=1
+opbase=<col=ff9040>Defence XP
+op1=Exchange-1
+onmouseover=text_colour_swapper(event_com, ^white)
+onmouseleave=text_colour_swapper(event_com, 0xe6ca98)
+
+// 1011:117
+[com_117]
+type=graphic
+x=50
+y=47
+width=46
+height=12
+layer=com_105
+graphic=graphic_3305
+
+// 1011:118
+[com_118]
+type=text
+x=50
+y=48
+width=46
+height=12
+layer=com_105
+textfont=p11_full
+text=10x
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xe6ca98
+transmitop=1
+opbase=<col=ff9040>Defence XP
+op1=Exchange-10
+onmouseover=text_colour_swapper(event_com, ^white)
+onmouseleave=text_colour_swapper(event_com, 0xe6ca98)
+
+// 1011:119
+[com_119]
+type=graphic
+x=97
+y=47
+width=46
+height=12
+layer=com_105
+graphic=graphic_3306
+
+// 1011:120
+[com_120]
+type=text
+x=97
+y=48
+width=46
+height=12
+layer=com_105
+textfont=p11_full
+text=100x
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xe6ca98
+transmitop=1
+opbase=<col=ff9040>Defence XP
+op1=Exchange-100
+onmouseover=text_colour_swapper(event_com, ^white)
+onmouseleave=text_colour_swapper(event_com, 0xe6ca98)
+
+// 1011:121
+[com_121]
+type=layer
+x=29
+y=159
+width=146
+height=62
+layer=com_63
+
+// 1011:122
+[com_122]
+type=rectangle
+widthmode=minus
+heightmode=minus
+layer=com_121
+colour=0x201c17
+
+// 1011:123
+[com_123]
+type=rectangle
+x=1
+y=1
+width=2
+height=2
+widthmode=minus
+heightmode=minus
+layer=com_121
+colour=0x595143
+
+// 1011:124
+[com_124]
+type=rectangle
+x=2
+y=2
+width=4
+height=4
+widthmode=minus
+heightmode=minus
+layer=com_121
+colour=0x161410
+fill=yes
+
+// 1011:125
+[com_125]
+type=rectangle
+x=3
+y=3
+width=6
+height=16
+widthmode=minus
+layer=com_121
+colour=0x3c312b
+fill=yes
+
+// 1011:126
+[com_126]
+type=text
+x=7
+y=3
+width=100
+height=16
+layer=com_121
+textfont=p11_full
+text=Constitution XP
+textalignv=centre
+textshadow=yes
+colour=0xe6ca98
+
+// 1011:127
+[com_127]
+type=rectangle
+x=6
+y=20
+width=25
+height=25
+layer=com_121
+colour=0x34322c
+
+// 1011:128
+[com_128]
+type=graphic
+x=6
+y=20
+width=25
+height=25
+layer=com_121
+graphic="staticons,6"
+colour=0x000000
+
+// 1011:129
+[com_129]
+type=text
+x=32
+y=21
+width=111
+height=25
+layer=com_121
+textfont=p11_full
+text=560 XP per Commendation
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xe6ca98
+onload=script463(event_com)
+onvartransmit=script463(event_com){varplayer_719}
+onstattransmit=script463(event_com){hitpoints}
+
+// 1011:130
+[com_130]
+type=rectangle
+x=2
+y=46
+width=142
+height=14
+layer=com_121
+colour=0x100602
+fill=yes
+
+// 1011:131
+[com_131]
+type=graphic
+x=3
+y=47
+width=46
+height=12
+layer=com_121
+graphic=graphic_3304
+
+// 1011:132
+[com_132]
+type=text
+x=3
+y=48
+width=46
+height=12
+layer=com_121
+textfont=p11_full
+text=1x
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xe6ca98
+transmitop=1
+opbase=<col=ff9040>Constitution XP
+op1=Exchange-1
+onmouseover=text_colour_swapper(event_com, ^white)
+onmouseleave=text_colour_swapper(event_com, 0xe6ca98)
+
+// 1011:133
+[com_133]
+type=graphic
+x=50
+y=47
+width=46
+height=12
+layer=com_121
+graphic=graphic_3305
+
+// 1011:134
+[com_134]
+type=text
+x=50
+y=48
+width=46
+height=12
+layer=com_121
+textfont=p11_full
+text=10x
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xe6ca98
+transmitop=1
+opbase=<col=ff9040>Constitution XP
+op1=Exchange-10
+onmouseover=text_colour_swapper(event_com, ^white)
+onmouseleave=text_colour_swapper(event_com, 0xe6ca98)
+
+// 1011:135
+[com_135]
+type=graphic
+x=97
+y=47
+width=46
+height=12
+layer=com_121
+graphic=graphic_3306
+
+// 1011:136
+[com_136]
+type=text
+x=97
+y=48
+width=46
+height=12
+layer=com_121
+textfont=p11_full
+text=100x
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xe6ca98
+transmitop=1
+opbase=<col=ff9040>Constitution XP
+op1=Exchange-100
+onmouseover=text_colour_swapper(event_com, ^white)
+onmouseleave=text_colour_swapper(event_com, 0xe6ca98)
+
+// 1011:137
+[com_137]
+type=layer
+x=183
+y=159
+width=146
+height=62
+layer=com_63
+
+// 1011:138
+[com_138]
+type=rectangle
+widthmode=minus
+heightmode=minus
+layer=com_137
+colour=0x201c17
+
+// 1011:139
+[com_139]
+type=rectangle
+x=1
+y=1
+width=2
+height=2
+widthmode=minus
+heightmode=minus
+layer=com_137
+colour=0x595143
+
+// 1011:140
+[com_140]
+type=rectangle
+x=2
+y=2
+width=4
+height=4
+widthmode=minus
+heightmode=minus
+layer=com_137
+colour=0x161410
+fill=yes
+
+// 1011:141
+[com_141]
+type=rectangle
+x=3
+y=3
+width=6
+height=16
+widthmode=minus
+layer=com_137
+colour=0x3c312b
+fill=yes
+
+// 1011:142
+[com_142]
+type=text
+x=7
+y=3
+width=100
+height=16
+layer=com_137
+textfont=p11_full
+text=Ranged XP
+textalignv=centre
+textshadow=yes
+colour=0xe6ca98
+
+// 1011:143
+[com_143]
+type=rectangle
+x=6
+y=20
+width=25
+height=25
+layer=com_137
+colour=0x34322c
+
+// 1011:144
+[com_144]
+type=graphic
+x=7
+y=19
+width=25
+height=25
+layer=com_137
+graphic="staticons,3"
+colour=0x000000
+
+// 1011:145
+[com_145]
+type=text
+x=32
+y=21
+width=111
+height=25
+layer=com_137
+textfont=p11_full
+text=560 XP per Commendation
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xe6ca98
+onload=script464(event_com)
+onvartransmit=script464(event_com){varplayer_719}
+onstattransmit=script464(event_com){ranged}
+
+// 1011:146
+[com_146]
+type=rectangle
+x=2
+y=46
+width=142
+height=14
+layer=com_137
+colour=0x100602
+fill=yes
+
+// 1011:147
+[com_147]
+type=graphic
+x=3
+y=47
+width=46
+height=12
+layer=com_137
+graphic=graphic_3304
+
+// 1011:148
+[com_148]
+type=text
+x=3
+y=48
+width=46
+height=12
+layer=com_137
+textfont=p11_full
+text=1x
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xe6ca98
+transmitop=1
+opbase=<col=ff9040>Ranged XP
+op1=Exchange-1
+onmouseover=text_colour_swapper(event_com, ^white)
+onmouseleave=text_colour_swapper(event_com, 0xe6ca98)
+
+// 1011:149
+[com_149]
+type=graphic
+x=50
+y=47
+width=46
+height=12
+layer=com_137
+graphic=graphic_3305
+
+// 1011:150
+[com_150]
+type=text
+x=50
+y=48
+width=46
+height=12
+layer=com_137
+textfont=p11_full
+text=10x
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xe6ca98
+transmitop=1
+opbase=<col=ff9040>Ranged XP
+op1=Exchange-10
+onmouseover=text_colour_swapper(event_com, ^white)
+onmouseleave=text_colour_swapper(event_com, 0xe6ca98)
+
+// 1011:151
+[com_151]
+type=graphic
+x=97
+y=47
+width=46
+height=12
+layer=com_137
+graphic=graphic_3306
+
+// 1011:152
+[com_152]
+type=text
+x=97
+y=48
+width=46
+height=12
+layer=com_137
+textfont=p11_full
+text=100x
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xe6ca98
+transmitop=1
+opbase=<col=ff9040>Ranged XP
+op1=Exchange-100
+onmouseover=text_colour_swapper(event_com, ^white)
+onmouseleave=text_colour_swapper(event_com, 0xe6ca98)
+
+// 1011:153
+[com_153]
+type=layer
+x=337
+y=159
+width=146
+height=62
+layer=com_63
+
+// 1011:154
+[com_154]
+type=rectangle
+widthmode=minus
+heightmode=minus
+layer=com_153
+colour=0x201c17
+
+// 1011:155
+[com_155]
+type=rectangle
+x=1
+y=1
+width=2
+height=2
+widthmode=minus
+heightmode=minus
+layer=com_153
+colour=0x595143
+
+// 1011:156
+[com_156]
+type=rectangle
+x=2
+y=2
+width=4
+height=4
+widthmode=minus
+heightmode=minus
+layer=com_153
+colour=0x161410
+fill=yes
+
+// 1011:157
+[com_157]
+type=rectangle
+x=3
+y=3
+width=6
+height=16
+widthmode=minus
+layer=com_153
+colour=0x3c312b
+fill=yes
+
+// 1011:158
+[com_158]
+type=text
+x=7
+y=3
+width=100
+height=16
+layer=com_153
+textfont=p11_full
+text=Magic XP
+textalignv=centre
+textshadow=yes
+colour=0xe6ca98
+
+// 1011:159
+[com_159]
+type=rectangle
+x=6
+y=20
+width=25
+height=25
+layer=com_153
+colour=0x34322c
+
+// 1011:160
+[com_160]
+type=graphic
+x=6
+y=19
+width=25
+height=25
+layer=com_153
+graphic="staticons,5"
+colour=0x000000
+
+// 1011:161
+[com_161]
+type=text
+x=32
+y=21
+width=111
+height=25
+layer=com_153
+textfont=p11_full
+text=560 XP per Commendation
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xe6ca98
+onload=script466(event_com)
+onvartransmit=script466(event_com){varplayer_719}
+onstattransmit=script466(event_com){magic}
+
+// 1011:162
+[com_162]
+type=rectangle
+x=2
+y=46
+width=142
+height=14
+layer=com_153
+colour=0x100602
+fill=yes
+
+// 1011:163
+[com_163]
+type=graphic
+x=3
+y=47
+width=46
+height=12
+layer=com_153
+graphic=graphic_3304
+
+// 1011:164
+[com_164]
+type=text
+x=3
+y=48
+width=46
+height=12
+layer=com_153
+textfont=p11_full
+text=1x
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xe6ca98
+transmitop=1
+opbase=<col=ff9040>Magic XP
+op1=Exchange-1
+onmouseover=text_colour_swapper(event_com, ^white)
+onmouseleave=text_colour_swapper(event_com, 0xe6ca98)
+
+// 1011:165
+[com_165]
+type=graphic
+x=50
+y=47
+width=46
+height=12
+layer=com_153
+graphic=graphic_3305
+
+// 1011:166
+[com_166]
+type=text
+x=50
+y=48
+width=46
+height=12
+layer=com_153
+textfont=p11_full
+text=10x
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xe6ca98
+transmitop=1
+opbase=<col=ff9040>Magic XP
+op1=Exchange-10
+onmouseover=text_colour_swapper(event_com, ^white)
+onmouseleave=text_colour_swapper(event_com, 0xe6ca98)
+
+// 1011:167
+[com_167]
+type=graphic
+x=97
+y=47
+width=46
+height=12
+layer=com_153
+graphic=graphic_3306
+
+// 1011:168
+[com_168]
+type=text
+x=97
+y=48
+width=46
+height=12
+layer=com_153
+textfont=p11_full
+text=100x
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xe6ca98
+transmitop=1
+opbase=<col=ff9040>Magic XP
+op1=Exchange-100
+onmouseover=text_colour_swapper(event_com, ^white)
+onmouseleave=text_colour_swapper(event_com, 0xe6ca98)
+
+// 1011:169
+[com_169]
+type=layer
+x=183
+y=232
+width=146
+height=62
+layer=com_63
+
+// 1011:170
+[com_170]
+type=rectangle
+widthmode=minus
+heightmode=minus
+layer=com_169
+colour=0x201c17
+
+// 1011:171
+[com_171]
+type=rectangle
+x=1
+y=1
+width=2
+height=2
+widthmode=minus
+heightmode=minus
+layer=com_169
+colour=0x595143
+
+// 1011:172
+[com_172]
+type=rectangle
+x=2
+y=2
+width=4
+height=4
+widthmode=minus
+heightmode=minus
+layer=com_169
+colour=0x161410
+fill=yes
+
+// 1011:173
+[com_173]
+type=rectangle
+x=3
+y=3
+width=6
+height=16
+widthmode=minus
+layer=com_169
+colour=0x3c312b
+fill=yes
+
+// 1011:174
+[com_174]
+type=text
+x=7
+y=3
+width=100
+height=16
+layer=com_169
+textfont=p11_full
+text=Prayer XP
+textalignv=centre
+textshadow=yes
+colour=0xe6ca98
+
+// 1011:175
+[com_175]
+type=rectangle
+x=6
+y=20
+width=25
+height=25
+layer=com_169
+colour=0x34322c
+
+// 1011:176
+[com_176]
+type=graphic
+x=6
+y=20
+width=25
+height=25
+layer=com_169
+graphic="staticons,4"
+colour=0x000000
+
+// 1011:177
+[com_177]
+type=text
+x=32
+y=21
+width=111
+height=25
+layer=com_169
+textfont=p11_full
+text=560 XP per Commendation
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xe6ca98
+onload=script467(event_com)
+onvartransmit=script467(event_com){varplayer_719}
+onstattransmit=script467(event_com){prayer}
+
+// 1011:178
+[com_178]
+type=rectangle
+x=2
+y=46
+width=142
+height=14
+layer=com_169
+colour=0x100602
+fill=yes
+
+// 1011:179
+[com_179]
+type=graphic
+x=3
+y=47
+width=46
+height=12
+layer=com_169
+graphic=graphic_3304
+
+// 1011:180
+[com_180]
+type=text
+x=3
+y=48
+width=46
+height=12
+layer=com_169
+textfont=p11_full
+text=1x
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xe6ca98
+transmitop=1
+opbase=<col=ff9040>Prayer XP
+op1=Exchange-1
+onmouseover=text_colour_swapper(event_com, ^white)
+onmouseleave=text_colour_swapper(event_com, 0xe6ca98)
+
+// 1011:181
+[com_181]
+type=graphic
+x=50
+y=47
+width=46
+height=12
+layer=com_169
+graphic=graphic_3305
+
+// 1011:182
+[com_182]
+type=text
+x=50
+y=48
+width=46
+height=12
+layer=com_169
+textfont=p11_full
+text=10x
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xe6ca98
+transmitop=1
+opbase=<col=ff9040>Prayer XP
+op1=Exchange-10
+onmouseover=text_colour_swapper(event_com, ^white)
+onmouseleave=text_colour_swapper(event_com, 0xe6ca98)
+
+// 1011:183
+[com_183]
+type=graphic
+x=97
+y=47
+width=46
+height=12
+layer=com_169
+graphic=graphic_3306
+
+// 1011:184
+[com_184]
+type=text
+x=97
+y=48
+width=46
+height=12
+layer=com_169
+textfont=p11_full
+text=100x
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xe6ca98
+transmitop=1
+opbase=<col=ff9040>Prayer XP
+op1=Exchange-100
+onmouseover=text_colour_swapper(event_com, ^white)
+onmouseleave=text_colour_swapper(event_com, 0xe6ca98)
+
+// 1011:185
+[com_185]
+type=layer
+x=183
+y=85
+width=146
+height=62
+layer=com_69
+onmouseover=script477(event_com)
+onmouseleave=script478
+
+// 1011:186
+[com_186]
+type=rectangle
+widthmode=minus
+heightmode=minus
+layer=com_185
+colour=0x201c17
+
+// 1011:187
+[com_187]
+type=rectangle
+x=1
+y=1
+width=2
+height=2
+widthmode=minus
+heightmode=minus
+layer=com_185
+colour=0x595143
+
+// 1011:188
+[com_188]
+type=rectangle
+x=2
+y=2
+width=4
+height=4
+widthmode=minus
+heightmode=minus
+layer=com_185
+colour=0x161410
+fill=yes
+
+// 1011:189
+[com_189]
+type=rectangle
+x=3
+y=3
+width=6
+height=16
+widthmode=minus
+layer=com_185
+colour=0x3c312b
+fill=yes
+
+// 1011:190
+[com_190]
+type=text
+x=7
+y=3
+width=100
+height=16
+layer=com_185
+textfont=p11_full
+text=Void Knight Ranger Helm
+textalignv=centre
+textshadow=yes
+colour=0xe6ca98
+
+// 1011:191
+[com_191]
+type=rectangle
+x=6
+y=20
+width=25
+height=25
+layer=com_185
+colour=0x34322c
+
+// 1011:192
+[com_192]
+type=model
+x=9
+y=22
+width=21
+height=21
+layer=com_185
+model=model_27163
+modelorigin=0,10
+modelzoom=800
+
+// 1011:193
+[com_193]
+type=text
+x=32
+y=21
+width=111
+height=25
+layer=com_185
+textfont=p11_full
+text=200 Commendations
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xe6ca98
+onload=script468(event_com, 200)
+onvartransmit=script468(event_com, 200){varplayer_719}
+onstattransmit=script468(event_com, 200){attack, strength, defence, hitpoints, ranged, magic, prayer}
+
+// 1011:194
+[com_194]
+type=rectangle
+x=2
+y=46
+width=142
+height=14
+layer=com_185
+colour=0x100602
+fill=yes
+
+// 1011:195
+[com_195]
+type=graphic
+x=3
+y=47
+width=140
+height=12
+layer=com_185
+graphic=graphic_3309
+
+// 1011:196
+[com_196]
+type=text
+x=3
+y=47
+width=140
+height=12
+layer=com_185
+textfont=p11_full
+text=Exchange
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xe6ca98
+transmitop=1
+opbase=<col=ff9040>Void Knight Ranger Helm
+op1=Exchange
+onmouseover=text_colour_swapper(event_com, ^white)
+onmouseleave=text_colour_swapper(event_com, 0xe6ca98)
+
+// 1011:197
+[com_197]
+type=layer
+x=337
+y=85
+width=146
+height=62
+layer=com_69
+onmouseover=script477(event_com)
+onmouseleave=script478
+
+// 1011:198
+[com_198]
+type=rectangle
+widthmode=minus
+heightmode=minus
+layer=com_197
+colour=0x201c17
+
+// 1011:199
+[com_199]
+type=rectangle
+x=1
+y=1
+width=2
+height=2
+widthmode=minus
+heightmode=minus
+layer=com_197
+colour=0x595143
+
+// 1011:200
+[com_200]
+type=rectangle
+x=2
+y=2
+width=4
+height=4
+widthmode=minus
+heightmode=minus
+layer=com_197
+colour=0x161410
+fill=yes
+
+// 1011:201
+[com_201]
+type=rectangle
+x=3
+y=3
+width=6
+height=16
+widthmode=minus
+layer=com_197
+colour=0x3c312b
+fill=yes
+
+// 1011:202
+[com_202]
+type=text
+x=7
+y=3
+width=100
+height=16
+layer=com_197
+textfont=p11_full
+text=Void Knight Mage Helm
+textalignv=centre
+textshadow=yes
+colour=0xe6ca98
+
+// 1011:203
+[com_203]
+type=model
+x=9
+y=20
+width=21
+height=25
+layer=com_197
+model=model_27164
+modelorigin=-1,-1
+modelangle=961,1388,1678
+modelzoom=1000
+
+// 1011:204
+[com_204]
+type=rectangle
+x=6
+y=20
+width=25
+height=25
+layer=com_197
+colour=0x34322c
+
+// 1011:205
+[com_205]
+type=text
+x=32
+y=21
+width=111
+height=25
+layer=com_197
+textfont=p11_full
+text=200 Commendations
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xe6ca98
+onload=script468(event_com, 200)
+onvartransmit=script468(event_com, 200){varplayer_719}
+onstattransmit=script468(event_com, 200){attack, strength, defence, hitpoints, ranged, magic, prayer}
+
+// 1011:206
+[com_206]
+type=rectangle
+x=2
+y=46
+width=142
+height=14
+layer=com_197
+colour=0x100602
+fill=yes
+
+// 1011:207
+[com_207]
+type=graphic
+x=3
+y=47
+width=140
+height=12
+layer=com_197
+graphic=graphic_3309
+
+// 1011:208
+[com_208]
+type=text
+x=3
+y=47
+width=140
+height=12
+layer=com_197
+textfont=p11_full
+text=Exchange
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xe6ca98
+transmitop=1
+opbase=<col=ff9040>Void Knight Mage Helm
+op1=Exchange
+onmouseover=text_colour_swapper(event_com, ^white)
+onmouseleave=text_colour_swapper(event_com, 0xe6ca98)
+
+// 1011:209
+[com_209]
+type=layer
+x=29
+y=159
+width=146
+height=62
+layer=com_69
+onmouseover=script477(event_com)
+onmouseleave=script478
+
+// 1011:210
+[com_210]
+type=rectangle
+widthmode=minus
+heightmode=minus
+layer=com_209
+colour=0x201c17
+
+// 1011:211
+[com_211]
+type=rectangle
+x=1
+y=1
+width=2
+height=2
+widthmode=minus
+heightmode=minus
+layer=com_209
+colour=0x595143
+
+// 1011:212
+[com_212]
+type=rectangle
+x=2
+y=2
+width=4
+height=4
+widthmode=minus
+heightmode=minus
+layer=com_209
+colour=0x161410
+fill=yes
+
+// 1011:213
+[com_213]
+type=rectangle
+x=3
+y=3
+width=6
+height=16
+widthmode=minus
+layer=com_209
+colour=0x3c312b
+fill=yes
+
+// 1011:214
+[com_214]
+type=text
+x=7
+y=3
+width=100
+height=16
+layer=com_209
+textfont=p11_full
+text=Void Knight Top
+textalignv=centre
+textshadow=yes
+colour=0xe6ca98
+
+// 1011:215
+[com_215]
+type=rectangle
+x=6
+y=20
+width=25
+height=25
+layer=com_209
+colour=0x34322c
+
+// 1011:216
+[com_216]
+type=model
+x=12
+y=23
+width=15
+height=21
+layer=com_209
+model=model_15282
+modelorigin=0,-1
+modelangle=512,0,0
+modelzoom=1200
+
+// 1011:217
+[com_217]
+type=text
+x=32
+y=21
+width=111
+height=25
+layer=com_209
+textfont=p11_full
+text=250 Commendations
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xe6ca98
+onload=script468(event_com, 250)
+onvartransmit=script468(event_com, 250){varplayer_719}
+onstattransmit=script468(event_com, 250){attack, strength, defence, hitpoints, ranged, magic, prayer}
+
+// 1011:218
+[com_218]
+type=rectangle
+x=2
+y=46
+width=142
+height=14
+layer=com_209
+colour=0x100602
+fill=yes
+
+// 1011:219
+[com_219]
+type=graphic
+x=3
+y=47
+width=140
+height=12
+layer=com_209
+graphic=graphic_3309
+
+// 1011:220
+[com_220]
+type=text
+x=3
+y=47
+width=140
+height=12
+layer=com_209
+textfont=p11_full
+text=Exchange
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xe6ca98
+transmitop=1
+opbase=<col=ff9040>Void Knight Top
+op1=Exchange
+onmouseover=text_colour_swapper(event_com, ^white)
+onmouseleave=text_colour_swapper(event_com, 0xe6ca98)
+
+// 1011:221
+[com_221]
+type=layer
+x=183
+y=159
+width=146
+height=62
+layer=com_69
+onmouseover=script477(event_com)
+onmouseleave=script478
+
+// 1011:222
+[com_222]
+type=rectangle
+widthmode=minus
+heightmode=minus
+layer=com_221
+colour=0x201c17
+
+// 1011:223
+[com_223]
+type=rectangle
+x=1
+y=1
+width=2
+height=2
+widthmode=minus
+heightmode=minus
+layer=com_221
+colour=0x595143
+
+// 1011:224
+[com_224]
+type=rectangle
+x=2
+y=2
+width=4
+height=4
+widthmode=minus
+heightmode=minus
+layer=com_221
+colour=0x161410
+fill=yes
+
+// 1011:225
+[com_225]
+type=rectangle
+x=3
+y=3
+width=6
+height=16
+widthmode=minus
+layer=com_221
+colour=0x3c312b
+fill=yes
+
+// 1011:226
+[com_226]
+type=text
+x=7
+y=3
+width=100
+height=16
+layer=com_221
+textfont=p11_full
+text=Void Knight Robes
+textalignv=centre
+textshadow=yes
+colour=0xe6ca98
+
+// 1011:227
+[com_227]
+type=rectangle
+x=6
+y=20
+width=25
+height=25
+layer=com_221
+colour=0x34322c
+
+// 1011:228
+[com_228]
+type=model
+x=8
+y=21
+width=23
+height=23
+layer=com_221
+model=model_15281
+modelorigin=1,-1
+modelangle=512,256,0
+modelzoom=2600
+
+// 1011:229
+[com_229]
+type=text
+x=32
+y=21
+width=111
+height=25
+layer=com_221
+textfont=p11_full
+text=250 Commendations
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xe6ca98
+onload=script468(event_com, 250)
+onvartransmit=script468(event_com, 250){varplayer_719}
+onstattransmit=script468(event_com, 250){attack, strength, defence, hitpoints, ranged, magic, prayer}
+
+// 1011:230
+[com_230]
+type=rectangle
+x=2
+y=46
+width=142
+height=14
+layer=com_221
+colour=0x100602
+fill=yes
+
+// 1011:231
+[com_231]
+type=graphic
+x=3
+y=47
+width=140
+height=12
+layer=com_221
+graphic=graphic_3309
+
+// 1011:232
+[com_232]
+type=text
+x=3
+y=47
+width=140
+height=12
+layer=com_221
+textfont=p11_full
+text=Exchange
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xe6ca98
+transmitop=1
+opbase=<col=ff9040>Void Knight Robes
+op1=Exchange
+onmouseover=text_colour_swapper(event_com, ^white)
+onmouseleave=text_colour_swapper(event_com, 0xe6ca98)
+
+// 1011:233
+[com_233]
+type=layer
+x=337
+y=159
+width=146
+height=62
+layer=com_69
+onmouseover=script477(event_com)
+onmouseleave=script478
+
+// 1011:234
+[com_234]
+type=rectangle
+widthmode=minus
+heightmode=minus
+layer=com_233
+colour=0x201c17
+
+// 1011:235
+[com_235]
+type=rectangle
+x=1
+y=1
+width=2
+height=2
+widthmode=minus
+heightmode=minus
+layer=com_233
+colour=0x595143
+
+// 1011:236
+[com_236]
+type=rectangle
+x=2
+y=2
+width=4
+height=4
+widthmode=minus
+heightmode=minus
+layer=com_233
+colour=0x161410
+fill=yes
+
+// 1011:237
+[com_237]
+type=rectangle
+x=3
+y=3
+width=6
+height=16
+widthmode=minus
+layer=com_233
+colour=0x3c312b
+fill=yes
+
+// 1011:238
+[com_238]
+type=text
+x=7
+y=3
+width=100
+height=16
+layer=com_233
+textfont=p11_full
+text=Void Knight Gloves
+textalignv=centre
+textshadow=yes
+colour=0xe6ca98
+
+// 1011:239
+[com_239]
+type=rectangle
+x=6
+y=20
+width=25
+height=25
+layer=com_233
+colour=0x34322c
+
+// 1011:240
+[com_240]
+type=model
+x=7
+y=24
+width=24
+height=18
+layer=com_233
+model=model_15278
+modelorigin=2,2
+modelangle=512,893,0
+modelzoom=1200
+
+// 1011:241
+[com_241]
+type=text
+x=32
+y=21
+width=111
+height=25
+layer=com_233
+textfont=p11_full
+text=150 Commendations
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xe6ca98
+onload=script468(event_com, 150)
+onvartransmit=script468(event_com, 150){varplayer_719}
+onstattransmit=script468(event_com, 150){attack, strength, defence, hitpoints, ranged, magic, prayer}
+
+// 1011:242
+[com_242]
+type=rectangle
+x=2
+y=46
+width=142
+height=14
+layer=com_233
+colour=0x100602
+fill=yes
+
+// 1011:243
+[com_243]
+type=graphic
+x=3
+y=47
+width=140
+height=12
+layer=com_233
+graphic=graphic_3309
+
+// 1011:244
+[com_244]
+type=text
+x=3
+y=47
+width=140
+height=12
+layer=com_233
+textfont=p11_full
+text=Exchange
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xe6ca98
+transmitop=1
+opbase=<col=ff9040>Void Knight Gloves
+op1=Exchange
+onmouseover=text_colour_swapper(event_com, ^white)
+onmouseleave=text_colour_swapper(event_com, 0xe6ca98)
+
+// 1011:245
+[com_245]
+type=layer
+x=29
+y=232
+width=146
+height=62
+layer=com_69
+onmouseover=script477(event_com)
+onmouseleave=script478
+
+// 1011:246
+[com_246]
+type=rectangle
+widthmode=minus
+heightmode=minus
+layer=com_245
+colour=0x201c17
+
+// 1011:247
+[com_247]
+type=rectangle
+x=1
+y=1
+width=2
+height=2
+widthmode=minus
+heightmode=minus
+layer=com_245
+colour=0x595143
+
+// 1011:248
+[com_248]
+type=rectangle
+x=2
+y=2
+width=4
+height=4
+widthmode=minus
+heightmode=minus
+layer=com_245
+colour=0x161410
+fill=yes
+
+// 1011:249
+[com_249]
+type=rectangle
+x=3
+y=3
+width=6
+height=16
+widthmode=minus
+layer=com_245
+colour=0x3c312b
+fill=yes
+
+// 1011:250
+[com_250]
+type=text
+x=7
+y=3
+width=100
+height=16
+layer=com_245
+textfont=p11_full
+text=Void Knight Mace
+textalignv=centre
+textshadow=yes
+colour=0xe6ca98
+
+// 1011:251
+[com_251]
+type=rectangle
+x=6
+y=20
+width=25
+height=25
+layer=com_245
+colour=0x34322c
+
+// 1011:252
+[com_252]
+type=model
+x=7
+y=21
+width=23
+height=23
+layer=com_245
+model=model_15280
+modelorigin=-1,3
+modelangle=512,256,0
+modelzoom=1600
+
+// 1011:253
+[com_253]
+type=text
+x=32
+y=21
+width=111
+height=25
+layer=com_245
+textfont=p11_full
+text=250 Commendations
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xe6ca98
+onload=script468(event_com, 250)
+onvartransmit=script468(event_com, 250){varplayer_719}
+onstattransmit=script468(event_com, 250){attack, strength, defence, hitpoints, ranged, magic, prayer}
+
+// 1011:254
+[com_254]
+type=rectangle
+x=2
+y=46
+width=142
+height=14
+layer=com_245
+colour=0x100602
+fill=yes
+
+// 1011:255
+[com_255]
+type=graphic
+x=3
+y=47
+width=140
+height=12
+layer=com_245
+graphic=graphic_3309
+
+// 1011:256
+[com_256]
+type=text
+x=3
+y=47
+width=140
+height=12
+layer=com_245
+textfont=p11_full
+text=Exchange
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xe6ca98
+transmitop=1
+opbase=<col=ff9040>Void Knight Mace
+op1=Exchange
+onmouseover=text_colour_swapper(event_com, ^white)
+onmouseleave=text_colour_swapper(event_com, 0xe6ca98)
+
+// 1011:257
+[com_257]
+type=layer
+x=183
+y=232
+width=146
+height=62
+layer=com_69
+onmouseover=script477(event_com)
+onmouseleave=script478
+
+// 1011:258
+[com_258]
+type=rectangle
+widthmode=minus
+heightmode=minus
+layer=com_257
+colour=0x201c17
+
+// 1011:259
+[com_259]
+type=rectangle
+x=1
+y=1
+width=2
+height=2
+widthmode=minus
+heightmode=minus
+layer=com_257
+colour=0x595143
+
+// 1011:260
+[com_260]
+type=rectangle
+x=2
+y=2
+width=4
+height=4
+widthmode=minus
+heightmode=minus
+layer=com_257
+colour=0x161410
+fill=yes
+
+// 1011:261
+[com_261]
+type=rectangle
+x=3
+y=3
+width=6
+height=16
+widthmode=minus
+layer=com_257
+colour=0x3c312b
+fill=yes
+
+// 1011:262
+[com_262]
+type=text
+x=7
+y=3
+width=100
+height=16
+layer=com_257
+textfont=p11_full
+text=Void Knight Deflector
+textalignv=centre
+textshadow=yes
+colour=0xe6ca98
+
+// 1011:263
+[com_263]
+type=model
+x=8
+y=22
+width=24
+height=19
+layer=com_257
+model=model_59990
+modelorigin=-6,-5
+modelangle=341,1951,0
+modelzoom=1000
+
+// 1011:264
+[com_264]
+type=rectangle
+x=6
+y=20
+width=25
+height=25
+layer=com_257
+colour=0x34322c
+
+// 1011:265
+[com_265]
+type=text
+x=32
+y=21
+width=111
+height=25
+layer=com_257
+textfont=p11_full
+text=150 Commendations
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xe6ca98
+onload=script468(event_com, 150)
+onvartransmit=script468(event_com, 150){varplayer_719}
+onstattransmit=script468(event_com, 150){attack, strength, defence, hitpoints, ranged, magic, prayer}
+
+// 1011:266
+[com_266]
+type=rectangle
+x=2
+y=46
+width=142
+height=14
+layer=com_257
+colour=0x100602
+fill=yes
+
+// 1011:267
+[com_267]
+type=graphic
+x=3
+y=47
+width=140
+height=12
+layer=com_257
+graphic=graphic_3309
+
+// 1011:268
+[com_268]
+type=text
+x=3
+y=47
+width=140
+height=12
+layer=com_257
+textfont=p11_full
+text=Exchange
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xe6ca98
+transmitop=1
+opbase=<col=ff9040>Void Knight Deflector
+op1=Exchange
+onmouseover=text_colour_swapper(event_com, ^white)
+onmouseleave=text_colour_swapper(event_com, 0xe6ca98)
+
+// 1011:269
+[com_269]
+type=layer
+x=337
+y=232
+width=146
+height=62
+layer=com_69
+
+// 1011:270
+[com_270]
+type=rectangle
+widthmode=minus
+heightmode=minus
+layer=com_269
+colour=0x201c17
+
+// 1011:271
+[com_271]
+type=rectangle
+x=1
+y=1
+width=2
+height=2
+widthmode=minus
+heightmode=minus
+layer=com_269
+colour=0x595143
+
+// 1011:272
+[com_272]
+type=rectangle
+x=2
+y=2
+width=4
+height=4
+widthmode=minus
+heightmode=minus
+layer=com_269
+colour=0x161410
+fill=yes
+
+// 1011:273
+[com_273]
+type=rectangle
+x=3
+y=3
+width=6
+height=16
+widthmode=minus
+layer=com_269
+colour=0x3c312b
+fill=yes
+
+// 1011:274
+[com_274]
+type=text
+x=7
+y=3
+width=100
+height=16
+layer=com_269
+textfont=p11_full
+text=Void Knight Seal
+textalignv=centre
+textshadow=yes
+colour=0xe6ca98
+
+// 1011:275
+[com_275]
+type=rectangle
+x=6
+y=20
+width=25
+height=25
+layer=com_269
+colour=0x34322c
+
+// 1011:276
+[com_276]
+type=model
+x=9
+y=23
+width=19
+height=18
+layer=com_269
+model=model_27165
+modelorigin=1,0
+modelangle=512,0,0
+modelzoom=650
+
+// 1011:277
+[com_277]
+type=text
+x=32
+y=21
+width=111
+height=25
+layer=com_269
+textfont=p11_full
+text=10 Commendations
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xe6ca98
+onload=script470(event_com, 10)
+onvartransmit=script470(event_com, 10){varplayer_719}
+
+// 1011:278
+[com_278]
+type=rectangle
+x=2
+y=46
+width=142
+height=14
+layer=com_269
+colour=0x100602
+fill=yes
+
+// 1011:279
+[com_279]
+type=graphic
+x=3
+y=47
+width=140
+height=12
+layer=com_269
+graphic=graphic_3309
+
+// 1011:280
+[com_280]
+type=text
+x=3
+y=47
+width=140
+height=12
+layer=com_269
+textfont=p11_full
+text=Exchange
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xe6ca98
+transmitop=1
+opbase=<col=ff9040>Void Knight Seal
+op1=Exchange
+onmouseover=text_colour_swapper(event_com, ^white)
+onmouseleave=text_colour_swapper(event_com, 0xe6ca98)
+
+// 1011:281
+[com_281]
+type=rectangle
+widthmode=minus
+heightmode=minus
+layer=com_78
+colour=0x201c17
+
+// 1011:282
+[com_282]
+type=rectangle
+x=1
+y=1
+width=2
+height=2
+widthmode=minus
+heightmode=minus
+layer=com_78
+colour=0x595143
+
+// 1011:283
+[com_283]
+type=rectangle
+x=2
+y=2
+width=4
+height=4
+widthmode=minus
+heightmode=minus
+layer=com_78
+colour=0x161410
+fill=yes
+
+// 1011:284
+[com_284]
+type=rectangle
+x=3
+y=3
+width=6
+height=16
+widthmode=minus
+layer=com_78
+colour=0x3c312b
+fill=yes
+
+// 1011:285
+[com_285]
+type=text
+x=7
+y=3
+width=100
+height=16
+layer=com_78
+textfont=p11_full
+text=Herb Pack
+textalignv=centre
+textshadow=yes
+colour=0xe6ca98
+
+// 1011:286
+[com_286]
+type=rectangle
+x=6
+y=20
+width=25
+height=25
+layer=com_78
+colour=0x34322c
+
+// 1011:287
+[com_287]
+type=model
+x=7
+y=20
+width=24
+height=25
+layer=com_78
+model=model_2364
+modelorigin=-3,6
+modelangle=512,91,0
+modelzoom=850
+
+// 1011:288
+[com_288]
+type=text
+x=32
+y=21
+width=111
+height=25
+layer=com_78
+textfont=p11_full
+text=30 Commendations
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xe6ca98
+onload=script471(event_com, 30)
+onvartransmit=script471(event_com, 30){varplayer_719}
+onstattransmit=script471(event_com, 30){herblore}
+
+// 1011:289
+[com_289]
+type=rectangle
+x=2
+y=46
+width=142
+height=14
+layer=com_78
+colour=0x100602
+fill=yes
+
+// 1011:290
+[com_290]
+type=graphic
+x=3
+y=47
+width=140
+height=12
+layer=com_78
+graphic=graphic_3309
+
+// 1011:291
+[com_291]
+type=text
+x=3
+y=47
+width=140
+height=12
+layer=com_78
+textfont=p11_full
+text=Exchange
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xe6ca98
+transmitop=1
+opbase=<col=ff9040>Herb Pack
+op1=Exchange
+onmouseover=text_colour_swapper(event_com, ^white)
+onmouseleave=text_colour_swapper(event_com, 0xe6ca98)
+
+// 1011:292
+[com_292]
+type=rectangle
+widthmode=minus
+heightmode=minus
+layer=com_79
+colour=0x201c17
+
+// 1011:293
+[com_293]
+type=rectangle
+x=1
+y=1
+width=2
+height=2
+widthmode=minus
+heightmode=minus
+layer=com_79
+colour=0x595143
+
+// 1011:294
+[com_294]
+type=rectangle
+x=2
+y=2
+width=4
+height=4
+widthmode=minus
+heightmode=minus
+layer=com_79
+colour=0x161410
+fill=yes
+
+// 1011:295
+[com_295]
+type=rectangle
+x=3
+y=3
+width=6
+height=16
+widthmode=minus
+layer=com_79
+colour=0x3c312b
+fill=yes
+
+// 1011:296
+[com_296]
+type=text
+x=7
+y=3
+width=100
+height=16
+layer=com_79
+textfont=p11_full
+text=Mineral Pack
+textalignv=centre
+textshadow=yes
+colour=0xe6ca98
+
+// 1011:297
+[com_297]
+type=rectangle
+x=6
+y=20
+width=25
+height=25
+layer=com_79
+colour=0x34322c
+
+// 1011:298
+[com_298]
+type=model
+x=7
+y=22
+width=24
+height=20
+layer=com_79
+model=model_15279
+modelangle=307,0,0
+modelzoom=1800
+
+// 1011:299
+[com_299]
+type=text
+x=32
+y=21
+width=111
+height=25
+layer=com_79
+textfont=p11_full
+text=15 Commendations
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xe6ca98
+onload=script472(event_com, 15)
+onvartransmit=script472(event_com, 15){varplayer_719}
+onstattransmit=script472(event_com, 15){mining}
+
+// 1011:300
+[com_300]
+type=rectangle
+x=2
+y=46
+width=142
+height=14
+layer=com_79
+colour=0x100602
+fill=yes
+
+// 1011:301
+[com_301]
+type=graphic
+x=3
+y=47
+width=140
+height=12
+layer=com_79
+graphic=graphic_3309
+
+// 1011:302
+[com_302]
+type=text
+x=3
+y=47
+width=140
+height=12
+layer=com_79
+textfont=p11_full
+text=Exchange
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xe6ca98
+transmitop=1
+opbase=<col=ff9040>Mineral Pack
+op1=Exchange
+onmouseover=text_colour_swapper(event_com, ^white)
+onmouseleave=text_colour_swapper(event_com, 0xe6ca98)
+
+// 1011:303
+[com_303]
+type=rectangle
+widthmode=minus
+heightmode=minus
+layer=com_80
+colour=0x201c17
+
+// 1011:304
+[com_304]
+type=rectangle
+x=1
+y=1
+width=2
+height=2
+widthmode=minus
+heightmode=minus
+layer=com_80
+colour=0x595143
+
+// 1011:305
+[com_305]
+type=rectangle
+x=2
+y=2
+width=4
+height=4
+widthmode=minus
+heightmode=minus
+layer=com_80
+colour=0x161410
+fill=yes
+
+// 1011:306
+[com_306]
+type=rectangle
+x=3
+y=3
+width=6
+height=16
+widthmode=minus
+layer=com_80
+colour=0x3c312b
+fill=yes
+
+// 1011:307
+[com_307]
+type=text
+x=7
+y=3
+width=100
+height=16
+layer=com_80
+textfont=p11_full
+text=Seed Pack
+textalignv=centre
+textshadow=yes
+colour=0xe6ca98
+
+// 1011:308
+[com_308]
+type=model
+x=9
+y=22
+width=21
+height=21
+layer=com_80
+model=model_7152
+modelorigin=-1,1
+modelangle=512,0,0
+modelzoom=900
+
+// 1011:309
+[com_309]
+type=rectangle
+x=6
+y=20
+width=25
+height=25
+layer=com_80
+colour=0x34322c
+
+// 1011:310
+[com_310]
+type=text
+x=32
+y=21
+width=111
+height=25
+layer=com_80
+textfont=p11_full
+text=15 Commendations
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xe6ca98
+onload=script473(event_com, 15)
+onvartransmit=script473(event_com, 15){varplayer_719}
+onstattransmit=script473(event_com, 15){farming}
+
+// 1011:311
+[com_311]
+type=rectangle
+x=2
+y=46
+width=142
+height=14
+layer=com_80
+colour=0x100602
+fill=yes
+
+// 1011:312
+[com_312]
+type=graphic
+x=3
+y=47
+width=140
+height=12
+layer=com_80
+graphic=graphic_3309
+
+// 1011:313
+[com_313]
+type=text
+x=3
+y=47
+width=140
+height=12
+layer=com_80
+textfont=p11_full
+text=Exchange
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xe6ca98
+transmitop=1
+opbase=<col=ff9040>Seed Pack
+op1=Exchange
+onmouseover=text_colour_swapper(event_com, ^white)
+onmouseleave=text_colour_swapper(event_com, 0xe6ca98)
+
+// 1011:314
+[com_314]
+type=rectangle
+widthmode=minus
+heightmode=minus
+layer=com_81
+colour=0x201c17
+
+// 1011:315
+[com_315]
+type=rectangle
+x=1
+y=1
+width=2
+height=2
+widthmode=minus
+heightmode=minus
+layer=com_81
+colour=0x595143
+
+// 1011:316
+[com_316]
+type=rectangle
+x=2
+y=2
+width=4
+height=4
+widthmode=minus
+heightmode=minus
+layer=com_81
+colour=0x161410
+fill=yes
+
+// 1011:317
+[com_317]
+type=rectangle
+x=3
+y=3
+width=6
+height=16
+widthmode=minus
+layer=com_81
+colour=0x3c312b
+fill=yes
+
+// 1011:318
+[com_318]
+type=text
+x=7
+y=3
+width=100
+height=16
+layer=com_81
+textfont=p11_full
+text=Spinner Charm
+textalignv=centre
+textshadow=yes
+colour=0xe6ca98
+
+// 1011:319
+[com_319]
+type=rectangle
+x=6
+y=20
+width=25
+height=25
+layer=com_81
+colour=0x34322c
+
+// 1011:320
+[com_320]
+type=model
+x=9
+y=22
+width=21
+height=21
+layer=com_81
+model=model_31523
+modelangle=512,1792,0
+modelzoom=700
+modelnodepth=yes
+
+// 1011:321
+[com_321]
+type=text
+x=32
+y=21
+width=111
+height=25
+layer=com_81
+textfont=p11_full
+text=2 Commendations
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xe6ca98
+onload=script474(event_com, 2)
+onvartransmit=script474(event_com, 2){varplayer_719}
+
+// 1011:322
+[com_322]
+type=rectangle
+x=2
+y=46
+width=142
+height=14
+layer=com_81
+colour=0x100602
+fill=yes
+
+// 1011:323
+[com_323]
+type=graphic
+x=3
+y=47
+width=46
+height=12
+layer=com_81
+graphic=graphic_3304
+
+// 1011:324
+[com_324]
+type=text
+x=3
+y=48
+width=46
+height=12
+layer=com_81
+textfont=p11_full
+text=1x
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xe6ca98
+transmitop=1
+opbase=<col=ff9040>Spinner Charm
+op1=Exchange-1
+onmouseover=text_colour_swapper(event_com, ^white)
+onmouseleave=text_colour_swapper(event_com, 0xe6ca98)
+
+// 1011:325
+[com_325]
+type=graphic
+x=50
+y=47
+width=46
+height=12
+layer=com_81
+graphic=graphic_3305
+
+// 1011:326
+[com_326]
+type=text
+x=50
+y=48
+width=46
+height=12
+layer=com_81
+textfont=p11_full
+text=10x
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xe6ca98
+transmitop=1
+opbase=<col=ff9040>Spinner Charm
+op1=Exchange-10
+onmouseover=text_colour_swapper(event_com, ^white)
+onmouseleave=text_colour_swapper(event_com, 0xe6ca98)
+
+// 1011:327
+[com_327]
+type=graphic
+x=97
+y=47
+width=46
+height=12
+layer=com_81
+graphic=graphic_3306
+
+// 1011:328
+[com_328]
+type=text
+x=97
+y=48
+width=46
+height=12
+layer=com_81
+textfont=p11_full
+text=All
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xe6ca98
+transmitop=1
+opbase=<col=ff9040>Spinner Charm
+op1=Exchange-All
+onmouseover=text_colour_swapper(event_com, ^white)
+onmouseleave=text_colour_swapper(event_com, 0xe6ca98)
+
+// 1011:329
+[com_329]
+type=rectangle
+widthmode=minus
+heightmode=minus
+layer=com_82
+colour=0x201c17
+
+// 1011:330
+[com_330]
+type=rectangle
+x=1
+y=1
+width=2
+height=2
+widthmode=minus
+heightmode=minus
+layer=com_82
+colour=0x595143
+
+// 1011:331
+[com_331]
+type=rectangle
+x=2
+y=2
+width=4
+height=4
+widthmode=minus
+heightmode=minus
+layer=com_82
+colour=0x161410
+fill=yes
+
+// 1011:332
+[com_332]
+type=rectangle
+x=3
+y=3
+width=6
+height=16
+widthmode=minus
+layer=com_82
+colour=0x3c312b
+fill=yes
+
+// 1011:333
+[com_333]
+type=text
+x=7
+y=3
+width=100
+height=16
+layer=com_82
+textfont=p11_full
+text=Torcher Charm
+textalignv=centre
+textshadow=yes
+colour=0xe6ca98
+
+// 1011:334
+[com_334]
+type=rectangle
+x=6
+y=20
+width=25
+height=25
+layer=com_82
+colour=0x34322c
+
+// 1011:335
+[com_335]
+type=model
+x=9
+y=22
+width=21
+height=21
+layer=com_82
+model=model_31552
+modelangle=512,1792,0
+modelzoom=700
+modelnodepth=yes
+
+// 1011:336
+[com_336]
+type=text
+x=32
+y=21
+width=111
+height=25
+layer=com_82
+textfont=p11_full
+text=2 Commendations
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xe6ca98
+onload=script474(event_com, 2)
+onvartransmit=script474(event_com, 2){varplayer_719}
+
+// 1011:337
+[com_337]
+type=rectangle
+x=2
+y=46
+width=142
+height=14
+layer=com_82
+colour=0x100602
+fill=yes
+
+// 1011:338
+[com_338]
+type=graphic
+x=3
+y=47
+width=46
+height=12
+layer=com_82
+graphic=graphic_3304
+
+// 1011:339
+[com_339]
+type=text
+x=3
+y=48
+width=46
+height=12
+layer=com_82
+textfont=p11_full
+text=1x
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xe6ca98
+transmitop=1
+opbase=<col=ff9040>Torcher Charm
+op1=Exchange-1
+onmouseover=text_colour_swapper(event_com, ^white)
+onmouseleave=text_colour_swapper(event_com, 0xe6ca98)
+
+// 1011:340
+[com_340]
+type=graphic
+x=50
+y=47
+width=46
+height=12
+layer=com_82
+graphic=graphic_3305
+
+// 1011:341
+[com_341]
+type=text
+x=50
+y=48
+width=46
+height=12
+layer=com_82
+textfont=p11_full
+text=10x
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xe6ca98
+transmitop=1
+opbase=<col=ff9040>Torcher Charm
+op1=Exchange-10
+onmouseover=text_colour_swapper(event_com, ^white)
+onmouseleave=text_colour_swapper(event_com, 0xe6ca98)
+
+// 1011:342
+[com_342]
+type=graphic
+x=97
+y=47
+width=46
+height=12
+layer=com_82
+graphic=graphic_3306
+
+// 1011:343
+[com_343]
+type=text
+x=97
+y=48
+width=46
+height=12
+layer=com_82
+textfont=p11_full
+text=All
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xe6ca98
+transmitop=1
+opbase=<col=ff9040>Torcher Charm
+op1=Exchange-All
+onmouseover=text_colour_swapper(event_com, ^white)
+onmouseleave=text_colour_swapper(event_com, 0xe6ca98)
+
+// 1011:344
+[com_344]
+type=rectangle
+widthmode=minus
+heightmode=minus
+layer=com_83
+colour=0x201c17
+
+// 1011:345
+[com_345]
+type=rectangle
+x=1
+y=1
+width=2
+height=2
+widthmode=minus
+heightmode=minus
+layer=com_83
+colour=0x595143
+
+// 1011:346
+[com_346]
+type=rectangle
+x=2
+y=2
+width=4
+height=4
+widthmode=minus
+heightmode=minus
+layer=com_83
+colour=0x161410
+fill=yes
+
+// 1011:347
+[com_347]
+type=rectangle
+x=3
+y=3
+width=6
+height=16
+widthmode=minus
+layer=com_83
+colour=0x3c312b
+fill=yes
+
+// 1011:348
+[com_348]
+type=text
+x=7
+y=3
+width=100
+height=16
+layer=com_83
+textfont=p11_full
+text=Ravager Charm
+textalignv=centre
+textshadow=yes
+colour=0xe6ca98
+
+// 1011:349
+[com_349]
+type=rectangle
+x=6
+y=20
+width=25
+height=25
+layer=com_83
+colour=0x34322c
+
+// 1011:350
+[com_350]
+type=model
+x=9
+y=22
+width=21
+height=21
+layer=com_83
+model=model_31536
+modelangle=512,768,0
+modelzoom=700
+modelnodepth=yes
+
+// 1011:351
+[com_351]
+type=text
+x=32
+y=21
+width=111
+height=25
+layer=com_83
+textfont=p11_full
+text=2 Commendations
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xe6ca98
+onload=script474(event_com, 2)
+onvartransmit=script474(event_com, 2){varplayer_719}
+
+// 1011:352
+[com_352]
+type=rectangle
+x=2
+y=46
+width=142
+height=14
+layer=com_83
+colour=0x100602
+fill=yes
+
+// 1011:353
+[com_353]
+type=graphic
+x=3
+y=47
+width=46
+height=12
+layer=com_83
+graphic=graphic_3304
+
+// 1011:354
+[com_354]
+type=text
+x=3
+y=48
+width=46
+height=12
+layer=com_83
+textfont=p11_full
+text=1x
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xe6ca98
+transmitop=1
+opbase=<col=ff9040>Ravager Charm
+op1=Exchange-1
+onmouseover=text_colour_swapper(event_com, ^white)
+onmouseleave=text_colour_swapper(event_com, 0xe6ca98)
+
+// 1011:355
+[com_355]
+type=graphic
+x=50
+y=47
+width=46
+height=12
+layer=com_83
+graphic=graphic_3305
+
+// 1011:356
+[com_356]
+type=text
+x=50
+y=48
+width=46
+height=12
+layer=com_83
+textfont=p11_full
+text=10x
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xe6ca98
+transmitop=1
+opbase=<col=ff9040>Ravager Charm
+op1=Exchange-10
+onmouseover=text_colour_swapper(event_com, ^white)
+onmouseleave=text_colour_swapper(event_com, 0xe6ca98)
+
+// 1011:357
+[com_357]
+type=graphic
+x=97
+y=47
+width=46
+height=12
+layer=com_83
+graphic=graphic_3306
+
+// 1011:358
+[com_358]
+type=text
+x=97
+y=48
+width=46
+height=12
+layer=com_83
+textfont=p11_full
+text=All
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xe6ca98
+transmitop=1
+opbase=<col=ff9040>Ravager Charm
+op1=Exchange-All
+onmouseover=text_colour_swapper(event_com, ^white)
+onmouseleave=text_colour_swapper(event_com, 0xe6ca98)
+
+// 1011:359
+[com_359]
+type=rectangle
+widthmode=minus
+heightmode=minus
+layer=com_84
+colour=0x201c17
+
+// 1011:360
+[com_360]
+type=rectangle
+x=1
+y=1
+width=2
+height=2
+widthmode=minus
+heightmode=minus
+layer=com_84
+colour=0x595143
+
+// 1011:361
+[com_361]
+type=rectangle
+x=2
+y=2
+width=4
+height=4
+widthmode=minus
+heightmode=minus
+layer=com_84
+colour=0x161410
+fill=yes
+
+// 1011:362
+[com_362]
+type=rectangle
+x=3
+y=3
+width=6
+height=16
+widthmode=minus
+layer=com_84
+colour=0x3c312b
+fill=yes
+
+// 1011:363
+[com_363]
+type=text
+x=7
+y=3
+width=100
+height=16
+layer=com_84
+textfont=p11_full
+text=Shifter Charm
+textalignv=centre
+textshadow=yes
+colour=0xe6ca98
+
+// 1011:364
+[com_364]
+type=rectangle
+x=6
+y=20
+width=25
+height=25
+layer=com_84
+colour=0x34322c
+
+// 1011:365
+[com_365]
+type=model
+x=9
+y=22
+width=21
+height=21
+layer=com_84
+model=model_31547
+modelangle=512,1792,0
+modelzoom=700
+modelnodepth=yes
+
+// 1011:366
+[com_366]
+type=text
+x=32
+y=21
+width=111
+height=25
+layer=com_84
+textfont=p11_full
+text=2 Commendations
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xe6ca98
+onload=script474(event_com, 2)
+onvartransmit=script474(event_com, 2){varplayer_719}
+
+// 1011:367
+[com_367]
+type=rectangle
+x=2
+y=46
+width=142
+height=14
+layer=com_84
+colour=0x100602
+fill=yes
+
+// 1011:368
+[com_368]
+type=graphic
+x=3
+y=47
+width=46
+height=12
+layer=com_84
+graphic=graphic_3304
+
+// 1011:369
+[com_369]
+type=text
+x=3
+y=48
+width=46
+height=12
+layer=com_84
+textfont=p11_full
+text=1x
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xe6ca98
+transmitop=1
+opbase=<col=ff9040>Shifter Charm
+op1=Exchange-1
+onmouseover=text_colour_swapper(event_com, ^white)
+onmouseleave=text_colour_swapper(event_com, 0xe6ca98)
+
+// 1011:370
+[com_370]
+type=graphic
+x=50
+y=47
+width=46
+height=12
+layer=com_84
+graphic=graphic_3305
+
+// 1011:371
+[com_371]
+type=text
+x=50
+y=47
+width=46
+height=12
+layer=com_84
+textfont=p11_full
+text=10x
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xe6ca98
+transmitop=1
+opbase=<col=ff9040>Shifter Charm
+op1=Exchange-10
+onmouseover=text_colour_swapper(event_com, ^white)
+onmouseleave=text_colour_swapper(event_com, 0xe6ca98)
+
+// 1011:372
+[com_372]
+type=graphic
+x=97
+y=47
+width=46
+height=12
+layer=com_84
+graphic=graphic_3306
+
+// 1011:373
+[com_373]
+type=text
+x=97
+y=48
+width=46
+height=12
+layer=com_84
+textfont=p11_full
+text=All
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xe6ca98
+transmitop=1
+opbase=<col=ff9040>Shifter Charm
+op1=Exchange-All
+onmouseover=text_colour_swapper(event_com, ^white)
+onmouseleave=text_colour_swapper(event_com, 0xe6ca98)
+
+// 1011:374
+[com_374]
+type=rectangle
+widthmode=minus
+heightmode=minus
+layer=com_4
+colour=0x201c17
+
+// 1011:375
+[com_375]
+type=rectangle
+x=1
+y=1
+width=2
+height=2
+widthmode=minus
+heightmode=minus
+layer=com_4
+colour=0x595143
+
+// 1011:376
+[com_376]
+type=rectangle
+x=2
+y=2
+width=4
+height=4
+widthmode=minus
+heightmode=minus
+layer=com_4
+colour=0x161410
+fill=yes
+
+// 1011:377
+[com_377]
+type=rectangle
+x=3
+y=3
+width=6
+height=16
+widthmode=minus
+layer=com_4
+colour=0x3c312b
+fill=yes
+
+// 1011:378
+[com_378]
+type=text
+x=7
+y=3
+width=100
+height=16
+layer=com_4
+textfont=p11_full
+text=Confirm Exchange
+textalignv=centre
+textshadow=yes
+colour=0xe6ca98
+
+// 1011:379
+[com_379]
+type=graphic
+x=18
+width=25
+height=25
+ymode=abs_centre
+layer=com_4
+graphic=conq_exclamation_icon
+colour=0x000000
+
+// 1011:380
+[com_380]
+type=text
+x=51
+width=140
+height=60
+ymode=abs_centre
+layer=com_4
+textfont=p11_full
+text=Are you sure you wish to exchange 250 Commendations in return for a Void Knight Top?
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xe6ca98
+
+// 1011:381
+[com_381]
+type=rectangle
+x=2
+y=84
+width=197
+height=14
+layer=com_4
+colour=0x100602
+fill=yes
+
+// 1011:382
+[com_382]
+type=graphic
+x=3
+y=85
+width=97
+height=12
+layer=com_4
+graphic=graphic_3310
+
+// 1011:383
+[com_383]
+type=text
+x=3
+y=85
+width=97
+height=12
+layer=com_4
+textfont=p11_full
+text=Yes
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xe6ca98
+transmitop=1
+op1=Yes
+onmouseover=text_colour_swapper(event_com, ^white)
+onmouseleave=text_colour_swapper(event_com, 0xe6ca98)
+
+// 1011:384
+[com_384]
+type=graphic
+x=101
+y=85
+width=97
+height=12
+layer=com_4
+graphic=graphic_3310
+
+// 1011:385
+[com_385]
+type=text
+x=101
+y=85
+width=96
+height=12
+layer=com_4
+textfont=p11_full
+text=No
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xe6ca98
+transmitop=1
+op1=No
+onmouseover=text_colour_swapper(event_com, ^white)
+onmouseleave=text_colour_swapper(event_com, 0xe6ca98)
+
+// 1011:386
+[com_386]
+type=layer
+x=29
+y=147
+width=200
+height=100
+hide=yes
+onload=script476
+
+// 1011:387
+[com_387]
+type=text
+x=5
+y=5
+width=10
+height=10
+widthmode=minus
+heightmode=minus
+layer=com_386
+textfont=p11_full
+text=You must have level 42 Attack, Strength, Defence, Constitution, Ranged and Magic, as well as level 22 Prayer, before you can exchange Commendations for Void Knight equipment.
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xff0000

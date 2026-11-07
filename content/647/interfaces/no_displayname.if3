@@ -1,0 +1,737 @@
+// 890:0
+[com_0]
+type=layer
+width=512
+height=334
+xmode=abs_centre
+ymode=abs_centre
+noclickthrough=yes
+
+// 890:1
+[com_1]
+type=layer
+y=10
+width=512
+height=314
+xmode=abs_centre
+ymode=abs_centre
+onload=create_no_displayname_onload
+
+// 890:2
+[com_2]
+type=layer
+widthmode=minus
+heightmode=minus
+layer=com_1
+
+// 890:3
+[com_3]
+type=graphic
+y=6
+width=100
+height=100
+layer=com_2
+graphic=window_texture
+
+// 890:4
+[com_4]
+type=graphic
+x=100
+y=6
+width=100
+height=100
+layer=com_2
+graphic=window_texture
+
+// 890:5
+[com_5]
+type=graphic
+x=200
+y=6
+width=100
+height=100
+layer=com_2
+graphic=window_texture
+
+// 890:6
+[com_6]
+type=graphic
+x=300
+y=6
+width=100
+height=100
+layer=com_2
+graphic=window_texture
+
+// 890:7
+[com_7]
+type=graphic
+x=400
+y=6
+width=100
+height=100
+layer=com_2
+graphic=window_texture
+
+// 890:8
+[com_8]
+type=graphic
+y=106
+width=100
+height=100
+layer=com_2
+graphic=window_texture
+
+// 890:9
+[com_9]
+type=graphic
+x=100
+y=106
+width=100
+height=100
+layer=com_2
+graphic=window_texture
+
+// 890:10
+[com_10]
+type=graphic
+x=200
+y=106
+width=100
+height=100
+layer=com_2
+graphic=window_texture
+
+// 890:11
+[com_11]
+type=graphic
+x=300
+y=106
+width=100
+height=100
+layer=com_2
+graphic=window_texture
+
+// 890:12
+[com_12]
+type=graphic
+x=400
+y=106
+width=100
+height=100
+layer=com_2
+graphic=window_texture
+
+// 890:13
+[com_13]
+type=graphic
+y=206
+width=100
+height=100
+layer=com_2
+graphic=window_texture
+
+// 890:14
+[com_14]
+type=graphic
+x=100
+y=206
+width=100
+height=100
+layer=com_2
+graphic=window_texture
+
+// 890:15
+[com_15]
+type=graphic
+x=200
+y=206
+width=100
+height=100
+layer=com_2
+graphic=window_texture
+
+// 890:16
+[com_16]
+type=graphic
+x=300
+y=206
+width=100
+height=100
+layer=com_2
+graphic=window_texture
+
+// 890:17
+[com_17]
+type=graphic
+x=400
+y=206
+width=100
+height=100
+layer=com_2
+graphic=window_texture
+
+// 890:18
+[com_18]
+type=rectangle
+x=38
+y=8
+width=76
+height=27
+widthmode=minus
+layer=com_2
+colour=0x000000
+fill=yes
+trans=200
+
+// 890:19
+[com_19]
+type=graphic
+width=38
+height=72
+ymode=abs_bottom
+layer=com_2
+graphic="corner_frame_1,2"
+hflip=yes
+
+// 890:20
+[com_20]
+type=graphic
+width=38
+height=144
+heightmode=minus
+ymode=abs_centre
+layer=com_2
+graphic="corner_frame_1,1"
+tiling=yes
+hflip=yes
+
+// 890:21
+[com_21]
+type=graphic
+y=72
+width=38
+height=144
+heightmode=minus
+xmode=abs_right
+layer=com_2
+graphic="corner_frame_1,1"
+tiling=yes
+
+// 890:22
+[com_22]
+type=graphic
+width=76
+height=8
+widthmode=minus
+xmode=abs_centre
+layer=com_2
+graphic="corner_frame_2,0"
+tiling=yes
+
+// 890:23
+[com_23]
+type=graphic
+width=76
+height=8
+widthmode=minus
+xmode=abs_centre
+ymode=abs_bottom
+layer=com_2
+graphic="corner_frame_2,2"
+tiling=yes
+
+// 890:24
+[com_24]
+type=graphic
+width=38
+height=72
+xmode=abs_right
+ymode=abs_bottom
+layer=com_2
+graphic="corner_frame_1,2"
+
+// 890:25
+[com_25]
+type=graphic
+width=38
+height=72
+layer=com_2
+graphic="corner_frame_1,0"
+hflip=yes
+
+// 890:26
+[com_26]
+type=graphic
+width=38
+height=72
+xmode=abs_right
+layer=com_2
+graphic="corner_frame_1,0"
+
+// 890:27
+[com_27]
+type=graphic
+y=35
+width=76
+height=8
+widthmode=minus
+xmode=abs_centre
+layer=com_2
+graphic="corner_frame_2,1"
+tiling=yes
+
+// 890:28
+[com_28]
+type=text
+y=6
+height=29
+widthmode=minus
+xmode=abs_centre
+layer=com_2
+textfont=verdana_15pt_regular
+text=New Character Name
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xebe0bc
+
+// 890:29
+[com_29]
+type=rectangle
+y=92
+width=466
+height=1
+xmode=abs_centre
+layer=com_2
+colour=0x161513
+
+// 890:30
+[com_30]
+type=rectangle
+y=93
+width=466
+height=1
+xmode=abs_centre
+layer=com_2
+colour=0x2d2d2d
+
+// 890:31
+[com_31]
+type=rectangle
+y=247
+width=466
+height=1
+xmode=abs_centre
+layer=com_2
+colour=0x161513
+
+// 890:32
+[com_32]
+type=rectangle
+y=248
+width=466
+height=1
+xmode=abs_centre
+layer=com_2
+colour=0x2d2d2d
+
+// 890:33
+[com_33]
+type=text
+y=42
+width=70
+height=50
+widthmode=minus
+xmode=abs_centre
+layer=com_2
+textfont=verdana_11pt_regular
+text=Unfortunately, your character name is no longer available for use.<br>Please enter a new character name in the box below.
+textlineheight=14
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xebe0bc
+
+// 890:34
+[com_34]
+type=text
+y=155
+width=70
+height=92
+widthmode=minus
+xmode=abs_centre
+layer=com_2
+textfont=verdana_11pt_regular
+text=Characters names can be up to 12 characters long and may contain letters, numbers, spaces, underscores and dashes only.
+textlineheight=14
+textalignh=centre
+textalignv=centre
+colour=0xebe0bc
+
+// 890:35
+[com_35]
+type=layer
+y=145
+width=466
+height=102
+xmode=abs_centre
+layer=com_2
+hide=yes
+
+// 890:36
+[com_36]
+type=text
+y=5
+height=16
+widthmode=minus
+xmode=abs_centre
+layer=com_35
+textfont=verdana_11pt_regular
+text=Why not try one of these names:
+textlineheight=14
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xebe0bc
+
+// 890:37
+[com_37]
+type=text
+y=32
+width=100
+height=16
+layer=com_35
+textfont=verdana_11pt_regular
+textlineheight=14
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xebe0bc
+transmitop=1
+op1=Suggestion 1
+onmouseover=script3949(event_com, 1)
+onmouseleave=script3949(event_com, 0)
+
+// 890:38
+[com_38]
+type=text
+y=32
+width=100
+height=16
+xmode=abs_centre
+layer=com_35
+textfont=verdana_11pt_regular
+textlineheight=14
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xebe0bc
+transmitop=1
+op1=Suggestion 2
+onmouseover=script3949(event_com, 1)
+onmouseleave=script3949(event_com, 0)
+
+// 890:39
+[com_39]
+type=text
+y=32
+width=100
+height=16
+xmode=abs_right
+layer=com_35
+textfont=verdana_11pt_regular
+textlineheight=14
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xebe0bc
+transmitop=1
+op1=Suggestion 3
+onmouseover=script3949(event_com, 1)
+onmouseleave=script3949(event_com, 0)
+
+// 890:40
+[com_40]
+type=text
+y=59
+width=100
+height=16
+layer=com_35
+textfont=verdana_11pt_regular
+textlineheight=14
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xebe0bc
+transmitop=1
+op1=Suggestion 4
+onmouseover=script3949(event_com, 1)
+onmouseleave=script3949(event_com, 0)
+
+// 890:41
+[com_41]
+type=text
+y=59
+width=100
+height=16
+xmode=abs_centre
+layer=com_35
+textfont=verdana_11pt_regular
+textlineheight=14
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xebe0bc
+transmitop=1
+op1=Suggestion 5
+onmouseover=script3949(event_com, 1)
+onmouseleave=script3949(event_com, 0)
+
+// 890:42
+[com_42]
+type=text
+y=59
+width=100
+height=16
+xmode=abs_right
+layer=com_35
+textfont=verdana_11pt_regular
+textlineheight=14
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xebe0bc
+transmitop=1
+op1=Suggestion 6
+onmouseover=script3949(event_com, 1)
+onmouseleave=script3949(event_com, 0)
+
+// 890:43
+[com_43]
+type=text
+width=130
+height=16
+ymode=abs_bottom
+layer=com_35
+hide=yes
+textfont=verdana_11pt_regular
+text=<u=CDBE9A>Previous Suggestions
+textlineheight=14
+textalignv=centre
+textshadow=yes
+colour=0xcdbe9a
+transmitop=1
+op1=Previous Suggestions
+onmouseover=script3950(event_com, 1)
+onmouseleave=script3950(event_com, 0)
+
+// 890:44
+[com_44]
+type=text
+width=110
+height=16
+xmode=abs_right
+ymode=abs_bottom
+layer=com_35
+textfont=verdana_11pt_regular
+text=<u=CDBE9A>More Suggestions
+textlineheight=14
+textalignh=right
+textalignv=centre
+textshadow=yes
+colour=0xcdbe9a
+transmitop=1
+op1=More Suggestions
+onmouseover=script3950(event_com, 1)
+onmouseleave=script3950(event_com, 0)
+
+// 890:45
+[com_45]
+type=layer
+y=265
+width=101
+height=26
+xmode=abs_centre
+layer=com_2
+transmitop=1
+op1=Continue
+opkey1=84,0
+onmouseover=script3937(no_displayname:com_47, "set_but_1,2", no_displayname:com_48, "set_but_1,3", no_displayname:com_49, "set_but_1,3", no_displayname:com_50, "set_but_1,2")
+onmouseleave=script3937(no_displayname:com_47, "set_but_1,0", no_displayname:com_48, "set_but_1,1", no_displayname:com_49, "set_but_1,1", no_displayname:com_50, "set_but_1,0")
+
+// 890:46
+[com_46]
+type=rectangle
+x=1
+y=1
+width=1
+height=1
+widthmode=minus
+heightmode=minus
+layer=com_45
+colour=0x000000
+fill=yes
+
+// 890:47
+[com_47]
+type=graphic
+width=25
+height=25
+layer=com_45
+graphic="set_but_1,0"
+
+// 890:48
+[com_48]
+type=graphic
+x=25
+width=25
+height=25
+layer=com_45
+graphic="set_but_1,1"
+tiling=yes
+
+// 890:49
+[com_49]
+type=graphic
+x=50
+width=25
+height=25
+layer=com_45
+graphic="set_but_1,1"
+tiling=yes
+hflip=yes
+
+// 890:50
+[com_50]
+type=graphic
+x=1
+width=25
+height=25
+xmode=abs_right
+layer=com_45
+graphic="set_but_1,0"
+hflip=yes
+
+// 890:51
+[com_51]
+type=text
+y=-1
+widthmode=minus
+heightmode=minus
+xmode=abs_centre
+ymode=abs_centre
+layer=com_45
+textfont=verdana_11pt_regular
+text=Continue
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xebe0bc
+
+// 890:52
+[com_52]
+type=layer
+y=118
+height=50
+widthmode=minus
+xmode=abs_centre
+layer=com_1
+
+// 890:53
+[com_53]
+type=text
+x=100
+y=9
+width=100
+height=27
+layer=com_52
+textfont=verdana_11pt_regular
+text=Character name:
+textalignh=right
+textalignv=centre
+textshadow=yes
+colour=0xebe0bc
+
+// 890:54
+[com_54]
+type=graphic
+x=392
+y=13
+width=22
+height=22
+layer=com_52
+hide=yes
+graphic="symbols_1,1"
+onmouseover=script3934(event_com)
+onmouseleave=script3935
+
+// 890:55
+[com_55]
+type=layer
+x=206
+y=10
+width=180
+height=27
+layer=com_52
+onclick=create_focus(6, 1)
+
+// 890:56
+[com_56]
+type=graphic
+width=16
+height=27
+layer=com_55
+graphic=graphic_3814
+
+// 890:57
+[com_57]
+type=graphic
+x=16
+width=32
+height=27
+widthmode=minus
+layer=com_55
+graphic=graphic_3815
+tiling=yes
+
+// 890:58
+[com_58]
+type=graphic
+width=16
+height=27
+xmode=abs_right
+layer=com_55
+graphic=graphic_3816
+
+// 890:59
+[com_59]
+type=layer
+width=1
+widthmode=minus
+heightmode=minus
+layer=com_55
+
+// 890:60
+[com_60]
+type=text
+x=6
+width=11
+widthmode=minus
+heightmode=minus
+layer=com_59
+textfont=verdana_11pt_regular
+textalignv=centre
+colour=0xebe0bc
+
+// 890:61
+[com_61]
+type=rectangle
+x=6
+y=4
+width=1
+height=19
+layer=com_55
+hide=yes
+colour=0xebe0bc
+fill=yes

@@ -1,0 +1,12 @@
+// 4614
+[clientscript,script4614](component $component0)
+switch_component ($component0) {
+    case skillcape_customise:com_2 :
+        if_setcolour(hsvtorgb(%varplayerbit_9254), $component0);
+    case skillcape_customise:com_8 :
+        if_setcolour(hsvtorgb(%varplayerbit_9255), $component0);
+    case skillcape_customise:com_11 :
+        if_setcolour(hsvtorgb(%varplayerbit_9256), $component0);
+    case skillcape_customise:com_5 :
+        if_setcolour(hsvtorgb(%varplayerbit_9257), $component0);
+}

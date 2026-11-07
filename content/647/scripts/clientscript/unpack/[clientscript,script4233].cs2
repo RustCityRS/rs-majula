@@ -1,0 +1,4 @@
+// 4233
+[clientscript,script4233](component $component0, component $component1, component $component2, int $int3)
+if_setontimer("script4234($component0, $component1, $component2, clientclock, $int3)", $component0);
+if_setonop(null, $component0);

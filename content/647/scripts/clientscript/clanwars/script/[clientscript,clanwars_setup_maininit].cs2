@@ -1,25 +1,26 @@
-[clientscript,clanwars_setup_maininit](component $component)
-%varc_int_246 = 0;
-%varc_int_247 = 0;
-%varc_int_248 = 0;
-%varc_int_249 = 0;
-%varc_int_250 = 0;
-%varc_int_251 = 0;
+// 1796
+[clientscript,clanwars_setup_maininit](component $component0)
+%varclient_246 = 0;
+%varclient_247 = 0;
+%varclient_248 = false;
+%varclient_249 = false;
+%varclient_250 = false;
+%varclient_251 = false;
 if (map_members = false) {
-    %varc_int_252 = 1;
-    %varc_int_253 = 0;
+    %varclient_252 = 1;
+    %varclient_253 = false;
     ~clanwars_resynch_magic;
     ~clanwars_resynch_summoning;
 } else {
-    %varc_int_252 = 0;
-    %varc_int_253 = 0;
+    %varclient_252 = 0;
+    %varclient_253 = false;
 }
-%varc_int_254 = 0;
-%varc_int_255 = 0;
-%varc_int_256 = 0;
-%varc_int_257 = 0;
-%varc_int_258 = 0;
-%varc_int_259 = 0;
-if_setonvartransmit("clanwars_setup_vartransmit(){varp_1305, varp_1149}", $component);
-if_setonvarctransmit("clanwars_setup_varctransmit(){varc_int_259}", $component);
-if_setonvarcstrtransmit("clanwars_setup_varcstrtransmit($component){varc_string_37}", $component);
+%varclient_254 = false;
+%varclient_255 = false;
+%varclient_256 = false;
+%varclient_257 = 0;
+%varclient_258 = false;
+%varclient_259 = 0;
+if_setonvartransmit("clanwars_setup_vartransmit{varplayer_1305, varplayer_1149}", $component0);
+if_setonvarctransmit("clanwars_setup_varctransmit{varclient_259}", $component0);
+if_setonvarcstrtransmit("clanwars_setup_varcstrtransmit($component0){varclient_1556}", $component0);

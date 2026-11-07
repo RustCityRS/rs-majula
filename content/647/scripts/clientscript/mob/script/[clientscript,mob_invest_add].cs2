@@ -1,40 +1,41 @@
-[clientscript,mob_invest_add](int $int)
-switch_int ($int) {
-    case 55836719:
-        %varc_int_840 = 0;
-    case 55836713:
-        if (%varc_int_840 < calc(2147483647 - 10) & (%varc_int_839 >= 10 & ~clientscript_2509(10) = true)) {
-            %varc_int_840 = calc(%varc_int_840 + 10);
-            %varc_int_839 = calc(%varc_int_839 - 10);
+// 2508
+[clientscript,mob_invest_add](component $component0)
+switch_component ($component0) {
+    case interface_852:com_47 :
+        %varclient_840 = 0;
+    case interface_852:com_41 :
+        if (%varclient_840 < calc(^max_32bit_int - 10) & %varclient_839 >= 10 & ~script2509(10) = 1) {
+            %varclient_840 = calc(%varclient_840 + 10);
+            %varclient_839 = calc(%varclient_839 - 10);
         }
-    case 55836715:
-        if (%varc_int_840 < calc(2147483647 - 100) & (%varc_int_839 >= 100 & ~clientscript_2509(100) = true)) {
-            %varc_int_840 = calc(%varc_int_840 + 100);
-            %varc_int_839 = calc(%varc_int_839 - 100);
+    case interface_852:com_43 :
+        if (%varclient_840 < calc(^max_32bit_int - 100) & %varclient_839 >= 100 & ~script2509(100) = 1) {
+            %varclient_840 = calc(%varclient_840 + 100);
+            %varclient_839 = calc(%varclient_839 - 100);
         }
-    case 55836721:
-        if (%varc_int_840 < calc(2147483647 - 500) & (%varc_int_839 >= 500 & ~clientscript_2509(500) = true)) {
-            %varc_int_840 = calc(%varc_int_840 + 500);
-            %varc_int_839 = calc(%varc_int_839 - 500);
+    case interface_852:com_49 :
+        if (%varclient_840 < calc(^max_32bit_int - 500) & %varclient_839 >= 500 & ~script2509(500) = 1) {
+            %varclient_840 = calc(%varclient_840 + 500);
+            %varclient_839 = calc(%varclient_839 - 500);
         }
-    case 55836723:
-        if (%varc_int_840 < calc(2147483647 - 1000) & (%varc_int_839 >= 1000 & ~clientscript_2509(1000) = true)) {
-            %varc_int_840 = calc(%varc_int_840 + 1000);
-            %varc_int_839 = calc(%varc_int_839 - 1000);
+    case interface_852:com_51 :
+        if (%varclient_840 < calc(^max_32bit_int - 1000) & %varclient_839 >= 1000 & ~script2509(1000) = 1) {
+            %varclient_840 = calc(%varclient_840 + 1000);
+            %varclient_839 = calc(%varclient_839 - 1000);
         }
-    case 55836725:
-        if (%varc_int_840 < calc(2147483647 - 10000) & (%varc_int_839 >= 10000 & ~clientscript_2509(10000) = true)) {
-            %varc_int_840 = calc(%varc_int_840 + 10000);
-            %varc_int_839 = calc(%varc_int_839 - 10000);
+    case interface_852:com_53 :
+        if (%varclient_840 < calc(^max_32bit_int - 10000) & %varclient_839 >= 10000 & ~script2509(10000) = 1) {
+            %varclient_840 = calc(%varclient_840 + 10000);
+            %varclient_839 = calc(%varclient_839 - 10000);
         }
-    case 55836717:
-        if (%varc_int_839 < ~clientscript_2687) {
-            %varc_int_840 = %varc_int_839;
-            %varc_int_839 = 0;
-        } else if (%varc_int_840 < ~clientscript_2687) {
-            %varc_int_840 = ~clientscript_2687;
-            %varc_int_839 = calc(%varc_int_839 - ~clientscript_2687);
+    case interface_852:com_45 :
+        if (%varclient_839 < ~script2687) {
+            %varclient_840 = %varclient_839;
+            %varclient_839 = 0;
+        } else if (%varclient_840 < ~script2687) {
+            %varclient_840 = ~script2687;
+            %varclient_839 = calc(%varclient_839 - ~script2687);
         }
 }
-if_settext(~tostring_spacer(%varc_int_840, ","), cw5124337:com63);
-if_settext(~tostring_spacer(%varc_int_839, ","), cw5124337:com62);
+if_settext(~tostring_spacer(%varclient_840, ","), interface_852:com_63);
+if_settext(~tostring_spacer(%varclient_839, ","), interface_852:com_62);

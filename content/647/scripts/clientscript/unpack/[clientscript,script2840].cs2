@@ -1,0 +1,18 @@
+// 2840
+[clientscript,script2840]
+%varclient_1068 = calc(%varclient_1068 + 1);
+switch_int (%varclient_1068) {
+    case default :
+        if_setoncamfinished("script2840", nom_cutscene_controller:com_0);
+        cam_movealong(0, %varclient_1068, 400, 400, 1, %varclient_1068);
+    case 1 :
+        if_setoncamfinished("script2840", nom_cutscene_controller:com_0);
+        cam_movealong(0, %varclient_1068, 400, 0, 1, %varclient_1068);
+    case 2 :
+        if_setoncamfinished(null, nom_cutscene_controller:com_0);
+    case 3 :
+        if_setoncamfinished("script2840", nom_cutscene_controller:com_0);
+        cam_movealong(0, %varclient_1068, 650, 700, 1, %varclient_1068);
+    case 5 :
+        if_setoncamfinished(null, nom_cutscene_controller:com_0);
+}

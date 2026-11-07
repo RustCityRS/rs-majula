@@ -1,0 +1,28 @@
+// 351
+[clientscript,script351](int $int0, int $int1)
+if ($int1 = %varclient_197 | $int0 ! 1) {
+    return;
+}
+def_boolean $boolean2 = ~int_to_bool(%varclient_196);
+sound_synth(synth_9830, 1, 0);
+def_enum $enum3 = enum_3278;
+def_struct $struct4 = enum(int, struct, $enum3, calc($int1 - 1));
+if ($struct4 = null) {
+    %varclient_197 = 1;
+    %character_creation_style = 1;
+    $struct4 = enum(int, struct, $enum3, 0);
+} else {
+    %varclient_197 = $int1;
+    %character_creation_style = $int1;
+}
+def_struct $struct5 = ~playerdesign4_getoutfit(0, $struct4, ~int_to_bool(gender));
+if ($struct5 = null) {
+    %varclient_86 = 0;
+    %character_creation_sub_style = 0;
+} else {
+    %varclient_86 = 1;
+    %character_creation_sub_style = 1;
+    ~playerdesign4_setoutfit($struct5, $boolean2);
+}
+~script387($boolean2);
+~script390($boolean2);

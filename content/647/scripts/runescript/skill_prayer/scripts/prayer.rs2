@@ -2,7 +2,7 @@
 // slot, in the cache's order (enum 2279: 2011's own prayers among 289's),
 // and has the client toggle them as bits of varp 1395 (prayer.varbit).
 // Activate is op1; each slot goes to its 289 button.
-[if_button1,prayer:com8]
+[if_button1,prayer:com_8]
 switch_int (last_slot) {
     case 0 : @prayer_button_thickskin;
     case 1 : @prayer_button_strengthburst;

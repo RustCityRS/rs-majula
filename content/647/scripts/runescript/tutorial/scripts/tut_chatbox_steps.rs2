@@ -304,7 +304,7 @@ tut_flash(^tab_friends);
 if_settab(friends2, ^tab_friends);
 ~tutorialstep("", "You should now see another new icon. Click on flashing smily to open your friends list.");
 
-// 289's ignore tab is 2011's friends tab's "Show ignore" button (friends2:com49,
+// 289's ignore tab is 2011's friends tab's "Show ignore" button (friends2:com_49,
 // cache 786), which no tab flash can point at (tutorial.rs2).
 [proc,tutorial_ignore_tab]
 // tut_flash(^tab_ignore);

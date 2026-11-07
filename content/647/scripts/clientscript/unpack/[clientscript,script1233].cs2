@@ -1,0 +1,19 @@
+// 1233
+[clientscript,script1233](component $component0, int $int1, component $component2, int $int3, component $component4, component $component5)
+def_int $int6 = 0;
+def_int $int7 = 0;
+if (cc_find($component0, $int1) = true) {
+    if ($component2 = $component0) {
+        if (.cc_find($component2, $int3) = true) {
+            $int6, $int7 = cc_getx, cc_gety;
+            cc_setposition(.cc_getx, .cc_gety, ^setpos_abs_left, ^setpos_abs_top);
+            .cc_setposition($int6, $int7, ^setpos_abs_left, ^setpos_abs_top);
+        }
+        return;
+    }
+    if ($component2 = $component4 | $component2 = $component5) {
+        cc_sethide(true);
+        return;
+    }
+    cc_setposition(cc_getx, cc_gety, ^setpos_abs_left, ^setpos_abs_top);
+}

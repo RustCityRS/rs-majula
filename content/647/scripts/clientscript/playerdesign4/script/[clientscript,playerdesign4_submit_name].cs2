@@ -1,51 +1,52 @@
+// 3945
 [clientscript,playerdesign4_submit_name](int $int0, int $int1, int $int2)
-if ($int2 = true) {
-    %varc_int_1412 = 1;
+if ($int2 = 1) {
+    %varclient_1412 = 1;
 }
 switch_int ($int0) {
-    case default:
-        if ($int2 = true) {
-            resume_stringdialog(%varc_string_330);
+    case default :
+        if ($int2 = 1) {
+            resume_stringdialog(%varclient_1849);
         }
-    case 1:
-        if ($int2 = true) {
-            resume_stringdialog(%varc_string_331);
+    case 1 :
+        if ($int2 = 1) {
+            resume_stringdialog(%varclient_1850);
         }
-        %varc_string_330 = %varc_string_331;
-    case 2:
-        if ($int2 = true) {
-            resume_stringdialog(%varc_string_332);
+        %varclient_1849 = %varclient_1850;
+    case 2 :
+        if ($int2 = 1) {
+            resume_stringdialog(%varclient_1851);
         }
-        %varc_string_330 = %varc_string_332;
-    case 3:
-        if ($int2 = true) {
-            resume_stringdialog(%varc_string_333);
+        %varclient_1849 = %varclient_1851;
+    case 3 :
+        if ($int2 = 1) {
+            resume_stringdialog(%varclient_1852);
         }
-        %varc_string_330 = %varc_string_333;
-    case 4:
-        if ($int2 = true) {
-            resume_stringdialog(%varc_string_334);
+        %varclient_1849 = %varclient_1852;
+    case 4 :
+        if ($int2 = 1) {
+            resume_stringdialog(%varclient_1853);
         }
-        %varc_string_330 = %varc_string_334;
-    case 5:
-        if ($int2 = true) {
-            resume_stringdialog(%varc_string_335);
+        %varclient_1849 = %varclient_1853;
+    case 5 :
+        if ($int2 = 1) {
+            resume_stringdialog(%varclient_1854);
         }
-        %varc_string_330 = %varc_string_335;
-    case 6:
-        if ($int2 = true) {
-            resume_stringdialog(%varc_string_336);
+        %varclient_1849 = %varclient_1854;
+    case 6 :
+        if ($int2 = 1) {
+            resume_stringdialog(%varclient_1855);
         }
-        %varc_string_330 = %varc_string_336;
+        %varclient_1849 = %varclient_1855;
 }
-def_component $component3 = playerdesign4:com181;
-def_component $component4 = playerdesign4:com182;
-def_component $component5 = playerdesign4:com183;
-if ($int1 = false) {
-    $component3 = no_displayname:com59;
-    $component4 = no_displayname:com60;
-    $component5 = no_displayname:com61;
+def_component $component3 = playerdesign4:com_181;
+def_component $component4 = playerdesign4:com_182;
+def_component $component5 = playerdesign4:com_183;
+if ($int1 = 0) {
+    $component3 = no_displayname:com_59;
+    $component4 = no_displayname:com_60;
+    $component5 = no_displayname:com_61;
 }
-if_settext(%varc_string_330, $component4);
-%varc_int_1099 = string_length(%varc_string_330);
-~clientscript_3218($component3, $component4, $component5, %varc_string_330, 16);
+if_settext(%varclient_1849, $component4);
+%varclient_1099 = string_length(%varclient_1849);
+~script3218($component3, $component4, $component5, %varclient_1849, 16);

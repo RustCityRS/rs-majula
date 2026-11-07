@@ -1,8 +1,0 @@
-[proc,clientscript_2212]
-if (if_getx(%varc_int_1136) < calc(if_getwidth(af714023:com1) - 1)) {
-    if_setontimer("clientscript_2212()", af714023:com1);
-    if_setposition(calc(1 + if_getx(%varc_int_1136)), if_gety(%varc_int_1136), ^setpos_abs_left, ^setpos_abs_top, %varc_int_1136);
-} else {
-    if_sethide(true, %varc_int_1136);
-    if_setposition(0, 120, ^setpos_abs_left, ^setpos_abs_top, %varc_int_1136);
-}

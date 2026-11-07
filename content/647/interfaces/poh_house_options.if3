@@ -1,0 +1,400 @@
+// 398:0
+[com_0]
+type=graphic
+x=29
+width=36
+height=36
+layer=com_27
+graphic="miscgraphics,6"
+colour=0xffffffff
+
+// 398:1
+[com_1]
+type=graphic
+x=51
+y=53
+width=36
+height=36
+graphic="miscgraphics,0"
+colour=0xffffffff
+transmitop=1
+op1=Building mode off
+
+// 398:2
+[com_2]
+type=text
+x=51
+y=53
+width=36
+height=36
+textfont=p12_full
+text=Off
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xff981f
+
+// 398:3
+[com_3]
+type=graphic
+x=55
+width=36
+height=36
+layer=com_27
+graphic="miscgraphics,6"
+colour=0xffffffff
+
+// 398:4
+[com_4]
+type=graphic
+x=81
+width=36
+height=36
+layer=com_27
+graphic="miscgraphics,6"
+colour=0xffffffff
+
+// 398:5
+[com_5]
+type=graphic
+x=107
+width=36
+height=36
+layer=com_27
+graphic="miscgraphics,6"
+colour=0xffffffff
+
+// 398:6
+[com_6]
+type=graphic
+x=134
+width=36
+height=36
+layer=com_27
+graphic="miscgraphics,6"
+colour=0xffffffff
+
+// 398:7
+[com_7]
+type=graphic
+x=48
+width=36
+height=36
+layer=com_25
+graphic="miscgraphics,6"
+colour=0xffffffff
+
+// 398:8
+[com_8]
+type=graphic
+width=36
+height=36
+layer=com_25
+graphic="miscgraphics,4"
+colour=0xffffffff
+
+// 398:9
+[com_9]
+type=text
+x=16
+y=4
+width=162
+height=14
+textfont=b12_full
+text=House Options
+textalignh=centre
+textshadow=yes
+colour=0xff981f
+
+// 398:10
+[com_10]
+type=graphic
+x=30
+width=36
+height=36
+layer=com_29
+graphic="miscgraphics,6"
+colour=0xffffffff
+
+// 398:11
+[com_11]
+type=graphic
+x=56
+width=36
+height=36
+layer=com_29
+graphic="miscgraphics,6"
+colour=0xffffffff
+
+// 398:12
+[com_12]
+type=graphic
+x=82
+width=36
+height=36
+layer=com_29
+graphic="miscgraphics,6"
+colour=0xffffffff
+
+// 398:13
+[com_13]
+type=graphic
+x=108
+width=36
+height=36
+layer=com_29
+graphic="miscgraphics,6"
+colour=0xffffffff
+
+// 398:14
+[com_14]
+type=graphic
+x=134
+width=36
+height=36
+layer=com_29
+graphic="miscgraphics,6"
+colour=0xffffffff
+
+// 398:15
+[com_15]
+type=graphic
+x=11
+y=53
+width=36
+height=36
+graphic="miscgraphics,0"
+colour=0xffffffff
+transmitop=1
+op1=Building mode on
+onload=script2680
+onvartransmit=script2680{varplayer_740}
+
+// 398:16
+[com_16]
+type=text
+x=16
+y=33
+width=170
+height=15
+textfont=p12_full
+text=Building Mode
+textshadow=yes
+colour=0xff981f
+
+// 398:17
+[com_17]
+type=text
+x=11
+y=53
+width=36
+height=36
+textfont=p12_full
+text=On
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xff981f
+
+// 398:18
+[com_18]
+type=text
+x=10
+y=244
+width=170
+height=14
+textfont=p12_full
+text=Number Of Rooms: %1
+textalignh=centre
+textshadow=yes
+colour=0xff981f
+onload=script2681
+onvarctransmit=script2681{varclient_944}
+
+// 398:19
+[com_19]
+type=graphic
+x=167
+y=7
+width=16
+height=16
+graphic="v2_stone_close_button,0"
+colour=0xffffffff
+transmitop=1
+op1=Close
+onmouseover=graphic_swapper(event_com, "v2_stone_close_button,1")
+onmouseleave=graphic_swapper(event_com, "v2_stone_close_button,0")
+onop=closebutton_click
+onclick=closebutton_click
+
+// 398:20
+[com_20]
+type=text
+x=16
+y=97
+width=170
+height=15
+textfont=p12_full
+text=When teleporting, arrive:
+textshadow=yes
+colour=0xff981f
+onload=script2682
+onvartransmit=script2682{varplayer_738}
+
+// 398:21
+[com_21]
+type=graphic
+width=36
+height=36
+layer=com_27
+graphic="miscgraphics,4"
+colour=0xffffffff
+
+// 398:22
+[com_22]
+type=graphic
+width=36
+height=36
+layer=com_29
+graphic="miscgraphics,4"
+colour=0xffffffff
+transmitop=10
+op10= 
+
+// 398:23
+[com_23]
+type=graphic
+x=21
+width=36
+height=36
+layer=com_25
+graphic="miscgraphics,13"
+colour=0xffffffff
+
+// 398:24
+[com_24]
+type=text
+x=9
+y=2
+width=66
+height=34
+layer=com_25
+textfont=p12_full
+text=At portal 
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xff981f
+
+// 398:25
+[com_25]
+type=layer
+x=93
+y=115
+width=84
+height=36
+transmitop=1
+op1=When teleporting, arrive at portal
+onop=script2683
+
+// 398:26
+[com_26]
+type=layer
+x=9
+y=115
+width=84
+height=36
+transmitop=1
+op1=When teleporting, arrive in house
+onop=script2684
+
+// 398:27
+[com_27]
+type=layer
+x=9
+y=164
+width=170
+height=36
+transmitop=1
+op1=Expel guests
+
+// 398:28
+[com_28]
+type=text
+x=-1
+y=12
+width=170
+height=14
+layer=com_27
+textfont=p12_full
+text=Expel Guests
+textalignh=centre
+textshadow=yes
+colour=0xff981f
+
+// 398:29
+[com_29]
+type=layer
+x=9
+y=201
+width=170
+height=36
+transmitop=1
+op1=Leave house
+
+// 398:30
+[com_30]
+type=text
+y=10
+width=170
+height=14
+layer=com_29
+textfont=p12_full
+text=Leave House
+textalignh=centre
+textshadow=yes
+colour=0xff981f
+
+// 398:31
+[com_31]
+type=graphic
+x=48
+width=36
+height=36
+layer=com_26
+graphic="miscgraphics,6"
+colour=0xffffffff
+
+// 398:32
+[com_32]
+type=graphic
+width=36
+height=36
+layer=com_26
+graphic="miscgraphics,4"
+colour=0xffffffff
+
+// 398:33
+[com_33]
+type=graphic
+x=20
+width=36
+height=36
+layer=com_26
+graphic="miscgraphics,13"
+colour=0xffffffff
+
+// 398:34
+[com_34]
+type=text
+x=9
+y=2
+width=66
+height=34
+layer=com_26
+textfont=p12_full
+text=In house
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xff981f

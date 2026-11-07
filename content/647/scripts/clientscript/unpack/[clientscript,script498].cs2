@@ -1,0 +1,236 @@
+// 498
+[clientscript,script498](int $int0, int $int1, int $int2, int $int3, int $int4, int $int5)
+def_int $int6 = 0;
+def_int $int7 = 0;
+def_int $int8 = 0;
+def_int $int9 = 0;
+def_int $int10 = 0;
+def_int $int11 = 0;
+def_int $int12 = 0;
+def_struct $struct13 = null;
+if ($int0 = %varclient_1372 & $int1 = %varclient_1373 & $int2 = %varclient_1374 & $int3 = %varclient_1375 & $int4 = %varclient_1376 & $int5 = %varclient_1377) {
+    return;
+} else {
+    if_setonvarctransmit("script498(%varclient_1372, %varclient_1373, %varclient_1374, %varclient_1375, %varclient_1376, %varclient_1377){varclient_1372, varclient_1373, varclient_1374, varclient_1375, varclient_1376, varclient_1377}", interface_1012:com_0);
+}
+if (%varclient_1367 ! null) {
+    $int6 = calc(%varclient_1372 + %varclient_1373 + %varclient_1374 + %varclient_1375 + %varclient_1376 + %varclient_1377);
+    if ($int6 = 0) {
+        if_sethide(true, interface_1012:com_14);
+        if_sethide(false, interface_1012:com_29);
+    } else {
+        if_sethide(false, interface_1012:com_14);
+        if_sethide(true, interface_1012:com_29);
+    }
+    if ($int6 = 1) {
+        if_sethide(false, interface_1012:com_15);
+        if_setposition(82, if_gety(interface_1012:com_15), ^setpos_abs_left, ^setpos_abs_top, interface_1012:com_15);
+        if (%varclient_1372 = 1) {
+            $struct13 = struct_293;
+        } else if (%varclient_1373 = 1) {
+            $struct13 = struct_299;
+        } else if (%varclient_1374 = 1) {
+            $struct13 = struct_305;
+        } else if (%varclient_1375 = 1) {
+            $struct13 = struct_1044;
+        } else if (%varclient_1376 = 1) {
+            $struct13 = struct_1045;
+        } else {
+            $struct13 = struct_1046;
+        }
+        if_setgraphic(struct_param($struct13, param_1153), interface_1012:com_15);
+        if_setonmouserepeat("script499(struct_param($struct13, param_1149))", interface_1012:com_15);
+        if_sethide(true, interface_1012:com_16);
+        if_sethide(true, interface_1012:com_17);
+        if_sethide(true, interface_1012:com_18);
+        if_sethide(true, interface_1012:com_19);
+    } else if ($int6 = 2) {
+        if_sethide(false, interface_1012:com_15);
+        if_setposition(50, if_gety(interface_1012:com_15), ^setpos_abs_left, ^setpos_abs_top, interface_1012:com_15);
+        if (%varclient_1372 = 1) {
+            $struct13 = struct_293;
+        } else if (%varclient_1373 = 1) {
+            $struct13 = struct_299;
+            $int8 = 1;
+        } else if (%varclient_1374 = 1) {
+            $struct13 = struct_305;
+            $int9 = 1;
+        } else if (%varclient_1375 = 1) {
+            $struct13 = struct_1044;
+            $int10 = 1;
+        } else {
+            $struct13 = struct_1045;
+            $int11 = 1;
+        }
+        if_setgraphic(struct_param($struct13, param_1153), interface_1012:com_15);
+        if_setonmouserepeat("script499(struct_param($struct13, param_1149))", interface_1012:com_15);
+        if_sethide(false, interface_1012:com_16);
+        if_setposition(115, if_gety(interface_1012:com_16), ^setpos_abs_left, ^setpos_abs_top, interface_1012:com_16);
+        if (%varclient_1373 = 1 & $int8 = 0) {
+            $struct13 = struct_299;
+        } else if (%varclient_1374 = 1 & $int9 = 0) {
+            $struct13 = struct_305;
+        } else if (%varclient_1375 = 1 & $int10 = 0) {
+            $struct13 = struct_1044;
+        } else if (%varclient_1376 = 1 & $int11 = 0) {
+            $struct13 = struct_1045;
+        } else {
+            $struct13 = struct_1046;
+        }
+        if_setgraphic(struct_param($struct13, param_1153), interface_1012:com_16);
+        if_setonmouserepeat("script499(struct_param($struct13, param_1149))", interface_1012:com_16);
+        if_sethide(true, interface_1012:com_17);
+        if_sethide(true, interface_1012:com_18);
+        if_sethide(true, interface_1012:com_19);
+    } else if ($int6 = 3) {
+        if_sethide(false, interface_1012:com_15);
+        if_setposition(30, if_gety(interface_1012:com_15), ^setpos_abs_left, ^setpos_abs_top, interface_1012:com_15);
+        if (%varclient_1372 = 1) {
+            $struct13 = struct_293;
+        } else if (%varclient_1373 = 1) {
+            $struct13 = struct_299;
+            $int8 = 1;
+        } else if (%varclient_1374 = 1) {
+            $struct13 = struct_305;
+            $int9 = 1;
+        } else {
+            $struct13 = struct_1044;
+            $int10 = 1;
+        }
+        if_setgraphic(struct_param($struct13, param_1153), interface_1012:com_15);
+        if_setonmouserepeat("script499(struct_param($struct13, param_1149))", interface_1012:com_15);
+        if_sethide(false, interface_1012:com_16);
+        if_setposition(80, if_gety(interface_1012:com_16), ^setpos_abs_left, ^setpos_abs_top, interface_1012:com_16);
+        if (%varclient_1373 = 1 & $int8 = 0) {
+            $struct13 = struct_299;
+        } else if (%varclient_1374 = 1 & $int9 = 0) {
+            $struct13 = struct_305;
+            $int9 = 1;
+        } else if (%varclient_1375 = 1 & $int10 = 0) {
+            $struct13 = struct_1044;
+            $int10 = 1;
+        } else {
+            $struct13 = struct_1045;
+            $int11 = 1;
+        }
+        if_setgraphic(struct_param($struct13, param_1153), interface_1012:com_16);
+        if_setonmouserepeat("script499(struct_param($struct13, param_1149))", interface_1012:com_16);
+        if_sethide(false, interface_1012:com_17);
+        if_setposition(130, if_gety(interface_1012:com_17), ^setpos_abs_left, ^setpos_abs_top, interface_1012:com_17);
+        if (%varclient_1374 = 1 & $int9 = 0) {
+            $struct13 = struct_305;
+        } else if (%varclient_1375 = 1 & $int10 = 0) {
+            $struct13 = struct_1044;
+        } else if (%varclient_1376 = 1 & $int11 = 0) {
+            $struct13 = struct_1045;
+        } else {
+            $struct13 = struct_1046;
+        }
+        if_setgraphic(struct_param($struct13, param_1153), interface_1012:com_17);
+        if_setonmouserepeat("script499(struct_param($struct13, param_1149))", interface_1012:com_17);
+        if_sethide(true, interface_1012:com_18);
+        if_sethide(true, interface_1012:com_19);
+    } else if ($int6 = 4) {
+        if_sethide(false, interface_1012:com_15);
+        if_setposition(18, if_gety(interface_1012:com_15), ^setpos_abs_left, ^setpos_abs_top, interface_1012:com_15);
+        if (%varclient_1372 = 1) {
+            $struct13 = struct_293;
+        } else if (%varclient_1373 = 1) {
+            $struct13 = struct_299;
+            $int8 = 1;
+        } else {
+            $struct13 = struct_305;
+            $int9 = 1;
+        }
+        if_setgraphic(struct_param($struct13, param_1153), interface_1012:com_15);
+        if_setonmouserepeat("script499(struct_param($struct13, param_1149))", interface_1012:com_15);
+        if_sethide(false, interface_1012:com_16);
+        if_setposition(61, if_gety(interface_1012:com_16), ^setpos_abs_left, ^setpos_abs_top, interface_1012:com_16);
+        if (%varclient_1373 = 1 & $int8 = 0) {
+            $struct13 = struct_299;
+        } else if (%varclient_1374 = 1 & $int9 = 0) {
+            $struct13 = struct_305;
+            $int9 = 1;
+        } else {
+            $struct13 = struct_1044;
+            $int10 = 1;
+        }
+        if_setgraphic(struct_param($struct13, param_1153), interface_1012:com_16);
+        if_setonmouserepeat("script499(struct_param($struct13, param_1149))", interface_1012:com_16);
+        if_sethide(false, interface_1012:com_17);
+        if_setposition(104, if_gety(interface_1012:com_17), ^setpos_abs_left, ^setpos_abs_top, interface_1012:com_17);
+        if (%varclient_1374 = 1 & $int9 = 0) {
+            $struct13 = struct_305;
+        } else if (%varclient_1375 = 1 & $int10 = 0) {
+            $struct13 = struct_1044;
+            $int10 = 1;
+        } else {
+            $struct13 = struct_1045;
+            $int11 = 1;
+        }
+        if_setgraphic(struct_param($struct13, param_1153), interface_1012:com_17);
+        if_setonmouserepeat("script499(struct_param($struct13, param_1149))", interface_1012:com_17);
+        if_sethide(false, interface_1012:com_18);
+        if_setposition(147, if_gety(interface_1012:com_18), ^setpos_abs_left, ^setpos_abs_top, interface_1012:com_18);
+        if (%varclient_1375 = 1 & $int10 = 0) {
+            $struct13 = struct_1044;
+        } else if (%varclient_1376 = 1 & $int11 = 0) {
+            $struct13 = struct_1045;
+        } else {
+            $struct13 = struct_1046;
+        }
+        if_setgraphic(struct_param($struct13, param_1153), interface_1012:com_18);
+        if_setonmouserepeat("script499(struct_param($struct13, param_1149))", interface_1012:com_18);
+        if_sethide(true, interface_1012:com_19);
+    } else {
+        if_sethide(false, interface_1012:com_15);
+        if_setposition(11, if_gety(interface_1012:com_15), ^setpos_abs_left, ^setpos_abs_top, interface_1012:com_15);
+        if (%varclient_1372 = 1) {
+            $struct13 = struct_293;
+        } else {
+            $struct13 = struct_299;
+            $int8 = 1;
+        }
+        if_setgraphic(struct_param($struct13, param_1153), interface_1012:com_15);
+        if_setonmouserepeat("script499(struct_param($struct13, param_1149))", interface_1012:com_15);
+        if_sethide(false, interface_1012:com_16);
+        if_setposition(47, if_gety(interface_1012:com_16), ^setpos_abs_left, ^setpos_abs_top, interface_1012:com_16);
+        if (%varclient_1373 = 1 & $int8 = 0) {
+            $struct13 = struct_299;
+        } else {
+            $struct13 = struct_305;
+            $int9 = 1;
+        }
+        if_setgraphic(struct_param($struct13, param_1153), interface_1012:com_16);
+        if_setonmouserepeat("script499(struct_param($struct13, param_1149))", interface_1012:com_16);
+        if_sethide(false, interface_1012:com_17);
+        if_setposition(83, if_gety(interface_1012:com_17), ^setpos_abs_left, ^setpos_abs_top, interface_1012:com_17);
+        if (%varclient_1374 = 1 & $int9 = 0) {
+            $struct13 = struct_305;
+        } else {
+            $struct13 = struct_1044;
+            $int10 = 1;
+        }
+        if_setgraphic(struct_param($struct13, param_1153), interface_1012:com_17);
+        if_setonmouserepeat("script499(struct_param($struct13, param_1149))", interface_1012:com_17);
+        if_sethide(false, interface_1012:com_18);
+        if_setposition(119, if_gety(interface_1012:com_18), ^setpos_abs_left, ^setpos_abs_top, interface_1012:com_18);
+        if (%varclient_1375 = 1 & $int10 = 0) {
+            $struct13 = struct_1044;
+        } else {
+            $struct13 = struct_1045;
+            $int11 = 1;
+        }
+        if_setgraphic(struct_param($struct13, param_1153), interface_1012:com_18);
+        if_setonmouserepeat("script499(struct_param($struct13, param_1149))", interface_1012:com_18);
+        if_sethide(false, interface_1012:com_19);
+        if_setposition(155, if_gety(interface_1012:com_19), ^setpos_abs_left, ^setpos_abs_top, interface_1012:com_19);
+        if (%varclient_1376 = 1 & $int11 = 0) {
+            $struct13 = struct_1045;
+        } else {
+            $struct13 = struct_1046;
+        }
+        if_setgraphic(struct_param($struct13, param_1153), interface_1012:com_19);
+        if_setonmouserepeat("script499(struct_param($struct13, param_1149))", interface_1012:com_19);
+    }
+}

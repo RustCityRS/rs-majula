@@ -1,0 +1,950 @@
+// 756:0
+[com_0]
+type=rectangle
+x=91
+y=66
+width=334
+height=221
+colour=0x000000
+fill=yes
+trans=199
+
+// 756:1
+[com_1]
+type=graphic
+x=90
+y=60
+width=322
+height=212
+graphic=tradebacking
+tiling=yes
+colour=0xffffffff
+
+// 756:2
+[com_2]
+type=rectangle
+x=312
+y=204
+width=88
+height=31
+colour=0x000000
+fill=yes
+
+// 756:3
+[com_3]
+type=layer
+x=306
+y=198
+width=100
+height=43
+transmitop=1
+op1=Challenge
+
+// 756:4
+[com_4]
+type=layer
+x=306
+y=198
+width=100
+height=43
+hide=yes
+transmitop=1
+op1=Challenge
+
+// 756:5
+[com_5]
+type=text
+x=6
+y=6
+width=88
+height=31
+layer=com_4
+textfont=p12_full
+text=Challenge
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xbf751d
+onmouseover=text_colour_swapper(event_com, 0xe1981f)
+onmouseleave=text_colour_swapper(event_com, 0xbf751d)
+
+// 756:6
+[com_6]
+type=layer
+x=306
+y=198
+width=100
+height=43
+hide=yes
+transmitop=1
+op1=Challenge
+
+// 756:7
+[com_7]
+type=text
+x=6
+y=6
+width=88
+height=31
+layer=com_6
+textfont=p12_full
+text=Challenge
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xbf751d
+onmouseover=text_colour_swapper(event_com, 0xe1981f)
+onmouseleave=text_colour_swapper(event_com, 0xbf751d)
+
+// 756:8
+[com_8]
+type=layer
+x=306
+y=198
+width=100
+height=43
+hide=yes
+transmitop=1
+op1=Challenge
+
+// 756:9
+[com_9]
+type=text
+x=6
+y=6
+width=88
+height=31
+layer=com_8
+textfont=p12_full
+text=Challenge
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xbf751d
+onmouseover=text_colour_swapper(event_com, 0xe1981f)
+onmouseleave=text_colour_swapper(event_com, 0xbf751d)
+
+// 756:10
+[com_10]
+type=text
+x=97
+y=64
+width=200
+height=17
+textfont=b12_full
+text=Draughts: Options
+textshadow=yes
+colour=0xffaa44
+
+// 756:11
+[com_11]
+type=text
+x=6
+y=6
+width=88
+height=31
+layer=com_3
+textfont=p12_full
+text=Challenge
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xbf751d
+onmouseover=text_colour_swapper(event_com, 0xe1981f)
+onmouseleave=text_colour_swapper(event_com, 0xbf751d)
+
+// 756:12
+[com_12]
+type=graphic
+x=10
+y=20
+width=15
+height=15
+layer=com_14
+graphic="miscgraphics,10"
+tiling=yes
+colour=0xffffffff
+transmitop=1
+op1=Select
+opcursor0=cursor_46
+onclick=script1422(boardgames_options:com_12, boardgames_options:com_15, boardgames_options:com_13, boardgames_options:com_16)
+
+// 756:13
+[com_13]
+type=graphic
+x=10
+y=40
+width=15
+height=15
+layer=com_14
+graphic="miscgraphics,10"
+tiling=yes
+colour=0xffffffff
+transmitop=1
+op1=Select
+opcursor0=cursor_46
+onclick=script1422(boardgames_options:com_13, boardgames_options:com_12, boardgames_options:com_15, boardgames_options:com_16)
+
+// 756:14
+[com_14]
+type=layer
+x=296
+y=95
+width=113
+height=100
+onvartransmit=boardgames_options_time{boardgames_varbit}
+
+// 756:15
+[com_15]
+type=graphic
+x=10
+y=60
+width=15
+height=15
+layer=com_14
+graphic="miscgraphics,10"
+tiling=yes
+colour=0xffffffff
+transmitop=1
+op1=Select
+opcursor0=cursor_46
+onclick=script1422(boardgames_options:com_15, boardgames_options:com_13, boardgames_options:com_12, boardgames_options:com_16)
+
+// 756:16
+[com_16]
+type=graphic
+x=10
+y=80
+width=15
+height=15
+layer=com_14
+graphic="miscgraphics,10"
+tiling=yes
+colour=0xffffffff
+transmitop=1
+op1=Select
+opcursor0=cursor_46
+onclick=script1422(boardgames_options:com_16, boardgames_options:com_15, boardgames_options:com_13, boardgames_options:com_12)
+
+// 756:17
+[com_17]
+type=text
+x=32
+y=40
+width=80
+height=14
+layer=com_14
+textfont=p12_full
+text=30 seconds
+textshadow=yes
+colour=0xaa8822
+transmitop=1
+op1=Select
+opcursor0=cursor_46
+onclick=script1422(boardgames_options:com_13, boardgames_options:com_12, boardgames_options:com_15, boardgames_options:com_16)
+
+// 756:18
+[com_18]
+type=text
+x=32
+y=60
+width=80
+height=14
+layer=com_14
+textfont=p12_full
+text=1 minute
+textshadow=yes
+colour=0xaa8822
+transmitop=1
+op1=Select
+opcursor0=cursor_46
+onclick=script1422(boardgames_options:com_15, boardgames_options:com_13, boardgames_options:com_12, boardgames_options:com_16)
+
+// 756:19
+[com_19]
+type=text
+x=32
+y=80
+width=80
+height=14
+layer=com_14
+textfont=p12_full
+text=2 minutes
+textshadow=yes
+colour=0xaa8822
+transmitop=1
+op1=Select
+opcursor0=cursor_46
+onclick=script1422(boardgames_options:com_16, boardgames_options:com_15, boardgames_options:com_13, boardgames_options:com_12)
+
+// 756:20
+[com_20]
+type=text
+x=32
+y=20
+width=80
+height=14
+layer=com_14
+textfont=p12_full
+text=15 seconds
+textshadow=yes
+colour=0xaa8822
+transmitop=1
+op1=Select
+opcursor0=cursor_46
+onclick=script1422(boardgames_options:com_12, boardgames_options:com_15, boardgames_options:com_13, boardgames_options:com_16)
+
+// 756:21
+[com_21]
+type=text
+x=11
+y=1
+width=82
+height=14
+layer=com_14
+textfont=p12_full
+text=Time per move:
+textshadow=yes
+colour=0xaa8822
+
+// 756:22
+[com_22]
+type=layer
+x=97
+y=90
+width=191
+height=179
+onvartransmit=boardgames_options_pick_piece{boardgames_varbit}
+
+// 756:23
+[com_23]
+type=text
+x=10
+y=3
+width=182
+height=15
+layer=com_22
+textfont=p12_full
+text=Choose piece:
+textshadow=yes
+colour=0xaa8822
+
+// 756:24
+[com_24]
+type=model
+x=30
+y=25
+width=32
+height=33
+layer=com_22
+model=model_2399
+modelangle=452,1024,0
+modelzoom=622
+transmitop=1
+op1=Select
+opcursor0=cursor_46
+onclick=upgrade_membership_button_engage(boardgames_options:com_36, boardgames_options:com_37, boardgames_options:com_38, boardgames_options:com_39, boardgames_options:com_40, boardgames_options:com_41, boardgames_options:com_42, boardgames_options:com_43, boardgames_options:com_44, boardgames_options:com_45, boardgames_options:com_46, boardgames_options:com_47)
+
+// 756:25
+[com_25]
+type=model
+x=30
+y=65
+width=32
+height=33
+layer=com_22
+model=model_2652
+modelangle=452,1024,0
+modelzoom=622
+transmitop=1
+op1=Select
+opcursor0=cursor_46
+onclick=upgrade_membership_button_engage(boardgames_options:com_37, boardgames_options:com_36, boardgames_options:com_38, boardgames_options:com_39, boardgames_options:com_40, boardgames_options:com_41, boardgames_options:com_42, boardgames_options:com_43, boardgames_options:com_44, boardgames_options:com_45, boardgames_options:com_46, boardgames_options:com_47)
+
+// 756:26
+[com_26]
+type=model
+x=30
+y=105
+width=32
+height=33
+layer=com_22
+model=model_2737
+modelangle=452,1024,0
+modelzoom=622
+transmitop=1
+op1=Select
+opcursor0=cursor_46
+onclick=upgrade_membership_button_engage(boardgames_options:com_38, boardgames_options:com_37, boardgames_options:com_36, boardgames_options:com_39, boardgames_options:com_40, boardgames_options:com_41, boardgames_options:com_42, boardgames_options:com_43, boardgames_options:com_44, boardgames_options:com_45, boardgames_options:com_46, boardgames_options:com_47)
+
+// 756:27
+[com_27]
+type=model
+x=30
+y=145
+width=32
+height=33
+layer=com_22
+model=model_2405
+modelangle=452,1024,0
+modelzoom=622
+transmitop=1
+op1=Select
+opcursor0=cursor_46
+onclick=upgrade_membership_button_engage(boardgames_options:com_39, boardgames_options:com_37, boardgames_options:com_38, boardgames_options:com_36, boardgames_options:com_40, boardgames_options:com_41, boardgames_options:com_42, boardgames_options:com_43, boardgames_options:com_44, boardgames_options:com_45, boardgames_options:com_46, boardgames_options:com_47)
+
+// 756:28
+[com_28]
+type=model
+x=93
+y=25
+width=32
+height=33
+layer=com_22
+model=model_2481
+modelangle=452,1024,0
+modelzoom=622
+transmitop=1
+op1=Select
+opcursor0=cursor_46
+onclick=upgrade_membership_button_engage(boardgames_options:com_40, boardgames_options:com_37, boardgames_options:com_38, boardgames_options:com_39, boardgames_options:com_36, boardgames_options:com_41, boardgames_options:com_42, boardgames_options:com_43, boardgames_options:com_44, boardgames_options:com_45, boardgames_options:com_46, boardgames_options:com_47)
+
+// 756:29
+[com_29]
+type=model
+x=93
+y=65
+width=32
+height=33
+layer=com_22
+model=model_2340
+modelangle=452,1024,0
+modelzoom=622
+transmitop=1
+op1=Select
+opcursor0=cursor_46
+onclick=upgrade_membership_button_engage(boardgames_options:com_41, boardgames_options:com_37, boardgames_options:com_38, boardgames_options:com_39, boardgames_options:com_40, boardgames_options:com_36, boardgames_options:com_42, boardgames_options:com_43, boardgames_options:com_44, boardgames_options:com_45, boardgames_options:com_46, boardgames_options:com_47)
+
+// 756:30
+[com_30]
+type=model
+x=93
+y=105
+width=32
+height=33
+layer=com_22
+model=model_2734
+modelangle=452,1024,0
+modelzoom=622
+transmitop=1
+op1=Select
+opcursor0=cursor_46
+onclick=upgrade_membership_button_engage(boardgames_options:com_42, boardgames_options:com_37, boardgames_options:com_38, boardgames_options:com_39, boardgames_options:com_40, boardgames_options:com_41, boardgames_options:com_36, boardgames_options:com_43, boardgames_options:com_44, boardgames_options:com_45, boardgames_options:com_46, boardgames_options:com_47)
+
+// 756:31
+[com_31]
+type=model
+x=93
+y=145
+width=32
+height=33
+layer=com_22
+model=model_2707
+modelangle=452,1024,0
+modelzoom=622
+transmitop=1
+op1=Select
+opcursor0=cursor_46
+onclick=upgrade_membership_button_engage(boardgames_options:com_43, boardgames_options:com_37, boardgames_options:com_38, boardgames_options:com_39, boardgames_options:com_40, boardgames_options:com_41, boardgames_options:com_42, boardgames_options:com_36, boardgames_options:com_44, boardgames_options:com_45, boardgames_options:com_46, boardgames_options:com_47)
+
+// 756:32
+[com_32]
+type=model
+x=156
+y=24
+width=32
+height=33
+layer=com_22
+model=model_2382
+modelangle=452,1024,0
+modelzoom=622
+transmitop=1
+op1=Select
+opcursor0=cursor_46
+onclick=upgrade_membership_button_engage(boardgames_options:com_44, boardgames_options:com_37, boardgames_options:com_38, boardgames_options:com_39, boardgames_options:com_40, boardgames_options:com_41, boardgames_options:com_42, boardgames_options:com_43, boardgames_options:com_36, boardgames_options:com_45, boardgames_options:com_46, boardgames_options:com_47)
+
+// 756:33
+[com_33]
+type=model
+x=156
+y=64
+width=32
+height=33
+layer=com_22
+model=model_2735
+modelangle=452,1024,0
+modelzoom=622
+transmitop=1
+op1=Select
+opcursor0=cursor_46
+onclick=upgrade_membership_button_engage(boardgames_options:com_45, boardgames_options:com_37, boardgames_options:com_38, boardgames_options:com_39, boardgames_options:com_40, boardgames_options:com_41, boardgames_options:com_42, boardgames_options:com_43, boardgames_options:com_44, boardgames_options:com_36, boardgames_options:com_46, boardgames_options:com_47)
+
+// 756:34
+[com_34]
+type=model
+x=156
+y=105
+width=32
+height=33
+layer=com_22
+model=model_2665
+modelangle=452,1024,0
+modelzoom=622
+transmitop=1
+op1=Select
+opcursor0=cursor_46
+onclick=upgrade_membership_button_engage(boardgames_options:com_46, boardgames_options:com_37, boardgames_options:com_38, boardgames_options:com_39, boardgames_options:com_40, boardgames_options:com_41, boardgames_options:com_42, boardgames_options:com_43, boardgames_options:com_44, boardgames_options:com_45, boardgames_options:com_36, boardgames_options:com_47)
+
+// 756:35
+[com_35]
+type=model
+x=156
+y=145
+width=32
+height=33
+layer=com_22
+model=model_2434
+modelangle=452,1024,0
+modelzoom=622
+transmitop=1
+op1=Select
+opcursor0=cursor_46
+onclick=upgrade_membership_button_engage(boardgames_options:com_47, boardgames_options:com_37, boardgames_options:com_38, boardgames_options:com_39, boardgames_options:com_40, boardgames_options:com_41, boardgames_options:com_42, boardgames_options:com_43, boardgames_options:com_44, boardgames_options:com_45, boardgames_options:com_46, boardgames_options:com_36)
+
+// 756:36
+[com_36]
+type=graphic
+x=10
+y=34
+width=15
+height=15
+layer=com_22
+graphic="miscgraphics,10"
+tiling=yes
+colour=0xffffffff
+transmitop=1
+op1=Select
+opcursor0=cursor_46
+onclick=upgrade_membership_button_engage(boardgames_options:com_36, boardgames_options:com_37, boardgames_options:com_38, boardgames_options:com_39, boardgames_options:com_40, boardgames_options:com_41, boardgames_options:com_42, boardgames_options:com_43, boardgames_options:com_44, boardgames_options:com_45, boardgames_options:com_46, boardgames_options:com_47)
+
+// 756:37
+[com_37]
+type=graphic
+x=10
+y=74
+width=15
+height=15
+layer=com_22
+graphic="miscgraphics,10"
+tiling=yes
+colour=0xffffffff
+transmitop=1
+op1=Select
+opcursor0=cursor_46
+onclick=upgrade_membership_button_engage(boardgames_options:com_37, boardgames_options:com_36, boardgames_options:com_38, boardgames_options:com_39, boardgames_options:com_40, boardgames_options:com_41, boardgames_options:com_42, boardgames_options:com_43, boardgames_options:com_44, boardgames_options:com_45, boardgames_options:com_46, boardgames_options:com_47)
+
+// 756:38
+[com_38]
+type=graphic
+x=10
+y=114
+width=15
+height=15
+layer=com_22
+graphic="miscgraphics,10"
+tiling=yes
+colour=0xffffffff
+transmitop=1
+op1=Select
+opcursor0=cursor_46
+onclick=upgrade_membership_button_engage(boardgames_options:com_38, boardgames_options:com_37, boardgames_options:com_36, boardgames_options:com_39, boardgames_options:com_40, boardgames_options:com_41, boardgames_options:com_42, boardgames_options:com_43, boardgames_options:com_44, boardgames_options:com_45, boardgames_options:com_46, boardgames_options:com_47)
+
+// 756:39
+[com_39]
+type=graphic
+x=10
+y=154
+width=15
+height=15
+layer=com_22
+graphic="miscgraphics,10"
+tiling=yes
+colour=0xffffffff
+transmitop=1
+op1=Select
+opcursor0=cursor_46
+onclick=upgrade_membership_button_engage(boardgames_options:com_39, boardgames_options:com_37, boardgames_options:com_38, boardgames_options:com_36, boardgames_options:com_40, boardgames_options:com_41, boardgames_options:com_42, boardgames_options:com_43, boardgames_options:com_44, boardgames_options:com_45, boardgames_options:com_46, boardgames_options:com_47)
+
+// 756:40
+[com_40]
+type=graphic
+x=73
+y=34
+width=15
+height=15
+layer=com_22
+graphic="miscgraphics,10"
+tiling=yes
+colour=0xffffffff
+transmitop=1
+op1=Select
+opcursor0=cursor_46
+onclick=upgrade_membership_button_engage(boardgames_options:com_40, boardgames_options:com_37, boardgames_options:com_38, boardgames_options:com_39, boardgames_options:com_36, boardgames_options:com_41, boardgames_options:com_42, boardgames_options:com_43, boardgames_options:com_44, boardgames_options:com_45, boardgames_options:com_46, boardgames_options:com_47)
+
+// 756:41
+[com_41]
+type=graphic
+x=73
+y=74
+width=15
+height=15
+layer=com_22
+graphic="miscgraphics,10"
+tiling=yes
+colour=0xffffffff
+transmitop=1
+op1=Select
+opcursor0=cursor_46
+onclick=upgrade_membership_button_engage(boardgames_options:com_41, boardgames_options:com_37, boardgames_options:com_38, boardgames_options:com_39, boardgames_options:com_40, boardgames_options:com_36, boardgames_options:com_42, boardgames_options:com_43, boardgames_options:com_44, boardgames_options:com_45, boardgames_options:com_46, boardgames_options:com_47)
+
+// 756:42
+[com_42]
+type=graphic
+x=73
+y=114
+width=15
+height=15
+layer=com_22
+graphic="miscgraphics,10"
+tiling=yes
+colour=0xffffffff
+transmitop=1
+op1=Select
+opcursor0=cursor_46
+onclick=upgrade_membership_button_engage(boardgames_options:com_42, boardgames_options:com_37, boardgames_options:com_38, boardgames_options:com_39, boardgames_options:com_40, boardgames_options:com_41, boardgames_options:com_36, boardgames_options:com_43, boardgames_options:com_44, boardgames_options:com_45, boardgames_options:com_46, boardgames_options:com_47)
+
+// 756:43
+[com_43]
+type=graphic
+x=73
+y=154
+width=15
+height=15
+layer=com_22
+graphic="miscgraphics,10"
+tiling=yes
+colour=0xffffffff
+transmitop=1
+op1=Select
+opcursor0=cursor_46
+onclick=upgrade_membership_button_engage(boardgames_options:com_43, boardgames_options:com_37, boardgames_options:com_38, boardgames_options:com_39, boardgames_options:com_40, boardgames_options:com_41, boardgames_options:com_42, boardgames_options:com_36, boardgames_options:com_44, boardgames_options:com_45, boardgames_options:com_46, boardgames_options:com_47)
+
+// 756:44
+[com_44]
+type=graphic
+x=136
+y=34
+width=15
+height=15
+layer=com_22
+graphic="miscgraphics,10"
+tiling=yes
+colour=0xffffffff
+transmitop=1
+op1=Select
+opcursor0=cursor_46
+onclick=upgrade_membership_button_engage(boardgames_options:com_44, boardgames_options:com_37, boardgames_options:com_38, boardgames_options:com_39, boardgames_options:com_40, boardgames_options:com_41, boardgames_options:com_42, boardgames_options:com_43, boardgames_options:com_36, boardgames_options:com_45, boardgames_options:com_46, boardgames_options:com_47)
+
+// 756:45
+[com_45]
+type=graphic
+x=136
+y=74
+width=15
+height=15
+layer=com_22
+graphic="miscgraphics,10"
+tiling=yes
+colour=0xffffffff
+transmitop=1
+op1=Select
+opcursor0=cursor_46
+onclick=upgrade_membership_button_engage(boardgames_options:com_45, boardgames_options:com_37, boardgames_options:com_38, boardgames_options:com_39, boardgames_options:com_40, boardgames_options:com_41, boardgames_options:com_42, boardgames_options:com_43, boardgames_options:com_44, boardgames_options:com_36, boardgames_options:com_46, boardgames_options:com_47)
+
+// 756:46
+[com_46]
+type=graphic
+x=136
+y=114
+width=15
+height=15
+layer=com_22
+graphic="miscgraphics,10"
+tiling=yes
+colour=0xffffffff
+transmitop=1
+op1=Select
+opcursor0=cursor_46
+onclick=upgrade_membership_button_engage(boardgames_options:com_46, boardgames_options:com_37, boardgames_options:com_38, boardgames_options:com_39, boardgames_options:com_40, boardgames_options:com_41, boardgames_options:com_42, boardgames_options:com_43, boardgames_options:com_44, boardgames_options:com_45, boardgames_options:com_36, boardgames_options:com_47)
+
+// 756:47
+[com_47]
+type=graphic
+x=136
+y=154
+width=15
+height=15
+layer=com_22
+graphic="miscgraphics,10"
+tiling=yes
+colour=0xffffffff
+transmitop=1
+op1=Select
+opcursor0=cursor_46
+onclick=upgrade_membership_button_engage(boardgames_options:com_47, boardgames_options:com_37, boardgames_options:com_38, boardgames_options:com_39, boardgames_options:com_40, boardgames_options:com_41, boardgames_options:com_42, boardgames_options:com_43, boardgames_options:com_44, boardgames_options:com_45, boardgames_options:com_46, boardgames_options:com_36)
+
+// 756:48
+[com_48]
+type=text
+x=329
+y=249
+width=80
+height=14
+layer=com_49
+textfont=p12_full
+text=Ranked
+textshadow=yes
+colour=0xaa8822
+transmitop=1
+op1=Select
+opcursor0=cursor_46
+
+// 756:49
+[com_49]
+type=layer
+width=512
+height=334
+onvartransmit=boardgames_options_ranked{boardgames_varbit2}
+
+// 756:50
+[com_50]
+type=graphic
+x=307
+y=249
+width=15
+height=15
+layer=com_49
+graphic="miscgraphics,10"
+tiling=yes
+colour=0xffffffff
+transmitop=1
+op1=Select
+opcursor0=cursor_46
+
+// 756:51
+[com_51]
+type=graphic
+x=390
+y=64
+width=16
+height=16
+graphic="v2_stone_close_button,0"
+colour=0xffffffff
+transmitop=1
+op1=Close
+onload=boardgames_options_onload
+onmouseover=graphic_swapper(event_com, "v2_stone_close_button,1")
+onmouseleave=graphic_swapper(event_com, "v2_stone_close_button,0")
+onvartransmit=boardgames_options_onload{boardgames_varbit}
+onop=closebutton_click
+
+// 756:52
+[com_52]
+type=graphic
+x=84
+y=54
+width=32
+height=32
+graphic="v2_stone_borders,4"
+colour=0xffffffff
+
+// 756:53
+[com_53]
+type=graphic
+x=84
+y=247
+width=32
+height=32
+graphic="v2_stone_borders,6"
+colour=0xffffffff
+
+// 756:54
+[com_54]
+type=graphic
+x=385
+y=247
+width=32
+height=32
+graphic="v2_stone_borders,7"
+colour=0xffffffff
+
+// 756:55
+[com_55]
+type=graphic
+x=84
+y=72
+width=32
+height=32
+graphic="v2_stone_borders,9"
+colour=0xffffffff
+
+// 756:56
+[com_56]
+type=graphic
+x=71
+y=93
+width=32
+height=155
+graphic="v2_stone_borders,1"
+tiling=yes
+colour=0xffffffff
+
+// 756:57
+[com_57]
+type=graphic
+x=385
+y=54
+width=32
+height=32
+graphic="v2_stone_borders,5"
+colour=0xffffffff
+
+// 756:58
+[com_58]
+type=graphic
+x=385
+y=72
+width=32
+height=32
+graphic="v2_stone_borders,10"
+colour=0xffffffff
+
+// 756:59
+[com_59]
+type=graphic
+x=397
+y=93
+width=32
+height=155
+graphic="v2_stone_borders,3"
+tiling=yes
+colour=0xffffffff
+
+// 756:60
+[com_60]
+type=graphic
+x=115
+y=41
+width=270
+height=32
+graphic="v2_stone_borders,0"
+tiling=yes
+colour=0xffffffff
+
+// 756:61
+[com_61]
+type=graphic
+x=116
+y=259
+width=269
+height=32
+graphic="v2_stone_borders,2"
+tiling=yes
+colour=0xffffffff
+
+// 756:62
+[com_62]
+type=graphic
+x=94
+y=70
+width=314
+height=25
+graphic="v2_stone_borders,8"
+tiling=yes
+colour=0xffffffff
+
+// 756:63
+[com_63]
+type=graphic
+x=306
+y=198
+width=32
+height=32
+graphic="v2_stone_borders,18"
+tiling=yes
+colour=0xffffffff
+
+// 756:64
+[com_64]
+type=graphic
+x=306
+y=209
+width=32
+height=32
+graphic="v2_stone_borders,20"
+tiling=yes
+colour=0xffffffff
+
+// 756:65
+[com_65]
+type=graphic
+x=374
+y=209
+width=32
+height=32
+graphic="v2_stone_borders,21"
+tiling=yes
+colour=0xffffffff
+
+// 756:66
+[com_66]
+type=graphic
+x=374
+y=198
+width=32
+height=32
+graphic="v2_stone_borders,19"
+tiling=yes
+colour=0xffffffff
+
+// 756:67
+[com_67]
+type=graphic
+x=338
+y=184
+width=36
+height=32
+graphic="v2_stone_borders,8"
+tiling=yes
+colour=0xffffffff
+
+// 756:68
+[com_68]
+type=graphic
+x=338
+y=221
+width=36
+height=32
+graphic="v2_stone_borders,8"
+tiling=yes
+colour=0xffffffff

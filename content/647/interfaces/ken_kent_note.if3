@@ -1,0 +1,80 @@
+// 712:0
+[com_0]
+type=model
+x=21
+y=45
+width=470
+height=261
+model=model_9853
+modelorigin=5,9
+modelangle=490,0,0
+modelzoom=800
+
+// 712:1
+[com_1]
+type=text
+x=73
+y=75
+width=248
+height=32
+textfont=quill_oblique_large
+text=Dear friend,
+colour=0x362407
+
+// 712:2
+[com_2]
+type=text
+x=90
+y=135
+width=339
+height=115
+textfont=q8_full
+text=Come and meet me at the entrance to the Legends' Guild as soon as possible. There are things I would like to discuss with you, but it is difficult to talk in Witchaven...
+colour=0x362407
+
+// 712:3
+[com_3]
+type=text
+x=103
+y=246
+width=340
+height=31
+textfont=quill_oblique_large
+text=~Kent
+textalignh=right
+colour=0x362407
+
+// 712:4
+[com_4]
+type=graphic
+x=421
+y=52
+width=26
+height=23
+graphic="close_buttons,2"
+colour=0x000000
+transmitop=1
+op1=Close
+onmouseover=graphic_swapper(event_com, "close_buttons,3")
+onmouseleave=graphic_swapper(event_com, "close_buttons,2")
+onop=closebutton_click
+
+// 712:5
+[com_5]
+type=graphic
+x=4
+y=4
+width=26
+height=23
+layer=com_6
+graphic="close_buttons,3"
+colour=0x000000
+
+// 712:6
+[com_6]
+type=layer
+x=417
+y=48
+width=32
+height=32
+hide=yes

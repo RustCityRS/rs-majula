@@ -1,0 +1,5 @@
+// 1629
+[clientscript,script1629]
+%varclient_1033 = 1;
+cam_movealong(0, %varclient_1033, 200, 100, 1, %varclient_1033);
+if_setoncamfinished("script1631", interface_75:com_0);

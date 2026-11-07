@@ -1,0 +1,11 @@
+// 4084
+[clientscript,script4084]
+if (if_find(xmas10_snowball:com_3) = true & cc_getgraphic ! "set_but_end_2,2") {
+    cc_setgraphic("set_but_end_2,1");
+}
+if (if_find(xmas10_snowball:com_4) = true & cc_getgraphic ! "set_but_end_2,5") {
+    cc_setgraphic("set_but_end_2,4");
+}
+if (if_find(xmas10_snowball:com_5) = true & cc_getgraphic ! "set_but_fill_2,2") {
+    cc_setgraphic("set_but_fill_2,1");
+}

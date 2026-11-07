@@ -1,0 +1,12 @@
+// 3369
+[clientscript,script3369](component $component0, int $int1)
+def_int $int2 = calc(clientclock - $int1);
+def_int $int3 = 0;
+if ($int2 > 70) {
+    if_sethide(true, toplevel:com_23);
+    if_setontimer(null, toplevel:com_21);
+    return;
+}
+$int3 = min(70, calc($int2 * 2));
+if_setposition(7, $int3, ^setpos_abs_left, ^setpos_abs_top, toplevel:com_23);
+if_sethide(false, toplevel:com_23);

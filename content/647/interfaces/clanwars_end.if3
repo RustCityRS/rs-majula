@@ -1,0 +1,102 @@
+// 790:0
+[com_0]
+type=model
+x=15
+y=23
+width=480
+height=301
+layer=com_8
+model=model_26397
+modelorigin=-2,33
+modelangle=512,0,0
+modelzoom=1009
+onload=clanwars_end_setup(clanwars_end:com_4, clanwars_end:com_5, clanwars_end:com_6, clanwars_end:com_1, clanwars_end:com_3, clanwars_end:com_2)
+onvarctransmit=clanwars_end_setup(clanwars_end:com_4, clanwars_end:com_5, clanwars_end:com_6, clanwars_end:com_1, clanwars_end:com_3, clanwars_end:com_2){varclient_268}
+
+// 790:1
+[com_1]
+type=line
+x=38
+y=81
+width=200
+layer=com_8
+colour=0x6f5834
+opbase=  
+
+// 790:2
+[com_2]
+type=model
+x=164
+y=94
+width=294
+height=203
+layer=com_8
+model=model_30060
+modelorigin=51,38
+modelangle=234,1867,0
+modelzoom=1680
+
+// 790:3
+[com_3]
+type=model
+x=266
+y=53
+width=137
+height=245
+layer=com_8
+model=model_30059
+modelorigin=1,-4
+modelangle=96,1667,1899
+modelzoom=850
+
+// 790:4
+[com_4]
+type=text
+width=300
+height=50
+layer=com_8
+textfont=quill_oblique_large
+colour=0x46320a
+
+// 790:5
+[com_5]
+type=text
+width=300
+height=50
+layer=com_8
+textfont=q8_full
+colour=0x46320a
+
+// 790:6
+[com_6]
+type=text
+width=175
+height=125
+layer=com_8
+textfont=q8_full
+textalignv=centre
+colour=0x46320a
+
+// 790:7
+[com_7]
+type=graphic
+x=443
+y=40
+width=26
+height=23
+layer=com_8
+graphic="close_buttons,2"
+colour=0x000000
+transmitop=1
+op1=Close
+onmouseover=graphic_swapper(event_com, "close_buttons,3")
+onmouseleave=graphic_swapper(event_com, "close_buttons,2")
+onop=closebutton_click
+
+// 790:8
+[com_8]
+type=layer
+width=512
+height=334
+xmode=proportion_centre
+ymode=proportion_centre

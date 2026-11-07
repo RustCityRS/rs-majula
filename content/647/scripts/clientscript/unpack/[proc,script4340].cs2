@@ -1,0 +1,22 @@
+// 4340
+[proc,script4340](int $int0, int $int1, component $component2, component $component3)
+def_int $int4 = calc($int0 / 60 / 24);
+def_int $int5 = calc($int0 - $int4 * 24 * 60);
+def_int $int6 = calc($int5 / 60);
+def_int $int7 = calc($int5 % 60);
+def_string $string0 = "";
+if ($int6 < 10) {
+    $string0 = "0<tostring($int6)>";
+} else {
+    $string0 = tostring($int6);
+}
+def_string $string1 = "";
+if ($int7 < 10) {
+    $string1 = "0<tostring($int7)>";
+} else {
+    $string1 = tostring($int7);
+}
+if_settext("<$string0>:<$string1>", $component2);
+if_setontimer("clan_run_time($int6, $int7, $int1, clan_noticeboard:com_113, clan_noticeboard:com_112)", $component2);
+$string0, $string1 = ~clan_time_tostring($int1, $int6, $int7);
+if_settext("<$string0>:<$string1>", $component3);

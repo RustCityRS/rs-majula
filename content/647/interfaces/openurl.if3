@@ -1,0 +1,41 @@
+// 445:0
+[com_0]
+type=text
+x=1
+y=1
+width=504
+height=100
+textfont=q8_full
+textalignh=centre
+textalignv=centre
+colour=0x000000
+
+// 445:1
+[com_1]
+type=text
+x=1
+y=104
+width=252
+height=17
+textfont=q8_full
+text=Click here to cancel
+textalignh=centre
+colour=0x0000ff
+pausebutton=yes
+onmouseover=text_colour_swapper(event_com, ^white)
+onmouseleave=text_colour_swapper(event_com, ^blue)
+
+// 445:2
+[com_2]
+type=text
+x=253
+y=104
+width=252
+height=17
+textfont=q8_full
+text=Visit the Website
+textalignh=centre
+colour=0x0000ff
+pausebutton=yes
+onmouseover=text_colour_swapper(event_com, ^white)
+onmouseleave=text_colour_swapper(event_com, ^blue)

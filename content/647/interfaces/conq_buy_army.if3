@@ -1,0 +1,2176 @@
+// 1015:0
+[com_0]
+type=text
+y=7
+height=16
+widthmode=minus
+layer=com_115
+textfont=welcome_font_tiny
+text=Mage
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xff991f
+
+// 1015:1
+[com_1]
+type=rectangle
+x=37
+y=22
+width=206
+height=1
+layer=com_115
+colour=0xff991f
+
+// 1015:2
+[com_2]
+type=graphic
+x=20
+y=42
+width=50
+height=50
+layer=com_115
+graphic="conq_unit_icons,3"
+colour=0x000000
+
+// 1015:3
+[com_3]
+type=graphic
+x=15
+y=23
+width=20
+height=16
+layer=com_34
+graphic="gnome_copter_arrows,0"
+transmitop=1
+op1=Reset Commands
+onmouseover=script494(event_com, 1)
+onmouseleave=script494(event_com, 0)
+
+// 1015:4
+[com_4]
+type=graphic
+x=15
+y=23
+width=20
+height=16
+layer=com_105
+graphic="gnome_copter_arrows,0"
+transmitop=1
+op1=Reset Troops
+onmouseover=script494(event_com, 1)
+onmouseleave=script494(event_com, 0)
+
+// 1015:5
+[com_5]
+type=layer
+width=512
+height=334
+
+// 1015:6
+[com_6]
+type=layer
+width=512
+height=334
+
+// 1015:7
+[com_7]
+type=rectangle
+x=341
+y=51
+width=149
+height=16
+layer=com_6
+colour=0x5a5349
+fill=yes
+transmitop=10
+op10= 
+
+// 1015:8
+[com_8]
+type=rectangle
+x=341
+y=51
+width=148
+height=15
+layer=com_6
+colour=0x403931
+fill=yes
+transmitop=10
+op10= 
+
+// 1015:9
+[com_9]
+type=rectangle
+x=340
+y=50
+width=151
+height=18
+layer=com_6
+colour=0x16120f
+transmitop=10
+op10= 
+
+// 1015:10
+[com_10]
+type=rectangle
+x=342
+y=52
+width=147
+height=14
+layer=com_6
+colour=0x474135
+fill=yes
+transmitop=10
+op10= 
+
+// 1015:11
+[com_11]
+type=text
+x=343
+y=52
+width=117
+height=14
+layer=com_6
+textfont=p11_full
+text=Squad Resources:
+textalignv=centre
+textshadow=yes
+colour=0xff991f
+
+// 1015:12
+[com_12]
+type=text
+x=460
+y=52
+width=28
+height=14
+layer=com_6
+textfont=p11_full
+text=1000
+textalignh=right
+textalignv=centre
+textshadow=yes
+colour=0xff991f
+onvartransmit=script479{varplayer_1870}
+
+// 1015:13
+[com_13]
+type=graphic
+x=12
+y=27
+width=488
+height=289
+layer=com_5
+graphic=km_middlefillcolour
+colour=0xffffffff
+
+// 1015:14
+[com_14]
+type=graphic
+x=5
+y=291
+width=32
+height=32
+layer=com_5
+graphic="v2_stone_borders,6"
+colour=0xffffffff
+
+// 1015:15
+[com_15]
+type=graphic
+x=5
+y=20
+width=32
+height=32
+layer=com_5
+graphic="v2_stone_borders,35"
+colour=0xffffffff
+
+// 1015:16
+[com_16]
+type=graphic
+x=5
+y=20
+width=32
+height=32
+xmode=abs_right
+layer=com_5
+graphic="v2_stone_borders,37"
+colour=0xffffffff
+
+// 1015:17
+[com_17]
+type=graphic
+x=5
+y=291
+width=32
+height=32
+xmode=abs_right
+layer=com_5
+graphic="v2_stone_borders,7"
+colour=0xffffffff
+
+// 1015:18
+[com_18]
+type=graphic
+x=-8
+y=52
+width=32
+height=240
+layer=com_5
+graphic="v2_stone_borders,1"
+tiling=yes
+colour=0xffffffff
+
+// 1015:19
+[com_19]
+type=graphic
+x=-7
+y=52
+width=32
+height=239
+xmode=abs_right
+layer=com_5
+graphic="v2_stone_borders,3"
+tiling=yes
+colour=0xffffffff
+
+// 1015:20
+[com_20]
+type=graphic
+x=37
+y=20
+width=438
+height=32
+layer=com_5
+graphic="v2_stone_borders,36"
+tiling=yes
+colour=0xffffffff
+
+// 1015:21
+[com_21]
+type=graphic
+y=303
+width=444
+height=32
+xmode=abs_centre
+layer=com_5
+graphic="v2_stone_borders,2"
+tiling=yes
+colour=0xffffffff
+
+// 1015:22
+[com_22]
+type=rectangle
+x=11
+y=41
+width=489
+height=275
+layer=com_5
+colour=0x000000
+
+// 1015:23
+[com_23]
+type=rectangle
+x=12
+y=6
+width=489
+height=275
+layer=com_5
+hide=yes
+colour=0x000000
+
+// 1015:24
+[com_24]
+type=rectangle
+x=13
+y=43
+width=485
+height=271
+layer=com_5
+colour=0x000000
+trans=192
+
+// 1015:25
+[com_25]
+type=rectangle
+x=12
+y=42
+width=487
+height=273
+layer=com_5
+colour=0x000000
+trans=64
+
+// 1015:26
+[com_26]
+type=graphic
+x=481
+y=23
+width=16
+height=16
+layer=com_5
+graphic="v2_stone_close_button,0"
+colour=0xffffffff
+transmitop=1
+op1=Close
+onmouseover=graphic_swapper(event_com, "v2_stone_close_button,1")
+onmouseleave=graphic_swapper(event_com, "v2_stone_close_button,0")
+onop=closebutton_click
+
+// 1015:27
+[com_27]
+type=rectangle
+x=19
+y=71
+width=473
+height=237
+layer=com_5
+colour=0x5a5349
+transmitop=10
+op10= 
+
+// 1015:28
+[com_28]
+type=rectangle
+x=19
+y=71
+width=472
+height=236
+layer=com_5
+colour=0x403931
+fill=yes
+transmitop=10
+op10= 
+
+// 1015:29
+[com_29]
+type=rectangle
+x=21
+y=73
+width=469
+height=233
+layer=com_5
+colour=0x2d261e
+fill=yes
+transmitop=10
+op10= 
+
+// 1015:30
+[com_30]
+type=rectangle
+x=20
+y=72
+width=471
+height=235
+layer=com_5
+colour=0x000000
+transmitop=10
+op10= 
+
+// 1015:31
+[com_31]
+type=text
+x=12
+y=23
+width=488
+height=15
+layer=com_5
+textfont=b12_full
+text=Squad Selection
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xff981f
+transmitop=10
+op10= 
+
+// 1015:32
+[com_32]
+type=layer
+width=512
+height=334
+
+// 1015:33
+[com_33]
+type=layer
+width=512
+height=334
+hide=yes
+transmitop=10
+op10= 
+
+// 1015:34
+[com_34]
+type=layer
+width=512
+height=334
+layer=com_33
+transmitop=10
+op10= 
+onvartransmit=script487{varplayer_1870}
+
+// 1015:35
+[com_35]
+type=layer
+x=23
+y=79
+width=180
+height=50
+layer=com_33
+onvartransmit=script490{varplayer_1874, varplayer_1874, varplayer_1874, varplayer_1874}
+
+// 1015:36
+[com_36]
+type=layer
+x=23
+y=136
+width=180
+height=50
+layer=com_33
+transmitop=10
+op10= 
+
+// 1015:37
+[com_37]
+type=layer
+x=23
+y=193
+width=180
+height=50
+layer=com_33
+transmitop=10
+op10= 
+
+// 1015:38
+[com_38]
+type=layer
+x=23
+y=250
+width=180
+height=50
+layer=com_33
+transmitop=10
+op10= 
+
+// 1015:39
+[com_39]
+type=layer
+x=207
+y=75
+width=281
+height=229
+layer=com_33
+transmitop=10
+op10= 
+
+// 1015:40
+[com_40]
+type=layer
+width=16391
+height=16384
+widthmode=proportion
+heightmode=proportion
+layer=com_39
+
+// 1015:41
+[com_41]
+type=rectangle
+width=281
+height=229
+layer=com_40
+colour=0x201c17
+
+// 1015:42
+[com_42]
+type=rectangle
+x=1
+y=1
+width=279
+height=227
+layer=com_40
+colour=0x595143
+
+// 1015:43
+[com_43]
+type=rectangle
+x=2
+y=2
+width=277
+height=225
+layer=com_40
+colour=0x161410
+fill=yes
+
+// 1015:44
+[com_44]
+type=graphic
+x=2
+y=69
+width=277
+height=32
+layer=com_40
+graphic="v2_borders_slim,11"
+colour=0x000000
+transmitop=10
+op10= 
+
+// 1015:45
+[com_45]
+type=layer
+width=16391
+height=16391
+widthmode=proportion
+heightmode=proportion
+layer=com_39
+
+// 1015:46
+[com_46]
+type=text
+width=16391
+height=86
+widthmode=proportion
+layer=com_45
+textfont=welcome_font_tiny
+text=No Command Selected
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xff991f
+
+// 1015:47
+[com_47]
+type=text
+y=86
+width=16391
+height=143
+widthmode=proportion
+layer=com_45
+textfont=welcome_font_tiny
+text=Select A Command Slot To See What Commands Are Available
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xff991f
+transmitop=10
+op10= 
+
+// 1015:48
+[com_48]
+type=layer
+width=16391
+height=16391
+widthmode=proportion
+heightmode=proportion
+layer=com_39
+hide=yes
+
+// 1015:49
+[com_49]
+type=text
+width=281
+height=86
+layer=com_48
+hide=yes
+textfont=welcome_font_tiny
+text=No Command
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xff991f
+
+// 1015:50
+[com_50]
+type=graphic
+x=21
+y=31
+width=25
+height=25
+layer=com_48
+graphic="conq_command_icon,0"
+colour=0x000000
+
+// 1015:51
+[com_51]
+type=text
+y=2
+height=20
+widthmode=minus
+xmode=abs_centre
+layer=com_48
+textfont=welcome_font_tiny
+text=Battle Cry
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xff991f
+
+// 1015:52
+[com_52]
+type=text
+x=20
+y=22
+width=195
+height=47
+xmode=abs_right
+layer=com_48
+textfont=p11_full
+text=A target troop you control gains +200 damage and +200 health until the start of your next turn
+textalignv=centre
+textshadow=yes
+colour=0xff991f
+
+// 1015:53
+[com_53]
+type=text
+x=6
+y=69
+width=111
+height=16
+layer=com_48
+textfont=p11_full
+text=Cooldown: 2 turns
+textalignv=centre
+textshadow=yes
+colour=0xff991f
+
+// 1015:54
+[com_54]
+type=text
+x=6
+y=69
+width=111
+height=16
+xmode=abs_right
+layer=com_48
+textfont=p11_full
+text=Cost: 200
+textalignh=right
+textalignv=centre
+textshadow=yes
+colour=0xff991f
+transmitop=10
+op10= 
+
+// 1015:55
+[com_55]
+type=layer
+width=16391
+height=16384
+widthmode=proportion
+heightmode=proportion
+layer=com_39
+hide=yes
+
+// 1015:56
+[com_56]
+type=text
+y=87
+width=16391
+height=16
+widthmode=proportion
+layer=com_55
+textfont=p11_full
+text=Select a Command to place in this slot:
+textalignh=centre
+textalignv=bottom
+textshadow=yes
+colour=0xff991f
+transmitop=10
+op10= 
+
+// 1015:57
+[com_57]
+type=graphic
+x=8
+y=112
+width=14
+height=14
+layer=com_55
+graphic="conq_tick_box,1"
+
+// 1015:58
+[com_58]
+type=text
+x=26
+y=111
+width=100
+height=14
+layer=com_55
+textfont=welcome_font_tiny
+text=Battle Cry
+textshadow=yes
+colour=0xff991f
+transmitop=1
+op1=Battle Cry
+onmouseover=script493(event_com, 1)
+onmouseleave=script493(event_com, 0)
+
+// 1015:59
+[com_59]
+type=graphic
+x=8
+y=135
+width=14
+height=14
+layer=com_55
+graphic="conq_tick_box,1"
+
+// 1015:60
+[com_60]
+type=text
+x=26
+y=134
+width=100
+height=14
+layer=com_55
+textfont=welcome_font_tiny
+text=Stoicism
+textshadow=yes
+colour=0xff991f
+transmitop=1,10
+op1=Stoicism
+op10= 
+onmouseover=script493(event_com, 1)
+onmouseleave=script493(event_com, 0)
+
+// 1015:61
+[com_61]
+type=graphic
+x=8
+y=158
+width=14
+height=14
+layer=com_55
+graphic="conq_tick_box,1"
+
+// 1015:62
+[com_62]
+type=text
+x=26
+y=157
+width=100
+height=14
+layer=com_55
+textfont=welcome_font_tiny
+text=Regenerate
+textshadow=yes
+colour=0xff991f
+transmitop=1,10
+op1=Regenerate
+op10= 
+onmouseover=script493(event_com, 1)
+onmouseleave=script493(event_com, 0)
+
+// 1015:63
+[com_63]
+type=graphic
+x=8
+y=181
+width=14
+height=14
+layer=com_55
+graphic="conq_tick_box,1"
+
+// 1015:64
+[com_64]
+type=text
+x=26
+y=180
+width=100
+height=14
+layer=com_55
+textfont=welcome_font_tiny
+text=Bombard
+textshadow=yes
+colour=0xff991f
+transmitop=1,10
+op1=Bombard
+op10= 
+onmouseover=script493(event_com, 1)
+onmouseleave=script493(event_com, 0)
+
+// 1015:65
+[com_65]
+type=graphic
+x=8
+y=204
+width=14
+height=14
+layer=com_55
+graphic="conq_tick_box,1"
+
+// 1015:66
+[com_66]
+type=text
+x=26
+y=203
+width=120
+height=14
+layer=com_55
+textfont=welcome_font_tiny
+text=Winds Of Fate
+textlineheight=15
+textalignv=centre
+textshadow=yes
+colour=0xff991f
+transmitop=1,10
+op1=Winds Of Change
+op10= 
+onmouseover=script493(event_com, 1)
+onmouseleave=script493(event_com, 0)
+
+// 1015:67
+[com_67]
+type=graphic
+x=150
+y=112
+width=14
+height=14
+layer=com_55
+graphic="conq_tick_box,1"
+
+// 1015:68
+[com_68]
+type=text
+x=168
+y=111
+width=100
+height=14
+layer=com_55
+textfont=welcome_font_tiny
+text=Charge
+textshadow=yes
+colour=0xff991f
+transmitop=1,10
+op1=Charge
+op10= 
+onmouseover=script493(event_com, 1)
+onmouseleave=script493(event_com, 0)
+
+// 1015:69
+[com_69]
+type=graphic
+x=150
+y=135
+width=14
+height=14
+layer=com_55
+graphic="conq_tick_box,1"
+
+// 1015:70
+[com_70]
+type=text
+x=168
+y=134
+width=100
+height=14
+layer=com_55
+textfont=welcome_font_tiny
+text=Chastise
+textshadow=yes
+colour=0xff991f
+transmitop=1,10
+op1=Chastise
+op10= 
+onmouseover=script493(event_com, 1)
+onmouseleave=script493(event_com, 0)
+
+// 1015:71
+[com_71]
+type=graphic
+x=150
+y=158
+width=14
+height=14
+layer=com_55
+graphic="conq_tick_box,1"
+
+// 1015:72
+[com_72]
+type=text
+x=168
+y=157
+width=100
+height=14
+layer=com_55
+textfont=welcome_font_tiny
+text=Vigilance
+textshadow=yes
+colour=0xff991f
+transmitop=1,10
+op1=Vigilance
+op10= 
+onmouseover=script493(event_com, 1)
+onmouseleave=script493(event_com, 0)
+
+// 1015:73
+[com_73]
+type=graphic
+x=150
+y=181
+width=14
+height=14
+layer=com_55
+graphic="conq_tick_box,1"
+
+// 1015:74
+[com_74]
+type=text
+x=168
+y=180
+width=100
+height=14
+layer=com_55
+textfont=welcome_font_tiny
+text=Shield Wall
+textshadow=yes
+colour=0xff991f
+transmitop=1,10
+op1=Shield Wall
+op10= 
+onmouseover=script493(event_com, 1)
+onmouseleave=script493(event_com, 0)
+
+// 1015:75
+[com_75]
+type=graphic
+x=150
+y=204
+width=14
+height=14
+layer=com_55
+graphic="conq_tick_box,1"
+
+// 1015:76
+[com_76]
+type=text
+x=168
+y=203
+width=120
+height=14
+layer=com_55
+textfont=welcome_font_tiny
+text=No Command
+textlineheight=15
+textalignv=centre
+textshadow=yes
+colour=0xff991f
+transmitop=1,10
+op1=No Command
+op10=  
+onmouseover=text_colour_swapper(event_com, ^white)
+onmouseleave=text_colour_swapper(event_com, 0xff981f)
+
+// 1015:77
+[com_77]
+type=graphic
+width=180
+height=50
+layer=com_38
+graphic=graphic_3263
+colour=0x000000
+transmitop=1,10
+op1=Select Slot
+op10= 
+
+// 1015:78
+[com_78]
+type=layer
+width=16391
+height=16391
+widthmode=proportion
+heightmode=proportion
+layer=com_38
+hide=yes
+onmouseover=script491(event_com)
+onmouseleave=script492(event_com)
+
+// 1015:79
+[com_79]
+type=graphic
+x=15
+width=25
+height=25
+ymode=abs_centre
+layer=com_78
+graphic="conq_command_icon,0"
+colour=0x000000
+transmitop=10
+op10= 
+
+// 1015:80
+[com_80]
+type=text
+x=50
+width=120
+height=35
+ymode=abs_centre
+layer=com_78
+textfont=welcome_font_tiny
+text=Command 4
+textlineheight=15
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xe6ca98
+transmitop=10
+op10= 
+
+// 1015:81
+[com_81]
+type=layer
+width=16391
+height=16391
+widthmode=proportion
+heightmode=proportion
+layer=com_38
+transmitop=10
+op10=    
+
+// 1015:82
+[com_82]
+type=text
+width=16384
+height=16384
+widthmode=proportion
+heightmode=proportion
+xmode=abs_centre
+ymode=abs_centre
+layer=com_81
+textfont=welcome_font_tiny
+text=No Command
+textlineheight=15
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0x585042
+transmitop=10
+op10=    
+onmouseover=text_colour_swapper(event_com, ^white)
+onmouseleave=text_colour_swapper(event_com, 0x585042)
+
+// 1015:83
+[com_83]
+type=graphic
+width=180
+height=50
+layer=com_37
+graphic=graphic_3263
+colour=0x000000
+transmitop=1,10
+op1=Select Slot
+op10= 
+
+// 1015:84
+[com_84]
+type=layer
+width=16391
+height=16391
+widthmode=proportion
+heightmode=proportion
+layer=com_37
+hide=yes
+onmouseover=script491(event_com)
+onmouseleave=script492(event_com)
+
+// 1015:85
+[com_85]
+type=graphic
+x=15
+width=25
+height=25
+ymode=abs_centre
+layer=com_84
+graphic="conq_command_icon,0"
+colour=0x000000
+transmitop=10
+op10= 
+
+// 1015:86
+[com_86]
+type=text
+x=50
+width=120
+height=35
+ymode=abs_centre
+layer=com_84
+textfont=welcome_font_tiny
+text=Command 3
+textlineheight=15
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xe6ca98
+transmitop=10
+op10= 
+
+// 1015:87
+[com_87]
+type=layer
+width=16391
+height=16391
+widthmode=proportion
+heightmode=proportion
+layer=com_37
+transmitop=10
+op10=   
+
+// 1015:88
+[com_88]
+type=text
+width=16384
+height=16384
+widthmode=proportion
+heightmode=proportion
+xmode=abs_centre
+ymode=abs_centre
+layer=com_87
+textfont=welcome_font_tiny
+text=No Command
+textlineheight=15
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0x585042
+transmitop=10
+op10=   
+onmouseover=text_colour_swapper(event_com, ^white)
+onmouseleave=text_colour_swapper(event_com, 0x585042)
+
+// 1015:89
+[com_89]
+type=graphic
+width=180
+height=50
+layer=com_36
+graphic=graphic_3263
+colour=0x000000
+transmitop=1,10
+op1=Select Slot
+op10= 
+
+// 1015:90
+[com_90]
+type=layer
+width=16391
+height=16391
+widthmode=proportion
+heightmode=proportion
+layer=com_36
+hide=yes
+onmouseover=script491(event_com)
+onmouseleave=script492(event_com)
+
+// 1015:91
+[com_91]
+type=graphic
+x=15
+width=25
+height=25
+ymode=abs_centre
+layer=com_90
+graphic="conq_command_icon,0"
+colour=0x000000
+transmitop=10
+op10= 
+
+// 1015:92
+[com_92]
+type=text
+x=50
+width=120
+height=35
+ymode=abs_centre
+layer=com_90
+textfont=welcome_font_tiny
+text=Command 2
+textlineheight=15
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xe6ca98
+transmitop=10
+op10= 
+
+// 1015:93
+[com_93]
+type=layer
+width=16391
+height=16391
+widthmode=proportion
+heightmode=proportion
+layer=com_36
+transmitop=10
+op10=  
+
+// 1015:94
+[com_94]
+type=text
+width=16384
+height=16384
+widthmode=proportion
+heightmode=proportion
+xmode=abs_centre
+ymode=abs_centre
+layer=com_93
+textfont=welcome_font_tiny
+text=No Command
+textlineheight=15
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0x585042
+transmitop=10
+op10=  
+onmouseover=text_colour_swapper(event_com, ^white)
+onmouseleave=text_colour_swapper(event_com, 0x585042)
+
+// 1015:95
+[com_95]
+type=graphic
+width=180
+height=50
+layer=com_35
+graphic=graphic_3263
+colour=0x000000
+transmitop=1
+op1=Select Slot
+
+// 1015:96
+[com_96]
+type=layer
+width=16391
+height=16384
+widthmode=proportion
+heightmode=proportion
+layer=com_35
+hide=yes
+onmouseover=script491(event_com)
+onmouseleave=script492(event_com)
+
+// 1015:97
+[com_97]
+type=layer
+width=16391
+height=16384
+widthmode=proportion
+heightmode=proportion
+layer=com_35
+transmitop=10
+op10= 
+
+// 1015:98
+[com_98]
+type=text
+width=16384
+height=16384
+widthmode=proportion
+heightmode=proportion
+xmode=abs_centre
+ymode=abs_centre
+layer=com_97
+textfont=welcome_font_tiny
+text=No Command
+textlineheight=15
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0x585042
+transmitop=10
+op10= 
+onmouseover=text_colour_swapper(event_com, ^white)
+onmouseleave=text_colour_swapper(event_com, 0x585042)
+
+// 1015:99
+[com_99]
+type=graphic
+x=15
+width=25
+height=25
+ymode=abs_centre
+layer=com_96
+graphic="conq_command_icon,0"
+colour=0x000000
+
+// 1015:100
+[com_100]
+type=text
+x=50
+width=120
+height=35
+ymode=abs_centre
+layer=com_96
+textfont=welcome_font_tiny
+text=Command 1
+textlineheight=15
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xe6ca98
+
+// 1015:101
+[com_101]
+type=graphic
+x=19
+y=49
+width=131
+height=24
+layer=com_34
+graphic=graphic_3252
+colour=0x000000
+transmitop=10
+op10= 
+
+// 1015:102
+[com_102]
+type=text
+x=21
+y=51
+width=127
+height=22
+layer=com_34
+textfont=p11_full
+text=Select Troops
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0x8c501f
+transmitop=1,10
+op1=Select Troops
+op10= 
+onmouseover=text_colour_swapper(event_com, ^white)
+onmouseleave=text_colour_swapper(event_com, 0x8c5000)
+
+// 1015:103
+[com_103]
+type=graphic
+x=151
+y=49
+width=131
+height=24
+layer=com_34
+graphic=graphic_3251
+colour=0x000000
+transmitop=10
+op10= 
+
+// 1015:104
+[com_104]
+type=text
+x=153
+y=51
+width=127
+height=22
+layer=com_34
+textfont=p11_full
+text=Select Commands
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xff991f
+transmitop=10
+op10= 
+
+// 1015:105
+[com_105]
+type=layer
+width=512
+height=334
+layer=com_32
+
+// 1015:106
+[com_106]
+type=graphic
+x=19
+y=49
+width=131
+height=24
+layer=com_105
+graphic=graphic_3251
+colour=0x000000
+
+// 1015:107
+[com_107]
+type=text
+x=21
+y=51
+width=127
+height=22
+layer=com_105
+textfont=p11_full
+text=Select Troops
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xff991f
+
+// 1015:108
+[com_108]
+type=graphic
+x=151
+y=49
+width=131
+height=24
+layer=com_105
+graphic=graphic_3252
+colour=0x000000
+
+// 1015:109
+[com_109]
+type=text
+x=153
+y=51
+width=127
+height=22
+layer=com_105
+textfont=p11_full
+text=Select Commands
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0x8c5000
+transmitop=1
+op1=Select Commands
+onmouseover=text_colour_swapper(event_com, ^white)
+onmouseleave=text_colour_swapper(event_com, 0x8c5000)
+
+// 1015:110
+[com_110]
+type=rectangle
+x=207
+y=75
+width=281
+height=229
+layer=com_105
+colour=0x201c17
+
+// 1015:111
+[com_111]
+type=rectangle
+x=208
+y=76
+width=279
+height=227
+layer=com_105
+colour=0x595143
+
+// 1015:112
+[com_112]
+type=rectangle
+x=209
+y=77
+width=277
+height=225
+layer=com_105
+colour=0x161410
+fill=yes
+transmitop=10
+op10= 
+
+// 1015:113
+[com_113]
+type=graphic
+x=209
+y=22
+width=277
+height=32
+ymode=abs_centre
+layer=com_105
+graphic="v2_borders_slim,11"
+colour=0x000000
+
+// 1015:114
+[com_114]
+type=layer
+width=512
+height=334
+layer=com_32
+
+// 1015:115
+[com_115]
+type=layer
+x=207
+y=75
+width=281
+height=116
+layer=com_32
+hide=yes
+
+// 1015:116
+[com_116]
+type=layer
+x=207
+y=190
+width=281
+height=114
+layer=com_32
+hide=yes
+
+// 1015:117
+[com_117]
+type=text
+y=5
+width=16384
+height=16
+widthmode=proportion
+layer=com_116
+textfont=p11_full
+text=Select a troop to place in this slot:
+textalignh=centre
+textshadow=yes
+colour=0xff991f
+
+// 1015:118
+[com_118]
+type=graphic
+x=22
+y=27
+width=14
+height=14
+layer=com_116
+graphic="conq_tick_box,1"
+
+// 1015:119
+[com_119]
+type=text
+x=40
+y=27
+width=85
+height=14
+layer=com_116
+textfont=welcome_font_tiny
+text=Scout
+textalignv=centre
+textshadow=yes
+colour=0xff991f
+transmitop=1
+op1=Scout
+onmouseover=script484(event_com)
+onmouseleave=script485(event_com)
+
+// 1015:120
+[com_120]
+type=graphic
+x=22
+y=47
+width=14
+height=14
+layer=com_116
+graphic="conq_tick_box,1"
+
+// 1015:121
+[com_121]
+type=text
+x=40
+y=47
+width=85
+height=14
+layer=com_116
+textfont=welcome_font_tiny
+text=Foot Soldier
+textalignv=centre
+textshadow=yes
+colour=0xff991f
+transmitop=1
+op1=Foot Soldier
+onmouseover=script484(event_com)
+onmouseleave=script485(event_com)
+
+// 1015:122
+[com_122]
+type=graphic
+x=22
+y=67
+width=14
+height=14
+layer=com_116
+graphic="conq_tick_box,1"
+
+// 1015:123
+[com_123]
+type=text
+x=40
+y=67
+width=85
+height=14
+layer=com_116
+textfont=welcome_font_tiny
+text=Halberdier
+textalignv=centre
+textshadow=yes
+colour=0xff991f
+transmitop=1
+op1=Halberdier
+onmouseover=script484(event_com)
+onmouseleave=script485(event_com)
+
+// 1015:124
+[com_124]
+type=graphic
+x=22
+y=87
+width=14
+height=14
+layer=com_116
+graphic="conq_tick_box,1"
+
+// 1015:125
+[com_125]
+type=text
+x=40
+y=87
+width=85
+height=14
+layer=com_116
+textfont=welcome_font_tiny
+text=Archer
+textalignv=centre
+textshadow=yes
+colour=0xff991f
+transmitop=1
+op1=Archer
+onmouseover=script484(event_com)
+onmouseleave=script485(event_com)
+
+// 1015:126
+[com_126]
+type=graphic
+x=161
+y=27
+width=14
+height=14
+layer=com_116
+graphic="conq_tick_box,1"
+
+// 1015:127
+[com_127]
+type=text
+x=179
+y=27
+width=85
+height=14
+layer=com_116
+textfont=welcome_font_tiny
+text=Mage
+textalignv=centre
+textshadow=yes
+colour=0xff991f
+transmitop=1
+op1=Mage
+onmouseover=script484(event_com)
+onmouseleave=script485(event_com)
+
+// 1015:128
+[com_128]
+type=graphic
+x=161
+y=47
+width=14
+height=14
+layer=com_116
+graphic="conq_tick_box,1"
+
+// 1015:129
+[com_129]
+type=text
+x=179
+y=47
+width=85
+height=14
+layer=com_116
+textfont=welcome_font_tiny
+text=Knight
+textalignv=centre
+textshadow=yes
+colour=0xff991f
+transmitop=1
+op1=Knight
+onmouseover=script484(event_com)
+onmouseleave=script485(event_com)
+
+// 1015:130
+[com_130]
+type=graphic
+x=161
+y=67
+width=14
+height=14
+layer=com_116
+graphic="conq_tick_box,1"
+
+// 1015:131
+[com_131]
+type=text
+x=179
+y=67
+width=85
+height=14
+layer=com_116
+textfont=welcome_font_tiny
+text=Champion
+textalignv=centre
+textshadow=yes
+colour=0xff991f
+transmitop=1
+op1=Champion
+onmouseover=script484(event_com)
+onmouseleave=script485(event_com)
+
+// 1015:132
+[com_132]
+type=graphic
+x=161
+y=87
+width=14
+height=14
+layer=com_116
+graphic="conq_tick_box,1"
+
+// 1015:133
+[com_133]
+type=text
+x=179
+y=87
+width=85
+height=14
+layer=com_116
+textfont=welcome_font_tiny
+text=No Troop
+textalignv=centre
+textshadow=yes
+colour=0xff991f
+transmitop=1
+op1=No Troop
+onmouseover=text_colour_swapper(event_com, ^white)
+onmouseleave=text_colour_swapper(event_com, 0xff981f)
+
+// 1015:134
+[com_134]
+type=layer
+x=207
+y=75
+width=281
+height=229
+layer=com_32
+
+// 1015:135
+[com_135]
+type=text
+width=16391
+height=8192
+widthmode=proportion
+heightmode=proportion
+layer=com_134
+textfont=welcome_font_tiny
+text=No Troop Selected
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xff981f
+
+// 1015:136
+[com_136]
+type=text
+width=275
+height=8163
+heightmode=proportion
+ymode=abs_bottom
+layer=com_134
+textfont=welcome_font_tiny
+text=Select A Slot To See What Troops Are Available
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xff991f
+
+// 1015:137
+[com_137]
+type=layer
+x=88
+width=200
+height=116
+layer=com_115
+
+// 1015:138
+[com_138]
+type=text
+y=27
+width=19
+height=20
+widthmode=minus
+layer=com_137
+textfont=welcome_font_tiny
+text=Movement: 4
+textalignv=centre
+textshadow=yes
+colour=0xff991f
+
+// 1015:139
+[com_139]
+type=text
+y=42
+width=19
+height=20
+widthmode=minus
+layer=com_137
+textfont=welcome_font_tiny
+text=Damage: 200
+textalignv=centre
+textshadow=yes
+colour=0xff991f
+
+// 1015:140
+[com_140]
+type=text
+y=57
+width=19
+height=20
+widthmode=minus
+layer=com_137
+textfont=welcome_font_tiny
+text=Health: 200
+textalignv=centre
+textshadow=yes
+colour=0xff991f
+
+// 1015:141
+[com_141]
+type=text
+y=72
+width=19
+height=20
+widthmode=minus
+layer=com_137
+textfont=welcome_font_tiny
+text=Range: 1
+textalignv=centre
+textshadow=yes
+colour=0xff991f
+
+// 1015:142
+[com_142]
+type=text
+y=87
+width=19
+height=20
+widthmode=minus
+layer=com_137
+textfont=welcome_font_tiny
+text=Cost: 200
+textalignv=centre
+textshadow=yes
+colour=0xff991f
+
+// 1015:143
+[com_143]
+type=graphic
+x=23
+y=76
+width=90
+height=43
+layer=com_114
+graphic=graphic_3255
+colour=0x000000
+onvartransmit=script481{varplayer_1870}
+
+// 1015:144
+[com_144]
+type=text
+x=23
+y=76
+width=90
+height=43
+layer=com_114
+textfont=welcome_font_tiny
+text=No Troop
+textlineheight=15
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0x585042
+transmitop=1
+op1=Select Slot
+onmouseover=script496(event_com)
+onmouseleave=script495(event_com)
+onvartransmit=script480{varplayer_1871, varplayer_1871, varplayer_1872, varplayer_1872, varplayer_1873, varplayer_1873, varplayer_1873, varplayer_1873, varplayer_1873, varplayer_1874}
+
+// 1015:145
+[com_145]
+type=graphic
+x=115
+y=76
+width=90
+height=43
+layer=com_114
+graphic=graphic_3255
+colour=0x000000
+
+// 1015:146
+[com_146]
+type=text
+x=115
+y=76
+width=90
+height=43
+layer=com_114
+textfont=welcome_font_tiny
+text=No Troop
+textlineheight=15
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0x585042
+transmitop=1
+op1=Select Slot
+onmouseover=script496(event_com)
+onmouseleave=script495(event_com)
+
+// 1015:147
+[com_147]
+type=graphic
+x=23
+y=122
+width=90
+height=43
+layer=com_114
+graphic=graphic_3255
+colour=0x000000
+
+// 1015:148
+[com_148]
+type=text
+x=23
+y=122
+width=90
+height=43
+layer=com_114
+textfont=welcome_font_tiny
+text=No Troop
+textlineheight=15
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0x585042
+transmitop=1
+op1=Select Slot
+onmouseover=script496(event_com)
+onmouseleave=script495(event_com)
+
+// 1015:149
+[com_149]
+type=graphic
+x=115
+y=122
+width=90
+height=43
+layer=com_114
+graphic=graphic_3255
+colour=0x000000
+
+// 1015:150
+[com_150]
+type=text
+x=115
+y=122
+width=90
+height=43
+layer=com_114
+textfont=welcome_font_tiny
+text=No Troop
+textlineheight=15
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0x585042
+transmitop=1
+op1=Select Slot
+onmouseover=script496(event_com)
+onmouseleave=script495(event_com)
+
+// 1015:151
+[com_151]
+type=graphic
+x=23
+y=168
+width=90
+height=43
+layer=com_114
+graphic=graphic_3255
+colour=0x000000
+
+// 1015:152
+[com_152]
+type=text
+x=23
+y=168
+width=90
+height=43
+layer=com_114
+textfont=welcome_font_tiny
+text=No Troop
+textlineheight=15
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0x585042
+transmitop=1
+op1=Select Slot
+onmouseover=script496(event_com)
+onmouseleave=script495(event_com)
+
+// 1015:153
+[com_153]
+type=graphic
+x=115
+y=168
+width=90
+height=43
+layer=com_114
+graphic=graphic_3255
+colour=0x000000
+
+// 1015:154
+[com_154]
+type=text
+x=115
+y=168
+width=90
+height=43
+layer=com_114
+textfont=welcome_font_tiny
+text=No Troop
+textlineheight=15
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0x585042
+transmitop=1
+op1=Select Slot
+onmouseover=script496(event_com)
+onmouseleave=script495(event_com)
+
+// 1015:155
+[com_155]
+type=graphic
+x=23
+y=214
+width=90
+height=43
+layer=com_114
+graphic=graphic_3255
+colour=0x000000
+
+// 1015:156
+[com_156]
+type=text
+x=23
+y=214
+width=90
+height=43
+layer=com_114
+textfont=welcome_font_tiny
+text=No Troop
+textlineheight=15
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0x585042
+transmitop=1
+op1=Select Slot
+onmouseover=script496(event_com)
+onmouseleave=script495(event_com)
+
+// 1015:157
+[com_157]
+type=graphic
+x=115
+y=214
+width=90
+height=43
+layer=com_114
+graphic=graphic_3255
+colour=0x000000
+
+// 1015:158
+[com_158]
+type=text
+x=115
+y=214
+width=90
+height=43
+layer=com_114
+textfont=welcome_font_tiny
+text=No Troop
+textlineheight=15
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0x585042
+transmitop=1
+op1=Select Slot
+onmouseover=script496(event_com)
+onmouseleave=script495(event_com)
+
+// 1015:159
+[com_159]
+type=graphic
+x=23
+y=260
+width=90
+height=43
+layer=com_114
+graphic=graphic_3255
+colour=0x000000
+
+// 1015:160
+[com_160]
+type=text
+x=23
+y=260
+width=90
+height=43
+layer=com_114
+textfont=welcome_font_tiny
+text=No Troop
+textlineheight=15
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0x585042
+transmitop=1
+op1=Select Slot
+onmouseover=script496(event_com)
+onmouseleave=script495(event_com)
+
+// 1015:161
+[com_161]
+type=graphic
+x=115
+y=260
+width=90
+height=43
+layer=com_114
+graphic=graphic_3255
+colour=0x000000
+
+// 1015:162
+[com_162]
+type=text
+x=115
+y=260
+width=90
+height=43
+layer=com_114
+textfont=welcome_font_tiny
+text=No Troop
+textlineheight=15
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0x585042
+transmitop=1
+op1=Select Slot
+onmouseover=script496(event_com)
+onmouseleave=script495(event_com)

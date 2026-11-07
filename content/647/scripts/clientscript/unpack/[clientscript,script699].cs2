@@ -1,0 +1,28 @@
+// 699
+[clientscript,script699](int $int0, component $component1)
+def_int $int2 = 0;
+def_int $int3 = 0;
+if (if_find($component1) = true) {
+    $int2 = cc_getx;
+    if ($int0 < 5) {
+        $int2 = cc_getx;
+        if (~script700($int0) = 0) {
+            $int3 = -57;
+        } else if (~script700($int0) = 1) {
+            $int3 = -68;
+        } else {
+            $int3 = -79;
+        }
+        cc_setposition($int2, $int3, ^setpos_abs_left, ^setpos_abs_centre);
+    } else {
+        $int3 = cc_gety;
+        if (~script700($int0) = 0) {
+            $int2 = -42;
+        } else if (~script700($int0) = 1) {
+            $int2 = -53;
+        } else {
+            $int2 = -64;
+        }
+        cc_setposition($int2, $int3, ^setpos_abs_centre, ^setpos_abs_top);
+    }
+}

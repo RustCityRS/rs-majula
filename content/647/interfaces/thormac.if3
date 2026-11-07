@@ -1,0 +1,374 @@
+// 332:0
+[com_0]
+type=graphic
+x=19
+y=27
+width=476
+height=288
+graphic=tradebacking
+tiling=yes
+colour=0x000000
+
+// 332:1
+[com_1]
+type=graphic
+x=12
+y=20
+width=32
+height=32
+graphic="v2_stone_borders,4"
+colour=0x000000
+
+// 332:2
+[com_2]
+type=graphic
+x=12
+y=37
+width=32
+height=32
+graphic="v2_stone_borders,9"
+colour=0x000000
+
+// 332:3
+[com_3]
+type=graphic
+x=-1
+y=58
+width=32
+height=232
+graphic="v2_stone_borders,1"
+tiling=yes
+colour=0x000000
+
+// 332:4
+[com_4]
+type=graphic
+x=482
+y=58
+width=32
+height=232
+graphic="v2_stone_borders,3"
+tiling=yes
+colour=0x000000
+opbase=  
+
+// 332:5
+[com_5]
+type=graphic
+x=43
+y=7
+width=427
+height=32
+graphic="v2_stone_borders,0"
+tiling=yes
+colour=0x000000
+
+// 332:6
+[com_6]
+type=graphic
+x=44
+y=302
+width=426
+height=32
+graphic="v2_stone_borders,2"
+tiling=yes
+colour=0x000000
+
+// 332:7
+[com_7]
+type=graphic
+x=12
+y=290
+width=32
+height=32
+graphic="v2_stone_borders,6"
+colour=0x000000
+
+// 332:8
+[com_8]
+type=graphic
+x=470
+y=20
+width=32
+height=32
+graphic="v2_stone_borders,5"
+colour=0x000000
+opbase= 
+
+// 332:9
+[com_9]
+type=graphic
+x=470
+y=290
+width=32
+height=32
+graphic="v2_stone_borders,7"
+colour=0x000000
+
+// 332:10
+[com_10]
+type=graphic
+x=23
+y=35
+width=468
+height=32
+graphic="v2_stone_borders,8"
+tiling=yes
+colour=0x000000
+
+// 332:11
+[com_11]
+type=graphic
+x=470
+y=37
+width=32
+height=32
+graphic="v2_stone_borders,10"
+colour=0x000000
+
+// 332:12
+[com_12]
+type=graphic
+x=471
+y=26
+width=26
+height=23
+graphic="close_buttons,0"
+colour=0x000000
+transmitop=1
+op1=Close
+onmouseover=graphic_swapper(event_com, "close_buttons,1")
+onmouseleave=graphic_swapper(event_com, "close_buttons,0")
+onop=closebutton_click
+
+// 332:13
+[com_13]
+type=text
+x=139
+y=120
+width=117
+height=14
+textfont=p12_full
+text=Water Battlestaff
+textalignh=centre
+textalignv=centre
+colour=0x0aaaaaaa
+
+// 332:14
+[com_14]
+type=text
+x=20
+y=120
+width=117
+height=14
+textfont=p12_full
+text=Air Battlestaff
+textalignh=centre
+textalignv=centre
+colour=0xaaaaaa
+
+// 332:15
+[com_15]
+type=text
+x=257
+y=120
+width=114
+height=14
+textfont=p12_full
+text=Earth Battlestaff
+textalignh=centre
+textalignv=centre
+colour=0xaaaaaa
+
+// 332:16
+[com_16]
+type=text
+x=373
+y=120
+width=106
+height=14
+textfont=p12_full
+text=Fire Battlestaff
+textalignh=centre
+textalignv=centre
+colour=0xaaaaaa
+
+// 332:17
+[com_17]
+type=text
+x=71
+y=27
+width=363
+height=20
+textfont=p12_full
+text=What would you like to enchant?
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xff981f
+
+// 332:18
+[com_18]
+type=text
+x=28
+y=200
+width=110
+height=14
+textfont=p12_full
+text=Lava Battlestaff
+textalignh=centre
+textalignv=centre
+colour=0xaaaaaa
+
+// 332:19
+[com_19]
+type=text
+x=146
+y=200
+width=100
+height=14
+textfont=p12_full
+text=Mud Battlestaff
+textalignh=centre
+textalignv=centre
+colour=0xaaaaaa
+
+// 332:20
+[com_20]
+type=text
+x=257
+y=200
+width=100
+height=14
+textfont=p12_full
+text=Steam Battlestaff
+textalignh=centre
+textalignv=centre
+colour=0xaaaaaa
+
+// 332:21
+[com_21]
+type=model
+x=70
+y=72
+width=35
+height=43
+model=model_2810
+modelorigin=-1,3
+modelangle=148,1400,0
+modelzoom=992
+transmitop=1
+op1=Enchant Air Battlestaff
+onmouseleave=deltooltip(thormac:com_29)
+onmouserepeat=addtooltip(event_com, thormac:com_29, "Enchant Air Battlestaff", 25, 150)
+
+// 332:22
+[com_22]
+type=model
+x=180
+y=72
+width=35
+height=43
+model=model_2810
+modelorigin=-1,3
+modelangle=148,1400,0
+modelzoom=992
+transmitop=1
+op1=Enchant Water Battlestaff
+onmouseleave=deltooltip(thormac:com_29)
+onmouserepeat=addtooltip(event_com, thormac:com_29, "Enchant Water Battlestaff", 25, 150)
+
+// 332:23
+[com_23]
+type=model
+x=290
+y=72
+width=35
+height=43
+model=model_2810
+modelorigin=-1,3
+modelangle=148,1400,0
+modelzoom=992
+transmitop=1
+op1=Enchant Earth Battlestaff
+onmouseleave=deltooltip(thormac:com_29)
+onmouserepeat=addtooltip(event_com, thormac:com_29, "Enchant Earth Battlestaff", 25, 150)
+
+// 332:24
+[com_24]
+type=model
+x=400
+y=72
+width=35
+height=43
+model=model_2810
+modelorigin=-1,3
+modelangle=148,1400,0
+modelzoom=992
+transmitop=1
+op1=Enchant Fire Battlestaff
+onmouseleave=deltooltip(thormac:com_29)
+onmouserepeat=addtooltip(event_com, thormac:com_29, "Enchant Fire Battlestaff", 25, 150)
+
+// 332:25
+[com_25]
+type=model
+x=70
+y=152
+width=35
+height=43
+model=model_2810
+modelorigin=-1,3
+modelangle=148,1400,0
+modelzoom=992
+transmitop=1
+op1=Enchant Lava Battlestaff
+onmouseleave=deltooltip(thormac:com_29)
+onmouserepeat=addtooltip(event_com, thormac:com_29, "Enchant Lava Battlestaff", 25, 150)
+
+// 332:26
+[com_26]
+type=model
+x=180
+y=152
+width=35
+height=43
+model=model_2810
+modelorigin=-1,3
+modelangle=148,1400,0
+modelzoom=992
+transmitop=1
+op1=Enchant Mud Battlestaff
+onmouseleave=deltooltip(thormac:com_29)
+onmouserepeat=addtooltip(event_com, thormac:com_29, "Enchant Mud Battlestaff", 25, 150)
+
+// 332:27
+[com_27]
+type=model
+x=290
+y=152
+width=35
+height=43
+model=model_2810
+modelorigin=-1,3
+modelangle=148,1400,0
+modelzoom=992
+transmitop=1
+op1=Enchant Steam Battlestaff
+onmouseleave=deltooltip(thormac:com_29)
+onmouserepeat=addtooltip(event_com, thormac:com_29, "Enchant Steam Battlestaff", 25, 150)
+
+// 332:28
+[com_28]
+type=layer
+width=512
+height=334
+
+// 332:29
+[com_29]
+type=layer
+x=205
+y=223
+width=50
+height=34
+layer=com_28

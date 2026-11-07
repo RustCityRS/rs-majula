@@ -1,0 +1,52 @@
+// 4621
+[proc,script4621](component $component0)
+switch_int (%varplayer_2128) {
+    case 1 :
+        if (%varplayerbit_9261 = 0) {
+            if_setgraphic("aif_checkbox_small,4", $component0);
+        } else {
+            if_setgraphic("aif_checkbox_small,0", $component0);
+        }
+    case 2 :
+        if (%varplayerbit_9262 = 0) {
+            if_setgraphic("aif_checkbox_small,4", $component0);
+        } else {
+            if_setgraphic("aif_checkbox_small,0", $component0);
+        }
+    case 3 :
+        if (%varplayerbit_9263 = 0) {
+            if_setgraphic("aif_checkbox_small,4", $component0);
+        } else {
+            if_setgraphic("aif_checkbox_small,0", $component0);
+        }
+    case 4 :
+        if (%varplayerbit_9264 = 0) {
+            if_setgraphic("aif_checkbox_small,4", $component0);
+        } else {
+            if_setgraphic("aif_checkbox_small,0", $component0);
+        }
+    case 5 :
+        if (%varplayerbit_9265 = 0) {
+            if_setgraphic("aif_checkbox_small,4", $component0);
+        } else {
+            if_setgraphic("aif_checkbox_small,0", $component0);
+        }
+    case 6 :
+        if (%varplayerbit_9266 = 0) {
+            if_setgraphic("aif_checkbox_small,4", $component0);
+        } else {
+            if_setgraphic("aif_checkbox_small,0", $component0);
+        }
+    case 7 :
+        if (%varplayerbit_9267 = 0) {
+            if_setgraphic("aif_checkbox_small,4", $component0);
+        } else {
+            if_setgraphic("aif_checkbox_small,0", $component0);
+        }
+    case 8 :
+        if (%varplayerbit_9268 = 0) {
+            if_setgraphic("aif_checkbox_small,4", $component0);
+        } else {
+            if_setgraphic("aif_checkbox_small,0", $component0);
+        }
+}

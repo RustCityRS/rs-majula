@@ -1,0 +1,49 @@
+// 792:0
+[com_0]
+type=layer
+width=190
+height=261
+
+// 792:1
+[com_1]
+type=rectangle
+width=190
+height=261
+layer=com_0
+colour=0x000000
+fill=yes
+trans=150
+
+// 792:2
+[com_2]
+type=text
+x=7
+y=7
+width=176
+height=32
+layer=com_0
+textfont=b12_full
+text=Game overview
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xb17a37
+
+// 792:3
+[com_3]
+type=layer
+x=7
+y=46
+width=176
+height=208
+layer=com_0
+onload=getmembersside_update(event_com, 32)
+
+// 792:4
+[com_4]
+type=layer
+x=174
+y=46
+width=16
+height=208
+layer=com_0

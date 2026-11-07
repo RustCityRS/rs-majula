@@ -1,26 +1,27 @@
-[clientscript,clan_chat_list_op](int $int0, int $int1, string $string)
+// 4472
+[clientscript,clan_chat_list_op](string $string0, int $int0, int $int1)
 def_int $int2 = -1;
 def_int $int3 = -1;
 def_int $int4 = -1;
 switch_int ($int0) {
-    case 1:
-        ~meslayer_mode6($string);
-    case 5:
-        mes("Attempting to add <$string> to your Friends List.");
-        $string = removetags($string);
-        friend_add($string);
-    case 6:
-        mes("Attempting to add <$string> to your Ignore List.");
-        $string = removetags($string);
-        ignore_add($string);
-    case 7:
-        mes("Attempting to remove <$string> from your Friends List.");
-        $string = removetags($string);
-        friend_del($string);
-    case 8:
-        mes("Attempting to remove <$string> from your Ignore List.");
-        $string = removetags($string);
-        ignore_del($string);
-    case 9:
-        ~clan_chat_kick_find($string);
+    case 1 :
+        ~meslayer_mode6($string0);
+    case 5 :
+        mes("Attempting to add <$string0> to your Friends List.");
+        $string0 = removetags($string0);
+        friend_add($string0);
+    case 6 :
+        mes("Attempting to add <$string0> to your Ignore List.");
+        $string0 = removetags($string0);
+        ignore_add($string0);
+    case 7 :
+        mes("Attempting to remove <$string0> from your Friends List.");
+        $string0 = removetags($string0);
+        friend_del($string0);
+    case 8 :
+        mes("Attempting to remove <$string0> from your Ignore List.");
+        $string0 = removetags($string0);
+        ignore_del($string0);
+    case 9 :
+        ~clan_chat_kick_find($string0);
 }

@@ -1,0 +1,10 @@
+// 2355
+[clientscript,script2355](boolean $boolean0, int $int1)
+%varclient_92 = $boolean0;
+if ($boolean0 = true) {
+    if_setontimer("skillmulti2010_expand($int1)", skillmulti2010_numbers:com_21);
+    ~script2192(0, $int1);
+} else {
+    if_setontimer("skillmulti2010_expand(0)", skillmulti2010_numbers:com_21);
+    ~script2192(1, $int1);
+}

@@ -1,11 +1,12 @@
+// 573
 [proc,objdialog_close]
-cc_deleteall(objdialog:com4);
-if_sethide(false, chatbox:com8);
-if_sethide(true, chatbox:com3);
-if_sethide(true, chatbox:com7);
-if_setonkey(null, objdialog:com9);
-if_sethook1423(null, objdialog:com9);
-if_setontimer(null, objdialog:com9);
+cc_deleteall(objdialog:com_4);
+if_sethide(false, chatbox:com_8);
+if_sethide(true, chatbox:com_3);
+if_sethide(true, chatbox:com_7);
+if_setonkey(null, objdialog:com_9);
+if_setondialogabort(null, objdialog:com_9);
+if_setontimer(null, objdialog:com_9);
 if (getwindowmode >= 2) {
     ~subchanged;
 }

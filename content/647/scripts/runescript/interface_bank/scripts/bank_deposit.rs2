@@ -2,13 +2,13 @@
 // -<last X> (op4), -X (op5), -All (op6), Examine (op10) (clientscript 1540,
 // void-634; 289's ops 1-5 were 1, 5, 10, All, X). void-634 does not let it
 // be dragged; 2011's clientscript 1540 does set its items draggable.
-[if_button1,bank_v2_side:com0] @bank_deposit(last_slot, 1);
-[if_button2,bank_v2_side:com0] @bank_deposit(last_slot, 5);
-[if_button3,bank_v2_side:com0] @bank_deposit(last_slot, 10);
-[if_button4,bank_v2_side:com0] @bank_deposit(last_slot, %last_bank_amount);
-[if_button5,bank_v2_side:com0] @bank_deposit(last_slot, null);
-[if_button6,bank_v2_side:com0] @bank_deposit(last_slot, ^max_32bit_int);
-[if_button10,bank_v2_side:com0] ~inv_examine(last_slot);
+[if_button1,bank_v2_side:com_0] @bank_deposit(last_slot, 1);
+[if_button2,bank_v2_side:com_0] @bank_deposit(last_slot, 5);
+[if_button3,bank_v2_side:com_0] @bank_deposit(last_slot, 10);
+[if_button4,bank_v2_side:com_0] @bank_deposit(last_slot, %last_bank_amount);
+[if_button5,bank_v2_side:com_0] @bank_deposit(last_slot, null);
+[if_button6,bank_v2_side:com_0] @bank_deposit(last_slot, ^max_32bit_int);
+[if_button10,bank_v2_side:com_0] ~inv_examine(last_slot);
 // [inv_button1,bank_side:inv] @bank_deposit(last_slot, 1);
 // [inv_button2,bank_side:inv] @bank_deposit(last_slot, 5);
 // [inv_button3,bank_side:inv] @bank_deposit(last_slot, 10);

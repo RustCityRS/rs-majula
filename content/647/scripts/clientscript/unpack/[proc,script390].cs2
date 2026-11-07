@@ -1,0 +1,86 @@
+// 390
+[proc,script390](boolean $boolean0)
+def_int $int1 = enum_getoutputcount(enum_3281);
+def_component $component2 = null;
+def_int $int3 = calc($int1 - 1);
+while ($int3 >= 0) {
+    $component2 = enum(int, component, enum_3281, $int3);
+    if ($component2 ! null) {
+        if_sethide(true, $component2);
+    }
+    $int3 = calc($int3 - 1);
+}
+cc_deleteall(playerdesign4:com_82);
+def_struct $struct4 = enum(int, struct, enum_3278, calc(%varclient_197 - 1));
+cc_deleteall(playerdesign4:com_71);
+def_string $string0 = "Please choose your character.<br><br>Your choice will not affect your abilities.<br>You can modify features like your hair style and clothing once you have chosen your character.";
+if ($struct4 = null) {
+    $int1 = calc(if_getwidth(playerdesign4:com_82) - 16);
+    $int1, $int3 = parawidth($string0, $int1, p12_full), calc(paraheight($string0, $int1, p12_full) * 20 + 3);
+    if_setsize(calc($int1 + 16), calc($int3 + 50), ^setsize_abs, ^setsize_abs, playerdesign4:com_71);
+    cc_create(playerdesign4:com_71, ^iftype_text, if_getnextsubid(playerdesign4:com_71));
+    cc_setsize($int1, $int3, ^setsize_abs, ^setsize_abs);
+    cc_setposition(0, 22, ^setpos_abs_centre, ^setpos_abs_top);
+    cc_settextfont(verdana_11pt_regular);
+    cc_setcolour(^black);
+    cc_settextshadow(false);
+    cc_settextalign(^settextalign_centre, ^settextalign_centre, 20);
+    cc_settext($string0);
+    if_sethide(false, playerdesign4:com_71);
+    return;
+}
+if_sethide(true, playerdesign4:com_71);
+def_int $int5 = 0;
+$int3 = 0;
+def_struct $struct6 = ~playerdesign4_getoutfit(0, $struct4, $boolean0);
+def_int $int7 = calc(%varclient_86 - 1);
+$component2 = enum(int, component, enum_3281, 0);
+while ($struct6 ! null & $component2 ! null) {
+    if_setsize(98, 17, ^setsize_abs, ^setsize_minus, $component2);
+    if ($int3 = $int7) {
+        $int5 = 1;
+    } else {
+        $int5 = 0;
+    }
+    ~playerdesign4_box($component2, $int7, enum_3281, struct_param($struct6, param_1181), true, 85, 181, 1, "", $int5, "");
+    if_setop(1, "Select outfit", $component2);
+    if_setonop("playerdesign4_outfitbutton(event_op, calc($int3 + 1))", $component2);
+    $int3 = calc($int3 + 1);
+    $struct6 = ~playerdesign4_getoutfit($int3, $struct4, $boolean0);
+    $component2 = enum(int, component, enum_3281, $int3);
+}
+def_int $int8 = $int3;
+if ($int8 <= 1) {
+    if (cc_find(playerdesign4:com_37, calc(if_getnextsubid(playerdesign4:com_37) - 1)) = true) {
+        cc_sethide(false);
+    }
+    if (cc_find(playerdesign4:com_37, calc(if_getnextsubid(playerdesign4:com_37) - 2)) = true) {
+        cc_sethide(true);
+    }
+    if ($int8 <= 0) {
+        return;
+    }
+} else {
+    if (cc_find(playerdesign4:com_37, calc(if_getnextsubid(playerdesign4:com_37) - 1)) = true) {
+        cc_sethide(true);
+    }
+    if (cc_find(playerdesign4:com_37, calc(if_getnextsubid(playerdesign4:com_37) - 2)) = true) {
+        cc_sethide(false);
+    }
+}
+def_int $int9 = min(calc((390 - 98) / max(calc($int8 - 1), 1)), scale(33, 40, 89));
+$int3 = 0;
+while ($int3 < $int8) {
+    $component2 = enum(int, component, enum_3281, $int3);
+    if ($int3 = $int7) {
+        if_setposition(calc($int3 * $int9), 0, ^setpos_abs_left, ^setpos_abs_top, $component2);
+    } else {
+        if_setposition(calc($int3 * $int9), 0, ^setpos_abs_left, ^setpos_abs_bottom, $component2);
+    }
+    if ($int3 <= $int7) {
+        if_sendtofront($component2);
+    } else {
+        if_sendtoback($component2);
+    }
+    $int3 = calc($int3 + 1);
+}

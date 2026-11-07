@@ -1,0 +1,39 @@
+// 502
+[clientscript,script502](component $component0, component $component1)
+if ($component0 = conq_set_formation:com_156 & %varplayerbit_7520 = 0) {
+    return;
+}
+if ($component0 = conq_set_formation:com_157 & %varplayerbit_7521 = 0) {
+    return;
+}
+if ($component0 = conq_set_formation:com_158 & %varplayerbit_7526 = 0) {
+    return;
+}
+if ($component0 = conq_set_formation:com_159 & %varplayerbit_7527 = 0) {
+    return;
+}
+if ($component0 = conq_set_formation:com_160 & %varplayerbit_7530 = 0) {
+    return;
+}
+if ($component0 = conq_set_formation:com_161 & %varplayerbit_7531 = 0) {
+    return;
+}
+if ($component0 = conq_set_formation:com_162 & %varplayerbit_7532 = 0) {
+    return;
+}
+if ($component0 = conq_set_formation:com_163 & %varplayerbit_7533 = 0) {
+    return;
+}
+if ($component0 = conq_set_formation:com_164 & %varplayerbit_7534 = 0) {
+    return;
+}
+if ($component0 = conq_set_formation:com_165 & %varplayerbit_7535 = 0) {
+    return;
+}
+switch_component ($component1) {
+    case default :
+        return;
+    case conq_set_formation:com_166, conq_set_formation:com_167, conq_set_formation:com_168, conq_set_formation:com_169, conq_set_formation:com_170, conq_set_formation:com_171, conq_set_formation:com_172, conq_set_formation:com_173, conq_set_formation:com_174, conq_set_formation:com_175, conq_set_formation:com_176, conq_set_formation:com_177, conq_set_formation:com_178, conq_set_formation:com_179, conq_set_formation:com_180, conq_set_formation:com_181, conq_set_formation:com_182, conq_set_formation:com_183, conq_set_formation:com_184, conq_set_formation:com_185, conq_set_formation:com_186, conq_set_formation:com_187, conq_set_formation:com_188, conq_set_formation:com_189, conq_set_formation:com_190, conq_set_formation:com_191, conq_set_formation:com_192, conq_set_formation:com_193, conq_set_formation:com_194, conq_set_formation:com_195, conq_set_formation:com_196, conq_set_formation:com_197, conq_set_formation:com_198, conq_set_formation:com_199, conq_set_formation:com_200, conq_set_formation:com_201, conq_set_formation:com_202, conq_set_formation:com_203, conq_set_formation:com_204, conq_set_formation:com_205, conq_set_formation:com_206, conq_set_formation:com_207, conq_set_formation:com_208, conq_set_formation:com_209, conq_set_formation:com_210, conq_set_formation:com_211, conq_set_formation:com_212, conq_set_formation:com_213, conq_set_formation:com_214, conq_set_formation:com_215, conq_set_formation:com_216, conq_set_formation:com_217, conq_set_formation:com_218, conq_set_formation:com_219, conq_set_formation:com_220, conq_set_formation:com_221, conq_set_formation:com_222, conq_set_formation:com_223, conq_set_formation:com_224, conq_set_formation:com_225 :
+        if_sethide(true, $component0);
+        %varclient_1387 = 1;
+}

@@ -1,8 +1,0 @@
-[proc,clientscript_2645](component $component)
-if (%varc_int_842 = true) {
-    if_settext("Next page", $component);
-    if_setonop("clientscript_2641()", yk1601935:com20);
-} else if (%varc_int_842 = 2) {
-    if_settext("Previous page", $component);
-    if_setonop("clientscript_2640()", yk1601935:com20);
-}

@@ -1,0 +1,313 @@
+// 3268
+[proc,script3268]
+def_int $int0 = 1;
+def_int $int1 = 18;
+def_int $int2 = 255;
+def_int $int3 = calc(%varclient_1198 + %varclient_1199 + %varclient_1200 + %varclient_1201 + %varclient_1202);
+def_int $int4 = calc($int2 - $int3 * $int1);
+$int4 = min($int4, 105);
+def_int $int5 = 4;
+def_int $int6 = 0;
+def_int $int7 = 0;
+def_int $int8 = 0;
+def_int $int9 = 0;
+$int6, $int7, $int8, $int9 = ~script3269(%varclient_1184, $int5, $int1, $int4);
+switch_int (%varclient_1184) {
+    case 0 :
+        if_setposition($int0, ~script3270(if_gety(rand_dungeon_rewards_v2:com_265), $int5), ^setpos_abs_left, ^setpos_abs_top, rand_dungeon_rewards_v2:com_265);
+        if (%varclient_1198 = 1) {
+            if_sethide(false, rand_dungeon_rewards_v2:com_265);
+            if_setop(1, "Expand", rand_dungeon_rewards_v2:com_265);
+            if_setgraphic("rand_team_icon,0", rand_dungeon_rewards_v2:com_317);
+        } else {
+            if_sethide(true, rand_dungeon_rewards_v2:com_265);
+            if_setop(1, "", rand_dungeon_rewards_v2:com_265);
+        }
+        if_setposition($int0, ~script3270(if_gety(rand_dungeon_rewards_v2:com_266), $int6), ^setpos_abs_left, ^setpos_abs_top, rand_dungeon_rewards_v2:com_266);
+        if (%varclient_1199 = 1) {
+            if_sethide(false, rand_dungeon_rewards_v2:com_266);
+            if_setop(1, "Expand", rand_dungeon_rewards_v2:com_266);
+            if_setgraphic("rand_team_icon,0", rand_dungeon_rewards_v2:com_275);
+        } else {
+            if_sethide(true, rand_dungeon_rewards_v2:com_266);
+            if_sethide(true, rand_dungeon_rewards_v2:com_316);
+            if_setop(1, "", rand_dungeon_rewards_v2:com_266);
+        }
+        if_setposition($int0, ~script3270(if_gety(rand_dungeon_rewards_v2:com_276), $int7), ^setpos_abs_left, ^setpos_abs_top, rand_dungeon_rewards_v2:com_276);
+        if (%varclient_1200 = 1) {
+            if_sethide(false, rand_dungeon_rewards_v2:com_276);
+            if_setop(1, "Expand", rand_dungeon_rewards_v2:com_276);
+            if_setgraphic("rand_team_icon,0", rand_dungeon_rewards_v2:com_285);
+        } else {
+            if_sethide(true, rand_dungeon_rewards_v2:com_276);
+            if_sethide(true, rand_dungeon_rewards_v2:com_274);
+            if_setop(1, "", rand_dungeon_rewards_v2:com_276);
+        }
+        if_setposition($int0, ~script3270(if_gety(rand_dungeon_rewards_v2:com_286), $int8), ^setpos_abs_left, ^setpos_abs_top, rand_dungeon_rewards_v2:com_286);
+        if (%varclient_1201 = 1) {
+            if_sethide(false, rand_dungeon_rewards_v2:com_286);
+            if_setop(1, "Expand", rand_dungeon_rewards_v2:com_286);
+            if_setgraphic("rand_team_icon,0", rand_dungeon_rewards_v2:com_295);
+        } else {
+            if_sethide(true, rand_dungeon_rewards_v2:com_286);
+            if_sethide(true, rand_dungeon_rewards_v2:com_284);
+            if_setop(1, "", rand_dungeon_rewards_v2:com_286);
+        }
+        if_setposition($int0, ~script3270(if_gety(rand_dungeon_rewards_v2:com_296), $int9), ^setpos_abs_left, ^setpos_abs_top, rand_dungeon_rewards_v2:com_296);
+        if (%varclient_1202 = 1) {
+            if_sethide(false, rand_dungeon_rewards_v2:com_296);
+            if_setop(1, "Expand", rand_dungeon_rewards_v2:com_296);
+            if_setgraphic("rand_team_icon,0", rand_dungeon_rewards_v2:com_308);
+        } else {
+            if_sethide(true, rand_dungeon_rewards_v2:com_296);
+            if_sethide(true, rand_dungeon_rewards_v2:com_294);
+            if_setop(1, "", rand_dungeon_rewards_v2:com_296);
+        }
+        if_setsize(16384, ~script3270(if_getheight(rand_dungeon_rewards_v2:com_265), calc(if_gety(rand_dungeon_rewards_v2:com_266) - if_gety(rand_dungeon_rewards_v2:com_265) - 5)), ^setsize_rel, ^setsize_abs, rand_dungeon_rewards_v2:com_265);
+        if_setsize(16384, ~script3270(if_getheight(rand_dungeon_rewards_v2:com_266), calc(if_gety(rand_dungeon_rewards_v2:com_276) - if_gety(rand_dungeon_rewards_v2:com_266) - 5)), ^setsize_rel, ^setsize_abs, rand_dungeon_rewards_v2:com_266);
+        if_setsize(16384, ~script3270(if_getheight(rand_dungeon_rewards_v2:com_276), calc(if_gety(rand_dungeon_rewards_v2:com_286) - if_gety(rand_dungeon_rewards_v2:com_276) - 5)), ^setsize_rel, ^setsize_abs, rand_dungeon_rewards_v2:com_276);
+        if_setsize(16384, ~script3270(if_getheight(rand_dungeon_rewards_v2:com_286), calc(if_gety(rand_dungeon_rewards_v2:com_296) - if_gety(rand_dungeon_rewards_v2:com_286) - 5)), ^setsize_rel, ^setsize_abs, rand_dungeon_rewards_v2:com_286);
+        if_setsize(16384, ~script3270(if_getheight(rand_dungeon_rewards_v2:com_296), calc($int2 - if_gety(rand_dungeon_rewards_v2:com_296) - 5)), ^setsize_rel, ^setsize_abs, rand_dungeon_rewards_v2:com_296);
+    case 1 :
+        if_setposition($int0, ~script3270(if_gety(rand_dungeon_rewards_v2:com_265), $int5), ^setpos_abs_left, ^setpos_abs_top, rand_dungeon_rewards_v2:com_265);
+        if_setop(1, "Shrink", rand_dungeon_rewards_v2:com_265);
+        if_setgraphic("rand_team_icon,1", rand_dungeon_rewards_v2:com_317);
+        if_setposition($int0, ~script3270(if_gety(rand_dungeon_rewards_v2:com_266), $int6), ^setpos_abs_left, ^setpos_abs_top, rand_dungeon_rewards_v2:com_266);
+        if (%varclient_1199 = 1) {
+            if_sethide(false, rand_dungeon_rewards_v2:com_266);
+            if_setop(1, "Expand", rand_dungeon_rewards_v2:com_266);
+            if_setgraphic("rand_team_icon,0", rand_dungeon_rewards_v2:com_275);
+        } else {
+            if_sethide(true, rand_dungeon_rewards_v2:com_266);
+            if_sethide(true, rand_dungeon_rewards_v2:com_316);
+            if_setop(1, "", rand_dungeon_rewards_v2:com_266);
+        }
+        if_setposition($int0, ~script3270(if_gety(rand_dungeon_rewards_v2:com_276), $int7), ^setpos_abs_left, ^setpos_abs_top, rand_dungeon_rewards_v2:com_276);
+        if (%varclient_1200 = 1) {
+            if_sethide(false, rand_dungeon_rewards_v2:com_276);
+            if_setop(1, "Expand", rand_dungeon_rewards_v2:com_276);
+            if_setgraphic("rand_team_icon,0", rand_dungeon_rewards_v2:com_285);
+        } else {
+            if_sethide(true, rand_dungeon_rewards_v2:com_276);
+            if_sethide(true, rand_dungeon_rewards_v2:com_274);
+            if_setop(1, "", rand_dungeon_rewards_v2:com_276);
+        }
+        if_setposition($int0, ~script3270(if_gety(rand_dungeon_rewards_v2:com_286), $int8), ^setpos_abs_left, ^setpos_abs_top, rand_dungeon_rewards_v2:com_286);
+        if (%varclient_1201 = 1) {
+            if_sethide(false, rand_dungeon_rewards_v2:com_286);
+            if_setop(1, "Expand", rand_dungeon_rewards_v2:com_286);
+            if_setgraphic("rand_team_icon,0", rand_dungeon_rewards_v2:com_295);
+        } else {
+            if_sethide(true, rand_dungeon_rewards_v2:com_286);
+            if_sethide(true, rand_dungeon_rewards_v2:com_284);
+            if_setop(1, "", rand_dungeon_rewards_v2:com_286);
+        }
+        if_setposition($int0, ~script3270(if_gety(rand_dungeon_rewards_v2:com_296), $int9), ^setpos_abs_left, ^setpos_abs_top, rand_dungeon_rewards_v2:com_296);
+        if (%varclient_1202 = 1) {
+            if_sethide(false, rand_dungeon_rewards_v2:com_296);
+            if_setop(1, "Expand", rand_dungeon_rewards_v2:com_296);
+            if_setgraphic("rand_team_icon,0", rand_dungeon_rewards_v2:com_308);
+        } else {
+            if_sethide(true, rand_dungeon_rewards_v2:com_296);
+            if_sethide(true, rand_dungeon_rewards_v2:com_294);
+            if_setop(1, "", rand_dungeon_rewards_v2:com_296);
+        }
+        if_setsize(16384, ~script3270(if_getheight(rand_dungeon_rewards_v2:com_265), calc(if_gety(rand_dungeon_rewards_v2:com_266) - if_gety(rand_dungeon_rewards_v2:com_265) - 2)), ^setsize_rel, ^setsize_abs, rand_dungeon_rewards_v2:com_265);
+        if_setsize(16384, ~script3270(if_getheight(rand_dungeon_rewards_v2:com_266), calc(if_gety(rand_dungeon_rewards_v2:com_276) - if_gety(rand_dungeon_rewards_v2:com_266) - 2)), ^setsize_rel, ^setsize_abs, rand_dungeon_rewards_v2:com_266);
+        if_setsize(16384, ~script3270(if_getheight(rand_dungeon_rewards_v2:com_276), calc(if_gety(rand_dungeon_rewards_v2:com_286) - if_gety(rand_dungeon_rewards_v2:com_276) - 2)), ^setsize_rel, ^setsize_abs, rand_dungeon_rewards_v2:com_276);
+        if_setsize(16384, ~script3270(if_getheight(rand_dungeon_rewards_v2:com_286), calc(if_gety(rand_dungeon_rewards_v2:com_296) - if_gety(rand_dungeon_rewards_v2:com_286) - 2)), ^setsize_rel, ^setsize_abs, rand_dungeon_rewards_v2:com_286);
+        if_setsize(16384, ~script3270(if_getheight(rand_dungeon_rewards_v2:com_296), calc($int2 - if_gety(rand_dungeon_rewards_v2:com_296) - 2)), ^setsize_rel, ^setsize_abs, rand_dungeon_rewards_v2:com_296);
+    case 2 :
+        if_setposition($int0, ~script3270(if_gety(rand_dungeon_rewards_v2:com_265), $int5), ^setpos_abs_left, ^setpos_abs_top, rand_dungeon_rewards_v2:com_265);
+        if (%varclient_1198 = 1) {
+            if_sethide(false, rand_dungeon_rewards_v2:com_265);
+            if_setop(1, "Expand", rand_dungeon_rewards_v2:com_265);
+            if_setgraphic("rand_team_icon,0", rand_dungeon_rewards_v2:com_317);
+        } else {
+            if_sethide(true, rand_dungeon_rewards_v2:com_265);
+            if_setop(1, "", rand_dungeon_rewards_v2:com_265);
+        }
+        if_setposition($int0, ~script3270(if_gety(rand_dungeon_rewards_v2:com_266), $int6), ^setpos_abs_left, ^setpos_abs_top, rand_dungeon_rewards_v2:com_266);
+        if_setop(1, "Shrink", rand_dungeon_rewards_v2:com_266);
+        if_setgraphic("rand_team_icon,1", rand_dungeon_rewards_v2:com_275);
+        if_setposition($int0, ~script3270(if_gety(rand_dungeon_rewards_v2:com_276), $int7), ^setpos_abs_left, ^setpos_abs_top, rand_dungeon_rewards_v2:com_276);
+        if (%varclient_1200 = 1) {
+            if_sethide(false, rand_dungeon_rewards_v2:com_276);
+            if_setop(1, "Expand", rand_dungeon_rewards_v2:com_276);
+            if_setgraphic("rand_team_icon,0", rand_dungeon_rewards_v2:com_285);
+        } else {
+            if_sethide(true, rand_dungeon_rewards_v2:com_276);
+            if_sethide(true, rand_dungeon_rewards_v2:com_274);
+            if_setop(1, "", rand_dungeon_rewards_v2:com_276);
+        }
+        if_setposition($int0, ~script3270(if_gety(rand_dungeon_rewards_v2:com_286), $int8), ^setpos_abs_left, ^setpos_abs_top, rand_dungeon_rewards_v2:com_286);
+        if (%varclient_1201 = 1) {
+            if_sethide(false, rand_dungeon_rewards_v2:com_286);
+            if_setop(1, "Expand", rand_dungeon_rewards_v2:com_286);
+            if_setgraphic("rand_team_icon,0", rand_dungeon_rewards_v2:com_295);
+        } else {
+            if_sethide(true, rand_dungeon_rewards_v2:com_286);
+            if_sethide(true, rand_dungeon_rewards_v2:com_284);
+            if_setop(1, "", rand_dungeon_rewards_v2:com_286);
+        }
+        if_setposition($int0, ~script3270(if_gety(rand_dungeon_rewards_v2:com_296), $int9), ^setpos_abs_left, ^setpos_abs_top, rand_dungeon_rewards_v2:com_296);
+        if (%varclient_1202 = 1) {
+            if_sethide(false, rand_dungeon_rewards_v2:com_296);
+            if_setop(1, "Expand", rand_dungeon_rewards_v2:com_296);
+            if_setgraphic("rand_team_icon,0", rand_dungeon_rewards_v2:com_308);
+        } else {
+            if_sethide(true, rand_dungeon_rewards_v2:com_296);
+            if_sethide(true, rand_dungeon_rewards_v2:com_294);
+            if_setop(1, "", rand_dungeon_rewards_v2:com_296);
+        }
+        if_setsize(16384, ~script3270(if_getheight(rand_dungeon_rewards_v2:com_265), calc(if_gety(rand_dungeon_rewards_v2:com_266) - if_gety(rand_dungeon_rewards_v2:com_265) - 2)), ^setsize_rel, ^setsize_abs, rand_dungeon_rewards_v2:com_265);
+        if_setsize(16384, ~script3270(if_getheight(rand_dungeon_rewards_v2:com_266), calc(if_gety(rand_dungeon_rewards_v2:com_276) - if_gety(rand_dungeon_rewards_v2:com_266) - 2)), ^setsize_rel, ^setsize_abs, rand_dungeon_rewards_v2:com_266);
+        if_setsize(16384, ~script3270(if_getheight(rand_dungeon_rewards_v2:com_276), calc(if_gety(rand_dungeon_rewards_v2:com_286) - if_gety(rand_dungeon_rewards_v2:com_276) - 2)), ^setsize_rel, ^setsize_abs, rand_dungeon_rewards_v2:com_276);
+        if_setsize(16384, ~script3270(if_getheight(rand_dungeon_rewards_v2:com_286), calc(if_gety(rand_dungeon_rewards_v2:com_296) - if_gety(rand_dungeon_rewards_v2:com_286) - 2)), ^setsize_rel, ^setsize_abs, rand_dungeon_rewards_v2:com_286);
+        if_setsize(16384, ~script3270(if_getheight(rand_dungeon_rewards_v2:com_296), calc($int2 - if_gety(rand_dungeon_rewards_v2:com_296) - 2)), ^setsize_rel, ^setsize_abs, rand_dungeon_rewards_v2:com_296);
+    case 3 :
+        if_setposition($int0, ~script3270(if_gety(rand_dungeon_rewards_v2:com_265), $int5), ^setpos_abs_left, ^setpos_abs_top, rand_dungeon_rewards_v2:com_265);
+        if (%varclient_1198 = 1) {
+            if_sethide(false, rand_dungeon_rewards_v2:com_265);
+            if_setop(1, "Expand", rand_dungeon_rewards_v2:com_265);
+            if_setgraphic("rand_team_icon,0", rand_dungeon_rewards_v2:com_317);
+        } else {
+            if_sethide(true, rand_dungeon_rewards_v2:com_265);
+            if_setop(1, "", rand_dungeon_rewards_v2:com_265);
+        }
+        if_setposition($int0, ~script3270(if_gety(rand_dungeon_rewards_v2:com_266), $int6), ^setpos_abs_left, ^setpos_abs_top, rand_dungeon_rewards_v2:com_266);
+        if (%varclient_1199 = 1) {
+            if_sethide(false, rand_dungeon_rewards_v2:com_266);
+            if_setop(1, "Expand", rand_dungeon_rewards_v2:com_266);
+            if_setgraphic("rand_team_icon,0", rand_dungeon_rewards_v2:com_275);
+        } else {
+            if_sethide(true, rand_dungeon_rewards_v2:com_266);
+            if_sethide(true, rand_dungeon_rewards_v2:com_316);
+            if_setop(1, "", rand_dungeon_rewards_v2:com_266);
+        }
+        if_setposition($int0, ~script3270(if_gety(rand_dungeon_rewards_v2:com_276), $int7), ^setpos_abs_left, ^setpos_abs_top, rand_dungeon_rewards_v2:com_276);
+        if_setop(1, "Shrink", rand_dungeon_rewards_v2:com_276);
+        if_setgraphic("rand_team_icon,1", rand_dungeon_rewards_v2:com_285);
+        if_setposition($int0, ~script3270(if_gety(rand_dungeon_rewards_v2:com_286), $int8), ^setpos_abs_left, ^setpos_abs_top, rand_dungeon_rewards_v2:com_286);
+        if (%varclient_1201 = 1) {
+            if_sethide(false, rand_dungeon_rewards_v2:com_286);
+            if_setop(1, "Expand", rand_dungeon_rewards_v2:com_286);
+            if_setgraphic("rand_team_icon,0", rand_dungeon_rewards_v2:com_295);
+        } else {
+            if_sethide(true, rand_dungeon_rewards_v2:com_286);
+            if_sethide(true, rand_dungeon_rewards_v2:com_284);
+            if_setop(1, "", rand_dungeon_rewards_v2:com_286);
+        }
+        if_setposition($int0, ~script3270(if_gety(rand_dungeon_rewards_v2:com_296), $int9), ^setpos_abs_left, ^setpos_abs_top, rand_dungeon_rewards_v2:com_296);
+        if (%varclient_1202 = 1) {
+            if_sethide(false, rand_dungeon_rewards_v2:com_296);
+            if_setop(1, "Expand", rand_dungeon_rewards_v2:com_296);
+            if_setgraphic("rand_team_icon,0", rand_dungeon_rewards_v2:com_308);
+        } else {
+            if_sethide(true, rand_dungeon_rewards_v2:com_296);
+            if_sethide(true, rand_dungeon_rewards_v2:com_294);
+            if_setop(1, "", rand_dungeon_rewards_v2:com_296);
+        }
+        if_setsize(16384, ~script3270(if_getheight(rand_dungeon_rewards_v2:com_265), calc(if_gety(rand_dungeon_rewards_v2:com_266) - if_gety(rand_dungeon_rewards_v2:com_265) - 2)), ^setsize_rel, ^setsize_abs, rand_dungeon_rewards_v2:com_265);
+        if_setsize(16384, ~script3270(if_getheight(rand_dungeon_rewards_v2:com_266), calc(if_gety(rand_dungeon_rewards_v2:com_276) - if_gety(rand_dungeon_rewards_v2:com_266) - 2)), ^setsize_rel, ^setsize_abs, rand_dungeon_rewards_v2:com_266);
+        if_setsize(16384, ~script3270(if_getheight(rand_dungeon_rewards_v2:com_276), calc(if_gety(rand_dungeon_rewards_v2:com_286) - if_gety(rand_dungeon_rewards_v2:com_276) - 2)), ^setsize_rel, ^setsize_abs, rand_dungeon_rewards_v2:com_276);
+        if_setsize(16384, ~script3270(if_getheight(rand_dungeon_rewards_v2:com_286), calc(if_gety(rand_dungeon_rewards_v2:com_296) - if_gety(rand_dungeon_rewards_v2:com_286) - 2)), ^setsize_rel, ^setsize_abs, rand_dungeon_rewards_v2:com_286);
+        if_setsize(16384, ~script3270(if_getheight(rand_dungeon_rewards_v2:com_296), calc($int2 - if_gety(rand_dungeon_rewards_v2:com_296) - 2)), ^setsize_rel, ^setsize_abs, rand_dungeon_rewards_v2:com_296);
+    case 4 :
+        if_setposition($int0, ~script3270(if_gety(rand_dungeon_rewards_v2:com_265), $int5), ^setpos_abs_left, ^setpos_abs_top, rand_dungeon_rewards_v2:com_265);
+        if (%varclient_1198 = 1) {
+            if_sethide(false, rand_dungeon_rewards_v2:com_265);
+            if_setop(1, "Expand", rand_dungeon_rewards_v2:com_265);
+            if_setgraphic("rand_team_icon,0", rand_dungeon_rewards_v2:com_317);
+        } else {
+            if_sethide(true, rand_dungeon_rewards_v2:com_265);
+            if_setop(1, "", rand_dungeon_rewards_v2:com_265);
+        }
+        if_setposition($int0, ~script3270(if_gety(rand_dungeon_rewards_v2:com_266), $int6), ^setpos_abs_left, ^setpos_abs_top, rand_dungeon_rewards_v2:com_266);
+        if (%varclient_1199 = 1) {
+            if_sethide(false, rand_dungeon_rewards_v2:com_266);
+            if_setop(1, "Expand", rand_dungeon_rewards_v2:com_266);
+            if_setgraphic("rand_team_icon,0", rand_dungeon_rewards_v2:com_275);
+        } else {
+            if_sethide(true, rand_dungeon_rewards_v2:com_266);
+            if_sethide(true, rand_dungeon_rewards_v2:com_316);
+            if_setop(1, "", rand_dungeon_rewards_v2:com_266);
+        }
+        if_setposition($int0, ~script3270(if_gety(rand_dungeon_rewards_v2:com_276), $int7), ^setpos_abs_left, ^setpos_abs_top, rand_dungeon_rewards_v2:com_276);
+        if (%varclient_1200 = 1) {
+            if_sethide(false, rand_dungeon_rewards_v2:com_276);
+            if_setop(1, "Expand", rand_dungeon_rewards_v2:com_276);
+            if_setgraphic("rand_team_icon,0", rand_dungeon_rewards_v2:com_285);
+        } else {
+            if_sethide(true, rand_dungeon_rewards_v2:com_276);
+            if_sethide(true, rand_dungeon_rewards_v2:com_274);
+            if_setop(1, "", rand_dungeon_rewards_v2:com_276);
+        }
+        if_setposition($int0, ~script3270(if_gety(rand_dungeon_rewards_v2:com_286), $int8), ^setpos_abs_left, ^setpos_abs_top, rand_dungeon_rewards_v2:com_286);
+        if_setop(1, "Shrink", rand_dungeon_rewards_v2:com_286);
+        if_setgraphic("rand_team_icon,1", rand_dungeon_rewards_v2:com_295);
+        if_setposition($int0, ~script3270(if_gety(rand_dungeon_rewards_v2:com_296), $int9), ^setpos_abs_left, ^setpos_abs_top, rand_dungeon_rewards_v2:com_296);
+        if (%varclient_1202 = 1) {
+            if_sethide(false, rand_dungeon_rewards_v2:com_296);
+            if_setop(1, "Expand", rand_dungeon_rewards_v2:com_296);
+            if_setgraphic("rand_team_icon,0", rand_dungeon_rewards_v2:com_308);
+        } else {
+            if_sethide(true, rand_dungeon_rewards_v2:com_296);
+            if_sethide(true, rand_dungeon_rewards_v2:com_294);
+            if_setop(1, "", rand_dungeon_rewards_v2:com_296);
+        }
+        if_setsize(16384, ~script3270(if_getheight(rand_dungeon_rewards_v2:com_265), calc(if_gety(rand_dungeon_rewards_v2:com_266) - if_gety(rand_dungeon_rewards_v2:com_265) - 2)), ^setsize_rel, ^setsize_abs, rand_dungeon_rewards_v2:com_265);
+        if_setsize(16384, ~script3270(if_getheight(rand_dungeon_rewards_v2:com_266), calc(if_gety(rand_dungeon_rewards_v2:com_276) - if_gety(rand_dungeon_rewards_v2:com_266) - 2)), ^setsize_rel, ^setsize_abs, rand_dungeon_rewards_v2:com_266);
+        if_setsize(16384, ~script3270(if_getheight(rand_dungeon_rewards_v2:com_276), calc(if_gety(rand_dungeon_rewards_v2:com_286) - if_gety(rand_dungeon_rewards_v2:com_276) - 2)), ^setsize_rel, ^setsize_abs, rand_dungeon_rewards_v2:com_276);
+        if_setsize(16384, ~script3270(if_getheight(rand_dungeon_rewards_v2:com_286), calc(if_gety(rand_dungeon_rewards_v2:com_296) - if_gety(rand_dungeon_rewards_v2:com_286) - 2)), ^setsize_rel, ^setsize_abs, rand_dungeon_rewards_v2:com_286);
+        if_setsize(16384, ~script3270(if_getheight(rand_dungeon_rewards_v2:com_296), calc($int2 - if_gety(rand_dungeon_rewards_v2:com_296) - 2)), ^setsize_rel, ^setsize_abs, rand_dungeon_rewards_v2:com_296);
+    case 5 :
+        if_setposition($int0, ~script3270(if_gety(rand_dungeon_rewards_v2:com_265), $int5), ^setpos_abs_left, ^setpos_abs_top, rand_dungeon_rewards_v2:com_265);
+        if (%varclient_1198 = 1) {
+            if_sethide(false, rand_dungeon_rewards_v2:com_265);
+            if_setop(1, "Expand", rand_dungeon_rewards_v2:com_265);
+            if_setgraphic("rand_team_icon,0", rand_dungeon_rewards_v2:com_317);
+        } else {
+            if_sethide(true, rand_dungeon_rewards_v2:com_265);
+            if_setop(1, "", rand_dungeon_rewards_v2:com_265);
+        }
+        if_setposition($int0, ~script3270(if_gety(rand_dungeon_rewards_v2:com_266), $int6), ^setpos_abs_left, ^setpos_abs_top, rand_dungeon_rewards_v2:com_266);
+        if (%varclient_1199 = 1) {
+            if_sethide(false, rand_dungeon_rewards_v2:com_266);
+            if_setop(1, "Expand", rand_dungeon_rewards_v2:com_266);
+            if_setgraphic("rand_team_icon,0", rand_dungeon_rewards_v2:com_275);
+        } else {
+            if_sethide(true, rand_dungeon_rewards_v2:com_266);
+            if_sethide(true, rand_dungeon_rewards_v2:com_316);
+            if_setop(1, "", rand_dungeon_rewards_v2:com_266);
+        }
+        if_setposition($int0, ~script3270(if_gety(rand_dungeon_rewards_v2:com_276), $int7), ^setpos_abs_left, ^setpos_abs_top, rand_dungeon_rewards_v2:com_276);
+        if (%varclient_1200 = 1) {
+            if_sethide(false, rand_dungeon_rewards_v2:com_276);
+            if_setop(1, "Expand", rand_dungeon_rewards_v2:com_276);
+            if_setgraphic("rand_team_icon,0", rand_dungeon_rewards_v2:com_285);
+        } else {
+            if_sethide(true, rand_dungeon_rewards_v2:com_276);
+            if_sethide(true, rand_dungeon_rewards_v2:com_274);
+            if_setop(1, "", rand_dungeon_rewards_v2:com_276);
+        }
+        if_setposition($int0, ~script3270(if_gety(rand_dungeon_rewards_v2:com_286), $int8), ^setpos_abs_left, ^setpos_abs_top, rand_dungeon_rewards_v2:com_286);
+        if (%varclient_1201 = 1) {
+            if_sethide(false, rand_dungeon_rewards_v2:com_286);
+            if_setop(1, "Expand", rand_dungeon_rewards_v2:com_286);
+            if_setgraphic("rand_team_icon,0", rand_dungeon_rewards_v2:com_295);
+        } else {
+            if_sethide(true, rand_dungeon_rewards_v2:com_286);
+            if_sethide(true, rand_dungeon_rewards_v2:com_284);
+            if_setop(1, "", rand_dungeon_rewards_v2:com_286);
+        }
+        if_setposition($int0, ~script3270(if_gety(rand_dungeon_rewards_v2:com_296), $int9), ^setpos_abs_left, ^setpos_abs_top, rand_dungeon_rewards_v2:com_296);
+        if_setop(1, "Shrink", rand_dungeon_rewards_v2:com_296);
+        if_setgraphic("rand_team_icon,1", rand_dungeon_rewards_v2:com_308);
+        if_setsize(16384, ~script3270(if_getheight(rand_dungeon_rewards_v2:com_265), calc(if_gety(rand_dungeon_rewards_v2:com_266) - if_gety(rand_dungeon_rewards_v2:com_265) - 2)), ^setsize_rel, ^setsize_abs, rand_dungeon_rewards_v2:com_265);
+        if_setsize(16384, ~script3270(if_getheight(rand_dungeon_rewards_v2:com_266), calc(if_gety(rand_dungeon_rewards_v2:com_276) - if_gety(rand_dungeon_rewards_v2:com_266) - 2)), ^setsize_rel, ^setsize_abs, rand_dungeon_rewards_v2:com_266);
+        if_setsize(16384, ~script3270(if_getheight(rand_dungeon_rewards_v2:com_276), calc(if_gety(rand_dungeon_rewards_v2:com_286) - if_gety(rand_dungeon_rewards_v2:com_276) - 2)), ^setsize_rel, ^setsize_abs, rand_dungeon_rewards_v2:com_276);
+        if_setsize(16384, ~script3270(if_getheight(rand_dungeon_rewards_v2:com_286), calc(if_gety(rand_dungeon_rewards_v2:com_296) - if_gety(rand_dungeon_rewards_v2:com_286) - 2)), ^setsize_rel, ^setsize_abs, rand_dungeon_rewards_v2:com_286);
+        if_setsize(16384, ~script3270(if_getheight(rand_dungeon_rewards_v2:com_296), calc($int2 - if_gety(rand_dungeon_rewards_v2:com_296) - 2)), ^setsize_rel, ^setsize_abs, rand_dungeon_rewards_v2:com_296);
+}
+~script3271;

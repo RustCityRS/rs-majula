@@ -1,0 +1,5 @@
+// 4339
+[clientscript,script4339](int $int0, component $component1, component $component2)
+if (activeclansettings_find_listened = true) {
+    ~script4340($int0, %varclansetting_0, $component1, $component2);
+}

@@ -1,26 +1,27 @@
+// 3207
 [clientscript,lobbyscreen_report_abuse_ignore_choose](int $int0)
 ~lobbyscreen_report_abuse_ignore_close;
 def_int $int1 = 0;
-if (if_gethide(enum(105, 73, enum_941, 5)) = false) {
+if (if_gethide(enum(int, component, enum_941, 5)) = false) {
     $int1 = 1;
 }
-if ($int0 = true & string_length(%varc_string_279) > 0) {
-    if (friend_test(%varc_string_279) = true) {
-        if ($int1 = false) {
-            tutorial_openchat(26, 0, "Sorry, you cannot ignore players in your Friends List.");
+if ($int0 = 1 & string_length(%varclient_1798) > 0) {
+    if (friend_test(%varclient_1798) = true) {
+        if ($int1 = 0) {
+            mes_typed(^chattype_snapshotfeedback, 0, "Sorry, you cannot ignore players in your Friends List.");
         } else {
-            tutorial_openchat(26, 0, "Sorry, you cannot ignore players in your Friends List.");
+            mes_typed(^chattype_snapshotfeedback, 0, "Sorry, you cannot ignore players in your Friends List.");
         }
     } else {
-        clan_getminkick(%varc_string_279);
-        if ($int1 = false) {
-            tutorial_openchat(26, 0, "You are ignoring <%varc_string_279> until you log out.");
+        ignore_add_temp(%varclient_1798);
+        if ($int1 = 0) {
+            mes_typed(^chattype_snapshotfeedback, 0, "You are ignoring <%varclient_1798> until you log out.");
         } else {
-            tutorial_openchat(26, 0, "You are ignoring <%varc_string_279> until you log out.");
+            mes_typed(^chattype_snapshotfeedback, 0, "You are ignoring <%varclient_1798> until you log out.");
         }
     }
 }
-if (%varc_int_1094 = true) {
+if (%varclient_1094 = 1) {
     ~lobbyscreen_input("", "Open a bug report form?<br>(opens a new window)", 6, "", "");
-    %varc_int_1094 = 0;
+    %varclient_1094 = 0;
 }

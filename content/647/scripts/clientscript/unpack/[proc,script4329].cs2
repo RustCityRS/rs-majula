@@ -1,0 +1,12 @@
+// 4329
+[proc,script4329](component $component0)
+if (%varclansetting_2 ! null) {
+    if_settext(clanforumqfc_tostring(%varclansetting_2), $component0);
+    if_setonmouseover("text_colour_swapper($component0, ^blue)", $component0);
+    if_setonmouseleave("text_colour_swapper($component0, 0xeae1c2)", $component0);
+    if_setmouseovercursor(cursor_175, $component0);
+    if_setonclick("script4330(%varclansetting_2)", $component0);
+    if_setopbase("Visit Clan Forum", $component0);
+} else {
+    if_settext("", $component0);
+}

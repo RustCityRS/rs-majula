@@ -1,0 +1,56 @@
+// 4176
+[proc,script4176](boolean $boolean0, int $int1)(int)
+if ($boolean0 = true) {
+    switch_int ($int1) {
+        case 0 :
+            return(%varclient_1465);
+        case 1 :
+            return(%varclient_1466);
+        case 2 :
+            return(%varclient_1467);
+        case 3 :
+            return(%varclient_740);
+        case 4 :
+            return(%varclient_745);
+        case 5 :
+            return(%varclient_780);
+        case 7 :
+            return(%varclient_781);
+        case 9 :
+            return(%varclient_782);
+        case 10 :
+            return(%varclient_789);
+        case 12 :
+            return(%varclient_1409);
+        case 13 :
+            return(%varclient_1410);
+    }
+} else {
+    switch_int ($int1) {
+        case 0 :
+            return(%varclient_1453);
+        case 1 :
+            return(%varclient_1454);
+        case 4 :
+            return(%varclient_1455);
+        case 5 :
+            return(%varclient_1456);
+        case 6 :
+            return(%varclient_1457);
+        case 7 :
+            return(%varclient_1458);
+        case 8 :
+            return(%varclient_1459);
+        case 9 :
+            return(%varclient_1460);
+        case 10 :
+            return(%varclient_1461);
+        case 12 :
+            return(%varclient_1462);
+        case 13 :
+            return(%varclient_1463);
+        case 28 :
+            return(%varclient_1464);
+    }
+}
+return(-1);

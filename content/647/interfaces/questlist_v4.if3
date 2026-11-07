@@ -1,0 +1,346 @@
+// 190:0
+[com_0]
+type=layer
+width=16391
+height=16384
+widthmode=proportion
+heightmode=proportion
+opbase=  
+onload=ql4_init
+onvartransmit=ql4_refresh{varplayer_1402}
+onstattransmit=ql4_refresh
+onvarctransmit=ql4_refresh{varclient_695}
+
+// 190:1
+[com_1]
+type=text
+x=5
+y=5
+width=170
+height=14
+layer=com_0
+textfont=b12_full
+text=Quests
+textshadow=yes
+colour=0xeb981f
+transmitop=10
+op10= 
+
+// 190:2
+[com_2]
+type=text
+x=4
+y=251
+width=8
+height=14
+widthmode=minus
+layer=com_0
+textfont=p11_full
+text=Quest Points: 0
+textshadow=yes
+colour=0xeb981f
+transmitop=10
+op10= 
+onvartransmit=script2166{qp, quest_points_total}
+
+// 190:3
+[com_3]
+type=graphic
+y=9
+width=190
+height=32
+layer=com_0
+graphic="v2_stone_borders,23"
+tiling=yes
+colour=0xffffffff
+transmitop=10
+op10=  
+
+// 190:4
+[com_4]
+type=graphic
+y=45
+height=32
+widthmode=minus
+layer=com_0
+graphic="v2_stone_borders,23"
+tiling=yes
+colour=0xffffffff
+transmitop=10
+op10=  
+
+// 190:5
+[com_5]
+type=graphic
+y=61
+height=32
+widthmode=minus
+layer=com_0
+graphic="v2_stone_borders,23"
+tiling=yes
+colour=0xffffffff
+transmitop=10
+op10=   
+
+// 190:6
+[com_6]
+type=graphic
+y=236
+width=190
+height=32
+layer=com_0
+graphic="v2_stone_borders,23"
+tiling=yes
+colour=0xffffffff
+transmitop=10
+op10=   
+
+// 190:7
+[com_7]
+type=rectangle
+y=25
+width=190
+height=224
+layer=com_0
+colour=0x000000
+fill=yes
+trans=200
+transmitop=10
+op10=  
+
+// 190:8
+[com_8]
+type=text
+x=4
+y=61
+width=8
+height=14
+widthmode=minus
+layer=com_0
+textfont=p11_full
+text=Showing X / Y quests
+textshadow=yes
+colour=0xeb981f
+transmitop=10
+op10=  
+onvartransmit=script2166{qp, quest_points_total}
+
+// 190:9
+[com_9]
+type=text
+x=133
+y=28
+width=50
+height=12
+layer=com_0
+textfont=p11_full
+text=Filter
+textshadow=yes
+colour=0xeb981f
+transmitop=1
+op1=Filter quests
+onmouseleave=deltooltip(questlist_v4:com_20)
+onop=script2171(event_op)
+onmouserepeat=ql4_tooltip(event_com)
+
+// 190:10
+[com_10]
+type=graphic
+x=114
+y=25
+width=17
+height=17
+layer=com_0
+graphic="options_radio_buttons,0"
+colour=0xffffffff
+transmitop=1
+op1=Filter quests
+onmouseleave=deltooltip(questlist_v4:com_20)
+onop=script2171(event_op)
+onmouserepeat=ql4_tooltip(event_com)
+
+// 190:11
+[com_11]
+type=text
+x=133
+y=44
+width=50
+height=12
+layer=com_0
+textfont=p11_full
+text=Hide done
+textshadow=yes
+colour=0xeb981f
+transmitop=1,10
+op1=Hide completed
+op10= 
+onmouseleave=deltooltip(questlist_v4:com_20)
+onop=script1882(event_op)
+onmouserepeat=ql4_tooltip(event_com)
+
+// 190:12
+[com_12]
+type=graphic
+x=114
+y=41
+width=17
+height=17
+layer=com_0
+graphic="options_radio_buttons,0"
+colour=0xffffffff
+transmitop=1,10
+op1=Hide completed
+op10= 
+onmouseleave=deltooltip(questlist_v4:com_20)
+onop=script1882(event_op)
+onmouserepeat=ql4_tooltip(event_com)
+
+// 190:13
+[com_13]
+type=layer
+x=4
+y=12
+width=4
+height=173
+widthmode=minus
+ymode=abs_bottom
+layer=com_0
+
+// 190:14
+[com_14]
+type=layer
+x=3
+y=48
+width=107
+height=52
+layer=com_0
+hide=yes
+noclickthrough=yes
+transmitop=10
+op10=                              
+
+// 190:15
+[com_15]
+type=layer
+x=4
+y=50
+width=104
+height=48
+layer=com_0
+hide=yes
+transmitop=10
+op10=                              
+onclick=ql4_sort_click(event_mousey, event_com)
+
+// 190:16
+[com_16]
+type=layer
+x=3
+y=33
+width=107
+height=16
+layer=com_0
+transmitop=10
+op10=                              
+onload=dropdownbox_preselect_veryquick(enum_2243, 0, 2, event_com, questlist_v4:com_14, questlist_v4:com_15, null)
+onclick=script2168
+
+// 190:17
+[com_17]
+type=layer
+width=16
+heightmode=minus
+xmode=abs_right
+ymode=abs_bottom
+layer=com_13
+transmitop=10
+op10= 
+
+// 190:18
+[com_18]
+type=layer
+width=16
+widthmode=minus
+heightmode=minus
+ymode=abs_bottom
+layer=com_13
+transmitop=10
+op10= 
+
+// 190:19
+[com_19]
+type=layer
+x=5
+y=5
+width=10
+height=21
+widthmode=minus
+heightmode=minus
+layer=com_13
+
+// 190:20
+[com_20]
+type=layer
+width=104
+height=17
+layer=com_19
+
+// 190:21
+[com_21]
+type=text
+width=89
+height=19
+layer=com_18
+textfont=b12_full
+textshadow=yes
+colour=0xff9900
+
+// 190:22
+[com_22]
+type=text
+width=89
+height=19
+layer=com_18
+textfont=b12_full
+textshadow=yes
+colour=0xff9900
+
+// 190:23
+[com_23]
+type=text
+width=89
+height=19
+layer=com_18
+textfont=b12_full
+textshadow=yes
+colour=0xff9900
+
+// 190:24
+[com_24]
+type=text
+width=89
+height=19
+layer=com_18
+textfont=b12_full
+textshadow=yes
+colour=0xff9900
+
+// 190:25
+[com_25]
+type=text
+width=89
+height=19
+layer=com_18
+textfont=b12_full
+textshadow=yes
+colour=0xff9900
+
+// 190:26
+[com_26]
+type=text
+width=89
+height=19
+layer=com_18
+textfont=b12_full
+textshadow=yes
+colour=0xff9900

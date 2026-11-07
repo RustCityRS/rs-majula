@@ -1,25 +1,26 @@
+// 266
 [proc,fishcomp_draw_weights]
-def_int $array0(4);
-$array0(%varc_int_1104) = calc($array0(%varc_int_1104) + 1);
-$array0(%varc_int_1105) = calc($array0(%varc_int_1105) + 1);
-$array0(%varc_int_1106) = calc($array0(%varc_int_1106) + 1);
-$array0(%varc_int_1107) = calc($array0(%varc_int_1107) + 1);
-$array0(%varc_int_1108) = calc($array0(%varc_int_1108) + 1);
-if_settext("Small x <tostring($array0(1))>", fishcomp_side:com53);
-if_settext("Med. x <tostring($array0(2))>", fishcomp_side:com54);
-if_settext("Large x <tostring($array0(3))>", fishcomp_side:com55);
-def_string $string = "";
-if ($array0(1) > 0) {
-    $string = "Remove-weight";
+def_int $intarray0(4);
+$intarray0(%varclient_1104) = calc($intarray0(%varclient_1104) + 1);
+$intarray0(%varclient_1105) = calc($intarray0(%varclient_1105) + 1);
+$intarray0(%varclient_1106) = calc($intarray0(%varclient_1106) + 1);
+$intarray0(%varclient_1107) = calc($intarray0(%varclient_1107) + 1);
+$intarray0(%varclient_1108) = calc($intarray0(%varclient_1108) + 1);
+if_settext("Small x <tostring($intarray0(1))>", fishcomp_side:com_53);
+if_settext("Med. x <tostring($intarray0(2))>", fishcomp_side:com_54);
+if_settext("Large x <tostring($intarray0(3))>", fishcomp_side:com_55);
+def_string $string0 = "";
+if ($intarray0(1) > 0) {
+    $string0 = "Remove-weight";
 }
-if_setop(1, $string, fishcomp_side:com53);
-$string = "";
-if ($array0(2) > 0) {
-    $string = "Remove-weight";
+if_setop(1, $string0, fishcomp_side:com_53);
+$string0 = "";
+if ($intarray0(2) > 0) {
+    $string0 = "Remove-weight";
 }
-if_setop(1, $string, fishcomp_side:com54);
-$string = "";
-if ($array0(3) > 0) {
-    $string = "Remove-weight";
+if_setop(1, $string0, fishcomp_side:com_54);
+$string0 = "";
+if ($intarray0(3) > 0) {
+    $string0 = "Remove-weight";
 }
-if_setop(1, $string, fishcomp_side:com55);
+if_setop(1, $string0, fishcomp_side:com_55);

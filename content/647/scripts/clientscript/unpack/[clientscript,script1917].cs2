@@ -1,0 +1,37 @@
+// 1917
+[clientscript,script1917](component $component0)
+if ($component0 = sc_processing:com_99) {
+    if (%varclient_583 > 0) {
+        if_setcolour(0xc8aa64, $component0);
+        return;
+    }
+    if_setcolour(0x333333, $component0);
+}
+if ($component0 = sc_processing:com_101) {
+    if (%varclient_584 > 0) {
+        if_setcolour(0xc8aa64, $component0);
+        return;
+    }
+    if_setcolour(0x333333, $component0);
+}
+if ($component0 = sc_processing:com_103) {
+    if (%varclient_585 > 0) {
+        if_setcolour(0xc8aa64, $component0);
+        return;
+    }
+    if_setcolour(0x333333, $component0);
+}
+if ($component0 = sc_processing:com_105) {
+    if (%varclient_586 > 0) {
+        if_setcolour(0xc8aa64, $component0);
+        return;
+    }
+    if_setcolour(0x333333, $component0);
+}
+if ($component0 = sc_processing:com_107) {
+    if (%varclient_587 > 0) {
+        if_setcolour(0xc8aa64, $component0);
+        return;
+    }
+    if_setcolour(0x333333, $component0);
+}

@@ -1,0 +1,38 @@
+// 210:0
+[com_0]
+type=layer
+width=16391
+height=16391
+widthmode=proportion
+heightmode=proportion
+
+// 210:1
+[com_1]
+type=text
+y=-12
+width=441
+height=17
+xmode=abs_centre
+ymode=abs_centre
+layer=com_0
+textfont=q8_full
+text=Line1
+textalignh=centre
+colour=0x000000
+
+// 210:2
+[com_2]
+type=text
+y=1277
+width=350
+height=17
+xmode=abs_centre
+ymode=proportion_bottom
+layer=com_0
+textfont=q8_full
+text=Click here to continue
+textalignh=centre
+colour=0x0000ff
+pausebutton=yes
+onmouseover=text_colour_swapper(event_com, ^white)
+onmouseleave=text_colour_swapper(event_com, ^blue)

@@ -1,18 +1,18 @@
+// 3406
 [proc,lobbyscreen_chat_count]()(int, int, int)
 def_int $int0 = 0;
 def_int $int1 = 0;
 def_int $int2 = 0;
 def_int $int3 = 0;
 while ($int3 < 100) {
-    switch_int (chat_gethistory_length($int3)) {
-        case 3, 7, 18:
+    switch_int (chat_gethistorytype($int3)) {
+        case ^chattype_privatechat, ^chattype_modprivatechat, ^chattype_quickchat_private_incoming :
             $int0 = calc($int0 + 1);
-        case 9, 20:
+        case ^chattype_friendschat, ^chattype_quickchat_friend_chat :
             $int2 = calc($int2 + 1);
-        case 41, 42, 44, 45:
+        case ^chattype_clanchat, ^chattype_quickchat_clanchat, ^chattype_clanguestchat, ^chattype_quickchat_clanguestchat :
             $int1 = calc($int1 + 1);
     }
     $int3 = calc($int3 + 1);
 }
 return($int0, $int1, $int2);
-return(0, 0, 0);

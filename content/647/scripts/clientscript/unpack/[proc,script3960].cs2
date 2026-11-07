@@ -1,0 +1,13 @@
+// 3960
+[proc,script3960](component $component0)
+def_graphic $graphic1 = if_getgraphic($component0);
+switch_graphic ($graphic1) {
+    case default :
+        return;
+    case graphic_4122 :
+        if_setgraphic(graphic_4117, $component0);
+    case graphic_4123 :
+        if_setgraphic(graphic_4118, $component0);
+    case graphic_4124 :
+        if_setgraphic(graphic_4119, $component0);
+}

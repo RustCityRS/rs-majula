@@ -1,20 +1,21 @@
+// 1650
 [proc,chatbox_resize_window]
-if (~clientscript_1653 = true) {
+if (~script1653 = true) {
     ~chatbox_resize_reset(0);
-    if_sethide(true, toplevel_fullscreen:com72);
+    if_sethide(true, toplevel_fullscreen:com_72);
     return;
-} else if (%varc_int_41 ! -1) {
-    if_sethide(false, toplevel_fullscreen:com72);
+} else if (%varclient_41 ! -1) {
+    if_sethide(false, toplevel_fullscreen:com_72);
 }
-if (%varc_int_1037 < 142) {
-    %varc_int_1037 = 142;
-} else if (%varc_int_1037 > calc(if_getheight(toplevel_fullscreen:com1) - 117)) {
+if (%varclient_1037 < 142) {
+    %varclient_1037 = 142;
+} else if (%varclient_1037 > calc(if_getheight(toplevel_fullscreen:com_1) - 117)) {
     ~chatbox_resize(0, 1);
     return;
 }
-if_setsize(519, %varc_int_1037, ^setsize_abs, ^setsize_abs, toplevel_fullscreen:com_chatbox);
+if_setsize(519, %varclient_1037, ^setsize_abs, ^setsize_abs, toplevel_fullscreen:com_chatbox);
 if_setposition(0, 23, ^setpos_abs_left, ^setpos_abs_bottom, toplevel_fullscreen:com_chatbox);
-if_setposition(0, calc(if_gety(toplevel_fullscreen:com_chatbox) - 94), ^setpos_abs_left, ^setpos_abs_top, toplevel_fullscreen:com72);
+if_setposition(0, calc(if_gety(toplevel_fullscreen:com_chatbox) - 94), ^setpos_abs_left, ^setpos_abs_top, toplevel_fullscreen:com_72);
 if_setposition(0, calc(if_gety(toplevel_fullscreen:com_chatbox) - 69), ^setpos_abs_left, ^setpos_abs_top, toplevel_fullscreen:com_private_chat);
-~clientscript_1301(chatbox_background:com59, chatbox_background:com58);
+~script1301(chatbox_background:com_59, chatbox_background:com_58);
 ~rebuildchatbox;

@@ -1,37 +1,38 @@
+// 2713
 [clientscript,loginscreen_disable_camera](component $component0, component $component1, component $component2, component $component3, component $component4, component $component5)
 if_setonclick(null, $component3);
 if_setonmouserepeat(null, $component3);
 if_setonmouserepeat(null, $component3);
-def_coord $coord6 = -1;
-def_colour $colour7 = ^black;
-if (%varc_int_986 = true) {
+def_coord $coord6 = null;
+def_int $rgb7 = ^black;
+if (%varclient_986 = 1) {
     if_settrans(0, $component1);
     if_setcolour(^black, $component1);
     if_sethide(false, $component1);
     if_setontimer(null, $component1);
     if_setontimer(null, $component2);
-    %varc_int_176 = calc(%varc_int_176 - %varc_int_176 % 10);
-    $coord6, $colour7 = ~clientscript_1239(0);
+    %varclient_176 = calc(%varclient_176 - %varclient_176 % 10);
+    $coord6, $rgb7 = ~script1239(0);
     cam_moveto($coord6, 1000, 100, 100);
     cam_lookat($coord6, 0, 100, 100);
     if_sethide(false, $component0);
     if_setontimer("loginscreen_camerarestart($component0, $component1, $component2, $component3, $component4, $component5, calc(clientclock + 30))", $component0);
-    %varc_int_986 = 0;
-    %varc_int_994 = 2;
+    %varclient_986 = 0;
+    %varclient_994 = 2;
 } else {
-    if_setonchattransmit_2426(null, $component0);
+    if_setoncamfinished(null, $component0);
     if (if_gethide($component1) = true) {
         if_settrans(255, $component1);
         if_sethide(false, $component1);
     }
     if_setcolour(^black, $component1);
-    if_setontimer("clientscript_1253(^event_com)", $component1);
+    if_setontimer("script1253(event_com)", $component1);
     if (if_gethide($component2) = true) {
         if_settrans(255, $component2);
         if_sethide(false, $component2);
     }
-    if_setontimer("clientscript_1253(^event_com)", $component2);
+    if_setontimer("script1253(event_com)", $component2);
     if_setontimer("loginscreen_camerastop($component0, $component1, $component2, $component3, $component4, $component5, calc(clientclock + 30))", $component0);
-    %varc_int_986 = 1;
+    %varclient_986 = 1;
 }
 ~login_resize;

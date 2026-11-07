@@ -2,6 +2,21 @@ use super::UnpackedPacks;
 use crate::cache::seq::SeqTypeRaw;
 use std::collections::HashMap;
 
+#[cfg(since_647)]
+fn anim_frame(frame: u32) -> String {
+    format!("animframe_{}_{}", frame >> 16, frame as u16)
+}
+
+/// `hide`, or an obj. Below the objs' range a dump still takes 512 off.
+#[cfg(since_647)]
+fn replace_held(value: u16, packs: &UnpackedPacks) -> String {
+    match value {
+        u16::MAX => "hide".to_owned(),
+        512.. => packs.reference("obj", value - 512),
+        below => format!("obj_{}", (below as u32).wrapping_sub(512)),
+    }
+}
+
 pub fn emit_seq_props(
     def: &SeqTypeRaw,
     _registry: &mut UnpackedPacks,
@@ -10,6 +25,8 @@ pub fn emit_seq_props(
     if def.raw_opcodes.len() > 1
         && (cfg!(since_647) || super::has_repeated_opcodes(&def.opcode_order))
     {
+        #[cfg(since_647)]
+        let sound_vorbis = def.sound_vorbis;
         return super::emit_repeated::<SeqTypeRaw>(
             def.id,
             &def.raw_opcodes,
@@ -24,6 +41,7 @@ pub fn emit_seq_props(
                 {
                     value.op19.clear();
                     value.op20.clear();
+                    value.sound_vorbis = sound_vorbis;
                 }
             },
         );
@@ -122,29 +140,26 @@ pub fn emit_seq_props(
     #[cfg(since_647)]
     if let (Some(frames), Some(delays)) = (&def.frames, &def.delays) {
         for i in 0..frames.len() {
-            p.push((
-                1,
-                format!("frame{}", i + 1),
-                format!("{}:{}:{}", delays[i], frames[i] as u16, frames[i] >> 16),
-            ));
+            p.push((1, format!("frame{}", i + 1), anim_frame(frames[i])));
+            p.push((1, format!("delay{}", i + 1), delays[i].to_string()));
         }
     }
     #[cfg(since_647)]
     if def.opcode_order.contains(&2) || def.loops.is_some() {
         p.push((
             2,
-            "loopoffset".into(),
+            "loops".into(),
             (def.loops.unwrap_or(u16::MAX) as i16).to_string(),
         ));
     }
     #[cfg(since_647)]
     if let Some(mask) = &def.walkmerge {
-        let csv = mask
+        let labels = mask
             .iter()
-            .map(|v| v.to_string())
+            .map(|v| format!("label_{v}"))
             .collect::<Vec<_>>()
             .join(",");
-        p.push((3, "sound_mask".into(), csv));
+        p.push((3, "walkmerge".into(), labels));
     }
     if def.opcode_order.contains(&5) || def.priority != 5 {
         p.push((5, "priority".into(), def.priority.to_string()));
@@ -153,108 +168,102 @@ pub fn emit_seq_props(
     if def.opcode_order.contains(&6) || def.replaceheldleft.is_some() {
         p.push((
             6,
-            "op6".into(),
-            def.replaceheldleft.unwrap_or(u16::MAX).to_string(),
+            "replaceheldleft".into(),
+            replace_held(def.replaceheldleft.unwrap_or(u16::MAX), _registry),
         ));
     }
     #[cfg(since_647)]
     if def.opcode_order.contains(&7) || def.replaceheldright.is_some() {
         p.push((
             7,
-            "op7".into(),
-            def.replaceheldright.unwrap_or(u16::MAX).to_string(),
+            "replaceheldright".into(),
+            replace_held(def.replaceheldright.unwrap_or(u16::MAX), _registry),
         ));
     }
     if def.opcode_order.contains(&8) || def.maxloops != 99 {
-        #[cfg(before_647)]
-        let key = "maxloops";
-        #[cfg(since_647)]
-        let key = "loopcount";
-        p.push((8, key.into(), def.maxloops.to_string()));
+        p.push((8, "maxloops".into(), def.maxloops.to_string()));
     }
     #[cfg(since_647)]
     if def.opcode_order.contains(&9) {
-        p.push((
-            9,
-            "interrupt".into(),
-            (def.preanim_move.unwrap_or(u8::MAX) as i8).to_string(),
-        ));
+        let value = match def.preanim_move.unwrap_or(u8::MAX) {
+            0 => "delaymove".to_owned(),
+            1 => "delayanim".to_owned(),
+            2 => "merge".to_owned(),
+            3 => "abortanim".to_owned(),
+            other => other.to_string(),
+        };
+        p.push((9, "preanim_move".into(), value));
     }
     #[cfg(since_647)]
     if def.opcode_order.contains(&10) {
-        p.push((
-            10,
-            "walkmerge".into(),
-            (def.postanim_move.unwrap_or(u8::MAX) as i8).to_string(),
-        ));
+        let value = match def.postanim_move.unwrap_or(u8::MAX) {
+            0 => "delaymove".to_owned(),
+            1 => "abortanim".to_owned(),
+            2 => "merge".to_owned(),
+            other => other.to_string(),
+        };
+        p.push((10, "postanim_move".into(), value));
     }
     #[cfg(since_647)]
     if def.opcode_order.contains(&11) || def.duplicatebehaviour.unwrap_or(2) != 2 {
-        p.push((
-            11,
-            "looptype".into(),
-            def.duplicatebehaviour.unwrap_or(2).to_string(),
-        ));
+        let value = match def.duplicatebehaviour.unwrap_or(2) {
+            0 => "ignore".to_owned(),
+            1 => "reset".to_owned(),
+            2 => "reset_loop".to_owned(),
+            other => other.to_string(),
+        };
+        p.push((11, "duplicatebehaviour".into(), value));
     }
     #[cfg(since_647)]
     if let Some(iframes) = &def.iframes {
-        for i in 0..iframes.len() {
+        for (i, frame) in iframes.iter().enumerate() {
             p.push((
                 12,
                 format!("iframe{}", i + 1),
-                format!(
-                    "{}:{}",
-                    iframes[i].unwrap_or(u32::MAX) as u16,
-                    iframes[i].unwrap_or(u32::MAX) >> 16
-                ),
+                anim_frame(frame.unwrap_or(u32::MAX)),
             ));
         }
     }
     #[cfg(since_647)]
     if let Some(synths) = &def.synths {
+        let kind = if def.sound_vorbis { "vorbis" } else { "synth" };
         for (i, slot) in synths.iter().enumerate() {
-            let value = match slot {
-                None => "null".to_string(),
-                Some(s) => {
-                    if s.tail.is_empty() {
-                        format!("{}", s.head)
-                    } else {
-                        let tail = s
-                            .tail
-                            .iter()
-                            .map(|v| v.to_string())
-                            .collect::<Vec<_>>()
-                            .join(":");
-                        format!("{}:{}", s.head, tail)
-                    }
+            match slot {
+                Some(sound) => {
+                    let mut values = vec![
+                        _registry.reference(kind, (sound.head >> 8) as u16),
+                        ((sound.head >> 4) & 0xf).to_string(),
+                        (sound.head & 0xf).to_string(),
+                    ];
+                    values.extend(sound.tail.iter().map(u16::to_string));
+                    p.push((13, format!("sound{i}"), values.join(",")));
                 }
-            };
-            p.push((13, format!("synth{}", i + 1), value));
+                None if i + 1 == synths.len() => {
+                    p.push((13, format!("sound{i}"), "null".into()));
+                }
+                None => {}
+            }
         }
     }
     #[cfg(since_647)]
     if def.a_bool9 {
-        p.push((14, "op14_abool9".into(), "yes".into()));
+        p.push((14, "unknown14".into(), "yes".into()));
     }
     #[cfg(since_647)]
     if def.tween {
-        p.push((15, "tween".into(), "yes".into()));
+        p.push((15, "unknown15".into(), "yes".into()));
     }
     #[cfg(since_647)]
     if def.a_bool8 {
-        p.push((16, "op16_abool8".into(), "yes".into()));
-    }
-    #[cfg(since_647)]
-    if def.a_bool10 {
-        p.push((18, "op18_abool10".into(), "yes".into()));
+        p.push((16, "unknown16".into(), "yes".into()));
     }
     #[cfg(since_647)]
     for (idx, val) in &def.op19 {
-        p.push((19, "op19".into(), format!("{idx}:{val}")));
+        p.push((19, "soundvolume".into(), format!("{idx},{val}")));
     }
     #[cfg(since_647)]
     for (idx, a, b) in &def.op20 {
-        p.push((20, "op20".into(), format!("{idx}:{a}:{b}")));
+        p.push((20, "soundrandomrate".into(), format!("{idx},{a},{b}")));
     }
     super::reorder_by_opcode(&def.opcode_order, p)
 }

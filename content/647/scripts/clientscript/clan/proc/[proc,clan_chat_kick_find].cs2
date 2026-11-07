@@ -1,6 +1,7 @@
-[proc,clan_chat_kick_find](string $string)
-if (clanchannel2_find_affined = true) {
-    ~clan_chat_kick($string);
+// 4465
+[proc,clan_chat_kick_find](string $string0)
+if (activeclanchannel_find_affined = true) {
+    ~clan_chat_kick($string0);
 } else {
     mes("You must be in your clan channel to do that.");
 }

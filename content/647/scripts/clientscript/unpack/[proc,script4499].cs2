@@ -1,0 +1,76 @@
+// 4499
+[proc,script4499](enum $enum0, int $int1, string $string0, int $int2, int $int3, component $component4, component $component5, component $component6, component $component7, component $component8)
+if ($int2 = -1) {
+    $int2 = calc(enum_getoutputcount($enum0) - 1);
+} else {
+    $int2 = $int2;
+}
+cc_deleteall($component7);
+def_int $int9 = 0;
+def_int $int10 = 5;
+def_int $int11 = 0;
+while ($int9 <= $int2) {
+    cc_create($component7, ^iftype_text, $int9);
+    cc_settext(enum(int, string, $enum0, $int9));
+    if (string_length(enum(int, string, $enum0, $int9)) = 0) {
+        cc_setposition(5, $int10, ^setpos_abs_left, ^setpos_abs_top);
+        cc_setsize(5, 0, ^setsize_minus, ^setsize_abs);
+        cc_sethide(true);
+    } else {
+        cc_setposition(5, $int10, ^setpos_abs_left, ^setpos_abs_top);
+        cc_setsize(5, 15, ^setsize_minus, ^setsize_abs);
+        cc_settextfont(verdana_11pt_regular);
+        cc_setcolour(0x6f634f);
+        cc_settextshadow(true);
+        cc_setonmouseover("script4502($component6, $component7, event_comsubid)");
+        $int11 = calc($int11 + 1);
+    }
+    $int10 = calc($int10 + cc_getheight);
+    $int9 = calc(1 + $int9);
+}
+if ($int1 = 1) {
+    ~script4508($component7, calc($int9 - 1));
+}
+$int3 = min($int11, $int3);
+$int3 = max($int3, 1);
+def_int $int12 = calc(15 * $int3);
+def_int $int13 = calc($int12 + 5 * 2);
+def_component $component14 = if_getlayer($component7);
+if ($component14 = null) {
+    return;
+}
+def_component $component15 = if_getlayer($component14);
+if ($component15 = null) {
+    return;
+}
+def_component $component16 = if_getlayer($component15);
+if ($component16 = null) {
+    return;
+}
+if_setsize(if_getwidth($component15), calc($int13 + if_getheight($component4)), ^setsize_abs, ^setsize_abs, $component15);
+if_setsize(if_getwidth($component15), $int13, ^setsize_abs, ^setsize_abs, $component14);
+if (if_getlayer($component15) = null) {
+    return;
+}
+if (if_getheight($component16) < if_getheight($component15)) {
+    return;
+}
+if (if_getheight($component16) < calc(if_gety($component15) + if_getheight($component15)) & calc(if_gety($component15) + if_getheight($component4) - if_getheight($component15)) < 0) {
+    return;
+}
+if (calc(if_gety($component15) + $int13) > if_getheight(if_getlayer($component15))) {
+    if_setposition(if_getx($component15), calc(if_gety($component15) - (if_getheight($component15) - if_getheight($component4))), ^setpos_abs_left, ^setpos_abs_top, $component15);
+    if_setposition(0, 0, ^setpos_abs_left, ^setpos_abs_top, $component14);
+    if_setposition(0, 0, ^setpos_abs_left, ^setpos_abs_bottom, $component4);
+} else {
+    if_setposition(0, 0, ^setpos_abs_left, ^setpos_abs_top, $component4);
+    if_setposition(0, 0, ^setpos_abs_left, ^setpos_abs_bottom, $component14);
+}
+if_sethide(true, $component14);
+if_setonclick("script4505($component7, $component4, $component8)", $component4);
+if_setsize(0, 15, ^setsize_minus, ^setsize_abs, $component6);
+if_sethide(true, $component6);
+if_setscrollsize(0, calc($int10 + 5), $component7);
+cc_deleteall($component5);
+~scrollbar_vertical($component5, $component7, "aif_scrollbar_dragger_2,3", "aif_scrollbar_dragger_2,0", "aif_scrollbar_dragger_2,1", "aif_scrollbar_dragger_2,2", "aif_scrollbar_arrow_2,1", "aif_scrollbar_arrow_2,0");
+~script4501($component4, $string0);

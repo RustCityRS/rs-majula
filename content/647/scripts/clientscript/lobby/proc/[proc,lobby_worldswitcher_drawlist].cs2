@@ -1,2 +1,3 @@
+// 3113
 [proc,lobby_worldswitcher_drawlist]
-if_setontimer("lobby_worldswitcher_timer()", lobbyscreen_pane_worldselect:com0);
+if_setontimer("lobby_worldswitcher_timer", lobbyscreen_pane_worldselect:com_0);

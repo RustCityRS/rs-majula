@@ -63,7 +63,10 @@ pub fn emit_spotanim_props(
         p.push((5, "resizev".into(), def.resizev.to_string()));
     }
     if def.opcode_order.contains(&6) || def.angle != 0 {
+        #[cfg(before_647)]
         p.push((6, "angle".into(), def.angle.to_string()));
+        #[cfg(since_647)]
+        p.push((6, "rotation".into(), def.angle.to_string()));
     }
     if def.opcode_order.contains(&7) || def.ambient != 0 {
         p.push((7, "ambient".into(), def.ambient.to_string()));
@@ -72,51 +75,36 @@ pub fn emit_spotanim_props(
         p.push((8, "contrast".into(), def.contrast.to_string()));
     }
     #[cfg(since_647)]
-    if def.op9 {
-        p.push((9, "op9_animmode3_param8224".into(), "yes".into()));
-    }
-    #[cfg(since_647)]
-    if def.op10 {
-        p.push((10, "op10_flag".into(), "yes".into()));
-    }
-    #[cfg(since_647)]
-    if def.op11 {
-        p.push((11, "op11_animmode1".into(), "yes".into()));
-    }
-    #[cfg(since_647)]
-    if def.op12 {
-        p.push((12, "op12_animmode4".into(), "yes".into()));
-    }
-    #[cfg(since_647)]
-    if def.op13 {
-        p.push((13, "op13_animmode5".into(), "yes".into()));
-    }
-    #[cfg(since_647)]
-    if def.opcode_order.contains(&14) {
-        p.push((14, "op14_animmode2_u8".into(), def.op14.to_string()));
-    }
-    #[cfg(since_647)]
-    if def.opcode_order.contains(&15) {
-        p.push((15, "op15_animmode3_u16".into(), def.op15.to_string()));
-    }
-    #[cfg(since_647)]
-    if def.opcode_order.contains(&16) {
-        p.push((16, "op16_animmode3_i32".into(), def.op16.to_string()));
-    }
-    #[cfg(since_647)]
-    if !recol_d.is_empty() {
-        for i in 0..recol_d.len() {
-            let n = i + 1;
-            p.push((40, format!("recol{n}d"), recol_d[i].to_string()));
-            p.push((40, format!("recol{n}s"), recol_s[i].to_string()));
+    {
+        for (code, set, key) in [
+            (9, def.op9, "unknown9"),
+            (10, def.op10, "allowloop"),
+            (11, def.op11, "unknown11"),
+            (12, def.op12, "unknown12"),
+            (13, def.op13, "unknown13"),
+        ] {
+            if set {
+                p.push((code, key.into(), "yes".into()));
+            }
         }
-    }
-    #[cfg(since_647)]
-    if !retex_d.is_empty() {
-        for i in 0..retex_d.len() {
+        if def.opcode_order.contains(&14) {
+            p.push((14, "unknown14".into(), def.op14.to_string()));
+        }
+        if def.opcode_order.contains(&15) {
+            p.push((15, "unknown15".into(), def.op15.to_string()));
+        }
+        if def.opcode_order.contains(&16) {
+            p.push((16, "unknown16".into(), def.op16.to_string()));
+        }
+        for (i, (&s, &d)) in recol_d.iter().zip(recol_s).enumerate() {
+            let [(ks, vs), (kd, vd)] = super::recol_pair(i + 1, s, d, _reverse_hsl);
+            p.push((40, ks, vs));
+            p.push((40, kd, vd));
+        }
+        for (i, (&s, &d)) in retex_d.iter().zip(retex_s).enumerate() {
             let n = i + 1;
-            p.push((41, format!("retex{n}d"), retex_d[i].to_string()));
-            p.push((41, format!("retex{n}s"), retex_s[i].to_string()));
+            p.push((41, format!("retex{n}s"), registry.named("texture", s)));
+            p.push((41, format!("retex{n}d"), registry.named("texture", d)));
         }
     }
     super::reorder_by_opcode(&def.opcode_order, p)

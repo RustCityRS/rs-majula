@@ -1,16 +1,17 @@
+// 578
 [proc,objdialog_doscrollbar]
-def_int $int0 = if_getheight(objdialog:com4);
-def_int $int1 = if_getscrollheight(objdialog:com4);
+def_int $int0 = if_getheight(objdialog:com_4);
+def_int $int1 = if_getscrollheight(objdialog:com_4);
 if ($int1 < 15) {
     $int1 = 15;
-    if_setscrollsize(0, 15, objdialog:com4);
+    if_setscrollsize(0, 15, objdialog:com_4);
 }
 def_int $int2 = calc($int1 - $int0);
 if ($int2 < 0) {
     $int2 = 0;
 }
-def_int $int3 = if_getscrolly(objdialog:com4);
+def_int $int3 = if_getscrolly(objdialog:com_4);
 if ($int3 > $int2) {
     $int3 = $int2;
 }
-~scrollbar_resize(objdialog:com8, objdialog:com4, $int3);
+~scrollbar_resize(objdialog:com_8, objdialog:com_4, $int3);

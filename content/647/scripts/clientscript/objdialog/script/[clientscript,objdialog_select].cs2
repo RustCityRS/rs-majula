@@ -1,3 +1,4 @@
-[clientscript,objdialog_select](obj $int)
-if_openmainmodal($int);
+// 580
+[clientscript,objdialog_select](obj $obj0)
+resume_objdialog($obj0);
 ~objdialog_close;

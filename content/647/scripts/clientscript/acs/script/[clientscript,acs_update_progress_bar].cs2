@@ -1,5 +1,6 @@
+// 4235
 [clientscript,acs_update_progress_bar]
-if (%varc_int_1494 > 100) {
-    %varc_int_1494 = 100;
+if (%varclient_1494 > 100) {
+    %varclient_1494 = 100;
 }
-if_setsize(scale(%varc_int_1494, 100, 16384), 16384, ^setsize_rel, ^setsize_rel, jc7228297:com15);
+if_setsize(scale(%varclient_1494, 100, 16384), 16384, ^setsize_rel, ^setsize_rel, interface_481:com_15);

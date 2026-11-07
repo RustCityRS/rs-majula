@@ -1,20 +1,21 @@
+// 249
 [clientscript,snapshot_update_display]
-%varc_int_799 = calc(%varc_int_799 + 1);
-if (%varc_int_799 >= 30) {
-    %varc_int_799 = 0;
-    if (%varc_int_798 = true) {
-        %varc_int_798 = 0;
+%varclient_799 = calc(%varclient_799 + 1);
+if (%varclient_799 >= 30) {
+    %varclient_799 = 0;
+    if (%varclient_798 = 1) {
+        %varclient_798 = 0;
     } else {
-        %varc_int_798 = 1;
+        %varclient_798 = 1;
     }
 }
-if (%varc_int_798 = true) {
-    if_settext("<escape(%varc_string_24)><col=ffff00> ", snapshot_main_v2:com53);
+if (%varclient_798 = 1) {
+    if_settext("<escape(%varclient_1543)><col=ffff00> ", snapshot_main_v2:com_53);
 } else {
-    if_settext("<escape(%varc_string_24)><col=ffff00>|", snapshot_main_v2:com53);
+    if_settext("<escape(%varclient_1543)><col=ffff00>|", snapshot_main_v2:com_53);
 }
-if (compare(%varc_string_24, "") = false) {
-    if_setcolour(0xbbbbbb, snapshot_main_v2:com58);
+if (compare(%varclient_1543, "") = 0) {
+    if_setcolour(0xbbbbbb, snapshot_main_v2:com_58);
 } else {
-    if_setcolour(^white, snapshot_main_v2:com58);
+    if_setcolour(^white, snapshot_main_v2:com_58);
 }

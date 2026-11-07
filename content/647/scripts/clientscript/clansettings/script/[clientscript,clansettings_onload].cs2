@@ -1,9 +1,10 @@
+// 4289
 [clientscript,clansettings_onload]
-if (ignore_getname = true) {
-    ~clientscript_4291;
+if (activeclansettings_find_affined = true) {
+    ~script4291;
 } else {
-    if_sethook1431("clientscript_4290()", pe6859048:com124);
+    if_setonclansettingstransmit("script4290", interface_1096:com_124);
 }
-if (%varc_int_1516 = -1) {
-    %varc_int_1516 = 0;
+if (%varclient_1516 = -1) {
+    %varclient_1516 = 0;
 }

@@ -1,8 +1,0 @@
-[proc,clientscript_4094](component $component0, component $component1, int $int2, int $int3, int $int4, boolean $boolean5)
-def_int $int6 = ~if_getx_absolute(toplevel_fullscreen:com127);
-def_int $int7 = ~if_gety_absolute(toplevel_fullscreen:com127);
-def_boolean $boolean8 = if_gethide(toplevel_fullscreen:com83);
-if (($int6 ! $int3 | ($int7 ! $int4 | ~bool_to_int($boolean8) ! ~bool_to_int($boolean5))) & cc_find($component1, $int2) = true) {
-    ~clientscript_4095($component0, $component1, $int6, $int7, $boolean8);
-}
-~clientscript_4096($component1);

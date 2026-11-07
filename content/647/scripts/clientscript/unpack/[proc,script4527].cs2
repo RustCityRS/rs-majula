@@ -1,0 +1,71 @@
+// 4527
+[proc,script4527](component $component0, struct $struct1)
+if ($component0 = null | $struct1 = null) {
+    return;
+}
+def_int $int2 = struct_param($struct1, param_1346);
+def_graphic $graphic3 = struct_param($struct1, param_1349);
+def_graphic $graphic4 = struct_param($struct1, param_1347);
+def_graphic $graphic5 = struct_param($struct1, param_1350);
+def_graphic $graphic6 = struct_param($struct1, param_1352);
+def_graphic $graphic7 = struct_param($struct1, param_1353);
+def_graphic $graphic8 = struct_param($struct1, param_1351);
+def_int $int9 = struct_param($struct1, param_1358);
+def_seq $seq10 = struct_param($struct1, param_1359);
+cc_deleteall($component0);
+cc_create($component0, ^iftype_graphic, if_getnextsubid($component0));
+cc_setposition(0, 0, ^setpos_abs_centre, ^setpos_abs_centre);
+cc_setsize(24, 18, ^setsize_minus, ^setsize_minus);
+cc_setgraphic($graphic8);
+cc_settrans($int9);
+cc_settiling(true);
+cc_create($component0, ^iftype_graphic, if_getnextsubid($component0));
+cc_setposition(0, 0, ^setpos_abs_centre, ^setpos_abs_top);
+cc_setsize(24, 9, ^setsize_minus, ^setsize_abs);
+cc_setgraphic($graphic4);
+cc_settrans($int9);
+cc_settiling(true);
+cc_create($component0, ^iftype_graphic, if_getnextsubid($component0));
+cc_setposition(0, 0, ^setpos_abs_centre, ^setpos_abs_bottom);
+cc_setsize(24, 9, ^setsize_minus, ^setsize_abs);
+cc_setgraphic($graphic6);
+cc_settrans($int9);
+cc_settiling(true);
+cc_create($component0, ^iftype_graphic, if_getnextsubid($component0));
+cc_setposition(0, 0, ^setpos_abs_left, ^setpos_abs_centre);
+cc_setsize(12, 5, ^setsize_abs, ^setsize_minus);
+cc_setgraphic($graphic7);
+cc_settrans($int9);
+cc_settiling(true);
+cc_create($component0, ^iftype_graphic, if_getnextsubid($component0));
+cc_setposition(0, 0, ^setpos_abs_right, ^setpos_abs_centre);
+cc_setsize(12, 5, ^setsize_abs, ^setsize_minus);
+cc_setgraphic($graphic7);
+cc_sethflip(true);
+cc_settrans($int9);
+cc_settiling(true);
+cc_create($component0, ^iftype_graphic, if_getnextsubid($component0));
+cc_setposition(0, 0, ^setpos_abs_left, ^setpos_abs_top);
+cc_setsize(12, 9, ^setsize_abs, ^setsize_abs);
+cc_setgraphic($graphic3);
+cc_settrans($int9);
+cc_create($component0, ^iftype_graphic, if_getnextsubid($component0));
+cc_setposition(0, 0, ^setpos_abs_left, ^setpos_abs_bottom);
+cc_setsize(12, 9, ^setsize_abs, ^setsize_abs);
+cc_setgraphic($graphic5);
+cc_settrans($int9);
+cc_create($component0, ^iftype_graphic, if_getnextsubid($component0));
+cc_setposition(0, 0, ^setpos_abs_right, ^setpos_abs_top);
+cc_setsize(12, 9, ^setsize_abs, ^setsize_abs);
+cc_setgraphic($graphic3);
+cc_sethflip(true);
+cc_settrans($int9);
+cc_create($component0, ^iftype_graphic, if_getnextsubid($component0));
+cc_setposition(0, 0, ^setpos_abs_right, ^setpos_abs_bottom);
+cc_setsize(12, 9, ^setsize_abs, ^setsize_abs);
+cc_setgraphic($graphic5);
+cc_sethflip(true);
+cc_settrans($int9);
+if ($int2 = 4) {
+    if_sethide(true, $component0);
+}

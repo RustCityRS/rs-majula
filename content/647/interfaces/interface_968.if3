@@ -1,0 +1,40 @@
+// 968:0
+[com_0]
+type=layer
+width=16391
+height=16391
+widthmode=proportion
+heightmode=proportion
+
+// 968:1
+[com_1]
+type=rectangle
+width=16442
+height=16391
+widthmode=proportion
+heightmode=proportion
+layer=com_0
+colour=0xcbae72
+fill=yes
+trans=144
+
+// 968:2
+[com_2]
+type=model
+x=-2143
+y=-1597
+width=19616
+height=18165
+widthmode=proportion
+heightmode=proportion
+xmode=proportion_left
+ymode=proportion_top
+layer=com_0
+model=model_57349
+modelorigin=-19,-13
+modelzoom=450
+modelanim=seq_13960
+modelnodepth=yes
+modelobjwidth=766
+modelobjheight=532
+onload=script3414(event_com)

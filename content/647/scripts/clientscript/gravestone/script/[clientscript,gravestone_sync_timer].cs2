@@ -1,14 +1,15 @@
-[clientscript,gravestone_sync_timer](int $int)
-%varc_int_815 = calc($int * 300 / 10);
-if (%varc_int_815 > 0) {
+// 2434
+[clientscript,gravestone_sync_timer](int $int0)
+%varclient_815 = calc($int0 * 300 / 10);
+if (%varclient_815 > 0) {
     if (getwindowmode < 2) {
-        if_setontimer("gravestone_update_timer()", toplevel:com11);
-        if_sethide(false, toplevel:com12);
-        if_sethide(false, toplevel:com13);
+        if_setontimer("gravestone_update_timer", toplevel:com_11);
+        if_sethide(false, toplevel:com_12);
+        if_sethide(false, toplevel:com_13);
     } else {
-        if_setontimer("gravestone_update_timer()", toplevel_fullscreen:com11);
-        if_sethide(false, toplevel_fullscreen:com166);
-        if_sethide(false, toplevel_fullscreen:com165);
+        if_setontimer("gravestone_update_timer", toplevel_fullscreen:com_11);
+        if_sethide(false, toplevel_fullscreen:com_166);
+        if_sethide(false, toplevel_fullscreen:com_165);
     }
 } else {
     ~gravestone_stop_timer;

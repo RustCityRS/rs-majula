@@ -1,86 +1,86 @@
-[proc,graphics_options_detailset](int $int0, int $int1, int $int2)(int)
-switch_int ($int0) {
-    case 830:
-        set_clientopt_6003(~int_to_bool($int1));
-    case 831:
-        set_clientopt_6005(~int_to_bool($int1));
-    case 833:
-        set_clientopt_6029($int1);
-    case 834:
-        set_clientopt_6008(~int_to_bool($int1));
-    case 836:
+// 2582
+[proc,graphics_options_detailset](struct $struct0, int $int1, int $int2)(int)
+switch_struct ($struct0) {
+    case struct_830 :
+        detail_removeroofs_option(~int_to_bool($int1));
+    case struct_831 :
+        detail_grounddecor_on(~int_to_bool($int1));
+    case struct_833 :
+        detail_idleanims($int1);
+    case struct_834 :
+        detail_flickering_on(~int_to_bool($int1));
+    case struct_836 :
         set_clientopt_6010(~int_to_bool($int1));
-    case 837:
-        if ($int1 > 0 & get_clientopt_6136 = false) {
-            set_clientopt_6034(1);
+    case struct_837 :
+        if ($int1 > 0 & detailget_texturing = false) {
+            unknown_command_6034(true);
         }
-        set_clientopt_6011($int1);
-    case 838:
-        set_clientopt_6012(~int_to_bool($int1));
-    case 839:
-        set_clientopt_6014(~int_to_bool($int1));
-    case 840:
-        if ($int1 = false & (get_clientopt_6131 = false | get_clientopt_6131 = 2)) {
-            set_clientopt_6014(0);
-            set_clientopt_6015(0);
+        unknown_command_6011($int1);
+    case struct_838 :
+        detail_lightdetail_high(~int_to_bool($int1));
+    case struct_839 :
+        detail_waterdetail_high(~int_to_bool($int1));
+    case struct_840 :
+        if ($int1 = 0 & (detailget_toolkit = 0 | detailget_toolkit = 2)) {
+            detail_waterdetail_high(false);
+            detail_fog_on(false);
         } else {
-            if (get_clientopt_6130 = false) {
-                set_clientopt_6030(1);
+            if (detailget_groundblending = false) {
+                detail_groundblending(true);
             }
-            set_clientopt_6015(~int_to_bool($int1));
+            detail_fog_on(~int_to_bool($int1));
         }
-    case 841:
-        set_clientopt_6016($int1);
-        if ($int1 > 0 & (get_clientopt_6131 ! 0 & get_clientopt_6131 ! 2)) {
+    case struct_841 :
+        detail_antialiasing($int1);
+        if ($int1 > 0 & detailget_toolkit ! 0 & detailget_toolkit ! 2) {
             ~graphics_options_startcountdown(4, $int2, false, true);
             return(2);
         }
-        set_clientopt_6024($int1);
-    case 842:
-        if (clientopt_isavailable_7206 = false | clientopt_canset_7306($int1) = false) {
+        detail_antialiasing_default($int1);
+    case struct_842 :
+        if (clientopt_isavailable_7206 = 0 | clientopt_canset_7306($int1) = 0) {
             return(0);
         }
-        set_clientopt_6023($int1);
+        detail_particles($int1);
         return(1);
-    case 843:
-        if ($int1 = false & (get_clientopt_6131 = false | get_clientopt_6131 = 2)) {
-            set_clientopt_6014(0);
-            set_clientopt_6015(0);
-            set_clientopt_6034(0);
-            set_clientopt_6030(0);
+    case struct_843 :
+        if ($int1 = 0 & (detailget_toolkit = 0 | detailget_toolkit = 2)) {
+            detail_waterdetail_high(false);
+            detail_fog_on(false);
+            unknown_command_6034(false);
+            detail_groundblending(false);
         } else {
-            set_clientopt_6030(~int_to_bool($int1));
+            detail_groundblending(~int_to_bool($int1));
         }
-    case 844:
-        %varc_int_987 = ~int_to_bool($int1);
-        set_clientopt_6028(%varc_int_987);
-    case 845:
-        %varc_int_178 = $int1;
-        if (getwindowmode = 3) {
-            if (fullscreen_enter(screenmode_getresolution($int1)) = true) {
+    case struct_844 :
+        %varclient_987 = ~int_to_bool($int1);
+        detail_customcursors(%varclient_987);
+    case struct_845 :
+        %varclient_178 = $int1;
+        if (getwindowmode = ^windowmode_fullscreen) {
+            if (fullscreen_enter(fullscreen_getmode($int1)) = true) {
                 ~graphics_options_startcountdown(2, $int2, false, false);
                 return(2);
             }
             return(0);
         }
-    case 908:
-        set_clientopt_6033($int1);
-    case 963:
-        if ($int1 = false) {
-            set_clientopt_6011(0);
-        } else if (get_clientopt_6130 = false) {
-            set_clientopt_6030(1);
+    case struct_908 :
+        detail_cpuusage($int1);
+    case struct_963 :
+        if ($int1 = 0) {
+            unknown_command_6011(0);
+        } else if (detailget_groundblending = false) {
+            detail_groundblending(true);
         }
-        set_clientopt_6034(~int_to_bool($int1));
-    case 1009:
-        if (clientopt_isavailable_7211 = true & clientopt_canset_7311($int1) = true) {
+        unknown_command_6034(~int_to_bool($int1));
+    case struct_1009 :
+        if (clientopt_isavailable_7211 = 1 & clientopt_canset_7311($int1) = 1) {
             set_clientopt_6036($int1);
             return(1);
         } else {
             return(0);
         }
-    case default:
+    case default :
         return(0);
 }
 return(1);
-return(0);

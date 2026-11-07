@@ -1,6 +1,7 @@
-[clientscript,lore_addtooltip](int $int0, component $component1, component $component2, int $int3, obj $obj4, int $int5, obj $obj6, int $int7, obj $obj8, int $int9, obj $obj10, int $int11, obj $obj12, int $int13, obj $obj14, int $int15, obj $obj16, int $int17, obj $obj18, int $int19, obj $int20, int $int21, obj $int22, int $int23, string $string)
+// 770
+[clientscript,lore_addtooltip](int $int0, component $component1, component $component2, int $int3, string $string0, obj $obj4, int $int5, obj $obj6, int $int7, obj $obj8, int $int9, obj $obj10, int $int11, obj $obj12, int $int13, obj $obj14, int $int15, obj $obj16, int $int17, obj $obj18, int $int19, obj $obj20, int $int21, obj $obj22, int $int23)
 cc_deleteall($component1);
-def_int $int24 = paraheight("Level <tostring($int3)>: <$string>", 177, p12_full);
+def_int $int24 = paraheight("Level <tostring($int3)>: <$string0>", 177, p12_full);
 def_int $int25 = calc(2 + 13 * $int24);
 def_int $int26 = calc(2 + 13 * paraheight("To craft this you need", 177, p11_full));
 def_int $int27 = calc(2 + $int25 + $int26 + 32 + 14 + 2);
@@ -53,7 +54,7 @@ if (cc_find($component2, $int0) = true) {
     cc_settextfont(p12_full);
     cc_setcolour(0xff981f);
     cc_settextshadow(false);
-    cc_settext("Level <tostring($int3)>: <$string>");
+    cc_settext("Level <tostring($int3)>: <$string0>");
     cc_create($component1, ^iftype_text, 4);
     cc_setposition($int29, calc($int28 + 2 + $int25), ^setpos_abs_left, ^setpos_abs_top);
     cc_setsize(177, $int26, ^setsize_abs, ^setsize_abs);

@@ -1,0 +1,14 @@
+// 424
+[clientscript,script424]
+def_int $int0 = calc(%varclient_1365 * 6 / 10);
+def_int $int1 = 0;
+def_string $string0 = "1 minute";
+if ($int0 < 60) {
+    if_settext("Your opponent has logged out.<br>You may wait for them to return or end the Conquest now and be declared the winner.", conq_logged_out_warning:com_24);
+    return;
+}
+if ($int0 > 120) {
+    $int1 = calc($int0 / 60);
+    $string0 = "<tostring($int1)> minutes";
+}
+if_settext("Your opponent has been logged out for <$string0>.<br>You may wait for them to return or end the Conquest now and be declared the winner.", conq_logged_out_warning:com_24);

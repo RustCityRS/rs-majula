@@ -1,0 +1,9 @@
+// 1875
+[proc,script1875](component $component0, component $component1, string $string0)
+if_setposition(~script1552(%varclient_1097, $string0, p11_full, $component0, -1), calc(if_gety($component0) + if_getheight($component0) / 2 - if_getheight($component1) / 2), ^setpos_abs_left, ^setpos_abs_top, $component1);
+if (applet_hasfocus = true) {
+    if_sethide(false, $component1);
+} else {
+    if_sethide(true, $component1);
+}
+if_setontimer("script1876(clientclock, $component1)", $component0);

@@ -24,6 +24,8 @@
 //! hatch for regenerating from the cache after a rename.
 use crate::archive;
 use crate::cache::loader;
+#[cfg(since_647)]
+use crate::pack::util::placeholder_prefix;
 use anyhow::Result;
 use rs_io::js5::Js5Store;
 use std::collections::{BTreeMap, BTreeSet, HashMap, HashSet};
@@ -31,6 +33,11 @@ use std::fs::{self, File};
 use std::io::Write;
 use std::path::Path;
 use tracing::{info, warn};
+
+#[cfg(before_647)]
+fn placeholder_prefix(kind: &str) -> &str {
+    kind
+}
 
 /// Per-type counts produced by a single discover pass.
 #[derive(Debug, Default, Clone)]
@@ -187,7 +194,104 @@ pub fn discover_symbols(cache_dir: &Path, pack_dir: &Path, force: bool) -> Resul
     report.record("npc_stat", generate_npc_stat_pack(pack_dir)?);
     report.record("locshape", generate_locshape_pack(pack_dir)?);
     report.record("npc_mode", generate_npc_mode_pack(pack_dir)?);
-    report.record("hunt", generate_hunt_pack(pack_dir)?);
+
+    // Tables the cache holds empty, for the server's own bodies, and the
+    // tables of client variables.
+    for (name, section, group) in [
+        ("hunt", "hunt", archive::CONFIG_GROUP_HUNT),
+        ("mesanim", "mesanim", archive::CONFIG_GROUP_MESANIM),
+        ("vars", "varworld", archive::CONFIG_GROUP_VARS),
+        ("varn", "varnpc", archive::CONFIG_GROUP_VARN),
+        ("dbtable", "dbtable", archive::CONFIG_GROUP_DBTABLE),
+        ("dbrow", "dbrow", archive::CONFIG_GROUP_DBROW),
+        ("bas", "bas", archive::CONFIG_GROUP_BAS),
+        ("cursor", "cursor", archive::CONFIG_GROUP_CURSOR),
+        ("hitmark", "hitmark", archive::CONFIG_GROUP_HITMARK),
+        ("light", "light", archive::CONFIG_GROUP_LIGHT),
+        ("mel", placeholder_prefix("mel"), archive::CONFIG_GROUP_MEL),
+        ("msi", "msi", archive::CONFIG_GROUP_MSI),
+        ("quest", "quest", archive::CONFIG_GROUP_QUEST),
+        (
+            "varc",
+            placeholder_prefix("varc"),
+            archive::CONFIG_GROUP_VARC,
+        ),
+        ("area", "area", archive::CONFIG_GROUP_AREA),
+        ("varobj", "varobject", archive::CONFIG_GROUP_VAROBJ),
+        ("varnbit", "varnpcbit", archive::CONFIG_GROUP_VARNBIT),
+        ("controller", "controller", archive::CONFIG_GROUP_CONTROLLER),
+        ("varcon", "config43", archive::CONFIG_GROUP_VARCON),
+        ("config44", "config44", archive::CONFIG_GROUP_CONFIG44),
+        ("varclan", "varclan", archive::CONFIG_GROUP_VARCLAN),
+        ("itemcode", "itemcode", archive::CONFIG_GROUP_ITEMCODE),
+        (
+            "varclansetting",
+            "varclansetting",
+            archive::CONFIG_GROUP_VARCLANSETTING,
+        ),
+    ] {
+        report.record(
+            name,
+            generate_auto_pack_named(
+                &mut cache,
+                pack_dir,
+                name,
+                section,
+                0,
+                archive::CONFIG,
+                group,
+                force,
+            )?,
+        );
+    }
+
+    report.record(
+        "billboard",
+        generate_auto_pack_named(
+            &mut cache,
+            pack_dir,
+            "billboard",
+            "billboard",
+            0,
+            archive::BILLBOARDS,
+            0,
+            force,
+        )?,
+    );
+    for (name, group) in [("particleemitter", 0), ("particleeffector", 1)] {
+        report.record(
+            name,
+            generate_auto_pack_named(
+                &mut cache,
+                pack_dir,
+                name,
+                placeholder_prefix(name),
+                0,
+                archive::PARTICLES,
+                group,
+                force,
+            )?,
+        );
+    }
+
+    // String varcs carry on the int varcs' names, by their own ids.
+    let next_varc = cache
+        .read_group(archive::CONFIG, archive::CONFIG_GROUP_VARC)?
+        .and_then(|group| group.entries.iter().map(|entry| entry.id + 1).max())
+        .unwrap_or(0);
+    report.record(
+        "varcs",
+        generate_auto_pack_named(
+            &mut cache,
+            pack_dir,
+            "varcs",
+            placeholder_prefix("varc"),
+            next_varc,
+            archive::CONFIG,
+            archive::CONFIG_GROUP_VARCSTR,
+            force,
+        )?,
+    );
 
     // Synth (sound effects). Archive 4 holds one sound per group (file 0 only),
     // and the wire id sent by SOUND_SYNTH is the raw group id as a u16 — so the
@@ -217,16 +321,7 @@ pub fn discover_symbols(cache_dir: &Path, pack_dir: &Path, force: bool) -> Resul
 
     // Server-side content configs — only create if missing.
     // These are hand-maintained by RuneScript content authors.
-    for name in &[
-        "mesanim",
-        "varn",
-        "vars",
-        "writeinv",
-        "dbrow",
-        "dbtable",
-        "dbcolumn",
-        "overlayinterface",
-    ] {
+    for name in &["writeinv", "dbcolumn", "overlayinterface"] {
         let path = pack_dir.join(format!("{}.pack", name));
         if !path.exists() {
             generate_empty_pack(pack_dir, name)?;
@@ -652,6 +747,28 @@ fn generate_auto_pack_group(
     group_id: u32,
     force: bool,
 ) -> Result<TypeReport> {
+    generate_auto_pack_named(
+        cache,
+        pack_dir,
+        type_name,
+        placeholder_prefix(type_name),
+        0,
+        archive_id,
+        group_id,
+        force,
+    )
+}
+
+fn generate_auto_pack_named(
+    cache: &mut Js5Store,
+    pack_dir: &Path,
+    type_name: &str,
+    section: &str,
+    first_section: u32,
+    archive_id: u8,
+    group_id: u32,
+    force: bool,
+) -> Result<TypeReport> {
     let pack_path = pack_dir.join(format!("{}.pack", type_name));
     let existing = load_existing_pack(&pack_path);
     let mut file = File::create(&pack_path)?;
@@ -662,20 +779,26 @@ fn generate_auto_pack_group(
         for entry in &group.entries {
             written_ids.insert(entry.id);
             if let Some(name) = existing.get(&entry.id) {
-                if should_preserve(name, type_name, entry.id, force) {
+                if should_preserve(name, section, first_section + entry.id, force) {
                     writeln!(file, "{}={}", entry.id, name)?;
                     report.preserved += 1;
                     report.total += 1;
                     continue;
                 }
             }
-            writeln!(file, "{}={}_{}", entry.id, type_name, entry.id)?;
+            writeln!(
+                file,
+                "{}={}_{}",
+                entry.id,
+                section,
+                first_section + entry.id
+            )?;
             report.added += 1;
             report.total += 1;
         }
     }
     for (id, name) in &existing {
-        if !written_ids.contains(id) && should_preserve(name, type_name, *id, force) {
+        if !written_ids.contains(id) && should_preserve(name, section, first_section + id, force) {
             writeln!(file, "{}={}", id, name)?;
             report.preserved += 1;
             report.total += 1;
@@ -719,17 +842,6 @@ fn generate_category_pack(cache: &mut Js5Store, pack_dir: &Path) -> Result<TypeR
     write_entity_pack(&pack_dir.join("category.pack"), &entries, "category", false)
 }
 
-fn generate_hunt_pack(pack_dir: &Path) -> Result<TypeReport> {
-    let path = pack_dir.join("hunt.pack");
-    if path.exists() {
-        info!("  hunt.pack: already exists, preserving");
-        return Ok(TypeReport::default());
-    }
-    File::create(&path)?;
-    info!("  hunt.pack: created empty (server-only, populated by validate)");
-    Ok(TypeReport::default())
-}
-
 /// Generate interface.pack from the interface archive.
 fn generate_interface_packs(
     cache: &mut Js5Store,
@@ -769,7 +881,10 @@ fn generate_interface_packs(
 
         let fc = file_counts.get(&gid).copied().unwrap_or(0);
         for cid in 0..fc {
+            #[cfg(before_647)]
             let auto_comp_name = format!("com{}", cid);
+            #[cfg(since_647)]
+            let auto_comp_name = format!("com_{}", cid);
             if let Some(name) = existing_comps.get(&(gid, cid)) {
                 if *name != auto_comp_name && !force {
                     writeln!(iface_file, "{}:{}={}", gid, cid, name)?;
@@ -811,22 +926,24 @@ fn generate_empty_pack(pack_dir: &Path, type_name: &str) -> Result<()> {
 fn generate_varp_pack(cache: &mut Js5Store, pack_dir: &Path) -> Result<TypeReport> {
     let varps = loader::load_all_varps(cache)?;
     let path = pack_dir.join("varp.pack");
+    let prefix = placeholder_prefix("varp");
     let entries: Vec<(u32, String)> = (0..varps.count() as u32)
-        .map(|id| (id, format!("varp_{}", id)))
+        .map(|id| (id, format!("{prefix}_{id}")))
         .collect();
     if entries.is_empty() {
         warn!("  varp.pack: cache returned 0 varps — check cache version");
     }
-    write_entity_pack(&path, &entries, "varp", false)
+    write_entity_pack(&path, &entries, prefix, false)
 }
 
 fn generate_varbit_pack(cache: &mut Js5Store, pack_dir: &Path) -> Result<TypeReport> {
     let varbits = loader::load_all_varbits(cache)?;
     let path = pack_dir.join("varbit.pack");
+    let prefix = placeholder_prefix("varbit");
     let entries: Vec<(u32, String)> = (0..varbits.count() as u32)
-        .map(|id| (id, format!("varbit_{}", id)))
+        .map(|id| (id, format!("{prefix}_{id}")))
         .collect();
-    write_entity_pack(&path, &entries, "varbit", false)
+    write_entity_pack(&path, &entries, prefix, false)
 }
 
 // ── hardcoded pack generators ──────────────────────────────────────────
@@ -870,7 +987,7 @@ fn generate_stat_pack(pack_dir: &Path) -> Result<TypeReport> {
         (17, "thieving"),
         (18, "slayer"),
         (19, "farming"),
-        (20, "runecrafting"),
+        (20, "runecraft"),
         (21, "hunter"),
         (22, "construction"),
         (23, "summoning"),

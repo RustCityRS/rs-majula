@@ -1,0 +1,17 @@
+// 517
+[clientscript,script517]
+def_string $string0 = "<col=ff0000>Lots!";
+if (%xp_counter >= -1 & %xp_counter < ^max_32bit_int) {
+    $string0 = tostring_localised(calc(%xp_counter / 10), true);
+}
+def_int $int0 = stringwidth($string0, p12_full);
+if_setsize(max(calc($int0 + 38), 90), 106, ^setsize_abs, ^setsize_abs, toplevel:com_21);
+if_setsize(max(calc($int0 + 40), 90), 106, ^setsize_abs, ^setsize_abs, toplevel_fullscreen:com_181);
+if_settext($string0, toplevel_fullscreen:com_198);
+if_settext($string0, toplevel:com_37);
+if (map_lang = 1) {
+    if_setgraphic(graphic_3066, toplevel:com_24);
+    if_setgraphic(graphic_3066, toplevel_fullscreen:com_185);
+}
+~script3367;
+~script3337;

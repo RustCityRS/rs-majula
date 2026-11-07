@@ -1,0 +1,5 @@
+// 214
+[proc,script214](component $component0, int $int1)
+def_component $component2 = if_getlayer($component0);
+if_setonvartransmit("script1660($component0, $int1, $component2){learning_the_ropes, varplayer_1255}", $component2);
+~script1661($component0, $int1, $component2);

@@ -1,0 +1,5 @@
+// 3249
+[clientscript,script3249]
+if (%varclient_1201 = 1) {
+    if_settext(%varclient_1832, rand_dungeon_rewards_v2:com_287);
+}

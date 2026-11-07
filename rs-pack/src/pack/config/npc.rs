@@ -1,4 +1,6 @@
 use super::config_entry;
+#[cfg(since_647)]
+use super::mark_client_params;
 use crate::pack::config::param::parse_params;
 use crate::pack::pack::{FileCache, parse_config_sections_cached};
 use crate::pack::pack_registry::{PackRegistry, PackedFile};
@@ -21,6 +23,11 @@ pub fn pack_npcs(
 
     let configs = parse_config_sections_cached(file_cache, "npc", constants)?;
 
+    #[cfg(since_647)]
+    let client_params = file_cache
+        .client_count("param", &registry.param, constants)?
+        .unwrap_or(0);
+
     let mut server = PackedData::new(pack.max);
     let mut client = PackedData::new(pack.max);
 
@@ -33,6 +40,9 @@ pub fn pack_npcs(
             client.skip_entry();
             continue;
         };
+
+        #[cfg(since_647)]
+        let props = &mark_client_params(props, &registry.param, client_params);
 
         // Collected fields written after the loop
         #[cfg(before_647)]
@@ -51,7 +61,7 @@ pub fn pack_npcs(
             #[cfg(since_647)]
             if batch_code(&group[0].0) != 0 {
                 let start = client.dat.len();
-                pack_batch(&mut client, group, registry, param_types, debugname);
+                pack_batch(&mut client, group, registry, param_types, debugname)?;
                 server.dat.extend_from_slice(&client.dat[start..]);
                 continue;
             }
@@ -94,11 +104,9 @@ pub fn pack_npcs(
                     }),
 
                     // 13
+                    #[cfg(before_647)]
                     "readyanim" => parse_ref(&registry.seq, "seq", value, |v| {
-                        #[cfg(before_647)]
                         client.p1(13);
-                        #[cfg(since_647)]
-                        client.p1(127);
                         client.p2(v);
                     }),
 
@@ -191,11 +199,19 @@ pub fn pack_npcs(
                             .get_by_debugname(value)
                             .or_else(|| value.parse().ok())
                             .with_context(|| format!("{debugname}: unknown huntmode '{value}'"))?;
+                        #[cfg(before_647)]
                         let hunt = u8::try_from(hunt).with_context(|| {
                             format!("{debugname}: huntmode '{value}' exceeds 255")
                         })?;
+                        #[cfg(since_647)]
+                        let hunt = u16::try_from(hunt).with_context(|| {
+                            format!("{debugname}: huntmode '{value}' exceeds 65535")
+                        })?;
                         server.p1(25);
+                        #[cfg(before_647)]
                         server.p1(hunt);
+                        #[cfg(since_647)]
+                        server.p2(hunt);
                     }
 
                     // 26
@@ -404,29 +420,33 @@ pub fn pack_npcs(
                         client.p2(v);
                     }),
 
+                    // 107
                     #[cfg(since_647)]
-                    "clickable" => parse_bool(value, |v| {
+                    "active" => parse_bool(value, |v| {
                         if !v {
                             client.p1(107);
                         }
                     }),
 
+                    // 109
                     #[cfg(since_647)]
-                    "slowwalk" => parse_bool(value, |v| {
+                    "walksmoothing" => parse_bool(value, |v| {
                         if !v {
                             client.p1(109);
                         }
                     }),
 
+                    // 111
                     #[cfg(since_647)]
-                    "animateidle" => parse_bool(value, |v| {
+                    "spotshadow" => parse_bool(value, |v| {
                         if !v {
                             client.p1(111);
                         }
                     }),
 
+                    // 113
                     #[cfg(since_647)]
-                    "shadowcolour" => {
+                    "spotshadowcolour" => {
                         let values = parse_numbers::<i16, 2>(value);
                         client.p1(113);
                         for v in values {
@@ -434,8 +454,9 @@ pub fn pack_npcs(
                         }
                     }
 
+                    // 114
                     #[cfg(since_647)]
-                    "shadowmod" => {
+                    "spotshadowtrans" => {
                         let values = parse_numbers::<i8, 2>(value);
                         client.p1(114);
                         for v in values {
@@ -443,94 +464,140 @@ pub fn pack_npcs(
                         }
                     }
 
+                    // 119
                     #[cfg(since_647)]
-                    "walkmask" => parse_number(value, |v: i8| {
+                    "unknown119" => parse_number(value, |v: i8| {
                         client.p1(119);
                         client.p1(v as u8);
                     }),
 
+                    // 122
                     #[cfg(since_647)]
-                    "hitbar" => parse_number(value, |v: u16| {
+                    "unknown122" => parse_number(value, |v: u16| {
                         client.p1(122);
                         client.p2(v);
                     }),
 
+                    // 123
                     #[cfg(since_647)]
-                    "height" => parse_number(value, |v: u16| {
+                    "overlayheight" => parse_number(value, |v: u16| {
                         client.p1(123);
                         client.p2(v);
                     }),
 
+                    // 125
                     #[cfg(since_647)]
                     "respawndir" => parse_number(value, |v: i8| {
                         client.p1(125);
                         client.p1(v as u8);
                     }),
 
+                    // 127
                     #[cfg(since_647)]
-                    "unknown128" => parse_number(value, |v: u8| {
-                        client.p1(128);
-                        client.p1(v);
+                    "bas" => parse_ref(&registry.bas, "bas", value, |v| {
+                        client.p1(127);
+                        client.p2(v);
                     }),
 
+                    // 128
                     #[cfg(since_647)]
-                    "cursor1" | "cursor2" => {
-                        let (op, cursor) = value.split_once(',').expect("Invalid NPC cursor");
-                        client.p1(if key == "cursor1" { 135 } else { 136 });
-                        parse_number(op.trim(), |v| client.p1(v));
-                        parse_number(cursor.trim(), |v| client.p2(v));
+                    "defaultmovemode" => {
+                        client.p1(128);
+                        client.p1(match value.as_str() {
+                            "crawl" => 0,
+                            "walk" => 1,
+                            "run" => 2,
+                            other => other.parse().expect("Invalid defaultmovemode"),
+                        });
                     }
 
+                    // 134, and 162 when the sounds are vorbis files
                     #[cfg(since_647)]
-                    "attackcursor" => parse_number(value, |v: u16| {
+                    "bgsound" => {
+                        let parts: Vec<_> = value.split(',').collect();
+                        let [idle, crawl, walk, run, range] = parts[..] else {
+                            panic!("{debugname}: invalid bgsound '{value}'");
+                        };
+                        let mut vorbis = false;
+                        client.p1(134);
+                        for sound in [idle, crawl, walk, run] {
+                            let (id, is_vorbis) = parse_sound(registry, sound.trim());
+                            vorbis |= is_vorbis;
+                            client.p2(id);
+                        }
+                        parse_number(range.trim(), |v: u8| client.p1(v));
+                        if vorbis {
+                            client.p1(162);
+                        }
+                    }
+
+                    // 135
+                    #[cfg(since_647)]
+                    "cursor1" => pack_cursor(&mut client, 135, value, registry),
+
+                    // 136
+                    #[cfg(since_647)]
+                    "cursor2" => pack_cursor(&mut client, 136, value, registry),
+
+                    // 137
+                    #[cfg(since_647)]
+                    "cursorattack" => parse_ref(&registry.cursor, "cursor", value, |v| {
                         client.p1(137);
                         client.p2(v);
                     }),
 
+                    // 138
                     #[cfg(since_647)]
-                    "armyicon" => parse_number(value, |v: u16| {
+                    "covermarker" => parse_ref(&registry.sprites, "sprites", value, |v| {
                         client.p1(138);
                         client.p2(v);
                     }),
 
+                    // 139
                     #[cfg(since_647)]
-                    "spriteid" => parse_number(value, |v: u16| {
+                    "unknown139" => parse_number(value, |v: u16| {
                         client.p1(139);
                         client.p2(v);
                     }),
 
+                    // 140
                     #[cfg(since_647)]
-                    "soundvolume" => parse_number(value, |v: u8| {
+                    "bgsoundvolume" => parse_number(value, |v: u8| {
                         client.p1(140);
                         client.p1(v);
                     }),
 
+                    // 141
                     #[cfg(since_647)]
-                    "visiblepriority" => parse_bool(value, |v| {
+                    "familiar" => parse_bool(value, |v| {
                         if v {
                             client.p1(141);
                         }
                     }),
 
+                    // 142
                     #[cfg(since_647)]
-                    "mapfunction" => parse_number(value, |v: u16| {
+                    "mapelement" => parse_ref(&registry.mel, "mel", value, |v| {
                         client.p1(142);
                         client.p2(v);
                     }),
 
+                    // 143
                     #[cfg(since_647)]
-                    "invisiblepriority" => parse_bool(value, |v| {
+                    "alwaysonbottom" => parse_bool(value, |v| {
                         if v {
                             client.p1(143);
                         }
                     }),
 
+                    // 150-154
                     #[cfg(since_647)]
-                    "memberop1" | "memberop2" | "memberop3" | "memberop4" | "memberop5" => {
-                        client.p1(149 + key.as_bytes()[8] - b'0');
+                    "membersop1" | "membersop2" | "membersop3" | "membersop4" | "membersop5" => {
+                        client.p1(149 + key.as_bytes()["membersop".len()] - b'0');
                         client.pjstr(value);
                     }
 
+                    // 155
                     #[cfg(since_647)]
                     "tint" => {
                         let values = parse_numbers::<i8, 4>(value);
@@ -540,28 +607,22 @@ pub fn pack_npcs(
                         }
                     }
 
+                    // 158 or 159
                     #[cfg(since_647)]
-                    "mainoptionindex" => match value.as_str() {
-                        "1" => client.p1(158),
-                        "0" => client.p1(159),
-                        _ => panic!("Invalid mainoptionindex: {value}"),
-                    },
+                    "reprioritiseattackop" => {
+                        parse_bool(value, |v| client.p1(if v { 158 } else { 159 }))
+                    }
 
+                    // 163
                     #[cfg(since_647)]
-                    "vorbis" => parse_bool(value, |v| {
-                        if v {
-                            client.p1(162);
-                        }
-                    }),
-
-                    #[cfg(since_647)]
-                    "slayertype" => parse_number(value, |v: u8| {
+                    "roughbounding" => parse_number(value, |v: u8| {
                         client.p1(163);
                         client.p1(v);
                     }),
 
+                    // 164
                     #[cfg(since_647)]
-                    "soundrate" => {
+                    "bgsoundrate" => {
                         let values = parse_numbers::<u16, 2>(value);
                         client.p1(164);
                         for v in values {
@@ -569,14 +630,16 @@ pub fn pack_npcs(
                         }
                     }
 
+                    // 165
                     #[cfg(since_647)]
-                    "picksizeshift" => parse_number(value, |v: u8| {
+                    "unknown165" => parse_number(value, |v: u8| {
                         client.p1(165);
                         client.p1(v);
                     }),
 
+                    // 168
                     #[cfg(since_647)]
-                    "soundrangemin" => parse_number(value, |v: u8| {
+                    "bgsounddropoffrange" => parse_number(value, |v: u8| {
                         client.p1(168);
                         client.p1(v);
                     }),
@@ -652,7 +715,7 @@ pub fn pack_npcs(
         for slot in 1..=5 {
             if let Some((_, value)) = props
                 .iter()
-                .find(|(key, _)| *key == format!("memberop{slot}"))
+                .find(|(key, _)| *key == format!("membersop{slot}"))
             {
                 server.p1(29 + slot);
                 server.pjstr(value);
@@ -715,24 +778,16 @@ fn batch_code(key: &str) -> u8 {
         if config_key_index(key, "colour").is_some() {
             return 42;
         }
-        if config_key_index(key, "translate").is_some() {
+        if config_key_index(key, "modeloffset").is_some() {
             return 121;
         }
-        if config_key_index(key, "campaign").is_some() {
+        if key == "quest" {
             return 160;
         }
-        if matches!(key, "multivar" | "multivarp" | "multidefault")
-            || config_key_index(key, "multi").is_some()
-        {
+        if matches!(key, "multivar" | "multinpc") {
             return 106;
         }
-        if matches!(
-            key,
-            "idlesound" | "crawlsound" | "walksound" | "runsound" | "sounddistance"
-        ) {
-            return 134;
-        }
-        if matches!(key, "paramint" | "paramstr") {
+        if key == "clientparam" {
             return 249;
         }
     }
@@ -748,110 +803,53 @@ fn pack_batch(
     registry: &PackRegistry,
     param_types: &HashMap<String, String>,
     name: &str,
-) {
+) -> Result<()> {
     let code = batch_code(&props[0].0);
     match code {
-        1 | 60 | 42 | 121 | 160 => {
+        1 | 60 | 42 => {
             packed.p1(code);
             packed.p1(u8::try_from(props.len()).expect("Too many NPC values"));
             for (_, value) in props {
                 match code {
-                    1 | 60 => parse_ref(&registry.model, "model", value, |v| packed.p2(v)),
                     42 => parse_number(value, |v| packed.p1(v)),
-                    121 => {
-                        let [index, x, y, z] = parse_numbers::<i16, 4>(value);
-                        packed.p1(u8::try_from(index).expect("Invalid translation model"));
-                        for v in [x, y, z] {
-                            packed.p1(i8::try_from(v).expect("Invalid translation") as u8);
-                        }
-                    }
-                    160 => parse_number(value, |v: i16| packed.p2(v as u16)),
-                    _ => unreachable!(),
+                    _ => parse_ref(&registry.model, "model", value, |v| packed.p2(v)),
                 }
             }
         }
-        40 | 41 => {
-            let mut source = Vec::new();
-            let mut dest = Vec::new();
+        40 => pack_recol_pairs(packed, props),
+        41 => pack_retex_pairs(packed, props, registry),
+        121 => {
+            packed.p1(121);
+            packed.p1(u8::try_from(props.len()).expect("Too many NPC model offsets"));
             for (key, value) in props {
-                let values = if key.ends_with('s') {
-                    &mut source
-                } else {
-                    &mut dest
-                };
-                parse_number(value, |v| values.push((values.len(), v)));
-            }
-            pack_pairs(packed, code, &source, &dest);
-        }
-        106 => {
-            let mut varbit = u16::MAX;
-            let mut varp = u16::MAX;
-            let mut default = None;
-            let mut transforms = Vec::new();
-            for (key, value) in props {
-                let pack = match key.as_str() {
-                    "multivar" => &registry.varbit,
-                    "multivarp" => &registry.varp,
-                    _ => &registry.npc,
-                };
-                let id = if matches!(value.as_str(), "null" | "-1") {
-                    u16::MAX
-                } else {
-                    u16::try_from(
-                        pack.get_by_debugname(value)
-                            .or_else(|| value.parse().ok())
-                            .unwrap_or_else(|| panic!("Unknown NPC transform: {value}")),
-                    )
-                    .expect("NPC transform exceeds 65535")
-                };
-                match key.as_str() {
-                    "multivar" => varbit = id,
-                    "multivarp" => varp = id,
-                    "multidefault" => default = Some(id),
-                    _ => transforms.push(id),
+                let index = config_key_index(key, "modeloffset").expect("Invalid model offset");
+                packed.p1(u8::try_from(index).expect("Invalid model offset"));
+                for v in parse_numbers::<i8, 3>(value) {
+                    packed.p1(v as u8);
                 }
             }
-            packed.p1(if default.is_some() { 118 } else { 106 });
-            packed.p2(varbit);
-            packed.p2(varp);
-            if let Some(default) = default {
-                packed.p2(default);
-            }
-            packed.p1(u8::try_from(
-                transforms
-                    .len()
-                    .checked_sub(1)
-                    .expect("Missing NPC transforms"),
-            )
-            .expect("Too many NPC transforms"));
-            for id in transforms {
-                packed.p2(id);
+        }
+        160 => {
+            let quests: Vec<_> = props
+                .iter()
+                .flat_map(|(_, value)| value.split(','))
+                .collect();
+            packed.p1(160);
+            packed.p1(u8::try_from(quests.len()).expect("Too many NPC quests"));
+            for quest in quests {
+                parse_ref(&registry.quest, "quest", quest.trim(), |v| packed.p2(v));
             }
         }
-        134 => {
-            let mut sounds = [u16::MAX; 4];
-            let mut distance = 0;
-            for (key, value) in props {
-                let index = match key.as_str() {
-                    "idlesound" => 0,
-                    "crawlsound" => 1,
-                    "walksound" => 2,
-                    "runsound" => 3,
-                    "sounddistance" => {
-                        parse_number(value, |v| distance = v);
-                        continue;
-                    }
-                    _ => unreachable!(),
-                };
-                parse_number(value, |v: i32| sounds[index] = v as u16);
-            }
-            packed.p1(134);
-            for sound in sounds {
-                packed.p2(sound);
-            }
-            packed.p1(distance);
-        }
+        106 => pack_multi(
+            packed,
+            (106, 118),
+            props,
+            ("npc", &registry.npc),
+            registry,
+            name,
+        )?,
         249 => parse_params(registry, param_types, packed, props, name),
         _ => unreachable!(),
     }
+    Ok(())
 }

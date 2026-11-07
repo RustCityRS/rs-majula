@@ -1,7 +1,0 @@
-[proc,clientscript_747](int $int0, int $int1, string $string)
-if ($int0 ! 1) {
-    return;
-}
-if (cc_find(deathkeep_select:com29, $int1) = true) {
-    cc_settext($string);
-}

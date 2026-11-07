@@ -1,5 +1,6 @@
+// 1755
 [clientscript,brew_colourwater](component $component0, component $component1)
-if (%varc_int_227 > 2) {
+if (%varclient_227 > 2) {
     if (inv_getobj(worn, 0) = pirate_hat) {
         if_setmodel(model_15700, $component0);
     } else {
@@ -14,4 +15,4 @@ if (%varc_int_227 > 2) {
     }
     if_setcolour(0x910000, $component1);
 }
-if_settext(tostring(%varc_int_227), $component1);
+if_settext(tostring(%varclient_227), $component1);

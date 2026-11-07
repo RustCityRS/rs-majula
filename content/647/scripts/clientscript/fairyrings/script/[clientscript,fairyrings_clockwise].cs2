@@ -1,39 +1,40 @@
-[clientscript,fairyrings_clockwise](int $int)
-%varc_int_157 = 1;
-if (%varc_int_125 >= calc(clientclock - 5)) {
+// 962
+[clientscript,fairyrings_clockwise](int $int0)
+%varclient_157 = 1;
+if (%varclient_125 >= calc(clientclock - 5)) {
     return;
 }
-if ($int = 48103425) {
-    switch_int (%varc_int_122) {
-        case 0:
-            %varc_int_122 = 1536;
-        case 512:
-            %varc_int_122 = 0;
-        case 1024:
-            %varc_int_122 = 1024;
-        case default:
-            %varc_int_122 = 512;
+if ($int0 = 48103425) {
+    switch_int (%varclient_122) {
+        case 0 :
+            %varclient_122 = 1536;
+        case 512 :
+            %varclient_122 = 0;
+        case 1024 :
+            %varclient_122 = 1024;
+        case default :
+            %varclient_122 = 512;
     }
-} else if ($int = 48103430) {
-    switch_int (%varc_int_123) {
-        case 0:
-            %varc_int_123 = 1536;
-        case 512:
-            %varc_int_123 = 0;
-        case 1024:
-            %varc_int_123 = 1024;
-        case default:
-            %varc_int_123 = 512;
+} else if ($int0 = 48103430) {
+    switch_int (%varclient_123) {
+        case 0 :
+            %varclient_123 = 1536;
+        case 512 :
+            %varclient_123 = 0;
+        case 1024 :
+            %varclient_123 = 1024;
+        case default :
+            %varclient_123 = 512;
     }
-} else if ($int = 48103435) {
-    switch_int (%varc_int_124) {
-        case 0:
-            %varc_int_124 = 1536;
-        case 512:
-            %varc_int_124 = 0;
-        case 1024:
-            %varc_int_124 = 1024;
-        case default:
-            %varc_int_124 = 512;
+} else if ($int0 = 48103435) {
+    switch_int (%varclient_124) {
+        case 0 :
+            %varclient_124 = 1536;
+        case 512 :
+            %varclient_124 = 0;
+        case 1024 :
+            %varclient_124 = 1024;
+        case default :
+            %varclient_124 = 512;
     }
 }

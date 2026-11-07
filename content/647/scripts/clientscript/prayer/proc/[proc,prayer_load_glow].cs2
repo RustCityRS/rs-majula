@@ -1,3 +1,4 @@
+// 1293
 [proc,prayer_load_glow](component $component0)
 cc_deleteall($component0);
 def_int $int1 = 5;
@@ -8,13 +9,13 @@ def_int $int5 = 6;
 def_int $int6 = $int5;
 def_int $int7 = 3;
 def_int $int8 = calc(34 + 3);
-if (%varc_int_1052 = true & %varbit_6840 = false) {
+if (%varclient_1052 = 1 & %varplayerbit_6840 = 0) {
     $int5 = 3;
     $int6 = $int5;
     $int8 = calc(34 + 0);
 }
 def_int $int9 = calc(34 + 2);
-if (%varc_int_181 = true) {
+if (%varclient_181 = 1) {
     $int5 = 6;
     $int6 = $int5;
     $int7 = 28;
@@ -22,7 +23,7 @@ if (%varc_int_181 = true) {
     $int9 = calc(34 + 3);
 }
 def_int $int10 = 30;
-if (%varbit_6840 = true) {
+if (%varplayerbit_6840 = 1) {
     $int10 = 20;
 }
 while ($int4 < $int10) {
@@ -30,7 +31,7 @@ while ($int4 < $int10) {
     cc_setsize($int2, $int3, ^setsize_abs, ^setsize_abs);
     cc_setposition($int6, $int7, ^setpos_abs_left, ^setpos_abs_top);
     $int4 = calc($int4 + 1);
-    if (calc($int4 % $int1) = false) {
+    if (calc($int4 % $int1) = 0) {
         $int6 = $int5;
         $int7 = calc($int7 + $int9);
     } else {

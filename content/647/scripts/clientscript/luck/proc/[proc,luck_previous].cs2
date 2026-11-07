@@ -1,9 +1,0 @@
-[proc,luck_previous]
-if (~clientscript_1431 = false | compare(%varc_string_148, "null") = false) {
-    return;
-}
-if (getwindowmode < 2) {
-    if_settext(%varc_string_148, toplevel:com10);
-} else {
-    if_settext(%varc_string_148, toplevel_fullscreen:com161);
-}

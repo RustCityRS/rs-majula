@@ -96,20 +96,6 @@ fn worldmap_squares_preserve_chunk_order_and_edits() {
 }
 
 #[test]
-fn quickchat_references_use_their_own_category_registry() {
-    let names = names();
-    let data = [2, 1, 0, 0, b'x', 0];
-    for (archive, domain) in [
-        (24, "quickchat_category"),
-        (25, "quickchat_global_category"),
-    ] {
-        let text = asset::unpack(archive, 0, &data, &names).unwrap();
-        assert!(text.contains(&format!("target={domain}_0\n")));
-        assert_eq!(asset::pack(archive, 0, &text, &names).unwrap(), data);
-    }
-}
-
-#[test]
 fn model_coordinates_derive_delta_widths_and_reject_missing_vertices() {
     let names = names();
     let text = "format=old\nvertices=3\nfaces=1\nmappings=0\nflags=0\npriority=0\nhas_alpha=0\nhas_face_labels=0\nhas_vertex_labels=0\n\

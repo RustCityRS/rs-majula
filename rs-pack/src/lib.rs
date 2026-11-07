@@ -235,39 +235,25 @@ pub(crate) mod config_crc {
     pub const INV: i32 = -331361170;
     pub const STRUCT: i32 = 293771491;
     pub const FLU: i32 = -1744098420;
-
-    pub const GENERIC: &[(&str, i32)] = &[
-        ("bas", -1911964791),
-        ("config15", -1218318004),
-        ("config18", 402829966),
-        ("config19", 57638886),
-        ("config2", 1389808433),
-        ("config20", -1949850762),
-        ("config21", -1751999962),
-        ("config22", -1236602203),
-        ("config23", -1095511195),
-        ("config24", 2129060492),
-        ("config25", -1298439089),
-        ("config37", 477744615),
-        ("config38", -430249901),
-        ("config39", 583011186),
-        ("config40", 1145177955),
-        ("config41", 2013865111),
-        ("config42", -1179041704),
-        ("config43", 1930184948),
-        ("config44", 812315341),
-        ("config45", 260531396),
-        ("config47", -1864459835),
-        ("config48", -430249901),
-        ("config7", -1012851422),
-        ("cursor", -719985808),
-        ("hitmark", 313095873),
-        ("light", -1541305497),
-        ("mel", 1237876085),
-        ("msi", 390525203),
-        ("quest", -824626290),
-        ("varclansetting", -904846536),
-    ];
+    pub const HUNT: i32 = 1389808433;
+    pub const MESANIM: i32 = -1012851422;
+    pub const VARS: i32 = -1236602203;
+    pub const VARN: i32 = 2129060492;
+    pub const DBTABLE: i32 = 1145177955;
+    pub const DBROW: i32 = 2013865111;
+    pub const BAS: i32 = -1911964791;
+    pub const CURSOR: i32 = -719985808;
+    pub const HITMARK: i32 = 313095873;
+    pub const PARTICLEEFFECTOR: i32 = 907423376;
+    pub const PARTICLEEMITTER: i32 = -1058173084;
+    pub const BILLBOARD: i32 = -1519818244;
+    pub const LIGHT: i32 = -1541305497;
+    pub const MEL: i32 = 1237876085;
+    pub const MSI: i32 = 390525203;
+    pub const QUEST: i32 = -824626290;
+    pub const VARC: i32 = 57638886;
+    pub const VARCS: i32 = -1218318004;
+    pub const VARCLANSETTING: i32 = -904846536;
 }
 
 pub(crate) const CONFIG_TYPE_CRCS: &[(&str, i32)] = &[
@@ -281,13 +267,13 @@ pub(crate) const CONFIG_TYPE_CRCS: &[(&str, i32)] = &[
     ("varp", config_crc::VARP),
     #[cfg(since_254)]
     ("varbit", config_crc::VARBIT),
-    #[cfg(all(since_274, before_647))]
+    #[cfg(since_274)]
     ("mesanim", config_crc::MESANIM),
     #[cfg(all(since_274, before_647))]
     ("mes", config_crc::MES),
     #[cfg(since_274)]
     ("param", config_crc::PARAM),
-    #[cfg(all(since_274, before_647))]
+    #[cfg(since_274)]
     ("hunt", config_crc::HUNT),
     #[cfg(since_647)]
     ("enum", config_crc::ENUM),
@@ -297,6 +283,40 @@ pub(crate) const CONFIG_TYPE_CRCS: &[(&str, i32)] = &[
     ("struct", config_crc::STRUCT),
     #[cfg(since_647)]
     ("flu", config_crc::FLU),
+    #[cfg(since_647)]
+    ("vars", config_crc::VARS),
+    #[cfg(since_647)]
+    ("varn", config_crc::VARN),
+    #[cfg(since_647)]
+    ("dbtable", config_crc::DBTABLE),
+    #[cfg(since_647)]
+    ("dbrow", config_crc::DBROW),
+    #[cfg(since_647)]
+    ("bas", config_crc::BAS),
+    #[cfg(since_647)]
+    ("cursor", config_crc::CURSOR),
+    #[cfg(since_647)]
+    ("hitmark", config_crc::HITMARK),
+    #[cfg(since_647)]
+    ("billboard", config_crc::BILLBOARD),
+    #[cfg(since_647)]
+    ("particleeffector", config_crc::PARTICLEEFFECTOR),
+    #[cfg(since_647)]
+    ("particleemitter", config_crc::PARTICLEEMITTER),
+    #[cfg(since_647)]
+    ("light", config_crc::LIGHT),
+    #[cfg(since_647)]
+    ("mel", config_crc::MEL),
+    #[cfg(since_647)]
+    ("msi", config_crc::MSI),
+    #[cfg(since_647)]
+    ("quest", config_crc::QUEST),
+    #[cfg(since_647)]
+    ("varc", config_crc::VARC),
+    #[cfg(since_647)]
+    ("varcs", config_crc::VARCS),
+    #[cfg(since_647)]
+    ("varclansetting", config_crc::VARCLANSETTING),
 ];
 
 #[cfg(before_647)]

@@ -1,6 +1,7 @@
+// 1849
 [proc,advisor_flashside_off]
-if_setontimer(null, toplevel_fullscreen:com19);
-if_setontimer(null, toplevel:com127);
+if_setontimer(null, toplevel_fullscreen:com_19);
+if_setontimer(null, toplevel:com_127);
 ~arrow_set(null, -1, null, -1);
 ~subchanged;
 return;

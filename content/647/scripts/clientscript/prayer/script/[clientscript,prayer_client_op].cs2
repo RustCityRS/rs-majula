@@ -1,6 +1,7 @@
+// 2289
 [clientscript,prayer_client_op](component $component0, component $component1, int $int2)
-if (~prayer_client_getvar($int2) = false) {
-    if (~clientscript_2295($int2) = false) {
+if (~prayer_client_getvar($int2) = 0) {
+    if (~script2295($int2) = 0) {
         return;
     }
     if (cc_find($component0, $int2) = true) {

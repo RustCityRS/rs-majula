@@ -1,15 +1,16 @@
+// 1665
 [proc,bank_v2_help_slotsused](component $component0, component $component1, component $component2, component $component3)
 def_int $int4 = 0;
 def_int $int5 = 0;
-if (~clientscript_3287 = true) {
+if (~script3287 = true) {
     $int4 = calc(516 - 439 + 1);
     $int5 = calc(516 - $int4);
 } else {
     $int4 = calc(516 - 439 + 1 - 10);
     $int5 = calc(516 - 10 - $int4);
 }
-def_int $int6 = %varc_int_1038;
-def_int $int7 = calc(%varc_int_192 - $int6);
+def_int $int6 = %varclient_1038;
+def_int $int7 = calc(%varclient_192 - $int6);
 def_int $int8 = calc(($int4 - $int6) * -1);
 def_int $int9 = calc($int7 - (439 - 1));
 if ($int9 > 0) {

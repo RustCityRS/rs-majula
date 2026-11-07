@@ -1,11 +1,12 @@
+// 783
 [clientscript,quickchat_tutorial_loadcontent]
-if (%varbit_4762 ! %varc_int_155) {
-    %varc_int_155 = %varbit_4762;
-    if (%varbit_4762 = true) {
-        ~clientscript_1029(enum_1484, 9);
-    } else if (%varbit_4762 = 2) {
+if (%varplayerbit_4762 ! %varclient_155) {
+    %varclient_155 = %varplayerbit_4762;
+    if (%varplayerbit_4762 = 1) {
+        ~script1029(enum_1484, 9);
+    } else if (%varplayerbit_4762 = 2) {
         ~quickchat_tutorial_showpage(enum_1486, 0, 7);
-    } else if (%varbit_4762 = 3) {
-        ~clientscript_1030(1485);
+    } else if (%varplayerbit_4762 = 3) {
+        ~script1030(1485);
     }
 }

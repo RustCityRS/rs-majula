@@ -1,0 +1,7 @@
+// 4174
+[proc,script4174](int $int0)
+if (testbit(%varplayerbit_642, $int0) = ^true) {
+    .cc_sethide(false);
+} else {
+    .cc_sethide(true);
+}

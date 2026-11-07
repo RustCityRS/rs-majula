@@ -1,22 +1,23 @@
+// 1651
 [proc,chatbox_resize](int $int0, int $int1)
-if (~clientscript_1653 = true) {
-    $int0 = calc(if_getheight(toplevel_fullscreen:com1) - 172);
-    if_sethide(true, toplevel_fullscreen:com72);
-} else if (%varc_int_41 ! -1) {
-    if_sethide(false, toplevel_fullscreen:com72);
+if (~script1653 = true) {
+    $int0 = calc(if_getheight(toplevel_fullscreen:com_1) - 172);
+    if_sethide(true, toplevel_fullscreen:com_72);
+} else if (%varclient_41 ! -1) {
+    if_sethide(false, toplevel_fullscreen:com_72);
 }
-def_int $int2 = calc(if_getheight(toplevel_fullscreen:com1) - 87 - $int0 - 30);
+def_int $int2 = calc(if_getheight(toplevel_fullscreen:com_1) - 87 - $int0 - 30);
 $int2 = calc($int2 - $int2 % 14);
 if ($int2 < 142) {
     $int2 = 142;
 }
-%varc_int_7 = calc(%varc_int_7 - ($int2 - if_getheight(toplevel_fullscreen:com_chatbox)));
+%varclient_7 = calc(%varclient_7 - ($int2 - if_getheight(toplevel_fullscreen:com_chatbox)));
 if_setsize(519, $int2, ^setsize_abs, ^setsize_abs, toplevel_fullscreen:com_chatbox);
 if_setposition(0, 23, ^setpos_abs_left, ^setpos_abs_bottom, toplevel_fullscreen:com_chatbox);
-if ($int1 = true) {
-    %varc_int_1037 = $int2;
+if ($int1 = 1) {
+    %varclient_1037 = $int2;
 }
-if_setposition(0, calc(if_gety(toplevel_fullscreen:com_chatbox) - 94), ^setpos_abs_left, ^setpos_abs_top, toplevel_fullscreen:com72);
+if_setposition(0, calc(if_gety(toplevel_fullscreen:com_chatbox) - 94), ^setpos_abs_left, ^setpos_abs_top, toplevel_fullscreen:com_72);
 if_setposition(0, calc(if_gety(toplevel_fullscreen:com_chatbox) - 69), ^setpos_abs_left, ^setpos_abs_top, toplevel_fullscreen:com_private_chat);
-~clientscript_1301(chatbox_background:com59, chatbox_background:com58);
+~script1301(chatbox_background:com_59, chatbox_background:com_58);
 ~rebuildchatbox;

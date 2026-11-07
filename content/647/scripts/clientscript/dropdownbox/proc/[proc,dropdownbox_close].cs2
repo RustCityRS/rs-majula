@@ -1,3 +1,4 @@
+// 1349
 [proc,dropdownbox_close](component $component0, component $component1, component $component2, component $component3, int $int4)
 if (cc_find($component0, $int4) = true) {
     cc_setvflip(false);

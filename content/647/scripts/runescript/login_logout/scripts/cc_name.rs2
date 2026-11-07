@@ -1,13 +1,13 @@
 [queue,cc_open_name]
 runclientscript("playerdesign4_open_name_entry()")
-if_sethide(playerdesign4:com155, false)
-if_sethide(playerdesign4:com156, true)
+if_sethide(playerdesign4:com_155, false)
+if_sethide(playerdesign4:com_156, true)
 
-[if_button,playerdesign4:com117]
+[if_button,playerdesign4:com_117]
 if (p_finduid(uid) = true) {
     runclientscript("playerdesign4_open_name_entry()")
-    if_sethide(playerdesign4:com155, false)
-    if_sethide(playerdesign4:com156, true)
+    if_sethide(playerdesign4:com_155, false)
+    if_sethide(playerdesign4:com_156, true)
     @cc_name_loop;
 }
 
@@ -22,15 +22,15 @@ def_string $name = last_string;
 if (~create_check_username($name) = false) {
     p_prev_suggestions
     sendvarc_str(330, "")
-    if_settext(playerdesign4:com154, "Invalid Name")
-    if_sethide(playerdesign4:com155, true)
-    if_sethide(playerdesign4:com156, false)
-    if_sethide(playerdesign4:com164, true)
+    if_settext(playerdesign4:com_154, "Invalid Name")
+    if_sethide(playerdesign4:com_155, true)
+    if_sethide(playerdesign4:com_156, false)
+    if_sethide(playerdesign4:com_164, true)
     ~cc_send_suggestions();
     runclientscript("playerdesign4_open_name_entry()")
     sendvarc_str(330, "")
     sendvarc(1099, string_length(""))
-    runclientscript("clientscript_3218(playerdesign4:com181, playerdesign4:com182, playerdesign4:com183, \"\", 16)")
+    runclientscript("script3218(playerdesign4:com_181, playerdesign4:com_182, playerdesign4:com_183, \"\", 16)")
     @cc_name_loop;
 }
 p_setdisplayname($name);
@@ -40,33 +40,33 @@ if ($result = 1) {
     queue(character_created, 0, 0);
 } else {
     sendvarc_str(330, $formatted)
-    if_settext(playerdesign4:com154, "'<$formatted>' is not available.")
-    if_sethide(playerdesign4:com155, true)
-    if_sethide(playerdesign4:com156, false)
-    if_sethide(playerdesign4:com164, true)
+    if_settext(playerdesign4:com_154, "'<$formatted>' is not available.")
+    if_sethide(playerdesign4:com_155, true)
+    if_sethide(playerdesign4:com_156, false)
+    if_sethide(playerdesign4:com_164, true)
     ~cc_send_suggestions();
     runclientscript("playerdesign4_open_name_entry()")
     sendvarc_str(330, $formatted)
     sendvarc(1099, string_length($formatted))
-    runclientscript("clientscript_3218(playerdesign4:com181, playerdesign4:com182, playerdesign4:com183, $formatted, 16)")
+    runclientscript("script3218(playerdesign4:com_181, playerdesign4:com_182, playerdesign4:com_183, $formatted, 16)")
     @cc_name_loop;
 }
 
 //Continue button
-[if_button,playerdesign4:com166]
+[if_button,playerdesign4:com_166]
 if (p_finduid(uid) = true) {
     runclientscript("playerdesign4_submit_name(0, 1, 1)")
 }
 
 // More suggestions button
-[if_button,playerdesign4:com165]
+[if_button,playerdesign4:com_165]
 if (p_finduid(uid) = true) {
     p_request_more_suggestions
     queue(cc_more_suggestions, 1, 0)
 }
 
 // Previous suggestions button
-[if_button,playerdesign4:com164]
+[if_button,playerdesign4:com_164]
 if (p_finduid(uid) = true) {
     p_prev_suggestions
     ~cc_send_suggestions();
@@ -75,19 +75,19 @@ if (p_finduid(uid) = true) {
 // Sending more suggestions
 [queue,cc_more_suggestions]
 ~cc_send_suggestions();
-if_sethide(playerdesign4:com164, false)
+if_sethide(playerdesign4:com_164, false)
 
-[if_button,playerdesign4:com158]
+[if_button,playerdesign4:com_158]
 if (p_finduid(uid) = true) {
     runclientscript("playerdesign4_submit_name(1, 1, 0)")
 }
 
-[if_button,playerdesign4:com159]
+[if_button,playerdesign4:com_159]
 if (p_finduid(uid) = true) {
     runclientscript("playerdesign4_submit_name(2, 1, 0)")
 }
 
-[if_button,playerdesign4:com160]
+[if_button,playerdesign4:com_160]
 if (p_finduid(uid) = true) {
     runclientscript("playerdesign4_submit_name(3, 1, 0)")
 }
@@ -105,11 +105,11 @@ sendvarc_str(334, ^string_empty)
 sendvarc_str(335, ^string_empty)
 sendvarc_str(336, ^string_empty)
 // display text immediately (if_settext is not delayed like sendvarc_str)
-if_settext(playerdesign4:com158, $s0)
-if_settext(playerdesign4:com159, $s1)
-if_settext(playerdesign4:com160, $s2)
+if_settext(playerdesign4:com_158, $s0)
+if_settext(playerdesign4:com_159, $s1)
+if_settext(playerdesign4:com_160, $s2)
 // set button ops immediately via script params (not delayed)
-runclientscript("clientscript_3946(1, $s0, $s1, $s2, ^string_empty, ^string_empty, ^string_empty)")
+runclientscript("script3946(1, $s0, $s1, $s2, ^string_empty, ^string_empty, ^string_empty)")
 
 [queue,character_created]
 allowdesign(^false)

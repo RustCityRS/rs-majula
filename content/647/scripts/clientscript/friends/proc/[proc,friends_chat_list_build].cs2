@@ -1,22 +1,23 @@
+// 199
 [proc,friends_chat_list_build](component $component0)
 def_int $int1 = 0;
-def_int $int2 = clan_getchatsize;
+def_int $int2 = clan_getchatcount;
 def_int $int3 = 2;
 def_int $int4 = 100;
 def_int $int5 = 19;
-def_string $string = "";
+def_string $string0 = "";
 if ($int2 > 0) {
     cc_deleteall($component0);
     while ($int1 < $int2) {
-        $string = clan_getchatuserdisplay($int1);
-        cc_create($component0, ^iftype_text, if_getchildcount($component0));
+        $string0 = clan_getchatusername($int1);
+        cc_create($component0, ^iftype_text, if_getnextsubid($component0));
         cc_setcolour(0xa4997d);
         cc_settextfont(verdana_11pt_regular);
         cc_settextshadow(false);
         cc_setposition(0, calc($int1 * $int5), ^setpos_abs_left, ^setpos_abs_top);
         cc_setsize($int4, $int5, ^setsize_abs, ^setsize_abs);
-        cc_settext($string);
+        cc_settext($string0);
         $int1 = calc($int1 + 1);
     }
-    if_sethook1432("friends_chat_list_build(^event_com)", $component0);
+    if_setonclanchanneltransmit("friends_chat_list_build(event_com)", $component0);
 }

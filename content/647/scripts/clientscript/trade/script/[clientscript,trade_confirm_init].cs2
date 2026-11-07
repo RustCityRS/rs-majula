@@ -1,90 +1,91 @@
+// 142
 [clientscript,trade_confirm_init]
-if (getlanguage = false) {
-    if_settextfont(p12_full, tradeconfirm:com50);
-    if_settextfont(p12_full, tradeconfirm:com52);
-    if_settextalign(^settextalign_centre, ^settextalign_centre, 17, tradeconfirm:com50);
-    if_settextalign(^settextalign_centre, ^settextalign_centre, 17, tradeconfirm:com52);
+if (map_lang = 0) {
+    if_settextfont(p12_full, tradeconfirm:com_50);
+    if_settextfont(p12_full, tradeconfirm:com_52);
+    if_settextalign(^settextalign_centre, ^settextalign_centre, 17, tradeconfirm:com_50);
+    if_settextalign(^settextalign_centre, ^settextalign_centre, 17, tradeconfirm:com_52);
 } else {
-    if_settextfont(p11_full, tradeconfirm:com50);
-    if_settextfont(p11_full, tradeconfirm:com52);
-    if_settextalign(^settextalign_centre, ^settextalign_centre, 0, tradeconfirm:com50);
-    if_settextalign(^settextalign_centre, ^settextalign_centre, 0, tradeconfirm:com52);
+    if_settextfont(p11_full, tradeconfirm:com_50);
+    if_settextfont(p11_full, tradeconfirm:com_52);
+    if_settextalign(^settextalign_centre, ^settextalign_centre, 0, tradeconfirm:com_50);
+    if_settextalign(^settextalign_centre, ^settextalign_centre, 0, tradeconfirm:com_52);
 }
-cc_deleteall(tradeconfirm:com38);
-cc_deleteall(tradeconfirm:com39);
-cc_deleteall(tradeconfirm:com40);
+cc_deleteall(tradeconfirm:com_38);
+cc_deleteall(tradeconfirm:com_39);
+cc_deleteall(tradeconfirm:com_40);
 def_int $int0 = 0;
 def_obj $obj1 = null;
-if (inv_getobj(tradeoffer, 14) ! null | (inv_getobj(tradeoffer, 15) ! null | (inv_getobj(tradeoffer, 16) ! null | (inv_getobj(tradeoffer, 17) ! null | (inv_getobj(tradeoffer, 18) ! null | (inv_getobj(tradeoffer, 19) ! null | (inv_getobj(tradeoffer, 20) ! null | (inv_getobj(tradeoffer, 21) ! null | (inv_getobj(tradeoffer, 22) ! null | (inv_getobj(tradeoffer, 23) ! null | (inv_getobj(tradeoffer, 24) ! null | (inv_getobj(tradeoffer, 25) ! null | (inv_getobj(tradeoffer, 26) ! null | inv_getobj(tradeoffer, 27) ! null))))))))))))) {
-    if_sethide(false, tradeconfirm:com39);
-    if_sethide(false, tradeconfirm:com40);
-    if_sethide(false, tradeconfirm:com41);
+if (inv_getobj(tradeoffer, 14) ! null | inv_getobj(tradeoffer, 15) ! null | inv_getobj(tradeoffer, 16) ! null | inv_getobj(tradeoffer, 17) ! null | inv_getobj(tradeoffer, 18) ! null | inv_getobj(tradeoffer, 19) ! null | inv_getobj(tradeoffer, 20) ! null | inv_getobj(tradeoffer, 21) ! null | inv_getobj(tradeoffer, 22) ! null | inv_getobj(tradeoffer, 23) ! null | inv_getobj(tradeoffer, 24) ! null | inv_getobj(tradeoffer, 25) ! null | inv_getobj(tradeoffer, 26) ! null | inv_getobj(tradeoffer, 27) ! null) {
+    if_sethide(false, tradeconfirm:com_39);
+    if_sethide(false, tradeconfirm:com_40);
+    if_sethide(false, tradeconfirm:com_41);
     while ($int0 < 14) {
         $obj1 = inv_getobj(tradeoffer, $int0);
         if ($obj1 ! null) {
-            cc_create(tradeconfirm:com39, ^iftype_text, if_getchildcount(tradeconfirm:com39));
+            cc_create(tradeconfirm:com_39, ^iftype_text, if_getnextsubid(tradeconfirm:com_39));
             cc_setposition(0, calc($int0 * 12), ^setpos_abs_centre, ^setpos_abs_top);
             cc_setsize(0, 12, ^setsize_minus, ^setsize_abs);
             cc_settextalign(^settextalign_left, ^settextalign_top, 0);
             cc_settextfont(p12_full);
             cc_setcolour(^white);
             cc_settextshadow(true);
-            cc_settext(~clientscript_4107($obj1, inv_getnum(tradeoffer, $int0)));
+            cc_settext(~script4107($obj1, inv_getnum(tradeoffer, $int0)));
         }
         $int0 = calc($int0 + 1);
     }
     while ($int0 < 28) {
         $obj1 = inv_getobj(tradeoffer, $int0);
         if ($obj1 ! null) {
-            cc_create(tradeconfirm:com40, ^iftype_text, if_getchildcount(tradeconfirm:com40));
+            cc_create(tradeconfirm:com_40, ^iftype_text, if_getnextsubid(tradeconfirm:com_40));
             cc_setposition(0, calc(($int0 - 14) * 12), ^setpos_abs_centre, ^setpos_abs_top);
             cc_setsize(0, 12, ^setsize_minus, ^setsize_abs);
             cc_settextalign(^settextalign_left, ^settextalign_top, 0);
             cc_settextfont(p12_full);
             cc_setcolour(^white);
             cc_settextshadow(true);
-            cc_settext(~clientscript_4107($obj1, inv_getnum(tradeoffer, $int0)));
+            cc_settext(~script4107($obj1, inv_getnum(tradeoffer, $int0)));
         }
         $int0 = calc($int0 + 1);
     }
-    ~clientscript_4109(114, 21889062, tradeconfirm:com39, tradeconfirm:com40, tradeconfirm:com41, tradeconfirm:com42);
-    if_setondrag("clientscript_4108(^event_mousex, tradeconfirm:com38, tradeconfirm:com39, tradeconfirm:com40, tradeconfirm:com41, tradeconfirm:com42)", tradeconfirm:com42);
-    if_setondragcomplete("clientscript_4108(^event_mousex, tradeconfirm:com38, tradeconfirm:com39, tradeconfirm:com40, tradeconfirm:com41, tradeconfirm:com42)", tradeconfirm:com42);
-    if_setmouseover_cursor(149, tradeconfirm:com42);
+    ~script4109(114, tradeconfirm:com_38, tradeconfirm:com_39, tradeconfirm:com_40, tradeconfirm:com_41, tradeconfirm:com_42);
+    if_setondrag("script4108(event_mousex, tradeconfirm:com_38, tradeconfirm:com_39, tradeconfirm:com_40, tradeconfirm:com_41, tradeconfirm:com_42)", tradeconfirm:com_42);
+    if_setondragcomplete("script4108(event_mousex, tradeconfirm:com_38, tradeconfirm:com_39, tradeconfirm:com_40, tradeconfirm:com_41, tradeconfirm:com_42)", tradeconfirm:com_42);
+    if_setmouseovercursor(cursor_149, tradeconfirm:com_42);
 } else {
-    if_sethide(true, tradeconfirm:com39);
-    if_sethide(true, tradeconfirm:com40);
-    if_sethide(true, tradeconfirm:com41);
+    if_sethide(true, tradeconfirm:com_39);
+    if_sethide(true, tradeconfirm:com_40);
+    if_sethide(true, tradeconfirm:com_41);
     while ($int0 < 14) {
         $obj1 = inv_getobj(tradeoffer, $int0);
         if ($obj1 ! null) {
-            cc_create(tradeconfirm:com38, ^iftype_text, if_getchildcount(tradeconfirm:com38));
+            cc_create(tradeconfirm:com_38, ^iftype_text, if_getnextsubid(tradeconfirm:com_38));
             cc_setposition(0, calc($int0 * 12), ^setpos_abs_centre, ^setpos_abs_top);
             cc_setsize(0, 12, ^setsize_minus, ^setsize_abs);
             cc_settextalign(^settextalign_centre, ^settextalign_top, 0);
             cc_settextfont(b12_full);
             cc_setcolour(^white);
             cc_settextshadow(true);
-            cc_settext(~clientscript_4107($obj1, inv_getnum(tradeoffer, $int0)));
+            cc_settext(~script4107($obj1, inv_getnum(tradeoffer, $int0)));
         }
         $int0 = calc($int0 + 1);
     }
 }
-cc_deleteall(tradeconfirm:com49);
-cc_deleteall(tradeconfirm:com58);
-cc_deleteall(tradeconfirm:com59);
+cc_deleteall(tradeconfirm:com_49);
+cc_deleteall(tradeconfirm:com_58);
+cc_deleteall(tradeconfirm:com_59);
 $int0 = 0;
 def_int $int2 = 0;
-if (inv_getobj_alwaysnoted(tradeoffer, 14) ! null | (inv_getobj_alwaysnoted(tradeoffer, 15) ! null | (inv_getobj_alwaysnoted(tradeoffer, 16) ! null | (inv_getobj_alwaysnoted(tradeoffer, 17) ! null | (inv_getobj_alwaysnoted(tradeoffer, 18) ! null | (inv_getobj_alwaysnoted(tradeoffer, 19) ! null | (inv_getobj_alwaysnoted(tradeoffer, 20) ! null | (inv_getobj_alwaysnoted(tradeoffer, 21) ! null | (inv_getobj_alwaysnoted(tradeoffer, 22) ! null | (inv_getobj_alwaysnoted(tradeoffer, 23) ! null | (inv_getobj_alwaysnoted(tradeoffer, 24) ! null | (inv_getobj_alwaysnoted(tradeoffer, 25) ! null | (inv_getobj_alwaysnoted(tradeoffer, 26) ! null | inv_getobj_alwaysnoted(tradeoffer, 27) ! null))))))))))))) {
-    if_sethide(false, tradeconfirm:com58);
-    if_sethide(false, tradeconfirm:com59);
-    if_sethide(false, tradeconfirm:com60);
+if (invother_getobj(tradeoffer, 14) ! null | invother_getobj(tradeoffer, 15) ! null | invother_getobj(tradeoffer, 16) ! null | invother_getobj(tradeoffer, 17) ! null | invother_getobj(tradeoffer, 18) ! null | invother_getobj(tradeoffer, 19) ! null | invother_getobj(tradeoffer, 20) ! null | invother_getobj(tradeoffer, 21) ! null | invother_getobj(tradeoffer, 22) ! null | invother_getobj(tradeoffer, 23) ! null | invother_getobj(tradeoffer, 24) ! null | invother_getobj(tradeoffer, 25) ! null | invother_getobj(tradeoffer, 26) ! null | invother_getobj(tradeoffer, 27) ! null) {
+    if_sethide(false, tradeconfirm:com_58);
+    if_sethide(false, tradeconfirm:com_59);
+    if_sethide(false, tradeconfirm:com_60);
     while ($int0 < 14) {
-        $int2 = ~clientscript_148($int0);
+        $int2 = ~script148($int0);
         if ($int2 > 0 & $int2 > calc(clientclock - 750)) {
-            if_sethide(false, tradeconfirm:com55);
-            cc_create(tradeconfirm:com58, ^iftype_rectangle, if_getchildcount(tradeconfirm:com58));
-            .cc_create(tradeconfirm:com58, ^iftype_rectangle, if_getchildcount(tradeconfirm:com58));
+            if_sethide(false, tradeconfirm:com_55);
+            cc_create(tradeconfirm:com_58, ^iftype_rectangle, if_getnextsubid(tradeconfirm:com_58));
+            .cc_create(tradeconfirm:com_58, ^iftype_rectangle, if_getnextsubid(tradeconfirm:com_58));
             cc_setposition(0, calc($int0 * 12), ^setpos_abs_centre, ^setpos_abs_top);
             .cc_setposition(0, calc($int0 * 12), ^setpos_abs_centre, ^setpos_abs_top);
             cc_setsize(0, 13, ^setsize_minus, ^setsize_abs);
@@ -93,28 +94,28 @@ if (inv_getobj_alwaysnoted(tradeoffer, 14) ! null | (inv_getobj_alwaysnoted(trad
             .cc_setcolour(0x990000);
             cc_setfill(true);
             .cc_setfill(false);
-            cc_setontimer("interface_flash_fade(^event_com, ^event_subid, $int2, calc($int2 + 750))");
-            .cc_setontimer("interface_flash_fade(^event_com, ^event_subid, $int2, calc($int2 + 750))");
+            cc_setontimer("interface_flash_fade(event_com, event_comsubid, $int2, calc($int2 + 750))");
+            .cc_setontimer("interface_flash_fade(event_com, event_comsubid, $int2, calc($int2 + 750))");
         }
-        $obj1 = inv_getobj_alwaysnoted(tradeoffer, $int0);
+        $obj1 = invother_getobj(tradeoffer, $int0);
         if ($obj1 ! null) {
-            cc_create(tradeconfirm:com58, ^iftype_text, if_getchildcount(tradeconfirm:com58));
+            cc_create(tradeconfirm:com_58, ^iftype_text, if_getnextsubid(tradeconfirm:com_58));
             cc_setposition(0, calc($int0 * 12), ^setpos_abs_centre, ^setpos_abs_top);
             cc_setsize(0, 12, ^setsize_minus, ^setsize_abs);
             cc_settextalign(^settextalign_left, ^settextalign_top, 0);
             cc_settextfont(p12_full);
             cc_setcolour(^white);
             cc_settextshadow(true);
-            cc_settext(~clientscript_4107($obj1, worldid(90, $int0)));
+            cc_settext(~script4107($obj1, invother_getnum(tradeoffer, $int0)));
         }
         $int0 = calc($int0 + 1);
     }
     while ($int0 < 28) {
-        $int2 = ~clientscript_148($int0);
+        $int2 = ~script148($int0);
         if ($int2 > 0 & $int2 > calc(clientclock - 750)) {
-            if_sethide(false, tradeconfirm:com55);
-            cc_create(tradeconfirm:com59, ^iftype_rectangle, if_getchildcount(tradeconfirm:com59));
-            .cc_create(tradeconfirm:com59, ^iftype_rectangle, if_getchildcount(tradeconfirm:com59));
+            if_sethide(false, tradeconfirm:com_55);
+            cc_create(tradeconfirm:com_59, ^iftype_rectangle, if_getnextsubid(tradeconfirm:com_59));
+            .cc_create(tradeconfirm:com_59, ^iftype_rectangle, if_getnextsubid(tradeconfirm:com_59));
             cc_setposition(0, calc(($int0 - 14) * 12), ^setpos_abs_centre, ^setpos_abs_top);
             .cc_setposition(0, calc(($int0 - 14) * 12), ^setpos_abs_centre, ^setpos_abs_top);
             cc_setsize(0, 13, ^setsize_minus, ^setsize_abs);
@@ -123,36 +124,36 @@ if (inv_getobj_alwaysnoted(tradeoffer, 14) ! null | (inv_getobj_alwaysnoted(trad
             .cc_setcolour(0x990000);
             cc_setfill(true);
             .cc_setfill(false);
-            cc_setontimer("interface_flash_fade(^event_com, ^event_subid, $int2, calc($int2 + 750))");
-            .cc_setontimer("interface_flash_fade(^event_com, ^event_subid, $int2, calc($int2 + 750))");
+            cc_setontimer("interface_flash_fade(event_com, event_comsubid, $int2, calc($int2 + 750))");
+            .cc_setontimer("interface_flash_fade(event_com, event_comsubid, $int2, calc($int2 + 750))");
         }
-        $obj1 = inv_getobj_alwaysnoted(tradeoffer, $int0);
+        $obj1 = invother_getobj(tradeoffer, $int0);
         if ($obj1 ! null) {
-            cc_create(tradeconfirm:com59, ^iftype_text, if_getchildcount(tradeconfirm:com59));
+            cc_create(tradeconfirm:com_59, ^iftype_text, if_getnextsubid(tradeconfirm:com_59));
             cc_setposition(0, calc(($int0 - 14) * 12), ^setpos_abs_centre, ^setpos_abs_top);
             cc_setsize(0, 12, ^setsize_minus, ^setsize_abs);
             cc_settextalign(^settextalign_left, ^settextalign_top, 0);
             cc_settextfont(p12_full);
             cc_setcolour(^white);
             cc_settextshadow(true);
-            cc_settext(~clientscript_4107($obj1, worldid(90, $int0)));
+            cc_settext(~script4107($obj1, invother_getnum(tradeoffer, $int0)));
         }
         $int0 = calc($int0 + 1);
     }
-    ~clientscript_4109(114, 21889073, tradeconfirm:com58, tradeconfirm:com59, tradeconfirm:com60, tradeconfirm:com61);
-    if_setondrag("clientscript_4108(^event_mousex, tradeconfirm:com49, tradeconfirm:com58, tradeconfirm:com59, tradeconfirm:com60, tradeconfirm:com61)", tradeconfirm:com61);
-    if_setondragcomplete("clientscript_4108(^event_mousex, tradeconfirm:com49, tradeconfirm:com58, tradeconfirm:com59, tradeconfirm:com60, tradeconfirm:com61)", tradeconfirm:com61);
-    if_setmouseover_cursor(149, tradeconfirm:com61);
+    ~script4109(114, tradeconfirm:com_49, tradeconfirm:com_58, tradeconfirm:com_59, tradeconfirm:com_60, tradeconfirm:com_61);
+    if_setondrag("script4108(event_mousex, tradeconfirm:com_49, tradeconfirm:com_58, tradeconfirm:com_59, tradeconfirm:com_60, tradeconfirm:com_61)", tradeconfirm:com_61);
+    if_setondragcomplete("script4108(event_mousex, tradeconfirm:com_49, tradeconfirm:com_58, tradeconfirm:com_59, tradeconfirm:com_60, tradeconfirm:com_61)", tradeconfirm:com_61);
+    if_setmouseovercursor(cursor_149, tradeconfirm:com_61);
 } else {
-    if_sethide(true, tradeconfirm:com58);
-    if_sethide(true, tradeconfirm:com59);
-    if_sethide(true, tradeconfirm:com60);
+    if_sethide(true, tradeconfirm:com_58);
+    if_sethide(true, tradeconfirm:com_59);
+    if_sethide(true, tradeconfirm:com_60);
     while ($int0 < 14) {
-        $int2 = ~clientscript_148($int0);
+        $int2 = ~script148($int0);
         if ($int2 > 0 & $int2 > calc(clientclock - 750)) {
-            if_sethide(false, tradeconfirm:com55);
-            cc_create(tradeconfirm:com49, ^iftype_rectangle, if_getchildcount(tradeconfirm:com49));
-            .cc_create(tradeconfirm:com49, ^iftype_rectangle, if_getchildcount(tradeconfirm:com49));
+            if_sethide(false, tradeconfirm:com_55);
+            cc_create(tradeconfirm:com_49, ^iftype_rectangle, if_getnextsubid(tradeconfirm:com_49));
+            .cc_create(tradeconfirm:com_49, ^iftype_rectangle, if_getnextsubid(tradeconfirm:com_49));
             cc_setposition(0, calc($int0 * 12), ^setpos_abs_centre, ^setpos_abs_top);
             .cc_setposition(0, calc($int0 * 12), ^setpos_abs_centre, ^setpos_abs_top);
             cc_setsize(0, 13, ^setsize_minus, ^setsize_abs);
@@ -161,38 +162,38 @@ if (inv_getobj_alwaysnoted(tradeoffer, 14) ! null | (inv_getobj_alwaysnoted(trad
             .cc_setcolour(0x990000);
             cc_setfill(true);
             .cc_setfill(false);
-            cc_setontimer("interface_flash_fade(^event_com, ^event_subid, $int2, calc($int2 + 750))");
-            .cc_setontimer("interface_flash_fade(^event_com, ^event_subid, $int2, calc($int2 + 750))");
+            cc_setontimer("interface_flash_fade(event_com, event_comsubid, $int2, calc($int2 + 750))");
+            .cc_setontimer("interface_flash_fade(event_com, event_comsubid, $int2, calc($int2 + 750))");
         }
-        $obj1 = inv_getobj_alwaysnoted(tradeoffer, $int0);
+        $obj1 = invother_getobj(tradeoffer, $int0);
         if ($obj1 ! null) {
-            cc_create(tradeconfirm:com49, ^iftype_text, if_getchildcount(tradeconfirm:com49));
+            cc_create(tradeconfirm:com_49, ^iftype_text, if_getnextsubid(tradeconfirm:com_49));
             cc_setposition(0, calc($int0 * 12), ^setpos_abs_centre, ^setpos_abs_top);
             cc_setsize(0, 12, ^setsize_minus, ^setsize_abs);
             cc_settextalign(^settextalign_centre, ^settextalign_top, 0);
             cc_settextfont(b12_full);
             cc_setcolour(^white);
             cc_settextshadow(true);
-            cc_settext(~clientscript_4107($obj1, worldid(90, $int0)));
+            cc_settext(~script4107($obj1, invother_getnum(tradeoffer, $int0)));
         }
         $int0 = calc($int0 + 1);
     }
 }
-$int2 = ~clientscript_148(-1);
+$int2 = ~script148(-1);
 if ($int2 > 0) {
-    if_sethide(false, tradeconfirm:com55);
-    cc_create(tradeconfirm:com51, ^iftype_rectangle, 0);
+    if_sethide(false, tradeconfirm:com_55);
+    cc_create(tradeconfirm:com_51, ^iftype_rectangle, 0);
     cc_sethide(false);
     cc_setposition(0, 0, ^setpos_abs_left, ^setpos_abs_top);
     cc_setsize(0, 0, ^setsize_minus, ^setsize_minus);
     cc_setcolour(^red);
     cc_setfill(true);
-    cc_setontimer("interface_flash_fade(^event_com, ^event_subid, $int2, calc($int2 + 750))");
-    cc_create(tradeconfirm:com51, ^iftype_rectangle, 1);
+    cc_setontimer("interface_flash_fade(event_com, event_comsubid, $int2, calc($int2 + 750))");
+    cc_create(tradeconfirm:com_51, ^iftype_rectangle, 1);
     cc_sethide(false);
     cc_setposition(0, 0, ^setpos_abs_left, ^setpos_abs_top);
     cc_setsize(0, 0, ^setsize_minus, ^setsize_minus);
     cc_setcolour(0x990000);
     cc_setfill(false);
-    cc_setontimer("interface_flash_fade(^event_com, ^event_subid, $int2, calc($int2 + 750))");
+    cc_setontimer("interface_flash_fade(event_com, event_comsubid, $int2, calc($int2 + 750))");
 }

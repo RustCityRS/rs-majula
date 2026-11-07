@@ -1,0 +1,67 @@
+// 273:0
+[com_0]
+type=layer
+widthmode=minus
+heightmode=minus
+onload=script1087(event_com, 0)
+
+// 273:1
+[com_1]
+type=model
+x=-29
+y=11
+width=805
+height=539
+xmode=abs_centre
+layer=com_0
+model=model_10753
+modelorigin=35,17
+modelzoom=272
+
+// 273:2
+[com_2]
+type=text
+y=40
+width=404
+height=16
+xmode=abs_centre
+ymode=abs_bottom
+layer=com_0
+textfont=b12_full
+text=Pop the correct balloon animal to find a key
+textalignh=centre
+textshadow=yes
+colour=0xff981f
+
+// 273:3
+[com_3]
+type=model
+x=-13
+y=-4
+width=241
+height=143
+xmode=abs_centre
+ymode=abs_centre
+layer=com_0
+model=model_10749
+modelorigin=16,-7
+modelangle=26,412,0
+modelzoom=250
+onload=script2113(event_com)
+
+// 273:4
+[com_4]
+type=graphic
+x=7
+y=7
+width=26
+height=23
+xmode=abs_right
+layer=com_0
+graphic="close_buttons,4"
+colour=0x000000
+transmitop=1
+op1=Close
+onmouseover=graphic_swapper(event_com, "close_buttons,5")
+onmouseleave=graphic_swapper(event_com, "close_buttons,4")
+onop=closebutton_click

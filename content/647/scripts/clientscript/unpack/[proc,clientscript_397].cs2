@@ -1,8 +1,0 @@
-[proc,clientscript_397]
-if (%varc_int_743 = -1 & %varp_1109 ! -1) {
-    if (calc(%varp_1111 * %varp_1110) > inv_total(inv, coins)) {
-        if_setcolour(^red, obj_info:com25);
-    } else {
-        if_setcolour(%varc_int_1241, obj_info:com25);
-    }
-}

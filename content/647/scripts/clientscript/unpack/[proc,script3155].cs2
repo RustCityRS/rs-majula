@@ -1,0 +1,7 @@
+// 3155
+[proc,script3155](component $component0)
+~cc_add_graphic($component0, 0, 16, 16, 0, 0, graphic_1547, false, false, false, 0);
+cc_setonmouseover("script3156($component0)");
+cc_setonmouseleave("script3157($component0)");
+~cc_add_graphic($component0, 1, 16, 16, 0, 0, graphic_1548, false, false, false, 0);
+cc_sethide(true);

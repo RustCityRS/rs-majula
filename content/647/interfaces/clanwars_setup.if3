@@ -1,0 +1,1828 @@
+// 791:0
+[com_0]
+type=rectangle
+x=17
+y=25
+width=488
+height=305
+colour=0x000000
+fill=yes
+trans=200
+opbase=  
+
+// 791:1
+[com_1]
+type=graphic
+x=14
+y=25
+width=485
+height=300
+graphic=tradebacking
+tiling=yes
+colour=0xffffffff
+
+// 791:2
+[com_2]
+type=graphic
+y=53
+width=32
+height=241
+graphic="v2_stone_borders,1"
+tiling=yes
+colour=0xffffffff
+
+// 791:3
+[com_3]
+type=graphic
+x=13
+y=20
+width=32
+height=32
+graphic="v2_stone_borders,4"
+colour=0xffffffff
+
+// 791:4
+[com_4]
+type=graphic
+x=480
+y=51
+width=32
+height=243
+graphic="v2_stone_borders,3"
+tiling=yes
+colour=0xffffffff
+
+// 791:5
+[com_5]
+type=graphic
+x=44
+y=7
+width=424
+height=34
+graphic="v2_stone_borders,0"
+tiling=yes
+colour=0xffffffff
+
+// 791:6
+[com_6]
+type=graphic
+x=45
+y=306
+width=423
+height=32
+graphic="v2_stone_borders,2"
+tiling=yes
+colour=0xffffffff
+
+// 791:7
+[com_7]
+type=graphic
+x=13
+y=294
+width=32
+height=32
+graphic="v2_stone_borders,6"
+colour=0xffffffff
+
+// 791:8
+[com_8]
+type=graphic
+x=468
+y=20
+width=32
+height=32
+graphic="v2_stone_borders,5"
+colour=0xffffffff
+
+// 791:9
+[com_9]
+type=graphic
+x=468
+y=294
+width=32
+height=32
+graphic="v2_stone_borders,7"
+colour=0xffffffff
+
+// 791:10
+[com_10]
+type=graphic
+x=24
+y=35
+width=465
+height=32
+graphic="v2_stone_borders,8"
+tiling=yes
+colour=0xffffffff
+
+// 791:11
+[com_11]
+type=graphic
+x=13
+y=37
+width=32
+height=32
+graphic="v2_stone_borders,9"
+colour=0xffffffff
+
+// 791:12
+[com_12]
+type=graphic
+x=468
+y=37
+width=32
+height=32
+graphic="v2_stone_borders,10"
+colour=0xffffffff
+
+// 791:13
+[com_13]
+type=graphic
+x=474
+y=30
+width=16
+height=16
+graphic="v2_stone_close_button,0"
+colour=0xffffffff
+transmitop=1
+op1=Close
+onmouseover=graphic_swapper(event_com, "v2_stone_close_button,1")
+onmouseleave=graphic_swapper(event_com, "v2_stone_close_button,0")
+onop=closebutton_click
+
+// 791:14
+[com_14]
+type=text
+x=18
+y=27
+width=475
+height=22
+textfont=b12_full
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xff981f
+onload=clanwars_setup_maininit(event_com)
+
+// 791:15
+[com_15]
+type=layer
+x=23
+y=58
+width=125
+height=181
+onload=clanwars_setup_createbox(event_com, 30, 62, 149)
+
+// 791:16
+[com_16]
+type=rectangle
+widthmode=minus
+heightmode=minus
+layer=com_15
+colour=0x000000
+fill=yes
+trans=200
+
+// 791:17
+[com_17]
+type=text
+height=32
+widthmode=minus
+layer=com_15
+textfont=b12_full
+text=Victory
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xb17a37
+
+// 791:18
+[com_18]
+type=text
+x=25
+y=32
+width=100
+height=30
+layer=com_15
+textfont=p12_full
+text=Knock-out<br>(No run-ins)
+textalignv=centre
+textshadow=yes
+colour=0xc8aa64
+
+// 791:19
+[com_19]
+type=graphic
+x=4
+y=38
+width=17
+height=17
+layer=com_15
+graphic="options_radio_buttons,2"
+colour=0xffffffff
+
+// 791:20
+[com_20]
+type=rectangle
+y=32
+height=30
+widthmode=minus
+layer=com_15
+colour=0xffff00
+fill=yes
+trans=255
+transmitop=1
+op1=Last team standing
+onmouseleave=deltooltip(clanwars_setup:com_150)
+onop=script1821(event_op, 0)
+onmouserepeat=script1160(event_com, -1, clanwars_setup:com_150, "Victory conditions:<br>In knock-out mode, the arena is closed once the battle begins, and no-one may enter or re-enter the fight.<br>The last surviving clan wins.", 25, 250)
+
+// 791:21
+[com_21]
+type=text
+y=64
+width=121
+height=20
+xmode=abs_right
+layer=com_15
+textfont=p12_full
+text=First team to...
+textalignv=centre
+textshadow=yes
+colour=0xc8aa64
+
+// 791:22
+[com_22]
+type=layer
+y=84
+width=107
+height=65
+layer=com_15
+onload=script1797(event_com, clanwars_setup:com_53)
+onmouseleave=deltooltip(clanwars_setup:com_150)
+onmouserepeat=script1160(event_com, -1, clanwars_setup:com_150, "Victory conditions:<br>Players may rejoin the fight after dying.<br>The battle will end when one team achieves the specified kill-count.", 25, 250)
+
+// 791:23
+[com_23]
+type=text
+x=25
+width=82
+height=17
+layer=com_22
+textfont=p12_full
+text=25
+textalignv=centre
+textshadow=yes
+colour=0xc8aa64
+
+// 791:24
+[com_24]
+type=graphic
+x=4
+width=17
+height=17
+layer=com_22
+graphic="options_radio_buttons,0"
+colour=0xffffffff
+
+// 791:25
+[com_25]
+type=rectangle
+height=17
+widthmode=minus
+layer=com_22
+colour=0xffff00
+fill=yes
+trans=255
+transmitop=1
+op1=25 kills
+onop=script1821(event_op, 1)
+
+// 791:26
+[com_26]
+type=text
+x=25
+width=82
+height=17
+layer=com_22
+textfont=p12_full
+text=50
+textalignv=centre
+textshadow=yes
+colour=0xc8aa64
+
+// 791:27
+[com_27]
+type=graphic
+x=4
+width=17
+height=17
+layer=com_22
+graphic="options_radio_buttons,0"
+colour=0xffffffff
+
+// 791:28
+[com_28]
+type=rectangle
+height=17
+widthmode=minus
+layer=com_22
+colour=0xffff00
+fill=yes
+trans=255
+transmitop=1
+op1=50 kills
+onop=script1821(event_op, 2)
+
+// 791:29
+[com_29]
+type=text
+x=25
+width=82
+height=17
+layer=com_22
+textfont=p12_full
+text=100
+textalignv=centre
+textshadow=yes
+colour=0xc8aa64
+
+// 791:30
+[com_30]
+type=graphic
+x=4
+width=17
+height=17
+layer=com_22
+graphic="options_radio_buttons,0"
+colour=0xffffffff
+
+// 791:31
+[com_31]
+type=rectangle
+height=17
+widthmode=minus
+layer=com_22
+colour=0xffff00
+fill=yes
+trans=255
+transmitop=1
+op1=100 kills
+onop=script1821(event_op, 3)
+
+// 791:32
+[com_32]
+type=text
+x=25
+width=82
+height=17
+layer=com_22
+textfont=p12_full
+text=200
+textalignv=centre
+textshadow=yes
+colour=0xc8aa64
+
+// 791:33
+[com_33]
+type=graphic
+x=4
+width=17
+height=17
+layer=com_22
+graphic="options_radio_buttons,0"
+colour=0xffffffff
+
+// 791:34
+[com_34]
+type=rectangle
+height=17
+widthmode=minus
+layer=com_22
+colour=0xffff00
+fill=yes
+trans=255
+transmitop=1
+op1=200 kills
+onop=script1821(event_op, 4)
+
+// 791:35
+[com_35]
+type=text
+x=25
+width=82
+height=17
+layer=com_22
+textfont=p12_full
+text=400
+textalignv=centre
+textshadow=yes
+colour=0xc8aa64
+
+// 791:36
+[com_36]
+type=graphic
+x=4
+width=17
+height=17
+layer=com_22
+graphic="options_radio_buttons,0"
+colour=0xffffffff
+
+// 791:37
+[com_37]
+type=rectangle
+height=17
+widthmode=minus
+layer=com_22
+colour=0xffff00
+fill=yes
+trans=255
+transmitop=1
+op1=400 kills
+onop=script1821(event_op, 5)
+
+// 791:38
+[com_38]
+type=text
+x=25
+width=82
+height=17
+layer=com_22
+textfont=p12_full
+text=750
+textalignv=centre
+textshadow=yes
+colour=0xc8aa64
+
+// 791:39
+[com_39]
+type=graphic
+x=4
+width=17
+height=17
+layer=com_22
+graphic="options_radio_buttons,0"
+colour=0xffffffff
+
+// 791:40
+[com_40]
+type=rectangle
+height=17
+widthmode=minus
+layer=com_22
+colour=0xffff00
+fill=yes
+trans=255
+transmitop=1
+op1=750 kills
+onop=script1821(event_op, 6)
+
+// 791:41
+[com_41]
+type=text
+x=25
+width=82
+height=17
+layer=com_22
+textfont=p12_full
+text=1 000
+textalignv=centre
+textshadow=yes
+colour=0xc8aa64
+
+// 791:42
+[com_42]
+type=graphic
+x=4
+width=17
+height=17
+layer=com_22
+graphic="options_radio_buttons,0"
+colour=0xffffffff
+
+// 791:43
+[com_43]
+type=rectangle
+height=17
+widthmode=minus
+layer=com_22
+colour=0xffff00
+fill=yes
+trans=255
+transmitop=1
+op1=1 000 kills
+onop=script1821(event_op, 7)
+
+// 791:44
+[com_44]
+type=text
+x=25
+width=82
+height=17
+layer=com_22
+textfont=p12_full
+text=2 500
+textalignv=centre
+textshadow=yes
+colour=0xc8aa64
+
+// 791:45
+[com_45]
+type=graphic
+x=4
+width=17
+height=17
+layer=com_22
+graphic="options_radio_buttons,0"
+colour=0xffffffff
+
+// 791:46
+[com_46]
+type=rectangle
+height=17
+widthmode=minus
+layer=com_22
+colour=0xffff00
+fill=yes
+trans=255
+transmitop=1
+op1=2 500 kills
+onop=script1821(event_op, 8)
+
+// 791:47
+[com_47]
+type=text
+x=25
+width=82
+height=17
+layer=com_22
+textfont=p12_full
+text=5 000
+textalignv=centre
+textshadow=yes
+colour=0xc8aa64
+
+// 791:48
+[com_48]
+type=graphic
+x=4
+width=17
+height=17
+layer=com_22
+graphic="options_radio_buttons,0"
+colour=0xffffffff
+
+// 791:49
+[com_49]
+type=rectangle
+height=17
+widthmode=minus
+layer=com_22
+colour=0xffff00
+fill=yes
+trans=255
+transmitop=1
+op1=5 000 kills
+onop=script1821(event_op, 9)
+
+// 791:50
+[com_50]
+type=text
+x=25
+width=82
+height=17
+layer=com_22
+textfont=p12_full
+text=10 000
+textalignv=centre
+textshadow=yes
+colour=0xc8aa64
+
+// 791:51
+[com_51]
+type=graphic
+x=4
+width=17
+height=17
+layer=com_22
+graphic="options_radio_buttons,0"
+colour=0xffffffff
+
+// 791:52
+[com_52]
+type=rectangle
+height=17
+widthmode=minus
+layer=com_22
+colour=0xffff00
+fill=yes
+trans=255
+transmitop=1
+op1=10 000 kills
+onop=script1821(event_op, 10)
+
+// 791:53
+[com_53]
+type=layer
+x=2
+y=84
+width=16
+height=65
+xmode=abs_right
+layer=com_15
+
+// 791:54
+[com_54]
+type=text
+x=25
+y=149
+width=100
+height=30
+layer=com_15
+textfont=p12_full
+text=Most kills at end
+textalignv=centre
+textshadow=yes
+colour=0xc8aa64
+
+// 791:55
+[com_55]
+type=graphic
+x=4
+y=157
+width=17
+height=17
+layer=com_15
+graphic="options_radio_buttons,0"
+colour=0xffffffff
+
+// 791:56
+[com_56]
+type=rectangle
+y=149
+height=30
+widthmode=minus
+layer=com_15
+colour=0xffff00
+fill=yes
+trans=255
+transmitop=1
+op1=Most kills at end
+onmouseleave=deltooltip(clanwars_setup:com_150)
+onop=script1821(event_op, 15)
+onmouserepeat=script1160(event_com, -1, clanwars_setup:com_150, "Victory conditions:<br>Players may rejoin the fight after dying.<br>The battle will end when the time limit is reached, and the team with the highest kill-count will be declared victorious.", 25, 250)
+
+// 791:57
+[com_57]
+type=layer
+x=151
+y=58
+width=100
+height=106
+onload=clanwars_setup_createbox(event_com, 30, 87, 0)
+
+// 791:58
+[com_58]
+type=text
+x=25
+width=57
+height=17
+layer=com_96
+textfont=p12_full
+text=0:05
+textalignv=centre
+textshadow=yes
+colour=0xc8aa64
+
+// 791:59
+[com_59]
+type=graphic
+x=4
+width=17
+height=17
+layer=com_96
+graphic="options_radio_buttons,0"
+colour=0xffffffff
+
+// 791:60
+[com_60]
+type=rectangle
+height=17
+widthmode=minus
+layer=com_96
+colour=0xffff00
+fill=yes
+trans=255
+transmitop=1
+op1=0:05
+onop=script1822(event_op, 1)
+
+// 791:61
+[com_61]
+type=text
+x=25
+width=57
+height=17
+layer=com_96
+textfont=p12_full
+text=0:10
+textalignv=centre
+textshadow=yes
+colour=0xc8aa64
+
+// 791:62
+[com_62]
+type=graphic
+x=4
+width=17
+height=17
+layer=com_96
+graphic="options_radio_buttons,0"
+colour=0xffffffff
+
+// 791:63
+[com_63]
+type=rectangle
+height=17
+widthmode=minus
+layer=com_96
+colour=0xffff00
+fill=yes
+trans=255
+transmitop=1
+op1=0:10
+onop=script1822(event_op, 2)
+
+// 791:64
+[com_64]
+type=text
+x=25
+width=57
+height=17
+layer=com_96
+textfont=p12_full
+text=0:30
+textalignv=centre
+textshadow=yes
+colour=0xc8aa64
+
+// 791:65
+[com_65]
+type=graphic
+x=4
+width=17
+height=17
+layer=com_96
+graphic="options_radio_buttons,0"
+colour=0xffffffff
+
+// 791:66
+[com_66]
+type=rectangle
+height=17
+widthmode=minus
+layer=com_96
+colour=0xffff00
+fill=yes
+trans=255
+transmitop=1
+op1=0:30
+onop=script1822(event_op, 3)
+
+// 791:67
+[com_67]
+type=text
+x=25
+width=57
+height=17
+layer=com_96
+textfont=p12_full
+text=1:00
+textalignv=centre
+textshadow=yes
+colour=0xc8aa64
+
+// 791:68
+[com_68]
+type=graphic
+x=4
+width=17
+height=17
+layer=com_96
+graphic="options_radio_buttons,0"
+colour=0xffffffff
+
+// 791:69
+[com_69]
+type=rectangle
+height=17
+widthmode=minus
+layer=com_96
+colour=0xffff00
+fill=yes
+trans=255
+transmitop=1
+op1=1:00
+onop=script1822(event_op, 4)
+
+// 791:70
+[com_70]
+type=text
+x=25
+width=57
+height=17
+layer=com_96
+textfont=p12_full
+text=1:30
+textalignv=centre
+textshadow=yes
+colour=0xc8aa64
+
+// 791:71
+[com_71]
+type=graphic
+x=4
+width=17
+height=17
+layer=com_96
+graphic="options_radio_buttons,0"
+colour=0xffffffff
+
+// 791:72
+[com_72]
+type=rectangle
+height=17
+widthmode=minus
+layer=com_96
+colour=0xffff00
+fill=yes
+trans=255
+transmitop=1
+op1=1:30
+onop=script1822(event_op, 5)
+
+// 791:73
+[com_73]
+type=text
+x=25
+width=57
+height=17
+layer=com_96
+textfont=p12_full
+text=2:00
+textalignv=centre
+textshadow=yes
+colour=0xc8aa64
+
+// 791:74
+[com_74]
+type=graphic
+x=4
+width=17
+height=17
+layer=com_96
+graphic="options_radio_buttons,0"
+colour=0xffffffff
+
+// 791:75
+[com_75]
+type=rectangle
+height=17
+widthmode=minus
+layer=com_96
+colour=0xffff00
+fill=yes
+trans=255
+transmitop=1
+op1=2:00
+onop=script1822(event_op, 6)
+
+// 791:76
+[com_76]
+type=text
+x=25
+width=57
+height=17
+layer=com_96
+textfont=p12_full
+text=2:30
+textalignv=centre
+textshadow=yes
+colour=0xc8aa64
+
+// 791:77
+[com_77]
+type=graphic
+x=4
+width=17
+height=17
+layer=com_96
+graphic="options_radio_buttons,0"
+colour=0xffffffff
+
+// 791:78
+[com_78]
+type=rectangle
+height=17
+widthmode=minus
+layer=com_96
+colour=0xffff00
+fill=yes
+trans=255
+transmitop=1
+op1=2:30
+onop=script1822(event_op, 7)
+
+// 791:79
+[com_79]
+type=text
+x=25
+width=57
+height=17
+layer=com_96
+textfont=p12_full
+text=3:00
+textalignv=centre
+textshadow=yes
+colour=0xc8aa64
+
+// 791:80
+[com_80]
+type=graphic
+x=4
+width=17
+height=17
+layer=com_96
+graphic="options_radio_buttons,0"
+colour=0xffffffff
+
+// 791:81
+[com_81]
+type=rectangle
+height=17
+widthmode=minus
+layer=com_96
+colour=0xffff00
+fill=yes
+trans=255
+transmitop=1
+op1=3:00
+onop=script1822(event_op, 8)
+
+// 791:82
+[com_82]
+type=text
+x=25
+width=57
+height=17
+layer=com_96
+textfont=p12_full
+text=4:00
+textalignv=centre
+textshadow=yes
+colour=0xc8aa64
+
+// 791:83
+[com_83]
+type=graphic
+x=4
+width=17
+height=17
+layer=com_96
+graphic="options_radio_buttons,0"
+colour=0xffffffff
+
+// 791:84
+[com_84]
+type=rectangle
+height=17
+widthmode=minus
+layer=com_96
+colour=0xffff00
+fill=yes
+trans=255
+transmitop=1
+op1=4:00
+onop=script1822(event_op, 9)
+
+// 791:85
+[com_85]
+type=text
+x=25
+width=57
+height=17
+layer=com_96
+textfont=p12_full
+text=5:00
+textalignv=centre
+textshadow=yes
+colour=0xc8aa64
+
+// 791:86
+[com_86]
+type=graphic
+x=4
+width=17
+height=17
+layer=com_96
+graphic="options_radio_buttons,0"
+colour=0xffffffff
+
+// 791:87
+[com_87]
+type=rectangle
+height=17
+widthmode=minus
+layer=com_96
+colour=0xffff00
+fill=yes
+trans=255
+transmitop=1
+op1=5:00
+onop=script1822(event_op, 10)
+
+// 791:88
+[com_88]
+type=text
+x=25
+width=57
+height=17
+layer=com_96
+textfont=p12_full
+text=6:00
+textalignv=centre
+textshadow=yes
+colour=0xc8aa64
+
+// 791:89
+[com_89]
+type=graphic
+x=4
+width=17
+height=17
+layer=com_96
+graphic="options_radio_buttons,0"
+colour=0xffffffff
+
+// 791:90
+[com_90]
+type=rectangle
+height=17
+widthmode=minus
+layer=com_96
+colour=0xffff00
+fill=yes
+trans=255
+transmitop=1
+op1=6:00
+onop=script1822(event_op, 11)
+
+// 791:91
+[com_91]
+type=text
+x=25
+width=57
+height=17
+layer=com_96
+textfont=p12_full
+text=8:00
+textalignv=centre
+textshadow=yes
+colour=0xc8aa64
+
+// 791:92
+[com_92]
+type=graphic
+x=4
+width=17
+height=17
+layer=com_96
+graphic="options_radio_buttons,0"
+colour=0xffffffff
+
+// 791:93
+[com_93]
+type=rectangle
+height=17
+widthmode=minus
+layer=com_96
+colour=0xffff00
+fill=yes
+trans=255
+transmitop=1
+op1=8:00
+onop=script1822(event_op, 12)
+
+// 791:94
+[com_94]
+type=rectangle
+widthmode=minus
+heightmode=minus
+layer=com_57
+colour=0x000000
+fill=yes
+trans=200
+
+// 791:95
+[com_95]
+type=text
+height=32
+widthmode=minus
+layer=com_57
+textfont=b12_full
+text=Time limit
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xb17a37
+
+// 791:96
+[com_96]
+type=layer
+y=32
+width=82
+height=55
+layer=com_57
+onload=script1798(event_com, clanwars_setup:com_97)
+onmouseleave=deltooltip(clanwars_setup:com_150)
+onmouserepeat=script1160(event_com, -1, clanwars_setup:com_150, "If you set a time limit...<br>- in knock-out mode, the victorious clan will be the one with the most survivors when the time's up.<br>- in run-in mode, the victorious clan will be the one with the highest kill-count when the time's up.", 25, 250)
+
+// 791:97
+[com_97]
+type=layer
+x=82
+y=32
+width=16
+height=55
+layer=com_57
+
+// 791:98
+[com_98]
+type=text
+x=25
+y=89
+width=75
+height=17
+layer=com_57
+textfont=p12_full
+text=No limit
+textalignv=centre
+textshadow=yes
+colour=0xc8aa64
+
+// 791:99
+[com_99]
+type=graphic
+x=4
+y=88
+width=17
+height=17
+layer=com_57
+graphic="options_radio_buttons,2"
+colour=0xffffffff
+
+// 791:100
+[com_100]
+type=rectangle
+y=89
+height=17
+widthmode=minus
+layer=com_57
+colour=0xffff00
+fill=yes
+trans=255
+transmitop=1
+op1=No time limit
+onop=script1822(event_op, 0)
+
+// 791:101
+[com_101]
+type=layer
+x=23
+y=242
+width=125
+height=73
+onload=clanwars_setup_createbox(event_com, 30, 0, 0)
+onmouseleave=deltooltip(clanwars_setup:com_150)
+onmouserepeat=script1160(event_com, -1, clanwars_setup:com_150, "Use this option to make the battle end when either team has 5 or fewer fighters.", 25, 250)
+
+// 791:102
+[com_102]
+type=rectangle
+widthmode=minus
+heightmode=minus
+layer=com_101
+colour=0x000000
+fill=yes
+trans=200
+
+// 791:103
+[com_103]
+type=text
+height=32
+widthmode=minus
+layer=com_101
+textfont=b12_full
+text=Stragglers
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xb17a37
+
+// 791:104
+[com_104]
+type=text
+x=25
+y=34
+width=100
+height=17
+layer=com_101
+textfont=p12_full
+text=Kill 'em all
+textalignv=centre
+textshadow=yes
+colour=0xc8aa64
+
+// 791:105
+[com_105]
+type=graphic
+x=4
+y=34
+width=17
+height=17
+layer=com_101
+graphic="options_radio_buttons,2"
+colour=0xffffffff
+
+// 791:106
+[com_106]
+type=rectangle
+y=34
+width=125
+height=17
+layer=com_101
+colour=0xffff00
+fill=yes
+trans=255
+transmitop=1
+op1=Kill 'em all
+onop=clanwars_setup_stragglers_button(event_op)
+
+// 791:107
+[com_107]
+type=text
+x=25
+y=53
+width=100
+height=17
+layer=com_101
+textfont=p12_full
+text=Ignore 5
+textalignv=centre
+textshadow=yes
+colour=0xc8aa64
+
+// 791:108
+[com_108]
+type=graphic
+x=4
+y=53
+width=17
+height=17
+layer=com_101
+graphic="options_radio_buttons,0"
+colour=0xffffffff
+
+// 791:109
+[com_109]
+type=rectangle
+y=53
+width=125
+height=17
+layer=com_101
+colour=0xffff00
+fill=yes
+trans=255
+transmitop=1
+op1=Ignore 5
+onop=script1824(event_op)
+
+// 791:110
+[com_110]
+type=layer
+x=151
+y=167
+width=100
+height=110
+onload=clanwars_setup_createbox(event_com, 30, 0, 0)
+onmouseleave=deltooltip(clanwars_setup:com_150)
+onmouserepeat=script1160(event_com, -1, clanwars_setup:com_150, "Remember, there are no gravestones in these battles. Anything you drop is most likely gone forever.", 25, 250)
+
+// 791:111
+[com_111]
+type=rectangle
+widthmode=minus
+heightmode=minus
+layer=com_110
+colour=0x000000
+fill=yes
+trans=200
+
+// 791:112
+[com_112]
+type=text
+height=32
+widthmode=minus
+layer=com_110
+textfont=b12_full
+text=On death...
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xb17a37
+
+// 791:113
+[com_113]
+type=graphic
+y=43
+width=22
+height=22
+xmode=abs_centre
+layer=com_110
+graphic="stonemenusideicons,4"
+tiling=yes
+colour=0xffffffff
+
+// 791:114
+[com_114]
+type=graphic
+y=43
+width=25
+height=25
+xmode=abs_centre
+layer=com_110
+hide=yes
+graphic=headicons_pk
+tiling=yes
+colour=0xffffffff
+
+// 791:115
+[com_115]
+type=text
+height=65
+widthmode=minus
+heightmode=minus
+ymode=abs_bottom
+layer=com_110
+textfont=p12_full
+text=... you keep<br>your items.
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xc8aa64
+
+// 791:116
+[com_116]
+type=rectangle
+height=32
+widthmode=minus
+heightmode=minus
+ymode=abs_bottom
+layer=com_110
+colour=0xffff00
+fill=yes
+trans=255
+transmitop=1
+opbase=<col=ff9040>Item loss
+op1=Toggle
+onop=script1825(event_op)
+
+// 791:117
+[com_117]
+type=layer
+x=254
+y=58
+width=235
+height=145
+onload=clanwars_setup_createbox(event_com, 30, 0, 0)
+
+// 791:118
+[com_118]
+type=rectangle
+widthmode=minus
+heightmode=minus
+layer=com_117
+colour=0x000000
+fill=yes
+trans=200
+
+// 791:119
+[com_119]
+type=text
+height=32
+widthmode=minus
+layer=com_117
+textfont=b12_full
+text=Combat rules
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xb17a37
+
+// 791:120
+[com_120]
+type=graphic
+x=3
+y=33
+width=52
+height=52
+layer=com_117
+graphic="staticons_high_res_clean,0"
+graphicshadow=2629120
+colour=0xffffffff
+transmitop=1
+opbase=<col=ff9040>Melee
+op1=Toggle
+onmouseleave=deltooltip(clanwars_setup:com_150)
+onop=clanwars_setup_melee(event_op)
+onmouserepeat=script1160(event_com, -1, clanwars_setup:com_150, "Allow players to use melee attacks?", 25, 250)
+
+// 791:121
+[com_121]
+type=graphic
+x=41
+y=70
+width=17
+height=17
+layer=com_117
+graphic="options_radio_buttons,2"
+colour=0xffffffff
+
+// 791:122
+[com_122]
+type=graphic
+x=61
+y=33
+width=52
+height=52
+layer=com_117
+graphic="staticons_high_res_clean,5"
+graphicshadow=1
+colour=0xffffffff
+transmitop=1
+opbase=<col=ff9040>Magic
+op1=Toggle
+onmouseleave=deltooltip(clanwars_setup:com_150)
+onop=clanwars_setup_magic(event_op)
+onmouserepeat=clanwars_setup_magictooltip(event_com, -1, clanwars_setup:com_150)
+
+// 791:123
+[com_123]
+type=graphic
+x=93
+y=46
+width=24
+height=24
+layer=com_117
+graphic="magicon2,2"
+colour=0xffffffff
+
+// 791:124
+[com_124]
+type=graphic
+x=75
+y=46
+width=24
+height=24
+layer=com_117
+graphic="magicon,8"
+colour=0xffffffff
+
+// 791:125
+[com_125]
+type=graphic
+x=58
+y=33
+width=24
+height=24
+layer=com_117
+graphic="magicon2,17"
+colour=0xffffffff
+
+// 791:126
+[com_126]
+type=graphic
+x=58
+y=54
+width=24
+height=24
+layer=com_117
+graphic="lunar_magic_on,21"
+colour=0xffffffff
+
+// 791:127
+[com_127]
+type=graphic
+x=99
+y=70
+width=17
+height=17
+layer=com_117
+graphic="options_radio_buttons,2"
+colour=0xffffffff
+
+// 791:128
+[com_128]
+type=graphic
+x=119
+y=33
+width=52
+height=52
+layer=com_117
+graphic="staticons_high_res_clean,3"
+graphicshadow=1
+colour=0xffffffff
+transmitop=1
+opbase=<col=ff9040>Ranging
+op1=Toggle
+onmouseleave=deltooltip(clanwars_setup:com_150)
+onop=clanwars_setup_ranged(event_op)
+onmouserepeat=script1160(event_com, -1, clanwars_setup:com_150, "Allow players to use ranged attacks?", 25, 250)
+
+// 791:129
+[com_129]
+type=graphic
+x=157
+y=70
+width=17
+height=17
+layer=com_117
+graphic="options_radio_buttons,2"
+colour=0xffffffff
+
+// 791:130
+[com_130]
+type=graphic
+x=177
+y=33
+width=52
+height=52
+layer=com_117
+graphic="staticons_high_res_clean,4"
+graphicshadow=1
+colour=0xffffffff
+transmitop=1
+opbase=<col=ff9040>Prayer
+op1=Toggle
+onmouseleave=deltooltip(clanwars_setup:com_150)
+onop=clanwars_setup_prayer(event_op)
+onmouserepeat=script1160(event_com, -1, clanwars_setup:com_150, "Allow players to use prayers?", 25, 250)
+
+// 791:131
+[com_131]
+type=graphic
+x=215
+y=70
+width=17
+height=17
+layer=com_117
+graphic="options_radio_buttons,2"
+colour=0xffffffff
+
+// 791:132
+[com_132]
+type=graphic
+x=18
+y=88
+width=55
+height=54
+layer=com_117
+graphic="staticons_high_res2_clean,7"
+graphicshadow=1
+colour=0xffffffff
+transmitop=1
+opbase=<col=ff9040>Summoning
+op1=Toggle
+onmouseleave=deltooltip(clanwars_setup:com_150)
+onop=clanwars_setup_summoning(event_op)
+onmouserepeat=script1160(event_com, -1, clanwars_setup:com_150, "Allow players to use familiars?", 25, 250)
+
+// 791:133
+[com_133]
+type=graphic
+x=56
+y=125
+width=17
+height=17
+layer=com_117
+graphic="options_radio_buttons,2"
+colour=0xffffffff
+
+// 791:134
+[com_134]
+type=graphic
+x=90
+y=88
+width=55
+height=54
+layer=com_117
+graphic="staticons_high_res2_clean,10"
+graphicshadow=1
+colour=0xffffffff
+transmitop=1
+opbase=<col=ff9040>Food
+op1=Toggle
+onmouseleave=deltooltip(clanwars_setup:com_150)
+onop=clanwars_setup_food(event_op)
+onmouserepeat=script1160(event_com, -1, clanwars_setup:com_150, "Allow players to eat food?", 25, 250)
+
+// 791:135
+[com_135]
+type=graphic
+x=128
+y=125
+width=17
+height=17
+layer=com_117
+graphic="options_radio_buttons,2"
+colour=0xffffffff
+
+// 791:136
+[com_136]
+type=graphic
+x=162
+y=88
+width=55
+height=54
+layer=com_117
+graphic="staticons_high_res2_clean,8"
+graphicshadow=1
+colour=0xffffffff
+transmitop=1
+opbase=<col=ff9040>Potions
+op1=Toggle
+onmouseleave=deltooltip(clanwars_setup:com_150)
+onop=clanwars_setup_potions(event_op)
+onmouserepeat=script1160(event_com, -1, clanwars_setup:com_150, "Allow players to drink potions?", 25, 250)
+
+// 791:137
+[com_137]
+type=graphic
+x=200
+y=125
+width=17
+height=17
+layer=com_117
+graphic="options_radio_buttons,2"
+colour=0xffffffff
+
+// 791:138
+[com_138]
+type=layer
+x=254
+y=206
+width=235
+height=109
+onload=clanwars_setup_createbox(event_com, 30, 0, 0)
+
+// 791:139
+[com_139]
+type=rectangle
+widthmode=minus
+heightmode=minus
+layer=com_138
+colour=0x000000
+fill=yes
+trans=200
+
+// 791:140
+[com_140]
+type=text
+height=32
+widthmode=minus
+layer=com_138
+textfont=b12_full
+text=Arena
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xb17a37
+
+// 791:141
+[com_141]
+type=layer
+y=2
+width=217
+height=34
+heightmode=minus
+ymode=abs_bottom
+layer=com_138
+onload=script1799(event_com, clanwars_setup:com_142)
+
+// 791:142
+[com_142]
+type=layer
+x=2
+y=2
+width=16
+height=34
+heightmode=minus
+xmode=abs_right
+ymode=abs_bottom
+layer=com_138
+
+// 791:143
+[com_143]
+type=layer
+x=151
+y=280
+width=100
+height=35
+transmitop=1
+op1=Accept
+onload=clanwars_setup_acceptlayer(event_com)
+onmouseleave=v2_stone_button_out_filled(event_com)
+onop=clanwars_setup_accept_button(event_op)
+onmouserepeat=v2_stone_button_in_filled(event_com)
+
+// 791:144
+[com_144]
+type=layer
+x=151
+y=280
+width=50
+height=35
+transmitop=1
+op1=Watch
+onload=v2_stone_button_out_filled(event_com)
+onmouseover=v2_stone_button_in_filled(event_com)
+onmouseleave=v2_stone_button_out_filled(event_com)
+
+// 791:145
+[com_145]
+type=layer
+x=201
+y=280
+width=50
+height=35
+transmitop=1
+op1=Fight
+onload=v2_stone_button_out_filled(event_com)
+onmouseover=v2_stone_button_in_filled(event_com)
+onmouseleave=v2_stone_button_out_filled(event_com)
+
+// 791:146
+[com_146]
+type=text
+x=151
+y=280
+width=100
+height=35
+textfont=p12_full
+text=Accept
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0x6ec800
+
+// 791:147
+[com_147]
+type=text
+x=151
+y=280
+width=50
+height=35
+textfont=p11_full
+text=Watch
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xffc800
+
+// 791:148
+[com_148]
+type=text
+x=201
+y=280
+width=50
+height=35
+textfont=p11_full
+text=Fight
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xff3200
+
+// 791:149
+[com_149]
+type=layer
+widthmode=minus
+heightmode=minus
+
+// 791:150
+[com_150]
+type=layer
+width=1
+height=1
+layer=com_149

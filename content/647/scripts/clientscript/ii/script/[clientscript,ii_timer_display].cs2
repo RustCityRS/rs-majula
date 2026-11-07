@@ -1,6 +1,7 @@
-[clientscript,ii_timer_display](component $component)
-if (%varbit_7191 = false) {
-    if_sethide(true, $component);
+// 2908
+[clientscript,ii_timer_display](component $component0)
+if (%varplayerbit_7191 = 0) {
+    if_sethide(true, $component0);
 } else {
-    if_sethide(false, $component);
+    if_sethide(false, $component0);
 }

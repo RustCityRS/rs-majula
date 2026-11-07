@@ -1,8 +1,0 @@
-[proc,clientscript_4015]
-if (if_gethide(task_main:com119) = true) {
-    if_sethide(false, task_main:com119);
-    if_sethide(false, task_main:com115);
-} else {
-    if_sethide(true, task_main:com119);
-    if_sethide(true, task_main:com115);
-}

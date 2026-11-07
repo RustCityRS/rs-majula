@@ -57,7 +57,7 @@ pub struct SeqTypeRaw {
     #[cfg(since_647)]
     pub a_bool8: bool,
     #[cfg(since_647)]
-    pub a_bool10: bool,
+    pub sound_vorbis: bool,
     #[cfg(since_647)]
     pub op19: Vec<(u8, u8)>,
     #[cfg(since_647)]
@@ -102,7 +102,7 @@ impl CacheType for SeqTypeRaw {
             #[cfg(since_647)]
             a_bool8: false,
             #[cfg(since_647)]
-            a_bool10: false,
+            sound_vorbis: false,
             #[cfg(since_647)]
             op19: Vec::new(),
             #[cfg(since_647)]
@@ -185,7 +185,7 @@ impl CacheType for SeqTypeRaw {
                 #[cfg(since_647)]
                 16 => self.a_bool8 = true,
                 #[cfg(since_647)]
-                18 => self.a_bool10 = true,
+                18 => self.sound_vorbis = true,
                 #[cfg(since_647)]
                 19 => {
                     let idx = buf.g1();

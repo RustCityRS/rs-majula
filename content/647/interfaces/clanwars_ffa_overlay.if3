@@ -1,0 +1,230 @@
+// 789:0
+[com_0]
+type=layer
+x=5
+width=64
+height=72
+xmode=abs_right
+ymode=abs_centre
+onload=clanwars_ffa(event_com, clanwars_ffa_overlay:com_2, clanwars_ffa_overlay:com_3, clanwars_ffa_overlay:com_4, clanwars_ffa_overlay:com_5, clanwars_ffa_overlay:com_6, 1)
+ontimer=clanwars_ffa(event_com, clanwars_ffa_overlay:com_2, clanwars_ffa_overlay:com_3, clanwars_ffa_overlay:com_4, clanwars_ffa_overlay:com_5, clanwars_ffa_overlay:com_6, 0)
+
+// 789:1
+[com_1]
+type=graphic
+x=2
+y=-2
+width=296
+height=300
+layer=com_6
+graphic=tradebacking
+colour=0x000000
+transmitop=10
+op10= 
+
+// 789:2
+[com_2]
+type=graphic
+widthmode=minus
+heightmode=minus
+layer=com_0
+tiling=yes
+trans=125
+colour=0x000000
+
+// 789:3
+[com_3]
+type=graphic
+y=15
+width=32
+height=32
+xmode=abs_centre
+layer=com_0
+graphic="options_icons,18"
+colour=0x000000
+
+// 789:4
+[com_4]
+type=text
+y=3
+height=13
+widthmode=minus
+layer=com_0
+textfont=p11_full
+text=On death:
+textalignh=centre
+textshadow=yes
+colour=0x000000
+
+// 789:5
+[com_5]
+type=text
+y=46
+height=23
+widthmode=minus
+layer=com_0
+textfont=p11_full
+textalignh=centre
+textshadow=yes
+colour=0x000000
+
+// 789:6
+[com_6]
+type=layer
+y=5
+width=300
+height=50
+xmode=abs_centre
+
+// 789:7
+[com_7]
+type=graphic
+x=21
+y=30
+width=250
+height=32
+layer=com_6
+graphic="v2_stone_borders,2"
+tiling=yes
+colour=0x000000
+transmitop=10
+op10= 
+
+// 789:8
+[com_8]
+type=graphic
+x=26
+y=-14
+width=250
+height=32
+layer=com_6
+graphic="v2_stone_borders,8"
+tiling=yes
+colour=0x000000
+transmitop=10
+op10= 
+
+// 789:9
+[com_9]
+type=graphic
+x=269
+y=-1
+width=32
+height=32
+layer=com_6
+graphic="v2_stone_borders,5"
+colour=0x000000
+transmitop=10
+op10= 
+
+// 789:10
+[com_10]
+type=graphic
+y=-1
+width=32
+height=32
+layer=com_6
+graphic="v2_stone_borders,4"
+colour=0x000000
+transmitop=10
+op10= 
+
+// 789:11
+[com_11]
+type=graphic
+x=269
+y=18
+width=32
+height=32
+layer=com_6
+graphic="v2_stone_borders,7"
+colour=0x000000
+transmitop=10
+op10= 
+
+// 789:12
+[com_12]
+type=graphic
+y=18
+width=32
+height=32
+layer=com_6
+graphic="v2_stone_borders,6"
+colour=0x000000
+transmitop=10
+op10= 
+
+// 789:13
+[com_13]
+type=text
+y=-4
+width=300
+height=50
+layer=com_6
+textfont=quill_oblique_large
+text=Go north to fight...
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xb17a37
+
+// 789:14
+[com_14]
+type=layer
+x=5
+y=-728
+width=75
+height=50
+widthmode=minus
+ymode=proportion_centre
+transmitop=10
+op10= 
+onload=script1807(event_com, clanwars_ffa_overlay:com_16, clanwars_ffa_overlay:com_17)
+
+// 789:15
+[com_15]
+type=graphic
+y=1
+width=13
+height=13
+layer=com_14
+graphic="coppa_mouth_button,2"
+colour=0x000000
+transmitop=1,2,10
+opbase=<ff9040>Caller</col>
+op1=Set
+op2=Clear
+op10= 
+onop=meslayer_mode12(event_op)
+
+// 789:16
+[com_16]
+type=text
+x=15
+width=100
+height=15
+layer=com_14
+textfont=b12_full
+textshadow=yes
+colour=0x00ffff
+transmitop=1,2,10
+opbase=<ff9040>Caller</col>
+op1=Set
+op2=Clear
+op10= 
+onop=meslayer_mode12(event_op)
+
+// 789:17
+[com_17]
+type=text
+height=15
+widthmode=minus
+heightmode=minus
+ymode=abs_bottom
+layer=com_14
+textfont=p12_full
+textalignv=centre
+textshadow=yes
+colour=0x00ffff
+transmitop=10
+op10= 

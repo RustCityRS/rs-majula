@@ -1,0 +1,110 @@
+// 336
+[clientscript,script336]
+def_int $int0 = 0;
+def_int $int1 = 0;
+def_int $int2 = 0;
+if (%varclient_1243 < stat_visible_xp(attack)) {
+    $int2 = calc(stat_visible_xp(attack) - %varclient_1243);
+    $int0, $int1 = ~get_bonus_amount($int0, $int1, $int2, 0);
+}
+if (%varclient_1244 < stat_visible_xp(strength)) {
+    $int2 = calc(stat_visible_xp(strength) - %varclient_1244);
+    $int0, $int1 = ~get_bonus_amount($int0, $int1, $int2, 0);
+}
+if (%varclient_1245 < stat_visible_xp(defence)) {
+    $int2 = calc(stat_visible_xp(defence) - %varclient_1245);
+    $int0, $int1 = ~get_bonus_amount($int0, $int1, $int2, 0);
+}
+if (%varclient_1246 < stat_visible_xp(ranged)) {
+    $int2 = calc(stat_visible_xp(ranged) - %varclient_1246);
+    $int0, $int1 = ~get_bonus_amount($int0, $int1, $int2, 0);
+}
+if (%varclient_1247 < stat_visible_xp(prayer)) {
+    $int2 = calc(stat_visible_xp(prayer) - %varclient_1247);
+    $int0, $int1 = ~get_bonus_amount($int0, $int1, $int2, 0);
+}
+if (%varclient_1248 < stat_visible_xp(magic)) {
+    $int2 = calc(stat_visible_xp(magic) - %varclient_1248);
+    $int0, $int1 = ~get_bonus_amount($int0, $int1, $int2, 0);
+}
+if (%varclient_1249 < stat_visible_xp(runecraft)) {
+    $int2 = calc(stat_visible_xp(runecraft) - %varclient_1249);
+    $int0, $int1 = ~get_bonus_amount($int0, $int1, $int2, 0);
+}
+if (%varclient_1250 < stat_visible_xp(hitpoints)) {
+    $int2 = calc(stat_visible_xp(hitpoints) - %varclient_1250);
+    $int0, $int1 = ~get_bonus_amount($int0, $int1, $int2, 0);
+}
+if (%varclient_1251 < stat_visible_xp(crafting)) {
+    $int2 = calc(stat_visible_xp(crafting) - %varclient_1251);
+    $int0, $int1 = ~get_bonus_amount($int0, $int1, $int2, 0);
+}
+if (%varclient_1252 < stat_visible_xp(mining)) {
+    $int2 = calc(stat_visible_xp(mining) - %varclient_1252);
+    $int0, $int1 = ~get_bonus_amount($int0, $int1, $int2, 0);
+}
+if (%varclient_1253 < stat_visible_xp(smithing)) {
+    $int2 = calc(stat_visible_xp(smithing) - %varclient_1253);
+    $int0, $int1 = ~get_bonus_amount($int0, $int1, $int2, 0);
+}
+if (%varclient_1254 < stat_visible_xp(fishing)) {
+    $int2 = calc(stat_visible_xp(fishing) - %varclient_1254);
+    $int0, $int1 = ~get_bonus_amount($int0, $int1, $int2, 0);
+}
+if (%varclient_1255 < stat_visible_xp(cooking)) {
+    $int2 = calc(stat_visible_xp(cooking) - %varclient_1255);
+    $int0, $int1 = ~get_bonus_amount($int0, $int1, $int2, 0);
+}
+if (%varclient_1256 < stat_visible_xp(firemaking)) {
+    $int2 = calc(stat_visible_xp(firemaking) - %varclient_1256);
+    $int0, $int1 = ~get_bonus_amount($int0, $int1, $int2, 0);
+}
+if (%varclient_1257 < stat_visible_xp(woodcutting)) {
+    $int2 = calc(stat_visible_xp(woodcutting) - %varclient_1257);
+    $int0, $int1 = ~get_bonus_amount($int0, $int1, $int2, 0);
+}
+if (%varclient_1258 < stat_visible_xp(agility)) {
+    $int2 = calc(stat_visible_xp(agility) - %varclient_1258);
+    $int0, $int1 = ~get_bonus_amount($int0, $int1, $int2, 0);
+}
+if (%varclient_1259 < stat_visible_xp(herblore)) {
+    $int2 = calc(stat_visible_xp(herblore) - %varclient_1259);
+    $int0, $int1 = ~get_bonus_amount($int0, $int1, $int2, 0);
+}
+if (%varclient_1260 < stat_visible_xp(thieving)) {
+    $int2 = calc(stat_visible_xp(thieving) - %varclient_1260);
+    $int0, $int1 = ~get_bonus_amount($int0, $int1, $int2, 0);
+}
+if (%varclient_1261 < stat_visible_xp(fletching)) {
+    $int2 = calc(stat_visible_xp(fletching) - %varclient_1261);
+    $int0, $int1 = ~get_bonus_amount($int0, $int1, $int2, 0);
+}
+if (%varclient_1262 < stat_visible_xp(slayer)) {
+    $int2 = calc(stat_visible_xp(slayer) - %varclient_1262);
+    $int0, $int1 = ~get_bonus_amount($int0, $int1, $int2, 0);
+}
+if (%varclient_1263 < stat_visible_xp(farming)) {
+    $int2 = calc(stat_visible_xp(farming) - %varclient_1263);
+    $int0, $int1 = ~get_bonus_amount($int0, $int1, $int2, 0);
+}
+if (%varclient_1264 < stat_visible_xp(construction)) {
+    $int2 = calc(stat_visible_xp(construction) - %varclient_1264);
+    $int0, $int1 = ~get_bonus_amount($int0, $int1, $int2, 0);
+}
+if (%varclient_1265 < stat_visible_xp(hunter)) {
+    $int2 = calc(stat_visible_xp(hunter) - %varclient_1265);
+    $int0, $int1 = ~get_bonus_amount($int0, $int1, $int2, 0);
+}
+if (%varclient_1266 < stat_visible_xp(summoning)) {
+    $int2 = calc(stat_visible_xp(summoning) - %varclient_1266);
+    $int0, $int1 = ~get_bonus_amount($int0, $int1, $int2, 0);
+}
+if (%varclient_1267 < stat_visible_xp(dungeoneering)) {
+    $int2 = calc(stat_visible_xp(dungeoneering) - %varclient_1267);
+    $int0, $int1 = ~get_bonus_amount($int0, $int1, $int2, 0);
+}
+if ($int0 = 0) {
+    return;
+} else {
+    ~script337($int0, $int1);
+}

@@ -1,13 +1,14 @@
-[clientscript,task_side_close_hover](int $int)
-if ($int = false) {
-    if_setgraphic(4324, task_side:com138);
-    if_setgraphic(4324, task_side:com139);
-    if_setgraphic(4325, task_side:com137);
-    if_setgraphic("task_arrow,1", task_side:com141);
+// 4004
+[clientscript,task_side_close_hover](int $int0)
+if ($int0 = 0) {
+    if_setgraphic(graphic_4324, task_side:com_138);
+    if_setgraphic(graphic_4324, task_side:com_139);
+    if_setgraphic(graphic_4325, task_side:com_137);
+    if_setgraphic("task_arrow,1", task_side:com_141);
 } else {
-    if_setgraphic(4322, task_side:com138);
-    if_setgraphic(4322, task_side:com139);
-    if_setgraphic(4323, task_side:com137);
-    if_setgraphic("task_arrow,0", task_side:com141);
-    ~deltooltip_action(task_side:com136);
+    if_setgraphic(graphic_4322, task_side:com_138);
+    if_setgraphic(graphic_4322, task_side:com_139);
+    if_setgraphic(graphic_4323, task_side:com_137);
+    if_setgraphic("task_arrow,0", task_side:com_141);
+    ~deltooltip_action(task_side:com_136);
 }

@@ -1,0 +1,69 @@
+// 531
+[clientscript,script531](component $component0, graphic $graphic1, graphic $graphic2, component $component3)
+def_graphic $graphic4 = null;
+def_int $int5 = 0;
+def_int $int6 = -1;
+def_component $component7 = null;
+def_component $component8 = null;
+def_boolean $boolean9 = false;
+if ($component0 = null | $graphic1 = null | $graphic2 = null) {
+    return;
+}
+if ($component0 = assister_interface:com_63) {
+    $int5 = ~assist_switch_var(%varplayerbit_4090);
+    $component7 = assister_interface:com_45;
+    $component8 = assister_interface:com_46;
+}
+if ($component0 = assister_interface:com_64) {
+    $int5 = ~assist_switch_var(%varplayerbit_4091);
+    $component7 = assister_interface:com_47;
+    $component8 = assister_interface:com_48;
+}
+if ($component0 = assister_interface:com_65) {
+    $int5 = ~assist_switch_var(%varplayerbit_4093);
+    $component7 = assister_interface:com_49;
+    $component8 = assister_interface:com_50;
+}
+if ($component0 = assister_interface:com_66) {
+    $int5 = ~assist_switch_var(%varplayerbit_4095);
+    $component7 = assister_interface:com_51;
+    $component8 = assister_interface:com_52;
+}
+if ($component0 = assister_interface:com_67) {
+    $int5 = ~assist_switch_var(%varplayerbit_4096);
+    $component7 = assister_interface:com_53;
+    $component8 = assister_interface:com_54;
+}
+if ($component0 = assister_interface:com_68) {
+    $int5 = ~assist_switch_var(%varplayerbit_4098);
+    $component7 = assister_interface:com_55;
+    $component8 = assister_interface:com_56;
+}
+if ($component0 = assister_interface:com_69) {
+    $int5 = ~assist_switch_var(%varplayerbit_4100);
+    $component7 = assister_interface:com_57;
+    $component8 = assister_interface:com_58;
+}
+if ($component0 = assister_interface:com_70) {
+    $int5 = ~assist_switch_var(%varplayerbit_4101);
+    $component7 = assister_interface:com_59;
+    $component8 = assister_interface:com_60;
+}
+if ($component0 = assister_interface:com_71) {
+    $int5 = ~assist_switch_var(%varplayerbit_4102);
+    $component7 = assister_interface:com_61;
+    $component8 = assister_interface:com_62;
+}
+if ($int5 = 1) {
+    $graphic4 = $graphic1;
+    $boolean9 = false;
+    if_setcolour(0xfab432, $component7);
+    if_setcolour(0xfab432, $component8);
+} else {
+    $graphic4 = $graphic2;
+    $boolean9 = true;
+    if_setcolour(0x606060, $component7);
+    if_setcolour(0x606060, $component8);
+}
+if_setgraphic($graphic4, $component0);
+if_sethide($boolean9, $component3);

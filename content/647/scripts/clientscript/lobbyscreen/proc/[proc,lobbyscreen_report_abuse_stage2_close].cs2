@@ -1,8 +1,9 @@
+// 3194
 [proc,lobbyscreen_report_abuse_stage2_close]
-if_closeoverlay(59375677);
-if_sethide(true, lobbyscreen:com44);
-if_setonkey(null, wy7834917:com18);
-%varc_int_1094 = 0;
-if (if_gethide(enum(105, 73, enum_941, 5)) = false) {
-    ~clientscript_3161(1);
+if_closesubclient(lobbyscreen:com_61);
+if_sethide(true, lobbyscreen:com_44);
+if_setonkey(null, interface_915:com_18);
+%varclient_1094 = 0;
+if (if_gethide(enum(int, component, enum_941, 5)) = false) {
+    ~script3161(1);
 }

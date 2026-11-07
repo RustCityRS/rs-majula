@@ -1,15 +1,16 @@
-[clientscript,objdialog_onkey](int $int0, char $int1)
-if ($int0 = 84) {
-    %varc_int_81 = 0;
-    if_setontimer(null, objdialog:com9);
+// 574
+[clientscript,objdialog_onkey](int $key0, char $char1)
+if ($key0 = ^key_return) {
+    %varclient_81 = 0;
+    if_setontimer(null, objdialog:com_9);
     ~objdialog_refreshsearch;
     return;
 }
-def_string $string = ~add_to_inputstring(%varc_string_22, 0, $int0, $int1);
-if (compare(%varc_string_22, $string) = false) {
+def_string $string0 = ~add_to_inputstring(%varclient_1541, 0, $key0, $char1);
+if (compare(%varclient_1541, $string0) = 0) {
     return;
 }
-%varc_string_22 = $string;
-if_settext("<escape(%varc_string_22)>*", objdialog:com9);
-%varc_int_81 = 50;
-if_setontimer("objdialog_delay_timer()", objdialog:com9);
+%varclient_1541 = $string0;
+if_settext("<escape(%varclient_1541)>*", objdialog:com_9);
+%varclient_81 = 50;
+if_setontimer("objdialog_delay_timer", objdialog:com_9);

@@ -1,147 +1,148 @@
+// 1364
 [proc,subchanged]
 def_int $int0 = 0;
 def_int $int1 = 0;
 if (getwindowmode >= 2) {
-    if (if_gethide(chatbox:com8) = true & (if_gethide(chatbox:com3) = false | if_gethide(chatbox:com7) = false)) {
+    if (if_gethide(chatbox:com_8) = true & (if_gethide(chatbox:com_3) = false | if_gethide(chatbox:com_7) = false)) {
         if_sethide(false, toplevel_fullscreen:com_chatbox);
-        if_setgraphic(chat_background, chatbox:com1);
-        if_sethide(false, chatbox:com1);
-        if_sethide(false, chatbox:com2);
-        if_setalpha(0, chatbox:com1);
-    } else if (if_hasoverlay(chatbox:com_dialogue_box) = true) {
+        if_setgraphic(chat_background, chatbox:com_1);
+        if_sethide(false, chatbox:com_1);
+        if_sethide(false, chatbox:com_2);
+        if_setalpha(false, chatbox:com_1);
+    } else if (if_hassub(chatbox:com_dialogue_box) = true) {
         if_sethide(false, toplevel_fullscreen:com_chatbox);
         if_sethide(false, chatbox:com_dialogue_box);
         if_sethide(true, chatbox:com_dialogue_box_small);
-        if_sethide(true, chatbox:com11);
-        if_sethide(true, chatbox:com10);
+        if_sethide(true, chatbox:com_11);
+        if_sethide(true, chatbox:com_10);
         if_sethide(true, chatbox:com_chatbox_background);
-        if_sethide(false, chatbox:com1);
-        if_setalpha(1, chatbox:com1);
-        if (%varbit_542 = false) {
-            if_setgraphic(chat_window, chatbox:com1);
-            if_sethide(false, chatbox:com2);
+        if_sethide(false, chatbox:com_1);
+        if_setalpha(true, chatbox:com_1);
+        if (%varplayerbit_542 = 0) {
+            if_setgraphic(chat_window, chatbox:com_1);
+            if_sethide(false, chatbox:com_2);
         } else {
-            if_setgraphic(1205, chatbox:com1);
-            if_sethide(true, chatbox:com2);
+            if_setgraphic(graphic_1205, chatbox:com_1);
+            if_sethide(true, chatbox:com_2);
         }
-    } else if (if_hasoverlay(chatbox:com_dialogue_box_small) = true) {
+    } else if (if_hassub(chatbox:com_dialogue_box_small) = true) {
         if_sethide(false, toplevel_fullscreen:com_chatbox);
         if_sethide(true, chatbox:com_dialogue_box);
         if_sethide(false, chatbox:com_dialogue_box_small);
-        if_sethide(true, chatbox:com11);
-        if_sethide(true, chatbox:com10);
+        if_sethide(true, chatbox:com_11);
+        if_sethide(true, chatbox:com_10);
         if_sethide(true, chatbox:com_chatbox_background);
-        if_sethide(false, chatbox:com1);
-        if_setalpha(1, chatbox:com1);
-        if (%varbit_542 = false) {
-            if_setgraphic(chat_window, chatbox:com1);
-            if_sethide(false, chatbox:com2);
+        if_sethide(false, chatbox:com_1);
+        if_setalpha(true, chatbox:com_1);
+        if (%varplayerbit_542 = 0) {
+            if_setgraphic(chat_window, chatbox:com_1);
+            if_sethide(false, chatbox:com_2);
         } else {
-            if_setgraphic(1205, chatbox:com1);
-            if_sethide(true, chatbox:com2);
+            if_setgraphic(graphic_1205, chatbox:com_1);
+            if_sethide(true, chatbox:com_2);
         }
-    } else if (if_hasoverlay(chatbox:com11) = true) {
+    } else if (if_hassub(chatbox:com_11) = true) {
         if_sethide(false, toplevel_fullscreen:com_chatbox);
         if_sethide(true, chatbox:com_dialogue_box);
         if_sethide(true, chatbox:com_dialogue_box_small);
-        if_sethide(false, chatbox:com11);
-        if_sethide(true, chatbox:com10);
+        if_sethide(false, chatbox:com_11);
+        if_sethide(true, chatbox:com_10);
         if_sethide(true, chatbox:com_chatbox_background);
-        if_sethide(false, chatbox:com1);
-        if_setalpha(1, chatbox:com1);
-        if (%varbit_542 = false) {
-            if_setgraphic(chat_window, chatbox:com1);
-            if_sethide(false, chatbox:com2);
+        if_sethide(false, chatbox:com_1);
+        if_setalpha(true, chatbox:com_1);
+        if (%varplayerbit_542 = 0) {
+            if_setgraphic(chat_window, chatbox:com_1);
+            if_sethide(false, chatbox:com_2);
         } else {
-            if_setgraphic(1205, chatbox:com1);
-            if_sethide(true, chatbox:com2);
+            if_setgraphic(graphic_1205, chatbox:com_1);
+            if_sethide(true, chatbox:com_2);
         }
-    } else if (if_hasoverlay(chatbox:com10) = true) {
+    } else if (if_hassub(chatbox:com_10) = true) {
         if_sethide(false, toplevel_fullscreen:com_chatbox);
         if_sethide(true, chatbox:com_dialogue_box);
         if_sethide(true, chatbox:com_dialogue_box_small);
-        if_sethide(true, chatbox:com11);
-        if_sethide(false, chatbox:com10);
+        if_sethide(true, chatbox:com_11);
+        if_sethide(false, chatbox:com_10);
         if_sethide(true, chatbox:com_chatbox_background);
-        if_sethide(false, chatbox:com1);
-        if_setalpha(1, chatbox:com1);
-        if (%varbit_542 = false) {
-            if_setgraphic(chat_window, chatbox:com1);
-            if_sethide(false, chatbox:com2);
+        if_sethide(false, chatbox:com_1);
+        if_setalpha(true, chatbox:com_1);
+        if (%varplayerbit_542 = 0) {
+            if_setgraphic(chat_window, chatbox:com_1);
+            if_sethide(false, chatbox:com_2);
         } else {
-            if_setgraphic(1205, chatbox:com1);
-            if_sethide(true, chatbox:com2);
+            if_setgraphic(graphic_1205, chatbox:com_1);
+            if_sethide(true, chatbox:com_2);
         }
-    } else if (if_hasoverlay(chatbox:com_chatbox_background) = true) {
-        if (%varc_int_41 = -1) {
+    } else if (if_hassub(chatbox:com_chatbox_background) = true) {
+        if (%varclient_41 = -1) {
             if_sethide(true, toplevel_fullscreen:com_chatbox);
-            if_sethide(true, toplevel_fullscreen:com72);
+            if_sethide(true, toplevel_fullscreen:com_72);
         } else {
             if_sethide(false, toplevel_fullscreen:com_chatbox);
-            if_sethide(false, toplevel_fullscreen:com72);
+            if_sethide(false, toplevel_fullscreen:com_72);
         }
         if_sethide(true, chatbox:com_dialogue_box);
         if_sethide(true, chatbox:com_dialogue_box_small);
-        if_sethide(true, chatbox:com11);
-        if_sethide(true, chatbox:com10);
+        if_sethide(true, chatbox:com_11);
+        if_sethide(true, chatbox:com_10);
         if_sethide(false, chatbox:com_chatbox_background);
-        if_sethide(false, chatbox:com1);
-        if (if_gethide(chatbox_background:com0) = false) {
-            if_setgraphic(chat_background, chatbox:com1);
-            if_setalpha(0, chatbox:com1);
-            if_sethide(false, chatbox:com2);
+        if_sethide(false, chatbox:com_1);
+        if (if_gethide(chatbox_background:com_0) = false) {
+            if_setgraphic(chat_background, chatbox:com_1);
+            if_setalpha(false, chatbox:com_1);
+            if_sethide(false, chatbox:com_2);
         } else {
-            if_sethide(true, chatbox:com2);
-            if_setgraphic(1247, chatbox:com1);
-            if_setalpha(1, chatbox:com1);
-            if_settiling(false, chatbox:com1);
-            if_sethide(true, chatbox_background:com51);
-            if_sethide(false, chatbox_background:com52);
-            if_sethide(false, chatbox_background:com53);
-            ~clientscript_1301(chatbox_background:com59, chatbox_background:com58);
+            if_sethide(true, chatbox:com_2);
+            if_setgraphic(graphic_1247, chatbox:com_1);
+            if_setalpha(true, chatbox:com_1);
+            if_settiling(false, chatbox:com_1);
+            if_sethide(true, chatbox_background:com_51);
+            if_sethide(false, chatbox_background:com_52);
+            if_sethide(false, chatbox_background:com_53);
+            ~script1301(chatbox_background:com_59, chatbox_background:com_58);
             while ($int0 < 100) {
-                if_settextshadow(true, enum(105, 73, enum_579, $int0));
-                if_setcolour(^white, enum(105, 73, enum_579, $int0));
+                if_settextshadow(true, enum(int, component, enum_579, $int0));
+                if_setcolour(^white, enum(int, component, enum_579, $int0));
                 $int0 = calc($int0 + 1);
             }
-            if_settextshadow(true, chatbox_background:com55);
-            if_setcolour(^white, chatbox_background:com55);
-            ~clientscript_1558(false);
+            if_settextshadow(true, chatbox_background:com_55);
+            if_setcolour(^white, chatbox_background:com_55);
+            ~script1558(false);
             ~rebuildchatbox;
         }
     }
-    if (if_hasoverlay(toplevel_fullscreen:com_overlay_tab) = true) {
-        if_sethide(true, toplevel_fullscreen:com19);
-        if_sethide(true, toplevel_fullscreen:com20);
-        if_sethide(true, toplevel_fullscreen:com68);
+    if (if_hassub(toplevel_fullscreen:com_overlay_tab) = true) {
+        if_sethide(true, toplevel_fullscreen:com_19);
+        if_sethide(true, toplevel_fullscreen:com_20);
+        if_sethide(true, toplevel_fullscreen:com_68);
         if_sethide(false, toplevel_fullscreen:com_overlay_tab);
-        if_sethide(true, toplevel_fullscreen:com85);
-        if_sethide(false, toplevel_fullscreen:com83);
-        if_sethide(true, toplevel_fullscreen:com86);
-        if_sethide(true, toplevel_fullscreen:com173);
+        if_sethide(true, toplevel_fullscreen:com_85);
+        if_sethide(false, toplevel_fullscreen:com_83);
+        if_sethide(true, toplevel_fullscreen:com_86);
+        if_sethide(true, toplevel_fullscreen:com_173);
     } else {
-        if_sethide(false, toplevel_fullscreen:com19);
-        if_sethide(false, toplevel_fullscreen:com20);
-        if (%varbit_6448 = false) {
-            if_sethide(false, toplevel_fullscreen:com68);
+        if_sethide(false, toplevel_fullscreen:com_19);
+        if_sethide(false, toplevel_fullscreen:com_20);
+        if (%varplayerbit_6448 = 0) {
+            if_sethide(false, toplevel_fullscreen:com_68);
         }
-        if_sethide(false, toplevel_fullscreen:com86);
-        if_sethide(false, toplevel_fullscreen:com173);
-        if (if_hasoverlay(toplevel_fullscreen:com85) = false) {
+        if_sethide(false, toplevel_fullscreen:com_86);
+        if_sethide(false, toplevel_fullscreen:com_173);
+        if (if_hassub(toplevel_fullscreen:com_85) = false) {
             if_sethide(true, toplevel_fullscreen:com_overlay_tab);
         }
-        ~if_switchside(%varc_int_168);
-        if (if_gethide(toplevel_fullscreen:com_tab0) = false | (if_gethide(toplevel_fullscreen:com_tab1) = false | (if_gethide(toplevel_fullscreen:com_tab2) = false | (if_gethide(toplevel_fullscreen:com_tab3) = false | (if_gethide(toplevel_fullscreen:com_tab4) = false | (if_gethide(toplevel_fullscreen:com_tab5) = false | (if_gethide(toplevel_fullscreen:com_tab6) = false | (if_gethide(toplevel_fullscreen:com_tab7) = false | (if_gethide(toplevel_fullscreen:com_tab8) = false | (if_gethide(toplevel_fullscreen:com_tab9) = false | (if_gethide(toplevel_fullscreen:com_tab10) = false | (if_gethide(toplevel_fullscreen:com_tab11) = false | (if_gethide(toplevel_fullscreen:com_tab12) = false | (if_gethide(toplevel_fullscreen:com_tab13) = false | (if_gethide(toplevel_fullscreen:com_tab14) = false | (if_gethide(toplevel_fullscreen:com_tab15) = false | (if_gethide(toplevel_fullscreen:com104) = false | if_gethide(toplevel_fullscreen:com105) = false))))))))))))))))) {
-            if_sethide(false, toplevel_fullscreen:com83);
+        ~if_switchside(%varclient_168);
+        if (if_gethide(toplevel_fullscreen:com_tab0) = false | if_gethide(toplevel_fullscreen:com_tab1) = false | if_gethide(toplevel_fullscreen:com_tab2) = false | if_gethide(toplevel_fullscreen:com_tab3) = false | if_gethide(toplevel_fullscreen:com_tab4) = false | if_gethide(toplevel_fullscreen:com_tab5) = false | if_gethide(toplevel_fullscreen:com_tab6) = false | if_gethide(toplevel_fullscreen:com_tab7) = false | if_gethide(toplevel_fullscreen:com_tab8) = false | if_gethide(toplevel_fullscreen:com_tab9) = false | if_gethide(toplevel_fullscreen:com_tab10) = false | if_gethide(toplevel_fullscreen:com_tab11) = false | if_gethide(toplevel_fullscreen:com_tab12) = false | if_gethide(toplevel_fullscreen:com_tab13) = false | if_gethide(toplevel_fullscreen:com_tab14) = false | if_gethide(toplevel_fullscreen:com_tab15) = false | if_gethide(toplevel_fullscreen:com_104) = false | if_gethide(toplevel_fullscreen:com_105) = false) {
+            if_sethide(false, toplevel_fullscreen:com_83);
         } else {
-            if_sethide(true, toplevel_fullscreen:com83);
+            if_sethide(true, toplevel_fullscreen:com_83);
         }
-        if_setontimer("clientscript_2464(clientclock, ^event_com)", toplevel_fullscreen:com_chatbox);
+        if_setontimer("script2464(clientclock, event_com)", toplevel_fullscreen:com_chatbox);
     }
-    if_sethide(true, toplevel:com199);
+    if_sethide(true, toplevel:com_199);
     $int1 = 0;
     while ($int1 <= 15) {
-        if (if_hasoverlay(~getsidelayer($int1)) = true) {
+        if (if_hassub(~getsidelayer($int1)) = true) {
             if_sethide(false, ~getsideicon($int1));
             if_sethide(false, ~getstonelayer($int1));
         } else {
@@ -150,136 +151,136 @@ if (getwindowmode >= 2) {
         }
         $int1 = calc($int1 + 1);
     }
-    if (if_hasoverlay(~getsidelayer(95)) = true & %show_summoning_orb = true) {
-        if_sethide(false, summoning_orb:com8);
+    if (if_hassub(~getsidelayer(95)) = true & %show_summoning_orb = 1) {
+        if_sethide(false, summoning_orb:com_8);
     } else {
-        if_sethide(true, summoning_orb:com8);
+        if_sethide(true, summoning_orb:com_8);
     }
     $int1 = 0;
-    if (if_gethide(toplevel_fullscreen:com20) = true) {
+    if (if_gethide(toplevel_fullscreen:com_20) = true) {
         while ($int1 <= 15) {
-            if_setonmouseover(null, ~clientscript_2459($int1));
-            if_setonmouseleave(null, ~clientscript_2459($int1));
-            if_setgraphic(1835, ~clientscript_2459($int1));
+            if_setonmouseover(null, ~script2459($int1));
+            if_setonmouseleave(null, ~script2459($int1));
+            if_setgraphic(graphic_1835, ~script2459($int1));
             $int1 = calc($int1 + 1);
         }
     } else {
         while ($int1 <= 15) {
             if (if_gethide(~getsideicon($int1)) = true) {
-                if_setonmouseover(null, ~clientscript_2459($int1));
-                if_setonmouseleave(null, ~clientscript_2459($int1));
-                if_setgraphic(1835, ~clientscript_2459($int1));
+                if_setonmouseover(null, ~script2459($int1));
+                if_setonmouseleave(null, ~script2459($int1));
+                if_setgraphic(graphic_1835, ~script2459($int1));
             } else {
-                if_setonmouseover("clientscript_2462(^event_com, true)", ~clientscript_2459($int1));
-                if_setonmouseleave("clientscript_2462(^event_com, false)", ~clientscript_2459($int1));
+                if_setonmouseover("script2462(event_com, true)", ~script2459($int1));
+                if_setonmouseleave("script2462(event_com, false)", ~script2459($int1));
             }
             $int1 = calc($int1 + 1);
         }
     }
-    if_sethide(false, toplevel_fullscreen:com10);
-    ~clientscript_1313;
-    if_setposition(0, 0, ^setpos_abs_left, ^setpos_abs_top, hs3423786:com0);
-    if_setsize(115, 35, ^setsize_abs, ^setsize_abs, hs3423786:com0);
-    if_setposition(80, 0, ^setpos_abs_left, ^setpos_abs_top, hs3423786:com1);
-    if_setposition(40, 0, ^setpos_abs_left, ^setpos_abs_top, hs3423786:com2);
-    if_setposition(0, 0, ^setpos_abs_left, ^setpos_abs_top, hs3423786:com3);
-    if_setposition(0, 0, ^setpos_abs_left, ^setpos_abs_top, hs3423786:com4);
-    if_setposition(0, 0, ^setpos_abs_left, ^setpos_abs_top, hs3423786:com5);
-    if_setposition(0, 0, ^setpos_abs_left, ^setpos_abs_top, hs3423786:com6);
-    if_setsize(35, 35, ^setsize_abs, ^setsize_abs, hs3423786:com1);
-    if_setsize(35, 35, ^setsize_abs, ^setsize_abs, hs3423786:com2);
-    if_setsize(35, 35, ^setsize_abs, ^setsize_abs, hs3423786:com3);
-    if_setsize(35, 35, ^setsize_abs, ^setsize_abs, hs3423786:com4);
-    if_setsize(35, 35, ^setsize_abs, ^setsize_abs, hs3423786:com5);
-    if_setsize(35, 35, ^setsize_abs, ^setsize_abs, hs3423786:com6);
-    if_setgraphic(overlay_multiway_big, hs3423786:com1);
-    if_setgraphic(1562, hs3423786:com2);
-    if_setgraphic(1579, hs3423786:com3);
-    if_setgraphic(1580, hs3423786:com4);
-    if_setgraphic(1581, hs3423786:com6);
+    if_sethide(false, toplevel_fullscreen:com_10);
+    ~script1313;
+    if_setposition(0, 0, ^setpos_abs_left, ^setpos_abs_top, interface_745:com_0);
+    if_setsize(115, 35, ^setsize_abs, ^setsize_abs, interface_745:com_0);
+    if_setposition(80, 0, ^setpos_abs_left, ^setpos_abs_top, interface_745:com_1);
+    if_setposition(40, 0, ^setpos_abs_left, ^setpos_abs_top, interface_745:com_2);
+    if_setposition(0, 0, ^setpos_abs_left, ^setpos_abs_top, interface_745:com_3);
+    if_setposition(0, 0, ^setpos_abs_left, ^setpos_abs_top, interface_745:com_4);
+    if_setposition(0, 0, ^setpos_abs_left, ^setpos_abs_top, interface_745:com_5);
+    if_setposition(0, 0, ^setpos_abs_left, ^setpos_abs_top, interface_745:com_6);
+    if_setsize(35, 35, ^setsize_abs, ^setsize_abs, interface_745:com_1);
+    if_setsize(35, 35, ^setsize_abs, ^setsize_abs, interface_745:com_2);
+    if_setsize(35, 35, ^setsize_abs, ^setsize_abs, interface_745:com_3);
+    if_setsize(35, 35, ^setsize_abs, ^setsize_abs, interface_745:com_4);
+    if_setsize(35, 35, ^setsize_abs, ^setsize_abs, interface_745:com_5);
+    if_setsize(35, 35, ^setsize_abs, ^setsize_abs, interface_745:com_6);
+    if_setgraphic(overlay_multiway_big, interface_745:com_1);
+    if_setgraphic(graphic_1562, interface_745:com_2);
+    if_setgraphic(graphic_1579, interface_745:com_3);
+    if_setgraphic(graphic_1580, interface_745:com_4);
+    if_setgraphic(graphic_1581, interface_745:com_6);
 } else {
-    if (%varc_int_41 = -1 & %learning_the_ropes >= 1000) {
-        %varc_int_41 = 0;
+    if (%varclient_41 = -1 & %learning_the_ropes >= 1000) {
+        %varclient_41 = 0;
         ~chat_alert_reset(0);
         ~redraw_chat_buttons;
         ~rebuildchatbox;
         ~rebuildpmbox;
     }
-    if_setgraphic(chat_background, chatbox:com1);
-    if_sethide(false, chatbox:com1);
-    if_sethide(false, chatbox:com2);
-    if_setalpha(0, chatbox:com1);
-    if_settiling(true, chatbox:com1);
-    if (if_hasoverlay(chatbox:com_dialogue_box) = true) {
+    if_setgraphic(chat_background, chatbox:com_1);
+    if_sethide(false, chatbox:com_1);
+    if_sethide(false, chatbox:com_2);
+    if_setalpha(false, chatbox:com_1);
+    if_settiling(true, chatbox:com_1);
+    if (if_hassub(chatbox:com_dialogue_box) = true) {
         if_sethide(false, chatbox:com_dialogue_box);
         if_sethide(true, chatbox:com_dialogue_box_small);
-        if_sethide(true, chatbox:com11);
-        if_sethide(true, chatbox:com10);
+        if_sethide(true, chatbox:com_11);
+        if_sethide(true, chatbox:com_10);
         if_sethide(true, chatbox:com_chatbox_background);
-    } else if (if_hasoverlay(chatbox:com_dialogue_box_small) = true) {
+    } else if (if_hassub(chatbox:com_dialogue_box_small) = true) {
         if_sethide(true, chatbox:com_dialogue_box);
         if_sethide(false, chatbox:com_dialogue_box_small);
-        if_sethide(true, chatbox:com11);
-        if_sethide(true, chatbox:com10);
+        if_sethide(true, chatbox:com_11);
+        if_sethide(true, chatbox:com_10);
         if_sethide(true, chatbox:com_chatbox_background);
-    } else if (if_hasoverlay(chatbox:com11) = true) {
+    } else if (if_hassub(chatbox:com_11) = true) {
         if_sethide(true, chatbox:com_dialogue_box);
         if_sethide(true, chatbox:com_dialogue_box_small);
-        if_sethide(false, chatbox:com11);
-        if_sethide(true, chatbox:com10);
+        if_sethide(false, chatbox:com_11);
+        if_sethide(true, chatbox:com_10);
         if_sethide(true, chatbox:com_chatbox_background);
-    } else if (if_hasoverlay(chatbox:com10) = true) {
+    } else if (if_hassub(chatbox:com_10) = true) {
         if_sethide(true, chatbox:com_dialogue_box);
         if_sethide(true, chatbox:com_dialogue_box_small);
-        if_sethide(true, chatbox:com11);
-        if_sethide(false, chatbox:com10);
+        if_sethide(true, chatbox:com_11);
+        if_sethide(false, chatbox:com_10);
         if_sethide(true, chatbox:com_chatbox_background);
-    } else if (if_hasoverlay(chatbox:com_chatbox_background) = true) {
+    } else if (if_hassub(chatbox:com_chatbox_background) = true) {
         if_sethide(true, chatbox:com_dialogue_box);
         if_sethide(true, chatbox:com_dialogue_box_small);
-        if_sethide(true, chatbox:com11);
-        if_sethide(true, chatbox:com10);
+        if_sethide(true, chatbox:com_11);
+        if_sethide(true, chatbox:com_10);
         if_sethide(false, chatbox:com_chatbox_background);
-        if_sethide(false, chatbox_background:com51);
-        if_sethide(true, chatbox_background:com52);
-        if_sethide(true, chatbox_background:com53);
-        ~clientscript_1301(chatbox_background:com59, chatbox_background:com58);
+        if_sethide(false, chatbox_background:com_51);
+        if_sethide(true, chatbox_background:com_52);
+        if_sethide(true, chatbox_background:com_53);
+        ~script1301(chatbox_background:com_59, chatbox_background:com_58);
         while ($int0 < 100) {
-            if_settextshadow(false, enum(105, 73, enum_579, $int0));
-            if_setcolour(^black, enum(105, 73, enum_579, $int0));
+            if_settextshadow(false, enum(int, component, enum_579, $int0));
+            if_setcolour(^black, enum(int, component, enum_579, $int0));
             $int0 = calc($int0 + 1);
         }
-        if_settextshadow(false, chatbox_background:com55);
-        if_setcolour(^black, chatbox_background:com55);
-        ~clientscript_1558(false);
+        if_settextshadow(false, chatbox_background:com_55);
+        if_setcolour(^black, chatbox_background:com_55);
+        ~script1558(false);
         ~rebuildchatbox;
     }
-    if (if_hasoverlay(toplevel:com_overlay_tab) = true) {
-        if_sethide(true, toplevel:com80);
-        if_sethide(true, toplevel:com81);
-        if_sethide(true, toplevel:com127);
-        if_sethide(true, toplevel:com145);
+    if (if_hassub(toplevel:com_overlay_tab) = true) {
+        if_sethide(true, toplevel:com_80);
+        if_sethide(true, toplevel:com_81);
+        if_sethide(true, toplevel:com_127);
+        if_sethide(true, toplevel:com_145);
         if_sethide(false, toplevel:com_overlay_tab);
-        if_sethide(true, toplevel:com199);
-        if_sethide(true, toplevel:com200);
-        if_sethide(true, toplevel:com181);
+        if_sethide(true, toplevel:com_199);
+        if_sethide(true, toplevel:com_200);
+        if_sethide(true, toplevel:com_181);
     } else {
-        if_sethide(false, toplevel:com80);
-        if_sethide(false, toplevel:com81);
-        if_sethide(false, toplevel:com127);
-        if_sethide(false, toplevel:com145);
-        if_sethide(false, toplevel:com200);
-        if_sethide(false, toplevel:com181);
+        if_sethide(false, toplevel:com_80);
+        if_sethide(false, toplevel:com_81);
+        if_sethide(false, toplevel:com_127);
+        if_sethide(false, toplevel:com_145);
+        if_sethide(false, toplevel:com_200);
+        if_sethide(false, toplevel:com_181);
         if_sethide(true, toplevel_fullscreen:com_overlay_tab);
-        if (if_hasoverlay(toplevel:com199) = false) {
-            if_sethide(true, toplevel:com199);
+        if (if_hassub(toplevel:com_199) = false) {
+            if_sethide(true, toplevel:com_199);
         }
-        ~if_switchside(%varc_int_168);
-        if_setontimer("clientscript_2464(clientclock, ^event_com)", toplevel:com_chatbox);
+        ~if_switchside(%varclient_168);
+        if_setontimer("script2464(clientclock, event_com)", toplevel:com_chatbox);
     }
     $int1 = 0;
     while ($int1 <= 15) {
-        if (if_hasoverlay(~getsidelayer($int1)) = true) {
+        if (if_hassub(~getsidelayer($int1)) = true) {
             if_sethide(false, ~getsideicon($int1));
             if_sethide(false, ~getstonelayer($int1));
         } else {
@@ -288,52 +289,52 @@ if (getwindowmode >= 2) {
         }
         $int1 = calc($int1 + 1);
     }
-    if (if_hasoverlay(~getsidelayer(95)) = true & %show_summoning_orb = true) {
-        if_sethide(false, summoning_orb:com8);
+    if (if_hassub(~getsidelayer(95)) = true & %show_summoning_orb = 1) {
+        if_sethide(false, summoning_orb:com_8);
     } else {
-        if_sethide(true, summoning_orb:com8);
+        if_sethide(true, summoning_orb:com_8);
     }
     $int1 = 0;
-    if (if_gethide(toplevel:com80) = true & if_gethide(toplevel:com127) = true) {
+    if (if_gethide(toplevel:com_80) = true & if_gethide(toplevel:com_127) = true) {
         while ($int1 <= 15) {
-            if_setonmouseover(null, ~clientscript_2459($int1));
-            if_setonmouseleave(null, ~clientscript_2459($int1));
-            if_setgraphic(1835, ~clientscript_2459($int1));
+            if_setonmouseover(null, ~script2459($int1));
+            if_setonmouseleave(null, ~script2459($int1));
+            if_setgraphic(graphic_1835, ~script2459($int1));
             $int1 = calc($int1 + 1);
         }
     } else {
         while ($int1 <= 15) {
             if (if_gethide(~getsideicon($int1)) = true) {
-                if_setonmouseover(null, ~clientscript_2459($int1));
-                if_setonmouseleave(null, ~clientscript_2459($int1));
-                if_setgraphic(1835, ~clientscript_2459($int1));
+                if_setonmouseover(null, ~script2459($int1));
+                if_setonmouseleave(null, ~script2459($int1));
+                if_setgraphic(graphic_1835, ~script2459($int1));
             } else {
-                if_setonmouseover("clientscript_2462(^event_com, true)", ~clientscript_2459($int1));
-                if_setonmouseleave("clientscript_2462(^event_com, false)", ~clientscript_2459($int1));
+                if_setonmouseover("script2462(event_com, true)", ~script2459($int1));
+                if_setonmouseleave("script2462(event_com, false)", ~script2459($int1));
             }
             $int1 = calc($int1 + 1);
         }
     }
     ~stats_side_resize;
-    ~clientscript_1337;
-    if_setposition(0, 0, ^setpos_abs_left, ^setpos_abs_top, hs3423786:com0);
-    if_setsize(82, 25, ^setsize_abs, ^setsize_abs, hs3423786:com0);
-    if_setposition(57, 0, ^setpos_abs_left, ^setpos_abs_top, hs3423786:com1);
-    if_setposition(28, 0, ^setpos_abs_left, ^setpos_abs_top, hs3423786:com2);
-    if_setposition(0, 0, ^setpos_abs_left, ^setpos_abs_top, hs3423786:com3);
-    if_setposition(0, 0, ^setpos_abs_left, ^setpos_abs_top, hs3423786:com4);
-    if_setposition(0, 0, ^setpos_abs_left, ^setpos_abs_top, hs3423786:com5);
-    if_setposition(0, 0, ^setpos_abs_left, ^setpos_abs_top, hs3423786:com6);
-    if_setsize(25, 25, ^setsize_abs, ^setsize_abs, hs3423786:com1);
-    if_setsize(25, 25, ^setsize_abs, ^setsize_abs, hs3423786:com2);
-    if_setsize(25, 25, ^setsize_abs, ^setsize_abs, hs3423786:com3);
-    if_setsize(25, 25, ^setsize_abs, ^setsize_abs, hs3423786:com4);
-    if_setsize(25, 25, ^setsize_abs, ^setsize_abs, hs3423786:com5);
-    if_setsize(25, 25, ^setsize_abs, ^setsize_abs, hs3423786:com6);
-    if_setgraphic(overlay_multiway, hs3423786:com1);
-    if_setgraphic(assist_overlay, hs3423786:com2);
-    if_setgraphic(1576, hs3423786:com3);
-    if_setgraphic(1578, hs3423786:com4);
-    if_setgraphic(1577, hs3423786:com6);
+    ~script1337;
+    if_setposition(0, 0, ^setpos_abs_left, ^setpos_abs_top, interface_745:com_0);
+    if_setsize(82, 25, ^setsize_abs, ^setsize_abs, interface_745:com_0);
+    if_setposition(57, 0, ^setpos_abs_left, ^setpos_abs_top, interface_745:com_1);
+    if_setposition(28, 0, ^setpos_abs_left, ^setpos_abs_top, interface_745:com_2);
+    if_setposition(0, 0, ^setpos_abs_left, ^setpos_abs_top, interface_745:com_3);
+    if_setposition(0, 0, ^setpos_abs_left, ^setpos_abs_top, interface_745:com_4);
+    if_setposition(0, 0, ^setpos_abs_left, ^setpos_abs_top, interface_745:com_5);
+    if_setposition(0, 0, ^setpos_abs_left, ^setpos_abs_top, interface_745:com_6);
+    if_setsize(25, 25, ^setsize_abs, ^setsize_abs, interface_745:com_1);
+    if_setsize(25, 25, ^setsize_abs, ^setsize_abs, interface_745:com_2);
+    if_setsize(25, 25, ^setsize_abs, ^setsize_abs, interface_745:com_3);
+    if_setsize(25, 25, ^setsize_abs, ^setsize_abs, interface_745:com_4);
+    if_setsize(25, 25, ^setsize_abs, ^setsize_abs, interface_745:com_5);
+    if_setsize(25, 25, ^setsize_abs, ^setsize_abs, interface_745:com_6);
+    if_setgraphic(overlay_multiway, interface_745:com_1);
+    if_setgraphic(assist_overlay, interface_745:com_2);
+    if_setgraphic(graphic_1576, interface_745:com_3);
+    if_setgraphic(graphic_1578, interface_745:com_4);
+    if_setgraphic(graphic_1577, interface_745:com_6);
 }
 ~window_resize;

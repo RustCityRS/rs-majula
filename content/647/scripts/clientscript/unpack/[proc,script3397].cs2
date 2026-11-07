@@ -1,0 +1,20 @@
+// 3397
+[proc,script3397]
+if_settext(%varclient_1798, interface_979:com_18);
+def_graphic $graphic0 = "login_lobby_button,10";
+def_graphic $graphic1 = "login_lobby_button,11";
+if (compare(%varclient_1798, "") ! 0) {
+    if_settext("Reporting: <%varclient_1798>", interface_979:com_40);
+    if_settrans(0, interface_979:com_10);
+    if_settrans(0, interface_979:com_11);
+    if_settrans(0, interface_979:com_12);
+    if_settrans(0, interface_979:com_13);
+    if_setonmouseover("lobbyscreen_button_highlight(interface_979:com_10, $graphic0, interface_979:com_11, $graphic1, interface_979:com_12, $graphic0)", interface_979:com_9);
+} else {
+    if_settext("Report Abuse: Select Player", interface_979:com_40);
+    if_settrans(100, interface_979:com_10);
+    if_settrans(100, interface_979:com_11);
+    if_settrans(100, interface_979:com_12);
+    if_settrans(100, interface_979:com_13);
+    if_setonmouseover(null, interface_979:com_9);
+}

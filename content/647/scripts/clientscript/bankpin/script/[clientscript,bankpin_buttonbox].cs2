@@ -1,5 +1,6 @@
+// 4145
 [clientscript,bankpin_buttonbox](component $component0, component $component1)
-if (%varc_int_98 >= 1) {
+if (%varclient_98 >= 1) {
     if_sethide(false, $component0);
     if_setpausetext("I don't know it.", $component0);
     if_setposition(0, calc(0 - if_getheight($component1) / 2), ^setpos_abs_centre, ^setpos_abs_centre, $component1);

@@ -1,0 +1,7 @@
+// 423
+[clientscript,script423]
+if (%varclient_1353 ! null) {
+    cam_followcoord(%varclient_1353);
+} else if (%varclient_1354 ! null) {
+    cam_followcoord(%varclient_1354);
+}

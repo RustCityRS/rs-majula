@@ -1,7 +1,8 @@
+// 864
 [proc,loginscreen_options_button](component $component0, boolean $boolean1, component $component2, component $component3, component $component4, component $component5, boolean $boolean6, int $int7, int $int8, int $int9, int $int10)
 def_int $int11 = 0;
 if ($boolean6 = true) {
-    $int11 = op4125(if_gettext($component5), 468);
+    $int11 = stringwidth(if_gettext($component5), welcome_font_small);
 } else {
     $int11 = if_getwidth($component5);
 }

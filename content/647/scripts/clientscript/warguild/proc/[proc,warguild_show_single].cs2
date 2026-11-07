@@ -1,29 +1,30 @@
-[proc,warguild_show_single](component $component)
-if (%varc_int_1432 = true | if_gethide(warguild_token_choice:com10) = false) {
+// 4057
+[proc,warguild_show_single](component $component0)
+if (%varclient_1432 = 1 | if_gethide(warguild_token_choice:com_10) = false) {
     return;
 }
-if (if_gethide(warguild_token_choice:com10) = true & if_gethide(warguild_token_choice:com9) = true) {
-    if_sethide(false, warguild_token_choice:com10);
-    if_setposition(0, calc(1 - if_getheight(warguild_token_choice:com10)), ^setpos_abs_centre, ^setpos_abs_top, warguild_token_choice:com10);
-    %varc_int_1432 = 1;
-    if_clearops(warguild_token_choice:com2);
-    if_clearops(warguild_token_choice:com3);
-    if_setontimer("clientscript_4059(warguild_token_choice:com10, $component)", $component);
+if (if_gethide(warguild_token_choice:com_10) = true & if_gethide(warguild_token_choice:com_9) = true) {
+    if_sethide(false, warguild_token_choice:com_10);
+    if_setposition(0, calc(1 - if_getheight(warguild_token_choice:com_10)), ^setpos_abs_centre, ^setpos_abs_top, warguild_token_choice:com_10);
+    %varclient_1432 = 1;
+    if_clearops(warguild_token_choice:com_2);
+    if_clearops(warguild_token_choice:com_3);
+    if_setontimer("script4059(warguild_token_choice:com_10, $component0)", $component0);
 } else {
-    %varc_int_1432 = 1;
-    if_clearops(warguild_token_choice:com2);
-    if_clearops(warguild_token_choice:com3);
-    if_setontimer("clientscript_4058(warguild_token_choice:com9, warguild_token_choice:com10, $component)", $component);
+    %varclient_1432 = 1;
+    if_clearops(warguild_token_choice:com_2);
+    if_clearops(warguild_token_choice:com_3);
+    if_setontimer("script4058(warguild_token_choice:com_9, warguild_token_choice:com_10, $component0)", $component0);
 }
-if_setgraphic(4465, warguild_token_choice:com32);
-if_setgraphic(2657, warguild_token_choice:com33);
-if_setgraphic(2657, warguild_token_choice:com34);
-if_setgraphic(4464, warguild_token_choice:com36);
-if_setgraphic(2659, warguild_token_choice:com37);
-if_setgraphic(2659, warguild_token_choice:com38);
-if (%varbit_8662 < 200 & (%varbit_8663 < 200 & (%varbit_8664 < 200 & (%varbit_8665 < 200 & %varbit_8666 < 200)))) {
-    ~clientscript_4061;
+if_setgraphic(graphic_4465, warguild_token_choice:com_32);
+if_setgraphic(graphic_2657, warguild_token_choice:com_33);
+if_setgraphic(graphic_2657, warguild_token_choice:com_34);
+if_setgraphic(graphic_4464, warguild_token_choice:com_36);
+if_setgraphic(graphic_2659, warguild_token_choice:com_37);
+if_setgraphic(graphic_2659, warguild_token_choice:com_38);
+if (%varplayerbit_8662 < 200 & %varplayerbit_8663 < 200 & %varplayerbit_8664 < 200 & %varplayerbit_8665 < 200 & %varplayerbit_8666 < 200) {
+    ~script4061;
 } else {
-    ~clientscript_4062;
+    ~script4062;
 }
-%varc_int_1431 = 1;
+%varclient_1431 = 1;

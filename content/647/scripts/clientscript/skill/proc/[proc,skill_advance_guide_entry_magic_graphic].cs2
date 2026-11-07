@@ -1,286 +1,287 @@
+// 2787
 [proc,skill_advance_guide_entry_magic_graphic](int $int0, int $int1)(int, graphic, string, string)
 switch_int ($int0) {
-    case 0:
+    case 0 :
         switch_int ($int1) {
-            case 0:
-                return(-1, 2287, "You can see what each spell does by selecting the spellbook icon on your side interface. Move your mouse over the icon of the spell you want and a description will be available.", " ");
-            case 1:
+            case 0 :
+                return(-1, graphic_2287, "You can see what each spell does by selecting the spellbook icon on your side interface. Move your mouse over the icon of the spell you want and a description will be available.", " ");
+            case 1 :
                 return(1, "magicon,50", "Wind Rush", "You can now cast <col=000080>Wind Rush</col>.");
-            case 2:
+            case 2 :
                 return(1, "magicon,0", "Wind Strike", "You can now cast <col=000080>Wind Strike</col>.");
-            case 3:
+            case 3 :
                 return(3, "magicon,1", "Confuse", "You can now cast <col=000080>Confuse</col>.");
-            case 4:
+            case 4 :
                 return(5, "magicon,2", "Water Strike", "You can now cast <col=000080>Water Strike</col>.");
-            case 5:
+            case 5 :
                 return(9, "magicon,4", "Earth Strike", "You can now cast <col=000080>Earth Strike</col>.");
-            case 6:
+            case 6 :
                 return(10, "magicon2,40", "Members: Teleport to Mobilising Armies", "You can now cast <col=000080>Teleport to Mobilising Armies</col>.");
-            case 7:
+            case 7 :
                 return(11, "magicon,5", "Weaken", "You can now cast <col=000080>Weaken</col>.");
-            case 8:
+            case 8 :
                 return(13, "magicon,6", "Fire Strike", "You can now cast <col=000080>Fire Strike</col>.");
-            case 9:
+            case 9 :
                 return(15, "magicon,7", "Bones to Bananas", "You can now cast <col=000080>Bones to Bananas</col>.");
-            case 10:
+            case 10 :
                 return(17, "magicon,8", "Wind Bolt", "You can now cast <col=000080>Wind Bolt</col>.");
-            case 11:
+            case 11 :
                 return(19, "magicon,9", "Curse", "You can now cast <col=000080>Curse</col>.");
-            case 12:
+            case 12 :
                 return(20, "magicon2,0", "Bind", "You can now cast <col=000080>Bind</col>.");
-            case 13:
+            case 13 :
                 return(21, "magicon,10", "Low Level Alchemy", "You can now cast <col=000080>Low Level Alchemy</col>.");
-            case 14:
+            case 14 :
                 return(23, "magicon,11", "Water Bolt", "You can now cast <col=000080>Water Bolt</col>.");
-            case 15:
+            case 15 :
                 return(25, "magicon,12", "Teleport to Varrock", "You can now cast <col=000080>Teleport to Varrock</col>.");
-            case 16:
+            case 16 :
                 return(29, "magicon,14", "Earth Bolt", "You can now cast <col=000080>Earth Bolt</col>.");
-            case 17:
+            case 17 :
                 return(31, "magicon,15", "Teleport to Lumbridge", "You can now cast <col=000080>Teleport to Lumbridge</col>.");
-            case 18:
+            case 18 :
                 return(33, "magicon,16", "Telekinetic Grab", "You can now cast <col=000080>Telekinetic Grab</col>.");
-            case 19:
+            case 19 :
                 return(35, "magicon,17", "Fire Bolt", "You can now cast <col=000080>Fire Bolt</col>.");
-            case 20:
+            case 20 :
                 return(37, "magicon,18", "Teleport to Falador", "You can now cast <col=000080>Teleport to Falador</col>.");
-            case 21:
+            case 21 :
                 return(39, "magicon,19", "Crumble Undead", "You can now cast <col=000080>Crumble Undead</col>.");
-            case 22:
+            case 22 :
                 return(40, "magicon2,36", "Members: Teleport to House", "Members can now cast <col=000080>Teleport to House</col>.");
-            case 23:
+            case 23 :
                 return(41, "magicon,20", "Wind Blast", "You can now cast <col=000080>Wind Blast</col>.");
-            case 24:
+            case 24 :
                 return(43, "magicon,21", "Superheat Item", "You can now cast <col=000080>Superheat Item</col>.");
-            case 25:
+            case 25 :
                 return(45, "magicon,22", "Members: Teleport to Camelot", "Members can now cast <col=000080>Teleport to Camelot</col>.");
-            case 26:
+            case 26 :
                 return(47, "magicon,23", "Water Blast", "You can now cast <col=000080>Water Blast</col>.");
-            case 27:
+            case 27 :
                 return(50, "magicon2,1", "Members: Snare", "Members can now cast <col=000080>Snare</col>.");
-            case 28:
+            case 28 :
                 return(50, "magicon2,5", "Members: Magic Dart<br> (with level 55 Slayer)", "Members now have the Magic level required to cast <col=000080>Magic Dart</col>. (They also need level 55 Slayer.)");
-            case 29:
+            case 29 :
                 return(50, "magicon,38", "Members: Iban's Blast<br> (after Underground Pass)", "Members now have the Magic level required to cast <col=000080>Iban's Blast</col> (after Underground Pass).");
-            case 30:
+            case 30 :
                 return(51, "magicon,39", "Members: Teleport to Ardougne<br> (after Plague City)", "Members can now cast <col=000080>Teleport to Ardougne</col>.");
-            case 31:
+            case 31 :
                 return(53, "magicon,25", "Earth Blast", "You can now cast <col=000080>Earth Blast</col>.");
-            case 32:
+            case 32 :
                 return(55, "magicon,26", "High-level Alchemy", "You can now cast <col=000080>High-level Alchemy</col>.");
-            case 33:
+            case 33 :
                 return(58, "magicon,40", "Members: Teleport to the Watchtower<br> (after Watchtower)", "Members now have the Magic level required to cast <col=000080>Teleport to the Watchtower</col> (after Watchtower).");
-            case 34:
+            case 34 :
                 return(59, "magicon,29", "Fire Blast", "You can now cast <col=000080>Fire Blast</col>.");
-            case 35:
+            case 35 :
                 return(60, "magicon2,35", "Members: Bones to Peaches<br> (after Mage Training Arena)", "Members can now learn <col=000080>Bones to Peaches</col> in the Mage Training Arena.");
-            case 36:
+            case 36 :
                 return(60, "magicon,46", "Members: Saradomin Strike<br> (after Mage Arena)", "Members can now learn <col=000080>Saradomin Strike</col> in the Mage Arena.");
-            case 37:
+            case 37 :
                 return(60, "magicon,45", "Members: Claws of Guthix<br> (after Mage Arena)", "Members can now learn <col=000080>Claws of Guthix</col> in the Mage Arena.");
-            case 38:
+            case 38 :
                 return(60, "magicon,44", "Members: Flames of Zamorak<br> (after Mage Arena)", "Members can now learn <col=000080>Flames of Zamorak</col> in the Mage Arena.");
-            case 39:
+            case 39 :
                 return(61, "magicon2,4", "Members: Teleport to Trollheim<br> (after Eadgar's Ruse)", "Members now have the Magic level required to cast <col=000080>Teleport to Trollheim</col> (after Eadgar's Ruse).");
-            case 40:
+            case 40 :
                 return(62, "magicon,31", "Members: Wind Wave", "Members can now cast <col=000080>Wind Wave</col>.");
-            case 41:
+            case 41 :
                 return(64, "magicon2,38", "Members: Teleport to Ape Atoll<br> (after saving Awowogei in Recipe for Disaster)", "Members now have the Magic level required to cast <col=000080>Teleport to Ape Atoll</col> (after saving Awowogei in Recipe for Disaster).");
-            case 42:
+            case 42 :
                 return(65, "magicon,33", "Members: Water Wave", "Members can now cast <col=000080>Water Wave</col>.");
-            case 43:
+            case 43 :
                 return(66, "magicon,41", "Members: Vulnerability", "Members can now cast <col=000080>Vulnerability</col>.");
-            case 44:
+            case 44 :
                 return(70, "magicon,36", "Members: Earth Wave", "Members can now cast <col=000080>Earth Wave</col>.");
-            case 45:
+            case 45 :
                 return(73, "magicon,42", "Members: Enfeeble", "Members can now cast <col=000080>Enfeeble</col>.");
-            case 46:
+            case 46 :
                 return(74, "magicon2,30", "Members: Tele-other Lumbridge", "Members can now cast <col=000080>Tele-other to Lumbridge</col>.");
-            case 47:
+            case 47 :
                 return(75, "magicon,37", "Members: Fire Wave", "Members can now cast <col=000080>Fire Wave</col>.");
-            case 48:
+            case 48 :
                 return(79, "magicon2,2", "Members: Entangle", "Members can now cast <col=000080>Entangle</col>.");
-            case 49:
+            case 49 :
                 return(80, "magicon,43", "Members: Stun", "Members can now cast <col=000080>Stun</col>.");
-            case 50:
+            case 50 :
                 return(80, "magicon2,3", "Members: Charge", "Members can now cast <col=000080>Charge</col>.");
-            case 51:
+            case 51 :
                 return(81, "magicon2,46", "Members: Wind Surge", "Members can now cast <col=000080>Wind Surge</col>.");
-            case 52:
+            case 52 :
                 return(82, "magicon2,31", "Members: Tele-other Falador", "Members can now cast <col=000080>Tele-other to Falador</col>.");
-            case 53:
+            case 53 :
                 return(85, "magicon2,41", "Teleport Block", "You can now cast <col=000080>Teleport Block</col>.");
-            case 54:
+            case 54 :
                 return(85, "magicon2,47", "Members: Water Surge", "Members can now cast <col=000080>Water Surge</col>.");
-            case 55:
+            case 55 :
                 return(90, "magicon2,48", "Members: Earth Surge", "Members can now cast <col=000080>Earth Surge</col>.");
-            case 56:
+            case 56 :
                 return(90, "magicon2,32", "Members: Tele-other to Camelot", "Members can now cast <col=000080>Tele-other to Camelot</col>.");
-            case 57:
+            case 57 :
                 return(95, "magicon2,49", "Members: Fire Surge", "Members can now cast <col=000080>Fire Surge</col>.");
         }
-    case 1:
+    case 1 :
         switch_int ($int1) {
-            case 0:
-                return(-1, 2287, "Once you have completed Desert Treasure, you will be able to access the Ancient Magicks spellbook.", "");
-            case 1:
+            case 0 :
+                return(-1, graphic_2287, "Once you have completed Desert Treasure, you will be able to access the Ancient Magicks spellbook.", "");
+            case 1 :
                 return(-1, "magicon2,37", "Members: Home teleport (to Edgeville)", "");
-            case 2:
+            case 2 :
                 return(50, "magicon2,10", "Members: Smoke Rush", "Members using the Ancient Magicks spellbook can now cast <col=000080>Smoke Rush</col>.");
-            case 3:
+            case 3 :
                 return(52, "magicon2,18", "Members: Shadow Rush", "Members using the Ancient Magicks spellbook can now cast <col=000080>Shadow Rush</col>.");
-            case 4:
+            case 4 :
                 return(54, "magicon2,22", "Members: Teleport to Paddewwa", "Members using the Ancient Magicks spellbook can now cast <col=000080>Teleport to Paddewwa</col>.");
-            case 5:
+            case 5 :
                 return(56, "magicon2,14", "Members: Blood Rush", "Members using the Ancient Magicks spellbook can now cast <col=000080>Blood Rush</col>.");
-            case 6:
+            case 6 :
                 return(58, "magicon2,6", "Members: Ice Rush", "Members using the Ancient Magicks spellbook can now cast <col=000080>Ice Rush</col>.");
-            case 7:
+            case 7 :
                 return(60, "magicon2,23", "Members: Teleport to Senntisten", "Members using the Ancient Magicks spellbook can now cast <col=000080>Teleport to Senntisten</col>.");
-            case 8:
+            case 8 :
                 return(61, "magicon2,44", "Members: Miasmic Rush", "Members using the Ancient Magicks spellbook can now cast <col=000080>Miasmic Rush</col>.");
-            case 9:
+            case 9 :
                 return(62, "magicon2,11", "Members: Smoke Burst", "Members using the Ancient Magicks spellbook can now cast <col=000080>Smoke Burst</col>.");
-            case 10:
+            case 10 :
                 return(64, "magicon2,19", "Members: Shadow Burst", "Members using the Ancient Magicks spellbook can now cast <col=000080>Shadow Burst</col>.");
-            case 11:
+            case 11 :
                 return(66, "magicon2,24", "Members: Teleport to Kharyrll", "Members using the Ancient Magicks spellbook can now cast <col=000080>Teleport to Kharyrll</col>.");
-            case 12:
+            case 12 :
                 return(68, "magicon2,15", "Members: Blood Burst", "Members using the Ancient Magicks spellbook can now cast <col=000080>Blood Burst</col>.");
-            case 13:
+            case 13 :
                 return(70, "magicon2,7", "Members: Ice Burst", "Members using the Ancient Magicks spellbook can now cast <col=000080>Ice Burst</col>.");
-            case 14:
+            case 14 :
                 return(72, "magicon2,25", "Members: Teleport to Lassar", "Members using the Ancient Magicks spellbook can now cast <col=000080>Teleport to Lassar</col>.");
-            case 15:
+            case 15 :
                 return(73, "magicon2,45", "Members: Miasmic Burst", "Members using the Ancient Magicks spellbook can now cast <col=000080>Miasmic Burst</col>.");
-            case 16:
+            case 16 :
                 return(74, "magicon2,12", "Members: Smoke Blitz", "Members using the Ancient Magicks spellbook can now cast <col=000080>Smoke Blitz</col>.");
-            case 17:
+            case 17 :
                 return(76, "magicon2,20", "Members: Shadow Blitz", "Members using the Ancient Magicks spellbook can now cast <col=000080>Shadow Blitz</col>.");
-            case 18:
+            case 18 :
                 return(78, "magicon2,26", "Members: Teleport to Dareeyak", "Members using the Ancient Magicks spellbook can now cast <col=000080>Teleport to Dareeyak</col>.");
-            case 19:
+            case 19 :
                 return(80, "magicon2,16", "Members: Blood Blitz", "Members using the Ancient Magicks spellbook can now cast <col=000080>Blood Blitz</col>.");
-            case 20:
+            case 20 :
                 return(82, "magicon2,8", "Members: Ice Blitz", "Members using the Ancient Magicks spellbook can now cast <col=000080>Ice Blitz</col>.");
-            case 21:
+            case 21 :
                 return(84, "magicon2,27", "Members: Teleport to Carrallangar", "Members using the Ancient Magicks spellbook can now cast <col=000080>Teleport to Carrallangar</col>.");
-            case 22:
+            case 22 :
                 return(85, "magicon2,43", "Members: Miasmic Blitz", "Members using the Ancient Magicks spellbook can now cast <col=000080>Miasmic Blitz</col>.");
-            case 23:
+            case 23 :
                 return(86, "magicon2,13", "Members: Smoke Barrage", "Members using the Ancient Magicks spellbook can now cast <col=000080>Smoke Barrage</col>.");
-            case 24:
+            case 24 :
                 return(88, "magicon2,21", "Members: Shadow Barrage", "Members using the Ancient Magicks spellbook can now cast <col=000080>Shadow Barrage</col>.");
-            case 25:
+            case 25 :
                 return(90, "magicon2,28", "Members: Teleport to Annakarl", "Members using the Ancient Magicks spellbook can now cast <col=000080>Teleport to Annakarl</col>.");
-            case 26:
+            case 26 :
                 return(92, "magicon2,17", "Members: Blood Barrage", "Members using the Ancient Magicks spellbook can now cast <col=000080>Blood Barrage</col>.");
-            case 27:
+            case 27 :
                 return(94, "magicon2,9", "Members: Ice Barrage", "Members using the Ancient Magicks spellbook can now cast <col=000080>Ice Barrage</col>.");
-            case 28:
+            case 28 :
                 return(96, "magicon2,29", "Members: Teleport to Ghorrock", "Members using the Ancient Magicks spellbook can now cast <col=000080>Teleport to Ghorrock</col>.");
-            case 29:
+            case 29 :
                 return(97, "magicon2,42", "Members: Miasmic Barrage", "Members using the Ancient Magicks spellbook can now cast <col=000080>Miasmic Barrage</col>.");
         }
-    case 2:
+    case 2 :
         switch_int ($int1) {
-            case 0:
-                return(-1, 2287, "Once you have completed Lunar Diplomacy, you will be able to access the Lunar spellbook.", "");
-            case 1:
+            case 0 :
+                return(-1, graphic_2287, "Once you have completed Lunar Diplomacy, you will be able to access the Lunar spellbook.", "");
+            case 1 :
                 return(-1, "magicon2,37", "Members: Home teleport (to Lunar Isle)", "");
-            case 2:
+            case 2 :
                 return(65, "lunar_magic_on,0", "Members: Bake Pie", "Members using the Lunar spellbook can now cast <col=000080>Bake Pie</col>.");
-            case 3:
+            case 3 :
                 return(66, "lunar_magic_on,24", "Members: Cure Plant", "Members using the Lunar spellbook can now cast <col=000080>Cure Plant</col>.");
-            case 4:
+            case 4 :
                 return(66, "lunar_magic_on,34", "Members: Monster Examine<br> (after Dream Mentor)", "Members using the Lunar or Dungeoneering spellbook now have the Magic level required to cast <col=000080>Monster Examine</col> (after Dream Mentor).");
-            case 5:
+            case 5 :
                 return(67, "lunar_magic_on,25", "Members: Contact", "Members using the Lunar spellbook now have the Magic level required to cast <col=000080>Contact</col> (after Dream Mentor).");
-            case 6:
+            case 6 :
                 return(68, "lunar_magic_on,16", "Members: Cure Other", "Members using the Lunar or Dungeoneering spellbook can now cast <col=000080>Cure Other</col>.");
-            case 7:
+            case 7 :
                 return(68, "lunar_magic_on,35", "Members: Humidify<br> (after Dream Mentor)", "Members using the Lunar or Dungeoneering spellbook now have the Magic level required to cast <col=000080>Humidify</col> (after Dream Mentor).");
-            case 8:
+            case 8 :
                 return(69, "lunar_magic_on,1", "Members: Teleport to Moonclan Island", "Members using the Lunar spellbook can now cast <col=000080>Teleport to Moonclan Island</col>.");
-            case 9:
+            case 9 :
                 return(70, "lunar_magic_on,26", "Members: Group Teleport to Moonclan Island", "Members using the Lunar spellbook can now cast <col=000080>Group Teleport to Moonclan Island</col>.");
-            case 10:
+            case 10 :
                 return(71, "lunar_magic_on,19", "Members: Cure Me", "Members using the Lunar or Dungeoneering spellbook can now cast <col=000080>Cure Me</col>.");
-            case 11:
+            case 11 :
                 return(71, "lunar_magic_on,36", "Members: Hunter Kit<br> (after Dream Mentor)", "Members using the Lunar spellbook now have the Magic level required to cast <col=000080>Hunter Kit</col> (after Dream Mentor).");
-            case 12:
+            case 12 :
                 return(71, "lunar_magic_on,40", "Members: Teleport to Ourania", "Members using the Lunar spellbook can now cast <col=000080>Teleport to Ourania</col>.");
-            case 13:
+            case 13 :
                 return(72, "lunar_magic_on,2", "Members: Teleport to Waterbirth", "Members using the Lunar spellbook can now cast <col=000080>Teleport to Waterbirth</col>.");
-            case 14:
+            case 14 :
                 return(72, "lunar_magic_on,42", "Members: Teleport to South Falador<br> (unlocked at the Livid Farm)", "Members using the Lunar spellbook can now cast <col=000080>Teleport to South Falador</col> (unlocked at the Livid Farm).");
-            case 15:
+            case 15 :
                 return(73, "lunar_magic_on,27", "Members: Group Teleport to Waterbirth", "Members using the Lunar spellbook can now cast <col=000080>Group Teleport to Waterbirth</col>.");
-            case 16:
+            case 16 :
                 return(74, "lunar_magic_on,22", "Members: Cure Group", "Members using the Lunar or Dungeoneering spellbook can now cast <col=000080>Cure Group</col>.");
-            case 17:
+            case 17 :
                 return(75, "lunar_magic_on,43", "Members: Repair Rune Pouch<br> (unlocked at the Livid Farm)", "Members using the Lunar spellbook now have the Magic level required to cast <col=000080>Repair Rune Pouch</col> (unlocked at the Livid Farm).");
-            case 18:
+            case 18 :
                 return(75, "lunar_magic_on,4", "Members: Teleport to the Barbarian Outpost", "Members using the Lunar spellbook can now cast <col=000080>Teleport to the Barbarian Outpost</col>.");
-            case 19:
+            case 19 :
                 return(75, "lunar_magic_on,33", "Members: Stat Spy<br> (after Dream Mentor)", "Members using the Lunar spellbook now have the Magic level required to cast <col=000080>Stat Spy</col> (after Dream Mentor).");
-            case 20:
+            case 20 :
                 return(76, "lunar_magic_on,44", "Members: Teleport to North Ardougne<br> (unlocked at the Livid Farm)", "Members using the Lunar spellbook now have the Magic level required to cast <col=000080>Teleport to North Ardougne</col> (unlocked at the Livid Farm).");
-            case 21:
+            case 21 :
                 return(76, "lunar_magic_on,28", "Members: Group Teleport to the Barbarian Outpost", "Members using the Lunar spellbook can now cast <col=000080>Group Teleport to the Barbarian Outpost</col>.");
-            case 22:
+            case 22 :
                 return(77, "lunar_magic_on,5", "Members: Superglass Make", "Members using the Lunar spellbook can now cast <col=000080>Superglass Make</col>.");
-            case 23:
+            case 23 :
                 return(78, "lunar_magic_on,45", "Members: Remote Farming<br> (unlocked at the Livid Farm)", "Members using the Lunar spellbook can now cast <col=000080>Remote Farming</col> (unlocked at the Livid Farm).");
-            case 24:
+            case 24 :
                 return(78, "lunar_magic_on,6", "Members: Teleport to Port Khazard", "Members using the Lunar spellbook can now cast <col=000080>Teleport to Port Khazard</col>.");
-            case 25:
+            case 25 :
                 return(79, "lunar_magic_on,29", "Members: Group Teleport to Port Khazard", "Members using the Lunar spellbook can now cast <col=000080>Group Teleport to Port Khazard</col>.");
-            case 26:
+            case 26 :
                 return(79, "lunar_magic_on,37", "Members: Dream<br> (after Dream Mentor)", "Members using the Lunar spellbook now have the Magic level required to cast <col=000080>Dream</col> (after Dream Mentor).");
-            case 27:
+            case 27 :
                 return(80, "lunar_magic_on,47", "Members: Spiritualise Food<br> (unlocked at the Livid Farm)", "Members using the Lunar spellbook can now cast <col=000080>Spiritualise Food</col> (unlocked at the Livid Farm).");
-            case 28:
+            case 28 :
                 return(80, "lunar_magic_on,7", "Members: String Jewellery", "Members using the Lunar spellbook can now cast <col=000080>String Jewellery</col>.");
-            case 29:
+            case 29 :
                 return(81, "lunar_magic_on,11", "Members: Stat Restore Potion Share", "Members using the Lunar spellbook can now cast <col=000080>Stat Restore Potion Share</col>.");
-            case 30:
+            case 30 :
                 return(82, "lunar_magic_on,9", "Members: Magic Imbue", "Members using the Lunar spellbook can now cast <col=000080>Magic Imbue</col>.");
-            case 31:
+            case 31 :
                 return(83, "lunar_magic_on,46", "Members: Make Leather<br> (unlocked at the Livid Farm)", "Members using the Lunar spellbook can now cast <col=000080>Make Leather</col> (unlocked at the Livid Farm).");
-            case 32:
+            case 32 :
                 return(83, "lunar_magic_on,10", "Members: Fertile Soil", "Members using the Lunar spellbook can now cast <col=000080>Fertile Soil</col>.");
-            case 33:
+            case 33 :
                 return(84, "lunar_magic_on,8", "Members: Boost Potion Share", "Members using the Lunar spellbook can now cast <col=000080>Boost Potion Share</col>.");
-            case 34:
+            case 34 :
                 return(85, "lunar_magic_on,12", "Members: Teleport to the Fishing Guild", "Members using the Lunar spellbook can now cast <col=000080>Teleport to the Fishing Guild</col>.");
-            case 35:
+            case 35 :
                 return(86, "lunar_magic_on,30", "Members: Group Teleport to the Fishing Guild", "Members using the Lunar spellbook can now cast <col=000080>Group Teleport to the Fishing Guild</col>.");
-            case 36:
+            case 36 :
                 return(86, "lunar_magic_on,38", "Members: Plank Make<br> (after Dream Mentor)", "Members using the Lunar spellbook now have the Magic level required to cast <col=000080>Plank Make</col> (after Dream Mentor).");
-            case 37:
+            case 37 :
                 return(87, "lunar_magic_on,13", "Members: Teleport to Catherby", "Members using the Lunar spellbook can now cast <col=000080>Teleport to Catherby</col>.");
-            case 38:
+            case 38 :
                 return(88, "lunar_magic_on,31", "Members: Group Teleport to Catherby", "Members using the Lunar spellbook can now cast <col=000080>Group Teleport to Catherby</col>.");
-            case 39:
+            case 39 :
                 return(89, "lunar_magic_on,14", "Members: Teleport to the Ice Plateau", "Members using the Lunar spellbook can now cast <col=000080>Teleport to the Ice Plateau</col>.");
-            case 40:
+            case 40 :
                 return(90, "lunar_magic_on,48", "Members: Disruption Shield<br> (unlocked at the Livid Farm)", "Members using the Lunar spellbook can now cast <col=000080>Disruption Shield</col> (unlocked at the Livid Farm).");
-            case 41:
+            case 41 :
                 return(90, "lunar_magic_on,32", "Members: Group Teleport to the Ice Plateau", "Members using the Lunar spellbook can now cast <col=000080>Group Teleport to the Ice Plateau</col>.");
-            case 42:
+            case 42 :
                 return(91, "lunar_magic_on,15", "Members: Energy Transfer", "Members using the Lunar spellbook can now cast <col=000080>Energy Transfer</col>.");
-            case 43:
+            case 43 :
                 return(92, "lunar_magic_on,17", "Members: Heal Other", "Members using the Lunar spellbook can now cast <col=000080>Heal Other</col>.");
-            case 44:
+            case 44 :
                 return(93, "lunar_magic_on,18", "Members: Vengeance Other", "Members using the Lunar or Dungeoneering spellbook can now cast <col=000080>Vengeance Other</col>.");
-            case 45:
+            case 45 :
                 return(94, "lunar_magic_on,21", "Members: Vengeance", "Members using the Lunar or Dungeoneering spellbook can now cast <col=000080>Vengeance</col>.");
-            case 46:
+            case 46 :
                 return(95, "lunar_magic_on,49", "Members: Vengeance Group<br> (unlocked at the Livid Farm)", "Members using the Lunar spellbook can now cast <col=000080>Vengeance Group</col> (unlocked at the Livid Farm).");
-            case 47:
+            case 47 :
                 return(95, "lunar_magic_on,23", "Members: Heal Group", "Members using the Lunar spellbook can now cast <col=000080>Heal Group</col>.");
-            case 48:
+            case 48 :
                 return(96, "lunar_magic_on,39", "Members: Spellbook Swap<br> (after Dream Mentor)", "Members using the Lunar spellbook now have the Magic level required to cast <col=000080>Spellbook Swap</col> (after Dream Mentor).");
         }
 }

@@ -1,0 +1,5 @@
+// 1159
+[proc,script1159]
+def_int $int0 = calc(if_getwidth(sound_options:com_30) - if_getwidth(sound_options:com_9));
+def_int $int1 = scale(detailget_musicvol, 255, $int0);
+if_setposition($int1, 0, ^setpos_abs_left, ^setpos_abs_top, sound_options:com_9);

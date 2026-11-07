@@ -1,0 +1,26 @@
+// 3006
+[proc,script3006](int $int0, component $component1, component $component2, component $component3, component $component4, component $component5, component $component6, component $component7)
+if_setsize(0, 88, ^setsize_minus, ^setsize_abs, $component1);
+if (if_getgraphic($component5) = graphic_2669) {
+    ~script3007($component1, $component2, $component3, $component4, $component5, $component6, $component7);
+} else {
+    ~script3009($component1, $component2, $component3, $component4, $component5, $component6, $component7);
+}
+switch_int ($int0) {
+    case 0 :
+        if_setposition(0, 88, ^setpos_abs_left, ^setpos_abs_top, interface_907:com_4);
+        if_setposition(0, calc(88 + 30), ^setpos_abs_left, ^setpos_abs_top, interface_907:com_5);
+        if_setposition(0, calc(88 + 30 * 2), ^setpos_abs_left, ^setpos_abs_top, interface_907:com_43);
+    case 1 :
+        if_setposition(0, 30, ^setpos_abs_left, ^setpos_abs_top, interface_907:com_4);
+        if_setposition(0, calc(88 + 30), ^setpos_abs_left, ^setpos_abs_top, interface_907:com_5);
+        if_setposition(0, calc(88 + 30 * 2), ^setpos_abs_left, ^setpos_abs_top, interface_907:com_43);
+    case 2 :
+        if_setposition(0, 30, ^setpos_abs_left, ^setpos_abs_top, interface_907:com_4);
+        if_setposition(0, calc(30 * 2), ^setpos_abs_left, ^setpos_abs_top, interface_907:com_5);
+        if_setposition(0, calc(88 + 30 * 2), ^setpos_abs_left, ^setpos_abs_top, interface_907:com_43);
+    case 3 :
+        if_setposition(0, 30, ^setpos_abs_left, ^setpos_abs_top, interface_907:com_4);
+        if_setposition(0, calc(30 * 2), ^setpos_abs_left, ^setpos_abs_top, interface_907:com_5);
+        if_setposition(0, calc(30 * 3), ^setpos_abs_left, ^setpos_abs_top, interface_907:com_43);
+}

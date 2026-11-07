@@ -1,0 +1,73 @@
+// 205
+[clientscript,script205](component $component0)
+if (%varplayerbit_8902 > 0 & %varplayerbit_8902 < 13) {
+    if (if_getgraphic(interface_825:com_94) = graphic_5459) {
+        if_setgraphic(graphic_5457, interface_825:com_94);
+    } else if (if_getgraphic(interface_825:com_94) = graphic_5458) {
+        if_setgraphic(graphic_5455, interface_825:com_94);
+    }
+    if (if_getgraphic(interface_825:com_98) = graphic_5459) {
+        if_setgraphic(graphic_5457, interface_825:com_98);
+    } else if (if_getgraphic(interface_825:com_98) = graphic_5458) {
+        if_setgraphic(graphic_5455, interface_825:com_98);
+    }
+    if (if_getgraphic(interface_825:com_102) = graphic_5459) {
+        if_setgraphic(graphic_5457, interface_825:com_102);
+    } else if (if_getgraphic(interface_825:com_102) = graphic_5458) {
+        if_setgraphic(graphic_5455, interface_825:com_102);
+    }
+    if (if_getgraphic(interface_825:com_106) = graphic_5459) {
+        if_setgraphic(graphic_5457, interface_825:com_106);
+    } else if (if_getgraphic(interface_825:com_106) = graphic_5458) {
+        if_setgraphic(graphic_5455, interface_825:com_106);
+    }
+    if (if_getgraphic(interface_825:com_110) = graphic_5459) {
+        if_setgraphic(graphic_5457, interface_825:com_110);
+    } else if (if_getgraphic(interface_825:com_110) = graphic_5458) {
+        if_setgraphic(graphic_5455, interface_825:com_110);
+    }
+    if (if_getgraphic(interface_825:com_114) = graphic_5459) {
+        if_setgraphic(graphic_5457, interface_825:com_114);
+    } else if (if_getgraphic(interface_825:com_114) = graphic_5458) {
+        if_setgraphic(graphic_5455, interface_825:com_114);
+    }
+    if (if_getgraphic(interface_825:com_118) = graphic_5459) {
+        if_setgraphic(graphic_5457, interface_825:com_118);
+    } else if (if_getgraphic(interface_825:com_118) = graphic_5458) {
+        if_setgraphic(graphic_5455, interface_825:com_118);
+    }
+    if (if_getgraphic(interface_825:com_122) = graphic_5459) {
+        if_setgraphic(graphic_5457, interface_825:com_122);
+    } else if (if_getgraphic(interface_825:com_122) = graphic_5458) {
+        if_setgraphic(graphic_5455, interface_825:com_122);
+    }
+    if (if_getgraphic(interface_825:com_126) = graphic_5459) {
+        if_setgraphic(graphic_5457, interface_825:com_126);
+    } else if (if_getgraphic(interface_825:com_126) = graphic_5458) {
+        if_setgraphic(graphic_5455, interface_825:com_126);
+    }
+    if (if_getgraphic(interface_825:com_130) = graphic_5459) {
+        if_setgraphic(graphic_5457, interface_825:com_130);
+    } else if (if_getgraphic(interface_825:com_130) = graphic_5458) {
+        if_setgraphic(graphic_5455, interface_825:com_130);
+    }
+    if (if_getgraphic(interface_825:com_0) = graphic_5459) {
+        if_setgraphic(graphic_5457, interface_825:com_0);
+    } else if (if_getgraphic(interface_825:com_0) = graphic_5458) {
+        if_setgraphic(graphic_5455, interface_825:com_0);
+    }
+    if (if_getgraphic(interface_825:com_137) = graphic_5459) {
+        if_setgraphic(graphic_5457, interface_825:com_137);
+    } else if (if_getgraphic(interface_825:com_137) = graphic_5458) {
+        if_setgraphic(graphic_5455, interface_825:com_137);
+    }
+}
+if (if_getgraphic($component0) = graphic_5456) {
+    if_setgraphic(graphic_5458, $component0);
+}
+if (if_getgraphic($component0) = graphic_5455) {
+    if_setgraphic(graphic_5458, $component0);
+}
+if (if_getgraphic($component0) = graphic_5457) {
+    if_setgraphic(graphic_5459, $component0);
+}

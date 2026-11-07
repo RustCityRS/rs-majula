@@ -1,7 +1,0 @@
-[proc,clientscript_1089]
-if (chat_getfilter_private = 2) {
-    chat_setfilter(chat_getfilter_public, 1, chat_getfilter_trade);
-    ~redraw_chat_buttons;
-    ~rebuildchatbox;
-    ~rebuildpmbox;
-}

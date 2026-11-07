@@ -1,8 +1,9 @@
-[clientscript,playerdesign4_switchpage](boolean $int)
+// 353
+[clientscript,playerdesign4_switchpage](boolean $boolean0)
 sound_synth(synth_9824, 1, 0);
-if ($int = true & %character_creation_multipage = true) {
+if ($boolean0 = true & %character_creation_multipage = 1) {
     %character_creation_page = 1;
-    if_sethide(false, playerdesign4:com117);
-    ~clientscript_2741;
+    if_sethide(false, playerdesign4:com_117);
+    ~script2741;
 }
-~playerdesign4_switchpage($int);
+~playerdesign4_switchpage($boolean0);

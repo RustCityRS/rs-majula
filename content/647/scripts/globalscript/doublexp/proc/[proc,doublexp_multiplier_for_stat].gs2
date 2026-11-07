@@ -1,5 +1,6 @@
-[proc,doublexp_multiplier_for_stat](int $int)(int)
-if ($int = 23) {
+// 338
+[proc,doublexp_multiplier_for_stat](int $int0)(int)
+if ($int0 = 23) {
     return(1100);
 }
 if (%doublexp_timetotal < 30) {
@@ -63,4 +64,3 @@ if (%doublexp_timetotal < 600) {
     return(1125);
 }
 return(1100);
-return(0);

@@ -1,0 +1,12 @@
+// 4058
+[clientscript,script4058](component $component0, component $component1, component $component2)
+def_int $int3 = 5;
+if (if_gety($component0) > calc(1 - if_getheight($component0))) {
+    if_setposition(0, calc(if_gety($component0) - $int3), ^setpos_abs_centre, ^setpos_abs_top, $component0);
+} else {
+    if_setontimer(null, $component2);
+    if_sethide(true, $component0);
+    if_sethide(false, $component1);
+    if_setposition(0, calc(1 - if_getheight($component1)), ^setpos_abs_centre, ^setpos_abs_top, $component1);
+    if_setontimer("script4059($component1, $component2)", $component2);
+}

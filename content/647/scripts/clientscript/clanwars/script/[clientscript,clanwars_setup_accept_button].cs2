@@ -1,11 +1,12 @@
-[clientscript,clanwars_setup_accept_button](int $int)
-if ($int ! 1) {
+// 1834
+[clientscript,clanwars_setup_accept_button](int $int0)
+if ($int0 ! 1) {
     return;
 }
-if (%varc_int_250 = true & (%varc_int_252 >= 2 & (%varc_int_251 = true & (map_members = false | %varc_int_253 = true)))) {
+if (%varclient_250 = true & %varclient_252 >= 2 & %varclient_251 = true & (map_members = false | %varclient_253 = true)) {
     return;
 }
-if (%varc_int_258 = false) {
-    %varc_int_258 = 1;
+if (%varclient_258 = false) {
+    %varclient_258 = true;
     ~clanwars_resynch_accept;
 }

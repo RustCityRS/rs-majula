@@ -1,0 +1,770 @@
+// 619:0
+[com_0]
+type=rectangle
+x=65
+y=25
+width=380
+height=295
+colour=0x000000
+fill=yes
+trans=200
+
+// 619:1
+[com_1]
+type=graphic
+x=61
+y=24
+width=374
+height=290
+graphic=tradebacking
+tiling=yes
+colour=0xffffffff
+
+// 619:2
+[com_2]
+type=graphic
+x=44
+y=53
+width=32
+height=241
+graphic="v2_stone_borders,1"
+tiling=yes
+colour=0xffffffff
+
+// 619:3
+[com_3]
+type=graphic
+x=57
+y=20
+width=32
+height=32
+graphic="v2_stone_borders,4"
+colour=0xffffffff
+
+// 619:4
+[com_4]
+type=graphic
+x=420
+y=50
+width=32
+height=243
+graphic="v2_stone_borders,3"
+tiling=yes
+colour=0xffffffff
+
+// 619:5
+[com_5]
+type=graphic
+x=68
+y=7
+width=349
+height=34
+graphic="v2_stone_borders,0"
+tiling=yes
+colour=0xffffffff
+
+// 619:6
+[com_6]
+type=graphic
+x=70
+y=296
+width=358
+height=32
+graphic="v2_stone_borders,2"
+tiling=yes
+colour=0xffffffff
+
+// 619:7
+[com_7]
+type=graphic
+x=410
+y=30
+width=16
+height=16
+graphic="v2_stone_close_button,0"
+colour=0xffffffff
+transmitop=1
+op1=Close
+onmouseover=graphic_swapper(event_com, "v2_stone_close_button,1")
+onmouseleave=graphic_swapper(event_com, "v2_stone_close_button,0")
+onop=closebutton_click
+
+// 619:8
+[com_8]
+type=graphic
+x=57
+y=284
+width=32
+height=32
+graphic="v2_stone_borders,6"
+colour=0xffffffff
+
+// 619:9
+[com_9]
+type=graphic
+x=408
+y=20
+width=32
+height=32
+graphic="v2_stone_borders,5"
+colour=0xffffffff
+
+// 619:10
+[com_10]
+type=graphic
+x=408
+y=284
+width=32
+height=32
+graphic="v2_stone_borders,7"
+colour=0xffffffff
+
+// 619:11
+[com_11]
+type=graphic
+x=66
+y=35
+width=365
+height=32
+graphic="v2_stone_borders,8"
+tiling=yes
+colour=0xffffffff
+
+// 619:12
+[com_12]
+type=graphic
+x=57
+y=37
+width=32
+height=32
+graphic="v2_stone_borders,9"
+colour=0xffffffff
+
+// 619:13
+[com_13]
+type=graphic
+x=408
+y=37
+width=32
+height=32
+graphic="v2_stone_borders,10"
+colour=0xffffffff
+
+// 619:14
+[com_14]
+type=rectangle
+x=135
+y=58
+width=47
+height=43
+layer=com_42
+colour=0x000000
+fill=yes
+trans=200
+
+// 619:15
+[com_15]
+type=rectangle
+x=231
+y=58
+width=47
+height=43
+layer=com_42
+colour=0x000000
+fill=yes
+trans=200
+
+// 619:16
+[com_16]
+type=rectangle
+x=88
+y=101
+width=47
+height=43
+layer=com_42
+colour=0x000000
+fill=yes
+trans=200
+
+// 619:17
+[com_17]
+type=rectangle
+x=183
+y=101
+width=47
+height=43
+layer=com_42
+colour=0x000000
+fill=yes
+trans=200
+
+// 619:18
+[com_18]
+type=rectangle
+x=278
+y=101
+width=47
+height=43
+layer=com_42
+colour=0x000000
+fill=yes
+trans=200
+
+// 619:19
+[com_19]
+type=rectangle
+x=41
+y=144
+width=47
+height=43
+layer=com_42
+colour=0x000000
+fill=yes
+trans=200
+
+// 619:20
+[com_20]
+type=rectangle
+x=136
+y=144
+width=47
+height=43
+layer=com_42
+colour=0x000000
+fill=yes
+trans=200
+
+// 619:21
+[com_21]
+type=rectangle
+x=230
+y=144
+width=47
+height=43
+layer=com_42
+colour=0x000000
+fill=yes
+trans=200
+
+// 619:22
+[com_22]
+type=rectangle
+x=325
+y=144
+width=47
+height=43
+layer=com_42
+colour=0x000000
+fill=yes
+trans=200
+
+// 619:23
+[com_23]
+type=rectangle
+x=88
+y=187
+width=47
+height=43
+layer=com_42
+colour=0x000000
+fill=yes
+trans=200
+
+// 619:24
+[com_24]
+type=rectangle
+x=183
+y=187
+width=47
+height=43
+layer=com_42
+colour=0x000000
+fill=yes
+trans=200
+
+// 619:25
+[com_25]
+type=rectangle
+x=277
+y=187
+width=47
+height=43
+layer=com_42
+colour=0x000000
+fill=yes
+trans=200
+
+// 619:26
+[com_26]
+type=rectangle
+x=136
+y=230
+width=47
+height=43
+layer=com_42
+colour=0x000000
+fill=yes
+trans=200
+
+// 619:27
+[com_27]
+type=rectangle
+x=230
+y=230
+width=47
+height=43
+layer=com_42
+colour=0x000000
+fill=yes
+trans=200
+
+// 619:28
+[com_28]
+type=model
+x=234
+y=60
+width=41
+height=41
+layer=com_42
+model=model_2405
+modelangle=512,1024,0
+modelzoom=500
+pausebutton=yes
+pausetext=Air runes
+onmouseleave=deltooltip(interface_619:com_59)
+onmouserepeat=addtooltip(event_com, interface_619:com_59, "Air runes", 50, 150)
+
+// 619:29
+[com_29]
+type=model
+x=138
+y=60
+width=41
+height=41
+layer=com_42
+model=model_2481
+modelangle=512,1024,0
+modelzoom=500
+pausebutton=yes
+pausetext=Mind runes
+onmouseleave=deltooltip(interface_619:com_59)
+onmouserepeat=addtooltip(event_com, interface_619:com_59, "Mind runes", 50, 150)
+
+// 619:30
+[com_30]
+type=model
+x=91
+y=104
+width=41
+height=41
+layer=com_42
+model=model_2652
+modelangle=512,1024,0
+modelzoom=500
+pausebutton=yes
+pausetext=Water runes
+onmouseleave=deltooltip(interface_619:com_59)
+onmouserepeat=addtooltip(event_com, interface_619:com_59, "Water runes", 50, 150)
+
+// 619:31
+[com_31]
+type=model
+x=186
+y=103
+width=41
+height=41
+layer=com_42
+model=model_2737
+modelangle=512,1024,0
+modelzoom=500
+pausebutton=yes
+pausetext=Earth runes
+onmouseleave=deltooltip(interface_619:com_59)
+onmouserepeat=addtooltip(event_com, interface_619:com_59, "Earth runes", 50, 150)
+
+// 619:32
+[com_32]
+type=model
+x=281
+y=104
+width=41
+height=41
+layer=com_42
+model=model_2399
+modelangle=512,1024,0
+modelzoom=500
+pausebutton=yes
+pausetext=Fire runes
+onmouseleave=deltooltip(interface_619:com_59)
+onmouserepeat=addtooltip(event_com, interface_619:com_59, "Fire runes", 50, 150)
+
+// 619:33
+[com_33]
+type=model
+x=44
+y=146
+width=41
+height=41
+layer=com_42
+model=model_2340
+modelangle=512,1024,0
+modelzoom=500
+pausebutton=yes
+pausetext=Body runes
+onmouseleave=deltooltip(interface_619:com_59)
+onmouserepeat=addtooltip(event_com, interface_619:com_59, "Body runes", 50, 150)
+
+// 619:34
+[com_34]
+type=model
+x=139
+y=146
+width=41
+height=41
+layer=com_42
+model=model_2735
+modelangle=512,1024,0
+modelzoom=513
+pausebutton=yes
+pausetext=Cosmic runes
+onmouseleave=deltooltip(interface_619:com_59)
+onmouserepeat=addtooltip(event_com, interface_619:com_59, "Cosmic runes", 50, 150)
+
+// 619:35
+[com_35]
+type=model
+x=233
+y=147
+width=41
+height=41
+layer=com_42
+model=model_2707
+modelangle=512,1024,0
+modelzoom=500
+pausebutton=yes
+pausetext=Chaos runes
+onmouseleave=deltooltip(interface_619:com_59)
+onmouserepeat=addtooltip(event_com, interface_619:com_59, "Chaos runes", 50, 150)
+
+// 619:36
+[com_36]
+type=model
+x=328
+y=147
+width=41
+height=41
+layer=com_42
+model=model_16742
+modelangle=512,1024,0
+modelzoom=500
+pausebutton=yes
+pausetext=Astral runes
+onmouseleave=deltooltip(interface_619:com_59)
+onmouserepeat=addtooltip(event_com, interface_619:com_59, "Astral runes", 50, 150)
+
+// 619:37
+[com_37]
+type=model
+x=91
+y=190
+width=41
+height=41
+layer=com_42
+model=model_2382
+modelangle=512,1024,0
+modelzoom=500
+pausebutton=yes
+pausetext=Law runes
+onmouseleave=deltooltip(interface_619:com_59)
+onmouserepeat=addtooltip(event_com, interface_619:com_59, "Law runes", 50, 150)
+
+// 619:38
+[com_38]
+type=model
+x=186
+y=190
+width=41
+height=41
+layer=com_42
+model=model_2645
+modelangle=512,1024,0
+modelzoom=500
+pausebutton=yes
+pausetext=Death runes
+onmouseleave=deltooltip(interface_619:com_59)
+onmouserepeat=addtooltip(event_com, interface_619:com_59, "Death runes", 50, 150)
+
+// 619:39
+[com_39]
+type=model
+x=280
+y=190
+width=41
+height=41
+layer=com_42
+model=model_2665
+modelangle=512,1024,0
+modelzoom=500
+pausebutton=yes
+pausetext=Blood runes
+onmouseleave=deltooltip(interface_619:com_59)
+onmouserepeat=addtooltip(event_com, interface_619:com_59, "Blood runes", 50, 150)
+
+// 619:40
+[com_40]
+type=model
+x=139
+y=233
+width=41
+height=41
+layer=com_42
+model=model_2734
+modelangle=512,1024,0
+modelzoom=500
+pausebutton=yes
+pausetext=Nature runes
+onmouseleave=deltooltip(interface_619:com_59)
+onmouserepeat=addtooltip(event_com, interface_619:com_59, "Nature runes", 50, 150)
+
+// 619:41
+[com_41]
+type=model
+x=233
+y=233
+width=41
+height=41
+layer=com_42
+model=model_2434
+modelangle=512,1024,0
+modelzoom=500
+pausebutton=yes
+pausetext=Soul runes
+onmouseleave=deltooltip(interface_619:com_59)
+onmouserepeat=addtooltip(event_com, interface_619:com_59, "Soul runes", 50, 150)
+
+// 619:42
+[com_42]
+type=layer
+x=42
+y=3
+width=409
+height=309
+
+// 619:43
+[com_43]
+type=text
+x=148
+y=22
+width=210
+height=30
+textfont=b12_full
+text=Pay Bank Charge With...
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xff981f
+
+// 619:44
+[com_44]
+type=text
+x=101
+y=274
+width=210
+height=30
+layer=com_42
+textfont=b12_full
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xff981f
+
+// 619:45
+[com_45]
+type=rectangle
+x=135
+y=58
+width=47
+height=43
+layer=com_42
+hide=yes
+colour=0x000000
+fill=yes
+trans=150
+
+// 619:46
+[com_46]
+type=rectangle
+x=231
+y=58
+width=47
+height=43
+layer=com_42
+hide=yes
+colour=0x000000
+fill=yes
+trans=150
+
+// 619:47
+[com_47]
+type=rectangle
+x=88
+y=101
+width=47
+height=43
+layer=com_42
+hide=yes
+colour=0x000000
+fill=yes
+trans=150
+
+// 619:48
+[com_48]
+type=rectangle
+x=183
+y=101
+width=47
+height=43
+layer=com_42
+hide=yes
+colour=0x000000
+fill=yes
+trans=150
+
+// 619:49
+[com_49]
+type=rectangle
+x=278
+y=101
+width=47
+height=43
+layer=com_42
+hide=yes
+colour=0x000000
+fill=yes
+trans=150
+
+// 619:50
+[com_50]
+type=rectangle
+x=41
+y=144
+width=47
+height=43
+layer=com_42
+hide=yes
+colour=0x000000
+fill=yes
+trans=150
+
+// 619:51
+[com_51]
+type=rectangle
+x=136
+y=144
+width=47
+height=43
+layer=com_42
+hide=yes
+colour=0x000000
+fill=yes
+trans=150
+
+// 619:52
+[com_52]
+type=rectangle
+x=230
+y=144
+width=47
+height=43
+layer=com_42
+hide=yes
+colour=0x000000
+fill=yes
+trans=150
+
+// 619:53
+[com_53]
+type=rectangle
+x=325
+y=144
+width=47
+height=43
+layer=com_42
+hide=yes
+colour=0x000000
+fill=yes
+trans=150
+
+// 619:54
+[com_54]
+type=rectangle
+x=88
+y=187
+width=47
+height=43
+layer=com_42
+hide=yes
+colour=0x000000
+fill=yes
+trans=150
+
+// 619:55
+[com_55]
+type=rectangle
+x=183
+y=187
+width=47
+height=43
+layer=com_42
+hide=yes
+colour=0x000000
+fill=yes
+trans=150
+
+// 619:56
+[com_56]
+type=rectangle
+x=277
+y=187
+width=47
+height=43
+layer=com_42
+hide=yes
+colour=0x000000
+fill=yes
+trans=150
+
+// 619:57
+[com_57]
+type=rectangle
+x=136
+y=230
+width=47
+height=43
+layer=com_42
+hide=yes
+colour=0x000000
+fill=yes
+trans=150
+
+// 619:58
+[com_58]
+type=rectangle
+x=230
+y=230
+width=47
+height=43
+layer=com_42
+hide=yes
+colour=0x000000
+fill=yes
+trans=150
+
+// 619:59
+[com_59]
+type=layer
+x=44
+y=59
+width=335
+height=203
+layer=com_42

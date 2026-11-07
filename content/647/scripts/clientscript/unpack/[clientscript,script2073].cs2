@@ -1,0 +1,18 @@
+// 2073
+[clientscript,script2073](component $component0)
+switch_component ($component0) {
+    case interface_276:com_52, interface_276:com_4 :
+        if_sethide(false, interface_276:com_79);
+        if_sethide(true, interface_276:com_80);
+        if_sethide(true, interface_276:com_78);
+    case interface_276:com_51, interface_276:com_21 :
+        if_sethide(true, interface_276:com_79);
+        if_sethide(true, interface_276:com_80);
+        if_sethide(false, interface_276:com_78);
+    case interface_276:com_22, interface_276:com_5 :
+        if_sethide(true, interface_276:com_79);
+        if_sethide(false, interface_276:com_80);
+        if_sethide(true, interface_276:com_78);
+    case default :
+        return;
+}

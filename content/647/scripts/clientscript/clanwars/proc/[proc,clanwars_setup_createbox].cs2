@@ -1,3 +1,4 @@
+// 1086
 [proc,clanwars_setup_createbox](component $component0, int $int1, int $int2, int $int3)
 cc_deleteall($component0);
 def_int $int4 = if_getwidth($component0);

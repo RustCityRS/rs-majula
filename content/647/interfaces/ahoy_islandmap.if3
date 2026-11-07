@@ -1,0 +1,129 @@
+// 8:0
+[com_0]
+type=model
+x=18
+y=-11
+width=482
+height=348
+layer=com_9
+model=model_5234
+modelorigin=-27,-10
+modelangle=466,2047,23
+modelzoom=872
+
+// 8:1
+[com_1]
+type=text
+x=350
+y=199
+width=39
+height=14
+layer=com_9
+textfont=q8_full
+text=8-East
+textshadow=yes
+colour=0xc7c700
+
+// 8:2
+[com_2]
+type=text
+x=350
+y=180
+width=47
+height=14
+layer=com_9
+textfont=q8_full
+text=6-South
+textshadow=yes
+colour=0xbebe00
+
+// 8:3
+[com_3]
+type=text
+x=354
+y=219
+width=46
+height=12
+layer=com_9
+textfont=q8_full
+text=2-North
+textalignh=centre
+textshadow=yes
+colour=0xc7c700
+
+// 8:4
+[com_4]
+type=text
+x=350
+y=238
+width=38
+height=14
+layer=com_9
+textfont=q8_full
+text=4-East
+textshadow=yes
+colour=0xc7c700
+
+// 8:5
+[com_5]
+type=text
+x=350
+y=257
+width=55
+height=14
+layer=com_9
+textfont=q8_full
+text=22-South
+textshadow=yes
+colour=0xc7c700
+
+// 8:6
+[com_6]
+type=text
+x=276
+y=154
+width=162
+height=22
+layer=com_9
+textfont=q8_full
+text=X marks the start!
+textalignh=centre
+textshadow=yes
+colour=0xc7c700
+
+// 8:7
+[com_7]
+type=text
+x=197
+y=65
+width=130
+height=54
+layer=com_9
+textfont=quill_oblique_large
+text=Dragontooth Island
+textalignh=centre
+colour=0x46320a
+
+// 8:8
+[com_8]
+type=graphic
+x=406
+y=41
+width=26
+height=23
+layer=com_9
+graphic="close_buttons,6"
+colour=0xffffffff
+transmitop=1
+op1=Close
+onmouseover=graphic_swapper(event_com, "close_buttons,7")
+onmouseleave=graphic_swapper(event_com, "close_buttons,6")
+onop=closebutton_click
+
+// 8:9
+[com_9]
+type=layer
+width=512
+height=334
+xmode=proportion_centre
+ymode=proportion_centre

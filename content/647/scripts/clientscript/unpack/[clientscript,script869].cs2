@@ -1,0 +1,39 @@
+// 869
+[clientscript,script869](component $component0, component $component1, component $component2, component $component3, component $component4, component $component5, component $component6, component $component7, component $component8, component $component9, component $component10, component $component11, component $component12, component $component13)
+def_int $int14 = ~script718(%varclient_1445);
+def_int $int15 = ~script718(%varclient_1446);
+def_int $int16 = ~script715($int14, %varclient_1447, $int15, %varclient_1448);
+if (if_find($component0) = true) {
+    cc_setparam_string(param_718, ~guesscolour($int16));
+    cc_setcolour($int16);
+}
+if (if_find($component8) = true) {
+    cc_setparam_string(param_718, ~guesscolour($int16));
+    cc_setcolour($int16);
+}
+if (if_find($component1) = true) {
+    cc_setparam_string(param_718, ~guesscolour($int14));
+    cc_setcolour($int14);
+}
+if (if_find($component2) = true) {
+    cc_setparam_string(param_718, ~guesscolour($int15));
+    cc_setcolour($int15);
+}
+if_setmodel(enum(int, model, enum_1595, calc(%varclient_1451 / 10)), $component10);
+if_setmodel(enum(int, model, enum_1595, calc(%varclient_1451 % 10)), $component11);
+def_int $int17 = calc(%varclient_1445 * %varclient_1447 + %varclient_1446 * %varclient_1448);
+if (%varclient_1451 < $int17) {
+    if_setgraphic("glo3_right_wrong,2", $component13);
+} else if (%varclient_1451 > $int17) {
+    if_setgraphic("glo3_right_wrong,3", $component13);
+} else {
+    if_setgraphic("glo3_right_wrong,0", $component13);
+    sound_vorbis_volume(vorbis_3559, 1, 0, 255);
+}
+if ($int16 = 16776960) {
+    if_setgraphic("glo3_right_wrong,0", $component12);
+    sound_vorbis_volume(vorbis_3559, 1, 10, 255);
+} else {
+    if_setgraphic("glo3_right_wrong,1", $component12);
+}
+~script2472($component3, $component4, $component5, $component6, $component7, $component9, %varplayer_853, %varplayer_854, enum_1110);

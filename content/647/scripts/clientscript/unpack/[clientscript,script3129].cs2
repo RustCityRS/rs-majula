@@ -1,0 +1,25 @@
+// 3129
+[clientscript,script3129](int $int0, int $int1, int $int2, string $string0)
+if ($int0 = 1) {
+    ~script3141($int2, $string0);
+    if ($int1 > -1 & cc_find(lobbyscreen_pane_worldselect:com_64, $int1) = true) {
+        if_sethide(false, lobbyscreen_pane_worldselect:com_67);
+        if_setposition(0, cc_gety, ^setpos_abs_left, ^setpos_abs_top, lobbyscreen_pane_worldselect:com_67);
+    }
+    if (map_world = %varclient_998) {
+        if (cc_find(lobbyscreen_pane_worldselect:com_21, 3) = true) {
+            cc_sethide(false);
+        }
+    } else if (cc_find(lobbyscreen_pane_worldselect:com_21, 3) = true) {
+        cc_sethide(true);
+    }
+    if (map_world = %varclient_999) {
+        if (cc_find(lobbyscreen_pane_worldselect:com_22, 3) = true) {
+            cc_sethide(false);
+        }
+    } else if (cc_find(lobbyscreen_pane_worldselect:com_22, 3) = true) {
+        cc_sethide(true);
+    }
+    ~lobbyscreen_loginbutton_text(1);
+}
+return;

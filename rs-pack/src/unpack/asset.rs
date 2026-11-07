@@ -1,8 +1,8 @@
 use crate::archive;
 use crate::pack::names::{AssetNames, archive_name};
-use crate::pack::other::{asset, worldmap_source};
+use crate::pack::other::{asset, wma, worldmap_source};
 use anyhow::{Context, Result, ensure};
-use rs_io::js5::Js5Store;
+use rs_io::js5::{Entry, Js5Store};
 use std::collections::BTreeMap;
 use std::fmt::Write;
 use std::fs;
@@ -92,9 +92,14 @@ pub fn unpack_archive(
         .context("Missing asset reference table")?
         .groups
         .clone();
+    let world_maps = if aid == archive::WORLDMAP_DATA {
+        unpack_world_maps(store, &dir, &names)?
+    } else {
+        Vec::new()
+    };
     for info in &groups {
-        if aid == archive::BILLBOARDS {
-            ensure!(info.id == 0, "Unexpected billboard group {}", info.id);
+        if world_maps.contains(&info.id) {
+            continue;
         }
         let path = dir.join(format!(
             "{}.{}",
@@ -105,15 +110,15 @@ pub fn unpack_archive(
             .read_group(aid, info.id)?
             .context("Missing asset group")?;
         let mut text = String::new();
-        let mut files = Vec::new();
         for entry in &group.entries {
             let kind = asset::entry_kind(aid, info.id);
             let name = names.name(
                 kind.unwrap_or(archive_name(aid)),
                 if kind.is_some() { entry.id } else { info.id },
             );
-            let start = text.len();
-            text.push_str(&format!("[{name}]\n"));
+            if asset::has_sections(aid) {
+                text.push_str(&format!("[{name}]\n"));
+            }
             let body = asset::unpack(aid, info.id, entry.data(), &names)
                 .with_context(|| format!("{aid}/{}/{}", info.id, entry.id))?;
             if aid == archive::WORLDMAP_DATA {
@@ -121,12 +126,8 @@ pub fn unpack_archive(
             } else {
                 text.push_str(&body);
             }
-            text.push('\n');
-            if aid == archive::BILLBOARDS {
-                files.push((
-                    dir.join(format!("{name}.{extension}")),
-                    text[start..].to_owned(),
-                ));
+            if asset::has_sections(aid) {
+                text.push('\n');
             }
         }
         let original = store
@@ -141,17 +142,60 @@ pub fn unpack_archive(
             "Text round trip changed archive {aid} group {}",
             info.id
         );
-        if aid != archive::BILLBOARDS {
-            files.push((path, text));
+        if let Some(parent) = path.parent() {
+            fs::create_dir_all(parent)?;
         }
-        for (path, text) in files {
-            if let Some(parent) = path.parent() {
-                fs::create_dir_all(parent)?;
-            }
-            fs::write(path, text)?;
-        }
+        fs::write(path, text)?;
     }
     Ok(groups.len() as u32)
+}
+
+/// Writes the `.wma` source and gives the groups it holds, once it reads back to their bytes.
+fn unpack_world_maps(store: &mut Js5Store, dir: &Path, names: &AssetNames) -> Result<Vec<u32>> {
+    let aid = archive::WORLDMAP_DATA;
+    let kind = archive_name(aid);
+    let details = names.id(kind, wma::DETAILS)?;
+    let group = store
+        .read_group(aid, details)?
+        .context("Missing world map details")?;
+    let mut original = vec![(details, entry_bytes(&group.entries))];
+    let mut maps: Vec<_> = group
+        .entries
+        .iter()
+        .map(|entry| wma::decode_details(entry.data()))
+        .collect();
+    for map in &mut maps {
+        let Ok(id) = names.id(kind, &wma::elements_group(&map.group)) else {
+            continue;
+        };
+        let Some(group) = store.read_group(aid, id)? else {
+            continue;
+        };
+        map.elements = group
+            .entries
+            .iter()
+            .map(|entry| wma::decode_element(entry.data()))
+            .collect();
+        original.push((id, entry_bytes(&group.entries)));
+    }
+    let text = wma::emit(&maps, names)?;
+    let maps = wma::parse(&text, names)?;
+    let mut packed = vec![maps.iter().map(wma::encode_details).collect::<Vec<_>>()];
+    packed.extend(
+        maps.iter()
+            .filter(|map| !map.elements.is_empty())
+            .map(|map| map.elements.iter().map(wma::encode_element).collect()),
+    );
+    ensure!(
+        packed.len() == original.len() && packed.iter().zip(&original).all(|(a, (_, b))| a == b),
+        "World map text round trip changed bytes"
+    );
+    fs::write(dir.join(wma::SOURCE), text)?;
+    Ok(original.into_iter().map(|(id, _)| id).collect())
+}
+
+fn entry_bytes(entries: &[Entry]) -> Vec<Vec<u8>> {
+    entries.iter().map(|entry| entry.data().to_vec()).collect()
 }
 
 pub fn write_worldmap_squares(path: &Path, file: u32, text: &str) -> Result<String> {

@@ -1,0 +1,25 @@
+// 531:0
+[com_0]
+type=model
+y=-6
+width=517
+height=352
+model=model_25726
+modelangle=512,0,0
+modelzoom=465
+
+// 531:1
+[com_1]
+type=graphic
+x=481
+y=14
+width=16
+height=16
+graphic="v2_stone_close_button,0"
+colour=0x000000
+transmitop=1,10
+op1=Close
+op10=   
+onmouseover=graphic_swapper(event_com, "v2_stone_close_button,1")
+onmouseleave=graphic_swapper(event_com, "v2_stone_close_button,0")
+onop=closebutton_click

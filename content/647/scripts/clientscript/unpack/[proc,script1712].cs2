@@ -1,0 +1,48 @@
+// 1712
+[proc,script1712](stat $stat0)(int)
+def_int $int1 = 0;
+if (inv_getobj(worn, 2) = amulet_of_zealots) {
+    $int1 = scale(stat_base($stat0), 100, 5);
+}
+switch_stat ($stat0) {
+    case attack :
+        if (%varplayerbit_6852 > 0) {
+            return(calc(0 - ~script1714(attack, ~script1718(attack, calc(10 + $int1)))));
+        } else if (%varplayerbit_6847 > 0) {
+            return(calc(0 - ~script1714(attack, ~script1718(attack, calc(10 + $int1)))));
+        } else {
+            return(0);
+        }
+    case strength :
+        if (%varplayerbit_6853 > 0) {
+            return(calc(0 - ~script1714(strength, ~script1718(strength, calc(10 + $int1)))));
+        } else if (%varplayerbit_6848 > 0) {
+            return(calc(0 - ~script1714(strength, ~script1718(strength, calc(10 + $int1)))));
+        } else {
+            return(0);
+        }
+    case defence :
+        if (%varplayerbit_6854 > 0) {
+            return(calc(0 - ~script1714(defence, ~script1718(defence, calc(10 + $int1)))));
+        } else if (%varplayerbit_6849 > 0) {
+            return(calc(0 - ~script1714(defence, ~script1718(defence, calc(10 + $int1)))));
+        } else {
+            return(0);
+        }
+    case ranged :
+        if (%varplayerbit_6855 > 0) {
+            return(calc(0 - ~script1714(ranged, ~script1718(ranged, calc(10 + $int1)))));
+        } else if (%varplayerbit_6850 > 0) {
+            return(calc(0 - ~script1714(ranged, ~script1718(ranged, calc(10 + $int1)))));
+        } else {
+            return(0);
+        }
+    case magic :
+        if (%varplayerbit_6856 > 0) {
+            return(calc(0 - ~script1714(magic, ~script1718(attack, calc(10 + $int1)))));
+        } else if (%varplayerbit_6851 > 0) {
+            return(calc(0 - ~script1714(magic, ~script1718(attack, calc(10 + $int1)))));
+        } else {
+            return(0);
+        }
+}

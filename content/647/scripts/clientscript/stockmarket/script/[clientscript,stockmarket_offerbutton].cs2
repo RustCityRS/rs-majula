@@ -1,11 +1,12 @@
+// 590
 [clientscript,stockmarket_offerbutton](int $int0, int $int1)
-if ($int1 = true) {
-    %varp_1112 = $int0;
-    %varp_1109 = -1;
-    if (stockmarket_isempty($int0) = true) {
-        %varp_1113 = -1;
-        %varp_1111 = 1;
-        %varp_1110 = 0;
+if ($int1 = 1) {
+    %varplayer_1112 = $int0;
+    %varplayer_1109 = null;
+    if (stockmarket_isofferempty($int0) = true) {
+        %varplayer_1113 = -1;
+        %varplayer_1111 = 1;
+        %varplayer_1110 = 0;
     }
-    ~clientscript_621;
+    ~script621;
 }

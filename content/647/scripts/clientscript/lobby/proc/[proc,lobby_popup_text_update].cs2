@@ -1,2 +1,3 @@
-[proc,lobby_popup_text_update](string $string)
-if_settext($string, lobbyscreen:com224);
+// 1871
+[proc,lobby_popup_text_update](string $string0)
+if_settext($string0, lobbyscreen:com_224);

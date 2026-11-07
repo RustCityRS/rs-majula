@@ -1,0 +1,10 @@
+// 1428
+[clientscript,script1428](component $component0, int $int1)
+if (cc_find($component0, $int1) = true) {
+    if (%varclient_1024 = %varplayerbit_6521 & %varclient_1024 ! 0) {
+        cc_setontimer("script1429($component0, $int1)");
+    } else {
+        cc_setontimer(null);
+        cc_settrans(0);
+    }
+}

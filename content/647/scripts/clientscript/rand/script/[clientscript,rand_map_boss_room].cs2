@@ -1,16 +1,17 @@
+// 3281
 [clientscript,rand_map_boss_room](int $int0, int $int1, int $int2)
 def_int $int3 = 0;
 def_int $int4 = 0;
 switch_int ($int2) {
-    case 1:
-        $int3 = calc(if_getwidth(rand_dungeon_map:com3) / 4);
-        $int4 = calc(if_getheight(rand_dungeon_map:com3) / 4);
-    case 2:
-        $int3 = calc(if_getwidth(rand_dungeon_map:com3) / 4);
-    case default:
+    case 1 :
+        $int3 = calc(if_getwidth(rand_dungeon_map:com_3) / 4);
+        $int4 = calc(if_getheight(rand_dungeon_map:com_3) / 4);
+    case 2 :
+        $int3 = calc(if_getwidth(rand_dungeon_map:com_3) / 4);
+    case default :
 }
-cc_create(rand_dungeon_map:com4, ^iftype_graphic, %varc_int_1151);
-%varc_int_1151 = calc(%varc_int_1151 + 1);
+cc_create(rand_dungeon_map:com_4, ^iftype_graphic, %varclient_1151);
+%varclient_1151 = calc(%varclient_1151 + 1);
 cc_setsize(32, 32, ^setsize_abs, ^setsize_abs);
 cc_setgraphic("rand_map_room_special,2");
 cc_setposition(calc($int0 * 32 + $int3), calc($int1 * 32 + $int4), ^setpos_abs_left, ^setpos_abs_bottom);

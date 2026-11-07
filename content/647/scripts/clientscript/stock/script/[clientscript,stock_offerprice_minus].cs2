@@ -1,7 +1,8 @@
+// 604
 [clientscript,stock_offerprice_minus]
-if (%varp_1109 = -1) {
+if (%varplayer_1109 = null) {
     return;
 }
-%varc_int_85 = max(calc(%varc_int_85 - 1), 1);
-if_settext("<op4124(%varc_int_85, 1)> gp", stockmarket:com153);
+%varclient_85 = max(calc(%varclient_85 - 1), 1);
+if_settext("<tostring_localised(%varclient_85, true)> gp", stockmarket:com_153);
 ~sm_offerprice_settimer;

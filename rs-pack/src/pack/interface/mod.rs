@@ -1,13 +1,18 @@
 #[cfg(since_647)]
 use crate::archive::{self, ArchiveVersions};
 #[cfg(since_647)]
-use crate::cache::r#if::{HookArg, IfTypeRaw, OpKey};
+use crate::cache::r#if::{
+    DEFAULT_COLOUR, HOOK_NAMES, IfTypeRaw, OpKey, SIZE_MODES, TARGET_MASK, TEXT_ALIGN_H,
+    TEXT_ALIGN_V, X_MODES, Y_MODES, hook_transmit_list, mode_value,
+};
 #[cfg(since_647)]
 use crate::cache::js5::PackedCache;
 #[cfg(before_647)]
 use crate::config_crc;
 #[cfg(since_647)]
 use crate::pack::js5::{PreparedGroup, insert_archive, load_name_hashes};
+#[cfg(since_647)]
+use crate::pack::names::AssetNames;
 #[cfg(before_647)]
 use crate::pack::pack::collect_if_files;
 #[cfg(before_647)]
@@ -20,9 +25,15 @@ use crate::types::IfComponentType;
 use crate::types::{Font, IfButtonType, IfComparator, IfScriptOp, PlayerStat};
 use anyhow::Result;
 #[cfg(since_647)]
+use anyhow::{Context, anyhow, bail, ensure};
+#[cfg(since_647)]
 use rayon::prelude::*;
 #[cfg(since_647)]
 use rs_io::js5::encode_group_entries;
+#[cfg(since_647)]
+use runec::clientscript::{self, HookValue, component_hook};
+#[cfg(since_647)]
+use runec::symbol::SymbolRegistry;
 #[cfg(since_647)]
 use std::collections::BTreeMap;
 use std::collections::HashMap;
@@ -785,29 +796,31 @@ pub fn pack_archive(
 ) -> Result<()> {
     let aid = archive::INTERFACES;
     let format = archive::archive_format(aid).unwrap();
-    let if_dir = content_dir.join("interfaces");
-    let names = crate::pack::names::AssetNames::load(pack_dir)?;
-    let if_files = names.files(&if_dir, "interface", &["if"])?;
+    let names = AssetNames::load(pack_dir)?;
+    let if_files = names.files(&content_dir.join("interfaces"), "interface", &["if3"])?;
     let gids: Vec<_> = if_files.iter().map(|(gid, _)| *gid).collect();
     let name_hashes = load_name_hashes(pack_dir, aid, &gids);
+    let scripts = archive::archive_format(archive::CLIENTSCRIPT)
+        .unwrap()
+        .content_dir;
+    let registry = clientscript::registry_with_scripts(&content_dir.join(scripts), pack_dir)?;
 
     let prepared: BTreeMap<u32, PreparedGroup> = if_files
         .par_iter()
         .map(|(gid, path)| {
-            let text = references::convert(&fs::read_to_string(path)?, *gid, &names, false)?;
-            let components = parse_interface_text(&text, None);
-            let mut file_entries: Vec<(u32, Vec<u8>)> = components
+            let components = parse_components(&fs::read_to_string(path)?, *gid, &names, &registry)
+                .with_context(|| path.display().to_string())?;
+            let entries: Vec<(u32, Vec<u8>)> = components
                 .iter()
-                .map(|(id, comp)| (*id, encode_component(comp)))
+                .map(|(position, comp)| (*position, encode_component(comp)))
                 .collect();
-            file_entries.sort_by_key(|(id, _)| *id);
-            let refs: Vec<(u32, &[u8])> = file_entries
+            let refs: Vec<(u32, &[u8])> = entries
                 .iter()
-                .map(|(id, data)| (*id, data.as_slice()))
+                .map(|(position, data)| (*position, data.as_slice()))
                 .collect();
             let data = encode_group_entries(&refs);
             let mut group = PreparedGroup::new(aid, *gid, &data, versions)?;
-            group.set_files(file_entries.iter().map(|(id, _)| *id));
+            group.fit_files(entries.len());
             group.name_hash = name_hashes.get(gid).copied().unwrap_or(-1);
             Ok((*gid, group))
         })
@@ -819,7 +832,7 @@ pub fn pack_archive(
         format,
         versions,
         prepared.into_values().collect(),
-        "from .if text files",
+        "from .if3 text files",
     )?;
 
     Ok(())
@@ -989,18 +1002,18 @@ pub fn encode_component(comp: &IfTypeRaw) -> Vec<u8> {
 }
 
 #[cfg(since_647)]
-fn encode_hook(out: &mut PackedData, hook: &Option<Vec<HookArg>>) {
+fn encode_hook(out: &mut PackedData, hook: &Option<Vec<HookValue>>) {
     match hook {
         None => out.p1(0),
         Some(args) => {
             out.p1(args.len() as u8);
             for arg in args {
                 match arg {
-                    HookArg::Int(v) => {
+                    HookValue::Int(v) => {
                         out.p1(0);
                         out.p4(*v);
                     }
-                    HookArg::Str(s) => {
+                    HookValue::String(s) => {
                         out.p1(1);
                         out.pjstr(s);
                     }
@@ -1023,278 +1036,234 @@ fn encode_transmitlist(out: &mut PackedData, list: &Option<Vec<i32>>) {
     }
 }
 
+/// Components by their position in the group.
 #[cfg(since_647)]
-pub fn parse_interface_text(
+pub fn parse_components(
     text: &str,
-    comp_names: Option<&HashMap<String, u32>>,
-) -> Vec<(u32, IfTypeRaw)> {
-    const HOOK_NAMES: [&str; 20] = [
-        "onload",
-        "onmouseover",
-        "onmouseleave",
-        "ontargetleave",
-        "ontargetenter",
-        "onvartransmit",
-        "oninvtransmit",
-        "onstattransmit",
-        "ontimer",
-        "onop",
-        "hook10",
-        "hook11",
-        "hook12",
-        "hook13",
-        "hook14",
-        "hook15",
-        "hook16",
-        "hook17",
-        "hook18",
-        "hook19",
-    ];
-
-    let mut components = Vec::new();
-    let mut current: Option<(u32, IfTypeRaw)> = None;
-
+    group: u32,
+    names: &AssetNames,
+    registry: &SymbolRegistry,
+) -> Result<BTreeMap<u32, IfTypeRaw>> {
+    let mut components: BTreeMap<u32, IfTypeRaw> = BTreeMap::new();
+    let mut current = None;
     for line in text.lines() {
-        let comp_id = if let Some(header) = line.strip_prefix("[com_") {
-            let idx_str = header.strip_suffix(']').unwrap_or(header);
-            idx_str.parse::<u32>().ok()
-        } else if let Some(names) = comp_names {
-            line.strip_prefix('[')
-                .and_then(|s| s.strip_suffix(']'))
-                .and_then(|name| names.get(name).copied())
-        } else {
-            None
-        };
-
-        if let Some(idx) = comp_id {
-            if let Some(prev) = current.take() {
-                components.push(prev);
-            }
+        if line.is_empty() || line.starts_with("//") {
+            continue;
+        }
+        if let Some(header) = line.strip_prefix('[').and_then(|v| v.strip_suffix(']')) {
+            let position = names.component_id(group, header)?;
             let comp = IfTypeRaw {
-                version: 255,
+                id: position as u16,
+                root_layer: group as i32,
+                version: u8::MAX,
                 parent_id: u16::MAX,
+                graphic: -1,
+                model: -1,
+                anim: -1,
+                font: -1,
                 target_object_id: -1,
                 target_enter_cursor: -1,
                 target_leave_cursor: -1,
                 ..IfTypeRaw::default()
             };
-            current = Some((idx, comp));
+            ensure!(
+                components.insert(position, comp).is_none(),
+                "Duplicate component {header}"
+            );
+            current = Some(position);
             continue;
         }
-
-        let Some((_, ref mut comp)) = current else {
-            continue;
-        };
-        let trimmed = line.trim();
-        if trimmed.is_empty() || trimmed.starts_with('#') {
-            continue;
-        }
-
-        let Some((key, val)) = line.split_once('=') else {
-            continue;
-        };
-        let key = key.trim();
-
-        match key {
-            "type" => {
-                comp.com_type = val
-                    .trim()
-                    .parse::<u8>()
-                    .ok()
-                    .map(|id| IfComponentType::try_from(id).unwrap())
-                    .unwrap_or_else(|| IfComponentType::from_config_str(val.trim()));
-            }
-            "name" => comp.com_name = Some(val.into()),
-            "client_code" => comp.client_code = val.trim().parse().unwrap_or(0),
-            "x" => comp.x = val.trim().parse().unwrap_or(0),
-            "y" => comp.y = val.trim().parse().unwrap_or(0),
-            "width" => comp.width = val.trim().parse().unwrap_or(0),
-            "height" => comp.height = val.trim().parse().unwrap_or(0),
-            "width_mode" => comp.width_mode = val.trim().parse().unwrap_or(0),
-            "height_mode" => comp.height_mode = val.trim().parse().unwrap_or(0),
-            "x_mode" => comp.x_mode = val.trim().parse().unwrap_or(0),
-            "y_mode" => comp.y_mode = val.trim().parse().unwrap_or(0),
-            "parent_id" => comp.parent_id = val.trim().parse().unwrap_or(65535),
-            "flags" => comp.flags = val.trim().parse().unwrap_or(0),
-            "scroll_width" => comp.scroll_width = val.trim().parse().unwrap_or(0),
-            "scroll_height" => comp.scroll = val.trim().parse().unwrap_or(0),
-            "no_click_through" => comp.no_click_through = val.trim() == "yes",
-            "graphic" => comp.graphic = val.trim().parse().unwrap_or(0),
-            "angle_2d" => comp.angle_2d = val.trim().parse().unwrap_or(0),
-            "tiling" => comp.tiling = val.trim() == "yes",
-            "alpha" => comp.alpha = val.trim() == "yes",
-            "trans" => comp.trans = val.trim().parse().unwrap_or(0),
-            "outline" => comp.outline = val.trim().parse().unwrap_or(0),
-            "graphic_shadow" => comp.graphic_shadow = val.trim().parse().unwrap_or(0),
-            "vflip" => comp.vflip = val.trim() == "yes",
-            "hflip" => comp.hflip = val.trim() == "yes",
-            "model" => comp.model = val.trim().parse().unwrap_or(-1),
-            "model_flags" => comp.model_flags = val.trim().parse().unwrap_or(0),
-            "model_origin_x" => comp.model_origin_x = val.trim().parse().unwrap_or(0),
-            "model_origin_y" => comp.model_origin_y = val.trim().parse().unwrap_or(0),
-            "model_xan" => comp.xan = val.trim().parse().unwrap_or(0),
-            "model_yan" => comp.yan = val.trim().parse().unwrap_or(0),
-            "model_zan" => comp.model_zan = val.trim().parse().unwrap_or(0),
-            "model_zoom" => comp.zoom = val.trim().parse().unwrap_or(0),
-            "sprite_y_offset" => comp.sprite_y_offset = val.trim().parse().unwrap_or(0),
-            "animation" => comp.anim = val.trim().parse().unwrap_or(0),
-            "dynamic_width" => comp.dynamic_width = val.trim().parse().unwrap_or(0),
-            "dynamic_height" => comp.dynamic_height = val.trim().parse().unwrap_or(0),
-            "text_font" => comp.font = val.trim().parse().unwrap_or(-1),
-            "text" => comp.text = val.to_string(),
-            "text_style" => comp.text_style = val.trim().parse().unwrap_or(0),
-            "text_halign" => comp.text_halign = val.trim().parse().unwrap_or(0),
-            "text_valign" => comp.text_valign = val.trim().parse().unwrap_or(0),
-            "text_shadow" => comp.shadowed = val.trim() == "yes",
-            "color" => comp.colour = val.trim().parse().unwrap_or(0),
-            "fill" => comp.fill = val.trim() == "yes",
-            "line_width" => comp.line_width = val.trim().parse().unwrap_or(0),
-            "line_rtl" => comp.line_rtl = val.trim() == "yes",
-            "active_properties" => comp.active_properties = val.trim().parse().unwrap_or(0),
-            "opkey" => {
-                let parts: Vec<&str> = val.split(',').collect();
-                if parts.len() == 4 {
-                    comp.opkeys.push(OpKey {
-                        index: parts[0].trim().parse().unwrap_or(0),
-                        rate_duration: parts[1].trim().parse().unwrap_or(0),
-                        code: parts[2].trim().parse().unwrap_or(0),
-                        mask: parts[3].trim().parse().unwrap_or(0),
-                    });
-                }
-            }
-            "op_base" => comp.op_base = val.to_string(),
-            "op_cursor_count" => comp.op_cursor_count = val.trim().parse().unwrap_or(0),
-            "op_cursor" => {
-                let parts: Vec<&str> = val.split(',').collect();
-                if parts.len() == 2 {
-                    comp.op_cursors.push((
-                        parts[0].trim().parse().unwrap_or(0),
-                        parts[1].trim().parse().unwrap_or(0),
-                    ));
-                }
-            }
-            "pause_text" => comp.pause_text = val.to_string(),
-            "drag_deadzone" => comp.drag_deadzone = val.trim().parse().unwrap_or(0),
-            "drag_deadtime" => comp.drag_deadtime = val.trim().parse().unwrap_or(0),
-            "drag_renderbehavior" => comp.drag_renderbehavior = val.trim().parse().unwrap_or(0),
-            "target_verb" => comp.target_verb = val.to_string(),
-            "target_object_id" => comp.target_object_id = val.trim().parse().unwrap_or(-1),
-            "target_enter_cursor" => comp.target_enter_cursor = val.trim().parse().unwrap_or(-1),
-            "target_leave_cursor" => comp.target_leave_cursor = val.trim().parse().unwrap_or(-1),
-            "vartransmit_list" => {
-                comp.transmit_lists[0] = Some(
-                    val.split(',')
-                        .filter_map(|s| s.trim().parse().ok())
-                        .collect(),
-                );
-            }
-            "invtransmit_list" => {
-                comp.transmit_lists[1] = Some(
-                    val.split(',')
-                        .filter_map(|s| s.trim().parse().ok())
-                        .collect(),
-                );
-            }
-            "stattransmit_list" => {
-                comp.transmit_lists[2] = Some(
-                    val.split(',')
-                        .filter_map(|s| s.trim().parse().ok())
-                        .collect(),
-                );
-            }
-            "varctransmit_list" => {
-                comp.transmit_lists[3] = Some(
-                    val.split(',')
-                        .filter_map(|s| s.trim().parse().ok())
-                        .collect(),
-                );
-            }
-            "varcstrtransmit_list" => {
-                comp.transmit_lists[4] = Some(
-                    val.split(',')
-                        .filter_map(|s| s.trim().parse().ok())
-                        .collect(),
-                );
-            }
-            k => {
-                if let Some(n_str) = k.strip_prefix("op") {
-                    if !n_str.is_empty() && n_str.chars().all(|c| c.is_ascii_digit()) {
-                        if let Ok(n) = n_str.parse::<usize>() {
-                            if n >= 1 {
-                                let idx = n - 1;
-                                while comp.ops.len() <= idx {
-                                    comp.ops.push(String::new());
-                                }
-                                comp.ops[idx] = val.to_string();
-                            }
-                        }
-                    }
-                } else if let Some(hi) = HOOK_NAMES.iter().position(|&name| name == k) {
-                    comp.hooks[hi] = parse_hook_text(val);
-                }
-            }
+        let comp = current
+            .and_then(|position| components.get_mut(&position))
+            .with_context(|| format!("Property outside a component: {line}"))?;
+        let (key, value) = line
+            .split_once('=')
+            .with_context(|| format!("Invalid line: {line}"))?;
+        parse_property(comp, key, value, group, names, registry)
+            .with_context(|| format!("Invalid line: {line}"))?;
+    }
+    for comp in components.values_mut() {
+        comp.op_cursor_count = comp.op_cursors.len() as u8;
+        // Without a placement a model is only its id: all of these stay zero.
+        if comp.com_type == IfComponentType::Model
+            && comp.model_flags & 2 == 0
+            && (comp.model_origin_x != 0
+                || comp.model_origin_y != 0
+                || comp.xan != 0
+                || comp.yan != 0
+                || comp.model_zan != 0
+                || comp.zoom != 0)
+        {
+            comp.model_flags |= 1;
         }
     }
-
-    if let Some(prev) = current {
-        components.push(prev);
-    }
-
-    components
+    Ok(components)
 }
 
 #[cfg(since_647)]
-fn parse_hook_text(val: &str) -> Option<Vec<HookArg>> {
-    let val = val.trim();
-    if val.is_empty() {
-        return None;
-    }
-    let mut args = Vec::new();
-    let mut chars = val.chars().peekable();
-
-    while chars.peek().is_some() {
-        while chars.peek() == Some(&',') {
-            chars.next();
-        }
-        match chars.peek() {
-            None => break,
-            Some(&'i') => {
-                chars.next();
-                let num: String = chars.by_ref().take_while(|c| *c != ',').collect();
-                if let Ok(v) = num.parse::<i32>() {
-                    args.push(HookArg::Int(v));
+fn parse_property(
+    comp: &mut IfTypeRaw,
+    key: &str,
+    value: &str,
+    group: u32,
+    names: &AssetNames,
+    registry: &SymbolRegistry,
+) -> Result<()> {
+    let mode =
+        |modes: &[&str]| mode_value(modes, value).with_context(|| format!("Unknown mode: {value}"));
+    let reference =
+        |kind: &str| -> Result<i32> { Ok(names.resolve(kind, value.trim_matches('"'))? as i32) };
+    let colour = || -> Result<i32> {
+        let digits = value.strip_prefix("0x").context("Expected a hex colour")?;
+        Ok(u32::from_str_radix(digits, 16)? as i32)
+    };
+    match key {
+        "type" => {
+            comp.com_type = match value {
+                "layer" => IfComponentType::Layer,
+                "rectangle" => IfComponentType::Rect,
+                "text" => {
+                    comp.colour = DEFAULT_COLOUR;
+                    IfComponentType::Text
                 }
-            }
-            Some(&'s') => {
-                chars.next();
-                if chars.peek() == Some(&'"') {
-                    chars.next();
-                    let mut s = String::new();
-                    loop {
-                        match chars.next() {
-                            None | Some('"') => break,
-                            Some('\\') => {
-                                if let Some(c) = chars.next() {
-                                    s.push(c);
-                                }
-                            }
-                            Some(c) => s.push(c),
-                        }
-                    }
-                    args.push(HookArg::Str(s));
-                } else {
-                    let s: String = chars.by_ref().collect();
-                    args.push(HookArg::Str(s));
-                    break;
+                "graphic" => {
+                    comp.colour = DEFAULT_COLOUR;
+                    IfComponentType::Graphic
                 }
-            }
-            Some(_) => {
-                chars.next();
+                "model" => {
+                    comp.zoom = 100;
+                    IfComponentType::Model
+                }
+                "line" => {
+                    comp.line_width = 1;
+                    IfComponentType::Line
+                }
+                _ => bail!("Unknown component type"),
             }
         }
+        "name" => comp.com_name = Some(value.into()),
+        "clientcode" => comp.client_code = value.parse()?,
+        "x" => comp.x = value.parse()?,
+        "y" => comp.y = value.parse()?,
+        "width" => comp.width = value.parse()?,
+        "height" => comp.height = value.parse()?,
+        "widthmode" => comp.width_mode = mode(&SIZE_MODES)? as i8,
+        "heightmode" => comp.height_mode = mode(&SIZE_MODES)? as i8,
+        "xmode" => comp.x_mode = mode(&X_MODES)? as i8,
+        "ymode" => comp.y_mode = mode(&Y_MODES)? as i8,
+        "layer" => comp.parent_id = names.component_id(group, value)? as u16,
+        "hide" => comp.flags |= 1,
+        "scrollwidth" => comp.scroll_width = value.parse()?,
+        "scrollheight" => comp.scroll = value.parse()?,
+        "noclickthrough" => comp.no_click_through = true,
+        "graphic" => comp.graphic = reference("sprites")?,
+        "2dangle" => comp.angle_2d = value.parse()?,
+        "tiling" => comp.tiling = true,
+        "alpha" => comp.alpha = true,
+        "trans" => comp.trans = value.parse()?,
+        "outline" => comp.outline = value.parse()?,
+        "graphicshadow" => comp.graphic_shadow = value.parse()?,
+        "vflip" => comp.vflip = true,
+        "hflip" => comp.hflip = true,
+        "colour" => comp.colour = colour()?,
+        "fill" => comp.fill = true,
+        "model" => comp.model = reference("model")?,
+        "modelorigin" => {
+            let (x, y) = value.split_once(',').context("Expected x,y")?;
+            comp.model_origin_x = x.parse()?;
+            comp.model_origin_y = y.parse()?;
+        }
+        "modelangle" => {
+            let mut angles = value.split(',');
+            let mut angle =
+                || -> Result<u16> { Ok(angles.next().context("Expected x,y,z")?.parse()?) };
+            comp.xan = angle()?;
+            comp.yan = angle()?;
+            comp.model_zan = angle()?;
+        }
+        "modelzoom" => comp.zoom = value.parse()?,
+        "modeloffset" => {
+            comp.sprite_y_offset = value.parse()?;
+            comp.model_flags |= 2;
+        }
+        "modelanim" => comp.anim = reference("seq")?,
+        "modelorthog" => comp.model_flags |= 4,
+        "modelnodepth" => comp.model_flags |= 8,
+        "modelobjwidth" => comp.dynamic_width = value.parse()?,
+        "modelobjheight" => comp.dynamic_height = value.parse()?,
+        "textfont" => comp.font = reference("fontmetrics")?,
+        "text" => comp.text = value.to_owned(),
+        "textlineheight" => comp.text_style = value.parse()?,
+        "textalignh" => comp.text_halign = mode(&TEXT_ALIGN_H)?,
+        "textalignv" => comp.text_valign = mode(&TEXT_ALIGN_V)?,
+        "textshadow" => comp.shadowed = true,
+        "linewid" => comp.line_width = value.parse()?,
+        "linedirection" => comp.line_rtl = true,
+        "pausebutton" => comp.active_properties |= 1,
+        "transmitop" => {
+            for op in value.split(',') {
+                comp.active_properties |= 1 << op.parse::<u32>()?;
+            }
+        }
+        "targetmask" => {
+            for target in value.split(',') {
+                let bit = TARGET_MASK
+                    .iter()
+                    .position(|name| *name == target)
+                    .with_context(|| format!("Unknown target: {target}"))?;
+                comp.active_properties |= 1 << (11 + bit);
+            }
+        }
+        "dragdepth" => comp.active_properties |= value.parse::<u32>()? << 18,
+        "candrop" => comp.active_properties |= 1 << 21,
+        "targetable" => comp.active_properties |= 1 << 22,
+        "opbase" => comp.op_base = value.to_owned(),
+        "pausetext" => comp.pause_text = value.to_owned(),
+        "dragdeadzone" => comp.drag_deadzone = value.parse()?,
+        "dragdeadtime" => comp.drag_deadtime = value.parse()?,
+        "dragrenderbehaviour" => comp.drag_renderbehavior = value.parse()?,
+        "targetverb" => comp.target_verb = value.to_owned(),
+        "targetobj" => comp.target_object_id = reference("obj")?,
+        "targetcursor2" => comp.target_enter_cursor = reference("cursor")?,
+        "targetcursor3" => comp.target_leave_cursor = reference("cursor")?,
+        _ => {
+            if let Some(op) = key.strip_prefix("opkey") {
+                let mut parts = value.split(',');
+                let code = parts.next().context("Expected code,mask")?.parse()?;
+                let mask = parts.next().context("Expected code,mask")?.parse()?;
+                comp.opkeys.push(OpKey {
+                    index: op.parse::<u8>()? - 1,
+                    rate_duration: parts.next().map_or(Ok(0), str::parse)?,
+                    code,
+                    mask,
+                });
+            } else if let Some(op) = key.strip_prefix("opcursor") {
+                comp.op_cursors
+                    .push((op.parse()?, reference("cursor")? as u16));
+            } else if let Some(op) = key
+                .strip_prefix("op")
+                .and_then(|op| op.parse::<usize>().ok())
+            {
+                ensure!(op >= 1, "Ops count from 1");
+                if comp.ops.len() < op {
+                    comp.ops.resize(op, String::new());
+                }
+                comp.ops[op - 1] = value.to_owned();
+            } else if let Some(hook) = HOOK_NAMES.iter().position(|name| *name == key) {
+                let list = hook_transmit_list(hook);
+                let (values, transmits) =
+                    component_hook(value, list.map(|(_, kind)| kind), registry)
+                        .map_err(|error| anyhow!(error))?;
+                comp.hooks[hook] = Some(values);
+                if let Some((list, _)) = list
+                    && !transmits.is_empty()
+                {
+                    comp.transmit_lists[list] = Some(transmits);
+                }
+            } else {
+                bail!("Unknown property");
+            }
+        }
     }
-
-    if args.is_empty() { None } else { Some(args) }
+    Ok(())
 }
-#[cfg(since_647)]
-pub mod references;

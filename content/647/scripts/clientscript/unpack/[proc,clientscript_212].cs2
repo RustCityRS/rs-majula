@@ -1,4 +1,0 @@
-[proc,clientscript_212](string $string)
-if (compare($string, "") ! 0) {
-    logout_url($string, 1);
-}

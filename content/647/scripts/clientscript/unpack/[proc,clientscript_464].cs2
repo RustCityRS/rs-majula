@@ -1,8 +1,0 @@
-[proc,clientscript_464](component $component)
-if (stat_base(ranged) < 25) {
-    if_settext("<col=c80000>A Ranged level of <tostring(25)> is required.</col>", $component);
-} else if (%varbit_2086 < 1) {
-    if_settext("<col=c80000>1 Commendation required.</col>", $component);
-} else {
-    if_settext("<tostring(calc(pow(stat_base(ranged), 2) / 600 * 32))> XP per Commendation.", $component);
-}

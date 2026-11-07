@@ -1,5 +1,6 @@
+// 1305
 [proc,current_side_if]()(int)
-def_int $int = 0;
+def_int $int0 = 0;
 if (~getsidehidden(99) = false) {
     return(99);
 }
@@ -9,12 +10,11 @@ if (~getsidehidden(95) = false) {
 if (~getsidehidden(98) = false) {
     return(98);
 }
-while ($int < 16) {
-    if (~getsidehidden($int) = false) {
-        return($int);
+while ($int0 < 16) {
+    if (~getsidehidden($int0) = false) {
+        return($int0);
     } else {
-        $int = calc($int + 1);
+        $int0 = calc($int0 + 1);
     }
 }
 return(-1);
-return(0);

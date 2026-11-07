@@ -1,7 +1,0 @@
-[proc,clientscript_4351](component $component)
-if (%varbit_9139 = %varp_2128) {
-    %varbit_9139 = 0;
-} else {
-    %varbit_9139 = %varp_2128;
-}
-~clientscript_4353($component);

@@ -1,0 +1,952 @@
+// 767:0
+[com_0]
+type=rectangle
+x=17
+y=25
+width=488
+height=305
+colour=0x000000
+fill=yes
+trans=200
+
+// 767:1
+[com_1]
+type=graphic
+x=14
+y=25
+width=485
+height=300
+layer=com_13
+graphic=tradebacking
+tiling=yes
+colour=0xffffffff
+
+// 767:2
+[com_2]
+type=graphic
+x=45
+y=294
+width=423
+height=32
+layer=com_13
+graphic="v2_stone_borders_alt,2"
+tiling=yes
+colour=0xffffffff
+
+// 767:3
+[com_3]
+type=graphic
+x=468
+y=51
+width=32
+height=243
+layer=com_13
+graphic="v2_stone_borders_alt,3"
+tiling=yes
+colour=0xffffffff
+
+// 767:4
+[com_4]
+type=graphic
+x=13
+y=53
+width=7
+height=241
+layer=com_13
+graphic="v2_stone_borders_alt,1"
+tiling=yes
+colour=0xffffffff
+
+// 767:5
+[com_5]
+type=graphic
+x=13
+y=294
+width=32
+height=32
+layer=com_13
+graphic="v2_stone_borders_alt,6"
+colour=0xffffffff
+
+// 767:6
+[com_6]
+type=graphic
+x=468
+y=20
+width=32
+height=32
+layer=com_13
+graphic="v2_stone_borders,37"
+colour=0xffffffff
+transmitop=10
+op10= 
+
+// 767:7
+[com_7]
+type=graphic
+x=468
+y=294
+width=32
+height=32
+layer=com_13
+graphic="v2_stone_borders_alt,7"
+colour=0xffffffff
+
+// 767:8
+[com_8]
+type=graphic
+x=45
+y=20
+width=424
+height=32
+layer=com_13
+graphic="v2_stone_borders,36"
+tiling=yes
+colour=0xffffffff
+transmitop=10
+op10= 
+
+// 767:9
+[com_9]
+type=graphic
+x=20
+y=272
+width=473
+height=32
+layer=com_13
+graphic="v2_borders_slim,11"
+tiling=yes
+colour=0xffffffff
+transmitop=10
+op10= 
+
+// 767:10
+[com_10]
+type=graphic
+x=477
+y=23
+width=16
+height=16
+layer=com_13
+graphic="v2_stone_close_button,0"
+colour=0xffffffff
+transmitop=1
+op1=Close
+onmouseover=graphic_swapper(event_com, "v2_stone_close_button,1")
+onmouseleave=graphic_swapper(event_com, "v2_stone_close_button,0")
+
+// 767:11
+[com_11]
+type=graphic
+x=13
+y=20
+width=32
+height=32
+layer=com_13
+graphic="v2_stone_borders,35"
+colour=0xffffffff
+transmitop=10
+op10= 
+
+// 767:12
+[com_12]
+type=rectangle
+x=19
+y=42
+width=475
+height=247
+colour=0x252222
+fill=yes
+trans=160
+transmitop=10
+op10= 
+
+// 767:13
+[com_13]
+type=layer
+width=512
+height=334
+onload=bank_v2_help_init
+
+// 767:14
+[com_14]
+type=graphic
+x=8
+y=35
+width=35
+height=35
+layer=com_45
+graphic="bank_buttons,1"
+colour=0xffffffff
+transmitop=1,10
+op1=Swap/insert
+op10= 
+
+// 767:15
+[com_15]
+type=graphic
+x=11
+y=12
+width=35
+height=35
+layer=com_46
+graphic="bank_buttons,3"
+colour=0xffffffff
+transmitop=1,10
+op1=Item/note withdrawal
+op10= 
+
+// 767:16
+[com_16]
+type=text
+x=56
+y=15
+width=391
+height=79
+layer=com_46
+textfont=p12_full
+text=Item/note withdrawal: Clicking this button toggles how you withdraw items from your bank. `Item' mode places the actual item in your inventory; `Note' mode places a `noted' version of that object in your inventory. A note is worth the exact same value as the item it depicts, but is not the item itself and cannot be used as such. Notes are typically used for trading in bulk, as noted items can be stacked even if the actual item cannot be.
+textshadow=yes
+transmitop=10
+op10= 
+
+// 767:17
+[com_17]
+type=text
+x=56
+y=111
+width=391
+height=79
+layer=com_46
+textfont=p12_full
+text=Deposit carried items and worn items. One button empties all of the items from your inventory, while the other moves all of the items you are wearing into your bank, if there is space. Items that cannot be placed in your bank will stay where they are.    
+textshadow=yes
+transmitop=10
+op10=  
+
+// 767:18
+[com_18]
+type=graphic
+x=11
+y=106
+width=35
+height=35
+layer=com_46
+graphic="bank_buttons,5"
+colour=0xffffffff
+transmitop=1,10
+op1=Deposit carried items
+op10=   
+
+// 767:19
+[com_19]
+type=graphic
+x=14
+y=114
+width=29
+height=21
+layer=com_46
+graphic="bank_bob_button,1"
+colour=0xffffffff
+transmitop=10
+op10=    
+
+// 767:20
+[com_20]
+type=graphic
+x=11
+y=140
+width=35
+height=35
+layer=com_46
+graphic="bank_buttons,5"
+colour=0xffffffff
+transmitop=1,10
+op1=Deposit worn items
+op10=    
+
+// 767:21
+[com_21]
+type=graphic
+x=14
+y=148
+width=29
+height=21
+layer=com_46
+graphic="bank_bob_button,2"
+colour=0xffffffff
+transmitop=10
+op10=    
+
+// 767:22
+[com_22]
+type=text
+x=8
+y=3
+width=436
+height=33
+layer=com_45
+textfont=p12_full
+text=Across the bottom of the bank there are some other features, which, from left to right, are: 
+textshadow=yes
+transmitop=10
+op10= 
+
+// 767:23
+[com_23]
+type=text
+x=53
+y=39
+width=391
+height=79
+layer=com_45
+textfont=p12_full
+text=Swap/insert: Clicking this button toggles how items are rearranged in your bank. `Swap' mode means that the item you drag and the item it is dragged over will swap places in your bank. `Insert' mode allows you to place an item in a specific bank slot, shifting other items over to make room.
+textshadow=yes
+transmitop=10
+op10= 
+
+// 767:24
+[com_24]
+type=text
+x=53
+y=117
+width=391
+height=79
+layer=com_45
+textfont=p12_full
+text=Search: Clicking this button will switch your bank to the main tab and open a search box. Type the name of the item you are looking for and it will narrow down your banked items as you type. (Note: don't worry, your other items aren't disappearing, they're just being removed from the current search and are still in your bank.) 
+textshadow=yes
+transmitop=10
+op10= 
+
+// 767:25
+[com_25]
+type=graphic
+x=8
+y=113
+width=35
+height=35
+layer=com_45
+graphic="bank_buttons,0"
+colour=0xffffffff
+transmitop=1,10
+op1=Search
+op10=  
+opcursor0=cursor_56
+
+// 767:26
+[com_26]
+type=layer
+x=23
+y=58
+width=451
+height=226
+hide=yes
+
+// 767:27
+[com_27]
+type=text
+x=8
+y=5
+width=436
+height=43
+layer=com_26
+textfont=p12_full
+text=The Bank of RuneScape is a great place to keep all of your belongings safe. The bank has branches all over RuneScape, so you're never very far away from your possessions.
+textshadow=yes
+
+// 767:28
+[com_28]
+type=text
+x=71
+y=64
+width=371
+height=58
+layer=com_26
+textfont=p12_full
+text=The tab furthest to the left is the main bank tab (pictured left). The main tab will always display the entire contents of your bank account, but you can also create up to eight other tabs in which to categorise your banked items.
+textshadow=yes
+
+// 767:29
+[com_29]
+type=text
+x=16
+y=132
+width=371
+height=76
+layer=com_26
+textfont=p12_full
+text=To create a new tab, simply drag any item in your bank on to the `plus' tab (pictured right). You can then drag as many other items as you want on to this new tab. Clicking on a tab other than the main one will show you only those items you have placed within it. The icon used to mark each new tab is taken from the first item within that tab.
+textshadow=yes
+
+// 767:30
+[com_30]
+type=graphic
+x=12
+y=57
+width=48
+height=48
+layer=com_26
+graphic="bank_tabs,1"
+colour=0xffffffff
+
+// 767:31
+[com_31]
+type=graphic
+x=19
+y=71
+width=36
+height=32
+layer=com_26
+graphic="bank_misc_graphics,0"
+colour=0xffffffff
+
+// 767:32
+[com_32]
+type=graphic
+x=394
+y=129
+width=48
+height=48
+layer=com_26
+graphic="bank_tabs,1"
+colour=0xffffffff
+
+// 767:33
+[com_33]
+type=graphic
+x=401
+y=143
+width=36
+height=32
+layer=com_26
+graphic="bank_misc_graphics,1"
+colour=0xffffffff
+
+// 767:34
+[com_34]
+type=layer
+x=23
+y=58
+width=451
+height=226
+hide=yes
+
+// 767:35
+[com_35]
+type=text
+x=12
+y=5
+width=436
+height=82
+layer=com_34
+textfont=p12_full
+text=Using this tab system will allow you to easily group together related items as you wish. For instance, you could place all of your food in one tab, or all of your weapons in another. Alternatively, you could create a tab to contain all of those items you use to train a skill or play a certain activity. There is no limit to the number of times you can rearrange your bank, so feel free to experiment. 
+textshadow=yes
+
+// 767:36
+[com_36]
+type=text
+x=3
+y=96
+width=293
+height=29
+xmode=abs_right
+layer=com_34
+textfont=p12_full
+text=Near the bottom-left corner of the bank you will see a set of four numbers, as shown to the left.
+textshadow=yes
+
+// 767:37
+[com_37]
+type=layer
+x=38
+y=97
+width=90
+height=25
+layer=com_34
+transmitop=10
+op10=  
+
+// 767:38
+[com_38]
+type=text
+x=12
+y=137
+width=436
+height=66
+layer=com_34
+textfont=p12_full
+text=The first two numbers, separated by a diagonal line, represent your non-member bank space and how much of that bank space you have filled with non-member items. The second two numbers, separated by the other diagonal line, represent the bank space you have gained by being a member, and how much of that bank space you have filled with member items.
+textshadow=yes
+transmitop=10
+op10= 
+
+// 767:39
+[com_39]
+type=text
+x=3
+y=205
+width=100
+height=15
+xmode=abs_right
+layer=com_34
+textfont=p12_full
+text=<u=000080>More Information</u>
+textalignh=right
+colour=0x000080
+transmitop=1,10
+op1=Go to
+op10=  
+onmouseover=link_rollover(event_com, 0xfffffa, "<u=FFFFFA>More Information</u>")
+onmouseleave=link_rollover(event_com, 0x000080, "<u=000080>More Information</u>")
+onop=bank_v2_help_link
+
+// 767:40
+[com_40]
+type=graphic
+width=90
+height=25
+layer=com_37
+graphic=bank_counter2
+colour=0xffffffff
+transmitop=10
+op10=   
+
+// 767:41
+[com_41]
+type=text
+x=5
+y=1
+width=15
+height=16
+layer=com_37
+textfont=p11_full
+text=-
+textalignh=right
+textalignv=centre
+colour=0xb4965a
+transmitop=10
+op10=        
+
+// 767:42
+[com_42]
+type=text
+x=24
+y=9
+width=15
+height=16
+layer=com_37
+textfont=p11_full
+text=-
+textalignv=centre
+colour=0xb4965a
+transmitop=10
+op10=        
+
+// 767:43
+[com_43]
+type=text
+x=41
+y=1
+width=22
+height=16
+layer=com_37
+textfont=p11_full
+text=-
+textalignh=right
+textalignv=centre
+colour=0xb4965a
+transmitop=10
+op10=         
+
+// 767:44
+[com_44]
+type=text
+x=67
+y=9
+width=22
+height=16
+layer=com_37
+textfont=p11_full
+text=-
+textalignv=centre
+colour=0xb4965a
+transmitop=10
+op10=         
+
+// 767:45
+[com_45]
+type=layer
+x=23
+y=58
+width=451
+height=226
+hide=yes
+
+// 767:46
+[com_46]
+type=layer
+x=23
+y=58
+width=451
+height=226
+hide=yes
+
+// 767:47
+[com_47]
+type=layer
+x=23
+y=58
+width=451
+height=226
+hide=yes
+transmitop=10
+op10= 
+
+// 767:48
+[com_48]
+type=text
+x=56
+y=13
+width=391
+height=79
+layer=com_47
+textfont=p12_full
+text=Deposit beast of burden inventory: If you have a Summoning familiar or other follower with you that is carrying items, clicking this button will transfer everything it is carrying into your bank (space permitting). 
+textshadow=yes
+transmitop=10
+op10=  
+
+// 767:49
+[com_49]
+type=graphic
+x=11
+y=8
+width=35
+height=35
+layer=com_47
+graphic="bank_buttons,5"
+colour=0xffffffff
+transmitop=1,10
+op1=Deposit beast of burden inventory
+op10=   
+
+// 767:50
+[com_50]
+type=graphic
+x=14
+y=16
+width=29
+height=21
+layer=com_47
+graphic="bank_bob_button,3"
+colour=0xffffffff
+transmitop=10
+op10=   
+
+// 767:51
+[com_51]
+type=text
+x=56
+y=92
+width=391
+height=79
+layer=com_47
+textfont=p12_full
+text=Equipment Screen: Allows you to view the stats of your equipment.
+textshadow=yes
+
+// 767:52
+[com_52]
+type=layer
+x=11
+y=83
+width=34
+height=34
+layer=com_47
+
+// 767:53
+[com_53]
+type=graphic
+x=12
+y=84
+width=32
+height=32
+layer=com_47
+graphic="options_icons,16"
+
+// 767:54
+[com_54]
+type=layer
+x=195
+y=171
+width=87
+height=31
+layer=com_47
+transmitop=1,10
+op1=Open
+op10= 
+opcursor0=cursor_49
+
+// 767:55
+[com_55]
+type=layer
+y=1
+width=87
+height=29
+layer=com_54
+transmitop=10
+op10= 
+onload=v2_stone_button(event_com)
+onmouseover=v2_stone_button_in(event_com)
+onmouseleave=v2_stone_button(event_com)
+
+// 767:56
+[com_56]
+type=text
+width=87
+height=31
+layer=com_54
+textfont=p12_full
+text=Open your bank
+textlineheight=12
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0x00cc00
+transmitop=10
+op10= 
+onmouseover=text_colour_swapper(event_com, 0x00ab00)
+onmouseleave=text_colour_swapper(event_com, 0x00cc00)
+
+// 767:57
+[com_57]
+type=text
+x=21
+y=23
+width=471
+height=16
+textfont=b12_full
+text=Bank of RuneScape - Help
+textalignh=centre
+textshadow=yes
+colour=0xf2aa3e
+
+// 767:58
+[com_58]
+type=graphic
+x=22
+y=8
+width=20
+height=20
+layer=com_59
+graphic=graphic_1161
+colour=0xffffffff
+
+// 767:59
+[com_59]
+type=layer
+x=176
+y=287
+width=166
+height=33
+
+// 767:60
+[com_60]
+type=graphic
+x=42
+y=8
+width=93
+height=20
+layer=com_59
+graphic=graphic_1162
+tiling=yes
+colour=0xffffffff
+
+// 767:61
+[com_61]
+type=graphic
+x=124
+y=8
+width=20
+height=20
+layer=com_59
+graphic=graphic_1163
+tiling=yes
+colour=0xffffffff
+
+// 767:62
+[com_62]
+type=text
+x=18
+y=10
+width=136
+height=16
+layer=com_59
+textfont=b12_full
+text=Page 1 of 7
+textalignh=centre
+textshadow=yes
+colour=0xf2aa3e
+
+// 767:63
+[com_63]
+type=graphic
+x=147
+y=9
+width=16
+height=16
+layer=com_59
+graphic="catcon_catapult_arrows,2"
+colour=0xffffffff
+transmitop=1
+op1=Next page
+onmouseover=graphic_swapper(event_com, "catcon_catapult_arrows,3")
+onmouseleave=graphic_swapper(event_com, "catcon_catapult_arrows,2")
+
+// 767:64
+[com_64]
+type=graphic
+x=3
+y=9
+width=16
+height=16
+layer=com_59
+graphic="catcon_catapult_arrows,0"
+colour=0xffffffff
+transmitop=1
+op1=Previous page
+onmouseover=graphic_swapper(event_com, "catcon_catapult_arrows,1")
+onmouseleave=graphic_swapper(event_com, "catcon_catapult_arrows,0")
+
+// 767:65
+[com_65]
+type=layer
+x=477
+y=54
+width=16
+height=235
+
+// 767:66
+[com_66]
+type=layer
+x=-24
+y=36
+width=474
+height=235
+layer=com_13
+
+// 767:67
+[com_67]
+type=graphic
+x=139
+y=5
+width=9
+height=24
+layer=com_76
+graphic="v2_stone_button,6"
+colour=0xffffffff
+
+// 767:68
+[com_68]
+type=graphic
+x=26
+y=20
+width=122
+height=9
+layer=com_76
+graphic="v2_stone_button,7"
+colour=0xffffffff
+
+// 767:69
+[com_69]
+type=graphic
+x=26
+y=5
+width=122
+height=9
+layer=com_76
+graphic="v2_stone_button,5"
+colour=0xffffffff
+
+// 767:70
+[com_70]
+type=graphic
+x=26
+y=5
+width=9
+height=24
+layer=com_76
+graphic="v2_stone_button,4"
+colour=0xffffffff
+
+// 767:71
+[com_71]
+type=text
+x=26
+y=5
+width=123
+height=24
+layer=com_76
+textfont=p11_full
+text=Shortcut keys
+textalignh=centre
+textalignv=centre
+textshadow=yes
+onmouseover=quickchat_tutorial_button_mouseover
+onmouseleave=quickchat_tutorial_button_mouseleave
+
+// 767:72
+[com_72]
+type=graphic
+x=26
+y=5
+width=9
+height=9
+layer=com_76
+graphic="v2_stone_button,0"
+colour=0xffffffff
+
+// 767:73
+[com_73]
+type=graphic
+x=139
+y=5
+width=9
+height=9
+layer=com_76
+graphic="v2_stone_button,1"
+colour=0xffffffff
+
+// 767:74
+[com_74]
+type=graphic
+x=26
+y=20
+width=9
+height=9
+layer=com_76
+graphic="v2_stone_button,2"
+colour=0xffffffff
+
+// 767:75
+[com_75]
+type=graphic
+x=139
+y=20
+width=9
+height=9
+layer=com_76
+graphic="v2_stone_button,3"
+colour=0xffffffff
+
+// 767:76
+[com_76]
+type=layer
+x=344
+y=288
+width=149
+height=33
+hide=yes

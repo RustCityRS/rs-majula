@@ -1,3 +1,4 @@
+// 1744
 [proc,cc_gety_absolute]()(int)
 def_int $int0 = cc_gety;
 def_component $component1 = cc_getlayer;
@@ -6,4 +7,3 @@ while ($component1 ! null) {
     $component1 = if_getlayer($component1);
 }
 return($int0);
-return(0);

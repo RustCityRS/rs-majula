@@ -62,7 +62,7 @@ stat_advance($stat, $total);
 // harmless when closed (776 is gated on %doublexp_setupflag and writes into hidden
 // components). 647 itself refreshed this on re-hover (onmouseover); this is a
 // server-push equivalent so it stays live while training.
-runclientscript("clientscript_776()");
+runclientscript("script776()");
 
 // Bonus-XP multiplier (x1000), mirroring clientscript 338 EXACTLY so the server grant
 // equals the multiplier the client displays. Time-based decay 2.7x -> 1.1x over 10h of
@@ -83,7 +83,7 @@ if (%doublexp_setupflag = 1) {
     // Refresh the open bonus popup each game-minute so Elapsed + Multiplier tick
     // live (the multiplier decays every 30 min; without this the popup is stale
     // until reopened). Same rebuild as the orb toggle (cs2 776).
-    runclientscript("clientscript_776()");
+    runclientscript("script776()");
 }
 
 // Orb "Reset XP Total" (op8 on the XP orb), one per gameframe. op1 "Toggle XP Total"

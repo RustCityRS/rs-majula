@@ -1,0 +1,8 @@
+// 4524
+[proc,script4524](component $component0, graphic $graphic1)
+cc_create($component0, ^iftype_graphic, if_getnextsubid($component0));
+cc_setsize(16384, 16384, ^setsize_rel, ^setsize_rel);
+cc_setposition(0, 0, ^setpos_abs_centre, ^setpos_abs_centre);
+cc_setgraphic($graphic1);
+if_setnoclickthrough(true, $component0);
+if_sethide(true, $component0);

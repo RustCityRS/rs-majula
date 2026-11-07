@@ -1,0 +1,13 @@
+// 1512
+[clientscript,script1512](int $int0, int $int1)
+if ($int0 ! 1) {
+    return;
+}
+switch_int ($int1) {
+    case 1, 2 :
+        if (~script361(%varclient_1010, 3) ! null) {
+            return;
+        }
+}
+%varclient_778 = $int1;
+~player_kit_body_redraw;

@@ -1,0 +1,14 @@
+// 3591
+[proc,script3591](int $int0)(enum)
+switch_int ($int0) {
+    case default :
+        return(enum_3140);
+    case 2 :
+        return(enum_3143);
+    case 3 :
+        return(enum_3146);
+    case 4 :
+        return(enum_3149);
+    case 5 :
+        return(enum_3152);
+}

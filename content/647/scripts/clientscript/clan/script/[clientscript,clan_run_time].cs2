@@ -1,7 +1,8 @@
+// 4342
 [clientscript,clan_run_time](int $int0, int $int1, int $int2, component $component3, component $component4)
 def_string $string0 = "";
 def_string $string1 = "";
-if (calc(clientclock % 3000) = false) {
+if (calc(clientclock % 3000) = 0) {
     $int1 = calc($int1 + 1);
     if ($int1 >= 60) {
         $int1 = 0;
@@ -24,7 +25,7 @@ if (calc(clientclock % 3000) = false) {
     if_setontimer("clan_run_time($int0, $int1, $int2, $component3, $component4)", $component3);
     $string0, $string1 = ~clan_time_tostring($int2, $int0, $int1);
     if_settext("<$string0>:<$string1>", $component4);
-} else if (calc(clientclock % 50) = false) {
+} else if (calc(clientclock % 50) = 0) {
     if ($int0 < 10) {
         $string0 = "0<tostring($int0)>";
     } else {
@@ -35,13 +36,13 @@ if (calc(clientclock % 3000) = false) {
     } else {
         $string1 = tostring($int1);
     }
-    if (calc(clientclock % 100) = false) {
+    if (calc(clientclock % 100) = 0) {
         if_settext("<$string0>:<$string1>", $component3);
     } else {
         if_settext("<$string0> <$string1>", $component3);
     }
     $string0, $string1 = ~clan_time_tostring($int2, $int0, $int1);
-    if (calc(clientclock % 100) = false) {
+    if (calc(clientclock % 100) = 0) {
         if_settext("<$string0>:<$string1>", $component4);
     } else {
         if_settext("<$string0> <$string1>", $component4);

@@ -1,7 +1,0 @@
-[proc,clientscript_511]
-if (%varc_int_51 > 170) {
-    %varc_int_51 = calc(%varc_int_51 - 1);
-    if_setmodelangle(0, 0, 0, 0, 0, %varc_int_51, ax2241604:com0);
-} else {
-    if_setmodel(null, ax2241604:com0);
-}

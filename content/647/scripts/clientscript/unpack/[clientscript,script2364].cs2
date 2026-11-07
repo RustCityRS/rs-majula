@@ -1,0 +1,18 @@
+// 2364
+[clientscript,script2364](component $component0)
+def_int $int1 = 1;
+def_int $int2 = 0;
+def_component $component3 = null;
+def_component $component4 = null;
+while ($int1 < 9) {
+    $component3 = enum(int, component, enum_2352, $int1);
+    if (if_find($component3) = true) {
+        $int2 = cc_param(param_1224);
+        $component4 = enum(int, component, enum_3308, $int2);
+        if ($component0 = $component4) {
+            ~script2365($component3);
+            return;
+        }
+    }
+    $int1 = calc($int1 + 1);
+}

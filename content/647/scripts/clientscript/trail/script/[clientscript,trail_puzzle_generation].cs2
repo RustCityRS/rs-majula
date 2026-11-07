@@ -1,3 +1,4 @@
+// 80
 [clientscript,trail_puzzle_generation](component $component0)
 def_int $int1 = 0;
 def_int $int2 = 0;
@@ -12,7 +13,7 @@ while ($int1 < inv_size(trail_puzzleinv)) {
         cc_setmodelorthog(true);
         cc_setopbase(oc_name(inv_getobj(trail_puzzleinv, $int1)));
         cc_setop(1, "Move");
-        cc_setonop("trail_puzzle_click(^event_com, $int1, ^event_op)");
+        cc_setonop("trail_puzzle_click(event_com, $int1, event_op)");
     } else {
         cc_sethide(true);
     }

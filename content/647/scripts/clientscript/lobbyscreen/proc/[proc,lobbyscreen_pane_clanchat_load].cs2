@@ -1,30 +1,31 @@
-[proc,lobbyscreen_pane_clanchat_load](int $int)
-if_setsize(calc(if_getx(lobbyscreen_pane_clanchat:com39) - if_getx(lobbyscreen_pane_clanchat:com37)), 0, ^setsize_abs, ^setsize_minus, lobbyscreen_pane_clanchat:com49);
-if_setsize(calc(if_getwidth(lobbyscreen_pane_clanchat:com45) - if_getwidth(lobbyscreen_pane_clanchat:com49) - 2), 0, ^setsize_abs, ^setsize_minus, lobbyscreen_pane_clanchat:com51);
-if_setscrollsize(0, 0, lobbyscreen_pane_clanchat:com45);
-if_setscrollpos(0, 0, lobbyscreen_pane_clanchat:com45);
-~scrollbar_vertical(lobbyscreen_pane_clanchat:com46, lobbyscreen_pane_clanchat:com45, "scrollbar_dragger_v2,3", "scrollbar_dragger_v2,0", "scrollbar_dragger_v2,1", "scrollbar_dragger_v2,2", "scrollbar_v2,0", "scrollbar_v2,1");
-if_setscrollsize(0, 0, lobbyscreen_pane_clanchat:com21);
-if_setscrollpos(0, 0, lobbyscreen_pane_clanchat:com21);
-~scrollbar_vertical(lobbyscreen_pane_clanchat:com22, lobbyscreen_pane_clanchat:com21, "scrollbar_dragger_v2,3", "scrollbar_dragger_v2,0", "scrollbar_dragger_v2,1", "scrollbar_dragger_v2,2", "scrollbar_v2,0", "scrollbar_v2,1");
-if_sethook1431("lobbyscreen_pane_clanchat_build(lobbyscreen_pane_clanchat:com49, lobbyscreen_pane_clanchat:com50, lobbyscreen_pane_clanchat:com51, lobbyscreen_pane_clanchat:com47, lobbyscreen_pane_clanchat:com45, lobbyscreen_pane_clanchat:com46)", lobbyscreen_pane_clanchat:com45);
-if_sethook1432("lobbyscreen_pane_clanchat_build(lobbyscreen_pane_clanchat:com49, lobbyscreen_pane_clanchat:com50, lobbyscreen_pane_clanchat:com51, lobbyscreen_pane_clanchat:com47, lobbyscreen_pane_clanchat:com45, lobbyscreen_pane_clanchat:com46)", lobbyscreen_pane_clanchat:com45);
-if (clanchannel2_find_affined = true) {
-    if_sethide(true, lobbyscreen_pane_clanchat:com12);
-    ~lobbyscreen_pane_clanchat_build(lobbyscreen_pane_clanchat:com49, lobbyscreen_pane_clanchat:com50, lobbyscreen_pane_clanchat:com51, lobbyscreen_pane_clanchat:com47, lobbyscreen_pane_clanchat:com45, lobbyscreen_pane_clanchat:com46);
-    if (if_gethide(lobbyscreen:com178) = false) {
-        ~clientscript_3161(1);
+// 3159
+[proc,lobbyscreen_pane_clanchat_load](int $int0)
+if_setsize(calc(if_getx(lobbyscreen_pane_clanchat:com_39) - if_getx(lobbyscreen_pane_clanchat:com_37)), 0, ^setsize_abs, ^setsize_minus, lobbyscreen_pane_clanchat:com_49);
+if_setsize(calc(if_getwidth(lobbyscreen_pane_clanchat:com_45) - if_getwidth(lobbyscreen_pane_clanchat:com_49) - 2), 0, ^setsize_abs, ^setsize_minus, lobbyscreen_pane_clanchat:com_51);
+if_setscrollsize(0, 0, lobbyscreen_pane_clanchat:com_45);
+if_setscrollpos(0, 0, lobbyscreen_pane_clanchat:com_45);
+~scrollbar_vertical(lobbyscreen_pane_clanchat:com_46, lobbyscreen_pane_clanchat:com_45, "scrollbar_dragger_v2,3", "scrollbar_dragger_v2,0", "scrollbar_dragger_v2,1", "scrollbar_dragger_v2,2", "scrollbar_v2,0", "scrollbar_v2,1");
+if_setscrollsize(0, 0, lobbyscreen_pane_clanchat:com_21);
+if_setscrollpos(0, 0, lobbyscreen_pane_clanchat:com_21);
+~scrollbar_vertical(lobbyscreen_pane_clanchat:com_22, lobbyscreen_pane_clanchat:com_21, "scrollbar_dragger_v2,3", "scrollbar_dragger_v2,0", "scrollbar_dragger_v2,1", "scrollbar_dragger_v2,2", "scrollbar_v2,0", "scrollbar_v2,1");
+if_setonclansettingstransmit("lobbyscreen_pane_clanchat_build(lobbyscreen_pane_clanchat:com_49, lobbyscreen_pane_clanchat:com_50, lobbyscreen_pane_clanchat:com_51, lobbyscreen_pane_clanchat:com_47, lobbyscreen_pane_clanchat:com_45, lobbyscreen_pane_clanchat:com_46)", lobbyscreen_pane_clanchat:com_45);
+if_setonclanchanneltransmit("lobbyscreen_pane_clanchat_build(lobbyscreen_pane_clanchat:com_49, lobbyscreen_pane_clanchat:com_50, lobbyscreen_pane_clanchat:com_51, lobbyscreen_pane_clanchat:com_47, lobbyscreen_pane_clanchat:com_45, lobbyscreen_pane_clanchat:com_46)", lobbyscreen_pane_clanchat:com_45);
+if (activeclanchannel_find_affined = true) {
+    if_sethide(true, lobbyscreen_pane_clanchat:com_12);
+    ~lobbyscreen_pane_clanchat_build(lobbyscreen_pane_clanchat:com_49, lobbyscreen_pane_clanchat:com_50, lobbyscreen_pane_clanchat:com_51, lobbyscreen_pane_clanchat:com_47, lobbyscreen_pane_clanchat:com_45, lobbyscreen_pane_clanchat:com_46);
+    if (if_gethide(lobbyscreen:com_178) = false) {
+        ~script3161(1);
     } else {
-        ~clientscript_3161(0);
+        ~script3161(0);
     }
 } else {
-    if_sethide(false, lobbyscreen_pane_clanchat:com12);
-    ~clientscript_3161(0);
+    if_sethide(false, lobbyscreen_pane_clanchat:com_12);
+    ~script3161(0);
 }
-%varc_string_278 = "";
-~brown_cursebearer(lobbyscreen_pane_clanchat:com29);
-~clientscript_3027(lobbyscreen_pane_clanchat:com8);
-%varc_int_1098 = string_length(%varc_string_278);
-if_setonclick("clientscript_1335(^event_mousex, lobbyscreen_pane_clanchat:com25, lobbyscreen_pane_clanchat:com26)", lobbyscreen_pane_clanchat:com25);
-~clientscript_1390(lobbyscreen_pane_clanchat:com25, lobbyscreen_pane_clanchat:com26, %varc_string_278);
-if_sethide(true, lobbyscreen_pane_clanchat:com26);
+%varclient_1797 = "";
+~brown_cursebearer(lobbyscreen_pane_clanchat:com_29);
+~script3027(lobbyscreen_pane_clanchat:com_8);
+%varclient_1098 = string_length(%varclient_1797);
+if_setonclick("script1335(event_mousex, lobbyscreen_pane_clanchat:com_25, lobbyscreen_pane_clanchat:com_26)", lobbyscreen_pane_clanchat:com_25);
+~script1390(lobbyscreen_pane_clanchat:com_25, lobbyscreen_pane_clanchat:com_26, %varclient_1797);
+if_sethide(true, lobbyscreen_pane_clanchat:com_26);

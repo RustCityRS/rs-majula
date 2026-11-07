@@ -1,4 +1,5 @@
+// 1915
 [clientscript,sc_processing_init]
-if_sethide(true, sc_processing:com75);
-%varc_int_582 = 0;
-if_setonvarctransmit("clientscript_1918(){varc_int_583, varc_int_584, varc_int_585, varc_int_586, varc_int_587}", sc_processing:com27);
+if_sethide(true, sc_processing:com_75);
+%varclient_582 = 0;
+if_setonvarctransmit("script1918{varclient_583, varclient_584, varclient_585, varclient_586, varclient_587}", sc_processing:com_27);

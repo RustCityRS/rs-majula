@@ -1,0 +1,9 @@
+// 4184
+[clientscript,script4184](int $int0, int $int1)
+if ($int0 ! 1) {
+    return;
+}
+%varplayerbit_8877 = max(min(calc(%varplayerbit_8877 + $int1), 28), 1);
+if_settext(tostring(%varplayerbit_8877), interface_1072:com_33);
+if_setontimer("script4187(calc(clientclock + 15))", interface_1072:com_83);
+if_sethide(false, interface_1072:com_83);

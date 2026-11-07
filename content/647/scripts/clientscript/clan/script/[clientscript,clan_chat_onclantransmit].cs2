@@ -1,8 +1,9 @@
-[clientscript,clan_chat_onclantransmit](component $int)
-if (hud_test(72744974, -1) = true) {
-    if_setontimer("clan_chat_minimenu_timer()", clan_chat:com14);
+// 4449
+[clientscript,clan_chat_onclantransmit](component $component0)
+if (minimenuopen(clan_chat:com_14, -1) = true) {
+    if_setontimer("clan_chat_minimenu_timer", clan_chat:com_14);
     return;
 }
-if (clanchannel2_find_affined = true) {
-    ~clientscript_4451;
+if (activeclanchannel_find_affined = true) {
+    ~script4451;
 }

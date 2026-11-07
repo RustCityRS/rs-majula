@@ -1,4 +1,5 @@
-[clientscript,scrollbar_vertical_drag_2](component $component0, component $component1, component $component2, int $int3, boolean $int4)
+// 3294
+[clientscript,scrollbar_vertical_drag_2](component $component0, component $component1, component $component2, int $int3, boolean $boolean4)
 def_int $int5 = 0;
 def_int $int6 = 0;
 if (cc_find($component0, 1) = true) {
@@ -11,5 +12,5 @@ if (cc_find($component0, 1) = true) {
     $int5 = calc(if_getheight($component0) - 32 - cc_getheight);
     $int6 = calc(if_getscrollheight($component1) - if_getheight($component1));
     $int3 = calc($int3 * $int6 / $int5);
-    ~scrollbar_vertical_doscroll_2($component0, $component1, $component2, $int3, $int4);
+    ~scrollbar_vertical_doscroll_2($component0, $component1, $component2, $int3, $boolean4);
 }

@@ -1,0 +1,22 @@
+// 2510
+[clientscript,script2510]
+if (%varclient_852 <= 0) {
+    %varclient_852 = 0;
+}
+if (%varclient_853 <= 0) {
+    %varclient_853 = 0;
+}
+if (%varclient_854 <= 0) {
+    %varclient_854 = 0;
+}
+if (%varclient_855 <= 0) {
+    %varclient_855 = 0;
+}
+if (%varclient_856 <= 0) {
+    %varclient_856 = 0;
+}
+if_settext(tostring(%varclient_852), mob_special_units:com_9);
+if_settext(tostring(%varclient_853), mob_special_units:com_58);
+if_settext(tostring(%varclient_854), mob_special_units:com_50);
+if_settext(tostring(%varclient_855), mob_special_units:com_42);
+if_settext(tostring(%varclient_856), mob_special_units:com_67);

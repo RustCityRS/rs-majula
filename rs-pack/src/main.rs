@@ -27,6 +27,16 @@ enum Commands {
         #[arg(required = true)]
         dictionaries: Vec<PathBuf>,
     },
+    /// Decompile only the configs, to compare them with another dump
+    #[cfg(since_647)]
+    UnpackConfigs {
+        #[arg(short, long, default_value = "expected")]
+        expected: PathBuf,
+        #[arg(short, long, default_value = "content_unpack")]
+        output: PathBuf,
+        #[arg(long, default_value = rs_pack::PACK_DIR)]
+        pack: PathBuf,
+    },
     /// Decompile client scripts to editable RuneScript source and verify their bytes
     #[cfg(since_647)]
     UnpackClientscripts {
@@ -103,6 +113,12 @@ fn main() -> Result<()> {
             let count = unpack::names::recover(&pack, &kind, &dictionaries, max_index)?;
             tracing::info!("Recovered {count} {kind} names");
         }
+        #[cfg(since_647)]
+        Commands::UnpackConfigs {
+            expected,
+            output,
+            pack,
+        } => unpack::unpack_configs_only(&expected, &output, &pack)?,
         #[cfg(since_647)]
         Commands::UnpackClientscripts {
             expected,

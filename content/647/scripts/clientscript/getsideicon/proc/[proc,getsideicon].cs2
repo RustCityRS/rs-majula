@@ -1,45 +1,45 @@
-[proc,getsideicon](int $int)(component)
+// 121
+[proc,getsideicon](int $int0)(component)
 if (getwindowmode >= 2) {
-    return(~getsideicon_resizeable($int));
+    return(~getsideicon_resizeable($int0));
 } else {
-    switch_int ($int) {
-        case 0:
-            return(toplevel:com137);
-        case 1:
-            return(toplevel:com138);
-        case 2:
-            return(toplevel:com139);
-        case 3:
-            return(toplevel:com140);
-        case 4:
-            return(toplevel:com141);
-        case 5:
-            return(toplevel:com142);
-        case 6:
-            return(toplevel:com143);
-        case 7:
-            return(toplevel:com144);
-        case 8:
-            return(toplevel:com106);
-        case 9:
-            return(toplevel:com107);
-        case 10:
-            return(toplevel:com108);
-        case 11:
-            return(toplevel:com109);
-        case 12:
-            return(toplevel:com110);
-        case 13:
-            return(toplevel:com111);
-        case 14:
-            return(toplevel:com112);
-        case 15:
-            return(toplevel:com113);
-        case 95:
-            return(summoning_orb:com8);
-        case 99:
-            return(toplevel:com181);
+    switch_int ($int0) {
+        case 0 :
+            return(toplevel:com_137);
+        case 1 :
+            return(toplevel:com_138);
+        case 2 :
+            return(toplevel:com_139);
+        case 3 :
+            return(toplevel:com_140);
+        case 4 :
+            return(toplevel:com_141);
+        case 5 :
+            return(toplevel:com_142);
+        case 6 :
+            return(toplevel:com_143);
+        case 7 :
+            return(toplevel:com_144);
+        case 8 :
+            return(toplevel:com_106);
+        case 9 :
+            return(toplevel:com_107);
+        case 10 :
+            return(toplevel:com_108);
+        case 11 :
+            return(toplevel:com_109);
+        case 12 :
+            return(toplevel:com_110);
+        case 13 :
+            return(toplevel:com_111);
+        case 14 :
+            return(toplevel:com_112);
+        case 15 :
+            return(toplevel:com_113);
+        case 95 :
+            return(summoning_orb:com_8);
+        case 99 :
+            return(toplevel:com_181);
     }
 }
-return(null);
 return(null);

@@ -1,0 +1,43 @@
+// 1601
+[clientscript,script1601](component $component0)
+def_component $component1 = null;
+def_component $component2 = null;
+switch_int (randominc(2)) {
+    case 0 :
+        sound_synth(synth_7813, 1, 0);
+    case 1 :
+        sound_synth(synth_7817, 1, 0);
+    case 2 :
+        sound_synth(synth_7818, 1, 0);
+}
+switch_component ($component0) {
+    case interface_972:com_31 :
+        $component1 = interface_972:com_3;
+        $component2 = interface_972:com_4;
+    case interface_972:com_25 :
+        $component1 = interface_972:com_4;
+        $component2 = interface_972:com_5;
+    case interface_972:com_20 :
+        $component1 = interface_972:com_5;
+        $component2 = interface_972:com_6;
+    case interface_972:com_15 :
+        $component1 = interface_972:com_6;
+        $component2 = interface_972:com_7;
+    case interface_972:com_11 :
+        $component1 = interface_972:com_7;
+        $component2 = interface_972:com_6;
+    case interface_972:com_16 :
+        $component1 = interface_972:com_6;
+        $component2 = interface_972:com_5;
+    case interface_972:com_21 :
+        $component1 = interface_972:com_5;
+        $component2 = interface_972:com_4;
+    case interface_972:com_26 :
+        $component1 = interface_972:com_4;
+        $component2 = interface_972:com_3;
+    case default :
+        ~script675;
+}
+if_sethide(true, $component1);
+if_sethide(false, $component2);
+return;

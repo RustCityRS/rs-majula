@@ -1,21 +1,22 @@
+// 125
 [proc,friend_update](int $int0)
-def_component $component1 = friends2:com6;
-def_component $component2 = friends2:com53;
-def_component $component3 = friends2:com5;
-def_component $component4 = friends2:com1;
-def_component $component5 = friends2:com11;
-def_component $component6 = friends2:com12;
-def_component $component7 = friends2:com18;
-def_component $component8 = friends2:com46;
-def_component $component9 = friends2:com14;
-def_component $component10 = friends2:com13;
-def_component $component11 = friends2:com0;
+def_component $component1 = friends2:com_6;
+def_component $component2 = friends2:com_53;
+def_component $component3 = friends2:com_5;
+def_component $component4 = friends2:com_1;
+def_component $component5 = friends2:com_11;
+def_component $component6 = friends2:com_12;
+def_component $component7 = friends2:com_18;
+def_component $component8 = friends2:com_46;
+def_component $component9 = friends2:com_14;
+def_component $component10 = friends2:com_13;
+def_component $component11 = friends2:com_0;
 def_int $int12 = if_getwidth($component9);
 if ($int0 <= -1) {
     $int0 = if_getx($component9);
 }
 $int0 = max(min($int0, calc(if_getwidth($component10) - $int12)), 0);
-%varc_int_1036 = $int0;
+%varclient_1036 = $int0;
 if_setposition($int0, 0, ^setpos_abs_left, ^setpos_abs_centre, $component9);
 cc_deleteall($component1);
 cc_deleteall($component2);
@@ -37,7 +38,7 @@ if ($int13 = -1) {
     return;
 }
 if_sethide(false, $component9);
-if_setmouseover_cursor(149, $component9);
+if_setmouseovercursor(cursor_149, $component9);
 if_settext("", $component8);
 if_sethide(true, $component8);
 if_sethide(false, $component7);
@@ -58,7 +59,7 @@ def_int $int21 = 0;
 def_int $int22 = 0;
 def_int $int23 = 15;
 def_int $int24 = 5;
-def_colour $colour25 = 0xa4997d;
+def_int $rgb25 = 0xa4997d;
 def_int $int26 = 0;
 def_int $int27 = 0;
 def_int $int28 = 0;
@@ -72,39 +73,39 @@ while ($int14 < $int13) {
     } else {
         $int19 = 0;
     }
-    if ($int19 = true) {
+    if ($int19 = 1) {
         $string1 = "     <$string0>";
     } else {
         $string1 = $string0;
     }
     $int20 = friend_getworld($int14);
-    cc_create($component1, ^iftype_text, if_getchildcount($component1));
+    cc_create($component1, ^iftype_text, if_getnextsubid($component1));
     cc_setsize($int16, $int23, ^setsize_abs, ^setsize_abs);
     cc_setposition(0, $int21, ^setpos_abs_left, ^setpos_abs_top);
-    cc_setcolour($colour25);
+    cc_setcolour($rgb25);
     cc_settextfont(verdana_11pt_regular);
     cc_settextshadow(true);
     cc_setopbase("<col=ffffff><$string0>");
     cc_settextalign(^settextalign_left, ^settextalign_top, 0);
     if ($int20 ! 0) {
-        if (is_quickchat_only = false & is_subscriber = false) {
+        if (map_quickchat = false & userdetail_quickchat = false) {
             cc_setop(1, "Message");
         }
         cc_setop(2, "Quick Message");
     } else {
-        if (is_quickchat_only = false & is_subscriber = false) {
+        if (map_quickchat = false & userdetail_quickchat = false) {
             cc_setop(3, "Message");
         }
         cc_setop(4, "Quick Message");
     }
     cc_setop(5, "Delete");
-    cc_setonop("friend_op(^event_op, \"event_opbase\", $int14)");
-    if (op4125($string1, 3793) > $int16) {
-        while (op4125("<$string1>...", 3793) > $int16 & string_length($string1) > 0) {
+    cc_setonop("friend_op(event_op, event_opbase, $int14)");
+    if (stringwidth($string1, verdana_11pt_regular) > $int16) {
+        while (stringwidth("<$string1>...", verdana_11pt_regular) > $int16 & string_length($string1) > 0) {
             $string1 = substring($string1, 0, calc(string_length($string1) - 1));
         }
         cc_settext("<$string1>...");
-        if ($int19 = true) {
+        if ($int19 = 1) {
             if (paraheight("Last known as: <$string3>", calc($int15 - 8), verdana_11pt_regular) > 1) {
                 $string2 = "<$string0><br>Last known as:<br><$string3>";
             } else {
@@ -113,30 +114,30 @@ while ($int14 < $int13) {
         } else {
             $string2 = $string0;
         }
-        cc_setonmouserepeat("clientscript_1594(friends2:com52, ^event_com, ^event_subid, $string2, ^event_mousex, ^event_mousey)");
-        cc_setonmouseleave("deltooltip(friends2:com52)");
+        cc_setonmouserepeat("script1594(friends2:com_52, event_com, event_comsubid, $string2, event_mousex, event_mousey)");
+        cc_setonmouseleave("deltooltip(friends2:com_52)");
     } else {
         cc_settext($string1);
-        if ($int19 = true) {
+        if ($int19 = 1) {
             if (paraheight("Last known as: <$string3>", calc($int15 - 8), verdana_11pt_regular) > 1) {
                 $string2 = "Last known as:<br><$string3>";
             } else {
                 $string2 = "Last known as: <$string3>";
             }
-            cc_setonmouserepeat("clientscript_1594(friends2:com52, ^event_com, ^event_subid, $string2, ^event_mousex, ^event_mousey)");
-            cc_setonmouseleave("deltooltip(friends2:com52)");
+            cc_setonmouserepeat("script1594(friends2:com_52, event_com, event_comsubid, $string2, event_mousex, event_mousey)");
+            cc_setonmouseleave("deltooltip(friends2:com_52)");
         }
     }
-    cc_create($component2, ^iftype_graphic, if_getchildcount($component2));
+    cc_create($component2, ^iftype_graphic, if_getnextsubid($component2));
     cc_setgraphic(friends_changed_name);
     cc_setsize(14, 14, ^setsize_abs, ^setsize_abs);
     cc_setposition(0, $int21, ^setpos_abs_left, ^setpos_abs_top);
-    if ($int19 = false) {
+    if ($int19 = 0) {
         cc_sethide(true);
     }
     if_setsize($int17, 0, ^setsize_abs, ^setsize_minus, $component3);
     if_setsize($int17, 0, ^setsize_abs, ^setsize_minus, $component4);
-    if ($int20 = false) {
+    if ($int20 = 0) {
         $string4 = "Offline";
         $string5 = "Offline";
         $int29 = 0;
@@ -149,11 +150,11 @@ while ($int14 < $int13) {
         $string5 = "World <tostring($int20)>";
         $int29 = calc(2 + 24 + 2);
     }
-    $int26 = op4125($string4, 3793);
+    $int26 = stringwidth($string4, verdana_11pt_regular);
     if ($int17 >= calc($int26 + $int29)) {
         if ($int29 > 0) {
-            cc_create($component4, ^iftype_graphic, if_getchildcount($component4));
-            cc_setgraphic(2173);
+            cc_create($component4, ^iftype_graphic, if_getnextsubid($component4));
+            cc_setgraphic(graphic_2173);
             cc_setsize(24, 12, ^setsize_abs, ^setsize_abs);
             cc_setposition(2, calc($int21 + 1), ^setpos_abs_left, ^setpos_abs_top);
             $int27 = 0;
@@ -164,26 +165,26 @@ while ($int14 < $int13) {
     }
     if ($int17 >= $int26) {
     } else {
-        cc_setonmouserepeat("clientscript_1594(friends2:com52, ^event_com, ^event_subid, $string5, ^event_mousex, ^event_mousey)");
-        cc_setonmouseleave("deltooltip(friends2:com52)");
+        cc_setonmouserepeat("script1594(friends2:com_52, event_com, event_comsubid, $string5, event_mousex, event_mousey)");
+        cc_setonmouseleave("deltooltip(friends2:com_52)");
         $string4 = "...";
     }
-    cc_create($component3, ^iftype_text, if_getchildcount($component3));
+    cc_create($component3, ^iftype_text, if_getnextsubid($component3));
     cc_setsize($int17, $int23, ^setsize_abs, ^setsize_abs);
     cc_setposition(calc($int29 + 2), $int21, ^setpos_abs_left, ^setpos_abs_top);
     cc_settextfont(verdana_11pt_regular);
     cc_settextshadow(true);
     cc_settextalign(^settextalign_left, ^settextalign_top, 0);
     cc_settext($string4);
-    if ($int20 = false) {
+    if ($int20 = 0) {
         cc_setcolour(0xdd5c3e);
-    } else if ($int20 = active_toplevelinterface) {
+    } else if ($int20 = map_world) {
         cc_setcolour(0xa1bd40);
     } else {
         cc_setcolour(0xffff64);
     }
-    cc_setonmouserepeat("clientscript_1594(friends2:com52, ^event_com, ^event_subid, $string5, ^event_mousex, ^event_mousey)");
-    cc_setonmouseleave("deltooltip(friends2:com52)");
+    cc_setonmouserepeat("script1594(friends2:com_52, event_com, event_comsubid, $string5, event_mousex, event_mousey)");
+    cc_setonmouseleave("deltooltip(friends2:com_52)");
     $int14 = calc($int14 + 1);
 }
 $int21 = calc($int21 + 15 + 5);

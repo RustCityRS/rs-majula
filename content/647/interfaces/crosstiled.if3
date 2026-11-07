@@ -1,0 +1,972 @@
+// 459:0
+[com_0]
+type=graphic
+x=372
+y=256
+width=26
+height=26
+layer=com_63
+graphic="set_but_end_2,0"
+onmouseover=script2975(crosstiled:com_0, crosstiled:com_1, crosstiled:com_2, 1)
+onmouseleave=script2975(crosstiled:com_0, crosstiled:com_1, crosstiled:com_2, 0)
+
+// 459:1
+[com_1]
+type=graphic
+x=398
+y=256
+width=76
+height=26
+layer=com_63
+graphic="set_but_fill_2,0"
+onmouseover=script2975(crosstiled:com_0, crosstiled:com_1, crosstiled:com_2, 1)
+onmouseleave=script2975(crosstiled:com_0, crosstiled:com_1, crosstiled:com_2, 0)
+
+// 459:2
+[com_2]
+type=graphic
+x=474
+y=256
+width=26
+height=26
+layer=com_63
+graphic="set_but_end_2,0"
+hflip=yes
+onmouseover=script2975(crosstiled:com_0, crosstiled:com_1, crosstiled:com_2, 1)
+onmouseleave=script2975(crosstiled:com_0, crosstiled:com_1, crosstiled:com_2, 0)
+
+// 459:3
+[com_3]
+type=text
+x=372
+y=256
+width=128
+height=25
+layer=com_63
+textfont=verdana_11pt_regular
+text=Dark pit
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xeae7c4
+transmitop=1
+op1=Build
+onop=ecosystem_build_update(6, 80)
+
+// 459:4
+[com_4]
+type=graphic
+x=372
+y=204
+width=26
+height=26
+layer=com_61
+graphic="set_but_end_2,0"
+onmouseover=script2975(crosstiled:com_4, crosstiled:com_5, crosstiled:com_6, 1)
+onmouseleave=script2975(crosstiled:com_4, crosstiled:com_5, crosstiled:com_6, 0)
+
+// 459:5
+[com_5]
+type=graphic
+x=398
+y=204
+width=76
+height=26
+layer=com_61
+graphic="set_but_fill_2,0"
+onmouseover=script2975(crosstiled:com_4, crosstiled:com_5, crosstiled:com_6, 1)
+onmouseleave=script2975(crosstiled:com_4, crosstiled:com_5, crosstiled:com_6, 0)
+
+// 459:6
+[com_6]
+type=graphic
+x=474
+y=204
+width=26
+height=26
+layer=com_61
+graphic="set_but_end_2,0"
+hflip=yes
+onmouseover=script2975(crosstiled:com_4, crosstiled:com_5, crosstiled:com_6, 1)
+onmouseleave=script2975(crosstiled:com_4, crosstiled:com_5, crosstiled:com_6, 0)
+
+// 459:7
+[com_7]
+type=text
+x=372
+y=204
+width=127
+height=26
+layer=com_61
+textfont=verdana_11pt_regular
+text=Pond
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xeae7c4
+transmitop=1
+op1=Build
+onop=ecosystem_build_update(1, 65)
+
+// 459:8
+[com_8]
+type=graphic
+x=372
+y=230
+width=26
+height=26
+layer=com_62
+graphic="set_but_end_2,0"
+onmouseover=script2975(crosstiled:com_8, crosstiled:com_9, crosstiled:com_10, 1)
+onmouseleave=script2975(crosstiled:com_8, crosstiled:com_9, crosstiled:com_10, 0)
+
+// 459:9
+[com_9]
+type=graphic
+x=398
+y=230
+width=76
+height=26
+layer=com_62
+graphic="set_but_fill_2,0"
+onmouseover=script2975(crosstiled:com_8, crosstiled:com_9, crosstiled:com_10, 1)
+onmouseleave=script2975(crosstiled:com_8, crosstiled:com_9, crosstiled:com_10, 0)
+
+// 459:10
+[com_10]
+type=graphic
+x=474
+y=230
+width=26
+height=26
+layer=com_62
+graphic="set_but_end_2,0"
+hflip=yes
+onmouseover=script2975(crosstiled:com_8, crosstiled:com_9, crosstiled:com_10, 1)
+onmouseleave=script2975(crosstiled:com_8, crosstiled:com_9, crosstiled:com_10, 0)
+
+// 459:11
+[com_11]
+type=text
+x=372
+y=230
+width=127
+height=26
+layer=com_62
+textfont=verdana_11pt_regular
+text=Standing stones
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xeae7c4
+transmitop=1
+op1=Build
+onop=ecosystem_build_update(5, 70)
+
+// 459:12
+[com_12]
+type=graphic
+x=372
+y=180
+width=26
+height=26
+layer=com_59
+graphic="set_but_end_2,0"
+onmouseover=script2975(crosstiled:com_12, crosstiled:com_13, crosstiled:com_14, 1)
+onmouseleave=script2975(crosstiled:com_12, crosstiled:com_13, crosstiled:com_14, 0)
+
+// 459:13
+[com_13]
+type=graphic
+x=398
+y=180
+width=76
+height=26
+layer=com_59
+graphic="set_but_fill_2,0"
+onmouseover=script2975(crosstiled:com_12, crosstiled:com_13, crosstiled:com_14, 1)
+onmouseleave=script2975(crosstiled:com_12, crosstiled:com_13, crosstiled:com_14, 0)
+
+// 459:14
+[com_14]
+type=graphic
+x=474
+y=180
+width=26
+height=26
+layer=com_59
+graphic="set_but_end_2,0"
+hflip=yes
+onmouseover=script2975(crosstiled:com_12, crosstiled:com_13, crosstiled:com_14, 1)
+onmouseleave=script2975(crosstiled:com_12, crosstiled:com_13, crosstiled:com_14, 0)
+
+// 459:15
+[com_15]
+type=text
+x=373
+y=181
+width=127
+height=24
+layer=com_59
+textfont=verdana_11pt_regular
+text=Tall grass
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xeae7c4
+transmitop=1
+op1=Build
+onop=ecosystem_build_update(2, 62)
+
+// 459:16
+[com_16]
+type=graphic
+x=372
+y=158
+width=26
+height=26
+layer=com_60
+graphic="set_but_end_2,0"
+onmouseover=script2975(crosstiled:com_16, crosstiled:com_17, crosstiled:com_18, 1)
+onmouseleave=script2975(crosstiled:com_16, crosstiled:com_17, crosstiled:com_18, 0)
+
+// 459:17
+[com_17]
+type=graphic
+x=398
+y=158
+width=76
+height=26
+layer=com_60
+graphic="set_but_fill_2,0"
+onmouseover=script2975(crosstiled:com_16, crosstiled:com_17, crosstiled:com_18, 1)
+onmouseleave=script2975(crosstiled:com_16, crosstiled:com_17, crosstiled:com_18, 0)
+
+// 459:18
+[com_18]
+type=graphic
+x=474
+y=158
+width=26
+height=26
+layer=com_60
+graphic="set_but_end_2,0"
+hflip=yes
+onmouseover=script2975(crosstiled:com_16, crosstiled:com_17, crosstiled:com_18, 1)
+onmouseleave=script2975(crosstiled:com_16, crosstiled:com_17, crosstiled:com_18, 0)
+
+// 459:19
+[com_19]
+type=text
+x=373
+y=159
+width=127
+height=26
+layer=com_60
+textfont=verdana_11pt_regular
+text=Thermal vent
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xeae7c4
+transmitop=1
+op1=Build
+onop=ecosystem_build_update(4, 59)
+
+// 459:20
+[com_20]
+type=graphic
+x=372
+y=132
+width=26
+height=26
+layer=com_34
+graphic="set_but_end_2,0"
+onmouseover=script2975(crosstiled:com_20, crosstiled:com_21, crosstiled:com_22, 1)
+onmouseleave=script2975(crosstiled:com_20, crosstiled:com_21, crosstiled:com_22, 0)
+
+// 459:21
+[com_21]
+type=graphic
+x=398
+y=132
+width=76
+height=26
+layer=com_34
+graphic="set_but_fill_2,0"
+onmouseover=script2975(crosstiled:com_20, crosstiled:com_21, crosstiled:com_22, 1)
+onmouseleave=script2975(crosstiled:com_20, crosstiled:com_21, crosstiled:com_22, 0)
+
+// 459:22
+[com_22]
+type=graphic
+x=474
+y=132
+width=26
+height=26
+layer=com_34
+graphic="set_but_end_2,0"
+hflip=yes
+onmouseover=script2975(crosstiled:com_20, crosstiled:com_21, crosstiled:com_22, 1)
+onmouseleave=script2975(crosstiled:com_20, crosstiled:com_21, crosstiled:com_22, 0)
+
+// 459:23
+[com_23]
+type=text
+x=373
+y=133
+width=127
+height=24
+layer=com_34
+textfont=verdana_11pt_regular
+text=Abandoned house
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xeae7c4
+transmitop=1
+op1=Build
+onop=ecosystem_build_update(3, 57)
+
+// 459:24
+[com_24]
+type=graphic
+x=372
+y=106
+width=26
+height=26
+layer=com_33
+graphic="set_but_end_2,0"
+onmouseover=script2975(crosstiled:com_24, crosstiled:com_25, crosstiled:com_26, 1)
+onmouseleave=script2975(crosstiled:com_24, crosstiled:com_25, crosstiled:com_26, 0)
+
+// 459:25
+[com_25]
+type=graphic
+x=398
+y=106
+width=76
+height=26
+layer=com_33
+graphic="set_but_fill_2,0"
+onmouseover=script2975(crosstiled:com_24, crosstiled:com_25, crosstiled:com_26, 1)
+onmouseleave=script2975(crosstiled:com_24, crosstiled:com_25, crosstiled:com_26, 0)
+
+// 459:26
+[com_26]
+type=graphic
+x=474
+y=106
+width=26
+height=26
+layer=com_33
+graphic="set_but_end_2,0"
+hflip=yes
+onmouseover=script2975(crosstiled:com_24, crosstiled:com_25, crosstiled:com_26, 1)
+onmouseleave=script2975(crosstiled:com_24, crosstiled:com_25, crosstiled:com_26, 0)
+
+// 459:27
+[com_27]
+type=text
+x=374
+y=109
+width=125
+height=20
+layer=com_33
+textfont=verdana_11pt_regular
+text=Boneyard
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xeae7c4
+transmitop=1
+op1=Build
+onop=ecosystem_build_update(7, 56)
+
+// 459:28
+[com_28]
+type=graphic
+x=372
+y=80
+width=26
+height=26
+layer=com_32
+graphic="set_but_end_2,0"
+onmouseover=script2975(event_com, crosstiled:com_29, crosstiled:com_30, 1)
+onmouseleave=script2975(event_com, crosstiled:com_29, crosstiled:com_30, 0)
+
+// 459:29
+[com_29]
+type=graphic
+x=398
+y=80
+width=76
+height=26
+layer=com_32
+graphic="set_but_fill_2,0"
+onmouseover=script2975(crosstiled:com_28, crosstiled:com_29, crosstiled:com_30, 1)
+onmouseleave=script2975(crosstiled:com_28, crosstiled:com_29, crosstiled:com_30, 0)
+
+// 459:30
+[com_30]
+type=graphic
+x=474
+y=80
+width=26
+height=26
+layer=com_32
+graphic="set_but_end_2,0"
+hflip=yes
+onmouseover=script2975(crosstiled:com_28, crosstiled:com_29, crosstiled:com_30, 1)
+onmouseleave=script2975(crosstiled:com_28, crosstiled:com_29, crosstiled:com_30, 0)
+
+// 459:31
+[com_31]
+type=text
+x=374
+y=82
+width=125
+height=21
+layer=com_32
+textfont=verdana_11pt_regular
+text=No feature
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xeae7c4
+transmitop=1
+op1=Build
+onop=ecosystem_build_update(0, 0)
+
+// 459:32
+[com_32]
+type=layer
+x=-352
+y=-54
+width=512
+height=334
+layer=com_58
+
+// 459:33
+[com_33]
+type=layer
+x=-352
+y=-51
+width=512
+height=334
+layer=com_58
+
+// 459:34
+[com_34]
+type=layer
+x=-352
+y=-48
+width=512
+height=334
+layer=com_58
+
+// 459:35
+[com_35]
+type=model
+x=41
+y=119
+width=296
+height=203
+layer=com_57
+model=model_62133
+modelorigin=1,-10
+modelangle=199,2042,0
+modelzoom=500
+ontimer=ecosystem_rotate_model(event_com)
+
+// 459:36
+[com_36]
+type=text
+x=23
+y=71
+width=328
+height=46
+layer=com_57
+textfont=p11_full
+text=Something something darkside, something something complete.
+textshadow=yes
+
+// 459:37
+[com_37]
+type=text
+x=24
+y=9
+width=191
+height=34
+layer=com_57
+textfont=p12_full
+text=Nothing
+textshadow=yes
+
+// 459:38
+[com_38]
+type=text
+x=24
+y=33
+width=342
+height=28
+layer=com_57
+textfont=b12_full
+text=Build requirements go here.
+textshadow=yes
+
+// 459:39
+[com_39]
+type=layer
+x=-4
+y=-4
+width=520
+height=342
+
+// 459:40
+[com_40]
+type=rectangle
+x=4
+y=4
+width=8
+height=8
+widthmode=minus
+heightmode=minus
+layer=com_39
+colour=0x000000
+fill=yes
+trans=188
+
+// 459:41
+[com_41]
+type=rectangle
+width=16391
+height=16391
+widthmode=proportion
+heightmode=proportion
+layer=com_39
+colour=0x000000
+fill=yes
+trans=233
+
+// 459:42
+[com_42]
+type=layer
+x=8
+y=8
+width=16
+height=16
+widthmode=minus
+heightmode=minus
+layer=com_39
+
+// 459:43
+[com_43]
+type=graphic
+width=16391
+height=16391
+widthmode=proportion
+heightmode=proportion
+layer=com_42
+graphic=tradebacking
+tiling=yes
+
+// 459:44
+[com_44]
+type=graphic
+y=326
+width=16391
+height=12877
+widthmode=proportion
+heightmode=proportion
+xmode=abs_centre
+ymode=proportion_centre
+layer=com_42
+graphic=km_middlefillcolour
+tiling=yes
+colour=0x000000
+
+// 459:45
+[com_45]
+type=graphic
+width=16384
+height=70
+widthmode=proportion
+xmode=abs_centre
+layer=com_42
+graphic=graphic_2045
+tiling=yes
+colour=0x000000
+
+// 459:46
+[com_46]
+type=graphic
+width=16384
+height=46
+widthmode=proportion
+xmode=abs_centre
+ymode=abs_bottom
+layer=com_42
+graphic=graphic_2044
+tiling=yes
+colour=0x000000
+
+// 459:47
+[com_47]
+type=graphic
+width=32
+height=32
+layer=com_42
+graphic="v2_stone_borders,35"
+
+// 459:48
+[com_48]
+type=graphic
+width=64
+height=32
+widthmode=minus
+xmode=abs_centre
+layer=com_42
+graphic="v2_stone_borders,36"
+tiling=yes
+
+// 459:49
+[com_49]
+type=graphic
+width=32
+height=32
+xmode=abs_right
+layer=com_42
+graphic="v2_stone_borders,37"
+
+// 459:50
+[com_50]
+type=graphic
+y=-12
+width=64
+height=32
+widthmode=minus
+xmode=abs_centre
+ymode=abs_bottom
+layer=com_42
+graphic="v2_stone_borders,2"
+tiling=yes
+
+// 459:51
+[com_51]
+type=graphic
+width=32
+height=32
+ymode=abs_bottom
+layer=com_42
+graphic="v2_stone_borders,6"
+
+// 459:52
+[com_52]
+type=graphic
+x=-12
+width=32
+height=64
+heightmode=minus
+xmode=abs_right
+ymode=abs_centre
+layer=com_42
+graphic="v2_stone_borders,3"
+tiling=yes
+
+// 459:53
+[com_53]
+type=graphic
+width=32
+height=32
+xmode=abs_right
+ymode=abs_bottom
+layer=com_42
+graphic="v2_stone_borders,7"
+
+// 459:54
+[com_54]
+type=graphic
+x=-13
+width=32
+height=64
+heightmode=minus
+ymode=abs_centre
+layer=com_42
+graphic="v2_stone_borders,1"
+tiling=yes
+
+// 459:55
+[com_55]
+type=graphic
+x=11
+y=3
+width=16
+height=16
+xmode=abs_right
+layer=com_42
+graphic="v2_stone_close_button,0"
+transmitop=1
+op1=Close
+onmouseover=graphic_swapper(event_com, "v2_stone_close_button,1")
+onmouseleave=graphic_swapper(event_com, "v2_stone_close_button,0")
+onop=closebutton_click
+
+// 459:56
+[com_56]
+type=text
+y=-11
+width=16391
+height=43
+widthmode=proportion
+xmode=abs_centre
+layer=com_42
+textfont=b12_full
+text=Construct Environmental Feature
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xc8aa64
+
+// 459:57
+[com_57]
+type=layer
+x=11
+y=26
+width=492
+height=298
+onvarctransmit=ecosystem_build_start{varclient_1404}
+
+// 459:58
+[com_58]
+type=layer
+x=345
+y=28
+width=154
+height=298
+
+// 459:59
+[com_59]
+type=layer
+x=-352
+y=-40
+width=512
+height=334
+layer=com_58
+
+// 459:60
+[com_60]
+type=layer
+x=-352
+y=-46
+width=512
+height=334
+layer=com_58
+
+// 459:61
+[com_61]
+type=layer
+x=-352
+y=-36
+width=512
+height=334
+layer=com_58
+
+// 459:62
+[com_62]
+type=layer
+x=-352
+y=-33
+width=512
+height=334
+layer=com_58
+
+// 459:63
+[com_63]
+type=layer
+x=-352
+y=-31
+width=512
+height=334
+layer=com_58
+
+// 459:64
+[com_64]
+type=layer
+x=-7
+y=-7
+width=512
+height=334
+
+// 459:65
+[com_65]
+type=graphic
+x=387
+y=290
+width=25
+height=25
+layer=com_64
+graphic="set_but_end_1,0"
+onmouseover=script2975(crosstiled:com_65, crosstiled:com_67, crosstiled:com_66, 1)
+onmouseleave=script2975(crosstiled:com_65, crosstiled:com_67, crosstiled:com_66, 0)
+
+// 459:66
+[com_66]
+type=graphic
+x=461
+y=290
+width=25
+height=25
+layer=com_64
+graphic="set_but_end_1,0"
+hflip=yes
+onmouseover=script2975(crosstiled:com_65, crosstiled:com_67, crosstiled:com_66, 1)
+onmouseleave=script2975(crosstiled:com_65, crosstiled:com_67, crosstiled:com_66, 0)
+
+// 459:67
+[com_67]
+type=graphic
+x=391
+y=290
+width=74
+height=25
+layer=com_64
+graphic="set_but_fill_1,0"
+onmouseover=script2975(crosstiled:com_65, crosstiled:com_67, crosstiled:com_66, 1)
+onmouseleave=script2975(crosstiled:com_65, crosstiled:com_67, crosstiled:com_66, 0)
+
+// 459:68
+[com_68]
+type=text
+x=388
+y=293
+width=97
+height=22
+layer=com_64
+textfont=verdana_11pt_regular
+text=Build Feature
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xeae7c4
+transmitop=1
+op1=Confirm
+
+// 459:69
+[com_69]
+type=text
+x=388
+y=293
+width=97
+height=22
+layer=com_64
+textfont=verdana_11pt_regular
+text=Build Feature
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xeae7c4
+transmitop=1
+op1=Confirm
+
+// 459:70
+[com_70]
+type=text
+x=388
+y=293
+width=97
+height=22
+layer=com_64
+textfont=verdana_11pt_regular
+text=Build Feature
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xeae7c4
+transmitop=1
+op1=Confirm
+
+// 459:71
+[com_71]
+type=text
+x=388
+y=293
+width=97
+height=22
+layer=com_64
+textfont=verdana_11pt_regular
+text=Build Feature
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xeae7c4
+transmitop=1
+op1=Confirm
+
+// 459:72
+[com_72]
+type=text
+x=388
+y=293
+width=97
+height=22
+layer=com_64
+textfont=verdana_11pt_regular
+text=Build Feature
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xeae7c4
+transmitop=1
+op1=Confirm
+
+// 459:73
+[com_73]
+type=text
+x=388
+y=293
+width=97
+height=22
+layer=com_64
+textfont=verdana_11pt_regular
+text=Build Feature
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xeaffc4
+transmitop=1
+op1=Confirm
+
+// 459:74
+[com_74]
+type=text
+x=388
+y=293
+width=97
+height=22
+layer=com_64
+textfont=verdana_11pt_regular
+text=Build Feature
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xeae7c4
+transmitop=1
+op1=Confirm
+
+// 459:75
+[com_75]
+type=text
+x=388
+y=293
+width=97
+height=22
+layer=com_64
+textfont=verdana_11pt_regular
+text=Build Feature
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xeae7c4
+transmitop=1
+op1=Confirm

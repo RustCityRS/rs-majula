@@ -1,0 +1,571 @@
+// 420:0
+[com_0]
+type=rectangle
+widthmode=minus
+heightmode=minus
+colour=0xffffff
+fill=yes
+trans=175
+
+// 420:1
+[com_1]
+type=text
+x=25
+y=25
+width=230
+height=200
+widthmode=minus
+heightmode=minus
+layer=com_29
+textfont=b12_full
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xff991f
+
+// 420:2
+[com_2]
+type=text
+x=25
+y=75
+width=230
+height=200
+widthmode=minus
+heightmode=minus
+layer=com_29
+textfont=b12_full
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xff991f
+
+// 420:3
+[com_3]
+type=text
+x=25
+y=125
+width=230
+height=200
+widthmode=minus
+heightmode=minus
+layer=com_29
+textfont=b12_full
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xff991f
+
+// 420:4
+[com_4]
+type=text
+x=25
+y=175
+width=230
+height=200
+widthmode=minus
+heightmode=minus
+layer=com_29
+textfont=b12_full
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xff991f
+
+// 420:5
+[com_5]
+type=model
+width=45
+height=40
+ymode=abs_centre
+layer=com_39
+model=model_16026
+modelangle=512,0,0
+modelzoom=500
+
+// 420:6
+[com_6]
+type=model
+x=94
+y=43
+width=53
+height=75
+layer=com_30
+model=model_2949
+modelorigin=2,42
+modelzoom=800
+modelanim=swarm_walk
+onload=bees_init(event_com, beehive:com_7)
+
+// 420:7
+[com_7]
+type=model
+x=337
+y=135
+width=53
+height=75
+layer=com_30
+model=model_2949
+modelorigin=2,42
+modelzoom=800
+modelanim=swarm_walk
+onload=bees_init(event_com, beehive:com_6)
+
+// 420:8
+[com_8]
+type=text
+x=206
+y=20
+width=230
+height=200
+widthmode=minus
+heightmode=minus
+layer=com_29
+textfont=b12_full
+text=LID
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xff991f
+
+// 420:9
+[com_9]
+type=text
+x=206
+y=72
+width=230
+height=200
+widthmode=minus
+heightmode=minus
+layer=com_29
+textfont=b12_full
+text=UPPER<br>MIDDLE
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xff991f
+
+// 420:10
+[com_10]
+type=text
+x=206
+y=124
+width=230
+height=200
+widthmode=minus
+heightmode=minus
+layer=com_29
+textfont=b12_full
+text=LOWER<br>MIDDLE
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xff991f
+
+// 420:11
+[com_11]
+type=text
+x=206
+y=176
+width=230
+height=200
+widthmode=minus
+heightmode=minus
+layer=com_29
+textfont=b12_full
+text=LEGS
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xff991f
+
+// 420:12
+[com_12]
+type=layer
+x=25
+y=25
+width=100
+height=50
+layer=com_29
+dragdepth=1
+candrop=yes
+dragdeadzone=2
+dragdeadtime=2
+onvartransmit=script2130(event_com, beehive:com_1){varplayer_805}
+ondragcomplete=macro_beekeeper_dragcomplete(event_com, event_com2, beehive:com_1)
+
+// 420:13
+[com_13]
+type=layer
+x=25
+y=75
+width=100
+height=50
+layer=com_29
+dragdepth=1
+candrop=yes
+dragdeadzone=2
+dragdeadtime=2
+onvartransmit=script2130(event_com, beehive:com_2){varplayer_805}
+ondragcomplete=macro_beekeeper_dragcomplete(event_com, event_com2, beehive:com_2)
+
+// 420:14
+[com_14]
+type=layer
+x=25
+y=125
+width=100
+height=50
+layer=com_29
+dragdepth=1
+candrop=yes
+dragdeadzone=2
+dragdeadtime=2
+onvartransmit=script2130(event_com, beehive:com_3){varplayer_805}
+ondragcomplete=macro_beekeeper_dragcomplete(event_com, event_com2, beehive:com_3)
+
+// 420:15
+[com_15]
+type=layer
+x=25
+y=175
+width=100
+height=50
+layer=com_29
+dragdepth=1
+candrop=yes
+dragdeadzone=2
+dragdeadtime=2
+onvartransmit=script2130(event_com, beehive:com_4){varplayer_805}
+ondragcomplete=macro_beekeeper_dragcomplete(event_com, event_com2, beehive:com_4)
+
+// 420:16
+[com_16]
+type=layer
+x=206
+y=20
+width=100
+height=50
+layer=com_29
+dragdepth=1
+candrop=yes
+dragdeadzone=2
+dragdeadtime=2
+onvartransmit=script2130(event_com, beehive:com_8){varplayer_805}
+ondragcomplete=macro_beekeeper_dragcomplete(event_com, event_com2, beehive:com_8)
+
+// 420:17
+[com_17]
+type=layer
+x=206
+y=72
+width=100
+height=50
+layer=com_29
+dragdepth=1
+candrop=yes
+dragdeadzone=2
+dragdeadtime=2
+onvartransmit=script2130(event_com, beehive:com_9){varplayer_805}
+ondragcomplete=macro_beekeeper_dragcomplete(event_com, event_com2, beehive:com_9)
+
+// 420:18
+[com_18]
+type=layer
+x=206
+y=124
+width=100
+height=50
+layer=com_29
+dragdepth=1
+candrop=yes
+dragdeadzone=2
+dragdeadtime=2
+onvartransmit=script2130(event_com, beehive:com_10){varplayer_805}
+ondragcomplete=macro_beekeeper_dragcomplete(event_com, event_com2, beehive:com_10)
+
+// 420:19
+[com_19]
+type=layer
+x=206
+y=176
+width=100
+height=50
+layer=com_29
+dragdepth=1
+candrop=yes
+dragdeadzone=2
+dragdeadtime=2
+onvartransmit=script2130(event_com, beehive:com_11){varplayer_805}
+ondragcomplete=macro_beekeeper_dragcomplete(event_com, event_com2, beehive:com_11)
+
+// 420:20
+[com_20]
+type=model
+widthmode=minus
+heightmode=minus
+xmode=abs_centre
+ymode=abs_centre
+layer=com_16
+model=null
+modelzoom=800
+modelobjwidth=100
+modelobjheight=50
+transmitop=10
+op10= 
+
+// 420:21
+[com_21]
+type=model
+widthmode=minus
+heightmode=minus
+xmode=abs_centre
+ymode=abs_centre
+layer=com_15
+model=null
+modelzoom=800
+modelobjwidth=100
+modelobjheight=50
+
+// 420:22
+[com_22]
+type=model
+widthmode=minus
+heightmode=minus
+xmode=abs_centre
+ymode=abs_centre
+layer=com_13
+model=null
+modelzoom=800
+modelobjwidth=100
+modelobjheight=50
+
+// 420:23
+[com_23]
+type=model
+widthmode=minus
+heightmode=minus
+xmode=abs_centre
+ymode=abs_centre
+layer=com_14
+model=null
+modelzoom=800
+modelobjwidth=100
+modelobjheight=50
+
+// 420:24
+[com_24]
+type=model
+x=-10
+y=-13
+width=533
+height=363
+model=model_16033
+modelorigin=0,-4
+modelangle=517,0,0
+modelzoom=421
+
+// 420:25
+[com_25]
+type=model
+widthmode=minus
+heightmode=minus
+xmode=abs_centre
+ymode=abs_centre
+layer=com_12
+model=null
+modelzoom=800
+modelobjwidth=100
+modelobjheight=50
+
+// 420:26
+[com_26]
+type=model
+widthmode=minus
+heightmode=minus
+xmode=abs_centre
+ymode=abs_centre
+layer=com_19
+model=null
+modelzoom=800
+modelobjwidth=100
+modelobjheight=50
+transmitop=10
+op10= 
+
+// 420:27
+[com_27]
+type=model
+widthmode=minus
+heightmode=minus
+xmode=abs_centre
+ymode=abs_centre
+layer=com_18
+model=null
+modelzoom=800
+modelobjwidth=100
+modelobjheight=50
+transmitop=10
+op10= 
+
+// 420:28
+[com_28]
+type=model
+widthmode=minus
+heightmode=minus
+xmode=abs_centre
+ymode=abs_centre
+layer=com_17
+model=null
+modelzoom=800
+modelobjwidth=100
+modelobjheight=50
+transmitop=10
+op10= 
+
+// 420:29
+[com_29]
+type=layer
+width=330
+height=250
+onload=macro_beekeeper_init(event_com, beehive:com_25, beehive:com_22, beehive:com_23, beehive:com_21, beehive:com_20, beehive:com_28, beehive:com_27, beehive:com_26)
+onvartransmit=macro_beekeeper_transmit(event_com, beehive:com_25, beehive:com_22, beehive:com_23, beehive:com_21, beehive:com_20, beehive:com_28, beehive:com_27, beehive:com_26){varplayer_805}
+
+// 420:30
+[com_30]
+type=layer
+width=10
+height=10
+widthmode=minus
+heightmode=minus
+xmode=abs_centre
+ymode=abs_centre
+
+// 420:31
+[com_31]
+type=layer
+x=25
+y=25
+width=70
+height=127
+xmode=abs_right
+ymode=abs_bottom
+
+// 420:32
+[com_32]
+type=text
+x=25
+y=25
+width=145
+height=155
+xmode=abs_right
+textfont=p12_full
+text=Drag the spinning components into the correct positions, then press the <col=ffffff>Build</col> button.<br><br>Look at the example below if you need a hint.
+textlineheight=15
+textalignh=centre
+textshadow=yes
+colour=0xff991f
+
+// 420:33
+[com_33]
+type=model
+y=4
+width=70
+height=37
+xmode=abs_centre
+layer=com_31
+model=model_16036
+modelorigin=-1,1
+modelzoom=900
+
+// 420:34
+[com_34]
+type=model
+y=40
+width=65
+height=25
+xmode=abs_centre
+layer=com_31
+model=model_16025
+modelorigin=0,13
+modelzoom=900
+
+// 420:35
+[com_35]
+type=model
+y=64
+width=65
+height=25
+xmode=abs_centre
+layer=com_31
+model=model_16022
+modelzoom=900
+
+// 420:36
+[com_36]
+type=model
+y=88
+width=65
+height=31
+xmode=abs_centre
+layer=com_31
+model=model_16034
+modelzoom=900
+
+// 420:37
+[com_37]
+type=text
+height=50
+widthmode=minus
+xmode=abs_centre
+ymode=abs_centre
+layer=com_31
+textfont=b12_full
+text=EXAMPLE
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xff991f
+
+// 420:38
+[com_38]
+type=graphic
+x=5
+y=5
+width=26
+height=23
+xmode=abs_right
+graphic="close_buttons,4"
+colour=0x000000
+transmitop=1
+op1=Close
+onmouseover=graphic_swapper(event_com, "close_buttons,5")
+onmouseleave=graphic_swapper(event_com, "close_buttons,4")
+onop=closebutton_click
+
+// 420:39
+[com_39]
+type=layer
+y=250
+width=125
+height=50
+xmode=abs_centre
+transmitop=1
+op1=Build
+onmouseover=text_colour_swapper(beehive:com_40, ^white)
+onmouseleave=text_colour_swapper(beehive:com_40, 0xff991f)
+
+// 420:40
+[com_40]
+type=text
+width=45
+height=32
+widthmode=minus
+xmode=abs_right
+ymode=abs_centre
+layer=com_39
+textfont=b12_full
+text=BUILD
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xff991f

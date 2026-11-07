@@ -1,0 +1,124 @@
+// 4:0
+[com_0]
+type=layer
+x=5
+y=5
+width=182
+height=215
+
+// 4:1
+[com_1]
+type=model
+x=22
+y=40
+width=142
+height=27
+layer=com_0
+model=model_6555
+modelorigin=1,10
+modelangle=437,0,0
+modelzoom=404
+
+// 4:2
+[com_2]
+type=model
+x=31
+y=48
+width=124
+height=11
+layer=com_0
+model=model_6558
+modelorigin=1,10
+modelangle=437,0,0
+modelzoom=400
+
+// 4:3
+[com_3]
+type=model
+x=35
+y=120
+width=109
+height=79
+layer=com_0
+model=model_6556
+modelorigin=5,-6
+modelangle=468,2045,0
+modelzoom=400
+
+// 4:4
+[com_4]
+type=model
+x=44
+y=131
+width=89
+height=57
+layer=com_0
+model=model_6554
+modelorigin=5,-6
+modelangle=468,2045,0
+modelzoom=392
+
+// 4:5
+[com_5]
+type=text
+x=24
+y=93
+width=136
+height=17
+layer=com_0
+textfont=p12_full
+text=Water Collected
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xbf751d
+
+// 4:6
+[com_6]
+type=text
+x=48
+y=9
+width=85
+height=14
+layer=com_0
+textfont=p12_full
+text=Time Left
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xbf751d
+
+// 4:7
+[com_7]
+type=model
+x=140
+y=172
+width=33
+height=29
+layer=com_0
+model=model_6544
+modelorigin=4,5
+modelangle=409,97,0
+modelzoom=400
+
+// 4:8
+[com_8]
+type=text
+x=150
+y=180
+width=17
+height=14
+layer=com_0
+textfont=p12_full
+text=%1
+textshadow=yes
+colour=0xbf751d
+onvartransmit=tog_update_interface{varplayer_449}
+
+// 4:9
+[com_9]
+type=layer
+y=24
+width=182
+height=190
+layer=com_0

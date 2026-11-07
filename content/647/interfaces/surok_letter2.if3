@@ -1,0 +1,78 @@
+// 250:0
+[com_0]
+type=model
+x=45
+y=9
+width=418
+height=325
+layer=com_6
+model=model_21509
+modelorigin=14,-41
+modelangle=510,0,0
+modelzoom=570
+
+// 250:1
+[com_1]
+type=layer
+x=46
+y=34
+width=387
+height=287
+layer=com_6
+
+// 250:2
+[com_2]
+type=layer
+x=58
+y=70
+width=358
+height=225
+layer=com_6
+
+// 250:3
+[com_3]
+type=graphic
+x=370
+y=46
+width=26
+height=23
+layer=com_6
+graphic="close_buttons,2"
+colour=0x000000
+transmitop=1
+op1=Close
+onmouseleave=graphic_swapper(event_com, "close_buttons,2")
+onmouserepeat=graphic_swapper(event_com, "close_buttons,3")
+onclick=closebutton_click
+
+// 250:4
+[com_4]
+type=text
+x=37
+y=13
+width=329
+height=17
+layer=com_2
+textfont=q8_full
+text=To My Business Partner,
+colour=0x46320a
+
+// 250:5
+[com_5]
+type=text
+x=41
+y=44
+width=297
+height=136
+layer=com_2
+textfont=q8_full
+text=All is well here, my friend.                  I will continue with my work. You do not need worry. They suspect nothing, the fools! In three days there will be a new King in Varrock!                                                                        Surok Magis
+colour=0x46320a
+
+// 250:6
+[com_6]
+type=layer
+width=508
+height=370
+xmode=abs_centre
+ymode=abs_centre

@@ -1,0 +1,85 @@
+// 673
+[proc,script673](int $int0, int $int1, int $int2, int $int3, int $int4, obj $obj5, int $int6, int $int7, int $int8, int $int9)
+def_component $component10 = enum(int, component, enum_1083, $int0);
+cc_deleteall($component10);
+def_int $int11 = if_getwidth($component10);
+def_int $int12 = if_getheight($component10);
+def_string $string0 = "";
+if ($int7 = 1) {
+    $string0 = "Empty";
+} else if ($int1 = 0) {
+    $string0 = "Buy";
+} else {
+    $string0 = "Sell";
+}
+cc_create($component10, ^iftype_rectangle, 0);
+cc_setsize($int11, $int12, ^setsize_abs, ^setsize_abs);
+cc_setposition(0, 0, ^setpos_abs_left, ^setpos_abs_top);
+cc_setfill(true);
+cc_setcolour(^white);
+cc_settrans(255);
+~script584($component10, $string0);
+def_int $int13 = if_getnextsubid($component10);
+if ($int7 = 1) {
+    if ($int0 < 2 | playermember = true) {
+        if ($int9 = $int0 & cc_find($component10, 0) = true) {
+            cc_settrans(230);
+        }
+    } else {
+        if_sethide(false, enum(int, component, enum_1085, $int0));
+    }
+}
+def_string $string1 = ~tostring_spacer($int2, ",");
+def_string $string2 = ~tostring_spacer($int6, ",");
+def_int $int14 = 0;
+def_int $int15 = 0;
+def_component $component16 = enum(int, component, enum_1084, $int0);
+if_sethide(true, $component16);
+def_string $string3 = "";
+if ($int7 = 1) {
+    if ($int0 < 2 | playermember = true) {
+        if ($int0 = $int9) {
+            if_sethide(false, $component16);
+        } else {
+            cc_create($component10, ^iftype_graphic, $int13);
+            cc_setgraphic("grand_exchange_misc_graphics,5");
+            cc_setsize(16, 14, ^setsize_abs, ^setsize_abs);
+            cc_setposition(5, 29, ^setpos_abs_left, ^setpos_abs_top);
+            $int13 = calc($int13 + 1);
+        }
+    }
+} else {
+    $int14 = 7;
+    $int15 = calc($int12 - 30);
+    ~script674($int14, $int15, calc($int11 - 14), 15, $int0, $component10, $int13, 1, $int7, $int8, $int2, $int3);
+    $int13 = if_getnextsubid($component10);
+    cc_create($component10, ^iftype_graphic, $int13);
+    $int13 = calc($int13 + 1);
+    cc_setposition(6, 30, ^setpos_abs_left, ^setpos_abs_top);
+    cc_setsize(40, 36, ^setsize_abs, ^setsize_abs);
+    cc_setgraphic("bank_slot,0");
+    cc_create($component10, ^iftype_graphic, $int13);
+    cc_setposition(8, 32, ^setpos_abs_left, ^setpos_abs_top);
+    cc_setsize(36, 32, ^setsize_abs, ^setsize_abs);
+    cc_setobject($obj5, $int2);
+    cc_setgraphicshadow(^black);
+    $int13 = calc($int13 + 1);
+    cc_create($component10, ^iftype_text, $int13);
+    $int13 = calc($int13 + 1);
+    cc_setposition(48, 30, ^setpos_abs_left, ^setpos_abs_top);
+    cc_setsize(calc($int11 - 53), 22, ^setsize_abs, ^setsize_abs);
+    cc_setcolour(0xcc9900);
+    cc_settextfont(p11_full);
+    cc_settextalign(^settextalign_left, ^settextalign_top, 0);
+    cc_settextshadow(true);
+    cc_settext(oc_name($obj5));
+    cc_create($component10, ^iftype_text, $int13);
+    $int13 = calc($int13 + 1);
+    cc_setposition(48, 54, ^setpos_abs_left, ^setpos_abs_top);
+    cc_setsize(calc($int11 - 53), 15, ^setsize_abs, ^setsize_abs);
+    cc_setcolour(0xbdbb5b);
+    cc_settextfont(p11_full);
+    cc_settextalign(^settextalign_left, ^settextalign_top, 15);
+    cc_settextshadow(true);
+    cc_settext("<$string2> gp");
+}

@@ -1,40 +1,41 @@
-[proc,login_popup_full](int $int0, int $int1, int $int2, graphic $graphic3, int $int4, int $int5, int $int6, int $int7, string $string0, string $string1, string $string2)
-def_component $component8 = login:com5;
-def_component $component9 = login:com7;
-def_component $component10 = login:com11;
-def_component $component11 = login:com10;
-def_component $component12 = login:com12;
-def_component $component13 = login:com55;
-def_component $component14 = login:com13;
-def_component $component15 = login:com14;
-def_component $component16 = login:com15;
-def_component $component17 = login:com57;
-def_component $component18 = login:com58;
-def_component $component19 = login:com59;
-if (login_getint_5623 = true) {
-    $component8 = south_progress9:com29;
-    $component9 = south_progress9:com1;
-    $component10 = south_progress9:com4;
-    $component11 = south_progress9:com3;
-    $component12 = south_progress9:com5;
-    $component13 = south_progress9:com6;
-    $component14 = south_progress9:com11;
-    $component15 = south_progress9:com12;
-    $component16 = south_progress9:com13;
-    $component17 = south_progress9:com7;
-    $component18 = south_progress9:com8;
-    $component19 = south_progress9:com9;
+// 3232
+[proc,login_popup_full](int $int0, int $int1, string $string0, int $int2, graphic $graphic3, int $int4, int $int5, string $string1, int $int6, string $string2, int $int7)
+def_component $component8 = login:com_5;
+def_component $component9 = login:com_7;
+def_component $component10 = login:com_11;
+def_component $component11 = login:com_10;
+def_component $component12 = login:com_12;
+def_component $component13 = login:com_55;
+def_component $component14 = login:com_13;
+def_component $component15 = login:com_14;
+def_component $component16 = login:com_15;
+def_component $component17 = login:com_57;
+def_component $component18 = login:com_58;
+def_component $component19 = login:com_59;
+if (unknown_command_5623 = true) {
+    $component8 = south_progress9:com_29;
+    $component9 = south_progress9:com_1;
+    $component10 = south_progress9:com_4;
+    $component11 = south_progress9:com_3;
+    $component12 = south_progress9:com_5;
+    $component13 = south_progress9:com_6;
+    $component14 = south_progress9:com_11;
+    $component15 = south_progress9:com_12;
+    $component16 = south_progress9:com_13;
+    $component17 = south_progress9:com_7;
+    $component18 = south_progress9:com_8;
+    $component19 = south_progress9:com_9;
 }
 if (if_gethide($component8) = false) {
     return;
 }
-if (%varc_int_174 ! 5) {
-    %varc_int_1089 = %varc_int_174;
+if (%varclient_174 ! 5) {
+    %varclient_1089 = %varclient_174;
 }
-%varc_int_174 = 5;
+%varclient_174 = 5;
 def_int $int20 = 250;
-if ($int4 = true) {
-    $int20 = max(250, calc(op4125($string1, 3793) + 36));
+if ($int4 = 1) {
+    $int20 = max(250, calc(stringwidth($string1, verdana_11pt_regular) + 36));
     if (calc($int20 % 2) > 0) {
         $int20 = calc($int20 + 1);
     }
@@ -43,15 +44,15 @@ if_setsize($int20, 154, ^setsize_abs, ^setsize_abs, $component9);
 def_int $int21 = calc(paraheight($string0, if_getwidth($component10), verdana_11pt_regular) * 16 + 5);
 if_setsize(20, $int21, ^setsize_minus, ^setsize_abs, $component10);
 if_settext($string0, $component10);
-if ($int2 = true) {
-    %varc_int_1092 = calc(clientclock + 5);
+if ($int2 = 1) {
+    %varclient_1092 = calc(clientclock + 5);
     if_setgraphic("loading_wheel_1,0", $component11);
     if_setsize(111, 111, ^setsize_abs, ^setsize_abs, $component11);
     if_setposition(0, 7, ^setpos_abs_centre, ^setpos_abs_top, $component11);
     if_setposition(0, 112, ^setpos_abs_centre, ^setpos_abs_top, $component10);
-    if_setontimer("login_popup_throbber()", $component11);
+    if_setontimer("login_popup_throbber", $component11);
 } else {
-    %varc_int_1092 = 0;
+    %varclient_1092 = 0;
     if_setontimer(null, $component11);
     if_setgraphic($graphic3, $component11);
     if_setsize(76, 63, ^setsize_abs, ^setsize_abs, $component11);
@@ -61,19 +62,19 @@ if ($int2 = true) {
 }
 def_int $int22 = 0;
 $int21 = calc(if_gety($component10) + $int21);
-if ($int4 = false & $int6 = false) {
+if ($int4 = 0 & $int6 = 0) {
     $int22 = 12;
     $int21 = calc($int21 + $int22);
     if_sethide(true, $component12);
     if_sethide(true, $component13);
-} else if ($int4 = true & $int6 = false) {
+} else if ($int4 = 1 & $int6 = 0) {
     $int22 = 41;
     $int21 = calc($int21 + $int22);
     if_setposition(0, 8, ^setpos_abs_centre, ^setpos_abs_bottom, $component12);
     if_sethide(false, $component12);
     if_sethide(true, $component13);
     ~login_popup_small_button($string1, $component12, $component14, $component15, $component16, $int5);
-} else if ($int4 = false & $int6 = true) {
+} else if ($int4 = 0 & $int6 = 1) {
     $int22 = 41;
     $int21 = calc($int21 + $int22);
     if_setposition(0, 8, ^setpos_abs_centre, ^setpos_abs_bottom, $component13);
@@ -83,7 +84,7 @@ if ($int4 = false & $int6 = false) {
 } else {
     $int22 = 70;
     $int21 = calc($int21 + $int22);
-    if ($int7 = false) {
+    if ($int7 = 0) {
         if_setposition(0, 40, ^setpos_abs_centre, ^setpos_abs_bottom, $component12);
         if_setposition(0, 10, ^setpos_abs_centre, ^setpos_abs_bottom, $component13);
     } else {
@@ -96,8 +97,8 @@ if ($int4 = false & $int6 = false) {
     ~login_popup_big_button($string2, $component13, $component17, $component18, $component19);
 }
 if_setsize(if_getwidth($component9), $int21, ^setsize_abs, ^setsize_abs, $component9);
-~clientscript_2952($component12, $component13, $int0);
+~script2952($component12, $component13, $int0);
 if_setposition(0, $int22, ^setpos_abs_centre, ^setpos_abs_bottom, $component10);
 if_sethide(false, $component8);
 if_sethide(false, $component9);
-if_sethide(true, login:com4);
+if_sethide(true, login:com_4);

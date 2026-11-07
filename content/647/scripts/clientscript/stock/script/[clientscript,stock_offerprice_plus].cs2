@@ -1,9 +1,10 @@
+// 605
 [clientscript,stock_offerprice_plus]
-if (%varp_1109 = -1) {
+if (%varplayer_1109 = null) {
     return;
 }
-if (%varc_int_85 < 2147483647) {
-    %varc_int_85 = calc(%varc_int_85 + 1);
-    if_settext("<op4124(%varc_int_85, 1)> gp", stockmarket:com153);
+if (%varclient_85 < ^max_32bit_int) {
+    %varclient_85 = calc(%varclient_85 + 1);
+    if_settext("<tostring_localised(%varclient_85, true)> gp", stockmarket:com_153);
     ~sm_offerprice_settimer;
 }

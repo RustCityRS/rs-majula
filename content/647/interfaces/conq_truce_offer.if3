@@ -1,0 +1,431 @@
+// 1008:0
+[com_0]
+type=layer
+width=512
+height=334
+transmitop=10
+op10=    
+
+// 1008:1
+[com_1]
+type=graphic
+x=116
+y=89
+width=280
+height=174
+layer=com_0
+graphic=km_middlefillcolour
+colour=0xffffffff
+transmitop=10
+op10=    
+
+// 1008:2
+[com_2]
+type=graphic
+x=109
+y=238
+width=32
+height=32
+layer=com_0
+graphic="v2_stone_borders,6"
+colour=0xffffffff
+transmitop=10
+op10=    
+
+// 1008:3
+[com_3]
+type=graphic
+x=109
+y=67
+width=32
+height=32
+layer=com_0
+graphic="v2_stone_borders,35"
+colour=0xffffffff
+transmitop=10
+op10=    
+
+// 1008:4
+[com_4]
+type=graphic
+x=109
+y=67
+width=32
+height=32
+xmode=abs_right
+layer=com_0
+graphic="v2_stone_borders,37"
+colour=0xffffffff
+transmitop=10
+op10=    
+
+// 1008:5
+[com_5]
+type=graphic
+x=109
+y=238
+width=32
+height=32
+xmode=abs_right
+layer=com_0
+graphic="v2_stone_borders,7"
+colour=0xffffffff
+transmitop=10
+op10=    
+
+// 1008:6
+[com_6]
+type=graphic
+x=96
+y=99
+width=32
+height=139
+layer=com_0
+graphic="v2_stone_borders,1"
+tiling=yes
+colour=0xffffffff
+transmitop=10
+op10=    
+
+// 1008:7
+[com_7]
+type=graphic
+x=97
+y=99
+width=32
+height=139
+xmode=abs_right
+layer=com_0
+graphic="v2_stone_borders,3"
+tiling=yes
+colour=0xffffffff
+transmitop=10
+op10=    
+
+// 1008:8
+[com_8]
+type=graphic
+x=141
+y=67
+width=230
+height=32
+layer=com_0
+graphic="v2_stone_borders,36"
+tiling=yes
+colour=0xffffffff
+transmitop=10
+op10=    
+
+// 1008:9
+[com_9]
+type=graphic
+x=141
+y=250
+width=230
+height=32
+layer=com_0
+graphic="v2_stone_borders,2"
+tiling=yes
+colour=0xffffffff
+transmitop=10
+op10=    
+
+// 1008:10
+[com_10]
+type=rectangle
+x=116
+y=89
+width=280
+height=174
+layer=com_0
+colour=0x000000
+transmitop=10
+op10=    
+
+// 1008:11
+[com_11]
+type=rectangle
+x=118
+y=91
+width=276
+height=170
+layer=com_0
+colour=0x000000
+trans=192
+transmitop=10
+op10=    
+
+// 1008:12
+[com_12]
+type=rectangle
+x=117
+y=90
+width=278
+height=172
+layer=com_0
+colour=0x000000
+trans=64
+transmitop=10
+op10=    
+
+// 1008:13
+[com_13]
+type=graphic
+x=377
+y=70
+width=16
+height=16
+layer=com_0
+graphic="v2_stone_close_button,0"
+colour=0xffffffff
+transmitop=1,10
+op1=Close
+op10=    
+onmouseover=graphic_swapper(event_com, "v2_stone_close_button,1")
+onmouseleave=graphic_swapper(event_com, "v2_stone_close_button,0")
+onop=closebutton_click
+
+// 1008:14
+[com_14]
+type=rectangle
+x=124
+y=97
+width=264
+height=158
+layer=com_0
+colour=0x5a5349
+transmitop=10
+op10=     
+
+// 1008:15
+[com_15]
+type=rectangle
+x=124
+y=97
+width=263
+height=157
+layer=com_0
+colour=0x403931
+fill=yes
+transmitop=10
+op10=     
+
+// 1008:16
+[com_16]
+type=rectangle
+x=126
+y=99
+width=260
+height=154
+layer=com_0
+colour=0x2d261e
+fill=yes
+transmitop=10
+op10=     
+
+// 1008:17
+[com_17]
+type=rectangle
+x=125
+y=98
+width=262
+height=156
+layer=com_0
+colour=0x000000
+transmitop=10
+op10=     
+
+// 1008:18
+[com_18]
+type=text
+y=70
+width=100
+height=16
+xmode=abs_centre
+layer=com_0
+textfont=b12_full
+text=Truce Offer
+textalignh=centre
+textshadow=yes
+colour=0xff991f
+
+// 1008:19
+[com_19]
+type=rectangle
+x=136
+y=109
+width=240
+height=55
+layer=com_0
+colour=0x201c17
+
+// 1008:20
+[com_20]
+type=rectangle
+x=137
+y=110
+width=238
+height=53
+layer=com_0
+colour=0x595143
+
+// 1008:21
+[com_21]
+type=rectangle
+x=138
+y=111
+width=236
+height=51
+layer=com_0
+colour=0x161410
+fill=yes
+
+// 1008:22
+[com_22]
+type=graphic
+x=161
+y=124
+width=25
+height=25
+layer=com_0
+graphic=conq_exclamation_icon
+colour=0x000000
+
+// 1008:23
+[com_23]
+type=text
+x=201
+y=114
+width=150
+height=45
+layer=com_0
+textfont=p11_full
+text=Your opponent has offered to call a truce. If you accept, the Conquest will end in a draw.
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xff991f
+
+// 1008:24
+[com_24]
+type=layer
+x=4915
+y=174
+width=90
+height=43
+xmode=proportion_left
+transmitop=10
+op10= 
+
+// 1008:25
+[com_25]
+type=graphic
+width=90
+height=43
+layer=com_24
+graphic=graphic_3255
+colour=0x000000
+
+// 1008:26
+[com_26]
+type=layer
+x=4915
+y=174
+width=90
+height=43
+xmode=proportion_right
+transmitop=10
+op10=  
+
+// 1008:27
+[com_27]
+type=graphic
+width=90
+height=43
+layer=com_26
+graphic=graphic_3255
+colour=0x000000
+
+// 1008:28
+[com_28]
+type=text
+width=16391
+height=16391
+widthmode=proportion
+heightmode=proportion
+xmode=abs_centre
+ymode=abs_centre
+layer=com_26
+textfont=welcome_font_tiny
+text=Decline
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xe6ca98
+transmitop=1,10
+op1=Decline
+op10= 
+onmouseover=text_colour_swapper(event_com, ^white)
+onmouseleave=text_colour_swapper(event_com, 0xe6ca98)
+
+// 1008:29
+[com_29]
+type=text
+width=16391
+height=16391
+widthmode=proportion
+heightmode=proportion
+xmode=abs_centre
+ymode=abs_centre
+layer=com_24
+textfont=welcome_font_tiny
+text=Accept
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xe6ca98
+transmitop=1
+op1=Accept
+onmouseover=text_colour_swapper(event_com, ^white)
+onmouseleave=text_colour_swapper(event_com, 0xe6ca98)
+
+// 1008:30
+[com_30]
+type=layer
+y=227
+width=176
+height=15
+xmode=abs_centre
+transmitop=1,10
+op1=Ignore
+op10= 
+onmouseover=script454
+onmouseleave=script455
+onvartransmit=script452{varplayer_1874}
+
+// 1008:31
+[com_31]
+type=graphic
+width=14
+height=14
+layer=com_30
+graphic="km_tickbox,0"
+colour=0x000000
+transmitop=10
+op10=  
+
+// 1008:32
+[com_32]
+type=text
+width=166
+height=16
+xmode=abs_right
+layer=com_30
+textfont=p11_full
+text=Ignore opponent's truce offers
+textalignh=right
+textalignv=centre
+textshadow=yes
+colour=0xff981f
+transmitop=10
+op10= 

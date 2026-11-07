@@ -1,0 +1,26 @@
+// 3360
+[proc,script3360]()(int, string, obj)
+switch_obj (%varplayer_448) {
+    case default :
+        return(5, "Aptitude (Tier 1)", aptitude__tier_1);
+    case cub_hoardstalker_pouch :
+        return(5, "Aptitude (Tier 1)", aptitude__tier_1);
+    case little_hoardstalker_pouch :
+        return(15, "Aptitude (Tier 2)", aptitude__tier_2);
+    case "naïve_hoardstalker_pouch" :
+        return(25, "Aptitude (Tier 3)", aptitude__tier_3);
+    case keen_hoardstalker_pouch :
+        return(35, "Aptitude (Tier 4)", aptitude__tier_4);
+    case brave_hoardstalker_pouch :
+        return(45, "Aptitude (Tier 5)", aptitude__tier_5);
+    case brah_hoardstalker_pouch :
+        return(55, "Aptitude (Tier 6)", aptitude__tier_6);
+    case naabe_hoardstalker_pouch :
+        return(65, "Aptitude (Tier 7)", aptitude__tier_7);
+    case wise_hoardstalker_pouch :
+        return(75, "Aptitude (Tier 8)", aptitude__tier_8);
+    case adept_hoardstalker_pouch :
+        return(85, "Aptitude (Tier 9)", aptitude__tier_9);
+    case sachem_hoardstalker_pouch :
+        return(95, "Aptitude (Tier 10)", aptitude__tier_10);
+}

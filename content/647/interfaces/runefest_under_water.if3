@@ -1,0 +1,75 @@
+// 794:0
+[com_0]
+type=model
+x=-3
+y=-10
+width=517
+height=339
+model=model_42525
+modelorigin=0,-11
+modelangle=527,0,0
+modelzoom=228
+
+// 794:1
+[com_1]
+type=graphic
+x=459
+y=3
+width=26
+height=23
+graphic="close_buttons,6"
+colour=0x000000
+transmitop=1
+candrop=yes
+op1=Close
+onmouseover=graphic_swapper(event_com, "close_buttons,7")
+onmouseleave=graphic_swapper(event_com, "close_buttons,6")
+onop=closebutton_click
+
+// 794:2
+[com_2]
+type=graphic
+x=440
+y=290
+width=39
+height=39
+graphic="v2_book_arrows,4"
+colour=0x000000
+transmitop=1
+op1=Next Page
+
+// 794:3
+[com_3]
+type=graphic
+x=31
+y=290
+width=39
+height=39
+graphic="v2_book_arrows,3"
+colour=0x000000
+transmitop=1
+op1=Previous Page
+
+// 794:4
+[com_4]
+type=text
+x=299
+y=49
+width=133
+height=255
+textfont=p11_full
+textlineheight=12
+colour=0x333333
+onvartransmit=script1383{varplayer_1311}
+
+// 794:5
+[com_5]
+type=text
+x=94
+y=48
+width=133
+height=255
+textfont=p11_full
+textlineheight=12
+colour=0x333333
+onvartransmit=script1383{varplayer_1311}

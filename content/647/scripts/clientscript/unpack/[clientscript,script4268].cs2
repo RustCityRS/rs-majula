@@ -1,0 +1,225 @@
+// 4268
+[clientscript,script4268](int $int0)
+switch_int ($int0) {
+    case 1 :
+        if_settext("Teleport to South Falador", lunarfm_rewards_new:com_76);
+    case 2 :
+        if_settext("Repair Rune Pouch", lunarfm_rewards_new:com_76);
+    case 3 :
+        if_settext("Teleport to North Ardougne", lunarfm_rewards_new:com_76);
+    case 4 :
+        if_settext("Remote Farming", lunarfm_rewards_new:com_76);
+    case 5 :
+        if_settext("Spiritualise Food", lunarfm_rewards_new:com_76);
+    case 6 :
+        if_settext("Make Leather", lunarfm_rewards_new:com_76);
+    case 7 :
+        if_settext("Disruption Shield", lunarfm_rewards_new:com_76);
+    case 8 :
+        if_settext("Vengeance Group", lunarfm_rewards_new:com_76);
+    case 9 :
+        if_settext("Let it Rain Seeds!", lunarfm_rewards_new:com_76);
+    case 10 :
+        if_settext("Gimme Herbs!", lunarfm_rewards_new:com_76);
+    case 11 :
+        if_settext("Vial My Herbs!", lunarfm_rewards_new:com_76);
+    case 12 :
+        if_settext("Turn Lunar Lumber into Runes!", lunarfm_rewards_new:com_76);
+    case 13 :
+        if_settext("Reduce the Fish I Burn!", lunarfm_rewards_new:com_76);
+    case 14 :
+        if_settext("More Planks, Please!", lunarfm_rewards_new:com_76);
+}
+switch_int ($int0) {
+    case 1 :
+        if_settext("Teleports you to the south of Falador.", lunarfm_rewards_new:com_78);
+    case 2 :
+        if_settext("Use on a degraded pouch to repair it and improve its strength, so it takes longer to degrade.", lunarfm_rewards_new:com_78);
+    case 3 :
+        if_settext("Teleports you to the north of Ardougne.", lunarfm_rewards_new:com_78);
+    case 4 :
+        if_settext("View the status of farming patches and cure any disease from a distance.", lunarfm_rewards_new:com_78);
+    case 5 :
+        if_settext("Cast on ordinary food and feed it to your familiar to heal it, boost its combat stats and extend its timer.", lunarfm_rewards_new:com_78);
+    case 6 :
+        if_settext("Cast on hides to turn them into leather. This will convert 5 hides at a time.", lunarfm_rewards_new:com_78);
+    case 7 :
+        if_settext("Nullifies the next hit you receive from another player. This works against players only, not against monsters.", lunarfm_rewards_new:com_78);
+    case 8 :
+        if_settext("When cast, those nearby get to rebound damage.<br>After learning this last spell, your current produce will be reduced by <~tostring_spacer(calc(enum(int, int, enum_3674, 7) * 10), ",")> and the remainder can be spent on wishes.", lunarfm_rewards_new:com_78);
+    case 9 :
+        if_settext("Seeds will appear on the floor. Be quick to pick up the ones you want.", lunarfm_rewards_new:com_78);
+    case 10 :
+        if_settext("Puts a load of grimy herbs in your inventory.", lunarfm_rewards_new:com_78);
+    case 11 :
+        if_settext("Takes all the clean herbs in your inventory and turns them into unfinished potions of that herb type. This will work on noted herbs of up to 50 at a time.", lunarfm_rewards_new:com_78);
+    case 12 :
+        if_settext("Turns all lunar lumber in your inventory into runes. You'll need a full inventory of logs.", lunarfm_rewards_new:com_78);
+    case 13 :
+        if_settext("For the next thirty minutes, you'll find that you burn fewer fish.", lunarfm_rewards_new:com_78);
+    case 14 :
+        if_settext("This will be active for the next twenty minutes: when casting Plank Make, you will have a chance of receiving additional planks.", lunarfm_rewards_new:com_78);
+}
+switch_int ($int0) {
+    case 1 :
+        if (%varplayerbit_9067 < 1) {
+            if_settext("Requires level 72 Magic to cast. You must unlock the spells in order.", lunarfm_rewards_new:com_80);
+        } else {
+            if_settext("Learned!", lunarfm_rewards_new:com_80);
+        }
+    case 2 :
+        if (%varplayerbit_9067 < 2) {
+            if_settext("Requires level 75 Magic to cast. You must unlock the spells in order.", lunarfm_rewards_new:com_80);
+        } else {
+            if_settext("Learned!", lunarfm_rewards_new:com_80);
+        }
+    case 3 :
+        if (%varplayerbit_9067 < 3) {
+            if_settext("Requires level 76 Magic to cast. You must unlock the spells in order.", lunarfm_rewards_new:com_80);
+        } else {
+            if_settext("Learned!", lunarfm_rewards_new:com_80);
+        }
+    case 4 :
+        if (%varplayerbit_9067 < 4) {
+            if_settext("Requires level 78 Magic to cast. You must unlock the spells in order.", lunarfm_rewards_new:com_80);
+        } else {
+            if_settext("Learned!", lunarfm_rewards_new:com_80);
+        }
+    case 5 :
+        if (%varplayerbit_9067 < 5) {
+            if_settext("Requires level 80 Magic to cast. You must unlock the spells in order.", lunarfm_rewards_new:com_80);
+        } else {
+            if_settext("Learned!", lunarfm_rewards_new:com_80);
+        }
+    case 6 :
+        if (%varplayerbit_9067 < 6) {
+            if_settext("Requires level 83 Magic to cast. You must unlock the spells in order.", lunarfm_rewards_new:com_80);
+        } else {
+            if_settext("Learned!", lunarfm_rewards_new:com_80);
+        }
+    case 7 :
+        if (%varplayerbit_9067 < 7) {
+            if_settext("Requires level 90 Magic to cast. You must unlock the spells in order.", lunarfm_rewards_new:com_80);
+        } else {
+            if_settext("Learned!", lunarfm_rewards_new:com_80);
+        }
+    case 8 :
+        if (%varplayerbit_9067 < 8) {
+            if_settext("Requires level 95 Magic to cast. You must unlock the spells in order.", lunarfm_rewards_new:com_80);
+        } else {
+            if_settext("Learned!", lunarfm_rewards_new:com_80);
+        }
+    case default :
+        if (%varplayerbit_9067 < 8) {
+            if_settext("You must unlock all the spells before you can use wishes.", lunarfm_rewards_new:com_80);
+        }
+}
+if ($int0 < 9) {
+    if_sethide(false, lunarfm_rewards_new:com_81);
+} else {
+    if_sethide(true, lunarfm_rewards_new:com_81);
+}
+switch_int ($int0) {
+    case 1 :
+        if_setgraphic("lunar_magic_on,42", lunarfm_rewards_new:com_84);
+    case 2 :
+        if_setgraphic("lunar_magic_on,43", lunarfm_rewards_new:com_84);
+    case 3 :
+        if_setgraphic("lunar_magic_on,44", lunarfm_rewards_new:com_84);
+    case 4 :
+        if_setgraphic("lunar_magic_on,45", lunarfm_rewards_new:com_84);
+    case 5 :
+        if_setgraphic("lunar_magic_on,47", lunarfm_rewards_new:com_84);
+    case 6 :
+        if_setgraphic("lunar_magic_on,46", lunarfm_rewards_new:com_84);
+    case 7 :
+        if_setgraphic("lunar_magic_on,48", lunarfm_rewards_new:com_84);
+    case 8 :
+        if_setgraphic("lunar_magic_on,49", lunarfm_rewards_new:com_84);
+}
+if_sethide(true, lunarfm_rewards_new:com_85);
+if_sethide(true, lunarfm_rewards_new:com_86);
+if_sethide(true, lunarfm_rewards_new:com_87);
+if_sethide(true, lunarfm_rewards_new:com_88);
+if_sethide(true, lunarfm_rewards_new:com_89);
+if_sethide(true, lunarfm_rewards_new:com_90);
+if_sethide(true, lunarfm_rewards_new:com_91);
+if_sethide(true, lunarfm_rewards_new:com_92);
+if_sethide(true, lunarfm_rewards_new:com_93);
+if_sethide(true, lunarfm_rewards_new:com_94);
+if_sethide(true, lunarfm_rewards_new:com_95);
+if_sethide(true, lunarfm_rewards_new:com_96);
+if_sethide(true, lunarfm_rewards_new:com_97);
+if_sethide(true, lunarfm_rewards_new:com_98);
+switch_int ($int0) {
+    case 1 :
+        if (%varplayerbit_9067 < 1) {
+            if_sethide(false, lunarfm_rewards_new:com_85);
+        }
+    case 2 :
+        if (%varplayerbit_9067 < 2) {
+            if_sethide(false, lunarfm_rewards_new:com_86);
+        }
+    case 3 :
+        if (%varplayerbit_9067 < 3) {
+            if_sethide(false, lunarfm_rewards_new:com_87);
+        }
+    case 4 :
+        if (%varplayerbit_9067 < 4) {
+            if_sethide(false, lunarfm_rewards_new:com_88);
+        }
+    case 5 :
+        if (%varplayerbit_9067 < 5) {
+            if_sethide(false, lunarfm_rewards_new:com_89);
+        }
+    case 6 :
+        if (%varplayerbit_9067 < 6) {
+            if_sethide(false, lunarfm_rewards_new:com_90);
+        }
+    case 7 :
+        if (%varplayerbit_9067 < 7) {
+            if_sethide(false, lunarfm_rewards_new:com_91);
+        }
+    case 8 :
+        if (%varplayerbit_9067 < 8) {
+            if_sethide(false, lunarfm_rewards_new:com_92);
+        }
+    case 9 :
+        if (%varplayerbit_9067 > 7) {
+            if_sethide(false, lunarfm_rewards_new:com_93);
+        }
+    case 10 :
+        if (%varplayerbit_9067 > 7) {
+            if_sethide(false, lunarfm_rewards_new:com_94);
+        }
+    case 11 :
+        if (%varplayerbit_9067 > 7) {
+            if_sethide(false, lunarfm_rewards_new:com_95);
+        }
+    case 12 :
+        if (%varplayerbit_9067 > 7) {
+            if_sethide(false, lunarfm_rewards_new:com_96);
+        }
+    case 13 :
+        if (%varplayerbit_9067 > 7) {
+            if_sethide(false, lunarfm_rewards_new:com_97);
+        }
+    case 14 :
+        if (%varplayerbit_9067 > 7) {
+            if_sethide(false, lunarfm_rewards_new:com_98);
+        }
+}
+if_sethide(true, lunarfm_rewards_new:com_380);
+if_sethide(true, lunarfm_rewards_new:com_63);
+if_sethide(true, lunarfm_rewards_new:com_58);
+if_sethide(true, lunarfm_rewards_new:com_53);
+if_sethide(true, lunarfm_rewards_new:com_48);
+if_sethide(true, lunarfm_rewards_new:com_43);
+if_sethide(true, lunarfm_rewards_new:com_38);
+if_sethide(true, lunarfm_rewards_new:com_33);
+if_sethide(true, lunarfm_rewards_new:com_28);
+if_sethide(true, lunarfm_rewards_new:com_23);
+if_sethide(true, lunarfm_rewards_new:com_18);
+if_sethide(true, lunarfm_rewards_new:com_13);
+if_sethide(true, lunarfm_rewards_new:com_8);
+if_sethide(true, lunarfm_rewards_new:com_3);

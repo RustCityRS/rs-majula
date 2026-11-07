@@ -1,7 +1,0 @@
-[proc,clientscript_3413](int $int)
-if ($int = true) {
-    ~graphics_options_message($int, 1, "This setting is not available in your current version of Java.", "", "");
-    ~graphics_options_message($int, 1, "Please update to the latest version.", "", "");
-} else {
-    ~graphics_options_message($int, 1, "This setting is not available in your current version of Java.<br><br>Please update to the latest version, or try our Windows Client available from the link below.", "Download Windows Client", "kbase/view.ws?guid=Downloads_and_Wallpapers");
-}

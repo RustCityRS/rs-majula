@@ -1,8 +1,0 @@
-[proc,clientscript_4408](component $component0, int $int1, component $component2, int $int3, int $int4)
-def_int $int5 = if_getheight($component0);
-def_int $int6 = calc(($int5 - $int4) * 8 / $int5);
-def_int $int7 = calc($int3 * 128 / if_getwidth($component0));
-%varbit_9089 = calc($int6 % 8);
-%varbit_9090 = calc($int7 % 128);
-~clientscript_4411($int3, $int4);
-if_setcolour(hsv_to_rgb(%varp_2098), $component2);

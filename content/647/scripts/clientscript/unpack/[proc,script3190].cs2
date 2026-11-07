@@ -1,0 +1,29 @@
+// 3190
+[proc,script3190]
+if_opensubclient(lobbyscreen:com_61, interface_915);
+if_sethide(false, lobbyscreen:com_44);
+if (if_gethide(enum(int, component, enum_941, 5)) = false) {
+    ~script3161(0);
+}
+if (string_length(%varclient_1798) > 0) {
+    if_settext("Reporting: <%varclient_1798>", interface_915:com_49);
+} else {
+    if_settext("Report Abuse", interface_915:com_49);
+}
+if (playermod = 1 | staffmodlevel > 0) {
+    if (%varclient_6 = false) {
+        if_setgraphic("check_box_2,0", interface_915:com_46);
+    } else {
+        if_setgraphic("check_box_2,2", interface_915:com_46);
+    }
+    if (playermodlevel = 5 | playermodlevel = 6) {
+        if_settext("Suggest to mute this player for 48 hours", interface_915:com_47);
+    } else {
+        if_settext("Mute this player for 48 hours", interface_915:com_47);
+    }
+    if_setsize(calc(stringwidth(if_gettext(interface_915:com_47), verdana_11pt_regular) + 18), if_getheight(interface_915:com_45), ^setsize_abs, ^setsize_abs, interface_915:com_45);
+    if_sethide(false, interface_915:com_45);
+} else {
+    if_sethide(true, interface_915:com_45);
+}
+if_setonkey("lobby_down_collapse(event_keycode)", interface_915:com_18);

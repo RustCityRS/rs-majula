@@ -1,3 +1,4 @@
+// 4136
 [clientscript,closebutton_click_book]
-sound_song_alt2(3549, 1, 0, 255, rare_table_roll(25, 25));
-~clientscript_675;
+sound_vorbis_rate(vorbis_3549, 1, 0, 255, random_sound_pitch(25, 25));
+~script675;

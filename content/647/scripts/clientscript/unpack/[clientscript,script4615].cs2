@@ -1,0 +1,28 @@
+// 4615
+[clientscript,script4615](component $component0)
+switch_component ($component0) {
+    case skillcape_customise:com_15 :
+        if_setcolour(hsvtorgb(%varplayerbit_9255), $component0);
+    case skillcape_customise:com_155 :
+        if_setcolour(hsvtorgb(%varplayerbit_9254), $component0);
+    case skillcape_customise:com_169 :
+        if_setcolour(hsvtorgb(%varplayerbit_9254), $component0);
+    case skillcape_customise:com_183 :
+        if_setcolour(hsvtorgb(%varplayerbit_9254), $component0);
+    case skillcape_customise:com_17 :
+        if_setcolour(hsvtorgb(%varplayerbit_9256), $component0);
+    case skillcape_customise:com_157 :
+        if_setcolour(hsvtorgb(%varplayerbit_9256), $component0);
+    case skillcape_customise:com_171 :
+        if_setcolour(hsvtorgb(%varplayerbit_9255), $component0);
+    case skillcape_customise:com_185 :
+        if_setcolour(hsvtorgb(%varplayerbit_9255), $component0);
+    case skillcape_customise:com_19 :
+        if_setcolour(hsvtorgb(%varplayerbit_9257), $component0);
+    case skillcape_customise:com_159 :
+        if_setcolour(hsvtorgb(%varplayerbit_9257), $component0);
+    case skillcape_customise:com_173 :
+        if_setcolour(hsvtorgb(%varplayerbit_9257), $component0);
+    case skillcape_customise:com_187 :
+        if_setcolour(hsvtorgb(%varplayerbit_9256), $component0);
+}

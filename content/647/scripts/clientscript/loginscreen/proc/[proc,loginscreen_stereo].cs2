@@ -1,5 +1,6 @@
+// 1220
 [proc,loginscreen_stereo](component $component0, component $component1)
-if (get_clientopt_6117 = true) {
+if (detailget_stereo = 1) {
     if_setgraphic("check_box_2,2", $component1);
     if_setgraphic("check_box_2,0", $component0);
 } else {

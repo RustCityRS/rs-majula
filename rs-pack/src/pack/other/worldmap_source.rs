@@ -38,7 +38,7 @@ fn read_square(path: &Path, square: &str) -> Result<String> {
         .with_context(|| format!("Reading world map square {}", path.display()))
 }
 
-pub fn pack_squares(path: &Path, gid: u32, text: &str, names: &AssetNames) -> Result<Vec<u8>> {
+pub fn pack_squares(path: &Path, text: &str, names: &AssetNames) -> Result<Vec<u8>> {
     let mut squares = Vec::new();
     let mut offset = 0;
     for line in text.split_inclusive('\n') {
@@ -50,7 +50,7 @@ pub fn pack_squares(path: &Path, gid: u32, text: &str, names: &AssetNames) -> Re
     }
     let Some(&(start, _, _)) = squares.first() else {
         let mut c = TextCodec::pack(text, names)?;
-        transcode(gid, &mut c)?;
+        transcode(&mut c)?;
         return Ok(c.finish()?.1);
     };
     let mut c = TextCodec::pack(&text[..start], names)?;
@@ -149,41 +149,11 @@ fn shape(c: &mut TextCodec<'_>, key: &str) -> Result<()> {
     Ok(())
 }
 
-pub fn transcode(gid: u32, c: &mut TextCodec<'_>) -> Result<()> {
-    let kind = c.label(
-        "format",
-        if gid == 1 {
-            "details"
-        } else if c.source_len() == Some(7) {
-            "static_element"
-        } else {
-            "area"
-        },
-    )?;
-    if kind == "details" {
-        c.string("group")?;
-        c.string("name")?;
-        c.coordinate("origin")?;
-        c.number("background", Number::U32)?;
-        c.number("active", Number::U8)?;
-        c.number("zoom", Number::U8)?;
-        c.number("unknown", Number::U8)?;
-        let count = c.number("chunks", Number::U8)?;
-        for _ in 0..count {
-            c.number("plane", Number::U8)?;
-            c.array("source_bounds", Number::U16, 4)?;
-            c.array("display_bounds", Number::U16, 4)?;
-        }
-    } else if kind == "static_element" {
-        c.coordinate("coord")?;
-        c.reference("element", Number::U16, "mel")?;
-        c.number("members", Number::U8)?;
-    } else {
-        ensure!(kind == "area", "Unknown world map format: {kind}");
-        let palettes = palettes(c)?;
-        chunks(c, &palettes)?;
-    }
-    Ok(())
+pub fn transcode(c: &mut TextCodec<'_>) -> Result<()> {
+    let kind = c.label("format", "area")?;
+    ensure!(kind == "area", "Unknown world map format: {kind}");
+    let palettes = palettes(c)?;
+    chunks(c, &palettes)
 }
 
 fn palettes(c: &mut TextCodec<'_>) -> Result<[Vec<i64>; 2]> {

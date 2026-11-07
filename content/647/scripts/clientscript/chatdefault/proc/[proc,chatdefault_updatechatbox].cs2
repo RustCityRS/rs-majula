@@ -1,5 +1,6 @@
-[proc,chatdefault_updatechatbox](boolean $boolean)
-if ($boolean = true & ((if_hasoverlay(chatbox:com10) = true | if_hasoverlay(chatbox:com11) = true) & (chat_gethistory_length(0) = false | (chat_gethistory_length(0) = 4 | (chat_gethistory_length(0) = 27 | (chat_gethistory_length(0) = 28 | (chat_gethistory_length(0) = 29 | (chat_gethistory_length(0) = 26 | (chat_gethistory_length(0) = 30 | chat_gethistory_length(0) = 31))))))))) {
+// 1560
+[proc,chatdefault_updatechatbox](boolean $boolean0)
+if ($boolean0 = true & (if_hassub(chatbox:com_10) = true | if_hassub(chatbox:com_11) = true) & (chat_gethistorytype(0) = ^chattype_gamemessage | chat_gethistorytype(0) = ^chattype_engine | chat_gethistorytype(0) = ^chattype_obj_examine | chat_gethistorytype(0) = ^chattype_npc_examine | chat_gethistorytype(0) = ^chattype_loc_examine | chat_gethistorytype(0) = ^chattype_snapshotfeedback | chat_gethistorytype(0) = ^chattype_friendnotification | chat_gethistorytype(0) = ^chattype_ignorenotification)) {
     ~chatdefault_openmeslayer;
 }
 ~rebuildchatbox;

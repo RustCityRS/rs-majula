@@ -1,8 +1,0 @@
-[proc,clientscript_2078]
-def_int $int = 0;
-$int = calc(20 - %varc_int_636);
-if ($int = true) {
-    if_settext("<tostring($int)> min", tv1998864:com27);
-} else {
-    if_settext("<tostring($int)> mins", tv1998864:com27);
-}

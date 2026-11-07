@@ -1,3 +1,4 @@
+// 54
 [clientscript,wilderness_level_update](component $component0)
 def_int $int1 = coordz(coord);
 def_int $int2 = calc(($int1 - 9920) / 8 + 1);

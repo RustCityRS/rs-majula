@@ -1,6 +1,0 @@
-[proc,clientscript_3044](component $component)
-if (chat_getfilter_private = -1) {
-    return;
-}
-if_setontimer(null, $component);
-~clientscript_3045;

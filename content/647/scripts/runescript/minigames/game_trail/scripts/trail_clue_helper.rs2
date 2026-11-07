@@ -82,7 +82,7 @@ else @trail_clue_easy_loc_interact($clue);
 mes("Well done you've completed the Treasure Trail!");
 ~music_jingle("treasure hunt win");
 // 2011: the reward's layer is com4 (it transmits inv 141).
-inv_transmit(trail_rewardinv, trail_reward:com4);
+inv_transmit(trail_rewardinv, trail_reward:com_4);
 if_openmain(trail_reward);
 queue(trail_give_reward, 0, 0);
 

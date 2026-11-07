@@ -1,5 +1,6 @@
+// 3283
 [clientscript,scrollbar_vertical_text](component $component0, component $component1, fontmetrics $fontmetrics2, int $int3)
-if ($int3 = false) {
+if ($int3 = 0) {
     $int3 = 12;
 }
 def_int $int4 = paraheight(if_gettext($component1), calc(if_getwidth($component1) + 16), $fontmetrics2);

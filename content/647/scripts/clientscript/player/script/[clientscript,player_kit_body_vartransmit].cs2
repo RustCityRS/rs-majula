@@ -1,5 +1,6 @@
+// 1510
 [clientscript,player_kit_body_vartransmit]
-if (%varbit_6091 ! %varc_int_778) {
-    %varc_int_778 = %varbit_6091;
+if (%varplayerbit_6091 ! %varclient_778) {
+    %varclient_778 = %varplayerbit_6091;
     ~player_kit_body_redraw;
 }

@@ -1,6 +1,0 @@
-[proc,clientscript_2181]
-def_int $int = 0;
-while ($int <= %varc_int_273) {
-    ~clientscript_2180($int);
-    $int = calc($int + 1);
-}

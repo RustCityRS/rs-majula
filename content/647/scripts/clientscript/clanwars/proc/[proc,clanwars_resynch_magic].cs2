@@ -1,36 +1,37 @@
+// 1775
 [proc,clanwars_resynch_magic]
-switch_int (%varc_int_252) {
-    case 0:
-        if_setgraphic("options_radio_buttons,2", clanwars_setup:com127);
-        if_sethide(false, clanwars_setup:com125);
-        if_sethide(false, clanwars_setup:com126);
-        if_sethide(false, clanwars_setup:com124);
-        if_sethide(false, clanwars_setup:com123);
-        if_settrans(0, clanwars_setup:com122);
-    case 1:
-        if_setgraphic("options_radio_buttons,2", clanwars_setup:com127);
-        if_sethide(true, clanwars_setup:com125);
-        if_sethide(true, clanwars_setup:com126);
-        if_sethide(false, clanwars_setup:com124);
-        if_sethide(false, clanwars_setup:com123);
+switch_int (%varclient_252) {
+    case 0 :
+        if_setgraphic("options_radio_buttons,2", clanwars_setup:com_127);
+        if_sethide(false, clanwars_setup:com_125);
+        if_sethide(false, clanwars_setup:com_126);
+        if_sethide(false, clanwars_setup:com_124);
+        if_sethide(false, clanwars_setup:com_123);
+        if_settrans(0, clanwars_setup:com_122);
+    case 1 :
+        if_setgraphic("options_radio_buttons,2", clanwars_setup:com_127);
+        if_sethide(true, clanwars_setup:com_125);
+        if_sethide(true, clanwars_setup:com_126);
+        if_sethide(false, clanwars_setup:com_124);
+        if_sethide(false, clanwars_setup:com_123);
         if (map_members = true) {
-            if_settrans(225, clanwars_setup:com122);
+            if_settrans(225, clanwars_setup:com_122);
         } else {
-            if_settrans(0, clanwars_setup:com122);
+            if_settrans(0, clanwars_setup:com_122);
         }
-    case 2:
-        if_setgraphic("options_radio_buttons,2", clanwars_setup:com127);
-        if_sethide(true, clanwars_setup:com125);
-        if_sethide(true, clanwars_setup:com126);
-        if_sethide(true, clanwars_setup:com124);
-        if_sethide(false, clanwars_setup:com123);
-        if_settrans(225, clanwars_setup:com122);
-    case 3:
-        if_setgraphic("options_radio_buttons,1", clanwars_setup:com127);
-        if_sethide(true, clanwars_setup:com125);
-        if_sethide(true, clanwars_setup:com126);
-        if_sethide(true, clanwars_setup:com124);
-        if_sethide(true, clanwars_setup:com123);
-        if_settrans(225, clanwars_setup:com122);
+    case 2 :
+        if_setgraphic("options_radio_buttons,2", clanwars_setup:com_127);
+        if_sethide(true, clanwars_setup:com_125);
+        if_sethide(true, clanwars_setup:com_126);
+        if_sethide(true, clanwars_setup:com_124);
+        if_sethide(false, clanwars_setup:com_123);
+        if_settrans(225, clanwars_setup:com_122);
+    case 3 :
+        if_setgraphic("options_radio_buttons,1", clanwars_setup:com_127);
+        if_sethide(true, clanwars_setup:com_125);
+        if_sethide(true, clanwars_setup:com_126);
+        if_sethide(true, clanwars_setup:com_124);
+        if_sethide(true, clanwars_setup:com_123);
+        if_settrans(225, clanwars_setup:com_122);
 }
 ~clanwars_updateside;

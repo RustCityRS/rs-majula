@@ -1,0 +1,73 @@
+// 431
+[clientscript,script431](component $component0, int $int1)
+def_component $component2 = null;
+def_component $component3 = null;
+def_int $int4 = 0;
+def_struct $struct5 = null;
+def_int $int6 = -1;
+switch_component ($component0) {
+    case default :
+        return;
+    case conq_side_command:com_8 :
+        $component2 = conq_side_command:com_80;
+        $component3 = conq_side_command:com_81;
+        if (%varclient_1388 = 1) {
+            $int4 = 1;
+        } else {
+            $int4 = %varplayerbit_7539;
+        }
+    case conq_side_command:com_9 :
+        $component2 = conq_side_command:com_63;
+        $component3 = conq_side_command:com_64;
+        if (%varclient_1388 = 1) {
+            $int4 = 3;
+        } else {
+            $int4 = %varplayerbit_7540;
+        }
+    case conq_side_command:com_10 :
+        $component2 = conq_side_command:com_46;
+        $component3 = conq_side_command:com_47;
+        if (%varclient_1388 = 1) {
+            $int4 = 5;
+        } else {
+            $int4 = %varplayerbit_7541;
+        }
+    case conq_side_command:com_11 :
+        $component2 = conq_side_command:com_29;
+        $component3 = conq_side_command:com_30;
+        if (%varclient_1388 = 1) {
+            $int4 = 6;
+        } else {
+            $int4 = %varplayerbit_7542;
+        }
+}
+switch_int ($int4) {
+    case default :
+        return;
+    case 1 :
+        $struct5 = struct_293;
+    case 2 :
+        $struct5 = struct_299;
+    case 3 :
+        $struct5 = struct_300;
+    case 4 :
+        $struct5 = struct_301;
+    case 5 :
+        $struct5 = struct_305;
+    case 6 :
+        $struct5 = struct_1044;
+    case 7 :
+        $struct5 = struct_1045;
+    case 8 :
+        $struct5 = struct_1046;
+    case 9 :
+        $struct5 = struct_1047;
+}
+if ($int1 = 1) {
+    if_sethide(false, $component2);
+    if_sethide(false, $component3);
+    if_settargetcursors(struct_param($struct5, param_1157), struct_param($struct5, param_1157), $component0);
+} else {
+    if_sethide(true, $component2);
+    if_sethide(true, $component3);
+}

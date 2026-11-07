@@ -1,8 +1,0 @@
-[proc,clientscript_2680]
-if (%varbit_2176 = true) {
-    if_setgraphic("miscgraphics,9", poh_house_options:com15);
-    if_setgraphic("miscgraphics,0", poh_house_options:com1);
-} else {
-    if_setgraphic("miscgraphics,0", poh_house_options:com15);
-    if_setgraphic("miscgraphics,9", poh_house_options:com1);
-}

@@ -1,51 +1,52 @@
-[proc,graphics_options_decision](int $int0, int $int1, int $int2, int $int3, boolean $boolean4, boolean $boolean5)
-if ($int2 = true) {
-    if_closeoverlay(48889936);
-    if_closeoverlay(35913748);
-    if_setontimer(null, toplevel_fullscreen:com80);
-    if_setontimer(null, toplevel:com20);
-    if_sethide(true, toplevel:com190);
-    if_sethide(true, toplevel:com68);
-    if_sethide(true, toplevel:com193);
-    if_sethide(true, toplevel:com202);
-    if_sethide(true, toplevel:com162);
-    if_sethide(true, toplevel:com114);
+// 2705
+[proc,graphics_options_decision](boolean $boolean0, int $int1, int $int2, int $int3, boolean $boolean4, boolean $boolean5)
+if ($int2 = 1) {
+    if_closesubclient(toplevel_fullscreen:com_80);
+    if_closesubclient(toplevel:com_20);
+    if_setontimer(null, toplevel_fullscreen:com_80);
+    if_setontimer(null, toplevel:com_20);
+    if_sethide(true, toplevel:com_190);
+    if_sethide(true, toplevel:com_68);
+    if_sethide(true, toplevel:com_193);
+    if_sethide(true, toplevel:com_202);
+    if_sethide(true, toplevel:com_162);
+    if_sethide(true, toplevel:com_114);
 } else if ($int2 = 2) {
-    if_setontimer(null, lobbyscreen:com13);
+    if_setontimer(null, lobbyscreen:com_13);
 } else {
-    if_setontimer(null, loginscreen:com17);
+    if_setontimer(null, loginscreen:com_17);
 }
 def_int $int6 = 0;
-if ($int0 = true) {
-    setdesiredtoolkit(get_clientopt_6131, 1);
-    if (getwindowmode ! 3) {
+if ($boolean0 = true) {
+    detail_toolkit_default(detailget_toolkit, true);
+    if (getwindowmode ! ^windowmode_fullscreen) {
         setdefaultwindowmode(getwindowmode);
     }
-    set_clientopt_6024(get_clientopt_6116);
-    if (testbit($int1, 1) = true) {
-        %varc_int_994 = 2;
+    detail_antialiasing_default(detailget_antialiasing);
+    if (testbit($int1, 1) = ^true) {
+        %varclient_994 = 2;
     }
-    %varc_int_1240 = 3;
-    %varc_int_1277 = 0;
+    %varclient_1240 = 3;
+    %varclient_1277 = 0;
 } else {
-    if (testbit($int1, 0) = true) {
-        autosetup_level_7006;
+    if (testbit($int1, 0) = ^true) {
+        autosetup_blackflaglast;
         if ($boolean4 = false) {
-            $int6 = get_clientopt_6132;
-            set_clientopt_6031($int6);
-            ~clientscript_2593($int6);
+            $int6 = detailget_toolkit_default;
+            detail_toolkit($int6);
+            ~script2593($int6);
         }
     } else {
-        $int6 = get_clientopt_6131;
+        $int6 = detailget_toolkit;
     }
-    if (testbit($int1, 1) = true & getwindowmode ! getdefaultwindowmode) {
+    if (testbit($int1, 1) = ^true & getwindowmode ! getdefaultwindowmode) {
         setwindowmode(getdefaultwindowmode);
     }
-    if (testbit($int1, 2) = true) {
-        set_clientopt_6016(get_clientopt_6124);
+    if (testbit($int1, 2) = ^true) {
+        detail_antialiasing(detailget_antialiasing_default);
     }
-    if (testbit($int1, 3) = true) {
-        set_clientopt_6027(0);
+    if (testbit($int1, 3) = ^true) {
+        detail_bloom(0);
     }
     if ($int2 = 3) {
         ~loginscreen_setactivemenu(0);
@@ -54,38 +55,38 @@ if ($int0 = true) {
     }
     if ($boolean5 = true) {
         ~graphics_options_rebuild_advanced($int6, getwindowmode, ~graphics_options_reviewoptions($int6), $int2);
-    } else if (testbit($int1, 1) = true | $boolean4 = true) {
+    } else if (testbit($int1, 1) = ^true | $boolean4 = true) {
         ~graphics_options_rebuild($int6, getwindowmode, ~graphics_options_reviewoptions($int6), $int2);
     } else {
         ~graphics_options_rebuild_advanced($int6, getwindowmode, ~graphics_options_reviewoptions($int6), $int2);
     }
-    if ($int2 = true & $int3 = true) {
+    if ($int2 = 1 & $int3 = 1) {
         mes("The requested change has been cancelled.");
     }
 }
-def_string $string = "kbase/view.ws?guid=controls_display_options";
+def_string $string0 = "kbase/view.ws?guid=controls_display_options";
 if ($int2 ! 1) {
-    $int6 = get_clientopt_6131;
+    $int6 = detailget_toolkit;
     if ($int2 = 2) {
-        if_sethide(true, lobbyscreen:com31);
+        if_sethide(true, lobbyscreen:com_31);
         if ($boolean5 = true) {
             ~graphics_options_rebuild_advanced($int6, getwindowmode, ~graphics_options_reviewoptions($int6), $int2);
-        } else if (testbit($int1, 1) = true | $boolean4 = true) {
+        } else if (testbit($int1, 1) = ^true | $boolean4 = true) {
             ~graphics_options_rebuild($int6, getwindowmode, ~graphics_options_reviewoptions($int6), $int2);
         } else {
             ~graphics_options_rebuild_advanced($int6, getwindowmode, ~graphics_options_reviewoptions($int6), $int2);
         }
-        if ($boolean4 = false & $int3 = true) {
+        if ($boolean4 = false & $int3 = 1) {
             ~lobbyscreen_input_full("", "The change of detail mode has been cancelled.<br><br>Perhaps different graphical settings would work better for you?", 0, -1, "", "Advanced info", 0);
-            if_setonclick("openurl_nologin($string, true)", lobbyscreen:com142);
+            if_setonclick("openurl_nologin($string0, true)", lobbyscreen:com_142);
         }
     } else if ($int2 = 3) {
-        if (login_getint_5623 = true) {
+        if (unknown_command_5623 = true) {
             ~loginscreen_setactivemenu(5);
-            if (%varc_int_1273 = true) {
+            if (%varclient_1273 = 1) {
                 return;
             } else {
-                if_setontimer("login_delay(south_progress9:com50, 0)", south_progress9:com50);
+                if_setontimer("login_delay(south_progress9:com_50, 0)", south_progress9:com_50);
             }
         } else if (~userflowflags(3) = true) {
             ~loginscreen_setactivemenu(7);
@@ -95,32 +96,32 @@ if ($int2 ! 1) {
     } else {
         if ($boolean5 = true) {
             ~graphics_options_rebuild_advanced($int6, getwindowmode, ~graphics_options_reviewoptions($int6), $int2);
-        } else if (testbit($int1, 1) = true | $boolean4 = true) {
+        } else if (testbit($int1, 1) = ^true | $boolean4 = true) {
             ~graphics_options_rebuild($int6, getwindowmode, ~graphics_options_reviewoptions($int6), $int2);
         } else {
             ~graphics_options_rebuild_advanced($int6, getwindowmode, ~graphics_options_reviewoptions($int6), $int2);
         }
-        if ($boolean4 = false & $int3 = true) {
-            if_settext("The change of detail mode has been cancelled.<br><br>Perhaps different graphical settings would work better for you?", loginscreen:com76);
+        if ($boolean4 = false & $int3 = 1) {
+            if_settext("The change of detail mode has been cancelled.<br><br>Perhaps different graphical settings would work better for you?", loginscreen:com_76);
             if ($boolean5 = true) {
-                if_setonclick("loginscreen_setactivemenu_full(6, false, true)", loginscreen:com79);
-            } else if (testbit($int1, 1) = true | $boolean4 = true) {
-                if_setonclick("loginscreen_setactivemenu(6)", loginscreen:com79);
+                if_setonclick("loginscreen_setactivemenu_full(6, false, true)", loginscreen:com_79);
+            } else if (testbit($int1, 1) = ^true | $boolean4 = true) {
+                if_setonclick("loginscreen_setactivemenu(6)", loginscreen:com_79);
             } else {
-                if_setonclick("loginscreen_setactivemenu_full(6, false, true)", loginscreen:com79);
+                if_setonclick("loginscreen_setactivemenu_full(6, false, true)", loginscreen:com_79);
             }
-            if_settext("Advanced info", loginscreen:com78);
-            if_setonclick("openurl_nologin($string, true)", loginscreen:com78);
+            if_settext("Advanced info", loginscreen:com_78);
+            if_setonclick("openurl_nologin($string0, true)", loginscreen:com_78);
             ~loginscreen_setactivemenu(9);
         } else if ($boolean5 = true) {
-            ~loginscreen_setactivemenu_full(6, 0, 1);
-        } else if (testbit($int1, 1) = true | $boolean4 = true) {
+            ~loginscreen_setactivemenu_full(6, false, true);
+        } else if (testbit($int1, 1) = ^true | $boolean4 = true) {
             ~loginscreen_setactivemenu(6);
         } else {
-            ~loginscreen_setactivemenu_full(6, 0, 1);
+            ~loginscreen_setactivemenu_full(6, false, true);
         }
     }
 }
-if ($int0 = false & $boolean4 = true) {
+if ($boolean0 = false & $boolean4 = true) {
     ~autosetup($int2);
 }

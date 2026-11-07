@@ -1,5 +1,6 @@
+// 2114
 [clientscript,evilbob_load](component $component0, component $component1)
 if_sethide(false, $component0);
 if_sethide(true, $component1);
-%varc_int_679 = 0;
-if_setonvarctransmit("evilbob_start($component0, $component1){varc_int_679}", $component0);
+%varclient_679 = false;
+if_setonvarctransmit("evilbob_start($component0, $component1){varclient_679}", $component0);

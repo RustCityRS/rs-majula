@@ -1,9 +1,10 @@
+// 4144
 [clientscript,valentine_setup](component $component0, component $component1, component $component2)
-def_int $int3 = calc(paraheight(%varc_string_343, if_getwidth($component1), p12_full) * 12 + 5);
+def_int $int3 = calc(paraheight(%varclient_1862, if_getwidth($component1), p12_full) * 12 + 5);
 if_setsize(0, $int3, ^setsize_minus, ^setsize_abs, $component1);
 if_setscrollsize(0, $int3, $component0);
 if_setscrollpos(0, 0, $component0);
-if_settext(%varc_string_343, $component1);
+if_settext(%varclient_1862, $component1);
 if ($int3 <= if_getheight($component0)) {
     cc_deleteall($component2);
     if_sethide(true, $component2);

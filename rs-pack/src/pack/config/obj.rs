@@ -1,5 +1,7 @@
 use std::collections::HashMap;
 
+#[cfg(since_647)]
+use super::mark_client_params;
 use crate::pack::config::param::parse_params;
 use crate::pack::pack::{FileCache, parse_config_sections_cached};
 use crate::pack::pack_registry::{PackRegistry, PackedFile};
@@ -19,6 +21,11 @@ pub fn pack_objs(
     let pack = &registry.obj;
 
     let configs = parse_config_sections_cached(file_cache, "obj", constants)?;
+
+    #[cfg(since_647)]
+    let client_params = file_cache
+        .client_count("param", &registry.param, constants)?
+        .unwrap_or(0);
 
     let mut server = PackedData::new(pack.max);
     let mut client = PackedData::new(pack.max);
@@ -46,6 +53,8 @@ pub fn pack_objs(
             client.skip_entry();
             continue;
         };
+        #[cfg(since_647)]
+        let props = &mark_client_params(props, &registry.param, client_params);
         #[cfg(before_647)]
         let mut cert_props_owned;
         #[cfg(before_647)]
@@ -372,6 +381,12 @@ pub fn pack_objs(
                     }),
 
                     // 96
+                    #[cfg(since_647)]
+                    "dummyitem" if value.parse::<u8>().is_ok() => parse_number(value, |v: u8| {
+                        client.p1(96);
+                        client.p1(v);
+                    }),
+
                     "dummyitem" => {
                         let dummy = DummyItem::from_config_str(value) as u8;
                         server.p1(96);
@@ -379,11 +394,6 @@ pub fn pack_objs(
                     }
 
                     #[cfg(since_647)]
-                    "dummyobj" => parse_number(value, |v| {
-                        client.p1(96);
-                        client.p1(v);
-                    }),
-
                     // 97
                     "certlink" => parse_ref(&registry.obj, "obj", value, |v| {
                         client.p1(97);
@@ -484,6 +494,9 @@ pub fn pack_objs(
                     #[cfg(since_647)]
                     "cursor1" | "cursor2" | "icursor1" | "icursor2" => {
                         let (op, cursor) = value.split_once(',').expect("Invalid obj cursor");
+                        let op = op.trim().parse::<u8>().expect("Invalid obj cursor") - 1;
+                        let op = op.to_string();
+                        let op = op.as_str();
                         client.p1(match key.as_str() {
                             "cursor1" => 127,
                             "cursor2" => 128,
@@ -491,7 +504,7 @@ pub fn pack_objs(
                             _ => 130,
                         });
                         parse_number(op.trim(), |v| client.p1(v));
-                        parse_number(cursor.trim(), |v| client.p2(v));
+                        parse_ref(&registry.cursor, "cursor", cursor.trim(), |v| client.p2(v));
                     }
 
                     #[cfg(since_647)]
@@ -600,10 +613,10 @@ fn batch_code(key: &str) -> u8 {
         if key.starts_with("retex") {
             return 41;
         }
-        if config_key_index(key, "quest").is_some() {
+        if key == "quest" {
             return 132;
         }
-        if matches!(key, "paramint" | "paramstr") {
+        if key == "clientparam" {
             return 249;
         }
     }
@@ -621,14 +634,18 @@ fn pack_batch(
     name: &str,
 ) {
     match batch_code(&props[0].0) {
-        40 => pack_indexed_pairs(packed, 40, props, 's'),
-        41 => pack_indexed_pairs(packed, 41, props, 'd'),
+        40 => pack_recol_pairs(packed, props),
+        41 => pack_retex_pairs(packed, props, registry),
         42 => pack_indexed_values(packed, 42, props, "recolpalette", |packed, value| {
             parse_number(value, |v: i8| packed.p1(v as u8))
         }),
-        132 => pack_indexed_values(packed, 132, props, "quest", |packed, value| {
-            parse_number(value, |v| packed.p2(v))
-        }),
+        132 => {
+            packed.p1(132);
+            packed.p1(u8::try_from(props.len()).expect("Too many obj quests"));
+            for (_, value) in props {
+                parse_number(value, |v| packed.p2(v));
+            }
+        }
         249 => parse_params(registry, param_types, packed, props, name),
         _ => unreachable!(),
     }

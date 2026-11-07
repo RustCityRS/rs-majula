@@ -1,0 +1,1417 @@
+// 1084:0
+[com_0]
+type=graphic
+width=16
+height=16
+layer=com_123
+graphic="aif_checkbox_large,0"
+
+// 1084:1
+[com_1]
+type=graphic
+width=16
+height=16
+layer=com_119
+graphic="aif_checkbox_large,0"
+
+// 1084:2
+[com_2]
+type=graphic
+width=16
+height=16
+layer=com_115
+graphic="aif_checkbox_large,0"
+
+// 1084:3
+[com_3]
+type=graphic
+width=16
+height=16
+layer=com_57
+graphic="aif_checkbox_large,0"
+
+// 1084:4
+[com_4]
+type=graphic
+width=16
+height=16
+layer=com_53
+graphic="aif_checkbox_large,0"
+
+// 1084:5
+[com_5]
+type=graphic
+width=16
+height=16
+layer=com_49
+graphic="aif_checkbox_large,0"
+
+// 1084:6
+[com_6]
+type=graphic
+width=16
+height=16
+layer=com_45
+graphic="aif_checkbox_large,0"
+
+// 1084:7
+[com_7]
+type=graphic
+width=16
+height=16
+layer=com_41
+graphic="aif_checkbox_large,0"
+
+// 1084:8
+[com_8]
+type=layer
+width=481
+height=312
+layer=com_93
+
+// 1084:9
+[com_9]
+type=layer
+width=512
+height=334
+layer=com_93
+
+// 1084:10
+[com_10]
+type=layer
+x=36
+y=36
+width=413
+height=279
+layer=com_93
+
+// 1084:11
+[com_11]
+type=layer
+width=512
+height=334
+layer=com_93
+
+// 1084:12
+[com_12]
+type=graphic
+x=255
+y=90
+width=25
+height=25
+layer=com_11
+graphic="aif_search_icon,0"
+transmitop=1
+op1=Select
+opcursor0=cursor_46
+
+// 1084:13
+[com_13]
+type=layer
+width=512
+height=334
+layer=com_93
+
+// 1084:14
+[com_14]
+type=text
+x=36
+y=140
+width=107
+height=20
+layer=com_93
+textfont=p11_full
+text=Invite by rank:
+textshadow=yes
+colour=0xa3835c
+
+// 1084:15
+[com_15]
+type=layer
+x=180
+y=264
+width=130
+height=28
+layer=com_13
+
+// 1084:16
+[com_16]
+type=layer
+x=26
+y=60
+width=211
+height=68
+layer=com_9
+
+// 1084:17
+[com_17]
+type=layer
+x=26
+y=132
+width=425
+height=123
+layer=com_9
+
+// 1084:18
+[com_18]
+type=layer
+x=242
+y=60
+width=209
+height=68
+layer=com_9
+
+// 1084:19
+[com_19]
+type=text
+x=11
+y=31
+width=458
+height=32
+layer=com_9
+textfont=p11_full
+text=Invites will be sent to the selected players if they are in the Clan Camp on world x.
+textalignh=centre
+textalignv=centre
+textshadow=yes
+
+// 1084:20
+[com_20]
+type=layer
+x=3
+y=128
+width=16
+height=16
+layer=com_10
+transmitop=1
+op1=Select
+opcursor0=cursor_46
+
+// 1084:21
+[com_21]
+type=layer
+x=3
+y=149
+width=16
+height=16
+layer=com_10
+transmitop=1
+op1=Select
+opcursor0=cursor_46
+
+// 1084:22
+[com_22]
+type=layer
+x=3
+y=170
+width=16
+height=16
+layer=com_10
+transmitop=1
+op1=Select
+opcursor0=cursor_46
+
+// 1084:23
+[com_23]
+type=layer
+x=3
+y=191
+width=16
+height=16
+layer=com_10
+transmitop=1
+op1=Select
+opcursor0=cursor_46
+
+// 1084:24
+[com_24]
+type=layer
+x=150
+y=128
+width=16
+height=16
+layer=com_10
+transmitop=1
+op1=Select
+opcursor0=cursor_46
+
+// 1084:25
+[com_25]
+type=layer
+x=150
+y=149
+width=16
+height=16
+layer=com_10
+transmitop=1
+op1=Select
+opcursor0=cursor_46
+
+// 1084:26
+[com_26]
+type=layer
+x=150
+y=170
+width=16
+height=16
+layer=com_10
+transmitop=1
+op1=Select
+opcursor0=cursor_46
+
+// 1084:27
+[com_27]
+type=layer
+x=150
+y=191
+width=16
+height=16
+layer=com_10
+transmitop=1
+op1=Select
+opcursor0=cursor_46
+
+// 1084:28
+[com_28]
+type=layer
+x=281
+y=128
+width=16
+height=16
+layer=com_10
+transmitop=1
+op1=Select
+opcursor0=cursor_46
+
+// 1084:29
+[com_29]
+type=layer
+width=16384
+height=16384
+widthmode=proportion
+heightmode=proportion
+xmode=abs_centre
+ymode=abs_centre
+layer=com_8
+onload=script4260(event_com)
+
+// 1084:30
+[com_30]
+type=layer
+x=12
+y=33
+width=23
+height=43
+widthmode=minus
+heightmode=minus
+layer=com_8
+
+// 1084:31
+[com_31]
+type=layer
+width=8
+height=8
+widthmode=minus
+heightmode=minus
+xmode=abs_centre
+ymode=abs_centre
+layer=com_8
+onload=script4261(event_com)
+
+// 1084:32
+[com_32]
+type=layer
+y=4
+width=8
+height=23
+widthmode=minus
+xmode=abs_centre
+layer=com_8
+
+// 1084:33
+[com_33]
+type=text
+width=16391
+height=4
+widthmode=proportion
+heightmode=minus
+xmode=abs_centre
+ymode=abs_centre
+layer=com_32
+textfont=palatino_linotype_18pt_regular
+text=Invite
+textalignh=centre
+textalignv=centre
+colour=0xebe0bc
+onload=script4262(event_com)
+
+// 1084:34
+[com_34]
+type=layer
+x=9
+y=9
+width=16
+height=15
+xmode=abs_right
+layer=com_8
+onload=script4256(event_com)
+
+// 1084:35
+[com_35]
+type=graphic
+width=16384
+height=16384
+widthmode=proportion
+heightmode=proportion
+xmode=abs_centre
+ymode=abs_centre
+layer=com_34
+transmitop=1
+op1=Close
+onload=script4257(event_com)
+
+// 1084:36
+[com_36]
+type=graphic
+width=16384
+height=16384
+widthmode=proportion
+heightmode=proportion
+xmode=abs_centre
+ymode=abs_centre
+layer=com_34
+onload=script4258(event_com)
+
+// 1084:37
+[com_37]
+type=layer
+width=16391
+height=16384
+widthmode=proportion
+heightmode=proportion
+layer=com_20
+onload=script4519(event_com)
+
+// 1084:38
+[com_38]
+type=layer
+width=16391
+height=16391
+widthmode=proportion
+heightmode=proportion
+layer=com_20
+onload=script4522(event_com)
+
+// 1084:39
+[com_39]
+type=layer
+width=16391
+height=16391
+widthmode=proportion
+heightmode=proportion
+layer=com_20
+onload=script4520(event_com)
+
+// 1084:40
+[com_40]
+type=layer
+width=16391
+height=16391
+widthmode=proportion
+heightmode=proportion
+layer=com_20
+onload=script4523(event_com)
+
+// 1084:41
+[com_41]
+type=layer
+width=16391
+height=16384
+widthmode=proportion
+heightmode=proportion
+layer=com_21
+onload=script4519(event_com)
+
+// 1084:42
+[com_42]
+type=layer
+width=16391
+height=16391
+widthmode=proportion
+heightmode=proportion
+layer=com_21
+onload=script4522(event_com)
+
+// 1084:43
+[com_43]
+type=layer
+width=16391
+height=16391
+widthmode=proportion
+heightmode=proportion
+layer=com_21
+onload=script4520(event_com)
+
+// 1084:44
+[com_44]
+type=layer
+width=16391
+height=16391
+widthmode=proportion
+heightmode=proportion
+layer=com_21
+onload=script4523(event_com)
+
+// 1084:45
+[com_45]
+type=layer
+width=16391
+height=16384
+widthmode=proportion
+heightmode=proportion
+layer=com_22
+onload=script4519(event_com)
+
+// 1084:46
+[com_46]
+type=layer
+width=16391
+height=16391
+widthmode=proportion
+heightmode=proportion
+layer=com_22
+onload=script4522(event_com)
+
+// 1084:47
+[com_47]
+type=layer
+width=16391
+height=16391
+widthmode=proportion
+heightmode=proportion
+layer=com_22
+onload=script4520(event_com)
+
+// 1084:48
+[com_48]
+type=layer
+width=16391
+height=16391
+widthmode=proportion
+heightmode=proportion
+layer=com_22
+onload=script4523(event_com)
+
+// 1084:49
+[com_49]
+type=layer
+width=16391
+height=16384
+widthmode=proportion
+heightmode=proportion
+layer=com_23
+onload=script4519(event_com)
+
+// 1084:50
+[com_50]
+type=layer
+width=16391
+height=16391
+widthmode=proportion
+heightmode=proportion
+layer=com_23
+onload=script4522(event_com)
+
+// 1084:51
+[com_51]
+type=layer
+width=16391
+height=16391
+widthmode=proportion
+heightmode=proportion
+layer=com_23
+onload=script4520(event_com)
+
+// 1084:52
+[com_52]
+type=layer
+width=16391
+height=16391
+widthmode=proportion
+heightmode=proportion
+layer=com_23
+onload=script4523(event_com)
+
+// 1084:53
+[com_53]
+type=layer
+width=16391
+height=16384
+widthmode=proportion
+heightmode=proportion
+layer=com_24
+onload=script4519(event_com)
+
+// 1084:54
+[com_54]
+type=layer
+width=16391
+height=16391
+widthmode=proportion
+heightmode=proportion
+layer=com_24
+onload=script4522(event_com)
+
+// 1084:55
+[com_55]
+type=layer
+width=16391
+height=16391
+widthmode=proportion
+heightmode=proportion
+layer=com_24
+onload=script4520(event_com)
+
+// 1084:56
+[com_56]
+type=layer
+width=16391
+height=16391
+widthmode=proportion
+heightmode=proportion
+layer=com_24
+onload=script4523(event_com)
+
+// 1084:57
+[com_57]
+type=layer
+width=16391
+height=16384
+widthmode=proportion
+heightmode=proportion
+layer=com_25
+onload=script4519(event_com)
+
+// 1084:58
+[com_58]
+type=layer
+width=16391
+height=16391
+widthmode=proportion
+heightmode=proportion
+layer=com_25
+onload=script4522(event_com)
+
+// 1084:59
+[com_59]
+type=layer
+width=16391
+height=16391
+widthmode=proportion
+heightmode=proportion
+layer=com_25
+onload=script4520(event_com)
+
+// 1084:60
+[com_60]
+type=layer
+width=16391
+height=16391
+widthmode=proportion
+heightmode=proportion
+layer=com_25
+onload=script4523(event_com)
+
+// 1084:61
+[com_61]
+type=text
+x=26
+y=130
+width=151
+height=18
+layer=com_10
+textfont=p11_full
+text=Recruit
+textshadow=yes
+colour=0xe9e2b4
+
+// 1084:62
+[com_62]
+type=text
+x=26
+y=151
+width=151
+height=18
+layer=com_10
+textfont=p11_full
+text=Corporal
+textshadow=yes
+colour=0xe9e2b4
+
+// 1084:63
+[com_63]
+type=text
+x=26
+y=172
+width=151
+height=18
+layer=com_10
+textfont=p11_full
+text=Sergeant
+textshadow=yes
+colour=0xe9e2b4
+
+// 1084:64
+[com_64]
+type=text
+x=26
+y=193
+width=151
+height=18
+layer=com_10
+textfont=p11_full
+text=Lieutenant
+textshadow=yes
+colour=0xe9e2b4
+
+// 1084:65
+[com_65]
+type=text
+x=173
+y=130
+width=151
+height=18
+layer=com_10
+textfont=p11_full
+text=Captain
+textshadow=yes
+colour=0xe9e2b4
+
+// 1084:66
+[com_66]
+type=graphic
+widthmode=minus
+heightmode=minus
+xmode=abs_centre
+ymode=abs_centre
+layer=com_17
+graphic=window_texture_2
+tiling=yes
+
+// 1084:67
+[com_67]
+type=graphic
+width=10
+height=10
+layer=com_17
+graphic="aif_overlay_frame_gold_corner_2,1"
+hflip=yes
+
+// 1084:68
+[com_68]
+type=graphic
+width=10
+height=10
+xmode=abs_right
+layer=com_17
+graphic="aif_overlay_frame_gold_corner_2,1"
+
+// 1084:69
+[com_69]
+type=graphic
+width=10
+height=10
+ymode=abs_bottom
+layer=com_17
+graphic="aif_overlay_frame_gold_corner_2,1"
+vflip=yes
+hflip=yes
+
+// 1084:70
+[com_70]
+type=graphic
+width=10
+height=10
+xmode=abs_right
+ymode=abs_bottom
+layer=com_17
+graphic="aif_overlay_frame_gold_corner_2,1"
+vflip=yes
+
+// 1084:71
+[com_71]
+type=graphic
+width=20
+height=10
+widthmode=minus
+xmode=abs_centre
+ymode=abs_bottom
+layer=com_17
+graphic="aif_overlay_frame_gold_corner_2,0"
+tiling=yes
+vflip=yes
+hflip=yes
+
+// 1084:72
+[com_72]
+type=graphic
+width=20
+height=10
+widthmode=minus
+xmode=abs_centre
+layer=com_17
+graphic="aif_overlay_frame_gold_corner_2,0"
+
+// 1084:73
+[com_73]
+type=graphic
+width=10
+height=20
+heightmode=minus
+xmode=abs_right
+ymode=abs_centre
+layer=com_17
+graphic="aif_overlay_frame_gold_corner_2,2"
+tiling=yes
+
+// 1084:74
+[com_74]
+type=graphic
+width=10
+height=20
+heightmode=minus
+ymode=abs_centre
+layer=com_17
+graphic="aif_overlay_frame_gold_corner_2,2"
+hflip=yes
+
+// 1084:75
+[com_75]
+type=graphic
+widthmode=minus
+heightmode=minus
+xmode=abs_centre
+ymode=abs_centre
+layer=com_16
+graphic=window_texture_2
+tiling=yes
+
+// 1084:76
+[com_76]
+type=graphic
+width=10
+height=10
+layer=com_16
+graphic="aif_overlay_frame_gold_corner_2,1"
+hflip=yes
+
+// 1084:77
+[com_77]
+type=graphic
+width=10
+height=10
+xmode=abs_right
+layer=com_16
+graphic="aif_overlay_frame_gold_corner_2,1"
+
+// 1084:78
+[com_78]
+type=graphic
+width=10
+height=10
+ymode=abs_bottom
+layer=com_16
+graphic="aif_overlay_frame_gold_corner_2,1"
+vflip=yes
+hflip=yes
+
+// 1084:79
+[com_79]
+type=graphic
+width=10
+height=10
+xmode=abs_right
+ymode=abs_bottom
+layer=com_16
+graphic="aif_overlay_frame_gold_corner_2,1"
+vflip=yes
+
+// 1084:80
+[com_80]
+type=graphic
+width=20
+height=10
+widthmode=minus
+xmode=abs_centre
+ymode=abs_bottom
+layer=com_16
+graphic="aif_overlay_frame_gold_corner_2,0"
+tiling=yes
+vflip=yes
+hflip=yes
+
+// 1084:81
+[com_81]
+type=graphic
+width=20
+height=10
+widthmode=minus
+xmode=abs_centre
+layer=com_16
+graphic="aif_overlay_frame_gold_corner_2,0"
+
+// 1084:82
+[com_82]
+type=graphic
+width=10
+height=20
+heightmode=minus
+xmode=abs_right
+ymode=abs_centre
+layer=com_16
+graphic="aif_overlay_frame_gold_corner_2,2"
+tiling=yes
+
+// 1084:83
+[com_83]
+type=graphic
+width=10
+height=20
+heightmode=minus
+ymode=abs_centre
+layer=com_16
+graphic="aif_overlay_frame_gold_corner_2,2"
+hflip=yes
+
+// 1084:84
+[com_84]
+type=graphic
+widthmode=minus
+heightmode=minus
+xmode=abs_centre
+ymode=abs_centre
+layer=com_18
+graphic=window_texture_2
+tiling=yes
+
+// 1084:85
+[com_85]
+type=graphic
+width=10
+height=10
+layer=com_18
+graphic="aif_overlay_frame_gold_corner_2,1"
+hflip=yes
+
+// 1084:86
+[com_86]
+type=graphic
+width=10
+height=10
+xmode=abs_right
+layer=com_18
+graphic="aif_overlay_frame_gold_corner_2,1"
+
+// 1084:87
+[com_87]
+type=graphic
+width=10
+height=10
+ymode=abs_bottom
+layer=com_18
+graphic="aif_overlay_frame_gold_corner_2,1"
+vflip=yes
+hflip=yes
+
+// 1084:88
+[com_88]
+type=graphic
+width=10
+height=10
+xmode=abs_right
+ymode=abs_bottom
+layer=com_18
+graphic="aif_overlay_frame_gold_corner_2,1"
+vflip=yes
+
+// 1084:89
+[com_89]
+type=graphic
+width=20
+height=10
+widthmode=minus
+xmode=abs_centre
+ymode=abs_bottom
+layer=com_18
+graphic="aif_overlay_frame_gold_corner_2,0"
+tiling=yes
+vflip=yes
+hflip=yes
+
+// 1084:90
+[com_90]
+type=graphic
+width=20
+height=10
+widthmode=minus
+xmode=abs_centre
+layer=com_18
+graphic="aif_overlay_frame_gold_corner_2,0"
+
+// 1084:91
+[com_91]
+type=graphic
+width=10
+height=20
+heightmode=minus
+xmode=abs_right
+ymode=abs_centre
+layer=com_18
+graphic="aif_overlay_frame_gold_corner_2,2"
+tiling=yes
+
+// 1084:92
+[com_92]
+type=graphic
+width=10
+height=20
+heightmode=minus
+ymode=abs_centre
+layer=com_18
+graphic="aif_overlay_frame_gold_corner_2,2"
+hflip=yes
+
+// 1084:93
+[com_93]
+type=layer
+x=551
+y=742
+width=512
+height=334
+xmode=proportion_centre
+ymode=proportion_centre
+
+// 1084:94
+[com_94]
+type=text
+x=60
+y=91
+width=159
+height=36
+layer=com_11
+textfont=p11_full
+text=Invite all clanmates to the private meeting room
+textshadow=yes
+colour=0xe9e2b4
+
+// 1084:95
+[com_95]
+type=graphic
+width=4
+height=4
+heightmode=minus
+xmode=abs_right
+layer=com_15
+graphic=button_dropshadow_left
+tiling=yes
+alpha=yes
+
+// 1084:96
+[com_96]
+type=graphic
+width=4
+height=4
+widthmode=minus
+ymode=abs_bottom
+layer=com_15
+graphic=button_dropshadow_bottom
+tiling=yes
+alpha=yes
+
+// 1084:97
+[com_97]
+type=graphic
+width=4
+height=4
+xmode=abs_right
+ymode=abs_bottom
+layer=com_15
+graphic=button_dropshadow_corner
+alpha=yes
+
+// 1084:98
+[com_98]
+type=layer
+width=4
+height=4
+widthmode=minus
+heightmode=minus
+layer=com_15
+onload=script4201(event_com, struct_1773)
+
+// 1084:99
+[com_99]
+type=layer
+width=4
+height=4
+widthmode=minus
+heightmode=minus
+layer=com_15
+onload=script4201(event_com, struct_1774)
+
+// 1084:100
+[com_100]
+type=layer
+width=4
+height=4
+widthmode=minus
+heightmode=minus
+layer=com_15
+onload=script4201(event_com, struct_1775)
+
+// 1084:101
+[com_101]
+type=layer
+width=4
+height=4
+widthmode=minus
+heightmode=minus
+layer=com_15
+onload=script4201(event_com, struct_1776)
+
+// 1084:102
+[com_102]
+type=layer
+width=4
+height=4
+widthmode=minus
+heightmode=minus
+layer=com_15
+transmitop=1
+op1=Send Invite
+onload=script4213(event_com)
+
+// 1084:103
+[com_103]
+type=layer
+width=4
+height=4
+widthmode=minus
+heightmode=minus
+layer=com_15
+
+// 1084:104
+[com_104]
+type=text
+width=8
+height=4
+widthmode=minus
+heightmode=minus
+xmode=abs_centre
+ymode=abs_centre
+layer=com_103
+textfont=verdana_13pt_regular
+text=Send Invite
+textalignh=centre
+textalignv=centre
+colour=0xe1e1e1
+onload=script4151(event_com)
+
+// 1084:105
+[com_105]
+type=layer
+width=4
+height=4
+widthmode=minus
+heightmode=minus
+layer=com_15
+hide=yes
+noclickthrough=yes
+onload=script4201(event_com, struct_1777)
+
+// 1084:106
+[com_106]
+type=rectangle
+width=16391
+height=16391
+widthmode=proportion
+heightmode=proportion
+layer=com_105
+colour=0x000000
+fill=yes
+trans=100
+
+// 1084:107
+[com_107]
+type=text
+x=287
+y=92
+width=159
+height=36
+layer=com_11
+textfont=p11_full
+text=Invite a specific player to the private meeting room
+textshadow=yes
+colour=0xe9e2b4
+
+// 1084:108
+[com_108]
+type=text
+x=36
+y=68
+width=107
+height=20
+layer=com_11
+textfont=p11_full
+text=Invite all:
+textshadow=yes
+colour=0xa3835c
+
+// 1084:109
+[com_109]
+type=text
+x=252
+y=68
+width=134
+height=20
+layer=com_11
+textfont=p11_full
+text=Invite individual:
+textshadow=yes
+colour=0xa3835c
+
+// 1084:110
+[com_110]
+type=layer
+x=39
+y=91
+width=16
+height=16
+layer=com_11
+transmitop=1
+op1=Select
+opcursor0=cursor_46
+
+// 1084:111
+[com_111]
+type=text
+x=173
+y=151
+width=151
+height=18
+layer=com_10
+textfont=p11_full
+text=General
+textshadow=yes
+colour=0xe9e2b4
+
+// 1084:112
+[com_112]
+type=text
+x=173
+y=172
+width=151
+height=18
+layer=com_10
+textfont=p11_full
+text=Admin
+textshadow=yes
+colour=0xe9e2b4
+
+// 1084:113
+[com_113]
+type=text
+x=173
+y=193
+width=151
+height=18
+layer=com_10
+textfont=p11_full
+text=Deputy Owner
+textshadow=yes
+colour=0xe9e2b4
+
+// 1084:114
+[com_114]
+type=text
+x=304
+y=130
+width=151
+height=18
+layer=com_10
+textfont=p11_full
+text=Owner
+textshadow=yes
+colour=0xe9e2b4
+
+// 1084:115
+[com_115]
+type=layer
+width=16391
+height=16384
+widthmode=proportion
+heightmode=proportion
+layer=com_26
+onload=script4519(event_com)
+
+// 1084:116
+[com_116]
+type=layer
+width=16391
+height=16391
+widthmode=proportion
+heightmode=proportion
+layer=com_26
+onload=script4522(event_com)
+
+// 1084:117
+[com_117]
+type=layer
+width=16391
+height=16391
+widthmode=proportion
+heightmode=proportion
+layer=com_26
+onload=script4520(event_com)
+
+// 1084:118
+[com_118]
+type=layer
+width=16391
+height=16391
+widthmode=proportion
+heightmode=proportion
+layer=com_26
+onload=script4523(event_com)
+
+// 1084:119
+[com_119]
+type=layer
+width=16391
+height=16384
+widthmode=proportion
+heightmode=proportion
+layer=com_27
+onload=script4519(event_com)
+
+// 1084:120
+[com_120]
+type=layer
+width=16391
+height=16391
+widthmode=proportion
+heightmode=proportion
+layer=com_27
+onload=script4522(event_com)
+
+// 1084:121
+[com_121]
+type=layer
+width=16391
+height=16391
+widthmode=proportion
+heightmode=proportion
+layer=com_27
+onload=script4520(event_com)
+
+// 1084:122
+[com_122]
+type=layer
+width=16391
+height=16391
+widthmode=proportion
+heightmode=proportion
+layer=com_27
+onload=script4523(event_com)
+
+// 1084:123
+[com_123]
+type=layer
+width=16391
+height=16384
+widthmode=proportion
+heightmode=proportion
+layer=com_28
+onload=script4519(event_com)
+
+// 1084:124
+[com_124]
+type=layer
+width=16391
+height=16391
+widthmode=proportion
+heightmode=proportion
+layer=com_28
+onload=script4522(event_com)
+
+// 1084:125
+[com_125]
+type=layer
+width=16391
+height=16391
+widthmode=proportion
+heightmode=proportion
+layer=com_28
+onload=script4520(event_com)
+
+// 1084:126
+[com_126]
+type=layer
+width=16391
+height=16391
+widthmode=proportion
+heightmode=proportion
+layer=com_28
+onload=script4523(event_com)
+
+// 1084:127
+[com_127]
+type=layer
+width=16391
+height=16384
+widthmode=proportion
+heightmode=proportion
+layer=com_110
+onload=script4519(event_com)
+
+// 1084:128
+[com_128]
+type=graphic
+x=7
+y=7
+width=16
+height=16
+xmode=proportion_left
+ymode=proportion_top
+layer=com_127
+graphic="aif_checkbox_large,0"
+
+// 1084:129
+[com_129]
+type=layer
+width=16391
+height=16391
+widthmode=proportion
+heightmode=proportion
+layer=com_110
+onload=script4522(event_com)
+
+// 1084:130
+[com_130]
+type=layer
+width=16391
+height=16391
+widthmode=proportion
+heightmode=proportion
+layer=com_110
+onload=script4520(event_com)
+
+// 1084:131
+[com_131]
+type=layer
+width=16391
+height=16391
+widthmode=proportion
+heightmode=proportion
+layer=com_110
+onload=script4523(event_com)

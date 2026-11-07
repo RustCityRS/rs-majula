@@ -1,14 +1,15 @@
-[proc,inventory_setophelds](obj $obj)
-switch_obj ($obj) {
-    case teleport_crystal__4, teleport_crystal__3, teleport_crystal__2, teleport_crystal__1:
-        ~clientscript_2411($obj);
+// 2833
+[proc,inventory_setophelds](obj $obj0)
+switch_obj ($obj0) {
+    case teleport_crystal__4, teleport_crystal__3, teleport_crystal__2, teleport_crystal__1 :
+        ~script2411($obj0);
         return;
-    case explorer_s_ring_2, explorer_s_ring_4, explorer_s_ring_3:
-        ~clientscript_2431($obj);
+    case explorer_s_ring_2, explorer_s_ring_4, explorer_s_ring_3 :
+        ~script2431($obj0);
         return;
-    case coal_bag:
-        ~clientscript_1273($obj);
+    case coal_bag :
+        ~script1273($obj0);
         return;
 }
 cc_setonvartransmit(null);
-~clientscript_2410(oc_iop($obj, 1), oc_wearpos($obj, 1), oc_iop($obj, 2), oc_wearpos($obj, 2), oc_iop($obj, 3), oc_wearpos($obj, 3), oc_iop($obj, 4), oc_wearpos($obj, 4), oc_iop($obj, 5), oc_wearpos($obj, 5), oc_name($obj));
+~script2410(oc_iop($obj0, 1), oc_icursor($obj0, 1), oc_iop($obj0, 2), oc_icursor($obj0, 2), oc_iop($obj0, 3), oc_icursor($obj0, 3), oc_iop($obj0, 4), oc_icursor($obj0, 4), oc_iop($obj0, 5), oc_icursor($obj0, 5), oc_name($obj0));

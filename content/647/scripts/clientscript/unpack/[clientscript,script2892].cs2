@@ -1,0 +1,9 @@
+// 2892
+[clientscript,script2892](component $component0, int $int1)
+if (calc(clientclock - $int1) >= 180) {
+    %varclient_1086 = 1;
+}
+if (calc(clientclock - $int1) >= 1000) {
+    if_setontimer(null, interface_476:com_24);
+    if_sethide(true, interface_476:com_24);
+}

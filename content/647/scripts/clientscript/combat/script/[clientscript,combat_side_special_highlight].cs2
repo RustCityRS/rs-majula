@@ -1,6 +1,7 @@
-[clientscript,combat_side_special_highlight](component $component)
+// 1138
+[clientscript,combat_side_special_highlight](component $component0)
 if (%sa_attack > 0) {
-    if_setcolour(^yellow, $component);
+    if_setcolour(^yellow, $component0);
 } else {
-    if_setcolour(^black, $component);
+    if_setcolour(^black, $component0);
 }

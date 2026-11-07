@@ -1,0 +1,29 @@
+// 2656
+[proc,script2656]()(int)
+def_int $int0 = 0;
+def_int $int1 = 0;
+$int0 = calc($int0 + %varplayerbit_6113);
+$int1 = calc((1 + %varplayerbit_6114) / 2);
+$int0 = calc($int0 + $int1);
+$int1 = calc(%varplayerbit_6115 / 2);
+$int0 = calc($int0 + $int1);
+$int1 = calc(%varplayerbit_6116 / 2);
+$int0 = calc($int0 + $int1);
+$int1 = calc(%varplayerbit_6117 + %varplayerbit_6118 + (%varplayerbit_6119 + %varplayerbit_6120));
+$int0 = calc($int0 + $int1);
+$int0 = calc(%varplayerbit_6121 + $int0);
+$int1 = calc(%varplayerbit_6122 / 2);
+$int0 = calc($int0 + $int1);
+$int1 = calc(%varplayerbit_6123 / 2);
+$int0 = calc($int0 + $int1);
+$int1 = calc(%varplayerbit_6124 / 2);
+$int0 = calc($int0 + $int1);
+$int1 = calc(%varplayerbit_6125 / 2);
+$int0 = calc($int0 + $int1);
+$int1 = calc(%varplayerbit_6151 + %varplayerbit_6152 + (%varplayerbit_6153 + %varplayerbit_6154) + %varplayerbit_6155);
+$int0 = calc($int0 + $int1);
+$int0 = calc($int0 * 4);
+if (%varplayerbit_6112 = 20 & $int0 > 75) {
+    %varplayerbit_6112 = 50;
+}
+return($int0);

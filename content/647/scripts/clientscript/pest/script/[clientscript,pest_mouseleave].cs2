@@ -1,2 +1,3 @@
-[clientscript,pest_mouseleave](component $component)
-if_settext(removetags(if_gettext($component)), $component);
+// 1964
+[clientscript,pest_mouseleave](component $component0)
+if_settext(removetags(if_gettext($component0)), $component0);

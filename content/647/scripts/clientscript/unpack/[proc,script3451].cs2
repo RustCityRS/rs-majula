@@ -1,0 +1,24 @@
+// 3451
+[proc,script3451](int $int0, boolean $boolean1)
+def_component $component2 = graphics_options_client:com_36;
+def_component $component3 = graphics_options_client:com_37;
+def_component $component4 = graphics_options_client:com_38;
+def_component $component5 = graphics_options_client:com_39;
+def_component $component6 = graphics_options_client:com_40;
+def_component $component7 = graphics_options_client:com_1;
+if ($boolean1 = true) {
+    $component2 = interface_977:com_10;
+    $component3 = interface_977:com_11;
+    $component4 = interface_977:com_12;
+    $component5 = interface_977:com_13;
+    $component6 = interface_977:com_14;
+}
+~script3932($int0, $boolean1, $component2, 1, "MIN", calc(stringwidth("MIN", verdana_11pt_regular) + 30), "");
+~script3932($int0, $boolean1, $component3, 2, "LOW", calc(stringwidth("LOW", verdana_11pt_regular) + 30), "");
+~script3932($int0, $boolean1, $component4, 3, "MID", calc(stringwidth("MID", verdana_11pt_regular) + 30), "");
+~script3932($int0, $boolean1, $component5, 4, "HIGH", calc(stringwidth("HIGH", verdana_11pt_regular) + 30), "");
+~script3932($int0, $boolean1, $component6, 0, "CUSTOM", calc(stringwidth("CUSTOM", verdana_11pt_regular) + 30), "");
+if ($boolean1 = false) {
+    ~script3932($int0, $boolean1, $component7, -1, "RE-RUN AUTO SETUP", calc(stringwidth("RE-RUN AUTO SETUP", verdana_11pt_regular) + 30), "");
+}
+return;

@@ -1,0 +1,17 @@
+// 4175
+[clientscript,script4175](component $component0, int $int1, int $int2, boolean $boolean3)
+def_int $int4 = calc(clientclock - ~script4176($boolean3, $int2));
+if ($int4 >= 255 | $int4 < 0) {
+    if (.cc_find($component0, $int1) = true) {
+        .cc_sethide(true);
+    }
+    return;
+}
+if (.cc_find($component0, $int1) = true) {
+    .cc_sethide(false);
+    if (calc($int4 % 40) > 20) {
+        .cc_settrans(255);
+    } else {
+        .cc_settrans($int4);
+    }
+}

@@ -1,5 +1,0 @@
-[proc,clientscript_738]
-def_string $string0 = tostring(calc(%varc_int_105 / 10));
-def_string $string1 = tostring(calc(%varc_int_105 % 10));
-if_settext($string0, wm54_61_weakness:com48);
-if_settext($string1, wm54_61_weakness:com49);

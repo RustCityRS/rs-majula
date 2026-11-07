@@ -1,7 +1,0 @@
-[proc,clientscript_2006](int $int)
-if ($int > 0) {
-    if_setgraphic(4123, loginscreen:com107);
-} else {
-    if_setgraphic(4124, loginscreen:com107);
-}
-if_setontimer("clientscript_3961(0, loginscreen:com7)", loginscreen:com7);

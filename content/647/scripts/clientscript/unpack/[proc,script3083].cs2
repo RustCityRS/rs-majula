@@ -1,0 +1,7 @@
+// 3083
+[proc,script3083](component $component0, int $int1, string $string0)
+if ($int1 < 0) {
+    if_setonmouserepeat("script3084($component0, $int1, calc(clientclock + 25), $string0, event_mousex, event_mousey)", $component0);
+} else if (cc_find($component0, $int1) = true) {
+    cc_setonmouserepeat("script3084($component0, $int1, calc(clientclock + 25), $string0, event_mousex, event_mousey)");
+}

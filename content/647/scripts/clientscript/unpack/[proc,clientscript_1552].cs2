@@ -1,9 +1,0 @@
-[proc,clientscript_1552](int $int0, int $int1, component $component2, int $int3, string $string)(int)
-def_int $int4 = 0;
-if (cc_find($component2, $int3) = true | $int3 = -1 & if_find($component2) = true) {
-    $int4 = calc(cc_getx + cc_getwidth / 2);
-} else {
-    return(0);
-}
-return(~clientscript_1551($int0, $string, $int1, calc($int4 - op4125(~clientscript_1602($string), $int1) / 2)));
-return(0);

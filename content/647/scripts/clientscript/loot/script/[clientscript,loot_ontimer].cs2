@@ -1,15 +1,16 @@
-[clientscript,loot_ontimer](component $component)
-if (%varc_int_53 < clientclock) {
-    if (%varbit_4072 = true | %varbit_4073 = true) {
-        if_setgraphic("loot_icon,2", $component);
-    } else if (%varbit_4071 = true) {
-        if (%varbit_4465 = true) {
-            if_setgraphic("loot_icon,3", $component);
+// 1598
+[clientscript,loot_ontimer](component $component0)
+if (%varclient_53 < clientclock) {
+    if (%varplayerbit_4072 = 1 | %varplayerbit_4073 = 1) {
+        if_setgraphic("loot_icon,2", $component0);
+    } else if (%varplayerbit_4071 = 1) {
+        if (%varplayerbit_4465 = 1) {
+            if_setgraphic("loot_icon,3", $component0);
         } else {
-            if_setgraphic("loot_icon,0", $component);
+            if_setgraphic("loot_icon,0", $component0);
         }
     } else {
-        if_setgraphic("loot_icon,1", $component);
+        if_setgraphic("loot_icon,1", $component0);
     }
-    %varc_int_53 = calc(clientclock + 500);
+    %varclient_53 = calc(clientclock + 500);
 }

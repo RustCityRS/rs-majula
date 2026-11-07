@@ -1,0 +1,156 @@
+// 974:0
+[com_0]
+type=rectangle
+width=16384
+height=16384
+widthmode=proportion
+heightmode=proportion
+layer=com_1
+colour=0x000000
+fill=yes
+
+// 974:1
+[com_1]
+type=layer
+width=24423
+height=24190
+widthmode=proportion
+heightmode=proportion
+xmode=abs_centre
+ymode=abs_centre
+
+// 974:2
+[com_2]
+type=model
+x=-20
+y=-7
+width=18495
+height=22140
+widthmode=proportion
+heightmode=proportion
+xmode=abs_centre
+ymode=abs_centre
+layer=com_1
+model=model_57345
+modelorigin=38,14
+modelangle=0,3,0
+modelzoom=800
+modelorthog=yes
+modelnodepth=yes
+modelobjwidth=861
+modelobjheight=666
+
+// 974:3
+[com_3]
+type=layer
+x=2025
+y=571
+width=214
+height=218
+xmode=proportion_centre
+ymode=proportion_centre
+layer=com_1
+
+// 974:4
+[com_4]
+type=text
+x=-1
+y=1
+width=215
+height=218
+ymode=abs_bottom
+layer=com_3
+textfont=quill_caps_large
+text=Zanaris Needs You!
+textalignh=centre
+colour=0xffff00
+
+// 974:5
+[com_5]
+type=text
+x=1
+y=-1
+width=215
+height=218
+ymode=abs_bottom
+layer=com_3
+textfont=quill_caps_large
+text=Zanaris Needs You!
+textalignh=centre
+colour=0xffff00
+
+// 974:6
+[com_6]
+type=text
+x=-1
+y=-1
+width=215
+height=218
+ymode=abs_bottom
+layer=com_3
+textfont=quill_caps_large
+text=Zanaris Needs You!
+textalignh=centre
+colour=0xffff00
+
+// 974:7
+[com_7]
+type=text
+x=1
+y=1
+width=215
+height=218
+ymode=abs_bottom
+layer=com_3
+textfont=quill_caps_large
+text=Zanaris Needs You!
+textalignh=centre
+colour=0xffff66
+
+// 974:8
+[com_8]
+type=text
+x=-69
+y=7
+width=215
+height=218
+xmode=proportion_centre
+ymode=proportion_centre
+layer=com_3
+textfont=quill_caps_large
+text=Zanaris Needs You!
+textalignh=centre
+colour=0x756152
+
+// 974:9
+[com_9]
+type=rectangle
+width=16384
+height=16384
+widthmode=proportion
+heightmode=proportion
+layer=com_1
+colour=0xcda456
+fill=yes
+trans=75
+
+// 974:10
+[com_10]
+type=model
+x=10
+y=-10
+width=11795
+height=12702
+widthmode=proportion
+heightmode=proportion
+xmode=abs_centre
+ymode=abs_centre
+layer=com_1
+model=model_57349
+modelorigin=-14,-10
+modelzoom=627
+modelanim=seq_13960
+modelnodepth=yes
+modelobjwidth=549
+modelobjheight=382
+onload=script3414(event_com)

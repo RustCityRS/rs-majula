@@ -1,0 +1,22 @@
+// 4110
+[clientscript,script4110]
+switch_int (%varplayer_1108) {
+    case default :
+        if_sethide(false, interface_106:com_126);
+        if_sethide(true, interface_106:com_131);
+        if_sethide(true, interface_106:com_140);
+        ~script670;
+        if_settext("First, you will see a selection of boxes. You can make several offers simultaneously, one in each box.", interface_106:com_124);
+    case 2 :
+        if_sethide(true, interface_106:com_126);
+        if_sethide(false, interface_106:com_131);
+        if_sethide(true, interface_106:com_140);
+        ~script671;
+        if_settext("Each box has two buttons. One button is for offering to buy items, the other is for offering to sell items.", interface_106:com_124);
+    case 5 :
+        if_sethide(true, interface_106:com_126);
+        if_sethide(true, interface_106:com_131);
+        if_sethide(false, interface_106:com_140);
+        ~script672;
+        if_settext("Now the offer is placed! You can return to the Grand Exchange at any time to check on the progress of your offers.", interface_106:com_124);
+}

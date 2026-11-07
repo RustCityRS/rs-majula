@@ -327,7 +327,7 @@ stat_advance($skill, $xp);
 [label,tutorial_complete]
 tut_close();
 // the instructions' slot (tutorialstep.rs2)
-if_closesub(chatbox:com7);
+if_closesub(chatbox:com_7);
 if_close;
 
 %tutorial = ^tutorial_complete;

@@ -1,8 +1,9 @@
+// 911
 [clientscript,easter08_chocatrice_hatching_update]
-if (%varbit_4532 = true & %varc_int_118 < 253) {
-    %varc_int_118 = calc(%varc_int_118 + 3);
-    if_settrans(calc(255 - %varc_int_118), ba4602563:com3);
-} else if (%varbit_4532 = false & %varc_int_118 > 3) {
-    %varc_int_118 = calc(%varc_int_118 - 3);
-    if_settrans(calc(255 - %varc_int_118), ba4602563:com3);
+if (%varplayerbit_4532 = 1 & %varclient_118 < 253) {
+    %varclient_118 = calc(%varclient_118 + 3);
+    if_settrans(calc(255 - %varclient_118), interface_721:com_3);
+} else if (%varplayerbit_4532 = 0 & %varclient_118 > 3) {
+    %varclient_118 = calc(%varclient_118 - 3);
+    if_settrans(calc(255 - %varclient_118), interface_721:com_3);
 }

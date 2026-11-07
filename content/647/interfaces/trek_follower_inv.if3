@@ -1,0 +1,219 @@
+// 518:0
+[com_0]
+type=rectangle
+x=17
+y=25
+width=488
+height=305
+colour=0x000000
+fill=yes
+trans=200
+
+// 518:1
+[com_1]
+type=graphic
+x=14
+y=25
+width=485
+height=300
+graphic=tradebacking
+tiling=yes
+colour=0x000000
+
+// 518:2
+[com_2]
+type=graphic
+y=53
+width=32
+height=241
+graphic="v2_stone_borders,1"
+tiling=yes
+colour=0x000000
+
+// 518:3
+[com_3]
+type=graphic
+x=13
+y=20
+width=32
+height=32
+graphic="v2_stone_borders,4"
+colour=0x000000
+
+// 518:4
+[com_4]
+type=graphic
+x=480
+y=51
+width=32
+height=243
+graphic="v2_stone_borders,3"
+tiling=yes
+colour=0x000000
+
+// 518:5
+[com_5]
+type=graphic
+x=44
+y=7
+width=424
+height=34
+graphic="v2_stone_borders,0"
+tiling=yes
+colour=0x000000
+
+// 518:6
+[com_6]
+type=graphic
+x=45
+y=306
+width=423
+height=32
+graphic="v2_stone_borders,2"
+tiling=yes
+colour=0x000000
+
+// 518:7
+[com_7]
+type=graphic
+x=13
+y=294
+width=32
+height=32
+graphic="v2_stone_borders,6"
+colour=0x000000
+
+// 518:8
+[com_8]
+type=graphic
+x=468
+y=20
+width=32
+height=32
+graphic="v2_stone_borders,5"
+colour=0x000000
+
+// 518:9
+[com_9]
+type=graphic
+x=468
+y=294
+width=32
+height=32
+graphic="v2_stone_borders,7"
+colour=0x000000
+
+// 518:10
+[com_10]
+type=graphic
+x=24
+y=35
+width=465
+height=32
+graphic="v2_stone_borders,8"
+tiling=yes
+colour=0x000000
+
+// 518:11
+[com_11]
+type=graphic
+x=13
+y=37
+width=32
+height=32
+graphic="v2_stone_borders,9"
+colour=0x000000
+
+// 518:12
+[com_12]
+type=graphic
+x=468
+y=37
+width=32
+height=32
+graphic="v2_stone_borders,10"
+colour=0x000000
+
+// 518:13
+[com_13]
+type=layer
+x=20
+y=91
+width=472
+height=220
+oninvtransmit=follower_inv_create{inv}
+
+// 518:14
+[com_14]
+type=layer
+x=20
+y=91
+width=472
+height=220
+
+// 518:15
+[com_15]
+type=text
+x=83
+y=31
+width=315
+height=18
+textfont=b12_full
+text=Follower Inv
+textalignh=centre
+textshadow=yes
+colour=0xe1981f
+
+// 518:16
+[com_16]
+type=text
+x=396
+y=131
+width=30
+height=30
+textfont=quill_oblique_large
+text=%1
+textshadow=yes
+colour=0xbf751d
+onvartransmit=trek_follower_space{varplayer_984, varplayer_985, varplayer_986}
+
+// 518:17
+[com_17]
+type=text
+x=363
+y=115
+width=100
+height=16
+textfont=p12_full
+text=Npc spaces left
+textalignh=centre
+textshadow=yes
+colour=0xe1981f
+
+// 518:18
+[com_18]
+type=graphic
+x=474
+y=30
+width=16
+height=16
+graphic="v2_stone_close_button,0"
+colour=0x000000
+transmitop=1
+op1=Close
+onmouseover=graphic_swapper(event_com, "v2_stone_close_button,1")
+onmouseleave=graphic_swapper(event_com, "v2_stone_close_button,0")
+onop=closebutton_click
+
+// 518:19
+[com_19]
+type=text
+x=28
+y=290
+width=457
+height=15
+textfont=p12_full
+text=Right click on items in your inventory to add them here, then click close.
+textalignh=centre
+textshadow=yes
+colour=0x77736a

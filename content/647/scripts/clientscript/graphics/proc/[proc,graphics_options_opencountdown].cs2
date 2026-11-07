@@ -1,22 +1,23 @@
+// 2701
 [proc,graphics_options_opencountdown](int $int0, boolean $boolean1, boolean $boolean2)
-if (getwindowmode = true) {
-    if_openoverlay(35913748, 883);
+if (getwindowmode = ^windowmode_small) {
+    if_opensubclient(toplevel:com_20, graphics_confirm);
 } else {
-    if_openoverlay(48889936, 883);
+    if_opensubclient(toplevel_fullscreen:com_80, graphics_confirm);
 }
-if_sethide(false, toplevel_fullscreen:com80);
-if_sethide(false, toplevel:com20);
-~clientscript_1151(graphics_confirm:com18);
-~clientscript_1151(graphics_confirm:com21);
-if_setonmouseover("graphics_options_countdownmouseover(true, graphics_confirm:com18, graphics_confirm:com19)", graphics_confirm:com17);
-if_setonmouseleave("graphics_options_countdownmouseover(false, graphics_confirm:com18, graphics_confirm:com19)", graphics_confirm:com17);
-if_setonmouseover("graphics_options_countdownmouseover(true, graphics_confirm:com21, graphics_confirm:com22)", graphics_confirm:com20);
-if_setonmouseleave("graphics_options_countdownmouseover(false, graphics_confirm:com21, graphics_confirm:com22)", graphics_confirm:com20);
-if_setonclick("graphics_options_decision(true, $int0, 1, $boolean1, $boolean2)", graphics_confirm:com17);
-if_setonclick("graphics_options_decision(false, $int0, 1, $boolean1, $boolean2)", graphics_confirm:com20);
-if_sethide(false, toplevel:com190);
-if_sethide(false, toplevel:com68);
-if_sethide(false, toplevel:com193);
-if_sethide(false, toplevel:com202);
-if_sethide(false, toplevel:com162);
-if_sethide(false, toplevel:com114);
+if_sethide(false, toplevel_fullscreen:com_80);
+if_sethide(false, toplevel:com_20);
+~script1151(graphics_confirm:com_18);
+~script1151(graphics_confirm:com_21);
+if_setonmouseover("graphics_options_countdownmouseover(true, graphics_confirm:com_18, graphics_confirm:com_19)", graphics_confirm:com_17);
+if_setonmouseleave("graphics_options_countdownmouseover(false, graphics_confirm:com_18, graphics_confirm:com_19)", graphics_confirm:com_17);
+if_setonmouseover("graphics_options_countdownmouseover(true, graphics_confirm:com_21, graphics_confirm:com_22)", graphics_confirm:com_20);
+if_setonmouseleave("graphics_options_countdownmouseover(false, graphics_confirm:com_21, graphics_confirm:com_22)", graphics_confirm:com_20);
+if_setonclick("graphics_options_decision(true, $int0, 1, $boolean1, $boolean2)", graphics_confirm:com_17);
+if_setonclick("graphics_options_decision(false, $int0, 1, $boolean1, $boolean2)", graphics_confirm:com_20);
+if_sethide(false, toplevel:com_190);
+if_sethide(false, toplevel:com_68);
+if_sethide(false, toplevel:com_193);
+if_sethide(false, toplevel:com_202);
+if_sethide(false, toplevel:com_162);
+if_sethide(false, toplevel:com_114);

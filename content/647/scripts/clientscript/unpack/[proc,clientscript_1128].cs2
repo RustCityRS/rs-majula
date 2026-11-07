@@ -1,8 +1,0 @@
-[proc,clientscript_1128](component $component)
-if (%varbit_2668 = true) {
-    if_setgraphic(1703, $component);
-} else if (%varc_int_993 = true) {
-    if_setgraphic(1702, $component);
-} else {
-    if_setgraphic(1701, $component);
-}

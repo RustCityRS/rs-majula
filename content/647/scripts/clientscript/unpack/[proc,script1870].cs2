@@ -1,0 +1,24 @@
+// 1870
+[proc,script1870](component $component0)
+def_int $int1 = 0;
+def_int $int2 = 0;
+def_int $int3 = reboottimer;
+def_string $string0 = "0";
+if ($int3 > 0) {
+    $int1 = calc($int3 / 50 % 60);
+    $int2 = calc($int3 / 3000);
+    if ($int1 < 10) {
+        $string0 = "System update in: <tostring($int2)>:0<tostring($int1)>";
+    } else {
+        $string0 = "System update in: <tostring($int2)>:<tostring($int1)>";
+    }
+    if_settext($string0, $component0);
+    if (string_length($string0) > 0) {
+        if_setsize(calc(stringwidth("System update in: ", p11_full) + 40), if_getheight(lobbyscreen:com_20), ^setsize_abs, ^setsize_abs, lobbyscreen:com_20);
+        if_sethide(false, lobbyscreen:com_20);
+    } else {
+        if_sethide(true, lobbyscreen:com_20);
+    }
+} else {
+    if_setontimer(null, $component0);
+}

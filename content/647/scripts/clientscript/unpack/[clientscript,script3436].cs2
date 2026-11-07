@@ -1,0 +1,20 @@
+// 3436
+[clientscript,script3436](model $model0, string $string0, component $component1, component $component2)
+if_setmodel($model0, interface_311:com_57);
+if_settext($string0, interface_311:com_59);
+if_sethide(true, interface_311:com_39);
+if_sethide(true, interface_311:com_11);
+if_sethide(true, interface_311:com_7);
+if_sethide(true, interface_311:com_3);
+if_sethide(true, interface_311:com_23);
+if_sethide(true, interface_311:com_19);
+if_sethide(true, interface_311:com_15);
+if_sethide(false, $component1);
+if_setgraphic(graphic_4041, interface_311:com_24);
+if_setgraphic(graphic_4041, interface_311:com_20);
+if_setgraphic(graphic_4041, interface_311:com_16);
+if_setgraphic(graphic_4041, interface_311:com_12);
+if_setgraphic(graphic_4041, interface_311:com_8);
+if_setgraphic(graphic_4041, interface_311:com_4);
+if_setgraphic(graphic_4041, interface_311:com_0);
+if_setgraphic(graphic_4043, $component2);

@@ -1,0 +1,19 @@
+// 610:0
+[com_0]
+type=layer
+width=16391
+height=16391
+widthmode=proportion
+heightmode=proportion
+
+// 610:1
+[com_1]
+type=rectangle
+width=1
+height=16391
+heightmode=proportion
+layer=com_0
+colour=0x000000
+fill=yes
+onload=script513
+ontimer=script514

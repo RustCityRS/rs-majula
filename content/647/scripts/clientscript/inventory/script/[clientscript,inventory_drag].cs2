@@ -1,3 +1,4 @@
+// 1616
 [clientscript,inventory_drag](component $component0, int $int1, component $component2, int $int3)
 if ($component0 ! $component2) {
     return;

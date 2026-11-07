@@ -1,25 +1,26 @@
+// 3458
 [proc,love_makeup](component $component0, coord $coord1)
-switch_int (%varc_int_1007) {
-    case 31:
-        cam_allocpath(0, 3);
-        cam_allocpath(1, 3);
-        cam_addwaypoint(0, 0, ~clientscript_3459(0_59_89_30_30, $coord1), 500, ~clientscript_3459(0_59_89_30_30, $coord1), 500, 0);
-        cam_addwaypoint(1, 0, ~clientscript_3459(0_59_89_26_26, $coord1), 350, ~clientscript_3459(0_59_89_26_26, $coord1), 350, 0);
-        cam_addwaypoint(0, 1, ~clientscript_3459(0_59_89_30_29, $coord1), 450, ~clientscript_3459(0_59_89_30_29, $coord1), 450, 0);
-        cam_addwaypoint(1, 1, ~clientscript_3459(0_59_89_27_27, $coord1), 350, ~clientscript_3459(0_59_89_27_27, $coord1), 350, 0);
-        cam_addwaypoint(0, 2, ~clientscript_3459(0_59_89_28_27, $coord1), 550, ~clientscript_3459(0_59_89_28_27, $coord1), 550, 0);
-        cam_addwaypoint(1, 2, ~clientscript_3459(0_59_89_28_32, $coord1), 350, ~clientscript_3459(0_59_89_25_30, $coord1), 350, 0);
-        cam_startpath(0, 0, 50, 10, 1, 0);
-    case 32:
-        cam_startpath(0, 1, 500, 500, 1, 1);
-    case 33:
+switch_int (%varclient_1007) {
+    case 31 :
+        spline_new(0, 3);
+        spline_new(1, 3);
+        spline_addpoint(0, 0, ~script3459(0_59_89_30_30, $coord1), 500, ~script3459(0_59_89_30_30, $coord1), 500, 0);
+        spline_addpoint(1, 0, ~script3459(0_59_89_26_26, $coord1), 350, ~script3459(0_59_89_26_26, $coord1), 350, 0);
+        spline_addpoint(0, 1, ~script3459(0_59_89_30_29, $coord1), 450, ~script3459(0_59_89_30_29, $coord1), 450, 0);
+        spline_addpoint(1, 1, ~script3459(0_59_89_27_27, $coord1), 350, ~script3459(0_59_89_27_27, $coord1), 350, 0);
+        spline_addpoint(0, 2, ~script3459(0_59_89_28_27, $coord1), 550, ~script3459(0_59_89_28_27, $coord1), 550, 0);
+        spline_addpoint(1, 2, ~script3459(0_59_89_28_32, $coord1), 350, ~script3459(0_59_89_25_30, $coord1), 350, 0);
+        cam_movealong(0, 0, 50, 10, 1, 0);
+    case 32 :
+        cam_movealong(0, 1, 500, 500, 1, 1);
+    case 33 :
         ~tutorial3_fadeout(^black, 50, $component0);
-    case 34:
+    case 34 :
         ~tutorial3_fadein(25, $component0);
-    case 35:
+    case 35 :
         ~tutorial3_fadeout(^black, 25, $component0);
-    case 36:
+    case 36 :
         ~tutorial3_fadein(50, $component0);
-    case default:
-        cam_clear_5512;
+    case default :
+        cam_smoothreset;
 }

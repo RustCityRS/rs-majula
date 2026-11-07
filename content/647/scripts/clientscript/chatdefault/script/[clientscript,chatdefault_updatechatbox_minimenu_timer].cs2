@@ -1,6 +1,7 @@
-[clientscript,chatdefault_updatechatbox_minimenu_timer](boolean $boolean)
-if (hud_test(49283081, -1) = true) {
+// 1559
+[clientscript,chatdefault_updatechatbox_minimenu_timer](boolean $boolean0)
+if (minimenuopen(chatbox:com_chatbox_background, -1) = true) {
     return;
 }
 if_setontimer(null, chatbox:com_chatbox_background);
-~chatdefault_updatechatbox($boolean);
+~chatdefault_updatechatbox($boolean0);

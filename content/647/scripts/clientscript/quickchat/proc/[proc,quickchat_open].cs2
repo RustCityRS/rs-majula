@@ -1,46 +1,47 @@
-[proc,quickchat_open](int $int0, string $string)
-if (%varc_int_1413 = false) {
+// 1050
+[proc,quickchat_open](int $int0, string $string0)
+if (%varclient_1413 = 0) {
     return;
 }
-if ($int0 = 2 & compare("", clan_getchatowner) = false) {
+if ($int0 = 2 & compare("", clan_getchatdisplayname) = 0) {
     mes("You need to be in a Friends Chat channel to use Friends Channel Quick Chat.");
     return;
 }
-if ($int0 = 8 & clanchannel2_find_affined = false) {
+if ($int0 = 8 & activeclanchannel_find_affined = false) {
     mes("You need to be in a Clan to use Clan Channel Quick Chat.");
     return;
 }
-if ($int0 = 10 & clanchannel2_find = false) {
+if ($int0 = 10 & activeclanchannel_find_listened = false) {
     mes("You need to be a guest in a Clan Channel to use Guest Clan Quick Chat.");
     return;
 }
 if (getwindowmode >= 2) {
-    if_setgraphic(chat_background, chatbox:com1);
-    if_setalpha(0, chatbox:com1);
-    if_sethide(false, chatbox:com1);
-    if_sethide(false, chatbox:com2);
+    if_setgraphic(chat_background, chatbox:com_1);
+    if_setalpha(false, chatbox:com_1);
+    if_sethide(false, chatbox:com_1);
+    if_sethide(false, chatbox:com_2);
     ~chatbox_resize_reset(0);
-    if_sethide(true, toplevel_fullscreen:com72);
+    if_sethide(true, toplevel_fullscreen:com_72);
 }
-if_sethide(true, chatbox_background:com50);
-if_setonkey(null, chatbox_background:com55);
-if_sethide(false, chatbox_background:com0);
-if_sethide(true, chatbox_background:com7);
-if_sethide(true, chatbox_background:com9);
-if_sethide(true, chatbox_background:com13);
-if_sethide(false, chatbox_background:com17);
-if_sethide(false, chatbox_background:com1);
-if_sethide(true, chatbox_background:com3);
-if_setscrollpos(0, 0, chatbox_background:com17);
-def_int $int1 = 85;
-def_int $int2 = ~clientscript_1036;
+if_sethide(true, chatbox_background:com_50);
+if_setonkey(null, chatbox_background:com_55);
+if_sethide(false, chatbox_background:com_0);
+if_sethide(true, chatbox_background:com_7);
+if_sethide(true, chatbox_background:com_9);
+if_sethide(true, chatbox_background:com_13);
+if_sethide(false, chatbox_background:com_17);
+if_sethide(false, chatbox_background:com_1);
+if_sethide(true, chatbox_background:com_3);
+if_setscrollpos(0, 0, chatbox_background:com_17);
+def_chatcat $chatcat1 = chatcat_85;
+def_chatcat $chatcat2 = ~script1036;
 def_int $int3 = 1;
 if ($int0 = 3) {
-    $int1 = 32769;
-    $int2 = -1;
+    $chatcat1 = chatcat_32769;
+    $chatcat2 = null;
     $int3 = 0;
 }
-%varc_int_126 = $int0;
-%varc_string_27 = $string;
-%varc_int_127 = 1;
-~quickchat_menu_add(chatbox_background:com1, 0, $int1, $int2, $int3);
+%varclient_126 = $int0;
+%varclient_1546 = $string0;
+%varclient_127 = 1;
+~quickchat_menu_add(chatbox_background:com_1, 0, $chatcat1, $chatcat2, $int3);

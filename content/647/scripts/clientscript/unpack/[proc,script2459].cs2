@@ -1,0 +1,74 @@
+// 2459
+[proc,script2459](int $int0)(component)
+if (getwindowmode >= 2) {
+    switch_int ($int0) {
+        case 0 :
+            return(toplevel_fullscreen:com_52);
+        case 1 :
+            return(toplevel_fullscreen:com_53);
+        case 2 :
+            return(toplevel_fullscreen:com_54);
+        case 3 :
+            return(toplevel_fullscreen:com_55);
+        case 4 :
+            return(toplevel_fullscreen:com_56);
+        case 5 :
+            return(toplevel_fullscreen:com_57);
+        case 6 :
+            return(toplevel_fullscreen:com_58);
+        case 7 :
+            return(toplevel_fullscreen:com_59);
+        case 8 :
+            return(toplevel_fullscreen:com_60);
+        case 9 :
+            return(toplevel_fullscreen:com_61);
+        case 10 :
+            return(toplevel_fullscreen:com_62);
+        case 11 :
+            return(toplevel_fullscreen:com_63);
+        case 12 :
+            return(toplevel_fullscreen:com_64);
+        case 13 :
+            return(toplevel_fullscreen:com_65);
+        case 14 :
+            return(toplevel_fullscreen:com_66);
+        case 15 :
+            return(toplevel_fullscreen:com_67);
+    }
+} else {
+    switch_int ($int0) {
+        case 0 :
+            return(toplevel:com_119);
+        case 1 :
+            return(toplevel:com_120);
+        case 2 :
+            return(toplevel:com_121);
+        case 3 :
+            return(toplevel:com_122);
+        case 4 :
+            return(toplevel:com_123);
+        case 5 :
+            return(toplevel:com_124);
+        case 6 :
+            return(toplevel:com_125);
+        case 7 :
+            return(toplevel:com_126);
+        case 8 :
+            return(toplevel:com_72);
+        case 9 :
+            return(toplevel:com_73);
+        case 10 :
+            return(toplevel:com_74);
+        case 11 :
+            return(toplevel:com_75);
+        case 12 :
+            return(toplevel:com_76);
+        case 13 :
+            return(toplevel:com_77);
+        case 14 :
+            return(toplevel:com_78);
+        case 15 :
+            return(toplevel:com_79);
+    }
+}
+return(null);

@@ -1,5 +1,7 @@
 use crate::CONFIG_TYPE_CRCS;
 #[cfg(since_647)]
+use crate::archive;
+#[cfg(since_647)]
 use crate::cache::js5::PackedCache;
 use crate::pack::config::*;
 #[cfg(before_647)]
@@ -12,8 +14,6 @@ use crate::pack::pack_registry::{PackRegistry, PackedFile};
 use crate::pack::util::verify_crc;
 #[cfg(since_647)]
 use crate::pack::{config, interface, js5, media, model, sound, texture};
-#[cfg(since_647)]
-use crate::{archive, config_crc};
 use anyhow::{Context, Result, bail};
 #[cfg(since_647)]
 use rayon::join;
@@ -71,6 +71,36 @@ fn pack_cached_assets(
         "mes",
         #[cfg(since_647)]
         "flu",
+        #[cfg(since_647)]
+        "bas",
+        #[cfg(since_647)]
+        "cursor",
+        #[cfg(since_647)]
+        "hitmark",
+        #[cfg(since_647)]
+        "billboard",
+        #[cfg(since_647)]
+        "particleeffector",
+        #[cfg(since_647)]
+        "particleemitter",
+        #[cfg(since_647)]
+        "light",
+        #[cfg(since_647)]
+        "mel",
+        #[cfg(since_647)]
+        "msi",
+        #[cfg(since_647)]
+        "quest",
+        #[cfg(since_647)]
+        "quickchatcat",
+        #[cfg(since_647)]
+        "quickchatphrase",
+        #[cfg(since_647)]
+        "varc",
+        #[cfg(since_647)]
+        "varcs",
+        #[cfg(since_647)]
+        "varclansetting",
     ];
     let results: HashMap<String, PackedFile> = kinds
         .par_iter()
@@ -107,6 +137,44 @@ fn pack_cached_assets(
                 "mes" => mes::pack_mes(fc, &constants)?,
                 #[cfg(since_647)]
                 "flu" => flu::pack_flus(fc, registry, &constants)?,
+                #[cfg(since_647)]
+                "bas" => bas::pack_bases(fc, registry, &constants)?,
+                #[cfg(since_647)]
+                "cursor" => cursor::pack_cursors(fc, registry, &constants)?,
+                #[cfg(since_647)]
+                "hitmark" => hitmark::pack_hitmarks(fc, registry, &constants)?,
+                #[cfg(since_647)]
+                "billboard" => billboard::pack_billboards(fc, registry, &constants)?,
+                #[cfg(since_647)]
+                "particleeffector" => {
+                    particleeffector::pack_particleeffectors(fc, registry, &constants)?
+                }
+                #[cfg(since_647)]
+                "particleemitter" => {
+                    particleemitter::pack_particleemitters(fc, registry, &constants)?
+                }
+                #[cfg(since_647)]
+                "light" => light::pack_lights(fc, registry, &constants)?,
+                #[cfg(since_647)]
+                "mel" => mel::pack_mels(fc, registry, &constants, &param_types)?,
+                #[cfg(since_647)]
+                "msi" => msi::pack_msis(fc, registry, &constants)?,
+                #[cfg(since_647)]
+                "quest" => quest::pack_quests(fc, registry, &constants, &param_types)?,
+                #[cfg(since_647)]
+                "quickchatcat" => quickchatcat::pack_quickchatcats(fc, registry, &constants)?,
+                #[cfg(since_647)]
+                "quickchatphrase" => {
+                    quickchatphrase::pack_quickchatphrases(fc, registry, &constants)?
+                }
+                #[cfg(since_647)]
+                "varc" => varc::pack_varcs(fc, &registry.varc, &constants)?,
+                #[cfg(since_647)]
+                "varcs" => varc::pack_varc_strings(fc, &registry.varcs, &constants)?,
+                #[cfg(since_647)]
+                "varclansetting" => {
+                    varclansetting::pack_varclansettings(fc, &registry.varclansetting, &constants)?
+                }
                 _ => unreachable!(),
             };
             debug!(
@@ -162,6 +230,34 @@ impl FileCache {
         "if",
         #[cfg(since_254)]
         "varbit",
+        #[cfg(since_647)]
+        "bas",
+        #[cfg(since_647)]
+        "cursor",
+        #[cfg(since_647)]
+        "hitmark",
+        #[cfg(since_647)]
+        "billboard",
+        #[cfg(since_647)]
+        "particleeffector",
+        #[cfg(since_647)]
+        "particleemitter",
+        #[cfg(since_647)]
+        "light",
+        #[cfg(since_647)]
+        "mel",
+        #[cfg(since_647)]
+        "msi",
+        #[cfg(since_647)]
+        "quest",
+        #[cfg(since_647)]
+        "quickchatcat",
+        #[cfg(since_647)]
+        "quickchatphrase",
+        #[cfg(since_647)]
+        "varc",
+        #[cfg(since_647)]
+        "varclansetting",
     ];
     pub fn new(source_dir: &Path) -> Self {
         let mut files = Vec::new();
@@ -433,13 +529,13 @@ pub fn pack_configs(
     validate_config_packs(&fc, pack_dir)?;
     let registry = PackRegistry::load(pack_dir)?;
     let mut assets = pack_cached_assets(&registry, source_dir, &fc, verify)?;
-    let generic = config_crc::GENERIC
+    let empty = archive::CONFIG_EMPTY_TABLES
         .par_iter()
-        .map(|&(name, expected)| {
+        .map(|&(name, _, _, expected)| {
             if fc.collect(name).is_empty() && !verify {
                 return Ok(None);
             }
-            let client = generic::pack_generic_config(source_dir, name, &registry)?;
+            let client = pack_empty_table(source_dir, name)?;
             if verify {
                 verify_crc(name, &client.dat, expected);
             }
@@ -452,7 +548,7 @@ pub fn pack_configs(
             )))
         })
         .collect::<Result<Vec<_>>>()?;
-    assets.extend(generic.into_iter().flatten());
+    assets.extend(empty.into_iter().flatten());
     Ok(assets)
 }
 

@@ -1,3 +1,4 @@
+// 4341
 [proc,clan_time_tostring](int $int0, int $int1, int $int2)(string, string)
 def_string $string0 = tostring($int1);
 def_string $string1 = tostring($int2);
@@ -25,4 +26,3 @@ if ($int2 < 10) {
     $string1 = tostring($int2);
 }
 return($string0, $string1);
-return("", "");

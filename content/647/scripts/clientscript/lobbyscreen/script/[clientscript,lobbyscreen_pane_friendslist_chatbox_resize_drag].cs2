@@ -1,9 +1,10 @@
-[clientscript,lobbyscreen_pane_friendslist_chatbox_resize_drag](int $int0, boolean $int1)
-if ($int1 = true) {
+// 3402
+[clientscript,lobbyscreen_pane_friendslist_chatbox_resize_drag](int $int0, boolean $boolean1)
+if ($boolean1 = true) {
     if ($int0 < 0) {
         $int0 = 0;
     } else {
         $int0 = calc($int0 - $int0 % 15);
     }
 }
-~lobbyscreen_pane_friendslist_chatbox_resize($int0, $int1);
+~lobbyscreen_pane_friendslist_chatbox_resize($int0, $boolean1);

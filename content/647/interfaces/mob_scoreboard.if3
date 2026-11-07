@@ -1,0 +1,311 @@
+// 851:0
+[com_0]
+type=model
+width=483
+height=322
+xmode=abs_centre
+ymode=abs_centre
+model=model_47690
+modelorigin=0,170
+modelzoom=416
+
+// 851:1
+[com_1]
+type=text
+x=63
+y=12
+width=181
+height=14
+layer=com_13
+textfont=p12_full
+text=Nobody yet
+textalignh=right
+textshadow=yes
+
+// 851:2
+[com_2]
+type=text
+x=63
+y=34
+width=181
+height=14
+layer=com_13
+textfont=p12_full
+text=Nobody yet
+textalignh=right
+textshadow=yes
+
+// 851:3
+[com_3]
+type=text
+x=63
+y=58
+width=181
+height=14
+layer=com_13
+textfont=p12_full
+text=Nobody yet
+textalignh=right
+textshadow=yes
+
+// 851:4
+[com_4]
+type=text
+x=63
+y=80
+width=181
+height=14
+layer=com_13
+textfont=p12_full
+text=Nobody yet
+textalignh=right
+textshadow=yes
+
+// 851:5
+[com_5]
+type=text
+x=63
+y=102
+width=181
+height=14
+layer=com_13
+textfont=p12_full
+text=Nobody yet
+textalignh=right
+textshadow=yes
+
+// 851:6
+[com_6]
+type=text
+x=64
+y=124
+width=181
+height=14
+layer=com_13
+textfont=p12_full
+text=Nobody yet
+textalignh=right
+textshadow=yes
+
+// 851:7
+[com_7]
+type=text
+x=64
+y=147
+width=181
+height=14
+layer=com_13
+textfont=p12_full
+text=Nobody yet
+textalignh=right
+textshadow=yes
+
+// 851:8
+[com_8]
+type=text
+x=64
+y=168
+width=181
+height=14
+layer=com_13
+textfont=p12_full
+text=Nobody yet
+textalignh=right
+textshadow=yes
+
+// 851:9
+[com_9]
+type=text
+x=64
+y=190
+width=181
+height=14
+layer=com_13
+textfont=p12_full
+text=Nobody yet
+textalignh=right
+textshadow=yes
+
+// 851:10
+[com_10]
+type=text
+x=64
+y=212
+width=181
+height=14
+layer=com_13
+textfont=p12_full
+text=Nobody yet
+textalignh=right
+textshadow=yes
+
+// 851:11
+[com_11]
+type=text
+x=36
+y=307
+width=445
+height=16
+textfont=p12_full
+text=Rank scoreboard of top 10 players who have played recently.
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xbf751d
+
+// 851:12
+[com_12]
+type=text
+y=54
+width=283
+height=19
+xmode=abs_centre
+textfont=b12_full
+text=Mobilising Armies Scoreboard
+textalignh=centre
+textshadow=yes
+colour=0xe1981f
+
+// 851:13
+[com_13]
+type=layer
+x=31
+y=75
+width=437
+height=240
+scrollheight=602
+
+// 851:14
+[com_14]
+type=text
+x=251
+y=12
+width=80
+height=14
+layer=com_13
+textfont=p12_full
+text=--
+textshadow=yes
+
+// 851:15
+[com_15]
+type=text
+x=251
+y=34
+width=80
+height=14
+layer=com_13
+textfont=p12_full
+text=--
+textshadow=yes
+
+// 851:16
+[com_16]
+type=text
+x=251
+y=58
+width=80
+height=14
+layer=com_13
+textfont=p12_full
+text=--
+textshadow=yes
+
+// 851:17
+[com_17]
+type=text
+x=251
+y=80
+width=80
+height=14
+layer=com_13
+textfont=p12_full
+text=--
+textshadow=yes
+
+// 851:18
+[com_18]
+type=text
+x=251
+y=102
+width=80
+height=14
+layer=com_13
+textfont=p12_full
+text=--
+textshadow=yes
+
+// 851:19
+[com_19]
+type=text
+x=252
+y=124
+width=80
+height=14
+layer=com_13
+textfont=p12_full
+text=--
+textshadow=yes
+
+// 851:20
+[com_20]
+type=text
+x=252
+y=147
+width=80
+height=14
+layer=com_13
+textfont=p12_full
+text=--
+textshadow=yes
+
+// 851:21
+[com_21]
+type=text
+x=252
+y=168
+width=80
+height=14
+layer=com_13
+textfont=p12_full
+text=--
+textshadow=yes
+
+// 851:22
+[com_22]
+type=text
+x=252
+y=190
+width=80
+height=14
+layer=com_13
+textfont=p12_full
+text=--
+textshadow=yes
+
+// 851:23
+[com_23]
+type=text
+x=252
+y=212
+width=80
+height=14
+layer=com_13
+textfont=p12_full
+text=--
+textshadow=yes
+
+// 851:24
+[com_24]
+type=graphic
+x=380
+y=49
+width=26
+height=23
+graphic="close_buttons,2"
+colour=0x000000
+transmitop=1
+op1=Close
+onmouseover=graphic_swapper(event_com, "close_buttons,3")
+onmouseleave=graphic_swapper(event_com, "close_buttons,2")
+onop=closebutton_click

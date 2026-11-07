@@ -1,3 +1,4 @@
+// 1726
 [clientscript,component_flash_timer](component $component0)
 def_int $int1 = 0;
 if (calc(clientclock % 40) > 20) {

@@ -1,0 +1,328 @@
+// 513:0
+[com_0]
+type=rectangle
+x=4
+y=4
+width=355
+height=240
+xmode=abs_centre
+ymode=abs_centre
+colour=0x000000
+fill=yes
+trans=192
+
+// 513:1
+[com_1]
+type=layer
+width=355
+height=240
+xmode=abs_centre
+ymode=abs_centre
+onload=script1087(event_com, 22)
+
+// 513:2
+[com_2]
+type=graphic
+width=8
+height=8
+widthmode=minus
+heightmode=minus
+xmode=abs_centre
+ymode=abs_centre
+layer=com_1
+graphic=tradebacking
+tiling=yes
+
+// 513:3
+[com_3]
+type=text
+y=4
+width=320
+height=27
+xmode=abs_centre
+layer=com_1
+textfont=b12_full
+text=Amazing Potion Storage
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xff9900
+
+// 513:4
+[com_4]
+type=graphic
+x=9
+y=9
+width=16
+height=16
+xmode=abs_right
+layer=com_1
+graphic="v2_stone_close_button,0"
+transmitop=1
+op1=Close
+onmouseover=graphic_swapper(event_com, "v2_stone_close_button,1")
+onmouseleave=graphic_swapper(event_com, "v2_stone_close_button,0")
+onop=closebutton_click
+
+// 513:5
+[com_5]
+type=layer
+x=10
+y=40
+width=149
+height=61
+layer=com_1
+
+// 513:6
+[com_6]
+type=text
+height=32
+widthmode=minus
+heightmode=minus
+layer=com_5
+textfont=p12_full
+textalignh=centre
+textalignv=bottom
+textshadow=yes
+colour=0xeae7c4
+
+// 513:7
+[com_7]
+type=graphic
+width=36
+height=32
+xmode=abs_centre
+ymode=abs_bottom
+layer=com_5
+outline=1
+graphicshadow=1
+transmitop=1,2,3,4,10
+opbase=<col=ff9040>Juju hunter potion
+op1=Remove-1
+op2=Remove-5
+op3=Remove-All
+op4=Remove-X
+op10=Examine
+onload=script2958(event_com, juju_hunter_potion__3, 30, ecosystem_potion_storage:com_6)
+onmouseover=script2959(event_com)
+onvartransmit=script2958(event_com, juju_hunter_potion__3, 30, ecosystem_potion_storage:com_6){varplayer_1935}
+
+// 513:8
+[com_8]
+type=layer
+x=195
+y=40
+width=149
+height=61
+layer=com_1
+
+// 513:9
+[com_9]
+type=text
+height=32
+widthmode=minus
+heightmode=minus
+layer=com_8
+textfont=p12_full
+textalignh=centre
+textalignv=bottom
+textshadow=yes
+colour=0xeae7c4
+
+// 513:10
+[com_10]
+type=graphic
+width=36
+height=32
+xmode=abs_centre
+ymode=abs_bottom
+layer=com_8
+outline=1
+graphicshadow=1
+transmitop=1,2,3,4,10
+opbase=<col=ff9040>Juju farming potion
+op1=Remove-1
+op2=Remove-5
+op3=Remove-All
+op4=Remove-X
+op10=Examine
+onload=script2958(event_com, juju_farming_potion__3, 30, ecosystem_potion_storage:com_9)
+onmouseover=script2959(event_com)
+onvartransmit=script2958(event_com, juju_farming_potion__3, 30, ecosystem_potion_storage:com_9){varplayer_1935}
+
+// 513:11
+[com_11]
+type=layer
+x=10
+y=104
+width=158
+height=61
+layer=com_1
+
+// 513:12
+[com_12]
+type=text
+y=1
+width=1
+height=34
+widthmode=minus
+heightmode=minus
+layer=com_11
+textfont=p12_full
+textalignh=centre
+textalignv=bottom
+textshadow=yes
+colour=0xeae7c4
+
+// 513:13
+[com_13]
+type=graphic
+x=-5
+y=1
+width=36
+height=32
+xmode=abs_centre
+ymode=abs_bottom
+layer=com_11
+outline=1
+graphicshadow=1
+transmitop=1,2,3,4,10
+opbase=<col=ff9040>Saradomin's blessing
+op1=Remove-1
+op2=Remove-5
+op3=Remove-All
+op4=Remove-X
+op10=Examine
+onload=script2958(event_com, saradomin_s_blessing__3, 30, ecosystem_potion_storage:com_12)
+onmouseover=script2959(event_com)
+onvartransmit=script2958(event_com, saradomin_s_blessing__3, 30, ecosystem_potion_storage:com_12){varplayer_1935}
+
+// 513:14
+[com_14]
+type=layer
+x=195
+y=104
+width=149
+height=61
+layer=com_1
+
+// 513:15
+[com_15]
+type=text
+height=32
+widthmode=minus
+heightmode=minus
+layer=com_14
+textfont=p12_full
+textalignh=centre
+textalignv=bottom
+textshadow=yes
+colour=0xeae7c4
+
+// 513:16
+[com_16]
+type=graphic
+width=36
+height=32
+xmode=abs_centre
+ymode=abs_bottom
+layer=com_14
+outline=1
+graphicshadow=1
+transmitop=1,2,3,4,10
+opbase=<col=ff9040>Guthix's gift
+op1=Remove-1
+op2=Remove-5
+op3=Remove-All
+op4=Remove-X
+op10=Examine
+onload=script2958(event_com, guthix_s_gift__3, 30, ecosystem_potion_storage:com_15)
+onmouseover=script2959(event_com)
+onvartransmit=script2958(event_com, guthix_s_gift__3, 30, ecosystem_potion_storage:com_15){varplayer_1935}
+
+// 513:17
+[com_17]
+type=layer
+x=10
+y=168
+width=149
+height=61
+layer=com_1
+
+// 513:18
+[com_18]
+type=text
+width=1
+height=31
+widthmode=minus
+heightmode=minus
+layer=com_17
+textfont=p12_full
+textalignh=centre
+textalignv=bottom
+textshadow=yes
+colour=0xeae7c4
+
+// 513:19
+[com_19]
+type=graphic
+width=36
+height=32
+xmode=abs_centre
+ymode=abs_bottom
+layer=com_17
+outline=1
+graphicshadow=1
+transmitop=1,2,3,4,10
+opbase=<col=ff9040>Zamorak's favour
+op1=Remove-1
+op2=Remove-5
+op3=Remove-All
+op4=Remove-X
+op10=Examine
+onload=script2958(event_com, zamorak_s_favour__3, 30, ecosystem_potion_storage:com_18)
+onmouseover=script2959(event_com)
+onvartransmit=script2958(event_com, zamorak_s_favour__3, 30, ecosystem_potion_storage:com_18){varplayer_1935}
+
+// 513:20
+[com_20]
+type=layer
+x=195
+y=168
+width=149
+height=61
+layer=com_1
+
+// 513:21
+[com_21]
+type=text
+height=32
+widthmode=minus
+heightmode=minus
+layer=com_20
+textfont=p12_full
+textalignh=centre
+textalignv=bottom
+textshadow=yes
+colour=0xeae7c4
+
+// 513:22
+[com_22]
+type=graphic
+width=36
+height=32
+xmode=abs_centre
+ymode=abs_bottom
+layer=com_20
+outline=1
+graphicshadow=1
+transmitop=1,2,3,4,10
+opbase=<col=ff9040>Scentless potion
+op1=Remove-1
+op2=Remove-5
+op3=Remove-All
+op4=Remove-X
+op10=Examine
+onload=script2958(event_com, scentless_potion__3, 30, ecosystem_potion_storage:com_21)
+onmouseover=script2959(event_com)
+onvartransmit=script2958(event_com, scentless_potion__3, 30, ecosystem_potion_storage:com_21){varplayer_1935}

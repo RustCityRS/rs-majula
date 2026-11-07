@@ -1,6 +1,6 @@
 use crate::archive;
 use crate::pack::names::AssetNames;
-use crate::pack::other::{loading, worldmap_source};
+use crate::pack::other::{defaults, loading, worldmap_source};
 use crate::pack::sound::instrument;
 use crate::pack::text::{Number, TextCodec};
 use anyhow::{Context, Result, bail, ensure};
@@ -17,7 +17,7 @@ pub fn pack_file(
     let text = fs::read_to_string(path).with_context(|| path.display().to_string())?;
     pack_sections(aid, gid, &text, names, |body| {
         if aid == archive::WORLDMAP_DATA {
-            worldmap_source::pack_squares(path, gid, body, names)
+            worldmap_source::pack_squares(path, body, names)
         } else {
             pack(aid, gid, body, names)
         }
@@ -26,13 +26,6 @@ pub fn pack_file(
 
 pub fn entry_kind(aid: u8, gid: u32) -> Option<&'static str> {
     match (aid, gid) {
-        (archive::QUICKCHAT, 0) => Some("quickchat_category"),
-        (archive::QUICKCHAT, 1) => Some("quickchat_phrase"),
-        (archive::QUICKCHAT_GLOBAL, 0) => Some("quickchat_global_category"),
-        (archive::QUICKCHAT_GLOBAL, 1) => Some("quickchat_global_phrase"),
-        (archive::PARTICLES, 0) => Some("emitter"),
-        (archive::PARTICLES, 1) => Some("effector"),
-        (archive::BILLBOARDS, _) => Some("billboard"),
         (archive::LOADING_SCREENS, 1) => Some("screen"),
         (archive::WORLDMAP_DATA, _) => Some("file"),
         _ => None,
@@ -64,6 +57,9 @@ fn pack_sections(
     names: &AssetNames,
     mut encode: impl FnMut(&str) -> Result<Vec<u8>>,
 ) -> Result<Vec<(u32, Vec<u8>)>> {
+    if !has_sections(aid) {
+        return Ok(vec![(0, encode(text)?)]);
+    }
     let mut entries = Vec::new();
     let mut start = 0;
     let mut offset = 0;
@@ -92,6 +88,11 @@ fn pack_sections(
     Ok(entries)
 }
 
+/// Whether an asset's file holds a section for each of its group's files.
+pub fn has_sections(aid: u8) -> bool {
+    aid != archive::DEFAULTS
+}
+
 pub fn extension(aid: u8) -> Option<&'static str> {
     Some(match aid {
         archive::BASES => "base",
@@ -99,9 +100,6 @@ pub fn extension(aid: u8) -> Option<&'static str> {
         archive::FONTMETRICS => "fontmetrics",
         archive::MATERIALS => "material",
         archive::DEFAULTS => "defaults",
-        archive::BILLBOARDS => "billboard",
-        archive::PARTICLES => "particle",
-        archive::QUICKCHAT | archive::QUICKCHAT_GLOBAL => "quickchat",
         archive::SYNTH => "synth",
         archive::MUSIC_SAMPLES => "instrument",
         archive::LOADING_SCREENS => "screen",
@@ -111,6 +109,9 @@ pub fn extension(aid: u8) -> Option<&'static str> {
 }
 
 pub fn unpack(aid: u8, gid: u32, data: &[u8], names: &AssetNames) -> Result<String> {
+    if aid == archive::DEFAULTS {
+        return defaults::unpack(gid, data, names);
+    }
     let mut codec = TextCodec::unpack(data, names);
     transcode(aid, gid, &mut codec)?;
     let text = codec.finish()?.0;
@@ -124,6 +125,9 @@ pub fn unpack(aid: u8, gid: u32, data: &[u8], names: &AssetNames) -> Result<Stri
 }
 
 pub fn pack(aid: u8, gid: u32, text: &str, names: &AssetNames) -> Result<Vec<u8>> {
+    if aid == archive::DEFAULTS {
+        return defaults::pack(gid, text, names);
+    }
     let mut codec = TextCodec::pack(text, names)?;
     transcode(aid, gid, &mut codec)?;
     Ok(codec.finish()?.1)
@@ -138,15 +142,10 @@ fn transcode(aid: u8, gid: u32, c: &mut TextCodec<'_>) -> Result<()> {
         }
         archive::FONTMETRICS => font(c),
         archive::MATERIALS => material(c),
-        archive::DEFAULTS => defaults(gid, c),
-        archive::BILLBOARDS => billboard(c),
-        archive::PARTICLES if gid == 0 => emitter(c),
-        archive::PARTICLES if gid == 1 => effector(c),
-        archive::QUICKCHAT | archive::QUICKCHAT_GLOBAL => quickchat(aid, gid, c),
         archive::SYNTH => synth(c),
         archive::MUSIC_SAMPLES => instrument::transcode(c),
         archive::LOADING_SCREENS => loading::transcode(gid, c),
-        archive::WORLDMAP_DATA => worldmap_source::transcode(gid, c),
+        archive::WORLDMAP_DATA => worldmap_source::transcode(c),
         _ => bail!("Unsupported text asset {aid}/{gid}"),
     }
 }
@@ -217,291 +216,6 @@ fn material(c: &mut TextCodec<'_>) -> Result<()> {
                     kind,
                 )?;
             }
-        }
-    }
-    Ok(())
-}
-
-fn defaults(gid: u32, c: &mut TextCodec<'_>) -> Result<()> {
-    let mut hitmarks = 4;
-    loop {
-        let code = c.opcode(&[
-            (0, "end"),
-            (1, "positions"),
-            (2, "field2"),
-            (3, "count"),
-            (4, "array4"),
-            (5, "array5"),
-        ])?;
-        match (gid, code) {
-            (_, 0) => break,
-            (1, 1) => {
-                for i in 0..6 {
-                    c.reference(&format!("environment_face{i}"), Number::U16, "texture")?;
-                }
-            }
-            (1, 4 | 5) => {
-                let count = c.number("count", Number::U8)? as usize;
-                for i in 0..count {
-                    c.reference(
-                        &format!(
-                            "{}_{i}",
-                            if code == 4 {
-                                "male_titles"
-                            } else {
-                                "female_titles"
-                            }
-                        ),
-                        Number::U16,
-                        "enum",
-                    )?;
-                }
-            }
-            (3, 1) => {
-                c.array("hitmark_offsets", Number::I16, hitmarks * 2)?;
-            }
-            (3, 2) => {
-                c.number("field2", Number::U16)?;
-            }
-            (3, 3) => {
-                hitmarks = c.number("hitmark_count", Number::U8)? as usize;
-            }
-            (6, 1) => {
-                let count = c.number("count", Number::U8)? as usize;
-                c.array("solid_flags", Number::U8, count)?;
-            }
-            _ => bail!("Unknown defaults {gid} opcode {code}"),
-        }
-    }
-    Ok(())
-}
-
-fn billboard(c: &mut TextCodec<'_>) -> Result<()> {
-    loop {
-        match c.opcode(&[
-            (0, "end"),
-            (1, "material"),
-            (2, "size"),
-            (3, "unused"),
-            (4, "blend_src"),
-            (5, "blend_dst"),
-            (6, "bloom_disable"),
-            (7, "skip_triangle"),
-        ])? {
-            0 => break,
-            1 => {
-                c.reference("material", Number::U16, "texture")?;
-            }
-            2 => {
-                c.array("size_minus_one", Number::U16, 2)?;
-            }
-            3 => {
-                c.number("unused", Number::U8)?;
-            }
-            4 => {
-                c.number("blend_src", Number::U8)?;
-            }
-            5 => {
-                c.number("blend_dst", Number::U8)?;
-            }
-            _ => {}
-        }
-    }
-    Ok(())
-}
-
-fn emitter(c: &mut TextCodec<'_>) -> Result<()> {
-    let names = [
-        "end",
-        "angles",
-        "unused2",
-        "speed",
-        "speed_change",
-        "size",
-        "colour",
-        "lifetime",
-        "rate",
-        "effectors",
-        "effectors10",
-        "unused11",
-        "priority12",
-        "priority13",
-        "max_particles",
-        "material",
-        "cycle",
-        "material17",
-        "target_colour",
-        "colour_percent",
-        "alpha_percent",
-        "speed_percent",
-        "target_speed",
-        "size_percent",
-        "correlated_colour",
-        "effectors25",
-        "lighting",
-        "target_size",
-        "target_size_percent",
-        "unused29",
-        "flag30",
-        "size_range",
-        "flag32",
-        "flag33",
-        "flag34",
-    ];
-    let options: Vec<_> = names
-        .iter()
-        .enumerate()
-        .map(|(i, &name)| (i as u8, name))
-        .collect();
-    loop {
-        let code = c.opcode(&options)?;
-        match code {
-            0 => break,
-            1 => {
-                c.array("angles", Number::U16, 4)?;
-            }
-            2 | 19..=21 | 23 | 28 => {
-                c.number(names[code as usize], Number::U8)?;
-            }
-            3 => {
-                c.array("speed", Number::I32, 2)?;
-            }
-            4 => {
-                c.number("speed_change_type", Number::U8)?;
-                c.number("speed_change", Number::I8)?;
-            }
-            5 | 14 | 27 => {
-                c.number(names[code as usize], Number::U16)?;
-            }
-            6 => {
-                c.array("colour", Number::U32, 2)?;
-            }
-            7 | 8 | 31 => {
-                c.array(names[code as usize], Number::U16, 2)?;
-            }
-            9 | 10 | 25 => {
-                let count = c.number("count", Number::U8)?;
-                for _ in 0..count {
-                    c.reference(names[code as usize], Number::U16, "effector")?;
-                }
-            }
-            12 | 13 => {
-                c.number(names[code as usize], Number::I8)?;
-            }
-            15 | 17 => {
-                c.reference(names[code as usize], Number::U16, "texture")?;
-            }
-            16 => {
-                c.number("cycle_start", Number::U8)?;
-                c.number("cycle_offset", Number::U16)?;
-                c.number("cycle_duration", Number::U16)?;
-                c.number("cycle_repeat", Number::U8)?;
-            }
-            18 => {
-                c.number("target_colour", Number::U32)?;
-            }
-            22 => {
-                c.number("target_speed", Number::I32)?;
-            }
-            29 => {
-                c.number("unused29", Number::I16)?;
-            }
-            24 | 26 | 30 | 32..=34 => {}
-            _ => bail!("Unknown emitter opcode {code}"),
-        }
-    }
-    Ok(())
-}
-
-fn effector(c: &mut TextCodec<'_>) -> Result<()> {
-    loop {
-        match c.opcode(&[
-            (0, "end"),
-            (1, "angle"),
-            (2, "unused"),
-            (3, "force"),
-            (4, "falloff"),
-            (6, "type"),
-            (8, "flag8"),
-            (9, "flag9"),
-            (10, "reverse"),
-        ])? {
-            0 => break,
-            1 => {
-                c.number("angle", Number::U16)?;
-            }
-            2 => {
-                c.number("unused", Number::U8)?;
-            }
-            3 => {
-                c.array("force", Number::I32, 3)?;
-            }
-            4 => {
-                c.number("falloff_type", Number::U8)?;
-                c.number("falloff", Number::I32)?;
-            }
-            6 => {
-                c.number("type", Number::U8)?;
-            }
-            _ => {}
-        }
-    }
-    Ok(())
-}
-
-fn quickchat(aid: u8, gid: u32, c: &mut TextCodec<'_>) -> Result<()> {
-    let category = entry_kind(aid, 0).unwrap();
-    let phrase = entry_kind(aid, 1).unwrap();
-    loop {
-        let code = c.opcode(&[
-            (0, "end"),
-            (1, "text"),
-            (2, "responses"),
-            (3, "phrases"),
-            (4, "unsearchable"),
-        ])?;
-        match code {
-            0 => break,
-            1 => {
-                c.string("text")?;
-            }
-            2 | 3 if gid == 0 => {
-                let count = c.number("count", Number::U8)?;
-                for _ in 0..count {
-                    c.reference(
-                        "target",
-                        Number::U16,
-                        if code == 2 { category } else { phrase },
-                    )?;
-                    c.number("shortcut", Number::U8)?;
-                }
-            }
-            2 if gid == 1 => {
-                let count = c.number("count", Number::U8)?;
-                for _ in 0..count {
-                    c.reference("response", Number::U16, phrase)?;
-                }
-            }
-            3 if gid == 1 => {
-                let count = c.number("count", Number::U8)?;
-                for _ in 0..count {
-                    let command = c.number("command", Number::U16)?;
-                    let params = match command {
-                        0 | 4 | 7..=9 | 14 => 1,
-                        6 | 11 => 2,
-                        1 | 2 | 10 | 12 | 13 | 15 => 0,
-                        _ => bail!("Unknown quickchat command {command}"),
-                    };
-                    if matches!(command, 0 | 6 | 7 | 11) {
-                        c.reference("enum", Number::U16, "enum")?;
-                        c.array("params", Number::U16, params - 1)?;
-                    } else {
-                        c.array("params", Number::U16, params)?;
-                    }
-                }
-            }
-            4 => {}
-            _ => bail!("Unknown quickchat group {gid}"),
         }
     }
     Ok(())

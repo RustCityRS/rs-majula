@@ -1,0 +1,72 @@
+// 3228
+[proc,script3228](int $int0, int $int1, int $int2)(boolean)
+def_string $string0 = "";
+def_component $component3 = null;
+switch_int ($int0) {
+    case 7 :
+        $string0 = %varclient_1643;
+        $component3 = account_create:com_71;
+        %varclient_1847 = %varclient_1643;
+    case 8 :
+        $string0 = %varclient_1644;
+        $component3 = account_create:com_61;
+        %varclient_1848 = %varclient_1644;
+}
+def_int $int4 = string_length($string0);
+if ($int4 <= 0) {
+    switch_int ($int0) {
+        case 7 :
+            ~create_error("Please enter your desired password here.", account_create:com_71);
+        case 8 :
+            ~create_error("Please enter your desired password again here.", account_create:com_61);
+    }
+    return(false);
+}
+if ($int1 = 1 & compare(%varclient_1643, %varclient_1644) ! 0 & (string_length(%varclient_1643) > 0 | string_length(%varclient_1644) > 0)) {
+    ~create_error("Please ensure both passwords match.", account_create:com_61);
+    return(false);
+} else if ($int4 < 5) {
+    ~create_error("Passwords must be at least 5 characters long.", $component3);
+    return(false);
+} else if ($int4 > 20) {
+    ~create_error("Passwords must be no more than <tostring(20)> characters long.", $component3);
+    return(false);
+} else if (~script2202($string0) = true) {
+    ~create_error("Passwords may only contain letters and numbers.", $component3);
+    return(false);
+} else if (string_indexof_string(%varclient_1641, $string0, 0) ! -1) {
+    ~create_error("Your password is too similar to your Email address.", $component3);
+    return(false);
+}
+def_string $string1 = substring($string0, 0, 1);
+def_int $int5 = string_length($string0);
+def_int $int6 = 0;
+def_int $int7 = 0;
+while ($int6 < $int5) {
+    if (string_indexof_string($string0, $string1, $int6) = $int6) {
+        $int7 = calc($int7 + 1);
+    }
+    $int6 = calc($int6 + 1);
+}
+if ($int7 = $int5) {
+    ~create_error("Your password is too easy to guess.", $component3);
+    return(false);
+}
+switch_int ($int0) {
+    case 7 :
+        if_setgraphic("symbols_1,3", account_create:com_71);
+        if_sethide(true, account_create:com_76);
+    case 8 :
+        if_setgraphic("symbols_1,3", account_create:com_61);
+        if_sethide(true, account_create:com_66);
+}
+if_sethide(true, account_create:com_22);
+if ($int2 = 1) {
+    switch_int ($int0) {
+        case 7 :
+            ~create_focus(8, 1);
+        case 8 :
+            ~create_focus(15, 1);
+    }
+}
+return(true);

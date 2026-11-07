@@ -1,0 +1,8 @@
+// 1177
+[clientscript,script1177]
+if (%varplayer_1414 = 0) {
+    return;
+}
+%varclient_548 = 540;
+if_settext("10", interface_745:com_5);
+if_setontimer("script1178", interface_745:com_5);

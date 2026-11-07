@@ -1,0 +1,72 @@
+// 4343
+[proc,script4343](component $component0)
+def_string $string0 = "";
+def_string $string1 = "";
+def_string $string2 = "";
+def_string $string3 = "";
+def_string $string4 = "";
+def_string $string5 = "";
+def_string $string6 = "";
+def_string $string7 = "";
+def_string $string8 = "";
+def_string $string9 = "";
+def_string $string10 = "";
+$string0, $string1, $string2, $string3, $string4, $string5, $string6, $string7, $string8, $string9 = ~script4344;
+if (compare($string0, "") ! 0) {
+    $string10 = $string0;
+}
+if (compare($string1, "") ! 0) {
+    if (string_length($string10) > 0) {
+        $string10 = append($string10, ", ");
+    }
+    $string10 = append($string10, $string1);
+}
+if (compare($string2, "") ! 0) {
+    if (string_length($string10) > 0) {
+        $string10 = append($string10, ", ");
+    }
+    $string10 = append($string10, $string2);
+}
+if (compare($string3, "") ! 0) {
+    if (string_length($string10) > 0) {
+        $string10 = append($string10, ", ");
+    }
+    $string10 = append($string10, $string3);
+}
+if (compare($string4, "") ! 0) {
+    if (string_length($string10) > 0) {
+        $string10 = append($string10, ", ");
+    }
+    $string10 = append($string10, $string4);
+}
+if (compare($string5, "") ! 0) {
+    if (string_length($string10) > 0) {
+        $string10 = append($string10, ", ");
+    }
+    $string10 = append($string10, $string5);
+}
+if (compare($string6, "") ! 0) {
+    if (string_length($string10) > 0) {
+        $string10 = append($string10, ", ");
+    }
+    $string10 = append($string10, $string6);
+}
+if (compare($string7, "") ! 0) {
+    if (string_length($string10) > 0) {
+        $string10 = append($string10, ", ");
+    }
+    $string10 = append($string10, $string7);
+}
+if (compare($string8, "") ! 0) {
+    if (string_length($string10) > 0) {
+        $string10 = append($string10, ", ");
+    }
+    $string10 = append($string10, $string8);
+}
+if (compare($string9, "") ! 0) {
+    if (string_length($string10) > 0) {
+        $string10 = append($string10, ", ");
+    }
+    $string10 = append($string10, $string9);
+}
+if_settext($string10, $component0);

@@ -1,9 +1,10 @@
-[proc,worldmap_showoverview](int $int)
-if ($int = true) {
-    if_sethide(false, worldmap:com46);
-    if_setop(1, "Hide overview", worldmap:com6);
+// 1374
+[proc,worldmap_showoverview](int $int0)
+if ($int0 = 1) {
+    if_sethide(false, worldmap:com_46);
+    if_setop(1, "Hide overview", worldmap:com_6);
 } else {
-    if_sethide(true, worldmap:com46);
-    if_setop(1, "Show overview", worldmap:com6);
+    if_sethide(true, worldmap:com_46);
+    if_setop(1, "Show overview", worldmap:com_6);
 }
-if_setonop("worldmap_toggleoverview()", worldmap:com6);
+if_setonop("worldmap_toggleoverview", worldmap:com_6);

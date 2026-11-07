@@ -1,0 +1,9 @@
+// 4073
+[clientscript,script4073]
+if (%varplayerbit_8669 = 0) {
+    %varclient_1432 = 0;
+    ~warguild_show_single(warguild_token_choice:com_2);
+} else {
+    %varclient_1432 = 0;
+    ~warguild_show_multi(warguild_token_choice:com_3);
+}

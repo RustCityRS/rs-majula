@@ -1,0 +1,15 @@
+// 4277
+[clientscript,script4277]
+def_int $int0 = calc(%varplayerbit_9186 * 6 / 10);
+def_string $string0 = tostring(calc($int0 / 60));
+def_string $string1 = tostring(calc($int0 % 60));
+if (string_length($string1) < 2) {
+    $string1 = append("0", $string1);
+}
+if (%varplayerbit_9187 = 0) {
+    if_settext("Match Starts In:", interface_1088:com_12);
+    if_settext("<$string0>:<$string1>", interface_1088:com_13);
+} else {
+    if_settext("Time Remaining:", interface_1088:com_12);
+    if_settext("<$string0>:<$string1>", interface_1088:com_13);
+}

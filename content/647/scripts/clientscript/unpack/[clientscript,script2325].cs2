@@ -1,0 +1,25 @@
+// 2325
+[clientscript,script2325]
+if (%varclient_766 = 1 | %varclient_766 = 2) {
+    mes("You can't do that right now.");
+    return;
+}
+sound_synth(synth_6421, 1, 0);
+if (if_getx(easter09_nuts:com_6) >= if_getx(easter09_nuts:com_18) & if_getx(easter09_nuts:com_6) < calc(if_getx(easter09_nuts:com_18) + if_getwidth(easter09_nuts:com_18))) {
+    %varclient_765 = 1;
+    ~script2326(%varclient_761);
+}
+if (if_getx(easter09_nuts:com_7) >= if_getx(easter09_nuts:com_18) & if_getx(easter09_nuts:com_7) < calc(if_getx(easter09_nuts:com_18) + if_getwidth(easter09_nuts:com_18))) {
+    %varclient_765 = 2;
+    ~script2326(%varclient_762);
+}
+if (if_getx(easter09_nuts:com_8) >= if_getx(easter09_nuts:com_18) & if_getx(easter09_nuts:com_8) < calc(if_getx(easter09_nuts:com_18) + if_getwidth(easter09_nuts:com_18))) {
+    %varclient_765 = 3;
+    ~script2326(%varclient_763);
+}
+if (if_getx(easter09_nuts:com_9) >= if_getx(easter09_nuts:com_18) & if_getx(easter09_nuts:com_9) < calc(if_getx(easter09_nuts:com_18) + if_getwidth(easter09_nuts:com_18))) {
+    %varclient_765 = 4;
+    ~script2326(%varclient_764);
+}
+%varclient_766 = 1;
+if_setontimer("easter09_nuts_bar(event_com)", easter09_nuts:com_10);

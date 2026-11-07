@@ -1,87 +1,88 @@
-[clientscript,playerdesign4_sidetooltip](component $component0, int $int1, int $int2, string $string)
+// 381
+[clientscript,playerdesign4_sidetooltip](string $string0, component $component0, int $int1, int $int2)
 def_int $int3 = calc(clientclock + 25);
-if (%varc_int_1 < $int3) {
-    %varc_int_1 = max(clientclock, calc(%varc_int_1 + 2));
+if (%varclient_1 < $int3) {
+    %varclient_1 = max(clientclock, calc(%varclient_1 + 2));
     return;
 }
-%varc_int_1 = $int3;
-if (if_gethide(playerdesign4:com125) = false) {
+%varclient_1 = $int3;
+if (if_gethide(playerdesign4:com_125) = false) {
     return;
 }
 def_int $int4 = 0;
 if (cc_find($component0, $int1) = true | $int1 = -1 & if_find($component0) = true) {
-    %varc_int_2, %varc_int_773 = ~cc_getx_absolute, cc_getwidth;
+    %varclient_2, %varclient_773 = ~cc_getx_absolute, cc_getwidth;
     $int2 = max(min($int2, cc_getheight), 0);
     $int4 = calc(~cc_gety_absolute + $int2);
 } else {
     return;
 }
-if_sethide(false, playerdesign4:com125);
-cc_deleteall(playerdesign4:com125);
-def_int $int5 = parawidth($string, if_getwidth(playerdesign4:com29), p12_full);
-def_int $int6 = calc(paraheight($string, $int5, p12_full) * 12 + 5);
+if_sethide(false, playerdesign4:com_125);
+cc_deleteall(playerdesign4:com_125);
+def_int $int5 = parawidth($string0, if_getwidth(playerdesign4:com_29), p12_full);
+def_int $int6 = calc(paraheight($string0, $int5, p12_full) * 12 + 5);
 def_int $int7 = calc($int5 + 19);
 def_int $int8 = max(calc($int6 + 8), 17);
 def_int $int9 = max(calc($int7 - 25), 0);
 def_int $int10 = max(calc($int8 - 14), 0);
-if_setsize($int7, $int8, ^setsize_abs, ^setsize_abs, playerdesign4:com125);
-if_setposition(calc(%varc_int_2 - $int7), calc($int4 - $int8 / 2), ^setpos_abs_left, ^setpos_abs_top, playerdesign4:com125);
-cc_create(playerdesign4:com125, ^iftype_rectangle, if_getchildcount(playerdesign4:com125));
+if_setsize($int7, $int8, ^setsize_abs, ^setsize_abs, playerdesign4:com_125);
+if_setposition(calc(%varclient_2 - $int7), calc($int4 - $int8 / 2), ^setpos_abs_left, ^setpos_abs_top, playerdesign4:com_125);
+cc_create(playerdesign4:com_125, ^iftype_rectangle, if_getnextsubid(playerdesign4:com_125));
 cc_setsize($int9, $int10, ^setsize_abs, ^setsize_abs);
 cc_setposition(7, 0, ^setpos_abs_left, ^setpos_abs_centre);
 cc_setfill(true);
 cc_setcolour(0xe3e2e1);
-cc_create(playerdesign4:com125, ^iftype_graphic, if_getchildcount(playerdesign4:com125));
+cc_create(playerdesign4:com_125, ^iftype_graphic, if_getnextsubid(playerdesign4:com_125));
 cc_setsize($int9, 7, ^setsize_abs, ^setsize_abs);
 cc_setposition(7, 0, ^setpos_abs_left, ^setpos_abs_top);
 cc_settiling(true);
-cc_setgraphic(3476);
-cc_create(playerdesign4:com125, ^iftype_graphic, if_getchildcount(playerdesign4:com125));
+cc_setgraphic(graphic_3476);
+cc_create(playerdesign4:com_125, ^iftype_graphic, if_getnextsubid(playerdesign4:com_125));
 cc_setsize($int9, 7, ^setsize_abs, ^setsize_abs);
 cc_setposition(7, 0, ^setpos_abs_left, ^setpos_abs_bottom);
 cc_settiling(true);
 cc_setvflip(true);
-cc_setgraphic(3476);
-cc_create(playerdesign4:com125, ^iftype_graphic, if_getchildcount(playerdesign4:com125));
+cc_setgraphic(graphic_3476);
+cc_create(playerdesign4:com_125, ^iftype_graphic, if_getnextsubid(playerdesign4:com_125));
 cc_setsize(7, $int10, ^setsize_abs, ^setsize_abs);
 cc_setposition(0, 0, ^setpos_abs_left, ^setpos_abs_centre);
 cc_settiling(true);
-cc_setgraphic(3475);
-cc_create(playerdesign4:com125, ^iftype_graphic, if_getchildcount(playerdesign4:com125));
+cc_setgraphic(graphic_3475);
+cc_create(playerdesign4:com_125, ^iftype_graphic, if_getnextsubid(playerdesign4:com_125));
 cc_setsize(7, $int10, ^setsize_abs, ^setsize_abs);
 cc_setposition(12, 0, ^setpos_abs_right, ^setpos_abs_centre);
 cc_settiling(true);
 cc_sethflip(true);
-cc_setgraphic(3475);
-cc_create(playerdesign4:com125, ^iftype_graphic, if_getchildcount(playerdesign4:com125));
+cc_setgraphic(graphic_3475);
+cc_create(playerdesign4:com_125, ^iftype_graphic, if_getnextsubid(playerdesign4:com_125));
 cc_setsize(7, 7, ^setsize_abs, ^setsize_abs);
 cc_setposition(0, 0, ^setpos_abs_left, ^setpos_abs_top);
-cc_setgraphic(3474);
-cc_create(playerdesign4:com125, ^iftype_graphic, if_getchildcount(playerdesign4:com125));
+cc_setgraphic(graphic_3474);
+cc_create(playerdesign4:com_125, ^iftype_graphic, if_getnextsubid(playerdesign4:com_125));
 cc_setsize(7, 7, ^setsize_abs, ^setsize_abs);
 cc_setposition(12, 0, ^setpos_abs_right, ^setpos_abs_top);
 cc_sethflip(true);
-cc_setgraphic(3474);
-cc_create(playerdesign4:com125, ^iftype_graphic, if_getchildcount(playerdesign4:com125));
+cc_setgraphic(graphic_3474);
+cc_create(playerdesign4:com_125, ^iftype_graphic, if_getnextsubid(playerdesign4:com_125));
 cc_setsize(7, 7, ^setsize_abs, ^setsize_abs);
 cc_setposition(0, 0, ^setpos_abs_left, ^setpos_abs_bottom);
 cc_setvflip(true);
-cc_setgraphic(3474);
-cc_create(playerdesign4:com125, ^iftype_graphic, if_getchildcount(playerdesign4:com125));
+cc_setgraphic(graphic_3474);
+cc_create(playerdesign4:com_125, ^iftype_graphic, if_getnextsubid(playerdesign4:com_125));
 cc_setsize(7, 7, ^setsize_abs, ^setsize_abs);
 cc_setposition(12, 0, ^setpos_abs_right, ^setpos_abs_bottom);
 cc_sethflip(true);
 cc_setvflip(true);
-cc_setgraphic(3474);
-cc_create(playerdesign4:com125, ^iftype_graphic, if_getchildcount(playerdesign4:com125));
+cc_setgraphic(graphic_3474);
+cc_create(playerdesign4:com_125, ^iftype_graphic, if_getnextsubid(playerdesign4:com_125));
 cc_setsize(12, 11, ^setsize_abs, ^setsize_abs);
 cc_setposition(0, 0, ^setpos_abs_right, ^setpos_abs_centre);
-cc_setgraphic(3473);
+cc_setgraphic(graphic_3473);
 cc_set2dangle(16384);
-cc_create(playerdesign4:com125, ^iftype_text, if_getchildcount(playerdesign4:com125));
+cc_create(playerdesign4:com_125, ^iftype_text, if_getnextsubid(playerdesign4:com_125));
 cc_setsize($int5, $int6, ^setsize_abs, ^setsize_abs);
 cc_setposition(3, 0, ^setpos_abs_left, ^setpos_abs_centre);
 cc_setcolour(^black);
 cc_settextfont(verdana_11pt_regular);
 cc_settextalign(^settextalign_centre, ^settextalign_top, 0);
-cc_settext($string);
+cc_settext($string0);

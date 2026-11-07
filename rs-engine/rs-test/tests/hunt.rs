@@ -3,12 +3,11 @@
 //!
 //! The green dragon's hunt is 289's `cowardly` (huntrange 4): a player hunt
 //! that does not check whether the player is too strong in the Wilderness.
-//! The mode is checked by name: hunt.pack's ids are the server's own (289's
-//! `cowardly` was 404 after the 2011 cache's 397 hunts, and is 18 since
-//! c7b4f69 dropped those). 2011's other green dragons (4677-4680) take 289's
-//! green dragon config and its fight.
+//! The mode is checked by name: hunt.pack holds the 2011 cache's 397 hunts
+//! with 289's names at 289's ids. 2011's other green dragons (4677-4680) take
+//! 289's green dragon config and its fight.
 //!
-//! 289's duckling hunts its duck (`duck_hunt`, general/configs/duckling.hunt):
+//! 289's duckling hunts its duck (`duck_hunt`):
 //! every 11 ticks it looks for a duck_female in sight and takes it as an
 //! opnpc3 target.
 
@@ -49,6 +48,32 @@ fn nearest(engine: &Engine, id: u16, x: u16, z: u16) -> Option<usize> {
         .map(|(nid, _)| nid)
 }
 
+/// Follows a wandering npc, onto a walkable tile against its west, south, east
+/// or north edge: it can stand where a fixed offset from it is a rock or a
+/// wall, and then hunts a player it cannot reach.
+fn stand_against(engine: &mut Engine, pid: u16, nid: usize, size: i32) {
+    let c = engine.npc_list.npcs[nid]
+        .as_ref()
+        .unwrap()
+        .npc
+        .pathing
+        .coord;
+    let (cx, cz) = (c.x() as i32, c.z() as i32);
+    let edge = (0..size)
+        .flat_map(|i| {
+            [
+                (cx - 1, cz + i),
+                (cx + i, cz - 1),
+                (cx + size, cz + i),
+                (cx + i, cz + size),
+            ]
+        })
+        .map(|(x, z)| (x as u16, z as u16))
+        .find(|&(x, z)| !rsmod::is_flagged(x, z, 0, 0x100 | 0x200000))
+        .expect("a walkable tile beside the npc");
+    engine.harness_telejump(pid, edge.0, 0, edge.1);
+}
+
 /// Logs a player in two tiles south-west of the map's npc of type `id` near
 /// `(x, z)` and cycles until that npc targets the player, or 40 ticks pass.
 /// Returns whether it targeted the player, and whether its attack ran.
@@ -69,31 +94,8 @@ fn stand_beside(engine: &mut Engine, id: u16, x: u16, z: u16) -> (bool, bool) {
         if tick % 20 == 19 {
             client.send(ClientProt::NoTimeout, &[]);
         }
-        // Follow the npc while it wanders, onto a walkable tile against its
-        // west, south, east or north edge, until it attacks: a wandering npc
-        // can stand where a fixed offset from it is a rock or a wall, and
-        // then hunts a player it cannot reach.
-        let c = engine.npc_list.npcs[nid]
-            .as_ref()
-            .unwrap()
-            .npc
-            .pathing
-            .coord;
         if tick % 5 == 0 && !attacked {
-            let (cx, cz) = (c.x() as i32, c.z() as i32);
-            let edge = (0..size)
-                .flat_map(|i| {
-                    [
-                        (cx - 1, cz + i),
-                        (cx + i, cz - 1),
-                        (cx + size, cz + i),
-                        (cx + i, cz + size),
-                    ]
-                })
-                .map(|(x, z)| (x as u16, z as u16))
-                .find(|&(x, z)| !rsmod::is_flagged(x, z, 0, 0x100 | 0x200000))
-                .expect("a walkable tile beside the npc");
-            engine.harness_telejump(client.pid, edge.0, 0, edge.1);
+            stand_against(engine, client.pid, nid, size);
         }
         engine.cycle();
         let npc = &engine.npc_list.npcs[nid].as_ref().unwrap().npc;
@@ -139,7 +141,7 @@ fn a_remodelled_green_dragon_clone_hunts_and_breathes_fire() {
     let _turn = TURN.lock().unwrap_or_else(|p| p.into_inner());
     runner::on_loaded_engine(|engine| {
         engine.harness_reset();
-        let client = engine.harness_login_returning("hunted").expect("login");
+        let mut client = engine.harness_login_returning("hunted").expect("login");
         for _ in 0..10 {
             engine.cycle();
         }
@@ -159,17 +161,20 @@ fn a_remodelled_green_dragon_clone_hunts_and_breathes_fire() {
             .set(5, shield, 1);
         // The map's green dragon 4679 at 2973,3620 (map square 46_56).
         let nid = nearest(engine, 4679, 2973, 3620).expect("green_dragon_4679");
+        let size = engine
+            .cache
+            .npcs
+            .get_by_id(4679)
+            .map_or(1, |t| t.size.max(1)) as i32;
         rs_vm::ops::test::forget_calls();
         let (mut targeted, mut breathed) = (false, false);
         for tick in 0..200 {
-            let c = engine.npc_list.npcs[nid]
-                .as_ref()
-                .unwrap()
-                .npc
-                .pathing
-                .coord;
-            if tick % 5 == 0 && !targeted {
-                engine.harness_telejump(client.pid, c.x() - 2, 0, c.z() - 2);
+            // The client's keep-alive: 100 silent ticks would log the player out.
+            if tick % 20 == 19 {
+                client.send(ClientProt::NoTimeout, &[]);
+            }
+            if tick % 5 == 0 {
+                stand_against(engine, client.pid, nid, size);
             }
             let player = engine.harness_player_mut(client.pid).unwrap();
             let bit0 = player.vars.get(LIFE_POINTS_VARP).as_int() & 1;

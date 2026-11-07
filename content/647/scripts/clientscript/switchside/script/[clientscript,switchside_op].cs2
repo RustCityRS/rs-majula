@@ -1,8 +1,9 @@
-[clientscript,switchside_op](int $int)
-%varc_int_10 = 0;
-~if_switchside_op($int);
-if (%varc_int_168 = $int) {
-    %varc_int_168 = -1;
+// 1303
+[clientscript,switchside_op](int $int0)
+%varclient_10 = 0;
+~if_switchside_op($int0);
+if (%varclient_168 = $int0) {
+    %varclient_168 = -1;
 } else {
-    %varc_int_168 = $int;
+    %varclient_168 = $int0;
 }

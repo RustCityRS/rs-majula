@@ -1,0 +1,12 @@
+// 3011
+[proc,script3011](int $int0)(component, component, component, component, component, component, component)
+switch_int ($int0) {
+    case 0 :
+        return(~script3012($int0), interface_907:com_30, interface_907:com_31, interface_907:com_33, ~script3013($int0), interface_907:com_35, interface_907:com_32);
+    case 1 :
+        return(~script3012($int0), interface_907:com_18, interface_907:com_19, interface_907:com_21, ~script3013($int0), interface_907:com_23, interface_907:com_20);
+    case 2 :
+        return(~script3012($int0), interface_907:com_6, interface_907:com_7, interface_907:com_9, ~script3013($int0), interface_907:com_11, interface_907:com_8);
+    case 3 :
+        return(~script3012($int0), interface_907:com_44, interface_907:com_45, interface_907:com_47, ~script3013($int0), interface_907:com_49, interface_907:com_46);
+}

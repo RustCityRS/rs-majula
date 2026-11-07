@@ -1,37 +1,38 @@
-[proc,lotg_goblin_interface_update](int $int)
-if ($int = true) {
-    if_setgraphic("miscgraphics,11", oy9019425:com69);
-    if_setmodel(model_29248, oy9019425:com39);
+// 558
+[proc,lotg_goblin_interface_update](int $int0)
+if ($int0 = 1) {
+    if_setgraphic("miscgraphics,11", interface_625:com_69);
+    if_setmodel(model_29248, interface_625:com_39);
 } else {
-    if_setgraphic("miscgraphics,10", oy9019425:com69);
+    if_setgraphic("miscgraphics,10", interface_625:com_69);
 }
-if ($int = 2) {
-    if_setgraphic("miscgraphics,11", oy9019425:com72);
-    if_setmodel(model_29242, oy9019425:com39);
+if ($int0 = 2) {
+    if_setgraphic("miscgraphics,11", interface_625:com_72);
+    if_setmodel(model_29242, interface_625:com_39);
 } else {
-    if_setgraphic("miscgraphics,10", oy9019425:com72);
+    if_setgraphic("miscgraphics,10", interface_625:com_72);
 }
-if ($int = 3) {
-    if_setgraphic("miscgraphics,11", oy9019425:com75);
-    if_setmodel(model_29237, oy9019425:com39);
+if ($int0 = 3) {
+    if_setgraphic("miscgraphics,11", interface_625:com_75);
+    if_setmodel(model_29237, interface_625:com_39);
 } else {
-    if_setgraphic("miscgraphics,10", oy9019425:com75);
+    if_setgraphic("miscgraphics,10", interface_625:com_75);
 }
-if ($int = 4) {
-    if_setgraphic("miscgraphics,11", oy9019425:com78);
-    if_setmodel(model_29245, oy9019425:com39);
+if ($int0 = 4) {
+    if_setgraphic("miscgraphics,11", interface_625:com_78);
+    if_setmodel(model_29245, interface_625:com_39);
 } else {
-    if_setgraphic("miscgraphics,10", oy9019425:com78);
+    if_setgraphic("miscgraphics,10", interface_625:com_78);
 }
-if ($int = 5) {
-    if_setgraphic("miscgraphics,11", oy9019425:com81);
-    if_setmodel(model_29246, oy9019425:com39);
+if ($int0 = 5) {
+    if_setgraphic("miscgraphics,11", interface_625:com_81);
+    if_setmodel(model_29246, interface_625:com_39);
 } else {
-    if_setgraphic("miscgraphics,10", oy9019425:com81);
+    if_setgraphic("miscgraphics,10", interface_625:com_81);
 }
-if ($int = 6) {
-    if_setgraphic("miscgraphics,11", oy9019425:com84);
-    if_setmodel(model_29241, oy9019425:com39);
+if ($int0 = 6) {
+    if_setgraphic("miscgraphics,11", interface_625:com_84);
+    if_setmodel(model_29241, interface_625:com_39);
 } else {
-    if_setgraphic("miscgraphics,10", oy9019425:com84);
+    if_setgraphic("miscgraphics,10", interface_625:com_84);
 }

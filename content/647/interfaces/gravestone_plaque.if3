@@ -1,0 +1,289 @@
+// 266:0
+[com_0]
+type=rectangle
+width=512
+height=335
+layer=com_3
+colour=0x46341d
+fill=yes
+trans=160
+onload=gravestone_plaque_setup(gravestone_plaque:com_2, gravestone_plaque:com_23)
+onvartransmit=gravestone_plaque_setup(gravestone_plaque:com_2, gravestone_plaque:com_23){varplayer_1146}
+
+// 266:1
+[com_1]
+type=graphic
+x=478
+y=9
+width=26
+height=23
+layer=com_3
+graphic="close_buttons,6"
+colour=0x000000
+transmitop=1
+op1=Close
+onmouseover=graphic_swapper(event_com, "close_buttons,7")
+onmouseleave=graphic_swapper(event_com, "close_buttons,6")
+onop=closebutton_click
+
+// 266:2
+[com_2]
+type=model
+x=10
+y=84
+width=491
+height=151
+layer=com_3
+model=null
+modelzoom=377
+
+// 266:3
+[com_3]
+type=layer
+width=512
+height=334
+xmode=proportion_centre
+ymode=proportion_centre
+
+// 266:4
+[com_4]
+type=layer
+width=16391
+height=16391
+widthmode=proportion
+heightmode=proportion
+xmode=abs_centre
+ymode=abs_centre
+
+// 266:5
+[com_5]
+type=layer
+width=16391
+height=16391
+widthmode=proportion
+heightmode=proportion
+xmode=abs_centre
+ymode=abs_centre
+layer=com_4
+
+// 266:6
+[com_6]
+type=graphic
+x=-260
+width=32
+height=334
+xmode=abs_centre
+ymode=abs_centre
+graphic="v2_stone_borders,1"
+tiling=yes
+colour=0x000000
+
+// 266:7
+[com_7]
+type=graphic
+y=-171
+width=462
+height=32
+xmode=abs_centre
+ymode=abs_centre
+graphic="v2_stone_borders,0"
+tiling=yes
+colour=0x000000
+
+// 266:8
+[com_8]
+type=graphic
+y=170
+width=512
+height=32
+xmode=abs_centre
+ymode=abs_centre
+graphic="v2_stone_borders,2"
+tiling=yes
+colour=0x000000
+
+// 266:9
+[com_9]
+type=graphic
+x=259
+width=32
+height=334
+xmode=abs_centre
+ymode=abs_centre
+graphic="v2_stone_borders,3"
+tiling=yes
+colour=0x000000
+
+// 266:10
+[com_10]
+type=graphic
+x=-247
+y=-158
+width=32
+height=32
+xmode=abs_centre
+ymode=abs_centre
+graphic="v2_stone_borders,4"
+tiling=yes
+colour=0x000000
+
+// 266:11
+[com_11]
+type=graphic
+x=247
+y=-158
+width=32
+height=32
+xmode=abs_centre
+ymode=abs_centre
+graphic="v2_stone_borders,5"
+tiling=yes
+colour=0x000000
+
+// 266:12
+[com_12]
+type=graphic
+x=247
+y=158
+width=32
+height=32
+xmode=abs_centre
+ymode=abs_centre
+graphic="v2_stone_borders,7"
+tiling=yes
+colour=0x000000
+
+// 266:13
+[com_13]
+type=graphic
+x=-247
+y=158
+width=32
+height=32
+xmode=abs_centre
+ymode=abs_centre
+graphic="v2_stone_borders,6"
+tiling=yes
+colour=0x000000
+
+// 266:14
+[com_14]
+type=layer
+width=8192
+height=16391
+widthmode=proportion
+heightmode=proportion
+xmode=abs_right
+ymode=abs_centre
+layer=com_5
+
+// 266:15
+[com_15]
+type=layer
+width=8188
+height=16391
+widthmode=proportion
+heightmode=proportion
+ymode=abs_centre
+layer=com_5
+
+// 266:16
+[com_16]
+type=layer
+width=16391
+height=8192
+widthmode=proportion
+heightmode=proportion
+xmode=abs_centre
+layer=com_5
+
+// 266:17
+[com_17]
+type=layer
+width=16391
+height=8182
+widthmode=proportion
+heightmode=proportion
+xmode=abs_centre
+ymode=abs_bottom
+layer=com_5
+
+// 266:18
+[com_18]
+type=layer
+width=512
+height=334
+xmode=abs_centre
+ymode=abs_centre
+layer=com_5
+
+// 266:19
+[com_19]
+type=graphic
+width=256
+height=16384
+widthmode=minus
+heightmode=proportion
+ymode=abs_centre
+layer=com_15
+graphic=tradebacking
+tiling=yes
+outline=2
+colour=0x000000
+
+// 266:20
+[com_20]
+type=graphic
+width=256
+height=16391
+widthmode=minus
+heightmode=proportion
+xmode=abs_right
+ymode=abs_centre
+layer=com_14
+graphic=tradebacking
+tiling=yes
+outline=2
+colour=0x000000
+
+// 266:21
+[com_21]
+type=graphic
+width=16391
+height=167
+widthmode=proportion
+heightmode=minus
+xmode=abs_centre
+layer=com_16
+graphic=tradebacking
+tiling=yes
+outline=2
+colour=0x000000
+
+// 266:22
+[com_22]
+type=graphic
+width=16391
+height=166
+widthmode=proportion
+heightmode=minus
+xmode=abs_centre
+ymode=abs_bottom
+layer=com_17
+graphic=tradebacking
+tiling=yes
+outline=2
+colour=0x000000
+
+// 266:23
+[com_23]
+type=text
+x=74
+y=115
+width=368
+height=93
+layer=com_3
+textfont=p11_full
+text=---
+textshadow=yes
+colour=0x000000

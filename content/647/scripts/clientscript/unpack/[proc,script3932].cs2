@@ -1,0 +1,36 @@
+// 3932
+[proc,script3932](int $int0, boolean $boolean1, component $component2, int $int3, string $string0, int $int4, string $string1)
+cc_deleteall($component2);
+if_setsize($int4, 27, ^setsize_abs, ^setsize_abs, $component2);
+cc_create($component2, ^iftype_graphic, if_getnextsubid($component2));
+cc_setsize(6, 26, ^setsize_minus, ^setsize_abs);
+cc_setposition(0, 0, ^setpos_abs_centre, ^setpos_abs_centre);
+cc_settiling(true);
+cc_create($component2, ^iftype_graphic, if_getnextsubid($component2));
+cc_setsize(26, 26, ^setsize_abs, ^setsize_abs);
+cc_setposition(0, 0, ^setpos_abs_left, ^setpos_abs_centre);
+cc_create($component2, ^iftype_graphic, if_getnextsubid($component2));
+cc_setsize(26, 26, ^setsize_abs, ^setsize_abs);
+cc_setposition(3, 0, ^setpos_abs_right, ^setpos_abs_centre);
+cc_create($component2, ^iftype_text, if_getnextsubid($component2));
+cc_setsize(0, 0, ^setsize_minus, ^setsize_minus);
+cc_setposition(0, -3, ^setpos_abs_centre, ^setpos_abs_centre);
+cc_settextfont(verdana_11pt_regular);
+cc_setcolour(0xebe0bc);
+cc_settextalign(^settextalign_centre, ^settextalign_centre, 0);
+cc_settextshadow(false);
+cc_settext($string0);
+~script3929($component2, $int3, false);
+if ($int3 = -1) {
+    if_setonmouseleave("script3930($component2, $int3, false)", $component2);
+    if_setonmouseover("script3930($component2, $int3, true)", $component2);
+} else {
+    if_setonmouseleave("script3928($component2, $int3, false)", $component2);
+    if_setonmouseover("script3928($component2, $int3, true)", $component2);
+}
+if ($int0 = 0) {
+    if_setonclick("script3388($int3, $int0, $boolean1)", $component2);
+} else {
+    if_setop(1, $string0, $component2);
+    if_setonop("script3388($int3, $int0, $boolean1)", $component2);
+}

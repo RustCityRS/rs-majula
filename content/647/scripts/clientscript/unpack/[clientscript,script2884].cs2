@@ -1,0 +1,10 @@
+// 2884
+[clientscript,script2884]
+if (%varplayerbit_4393 = 1 | %varplayerbit_542 = 1) {
+    return;
+}
+if (%varplayerbit_7079 = 0) {
+    ~addtooltip_action(music_v3:com_13, music_v3:com_16, "Shuffle on", 25, 189);
+} else {
+    ~addtooltip_action(music_v3:com_13, music_v3:com_16, "Shuffle off", 25, 189);
+}

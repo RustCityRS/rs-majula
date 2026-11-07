@@ -1,0 +1,10 @@
+// 1947
+[clientscript,script1947]
+if (%varclient_600 < 1 & %varclient_603 < 1) {
+    mes("The awards tab is not available for this scoring.");
+} else {
+    if_sethide(true, sc_scores:com_84);
+    if_sethide(false, sc_scores:com_85);
+    if_sethide(true, sc_scores:com_86);
+    if_sethide(false, sc_scores:com_144);
+}

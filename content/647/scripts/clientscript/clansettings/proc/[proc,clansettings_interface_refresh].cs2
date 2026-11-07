@@ -1,117 +1,118 @@
+// 4295
 [proc,clansettings_interface_refresh]
 def_int $int0 = 0;
 def_int $int1 = 0;
-if (ignore_getname = true) {
-    ~clientscript_4501(pe6859048:com128, enum(105, 115, enum_3725, calc(clanchannel_getbyte1 + 1)));
-    ~clientscript_4501(pe6859048:com142, enum(105, 115, enum_3716, clanchannel_getbyte2));
-    if (clanchannel_isguest = true) {
+if (activeclansettings_find_affined = true) {
+    ~script4501(interface_1096:com_128, enum(int, string, enum_3725, calc(activeclansettings_getranktalk + 1)));
+    ~script4501(interface_1096:com_142, enum(int, string, enum_3716, activeclansettings_getrankkick));
+    if (activeclansettings_getallowunaffined = true) {
         $int1 = 1;
-    } else if (clanchannel_isguest = false) {
+    } else if (activeclansettings_getallowunaffined = false) {
         $int1 = 0;
     }
-    ~clientscript_4501(pe6859048:com156, enum(105, 115, enum_3718, $int1));
-    $int0 = %clansetting_int_0;
+    ~script4501(interface_1096:com_156, enum(int, string, enum_3718, $int1));
+    $int0 = %varclansetting_0;
     $int0 = calc($int0 / 10 + 72);
-    ~clientscript_4501(pe6859048:com220, enum(105, 115, enum_3711, $int0));
-    ~clientscript_4501(pe6859048:com368, enum(105, 115, enum_3797, %varc_int_1516));
-    ~clientscript_4329(pe6859048:com304);
-    if (%clansetting_varbit_6 = false) {
-        ~clientscript_4501(pe6859048:com275, "Not set");
+    ~script4501(interface_1096:com_220, enum(int, string, enum_3711, $int0));
+    ~script4501(interface_1096:com_368, enum(int, string, enum_3797, %varclient_1516));
+    ~script4329(interface_1096:com_304);
+    if (%varclansetting_6 = 0) {
+        ~script4501(interface_1096:com_275, "Not set");
     } else {
-        ~clientscript_4501(pe6859048:com275, enum(105, 115, enum_3700, %clansetting_varbit_6));
+        ~script4501(interface_1096:com_275, enum(int, string, enum_3700, %varclansetting_6));
     }
-    if (%clansetting_varbit_5 = true) {
-        if (~clientscript_4292 = true) {
-            if_sethide(false, pe6859048:com243);
-            if_sethide(true, pe6859048:com245);
-            if_sethide(true, pe6859048:com244);
-            if_sethide(true, pe6859048:com246);
-            if_sethide(true, pe6859048:com239);
-            if_sethide(false, pe6859048:com241);
-            if_sethide(true, pe6859048:com240);
-            if_sethide(true, pe6859048:com242);
+    if (%varclansetting_5 = 1) {
+        if (~script4292 = 1) {
+            if_sethide(false, interface_1096:com_243);
+            if_sethide(true, interface_1096:com_245);
+            if_sethide(true, interface_1096:com_244);
+            if_sethide(true, interface_1096:com_246);
+            if_sethide(true, interface_1096:com_239);
+            if_sethide(false, interface_1096:com_241);
+            if_sethide(true, interface_1096:com_240);
+            if_sethide(true, interface_1096:com_242);
         } else {
-            if_sethide(true, pe6859048:com243);
-            if_sethide(true, pe6859048:com245);
-            if_sethide(false, pe6859048:com244);
-            if_sethide(true, pe6859048:com246);
-            if_sethide(true, pe6859048:com239);
-            if_sethide(true, pe6859048:com241);
-            if_sethide(true, pe6859048:com240);
-            if_sethide(false, pe6859048:com242);
+            if_sethide(true, interface_1096:com_243);
+            if_sethide(true, interface_1096:com_245);
+            if_sethide(false, interface_1096:com_244);
+            if_sethide(true, interface_1096:com_246);
+            if_sethide(true, interface_1096:com_239);
+            if_sethide(true, interface_1096:com_241);
+            if_sethide(true, interface_1096:com_240);
+            if_sethide(false, interface_1096:com_242);
         }
-    } else if (~clientscript_4292 = true) {
-        if_sethide(true, pe6859048:com243);
-        if_sethide(false, pe6859048:com245);
-        if_sethide(true, pe6859048:com244);
-        if_sethide(true, pe6859048:com246);
-        if_sethide(false, pe6859048:com239);
-        if_sethide(true, pe6859048:com241);
-        if_sethide(true, pe6859048:com240);
-        if_sethide(true, pe6859048:com242);
+    } else if (~script4292 = 1) {
+        if_sethide(true, interface_1096:com_243);
+        if_sethide(false, interface_1096:com_245);
+        if_sethide(true, interface_1096:com_244);
+        if_sethide(true, interface_1096:com_246);
+        if_sethide(false, interface_1096:com_239);
+        if_sethide(true, interface_1096:com_241);
+        if_sethide(true, interface_1096:com_240);
+        if_sethide(true, interface_1096:com_242);
     } else {
-        if_sethide(true, pe6859048:com243);
-        if_sethide(true, pe6859048:com245);
-        if_sethide(true, pe6859048:com244);
-        if_sethide(false, pe6859048:com246);
-        if_sethide(true, pe6859048:com239);
-        if_sethide(true, pe6859048:com241);
-        if_sethide(false, pe6859048:com240);
-        if_sethide(true, pe6859048:com242);
+        if_sethide(true, interface_1096:com_243);
+        if_sethide(true, interface_1096:com_245);
+        if_sethide(true, interface_1096:com_244);
+        if_sethide(false, interface_1096:com_246);
+        if_sethide(true, interface_1096:com_239);
+        if_sethide(true, interface_1096:com_241);
+        if_sethide(false, interface_1096:com_240);
+        if_sethide(true, interface_1096:com_242);
     }
-    if (%clansetting_varbit_4 = true) {
-        if (~clientscript_4292 = true) {
-            if_sethide(false, pe6859048:com235);
-            if_sethide(true, pe6859048:com237);
-            if_sethide(true, pe6859048:com236);
-            if_sethide(true, pe6859048:com238);
+    if (%varclansetting_4 = 1) {
+        if (~script4292 = 1) {
+            if_sethide(false, interface_1096:com_235);
+            if_sethide(true, interface_1096:com_237);
+            if_sethide(true, interface_1096:com_236);
+            if_sethide(true, interface_1096:com_238);
         } else {
-            if_sethide(true, pe6859048:com235);
-            if_sethide(true, pe6859048:com237);
-            if_sethide(false, pe6859048:com236);
-            if_sethide(true, pe6859048:com238);
+            if_sethide(true, interface_1096:com_235);
+            if_sethide(true, interface_1096:com_237);
+            if_sethide(false, interface_1096:com_236);
+            if_sethide(true, interface_1096:com_238);
         }
-    } else if (~clientscript_4292 = true) {
-        if_sethide(true, pe6859048:com235);
-        if_sethide(false, pe6859048:com237);
-        if_sethide(true, pe6859048:com236);
-        if_sethide(true, pe6859048:com238);
+    } else if (~script4292 = 1) {
+        if_sethide(true, interface_1096:com_235);
+        if_sethide(false, interface_1096:com_237);
+        if_sethide(true, interface_1096:com_236);
+        if_sethide(true, interface_1096:com_238);
     } else {
-        if_sethide(true, pe6859048:com235);
-        if_sethide(true, pe6859048:com237);
-        if_sethide(true, pe6859048:com236);
-        if_sethide(false, pe6859048:com238);
+        if_sethide(true, interface_1096:com_235);
+        if_sethide(true, interface_1096:com_237);
+        if_sethide(true, interface_1096:com_236);
+        if_sethide(false, interface_1096:com_238);
     }
-    if (~clientscript_4292 = true) {
-        if_sethide(true, pe6859048:com227);
-        if_sethide(true, pe6859048:com281);
+    if (~script4292 = 1) {
+        if_sethide(true, interface_1096:com_227);
+        if_sethide(true, interface_1096:com_281);
     } else {
-        if_sethide(false, pe6859048:com227);
-        if_sethide(false, pe6859048:com281);
+        if_sethide(false, interface_1096:com_227);
+        if_sethide(false, interface_1096:com_281);
     }
     ~clansettings_list_build;
-    if (~clientscript_4292 = true) {
-        if_sethide(true, pe6859048:com267);
-        if_sethide(true, pe6859048:com253);
-        if_sethide(true, pe6859048:com111);
-        if_sethide(true, pe6859048:com100);
-        if_sethide(true, pe6859048:com185);
-        if_sethide(true, pe6859048:com362);
-        if_sethide(true, pe6859048:com299);
-        if_sethide(true, pe6859048:com162);
-        if_sethide(true, pe6859048:com148);
-        if_sethide(true, pe6859048:com134);
+    if (~script4292 = 1) {
+        if_sethide(true, interface_1096:com_267);
+        if_sethide(true, interface_1096:com_253);
+        if_sethide(true, interface_1096:com_111);
+        if_sethide(true, interface_1096:com_100);
+        if_sethide(true, interface_1096:com_185);
+        if_sethide(true, interface_1096:com_362);
+        if_sethide(true, interface_1096:com_299);
+        if_sethide(true, interface_1096:com_162);
+        if_sethide(true, interface_1096:com_148);
+        if_sethide(true, interface_1096:com_134);
     } else {
-        if_sethide(false, pe6859048:com267);
-        if_sethide(false, pe6859048:com253);
-        if_sethide(false, pe6859048:com111);
-        if_sethide(false, pe6859048:com100);
-        if_sethide(false, pe6859048:com185);
-        if_sethide(false, pe6859048:com362);
-        if_sethide(false, pe6859048:com299);
-        if_sethide(false, pe6859048:com162);
-        if_sethide(false, pe6859048:com148);
-        if_sethide(false, pe6859048:com134);
+        if_sethide(false, interface_1096:com_267);
+        if_sethide(false, interface_1096:com_253);
+        if_sethide(false, interface_1096:com_111);
+        if_sethide(false, interface_1096:com_100);
+        if_sethide(false, interface_1096:com_185);
+        if_sethide(false, interface_1096:com_362);
+        if_sethide(false, interface_1096:com_299);
+        if_sethide(false, interface_1096:com_162);
+        if_sethide(false, interface_1096:com_148);
+        if_sethide(false, interface_1096:com_134);
     }
 }
-~clientscript_4310;
+~script4310;

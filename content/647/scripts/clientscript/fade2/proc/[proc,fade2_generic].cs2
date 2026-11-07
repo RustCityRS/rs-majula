@@ -1,5 +1,6 @@
-[proc,fade2_generic](component $component0, int $int1, colour $colour2)
-if_setcolour($colour2, $component0);
+// 2801
+[proc,fade2_generic](component $component0, int $int1, int $rgb2)
+if_setcolour($rgb2, $component0);
 if ($int1 > 0) {
     if_settrans(0, $component0);
 } else {

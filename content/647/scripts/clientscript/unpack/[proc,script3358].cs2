@@ -1,0 +1,26 @@
+// 3358
+[proc,script3358]()(int, string, obj)
+switch_obj (%varplayer_448) {
+    case default :
+        return(2, "Poisonous Shot (Tier 1)", poisonous_shot__tier_1);
+    case cub_deathslinger_pouch :
+        return(2, "Poisonous Shot (Tier 1)", poisonous_shot__tier_1);
+    case little_deathslinger_pouch :
+        return(12, "Poisonous Shot (Tier 2)", poisonous_shot__tier_2);
+    case "naïve_deathslinger_pouch" :
+        return(22, "Poisonous Shot (Tier 3)", poisonous_shot__tier_3);
+    case keen_deathslinger_pouch :
+        return(32, "Poisonous Shot (Tier 4)", poisonous_shot__tier_4);
+    case brave_deathslinger_pouch :
+        return(42, "Poisonous Shot (Tier 5)", poisonous_shot__tier_5);
+    case brah_deathslinger_pouch :
+        return(52, "Poisonous Shot (Tier 6)", poisonous_shot__tier_6);
+    case naabe_deathslinger_pouch :
+        return(62, "Poisonous Shot (Tier 7)", poisonous_shot__tier_7);
+    case wise_deathslinger_pouch :
+        return(72, "Poisonous Shot (Tier 8)", poisonous_shot__tier_8);
+    case adept_deathslinger_pouch :
+        return(82, "Poisonous Shot (Tier 9)", poisonous_shot__tier_9);
+    case sachem_deathslinger_pouch :
+        return(92, "Poisonous Shot (Tier 10)", poisonous_shot__tier_10);
+}

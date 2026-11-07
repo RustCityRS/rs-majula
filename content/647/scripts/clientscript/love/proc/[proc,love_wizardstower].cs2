@@ -1,21 +1,22 @@
+// 3466
 [proc,love_wizardstower](component $component0, coord $coord1)
-switch_int (%varc_int_1007) {
-    case 101:
+switch_int (%varclient_1007) {
+    case 101 :
         cc_deleteall($component0);
         ~tutorial3_fadeout(^black, 50, $component0);
-    case 102:
-        cam_allocpath(0, 2);
-        cam_allocpath(1, 2);
-        cam_addwaypoint(0, 0, ~love_instance(7, 54, $coord1), 1000, ~love_instance(8, 54, $coord1), 1000, 0);
-        cam_addwaypoint(1, 0, ~love_instance(13, 50, $coord1), 450, ~love_instance(13, 50, $coord1), 450, 0);
-        cam_addwaypoint(0, 1, ~love_instance(13, 51, $coord1), 800, ~love_instance(13, 52, $coord1), 800, 0);
-        cam_addwaypoint(1, 1, ~love_instance(14, 44, $coord1), 550, ~love_instance(14, 44, $coord1), 550, 0);
-        cam_startpath(0, 0, 100, 100, 1, 0);
+    case 102 :
+        spline_new(0, 2);
+        spline_new(1, 2);
+        spline_addpoint(0, 0, ~love_instance(7, 54, $coord1), 1000, ~love_instance(8, 54, $coord1), 1000, 0);
+        spline_addpoint(1, 0, ~love_instance(13, 50, $coord1), 450, ~love_instance(13, 50, $coord1), 450, 0);
+        spline_addpoint(0, 1, ~love_instance(13, 51, $coord1), 800, ~love_instance(13, 52, $coord1), 800, 0);
+        spline_addpoint(1, 1, ~love_instance(14, 44, $coord1), 550, ~love_instance(14, 44, $coord1), 550, 0);
+        cam_movealong(0, 0, 100, 100, 1, 0);
         ~tutorial3_fadein(75, $component0);
-    case 103:
+    case 103 :
         cc_deleteall($component0);
-        if_setontimer("clientscript_3467($component0, clientclock, 50)", $component0);
-    case 104:
+        if_setontimer("script3467($component0, clientclock, 50)", $component0);
+    case 104 :
         if_setontimer(null, $component0);
         if (cc_find($component0, 0) = true) {
             cc_settrans(0);
@@ -23,115 +24,115 @@ switch_int (%varc_int_1007) {
         } else {
             ~tutorial3_fadeout(^black, 0, $component0);
         }
-    case 105:
-        cam_allocpath(0, 2);
-        cam_allocpath(1, 2);
-        cam_addwaypoint(0, 0, ~love_instance(31, 22, $coord1), 600, ~love_instance(31, 23, $coord1), 600, 0);
-        cam_addwaypoint(1, 0, ~love_instance(32, 29, $coord1), 50, ~love_instance(32, 30, $coord1), 50, 0);
-        cam_addwaypoint(0, 1, ~love_instance(35, 33, $coord1), 500, ~love_instance(35, 32, $coord1), 500, 0);
-        cam_addwaypoint(1, 1, ~love_instance(29, 36, $coord1), 50, ~love_instance(30, 36, $coord1), 50, 0);
-        cam_startpath(0, 0, 500, 450, 1, 0);
+    case 105 :
+        spline_new(0, 2);
+        spline_new(1, 2);
+        spline_addpoint(0, 0, ~love_instance(31, 22, $coord1), 600, ~love_instance(31, 23, $coord1), 600, 0);
+        spline_addpoint(1, 0, ~love_instance(32, 29, $coord1), 50, ~love_instance(32, 30, $coord1), 50, 0);
+        spline_addpoint(0, 1, ~love_instance(35, 33, $coord1), 500, ~love_instance(35, 32, $coord1), 500, 0);
+        spline_addpoint(1, 1, ~love_instance(29, 36, $coord1), 50, ~love_instance(30, 36, $coord1), 50, 0);
+        cam_movealong(0, 0, 500, 450, 1, 0);
         ~tutorial3_fadein(50, $component0);
-    case 106:
+    case 106 :
         cam_moveto(~love_instance(33, 38, $coord1), 475, 1000, 100);
         cam_lookat(~love_instance(29, 33, $coord1), 50, 1000, 100);
-    case 107:
+    case 107 :
         cam_moveto(~love_instance(32, 37, $coord1), 450, 1000, 100);
         cam_lookat(~love_instance(31, 31, $coord1), 50, 1000, 100);
-    case 108:
+    case 108 :
         cam_moveto(~love_instance(35, 38, $coord1), 600, 1000, 100);
         cam_lookat(~love_instance(29, 36, $coord1), 50, 1000, 100);
-    case 109:
+    case 109 :
         cam_moveto(~love_instance(35, 37, $coord1), 500, 1000, 100);
         cam_lookat(~love_instance(31, 31, $coord1), 50, 1000, 100);
-    case 110:
+    case 110 :
         cam_moveto(~love_instance(35, 36, $coord1), 400, 1000, 100);
         cam_lookat(~love_instance(28, 34, $coord1), 50, 1000, 100);
-    case 111:
+    case 111 :
         cam_moveto(~love_instance(36, 35, $coord1), 800, 1000, 100);
         cam_lookat(~love_instance(29, 36, $coord1), 50, 1000, 100);
-    case 112:
+    case 112 :
         ~tutorial3_fadeout(^black, 50, $component0);
-    case 113:
-        cam_allocpath(0, 7);
-        cam_allocpath(1, 7);
-        cam_addwaypoint(0, 0, ~love_instance(42, 82, $coord1), 400, ~love_instance(42, 79, $coord1), 400, 0);
-        cam_addwaypoint(1, 0, ~love_instance(42, 58, $coord1), 250, ~love_instance(42, 58, $coord1), 250, 0);
-        cam_addwaypoint(0, 1, ~love_instance(42, 59, $coord1), 1500, ~love_instance(40, 55, $coord1), 1500, 0);
-        cam_addwaypoint(1, 1, ~love_instance(41, 46, $coord1), 600, ~love_instance(41, 46, $coord1), 600, 0);
-        cam_addwaypoint(0, 2, ~love_instance(29, 50, $coord1), 1800, ~love_instance(25, 47, $coord1), 1800, 0);
-        cam_addwaypoint(1, 2, ~love_instance(36, 43, $coord1), 600, ~love_instance(35, 43, $coord1), 600, 0);
-        cam_addwaypoint(0, 3, ~love_instance(24, 40, $coord1), 2100, ~love_instance(24, 34, $coord1), 2100, 0);
-        cam_addwaypoint(1, 3, ~love_instance(36, 42, $coord1), 600, ~love_instance(36, 41, $coord1), 600, 0);
-        cam_addwaypoint(0, 4, ~love_instance(37, 26, $coord1), 2400, ~love_instance(45, 26, $coord1), 2400, 0);
-        cam_addwaypoint(1, 4, ~love_instance(37, 42, $coord1), 500, ~love_instance(38, 43, $coord1), 500, 0);
-        cam_addwaypoint(0, 5, ~love_instance(52, 35, $coord1), 1700, ~love_instance(55, 39, $coord1), 1700, 0);
-        cam_addwaypoint(1, 5, ~love_instance(38, 42, $coord1), 400, ~love_instance(38, 41, $coord1), 400, 0);
-        cam_addwaypoint(0, 6, ~love_instance(47, 52, $coord1), 600, ~love_instance(43, 55, $coord1), 600, 0);
-        cam_addwaypoint(1, 6, ~love_instance(37, 48, $coord1), 325, ~love_instance(37, 49, $coord1), 325, 0);
-        if_setonchattransmit_2426("clientscript_3468($component0, 1, 900, 1300, 1300, 1600, 1600, 1600, 1600, 1200, 1200, 200)", $component0);
-        cam_startpath(0, 0, 100, 900, 1, 0);
+    case 113 :
+        spline_new(0, 7);
+        spline_new(1, 7);
+        spline_addpoint(0, 0, ~love_instance(42, 82, $coord1), 400, ~love_instance(42, 79, $coord1), 400, 0);
+        spline_addpoint(1, 0, ~love_instance(42, 58, $coord1), 250, ~love_instance(42, 58, $coord1), 250, 0);
+        spline_addpoint(0, 1, ~love_instance(42, 59, $coord1), 1500, ~love_instance(40, 55, $coord1), 1500, 0);
+        spline_addpoint(1, 1, ~love_instance(41, 46, $coord1), 600, ~love_instance(41, 46, $coord1), 600, 0);
+        spline_addpoint(0, 2, ~love_instance(29, 50, $coord1), 1800, ~love_instance(25, 47, $coord1), 1800, 0);
+        spline_addpoint(1, 2, ~love_instance(36, 43, $coord1), 600, ~love_instance(35, 43, $coord1), 600, 0);
+        spline_addpoint(0, 3, ~love_instance(24, 40, $coord1), 2100, ~love_instance(24, 34, $coord1), 2100, 0);
+        spline_addpoint(1, 3, ~love_instance(36, 42, $coord1), 600, ~love_instance(36, 41, $coord1), 600, 0);
+        spline_addpoint(0, 4, ~love_instance(37, 26, $coord1), 2400, ~love_instance(45, 26, $coord1), 2400, 0);
+        spline_addpoint(1, 4, ~love_instance(37, 42, $coord1), 500, ~love_instance(38, 43, $coord1), 500, 0);
+        spline_addpoint(0, 5, ~love_instance(52, 35, $coord1), 1700, ~love_instance(55, 39, $coord1), 1700, 0);
+        spline_addpoint(1, 5, ~love_instance(38, 42, $coord1), 400, ~love_instance(38, 41, $coord1), 400, 0);
+        spline_addpoint(0, 6, ~love_instance(47, 52, $coord1), 600, ~love_instance(43, 55, $coord1), 600, 0);
+        spline_addpoint(1, 6, ~love_instance(37, 48, $coord1), 325, ~love_instance(37, 49, $coord1), 325, 0);
+        if_setoncamfinished("script3468($component0, 1, 900, 1300, 1300, 1600, 1600, 1600, 1600, 1200, 1200, 200)", $component0);
+        cam_movealong(0, 0, 100, 900, 1, 0);
         ~tutorial3_fadein(50, $component0);
-    case 114:
-        cam_allocpath(0, 3);
-        cam_allocpath(1, 3);
-        cam_addwaypoint(0, 0, ~love_instance(43, 59, $coord1), 800, ~love_instance(43, 59, $coord1), 800, 0);
-        cam_addwaypoint(1, 0, ~love_instance(37, 37, $coord1), 10, ~love_instance(37, 37, $coord1), 10, 0);
-        cam_addwaypoint(0, 1, ~love_instance(35, 59, $coord1), 800, ~love_instance(35, 59, $coord1), 800, 0);
-        cam_addwaypoint(1, 1, ~love_instance(39, 38, $coord1), 10, ~love_instance(39, 38, $coord1), 10, 0);
-        cam_addwaypoint(0, 2, ~love_instance(33, 60, $coord1), 1000, ~love_instance(33, 60, $coord1), 1000, 0);
-        cam_addwaypoint(1, 2, ~love_instance(39, 38, $coord1), 10, ~love_instance(39, 38, $coord1), 10, 0);
-        if_setonchattransmit_2426("clientscript_3468($component0, 1, 100, 0, 0, 0, 0, 0, 0, 0, 0, 0)", $component0);
-        cam_startpath(0, 0, 150, 100, 1, 0);
-    case 115:
-        if_setonchattransmit_2426(null, $component0);
-        cam_allocpath(0, 2);
-        cam_allocpath(1, 2);
-        cam_addwaypoint(0, 0, ~love_instance(35, 49, $coord1), 800, ~love_instance(36, 48, $coord1), 800, 0);
-        cam_addwaypoint(1, 0, ~love_instance(42, 52, $coord1), 200, ~love_instance(42, 52, $coord1), 200, 0);
-        cam_addwaypoint(0, 1, ~love_instance(39, 48, $coord1), 800, ~love_instance(39, 48, $coord1), 800, 0);
-        cam_addwaypoint(1, 1, ~love_instance(41, 52, $coord1), 200, ~love_instance(41, 52, $coord1), 200, 0);
-        cam_startpath(0, 0, 150, 0, 1, 0);
-    case 116:
-        cam_allocpath(0, 15);
-        cam_allocpath(1, 15);
-        cam_addwaypoint(0, 0, ~love_instance(41, 55, $coord1), 275, ~love_instance(41, 55, $coord1), 275, 0);
-        cam_addwaypoint(1, 0, ~love_instance(39, 47, $coord1), 10, ~love_instance(39, 47, $coord1), 10, 0);
-        cam_addwaypoint(0, 1, ~love_instance(42, 55, $coord1), 280, ~love_instance(42, 55, $coord1), 280, 250);
-        cam_addwaypoint(1, 1, ~love_instance(39, 47, $coord1), 20, ~love_instance(39, 47, $coord1), 20, 0);
-        cam_addwaypoint(0, 2, ~love_instance(41, 55, $coord1), 285, ~love_instance(41, 55, $coord1), 285, -500);
-        cam_addwaypoint(1, 2, ~love_instance(39, 47, $coord1), 30, ~love_instance(39, 47, $coord1), 30, 0);
-        cam_addwaypoint(0, 3, ~love_instance(42, 55, $coord1), 290, ~love_instance(42, 55, $coord1), 290, 500);
-        cam_addwaypoint(1, 3, ~love_instance(39, 47, $coord1), 40, ~love_instance(39, 47, $coord1), 40, 0);
-        cam_addwaypoint(0, 4, ~love_instance(41, 55, $coord1), 295, ~love_instance(41, 55, $coord1), 295, -500);
-        cam_addwaypoint(1, 4, ~love_instance(39, 47, $coord1), 50, ~love_instance(39, 47, $coord1), 50, 0);
-        cam_addwaypoint(0, 5, ~love_instance(42, 55, $coord1), 350, ~love_instance(42, 55, $coord1), 350, 750);
-        cam_addwaypoint(1, 5, ~love_instance(39, 47, $coord1), 50, ~love_instance(39, 47, $coord1), 50, 0);
-        cam_addwaypoint(0, 6, ~love_instance(40, 55, $coord1), 425, ~love_instance(40, 55, $coord1), 425, -750);
-        cam_addwaypoint(1, 6, ~love_instance(39, 47, $coord1), 50, ~love_instance(39, 47, $coord1), 50, 0);
-        cam_addwaypoint(0, 7, ~love_instance(42, 55, $coord1), 550, ~love_instance(42, 55, $coord1), 550, 750);
-        cam_addwaypoint(1, 7, ~love_instance(39, 47, $coord1), 50, ~love_instance(39, 47, $coord1), 50, 0);
-        cam_addwaypoint(0, 8, ~love_instance(41, 55, $coord1), 675, ~love_instance(41, 55, $coord1), 675, -750);
-        cam_addwaypoint(1, 8, ~love_instance(39, 47, $coord1), 50, ~love_instance(39, 47, $coord1), 50, 0);
-        cam_addwaypoint(0, 9, ~love_instance(43, 55, $coord1), 850, ~love_instance(43, 55, $coord1), 850, 500);
-        cam_addwaypoint(1, 9, ~love_instance(39, 47, $coord1), 50, ~love_instance(39, 47, $coord1), 50, 0);
-        cam_addwaypoint(0, 10, ~love_instance(41, 55, $coord1), 1000, ~love_instance(41, 55, $coord1), 1000, -500);
-        cam_addwaypoint(1, 10, ~love_instance(39, 47, $coord1), 50, ~love_instance(39, 47, $coord1), 50, 0);
-        cam_addwaypoint(0, 11, ~love_instance(42, 55, $coord1), 1150, ~love_instance(42, 55, $coord1), 1150, 250);
-        cam_addwaypoint(1, 11, ~love_instance(39, 47, $coord1), 50, ~love_instance(39, 47, $coord1), 50, 0);
-        cam_addwaypoint(0, 12, ~love_instance(41, 55, $coord1), 1300, ~love_instance(41, 55, $coord1), 1300, -250);
-        cam_addwaypoint(1, 12, ~love_instance(39, 47, $coord1), 50, ~love_instance(39, 47, $coord1), 50, 0);
-        cam_addwaypoint(0, 13, ~love_instance(42, 55, $coord1), 1450, ~love_instance(42, 55, $coord1), 1450, 125);
-        cam_addwaypoint(1, 13, ~love_instance(39, 47, $coord1), 50, ~love_instance(39, 47, $coord1), 50, 0);
-        cam_addwaypoint(0, 14, ~love_instance(41, 55, $coord1), 1500, ~love_instance(41, 55, $coord1), 1500, 0);
-        cam_addwaypoint(1, 14, ~love_instance(39, 47, $coord1), 50, ~love_instance(39, 47, $coord1), 50, 0);
-        if_setonchattransmit_2426("clientscript_3469($component0, 1)", $component0);
-        cam_startpath(0, 0, 2500, 3200, 1, 0);
-    case 117:
-        if_setonchattransmit_2426(null, $component0);
+    case 114 :
+        spline_new(0, 3);
+        spline_new(1, 3);
+        spline_addpoint(0, 0, ~love_instance(43, 59, $coord1), 800, ~love_instance(43, 59, $coord1), 800, 0);
+        spline_addpoint(1, 0, ~love_instance(37, 37, $coord1), 10, ~love_instance(37, 37, $coord1), 10, 0);
+        spline_addpoint(0, 1, ~love_instance(35, 59, $coord1), 800, ~love_instance(35, 59, $coord1), 800, 0);
+        spline_addpoint(1, 1, ~love_instance(39, 38, $coord1), 10, ~love_instance(39, 38, $coord1), 10, 0);
+        spline_addpoint(0, 2, ~love_instance(33, 60, $coord1), 1000, ~love_instance(33, 60, $coord1), 1000, 0);
+        spline_addpoint(1, 2, ~love_instance(39, 38, $coord1), 10, ~love_instance(39, 38, $coord1), 10, 0);
+        if_setoncamfinished("script3468($component0, 1, 100, 0, 0, 0, 0, 0, 0, 0, 0, 0)", $component0);
+        cam_movealong(0, 0, 150, 100, 1, 0);
+    case 115 :
+        if_setoncamfinished(null, $component0);
+        spline_new(0, 2);
+        spline_new(1, 2);
+        spline_addpoint(0, 0, ~love_instance(35, 49, $coord1), 800, ~love_instance(36, 48, $coord1), 800, 0);
+        spline_addpoint(1, 0, ~love_instance(42, 52, $coord1), 200, ~love_instance(42, 52, $coord1), 200, 0);
+        spline_addpoint(0, 1, ~love_instance(39, 48, $coord1), 800, ~love_instance(39, 48, $coord1), 800, 0);
+        spline_addpoint(1, 1, ~love_instance(41, 52, $coord1), 200, ~love_instance(41, 52, $coord1), 200, 0);
+        cam_movealong(0, 0, 150, 0, 1, 0);
+    case 116 :
+        spline_new(0, 15);
+        spline_new(1, 15);
+        spline_addpoint(0, 0, ~love_instance(41, 55, $coord1), 275, ~love_instance(41, 55, $coord1), 275, 0);
+        spline_addpoint(1, 0, ~love_instance(39, 47, $coord1), 10, ~love_instance(39, 47, $coord1), 10, 0);
+        spline_addpoint(0, 1, ~love_instance(42, 55, $coord1), 280, ~love_instance(42, 55, $coord1), 280, 250);
+        spline_addpoint(1, 1, ~love_instance(39, 47, $coord1), 20, ~love_instance(39, 47, $coord1), 20, 0);
+        spline_addpoint(0, 2, ~love_instance(41, 55, $coord1), 285, ~love_instance(41, 55, $coord1), 285, -500);
+        spline_addpoint(1, 2, ~love_instance(39, 47, $coord1), 30, ~love_instance(39, 47, $coord1), 30, 0);
+        spline_addpoint(0, 3, ~love_instance(42, 55, $coord1), 290, ~love_instance(42, 55, $coord1), 290, 500);
+        spline_addpoint(1, 3, ~love_instance(39, 47, $coord1), 40, ~love_instance(39, 47, $coord1), 40, 0);
+        spline_addpoint(0, 4, ~love_instance(41, 55, $coord1), 295, ~love_instance(41, 55, $coord1), 295, -500);
+        spline_addpoint(1, 4, ~love_instance(39, 47, $coord1), 50, ~love_instance(39, 47, $coord1), 50, 0);
+        spline_addpoint(0, 5, ~love_instance(42, 55, $coord1), 350, ~love_instance(42, 55, $coord1), 350, 750);
+        spline_addpoint(1, 5, ~love_instance(39, 47, $coord1), 50, ~love_instance(39, 47, $coord1), 50, 0);
+        spline_addpoint(0, 6, ~love_instance(40, 55, $coord1), 425, ~love_instance(40, 55, $coord1), 425, -750);
+        spline_addpoint(1, 6, ~love_instance(39, 47, $coord1), 50, ~love_instance(39, 47, $coord1), 50, 0);
+        spline_addpoint(0, 7, ~love_instance(42, 55, $coord1), 550, ~love_instance(42, 55, $coord1), 550, 750);
+        spline_addpoint(1, 7, ~love_instance(39, 47, $coord1), 50, ~love_instance(39, 47, $coord1), 50, 0);
+        spline_addpoint(0, 8, ~love_instance(41, 55, $coord1), 675, ~love_instance(41, 55, $coord1), 675, -750);
+        spline_addpoint(1, 8, ~love_instance(39, 47, $coord1), 50, ~love_instance(39, 47, $coord1), 50, 0);
+        spline_addpoint(0, 9, ~love_instance(43, 55, $coord1), 850, ~love_instance(43, 55, $coord1), 850, 500);
+        spline_addpoint(1, 9, ~love_instance(39, 47, $coord1), 50, ~love_instance(39, 47, $coord1), 50, 0);
+        spline_addpoint(0, 10, ~love_instance(41, 55, $coord1), 1000, ~love_instance(41, 55, $coord1), 1000, -500);
+        spline_addpoint(1, 10, ~love_instance(39, 47, $coord1), 50, ~love_instance(39, 47, $coord1), 50, 0);
+        spline_addpoint(0, 11, ~love_instance(42, 55, $coord1), 1150, ~love_instance(42, 55, $coord1), 1150, 250);
+        spline_addpoint(1, 11, ~love_instance(39, 47, $coord1), 50, ~love_instance(39, 47, $coord1), 50, 0);
+        spline_addpoint(0, 12, ~love_instance(41, 55, $coord1), 1300, ~love_instance(41, 55, $coord1), 1300, -250);
+        spline_addpoint(1, 12, ~love_instance(39, 47, $coord1), 50, ~love_instance(39, 47, $coord1), 50, 0);
+        spline_addpoint(0, 13, ~love_instance(42, 55, $coord1), 1450, ~love_instance(42, 55, $coord1), 1450, 125);
+        spline_addpoint(1, 13, ~love_instance(39, 47, $coord1), 50, ~love_instance(39, 47, $coord1), 50, 0);
+        spline_addpoint(0, 14, ~love_instance(41, 55, $coord1), 1500, ~love_instance(41, 55, $coord1), 1500, 0);
+        spline_addpoint(1, 14, ~love_instance(39, 47, $coord1), 50, ~love_instance(39, 47, $coord1), 50, 0);
+        if_setoncamfinished("script3469($component0, 1)", $component0);
+        cam_movealong(0, 0, 2500, 3200, 1, 0);
+    case 117 :
+        if_setoncamfinished(null, $component0);
         ~tutorial3_fadeout(^black, 50, $component0);
-    case 118:
+    case 118 :
         ~tutorial3_fadein(50, $component0);
-    case default:
-        cam_clear_5512;
+    case default :
+        cam_smoothreset;
 }

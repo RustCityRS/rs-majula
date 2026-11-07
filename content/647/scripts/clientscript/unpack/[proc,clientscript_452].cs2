@@ -1,6 +1,0 @@
-[proc,clientscript_452]
-if (%varbit_7537 = false) {
-    if_setgraphic("km_tickbox,0", conq_truce_offer:com31);
-} else {
-    if_setgraphic("km_tickbox,1", conq_truce_offer:com31);
-}

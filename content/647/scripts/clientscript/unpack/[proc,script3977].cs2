@@ -1,0 +1,238 @@
+// 3977
+[proc,script3977](int $int0)
+~deltooltip_action(task_side:com_136);
+if ($int0 = 0 & %learning_the_ropes < 1000) {
+    $int0 = 4094;
+}
+if (~script3999($int0) = 1) {
+    return;
+}
+def_struct $struct1 = null;
+def_string $string0 = "";
+def_string $string1 = "";
+def_string $string2 = "";
+def_int $int2 = -1;
+def_graphic $graphic3 = null;
+$struct1 = enum(int, struct, enum_3483, $int0);
+def_int $int4 = calc((struct_param($struct1, param_1293) - 1) * 5 + struct_param($struct1, param_1272));
+def_struct $struct5 = enum(int, struct, enum_3494, $int4);
+if ($struct1 ! null) {
+    $string0 = struct_param($struct1, param_1266);
+    $string1 = struct_param($struct1, param_1273);
+    if ($int0 > 419 & $int0 < 424) {
+        $string1 = append($string1, "<br><br>Click on the Hints tab above if you wish to see more information on how to complete this Task.");
+    } else if ($int0 = 419) {
+        $string1 = append($string1, "<br><br>Simply click on Jack to start a conversation - as a new player you will start just nearby.");
+    }
+    if (struct_param($struct1, param_1270) ! 4094) {
+        $string2 = struct_param(enum(int, struct, enum_2252, struct_param($struct1, param_1270)), param_951);
+        $graphic3 = struct_param(enum(int, struct, enum_2252, struct_param($struct1, param_1270)), param_952);
+    } else {
+        $string2 = struct_param($struct1, param_1292);
+        $graphic3 = struct_param($struct1, param_1271);
+    }
+    if_setgraphic($graphic3, task_side:com_135);
+    if_settext($string0, task_side:com_91);
+    if_settext($string1, task_side:com_129);
+    if_settextfont(p12_full, task_side:com_129);
+    if_settextalign(^settextalign_left, ^settextalign_top, 0, task_side:com_129);
+}
+def_string $string3 = "";
+if (compare($string2, "") = 0 & %learning_the_ropes = 1000) {
+    if (%varplayerbit_8601 < 10) {
+        $string3 = "ten";
+    } else if (%varplayerbit_8601 < 25) {
+        $string3 = "forty";
+    } else if (%varplayerbit_8601 < 50) {
+        $string3 = "160";
+    } else if (%varplayerbit_8601 < 100) {
+        $string3 = "640";
+    } else {
+        $string3 = "2560";
+    }
+    $string2 = "Completing this Task will earn you <$string3> coins.";
+}
+if_sethide(true, task_side:com_76);
+if_sethide(true, task_side:com_77);
+if_sethide(true, task_side:com_78);
+if_sethide(true, task_side:com_79);
+if_sethide(true, task_side:com_80);
+if_sethide(true, task_side:com_81);
+if_sethide(true, task_side:com_82);
+if_sethide(true, task_side:com_83);
+if_sethide(true, task_side:com_84);
+if_sethide(true, task_side:com_85);
+if_sethide(true, task_side:com_86);
+if_sethide(true, task_side:com_87);
+def_int $int6 = 10;
+def_int $int7 = 0;
+def_int $int8 = 15;
+def_int $int9 = 0;
+def_string $string4 = "";
+def_int $rgb10 = ^black;
+$int9, $string4, $rgb10 = ~task_requirements($int0);
+if (map_lang = 1 | map_lang = 3 | map_lang = 2) {
+    if_sethide(true, task_side:com_121);
+    if_sethide(true, task_side:com_141);
+} else {
+    if (map_lang = 0) {
+        if_settext("    Pin", task_side:com_120);
+        if_settext("     Back", task_side:com_140);
+    }
+    if_sethide(false, task_side:com_121);
+    if_sethide(false, task_side:com_141);
+}
+if_sethide(true, task_side:com_88);
+if (compare(struct_param($struct1, param_1274), "") ! 0) {
+    if (struct_param($struct1, param_1282) ! null) {
+        $int7 = $int0;
+    } else {
+        $int7 = 4094;
+    }
+    $int6 = ~script3978(1, $int6, struct_param($struct1, param_1274), task_side:com_76, $int7, task_side:com_77, task_side:com_123);
+}
+if (compare(struct_param($struct1, param_1275), "") ! 0) {
+    if (struct_param($struct1, param_1283) ! null) {
+        $int7 = $int0;
+    } else {
+        $int7 = 4094;
+    }
+    $int6 = ~script3978(2, $int6, struct_param($struct1, param_1275), task_side:com_78, $int7, task_side:com_79, task_side:com_123);
+}
+if (compare(struct_param($struct1, param_1276), "") ! 0) {
+    if (struct_param($struct1, param_1284) ! null) {
+        $int7 = $int0;
+    } else {
+        $int7 = 4094;
+    }
+    $int6 = ~script3978(3, $int6, struct_param($struct1, param_1276), task_side:com_80, $int7, task_side:com_81, task_side:com_123);
+}
+if (compare(struct_param($struct1, param_1277), "") ! 0) {
+    if (struct_param($struct1, param_1285) ! null) {
+        $int7 = $int0;
+    } else {
+        $int7 = 4094;
+    }
+    $int6 = ~script3978(4, $int6, struct_param($struct1, param_1277), task_side:com_82, $int7, task_side:com_83, task_side:com_123);
+}
+if (compare(struct_param($struct1, param_1278), "") ! 0) {
+    if (struct_param($struct1, param_1286) ! null) {
+        $int7 = $int0;
+    } else {
+        $int7 = 4094;
+    }
+    $int6 = ~script3978(5, $int6, struct_param($struct1, param_1278), task_side:com_84, $int7, task_side:com_85, task_side:com_123);
+}
+if (compare(struct_param($struct1, param_1279), "") ! 0) {
+    if (struct_param($struct1, param_1287) ! null) {
+        $int7 = $int0;
+    } else {
+        $int7 = 4094;
+    }
+    $int6 = ~script3978(6, $int6, struct_param($struct1, param_1279), task_side:com_86, $int7, task_side:com_87, task_side:com_123);
+}
+$int6 = max($int6, if_getheight(task_side:com_123));
+if_setscrollsize(0, $int6, task_side:com_123);
+~scrollbar_vertical(task_side:com_124, task_side:com_123, "task_scrollbar_dragger,3", "task_scrollbar_dragger,0", "task_scrollbar_dragger,1", "task_scrollbar_dragger,2", "task_scrollbar,1", "task_scrollbar,0");
+if ($int6 > if_getheight(task_side:com_123)) {
+    if_sethide(false, task_side:com_124);
+} else {
+    if_sethide(true, task_side:com_124);
+}
+if_sethide(true, task_side:com_66);
+if_sethide(true, task_side:com_67);
+if_sethide(true, task_side:com_68);
+if_sethide(true, task_side:com_69);
+if_sethide(true, task_side:com_70);
+if_sethide(true, task_side:com_71);
+if_sethide(true, task_side:com_72);
+if_sethide(true, task_side:com_73);
+$int6 = ~script3978(0, 10, $string2, task_side:com_65, 4094, null, task_side:com_74);
+if ($struct5 ! null & $struct5 ! struct_1645) {
+    $int6 = ~script3978(0, $int6, struct_param($struct5, param_1273), task_side:com_66, 4094, null, task_side:com_74);
+    $int6 = ~script3978(0, $int6, struct_param($struct5, param_1292), task_side:com_67, 4094, null, task_side:com_74);
+    if (compare(struct_param($struct5, param_1274), "") ! 0) {
+        $int6 = ~script3978(0, $int6, struct_param($struct5, param_1274), task_side:com_68, 4094, null, task_side:com_74);
+    }
+    if (compare(struct_param($struct5, param_1275), "") ! 0) {
+        $int6 = ~script3978(0, $int6, struct_param($struct5, param_1275), task_side:com_69, 4094, null, task_side:com_74);
+    }
+    if (compare(struct_param($struct5, param_1276), "") ! 0) {
+        $int6 = ~script3978(0, $int6, struct_param($struct5, param_1276), task_side:com_70, 4094, null, task_side:com_74);
+    }
+    if (compare(struct_param($struct5, param_1277), "") ! 0) {
+        $int6 = ~script3978(0, $int6, struct_param($struct5, param_1277), task_side:com_71, 4094, null, task_side:com_74);
+    }
+    if (compare(struct_param($struct5, param_1278), "") ! 0) {
+        $int6 = ~script3978(0, $int6, struct_param($struct5, param_1278), task_side:com_72, 4094, null, task_side:com_74);
+    }
+    if (compare(struct_param($struct5, param_1279), "") ! 0) {
+        $int6 = ~script3978(0, $int6, struct_param($struct5, param_1279), task_side:com_73, 4094, null, task_side:com_74);
+    }
+} else if (%varplayerbit_8601 > %varplayerbit_8602) {
+    $string2 = "You have already earned a sum of money, which you may claim by talking to any Taskmaster or you can increase by completing more Tasks.";
+    $int6 = ~script3978(0, $int6, $string2, task_side:com_67, 4094, null, task_side:com_74);
+}
+$int6 = max($int6, if_getheight(task_side:com_74));
+if_setscrollsize(0, $int6, task_side:com_74);
+~scrollbar_vertical(task_side:com_95, task_side:com_74, "task_scrollbar_dragger,3", "task_scrollbar_dragger,0", "task_scrollbar_dragger,1", "task_scrollbar_dragger,2", "task_scrollbar,1", "task_scrollbar,0");
+if ($int6 > if_getheight(task_side:com_74)) {
+    if_sethide(false, task_side:com_95);
+} else {
+    if_sethide(true, task_side:com_95);
+}
+def_string $string5 = "";
+def_int $int11 = 5;
+if (~task_get_progress($int0) = 2) {
+    if_sethide(true, task_side:com_88);
+    if_sethide(true, task_side:com_90);
+    if (%learning_the_ropes = 1000 | %varplayerbit_9029 = 1) {
+        if_sethide(false, task_side:com_130);
+    }
+    if ($int0 = 419 & %varplayerbit_9030 = 1) {
+        $string5 = "Task complete! Click here to return to the task list.";
+        if (getwindowmode >= 2) {
+            if (if_getwidth(toplevel_fullscreen:com_0) < 997) {
+                $int11 = calc($int11 + 40);
+            }
+            ~script4248($string5, 158, $int11, 1, ^white, verdana_11pt_regular_multiline);
+        } else {
+            ~script4247($string5, 175, -1, 1, ^white, verdana_11pt_regular_multiline);
+        }
+    }
+} else if (struct_param($struct1, param_1267) = 60) {
+    if_sethide(true, task_side:com_88);
+    if_sethide(true, task_side:com_130);
+    if (%learning_the_ropes < 135 & %varplayerbit_9029 = 0) {
+        if_sethide(true, task_side:com_90);
+    } else {
+        if_sethide(false, task_side:com_90);
+    }
+} else {
+    if_sethide(false, task_side:com_90);
+    if (~script3999($int0) = 0 & $int9 = 1 & $int0 ! %varplayerbit_8576) {
+        if_sethide(false, task_side:com_88);
+    } else {
+        if_sethide(true, task_side:com_88);
+    }
+    if ($int0 = 420 | $int0 = 363 | $int0 = 419 & %learning_the_ropes = 1000) {
+        $string5 = "Click on the Hints tab for more on how to complete this Task.";
+    } else if ($int0 = 421) {
+        $string5 = "Remember, the Hints tab provides more details about a Task.";
+    } else {
+        $string5 = "";
+    }
+    if (%varplayerbit_9030 = 0) {
+        $string5 = "";
+    }
+    if (getwindowmode >= 2) {
+        if (if_getwidth(toplevel_fullscreen:com_0) < 997) {
+            ~script4248($string5, 196, 223, 1, ^white, verdana_11pt_regular_multiline);
+        } else {
+            ~script4248($string5, 196, 183, 1, ^white, verdana_11pt_regular_multiline);
+        }
+    } else {
+        ~script4247($string5, 217, 177, 1, ^white, verdana_11pt_regular_multiline);
+    }
+}
+if_setsize(0, calc(15 + $int6), ^setsize_minus, ^setsize_abs, task_side:com_96);

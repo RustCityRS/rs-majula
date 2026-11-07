@@ -180,18 +180,6 @@ fn encode_enum(
                     }
                 }
 
-                #[cfg(since_647)]
-                "defaultstring" => {
-                    packed.p1(3);
-                    packed.pjstr(value);
-                }
-
-                #[cfg(since_647)]
-                "defaultint" => {
-                    packed.p1(4);
-                    packed.p4(value.parse().expect("Invalid enum default"));
-                }
-
                 // 5 or 6
                 #[cfg(before_647)]
                 "val" => vals.push(value),

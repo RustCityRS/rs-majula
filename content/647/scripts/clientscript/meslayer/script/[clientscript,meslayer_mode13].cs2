@@ -1,15 +1,16 @@
+// 2463
 [clientscript,meslayer_mode13](string $string0, string $string1)
 if (getwindowmode >= 2) {
     if_sethide(false, toplevel_fullscreen:com_chatbox);
 }
-if_sethide(false, chatbox:com3);
-if_sethide(true, chatbox:com7);
-if_sethide(true, chatbox:com8);
-if_settext($string0, chatbox:com4);
-%varc_int_5 = 13;
+if_sethide(false, chatbox:com_3);
+if_sethide(true, chatbox:com_7);
+if_sethide(true, chatbox:com_8);
+if_settext($string0, chatbox:com_4);
+%varclient_5 = 13;
 ~meslayer_setupinput($string1);
-if_setonclick(null, chatbox:com3);
-~clientscript_2026;
-if_setonkey("meslayer_onkey(^event_key, ^event_keychar)", chatbox:com5);
-if_sethook1423("meslayer_ondialogabort()", chatbox:com5);
+if_setonclick(null, chatbox:com_3);
+~script2026;
+if_setonkey("meslayer_onkey(event_keycode, event_keychar)", chatbox:com_5);
+if_setondialogabort("meslayer_ondialogabort", chatbox:com_5);
 ~opt_header;

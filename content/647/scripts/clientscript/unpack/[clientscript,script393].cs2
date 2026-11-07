@@ -1,0 +1,30 @@
+// 393
+[clientscript,script393]
+if_sethide(true, conq_side_turn:com_4);
+if_sethide(true, conq_side_turn:com_20);
+if_settext("Command Options", conq_side_turn:com_1);
+if_setposition(0, 133, ^setpos_abs_left, ^setpos_abs_top, conq_side_turn:com_40);
+if_setsize(190, 116, ^setsize_abs, ^setsize_abs, conq_side_turn:com_40);
+if_settext("Comm Orb Recharging", conq_side_turn:com_41);
+if_setposition(0, 133, ^setpos_abs_left, ^setpos_abs_top, conq_side_turn:com_41);
+if_setsize(190, 116, ^setsize_abs, ^setsize_abs, conq_side_turn:com_41);
+if_settextalign(^settextalign_centre, ^settextalign_centre, 0, conq_side_turn:com_41);
+if_setposition(30, 152, ^setpos_abs_left, ^setpos_abs_top, conq_side_turn:com_34);
+if_setposition(30, 200, ^setpos_abs_left, ^setpos_abs_top, conq_side_turn:com_37);
+if_settext("Recharge", conq_side_turn:com_39);
+if_setop(1, "Recharge", conq_side_turn:com_39);
+if_setposition(4, 148, ^setpos_abs_left, ^setpos_abs_top, conq_side_turn:com_31);
+if_setposition(15, 204, ^setpos_abs_left, ^setpos_abs_top, conq_side_turn:com_25);
+if_setposition(105, 204, ^setpos_abs_left, ^setpos_abs_top, conq_side_turn:com_28);
+if_sethide(true, conq_side_turn:com_32);
+if_sethide(true, conq_side_diplomacy:com_5);
+if_sethide(true, conq_side_diplomacy:com_6);
+if_sethide(true, conq_side_diplomacy:com_9);
+if_sethide(true, conq_side_diplomacy:com_8);
+if_settext("Retreat", conq_side_diplomacy:com_3);
+if_sethide(true, conq_side_diplomacy:com_12);
+if_settext("Retreat", conq_side_diplomacy:com_16);
+if_setop(1, "Retreat", conq_side_diplomacy:com_16);
+if_setposition(30, 0, ^setpos_abs_left, ^setpos_abs_centre, conq_side_diplomacy:com_1);
+if_setposition(0, 50, ^setpos_abs_left, ^setpos_abs_centre, conq_side_diplomacy:com_0);
+if_settext("Force Savant to teleport you to safety and order your remaining troops to fall back.", conq_side_diplomacy:com_0);

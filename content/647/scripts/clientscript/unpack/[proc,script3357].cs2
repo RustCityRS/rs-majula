@@ -1,0 +1,26 @@
+// 3357
+[proc,script3357]()(int, string, obj)
+switch_obj (%varplayer_448) {
+    case default :
+        return(1, "Sundering Strike (Tier 1)", sundering_strike__tier_1);
+    case cub_bloodrager_pouch :
+        return(1, "Sundering Strike (Tier 1)", sundering_strike__tier_1);
+    case little_bloodrager_pouch :
+        return(11, "Sundering Strike (Tier 2)", sundering_strike__tier_2);
+    case "naïve_bloodrager_pouch" :
+        return(21, "Sundering Strike (Tier 3)", sundering_strike__tier_3);
+    case keen_bloodrager_pouch :
+        return(31, "Sundering Strike (Tier 4)", sundering_strike__tier_4);
+    case brave_bloodrager_pouch :
+        return(41, "Sundering Strike (Tier 5)", sundering_strike__tier_5);
+    case brah_bloodrager_pouch :
+        return(51, "Sundering Strike (Tier 6)", sundering_strike__tier_6);
+    case naabe_bloodrager_pouch :
+        return(61, "Sundering Strike (Tier 7)", sundering_strike__tier_7);
+    case wise_bloodrager_pouch :
+        return(71, "Sundering Strike (Tier 8)", sundering_strike__tier_8);
+    case adept_bloodrager_pouch :
+        return(81, "Sundering Strike (Tier 9)", sundering_strike__tier_9);
+    case sachem_bloodrager_pouch :
+        return(91, "Sundering Strike (Tier 10)", sundering_strike__tier_10);
+}

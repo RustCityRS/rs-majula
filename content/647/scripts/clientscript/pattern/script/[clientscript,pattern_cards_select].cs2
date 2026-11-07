@@ -1,61 +1,62 @@
+// 168
 [clientscript,pattern_cards_select]
-if_setgraphic(null, pattern_cards:com86);
-if_setgraphic(null, pattern_cards:com72);
-if_setgraphic(null, pattern_cards:com73);
-if_setgraphic(null, pattern_cards:com74);
-if_setgraphic(null, pattern_cards:com75);
-if_setgraphic(null, pattern_cards:com76);
-if_setgraphic(null, pattern_cards:com77);
-if_setgraphic(null, pattern_cards:com78);
-if_setgraphic(null, pattern_cards:com79);
-if_setgraphic(null, pattern_cards:com80);
-if_setgraphic(null, pattern_cards:com81);
-if_setgraphic(null, pattern_cards:com82);
-if_setgraphic(null, pattern_cards:com83);
-if_setgraphic(null, pattern_cards:com84);
-if_setgraphic(null, pattern_cards:com85);
-if (%varbit_3801 = true) {
-    if_setgraphic(overlay_multiway, pattern_cards:com86);
+if_setgraphic(null, pattern_cards:com_86);
+if_setgraphic(null, pattern_cards:com_72);
+if_setgraphic(null, pattern_cards:com_73);
+if_setgraphic(null, pattern_cards:com_74);
+if_setgraphic(null, pattern_cards:com_75);
+if_setgraphic(null, pattern_cards:com_76);
+if_setgraphic(null, pattern_cards:com_77);
+if_setgraphic(null, pattern_cards:com_78);
+if_setgraphic(null, pattern_cards:com_79);
+if_setgraphic(null, pattern_cards:com_80);
+if_setgraphic(null, pattern_cards:com_81);
+if_setgraphic(null, pattern_cards:com_82);
+if_setgraphic(null, pattern_cards:com_83);
+if_setgraphic(null, pattern_cards:com_84);
+if_setgraphic(null, pattern_cards:com_85);
+if (%varplayerbit_3801 = 1) {
+    if_setgraphic(overlay_multiway, pattern_cards:com_86);
 }
-if (%varbit_3802 = true) {
-    if_setgraphic(overlay_multiway, pattern_cards:com72);
+if (%varplayerbit_3802 = 1) {
+    if_setgraphic(overlay_multiway, pattern_cards:com_72);
 }
-if (%varbit_3803 = true) {
-    if_setgraphic(overlay_multiway, pattern_cards:com73);
+if (%varplayerbit_3803 = 1) {
+    if_setgraphic(overlay_multiway, pattern_cards:com_73);
 }
-if (%varbit_3804 = true) {
-    if_setgraphic(overlay_multiway, pattern_cards:com74);
+if (%varplayerbit_3804 = 1) {
+    if_setgraphic(overlay_multiway, pattern_cards:com_74);
 }
-if (%varbit_3805 = true) {
-    if_setgraphic(overlay_multiway, pattern_cards:com75);
+if (%varplayerbit_3805 = 1) {
+    if_setgraphic(overlay_multiway, pattern_cards:com_75);
 }
-if (%varbit_3806 = true) {
-    if_setgraphic(overlay_multiway, pattern_cards:com76);
+if (%varplayerbit_3806 = 1) {
+    if_setgraphic(overlay_multiway, pattern_cards:com_76);
 }
-if (%varbit_3807 = true) {
-    if_setgraphic(overlay_multiway, pattern_cards:com77);
+if (%varplayerbit_3807 = 1) {
+    if_setgraphic(overlay_multiway, pattern_cards:com_77);
 }
-if (%varbit_3808 = true) {
-    if_setgraphic(overlay_multiway, pattern_cards:com78);
+if (%varplayerbit_3808 = 1) {
+    if_setgraphic(overlay_multiway, pattern_cards:com_78);
 }
-if (%varbit_3809 = true) {
-    if_setgraphic(overlay_multiway, pattern_cards:com79);
+if (%varplayerbit_3809 = 1) {
+    if_setgraphic(overlay_multiway, pattern_cards:com_79);
 }
-if (%varbit_3810 = true) {
-    if_setgraphic(overlay_multiway, pattern_cards:com80);
+if (%varplayerbit_3810 = 1) {
+    if_setgraphic(overlay_multiway, pattern_cards:com_80);
 }
-if (%varbit_3811 = true) {
-    if_setgraphic(overlay_multiway, pattern_cards:com81);
+if (%varplayerbit_3811 = 1) {
+    if_setgraphic(overlay_multiway, pattern_cards:com_81);
 }
-if (%varbit_3812 = true) {
-    if_setgraphic(overlay_multiway, pattern_cards:com82);
+if (%varplayerbit_3812 = 1) {
+    if_setgraphic(overlay_multiway, pattern_cards:com_82);
 }
-if (%varbit_3813 = true) {
-    if_setgraphic(overlay_multiway, pattern_cards:com83);
+if (%varplayerbit_3813 = 1) {
+    if_setgraphic(overlay_multiway, pattern_cards:com_83);
 }
-if (%varbit_3814 = true) {
-    if_setgraphic(overlay_multiway, pattern_cards:com84);
+if (%varplayerbit_3814 = 1) {
+    if_setgraphic(overlay_multiway, pattern_cards:com_84);
 }
-if (%varbit_3815 = true) {
-    if_setgraphic(overlay_multiway, pattern_cards:com85);
+if (%varplayerbit_3815 = 1) {
+    if_setgraphic(overlay_multiway, pattern_cards:com_85);
 }

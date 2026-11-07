@@ -174,7 +174,7 @@ if ($unlock ! null) {
         mes("@red@You have unlocked a new music track: <db_getfield($song, music:name, 0)>.");
     }
 }
-if_settext(music_v3:com4, db_getfield($song, music:name, 0));
+if_settext(music_v3:com_4, db_getfield($song, music:name, 0));
 %currentsong = db_getfield($song, music:track, 0);
 %musicstart = map_clock;
 %musiclength = midi_length(%currentsong);
@@ -211,7 +211,7 @@ if ($unlock ! null) {
 
 // 289: %musicplay = 0, its Manual mode. 2011 has none: the track plays to
 // its end, and then the area's (header).
-if_settext(music_v3:com4, db_getfield($song, music:name, 0));
+if_settext(music_v3:com_4, db_getfield($song, music:name, 0));
 @music_play(db_getfield($song, music:track, 0));
 
 [label,music_playbyregion](coord $coord)
@@ -242,7 +242,7 @@ if ($unlock ! null) {
 
 // 289: if (%musicplay ! 0), its Auto mode. 2011: when nothing is playing.
 if (%currentsong = null) {
-    if_settext(music_v3:com4, db_getfield($song, music:name, 0));
+    if_settext(music_v3:com_4, db_getfield($song, music:name, 0));
     @music_play(db_getfield($song, music:track, 0));
 }
 

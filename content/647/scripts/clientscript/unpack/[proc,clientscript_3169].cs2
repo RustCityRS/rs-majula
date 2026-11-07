@@ -1,6 +1,0 @@
-[proc,clientscript_3169](component $component0, int $int1)
-if_sethide(true, lobbyscreen_pane_clanchat:com48);
-if_sethide(true, lobbyscreen_pane_clanchat:com31);
-if (cc_find($component0, $int1) = true) {
-    cc_setonmouserepeat(null);
-}

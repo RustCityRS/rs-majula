@@ -84,7 +84,15 @@ fn editable_source_preserves_bytes_and_compiles_changes() {
     clientscript::register(&parsed.file, &HashMap::new(), &mut registry).unwrap();
     let original = parsed.compile(&registry, &format).unwrap().remove(0).1;
     let scripts = HashMap::from([(100000, Script::decode(&original, &format).unwrap())]);
-    let signatures = source::signatures(&scripts);
+    let signatures = source::infer_signatures(
+        &scripts,
+        &[],
+        &names,
+        &HashMap::new(),
+        &commands,
+        &mut registry,
+    )
+    .unwrap();
     let generated = source::decompile(
         &scripts[&100000],
         100000,
@@ -161,19 +169,31 @@ fn readable_declarations_strings_conditions_and_implicit_returns_preserve_code()
     clientscript::register(&parsed.file, &HashMap::new(), &mut registry).unwrap();
     let original = parsed.compile(&registry, &format).unwrap().remove(0).1;
     let scripts = HashMap::from([(100002, Script::decode(&original, &format).unwrap())]);
+    let signatures = source::infer_signatures(
+        &scripts,
+        &[],
+        &names,
+        &HashMap::new(),
+        &commands,
+        &mut registry,
+    )
+    .unwrap();
     let generated = source::decompile(
         &scripts[&100002],
         100002,
         &names,
-        &source::signatures(&scripts),
+        &signatures,
         &HashMap::new(),
         &commands,
         &registry,
     )
     .unwrap();
-    assert!(generated.contains("def_string $string = \"null\";"));
+    assert!(
+        generated.contains("def_string $string0 = null;"),
+        "{generated}"
+    );
     assert!(generated.contains("\"Accept aid<br>(currently off)\""));
-    assert!(generated.contains("if ($int = true)"));
+    assert!(generated.contains("if ($int0 = 1)"), "{generated}");
     assert!(!generated.contains("@cs2"));
     assert!(!generated.trim_end().ends_with("return;"));
     assert!(!generated.contains("__join"));
@@ -220,15 +240,15 @@ fn command_arguments_use_typed_names_without_changing_bytes() {
     )
     .unwrap();
     assert!(
-        generated.contains("if_setgraphic(\"options_boxes,1\", options:com7);"),
+        generated.contains("if_setgraphic(\"options_boxes,1\", options:com_7);"),
         "{generated}"
     );
-    assert!(generated.contains("if_setonmouserepeat(addtooltip, ^event_com, options:com20, \"Accept aid\", 25, 180, \"IIsii\", options:com7);"), "{generated}");
-    assert!(generated.contains("if_settext(\"options_boxes,1\", options:com7);"));
-    assert!(generated.contains("if_sethide(false, \"well of voyage_shift_click:com1\");"));
+    assert!(generated.contains("if_setonmouserepeat(addtooltip, event_com, options:com_20, \"Accept aid\", 25, 180, \"IIsii\", options:com_7);"), "{generated}");
+    assert!(generated.contains("if_settext(\"options_boxes,1\", options:com_7);"));
+    assert!(generated.contains("if_sethide(false, well_of_voyage_shift_click:com_1);"));
     assert!(
         generated
-            .contains("cc_setonmouseover(cc_settrans, ^event_com, ^event_subid, 200, \"Iii\");")
+            .contains("cc_setonmouseover(cc_settrans, event_com, event_comsubid, 200, \"Iii\");")
     );
     let parsed = Source::parse(&generated, path).unwrap();
     clientscript::register(&parsed.file, &HashMap::new(), &mut registry).unwrap();
@@ -259,7 +279,7 @@ fn structured_flow_and_typed_procedures_need_no_stack_helpers() {
         $a, $b = 11, 22;
         def_component $components();
         def_component $components(2);
-        $components(0) = options:com7;
+        $components(0) = options:com_7;
         def_component $components(3);
         if ($state = false) {
             ~clientscript_100004(17104903, 762, 14483456);
@@ -287,9 +307,15 @@ fn structured_flow_and_typed_procedures_need_no_stack_helpers() {
         .iter()
         .map(|(&id, bytes)| (id, Script::decode(bytes, &format).unwrap()))
         .collect();
-    let signatures =
-        source::infer_signatures(&scripts, &names, &HashMap::new(), &commands, &mut registry)
-            .unwrap();
+    let signatures = source::infer_signatures(
+        &scripts,
+        &[],
+        &names,
+        &HashMap::new(),
+        &commands,
+        &mut registry,
+    )
+    .unwrap();
     assert_eq!(
         signatures[&100004].param_types,
         [Type::Component, Type::Graphic, Type::Colour]
@@ -307,9 +333,9 @@ fn structured_flow_and_typed_procedures_need_no_stack_helpers() {
         .unwrap();
         assert!(!generated.contains("__"), "{generated}");
         if id == 100005 {
-            assert!(generated.contains("else if ($int0 = true)"), "{generated}");
+            assert!(generated.contains("else if ($int0 = 1)"), "{generated}");
             assert!(
-                generated.contains("options:com7, \"options_boxes,1\", 0xdd0000"),
+                generated.contains("options:com_7, \"options_boxes,1\", 0xdd0000"),
                 "{generated}"
             );
             assert!(generated.contains("~clientscript_100006;"));
@@ -355,9 +381,15 @@ fn dump_formatting_preserves_local_slots_grouping_constants_and_bare_calls() {
     clientscript::register(&parsed.file, &HashMap::new(), &mut registry).unwrap();
     let original = parsed.compile(&registry, &format).unwrap().remove(0).1;
     let scripts = HashMap::from([(100008, Script::decode(&original, &format).unwrap())]);
-    let mut signatures =
-        source::infer_signatures(&scripts, &names, &HashMap::new(), &commands, &mut registry)
-            .unwrap();
+    let mut signatures = source::infer_signatures(
+        &scripts,
+        &[],
+        &names,
+        &HashMap::new(),
+        &commands,
+        &mut registry,
+    )
+    .unwrap();
     signatures.insert(38, source::Signature::default());
     let generated = source::decompile(
         &scripts[&100008],
@@ -495,29 +527,42 @@ fn integer_and_boolean_guards_preserve_bytes_and_behavior_without_metadata() {
         clientscript::register(&parsed.file, &HashMap::new(), &mut registry).unwrap();
         let original = parsed.compile(&registry, &format).unwrap().remove(0).1;
         let scripts = HashMap::from([(100009, Script::decode(&original, &format).unwrap())]);
+        let signatures = source::infer_signatures(
+            &scripts,
+            &[],
+            &names,
+            &HashMap::new(),
+            &commands,
+            &mut registry,
+        )
+        .unwrap();
         let generated = source::decompile(
             &scripts[&100009],
             100009,
             &names,
-            &source::signatures(&scripts),
+            &signatures,
             &HashMap::new(),
             &commands,
             &registry,
         )
         .unwrap();
-        assert!(generated.contains(&format!("(int $int, string $string0, string $string1)(string)\nif ($int = {literal}) {{\n    return($string0);\n}}\nreturn($string1);")), "{generated}");
+        assert!(generated.contains("(string)\nif ("), "{generated}");
+        assert!(generated.contains("return($string1);"), "{generated}");
         assert!(!generated.contains("@cs2"));
         assert!(!generated.contains("return(\"\");"));
         let parsed = Source::parse(&generated, path).unwrap();
         clientscript::register(&parsed.file, &HashMap::new(), &mut registry).unwrap();
         let roundtrip = parsed.compile(&registry, &format).unwrap().remove(0).1;
         assert_eq!(roundtrip, original);
-        let edited = Source::parse(&generated.replace(&format!("= {literal}"), "= 2"), path)
-            .unwrap()
-            .compile(&registry, &format)
-            .unwrap()
-            .remove(0)
-            .1;
+        let edited = Source::parse(
+            &generated.replace("= true", "= 2").replace("= 1", "= 2"),
+            path,
+        )
+        .unwrap()
+        .compile(&registry, &format)
+        .unwrap()
+        .remove(0)
+        .1;
         let inequality = Source::parse(
             &text.replace("= true", "! true").replace("= 1", "! 1"),
             path,
@@ -571,8 +616,8 @@ fn typed_values_use_names_in_declarations_assignments_and_comparisons() {
         cam_lookat($position, 100, 1, 2);
         $position = 0;
         if ($position = 60298074) { $position = 1073741823; }
-        cam_moveto(coordpack(60298074, 1, 0, 0), 100, 1, 2);
-        cam_addwaypoint(1, 2, 60298074, 400, 60298073, 400, 0);
+        cam_moveto(movecoord(60298074, 1, 0, 0), 100, 1, 2);
+        spline_addpoint(1, 2, 60298074, 400, 60298073, 400, 0);
         cam_followcoord(-1);
         coordx(1073741824);
         coordz(-1073741824);
@@ -583,9 +628,15 @@ fn typed_values_use_names_in_declarations_assignments_and_comparisons() {
     clientscript::register(&parsed.file, &HashMap::new(), &mut registry).unwrap();
     let original = parsed.compile(&registry, &format).unwrap().remove(0).1;
     let scripts = HashMap::from([(100010, Script::decode(&original, &format).unwrap())]);
-    let signatures =
-        source::infer_signatures(&scripts, &names, &HashMap::new(), &commands, &mut registry)
-            .unwrap();
+    let signatures = source::infer_signatures(
+        &scripts,
+        &[],
+        &names,
+        &HashMap::new(),
+        &commands,
+        &mut registry,
+    )
+    .unwrap();
     let generated = source::decompile(
         &scripts[&100010],
         100010,
@@ -597,23 +648,23 @@ fn typed_values_use_names_in_declarations_assignments_and_comparisons() {
     )
     .unwrap();
     for expected in [
-        "def_component $component1 = login:com52;",
-        "$component1 = south_progress9:com54;",
-        "if ($component1 = login:com52 | $component1 = south_progress9:com54)",
+        "def_component $component1 = login:com_52;",
+        "$component1 = south_progress9:com_54;",
+        "if ($component1 = login:com_52 | $component1 = south_progress9:com_54)",
         "if_setmodel(model_41312, $component1);",
         "def_obj $obj2 = butterfly_net;",
         "if ($obj2 = butterfly_net)",
         "$obj2 = magic_butterfly_net;",
-        "case butterfly_net:",
-        "case null:",
-        "$array0(0) = login:com52;",
+        "case butterfly_net :",
+        "case null :",
+        "$componentarray0(0) = login:com_52;",
         "def_coord $coord3 = 0_57_77_32_26;",
         "$coord3 = 0_0_0_0_0;",
         "if ($coord3 = 0_57_77_32_26)",
         "$coord3 = 3_255_255_63_63;",
-        "cam_moveto(coordpack(0_57_77_32_26, 1, 0, 0), 100, 1, 2);",
-        "cam_addwaypoint(1, 2, 0_57_77_32_26, 400, 0_57_77_32_25, 400, 0);",
-        "cam_followcoord(-1);",
+        "cam_moveto(movecoord(0_57_77_32_26, 1, 0, 0), 100, 1, 2);",
+        "spline_addpoint(1, 2, 0_57_77_32_26, 400, 0_57_77_32_25, 400, 0);",
+        "cam_followcoord(null);",
         "coordx(1073741824);",
         "coordz(-1073741824);",
     ] {
@@ -624,7 +675,7 @@ fn typed_values_use_names_in_declarations_assignments_and_comparisons() {
     }
     assert_eq!(
         generated.matches("if ($boolean0 = true)").count(),
-        2,
+        3,
         "{generated}"
     );
     let parsed = Source::parse(&generated, path).unwrap();

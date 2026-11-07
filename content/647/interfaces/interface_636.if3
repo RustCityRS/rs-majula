@@ -1,0 +1,740 @@
+// 636:0
+[com_0]
+type=rectangle
+x=105
+y=15
+width=332
+height=303
+colour=0x000000
+fill=yes
+trans=200
+
+// 636:1
+[com_1]
+type=graphic
+x=104
+y=15
+width=319
+height=302
+graphic=tradebacking
+tiling=yes
+colour=0xffffffff
+
+// 636:2
+[com_2]
+type=graphic
+x=84
+y=40
+width=32
+height=257
+graphic="v2_stone_borders,1"
+tiling=yes
+colour=0xffffffff
+
+// 636:3
+[com_3]
+type=graphic
+x=97
+y=10
+width=32
+height=32
+graphic="v2_stone_borders,4"
+colour=0xffffffff
+
+// 636:4
+[com_4]
+type=graphic
+x=410
+y=40
+width=23
+height=257
+graphic="v2_stone_borders,3"
+tiling=yes
+colour=0xffffffff
+opbase= 
+
+// 636:5
+[com_5]
+type=graphic
+x=128
+y=-3
+width=270
+height=26
+graphic="v2_stone_borders,0"
+tiling=yes
+colour=0xffffffff
+opbase= 
+
+// 636:6
+[com_6]
+type=graphic
+x=129
+y=304
+width=269
+height=24
+graphic="v2_stone_borders,2"
+tiling=yes
+colour=0xffffffff
+opbase= 
+
+// 636:7
+[com_7]
+type=graphic
+x=97
+y=292
+width=32
+height=32
+graphic="v2_stone_borders,6"
+colour=0xffffffff
+
+// 636:8
+[com_8]
+type=graphic
+x=398
+y=10
+width=32
+height=32
+graphic="v2_stone_borders,5"
+colour=0xffffffff
+
+// 636:9
+[com_9]
+type=graphic
+x=398
+y=292
+width=32
+height=32
+graphic="v2_stone_borders,7"
+colour=0xffffffff
+
+// 636:10
+[com_10]
+type=graphic
+x=103
+y=26
+width=319
+height=32
+graphic="v2_stone_borders,23"
+tiling=yes
+colour=0xffffffff
+
+// 636:11
+[com_11]
+type=text
+x=197
+y=19
+width=102
+height=15
+textfont=b12_full
+text=Upcoming Tournament Rules: Registrar #
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xe1961f
+
+// 636:12
+[com_12]
+type=graphic
+x=404
+y=19
+width=16
+height=16
+graphic="v2_stone_close_button,0"
+colour=0xffffffff
+transmitop=1
+op1=Close
+onmouseover=graphic_swapper(event_com, "v2_stone_close_button,1")
+onmouseleave=graphic_swapper(event_com, "v2_stone_close_button,0")
+onop=closebutton_click
+
+// 636:13
+[com_13]
+type=layer
+x=116
+y=46
+width=148
+height=16
+hide=yes
+onload=script100(event_com)
+
+// 636:14
+[com_14]
+type=layer
+x=116
+y=65
+width=148
+height=16
+onload=script100(event_com)
+
+// 636:15
+[com_15]
+type=layer
+x=116
+y=84
+width=148
+height=16
+onload=script100(event_com)
+
+// 636:16
+[com_16]
+type=layer
+x=116
+y=103
+width=148
+height=16
+onload=script100(event_com)
+
+// 636:17
+[com_17]
+type=layer
+x=116
+y=122
+width=148
+height=16
+onload=script100(event_com)
+
+// 636:18
+[com_18]
+type=layer
+x=116
+y=141
+width=148
+height=16
+onload=script100(event_com)
+
+// 636:19
+[com_19]
+type=layer
+x=116
+y=160
+width=148
+height=16
+onload=script100(event_com)
+
+// 636:20
+[com_20]
+type=layer
+x=116
+y=179
+width=148
+height=16
+onload=script100(event_com)
+
+// 636:21
+[com_21]
+type=layer
+x=116
+y=198
+width=148
+height=16
+onload=script100(event_com)
+
+// 636:22
+[com_22]
+type=layer
+x=116
+y=217
+width=148
+height=16
+onload=script100(event_com)
+
+// 636:23
+[com_23]
+type=layer
+x=116
+y=236
+width=148
+height=16
+onload=script100(event_com)
+
+// 636:24
+[com_24]
+type=layer
+x=116
+y=255
+width=148
+height=16
+onload=script100(event_com)
+
+// 636:25
+[com_25]
+type=layer
+x=263
+y=46
+width=148
+height=16
+hide=yes
+onload=script100(event_com)
+
+// 636:26
+[com_26]
+type=layer
+x=263
+y=65
+width=148
+height=16
+onload=script100(event_com)
+
+// 636:27
+[com_27]
+type=layer
+x=263
+y=84
+width=148
+height=16
+onload=script100(event_com)
+
+// 636:28
+[com_28]
+type=layer
+x=263
+y=103
+width=148
+height=16
+onload=script100(event_com)
+
+// 636:29
+[com_29]
+type=layer
+x=263
+y=122
+width=148
+height=16
+onload=script100(event_com)
+
+// 636:30
+[com_30]
+type=layer
+x=263
+y=141
+width=148
+height=16
+onload=script100(event_com)
+
+// 636:31
+[com_31]
+type=layer
+x=263
+y=160
+width=148
+height=16
+onload=script100(event_com)
+
+// 636:32
+[com_32]
+type=layer
+x=263
+y=179
+width=148
+height=16
+onload=script100(event_com)
+
+// 636:33
+[com_33]
+type=layer
+x=263
+y=198
+width=148
+height=16
+onload=script100(event_com)
+
+// 636:34
+[com_34]
+type=layer
+x=263
+y=217
+width=148
+height=16
+onload=script100(event_com)
+
+// 636:35
+[com_35]
+type=layer
+x=263
+y=236
+width=148
+height=16
+onload=script100(event_com)
+
+// 636:36
+[com_36]
+type=layer
+x=263
+y=255
+width=148
+height=16
+onload=script100(event_com)
+
+// 636:37
+[com_37]
+type=layer
+x=116
+y=274
+width=148
+height=16
+onload=script100(event_com)
+
+// 636:38
+[com_38]
+type=layer
+x=116
+y=293
+width=148
+height=16
+onload=script100(event_com)
+
+// 636:39
+[com_39]
+type=layer
+x=263
+y=274
+width=148
+height=16
+onload=script100(event_com)
+
+// 636:40
+[com_40]
+type=layer
+x=263
+y=293
+width=148
+height=16
+onload=script100(event_com)
+
+// 636:41
+[com_41]
+type=text
+x=122
+y=67
+width=100
+height=12
+textfont=p11_full
+text=Tournament Value:
+textshadow=yes
+colour=0xe1961f
+
+// 636:42
+[com_42]
+type=text
+x=122
+y=67
+width=100
+height=12
+hide=yes
+textfont=p11_full
+text=Rank Required:
+textshadow=yes
+colour=0xe1961f
+
+// 636:43
+[com_43]
+type=text
+x=122
+y=86
+width=100
+height=12
+textfont=p11_full
+text=Entry Fee:
+textshadow=yes
+colour=0xe1961f
+
+// 636:44
+[com_44]
+type=text
+x=122
+y=105
+width=100
+height=12
+textfont=p11_full
+text=Potions:
+textshadow=yes
+colour=0xe1961f
+
+// 636:45
+[com_45]
+type=text
+x=122
+y=124
+width=100
+height=12
+textfont=p11_full
+text=Food:
+textshadow=yes
+colour=0xe1961f
+
+// 636:46
+[com_46]
+type=text
+x=122
+y=143
+width=100
+height=12
+textfont=p11_full
+text=Prayer:
+textshadow=yes
+colour=0xe1961f
+
+// 636:47
+[com_47]
+type=text
+x=122
+y=162
+width=100
+height=12
+textfont=p11_full
+text=Special Attacks:
+textshadow=yes
+colour=0xe1961f
+
+// 636:48
+[com_48]
+type=text
+x=122
+y=181
+width=100
+height=12
+textfont=p11_full
+text=Obstacles:
+textshadow=yes
+colour=0xe1961f
+
+// 636:49
+[com_49]
+type=text
+x=122
+y=200
+width=100
+height=12
+textfont=p11_full
+text=Ranged:
+textshadow=yes
+colour=0xe1961f
+
+// 636:50
+[com_50]
+type=text
+x=122
+y=219
+width=100
+height=12
+textfont=p11_full
+text=Melee:
+textshadow=yes
+colour=0xcc9900
+
+// 636:51
+[com_51]
+type=text
+x=122
+y=238
+width=100
+height=12
+textfont=p11_full
+text=Magic:
+textshadow=yes
+colour=0xe1961f
+
+// 636:52
+[com_52]
+type=text
+x=122
+y=257
+width=100
+height=12
+textfont=p11_full
+text=Heal Between Rounds:
+textshadow=yes
+colour=0xe1961f
+
+// 636:53
+[com_53]
+type=text
+x=122
+y=276
+width=100
+height=12
+textfont=p11_full
+text=Weapon Slots Only:
+textshadow=yes
+colour=0xe1961f
+
+// 636:54
+[com_54]
+type=text
+x=122
+y=295
+width=100
+height=12
+textfont=p11_full
+text=Summoning:
+textshadow=yes
+colour=0xe1961f
+
+// 636:55
+[com_55]
+type=text
+x=274
+y=67
+width=100
+height=12
+textfont=p11_full
+text=0
+textshadow=yes
+colour=0xe1961f
+
+// 636:56
+[com_56]
+type=text
+x=274
+y=67
+width=100
+height=12
+hide=yes
+textfont=p11_full
+text=rank
+textshadow=yes
+colour=0xe1961f
+
+// 636:57
+[com_57]
+type=text
+x=274
+y=86
+width=100
+height=12
+textfont=p11_full
+text=fee
+textshadow=yes
+colour=0xe1961f
+
+// 636:58
+[com_58]
+type=text
+x=274
+y=105
+width=100
+height=12
+textfont=p11_full
+text=fee
+textshadow=yes
+colour=0xe1961f
+
+// 636:59
+[com_59]
+type=text
+x=274
+y=124
+width=100
+height=12
+textfont=p11_full
+text=fee
+textshadow=yes
+colour=0xe1961f
+
+// 636:60
+[com_60]
+type=text
+x=274
+y=143
+width=100
+height=12
+textfont=p11_full
+text=fee
+textshadow=yes
+colour=0xe1961f
+
+// 636:61
+[com_61]
+type=text
+x=274
+y=162
+width=100
+height=12
+textfont=p11_full
+text=spec
+textshadow=yes
+colour=0xe1961f
+
+// 636:62
+[com_62]
+type=text
+x=274
+y=181
+width=100
+height=12
+textfont=p11_full
+text=obstacles
+textshadow=yes
+colour=0xe1961f
+
+// 636:63
+[com_63]
+type=text
+x=274
+y=200
+width=100
+height=12
+textfont=p11_full
+text=ranged
+textshadow=yes
+colour=0xe1961f
+
+// 636:64
+[com_64]
+type=text
+x=274
+y=219
+width=100
+height=12
+textfont=p11_full
+text=melee
+textshadow=yes
+colour=0xe1961f
+
+// 636:65
+[com_65]
+type=text
+x=274
+y=238
+width=100
+height=12
+textfont=p11_full
+text=magic
+textshadow=yes
+colour=0xe1961f
+
+// 636:66
+[com_66]
+type=text
+x=274
+y=257
+width=100
+height=12
+textfont=p11_full
+text=heal
+textshadow=yes
+colour=0xe1961f
+
+// 636:67
+[com_67]
+type=text
+x=274
+y=276
+width=100
+height=12
+textfont=p11_full
+text=weapon
+textshadow=yes
+colour=0xe1961f
+
+// 636:68
+[com_68]
+type=text
+x=274
+y=295
+width=100
+height=12
+textfont=p11_full
+text=summon
+textshadow=yes
+colour=0xe1961f

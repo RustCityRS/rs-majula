@@ -1,0 +1,28 @@
+// 3978
+[proc,script3978](int $int0, int $int1, string $string0, component $component2, int $int3, component $component4, component $component5)(int)
+if_sethide(false, $component2);
+if_settext($string0, $component2);
+if_settextfont(p12_full, $component2);
+if_settextalign(^settextalign_left, ^settextalign_centre, 0, $component2);
+def_int $int6 = calc(if_getwidth($component5) - 18);
+if (~script3999($int3) = 1) {
+    $int6 = calc($int6 + 9);
+}
+def_int $int7 = 0;
+if ($component4 ! null) {
+    $int7 = if_getheight($component4);
+    $int6 = calc($int6 - 21);
+}
+def_int $int8 = max(calc($int7 + 5), calc(15 * paraheight($string0, $int6, p12_full)));
+if_setsize($int6, $int8, ^setsize_abs, ^setsize_abs, $component2);
+if_setposition(9, $int1, ^setpos_abs_left, ^setpos_abs_top, $component2);
+if (~script3999($int3) = 0 & $component4 ! null) {
+    if_sethide(false, $component4);
+    if_setposition(2, calc($int1 + ($int8 - if_getheight($component4)) / 2), ^setpos_abs_right, ^setpos_abs_top, $component4);
+    if (%varplayerbit_8578 = $int0 & %varplayerbit_8594 = $int3) {
+        if_setgraphic("km_help_button,2", $component4);
+    } else {
+        if_setgraphic("km_help_button,0", $component4);
+    }
+}
+return(calc($int1 + $int8));

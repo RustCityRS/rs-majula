@@ -1,0 +1,14 @@
+// 3937
+[clientscript,script3937](component $component0, graphic $graphic1, component $component2, graphic $graphic3, component $component4, graphic $graphic5, component $component6, graphic $graphic7)
+if ($component0 ! null) {
+    if_setgraphic($graphic1, $component0);
+}
+if ($component2 ! null) {
+    if_setgraphic($graphic3, $component2);
+}
+if ($component4 ! null) {
+    if_setgraphic($graphic5, $component4);
+}
+if ($component6 ! null) {
+    if_setgraphic($graphic7, $component6);
+}

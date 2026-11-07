@@ -1,0 +1,15 @@
+// 1359
+[clientscript,script1359](component $component0)
+if (%varclient_1024 = %varplayerbit_6521 & %varclient_1024 ! 0) {
+    if ($component0 = magic:wind_strike | $component0 = magic:wind_rush) {
+        if (%varclient_1024 = 28) {
+            if_setontimer("advisor_flash_icon($component0)", magic:wind_rush);
+        } else {
+            if_setontimer("advisor_flash_icon($component0)", magic:wind_strike);
+        }
+    } else {
+        if_setontimer("advisor_flash_icon($component0)", $component0);
+    }
+} else {
+    if_setontimer(null, $component0);
+}

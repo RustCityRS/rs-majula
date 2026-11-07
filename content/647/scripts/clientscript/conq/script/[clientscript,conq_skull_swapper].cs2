@@ -1,12 +1,13 @@
+// 409
 [clientscript,conq_skull_swapper]
-%varc_int_1364 = calc(%varc_int_1364 + 1);
-if (%varc_int_1364 = 50) {
-    if_settext("Opponent's Turn", conq_side_turn:com41);
-} else if (%varc_int_1364 = 100) {
-    if_settext("Opponent's Turn.", conq_side_turn:com41);
-} else if (%varc_int_1364 = 150) {
-    if_settext("Opponent's Turn..", conq_side_turn:com41);
-} else if (%varc_int_1364 >= 200) {
-    if_settext("Opponent's Turn...", conq_side_turn:com41);
-    %varc_int_1364 = 0;
+%varclient_1364 = calc(%varclient_1364 + 1);
+if (%varclient_1364 = 50) {
+    if_settext("Opponent's Turn", conq_side_turn:com_41);
+} else if (%varclient_1364 = 100) {
+    if_settext("Opponent's Turn.", conq_side_turn:com_41);
+} else if (%varclient_1364 = 150) {
+    if_settext("Opponent's Turn..", conq_side_turn:com_41);
+} else if (%varclient_1364 >= 200) {
+    if_settext("Opponent's Turn...", conq_side_turn:com_41);
+    %varclient_1364 = 0;
 }

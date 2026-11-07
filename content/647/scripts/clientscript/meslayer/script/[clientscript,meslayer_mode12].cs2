@@ -1,26 +1,27 @@
-[clientscript,meslayer_mode12](int $int)
-if ($int ! 1) {
+// 1157
+[clientscript,meslayer_mode12](int $int0)
+if ($int0 ! 1) {
     return;
 }
 if (getwindowmode >= 2) {
     if_sethide(false, toplevel_fullscreen:com_chatbox);
 }
-if_sethide(false, chatbox:com3);
-if_sethide(true, chatbox:com7);
-if_sethide(true, chatbox:com8);
-if (~bool_to_int(%varc_int_266) = false) {
-    %varc_string_38 = "";
-    %varc_string_39 = "";
-    %varc_int_266 = 1;
+if_sethide(false, chatbox:com_3);
+if_sethide(true, chatbox:com_7);
+if_sethide(true, chatbox:com_8);
+if (~bool_to_int(%varclient_266) = 0) {
+    %varclient_1557 = "";
+    %varclient_1558 = "";
+    %varclient_266 = true;
 }
-if (string_length(%varc_string_38) > 0) {
-    if_settext("Edit the name of your caller:<br>(Delete it to disable this feature.)", chatbox:com4);
+if (string_length(%varclient_1557) > 0) {
+    if_settext("Edit the name of your caller:<br>(Delete it to disable this feature.)", chatbox:com_4);
 } else {
-    if_settext("Enter the name of your caller:", chatbox:com4);
+    if_settext("Enter the name of your caller:", chatbox:com_4);
 }
-%varc_int_5 = 12;
-~meslayer_setupinput(%varc_string_38);
-if_setonclick("clientscript_1805()", chatbox:com3);
-~clientscript_2026;
-if_setonkey("meslayer_onkey(^event_key, ^event_keychar)", chatbox:com5);
+%varclient_5 = 12;
+~meslayer_setupinput(%varclient_1557);
+if_setonclick("script1805", chatbox:com_3);
+~script2026;
+if_setonkey("meslayer_onkey(event_keycode, event_keychar)", chatbox:com_5);
 ~opt_header;

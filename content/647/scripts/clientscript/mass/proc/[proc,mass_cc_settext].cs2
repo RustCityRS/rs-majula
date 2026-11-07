@@ -1,6 +1,7 @@
-[proc,mass_cc_settext](component $component0, int $int1, string $string)
+// 1624
+[proc,mass_cc_settext](component $component0, int $int1, string $string0)
 if (cc_find($component0, $int1) = true) {
-    cc_settext($string);
+    cc_settext($string0);
 } else {
     mes("Cannot find component.<tostring($int1)>");
 }

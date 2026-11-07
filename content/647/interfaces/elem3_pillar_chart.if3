@@ -1,0 +1,64 @@
+// 980:0
+[com_0]
+type=model
+x=15
+y=14
+width=480
+height=301
+model=model_26397
+modelorigin=-2,33
+modelangle=512,0,0
+modelzoom=1009
+transmitop=10
+op10= 
+
+// 980:1
+[com_1]
+type=graphic
+x=432
+y=35
+width=26
+height=23
+graphic="close_buttons,6"
+colour=0xffffffff
+transmitop=1,10
+op1=Close
+op10= 
+onmouseover=graphic_swapper(elem3_pillar_chart:com_1, "close_buttons,7")
+onmouseleave=graphic_swapper(elem3_pillar_chart:com_1, "close_buttons,6")
+onop=closebutton_click
+onclick=closebutton_click
+
+// 980:2
+[com_2]
+type=model
+x=-357
+y=-322
+width=1249
+height=1107
+model=model_18577
+modelorigin=-81,-51
+modelangle=426,15,0
+modelzoom=600
+
+// 980:3
+[com_3]
+type=text
+x=348
+y=152
+width=32
+height=32
+textfont=quill_oblique_large
+text=powered
+colour=0x000000
+
+// 980:4
+[com_4]
+type=text
+x=348
+y=180
+width=32
+height=32
+textfont=quill_oblique_large
+text=unpowered
+colour=0x000000

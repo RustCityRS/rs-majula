@@ -1,15 +1,16 @@
-[clientscript,lobbyscreen_pane_clanchat_op](int $int0, string $string)
+// 3170
+[clientscript,lobbyscreen_pane_clanchat_op](string $string0, int $int0)
 def_int $int1 = -1;
 def_int $int2 = -1;
 switch_int ($int0) {
-    case 6:
-        friend_add(removetags($string));
-    case 7:
-        ignore_add(removetags($string));
-    case 8:
-        friend_del(removetags($string));
-    case 9:
-        ignore_del(removetags($string));
-    case 10:
-        ~clan_chat_kick_find($string);
+    case 6 :
+        friend_add(removetags($string0));
+    case 7 :
+        ignore_add(removetags($string0));
+    case 8 :
+        friend_del(removetags($string0));
+    case 9 :
+        ignore_del(removetags($string0));
+    case 10 :
+        ~clan_chat_kick_find($string0);
 }

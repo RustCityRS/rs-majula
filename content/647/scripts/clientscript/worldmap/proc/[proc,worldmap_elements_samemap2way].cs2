@@ -1,8 +1,9 @@
-[proc,worldmap_elements_samemap2way](coord $coord0, coord $coord1, boolean $boolean2, colour $colour3, int $int4, component $component5, int $int6, int $int7, int $int8, int $int9, int $int10)(int)
-if (%varbit_6175 = true) {
+// 297
+[proc,worldmap_elements_samemap2way](coord $coord0, coord $coord1, boolean $boolean2, int $int3, int $int4, component $component5, int $int6, int $int7, int $int8, int $int9, int $int10)(int)
+if (%varplayerbit_6175 = 1) {
     return($int10);
 }
-$colour3 = ^yellow;
+$int3 = 16776960;
 def_int $int11 = calc($int10 + 1);
 def_int $int12 = calc($int10 + 2);
 def_int $int13 = calc($int10 + 3);
@@ -48,32 +49,32 @@ if (cc_find($component5, $int10) = true & .cc_find($component5, $int11) = true) 
 def_int $int24 = 0;
 def_int $int25 = 0;
 def_int $int26 = 0;
-def_colour $colour27 = ^black;
+def_int $int27 = 0;
 if (cc_find($component5, $int12) = true & .cc_find($component5, $int13) = true) {
     cc_setposition($int15, $int16, ^setpos_abs_centre, ^setpos_abs_centre);
     .cc_setposition($int17, $int18, ^setpos_abs_centre, ^setpos_abs_centre);
 } else {
-    $int24, $int25, $int26 = ~hex_to_rgb($colour3);
+    $int24, $int25, $int26 = ~hex_to_rgb($int3);
     $int24, $int25, $int26 = max(calc($int24 - 48), 0), max(calc($int25 - 48), 0), max(calc($int26 - 48), 0);
-    $colour27 = ~rgb_to_hex($int24, $int25, $int26);
+    $int27 = ~rgb_to_hex($int24, $int25, $int26);
     cc_create($component5, ^iftype_rectangle, $int12);
     .cc_create($component5, ^iftype_rectangle, $int13);
     cc_setposition($int15, $int16, ^setpos_abs_centre, ^setpos_abs_centre);
     .cc_setposition($int17, $int18, ^setpos_abs_centre, ^setpos_abs_centre);
     cc_setsize($int4, $int4, ^setsize_abs, ^setsize_abs);
     .cc_setsize($int4, $int4, ^setsize_abs, ^setsize_abs);
-    cc_setcolour($colour27);
-    .cc_setcolour($colour27);
+    cc_setcolour($int27);
+    .cc_setcolour($int27);
     cc_setfill(true);
     .cc_setfill(true);
-    cc_setonmouseover("worldmap_elements_samemap_mouseeffect(true, $component5, $int12, $int13, $int14, $colour3)");
-    .cc_setonmouseover("worldmap_elements_samemap_mouseeffect(true, $component5, $int12, $int13, $int14, $colour3)");
-    cc_setonmouseleave("worldmap_elements_samemap_mouseeffect(false, $component5, $int12, $int13, $int14, $colour27)");
-    .cc_setonmouseleave("worldmap_elements_samemap_mouseeffect(false, $component5, $int12, $int13, $int14, $colour27)");
+    cc_setonmouseover("worldmap_elements_samemap_mouseeffect(true, $component5, $int12, $int13, $int14, $int3)");
+    .cc_setonmouseover("worldmap_elements_samemap_mouseeffect(true, $component5, $int12, $int13, $int14, $int3)");
+    cc_setonmouseleave("worldmap_elements_samemap_mouseeffect(false, $component5, $int12, $int13, $int14, $int27)");
+    .cc_setonmouseleave("worldmap_elements_samemap_mouseeffect(false, $component5, $int12, $int13, $int14, $int27)");
     cc_setop(1, "Scroll map");
     .cc_setop(1, "Scroll map");
-    cc_setonop("worldmap_elements_samemap_op(^event_op, $coord1, $boolean2)");
-    .cc_setonop("worldmap_elements_samemap_op(^event_op, $coord0, $boolean2)");
+    cc_setonop("worldmap_elements_samemap_op(event_op, $coord1, $boolean2)");
+    .cc_setonop("worldmap_elements_samemap_op(event_op, $coord0, $boolean2)");
 }
 if (cc_find($component5, $int14) = true) {
     cc_setposition($int19, $int20, ^setpos_abs_centre, ^setpos_abs_centre);
@@ -82,10 +83,9 @@ if (cc_find($component5, $int14) = true) {
     cc_create($component5, ^iftype_line, $int14);
     cc_setposition($int19, $int20, ^setpos_abs_centre, ^setpos_abs_centre);
     cc_setsize($int21, $int22, ^setsize_abs, ^setsize_abs);
-    cc_setlinertl($boolean23);
-    cc_setlinewidth(calc(1 + $int4 / 5));
-    cc_setcolour($colour3);
+    cc_setlinedirection($boolean23);
+    cc_setlinewid(calc(1 + $int4 / 5));
+    cc_setcolour($int3);
     cc_sethide(true);
 }
 return(calc($int14 + 1));
-return(0);

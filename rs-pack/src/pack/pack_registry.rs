@@ -1,6 +1,8 @@
 #[cfg(since_647)]
 use crate::pack::pack::FileCache;
 use crate::pack::packed_data::PackedData;
+#[cfg(since_647)]
+use crate::pack::util::placeholder_prefix;
 use anyhow::Result;
 #[cfg(since_647)]
 use anyhow::bail;
@@ -111,6 +113,40 @@ pub struct PackRegistry {
     #[cfg(since_647)]
     pub flu: PackFile,
     #[cfg(since_647)]
+    pub bas: PackFile,
+    #[cfg(since_647)]
+    pub cursor: PackFile,
+    #[cfg(since_647)]
+    pub hitmark: PackFile,
+    #[cfg(since_647)]
+    pub billboard: PackFile,
+    #[cfg(since_647)]
+    pub fontmetrics: PackFile,
+    #[cfg(since_647)]
+    pub particleeffector: PackFile,
+    #[cfg(since_647)]
+    pub particleemitter: PackFile,
+    #[cfg(since_647)]
+    pub light: PackFile,
+    #[cfg(since_647)]
+    pub mel: PackFile,
+    #[cfg(since_647)]
+    pub msi: PackFile,
+    #[cfg(since_647)]
+    pub quest: PackFile,
+    #[cfg(since_647)]
+    pub chatcat: PackFile,
+    #[cfg(since_647)]
+    pub chatphrase: PackFile,
+    #[cfg(since_647)]
+    pub sprites: PackFile,
+    #[cfg(since_647)]
+    pub varc: PackFile,
+    #[cfg(since_647)]
+    pub varcs: PackFile,
+    #[cfg(since_647)]
+    pub varclansetting: PackFile,
+    #[cfg(since_647)]
     pub stat: PackFile,
     #[cfg(since_647)]
     pub component_hashes: HashMap<String, i32>,
@@ -206,6 +242,40 @@ impl PackRegistry {
             #[cfg(since_647)]
             flu: load("flu")?,
             #[cfg(since_647)]
+            bas: load("bas")?,
+            #[cfg(since_647)]
+            cursor: load("cursor")?,
+            #[cfg(since_647)]
+            hitmark: load("hitmark")?,
+            #[cfg(since_647)]
+            billboard: load("billboard")?,
+            #[cfg(since_647)]
+            fontmetrics: load("fontmetrics")?,
+            #[cfg(since_647)]
+            particleeffector: load("particleeffector")?,
+            #[cfg(since_647)]
+            particleemitter: load("particleemitter")?,
+            #[cfg(since_647)]
+            light: load("light")?,
+            #[cfg(since_647)]
+            mel: load("mel")?,
+            #[cfg(since_647)]
+            msi: load("msi")?,
+            #[cfg(since_647)]
+            quest: load("quest")?,
+            #[cfg(since_647)]
+            chatcat: load("chatcat")?,
+            #[cfg(since_647)]
+            chatphrase: load("chatphrase")?,
+            #[cfg(since_647)]
+            sprites: load("sprites")?,
+            #[cfg(since_647)]
+            varc: load("varc")?,
+            #[cfg(since_647)]
+            varcs: load("varcs")?,
+            #[cfg(since_647)]
+            varclansetting: load("varclansetting")?,
+            #[cfg(since_647)]
             stat: load("stat")?,
             #[cfg(since_647)]
             component_hashes,
@@ -238,6 +308,20 @@ impl PackRegistry {
             ("hunt", &self.hunt),
             ("param", &self.param),
             ("mesanim", &self.mesanim),
+            ("vars", &self.vars),
+            ("varn", &self.varn),
+            ("bas", &self.bas),
+            ("cursor", &self.cursor),
+            ("hitmark", &self.hitmark),
+            ("billboard", &self.billboard),
+            ("particleeffector", &self.particleeffector),
+            ("particleemitter", &self.particleemitter),
+            ("light", &self.light),
+            ("mel", &self.mel),
+            ("msi", &self.msi),
+            ("quest", &self.quest),
+            ("quickchatcat", &self.chatcat),
+            ("quickchatphrase", &self.chatphrase),
         ] {
             for path in fc.collect(ext) {
                 let Some(text) = fc.read(path) else {
@@ -253,7 +337,7 @@ impl PackRegistry {
                             continue;
                         }
                         let id = name
-                            .strip_prefix(ext)
+                            .strip_prefix(placeholder_prefix(ext))
                             .and_then(|s| s.strip_prefix('_'))
                             .filter(|s| !s.is_empty() && s.bytes().all(|c| c.is_ascii_digit()))
                             .and_then(|s| s.parse().ok());
@@ -272,22 +356,20 @@ impl PackRegistry {
                         && let Some((key, value)) = text.split_once('=')
                     {
                         let (key, value) = (key.trim(), value.trim());
-                        let (target, label) = match key {
-                            "multivar" => (&self.varbit, "varbit"),
-                            "multivarp" => (&self.varp, "varp"),
-                            "multidefault" => (&self.npc, "npc"),
-                            _ if key.strip_prefix("multi").is_some_and(|s| {
-                                !s.is_empty() && s.bytes().all(|c| c.is_ascii_digit())
-                            }) =>
-                            {
-                                (&self.npc, "npc")
+                        let (value, resolves, label) = match key {
+                            "multivar" => (
+                                value,
+                                self.varbit.get_by_debugname(value).is_some()
+                                    || self.varp.get_by_debugname(value).is_some(),
+                                "varbit",
+                            ),
+                            "multinpc" => {
+                                let target = value.rsplit(',').next().unwrap_or(value).trim();
+                                (target, self.npc.get_by_debugname(target).is_some(), "npc")
                             }
                             _ => continue,
                         };
-                        if value == "null"
-                            || value.parse::<i64>().is_ok()
-                            || target.get_by_debugname(value).is_some()
-                        {
+                        if value == "null" || value.parse::<i64>().is_ok() || resolves {
                             continue;
                         }
                         format!(

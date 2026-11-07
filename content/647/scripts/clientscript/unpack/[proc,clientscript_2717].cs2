@@ -1,7 +1,0 @@
-[proc,clientscript_2717](component $component)
-if (%shop_sample ! -1) {
-    ~clientscript_2726($component, %shop_sample);
-    if_setoninvtransmit("clientscript_2725($component, %shop_sample){%shop_sample}", $component);
-    if_sethide(false, shop_template:com22);
-    if_sethide(false, shop_template:com21);
-}

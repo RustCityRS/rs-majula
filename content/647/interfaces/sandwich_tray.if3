@@ -1,0 +1,658 @@
+// 297:0
+[com_0]
+type=rectangle
+widthmode=minus
+heightmode=minus
+colour=0x000000
+fill=yes
+
+// 297:1
+[com_1]
+type=layer
+widthmode=minus
+heightmode=minus
+xmode=abs_centre
+ymode=abs_centre
+onload=script2102
+
+// 297:2
+[com_2]
+type=model
+x=32
+width=249
+height=350
+ymode=abs_centre
+layer=com_23
+model=model_20836
+modelorigin=19,70
+modelangle=512,512,0
+modelzoom=1475
+
+// 297:3
+[com_3]
+type=text
+x=56
+y=14
+width=200
+height=30
+layer=com_23
+textfont=quill_oblique_large
+text=Menu
+textalignh=centre
+textalignv=centre
+colour=0x403020
+
+// 297:4
+[com_4]
+type=layer
+x=46
+y=25
+width=203
+height=265
+ymode=abs_bottom
+layer=com_23
+scrollheight=400
+
+// 297:5
+[com_5]
+type=model
+x=5
+width=51
+height=41
+layer=com_4
+model=model_10726
+modelorigin=5,5
+modelangle=142,2042,0
+modelzoom=500
+
+// 297:6
+[com_6]
+type=layer
+x=249
+y=25
+width=16
+height=265
+ymode=abs_bottom
+layer=com_23
+
+// 297:7
+[com_7]
+type=text
+x=16
+width=200
+height=80
+xmode=abs_right
+ymode=abs_centre
+layer=com_23
+textfont=p12_full
+text=Look at the Sandwich Lady's stock.<br><br>Then return to the previous display and select the item she offered you.
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xff991f
+
+// 297:8
+[com_8]
+type=model
+x=-2
+y=-154
+width=940
+height=489
+xmode=abs_centre
+layer=com_9
+model=model_45668
+modelorigin=71,264
+modelangle=323,0,0
+modelzoom=280
+modelnodepth=yes
+
+// 297:9
+[com_9]
+type=layer
+widthmode=minus
+heightmode=minus
+xmode=abs_centre
+ymode=abs_centre
+layer=com_1
+noclickthrough=yes
+
+// 297:10
+[com_10]
+type=graphic
+x=83
+y=183
+width=60
+height=50
+layer=com_9
+colour=0x000000
+transmitop=1
+op1=Choose refreshment
+onload=script2105(event_com, sandwich_tray:com_11)
+
+// 297:11
+[com_11]
+type=model
+x=88
+y=178
+width=53
+height=59
+layer=com_9
+model=model_10726
+modelorigin=5,2
+modelangle=233,2036,0
+modelzoom=500
+onload=set_spinner(18, 18, 0, event_com)
+
+// 297:12
+[com_12]
+type=graphic
+x=174
+y=192
+width=60
+height=50
+layer=com_9
+colour=0x000000
+transmitop=1
+op1=Choose refreshment
+onload=script2105(event_com, sandwich_tray:com_13)
+
+// 297:13
+[com_13]
+type=model
+x=175
+y=192
+width=57
+height=50
+layer=com_9
+model=model_10732
+modelorigin=12,1
+modelangle=260,2000,0
+modelzoom=500
+onload=set_spinner(10, 8, 0, event_com)
+
+// 297:14
+[com_14]
+type=graphic
+x=301
+y=190
+width=60
+height=50
+layer=com_9
+colour=0x000000
+transmitop=1
+op1=Choose refreshment
+onload=script2105(event_com, sandwich_tray:com_15)
+
+// 297:15
+[com_15]
+type=model
+x=303
+y=190
+width=57
+height=52
+layer=com_9
+model=model_10731
+modelorigin=9,4
+modelangle=244,2024,0
+modelzoom=500
+onload=set_spinner(20, 10, 0, event_com)
+
+// 297:16
+[com_16]
+type=graphic
+x=399
+y=194
+width=60
+height=50
+layer=com_9
+colour=0x000000
+transmitop=1
+op1=Choose refreshment
+onload=script2105(event_com, sandwich_tray:com_17)
+
+// 297:17
+[com_17]
+type=model
+x=408
+y=200
+width=36
+height=34
+layer=com_9
+model=model_10727
+modelorigin=0,3
+modelangle=236,2041,0
+modelzoom=500
+onload=set_spinner(25, 20, 0, event_com)
+
+// 297:18
+[com_18]
+type=graphic
+x=145
+y=121
+width=60
+height=50
+layer=com_9
+colour=0x000000
+transmitop=1
+op1=Choose refreshment
+onload=script2105(event_com, sandwich_tray:com_19)
+
+// 297:19
+[com_19]
+type=model
+x=147
+y=123
+width=57
+height=43
+layer=com_9
+model=model_10730
+modelorigin=2,7
+modelangle=249,2020,0
+modelzoom=500
+onload=set_spinner(18, 25, 0, event_com)
+
+// 297:20
+[com_20]
+type=graphic
+x=387
+y=115
+width=60
+height=50
+layer=com_9
+colour=0x000000
+transmitop=1
+op1=Choose refreshment
+onload=script2105(event_com, sandwich_tray:com_21)
+
+// 297:21
+[com_21]
+type=model
+x=397
+y=124
+width=40
+height=34
+layer=com_9
+model=model_45666
+modelorigin=0,3
+modelangle=339,2017,0
+modelzoom=500
+onload=set_spinner(10, 30, 0, event_com)
+
+// 297:22
+[com_22]
+type=graphic
+x=266
+y=127
+width=60
+height=50
+layer=com_9
+colour=0x000000
+transmitop=1
+op1=Choose refreshment
+onload=script2105(event_com, sandwich_tray:com_45)
+
+// 297:23
+[com_23]
+type=layer
+widthmode=minus
+heightmode=minus
+xmode=abs_centre
+ymode=abs_centre
+layer=com_1
+hide=yes
+noclickthrough=yes
+
+// 297:24
+[com_24]
+type=text
+x=60
+width=60
+height=15
+widthmode=minus
+layer=com_4
+textfont=p12_full
+text=Baguette
+colour=0x403020
+
+// 297:25
+[com_25]
+type=text
+x=60
+y=15
+width=60
+height=35
+widthmode=minus
+layer=com_4
+textfont=p11_full
+text=A stick of bread.
+colour=0x403020
+
+// 297:26
+[com_26]
+type=model
+x=4
+y=55
+width=52
+height=46
+layer=com_4
+model=model_10731
+modelorigin=8,3
+modelangle=244,2024,0
+modelzoom=550
+
+// 297:27
+[com_27]
+type=text
+x=60
+y=50
+width=60
+height=15
+widthmode=minus
+layer=com_4
+textfont=p12_full
+text=Square sandwich
+colour=0x403020
+
+// 297:28
+[com_28]
+type=text
+x=60
+y=65
+width=60
+height=50
+widthmode=minus
+layer=com_4
+textfont=p11_full
+text=A sandwich cut into the form of a square.
+colour=0x403020
+
+// 297:29
+[com_29]
+type=model
+x=2
+y=120
+width=57
+height=50
+layer=com_4
+model=model_10732
+modelorigin=12,1
+modelangle=260,2000,0
+modelzoom=500
+
+// 297:30
+[com_30]
+type=text
+x=60
+y=115
+width=60
+height=15
+widthmode=minus
+layer=com_4
+textfont=p12_full
+text=Triangle sandwich
+colour=0x403020
+
+// 297:31
+[com_31]
+type=text
+x=60
+y=130
+width=60
+height=55
+widthmode=minus
+layer=com_4
+textfont=p11_full
+text=A sandwich cut into the form of a triangle.
+colour=0x403020
+
+// 297:32
+[com_32]
+type=model
+x=12
+y=190
+width=36
+height=34
+layer=com_4
+model=model_10727
+modelorigin=0,3
+modelangle=236,2041,0
+modelzoom=500
+
+// 297:33
+[com_33]
+type=text
+x=60
+y=185
+width=60
+height=15
+widthmode=minus
+layer=com_4
+textfont=p12_full
+text=Roll
+colour=0x403020
+
+// 297:34
+[com_34]
+type=text
+x=60
+y=200
+width=60
+height=35
+widthmode=minus
+layer=com_4
+textfont=p11_full
+text=A lump of bread.
+colour=0x403020
+
+// 297:35
+[com_35]
+type=model
+x=2
+y=240
+width=57
+height=43
+layer=com_4
+model=model_10730
+modelorigin=2,7
+modelangle=249,2020,0
+modelzoom=500
+
+// 297:36
+[com_36]
+type=text
+x=60
+y=235
+width=60
+height=15
+widthmode=minus
+layer=com_4
+textfont=p12_full
+text=Meat pie
+colour=0x403020
+
+// 297:37
+[com_37]
+type=text
+x=60
+y=250
+width=60
+height=50
+widthmode=minus
+layer=com_4
+textfont=p11_full
+text=A crusty pie filled with meat and vegetables.
+colour=0x403020
+
+// 297:38
+[com_38]
+type=model
+x=9
+y=305
+width=40
+height=34
+layer=com_4
+model=model_45666
+modelorigin=0,2
+modelangle=339,2017,0
+modelzoom=513
+
+// 297:39
+[com_39]
+type=text
+x=60
+y=300
+width=60
+height=15
+widthmode=minus
+layer=com_4
+textfont=p12_full
+text=Doughnut
+colour=0x403020
+
+// 297:40
+[com_40]
+type=text
+x=60
+y=315
+width=60
+height=35
+widthmode=minus
+layer=com_4
+textfont=p11_full
+text=A tasty doughnut.
+colour=0x403020
+
+// 297:41
+[com_41]
+type=model
+x=15
+y=355
+width=30
+height=36
+layer=com_4
+model=model_10728
+modelorigin=0,-1
+modelangle=281,2034,0
+modelzoom=500
+
+// 297:42
+[com_42]
+type=text
+x=60
+y=350
+width=60
+height=15
+widthmode=minus
+layer=com_4
+textfont=p12_full
+text=Chocolate bar
+colour=0x403020
+
+// 297:43
+[com_43]
+type=text
+x=60
+y=365
+width=60
+height=35
+widthmode=minus
+layer=com_4
+textfont=p11_full
+text=Chocolatey goodness in cuboid form.
+colour=0x403020
+
+// 297:44
+[com_44]
+type=graphic
+x=4
+y=4
+width=26
+height=23
+xmode=abs_right
+layer=com_1
+graphic="close_buttons,6"
+colour=0x000000
+transmitop=1
+op1=Close
+onmouseover=graphic_swapper(event_com, "close_buttons,7")
+onmouseleave=graphic_swapper(event_com, "close_buttons,6")
+onop=closebutton_click
+
+// 297:45
+[com_45]
+type=model
+x=281
+y=131
+width=30
+height=36
+layer=com_9
+model=model_10728
+modelorigin=0,-1
+modelangle=281,2034,0
+modelzoom=500
+modelnodepth=yes
+onload=set_spinner(21, 18, 0, event_com)
+
+// 297:46
+[com_46]
+type=model
+x=4
+y=41
+width=74
+height=37
+layer=com_9
+model=model_20836
+modelorigin=5,7
+modelangle=512,512,398
+modelzoom=5000
+
+// 297:47
+[com_47]
+type=text
+x=4
+y=41
+width=74
+height=30
+layer=com_9
+textfont=b12_full
+text=Key
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xff9924
+transmitop=1
+op1=Show key
+onmouseover=text_colour_swapper(event_com, 0xd47508)
+onmouseleave=text_colour_swapper(event_com, 0xff9924)
+onop=script2103(1)
+
+// 297:48
+[com_48]
+type=text
+y=277
+height=18
+widthmode=minus
+xmode=abs_centre
+layer=com_9
+textfont=b12_full
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xff981f
+
+// 297:49
+[com_49]
+type=graphic
+x=91
+y=242
+width=45
+height=36
+xmode=abs_right
+layer=com_23
+graphic=leftarrow
+colour=0x000000
+transmitop=1
+op1=Back
+onmouseover=settrans(event_com, 100)
+onmouseleave=settrans(event_com, 0)
+onop=script2103(0)

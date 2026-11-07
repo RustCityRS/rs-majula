@@ -1,8 +1,0 @@
-[proc,clientscript_4184](int $int0, int $int1)
-if ($int0 ! 1) {
-    return;
-}
-%varbit_8877 = max(min(calc(%varbit_8877 + $int1), 28), 1);
-if_settext(tostring(%varbit_8877), interface_1072:com33);
-if_setontimer("clientscript_4187(calc(clientclock + 15))", interface_1072:com83);
-if_sethide(false, interface_1072:com83);

@@ -1,7 +1,8 @@
-[proc,worldmap_elements_samemap_scroll](int $int0, int $int1)
+// 303
+[proc,worldmap_elements_samemap_scroll](coord $coord0, boolean $boolean1)
 sound_synth(synth_2266, 1, 0);
-if ($int1 = false) {
-    worldmap_setcoord_5214($int0);
+if ($boolean1 = false) {
+    worldmap_jumptosourcecoord($coord0);
 } else {
-    worldmap_setcoord_5221($int0);
+    worldmap_jumptodisplaycoord($coord0);
 }

@@ -1,0 +1,9 @@
+// 3949
+[clientscript,script3949](component $component0, int $int1)
+if ($int1 = 1) {
+    if_setcolour(0xfafafa, $component0);
+    if_settext(append("<u=fafafa>", removetags(if_gettext($component0))), $component0);
+} else {
+    if_setcolour(0xebe0bc, $component0);
+    if_settext(append("<u=ebe0bc>", removetags(if_gettext($component0))), $component0);
+}

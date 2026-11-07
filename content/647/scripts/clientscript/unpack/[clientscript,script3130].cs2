@@ -1,0 +1,18 @@
+// 3130
+[clientscript,script3130](component $component0, component $component1, int $int2, int $int3)
+if (cc_find($component0, $int2) = true) {
+    if (%varclient_998 = $int3 | %varclient_999 = $int3) {
+        cc_setgraphic(graphic_1542);
+    } else {
+        cc_setgraphic(graphic_1546);
+    }
+}
+if (cc_find($component1, $int2) = true) {
+    if_sethide(false, lobbyscreen_pane_worldselect:com_65);
+    if_sethide(false, lobbyscreen_pane_worldselect:com_66);
+    if_setposition(if_getx(lobbyscreen_pane_worldselect:com_65), cc_gety, ^setpos_abs_left, ^setpos_abs_top, lobbyscreen_pane_worldselect:com_65);
+    if_setposition(if_getx(lobbyscreen_pane_worldselect:com_66), cc_gety, ^setpos_abs_left, ^setpos_abs_top, lobbyscreen_pane_worldselect:com_66);
+}
+if_setcolour(0x606060, lobbyscreen_pane_worldselect:com_66);
+if_setcolour(0x404040, lobbyscreen_pane_worldselect:com_65);
+return;

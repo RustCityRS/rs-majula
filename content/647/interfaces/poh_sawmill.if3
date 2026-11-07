@@ -1,0 +1,561 @@
+// 403:0
+[com_0]
+type=layer
+width=512
+height=334
+
+// 403:1
+[com_1]
+type=graphic
+x=30
+y=21
+width=62
+height=32
+widthmode=minus
+heightmode=minus
+layer=com_0
+graphic=tradebacking
+tiling=yes
+outline=1
+colour=0xffffffff
+transmitop=10
+op10= 
+
+// 403:2
+[com_2]
+type=layer
+width=512
+height=334
+layer=com_0
+
+// 403:3
+[com_3]
+type=graphic
+x=17
+y=52
+width=32
+height=241
+layer=com_2
+graphic="v2_stone_borders,1"
+tiling=yes
+colour=0xffffffff
+transmitop=10
+op10=  
+
+// 403:4
+[com_4]
+type=graphic
+x=462
+y=52
+width=32
+height=241
+layer=com_2
+graphic="v2_stone_borders,3"
+tiling=yes
+colour=0xffffffff
+transmitop=10
+op10=  
+
+// 403:5
+[com_5]
+type=graphic
+x=61
+y=21
+width=390
+height=32
+layer=com_2
+graphic="v2_stone_borders,36"
+tiling=yes
+colour=0xffffffff
+transmitop=10
+op10=  
+
+// 403:6
+[com_6]
+type=graphic
+x=61
+y=304
+width=390
+height=32
+layer=com_2
+graphic="v2_stone_borders,2"
+tiling=yes
+colour=0xffffffff
+transmitop=10
+op10=  
+
+// 403:7
+[com_7]
+type=graphic
+x=30
+y=292
+width=32
+height=32
+layer=com_2
+graphic="v2_stone_borders,6"
+colour=0xffffffff
+transmitop=10
+op10=  
+
+// 403:8
+[com_8]
+type=graphic
+x=450
+y=21
+width=32
+height=32
+layer=com_2
+graphic="v2_stone_borders,37"
+colour=0xffffffff
+transmitop=10
+op10=  
+
+// 403:9
+[com_9]
+type=graphic
+x=450
+y=292
+width=32
+height=32
+layer=com_2
+graphic="v2_stone_borders,7"
+colour=0xffffffff
+transmitop=10
+op10=  
+
+// 403:10
+[com_10]
+type=graphic
+x=30
+y=21
+width=32
+height=32
+layer=com_2
+graphic="v2_stone_borders,35"
+colour=0xffffffff
+transmitop=10
+op10=  
+
+// 403:11
+[com_11]
+type=text
+x=24
+y=25
+width=464
+height=19
+textfont=b12_full
+text=What wood do you want converting to planks?
+textalignh=centre
+colour=0xff981f
+
+// 403:12
+[com_12]
+type=layer
+x=132
+y=56
+width=96
+height=128
+transmitop=1,2,3,4,5
+opbase=Wood plank
+op1=Buy <col=ff9040>1</col>
+op2=Buy <col=ff9040>5</col>
+op3=Buy <col=ff9040>10</col>
+op4=Buy <col=ff9040>X</col>
+op5=Buy <col=ff9040>All</col>
+
+// 403:13
+[com_13]
+type=layer
+x=284
+y=56
+width=96
+height=128
+transmitop=1,2,3,4,5
+opbase=Oak plank
+op1=Buy <col=ff9040>1</col>
+op2=Buy <col=ff9040>5</col>
+op3=Buy <col=ff9040>10</col>
+op4=Buy <col=ff9040>X</col>
+op5=Buy <col=ff9040>All</col>
+
+// 403:14
+[com_14]
+type=layer
+x=132
+y=184
+width=96
+height=128
+transmitop=1,2,3,4,5
+opbase=Teak plank
+op1=Buy <col=ff9040>1</col>
+op2=Buy <col=ff9040>5</col>
+op3=Buy <col=ff9040>10</col>
+op4=Buy <col=ff9040>X</col>
+op5=Buy <col=ff9040>All</col>
+
+// 403:15
+[com_15]
+type=layer
+x=284
+y=184
+width=96
+height=128
+transmitop=1,2,3,4,5
+opbase=Mahogany plank
+op1=Buy <col=ff9040>1</col>
+op2=Buy <col=ff9040>5</col>
+op3=Buy <col=ff9040>10</col>
+op4=Buy <col=ff9040>X</col>
+op5=Buy <col=ff9040>All</col>
+
+// 403:16
+[com_16]
+type=model
+x=133
+y=68
+width=93
+height=74
+model=model_12355
+modelorigin=1,20
+modelangle=126,1789,0
+modelzoom=400
+
+// 403:17
+[com_17]
+type=model
+x=285
+y=68
+width=93
+height=74
+model=model_12305
+modelorigin=1,20
+modelangle=125,1789,0
+modelzoom=400
+
+// 403:18
+[com_18]
+type=model
+x=133
+y=196
+width=93
+height=74
+model=model_12329
+modelorigin=1,20
+modelangle=125,1789,0
+modelzoom=400
+
+// 403:19
+[com_19]
+type=model
+x=285
+y=196
+width=93
+height=74
+model=model_12303
+modelorigin=1,20
+modelangle=125,1789,0
+modelzoom=400
+
+// 403:20
+[com_20]
+type=text
+x=133
+y=145
+width=93
+height=38
+textfont=p12_full
+text=Wood<br>Cost = 100
+textalignh=centre
+textshadow=yes
+colour=0x00cfff
+
+// 403:21
+[com_21]
+type=text
+x=285
+y=145
+width=93
+height=38
+textfont=p12_full
+text=Oak<br>Cost = 250
+textalignh=centre
+textshadow=yes
+colour=0x00cfff
+
+// 403:22
+[com_22]
+type=text
+x=133
+y=273
+width=93
+height=38
+textfont=p12_full
+text=Teak<br>Cost = 500
+textalignh=centre
+textshadow=yes
+colour=0x00cfff
+
+// 403:23
+[com_23]
+type=text
+x=285
+y=273
+width=93
+height=38
+textfont=p12_full
+text=Mahogany<br>Cost = 1500
+textalignh=centre
+textshadow=yes
+colour=0x00cfff
+
+// 403:24
+[com_24]
+type=layer
+x=132
+y=56
+width=96
+height=90
+
+// 403:25
+[com_25]
+type=text
+width=96
+height=90
+layer=com_24
+textfont=p12_full
+textshadow=yes
+colour=0xffff00
+
+// 403:26
+[com_26]
+type=text
+width=96
+height=90
+layer=com_24
+textfont=p12_full
+colour=0xffff00
+
+// 403:27
+[com_27]
+type=text
+width=96
+height=90
+layer=com_24
+textfont=p12_full
+colour=0xffff00
+
+// 403:28
+[com_28]
+type=text
+width=96
+height=90
+layer=com_24
+textfont=p12_full
+colour=0xffff00
+
+// 403:29
+[com_29]
+type=graphic
+x=460
+y=25
+width=16
+height=16
+graphic="v2_stone_close_button,0"
+colour=0xffffffff
+transmitop=1
+op1=Close
+onmouseover=graphic_swapper(event_com, "v2_stone_close_button,1")
+onmouseleave=graphic_swapper(event_com, "v2_stone_close_button,0")
+onop=closebutton_click
+onclick=closebutton_click
+
+// 403:30
+[com_30]
+type=text
+width=96
+height=90
+layer=com_24
+textfont=p12_full
+colour=0xffff00
+
+// 403:31
+[com_31]
+type=layer
+x=284
+y=56
+width=96
+height=90
+
+// 403:32
+[com_32]
+type=text
+width=96
+height=90
+layer=com_31
+textfont=p12_full
+textshadow=yes
+colour=0xffff00
+
+// 403:33
+[com_33]
+type=text
+width=96
+height=90
+layer=com_31
+textfont=p12_full
+colour=0xffff00
+
+// 403:34
+[com_34]
+type=text
+width=96
+height=90
+layer=com_31
+textfont=p12_full
+colour=0xffff00
+
+// 403:35
+[com_35]
+type=text
+width=96
+height=90
+layer=com_31
+textfont=p12_full
+colour=0xffff00
+
+// 403:36
+[com_36]
+type=text
+width=96
+height=90
+layer=com_31
+textfont=p12_full
+colour=0xffff00
+
+// 403:37
+[com_37]
+type=layer
+x=132
+y=185
+width=96
+height=90
+
+// 403:38
+[com_38]
+type=text
+width=96
+height=90
+layer=com_37
+textfont=p12_full
+textshadow=yes
+colour=0xffff00
+
+// 403:39
+[com_39]
+type=text
+width=96
+height=90
+layer=com_37
+textfont=p12_full
+colour=0xffff00
+
+// 403:40
+[com_40]
+type=text
+width=96
+height=90
+layer=com_37
+textfont=p12_full
+colour=0xffff00
+
+// 403:41
+[com_41]
+type=text
+width=96
+height=90
+layer=com_37
+textfont=p12_full
+colour=0xffff00
+
+// 403:42
+[com_42]
+type=text
+width=96
+height=90
+layer=com_37
+textfont=p12_full
+colour=0xffff00
+
+// 403:43
+[com_43]
+type=layer
+x=284
+y=185
+width=96
+height=90
+
+// 403:44
+[com_44]
+type=text
+width=96
+height=90
+layer=com_43
+textfont=p12_full
+textshadow=yes
+colour=0xffff00
+
+// 403:45
+[com_45]
+type=text
+width=96
+height=90
+layer=com_43
+textfont=p12_full
+colour=0xffff00
+
+// 403:46
+[com_46]
+type=text
+width=96
+height=90
+layer=com_43
+textfont=p12_full
+colour=0xffff00
+
+// 403:47
+[com_47]
+type=text
+width=96
+height=90
+layer=com_43
+textfont=p12_full
+colour=0xffff00
+
+// 403:48
+[com_48]
+type=text
+width=96
+height=90
+layer=com_43
+textfont=p12_full
+colour=0xffff00
+
+// 403:49
+[com_49]
+type=graphic
+x=4
+y=4
+width=26
+height=23
+layer=com_50
+graphic="close_buttons,1"
+colour=0xffffffff
+
+// 403:50
+[com_50]
+type=layer
+x=468
+y=22
+width=32
+height=32
+hide=yes

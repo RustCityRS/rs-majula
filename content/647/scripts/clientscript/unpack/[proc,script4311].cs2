@@ -1,0 +1,89 @@
+// 4311
+[proc,script4311]
+def_int $int0 = 0;
+def_int $int1 = ~script4293;
+def_int $int2 = -1;
+if (~script4309 = 1) {
+    $int2 = %varclient_1500;
+}
+if_settext("Settings for: <%varclient_1866>", interface_1096:com_20);
+if_sethide(true, interface_1096:com_172);
+if_sethide(true, interface_1096:com_173);
+if_sethide(true, interface_1096:com_175);
+if_sethide(true, interface_1096:com_174);
+if_sethide(true, interface_1096:com_364);
+if_sethide(true, interface_1096:com_365);
+if_sethide(true, interface_1096:com_367);
+if_sethide(true, interface_1096:com_366);
+if_sethide(false, interface_1096:com_317);
+if_sethide(false, interface_1096:com_329);
+if_sethide(false, interface_1096:com_267);
+if_sethide(false, interface_1096:com_253);
+def_enum $enum3 = enum_3720;
+if (map_lang = 1) {
+    $enum3 = enum_3727;
+} else if (map_lang = 2) {
+    $enum3 = enum_3728;
+} else if (map_lang = 3) {
+    $enum3 = enum_3729;
+}
+if (~script4309 = 1) {
+    if (~script4292 = 1) {
+        if ($int1 > $int2 | $int1 = 126) {
+            if_sethide(true, interface_1096:com_317);
+            if_sethide(true, interface_1096:com_329);
+            if_sethide(true, interface_1096:com_267);
+            if_sethide(true, interface_1096:com_253);
+            if ($int2 >= 100) {
+                if_sethide(false, interface_1096:com_173);
+            } else if (%varclient_1503 = 1) {
+                if_sethide(false, interface_1096:com_172);
+            } else {
+                if_sethide(false, interface_1096:com_174);
+            }
+            if ($int2 >= 100) {
+                if_sethide(false, interface_1096:com_365);
+            } else if (%varclient_1502 = 1) {
+                if_sethide(false, interface_1096:com_364);
+            } else {
+                if_sethide(false, interface_1096:com_366);
+            }
+        } else {
+            if ($int2 >= 100) {
+                if_sethide(false, interface_1096:com_173);
+            } else if (%varclient_1503 = 1) {
+                if_sethide(false, interface_1096:com_173);
+            } else {
+                if_sethide(false, interface_1096:com_175);
+            }
+            if ($int2 >= 100) {
+                if_sethide(false, interface_1096:com_365);
+            } else if (%varclient_1502 = 1) {
+                if_sethide(false, interface_1096:com_365);
+            } else {
+                if_sethide(false, interface_1096:com_367);
+            }
+        }
+    } else {
+        if ($int2 >= 100) {
+            if_sethide(false, interface_1096:com_173);
+        } else if (%varclient_1503 = 1) {
+            if_sethide(false, interface_1096:com_173);
+        } else {
+            if_sethide(false, interface_1096:com_175);
+        }
+        if ($int2 >= 100) {
+            if_sethide(false, interface_1096:com_365);
+        } else if (%varclient_1502 = 1) {
+            if_sethide(false, interface_1096:com_365);
+        } else {
+            if_sethide(false, interface_1096:com_367);
+        }
+    }
+    ~script4501(interface_1096:com_261, enum(int, string, enum_3715, %varclient_1500));
+    if (compare("", enum(int, string, $enum3, %varclient_1501)) = 0) {
+        ~script4501(interface_1096:com_247, enum(int, string, $enum3, calc(%varclient_1501 - 1)));
+    } else {
+        ~script4501(interface_1096:com_247, enum(int, string, $enum3, %varclient_1501));
+    }
+}

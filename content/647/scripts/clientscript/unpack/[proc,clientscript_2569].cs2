@@ -1,8 +1,0 @@
-[proc,clientscript_2569]
-if_sethide(true, mob_squad_exchange:com130);
-if (getlanguage = false) {
-    if_settextfont(b12_full, mob_squad_exchange:com124);
-} else {
-    if_settextfont(p11_full, mob_squad_exchange:com124);
-}
-~clientscript_2570;

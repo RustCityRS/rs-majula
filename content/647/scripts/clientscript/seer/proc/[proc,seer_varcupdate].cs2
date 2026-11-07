@@ -1,23 +1,24 @@
+// 1971
 [proc,seer_varcupdate](int $int0, component $component1)
 switch_int ($int0) {
-    case 0:
-        if (%varc_int_618 < 0 | %varc_int_618 > 25) {
-            %varc_int_618 = 0;
+    case 0 :
+        if (%varclient_618 < 0 | %varclient_618 > 25) {
+            %varclient_618 = 0;
         }
-        if_settext(enum(105, 115, enum_2121, %varc_int_618), $component1);
-    case 1:
-        if (%varc_int_619 < 0 | %varc_int_619 > 25) {
-            %varc_int_619 = 0;
+        if_settext(enum(int, string, enum_2121, %varclient_618), $component1);
+    case 1 :
+        if (%varclient_619 < 0 | %varclient_619 > 25) {
+            %varclient_619 = 0;
         }
-        if_settext(enum(105, 115, enum_2121, %varc_int_619), $component1);
-    case 2:
-        if (%varc_int_620 < 0 | %varc_int_620 > 25) {
-            %varc_int_620 = 0;
+        if_settext(enum(int, string, enum_2121, %varclient_619), $component1);
+    case 2 :
+        if (%varclient_620 < 0 | %varclient_620 > 25) {
+            %varclient_620 = 0;
         }
-        if_settext(enum(105, 115, enum_2121, %varc_int_620), $component1);
-    case 3:
-        if (%varc_int_621 < 0 | %varc_int_621 > 25) {
-            %varc_int_621 = 0;
+        if_settext(enum(int, string, enum_2121, %varclient_620), $component1);
+    case 3 :
+        if (%varclient_621 < 0 | %varclient_621 > 25) {
+            %varclient_621 = 0;
         }
-        if_settext(enum(105, 115, enum_2121, %varc_int_621), $component1);
+        if_settext(enum(int, string, enum_2121, %varclient_621), $component1);
 }

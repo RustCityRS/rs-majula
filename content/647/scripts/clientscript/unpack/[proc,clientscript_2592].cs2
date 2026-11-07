@@ -1,7 +1,0 @@
-[proc,clientscript_2592](component $component)
-sound_synth(synth_6784, 1, 0);
-if (if_getgraphic($component) = "warning_icons,1") {
-    if_setgraphic("warning_icons,2", $component);
-} else {
-    if_setgraphic("warning_icons,1", $component);
-}

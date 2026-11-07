@@ -1,0 +1,97 @@
+// 989:0
+[com_0]
+type=rectangle
+x=5
+y=5
+width=200
+height=100
+widthmode=minus
+heightmode=minus
+xmode=abs_centre
+ymode=abs_centre
+colour=0x000000
+fill=yes
+trans=200
+opbase=  
+
+// 989:1
+[com_1]
+type=layer
+width=200
+height=100
+widthmode=minus
+heightmode=minus
+xmode=abs_centre
+ymode=abs_centre
+onload=script1087(event_com, 22)
+
+// 989:2
+[com_2]
+type=graphic
+width=4
+height=4
+widthmode=minus
+heightmode=minus
+xmode=abs_centre
+ymode=abs_centre
+layer=com_1
+graphic=tradebacking
+tiling=yes
+colour=0x000000
+
+// 989:3
+[com_3]
+type=model
+x=11
+y=7
+width=403
+height=159
+xmode=abs_right
+ymode=abs_bottom
+layer=com_1
+model=model_46808
+modelorigin=1,59
+modelangle=108,2002,0
+modelzoom=611
+
+// 989:4
+[com_4]
+type=text
+height=36
+widthmode=minus
+xmode=abs_centre
+layer=com_1
+textfont=b12_full
+text=Ruined boat
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xff981f
+
+// 989:5
+[com_5]
+type=graphic
+x=10
+y=10
+width=16
+height=16
+xmode=abs_right
+layer=com_1
+graphic="v2_stone_close_button,0"
+colour=0x000000
+transmitop=1
+op1=Close
+onmouseover=graphic_swapper(event_com, "v2_stone_close_button,1")
+onmouseleave=graphic_swapper(event_com, "v2_stone_close_button,0")
+onop=closebutton_click
+
+// 989:6
+[com_6]
+type=layer
+width=70
+height=45
+widthmode=minus
+heightmode=minus
+xmode=abs_centre
+ymode=abs_bottom
+layer=com_1

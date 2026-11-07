@@ -1,0 +1,7 @@
+// 3441
+[proc,script3441]()(boolean)
+if (inv_total(worn, ring_of_charos__a) > 0 | inv_total(worn, ring_of_charos__a__i) > 0) {
+    return(true);
+} else {
+    return(false);
+}

@@ -1,0 +1,35 @@
+// 216:0
+[com_0]
+type=layer
+width=16391
+height=16391
+widthmode=proportion
+heightmode=proportion
+
+// 216:1
+[com_1]
+type=text
+y=-3295
+width=441
+height=17
+xmode=abs_centre
+ymode=proportion_centre
+layer=com_0
+textfont=q8_full
+text=Line1
+textalignh=centre
+colour=0x000000
+
+// 216:2
+[com_2]
+type=text
+y=769
+width=441
+height=17
+xmode=abs_centre
+ymode=proportion_centre
+layer=com_0
+textfont=q8_full
+text=Line2
+textalignh=centre
+colour=0x000000

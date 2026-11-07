@@ -1,3 +1,4 @@
+// 2292
 [clientscript,prayer_custom_confirm_mouseover](component $component0, component $component1)
 if_setgraphic("ame_confirm_button_no_back,1", $component1);
 if_setcolour(0xff641e, $component0);

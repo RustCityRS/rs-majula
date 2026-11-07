@@ -1,0 +1,6 @@
+// 2727
+[proc,script2727]()(boolean)
+if (testbit(worldlist_specific_thisworld, 10) = ^true) {
+    return(true);
+}
+return(false);

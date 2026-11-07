@@ -1,3 +1,4 @@
+// 1323
 [clientscript,eyeglo_exchanger_out](component $component0, component $component1, component $component2, component $component3)
 if (inv_getobj(inv_439, 0) ! null) {
     if_sethide(false, $component0);

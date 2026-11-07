@@ -1,6 +1,7 @@
-[clientscript,blast_furnace_coal](component $component)
-if (%varbit_949 = false) {
-    if_settext("Coal to add: <tostring(%varbit_940)>", $component);
+// 2040
+[clientscript,blast_furnace_coal](component $component0)
+if (%varplayerbit_949 = 0) {
+    if_settext("Coal to add: <tostring(%varplayerbit_940)>", $component0);
 } else {
-    if_settext("Coal in furnace: <tostring(%varbit_949)>", $component);
+    if_settext("Coal in furnace: <tostring(%varplayerbit_949)>", $component0);
 }

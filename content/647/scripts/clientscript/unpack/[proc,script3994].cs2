@@ -1,0 +1,9 @@
+// 3994
+[proc,script3994](int $int0)(int)
+def_struct $struct1 = enum(int, struct, enum_3483, $int0);
+def_int $int2 = struct_param($struct1, param_1268);
+if ($int2 = %varplayerbit_8576) {
+    return(1);
+} else {
+    return(0);
+}

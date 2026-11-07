@@ -1,27 +1,28 @@
+// 652
 [proc,sm_draw_progress_bar](int $int0, int $int1, int $int2, int $int3, int $int4, component $component5, int $int6, component $component7, int $int8)
 cc_create($component5, ^iftype_rectangle, $int6);
 cc_setposition($int0, $int1, ^setpos_abs_left, ^setpos_abs_top);
 cc_setsize($int2, $int3, ^setsize_abs, ^setsize_abs);
 cc_setcolour(^black);
 cc_setfill(false);
-def_string $string = "null";
-if (stockmarket_isempty($int4) = false) {
-    if (stockmarket_iscomplete($int4) = true) {
-        if (stockmarket_getoffercompleted($int4) = stockmarket_getoffercount($int4)) {
-            $string = "Completed";
+def_string $string0 = null;
+if (stockmarket_isofferempty($int4) = false) {
+    if (stockmarket_isofferfinished($int4) = true) {
+        if (stockmarket_getoffercompletedcount($int4) = stockmarket_getoffercount($int4)) {
+            $string0 = "Completed";
         } else {
-            $string = "Aborted";
+            $string0 = "Aborted";
         }
     } else {
-        $string = "In progress";
+        $string0 = "In progress";
     }
     if ($component7 ! null) {
-        if ($int8 = true) {
-            cc_setonmouserepeat("clientscript_648($component5, $int6, $component7, $string, 25, 106)");
+        if ($int8 = 1) {
+            cc_setonmouserepeat("script648($component5, $int6, $component7, $string0, 25, 106)");
         } else if ($int8 = 2) {
-            cc_setonmouserepeat("sm_offer_addtooltip($component5, $component7, $string, 25, 106)");
+            cc_setonmouserepeat("sm_offer_addtooltip($component5, $component7, $string0, 25, 106)");
         } else {
-            cc_setonmouserepeat("addtooltip_dynamic($component5, $int6, $component7, $string, 25, 106)");
+            cc_setonmouserepeat("addtooltip_dynamic($component5, $int6, $component7, $string0, 25, 106)");
         }
         cc_setonmouseleave("deltooltip($component7)");
     }
@@ -37,19 +38,19 @@ cc_setcolour(0x302520);
 cc_settrans(100);
 cc_setfill(true);
 cc_create($component5, ^iftype_rectangle, calc($int6 + 2));
-if (stockmarket_isempty($int4) = false) {
+if (stockmarket_isofferempty($int4) = false) {
     cc_setposition(calc($int0 + 1), calc($int1 + 1), ^setpos_abs_left, ^setpos_abs_top);
     cc_settrans(0);
     cc_setfill(true);
-    if (stockmarket_iscomplete($int4) = true) {
+    if (stockmarket_isofferfinished($int4) = true) {
         cc_setsize($int11, $int12, ^setsize_abs, ^setsize_abs);
-        if (stockmarket_getoffercompleted($int4) = stockmarket_getoffercount($int4)) {
+        if (stockmarket_getoffercompletedcount($int4) = stockmarket_getoffercount($int4)) {
             cc_setcolour(0x3f821e);
         } else {
             cc_setcolour(0x8a0010);
         }
     } else {
-        cc_setsize(scale(stockmarket_getoffercompleted($int4), stockmarket_getoffercount($int4), $int11), $int12, ^setsize_abs, ^setsize_abs);
+        cc_setsize(scale(stockmarket_getoffercompletedcount($int4), stockmarket_getoffercount($int4), $int11), $int12, ^setsize_abs, ^setsize_abs);
         cc_setcolour(0xc68b01);
     }
 }

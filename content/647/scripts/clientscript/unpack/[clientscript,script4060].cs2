@@ -1,0 +1,13 @@
+// 4060
+[clientscript,script4060]
+if (%varplayerbit_8669 = 1) {
+    if (%varplayerbit_8662 < 30 | %varplayerbit_8663 < 30 | %varplayerbit_8664 < 30 | %varplayerbit_8665 < 30 | %varplayerbit_8666 < 30) {
+        ~script4061;
+    } else {
+        ~script4062;
+    }
+} else if (%varplayerbit_8662 < 200 & %varplayerbit_8663 < 200 & %varplayerbit_8664 < 200 & %varplayerbit_8665 < 200 & %varplayerbit_8666 < 200) {
+    ~script4061;
+} else {
+    ~script4062;
+}

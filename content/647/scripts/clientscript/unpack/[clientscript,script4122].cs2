@@ -1,0 +1,5 @@
+// 4122
+[clientscript,script4122](component $component0, int $int1, component $component2)
+if (%varplayer_852 ! null) {
+    ~script1163($component0, $int1, $component2, oc_name(%varplayer_852), 0, 180);
+}

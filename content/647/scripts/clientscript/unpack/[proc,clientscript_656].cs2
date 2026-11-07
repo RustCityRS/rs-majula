@@ -1,7 +1,0 @@
-[proc,clientscript_656]
-if (cc_find(lore_stats_side:com74, 0) = true) {
-    cc_delete;
-}
-if (cc_find(summoning_orb:com17, 0) = true) {
-    cc_delete;
-}

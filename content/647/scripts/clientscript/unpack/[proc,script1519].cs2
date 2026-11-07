@@ -1,0 +1,8 @@
+// 1519
+[proc,script1519]()(int)
+def_int $int0 = 0;
+$int0 = calc(%varplayerbit_6658 + %varplayerbit_6659 + %varplayerbit_6660 + %varplayerbit_6661);
+if (%varplayerbit_6662 = 63) {
+    $int0 = calc($int0 + 1);
+}
+return($int0);

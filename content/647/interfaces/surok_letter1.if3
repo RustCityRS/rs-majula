@@ -1,0 +1,73 @@
+// 249:0
+[com_0]
+type=layer
+x=-15
+y=8
+width=387
+height=287
+xmode=abs_centre
+ymode=abs_centre
+
+// 249:1
+[com_1]
+type=layer
+x=-17
+y=13
+width=358
+height=225
+xmode=abs_centre
+ymode=abs_centre
+
+// 249:2
+[com_2]
+type=text
+x=43
+y=18
+width=329
+height=17
+layer=com_1
+textfont=surok_font
+text=Surok Magis,
+colour=0x46320a
+
+// 249:3
+[com_3]
+type=model
+x=1
+y=-27
+width=418
+height=325
+layer=com_0
+model=model_21509
+modelorigin=14,-41
+modelangle=510,0,0
+modelzoom=570
+
+// 249:4
+[com_4]
+type=text
+x=43
+y=42
+width=297
+height=136
+layer=com_1
+textfont=surok_font
+text=Your actions are being watched. We know what you are trying to do and the VPSG will stop you! Do not attempt to leave the palace or you will be arrested on sight. We will not hesitate to kill you if you disobey King Roald's orders.                                                                                            Rat Burgiss
+colour=0x46320a
+
+// 249:5
+[com_5]
+type=graphic
+x=129
+y=-112
+width=26
+height=23
+xmode=abs_centre
+ymode=abs_centre
+graphic="close_buttons,2"
+colour=0x000000
+transmitop=1
+op1=Close
+onmouseleave=graphic_swapper(event_com, "close_buttons,2")
+onmouserepeat=graphic_swapper(event_com, "close_buttons,3")
+onclick=closebutton_click

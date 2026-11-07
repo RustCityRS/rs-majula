@@ -1,9 +1,10 @@
+// 1256
 [clientscript,f4_select2]
-if (%varbit_305 = true) {
+if (%varplayerbit_305 = 1) {
     return;
 }
-if (%varp_262 = false) {
-    if_setgraphic("miscgraphics,10", dwarf_rock_schematics_control:com25);
+if (%varplayer_262 = 0) {
+    if_setgraphic("miscgraphics,10", dwarf_rock_schematics_control:com_25);
 } else {
-    if_setgraphic("miscgraphics,11", dwarf_rock_schematics_control:com25);
+    if_setgraphic("miscgraphics,11", dwarf_rock_schematics_control:com_25);
 }

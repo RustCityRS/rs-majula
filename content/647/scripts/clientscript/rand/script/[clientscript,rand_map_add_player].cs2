@@ -1,39 +1,40 @@
-[clientscript,rand_map_add_player](int $int0, int $int1, int $int2, int $int3, string $string)
+// 3279
+[clientscript,rand_map_add_player](int $int0, int $int1, int $int2, int $int3, string $string0)
 if ($int0 = -1 | $int1 = -1) {
     return;
 }
 def_int $int4 = 0;
 def_int $int5 = 0;
 switch_int ($int3) {
-    case 1:
-        $int4 = calc(if_getwidth(rand_dungeon_map:com3) / 4);
-        $int5 = calc(if_getheight(rand_dungeon_map:com3) / 4);
-    case 2:
-        $int4 = calc(if_getwidth(rand_dungeon_map:com3) / 4);
-    case default:
+    case 1 :
+        $int4 = calc(if_getwidth(rand_dungeon_map:com_3) / 4);
+        $int5 = calc(if_getheight(rand_dungeon_map:com_3) / 4);
+    case 2 :
+        $int4 = calc(if_getwidth(rand_dungeon_map:com_3) / 4);
+    case default :
 }
-cc_create(rand_dungeon_map:com5, ^iftype_graphic, %varc_int_1152);
-%varc_int_1152 = calc(%varc_int_1152 + 1);
+cc_create(rand_dungeon_map:com_5, ^iftype_graphic, %varclient_1152);
+%varclient_1152 = calc(%varclient_1152 + 1);
 switch_int ($int2) {
-    case 1:
+    case 1 :
         cc_setgraphic("rand_map_player_pips,0");
         cc_setposition(calc($int0 * 32 + 6 + $int4), calc($int1 * 32 + 20 + $int5), ^setpos_abs_left, ^setpos_abs_bottom);
-    case 2:
+    case 2 :
         cc_setgraphic("rand_map_player_pips,1");
         cc_setposition(calc($int0 * 32 + 20 + $int4), calc($int1 * 32 + 20 + $int5), ^setpos_abs_left, ^setpos_abs_bottom);
-    case 3:
+    case 3 :
         cc_setgraphic("rand_map_player_pips,2");
         cc_setposition(calc($int0 * 32 + 13 + $int4), calc($int1 * 32 + 13 + $int5), ^setpos_abs_left, ^setpos_abs_bottom);
-    case 4:
+    case 4 :
         cc_setgraphic("rand_map_player_pips,3");
         cc_setposition(calc($int0 * 32 + 6 + $int4), calc($int1 * 32 + 6 + $int5), ^setpos_abs_left, ^setpos_abs_bottom);
-    case 5:
+    case 5 :
         cc_setgraphic("rand_map_player_pips,4");
         cc_setposition(calc($int0 * 32 + 20 + $int4), calc($int1 * 32 + 6 + $int5), ^setpos_abs_left, ^setpos_abs_bottom);
-    case default:
+    case default :
 }
 cc_setsize(11, 11, ^setsize_abs, ^setsize_abs);
-cc_setonmouserepeat("rand_map_tooltip(^event_com, ^event_subid, rand_dungeon_map:com7, $string)");
-cc_setonmouseleave("deltooltip(rand_dungeon_map:com7)");
+cc_setonmouserepeat("rand_map_tooltip(event_com, event_comsubid, rand_dungeon_map:com_7, $string0)");
+cc_setonmouseleave("deltooltip(rand_dungeon_map:com_7)");
 cc_setfill(true);
 cc_sethide(false);

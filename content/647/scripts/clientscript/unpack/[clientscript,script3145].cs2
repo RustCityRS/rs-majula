@@ -1,0 +1,12 @@
+// 3145
+[clientscript,script3145](int $int0, component $component1, int $int2, int $int3)
+if_sethide(true, lobbyscreen_pane_worldselect:com_65);
+if_sethide(true, lobbyscreen_pane_worldselect:com_66);
+if (cc_find($component1, $int2) = true) {
+    if (cc_getgraphic = graphic_1542) {
+        cc_setgraphic(graphic_1541);
+    } else if (cc_getgraphic = graphic_1546) {
+        cc_setgraphic(graphic_1545);
+    }
+}
+return;

@@ -1,5 +1,6 @@
+// 1669
 [clientscript,fishcomp_reward_tackle_box_side_init]
-if_setoninvtransmit("fishcomp_reward_tackle_box_refresh(){inv}", deathkeep_constricted:com0);
-if_setonvartransmit("fishcomp_reward_tackle_box_refresh(){varp_1660, varp_1661, varp_1662, varp_1663, varp_1664}", fishcomp_reward_tackle_box:com0);
-~clientscript_2174;
+if_setoninvtransmit("fishcomp_reward_tackle_box_refresh{inv}", deathkeep_constricted:com_0);
+if_setonvartransmit("fishcomp_reward_tackle_box_refresh{varplayer_1660, varplayer_1661, varplayer_1662, varplayer_1663, varplayer_1664}", fishcomp_reward_tackle_box:com_0);
+~script2174;
 ~fishcomp_reward_tackle_box_refresh;

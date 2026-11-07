@@ -1,5 +1,6 @@
-[clientscript,chatbox_resize_drag](int $int0, boolean $int1)
-if ($int1 = true) {
+// 1649
+[clientscript,chatbox_resize_drag](int $int0, boolean $boolean1)
+if ($boolean1 = true) {
     if ($int0 < 0) {
         $int0 = 0;
     } else {

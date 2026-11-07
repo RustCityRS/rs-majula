@@ -1,0 +1,53 @@
+// 4354
+[clientscript,script4354](component $component0)
+switch_int (%varplayer_2128) {
+    case 1 :
+        if (%varplayerbit_9141 = 0) {
+            %varplayerbit_9141 = 1;
+        } else {
+            %varplayerbit_9141 = 0;
+        }
+    case 2 :
+        if (%varplayerbit_9142 = 0) {
+            %varplayerbit_9142 = 1;
+        } else {
+            %varplayerbit_9142 = 0;
+        }
+    case 3 :
+        if (%varplayerbit_9143 = 0) {
+            %varplayerbit_9143 = 1;
+        } else {
+            %varplayerbit_9143 = 0;
+        }
+    case 4 :
+        if (%varplayerbit_9144 = 0) {
+            %varplayerbit_9144 = 1;
+        } else {
+            %varplayerbit_9144 = 0;
+        }
+    case 5 :
+        if (%varplayerbit_9145 = 0) {
+            %varplayerbit_9145 = 1;
+        } else {
+            %varplayerbit_9145 = 0;
+        }
+    case 6 :
+        if (%varplayerbit_9146 = 0) {
+            %varplayerbit_9146 = 1;
+        } else {
+            %varplayerbit_9146 = 0;
+        }
+    case 7 :
+        if (%varplayerbit_9147 = 0) {
+            %varplayerbit_9147 = 1;
+        } else {
+            %varplayerbit_9147 = 0;
+        }
+    case 8 :
+        if (%varplayerbit_9148 = 0) {
+            %varplayerbit_9148 = 1;
+        } else {
+            %varplayerbit_9148 = 0;
+        }
+}
+~script4356($component0);

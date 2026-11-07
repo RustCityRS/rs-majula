@@ -1,3 +1,5 @@
+#[cfg(since_647)]
+use super::client_table;
 use super::config_entry;
 use crate::pack::pack::{FileCache, parse_config_sections_cached};
 use crate::pack::pack_registry::{PackFile, PackedFile};
@@ -45,8 +47,11 @@ pub fn pack_vars(
         server.finish_entry();
     }
 
-    Ok(PackedFile {
-        server,
-        client: None,
-    })
+    #[cfg(before_647)]
+    let client = None;
+
+    #[cfg(since_647)]
+    let client = Some(client_table(file_cache, kind, pack, constants)?);
+
+    Ok(PackedFile { server, client })
 }

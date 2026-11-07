@@ -1,0 +1,13 @@
+// 3271
+[proc,script3271]
+if (%varclient_1202 = 1) {
+    if_setsize(16384, calc(if_getheight(rand_dungeon_rewards_v2:com_296) - 1), ^setsize_rel, ^setsize_abs, rand_dungeon_rewards_v2:com_296);
+} else if (%varclient_1201 = 1) {
+    if_setsize(16384, calc(if_getheight(rand_dungeon_rewards_v2:com_286) - 1), ^setsize_rel, ^setsize_abs, rand_dungeon_rewards_v2:com_286);
+} else if (%varclient_1200 = 1) {
+    if_setsize(16384, calc(if_getheight(rand_dungeon_rewards_v2:com_276) - 1), ^setsize_rel, ^setsize_abs, rand_dungeon_rewards_v2:com_276);
+} else if (%varclient_1199 = 1) {
+    if_setsize(16384, calc(if_getheight(rand_dungeon_rewards_v2:com_266) - 1), ^setsize_rel, ^setsize_abs, rand_dungeon_rewards_v2:com_266);
+} else if (%varclient_1198 = 1) {
+    if_setsize(16384, calc(if_getheight(rand_dungeon_rewards_v2:com_265) - 1), ^setsize_rel, ^setsize_abs, rand_dungeon_rewards_v2:com_265);
+}

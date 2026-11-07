@@ -1,3 +1,0 @@
-[proc,clientscript_476]
-if_setsize(if_getwidth(conq_rewards:com386), calc(paraheight(if_gettext(conq_rewards:com387), calc(if_getwidth(conq_rewards:com386) - 10), p11_full) * 10 + 10), ^setsize_abs, ^setsize_abs, conq_rewards:com386);
-if_sethide(true, conq_rewards:com386);

@@ -1,3 +1,4 @@
+// 3405
 [clientscript,lobbyscreen_chat_handler](component $component0, component $component1, component $component2)
 def_int $int3 = 0;
 def_int $int4 = 0;
@@ -6,15 +7,15 @@ $int3, $int4, $int5 = ~lobbyscreen_chat_count;
 ~lobbyscreen_pane_friendslist_chat_build($component0);
 ~lobbyscreen_pane_clanchat_chat_build($component1);
 ~lobbyscreen_pane_friendschat_chat_build($component2);
-if (if_gethide(lobbyscreen:com176) = true & $int3 > %varc_int_1275) {
-    if_setontimer("lobbyscreen_chat_notify(clientclock, lobbyscreen:com176, ^event_com)", lobbyscreen:com190);
+if (if_gethide(lobbyscreen:com_176) = true & $int3 > %varclient_1275) {
+    if_setontimer("lobbyscreen_chat_notify(clientclock, lobbyscreen:com_176, event_com)", lobbyscreen:com_190);
 }
-if (if_gethide(lobbyscreen:com178) = true & $int4 > %varc_int_1276) {
-    if_setontimer("lobbyscreen_chat_notify(clientclock, lobbyscreen:com178, ^event_com)", lobbyscreen:com192);
+if (if_gethide(lobbyscreen:com_178) = true & $int4 > %varclient_1276) {
+    if_setontimer("lobbyscreen_chat_notify(clientclock, lobbyscreen:com_178, event_com)", lobbyscreen:com_192);
 }
-if (if_gethide(lobbyscreen:com177) = true & $int5 > %varc_int_1510) {
-    if_setontimer("lobbyscreen_chat_notify(clientclock, lobbyscreen:com177, ^event_com)", lobbyscreen:com191);
+if (if_gethide(lobbyscreen:com_177) = true & $int5 > %varclient_1510) {
+    if_setontimer("lobbyscreen_chat_notify(clientclock, lobbyscreen:com_177, event_com)", lobbyscreen:com_191);
 }
-%varc_int_1275 = $int3;
-%varc_int_1276 = $int4;
-%varc_int_1510 = $int5;
+%varclient_1275 = $int3;
+%varclient_1276 = $int4;
+%varclient_1510 = $int5;

@@ -1,0 +1,6 @@
+// 4215
+[clientscript,script4215]
+if (if_find(interface_1071:com_0) = true) {
+    cc_setplayermodel_self;
+    cc_setmodelanim(seq_41);
+}

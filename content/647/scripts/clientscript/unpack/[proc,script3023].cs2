@@ -1,0 +1,21 @@
+// 3023
+[proc,script3023]
+if_setsize(calc(if_getx(lobbyscreen_pane_friendslist:com_31) - if_getx(lobbyscreen_pane_friendslist:com_30)), 0, ^setsize_abs, ^setsize_minus, lobbyscreen_pane_friendslist:com_45);
+if_setsize(calc(if_getwidth(lobbyscreen_pane_friendslist:com_41) - if_getwidth(lobbyscreen_pane_friendslist:com_45) - 2), 0, ^setsize_abs, ^setsize_minus, lobbyscreen_pane_friendslist:com_46);
+if_setscrollsize(0, 0, lobbyscreen_pane_friendslist:com_41);
+if_setscrollpos(0, 0, lobbyscreen_pane_friendslist:com_41);
+~scrollbar_vertical(lobbyscreen_pane_friendslist:com_47, lobbyscreen_pane_friendslist:com_41, "scrollbar_dragger_v2,3", "scrollbar_dragger_v2,0", "scrollbar_dragger_v2,1", "scrollbar_dragger_v2,2", "scrollbar_v2,0", "scrollbar_v2,1");
+if_setscrollsize(0, 0, lobbyscreen_pane_friendslist:com_78);
+if_setscrollpos(0, 0, lobbyscreen_pane_friendslist:com_78);
+~scrollbar_vertical(lobbyscreen_pane_friendslist:com_79, lobbyscreen_pane_friendslist:com_78, "scrollbar_dragger_v2,3", "scrollbar_dragger_v2,0", "scrollbar_dragger_v2,1", "scrollbar_dragger_v2,2", "scrollbar_v2,0", "scrollbar_v2,1");
+if_setscrollsize(0, 0, lobbyscreen_pane_friendslist:com_52);
+if_setscrollpos(0, 0, lobbyscreen_pane_friendslist:com_52);
+~scrollbar_vertical(lobbyscreen_pane_friendslist:com_53, lobbyscreen_pane_friendslist:com_52, "scrollbar_dragger_v2,3", "scrollbar_dragger_v2,0", "scrollbar_dragger_v2,1", "scrollbar_dragger_v2,2", "scrollbar_v2,0", "scrollbar_v2,1");
+%varclient_1122 = if_getheight(lobbyscreen_pane_friendslist:com_52);
+~script3029(lobbyscreen_pane_friendslist:com_45, lobbyscreen_pane_friendslist:com_44, lobbyscreen_pane_friendslist:com_46, lobbyscreen_pane_friendslist:com_42, lobbyscreen_pane_friendslist:com_41, lobbyscreen_pane_friendslist:com_47);
+if_setonfriendtransmit("script3028(lobbyscreen_pane_friendslist:com_45, lobbyscreen_pane_friendslist:com_44, lobbyscreen_pane_friendslist:com_46, lobbyscreen_pane_friendslist:com_42, lobbyscreen_pane_friendslist:com_41, lobbyscreen_pane_friendslist:com_47)", lobbyscreen_pane_friendslist:com_41);
+~script3041(lobbyscreen_pane_friendslist:com_87, lobbyscreen_pane_friendslist:com_86, lobbyscreen_pane_friendslist:com_84, lobbyscreen_pane_friendslist:com_78, lobbyscreen_pane_friendslist:com_79);
+if_setonfriendtransmit("script3040(lobbyscreen_pane_friendslist:com_87, lobbyscreen_pane_friendslist:com_86, lobbyscreen_pane_friendslist:com_84, lobbyscreen_pane_friendslist:com_78, lobbyscreen_pane_friendslist:com_79)", lobbyscreen_pane_friendslist:com_78);
+~brown_cursebearer(lobbyscreen_pane_friendslist:com_56);
+%varclient_1795 = "";
+~lobbyscreen_pane_friendslist_chatbox_resize_load;

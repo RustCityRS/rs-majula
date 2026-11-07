@@ -1,0 +1,12 @@
+// 2860
+[proc,script2860]
+if (%varclient_1074 = 0) {
+    %varclient_1073 = calc(%varclient_1073 + 25);
+    if (%varclient_1073 > %varclient_1069) {
+        %varclient_1073 = %varclient_1069;
+    }
+} else if (%varclient_1074 = 1) {
+    %varclient_1072 = movecoord(%varclient_1072, 0, 0, 1);
+} else {
+    cam_inc_x;
+}

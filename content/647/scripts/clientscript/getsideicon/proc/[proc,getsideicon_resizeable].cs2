@@ -1,41 +1,41 @@
-[proc,getsideicon_resizeable](int $int)(component)
-switch_int ($int) {
-    case 0:
-        return(toplevel_fullscreen:com21);
-    case 1:
-        return(toplevel_fullscreen:com128);
-    case 2:
-        return(toplevel_fullscreen:com22);
-    case 3:
-        return(toplevel_fullscreen:com23);
-    case 4:
-        return(toplevel_fullscreen:com24);
-    case 5:
-        return(toplevel_fullscreen:com25);
-    case 6:
-        return(toplevel_fullscreen:com26);
-    case 7:
-        return(toplevel_fullscreen:com27);
-    case 8:
-        return(toplevel_fullscreen:com28);
-    case 9:
-        return(toplevel_fullscreen:com29);
-    case 10:
-        return(toplevel_fullscreen:com30);
-    case 11:
-        return(toplevel_fullscreen:com31);
-    case 12:
-        return(toplevel_fullscreen:com32);
-    case 13:
-        return(toplevel_fullscreen:com33);
-    case 14:
-        return(toplevel_fullscreen:com34);
-    case 15:
-        return(toplevel_fullscreen:com35);
-    case 95:
-        return(summoning_orb:com8);
-    case 99:
-        return(toplevel_fullscreen:com173);
+// 1742
+[proc,getsideicon_resizeable](int $int0)(component)
+switch_int ($int0) {
+    case 0 :
+        return(toplevel_fullscreen:com_21);
+    case 1 :
+        return(toplevel_fullscreen:com_128);
+    case 2 :
+        return(toplevel_fullscreen:com_22);
+    case 3 :
+        return(toplevel_fullscreen:com_23);
+    case 4 :
+        return(toplevel_fullscreen:com_24);
+    case 5 :
+        return(toplevel_fullscreen:com_25);
+    case 6 :
+        return(toplevel_fullscreen:com_26);
+    case 7 :
+        return(toplevel_fullscreen:com_27);
+    case 8 :
+        return(toplevel_fullscreen:com_28);
+    case 9 :
+        return(toplevel_fullscreen:com_29);
+    case 10 :
+        return(toplevel_fullscreen:com_30);
+    case 11 :
+        return(toplevel_fullscreen:com_31);
+    case 12 :
+        return(toplevel_fullscreen:com_32);
+    case 13 :
+        return(toplevel_fullscreen:com_33);
+    case 14 :
+        return(toplevel_fullscreen:com_34);
+    case 15 :
+        return(toplevel_fullscreen:com_35);
+    case 95 :
+        return(summoning_orb:com_8);
+    case 99 :
+        return(toplevel_fullscreen:com_173);
 }
-return(null);
 return(null);

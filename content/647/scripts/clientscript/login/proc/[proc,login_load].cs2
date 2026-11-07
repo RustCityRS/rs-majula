@@ -1,14 +1,15 @@
+// 2937
 [proc,login_load]
-%varc_int_1089 = -1;
-if_setgraphic("corner_frame_1,3", login:com32);
-if_setgraphic("corner_frame_1,3", login:com31);
-if_setgraphic("corner_frame_1,2", login:com29);
-if_setgraphic("corner_frame_1,2", login:com30);
-if_setgraphic("corner_frame_1,2", login:com17);
-if_setvflip(true, login:com17);
-if_sethflip(true, login:com17);
-if_setgraphic("corner_frame_1,2", login:com21);
-if_setvflip(true, login:com21);
-if_sethflip(false, login:com21);
-if_setgraphic("corner_frame_1,2", login:com18);
-if_setgraphic("corner_frame_1,2", login:com22);
+%varclient_1089 = -1;
+if_setgraphic("corner_frame_1,3", login:com_32);
+if_setgraphic("corner_frame_1,3", login:com_31);
+if_setgraphic("corner_frame_1,2", login:com_29);
+if_setgraphic("corner_frame_1,2", login:com_30);
+if_setgraphic("corner_frame_1,2", login:com_17);
+if_setvflip(true, login:com_17);
+if_sethflip(true, login:com_17);
+if_setgraphic("corner_frame_1,2", login:com_21);
+if_setvflip(true, login:com_21);
+if_sethflip(false, login:com_21);
+if_setgraphic("corner_frame_1,2", login:com_18);
+if_setgraphic("corner_frame_1,2", login:com_22);

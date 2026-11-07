@@ -1,12 +1,13 @@
-[proc,deathkeep_select_dropdown](int $int)
-if ($int = true) {
-    if_sethide(false, deathkeep_select:com42);
-    if_setonmouseover(null, deathkeep_select:com29);
-    if_setonmouseleave(null, deathkeep_select:com29);
+// 746
+[proc,deathkeep_select_dropdown](boolean $boolean0)
+if ($boolean0 = true) {
+    if_sethide(false, deathkeep_select:com_42);
+    if_setonmouseover(null, deathkeep_select:com_29);
+    if_setonmouseleave(null, deathkeep_select:com_29);
 } else {
-    if_sethide(true, deathkeep_select:com42);
-    if_setonmouseover("deathkeep_select_mouseeffect(true)", deathkeep_select:com29);
-    if_setonmouseleave("deathkeep_select_mouseeffect(false)", deathkeep_select:com29);
+    if_sethide(true, deathkeep_select:com_42);
+    if_setonmouseover("deathkeep_select_mouseeffect(true)", deathkeep_select:com_29);
+    if_setonmouseleave("deathkeep_select_mouseeffect(false)", deathkeep_select:com_29);
 }
-~deathkeep_select_mouseeffect(0);
-~deltooltip_action(deathkeep_select:com41);
+~deathkeep_select_mouseeffect(false);
+~deltooltip_action(deathkeep_select:com_41);

@@ -1,0 +1,8 @@
+// 1611
+[proc,script1611]()(int)
+def_int $int0 = 0;
+$int0 = calc(%varplayerbit_4003 + %varplayerbit_4007 + %varplayerbit_4008 + %varplayerbit_4009 + %varplayerbit_4010 + %varplayerbit_4011 + %varplayerbit_4013 + %varplayerbit_4014 + %varplayerbit_4015 + %varplayerbit_4016 + %varplayerbit_4017 + %varplayerbit_4018 + %varplayerbit_4019 + %varplayerbit_4020 + %varplayerbit_4021 + %varplayerbit_4022 + %varplayerbit_4023 + %varplayerbit_4024 + %varplayerbit_4025 + %varplayerbit_4026);
+if (%varplayerbit_4012 = 4) {
+    $int0 = calc($int0 + 1);
+}
+return($int0);

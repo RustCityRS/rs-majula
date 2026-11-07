@@ -1,18 +1,19 @@
-[clientscript,mourning_mirror](component $component)
-if_sethide(false, "well of voyage_shift_click:com1");
-switch_int (%varc_int_180) {
-    case 1:
-        if_setmodelangle(0, 0, 510, 762, 0, 410, $component);
-    case 2:
-        if_setmodelangle(0, 0, 514, 1241, 0, 410, $component);
-    case 3:
-        if_setmodelangle(0, 0, 512, 1536, 1250, 410, $component);
-    case 4:
-        if_setmodelangle(0, 0, 512, 0, 1250, 410, $component);
-    case 5:
-        if_setmodelangle(0, 0, 512, 512, 1250, 410, $component);
-    case 6:
-        if_setmodelangle(0, 0, 512, 1024, 1250, 410, $component);
-    case default:
-        if_sethide(true, "well of voyage_shift_click:com1");
+// 1235
+[clientscript,mourning_mirror](component $component0)
+if_sethide(false, well_of_voyage_shift_click:com_1);
+switch_int (%varclient_180) {
+    case 1 :
+        if_setmodelangle(0, 0, 510, 762, 0, 410, $component0);
+    case 2 :
+        if_setmodelangle(0, 0, 514, 1241, 0, 410, $component0);
+    case 3 :
+        if_setmodelangle(0, 0, 512, 1536, 1250, 410, $component0);
+    case 4 :
+        if_setmodelangle(0, 0, 512, 0, 1250, 410, $component0);
+    case 5 :
+        if_setmodelangle(0, 0, 512, 512, 1250, 410, $component0);
+    case 6 :
+        if_setmodelangle(0, 0, 512, 1024, 1250, 410, $component0);
+    case default :
+        if_sethide(true, well_of_voyage_shift_click:com_1);
 }

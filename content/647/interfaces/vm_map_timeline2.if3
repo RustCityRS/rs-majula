@@ -1,0 +1,585 @@
+// 82:0
+[com_0]
+type=layer
+width=16391
+height=16391
+widthmode=proportion
+heightmode=proportion
+xmode=abs_centre
+ymode=abs_centre
+transmitop=10
+op10= 
+
+// 82:1
+[com_1]
+type=layer
+width=16391
+height=16391
+widthmode=proportion
+heightmode=proportion
+xmode=abs_centre
+ymode=abs_centre
+layer=com_0
+transmitop=10
+op10= 
+
+// 82:2
+[com_2]
+type=layer
+width=8192
+height=16391
+widthmode=proportion
+heightmode=proportion
+xmode=abs_right
+ymode=abs_centre
+layer=com_1
+transmitop=10
+op10= 
+
+// 82:3
+[com_3]
+type=layer
+width=8188
+height=16391
+widthmode=proportion
+heightmode=proportion
+ymode=abs_centre
+layer=com_1
+transmitop=10
+op10= 
+
+// 82:4
+[com_4]
+type=layer
+width=16391
+height=8192
+widthmode=proportion
+heightmode=proportion
+xmode=abs_centre
+layer=com_1
+transmitop=10
+op10= 
+
+// 82:5
+[com_5]
+type=layer
+width=16391
+height=8182
+widthmode=proportion
+heightmode=proportion
+xmode=abs_centre
+ymode=abs_bottom
+layer=com_1
+transmitop=10
+op10= 
+
+// 82:6
+[com_6]
+type=layer
+width=512
+height=334
+xmode=abs_centre
+ymode=abs_centre
+layer=com_1
+transmitop=10
+op10= 
+
+// 82:7
+[com_7]
+type=graphic
+width=16391
+height=166
+widthmode=proportion
+heightmode=minus
+xmode=abs_centre
+ymode=abs_bottom
+layer=com_5
+graphic=tradebacking
+tiling=yes
+outline=2
+colour=0xffffffff
+transmitop=10
+op10= 
+
+// 82:8
+[com_8]
+type=graphic
+width=16391
+height=167
+widthmode=proportion
+heightmode=minus
+xmode=abs_centre
+layer=com_4
+graphic=tradebacking
+tiling=yes
+outline=2
+colour=0xffffffff
+transmitop=10
+op10= 
+
+// 82:9
+[com_9]
+type=graphic
+width=256
+height=16384
+widthmode=minus
+heightmode=proportion
+ymode=abs_centre
+layer=com_3
+graphic=tradebacking
+tiling=yes
+outline=2
+colour=0xffffffff
+transmitop=10
+op10= 
+
+// 82:10
+[com_10]
+type=graphic
+width=256
+height=16391
+widthmode=minus
+heightmode=proportion
+xmode=abs_right
+ymode=abs_centre
+layer=com_2
+graphic=tradebacking
+tiling=yes
+outline=2
+colour=0xffffffff
+transmitop=10
+op10= 
+
+// 82:11
+[com_11]
+type=layer
+width=512
+height=334
+
+// 82:12
+[com_12]
+type=model
+x=-18
+y=-133
+width=550
+height=537
+layer=com_11
+model=model_25513
+modelorigin=0,-2
+modelzoom=655
+transmitop=10
+op10= 
+
+// 82:13
+[com_13]
+type=graphic
+x=478
+y=8
+width=26
+height=23
+layer=com_11
+graphic="close_buttons,2"
+colour=0xffffffff
+transmitop=1,10
+op1=Close
+op10= 
+onmouseover=graphic_swapper(event_com, "close_buttons,3")
+onmouseleave=graphic_swapper(event_com, "close_buttons,2")
+onop=closebutton_click
+
+// 82:14
+[com_14]
+type=layer
+width=512
+height=334
+layer=com_11
+transmitop=10
+op10= 
+
+// 82:15
+[com_15]
+type=model
+x=100
+y=6
+width=338
+height=325
+layer=com_14
+model=model_25519
+modelorigin=5,0
+modelzoom=655
+transmitop=10
+op10= 
+
+// 82:16
+[com_16]
+type=model
+x=362
+y=48
+width=35
+height=44
+layer=com_14
+model=model_25514
+modelorigin=0,-1
+modelangle=79,1803,0
+modelzoom=2660
+transmitop=10
+op10= 
+onmouseleave=deltooltip(vm_map_timeline2:com_38)
+onmouserepeat=addtooltip(event_com, vm_map_timeline2:com_38, "5th Age yr 136", 25, 180)
+
+// 82:17
+[com_17]
+type=model
+x=214
+y=170
+width=35
+height=44
+layer=com_14
+model=model_25514
+modelorigin=0,-1
+modelangle=79,1803,0
+modelzoom=2660
+transmitop=10
+op10= 
+onmouseleave=deltooltip(vm_map_timeline2:com_38)
+onmouserepeat=addtooltip(event_com, vm_map_timeline2:com_38, "5th Age yr 70", 25, 180)
+
+// 82:18
+[com_18]
+type=model
+x=292
+y=48
+width=35
+height=44
+layer=com_14
+model=model_25514
+modelorigin=0,-1
+modelangle=79,1803,0
+modelzoom=2660
+transmitop=10
+op10= 
+onmouseleave=deltooltip(vm_map_timeline2:com_38)
+onmouserepeat=addtooltip(event_com, vm_map_timeline2:com_38, "5th Age yr 132", 25, 180)
+
+// 82:19
+[com_19]
+type=model
+x=364
+y=170
+width=35
+height=44
+layer=com_14
+model=model_25514
+modelorigin=0,-1
+modelangle=80,1807,0
+modelzoom=2660
+transmitop=10
+op10= 
+onmouseleave=deltooltip(vm_map_timeline2:com_38)
+onmouserepeat=addtooltip(event_com, vm_map_timeline2:com_38, "5th Age yr 154", 25, 180)
+
+// 82:20
+[com_20]
+type=model
+x=215
+y=236
+width=35
+height=44
+layer=com_14
+model=model_25514
+modelorigin=0,-1
+modelangle=80,1807,0
+modelzoom=2660
+transmitop=10
+op10= 
+onmouseleave=deltooltip(vm_map_timeline2:com_38)
+onmouserepeat=addtooltip(event_com, vm_map_timeline2:com_38, "5th Age yr 169", 25, 180)
+
+// 82:21
+[com_21]
+type=model
+x=290
+y=236
+width=35
+height=44
+layer=com_14
+model=model_25514
+modelorigin=0,-1
+modelangle=80,1807,0
+modelzoom=2660
+transmitop=10
+op10= 
+onmouseleave=deltooltip(vm_map_timeline2:com_38)
+onmouserepeat=addtooltip(event_com, vm_map_timeline2:com_38, "5th Age yr 169", 25, 180)
+
+// 82:22
+[com_22]
+type=model
+x=362
+y=107
+width=35
+height=44
+layer=com_14
+model=model_25514
+modelorigin=0,-1
+modelangle=80,1807,0
+modelzoom=2660
+transmitop=10
+op10= 
+onmouseleave=deltooltip(vm_map_timeline2:com_38)
+onmouserepeat=addtooltip(event_com, vm_map_timeline2:com_38, "5th Age yr 143", 25, 180)
+
+// 82:23
+[com_23]
+type=model
+x=363
+y=236
+width=35
+height=44
+layer=com_14
+model=model_25514
+modelorigin=0,-1
+modelangle=80,1807,0
+modelzoom=2660
+transmitop=10
+op10= 
+onmouseleave=deltooltip(vm_map_timeline2:com_38)
+onmouserepeat=addtooltip(event_com, vm_map_timeline2:com_38, "5th Age yr 162-163", 25, 180)
+
+// 82:24
+[com_24]
+type=model
+x=257
+y=152
+width=94
+height=42
+layer=com_14
+model=model_25515
+modelorigin=3,-4
+modelangle=80,1807,0
+modelzoom=2148
+transmitop=10
+op10= 
+onmouseleave=deltooltip(vm_map_timeline2:com_38)
+onmouserepeat=addtooltip(event_com, vm_map_timeline2:com_38, "5th Age yr 20", 25, 180)
+
+// 82:25
+[com_25]
+type=model
+x=5671
+y=1037
+width=1031
+height=2459
+widthmode=proportion
+heightmode=proportion
+xmode=proportion_left
+ymode=proportion_top
+layer=com_14
+model=model_25520
+modelorigin=0,24
+modelangle=15,1915,0
+modelzoom=1636
+modelobjwidth=32
+modelobjheight=50
+transmitop=10
+op10= 
+onmouseleave=deltooltip(vm_map_timeline2:com_38)
+onmouserepeat=addtooltip(event_com, vm_map_timeline2:com_38, "5th Age yr 98", 25, 180)
+
+// 82:26
+[com_26]
+type=model
+x=215
+y=105
+width=35
+height=44
+layer=com_14
+model=model_25514
+modelorigin=0,-1
+modelangle=80,1807,0
+modelzoom=2660
+transmitop=10
+op10= 
+onmouseleave=deltooltip(vm_map_timeline2:com_38)
+onmouserepeat=addtooltip(event_com, vm_map_timeline2:com_38, "5th Age yr 70", 25, 180)
+
+// 82:27
+[com_27]
+type=model
+x=215
+y=48
+width=35
+height=44
+layer=com_14
+model=model_25514
+modelorigin=0,-1
+modelangle=80,1807,0
+modelzoom=2660
+transmitop=10
+op10=  
+onmouseleave=deltooltip(vm_map_timeline2:com_38)
+onmouserepeat=addtooltip(event_com, vm_map_timeline2:com_38, "5th Age yr 150", 25, 180)
+
+// 82:28
+[com_28]
+type=text
+x=5
+width=89
+height=32
+ymode=abs_bottom
+layer=com_14
+textfont=b12_full
+text=Level down
+textalignv=bottom
+textshadow=yes
+colour=0xbf751d
+transmitop=1,10
+op1=Stairs to Timeline exhibit
+op10= 
+onmouseover=text_colour_swapper(event_com, 0xe1981f)
+onmouseleave=text_colour_swapper(event_com, 0xbf751d)
+
+// 82:29
+[com_29]
+type=text
+x=93
+y=209
+width=98
+height=77
+layer=com_14
+textfont=b12_full
+text=Stairs to<br>Timeline<br>exhibit
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xbf751d
+transmitop=1,10
+op1=Stairs to Timeline exhibit
+op10= 
+onmouseover=text_colour_swapper(event_com, 0xe1981f)
+onmouseleave=text_colour_swapper(event_com, 0xbf751d)
+
+// 82:30
+[com_30]
+type=graphic
+x=-260
+width=32
+height=334
+xmode=abs_centre
+ymode=abs_centre
+graphic="v2_stone_borders,1"
+tiling=yes
+colour=0xffffffff
+transmitop=10
+op10= 
+
+// 82:31
+[com_31]
+type=graphic
+y=-171
+width=462
+height=32
+xmode=abs_centre
+ymode=abs_centre
+graphic="v2_stone_borders,0"
+tiling=yes
+colour=0xffffffff
+transmitop=10
+op10= 
+
+// 82:32
+[com_32]
+type=graphic
+y=170
+width=512
+height=32
+xmode=abs_centre
+ymode=abs_centre
+graphic="v2_stone_borders,2"
+tiling=yes
+colour=0xffffffff
+transmitop=10
+op10= 
+
+// 82:33
+[com_33]
+type=graphic
+x=259
+width=32
+height=334
+xmode=abs_centre
+ymode=abs_centre
+graphic="v2_stone_borders,3"
+tiling=yes
+colour=0xffffffff
+transmitop=10
+op10= 
+
+// 82:34
+[com_34]
+type=graphic
+x=-247
+y=-158
+width=32
+height=32
+xmode=abs_centre
+ymode=abs_centre
+graphic="v2_stone_borders,4"
+tiling=yes
+colour=0xffffffff
+transmitop=10
+op10= 
+
+// 82:35
+[com_35]
+type=graphic
+x=247
+y=-158
+width=32
+height=32
+xmode=abs_centre
+ymode=abs_centre
+graphic="v2_stone_borders,5"
+tiling=yes
+colour=0xffffffff
+transmitop=10
+op10= 
+
+// 82:36
+[com_36]
+type=graphic
+x=247
+y=158
+width=32
+height=32
+xmode=abs_centre
+ymode=abs_centre
+graphic="v2_stone_borders,7"
+tiling=yes
+colour=0xffffffff
+transmitop=10
+op10= 
+
+// 82:37
+[com_37]
+type=graphic
+x=-247
+y=158
+width=32
+height=32
+xmode=abs_centre
+ymode=abs_centre
+graphic="v2_stone_borders,6"
+tiling=yes
+colour=0xffffffff
+transmitop=10
+op10= 
+
+// 82:38
+[com_38]
+type=layer
+x=157
+y=103
+width=167
+height=125
+layer=com_11

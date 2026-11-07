@@ -1,0 +1,41 @@
+// 1020:0
+[com_0]
+type=text
+y=4
+width=490
+height=17
+xmode=abs_centre
+textfont=tutorial_font
+textalignh=centre
+textalignv=centre
+colour=0x000000
+
+// 1020:1
+[com_1]
+type=text
+y=21
+width=490
+height=87
+xmode=abs_centre
+textfont=tutorial_font
+textalignh=centre
+textalignv=centre
+colour=0x000000
+
+// 1020:2
+[com_2]
+type=text
+y=108
+width=490
+height=17
+xmode=abs_centre
+textfont=tutorial_font
+text=Click here to continue
+textalignh=centre
+textalignv=centre
+colour=0x0000ff
+transmitop=1,10
+op1=Continue
+op10= 
+onmouseover=text_colour_swapper(event_com, ^white)
+onmouseleave=text_colour_swapper(event_com, ^blue)

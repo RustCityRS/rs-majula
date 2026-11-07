@@ -1,45 +1,46 @@
-[proc,graphics_options_detailget](struct $struct)(int)
-switch_struct ($struct) {
-    case struct_830:
-        if (get_clientopt_6102 = true | get_clientopt_6131 ! 0) {
-            return(~bool_to_int(get_clientopt_6103));
+// 2581
+[proc,graphics_options_detailget](struct $struct0)(int)
+switch_struct ($struct0) {
+    case struct_830 :
+        if (unknown_command_6102 = true | detailget_toolkit ! 0) {
+            return(~bool_to_int(detailget_removeroofs_option));
         }
         return(-1);
-    case struct_831:
-        return(~bool_to_int(get_clientopt_6105));
-    case struct_833:
-        return(get_clientopt_6129);
-    case struct_834:
-        return(~bool_to_int(get_clientopt_6108));
-    case struct_836:
-        return(~bool_to_int(get_clientopt_6110));
-    case struct_837:
-        return(get_clientopt_6111);
-    case struct_838:
-        return(~bool_to_int(get_clientopt_6112));
-    case struct_839:
-        return(~bool_to_int(get_clientopt_6114));
-    case struct_840:
-        return(~bool_to_int(get_clientopt_6115));
-    case struct_841:
-        return(get_clientopt_6116);
-    case struct_842:
-        return(get_clientopt_6123);
-    case struct_843:
-        return(~bool_to_int(get_clientopt_6130));
-    case struct_844:
-        if (get_clientopt_6133 = true) {
-            return(~bool_to_int(%varc_int_987));
+    case struct_831 :
+        return(~bool_to_int(detailget_grounddecor_on));
+    case struct_833 :
+        return(detailget_idleanims);
+    case struct_834 :
+        return(~bool_to_int(detailget_flickering_on));
+    case struct_836 :
+        return(~bool_to_int(unknown_command_6110));
+    case struct_837 :
+        return(unknown_command_6111);
+    case struct_838 :
+        return(~bool_to_int(detailget_lightdetail_high));
+    case struct_839 :
+        return(~bool_to_int(detailget_waterdetail_high));
+    case struct_840 :
+        return(~bool_to_int(detailget_fog_on));
+    case struct_841 :
+        return(detailget_antialiasing);
+    case struct_842 :
+        return(detailget_particles);
+    case struct_843 :
+        return(~bool_to_int(detailget_groundblending));
+    case struct_844 :
+        if (unknown_command_6133 = true) {
+            return(~bool_to_int(%varclient_987));
         }
         return(-1);
-    case struct_845:
-        return(%varc_int_178);
-    case struct_908:
-        return(get_clientopt_6135);
-    case struct_963:
-        return(~bool_to_int(get_clientopt_6136));
-    case struct_1009:
-        return(get_clientopt_6139);
-    case default:
+    case struct_845 :
+        return(%varclient_178);
+    case struct_908 :
+        return(detailget_cpuusage);
+    case struct_963 :
+        return(~bool_to_int(detailget_texturing));
+    case struct_1009 :
+        return(detailget_maxscreensize);
+    case default :
         return(-2);
 }

@@ -1,5 +1,0 @@
-[proc,clientscript_3368](int $int)
-if_settext("<op4124($int, 1)>xp", toplevel:com25);
-if_settext("<op4124($int, 1)>xp", toplevel_fullscreen:com186);
-if_setontimer("clientscript_3369(toplevel:com21, clientclock)", toplevel:com21);
-if_setontimer("clientscript_3370(toplevel_fullscreen:com181, clientclock)", toplevel_fullscreen:com181);

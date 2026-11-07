@@ -1,5 +1,0 @@
-[proc,lobbyscreen_report_abuse_button_load](component $component0, component $component1)
-if_setsize(op4125(if_gettext($component1), 2710), 0, ^setsize_abs, ^setsize_minus, $component1);
-if_setposition(40, 0, ^setpos_abs_right, ^setpos_abs_centre, $component1);
-if_setsize(38, 31, ^setsize_abs, ^setsize_abs, $component0);
-if_sethide(false, $component0);

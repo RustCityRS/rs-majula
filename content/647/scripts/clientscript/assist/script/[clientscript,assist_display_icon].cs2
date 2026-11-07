@@ -1,10 +1,11 @@
+// 527
 [clientscript,assist_display_icon]
-~assist_set_icon(%varbit_4090, "staticons2,0", "staticons2_off,0", assister_interface:com63, assister_interface:com14);
-~assist_set_icon(%varbit_4091, "staticons,10", "staticons_off,10", assister_interface:com64, assister_interface:com16);
-~assist_set_icon(%varbit_4093, "staticons,11", "staticons_off,11", assister_interface:com65, assister_interface:com18);
-~assist_set_icon(%varbit_4095, "staticons2,6", "staticons2_off,6", assister_interface:com66, assister_interface:com20);
-~assist_set_icon(%varbit_4096, "staticons2,2", "staticons2_off,2", assister_interface:com67, assister_interface:com22);
-~assist_set_icon(%varbit_4098, "staticons,5", "staticons_off,5", assister_interface:com68, assister_interface:com24);
-~assist_set_icon(%varbit_4100, "staticons,13", "staticons_off,13", assister_interface:com69, assister_interface:com26);
-~assist_set_icon(%varbit_4101, "staticons,15", "staticons_off,15", assister_interface:com70, assister_interface:com28);
-~assist_set_icon(%varbit_4102, "staticons,8", "staticons_off,8", assister_interface:com71, assister_interface:com30);
+~assist_set_icon(%varplayerbit_4090, "staticons2,0", "staticons2_off,0", assister_interface:com_63, assister_interface:com_14);
+~assist_set_icon(%varplayerbit_4091, "staticons,10", "staticons_off,10", assister_interface:com_64, assister_interface:com_16);
+~assist_set_icon(%varplayerbit_4093, "staticons,11", "staticons_off,11", assister_interface:com_65, assister_interface:com_18);
+~assist_set_icon(%varplayerbit_4095, "staticons2,6", "staticons2_off,6", assister_interface:com_66, assister_interface:com_20);
+~assist_set_icon(%varplayerbit_4096, "staticons2,2", "staticons2_off,2", assister_interface:com_67, assister_interface:com_22);
+~assist_set_icon(%varplayerbit_4098, "staticons,5", "staticons_off,5", assister_interface:com_68, assister_interface:com_24);
+~assist_set_icon(%varplayerbit_4100, "staticons,13", "staticons_off,13", assister_interface:com_69, assister_interface:com_26);
+~assist_set_icon(%varplayerbit_4101, "staticons,15", "staticons_off,15", assister_interface:com_70, assister_interface:com_28);
+~assist_set_icon(%varplayerbit_4102, "staticons,8", "staticons_off,8", assister_interface:com_71, assister_interface:com_30);

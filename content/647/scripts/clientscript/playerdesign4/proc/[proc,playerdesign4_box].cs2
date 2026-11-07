@@ -1,4 +1,5 @@
-[proc,playerdesign4_box](component $component0, int $int1, enum $enum2, graphic $graphic3, boolean $boolean4, int $int5, int $int6, int $int7, int $int8, string $string0, string $string1)
+// 363
+[proc,playerdesign4_box](component $component0, int $int1, enum $enum2, graphic $graphic3, boolean $boolean4, int $int5, int $int6, int $int7, string $string0, int $int8, string $string1)
 cc_deleteall($component0);
 if ($graphic3 = null & string_length($string0) <= 0) {
     if_sethide(true, $component0);
@@ -8,50 +9,50 @@ if ($graphic3 = null & string_length($string0) <= 0) {
 if_sethide(false, $component0);
 def_int $int9 = if_getheight($component0);
 def_int $int10 = calc($int9 - 10);
-cc_create($component0, ^iftype_graphic, if_getchildcount($component0));
+cc_create($component0, ^iftype_graphic, if_getnextsubid($component0));
 cc_setsize(10, $int10, ^setsize_minus, ^setsize_abs);
 cc_setposition(0, 5, ^setpos_abs_centre, ^setpos_abs_top);
 cc_settiling(true);
-cc_setgraphic(3413);
-cc_create($component0, ^iftype_graphic, if_getchildcount($component0));
+cc_setgraphic(graphic_3413);
+cc_create($component0, ^iftype_graphic, if_getnextsubid($component0));
 cc_setsize(10, 14, ^setsize_minus, ^setsize_abs);
 cc_setposition(0, 0, ^setpos_abs_centre, ^setpos_abs_top);
 cc_settiling(true);
-cc_setgraphic(3412);
-cc_create($component0, ^iftype_graphic, if_getchildcount($component0));
+cc_setgraphic(graphic_3412);
+cc_create($component0, ^iftype_graphic, if_getnextsubid($component0));
 cc_setsize(10, 14, ^setsize_minus, ^setsize_abs);
 cc_setposition(0, calc($int9 - cc_getheight), ^setpos_abs_centre, ^setpos_abs_top);
 cc_settiling(true);
-cc_setgraphic(3411);
-cc_create($component0, ^iftype_graphic, if_getchildcount($component0));
+cc_setgraphic(graphic_3411);
+cc_create($component0, ^iftype_graphic, if_getnextsubid($component0));
 cc_setsize(14, $int10, ^setsize_abs, ^setsize_abs);
 cc_setposition(0, 5, ^setpos_abs_left, ^setpos_abs_top);
 cc_settiling(true);
-cc_setgraphic(3409);
-cc_create($component0, ^iftype_graphic, if_getchildcount($component0));
+cc_setgraphic(graphic_3409);
+cc_create($component0, ^iftype_graphic, if_getnextsubid($component0));
 cc_setsize(14, $int10, ^setsize_abs, ^setsize_abs);
 cc_setposition(0, 5, ^setpos_abs_right, ^setpos_abs_top);
 cc_settiling(true);
-cc_setgraphic(3410);
-cc_create($component0, ^iftype_graphic, if_getchildcount($component0));
+cc_setgraphic(graphic_3410);
+cc_create($component0, ^iftype_graphic, if_getnextsubid($component0));
 cc_setsize(14, 14, ^setsize_abs, ^setsize_abs);
 cc_setposition(0, 0, ^setpos_abs_left, ^setpos_abs_top);
-cc_setgraphic(3405);
-cc_create($component0, ^iftype_graphic, if_getchildcount($component0));
+cc_setgraphic(graphic_3405);
+cc_create($component0, ^iftype_graphic, if_getnextsubid($component0));
 cc_setsize(14, 14, ^setsize_abs, ^setsize_abs);
 cc_setposition(0, 0, ^setpos_abs_right, ^setpos_abs_top);
-cc_setgraphic(3406);
-cc_create($component0, ^iftype_graphic, if_getchildcount($component0));
+cc_setgraphic(graphic_3406);
+cc_create($component0, ^iftype_graphic, if_getnextsubid($component0));
 cc_setsize(14, 14, ^setsize_abs, ^setsize_abs);
 cc_setposition(0, calc($int9 - cc_getheight), ^setpos_abs_left, ^setpos_abs_top);
-cc_setgraphic(3407);
-cc_create($component0, ^iftype_graphic, if_getchildcount($component0));
+cc_setgraphic(graphic_3407);
+cc_create($component0, ^iftype_graphic, if_getnextsubid($component0));
 cc_setsize(14, 14, ^setsize_abs, ^setsize_abs);
 cc_setposition(0, calc($int9 - cc_getheight), ^setpos_abs_right, ^setpos_abs_top);
-cc_setgraphic(3408);
+cc_setgraphic(graphic_3408);
 def_int $int11 = 0;
 if ($graphic3 ! null) {
-    cc_create($component0, ^iftype_graphic, if_getchildcount($component0));
+    cc_create($component0, ^iftype_graphic, if_getnextsubid($component0));
     cc_setsize($int5, $int6, ^setsize_abs, ^setsize_abs);
     if ($int7 = 2) {
         $int11 = calc($int9 - ($int6 + 2));
@@ -63,8 +64,8 @@ if ($graphic3 ! null) {
     cc_setgraphic($graphic3);
     if (string_length($string0) > 0) {
         if_setop(1, $string0, $component0);
-        cc_create($component0, ^iftype_text, if_getchildcount($component0));
-        .cc_create($component0, ^iftype_text, if_getchildcount($component0));
+        cc_create($component0, ^iftype_text, if_getnextsubid($component0));
+        .cc_create($component0, ^iftype_text, if_getnextsubid($component0));
         if (calc(paraheight($string0, calc(if_getwidth($component0) - 6), verdana_11pt_regular) * 12 + 5) <= $int11) {
             cc_setsize(6, $int11, ^setsize_minus, ^setsize_abs);
             .cc_setsize(6, $int11, ^setsize_minus, ^setsize_abs);
@@ -90,8 +91,8 @@ if ($graphic3 ! null) {
         .cc_settext($string0);
     }
 } else {
-    cc_create($component0, ^iftype_text, if_getchildcount($component0));
-    .cc_create($component0, ^iftype_text, if_getchildcount($component0));
+    cc_create($component0, ^iftype_text, if_getnextsubid($component0));
+    .cc_create($component0, ^iftype_text, if_getnextsubid($component0));
     cc_setsize(0, 0, ^setsize_minus, ^setsize_minus);
     .cc_setsize(0, 0, ^setsize_minus, ^setsize_minus);
     cc_setposition(1, 1, ^setpos_abs_centre, ^setpos_abs_centre);
@@ -107,44 +108,44 @@ if ($graphic3 ! null) {
     cc_settext($string0);
     .cc_settext($string0);
 }
-cc_create($component0, ^iftype_graphic, if_getchildcount($component0));
+cc_create($component0, ^iftype_graphic, if_getnextsubid($component0));
 cc_setsize(10, 4, ^setsize_minus, ^setsize_abs);
 cc_setposition(0, 0, ^setpos_abs_centre, ^setpos_abs_top);
 def_int $int12 = cc_getid;
 cc_setvflip(true);
-cc_create($component0, ^iftype_graphic, if_getchildcount($component0));
+cc_create($component0, ^iftype_graphic, if_getnextsubid($component0));
 cc_setsize(10, 4, ^setsize_minus, ^setsize_abs);
 cc_setposition(0, calc($int9 - cc_getheight), ^setpos_abs_centre, ^setpos_abs_top);
-cc_create($component0, ^iftype_graphic, if_getchildcount($component0));
+cc_create($component0, ^iftype_graphic, if_getnextsubid($component0));
 cc_setsize(3, $int10, ^setsize_abs, ^setsize_abs);
 cc_setposition(0, 5, ^setpos_abs_left, ^setpos_abs_top);
 cc_sethflip(true);
-cc_create($component0, ^iftype_graphic, if_getchildcount($component0));
+cc_create($component0, ^iftype_graphic, if_getnextsubid($component0));
 cc_setsize(3, $int10, ^setsize_abs, ^setsize_abs);
 cc_setposition(0, 5, ^setpos_abs_right, ^setpos_abs_top);
-cc_create($component0, ^iftype_graphic, if_getchildcount($component0));
+cc_create($component0, ^iftype_graphic, if_getnextsubid($component0));
 cc_setsize(16, 16, ^setsize_abs, ^setsize_abs);
 cc_setposition(0, 0, ^setpos_abs_left, ^setpos_abs_top);
 cc_sethflip(true);
-cc_create($component0, ^iftype_graphic, if_getchildcount($component0));
+cc_create($component0, ^iftype_graphic, if_getnextsubid($component0));
 cc_setsize(16, 16, ^setsize_abs, ^setsize_abs);
 cc_setposition(0, 0, ^setpos_abs_right, ^setpos_abs_top);
-cc_create($component0, ^iftype_graphic, if_getchildcount($component0));
+cc_create($component0, ^iftype_graphic, if_getnextsubid($component0));
 cc_setsize(16, 16, ^setsize_abs, ^setsize_abs);
 cc_setposition(0, calc($int9 - cc_getheight), ^setpos_abs_left, ^setpos_abs_top);
 cc_sethflip(true);
 cc_setvflip(true);
-cc_create($component0, ^iftype_graphic, if_getchildcount($component0));
+cc_create($component0, ^iftype_graphic, if_getnextsubid($component0));
 cc_setsize(16, 16, ^setsize_abs, ^setsize_abs);
 cc_setposition(0, calc($int9 - cc_getheight), ^setpos_abs_right, ^setpos_abs_top);
 cc_setvflip(true);
-if ($int8 = true) {
+if ($int8 = 1) {
     ~playerdesign4_box_outline($component0, $int12, 2);
-    if_setonmouserepeat("playerdesign4_box_mouserepeat(null, $int1, $enum2, $int12, $int9, true, $boolean4, ^event_com, $string1, ^event_mousex)", $component0);
-    if_setonmouseleave("playerdesign4_box_mouserepeat(null, $int1, $enum2, $int12, $int9, false, $boolean4, ^event_com, $string1, -1)", $component0);
+    if_setonmouserepeat("playerdesign4_box_mouserepeat(null, $int1, $enum2, $int12, $int9, true, $boolean4, event_com, $string1, event_mousex)", $component0);
+    if_setonmouseleave("playerdesign4_box_mouserepeat(null, $int1, $enum2, $int12, $int9, false, $boolean4, event_com, $string1, -1)", $component0);
     if_setontimer(null, $component0);
 } else {
     ~playerdesign4_box_outline($component0, $int12, 0);
-    if_setonmouserepeat("playerdesign4_box_mouserepeat($component0, $int1, $enum2, $int12, $int9, true, $boolean4, ^event_com, $string1, ^event_mousex)", $component0);
-    if_setonmouseleave("playerdesign4_box_mouserepeat($component0, $int1, $enum2, $int12, $int9, false, $boolean4, ^event_com, $string1, -1)", $component0);
+    if_setonmouserepeat("playerdesign4_box_mouserepeat($component0, $int1, $enum2, $int12, $int9, true, $boolean4, event_com, $string1, event_mousex)", $component0);
+    if_setonmouseleave("playerdesign4_box_mouserepeat($component0, $int1, $enum2, $int12, $int9, false, $boolean4, event_com, $string1, -1)", $component0);
 }

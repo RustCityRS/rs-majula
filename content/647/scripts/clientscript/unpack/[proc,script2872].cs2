@@ -1,0 +1,30 @@
+// 2872
+[proc,script2872]
+if (%varclient_1077 = 1) {
+    if_setgraphic("music_header_icons,1", music_v3:com_12);
+    ~script2878;
+    if_sethide(true, music_v3:com_1);
+    if_sethide(true, music_v3:com_2);
+    if_sethide(true, music_v3:com_17);
+    if_sethide(true, music_v3:com_18);
+    if_sethide(false, music_v3:com_9);
+    if_sethide(false, music_v3:com_10);
+    if_sethide(false, music_v3:com_11);
+    if_sethide(false, music_v3:com_13);
+    ~music_search_close;
+    if (%varplayerbit_7081 = 32767) {
+        if_sethide(false, music_v3:com_14);
+    }
+} else {
+    if_setgraphic("music_header_icons,0", music_v3:com_12);
+    if_sethide(true, music_v3:com_9);
+    if_sethide(true, music_v3:com_10);
+    if_sethide(true, music_v3:com_11);
+    if_sethide(true, music_v3:com_13);
+    if_sethide(true, music_v3:com_14);
+    if_sethide(true, music_v3:com_18);
+    if_sethide(false, music_v3:com_1);
+    if_sethide(false, music_v3:com_2);
+    if_sethide(false, music_v3:com_17);
+}
+%varclient_2 = 0;

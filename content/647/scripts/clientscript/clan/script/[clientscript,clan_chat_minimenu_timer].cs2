@@ -1,8 +1,9 @@
+// 4450
 [clientscript,clan_chat_minimenu_timer]
-if (hud_test(72744974, -1) = true) {
+if (minimenuopen(clan_chat:com_14, -1) = true) {
     return;
 }
-if_setontimer(null, clan_chat:com14);
-if (clanchannel2_find_affined = true) {
-    ~clientscript_4451;
+if_setontimer(null, clan_chat:com_14);
+if (activeclanchannel_find_affined = true) {
+    ~script4451;
 }

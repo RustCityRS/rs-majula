@@ -1,3 +1,4 @@
+// 1957
 [clientscript,batta_set_text](component $component0, obj $obj1, int $int2)
 def_int $int3 = inv_total(inv, $obj1);
 if_settext("<tostring($int3)>/<tostring($int2)>", $component0);

@@ -1,5 +1,6 @@
-[clientscript,godwars_overlay_timer](component $component0, int $int1)
-if (getwindowmode ! $int1) {
+// 2336
+[clientscript,godwars_overlay_timer](component $component0, int $windowmode1)
+if (getwindowmode ! $windowmode1) {
     if_setontimer("godwars_overlay_timer($component0, getwindowmode)", $component0);
     ~godwars_overlay_updateposition($component0);
 }

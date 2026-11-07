@@ -1,0 +1,27 @@
+// 3979
+[clientscript,script3979](int $int0, component $component1)
+%varplayerbit_8576 = $int0;
+def_struct $struct2 = enum(int, struct, enum_3483, $int0);
+def_string $string0 = " -<br>";
+$string0 = append(struct_param($struct2, param_1266), $string0);
+$string0 = append($string0, struct_param($struct2, param_1273));
+if (~script3999($int0) = 0) {
+    if_setonmouserepeat("task_side_list_tooltip($component1, $string0)", $component1);
+} else {
+    if_setonmouserepeat(null, $component1);
+}
+switch_component ($component1) {
+    case task_side:com_64 :
+        %varplayerbit_8577 = 1;
+    case task_side:com_144 :
+        %varplayerbit_8577 = 2;
+    case task_side:com_149 :
+        %varplayerbit_8577 = 3;
+    case task_side:com_154 :
+        %varplayerbit_8577 = 4;
+    case task_side:com_159 :
+        %varplayerbit_8577 = 5;
+    case task_side:com_165 :
+        %varplayerbit_8577 = 6;
+}
+~script3975;

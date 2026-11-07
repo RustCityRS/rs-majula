@@ -1,0 +1,23 @@
+// 2358
+[clientscript,script2358](component $component0)
+def_int $int1 = enum(component, int, enum_2125, $component0);
+def_int $int2 = enum(component, int, enum_2124, $component0);
+def_int $intbool3 = ^true;
+if (%varplayer_1893 = null) {
+    if ($int2 = 1) {
+        $intbool3 = testbit(%varplayer_1890, $int1);
+    } else if ($int2 = 2) {
+        $intbool3 = testbit(%varplayer_1891, $int1);
+    } else {
+        $intbool3 = testbit(%varplayer_1892, $int1);
+    }
+    if ($intbool3 = ^false) {
+        if_sendtoback($component0);
+    }
+    return;
+}
+def_struct $struct4 = enum(component, struct, enum_704, %varplayer_1893);
+def_int $int5 = struct_param($struct4, param_1222);
+def_int $int6 = struct_param($struct4, param_1223);
+def_component $component7 = enum(component, component, enum_1592, %varplayer_1893);
+if_setposition($int5, $int6, ^setpos_abs_left, ^setpos_abs_top, $component7);

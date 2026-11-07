@@ -1,19 +1,20 @@
+// 4022
 [proc,task_area_highlight](int $int0)
 def_int $int1 = 0;
 def_component $component2 = null;
 while ($int1 <= enum_getoutputcount(enum_3489)) {
-    $component2 = enum(105, 73, enum_3489, $int1);
+    $component2 = enum(int, component, enum_3489, $int1);
     if ($component2 ! null) {
         if_setcolour(^black, $component2);
     }
     $int1 = calc($int1 + 1);
 }
-$component2 = enum(105, 73, enum_3489, 62);
+$component2 = enum(int, component, enum_3489, 62);
 if ($component2 ! null) {
     if_setcolour(^black, $component2);
 }
 if ($int0 > 60 & $int0 ! 62) {
     return;
 }
-$component2 = enum(105, 73, enum_3489, $int0);
+$component2 = enum(int, component, enum_3489, $int0);
 if_setcolour(0x927d59, $component2);

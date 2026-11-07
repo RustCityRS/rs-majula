@@ -1,0 +1,649 @@
+// 743:0
+[com_0]
+type=layer
+width=512
+height=334
+xmode=abs_centre
+ymode=abs_centre
+
+// 743:1
+[com_1]
+type=layer
+x=175
+y=68
+width=156
+height=60
+
+// 743:2
+[com_2]
+type=layer
+x=242
+y=81
+width=75
+height=23
+
+// 743:3
+[com_3]
+type=layer
+x=175
+y=122
+width=156
+height=60
+transmitop=10
+op10= 
+
+// 743:4
+[com_4]
+type=layer
+x=242
+y=135
+width=75
+height=23
+transmitop=10
+op10= 
+
+// 743:5
+[com_5]
+type=layer
+x=175
+y=180
+width=156
+height=60
+transmitop=10
+op10=  
+
+// 743:6
+[com_6]
+type=layer
+x=242
+y=193
+width=75
+height=23
+transmitop=10
+op10=  
+
+// 743:7
+[com_7]
+type=graphic
+width=16
+height=16
+layer=com_48
+graphic=graphic_1465
+colour=0x000000
+dragdepth=1
+dragrenderbehaviour=1
+ondragcomplete=script1764(sound_options:com_48, sound_options:com_7, event_mousex, 2)
+
+// 743:8
+[com_8]
+type=graphic
+width=16
+height=16
+layer=com_39
+graphic=graphic_1465
+colour=0x000000
+dragdepth=1
+dragrenderbehaviour=1
+ondragcomplete=script1764(sound_options:com_30, sound_options:com_9, event_mousex, 1)
+
+// 743:9
+[com_9]
+type=graphic
+width=16
+height=16
+layer=com_30
+graphic=graphic_1465
+colour=0x000000
+dragdepth=1
+dragrenderbehaviour=1
+ondragcomplete=script1764(sound_options:com_30, sound_options:com_9, event_mousex, 0)
+
+// 743:10
+[com_10]
+type=rectangle
+x=173
+y=48
+width=175
+height=244
+layer=com_0
+colour=0x000000
+fill=yes
+trans=200
+
+// 743:11
+[com_11]
+type=graphic
+x=171
+y=61
+width=166
+height=219
+layer=com_0
+graphic=tradebacking
+tiling=yes
+colour=0x000000
+
+// 743:12
+[com_12]
+type=graphic
+x=152
+y=72
+width=33
+height=183
+layer=com_0
+graphic="v2_stone_borders,1"
+tiling=yes
+colour=0x000000
+
+// 743:13
+[com_13]
+type=graphic
+x=322
+y=72
+width=32
+height=183
+layer=com_0
+graphic="v2_stone_borders,3"
+tiling=yes
+colour=0x000000
+
+// 743:14
+[com_14]
+type=graphic
+x=197
+y=267
+width=113
+height=32
+layer=com_0
+graphic="v2_stone_borders,2"
+tiling=yes
+colour=0x000000
+
+// 743:15
+[com_15]
+type=graphic
+x=165
+y=255
+width=32
+height=32
+layer=com_0
+graphic="v2_stone_borders,6"
+colour=0x000000
+
+// 743:16
+[com_16]
+type=graphic
+x=310
+y=255
+width=32
+height=32
+layer=com_0
+graphic="v2_stone_borders,7"
+colour=0x000000
+
+// 743:17
+[com_17]
+type=graphic
+x=165
+y=40
+width=32
+height=32
+layer=com_0
+graphic="v2_stone_borders,35"
+colour=0x000000
+
+// 743:18
+[com_18]
+type=graphic
+x=197
+y=40
+width=113
+height=32
+layer=com_0
+graphic="v2_stone_borders,36"
+tiling=yes
+colour=0x000000
+transmitop=10
+op10= 
+
+// 743:19
+[com_19]
+type=graphic
+x=310
+y=40
+width=32
+height=32
+layer=com_0
+graphic="v2_stone_borders,37"
+colour=0x000000
+transmitop=10
+op10= 
+
+// 743:20
+[com_20]
+type=graphic
+x=316
+y=43
+width=16
+height=16
+layer=com_0
+graphic="v2_stone_close_button,0"
+colour=0x000000
+transmitop=1
+op1=Close
+onmouseover=graphic_swapper(event_com, "v2_stone_close_button,1")
+onmouseleave=graphic_swapper(event_com, "v2_stone_close_button,0")
+onop=closebutton_click
+
+// 743:21
+[com_21]
+type=text
+x=177
+y=43
+width=136
+height=17
+layer=com_0
+textfont=b12_full
+text=Audio Options
+textalignh=centre
+textshadow=yes
+colour=0xe1981f
+
+// 743:22
+[com_22]
+type=graphic
+x=236
+y=75
+width=32
+height=32
+layer=com_0
+graphic="options_icons,1"
+colour=0x000000
+transmitop=10
+op10= 
+onload=script1158
+onmouseleave=deltooltip(sound_options:com_1)
+onmouserepeat=addtooltip(sound_options:com_2, sound_options:com_1, "Music", 25, 75)
+
+// 743:23
+[com_23]
+type=graphic
+x=186
+y=109
+width=26
+height=16
+layer=com_0
+graphic="options_slider_five,5"
+colour=0x000000
+transmitop=10
+op10= 
+
+// 743:24
+[com_24]
+type=graphic
+x=212
+y=109
+width=26
+height=16
+layer=com_0
+graphic="options_slider_five,6"
+colour=0x000000
+transmitop=10
+op10= 
+
+// 743:25
+[com_25]
+type=graphic
+x=238
+y=109
+width=26
+height=16
+layer=com_0
+graphic="options_slider_five,7"
+colour=0x000000
+transmitop=10
+op10= 
+
+// 743:26
+[com_26]
+type=graphic
+x=264
+y=109
+width=26
+height=16
+layer=com_0
+graphic="options_slider_five,8"
+colour=0x000000
+transmitop=10
+op10= 
+
+// 743:27
+[com_27]
+type=graphic
+x=290
+y=109
+width=26
+height=16
+layer=com_0
+graphic="options_slider_five,9"
+colour=0x000000
+transmitop=10
+op10= 
+
+// 743:28
+[com_28]
+type=layer
+x=165
+y=109
+width=42
+height=16
+layer=com_0
+onclick=script1764(sound_options:com_30, sound_options:com_9, 0, 0)
+
+// 743:29
+[com_29]
+type=layer
+x=293
+y=109
+width=49
+height=16
+layer=com_0
+onclick=script1764(sound_options:com_30, sound_options:com_9, 255, 0)
+
+// 743:30
+[com_30]
+type=layer
+x=191
+y=109
+width=118
+height=16
+layer=com_0
+onclick=script1764(sound_options:com_30, sound_options:com_9, event_mousex, 0)
+
+// 743:31
+[com_31]
+type=graphic
+x=236
+y=131
+width=32
+height=32
+layer=com_0
+graphic="options_icons,2"
+colour=0x000000
+transmitop=10
+op10= 
+onload=script1164
+onmouseleave=deltooltip(sound_options:com_3)
+onmouserepeat=addtooltip(sound_options:com_4, sound_options:com_3, "Sound Effects", 25, 75)
+
+// 743:32
+[com_32]
+type=graphic
+x=188
+y=165
+width=26
+height=16
+layer=com_0
+graphic="options_slider_five,5"
+colour=0x000000
+transmitop=10
+op10= 
+
+// 743:33
+[com_33]
+type=graphic
+x=214
+y=165
+width=26
+height=16
+layer=com_0
+graphic="options_slider_five,6"
+colour=0x000000
+transmitop=10
+op10= 
+
+// 743:34
+[com_34]
+type=graphic
+x=240
+y=165
+width=26
+height=16
+layer=com_0
+graphic="options_slider_five,7"
+colour=0x000000
+transmitop=10
+op10= 
+
+// 743:35
+[com_35]
+type=graphic
+x=266
+y=165
+width=26
+height=16
+layer=com_0
+graphic="options_slider_five,8"
+colour=0x000000
+transmitop=10
+op10= 
+
+// 743:36
+[com_36]
+type=graphic
+x=292
+y=165
+width=26
+height=16
+layer=com_0
+graphic="options_slider_five,9"
+colour=0x000000
+transmitop=10
+op10= 
+
+// 743:37
+[com_37]
+type=layer
+x=165
+y=165
+width=42
+height=16
+layer=com_0
+onclick=script1764(sound_options:com_39, sound_options:com_8, 0, 1)
+
+// 743:38
+[com_38]
+type=layer
+x=293
+y=165
+width=49
+height=16
+layer=com_0
+onclick=script1764(sound_options:com_30, sound_options:com_9, 127, 1)
+
+// 743:39
+[com_39]
+type=layer
+x=191
+y=165
+width=118
+height=16
+layer=com_0
+onclick=script1764(sound_options:com_30, sound_options:com_9, event_mousex, 1)
+
+// 743:40
+[com_40]
+type=graphic
+x=188
+y=224
+width=26
+height=16
+layer=com_0
+graphic="options_slider_five,5"
+colour=0x000000
+transmitop=10
+op10= 
+
+// 743:41
+[com_41]
+type=graphic
+x=236
+y=188
+width=32
+height=32
+layer=com_0
+graphic="options_icons,14"
+colour=0x000000
+transmitop=10
+op10= 
+onload=script1161
+onmouseleave=deltooltip(sound_options:com_5)
+onmouserepeat=addtooltip(sound_options:com_6, sound_options:com_5, "Ambient Sounds", 25, 75)
+
+// 743:42
+[com_42]
+type=graphic
+x=214
+y=224
+width=26
+height=16
+layer=com_0
+graphic="options_slider_five,6"
+colour=0x000000
+transmitop=10
+op10= 
+
+// 743:43
+[com_43]
+type=graphic
+x=240
+y=224
+width=26
+height=16
+layer=com_0
+graphic="options_slider_five,7"
+colour=0x000000
+transmitop=10
+op10= 
+
+// 743:44
+[com_44]
+type=graphic
+x=266
+y=224
+width=26
+height=16
+layer=com_0
+graphic="options_slider_five,8"
+colour=0x000000
+transmitop=10
+op10= 
+
+// 743:45
+[com_45]
+type=graphic
+x=292
+y=224
+width=26
+height=16
+layer=com_0
+graphic="options_slider_five,9"
+colour=0x000000
+transmitop=10
+op10= 
+
+// 743:46
+[com_46]
+type=layer
+x=165
+y=224
+width=42
+height=16
+layer=com_0
+onclick=script1764(sound_options:com_48, sound_options:com_7, 0, 2)
+
+// 743:47
+[com_47]
+type=layer
+x=293
+y=224
+width=49
+height=16
+layer=com_0
+onclick=script1764(sound_options:com_48, sound_options:com_7, 127, 2)
+
+// 743:48
+[com_48]
+type=layer
+x=191
+y=224
+width=118
+height=16
+layer=com_0
+onclick=script1764(sound_options:com_48, sound_options:com_7, event_mousex, 2)
+
+// 743:49
+[com_49]
+type=graphic
+x=227
+y=257
+width=15
+height=15
+layer=com_0
+graphic="radio_buttons,0"
+tiling=yes
+colour=0x000000
+transmitop=1,10
+op1=Select Mono
+op10=  
+onop=sound_mono
+
+// 743:50
+[com_50]
+type=text
+x=182
+y=257
+width=40
+height=15
+layer=com_0
+textfont=p11_full
+text=Mono
+textalignh=right
+textalignv=centre
+textshadow=yes
+colour=0xc8c8c8
+transmitop=10
+op10= 
+onload=script1155
+
+// 743:51
+[com_51]
+type=graphic
+x=294
+y=257
+width=15
+height=15
+layer=com_0
+graphic="radio_buttons,0"
+tiling=yes
+colour=0x000000
+transmitop=1,10
+op1=Select Stereo
+op10=   
+onop=sound_stereo
+
+// 743:52
+[com_52]
+type=text
+x=250
+y=257
+width=40
+height=15
+layer=com_0
+textfont=p11_full
+text=Stereo
+textalignh=right
+textalignv=centre
+textshadow=yes
+colour=0xc8c8c8
+transmitop=10
+op10=  

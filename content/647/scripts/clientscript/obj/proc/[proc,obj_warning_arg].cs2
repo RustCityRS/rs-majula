@@ -1,32 +1,32 @@
-[proc,obj_warning_arg](obj $obj)(string)
-if (~obj_use_requirements($obj) = false) {
-    if (~obj_wear_requirements($obj) = false) {
-        if (compare(oc_iop($obj, 2), "Wield") = false) {
+// 2706
+[proc,obj_warning_arg](obj $obj0)(string)
+if (~obj_use_requirements($obj0) = false) {
+    if (~obj_wear_requirements($obj0) = false) {
+        if (compare(oc_iop($obj0, 2), "Wield") = 0) {
             return("You do not meet the requirements to use or wield this item.<br>");
         } else {
             return("You do not meet the requirements to use or wear this item.<br>");
         }
-    } else if (compare(oc_iop($obj, 2), "Wield") = false) {
+    } else if (compare(oc_iop($obj0, 2), "Wield") = 0) {
         return("You can wield this item but not use it.<br>");
-    } else if (compare(oc_iop($obj, 2), "Wear") = false) {
+    } else if (compare(oc_iop($obj0, 2), "Wear") = 0) {
         return("You can wear this item but not use it.<br>");
     } else {
         return("You do not meet the requirements to use this item.<br>");
     }
-} else if (~clientscript_928($obj) = true) {
-    if (~obj_wear_requirements($obj) = false) {
-        if (compare(oc_iop($obj, 2), "Wield") = false) {
+} else if (~script928($obj0) = true) {
+    if (~obj_wear_requirements($obj0) = false) {
+        if (compare(oc_iop($obj0, 2), "Wield") = 0) {
             return("You can use this item but not wield it.<br>");
         } else {
             return("You can use this item but not wear it.<br>");
         }
     }
-} else if (~obj_wear_requirements($obj) = false) {
-    if (compare(oc_iop($obj, 2), "Wield") = false) {
+} else if (~obj_wear_requirements($obj0) = false) {
+    if (compare(oc_iop($obj0, 2), "Wield") = 0) {
         return("You do not meet the requirements to wield this item.<br>");
     } else {
         return("You do not meet the requirements to wear this item.<br>");
     }
 }
-return("");
 return("");

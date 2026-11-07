@@ -1,0 +1,26 @@
+// 3361
+[proc,script3361]()(int, string, obj)
+switch_obj (%varplayer_448) {
+    case default :
+        return(7, "Second Wind (Tier 1)", second_wind__tier_1);
+    case cub_worldbearer_pouch :
+        return(7, "Second Wind (Tier 1)", second_wind__tier_1);
+    case little_worldbearer_pouch :
+        return(17, "Second Wind (Tier 2)", second_wind__tier_2);
+    case "naïve_worldbearer_pouch" :
+        return(27, "Second Wind (Tier 3)", second_wind__tier_3);
+    case keen_worldbearer_pouch :
+        return(37, "Second Wind (Tier 4)", second_wind__tier_4);
+    case brave_worldbearer_pouch :
+        return(47, "Second Wind (Tier 5)", second_wind__tier_5);
+    case brah_worldbearer_pouch :
+        return(57, "Second Wind (Tier 6)", second_wind__tier_6);
+    case naabe_worldbearer_pouch :
+        return(67, "Second Wind (Tier 7)", second_wind__tier_7);
+    case wise_worldbearer_pouch :
+        return(77, "Second Wind (Tier 8)", second_wind__tier_8);
+    case adept_worldbearer_pouch :
+        return(87, "Second Wind (Tier 9)", second_wind__tier_9);
+    case sachem_worldbearer_pouch :
+        return(97, "Second Wind (Tier 10)", second_wind__tier_10);
+}

@@ -1,4 +1,5 @@
+// 3983
 [clientscript,task_main_list_populate](int $int0, int $int1, int $int2)
-~deltooltip_action(task_main:com97);
+~deltooltip_action(task_main:com_97);
 ~task_area_highlight(0);
 ~task_main_list_populate($int0, $int1, $int2);

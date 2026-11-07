@@ -1,7 +1,16 @@
 use rs_io::Packet;
+#[cfg(since_647)]
+use rs_ver::STRING_TERMINATOR;
 
 pub(super) fn read_array<T>(buf: &mut Packet, mut read: impl FnMut(&mut Packet) -> T) -> Box<[T]> {
     (0..buf.g1()).map(|_| read(buf)).collect()
+}
+
+#[cfg(since_647)]
+pub(super) fn read_versioned_str(buf: &mut Packet) -> String {
+    let version = buf.g1();
+    assert_eq!(version, 0, "Unknown versioned string: {version}");
+    buf.gjstr(STRING_TERMINATOR)
 }
 
 pub(super) fn read_pairs(

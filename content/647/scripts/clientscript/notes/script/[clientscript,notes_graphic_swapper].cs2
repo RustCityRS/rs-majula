@@ -1,4 +1,5 @@
+// 2455
 [clientscript,notes_graphic_swapper](component $component0, graphic $graphic1)
-if (if_gethide(notes:com16) = true & if_gethide(notes:com44) = true) {
+if (if_gethide(notes:com_16) = true & if_gethide(notes:com_44) = true) {
     if_setgraphic($graphic1, $component0);
 }

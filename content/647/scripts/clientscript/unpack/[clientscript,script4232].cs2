@@ -1,0 +1,7 @@
+// 4232
+[clientscript,script4232](component $component0)
+if (if_find($component0) = true) {
+    cc_setonmouseover("script4209($component0, 0)");
+    cc_setonmouseleave("script4209($component0, 1)");
+    cc_settrans(255);
+}

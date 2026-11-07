@@ -1,0 +1,830 @@
+// 134:0
+[com_0]
+type=model
+x=15
+y=23
+width=480
+height=301
+model=model_26397
+modelorigin=-2,33
+modelangle=512,0,0
+modelzoom=1009
+
+// 134:1
+[com_1]
+type=text
+x=42
+y=40
+width=400
+height=34
+textfont=quill_oblique_large
+text=Choose the stat you wish to be advanced
+colour=0x46320a
+opbase= 
+
+// 134:2
+[confirm]
+type=text
+x=373
+y=259
+width=81
+height=33
+textfont=quill_oblique_large
+text=Confirm
+colour=0x46320a
+transmitop=1
+op1=Confirm
+onmouseover=text_colour_swapper(event_com, ^white)
+onmouseleave=text_colour_swapper(event_com, 0x46320a)
+onvartransmit=script790{xplamp_stat}
+
+// 134:3
+[com_3]
+type=rectangle
+x=42
+y=70
+width=416
+height=1
+colour=0x46320a
+fill=yes
+trans=200
+
+// 134:4
+[com_4]
+type=rectangle
+x=47
+y=80
+width=55
+height=55
+hide=yes
+colour=0x46320a
+fill=yes
+trans=180
+
+// 134:5
+[com_5]
+type=rectangle
+x=107
+y=135
+width=55
+height=55
+hide=yes
+colour=0x46320a
+fill=yes
+trans=180
+
+// 134:6
+[com_6]
+type=rectangle
+x=167
+y=135
+width=55
+height=55
+hide=yes
+colour=0x46320a
+fill=yes
+trans=180
+
+// 134:7
+[com_7]
+type=rectangle
+x=287
+y=135
+width=55
+height=55
+hide=yes
+colour=0x46320a
+fill=yes
+trans=180
+
+// 134:8
+[com_8]
+type=rectangle
+x=227
+y=135
+width=55
+height=55
+hide=yes
+colour=0x46320a
+fill=yes
+trans=180
+
+// 134:9
+[com_9]
+type=rectangle
+x=347
+y=135
+width=55
+height=55
+hide=yes
+colour=0x46320a
+fill=yes
+trans=180
+
+// 134:10
+[com_10]
+type=rectangle
+x=407
+y=135
+width=55
+height=55
+hide=yes
+colour=0x46320a
+fill=yes
+trans=180
+
+// 134:11
+[com_11]
+type=rectangle
+x=47
+y=190
+width=55
+height=55
+hide=yes
+colour=0x46320a
+fill=yes
+trans=180
+
+// 134:12
+[com_12]
+type=rectangle
+x=107
+y=190
+width=55
+height=55
+hide=yes
+colour=0x46320a
+fill=yes
+trans=180
+
+// 134:13
+[com_13]
+type=rectangle
+x=167
+y=190
+width=55
+height=55
+hide=yes
+colour=0x46320a
+fill=yes
+trans=180
+
+// 134:14
+[com_14]
+type=rectangle
+x=227
+y=190
+width=55
+height=55
+hide=yes
+colour=0x46320a
+fill=yes
+trans=180
+
+// 134:15
+[com_15]
+type=rectangle
+x=287
+y=190
+width=55
+height=55
+hide=yes
+colour=0x46320a
+fill=yes
+trans=180
+
+// 134:16
+[com_16]
+type=rectangle
+x=347
+y=190
+width=55
+height=55
+hide=yes
+colour=0x46320a
+fill=yes
+trans=180
+
+// 134:17
+[com_17]
+type=rectangle
+x=407
+y=190
+width=55
+height=55
+hide=yes
+colour=0x46320a
+fill=yes
+trans=180
+
+// 134:18
+[com_18]
+type=rectangle
+x=107
+y=246
+width=55
+height=55
+hide=yes
+colour=0x46320a
+fill=yes
+trans=180
+
+// 134:19
+[com_19]
+type=rectangle
+x=166
+y=246
+width=55
+height=55
+hide=yes
+colour=0x46320a
+fill=yes
+trans=180
+
+// 134:20
+[com_20]
+type=rectangle
+x=227
+y=246
+width=55
+height=55
+hide=yes
+colour=0x46320a
+fill=yes
+trans=180
+
+// 134:21
+[com_21]
+type=rectangle
+x=107
+y=80
+width=55
+height=55
+hide=yes
+colour=0x46320a
+fill=yes
+trans=180
+
+// 134:22
+[com_22]
+type=rectangle
+x=167
+y=80
+width=55
+height=55
+hide=yes
+colour=0x46320a
+fill=yes
+trans=180
+
+// 134:23
+[com_23]
+type=rectangle
+x=227
+y=80
+width=55
+height=55
+hide=yes
+colour=0x46320a
+fill=yes
+trans=180
+
+// 134:24
+[com_24]
+type=rectangle
+x=287
+y=80
+width=55
+height=55
+hide=yes
+colour=0x46320a
+fill=yes
+trans=180
+
+// 134:25
+[com_25]
+type=rectangle
+x=407
+y=80
+width=55
+height=55
+hide=yes
+colour=0x46320a
+fill=yes
+trans=180
+
+// 134:26
+[com_26]
+type=rectangle
+x=347
+y=80
+width=55
+height=55
+hide=yes
+colour=0x46320a
+fill=yes
+trans=180
+
+// 134:27
+[com_27]
+type=rectangle
+x=47
+y=135
+width=55
+height=55
+hide=yes
+colour=0x46320a
+fill=yes
+trans=180
+
+// 134:28
+[com_28]
+type=rectangle
+x=287
+y=246
+width=55
+height=55
+hide=yes
+colour=0x46320a
+fill=yes
+trans=180
+
+// 134:29
+[close]
+type=graphic
+x=443
+y=40
+width=26
+height=23
+graphic="close_buttons,6"
+colour=0xffffffff
+transmitop=1
+op1=Close
+onmouseleave=graphic_swapper(xplamp:close, "close_buttons,6")
+onop=closebutton_click
+onmouserepeat=graphic_swapper(xplamp:close, "close_buttons,7")
+
+// 134:30
+[attack]
+type=graphic
+x=47
+y=80
+width=55
+height=54
+layer=com_55
+graphic="staticons_high_res,0"
+colour=0xffffffff
+transmitop=1
+opbase=Attack
+op1=Select
+opcursor0=cursor_46
+onmouseleave=deltooltip(xplamp:com_56)
+onmouserepeat=addtooltip(event_com, xplamp:com_56, "Attack", 50, 150)
+onclick=script789(xplamp:com_4)
+
+// 134:31
+[strength]
+type=graphic
+x=107
+y=80
+width=55
+height=54
+layer=com_55
+graphic="staticons_high_res,1"
+colour=0xffffffff
+transmitop=1
+opbase=Strength
+op1=Select
+opcursor0=cursor_46
+onmouseleave=deltooltip(xplamp:com_56)
+onmouserepeat=addtooltip(event_com, xplamp:com_56, "Strength", 50, 150)
+onclick=script789(xplamp:com_21)
+
+// 134:32
+[defence]
+type=graphic
+x=284
+y=80
+width=55
+height=54
+layer=com_55
+graphic="staticons_high_res,2"
+colour=0xffffffff
+transmitop=1
+opbase=Defence
+op1=Select
+opcursor0=cursor_46
+onmouseleave=deltooltip(xplamp:com_56)
+onmouserepeat=addtooltip(event_com, xplamp:com_56, "Defence", 50, 150)
+onclick=script789(xplamp:com_24)
+
+// 134:33
+[ranged]
+type=graphic
+x=164
+y=80
+width=55
+height=54
+layer=com_55
+graphic="staticons_high_res,3"
+colour=0xffffffff
+transmitop=1
+opbase=Ranged
+op1=Select
+opcursor0=cursor_46
+onmouseleave=deltooltip(xplamp:com_56)
+onmouserepeat=addtooltip(event_com, xplamp:com_56, "Ranged", 50, 150)
+onclick=script789(xplamp:com_22)
+
+// 134:34
+[prayer]
+type=graphic
+x=47
+y=135
+width=55
+height=54
+layer=com_55
+graphic="staticons_high_res,4"
+colour=0xffffffff
+transmitop=1
+opbase=Prayer
+op1=Select
+opcursor0=cursor_46
+onmouseleave=deltooltip(xplamp:com_56)
+onmouserepeat=addtooltip(event_com, xplamp:com_56, "Prayer", 50, 150)
+onclick=script789(xplamp:com_27)
+
+// 134:35
+[hitpoints]
+type=graphic
+x=408
+y=80
+width=55
+height=54
+layer=com_55
+graphic="staticons_high_res,6"
+colour=0xffffffff
+transmitop=1
+opbase=Constitution
+op1=Select
+opcursor0=cursor_46
+onmouseleave=deltooltip(xplamp:com_56)
+onmouserepeat=addtooltip(event_com, xplamp:com_56, "Constitution", 50, 150)
+onclick=script789(xplamp:com_25)
+
+// 134:36
+[magic]
+type=graphic
+x=224
+y=80
+width=55
+height=54
+layer=com_55
+graphic="staticons_high_res,5"
+colour=0xffffffff
+transmitop=1
+opbase=Magic
+op1=Select
+opcursor0=cursor_46
+onmouseleave=deltooltip(xplamp:com_56)
+onmouserepeat=addtooltip(event_com, xplamp:com_56, "Magic", 50, 150)
+onclick=script789(xplamp:com_23)
+
+// 134:37
+[agility]
+type=graphic
+x=107
+y=135
+width=55
+height=54
+layer=com_55
+graphic="staticons_high_res,7"
+colour=0xffffffff
+transmitop=1
+opbase=Agility
+op1=Select
+opcursor0=cursor_46
+onmouseleave=deltooltip(xplamp:com_56)
+onmouserepeat=addtooltip(event_com, xplamp:com_56, "Agility", 50, 150)
+onclick=script789(xplamp:com_5)
+
+// 134:38
+[herblore]
+type=graphic
+x=167
+y=135
+width=55
+height=54
+layer=com_55
+graphic="staticons_high_res,8"
+colour=0xffffffff
+transmitop=1
+opbase=Herblore
+op1=Select
+opcursor0=cursor_46
+onmouseleave=deltooltip(xplamp:com_56)
+onmouserepeat=addtooltip(event_com, xplamp:com_56, "Herblore", 50, 150)
+onclick=script789(xplamp:com_6)
+
+// 134:39
+[thieving]
+type=graphic
+x=226
+y=134
+width=55
+height=54
+layer=com_55
+graphic="staticons_high_res,9"
+colour=0xffffffff
+transmitop=1
+opbase=Thieving
+op1=Select
+opcursor0=cursor_46
+onmouseleave=deltooltip(xplamp:com_56)
+onmouserepeat=addtooltip(event_com, xplamp:com_56, "Thieving", 50, 150)
+onclick=script789(xplamp:com_8)
+
+// 134:40
+[crafting]
+type=graphic
+x=342
+y=80
+width=55
+height=54
+layer=com_55
+graphic="staticons_high_res,10"
+colour=0xffffffff
+transmitop=1
+opbase=Crafting
+op1=Select
+opcursor0=cursor_46
+onmouseleave=deltooltip(xplamp:com_56)
+onmouserepeat=addtooltip(event_com, xplamp:com_56, "Crafting", 50, 150)
+onclick=script789(xplamp:com_26)
+
+// 134:41
+[fletching]
+type=graphic
+x=103
+y=248
+width=55
+height=54
+layer=com_55
+graphic="staticons_high_res,11"
+colour=0xffffffff
+transmitop=1
+opbase=Fletching
+op1=Select
+opcursor0=cursor_46
+onmouseleave=deltooltip(xplamp:com_56)
+onmouserepeat=addtooltip(event_com, xplamp:com_56, "Fletching", 50, 150)
+onclick=script789(xplamp:com_18)
+
+// 134:42
+[mining]
+type=graphic
+x=107
+y=189
+width=55
+height=54
+layer=com_55
+graphic="staticons_high_res,12"
+colour=0xffffffff
+transmitop=1
+opbase=Mining
+op1=Select
+opcursor0=cursor_46
+onmouseleave=deltooltip(xplamp:com_56)
+onmouserepeat=addtooltip(event_com, xplamp:com_56, "Mining", 50, 150)
+onclick=script789(xplamp:com_12)
+
+// 134:43
+[smithing]
+type=graphic
+x=166
+y=190
+width=55
+height=54
+layer=com_55
+graphic="staticons_high_res,13"
+colour=0xffffffff
+transmitop=1
+opbase=Smithing
+op1=Select
+opcursor0=cursor_46
+onmouseleave=deltooltip(xplamp:com_56)
+onmouserepeat=addtooltip(event_com, xplamp:com_56, "Smithing", 50, 150)
+onclick=script789(xplamp:com_13)
+
+// 134:44
+[fishing]
+type=graphic
+x=285
+y=135
+width=55
+height=54
+layer=com_55
+graphic="staticons_high_res,14"
+colour=0xffffffff
+transmitop=1
+opbase=Fishing
+op1=Select
+opcursor0=cursor_46
+onmouseleave=deltooltip(xplamp:com_56)
+onmouserepeat=addtooltip(event_com, xplamp:com_56, "Fishing", 50, 150)
+onclick=script789(xplamp:com_7)
+
+// 134:45
+[firemaking]
+type=graphic
+x=345
+y=190
+width=55
+height=54
+layer=com_55
+graphic="staticons_high_res,16"
+colour=0xffffffff
+transmitop=1
+opbase=Firemaking
+op1=Select
+opcursor0=cursor_46
+onmouseleave=deltooltip(xplamp:com_56)
+onmouserepeat=addtooltip(event_com, xplamp:com_56, "Firemaking", 50, 150)
+onclick=script789(xplamp:com_16)
+
+// 134:46
+[cooking]
+type=graphic
+x=284
+y=190
+width=55
+height=54
+layer=com_55
+graphic="staticons_high_res,15"
+colour=0xffffffff
+transmitop=1
+opbase=Cooking
+op1=Select
+opcursor0=cursor_46
+onmouseleave=deltooltip(xplamp:com_56)
+onmouserepeat=addtooltip(event_com, xplamp:com_56, "Cooking", 50, 150)
+onclick=script789(xplamp:com_15)
+
+// 134:47
+[woodcutting]
+type=graphic
+x=402
+y=190
+width=55
+height=54
+layer=com_55
+graphic="staticons_high_res,17"
+colour=0xffffffff
+transmitop=1
+opbase=Woodcutting
+op1=Select
+opcursor0=cursor_46
+onmouseleave=deltooltip(xplamp:com_56)
+onmouserepeat=addtooltip(event_com, xplamp:com_56, "Woodcutting", 50, 150)
+onclick=script789(xplamp:com_17)
+
+// 134:48
+[runecraft]
+type=graphic
+x=347
+y=135
+width=55
+height=54
+layer=com_55
+graphic="staticons2_high_res,0"
+colour=0xffffffff
+transmitop=1
+opbase=Runecraft
+op1=Select
+opcursor0=cursor_46
+onmouseleave=deltooltip(xplamp:com_56)
+onmouserepeat=addtooltip(event_com, xplamp:com_56, "Runecrafting", 50, 150)
+onclick=script789(xplamp:com_9)
+
+// 134:49
+[slayer]
+type=graphic
+x=407
+y=135
+width=55
+height=54
+layer=com_55
+graphic="staticons2_high_res,1"
+colour=0xffffffff
+transmitop=1
+opbase=Slayer
+op1=Select
+opcursor0=cursor_46
+onmouseleave=deltooltip(xplamp:com_56)
+onmouserepeat=addtooltip(event_com, xplamp:com_56, "Slayer", 50, 150)
+onclick=script789(xplamp:com_10)
+
+// 134:50
+[hunter]
+type=graphic
+x=227
+y=190
+width=55
+height=54
+layer=com_55
+graphic="staticons2_high_res,5"
+colour=0xffffffff
+transmitop=1
+opbase=Hunter
+op1=Select
+opcursor0=cursor_46
+onmouseleave=deltooltip(xplamp:com_56)
+onmouserepeat=addtooltip(event_com, xplamp:com_56, "Hunter", 50, 150)
+onclick=script789(xplamp:com_14)
+
+// 134:51
+[farming]
+type=graphic
+x=47
+y=189
+width=55
+height=54
+layer=com_55
+graphic="staticons2_high_res,2"
+colour=0xffffffff
+transmitop=1
+opbase=Farming
+op1=Select
+opcursor0=cursor_46
+onmouseleave=deltooltip(xplamp:com_56)
+onmouserepeat=addtooltip(event_com, xplamp:com_56, "Farming", 50, 150)
+onclick=script789(xplamp:com_11)
+
+// 134:52
+[construction]
+type=graphic
+x=166
+y=246
+width=55
+height=54
+layer=com_55
+graphic="staticons2_high_res,6"
+colour=0xffffffff
+transmitop=1
+opbase=Construction
+op1=Select
+opcursor0=cursor_46
+onmouseleave=deltooltip(xplamp:com_56)
+onmouserepeat=addtooltip(event_com, xplamp:com_56, "Construction", 50, 150)
+onclick=script789(xplamp:com_19)
+
+// 134:53
+[summoning]
+type=graphic
+x=226
+y=245
+width=55
+height=54
+layer=com_55
+graphic="staticons2_high_res,7"
+colour=0xffffffff
+transmitop=1
+opbase=Summoning
+op1=Select
+opcursor0=cursor_46
+onmouseleave=deltooltip(xplamp:com_56)
+onmouserepeat=addtooltip(event_com, xplamp:com_56, "Summoning", 50, 150)
+onclick=script789(xplamp:com_20)
+
+// 134:54
+[dungeoneering]
+type=graphic
+x=288
+y=246
+width=55
+height=54
+layer=com_55
+graphic="staticons2_high_res,13"
+colour=0xffffffff
+transmitop=1
+opbase=Dungeoneering
+op1=Select
+opcursor0=cursor_46
+onmouseleave=deltooltip(xplamp:com_56)
+onmouserepeat=addtooltip(event_com, xplamp:com_56, "Dungeoneering", 50, 150)
+onclick=script789(xplamp:com_28)
+
+// 134:55
+[com_55]
+type=layer
+width=512
+height=334
+
+// 134:56
+[com_56]
+type=layer
+x=121
+y=67
+width=193
+height=126
+layer=com_55

@@ -1,5 +1,6 @@
-[clientscript,magic_entertargetmode](component $component)
-if_setoutline(2, $component);
-if (and(if_gettargetmask($component), 32) ! 0) {
+// 17
+[clientscript,magic_entertargetmode](component $component0)
+if_setoutline(2, $component0);
+if (calc(if_gettargetmask($component0) & 32) ! 0) {
     ~if_switchside(4);
 }

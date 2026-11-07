@@ -1,0 +1,13 @@
+// 648
+[clientscript,script648](component $component0, int $int1, component $component2, string $string0, int $int3, int $int4)
+def_int $int5 = 0;
+if (%varclient_2 = 1) {
+    while ($int5 < 6) {
+        ~deltooltip_action(~script626($int5));
+        $int5 = calc($int5 + 1);
+    }
+}
+if (if_gethide(stockmarket:com_17) = true) {
+    return;
+}
+~addtooltip_action_dynamic($component0, $int1, $component2, $string0, $int3, $int4);

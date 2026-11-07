@@ -10,8 +10,8 @@ return(true);
 // checks and log out; where each lands is the logout engine's (p_logout),
 // which this does not change.
 // [if_button,logout:try_logout]
-[if_button,logout:com5] @try_logout;
-[if_button,logout:com10] @try_logout;
+[if_button,logout:com_5] @try_logout;
+[if_button,logout:com_10] @try_logout;
 
 [label,try_logout]
 if_close;

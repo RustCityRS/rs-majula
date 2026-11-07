@@ -1,43 +1,44 @@
+// 2946
 [clientscript,login_reply]
 def_int $int0 = ~login_getreply;
-def_component $component1 = login:com52;
-def_component $component2 = login:com51;
-def_component $component3 = login:com42;
-def_component $component4 = login:com5;
-if (login_getint_5623 = true) {
-    $component1 = south_progress9:com54;
-    $component3 = south_progress9:com50;
-    $component4 = south_progress9:com29;
+def_component $component1 = login:com_52;
+def_component $component2 = login:com_51;
+def_component $component3 = login:com_42;
+def_component $component4 = login:com_5;
+if (unknown_command_5623 = true) {
+    $component1 = south_progress9:com_54;
+    $component3 = south_progress9:com_50;
+    $component4 = south_progress9:com_29;
 }
 if ($int0 = -3) {
     if_settext("Logging in...", $component1);
     if_settext("Logging in...", $component2);
     if_setonclick(null, $component3);
     ~login_popup($int0, 0, "Logging In - Please Wait", 1, null, 0, -1, "", 0, "");
-    %varc_int_1100 = -3;
+    %varclient_1100 = -3;
     return;
 }
-if (%varc_int_1100 = -3) {
+if (%varclient_1100 = -3) {
     ~login_popup_close;
 }
 def_int $int5 = 0;
 def_string $string0 = "";
 if ($int0 = 21) {
-    %varc_int_1100 = 21;
+    %varclient_1100 = 21;
     if_settext("Logging in...", $component1);
     if_settext("Logging in...", $component2);
     if_setonclick(null, $component3);
-    if (%varc_int_200 = false) {
-        %varc_int_200 = login_getint_5608;
+    if (%varclient_200 = 0) {
+        %varclient_200 = login_hoptime;
     }
-    %varc_int_200 = calc(%varc_int_200 - 1);
-    if (%varc_int_200 <= 0) {
+    %varclient_200 = calc(%varclient_200 - 1);
+    if (%varclient_200 <= 0) {
         if_setontimer(null, $component3);
         ~login_dologin;
         return;
     }
-    $int5 = calc(%varc_int_200 / 50);
-    if ($int5 = true) {
+    $int5 = calc(%varclient_200 / 50);
+    if ($int5 = 1) {
         $string0 = "You have only just left another world. Your profile will be transferred in<br>1 second.";
     } else {
         $string0 = "You have only just left another world. Your profile will be transferred in<br><tostring($int5)> seconds.";
@@ -52,22 +53,22 @@ if ($int0 = 21) {
 ~login_popup_close;
 def_int $int6 = 0;
 def_string $string1 = "";
-if ($int0 = true) {
+if ($int0 = 1) {
     if_settext("Logging in...", $component1);
     if_settext("Logging in...", $component2);
     if_setonclick(null, $component3);
-    if (%varc_int_201 = false) {
-        %varc_int_202 = has_auth_6405;
+    if (%varclient_201 = 0) {
+        %varclient_202 = video_advert_play;
     }
-    $int6 = calc((500 - %varc_int_201) / 50);
-    if (%varc_int_202 = false) {
-        if ($int6 = true) {
+    $int6 = calc((500 - %varclient_201) / 50);
+    if (%varclient_202 = false) {
+        if ($int6 = 1) {
             $string1 = "Could not display video advertisement. Login will continue in 1 second.";
         } else {
             $string1 = "Could not display video advertisement. Login will continue in <tostring($int6)> seconds";
         }
-    } else if (%varc_int_201 < 500) {
-        if ($int6 = true) {
+    } else if (%varclient_201 < 500) {
+        if ($int6 = 1) {
             $string1 = "Displaying video advertisement. Login will continue in 1 second.";
         } else {
             $string1 = "Displaying video advertisement. Login will continue in <tostring($int6)> seconds.";
@@ -76,24 +77,24 @@ if ($int0 = true) {
         $string1 = "Displaying video advertisement. Login will continue in 0 seconds.";
     }
     ~login_popup($int0, 0, $string1, 0, "loadingwheel,12", 0, -1, "", 0, "");
-    %varc_int_201 = calc(%varc_int_201 + 1);
-    if (%varc_int_202 = true & has_auth_6406 = false | %varc_int_201 < 500) {
+    %varclient_201 = calc(%varclient_201 + 1);
+    if (%varclient_202 = true & video_advert_has_finished = false | %varclient_201 < 500) {
         return;
     }
     ~login_popup_close;
-    login_void_5601;
+    login_continue;
     return;
 }
 ~login_popup_close;
-if (login_getint_5623 = true) {
+if (unknown_command_5623 = true) {
     if_settext("Play Game", $component1);
     if_settext("Play Game", $component2);
 } else {
     if_settext("Log In", $component1);
     if_settext("Log In", $component2);
 }
-if_setonclick("login_dologin()", $component3);
-if_setontimer(null, login:com5);
+if_setonclick("login_dologin", $component3);
+if_setontimer(null, login:com_5);
 def_string $string2 = "";
 def_int $int7 = 1;
 def_int $int8 = 0;
@@ -104,88 +105,88 @@ def_string $string3 = "";
 def_int $int12 = 1;
 def_string $string4 = "Back";
 switch_int ($int0) {
-    case -2:
+    case -2 :
         ~login_popup_close;
-        if (login_getint_5623 = true) {
+        if (unknown_command_5623 = true) {
             return;
         } else {
             ~login_open(11);
         }
         return;
-    case 29:
-        switch_int (login_getint_5611) {
-            case 0:
+    case 29 :
+        switch_int (login_disallowresult) {
+            case 0 :
                 $string2 = "You must have a Combat Level of at least 20 (not including Summoning) to enter a PvP world.";
-            case 1:
+            case 1 :
                 $string2 = "You are currently carrying lent items and cannot enter a PvP world.";
-            case 2:
+            case 2 :
                 $string2 = "You must be standing in the Wilderness or Edgeville to enter this bounty world.";
-            case 3:
+            case 3 :
                 $string2 = "You must have a total skill level of 1,000 or greater to enter this world.";
-            case 5:
+            case 5 :
                 $string2 = "You must have a total skill level of 1,500 or greater to enter this world.";
-            case 4:
+            case 4 :
                 $string2 = "You must move to a safe area before you can log in to a PvP or bounty world.";
-            case default:
+            case default :
                 $string2 = "Unexpected server response. Please try using a different world.";
         }
-    case -5:
+    case -5 :
         $string2 = "Connection timed out. Please try using a different world.";
-    case -4:
+    case -4 :
         $string2 = "Error connecting to server.";
-    case -1:
+    case -1 :
         $string2 = "No response from server. Please try using a different world.";
-    case 5:
+    case 5 :
         $string2 = "Your account has not logged out from its last session. Try again in a few minutes.";
-    case 7:
+    case 7 :
         $string2 = "This world is full. Please use a different world.";
-    case 8:
+    case 8 :
         $string2 = "Unable to connect: login server offline.";
-    case 9:
+    case 9 :
         $string2 = "Login limit exceeded: too many connections from your address.";
-    case 10:
+    case 10 :
         $string2 = "Unable to connect: bad session id.";
-    case 13:
+    case 13 :
         $string2 = "Could not complete login. Please try using a different world.";
-    case 16:
+    case 16 :
         $string2 = "Too many incorrect logins from your address. Please wait 5 minutes before trying again.";
-    case 17:
+    case 17 :
         $string2 = "You are standing in a members-only area. To play on this world, move to a free area first.";
-    case 20:
+    case 20 :
         $string2 = "Invalid loginserver requested. Please try using a different world.";
-    case 22:
+    case 22 :
         $string2 = "Malformed login packet. Please try again.";
-    case 23:
+    case 23 :
         $string2 = "No reply from login server. Please wait a minute and try again.";
-    case 24:
+    case 24 :
         $string2 = "Error loading your profile. Please contact customer support.";
-    case 25:
+    case 25 :
         $string2 = "Unexpected loginserver response. Please try using a different world.";
-    case 26:
+    case 26 :
         $string2 = "This computer's address has been blocked, as it was used to break our rules.";
-    case 27:
+    case 27 :
         $string2 = "Service unavailable.";
-    case 36:
+    case 36 :
         $string2 = "Unable to connect: authentication server offline.";
-    case 37:
+    case 37 :
         $string2 = "Your account is currently inaccessible. Please try again in a few minutes.";
-    case 44:
+    case 44 :
         $string2 = "Our systems are currently unavailable. Please try again in a few minutes.";
-    case 35:
+    case 35 :
         $string2 = "Your session has expired. Please click 'Back' in your browser to renew it.";
         $string4 = "Close";
-    case 14:
+    case 14 :
         $int7 = 0;
         $graphic9 = "loadingwheel,11";
         $string2 = "The server is being updated. Please wait a few minutes and try again.";
-    case 6:
+    case 6 :
         $int7 = 0;
         $graphic9 = "loadingwheel,11";
         $string2 = "RuneScape has been updated! Please reload this page.";
-    case 3:
-        if (%varc_int_1414 = true) {
+    case 3 :
+        if (%varclient_1414 = 1) {
             $string2 = "Invalid username or password.<br><br>For accounts created after the 24th of November 2010, please use your email address to login. Otherwise please login with your username.";
-        } else if (%varc_int_1414 = 2) {
+        } else if (%varclient_1414 = 2) {
             $string2 = "Invalid email or password.<br><br>For accounts created after the 24th of November 2010, please use your email address to login. Otherwise please login with your username.";
         } else {
             $string2 = "Invalid login or password.<br><br>For accounts created after the 24th of November 2010, please use your email address to login. Otherwise please login with your username.";
@@ -193,45 +194,45 @@ switch_int ($int0) {
         $string4 = "Try Again";
         $int10 = 1;
         $string3 = "Forgotten your password?";
-    case 4:
+    case 4 :
         $string2 = "Your account has been disabled. Check your message centre for details.";
         $int10 = 1;
         $string3 = "Message Centre";
-    case 11:
+    case 11 :
         $string2 = "Your password is an extremely common choice, and is not secure. You must change it before you can login.";
         $int10 = 1;
         $string3 = "Change Password";
-    case 18:
+    case 18 :
         $graphic9 = "loadingwheel,13";
         $string2 = "Your account has been locked. If you have not received an account recovery email, please select 'Recover Account' from the 'Help' menu on the homepage.";
         $int10 = 1;
         $string3 = "Recover Account";
-    case 30:
+    case 30 :
         $string2 = "This is not a member's account; please choose a 'free' world from the website to play on this account.";
         $int10 = 1;
-        if (is_unsigned = true) {
+        if (unknown_command_5420 = true) {
             $string3 = "Choose World";
         } else {
             $string3 = "Subscribe";
         }
-    case 31:
+    case 31 :
         $string2 = "You must change your account's display name before you can login.";
         $int10 = 1;
         $string3 = "Change Display Name";
-    case 19:
+    case 19 :
         $string2 = "Fullscreen is currently a members-only feature. To log in, exit fullscreen via the options menu or use a member's account.";
         $int10 = 1;
         $string3 = "Subscribe";
-    case 12:
+    case 12 :
         $string2 = "You need a member's account to log in to this world. Please subscribe or use a different world.";
         $int10 = 1;
         $string3 = "Subscribe";
-    case 32:
+    case 32 :
         $string2 = "Your account has negative membership credit. Please log into the billing system to add credit to your account.";
         $int10 = 1;
         $string3 = "Add Credit";
-    case default:
+    case default :
         $string2 = "Unexpected server response. Please try using a different world.";
 }
 ~login_popup($int0, $int7, $string2, $int8, $graphic9, $int10, $int11, $string3, $int12, $string4);
-login_void_5602;
+login_resetreply;

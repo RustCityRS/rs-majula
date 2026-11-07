@@ -3,7 +3,7 @@
 // checked (#testscript), and every engine load failed.
 [name_text]
 type=string
-default=null
+default=
 
 [xpperbar]
 type=int
@@ -31,7 +31,7 @@ default=null
 
 [processfailure]
 type=string
-default=null
+default=
 
 [bar_count]
 type=int
@@ -43,8 +43,8 @@ default=null
 
 [queueore_primary]
 type=string
-default=null
+default=
 
 [queueore_secondary]
 type=string
-default=null
+default=

@@ -1,10 +1,11 @@
+// 521
 [clientscript,initialise_stat_xp]
-%varc_int_54 = stat_xp(runecrafting);
-%varc_int_55 = stat_xp(crafting);
-%varc_int_57 = stat_xp(fletching);
-%varc_int_58 = stat_xp(cooking);
-%varc_int_60 = stat_xp(construction);
-%varc_int_61 = stat_xp(herblore);
-%varc_int_64 = stat_xp(magic);
-%varc_int_66 = stat_xp(smithing);
-%varc_int_62 = stat_xp(farming);
+%varclient_54 = stat_visible_xp(runecraft);
+%varclient_55 = stat_visible_xp(crafting);
+%varclient_57 = stat_visible_xp(fletching);
+%varclient_58 = stat_visible_xp(cooking);
+%varclient_60 = stat_visible_xp(construction);
+%varclient_61 = stat_visible_xp(herblore);
+%varclient_64 = stat_visible_xp(magic);
+%varclient_66 = stat_visible_xp(smithing);
+%varclient_62 = stat_visible_xp(farming);

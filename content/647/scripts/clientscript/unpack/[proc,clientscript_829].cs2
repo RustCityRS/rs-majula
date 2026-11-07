@@ -1,6 +1,0 @@
-[proc,clientscript_829](struct $struct0, enum $enum1)(int)
-if ($struct0 = struct_845) {
-    return(calc(screenmode_getcount - 1));
-}
-return(calc(enum_getoutputcount($enum1) - 1));
-return(0);

@@ -1,14 +1,15 @@
+// 3943
 [clientscript,playerdesign4_open_name_entry]
-if_sethide(false, playerdesign4:com90);
-if_sethide(true, playerdesign4:com35);
-if_sethide(true, playerdesign4:com115);
-if_sethide(true, playerdesign4:com117);
-if_sethide(true, playerdesign4:com116);
-if_sethide(true, playerdesign4:com89);
+if_sethide(false, playerdesign4:com_90);
+if_sethide(true, playerdesign4:com_35);
+if_sethide(true, playerdesign4:com_115);
+if_sethide(true, playerdesign4:com_117);
+if_sethide(true, playerdesign4:com_116);
+if_sethide(true, playerdesign4:com_89);
 ~playerdesign4_tooltip_clear;
-if_setonkey("playerdesign4_name_onkey(^event_key, ^event_keychar, true)", playerdesign4:com177);
-if_setonclick("clientscript_3217(^event_mousex, playerdesign4:com181, playerdesign4:com182, playerdesign4:com183, 16)", playerdesign4:com182);
-%varc_int_1099 = 0;
-%varc_string_330 = "";
-%varc_int_1412 = 0;
-~clientscript_3218(playerdesign4:com181, playerdesign4:com182, playerdesign4:com183, %varc_string_330, 16);
+if_setonkey("playerdesign4_name_onkey(event_keycode, event_keychar, true)", playerdesign4:com_177);
+if_setonclick("script3217(event_mousex, playerdesign4:com_181, playerdesign4:com_182, playerdesign4:com_183, 16)", playerdesign4:com_182);
+%varclient_1099 = 0;
+%varclient_1849 = "";
+%varclient_1412 = 0;
+~script3218(playerdesign4:com_181, playerdesign4:com_182, playerdesign4:com_183, %varclient_1849, 16);

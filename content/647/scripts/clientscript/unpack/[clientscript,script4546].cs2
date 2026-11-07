@@ -1,0 +1,24 @@
+// 4546
+[clientscript,script4546](component $component0, int $int1, int $int2, component $component3, graphic $graphic4, int $int5)
+if (($int2 = 0 | $int2 = 1) & calc(if_getwidth($component0) + $int5) <= $int1) {
+    if_setsize($int1, if_getheight($component0), ^setsize_abs, ^setsize_abs, $component0);
+    if ($graphic4 ! null) {
+        if_setgraphic($graphic4, $component3);
+    }
+    if_setontimer(null, $component0);
+    return;
+}
+if (($int2 = 2 | $int2 = 3) & calc(if_getheight($component0) + $int5) <= $int1) {
+    if_setsize(if_getwidth($component0), $int1, ^setsize_abs, ^setsize_abs, $component0);
+    if ($graphic4 ! null) {
+        if_setgraphic($graphic4, $component3);
+    }
+    if_setontimer(null, $component0);
+    return;
+}
+switch_int ($int2) {
+    case 0, 1 :
+        if_setsize(calc(if_getwidth($component0) - $int5), if_getheight($component0), ^setsize_abs, ^setsize_abs, $component0);
+    case 2, 3 :
+        if_setsize(if_getwidth($component0), calc(if_getheight($component0) - $int5), ^setsize_abs, ^setsize_abs, $component0);
+}

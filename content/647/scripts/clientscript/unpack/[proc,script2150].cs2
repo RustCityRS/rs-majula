@@ -1,0 +1,8 @@
+// 2150
+[proc,script2150](int $int0, int $int1)(boolean)
+def_struct $struct2 = enum(int, struct, enum_169, $int0);
+%varclient_699 = enum(int, struct, struct_param($struct2, param_61), $int1);
+if (%qp < struct_param(%varclient_699, param_895)) {
+    return(false);
+}
+return(true);

@@ -1,0 +1,7 @@
+// 1170
+[clientscript,script1170]
+if (if_gettrans(godwars_overlay:com_1) > %varclient_1435) {
+    if_settrans(max(50, calc(if_gettrans(godwars_overlay:com_1) - 1)), godwars_overlay:com_1);
+} else {
+    if_settrans(min(255, calc(if_gettrans(godwars_overlay:com_1) + 1)), godwars_overlay:com_1);
+}

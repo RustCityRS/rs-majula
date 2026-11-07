@@ -1,0 +1,14 @@
+// 2174
+[proc,script2174]
+def_int $int0 = 0;
+def_int $int1 = 141;
+def_int $int2 = enum_getoutputcount(enum_964);
+while ($int0 < $int2) {
+    if (~script2189($int0) = 1) {
+        $int1 = 255;
+    } else {
+        $int1 = 141;
+    }
+    if_settrans($int1, enum(int, component, enum_964, $int0));
+    $int0 = calc($int0 + 1);
+}

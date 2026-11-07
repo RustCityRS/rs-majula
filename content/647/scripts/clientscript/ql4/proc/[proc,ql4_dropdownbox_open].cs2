@@ -1,45 +1,46 @@
-[proc,ql4_dropdownbox_open](int $int0, int $int1, component $component2, graphic $graphic3, component $component4, component $component5, component $component6, colour $colour7, colour $colour8, int $int9, fontmetrics $fontmetrics10, int $int11, int $int12, graphic $graphic13, graphic $graphic14, graphic $graphic15, graphic $graphic16, graphic $graphic17, graphic $graphic18)
+// 947
+[proc,ql4_dropdownbox_open](int $int0, int $int1, component $component2, graphic $graphic3, component $component4, component $component5, component $component6, int $rgb7, int $rgb8, int $rgb9, graphic $graphic10, int $int11, int $int12, graphic $graphic13, graphic $graphic14, graphic $graphic15, graphic $graphic16, graphic $graphic17, graphic $graphic18)
 if (cc_find($component6, $int12) = true) {
     cc_setvflip(true);
 }
-cc_create($component2, ^iftype_graphic, if_getchildcount($component2));
+cc_create($component2, ^iftype_graphic, if_getnextsubid($component2));
 cc_setposition(0, 0, ^setpos_abs_left, ^setpos_abs_top);
 cc_setsize(if_getwidth($component2), if_getheight($component2), ^setsize_abs, ^setsize_abs);
 cc_setgraphic($graphic3);
 cc_settiling(true);
-cc_create($component2, ^iftype_rectangle, if_getchildcount($component2));
+cc_create($component2, ^iftype_rectangle, if_getnextsubid($component2));
 cc_setposition(0, 0, ^setpos_abs_left, ^setpos_abs_top);
 cc_setsize(if_getwidth($component2), if_getheight($component2), ^setsize_abs, ^setsize_abs);
 cc_setcolour(^black);
 if_setscrollsize(if_getwidth($component4), calc($int1 * 15), $component4);
 def_int $int19 = 0;
 def_int $int20 = -1;
-def_string $string = "";
-def_enum $enum21 = struct_param(enum(105, 74, enum_169, $int0), param_782);
+def_string $string0 = "";
+def_enum $enum21 = struct_param(enum(int, struct, enum_169, $int0), param_782);
 while ($int19 <= $int1) {
-    $int20 = if_getchildcount($component4);
-    $string = enum(105, 115, $enum21, $int19);
+    $int20 = if_getnextsubid($component4);
+    $string0 = enum(int, string, $enum21, $int19);
     cc_create($component4, ^iftype_text, $int20);
-    cc_setopbase($string);
-    if ($int20 = %varc_int_693 & %varc_int_694 = false) {
-        $string = append($string, " (r)");
+    cc_setopbase($string0);
+    if ($int20 = %varclient_693 & %varclient_694 = 0) {
+        $string0 = append($string0, " (r)");
     }
-    cc_settext($string);
+    cc_settext($string0);
     cc_settextalign(^settextalign_left, ^settextalign_centre, 0);
     cc_setposition(5, calc($int19 * 15), ^setpos_abs_left, ^setpos_abs_top);
     cc_setsize(calc(if_getwidth($component4) - 16), 15, ^setsize_abs, ^setsize_abs);
     cc_settextshadow(false);
-    cc_settextfont($fontmetrics10);
+    cc_settextfont($graphic10);
     cc_setop(1, "Select");
-    cc_setonop("clientscript_943($int0, ^event_subid, ^event_op, $colour7)");
+    cc_setonop("script943($int0, event_comsubid, event_op, $rgb7)");
     if ($int19 >= $int1) {
-        cc_setcolour($colour8);
-        cc_setonmouseleave("dropdownbox_mouseoutelement($component4, $int20, $colour8)");
+        cc_setcolour($rgb8);
+        cc_setonmouseleave("dropdownbox_mouseoutelement($component4, $int20, $rgb8)");
     } else {
-        cc_setcolour($colour7);
-        cc_setonmouseleave("dropdownbox_mouseoutelement($component4, $int20, $colour7)");
+        cc_setcolour($rgb7);
+        cc_setonmouseleave("dropdownbox_mouseoutelement($component4, $int20, $rgb7)");
     }
-    cc_setonmouseover("dropdownbox_mouseoverelement($component4, $int20, $int9)");
+    cc_setonmouseover("dropdownbox_mouseoverelement($component4, $int20, $rgb9)");
     $int19 = calc($int19 + 1);
 }
 if ($component5 ! null) {

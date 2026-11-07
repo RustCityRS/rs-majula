@@ -1,0 +1,16 @@
+// 439
+[clientscript,script439](component $component0)
+switch_int (%varplayerbit_8087) {
+    case 0 :
+        if_settext("0:30", $component0);
+    case 1 :
+        if_settext("1:00", $component0);
+    case 2 :
+        if_settext("1:30", $component0);
+    case 3 :
+        if_settext("2:00", $component0);
+    case 4 :
+        if_settext("2:30", $component0);
+    case 5 :
+        if_settext("3:00", $component0);
+}

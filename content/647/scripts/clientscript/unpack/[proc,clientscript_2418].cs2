@@ -1,6 +1,0 @@
-[proc,clientscript_2418](component $component)
-if (%varc_int_805 = 6) {
-    if_setop(1, "Fix", $component);
-} else {
-    if_setop(1, "Inspect", $component);
-}

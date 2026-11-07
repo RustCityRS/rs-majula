@@ -1,0 +1,17 @@
+// 2903
+[clientscript,script2903](component $component0, component $component1, component $component2, component $component3, component $component4, component $component5, component $component6, component $component7, int $int8)
+if (%varclient_1087 = $int8) {
+    %varclient_1087 = 0;
+    if_sethide(true, $component0);
+    if_sethide(true, $component1);
+} else {
+    %varclient_1087 = $int8;
+    if_sethide(false, $component0);
+    if_sethide(false, $component1);
+}
+if_sethide(true, $component2);
+if_sethide(true, $component3);
+if_sethide(true, $component4);
+if_sethide(true, $component5);
+if_sethide(true, $component6);
+if_sethide(true, $component7);

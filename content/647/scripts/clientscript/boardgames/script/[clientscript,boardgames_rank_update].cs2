@@ -1,34 +1,35 @@
+// 1183
 [clientscript,boardgames_rank_update](component $component0, component $component1, component $component2, component $component3, component $component4, component $component5)
-switch_int (%varc_int_808) {
-    case 1:
+switch_int (%varclient_808) {
+    case 1 :
         if_sethide(true, $component3);
         if_sethide(true, $component4);
         if_sethide(true, $component5);
         if_sethide(false, $component2);
         if_settext("Draughts", $component0);
-        if_settext(tostring(%varp_354), $component1);
-    case 2:
+        if_settext(tostring(%varplayer_354), $component1);
+    case 2 :
         if_sethide(true, $component2);
         if_sethide(true, $component4);
         if_sethide(true, $component5);
         if_sethide(false, $component3);
         if_settext("Runelink", $component0);
-        if_settext(tostring(%varp_353), $component1);
-    case 3:
+        if_settext(tostring(%varplayer_353), $component1);
+    case 3 :
         if_sethide(true, $component2);
         if_sethide(true, $component3);
         if_sethide(true, $component5);
         if_sethide(false, $component4);
         if_settext("Runesquares", $component0);
-        if_settext(tostring(%varp_648), $component1);
-    case 4:
+        if_settext(tostring(%varplayer_648), $component1);
+    case 4 :
         if_sethide(true, $component2);
         if_sethide(true, $component3);
         if_sethide(true, $component4);
         if_sethide(false, $component5);
         if_settext("Runeversi", $component0);
-        if_settext(tostring(%varp_649), $component1);
-    case default:
+        if_settext(tostring(%varplayer_649), $component1);
+    case default :
         if_sethide(true, $component3);
         if_sethide(true, $component4);
         if_sethide(true, $component5);

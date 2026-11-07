@@ -1,3 +1,4 @@
+// 287
 [proc,worldmap_key_createindicator](int $int0, boolean $boolean1, component $component2, int $int3)
 .cc_create($component2, ^iftype_graphic, $int0);
 .cc_setsize(17, 17, ^setsize_abs, ^setsize_abs);

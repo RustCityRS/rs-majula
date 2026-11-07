@@ -1,3 +1,4 @@
+// 2695
 [clientscript,graphics_options_createdropdown](component $component0, int $int1, int $int2, int $int3, int $int4, struct $struct5, int $int6, int $int7, int $int8, int $int9, int $int10)
 def_int $int11 = 0;
 def_int $int12 = 0;
@@ -8,27 +9,27 @@ def_component $component16 = null;
 def_component $component17 = null;
 def_component $component18 = null;
 def_component $component19 = null;
-if ($int10 = true) {
-    $component14 = graphics_options:com4;
-    $component15 = graphics_options:com20;
-    $component16 = graphics_options:com21;
-    $component17 = graphics_options:com22;
-    $component18 = graphics_options:com3;
-    $component19 = graphics_options:com6;
+if ($int10 = 1) {
+    $component14 = graphics_options:com_4;
+    $component15 = graphics_options:com_20;
+    $component16 = graphics_options:com_21;
+    $component17 = graphics_options:com_22;
+    $component18 = graphics_options:com_3;
+    $component19 = graphics_options:com_6;
 } else if ($int10 = 2) {
-    $component14 = lobbyscreen_pane_options:com0;
-    $component15 = lobbyscreen_pane_options:com59;
-    $component16 = lobbyscreen_pane_options:com64;
-    $component17 = lobbyscreen_pane_options:com65;
-    $component18 = lobbyscreen_pane_options:com63;
-    $component19 = lobbyscreen_pane_options:com2;
+    $component14 = lobbyscreen_pane_options:com_0;
+    $component15 = lobbyscreen_pane_options:com_59;
+    $component16 = lobbyscreen_pane_options:com_64;
+    $component17 = lobbyscreen_pane_options:com_65;
+    $component18 = lobbyscreen_pane_options:com_63;
+    $component19 = lobbyscreen_pane_options:com_2;
 } else {
-    $component14 = loginscreen_graphics_options:com4;
-    $component15 = loginscreen_graphics_options:com5;
-    $component16 = loginscreen_graphics_options:com6;
-    $component17 = loginscreen_graphics_options:com7;
-    $component18 = loginscreen_graphics_options:com3;
-    $component19 = loginscreen_graphics_options:com28;
+    $component14 = loginscreen_graphics_options:com_4;
+    $component15 = loginscreen_graphics_options:com_5;
+    $component16 = loginscreen_graphics_options:com_6;
+    $component17 = loginscreen_graphics_options:com_7;
+    $component18 = loginscreen_graphics_options:com_3;
+    $component19 = loginscreen_graphics_options:com_28;
 }
 def_int $int20 = 0;
 if (cc_find($component0, $int1) = true) {
@@ -37,7 +38,7 @@ if (cc_find($component0, $int1) = true) {
     $int12 = calc($int20 + cc_getheight - 1 + ~if_gety_absolute($component19));
     $int13 = cc_getwidth;
 }
-if (if_gethide($component15) = false & (if_getx($component15) = $int11 & if_gety($component15) = $int12)) {
+if (if_gethide($component15) = false & if_getx($component15) = $int11 & if_gety($component15) = $int12) {
     return;
 }
 cc_deleteall($component16);
@@ -45,35 +46,35 @@ cc_deleteall($component17);
 if_setscrollpos(0, 0, $component16);
 def_enum $enum21 = struct_param($struct5, param_683);
 def_int $int22 = ~graphics_options_detailget($struct5);
-def_int $int23 = ~clientscript_829($struct5, $enum21);
+def_int $int23 = ~script829($struct5, $enum21);
 def_int $int24 = 0;
 def_int $int25 = 0;
 def_int $int26 = 0;
 while ($int25 <= $int23) {
     if ($int26 ! $int22) {
-        cc_create($component16, ^iftype_text, if_getchildcount($component16));
+        cc_create($component16, ^iftype_text, if_getnextsubid($component16));
         cc_setsize(2, 15, ^setsize_minus, ^setsize_abs);
         cc_setposition(0, $int24, ^setpos_abs_centre, ^setpos_abs_top);
         cc_settextalign(^settextalign_centre, ^settextalign_centre, 0);
         cc_settextfont(p11_full);
-        cc_setonmouseover("cc_text_colour_swapper(^event_com, ^event_subid, 2511483)");
+        cc_setonmouseover("cc_text_colour_swapper(event_com, event_comsubid, 0x26527b)");
         if ($struct5 ! struct_1009) {
             if ($int25 < $int23) {
                 cc_setcolour(0xebe0bc);
-                cc_setonmouseleave("cc_text_colour_swapper(^event_com, ^event_subid, 15458492)");
+                cc_setonmouseleave("cc_text_colour_swapper(event_com, event_comsubid, 0xebe0bc)");
             } else {
                 cc_setcolour(0x00b1e1);
-                cc_setonmouseleave("cc_text_colour_swapper(^event_com, ^event_subid, 45537)");
+                cc_setonmouseleave("cc_text_colour_swapper(event_com, event_comsubid, 0x00b1e1)");
             }
         } else if ($int25 > 0) {
             cc_setcolour(0xebe0bc);
-            cc_setonmouseleave("cc_text_colour_swapper(^event_com, ^event_subid, 15458492)");
+            cc_setonmouseleave("cc_text_colour_swapper(event_com, event_comsubid, 0xebe0bc)");
         } else {
             cc_setcolour(0x00b1e1);
-            cc_setonmouseleave("cc_text_colour_swapper(^event_com, ^event_subid, 45537)");
+            cc_setonmouseleave("cc_text_colour_swapper(event_com, event_comsubid, 0x00b1e1)");
         }
         if ($enum21 ! null) {
-            cc_settext(enum(105, 115, $enum21, $int26));
+            cc_settext(enum(int, string, $enum21, $int26));
         } else {
             cc_settext(~graphics_options_resolutions($int25));
         }
@@ -85,7 +86,7 @@ while ($int25 <= $int23) {
 }
 $int24 = calc($int24 + 2);
 def_int $int27 = 0;
-if ($int10 = true) {
+if ($int10 = 1) {
     $int27 = 334;
 } else {
     $int27 = if_getheight($component14);
@@ -104,18 +105,18 @@ if_setposition($int11, $int12, ^setpos_abs_left, ^setpos_abs_top, $component15);
 if_setsize($int13, $int24, ^setsize_abs, ^setsize_abs, $component15);
 if_sethide(false, $component15);
 if (cc_find($component0, $int2) = true) {
-    cc_setgraphic(2556);
+    cc_setgraphic(graphic_2556);
 }
 if ($int4 ! -1 & cc_find($component0, $int4) = true) {
     cc_setcolour(0xb2aa9f);
 }
 if (cc_find($component0, $int1) = true) {
     cc_setonclick("graphics_options_canceldropdown($component0, $int1, $int2, $int3, $int4, $struct5, $int6, $int7, $int8, $int9, $int10)");
-    cc_setonmouseover("graphics_options_mouseoveroption(^event_com, $int2, true, $int3, 8419437, false)");
-    cc_setonmouseleave("graphics_options_mouseoveroption(^event_com, $int2, false, $int3, 6249298, false)");
+    cc_setonmouseover("graphics_options_mouseoveroption(event_com, $int2, true, $int3, 0x80786d, false)");
+    cc_setonmouseleave("graphics_options_mouseoveroption(event_com, $int2, false, $int3, 0x5f5b52, false)");
     if (.cc_find($component0, $int3) = true) {
         .cc_setcolour(0xb2aa9f);
-        if ($int28 = true) {
+        if ($int28 = 1) {
             .cc_setsize(.cc_getwidth, calc(cc_getheight + 5), ^setsize_abs, ^setsize_abs);
         }
     }

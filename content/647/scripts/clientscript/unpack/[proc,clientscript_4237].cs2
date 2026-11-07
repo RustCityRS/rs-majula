@@ -1,6 +1,0 @@
-[proc,clientscript_4237]
-if (%varc_int_1495 = false & %varbit_8960 > 0) {
-    %varc_int_1495 = clientclock;
-} else {
-    return;
-}

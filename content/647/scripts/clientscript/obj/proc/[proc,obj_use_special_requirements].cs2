@@ -1,14 +1,14 @@
-[proc,obj_use_special_requirements](obj $obj)(int)
-switch_int (oc_weight($obj, param_762)) {
-    case 1:
-        if (%varp_322 < 10) {
-            return(0);
+// 935
+[proc,obj_use_special_requirements](obj $obj0)(boolean)
+switch_int (oc_param($obj0, param_762)) {
+    case 1 :
+        if (%varplayer_322 < 10) {
+            return(false);
         }
-    case 2:
-        if (%varbit_4310 < 10) {
-            return(0);
+    case 2 :
+        if (%varplayerbit_4310 < 10) {
+            return(false);
         }
-    case default:
-        return(1);
+    case default :
+        return(true);
 }
-return(-1);

@@ -1,1071 +1,1072 @@
+// 1022
 [proc,skill_advance_guide_entry_smithing](int $int0, int $int1)(int, obj, string, string)
 switch_int ($int0) {
-    case 0:
+    case 0 :
         switch_int ($int1) {
-            case 0:
+            case 0 :
                 return(1, bronze_bar, "Bronze<br> 1 tin ore and 1 copper ore", "You can now smelt <col=000080>bronze</col>.");
-            case 1:
+            case 1 :
                 return(8, blurite_bar, "Blurite<br> (after The Knight's Sword)", "You now have the Smithing level required to smelt <col=000080>blurite</col> (after The Knight's Sword).");
-            case 2:
+            case 2 :
                 return(15, iron_bar, "Iron<br> 50% chance of success, rising until level 45", "You can now smelt <col=000080>iron</col>.");
-            case 3:
+            case 3 :
                 return(20, elemental_bar, "Members: Elemental metal<br> (after Elemental Workshop)", "Members now have the Smithing level required to smelt <col=000080>elemental metal</col> (after Elemental Workshop).");
-            case 4:
+            case 4 :
                 return(20, silver_bar, "Silver", "You can now smelt <col=000080>silver</col>.");
-            case 5:
+            case 5 :
                 return(30, steel_bar, "Steel<br> 2 coal and 1 iron ore", "You can now smelt <col=000080>steel</col>.");
-            case 6:
+            case 6 :
                 return(40, gold_bar, "Gold", "You can now smelt <col=000080>gold</col>.");
-            case 7:
+            case 7 :
                 return(45, iron_bar, "Iron<br> 80% chance of success", "Your chance of successfully smelting <col=000080>iron</col> has reached its maximum.");
-            case 8:
+            case 8 :
                 return(50, mithril_bar, "Mithril<br> 4 coal and 1 mithril ore", "You can now smelt <col=000080>mithril</col>.");
-            case 9:
+            case 9 :
                 return(70, adamant_bar, "Adamant<br> 6 coal and 1 adamantite ore", "You can now smelt <col=000080>adamantite</col>.");
-            case 10:
+            case 10 :
                 return(85, rune_bar, "Rune<br> 8 coal and 1 runite ore", "You can now smelt <col=000080>runite</col>.");
         }
-    case 1:
+    case 1 :
         switch_int ($int1) {
-            case 0:
+            case 0 :
                 return(1, bronze_dagger, "Bronze dagger<br> 1 bar", "You can now smith <col=000080>bronze daggers</col>.");
-            case 1:
+            case 1 :
                 return(1, bronze_hatchet, "Bronze hatchet<br> 1 bar", "You can now smith <col=000080>bronze hatchets</col>.");
-            case 2:
+            case 2 :
                 return(2, bronze_mace, "Bronze mace<br> 1 bar", "You can now smith <col=000080>bronze maces</col>.");
-            case 3:
+            case 3 :
                 return(3, bronze_med_helm, "Bronze medium helm<br> 1 bar", "You can now smith <col=000080>bronze medium helms</col>.");
-            case 4:
+            case 4 :
                 return(3, bronze_bolts__unf, "Members: Bronze crossbow bolt<br> 1 bar makes 10", "Members can now smith <col=000080>bronze crossbow bolts</col>.");
-            case 5:
+            case 5 :
                 return(4, bronze_sword, "Bronze sword<br> 1 bar", "You can now smith <col=000080>bronze swords</col>.");
-            case 6:
+            case 6 :
                 return(4, bronze_dart_tip, "Members: Bronze dart tip<br> (after Tourist Trap)<br> 1 bar makes 10", "Members now have the Smithing level required to smith bronze dart tips</col> (after Tourist Trap).");
-            case 7:
+            case 7 :
                 return(4, bronze_wire, "Members: Bronze wire<br> 1 bar", "Members can now smith <col=000080>bronze wire</col>.");
-            case 8:
+            case 8 :
                 return(4, bronze_nails, "Members: Bronze nails<br> 1 bar makes 15", "Members can now smith <col=000080>bronze nails</col>.");
-            case 9:
+            case 9 :
                 return(5, bronze_scimitar, "Bronze scimitar<br> 2 bars", "You can now smith <col=000080>bronze scimitars</col>.");
-            case 10:
+            case 10 :
                 return(5, bronze_spear, "Members: Bronze spear<br> (after Tai Bwo Wannai Trio and learning barbarian smithing)<br> 1 bar, 1 log", "Members who are versed in the art of barbarian smithing now have the Smithing level required to smith <col=000080>bronze spears</col> (after Tai Bwo Wannai Trio).");
-            case 11:
+            case 11 :
                 return(5, bronze_hasta, "Members: Bronze hasta<br> (after Tai Bwo Wannai Trio and learning barbarian smithing)<br> 1 bar, 1 log", "Members who are versed in the art of barbarian smithing now have the Smithing level required to smith <col=000080>bronze hastae</col> (after Tai Bwo Wannai Trio).");
-            case 12:
+            case 12 :
                 return(5, bronze_arrowtips, "Members: Bronze arrowhead<br> 1 bar makes 15", "Members can now smith <col=000080>bronze arrowheads</col>.");
-            case 13:
+            case 13 :
                 return(5, bronze_pickaxe, "Members: Bronze pickaxe<br> (after Perils of Ice Mountain)<br> 2 bars", "Members now have the Smithing level required to smith bronze <col=000080>pickaxes</col> (after Perils of Ice Mountain).");
-            case 14:
+            case 14 :
                 return(6, bronze_limbs, "Members: Bronze crossbow limbs<br> 1 bar", "Members can now smith <col=000080>bronze crossbow limbs</col>.");
-            case 15:
+            case 15 :
                 return(6, bronze_longsword, "Bronze longsword<br> 2 bars", "You can now smith <col=000080>bronze longswords</col>.");
-            case 16:
+            case 16 :
                 return(7, bronze_full_helm, "Bronze full helm<br> 2 bars", "You can now smith <col=000080>bronze full helms</col>.");
-            case 17:
+            case 17 :
                 return(7, bronze_knife, "Members: Bronze throwing knife<br> 1 bar makes 5", "Members can now smith <col=000080>bronze throwing knives</col>.");
-            case 18:
+            case 18 :
                 return(8, bronze_sq_shield, "Bronze square shield<br> 2 bars", "You can now smith <col=000080>bronze square shields</col>.");
-            case 19:
+            case 19 :
                 return(9, bronze_warhammer, "Bronze warhammer<br> 3 bars", "You can now smith <col=000080>bronze warhammers</col>.");
-            case 20:
+            case 20 :
                 return(10, bronze_battleaxe, "Bronze battleaxe<br> 3 bars", "You can now smith <col=000080>bronze battleaxes</col>.");
-            case 21:
+            case 21 :
                 return(11, bronze_chainbody, "Bronze chainbody<br> 3 bars", "You can now smith <col=000080>bronze chainbodies</col>.");
-            case 22:
+            case 22 :
                 return(12, bronze_kiteshield, "Bronze kiteshield<br> 3 bars", "You can now smith <col=000080>bronze kiteshields</col>.");
-            case 23:
+            case 23 :
                 return(13, bronze_claws, "Members: Bronze claws<br> (after Death Plateau)<br> 2 bars", "Members now have the Smithing level required to smith <col=000080>bronze claws</col> (after Death Plateau).");
-            case 24:
+            case 24 :
                 return(14, bronze_2h_sword, "Bronze two-handed sword<br> 3 bars", "You can now smith <col=000080>bronze two-handed swords</col>.");
-            case 25:
+            case 25 :
                 return(16, bronze_platelegs, "Bronze platelegs<br> 3 bars", "You can now smith <col=000080>bronze platelegs</col>.");
-            case 26:
+            case 26 :
                 return(16, bronze_plateskirt, "Bronze plateskirt<br> 3 bars", "You can now smith <col=000080>bronze plateskirts</col>.");
-            case 27:
+            case 27 :
                 return(18, bronze_platebody, "Bronze platebody<br> 5 bars", "You can now smith <col=000080>bronze platebodies</col>.");
         }
-    case 2:
-        if ($int1 = false) {
+    case 2 :
+        if ($int1 = 0) {
             return(-1, silvthrill_rod, "You will not be able to smith blurite until you have completed The Knight's Sword.", "");
         }
-        if ($int1 = true) {
+        if ($int1 = 1) {
             return(8, blurite_bolts__unf, "Blurite crossbow bolts<br> 1 bar makes 10", "Members now have the Smithing level required to smith <col=000080>blurite crossbow bolts</col> (after the Knight's Sword).");
         }
         if ($int1 = 2) {
             return(13, blurite_limbs, "Blurite crossbow limbs<br> 1 bar", "Members now have the Smithing level required to smith <col=000080>blurite crossbow limbs</col> (after The Knight's Sword).");
         }
-    case 3:
+    case 3 :
         switch_int ($int1) {
-            case 0:
+            case 0 :
                 return(15, iron_dagger, "Iron dagger<br> 1 bar", "You can now smith <col=000080>iron daggers</col>.");
-            case 1:
+            case 1 :
                 return(16, iron_hatchet, "Iron hatchet<br> 1 bar", "You can now smith <col=000080>iron hatchets</col>.");
-            case 2:
+            case 2 :
                 return(17, iron_mace, "Iron mace<br> 1 bar", "You can now smith <col=000080>iron maces</col>.");
-            case 3:
+            case 3 :
                 return(17, iron_spit, "Members: Iron spit<br> 1 bar", "Members can now smith <col=000080>iron spits</col>.");
-            case 4:
+            case 4 :
                 return(18, iron_med_helm, "Iron medium helm<br> 1 bar", "You can now smith <col=000080>iron medium helms</col>.");
-            case 5:
+            case 5 :
                 return(18, iron_bolts__unf, "Members: Iron crossbow bolt<br> 1 bar makes 10", "Members can now smith <col=000080>iron crossbow bolts</col>.");
-            case 6:
+            case 6 :
                 return(19, iron_sword, "Iron sword<br> 1 bar", "You can now smith <col=000080>iron swords</col>.");
-            case 7:
+            case 7 :
                 return(19, iron_dart_tip, "Members: Iron dart tip<br> (after Tourist Trap)<br> 1 bar makes 10", "Members now have the Smithing level required to smith <col=000080>iron dart tips</col> (after Tourist Trap).");
-            case 8:
+            case 8 :
                 return(19, iron_nails, "Members: Iron nails<br> 1 bar makes 15", "Members can now smith <col=000080>iron nails</col>.");
-            case 9:
+            case 9 :
                 return(20, iron_scimitar, "Iron scimitar<br> 2 bars", "You can now smith <col=000080>iron scimitars</col>.");
-            case 10:
+            case 10 :
                 return(20, iron_spear, "Members: Iron spear<br> (after Tai Bwo Wannai Trio and learning barbarian smithing)<br> 1 bar, 1 oak log", "Members who are versed in the art of barbarian smithing now have the Smithing level required to smith <col=000080>iron spears</col> (after Tai Bwo Wannai Trio).");
-            case 11:
+            case 11 :
                 return(20, iron_hasta, "Members: Iron hasta<br> (after Tai Bwo Wannai Trio and learning barbarian smithing)<br> 1 bar, 1 oak log", "Members who are versed in the art of barbarian smithing now have the Smithing level required to smith <col=000080>iron hastae</col> (after Tai Bwo Wannai Trio).");
-            case 12:
+            case 12 :
                 return(20, iron_arrowtips, "Members: Iron arrowhead<br> 1 bar makes 15", "Members can now smith <col=000080>iron arrowheads</col>.");
-            case 13:
+            case 13 :
                 return(20, iron_pickaxe, "Members: Iron pickaxe<br> (after Perils of Ice Mountain)<br> 2 bars", "Members now have the Smithing level required to smith <col=000080>iron pickaxes</col> (after Perils of Ice Mountain).");
-            case 14:
+            case 14 :
                 return(21, iron_longsword, "Iron longsword<br> 2 bars", "You can now smith <col=000080>iron longswords</col>.");
-            case 15:
+            case 15 :
                 return(22, iron_full_helm, "Iron full helm<br> 2 bars", "You can now smith <col=000080>iron full helms</col>.");
-            case 16:
+            case 16 :
                 return(22, iron_knife, "Members: Iron throwing knife<br> 1 bar makes 5", "Members can now smith <col=000080>iron throwing knives</col>.");
-            case 17:
+            case 17 :
                 return(23, iron_sq_shield, "Iron square shield<br> 2 bars", "You can now smith <col=000080>iron square shields</col>.");
-            case 18:
+            case 18 :
                 return(23, iron_limbs, "Members: Iron crossbow limbs<br> 1 bar", "Members can now smith <col=000080>iron crossbow limbs</col>.");
-            case 19:
+            case 19 :
                 return(24, iron_warhammer, "Iron warhammer<br> 3 bars", "You can now smith <col=000080>iron warhammers</col>.");
-            case 20:
+            case 20 :
                 return(25, iron_battleaxe, "Iron battleaxe<br> 3 bars", "You can now smith <col=000080>iron battleaxes</col>.");
-            case 21:
+            case 21 :
                 return(26, iron_chainbody, "Iron chainbody<br> 3 bars", "You can now smith <col=000080>iron chainbodies</col>.");
-            case 22:
+            case 22 :
                 return(26, oil_lantern_frame, "Members: Oil lantern frame<br> 1 bar", "Members can now smith <col=000080>oil lantern frames</col>.");
-            case 23:
+            case 23 :
                 return(27, iron_kiteshield, "Iron kiteshield<br> 3 bars", "You can now smith <col=000080>iron kiteshields</col>.");
-            case 24:
+            case 24 :
                 return(28, iron_claws, "Members: Iron claws<br> (after Death Plateau)<br> 2 bars", "Members now have the Smithing level required to smith <col=000080>iron claws</col> (after Death Plateau).");
-            case 25:
+            case 25 :
                 return(29, iron_2h_sword, "Iron two-handed sword<br> 3 bars", "You can now smith <col=000080>iron two-handed swords</col>.");
-            case 26:
+            case 26 :
                 return(31, iron_platelegs, "Iron platelegs<br> 3 bars", "You can now smith <col=000080>iron platelegs</col>.");
-            case 27:
+            case 27 :
                 return(31, iron_plateskirt, "Iron plateskirt<br> 3 bars", "You can now smith <col=000080>iron plateskirts</col>.");
-            case 28:
+            case 28 :
                 return(33, iron_platebody, "Iron platebody<br> 5 bars", "You can now smith <col=000080>iron platebodies</col>.");
         }
-    case 4:
+    case 4 :
         switch_int ($int1) {
-            case 0:
+            case 0 :
                 return(30, steel_dagger, "Steel dagger<br> 1 bar", "You can now smith <col=000080>steel daggers</col>.");
-            case 1:
+            case 1 :
                 return(31, steel_hatchet, "Steel hatchet<br> 1 bar", "You can now smith <col=000080>steel hatchets</col>.");
-            case 2:
+            case 2 :
                 return(32, steel_mace, "Steel mace<br> 1 bar", "You can now smith <col=000080>steel maces</col>.");
-            case 3:
+            case 3 :
                 return(33, steel_med_helm, "Steel medium helm<br> 1 bar", "You can now smith <col=000080>steel medium helms</col>.");
-            case 4:
+            case 4 :
                 return(33, steel_bolts__unf, "Members: Steel crossbow bolt<br> 1 bar makes 10", "Members can now smith <col=000080>steel crossbow bolts</col>.");
-            case 5:
+            case 5 :
                 return(34, steel_sword, "Steel sword<br> 1 bar", "You can now smith <col=000080>steel swords</col>.");
-            case 6:
+            case 6 :
                 return(34, steel_nails, "Steel nails<br> 1 bar makes 15", "You can now smith <col=000080>steel nails</col>.");
-            case 7:
+            case 7 :
                 return(34, steel_dart_tip, "Members: Steel dart tip<br> (after Tourist Trap)<br> 1 bar makes 10", "Members now have the Smithing level required to smith <col=000080>steel dart tips</col> (after Tourist Trap).");
-            case 8:
+            case 8 :
                 return(35, steel_scimitar, "Steel scimitar<br> 2 bars", "You can now smith <col=000080>steel scimitars</col>.");
-            case 9:
+            case 9 :
                 return(35, steel_spear, "Members: Steel spear<br> (after Tai Bwo Wannai Trio and learning barbarian smithing)<br> 1 bar, 1 willow log", "Members who are versed in the art of barbarian smithing now have the Smithing level required to smith <col=000080>steel spears</col> (after Tai Bwo Wannai Trio).");
-            case 10:
+            case 10 :
                 return(35, steel_hasta, "Members: Steel hasta<br> (after Tai Bwo Wannai Trio and learning barbarian smithing)<br> 1 bar, 1 willow log", "Members who are versed in the art of barbarian smithing now have the Smithing level required to smith <col=000080>steel hastae</col> (after Tai Bwo Wannai Trio).");
-            case 11:
+            case 11 :
                 return(35, steel_arrowtips, "Members: Steel arrowhead<br> 1 bar makes 15", "Members can now smith <col=000080>steel arrowheads</col>.");
-            case 12:
+            case 12 :
                 return(35, cannonball, "Members: Cannonball<br> (after Dwarf Cannon)<br> 1 bar makes 4", "Members now have the Smithing level required to smith <col=000080>steel cannonballs</col> (after Dwarf Cannon).");
-            case 13:
+            case 13 :
                 return(35, steel_pickaxe, "Members: Steel pickaxe<br> (after Perils of Ice Mountain)<br> 2 bars", "Members now have the Smithing level required to smith <col=000080>steel pickaxes</col> (after Perils of Ice Mountain).");
-            case 14:
+            case 14 :
                 return(36, steel_limbs, "Members: Steel crossbow limbs<br> 1 bar", "Members can now smith <col=000080>steel crossbow limbs</col>.");
-            case 15:
+            case 15 :
                 return(36, steel_longsword, "Steel longsword<br> 2 bars", "You can now smith <col=000080>steel longswords</col>.");
-            case 16:
+            case 16 :
                 return(36, steel_studs, "Members: Steel studs<br> 1 bar", "Members can now smith <col=000080>steel studs</col>.");
-            case 17:
+            case 17 :
                 return(37, steel_full_helm, "Steel full helm<br> 2 bars", "You can now smith <col=000080>steel full helms</col>.");
-            case 18:
+            case 18 :
                 return(37, steel_knife, "Members: Steel throwing knife<br> 1 bar makes 5", "Members can now smith <col=000080>steel throwing knives</col>.");
-            case 19:
+            case 19 :
                 return(38, steel_sq_shield, "Steel square shield<br> 2 bars", "You can now smith <col=000080>steel square shields</col>.");
-            case 20:
+            case 20 :
                 return(39, steel_warhammer, "Steel warhammer<br> 3 bars", "You can now smith <col=000080>steel warhammers</col>.");
-            case 21:
+            case 21 :
                 return(40, steel_battleaxe, "Steel battleaxe<br> 3 bars", "You can now smith <col=000080>steel battleaxes</col>.");
-            case 22:
+            case 22 :
                 return(41, steel_chainbody, "Steel chainbody<br> 3 bars", "You can now smith <col=000080>steel chainbodies</col>.");
-            case 23:
+            case 23 :
                 return(42, steel_kiteshield, "Steel kiteshield<br> 3 bars", "You can now smith <col=000080>steel kiteshields</col>.");
-            case 24:
+            case 24 :
                 return(43, steel_claws, "Members: Steel claws<br> (after Death Plateau)<br> 2 bars", "Members now have the Smithing level required to smith <col=000080>steel claws</col> (after Death Plateau).");
-            case 25:
+            case 25 :
                 return(44, steel_2h_sword, "Steel two-handed sword<br> 3 bars", "You can now smith <col=000080>steel two-handed swords</col>.");
-            case 26:
+            case 26 :
                 return(46, steel_platelegs, "Steel platelegs<br> 3 bars", "You can now smith <col=000080>steel platelegs</col>.");
-            case 27:
+            case 27 :
                 return(46, steel_plateskirt, "Steel plateskirt<br> 3 bars", "You can now smith <col=000080>steel plateskirts</col>.");
-            case 28:
+            case 28 :
                 return(48, steel_platebody, "Steel platebody<br> 5 bars", "You can now smith <col=000080>steel platebodies</col>.");
-            case 29:
+            case 29 :
                 return(49, bullseye_lantern, "Members: Bullseye lantern frame<br> 1 bar", "Members can now smith <col=000080>bullseye lantern frames</col>.");
         }
-    case 5:
+    case 5 :
         switch_int ($int1) {
-            case 0:
+            case 0 :
                 return(50, mithril_dagger, "Mithril dagger<br> 1 bar", "You can now smith <col=000080>mithril daggers</col>.");
-            case 1:
+            case 1 :
                 return(51, mithril_hatchet, "Mithril hatchet<br> 1 bar", "You can now smith <col=000080>mithril hatchets</col>.");
-            case 2:
+            case 2 :
                 return(52, mithril_mace, "Mithril mace<br> 1 bar", "You can now smith <col=000080>mithril maces</col>.");
-            case 3:
+            case 3 :
                 return(53, mithril_med_helm, "Mithril medium helm<br> 1 bar", "You can now smith <col=000080>mithril medium helms</col>.");
-            case 4:
+            case 4 :
                 return(53, mithril_bolts__unf, "Members: Mithril crossbow bolt<br> 1 bar makes 10", "Members can now smith <col=000080>mithril crossbow bolts</col>.");
-            case 5:
+            case 5 :
                 return(54, mithril_sword, "Mithril sword<br> 1 bar", "You can now smith <col=000080>mithril swords</col>.");
-            case 6:
+            case 6 :
                 return(54, mithril_dart_tip, "Members: Mithril dart tip<br> (after Tourist Trap)<br> 1 bar makes 10", "Members now have the Smithing level required to smith <col=000080>mithril dart tips</col> (after Tourist Trap).");
-            case 7:
+            case 7 :
                 return(54, mithril_nails, "Members: Mithril nail<br> 1 bar makes 15", "Members can now smith <col=000080>mithril nails</col>.");
-            case 8:
+            case 8 :
                 return(55, mithril_scimitar, "Mithril scimitar<br> 2 bars", "You can now smith <col=000080>mithril scimitars</col>.");
-            case 9:
+            case 9 :
                 return(55, mithril_spear, "Members: Mithril spear<br> (after Tai Bwo Wannai Trio and learning barbarian smithing)<br> 1 bar, 1 maple log", "Members who are versed in the art of barbarian smithing now have the Smithing level required to smith <col=000080>mithril spears</col> (after Tai Bwo Wannai Trio).");
-            case 10:
+            case 10 :
                 return(55, mithril_hasta, "Members: Mithril hasta<br> (after Tai Bwo Wannai Trio and learning barbarian smithing)<br> 1 bar, 1 maple log", "Members who are versed in the art of barbarian smithing now have the Smithing level required to smith <col=000080>mithril hastae</col> (after Tai Bwo Wannai Trio).");
-            case 11:
+            case 11 :
                 return(55, mithril_arrowtips, "Members: Mithril arrowhead<br> 1 bar makes 15", "Members can now smith <col=000080>mithril arrowheads</col>.");
-            case 12:
+            case 12 :
                 return(55, mithril_pickaxe, "Members: Mithril pickaxe<br> (after Perils of Ice Mountain)<br> 2 bars", "Members now have the Smithing level required to smith <col=000080>mithril pickaxes</col> (after Perils of Ice Mountain).");
-            case 13:
+            case 13 :
                 return(56, mithril_limbs, "Members: Mithril crossbow limbs<br> 1 bar", "Members can now smith <col=000080>mithril crossbow limbs</col>.");
-            case 14:
+            case 14 :
                 return(56, mithril_longsword, "Mithril longsword<br> 2 bars", "You can now smith <col=000080>mithril longswords</col>.");
-            case 15:
+            case 15 :
                 return(57, mithril_full_helm, "Mithril full helm<br> 2 bars", "You can now smith <col=000080>mithril full helms</col>.");
-            case 16:
+            case 16 :
                 return(57, mithril_knife, "Members: Mithril throwing knife<br> 1 bar makes 5", "Members can now smith <col=000080>mithril throwing knives</col>.");
-            case 17:
+            case 17 :
                 return(58, mithril_sq_shield, "Mithril square shield<br> 2 bars", "You can now smith <col=000080>mithril square shields</col>.");
-            case 18:
+            case 18 :
                 return(59, mithril_warhammer, "Mithril warhammer<br> 3 bars", "You can now smith <col=000080>mithril warhammers</col>.");
-            case 19:
+            case 19 :
                 return(59, mith_grapple_tip, "Members: Mithril crossbow grapple tip<br> 1 bar", "Members can now smith <col=000080>mithril crossbow grapple tips</col>.");
-            case 20:
+            case 20 :
                 return(60, mithril_battleaxe, "Mithril battleaxe<br> 3 bars", "You can now smith <col=000080>mithril battleaxes</col>.");
-            case 21:
+            case 21 :
                 return(61, mithril_chainbody, "Mithril chainbody<br> 3 bars", "You can now smith<col=000080> mithril chainbodies</col>.");
-            case 22:
+            case 22 :
                 return(62, mithril_kiteshield, "Mithril kiteshield<br> 3 bars", "You can now smith <col=000080>mithril kiteshields</col>.");
-            case 23:
+            case 23 :
                 return(63, mithril_claws, "Members: Mithril claws<br> (after Death Plateau)<br> 2 bars", "Members now have the Smithing level required to smith <col=000080>mithril claws</col> (after Death Plateau).");
-            case 24:
+            case 24 :
                 return(64, mithril_2h_sword, "Mithril two-handed sword<br> 3 bars", "You can now smith <col=000080>mithril two-handed swords</col>.");
-            case 25:
+            case 25 :
                 return(66, mithril_platelegs, "Mithril platelegs<br> 3 bars", "You can now smith <col=000080>mithril platelegs</col>.");
-            case 26:
+            case 26 :
                 return(66, mithril_plateskirt, "Mithril plateskirt<br> 3 bars", "You can now smith <col=000080>mithril plateskirts</col>.");
-            case 27:
+            case 27 :
                 return(68, mithril_platebody, "Mithril platebody<br> 5 bars", "You can now smith <col=000080>mithril platebodies</col>.");
         }
-    case 6:
+    case 6 :
         switch_int ($int1) {
-            case 0:
+            case 0 :
                 return(70, adamant_dagger, "Adamant dagger<br> 1 bar", "You can now smith <col=000080>adamant daggers</col>.");
-            case 1:
+            case 1 :
                 return(71, adamant_hatchet, "Adamant hatchet<br> 1 bar", "You can now smith <col=000080>adamant hatchets</col>.");
-            case 2:
+            case 2 :
                 return(72, adamant_mace, "Adamant mace<br> 1 bar", "You can now smith <col=000080>adamant maces</col>.");
-            case 3:
+            case 3 :
                 return(73, adamant_med_helm, "Adamant medium helm<br> 1 bar", "You can now smith <col=000080>adamant medium helms</col>.");
-            case 4:
+            case 4 :
                 return(73, adamant_bolts__unf, "Members: Adamant crossbow bolt<br> 1 bar makes 10", "Members can now smith <col=000080>adamant crossbow bolts</col>.");
-            case 5:
+            case 5 :
                 return(74, adamant_sword, "Adamant sword<br> 1 bar", "You can now smith <col=000080>adamant swords</col>.");
-            case 6:
+            case 6 :
                 return(74, adamant_dart_tip, "Members: Adamant dart tip<br> (after Tourist Trap)<br> 1 bar makes 10", "Members now have the Smithing level required to smith <col=000080>adamant dart tips</col> (after Tourist Trap).");
-            case 7:
+            case 7 :
                 return(74, adamantite_nails, "Members: Adamant nail<br> 1 bar makes 15", "Members can now smith <col=000080>adamant nails</col>.");
-            case 8:
+            case 8 :
                 return(75, adamant_scimitar, "Adamant scimitar<br> 2 bars", "You can now smith <col=000080>adamant scimitars</col>.");
-            case 9:
+            case 9 :
                 return(75, adamant_spear, "Members: Adamant spear<br> (after Tai Bwo Wannai Trio and learning barbarian smithing)<br> 1 bar, 1 yew log", "Members who are versed in the art of barbarian smithing now have the Smithing level required to smith <col=000080>adamant spears</col> (after Tai Bwo Wannai Trio).");
-            case 10:
+            case 10 :
                 return(75, adamant_hasta, "Members: Adamant hasta<br> (after Tai Bwo Wannai Trio and learning barbarian smithing)<br> 1 bar, 1 yew log", "Members who are versed in the art of barbarian smithing now have the Smithing level required to smith <col=000080>adamant hastae</col> (after Tai Bwo Wannai Trio).");
-            case 11:
+            case 11 :
                 return(75, adamant_arrowtips, "Members: Adamant arrowhead<br> 1 bar makes 15", "Members can now smith <col=000080>adamant arrowheads</col>.");
-            case 12:
+            case 12 :
                 return(75, adamant_pickaxe, "Members: Adamant pickaxe<br> (after Perils of Ice Mountain)<br> 2 bars", "Members now have the Smithing level required to smith <col=000080>adamant pickaxes</col> (after Perils of Ice Mountain).");
-            case 13:
+            case 13 :
                 return(76, adamantite_limbs, "Members: Adamant crossbow limbs<br> 1 bar", "Members can now smith <col=000080>adamant crossbow limbs</col>.");
-            case 14:
+            case 14 :
                 return(76, adamant_longsword, "Adamant longsword<br> 2 bars", "You can now smith <col=000080>adamant longswords</col>.");
-            case 15:
+            case 15 :
                 return(77, adamant_full_helm, "Adamant full helm<br> 2 bars", "You can now smith <col=000080>adamant full helms</col>.");
-            case 16:
+            case 16 :
                 return(77, adamant_knife, "Member: Adamant throwing knives<br> 1 bar makes 5", "Members can now smith <col=000080>adamant throwing knives</col>.");
-            case 17:
+            case 17 :
                 return(78, adamant_sq_shield, "Adamant square shield<br> 2 bars", "You can now smith <col=000080>adamant square shields</col>.");
-            case 18:
+            case 18 :
                 return(79, adamant_warhammer, "Adamant warhammer<br> 3 bars", "You can now smith <col=000080>adamant warhammers</col>.");
-            case 19:
+            case 19 :
                 return(80, adamant_battleaxe, "Adamant battleaxe<br> 3 bars", "You can now smith <col=000080>adamant battleaxes</col>.");
-            case 20:
+            case 20 :
                 return(81, adamant_chainbody, "Adamant chainbody<br> 3 bars", "You can now smith <col=000080>adamant chainbodies</col>.");
-            case 21:
+            case 21 :
                 return(82, adamant_kiteshield, "Adamant kiteshield<br> 3 bars", "You can now smith <col=000080>adamant kiteshields</col>.");
-            case 22:
+            case 22 :
                 return(83, adamant_claws, "Members: Adamant claws<br> (after Death Plateau)<br> 2 bars", "Members now have the Smithing level required to smith <col=000080>adamant claws</col> (after Death Plateau).");
-            case 23:
+            case 23 :
                 return(84, adamant_2h_sword, "Adamant two-handed sword<br> 3 bars", "You can now smith <col=000080>adamant two-handed swords</col>.");
-            case 24:
+            case 24 :
                 return(86, adamant_platelegs, "Adamant platelegs<br> 3 bars", "You can now smith <col=000080>adamant platelegs</col>.");
-            case 25:
+            case 25 :
                 return(86, adamant_plateskirt, "Adamant plateskirt<br> 3 bars", "You can now smith <col=000080>adamant plateskirts</col>.");
-            case 26:
+            case 26 :
                 return(88, adamant_platebody, "Adamant platebody<br> 5 bars", "You can now smith <col=000080>adamant platebodies</col>.");
         }
-    case 7:
+    case 7 :
         switch_int ($int1) {
-            case 0:
+            case 0 :
                 return(85, rune_dagger, "Rune dagger<br> 1 bar", "You can now smith <col=000080>rune daggers</col>.");
-            case 1:
+            case 1 :
                 return(86, rune_hatchet, "Rune hatchet<br> 1 bar", "You can now smith <col=000080>rune hatchets</col>.");
-            case 2:
+            case 2 :
                 return(87, rune_mace, "Rune mace<br> 1 bar", "You can now smith <col=000080>rune maces</col>.");
-            case 3:
+            case 3 :
                 return(88, rune_med_helm, "Rune medium helm<br> 1 bar", "You can now smith <col=000080>rune medium helms</col>.");
-            case 4:
+            case 4 :
                 return(88, runite_bolts__unf, "Members: Rune crossbow bolt<br> 1 bar makes 10", "Members can now smith <col=000080>rune crossbow bolts</col>.");
-            case 5:
+            case 5 :
                 return(89, rune_sword, "Rune sword<br> 1 bar", "You can now smith <col=000080>rune swords</col>.");
-            case 6:
+            case 6 :
                 return(89, rune_dart_tip, "Members: Rune dart tip <br> (after Tourist Trap)<br> 1 bar makes 10", "Members now have the Smithing level required to smith <col=000080>rune dart tips</col> (after Tourist Trap).");
-            case 7:
+            case 7 :
                 return(89, rune_nails, "Members: Rune nails<br> 1 bar makes 15", "Members can now smith <col=000080>rune nails</col>.");
-            case 8:
+            case 8 :
                 return(90, rune_scimitar, "Rune scimitar<br> 2 bars", "You can now smith <col=000080>rune scimitars</col>.");
-            case 9:
+            case 9 :
                 return(90, rune_spear, "Members: Rune spear<br> (after Tai Bwo Wannai Trio and learning barbarian smithing)<br> 1 bar, 1 magic log", "Members who are versed in the art of barbarian smithing now have the Smithing level required to smith <col=000080>rune spears</col> (after Tai Bwo Wannai Trio).");
-            case 10:
+            case 10 :
                 return(90, rune_hasta, "Members: Rune hasta<br> (after Tai Bwo Wannai Trio and learning barbarian smithing)<br> 1 bar, 1 magic log", "Members who are versed in the art of barbarian smithing now have the Smithing level required to smith <col=000080>rune hastae</col> (after Tai Bwo Wannai Trio).");
-            case 11:
+            case 11 :
                 return(90, rune_arrowtips, "Members: Rune arrowhead<br> 1 bar makes 15", "Members can now smith <col=000080>rune arrowheads</col>.");
-            case 12:
+            case 12 :
                 return(90, rune_pickaxe, "Members: Rune pickaxe<br> (after Perils of Ice Mountain)<br> 2 bars", "Members now have the Smithing level required to smith <col=000080>rune pickaxes</col> (after Perils of Ice Mountain).");
-            case 13:
+            case 13 :
                 return(91, runite_limbs, "Members: Rune crossbow limbs<br> 1 bar", "Members can now smith <col=000080>rune crossbow limbs</col>.");
-            case 14:
+            case 14 :
                 return(91, rune_longsword, "Rune longsword<br> 2 bars", "You can now smith <col=000080>rune longswords</col>.");
-            case 15:
+            case 15 :
                 return(92, rune_full_helm, "Rune full helm<br> 2 bars", "You can now smith <col=000080>rune full helms</col>.");
-            case 16:
+            case 16 :
                 return(92, rune_knife, "Members: Rune throwing knife<br> 1 bar makes 5", "Members can now smith <col=000080>rune throwing knives</col>.");
-            case 17:
+            case 17 :
                 return(93, rune_sq_shield, "Rune square shield<br> 2 bars", "You can now smith <col=000080>rune square shields</col>.");
-            case 18:
+            case 18 :
                 return(94, rune_warhammer, "Rune warhammer<br> 3 bars", "You can now smith <col=000080>rune warhammers</col>.");
-            case 19:
+            case 19 :
                 return(95, rune_battleaxe, "Rune battleaxe<br> 3 bars", "You can now smith <col=000080>rune battleaxes</col>.");
-            case 20:
+            case 20 :
                 return(96, rune_chainbody, "Rune chainbody<br> 3 bars", "You can now smith <col=000080>rune chainbodies</col>.");
-            case 21:
+            case 21 :
                 return(97, rune_kiteshield, "Rune kiteshield<br> 3 bars", "You can now smith <col=000080>rune kiteshields</col>.");
-            case 22:
+            case 22 :
                 return(98, rune_claws, "Members: Rune claws<br> (after Death Plateau)<br> 2 bars", "Members now have the Smithing level required to smith <col=000080>rune claws</col> (after Death Plateau).");
-            case 23:
+            case 23 :
                 return(99, rune_2h_sword, "Rune two-handed sword<br> 3 bars", "You can now smith <col=000080>rune two-handed swords</col>.");
-            case 24:
+            case 24 :
                 return(99, rune_platelegs, "Rune platelegs<br> 3 bars", "You can now smith <col=000080>rune platelegs</col>.");
-            case 25:
+            case 25 :
                 return(99, rune_plateskirt, "Rune plateskirt<br> 3 bars", "You can now smith <col=000080>rune plateskirts</col>.");
-            case 26:
+            case 26 :
                 return(99, rune_platebody, "Rune platebody<br> 5 bars", "You can now smith <col=000080>rune platebodies</col>.");
         }
-    case 8:
-        if ($int1 = false) {
+    case 8 :
+        if ($int1 = 0) {
             return(50, gold_bowl, "Members: Gold bowl<br> (after starting Legends' Quest)", "Members now have the Smithing level required to smith <col=000080>gold bowls</col> (after starting Legends' Quest).");
         }
-        if ($int1 = true) {
+        if ($int1 = 1) {
             return(50, gold_helmet, "Members: Gold helmet<br> (after starting Between a Rock...)", "Members now have the Smithing level required to smith <col=000080>gold helmets</col> (after starting Between a Rock...).");
         }
-    case 9:
+    case 9 :
         switch_int ($int1) {
-            case 0:
+            case 0 :
                 return(20, elemental_shield, "Members: Elemental shield<br> (after Elemental Workshop I)", "Members now have the Smithing level required to smith <col=000080>elemental shields</col> (after Elemental Workshop I).");
-            case 1:
+            case 1 :
                 return(30, elemental_helmet, "Members: Elemental helmet<br> (after Elemental Workshop II)", "Members now have the Smithing level required to smith <col=000080>elemental helms</col> (after Elemental Workshop II).");
-            case 2:
+            case 2 :
                 return(30, mind_shield, "Members: Mind shield<br> (after Elemental Workshop II)", "Members now have the Smithing level required to smith <col=000080>mind shields</col> (after Elemental Workshop II).");
-            case 3:
+            case 3 :
                 return(30, mind_helmet, "Members: Mind helmet<br> (after Elemental Workshop II)", "Members now have the Smithing level required to smith <col=000080>mind helmets</col> (after Elemental Workshop II).");
-            case 4:
+            case 4 :
                 return(33, body_shield, "Members: Body shield<br> (after Elemental Workshop III)", "Members now have the Smithing level required to smith <col=000080>body shields</col> (after Elemental Workshop III).");
-            case 5:
+            case 5 :
                 return(33, body_helmet, "Members: Body helmet<br> (after Elemental Workshop III)", "Members now have the Smithing level required to smith <col=000080>body helmets</col> (after Elemental Workshop III).");
-            case 6:
+            case 6 :
                 return(33, elemental_body, "Members: Elemental body<br> (after Elemental Workshop III)", "Members now have the Smithing level required to smith <col=000080>elemental bodies</col> (after Elemental Workshop III).");
-            case 7:
+            case 7 :
                 return(33, mind_body, "Members: Mind body<br> (after Elemental Workshop III)", "Members now have the Smithing level required to smith <col=000080>mind bodies</col> (after Elemental Workshop III).");
-            case 8:
+            case 8 :
                 return(33, body_body, "Members: Body body<br> (after Elemental Workshop III)", "Members now have the Smithing level required to smith <col=000080>body bodies</col> (after Elemental Workshop III).");
-            case 9:
+            case 9 :
                 return(38, elemental_gloves, "Members: Elemental gloves<br> (after Elemental Workshop IV)", "Members now have the Smithing level required to smith <col=000080>elemental gloves</col> (after Elemental Workshop IV).");
-            case 10:
+            case 10 :
                 return(38, mind_gloves, "Members: Mind gloves<br> (after Elemental Workshop IV)", "Members now have the Smithing level required to smith <col=000080>mind gloves</col> (after Elemental Workshop IV).");
-            case 11:
+            case 11 :
                 return(38, body_gloves, "Members: Body gloves<br> (after Elemental Workshop IV)", "Members now have the Smithing level required to smith <col=000080>body gloves</col> (after Elemental Workshop IV).");
-            case 12:
+            case 12 :
                 return(38, cosmic_shield, "Members: Cosmic shield<br> (after Elemental Workshop IV)", "Members now have the Smithing level required to smith <col=000080>cosmic shields</col> (after Elemental Workshop IV).");
-            case 13:
+            case 13 :
                 return(38, cosmic_helmet, "Members: Cosmic helmet<br> (after Elemental Workshop IV)", "Members now have the Smithing level required to smith <col=000080>cosmic helmets</col> (after Elemental Workshop IV).");
-            case 14:
+            case 14 :
                 return(38, cosmic_body, "Members: Cosmic body<br> (after Elemental Workshop IV)", "Members now have the Smithing level required to smith <col=000080>cosmic bodies</col> (after Elemental Workshop IV).");
-            case 15:
+            case 15 :
                 return(38, cosmic_gloves, "Members: Cosmic gloves<br> (after Elemental Workshop IV)", "Members now have the Smithing level required to smith <col=000080>cosmic gloves</col> (after Elemental Workshop IV).");
-            case 16:
+            case 16 :
                 return(42, elemental_boots, "Members: Elemental boots<br> (after Elemental Workshop IV)", "Members now have the Smithing level required to smith <col=000080>elemental boots</col> (after Elemental Workshop IV).");
-            case 17:
+            case 17 :
                 return(42, mind_boots, "Members: Mind boots<br> (after Elemental Workshop IV)", "Members now have the Smithing level required to smith <col=000080>mind boots</col> (after Elemental Workshop IV).");
-            case 18:
+            case 18 :
                 return(42, body_boots, "Members: Body boots<br> (after Elemental Workshop IV)", "Members now have the Smithing level required to smith <col=000080>body boots</col> (after Elemental Workshop IV).");
-            case 19:
+            case 19 :
                 return(42, cosmic_boots, "Members: Cosmic boots<br> (after Elemental Workshop IV)", "Members now have the Smithing level required to smith <col=000080>cosmic boots</col> (after Elemental Workshop IV).");
-            case 20:
+            case 20 :
                 return(42, chaos_shield, "Members: Chaos shield<br> (after Elemental Workshop IV)", "Members now have the Smithing level required to smith <col=000080>chaos shields</col> (after Elemental Workshop IV).");
-            case 21:
+            case 21 :
                 return(42, chaos_helmet, "Members: Chaos helmet<br> (after Elemental Workshop IV)", "Members now have the Smithing level required to smith <col=000080>chaos helmets</col> (after Elemental Workshop IV).");
-            case 22:
+            case 22 :
                 return(42, chaos_body, "Members: Chaos body<br> (after Elemental Workshop IV)", "Members now have the Smithing level required to smith <col=000080>chaos bodies</col> (after Elemental Workshop IV).");
-            case 23:
+            case 23 :
                 return(42, chaos_gloves, "Members: Chaos gloves<br> (after Elemental Workshop IV)", "Members now have the Smithing level required to smith <col=000080>chaos gloves</col> (after Elemental Workshop IV).");
-            case 24:
+            case 24 :
                 return(42, chaos_boots, "Members: Chaos boots<br> (after Elemental Workshop IV)", "Members now have the Smithing level required to smith <col=000080>chaos boots</col> (after Elemental Workshop IV).");
         }
-    case 10:
+    case 10 :
         switch_int ($int1) {
-            case 0:
+            case 0 :
                 return(1, bronze_rails, "Bronze rails", "You can now smith <col=000080>bronze rails</col>.");
-            case 1:
+            case 1 :
                 return(2, bronze_base_plate, "Bronze base plate", "You can now smith <col=000080>bronze base plates</col>.");
-            case 2:
+            case 2 :
                 return(3, bronze_track_40, "Bronze track (40% complete)", "You can now combine bronze rails with bronze base plates to make <col=000080>bronze track (40% complete)</col>.");
-            case 3:
+            case 3 :
                 return(5, bronze_spikes, "Bronze spikes", "You can now smith <col=000080>bronze spikes</col>.");
-            case 4:
+            case 4 :
                 return(6, bronze_track_60, "Bronze track (60% complete)", "You can now combine bronze track (40% complete) with bronze spikes to make <col=000080>bronze track (60% complete)</col>.");
-            case 5:
+            case 5 :
                 return(8, bronze_joint, "Bronze joint", "You can now smith <col=000080>bronze joints</col>.");
-            case 6:
+            case 6 :
                 return(9, bronze_track_80, "Bronze track (80% complete)", "You can now combine bronze track (60% complete) with a bronze joint to make <col=000080>bronze track (80% complete)</col>.");
-            case 7:
+            case 7 :
                 return(11, bronze_tie, "Bronze ties", "You can now smith <col=000080>bronze ties</col>.");
-            case 8:
+            case 8 :
                 return(12, bronze_track_100, "Bronze track (100% complete)", "You can now combine bronze track (80% complete) with bronze ties to make <col=000080>bronze track (100% complete)</col>.");
-            case 9:
+            case 9 :
                 return(15, iron_rails, "Iron rails", "You can now smith <col=000080>iron rails</col>.");
-            case 10:
+            case 10 :
                 return(19, iron_base_plate, "Iron base plate", "You can now smith <col=000080>iron base plates</col>.");
-            case 11:
+            case 11 :
                 return(20, iron_track_40, "Iron track (40% complete)", "You can now combine iron rails with iron base plates to make <col=000080>iron track (40% complete)</col>.");
-            case 12:
+            case 12 :
                 return(24, iron_spikes, "Iron spikes", "You can now smith <col=000080>iron spikes</col>.");
-            case 13:
+            case 13 :
                 return(25, iron_track_60, "Iron track (60% complete)", "You can now combine iron track (40% complete) with iron spikes to make <col=000080>iron track (60% complete)</col>.");
-            case 14:
+            case 14 :
                 return(29, iron_joint, "Iron joint", "You can now smith <col=000080>iron joints</col>.");
-            case 15:
+            case 15 :
                 return(30, miner_helm__iron, "Iron burial armour", "You can now smith iron burial armour for miners, warriors and smiths.");
-            case 16:
+            case 16 :
                 return(30, iron_track_80, "Iron track (80% complete)", "You can now combine iron track (60% complete) with an iron joint to make <col=000080>iron track (80% complete)</col>.");
-            case 17:
+            case 17 :
                 return(34, iron_tie, "Iron ties", "You can now smith <col=000080>iron ties</col>.");
-            case 18:
+            case 18 :
                 return(35, iron_track_100, "Iron track (100% complete)", "You can now combine iron track (80% complete) with iron ties to make <col=000080>iron track (100% complete)</col>.");
-            case 19:
+            case 19 :
                 return(39, steel_rails, "Members: Steel rails", "Members can now smith <col=000080>steel rails</col>.");
-            case 20:
+            case 20 :
                 return(44, steel_base_plate, "Members: Steel base plate", "Members can now smith <col=000080>steel base plates</col>.");
-            case 21:
+            case 21 :
                 return(45, miner_helm__steel, "Steel burial armour", "You can now smith steel burial armour for miners, warriors and smiths.");
-            case 22:
+            case 22 :
                 return(45, steel_track_40, "Members: Steel track (40% complete)", "Members can now combine steel rails with steel base plates to make <col=000080>steel track (40% complete)</col>.");
-            case 23:
+            case 23 :
                 return(49, steel_spikes, "Members: Steel spikes", "Members can now smith <col=000080>steel spikes</col>.");
-            case 24:
+            case 24 :
                 return(50, hammer, "Members: Fix pipes", "Members can now fix burst pipes in the Artisans Workshop.");
-            case 25:
+            case 25 :
                 return(50, steel_track_60, "Members: Steel track (60% complete)", "Members can now combine steel track (40% complete) with steel spikes to make <col=000080>steel track (60% complete)</col>.");
-            case 26:
+            case 26 :
                 return(54, steel_joint, "Members: Steel joint", "Members can now smith <col=000080>steel joints</col>.");
-            case 27:
+            case 27 :
                 return(55, steel_track_80, "Members: Steel track (80% complete)", "Members can now combine steel track (60% complete) with a steel joint to make <col=000080>steel track (80% complete)</col>.");
-            case 28:
+            case 28 :
                 return(59, steel_tie, "Members: Steel ties", "Members can now smith <col=000080>steel ties</col>.");
-            case 29:
+            case 29 :
                 return(60, miner_helm__mithril, "Members: Mithril burial armour", "Members can now smith mithril burial armour for miners, warriors and smiths.");
-            case 30:
+            case 30 :
                 return(60, steel_track_100, "Members: Steel track (100% complete)", "Members can now combine steel track (80% complete) with steel ties to make <col=000080>steel track (100% complete)</col>.");
-            case 31:
+            case 31 :
                 return(62, cannon_barrel_20480, "Members: Cannon repair", "Members can now repair cannons in the cannon repair workshop.");
-            case 32:
+            case 32 :
                 return(70, iron_sword_design, "Members: Iron ceremonial swords", "Members can now smith iron ceremonial swords.");
-            case 33:
+            case 33 :
                 return(70, miner_helm__adamant, "Members: Adamant burial armour", "Members can now smith adamant burial armour for miners, warriors and smiths.");
-            case 34:
+            case 34 :
                 return(75, steel_sword_design, "Members: Steel ceremonial swords", "Members can now smith steel ceremonial swords.");
-            case 35:
+            case 35 :
                 return(78, hammer, "Members: Greater precision", "Members will now smith ceremonial swords more precisely, hitting fewer 0s and generally being more precise.");
-            case 36:
+            case 36 :
                 return(80, mithril_sword_design, "Members: Mithril ceremonial swords", "Members can now smith mithril ceremonial swords.");
-            case 37:
+            case 37 :
                 return(83, hammer, "Members: Greater precision", "Members will now smith ceremonial swords more precisely, hitting fewer 0s and generally being more precise.");
-            case 38:
+            case 38 :
                 return(85, adamant_sword_design, "Members: Adamant ceremonial swords", "Members can now smith adamant ceremonial swords.");
-            case 39:
+            case 39 :
                 return(88, hammer, "Members: Greater precision", "Members will now smith ceremonial swords more precisely, hitting fewer 0s and generally being more precise.");
-            case 40:
+            case 40 :
                 return(90, miner_helm__rune, "Members: Rune burial armour", "Members can now smith rune burial armour for miners, warriors and smiths.");
-            case 41:
+            case 41 :
                 return(90, rune_sword_design, "Members: Rune ceremonial swords", "Members can now smith rune ceremonial swords");
-            case 42:
+            case 42 :
                 return(93, hammer, "Members: Greater precision", "Members will now smith ceremonial swords more precisely, hitting fewer 0s and generally being more precise.");
-            case 43:
+            case 43 :
                 return(97, hammer, "Members: Greater precision", "Members will now smith ceremonial swords more precisely, hitting fewer 0s and generally being more precise.");
-            case 44:
+            case 44 :
                 return(99, hammer, "Members: Greater precision", "Members will now smith ceremonial swords more precisely, hitting fewer 0s and generally being more precise.");
         }
-    case 11:
+    case 11 :
         switch_int ($int1) {
-            case 0:
+            case 0 :
                 return(55, scroll_of_efficiency, "Scroll of efficiency<br> (with 55 Dungeoneering)", "You can now use <col=000080>scrolls of efficiency</col>. (You also need level 55 Dungeoneering.)");
-            case 1:
+            case 1 :
                 return(60, dragon_sq_shield, "Members: Dragon square shield", "Members can now make <col=000080>dragon square shields</col>.");
-            case 2:
+            case 2 :
                 return(80, godsword_blade, "Members: Godsword blade", "Members can now make <col=000080>godsword blades</col>.");
-            case 3:
+            case 3 :
                 return(85, arcane_sigil, "Members: Arcane spirit shields<br> (after Summer's End and with 90 Prayer)", "Members can now create <col=000080>arcane spirit shields</col> (after Summer's End, with level 90 Prayer).");
-            case 4:
+            case 4 :
                 return(85, divine_sigil, "Members: Divine spirit shields<br> (after Summer's End and with 90 Prayer)", "Members can now create <col=000080>divine spirit shields</col> (after Summer's End, with level 90 Prayer).");
-            case 5:
+            case 5 :
                 return(85, elysian_sigil, "Members: Elysian spirit shields<br> (after Summer's End and with 90 Prayer)", "Members can now create <col=000080>elysian spirit shields</col> (after Summer's End, with level 90 Prayer).");
-            case 6:
+            case 6 :
                 return(85, spectral_sigil, "Members: Spectral spirit shields<br> (after Summer's End and with 90 Prayer)", "Members can now create <col=000080>spectral spirit shields</col> (after Summer's End, with level 90 Prayer).");
-            case 7:
+            case 7 :
                 return(90, dragonfire_shield, "Members: Dragonfire shield", "Members can now make <col=000080>dragonfire shields</col> from anti-dragonbreath shields and draconic visages.");
-            case 8:
+            case 8 :
                 return(91, starved_ancient_effigy, "Members: Starved ancient effigies", "Members can now investigate <col=000080>starved ancient effigies</col> using their knowledge of Smithing.");
-            case 9:
+            case 9 :
                 return(92, dragon_platebody, "Members: Repair dragon platebody", "Members can now repair <col=000080>dragon platebodies</col> (after While Guthix Sleeps).");
-            case 10:
+            case 10 :
                 return(93, nourished_ancient_effigy, "Members: Nourished ancient effigies", "Members can now investigate <col=000080>nourished ancient effigies</col> using their knowledge of Smithing.");
-            case 11:
+            case 11 :
                 return(95, sated_ancient_effigy, "Members: Sated ancient effigies", "Members can now investigate <col=000080>sated ancient effigies</col> using their knowledge of Smithing.");
-            case 12:
+            case 12 :
                 return(97, gorged_ancient_effigy, "Members: Gorged ancient effigies", "Members can now investigate <col=000080>gorged ancient effigies</col> using their knowledge of Smithing.");
         }
-    case 12:
+    case 12 :
         switch_int ($int1) {
-            case 0:
+            case 0 :
                 return(1, dagger__class_1, "Members: Stealing Creation - class 1 dagger", "Members can now make <col=000080>class 1 daggers</col> in Stealing Creation.");
-            case 1:
+            case 1 :
                 return(1, hatchet__class_1, "Members: Stealing Creation - class 1 hatchet", "Members can now make <col=000080>class 1 hatchets</col> in Stealing Creation.");
-            case 2:
+            case 2 :
                 return(1, helm__class_1, "Members: Stealing Creation - class 1 helmet", "Members can now make <col=000080>class 1 helmets</col> in Stealing Creation.");
-            case 3:
+            case 3 :
                 return(1, scimitar__class_1, "Members: Stealing Creation - class 1 scimitar", "Members can now make <col=000080>class 1 scimitars</col> in Stealing Creation.");
-            case 4:
+            case 4 :
                 return(1, pickaxe__class_1, "Members: Stealing Creation - class 1 pickaxe", "Members can now make <col=000080>class 1 pickaxes</col> in Stealing Creation.");
-            case 5:
+            case 5 :
                 return(1, warhammer__class_1, "Members: Stealing Creation - class 1 warhammer", "Members can now make <col=000080>class 1 warhammers</col> in Stealing Creation.");
-            case 6:
+            case 6 :
                 return(1, platelegs__class_1, "Members: Stealing Creation - class 1 platelegs", "Members can now make <col=000080>class 1 platelegs</col> in Stealing Creation.");
-            case 7:
+            case 7 :
                 return(1, platebody__class_1, "Members: Stealing Creation - class 1 platebody", "Members can now make <col=000080>class 1 platebodies</col> in Stealing Creation.");
-            case 8:
+            case 8 :
                 return(20, dagger__class_2, "Members: Stealing Creation - class 2 dagger", "Members can now make <col=000080>class 2 daggers</col> in Stealing Creation.");
-            case 9:
+            case 9 :
                 return(20, hatchet__class_2, "Members: Stealing Creation - class 2 hatchet", "Members can now make <col=000080>class 2 hatchets</col> in Stealing Creation.");
-            case 10:
+            case 10 :
                 return(20, helm__class_2, "Members: Stealing Creation - class 2 helmet", "Members can now make <col=000080>class 2 helmets</col> in Stealing Creation.");
-            case 11:
+            case 11 :
                 return(20, scimitar__class_2, "Members: Stealing Creation - class 2 scimitar", "Members can now make <col=000080>class 2 scimitars</col> in Stealing Creation.");
-            case 12:
+            case 12 :
                 return(20, pickaxe__class_2, "Members: Stealing Creation - class 2 pickaxe", "Members can now make <col=000080>class 2 pickaxes</col> in Stealing Creation.");
-            case 13:
+            case 13 :
                 return(20, warhammer__class_2, "Members: Stealing Creation - class 2 warhammer", "Members can now make <col=000080>class 2 warhammers</col> in Stealing Creation.");
-            case 14:
+            case 14 :
                 return(20, platelegs__class_2, "Members: Stealing Creation - class 2 platelegs", "Members can now make <col=000080>class 2 platelegs</col> in Stealing Creation.");
-            case 15:
+            case 15 :
                 return(20, platebody__class_2, "Members: Stealing Creation - class 2 platebody", "Members can now make <col=000080>class 2 platebodies</col> in Stealing Creation.");
-            case 16:
+            case 16 :
                 return(40, dagger__class_3, "Members: Stealing Creation - class 3 dagger", "Members can now make <col=000080>class 3 daggers</col> in Stealing Creation.");
-            case 17:
+            case 17 :
                 return(40, hatchet__class_3, "Members: Stealing Creation - class 3 hatchet", "Members can now make <col=000080>class 3 hatchets</col> in Stealing Creation.");
-            case 18:
+            case 18 :
                 return(40, helm__class_3, "Members: Stealing Creation - class 3 helmet", "Members can now make <col=000080>class 3 helmets</col> in Stealing Creation.");
-            case 19:
+            case 19 :
                 return(40, scimitar__class_3, "Members: Stealing Creation - class 3 scimitar", "Members can now make <col=000080>class 3 scimitars</col> in Stealing Creation.");
-            case 20:
+            case 20 :
                 return(40, pickaxe__class_3, "Members: Stealing Creation - class 3 pickaxe", "Members can now make <col=000080>class 3 pickaxes</col> in Stealing Creation.");
-            case 21:
+            case 21 :
                 return(40, warhammer__class_3, "Members: Stealing Creation - class 3 warhammer", "Members can now make <col=000080>class 3 warhammers</col> in Stealing Creation.");
-            case 22:
+            case 22 :
                 return(40, platelegs__class_3, "Members: Stealing Creation - class 3 platelegs", "Members can now make <col=000080>class 3 platelegs</col> in Stealing Creation.");
-            case 23:
+            case 23 :
                 return(40, platebody__class_3, "Members: Stealing Creation - class 3 platebody", "Members can now make <col=000080>class 3 platebodies</col> in Stealing Creation.");
-            case 24:
+            case 24 :
                 return(60, obj_13256, "Members: Blast Furnace - Anvils", "Members can now use the <col=000080>anvils</col> at the Blast Furnace.");
-            case 25:
+            case 25 :
                 return(60, dagger__class_4, "Members: Stealing Creation - class 4 dagger", "Members can now make <col=000080>class 4 daggers</col> in Stealing Creation.");
-            case 26:
+            case 26 :
                 return(60, hatchet__class_4, "Members: Stealing Creation - class 4 hatchet", "Members can now make <col=000080>class 4 hatchets</col> in Stealing Creation.");
-            case 27:
+            case 27 :
                 return(60, helm__class_4, "Members: Stealing Creation - class 4 helmet", "Members can now make <col=000080>class 4 helmets</col> in Stealing Creation.");
-            case 28:
+            case 28 :
                 return(60, scimitar__class_4, "Members: Stealing Creation - class 4 scimitar", "Members can now make <col=000080>class 4 scimitars</col> in Stealing Creation.");
-            case 29:
+            case 29 :
                 return(60, pickaxe__class_4, "Members: Stealing Creation - class 4 pickaxe", "Members can now make <col=000080>class 4 pickaxes</col> in Stealing Creation.");
-            case 30:
+            case 30 :
                 return(60, warhammer__class_4, "Members: Stealing Creation - class 4 warhammer", "Members can now make <col=000080>class 4 warhammers</col> in Stealing Creation.");
-            case 31:
+            case 31 :
                 return(60, platelegs__class_4, "Members: Stealing Creation - class 4 platelegs", "Members can now make <col=000080>class 4 platelegs</col> in Stealing Creation.");
-            case 32:
+            case 32 :
                 return(60, platebody__class_4, "Members: Stealing Creation - class 4 platebody", "Members can now make <col=000080>class 4 platebodies</col> in Stealing Creation.");
-            case 33:
+            case 33 :
                 return(80, dagger__class_5, "Members: Stealing Creation - class 5 dagger", "Members can now make <col=000080>class 5 daggers</col> in Stealing Creation.");
-            case 34:
+            case 34 :
                 return(80, hatchet__class_5, "Members: Stealing Creation - class 5 hatchet", "Members can now make <col=000080>class 5 hatchets</col> in Stealing Creation.");
-            case 35:
+            case 35 :
                 return(80, helm__class_5, "Members: Stealing Creation - class 5 helmet", "Members can now make <col=000080>class 5 helmets</col> in Stealing Creation.");
-            case 36:
+            case 36 :
                 return(80, scimitar__class_5, "Members: Stealing Creation - class 5 scimitar", "Members can now make <col=000080>class 5 scimitars</col> in Stealing Creation.");
-            case 37:
+            case 37 :
                 return(80, pickaxe__class_5, "Members: Stealing Creation - class 5 pickaxe", "Members can now make <col=000080>class 5 pickaxes</col> in Stealing Creation.");
-            case 38:
+            case 38 :
                 return(80, warhammer__class_5, "Members: Stealing Creation - class 5 warhammer", "Members can now make <col=000080>class 5 warhammers</col> in Stealing Creation.");
-            case 39:
+            case 39 :
                 return(80, platelegs__class_5, "Members: Stealing Creation - class 5 platelegs", "Members can now make <col=000080>class 5 platelegs</col> in Stealing Creation.");
-            case 40:
+            case 40 :
                 return(80, platebody__class_5, "Members: Stealing Creation - class 5 platebody", "Members can now make <col=000080>class 5 platebodies</col> in Stealing Creation.");
         }
-    case 13:
+    case 13 :
         switch_int ($int1) {
-            case 0:
+            case 0 :
                 return(-1, ring_of_kinship, "Dungeoneering skill tasks<br>As your Smithing level increases, you will be able to attempt higher-level smithing tasks within Daemonheim. You will also be more likely to succeed when attempting smithing tasks within Daemonheim.", "");
-            case 1:
+            case 1 :
                 return(1, novite_bar, "Novite (Tier 1)", "You can now smelt <col=000080>novite</col> within Daemonheim.");
-            case 2:
+            case 2 :
                 return(1, novite_arrowtips, "Novite arrowheads (Tier 1) (15)<br> 1 bar", "You can now smith <col=000080>novite arrowheads</col> within Daemonheim.");
-            case 3:
+            case 3 :
                 return(1, novite_dagger, "Novite dagger (Tier 1)<br> 1 bar", "You can now smith <col=000080>novite daggers</col> within Daemonheim.");
-            case 4:
+            case 4 :
                 return(1, novite_boots, "Novite boots (Tier 1)<br> 1 bar", "You can now smith <col=000080>novite boots</col> within Daemonheim.");
-            case 5:
+            case 5 :
                 return(1, novite_gauntlets, "Novite gauntlets (Tier 1)<br> 1 bar", "You can now smith <col=000080>novite gauntlets</col> within Daemonheim.");
-            case 6:
+            case 6 :
                 return(2, novite_hatchet, "Novite hatchet (Tier 1)<br> 1 bar", "You can now smith <col=000080>novite hatchets</col> within Daemonheim.");
-            case 7:
+            case 7 :
                 return(2, novite_pickaxe, "Novite pickaxe (Tier 1)<br> 1 bar", "You can now smith <col=000080>novite pickaxes</col> within Daemonheim.");
-            case 8:
+            case 8 :
                 return(3, novite_warhammer, "Novite warhammer (Tier 1)<br> 2 bars", "You can now smith <col=000080>novite warhammers</col> within Daemonheim.");
-            case 9:
+            case 9 :
                 return(3, novite_rapier, "Novite rapier (Tier 1)<br> 2 bars", "You can now smith <col=000080>novite rapiers</col> within Daemonheim.");
-            case 10:
+            case 10 :
                 return(4, novite_longsword, "Novite longsword (Tier 1)<br> 2 bars", "You can now smith <col=000080>novite longswords</col> within Daemonheim.");
-            case 11:
+            case 11 :
                 return(5, novite_full_helm, "Novite full helm (Tier 1)<br> 2 bars", "You can now smith <col=000080>novite full helms</col> within Daemonheim.");
-            case 12:
+            case 12 :
                 return(5, novite_battleaxe, "Novite battleaxe (Tier 1)<br> 2 bars", "You can now smith <col=000080>novite battleaxes</col> within Daemonheim.");
-            case 13:
+            case 13 :
                 return(6, novite_kiteshield, "Novite kiteshield (Tier 1)<br> 3 bars", "You can now smith <col=000080>novite kiteshields</col> within Daemonheim.");
-            case 14:
+            case 14 :
                 return(6, novite_chainbody, "Novite chainbody (Tier 1)<br> 3 bars", "You can now smith <col=000080>novite chainbodies</col> within Daemonheim.");
-            case 15:
+            case 15 :
                 return(7, novite_platelegs, "Novite platelegs (Tier 1)<br> 3 bars", "You can now smith <col=000080>novite platelegs</col> within Daemonheim.");
-            case 16:
+            case 16 :
                 return(7, novite_plateskirt, "Novite plateskirt (Tier 1)<br> 3 bars", "You can now smith <col=000080>novite plateskirts</col> within Daemonheim.");
-            case 17:
+            case 17 :
                 return(7, novite_spear, "Novite spear (Tier 1)<br> 4 bars", "You can now smith <col=000080>novite spears</col> within Daemonheim.");
-            case 18:
+            case 18 :
                 return(8, novite_maul, "Novite maul (Tier 1)<br> 4 bars", "You can now smith <col=000080>novite mauls</col> within Daemonheim.");
-            case 19:
+            case 19 :
                 return(8, novite_2h_sword, "Novite 2h sword (Tier 1)<br> 4 bars", "You can now smith <col=000080>novite 2h swords</col> within Daemonheim.");
-            case 20:
+            case 20 :
                 return(9, novite_platebody, "Novite platebody (Tier 1)<br> 5 bars", "You can now smith <col=000080>novite platebodies</col> within Daemonheim.");
-            case 21:
+            case 21 :
                 return(10, bathus_bar, "Bathus (Tier 2)", "You can now smelt <col=000080>bathus</col> within Daemonheim.");
-            case 22:
+            case 22 :
                 return(10, bathus_arrowtips, "Bathus arrowheads (Tier 2) (15)<br> 1 bar", "You can now smith <col=000080>bathus arrowheads</col> within Daemonheim.");
-            case 23:
+            case 23 :
                 return(10, bathus_dagger, "Bathus dagger (Tier 2)<br> 1 bar", "You can now smith <col=000080>bathus daggers</col> within Daemonheim.");
-            case 24:
+            case 24 :
                 return(11, bathus_boots, "Bathus boots (Tier 2)<br> 1 bar", "You can now smith <col=000080>bathus boots</col> within Daemonheim.");
-            case 25:
+            case 25 :
                 return(11, bathus_gauntlets, "Bathus gauntlets (Tier 2)<br> 1 bar", "You can now smith <col=000080>bathus gauntlets</col> within Daemonheim.");
-            case 26:
+            case 26 :
                 return(12, bathus_hatchet, "Bathus hatchet (Tier 2)<br> 1 bar", "You can now smith <col=000080>bathus hatchets</col> within Daemonheim.");
-            case 27:
+            case 27 :
                 return(12, bathus_pickaxe, "Bathus pickaxe (Tier 2)<br> 1 bar", "You can now smith <col=000080>bathus pickaxes</col> within Daemonheim.");
-            case 28:
+            case 28 :
                 return(13, bathus_warhammer, "Bathus warhammer (Tier 2)<br> 2 bars", "You can now smith <col=000080>bathus warhammers</col> within Daemonheim.");
-            case 29:
+            case 29 :
                 return(13, bathus_rapier, "Bathus rapier (Tier 2)<br> 2 bars", "You can now smith <col=000080>bathus rapiers</col> within Daemonheim.");
-            case 30:
+            case 30 :
                 return(14, bathus_longsword, "Bathus longsword (Tier 2)<br> 2 bars", "You can now smith <col=000080>bathus longswords</col> within Daemonheim.");
-            case 31:
+            case 31 :
                 return(15, bathus_full_helm, "Bathus full helm (Tier 2)<br> 2 bars", "You can now smith <col=000080>bathus full helms</col> within Daemonheim.");
-            case 32:
+            case 32 :
                 return(15, bathus_battleaxe, "Bathus battleaxe (Tier 2)<br> 2 bars", "You can now smith <col=000080>bathus battleaxes</col> within Daemonheim.");
-            case 33:
+            case 33 :
                 return(16, bathus_kiteshield, "Bathus kiteshield (Tier 2)<br> 3 bars", "You can now smith <col=000080>bathus kiteshields</col> within Daemonheim.");
-            case 34:
+            case 34 :
                 return(16, bathus_chainbody, "Bathus chainbody (Tier 2)<br> 3 bars", "You can now smith <col=000080>bathus chainbodies</col> within Daemonheim.");
-            case 35:
+            case 35 :
                 return(17, bathus_platelegs, "Bathus platelegs (Tier 2)<br> 3 bars", "You can now smith <col=000080>bathus platelegs</col> within Daemonheim.");
-            case 36:
+            case 36 :
                 return(17, bathus_plateskirt, "Bathus plateskirt (Tier 2)<br> 3 bars", "You can now smith <col=000080>bathus plateskirts</col> within Daemonheim.");
-            case 37:
+            case 37 :
                 return(17, bathus_spear, "Bathus spear (Tier 2)<br> 4 bars", "You can now smith <col=000080>bathus spears</col> within Daemonheim.");
-            case 38:
+            case 38 :
                 return(18, bathus_maul, "Bathus maul (Tier 2)<br> 4 bars", "You can now smith <col=000080>bathus mauls</col> within Daemonheim.");
-            case 39:
+            case 39 :
                 return(18, bathus_2h_sword, "Bathus 2h sword (Tier 2)<br> 4 bars", "You can now smith <col=000080>bathus 2h swords</col> within Daemonheim.");
-            case 40:
+            case 40 :
                 return(19, bathus_platebody, "Bathus platebody (Tier 2)<br> 5 bars", "You can now smith <col=000080>bathus platebodies</col> within Daemonheim.");
-            case 41:
+            case 41 :
                 return(20, marmaros_bar, "Marmaros (Tier 3)", "You can now smelt <col=000080>marmaros</col> within Daemonheim.");
-            case 42:
+            case 42 :
                 return(20, marmaros_arrowtips, "Marmaros arrowheads (Tier 3) (15)<br> 1 bar", "You can now smith <col=000080>marmaros arrowheads</col> within Daemonheim.");
-            case 43:
+            case 43 :
                 return(20, marmaros_dagger, "Marmaros dagger (Tier 3)<br> 1 bar", "You can now smith <col=000080>marmaros daggers</col> within Daemonheim.");
-            case 44:
+            case 44 :
                 return(21, marmaros_boots, "Marmaros boots (Tier 3)<br> 1 bar", "You can now smith <col=000080>marmaros boots</col> within Daemonheim.");
-            case 45:
+            case 45 :
                 return(21, marmaros_gauntlets, "Marmaros gauntlets (Tier 3)<br> 1 bar", "You can now smith <col=000080>marmaros gauntlets</col> within Daemonheim.");
-            case 46:
+            case 46 :
                 return(22, marmaros_hatchet, "Marmaros hatchet (Tier 3)<br> 1 bar", "You can now smith <col=000080>marmaros hatchets</col> within Daemonheim.");
-            case 47:
+            case 47 :
                 return(22, marmaros_pickaxe, "Marmaros pickaxe (Tier 3)<br> 1 bar", "You can now smith <col=000080>marmaros pickaxes</col> within Daemonheim.");
-            case 48:
+            case 48 :
                 return(23, marmaros_warhammer, "Marmaros warhammer (Tier 3)<br> 2 bars", "You can now smith <col=000080>marmaros warhammers</col> within Daemonheim.");
-            case 49:
+            case 49 :
                 return(23, marmaros_rapier, "Marmaros rapier (Tier 3)<br> 2 bars", "You can now smith <col=000080>marmaros rapiers</col> within Daemonheim.");
-            case 50:
+            case 50 :
                 return(24, marmaros_longsword, "Marmaros longsword (Tier 3)<br> 2 bars", "You can now smith <col=000080>marmaros longswords</col> within Daemonheim.");
-            case 51:
+            case 51 :
                 return(25, marmaros_full_helm, "Marmaros full helm (Tier 3)<br> 2 bars", "You can now smith <col=000080>marmaros full helms</col> within Daemonheim.");
-            case 52:
+            case 52 :
                 return(25, marmaros_battleaxe, "Marmaros battleaxe (Tier 3)<br> 2 bars", "You can now smith <col=000080>marmaros battleaxes</col> within Daemonheim.");
-            case 53:
+            case 53 :
                 return(26, marmaros_kiteshield, "Marmaros kiteshield (Tier 3)<br> 3 bars", "You can now smith <col=000080>marmaros kiteshields</col> within Daemonheim.");
-            case 54:
+            case 54 :
                 return(26, marmaros_chainbody, "Marmaros chainbody (Tier 3)<br> 3 bars", "You can now smith <col=000080>marmaros chainbodies</col> within Daemonheim.");
-            case 55:
+            case 55 :
                 return(27, marmaros_platelegs, "Marmaros platelegs (Tier 3)<br> 3 bars", "You can now smith <col=000080>marmaros platelegs</col> within Daemonheim.");
-            case 56:
+            case 56 :
                 return(27, marmaros_plateskirt, "Marmaros plateskirt (Tier 3)<br> 3 bars", "You can now smith <col=000080>marmaros plateskirts</col> within Daemonheim.");
-            case 57:
+            case 57 :
                 return(27, marmaros_spear, "Marmaros spear (Tier 3)<br> 4 bars", "You can now smith <col=000080>marmaros spears</col> within Daemonheim.");
-            case 58:
+            case 58 :
                 return(28, marmaros_maul, "Marmaros maul (Tier 3)<br> 4 bars", "You can now smith <col=000080>marmaros mauls</col> within Daemonheim.");
-            case 59:
+            case 59 :
                 return(28, marmaros_2h_sword, "Marmaros 2h sword (Tier 3)<br> 4 bars", "You can now smith <col=000080>marmaros 2h swords</col> within Daemonheim.");
-            case 60:
+            case 60 :
                 return(29, marmaros_platebody, "Marmaros platebody (Tier 3)<br> 5 bars", "You can now smith <col=000080>marmaros platebodies</col> within Daemonheim.");
-            case 61:
+            case 61 :
                 return(30, kratonite_bar, "Kratonite (Tier 4)", "You can now smelt <col=000080>kratonite</col> within Daemonheim.");
-            case 62:
+            case 62 :
                 return(30, kratonite_arrowtips, "Kratonite arrowheads (Tier 4) (15)<br> 1 bar", "You can now smith <col=000080>kratonite arrowheads</col> within Daemonheim.");
-            case 63:
+            case 63 :
                 return(30, kratonite_dagger, "Kratonite dagger (Tier 4)<br> 1 bar", "You can now smith <col=000080>kratonite daggers</col> within Daemonheim.");
-            case 64:
+            case 64 :
                 return(31, kratonite_boots, "Kratonite boots (Tier 4)<br> 1 bar", "You can now smith <col=000080>kratonite boots</col> within Daemonheim.");
-            case 65:
+            case 65 :
                 return(31, kratonite_gauntlets, "Kratonite gauntlets (Tier 4)<br> 1 bar", "You can now smith <col=000080>kratonite gauntlets</col> within Daemonheim.");
-            case 66:
+            case 66 :
                 return(32, kratonite_hatchet, "Kratonite hatchet (Tier 4)<br> 1 bar", "You can now smith <col=000080>kratonite hatchets</col> within Daemonheim.");
-            case 67:
+            case 67 :
                 return(32, kratonite_pickaxe, "Kratonite pickaxe (Tier 4)<br> 1 bar", "You can now smith <col=000080>kratonite pickaxes</col> within Daemonheim.");
-            case 68:
+            case 68 :
                 return(33, kratonite_warhammer, "Kratonite warhammer (Tier 4)<br> 2 bars", "You can now smith <col=000080>kratonite warhammers</col> within Daemonheim.");
-            case 69:
+            case 69 :
                 return(33, kratonite_rapier, "Kratonite rapier (Tier 4)<br> 2 bars", "You can now smith <col=000080>kratonite rapiers</col> within Daemonheim.");
-            case 70:
+            case 70 :
                 return(34, kratonite_longsword, "Kratonite longsword (Tier 4)<br> 2 bars", "You can now smith <col=000080>kratonite longswords</col> within Daemonheim.");
-            case 71:
+            case 71 :
                 return(35, kratonite_full_helm, "Kratonite full helm (Tier 4)<br> 2 bars", "You can now smith <col=000080>kratonite full helms</col> within Daemonheim.");
-            case 72:
+            case 72 :
                 return(35, kratonite_battleaxe, "Kratonite battleaxe (Tier 4)<br> 2 bars", "You can now smith <col=000080>kratonite battleaxes</col> within Daemonheim.");
-            case 73:
+            case 73 :
                 return(36, kratonite_kiteshield, "Kratonite kiteshield (Tier 4)<br> 3 bars", "You can now smith <col=000080>kratonite kiteshields</col> within Daemonheim.");
-            case 74:
+            case 74 :
                 return(36, kratonite_chainbody, "Kratonite chainbody (Tier 4)<br> 3 bars", "You can now smith <col=000080>kratonite chainbodies</col> within Daemonheim.");
-            case 75:
+            case 75 :
                 return(37, kratonite_platelegs, "Kratonite platelegs (Tier 4)<br> 3 bars", "You can now smith <col=000080>kratonite platelegs</col> within Daemonheim.");
-            case 76:
+            case 76 :
                 return(37, kratonite_plateskirt, "Kratonite plateskirt (Tier 4)<br> 3 bars", "You can now smith <col=000080>kratonite plateskirts</col> within Daemonheim.");
-            case 77:
+            case 77 :
                 return(37, kratonite_spear, "Kratonite spear (Tier 4)<br> 4 bars", "You can now smith <col=000080>kratonite spears</col> within Daemonheim.");
-            case 78:
+            case 78 :
                 return(38, kratonite_maul, "Kratonite maul (Tier 4)<br> 4 bars", "You can now smith <col=000080>kratonite mauls</col> within Daemonheim.");
-            case 79:
+            case 79 :
                 return(38, kratonite_2h_sword, "Kratonite 2h sword (Tier 4)<br> 4 bars", "You can now smith <col=000080>kratonite 2h swords</col> within Daemonheim.");
-            case 80:
+            case 80 :
                 return(39, kratonite_platebody, "Kratonite platebody (Tier 4)<br> 5 bars", "You can now smith <col=000080>kratonite platebodies</col> within Daemonheim.");
-            case 81:
+            case 81 :
                 return(40, fractite_bar, "Fractite (Tier 5)", "You can now smelt <col=000080>fractite</col> within Daemonheim.");
-            case 82:
+            case 82 :
                 return(40, fractite_arrowtips, "Fractite arrowheads (Tier 5) (15)<br> 1 bar", "You can now smith <col=000080>fractite arrowheads</col> within Daemonheim.");
-            case 83:
+            case 83 :
                 return(40, fractite_dagger, "Fractite dagger (Tier 5)<br> 1 bar", "You can now smith <col=000080>fractite daggers</col> within Daemonheim.");
-            case 84:
+            case 84 :
                 return(41, fractite_boots, "Fractite boots (Tier 5)<br> 1 bar", "You can now smith <col=000080>fractite boots</col> within Daemonheim.");
-            case 85:
+            case 85 :
                 return(41, fractite_gauntlets, "Fractite gauntlets (Tier 5)<br> 1 bar", "You can now smith <col=000080>fractite gauntlets</col> within Daemonheim.");
-            case 86:
+            case 86 :
                 return(42, fractite_hatchet, "Fractite hatchet (Tier 5)<br> 1 bar", "You can now smith <col=000080>fractite hatchets</col> within Daemonheim.");
-            case 87:
+            case 87 :
                 return(42, fractite_pickaxe, "Fractite pickaxe (Tier 5)<br> 1 bar", "You can now smith <col=000080>fractite pickaxes</col> within Daemonheim.");
-            case 88:
+            case 88 :
                 return(43, fractite_warhammer, "Fractite warhammer (Tier 5)<br> 2 bars", "You can now smith <col=000080>fractite warhammers</col> within Daemonheim.");
-            case 89:
+            case 89 :
                 return(43, fractite_rapier, "Fractite rapier (Tier 5)<br> 2 bars", "You can now smith <col=000080>fractite rapiers</col> within Daemonheim.");
-            case 90:
+            case 90 :
                 return(44, fractite_longsword, "Fractite longsword (Tier 5)<br> 2 bars", "You can now smith <col=000080>fractite longswords</col> within Daemonheim.");
-            case 91:
+            case 91 :
                 return(45, fractite_full_helm, "Fractite full helm (Tier 5)<br> 2 bars", "You can now smith <col=000080>fractite full helms</col> within Daemonheim.");
-            case 92:
+            case 92 :
                 return(45, fractite_battleaxe, "Fractite battleaxe (Tier 5)<br> 2 bars", "You can now smith <col=000080>fractite battleaxes</col> within Daemonheim.");
-            case 93:
+            case 93 :
                 return(46, fractite_kiteshield, "Fractite kiteshield (Tier 5)<br> 3 bars", "You can now smith <col=000080>fractite kiteshields</col> within Daemonheim.");
-            case 94:
+            case 94 :
                 return(46, fractite_chainbody, "Fractite chainbody (Tier 5)<br> 3 bars", "You can now smith <col=000080>fractite chainbodies</col> within Daemonheim.");
-            case 95:
+            case 95 :
                 return(47, fractite_platelegs, "Fractite platelegs (Tier 5)<br> 3 bars", "You can now smith <col=000080>fractite platelegs</col> within Daemonheim.");
-            case 96:
+            case 96 :
                 return(47, fractite_plateskirt, "Fractite plateskirt (Tier 5)<br> 3 bars", "You can now smith <col=000080>fractite plateskirts</col> within Daemonheim.");
-            case 97:
+            case 97 :
                 return(47, fractite_spear, "Fractite spear (Tier 5)<br> 4 bars", "You can now smith <col=000080>fractite spears</col> within Daemonheim.");
-            case 98:
+            case 98 :
                 return(48, fractite_maul, "Fractite maul (Tier 5)<br> 4 bars", "You can now smith <col=000080>fractite mauls</col> within Daemonheim.");
-            case 99:
+            case 99 :
                 return(48, fractite_2h_sword, "Fractite 2h sword (Tier 5)<br> 4 bars", "You can now smith <col=000080>fractite 2h swords</col> within Daemonheim.");
-            case 100:
+            case 100 :
                 return(49, fractite_platebody, "Fractite platebody (Tier 5)<br> 5 bars", "You can now smith <col=000080>fractite platebodies</col> within Daemonheim.");
-            case 101:
+            case 101 :
                 return(50, zephyrium_bar, "Members: Zephyrium (Tier 6)", "Members can now smelt <col=000080>zephyrium</col> within Daemonheim.");
-            case 102:
+            case 102 :
                 return(50, zephyrium_arrowtips, "Members: Zephyrium arrowheads (Tier 6) (15)<br> 1 bar", "Members can now smith <col=000080>zephyrium arrowheads</col> within Daemonheim.");
-            case 103:
+            case 103 :
                 return(50, zephyrium_dagger, "Members: Zephyrium dagger (Tier 6)<br> 1 bar", "Members can now smith <col=000080>zephyrium daggers</col> within Daemonheim.");
-            case 104:
+            case 104 :
                 return(51, zephyrium_boots, "Members: Zephyrium boots (Tier 6)<br> 1 bar", "Members can now smith <col=000080>zephyrium boots</col> within Daemonheim.");
-            case 105:
+            case 105 :
                 return(51, zephyrium_gauntlets, "Members: Zephyrium gauntlets (Tier 6)<br> 1 bar", "Members can now smith <col=000080>zephyrium gauntlets</col> within Daemonheim.");
-            case 106:
+            case 106 :
                 return(52, zephyrium_hatchet, "Members: Zephyrium hatchet (Tier 6)<br> 1 bar", "Members can now smith <col=000080>zephyrium hatchets</col> within Daemonheim.");
-            case 107:
+            case 107 :
                 return(52, zephyrium_pickaxe, "Members: Zephyrium pickaxe (Tier 6)<br> 1 bar", "Members can now smith <col=000080>zephyrium pickaxes</col> within Daemonheim.");
-            case 108:
+            case 108 :
                 return(53, zephyrium_warhammer, "Members: Zephyrium warhammer (Tier 6)<br> 2 bars", "Members can now smith <col=000080>zephyrium warhammers</col> within Daemonheim.");
-            case 109:
+            case 109 :
                 return(53, zephyrium_rapier, "Members: Zephyrium rapier (Tier 6)<br> 2 bars", "Members can now smith <col=000080>zephyrium rapiers</col> within Daemonheim.");
-            case 110:
+            case 110 :
                 return(54, zephyrium_longsword, "Members: Zephyrium longsword (Tier 6)<br> 2 bars", "Members can now smith <col=000080>zephyrium longswords</col> within Daemonheim.");
-            case 111:
+            case 111 :
                 return(55, zephyrium_full_helm, "Members: Zephyrium full helm (Tier 6)<br> 2 bars", "Members can now smith <col=000080>zephyrium full helms</col> within Daemonheim.");
-            case 112:
+            case 112 :
                 return(55, zephyrium_battleaxe, "Members: Zephyrium battleaxe (Tier 6)<br> 2 bars", "Members can now smith <col=000080>zephyrium battleaxes</col> within Daemonheim.");
-            case 113:
+            case 113 :
                 return(56, zephyrium_kiteshield, "Members: Zephyrium kiteshield (Tier 6)<br> 3 bars", "Members can now smith <col=000080>zephyrium kiteshields</col> within Daemonheim.");
-            case 114:
+            case 114 :
                 return(56, zephyrium_chainbody, "Members: Zephyrium chainbody (Tier 6)<br> 3 bars", "Members can now smith <col=000080>zephyrium chainbodies</col> within Daemonheim.");
-            case 115:
+            case 115 :
                 return(57, zephyrium_platelegs, "Members: Zephyrium platelegs (Tier 6)<br> 3 bars", "Members can now smith <col=000080>zephyrium platelegs</col> within Daemonheim.");
-            case 116:
+            case 116 :
                 return(57, zephyrium_plateskirt, "Members: Zephyrium plateskirt (Tier 6)<br> 3 bars", "Members can now smith <col=000080>zephyrium plateskirts</col> within Daemonheim.");
-            case 117:
+            case 117 :
                 return(57, zephyrium_spear, "Members: Zephyrium spear (Tier 6)<br> 4 bars", "Members can now smith <col=000080>zephyrium spears</col> within Daemonheim.");
-            case 118:
+            case 118 :
                 return(58, zephyrium_maul, "Members: Zephyrium maul (Tier 6)<br> 4 bars", "Members can now smith <col=000080>zephyrium mauls</col> within Daemonheim.");
-            case 119:
+            case 119 :
                 return(58, zephyrium_2h_sword, "Members: Zephyrium 2h sword (Tier 6)<br> 4 bars", "Members can now smith <col=000080>zephyrium 2h swords</col> within Daemonheim.");
-            case 120:
+            case 120 :
                 return(59, zephyrium_platebody, "Members: Zephyrium platebody (Tier 6)<br> 5 bars", "Members can now smith <col=000080>zephyrium platebodies</col> within Daemonheim.");
-            case 121:
+            case 121 :
                 return(60, argonite_bar, "Members: Argonite (Tier 7)", "Members can now smelt <col=000080>argonite</col> within Daemonheim.");
-            case 122:
+            case 122 :
                 return(60, argonite_arrowtips, "Members: Argonite arrowheads (Tier 7) (15)<br> 1 bar", "Members can now smith <col=000080>argonite arrowheads</col> within Daemonheim.");
-            case 123:
+            case 123 :
                 return(60, argonite_dagger, "Members: Argonite dagger (Tier 7)<br> 1 bar", "Members can now smith <col=000080>argonite daggers</col> within Daemonheim.");
-            case 124:
+            case 124 :
                 return(61, argonite_boots, "Members: Argonite boots (Tier 7)<br> 1 bar", "Members can now smith <col=000080>argonite boots</col> within Daemonheim.");
-            case 125:
+            case 125 :
                 return(61, argonite_gauntlets, "Members: Argonite gauntlets (Tier 7)<br> 1 bar", "Members can now smith <col=000080>argonite gauntlets</col> within Daemonheim.");
-            case 126:
+            case 126 :
                 return(62, argonite_hatchet, "Members: Argonite hatchet (Tier 7)<br> 1 bar", "Members can now smith <col=000080>argonite hatchets</col> within Daemonheim.");
-            case 127:
+            case 127 :
                 return(62, argonite_pickaxe, "Members: Argonite pickaxe (Tier 7)<br> 1 bar", "Members can now smith <col=000080>argonite pickaxes</col> within Daemonheim.");
-            case 128:
+            case 128 :
                 return(63, argonite_warhammer, "Members: Argonite warhammer (Tier 7)<br> 2 bars", "Members can now smith <col=000080>argonite warhammers</col> within Daemonheim.");
-            case 129:
+            case 129 :
                 return(63, argonite_rapier, "Members: Argonite rapier (Tier 7)<br> 2 bars", "Members can now smith <col=000080>argonite rapiers</col> within Daemonheim.");
-            case 130:
+            case 130 :
                 return(64, argonite_longsword, "Members: Argonite longsword (Tier 7)<br> 2 bars", "Members can now smith <col=000080>argonite longswords</col> within Daemonheim.");
-            case 131:
+            case 131 :
                 return(65, argonite_full_helm, "Members: Argonite full helm (Tier 7)<br> 2 bars", "Members can now smith <col=000080>argonite full helms</col> within Daemonheim.");
-            case 132:
+            case 132 :
                 return(65, argonite_battleaxe, "Members: Argonite battleaxe (Tier 7)<br> 2 bars", "Members can now smith <col=000080>argonite battleaxes</col> within Daemonheim.");
-            case 133:
+            case 133 :
                 return(66, argonite_kiteshield, "Members: Argonite kiteshield (Tier 7)<br> 3 bars", "Members can now smith <col=000080>argonite kiteshields</col> within Daemonheim.");
-            case 134:
+            case 134 :
                 return(66, argonite_chainbody, "Members: Argonite chainbody (Tier 7)<br> 3 bars", "Members can now smith <col=000080>argonite chainbodies</col> within Daemonheim.");
-            case 135:
+            case 135 :
                 return(67, argonite_platelegs, "Members: Argonite platelegs (Tier 7)<br> 3 bars", "Members can now smith <col=000080>argonite platelegs</col> within Daemonheim.");
-            case 136:
+            case 136 :
                 return(67, argonite_plateskirt, "Members: Argonite plateskirt (Tier 7)<br> 3 bars", "Members can now smith <col=000080>argonite plateskirts</col> within Daemonheim.");
-            case 137:
+            case 137 :
                 return(67, argonite_spear, "Members: Argonite spear (Tier 7)<br> 4 bars", "Members can now smith <col=000080>argonite spears</col> within Daemonheim.");
-            case 138:
+            case 138 :
                 return(68, argonite_maul, "Members: Argonite maul (Tier 7)<br> 4 bars", "Members can now smith <col=000080>argonite mauls</col> within Daemonheim.");
-            case 139:
+            case 139 :
                 return(68, argonite_2h_sword, "Members: Argonite 2h sword (Tier 7)<br> 4 bars", "Members can now smith <col=000080>argonite 2h swords</col> within Daemonheim.");
-            case 140:
+            case 140 :
                 return(69, argonite_platebody, "Members: Argonite platebody (Tier 7)<br> 5 bars", "Members can now smith <col=000080>argonite platebodies</col> within Daemonheim.");
-            case 141:
+            case 141 :
                 return(70, katagon_bar, "Members: Katagon (Tier 8)", "Members can now smelt <col=000080>katagon</col> within Daemonheim.");
-            case 142:
+            case 142 :
                 return(70, katagon_arrowtips, "Members: Katagon arrowheads (Tier 8) (15)<br> 1 bar", "Members can now smith <col=000080>katagon arrowheads</col> within Daemonheim.");
-            case 143:
+            case 143 :
                 return(70, katagon_dagger, "Members: Katagon dagger (Tier 8)<br> 1 bar", "Members can now smith <col=000080>katagon daggers</col> within Daemonheim.");
-            case 144:
+            case 144 :
                 return(71, katagon_boots, "Members: Katagon boots (Tier 8)<br> 1 bar", "Members can now smith <col=000080>katagon boots</col> within Daemonheim.");
-            case 145:
+            case 145 :
                 return(71, katagon_gauntlets, "Members: Katagon gauntlets (Tier 8)<br> 1 bar", "Members can now smith <col=000080>katagon gauntlets</col> within Daemonheim.");
-            case 146:
+            case 146 :
                 return(72, katagon_hatchet, "Members: Katagon hatchet (Tier 8)<br> 1 bar", "Members can now smith <col=000080>katagon hatchets</col> within Daemonheim.");
-            case 147:
+            case 147 :
                 return(72, katagon_pickaxe, "Members: Katagon pickaxe (Tier 8)<br> 1 bar", "Members can now smith <col=000080>katagon pickaxes</col> within Daemonheim.");
-            case 148:
+            case 148 :
                 return(73, katagon_warhammer, "Members: Katagon warhammer (Tier 8)<br> 2 bars", "Members can now smith <col=000080>katagon warhammers</col> within Daemonheim.");
-            case 149:
+            case 149 :
                 return(73, katagon_rapier, "Members: Katagon rapier (Tier 8)<br> 2 bars", "Members can now smith <col=000080>katagon rapiers</col> within Daemonheim.");
-            case 150:
+            case 150 :
                 return(74, katagon_longsword, "Members: Katagon longsword (Tier 8)<br> 2 bars", "Members can now smith <col=000080>katagon longswords</col> within Daemonheim.");
-            case 151:
+            case 151 :
                 return(75, katagon_full_helm, "Members: Katagon full helm (Tier 8)<br> 2 bars", "Members can now smith <col=000080>katagon full helms</col> within Daemonheim.");
-            case 152:
+            case 152 :
                 return(75, katagon_battleaxe, "Members: Katagon battleaxe (Tier 8)<br> 2 bars", "Members can now smith <col=000080>katagon battleaxes</col> within Daemonheim.");
-            case 153:
+            case 153 :
                 return(76, katagon_kiteshield, "Members: Katagon kiteshield (Tier 8)<br> 3 bars", "Members can now smith <col=000080>katagon kiteshields</col> within Daemonheim.");
-            case 154:
+            case 154 :
                 return(76, katagon_chainbody, "Members: Katagon chainbody (Tier 8)<br> 3 bars", "Members can now smith <col=000080>katagon chainbodies</col> within Daemonheim.");
-            case 155:
+            case 155 :
                 return(77, katagon_platelegs, "Members: Katagon platelegs (Tier 8)<br> 3 bars", "Members can now smith <col=000080>katagon platelegs</col> within Daemonheim.");
-            case 156:
+            case 156 :
                 return(77, katagon_plateskirt, "Members: Katagon plateskirt (Tier 8)<br> 3 bars", "Members can now smith <col=000080>katagon plateskirts</col> within Daemonheim.");
-            case 157:
+            case 157 :
                 return(77, katagon_spear, "Members: Katagon spear (Tier 8)<br> 4 bars", "Members can now smith <col=000080>katagon spears</col> within Daemonheim.");
-            case 158:
+            case 158 :
                 return(78, katagon_maul, "Members: Katagon maul (Tier 8)<br> 4 bars", "Members can now smith <col=000080>katagon mauls</col> within Daemonheim.");
-            case 159:
+            case 159 :
                 return(78, katagon_2h_sword, "Members: Katagon 2h sword (Tier 8)<br> 4 bars", "Members can now smith <col=000080>katagon 2h swords</col> within Daemonheim.");
-            case 160:
+            case 160 :
                 return(79, katagon_platebody, "Members: Katagon platebody (Tier 8)<br> 5 bars", "Members can now smith <col=000080>katagon platebodies</col> within Daemonheim.");
-            case 161:
+            case 161 :
                 return(80, gorgonite_bar, "Members: Gorgonite (Tier 9)", "Members can now smelt <col=000080>gorgonite</col> within Daemonheim.");
-            case 162:
+            case 162 :
                 return(80, gorgonite_arrowtips, "Members: Gorgonite arrowheads (Tier 9) (15)<br> 1 bar", "Members can now smith <col=000080>gorgonite arrowheads</col> within Daemonheim.");
-            case 163:
+            case 163 :
                 return(80, gorgonite_dagger, "Members: Gorgonite dagger (Tier 9)<br> 1 bar", "Members can now smith <col=000080>gorgonite daggers</col> within Daemonheim.");
-            case 164:
+            case 164 :
                 return(81, gorgonite_boots, "Members: Gorgonite boots (Tier 9)<br> 1 bar", "Members can now smith <col=000080>gorgonite boots</col> within Daemonheim.");
-            case 165:
+            case 165 :
                 return(81, gorgonite_gauntlets, "Members: Gorgonite gauntlets (Tier 9)<br> 1 bar", "Members can now smith <col=000080>gorgonite gauntlets</col> within Daemonheim.");
-            case 166:
+            case 166 :
                 return(82, gorgonite_hatchet, "Members: Gorgonite hatchet (Tier 9)<br> 1 bar", "Members can now smith <col=000080>gorgonite hatchets</col> within Daemonheim.");
-            case 167:
+            case 167 :
                 return(82, gorgonite_pickaxe, "Members: Gorgonite pickaxe (Tier 9)<br> 1 bar", "Members can now smith <col=000080>gorgonite pickaxes</col> within Daemonheim.");
-            case 168:
+            case 168 :
                 return(83, gorgonite_warhammer, "Members: Gorgonite warhammer (Tier 9)<br> 2 bars", "Members can now smith <col=000080>gorgonite warhammers</col> within Daemonheim.");
-            case 169:
+            case 169 :
                 return(83, gorgonite_rapier, "Members: Gorgonite rapier (Tier 9)<br> 2 bars", "Members can now smith <col=000080>gorgonite rapiers</col> within Daemonheim.");
-            case 170:
+            case 170 :
                 return(84, gorgonite_longsword, "Members: Gorgonite longsword (Tier 9)<br> 2 bars", "Members can now smith <col=000080>gorgonite longswords</col> within Daemonheim.");
-            case 171:
+            case 171 :
                 return(85, gorgonite_full_helm, "Members: Gorgonite full helm (Tier 9)<br> 2 bars", "Members can now smith <col=000080>gorgonite full helms</col> within Daemonheim.");
-            case 172:
+            case 172 :
                 return(85, gorgonite_battleaxe, "Members: Gorgonite battleaxe (Tier 9)<br> 2 bars", "Members can now smith <col=000080>gorgonite battleaxes</col> within Daemonheim.");
-            case 173:
+            case 173 :
                 return(86, gorgonite_kiteshield_17357, "Members: Gorgonite kiteshield (Tier 9)<br> 3 bars", "Members can now smith <col=000080>gorgonite kiteshields</col> within Daemonheim.");
-            case 174:
+            case 174 :
                 return(86, gorgonite_chainbody, "Members: Gorgonite chainbody (Tier 9)<br> 3 bars", "Members can now smith <col=000080>gorgonite chainbodies</col> within Daemonheim.");
-            case 175:
+            case 175 :
                 return(87, gorgonite_platelegs, "Members: Gorgonite platelegs (Tier 9)<br> 3 bars", "Members can now smith <col=000080>gorgonite platelegs</col> within Daemonheim.");
-            case 176:
+            case 176 :
                 return(87, gorgonite_plateskirt, "Members: Gorgonite plateskirt (Tier 9)<br> 3 bars", "Members can now smith <col=000080>gorgonite plateskirts</col> within Daemonheim.");
-            case 177:
+            case 177 :
                 return(87, gorgonite_spear, "Members: Gorgonite spear (Tier 9)<br> 4 bars", "Members can now smith <col=000080>gorgonite spears</col> within Daemonheim.");
-            case 178:
+            case 178 :
                 return(88, gorgonite_maul, "Members: Gorgonite maul (Tier 9)<br> 4 bars", "Members can now smith <col=000080>gorgonite mauls</col> within Daemonheim.");
-            case 179:
+            case 179 :
                 return(88, gorgonite_2h_sword, "Members: Gorgonite 2h sword (Tier 9)<br> 4 bars", "Members can now smith <col=000080>gorgonite 2h swords</col> within Daemonheim.");
-            case 180:
+            case 180 :
                 return(89, gorgonite_platebody, "Members: Gorgonite platebody (Tier 9)<br> 5 bars", "Members can now smith <col=000080>gorgonite platebodies</col> within Daemonheim.");
-            case 181:
+            case 181 :
                 return(90, promethium_bar, "Members: Promethium (Tier 10)", "Members can now smelt <col=000080>Promethium</col> within Daemonheim.");
-            case 182:
+            case 182 :
                 return(90, promethium_arrowtips, "Members: Promethium arrowheads (Tier 10) (15)<br> 1 bar", "Members can now smith <col=000080>promethium arrowheads</col> within Daemonheim.");
-            case 183:
+            case 183 :
                 return(90, promethium_dagger, "Members: Promethium dagger (Tier 10)<br> 1 bar", "Members can now smith <col=000080>promethium daggers</col> within Daemonheim.");
-            case 184:
+            case 184 :
                 return(91, promethium_boots, "Members: Promethium boots (Tier 10)<br> 1 bar", "Members can now smith <col=000080>promethium boots</col> within Daemonheim.");
-            case 185:
+            case 185 :
                 return(91, promethium_gauntlets, "Members: Promethium gauntlets (Tier 10)<br> 1 bar", "Members can now smith <col=000080>promethium gauntlets</col> within Daemonheim.");
-            case 186:
+            case 186 :
                 return(92, promethium_hatchet, "Members: Promethium hatchet (Tier 10)<br> 1 bar", "Members can now smith <col=000080>promethium hatchets</col> within Daemonheim.");
-            case 187:
+            case 187 :
                 return(92, promethium_pickaxe, "Members: Promethium pickaxe (Tier 10)<br> 1 bar", "Members can now smith <col=000080>promethium pickaxes</col> within Daemonheim.");
-            case 188:
+            case 188 :
                 return(93, promethium_warhammer, "Members: Promethium warhammer (Tier 10)<br> 2 bars", "Members can now smith <col=000080>promethium warhammers</col> within Daemonheim.");
-            case 189:
+            case 189 :
                 return(93, promethium_rapier, "Members: Promethium rapier (Tier 10)<br> 2 bars", "Members can now smith <col=000080>promethium rapiers</col> within Daemonheim.");
-            case 190:
+            case 190 :
                 return(94, promethium_longsword, "Members: Promethium longsword (Tier 10)<br> 2 bars", "Members can now smith <col=000080>promethium longswords</col> within Daemonheim.");
-            case 191:
+            case 191 :
                 return(95, promethium_full_helm, "Members: Promethium full helm (Tier 10)<br> 2 bars", "Members can now smith <col=000080>promethium full helms</col> within Daemonheim.");
-            case 192:
+            case 192 :
                 return(95, promethium_battleaxe, "Members: Promethium battleaxe (Tier 10)<br> 2 bars", "Members can now smith <col=000080>promethium battleaxes</col> within Daemonheim.");
-            case 193:
+            case 193 :
                 return(96, promethium_kiteshield, "Members: Promethium kiteshield (Tier 10)<br> 3 bars", "Members can now smith <col=000080>promethium kiteshields</col> within Daemonheim.");
-            case 194:
+            case 194 :
                 return(96, promethium_chainbody, "Members: Promethium chainbody (Tier 10)<br> 3 bars", "Members can now smith <col=000080>promethium chainbodies</col> within Daemonheim.");
-            case 195:
+            case 195 :
                 return(97, promethium_platelegs, "Members: Promethium platelegs (Tier 10)<br> 3 bars", "Members can now smith <col=000080>promethium platelegs</col> within Daemonheim.");
-            case 196:
+            case 196 :
                 return(97, promethium_plateskirt, "Members: Promethium plateskirt (Tier 10)<br> 3 bars", "Members can now smith <col=000080>promethium plateskirts</col> within Daemonheim.");
-            case 197:
+            case 197 :
                 return(97, promethium_spear, "Members: Promethium spear (Tier 10)<br> 4 bars", "Members can now smith <col=000080>promethium spears</col> within Daemonheim.");
-            case 198:
+            case 198 :
                 return(98, promethium_maul, "Members: Promethium maul (Tier 10)<br> 4 bars", "Members can now smith <col=000080>promethium mauls</col> within Daemonheim.");
-            case 199:
+            case 199 :
                 return(98, promethium_2h_sword, "Members: Promethium 2h sword (Tier 10)<br> 4 bars", "Members can now smith <col=000080>promethium 2h swords</col> within Daemonheim.");
-            case 200:
+            case 200 :
                 return(99, promethium_platebody, "Members: Promethium platebody (Tier 10)<br> 5 bars", "Members can now smith <col=000080>promethium platebodies</col> within Daemonheim.");
         }
-    case 14:
+    case 14 :
         switch_int ($int1) {
-            case 0:
+            case 0 :
                 return(99, smithing_cape, "Skill mastery", "<col=000080>Congratulations! You are now a master smith. Members can visit <col=800000>Thurgo<col=000080>, who lives near <col=800000>Mudskipper Point<col=000080>. He has something special that is only available to true masters of the <col=800000>Smithing<col=000080> skill!");
         }
 }

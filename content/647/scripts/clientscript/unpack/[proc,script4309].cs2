@@ -1,0 +1,6 @@
+// 4309
+[proc,script4309]()(int)
+if (%varclient_1500 ! -1 & %varclient_1501 ! -1 & %varclient_1503 ! -1 & %varclient_1502 ! -1 & compare(%varclient_1866, "") ! 0) {
+    return(1);
+}
+return(0);

@@ -1,14 +1,15 @@
+// 138
 [clientscript,meslayer_ondialogabort]
-switch_int (%varc_int_5) {
-    case 7:
+switch_int (%varclient_5) {
+    case 7 :
         ~meslayer_close(7);
-    case 8:
+    case 8 :
         ~meslayer_close(8);
-    case 9:
+    case 9 :
         ~meslayer_close(9);
-    case 13:
+    case 13 :
         ~meslayer_close(13);
-    case default:
+    case default :
         if (getwindowmode >= 2) {
             ~subchanged;
         }

@@ -1,7 +1,0 @@
-[proc,clientscript_4297]
-if_sethide(false, pe6859048:com41);
-if_sethide(true, pe6859048:com40);
-if (ignore_getname = true) {
-    ~clientscript_4501(pe6859048:com128, enum(105, 115, enum_3725, calc(clanchannel_getbyte1 + 1)));
-    ~clientscript_4501(pe6859048:com142, enum(105, 115, enum_3716, clanchannel_getbyte2));
-}

@@ -8,12 +8,12 @@ settimer(stat_boost_restore, 100);
 // Constitution, 2011-05-12: "one life point about every six seconds").
 settimer(health_regen, 10);
 // Bonus-XP elapsed clock: re-arm the per-minute timer each login (timers aren't
-// saved). The elapsed total itself PERSISTS across logout (varp_1644 = scope=perm),
+// saved). The elapsed total itself PERSISTS across logout (varplayer_1644 = scope=perm),
 // so the multiplier keeps decaying with cumulative game-time during the event —
 // relogging must NOT reset it back to 2.7x. The timer no-ops while the event is off.
 settimer(doublexp_elapsed, 100);
 // Seed/clamp current life points (granular varbit life_points 7198; persists
-// via varp_1240). New players (and stale/invalid values) start full; a valid
+// via varplayer_1240). New players (and stale/invalid values) start full; a valid
 // persisted HP value is kept.
 def_int $hp_max = calc(stat(hitpoints) * 10);
 if (%life_points < 1 | %life_points > $hp_max) {
@@ -68,7 +68,7 @@ if (getwindowmode = 1) {
 
 [proc,initorbs]()
 // The summoning orb (interface 747) is members-only and stays blank until
-// show_summoning_orb (varbit 4280 = varp_1160 bit 23) is set -- the client's
+// show_summoning_orb (varbit 4280 = varplayer_1160 bit 23) is set -- the client's
 // [proc,subchanged] hides 747:8 whenever it reads 0. void rev-634 defaults the
 // var to true and re-sends it on every `interfaceOpened("summoning_orb")`, so
 // seed it here, before the mount, and only on a members world.
@@ -194,7 +194,7 @@ if_setevents(combat_side:style4, -1, -1, ^if_op1, 0, 0, ^false, ^false)
 // op1 on rows 0-300, as void-634 unlocks it (QuestJournals.kt). Points:
 // void-634's total, 311 (varp 904; quests.toml); the wiki's is 316 (see
 // general/configs/quest_interface.constant).
-if_setevents(questlist_v4:com18, 0, 300, ^if_op1, 0, 0, ^false, ^false)
+if_setevents(questlist_v4:com_18, 0, 300, ^if_op1, 0, 0, ^false, ^false)
 %quest_points_total = ^quest_points_total;
 ~update_questlist;
 
@@ -202,15 +202,15 @@ if_setevents(questlist_v4:com18, 0, 300, ^if_op1, 0, 0, ^false, ^false)
 // slot in enum 2279's order (clientscript 1236); Activate is op1. 2011's
 // client offers it on all thirty (void-634 unlocks 0-29): here on 289's
 // fifteen, as 2011's own are not ported.
-if_setevents(prayer:com8, 0, 2, ^if_op1, 0, 0, ^false, ^false)
-if_setevents(prayer:com8, 5, 10, ^if_op1, 0, 0, ^false, ^false)
-if_setevents(prayer:com8, 13, 15, ^if_op1, 0, 0, ^false, ^false)
-if_setevents(prayer:com8, 17, 19, ^if_op1, 0, 0, ^false, ^false)
+if_setevents(prayer:com_8, 0, 2, ^if_op1, 0, 0, ^false, ^false)
+if_setevents(prayer:com_8, 5, 10, ^if_op1, 0, 0, ^false, ^false)
+if_setevents(prayer:com_8, 13, 15, ^if_op1, 0, 0, ^false, ^false)
+if_setevents(prayer:com_8, 17, 19, ^if_op1, 0, 0, ^false, ^false)
 
 // The music player's list (music_v3, 187) is com1's children, two a track
 // for its 980 places (clientscript 828: the name at index * 2, the playlist
 // button at index * 2 + 1). Play (op1) and Unlock hint (op2) are a name's
 // (clientscripts 3680, 3681); the playlist's ops are not ported.
-if_setevents(music_v3:com1, 0, 1959, or(^if_op1, ^if_op2), 0, 0, ^false, ^false)
+if_setevents(music_v3:com_1, 0, 1959, or(^if_op1, ^if_op2), 0, 0, ^false, ^false)
 
 ~update_all(inv_getobj(worn, ^wearpos_rhand));

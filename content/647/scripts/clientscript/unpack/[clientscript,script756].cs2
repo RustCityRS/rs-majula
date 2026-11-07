@@ -1,0 +1,105 @@
+// 756
+[clientscript,script756]
+if (%varplayer_1177 > 60) {
+    %varplayer_1177 = 60;
+}
+if (%varplayer_1177 = 60) {
+    if_sethide(false, lore_stats_side:com_39);
+} else {
+    if_sethide(true, lore_stats_side:com_39);
+}
+if (%varplayer_1177 >= 57) {
+    if_sethide(false, lore_stats_side:com_38);
+} else {
+    if_sethide(true, lore_stats_side:com_38);
+}
+if (%varplayer_1177 >= 54) {
+    if_sethide(false, lore_stats_side:com_37);
+} else {
+    if_sethide(true, lore_stats_side:com_37);
+}
+if (%varplayer_1177 >= 51) {
+    if_sethide(false, lore_stats_side:com_36);
+} else {
+    if_sethide(true, lore_stats_side:com_36);
+}
+if (%varplayer_1177 >= 48) {
+    if_sethide(false, lore_stats_side:com_35);
+} else {
+    if_sethide(true, lore_stats_side:com_35);
+}
+if (%varplayer_1177 >= 45) {
+    if_sethide(false, lore_stats_side:com_34);
+} else {
+    if_sethide(true, lore_stats_side:com_34);
+}
+if (%varplayer_1177 >= 42) {
+    if_sethide(false, lore_stats_side:com_33);
+} else {
+    if_sethide(true, lore_stats_side:com_33);
+}
+if (%varplayer_1177 >= 39) {
+    if_sethide(false, lore_stats_side:com_32);
+} else {
+    if_sethide(true, lore_stats_side:com_32);
+}
+if (%varplayer_1177 >= 36) {
+    if_sethide(false, lore_stats_side:com_31);
+} else {
+    if_sethide(true, lore_stats_side:com_31);
+}
+if (%varplayer_1177 >= 33) {
+    if_sethide(false, lore_stats_side:com_30);
+} else {
+    if_sethide(true, lore_stats_side:com_30);
+}
+if (%varplayer_1177 >= 30) {
+    if_sethide(false, lore_stats_side:com_29);
+} else {
+    if_sethide(true, lore_stats_side:com_29);
+}
+if (%varplayer_1177 >= 27) {
+    if_sethide(false, lore_stats_side:com_28);
+} else {
+    if_sethide(true, lore_stats_side:com_28);
+}
+if (%varplayer_1177 >= 24) {
+    if_sethide(false, lore_stats_side:com_27);
+} else {
+    if_sethide(true, lore_stats_side:com_27);
+}
+if (%varplayer_1177 >= 21) {
+    if_sethide(false, lore_stats_side:com_26);
+} else {
+    if_sethide(true, lore_stats_side:com_26);
+}
+if (%varplayer_1177 >= 18) {
+    if_sethide(false, lore_stats_side:com_25);
+} else {
+    if_sethide(true, lore_stats_side:com_25);
+}
+if (%varplayer_1177 >= 15) {
+    if_sethide(false, lore_stats_side:com_24);
+} else {
+    if_sethide(true, lore_stats_side:com_24);
+}
+if (%varplayer_1177 >= 12) {
+    if_sethide(false, lore_stats_side:com_23);
+} else {
+    if_sethide(true, lore_stats_side:com_23);
+}
+if (%varplayer_1177 >= 9) {
+    if_sethide(false, lore_stats_side:com_22);
+} else {
+    if_sethide(true, lore_stats_side:com_22);
+}
+if (%varplayer_1177 >= 6) {
+    if_sethide(false, lore_stats_side:com_21);
+} else {
+    if_sethide(true, lore_stats_side:com_21);
+}
+if (%varplayer_1177 >= 3) {
+    if_sethide(false, lore_stats_side:com_20);
+} else {
+    if_sethide(true, lore_stats_side:com_20);
+}

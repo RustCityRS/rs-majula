@@ -1,0 +1,243 @@
+// 799:0
+[com_0]
+type=layer
+width=512
+height=334
+xmode=abs_centre
+ymode=abs_centre
+
+// 799:1
+[com_1]
+type=model
+x=4
+y=7
+width=511
+height=321
+layer=com_0
+model=model_42745
+modelorigin=4,-12
+modelangle=498,2044,0
+modelzoom=244
+onload=script1861
+onvartransmit=script1861{varplayer_1328}
+
+// 799:2
+[com_2]
+type=text
+x=378
+y=193
+width=107
+height=17
+layer=com_0
+textfont=b12_full
+text=Rat Pen
+textalignh=centre
+textshadow=yes
+transmitop=10
+op10= 
+
+// 799:3
+[com_3]
+type=text
+x=48
+y=297
+width=107
+height=17
+layer=com_0
+textfont=b12_full
+text=Snail Pen
+textalignh=centre
+textshadow=yes
+transmitop=10
+op10= 
+
+// 799:4
+[com_4]
+type=graphic
+x=451
+y=27
+width=26
+height=23
+layer=com_0
+graphic="close_buttons,4"
+colour=0x000000
+onmouseover=graphic_swapper(event_com, "close_buttons,7")
+onmouseleave=graphic_swapper(event_com, "close_buttons,6")
+onop=closebutton_click
+onclick=closebutton_click
+
+// 799:5
+[com_5]
+type=text
+x=204
+y=297
+width=107
+height=17
+layer=com_0
+textfont=b12_full
+text=Spider Pen
+textalignh=centre
+textshadow=yes
+
+// 799:6
+[com_6]
+type=text
+x=198
+y=100
+width=107
+height=17
+layer=com_0
+textfont=b12_full
+text=Holding Pen
+textalignh=centre
+textshadow=yes
+transmitop=10
+op10= 
+
+// 799:7
+[com_7]
+type=text
+x=382
+y=297
+width=107
+height=17
+layer=com_0
+textfont=b12_full
+text=Lizard Pen
+textalignh=centre
+textshadow=yes
+transmitop=10
+op10= 
+
+// 799:8
+[com_8]
+type=text
+x=48
+y=193
+width=107
+height=17
+layer=com_0
+textfont=b12_full
+text=Bat Pen
+textalignh=centre
+textshadow=yes
+transmitop=10
+op10= 
+
+// 799:9
+[com_9]
+type=text
+x=205
+y=193
+width=107
+height=17
+layer=com_0
+textfont=b12_full
+text=Blackbird Pen
+textalignh=centre
+textshadow=yes
+transmitop=10
+op10= 
+
+// 799:10
+[com_10]
+type=model
+x=238
+y=47
+width=34
+height=28
+layer=com_0
+model=model_42744
+modelorigin=3,0
+modelangle=360,12,0
+modelzoom=416
+
+// 799:11
+[com_11]
+type=model
+x=86
+y=142
+width=34
+height=28
+layer=com_0
+model=model_42744
+modelorigin=3,0
+modelangle=360,12,0
+modelzoom=416
+transmitop=10
+op10= 
+
+// 799:12
+[com_12]
+type=model
+x=251
+y=142
+width=34
+height=28
+layer=com_0
+model=model_42744
+modelorigin=3,0
+modelangle=360,12,0
+modelzoom=416
+transmitop=10
+op10= 
+
+// 799:13
+[com_13]
+type=model
+x=413
+y=142
+width=34
+height=28
+layer=com_0
+model=model_42744
+modelorigin=3,0
+modelangle=360,12,0
+modelzoom=416
+transmitop=10
+op10= 
+
+// 799:14
+[com_14]
+type=model
+x=86
+y=247
+width=34
+height=28
+layer=com_0
+model=model_42744
+modelorigin=3,0
+modelangle=360,12,0
+modelzoom=416
+transmitop=10
+op10= 
+
+// 799:15
+[com_15]
+type=model
+x=251
+y=248
+width=34
+height=28
+layer=com_0
+model=model_42744
+modelorigin=3,0
+modelangle=360,12,0
+modelzoom=416
+transmitop=10
+op10= 
+
+// 799:16
+[com_16]
+type=model
+x=413
+y=247
+width=34
+height=28
+layer=com_0
+model=model_42744
+modelorigin=3,0
+modelangle=360,12,0
+modelzoom=416
+transmitop=10
+op10= 

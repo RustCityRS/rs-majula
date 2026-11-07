@@ -1,14 +1,15 @@
-[clientscript,lobby_down_collapse](int $int)
-switch_int ($int) {
-    case 85:
-        if (if_gethide(wy7834917:com102) = true) {
+// 3201
+[clientscript,lobby_down_collapse](int $key0)
+switch_int ($key0) {
+    case ^key_backspace :
+        if (if_gethide(interface_915:com_102) = true) {
             ~lobbyscreen_report_abuse_stage2_back;
         }
-    case 1:
-        ~lobbyscreen_report_abuse_help(1, wy7834917:com112, wy7834917:com113, wy7834917:com110, wy7834917:com102, wy7834917:com18);
-    case 13:
-        if (if_gethide(wy7834917:com102) = false) {
-            ~lobbyscreen_report_abuse_help_close(wy7834917:com112, wy7834917:com113, wy7834917:com110, wy7834917:com102, wy7834917:com18);
+    case ^key_f1 :
+        ~lobbyscreen_report_abuse_help(1, interface_915:com_112, interface_915:com_113, interface_915:com_110, interface_915:com_102, interface_915:com_18);
+    case ^key_escape :
+        if (if_gethide(interface_915:com_102) = false) {
+            ~lobbyscreen_report_abuse_help_close(interface_915:com_112, interface_915:com_113, interface_915:com_110, interface_915:com_102, interface_915:com_18);
         } else {
             ~lobbyscreen_report_abuse_stage2_close;
         }

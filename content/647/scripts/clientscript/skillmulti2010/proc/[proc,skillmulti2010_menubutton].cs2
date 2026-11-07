@@ -1,12 +1,12 @@
-[proc,skillmulti2010_menubutton](int $int0, int $int1, int $int2, obj $obj3, component $component4, string $string)(int)
+// 1883
+[proc,skillmulti2010_menubutton](int $int0, int $int1, int $int2, obj $obj3, string $string0, component $component4)(int)
 cc_deleteall($component4);
 if ($obj3 = null) {
     if_sethide(true, $component4);
     return($int0);
 }
-~skillmulti2010_menubutton_off($int0, $int1, $obj3, $string, $component4);
+~skillmulti2010_menubutton_off($int0, $int1, $obj3, $string0, $component4);
 if_sethide(false, $component4);
-if_setonmouseover("skillmulti2010_menubutton_on(calc($int0 - $int2), calc($int1 + $int2 + $int2), $obj3, $string, $component4)", $component4);
-if_setonmouseleave("skillmulti2010_menubutton_off($int0, $int1, $obj3, $string, $component4)", $component4);
+if_setonmouseover("skillmulti2010_menubutton_on(calc($int0 - $int2), calc($int1 + $int2 + $int2), $obj3, $string0, $component4)", $component4);
+if_setonmouseleave("skillmulti2010_menubutton_off($int0, $int1, $obj3, $string0, $component4)", $component4);
 return(calc($int0 + $int1 + $int2));
-return(0);

@@ -3,6 +3,8 @@ use crate::ParamValue;
 use crate::pack::pack::{FileCache, parse_config_sections_cached};
 use crate::pack::pack_registry::{PackRegistry, PackedFile};
 use crate::pack::packed_data::PackedData;
+#[cfg(since_647)]
+use crate::pack::util::placeholder_prefix;
 use crate::pack::util::{parse_bool, parse_coord, parse_script_var_type};
 use crate::types::ScriptVarType;
 #[cfg(before_647)]
@@ -53,12 +55,7 @@ pub fn pack_params(
         if id < client_count {
             if let Some(props) = client_configs.get(debugname) {
                 client.start_entry();
-                if !props
-                    .iter()
-                    .any(|(key, value)| key == "client" && value == "empty")
-                {
-                    encode_param(&mut client, props, registry, debugname);
-                }
+                encode_param(&mut client, props, registry, debugname);
                 client.finish_entry();
             } else {
                 client.skip_entry();
@@ -110,11 +107,6 @@ fn encode_param(
     let ptype = ptype.unwrap_or("int");
     for (key, value) in props {
         match key.as_str() {
-            #[cfg(since_647)]
-            "client" => assert_eq!(
-                value, "empty",
-                "Invalid param client value for [{debugname}]"
-            ),
             "type" => parse_script_var_type(value, |value| {
                 packed.p1(1);
                 packed.p1(value as u8);
@@ -133,21 +125,11 @@ fn encode_param(
                     }
                 }
             }
-            #[cfg(since_647)]
-            "defaultint" => {
-                packed.p1(2);
-                packed.p4(value.parse().expect("Invalid param default"));
-            }
             "autodisable" => parse_bool(value, |value| {
                 if !value {
                     packed.p1(4);
                 }
             }),
-            #[cfg(since_647)]
-            "defaultstring" => {
-                packed.p1(5);
-                packed.pjstr(value);
-            }
             _ => panic!("Unrecognized param config key: {key}"),
         }
     }
@@ -176,10 +158,15 @@ pub fn get_param_value_for_type(
     registry: &PackRegistry,
     value: &str,
 ) -> Option<ParamValue> {
+    #[cfg(before_647)]
     if kind == "string" {
         return Some(ParamValue::String(
             if value == "null" { "" } else { value }.into(),
         ));
+    }
+    #[cfg(since_647)]
+    if kind == "string" {
+        return Some(ParamValue::String(value.into()));
     }
     if value == "null" {
         return Some(ParamValue::Int(-1));
@@ -204,7 +191,21 @@ pub fn get_param_value_for_type(
         #[cfg(since_647)]
         "component" if value.contains(':') => {
             return Some(ParamValue::Int(
-                registry.component_hashes.get(value).copied().unwrap_or(-1),
+                registry
+                    .component_hashes
+                    .get(value)
+                    .copied()
+                    .or_else(|| {
+                        let (interface, component) = value.split_once(':')?;
+                        let interface = registry
+                            .interface
+                            .get_by_debugname(interface)
+                            .map(|id| id as i32)
+                            .or_else(|| interface.strip_prefix("interface_")?.parse().ok())?;
+                        let component: i32 = component.strip_prefix("com_")?.parse().ok()?;
+                        Some((interface << 16) | component)
+                    })
+                    .unwrap_or(-1),
             ));
         }
         "component" => &registry.interface,
@@ -234,16 +235,53 @@ pub fn get_param_value_for_type(
         }
         "player_uid" | "npc_uid" => return Some(ParamValue::Int(-1)),
         #[cfg(since_647)]
-        "mapelement" => return Some(ParamValue::Int(-1)),
+        "mapelement" => &registry.mel,
+        #[cfg(since_647)]
+        "graphic" => &registry.sprites,
+        #[cfg(since_647)]
+        "cursor" => &registry.cursor,
+        #[cfg(since_647)]
+        "bas" => &registry.bas,
+        #[cfg(since_647)]
+        "fontmetrics" => &registry.fontmetrics,
+        #[cfg(since_647)]
+        "chatcat" => &registry.chatcat,
+        #[cfg(since_647)]
+        "chatphrase" => &registry.chatphrase,
+        #[cfg(since_647)]
+        "jingle" | "texture" | "vorbis" | "wma" | "maparea" => {
+            return Some(ParamValue::Int(placeholder_id(kind, value).unwrap_or(-1)));
+        }
         "category" => &registry.category,
         "idkit" => &registry.idk,
         "dbrow" => &registry.dbrow,
         "midi" => &registry.midi,
         _ => return None,
     };
-    Some(ParamValue::Int(
-        pack.get_by_debugname(value).map_or(-1, |id| id as i32),
-    ))
+    #[cfg(since_647)]
+    let value = value
+        .strip_prefix('"')
+        .and_then(|value| value.strip_suffix('"'))
+        .unwrap_or(value);
+    #[cfg(before_647)]
+    let id = pack.get_by_debugname(value).map_or(-1, |id| id as i32);
+    #[cfg(since_647)]
+    let id = pack
+        .get_by_debugname(value)
+        .map(|id| id as i32)
+        .or_else(|| placeholder_id(kind, value))
+        .unwrap_or(-1);
+    Some(ParamValue::Int(id))
+}
+
+/// The id in a dump's name for an unnamed config, like `graphic_1807`.
+#[cfg(since_647)]
+fn placeholder_id(kind: &str, value: &str) -> Option<i32> {
+    let (prefix, id) = value.rsplit_once('_')?;
+    let matches = prefix == kind
+        || prefix == placeholder_prefix(kind)
+        || (kind == "namedobj" && prefix == "obj");
+    if matches { id.parse().ok() } else { None }
 }
 
 pub(super) fn resolve_typed_value(value: &str, type_char: u8, registry: &PackRegistry) -> i32 {
@@ -263,13 +301,13 @@ pub fn parse_params<'a>(
 ) {
     let params: Vec<_> = props
         .into_iter()
-        .filter(|(key, _)| matches!(key.as_str(), "param" | "paramint" | "paramstr"))
-        .filter_map(|(key, value)| {
+        .filter(|(key, _)| matches!(key.as_str(), "param" | "clientparam"))
+        .filter_map(|(_, value)| {
             value
                 .split_once(',')
-                .map(|(name, value)| (key.as_str(), name.trim(), value))
+                .map(|(name, value)| (name.trim(), value))
         })
-        .filter(|(_, _pname, _)| {
+        .filter(|(_pname, _)| {
             #[cfg(since_647)]
             if registry.param.get_by_debugname(_pname).is_none() && _pname.parse::<u32>().is_err() {
                 warn!("Unknown param '{_pname}' for [{name}]");
@@ -281,27 +319,21 @@ pub fn parse_params<'a>(
     if !params.is_empty() {
         packed.p1(249);
         packed.p1(u8::try_from(params.len()).expect("Too many params"));
-        for (kind, pname, pval) in params {
+        for (pname, pval) in params {
             #[cfg(before_647)]
             let pval = pval.trim();
             let pid = registry.param.get_by_debugname(pname);
             #[cfg(since_647)]
             let pid = pid.or_else(|| pname.parse().ok());
             let pid = pid.unwrap_or_else(|| panic!("Unknown param '{pname}' for [{name}]"));
-            let value = match kind {
-                "paramstr" => ParamValue::String(pval.into()),
-                "paramint" => ParamValue::Int(pval.trim().parse().expect("Invalid integer param")),
-                _ => {
-                    let ptype = param_types.get(pname).map(String::as_str);
-                    #[cfg(since_647)]
-                    let ptype = ptype.or(Some("int"));
-                    let ptype = ptype
-                        .unwrap_or_else(|| panic!("Unknown param type '{pname}' for [{name}]"));
-                    get_param_value_for_type(ptype, registry, pval).unwrap_or_else(|| {
-                        panic!("Unknown param type '{ptype}' for [{name}] for value [{pval}]")
-                    })
-                }
-            };
+            let ptype = param_types.get(pname).map(String::as_str);
+            #[cfg(since_647)]
+            let ptype = ptype.or(Some("int"));
+            let ptype =
+                ptype.unwrap_or_else(|| panic!("Unknown param type '{pname}' for [{name}]"));
+            let value = get_param_value_for_type(ptype, registry, pval).unwrap_or_else(|| {
+                panic!("Unknown param type '{ptype}' for [{name}] for value [{pval}]")
+            });
             packed.p1(matches!(value, ParamValue::String(_)) as u8);
             packed.p3(pid as i32);
             match value {
@@ -318,8 +350,13 @@ pub fn type_name_to_char(name: &str) -> char {
         return u8::from_str_radix(hex, 16).expect("Invalid script type byte") as char;
     }
     match name {
-        "namedobj" => ScriptVarType::NamedObj,
-        _ => ScriptVarType::from_type_name(name),
+        "long" | "clanforumqfc" => 0xa7 as char,
+        "bit" => 0x01 as char,
+        "chatphrase" => 'e',
+        "fontmetrics" => 'f',
+        "interface" => 'a',
+        "namedobj" => ScriptVarType::NamedObj.to_char(),
+        "wma" => ScriptVarType::MapArea.to_char(),
+        _ => ScriptVarType::from_type_name(name).to_char(),
     }
-    .to_char()
 }

@@ -1,0 +1,9 @@
+// 4573
+[proc,script4573]
+def_int $int0 = 0;
+def_int $int1 = 0;
+if (~script1891 = 1) {
+    if_sethide(false, lobbyscreen_pane_friendschat:com_50);
+    return;
+}
+~script4574;

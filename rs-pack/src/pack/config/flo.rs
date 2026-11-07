@@ -2,7 +2,8 @@ use super::config_entry;
 use crate::pack::pack::{FileCache, parse_config_sections_cached};
 use crate::pack::pack_registry::{PackRegistry, PackedFile};
 use crate::pack::packed_data::PackedData;
-#[cfg(before_647)]
+#[cfg(since_647)]
+use crate::pack::util::parse_number;
 use crate::pack::util::parse_ref;
 use crate::pack::util::{parse_bool, parse_hex};
 use anyhow::Result;
@@ -40,15 +41,6 @@ pub fn pack_flos(
                     server.p3(v);
                 }),
 
-                #[cfg(since_647)]
-                "color" => {
-                    let v: u32 = value.parse().expect("Invalid floor value");
-                    server.p1(1);
-                    server.p3(v as i32);
-                    client.p1(1);
-                    client.p3(v as i32);
-                }
-
                 // 2
                 #[cfg(before_647)]
                 "texture" => parse_ref(&registry.texture, "texture", value, |v| {
@@ -59,13 +51,12 @@ pub fn pack_flos(
                 }),
 
                 #[cfg(since_647)]
-                "texture_u8" => {
-                    let v: u8 = value.parse().expect("Invalid floor value");
+                "unknown2" => parse_number(value, |v: u8| {
                     server.p1(2);
                     server.p1(v);
                     client.p1(2);
                     client.p1(v);
-                }
+                }),
 
                 // 3
                 #[cfg(before_647)]
@@ -77,13 +68,12 @@ pub fn pack_flos(
                 }),
 
                 #[cfg(since_647)]
-                "texture" => {
-                    let v: u16 = value.parse().expect("Invalid floor value");
+                "material" => parse_ref(&registry.texture, "texture", value, |v| {
                     server.p1(3);
                     server.p2(v);
                     client.p1(3);
                     client.p2(v);
-                }
+                }),
 
                 // 5
                 "occlude" => parse_bool(value, |v| {
@@ -93,83 +83,80 @@ pub fn pack_flos(
                     }
                 }),
 
+                // 7
                 #[cfg(since_647)]
-                "op5_occlude_false" => {
-                    server.p1(5);
-                    client.p1(5);
-                }
-
-                #[cfg(since_647)]
-                "water_color" => {
-                    let v: u32 = value.parse().expect("Invalid floor value");
+                "mapcolour" => parse_hex(value, |v| {
                     server.p1(7);
-                    server.p3(v as i32);
+                    server.p3(v);
                     client.p1(7);
-                    client.p3(v as i32);
-                }
+                    client.p3(v);
+                }),
 
+                // 8
                 #[cfg(since_647)]
-                "op8_flomark" => {
+                "unknown8" => {
                     server.p1(8);
                     client.p1(8);
                 }
 
+                // 9
                 #[cfg(since_647)]
-                "op9_u16" => {
-                    let v: u16 = value.parse().expect("Invalid floor value");
+                "texturescale" => parse_number(value, |v: u16| {
                     server.p1(9);
                     server.p2(v);
                     client.p1(9);
                     client.p2(v);
-                }
+                }),
 
+                // 10
                 #[cfg(since_647)]
-                "op10_bool34_false" => {
+                "unknown10" => {
                     server.p1(10);
                     client.p1(10);
                 }
 
+                // 11
                 #[cfg(since_647)]
-                "op11_u8" => {
-                    let v: u8 = value.parse().expect("Invalid floor value");
+                "priority" => parse_number(value, |v: u8| {
                     server.p1(11);
                     server.p1(v);
                     client.p1(11);
                     client.p1(v);
-                }
+                }),
 
+                // 12
                 #[cfg(since_647)]
-                "op12_bool33_true" => {
+                "smoothedges" => {
                     server.p1(12);
                     client.p1(12);
                 }
 
+                // 13
                 #[cfg(since_647)]
-                "op13_u24" => {
-                    let v: u32 = value.parse().expect("Invalid floor value");
+                "waterfogcolour" => parse_hex(value, |v| {
                     server.p1(13);
-                    server.p3(v as i32);
+                    server.p3(v);
                     client.p1(13);
-                    client.p3(v as i32);
-                }
+                    client.p3(v);
+                }),
 
+                // 14
                 #[cfg(since_647)]
-                "op14_u8" => {
-                    let v: u8 = value.parse().expect("Invalid floor value");
+                "waterfogscale" => parse_number(value, |v: u8| {
                     server.p1(14);
                     server.p1(v);
                     client.p1(14);
                     client.p1(v);
-                }
+                }),
 
+                // 16
                 #[cfg(since_647)]
-                "op16_u8" => {
-                    let v: u8 = value.parse().expect("Invalid floor value");
+                "waterfogoffset" => parse_number(value, |v: u8| {
                     server.p1(16);
                     server.p1(v);
                     client.p1(16);
                     client.p1(v);
-                }
+                }),
 
                 // not found
                 _ => panic!("Unrecognized flo config key: {key}"),

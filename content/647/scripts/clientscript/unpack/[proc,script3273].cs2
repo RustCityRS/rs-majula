@@ -1,0 +1,53 @@
+// 3273
+[proc,script3273]()(int, int, int)
+def_int $int0 = 0;
+def_int $int1 = calc(%varclient_1191 / 10);
+def_int $int2 = calc(%varclient_1191 - %varclient_1191 / 10 * 10);
+switch_int ($int1) {
+    case 1 :
+        switch_int ($int2) {
+            case 1 :
+                $int0 = 0;
+        }
+    case 2 :
+        switch_int ($int2) {
+            case 1 :
+                $int0 = -760;
+            case 2 :
+                $int0 = 507;
+        }
+    case 3 :
+        switch_int ($int2) {
+            case 1 :
+                $int0 = -1520;
+            case 2 :
+                $int0 = 190;
+            case 3 :
+                $int0 = 950;
+        }
+    case 4 :
+        switch_int ($int2) {
+            case 1 :
+                $int0 = -2280;
+            case 2 :
+                $int0 = -760;
+            case 3 :
+                $int0 = 633;
+            case 4 :
+                $int0 = 1457;
+        }
+    case 5 :
+        switch_int ($int2) {
+            case 1 :
+                $int0 = -3040;
+            case 2 :
+                $int0 = -1267;
+            case 3 :
+                $int0 = 380;
+            case 4 :
+                $int0 = 1140;
+            case 5 :
+                $int0 = 1900;
+        }
+}
+return($int1, $int2, $int0);

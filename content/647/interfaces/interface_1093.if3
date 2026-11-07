@@ -1,0 +1,358 @@
+// 1093:0
+[com_0]
+type=layer
+width=130
+height=28
+ymode=abs_centre
+layer=com_1
+
+// 1093:1
+[com_1]
+type=layer
+y=6
+width=60
+height=38
+widthmode=minus
+xmode=abs_centre
+ymode=abs_bottom
+layer=com_5
+
+// 1093:2
+[com_2]
+type=text
+y=8
+width=16384
+height=12
+widthmode=proportion
+xmode=abs_centre
+layer=com_5
+textfont=p11_full
+text=You have been invited to start a clan.
+textalignh=centre
+textshadow=yes
+colour=0xaca88f
+
+// 1093:3
+[com_3]
+type=layer
+y=-5
+width=357
+height=130
+xmode=abs_centre
+ymode=abs_centre
+
+// 1093:4
+[com_4]
+type=layer
+width=16384
+height=16384
+widthmode=proportion
+heightmode=proportion
+xmode=abs_centre
+ymode=abs_centre
+layer=com_3
+onload=script4260(event_com)
+
+// 1093:5
+[com_5]
+type=layer
+x=12
+y=33
+width=23
+height=43
+widthmode=minus
+heightmode=minus
+layer=com_3
+
+// 1093:6
+[com_6]
+type=layer
+width=8
+height=8
+widthmode=minus
+heightmode=minus
+xmode=abs_centre
+ymode=abs_centre
+layer=com_3
+onload=script4261(event_com)
+
+// 1093:7
+[com_7]
+type=layer
+y=4
+width=8
+height=23
+widthmode=minus
+xmode=abs_centre
+layer=com_3
+
+// 1093:8
+[com_8]
+type=text
+width=16391
+height=4
+widthmode=proportion
+heightmode=minus
+xmode=abs_centre
+ymode=abs_centre
+layer=com_7
+textfont=palatino_linotype_18pt_regular
+text=Invitation to Start a Clan
+textalignh=centre
+textalignv=centre
+colour=0xebe0bc
+onload=script4262(event_com)
+
+// 1093:9
+[com_9]
+type=layer
+x=9
+y=9
+width=16
+height=15
+xmode=abs_right
+layer=com_3
+transmitop=1
+op1=Close
+onload=script4256(event_com)
+onop=closebutton_click
+
+// 1093:10
+[com_10]
+type=graphic
+width=16384
+height=16384
+widthmode=proportion
+heightmode=proportion
+xmode=abs_centre
+ymode=abs_centre
+layer=com_9
+onload=script4257(event_com)
+
+// 1093:11
+[com_11]
+type=graphic
+width=16384
+height=16384
+widthmode=proportion
+heightmode=proportion
+xmode=abs_centre
+ymode=abs_centre
+layer=com_9
+onload=script4258(event_com)
+
+// 1093:12
+[com_12]
+type=graphic
+width=4
+height=4
+heightmode=minus
+xmode=abs_right
+layer=com_0
+graphic=button_dropshadow_left
+tiling=yes
+alpha=yes
+
+// 1093:13
+[com_13]
+type=graphic
+width=4
+height=4
+widthmode=minus
+ymode=abs_bottom
+layer=com_0
+graphic=button_dropshadow_bottom
+tiling=yes
+alpha=yes
+
+// 1093:14
+[com_14]
+type=graphic
+width=4
+height=4
+xmode=abs_right
+ymode=abs_bottom
+layer=com_0
+graphic=button_dropshadow_corner
+alpha=yes
+
+// 1093:15
+[com_15]
+type=layer
+width=4
+height=4
+widthmode=minus
+heightmode=minus
+layer=com_0
+onload=script4201(event_com, struct_1773)
+
+// 1093:16
+[com_16]
+type=layer
+width=4
+height=4
+widthmode=minus
+heightmode=minus
+layer=com_0
+onload=script4201(event_com, struct_1774)
+
+// 1093:17
+[com_17]
+type=layer
+width=4
+height=4
+widthmode=minus
+heightmode=minus
+layer=com_0
+onload=script4201(event_com, struct_1775)
+
+// 1093:18
+[com_18]
+type=layer
+width=4
+height=4
+widthmode=minus
+heightmode=minus
+layer=com_0
+pausebutton=yes
+pausetext=Accept
+onload=script4213(event_com)
+
+// 1093:19
+[com_19]
+type=layer
+width=4
+height=4
+widthmode=minus
+heightmode=minus
+layer=com_0
+
+// 1093:20
+[com_20]
+type=text
+width=8
+height=4
+widthmode=minus
+heightmode=minus
+xmode=abs_centre
+ymode=abs_centre
+layer=com_19
+textfont=verdana_13pt_regular
+text=Accept
+textalignh=centre
+textalignv=centre
+colour=0xe1e1e1
+onload=script4151(event_com)
+
+// 1093:21
+[com_21]
+type=layer
+width=130
+height=28
+xmode=abs_right
+ymode=abs_centre
+layer=com_1
+
+// 1093:22
+[com_22]
+type=graphic
+width=4
+height=4
+heightmode=minus
+xmode=abs_right
+layer=com_21
+graphic=button_dropshadow_left
+tiling=yes
+alpha=yes
+
+// 1093:23
+[com_23]
+type=graphic
+width=4
+height=4
+widthmode=minus
+ymode=abs_bottom
+layer=com_21
+graphic=button_dropshadow_bottom
+tiling=yes
+alpha=yes
+
+// 1093:24
+[com_24]
+type=graphic
+width=4
+height=4
+xmode=abs_right
+ymode=abs_bottom
+layer=com_21
+graphic=button_dropshadow_corner
+alpha=yes
+
+// 1093:25
+[com_25]
+type=layer
+width=4
+height=4
+widthmode=minus
+heightmode=minus
+layer=com_21
+onload=script4201(event_com, struct_1773)
+
+// 1093:26
+[com_26]
+type=layer
+width=4
+height=4
+widthmode=minus
+heightmode=minus
+layer=com_21
+onload=script4201(event_com, struct_1774)
+
+// 1093:27
+[com_27]
+type=layer
+width=4
+height=4
+widthmode=minus
+heightmode=minus
+layer=com_21
+onload=script4201(event_com, struct_1775)
+
+// 1093:28
+[com_28]
+type=layer
+width=4
+height=4
+widthmode=minus
+heightmode=minus
+layer=com_21
+transmitop=1
+op1=Decline
+onload=script4213(event_com)
+onop=closebutton_click
+
+// 1093:29
+[com_29]
+type=layer
+width=4
+height=4
+widthmode=minus
+heightmode=minus
+layer=com_21
+
+// 1093:30
+[com_30]
+type=text
+width=8
+height=4
+widthmode=minus
+heightmode=minus
+xmode=abs_centre
+ymode=abs_centre
+layer=com_29
+textfont=verdana_13pt_regular
+text=Decline
+textalignh=centre
+textalignv=centre
+colour=0xe1e1e1
+onload=script4151(event_com)

@@ -1,7 +1,0 @@
-[proc,clientscript_2919](boolean $int0, int $int1)
-def_int $int2 = get_clientopt_6131;
-if ($int0 = false) {
-    ~graphics_options_rebuild($int2, getwindowmode, ~graphics_options_reviewoptions($int2), $int1);
-} else {
-    ~graphics_options_rebuild_advanced($int2, getwindowmode, ~graphics_options_reviewoptions($int2), $int1);
-}

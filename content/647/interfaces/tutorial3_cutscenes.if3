@@ -1,0 +1,9 @@
+// 899:0
+[com_0]
+type=layer
+widthmode=minus
+heightmode=minus
+xmode=abs_centre
+ymode=abs_centre
+onload=tutorial3_cutscenes(event_com)
+onvarctransmit=tutorial3_cutscenes(event_com){varclient_1007}

@@ -1,0 +1,11 @@
+// 2216
+[clientscript,script2216]
+if (%varplayer_1700 = 2) {
+    if (%varclient_1137 = 0) {
+        sound_synth(synth_8731, 1, 0);
+    }
+    %varclient_1137 = 1;
+    if_setontimer("script2214", interface_932:com_1);
+} else {
+    mes("There is nothing to push off!");
+}

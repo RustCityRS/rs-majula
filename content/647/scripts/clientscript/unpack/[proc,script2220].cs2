@@ -1,0 +1,47 @@
+// 2220
+[proc,script2220]
+if (%varplayerbit_7324 = 1) {
+    if_sethide(true, interface_931:com_121);
+} else {
+    if_sethide(false, interface_931:com_121);
+}
+if (%varplayerbit_7325 = 1) {
+    if_sethide(true, interface_931:com_122);
+} else {
+    if_sethide(false, interface_931:com_122);
+}
+if (%varplayerbit_7326 = 1) {
+    if_sethide(true, interface_931:com_123);
+} else {
+    if_sethide(false, interface_931:com_123);
+}
+if_settext(tostring(%varclient_1126), interface_931:com_154);
+if_settext(tostring(%varclient_1127), interface_931:com_148);
+if_settext(tostring(%varclient_1128), interface_931:com_142);
+if_settext(tostring(%varclient_1129), interface_931:com_112);
+if_settext(tostring(%varclient_1131), interface_931:com_136);
+if_settext(tostring(%varclient_1130), interface_931:com_130);
+if_settext("Total Workers: <tostring(%varclient_1135)>", interface_931:com_155);
+if_settext("<tostring(%varplayer_1687)>/15", interface_931:com_115);
+if_settext("<tostring(%varplayer_1688)>/15", interface_931:com_117);
+if_settext("<tostring(%varplayer_1686)>/15", interface_931:com_116);
+if_settext("<tostring(%varplayer_1689)>/7", interface_931:com_120);
+if_settext("<tostring(%varplayer_1690)>/7", interface_931:com_118);
+if_settext("<tostring(%varplayer_1691)>/7", interface_931:com_119);
+~script2221;
+if_settext("Turn <tostring(%varplayer_1674)>/15", interface_931:com_20);
+if (%varclient_1132 = 0) {
+    if_setgraphic("warning_icons,1", interface_931:com_121);
+} else {
+    if_setgraphic("warning_icons,2", interface_931:com_121);
+}
+if (%varclient_1134 = 0) {
+    if_setgraphic("warning_icons,1", interface_931:com_122);
+} else {
+    if_setgraphic("warning_icons,2", interface_931:com_122);
+}
+if (%varclient_1133 = 0) {
+    if_setgraphic("warning_icons,1", interface_931:com_123);
+} else {
+    if_setgraphic("warning_icons,2", interface_931:com_123);
+}

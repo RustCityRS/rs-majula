@@ -1,21 +1,22 @@
-[clientscript,equipscreen_init](component $component)
-cc_deleteall(equip_screen2:com5);
-~player_kit_player_create(equip_screen2:com5, 375, 125);
-~clientscript_2647(equip_screen2:com5);
-~clientscript_2373($component, -1);
+// 787
+[clientscript,equipscreen_init](component $component0)
+cc_deleteall(equip_screen2:com_5);
+~player_kit_player_create(equip_screen2:com_5, 375, 125);
+~script2647(equip_screen2:com_5);
+~script2373($component0, -1);
 ~equipscreen_comparison_close;
-~v2_stone_button_filled(equip_screen2:com64);
-if_setonmouseover("v2_stone_button_in_filled(^event_com)", equip_screen2:com64);
-if_setonmouseleave("v2_stone_button_filled(^event_com)", equip_screen2:com64);
-if_setonvarcstrtransmit("equipscreen_comparison(){varc_string_321, varc_string_322, varc_string_323, varc_string_324, varc_string_325}", $component);
-if (%equipment_bank_button = true) {
-    if_sethide(false, equip_screen2:com48);
+~v2_stone_button_filled(equip_screen2:com_64);
+if_setonmouseover("v2_stone_button_in_filled(event_com)", equip_screen2:com_64);
+if_setonmouseleave("v2_stone_button_filled(event_com)", equip_screen2:com_64);
+if_setonvarcstrtransmit("equipscreen_comparison{varclient_1840, varclient_1841, varclient_1842, varclient_1843, varclient_1844}", $component0);
+if (%equipment_bank_button = 1) {
+    if_sethide(false, equip_screen2:com_48);
 } else {
-    if_sethide(true, equip_screen2:com48);
+    if_sethide(true, equip_screen2:com_48);
 }
-~clientscript_2957(equip_screen2:com49);
-if_setonmouseover("v2_small_button_in_filled(^event_com)", equip_screen2:com49);
-if_setonmouseleave("v2_small_button_out_filled(^event_com)", equip_screen2:com49);
-if_setonvartransmit("clientscript_2371(){varp_1248}", $component);
-if_sethook1422("equipscreen_weight()", equip_screen2:com24);
-if_sethook1422("equipscreen_weight()", bank_v2_main:com121);
+~script2957(equip_screen2:com_49);
+if_setonmouseover("v2_small_button_in_filled(event_com)", equip_screen2:com_49);
+if_setonmouseleave("v2_small_button_out_filled(event_com)", equip_screen2:com_49);
+if_setonvartransmit("script2371{varplayer_1248}", $component0);
+if_setonmisctransmit("equipscreen_weight", equip_screen2:com_24);
+if_setonmisctransmit("equipscreen_weight", bank_v2_main:com_121);

@@ -1,0 +1,13 @@
+// 4581
+[clientscript,script4581](int $int0)
+def_int $int1 = -1;
+def_int $int2 = -1;
+if (activeclanchannel_find_affined = true & activeclansettings_find_affined = true) {
+    $int1 = activeclanchannel_getuserslot(removetags(chat_playername));
+    if ($int1 >= 0) {
+        $int2 = activeclanchannel_getuserrank($int1);
+        if ($int2 >= 100) {
+            %varclient_1869 = activeclansettings_getbanneddisplayname($int0);
+        }
+    }
+}

@@ -486,7 +486,10 @@ impl CacheType for NpcTypeRaw {
                 22 => self.moverestrict = MoveRestrict::try_from(buf.g1()).unwrap(),
                 23 => self.blockwalk = BlockWalk::try_from(buf.g1()).unwrap(),
                 24 => self.defaultmode = NpcMode::try_from(buf.g1()).unwrap(),
+                #[cfg(before_647)]
                 25 => self.huntmode = Some(buf.g1() as u16),
+                #[cfg(since_647)]
+                25 => self.huntmode = Some(buf.g2()),
                 26 => self.wanderrange = buf.g2(),
                 27 => self.maxrange = Some(buf.g2()),
                 28 => self.huntrange = buf.g1(),

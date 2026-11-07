@@ -1,15 +1,16 @@
+// 1304
 [proc,if_switchside_op](int $int0)
 def_int $int1 = ~current_side_if;
-if (~clientscript_2709 = false & ($int0 = 9 | ($int0 = 11 | $int0 = 10))) {
+if (~script2709 = 0 & ($int0 = 9 | $int0 = 11 | $int0 = 10)) {
     return;
 }
-if ($int0 = $int1 & %varbit_9030 = true) {
+if ($int0 = $int1 & %varplayerbit_9030 = 1) {
     $int0 = 1;
-    ~clientscript_4089;
+    ~script4089;
 }
 if ($int1 > -1) {
     if ($int1 = $int0) {
-        if (getwindowmode >= 2 & %varbit_9030 = false) {
+        if (getwindowmode >= 2 & %varplayerbit_9030 = 0) {
             ~side_if_closeall;
         } else {
             return;

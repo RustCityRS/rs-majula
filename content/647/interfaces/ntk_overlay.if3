@@ -1,0 +1,134 @@
+// 428:0
+[com_0]
+type=layer
+x=10
+width=100
+height=128
+xmode=abs_right
+onload=ntk_text(ntk_overlay:com_4, ntk_overlay:com_5)
+onvartransmit=ntk_text(ntk_overlay:com_4, ntk_overlay:com_5){varplayer_822}
+
+// 428:1
+[com_1]
+type=model
+width=88
+height=37
+xmode=abs_centre
+ymode=abs_bottom
+layer=com_0
+model=model_16351
+modelorigin=-7,4
+modelangle=124,0,0
+modelzoom=656
+
+// 428:2
+[com_2]
+type=model
+x=16
+y=15
+width=53
+height=97
+layer=com_0
+model=model_16353
+modelorigin=0,51
+modelangle=133,0,0
+modelzoom=656
+
+// 428:3
+[com_3]
+type=model
+width=95
+height=118
+xmode=abs_centre
+layer=com_0
+model=model_16352
+modelorigin=-7,52
+modelangle=133,0,0
+modelzoom=656
+
+// 428:4
+[com_4]
+type=text
+x=-6
+y=-7
+height=8192
+widthmode=minus
+heightmode=proportion
+xmode=abs_centre
+layer=com_0
+textfont=menu_font_small
+textlineheight=16
+textalignh=centre
+textalignv=centre
+textshadow=yes
+
+// 428:5
+[com_5]
+type=text
+x=-6
+height=8192
+widthmode=minus
+heightmode=proportion
+xmode=abs_centre
+ymode=abs_bottom
+layer=com_0
+textfont=menu_font_small
+textlineheight=16
+textalignh=centre
+textalignv=centre
+textshadow=yes
+
+// 428:6
+[com_6]
+type=layer
+x=4
+y=10
+width=12
+height=110
+xmode=abs_right
+onload=ntk_timer(ntk_overlay:com_10, ntk_overlay:com_8, ntk_overlay:com_2)
+onvartransmit=ntk_timer(ntk_overlay:com_10, ntk_overlay:com_8, ntk_overlay:com_2){varplayer_821}
+
+// 428:7
+[com_7]
+type=rectangle
+widthmode=minus
+heightmode=minus
+xmode=abs_centre
+ymode=abs_centre
+layer=com_6
+colour=0x000000
+fill=yes
+
+// 428:8
+[com_8]
+type=rectangle
+widthmode=minus
+heightmode=minus
+xmode=abs_centre
+ymode=abs_centre
+layer=com_6
+colour=0xa4a429
+
+// 428:9
+[com_9]
+type=layer
+width=4
+height=4
+widthmode=minus
+heightmode=minus
+xmode=abs_centre
+ymode=abs_centre
+layer=com_6
+
+// 428:10
+[com_10]
+type=rectangle
+height=16391
+widthmode=minus
+heightmode=proportion
+xmode=abs_centre
+ymode=abs_bottom
+layer=com_9
+colour=0xa4a429
+fill=yes

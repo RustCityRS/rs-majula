@@ -1,41 +1,42 @@
+// 2967
 [proc,create_go](int $int0)
-~clientscript_3209;
+~script3209;
 ~create_please_wait(1);
-def_int $int1 = ~clientscript_3228(7, 0, 0);
-def_int $int2 = ~clientscript_3228(8, 0, 0);
+def_boolean $boolean1 = ~script3228(7, 0, 0);
+def_boolean $boolean2 = ~script3228(8, 0, 0);
 def_int $int3 = 1;
-if (compare(%varc_string_124, %varc_string_125) ! 0 & (string_length(%varc_string_124) > 0 & string_length(%varc_string_125) > 0)) {
-    ~create_error("Please ensure both passwords match.", account_create:com61);
+if (compare(%varclient_1643, %varclient_1644) ! 0 & string_length(%varclient_1643) > 0 & string_length(%varclient_1644) > 0) {
+    ~create_error("Please ensure both passwords match.", account_create:com_61);
     $int3 = 0;
 }
 def_int $int4 = 1;
-if (string_length(%varc_string_122) <= 0) {
-    ~create_error("Please enter your Email address here.", account_create:com81);
+if (string_length(%varclient_1641) <= 0) {
+    ~create_error("Please enter your Email address here.", account_create:com_81);
     $int4 = 0;
 }
-if (~create_check_email(%varc_string_122) = false) {
-    ~create_error("Please enter a valid Email address.", account_create:com81);
+if (~create_check_email(%varclient_1641) = false) {
+    ~create_error("Please enter a valid Email address.", account_create:com_81);
     $int4 = 0;
 }
 def_int $int5 = 1;
-if (string_length(%varc_string_326) <= 0) {
-    ~create_error("Please enter your Email address again here.", account_create:com100);
+if (string_length(%varclient_1845) <= 0) {
+    ~create_error("Please enter your Email address again here.", account_create:com_100);
     $int5 = 0;
 }
-if (compare(%varc_string_122, %varc_string_326) ! 0) {
-    ~create_error("Please ensure both Email addresses match.", account_create:com100);
+if (compare(%varclient_1641, %varclient_1845) ! 0) {
+    ~create_error("Please ensure both Email addresses match.", account_create:com_100);
     $int5 = 0;
 }
-def_int $int6 = ~clientscript_3954(0);
-if ($int4 = true & ($int5 = true & ($int1 = true & ($int2 = true & ($int3 = true & $int6 = true))))) {
-    if (%varc_int_1407 < 13) {
-        set_under_13;
-        ~clientscript_4038;
-    } else if (get_under_13 = true) {
-        ~clientscript_4038;
+def_boolean $boolean6 = ~script3954(0);
+if ($int4 = 1 & $int5 = 1 & $boolean1 = true & $boolean2 = true & $int3 = 1 & $boolean6 = true) {
+    if (%varclient_1407 < 13) {
+        unknown_command_5626;
+        ~script4038;
+    } else if (unknown_command_5625 = true) {
+        ~script4038;
     } else {
-        login_createaccount(%varc_string_122, %varc_string_124, %varc_int_1407, %varc_int_1411);
-        if_setontimer("create_go_timer()", account_create:com17);
+        unknown_command_5605(%varclient_1641, %varclient_1643, %varclient_1407, %varclient_1411);
+        if_setontimer("create_go_timer", account_create:com_17);
     }
 } else {
     ~create_please_wait(0);

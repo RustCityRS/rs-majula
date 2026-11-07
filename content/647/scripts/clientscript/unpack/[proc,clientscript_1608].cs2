@@ -1,4 +1,0 @@
-[proc,clientscript_1608]
-def_seq $seq = bas_getidle(oc_weight(inv_getobj(worn, 3), render_emote));
-if_setmodelanim($seq, boothpreview:com82);
-if_setplayermodel_snapshot(boothpreview:com82);

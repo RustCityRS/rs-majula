@@ -1,6 +1,7 @@
+// 4281
 [clientscript,clan_join_invite_onload]
-if (ignore_count = true) {
-    ~clientscript_4283;
+if (activeclansettings_find_listened = true) {
+    ~script4283;
 } else {
-    if_sethook1431("clientscript_4282()", be7067035:com8);
+    if_setonclansettingstransmit("script4282", interface_1095:com_8);
 }

@@ -1,15 +1,15 @@
-[proc,obj_wear_requirements](obj $obj)(int)
-if (~obj_wear_skill_requirements($obj) = false) {
-    return(0);
+// 925
+[proc,obj_wear_requirements](obj $obj0)(boolean)
+if (~obj_wear_skill_requirements($obj0) = false) {
+    return(false);
 }
-if (~obj_wear_quest_requirements($obj) = false) {
-    return(0);
+if (~obj_wear_quest_requirements($obj0) = false) {
+    return(false);
 }
-if (~obj_wear_special_requirements($obj) = false) {
-    return(0);
+if (~obj_wear_special_requirements($obj0) = false) {
+    return(false);
 }
-if (~comlevel < oc_weight($obj, param_761)) {
-    return(0);
+if (~comlevel < oc_param($obj0, param_761)) {
+    return(false);
 }
-return(1);
-return(-1);
+return(true);

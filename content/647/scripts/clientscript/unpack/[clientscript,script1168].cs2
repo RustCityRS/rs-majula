@@ -1,0 +1,8 @@
+// 1168
+[clientscript,script1168](int $int0, string $string0, component $component1)
+if (calc(clientclock % 50) ! 0) {
+    return;
+}
+if (cc_find(exchange_interface_experts:com_16, $int0) = true) {
+    cc_settext($string0);
+}

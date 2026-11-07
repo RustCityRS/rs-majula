@@ -1,0 +1,7 @@
+// 3467
+[clientscript,script3467](component $component0, int $int1, int $int2)
+if (calc(clientclock - $int1) < $int2) {
+    return;
+}
+if_setontimer(null, $component0);
+~tutorial3_fadeout(^black, 50, $component0);

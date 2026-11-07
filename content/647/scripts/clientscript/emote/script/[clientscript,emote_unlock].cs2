@@ -1,149 +1,150 @@
+// 1750
 [clientscript,emote_unlock]
-if (%varbit_2309 = true) {
-    if_setgraphic("emotes,31", emotes:com32);
+if (%varplayerbit_2309 = 1) {
+    if_setgraphic("emotes,31", emotes:com_32);
 } else {
-    if_setgraphic("emotes_locked,11", emotes:com32);
+    if_setgraphic("emotes_locked,11", emotes:com_32);
 }
-if (%varbit_2310 = true) {
-    if_setgraphic("emotes,29", emotes:com30);
+if (%varplayerbit_2310 = 1) {
+    if_setgraphic("emotes,29", emotes:com_30);
 } else {
-    if_setgraphic("emotes_locked,9", emotes:com30);
+    if_setgraphic("emotes_locked,9", emotes:com_30);
 }
-if (%varbit_2311 = true) {
-    if_setgraphic("emotes,32", emotes:com33);
+if (%varplayerbit_2311 = 1) {
+    if_setgraphic("emotes,32", emotes:com_33);
 } else {
-    if_setgraphic("emotes_locked,12", emotes:com33);
+    if_setgraphic("emotes_locked,12", emotes:com_33);
 }
-if (%varbit_2312 = true) {
-    if_setgraphic("emotes,30", emotes:com31);
+if (%varplayerbit_2312 = 1) {
+    if_setgraphic("emotes,30", emotes:com_31);
 } else {
-    if_setgraphic("emotes_locked,10", emotes:com31);
+    if_setgraphic("emotes_locked,10", emotes:com_31);
 }
-if (%varbit_532 >= 7) {
-    if_setgraphic("emotes,26", emotes:com24);
-    if_setgraphic("emotes,27", emotes:com25);
+if (%varplayerbit_532 >= 7) {
+    if_setgraphic("emotes,26", emotes:com_24);
+    if_setgraphic("emotes,27", emotes:com_25);
 } else {
-    if_setgraphic("emotes_locked,6", emotes:com24);
-    if_setgraphic("emotes_locked,7", emotes:com25);
+    if_setgraphic("emotes_locked,6", emotes:com_24);
+    if_setgraphic("emotes_locked,7", emotes:com_25);
 }
-if (%varbit_1367 = true) {
-    if_setgraphic("emotes,25", emotes:com29);
+if (%varplayerbit_1367 = 1) {
+    if_setgraphic("emotes,25", emotes:com_29);
 } else {
-    if_setgraphic("emotes_locked,5", emotes:com29);
+    if_setgraphic("emotes_locked,5", emotes:com_29);
 }
-if (%varbit_1368 = true) {
-    if_setgraphic("emotes,22", emotes:com26);
+if (%varplayerbit_1368 = 1) {
+    if_setgraphic("emotes,22", emotes:com_26);
 } else {
-    if_setgraphic("emotes_locked,2", emotes:com26);
+    if_setgraphic("emotes_locked,2", emotes:com_26);
 }
-if (%varbit_1369 = true) {
-    if_setgraphic("emotes,23", emotes:com27);
+if (%varplayerbit_1369 = 1) {
+    if_setgraphic("emotes,23", emotes:com_27);
 } else {
-    if_setgraphic("emotes_locked,3", emotes:com27);
+    if_setgraphic("emotes_locked,3", emotes:com_27);
 }
-if (%varbit_1370 = true) {
-    if_setgraphic("emotes,24", emotes:com28);
+if (%varplayerbit_1370 = 1) {
+    if_setgraphic("emotes,24", emotes:com_28);
 } else {
-    if_setgraphic("emotes_locked,4", emotes:com28);
+    if_setgraphic("emotes_locked,4", emotes:com_28);
 }
-if (%varbit_1371 = true) {
-    if_setgraphic("emotes,28", emotes:com37);
+if (%varplayerbit_1371 = 1) {
+    if_setgraphic("emotes,28", emotes:com_37);
 } else {
-    if_setgraphic("emotes_locked,8", emotes:com37);
+    if_setgraphic("emotes_locked,8", emotes:com_37);
 }
-if (%varbit_1920 = true) {
-    if_setgraphic("emotes,34", emotes:com35);
+if (%varplayerbit_1920 = 1) {
+    if_setgraphic("emotes,34", emotes:com_35);
 } else {
-    if_setgraphic("emotes_locked,14", emotes:com35);
+    if_setgraphic("emotes_locked,14", emotes:com_35);
 }
-if (%varbit_1921 = true) {
-    if_setgraphic("emotes,33", emotes:com34);
+if (%varplayerbit_1921 = 1) {
+    if_setgraphic("emotes,33", emotes:com_34);
 } else {
-    if_setgraphic("emotes_locked,13", emotes:com34);
+    if_setgraphic("emotes_locked,13", emotes:com_34);
 }
-if (%varbit_2055 = true) {
-    if_setgraphic("emotes,35", emotes:com38);
+if (%varplayerbit_2055 = 1) {
+    if_setgraphic("emotes,35", emotes:com_38);
 } else {
-    if_setgraphic("emotes_locked,15", emotes:com38);
+    if_setgraphic("emotes_locked,15", emotes:com_38);
 }
-if (%varbit_2787 = true) {
-    if_setgraphic("emotes,36", emotes:com39);
+if (%varplayerbit_2787 = 1) {
+    if_setgraphic("emotes,36", emotes:com_39);
 } else {
-    if_setgraphic("emotes_locked,16", emotes:com39);
+    if_setgraphic("emotes_locked,16", emotes:com_39);
 }
-if (%varbit_4075 = 12) {
-    if_setgraphic("emotes,37", emotes:com36);
+if (%varplayerbit_4075 = 12) {
+    if_setgraphic("emotes,37", emotes:com_36);
 } else {
-    if_setgraphic("emotes_locked,17", emotes:com36);
+    if_setgraphic("emotes_locked,17", emotes:com_36);
 }
-if (%varbit_4202 = true) {
-    if_setgraphic("emotes,38", emotes:com40);
+if (%varplayerbit_4202 = 1) {
+    if_setgraphic("emotes,38", emotes:com_40);
 } else {
-    if_setgraphic("emotes_locked,18", emotes:com40);
+    if_setgraphic("emotes_locked,18", emotes:com_40);
 }
-if (%varbit_4394 = true) {
-    if_setgraphic("emotes,39", emotes:com41);
+if (%varplayerbit_4394 = 1) {
+    if_setgraphic("emotes,39", emotes:com_41);
 } else {
-    if_setgraphic("emotes_locked,19", emotes:com41);
+    if_setgraphic("emotes_locked,19", emotes:com_41);
 }
-if (%varbit_4476 = true) {
-    if_setgraphic("emotes,40", emotes:com42);
+if (%varplayerbit_4476 = 1) {
+    if_setgraphic("emotes,40", emotes:com_42);
 } else {
-    if_setgraphic("emotes_locked,20", emotes:com42);
+    if_setgraphic("emotes_locked,20", emotes:com_42);
 }
-if (%varbit_4884 = true) {
-    if_setgraphic("emotes,41", emotes:com43);
+if (%varplayerbit_4884 = 1) {
+    if_setgraphic("emotes,41", emotes:com_43);
 } else {
-    if_setgraphic("emotes_locked,21", emotes:com43);
+    if_setgraphic("emotes_locked,21", emotes:com_43);
 }
-if (%varbit_5490 = true) {
-    if_setgraphic("emotes,42", emotes:com44);
+if (%varplayerbit_5490 = 1) {
+    if_setgraphic("emotes,42", emotes:com_44);
 } else {
-    if_setgraphic("emotes_locked,22", emotes:com44);
+    if_setgraphic("emotes_locked,22", emotes:com_44);
 }
-if (%varbit_5732 = true) {
-    if_setgraphic("emotes,44", emotes:com45);
+if (%varplayerbit_5732 = 1) {
+    if_setgraphic("emotes,44", emotes:com_45);
 } else {
-    if_setgraphic("emotes_locked,24", emotes:com45);
+    if_setgraphic("emotes_locked,24", emotes:com_45);
 }
-if (%varbit_5641 = true) {
-    if_setgraphic("emotes,45", emotes:com46);
+if (%varplayerbit_5641 = 1) {
+    if_setgraphic("emotes,45", emotes:com_46);
 } else {
-    if_setgraphic("emotes_locked,25", emotes:com46);
+    if_setgraphic("emotes_locked,25", emotes:com_46);
 }
-if (%varbit_6014 = 85 | (%varbit_7322 = 18 | %varbit_9194 = true)) {
-    if_setgraphic("emotes,46", emotes:com47);
+if (%varplayerbit_6014 = 85 | %varplayerbit_7322 = 18 | %varplayerbit_9194 = 1) {
+    if_setgraphic("emotes,46", emotes:com_47);
 } else {
-    if_setgraphic("emotes_locked,26", emotes:com47);
+    if_setgraphic("emotes_locked,26", emotes:com_47);
 }
-~clientscript_1626;
-if (%varbit_6936 = true) {
-    if_setgraphic("emotes,48", emotes:com48);
+~script1626;
+if (%varplayerbit_6936 = 1) {
+    if_setgraphic("emotes,48", emotes:com_48);
 } else {
-    if_setgraphic("emotes_locked,28", emotes:com48);
+    if_setgraphic("emotes_locked,28", emotes:com_48);
 }
-if (%varbit_6095 = true) {
-    if_setgraphic("emotes,49", emotes:com49);
+if (%varplayerbit_6095 = 1) {
+    if_setgraphic("emotes,49", emotes:com_49);
 } else {
-    if_setgraphic("emotes_locked,29", emotes:com49);
+    if_setgraphic("emotes_locked,29", emotes:com_49);
 }
-if (%varbit_8300 = 20) {
-    if_setgraphic("emotes,50", emotes:com50);
+if (%varplayerbit_8300 = 20) {
+    if_setgraphic("emotes,50", emotes:com_50);
 } else {
-    if_setgraphic("emotes_locked,30", emotes:com50);
+    if_setgraphic("emotes_locked,30", emotes:com_50);
 }
-if (%varbit_8688 = true) {
-    if_setgraphic("emotes,51", emotes:com52);
+if (%varplayerbit_8688 = 1) {
+    if_setgraphic("emotes,51", emotes:com_52);
 } else {
-    if_setgraphic("emotes_locked,31", emotes:com52);
+    if_setgraphic("emotes_locked,31", emotes:com_52);
 }
-if (%varbit_8601 = 428) {
-    if_setgraphic("emotes,52", emotes:com51);
+if (%varplayerbit_8601 = 428) {
+    if_setgraphic("emotes,52", emotes:com_51);
 } else {
-    if_setgraphic("emotes_locked,32", emotes:com51);
+    if_setgraphic("emotes_locked,32", emotes:com_51);
 }
-if (%varbit_9198 = 60) {
-    if_setgraphic("emotes,66", emotes:com53);
+if (%varplayerbit_9198 = 60) {
+    if_setgraphic("emotes,66", emotes:com_53);
 } else {
-    if_setgraphic("emotes_locked,46", emotes:com53);
+    if_setgraphic("emotes_locked,46", emotes:com_53);
 }

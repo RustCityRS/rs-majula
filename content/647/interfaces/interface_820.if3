@@ -1,0 +1,34 @@
+// 820:0
+[com_0]
+type=layer
+width=512
+height=334
+xmode=abs_centre
+ymode=abs_centre
+
+// 820:1
+[com_1]
+type=graphic
+x=478
+y=14
+width=16
+height=16
+layer=com_0
+graphic="v2_stone_close_button,0"
+colour=0x000000
+onmouseover=graphic_swapper(event_com, "v2_stone_close_button,1")
+onmouseleave=graphic_swapper(event_com, "v2_stone_close_button,2")
+onop=closebutton_click
+
+// 820:2
+[com_2]
+type=model
+x=-13
+y=23
+width=522
+height=287
+layer=com_0
+model=model_44570
+modelorigin=8,-3
+modelangle=447,3,0
+modelzoom=589

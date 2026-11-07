@@ -1,9 +1,10 @@
+// 222
 [clientscript,snapshot_ignore_yes]
-if (friend_test(%varc_string_24) = true) {
-    tutorial_openchat(26, 0, "Sorry, you cannot ignore players in your Friends List.");
+if (friend_test(%varclient_1543) = true) {
+    mes_typed(^chattype_snapshotfeedback, 0, "Sorry, you cannot ignore players in your Friends List.");
 } else {
-    clan_getminkick(%varc_string_24);
-    tutorial_openchat(26, 0, "You are ignoring <%varc_string_24> until you log out.");
+    ignore_add_temp(%varclient_1543);
+    mes_typed(^chattype_snapshotfeedback, 0, "You are ignoring <%varclient_1543> until you log out.");
 }
-%varc_int_11 = 0;
-~clientscript_675;
+%varclient_11 = 0;
+~script675;

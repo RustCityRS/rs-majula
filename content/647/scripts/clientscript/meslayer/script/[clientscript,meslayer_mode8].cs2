@@ -1,26 +1,27 @@
-[clientscript,meslayer_mode8](string $string)
+// 109
+[clientscript,meslayer_mode8](string $string0)
 if (getwindowmode >= 2) {
     if_sethide(false, toplevel_fullscreen:com_chatbox);
 }
-if_sethide(false, chatbox:com3);
-if_sethide(true, chatbox:com7);
-if_sethide(true, chatbox:com8);
-if_settext($string, chatbox:com4);
-%varc_int_5 = 8;
+if_sethide(false, chatbox:com_3);
+if_sethide(true, chatbox:com_7);
+if_sethide(true, chatbox:com_8);
+if_settext($string0, chatbox:com_4);
+%varclient_5 = 8;
 ~meslayer_setupinput("");
-if_setonclick(null, chatbox:com3);
-~clientscript_2026;
-if_setonkey("meslayer_onkey(^event_key, ^event_keychar)", chatbox:com5);
-if_sethook1423("meslayer_ondialogabort()", chatbox:com5);
-if (%varc_int_1026 = true & string_length(%varc_string_201) > 0) {
-    cc_create(chatbox:com3, ^iftype_text, 0);
+if_setonclick(null, chatbox:com_3);
+~script2026;
+if_setonkey("meslayer_onkey(event_keycode, event_keychar)", chatbox:com_5);
+if_setondialogabort("meslayer_ondialogabort", chatbox:com_5);
+if (%varclient_1026 = 1 & string_length(%varclient_1720) > 0) {
+    cc_create(chatbox:com_3, ^iftype_text, 0);
     ~meslayer_setupdynamicbutton;
-    cc_settext("Last name entered: <%varc_string_201>");
+    cc_settext("Last name entered: <%varclient_1720>");
     cc_setop(1, "Use:");
-    cc_setopbase("<col=ff9040><removetags(%varc_string_201)></col>");
-    cc_setonop("meslayer_lastname(%varc_int_5, ^event_op, ^event_com, ^event_subid, %varc_string_201)");
+    cc_setopbase("<col=ff9040><removetags(%varclient_1720)></col>");
+    cc_setonop("meslayer_lastname(%varclient_5, event_op, event_com, event_comsubid, %varclient_1720)");
 } else {
-    %varc_string_201 = "";
-    %varc_int_1026 = 1;
+    %varclient_1720 = "";
+    %varclient_1026 = 1;
 }
 ~opt_header;

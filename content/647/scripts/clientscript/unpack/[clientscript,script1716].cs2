@@ -1,0 +1,6 @@
+// 1716
+[clientscript,script1716]
+if (%varclient_1063 ! %varplayerbit_6840) {
+    %varclient_1063 = %varplayerbit_6840;
+    ~prayer_init_buttons;
+}

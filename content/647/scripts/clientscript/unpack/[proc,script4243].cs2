@@ -1,0 +1,156 @@
+// 4243
+[proc,script4243]()(int)
+def_int $int0 = 0;
+def_int $int1 = 0;
+def_int $int2 = 0;
+def_struct $struct3 = null;
+def_string $string0 = "";
+def_string $string1 = "";
+def_int $int4 = 0;
+def_graphic $graphic5 = null;
+def_graphic $graphic6 = null;
+def_int $int7 = 0;
+def_int $int8 = 0;
+def_enum $enum9 = enum_3656;
+def_graphic $graphic10 = null;
+def_graphic $graphic11 = null;
+def_int $int12 = 0;
+def_int $int13 = 23;
+def_int $int14 = 23;
+def_int $int15 = 0;
+while ($int0 < enum_getoutputcount($enum9)) {
+    $int1 = enum(int, int, $enum9, $int0);
+    $struct3 = enum(int, struct, enum_3483, $int1);
+    if ($struct3 ! null & ~task_get_progress($int1) ! 2) {
+        $string0 = struct_param($struct3, param_1266);
+        if (struct_param($struct3, param_1270) ! 4094) {
+            $graphic5 = struct_param(enum(int, struct, enum_2252, struct_param($struct3, param_1270)), param_952);
+        } else {
+            $graphic5 = struct_param($struct3, param_1271);
+        }
+        cc_create(task_main:com_98, ^iftype_graphic, $int7);
+        $graphic11 = graphic_4041;
+        $graphic10 = graphic_4042;
+        cc_setgraphic($graphic11);
+        cc_setonmouseover("task_main_list_graphicswapper(event_comsubid, $graphic10)");
+        cc_setonmouseleave("task_main_list_graphicswapper(event_comsubid, $graphic11)");
+        cc_setsize(calc(70 + 2), calc(56 + 1), ^setsize_abs, ^setsize_abs);
+        cc_setposition(calc($int13 - 1), calc($int14 - 1), ^setpos_abs_left, ^setpos_abs_top);
+        cc_setop(1, "Summary for");
+        if (%varplayerbit_8576 = $int1) {
+            cc_setop(2, "Unpin");
+        } else {
+            cc_setop(2, "Pin");
+        }
+        cc_setopbase($string0);
+        cc_setonop("script3990($int1, event_comsubid, event_op)");
+        if (~script3999($int1) = 0) {
+            $string1 = " -<br>";
+            $string1 = append(struct_param($struct3, param_1266), $string1);
+            $string1 = append($string1, struct_param($struct3, param_1273));
+            cc_setonmouserepeat("task_main_list_tooltip($int7, $string1)");
+        }
+        if (~script3994($int1) = 1 & $int1 ! 4094) {
+            %varclient_1422 = $int7;
+        }
+        cc_create(task_main:com_98, ^iftype_graphic, calc($int7 + 1));
+        cc_setsize(50, 50, ^setsize_abs, ^setsize_abs);
+        cc_setgraphic($graphic5);
+        cc_setposition(calc($int13 + 2), calc($int14 + 2), ^setpos_abs_left, ^setpos_abs_top);
+        cc_settrans($int15);
+        cc_create(task_main:com_98, ^iftype_graphic, calc($int7 + 2));
+        cc_setsize(14, 18, ^setsize_abs, ^setsize_abs);
+        if (~task_requirements_quick($int1) = 0) {
+            $graphic6 = symbol_lock;
+            cc_setsize(11, 11, ^setsize_abs, ^setsize_abs);
+        } else {
+            $graphic6 = null;
+        }
+        cc_setgraphic($graphic6);
+        cc_setposition(calc($int13 + 70 - 16), calc($int14 + 4), ^setpos_abs_left, ^setpos_abs_top);
+        cc_create(task_main:com_98, ^iftype_graphic, calc($int7 + 3));
+        cc_setsize(11, 11, ^setsize_abs, ^setsize_abs);
+        cc_setposition(calc($int13 + 70 - 17), calc($int14 + 39), ^setpos_abs_left, ^setpos_abs_top);
+        if (~script3994($int1) = 1) {
+            cc_setgraphic(graphic_4296);
+        }
+        $int8 = calc($int8 + 1);
+        $int7 = calc($int8 * 4);
+        $int13 = calc($int13 + 70 + 23);
+        $int12 = calc(($int12 + 1) % 5);
+        if ($int12 = 0) {
+            $int14 = calc($int14 + 56 + 23);
+            $int13 = 23;
+        }
+    }
+    $int0 = calc($int0 + 1);
+}
+$int0 = 0;
+while ($int0 < enum_getoutputcount($enum9)) {
+    $int1 = enum(int, int, $enum9, $int0);
+    $struct3 = enum(int, struct, enum_3483, $int1);
+    if ($struct3 ! null & ~task_get_progress($int1) = 2) {
+        $string0 = struct_param($struct3, param_1266);
+        if (struct_param($struct3, param_1270) ! 4094) {
+            $graphic5 = struct_param(enum(int, struct, enum_2252, struct_param($struct3, param_1270)), param_952);
+        } else {
+            $graphic5 = struct_param($struct3, param_1271);
+        }
+        cc_create(task_main:com_98, ^iftype_graphic, $int7);
+        $graphic11 = graphic_4043;
+        $graphic10 = graphic_4043;
+        cc_setgraphic($graphic11);
+        cc_setonmouseover("task_main_list_graphicswapper(event_comsubid, $graphic10)");
+        cc_setonmouseleave("task_main_list_graphicswapper(event_comsubid, $graphic11)");
+        cc_setsize(calc(70 + 2), calc(56 + 1), ^setsize_abs, ^setsize_abs);
+        cc_setposition(calc($int13 - 1), calc($int14 - 1), ^setpos_abs_left, ^setpos_abs_top);
+        cc_setop(1, "Summary for");
+        cc_setopbase($string0);
+        cc_setonop("script3990($int1, event_comsubid, event_op)");
+        if (~script3999($int1) = 0) {
+            $string1 = " -<br>";
+            $string1 = append(struct_param($struct3, param_1266), $string1);
+            $string1 = append($string1, struct_param($struct3, param_1273));
+            cc_setonmouserepeat("task_main_list_tooltip($int7, $string1)");
+        }
+        if (~script3994($int1) = 1 & $int1 ! 4094) {
+            %varclient_1422 = $int7;
+        }
+        cc_create(task_main:com_98, ^iftype_graphic, calc($int7 + 1));
+        cc_setsize(50, 50, ^setsize_abs, ^setsize_abs);
+        cc_setgraphic($graphic5);
+        cc_setposition(calc($int13 + 2), calc($int14 + 2), ^setpos_abs_left, ^setpos_abs_top);
+        cc_settrans($int15);
+        cc_create(task_main:com_98, ^iftype_graphic, calc($int7 + 2));
+        cc_setsize(14, 18, ^setsize_abs, ^setsize_abs);
+        if (~task_requirements_quick($int1) = 0) {
+            $graphic6 = symbol_lock;
+            cc_setsize(11, 11, ^setsize_abs, ^setsize_abs);
+        } else {
+            $graphic6 = null;
+        }
+        cc_setgraphic($graphic6);
+        cc_setposition(calc($int13 + 70 - 16), calc($int14 + 4), ^setpos_abs_left, ^setpos_abs_top);
+        cc_create(task_main:com_98, ^iftype_graphic, calc($int7 + 3));
+        cc_setsize(11, 11, ^setsize_abs, ^setsize_abs);
+        cc_setposition(calc($int13 + 70 - 17), calc($int14 + 39), ^setpos_abs_left, ^setpos_abs_top);
+        if (~script3994($int1) = 1) {
+            cc_setgraphic(graphic_4296);
+        }
+        $int8 = calc($int8 + 1);
+        $int7 = calc($int8 * 4);
+        $int13 = calc($int13 + 70 + 23);
+        $int12 = calc(($int12 + 1) % 5);
+        if ($int12 = 0) {
+            $int14 = calc($int14 + 56 + 23);
+            $int13 = 23;
+        }
+    }
+    $int0 = calc($int0 + 1);
+}
+if ($int12 ! 0) {
+    $int14 = calc($int14 + 56);
+} else {
+    $int14 = calc($int14 - 23);
+}
+return($int14);

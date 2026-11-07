@@ -1,3 +1,4 @@
+// 2033
 [clientscript,crunchies_main_text]
 def_int $int0 = inv_total(inv, gnome_spice);
 def_int $int1 = inv_total(inv, king_worm);
@@ -5,67 +6,67 @@ def_int $int2 = inv_total(inv, equa_leaves);
 def_int $int3 = inv_total(inv, toad_s_legs);
 def_int $int4 = inv_total(inv, chocolate_bar);
 if ($int3 >= 2 & $int0 >= 1) {
-    if_setcolour(^green, he5566366:com37);
+    if_setcolour(^green, interface_437:com_37);
 } else {
-    if_setcolour(^red, he5566366:com37);
+    if_setcolour(^red, interface_437:com_37);
 }
 if ($int2 >= 2 & $int0 >= 1) {
-    if_setcolour(^green, he5566366:com38);
+    if_setcolour(^green, interface_437:com_38);
 } else {
-    if_setcolour(^red, he5566366:com38);
+    if_setcolour(^red, interface_437:com_38);
 }
-if ($int2 >= 1 & ($int0 >= 1 & $int1 >= 2)) {
-    if_setcolour(^green, he5566366:com39);
+if ($int2 >= 1 & $int0 >= 1 & $int1 >= 2) {
+    if_setcolour(^green, interface_437:com_39);
 } else {
-    if_setcolour(^red, he5566366:com39);
+    if_setcolour(^red, interface_437:com_39);
 }
 if ($int4 >= 2 & $int0 >= 1) {
-    if_setcolour(^green, he5566366:com40);
+    if_setcolour(^green, interface_437:com_40);
 } else {
-    if_setcolour(^red, he5566366:com40);
+    if_setcolour(^red, interface_437:com_40);
 }
 if (inv_total(inv, toad_s_legs) > 1) {
-    if_setobject(toad_s_legs, 100, he5566366:com4);
+    if_setobject(toad_s_legs, 100, interface_437:com_4);
 } else {
-    if_setobject(obj_9499, 100, he5566366:com4);
+    if_setobject(obj_9499, 100, interface_437:com_4);
 }
 if (inv_total(inv, gnome_spice) > 0) {
-    if_setobject(gnome_spice, 90, he5566366:com5);
+    if_setobject(gnome_spice, 90, interface_437:com_5);
 } else {
-    if_setobject(obj_9500, 90, he5566366:com5);
+    if_setobject(obj_9500, 90, interface_437:com_5);
 }
 if (inv_total(inv, equa_leaves) > 1) {
-    if_setobject(equa_leaves, 120, he5566366:com12);
+    if_setobject(equa_leaves, 120, interface_437:com_12);
 } else {
-    if_setobject(obj_9494, 120, he5566366:com12);
+    if_setobject(obj_9494, 120, interface_437:com_12);
 }
 if (inv_total(inv, gnome_spice) > 0) {
-    if_setobject(gnome_spice, 90, he5566366:com11);
+    if_setobject(gnome_spice, 90, interface_437:com_11);
 } else {
-    if_setobject(obj_9500, 90, he5566366:com11);
+    if_setobject(obj_9500, 90, interface_437:com_11);
 }
 if (inv_total(inv, chocolate_bar) > 1) {
-    if_setobject(chocolate_bar, 140, he5566366:com27);
+    if_setobject(chocolate_bar, 140, interface_437:com_27);
 } else {
-    if_setobject(obj_9507, 140, he5566366:com27);
+    if_setobject(obj_9507, 140, interface_437:com_27);
 }
 if (inv_total(inv, gnome_spice) > 0) {
-    if_setobject(gnome_spice, 90, he5566366:com28);
+    if_setobject(gnome_spice, 90, interface_437:com_28);
 } else {
-    if_setobject(obj_9500, 90, he5566366:com28);
+    if_setobject(obj_9500, 90, interface_437:com_28);
 }
 if (inv_total(inv, king_worm) > 1) {
-    if_setobject(king_worm, 100, he5566366:com19);
+    if_setobject(king_worm, 100, interface_437:com_19);
 } else {
-    if_setobject(obj_9501, 100, he5566366:com19);
+    if_setobject(obj_9501, 100, interface_437:com_19);
 }
 if (inv_total(inv, equa_leaves) > 0) {
-    if_setobject(equa_leaves, 120, he5566366:com20);
+    if_setobject(equa_leaves, 120, interface_437:com_20);
 } else {
-    if_setobject(obj_9494, 120, he5566366:com20);
+    if_setobject(obj_9494, 120, interface_437:com_20);
 }
 if (inv_total(inv, gnome_spice) > 0) {
-    if_setobject(gnome_spice, 90, he5566366:com18);
+    if_setobject(gnome_spice, 90, interface_437:com_18);
 } else {
-    if_setobject(obj_9500, 90, he5566366:com18);
+    if_setobject(obj_9500, 90, interface_437:com_18);
 }

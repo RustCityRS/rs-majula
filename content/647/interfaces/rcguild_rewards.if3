@@ -1,0 +1,2239 @@
+// 779:0
+[com_0]
+type=graphic
+width=470
+height=85
+layer=com_120
+graphic=tradebacking
+tiling=yes
+colour=0x000000
+
+// 779:1
+[com_1]
+type=graphic
+x=9
+y=4
+width=492
+height=263
+graphic=tradebacking
+tiling=yes
+colour=0x000000
+
+// 779:2
+[com_2]
+type=graphic
+x=-9
+y=40
+width=32
+height=201
+graphic="v2_stone_borders,1"
+tiling=yes
+colour=0x000000
+
+// 779:3
+[com_3]
+type=graphic
+x=485
+y=41
+width=25
+height=196
+graphic="v2_stone_borders,3"
+tiling=yes
+colour=0x000000
+
+// 779:4
+[com_4]
+type=layer
+x=54
+y=13
+width=32
+height=32
+hide=yes
+
+// 779:5
+[com_5]
+type=layer
+x=26
+y=40
+width=467
+height=222
+scrollheight=900
+
+// 779:6
+[com_6]
+type=model
+x=25
+y=46
+width=35
+height=29
+layer=com_5
+model=model_2441
+modelorigin=-1,-2
+modelangle=469,1748,2025
+modelzoom=1070
+transmitop=1,2
+opbase=Air talisman
+op1=Buy 1
+op2=Buy X
+
+// 779:7
+[com_7]
+type=model
+x=307
+y=88
+width=35
+height=29
+layer=com_5
+model=model_2785
+modelorigin=-1,-2
+modelangle=469,1748,2025
+modelzoom=1070
+transmitop=1,2
+opbase=Body talisman
+op1=Buy 1
+op2=Buy X
+
+// 779:8
+[com_8]
+type=model
+x=166
+y=130
+width=35
+height=29
+layer=com_5
+model=model_2563
+modelorigin=-1,-2
+modelangle=469,1748,2025
+modelzoom=1070
+transmitop=1,2
+opbase=Chaos talisman
+op1=Buy 1
+op2=Buy X
+
+// 779:9
+[com_9]
+type=model
+x=25
+y=130
+width=35
+height=29
+layer=com_5
+model=model_2502
+modelorigin=-1,-2
+modelangle=469,1748,2025
+modelzoom=1070
+transmitop=1,2
+opbase=Cosmic talisman
+op1=Buy 1
+op2=Buy X
+
+// 779:10
+[com_10]
+type=model
+x=25
+y=88
+width=35
+height=29
+layer=com_5
+model=model_2806
+modelorigin=-1,-2
+modelangle=469,1748,2025
+modelzoom=1070
+transmitop=1,2
+opbase=Earth talisman
+op1=Buy 1
+op2=Buy X
+
+// 779:11
+[com_11]
+type=model
+x=166
+y=88
+width=35
+height=29
+layer=com_5
+model=model_2624
+modelorigin=-1,-2
+modelangle=469,1748,2025
+modelzoom=1070
+transmitop=1,2
+opbase=Fire talisman
+op1=Buy 1
+op2=Buy X
+
+// 779:12
+[com_12]
+type=model
+x=25
+y=172
+width=35
+height=29
+layer=com_5
+model=model_2712
+modelorigin=-1,-2
+modelangle=469,1748,2025
+modelzoom=1070
+transmitop=1,2
+opbase=Law talisman
+op1=Buy 1
+op2=Buy X
+
+// 779:13
+[com_13]
+type=model
+x=166
+y=46
+width=35
+height=29
+layer=com_5
+model=model_2685
+modelorigin=-1,-2
+modelangle=469,1748,2025
+modelzoom=1070
+transmitop=1,2
+opbase=Mind talisman
+op1=Buy 1
+op2=Buy X
+
+// 779:14
+[com_14]
+type=model
+x=307
+y=130
+width=35
+height=29
+layer=com_5
+model=model_2346
+modelorigin=-1,-2
+modelangle=469,1748,2025
+modelzoom=1070
+transmitop=1,2
+opbase=Nature talisman
+op1=Buy 1
+op2=Buy X
+
+// 779:15
+[com_15]
+type=model
+x=307
+y=46
+width=35
+height=29
+layer=com_5
+model=model_2514
+modelorigin=-1,-2
+modelangle=469,1748,2025
+modelzoom=1070
+transmitop=1,2
+opbase=Water talisman
+op1=Buy 1
+op2=Buy X
+
+// 779:16
+[com_16]
+type=text
+x=65
+y=46
+width=80
+height=14
+layer=com_5
+textfont=p12_full
+text=Air
+textlineheight=12
+textshadow=yes
+colour=0xff981f
+
+// 779:17
+[com_17]
+type=text
+x=69
+y=62
+width=48
+height=12
+layer=com_5
+textfont=p11_full
+text=X Ticket(s)
+textlineheight=12
+colour=0xbf751d
+
+// 779:18
+[com_18]
+type=text
+x=347
+y=88
+width=80
+height=14
+layer=com_5
+textfont=p12_full
+text=Body
+textlineheight=12
+textshadow=yes
+colour=0xff981f
+
+// 779:19
+[com_19]
+type=text
+x=351
+y=104
+width=48
+height=12
+layer=com_5
+textfont=p11_full
+text=X Ticket(s)
+textlineheight=12
+colour=0xbf751d
+
+// 779:20
+[com_20]
+type=text
+x=206
+y=130
+width=80
+height=14
+layer=com_5
+textfont=p12_full
+text=Chaos
+textlineheight=12
+textshadow=yes
+colour=0xff981f
+
+// 779:21
+[com_21]
+type=text
+x=210
+y=146
+width=48
+height=12
+layer=com_5
+textfont=p11_full
+text=X Ticket(s)
+textlineheight=12
+colour=0xbf751d
+
+// 779:22
+[com_22]
+type=text
+x=65
+y=130
+width=80
+height=14
+layer=com_5
+textfont=p12_full
+text=Cosmic
+textlineheight=12
+textshadow=yes
+colour=0xff981f
+
+// 779:23
+[com_23]
+type=text
+x=69
+y=146
+width=48
+height=12
+layer=com_5
+textfont=p11_full
+text=X Ticket(s)
+textlineheight=12
+colour=0xbf751d
+
+// 779:24
+[com_24]
+type=text
+x=65
+y=88
+width=80
+height=14
+layer=com_5
+textfont=p12_full
+text=Earth
+textshadow=yes
+colour=0xff981f
+
+// 779:25
+[com_25]
+type=text
+x=69
+y=104
+width=48
+height=12
+layer=com_5
+textfont=p11_full
+text=X Ticket(s)
+textlineheight=12
+colour=0xbf751d
+
+// 779:26
+[com_26]
+type=text
+x=206
+y=88
+width=80
+height=14
+layer=com_5
+textfont=p12_full
+text=Fire
+textshadow=yes
+colour=0xff981f
+
+// 779:27
+[com_27]
+type=text
+x=210
+y=104
+width=48
+height=12
+layer=com_5
+textfont=p11_full
+text=X Ticket(s)
+textlineheight=12
+colour=0xbf751d
+
+// 779:28
+[com_28]
+type=text
+x=65
+y=172
+width=80
+height=14
+layer=com_5
+textfont=p12_full
+text=Law
+textshadow=yes
+colour=0xff981f
+
+// 779:29
+[com_29]
+type=text
+x=69
+y=188
+width=48
+height=12
+layer=com_5
+textfont=p11_full
+text=X Ticket(s)
+textlineheight=12
+colour=0xbf751d
+
+// 779:30
+[com_30]
+type=text
+x=206
+y=46
+width=80
+height=14
+layer=com_5
+textfont=p12_full
+text=Mind
+textlineheight=12
+textshadow=yes
+colour=0xff981f
+
+// 779:31
+[com_31]
+type=text
+x=210
+y=62
+width=48
+height=12
+layer=com_5
+textfont=p11_full
+text=X Ticket(s)
+textlineheight=12
+colour=0xbf751d
+
+// 779:32
+[com_32]
+type=text
+x=347
+y=130
+width=80
+height=14
+layer=com_5
+textfont=p12_full
+text=Nature
+textlineheight=12
+textshadow=yes
+colour=0xff981f
+
+// 779:33
+[com_33]
+type=text
+x=351
+y=146
+width=48
+height=12
+layer=com_5
+textfont=p11_full
+text=X Ticket(s)
+textlineheight=12
+colour=0xbf751d
+
+// 779:34
+[com_34]
+type=text
+x=347
+y=46
+width=80
+height=14
+layer=com_5
+textfont=p12_full
+text=Water
+textlineheight=12
+textshadow=yes
+colour=0xff981f
+
+// 779:35
+[com_35]
+type=text
+x=351
+y=62
+width=48
+height=12
+layer=com_5
+textfont=p11_full
+text=X Ticket(s)
+textlineheight=12
+colour=0xbf751d
+
+// 779:36
+[com_36]
+type=model
+x=7
+y=264
+width=26
+height=17
+layer=com_5
+model=model_41570
+modelorigin=-1,8
+modelangle=0,0,2025
+modelzoom=1070
+transmitop=1,2
+opbase=Blue hat
+op1=Buy 1
+op2=Buy X
+
+// 779:37
+[com_37]
+type=model
+x=154
+y=264
+width=26
+height=17
+layer=com_5
+model=model_41568
+modelorigin=-1,8
+modelangle=0,0,2025
+modelzoom=1070
+transmitop=1,2
+opbase=Yellow hat
+op1=Buy 1
+op2=Buy X
+
+// 779:38
+[com_38]
+type=model
+x=308
+y=264
+width=26
+height=17
+layer=com_5
+model=model_41571
+modelorigin=-1,8
+modelangle=0,0,2025
+modelzoom=1070
+transmitop=1,2
+opbase=Green hat
+op1=Buy 1
+op2=Buy X
+
+// 779:39
+[com_39]
+type=model
+x=7
+y=297
+width=16
+height=27
+layer=com_5
+model=model_41557
+modelorigin=0,-1
+modelangle=466,2042,2025
+modelzoom=1070
+transmitop=1,2
+opbase=Blue robe top
+op1=Buy 1
+op2=Buy X
+
+// 779:40
+[com_40]
+type=model
+x=158
+y=297
+width=17
+height=27
+layer=com_5
+model=model_41561
+modelorigin=1,-1
+modelangle=466,2042,2025
+modelzoom=1070
+transmitop=1,2
+opbase=Yellow robe top
+op1=Buy 1
+op2=Buy X
+
+// 779:41
+[com_41]
+type=model
+x=310
+y=297
+width=20
+height=27
+layer=com_5
+model=model_41540
+modelorigin=0,-1
+modelangle=469,2047,2025
+modelzoom=1070
+transmitop=1,2
+opbase=Green robe top
+op1=Buy 1
+op2=Buy X
+
+// 779:42
+[com_42]
+type=model
+x=5
+y=339
+width=20
+height=42
+layer=com_5
+model=model_41563
+modelangle=469,2047,2025
+modelzoom=1265
+transmitop=1,2
+opbase=Blue robe bottom
+op1=Buy 1
+op2=Buy X
+
+// 779:43
+[com_43]
+type=model
+x=157
+y=335
+width=20
+height=45
+layer=com_5
+model=model_41545
+modelorigin=0,2
+modelangle=469,2047,2025
+modelzoom=1265
+transmitop=1,2
+opbase=Yellow robe bottom
+op1=Buy 1
+op2=Buy X
+
+// 779:44
+[com_44]
+type=model
+x=310
+y=334
+width=20
+height=47
+layer=com_5
+model=model_41572
+modelorigin=0,3
+modelangle=469,2047,2025
+modelzoom=1265
+transmitop=1,2
+opbase=Green robe bottom
+op1=Buy 1
+op2=Buy X
+
+// 779:45
+[com_45]
+type=model
+x=5
+y=391
+width=27
+height=22
+layer=com_5
+model=model_41548
+modelorigin=-3,0
+modelangle=469,911,2025
+modelzoom=1070
+transmitop=1,2
+opbase=Blue gloves
+op1=Buy 1
+op2=Buy X
+
+// 779:46
+[com_46]
+type=model
+x=156
+y=391
+width=27
+height=22
+layer=com_5
+model=model_41550
+modelorigin=-3,0
+modelangle=469,911,2025
+modelzoom=1070
+transmitop=1,2
+opbase=Yellow gloves
+op1=Buy 1
+op2=Buy X
+
+// 779:47
+[com_47]
+type=model
+x=310
+y=391
+width=27
+height=22
+layer=com_5
+model=model_41533
+modelorigin=-3,0
+modelangle=469,911,2025
+modelzoom=1070
+transmitop=1,2
+opbase=Green gloves
+op1=Buy 1
+op2=Buy X
+
+// 779:48
+[com_48]
+type=text
+x=40
+y=262
+width=80
+height=14
+layer=com_5
+textfont=p12_full
+text=Blue hat
+textlineheight=12
+textshadow=yes
+colour=0xff981f
+
+// 779:49
+[com_49]
+type=text
+x=44
+y=278
+width=48
+height=12
+layer=com_5
+textfont=p11_full
+text=X Ticket(s)
+textlineheight=12
+colour=0xbf751d
+
+// 779:50
+[com_50]
+type=text
+x=187
+y=262
+width=80
+height=14
+layer=com_5
+textfont=p12_full
+text=Yellow hat
+textlineheight=12
+textshadow=yes
+colour=0xff981f
+
+// 779:51
+[com_51]
+type=text
+x=191
+y=278
+width=48
+height=12
+layer=com_5
+textfont=p11_full
+text=X Ticket(s)
+textlineheight=12
+colour=0xbf751d
+
+// 779:52
+[com_52]
+type=text
+x=341
+y=262
+width=80
+height=14
+layer=com_5
+textfont=p12_full
+text=Green hat
+textlineheight=12
+textshadow=yes
+colour=0xff981f
+
+// 779:53
+[com_53]
+type=text
+x=345
+y=278
+width=48
+height=12
+layer=com_5
+textfont=p11_full
+text=X Ticket(s)
+textlineheight=12
+colour=0xbf751d
+
+// 779:54
+[com_54]
+type=text
+x=36
+y=304
+width=80
+height=14
+layer=com_5
+textfont=p12_full
+text=Blue Robe
+textlineheight=12
+textshadow=yes
+colour=0xff981f
+
+// 779:55
+[com_55]
+type=text
+x=40
+y=320
+width=48
+height=12
+layer=com_5
+textfont=p11_full
+text=X Ticket(s)
+textlineheight=12
+colour=0xbf751d
+
+// 779:56
+[com_56]
+type=text
+x=188
+y=304
+width=80
+height=14
+layer=com_5
+textfont=p12_full
+text=Yellow robe
+textshadow=yes
+colour=0xff981f
+
+// 779:57
+[com_57]
+type=text
+x=192
+y=320
+width=48
+height=12
+layer=com_5
+textfont=p11_full
+text=X Ticket(s)
+textlineheight=12
+colour=0xbf751d
+
+// 779:58
+[com_58]
+type=text
+x=341
+y=304
+width=80
+height=14
+layer=com_5
+textfont=p12_full
+text=Green Robe
+textshadow=yes
+colour=0xff981f
+
+// 779:59
+[com_59]
+type=text
+x=345
+y=320
+width=48
+height=12
+layer=com_5
+textfont=p11_full
+text=X Ticket(s)
+textlineheight=12
+colour=0xbf751d
+
+// 779:60
+[com_60]
+type=text
+x=36
+y=346
+width=80
+height=14
+layer=com_5
+textfont=p12_full
+text=Blue bottoms
+textshadow=yes
+colour=0xff981f
+
+// 779:61
+[com_61]
+type=text
+x=40
+y=362
+width=48
+height=12
+layer=com_5
+textfont=p11_full
+text=X Ticket(s)
+textlineheight=12
+colour=0xbf751d
+
+// 779:62
+[com_62]
+type=text
+x=188
+y=345
+width=80
+height=14
+layer=com_5
+textfont=p12_full
+text=Yellow Bottoms
+textshadow=yes
+colour=0xff981f
+
+// 779:63
+[com_63]
+type=text
+x=192
+y=361
+width=48
+height=12
+layer=com_5
+textfont=p11_full
+text=X Ticket(s)
+textlineheight=12
+colour=0xbf7513
+
+// 779:64
+[com_64]
+type=text
+x=341
+y=346
+width=80
+height=14
+layer=com_5
+textfont=p12_full
+text=Green bottoms
+textlineheight=12
+textshadow=yes
+colour=0xff981f
+
+// 779:65
+[com_65]
+type=text
+x=345
+y=362
+width=48
+height=12
+layer=com_5
+textfont=p11_full
+text=X Ticket(s)
+textlineheight=12
+colour=0xbf751d
+
+// 779:66
+[com_66]
+type=text
+x=36
+y=388
+width=80
+height=14
+layer=com_5
+textfont=p12_full
+text=Blue gloves
+textlineheight=12
+textshadow=yes
+colour=0xff981f
+
+// 779:67
+[com_67]
+type=text
+x=40
+y=404
+width=48
+height=12
+layer=com_5
+textfont=p11_full
+text=X Ticket(s)
+textlineheight=12
+colour=0xbf751d
+
+// 779:68
+[com_68]
+type=text
+x=187
+y=388
+width=80
+height=14
+layer=com_5
+textfont=p12_full
+text=Yellow gloves
+textlineheight=12
+textshadow=yes
+colour=0xff981f
+
+// 779:69
+[com_69]
+type=text
+x=191
+y=404
+width=48
+height=12
+layer=com_5
+textfont=p11_full
+text=X Ticket(s)
+textlineheight=12
+colour=0xbf751d
+
+// 779:70
+[com_70]
+type=text
+x=341
+y=388
+width=80
+height=14
+layer=com_5
+textfont=p12_full
+text=Green gloves
+textlineheight=12
+textshadow=yes
+colour=0xff981f
+
+// 779:71
+[com_71]
+type=text
+x=345
+y=404
+width=48
+height=12
+layer=com_5
+textfont=p11_full
+text=X Ticket(s)
+textlineheight=12
+colour=0xbf751d
+
+// 779:72
+[com_72]
+type=model
+x=29
+y=485
+width=30
+height=28
+layer=com_5
+model=model_41543
+modelangle=324,1900,0
+modelzoom=500
+transmitop=1,2
+opbase=Air teleport tablet
+op1=Buy 1
+op2=Buy X
+
+// 779:73
+[com_73]
+type=model
+x=305
+y=527
+width=30
+height=28
+layer=com_5
+model=model_41541
+modelangle=324,1900,0
+modelzoom=500
+transmitop=1,2
+opbase=Body teleport tablet
+op1=Buy 1
+op2=Buy X
+
+// 779:74
+[com_74]
+type=model
+x=167
+y=569
+width=30
+height=28
+layer=com_5
+model=model_41518
+modelangle=324,1900,0
+modelzoom=500
+transmitop=1,2
+opbase=Chaos teleport tablet
+op1=Buy 1
+op2=Buy X
+
+// 779:75
+[com_75]
+type=model
+x=29
+y=569
+width=30
+height=28
+layer=com_5
+model=model_41523
+modelangle=324,846,0
+modelzoom=500
+transmitop=1,2
+opbase=Cosmic teleport tablet
+op1=Buy 1
+op2=Buy X
+
+// 779:76
+[com_76]
+type=model
+x=305
+y=611
+width=30
+height=28
+layer=com_5
+model=model_41555
+modelangle=324,1900,0
+modelzoom=500
+transmitop=1,2
+opbase=Death teleport tablet
+op1=Buy 1
+op2=Buy X
+
+// 779:77
+[com_77]
+type=model
+x=29
+y=527
+width=30
+height=28
+layer=com_5
+model=model_41554
+modelangle=324,1900,0
+modelzoom=500
+transmitop=1,2
+opbase=Earth teleport tablet
+op1=Buy 1
+op2=Buy X
+
+// 779:78
+[com_78]
+type=model
+x=167
+y=527
+width=30
+height=28
+layer=com_5
+model=model_41531
+modelangle=324,1900,0
+modelzoom=500
+transmitop=1,2
+opbase=Fire teleport tablet
+op1=Buy 1
+op2=Buy X
+
+// 779:79
+[com_79]
+type=model
+x=167
+y=611
+width=30
+height=28
+layer=com_5
+model=model_41535
+modelangle=324,1900,0
+modelzoom=500
+transmitop=1,2
+opbase=Law teleport tablet
+op1=Buy 1
+op2=Buy X
+
+// 779:80
+[com_80]
+type=model
+x=167
+y=485
+width=30
+height=28
+layer=com_5
+model=model_41516
+modelangle=324,1900,0
+modelzoom=500
+transmitop=1,2
+opbase=Mind teleport tablet
+op1=Buy 1
+op2=Buy X
+
+// 779:81
+[com_81]
+type=model
+x=305
+y=569
+width=30
+height=28
+layer=com_5
+model=model_41524
+modelangle=324,1900,0
+modelzoom=500
+transmitop=1,2
+opbase=Astral teleport tablet
+op1=Buy 1
+op2=Buy X
+
+// 779:82
+[com_82]
+type=model
+x=29
+y=611
+width=30
+height=28
+layer=com_5
+model=model_41567
+modelangle=324,1900,0
+modelzoom=500
+transmitop=1,2
+opbase=Nature teleport tablet
+op1=Buy 1
+op2=Buy X
+
+// 779:83
+[com_83]
+type=model
+x=305
+y=485
+width=30
+height=28
+layer=com_5
+model=model_41558
+modelangle=324,1900,0
+modelzoom=500
+transmitop=1,2
+opbase=Water teleport tablet
+op1=Buy 1
+op2=Buy X
+
+// 779:84
+[com_84]
+type=model
+x=29
+y=650
+width=30
+height=28
+layer=com_5
+model=model_41526
+modelangle=324,1900,0
+modelzoom=500
+transmitop=1,2
+opbase=Blood teleport tablet
+op1=Buy 1
+op2=Buy X
+
+// 779:85
+[com_85]
+type=model
+x=167
+y=650
+width=30
+height=28
+layer=com_5
+model=model_41517
+modelangle=324,1900,0
+modelzoom=500
+transmitop=1,2
+opbase=Guild teleport tablet
+op1=Buy 1
+op2=Buy X
+
+// 779:86
+[com_86]
+type=text
+x=65
+y=485
+width=80
+height=14
+layer=com_5
+textfont=p12_full
+text=Air
+textlineheight=12
+textshadow=yes
+colour=0xff981f
+
+// 779:87
+[com_87]
+type=text
+x=69
+y=501
+width=48
+height=12
+layer=com_5
+textfont=p11_full
+text=X Ticket(s)
+textlineheight=12
+colour=0xbf751d
+
+// 779:88
+[com_88]
+type=text
+x=341
+y=527
+width=80
+height=14
+layer=com_5
+textfont=p12_full
+text=Body
+textlineheight=12
+textshadow=yes
+colour=0xff981f
+
+// 779:89
+[com_89]
+type=text
+x=345
+y=543
+width=48
+height=12
+layer=com_5
+textfont=p11_full
+text=X Ticket(s)
+textlineheight=12
+colour=0xbf751d
+
+// 779:90
+[com_90]
+type=text
+x=203
+y=569
+width=80
+height=14
+layer=com_5
+textfont=p12_full
+text=Chaos
+textlineheight=12
+textshadow=yes
+colour=0xff981f
+
+// 779:91
+[com_91]
+type=text
+x=207
+y=585
+width=48
+height=12
+layer=com_5
+textfont=p11_full
+text=X Ticket(s)
+textlineheight=12
+colour=0xbf751d
+
+// 779:92
+[com_92]
+type=text
+x=65
+y=569
+width=80
+height=14
+layer=com_5
+textfont=p12_full
+text=Cosmic
+textlineheight=12
+textshadow=yes
+colour=0xff981f
+
+// 779:93
+[com_93]
+type=text
+x=69
+y=585
+width=48
+height=12
+layer=com_5
+textfont=p11_full
+text=X Ticket(s)
+textlineheight=12
+colour=0xbf751d
+
+// 779:94
+[com_94]
+type=text
+x=341
+y=611
+width=80
+height=14
+layer=com_5
+textfont=p12_full
+text=Death
+textshadow=yes
+colour=0xff981f
+
+// 779:95
+[com_95]
+type=text
+x=345
+y=627
+width=48
+height=12
+layer=com_5
+textfont=p11_full
+text=X Ticket(s)
+textlineheight=12
+colour=0xbf751d
+
+// 779:96
+[com_96]
+type=text
+x=65
+y=527
+width=80
+height=14
+layer=com_5
+textfont=p12_full
+text=Earth
+textshadow=yes
+colour=0xff981f
+
+// 779:97
+[com_97]
+type=text
+x=69
+y=543
+width=48
+height=12
+layer=com_5
+textfont=p11_full
+text=X Ticket(s)
+textlineheight=12
+colour=0xbf751d
+
+// 779:98
+[com_98]
+type=text
+x=203
+y=527
+width=80
+height=14
+layer=com_5
+textfont=p12_full
+text=Fire
+textshadow=yes
+colour=0xff981f
+
+// 779:99
+[com_99]
+type=text
+x=207
+y=543
+width=48
+height=12
+layer=com_5
+textfont=p11_full
+text=X Ticket(s)
+textlineheight=12
+colour=0xbf751d
+
+// 779:100
+[com_100]
+type=text
+x=203
+y=611
+width=80
+height=14
+layer=com_5
+textfont=p12_full
+text=Law
+textshadow=yes
+colour=0xff981f
+
+// 779:101
+[com_101]
+type=text
+x=207
+y=627
+width=48
+height=12
+layer=com_5
+textfont=p11_full
+text=X Ticket(s)
+textlineheight=12
+colour=0xbf751d
+
+// 779:102
+[com_102]
+type=text
+x=203
+y=485
+width=80
+height=14
+layer=com_5
+textfont=p12_full
+text=Mind
+textlineheight=12
+textshadow=yes
+colour=0xff981f
+
+// 779:103
+[com_103]
+type=text
+x=207
+y=501
+width=48
+height=12
+layer=com_5
+textfont=p11_full
+text=X Ticket(s)
+textlineheight=12
+colour=0xbf751d
+
+// 779:104
+[com_104]
+type=text
+x=65
+y=611
+width=80
+height=14
+layer=com_5
+textfont=p12_full
+text=Nature
+textlineheight=12
+textshadow=yes
+colour=0xff981f
+
+// 779:105
+[com_105]
+type=text
+x=69
+y=627
+width=48
+height=12
+layer=com_5
+textfont=p11_full
+text=X Ticket(s)
+textlineheight=12
+colour=0xbf751d
+
+// 779:106
+[com_106]
+type=text
+x=341
+y=569
+width=80
+height=14
+layer=com_5
+textfont=p12_full
+text=Astral
+textlineheight=12
+textshadow=yes
+colour=0xff981f
+
+// 779:107
+[com_107]
+type=text
+x=345
+y=585
+width=48
+height=12
+layer=com_5
+textfont=p11_full
+text=X Ticket(s)
+textlineheight=12
+colour=0xbf751d
+
+// 779:108
+[com_108]
+type=text
+x=341
+y=485
+width=80
+height=14
+layer=com_5
+textfont=p12_full
+text=Water
+textlineheight=12
+textshadow=yes
+colour=0xff981f
+
+// 779:109
+[com_109]
+type=text
+x=345
+y=501
+width=48
+height=12
+layer=com_5
+textfont=p11_full
+text=X Ticket(s)
+textlineheight=12
+colour=0xbf751d
+
+// 779:110
+[com_110]
+type=text
+x=65
+y=650
+width=80
+height=14
+layer=com_5
+textfont=p12_full
+text=Blood
+textlineheight=12
+textshadow=yes
+colour=0xff981f
+
+// 779:111
+[com_111]
+type=text
+x=69
+y=666
+width=48
+height=12
+layer=com_5
+textfont=p11_full
+text=X Ticket(s)
+textlineheight=12
+colour=0xbf751d
+
+// 779:112
+[com_112]
+type=text
+x=203
+y=650
+width=80
+height=14
+layer=com_5
+textfont=p12_full
+text=Runecrafting Guild
+textlineheight=12
+textshadow=yes
+colour=0xff981f
+
+// 779:113
+[com_113]
+type=text
+x=207
+y=666
+width=48
+height=12
+layer=com_5
+textfont=p11_full
+text=X Ticket(s)
+textlineheight=12
+colour=0xbf751d
+
+// 779:114
+[com_114]
+type=model
+x=143
+y=746
+width=27
+height=36
+layer=com_5
+model=model_41521
+modelorigin=1,0
+modelangle=0,0,309
+modelzoom=1550
+transmitop=1,2
+opbase=Runecrafting staff
+op1=Buy 1
+op2=Buy X
+
+// 779:115
+[com_115]
+type=model
+x=140
+y=799
+width=31
+height=32
+layer=com_5
+model=model_2349
+modelorigin=-1,1
+modelangle=419,0,1913
+modelzoom=672
+transmitop=1,2
+opbase=Rune essence
+op1=Buy 1
+op2=Buy X
+
+// 779:116
+[com_116]
+type=text
+x=173
+y=752
+width=80
+height=14
+layer=com_5
+textfont=p12_full
+text=Talisman staff
+textlineheight=12
+textshadow=yes
+colour=0xff981f
+
+// 779:117
+[com_117]
+type=text
+x=177
+y=768
+width=48
+height=12
+layer=com_5
+textfont=p11_full
+text=X Ticket(s)
+textlineheight=12
+colour=0xbf751d
+
+// 779:118
+[com_118]
+type=text
+x=176
+y=802
+width=80
+height=14
+layer=com_5
+textfont=p12_full
+text=Rune essence
+textlineheight=12
+textshadow=yes
+colour=0xff981f
+
+// 779:119
+[com_119]
+type=text
+x=180
+y=818
+width=48
+height=12
+layer=com_5
+textfont=p11_full
+text=X Ticket(s)
+textlineheight=12
+colour=0xbf751d
+
+// 779:120
+[com_120]
+type=layer
+x=26
+y=6
+width=462
+height=31
+
+// 779:121
+[com_121]
+type=text
+x=84
+y=16
+width=324
+height=15
+textfont=b12_full
+text=Runecrafting Guild Rewards
+textlineheight=12
+textalignh=centre
+textshadow=yes
+colour=0xff981f
+opbase=Teleport
+onload=script729
+onvartransmit=script729{varplayer_1278}
+
+// 779:122
+[com_122]
+type=text
+x=67
+y=7
+width=324
+height=15
+layer=com_5
+textfont=b12_full
+text=Talismans
+textlineheight=12
+textalignh=centre
+textshadow=yes
+colour=0xff981f
+opbase=Teleport
+
+// 779:123
+[com_123]
+type=text
+x=67
+y=227
+width=324
+height=15
+layer=com_5
+textfont=b12_full
+text=Runecrafting Robes, Hats and Gloves
+textlineheight=12
+textalignh=centre
+textshadow=yes
+colour=0xff981f
+opbase=Teleport
+
+// 779:124
+[com_124]
+type=text
+x=67
+y=450
+width=324
+height=15
+layer=com_5
+textfont=b12_full
+text=Tablets of Teleportation
+textlineheight=12
+textalignh=centre
+textshadow=yes
+colour=0xff981f
+opbase=Teleport
+
+// 779:125
+[com_125]
+type=text
+x=70
+y=716
+width=324
+height=15
+layer=com_5
+textfont=b12_full
+text=Miscellaneous
+textlineheight=12
+textalignh=centre
+textshadow=yes
+colour=0xff981f
+opbase=Teleport
+
+// 779:126
+[com_126]
+type=graphic
+x=3
+y=2
+width=182
+height=58
+layer=com_163
+graphic=tradebacking
+colour=0x000000
+
+// 779:127
+[com_127]
+type=graphic
+x=475
+y=13
+width=16
+height=16
+graphic="v2_stone_close_button,0"
+colour=0x000000
+transmitop=1
+op1=Close
+onmouseover=graphic_swapper(rcguild_rewards:com_127, "v2_stone_close_button,1")
+onmouseleave=graphic_swapper(rcguild_rewards:com_127, "v2_stone_close_button,0")
+onop=closebutton_click
+
+// 779:128
+[com_128]
+type=graphic
+x=2
+y=29
+width=32
+height=32
+layer=com_163
+graphic="v2_stone_borders,6"
+colour=0x000000
+
+// 779:129
+[com_129]
+type=graphic
+x=155
+y=2
+width=32
+height=32
+layer=com_163
+graphic="v2_stone_borders,5"
+colour=0x000000
+
+// 779:130
+[com_130]
+type=graphic
+x=2
+y=2
+width=32
+height=32
+layer=com_163
+graphic="v2_stone_borders,4"
+colour=0x000000
+
+// 779:131
+[com_131]
+type=graphic
+x=155
+y=29
+width=32
+height=32
+layer=com_163
+graphic="v2_stone_borders,7"
+colour=0x000000
+
+// 779:132
+[com_132]
+type=text
+x=55
+y=9
+width=81
+height=20
+layer=com_163
+textfont=p12_full
+text=Confirm:
+textlineheight=12
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0x969696
+
+// 779:133
+[com_133]
+type=graphic
+x=33
+y=41
+width=129
+height=45
+layer=com_163
+graphic="v2_stone_borders,2"
+tiling=yes
+colour=0x000000
+
+// 779:134
+[com_134]
+type=graphic
+x=26
+y=-11
+width=135
+height=25
+layer=com_163
+graphic="v2_stone_borders,0"
+tiling=yes
+colour=0x000000
+
+// 779:135
+[com_135]
+type=text
+x=55
+y=19
+width=81
+height=28
+layer=com_163
+textfont=p11_full
+textlineheight=12
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xff981f
+
+// 779:136
+[com_136]
+type=text
+x=55
+y=40
+width=81
+height=12
+layer=com_163
+textfont=p11_full
+textlineheight=12
+textalignh=centre
+textalignv=centre
+textshadow=yes
+colour=0xff981f
+
+// 779:137
+[com_137]
+type=graphic
+x=4
+y=3
+width=32
+height=32
+graphic="v2_stone_borders,4"
+colour=0x000000
+
+// 779:138
+[com_138]
+type=graphic
+x=473
+y=3
+width=32
+height=32
+graphic="v2_stone_borders,5"
+colour=0x000000
+
+// 779:139
+[com_139]
+type=graphic
+x=34
+y=-10
+width=448
+height=33
+graphic="v2_stone_borders,0"
+tiling=yes
+colour=0x000000
+
+// 779:140
+[com_140]
+type=graphic
+x=4
+y=22
+width=32
+height=32
+graphic="v2_stone_borders,9"
+colour=0x000000
+
+// 779:141
+[com_141]
+type=graphic
+x=34
+y=248
+width=448
+height=33
+graphic="v2_stone_borders,2"
+tiling=yes
+colour=0x000000
+
+// 779:142
+[com_142]
+type=graphic
+x=15
+y=20
+width=482
+height=31
+graphic="v2_stone_borders,0"
+tiling=yes
+colour=0x000000
+
+// 779:143
+[com_143]
+type=graphic
+x=4
+y=236
+width=32
+height=32
+graphic="v2_stone_borders,6"
+colour=0x000000
+
+// 779:144
+[com_144]
+type=graphic
+x=473
+y=236
+width=32
+height=32
+graphic="v2_stone_borders,7"
+colour=0x000000
+
+// 779:145
+[com_145]
+type=graphic
+x=473
+y=22
+width=32
+height=32
+graphic="v2_stone_borders,10"
+colour=0x000000
+
+// 779:146
+[com_146]
+type=rectangle
+x=60
+y=4
+width=339
+height=1
+layer=com_5
+colour=0xff6600
+fill=yes
+trans=200
+
+// 779:147
+[com_147]
+type=rectangle
+x=60
+y=4
+width=337
+height=3
+layer=com_5
+colour=0x000000
+fill=yes
+trans=200
+
+// 779:148
+[com_148]
+type=rectangle
+x=60
+y=23
+width=339
+height=1
+layer=com_5
+colour=0xff6600
+fill=yes
+trans=200
+
+// 779:149
+[com_149]
+type=rectangle
+x=60
+y=23
+width=337
+height=3
+layer=com_5
+colour=0x000000
+fill=yes
+trans=200
+
+// 779:150
+[com_150]
+type=rectangle
+x=60
+y=224
+width=339
+height=1
+layer=com_5
+colour=0xff6600
+fill=yes
+trans=200
+
+// 779:151
+[com_151]
+type=rectangle
+x=60
+y=224
+width=337
+height=3
+layer=com_5
+colour=0x000000
+fill=yes
+trans=200
+
+// 779:152
+[com_152]
+type=rectangle
+x=60
+y=243
+width=339
+height=1
+layer=com_5
+colour=0xff6600
+fill=yes
+trans=200
+
+// 779:153
+[com_153]
+type=rectangle
+x=60
+y=243
+width=337
+height=3
+layer=com_5
+colour=0x000000
+fill=yes
+trans=200
+
+// 779:154
+[com_154]
+type=rectangle
+x=60
+y=448
+width=339
+height=1
+layer=com_5
+colour=0xff6600
+fill=yes
+trans=200
+
+// 779:155
+[com_155]
+type=rectangle
+x=60
+y=448
+width=337
+height=3
+layer=com_5
+colour=0x000000
+fill=yes
+trans=200
+
+// 779:156
+[com_156]
+type=rectangle
+x=60
+y=467
+width=339
+height=1
+layer=com_5
+colour=0xff6600
+fill=yes
+trans=200
+
+// 779:157
+[com_157]
+type=rectangle
+x=60
+y=467
+width=337
+height=3
+layer=com_5
+colour=0x000000
+fill=yes
+trans=200
+
+// 779:158
+[com_158]
+type=rectangle
+x=63
+y=713
+width=339
+height=1
+layer=com_5
+colour=0xff6600
+fill=yes
+trans=200
+
+// 779:159
+[com_159]
+type=rectangle
+x=63
+y=713
+width=337
+height=3
+layer=com_5
+colour=0x000000
+fill=yes
+trans=200
+
+// 779:160
+[com_160]
+type=rectangle
+x=63
+y=732
+width=339
+height=1
+layer=com_5
+colour=0xff6600
+fill=yes
+trans=200
+
+// 779:161
+[com_161]
+type=rectangle
+x=63
+y=732
+width=337
+height=3
+layer=com_5
+colour=0x000000
+fill=yes
+trans=200
+
+// 779:162
+[com_162]
+type=layer
+x=481
+y=40
+width=16
+height=220
+onload=scrollbar_vertical_graphics(event_com, rcguild_rewards:com_5, "scrollbar_dragger_v2,3", "scrollbar_dragger_v2,0", "scrollbar_dragger_v2,1", "scrollbar_dragger_v2,2", "scrollbar_v2,0", "scrollbar_v2,1")
+
+// 779:163
+[com_163]
+type=layer
+x=160
+y=269
+width=190
+height=61
+transmitop=1
+op1=Confirm

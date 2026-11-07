@@ -1,0 +1,8 @@
+// 4351
+[clientscript,script4351](component $component0)
+if (%varplayerbit_9139 = %varplayer_2128) {
+    %varplayerbit_9139 = 0;
+} else {
+    %varplayerbit_9139 = %varplayer_2128;
+}
+~script4353($component0);

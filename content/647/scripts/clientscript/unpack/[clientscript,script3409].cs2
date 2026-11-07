@@ -1,0 +1,7 @@
+// 3409
+[clientscript,script3409](component $component0)
+def_string $string0 = "Access Forums";
+~script3408($component0, $string0);
+if_setsize(stringwidth($string0, p12_full), if_getheight($component0), ^setsize_abs, ^setsize_abs, $component0);
+if_settext("<u=64c8fa><$string0></u>", $component0);
+if_setonop("script3410", $component0);

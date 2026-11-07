@@ -1,8 +1,8 @@
+// 1526
 [proc,mapsquare_setactivemenu]()(int)
-def_int $int = 0;
-$int = calc(%varbit_5706 + %varbit_5707 + %varbit_5723 + %varbit_5710 + %varbit_5711 + %varbit_5712 + %varbit_5713 + %varbit_5714 + %varbit_5715 + %varbit_5716 + %varbit_5717);
-if (%varbit_5709 = 3) {
-    $int = calc($int + 1);
+def_int $int0 = 0;
+$int0 = calc(%varplayerbit_5706 + %varplayerbit_5707 + %varplayerbit_5723 + %varplayerbit_5710 + %varplayerbit_5711 + %varplayerbit_5712 + %varplayerbit_5713 + %varplayerbit_5714 + %varplayerbit_5715 + %varplayerbit_5716 + %varplayerbit_5717);
+if (%varplayerbit_5709 = 3) {
+    $int0 = calc($int0 + 1);
 }
-return($int);
-return(0);
+return($int0);

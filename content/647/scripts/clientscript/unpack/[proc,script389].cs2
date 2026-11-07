@@ -1,0 +1,33 @@
+// 389
+[proc,script389]
+cc_deleteall(playerdesign4:com_45);
+def_int $int0 = if_getwidth(playerdesign4:com_45);
+def_int $int1 = enum_getoutputcount(enum_748);
+def_int $int2 = calc(($int0 - 22) / $int1);
+def_int $int3 = calc(($int0 - $int1 * $int2) / 2 + 1);
+def_int $int4 = calc($int1 + 6);
+def_int $int5 = 0;
+def_int $int6 = -1;
+def_int $int7 = -1;
+while ($int5 < $int1) {
+    cc_create(playerdesign4:com_45, ^iftype_rectangle, $int5);
+    cc_setsize(calc($int2 - 2), 26, ^setsize_abs, ^setsize_minus);
+    cc_setposition(calc($int3 + $int5 * $int2), 5, ^setpos_abs_left, ^setpos_abs_bottom);
+    cc_setfill(true);
+    cc_setcolour(enum(int, int, enum_746, $int5));
+    cc_setop(1, enum(int, string, enum_747, $int5));
+    $int6 = enum(int, int, enum_748, $int5);
+    if (%varclient_1019 = $int6) {
+        $int7 = $int5;
+    } else {
+        cc_setonop("playerdesign4_colourbutton(event_op, $int6, 4)");
+        cc_setonmouseover("playerdesign4_colourhighlight(event_com, event_com, event_comsubid, 0xd5b970, 0xa68852, 1, $int4)");
+        cc_setonmouseleave("script377(event_com, $int4)");
+    }
+    $int5 = calc($int5 + 1);
+}
+if ($int7 ! -1) {
+    ~playerdesign4_colourhighlight(playerdesign4:com_45, playerdesign4:com_45, $int7, 0x96bbe2, 0x2c6592, 1, $int1);
+} else {
+    ~playerdesign4_colourhighlight(playerdesign4:com_45, null, -1, ^black, ^black, 1, $int1);
+}

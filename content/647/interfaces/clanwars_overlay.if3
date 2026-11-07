@@ -1,0 +1,326 @@
+// 265:0
+[com_0]
+type=layer
+x=5
+y=5
+width=256
+height=98
+xmode=abs_right
+onload=clanwars_overlay_status_init(event_com, clanwars_overlay:com_1, clanwars_overlay:com_2, clanwars_overlay:com_3, clanwars_overlay:com_4, clanwars_overlay:com_5, clanwars_overlay:com_6, clanwars_overlay:com_7, clanwars_overlay:com_8, clanwars_overlay:com_9, clanwars_overlay:com_10, clanwars_overlay:com_11, clanwars_overlay:com_12, clanwars_overlay:com_13, clanwars_overlay:com_14, clanwars_overlay:com_15, clanwars_overlay:com_16)
+
+// 265:1
+[com_1]
+type=graphic
+width=256
+height=98
+layer=com_0
+graphic=tradebacking
+tiling=yes
+trans=125
+colour=0x000000
+
+// 265:2
+[com_2]
+type=line
+x=-567
+y=-244
+height=53
+layer=com_0
+linewid=2
+colour=0x000000
+
+// 265:3
+[com_3]
+type=text
+x=4
+y=4
+width=100
+height=15
+layer=com_0
+textfont=p11_full
+textshadow=yes
+colour=0xb17a37
+
+// 265:4
+[com_4]
+type=text
+x=4
+y=19
+width=100
+height=15
+layer=com_0
+textfont=p11_full
+text=Players:
+textshadow=yes
+colour=0xb17a37
+
+// 265:5
+[com_5]
+type=text
+x=4
+y=19
+width=100
+height=15
+layer=com_0
+textfont=p11_full
+textalignh=right
+textshadow=yes
+colour=0xff981f
+
+// 265:6
+[com_6]
+type=text
+x=4
+y=34
+width=100
+height=12
+layer=com_0
+textfont=p11_full
+text=Kills:
+textshadow=yes
+colour=0xb17a37
+
+// 265:7
+[com_7]
+type=text
+x=4
+y=34
+width=100
+height=12
+layer=com_0
+textfont=p11_full
+textalignh=right
+textshadow=yes
+colour=0xff981f
+
+// 265:8
+[com_8]
+type=text
+x=4
+y=46
+width=100
+height=15
+layer=com_0
+textfont=p11_full
+textalignh=right
+textshadow=yes
+colour=0xb17a37
+
+// 265:9
+[com_9]
+type=text
+x=152
+y=4
+width=100
+height=15
+layer=com_0
+textfont=p11_full
+text=Opposing clan:
+textshadow=yes
+colour=0xb17a37
+
+// 265:10
+[com_10]
+type=text
+x=152
+y=19
+width=100
+height=15
+layer=com_0
+textfont=p11_full
+text=Players:
+textshadow=yes
+colour=0xb17a37
+
+// 265:11
+[com_11]
+type=text
+x=152
+y=19
+width=100
+height=15
+layer=com_0
+textfont=p11_full
+textalignh=right
+textshadow=yes
+colour=0xff981f
+
+// 265:12
+[com_12]
+type=text
+x=152
+y=34
+width=100
+height=12
+layer=com_0
+textfont=p11_full
+text=Kills:
+textshadow=yes
+colour=0xb17a37
+
+// 265:13
+[com_13]
+type=text
+x=152
+y=34
+width=100
+height=12
+layer=com_0
+textfont=p11_full
+textalignh=right
+textshadow=yes
+colour=0xff981f
+
+// 265:14
+[com_14]
+type=text
+x=152
+y=46
+width=100
+height=15
+layer=com_0
+textfont=p11_full
+textalignh=right
+textshadow=yes
+colour=0xb17a37
+
+// 265:15
+[com_15]
+type=text
+x=4
+y=64
+width=248
+height=15
+layer=com_0
+textfont=p11_full
+textalignh=centre
+textshadow=yes
+colour=0xb17a37
+
+// 265:16
+[com_16]
+type=text
+x=4
+y=79
+width=248
+height=15
+layer=com_0
+textfont=p11_full
+textalignh=centre
+textshadow=yes
+colour=0xff981f
+
+// 265:17
+[com_17]
+type=layer
+x=5
+width=64
+height=72
+xmode=abs_right
+ymode=abs_centre
+onload=clanwars_overlay_rules(event_com, clanwars_overlay:com_18, clanwars_overlay:com_19, clanwars_overlay:com_20, clanwars_overlay:com_21, 17367040)
+onvartransmit=clanwars_overlay_rules(event_com, clanwars_overlay:com_18, clanwars_overlay:com_19, clanwars_overlay:com_20, clanwars_overlay:com_21, 17367040){varplayer_1305}
+
+// 265:18
+[com_18]
+type=graphic
+widthmode=minus
+heightmode=minus
+xmode=abs_centre
+ymode=abs_centre
+layer=com_17
+tiling=yes
+trans=125
+colour=0x000000
+
+// 265:19
+[com_19]
+type=graphic
+y=15
+width=32
+height=32
+xmode=abs_centre
+layer=com_17
+graphic="options_icons,18"
+colour=0x000000
+
+// 265:20
+[com_20]
+type=text
+y=3
+height=13
+widthmode=minus
+xmode=abs_centre
+layer=com_17
+textfont=p11_full
+text=On death:
+textalignh=centre
+textshadow=yes
+colour=0x000000
+
+// 265:21
+[com_21]
+type=text
+y=46
+height=23
+widthmode=minus
+layer=com_17
+textfont=p11_full
+textalignh=centre
+textshadow=yes
+colour=0x000000
+
+// 265:22
+[com_22]
+type=layer
+x=5
+y=-728
+width=75
+height=50
+widthmode=minus
+ymode=proportion_centre
+onload=script1807(event_com, clanwars_overlay:com_24, clanwars_overlay:com_25)
+
+// 265:23
+[com_23]
+type=graphic
+y=1
+width=13
+height=13
+layer=com_22
+graphic="coppa_mouth_button,2"
+colour=0x000000
+transmitop=1,2
+opbase=<ff9040>Caller</col>
+op1=Set
+op2=Clear
+onop=meslayer_mode12(event_op)
+
+// 265:24
+[com_24]
+type=text
+x=15
+width=100
+height=15
+layer=com_22
+textfont=b12_full
+textshadow=yes
+colour=0x00ffff
+transmitop=1,2
+opbase=<ff9040>Caller</col>
+op1=Set
+op2=Clear
+onop=meslayer_mode12(event_op)
+
+// 265:25
+[com_25]
+type=text
+height=15
+widthmode=minus
+heightmode=minus
+ymode=abs_bottom
+layer=com_22
+textfont=p12_full
+textalignv=centre
+textshadow=yes
+colour=0x00ffff

@@ -1,7 +1,0 @@
-[proc,clientscript_2750](int $int)
-if_settext(tostring(calc(2009 - $int)), dob_confirm_login:com62);
-if_sethide(true, dob_confirm_login:com110);
-if_sethide(true, dob_confirm_login:com111);
-if_sethide(true, dob_confirm_login:com101);
-if_sethide(true, dob_confirm_login:com28);
-if_sethide(false, dob_confirm_login:com61);

@@ -1,0 +1,150 @@
+// 441:0
+[com_0]
+type=rectangle
+x=4
+y=33
+width=16647
+height=19628
+widthmode=proportion
+heightmode=proportion
+xmode=abs_centre
+ymode=abs_centre
+colour=0x000000
+fill=yes
+trans=64
+
+// 441:1
+[com_1]
+type=model
+x=4
+y=-7
+width=243
+height=299
+xmode=abs_centre
+ymode=abs_centre
+model=model_17345
+modelorigin=-13,3
+modelangle=456,2041,0
+modelzoom=594
+
+// 441:2
+[com_2]
+type=model
+x=74
+y=106
+width=71
+height=117
+xmode=abs_centre
+ymode=abs_centre
+model=model_17344
+modelorigin=-83,-110
+modelangle=456,2041,0
+modelzoom=594
+
+// 441:3
+[com_3]
+type=text
+x=-4
+y=-92
+width=198
+height=17
+xmode=abs_centre
+ymode=abs_centre
+textfont=b12_full
+text=Certificate of Qualification
+textalignh=centre
+colour=0x000000
+
+// 441:4
+[com_4]
+type=text
+x=-3
+y=-56
+width=197
+height=44
+xmode=abs_centre
+ymode=abs_centre
+textfont=q8_full
+text=Earth Sciences Level 2<br>This is to certify that
+textalignh=centre
+colour=0x000000
+
+// 441:5
+[com_5]
+type=text
+x=3
+y=-7
+width=171
+height=34
+xmode=abs_centre
+ymode=abs_centre
+textfont=q8_full
+text=<name>
+textalignh=centre
+textalignv=centre
+colour=0x000000
+transmitop=10
+op10= 
+onvarcstrtransmit=script1577(event_com, qip_digsite_cert_lv2:com_10){varclient_1729}
+
+// 441:6
+[com_6]
+type=text
+x=2
+y=34
+width=201
+height=32
+xmode=abs_centre
+ymode=abs_centre
+textfont=q8_full
+text=has passed the Level 2<br>Earth Sciences exam.
+textalignh=centre
+colour=0x000000
+
+// 441:7
+[com_7]
+type=graphic
+x=240
+y=-151
+width=26
+height=23
+xmode=abs_centre
+ymode=abs_centre
+graphic="close_buttons,4"
+colour=0xffffffff
+
+// 441:8
+[com_8]
+type=graphic
+x=240
+y=-151
+width=26
+height=23
+xmode=abs_centre
+ymode=abs_centre
+graphic="close_buttons,5"
+colour=0xffffffff
+transmitop=1
+op1=Close
+onop=closebutton_click
+
+// 441:9
+[com_9]
+type=layer
+width=16391
+height=16391
+widthmode=proportion
+heightmode=proportion
+transmitop=10
+op10= 
+
+// 441:10
+[com_10]
+type=layer
+x=228
+y=150
+width=62
+height=19
+layer=com_9
+transmitop=10
+op10= 

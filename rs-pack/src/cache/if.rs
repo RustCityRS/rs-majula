@@ -4,6 +4,8 @@ use crate::types::{IfButtonType, IfComponentType};
 use rs_io::Packet;
 use rs_ver::STRING_TERMINATOR;
 #[cfg(since_647)]
+use runec::clientscript::HookValue;
+#[cfg(since_647)]
 use std::array::from_fn;
 use std::collections::HashMap;
 #[cfg(before_647)]
@@ -235,7 +237,7 @@ pub struct IfTypeRaw {
     #[cfg(since_647)]
     pub target_leave_cursor: i32,
     #[cfg(since_647)]
-    pub hooks: [Option<Vec<HookArg>>; 20],
+    pub hooks: [Option<Vec<HookValue>>; 20],
     #[cfg(since_647)]
     pub transmit_lists: [Option<Vec<i32>>; 5],
 }
@@ -554,15 +556,93 @@ pub struct OpKey {
     pub mask: i8,
 }
 
+/// A component's hooks, in the order its bytes hold them.
 #[cfg(since_647)]
-#[derive(Debug, Clone)]
-pub enum HookArg {
-    Int(i32),
-    Str(String),
+pub const HOOK_NAMES: [&str; 20] = [
+    "onload",
+    "onmouseover",
+    "onmouseleave",
+    "ontargetleave",
+    "ontargetenter",
+    "onvartransmit",
+    "oninvtransmit",
+    "onstattransmit",
+    "ontimer",
+    "onop",
+    "onmouserepeat",
+    "onclick",
+    "onclickrepeat",
+    "onrelease",
+    "onhold",
+    "ondrag",
+    "ondragcomplete",
+    "onscrollwheel",
+    "onvarctransmit",
+    "onvarcstrtransmit",
+];
+
+/// The transmit list a hook goes with, and what that list holds.
+#[cfg(since_647)]
+pub const fn hook_transmit_list(hook: usize) -> Option<(usize, &'static str)> {
+    match hook {
+        5 => Some((0, "varp")),
+        6 => Some((1, "inv")),
+        7 => Some((2, "stat")),
+        18 => Some((3, "varc")),
+        19 => Some((4, "varcs")),
+        _ => None,
+    }
+}
+
+/// What a text or graphic component's colour is when it doesn't say.
+#[cfg(since_647)]
+pub const DEFAULT_COLOUR: i32 = 0xffffff;
+#[cfg(since_647)]
+pub const SIZE_MODES: [&str; 3] = ["abs", "minus", "proportion"];
+#[cfg(since_647)]
+pub const X_MODES: [&str; 6] = [
+    "abs_left",
+    "abs_centre",
+    "abs_right",
+    "proportion_left",
+    "proportion_centre",
+    "proportion_right",
+];
+#[cfg(since_647)]
+pub const Y_MODES: [&str; 6] = [
+    "abs_top",
+    "abs_centre",
+    "abs_bottom",
+    "proportion_top",
+    "proportion_centre",
+    "proportion_bottom",
+];
+#[cfg(since_647)]
+pub const TEXT_ALIGN_H: [&str; 3] = ["left", "centre", "right"];
+#[cfg(since_647)]
+pub const TEXT_ALIGN_V: [&str; 3] = ["top", "centre", "bottom"];
+/// What a component can target, by its bit in the target mask.
+#[cfg(since_647)]
+pub const TARGET_MASK: [&str; 7] = ["obj", "npc", "loc", "player", "heldobj", "com", "coord"];
+
+#[cfg(since_647)]
+pub fn mode_name(modes: &[&str], mode: u8) -> String {
+    modes
+        .get(mode as usize)
+        .map_or_else(|| format!("unknown_{mode}"), |name| (*name).to_owned())
 }
 
 #[cfg(since_647)]
-fn parse_hook(buf: &mut Packet) -> Option<Vec<HookArg>> {
+pub fn mode_value(modes: &[&str], name: &str) -> Option<u8> {
+    modes
+        .iter()
+        .position(|mode| *mode == name)
+        .map(|mode| mode as u8)
+        .or_else(|| name.strip_prefix("unknown_")?.parse().ok())
+}
+
+#[cfg(since_647)]
+fn parse_hook(buf: &mut Packet) -> Option<Vec<HookValue>> {
     let count = buf.g1();
     if count == 0 {
         return None;
@@ -571,9 +651,9 @@ fn parse_hook(buf: &mut Packet) -> Option<Vec<HookArg>> {
     for _ in 0..count {
         let is_str = buf.g1();
         if is_str == 0 {
-            args.push(HookArg::Int(buf.g4s()));
+            args.push(HookValue::Int(buf.g4s()));
         } else {
-            args.push(HookArg::Str(buf.gjstr(STRING_TERMINATOR)));
+            args.push(HookValue::String(buf.gjstr(STRING_TERMINATOR)));
         }
     }
     Some(args)

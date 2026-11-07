@@ -1,6 +1,0 @@
-[proc,clientscript_1375](component $component0, component $component1)
-if (if_gethide(worldmap:com47) = true) {
-    ~clientscript_1376(1, $component0, $component1);
-} else {
-    ~clientscript_1376(0, $component0, $component1);
-}

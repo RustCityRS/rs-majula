@@ -1,3 +1,4 @@
+// 2111
 [clientscript,macro_combilock_adjust](int $int0, int $int1, int $int2, component $component3, component $component4, component $component5, component $component6)
 if ($int0 ! 1) {
     return;
@@ -5,14 +6,14 @@ if ($int0 ! 1) {
 def_int $int7 = 0;
 def_int $int8 = 0;
 sound_synth(synth_4911, 1, 0);
-if ($int1 = true) {
-    $int7 = ~clientscript_686(calc((%varbit_693 + $int2) % 4), 4);
-    $int8 = %varbit_5851;
+if ($int1 = 1) {
+    $int7 = ~script686(calc((%varplayerbit_693 + $int2) % 4), 4);
+    $int8 = %varplayerbit_5851;
 } else if ($int1 = 2) {
-    $int7 = ~clientscript_686(calc((%varbit_694 + $int2) % 4), 4);
-    $int8 = %varbit_5852;
+    $int7 = ~script686(calc((%varplayerbit_694 + $int2) % 4), 4);
+    $int8 = %varplayerbit_5852;
 } else {
-    $int7 = ~clientscript_686(calc((%varbit_695 + $int2) % 4), 4);
-    $int8 = %varbit_5853;
+    $int7 = ~script686(calc((%varplayerbit_695 + $int2) % 4), 4);
+    $int8 = %varplayerbit_5853;
 }
 ~macro_combilock_update($component3, $component4, $component5, $component6, $int7, $int8);

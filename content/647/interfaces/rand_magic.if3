@@ -1,0 +1,1094 @@
+// 950:0
+[com_0]
+type=layer
+width=190
+height=231
+onvartransmit=script1120{varplayer_108}
+
+// 950:1
+[com_1]
+type=layer
+width=190
+height=261
+transmitop=10
+op10=  
+
+// 950:2
+[com_2]
+type=graphic
+x=6
+y=5
+width=20
+height=20
+ymode=abs_bottom
+layer=com_1
+graphic=graphic_1701
+colour=0xffffffff
+transmitop=1,10
+op1=Defensive Casting
+op10=  
+onmouseover=script1125(event_com)
+onmouseleave=script1126(event_com)
+onvartransmit=script1128(event_com){varplayer_439}
+onmouserepeat=script1127(event_com)
+
+// 950:3
+[com_3]
+type=graphic
+x=6
+y=5
+width=20
+height=20
+ymode=abs_bottom
+layer=com_1
+graphic=graphic_2191
+colour=0xffffffff
+transmitop=10
+op10=  
+
+// 950:4
+[com_4]
+type=layer
+width=190
+height=261
+transmitop=10
+op10= 
+
+// 950:5
+[com_5]
+type=layer
+width=190
+height=261
+transmitop=10
+op10= 
+
+// 950:6
+[com_6]
+type=layer
+width=190
+height=261
+transmitop=10
+op10= 
+
+// 950:7
+[com_7]
+type=graphic
+x=36
+y=5
+width=20
+height=20
+ymode=abs_bottom
+layer=com_6
+graphic=graphic_1701
+colour=0xffffffff
+transmitop=1,10
+op1=Filter
+op10= 
+onmouseover=script785(event_com)
+onmouseleave=script941(event_com)
+onvartransmit=script1118(event_com){varplayer_1376}
+onmouserepeat=script1117(event_com)
+
+// 950:8
+[com_8]
+type=graphic
+x=36
+y=5
+width=20
+height=20
+ymode=abs_bottom
+layer=com_6
+graphic=graphic_2192
+colour=0xffffffff
+transmitop=10
+op10= 
+
+// 950:9
+[com_9]
+type=graphic
+x=57
+y=5
+width=20
+height=20
+ymode=abs_bottom
+layer=com_6
+graphic=graphic_1701
+colour=0xffffffff
+transmitop=1,10
+op1=Filter
+op10= 
+onmouseover=script785(event_com)
+onmouseleave=script941(event_com)
+onvartransmit=script1118(event_com){varplayer_1376}
+onmouserepeat=script1117(event_com)
+
+// 950:10
+[com_10]
+type=graphic
+x=57
+y=5
+width=20
+height=20
+ymode=abs_bottom
+layer=com_6
+graphic=graphic_2195
+colour=0xffffffff
+transmitop=10
+op10= 
+
+// 950:11
+[com_11]
+type=graphic
+x=78
+y=5
+width=20
+height=20
+ymode=abs_bottom
+layer=com_6
+graphic=graphic_1701
+colour=0xffffffff
+transmitop=1,10
+op1=Filter
+op10= 
+onmouseover=script785(event_com)
+onmouseleave=script941(event_com)
+onvartransmit=script1118(event_com){varplayer_1376}
+onmouserepeat=script1117(event_com)
+
+// 950:12
+[com_12]
+type=graphic
+x=78
+y=5
+width=20
+height=20
+ymode=abs_bottom
+layer=com_6
+graphic=graphic_2193
+colour=0xffffffff
+transmitop=10
+op10= 
+
+// 950:13
+[com_13]
+type=graphic
+x=99
+y=5
+width=20
+height=20
+ymode=abs_bottom
+layer=com_6
+graphic=graphic_1701
+colour=0xffffffff
+transmitop=1,10
+op1=Filter
+op10= 
+onmouseover=script785(event_com)
+onmouseleave=script941(event_com)
+onvartransmit=script1118(event_com){varplayer_1376}
+onmouserepeat=script1117(event_com)
+
+// 950:14
+[com_14]
+type=graphic
+x=99
+y=5
+width=20
+height=20
+ymode=abs_bottom
+layer=com_6
+graphic=graphic_2194
+colour=0xffffffff
+transmitop=10
+op10= 
+
+// 950:15
+[com_15]
+type=graphic
+x=43
+y=5
+width=20
+height=20
+xmode=abs_right
+ymode=abs_bottom
+layer=com_5
+graphic=graphic_1701
+colour=0xffffffff
+transmitop=1,10
+op1=Sort
+op10=   
+onmouseleave=script2060(event_com)
+onvartransmit=script2057{varplayer_1376}
+onmouserepeat=script2061(event_com)
+onclick=script2058(0)
+
+// 950:16
+[com_16]
+type=graphic
+x=24
+y=5
+width=20
+height=20
+xmode=abs_right
+ymode=abs_bottom
+layer=com_5
+graphic=graphic_1701
+colour=0xffffffff
+transmitop=1,10
+op1=Sort
+op10=    
+onmouseleave=script2060(event_com)
+onmouserepeat=script2061(event_com)
+onclick=script2058(1)
+
+// 950:17
+[com_17]
+type=graphic
+x=5
+y=5
+width=20
+height=20
+xmode=abs_right
+ymode=abs_bottom
+layer=com_5
+graphic=graphic_1701
+colour=0xffffffff
+transmitop=1,10
+op1=Sort
+op10=    
+onmouseleave=script2060(event_com)
+onmouserepeat=script2061(event_com)
+onclick=script2058(2)
+
+// 950:18
+[com_18]
+type=graphic
+x=43
+y=5
+width=20
+height=20
+xmode=abs_right
+ymode=abs_bottom
+layer=com_5
+graphic=graphic_1704
+colour=0xffffffff
+transmitop=10
+op10=    
+
+// 950:19
+[com_19]
+type=graphic
+x=24
+y=5
+width=20
+height=20
+xmode=abs_right
+ymode=abs_bottom
+layer=com_5
+graphic=graphic_1705
+colour=0xffffffff
+transmitop=10
+op10=     
+
+// 950:20
+[com_20]
+type=graphic
+x=5
+y=5
+width=20
+height=20
+xmode=abs_right
+ymode=abs_bottom
+layer=com_5
+graphic=graphic_1706
+colour=0xffffffff
+transmitop=10
+op10=     
+
+// 950:21
+[com_21]
+type=graphic
+x=2
+y=216
+width=186
+height=32
+layer=com_4
+graphic="v2_stone_borders,23"
+colour=0xffffffff
+transmitop=10
+op10=  
+
+// 950:22
+[com_22]
+type=graphic
+x=16
+width=32
+height=30
+ymode=abs_bottom
+layer=com_4
+graphic="v2_stone_borders,24"
+colour=0xffffffff
+transmitop=10
+op10= 
+
+// 950:23
+[com_23]
+type=graphic
+x=50
+width=32
+height=30
+xmode=abs_right
+ymode=abs_bottom
+layer=com_4
+graphic="v2_stone_borders,24"
+colour=0xffffffff
+transmitop=10
+op10= 
+
+// 950:24
+[com_24]
+type=graphic
+x=13
+y=12
+width=24
+height=24
+layer=com_0
+graphic="magicon2,37"
+colour=0xffffffff
+transmitop=1
+op1=Cast
+onload=magic_init(event_com, rand_magic:com_73, "magicon2,37", "magicoff2,37", 0, "Dungeon Home Teleport", "Requires no runes. Warning: This spell takes a long time to cast and will be interrupted by combat.", null, 0, null, 0, null, 0, null, 0)
+
+// 950:25
+[com_25]
+type=graphic
+x=37
+y=12
+width=24
+height=24
+layer=com_0
+graphic="magicoff,0"
+colour=0xffffffff
+transmitop=6
+targetmask=npc,player
+op6=Autocast
+targetverb=Cast
+onload=magic_init(event_com, rand_magic:com_73, "magicon,0", "magicoff,0", 1, "Wind Strike", "A basic air missile", air_rune, 1, mind_rune, 1, null, 0, null, 0)
+
+// 950:26
+[com_26]
+type=graphic
+x=61
+y=12
+width=24
+height=24
+layer=com_0
+graphic="magicoff,1"
+colour=0xffffffff
+targetmask=npc,player
+targetverb=Cast
+onload=magic_init(event_com, rand_magic:com_73, "magicon,1", "magicoff,1", 3, "Confuse", "Reduces your opponent's Attack by 5%", water_rune, 3, earth_rune, 2, body_rune, 1, null, 0)
+
+// 950:27
+[com_27]
+type=graphic
+x=85
+y=12
+width=24
+height=24
+layer=com_0
+graphic="magicoff,2"
+colour=0xffffffff
+transmitop=6
+targetmask=npc,player
+op6=Autocast
+targetverb=Cast
+onload=magic_init(event_com, rand_magic:com_73, "magicon,2", "magicoff,2", 5, "Water Strike", "A basic water missile", water_rune, 1, air_rune, 1, mind_rune, 1, null, 0)
+
+// 950:28
+[com_28]
+type=graphic
+x=133
+y=12
+width=24
+height=24
+layer=com_0
+graphic="magicoff,4"
+colour=0xffffffff
+transmitop=6
+targetmask=npc,player
+op6=Autocast
+targetverb=Cast
+onload=magic_init(event_com, rand_magic:com_73, "magicon,4", "magicoff,4", 9, "Earth Strike", "A basic earth missile", earth_rune, 2, air_rune, 1, mind_rune, 1, null, 0)
+
+// 950:29
+[com_29]
+type=graphic
+x=157
+y=12
+width=24
+height=24
+layer=com_0
+graphic="magicoff,5"
+colour=0xffffffff
+targetmask=npc,player
+targetverb=Cast
+onload=magic_init(event_com, rand_magic:com_73, "magicon,5", "magicoff,5", 11, "Weaken", "Reduces your opponent's<br>Strength by 5%", water_rune, 3, earth_rune, 2, body_rune, 1, null, 0)
+
+// 950:30
+[com_30]
+type=graphic
+x=13
+y=36
+width=24
+height=24
+layer=com_0
+graphic="magicoff,6"
+colour=0xffffffff
+transmitop=6
+targetmask=npc,player
+op6=Autocast
+targetverb=Cast
+onload=magic_init(event_com, rand_magic:com_73, "magicon,6", "magicoff,6", 13, "Fire Strike", "A basic fire missile", fire_rune, 3, air_rune, 2, mind_rune, 1, null, 0)
+
+// 950:31
+[com_31]
+type=graphic
+x=37
+y=36
+width=24
+height=24
+layer=com_0
+graphic="magicoff,7"
+colour=0xffffffff
+transmitop=1
+op1=Cast
+onload=magic_init(event_com, rand_magic:com_73, "magicon,7", "magicoff,7", 15, "Bones to Bananas", "Changes all held bones into bananas", earth_rune, 2, water_rune, 2, nature_rune, 1, null, 0)
+onvartransmit=magic_init(event_com, rand_magic:com_73, "magicon,7", "magicoff,7", 15, "Bones to Bananas", "Changes all held bones into bananas", earth_rune, 2, water_rune, 2, nature_rune, 1, null, 0){varplayer_1092}
+
+// 950:32
+[com_32]
+type=graphic
+x=61
+y=36
+width=24
+height=24
+layer=com_0
+graphic="magicoff,8"
+colour=0xffffffff
+transmitop=6
+targetmask=npc,player
+op6=Autocast
+targetverb=Cast
+onload=magic_init(event_com, rand_magic:com_73, "magicon,8", "magicoff,8", 17, "Wind Bolt", "A low-level air missile", air_rune, 2, chaos_rune, 1, null, 0, null, 0)
+
+// 950:33
+[com_33]
+type=graphic
+x=85
+y=36
+width=24
+height=24
+layer=com_0
+graphic="magicoff,9"
+colour=0xffffffff
+targetmask=npc,player
+targetverb=Cast
+onload=magic_init(event_com, rand_magic:com_73, "magicon,9", "magicoff,9", 19, "Curse", "Reduces your opponent's<br>Defence by 5%", water_rune, 2, earth_rune, 3, body_rune, 1, null, 0)
+
+// 950:34
+[com_34]
+type=graphic
+x=109
+y=36
+width=24
+height=24
+layer=com_0
+graphic="magicoff2,0"
+colour=0xffffffff
+targetmask=npc,player
+targetverb=Cast
+onload=magic_init(event_com, rand_magic:com_73, "magicon2,0", "magicoff2,0", 20, "Bind", "Holds your opponent for 5 seconds", earth_rune, 3, water_rune, 3, nature_rune, 2, null, 0)
+
+// 950:35
+[com_35]
+type=graphic
+x=133
+y=36
+width=24
+height=24
+layer=com_0
+graphic="magicoff,10"
+colour=0xffffffff
+targetmask=com
+targetverb=Cast
+onload=magic_init(event_com, rand_magic:com_73, "magicon,10", "magicoff,10", 21, "Low-level Alchemy", "Converts an item into gold", fire_rune, 3, nature_rune, 1, null, 0, null, 0)
+onvartransmit=magic_init(event_com, rand_magic:com_73, "magicon,10", "magicoff,10", 21, "Low-level Alchemy", "Converts an item into gold", fire_rune, 3, nature_rune, 1, null, 0, null, 0){varplayer_1092}
+
+// 950:36
+[com_36]
+type=graphic
+x=157
+y=36
+width=24
+height=24
+layer=com_0
+graphic="magicoff,11"
+colour=0xffffffff
+transmitop=6
+targetmask=npc,player
+op6=Autocast
+targetverb=Cast
+onload=magic_init(event_com, rand_magic:com_73, "magicon,11", "magicoff,11", 23, "Water Bolt", "A low-level water missile", water_rune, 2, air_rune, 2, chaos_rune, 1, null, 0)
+
+// 950:37
+[com_37]
+type=graphic
+x=37
+y=60
+width=24
+height=24
+layer=com_0
+graphic="magicoff,14"
+colour=0xffffffff
+transmitop=6
+targetmask=npc,player
+op6=Autocast
+targetverb=Cast
+onload=magic_init(event_com, rand_magic:com_73, "magicon,14", "magicoff,14", 29, "Earth Bolt", "A low-level earth missile", earth_rune, 3, air_rune, 2, chaos_rune, 1, null, 0)
+
+// 950:38
+[com_38]
+type=graphic
+x=61
+y=60
+width=24
+height=24
+layer=com_0
+graphic="magicoff2,51"
+colour=0xffffffff
+transmitop=1,2,10
+op1=Cast
+op2=Quick-cast
+op10= 
+onload=magic_init(event_com, rand_magic:com_73, "magicon2,51", "magicoff2,51", 32, "Create Gatestone", "Creates a stone you can teleport to", cosmic_rune, 3, null, 0, null, 0, null, 0)
+
+// 950:39
+[com_39]
+type=graphic
+x=85
+y=60
+width=24
+height=24
+layer=com_0
+graphic="magicoff2,50"
+colour=0xffffffff
+transmitop=1,10
+op1=Cast
+op10=  
+onload=radiocurrent(event_com, rand_magic:com_73, "magicon2,50", "magicoff2,50", 32, "Gatestone Teleport", "Teleports you to your active gatestone", null, 0, null, 0, null, 0, null, 0)
+
+// 950:40
+[com_40]
+type=graphic
+x=37
+y=84
+width=24
+height=24
+layer=com_0
+graphic="magicoff2,50"
+colour=0xffffffff
+transmitop=1,10
+op1=Cast
+op10=   
+onload=magic_init(event_com, rand_magic:com_73, "magicon2,50", "magicoff2,50", 64, "Group Gatestone Teleport", "Teleports you to your party gatestone", law_rune, 3, null, 0, null, 0, null, 0)
+
+// 950:41
+[com_41]
+type=graphic
+x=109
+y=60
+width=24
+height=24
+layer=com_0
+graphic="magicoff,17"
+colour=0xffffffff
+transmitop=6
+targetmask=npc,player
+op6=Autocast
+targetverb=Cast
+onload=magic_init(event_com, rand_magic:com_73, "magicon,17", "magicoff,17", 35, "Fire Bolt", "A low-level fire missile", fire_rune, 4, air_rune, 3, chaos_rune, 1, null, 0)
+
+// 950:42
+[com_42]
+type=graphic
+x=133
+y=60
+width=24
+height=24
+layer=com_0
+graphic="magicoff,20"
+colour=0xffffffff
+transmitop=6
+targetmask=npc,player
+op6=Autocast
+targetverb=Cast
+onload=magic_init(event_com, rand_magic:com_73, "magicon,20", "magicoff,20", 41, "Wind Blast", "A medium-level air missile", air_rune, 3, death_rune, 1, null, 0, null, 0)
+
+// 950:43
+[com_43]
+type=graphic
+x=13
+y=84
+width=24
+height=24
+layer=com_0
+graphic="magicoff,23"
+colour=0xffffffff
+transmitop=6
+targetmask=npc,player
+op6=Autocast
+targetverb=Cast
+onload=magic_init(event_com, rand_magic:com_73, "magicon,23", "magicoff,23", 47, "Water Blast", "A medium-level water missile", water_rune, 3, air_rune, 3, death_rune, 1, null, 0)
+
+// 950:44
+[com_44]
+type=graphic
+x=61
+y=84
+width=24
+height=24
+layer=com_0
+graphic="magicoff2,1"
+colour=0xffffffff
+targetmask=npc,player
+targetverb=Cast
+onload=magic_init(event_com, rand_magic:com_73, "magicon2,1", "magicoff2,1", 50, "Snare", "Holds your opponent for 10 seconds", earth_rune, 4, water_rune, 4, nature_rune, 3, null, 0)
+
+// 950:45
+[com_45]
+type=graphic
+x=85
+y=84
+width=24
+height=24
+layer=com_0
+graphic="magicoff,25"
+colour=0xffffffff
+transmitop=6
+targetmask=npc,player
+op6=Autocast
+targetverb=Cast
+onload=magic_init(event_com, rand_magic:com_73, "magicon,25", "magicoff,25", 53, "Earth Blast", "A medium-level earth missile", earth_rune, 4, air_rune, 3, death_rune, 1, null, 0)
+
+// 950:46
+[com_46]
+type=graphic
+x=109
+y=84
+width=24
+height=24
+layer=com_0
+graphic="magicoff,26"
+colour=0xffffffff
+targetmask=com
+targetverb=Cast
+onload=magic_init(event_com, rand_magic:com_73, "magicon,26", "magicoff,26", 55, "High-level Alchemy", "Converts an item into more gold", fire_rune, 5, nature_rune, 1, null, 0, null, 0)
+onvartransmit=magic_init(event_com, rand_magic:com_73, "magicon,26", "magicoff,26", 55, "High-level Alchemy", "Converts an item into more gold", fire_rune, 5, nature_rune, 1, null, 0, null, 0){varplayer_1092}
+
+// 950:47
+[com_47]
+type=graphic
+x=157
+y=84
+width=24
+height=24
+layer=com_0
+graphic="magicoff,29"
+colour=0xffffffff
+transmitop=6
+targetmask=npc,player
+op6=Autocast
+targetverb=Cast
+onload=magic_init(event_com, rand_magic:com_73, "magicon,29", "magicoff,29", 59, "Fire Blast", "A medium-level fire missile", fire_rune, 5, air_rune, 4, death_rune, 1, null, 0)
+
+// 950:48
+[com_48]
+type=graphic
+x=13
+y=108
+width=24
+height=24
+layer=com_0
+graphic="magicoff,31"
+colour=0xffffffff
+transmitop=6
+targetmask=npc,player
+op6=Autocast
+targetverb=Cast
+onload=magic_init(event_com, rand_magic:com_73, "magicon,31", "magicoff,31", 62, "Wind Wave", "A high-level air missile", air_rune, 5, blood_rune, 1, null, 0, null, 0)
+
+// 950:49
+[com_49]
+type=graphic
+x=37
+y=108
+width=24
+height=24
+layer=com_0
+graphic="magicoff,33"
+colour=0xffffffff
+transmitop=6
+targetmask=npc,player
+op6=Autocast
+targetverb=Cast
+onload=magic_init(event_com, rand_magic:com_73, "magicon,33", "magicoff,33", 65, "Water Wave", "A high-level water missile", water_rune, 7, air_rune, 5, blood_rune, 1, null, 0)
+
+// 950:50
+[com_50]
+type=graphic
+x=61
+y=108
+width=24
+height=24
+layer=com_0
+graphic="magicoff,41"
+colour=0xffffffff
+targetmask=npc,player
+targetverb=Cast
+onload=magic_init(event_com, rand_magic:com_73, "magicon,41", "magicoff,41", 66, "Vulnerability", "Reduces your opponent's Defence by 10%", earth_rune, 5, water_rune, 5, soul_rune, 1, null, 0)
+
+// 950:51
+[com_51]
+type=graphic
+x=85
+y=108
+width=24
+height=24
+layer=com_0
+graphic="lunar_magic_off,34"
+colour=0xffffffff
+transmitop=10
+targetmask=npc,player
+op10= 
+targetverb=Cast
+onload=magic_init(event_com, rand_magic:com_73, "lunar_magic_on,34", "lunar_magic_off,34", 66, "Monster Examine", "Detect the combat statistics of a monster", astral_rune, 1, cosmic_rune, 1, mind_rune, 1, null, 0)
+onvartransmit=magic_init(event_com, rand_magic:com_73, "lunar_magic_on,34", "lunar_magic_off,34", 66, "Monster Examine", "Detect the combat statistics of a monster", astral_rune, 1, cosmic_rune, 1, mind_rune, 1, null, 0){varplayer_1092}
+
+// 950:52
+[com_52]
+type=graphic
+x=109
+y=108
+width=24
+height=24
+layer=com_0
+graphic="lunar_magic_off,16"
+colour=0xffffffff
+transmitop=10
+targetmask=npc,player
+op10= 
+targetverb=Cast
+onload=magic_init(event_com, rand_magic:com_73, "lunar_magic_on,16", "lunar_magic_off,16", 68, "Cure Other", "Cure poisoned and diseased players", astral_rune, 1, law_rune, 1, earth_rune, 10, null, 0)
+onvartransmit=magic_init(event_com, rand_magic:com_73, "lunar_magic_on,16", "lunar_magic_off,16", 68, "Cure Other", "Cure poisoned and diseased players", astral_rune, 1, law_rune, 1, earth_rune, 10, null, 0){varplayer_1092}
+
+// 950:53
+[com_53]
+type=graphic
+x=133
+y=108
+width=24
+height=24
+layer=com_0
+graphic="lunar_magic_off,35"
+colour=0xffffffff
+transmitop=1,10
+op1=Cast
+op10= 
+onload=magic_init(event_com, rand_magic:com_73, "lunar_magic_on,35", "lunar_magic_off,35", 68, "Humidify", "Fills certain vessels with water", astral_rune, 1, water_rune, 3, fire_rune, 1, null, 0)
+onvartransmit=magic_init(event_com, rand_magic:com_73, "lunar_magic_on,35", "lunar_magic_off,35", 68, "Humidify", "Fills certain vessels with water", astral_rune, 1, water_rune, 3, fire_rune, 1, null, 0){varplayer_1092}
+
+// 950:54
+[com_54]
+type=graphic
+x=157
+y=108
+width=24
+height=24
+layer=com_0
+graphic="magicoff,36"
+colour=0xffffffff
+transmitop=6
+targetmask=npc,player
+op6=Autocast
+targetverb=Cast
+onload=magic_init(event_com, rand_magic:com_73, "magicon,36", "magicoff,36", 70, "Earth Wave", "A high-level earth missile", earth_rune, 7, air_rune, 5, blood_rune, 1, null, 0)
+
+// 950:55
+[com_55]
+type=graphic
+x=13
+y=132
+width=24
+height=24
+layer=com_0
+graphic="lunar_magic_off,19"
+colour=0xffffffff
+transmitop=1,10
+op1=Cast
+op10= 
+onload=magic_init(event_com, rand_magic:com_73, "lunar_magic_on,19", "lunar_magic_off,19", 71, "Cure Me", "Cures poison and disease", astral_rune, 2, cosmic_rune, 2, null, 0, null, 0)
+onvartransmit=magic_init(event_com, rand_magic:com_73, "lunar_magic_on,19", "lunar_magic_off,19", 71, "Cure Me", "Cures poison and disease", astral_rune, 2, cosmic_rune, 2, null, 0, null, 0){varplayer_1092}
+
+// 950:56
+[com_56]
+type=graphic
+x=37
+y=132
+width=24
+height=24
+layer=com_0
+graphic="magicoff,42"
+colour=0xffffffff
+targetmask=npc,player
+targetverb=Cast
+onload=magic_init(event_com, rand_magic:com_73, "magicon,42", "magicoff,42", 73, "Enfeeble", "Reduces your opponent's Strength by 10%", earth_rune, 8, water_rune, 8, soul_rune, 1, null, 0)
+
+// 950:57
+[com_57]
+type=graphic
+x=61
+y=132
+width=24
+height=24
+layer=com_0
+graphic="lunar_magic_off,22"
+colour=0xffffffff
+transmitop=1,10
+op1=Cast
+op10= 
+onload=magic_init(event_com, rand_magic:com_73, "lunar_magic_on,22", "lunar_magic_off,22", 74, "Cure Group", "Cure poison and disease on players", astral_rune, 2, cosmic_rune, 2, null, 0, null, 0)
+onvartransmit=magic_init(event_com, rand_magic:com_73, "lunar_magic_on,22", "lunar_magic_off,22", 74, "Cure Group", "Cure poison and disease on players", astral_rune, 2, cosmic_rune, 2, null, 0, null, 0){varplayer_1092}
+
+// 950:58
+[com_58]
+type=graphic
+x=85
+y=132
+width=24
+height=24
+layer=com_0
+graphic="magicoff,37"
+colour=0xffffffff
+transmitop=6
+targetmask=npc,player
+op6=Autocast
+targetverb=Cast
+onload=magic_init(event_com, rand_magic:com_73, "magicon,37", "magicoff,37", 75, "Fire Wave", "A high-level fire missile", fire_rune, 7, air_rune, 5, blood_rune, 1, null, 0)
+
+// 950:59
+[com_59]
+type=graphic
+x=109
+y=132
+width=24
+height=24
+layer=com_0
+graphic="magicoff2,2"
+colour=0xffffffff
+targetmask=npc,player
+targetverb=Cast
+onload=magic_init(event_com, rand_magic:com_73, "magicon2,2", "magicoff2,2", 79, "Entangle", "Holds your opponent for 15 seconds", earth_rune, 5, water_rune, 5, nature_rune, 4, null, 0)
+
+// 950:60
+[com_60]
+type=graphic
+x=133
+y=132
+width=24
+height=24
+layer=com_0
+graphic="magicoff,43"
+colour=0xffffffff
+targetmask=npc,player
+targetverb=Cast
+onload=magic_init(event_com, rand_magic:com_73, "magicon,43", "magicoff,43", 80, "Stun", "Reduces your opponent's Attack by 10%", earth_rune, 12, water_rune, 12, soul_rune, 1, null, 0)
+
+// 950:61
+[com_61]
+type=graphic
+x=157
+y=132
+width=24
+height=24
+layer=com_0
+graphic="magicoff2,47"
+colour=0xffffffff
+transmitop=6,10
+targetmask=npc,player
+op6=Autocast
+op10= 
+targetverb=Cast
+onload=magic_init(event_com, rand_magic:com_73, "magicon2,46", "magicoff2,46", 81, "Wind Surge", "A very high-level air missile", air_rune, 7, blood_rune, 1, death_rune, 1, null, 0)
+
+// 950:62
+[com_62]
+type=graphic
+x=13
+y=156
+width=24
+height=24
+layer=com_0
+graphic="magicoff2,48"
+colour=0xffffffff
+transmitop=6,10
+targetmask=npc,player
+op6=Autocast
+op10= 
+targetverb=Cast
+onload=magic_init(event_com, rand_magic:com_73, "magicon2,47", "magicoff2,47", 85, "Water Surge", "A very high-level water missile", water_rune, 10, air_rune, 7, blood_rune, 1, death_rune, 1)
+
+// 950:63
+[com_63]
+type=graphic
+x=37
+y=156
+width=24
+height=24
+layer=com_0
+graphic="magicoff2,49"
+colour=0xffffffff
+transmitop=6,10
+targetmask=npc,player
+op6=Autocast
+op10= 
+targetverb=Cast
+onload=magic_init(event_com, rand_magic:com_73, "magicon2,48", "magicoff2,48", 90, "Earth Surge", "A very high-level earth missile", earth_rune, 10, air_rune, 7, blood_rune, 1, death_rune, 1)
+
+// 950:64
+[com_64]
+type=graphic
+x=61
+y=156
+width=24
+height=24
+layer=com_0
+graphic="lunar_magic_off,18"
+colour=0xffffffff
+transmitop=10
+targetmask=npc,player
+opbase=bb
+op10= 
+targetverb=Cast
+onload=magic_init(event_com, rand_magic:com_73, "lunar_magic_on,18", "lunar_magic_off,18", 93, "Vengeance Other", "Allows another player to rebound damage to an opponent", astral_rune, 3, death_rune, 2, earth_rune, 10, null, 0)
+
+// 950:65
+[com_65]
+type=graphic
+x=85
+y=156
+width=24
+height=24
+layer=com_0
+graphic="lunar_magic_off,21"
+colour=0xffffffff
+transmitop=1,10
+op1=Cast
+op10= 
+onload=magic_init(event_com, rand_magic:com_73, "lunar_magic_on,21", "lunar_magic_off,21", 94, "Vengeance", "Rebound damage to an opponent", astral_rune, 4, death_rune, 2, earth_rune, 10, null, 0)
+
+// 950:66
+[com_66]
+type=graphic
+x=133
+y=156
+width=24
+height=24
+layer=com_0
+graphic="lunar_magic_off,49"
+transmitop=1
+op1=Cast
+onload=magic_init(event_com, rand_magic:com_73, "lunar_magic_on,49", "lunar_magic_off,49", 95, "Vengeance Group", "Those nearby get to rebound damage", astral_rune, 4, death_rune, 3, earth_rune, 11, null, 0)
+
+// 950:67
+[com_67]
+type=graphic
+x=109
+y=156
+width=24
+height=24
+layer=com_0
+graphic="magicoff2,49"
+colour=0xffffffff
+transmitop=6,10
+targetmask=npc,player
+op6=Autocast
+op10= 
+targetverb=Cast
+onload=magic_init(event_com, rand_magic:com_73, "magicon2,49", "magicoff2,49", 95, "Fire Surge", "A very high-level fire missile", fire_rune, 10, air_rune, 7, blood_rune, 1, death_rune, 1)
+
+// 950:68
+[com_68]
+type=graphic
+width=28
+height=28
+layer=com_0
+hide=yes
+graphic="km_spellautoalpha,1"
+alpha=yes
+colour=0xffffffff
+transmitop=10
+op10= 
+ontimer=script1124(event_com)
+
+// 950:69
+[com_69]
+type=graphic
+width=28
+height=28
+layer=com_0
+hide=yes
+graphic="km_spellautoalpha,0"
+colour=0xffffffff
+transmitop=10
+op10= 
+
+// 950:70
+[com_70]
+type=layer
+x=1
+y=1
+width=16
+height=228
+xmode=abs_right
+transmitop=10
+op10=    
+
+// 950:71
+[com_71]
+type=layer
+y=25
+width=10
+height=40
+widthmode=minus
+xmode=abs_centre
+ymode=abs_bottom
+transmitop=10
+op10=  
+
+// 950:72
+[com_72]
+type=layer
+x=3
+y=2
+width=42
+height=14
+layer=com_71
+transmitop=10
+op10=  
+
+// 950:73
+[com_73]
+type=layer
+width=190
+height=261
