@@ -222,6 +222,10 @@ pub struct PlayerInfo {
     #[cfg(before_647)]
     tracked: Vec<u16>,
     bw: BitWriter,
+    // The pid of the player this packet is for: 2011 paints the hits they
+    // took or dealt bright, everyone else's darker.
+    #[cfg(since_647)]
+    observer: u16,
 }
 
 impl PlayerInfo {
@@ -250,6 +254,8 @@ impl PlayerInfo {
             #[cfg(before_647)]
             tracked: Vec::with_capacity(BuildArea::PREFERRED_PLAYERS as usize),
             bw: BitWriter::new(),
+            #[cfg(since_647)]
+            observer: 0,
         }
     }
 
@@ -291,6 +297,10 @@ impl PlayerInfo {
         dz: i32,
         rebuild: bool,
     ) -> (&[u8], &[u8]) {
+        #[cfg(since_647)]
+        {
+            self.observer = active.player.uid.pid();
+        }
         #[cfg(before_647)]
         {
             let (px, py, pz) = (
@@ -1026,7 +1036,7 @@ impl PlayerInfo {
             renderer.write(&mut self.updates, pid, PlayerInfoProt::ExactMove);
         }
         if wire & PlayerInfoProt::Damage as u32 != 0 {
-            renderer.write(&mut self.updates, pid, PlayerInfoProt::Damage);
+            renderer.write_hits_for(&mut self.updates, pid, self.observer);
         }
         if wire & PlayerInfoProt::FaceEntity as u32 != 0 {
             renderer.write(&mut self.updates, pid, PlayerInfoProt::FaceEntity);
@@ -1464,8 +1474,7 @@ impl PlayerInfo {
 
     #[cfg(since_647)]
     fn highdefinition(&mut self, renderer: &mut PlayerRenderer, pid: u16) {
-        let block = renderer.high_block(pid);
-        self.updates.pdata(block, 0, block.len());
+        renderer.write_high_block_for(&mut self.updates, pid, self.observer);
     }
 }
 
@@ -1479,6 +1488,10 @@ pub struct NpcInfo {
     updates: Packet,
     tracked: Vec<u16>,
     bw: BitWriter,
+    // The pid of the player this packet is for: 2011 paints the hits they
+    // dealt bright, everyone else's darker.
+    #[cfg(since_647)]
+    observer: u16,
 }
 
 impl NpcInfo {
@@ -1518,6 +1531,8 @@ impl NpcInfo {
             updates: Packet::new(MAX_PACKET_SIZE),
             tracked: Vec::with_capacity(BuildArea::PREFERRED_NPCS as usize),
             bw: BitWriter::new(),
+            #[cfg(since_647)]
+            observer: 0,
         }
     }
 
@@ -1557,6 +1572,10 @@ impl NpcInfo {
         dz: i32,
         rebuild: bool,
     ) -> (&[u8], &[u8]) {
+        #[cfg(since_647)]
+        {
+            self.observer = active.player.uid.pid();
+        }
         let build: &mut BuildArea = &mut active.player.build_area;
 
         if rebuild
@@ -1879,8 +1898,13 @@ impl NpcInfo {
     /// **Called by:** [`write_npcs`](Self::write_npcs)
     #[inline(always)]
     fn highdefinition(&mut self, renderer: &NpcRenderer, nid: u16) {
-        let blk = renderer.high_block(nid);
-        self.updates.pdata(blk, 0, blk.len());
+        #[cfg(before_647)]
+        {
+            let blk = renderer.high_block(nid);
+            self.updates.pdata(blk, 0, blk.len());
+        }
+        #[cfg(since_647)]
+        renderer.write_high_block_for(&mut self.updates, nid, self.observer);
     }
 
     /// Writes the low-definition update blocks for a newly added NPC.
@@ -1995,7 +2019,7 @@ impl NpcInfo {
             renderer.write(&mut self.updates, nid, NpcInfoProt::Say);
         }
         if wire & NpcInfoProt::Damage as u32 != 0 {
-            renderer.write(&mut self.updates, nid, NpcInfoProt::Damage);
+            renderer.write_hits_for(&mut self.updates, nid, self.observer);
         }
         if wire & NpcInfoProt::Anim as u32 != 0 {
             renderer.write(&mut self.updates, nid, NpcInfoProt::Anim);
@@ -2293,6 +2317,27 @@ mod client_decode_tests {
                 .map(|_| (self.gsmart(), self.gsmart(), self.gsmart(), self.g1()))
                 .collect()
         }
+        /// `Class244` mask 0x2 as the client reads each hit: (mark, amount,
+        /// second mark, second amount, delay, bar), -1 where a part is absent.
+        fn client_hits(&mut self, count: i32) -> Vec<(i32, i32, i32, i32, i32, i32)> {
+            (0..count)
+                .map(|_| {
+                    let (mut mark, mut amount, mut mark2, mut amount2) = (-1, -1, -1, -1);
+                    let first = self.gsmart();
+                    if first == 32767 {
+                        mark = self.gsmart();
+                        amount = self.gsmart();
+                        mark2 = self.gsmart();
+                        amount2 = self.gsmart();
+                    } else if first != 32766 {
+                        mark = first;
+                        amount = self.gsmart();
+                    }
+                    let delay = self.gsmart();
+                    (mark, amount, mark2, amount2, delay, self.g1())
+                })
+                .collect()
+        }
     }
 
     fn two_hits(info: &mut EntityMasks) {
@@ -2396,10 +2441,12 @@ mod client_decode_tests {
         info.face_entity = Some(0x8000 + 12);
         info.say = Some("Moo".into());
         two_hits(&mut info);
+        info.damage_source = Some(5);
         info.anim_id = Some(5577);
         info.anim_delay = Some(3);
         renderer.compute_info(9, &info);
         let mut npc_info = NpcInfo::new();
+        npc_info.observer = 5;
         npc_info.highdefinition(&renderer, 9);
         let bytes = &npc_info.updates.data[..npc_info.updates.pos];
 
@@ -2431,8 +2478,8 @@ mod client_decode_tests {
         let count = r.g1_alt1();
         assert_eq!(
             r.hits(count),
-            vec![(1, 25, 0, 75 * 255 / 100), (2, 150, 0, 60 * 255 / 100)],
-            "0x1 both hits in one block"
+            vec![(1, 25, 0, 75 * 255 / 100), (2 + 14, 150, 0, 60 * 255 / 100)],
+            "0x1 both hits in one block: player 5's bright, the other darker"
         );
         for channel in 0..4 {
             assert_eq!(r.g2_alt2(), 5577, "0x80 anim channel {channel}");
@@ -2461,6 +2508,7 @@ mod client_decode_tests {
         info.say = Some("Hi".into());
         renderer.compute_info(7, &info, CoordGrid::new(3222, 0, 3218));
         let mut player_info = PlayerInfo::new();
+        player_info.observer = 7;
         player_info.highdefinition(&mut renderer, 7);
         let bytes = &player_info.updates.data[..player_info.updates.pos];
 
@@ -2578,6 +2626,7 @@ mod client_decode_tests {
         info.apply_damage(300, 3, 128, u8::MAX, PlayerInfoProt::Damage as u16);
         renderer.compute_info(7, &info, CoordGrid::new(3222, 0, 3218));
         let mut player_info = PlayerInfo::new();
+        player_info.observer = 7;
         player_info.highdefinition(&mut renderer, 7);
         let bytes = &player_info.updates.data[..player_info.updates.pos];
 
@@ -2595,10 +2644,140 @@ mod client_decode_tests {
         info.damage2_base = info.damage_base;
         renderer.compute_info(7, &info, CoordGrid::new(3222, 0, 3218));
         player_info.updates.pos = 0;
+        // A bystander's view is the shared block.
+        player_info.observer = 9;
         player_info.write_blocks(&renderer, 7, info.masks);
         assert_eq!(
             &player_info.updates.data[..player_info.updates.pos],
             renderer.high_block(7),
         );
+    }
+
+    /// 2011's soaked hit is one hitsplat with two marks, the hit's and the
+    /// blue soak mark (5) beside it, as the client reads them. Two soaked hits
+    /// in a tick are the largest hit block, and both read back whole.
+    #[test]
+    fn a_soaked_hit_reads_back_as_one_double_hitsplat() {
+        let mut renderer = PlayerRenderer::new();
+        let mut info = EntityMasks::new();
+        info.apply_damage(375, 1, 158, u8::MAX, PlayerInfoProt::Damage as u16);
+        info.damage_soak = Some(75);
+        info.masks |= PlayerInfoProt::Damage2 as u16;
+        info.damage2_taken = Some(32000);
+        info.damage2_type = Some(10);
+        info.damage2_current = Some(0);
+        info.damage2_base = Some(u8::MAX);
+        info.damage2_soak = Some(30000);
+        renderer.compute_info(7, &info, CoordGrid::new(3222, 0, 3218));
+        let mut player_info = PlayerInfo::new();
+        player_info.observer = 7;
+        player_info.highdefinition(&mut renderer, 7);
+        let bytes = &player_info.updates.data[..player_info.updates.pos];
+
+        let mut r = Reader { b: bytes, pos: 0 };
+        assert_eq!(r.g1(), 0x2, "the hits mask alone");
+        let count = r.g1();
+        assert_eq!(
+            r.client_hits(count),
+            vec![(1, 375, 5, 75, 0, 158), (10, 32000, 5, 30000, 0, 0)]
+        );
+        assert_eq!(r.pos, bytes.len(), "the client reads every byte written");
+
+        // Without a soak the hit is the single form it always was.
+        renderer.remove_temporary();
+        let mut info = EntityMasks::new();
+        info.apply_damage(150, 0, 200, u8::MAX, PlayerInfoProt::Damage as u16);
+        renderer.compute_info(7, &info, CoordGrid::new(3222, 0, 3218));
+        player_info.updates.pos = 0;
+        player_info.highdefinition(&mut renderer, 7);
+        let bytes = &player_info.updates.data[..player_info.updates.pos];
+        let mut r = Reader { b: bytes, pos: 0 };
+        assert_eq!(r.g1(), 0x2);
+        let count = r.g1();
+        assert_eq!(r.client_hits(count), vec![(0, 150, -1, -1, 0, 200)]);
+        assert_eq!(r.pos, bytes.len());
+    }
+
+    /// 2011 paints a hit bright for its receiver and its dealer, darker
+    /// (hitmark + 14, cache 786's 14-27) for everyone else, who sees no splat
+    /// at all for a hit of nothing, only the health bar; a heal is never
+    /// darkened, and a bystander's soak is the darker soak (19) (2011 wiki,
+    /// Hitsplat, 2011-04-13; void-634 HitSplat). Player 9 hits player 7 for a
+    /// soaked 300; a miss from an npc lands with it.
+    #[test]
+    fn hits_are_bright_for_their_dealer_and_receiver_and_darker_for_others() {
+        let mut renderer = PlayerRenderer::new();
+        let mut info = EntityMasks::new();
+        info.masks = PlayerInfoProt::Anim as u16
+            | PlayerInfoProt::Damage as u16
+            | PlayerInfoProt::Damage2 as u16;
+        info.anim_id = Some(424);
+        info.anim_delay = Some(0);
+        info.damage_type = Some(1);
+        info.damage_taken = Some(300);
+        info.damage_current = Some(200);
+        info.damage_base = Some(u8::MAX);
+        info.damage_soak = Some(50);
+        info.damage_source = Some(9);
+        info.damage2_type = Some(8);
+        info.damage2_taken = Some(0);
+        info.damage2_current = Some(200);
+        info.damage2_base = Some(u8::MAX);
+        renderer.compute_info(7, &info, CoordGrid::new(3222, 0, 3218));
+
+        let mut seen = |observer: u16| {
+            let mut player_info = PlayerInfo::new();
+            player_info.observer = observer;
+            player_info.highdefinition(&mut renderer, 7);
+            let bytes = player_info.updates.data[..player_info.updates.pos].to_vec();
+            let mut r = Reader { b: &bytes, pos: 0 };
+            let mask = r.g1();
+            assert_eq!(mask, 0x80 | 0x2);
+            for _ in 0..4 {
+                r.g2();
+            }
+            r.g1_alt1();
+            let count = r.g1();
+            let hits = r.client_hits(count);
+            assert_eq!(r.pos, bytes.len(), "{observer} reads every byte written");
+            (hits, bytes.len())
+        };
+        let (taker, len) = seen(7);
+        assert_eq!(
+            taker,
+            vec![(1, 300, 5, 50, 0, 200), (8, 0, -1, -1, 0, 200)],
+            "the receiver sees both bright"
+        );
+        let (dealer, dealer_len) = seen(9);
+        assert_eq!(
+            dealer,
+            vec![(1, 300, 5, 50, 0, 200), (-1, -1, -1, -1, 0, 200)],
+            "the dealer sees his hit bright, the npc's miss not at all"
+        );
+        let (bystander, bystander_len) = seen(11);
+        assert_eq!(
+            bystander,
+            vec![(15, 300, 19, 50, 0, 200), (-1, -1, -1, -1, 0, 200)],
+            "a bystander sees the hit and its soak darker, the miss not at all"
+        );
+        assert_eq!(
+            (dealer_len, bystander_len),
+            (len, len),
+            "every view is one length"
+        );
+
+        // A heal keeps its splat for everyone.
+        renderer.remove_temporary();
+        let mut info = EntityMasks::new();
+        info.apply_damage(40, 9, 255, u8::MAX, PlayerInfoProt::Damage as u16);
+        renderer.compute_info(7, &info, CoordGrid::new(3222, 0, 3218));
+        let mut player_info = PlayerInfo::new();
+        player_info.observer = 11;
+        player_info.highdefinition(&mut renderer, 7);
+        let bytes = &player_info.updates.data[..player_info.updates.pos];
+        let mut r = Reader { b: bytes, pos: 0 };
+        assert_eq!(r.g1(), 0x2);
+        let count = r.g1();
+        assert_eq!(r.client_hits(count), vec![(9, 40, -1, -1, 0, 255)]);
     }
 }

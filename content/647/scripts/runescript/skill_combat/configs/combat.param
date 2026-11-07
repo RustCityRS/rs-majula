@@ -68,6 +68,23 @@ type=int
 default=0
 autodisable=yes
 
+// 2011's damage soaking: the percent of damage over 200 an item soaks, per
+// style (wiki, Damage Soaking and each item's Infobox Bonuses).
+[absorbmelee]
+type=int
+default=0
+autodisable=yes
+
+[absorbmagic]
+type=int
+default=0
+autodisable=yes
+
+[absorbranged]
+type=int
+default=0
+autodisable=yes
+
 [attackrange]
 type=int
 default=0

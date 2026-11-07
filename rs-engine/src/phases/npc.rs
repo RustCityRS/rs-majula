@@ -528,6 +528,10 @@ impl Engine {
                             request.args,
                         );
                         state.last_int = last_int;
+                        #[cfg(since_647)]
+                        {
+                            state.queue_source = request.source;
+                        }
                         if let Err(e) = engine_mut().run_script_by_state(
                             state,
                             Some(ScriptSubject::Npc(uid)),

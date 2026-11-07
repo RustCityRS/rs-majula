@@ -14,7 +14,7 @@ setup_player("test_player")
 %life_points = 100
 ~damage_self(30)
 assert_eq(%life_points, 70)
-assert_called_with("damage", "3,30,178")
+assert_called_with("damage", "3,30,0,178")
 
 // A miss is 2011's hitmark 8, and takes nothing.
 [label,test_a_miss_paints_2011s_miss]
@@ -22,7 +22,7 @@ setup_player("test_player")
 %life_points = 100
 ~damage_self(0)
 assert_eq(%life_points, 100)
-assert_called_with("damage", "8,0,255")
+assert_called_with("damage", "8,0,0,255")
 
 // Poison hits in life points with 2011's poison hitmark (6): 289's 3 is 30.
 [label,test_poison_hits_in_life_points]
@@ -31,7 +31,7 @@ setup_player("test_player")
 queue(poison_damage, 0, 3)
 test_tick(2)
 assert_eq(%life_points, 70)
-assert_called_with("damage", "6,30,178")
+assert_called_with("damage", "6,30,0,178")
 
 // A lethal hit queues death: the player respawns by Lumbridge castle with
 // full life points and keeps the three priciest objs; the rest drop.

@@ -537,9 +537,10 @@ $rangebonus = ~equip_get_bonuses;
 ~update_bonus_text(equip_screen2:com38, "Magic", $magicdefence);
 ~update_bonus_text(equip_screen2:com39, "Ranged", $rangedefence);
 ~update_bonus_text(equip_screen2:com40, "Summoning", 0);
-if_settext(equip_screen2:com41, "Absorb Melee: +0%");
-if_settext(equip_screen2:com42, "Absorb Magic: +0%");
-if_settext(equip_screen2:com43, "Absorb Ranged: +0%");
+// 2011's soak percents, worn head, body, legs and shield (damage.rs2).
+if_settext(equip_screen2:com41, "Absorb Melee: +<tostring(~worn_absorb(^hitmark_melee))>%");
+if_settext(equip_screen2:com42, "Absorb Magic: +<tostring(~worn_absorb(^hitmark_magic))>%");
+if_settext(equip_screen2:com43, "Absorb Ranged: +<tostring(~worn_absorb(^hitmark_ranged))>%");
 ~update_bonus_text(equip_screen2:com44, "Strength", $strengthbonus);
 ~update_bonus_text(equip_screen2:com45, "Ranged Strength", $rangebonus);
 ~update_bonus_text(equip_screen2:com46, "Prayer", $prayerbonus);

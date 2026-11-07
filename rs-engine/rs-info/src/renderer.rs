@@ -28,8 +28,10 @@ const NPC_PROT_COUNT: usize = 7;
 
 #[cfg(before_647)]
 const SLOT_SIZE: usize = 8;
+// Two soaked hits are the largest block: a count, then per hit 32767, mark,
+// damage, soak mark, soak, delay and health bar (1 + 2 * 10 bytes).
 #[cfg(since_647)]
-const SLOT_SIZE: usize = 16;
+const SLOT_SIZE: usize = 24;
 #[cfg(since_647)]
 const DEFAULT_MOVE_TYPE: u8 = 1;
 
@@ -277,16 +279,16 @@ impl Slot {
         self.len = buf.pos as u8;
     }
 
+    /// The hits as a player who neither dealt nor took them sees them
+    /// ([`put_hit`]); the hit's receiver and dealer get theirs re-encoded
+    /// bright ([`PlayerRenderer::write_hits_for`]).
     #[cfg(since_647)]
     #[inline(always)]
     fn set_hits(&mut self, count: u8, hits: &[Hit]) {
         let mut buf = Packet::from(&mut self.data[..]);
         buf.p1(count);
         for hit in hits {
-            buf.psmart1or2(hit.hitmark);
-            buf.psmart1or2(hit.damage);
-            buf.psmart1or2(0);
-            buf.p1(hit.health_percent);
+            put_hit(&mut buf, hit, false);
         }
         self.len = buf.pos as u8;
     }
@@ -346,11 +348,113 @@ fn face_angle(src_x: i32, src_z: i32, dst_x: i32, dst_z: i32) -> u16 {
 }
 
 #[cfg(since_647)]
-#[derive(Clone, Copy)]
+#[derive(Clone, Copy, Default)]
 struct Hit {
     hitmark: i32,
     damage: i32,
+    soak: i32,
     health_percent: u8,
+}
+
+/// The first smart of a hit that carries a second mark (`Class244`).
+#[cfg(since_647)]
+const HIT_DOUBLE: i32 = 32767;
+
+/// The first smart of a hit with no splat, only its health bar (`Class244`).
+#[cfg(since_647)]
+const HIT_NONE: i32 = 32766;
+
+/// Hitmark config 5, the blue splat with the shield icon: damage soaked
+/// (2011 wiki, Hitsplat, 2011-04-13; void-634 `HitSplat.Mark.Absorb`).
+#[cfg(since_647)]
+const HITMARK_SOAK: i32 = 5;
+
+/// Hitmark config 9, the heal, which 2011 never darkens ("this splat has no
+/// dark version": 2011 wiki, Hitsplat, 2011-04-13; void-634 `HitSplat`).
+#[cfg(since_647)]
+const HITMARK_HEAL: i32 = 9;
+
+/// Cache 786's hitmarks 14-27 are 0-13 on darker backgrounds: what a player
+/// sees of a hit they neither dealt nor took (2011 wiki, Hitsplat: "Darker
+/// splats appear when someone takes damage not dealt or received by you";
+/// "Damage absorbed by other players has a darker splat"; void-634
+/// `HitSplat` adds 14).
+#[cfg(since_647)]
+const HITMARK_DARKER: i32 = 14;
+
+/// One hit as the client reads it (`Class244`, mask 0x2): a soaked hit is one
+/// entry with two marks, which the client paints side by side (32767, the
+/// hit's mark and damage, the soak mark and the amount soaked; void-634
+/// `HitSplat.write`). `bright` is the view of its receiver and dealer; anyone
+/// else sees it darker, and sees no splat for a hit of nothing (32766), only
+/// the health bar (void-634 `HitSplat.write`). Both views are the same length.
+#[cfg(since_647)]
+#[inline(always)]
+fn put_hit<T: AsRef<[u8]> + AsMut<[u8]>>(buf: &mut Packet<T>, hit: &Hit, bright: bool) {
+    if !bright && hit.damage == 0 {
+        buf.psmart1or2(HIT_NONE);
+    } else {
+        let darker = |mark: i32| {
+            if bright || mark == HITMARK_HEAL {
+                mark
+            } else {
+                mark + HITMARK_DARKER
+            }
+        };
+        if hit.soak > 0 {
+            buf.psmart1or2(HIT_DOUBLE);
+        }
+        buf.psmart1or2(darker(hit.hitmark));
+        buf.psmart1or2(hit.damage);
+        if hit.soak > 0 {
+            buf.psmart1or2(darker(HITMARK_SOAK));
+            buf.psmart1or2(hit.soak);
+        }
+    }
+    buf.psmart1or2(0);
+    buf.p1(hit.health_percent);
+}
+
+/// An entity's hits this tick and who sees each bright (its receiver, if a
+/// player, and its dealer, if a player), with where the hits sit in the
+/// entity's high block, so a bright view can be written in their place.
+#[cfg(since_647)]
+#[derive(Clone, Copy, Default)]
+struct HitView {
+    hits: [Hit; 2],
+    count: u8,
+    count_byte: u8,
+    bright: [[Option<u16>; 2]; 2],
+    offset: u16,
+    len: u16,
+}
+
+#[cfg(since_647)]
+impl HitView {
+    fn sees_bright(&self, observer: u16) -> bool {
+        self.bright[..self.count as usize]
+            .iter()
+            .any(|who| who.contains(&Some(observer)))
+    }
+
+    fn write_for(&self, buf: &mut Packet, observer: u16) {
+        buf.p1(self.count_byte);
+        for i in 0..self.count as usize {
+            put_hit(buf, &self.hits[i], self.bright[i].contains(&Some(observer)));
+        }
+    }
+
+    /// `block` (an entity's high block) as `observer` sees it.
+    fn write_block_for(&self, buf: &mut Packet, block: &[u8], observer: u16) {
+        if self.count == 0 || !self.sees_bright(observer) {
+            buf.pdata(block, 0, block.len());
+            return;
+        }
+        let (offset, len) = (self.offset as usize, self.len as usize);
+        buf.pdata(block, 0, offset);
+        self.write_for(buf, observer);
+        buf.pdata(block, offset + len, block.len() - offset - len);
+    }
 }
 
 #[cfg(since_647)]
@@ -363,11 +467,23 @@ fn health_percent(current: Option<u8>, base: Option<u8>) -> u8 {
     }
 }
 
+/// Each hit's dealer, in [`hits`]' order.
+#[cfg(since_647)]
+fn hit_sources(info: &EntityMasks, first: bool, second: bool) -> [Option<u16>; 2] {
+    match (first, second) {
+        (true, true) => [info.damage_source, info.damage2_source],
+        (true, false) => [info.damage_source, None],
+        (false, true) => [info.damage2_source, None],
+        (false, false) => [None, None],
+    }
+}
+
 #[cfg(since_647)]
 fn hits(info: &EntityMasks, first: bool, second: bool) -> ([Hit; 2], usize) {
     let mut out = [Hit {
         hitmark: 0,
         damage: 0,
+        soak: 0,
         health_percent: 0,
     }; 2];
     let mut n = 0;
@@ -375,6 +491,7 @@ fn hits(info: &EntityMasks, first: bool, second: bool) -> ([Hit; 2], usize) {
         out[n] = Hit {
             hitmark: info.damage_type.unwrap_or(0) as i32,
             damage: info.damage_taken.unwrap_or(0) as i32,
+            soak: info.damage_soak.unwrap_or(0) as i32,
             health_percent: health_percent(info.damage_current, info.damage_base),
         };
         n += 1;
@@ -383,6 +500,7 @@ fn hits(info: &EntityMasks, first: bool, second: bool) -> ([Hit; 2], usize) {
         out[n] = Hit {
             hitmark: info.damage2_type.unwrap_or(0) as i32,
             damage: info.damage2_taken.unwrap_or(0) as i32,
+            soak: info.damage2_soak.unwrap_or(0) as i32,
             health_percent: health_percent(info.damage2_current, info.damage2_base),
         };
         n += 1;
@@ -417,6 +535,8 @@ pub struct PlayerRenderer {
     chats: Vec<Option<Vec<u8>>>,
     #[cfg(since_647)]
     move_types: Box<[u8; MAX_PLAYERS]>,
+    #[cfg(since_647)]
+    hit_views: Vec<HitView>,
     high_blocks: Vec<Vec<u8>>,
     highs: Box<[u16; MAX_PLAYERS]>,
     lows: Box<[u16; MAX_PLAYERS]>,
@@ -448,6 +568,8 @@ impl PlayerRenderer {
             chats: vec![None; MAX_PLAYERS],
             #[cfg(since_647)]
             move_types: Box::new([DEFAULT_MOVE_TYPE; MAX_PLAYERS]),
+            #[cfg(since_647)]
+            hit_views: vec![HitView::default(); MAX_PLAYERS],
             high_blocks: vec![Vec::new(); MAX_PLAYERS],
             highs: Box::new([0; MAX_PLAYERS]),
             lows: Box::new([0; MAX_PLAYERS]),
@@ -692,6 +814,17 @@ impl PlayerRenderer {
                     self.fixed[PlayerInfoProt::Damage.to_index()][pid]
                         .set_hits(count as u8, &hits[..count]);
                     active |= 1 << PlayerInfoProt::Damage.to_index();
+                    // The player takes each hit, so sees it bright, as its
+                    // dealer does.
+                    let me = Some(pid as u16);
+                    self.hit_views[pid] = HitView {
+                        hits,
+                        count: count as u8,
+                        count_byte: count as u8,
+                        bright: hit_sources(info, first, second).map(|by| [me, by]),
+                        offset: 0,
+                        len: 0,
+                    };
                 }
             }
 
@@ -730,6 +863,12 @@ impl PlayerRenderer {
                     }
                     _ => self.fixed.get_unchecked(index).get_unchecked(pid).bytes(),
                 };
+                #[cfg(since_647)]
+                if index == PlayerInfoProt::Damage.to_index() {
+                    let view = self.hit_views.get_unchecked_mut(pid);
+                    view.offset = block.len() as u16;
+                    view.len = bytes.len() as u16;
+                }
                 block.extend_from_slice(bytes);
             }
             #[cfg(before_647)]
@@ -767,6 +906,22 @@ impl PlayerRenderer {
     #[inline(always)]
     pub fn high_block(&self, id: u16) -> &[u8] {
         unsafe { self.high_blocks.get_unchecked(id as usize) }
+    }
+
+    /// Writes a player's high block as `observer` (a pid) sees it: the block
+    /// carries every hit as a bystander sees it, and the hits `observer` took
+    /// or dealt are written bright in their place.
+    #[cfg(since_647)]
+    #[inline(always)]
+    pub fn write_high_block_for(&self, buf: &mut Packet, id: u16, observer: u16) {
+        self.hit_views[id as usize].write_block_for(buf, self.high_block(id), observer);
+    }
+
+    /// Writes a player's hits (the Damage block) as `observer` sees them.
+    #[cfg(since_647)]
+    #[inline(always)]
+    pub fn write_hits_for(&self, buf: &mut Packet, id: u16, observer: u16) {
+        self.hit_views[id as usize].write_for(buf, observer);
     }
 
     /// Writes the pre-computed data for a specific protocol field to a packet buffer.
@@ -1100,6 +1255,10 @@ impl PlayerRenderer {
                 ] {
                     self.fixed[prot.to_index()][idx] = Slot::EMPTY;
                 }
+                #[cfg(since_647)]
+                {
+                    self.hit_views[idx].count = 0;
+                }
                 if let Some(v) = self.says.get_unchecked_mut(idx) {
                     v.clear();
                 }
@@ -1206,6 +1365,8 @@ impl PlayerRenderer {
 pub struct NpcRenderer {
     fixed: Box<[[Slot; MAX_NPCS]; NPC_PROT_COUNT]>,
     says: Vec<Option<Vec<u8>>>,
+    #[cfg(since_647)]
+    hit_views: Vec<HitView>,
     high_blocks: Vec<Vec<u8>>,
     highs: Box<[u16; MAX_NPCS]>,
     written: Vec<u16>,
@@ -1230,6 +1391,8 @@ impl NpcRenderer {
         NpcRenderer {
             fixed: unsafe { Box::new_zeroed().assume_init() },
             says: vec![None; MAX_NPCS],
+            #[cfg(since_647)]
+            hit_views: vec![HitView::default(); MAX_NPCS],
             high_blocks: vec![Vec::new(); MAX_NPCS],
             highs: Box::new([0; MAX_NPCS]),
             written: Vec::new(),
@@ -1399,6 +1562,15 @@ impl NpcRenderer {
                     self.fixed[NpcInfoProt::Damage.to_index()][nid]
                         .set_hits((count as u8).wrapping_add(128), &hits[..count]);
                     active |= 1 << NpcInfoProt::Damage.to_index();
+                    // Only a hit's dealer sees an npc's hit bright.
+                    self.hit_views[nid] = HitView {
+                        hits,
+                        count: count as u8,
+                        count_byte: (count as u8).wrapping_add(128),
+                        bright: hit_sources(info, first, second).map(|by| [by, None]),
+                        offset: 0,
+                        len: 0,
+                    };
                 }
             }
 
@@ -1420,6 +1592,12 @@ impl NpcRenderer {
                 } else {
                     self.fixed.get_unchecked(index).get_unchecked(nid).bytes()
                 };
+                #[cfg(since_647)]
+                if index == NpcInfoProt::Damage.to_index() {
+                    let view = self.hit_views.get_unchecked_mut(nid);
+                    view.offset = block.len() as u16;
+                    view.len = bytes.len() as u16;
+                }
                 block.extend_from_slice(bytes);
             }
             if active != 0 {
@@ -1434,6 +1612,21 @@ impl NpcRenderer {
     #[inline(always)]
     pub fn high_block(&self, id: u16) -> &[u8] {
         unsafe { self.high_blocks.get_unchecked(id as usize) }
+    }
+
+    /// Writes an npc's high block as `observer` (a pid) sees it: the hits
+    /// they dealt bright, the rest as a bystander sees them.
+    #[cfg(since_647)]
+    #[inline(always)]
+    pub fn write_high_block_for(&self, buf: &mut Packet, id: u16, observer: u16) {
+        self.hit_views[id as usize].write_block_for(buf, self.high_block(id), observer);
+    }
+
+    /// Writes an npc's hits (the Damage block) as `observer` sees them.
+    #[cfg(since_647)]
+    #[inline(always)]
+    pub fn write_hits_for(&self, buf: &mut Packet, id: u16, observer: u16) {
+        self.hit_views[id as usize].write_for(buf, observer);
     }
 
     /// Writes the pre-computed data for a specific protocol field to a packet buffer.
@@ -1631,6 +1824,10 @@ impl NpcRenderer {
                     .fixed
                     .get_unchecked_mut(NpcInfoProt::Damage.to_index())
                     .get_unchecked_mut(idx) = Slot::EMPTY;
+                #[cfg(since_647)]
+                {
+                    self.hit_views[idx].count = 0;
+                }
                 *self
                     .fixed
                     .get_unchecked_mut(NpcInfoProt::ChangeType.to_index())

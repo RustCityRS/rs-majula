@@ -3103,9 +3103,14 @@ impl ActivePlayer {
     /// # Arguments
     /// * `amount` - The hit in life points, which passes 255.
     /// * `hitmark` - 2011's hitmark config (config group 46).
+    /// * `soak` - Life points armour soaked off the hit (2011's damage
+    ///   soaking), painted in a blue splat beside it; 0 for none.
     /// * `healthbar` - The overhead bar's fill, 0-255.
+    /// * `source` - The pid of the player who dealt it, if a player did: they
+    ///   see it bright, as this player does; everyone else darker.
     #[cfg(since_647)]
-    pub fn hit(&mut self, amount: u16, hitmark: u8, healthbar: u8) {
+    pub fn hit(&mut self, amount: u16, hitmark: u8, soak: u16, healthbar: u8, source: Option<u16>) {
+        let soak = (soak > 0).then_some(soak);
         if self.player.info.apply_damage2(
             amount,
             hitmark,
@@ -3113,6 +3118,8 @@ impl ActivePlayer {
             u8::MAX,
             PlayerInfoProt::Damage2 as u16,
         ) {
+            self.player.info.damage2_soak = soak;
+            self.player.info.damage2_source = source;
             return;
         }
         self.player.info.apply_damage(
@@ -3122,6 +3129,8 @@ impl ActivePlayer {
             u8::MAX,
             PlayerInfoProt::Damage as u16,
         );
+        self.player.info.damage_soak = soak;
+        self.player.info.damage_source = source;
     }
 
     /// Executes the player's pending walk trigger script, if any.

@@ -280,3 +280,70 @@ fn the_server_knows_every_npcs_size_and_combat_level() {
         );
     });
 }
+
+/// 2011 paints a hit bright for the player who dealt it and the one who took
+/// it, darker for everyone else (2011 wiki, Hitsplat, 2011-04-13). The engine
+/// knows a hit's dealer as the player whose script painted it or queued it: a
+/// player's swing at a cow runs on the cow (ai_queue2), queued by the
+/// player's script, so it is theirs; the cow's bites back have no player
+/// dealer.
+#[test]
+fn a_hit_belongs_to_the_player_who_dealt_it() {
+    runner::on_loaded_engine(|engine| {
+        engine.harness_reset();
+        let mut client = engine.harness_login_returning("dealer").expect("login");
+        engine.cycle();
+        let (nid, x, z) = engine
+            .npc_list
+            .npcs
+            .iter()
+            .flatten()
+            .find(|n| {
+                let c = n.npc.pathing.coord;
+                n.npc.uid.id() == COW
+                    && (3254..3265).contains(&c.x())
+                    && (3256..3297).contains(&c.z())
+                    && n.npc.stats.levels[NpcStat::Hitpoints as usize] == COW_LIFE_POINTS
+            })
+            .map(|n| {
+                (
+                    n.npc.uid.nid(),
+                    n.npc.pathing.coord.x(),
+                    n.npc.pathing.coord.z(),
+                )
+            })
+            .expect("an unhurt cow in the Lumbridge field");
+        engine.harness_telejump(client.pid, x - 2, 0, z);
+        for _ in 0..10 {
+            engine.cycle();
+        }
+        // Alive for the whole fight: who dealt each hit is under test.
+        engine.get_npc_mut(nid).unwrap().npc.stats.levels[NpcStat::Hitpoints as usize] = 3000;
+        rs_vm::ops::test::set_recording(true);
+        rs_vm::ops::test::forget_calls();
+        let mut p = ClientPacket::new();
+        p.p1_alt2(0).p2_alt3(nid as i32);
+        client.send(ClientProt::OpNpc2, &p.finish());
+        let (mut on_cow, mut on_player) = (Vec::new(), Vec::new());
+        for tick in 0..40 {
+            engine.cycle();
+            client.packets();
+            if tick % 20 == 0 {
+                client.send(ClientProt::NoTimeout, &[]);
+            }
+            on_cow.extend(rs_vm::ops::test::calls_for("npc_hit_by"));
+            on_player.extend(rs_vm::ops::test::calls_for("hit_by"));
+            rs_vm::ops::test::forget_calls();
+        }
+        rs_vm::ops::test::set_recording(false);
+        let me = client.pid.to_string();
+        assert!(
+            !on_cow.is_empty() && on_cow.iter().all(|by| *by == me),
+            "every hit on the cow is player {me}'s: {on_cow:?}"
+        );
+        assert!(
+            on_player.iter().all(|by| by == "-1"),
+            "the cow's bites are no player's: {on_player:?}"
+        );
+    });
+}

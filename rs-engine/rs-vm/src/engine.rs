@@ -959,9 +959,12 @@ pub trait ScriptPlayer {
     /// # Arguments
     /// * `amount` - The hit in life points.
     /// * `hitmark` - The hitmark config id.
+    /// * `soak` - Life points armour soaked off the hit, painted beside it;
+    ///   0 for none.
     /// * `healthbar` - The overhead bar's fill, 0-255.
+    /// * `source` - The pid of the player who dealt it, if one did.
     #[cfg(since_647)]
-    fn hit(&mut self, amount: u16, hitmark: u8, healthbar: u8);
+    fn hit(&mut self, amount: u16, hitmark: u8, soak: u16, healthbar: u8, source: Option<u16>);
 
     /// Finds the player with the most hero points on this entity.
     ///
@@ -1594,6 +1597,19 @@ pub trait ScriptPlayer {
         args: Option<Vec<ScriptArgument>>,
     ) -> crate::Result<()>;
 
+    /// [`queue`](Self::queue), remembering the pid of the player whose script
+    /// queued it: a hit the queued script paints is theirs as well as this
+    /// player's (2011's bright hitsplats).
+    #[cfg(since_647)]
+    fn queue_from(
+        &mut self,
+        script_id: i32,
+        priority: QueuePriority,
+        delay: u16,
+        args: Option<Vec<ScriptArgument>>,
+        source: Option<u16>,
+    ) -> crate::Result<()>;
+
     /// Sets a recurring timer that fires a script at a fixed interval.
     ///
     /// # Arguments
@@ -1991,6 +2007,21 @@ pub trait ScriptNpc {
         delay: u16,
         args: Option<Vec<ScriptArgument>>,
     ) -> crate::Result<()>;
+
+    /// [`queue`](Self::queue), remembering the pid of the player whose script
+    /// queued it: a hit the queued script paints is theirs.
+    #[cfg(since_647)]
+    fn queue_from(
+        &mut self,
+        script_id: i32,
+        delay: u16,
+        args: Option<Vec<ScriptArgument>>,
+        source: Option<u16>,
+    ) -> crate::Result<()>;
+
+    /// Credits the hit just painted on this npc to a player (`hit_source`).
+    #[cfg(since_647)]
+    fn hit_source(&mut self, source: Option<u16>);
 
     /// Sets or clears the NPC's recurring timer interval.
     ///

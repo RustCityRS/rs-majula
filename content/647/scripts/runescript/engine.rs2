@@ -341,9 +341,10 @@
 [command,stat_advance](stat $stat, int $exp)
 // info: Hurt a player. $healthbar is the overhead bar fill (0-255); content owns
 // %life_points and computes it, the engine only paints the hitsplat (Hit mask).
-[command,damage](player_uid $uid, int $type, int $amount, int $healthbar)
+// $soak is what armour soaked off the hit, painted beside it in blue; 0 for none.
+[command,damage](player_uid $uid, int $type, int $amount, int $soak, int $healthbar)
 // info: Hurt the secondary player
-[command,.damage](player_uid $uid, int $type, int $amount, int $healthbar)
+[command,.damage](player_uid $uid, int $type, int $amount, int $soak, int $healthbar)
 // info: internal- set which buttons can re-trigger the suspended script
 [command,if_setresumebuttons](component $component1, component $component2, component $component3, component $component4, component $component5)
 // info: internal- set which buttons can re-trigger a script suspended with p_pausebutton

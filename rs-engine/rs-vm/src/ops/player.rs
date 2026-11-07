@@ -9,6 +9,41 @@ use rs_pack::cache::script::*;
 use rs_pack::types::HuntCheckVis;
 use rs_util::colour::rgb24_to_15;
 
+/// The player whose script is running, who a queued hit belongs to: at 647 a
+/// queued script remembers them (`QueuedScript::source`), because 2011 paints
+/// a hit bright for its dealer and receiver and darker for everyone else.
+pub(crate) fn queue_source(s: &ScriptState) -> Option<u16> {
+    s.active_player.map(|p| p.pid())
+}
+
+/// The player who dealt a hit painted on `victim` (a pid), if a player did:
+/// the running script's own player, or else the one whose script queued it
+/// ([`queue_source`]), whichever is not the victim. 2011 paints the hit bright
+/// for them and the victim, darker for everyone else (2011 wiki, Hitsplat,
+/// 2011-04-13; void-634 HitSplat).
+#[cfg(since_647)]
+pub(crate) fn hit_source(s: &ScriptState, victim: u16) -> Option<u16> {
+    [queue_source(s), s.queue_source]
+        .into_iter()
+        .flatten()
+        .find(|&pid| pid != victim)
+}
+
+/// `player.queue`, carrying [`queue_source`] at 647.
+fn enqueue(
+    player: &mut impl ScriptPlayer,
+    #[cfg_attr(before_647, allow(unused_variables))] source: Option<u16>,
+    script_id: i32,
+    priority: QueuePriority,
+    delay: u16,
+    args: Option<Vec<ScriptArgument>>,
+) -> Result<()> {
+    #[cfg(since_647)]
+    return player.queue_from(script_id, priority, delay, args, source);
+    #[cfg(before_647)]
+    player.queue(script_id, priority, delay, args)
+}
+
 /// Registers player-related opcodes covering stats, UI interfaces, movement,
 /// combat, queues, timers, and player lookups.
 ///
@@ -145,23 +180,30 @@ pub fn build<E: ScriptEngine + 'static>() -> OpsRegistry {
         });
 
         // 2015
-        // 647's damage(uid, type, amount, healthbar) only paints: content owns
-        // the life points (content/647/scripts/runescript/player/scripts/damage.rs2).
+        // 647's damage(uid, type, amount, soak, healthbar) only paints:
+        // content owns the life points and works out the soak
+        // (content/647/scripts/runescript/player/scripts/damage.rs2).
         #[cfg(since_647)]
         none!(m, DAMAGE => |s| {
             let healthbar = s.pop_int_as::<u8>()?;
+            let soak = s.pop_int_as::<u16>()?;
             let amount = s.pop_int_as::<u16>()?;
             let hitmark = s.pop_int_as::<u8>()?;
             let uid = s.pop_int();
             if crate::ops::test::recording() {
-                let arg = format!("{hitmark},{amount},{healthbar}");
+                let arg = format!("{hitmark},{amount},{soak},{healthbar}");
                 crate::ops::test::record_call(DAMAGE, "damage", &arg);
             }
             let pid = (uid & 0x7FF) as u16;
+            let source = hit_source(s, pid);
+            if crate::ops::test::recording() {
+                let arg = source.map_or(-1, i32::from).to_string();
+                crate::ops::test::record_call(DAMAGE, "hit_by", &arg);
+            }
             if let Some(target) = engine_mut::<E>().get_player_mut(pid)
                 && target.uid().packed() as i32 == uid
             {
-                target.hit(amount, hitmark, healthbar);
+                target.hit(amount, hitmark, soak, healthbar, source);
             }
         });
 
@@ -608,7 +650,7 @@ pub fn build<E: ScriptEngine + 'static>() -> OpsRegistry {
             let arg = s.pop_int();
             let delay = s.pop_int();
             let script = pop_script::<E>(s)?;
-            player.queue(
+            enqueue(player, queue_source(s),
                 script.id,
                 QueuePriority::Long,
                 delay as u16,
@@ -625,7 +667,7 @@ pub fn build<E: ScriptEngine + 'static>() -> OpsRegistry {
             let mut queue_args = Vec::with_capacity(args.len() + 1);
             queue_args.push(ScriptArgument::Int(logout_action));
             queue_args.extend(args);
-            player.queue(script.id, QueuePriority::Long, delay as u16, Some(queue_args))?;
+            enqueue(player, queue_source(s), script.id, QueuePriority::Long, delay as u16, Some(queue_args))?;
         });
 
         // 2061
@@ -1266,7 +1308,7 @@ pub fn build<E: ScriptEngine + 'static>() -> OpsRegistry {
             let arg = s.pop_int();
             let delay = s.pop_int_as::<u16>()?;
             let script = pop_script::<E>(s)?;
-            player.queue(script.id, QueuePriority::Normal, delay, Some(vec![ScriptArgument::Int(arg)]))?;
+            enqueue(player, queue_source(s), script.id, QueuePriority::Normal, delay, Some(vec![ScriptArgument::Int(arg)]))?;
         });
 
         // 2093
@@ -1274,7 +1316,7 @@ pub fn build<E: ScriptEngine + 'static>() -> OpsRegistry {
             let args = s.pop_script_args();
             let delay = s.pop_int_as::<u16>()?;
             let script = pop_script::<E>(s)?;
-            player.queue(script.id, QueuePriority::Normal, delay, Some(args))?;
+            enqueue(player, queue_source(s), script.id, QueuePriority::Normal, delay, Some(args))?;
         });
 
         // 2094
@@ -1455,7 +1497,7 @@ pub fn build<E: ScriptEngine + 'static>() -> OpsRegistry {
             let arg = s.pop_int();
             let delay = s.pop_int_as::<u16>()?;
             let script = pop_script::<E>(s)?;
-            player.queue(script.id, QueuePriority::Strong, delay, Some(vec![ScriptArgument::Int(arg)]))?;
+            enqueue(player, queue_source(s), script.id, QueuePriority::Strong, delay, Some(vec![ScriptArgument::Int(arg)]))?;
         });
 
         // 2118
@@ -1464,7 +1506,7 @@ pub fn build<E: ScriptEngine + 'static>() -> OpsRegistry {
             let args = s.pop_script_args();
             let delay = s.pop_int_as::<u16>()?;
             let script = pop_script::<E>(s)?;
-            player.queue(script.id, QueuePriority::Strong, delay, Some(args))?;
+            enqueue(player, queue_source(s), script.id, QueuePriority::Strong, delay, Some(args))?;
         });
 
         // 2119
@@ -1529,7 +1571,7 @@ pub fn build<E: ScriptEngine + 'static>() -> OpsRegistry {
             let arg = s.pop_int();
             let delay = s.pop_int_as::<u16>()?;
             let script = pop_script::<E>(s)?;
-            player.queue(script.id, QueuePriority::Weak, delay, Some(vec![ScriptArgument::Int(arg)]))?;
+            enqueue(player, queue_source(s), script.id, QueuePriority::Weak, delay, Some(vec![ScriptArgument::Int(arg)]))?;
         });
 
         // 2130
@@ -1538,7 +1580,7 @@ pub fn build<E: ScriptEngine + 'static>() -> OpsRegistry {
             let args = s.pop_script_args();
             let delay = s.pop_int_as::<u16>()?;
             let script = pop_script::<E>(s)?;
-            player.queue(script.id, QueuePriority::Weak, delay, Some(args))?;
+            enqueue(player, queue_source(s), script.id, QueuePriority::Weak, delay, Some(args))?;
         });
 
         // 2131

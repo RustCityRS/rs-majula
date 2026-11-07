@@ -75,6 +75,8 @@ impl ScriptQueue {
             script_id,
             delay,
             args,
+            #[cfg(since_647)]
+            source: None,
         };
         match priority {
             QueuePriority::Normal | QueuePriority::Strong | QueuePriority::Long => {
@@ -84,6 +86,43 @@ impl ScriptQueue {
                 queued.delay = 0;
                 self.engine.add_tail(queued);
             }
+            QueuePriority::Weak => self.weak.add_tail(queued),
+            QueuePriority::Soft => {
+                return Err(ScriptError::Runtime(format!(
+                    "Cannot queue soft script: {script_id}"
+                )));
+            }
+        }
+        Ok(())
+    }
+
+    /// [`add`](Self::add), remembering the player whose script queued it
+    /// (`QueuedScript::source`): a hit the queued script paints is theirs.
+    #[cfg(since_647)]
+    pub fn add_from(
+        &mut self,
+        priority: QueuePriority,
+        script_id: i32,
+        delay: u16,
+        args: Option<Vec<ScriptArgument>>,
+        source: Option<u16>,
+    ) -> Result<(), ScriptError> {
+        let queued = QueuedScript {
+            priority,
+            script_id,
+            delay: if priority == QueuePriority::Engine {
+                0
+            } else {
+                delay
+            },
+            args,
+            source,
+        };
+        match priority {
+            QueuePriority::Normal | QueuePriority::Strong | QueuePriority::Long => {
+                self.queue.add_tail(queued)
+            }
+            QueuePriority::Engine => self.engine.add_tail(queued),
             QueuePriority::Weak => self.weak.add_tail(queued),
             QueuePriority::Soft => {
                 return Err(ScriptError::Runtime(format!(

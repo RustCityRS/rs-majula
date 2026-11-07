@@ -139,6 +139,14 @@ pub struct EntityMasksCold {
     pub damage2_base: Option<u8>,
     #[cfg(since_244)]
     pub damage_slot: u8,
+    #[cfg(since_647)]
+    pub damage_soak: Option<u16>,
+    #[cfg(since_647)]
+    pub damage2_soak: Option<u16>,
+    #[cfg(since_647)]
+    pub damage_source: Option<u16>,
+    #[cfg(since_647)]
+    pub damage2_source: Option<u16>,
     pub chat_bytes: Option<Box<[u8]>>,
     pub chat_colour: Option<u8>,
     pub chat_effects: Option<u8>,
@@ -227,6 +235,14 @@ impl EntityMasks {
                 damage2_base: None,
                 #[cfg(since_244)]
                 damage_slot: 0,
+                #[cfg(since_647)]
+                damage_soak: None,
+                #[cfg(since_647)]
+                damage2_soak: None,
+                #[cfg(since_647)]
+                damage_source: None,
+                #[cfg(since_647)]
+                damage2_source: None,
                 chat_bytes: None,
                 chat_colour: None,
                 chat_effects: None,
@@ -291,6 +307,18 @@ impl EntityMasks {
             true
         } else {
             false
+        }
+    }
+
+    /// Credits the hit just applied (by [`apply_damage2`](Self::apply_damage2)
+    /// then [`apply_damage`](Self::apply_damage), as every 647 hit is) to the
+    /// player `source` (a pid), who sees it bright with its receiver.
+    #[cfg(since_647)]
+    pub fn set_last_hit_source(&mut self, source: Option<u16>) {
+        if self.damage_slot.wrapping_sub(1) % 2 == 1 {
+            self.damage2_source = source;
+        } else {
+            self.damage_source = source;
         }
     }
 
@@ -401,6 +429,13 @@ impl EntityMasks {
             self.damage2_base = None;
             self.damage_slot = 0;
         }
+        #[cfg(since_647)]
+        {
+            self.damage_soak = None;
+            self.damage2_soak = None;
+            self.damage_source = None;
+            self.damage2_source = None;
+        }
         self.chat_bytes = None;
         self.chat_colour = None;
         self.chat_effects = None;
@@ -437,6 +472,12 @@ impl EntityMasks {
             && self.damage_slot == 0;
         #[cfg(before_244)]
         let damage2_clear = true;
+        #[cfg(since_647)]
+        let damage2_clear = damage2_clear
+            && self.damage_soak.is_none()
+            && self.damage2_soak.is_none()
+            && self.damage_source.is_none()
+            && self.damage2_source.is_none();
 
         self.face_x.is_none()
             && self.face_z.is_none()
@@ -1146,7 +1187,17 @@ mod tests {
         masks.damage2_current = Some(40);
         masks.damage2_base = Some(99);
         masks.damage_slot = 3;
+        #[cfg(since_647)]
+        {
+            masks.damage_soak = Some(75);
+            masks.damage2_soak = Some(12);
+        }
         masks.reset();
+        #[cfg(since_647)]
+        {
+            assert!(masks.damage_soak.is_none());
+            assert!(masks.damage2_soak.is_none());
+        }
         assert!(masks.damage2_taken.is_none());
         assert!(masks.damage2_type.is_none());
         assert!(masks.damage2_current.is_none());

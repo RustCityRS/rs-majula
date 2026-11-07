@@ -2,6 +2,12 @@
 // 0-2 a hit with the melee, ranged or magic icon, 3 a plain hit, 6 poison, 7
 // disease, 8 a miss (no number), 9 a heal -- void-634's HitSplat.Mark agrees.
 // 289's block, damage and poison (0, 1, 2) are 2011's 8, 3 and 6.
+// 5 is damage soaked (blue, the shield icon 4470), which the engine paints
+// beside a soaked hit (player/scripts/damage.rs2); 13 a cannon's (icon 4472);
+// 14-27 are 0-13 again on darker backgrounds, the splats a player sees on
+// hits neither dealt nor taken by them (2011 wiki, Hitsplat, 2011-04-13;
+// void-634 HitSplat adds 14). No hitmark has a dragon breath or desert heat
+// icon: those hits are plain, as void-634 paints dragonfire.
 ^hitmark_block = 8
 ^hitmark_damage = 3
 ^hitmark_poison = 6

@@ -5433,8 +5433,8 @@ impl ScriptPlayer for ActivePlayer {
     /// **Called by:** VM ops via `ScriptPlayer` trait
     /// **Calls:** `ActivePlayer::hit`
     #[cfg(since_647)]
-    fn hit(&mut self, amount: u16, hitmark: u8, healthbar: u8) {
-        self.hit(amount, hitmark, healthbar);
+    fn hit(&mut self, amount: u16, hitmark: u8, soak: u16, healthbar: u8, source: Option<u16>) {
+        self.hit(amount, hitmark, soak, healthbar, source);
     }
 
     /// Finds the player with the most hero points on this entity.
@@ -6507,6 +6507,21 @@ impl ScriptPlayer for ActivePlayer {
             .add(priority, script_id, delay, args)
     }
 
+    #[cfg(since_647)]
+    fn queue_from(
+        &mut self,
+        script_id: i32,
+        priority: QueuePriority,
+        delay: u16,
+        args: Option<Vec<ScriptArgument>>,
+        source: Option<u16>,
+    ) -> rs_vm::Result<()> {
+        self.player
+            .state
+            .queues
+            .add_from(priority, script_id, delay, args, source)
+    }
+
     /// Sets a recurring timer that fires a script at a fixed interval.
     ///
     /// # Call Stack
@@ -7169,6 +7184,25 @@ impl ScriptNpc for ActiveNpc {
             .state
             .queues
             .add(QueuePriority::Normal, script_id, delay, args)
+    }
+
+    #[cfg(since_647)]
+    fn queue_from(
+        &mut self,
+        script_id: i32,
+        delay: u16,
+        args: Option<Vec<ScriptArgument>>,
+        source: Option<u16>,
+    ) -> rs_vm::Result<()> {
+        self.npc
+            .state
+            .queues
+            .add_from(QueuePriority::Normal, script_id, delay, args, source)
+    }
+
+    #[cfg(since_647)]
+    fn hit_source(&mut self, source: Option<u16>) {
+        self.npc.info.set_last_hit_source(source);
     }
 
     /// Sets or clears the NPC's recurring timer interval.

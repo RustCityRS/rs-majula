@@ -320,12 +320,17 @@ impl Engine {
                 }
 
                 if let Some(script) = engine().get_script(request.script_id).cloned() {
-                    let state = engine_mut().build_state(
+                    #[cfg_attr(before_647, allow(unused_mut))]
+                    let mut state = engine_mut().build_state(
                         script,
                         Some(ScriptSubject::Player(uid)),
                         None,
                         request.args,
                     );
+                    #[cfg(since_647)]
+                    {
+                        state.queue_source = request.source;
+                    }
                     if let Err(e) = engine_mut().run_script_by_state(
                         state,
                         Some(ScriptSubject::Player(uid)),
@@ -368,12 +373,17 @@ impl Engine {
                 let request = active.player.state.queues.weak.unlink(idx);
 
                 if let Some(script) = engine().get_script(request.script_id).cloned() {
-                    let state = engine_mut().build_state(
+                    #[cfg_attr(before_647, allow(unused_mut))]
+                    let mut state = engine_mut().build_state(
                         script,
                         Some(ScriptSubject::Player(uid)),
                         None,
                         request.args,
                     );
+                    #[cfg(since_647)]
+                    {
+                        state.queue_source = request.source;
+                    }
                     if let Err(e) = engine_mut().run_script_by_state(
                         state,
                         Some(ScriptSubject::Player(uid)),
@@ -419,12 +429,17 @@ impl Engine {
                 let request = active.player.state.queues.engine.unlink(idx);
 
                 if let Some(script) = engine().get_script(request.script_id).cloned() {
-                    let state = engine_mut().build_state(
+                    #[cfg_attr(before_647, allow(unused_mut))]
+                    let mut state = engine_mut().build_state(
                         script,
                         Some(ScriptSubject::Player(uid)),
                         None,
                         request.args,
                     );
+                    #[cfg(since_647)]
+                    {
+                        state.queue_source = request.source;
+                    }
                     if let Err(e) = engine_mut().run_script_by_state(
                         state,
                         Some(ScriptSubject::Player(uid)),

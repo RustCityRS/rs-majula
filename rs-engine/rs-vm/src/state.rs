@@ -64,6 +64,11 @@ pub struct ScriptState {
     /// result), read back by the `last_string` command.
     #[cfg(since_647)]
     pub last_string: Option<String>,
+    // The player whose script queued this one, when it runs from a queue: a
+    // hit it paints is theirs (2011's hitsplats are bright for the hit's
+    // dealer and receiver, darker for everyone else).
+    #[cfg(since_647)]
+    pub queue_source: Option<u16>,
 
     pub(crate) split_pages: Option<Vec<Vec<String>>>,
     pub(crate) split_mesanim: Option<u16>,
@@ -166,6 +171,8 @@ impl ScriptState {
             last_int: None,
             #[cfg(since_647)]
             last_string: None,
+            #[cfg(since_647)]
+            queue_source: None,
             split_pages: None,
             split_mesanim: None,
             db_table: None,
@@ -1147,6 +1154,9 @@ pub struct QueuedScript {
     pub script_id: i32,
     pub delay: u16,
     pub args: Option<Vec<ScriptArgument>>,
+    // The pid of the player whose script queued it (ScriptState::queue_source).
+    #[cfg(since_647)]
+    pub source: Option<u16>,
 }
 
 /// Priority level for a [`TimedScript`], controlling how the timer interacts

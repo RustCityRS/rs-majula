@@ -37,7 +37,7 @@ setup_player("test_player")
 queue(combat_damage_player, 0, ~combat_hit(37, ^hitmark_melee, 100))
 test_tick(2)
 assert_eq(%life_points, 63)
-assert_called_with("damage", "0,37,160")
+assert_called_with("damage", "0,37,0,160")
 
 // A player's ranged hit paints the ranged mark on the npc.
 [label,test_a_ranged_hit_paints_the_ranged_mark_on_an_npc]

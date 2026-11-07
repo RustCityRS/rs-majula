@@ -16802,6 +16802,8 @@ param=slashdefence,22
 param=crushdefence,20
 param=magicdefence,-4
 param=rangedefence,22
+param=absorbmelee,1
+param=absorbranged,2
 
 [cert_mithril_platelegs]
 certlink=mithril_platelegs
@@ -16840,6 +16842,8 @@ param=slashdefence,31
 param=crushdefence,29
 param=magicdefence,-4
 param=rangedefence,31
+param=absorbmelee,1
+param=absorbranged,3
 
 [cert_adamant_platelegs]
 certlink=adamant_platelegs
@@ -16955,6 +16959,8 @@ param=slashdefence,49
 param=crushdefence,47
 param=magicdefence,-4
 param=rangedefence,49
+param=absorbmelee,2
+param=absorbranged,4
 
 [cert_rune_platelegs]
 certlink=rune_platelegs
@@ -17065,6 +17071,8 @@ param=slashdefence,22
 param=crushdefence,20
 param=magicdefence,-4
 param=rangedefence,22
+param=absorbmelee,1
+param=absorbranged,2
 
 [cert_mithril_plateskirt]
 certlink=mithril_plateskirt
@@ -17176,6 +17184,8 @@ param=slashdefence,31
 param=crushdefence,29
 param=magicdefence,-4
 param=rangedefence,31
+param=absorbmelee,1
+param=absorbranged,3
 
 [cert_adamant_plateskirt]
 certlink=adamant_plateskirt
@@ -17214,6 +17224,8 @@ param=slashdefence,49
 param=crushdefence,47
 param=magicdefence,-4
 param=rangedefence,49
+param=absorbmelee,2
+param=absorbranged,4
 
 [cert_rune_plateskirt]
 certlink=rune_plateskirt
@@ -17268,6 +17280,8 @@ desc=Those studs should provide a bit more protection.
 wearpos=legs
 // 289's studding key (skill_crafting/configs/leather/leather_gear.obj)
 param=crafting_studded_struct,studded_chaps
+param=absorbmagic,2
+param=absorbranged,1
 
 [cert_studded_chaps]
 certlink=studded_chaps
@@ -17294,6 +17308,8 @@ icursor1=1,51
 cursor1=2,45
 desc=Made from 100% real dragonhide.
 wearpos=legs
+param=absorbmagic,4
+param=absorbranged,2
 
 [cert_dragonhide_chaps]
 certlink=green_d_hide_chaps
@@ -17434,6 +17450,8 @@ param=crushdefence,39
 param=magicdefence,-3
 param=rangedefence,24
 param=defend_sound,steel_mail
+param=absorbmelee,1
+param=absorbranged,2
 
 [cert_black_chainbody]
 certlink=black_chainbody
@@ -17473,6 +17491,8 @@ param=crushdefence,42
 param=magicdefence,-3
 param=rangedefence,27
 param=defend_sound,steel2_mail
+param=absorbmelee,1
+param=absorbranged,3
 
 [cert_mithril_chainbody]
 certlink=mithril_chainbody
@@ -17511,6 +17531,8 @@ param=crushdefence,61
 param=magicdefence,-3
 param=rangedefence,38
 param=defend_sound,sword_hit2_mail
+param=absorbmelee,2
+param=absorbranged,4
 
 [cert_adamant_chainbody]
 certlink=adamant_chainbody
@@ -17550,6 +17572,8 @@ param=crushdefence,78
 param=magicdefence,-3
 param=rangedefence,65
 param=defend_sound,swordclash3_mail
+param=absorbmelee,3
+param=absorbranged,6
 
 [cert_rune_chainbody]
 certlink=rune_chainbody
@@ -17716,6 +17740,8 @@ param=crushdefence,38
 param=magicdefence,-6
 param=rangedefence,44
 param=defend_sound,steel
+param=absorbmelee,1
+param=absorbranged,3
 
 [cert_mithril_platebody]
 certlink=mithril_platebody
@@ -17758,6 +17784,8 @@ param=crushdefence,55
 param=magicdefence,-6
 param=rangedefence,63
 param=defend_sound,steel2
+param=absorbmelee,2
+param=absorbranged,4
 
 [cert_adamant_platebody]
 certlink=adamant_platebody
@@ -17801,6 +17829,8 @@ param=crushdefence,30
 param=magicdefence,-6
 param=rangedefence,40
 param=defend_sound,sword_hit2
+param=absorbmelee,1
+param=absorbranged,2
 
 [cert_black_platebody]
 certlink=black_platebody
@@ -17845,6 +17875,8 @@ param=crushdefence,72
 param=magicdefence,-6
 param=rangedefence,80
 param=defend_sound,swordclash3
+param=absorbmelee,3
+param=absorbranged,6
 
 [cert_rune_platebody]
 certlink=rune_platebody
@@ -17894,6 +17926,8 @@ desc=Harder than normal leather.
 wearpos=torso
 // 289's block sound (skill_crafting/configs/leather/leather_gear.obj)
 param=defend_sound,leather_hit
+param=absorbmagic,2
+param=absorbranged,1
 
 [cert_hardleather_body]
 certlink=hardleather_body
@@ -17923,6 +17957,8 @@ wearpos=torso
 param=crafting_studded_struct,studded_body
 // 289's block sound (skill_crafting/configs/leather/leather_gear.obj)
 param=defend_sound,leather_hit
+param=absorbmagic,3
+param=absorbranged,1
 
 [cert_studded_body]
 certlink=studded_body
@@ -17952,6 +17988,8 @@ desc=Made from 100% real dragonhide.
 wearpos=torso
 // 289's block sound (skill_crafting/configs/leather/leather_gear.obj)
 param=defend_sound,leather_hit
+param=absorbmagic,6
+param=absorbranged,3
 
 [cert_dragonhide_body]
 certlink=green_d_hide_body
@@ -18146,6 +18184,8 @@ param=slashdefence,15
 param=crushdefence,13
 param=magicdefence,-1
 param=rangedefence,14
+param=absorbmelee,1
+param=absorbranged,2
 
 [cert_adamant_med_helm]
 certlink=adamant_med_helm
@@ -18186,6 +18226,8 @@ param=slashdefence,23
 param=crushdefence,21
 param=magicdefence,-1
 param=rangedefence,22
+param=absorbmelee,1
+param=absorbranged,3
 
 [cert_rune_med_helm]
 certlink=rune_med_helm
@@ -18229,6 +18271,8 @@ param=slashdefence,35
 param=crushdefence,32
 param=magicdefence,-1
 param=rangedefence,34
+param=absorbmelee,2
+param=absorbranged,4
 
 [cert_dragon_med_helm]
 certlink=dragon_med_helm
@@ -18478,6 +18522,8 @@ param=slashdefence,21
 param=crushdefence,16
 param=magicdefence,-1
 param=rangedefence,19
+param=absorbmelee,1
+param=absorbranged,2
 
 [cert_adamant_full_helm]
 certlink=adamant_full_helm
@@ -18521,6 +18567,8 @@ param=slashdefence,32
 param=crushdefence,27
 param=magicdefence,-1
 param=rangedefence,30
+param=absorbmelee,1
+param=absorbranged,3
 
 [cert_rune_full_helm]
 certlink=rune_full_helm
@@ -18820,6 +18868,8 @@ param=crushdefence,14
 param=rangedefence,15
 param=defend_anim,human_shield_defence
 param=defend_sound,blade5
+param=absorbmelee,1
+param=absorbranged,2
 
 [cert_black_sq_shield]
 certlink=black_sq_shield
@@ -18859,6 +18909,8 @@ param=crushdefence,15
 param=rangedefence,17
 param=defend_anim,human_shield_defence
 param=defend_sound,swordclash2
+param=absorbmelee,2
+param=absorbranged,4
 
 [cert_mithril_sq_shield]
 certlink=mithril_sq_shield
@@ -18897,6 +18949,8 @@ param=crushdefence,22
 param=rangedefence,24
 param=defend_anim,human_shield_defence
 param=defend_sound,swordclash5
+param=absorbmelee,3
+param=absorbranged,6
 
 [cert_adamant_sq_shield]
 certlink=adamant_sq_shield
@@ -18936,6 +18990,8 @@ param=crushdefence,36
 param=rangedefence,38
 param=defend_anim,human_shield_defence
 param=defend_sound,swordclash6
+param=absorbmelee,3
+param=absorbranged,7
 
 [cert_rune_sq_shield]
 certlink=rune_sq_shield
@@ -18980,6 +19036,9 @@ param=defend_sound,swordclash6
 // 2011's anti-dragon shield, 1540 (the 2011 wiki's Anti-dragon shield, 22 May
 // 2011: "formerly named the dragonfire shield"). Its examine is 2011's
 // (void-634's, as player/configs/wearpos.obj gave it).
+param=absorbmelee,5
+param=absorbranged,11
+
 [cert_dragon_sq_shield]
 certlink=dragon_sq_shield
 certtemplate=template_for_cert
@@ -19142,6 +19201,8 @@ param=magicdefence,-1
 param=rangedefence,18
 param=defend_anim,human_shield_defence
 param=defend_sound,blade5
+param=absorbmelee,1
+param=absorbranged,2
 
 [cert_black_kiteshield]
 certlink=black_kiteshield
@@ -19184,6 +19245,8 @@ param=magicdefence,-1
 param=rangedefence,20
 param=defend_anim,human_shield_defence
 param=defend_sound,swordclash2
+param=absorbmelee,2
+param=absorbranged,4
 
 [cert_mithril_kiteshield]
 certlink=mithril_kiteshield
@@ -19225,6 +19288,8 @@ param=magicdefence,-1
 param=rangedefence,29
 param=defend_anim,human_shield_defence
 param=defend_sound,swordclash5
+param=absorbmelee,3
+param=absorbranged,6
 
 [cert_adamant_kiteshield]
 certlink=adamant_kiteshield
@@ -19267,6 +19332,8 @@ param=magicdefence,-1
 param=rangedefence,46
 param=defend_anim,human_shield_defence
 param=defend_sound,swordclash6
+param=absorbmelee,3
+param=absorbranged,7
 
 [cert_rune_kiteshield]
 certlink=rune_kiteshield
@@ -39297,6 +39364,8 @@ icursor1=1,51
 cursor1=2,45
 desc=Made from 100% real dragonhide.
 wearpos=legs
+param=absorbmagic,5
+param=absorbranged,2
 
 [cert_blue_dragonhide_chaps]
 certlink=blue_d_hide_chaps
@@ -39328,6 +39397,8 @@ icursor1=1,51
 cursor1=2,45
 desc=Made from 100% real dragonhide.
 wearpos=legs
+param=absorbmagic,6
+param=absorbranged,3
 
 [cert_red_dragonhide_chaps]
 certlink=red_d_hide_chaps
@@ -39359,6 +39430,8 @@ icursor1=1,51
 cursor1=2,45
 desc=Made from 100% real dragonhide.
 wearpos=legs
+param=absorbmagic,7
+param=absorbranged,3
 
 [cert_black_dragonhide_chaps]
 certlink=black_d_hide_chaps
@@ -39392,6 +39465,8 @@ desc=Made from 100% real dragonhide.
 wearpos=torso
 // 289's block sound (skill_crafting/configs/leather/leather_gear.obj)
 param=defend_sound,leather_hit
+param=absorbmagic,6
+param=absorbranged,3
 
 [cert_blue_dragonhide_body]
 certlink=blue_d_hide_body
@@ -39425,6 +39500,8 @@ desc=Made from 100% real dragonhide.
 wearpos=torso
 // 289's block sound (skill_crafting/configs/leather/leather_gear.obj)
 param=defend_sound,leather_hit
+param=absorbmagic,6
+param=absorbranged,3
 
 [cert_red_dragonhide_body]
 certlink=red_d_hide_body
@@ -39458,6 +39535,8 @@ desc=Made from 100% real dragonhide.
 wearpos=torso
 // 289's block sound (skill_crafting/configs/leather/leather_gear.obj)
 param=defend_sound,leather_hit
+param=absorbmagic,6
+param=absorbranged,3
 
 [cert_black_dragonhide_body]
 certlink=black_d_hide_body
@@ -40765,6 +40844,8 @@ param=crushdefence,30
 param=magicdefence,-6
 param=rangedefence,40
 param=defend_sound,sword_hit2
+param=absorbmelee,1
+param=absorbranged,2
 
 [cert_black_platebody_trim]
 certlink=black_platebody__t
@@ -40889,6 +40970,8 @@ param=magicdefence,-1
 param=rangedefence,18
 param=defend_anim,human_shield_defence
 param=defend_sound,blade5
+param=absorbmelee,1
+param=absorbranged,2
 
 [cert_black_kiteshield_trim]
 certlink=black_kiteshield__t
@@ -40932,6 +41015,8 @@ param=crushdefence,30
 param=magicdefence,-6
 param=rangedefence,40
 param=defend_sound,sword_hit2
+param=absorbmelee,1
+param=absorbranged,2
 
 [cert_black_platebody_gold]
 certlink=black_platebody__g
@@ -41056,6 +41141,8 @@ param=magicdefence,-1
 param=rangedefence,18
 param=defend_anim,human_shield_defence
 param=defend_sound,blade5
+param=absorbmelee,1
+param=absorbranged,2
 
 [cert_black_kiteshield_gold]
 certlink=black_kiteshield__g
@@ -41099,6 +41186,8 @@ param=crushdefence,55
 param=magicdefence,-6
 param=rangedefence,63
 param=defend_sound,sword_hit2
+param=absorbmelee,2
+param=absorbranged,4
 
 [cert_adamant_platebody_trim]
 certlink=adamant_platebody__t
@@ -41137,6 +41226,8 @@ param=slashdefence,31
 param=crushdefence,29
 param=magicdefence,-4
 param=rangedefence,31
+param=absorbmelee,1
+param=absorbranged,3
 
 [cert_adamant_platelegs_trim]
 certlink=adamant_platelegs__t
@@ -41180,6 +41271,8 @@ param=crushdefence,29
 param=magicdefence,-1
 param=rangedefence,29
 param=defend_anim,human_shield_defence
+param=absorbmelee,3
+param=absorbranged,6
 
 [cert_adamant_kiteshield_trim]
 certlink=adamant_kiteshield__t
@@ -41222,6 +41315,8 @@ param=slashdefence,21
 param=crushdefence,16
 param=magicdefence,-1
 param=rangedefence,19
+param=absorbmelee,1
+param=absorbranged,2
 
 [cert_adamant_full_helm_trim]
 certlink=adamant_full_helm__t
@@ -41265,6 +41360,8 @@ param=crushdefence,55
 param=magicdefence,-6
 param=rangedefence,63
 param=defend_sound,sword_hit2
+param=absorbmelee,2
+param=absorbranged,4
 
 [cert_adamant_platebody_gold]
 certlink=adamant_platebody__g
@@ -41303,6 +41400,8 @@ param=slashdefence,31
 param=crushdefence,29
 param=magicdefence,-4
 param=rangedefence,31
+param=absorbmelee,1
+param=absorbranged,3
 
 [cert_adamant_platelegs_gold]
 certlink=adamant_platelegs__g
@@ -41346,6 +41445,8 @@ param=crushdefence,29
 param=magicdefence,-1
 param=rangedefence,29
 param=defend_anim,human_shield_defence
+param=absorbmelee,3
+param=absorbranged,6
 
 [cert_adamant_kiteshield_gold]
 certlink=adamant_kiteshield__g
@@ -41388,6 +41489,8 @@ param=slashdefence,21
 param=crushdefence,16
 param=magicdefence,-1
 param=rangedefence,19
+param=absorbmelee,1
+param=absorbranged,2
 
 [cert_adamant_full_helm_gold]
 certlink=adamant_full_helm__g
@@ -41433,6 +41536,8 @@ param=crushdefence,72
 param=magicdefence,-6
 param=rangedefence,80
 param=defend_sound,swordclash3
+param=absorbmelee,3
+param=absorbranged,6
 
 [cert_rune_platebody_gold]
 certlink=rune_platebody__g
@@ -41472,6 +41577,8 @@ param=slashdefence,49
 param=crushdefence,47
 param=magicdefence,-4
 param=rangedefence,49
+param=absorbmelee,2
+param=absorbranged,4
 
 [cert_rune_platelegs_gold]
 certlink=rune_platelegs__g
@@ -41515,6 +41622,8 @@ param=slashdefence,32
 param=crushdefence,27
 param=magicdefence,-1
 param=rangedefence,30
+param=absorbmelee,1
+param=absorbranged,3
 
 [cert_rune_full_helm_gold]
 certlink=rune_full_helm__g
@@ -41560,6 +41669,8 @@ param=magicdefence,-1
 param=rangedefence,46
 param=defend_anim,human_shield_defence
 param=defend_sound,swordclash6
+param=absorbmelee,3
+param=absorbranged,7
 
 [cert_rune_kiteshield_gold]
 certlink=rune_kiteshield__g
@@ -41605,6 +41716,8 @@ param=crushdefence,72
 param=magicdefence,-6
 param=rangedefence,80
 param=defend_sound,swordclash3
+param=absorbmelee,3
+param=absorbranged,6
 
 [cert_rune_platebody_trim]
 certlink=rune_platebody__t
@@ -41644,6 +41757,8 @@ param=slashdefence,49
 param=crushdefence,47
 param=magicdefence,-4
 param=rangedefence,49
+param=absorbmelee,2
+param=absorbranged,4
 
 [cert_rune_platelegs_trim]
 certlink=rune_platelegs__t
@@ -41687,6 +41802,8 @@ param=slashdefence,32
 param=crushdefence,27
 param=magicdefence,-1
 param=rangedefence,30
+param=absorbmelee,1
+param=absorbranged,3
 
 [cert_rune_full_helm_trim]
 certlink=rune_full_helm__t
@@ -41732,6 +41849,8 @@ param=magicdefence,-1
 param=rangedefence,46
 param=defend_anim,human_shield_defence
 param=defend_sound,swordclash6
+param=absorbmelee,3
+param=absorbranged,7
 
 [cert_rune_kiteshield_trim]
 certlink=rune_kiteshield__t
@@ -42166,6 +42285,8 @@ param=crushdefence,47
 param=magicdefence,-4
 param=rangedefence,49
 param=zamorakitem,1
+param=absorbmelee,2
+param=absorbranged,4
 
 [cert_rune_platelegs_zamorak]
 certlink=zamorak_platelegs
@@ -42210,6 +42331,8 @@ param=crushdefence,27
 param=magicdefence,-1
 param=rangedefence,30
 param=zamorakitem,1
+param=absorbmelee,1
+param=absorbranged,3
 
 [cert_rune_full_helm_zamorak]
 certlink=zamorak_full_helm
@@ -42256,6 +42379,8 @@ param=rangedefence,46
 param=defend_anim,human_shield_defence
 param=zamorakitem,1
 param=defend_sound,swordclash6
+param=absorbmelee,3
+param=absorbranged,7
 
 [cert_rune_kiteshield_zamorak]
 certlink=zamorak_kiteshield
@@ -42304,6 +42429,8 @@ param=magicdefence,-6
 param=rangedefence,80
 param=saradominitem,1
 param=defend_sound,swordclash3
+param=absorbmelee,3
+param=absorbranged,6
 
 [cert_rune_platebody_saradomin]
 certlink=saradomin_platebody
@@ -42344,6 +42471,8 @@ param=crushdefence,47
 param=magicdefence,-4
 param=rangedefence,49
 param=saradominitem,1
+param=absorbmelee,2
+param=absorbranged,4
 
 [cert_rune_platelegs_saradomin]
 certlink=saradomin_platelegs
@@ -42388,6 +42517,8 @@ param=crushdefence,27
 param=magicdefence,-1
 param=rangedefence,30
 param=saradominitem,1
+param=absorbmelee,1
+param=absorbranged,3
 
 [cert_rune_full_helm_saradomin]
 certlink=saradomin_full_helm
@@ -42434,6 +42565,8 @@ param=rangedefence,46
 param=defend_anim,human_shield_defence
 param=saradominitem,1
 param=defend_sound,swordclash6
+param=absorbmelee,3
+param=absorbranged,7
 
 [cert_rune_kiteshield_saradomin]
 certlink=saradomin_kiteshield
@@ -42522,6 +42655,8 @@ param=crushdefence,47
 param=magicdefence,-4
 param=rangedefence,49
 param=guthixitem,1
+param=absorbmelee,2
+param=absorbranged,4
 
 [cert_rune_platelegs_guthix]
 certlink=guthix_platelegs
@@ -42566,6 +42701,8 @@ param=crushdefence,27
 param=magicdefence,-1
 param=rangedefence,30
 param=guthixitem,1
+param=absorbmelee,1
+param=absorbranged,3
 
 [cert_rune_full_helm_guthix]
 certlink=guthix_full_helm
@@ -42612,6 +42749,8 @@ param=rangedefence,46
 param=defend_anim,human_shield_defence
 param=guthixitem,1
 param=defend_sound,swordclash6
+param=absorbmelee,3
+param=absorbranged,7
 
 [cert_rune_kiteshield_guthix]
 certlink=guthix_kiteshield
@@ -50458,6 +50597,8 @@ param=crushdefence,38
 param=magicdefence,-2
 param=rangedefence,65
 param=defend_sound,stone_armour1
+param=absorbmelee,5
+param=absorbranged,10
 
 [shaikahan_bones]
 members=yes
@@ -50758,6 +50899,8 @@ param=crushdefence,98
 param=magicdefence,-3
 param=rangedefence,82
 param=defend_sound,swordclash4_mail
+param=absorbmelee,4
+param=absorbranged,9
 
 [cert_dragon_chainbody]
 certlink=dragon_chainbody_3140
@@ -54326,6 +54469,8 @@ icursor1=1,51
 cursor1=2,45
 desc=A wooden helmet.
 wearpos=hat
+param=absorbmelee,3
+param=absorbmagic,1
 
 [cert_splitbark_helm]
 certlink=splitbark_helm
@@ -54357,6 +54502,8 @@ icursor1=1,51
 cursor1=2,45
 desc=Provides good protection.
 wearpos=torso
+param=absorbmelee,6
+param=absorbmagic,3
 
 [cert_splitbark_body]
 certlink=splitbark_body
@@ -54385,6 +54532,8 @@ icursor1=1,51
 cursor1=2,45
 desc=These should protect my legs.
 wearpos=legs
+param=absorbmelee,4
+param=absorbmagic,2
 
 [cert_splitbark_legs]
 certlink=splitbark_legs
@@ -55759,6 +55908,8 @@ param=slashdefence,31
 param=crushdefence,29
 param=magicdefence,-4
 param=rangedefence,31
+param=absorbmelee,1
+param=absorbranged,3
 
 [adamant_plateskirt__g]
 cost=6400
@@ -55796,6 +55947,8 @@ param=slashdefence,31
 param=crushdefence,29
 param=magicdefence,-4
 param=rangedefence,31
+param=absorbmelee,1
+param=absorbranged,3
 
 [rune_plateskirt__g]
 cost=64000
@@ -55834,6 +55987,8 @@ param=slashdefence,49
 param=crushdefence,47
 param=magicdefence,-4
 param=rangedefence,49
+param=absorbmelee,2
+param=absorbranged,4
 
 [rune_plateskirt__t]
 cost=64000
@@ -55872,6 +56027,8 @@ param=slashdefence,49
 param=crushdefence,47
 param=magicdefence,-4
 param=rangedefence,49
+param=absorbmelee,2
+param=absorbranged,4
 
 [zamorak_plateskirt]
 cost=64000
@@ -55911,6 +56068,8 @@ param=crushdefence,47
 param=magicdefence,-4
 param=rangedefence,49
 param=zamorakitem,1
+param=absorbmelee,2
+param=absorbranged,4
 
 [saradomin_plateskirt]
 cost=64000
@@ -55950,6 +56109,8 @@ param=crushdefence,47
 param=magicdefence,-4
 param=rangedefence,49
 param=saradominitem,1
+param=absorbmelee,2
+param=absorbranged,4
 
 [guthix_plateskirt]
 cost=64000
@@ -55989,6 +56150,8 @@ param=crushdefence,47
 param=magicdefence,-4
 param=rangedefence,49
 param=guthixitem,1
+param=absorbmelee,2
+param=absorbranged,4
 
 [gilded_platebody]
 cost=65000
@@ -56070,6 +56233,8 @@ param=slashdefence,49
 param=crushdefence,47
 param=magicdefence,-4
 param=rangedefence,49
+param=absorbmelee,2
+param=absorbranged,4
 
 [cert_rune_platelegs_goldplate]
 certlink=gilded_platelegs
@@ -56113,6 +56278,8 @@ param=slashdefence,49
 param=crushdefence,47
 param=magicdefence,-4
 param=rangedefence,49
+param=absorbmelee,2
+param=absorbranged,4
 
 [gilded_full_helm]
 cost=35200
@@ -56153,6 +56320,8 @@ param=slashdefence,32
 param=crushdefence,27
 param=magicdefence,-1
 param=rangedefence,30
+param=absorbmelee,1
+param=absorbranged,3
 
 [cert_rune_full_helm_goldplate]
 certlink=gilded_full_helm
@@ -56198,6 +56367,8 @@ param=crushdefence,46
 param=magicdefence,-1
 param=rangedefence,46
 param=defend_anim,human_shield_defence
+param=absorbmelee,3
+param=absorbranged,7
 
 [cert_rune_kiteshield_goldplate]
 certlink=gilded_kiteshield
@@ -60604,6 +60775,8 @@ icursor1=1,51
 cursor1=2,45
 desc=A sturdy helm worn only by Fremennik clan members.
 wearpos=hat
+param=absorbmelee,1
+param=absorbranged,2
 
 [archer_helm]
 cost=78000
@@ -60634,6 +60807,8 @@ icursor1=1,51
 cursor1=2,45
 desc=This helmet is worn by archers.
 wearpos=hat
+param=absorbmagic,3
+param=absorbranged,1
 
 [cert_viking_helmet_range]
 certlink=archer_helm
@@ -60669,6 +60844,8 @@ icursor1=1,51
 cursor1=2,45
 desc=This helmet is worn by berserkers.
 wearpos=hat
+param=absorbmelee,1
+param=absorbranged,3
 
 [cert_viking_helmet_crush]
 certlink=berserker_helm
@@ -60704,6 +60881,8 @@ icursor1=1,51
 cursor1=2,45
 desc=This helmet is worn by warriors.
 wearpos=hat
+param=absorbmelee,1
+param=absorbranged,3
 
 [cert_viking_helmet_slash]
 certlink=warrior_helm
@@ -60740,6 +60919,8 @@ icursor1=1,51
 cursor1=2,45
 desc=This helmet is worn by farseers.
 wearpos=hat
+param=absorbmelee,3
+param=absorbmagic,1
 
 [cert_viking_helmet_magic]
 certlink=farseer_helm
@@ -65566,6 +65747,8 @@ icursor1=1,51
 cursor1=2,45
 desc=These look pretty heavy.
 wearpos=legs
+param=absorbmelee,3
+param=absorbranged,6
 
 [cert_obj_4087]
 certlink=dragon_platelegs
@@ -65600,6 +65783,8 @@ icursor1=1,51
 cursor1=2,45
 desc=A magical hat.
 wearpos=hat
+param=absorbmelee,3
+param=absorbmagic,1
 
 [mystic_hat_4090]
 certlink=mystic_hat
@@ -65629,6 +65814,8 @@ icursor1=1,51
 cursor1=2,45
 desc=The upper half of a magical robe.
 wearpos=torso
+param=absorbmelee,6
+param=absorbmagic,3
 
 [mystic_robe_top_4092]
 certlink=mystic_robe_top
@@ -65660,6 +65847,8 @@ icursor1=1,51
 cursor1=2,45
 desc=The lower half of a magical robe.
 wearpos=legs
+param=absorbmelee,4
+param=absorbmagic,2
 
 [mystic_robe_bottom_4094]
 certlink=mystic_robe_bottom
@@ -65759,6 +65948,8 @@ icursor1=1,51
 cursor1=2,45
 desc=A dark magical hat.
 wearpos=hat
+param=absorbmelee,3
+param=absorbmagic,1
 
 [mystic_hat_4100]
 certlink=mystic_hat_4099
@@ -65934,6 +66125,8 @@ icursor1=1,51
 cursor1=2,45
 desc=A bright magical hat.
 wearpos=hat
+param=absorbmelee,3
+param=absorbmagic,1
 
 [mystic_hat_4110]
 certlink=mystic_hat_4109
@@ -67679,6 +67872,8 @@ icursor1=1,51
 cursor1=2,45
 desc=A nice sturdy crystal shield.
 wearpos=lefthand
+param=absorbmelee,6
+param=absorbranged,12
 
 [crystal_shield_full]
 iop2=Wield
@@ -67704,6 +67899,8 @@ cursor1=2,45
 tradeable=no
 desc=A nice sturdy crystal shield.
 wearpos=lefthand
+param=absorbmelee,6
+param=absorbranged,12
 
 [crystal_shield_9_10]
 iop2=Wield
@@ -67726,6 +67923,8 @@ paramint=param_752,50
 paramint=param_743,90
 icursor1=1,51
 cursor1=2,45
+param=absorbmelee,6
+param=absorbranged,12
 
 [crystal_shield_8_10]
 iop2=Wield
@@ -67748,6 +67947,8 @@ paramint=param_752,50
 paramint=param_743,90
 icursor1=1,51
 cursor1=2,45
+param=absorbmelee,6
+param=absorbranged,12
 
 [crystal_shield_7_10]
 iop2=Wield
@@ -67770,6 +67971,8 @@ paramint=param_752,50
 paramint=param_743,90
 icursor1=1,51
 cursor1=2,45
+param=absorbmelee,6
+param=absorbranged,12
 
 [crystal_shield_6_10]
 iop2=Wield
@@ -67792,6 +67995,8 @@ paramint=param_752,50
 paramint=param_743,90
 icursor1=1,51
 cursor1=2,45
+param=absorbmelee,6
+param=absorbranged,12
 
 [crystal_shield_5_10]
 iop2=Wield
@@ -67814,6 +68019,8 @@ paramint=param_752,50
 paramint=param_743,90
 icursor1=1,51
 cursor1=2,45
+param=absorbmelee,6
+param=absorbranged,12
 
 [crystal_shield_4_10]
 iop2=Wield
@@ -67836,6 +68043,8 @@ paramint=param_752,50
 paramint=param_743,90
 icursor1=1,51
 cursor1=2,45
+param=absorbmelee,6
+param=absorbranged,12
 
 [crystal_shield_3_10]
 iop2=Wield
@@ -67858,6 +68067,8 @@ paramint=param_752,50
 paramint=param_743,90
 icursor1=1,51
 cursor1=2,45
+param=absorbmelee,6
+param=absorbranged,12
 
 [crystal_shield_2_10]
 iop2=Wield
@@ -67880,6 +68091,8 @@ paramint=param_752,50
 paramint=param_743,90
 icursor1=1,51
 cursor1=2,45
+param=absorbmelee,6
+param=absorbranged,12
 
 [crystal_shield_1_10]
 iop2=Wield
@@ -67902,6 +68115,8 @@ paramint=param_752,50
 paramint=param_743,90
 icursor1=1,51
 cursor1=2,45
+param=absorbmelee,6
+param=absorbranged,12
 
 [new_crystal_shield_4235]
 certlink=new_crystal_shield
@@ -71634,6 +71849,8 @@ icursor1=1,51
 cursor1=2,45
 desc=Some platelegs with highly detailed decoration.
 wearpos=legs
+param=absorbmelee,1
+param=absorbranged,2
 
 [detailed_decorative_helm]
 cost=3000
@@ -71678,6 +71895,8 @@ icursor1=1,51
 cursor1=2,45
 desc=A shield with finely detailed decoration.
 wearpos=lefthand
+param=absorbmelee,2
+param=absorbranged,4
 
 [intricate_decorative_sword]
 cost=50000
@@ -71722,6 +71941,8 @@ icursor1=1,51
 cursor1=2,45
 desc=A platebody with incredibly intricate decoration.
 wearpos=torso
+param=absorbmelee,2
+param=absorbranged,4
 
 [intricate_decorative_platelegs]
 cost=100000
@@ -71739,6 +71960,8 @@ icursor1=1,51
 cursor1=2,45
 desc=Some platelegs with incredibly intricate decoration.
 wearpos=legs
+param=absorbmelee,1
+param=absorbranged,3
 
 [intricate_decorative_helm]
 cost=30000
@@ -71781,6 +72004,8 @@ icursor1=1,51
 cursor1=2,45
 desc=A shield with incredibly intricate decoration
 wearpos=lefthand
+param=absorbmelee,3
+param=absorbranged,6
 
 [saradomin_team_hood]
 model=model_26981
@@ -72800,6 +73025,8 @@ icursor1=1,51
 cursor1=2,45
 desc=This looks pretty heavy.
 wearpos=legs
+param=absorbmelee,3
+param=absorbranged,6
 
 [dragon_plateskirt_4586]
 certlink=dragon_plateskirt
@@ -74551,6 +74778,8 @@ icursor1=1,51
 cursor1=2,45
 desc=Ahrim The Blighted's Hood.
 wearpos=hat
+param=absorbmelee,5
+param=absorbmagic,2
 
 [ahrim_s_hood_4709]
 certlink=ahrim_s_hood
@@ -74622,6 +74851,8 @@ icursor1=1,51
 cursor1=2,45
 desc=Ahrim the Blighted's armoured robe top.
 wearpos=torso
+param=absorbmelee,10
+param=absorbmagic,5
 
 [ahrim_s_robetop_4713]
 certlink=ahrim_s_robetop
@@ -74650,6 +74881,8 @@ icursor1=1,51
 cursor1=2,45
 desc=Ahrim the Blighted's armoured robe skirt.
 wearpos=legs
+param=absorbmelee,7
+param=absorbmagic,3
 
 [ahrim_s_robeskirt_4715]
 certlink=ahrim_s_robeskirt
@@ -74682,6 +74915,8 @@ icursor1=1,51
 cursor1=2,45
 desc=Dharok The Wretched's Helmet
 wearpos=hat
+param=absorbmelee,2
+param=absorbranged,5
 
 [dharok_s_helm_4717]
 certlink=dharok_s_helm
@@ -74743,6 +74978,8 @@ icursor1=1,51
 cursor1=2,45
 desc=Dharok the Wretched's platebody armour.
 wearpos=torso
+param=absorbmelee,5
+param=absorbranged,10
 
 [dharok_s_platebody_4721]
 certlink=dharok_s_platebody
@@ -74772,6 +75009,8 @@ icursor1=1,51
 cursor1=2,45
 desc=Dharok the wretched's plate leg armour.
 wearpos=legs
+param=absorbmelee,3
+param=absorbranged,7
 
 [dharok_s_platelegs_4723]
 certlink=dharok_s_platelegs
@@ -74803,6 +75042,8 @@ icursor1=1,51
 cursor1=2,45
 desc=Guthan the Infested's helm.
 wearpos=hat
+param=absorbmelee,2
+param=absorbranged,5
 
 [guthan_s_helm_4725]
 certlink=guthan_s_helm
@@ -74872,6 +75113,8 @@ icursor1=1,51
 cursor1=2,45
 desc=Guthan the Infested's platebody armour.
 wearpos=torso
+param=absorbmelee,5
+param=absorbranged,10
 
 [guthan_s_platebody_4729]
 certlink=guthan_s_platebody
@@ -74902,6 +75145,8 @@ icursor1=1,51
 cursor1=2,45
 desc=Guthan the Infested's chainskirt.
 wearpos=legs
+param=absorbmelee,3
+param=absorbranged,7
 
 [guthan_s_chainskirt_4731]
 certlink=guthan_s_chainskirt
@@ -74941,6 +75186,8 @@ icursor1=1,51
 cursor1=2,45
 desc=Karil the Tainted's coif.
 wearpos=hat
+param=absorbmagic,5
+param=absorbranged,2
 
 [karil_s_coif_4733]
 certlink=karil_s_coif
@@ -75017,6 +75264,8 @@ icursor1=1,51
 cursor1=2,45
 desc=Karil the Tainted's leatherbody.
 wearpos=torso
+param=absorbmagic,10
+param=absorbranged,5
 
 [karil_s_top_4737]
 certlink=karil_s_top
@@ -75054,6 +75303,8 @@ icursor1=1,51
 cursor1=2,45
 desc=Karil the Tainted's leather skirt.
 wearpos=legs
+param=absorbmagic,7
+param=absorbranged,3
 
 [karil_s_skirt_4739]
 certlink=karil_s_skirt
@@ -75192,6 +75443,8 @@ icursor1=1,51
 cursor1=2,45
 desc=Torag the Corrupted's helm.
 wearpos=hat
+param=absorbmelee,2
+param=absorbranged,5
 
 [torag_s_helm_4746]
 certlink=torag_s_helm
@@ -75252,6 +75505,8 @@ icursor1=1,51
 cursor1=2,45
 desc=Torag the Corrupted's plate body armour.
 wearpos=torso
+param=absorbmelee,5
+param=absorbranged,10
 
 [torag_s_platebody_4750]
 certlink=torag_s_platebody
@@ -75278,6 +75533,8 @@ icursor1=1,51
 cursor1=2,45
 desc=Torag the Corrupted's plate leg armour.
 wearpos=legs
+param=absorbmelee,3
+param=absorbranged,7
 
 [torag_s_platelegs_4752]
 certlink=torag_s_platelegs
@@ -75318,6 +75575,8 @@ icursor1=1,51
 cursor1=2,45
 desc=Verac the Defiled's helm.
 wearpos=hat
+param=absorbmelee,2
+param=absorbranged,5
 
 [verac_s_helm_4754]
 certlink=verac_s_helm
@@ -75384,6 +75643,8 @@ icursor1=1,51
 cursor1=2,45
 desc=Verac The Defiled's Brassard.
 wearpos=torso
+param=absorbmelee,5
+param=absorbranged,10
 
 [verac_s_brassard_4758]
 certlink=verac_s_brassard
@@ -75415,6 +75676,8 @@ icursor1=1,51
 cursor1=2,45
 desc=Verac the Defiled's plate skirt.
 wearpos=legs
+param=absorbmelee,3
+param=absorbranged,7
 
 [verac_s_plateskirt_4760]
 certlink=verac_s_plateskirt
@@ -87839,6 +88102,8 @@ icursor1=1,51
 cursor1=2,45
 desc=An initiate Temple Knight's Armour.
 wearpos=torso
+param=absorbmelee,1
+param=absorbranged,3
 
 [initiate_cuisse]
 cost=8000
@@ -87867,6 +88132,8 @@ icursor1=1,51
 cursor1=2,45
 desc=An initiate Temple Knight's leg armour.
 wearpos=legs
+param=absorbmelee,1
+param=absorbranged,2
 
 [cupric_sulphate]
 model=model_2789
@@ -95667,6 +95934,8 @@ icursor1=1,51
 cursor1=2,45
 desc=Protective headwear made from crabs. Better than that sounds.
 wearpos=hat
+param=absorbmelee,1
+param=absorbranged,3
 
 [rock_shell_plate]
 cost=65000
@@ -95688,6 +95957,8 @@ icursor1=1,51
 cursor1=2,45
 desc=A sturdy body armour made from rock crab pieces.
 wearpos=torso
+param=absorbmelee,3
+param=absorbranged,6
 
 [rock_shell_legs]
 cost=64000
@@ -95710,6 +95981,8 @@ icursor1=1,51
 cursor1=2,45
 desc=Some tough leggings made from rock crab parts.
 wearpos=legs
+param=absorbmelee,2
+param=absorbranged,4
 
 [spined_helm]
 cost=60000
@@ -95740,6 +96013,8 @@ icursor1=1,51
 cursor1=2,45
 desc=A helm fit for any Fremennik ranger.
 wearpos=hat
+param=absorbmagic,3
+param=absorbranged,1
 
 [spined_helm_6132]
 certlink=spined_helm
@@ -95769,6 +96044,8 @@ icursor1=1,51
 cursor1=2,45
 desc=A constant reminder that I'm above a Dagannoth in the food chain.
 wearpos=torso
+param=absorbmagic,6
+param=absorbranged,3
 
 [spined_body_6134]
 certlink=spined_body
@@ -95799,6 +96076,8 @@ icursor1=1,51
 cursor1=2,45
 desc=Stylish leg armour for rangers with a lingering smell of raw fish...
 wearpos=legs
+param=absorbmagic,4
+param=absorbranged,2
 
 [spined_chaps_6136]
 certlink=spined_chaps
@@ -95833,6 +96112,8 @@ icursor1=1,51
 cursor1=2,45
 desc=Make your foes cower by wearing a skull as a helmet!
 wearpos=hat
+param=absorbmelee,3
+param=absorbmagic,1
 
 [skeletal_helm_6138]
 certlink=skeletal_helm
@@ -95860,6 +96141,8 @@ icursor1=1,51
 cursor1=2,45
 desc=The bones in this armour seem to vibrate with a magical quality...
 wearpos=torso
+param=absorbmelee,6
+param=absorbmagic,3
 
 [skeletal_top_6140]
 certlink=skeletal_top
@@ -95888,6 +96171,8 @@ icursor1=1,51
 cursor1=2,45
 desc=A superior set of strengthened slacks for any self respecting seer.
 wearpos=legs
+param=absorbmelee,4
+param=absorbmagic,2
 
 [skeletal_bottoms_6142]
 certlink=skeletal_bottoms
@@ -97217,6 +97502,8 @@ icursor1=1,51
 cursor1=2,45
 desc=A scary broodoo shield.
 wearpos=lefthand
+param=absorbmelee,4
+param=absorbmagic,2
 
 [broodoo_shield_6236]
 certlink=broodoo_shield
@@ -97618,6 +97905,8 @@ icursor1=1,51
 cursor1=2,45
 desc=A scary broodoo shield.
 wearpos=lefthand
+param=absorbmelee,4
+param=absorbmagic,2
 
 [broodoo_shield_6258]
 certlink=broodoo_shield_6257
@@ -97909,6 +98198,8 @@ icursor1=1,51
 cursor1=2,45
 desc=A scary broodoo shield.
 wearpos=lefthand
+param=absorbmelee,4
+param=absorbmagic,2
 
 [broodoo_shield_6280]
 certlink=broodoo_shield_6279
@@ -98454,6 +98745,8 @@ icursor1=1,51
 cursor1=2,45
 desc=Made from 100% real snakeskin.
 wearpos=torso
+param=absorbmagic,4
+param=absorbranged,2
 
 [snakeskin_body_6323]
 certlink=snakeskin_body
@@ -98481,6 +98774,8 @@ icursor1=1,51
 cursor1=2,45
 desc=Made from 100% real snake.
 wearpos=legs
+param=absorbmagic,3
+param=absorbranged,1
 
 [snakeskin_chaps_6325]
 certlink=snakeskin_chaps
@@ -98509,6 +98804,8 @@ icursor1=1,51
 cursor1=2,45
 desc=Lightweight head protection.
 wearpos=hat
+param=absorbmagic,2
+param=absorbranged,1
 
 [snakeskin_bandana_6327]
 certlink=snakeskin_bandana
@@ -101299,6 +101596,8 @@ icursor1=1,51
 cursor1=2,45
 desc=A spiked shield of obsidian.
 wearpos=lefthand
+param=absorbmelee,5
+param=absorbranged,11
 
 [toktz_xil_ek]
 members=yes
@@ -102856,6 +103155,8 @@ icursor1=1,51
 cursor1=2,45
 desc=A series of connected metal rings.
 wearpos=torso
+param=absorbmelee,1
+param=absorbranged,2
 
 [white_chainbody_6616]
 certlink=white_chainbody
@@ -102892,6 +103193,8 @@ icursor1=1,51
 cursor1=2,45
 desc=Provides excellent protection.
 wearpos=torso
+param=absorbmelee,1
+param=absorbranged,2
 
 [white_platebody_6618]
 certlink=white_platebody
@@ -103134,6 +103437,8 @@ icursor1=1,51
 cursor1=2,45
 desc=A medium square shield.
 wearpos=lefthand
+param=absorbmelee,1
+param=absorbranged,2
 
 [white_sq_shield_6632]
 certlink=white_sq_shield
@@ -103169,6 +103474,8 @@ icursor1=1,51
 cursor1=2,45
 desc=A large metal shield.
 wearpos=lefthand
+param=absorbmelee,1
+param=absorbranged,2
 
 [white_kiteshield_6634]
 certlink=white_kiteshield
@@ -105866,6 +106173,8 @@ icursor1=1,51
 cursor1=2,45
 desc=These look pretty heavy.
 wearpos=legs
+param=absorbmelee,2
+param=absorbranged,5
 
 [bonemeal_6810]
 model=model_2406
@@ -107508,6 +107817,8 @@ icursor1=1,51
 cursor1=2,45
 desc=Mystical robes.
 wearpos=torso
+param=absorbmelee,3
+param=absorbmagic,1
 
 [infinity_top_6917]
 certlink=infinity_top
@@ -107537,6 +107848,7 @@ icursor1=1,51
 cursor1=2,45
 desc=A mystic hat.
 wearpos=hat
+param=absorbmelee,1
 
 [infinity_hat_6919]
 certlink=infinity_hat
@@ -107620,6 +107932,8 @@ icursor1=1,51
 cursor1=2,45
 desc=Mystical robes.
 wearpos=legs
+param=absorbmelee,2
+param=absorbmagic,1
 
 [infinity_bottoms_6925]
 certlink=infinity_bottoms
@@ -112567,6 +112881,8 @@ icursor1=1,51
 cursor1=2,45
 desc=A shield with a heraldic design.
 wearpos=lefthand
+param=absorbmelee,1
+param=absorbranged,2
 
 [black_shield__h1_7333]
 certlink=black_shield__h1
@@ -112599,6 +112915,8 @@ icursor1=1,51
 cursor1=2,45
 desc=A shield with a heraldic design.
 wearpos=lefthand
+param=absorbmelee,3
+param=absorbranged,6
 
 [adamant_shield__h1_7335]
 certlink=adamant_shield__h1
@@ -112631,6 +112949,8 @@ icursor1=1,51
 cursor1=2,45
 desc=A shield with a heraldic design.
 wearpos=lefthand
+param=absorbmelee,3
+param=absorbranged,7
 
 [rune_shield__h1_7337]
 certlink=rune_shield__h1
@@ -112659,6 +112979,8 @@ icursor1=1,51
 cursor1=2,45
 desc=A shield with a heraldic design.
 wearpos=lefthand
+param=absorbmelee,1
+param=absorbranged,2
 
 [black_shield__h2_7339]
 certlink=black_shield__h2
@@ -112691,6 +113013,8 @@ icursor1=1,51
 cursor1=2,45
 desc=A shield with a heraldic design.
 wearpos=lefthand
+param=absorbmelee,3
+param=absorbranged,6
 
 [adamant_shield__h2_7341]
 certlink=adamant_shield__h2
@@ -112723,6 +113047,8 @@ icursor1=1,51
 cursor1=2,45
 desc=A shield with a heraldic design.
 wearpos=lefthand
+param=absorbmelee,3
+param=absorbranged,7
 
 [rune_shield__h2_7343]
 certlink=rune_shield__h2
@@ -112751,6 +113077,8 @@ icursor1=1,51
 cursor1=2,45
 desc=A shield with a heraldic design.
 wearpos=lefthand
+param=absorbmelee,1
+param=absorbranged,2
 
 [black_shield__h3_7345]
 certlink=black_shield__h3
@@ -112783,6 +113111,8 @@ icursor1=1,51
 cursor1=2,45
 desc=A shield with a heraldic design.
 wearpos=lefthand
+param=absorbmelee,3
+param=absorbranged,6
 
 [adamant_shield__h3_7347]
 certlink=adamant_shield__h3
@@ -112815,6 +113145,8 @@ icursor1=1,51
 cursor1=2,45
 desc=A shield with a heraldic design.
 wearpos=lefthand
+param=absorbmelee,3
+param=absorbranged,7
 
 [rune_shield__h3_7349]
 certlink=rune_shield__h3
@@ -112843,6 +113175,8 @@ icursor1=1,51
 cursor1=2,45
 desc=A shield with a heraldic design.
 wearpos=lefthand
+param=absorbmelee,1
+param=absorbranged,2
 
 [black_shield__h4_7351]
 certlink=black_shield__h4
@@ -112875,6 +113209,8 @@ icursor1=1,51
 cursor1=2,45
 desc=A shield with a heraldic design.
 wearpos=lefthand
+param=absorbmelee,3
+param=absorbranged,6
 
 [adamant_shield__h4_7353]
 certlink=adamant_shield__h4
@@ -112907,6 +113243,8 @@ icursor1=1,51
 cursor1=2,45
 desc=A shield with a heraldic design.
 wearpos=lefthand
+param=absorbmelee,3
+param=absorbranged,7
 
 [rune_shield__h4_7355]
 certlink=rune_shield__h4
@@ -112935,6 +113273,8 @@ icursor1=1,51
 cursor1=2,45
 desc=A shield with a heraldic design.
 wearpos=lefthand
+param=absorbmelee,1
+param=absorbranged,2
 
 [black_shield__h5_7357]
 certlink=black_shield__h5
@@ -112967,6 +113307,8 @@ icursor1=1,51
 cursor1=2,45
 desc=A shield with a heraldic design.
 wearpos=lefthand
+param=absorbmelee,3
+param=absorbranged,6
 
 [adamant_shield__h5_7359]
 certlink=adamant_shield__h5
@@ -112999,6 +113341,8 @@ icursor1=1,51
 cursor1=2,45
 desc=A shield with a heraldic design.
 wearpos=lefthand
+param=absorbmelee,3
+param=absorbranged,7
 
 [rune_shield__h5_7361]
 certlink=rune_shield__h5
@@ -113025,6 +113369,8 @@ icursor1=1,51
 cursor1=2,45
 desc=Those studs should provide a bit more protection. Nice trim too!
 wearpos=torso
+param=absorbmagic,3
+param=absorbranged,1
 
 [studded_body__g_7363]
 certlink=studded_body__g
@@ -113051,6 +113397,8 @@ icursor1=1,51
 cursor1=2,45
 desc=Those studs should provide a bit more protection. Nice trim too!
 wearpos=torso
+param=absorbmagic,3
+param=absorbranged,1
 
 [studded_body__t_7365]
 certlink=studded_body__t
@@ -113078,6 +113426,8 @@ icursor1=1,51
 cursor1=2,45
 desc=Those studs should provide a bit more protection. Nice trim too!
 wearpos=legs
+param=absorbmagic,2
+param=absorbranged,1
 
 [studded_chaps__g_7367]
 certlink=studded_chaps__g
@@ -113105,6 +113455,8 @@ icursor1=1,51
 cursor1=2,45
 desc=Those studs should provide a bit more protection. Nice trim too!
 wearpos=legs
+param=absorbmagic,2
+param=absorbranged,1
 
 [studded_chaps__t_7369]
 certlink=studded_chaps__t
@@ -113133,6 +113485,8 @@ icursor1=1,51
 cursor1=2,45
 desc=Made from 100% real dragonhide, with colourful trim!
 wearpos=torso
+param=absorbmagic,6
+param=absorbranged,3
 
 [dragonhide_body__g_7371]
 certlink=dragonhide_body__g
@@ -113161,6 +113515,8 @@ icursor1=1,51
 cursor1=2,45
 desc=Made from 100% real dragonhide, with colourful trim!
 wearpos=torso
+param=absorbmagic,6
+param=absorbranged,3
 
 [dragonhide_body__t_7373]
 certlink=dragonhide_body__t
@@ -113193,6 +113549,8 @@ icursor1=1,51
 cursor1=2,45
 desc=Made from 100% real dragonhide, with colourful trim!
 wearpos=torso
+param=absorbmagic,6
+param=absorbranged,3
 
 [dragonhide_body__g_7375]
 certlink=dragonhide_body__g_7374
@@ -113225,6 +113583,8 @@ icursor1=1,51
 cursor1=2,45
 desc=Made from 100% real dragonhide, with colourful trim!
 wearpos=torso
+param=absorbmagic,6
+param=absorbranged,3
 
 [dragonhide_body__t_7377]
 certlink=dragonhide_body__t_7376
@@ -113254,6 +113614,8 @@ icursor1=1,51
 cursor1=2,45
 desc=Made from 100% real dragonhide, with colourful trim!
 wearpos=legs
+param=absorbmagic,4
+param=absorbranged,2
 
 [dragonhide_chaps__g_7379]
 certlink=dragonhide_chaps__g
@@ -113283,6 +113645,8 @@ icursor1=1,51
 cursor1=2,45
 desc=Made from 100% real dragonhide, with colourful trim!
 wearpos=legs
+param=absorbmagic,4
+param=absorbranged,2
 
 [dragonhide_chaps__t_7381]
 certlink=dragonhide_chaps__t
@@ -113317,6 +113681,8 @@ icursor1=1,51
 cursor1=2,45
 desc=Made from 100% real dragonhide, with colourful trim!
 wearpos=legs
+param=absorbmagic,5
+param=absorbranged,2
 
 [dragonhide_chaps__g_7383]
 certlink=dragonhide_chaps__g_7382
@@ -113351,6 +113717,8 @@ icursor1=1,51
 cursor1=2,45
 desc=Made from 100% real dragonhide, with colourful trim!
 wearpos=legs
+param=absorbmagic,5
+param=absorbranged,2
 
 [dragonhide_chaps__t_7385]
 certlink=dragonhide_chaps__t_7384
@@ -113543,6 +113911,8 @@ icursor1=1,51
 cursor1=2,45
 desc=Enchanted wizard robes.
 wearpos=legs
+param=absorbmelee,2
+param=absorbmagic,1
 
 [enchanted_top]
 model=model_11426
@@ -113567,6 +113937,8 @@ icursor1=1,51
 cursor1=2,45
 desc=Enchanted wizard robes.
 wearpos=torso
+param=absorbmelee,3
+param=absorbmagic,1
 
 [enchanted_hat]
 model=model_11424
@@ -132260,6 +132632,8 @@ cursor1=2,45
 tradeable=no
 desc=A shield with the symbol of Arrav.
 wearpos=lefthand
+param=absorbmelee,3
+param=absorbranged,7
 
 [obj_8715]
 dummyobj=2
@@ -132295,6 +132669,8 @@ cursor1=2,45
 tradeable=no
 desc=A shield with the symbol of Asgarnia.
 wearpos=lefthand
+param=absorbmelee,3
+param=absorbranged,7
 
 [obj_8717]
 dummyobj=2
@@ -132330,6 +132706,8 @@ cursor1=2,45
 tradeable=no
 desc=A shield with a picture of the Dorgeshuun brooch.
 wearpos=lefthand
+param=absorbmelee,3
+param=absorbranged,7
 
 [obj_8719]
 dummyobj=2
@@ -132365,6 +132743,8 @@ cursor1=2,45
 tradeable=no
 desc=A shield with a picture of a dragon.
 wearpos=lefthand
+param=absorbmelee,3
+param=absorbranged,7
 
 [obj_8721]
 dummyobj=2
@@ -132400,6 +132780,8 @@ cursor1=2,45
 tradeable=no
 desc=A shield with a picture of a fairy.
 wearpos=lefthand
+param=absorbmelee,3
+param=absorbranged,7
 
 [obj_8723]
 dummyobj=2
@@ -132437,6 +132819,8 @@ cursor1=2,45
 tradeable=no
 desc=A shield with the symbol of Guthix.
 wearpos=lefthand
+param=absorbmelee,3
+param=absorbranged,7
 
 [obj_8725]
 dummyobj=2
@@ -132472,6 +132856,8 @@ cursor1=2,45
 tradeable=no
 desc=A shield with the symbol of the HAM cult.
 wearpos=lefthand
+param=absorbmelee,3
+param=absorbranged,7
 
 [obj_8727]
 dummyobj=2
@@ -132507,6 +132893,8 @@ cursor1=2,45
 tradeable=no
 desc=A shield with a picture of the mythical 'horse'.
 wearpos=lefthand
+param=absorbmelee,3
+param=absorbranged,7
 
 [obj_8729]
 dummyobj=2
@@ -132543,6 +132931,8 @@ cursor1=2,45
 tradeable=no
 desc=A shield with a picture of a Jogre.
 wearpos=lefthand
+param=absorbmelee,3
+param=absorbranged,7
 
 [obj_8731]
 dummyobj=2
@@ -132579,6 +132969,8 @@ cursor1=2,45
 tradeable=no
 desc=A shield with the symbol of Kandarin.
 wearpos=lefthand
+param=absorbmelee,3
+param=absorbranged,7
 
 [obj_8733]
 dummyobj=2
@@ -132614,6 +133006,8 @@ cursor1=2,45
 tradeable=no
 desc=A shield with the symbol of Misthalin.
 wearpos=lefthand
+param=absorbmelee,3
+param=absorbranged,7
 
 [obj_8735]
 dummyobj=2
@@ -132650,6 +133044,8 @@ cursor1=2,45
 tradeable=no
 desc=A shield with a picture of a money-bag.
 wearpos=lefthand
+param=absorbmelee,3
+param=absorbranged,7
 
 [obj_8737]
 dummyobj=2
@@ -132685,6 +133081,8 @@ cursor1=2,45
 tradeable=no
 desc=A shield with the symbol of Saradomin.
 wearpos=lefthand
+param=absorbmelee,3
+param=absorbranged,7
 
 [obj_8739]
 dummyobj=2
@@ -132721,6 +133119,8 @@ cursor1=2,45
 tradeable=no
 desc=A shield with a picture of a skull.
 wearpos=lefthand
+param=absorbmelee,3
+param=absorbranged,7
 
 [obj_8741]
 dummyobj=2
@@ -132756,6 +133156,8 @@ cursor1=2,45
 tradeable=no
 desc=A shield with the symbol of Varrock.
 wearpos=lefthand
+param=absorbmelee,3
+param=absorbranged,7
 
 [obj_8743]
 dummyobj=2
@@ -132792,6 +133194,8 @@ cursor1=2,45
 tradeable=no
 desc=A shield with the symbol of Zamorak.
 wearpos=lefthand
+param=absorbmelee,3
+param=absorbranged,7
 
 [obj_8745]
 dummyobj=2
@@ -137969,6 +138373,8 @@ cursor1=2,45
 tradeable=no
 desc=A mystical helmet.
 wearpos=hat
+param=absorbmelee,3
+param=absorbmagic,1
 
 [lunar_torso]
 cost=100
@@ -137997,6 +138403,8 @@ cursor1=2,45
 tradeable=no
 desc=Provides good protection.
 wearpos=torso
+param=absorbmelee,6
+param=absorbmagic,3
 
 [lunar_legs]
 cost=100
@@ -138023,6 +138431,8 @@ cursor1=2,45
 tradeable=no
 desc=These should protect my legs.
 wearpos=legs
+param=absorbmelee,4
+param=absorbmagic,2
 
 [lunar_gloves]
 cost=100
@@ -148384,6 +148794,8 @@ icursor1=1,51
 cursor1=2,45
 desc=A Proselyte Temple Knight's helm.
 wearpos=hat
+param=absorbmelee,1
+param=absorbranged,2
 
 [proselyte_sallet_9673]
 certlink=proselyte_sallet
@@ -148419,6 +148831,8 @@ icursor1=1,51
 cursor1=2,45
 desc=A Proselyte Temple Knight's armour.
 wearpos=torso
+param=absorbmelee,2
+param=absorbranged,4
 
 [proselyte_hauberk_9675]
 certlink=proselyte_hauberk
@@ -148452,6 +148866,8 @@ icursor1=1,51
 cursor1=2,45
 desc=A Proselyte Temple Knight's leg armour.
 wearpos=legs
+param=absorbmelee,1
+param=absorbranged,3
 
 [proselyte_cuisse_9677]
 certlink=proselyte_cuisse
@@ -148486,6 +148902,8 @@ icursor1=1,51
 cursor1=2,45
 desc=A Proselyte Temple Knight's leg armour.
 wearpos=legs
+param=absorbmelee,1
+param=absorbranged,3
 
 [proselyte_tasset_9679]
 certlink=proselyte_tasset
@@ -158099,6 +158517,8 @@ icursor1=1,51
 cursor1=2,45
 desc=A rune helmet with a heraldic design.
 wearpos=hat
+param=absorbmelee,1
+param=absorbranged,3
 
 [rune_helm__h1_10287]
 certlink=rune_helm__h1
@@ -158133,6 +158553,8 @@ icursor1=1,51
 cursor1=2,45
 desc=A rune helmet with a heraldic design.
 wearpos=hat
+param=absorbmelee,1
+param=absorbranged,3
 
 [rune_helm__h2_10289]
 certlink=rune_helm__h2
@@ -158167,6 +158589,8 @@ icursor1=1,51
 cursor1=2,45
 desc=A rune helmet with a heraldic design.
 wearpos=hat
+param=absorbmelee,1
+param=absorbranged,3
 
 [rune_helm__h3_10291]
 certlink=rune_helm__h3
@@ -158201,6 +158625,8 @@ icursor1=1,51
 cursor1=2,45
 desc=A rune helmet with a heraldic design.
 wearpos=hat
+param=absorbmelee,1
+param=absorbranged,3
 
 [rune_helm__h4_10293]
 certlink=rune_helm__h4
@@ -158235,6 +158661,8 @@ icursor1=1,51
 cursor1=2,45
 desc=A rune helmet with a heraldic design.
 wearpos=hat
+param=absorbmelee,1
+param=absorbranged,3
 
 [rune_helm__h5_10295]
 certlink=rune_helm__h5
@@ -158269,6 +158697,8 @@ icursor1=1,51
 cursor1=2,45
 desc=An adamant helmet with a heraldic design.
 wearpos=hat
+param=absorbmelee,1
+param=absorbranged,2
 
 [adamant_helm__h1_10297]
 certlink=adamant_helm__h1
@@ -158303,6 +158733,8 @@ icursor1=1,51
 cursor1=2,45
 desc=An adamant helmet with a heraldic design.
 wearpos=hat
+param=absorbmelee,1
+param=absorbranged,2
 
 [adamant_helm__h2_10299]
 certlink=adamant_helm__h2
@@ -158337,6 +158769,8 @@ icursor1=1,51
 cursor1=2,45
 desc=An adamant helmet with a heraldic design.
 wearpos=hat
+param=absorbmelee,1
+param=absorbranged,2
 
 [adamant_helm__h3_10301]
 certlink=adamant_helm__h3
@@ -158371,6 +158805,8 @@ icursor1=1,51
 cursor1=2,45
 desc=An adamant helmet with a heraldic design.
 wearpos=hat
+param=absorbmelee,1
+param=absorbranged,2
 
 [adamant_helm__h4_10303]
 certlink=adamant_helm__h4
@@ -158405,6 +158841,8 @@ icursor1=1,51
 cursor1=2,45
 desc=An adamant helmet with a heraldic design.
 wearpos=hat
+param=absorbmelee,1
+param=absorbranged,2
 
 [adamant_helm__h5_10305]
 certlink=adamant_helm__h5
@@ -158814,6 +159252,8 @@ icursor1=1,51
 cursor1=2,45
 desc=Ancient range protection crafted from white dragonhide.
 wearpos=torso
+param=absorbmagic,6
+param=absorbranged,3
 
 [third_age_range_top_10331]
 certlink=third_age_range_top
@@ -158844,6 +159284,8 @@ icursor1=1,51
 cursor1=2,45
 desc=Ancient range protection crafted from white dragonhide.
 wearpos=legs
+param=absorbmagic,4
+param=absorbranged,2
 
 [third_age_range_legs_10333]
 certlink=third_age_range_legs
@@ -158879,6 +159321,8 @@ icursor1=1,51
 cursor1=2,45
 desc=Ancient range protection crafted from white dragonhide.
 wearpos=hat
+param=absorbmagic,3
+param=absorbranged,1
 
 [third_age_range_coif_10335]
 certlink=third_age_range_coif
@@ -158940,6 +159384,8 @@ icursor1=1,51
 cursor1=2,45
 desc=Ancient mage protection enchanted in the Third-Age.
 wearpos=torso
+param=absorbmelee,4
+param=absorbmagic,2
 
 [third_age_robe_top_10339]
 certlink=third_age_robe_top
@@ -158968,6 +159414,8 @@ icursor1=1,51
 cursor1=2,45
 desc=Ancient mage protection enchanted in the Third-Age.
 wearpos=legs
+param=absorbmelee,4
+param=absorbmagic,2
 
 [third_age_robe_10341]
 certlink=third_age_robe
@@ -159003,6 +159451,8 @@ icursor1=1,51
 cursor1=2,45
 desc=Ancient mage protection enchanted in the Third-Age.
 wearpos=hat
+param=absorbmelee,2
+param=absorbmagic,1
 
 [third_age_mage_hat_10343]
 certlink=third_age_mage_hat
@@ -159059,6 +159509,8 @@ icursor1=1,51
 cursor1=2,45
 desc=Ancient armour beaten from magical silver.
 wearpos=legs
+param=absorbmelee,3
+param=absorbranged,6
 
 [third_age_platelegs_10347]
 certlink=third_age_platelegs
@@ -159085,6 +159537,8 @@ icursor1=1,51
 cursor1=2,45
 desc=Ancient armour beaten from magical silver.
 wearpos=torso
+param=absorbmelee,4
+param=absorbranged,9
 
 [third_age_platebody_10349]
 certlink=third_age_platebody
@@ -159114,6 +159568,8 @@ icursor1=1,51
 cursor1=2,45
 desc=Ancient armour beaten from magical silver.
 wearpos=hat
+param=absorbmelee,2
+param=absorbranged,4
 
 [third_age_full_helmet_10351]
 certlink=third_age_full_helmet
@@ -159142,6 +159598,8 @@ icursor1=1,51
 cursor1=2,45
 desc=Ancient armour beaten from magical silver.
 wearpos=lefthand
+param=absorbmelee,5
+param=absorbranged,11
 
 [third_age_kiteshield_10353]
 certlink=third_age_kiteshield
@@ -159436,6 +159894,8 @@ icursor1=1,51
 cursor1=2,45
 desc=Zamorak blessed dragonhide body armour.
 wearpos=torso
+param=absorbmagic,6
+param=absorbranged,3
 
 [zamorak_body_10371]
 certlink=zamorak_body
@@ -159474,6 +159934,8 @@ icursor1=1,51
 cursor1=2,45
 desc=Zamorak blessed dragonhide chaps.
 wearpos=legs
+param=absorbmagic,4
+param=absorbranged,2
 
 [zamorak_chaps_10373]
 certlink=zamorak_chaps
@@ -159520,6 +159982,8 @@ icursor1=1,51
 cursor1=2,45
 desc=Zamorak blessed dragonhide coif.
 wearpos=hat
+param=absorbmagic,3
+param=absorbranged,1
 
 [zamorak_coif_10375]
 certlink=zamorak_coif
@@ -159589,6 +160053,8 @@ icursor1=1,51
 cursor1=2,45
 desc=Guthix blessed dragonhide body armour.
 wearpos=torso
+param=absorbmagic,6
+param=absorbranged,3
 
 [guthix_body_10379]
 certlink=guthix_body
@@ -159621,6 +160087,8 @@ icursor1=1,51
 cursor1=2,45
 desc=Guthix blessed dragonhide chaps.
 wearpos=legs
+param=absorbmagic,4
+param=absorbranged,2
 
 [guthix_chaps_10381]
 certlink=guthix_chaps
@@ -159665,6 +160133,8 @@ icursor1=1,51
 cursor1=2,45
 desc=Guthix blessed dragonhide coif.
 wearpos=hat
+param=absorbmagic,3
+param=absorbranged,1
 
 [guthix_coif_10383]
 certlink=guthix_coif
@@ -159740,6 +160210,8 @@ icursor1=1,51
 cursor1=2,45
 desc=Saradomin blessed dragonhide body armour.
 wearpos=torso
+param=absorbmagic,6
+param=absorbranged,3
 
 [saradomin_body_10387]
 certlink=saradomin_body
@@ -159778,6 +160250,8 @@ icursor1=1,51
 cursor1=2,45
 desc=Saradomin blessed dragonhide chaps.
 wearpos=legs
+param=absorbmagic,4
+param=absorbranged,2
 
 [saradomin_chaps_10389]
 certlink=saradomin_chaps
@@ -159824,6 +160298,8 @@ icursor1=1,51
 cursor1=2,45
 desc=Saradomin blessed dragonhide coif.
 wearpos=hat
+param=absorbmagic,3
+param=absorbranged,1
 
 [saradomin_coif_10391]
 certlink=saradomin_coif
@@ -160780,6 +161256,8 @@ icursor1=1,51
 cursor1=2,45
 desc=A blessed mitre.
 wearpos=hat
+param=absorbmelee,3
+param=absorbmagic,1
 
 [saradomin_mitre_10453]
 certlink=saradomin_mitre
@@ -160823,6 +161301,8 @@ icursor1=1,51
 cursor1=2,45
 desc=A blessed mitre.
 wearpos=hat
+param=absorbmelee,3
+param=absorbmagic,1
 
 [guthix_mitre_10455]
 certlink=guthix_mitre
@@ -160856,6 +161336,8 @@ icursor1=1,51
 cursor1=2,45
 desc=A blessed mitre.
 wearpos=hat
+param=absorbmelee,3
+param=absorbmagic,1
 
 [zamorak_mitre_10457]
 certlink=zamorak_mitre
@@ -162165,6 +162647,8 @@ cursor1=2,45
 tradeable=no
 desc=A Penance healer hat.
 wearpos=hat
+param=absorbmelee,3
+param=absorbmagic,1
 
 [fighter_hat]
 model=model_20598
@@ -162189,6 +162673,8 @@ cursor1=2,45
 tradeable=no
 desc=A Penance fighter hat.
 wearpos=hat
+param=absorbmelee,1
+param=absorbranged,3
 
 [runner_hat]
 model=model_20601
@@ -162214,6 +162700,8 @@ cursor1=2,45
 tradeable=no
 desc=A Penance runner hat.
 wearpos=hat
+param=absorbmelee,1
+param=absorbranged,3
 
 [ranger_hat]
 model=model_20600
@@ -162259,6 +162747,8 @@ cursor1=2,45
 tradeable=no
 desc=Penance fighter torso armour.
 wearpos=torso
+param=absorbmelee,3
+param=absorbranged,6
 
 [runner_boots]
 model=model_2837
@@ -162349,6 +162839,8 @@ cursor1=2,45
 tradeable=no
 desc=A skirt made from the skin of a Penance ranger.
 wearpos=legs
+param=absorbmagic,4
+param=absorbranged,2
 
 [picture_10556]
 model=model_20578
@@ -162494,6 +162986,8 @@ icursor1=1,51
 cursor1=2,45
 desc=Provides excellent protection.
 wearpos=torso
+param=absorbmelee,4
+param=absorbranged,8
 
 [granite_body_10565]
 certlink=granite_body
@@ -162883,6 +163377,8 @@ icursor1=1,51
 cursor1=2,45
 desc=A stone helmet.
 wearpos=hat
+param=absorbmelee,2
+param=absorbranged,4
 
 [granite_helm_10590]
 certlink=granite_helm
@@ -163066,6 +163562,8 @@ name=Mystic hat
 icursor1=1,51
 cursor1=2,45
 tradeable=no
+param=absorbmelee,3
+param=absorbmagic,1
 
 [mystic_hat_10602]
 dummyobj=1
@@ -163093,6 +163591,8 @@ name=Mystic hat
 icursor1=1,51
 cursor1=2,45
 tradeable=no
+param=absorbmelee,3
+param=absorbmagic,1
 
 [mystic_hat_10603]
 dummyobj=1
@@ -163120,6 +163620,8 @@ name=Mystic hat
 icursor1=1,51
 cursor1=2,45
 tradeable=no
+param=absorbmelee,3
+param=absorbmagic,1
 
 [skeletal_helm_10604]
 dummyobj=1
@@ -163315,6 +163817,8 @@ name=Rock-shell helm
 icursor1=1,51
 cursor1=2,45
 tradeable=no
+param=absorbmelee,1
+param=absorbranged,3
 
 [spined_helm_10614]
 dummyobj=1
@@ -164446,6 +164950,8 @@ womanwearoff=-3,-11,6
 icursor1=1,51
 cursor1=2,45
 tradeable=no
+param=absorbmelee,1
+param=absorbranged,2
 
 [adamant_shield__h1_10666]
 dummyobj=1
@@ -164494,6 +165000,8 @@ womanwearoff=-3,-11,6
 icursor1=1,51
 cursor1=2,45
 tradeable=no
+param=absorbmelee,3
+param=absorbranged,7
 
 [black_shield__h2_10668]
 dummyobj=1
@@ -164514,6 +165022,8 @@ womanwearoff=-3,-11,6
 icursor1=1,51
 cursor1=2,45
 tradeable=no
+param=absorbmelee,1
+param=absorbranged,2
 
 [adamant_shield__h2_10669]
 dummyobj=1
@@ -164562,6 +165072,8 @@ womanwearoff=-3,-11,6
 icursor1=1,51
 cursor1=2,45
 tradeable=no
+param=absorbmelee,3
+param=absorbranged,7
 
 [black_shield__h3_10671]
 dummyobj=1
@@ -164582,6 +165094,8 @@ womanwearoff=-3,-11,6
 icursor1=1,51
 cursor1=2,45
 tradeable=no
+param=absorbmelee,1
+param=absorbranged,2
 
 [adamant_shield__h3_10672]
 dummyobj=1
@@ -164630,6 +165144,8 @@ womanwearoff=-3,-11,6
 icursor1=1,51
 cursor1=2,45
 tradeable=no
+param=absorbmelee,3
+param=absorbranged,7
 
 [black_shield__h4_10674]
 dummyobj=1
@@ -164650,6 +165166,8 @@ womanwearoff=-3,-11,6
 icursor1=1,51
 cursor1=2,45
 tradeable=no
+param=absorbmelee,1
+param=absorbranged,2
 
 [adamant_shield__h4_10675]
 dummyobj=1
@@ -164698,6 +165216,8 @@ womanwearoff=-3,-11,6
 icursor1=1,51
 cursor1=2,45
 tradeable=no
+param=absorbmelee,3
+param=absorbranged,7
 
 [black_shield__h5_10677]
 dummyobj=1
@@ -164718,6 +165238,8 @@ womanwearoff=-3,-11,6
 icursor1=1,51
 cursor1=2,45
 tradeable=no
+param=absorbmelee,1
+param=absorbranged,2
 
 [adamant_shield__h5_10678]
 dummyobj=1
@@ -164766,6 +165288,8 @@ womanwearoff=-3,-11,6
 icursor1=1,51
 cursor1=2,45
 tradeable=no
+param=absorbmelee,3
+param=absorbranged,7
 
 [studded_body__g_10680]
 dummyobj=1
@@ -164936,6 +165460,8 @@ name=Enchanted top
 icursor1=1,51
 cursor1=2,45
 tradeable=no
+param=absorbmelee,3
+param=absorbmagic,1
 
 [wizard_boots_10689]
 dummyobj=1
@@ -166555,6 +167081,8 @@ icursor1=1,51
 cursor1=2,45
 desc=Rune platebody in the colours of Zamorak.
 wearpos=torso
+param=absorbmelee,3
+param=absorbranged,6
 
 [picture_10777]
 model=model_2521
@@ -166620,6 +167148,8 @@ icursor1=1,51
 cursor1=2,45
 desc=Rune platebody in the colours of Guthix.
 wearpos=torso
+param=absorbmelee,3
+param=absorbranged,6
 
 [picture_10781]
 model=model_2521
@@ -166651,6 +167181,8 @@ icursor1=1,51
 cursor1=2,45
 desc=Rune platebody with complete gold trim & plating.
 wearpos=torso
+param=absorbmelee,3
+param=absorbranged,6
 
 [picture_10783]
 model=model_2521
@@ -167175,6 +167707,8 @@ icursor1=1,51
 cursor1=2,45
 desc=Smelly yak body armour.
 wearpos=torso
+param=absorbmelee,1
+param=absorbranged,3
 
 [yak_hide_armour_10823]
 certlink=yak_hide_armour
@@ -167199,6 +167733,8 @@ icursor1=1,51
 cursor1=2,45
 desc=Leg protection, made from smelly yak-hide.
 wearpos=legs
+param=absorbmelee,1
+param=absorbranged,2
 
 [yak_hide_armour_10825]
 certlink=yak_hide_armour_10824
@@ -167233,6 +167769,8 @@ icursor1=1,51
 cursor1=2,45
 desc=A wooden shield with a rope rim.
 wearpos=lefthand
+param=absorbmelee,2
+param=absorbranged,5
 
 [fremennik_round_shield_10827]
 certlink=fremennik_round_shield
@@ -167261,6 +167799,8 @@ paramint=param_743,118
 icursor1=1,51
 cursor1=2,45
 desc=A gift from Neitiznot's Burgher.
+param=absorbmelee,2
+param=absorbranged,4
 
 [documents]
 model=model_3374
@@ -169190,6 +169730,8 @@ icursor1=1,51
 cursor1=2,45
 desc=Armour made out of frog hide.
 wearpos=torso
+param=absorbmagic,3
+param=absorbranged,1
 
 [frog_leather_body_10955]
 certlink=frog_leather_body
@@ -169220,6 +169762,8 @@ icursor1=1,51
 cursor1=2,45
 desc=Chaps made out of frog hide.
 wearpos=legs
+param=absorbmagic,2
+param=absorbranged,1
 
 [frog_leather_chaps_10957]
 certlink=frog_leather_chaps
@@ -174770,6 +175314,8 @@ icursor1=1,51
 cursor1=2,45
 desc=Protects your head and looks impressive too.
 wearpos=hat
+param=absorbmelee,2
+param=absorbranged,4
 
 [dragon_full_helm_11336]
 certlink=dragon_full_helm
@@ -180115,6 +180661,8 @@ icursor1=1,51
 cursor1=2,45
 desc=A helmet of great craftsmanship.
 wearpos=hat
+param=absorbmagic,5
+param=absorbranged,2
 
 [armadyl_helmet_11719]
 certlink=armadyl_helmet
@@ -180145,6 +180693,8 @@ icursor1=1,51
 cursor1=2,45
 desc=Armour of great craftsmanship.
 wearpos=torso
+param=absorbmagic,10
+param=absorbranged,5
 
 [armadyl_chestplate_11721]
 certlink=armadyl_chestplate
@@ -180174,6 +180724,8 @@ icursor1=1,51
 cursor1=2,45
 desc=A chainskirt of great craftsmanship.
 wearpos=legs
+param=absorbmagic,7
+param=absorbranged,3
 
 [armadyl_chainskirt_11723]
 certlink=armadyl_chainskirt
@@ -180203,6 +180755,8 @@ icursor1=1,51
 cursor1=2,45
 desc=A sturdy chestplate.
 wearpos=torso
+param=absorbmelee,4
+param=absorbranged,9
 
 [bandos_chestplate_11725]
 certlink=bandos_chestplate
@@ -180230,6 +180784,8 @@ icursor1=1,51
 cursor1=2,45
 desc=A sturdy pair of tassets.
 wearpos=legs
+param=absorbmelee,3
+param=absorbranged,6
 
 [bandos_tassets_11727]
 certlink=bandos_tassets
@@ -198227,6 +198783,8 @@ icursor1=1,51
 cursor1=2,45
 desc=Its arcane power is waning.
 wearpos=hat
+param=absorbmelee,4
+param=absorbmagic,3
 
 [battle_hood_80]
 members=yes
@@ -198250,6 +198808,8 @@ paramint=param_751,1
 paramint=param_752,50
 icursor1=1,51
 cursor1=2,45
+param=absorbmelee,4
+param=absorbmagic,3
 
 [battle_hood_60]
 members=yes
@@ -198273,6 +198833,8 @@ paramint=param_751,1
 paramint=param_752,50
 icursor1=1,51
 cursor1=2,45
+param=absorbmelee,4
+param=absorbmagic,3
 
 [battle_hood_40]
 members=yes
@@ -198296,6 +198858,8 @@ paramint=param_751,1
 paramint=param_752,50
 icursor1=1,51
 cursor1=2,45
+param=absorbmelee,4
+param=absorbmagic,3
 
 [battle_hood_20]
 members=yes
@@ -198319,6 +198883,8 @@ paramint=param_751,1
 paramint=param_752,50
 icursor1=1,51
 cursor1=2,45
+param=absorbmelee,4
+param=absorbmagic,3
 
 [battle_hood_0]
 members=yes
@@ -198352,6 +198918,8 @@ icursor1=1,51
 cursor1=2,45
 desc=Its arcane power is waning.
 wearpos=hat
+param=absorbmelee,4
+param=absorbmagic,3
 
 [battle_hood_0_12872]
 certlink=battle_hood_0
@@ -198382,6 +198950,8 @@ icursor1=1,51
 cursor1=2,45
 desc=Charged - A robe top infused with arcane power, especially created for combat spells. Uncharged - Its arcane power is waning
 wearpos=torso
+param=absorbmelee,8
+param=absorbmagic,4
 
 [battle_robe_top_80]
 members=yes
@@ -198406,6 +198976,8 @@ paramint=param_751,1
 paramint=param_752,50
 icursor1=1,51
 cursor1=2,45
+param=absorbmelee,8
+param=absorbmagic,4
 
 [battle_robe_top_60]
 members=yes
@@ -198430,6 +199002,8 @@ paramint=param_751,1
 paramint=param_752,50
 icursor1=1,51
 cursor1=2,45
+param=absorbmelee,8
+param=absorbmagic,4
 
 [battle_robe_top_40]
 members=yes
@@ -198454,6 +199028,8 @@ paramint=param_751,1
 paramint=param_752,50
 icursor1=1,51
 cursor1=2,45
+param=absorbmelee,8
+param=absorbmagic,4
 
 [battle_robe_top_20]
 members=yes
@@ -198478,6 +199054,8 @@ paramint=param_751,1
 paramint=param_752,50
 icursor1=1,51
 cursor1=2,45
+param=absorbmelee,8
+param=absorbmagic,4
 
 [battle_robe_top_0]
 members=yes
@@ -198506,6 +199084,8 @@ icursor1=1,51
 cursor1=2,45
 desc=Its arcane power is waning.
 wearpos=torso
+param=absorbmelee,8
+param=absorbmagic,4
 
 [battle_robe_top_0_12879]
 certlink=battle_robe_top_0
@@ -198529,6 +199109,8 @@ icursor1=1,51
 cursor1=2,45
 desc=A robe bottom infused with arcane power, especially created for combat spells.
 wearpos=legs
+param=absorbmelee,5
+param=absorbmagic,2
 
 [battle_robe_bottom_80]
 members=yes
@@ -198546,6 +199128,8 @@ paramint=param_751,1
 paramint=param_752,50
 icursor1=1,51
 cursor1=2,45
+param=absorbmelee,5
+param=absorbmagic,2
 
 [battle_robe_bottom_60]
 members=yes
@@ -198563,6 +199147,8 @@ paramint=param_751,1
 paramint=param_752,50
 icursor1=1,51
 cursor1=2,45
+param=absorbmelee,5
+param=absorbmagic,2
 
 [battle_robe_bottom_40]
 members=yes
@@ -198580,6 +199166,8 @@ paramint=param_751,1
 paramint=param_752,50
 icursor1=1,51
 cursor1=2,45
+param=absorbmelee,5
+param=absorbmagic,2
 
 [battle_robe_bottom_20]
 members=yes
@@ -198597,6 +199185,8 @@ paramint=param_751,1
 paramint=param_752,50
 icursor1=1,51
 cursor1=2,45
+param=absorbmelee,5
+param=absorbmagic,2
 
 [battle_robe_bottom_0]
 members=yes
@@ -198618,6 +199208,8 @@ icursor1=1,51
 cursor1=2,45
 desc=Its arcane power is waning.
 wearpos=legs
+param=absorbmelee,5
+param=absorbmagic,2
 
 [battle_robe_bottom_0_12886]
 certlink=battle_robe_bottom_0
@@ -198837,6 +199429,8 @@ icursor1=1,51
 cursor1=2,45
 desc=A magical robe top worn by followers of Guthix.
 wearpos=torso
+param=absorbmelee,2
+param=absorbmagic,1
 
 [druidic_mage_top_80]
 cost=6000
@@ -198860,6 +199454,8 @@ paramint=param_751,1
 paramint=param_752,10
 icursor1=1,51
 cursor1=2,45
+param=absorbmelee,2
+param=absorbmagic,1
 
 [druidic_mage_top_60]
 cost=6000
@@ -198883,6 +199479,8 @@ paramint=param_751,1
 paramint=param_752,10
 icursor1=1,51
 cursor1=2,45
+param=absorbmelee,2
+param=absorbmagic,1
 
 [druidic_mage_top_40]
 cost=6000
@@ -198906,6 +199504,8 @@ paramint=param_751,1
 paramint=param_752,10
 icursor1=1,51
 cursor1=2,45
+param=absorbmelee,2
+param=absorbmagic,1
 
 [druidic_mage_top_20]
 cost=6000
@@ -198929,6 +199529,8 @@ paramint=param_751,1
 paramint=param_752,10
 icursor1=1,51
 cursor1=2,45
+param=absorbmelee,2
+param=absorbmagic,1
 
 [druidic_mage_top_0]
 cost=6000
@@ -198956,6 +199558,8 @@ icursor1=1,51
 cursor1=2,45
 desc=A worn-out robe top, formerly worn by the followers of Guthix.
 wearpos=torso
+param=absorbmelee,2
+param=absorbmagic,1
 
 [druidic_mage_top_0_12900]
 certlink=druidic_mage_top_0
@@ -198978,6 +199582,7 @@ icursor1=1,51
 cursor1=2,45
 desc=A magical robe bottom worn by a person who follows Guthix.
 wearpos=legs
+param=absorbmelee,1
 
 [druidic_mage_bottom_80]
 cost=5000
@@ -198994,6 +199599,7 @@ paramint=param_751,1
 paramint=param_752,10
 icursor1=1,51
 cursor1=2,45
+param=absorbmelee,1
 
 [druidic_mage_bottom_60]
 cost=5000
@@ -199010,6 +199616,7 @@ paramint=param_751,1
 paramint=param_752,10
 icursor1=1,51
 cursor1=2,45
+param=absorbmelee,1
 
 [druidic_mage_bottom_40]
 cost=5000
@@ -199026,6 +199633,7 @@ paramint=param_751,1
 paramint=param_752,10
 icursor1=1,51
 cursor1=2,45
+param=absorbmelee,1
 
 [druidic_mage_bottom_20]
 cost=5000
@@ -199042,6 +199650,7 @@ paramint=param_751,1
 paramint=param_752,10
 icursor1=1,51
 cursor1=2,45
+param=absorbmelee,1
 
 [druidic_mage_bottom_0]
 cost=5000
@@ -199062,6 +199671,7 @@ icursor1=1,51
 cursor1=2,45
 desc=A worn-out robe bottom, formerly worn by the followers of Guthix.
 wearpos=legs
+param=absorbmelee,1
 
 [druidic_mage_bottom_0_12907]
 certlink=druidic_mage_bottom_0
@@ -199086,6 +199696,8 @@ icursor1=1,51
 cursor1=2,45
 desc=Not so spiky anymore.
 wearpos=lefthand
+param=absorbmelee,3
+param=absorbranged,6
 
 [adamant_spikeshield_80]
 cost=4050
@@ -199104,6 +199716,8 @@ paramint=param_749,1
 paramint=param_750,35
 icursor1=1,51
 cursor1=2,45
+param=absorbmelee,3
+param=absorbranged,6
 
 [adamant_spikeshield_60]
 cost=4050
@@ -199122,6 +199736,8 @@ paramint=param_749,1
 paramint=param_750,35
 icursor1=1,51
 cursor1=2,45
+param=absorbmelee,3
+param=absorbranged,6
 
 [adamant_spikeshield_40]
 cost=4050
@@ -199140,6 +199756,8 @@ paramint=param_749,1
 paramint=param_750,35
 icursor1=1,51
 cursor1=2,45
+param=absorbmelee,3
+param=absorbranged,6
 
 [adamant_spikeshield_20]
 cost=4050
@@ -199158,6 +199776,8 @@ paramint=param_749,1
 paramint=param_750,35
 icursor1=1,51
 cursor1=2,45
+param=absorbmelee,3
+param=absorbranged,6
 
 [adamant_spikeshield_0]
 cost=4050
@@ -199180,6 +199800,8 @@ icursor1=1,51
 cursor1=2,45
 desc=Not so spiky anymore.
 wearpos=lefthand
+param=absorbmelee,3
+param=absorbranged,6
 
 [adamant_spikeshield_0_12914]
 certlink=adamant_spikeshield_0
@@ -199204,6 +199826,8 @@ icursor1=1,51
 cursor1=2,45
 desc=Not so spiky anymore!
 wearpos=lefthand
+param=absorbmelee,3
+param=absorbranged,6
 
 [adamant_berserker_shield_80]
 model=model_33198
@@ -199222,6 +199846,8 @@ paramint=param_749,1
 paramint=param_750,35
 icursor1=1,51
 cursor1=2,45
+param=absorbmelee,3
+param=absorbranged,6
 
 [adamant_berserker_shield_60]
 model=model_33198
@@ -199240,6 +199866,8 @@ paramint=param_749,1
 paramint=param_750,35
 icursor1=1,51
 cursor1=2,45
+param=absorbmelee,3
+param=absorbranged,6
 
 [adamant_berserker_shield_40]
 model=model_33198
@@ -199258,6 +199886,8 @@ paramint=param_749,1
 paramint=param_750,35
 icursor1=1,51
 cursor1=2,45
+param=absorbmelee,3
+param=absorbranged,6
 
 [adamant_berserker_shield_20]
 model=model_33198
@@ -199276,6 +199906,8 @@ paramint=param_749,1
 paramint=param_750,35
 icursor1=1,51
 cursor1=2,45
+param=absorbmelee,3
+param=absorbranged,6
 
 [adamant_berserker_shield_0]
 model=model_33155
@@ -199298,6 +199930,8 @@ icursor1=1,51
 cursor1=2,45
 desc=Not so spiky anymore.
 wearpos=lefthand
+param=absorbmelee,3
+param=absorbranged,6
 
 [adamant_berserker_shield_0_12921]
 certlink=adamant_berserker_shield_0
@@ -199330,6 +199964,8 @@ icursor1=1,51
 cursor1=2,45
 desc=A spiked, medium square shield.
 wearpos=lefthand
+param=absorbmelee,3
+param=absorbranged,7
 
 [rune_spikeshield_80]
 cost=40000
@@ -199356,6 +199992,8 @@ paramint=param_749,1
 paramint=param_750,45
 icursor1=1,51
 cursor1=2,45
+param=absorbmelee,3
+param=absorbranged,7
 
 [rune_spikeshield_60]
 cost=40000
@@ -199382,6 +200020,8 @@ paramint=param_749,1
 paramint=param_750,45
 icursor1=1,51
 cursor1=2,45
+param=absorbmelee,3
+param=absorbranged,7
 
 [rune_spikeshield_40]
 cost=40000
@@ -199408,6 +200048,8 @@ paramint=param_749,1
 paramint=param_750,45
 icursor1=1,51
 cursor1=2,45
+param=absorbmelee,3
+param=absorbranged,7
 
 [rune_spikeshield_20]
 cost=40000
@@ -199434,6 +200076,8 @@ paramint=param_749,1
 paramint=param_750,45
 icursor1=1,51
 cursor1=2,45
+param=absorbmelee,3
+param=absorbranged,7
 
 [rune_spikeshield_0]
 cost=40000
@@ -199464,6 +200108,8 @@ icursor1=1,51
 cursor1=2,45
 desc=Not so spiky anymore.
 wearpos=lefthand
+param=absorbmelee,3
+param=absorbranged,7
 
 [rune_spikeshield_0_12928]
 certlink=rune_spikeshield_0
@@ -199496,6 +200142,8 @@ icursor1=1,51
 cursor1=2,45
 desc=Not so spiky anymore.
 wearpos=lefthand
+param=absorbmelee,3
+param=absorbranged,7
 
 [rune_berserker_shield_80]
 model=model_33198
@@ -199522,6 +200170,8 @@ paramint=param_749,1
 paramint=param_750,45
 icursor1=1,51
 cursor1=2,45
+param=absorbmelee,3
+param=absorbranged,7
 
 [rune_berserker_shield_60]
 model=model_33198
@@ -199548,6 +200198,8 @@ paramint=param_749,1
 paramint=param_750,45
 icursor1=1,51
 cursor1=2,45
+param=absorbmelee,3
+param=absorbranged,7
 
 [rune_berserker_shield_40]
 model=model_33198
@@ -199574,6 +200226,8 @@ paramint=param_749,1
 paramint=param_750,45
 icursor1=1,51
 cursor1=2,45
+param=absorbmelee,3
+param=absorbranged,7
 
 [rune_berserker_shield_20]
 model=model_33198
@@ -199600,6 +200254,8 @@ paramint=param_749,1
 paramint=param_750,45
 icursor1=1,51
 cursor1=2,45
+param=absorbmelee,3
+param=absorbranged,7
 
 [rune_berserker_shield_0]
 model=model_33155
@@ -199630,6 +200286,8 @@ icursor1=1,51
 cursor1=2,45
 desc=Not so spiky anymore.
 wearpos=lefthand
+param=absorbmelee,3
+param=absorbranged,7
 
 [rune_berserker_shield_0_12935]
 certlink=rune_berserker_shield_0
@@ -199659,6 +200317,8 @@ icursor1=1,51
 cursor1=2,45
 desc=A coif made of green dragonhide.
 wearpos=hat
+param=absorbmagic,3
+param=absorbranged,1
 
 [green_d_hide_coif_80]
 cost=2000
@@ -199682,6 +200342,8 @@ paramint=param_751,4
 paramint=param_752,40
 icursor1=1,51
 cursor1=2,45
+param=absorbmagic,3
+param=absorbranged,1
 
 [green_d_hide_coif_60]
 cost=2000
@@ -199705,6 +200367,8 @@ paramint=param_751,4
 paramint=param_752,40
 icursor1=1,51
 cursor1=2,45
+param=absorbmagic,3
+param=absorbranged,1
 
 [green_d_hide_coif_40]
 cost=2000
@@ -199728,6 +200392,8 @@ paramint=param_751,4
 paramint=param_752,40
 icursor1=1,51
 cursor1=2,45
+param=absorbmagic,3
+param=absorbranged,1
 
 [green_d_hide_coif_20]
 cost=2000
@@ -199751,6 +200417,8 @@ paramint=param_751,4
 paramint=param_752,40
 icursor1=1,51
 cursor1=2,45
+param=absorbmagic,3
+param=absorbranged,1
 
 [green_d_hide_coif_0]
 cost=2000
@@ -199784,6 +200452,8 @@ icursor1=1,51
 cursor1=2,45
 desc=A worn-out coif made of green dragonhide.
 wearpos=hat
+param=absorbmagic,3
+param=absorbranged,1
 
 [green_d_hide_coif_0_12942]
 certlink=green_d_hide_coif_0
@@ -199822,6 +200492,8 @@ icursor1=1,51
 cursor1=2,45
 desc=A coif made of blue dragonhide.
 wearpos=hat
+param=absorbmagic,3
+param=absorbranged,1
 
 [blue_d_hide_coif_80]
 cost=3500
@@ -199854,6 +200526,8 @@ paramint=param_751,1
 paramint=param_752,40
 icursor1=1,51
 cursor1=2,45
+param=absorbmagic,3
+param=absorbranged,1
 
 [blue_d_hide_coif_60]
 cost=3500
@@ -199886,6 +200560,8 @@ paramint=param_751,1
 paramint=param_752,40
 icursor1=1,51
 cursor1=2,45
+param=absorbmagic,3
+param=absorbranged,1
 
 [blue_d_hide_coif_40]
 cost=3500
@@ -199918,6 +200594,8 @@ paramint=param_751,1
 paramint=param_752,40
 icursor1=1,51
 cursor1=2,45
+param=absorbmagic,3
+param=absorbranged,1
 
 [blue_d_hide_coif_20]
 cost=3500
@@ -199950,6 +200628,8 @@ paramint=param_751,1
 paramint=param_752,40
 icursor1=1,51
 cursor1=2,45
+param=absorbmagic,3
+param=absorbranged,1
 
 [blue_d_hide_coif_0]
 cost=3500
@@ -199988,6 +200668,8 @@ icursor1=1,51
 cursor1=2,45
 desc=A worn-out coif made of blue dragonhide.
 wearpos=hat
+param=absorbmagic,3
+param=absorbranged,1
 
 [blue_d_hide_coif_0_12949]
 certlink=blue_d_hide_coif_0
@@ -200026,6 +200708,8 @@ icursor1=1,51
 cursor1=2,45
 desc=A coif made of red dragonhide.
 wearpos=hat
+param=absorbmagic,3
+param=absorbranged,1
 
 [red_d_hide_coif_80]
 cost=3500
@@ -200058,6 +200742,8 @@ paramint=param_751,1
 paramint=param_752,40
 icursor1=1,51
 cursor1=2,45
+param=absorbmagic,3
+param=absorbranged,1
 
 [red_d_hide_coif_60]
 cost=3500
@@ -200090,6 +200776,8 @@ paramint=param_751,1
 paramint=param_752,40
 icursor1=1,51
 cursor1=2,45
+param=absorbmagic,3
+param=absorbranged,1
 
 [red_d_hide_coif_40]
 cost=3500
@@ -200122,6 +200810,8 @@ paramint=param_751,1
 paramint=param_752,40
 icursor1=1,51
 cursor1=2,45
+param=absorbmagic,3
+param=absorbranged,1
 
 [red_d_hide_coif_20]
 cost=3500
@@ -200154,6 +200844,8 @@ paramint=param_751,1
 paramint=param_752,40
 icursor1=1,51
 cursor1=2,45
+param=absorbmagic,3
+param=absorbranged,1
 
 [red_d_hide_coif_0]
 cost=3500
@@ -200190,6 +200882,8 @@ icursor1=1,51
 cursor1=2,45
 desc=A worn-out coif made of red dragonhide.
 wearpos=hat
+param=absorbmagic,3
+param=absorbranged,1
 
 [red_d_hide_coif_0_12956]
 certlink=red_d_hide_coif_0
@@ -200220,6 +200914,8 @@ icursor1=1,51
 cursor1=2,45
 desc=A coif made of black dragonhide.
 wearpos=hat
+param=absorbmagic,3
+param=absorbranged,1
 
 [black_d_hide_coif_80]
 cost=5500
@@ -200244,6 +200940,8 @@ paramint=param_751,1
 paramint=param_752,40
 icursor1=1,51
 cursor1=2,45
+param=absorbmagic,3
+param=absorbranged,1
 
 [black_d_hide_coif_60]
 cost=5500
@@ -200268,6 +200966,8 @@ paramint=param_751,1
 paramint=param_752,40
 icursor1=1,51
 cursor1=2,45
+param=absorbmagic,3
+param=absorbranged,1
 
 [black_d_hide_coif_40]
 cost=5500
@@ -200292,6 +200992,8 @@ paramint=param_751,1
 paramint=param_752,40
 icursor1=1,51
 cursor1=2,45
+param=absorbmagic,3
+param=absorbranged,1
 
 [black_d_hide_coif_20]
 cost=5500
@@ -200316,6 +201018,8 @@ paramint=param_751,1
 paramint=param_752,40
 icursor1=1,51
 cursor1=2,45
+param=absorbmagic,3
+param=absorbranged,1
 
 [black_d_hide_coif_0]
 cost=5500
@@ -200346,6 +201050,8 @@ icursor1=1,51
 cursor1=2,45
 desc=A worn-out coif made of black dragonhide.
 wearpos=hat
+param=absorbmagic,3
+param=absorbranged,1
 
 [black_d_hide_coif_0_12963]
 certlink=black_d_hide_coif_0
@@ -200565,6 +201271,8 @@ icursor1=1,51
 cursor1=2,45
 desc=A magical robe top, especially made for combat spells.
 wearpos=torso
+param=absorbmelee,2
+param=absorbmagic,1
 
 [combat_robe_top_80]
 cost=3000
@@ -200588,6 +201296,8 @@ paramint=param_751,1
 paramint=param_752,10
 icursor1=1,51
 cursor1=2,45
+param=absorbmelee,2
+param=absorbmagic,1
 
 [combat_robe_top_60]
 cost=3000
@@ -200611,6 +201321,8 @@ paramint=param_751,1
 paramint=param_752,10
 icursor1=1,51
 cursor1=2,45
+param=absorbmelee,2
+param=absorbmagic,1
 
 [combat_robe_top_40]
 cost=3000
@@ -200634,6 +201346,8 @@ paramint=param_751,1
 paramint=param_752,10
 icursor1=1,51
 cursor1=2,45
+param=absorbmelee,2
+param=absorbmagic,1
 
 [combat_robe_top_20]
 cost=3000
@@ -200657,6 +201371,8 @@ paramint=param_751,1
 paramint=param_752,10
 icursor1=1,51
 cursor1=2,45
+param=absorbmelee,2
+param=absorbmagic,1
 
 [combat_robe_top_0]
 cost=3000
@@ -200684,6 +201400,8 @@ icursor1=1,51
 cursor1=2,45
 desc=A worn-out magical robe top, especially created for combat spells.
 wearpos=torso
+param=absorbmelee,2
+param=absorbmagic,1
 
 [combat_robe_top_0_12977]
 certlink=combat_robe_top_0
@@ -200706,6 +201424,7 @@ icursor1=1,51
 cursor1=2,45
 desc=A magical robe bottom, especially created for combat spells.
 wearpos=legs
+param=absorbmelee,1
 
 [combat_robe_bottom_80]
 cost=2500
@@ -200722,6 +201441,7 @@ paramint=param_751,1
 paramint=param_752,10
 icursor1=1,51
 cursor1=2,45
+param=absorbmelee,1
 
 [combat_robe_bottom_60]
 cost=2500
@@ -200738,6 +201458,7 @@ paramint=param_751,1
 paramint=param_752,10
 icursor1=1,51
 cursor1=2,45
+param=absorbmelee,1
 
 [combat_robe_bottom_40]
 cost=2500
@@ -200754,6 +201475,7 @@ paramint=param_751,1
 paramint=param_752,10
 icursor1=1,51
 cursor1=2,45
+param=absorbmelee,1
 
 [combat_robe_bottom_20]
 cost=2500
@@ -200770,6 +201492,7 @@ paramint=param_751,1
 paramint=param_752,10
 icursor1=1,51
 cursor1=2,45
+param=absorbmelee,1
 
 [combat_robe_bottom_0]
 cost=2500
@@ -200790,6 +201513,7 @@ icursor1=1,51
 cursor1=2,45
 desc=A worn-out magical robe bottom, especially created for combat spells.
 wearpos=legs
+param=absorbmelee,1
 
 [combat_robe_bottom_0_12984]
 certlink=combat_robe_bottom_0
@@ -213235,6 +213959,8 @@ icursor1=1,51
 cursor1=2,45
 desc=This item degrades in combat, and will turn to dust.
 wearpos=torso
+param=absorbmelee,12
+param=absorbmagic,6
 
 [zuriel_s_robe_top_13859]
 certlink=zuriel_s_robe_top
@@ -213286,6 +214012,8 @@ icursor1=1,51
 cursor1=2,45
 desc=This item degrades in combat, and will turn to dust.
 wearpos=legs
+param=absorbmelee,8
+param=absorbmagic,4
 
 [zuriel_s_robe_bottom_13862]
 certlink=zuriel_s_robe_bottom
@@ -213340,6 +214068,8 @@ icursor1=1,51
 cursor1=2,45
 desc=This item degrades in combat, and will turn to dust.
 wearpos=hat
+param=absorbmelee,6
+param=absorbmagic,3
 
 [zuriel_s_hood_13865]
 certlink=zuriel_s_hood
@@ -213449,6 +214179,8 @@ icursor1=1,51
 cursor1=2,45
 desc=This item degrades in combat, and will turn to dust.
 wearpos=torso
+param=absorbmagic,12
+param=absorbranged,6
 
 [morrigan_s_leather_body_13871]
 certlink=morrigan_s_leather_body
@@ -213502,6 +214234,8 @@ icursor1=1,51
 cursor1=2,45
 desc=This item degrades in combat, and will turn to dust.
 wearpos=legs
+param=absorbmagic,8
+param=absorbranged,4
 
 [morrigan_s_leather_chaps_13874]
 certlink=morrigan_s_leather_chaps
@@ -213557,6 +214291,8 @@ icursor1=1,51
 cursor1=2,45
 desc=This item degrades in combat, and will turn to dust.
 wearpos=hat
+param=absorbmagic,6
+param=absorbranged,3
 
 [morrigan_s_coif_13877]
 certlink=morrigan_s_coif
@@ -213758,6 +214494,8 @@ icursor1=1,51
 cursor1=2,45
 desc=This item degrades in combat, and will turn to dust.
 wearpos=torso
+param=absorbmelee,6
+param=absorbranged,12
 
 [statius_s_platebody_13885]
 certlink=statius_s_platebody
@@ -213808,6 +214546,8 @@ icursor1=1,51
 cursor1=2,45
 desc=This item degrades in combat, and will turn to dust.
 wearpos=torso
+param=absorbmelee,6
+param=absorbranged,12
 
 [vesta_s_chainbody_13888]
 certlink=vesta_s_chainbody
@@ -213857,6 +214597,8 @@ icursor1=1,51
 cursor1=2,45
 desc=This item degrades in combat, and will turn to dust.
 wearpos=legs
+param=absorbmelee,4
+param=absorbranged,8
 
 [statius_s_platelegs_13891]
 certlink=statius_s_platelegs
@@ -213906,6 +214648,8 @@ icursor1=1,51
 cursor1=2,45
 desc=This item degrades in combat, and will turn to dust.
 wearpos=legs
+param=absorbmelee,4
+param=absorbranged,8
 
 [vesta_s_plateskirt_13894]
 certlink=vesta_s_plateskirt
@@ -213958,6 +214702,8 @@ icursor1=1,51
 cursor1=2,45
 desc=This item degrades in combat, and will turn to dust.
 wearpos=hat
+param=absorbmelee,3
+param=absorbranged,6
 
 [statius_s_full_helm_13897]
 certlink=statius_s_full_helm
@@ -214174,6 +214920,8 @@ icursor1=1,51
 cursor1=2,45
 desc=This item degrades while worn, and will turn to dust.
 wearpos=torso
+param=absorbmelee,6
+param=absorbranged,12
 
 [corrupt_statius_s_platebody_13909]
 certlink=corrupt_statius_s_platebody
@@ -214224,6 +214972,8 @@ icursor1=1,51
 cursor1=2,45
 desc=This item degrades while worn, and will turn to dust.
 wearpos=torso
+param=absorbmelee,6
+param=absorbranged,12
 
 [corrupt_vesta_s_chainbody_13912]
 certlink=corrupt_vesta_s_chainbody
@@ -214273,6 +215023,8 @@ icursor1=1,51
 cursor1=2,45
 desc=This item degrades while worn, and will turn to dust.
 wearpos=legs
+param=absorbmelee,4
+param=absorbranged,8
 
 [corrupt_statius_s_platelegs_13915]
 certlink=corrupt_statius_s_platelegs
@@ -214322,6 +215074,8 @@ icursor1=1,51
 cursor1=2,45
 desc=This item degrades while worn, and will turn to dust.
 wearpos=legs
+param=absorbmelee,4
+param=absorbranged,8
 
 [corrupt_vesta_s_plateskirt_13918]
 certlink=corrupt_vesta_s_plateskirt
@@ -214374,6 +215128,8 @@ icursor1=1,51
 cursor1=2,45
 desc=This item degrades while worn, and will turn to dust.
 wearpos=hat
+param=absorbmelee,3
+param=absorbranged,6
 
 [corrupt_statius_s_full_helm_13921]
 certlink=corrupt_statius_s_full_helm
@@ -214584,6 +215340,8 @@ icursor1=1,51
 cursor1=2,45
 desc=This item degrades while worn, and will turn to dust.
 wearpos=torso
+param=absorbmelee,12
+param=absorbmagic,6
 
 [corrupt_zuriel_s_robe_top_13933]
 certlink=corrupt_zuriel_s_robe_top
@@ -214635,6 +215393,8 @@ icursor1=1,51
 cursor1=2,45
 desc=This item degrades while worn, and will turn to dust.
 wearpos=legs
+param=absorbmelee,8
+param=absorbmagic,4
 
 [corrupt_zuriel_s_robe_bottom_13936]
 certlink=corrupt_zuriel_s_robe_bottom
@@ -214689,6 +215449,8 @@ icursor1=1,51
 cursor1=2,45
 desc=This item degrades while worn, and will turn to dust.
 wearpos=hat
+param=absorbmelee,6
+param=absorbmagic,3
 
 [corrupt_zuriel_s_hood_13939]
 certlink=corrupt_zuriel_s_hood
@@ -214794,6 +215556,8 @@ icursor1=1,51
 cursor1=2,45
 desc=This item degrades while worn, and will turn to dust.
 wearpos=torso
+param=absorbmagic,12
+param=absorbranged,6
 
 [corrupt_morrigan_s_leather_body_13945]
 certlink=corrupt_morrigan_s_leather_body
@@ -214847,6 +215611,8 @@ icursor1=1,51
 cursor1=2,45
 desc=This item degrades while worn, and will turn to dust.
 wearpos=legs
+param=absorbmagic,8
+param=absorbranged,4
 
 [corrupt_morrigan_s_leather_chaps_13948]
 certlink=corrupt_morrigan_s_leather_chaps
@@ -214902,6 +215668,8 @@ icursor1=1,51
 cursor1=2,45
 desc=This item degrades while worn, and will turn to dust.
 wearpos=hat
+param=absorbmagic,6
+param=absorbranged,3
 
 [corrupt_morrigan_s_coif_13951]
 certlink=corrupt_morrigan_s_coif
@@ -215090,6 +215858,8 @@ icursor1=1,51
 cursor1=2,45
 desc=This item degrades while worn, and will turn to dust.
 wearpos=torso
+param=absorbmelee,4
+param=absorbranged,9
 
 [corrupt_dragon_chainbody_13959]
 certlink=corrupt_dragon_chainbody
@@ -215136,6 +215906,8 @@ icursor1=1,51
 cursor1=2,45
 desc=This item degrades while worn, and will turn to dust.
 wearpos=hat
+param=absorbmelee,2
+param=absorbranged,4
 
 [corrupt_dragon_med_helm_13962]
 certlink=corrupt_dragon_med_helm
@@ -215185,6 +215957,8 @@ icursor1=1,51
 cursor1=2,45
 desc=This item degrades while worn, and will turn to dust.
 wearpos=lefthand
+param=absorbmelee,5
+param=absorbranged,11
 
 [corrupt_dragon_sq_shield_13965]
 certlink=corrupt_dragon_sq_shield
@@ -215231,6 +216005,8 @@ icursor1=1,51
 cursor1=2,45
 desc=This item degrades while worn, and will turn to dust.
 wearpos=legs
+param=absorbmelee,3
+param=absorbranged,6
 
 [corrupt_dragon_plateskirt_13968]
 certlink=corrupt_dragon_plateskirt
@@ -215274,6 +216050,8 @@ icursor1=1,51
 cursor1=2,45
 desc=This item degrades while worn, and will turn to dust.
 wearpos=legs
+param=absorbmelee,3
+param=absorbranged,6
 
 [corrupt_dragon_platelegs_13971]
 certlink=corrupt_dragon_platelegs
@@ -216632,6 +217410,8 @@ icursor1=1,51
 cursor1=2,45
 desc=The sacred clay top has transformed into a spiked, platemail body.
 wearpos=torso
+param=absorbmelee,3
+param=absorbranged,6
 
 [sacred_clay_platelegs]
 model=model_43261
@@ -216652,6 +217432,8 @@ icursor1=1,51
 cursor1=2,45
 desc=The sacred clay bottom has transformed into spiked, platemail legs.
 wearpos=legs
+param=absorbmelee,2
+param=absorbranged,4
 
 [sacred_clay_helm]
 model=model_43125
@@ -216676,6 +217458,8 @@ icursor1=1,51
 cursor1=2,45
 desc=The sacred clay hat has transformed into a spined helm.
 wearpos=hat
+param=absorbmelee,1
+param=absorbranged,3
 
 [sacred_clay_scimitar]
 model=model_43162
@@ -217040,6 +217824,8 @@ icursor1=1,51
 cursor1=2,45
 desc=The sacred clay top has transformed into a heavy, magical robe.
 wearpos=torso
+param=absorbmelee,6
+param=absorbmagic,3
 
 [sacred_clay_robe_bottom]
 model=model_43134
@@ -217061,6 +217847,8 @@ icursor1=1,51
 cursor1=2,45
 desc=The sacred clay bottom has transformed into a heavy, magical robe.
 wearpos=legs
+param=absorbmelee,4
+param=absorbmagic,2
 
 [sacred_clay_hat]
 model=model_43253
@@ -217086,6 +217874,8 @@ icursor1=1,51
 cursor1=2,45
 desc=The sacred clay hat has transformed into a wizard hat.
 wearpos=hat
+param=absorbmelee,3
+param=absorbmagic,1
 
 [sacred_clay_staff]
 model=model_43212
@@ -217157,6 +217947,8 @@ icursor1=1,51
 cursor1=2,45
 desc=The sacred clay bottom has been transformed into a set of chaps.
 wearpos=legs
+param=absorbmagic,4
+param=absorbranged,2
 
 [sacred_clay_coif]
 model=model_43232
@@ -221664,6 +222456,8 @@ icursor1=1,51
 cursor1=2,45
 desc=Provides excellent protection.
 wearpos=torso
+param=absorbmelee,4
+param=absorbranged,9
 
 [dragon_platebody_14480]
 certlink=dragon_platebody
@@ -221812,6 +222606,8 @@ icursor1=1,51
 cursor1=2,45
 desc=These look pretty heavy, but very elite.
 wearpos=legs
+param=absorbmelee,2
+param=absorbranged,4
 
 [elite_black_platelegs_14491]
 certlink=elite_black_platelegs
@@ -221839,6 +222635,8 @@ icursor1=1,51
 cursor1=2,45
 desc=Provides excellent protection, and is elite.
 wearpos=torso
+param=absorbmelee,3
+param=absorbranged,6
 
 [elite_black_platebody_14493]
 certlink=elite_black_platebody
@@ -221869,6 +222667,8 @@ icursor1=1,51
 cursor1=2,45
 desc=A full face helmet, and elite.
 wearpos=hat
+param=absorbmelee,1
+param=absorbranged,3
 
 [elite_black_full_helm_14495]
 certlink=elite_black_full_helm
@@ -221918,6 +222718,8 @@ icursor1=1,51
 cursor1=2,45
 desc=A robe worn by members of the Dagon'hai.
 wearpos=torso
+param=absorbmelee,3
+param=absorbmagic,1
 
 [dagon_hai_robe_top_14498]
 certlink=dagon_hai_robe_top
@@ -221983,6 +222785,8 @@ icursor1=1,51
 cursor1=2,45
 desc=A robe worn by members of the Dagon'hai.
 wearpos=legs
+param=absorbmelee,2
+param=absorbmagic,1
 
 [dagon_hai_robe_bottom_14502]
 certlink=dagon_hai_robe_bottom
@@ -285915,6 +286719,8 @@ cursor1=2,45
 tradeable=no
 desc=A large metal shield.
 wearpos=lefthand
+param=absorbmelee,7
+param=absorbranged,14
 
 [chaotic_kiteshield__broken]
 iop2=Wield
@@ -285960,6 +286766,8 @@ cursor1=2,45
 tradeable=no
 desc=A large metal shield.
 wearpos=lefthand
+param=absorbmagic,14
+param=absorbranged,7
 
 [eagle_eye_kiteshield__broken]
 iop2=Wield
@@ -286005,6 +286813,8 @@ cursor1=2,45
 tradeable=no
 desc=A large metal shield.
 wearpos=lefthand
+param=absorbmelee,14
+param=absorbmagic,7
 
 [farseer_kiteshield__broken]
 iop2=Wield
@@ -290580,6 +291390,8 @@ icursor1=1,51
 cursor1=2,45
 desc=A platebody with stunningly profound decoration.
 wearpos=torso
+param=absorbmelee,3
+param=absorbranged,6
 
 [profound_decorative_platelegs]
 cost=104000
@@ -290597,6 +291409,8 @@ icursor1=1,51
 cursor1=2,45
 desc=Some platelegs with stunningly profound decoration.
 wearpos=legs
+param=absorbmelee,2
+param=absorbranged,4
 
 [profound_decorative_helm]
 cost=34000
@@ -290618,6 +291432,8 @@ icursor1=1,51
 cursor1=2,45
 desc=A helm with stunningly profound decoration.
 wearpos=hat
+param=absorbmelee,1
+param=absorbranged,3
 
 [profound_decorative_shield]
 model=model_57635
@@ -290639,6 +291455,8 @@ icursor1=1,51
 cursor1=2,45
 desc=A shield with stunningly profound decoration.
 wearpos=lefthand
+param=absorbmelee,3
+param=absorbranged,7
 
 [ballista_base]
 model=model_57658
@@ -291382,6 +292200,8 @@ cursor1=2,45
 tradeable=no
 desc=A shield for the Castle Wars faithful.
 wearpos=lefthand
+param=absorbmelee,3
+param=absorbranged,7
 
 [obj_18748]
 dummyobj=2
@@ -297054,6 +297874,8 @@ icursor1=1,51
 cursor1=2,45
 desc=A platebody with a heraldic design.
 wearpos=torso
+param=absorbmelee,1
+param=absorbranged,2
 
 [black_platebody__h1_19168]
 certlink=black_platebody__h1
@@ -297143,6 +297965,8 @@ icursor1=1,51
 cursor1=2,45
 desc=A platebody with a heraldic design.
 wearpos=torso
+param=absorbmelee,2
+param=absorbranged,4
 
 [adamant_platebody__h1_19174]
 certlink=adamant_platebody__h1
@@ -297174,6 +297998,8 @@ icursor1=1,51
 cursor1=2,45
 desc=Platelegs with a heraldic design.
 wearpos=legs
+param=absorbmelee,1
+param=absorbranged,3
 
 [adamant_platelegs__h1_19176]
 certlink=adamant_platelegs__h1
@@ -297206,6 +298032,8 @@ icursor1=1,51
 cursor1=2,45
 desc=A plateskirt with a heraldic design.
 wearpos=legs
+param=absorbmelee,1
+param=absorbranged,3
 
 [adamant_plateskirt__h1_19178]
 certlink=adamant_plateskirt__h1
@@ -297242,6 +298070,8 @@ icursor1=1,51
 cursor1=2,45
 desc=A platebody with a heraldic design.
 wearpos=torso
+param=absorbmelee,3
+param=absorbranged,6
 
 [rune_platebody__h1_19180]
 certlink=rune_platebody__h1
@@ -297278,6 +298108,8 @@ icursor1=1,51
 cursor1=2,45
 desc=Platelegs with a heraldic design.
 wearpos=legs
+param=absorbmelee,2
+param=absorbranged,4
 
 [rune_platelegs__h1_19183]
 certlink=rune_platelegs__h1
@@ -297315,6 +298147,8 @@ icursor1=1,51
 cursor1=2,45
 desc=A plateskirt with a heraldic design.
 wearpos=legs
+param=absorbmelee,2
+param=absorbranged,4
 
 [rune_plateskirt__h1_19186]
 certlink=rune_plateskirt__h1
@@ -297349,6 +298183,8 @@ icursor1=1,51
 cursor1=2,45
 desc=A platebody with a heraldic design.
 wearpos=torso
+param=absorbmelee,1
+param=absorbranged,2
 
 [black_platebody__h2_19189]
 certlink=black_platebody__h2
@@ -297438,6 +298274,8 @@ icursor1=1,51
 cursor1=2,45
 desc=A platebody with a heraldic design.
 wearpos=torso
+param=absorbmelee,2
+param=absorbranged,4
 
 [adamant_platebody__h2_19195]
 certlink=adamant_platebody__h2
@@ -297469,6 +298307,8 @@ icursor1=1,51
 cursor1=2,45
 desc=Platelegs with a heraldic design.
 wearpos=legs
+param=absorbmelee,1
+param=absorbranged,3
 
 [adamant_platelegs__h2_19197]
 certlink=adamant_platelegs__h2
@@ -297501,6 +298341,8 @@ icursor1=1,51
 cursor1=2,45
 desc=A plateskirt with a heraldic design.
 wearpos=legs
+param=absorbmelee,1
+param=absorbranged,3
 
 [adamant_plateskirt__h2_19199]
 certlink=adamant_plateskirt__h2
@@ -297537,6 +298379,8 @@ icursor1=1,51
 cursor1=2,45
 desc=A platebody with a heraldic design.
 wearpos=torso
+param=absorbmelee,3
+param=absorbranged,6
 
 [rune_platebody__h2_19201]
 certlink=rune_platebody__h2
@@ -297573,6 +298417,8 @@ icursor1=1,51
 cursor1=2,45
 desc=Platelegs with a heraldic design.
 wearpos=legs
+param=absorbmelee,2
+param=absorbranged,4
 
 [rune_platelegs__h2_19204]
 certlink=rune_platelegs__h2
@@ -297610,6 +298456,8 @@ icursor1=1,51
 cursor1=2,45
 desc=A plateskirt with a heraldic design.
 wearpos=legs
+param=absorbmelee,2
+param=absorbranged,4
 
 [rune_plateskirt__h2_19207]
 certlink=rune_plateskirt__h2
@@ -297644,6 +298492,8 @@ icursor1=1,51
 cursor1=2,45
 desc=A platebody with a heraldic design.
 wearpos=torso
+param=absorbmelee,1
+param=absorbranged,2
 
 [black_platebody__h3_19210]
 certlink=black_platebody__h3
@@ -297733,6 +298583,8 @@ icursor1=1,51
 cursor1=2,45
 desc=A platebody with a heraldic design.
 wearpos=torso
+param=absorbmelee,2
+param=absorbranged,4
 
 [adamant_platebody__h3_19216]
 certlink=adamant_platebody__h3
@@ -297764,6 +298616,8 @@ icursor1=1,51
 cursor1=2,45
 desc=Platelegs with a heraldic design.
 wearpos=legs
+param=absorbmelee,1
+param=absorbranged,3
 
 [adamant_platelegs__h3_19218]
 certlink=adamant_platelegs__h3
@@ -297796,6 +298650,8 @@ icursor1=1,51
 cursor1=2,45
 desc=A plateskirt with a heraldic design.
 wearpos=legs
+param=absorbmelee,1
+param=absorbranged,3
 
 [adamant_plateskirt__h3_19220]
 certlink=adamant_plateskirt__h3
@@ -297832,6 +298688,8 @@ icursor1=1,51
 cursor1=2,45
 desc=A platebody with a heraldic design.
 wearpos=torso
+param=absorbmelee,3
+param=absorbranged,6
 
 [rune_platebody__h3_19222]
 certlink=rune_platebody__h3
@@ -297868,6 +298726,8 @@ icursor1=1,51
 cursor1=2,45
 desc=Platelegs with a heraldic design.
 wearpos=legs
+param=absorbmelee,2
+param=absorbranged,4
 
 [rune_platelegs__h3_19225]
 certlink=rune_platelegs__h3
@@ -297905,6 +298765,8 @@ icursor1=1,51
 cursor1=2,45
 desc=A plateskirt with a heraldic design.
 wearpos=legs
+param=absorbmelee,2
+param=absorbranged,4
 
 [rune_plateskirt__h3_19228]
 certlink=rune_plateskirt__h3
@@ -297939,6 +298801,8 @@ icursor1=1,51
 cursor1=2,45
 desc=A platebody with a heraldic design.
 wearpos=torso
+param=absorbmelee,1
+param=absorbranged,2
 
 [black_platebody__h4_19231]
 certlink=black_platebody__h4
@@ -298028,6 +298892,8 @@ icursor1=1,51
 cursor1=2,45
 desc=A platebody with a heraldic design.
 wearpos=torso
+param=absorbmelee,2
+param=absorbranged,4
 
 [adamant_platebody__h4_19237]
 certlink=adamant_platebody__h4
@@ -298059,6 +298925,8 @@ icursor1=1,51
 cursor1=2,45
 desc=Platelegs with a heraldic design.
 wearpos=legs
+param=absorbmelee,1
+param=absorbranged,3
 
 [adamant_platelegs__h4_19239]
 certlink=adamant_platelegs__h4
@@ -298091,6 +298959,8 @@ icursor1=1,51
 cursor1=2,45
 desc=A plateskirt with a heraldic design.
 wearpos=legs
+param=absorbmelee,1
+param=absorbranged,3
 
 [adamant_plateskirt__h4_19241]
 certlink=adamant_plateskirt__h4
@@ -298127,6 +298997,8 @@ icursor1=1,51
 cursor1=2,45
 desc=A platebody with a heraldic design.
 wearpos=torso
+param=absorbmelee,3
+param=absorbranged,6
 
 [rune_platebody__h4_19243]
 certlink=rune_platebody__h4
@@ -298163,6 +299035,8 @@ icursor1=1,51
 cursor1=2,45
 desc=Platelegs with a heraldic design.
 wearpos=legs
+param=absorbmelee,2
+param=absorbranged,4
 
 [rune_platelegs__h4_19246]
 certlink=rune_platelegs__h4
@@ -298200,6 +299074,8 @@ icursor1=1,51
 cursor1=2,45
 desc=A plateskirt with a heraldic design.
 wearpos=legs
+param=absorbmelee,2
+param=absorbranged,4
 
 [rune_plateskirt__h4_19249]
 certlink=rune_plateskirt__h4
@@ -298234,6 +299110,8 @@ icursor1=1,51
 cursor1=2,45
 desc=A platebody with a heraldic design.
 wearpos=torso
+param=absorbmelee,1
+param=absorbranged,2
 
 [black_platebody__h5_19252]
 certlink=black_platebody__h5
@@ -298323,6 +299201,8 @@ icursor1=1,51
 cursor1=2,45
 desc=A platebody with a heraldic design.
 wearpos=torso
+param=absorbmelee,2
+param=absorbranged,4
 
 [adamant_platebody__h5_19258]
 certlink=adamant_platebody__h5
@@ -298354,6 +299234,8 @@ icursor1=1,51
 cursor1=2,45
 desc=Platelegs with a heraldic design.
 wearpos=legs
+param=absorbmelee,1
+param=absorbranged,3
 
 [adamant_platelegs__h5_19260]
 certlink=adamant_platelegs__h5
@@ -298386,6 +299268,8 @@ icursor1=1,51
 cursor1=2,45
 desc=A plateskirt with a heraldic design.
 wearpos=legs
+param=absorbmelee,1
+param=absorbranged,3
 
 [adamant_plateskirt__h5_19262]
 certlink=adamant_plateskirt__h5
@@ -298422,6 +299306,8 @@ icursor1=1,51
 cursor1=2,45
 desc=A platebody with a heraldic design.
 wearpos=torso
+param=absorbmelee,3
+param=absorbranged,6
 
 [rune_platebody__h5_19264]
 certlink=rune_platebody__h5
@@ -298458,6 +299344,8 @@ icursor1=1,51
 cursor1=2,45
 desc=Platelegs with a heraldic design.
 wearpos=legs
+param=absorbmelee,2
+param=absorbranged,4
 
 [rune_platelegs__h5_19267]
 certlink=rune_platelegs__h5
@@ -298495,6 +299383,8 @@ icursor1=1,51
 cursor1=2,45
 desc=A plateskirt with a heraldic design.
 wearpos=legs
+param=absorbmelee,2
+param=absorbranged,4
 
 [rune_plateskirt__h5_19270]
 certlink=rune_plateskirt__h5
@@ -299281,6 +300171,8 @@ cursor1=2,45
 tradeable=no
 desc=Dragon full helm with an ornate decoration.
 wearpos=hat
+param=absorbmelee,2
+param=absorbranged,4
 
 [dragon_platebody__or]
 cost=1760000
@@ -299305,6 +300197,8 @@ cursor1=2,45
 tradeable=no
 desc=Dragon platebody with an ornate decoration.
 wearpos=torso
+param=absorbmelee,4
+param=absorbranged,9
 
 [dragon_platelegs__or]
 model=model_58198
@@ -299325,6 +300219,8 @@ cursor1=2,45
 tradeable=no
 desc=Dragon platelegs with an ornate decoration.
 wearpos=legs
+param=absorbmelee,3
+param=absorbranged,6
 
 [dragon_plateskirt__or]
 model=model_58225
@@ -299346,6 +300242,8 @@ cursor1=2,45
 tradeable=no
 desc=Dragon plateskirt with an ornate decoration.
 wearpos=legs
+param=absorbmelee,3
+param=absorbranged,6
 
 [dragon_square_shield__or]
 cost=500000
@@ -299370,6 +300268,8 @@ cursor1=2,45
 tradeable=no
 desc=Dragon square shield with an ornate decoration.
 wearpos=lefthand
+param=absorbmelee,5
+param=absorbranged,11
 
 [dragon_full_helm__sp]
 model=model_58184
@@ -299393,6 +300293,8 @@ cursor1=2,45
 tradeable=no
 desc=Dragon full helm with a spiky decoration.
 wearpos=hat
+param=absorbmelee,2
+param=absorbranged,4
 
 [dragon_platebody__sp]
 cost=1760000
@@ -299417,6 +300319,8 @@ cursor1=2,45
 tradeable=no
 desc=Dragon platebody with a spiky decoration.
 wearpos=torso
+param=absorbmelee,4
+param=absorbranged,9
 
 [dragon_platelegs__sp]
 model=model_58220
@@ -299437,6 +300341,8 @@ cursor1=2,45
 tradeable=no
 desc=Dragon platelegs with a spiky decoration.
 wearpos=legs
+param=absorbmelee,3
+param=absorbranged,6
 
 [dragon_plateskirt__sp]
 model=model_58186
@@ -299458,6 +300364,8 @@ cursor1=2,45
 tradeable=no
 desc=Dragon plateskirt with a spiky decoration.
 wearpos=legs
+param=absorbmelee,3
+param=absorbranged,6
 
 [dragon_sq_shield__sp]
 cost=500000
@@ -299482,6 +300390,8 @@ cursor1=2,45
 tradeable=no
 desc=Dragon square shield with a spiky decoration.
 wearpos=lefthand
+param=absorbmelee,5
+param=absorbranged,11
 
 [dragon_full_helm_ornament_kit__or]
 members=yes
@@ -299837,6 +300747,8 @@ icursor1=1,51
 cursor1=2,45
 desc=A blessed mitre.
 wearpos=hat
+param=absorbmelee,3
+param=absorbmagic,1
 
 [armadyl_mitre_19375]
 certlink=armadyl_mitre
@@ -299884,6 +300796,8 @@ icursor1=1,51
 cursor1=2,45
 desc=A blessed mitre.
 wearpos=hat
+param=absorbmelee,3
+param=absorbmagic,1
 
 [bandos_mitre_19377]
 certlink=bandos_mitre
@@ -299927,6 +300841,8 @@ icursor1=1,51
 cursor1=2,45
 desc=A blessed mitre.
 wearpos=hat
+param=absorbmelee,3
+param=absorbmagic,1
 
 [ancient_mitre_19379]
 certlink=ancient_mitre
@@ -300212,6 +301128,8 @@ icursor1=1,51
 cursor1=2,45
 desc=A rune platebody in the colours of Zaros.
 wearpos=torso
+param=absorbmelee,3
+param=absorbranged,6
 
 [ancient_platebody_19399]
 certlink=ancient_platebody
@@ -300247,6 +301165,8 @@ icursor1=1,51
 cursor1=2,45
 desc=Rune platelegs in the colours of Zaros.
 wearpos=legs
+param=absorbmelee,2
+param=absorbranged,4
 
 [ancient_platelegs_19402]
 certlink=ancient_platelegs
@@ -300285,6 +301205,8 @@ icursor1=1,51
 cursor1=2,45
 desc=A rune plateskirt in the colours of Zaros.
 wearpos=legs
+param=absorbmelee,2
+param=absorbranged,4
 
 [ancient_plateskirt_19405]
 certlink=ancient_plateskirt
@@ -300324,6 +301246,8 @@ icursor1=1,51
 cursor1=2,45
 desc=A rune full helmet in the colours of Zaros.
 wearpos=hat
+param=absorbmelee,1
+param=absorbranged,3
 
 [ancient_full_helm_19408]
 certlink=ancient_full_helm
@@ -300363,6 +301287,8 @@ icursor1=1,51
 cursor1=2,45
 desc=A rune kiteshield in the colours of Zaros.
 wearpos=lefthand
+param=absorbmelee,3
+param=absorbranged,7
 
 [ancient_kiteshield_19411]
 certlink=ancient_kiteshield
@@ -300402,6 +301328,8 @@ icursor1=1,51
 cursor1=2,45
 desc=A rune platebody in the colours of Armadyl.
 wearpos=torso
+param=absorbmelee,3
+param=absorbranged,6
 
 [armadyl_platebody_19414]
 certlink=armadyl_platebody
@@ -300437,6 +301365,8 @@ icursor1=1,51
 cursor1=2,45
 desc=Rune platelegs in the colours of Armadyl.
 wearpos=legs
+param=absorbmelee,2
+param=absorbranged,4
 
 [armadyl_platelegs_19417]
 certlink=armadyl_platelegs
@@ -300475,6 +301405,8 @@ icursor1=1,51
 cursor1=2,45
 desc=A rune plateskirt in the colours of Armadyl.
 wearpos=legs
+param=absorbmelee,2
+param=absorbranged,4
 
 [armadyl_plateskirt_19420]
 certlink=armadyl_plateskirt
@@ -300514,6 +301446,8 @@ icursor1=1,51
 cursor1=2,45
 desc=A rune full helmet in the colours of Armadyl.
 wearpos=hat
+param=absorbmelee,1
+param=absorbranged,3
 
 [armadyl_full_helm_19423]
 certlink=armadyl_full_helm
@@ -300553,6 +301487,8 @@ icursor1=1,51
 cursor1=2,45
 desc=A rune kiteshield in the colours of Armadyl.
 wearpos=lefthand
+param=absorbmelee,3
+param=absorbranged,7
 
 [armadyl_kiteshield_19426]
 certlink=armadyl_kiteshield
@@ -300592,6 +301528,8 @@ icursor1=1,51
 cursor1=2,45
 desc=A rune platebody in the colours of Bandos.
 wearpos=torso
+param=absorbmelee,3
+param=absorbranged,6
 
 [bandos_platebody_19429]
 certlink=bandos_platebody
@@ -300627,6 +301565,8 @@ icursor1=1,51
 cursor1=2,45
 desc=Rune platelegs in the colours of Bandos.
 wearpos=legs
+param=absorbmelee,2
+param=absorbranged,4
 
 [bandos_platelegs_19432]
 certlink=bandos_platelegs
@@ -300665,6 +301605,8 @@ icursor1=1,51
 cursor1=2,45
 desc=A rune plateskirt in the colours of Bandos.
 wearpos=legs
+param=absorbmelee,2
+param=absorbranged,4
 
 [bandos_plateskirt_19435]
 certlink=bandos_plateskirt
@@ -300704,6 +301646,8 @@ icursor1=1,51
 cursor1=2,45
 desc=A rune full helmet in the colours of Bandos.
 wearpos=hat
+param=absorbmelee,1
+param=absorbranged,3
 
 [bandos_full_helm_19438]
 certlink=bandos_full_helm
@@ -300743,6 +301687,8 @@ icursor1=1,51
 cursor1=2,45
 desc=A rune kiteshield in the colours of Bandos.
 wearpos=lefthand
+param=absorbmelee,3
+param=absorbranged,7
 
 [bandos_kiteshield_19441]
 certlink=bandos_kiteshield
@@ -300810,6 +301756,8 @@ icursor1=1,51
 cursor1=2,45
 desc=Blessed dragonhide body armour.
 wearpos=torso
+param=absorbmagic,6
+param=absorbranged,3
 
 [ancient_body_19446]
 certlink=ancient_body
@@ -300848,6 +301796,8 @@ icursor1=1,51
 cursor1=2,45
 desc=Blessed dragonhide chaps.
 wearpos=legs
+param=absorbmagic,4
+param=absorbranged,2
 
 [ancient_chaps_19448]
 certlink=ancient_chaps
@@ -300896,6 +301846,8 @@ icursor1=1,51
 cursor1=2,45
 desc=Blessed dragonhide coif.
 wearpos=hat
+param=absorbmagic,3
+param=absorbranged,1
 
 [ancient_coif_19450]
 certlink=ancient_coif
@@ -300959,6 +301911,8 @@ icursor1=1,51
 cursor1=2,45
 desc=Blessed dragonhide body armour.
 wearpos=torso
+param=absorbmagic,6
+param=absorbranged,3
 
 [bandos_body_19454]
 certlink=bandos_body
@@ -300997,6 +301951,8 @@ icursor1=1,51
 cursor1=2,45
 desc=Blessed dragonhide chaps.
 wearpos=legs
+param=absorbmagic,4
+param=absorbranged,2
 
 [bandos_chaps_19456]
 certlink=bandos_chaps
@@ -301045,6 +302001,8 @@ icursor1=1,51
 cursor1=2,45
 desc=Blessed dragonhide coif.
 wearpos=hat
+param=absorbmagic,3
+param=absorbranged,1
 
 [bandos_coif_19458]
 certlink=bandos_coif
@@ -301108,6 +302066,8 @@ icursor1=1,51
 cursor1=2,45
 desc=Armadyl blessed dragonhide body armour.
 wearpos=torso
+param=absorbmagic,6
+param=absorbranged,3
 
 [armadyl_body_19462]
 certlink=armadyl_body
@@ -301146,6 +302106,8 @@ icursor1=1,51
 cursor1=2,45
 desc=Blessed dragonhide chaps.
 wearpos=legs
+param=absorbmagic,4
+param=absorbranged,2
 
 [armadyl_chaps_19464]
 certlink=armadyl_chaps
@@ -301194,6 +302156,8 @@ icursor1=1,51
 cursor1=2,45
 desc=Blessed dragonhide coif.
 wearpos=hat
+param=absorbmagic,3
+param=absorbranged,1
 
 [armadyl_coif_19466]
 certlink=armadyl_coif
@@ -305890,6 +306854,8 @@ quest1=180
 tradeable=no
 desc=This armour has been modified to track your movements.
 wearpos=torso
+param=absorbmelee,1
+param=absorbranged,2
 
 [black_platelegs__bugged]
 model=model_2582
@@ -312682,6 +313648,8 @@ icursor1=1,51
 cursor1=2,45
 desc=An ancient warrior's full helm.
 wearpos=hat
+param=absorbmelee,3
+param=absorbranged,6
 
 [torva_full_helm_20136]
 certlink=torva_full_helm
@@ -312715,6 +313683,8 @@ cursor1=2,45
 tradeable=no
 desc=An ancient warrior's full helm.
 wearpos=hat
+param=absorbmelee,3
+param=absorbranged,6
 
 [torva_full_helm__broken]
 cost=390000
@@ -312768,6 +313738,8 @@ icursor1=1,51
 cursor1=2,45
 desc=An Ancient warrior's Platebody.
 wearpos=torso
+param=absorbmelee,6
+param=absorbranged,12
 
 [torva_platebody_20140]
 certlink=torva_platebody
@@ -312798,6 +313770,8 @@ cursor1=2,45
 tradeable=no
 desc=An Ancient warrior's Platebody.
 wearpos=torso
+param=absorbmelee,6
+param=absorbranged,12
 
 [torva_platebody__broken]
 cost=490000
@@ -312849,6 +313823,8 @@ icursor1=1,51
 cursor1=2,45
 desc=An ancient warrior's platelegs.
 wearpos=legs
+param=absorbmelee,4
+param=absorbranged,8
 
 [torva_platelegs_20144]
 certlink=torva_platelegs
@@ -312880,6 +313856,8 @@ cursor1=2,45
 tradeable=no
 desc=An ancient warrior's platelegs.
 wearpos=legs
+param=absorbmelee,4
+param=absorbranged,8
 
 [torva_platelegs__broken]
 cost=390000
@@ -312935,6 +313913,8 @@ icursor1=1,51
 cursor1=2,45
 desc=An ancient ranger's cowl.
 wearpos=hat
+param=absorbmagic,6
+param=absorbranged,3
 
 [pernix_cowl_20148]
 certlink=pernix_cowl
@@ -312969,6 +313949,8 @@ cursor1=2,45
 tradeable=no
 desc=An ancient ranger's cowl.
 wearpos=hat
+param=absorbmagic,6
+param=absorbranged,3
 
 [pernix_cowl__broken]
 cost=390000
@@ -313025,6 +314007,8 @@ icursor1=1,51
 cursor1=2,45
 desc=An ancient ranger's body armour.
 wearpos=torso
+param=absorbmagic,12
+param=absorbranged,6
 
 [pernix_body_20152]
 certlink=pernix_body
@@ -313057,6 +314041,8 @@ cursor1=2,45
 tradeable=no
 desc=An ancient ranger's body armour.
 wearpos=torso
+param=absorbmagic,12
+param=absorbranged,6
 
 [pernix_body__broken]
 cost=490000
@@ -313110,6 +314096,8 @@ icursor1=1,51
 cursor1=2,45
 desc=An ancient ranger's chaps.
 wearpos=legs
+param=absorbmagic,8
+param=absorbranged,4
 
 [pernix_chaps_20156]
 certlink=pernix_chaps
@@ -313141,6 +314129,8 @@ cursor1=2,45
 tradeable=no
 desc=An ancient ranger's chaps.
 wearpos=legs
+param=absorbmagic,8
+param=absorbranged,4
 
 [pernix_chaps__broken]
 cost=390000
@@ -313196,6 +314186,8 @@ icursor1=1,51
 cursor1=2,45
 desc=An ancient mage's mask.
 wearpos=hat
+param=absorbmelee,6
+param=absorbmagic,3
 
 [virtus_mask_20160]
 certlink=virtus_mask
@@ -313230,6 +314222,8 @@ cursor1=2,45
 tradeable=no
 desc=An ancient mage's mask.
 wearpos=hat
+param=absorbmelee,6
+param=absorbmagic,3
 
 [virtus_mask__broken]
 cost=390000
@@ -313285,6 +314279,8 @@ icursor1=1,51
 cursor1=2,45
 desc=An ancient mage's robe top.
 wearpos=torso
+param=absorbmelee,12
+param=absorbmagic,6
 
 [virtus_robe_top_20164]
 certlink=virtus_robe_top
@@ -313316,6 +314312,8 @@ cursor1=2,45
 tradeable=no
 desc=An ancient mage's robe top.
 wearpos=torso
+param=absorbmelee,12
+param=absorbmagic,6
 
 [virtus_robe_top__broken]
 cost=490000
@@ -313369,6 +314367,8 @@ icursor1=1,51
 cursor1=2,45
 desc=An ancient mage's robe legs.
 wearpos=legs
+param=absorbmelee,8
+param=absorbmagic,4
 
 [virtus_robe_legs_20168]
 certlink=virtus_robe_legs
@@ -313401,6 +314401,8 @@ cursor1=2,45
 tradeable=no
 desc=An ancient mage's robe legs.
 wearpos=legs
+param=absorbmelee,8
+param=absorbmagic,4
 
 [virtus_robe_legs__broken]
 cost=390000

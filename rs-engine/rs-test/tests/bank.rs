@@ -606,6 +606,39 @@ fn the_worn_tabs_button_shows_the_screen_without_show_bank() {
     });
 }
 
+/// 2011's Equipment Stats screen totals the worn armour's soak percents
+/// (player/scripts/damage.rs2 `~worn_absorb`): full dragon is the 2011 wiki's
+/// 30% absorb ranged (Damage soaking), 14% melee and nothing against magic.
+#[test]
+fn the_stats_screen_totals_the_worn_absorb() {
+    runner::on_loaded_engine(|engine| {
+        let mut client = banker(engine, "statsabsorb");
+        for (slot, name) in [
+            (0, "dragon_full_helm"),
+            (4, "dragon_platebody"),
+            (7, "dragon_platelegs"),
+            (5, "dragon_sq_shield"),
+        ] {
+            let id = obj(engine, name);
+            give(engine, &client, "worn", slot, id, 1);
+        }
+        ticks(engine, &mut client, 1);
+        button(&mut client, 1, WORN_SHOW_STATS, 0xFFFF, 0xFFFF);
+        let packets = ticks(engine, &mut client, 2);
+        let lines = texts_on(&packets, SCREEN);
+        for (com, text) in [
+            (41, "Absorb Melee: +14%"),
+            (42, "Absorb Magic: +0%"),
+            (43, "Absorb Ranged: +30%"),
+        ] {
+            assert!(
+                lines.iter().any(|(c, t)| *c == com && t == text),
+                "667:{com} {text:?} in {lines:?}"
+            );
+        }
+    });
+}
+
 #[test]
 fn remove_and_equip_on_the_stats_screen_keep_it_open() {
     runner::on_loaded_engine(|engine| {

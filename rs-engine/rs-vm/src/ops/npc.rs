@@ -134,6 +134,17 @@ pub fn build<E: ScriptEngine + 'static>() -> OpsRegistry {
                 crate::ops::test::record_call(NPC_DAMAGE, "npc_damage", &arg);
             }
             npc.damage(amount, damage_type);
+            // A player's hit (their own script, or one their script queued)
+            // is bright for them; 2011 paints everyone else's darker.
+            #[cfg(since_647)]
+            {
+                let source = crate::ops::player::queue_source(s).or(s.queue_source);
+                if crate::ops::test::recording() {
+                    let arg = source.map_or(-1, i32::from).to_string();
+                    crate::ops::test::record_call(NPC_DAMAGE, "npc_hit_by", &arg);
+                }
+                npc.hit_source(source);
+            }
         });
 
         // 2510
@@ -452,7 +463,16 @@ pub fn build<E: ScriptEngine + 'static>() -> OpsRegistry {
             let arg = s.pop_int();
             let queue_id = s.pop_int();
             let trigger = ServerTriggerType::AiQueue1 as i32 + queue_id - 1;
+            #[cfg(before_647)]
             npc.queue(trigger, delay, Some(vec![ScriptArgument::Int(arg)]))?;
+            // The player whose script queued it: a hit it paints is theirs.
+            #[cfg(since_647)]
+            npc.queue_from(
+                trigger,
+                delay,
+                Some(vec![ScriptArgument::Int(arg)]),
+                crate::ops::player::queue_source(s),
+            )?;
         });
 
         // 2531
