@@ -129,4 +129,5 @@ inv_del(bank, stake, inv_total(bank, stake));
 stat_advance(attack, 48250);
 ~quest_vampire_set_progress(^vampire_complete);
 session_log(^log_adventure, "Quest complete: Vampire Slayer");
-~send_quest_complete2(^questlist_vampire, stake, 250, ^vampire_questpoints, "You have completed the<br>Vampire Slayer Quest!", "4825 Attack XP");
+// 2011-05-04 recording (295s): one line, lower-case "quest".
+~send_quest_complete2(^questlist_vampire, stake, 250, ^vampire_questpoints, "You have completed the Vampire Slayer quest!", "4825 Attack XP");

@@ -212,8 +212,13 @@ fn harlow_gives_a_stake_and_a_stake_hammer_for_a_beer() {
     runner::on_loaded_engine(|engine| {
         let _ = engine.script_errors.take();
         let mut client = visit(engine, "morgan", 0, 0, &[]);
-        let talk = converse(engine, &mut client, &["Ok, I'm up for an adventure."], 300);
-        assert!(talk.said("Blue Moon Inn"), "{:?}", talk.texts);
+        let talk = converse(engine, &mut client, &["What terrible threat?", "Yes."], 300);
+        // 2011-05-04 recording (51.1s).
+        assert!(
+            talk.said("He spends his time at the Blue Moon inn, located in Varrock."),
+            "{:?}",
+            talk.texts
+        );
         assert_eq!(
             var(engine, &client, "vampire") & 3,
             1,
@@ -221,7 +226,12 @@ fn harlow_gives_a_stake_and_a_stake_hammer_for_a_beer() {
         );
 
         let mut client = visit(engine, "dr_harlow", 1, 0, &[]);
-        let talk = converse(engine, &mut client, &["Morgan needs your help"], 300);
+        let talk = converse(
+            engine,
+            &mut client,
+            &["Are you Dr Harlow, the famous vampire slayer?"],
+            300,
+        );
         assert_eq!(talk.unanswered, None, "{:?}", talk.texts);
         assert_eq!(var(engine, &client, "vampire") & 3, 2);
 
@@ -229,7 +239,7 @@ fn harlow_gives_a_stake_and_a_stake_hammer_for_a_beer() {
         let talk = converse(engine, &mut client, &[], 300);
         no_script_errors(engine, "Harlow");
         assert!(
-            talk.said("Dr Harlow hands you a stake hammer."),
+            talk.said("Dr Harlow hands you a strange hammer."),
             "{:?}",
             talk.texts
         );
@@ -423,8 +433,10 @@ fn the_count_is_staked_and_morgan_ends_the_quest() {
         let xp = engine.harness_player(client.pid).unwrap().stats.xp[ATTACK];
         let talk = converse(engine, &mut client, &[], 300);
         no_script_errors(engine, "Morgan");
+        // 2011-05-04 recording (YouTube 8rnPUf2QQv4, 289.6-291.4s).
+        assert!(talk.said("I've killed the vampire!"), "{:?}", talk.texts);
         assert!(
-            talk.said("I have slain the foul creature!"),
+            talk.said("Praise Saradomin! Bless you! We are all saved, the vampire is slayed!"),
             "{:?}",
             talk.texts
         );
