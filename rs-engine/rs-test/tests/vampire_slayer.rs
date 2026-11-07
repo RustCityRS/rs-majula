@@ -537,13 +537,14 @@ fn lookat(payload: &[u8]) -> (u16, u8, u8) {
     )
 }
 
-/// Opening the coffin plays 2011's cutscene, timed to the 2010-10-15
-/// recording (YouTube TLKwCRHHM6M), whose fades last 2011's default fade:
+/// Opening the coffin plays 2011's cutscene, timed to the 2011-05-30
+/// recording (YouTube soXccN_SXH4) from its cut to the cutscene's camera:
 /// the track unlocked at once, the player's push on the lid at tick 6, the
-/// stake failing at tick 10 as he is thrown back a tile, the camera's
-/// three fitted moves, the coffin left open and empty as the Count rises on
-/// 3081,9777 at tick 21; he stays there, the player's camera comes back when
-/// the player goes to attack him, and the coffin closes once he has gone.
+/// stake failing at tick 9 and the player thrown back a tile at 10, the
+/// camera's three fitted moves, the coffin left open and empty as the Count
+/// rises on 3081,9777 at tick 16; he stays there, the player's camera comes
+/// back when the player goes to attack him, and the coffin closes once he
+/// has gone.
 #[test]
 fn the_coffin_plays_2011s_cutscene() {
     let _turn = TURN.lock().unwrap_or_else(|e| e.into_inner());
@@ -616,7 +617,7 @@ fn the_coffin_plays_2011s_cutscene() {
         assert!(open <= 1, "the track unlocks as the coffin opens: {said:?}");
         assert_eq!(
             at("You stab the vampire with the stake, but it does not go deep enough.") - open,
-            10,
+            9,
             "{said:?}"
         );
         // May 2011's player: the push on the lid (2991), the stake (2992),
@@ -628,10 +629,10 @@ fn the_coffin_plays_2011s_cutscene() {
             played,
             [
                 (6, seq("seq_2991")),
-                (10, seq("seq_2992")),
-                (11, seq("seq_3108")),
-                (13, seq("seq_3109")),
-                (25, seq("seq_3110"))
+                (9, seq("seq_2992")),
+                (10, seq("seq_3108")),
+                (12, seq("seq_3109")),
+                (19, seq("seq_3110"))
             ],
             "the player's seqs (tick, seq)"
         );
@@ -640,13 +641,13 @@ fn the_coffin_plays_2011s_cutscene() {
         let moves: Vec<_> = moves.iter().map(|&(t, m)| (t - open, m)).collect();
         assert_eq!(
             moves,
-            [(3, (750, 100, 0)), (13, (840, 90, 0)), (16, (520, 16, 0))],
+            [(3, (750, 100, 0)), (11, (840, 90, 0)), (12, (520, 16, 0))],
             "the camera's moves (tick, (height, var speed, const speed))"
         );
         let looks: Vec<_> = looks.iter().map(|&(t, l)| (t - open, l)).collect();
-        assert_eq!(looks, [(3, (300, 100, 0)), (13, (350, 90, 1))], "its look");
+        assert_eq!(looks, [(3, (300, 100, 0)), (11, (350, 90, 1))], "its look");
         let (tick, nid, x, z) = risen.expect("the Count rises");
-        assert_eq!((tick - open, x, z), (21, 3081, 9777));
+        assert_eq!((tick - open, x, z), (16, 3081, 9777));
         assert!(
             loc_at(engine, "coffin_163", COFFIN.1, COFFIN.2),
             "the coffin lies open and empty"
