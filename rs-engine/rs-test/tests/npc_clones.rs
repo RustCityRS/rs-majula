@@ -1,6 +1,6 @@
 //! 2011's re-issued npcs answer their 289 base's triggers.
 //!
-//! `npc_clones_2011.npc` gives 362 of 2011's npcs the server config of a 289
+//! `npc_clones_2011.npc` (since 9217853428 folded into `globalscript/_unpack/all.npc`) gives 362 of 2011's npcs the server config of a 289
 //! npc, named in each section's comment ("289's [cow]"). Config alone left 127
 //! of them without some of their base's own triggers, so they fell to 647's
 //! defaults: a fire giant dropped only its bones, a chaos druid never cast, a
@@ -97,10 +97,13 @@ fn pack(kind: &str) -> HashMap<String, i32> {
         .collect()
 }
 
-/// Each clone in `npc_clones_2011.npc` and the 289 npc its comment names.
+/// Each clone (a section whose comment names "289's [base]") and the 289 npc
+/// that comment names. The clones' sections were `npc_clones_2011.npc` until
+/// 9217853428 folded every authored npc section into `globalscript/_unpack/all.npc`,
+/// where the comment follows the cache's lines.
 fn clones() -> Vec<(String, String)> {
     let path = format!(
-        "{}/../../content/647/scripts/runescript/npc/configs/npc_clones_2011.npc",
+        "{}/../../content/647/scripts/globalscript/_unpack/all.npc",
         env!("CARGO_MANIFEST_DIR")
     );
     let text = std::fs::read_to_string(&path).expect(&path);
@@ -109,8 +112,9 @@ fn clones() -> Vec<(String, String)> {
     for line in text.lines() {
         if let Some(name) = line.strip_prefix('[').and_then(|l| l.strip_suffix(']')) {
             section = Some(name.to_string());
-        } else if let Some(clone) = section.take()
+        } else if line.starts_with("//")
             && let Some(at) = line.find("289's [")
+            && let Some(clone) = section.take()
         {
             let rest = &line[at + "289's [".len()..];
             let base = &rest[..rest.find(']').expect("a closed base name")];

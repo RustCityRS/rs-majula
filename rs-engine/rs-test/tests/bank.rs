@@ -581,17 +581,19 @@ fn the_worn_tabs_button_shows_the_screen_without_show_bank() {
                 .unwrap()
                 .is_interface_open(SCREEN)
         );
-        // The screen's root starts hidden: clientscript 2319 shows it, which
-        // no bank is open to run here. It must reach the client after the
+        // The screen's root starts hidden: proc 2319 shows it, which no bank is
+        // open to run here. Content runs it through
+        // [clientscript,bank_v2_showequipscreen] (2317 in clientscript.pack),
+        // whose whole body calls the proc. It must reach the client after the
         // screen's open, or the open loads the root hidden again.
         let open = ServerProt::IfOpensub as u16;
         let last_open = packets.iter().rposition(|(op, _)| *op == open);
         let reveal = packets.iter().position(|(op, p)| {
-            *op == ServerProt::RunClientScript as u16 && scripts(&[(*op, p.clone())]) == [2319]
+            *op == ServerProt::RunClientScript as u16 && scripts(&[(*op, p.clone())]) == [2317]
         });
         assert!(
             matches!((last_open, reveal), (Some(o), Some(r)) if r > o),
-            "open at {last_open:?}, 2319 at {reveal:?}"
+            "open at {last_open:?}, 2317 at {reveal:?}"
         );
         assert_eq!(from_bank(engine, &client), 0);
         // Show bank does nothing from here.
