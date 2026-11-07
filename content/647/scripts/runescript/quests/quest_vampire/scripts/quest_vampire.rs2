@@ -45,20 +45,19 @@ while (npc_findnext = true) {
 //   6  the player puts his weapon away and pushes the lid off (seq 2991),
 //      the lid sliding (seq 3112) with him (off at +3.9s in May);
 //   9  he stabs down into the coffin with the stake (seq 2992, the stake in
-//      hand; +4.0s-4.2s), and it fails;
-//  10  the Count sits up (seq 3322) and the player is thrown back (seq 3108)
-//      a tile west, onto the floor by the candelabra (+4.3s): the throw
-//      cuts the stab off just after its strike, so the stab is quick;
+//      hand; +4.0s-4.2s), and it fails; the Count sits up (seq 3322: up by
+//      1.8s, arms raised at 3.2s-3.8s, down at 4.0s-4.8s, then he curls
+//      down and fades into the coffin, gone by 7.1s);
+//  10  the player is thrown back (seq 3108) a tile west, onto the floor by
+//      the candelabra (+4.3s): the throw cuts the stab off just after its
+//      strike, so the stab is quick;
 //  11  the camera lifts and draws back a little (+5.0s);
 //  12  the player lies there (seq 3109), and the camera pulls back to the
 //      floor below the dais (+5.6s);
-//  16  the coffin lies open and empty, cutting the Count off on it, and he
-//      rises from the floor (seq 3328) on 3081,9777, facing the camera
-//      (+8.0s);
-//  19  he turns to the player, who gets up (seq 3110). Then he wanders, and
-//      attacks a player who comes within 5 tiles (all three recordings: he
-//      moves about the floor on his own until the player comes to him;
-//      "aggressive: yes", 2011 wiki, Count Draynor).
+//  21  the Count faded into the coffin, it lies open and empty, and he
+//      rises from the floor (seq 3328) on 3081,9777, facing the camera;
+//  24  he turns to the player, who gets up (seq 3110). He stands there until
+//      the player attacks him.
 // The camera holds until the player engages him (count_draynor.rs2). Its
 // tiles, heights and speeds are fitted to the recordings' frames in the 647
 // client. The look's constant speed of 1 lets the client's angles reach the
@@ -82,10 +81,10 @@ if (loc_find(0_48_152_8_57, coffin) = true) {
 p_delay(2);
 mes("You stab the vampire with the stake, but it does not go deep enough.");
 anim(seq_2992, 0);
-p_delay(0);
 if (loc_find(0_48_152_8_57, coffin) = true) {
     loc_anim(seq_3322);
 }
+p_delay(0);
 anim(seq_3108, 0);
 p_exactmove(0_48_152_7_58, 0_48_152_6_58, 0, 30, ^exact_east);
 p_delay(0);
@@ -94,7 +93,7 @@ cam_lookat(0_48_152_8_54, 350, 1, 90);
 p_delay(0);
 anim(seq_3109, 0);
 cam_moveto(0_48_152_6_43, 520, 0, 16);
-p_delay(3);
+p_delay(8);
 if_openoverlay(null);
 if (loc_find(0_48_152_8_57, coffin) = true) {
     loc_change(coffin_163, 500);
@@ -102,8 +101,6 @@ if (loc_find(0_48_152_8_57, coffin) = true) {
 npc_add(0_48_152_9_49, count_draynor, 500);
 npc_anim(seq_3328, 0);
 %npc_attacking_uid = uid;
-npc_sethuntmode(aggressive_melee_extra);
-npc_sethunt(5);
 p_delay(2);
 npc_facesquare(coord);
 anim(seq_3110, 0);

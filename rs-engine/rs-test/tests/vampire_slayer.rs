@@ -555,7 +555,7 @@ fn lookat(payload: &[u8]) -> (u16, u8, u8) {
 /// the track unlocked at once, the player's push on the lid at tick 6, the
 /// stake failing at tick 9 and the player thrown back a tile at 10, the
 /// camera's three fitted moves, the coffin left open and empty as the Count
-/// rises on 3081,9777 at tick 16; he wanders there, the player's camera
+/// rises on 3081,9777 at tick 21; he waits there, the player's camera
 /// comes back when the player goes to attack him, and the coffin closes once
 /// he has gone.
 #[test]
@@ -645,7 +645,7 @@ fn the_coffin_plays_2011s_cutscene() {
                 (9, seq("seq_2992")),
                 (10, seq("seq_3108")),
                 (12, seq("seq_3109")),
-                (19, seq("seq_3110"))
+                (24, seq("seq_3110"))
             ],
             "the player's seqs (tick, seq)"
         );
@@ -660,21 +660,15 @@ fn the_coffin_plays_2011s_cutscene() {
         let looks: Vec<_> = looks.iter().map(|&(t, l)| (t - open, l)).collect();
         assert_eq!(looks, [(3, (300, 100, 0)), (11, (350, 90, 1))], "its look");
         let (tick, nid, x, z) = risen.expect("the Count rises");
-        assert_eq!((tick - open, x, z), (16, 3081, 9777));
+        assert_eq!((tick - open, x, z), (21, 3081, 9777));
         assert!(
             loc_at(engine, "coffin_163", COFFIN.1, COFFIN.2),
             "the coffin lies open and empty"
         );
-        // He wanders near where he rose (all three recordings), and does not
-        // go while the player is in the room.
+        // He stands where he rose until the player attacks him.
         ticks(engine, &mut client, 10);
         let c = engine.get_npc(nid).expect("he stays").npc.pathing.coord;
-        assert!(
-            (c.x() as i32 - 3081).abs() <= 5 && (c.z() as i32 - 9777).abs() <= 5,
-            "within his wander range: {},{}",
-            c.x(),
-            c.z()
-        );
+        assert_eq!((c.x(), c.z()), (3081, 9777), "he waits to be attacked");
         // The player goes for him: the camera is the player's again.
         let mut p = ClientPacket::new();
         p.p1_alt2(0).p2_alt3(nid as i32);

@@ -109,21 +109,31 @@ if (inv_total(inv, stake_hammer) = 0) {
 p_delay(1);
 mes("You hammer the stake into the vampire's chest!");
 inv_del(inv, stake, 1);
-// The rework's stake hammer blow (seq 12606, the hammer in hand), as the
-// player strikes in the 2011-02-19 recording at 96.0s-98.2s.
-anim(seq_12606, 0);
+// The client keeps an animation still playing over a new one of lower
+// priority (Class243 for players, WallObject for npcs): the player's swing,
+// or the Count's attack or block (3331, 3332: priority 6), refused the
+// hammer blow and his dust (priority 5), and spotanim 567 played beside him.
+// So the fight stops and both are cleared this tick; the blow and the dust
+// start on the next (ai_queue4).
+p_stopaction;
+anim(null, 0);
 npc_setmode(none);
 npc_walk(npc_coord);
+npc_anim(null, 0);
 npc_queue(4, 0, 0);
 if (%vampire < ^vampire_complete) {
     %vampire_count_slain = ^true;
 }
+p_delay(0);
+// The rework's stake hammer blow (seq 12606, the hammer in hand), as the
+// player strikes in the 2011-02-19 recording at 96.0s-98.2s.
+anim(seq_12606, 0);
 
 // He goes when the player leaves him, or after a while (npc_add's 500 ticks;
 // "he disappears after a period of time", 2011 wiki, Vampire Slayer). 289
 // sent him when the player was 10 tiles off; 2011's rises 9 tiles from
-// where the cutscene throws the player and wanders 5, so leaving is 20
-// tiles: the basement's stairs, not a wander.
+// where the cutscene throws the player, and follows a player who attacks
+// him, so leaving is 20 tiles: the basement's stairs.
 [ai_timer,count_draynor]
 if (finduid(%npc_attacking_uid) = true) {
     if (npc_range(coord) > 20 | coordy(coord) ! coordy(npc_coord)) {

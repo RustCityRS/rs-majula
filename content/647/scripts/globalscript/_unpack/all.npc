@@ -216533,6 +216533,11 @@ timer=1
 // down (attack), 3332 draws in behind the cape (block), and 12604 turns him
 // to dust (death, count_draynor.rs2; 3112 is the coffin's lid sliding off).
 param=death_anim,seq_12604
+// Risen from the coffin he stands where he rose, until the player attacks
+// him; then he comes for the player. Without maxrange, wanderrange 0 leaves
+// him a chase range of 2.
+wanderrange=0
+maxrange=10
 
 [count_draynor_9357]
 readyanim=seq_1669
