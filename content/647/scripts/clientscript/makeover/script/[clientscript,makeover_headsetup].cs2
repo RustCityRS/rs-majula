@@ -1,0 +1,3 @@
+[clientscript,makeover_headsetup](component $component0, npc $npc1)
+if_setnpcmodel($npc1, $component0);
+if_setmodelanim(chatidle3, $component0);

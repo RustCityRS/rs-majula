@@ -1,0 +1,34 @@
+[proc,clientscript_2477]
+if (%varbit_6348 = 28) {
+    if_setcolour(0xffff33, mob_tutorial:com1);
+} else {
+    if_setcolour(^green, mob_tutorial:com1);
+}
+if (%varbit_6348 < 30) {
+    if_setcolour(^red, mob_tutorial:com2);
+} else if (%varbit_6348 = 30) {
+    if_setcolour(0xffff33, mob_tutorial:com2);
+} else {
+    if_setcolour(^green, mob_tutorial:com2);
+}
+if (%varbit_6348 < 32) {
+    if_setcolour(^red, mob_tutorial:com3);
+} else if (%varbit_6348 = 32) {
+    if_setcolour(0xffff33, mob_tutorial:com3);
+} else {
+    if_setcolour(^green, mob_tutorial:com3);
+}
+if (%varbit_6348 < 34) {
+    if_setcolour(^red, mob_tutorial:com4);
+} else if (%varbit_6348 = 34) {
+    if_setcolour(0xffff33, mob_tutorial:com4);
+} else {
+    if_setcolour(^green, mob_tutorial:com4);
+}
+if (%varbit_6348 < 36) {
+    if_setcolour(^red, mob_tutorial:com5);
+} else if (%varbit_6348 = 36) {
+    if_setcolour(0xffff33, mob_tutorial:com5);
+} else {
+    if_setcolour(^green, mob_tutorial:com5);
+}

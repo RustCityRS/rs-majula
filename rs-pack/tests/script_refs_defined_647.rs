@@ -20,14 +20,7 @@ use std::fs;
 use std::path::{Path, PathBuf};
 
 fn scripts(dir: &Path, out: &mut Vec<PathBuf>) {
-    for entry in fs::read_dir(dir).unwrap().flatten() {
-        let path = entry.path();
-        if path.is_dir() {
-            scripts(&path, out);
-        } else if path.extension().is_some_and(|e| e == "rs2") {
-            out.push(path);
-        }
-    }
+    out.extend(runec::sources::script_files(dir, "rs2").unwrap());
 }
 
 /// The script kinds a reference of `ty` may name.
@@ -100,7 +93,7 @@ fn ident_at(s: &str) -> Option<&str> {
 
 #[test]
 fn every_named_timer_and_queue_is_defined() {
-    let root = Path::new(env!("CARGO_MANIFEST_DIR")).join("../content/647/scripts");
+    let root = Path::new(env!("CARGO_MANIFEST_DIR")).join("../content/647/scripts/runescript");
     let commands = ref_commands(&fs::read_to_string(root.join("engine.rs2")).unwrap());
     assert!(
         commands.contains_key("cleartimer") && commands.contains_key("queue"),

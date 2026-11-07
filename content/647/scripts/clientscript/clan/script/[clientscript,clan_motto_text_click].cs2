@@ -1,0 +1,4 @@
+[clientscript,clan_motto_text_click](component $component0, component $component1, int $int2)
+%varc_string_345 = if_gettext($component0);
+%varc_int_1496 = ~clientscript_1552($int2, %varc_string_345, 5631, $component0, -1);
+if_setposition(%varc_int_1496, 5, ^setpos_abs_left, ^setpos_abs_top, $component1);

@@ -37,3 +37,11 @@ pkg
 # Optional local reference caches and unpack diagnostics
 /expected/
 /content/647/unpack_report.txt
+
+# Clientscript sources
+!content/*/scripts/clientscript/**/
+!content/*/scripts/clientscript/**/*.cs2
+!content/*/scripts/clientscript/**/*.constant
+!content/*/scripts/globalscript/**/
+!content/*/scripts/globalscript/**/*.gs2
+!content/*/scripts/globalscript/**/*.constant

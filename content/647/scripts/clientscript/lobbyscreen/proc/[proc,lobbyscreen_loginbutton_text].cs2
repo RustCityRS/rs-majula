@@ -1,0 +1,11 @@
+[proc,lobbyscreen_loginbutton_text](int $int)
+if ($int = true) {
+    if_settext("Play", lobbyscreen:com173);
+    if_setop(1, "Play", lobbyscreen:com160);
+    if_setonop("lobbyscreen_entergame(lobbyscreen:com160)", lobbyscreen:com160);
+} else {
+    if_settext("Entering game...", lobbyscreen:com173);
+    if_clearops(lobbyscreen:com160);
+    if_setonop(null, lobbyscreen:com160);
+}
+~clientscript_3065($int);

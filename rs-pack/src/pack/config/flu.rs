@@ -12,7 +12,7 @@ pub fn pack_flus(
     constants: &HashMap<String, String>,
 ) -> Result<PackedFile> {
     let pack = &registry.flu;
-    let configs = parse_config_sections_cached(file_cache, "flu", constants);
+    let configs = parse_config_sections_cached(file_cache, "flu", constants)?;
     let max_id = pack.max;
 
     let mut server = PackedData::new(max_id);

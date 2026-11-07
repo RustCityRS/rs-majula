@@ -1,0 +1,3 @@
+[proc,lobbyscreen_pane_friendslist_chat_load](component $component)
+if_sethook1420("lobbyscreen_pane_friendslist_chat_build($component)", $component);
+~lobbyscreen_pane_friendslist_chat_build($component);

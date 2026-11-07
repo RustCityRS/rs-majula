@@ -1,0 +1,45 @@
+[proc,obj_use_quest_requirements](obj $obj0)(int)
+def_int $int1 = oc_weight($obj0, param_764);
+if ($int1 = -1) {
+    return(1);
+}
+if (~ql4_getquestcomplete($int1) = false) {
+    return(0);
+}
+$int1 = oc_weight($obj0, param_765);
+if ($int1 = -1) {
+    return(1);
+}
+if (~ql4_getquestcomplete($int1) = false) {
+    return(0);
+}
+$int1 = oc_weight($obj0, param_766);
+if ($int1 = -1) {
+    return(1);
+}
+if (~ql4_getquestcomplete($int1) = false) {
+    return(0);
+}
+$int1 = oc_weight($obj0, param_767);
+if ($int1 = -1) {
+    return(1);
+}
+if (~ql4_getquestcomplete($int1) = false) {
+    return(0);
+}
+$int1 = oc_weight($obj0, param_768);
+if ($int1 = -1) {
+    return(1);
+}
+if (~ql4_getquestcomplete($int1) = false) {
+    return(0);
+}
+$int1 = oc_weight($obj0, param_769);
+if ($int1 = -1) {
+    return(1);
+}
+if (~ql4_getquestcomplete($int1) = false) {
+    return(0);
+}
+return(1);
+return(-1);

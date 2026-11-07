@@ -1,0 +1,15 @@
+[clientscript,rcguild_game_overlay_tooltips](component $component0, component $component1)
+def_string $string = "";
+switch_component ($component0) {
+    case rcguild_overlay:com33, rcguild_overlay:com42:
+        $string = "How much time is left for this round.";
+    case rcguild_overlay:com34, rcguild_overlay:com43:
+        $string = "How many orbs the green team have captured this round.";
+    case rcguild_overlay:com44, rcguild_overlay:com35:
+        $string = "How many orbs the yellow team have captured this round.";
+    case rcguild_overlay:com37, rcguild_overlay:com46:
+        $string = "How active you have been during this round.";
+    case default:
+        return;
+}
+~addtooltip_action($component0, $component1, $string, 25, if_getwidth(if_getlayer($component1)));

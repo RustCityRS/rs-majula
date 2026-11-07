@@ -1,0 +1,17 @@
+[proc,clientscript_3954](int $int)(int)
+%varc_int_1408 = %varc_int_1407;
+if (%varc_int_1407 < 1) {
+    ~create_error("Please enter your age, in years, here.", account_create:com36);
+    return(0);
+} else if (%varc_int_1407 > 120) {
+    ~create_error("Please check the age entered and try again.", account_create:com36);
+    return(0);
+}
+if_setgraphic("symbols_1,3", account_create:com36);
+if_sethide(true, account_create:com112);
+if_sethide(true, account_create:com22);
+if ($int = true) {
+    ~create_focus(6, 1);
+}
+return(1);
+return(-1);

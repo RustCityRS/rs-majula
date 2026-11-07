@@ -1,0 +1,3 @@
+[proc,clientscript_2901](component $component0, component $component1, string $string)
+if_sethide(false, $component0);
+if_settext($string, $component1);

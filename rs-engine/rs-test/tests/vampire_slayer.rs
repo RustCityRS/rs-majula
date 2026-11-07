@@ -454,7 +454,7 @@ fn pack_id(kind: &str, name: &str) -> i32 {
 /// (`all.seq`: `frameN=<delay>:<frame>:<frame set>`).
 fn frame_sets(seq: &str) -> std::collections::BTreeSet<String> {
     let path = format!(
-        "{}/../../content/647/scripts/_unpack/all.seq",
+        "{}/../../content/647/scripts/runescript/_unpack/all.seq",
         env!("CARGO_MANIFEST_DIR")
     );
     let all = std::fs::read_to_string(&path).expect(&path);

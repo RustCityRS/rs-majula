@@ -1,0 +1,14 @@
+[proc,clientscript_1595](int $int, string $string0, string $string1)
+if (clan_isself($int) = false) {
+    if (friend_test($string1) = true) {
+        cc_setop(7, "Remove friend <$string0>");
+    } else if (ignores_test($string1) = true) {
+        cc_setop(8, "Remove ignore <$string0>");
+    } else {
+        cc_setop(5, "Add friend <$string0>");
+        cc_setop(6, "Add ignore <$string0>");
+    }
+}
+if (clan_getranks2 >= clan_getminkick2 & clan_getranks2 > clan_getchatuserrank2($int)) {
+    cc_setop(9, "Kick/ban user <$string0>");
+}

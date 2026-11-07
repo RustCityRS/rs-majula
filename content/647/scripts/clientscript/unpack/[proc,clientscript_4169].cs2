@@ -1,0 +1,6 @@
+[proc,clientscript_4169](int $int)
+if (testbit(%varp_286, $int) = true) {
+    cc_setgraphic("radio_buttons,1");
+} else {
+    cc_setgraphic("radio_buttons,0");
+}

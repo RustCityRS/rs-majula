@@ -1,0 +1,17 @@
+[proc,login_popup_big_button](component $component0, component $component1, component $component2, component $component3, string $string)
+def_graphic $graphic4 = "set_but_end_1,0";
+def_graphic $graphic5 = "set_but_end_1,0";
+def_graphic $graphic6 = "set_but_fill_1,0";
+if_setonmouseleave("loginscreen_button_highlight($component1, $graphic4, $component2, $graphic6, $component3, $graphic5)", $component0);
+if_setgraphic($graphic4, $component1);
+if_setgraphic($graphic6, $component2);
+if_setgraphic($graphic5, $component3);
+$graphic4 = "set_but_end_1,1";
+$graphic6 = "set_but_fill_1,1";
+$graphic5 = "set_but_end_1,1";
+if_setonmouseover("loginscreen_button_highlight($component1, $graphic4, $component2, $graphic6, $component3, $graphic5)", $component0);
+def_component $component7 = login:com60;
+if (login_getint_5623 = true) {
+    $component7 = south_progress9:com10;
+}
+if_settext($string, $component7);

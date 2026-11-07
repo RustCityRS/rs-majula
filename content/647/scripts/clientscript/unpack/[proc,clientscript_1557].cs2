@@ -1,0 +1,8 @@
+[proc,clientscript_1557]
+if_setposition(~clientscript_1552(%varc_int_1029, %varc_string_22, 496, chatbox:com5, -1), if_gety(chatbox:com6), ^setpos_abs_left, ^setpos_abs_top, chatbox:com6);
+if (has_focus = true) {
+    if_sethide(false, chatbox:com6);
+} else {
+    if_sethide(true, chatbox:com6);
+}
+if_setontimer("caret_flash(clientclock, chatbox:com6)", chatbox:com5);

@@ -1,0 +1,51 @@
+[proc,clientscript_4621](component $component)
+switch_int (%varp_2128) {
+    case 1:
+        if (%varbit_9261 = false) {
+            if_setgraphic("aif_checkbox_small,4", $component);
+        } else {
+            if_setgraphic("aif_checkbox_small,0", $component);
+        }
+    case 2:
+        if (%varbit_9262 = false) {
+            if_setgraphic("aif_checkbox_small,4", $component);
+        } else {
+            if_setgraphic("aif_checkbox_small,0", $component);
+        }
+    case 3:
+        if (%varbit_9263 = false) {
+            if_setgraphic("aif_checkbox_small,4", $component);
+        } else {
+            if_setgraphic("aif_checkbox_small,0", $component);
+        }
+    case 4:
+        if (%varbit_9264 = false) {
+            if_setgraphic("aif_checkbox_small,4", $component);
+        } else {
+            if_setgraphic("aif_checkbox_small,0", $component);
+        }
+    case 5:
+        if (%varbit_9265 = false) {
+            if_setgraphic("aif_checkbox_small,4", $component);
+        } else {
+            if_setgraphic("aif_checkbox_small,0", $component);
+        }
+    case 6:
+        if (%varbit_9266 = false) {
+            if_setgraphic("aif_checkbox_small,4", $component);
+        } else {
+            if_setgraphic("aif_checkbox_small,0", $component);
+        }
+    case 7:
+        if (%varbit_9267 = false) {
+            if_setgraphic("aif_checkbox_small,4", $component);
+        } else {
+            if_setgraphic("aif_checkbox_small,0", $component);
+        }
+    case 8:
+        if (%varbit_9268 = false) {
+            if_setgraphic("aif_checkbox_small,4", $component);
+        } else {
+            if_setgraphic("aif_checkbox_small,0", $component);
+        }
+}

@@ -1,0 +1,7 @@
+[clientscript,macro_pinball_score](component $component)
+if_settext("Score: <tostring(%varbit_2121)>", $component);
+if (%varbit_2121 = false) {
+    if_setcolour(^red, $component);
+} else {
+    if_setcolour(^yellow, $component);
+}

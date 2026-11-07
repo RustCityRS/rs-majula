@@ -1,0 +1,2 @@
+[clientscript,conq_update_ranking_overlay](component $component)
+if_settext("Conquest Ranking: <tostring(%varp_1875)>", $component);

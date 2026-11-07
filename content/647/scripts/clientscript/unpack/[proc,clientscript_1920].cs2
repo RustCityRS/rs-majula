@@ -1,0 +1,13 @@
+[proc,clientscript_1920]
+if_setonvarcstrtransmit("clientscript_1921(){varc_string_40}", go4904891:com5);
+if_setonvarcstrtransmit("clientscript_1921(){varc_string_41}", go4904891:com6);
+if_setonvarcstrtransmit("clientscript_1921(){varc_string_42}", go4904891:com7);
+if_setonvarctransmit("clientscript_1921(){varc_int_551}", go4904891:com5);
+if_setonvarctransmit("clientscript_1921(){varc_int_552}", go4904891:com6);
+if_setonvarctransmit("clientscript_1921(){varc_int_553}", go4904891:com7);
+%varc_string_40 = "You have no clan leader.";
+%varc_string_41 = "You have no allied clans.";
+%varc_string_42 = "";
+%varc_int_551 = 0;
+%varc_int_552 = 0;
+%varc_int_553 = 0;

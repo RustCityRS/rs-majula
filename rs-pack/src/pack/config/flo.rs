@@ -15,7 +15,7 @@ pub fn pack_flos(
 ) -> Result<PackedFile> {
     let pack = &registry.flo;
 
-    let configs = parse_config_sections_cached(file_cache, "flo", constants);
+    let configs = parse_config_sections_cached(file_cache, "flo", constants)?;
 
     let mut server = PackedData::new(pack.max);
     let mut client = PackedData::new(pack.max);

@@ -1,0 +1,7 @@
+[clientscript,setscrollheight](component $component0, component $component1, int $int2, int $int3)
+if ($int3 = true) {
+    if_setscrollsize(0, calc($int2 + if_getheight($component1)), $component1);
+} else {
+    if_setscrollsize(0, $int2, $component1);
+}
+~scrollbar_resize($component0, $component1, if_getscrolly($component1));

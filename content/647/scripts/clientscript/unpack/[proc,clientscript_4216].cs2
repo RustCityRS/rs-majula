@@ -1,0 +1,4 @@
+[proc,clientscript_4216](seq $seq)
+if (if_find(ap5662501:com0) = true) {
+    cc_setmodelanim($seq);
+}

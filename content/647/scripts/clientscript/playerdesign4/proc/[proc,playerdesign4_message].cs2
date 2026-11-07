@@ -1,0 +1,9 @@
+[proc,playerdesign4_message](component $component0, int $int1, string $string)
+cc_create($component0, ^iftype_text, if_getchildcount($component0));
+cc_setsize(0, 0, ^setsize_minus, ^setsize_minus);
+cc_setposition(1, 1, ^setpos_abs_centre, ^setpos_abs_centre);
+cc_settextfont(verdana_11pt_regular);
+cc_setcolour(0xcdbe9a);
+cc_settextshadow(false);
+cc_settextalign(^settextalign_centre, ^settextalign_centre, $int1);
+cc_settext($string);

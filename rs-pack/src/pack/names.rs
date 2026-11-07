@@ -11,6 +11,15 @@ pub struct AssetNames {
     components: HashMap<u32, HashMap<u32, String>>,
 }
 
+impl runec::clientscript::decompile::Names for AssetNames {
+    fn name(&self, kind: &str, id: u32) -> String {
+        self.name(kind, id)
+    }
+    fn component_name(&self, interface: u32, component: u32) -> String {
+        self.component_name(interface, component)
+    }
+}
+
 impl AssetNames {
     pub fn load(dir: &Path) -> Result<Self> {
         let mut packs = HashMap::new();

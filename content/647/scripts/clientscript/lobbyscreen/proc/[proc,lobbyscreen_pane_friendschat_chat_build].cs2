@@ -1,0 +1,44 @@
+[proc,lobbyscreen_pane_friendschat_chat_build](component $component0)
+if (hud_test(38600727, -1) = true) {
+    if_setontimer("lobbyscreen_pane_friendschat_chat_build($component0)", $component0);
+    return;
+}
+cc_deleteall(lobbyscreen_pane_friendschat:com23);
+def_string $string0 = "<col=7fa9ff>";
+def_string $string1 = "<col=ff5256>";
+def_int $int1 = 0;
+def_int $int2 = 0;
+def_int $int3 = 0;
+def_string $string2 = "";
+def_string $string3 = "";
+while ($int1 < 100) {
+    $int3 = chat_gethistory_length($int1);
+    $string2 = player_getdisplayname($int1);
+    $string3 = chat_gethistory_message($int1);
+    switch_int ($int3) {
+        case 11, 26:
+            $int2 = ~lobbyscreen_pane_friendschat_chat_line($int2, chat_gethistory_bytypeandline($int1), 0, "", "", $int3);
+        case 9:
+            $int2 = ~lobbyscreen_pane_friendschat_chat_line($int2, "[<$string0><chat_gethistory_name($int1)></col>] <$string2>: <$string1><chat_gethistory_bytypeandline($int1)>", 1, $string2, $string3, $int3);
+        case 20:
+            $int2 = ~lobbyscreen_pane_friendschat_chat_line($int2, "[<$string0><chat_gethistory_name($int1)></col>] <$string2>: <$string1><chat_gethistory_bytypeandline($int1)>", 1, $string2, $string3, $int3);
+        case 115:
+            $int2 = ~lobbyscreen_pane_friendschat_chat_line($int2, "<col=ff0000><chat_gethistory_bytypeandline($int1)></col>", 0, "", "", $int3);
+    }
+    $int1 = calc($int1 + 1);
+}
+def_int $int4 = calc(if_getheight(lobbyscreen_pane_friendschat:com23) / 15);
+$int1 = 0;
+def_int $int5 = 0;
+if ($int2 < $int4) {
+    $int5 = calc($int4 - $int2);
+    while ($int1 < $int5) {
+        $int2 = ~lobbyscreen_pane_friendschat_chat_line($int2, "", 0, "", "", 0);
+        $int1 = calc($int1 + 1);
+    }
+}
+def_int $int6 = max(calc($int2 * 15), calc($int4 * 15));
+if_setscrollsize(0, $int6, lobbyscreen_pane_friendschat:com23);
+~scrollbar_resize(lobbyscreen_pane_friendschat:com24, lobbyscreen_pane_friendschat:com23, calc(%varc_int_1508 + if_getscrollheight(lobbyscreen_pane_friendschat:com23) - %varc_int_1509));
+%varc_int_1508 = if_getscrolly(lobbyscreen_pane_friendschat:com23);
+%varc_int_1509 = if_getscrollheight(lobbyscreen_pane_friendschat:com23);

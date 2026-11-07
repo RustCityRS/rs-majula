@@ -1,0 +1,6 @@
+[proc,clientscript_968](component $component)
+if (~clientscript_970($component) = true) {
+    if_setontimer("clientscript_969($component)", $component);
+} else {
+    if_setontimer(null, $component);
+}

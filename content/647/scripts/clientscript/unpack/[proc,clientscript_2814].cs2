@@ -1,0 +1,7 @@
+[proc,clientscript_2814]
+if (%varc_int_1065 ! -1) {
+    ~clientscript_2815;
+    if_setonvarctransmit(null, fade2:com0);
+} else {
+    if_setonvarctransmit("clientscript_2814(){varc_int_1065}", fade2:com0);
+}

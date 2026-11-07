@@ -1,0 +1,28 @@
+[proc,clientscript_530](component $component)(int, string)
+if ($component = assister_interface:com74) {
+    return(%varbit_4090, "Runecrafting");
+}
+if ($component = assister_interface:com75) {
+    return(%varbit_4091, "Crafting");
+}
+if ($component = assister_interface:com76) {
+    return(%varbit_4093, "Fletching");
+}
+if ($component = assister_interface:com77) {
+    return(%varbit_4095, "Construction");
+}
+if ($component = assister_interface:com78) {
+    return(%varbit_4096, "Farming");
+}
+if ($component = assister_interface:com79) {
+    return(%varbit_4098, "Magic");
+}
+if ($component = assister_interface:com80) {
+    return(%varbit_4100, "Smithing");
+}
+if ($component = assister_interface:com81) {
+    return(%varbit_4101, "Cooking");
+}
+if ($component = assister_interface:com82) {
+    return(%varbit_4102, "Herblore");
+}

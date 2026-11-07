@@ -19,7 +19,7 @@ pub fn pack_npcs(
 ) -> Result<PackedFile> {
     let pack = &registry.npc;
 
-    let configs = parse_config_sections_cached(file_cache, "npc", constants);
+    let configs = parse_config_sections_cached(file_cache, "npc", constants)?;
 
     let mut server = PackedData::new(pack.max);
     let mut client = PackedData::new(pack.max);

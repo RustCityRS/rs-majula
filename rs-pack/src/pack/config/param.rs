@@ -19,11 +19,11 @@ pub fn pack_params(
 ) -> Result<PackedFile> {
     let pack = &registry.param;
 
-    let configs = parse_config_sections_cached(file_cache, "param", constants);
+    let configs = parse_config_sections_cached(file_cache, "param", constants)?;
 
     let mut server = PackedData::new(pack.max);
     #[cfg(since_647)]
-    let client_configs = file_cache.client_configs("param", constants);
+    let client_configs = file_cache.client_configs("param", constants)?;
     #[cfg(since_647)]
     let client_count = client_configs
         .keys()
@@ -53,7 +53,12 @@ pub fn pack_params(
         if id < client_count {
             if let Some(props) = client_configs.get(debugname) {
                 client.start_entry();
-                encode_param(&mut client, props, registry, debugname);
+                if !props
+                    .iter()
+                    .any(|(key, value)| key == "client" && value == "empty")
+                {
+                    encode_param(&mut client, props, registry, debugname);
+                }
                 client.finish_entry();
             } else {
                 client.skip_entry();
@@ -105,6 +110,11 @@ fn encode_param(
     let ptype = ptype.unwrap_or("int");
     for (key, value) in props {
         match key.as_str() {
+            #[cfg(since_647)]
+            "client" => assert_eq!(
+                value, "empty",
+                "Invalid param client value for [{debugname}]"
+            ),
             "type" => parse_script_var_type(value, |value| {
                 packed.p1(1);
                 packed.p1(value as u8);
@@ -146,17 +156,19 @@ fn encode_param(
 pub fn load_param_types(
     file_cache: &FileCache,
     constants: &HashMap<String, String>,
-) -> HashMap<String, String> {
-    parse_config_sections_cached(file_cache, "param", constants)
-        .into_iter()
-        .map(|(name, props)| {
-            let ty = props
-                .into_iter()
-                .find(|(key, _)| key == "type")
-                .map_or_else(|| "int".to_string(), |(_, ty)| ty);
-            (name, ty)
-        })
-        .collect()
+) -> Result<HashMap<String, String>> {
+    Ok(
+        parse_config_sections_cached(file_cache, "param", constants)?
+            .into_iter()
+            .map(|(name, props)| {
+                let ty = props
+                    .into_iter()
+                    .find(|(key, _)| key == "type")
+                    .map_or_else(|| "int".to_string(), |(_, ty)| ty);
+                (name, ty)
+            })
+            .collect(),
+    )
 }
 
 pub fn get_param_value_for_type(

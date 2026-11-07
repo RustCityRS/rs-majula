@@ -1,0 +1,7 @@
+[proc,clientscript_1903](component $component0, component $component1, component $component2, component $component3)
+%varc_int_129 = calc(%varc_int_129 - 1);
+if (%varc_int_129 > 0) {
+    return;
+}
+if_setontimer(null, $component1);
+~quickchat_phrase_search_refreshsearch($component0, $component2, $component3);

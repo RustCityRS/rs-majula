@@ -13,7 +13,7 @@ pub fn pack_mesanims(
 ) -> Result<PackedFile> {
     let pack = &registry.mesanim;
 
-    let configs = parse_config_sections_cached(file_cache, "mesanim", constants);
+    let configs = parse_config_sections_cached(file_cache, "mesanim", constants)?;
 
     let mut server = PackedData::new(pack.max);
     #[cfg(all(since_274, before_647))]

@@ -1,0 +1,50 @@
+[clientscript,easter10_turnresult_setup]
+if_settext("+ <tostring(%varp_1693)> ( <tostring(%varp_1687)> )<br>+ <tostring(%varp_1692)> ( <tostring(%varp_1686)> )<br>+ <tostring(%varp_1694)> ( <tostring(%varp_1688)> )<br>", ag2635914:com106);
+if_settext("+ <tostring(%varp_1695)> ( <tostring(%varp_1689)> )<br>+ <tostring(%varp_1697)> ( <tostring(%varp_1690)> )<br>+ <tostring(%varp_1696)> ( <tostring(%varp_1691)> )<br>", ag2635914:com108);
+if (%varbit_7324 = true) {
+    if_settext("WORKING", ag2635914:com113);
+    if_setcolour(^green, ag2635914:com113);
+} else {
+    sound_synth(synth_8723, 10, 0);
+    if_settext("NEEDS REPAIR", ag2635914:com113);
+    if_setcolour(^red, ag2635914:com113);
+}
+if (%varbit_7326 = true) {
+    if_settext("WORKING", ag2635914:com112);
+    if_setcolour(^green, ag2635914:com112);
+} else {
+    sound_synth(synth_8723, 10, 1);
+    if_settext("NEEDS REPAIR", ag2635914:com112);
+    if_setcolour(^red, ag2635914:com112);
+}
+if (%varbit_7325 = true) {
+    if_settext("WORKING", ag2635914:com114);
+    if_setcolour(^green, ag2635914:com114);
+} else {
+    sound_synth(synth_8723, 10, 2);
+    if_settext("NEEDS REPAIR", ag2635914:com114);
+    if_setcolour(^red, ag2635914:com114);
+}
+if_settext(tostring(calc(%varc_int_1135 / 5)), ag2635914:com102);
+switch_int (%varp_1698) {
+    case 5:
+        if_settext("Your workers uncover a hidden stash and you receive", ag2635914:com104);
+        if_settext("3 extra resources.", ag2635914:com105);
+        sound_synth(synth_8728, 1, 0);
+    case 6:
+        if_settext("An accident at work has taken place. As a result you have", ag2635914:com104);
+        if_settext("lost 3 resources.", ag2635914:com105);
+        sound_synth(synth_8723, 10, 0);
+    case 7:
+        if_settext("The paint machine is out of glaze and requires a repair to work at full efficiency.", ag2635914:com104);
+        if_settext("Painter needs repair.", ag2635914:com105);
+    case 8:
+        if_settext("The conveyor team needs re-training in order to work at full efficiency.", ag2635914:com104);
+        if_settext("Conveyor needs repair.", ag2635914:com105);
+    case 9:
+        if_settext("The oven is coated in soot. It requires a repair to work at full efficiency.", ag2635914:com104);
+        if_settext("Oven needs repair.", ag2635914:com105);
+    case default:
+        if_settext("", ag2635914:com104);
+        if_settext("Nothing unusual happened.", ag2635914:com105);
+}

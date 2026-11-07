@@ -9,7 +9,7 @@
 //!    from cache (clobbering hand edits).
 //! 2. Emits `_unpack/all.npc` — inert baseline `[name]` stubs for every NPC
 //!    that has not yet been "adopted" into a hand-written `.npc` config under
-//!    `content/scripts/`. Adopted names are detected by scanning every
+//!    `content/scripts/runescript/`. Adopted names are detected by scanning every
 //!    `**/*.npc` recursively (excluding the `_unpack/` tree itself), so once
 //!    a stub is split out into e.g. `lumbridge.npc` it stops appearing in
 //!    `all.npc`.
@@ -55,7 +55,7 @@ pub struct NpcDiscoveryReport {
 ///   and the configured idx files).
 /// * `pack_dir`  — directory holding `npc.pack` (typically `content/pack`).
 /// * `unpack_dir` — directory holding adopted `.npc` configs and the
-///   `_unpack/` baseline tree (typically `content/scripts`).
+///   `_unpack/` baseline tree (typically `content/scripts/runescript`).
 /// * `force` — when `true`, names in `npc.pack` are overwritten from the cache
 ///   even if they already have a hand-edited entry. Default flow (`false`)
 ///   preserves all existing entries.

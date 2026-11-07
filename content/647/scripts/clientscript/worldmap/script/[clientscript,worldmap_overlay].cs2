@@ -1,0 +1,42 @@
+[clientscript,worldmap_overlay](component $component0, component $component1, int $int2, int $int3, int $int4)
+if (worldmap_getstate_5220 = false) {
+    ~worldmap_overlay_clear($component0);
+    return;
+}
+def_int $int5 = if_getwidth($component1);
+if ($int5 <= 0) {
+    return;
+}
+def_int $int6 = 0;
+def_int $int7 = 0;
+$int6, $int7 = worldmap_getxy_5208;
+if ($int6 <= 0) {
+    return;
+}
+def_int $int8 = 0;
+def_int $int9 = 0;
+def_int $int10 = 0;
+def_int $int11 = 0;
+def_int $int12 = 0;
+def_int $int13 = 0;
+$int12, $int13 = worldmap_getxy_5209;
+$int8 = calc($int13 + $int7 / 2);
+$int9 = calc($int13 - $int7 / 2);
+$int10 = calc($int12 + $int6 / 2);
+$int11 = calc($int12 - $int6 / 2);
+$int11 = calc($int11 + scale($int6, $int5, calc($int5 - if_getwidth($component0))));
+if ($int12 ! $int2 | ($int13 ! $int3 | $int7 ! $int4)) {
+    if_setontimer("worldmap_overlay($component0, $component1, $int12, $int13, $int7)", $component0);
+    ~worldmap_elements_update($component0, $int8, $int9, $int10, $int11);
+}
+if (%varbit_6174 = false) {
+    ~worldmap_arrow_update(worldmap:com36, %varc_int_674, "You are here", struct_280, $component0, $int8, $int9, $int10, $int11);
+} else {
+    cc_deleteall(worldmap:com36);
+}
+~worldmap_arrow_update(worldmap:com37, %varc_int_623, %varc_string_53, %varc_int_624, $component0, $int8, $int9, $int10, $int11);
+~worldmap_arrow_update(worldmap:com38, %varc_int_625, %varc_string_54, %varc_int_626, $component0, $int8, $int9, $int10, $int11);
+~worldmap_arrow_update(worldmap:com39, %varc_int_627, %varc_string_55, %varc_int_628, $component0, $int8, $int9, $int10, $int11);
+~worldmap_arrow_update(worldmap:com40, %varc_int_629, %varc_string_56, %varc_int_630, $component0, $int8, $int9, $int10, $int11);
+~worldmap_arrow_update(worldmap:com41, %varc_int_940, %varc_string_190, %varc_int_941, $component0, $int8, $int9, $int10, $int11);
+~worldmap_arrow_update(worldmap:com42, %varp_1159, "Your marker", struct_972, $component0, $int8, $int9, $int10, $int11);

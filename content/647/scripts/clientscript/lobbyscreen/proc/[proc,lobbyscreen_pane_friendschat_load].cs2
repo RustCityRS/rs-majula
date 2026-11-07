@@ -1,0 +1,25 @@
+[proc,lobbyscreen_pane_friendschat_load](int $int)
+if_setsize(calc(if_getx(lobbyscreen_pane_friendschat:com45) - if_getx(lobbyscreen_pane_friendschat:com43)), 0, ^setsize_abs, ^setsize_minus, lobbyscreen_pane_friendschat:com55);
+if_setsize(calc(if_getwidth(lobbyscreen_pane_friendschat:com51) - if_getwidth(lobbyscreen_pane_friendschat:com55) - 2), 0, ^setsize_abs, ^setsize_minus, lobbyscreen_pane_friendschat:com57);
+if_setscrollsize(0, 0, lobbyscreen_pane_friendschat:com51);
+if_setscrollpos(0, 0, lobbyscreen_pane_friendschat:com51);
+~scrollbar_vertical(lobbyscreen_pane_friendschat:com52, lobbyscreen_pane_friendschat:com51, "scrollbar_dragger_v2,3", "scrollbar_dragger_v2,0", "scrollbar_dragger_v2,1", "scrollbar_dragger_v2,2", "scrollbar_v2,0", "scrollbar_v2,1");
+if_setscrollsize(0, 0, lobbyscreen_pane_friendschat:com23);
+if_setscrollpos(0, 0, lobbyscreen_pane_friendschat:com23);
+~scrollbar_vertical(lobbyscreen_pane_friendschat:com24, lobbyscreen_pane_friendschat:com23, "scrollbar_dragger_v2,3", "scrollbar_dragger_v2,0", "scrollbar_dragger_v2,1", "scrollbar_dragger_v2,2", "scrollbar_v2,0", "scrollbar_v2,1");
+if_sethook1421("lobbyscreen_pane_friendschat_build(lobbyscreen_pane_friendschat:com55, lobbyscreen_pane_friendschat:com56, lobbyscreen_pane_friendschat:com57, lobbyscreen_pane_friendschat:com53, lobbyscreen_pane_friendschat:com51, lobbyscreen_pane_friendschat:com52)", lobbyscreen_pane_friendschat:com51);
+if_sethook1420("lobbyscreen_pane_friendschat_build(lobbyscreen_pane_friendschat:com55, lobbyscreen_pane_friendschat:com56, lobbyscreen_pane_friendschat:com57, lobbyscreen_pane_friendschat:com53, lobbyscreen_pane_friendschat:com51, lobbyscreen_pane_friendschat:com52)", lobbyscreen_pane_friendschat:com51);
+~lobbyscreen_pane_friendschat_build(lobbyscreen_pane_friendschat:com55, lobbyscreen_pane_friendschat:com56, lobbyscreen_pane_friendschat:com57, lobbyscreen_pane_friendschat:com53, lobbyscreen_pane_friendschat:com51, lobbyscreen_pane_friendschat:com52);
+if (clan_getchatsize > 0) {
+    if_settext("Leave chat channel", lobbyscreen_pane_friendschat:com41);
+    if_setop(1, "Leave chat channel", lobbyscreen_pane_friendschat:com39);
+} else {
+    if_settext("Join chat channel", lobbyscreen_pane_friendschat:com41);
+    if_setop(1, "Join chat channel", lobbyscreen_pane_friendschat:com39);
+}
+%varc_string_349 = "";
+~brown_cursebearer(lobbyscreen_pane_friendschat:com31);
+%varc_int_1507 = string_length(%varc_string_349);
+if_setonclick("clientscript_4570(^event_mousex, lobbyscreen_pane_friendschat:com27, lobbyscreen_pane_friendschat:com28)", lobbyscreen_pane_friendschat:com27);
+~clientscript_4571(lobbyscreen_pane_friendschat:com27, lobbyscreen_pane_friendschat:com28, %varc_string_349);
+if_sethide(true, lobbyscreen_pane_friendschat:com28);

@@ -1,0 +1,9 @@
+[clientscript,f4_select2]
+if (%varbit_305 = true) {
+    return;
+}
+if (%varp_262 = false) {
+    if_setgraphic("miscgraphics,10", dwarf_rock_schematics_control:com25);
+} else {
+    if_setgraphic("miscgraphics,11", dwarf_rock_schematics_control:com25);
+}

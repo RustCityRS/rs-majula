@@ -1,0 +1,10 @@
+[clientscript,clan_motif_set](component $component0, component $component1)
+def_graphic $graphic2 = null;
+def_graphic $graphic3 = null;
+if (ignore_getname = true) {
+    $graphic2, $graphic3 = ~clientscript_4384(%varbit_9086, %varbit_9087, 0);
+    if_setgraphic($graphic2, $component0);
+    if_setgraphic($graphic3, $component1);
+    if_setcolour(hsv_to_rgb(%varp_2094), $component0);
+    if_setcolour(hsv_to_rgb(%varp_2095), $component1);
+}

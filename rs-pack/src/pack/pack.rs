@@ -14,18 +14,15 @@ use crate::pack::util::verify_crc;
 use crate::pack::{config, interface, js5, media, model, sound, texture};
 #[cfg(since_647)]
 use crate::{archive, config_crc};
-#[cfg(since_647)]
-use anyhow::Result;
+use anyhow::{Context, Result, bail};
 #[cfg(since_647)]
 use rayon::join;
 use rayon::prelude::*;
-use std::collections::{HashMap, HashSet};
+use std::collections::HashMap;
 use std::fs;
 use std::path::{Path, PathBuf};
 use std::time::Instant;
 use tracing::debug;
-#[cfg(since_647)]
-use tracing::warn;
 
 pub fn pack_assets(
     registry: &PackRegistry,
@@ -45,7 +42,7 @@ fn pack_cached_assets(
     let constants = load_constants_from_cache(fc);
     debug!("  Loaded {} constants", constants.len());
 
-    let param_types = param::load_param_types(fc, &constants);
+    let param_types = param::load_param_types(fc, &constants)?;
     let kinds = [
         "param",
         "dbtable",
@@ -168,7 +165,9 @@ impl FileCache {
     ];
     pub fn new(source_dir: &Path) -> Self {
         let mut files = Vec::new();
-        collect_all_recursive(source_dir, &mut files);
+        for root in runec::sources::roots(source_dir) {
+            collect_all_recursive(&root, &mut files);
+        }
         files.sort();
 
         let mut by_ext: HashMap<String, Vec<PathBuf>> = HashMap::new();
@@ -188,7 +187,11 @@ impl FileCache {
     }
 
     #[cfg(since_647)]
-    pub fn client_configs(&self, ext: &str, constants: &HashMap<String, String>) -> ConfigSections {
+    pub fn client_configs(
+        &self,
+        ext: &str,
+        constants: &HashMap<String, String>,
+    ) -> Result<ConfigSections> {
         parse_sections(
             self.collect(ext)
                 .iter()
@@ -204,12 +207,13 @@ impl FileCache {
         ext: &str,
         pack: &PackFile,
         constants: &HashMap<String, String>,
-    ) -> Option<PackId> {
-        self.client_configs(ext, constants)
+    ) -> Result<Option<PackId>> {
+        Ok(self
+            .client_configs(ext, constants)?
             .keys()
             .filter_map(|name| pack.get_by_debugname(name))
             .max()
-            .map(|id| id + 1)
+            .map(|id| id + 1))
     }
 
     pub fn collect(&self, ext: &str) -> &[PathBuf] {
@@ -223,7 +227,9 @@ impl FileCache {
 
 pub fn collect_config_files(dir: &Path, ext: &str) -> Vec<PathBuf> {
     let mut files = Vec::new();
-    collect_all_recursive(dir, &mut files);
+    for root in runec::sources::roots(dir) {
+        collect_all_recursive(&root, &mut files);
+    }
     files.sort();
     files
         .into_iter()
@@ -295,13 +301,16 @@ fn parse_constants_text(text: &str, constants: &mut HashMap<String, String>) {
 pub fn parse_config_sections(
     files: &[PathBuf],
     constants: &HashMap<String, String>,
-) -> ConfigSections {
-    let contents: Vec<_> = files.iter().map(fs::read_to_string).collect();
+) -> Result<ConfigSections> {
+    let contents = files
+        .iter()
+        .map(|path| fs::read_to_string(path).with_context(|| path.display().to_string()))
+        .collect::<Result<Vec<_>>>()?;
     parse_sections(
         files
             .iter()
             .zip(&contents)
-            .filter_map(|(path, text)| text.as_deref().ok().map(|text| (path.as_path(), text))),
+            .map(|(path, text)| (path.as_path(), text.as_str())),
         constants,
     )
 }
@@ -310,40 +319,32 @@ pub fn parse_config_sections_cached(
     fc: &FileCache,
     ext: &str,
     constants: &HashMap<String, String>,
-) -> ConfigSections {
+) -> Result<ConfigSections> {
     let configs = parse_sections(
         fc.collect(ext)
             .iter()
             .filter_map(|path| fc.read(path).map(|text| (path.as_path(), text))),
         constants,
-    );
+    )?;
     debug!(
         "  {ext}: {} files, {} configs",
         fc.collect(ext).len(),
         configs.len()
     );
-    configs
+    Ok(configs)
 }
 
 pub(super) fn parse_sections<'a>(
     files: impl IntoIterator<Item = (&'a Path, &'a str)>,
     constants: &HashMap<String, String>,
-) -> ConfigSections {
-    let mut layers: [ConfigSections; 2] = Default::default();
-    #[cfg(since_647)]
-    let mut sources: [HashMap<String, PathBuf>; 2] = Default::default();
+) -> Result<ConfigSections> {
+    let mut configs = ConfigSections::new();
+    let mut sources = HashMap::new();
 
-    for (_path, text) in files {
-        #[cfg(before_647)]
-        let layer = 0;
-        #[cfg(since_647)]
-        let layer = usize::from(!is_unpacked(_path));
+    for (path, text) in files {
         let mut current_name: Option<String> = None;
-        #[cfg(since_647)]
-        let mut seen = HashSet::new();
 
-        #[cfg_attr(before_647, allow(clippy::unused_enumerate_index))]
-        for (_line_no, raw_line) in text.lines().enumerate() {
+        for (line_no, raw_line) in text.lines().enumerate() {
             #[cfg(before_647)]
             let line = raw_line.split("//").next().unwrap_or("").trim();
             #[cfg(since_647)]
@@ -356,78 +357,33 @@ pub(super) fn parse_sections<'a>(
                 continue;
             }
             if let Some(name) = header.strip_prefix('[').and_then(|s| s.strip_suffix(']')) {
-                #[cfg(since_647)]
-                {
-                    if !seen.insert(name.to_string()) {
-                        warn!(
-                            "{}:{}: Duplicate config [{}] in same file",
-                            _path.display(),
-                            _line_no + 1,
-                            name
-                        );
-                    }
-                    if let Some(previous) = sources[layer].get(name) {
-                        assert_eq!(
-                            previous,
-                            _path,
-                            "Two authored files cannot define one section [{name}]: {} and {}:{}",
-                            previous.display(),
-                            _path.display(),
-                            _line_no + 1
-                        );
-                    }
-                    sources[layer].insert(name.to_string(), _path.to_path_buf());
-                    layers[layer].insert(name.to_string(), Vec::new());
+                if let Some((previous, previous_line)) = sources.insert(name, (path, line_no + 1)) {
+                    bail!(
+                        "{}:{}: Duplicate config [{name}]; first defined at {}:{previous_line}",
+                        path.display(),
+                        line_no + 1,
+                        previous.display()
+                    );
                 }
-                #[cfg(before_647)]
-                layers[layer].entry(name.to_string()).or_default();
+                configs.insert(name.to_string(), Vec::new());
                 current_name = Some(name.to_string());
                 continue;
             }
             if let Some((key, value)) = line.split_once('=')
                 && let Some(name) = &current_name
             {
-                layers[layer].get_mut(name).unwrap().push((
+                configs.get_mut(name).unwrap().push((
                     key.trim().to_string(),
                     substitute_constants(value, constants),
                 ));
             }
         }
     }
-    let [mut configs, authored] = layers;
-    for (name, overlay) in authored {
-        let props = match configs.remove(&name) {
-            Some(base) => overlay_section(base, overlay),
-            None => overlay,
-        };
-        configs.insert(name, props);
-    }
-    configs
+    Ok(configs)
 }
 
 pub fn is_unpacked(path: &Path) -> bool {
     path.components().any(|part| part.as_os_str() == "_unpack")
-}
-
-pub fn overlay_section(
-    base: Vec<(String, String)>,
-    overlay: Vec<(String, String)>,
-) -> Vec<(String, String)> {
-    let named: HashSet<&str> = overlay.iter().map(|(k, _)| k.as_str()).collect();
-    if base.iter().all(|(k, _)| named.contains(k.as_str())) {
-        return overlay;
-    }
-    let mut out = Vec::with_capacity(base.len() + overlay.len());
-    let mut placed: HashSet<String> = HashSet::new();
-    for (key, value) in &base {
-        if !named.contains(key.as_str()) {
-            out.push((key.clone(), value.clone()));
-        } else if placed.insert(key.clone()) {
-            out.extend(overlay.iter().filter(|(k, _)| k == key).cloned());
-        }
-    }
-    out.extend(overlay.iter().filter(|(k, _)| !placed.contains(k)).cloned());
-    out
 }
 
 #[cfg(since_647)]
@@ -480,11 +436,10 @@ pub fn pack_configs(
     let generic = config_crc::GENERIC
         .par_iter()
         .map(|&(name, expected)| {
-            let path = source_dir.join("_unpack").join(format!("all.{name}"));
-            if !path.exists() && !verify {
+            if fc.collect(name).is_empty() && !verify {
                 return Ok(None);
             }
-            let client = generic::pack_generic_config(source_dir, name)?;
+            let client = generic::pack_generic_config(source_dir, name, &registry)?;
             if verify {
                 verify_crc(name, &client.dat, expected);
             }

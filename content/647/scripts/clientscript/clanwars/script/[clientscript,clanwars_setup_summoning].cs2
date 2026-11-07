@@ -1,0 +1,13 @@
+[clientscript,clanwars_setup_summoning](int $int)
+if (map_members = false) {
+    return;
+}
+if (~clanwars_setup_clicktest($int) = false) {
+    return;
+}
+if (%varc_int_253 = false) {
+    %varc_int_253 = 1;
+} else {
+    %varc_int_253 = 0;
+}
+~clanwars_resynch_summoning;

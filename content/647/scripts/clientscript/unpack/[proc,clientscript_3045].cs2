@@ -1,0 +1,9 @@
+[proc,clientscript_3045]
+switch_int (chat_getfilter_private) {
+    case 0:
+        if_settext("Everybody", lobbyscreen_pane_friendslist:com66);
+    case 1:
+        if_settext("Friends", lobbyscreen_pane_friendslist:com66);
+    case 2:
+        if_settext("Nobody", lobbyscreen_pane_friendslist:com66);
+}

@@ -1,0 +1,371 @@
+[proc,ql4_getprogress](int $int)(int)
+switch_int ($int) {
+    case 147:
+        return(~clientscript_2157(%learning_the_ropes, 1000));
+    case 159:
+        return(~clientscript_2157(%spy, 4));
+    case 1:
+        return(~clientscript_2157(%cookquest, 2));
+    case 2:
+        return(~clientscript_2157(%demon_slayer, 3));
+    case 3:
+        return(~clientscript_2157(%doricquest, 100));
+    case 4:
+        return(~clientscript_2157(%dragonquest, 10));
+    case 5:
+        return(~clientscript_2157(%haunted, 3));
+    case 6:
+        return(~clientscript_2157(%varbit_2378, 6));
+    case 7:
+        return(~clientscript_2157(%imp, 2));
+    case 8:
+        return(~clientscript_2157(%squire, 7));
+    case 9:
+        return(~clientscript_2157(%hunt, 4));
+    case 10:
+        return(~clientscript_2157(%princequest, 110));
+    case 11:
+        return(~clientscript_2157(%prieststart, 5));
+    case 13:
+        return(~clientscript_2157(%runemysteries, 6));
+    case 15:
+        return(~clientscript_2159(%varp_145, 7, %varp_146, 4));
+    case 16:
+        return(~clientscript_2157(%varbit_6914, 3));
+    case 18:
+        return(~clientscript_2157(%varbit_3185, 240));
+    case 19:
+        return(~clientscript_2157(%varbit_299, 110));
+    case 20:
+        return(~clientscript_2157(%chompybird, 65));
+    case 21:
+        return(~clientscript_2157(%biohazard, 16));
+    case 22:
+        return(~clientscript_2157(%varp_655, 140));
+    case 23:
+        return(~clientscript_2157(%varp_10, 8));
+    case 24:
+        return(~clientscript_2157(%varbit_3274, 130));
+    case 25:
+        return(~clientscript_2157(%varbit_487, 14));
+    case 26:
+        if (%varp_399 > 6) {
+            return(2);
+        }
+        if (%varp_399 = false & %varbit_203 = false) {
+            return(0);
+        }
+        return(1);
+    case 27:
+        return(~clientscript_2157(%varbit_2573, 320));
+    case 28:
+        return(~clientscript_2157(%varbit_2258, 13));
+    case 29:
+        return(~clientscript_2157(%death_equiproom, 80));
+    case 30:
+        return(~clientscript_2157(%varbit_358, 15));
+    case 31:
+        return(~clientscript_2157(%varbit_1465, 80));
+    case 32:
+        return(~clientscript_2157(%itexamlevel, 9));
+    case 33:
+        return(~clientscript_2157(%druidquest, 4));
+    case 34:
+        return(~clientscript_2157(%mcannon, 11));
+    case 35:
+        return(~clientscript_2157(%eadgar_quest, 110));
+    case 36:
+        return(~clientscript_2157(%varbit_2780, 40));
+    case 37:
+        if (testbit(%varp_299, 20) = true) {
+            return(2);
+        } else if (testbit(%varp_299, 1) = false) {
+            return(0);
+        } else {
+            return(1);
+        }
+    case 38:
+        return(~clientscript_2157(%varbit_2639, 11));
+    case 39:
+        return(~clientscript_2157(%varbit_1560, 70));
+    case 40:
+        return(~clientscript_2157(%varbit_2866, 200));
+    case 41:
+        return(~clientscript_2157(%varbit_2497, 60));
+    case 42:
+        return(~clientscript_2157(%varbit_1803, 90));
+    case 43:
+        return(~clientscript_2157(%varbit_2326, 90));
+    case 44:
+        return(~clientscript_2157(%crestquest, 11));
+    case 45:
+        return(~clientscript_2157(%varbit_334, 28));
+    case 46:
+        return(~clientscript_2157(%arenaquest, 14));
+    case 47:
+        return(~clientscript_2157(%fishingcompo, 5));
+    case 48:
+        return(~clientscript_2157(%varbit_822, 140));
+    case 49:
+        return(~clientscript_2157(%viking, 10));
+    case 50:
+        return(~clientscript_2157(%waterfall_quest, 10));
+    case 51:
+        return(~clientscript_2157(%varbit_961, 60));
+    case 52:
+        return(~clientscript_2157(%fluffs, 6));
+    case 53:
+        return(~clientscript_2157(%varbit_217, 8));
+    case 54:
+        return(~clientscript_2157(%varbit_571, 50));
+    case 55:
+        return(~clientscript_2157(%varbit_346, 10));
+    case 56:
+        return(~clientscript_2157(%grandtree, 160));
+    case 57:
+        return(~clientscript_2157(%varbit_1527, 160));
+    case 58:
+        return(~clientscript_2157(%varp_382, 11));
+    case 59:
+        return(~clientscript_2157(%hazeelcultquest, 9));
+    case 60:
+        return(~clientscript_2157(%heroquest, 15));
+    case 61:
+        return(~clientscript_2157(%grail, 10));
+    case 62:
+        return(~clientscript_2157(%varbit_34, 10));
+    case 63:
+        return(~clientscript_2157(%varbit_418, 26));
+    case 64:
+        return(~clientscript_2157(%varbit_1990, 430));
+    case 65:
+        return(~clientscript_2157(%varp_387, 105));
+    case 66:
+        return(~clientscript_2157(%junglepotion, 12));
+    case 67:
+        return(~clientscript_2157(%legendsquest, 75));
+    case 68:
+        return(~clientscript_2157(%zanaris, 6));
+    case 69:
+        return(~clientscript_2157(%varbit_532, 11));
+    case 70:
+        return(~clientscript_2157(%varbit_2448, 190));
+    case 71:
+        return(~clientscript_2157(%varbit_1383, 4));
+    case 72:
+        return(~clientscript_2157(%arthur, 7));
+    case 73:
+        return(~clientscript_2158(%varp_365, 1, 9));
+    case 74:
+        return(~clientscript_2157(%drunkmonkquest, 80));
+    case 75:
+        return(~clientscript_2157(%varbit_260, 70));
+    case 76:
+        return(~clientscript_2157(%varp_517, 8));
+    case 77:
+        return(~clientscript_2158(%varbit_1103, 9, 60));
+    case 78:
+        return(~clientscript_2157(%murderquest, 2));
+    case 79:
+        return(~clientscript_2157(%varbit_2790, 320));
+    case 80:
+        return(~clientscript_2157(%druidspirit, 110));
+    case 81:
+        return(~clientscript_2157(%itgronigen, 7));
+    case 82:
+        return(~clientscript_2157(%varp_416, 280));
+    case 83:
+        return(~clientscript_2157(%elenaquest, 29));
+    case 84:
+        return(~clientscript_2157(%priestperil, 60));
+    case 85:
+        return(~clientscript_2157(%varbit_6178, 4));
+    case 86:
+        return(~clientscript_2157(%varbit_1404, 127));
+    case 87:
+        return(~clientscript_2157(%varbit_1850, 5));
+    case 88:
+        return(~clientscript_2157(%varbit_657, 2));
+    case 89:
+        return(~clientscript_2157(%regicide_quest, 15));
+    case 90:
+        return(~clientscript_2157(%varp_402, 6));
+    case 91:
+        return(~clientscript_2157(%varbit_2140, 30));
+    case 92:
+        return(~clientscript_2157(%varp_600, 19));
+    case 93:
+        return(~clientscript_2157(%scorpcatcher, 6));
+    case 94:
+        return(~clientscript_2157(%seaslugquest, 12));
+    case 95:
+        return(~clientscript_2157(%varbit_2610, 14));
+    case 96:
+        return(~clientscript_2157(%morttonquest, 85));
+    case 97:
+        return(~clientscript_2157(%varbit_1372, 125));
+    case 98:
+        return(~clientscript_2157(%sheepherderquest, 3));
+    case 99:
+        return(~clientscript_2157(%zombiequeen, 15));
+    case 100:
+        return(~clientscript_2157(%varbit_2011, 13));
+    case 101:
+        return(~clientscript_2157(%varbit_1444, 60));
+    case 102:
+        return(~clientscript_2157(%varbit_2098, 200));
+    case 103:
+        return(~clientscript_2158(%tbwt_main, 3, 6));
+    case 104:
+        return(~clientscript_2157(%varbit_1028, 70));
+    case 105:
+        return(~clientscript_2157(%varbit_451, 2));
+    case 106:
+        return(~clientscript_2157(%varp_26, 80));
+    case 107:
+        return(~clientscript_2157(%varp_359, 100));
+    case 108:
+        return(~clientscript_2157(%desertrescue, 30));
+    case 109:
+        return(~clientscript_2157(%ballquest, 7));
+    case 110:
+        return(~clientscript_2157(%treequest, 9));
+    case 111:
+        return(~clientscript_2157(%totemquest, 5));
+    case 112:
+        return(~clientscript_2157(%varp_385, 45));
+    case 113:
+        return(~clientscript_2157(%troll_quest, 50));
+    case 114:
+        if (%varp_161 = 10) {
+            return(2);
+        }
+        if (testbit(%varp_162, 11) = false) {
+            return(0);
+        }
+        return(1);
+    case 115:
+        return(~clientscript_2157(%varbit_1051, 11));
+    case 116:
+        return(~clientscript_2157(%itwatchtower, 13));
+    case 117:
+        return(~clientscript_2157(%varbit_3293, 135));
+    case 118:
+        return(~clientscript_2157(%varbit_3311, 340));
+    case 119:
+        return(~clientscript_2157(%varbit_3337, 18));
+    case 120:
+        return(~clientscript_2157(%varp_980, 130));
+    case 121:
+        return(~clientscript_2157(%varbit_3523, 150));
+    case 122:
+        return(~clientscript_2157(%varbit_3534, 80));
+    case 123:
+        return(~clientscript_2157(%varbit_3550, 11));
+    case 124:
+        return(~clientscript_2157(%varbit_3618, 28));
+    case 125:
+        return(~clientscript_2157(%varbit_2783, 60));
+    case 126:
+        return(~clientscript_2157(%varbit_3888, 90));
+    case 127:
+        return(~clientscript_2157(%varbit_3954, 200));
+    case 128:
+        return(~clientscript_2157(%varbit_4055, 65));
+    case 129:
+        return(~clientscript_2157(%varbit_4105, 18));
+    case 130:
+        return(~clientscript_2157(%varbit_4230, 700));
+    case 131:
+        return(~clientscript_2157(%varbit_4302, 110));
+    case 132:
+        return(~clientscript_2158(%varbit_4321, 10, 200));
+    case 133:
+        return(~clientscript_2157(%varbit_4396, 60));
+    case 134:
+        return(~clientscript_2157(%varbit_4505, 100));
+    case 135:
+        return(~clientscript_2157(%varbit_4569, 500));
+    case 136:
+        return(~clientscript_2157(%varbit_4684, 150));
+    case 137:
+        return(~clientscript_2157(%varbit_4700, 63));
+    case 138:
+        return(~clientscript_2157(%varbit_4764, 250));
+    case 139:
+        return(~clientscript_2157(%varbit_4797, 100));
+    case 140:
+        return(~clientscript_2157(%varbit_5032, 80));
+    case 141:
+        return(~clientscript_2157(%varbit_5075, 20));
+    case 142:
+        return(~clientscript_2157(%varbit_5133, 90));
+    case 143:
+        return(~clientscript_2157(%varbit_5331, 35));
+    case 144:
+        return(~clientscript_2157(%varbit_5387, 250));
+    case 145:
+        return(~clientscript_2157(%varbit_5491, 910));
+    case 146:
+        return(~clientscript_2157(%varbit_5761, 30));
+    case 148:
+        return(~clientscript_2157(%varbit_5733, 60));
+    case 149:
+        return(~clientscript_2158(%varbit_6001, 3, 45));
+    case 150:
+        return(~clientscript_2158(%varbit_6048, 10, 250));
+    case 155:
+        return(~clientscript_2157(%varbit_6112, 60));
+    case 156:
+        return(~clientscript_2157(%varbit_6289, 240));
+    case 157:
+        return(~clientscript_2157(%varbit_6775, 90));
+    case 151:
+        return(~clientscript_2158(%varbit_6180, 2, 140));
+    case 152:
+        return(~clientscript_2157(%varbit_1938, 110));
+    case 153:
+        return(~clientscript_2157(%varbit_5448, 50));
+    case 154:
+        return(~clientscript_2158(%varbit_6307, 2, 5));
+    case 158:
+        return(~clientscript_2158(%varbit_7826, 10, 180));
+    case 160:
+        return(~clientscript_2157(%varbit_6471, 90));
+    case 161:
+        return(~clientscript_2157(%varbit_6553, 46));
+    case 162:
+        return(~clientscript_2157(%varbit_6962, 12));
+    case 163:
+        return(~clientscript_2158(%varbit_6883, 3, 147));
+    case 165:
+        return(~clientscript_2157(%varbit_7050, 35));
+    case 167:
+        return(~clientscript_2157(%varbit_7793, 30));
+    case 168:
+        return(~clientscript_2157(%varbit_8045, 150));
+    case 170:
+        return(~clientscript_2157(%varbit_7238, 60));
+    case 171:
+        return(~clientscript_2157(%varbit_7958, 90));
+    case 172:
+        return(~clientscript_2157(%varbit_7871, 5));
+    case 173:
+        return(~clientscript_2158(%varbit_7451, 2, 63));
+    case 14:
+        return(~clientscript_2157(%varbit_8704, 90));
+    case 174:
+        return(~clientscript_2157(%varbit_8248, 40));
+    case 17:
+        return(~clientscript_2157(%varbit_5730, 100));
+    case 179:
+        return(~clientscript_2158(%varbit_8605, 10, 315));
+    case 12:
+        return(~clientscript_2157(%varbit_5332, 120));
+    case 180:
+        return(~clientscript_2157(%varbit_998, 9));
+    case 181:
+        return(~clientscript_2158(%varbit_8961, 10, 210));
+    case default:
+        return(0);
+}

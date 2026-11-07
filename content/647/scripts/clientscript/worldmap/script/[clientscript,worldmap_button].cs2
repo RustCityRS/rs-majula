@@ -1,0 +1,21 @@
+[clientscript,worldmap_button](component $component0)
+def_graphic $graphic1 = "toplevel_worldmap_button,1";
+if (%varbit_6090 = true) {
+    if_setgraphic("toplevel_worldmap_button,2", $component0);
+    $graphic1 = "toplevel_worldmap_button,3";
+    if_setonmouseover("graphic_swapper(^event_com, $graphic1)", $component0);
+    $graphic1 = "toplevel_worldmap_button,2";
+    if_setonmouseleave("graphic_swapper(^event_com, $graphic1)", $component0);
+    if_clearops($component0);
+    if_setop(1, "Daemonheim Map", $component0);
+} else {
+    if_setgraphic("toplevel_worldmap_button,0", $component0);
+    if_setonmouseover("graphic_swapper(^event_com, $graphic1)", $component0);
+    $graphic1 = "toplevel_worldmap_button,0";
+    if_setonmouseleave("graphic_swapper(^event_com, $graphic1)", $component0);
+    if_clearops($component0);
+    if_setop(1, "World Map", $component0);
+    if (%varp_1159 ! -1 & %varp_1159 ! 0) {
+        if_setop(2, "Clear your marker", $component0);
+    }
+}

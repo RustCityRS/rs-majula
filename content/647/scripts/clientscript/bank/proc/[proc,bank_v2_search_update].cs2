@@ -1,0 +1,9 @@
+[proc,bank_v2_search_update]
+%varc_string_138 = %varc_string_22;
+if (clientclock > %varc_int_191) {
+    ~bank_v2_show_search(%varc_string_138);
+    if_setontimer(null, bank_v2_main:com17);
+    %varc_int_191 = calc(clientclock + 10);
+} else {
+    if_setontimer("bank_v2_search_delayed(%varc_int_191)", bank_v2_main:com17);
+}

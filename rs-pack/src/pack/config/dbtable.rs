@@ -26,7 +26,7 @@ pub fn pack_dbtables(
     constants: &HashMap<String, String>,
 ) -> Result<PackedFile> {
     let pack = PackFile::load(&registry.pack_dir().join("dbtable.pack"))?;
-    let configs = parse_config_sections_cached(file_cache, "dbtable", constants);
+    let configs = parse_config_sections_cached(file_cache, "dbtable", constants)?;
 
     let mut server = PackedData::new(pack.max);
 

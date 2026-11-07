@@ -1,0 +1,139 @@
+[clientscript,construction_materials](int $int0, obj $obj1, int $int2, int $int3)
+def_obj $array0();
+def_int $array1();
+if ($int0 ! 1) {
+    return;
+}
+switch_int ($int2) {
+    case 12:
+        switch_int ($int3) {
+            case 0:
+                mes("Rick: <tostring(enum(105, 105, enum_238, 1))> coins.");
+            case 1:
+                mes("Maid: <tostring(enum(105, 105, enum_238, 3))> coins.");
+            case 2:
+                mes("Cook: <tostring(enum(105, 105, enum_238, 5))> coins.");
+            case 3:
+                mes("Butler: <tostring(enum(105, 105, enum_238, 6))> coins.");
+            case 4:
+                mes("Demon Butler: <tostring(enum(105, 105, enum_238, 8))> coins.");
+        }
+        return;
+    case 0:
+        switch_obj ($obj1) {
+            case pond:
+                $obj1 = garden;
+            case mahogany_armchair:
+                $obj1 = parlour;
+            case fancy_range:
+                $obj1 = kitchen;
+            case opulent_table:
+                $obj1 = dining_room;
+            case bench_with_lathe:
+                $obj1 = workshop;
+            case gilded_4_poster:
+                $obj1 = bedroom;
+            case marble_staircase:
+                $obj1 = hall;
+            case dartboard:
+                $obj1 = games_room;
+            case balance_beam:
+                $obj1 = combat_room;
+            case marble_spiral:
+                $obj1 = hall_8403;
+            case mahogany_demon:
+                $obj1 = study;
+            case magical_cape_rack:
+                $obj1 = costume_room;
+            case gilded_altar:
+                $obj1 = chapel;
+            case scrying_pool:
+                $obj1 = portal_chamber;
+            case posh_fountain:
+                $obj1 = formal_garden;
+            case demonic_throne:
+                $obj1 = throne_room;
+            case spikes:
+                $obj1 = oubliette;
+            case steel_plated_door:
+                $obj1 = dungeon_corridor;
+            case oak_door:
+                $obj1 = dungeon_pit;
+            case mahogany_chest:
+                $obj1 = treasure_room;
+        }
+        mes("<oc_name($obj1)>: <op4124(oc_cost($obj1), 1)> coins.");
+        return;
+    case 14, 15:
+        return;
+}
+def_obj $array0(6);
+def_int $array1(6);
+def_int $int4 = 0;
+if (oc_weight($obj1, param_211) ! null) {
+    $array0(0) = oc_weight($obj1, param_211);
+    $array1(0) = oc_weight($obj1, param_212);
+    $int4 = calc($int4 + 1);
+}
+if (oc_weight($obj1, param_213) ! null) {
+    $array0(1) = oc_weight($obj1, param_213);
+    $array1(1) = oc_weight($obj1, param_214);
+    $int4 = calc($int4 + 1);
+}
+if (oc_weight($obj1, param_215) ! null) {
+    $array0(2) = oc_weight($obj1, param_215);
+    $array1(2) = oc_weight($obj1, param_216);
+    $int4 = calc($int4 + 1);
+}
+if (oc_weight($obj1, param_217) ! null) {
+    $array0(3) = oc_weight($obj1, param_217);
+    $array1(3) = oc_weight($obj1, param_218);
+    $int4 = calc($int4 + 1);
+}
+if (oc_weight($obj1, param_219) ! null) {
+    $array0(4) = oc_weight($obj1, param_219);
+    $array1(4) = oc_weight($obj1, param_220);
+    $int4 = calc($int4 + 1);
+}
+if (oc_weight($obj1, param_221) ! null) {
+    $array0(5) = oc_weight($obj1, param_221);
+    $array1(5) = oc_weight($obj1, param_222);
+    $int4 = calc($int4 + 1);
+}
+switch_int ($int4) {
+    case 1:
+        mes("<oc_name($obj1)>:");
+        mes("<op4124($array1(0), 1)> x <oc_name($array0(0))>");
+    case 2:
+        mes("<oc_name($obj1)>:");
+        mes("<op4124($array1(0), 1)> x <oc_name($array0(0))>");
+        mes("<op4124($array1(1), 1)> x <oc_name($array0(1))>");
+    case 3:
+        mes("<oc_name($obj1)>:");
+        mes("<op4124($array1(0), 1)> x <oc_name($array0(0))>");
+        mes("<op4124($array1(1), 1)> x <oc_name($array0(1))>");
+        mes("<op4124($array1(2), 1)> x <oc_name($array0(2))>");
+    case 4:
+        mes("<oc_name($obj1)>:");
+        mes("<op4124($array1(0), 1)> x <oc_name($array0(0))>");
+        mes("<op4124($array1(1), 1)> x <oc_name($array0(1))>");
+        mes("<op4124($array1(2), 1)> x <oc_name($array0(2))>");
+        mes("<op4124($array1(3), 1)> x <oc_name($array0(3))>");
+    case 5:
+        mes("<oc_name($obj1)>:");
+        mes("<op4124($array1(0), 1)> x <oc_name($array0(0))>");
+        mes("<op4124($array1(1), 1)> x <oc_name($array0(1))>");
+        mes("<op4124($array1(2), 1)> x <oc_name($array0(2))>");
+        mes("<op4124($array1(3), 1)> x <oc_name($array0(3))>");
+        mes("<op4124($array1(4), 1)> x <oc_name($array0(4))>");
+    case 6:
+        mes("<oc_name($obj1)>:");
+        mes("<op4124($array1(0), 1)> x <oc_name($array0(0))>");
+        mes("<op4124($array1(1), 1)> x <oc_name($array0(1))>");
+        mes("<op4124($array1(2), 1)> x <oc_name($array0(2))>");
+        mes("<op4124($array1(3), 1)> x <oc_name($array0(3))>");
+        mes("<op4124($array1(4), 1)> x <oc_name($array0(4))>");
+        mes("<op4124($array1(5), 1)> x <oc_name($array0(5))>");
+    case default:
+        mes(oc_name($obj1));
+}

@@ -1,0 +1,14 @@
+[proc,clientscript_55]()(int)
+def_int $int = 0;
+$int = calc($int + %varbit_3566);
+$int = calc($int + %varbit_3567);
+$int = calc($int + %varbit_3568);
+$int = calc($int + %varbit_3569);
+$int = calc($int + %varbit_3570);
+$int = calc($int + %varbit_3571);
+$int = calc($int + %varbit_3572);
+$int = calc($int + %varbit_3573);
+$int = calc($int + %varbit_3574);
+$int = calc($int + %varbit_3575);
+return($int);
+return(0);

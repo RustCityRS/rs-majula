@@ -1,0 +1,43 @@
+[proc,clientscript_1695](stat $stat)(int)
+switch_stat ($stat) {
+    case attack:
+        if (%varbit_6852 > 0) {
+            return(4);
+        } else if (%varbit_6847 > 0) {
+            return(1);
+        } else {
+            return(0);
+        }
+    case strength:
+        if (%varbit_6853 > 0) {
+            return(4);
+        } else if (%varbit_6848 > 0) {
+            return(1);
+        } else {
+            return(0);
+        }
+    case defence:
+        if (%varbit_6854 > 0) {
+            return(4);
+        } else if (%varbit_6849 > 0) {
+            return(1);
+        } else {
+            return(0);
+        }
+    case ranged:
+        if (%varbit_6855 > 0) {
+            return(4);
+        } else if (%varbit_6850 > 0) {
+            return(1);
+        } else {
+            return(0);
+        }
+    case magic:
+        if (%varbit_6856 > 0) {
+            return(4);
+        } else if (%varbit_6851 > 0) {
+            return(1);
+        } else {
+            return(0);
+        }
+}

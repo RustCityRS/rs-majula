@@ -1,0 +1,6 @@
+[proc,lobbyscreen_options_load]
+~graphics_options_init(2);
+~loginscreen_soundvol(lobbyscreen_pane_options:com41, lobbyscreen_pane_options:com42);
+~loginscreen_musicvol(lobbyscreen_pane_options:com47, lobbyscreen_pane_options:com48);
+~loginscreen_bgsoundvol(lobbyscreen_pane_options:com35, lobbyscreen_pane_options:com36);
+~loginscreen_stereo(lobbyscreen_pane_options:com20, lobbyscreen_pane_options:com18);

@@ -1,0 +1,7 @@
+[proc,clientscript_1949](component $component0, int $int1, int $colour2, component $component3)
+if (cc_find($component0, $int1) = true) {
+    cc_setcolour($colour2);
+    if ($component3 ! null) {
+        ~deltooltip_action($component3);
+    }
+}

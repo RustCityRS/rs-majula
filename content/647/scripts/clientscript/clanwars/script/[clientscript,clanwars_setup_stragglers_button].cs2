@@ -1,0 +1,8 @@
+[clientscript,clanwars_setup_stragglers_button](int $int)
+if (~clanwars_setup_clicktest($int) = false) {
+    return;
+}
+if (%varc_int_248 = true) {
+    %varc_int_248 = 0;
+    ~clientscript_1772;
+}

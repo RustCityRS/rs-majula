@@ -1,0 +1,18 @@
+[proc,lobbyscreen_input_clear]
+if_settext("", lobbyscreen:com138);
+if_settext("", lobbyscreen:com140);
+if_setonkey(null, lobbyscreen:com140);
+if_setonop(null, lobbyscreen:com144);
+if_settext("Ok", lobbyscreen:com148);
+if_setop(1, "Ok", lobbyscreen:com148);
+if_settext("Close", lobbyscreen:com150);
+if_setop(1, "Close", lobbyscreen:com150);
+if_setsize(265, 136, ^setsize_abs, ^setsize_abs, lobbyscreen:com136);
+if_setsize(0, 0, ^setsize_minus, ^setsize_minus, lobbyscreen:com140);
+if_setsize(8034, 0, ^setsize_rel, ^setsize_minus, lobbyscreen:com144);
+if_setsize(8034, 0, ^setsize_rel, ^setsize_minus, lobbyscreen:com148);
+if_setsize(8034, 0, ^setsize_rel, ^setsize_minus, lobbyscreen:com149);
+if_setsize(8034, 0, ^setsize_rel, ^setsize_minus, lobbyscreen:com150);
+if_sethide(false, lobbyscreen:com149);
+if_sethide(false, lobbyscreen:com150);
+%varc_string_277 = "";

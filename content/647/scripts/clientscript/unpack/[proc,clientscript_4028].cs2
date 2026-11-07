@@ -1,0 +1,20 @@
+[proc,clientscript_4028](int $int0, int $int1)
+if ($int0 = false) {
+    if ($int1 = true) {
+        if_setgraphic(4302, task_main:com106);
+        if_setonmouseover("clientscript_4029(0)", task_main:com106);
+        if_setonmouseleave("clientscript_4029(1)", task_main:com106);
+    } else {
+        if_setgraphic(4300, task_main:com106);
+        if_setonmouseover("clientscript_4030(0)", task_main:com106);
+        if_setonmouseleave("clientscript_4030(1)", task_main:com106);
+    }
+} else if ($int1 = true) {
+    if_setgraphic(4299, task_main:com114);
+    if_setonmouseover("clientscript_4031(0)", task_main:com114);
+    if_setonmouseleave("clientscript_4031(1)", task_main:com114);
+} else {
+    if_setgraphic(4297, task_main:com114);
+    if_setonmouseover("clientscript_4032(0)", task_main:com114);
+    if_setonmouseleave("clientscript_4032(1)", task_main:com114);
+}

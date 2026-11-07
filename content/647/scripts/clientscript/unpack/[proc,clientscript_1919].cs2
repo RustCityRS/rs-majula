@@ -1,0 +1,26 @@
+[proc,clientscript_1919]
+if (%varc_int_583 > 0) {
+    if_setcolour(0xc8aa64, sc_processing:com99);
+} else {
+    if_setcolour(0x333333, sc_processing:com99);
+}
+if (%varc_int_584 > 0) {
+    if_setcolour(0xc8aa64, sc_processing:com101);
+} else {
+    if_setcolour(0x333333, sc_processing:com101);
+}
+if (%varc_int_585 > 0) {
+    if_setcolour(0xc8aa64, sc_processing:com103);
+} else {
+    if_setcolour(0x333333, sc_processing:com103);
+}
+if (%varc_int_586 > 0) {
+    if_setcolour(0xc8aa64, sc_processing:com105);
+} else {
+    if_setcolour(0x333333, sc_processing:com105);
+}
+if (%varc_int_587 > 0) {
+    if_setcolour(0xc8aa64, sc_processing:com107);
+} else {
+    if_setcolour(0x333333, sc_processing:com107);
+}

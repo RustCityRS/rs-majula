@@ -1,0 +1,4 @@
+[proc,clientscript_3679](component $component0, int $int1)
+if_clearops($component0);
+if_setop(5, "Examine<col=ff9040>", $component0);
+if_setopbase("<col=ff981f><enum(105, 115, enum_3274, $int1)> Piece", $component0);

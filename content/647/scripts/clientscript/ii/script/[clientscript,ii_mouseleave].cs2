@@ -1,0 +1,3 @@
+[clientscript,ii_mouseleave](component $component0, component $component1)
+if_settext("", $component1);
+if_settrans(0, $component0);

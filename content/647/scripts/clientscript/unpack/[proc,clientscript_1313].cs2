@@ -1,0 +1,9 @@
+[proc,clientscript_1313]
+~topstat_hitpoints_update;
+if_setgraphic(1207, summoning_orb:com2);
+if_setposition(25, 1, ^setpos_abs_left, ^setpos_abs_top, summoning_orb:com3);
+if_setposition(25, 1, ^setpos_abs_left, ^setpos_abs_top, summoning_orb:com4);
+if_setposition(3, 15, ^setpos_abs_left, ^setpos_abs_top, summoning_orb:com5);
+if_setposition(31, 7, ^setpos_abs_left, ^setpos_abs_top, summoning_orb:com6);
+~topstat_prayer_button_update;
+~topstat_run_button_update(topstat_run:com1);

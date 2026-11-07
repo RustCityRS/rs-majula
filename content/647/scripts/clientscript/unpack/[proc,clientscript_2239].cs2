@@ -1,0 +1,8 @@
+[proc,clientscript_2239]
+sound_synth(synth_8729, 1, 0);
+if (%varc_int_1133 = false) {
+    %varc_int_1133 = 1;
+} else {
+    %varc_int_1133 = 0;
+}
+~clientscript_2220;

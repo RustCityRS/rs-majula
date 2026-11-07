@@ -1,0 +1,11 @@
+[clientscript,champions_onop](int $int0, int $int1, int $int2)
+if ($int0 ! 1) {
+    return;
+}
+if ($int1 = $int2) {
+    return;
+}
+~updatemodel($int1);
+%varbit_6768 = $int1;
+cc_deleteall(db8241499:com22);
+~clientscript_1674($int1);

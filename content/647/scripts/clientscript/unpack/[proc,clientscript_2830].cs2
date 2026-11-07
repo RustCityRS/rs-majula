@@ -1,0 +1,6 @@
+[proc,clientscript_2830](int $int0, boolean $int1)
+if ($int0 ! 1) {
+    return;
+}
+%varc_int_774 = $int1;
+~player_kit_hair_redraw;

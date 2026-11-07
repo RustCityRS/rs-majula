@@ -1,0 +1,2 @@
+[clientscript,tourn_rank_update](component $component)
+if_settext(tostring(%varp_1105), $component);

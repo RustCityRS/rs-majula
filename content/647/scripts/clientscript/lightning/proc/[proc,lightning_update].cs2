@@ -1,0 +1,8 @@
+[proc,lightning_update](component $component)
+if (~inzone(0_41_81_0_0, 3_41_81_63_63, coord) = true & get_clientopt_6108 = true) {
+    if (if_gethide($component) = true) {
+        if_sethide(false, $component);
+    }
+} else if (if_gethide($component) = false) {
+    if_sethide(true, $component);
+}

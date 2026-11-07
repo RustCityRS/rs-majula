@@ -1,0 +1,10 @@
+[proc,clientscript_1600]
+def_int $int0 = 0;
+def_int $int1 = 0;
+if (~clientscript_1891 = true) {
+    if_sethide(false, friends_chat:com20);
+    $int0 = if_gety(friends_chat:com18);
+    if_setposition(134, $int0, ^setpos_abs_left, ^setpos_abs_top, friends_chat:com18);
+    return;
+}
+~clientscript_1632;

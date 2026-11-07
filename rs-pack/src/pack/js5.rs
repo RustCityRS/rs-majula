@@ -1,21 +1,21 @@
 use crate::archive::{self, ArchiveFormat, ArchiveVersions};
 use crate::cache::js5::PackedCache;
-use crate::cs2::assembly;
 use crate::pack::model::source as model_source;
 use crate::pack::names::{AssetNames, archive_name};
 use crate::pack::other::asset;
 use crate::pack::pack_registry::PackFile;
 use crate::pack::sound::{vorbis, vorbis_setup};
-use anyhow::{Context, Result};
+use anyhow::{Context, Result, ensure};
 use rayon::prelude::*;
 use rs_crypto::whirlpool;
 use rs_io::js5::compression::compress_best;
 use rs_io::js5::java_string_hash;
 use rs_io::js5::reference::{FileInfo, GroupInfo, ReferenceTable, encode_reference_table};
 use rs_io::js5::{compute_group_crc, detect_file_count, encode_group_entries};
+use runec::clientscript;
 use std::collections::{HashMap, hash_map::Entry};
 use std::fs;
-use std::path::Path;
+use std::path::{Path, PathBuf};
 use std::time::Instant;
 use tracing::{debug, info};
 
@@ -259,21 +259,43 @@ pub fn pack_asset_archives(
             let mut cache = PackedCache::default();
             let format = archive::archive_format(aid).unwrap();
 
+            if aid == archive::CLIENTSCRIPT {
+                let compiled = clientscript::compile_directory(
+                    &content_dir.join(format.content_dir),
+                    pack_dir,
+                )?;
+                let hashes =
+                    load_name_hashes(pack_dir, aid, &compiled.keys().copied().collect::<Vec<_>>());
+                let prepared = compiled
+                    .into_iter()
+                    .map(|(id, data)| {
+                        let mut group = PreparedGroup::new(aid, id, &data, versions)?;
+                        group.name_hash = hashes.get(&id).copied().unwrap_or(-1);
+                        Ok(group)
+                    })
+                    .collect::<Result<Vec<_>>>()?;
+                insert_archive(
+                    &mut cache,
+                    aid,
+                    format,
+                    versions,
+                    prepared,
+                    "from clientscript sources",
+                )?;
+                return Ok(cache);
+            }
+
             let group_files = if let Some(extension) = asset::extension(aid) {
                 names.files(
                     &content_dir.join(format.content_dir),
                     archive_name(aid),
                     &[extension],
                 )?
-            } else if aid == archive::MODELS || aid == archive::CLIENTSCRIPT {
+            } else if aid == archive::MODELS {
                 names.files(
                     &content_dir.join(format.content_dir),
                     archive_name(aid),
-                    &[if aid == archive::MODELS {
-                        "model"
-                    } else {
-                        "cs2"
-                    }],
+                    &["model"],
                 )?
             } else if aid == archive::VORBIS {
                 names.files(
@@ -293,6 +315,19 @@ pub fn pack_asset_archives(
 
             if group_files.is_empty() {
                 insert_empty_archive(&mut cache, aid, format, versions)?;
+                return Ok(cache);
+            }
+
+            if aid == archive::BILLBOARDS {
+                let group = pack_billboards(&group_files, &names, versions)?;
+                insert_archive(
+                    &mut cache,
+                    aid,
+                    format,
+                    versions,
+                    vec![group],
+                    "from billboard sources",
+                )?;
                 return Ok(cache);
             }
 
@@ -330,8 +365,6 @@ pub fn pack_asset_archives(
                         )
                     } else if aid == archive::MODELS {
                         model_source::pack(&fs::read_to_string(path)?, &names)?
-                    } else if aid == archive::CLIENTSCRIPT {
-                        assembly::pack(&fs::read_to_string(path)?, &names)?
                     } else if aid == archive::VORBIS {
                         let (setup, data) = vorbis.as_ref().unwrap();
                         if *gid == 0 {
@@ -378,6 +411,33 @@ pub fn pack_asset_archives(
     Ok(())
 }
 
+fn pack_billboards(
+    files: &[(u32, PathBuf)],
+    names: &AssetNames,
+    versions: &HashMap<u8, ArchiveVersions>,
+) -> Result<PreparedGroup> {
+    let mut entries = Vec::with_capacity(files.len());
+    for (id, path) in files {
+        let source = asset::pack_file(archive::BILLBOARDS, 0, path, names)?;
+        ensure!(
+            source.len() == 1 && source[0].0 == *id,
+            "{} must contain only [{}]",
+            path.display(),
+            names.name("billboard", *id)
+        );
+        entries.extend(source);
+    }
+    let data = encode_group_entries(
+        &entries
+            .iter()
+            .map(|(id, data)| (*id, data.as_slice()))
+            .collect::<Vec<_>>(),
+    );
+    let mut group = PreparedGroup::new(archive::BILLBOARDS, 0, &data, versions)?;
+    group.set_files(entries.iter().map(|(id, _)| *id));
+    Ok(group)
+}
+
 pub fn prepare_group(
     archive_id: u8,
     group_id: u32,
@@ -395,4 +455,99 @@ pub fn prepare_group(
     with_version.reserve_exact(2);
     with_version.extend_from_slice(&version.to_be_bytes());
     Ok((with_version, crc))
+}
+
+#[cfg(test)]
+mod tests {
+    use super::{pack_asset_archives, pack_billboards};
+    use crate::archive::{self, ArchiveVersions};
+    use crate::cache::js5::PackedCache;
+    use crate::pack::names::AssetNames;
+    use crate::unpack;
+    use rs_io::js5::compression::decompress;
+    use rs_io::js5::{Js5Store, encode_group_entries};
+    use std::collections::HashMap;
+    use std::fs;
+    use std::path::Path;
+    use std::process;
+
+    #[test]
+    fn billboard_files_preserve_names_and_sparse_ids() {
+        let target = Path::new(env!("CARGO_MANIFEST_DIR")).join("../target");
+        let dir = target.join(format!("billboard-files-{}", process::id()));
+        let pack = dir.join("pack");
+        let source = dir.join("billboards");
+        fs::create_dir_all(&pack).unwrap();
+        fs::create_dir_all(&source).unwrap();
+        let scripts = dir.join("scripts/clientscript");
+        fs::create_dir_all(&scripts).unwrap();
+        fs::write(scripts.join("engine.cs2"), "").unwrap();
+        fs::write(pack.join("clientscript.pack"), "").unwrap();
+        fs::write(pack.join("cs2_command.pack"), "").unwrap();
+        fs::write(pack.join("billboard.pack"), "2=small\n9=large\n").unwrap();
+        let small = "[small]\nopcode=material\nmaterial=texture_7\nopcode=end\n\n";
+        let large = "[large]\nopcode=size\nsize_minus_one=100,200\nopcode=end\n\n";
+        fs::write(source.join("small.billboard"), small).unwrap();
+        fs::write(source.join("large.billboard"), large).unwrap();
+        let names = AssetNames::load(&pack).unwrap();
+        let files = names.files(&source, "billboard", &["billboard"]).unwrap();
+        let aid = archive::BILLBOARDS;
+        let versions = HashMap::from([(
+            aid,
+            ArchiveVersions {
+                table_version: 57,
+                group_versions: HashMap::from([(0, 57)]),
+                group_file_ids: HashMap::new(),
+            },
+        )]);
+        let group = pack_billboards(&files, &names, &versions).unwrap();
+        assert_eq!(group.id, 0);
+        assert_eq!(group.version, 57);
+        assert_eq!(group.files.iter().map(|f| f.id).collect::<Vec<_>>(), [2, 9]);
+        assert_eq!(
+            decompress(&group.raw).unwrap().as_ref(),
+            encode_group_entries(&[(2, &[1, 0, 7, 0]), (9, &[2, 0, 100, 0, 200, 0])])
+        );
+
+        let mut cache = PackedCache::default();
+        pack_asset_archives(&mut cache, &dir, &pack, &versions).unwrap();
+        assert_eq!(cache.tables[&aid].groups.len(), 1);
+        assert_eq!(cache.tables[&aid].groups[0].id, 0);
+        assert_eq!(cache.groups[&(aid, 0)], group.raw);
+        let mut store = Js5Store::create(dir.join("cache"), &[aid]).unwrap();
+        store
+            .write_raw_group(aid, 0, &cache.groups[&(aid, 0)])
+            .unwrap();
+        store
+            .write_reference_table(aid, &cache.tables[&aid])
+            .unwrap();
+        let output = dir.join("unpacked");
+        unpack::asset::unpack_archive(&mut store, aid, &pack, &output).unwrap();
+        let output = output.join("billboards");
+        assert_eq!(fs::read_dir(&output).unwrap().count(), 2);
+        assert_eq!(
+            fs::read_to_string(output.join("small.billboard")).unwrap(),
+            small
+        );
+        assert_eq!(
+            fs::read_to_string(output.join("large.billboard")).unwrap(),
+            large
+        );
+        let files = names.files(&output, "billboard", &["billboard"]).unwrap();
+        let rebuilt = pack_billboards(&files, &names, &versions).unwrap();
+        assert_eq!(rebuilt.raw, cache.groups[&(aid, 0)]);
+
+        fs::write(output.join("small.billboard"), format!("{small}{large}")).unwrap();
+        assert!(pack_billboards(&files, &names, &versions).is_err());
+        fs::write(output.join("small.billboard"), large).unwrap();
+        assert!(pack_billboards(&files, &names, &versions).is_err());
+
+        drop(store);
+        assert!(
+            dir.canonicalize()
+                .unwrap()
+                .starts_with(target.canonicalize().unwrap())
+        );
+        fs::remove_dir_all(dir).unwrap();
+    }
 }

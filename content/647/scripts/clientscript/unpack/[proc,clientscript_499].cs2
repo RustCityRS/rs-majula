@@ -1,0 +1,10 @@
+[proc,clientscript_499](int $int0)
+def_struct $struct1 = ~clientscript_488($int0);
+def_component $component2 = aa1143828:com20;
+if ($struct1 ! null) {
+    if_settext(struct_param($struct1, param_1150), aa1143828:com27);
+    if_settext(struct_param($struct1, param_1152), aa1143828:com28);
+    if_sethide(false, $component2);
+} else {
+    if_sethide(true, $component2);
+}

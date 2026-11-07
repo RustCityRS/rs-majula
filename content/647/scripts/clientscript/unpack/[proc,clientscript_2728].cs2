@@ -1,0 +1,13 @@
+[proc,clientscript_2728]()(int)
+if (~skilltotal > 100) {
+    return(0);
+}
+def_int $int = enum_getoutputcount(enum_681);
+while ($int > 0) {
+    if (stat_base(enum(105, 83, enum_681, $int)) > 20) {
+        return(0);
+    }
+    $int = calc($int - 1);
+}
+return(1);
+return(0);

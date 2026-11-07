@@ -1,0 +1,14 @@
+[proc,clientscript_1359](component $component)
+if (%varc_int_1024 = %varbit_6521 & %varc_int_1024 ! 0) {
+    if ($component = magic:wind_strike | $component = magic:wind_rush) {
+        if (%varc_int_1024 = 28) {
+            if_setontimer("advisor_flash_icon($component)", magic:wind_rush);
+        } else {
+            if_setontimer("advisor_flash_icon($component)", magic:wind_strike);
+        }
+    } else {
+        if_setontimer("advisor_flash_icon($component)", $component);
+    }
+} else {
+    if_setontimer(null, $component);
+}

@@ -1,0 +1,38 @@
+[clientscript,love_cutscenes](component $component0, component $component1, component $component2, component $component3, component $component4)
+if (%varc_int_1007 <= 0) {
+    if_sethide(true, $component1);
+    if_sethide(true, $component4);
+    cam_clear_5512;
+    return;
+}
+if (%varc_int_1007 <= 10) {
+    if_sethide(true, $component1);
+    if_sethide(true, $component4);
+    ~clientscript_3470($component0, ~coord_0_0(coord));
+    return;
+}
+if (%varc_int_1007 <= 20) {
+    if_sethide(true, $component1);
+    if_sethide(true, $component4);
+    ~clientscript_3465($component0, ~coord_0_0(coord));
+    return;
+}
+if (%varc_int_1007 <= 30) {
+    if_sethide(true, $component4);
+    ~clientscript_3462($component0, $component1, $component2, $component3);
+    return;
+}
+if (%varc_int_1007 <= 40) {
+    if_sethide(true, $component1);
+    if_sethide(true, $component4);
+    ~love_makeup($component0, ~coord_0_0(coord));
+    return;
+}
+if (%varc_int_1007 <= 100) {
+    if_sethide(true, $component1);
+    ~clientscript_3472($component0, $component4);
+    return;
+}
+if_sethide(true, $component1);
+if_sethide(true, $component4);
+~love_wizardstower($component0, ~coord_0_0(coord));

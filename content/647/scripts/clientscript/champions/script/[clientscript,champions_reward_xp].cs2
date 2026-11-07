@@ -1,0 +1,3 @@
+[clientscript,champions_reward_xp]
+if_settext("<tostring(%varp_620)> Constitution XP", champions_scroll:com8);
+if_settext("<tostring(%varp_621)> Slayer XP", champions_scroll:com7);

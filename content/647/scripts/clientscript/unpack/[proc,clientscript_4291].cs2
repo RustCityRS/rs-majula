@@ -1,0 +1,47 @@
+[proc,clientscript_4291]
+if_sethook1431("clansettings_list_build()", pe6859048:com3);
+if_setonvarctransmit("clansettings_list_build(){varc_int_1516}", pe6859048:com3);
+if_setontimer("clientscript_4319(0, 1)", pe6859048:com16);
+if_sethook1431("statupdate_maple()", pe6859048:com16);
+if_sethook1432("statupdate_maple()", pe6859048:com16);
+if_setonvarctransmit("clientscript_118(){varc_int_1500, varc_int_1501, varc_int_1502, varc_int_1503}", pe6859048:com16);
+if_setonvarcstrtransmit("clientscript_118(){varc_string_347}", pe6859048:com16);
+switch_int (getlanguage) {
+    case 1:
+        ~clientscript_4499(enum_3727, 1, "", enum_getoutputcount(enum_3727), 10, pe6859048:com247, pe6859048:com257, pe6859048:com259, pe6859048:com258, pe6859048:com350);
+    case 2:
+        ~clientscript_4499(enum_3728, 1, "", enum_getoutputcount(enum_3727), 10, pe6859048:com247, pe6859048:com257, pe6859048:com259, pe6859048:com258, pe6859048:com350);
+    case 3:
+        ~clientscript_4499(enum_3729, 1, "", enum_getoutputcount(enum_3727), 10, pe6859048:com247, pe6859048:com257, pe6859048:com259, pe6859048:com258, pe6859048:com350);
+    case default:
+        ~clientscript_4499(enum_3720, 1, "", enum_getoutputcount(enum_3720), 10, pe6859048:com247, pe6859048:com257, pe6859048:com259, pe6859048:com258, pe6859048:com350);
+}
+~clientscript_4328(pe6859048:com361);
+if_settext(clanchannel_getname, pe6859048:com50);
+if_setsize(if_getwidth(pe6859048:com16), 115, ^setsize_abs, ^setsize_abs, pe6859048:com16);
+if_sethide(true, pe6859048:com351);
+if_sethide(false, pe6859048:com72);
+def_component $component0 = pe6859048:com2;
+def_int $int1 = 0;
+def_int $int2 = 0;
+def_int $int3 = 0;
+def_int $int4 = 218;
+def_int $int5 = 23;
+while ($int1 < 500) {
+    if (calc($int1 % 2) ! 0) {
+        $int2 = $int4;
+    } else {
+        $int2 = 0;
+    }
+    $int3 = calc($int1 / 2 * $int5);
+    cc_create($component0, ^iftype_rectangle, $int1);
+    cc_setposition($int2, $int3, ^setpos_abs_left, ^setpos_abs_top);
+    cc_setsize(calc(16384 / 2), $int5, ^setsize_rel, ^setsize_abs);
+    cc_setfill(true);
+    if (calc($int1 / 2 % 2) ! 0) {
+        cc_setcolour(0x232220);
+    } else {
+        cc_setcolour(0x1c1b19);
+    }
+    $int1 = calc($int1 + 1);
+}

@@ -1,0 +1,6 @@
+[clientscript,snapshot_confirm_name]
+if (compare(%varc_string_24, "") ! 0) {
+    ~clientscript_220;
+} else {
+    tutorial_openchat(26, 0, "You must first select a name from the list.");
+}

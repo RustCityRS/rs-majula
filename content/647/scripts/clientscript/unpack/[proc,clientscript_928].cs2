@@ -1,0 +1,12 @@
+[proc,clientscript_928](obj $obj)(int)
+if (oc_weight($obj, param_770) ! null) {
+    return(1);
+}
+if (oc_weight($obj, param_764) > -1) {
+    return(1);
+}
+if (oc_weight($obj, param_762) > 0) {
+    return(1);
+}
+return(0);
+return(-1);

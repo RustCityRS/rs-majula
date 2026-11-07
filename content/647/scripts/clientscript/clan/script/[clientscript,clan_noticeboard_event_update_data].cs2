@@ -1,0 +1,259 @@
+[clientscript,clan_noticeboard_event_update_data]
+def_int $int0 = 0;
+def_int $int1 = 0;
+def_int $int2 = 0;
+~clientscript_4501(es2622858:com217, "Day");
+~clientscript_4501(es2622858:com205, "Month");
+~clientscript_4501(es2622858:com195, "Year");
+~clientscript_4501(es2622858:com247, "World");
+~clientscript_4501(es2622858:com142, "Select Event Type");
+~clientscript_4501(es2622858:com157, "Select Event Place");
+~clientscript_4501(es2622858:com172, "Select Event Attendees");
+if_setscrollpos(0, 0, es2622858:com183);
+~scrollbar_ondrag_doscroll(es2622858:com182, es2622858:com183, 0, 1);
+if_setscrollpos(0, 0, es2622858:com168);
+~scrollbar_ondrag_doscroll(es2622858:com167, es2622858:com168, 0, 1);
+if_setscrollpos(0, 0, es2622858:com153);
+~scrollbar_ondrag_doscroll(es2622858:com152, es2622858:com153, 0, 1);
+if (%varbit_9140 = true) {
+    if_settext("All events relative to clan time", es2622858:com40);
+} else {
+    if_settext("All events relative to game time", es2622858:com40);
+}
+switch_int (%varp_2128) {
+    case 1:
+        if (%varbit_9115 > 0) {
+            $int0, $int1, $int2 = date_split(%varbit_9115);
+            $int1 = calc($int1 + 1);
+            $int2 = max(11, calc($int2 - 2000));
+        }
+        if ($int0 > 0) {
+            ~clientscript_4501(es2622858:com217, enum(105, 115, enum_3697, $int0));
+        }
+        if ($int1 > 0) {
+            ~clientscript_4501(es2622858:com205, enum(105, 115, enum_3698, $int1));
+        }
+        if ($int2 > 0) {
+            ~clientscript_4501(es2622858:com195, enum(105, 115, enum_3699, $int2));
+        }
+        ~clientscript_4501(es2622858:com231, enum(105, 115, enum_3695, %varbit_9123));
+        if (%varbit_9107 > 0) {
+            ~clientscript_4501(es2622858:com247, enum(105, 115, enum_3700, %varbit_9107));
+        }
+        if (%varbit_9091 > 0) {
+            ~clientscript_4501(es2622858:com142, enum(105, 115, enum_3687, %varbit_9091));
+        }
+        if (%varbit_9099 > 0) {
+            ~clientscript_4501(es2622858:com157, enum(105, 115, enum_3696, %varbit_9099));
+        }
+        if (%varp_2120 >= 0) {
+            ~clientscript_4501(es2622858:com172, enum(105, 115, enum_3725, %varp_2120));
+        }
+        ~clan_noticeboard_event_edit_selection(71958796);
+    case 2:
+        if (%varbit_9116 > 0) {
+            $int0, $int1, $int2 = date_split(%varbit_9116);
+            $int1 = calc($int1 + 1);
+            $int2 = max(11, calc($int2 - 2000));
+        }
+        if ($int0 > 0) {
+            ~clientscript_4501(es2622858:com217, enum(105, 115, enum_3697, $int0));
+        }
+        if ($int1 > 0) {
+            ~clientscript_4501(es2622858:com205, enum(105, 115, enum_3698, $int1));
+        }
+        if ($int2 > 0) {
+            ~clientscript_4501(es2622858:com195, enum(105, 115, enum_3699, $int2));
+        }
+        ~clientscript_4501(es2622858:com231, enum(105, 115, enum_3695, %varbit_9124));
+        if (%varbit_9108 > 0) {
+            ~clientscript_4501(es2622858:com247, enum(105, 115, enum_3700, %varbit_9108));
+        }
+        if (%varbit_9092 > 0) {
+            ~clientscript_4501(es2622858:com142, enum(105, 115, enum_3687, %varbit_9092));
+        }
+        if (%varbit_9100 > 0) {
+            ~clientscript_4501(es2622858:com157, enum(105, 115, enum_3696, %varbit_9100));
+        }
+        if (%varp_2121 >= 0) {
+            ~clientscript_4501(es2622858:com172, enum(105, 115, enum_3725, %varp_2121));
+        }
+        ~clan_noticeboard_event_edit_selection(71958805);
+    case 3:
+        if (%varbit_9117 > 0) {
+            $int0, $int1, $int2 = date_split(%varbit_9117);
+            $int1 = calc($int1 + 1);
+            $int2 = max(11, calc($int2 - 2000));
+        }
+        if ($int0 > 0) {
+            ~clientscript_4501(es2622858:com217, enum(105, 115, enum_3697, $int0));
+        }
+        if ($int1 > 0) {
+            ~clientscript_4501(es2622858:com205, enum(105, 115, enum_3698, $int1));
+        }
+        if ($int2 > 0) {
+            ~clientscript_4501(es2622858:com195, enum(105, 115, enum_3699, $int2));
+        }
+        ~clientscript_4501(es2622858:com231, enum(105, 115, enum_3695, %varbit_9125));
+        if (%varbit_9109 > 0) {
+            ~clientscript_4501(es2622858:com247, enum(105, 115, enum_3700, %varbit_9109));
+        }
+        if (%varbit_9093 > 0) {
+            ~clientscript_4501(es2622858:com142, enum(105, 115, enum_3687, %varbit_9093));
+        }
+        if (%varbit_9101 > 0) {
+            ~clientscript_4501(es2622858:com157, enum(105, 115, enum_3696, %varbit_9101));
+        }
+        if (%varp_2122 >= 0) {
+            ~clientscript_4501(es2622858:com172, enum(105, 115, enum_3725, %varp_2122));
+        }
+        ~clan_noticeboard_event_edit_selection(71958814);
+    case 4:
+        if (%varbit_9118 > 0) {
+            $int0, $int1, $int2 = date_split(%varbit_9118);
+            $int1 = calc($int1 + 1);
+            $int2 = max(11, calc($int2 - 2000));
+        }
+        if ($int0 > 0) {
+            ~clientscript_4501(es2622858:com217, enum(105, 115, enum_3697, $int0));
+        }
+        if ($int1 > 0) {
+            ~clientscript_4501(es2622858:com205, enum(105, 115, enum_3698, $int1));
+        }
+        if ($int2 > 0) {
+            ~clientscript_4501(es2622858:com195, enum(105, 115, enum_3699, $int2));
+        }
+        ~clientscript_4501(es2622858:com231, enum(105, 115, enum_3695, %varbit_9126));
+        if (%varbit_9110 > 0) {
+            ~clientscript_4501(es2622858:com247, enum(105, 115, enum_3700, %varbit_9110));
+        }
+        if (%varbit_9094 > 0) {
+            ~clientscript_4501(es2622858:com142, enum(105, 115, enum_3687, %varbit_9094));
+        }
+        if (%varbit_9102 > 0) {
+            ~clientscript_4501(es2622858:com157, enum(105, 115, enum_3696, %varbit_9102));
+        }
+        if (%varp_2123 >= 0) {
+            ~clientscript_4501(es2622858:com172, enum(105, 115, enum_3725, %varp_2123));
+        }
+        ~clan_noticeboard_event_edit_selection(71958823);
+    case 5:
+        if (%varbit_9119 > 0) {
+            $int0, $int1, $int2 = date_split(%varbit_9119);
+            $int1 = calc($int1 + 1);
+            $int2 = max(11, calc($int2 - 2000));
+        }
+        if ($int0 > 0) {
+            ~clientscript_4501(es2622858:com217, enum(105, 115, enum_3697, $int0));
+        }
+        if ($int1 > 0) {
+            ~clientscript_4501(es2622858:com205, enum(105, 115, enum_3698, $int1));
+        }
+        if ($int2 > 0) {
+            ~clientscript_4501(es2622858:com195, enum(105, 115, enum_3699, $int2));
+        }
+        ~clientscript_4501(es2622858:com231, enum(105, 115, enum_3695, %varbit_9127));
+        if (%varbit_9111 > 0) {
+            ~clientscript_4501(es2622858:com247, enum(105, 115, enum_3700, %varbit_9111));
+        }
+        if (%varbit_9095 > 0) {
+            ~clientscript_4501(es2622858:com142, enum(105, 115, enum_3687, %varbit_9095));
+        }
+        if (%varbit_9103 > 0) {
+            ~clientscript_4501(es2622858:com157, enum(105, 115, enum_3696, %varbit_9103));
+        }
+        if (%varp_2124 >= 0) {
+            ~clientscript_4501(es2622858:com172, enum(105, 115, enum_3725, %varp_2124));
+        }
+        ~clan_noticeboard_event_edit_selection(71958832);
+    case 6:
+        if (%varbit_9120 > 0) {
+            $int0, $int1, $int2 = date_split(%varbit_9120);
+            $int1 = calc($int1 + 1);
+            $int2 = max(11, calc($int2 - 2000));
+        }
+        if ($int0 > 0) {
+            ~clientscript_4501(es2622858:com217, enum(105, 115, enum_3697, $int0));
+        }
+        if ($int1 > 0) {
+            ~clientscript_4501(es2622858:com205, enum(105, 115, enum_3698, $int1));
+        }
+        if ($int2 > 0) {
+            ~clientscript_4501(es2622858:com195, enum(105, 115, enum_3699, $int2));
+        }
+        ~clientscript_4501(es2622858:com231, enum(105, 115, enum_3695, %varbit_9128));
+        if (%varbit_9112 > 0) {
+            ~clientscript_4501(es2622858:com247, enum(105, 115, enum_3700, %varbit_9112));
+        }
+        if (%varbit_9096 > 0) {
+            ~clientscript_4501(es2622858:com142, enum(105, 115, enum_3687, %varbit_9096));
+        }
+        if (%varbit_9104 > 0) {
+            ~clientscript_4501(es2622858:com157, enum(105, 115, enum_3696, %varbit_9104));
+        }
+        if (%varp_2125 >= 0) {
+            ~clientscript_4501(es2622858:com172, enum(105, 115, enum_3725, %varp_2125));
+        }
+        ~clan_noticeboard_event_edit_selection(71958841);
+    case 7:
+        if (%varbit_9121 > 0) {
+            $int0, $int1, $int2 = date_split(%varbit_9121);
+            $int1 = calc($int1 + 1);
+            $int2 = max(11, calc($int2 - 2000));
+        }
+        if ($int0 > 0) {
+            ~clientscript_4501(es2622858:com217, enum(105, 115, enum_3697, $int0));
+        }
+        if ($int1 > 0) {
+            ~clientscript_4501(es2622858:com205, enum(105, 115, enum_3698, $int1));
+        }
+        if ($int2 > 0) {
+            ~clientscript_4501(es2622858:com195, enum(105, 115, enum_3699, $int2));
+        }
+        ~clientscript_4501(es2622858:com231, enum(105, 115, enum_3695, %varbit_9129));
+        if (%varbit_9113 > 0) {
+            ~clientscript_4501(es2622858:com247, enum(105, 115, enum_3700, %varbit_9113));
+        }
+        if (%varbit_9097 > 0) {
+            ~clientscript_4501(es2622858:com142, enum(105, 115, enum_3687, %varbit_9097));
+        }
+        if (%varbit_9105 > 0) {
+            ~clientscript_4501(es2622858:com157, enum(105, 115, enum_3696, %varbit_9105));
+        }
+        if (%varp_2126 >= 0) {
+            ~clientscript_4501(es2622858:com172, enum(105, 115, enum_3725, %varp_2126));
+        }
+        ~clan_noticeboard_event_edit_selection(71958850);
+    case 8:
+        if (%varbit_9122 > 0) {
+            $int0, $int1, $int2 = date_split(%varbit_9122);
+            $int1 = calc($int1 + 1);
+            $int2 = max(11, calc($int2 - 2000));
+        }
+        if ($int0 > 0) {
+            ~clientscript_4501(es2622858:com217, enum(105, 115, enum_3697, $int0));
+        }
+        if ($int1 > 0) {
+            ~clientscript_4501(es2622858:com205, enum(105, 115, enum_3698, $int1));
+        }
+        if ($int2 > 0) {
+            ~clientscript_4501(es2622858:com195, enum(105, 115, enum_3699, $int2));
+        }
+        ~clientscript_4501(es2622858:com231, enum(105, 115, enum_3695, %varbit_9130));
+        if (%varbit_9114 > 0) {
+            ~clientscript_4501(es2622858:com247, enum(105, 115, enum_3700, %varbit_9114));
+        }
+        if (%varbit_9098 > 0) {
+            ~clientscript_4501(es2622858:com142, enum(105, 115, enum_3687, %varbit_9098));
+        }
+        if (%varbit_9106 > 0) {
+            ~clientscript_4501(es2622858:com157, enum(105, 115, enum_3696, %varbit_9106));
+        }
+        if (%varp_2127 >= 0) {
+            ~clientscript_4501(es2622858:com172, enum(105, 115, enum_3725, %varp_2127));
+        }
+        ~clan_noticeboard_event_edit_selection(71958859);
+}
+~clientscript_4353(es2622858:com46);
+~clientscript_4356(es2622858:com48);
+~clientscript_4350;

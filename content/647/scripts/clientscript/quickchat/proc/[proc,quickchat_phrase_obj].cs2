@@ -1,0 +1,25 @@
+[proc,quickchat_phrase_obj](component $component0, int $int1, obj $obj2)
+switch_int (%varc_int_134) {
+    case 0:
+        %varc_int_145 = $obj2;
+    case 1:
+        %varc_int_146 = $obj2;
+    case 2:
+        %varc_int_147 = $obj2;
+    case 3:
+        %varc_int_148 = $obj2;
+    case 4:
+        %varc_int_149 = $obj2;
+    case 5:
+        %varc_int_150 = $obj2;
+    case 6:
+        %varc_int_151 = $obj2;
+    case 7:
+        %varc_int_152 = $obj2;
+    case 8:
+        %varc_int_153 = $obj2;
+    case 9:
+        %varc_int_154 = $obj2;
+}
+%varc_int_134 = calc(%varc_int_134 + 1);
+~quickchat_phrase_setup($component0, $int1);

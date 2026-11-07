@@ -1,0 +1,9 @@
+[clientscript,brew_bark](component $component0, component $component1)
+if (%varc_int_225 > 0) {
+    if_setmodel(model_15667, $component0);
+    if_setcolour(0x33ff00, $component1);
+} else {
+    if_setmodel(model_15659, $component0);
+    if_setcolour(0x910000, $component1);
+}
+if_settext(tostring(%varc_int_225), $component1);

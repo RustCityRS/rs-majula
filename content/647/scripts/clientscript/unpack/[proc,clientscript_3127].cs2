@@ -1,0 +1,8 @@
+[proc,clientscript_3127](component $component0, int $int1)
+if (cc_find($component0, $int1) = true) {
+    if ($int1 = false) {
+        cc_setgraphic("world_select_updown_arrows,2");
+    } else {
+        cc_setgraphic("world_select_updown_arrows,3");
+    }
+}

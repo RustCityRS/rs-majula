@@ -1,8 +1,0 @@
-// 289's Dragon Slayer varps (quests/quest_dragon/configs/quest_dragon.varp),
-// as far as the content ported so far reads them. dragon_ned_hired keeps
-// 289's id, 183: cache 786 does not transmit varp 183 and no clientscript
-// reads it, and 2011's Dragon Slayer is still varp 176 from 1 to 10 (cache
-// 786 quest config "Dragon Slayer"), as 289's dragonquest is.
-[dragon_ned_hired]
-type=int
-scope=perm

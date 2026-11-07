@@ -1,0 +1,8 @@
+[proc,snapshot_update_select_button]
+if_settext("Reporting: <%varc_string_24>", snapshot_main_v2:com106);
+if_settext(%varc_string_24, snapshot_main_v2:com71);
+if (compare(%varc_string_24, "") ! 0) {
+    if_sethide(true, snapshot_main_v2:com81);
+} else {
+    if_sethide(false, snapshot_main_v2:com81);
+}

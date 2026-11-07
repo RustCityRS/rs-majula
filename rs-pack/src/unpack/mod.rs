@@ -6,8 +6,12 @@ use crate::archive::CONFIG_UNKNOWN_GROUPS;
 use crate::archive::{JagArchive, JagSource};
 #[cfg(since_647)]
 use crate::discover::discover_symbols;
+#[cfg(since_647)]
+use crate::pack::pack::FileCache;
 #[cfg(before_647)]
 use crate::pack::pack::pack_assets;
+#[cfg(since_647)]
+use crate::pack::pack_registry::PackFile;
 #[cfg(before_647)]
 use crate::pack::pack_registry::{PackRegistry, PackedFile};
 #[cfg(before_647)]
@@ -19,7 +23,9 @@ use crate::versionlist::{
 #[cfg(before_647)]
 use crate::{CONFIG_TYPE_CRCS, CONTENT_DIR, PACK_DIR, config_crc, sheet, tga};
 #[cfg(since_647)]
-use anyhow::Result;
+use crate::{CONFIG_TYPE_CRCS, PACK_DIR};
+#[cfg(since_647)]
+use anyhow::{Result, bail};
 #[cfg(since_647)]
 use config::generic;
 #[cfg(before_647)]
@@ -64,6 +70,8 @@ pub mod media;
 pub mod model;
 #[cfg(before_647)]
 mod namecrack;
+#[cfg(since_647)]
+pub mod names;
 pub mod report;
 #[cfg(since_647)]
 pub mod shaders;
@@ -153,7 +161,9 @@ pub fn unpack_all(expected_dir: &Path, output_dir: &Path, pack_dir: &Path) -> an
         let mut model_categories = HashMap::new();
         if let Some(jag) = &config_jag {
             debug!("Unpacking config...");
-            let packs = config::unpack_config(jag, output_dir, pack_dir, model_textures.clone())?;
+            let config_dir = output_dir.join("scripts/globalscript/_unpack");
+            fs::create_dir_all(&config_dir)?;
+            let packs = config::unpack_config(jag, &config_dir, pack_dir, model_textures.clone())?;
 
             for (name, expected) in CONFIG_TYPE_CRCS {
                 if let Some(dat) = jag.read(&format!("{name}.dat")) {
@@ -258,8 +268,8 @@ pub fn unpack_all(expected_dir: &Path, output_dir: &Path, pack_dir: &Path) -> an
 
                     let registry = PackRegistry::load(Path::new(PACK_DIR))
                         .expect("load pack registry for interface unpack");
-                    let src_scripts_dir = Path::new(CONTENT_DIR).join("scripts");
-                    let out_scripts_dir = output_dir.join("scripts");
+                    let src_scripts_dir = Path::new(CONTENT_DIR).join("scripts/runescript");
+                    let out_scripts_dir = output_dir.join("scripts/runescript");
                     interface::unpack_interface(
                         jag,
                         &src_scripts_dir,
@@ -398,7 +408,7 @@ pub fn unpack_all(expected_dir: &Path, output_dir: &Path, pack_dir: &Path) -> an
 #[cfg(before_647)]
 fn pack_committed_configs() -> anyhow::Result<HashMap<String, PackedFile>> {
     let registry = PackRegistry::load(Path::new(PACK_DIR))?;
-    pack_assets(&registry, Path::new(CONTENT_DIR), false)
+    pack_assets(&registry, &Path::new(CONTENT_DIR).join("scripts"), false)
 }
 
 #[cfg(before_647)]
@@ -685,10 +695,36 @@ pub fn pack_jag_from_raw(raw_dir: &Path, compression: JagCompression) -> Vec<u8>
 }
 
 #[cfg(since_647)]
-fn unpack_cache(expected_dir: &Path, output_dir: &Path, pack_dir: &Path) -> Result<()> {
-    fs::create_dir_all(output_dir)?;
+fn prepare_pack(pack_dir: &Path) -> Result<()> {
     fs::create_dir_all(pack_dir)?;
-    let scripts_dir = output_dir.join("scripts");
+    for entry in fs::read_dir(PACK_DIR)? {
+        let entry = entry?;
+        let path = entry.path();
+        let target = pack_dir.join(entry.file_name());
+        if path.extension().is_some_and(|ext| ext == "pack") && !target.exists() {
+            fs::copy(path, target)?;
+        }
+    }
+    Ok(())
+}
+
+#[cfg(since_647)]
+fn unpack_cache(expected_dir: &Path, output_dir: &Path, pack_dir: &Path) -> Result<()> {
+    let configs = FileCache::new(&output_dir.join("scripts"));
+    if let Some(path) = CONFIG_TYPE_CRCS
+        .iter()
+        .map(|(kind, _)| *kind)
+        .chain(FileCache::TEXT_EXTS.iter().copied())
+        .find_map(|kind| configs.collect(kind).first())
+    {
+        bail!(
+            "Output already contains configs at {}. Unpack into an empty directory and reconcile changes with the existing definitions.",
+            path.display()
+        );
+    }
+    fs::create_dir_all(output_dir)?;
+    prepare_pack(pack_dir)?;
+    let scripts_dir = output_dir.join("scripts/globalscript");
     fs::create_dir_all(scripts_dir.join("_unpack"))?;
     let mut results: Vec<StepResult> = Vec::new();
     info!("Discovering pack registries from cache...");
@@ -698,10 +734,10 @@ fn unpack_cache(expected_dir: &Path, output_dir: &Path, pack_dir: &Path) -> Resu
         let store = Js5Store::open(expected_dir)?;
         asset::unpack_metadata(&store, pack_dir, output_dir).map(|n| format!("{n} archives"))
     });
+    unpack_configs(&mut results, expected_dir, pack_dir, &scripts_dir);
     step(&mut results, "clientscripts", || {
         cs2::unpack_cs2_scripts(expected_dir, output_dir, pack_dir).map(|n| format!("{n} scripts"))
     });
-    unpack_configs(&mut results, expected_dir, pack_dir, &scripts_dir);
     step(&mut results, "maps", || {
         let mut store = Js5Store::open(expected_dir)?;
         map::unpack_maps(&mut store, expected_dir, output_dir, pack_dir)
@@ -728,9 +764,10 @@ fn unpack_configs(
     // raw hex dumps.
     step(results, "generic config groups", || {
         let mut store = Js5Store::open(cache_dir)?;
+        let seq = PackFile::load(&pack_dir.join("seq.pack"))?;
         for &(group_id, type_name) in generic::KNOWN_CONFIG_GROUPS {
             info!("  Unpacking {type_name} (group {group_id})...");
-            generic::unpack_config_group(&mut store, group_id, type_name, &config_out)?;
+            generic::unpack_config_group(&mut store, group_id, type_name, &config_out, &seq)?;
         }
         for &group_id in CONFIG_UNKNOWN_GROUPS {
             info!("  Unpacking config{group_id} (raw)...");

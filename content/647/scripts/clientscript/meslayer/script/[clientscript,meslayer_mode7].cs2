@@ -1,0 +1,15 @@
+[clientscript,meslayer_mode7](string $string)
+if (getwindowmode >= 2) {
+    if_sethide(false, toplevel_fullscreen:com_chatbox);
+}
+if_sethide(false, chatbox:com3);
+if_sethide(true, chatbox:com7);
+if_sethide(true, chatbox:com8);
+if_settext($string, chatbox:com4);
+%varc_int_5 = 7;
+~meslayer_setupinput("");
+if_setonclick(null, chatbox:com3);
+~clientscript_2026;
+if_setonkey("meslayer_onkey(^event_key, ^event_keychar)", chatbox:com5);
+if_sethook1423("meslayer_ondialogabort()", chatbox:com5);
+~opt_header;

@@ -1,0 +1,9 @@
+[proc,bank_v2_hide_all]
+def_int $int = 0;
+while ($int < inv_size(bank)) {
+    if (cc_find(bank_v2_main:com93, $int) = true) {
+        cc_sethide(true);
+        cc_setposition(0, 0, ^setpos_abs_left, ^setpos_abs_top);
+    }
+    $int = calc($int + 1);
+}

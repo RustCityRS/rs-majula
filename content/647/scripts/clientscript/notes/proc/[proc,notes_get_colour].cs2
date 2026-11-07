@@ -1,0 +1,66 @@
+[proc,notes_get_colour](int $int0)(colour)
+def_colour $colour1 = ^white;
+switch_int ($int0) {
+    case 0:
+        $colour1 = ~notes_convert_colour(%varbit_6316);
+    case 1:
+        $colour1 = ~notes_convert_colour(%varbit_6317);
+    case 2:
+        $colour1 = ~notes_convert_colour(%varbit_6318);
+    case 3:
+        $colour1 = ~notes_convert_colour(%varbit_6319);
+    case 4:
+        $colour1 = ~notes_convert_colour(%varbit_6320);
+    case 5:
+        $colour1 = ~notes_convert_colour(%varbit_6321);
+    case 6:
+        $colour1 = ~notes_convert_colour(%varbit_6322);
+    case 7:
+        $colour1 = ~notes_convert_colour(%varbit_6323);
+    case 8:
+        $colour1 = ~notes_convert_colour(%varbit_6324);
+    case 9:
+        $colour1 = ~notes_convert_colour(%varbit_6325);
+    case 10:
+        $colour1 = ~notes_convert_colour(%varbit_6326);
+    case 11:
+        $colour1 = ~notes_convert_colour(%varbit_6327);
+    case 12:
+        $colour1 = ~notes_convert_colour(%varbit_6328);
+    case 13:
+        $colour1 = ~notes_convert_colour(%varbit_6329);
+    case 14:
+        $colour1 = ~notes_convert_colour(%varbit_6330);
+    case 15:
+        $colour1 = ~notes_convert_colour(%varbit_6331);
+    case 16:
+        $colour1 = ~notes_convert_colour(%varbit_6332);
+    case 17:
+        $colour1 = ~notes_convert_colour(%varbit_6333);
+    case 18:
+        $colour1 = ~notes_convert_colour(%varbit_6334);
+    case 19:
+        $colour1 = ~notes_convert_colour(%varbit_6335);
+    case 20:
+        $colour1 = ~notes_convert_colour(%varbit_6336);
+    case 21:
+        $colour1 = ~notes_convert_colour(%varbit_6337);
+    case 22:
+        $colour1 = ~notes_convert_colour(%varbit_6338);
+    case 23:
+        $colour1 = ~notes_convert_colour(%varbit_6339);
+    case 24:
+        $colour1 = ~notes_convert_colour(%varbit_6340);
+    case 25:
+        $colour1 = ~notes_convert_colour(%varbit_6341);
+    case 26:
+        $colour1 = ~notes_convert_colour(%varbit_6342);
+    case 27:
+        $colour1 = ~notes_convert_colour(%varbit_6343);
+    case 28:
+        $colour1 = ~notes_convert_colour(%varbit_6344);
+    case 29:
+        $colour1 = ~notes_convert_colour(%varbit_6345);
+}
+return($colour1);
+return(^black);

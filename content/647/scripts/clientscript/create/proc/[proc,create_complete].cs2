@@ -1,0 +1,52 @@
+[proc,create_complete]
+if_openoverlay(48758833, 669);
+if_setgraphic(runescape_logo, account_create_success:com27);
+if_setgraphic("corner_frame_1,0", account_create_success:com28);
+if_setvflip(false, account_create_success:com28);
+if_sethflip(true, account_create_success:com28);
+if_setgraphic("corner_frame_1,0", account_create_success:com29);
+if_setvflip(false, account_create_success:com29);
+if_sethflip(false, account_create_success:com29);
+if_setgraphic("corner_frame_1,2", account_create_success:com21);
+if_setvflip(false, account_create_success:com21);
+if_sethflip(true, account_create_success:com21);
+if_setgraphic("corner_frame_1,2", account_create_success:com26);
+if_setvflip(false, account_create_success:com26);
+if_sethflip(false, account_create_success:com26);
+def_string $string0 = "";
+def_int $int0 = op4125(if_gettext(account_create_success:com48), 3793);
+if_setsize($int0, if_getheight(account_create_success:com7), ^setsize_abs, ^setsize_abs, account_create_success:com7);
+def_int $int1 = op4125(if_gettext(account_create_success:com49), 3793);
+if_setsize($int1, if_getheight(account_create_success:com9), ^setsize_abs, ^setsize_abs, account_create_success:com9);
+def_int $int2 = op4125(if_gettext(account_create_success:com8), 3793);
+if_setsize($int2, if_getheight(account_create_success:com8), ^setsize_abs, ^setsize_abs, account_create_success:com8);
+def_string $string1 = if_gettext(account_create_success:com8);
+if_settext(append(append(if_gettext(account_create_success:com48), append(" ", append(if_gettext(account_create_success:com8), " "))), if_gettext(account_create_success:com49)), account_create_success:com8);
+if_setposition(0, if_gety(account_create_success:com8), ^setpos_abs_centre, ^setpos_abs_top, account_create_success:com8);
+if_setsize(op4125(if_gettext(account_create_success:com8), 3793), if_getheight(account_create_success:com8), ^setsize_abs, ^setsize_abs, account_create_success:com8);
+if_setposition(if_getx(account_create_success:com8), if_gety(account_create_success:com7), ^setpos_abs_left, ^setpos_abs_top, account_create_success:com7);
+if_settext($string1, account_create_success:com8);
+if_setsize($int2, if_getheight(account_create_success:com8), ^setsize_abs, ^setsize_abs, account_create_success:com8);
+if_setposition(calc(if_getx(account_create_success:com7) + if_getwidth(account_create_success:com7) + op4125(" ", 3793)), if_gety(account_create_success:com8), ^setpos_abs_left, ^setpos_abs_top, account_create_success:com8);
+if_setposition(calc(if_getx(account_create_success:com8) + if_getwidth(account_create_success:com8) + op4125(" ", 3793)), if_gety(account_create_success:com9), ^setpos_abs_left, ^setpos_abs_top, account_create_success:com9);
+if (%varc_int_1407 < 13) {
+    if_sethide(true, account_create_success:com14);
+    if_sethide(true, account_create_success:com27);
+    if_sethide(false, account_create_success:com13);
+    if_settext("Congratulations, your account has been created successfully!", account_create_success:com18);
+} else {
+    if_sethide(false, account_create_success:com14);
+    if_sethide(false, account_create_success:com27);
+    if_sethide(true, account_create_success:com13);
+    if_settext("Congratulations, your account has been successfully created and your welcome email will arrive shortly!", account_create_success:com18);
+}
+def_string $string2 = "dob";
+def_string $string3 = "set_members_dob.ws";
+if (%varc_int_1088 = true) {
+    $string0 = "Continue To Buy";
+    if_setonclick("loginscreen_link($string2, $string3, false)", account_create_success:com40);
+} else {
+    $string0 = "Continue";
+    if_setonclick("loginscreen_setactivemenu(12)", account_create_success:com40);
+}
+~loginscreen_setactivemenu(8);

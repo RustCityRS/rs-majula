@@ -1,0 +1,6 @@
+[proc,clientscript_4353](component $component)
+if (%varbit_9139 = %varp_2128) {
+    if_setgraphic("aif_checkbox_small,0", $component);
+} else {
+    if_setgraphic("aif_checkbox_small,4", $component);
+}

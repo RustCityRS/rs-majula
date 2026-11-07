@@ -1,0 +1,21 @@
+[proc,clientscript_1628]
+%varc_int_1033 = 0;
+def_int $int0 = calc(coordx(coord) - coordx(coord) % 64);
+def_int $int1 = calc(coordz(coord) - coordz(coord) % 64);
+def_coord $coord2 = coordpack(0_0_0_0_0, $int0, 0, $int1);
+cam_allocpath(0, 6);
+cam_addwaypoint(0, 0, coordpack($coord2, 22, 0, 9), 450, coordpack($coord2, 22, 0, 9), 400, 0);
+cam_addwaypoint(0, 1, coordpack($coord2, 13, 0, 17), 450, coordpack($coord2, 13, 0, 7), 400, 0);
+cam_addwaypoint(0, 2, coordpack($coord2, 17, 0, 20), 550, coordpack($coord2, 17, 0, 20), 600, 0);
+cam_addwaypoint(0, 3, coordpack($coord2, 17, 0, 20), 650, coordpack($coord2, 17, 0, 20), 700, 0);
+cam_addwaypoint(0, 4, coordpack($coord2, 24, 0, 19), 450, coordpack($coord2, 24, 0, 19), 500, 0);
+cam_addwaypoint(0, 5, coordpack($coord2, 26, 0, 12), 450, coordpack($coord2, 26, 0, 12), 500, 0);
+cam_allocpath(1, 6);
+cam_addwaypoint(1, 0, coordpack($coord2, 8, 0, 12), 300, coordpack($coord2, 8, 0, 12), 300, 0);
+cam_addwaypoint(1, 1, coordpack($coord2, 8, 0, 20), 300, coordpack($coord2, 8, 0, 20), 300, 0);
+cam_addwaypoint(1, 2, coordpack($coord2, 8, 0, 12), 300, coordpack($coord2, 8, 0, 12), 300, 0);
+cam_addwaypoint(1, 3, coordpack($coord2, 8, 0, 28), 300, coordpack($coord2, 8, 0, 28), 300, 0);
+cam_addwaypoint(1, 4, coordpack($coord2, 30, 0, 16), 300, coordpack($coord2, 30, 0, 16), 300, 0);
+cam_addwaypoint(1, 5, coordpack($coord2, 30, 0, 16), 400, coordpack($coord2, 30, 0, 16), 400, 0);
+if_setonchattransmit_2426("clientscript_1631()", fd205343:com0);
+cam_startpath(0, 0, 200, 200, 1, 0);

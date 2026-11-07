@@ -1,0 +1,5 @@
+[proc,clientscript_3684]
+if (%varbit_4393 = true | %varbit_542 = true) {
+    return;
+}
+~addtooltip_action(music_v3:com10, music_v3:com16, "Click here to search for a song", 25, 189);

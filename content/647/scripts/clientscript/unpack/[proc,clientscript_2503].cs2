@@ -1,0 +1,4 @@
+[proc,clientscript_2503]
+if (%varc_int_837 > 0 & %varc_int_837 <= 9) {
+    if_settext(enum(105, 115, enum_2403, %varc_int_837), ad4580426:com33);
+}

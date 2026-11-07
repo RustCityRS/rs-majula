@@ -1,0 +1,5 @@
+[clientscript,fishcomp_rewards_shop_init]
+if_setonvarctransmit("fishcomp_rewards_shop_refresh(){varc_int_1118, varc_int_1119, varc_int_1120, varc_int_1121}", fishcomp_rewards_shop:com0);
+if_setonvartransmit("fishcomp_rewards_shop_refresh(){varp_1660, varp_1661}", fishcomp_rewards_shop:com0);
+if_settext(tostring(%varbit_7285), fishcomp_rewards_shop:com78);
+return;

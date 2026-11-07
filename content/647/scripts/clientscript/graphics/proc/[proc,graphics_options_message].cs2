@@ -1,0 +1,33 @@
+[proc,graphics_options_message](int $int0, int $int1, string $string0, string $string1, string $string2)
+def_int $int2 = 0;
+if ($int0 = true) {
+    if (string_length($string0) > 0) {
+        $int2 = string_indexof_string($string0, "<br>", 0);
+        if ($int2 = -1) {
+            mes($string0);
+            return;
+        }
+        mes(substring($string0, 0, $int2));
+    }
+    return;
+} else if ($int0 = 2) {
+    if_settext(~find_and_replace_single($string0, "<br>", " "), graphics_options_client:com7);
+    ~lobbyscreen_input_full("", $string0, 0, -1, "", $string1, 0);
+    if (string_length($string1) > 0) {
+        if_setonclick("openurl_nologin($string2, true)", lobbyscreen:com142);
+    } else {
+        if_setonclick(null, lobbyscreen:com142);
+    }
+    return;
+}
+if_settext(~find_and_replace_single($string0, "<br>", " "), graphics_options_client:com7);
+if_settext($string0, loginscreen:com76);
+if_setonclick("loginscreen_setactivemenu_full(6, false, true)", loginscreen:com79);
+if (string_length($string1) > 0) {
+    if_settext($string1, loginscreen:com78);
+    if_setonclick("openurl_nologin($string2, true)", loginscreen:com78);
+} else {
+    if_settext("", loginscreen:com78);
+    if_setonclick(null, loginscreen:com77);
+}
+~loginscreen_setactivemenu(9);

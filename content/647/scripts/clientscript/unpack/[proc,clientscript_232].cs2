@@ -1,0 +1,14 @@
+[proc,clientscript_232]
+if_sethide(true, snapshot_main_v2:com62);
+if_sethide(true, snapshot_main_v2:com117);
+if_sethide(true, snapshot_main_v2:com121);
+if_sethide(true, snapshot_main_v2:com34);
+if (if_gethide(snapshot_main_v2:com61) = false) {
+    if_sethide(false, snapshot_main_v2:com62);
+} else if (if_gethide(snapshot_main_v2:com104) = false) {
+    if_sethide(false, snapshot_main_v2:com117);
+} else if (if_gethide(snapshot_main_v2:com120) = false) {
+    if_sethide(false, snapshot_main_v2:com121);
+} else if (if_gethide(snapshot_main_v2:com33) = false) {
+    if_sethide(false, snapshot_main_v2:com34);
+}

@@ -1,0 +1,135 @@
+[proc,clientscript_3971]
+def_struct $struct0 = null;
+def_int $int1 = 0;
+def_int $int2 = 0;
+def_graphic $graphic3 = null;
+def_component $component4 = null;
+def_int $int5 = 0;
+def_graphic $graphic6 = null;
+def_component $component7 = null;
+def_graphic $graphic8 = null;
+def_component $component9 = null;
+def_component $component10 = null;
+def_int $int11 = -1;
+def_int $int12 = 0;
+def_string $string = "null";
+if_setgraphic(enum(105, 100, enum_3491, %varbit_8575), task_side:com112);
+if (%varbit_9030 = true) {
+    if_setgraphic("stonemenusideicons,3", task_side:com112);
+}
+while ($int2 < 6) {
+    switch_int ($int2) {
+        case 0:
+            $int1 = %varbit_8587;
+            $struct0 = enum(105, 74, enum_3483, %varbit_8587);
+            $component4 = task_side:com64;
+            $component9 = task_side:com101;
+            $component7 = task_side:com100;
+            $component10 = task_side:com99;
+            if_setonop("clientscript_3976(%varbit_8587, 1, ^event_op)", $component10);
+        case 1:
+            $int1 = %varbit_8588;
+            $struct0 = enum(105, 74, enum_3483, %varbit_8588);
+            $component4 = task_side:com144;
+            $component9 = task_side:com146;
+            $component7 = task_side:com145;
+            $component10 = task_side:com142;
+            if_setonop("clientscript_3976(%varbit_8588, 2, ^event_op)", $component10);
+        case 2:
+            $int1 = %varbit_8589;
+            $struct0 = enum(105, 74, enum_3483, %varbit_8589);
+            $component4 = task_side:com149;
+            $component9 = task_side:com151;
+            $component7 = task_side:com150;
+            $component10 = task_side:com147;
+            if_setonop("clientscript_3976(%varbit_8589, 3, ^event_op)", $component10);
+        case 3:
+            $int1 = %varbit_8590;
+            $struct0 = enum(105, 74, enum_3483, %varbit_8590);
+            $component4 = task_side:com154;
+            $component9 = task_side:com156;
+            $component7 = task_side:com155;
+            $component10 = task_side:com152;
+            if_setonop("clientscript_3976(%varbit_8590, 4, ^event_op)", $component10);
+        case 4:
+            $int1 = %varbit_8591;
+            $struct0 = enum(105, 74, enum_3483, %varbit_8591);
+            $component4 = task_side:com159;
+            $component9 = task_side:com161;
+            $component7 = task_side:com160;
+            $component10 = task_side:com157;
+            if_setonop("clientscript_3976(%varbit_8591, 5, ^event_op)", $component10);
+        case 5:
+            $int1 = %varbit_8592;
+            $struct0 = enum(105, 74, enum_3483, %varbit_8592);
+            $component4 = task_side:com165;
+            $component9 = task_side:com167;
+            $component7 = task_side:com166;
+            $component10 = task_side:com162;
+            if_setonop("clientscript_3976(%varbit_8592, 6, ^event_op)", $component10);
+    }
+    $string = " -<br>";
+    $string = append(struct_param($struct0, param_1266), $string);
+    $string = append($string, struct_param($struct0, param_1273));
+    if (%varbit_4895 = 3 & (%learning_the_ropes < 1000 | %varbit_6494 < 5)) {
+        $string = struct_param($struct0, param_1266);
+    }
+    if (~clientscript_3999($int1) = false) {
+        if_setonmouserepeat("task_side_list_tooltip($component10, $string)", $component10);
+    } else {
+        if_setonmouserepeat(null, $component10);
+    }
+    $int12 = calc($int2 + 1);
+    if (%varbit_8577 = $int12 & ~clientscript_3999(%varbit_8576) = false) {
+        $struct0 = enum(105, 74, enum_3483, %varbit_8576);
+        if_setonop("clientscript_3976(%varbit_8576, $int12, ^event_op)", $component10);
+        if (~clientscript_3999($int1) = false) {
+            if_setonmouserepeat("task_side_list_tooltip($component10, $string)", $component10);
+        } else {
+            if_setonmouserepeat(null, $component10);
+        }
+    }
+    if ($struct0 ! null) {
+        $graphic8 = enum(105, 100, enum_3492, struct_param($struct0, param_1272));
+        if (~task_requirements_quick($int1) = false & ~clientscript_3999($int1) = false) {
+            $graphic8 = symbol_lock;
+        }
+        if_setgraphic($graphic8, $component9);
+        $int5 = struct_param($struct0, param_1293);
+        if ($int5 ! 0 & $int5 ! 63) {
+            $graphic6 = small_compass;
+        } else {
+            $graphic6 = null;
+        }
+        if_setgraphic($graphic6, $component7);
+        if (struct_param($struct0, param_1270) ! 4094) {
+            $graphic3 = struct_param(enum(105, 74, enum_2252, struct_param($struct0, param_1270)), param_952);
+        } else {
+            $graphic3 = struct_param($struct0, param_1271);
+        }
+        if_setgraphic($graphic3, $component4);
+        if ($struct0 = struct_1645 | ($struct0 = struct_1642 | $struct0 = struct_1643)) {
+            if_setop(1, "", $component10);
+            if_setop(2, "", $component10);
+        } else {
+            if_setop(1, "Summary", $component10);
+            if_setop(2, "Pin/Unpin Task", $component10);
+        }
+        if (%learning_the_ropes < 1000) {
+            if_setop(2, "", $component10);
+        }
+    }
+    $int2 = calc($int2 + 1);
+}
+if_sethide(false, task_side:com111);
+if_sethide(false, task_side:com112);
+if (%varbit_8575 = 61) {
+    if_settext("Quest Area", task_side:com110);
+    if_sethide(true, task_side:com111);
+    if_sethide(true, task_side:com112);
+} else if (%varbit_9030 = true) {
+    if_settext("Introductory Tasks", task_side:com110);
+} else {
+    if_settext(enum(105, 115, enum_3487, %varbit_8575), task_side:com110);
+}
+~clientscript_3975;

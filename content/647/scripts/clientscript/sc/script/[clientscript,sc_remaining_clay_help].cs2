@@ -1,0 +1,6 @@
+[clientscript,sc_remaining_clay_help]
+if (if_gethide(sc_remaining_clay:com122) = true) {
+    if_sethide(false, sc_remaining_clay:com122);
+} else {
+    if_sethide(true, sc_remaining_clay:com122);
+}

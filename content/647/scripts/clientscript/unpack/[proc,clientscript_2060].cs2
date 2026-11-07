@@ -1,0 +1,12 @@
+[proc,clientscript_2060](component $component0)
+def_struct $struct1 = enum(105, 74, enum_2162, %varbit_357);
+def_int $int2 = enum(73, 105, struct_param($struct1, param_664), $component0);
+def_component $component3 = struct_param($struct1, param_661);
+if ($component3 ! null) {
+    ~deltooltip_action($component3);
+}
+if ($int2 = %varc_int_631) {
+    if_setgraphic(1703, $component0);
+} else {
+    if_setgraphic(1701, $component0);
+}

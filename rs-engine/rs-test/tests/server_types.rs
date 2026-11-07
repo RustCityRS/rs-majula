@@ -32,7 +32,7 @@ fn pack_ids(kind: &str) -> HashMap<String, u16> {
 fn memberops(kind: &str) -> Vec<(String, usize, String)> {
     let mut out = Vec::new();
     let mut name = String::new();
-    for line in content(&format!("scripts/_unpack/all.{kind}")).lines() {
+    for line in content(&format!("scripts/runescript/_unpack/all.{kind}")).lines() {
         if let Some(h) = line.strip_prefix('[').and_then(|l| l.strip_suffix(']')) {
             name = h.to_string();
         } else if let Some(rest) = line.strip_prefix("memberop")

@@ -1,21 +1,7 @@
-//! Every npc, obj and loc config section in `content/647` names one 647 has.
-//!
-//! An overlay's `[name]` is matched to the cache entity of that name. A name
-//! 647 does not have -- a 289 name the port kept where 2011 renamed or
-//! reworked the entity -- packs nothing, silently: 289's `[giantrat]` gave
-//! 2011's giant rat (`giant_rat`, 86) neither its stats nor its drop table's
-//! category until it was merged.
-//!
-//! `config_sections_647.known.tsv` lists the sections no 647 entity matches
-//! yet, each a known gap; this fails on one it does not list, and on a listed
-//! one that now resolves.
-//!
-//! ```text
-//! cargo test -p rs-pack --test config_sections_647
-//! ```
-
+//! Every npc, obj and loc definition names a registered entity or a documented gap.
 #![cfg(since_647)]
 
+use rs_pack::pack::pack::collect_config_files;
 use std::collections::{BTreeMap, BTreeSet};
 use std::fs;
 use std::path::{Path, PathBuf};
@@ -41,26 +27,6 @@ fn registry(kind: &str) -> BTreeSet<String> {
         .collect()
 }
 
-/// Every overlay of one kind: `content/647/scripts/**/*.<kind>`, the
-/// unpacked cache left out.
-fn overlays(kind: &str) -> Vec<PathBuf> {
-    fn walk(dir: &Path, ext: &str, out: &mut Vec<PathBuf>) {
-        for entry in fs::read_dir(dir).unwrap_or_else(|e| panic!("read {}: {e}", dir.display())) {
-            let path = entry.expect("dir entry").path();
-            if path.is_dir() {
-                if path.file_name().and_then(|n| n.to_str()) != Some("_unpack") {
-                    walk(&path, ext, out);
-                }
-            } else if path.extension().and_then(|e| e.to_str()) == Some(ext) {
-                out.push(path);
-            }
-        }
-    }
-    let mut out = Vec::new();
-    walk(&repo_root().join("content/647/scripts"), kind, &mut out);
-    out
-}
-
 #[test]
 fn every_config_section_names_something() {
     let root = repo_root();
@@ -69,7 +35,7 @@ fn every_config_section_names_something() {
     let mut checked = 0;
     for kind in KINDS {
         let names = registry(kind);
-        for path in overlays(kind) {
+        for path in collect_config_files(&root.join("content/647/scripts"), kind) {
             let rel = path
                 .strip_prefix(&root)
                 .unwrap_or(path.as_path())

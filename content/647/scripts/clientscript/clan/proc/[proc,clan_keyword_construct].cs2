@@ -1,0 +1,12 @@
+[proc,clan_keyword_construct](component $component0, component $component1, int $int2, int $int3)
+def_enum $enum4 = null;
+if ($int2 > 0 & $int3 > 0) {
+    $enum4 = enum(105, 103, enum_3703, $int2);
+    if ($enum4 ! null) {
+        if_settext(enum(105, 115, $enum4, $int3), $component0);
+        if_sethide(false, $component1);
+        return;
+    }
+}
+if_settext("", $component0);
+if_sethide(true, $component1);

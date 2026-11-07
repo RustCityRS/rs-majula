@@ -1,0 +1,236 @@
+[proc,side_if_open](int $int)
+if (%varc_int_1413 = false & $int ! 99) {
+    return;
+}
+~clientscript_4249($int);
+if (getwindowmode >= 2) {
+    if (if_hasoverlay(toplevel_fullscreen:com_overlay_tab) = true) {
+        if ($int ! 98 | if_hasoverlay(toplevel_fullscreen:com85) = false) {
+            if_sethide(false, toplevel_fullscreen:com_overlay_tab);
+            if_sethide(true, toplevel_fullscreen:com85);
+            if_sethide(false, toplevel_fullscreen:com83);
+            if_sethide(true, toplevel_fullscreen:com86);
+        } else {
+            if_sethide(true, toplevel_fullscreen:com_overlay_tab);
+            if_sethide(false, toplevel_fullscreen:com85);
+            if_sethide(false, toplevel_fullscreen:com83);
+            if_sethide(true, toplevel_fullscreen:com86);
+        }
+    } else {
+        if_sethide(true, toplevel_fullscreen:com_overlay_tab);
+        if_sethide(false, toplevel_fullscreen:com86);
+        if ($int ! 2) {
+            ~stats_side_reset;
+        }
+        switch_int ($int) {
+            case 0:
+                if_setgraphic(1836, toplevel_fullscreen:com36);
+                if_sethide(false, toplevel_fullscreen:com_tab0);
+                if_setgraphic(1841, toplevel_fullscreen:com129);
+                if_setgraphic(1840, toplevel_fullscreen:com130);
+                if_sethide(false, toplevel_fullscreen:com83);
+            case 1:
+                if_setgraphic(1836, toplevel_fullscreen:com37);
+                if_sethide(false, toplevel_fullscreen:com_tab1);
+                if_setgraphic(1841, toplevel_fullscreen:com131);
+                if_setgraphic(1840, toplevel_fullscreen:com132);
+                if_sethide(false, toplevel_fullscreen:com83);
+            case 2:
+                if_setgraphic(1836, toplevel_fullscreen:com38);
+                if_setgraphic(1841, toplevel_fullscreen:com133);
+                if_setgraphic(1840, toplevel_fullscreen:com134);
+                if_sethide(false, toplevel_fullscreen:com_tab2);
+                if_sethide(false, toplevel_fullscreen:com83);
+                ~stats_side_resize;
+            case 3:
+                if_setgraphic(1836, toplevel_fullscreen:com39);
+                if_setgraphic(1841, toplevel_fullscreen:com135);
+                if_setgraphic(1840, toplevel_fullscreen:com136);
+                if_sethide(false, toplevel_fullscreen:com_tab3);
+                if_sethide(false, toplevel_fullscreen:com83);
+            case 4:
+                if_setgraphic(1836, toplevel_fullscreen:com40);
+                if_setgraphic(1841, toplevel_fullscreen:com137);
+                if_setgraphic(1840, toplevel_fullscreen:com138);
+                if_sethide(false, toplevel_fullscreen:com_tab4);
+                if_sethide(false, toplevel_fullscreen:com83);
+            case 5:
+                if_setgraphic(1836, toplevel_fullscreen:com41);
+                if_setgraphic(1841, toplevel_fullscreen:com139);
+                if_setgraphic(1840, toplevel_fullscreen:com140);
+                if_sethide(false, toplevel_fullscreen:com_tab5);
+                if_sethide(false, toplevel_fullscreen:com83);
+            case 6:
+                if_setgraphic(1836, toplevel_fullscreen:com42);
+                if_setgraphic(1841, toplevel_fullscreen:com141);
+                if_setgraphic(1840, toplevel_fullscreen:com142);
+                if_sethide(false, toplevel_fullscreen:com_tab6);
+                if_sethide(false, toplevel_fullscreen:com83);
+            case 7:
+                if_setgraphic(1836, toplevel_fullscreen:com43);
+                if_setgraphic(1841, toplevel_fullscreen:com143);
+                if_setgraphic(1840, toplevel_fullscreen:com144);
+                if_sethide(false, toplevel_fullscreen:com_tab7);
+                if_sethide(false, toplevel_fullscreen:com83);
+            case 8:
+                if_setgraphic(1836, toplevel_fullscreen:com44);
+                if_setgraphic(1841, toplevel_fullscreen:com145);
+                if_setgraphic(1840, toplevel_fullscreen:com146);
+                if_sethide(false, toplevel_fullscreen:com_tab8);
+                if_sethide(false, toplevel_fullscreen:com83);
+            case 9:
+                if_setgraphic(1836, toplevel_fullscreen:com45);
+                if_setgraphic(1841, toplevel_fullscreen:com147);
+                if_setgraphic(1840, toplevel_fullscreen:com148);
+                if_sethide(false, toplevel_fullscreen:com_tab9);
+                if_sethide(false, toplevel_fullscreen:com83);
+            case 10:
+                if_setgraphic(1836, toplevel_fullscreen:com46);
+                if_setgraphic(1841, toplevel_fullscreen:com149);
+                if_setgraphic(1840, toplevel_fullscreen:com150);
+                if_sethide(false, toplevel_fullscreen:com_tab10);
+                if_sethide(false, toplevel_fullscreen:com83);
+            case 11:
+                if_setgraphic(1836, toplevel_fullscreen:com47);
+                if_setgraphic(1841, toplevel_fullscreen:com151);
+                if_setgraphic(1840, toplevel_fullscreen:com152);
+                if_sethide(false, toplevel_fullscreen:com_tab11);
+                if_sethide(false, toplevel_fullscreen:com83);
+            case 12:
+                if_setgraphic(1836, toplevel_fullscreen:com48);
+                if_setgraphic(1841, toplevel_fullscreen:com153);
+                if_setgraphic(1840, toplevel_fullscreen:com154);
+                if_sethide(false, toplevel_fullscreen:com_tab12);
+                if_sethide(false, toplevel_fullscreen:com83);
+            case 13:
+                if_setgraphic(1836, toplevel_fullscreen:com49);
+                if_setgraphic(1841, toplevel_fullscreen:com155);
+                if_setgraphic(1840, toplevel_fullscreen:com156);
+                if_sethide(false, toplevel_fullscreen:com_tab13);
+                if_sethide(false, toplevel_fullscreen:com83);
+            case 14:
+                if_setgraphic(1836, toplevel_fullscreen:com50);
+                if_setgraphic(1841, toplevel_fullscreen:com157);
+                if_setgraphic(1840, toplevel_fullscreen:com158);
+                if_sethide(false, toplevel_fullscreen:com_tab14);
+                if_sethide(false, toplevel_fullscreen:com83);
+            case 15:
+                if_setgraphic(1836, toplevel_fullscreen:com51);
+                if_setgraphic(1841, toplevel_fullscreen:com159);
+                if_setgraphic(1840, toplevel_fullscreen:com160);
+                if_sethide(false, toplevel_fullscreen:com_tab15);
+                if_sethide(false, toplevel_fullscreen:com83);
+            case 98:
+                if_sethide(false, toplevel_fullscreen:com85);
+                if_sethide(false, toplevel_fullscreen:com83);
+            case 95:
+                if_sethide(false, toplevel_fullscreen:com104);
+                if_sethide(false, toplevel_fullscreen:com83);
+            case 99:
+                if_sethide(false, toplevel_fullscreen:com105);
+                if_sethide(false, toplevel_fullscreen:com83);
+        }
+    }
+} else if (if_hasoverlay(toplevel:com_overlay_tab) = true) {
+    if ($int ! 98 | if_hasoverlay(toplevel:com199) = false) {
+        if_sethide(false, toplevel:com_overlay_tab);
+        if_sethide(true, toplevel:com199);
+        if_sethide(true, toplevel:com200);
+    } else {
+        if_sethide(true, toplevel:com_overlay_tab);
+        if_sethide(false, toplevel:com199);
+        if_sethide(true, toplevel:com200);
+    }
+} else {
+    if_sethide(true, toplevel:com_overlay_tab);
+    if_sethide(false, toplevel:com200);
+    switch_int ($int) {
+        case 0:
+            if_setgraphic(1836, toplevel:com128);
+            if_setgraphic(1841, toplevel:com146);
+            if_setgraphic(1840, toplevel:com147);
+            if_sethide(false, toplevel:com_tab0);
+        case 1:
+            if_setgraphic(1836, toplevel:com129);
+            if_setgraphic(1841, toplevel:com148);
+            if_setgraphic(1840, toplevel:com149);
+            if_sethide(false, toplevel:com_tab1);
+        case 2:
+            if_setgraphic(1836, toplevel:com130);
+            if_setgraphic(1841, toplevel:com150);
+            if_setgraphic(1840, toplevel:com151);
+            if_sethide(false, toplevel:com_tab2);
+            ~stats_side_reset;
+        case 3:
+            if_setgraphic(1836, toplevel:com131);
+            if_setgraphic(1841, toplevel:com152);
+            if_setgraphic(1840, toplevel:com153);
+            if_sethide(false, toplevel:com_tab3);
+        case 4:
+            if_setgraphic(1836, toplevel:com132);
+            if_setgraphic(1841, toplevel:com154);
+            if_setgraphic(1840, toplevel:com155);
+            if_sethide(false, toplevel:com_tab4);
+        case 5:
+            if_setgraphic(1836, toplevel:com133);
+            if_setgraphic(1841, toplevel:com156);
+            if_setgraphic(1840, toplevel:com157);
+            if_sethide(false, toplevel:com_tab5);
+        case 6:
+            if_setgraphic(1836, toplevel:com134);
+            if_setgraphic(1841, toplevel:com158);
+            if_setgraphic(1840, toplevel:com159);
+            if_sethide(false, toplevel:com_tab6);
+        case 7:
+            if_setgraphic(1836, toplevel:com135);
+            if_setgraphic(1841, toplevel:com160);
+            if_setgraphic(1840, toplevel:com161);
+            if_sethide(false, toplevel:com_tab7);
+        case 8:
+            if_setgraphic(1836, toplevel:com98);
+            if_setgraphic(1841, toplevel:com82);
+            if_setgraphic(1840, toplevel:com83);
+            if_sethide(false, toplevel:com_tab8);
+        case 9:
+            if_setgraphic(1836, toplevel:com99);
+            if_setgraphic(1841, toplevel:com84);
+            if_setgraphic(1840, toplevel:com85);
+            if_sethide(false, toplevel:com_tab9);
+        case 10:
+            if_setgraphic(1836, toplevel:com100);
+            if_setgraphic(1841, toplevel:com86);
+            if_setgraphic(1840, toplevel:com87);
+            if_sethide(false, toplevel:com_tab10);
+        case 11:
+            if_setgraphic(1836, toplevel:com101);
+            if_setgraphic(1841, toplevel:com88);
+            if_setgraphic(1840, toplevel:com89);
+            if_sethide(false, toplevel:com_tab11);
+        case 12:
+            if_setgraphic(1836, toplevel:com102);
+            if_setgraphic(1841, toplevel:com90);
+            if_setgraphic(1840, toplevel:com91);
+            if_sethide(false, toplevel:com_tab12);
+        case 13:
+            if_setgraphic(1836, toplevel:com103);
+            if_setgraphic(1841, toplevel:com92);
+            if_setgraphic(1840, toplevel:com93);
+            if_sethide(false, toplevel:com_tab13);
+        case 14:
+            if_setgraphic(1836, toplevel:com104);
+            if_setgraphic(1841, toplevel:com94);
+            if_setgraphic(1840, toplevel:com95);
+            if_sethide(false, toplevel:com_tab14);
+        case 15:
+            if_setgraphic(1836, toplevel:com105);
+            if_setgraphic(1841, toplevel:com96);
+            if_setgraphic(1840, toplevel:com97);
+            if_sethide(false, toplevel:com_tab15);
+        case 98:
+            if_sethide(false, toplevel:com199);
+        case 95:
+            if_sethide(false, toplevel:com220);
+        case 99:
+            if_sethide(false, toplevel:com221);
+    }
+}

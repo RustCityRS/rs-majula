@@ -1,0 +1,4 @@
+[clientscript,ql4_init]
+~ql4_init_general(1);
+if_setonvartransmit("ql4_refresh(){varp_1384}", questlist_v4:com18);
+if_setonvarctransmit("ql4_refresh(){varc_int_695}", questlist_v4:com18);

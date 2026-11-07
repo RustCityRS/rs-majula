@@ -30,7 +30,7 @@ CRC verification covers all 36 archives and every group payload at startup. Refe
 containers must match fixed CRCs, their metadata must match the in-memory tables, and each
 group must match its CRC, version trailer and optional Whirlpool digest. Missing and extra
 containers fail validation. No archives or groups are skipped. The maps, models and loc
-reference CRCs include the committed donor restorations and authored overlays; the other
+reference CRCs include the committed donor restorations and authored config properties; the other
 33 reference containers match [OpenRS2 cache 274](https://archive.openrs2.org/caches/runescape/274),
 build 647. `--verify false` allows intentional source edits while still checking container integrity.
 
@@ -63,8 +63,22 @@ the strict archive/group checks.
 
 ## 647 source formats
 
-Non-config assets live directly under their domain folder. Only imported configs use
-`scripts/_unpack`. The packer reads these sources into memory; it does not rebuild a disk
+RuneScript lives in `scripts/runescript`, clientscripts in `scripts/clientscript`, and shared `.gs2`
+procedures and configs in `scripts/globalscript`. Configs retain their extensions (`.obj`, `.param`,
+`.varp`, `.constant`, etc.). Both compilers include globalscript automatically. RS2 and CS2 can use
+their own configs and shared configs; GS2 can use only shared configs, constants and procedures.
+Pack registries assign IDs without granting access to private definitions. Asset registries such
+as models, sprites and interfaces remain independent of script namespaces.
+An intentional reference to a missing loc slot can be declared with `absent=yes`
+as its only property; this grants source ownership without creating a cache entry.
+Other assets live directly under their domain folder. Imported configs use
+`scripts/globalscript/_unpack`; older revisions' existing imports can remain in runescript.
+Each config name has one section per config type. Put client and server properties together
+in that section; repeated headers, including across files, stop packing with both source locations.
+Imported definitions are editable source. Full unpacking requires an output without existing configs;
+import into a fresh directory before reconciling updates. For a server parameter occupying an
+empty client slot, `client=empty` preserves that empty client record while packing its server properties.
+The packer reads these sources into memory; it does not rebuild a disk
 cache or create intermediate asset files during startup. There are no raw `.bin` copies,
 PNG previews or `manifest.json` files in `content/647`.
 
@@ -76,12 +90,14 @@ PNG previews or `manifest.json` files in `content/647`.
 | `maps` | `.jm2` terrain, named loc placements and server spawns, using the existing map text layout |
 | `sprites`, `loading_sprites`, `loading_sprites_raw` | Indexed `.tga` sheets with `.sprite` frame metadata; `.alpha.tga` masks where needed; original JPEGs |
 | `textures`, `materials` | `.texture` procedural operations, gradients, curves and shapes; `.material` rendering properties grouped by texture |
-| `clientscript` | `.cs2` assembly with instruction names, asset references and branch/switch labels |
+| `scripts/clientscript` | `.cs2` RuneScript-style source with typed procedures, commands, conditions and loops |
+| `scripts/globalscript` | `.gs2` procedures compiled for both targets, shared configs and constants |
 | `synth`, `music_samples` | `.synth` envelopes, oscillators and filters; `.instrument` key maps and sample references |
 | `songs`, `jingles` | Standard `.mid` files |
 | `vorbis` | Standard `.ogg` packets, `.sample` playback and loop metadata, and the shared `.vorbis` setup as text |
 | `fontmetrics`, `binary` | `.fontmetrics` glyph widths/bearings and `.huffman` code lengths |
-| `billboards`, `particles`, `defaults` | `.billboard`, `.particle` and `.defaults` named properties/opcodes |
+| `billboards` | One `.billboard` file per billboard, with its own named section; packed together in JS5 group 0 |
+| `particles`, `defaults` | `.particle` and `.defaults` named properties/opcodes |
 | `quickchat`, `quickchat_global` | `.quickchat` categories, phrases, responses and named enum references |
 | `loading_backgrounds` | `.screen` sequences and layout elements with named fonts and sprites |
 | `worldmap_data` | `.fm` area metadata and static elements; `.fms` map squares with coordinates and named floors/locs |
@@ -113,10 +129,74 @@ frame's `x,y,width,height,rows|columns,opaque|alpha`. An alpha mask uses its pix
 opacity values. Do not flatten the mask into the colour palette. A dot in an asset name is
 part of the name: `painting.02.sprite` pairs with `painting.02.tga`.
 
-CS2 branch operands target labels. Switch tables use an anchor, for example
-`[switch0@L12]` with `5=L30`; offsets and instruction counts are rebuilt. A table shared by
-multiple switch instructions retains relative offsets. The assembly is the repackable
-source; decompiled previews are not needed.
+Clientscripts compile with the shared RuneScript compiler. Commands are declared
+in `scripts/clientscript/engine.cs2`; `pack/cs2_command.pack` supplies opcode IDs for both commands
+and core instructions. The writer derives operand sizes and format features from
+those instructions. Event, colour and UI layout constants live in
+`scripts/clientscript/cs2.constant`. Parameter return types come from `.param` configs under
+`scripts/clientscript` and `scripts/globalscript`.
+Named procedures live in `scripts/clientscript/<prefix>/proc/[proc,<name>].cs2`, and client scripts
+in `scripts/clientscript/<prefix>/script/[clientscript,<name>].cs2`. The prefix is the part before the first
+underscore, or the whole name when there is none. Unknown scripts live in
+`scripts/clientscript/unpack/[proc,clientscript_<id>].cs2`. Packing reads these directories recursively.
+Procedure types are inferred across calls during unpacking; typed arguments, declarations,
+assignments, comparisons and switch cases use
+pack names, colours use constants or lowercase hex, and unused results are discarded by ordinary calls.
+Unnamed models use their asset filename reference, such as `model_41312`.
+Coordinates use `level_mapsquareX_mapsquareZ_localX_localZ` literals.
+Generated locals use their inferred type (`$component0`, `$graphic2`), and arithmetic
+keeps the parentheses needed to preserve evaluation order. Calls without arguments
+omit empty parentheses, following the [OSRS dump formatting](https://github.com/Joshua-F/osrs-dumps/tree/master/script).
+Unpacking validates every generated script against its original bytes before
+writing source. CS2 and GS2 files need no layout metadata: declaration order,
+comparison syntax and explicit returns preserve the original instructions.
+Comparisons against `true` or `false` use compact boolean branches; comparisons
+against numbers retain integer branches. Extra fallback returns remain ordinary
+source statements when needed for an exact round trip. Edit the source directly;
+normal cache packing compiles it again. CS2 hot reloading is not used.
+
+Binary decoding, signature inference and source reconstruction live in `runec`.
+The packer supplies the opcode format, engine command signatures, config types
+and asset names; cache traversal and name recovery remain here. This keeps the
+same revision-independent compiler/decompiler available to emulator and editor
+hosts. From the `rs-majula` root, build the language server once:
+
+```bash
+cargo build --manifest-path ../rs-compiler/Cargo.toml --bin runec --target-dir ../rs-compiler/target
+```
+
+Configure the editor to launch the executable directly, with `rs-majula` as its
+working directory (Windows; omit `.exe` on Linux/macOS):
+
+```text
+"../rs-compiler/target/debug/runec.exe" lsp --client --source content/647/scripts/clientscript --pack content/647/pack
+```
+
+Do not use `cargo run` as an editor launch command. Stop the language servers
+before rebuilding on Windows, then restart them. See rs-compiler's README for
+the IntelliJ/LSP4IJ file mappings.
+
+A fresh `unpack` seeds missing registries from the selected revision's project
+`pack` directory, preserving recovered names and existing output registries. It
+discovers additional cache entries and copies the clientscript engine and constants
+into the output tree. Both full unpacking and `unpack-clientscripts` generate the
+same directory layout and validate every script's original bytes.
+
+Recover missing names from local copies of [osrs-cache's dictionaries](https://github.com/zwyz/osrs-cache/tree/master/data/names)
+or the dump's `.sym` files, then regenerate the clientscript source:
+
+```bash
+REV=647 cargo run -p rs-pack -- recover-names --kind clientscript ../osrs-cache/data/names/scripts.txt
+REV=647 cargo run -p rs-pack -- recover-names --kind sprites ../osrs-cache/data/names/graphics.txt ../osrs-dumps/symbols/graphic.sym
+REV=647 cargo run -p rs-pack -- unpack-clientscripts --expected expected --output content/647 --pack content/647/pack
+```
+
+Recovery matches names against this cache's `.hashes`; external numeric IDs are ignored.
+Existing names are preserved. Hash collisions are skipped, and expanded `#` sprite
+indices require neighbouring names as corroboration. `--max-index` controls the expansion
+limit (4096 by default). Regeneration removes obsolete generated files when their
+names or paths change. Scripts without a recovered name keep their numeric fallback
+in `scripts/clientscript/unpack`.
 
 Vorbis packets are wrapped in Ogg without audio re-encoding. Edit playback rate, sample
 count and loop points in `.sample`. The client shares one codebook/setup across every

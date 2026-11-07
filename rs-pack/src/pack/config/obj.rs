@@ -18,7 +18,7 @@ pub fn pack_objs(
 ) -> Result<PackedFile> {
     let pack = &registry.obj;
 
-    let configs = parse_config_sections_cached(file_cache, "obj", constants);
+    let configs = parse_config_sections_cached(file_cache, "obj", constants)?;
 
     let mut server = PackedData::new(pack.max);
     let mut client = PackedData::new(pack.max);

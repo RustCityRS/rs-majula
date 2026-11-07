@@ -1,0 +1,10 @@
+[proc,clientscript_752]
+if (%varbit_4534 = false & %varbit_4290 = false) {
+    if_settext("---", lore_stats_side:com43);
+    return;
+}
+if (%varbit_4290 = false) {
+    if_settext("<tostring(%varbit_4534)>.00", lore_stats_side:com43);
+} else {
+    if_settext("<tostring(%varbit_4534)>.30", lore_stats_side:com43);
+}

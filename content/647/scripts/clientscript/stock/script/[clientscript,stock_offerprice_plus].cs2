@@ -1,0 +1,9 @@
+[clientscript,stock_offerprice_plus]
+if (%varp_1109 = -1) {
+    return;
+}
+if (%varc_int_85 < 2147483647) {
+    %varc_int_85 = calc(%varc_int_85 + 1);
+    if_settext("<op4124(%varc_int_85, 1)> gp", stockmarket:com153);
+    ~sm_offerprice_settimer;
+}

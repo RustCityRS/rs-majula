@@ -1,0 +1,10 @@
+[clientscript,mob_chat_onkey](int $int0, char $int1)
+if ($int0 = 84) {
+    ~mob_show_hide;
+} else if (if_gethide(mob_chat:com1) = false) {
+    if (string_indexof_char("abcdefghijklmnopqrst", op4122($int1), 0) ! -1) {
+        ~mob_show_hide;
+    } else {
+        return;
+    }
+}

@@ -1,0 +1,51 @@
+[proc,combat_side_button](graphic $graphic0, graphic $graphic1, graphic $graphic2, graphic $graphic3, string $string0, string $string1, string $string2, string $string3, string $string4, string $string5, string $string6, string $string7)
+if (compare($string0, "") ! 0 & $graphic0 ! null) {
+    if_setgraphic($graphic0, combat_side:com30);
+    if_settext($string0, combat_side:com31);
+    if_sethide(false, combat_side:style1);
+    if_setop(1, $string0, combat_side:style1);
+    if_setonmouserepeat("addtooltip(combat_side:style1, combat_side:com19, $string1, 25, 190)", combat_side:style1);
+    if_setonmouseleave("deltooltip(combat_side:com19)", combat_side:style1);
+} else {
+    if_clearops(combat_side:style1);
+    if_sethide(true, combat_side:style1);
+}
+if (compare($string2, "") ! 0 & $graphic1 ! null) {
+    if_setgraphic($graphic1, combat_side:com28);
+    if_settext($string2, combat_side:com27);
+    if_sethide(false, combat_side:style2);
+    if_setop(1, $string2, combat_side:style2);
+    if_setonmouserepeat("addtooltip(combat_side:style2, combat_side:com19, $string3, 25, 190)", combat_side:style2);
+    if_setonmouseleave("deltooltip(combat_side:com19)", combat_side:style2);
+} else {
+    if_clearops(combat_side:style2);
+    if_sethide(true, combat_side:style2);
+}
+if (compare($string4, "") ! 0 & $graphic2 ! null) {
+    if_setgraphic($graphic2, combat_side:com24);
+    if_settext($string4, combat_side:com25);
+    if_sethide(false, combat_side:style3);
+    if_setop(1, $string4, combat_side:style3);
+    if_setonmouserepeat("addtooltip(combat_side:style3, combat_side:com19, $string5, 25, 190)", combat_side:style3);
+    if_setonmouseleave("deltooltip(combat_side:com19)", combat_side:style3);
+} else {
+    if_clearops(combat_side:style3);
+    if_sethide(true, combat_side:style3);
+}
+if (compare($string6, "") ! 0 & $graphic3 ! null) {
+    if_setgraphic($graphic3, combat_side:com21);
+    if_settext($string6, combat_side:com22);
+    if_sethide(false, combat_side:style4);
+    if_setop(1, $string6, combat_side:style4);
+    if_setonmouserepeat("addtooltip(combat_side:style4, combat_side:com19, $string7, 25, 190)", combat_side:style4);
+    if_setonmouseleave("deltooltip(combat_side:com19)", combat_side:style4);
+} else {
+    if_clearops(combat_side:style4);
+    if_sethide(true, combat_side:style4);
+}
+def_string $string8 = "When active, you will automatically fight back if attacked.";
+if_setonmouserepeat("addtooltip(combat_side:retaliate, combat_side:com19, $string8, 25, 190)", combat_side:retaliate);
+if_setonmouseleave("deltooltip(combat_side:com19)", combat_side:retaliate);
+$string8 = "Select to perform a special attack.";
+if_setonmouserepeat("addtooltip(combat_side:com3, combat_side:com19, $string8, 25, 190)", combat_side:com3);
+if_setonmouseleave("deltooltip(combat_side:com19)", combat_side:com3);

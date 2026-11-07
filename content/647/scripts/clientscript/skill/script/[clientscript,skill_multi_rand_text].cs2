@@ -1,0 +1,43 @@
+[clientscript,skill_multi_rand_text](int $int)
+switch_int ($int) {
+    case 61866061:
+        if (compare("", %varc_string_132) ! 0) {
+            if_settext(%varc_string_132, skill_multi_rand:com15);
+        }
+    case 61866008:
+        if (compare("", %varc_string_133) ! 0) {
+            if_settext(%varc_string_133, skill_multi_rand:com15);
+        }
+    case 61866014:
+        if (compare("", %varc_string_134) ! 0) {
+            if_settext(%varc_string_134, skill_multi_rand:com15);
+        }
+    case 61866020:
+        if (compare("", %varc_string_135) ! 0) {
+            if_settext(%varc_string_135, skill_multi_rand:com15);
+        }
+    case 61866026:
+        if (compare("", %varc_string_136) ! 0) {
+            if_settext(%varc_string_136, skill_multi_rand:com15);
+        }
+    case 61866032:
+        if (compare("", %varc_string_137) ! 0) {
+            if_settext(%varc_string_137, skill_multi_rand:com15);
+        }
+    case 61866038:
+        if (compare("", %varc_string_280) ! 0) {
+            if_settext(%varc_string_280, skill_multi_rand:com15);
+        }
+    case 61866044:
+        if (compare("", %varc_string_281) ! 0) {
+            if_settext(%varc_string_281, skill_multi_rand:com15);
+        }
+    case 61866050:
+        if (compare("", %varc_string_282) ! 0) {
+            if_settext(%varc_string_282, skill_multi_rand:com15);
+        }
+    case 61866056:
+        if (compare("", %varc_string_283) ! 0) {
+            if_settext(%varc_string_283, skill_multi_rand:com15);
+        }
+}

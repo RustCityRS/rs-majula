@@ -1,0 +1,17 @@
+[clientscript,love_puzzle_init](component $component0, component $component1, component $component2, component $component3, component $component4, component $component5)
+~clientscript_1088($component0, 0);
+~v2_stone_button_filled($component3);
+~v2_stone_button_filled($component5);
+if_setonmouseover("v2_stone_button_in_filled($component3)", $component2);
+if_setonmouseover("v2_stone_button_in_filled($component5)", $component4);
+if_setonmouseleave("v2_stone_button_filled($component3)", $component2);
+if_setonmouseleave("v2_stone_button_filled($component5)", $component4);
+if_setscrollpos(0, 300, $component1);
+if_setontimer(null, $component1);
+if_sethide(false, $component2);
+if_sethide(false, $component4);
+if_setonop("clientscript_3479($component1, $component2, $component4, true)", $component2);
+if_setonop("clientscript_3479($component1, $component2, $component4, false)", $component4);
+if_setonvartransmit("love_puzzle_update(){varp_1506, varp_1507, varp_1508}", $component0);
+if_setonvarctransmit("love_puzzle_update(){varc_int_1317, varc_int_1318}", $component0);
+~love_puzzle_update;

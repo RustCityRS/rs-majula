@@ -1,0 +1,3 @@
+[proc,clientscript_4061]
+if_settext("Not Enough Tokens", warguild_token_choice:com45);
+if_setcolour(^red, warguild_token_choice:com45);

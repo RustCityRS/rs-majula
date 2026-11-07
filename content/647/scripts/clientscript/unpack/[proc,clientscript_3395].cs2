@@ -1,0 +1,11 @@
+[proc,clientscript_3395]
+def_int $int = 0;
+while ($int < if_getchildcount(fm8721267:com25)) {
+    if (cc_find(fm8721267:com25, $int) = true) {
+        cc_settrans(255);
+    }
+    $int = calc($int + 1);
+}
+if (cc_find(fm8721267:com25, %varc_int_792) = true) {
+    cc_settrans(0);
+}

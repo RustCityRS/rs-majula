@@ -1,0 +1,11 @@
+[clientscript,castlewars_misc_button]
+if (%varc_int_1279 ! 2) {
+    sound_synth(synth_9445, 1, 0);
+}
+%varc_int_1279 = 2;
+if_sethide(true, castlewars_trade:com45);
+if_sethide(true, castlewars_trade:com46);
+if_sethide(false, castlewars_trade:com87);
+if_sethide(true, castlewars_trade:com20);
+if_sethide(true, castlewars_trade:com17);
+if_sethide(false, castlewars_trade:com14);

@@ -1,0 +1,47 @@
+[proc,clientscript_497]
+def_int $int0 = 0;
+def_int $int1 = 0;
+def_int $int2 = 0;
+def_int $int3 = 0;
+def_string $string0 = "";
+def_string $string1 = "";
+def_string $string2 = "";
+def_string $string3 = "";
+if (%varc_int_1367 ! -1) {
+    $int0 = nc_param(%varc_int_1367, param_1134);
+    if (%varc_int_1368 > $int0) {
+        $string0 = "Movement: <col=00c800><tostring(%varc_int_1368)><col=ff981f>/<tostring($int0)>";
+    } else if (%varc_int_1368 < $int0) {
+        $string0 = "Movement: <col=c80000><tostring(%varc_int_1368)><col=ff981f>/<tostring($int0)>";
+    } else {
+        $string0 = "Movement: <tostring(%varc_int_1368)>/<tostring($int0)>";
+    }
+    $int1 = nc_param(%varc_int_1367, param_1135);
+    if (%varc_int_1369 > $int1) {
+        $string1 = "Damage: <col=00c800><tostring(calc(%varc_int_1369 * 100))><col=ff981f>/<tostring(calc($int1 * 100))>";
+    } else if (%varc_int_1369 < $int1) {
+        $string1 = "Damage: <col=c80000><tostring(calc(%varc_int_1369 * 100))><col=ff981f>/<tostring(calc($int1 * 100))>";
+    } else {
+        $string1 = "Damage: <tostring(calc(%varc_int_1369 * 100))>/<tostring(calc($int1 * 100))>";
+    }
+    $int2 = nc_param(%varc_int_1367, param_1136);
+    if (%varc_int_1370 > $int2) {
+        $string2 = "Health: <col=00c800><tostring(calc(%varc_int_1370 * 100))><col=ff981f>/<tostring(calc($int2 * 100))>";
+    } else if (%varc_int_1370 < $int2) {
+        $string2 = "Health: <col=c80000><tostring(calc(%varc_int_1370 * 100))><col=ff981f>/<tostring(calc($int2 * 100))>";
+    } else {
+        $string2 = "Health: <tostring(calc(%varc_int_1370 * 100))>/<tostring(calc($int2 * 100))>";
+    }
+    $int3 = nc_param(%varc_int_1367, param_1137);
+    if (%varc_int_1371 > $int3) {
+        $string3 = "Range: <col=00c800><tostring(%varc_int_1371)><col=ff981f>/<tostring($int3)>";
+    } else if (%varc_int_1371 < $int3) {
+        $string3 = "Range: <col=c80000><tostring(%varc_int_1371)><col=ff981f>/<tostring($int3)>";
+    } else {
+        $string3 = "Range: <tostring(%varc_int_1371)>/<tostring($int3)>";
+    }
+    if_settext($string0, aa1143828:com8);
+    if_settext($string1, aa1143828:com9);
+    if_settext($string2, aa1143828:com10);
+    if_settext($string3, aa1143828:com11);
+}

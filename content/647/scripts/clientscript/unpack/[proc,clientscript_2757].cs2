@@ -1,0 +1,9 @@
+[proc,clientscript_2757](int $int)
+if (%varc_int_173 = true | (%varbit_542 = true | $int ! 1)) {
+    return;
+}
+if (cam_getangle_ya < 150) {
+    cam_forceangle(150, 0);
+} else {
+    cam_forceangle(149, 0);
+}

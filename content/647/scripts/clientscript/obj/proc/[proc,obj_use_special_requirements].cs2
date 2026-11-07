@@ -1,0 +1,14 @@
+[proc,obj_use_special_requirements](obj $obj)(int)
+switch_int (oc_weight($obj, param_762)) {
+    case 1:
+        if (%varp_322 < 10) {
+            return(0);
+        }
+    case 2:
+        if (%varbit_4310 < 10) {
+            return(0);
+        }
+    case default:
+        return(1);
+}
+return(-1);

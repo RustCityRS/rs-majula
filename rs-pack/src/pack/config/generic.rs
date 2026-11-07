@@ -1,16 +1,20 @@
-use crate::pack::pack::parse_config_sections;
+use crate::pack::pack::{collect_config_files, parse_config_sections};
+use crate::pack::pack_registry::{PackFile, PackRegistry};
+use crate::pack::packed_data::PackedData;
+use crate::pack::util::parse_ref;
+use anyhow::Result;
 use std::collections::{BTreeMap, HashMap};
 use std::mem;
 use std::path::Path;
-
-use anyhow::Result;
 use tracing::info;
 
-use crate::pack::packed_data::PackedData;
-
-pub fn pack_generic_config(source_dir: &Path, type_name: &str) -> Result<PackedData> {
-    let all_file = source_dir.join("_unpack").join(format!("all.{type_name}"));
-    let sections = parse_config_sections(&[all_file], &HashMap::new());
+pub fn pack_generic_config(
+    source_dir: &Path,
+    type_name: &str,
+    registry: &PackRegistry,
+) -> Result<PackedData> {
+    let files = collect_config_files(source_dir, type_name);
+    let sections = parse_config_sections(&files, &HashMap::new())?;
     let prefix = format!("{type_name}_");
     let entries_map: BTreeMap<_, _> = sections
         .iter()
@@ -27,12 +31,13 @@ pub fn pack_generic_config(source_dir: &Path, type_name: &str) -> Result<PackedD
     let max_id = entries_map.last_key_value().map_or(0, |(&id, _)| id + 1);
 
     let mut packed = PackedData::new(max_id);
+    let bas_seq = (type_name == "bas").then_some(&registry.seq);
 
     for id in 0..max_id {
         if let Some(props) = entries_map.get(&id) {
             packed.start_entry();
             for (key, value) in *props {
-                pack_generic_prop(&mut packed, key, value);
+                pack_generic_prop(&mut packed, key, value, bas_seq);
             }
             packed.finish_entry();
         } else {
@@ -72,7 +77,7 @@ pub fn pack_generic_config(source_dir: &Path, type_name: &str) -> Result<PackedD
 /// - `opN_g1_g2=body,val` — opcode + g1 + g2
 /// - `opN_complex=...` — MEL op15 complex format
 /// - `opN_params=count,is_str,key,val,...` — op249 params
-fn pack_generic_prop(packed: &mut PackedData, key: &str, value: &str) {
+fn pack_generic_prop(packed: &mut PackedData, key: &str, value: &str, bas_seq: Option<&PackFile>) {
     // Raw hex opcode: "rawN=hex_bytes"
     if let Some(op_str) = key.strip_prefix("raw") {
         let Ok(opcode) = op_str.parse::<u8>() else {
@@ -105,7 +110,34 @@ fn pack_generic_prop(packed: &mut PackedData, key: &str, value: &str) {
         let suffix = suffix.strip_prefix('_').unwrap_or(suffix);
 
         packed.p1(opcode);
-        pack_opcode_data(packed, suffix, value);
+        match (bas_seq, opcode) {
+            (Some(seq), 1) => {
+                let (idle, walk) = value.split_once(',').expect("Invalid BAS idle/walk pair");
+                for value in [idle, walk] {
+                    parse_ref(seq, "seq", value.trim(), |id| packed.p2(id));
+                }
+            }
+            (Some(seq), 2..=9 | 38..=51) => {
+                parse_ref(seq, "seq", value.trim(), |id| packed.p2(id));
+            }
+            (Some(seq), 52) => {
+                let mut values = value.split(',').map(str::trim);
+                let count: u8 = values
+                    .next()
+                    .unwrap()
+                    .parse()
+                    .expect("Invalid BAS idle count");
+                packed.p1(count);
+                for _ in 0..count {
+                    let value = values.next().expect("Missing BAS idle sequence");
+                    parse_ref(seq, "seq", value, |id| packed.p2(id));
+                    let weight = values.next().expect("Missing BAS idle weight");
+                    packed.p1(weight.parse().expect("Invalid BAS idle weight"));
+                }
+                assert!(values.next().is_none(), "Unexpected BAS idle values");
+            }
+            _ => pack_opcode_data(packed, suffix, value),
+        }
     }
 }
 
@@ -372,8 +404,8 @@ mod tests {
     fn signed_byte_content_tags_preserve_their_payloads() {
         let mut packed = PackedData::new(1);
         packed.start_entry();
-        pack_generic_prop(&mut packed, "op1_g1b", "-89");
-        pack_generic_prop(&mut packed, "op2_g1b_g2", "-1,4660");
+        pack_generic_prop(&mut packed, "op1_g1b", "-89", None);
+        pack_generic_prop(&mut packed, "op2_g1b_g2", "-1,4660", None);
         packed.finish_entry();
         assert_eq!(packed.dat[2..], [1, 167, 2, 255, 0x12, 0x34, 0]);
     }

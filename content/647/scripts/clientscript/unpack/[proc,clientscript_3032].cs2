@@ -1,0 +1,16 @@
+[proc,clientscript_3032](component $component0, int $int1, int $int2)
+def_component $component3 = null;
+if ($int2 = true) {
+    $component3 = lobbyscreen_pane_friendslist:com43;
+} else if ($int2 = false) {
+    $component3 = lobbyscreen_pane_friendslist:com85;
+}
+if (cc_find($component0, $int1) = true) {
+    if_sethide(false, $component3);
+    if_setposition(if_getx($component3), cc_gety, ^setpos_abs_left, ^setpos_abs_top, $component3);
+}
+if ($int2 = true) {
+    ~friend_deltooltip(lobbyscreen_pane_friendslist:com32, lobbyscreen_pane_friendslist:com35);
+} else {
+    ~friend_deltooltip(lobbyscreen_pane_friendslist:com80, lobbyscreen_pane_friendslist:com83);
+}

@@ -1,0 +1,14 @@
+[proc,clientscript_1378](component $component0, component $component1)
+def_string $string0 = if_gettext($component0);
+def_string $string1 = "";
+if (string_length($string0) > 0) {
+    switch_component ($component1) {
+        case default:
+            return;
+        case conq_set_formation:com166, conq_set_formation:com167, conq_set_formation:com168, conq_set_formation:com169, conq_set_formation:com170, conq_set_formation:com171, conq_set_formation:com172, conq_set_formation:com173, conq_set_formation:com174, conq_set_formation:com175, conq_set_formation:com176, conq_set_formation:com177, conq_set_formation:com178, conq_set_formation:com179, conq_set_formation:com180, conq_set_formation:com181, conq_set_formation:com182, conq_set_formation:com183, conq_set_formation:com184, conq_set_formation:com185, conq_set_formation:com186, conq_set_formation:com187, conq_set_formation:com188, conq_set_formation:com189, conq_set_formation:com190, conq_set_formation:com191, conq_set_formation:com192, conq_set_formation:com193, conq_set_formation:com194, conq_set_formation:com195, conq_set_formation:com196, conq_set_formation:com197, conq_set_formation:com198, conq_set_formation:com199, conq_set_formation:com200, conq_set_formation:com201, conq_set_formation:com202, conq_set_formation:com203, conq_set_formation:com204, conq_set_formation:com205, conq_set_formation:com206, conq_set_formation:com207, conq_set_formation:com208, conq_set_formation:com209, conq_set_formation:com210, conq_set_formation:com211, conq_set_formation:com212, conq_set_formation:com213, conq_set_formation:com214, conq_set_formation:com215, conq_set_formation:com216, conq_set_formation:com217, conq_set_formation:com218, conq_set_formation:com219, conq_set_formation:com220, conq_set_formation:com221, conq_set_formation:com222, conq_set_formation:com223, conq_set_formation:com224, conq_set_formation:com225:
+            $string1 = if_gettext($component1);
+    }
+    if_settext($string0, $component1);
+    if_settext($string1, $component0);
+    %varc_int_1387 = 1;
+}

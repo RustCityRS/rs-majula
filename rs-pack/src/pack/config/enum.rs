@@ -17,11 +17,11 @@ pub fn pack_enums(
 ) -> Result<PackedFile> {
     let pack = &registry.r#enum;
 
-    let configs = parse_config_sections_cached(file_cache, "enum", constants);
+    let configs = parse_config_sections_cached(file_cache, "enum", constants)?;
 
     let mut server = PackedData::new(pack.max);
     #[cfg(since_647)]
-    let client_configs = file_cache.client_configs("enum", constants);
+    let client_configs = file_cache.client_configs("enum", constants)?;
     #[cfg(since_647)]
     let client_count = client_configs
         .keys()

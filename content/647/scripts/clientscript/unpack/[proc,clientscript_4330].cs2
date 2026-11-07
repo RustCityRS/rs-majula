@@ -1,0 +1,2 @@
+[proc,clientscript_4330](long $long)
+url_request("clan-forum", "threads.ws?threadid=<long_to_base36($long)>", 0);

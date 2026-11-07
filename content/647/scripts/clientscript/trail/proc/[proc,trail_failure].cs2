@@ -1,0 +1,6 @@
+[proc,trail_failure](component $component)
+if (if_find($component) = true) {
+    if_setcolour(0xcc0000, $component);
+    if_setsize(27, 27, ^setsize_abs, ^setsize_abs, $component);
+    if_setposition(cc_getparam(param_1101), cc_getparam(param_1102), ^setpos_abs_left, ^setpos_abs_top, $component);
+}

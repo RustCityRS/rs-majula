@@ -1,0 +1,23 @@
+[proc,clientscript_1870](component $component0)
+def_int $int1 = 0;
+def_int $int2 = 0;
+def_int $int3 = reboottimer;
+def_string $string = "0";
+if ($int3 > 0) {
+    $int1 = calc($int3 / 50 % 60);
+    $int2 = calc($int3 / 3000);
+    if ($int1 < 10) {
+        $string = "System update in: <tostring($int2)>:0<tostring($int1)>";
+    } else {
+        $string = "System update in: <tostring($int2)>:<tostring($int1)>";
+    }
+    if_settext($string, $component0);
+    if (string_length($string) > 0) {
+        if_setsize(calc(op4125("System update in: ", 494) + 40), if_getheight(lobbyscreen:com20), ^setsize_abs, ^setsize_abs, lobbyscreen:com20);
+        if_sethide(false, lobbyscreen:com20);
+    } else {
+        if_sethide(true, lobbyscreen:com20);
+    }
+} else {
+    if_setontimer(null, $component0);
+}

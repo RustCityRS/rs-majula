@@ -1,0 +1,4 @@
+[clientscript,lightning_update](component $component)
+if (calc(clientclock % 5) = false) {
+    ~lightning_update($component);
+}

@@ -1,0 +1,13 @@
+[clientscript,friendschat_list_op](int $int0, int $int1, string $string)
+switch_int ($int0) {
+    case 5:
+        friend_add($string);
+    case 6:
+        ignore_add($string);
+    case 7:
+        friend_del($string);
+    case 8:
+        ignore_del($string);
+    case 9:
+        ~friendschat_kick($string);
+}

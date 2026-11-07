@@ -1,0 +1,98 @@
+[proc,filtertest](int $int0, int $int1)(int)
+switch_int (chat_gethistory_length($int0)) {
+    case -1:
+        return(0);
+    case 0, 4, 27, 28, 29, 1, 110, 26, 30, 31, 115, 116, 117:
+        return(1);
+    case 109:
+        if (%varbit_6161 = true) {
+            return(0);
+        }
+        return(1);
+    case 2, 17:
+        if (chat_getfilter_public = false) {
+            return(1);
+        }
+        if (chat_getfilter_public = true & friend_test(chat_gethistory_message($int0)) = true) {
+            return(1);
+        }
+        return(0);
+    case 3, 18:
+        if (%option_pm > 0 & (%varc_int_41 >= 0 & ($int1 = false & ~partnercheck($int0) = false))) {
+            return(0);
+        }
+        if (chat_getfilter_private = false) {
+            return(1);
+        }
+        if (chat_getfilter_private = true & friend_test(chat_gethistory_message($int0)) = true) {
+            return(1);
+        }
+        return(0);
+    case 100, 101, 105, 106, 108, 111, 112, 113, 114, 118:
+        if (chat_getfilter_trade = false) {
+            return(1);
+        }
+        if (chat_getfilter_trade = true & friend_test(chat_gethistory_message($int0)) = true) {
+            return(1);
+        }
+        return(0);
+    case 5, 6, 19:
+        if (%option_pm > 0 & (%varc_int_41 >= 0 & ($int1 = false & ~partnercheck($int0) = false))) {
+            return(0);
+        }
+        if (chat_getfilter_private < 2) {
+            return(1);
+        }
+        return(0);
+    case 7:
+        if (%option_pm > 0 & (%varc_int_41 >= 0 & ($int1 = false & ~partnercheck($int0) = false))) {
+            return(0);
+        }
+        return(1);
+    case 41, 107, 42, 44, 45:
+        if (%varp_1054 = false) {
+            return(1);
+        }
+        if (%varp_1054 = true & friend_test(chat_gethistory_message($int0)) = true) {
+            return(1);
+        }
+        return(0);
+    case 9, 20:
+        if (%varp_2159 = false) {
+            return(1);
+        }
+        if (%varp_2159 = true & friend_test(chat_gethistory_message($int0)) = true) {
+            return(1);
+        }
+        return(0);
+    case 102:
+        if (%varp_1055 = false) {
+            return(1);
+        }
+        if (%varp_1055 = true & friend_test(chat_gethistory_message($int0)) = true) {
+            return(1);
+        }
+        return(0);
+    case 11:
+        if (%varp_2159 < 2) {
+            return(1);
+        }
+        return(0);
+    case 43, 46:
+        if (%varp_1054 < 2) {
+            return(1);
+        }
+        return(0);
+    case 103:
+        if (chat_getfilter_trade < 2) {
+            return(1);
+        }
+        return(0);
+    case 104:
+        if (%varp_1055 < 2) {
+            return(1);
+        }
+        return(0);
+}
+return(1);
+return(-1);

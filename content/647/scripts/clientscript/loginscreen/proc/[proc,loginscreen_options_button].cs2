@@ -1,0 +1,13 @@
+[proc,loginscreen_options_button](component $component0, boolean $boolean1, component $component2, component $component3, component $component4, component $component5, boolean $boolean6, int $int7, int $int8, int $int9, int $int10)
+def_int $int11 = 0;
+if ($boolean6 = true) {
+    $int11 = op4125(if_gettext($component5), 468);
+} else {
+    $int11 = if_getwidth($component5);
+}
+if ($boolean1 = false & calc(if_getwidth($component0) - $int11) < $int7) {
+    if_setontimer("loginscreen_options_button($component0, $boolean1, $component2, $component3, $component4, $component5, $boolean6, $int7, $int8, $int9, $int10)", $component2);
+    return;
+}
+if_setontimer(null, $component2);
+if_setontimer("loginscreen_options_button_timer($component0, $boolean1, $int11, $component2, $component3, $component4, $int7, $int8, $int9, $int10)", $component0);

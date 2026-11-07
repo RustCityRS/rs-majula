@@ -1,0 +1,12 @@
+[proc,clientscript_2022](int $int0, int $int1)
+if ($int0 ! 1) {
+    return;
+}
+if ($int1 <= -1) {
+    if_settext("", skillmulti2010_numbers:com17);
+    return;
+}
+%skill_creation_amount = min($int1, %skill_creation_maximum);
+~clientscript_2047;
+if_setontimer("skillmulti2010_blocker(calc(clientclock + 15))", skillmulti2010:com28);
+if_sethide(false, skillmulti2010:com28);

@@ -1,0 +1,7 @@
+[clientscript,player_kit_feet_colourbutton](int $int0, int $int1)
+if ($int0 ! 1) {
+    return;
+}
+player_setcolour(3, $int1);
+%varc_int_1018 = $int1;
+~player_kit_feet_redraw;

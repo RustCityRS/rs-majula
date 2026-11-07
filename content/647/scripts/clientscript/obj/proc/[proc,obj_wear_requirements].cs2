@@ -1,0 +1,15 @@
+[proc,obj_wear_requirements](obj $obj)(int)
+if (~obj_wear_skill_requirements($obj) = false) {
+    return(0);
+}
+if (~obj_wear_quest_requirements($obj) = false) {
+    return(0);
+}
+if (~obj_wear_special_requirements($obj) = false) {
+    return(0);
+}
+if (~comlevel < oc_weight($obj, param_761)) {
+    return(0);
+}
+return(1);
+return(-1);

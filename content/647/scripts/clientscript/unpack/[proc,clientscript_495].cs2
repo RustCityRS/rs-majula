@@ -1,0 +1,31 @@
+[proc,clientscript_495](component $component0)
+def_int $int1 = 0;
+switch_component ($component0) {
+    case default:
+        return;
+    case conq_buy_army:com144:
+        $int1 = %varbit_7520;
+    case conq_buy_army:com146:
+        $int1 = %varbit_7521;
+    case conq_buy_army:com148:
+        $int1 = %varbit_7526;
+    case conq_buy_army:com150:
+        $int1 = %varbit_7527;
+    case conq_buy_army:com152:
+        $int1 = %varbit_7530;
+    case conq_buy_army:com154:
+        $int1 = %varbit_7531;
+    case conq_buy_army:com156:
+        $int1 = %varbit_7532;
+    case conq_buy_army:com158:
+        $int1 = %varbit_7533;
+    case conq_buy_army:com160:
+        $int1 = %varbit_7534;
+    case conq_buy_army:com162:
+        $int1 = %varbit_7535;
+}
+if ($int1 = false) {
+    if_setcolour(0x585042, $component0);
+} else {
+    if_setcolour(0xe6ca98, $component0);
+}

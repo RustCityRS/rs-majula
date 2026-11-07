@@ -1,0 +1,4 @@
+[clientscript,lore_topstat_magic_leavetargetmode](component $component)
+if (if_find($component) = true) {
+    cc_setoutline(0);
+}

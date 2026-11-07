@@ -1,0 +1,2 @@
+[clientscript,mob_set_limit](component $component)
+if_settext("Limit: <~tostring_spacer(~clientscript_2687, \",\")>", $component);

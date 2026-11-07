@@ -1,0 +1,6 @@
+[proc,clientscript_2102]
+~scrollbar_vertical(sandwich_tray:com6, sandwich_tray:com4, "scrollbar_parchment_dragger_v2,3", "scrollbar_parchment_dragger_v2,0", "scrollbar_parchment_dragger_v2,1", "scrollbar_parchment_dragger_v2,2", "scrollbar_parchment_v2,0", "scrollbar_parchment_v2,1");
+def_int $int = calc(paraheight(if_gettext(sandwich_tray:com7), if_getwidth(sandwich_tray:com7), p12_full) * 12 + 5);
+if_setsize(if_getwidth(sandwich_tray:com7), $int, ^setsize_abs, ^setsize_abs, sandwich_tray:com7);
+if_setposition(if_getx(sandwich_tray:com49), calc(if_gety(sandwich_tray:com7) + $int + 5), ^setpos_abs_left, ^setpos_abs_top, sandwich_tray:com49);
+~clientscript_2104(0);

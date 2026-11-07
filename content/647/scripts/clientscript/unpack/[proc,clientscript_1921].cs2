@@ -1,0 +1,16 @@
+[proc,clientscript_1921]
+if (%varc_int_551 > 0) {
+    if_settext(append(append_num(append(%varc_string_40, " ("), %varc_int_551), ")"), go4904891:com5);
+} else {
+    if_settext(%varc_string_40, go4904891:com5);
+}
+if (%varc_int_552 > 0) {
+    if_settext(append(append_num(append(%varc_string_41, " ("), %varc_int_552), ")"), go4904891:com6);
+} else {
+    if_settext(%varc_string_41, go4904891:com6);
+}
+if (%varc_int_553 > 0) {
+    if_settext(append(append_num(append(%varc_string_42, " ("), %varc_int_553), ")"), go4904891:com7);
+} else {
+    if_settext(%varc_string_42, go4904891:com7);
+}

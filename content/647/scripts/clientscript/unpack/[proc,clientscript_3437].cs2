@@ -1,0 +1,56 @@
+[proc,clientscript_3437]
+def_model $model = null;
+if (%varbit_7919 < 3) {
+    if (%varbit_7920 = true) {
+        $model = ~clientscript_3438(%varbit_7919);
+    }
+    if (%varbit_7920 = 2) {
+        $model = ~clientscript_3439(%varbit_7919);
+    }
+    if (%varbit_7920 = 3) {
+        $model = ~clientscript_3440(%varbit_7919);
+    }
+} else if (%varbit_7919 < 6) {
+    if (%varbit_7920 = true) {
+        $model = ~clientscript_3439(%varbit_7919);
+    }
+    if (%varbit_7920 = 2) {
+        $model = ~clientscript_3440(%varbit_7919);
+    }
+    if (%varbit_7920 = 3) {
+        $model = ~clientscript_3438(%varbit_7919);
+    }
+} else if (%varbit_7919 = 10) {
+    if (%varbit_7920 = 2) {
+        $model = ~clientscript_3439(%varbit_7919);
+    }
+    if (%varbit_7920 = 3) {
+        $model = ~clientscript_3440(%varbit_7919);
+    }
+    if (%varbit_7920 = true) {
+        $model = ~clientscript_3438(%varbit_7919);
+    }
+} else {
+    if (%varbit_7920 = true) {
+        $model = ~clientscript_3440(%varbit_7919);
+    }
+    if (%varbit_7920 = 2) {
+        $model = ~clientscript_3438(%varbit_7919);
+    }
+    if (%varbit_7920 = 3) {
+        $model = ~clientscript_3439(%varbit_7919);
+    }
+}
+if_setmodel($model, pe2974876:com3);
+if (%varbit_7920 ! 0) {
+    if_sethide(false, pe2974876:com5);
+}
+if (%varbit_7920 = true) {
+    if_setposition(30, 205, ^setpos_abs_left, ^setpos_abs_top, pe2974876:com5);
+} else if (%varbit_7920 = 2) {
+    if_setposition(112, 205, ^setpos_abs_left, ^setpos_abs_top, pe2974876:com5);
+} else if (%varbit_7920 = 3) {
+    if_setposition(196, 205, ^setpos_abs_left, ^setpos_abs_top, pe2974876:com5);
+} else {
+    if_sethide(true, pe2974876:com5);
+}

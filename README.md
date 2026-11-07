@@ -667,7 +667,11 @@ copy instead. The original SHA-256 is
 `b7d38915a8fb878d2e2762ba63dac195e68fc8a7ecd9dcc1e738e17f875b6086`.
 
 Assets are versioned directly in their folders, such as `models`, `animations`, `sprites`
-and `maps`. Config imports use `scripts/_unpack`; authored config sections add to or override
+and `maps`. Server scripts live in `scripts/runescript`, client scripts in `scripts/clientscript`,
+and shared `.gs2` procedures and configs in `scripts/globalscript`. Each compiler loads its own
+folder plus globalscript. Shared procedures may only reference shared configs, constants and
+procedures; references into the other target's private folder are compilation errors.
+Config imports use `scripts/globalscript/_unpack`; authored config sections add to or override
 sections of the same name. Update filenames, headers and references when renaming a `.pack`
 entry. See [647 source formats](rs-pack/README.md#647-source-formats) for editing and repacking.
 

@@ -1,0 +1,133 @@
+[proc,clientscript_1309](int $int0)
+def_int $int1 = ~current_side_if;
+if ($int0 = true) {
+    if ($int1 ! 0) {
+        if_setgraphic(null, toplevel_fullscreen:com36);
+        if_setgraphic(null, toplevel_fullscreen:com129);
+        if_setgraphic(null, toplevel_fullscreen:com130);
+    }
+    if ($int1 ! 2) {
+        if_setgraphic(null, toplevel_fullscreen:com37);
+        if_setgraphic(null, toplevel_fullscreen:com131);
+        if_setgraphic(null, toplevel_fullscreen:com132);
+    }
+    if ($int1 ! 3) {
+        if_setgraphic(null, toplevel_fullscreen:com38);
+        if_setgraphic(null, toplevel_fullscreen:com133);
+        if_setgraphic(null, toplevel_fullscreen:com134);
+    }
+    if ($int1 ! 1) {
+        if_setgraphic(null, toplevel_fullscreen:com39);
+        if_setgraphic(null, toplevel_fullscreen:com135);
+        if_setgraphic(null, toplevel_fullscreen:com136);
+    }
+    if ($int1 ! 4) {
+        if_setgraphic(null, toplevel_fullscreen:com40);
+        if_setgraphic(null, toplevel_fullscreen:com137);
+        if_setgraphic(null, toplevel_fullscreen:com138);
+    }
+    if ($int1 ! 5) {
+        if_setgraphic(null, toplevel_fullscreen:com41);
+        if_setgraphic(null, toplevel_fullscreen:com139);
+        if_setgraphic(null, toplevel_fullscreen:com140);
+    }
+    if ($int1 ! 6) {
+        if_setgraphic(null, toplevel_fullscreen:com42);
+        if_setgraphic(null, toplevel_fullscreen:com141);
+        if_setgraphic(null, toplevel_fullscreen:com142);
+    }
+    if ($int1 ! 7) {
+        if_setgraphic(null, toplevel_fullscreen:com43);
+        if_setgraphic(null, toplevel_fullscreen:com143);
+        if_setgraphic(null, toplevel_fullscreen:com144);
+    }
+    if ($int1 ! 8) {
+        if_setgraphic(null, toplevel_fullscreen:com44);
+        if_setgraphic(null, toplevel_fullscreen:com145);
+        if_setgraphic(null, toplevel_fullscreen:com146);
+    }
+    if ($int1 ! 9) {
+        if_setgraphic(null, toplevel_fullscreen:com45);
+        if_setgraphic(null, toplevel_fullscreen:com147);
+        if_setgraphic(null, toplevel_fullscreen:com148);
+    }
+    if ($int1 ! 10) {
+        if_setgraphic(null, toplevel_fullscreen:com46);
+        if_setgraphic(null, toplevel_fullscreen:com149);
+        if_setgraphic(null, toplevel_fullscreen:com150);
+    }
+    if ($int1 ! 11) {
+        if_setgraphic(null, toplevel_fullscreen:com47);
+        if_setgraphic(null, toplevel_fullscreen:com151);
+        if_setgraphic(null, toplevel_fullscreen:com152);
+    }
+    if ($int1 ! 12) {
+        if_setgraphic(null, toplevel_fullscreen:com48);
+        if_setgraphic(null, toplevel_fullscreen:com153);
+        if_setgraphic(null, toplevel_fullscreen:com154);
+    }
+    if ($int1 ! 13) {
+        if_setgraphic(null, toplevel_fullscreen:com49);
+        if_setgraphic(null, toplevel_fullscreen:com155);
+        if_setgraphic(null, toplevel_fullscreen:com156);
+    }
+    if ($int1 ! 14) {
+        if_setgraphic(null, toplevel_fullscreen:com50);
+        if_setgraphic(null, toplevel_fullscreen:com157);
+        if_setgraphic(null, toplevel_fullscreen:com158);
+    }
+    if ($int1 ! 15) {
+        if_setgraphic(null, toplevel_fullscreen:com51);
+        if_setgraphic(null, toplevel_fullscreen:com159);
+        if_setgraphic(null, toplevel_fullscreen:com160);
+    }
+} else {
+    if_setgraphic(null, toplevel_fullscreen:com36);
+    if_setgraphic(null, toplevel_fullscreen:com129);
+    if_setgraphic(null, toplevel_fullscreen:com130);
+    if_setgraphic(null, toplevel_fullscreen:com37);
+    if_setgraphic(null, toplevel_fullscreen:com131);
+    if_setgraphic(null, toplevel_fullscreen:com132);
+    if_setgraphic(null, toplevel_fullscreen:com38);
+    if_setgraphic(null, toplevel_fullscreen:com133);
+    if_setgraphic(null, toplevel_fullscreen:com134);
+    if_setgraphic(null, toplevel_fullscreen:com39);
+    if_setgraphic(null, toplevel_fullscreen:com135);
+    if_setgraphic(null, toplevel_fullscreen:com136);
+    if_setgraphic(null, toplevel_fullscreen:com40);
+    if_setgraphic(null, toplevel_fullscreen:com137);
+    if_setgraphic(null, toplevel_fullscreen:com138);
+    if_setgraphic(null, toplevel_fullscreen:com41);
+    if_setgraphic(null, toplevel_fullscreen:com139);
+    if_setgraphic(null, toplevel_fullscreen:com140);
+    if_setgraphic(null, toplevel_fullscreen:com42);
+    if_setgraphic(null, toplevel_fullscreen:com141);
+    if_setgraphic(null, toplevel_fullscreen:com142);
+    if_setgraphic(null, toplevel_fullscreen:com43);
+    if_setgraphic(null, toplevel_fullscreen:com143);
+    if_setgraphic(null, toplevel_fullscreen:com144);
+    if_setgraphic(null, toplevel_fullscreen:com44);
+    if_setgraphic(null, toplevel_fullscreen:com145);
+    if_setgraphic(null, toplevel_fullscreen:com146);
+    if_setgraphic(null, toplevel_fullscreen:com45);
+    if_setgraphic(null, toplevel_fullscreen:com147);
+    if_setgraphic(null, toplevel_fullscreen:com148);
+    if_setgraphic(null, toplevel_fullscreen:com46);
+    if_setgraphic(null, toplevel_fullscreen:com149);
+    if_setgraphic(null, toplevel_fullscreen:com150);
+    if_setgraphic(null, toplevel_fullscreen:com47);
+    if_setgraphic(null, toplevel_fullscreen:com151);
+    if_setgraphic(null, toplevel_fullscreen:com152);
+    if_setgraphic(null, toplevel_fullscreen:com48);
+    if_setgraphic(null, toplevel_fullscreen:com153);
+    if_setgraphic(null, toplevel_fullscreen:com154);
+    if_setgraphic(null, toplevel_fullscreen:com49);
+    if_setgraphic(null, toplevel_fullscreen:com155);
+    if_setgraphic(null, toplevel_fullscreen:com156);
+    if_setgraphic(null, toplevel_fullscreen:com50);
+    if_setgraphic(null, toplevel_fullscreen:com157);
+    if_setgraphic(null, toplevel_fullscreen:com158);
+    if_setgraphic(null, toplevel_fullscreen:com51);
+    if_setgraphic(null, toplevel_fullscreen:com159);
+    if_setgraphic(null, toplevel_fullscreen:com160);
+}

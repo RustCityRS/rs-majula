@@ -1,0 +1,8 @@
+[clientscript,warguild_trans_off](int $int)
+if ($int = 69337132) {
+    if_sethide(true, warguild_token_choice:com31);
+} else if ($int = 69337090) {
+    if_sethide(true, warguild_token_choice:com39);
+} else if ($int = 69337091) {
+    if_sethide(true, warguild_token_choice:com35);
+}

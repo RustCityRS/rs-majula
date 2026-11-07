@@ -1,0 +1,6 @@
+[proc,clientscript_2565]
+def_int $int = 0;
+%varc_int_846 = %varbit_6380;
+if_settext(tostring(%varbit_6380), mob_squad_buy:com30);
+$int = calc(%varc_int_839 - 100 * %varc_int_846);
+if_settext(~tostring_spacer($int, ","), mob_squad_buy:com14);

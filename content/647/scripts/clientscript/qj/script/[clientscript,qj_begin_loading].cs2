@@ -1,0 +1,9 @@
+[clientscript,qj_begin_loading](component $component)
+if (%varc_int_771 = true) {
+    if_setontimer("qj_loading_anim($component)", $component);
+} else {
+    if_setontimer(null, $component);
+    if_settext("Saving your game and loading QuestHelp", $component);
+    if_sethide(true, $component);
+    if_sethide(false, questjournal_scroll:com14);
+}

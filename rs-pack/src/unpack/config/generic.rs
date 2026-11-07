@@ -1,3 +1,4 @@
+use crate::pack::pack_registry::PackFile;
 use anyhow::Result;
 use rs_io::Packet;
 use rs_io::js5::Js5Store;
@@ -27,6 +28,7 @@ pub fn unpack_config_group(
     group_id: u32,
     type_name: &str,
     output_dir: &Path,
+    seq: &PackFile,
 ) -> Result<u32> {
     let Some(group) = store.read_group(2, group_id)? else {
         info!("  Archive 2 group {group_id} ({type_name}) absent -- skipping");
@@ -57,7 +59,7 @@ pub fn unpack_config_group(
             if opcode == 0 {
                 break;
             }
-            let props = decode_known_opcode(&mut reader, group_id, opcode)?;
+            let props = decode_known_opcode(&mut reader, group_id, opcode, seq)?;
             for (key, value) in props {
                 writeln!(file, "{key}={value}")?;
             }
@@ -80,13 +82,18 @@ pub fn unpack_raw_config_group(
     output_dir: &Path,
 ) -> Result<u32> {
     let type_name = format!("config{group_id}");
-    unpack_config_group(store, group_id, &type_name, output_dir)
+    unpack_config_group(store, group_id, &type_name, output_dir, &PackFile::empty())
 }
 
-fn decode_known_opcode(r: &mut Packet, group_id: u32, opcode: u8) -> Result<Vec<(String, String)>> {
+fn decode_known_opcode(
+    r: &mut Packet,
+    group_id: u32,
+    opcode: u8,
+    seq: &PackFile,
+) -> Result<Vec<(String, String)>> {
     let result = match group_id {
         31 => decode_light(group_id, r, opcode),
-        32 => decode_bas(group_id, r, opcode),
+        32 => decode_bas(group_id, r, opcode, seq),
         33 => decode_cursor(group_id, r, opcode),
         34 => decode_msi(group_id, r, opcode),
         35 => decode_quest(group_id, r, opcode),
@@ -136,44 +143,29 @@ fn decode_light(group_id: u32, r: &mut Packet, opcode: u8) -> Result<Vec<(String
     })
 }
 
-fn decode_bas(group_id: u32, r: &mut Packet, opcode: u8) -> Result<Vec<(String, String)>> {
+fn seq_ref(seq: &PackFile, id: u16) -> String {
+    if id == u16::MAX {
+        return "null".to_owned();
+    }
+    seq.get_by_id(id as u32)
+        .map(str::to_owned)
+        .unwrap_or_else(|| format!("seq_{id}"))
+}
+
+fn decode_bas(
+    group_id: u32,
+    r: &mut Packet,
+    opcode: u8,
+    seq: &PackFile,
+) -> Result<Vec<(String, String)>> {
     Ok(match opcode {
         1 => {
-            let idle = r.g2();
-            let walk = r.g2();
+            let idle = seq_ref(seq, r.g2());
+            let walk = seq_ref(seq, r.g2());
             vec![("op1_g2_g2".into(), format!("{idle},{walk}"))]
         }
-        2 => {
-            let v = r.g2();
-            vec![("op2_g2".into(), v.to_string())]
-        }
-        3 => {
-            let v = r.g2();
-            vec![("op3_g2".into(), v.to_string())]
-        }
-        4 => {
-            let v = r.g2();
-            vec![("op4_g2".into(), v.to_string())]
-        }
-        5 => {
-            let v = r.g2();
-            vec![("op5_g2".into(), v.to_string())]
-        }
-        6 => {
-            let v = r.g2();
-            vec![("op6_g2".into(), v.to_string())]
-        }
-        7 => {
-            let v = r.g2();
-            vec![("op7_g2".into(), v.to_string())]
-        }
-        8 => {
-            let v = r.g2();
-            vec![("op8_g2".into(), v.to_string())]
-        }
-        9 => {
-            let v = r.g2();
-            vec![("op9_g2".into(), v.to_string())]
+        2..=9 => {
+            vec![(format!("op{opcode}_g2"), seq_ref(seq, r.g2()))]
         }
         26 => {
             let a = r.g1();
@@ -234,68 +226,15 @@ fn decode_bas(group_id: u32, r: &mut Packet, opcode: u8) -> Result<Vec<(String, 
             let v = r.g1();
             vec![("op37_g1".into(), v.to_string())]
         }
-        38 => {
-            let v = r.g2();
-            vec![("op38_g2".into(), v.to_string())]
-        }
-        39 => {
-            let v = r.g2();
-            vec![("op39_g2".into(), v.to_string())]
-        }
-        40 => {
-            let v = r.g2();
-            vec![("op40_g2".into(), v.to_string())]
-        }
-        41 => {
-            let v = r.g2();
-            vec![("op41_g2".into(), v.to_string())]
-        }
-        42 => {
-            let v = r.g2();
-            vec![("op42_g2".into(), v.to_string())]
-        }
-        43 => {
-            let v = r.g2();
-            vec![("op43_g2".into(), v.to_string())]
-        }
-        44 => {
-            let v = r.g2();
-            vec![("op44_g2".into(), v.to_string())]
-        }
-        45 => {
-            let v = r.g2();
-            vec![("op45_g2".into(), v.to_string())]
-        }
-        46 => {
-            let v = r.g2();
-            vec![("op46_g2".into(), v.to_string())]
-        }
-        47 => {
-            let v = r.g2();
-            vec![("op47_g2".into(), v.to_string())]
-        }
-        48 => {
-            let v = r.g2();
-            vec![("op48_g2".into(), v.to_string())]
-        }
-        49 => {
-            let v = r.g2();
-            vec![("op49_g2".into(), v.to_string())]
-        }
-        50 => {
-            let v = r.g2();
-            vec![("op50_g2".into(), v.to_string())]
-        }
-        51 => {
-            let v = r.g2();
-            vec![("op51_g2".into(), v.to_string())]
+        38..=51 => {
+            vec![(format!("op{opcode}_g2"), seq_ref(seq, r.g2()))]
         }
         52 => {
             let count = r.g1();
             let mut vals = Vec::new();
             vals.push(count.to_string());
             for _ in 0..count {
-                vals.push(r.g2().to_string());
+                vals.push(seq_ref(seq, r.g2()));
                 vals.push(r.g1().to_string());
             }
             vec![("op52_counted_g2_g1".into(), vals.join(","))]
@@ -750,4 +689,62 @@ fn decode_varclansetting(
 
 fn emit_unknown_opcode(group_id: u32, _r: &mut Packet, opcode: u8) -> (String, String) {
     panic!("group {group_id} unknown opcode {opcode} — add a decoder arm");
+}
+
+#[cfg(test)]
+mod tests {
+    use super::decode_known_opcode;
+    use crate::pack::config::generic::pack_generic_config;
+    use crate::pack::pack_registry::PackRegistry;
+    use rs_io::Packet;
+    use std::fmt::Write;
+    use std::fs;
+    use std::path::Path;
+    use std::process;
+
+    #[test]
+    fn bas_sequence_names_preserve_ids_weights_and_numeric_fields() {
+        let target = Path::new(env!("CARGO_MANIFEST_DIR")).join("../target");
+        let dir = target.join(format!("bas-seq-names-{}", process::id()));
+        fs::create_dir_all(&dir).unwrap();
+        fs::write(
+            dir.join("seq.pack"),
+            "737=human_climbing\n738=human_climbing_ready\n",
+        )
+        .unwrap();
+        let registry = PackRegistry::load(&dir).unwrap();
+        let data = [
+            38, 2, 225, 6, 2, 225, 1, 2, 226, 255, 255, 52, 2, 2, 225, 7, 234, 96, 3, 30, 2, 225,
+            55, 2, 2, 225, 0,
+        ];
+        let mut reader = Packet::from(data.to_vec());
+        let mut text = "[bas_0]\n".to_owned();
+        loop {
+            let opcode = reader.g1();
+            if opcode == 0 {
+                break;
+            }
+            for (key, value) in decode_known_opcode(&mut reader, 32, opcode, &registry.seq).unwrap()
+            {
+                writeln!(text, "{key}={value}").unwrap();
+            }
+        }
+        assert_eq!(reader.remaining(), 0);
+        assert_eq!(
+            text,
+            "[bas_0]\nop38_g2=human_climbing\nop6_g2=human_climbing\n\
+            op1_g2_g2=human_climbing_ready,null\n\
+            op52_counted_g2_g1=2,human_climbing,7,seq_60000,3\n\
+            op30_g2=737\nop55_g1_g2=2,737\n"
+        );
+        fs::write(dir.join("all.bas"), text).unwrap();
+        let packed = pack_generic_config(&dir, "bas", &registry).unwrap();
+        assert_eq!(packed.dat[2..], data);
+        assert!(
+            dir.canonicalize()
+                .unwrap()
+                .starts_with(target.canonicalize().unwrap())
+        );
+        fs::remove_dir_all(dir).unwrap();
+    }
 }

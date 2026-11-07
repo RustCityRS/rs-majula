@@ -1,0 +1,172 @@
+[proc,clientscript_2999]
+def_string $string0 = "";
+def_string $string1 = "";
+def_string $string2 = "";
+def_string $string3 = "";
+$string0 = "email-register";
+switch_int (get_accountinfo_6906) {
+    case 0:
+        if_setgraphic(2672, ix926645:com34);
+        ~clientscript_3010(~clientscript_3011(0));
+        if_settext("Unregistered", ix926645:com39);
+        $string2 = "You do not currently have an email address registered. Click <col=0166ff><u=0166ff>here</u></col> to register.";
+        $string3 = "You do not currently have an email address registered. Click <col=0296fe><u=0296fe>here</u></col> to register.";
+        if_settext($string2, ix926645:com40);
+        if_setonmouseover("text_swapper(^event_com, $string3)", ix926645:com40);
+        if_setonmouseleave("text_swapper(^event_com, $string2)", ix926645:com40);
+        $string1 = "set_address.ws";
+    case 1:
+        if_setgraphic(2672, ix926645:com34);
+        ~clientscript_3010(~clientscript_3011(0));
+        if_settext("Pending Parental Confirmation", ix926645:com39);
+        $string2 = "You have registered your email address. We are currently waiting for your parent to confirm their email address. Click <col=0166ff><u=0166ff>here</u></col> to submit a confirmation code.";
+        $string3 = "You have registered your email address. We are currently waiting for your parent to confirm their email address. Click <col=0296fe><u=0296fe>here</u></col> to submit a confirmation code.";
+        if_settext($string2, ix926645:com40);
+        if_setonmouseover("text_swapper(^event_com, $string3)", ix926645:com40);
+        if_setonmouseleave("text_swapper(^event_com, $string2)", ix926645:com40);
+        $string1 = "enter_code.ws";
+    case 2:
+        if_setgraphic(2672, ix926645:com34);
+        ~clientscript_3010(~clientscript_3011(0));
+        if_settext("Pending Confirmation", ix926645:com39);
+        $string2 = "Your email address is currently pending confirmation. Click <col=0166ff><u=0166ff>here</u></col> to submit a confirmation code.";
+        $string3 = "Your email address is currently pending confirmation. Click <col=0296fe><u=0296fe>here</u></col> to submit a confirmation code.";
+        if_settext($string2, ix926645:com40);
+        if_setonmouseover("text_swapper(^event_com, $string3)", ix926645:com40);
+        if_setonmouseleave("text_swapper(^event_com, $string2)", ix926645:com40);
+        $string1 = "enter_code.ws";
+    case 3:
+        if_setgraphic(2669, ix926645:com34);
+        ~clientscript_3008(~clientscript_3011(0));
+        if_settext("Registered", ix926645:com39);
+        $string2 = "Your email address is now registered. Click <col=0166ff><u=0166ff>here</u></col> to view or change your email preferences.";
+        $string3 = "Your email address is now registered. Click <col=0296fe><u=0296fe>here</u></col> to view or change your email preferences.";
+        if_settext($string2, ix926645:com40);
+        if_setonmouseover("text_swapper(^event_com, $string3)", ix926645:com40);
+        if_setonmouseleave("text_swapper(^event_com, $string2)", ix926645:com40);
+        $string1 = "change_settings.ws";
+    case 4:
+        if_setgraphic(2669, ix926645:com34);
+        ~clientscript_3008(~clientscript_3011(0));
+        if_settext("No longer registered", ix926645:com39);
+        $string2 = "Your account no longer has a registered email address. Click <col=0166ff><u=0166ff>here</u></col> to register again.";
+        $string3 = "Your account no longer has a registered email address. Click <col=0296fe><u=0296fe>here</u></col> to register again.";
+        if_settext($string2, ix926645:com40);
+        if_setonmouseover("text_swapper(^event_com, $string3)", ix926645:com40);
+        if_setonmouseleave("text_swapper(^event_com, $string2)", ix926645:com40);
+        $string1 = "set_address.ws";
+}
+if_setonclick("lobbyscreen_link($string0, $string1, true)", ix926645:com40);
+~clientscript_3376(ix926645:com40);
+def_int $int0 = get_accountinfo_6902;
+$string0 = "recovery_questions";
+if ($int0 = false) {
+    if_setgraphic(2672, ix926645:com22);
+    ~clientscript_3010(~clientscript_3011(1));
+    if_settext("Not Set", ix926645:com27);
+    $string2 = "You do not have any recovery questions set. It will be more difficult to recover your password if it gets stolen or you forget it. Click <col=0166ff><u=0166ff>here</u></col> to set your recovery questions.";
+    $string3 = "You do not have any recovery questions set. It will be more difficult to recover your password if it gets stolen or you forget it. Click <col=0296fe><u=0296fe>here</u></col> to set your recovery questions.";
+    if_settext($string2, ix926645:com28);
+    if_setonmouseover("text_swapper(^event_com, $string3)", ix926645:com28);
+    if_setonmouseleave("text_swapper(^event_com, $string2)", ix926645:com28);
+    $string1 = "add_recoveries.ws";
+} else if ($int0 < calc(date_getdays + 1)) {
+    if_setgraphic(2669, ix926645:com22);
+    ~clientscript_3008(~clientscript_3011(1));
+    if_settext("Set", ix926645:com27);
+    $string2 = "Recovery questions last set: <fromdate($int0)>. Click <col=0166ff><u=0166ff>here</u></col> to change your recovery questions.";
+    $string3 = "Recovery questions last set: <fromdate($int0)>. Click <col=0296fe><u=0296fe>here</u></col> to change your recovery questions.";
+    if_settext($string2, ix926645:com28);
+    if_setonmouseover("text_swapper(^event_com, $string3)", ix926645:com28);
+    if_setonmouseleave("text_swapper(^event_com, $string2)", ix926645:com28);
+    $string1 = "add_recoveries.ws";
+} else {
+    if_setgraphic(2672, ix926645:com22);
+    ~clientscript_3010(~clientscript_3011(1));
+    if_settext("Changed", ix926645:com27);
+    $string2 = "Your new recovery questions will become active on <fromdate($int0)>. If you didn't request this, cancel it and change your password immediately. Click <col=0166ff><u=0166ff>here</u></col> to cancel.";
+    $string3 = "Your new recovery questions will become active on <fromdate($int0)>. If you didn't request this, cancel it and change your password immediately. Click <col=0296fe><u=0296fe>here</u></col> to cancel.";
+    if_settext($string2, ix926645:com28);
+    if_setonmouseover("text_swapper(^event_com, $string3)", ix926645:com28);
+    if_setonmouseleave("text_swapper(^event_com, $string2)", ix926645:com28);
+    $string1 = "cancel_recoveries.ws";
+}
+if_setonclick("lobbyscreen_link($string0, $string1, true)", ix926645:com28);
+~clientscript_3376(ix926645:com28);
+def_int $int1 = get_accountinfo_6903;
+if ($int1 = false) {
+    if_setgraphic(2669, ix926645:com10);
+    ~clientscript_3008(~clientscript_3011(2));
+    if_settext("<tostring($int1)> Unread", ix926645:com15);
+    $string2 = "You have no unread messages. Click <col=0166ff><u=0166ff>here</u></col> to open your Message Centre.";
+    $string3 = "You have no unread messages. Click <col=0296fe><u=0296fe>here</u></col> to open your Message Centre.";
+    if_settext($string2, ix926645:com16);
+    if_setonmouseover("text_swapper(^event_com, $string3)", ix926645:com16);
+    if_setonmouseleave("text_swapper(^event_com, $string2)", ix926645:com16);
+} else {
+    if_setgraphic(2672, ix926645:com10);
+    ~clientscript_3010(~clientscript_3011(2));
+    if_settext("<tostring($int1)> Unread", ix926645:com15);
+    if ($int1 = true) {
+        $string2 = "You have 1 unread message. Click <col=0166ff><u=0166ff>here</u></col> to open your Message Centre.";
+        $string3 = "You have 1 unread message. Click <col=0296fe><u=0296fe>here</u></col> to open your Message Centre.";
+    } else {
+        $string2 = "You have <tostring($int1)> unread messages. Click <col=0166ff><u=0166ff>here</u></col> to open your Message Centre.";
+        $string3 = "You have <tostring($int1)> unread messages. Click <col=0296fe><u=0296fe>here</u></col> to open your Message Centre.";
+    }
+    if_settext($string2, ix926645:com16);
+    if_setonmouseover("text_swapper(^event_com, $string3)", ix926645:com16);
+    if_setonmouseleave("text_swapper(^event_com, $string2)", ix926645:com16);
+}
+~clientscript_3376(ix926645:com16);
+def_int $int2 = 0;
+def_int $int3 = 0;
+def_int $int4 = 0;
+$int3, $int4, $int2 = subscription_info;
+def_string $string4 = date_to_string($int3);
+def_int $int5 = 0;
+def_int $int6 = 0;
+def_int $int7 = 0;
+def_string $string5 = "";
+if ($int2 = true) {
+    if_setgraphic(2669, ix926645:com48);
+    ~clientscript_3008(~clientscript_3011(3));
+    if_settext("Subscription Active", ix926645:com53);
+    $string2 = "You have an active subscription. Click <col=0166ff><u=0166ff>here</u></col> to view your account information. Make sure you play on a members' world to enjoy all of your members' benefits.";
+    $string3 = "You have an active subscription. Click <col=0296fe><u=0296fe>here</u></col> to view your account information. Make sure you play on a members' world to enjoy all of your members' benefits.";
+    if_settext($string2, ix926645:com54);
+    if_setonmouseover("text_swapper(^event_com, $string3)", ix926645:com54);
+    if_setonmouseleave("text_swapper(^event_com, $string2)", ix926645:com54);
+    $string0 = "billing_core";
+    $string1 = "userdetails.ws";
+} else if (is_logged_in = true) {
+    $int5 = calc($int4 / 1440);
+    $int6 = calc($int4 % 1440 / 60);
+    $int7 = calc($int4 % 60);
+    if (calc($int5 + $int6 + $int7) ! 0) {
+        $string5 = " (in <~date_tostring($int5, $int6, $int7)>)";
+    }
+    if_setgraphic(2669, ix926645:com48);
+    ~clientscript_3008(~clientscript_3011(3));
+    if_settext("Expires <$string4>", ix926645:com53);
+    $string2 = "Your membership will expire on <$string4><$string5>. Renew now to avoid losing member status. Click <col=0166ff><u=0166ff>here</u></col> to renew.";
+    $string3 = "Your membership will expire on <$string4><$string5>. Renew now to avoid losing member status. Click <col=0296fe><u=0296fe>here</u></col> to renew.";
+    if_settext($string2, ix926645:com54);
+    if_setonmouseover("text_swapper(^event_com, $string3)", ix926645:com54);
+    if_setonmouseleave("text_swapper(^event_com, $string2)", ix926645:com54);
+    $string0 = "dob";
+    $string1 = "set_members_dob.ws";
+} else {
+    if_setgraphic(2672, ix926645:com48);
+    ~clientscript_3010(~clientscript_3011(3));
+    if_settext("Not a Member", ix926645:com53);
+    $string2 = "You are not a member. Members get loads of extra benefits and features. Click <col=0166ff><u=0166ff>here</u></col> to become a member.";
+    $string3 = "You are not a member. Members get loads of extra benefits and features. Click <col=0296fe><u=0296fe>here</u></col> to become a member.";
+    if_settext($string2, ix926645:com54);
+    if_setonmouseover("text_swapper(^event_com, $string3)", ix926645:com54);
+    if_setonmouseleave("text_swapper(^event_com, $string2)", ix926645:com54);
+    $string0 = "dob";
+    $string1 = "set_members_dob.ws";
+}
+if_setonclick("lobbyscreen_link($string0, $string1, true)", ix926645:com54);
+~clientscript_3376(ix926645:com54);

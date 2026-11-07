@@ -1,0 +1,6 @@
+[proc,clientscript_709](component $component)
+if (getwindowmode >= 2) {
+    if_setsize(if_getwidth(toplevel_fullscreen:com_wide_screen), if_getheight(toplevel_fullscreen:com_wide_screen), ^setsize_abs, ^setsize_abs, $component);
+} else {
+    if_setsize(if_getwidth(toplevel:com_overlay), if_getheight(toplevel:com_overlay), ^setsize_abs, ^setsize_abs, $component);
+}

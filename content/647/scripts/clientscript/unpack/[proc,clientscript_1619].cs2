@@ -1,0 +1,9 @@
+[proc,clientscript_1619](int $int0, int $int1, obj $obj2)
+if ($int0 < 0 | ($int0 >= 5 | ($int1 < 0 | $int1 >= 5))) {
+    mes("Nothing happens, as if something has gone wrong.");
+    return;
+}
+def_enum $enum3 = enum(105, 103, enum_800, $int1);
+def_component $component4 = enum(105, 73, $enum3, $int0);
+if_setmodel(enum(111, 109, enum_797, $obj2), $component4);
+if_setmodelangle(0, 0, 520, 0, 0, 2180, $component4);

@@ -1,0 +1,2 @@
+[clientscript,clan_set_colour1](component $component)
+if_setcolour(hsv_to_rgb(%varp_2096), $component);

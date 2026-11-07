@@ -1,0 +1,128 @@
+[clientscript,quickchat_onkey](int $int0, char $int1, component $component2, int $int3, chatcat $int4, chatphrase $int5, int $int6)
+if (if_gethide(enum(105, 73, enum_1550, calc($int3 + 1))) = false) {
+    return;
+}
+def_component $component7 = enum(105, 73, enum_1551, $int3);
+if ($int0 = 104) {
+    if ($int6 = false) {
+        return;
+    }
+    if (cc_find($component7, %varc_int_128) = true) {
+        cc_sethide(true);
+    }
+    if (%varc_int_128 <= 0) {
+        %varc_int_128 = calc($int6 - 1);
+    } else {
+        %varc_int_128 = calc(%varc_int_128 - 1);
+    }
+    if (cc_find($component7, %varc_int_128) = true & cc_gethide = true) {
+        cc_sethide(false);
+        cc_setcolour(0x577e45);
+    }
+    return;
+}
+if ($int0 = 105) {
+    if ($int6 = false) {
+        return;
+    }
+    if (cc_find($component7, %varc_int_128) = true) {
+        cc_sethide(true);
+    }
+    if (%varc_int_128 = calc($int6 - 1)) {
+        %varc_int_128 = 0;
+    } else {
+        %varc_int_128 = calc(%varc_int_128 + 1);
+    }
+    if (cc_find($component7, %varc_int_128) = true & cc_gethide = true) {
+        cc_sethide(false);
+        cc_setcolour(0x577e45);
+    }
+    return;
+}
+def_int $int8 = 0;
+def_int $int9 = 0;
+if ($int0 = 84) {
+    if (%varc_int_128 < 0) {
+        if ($int4 ! 32769 & $int3 = false) {
+            ~quickchat_enter_search(enum(105, 73, enum_1550, $int3), enum(105, 73, enum_1551, $int3), %varc_int_128, calc($int3 + 1));
+        }
+    } else if ($int4 ! -1) {
+        $int8 = quickchat_cat_getsubcatcount($int4);
+        $int9 = quickchat_cat_getphrasecount($int4);
+        if (%varc_int_128 = calc($int8 + $int9)) {
+            if ($int3 = false & (~clientscript_1036 ! -1 & cc_find(enum(105, 73, enum_1550, $int3), %varc_int_128) = true)) {
+                ~quickchat_menu_select(enum(105, 73, enum_1550, $int3), enum(105, 73, enum_1551, $int3), %varc_int_128, $component2, calc($int3 + 1), ~clientscript_1036);
+            }
+        } else if (%varc_int_128 < $int8) {
+            ~quickchat_menu_select(enum(105, 73, enum_1550, $int3), enum(105, 73, enum_1551, $int3), %varc_int_128, $component2, calc($int3 + 1), quickchat_cat_getsubcat($int4, %varc_int_128));
+        } else if (%varc_int_128 < calc($int8 + $int9)) {
+            ~quickchat_phrase($component2, quickchat_cat_getphrase($int4, calc(%varc_int_128 - $int8)), $int3);
+        } else {
+            ~quickchat_enter_search(enum(105, 73, enum_1550, $int3), enum(105, 73, enum_1551, $int3), %varc_int_128, calc($int3 + 1));
+        }
+    } else if ($int5 ! -1) {
+        $int8 = 0;
+        $int9 = quickchat_phrase_getautocount($int5);
+        ~quickchat_phrase($component2, quickchat_phrase_getautoresponse($int5, %varc_int_128), $int3);
+    }
+    return;
+}
+if ($int0 = 102) {
+    ~quickchat_open(%varc_int_126, %varc_string_27);
+    return;
+}
+if ($int0 = 13) {
+    ~quickchat_close;
+    return;
+}
+if ($int0 = 85 & $int3 > 0) {
+    ~quickchat_return($component2, calc($int3 - 1));
+    return;
+}
+if (char_isalphanumeric($int1) = false) {
+    return;
+}
+$int1 = op4123($int1);
+def_int $int10 = 0;
+def_int $int11 = 0;
+def_int $int12 = -1;
+if ($int4 ! -1) {
+    $int8 = quickchat_cat_getsubcatcount($int4);
+    $int9 = quickchat_cat_getphrasecount($int4);
+    if ($int3 = false & (compare("X", append_char("", $int1)) = false & ~clientscript_1036 ! -1)) {
+        $int10 = calc($int8 + $int9);
+        if (cc_find(enum(105, 73, enum_1550, $int3), $int10) = true) {
+            ~quickchat_menu_select(enum(105, 73, enum_1550, $int3), enum(105, 73, enum_1551, $int3), $int10, $component2, calc($int3 + 1), ~clientscript_1036);
+        }
+        return;
+    }
+    $int10 = 0;
+    while ($int11 < $int8) {
+        $int12 = op4123(quickchat_cat_getsubcatshortcut($int4, $int11));
+        if ($int12 = $int1) {
+            ~quickchat_menu_select(enum(105, 73, enum_1550, $int3), enum(105, 73, enum_1551, $int3), $int10, $component2, calc($int3 + 1), quickchat_cat_getsubcat($int4, $int10));
+            return;
+        }
+        $int10 = calc($int10 + 1);
+        $int11 = calc($int11 + 1);
+    }
+} else {
+    $int8 = 0;
+    $int9 = quickchat_phrase_getautocount($int5);
+}
+if (char_isnumeric($int1) = false) {
+    return;
+}
+def_int $int13 = string_indexof_char("0123456789", $int1, 0);
+if ($int13 = false) {
+    $int13 = 10;
+}
+if ($int13 > $int9) {
+    return;
+}
+$int10 = calc($int13 - 1);
+if ($int4 ! -1) {
+    ~quickchat_phrase($component2, quickchat_cat_getphrase($int4, $int10), $int3);
+} else if ($int5 ! -1) {
+    ~quickchat_phrase($component2, quickchat_phrase_getautoresponse($int5, $int10), $int3);
+}

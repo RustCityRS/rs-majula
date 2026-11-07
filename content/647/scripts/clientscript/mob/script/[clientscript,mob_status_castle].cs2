@@ -1,0 +1,86 @@
+[clientscript,mob_status_castle](component $component)
+def_string $string = "";
+if (%varbit_6357 = 2) {
+    if_sethide(false, $component);
+    if (%varbit_6372 = 15) {
+        if (%varbit_6373 > 0) {
+            $string = "Collected <tostring(%varbit_6373)> out of 4 rocks";
+            if_setgraphic(1985, mob_status_overlay:com36);
+        } else {
+            $string = "Send a squad to collect rocks";
+            if_setgraphic(1990, mob_status_overlay:com36);
+        }
+        if_setonmouserepeat("addtooltip(mob_status_overlay:com0, mob_status_overlay:com41, $string, 50, 150)", mob_status_overlay:com0);
+        if_setonmouseleave("deltooltip(mob_status_overlay:com41)", mob_status_overlay:com0);
+        if (%varbit_6373 > 1) {
+            $string = "Collected <tostring(%varbit_6373)> out of 4 rocks";
+            if_setgraphic(1985, mob_status_overlay:com39);
+        } else {
+            $string = "Send a squad to collect rocks.";
+            if_setgraphic(1990, mob_status_overlay:com39);
+        }
+        if_setonmouserepeat("addtooltip(mob_status_overlay:com3, mob_status_overlay:com41, $string, 50, 150)", mob_status_overlay:com3);
+        if_setonmouseleave("deltooltip(mob_status_overlay:com41)", mob_status_overlay:com3);
+        if (%varbit_6373 > 2) {
+            $string = "Collected <tostring(%varbit_6373)> out of 4 rocks";
+            if_setgraphic(1985, mob_status_overlay:com38);
+        } else {
+            $string = "Send a squad to collect rocks.";
+            if_setgraphic(1990, mob_status_overlay:com38);
+        }
+        if_setonmouserepeat("addtooltip(mob_status_overlay:com4, mob_status_overlay:com41, $string, 50, 150)", mob_status_overlay:com4);
+        if_setonmouseleave("deltooltip(mob_status_overlay:com41)", mob_status_overlay:com4);
+        if (%varbit_6373 > 3) {
+            $string = "Collected <tostring(%varbit_6373)> out of 4 rocks";
+            if_setgraphic(1985, mob_status_overlay:com37);
+        } else {
+            $string = "Send a squad to collect rocks.";
+            if_setgraphic(1990, mob_status_overlay:com37);
+        }
+        if_setonmouserepeat("addtooltip(mob_status_overlay:com5, mob_status_overlay:com41, $string, 50, 150)", mob_status_overlay:com5);
+        if_setonmouseleave("deltooltip(mob_status_overlay:com41)", mob_status_overlay:com5);
+    } else {
+        if (%varbit_6368 > 0) {
+            $string = "Collected wheels";
+            if_setgraphic(1981, mob_status_overlay:com36);
+        } else {
+            $string = "Send a squad to collect wheels.";
+            if_setgraphic(1986, mob_status_overlay:com36);
+        }
+        if_setonmouserepeat("addtooltip(mob_status_overlay:com0, mob_status_overlay:com41, $string, 50, 150)", mob_status_overlay:com0);
+        if_setonmouseleave("deltooltip(mob_status_overlay:com41)", mob_status_overlay:com0);
+        if (%varbit_6370 > 0) {
+            $string = "Collected logs";
+            if_setgraphic(1982, mob_status_overlay:com39);
+        } else {
+            $string = "Send a squad to collect logs.";
+            if_setgraphic(1987, mob_status_overlay:com39);
+        }
+        if_setonmouserepeat("addtooltip(mob_status_overlay:com3, mob_status_overlay:com41, $string, 50, 150)", mob_status_overlay:com3);
+        if_setonmouseleave("deltooltip(mob_status_overlay:com41)", mob_status_overlay:com3);
+        if (%varbit_6371 > 0) {
+            $string = "Collected rope";
+            if_setgraphic(1983, mob_status_overlay:com38);
+        } else {
+            $string = "Send a squad to collect rope.";
+            if_setgraphic(1988, mob_status_overlay:com38);
+        }
+        if_setonmouserepeat("addtooltip(mob_status_overlay:com4, mob_status_overlay:com41, $string, 50, 150)", mob_status_overlay:com4);
+        if_setonmouseleave("deltooltip(mob_status_overlay:com41)", mob_status_overlay:com4);
+        if (%varbit_6369 > 0) {
+            $string = "Collected metal limbs";
+            if_setgraphic(1984, mob_status_overlay:com37);
+        } else {
+            $string = "Send a squad to collect metal limbs.";
+            if_setgraphic(1989, mob_status_overlay:com37);
+        }
+        if_setonmouserepeat("addtooltip(mob_status_overlay:com5, mob_status_overlay:com41, $string, 50, 150)", mob_status_overlay:com5);
+        if_setonmouseleave("deltooltip(mob_status_overlay:com41)", mob_status_overlay:com5);
+    }
+} else if (%varbit_6357 = true) {
+    if_sethide(true, $component);
+} else if (%varbit_6357 = 3) {
+    if_sethide(true, $component);
+} else if (%varbit_6357 = 4) {
+    if_sethide(true, $component);
+}

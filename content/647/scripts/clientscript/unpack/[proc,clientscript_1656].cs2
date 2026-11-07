@@ -1,0 +1,9 @@
+[proc,clientscript_1656]
+if (%varbit_6673 = false) {
+    if_setonop("closebutton_click()", bank_v2_help:com10);
+    if_sethide(true, bank_v2_help:com54);
+} else {
+    if_setonop(null, bank_v2_help:com10);
+    if_sethide(false, bank_v2_help:com54);
+    ~v2_stone_button(bank_v2_help:com55);
+}

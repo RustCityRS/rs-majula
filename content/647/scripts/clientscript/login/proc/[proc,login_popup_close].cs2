@@ -1,0 +1,54 @@
+[proc,login_popup_close]
+def_component $component0 = login:com5;
+def_component $component1 = login:com7;
+def_component $component2 = login:com11;
+def_component $component3 = login:com10;
+def_component $component4 = login:com12;
+def_component $component5 = login:com55;
+def_int $int6 = 39059469;
+def_int $int7 = 39059470;
+def_int $int8 = 39059471;
+def_int $int9 = 39059513;
+def_int $int10 = 39059514;
+def_int $int11 = 39059515;
+def_component $component12 = login:com16;
+def_component $component13 = login:com60;
+if (login_getint_5623 = true) {
+    $component0 = south_progress9:com29;
+    $component1 = south_progress9:com1;
+    $component2 = south_progress9:com4;
+    $component3 = south_progress9:com3;
+    $component4 = south_progress9:com5;
+    $component5 = south_progress9:com6;
+    $int6 = 63897611;
+    $int7 = 63897612;
+    $int8 = 63897613;
+    $int9 = 63897607;
+    $int10 = 63897608;
+    $int11 = 63897609;
+    $component12 = south_progress9:com14;
+    $component13 = south_progress9:com10;
+}
+if_setonclick(null, $component4);
+if_setonclick(null, $component5);
+if_setonmouseover(null, $component5);
+if_setonmouseleave(null, $component5);
+if_setonmouseover(null, $component4);
+if_setonmouseleave(null, $component4);
+if_setposition(6, 5, ^setpos_abs_left, ^setpos_abs_bottom, $component4);
+if_setposition(6, 5, ^setpos_abs_left, ^setpos_abs_bottom, $component5);
+if_settext("", $component12);
+if_settext("", $component13);
+if_sethide(true, $component4);
+if_sethide(true, $component5);
+if_settext("", $component2);
+%varc_int_1092 = 0;
+if_setgraphic(null, $component3);
+if_setontimer(null, $component3);
+if_sethide(true, $component0);
+if_sethide(true, $component1);
+if (login_getint_5623 = true) {
+    return;
+} else {
+    ~login_open(11);
+}

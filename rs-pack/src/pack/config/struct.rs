@@ -14,14 +14,14 @@ pub fn pack_structs(
 ) -> Result<PackedFile> {
     let r#struct = &registry.r#struct;
 
-    let configs = parse_config_sections_cached(file_cache, "struct", constants);
+    let configs = parse_config_sections_cached(file_cache, "struct", constants)?;
 
     let mut server = PackedData::new(r#struct.max);
     #[cfg(since_647)]
-    let client_configs = file_cache.client_configs("struct", constants);
+    let client_configs = file_cache.client_configs("struct", constants)?;
     #[cfg(since_647)]
     let client_count = file_cache
-        .client_count("struct", r#struct, constants)
+        .client_count("struct", r#struct, constants)?
         .unwrap_or(0);
     #[cfg(since_647)]
     let mut client = PackedData::new(client_count);

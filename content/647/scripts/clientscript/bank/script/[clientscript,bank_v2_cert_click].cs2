@@ -1,0 +1,7 @@
+[clientscript,bank_v2_cert_click]
+if (%bankcert = false) {
+    %bankcert = 1;
+} else {
+    %bankcert = 0;
+}
+~bank_cert_button;

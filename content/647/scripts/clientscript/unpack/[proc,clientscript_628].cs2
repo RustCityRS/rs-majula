@@ -1,0 +1,6 @@
+[proc,clientscript_628]
+def_int $int = 0;
+while ($int < 6) {
+    ~clientscript_651($int);
+    $int = calc($int + 1);
+}

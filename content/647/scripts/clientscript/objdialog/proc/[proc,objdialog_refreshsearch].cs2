@@ -1,0 +1,11 @@
+[proc,objdialog_refreshsearch]
+if_setobject(null, -1, objdialog:com15);
+cc_deleteall(objdialog:com4);
+if (string_length(%varc_string_22) > 0) {
+    if_sethide(true, objdialog:com5);
+    ~objdialog_dosearch(%varc_string_22);
+} else {
+    if_sethide(false, objdialog:com5);
+    if_setscrollsize(0, 15, objdialog:com4);
+    ~objdialog_doscrollbar;
+}

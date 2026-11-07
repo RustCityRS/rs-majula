@@ -1,0 +1,36 @@
+[proc,lobbyscreen_entergame](component $component0)
+if (worldlist_fetch = false) {
+    ~lobbyscreen_loginbutton_text(0);
+    if_setontimer("lobbyscreen_entergame($component0)", $component0);
+    return;
+}
+%varc_int_1322 = 0;
+~lobbyscreen_loginbutton_text(1);
+if_setontimer(null, $component0);
+~lobby_popup_close;
+%varc_int_1100 = -1;
+def_int $int1 = 0;
+def_int $int2 = 0;
+def_int $int3 = 0;
+def_int $int4 = 0;
+if (~clientscript_2727 = true & %varc_int_547 = false) {
+    ~lobby_draw_button_green(lobbyscreen:com93);
+    ~lobby_draw_button_grey(lobbyscreen:com91);
+    ~clientscript_3026(lobbyscreen:com93);
+    ~clientscript_3025(lobbyscreen:com91);
+    if_sethide(false, lobbyscreen:com32);
+    sound_jingle(349, 0);
+    ~clientscript_3412(lobbyscreen:com86, lobbyscreen:com87);
+    $int3 = if_getwidth(lobbyscreen:com87);
+    $int4 = if_getwidth(lobbyscreen:com87);
+    $int1 = max(337, calc(op4125(if_gettext(lobbyscreen:com86), 496) + 30));
+    $int4 = max(152, calc(paraheight(if_gettext(lobbyscreen:com87), $int3, b12_full) * 16));
+    $int2 = max(243, calc($int4 + 91));
+    if_setsize($int3, $int4, ^setsize_abs, ^setsize_abs, lobbyscreen:com87);
+    if_setsize($int1, $int2, ^setsize_abs, ^setsize_abs, lobbyscreen:com84);
+    return;
+}
+%varc_int_200 = 0;
+~lobbyscreen_loginbutton_text(0);
+login_hopworld(0);
+if_setontimer("lobbyscreen_entergametimer($component0, active_toplevelinterface)", $component0);

@@ -1,0 +1,12 @@
+[proc,tostring_shortform](int $int)(string)
+if ($int < 0) {
+    return("");
+}
+if ($int < 10000) {
+    return(tostring($int));
+}
+if ($int < 10000000) {
+    return(append(tostring(calc($int / 1000)), "K"));
+}
+return(append(tostring(calc($int / 1000000)), "M"));
+return("");

@@ -1,0 +1,5 @@
+[proc,clientscript_2211]
+if (if_getx(%varc_int_1136) < 339) {
+    if_setontimer("clientscript_2211()", af714023:com1);
+    if_setposition(calc(1 + if_getx(%varc_int_1136)), if_gety(%varc_int_1136), ^setpos_abs_left, ^setpos_abs_top, %varc_int_1136);
+}

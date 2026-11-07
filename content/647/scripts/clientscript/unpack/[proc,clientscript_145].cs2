@@ -1,0 +1,5 @@
+[proc,clientscript_145](component $component0, int $int1)
+if (clientclock >= $int1) {
+    if_setontimer(null, $component0);
+    if_sethide(true, $component0);
+}

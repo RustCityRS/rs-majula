@@ -1,0 +1,6 @@
+[proc,lobby_hop_abort]
+if (%varc_int_200 > 0) {
+    ~lobbyscreen_loginbutton_text(1);
+    if_setontimer(null, lobbyscreen:com160);
+    ~lobby_popup_close;
+}

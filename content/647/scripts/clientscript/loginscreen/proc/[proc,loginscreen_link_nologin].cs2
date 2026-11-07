@@ -1,0 +1,4 @@
+[proc,loginscreen_link_nologin](int $int, string $string)
+if (compare($string, "") ! 0) {
+    logout_url($string, $int);
+}

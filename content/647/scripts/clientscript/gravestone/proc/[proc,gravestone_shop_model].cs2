@@ -1,0 +1,88 @@
+[proc,gravestone_shop_model](int $int)
+cc_setnpcmodel(enum(105, 110, enum_1098, $int));
+if ($int = false) {
+    ~cc_setposition_relative(0, 63);
+    cc_setmodelangle(0, 0, 0, 0, 0, 528);
+    cc_setontimer("clientscript_685(^event_com, ^event_subid, 0, 0, 256, 2)");
+    return;
+}
+if ($int = true) {
+    ~cc_setposition_relative(-31, 58);
+    cc_setmodelangle(0, 0, 0, 0, 0, 400);
+    cc_setontimer("clientscript_685(^event_com, ^event_subid, 0, 0, 256, 3)");
+    cc_setmodelanim(seq_7375);
+    return;
+}
+if ($int = 2) {
+    ~cc_setposition_relative(0, 58);
+    cc_setmodelangle(0, 0, 0, 0, 0, 528);
+    cc_setontimer("clientscript_685(^event_com, ^event_subid, 0, 0, 256, 2)");
+    return;
+}
+if ($int = 3) {
+    ~cc_setposition_relative(0, 48);
+    cc_setmodelangle(0, 0, 52, 0, 0, 650);
+    cc_setontimer("clientscript_685(^event_com, ^event_subid, 0, 0, 256, 2)");
+    return;
+}
+if ($int = 4) {
+    ~cc_setposition_relative(0, 62);
+    cc_setmodelangle(0, 0, 35, 0, 0, 528);
+    cc_setontimer("clientscript_685(^event_com, ^event_subid, 0, 0, 256, 2)");
+    return;
+}
+if ($int = 5) {
+    ~cc_setposition_relative(-3, 60);
+    cc_setmodelangle(0, 0, 35, 0, 0, 656);
+    cc_setontimer("clientscript_685(^event_com, ^event_subid, 0, 0, 512, 3)");
+    return;
+}
+if ($int = 6) {
+    ~cc_setposition_relative(0, 68);
+    cc_setmodelangle(0, 0, 35, 0, 0, 720);
+    cc_setontimer("clientscript_685(^event_com, ^event_subid, 0, 0, 256, 2)");
+    return;
+}
+if ($int = 7) {
+    ~cc_setposition_relative(0, 61);
+    cc_setmodelangle(0, 0, 35, 0, 0, 584);
+    cc_setontimer("clientscript_685(^event_com, ^event_subid, 0, 0, 256, 2)");
+    return;
+}
+if ($int = 8) {
+    ~cc_setposition_relative(0, 67);
+    cc_setmodelangle(0, 0, 35, 0, 0, 840);
+    cc_setontimer("clientscript_685(^event_com, ^event_subid, 0, 0, 256, 2)");
+    return;
+}
+if ($int = 9) {
+    ~cc_setposition_relative(0, 65);
+    cc_setmodelangle(0, 0, 35, 0, 0, 614);
+    cc_setontimer("clientscript_685(^event_com, ^event_subid, 0, 0, 256, 2)");
+    return;
+}
+if ($int = 10) {
+    ~cc_setposition_relative(0, 69);
+    cc_setmodelangle(0, 0, 35, 0, 0, 755);
+    cc_setontimer("clientscript_685(^event_com, ^event_subid, 35, 0, 256, 2)");
+    return;
+}
+if ($int = 11) {
+    ~cc_setposition_relative(0, 68);
+    cc_setmodelangle(0, 0, 35, 0, 0, 671);
+    cc_setontimer("clientscript_685(^event_com, ^event_subid, 35, 0, 256, 2)");
+    return;
+}
+if ($int = 12) {
+    ~cc_setposition_relative(0, 70);
+    cc_setmodelangle(0, 0, 35, 1891, 0, 1277);
+    cc_setontimer("clientscript_685(^event_com, ^event_subid, 35, 0, 256, 2)");
+    return;
+}
+if ($int = 13) {
+    ~cc_setposition_relative(0, 70);
+    cc_setmodelangle(0, 0, 35, 1891, 0, 1277);
+    cc_setontimer("clientscript_685(^event_com, ^event_subid, 35, 0, 256, 2)");
+    return;
+}
+cc_setmodelangle(0, 0, 0, 0, 0, 2000);

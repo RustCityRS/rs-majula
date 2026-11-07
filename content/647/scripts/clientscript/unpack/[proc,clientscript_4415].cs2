@@ -1,0 +1,21 @@
+[proc,clientscript_4415]
+if_settext(clanchannel_getname, clan_info:com173);
+if_settext("Game time:<br><~clan_offset_tostring(%clansetting_int_0)>", clan_info:com19);
+if_settext(clanchannel_getstring(clanchannel_getint2), clan_info:com35);
+if (%clansetting_varbit_6 > 0) {
+    if_settext(tostring(%clansetting_varbit_6), clan_info:com36);
+}
+if_settext(tostring(ignore_test), clan_info:com37);
+if (%clansetting_varbit_4 = false) {
+    if_settext("This clan is not recruiting.", clan_info:com5);
+} else if (%clansetting_varbit_4 = true) {
+    if_settext("This clan is recruiting.", clan_info:com5);
+}
+~clientscript_4332(clan_info:com102, clan_info:com112);
+~clientscript_4334(clan_info:com7, clan_info:com8);
+~clientscript_4336(clan_info:com94);
+~clientscript_4343(clan_info:com95);
+~clientscript_4329(clan_info:com38);
+~clientscript_4328(clan_info:com199);
+~clientscript_4420;
+if_sethide(true, clan_info:com151);

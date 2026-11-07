@@ -1,0 +1,9 @@
+[proc,clientscript_2321](component $component)
+if (if_getx($component) < calc(if_getwidth(easter09_nuts:com1) - 1)) {
+    if (if_getx($component) = calc(140 + if_getwidth($component))) {
+        if_setontimer("clientscript_2323(easter09_nuts:com9)", easter09_nuts:com22);
+    }
+    if_setposition(calc(1 + if_getx($component)), if_gety($component), ^setpos_abs_left, ^setpos_abs_top, $component);
+} else {
+    ~clientscript_2322;
+}

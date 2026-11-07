@@ -1,0 +1,52 @@
+[proc,task_main_tab_hover](int $int)
+switch_int ($int) {
+    case 0:
+        if (if_gethide(task_main:com83) = true) {
+            if_setgraphic("task_tab,0", task_main:com26);
+            if_setgraphic("task_tab,0", task_main:com28);
+            if_setgraphic("task_tab,1", task_main:com27);
+        }
+        if (if_gethide(task_main:com84) = true) {
+            if_setgraphic("task_tab,0", task_main:com22);
+            if_setgraphic("task_tab,0", task_main:com24);
+            if_setgraphic("task_tab,1", task_main:com23);
+        }
+        if (if_gethide(task_main:com82) = true) {
+            if_setgraphic("task_tab,0", task_main:com18);
+            if_setgraphic("task_tab,0", task_main:com20);
+            if_setgraphic("task_tab,1", task_main:com19);
+        }
+        if (if_gethide(task_main:com86) = true) {
+            if_setgraphic("task_tab,0", task_main:com14);
+            if_setgraphic("task_tab,0", task_main:com16);
+            if_setgraphic("task_tab,1", task_main:com15);
+        }
+    case 1:
+        if (if_gethide(task_main:com83) = false) {
+            return;
+        }
+        if_setgraphic("task_tab,2", task_main:com26);
+        if_setgraphic("task_tab,2", task_main:com28);
+        if_setgraphic("task_tab,3", task_main:com27);
+    case 2:
+        if (if_gethide(task_main:com84) = false) {
+            return;
+        }
+        if_setgraphic("task_tab,2", task_main:com22);
+        if_setgraphic("task_tab,2", task_main:com24);
+        if_setgraphic("task_tab,3", task_main:com23);
+    case 3:
+        if (if_gethide(task_main:com82) = false) {
+            return;
+        }
+        if_setgraphic("task_tab,2", task_main:com18);
+        if_setgraphic("task_tab,2", task_main:com20);
+        if_setgraphic("task_tab,3", task_main:com19);
+    case 4:
+        if (if_gethide(task_main:com86) = false) {
+            return;
+        }
+        if_setgraphic("task_tab,2", task_main:com14);
+        if_setgraphic("task_tab,2", task_main:com16);
+        if_setgraphic("task_tab,3", task_main:com15);
+}

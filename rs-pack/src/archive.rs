@@ -567,7 +567,7 @@ pub const ARCHIVES: &[ArchiveFormat] = &[
         whirlpooled: false,
         allow_uncompressed: false,
         allow_bzip2: false,
-        content_dir: "clientscript",
+        content_dir: "scripts/clientscript",
     },
     ArchiveFormat {
         id: FONTMETRICS,
@@ -813,6 +813,7 @@ pub type VersionTable = HashMap<u8, ArchiveVersions>;
 #[cfg(since_647)]
 pub fn versions_filename(id: u8) -> Option<&'static str> {
     match id {
+        CLIENTSCRIPT => Some("clientscript"),
         CONFIG_LOC => Some("config_loc"),
         CONFIG_ENUM => Some("config_enum"),
         CONFIG_NPC => Some("config_npc"),

@@ -1,0 +1,22 @@
+[clientscript,private_op](int $int0, int $int1, string $string)
+$string = removetags($string);
+switch_int ($int0) {
+    case 7:
+        if (~clientscript_2709 = false) {
+            mes("You cannot add a friend until you have entered your date of birth");
+            return;
+        }
+        if (friend_test($string) = true) {
+            if (is_quickchat_only = false & is_subscriber = false) {
+                ~meslayer_mode6($string);
+            }
+        } else {
+            friend_add($string);
+        }
+    case 8:
+        ignore_add($string);
+    case 9:
+        ~quickchat_respond(5, $string, chat_gethistory_rank($int1));
+    case 10:
+        %varc_string_24 = $string;
+}

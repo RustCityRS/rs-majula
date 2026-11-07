@@ -1,0 +1,72 @@
+[proc,clientscript_785](component $component)
+%varc_int_988 = 0;
+%varc_int_989 = 0;
+%varc_int_990 = 0;
+%varc_int_991 = 0;
+switch_component ($component) {
+    case magic:com7:
+        %varc_int_988 = 1;
+        if (%varbit_6459 = true) {
+            if_setgraphic(1702, $component);
+        }
+    case magic:com9:
+        %varc_int_989 = 1;
+        if (%varbit_6462 = true) {
+            if_setgraphic(1702, $component);
+        }
+    case magic:com11:
+        %varc_int_990 = 1;
+        if (%varbit_6461 = true) {
+            if_setgraphic(1702, $component);
+        }
+    case magic:com13:
+        %varc_int_991 = 1;
+        if (%varbit_6460 = true) {
+            if_setgraphic(1702, $component);
+        }
+    case magic_lunar:com5:
+        %varc_int_988 = 1;
+        if (%varbit_6463 = true) {
+            if_setgraphic(1702, $component);
+        }
+    case magic_lunar:com9:
+        %varc_int_990 = 1;
+        if (%varbit_6464 = true) {
+            if_setgraphic(1702, $component);
+        }
+    case magic_lunar:com7:
+        %varc_int_989 = 1;
+        if (%varbit_6465 = true) {
+            if_setgraphic(1702, $component);
+        }
+    case magic_zaros:com5:
+        %varc_int_988 = 1;
+        if (%varbit_6466 = true) {
+            if_setgraphic(1702, $component);
+        }
+    case magic_zaros:com7:
+        %varc_int_989 = 1;
+        if (%varbit_6467 = true) {
+            if_setgraphic(1702, $component);
+        }
+    case rand_magic:com7:
+        %varc_int_988 = 1;
+        if (%varbit_7348 = true) {
+            if_setgraphic(1702, $component);
+        }
+    case rand_magic:com9:
+        %varc_int_989 = 1;
+        if (%varbit_7351 = true) {
+            if_setgraphic(1702, $component);
+        }
+    case rand_magic:com11:
+        %varc_int_990 = 1;
+        if (%varbit_7350 = true) {
+            if_setgraphic(1702, $component);
+        }
+    case rand_magic:com13:
+        %varc_int_991 = 1;
+        if (%varbit_7349 = true) {
+            if_setgraphic(1702, $component);
+        }
+}

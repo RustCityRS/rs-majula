@@ -1,0 +1,8 @@
+[clientscript,playerdesign4_slotbutton](int $int0, int $int1)
+if ($int0 ! 1 | $int1 = %varc_int_1020) {
+    return;
+}
+sound_synth(synth_9819, 1, 0);
+%varc_int_1020 = $int1;
+%character_part = $int1;
+~playerdesign4_rebuildmenu;

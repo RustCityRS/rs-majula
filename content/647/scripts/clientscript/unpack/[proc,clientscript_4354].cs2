@@ -1,0 +1,52 @@
+[proc,clientscript_4354](component $component)
+switch_int (%varp_2128) {
+    case 1:
+        if (%varbit_9141 = false) {
+            %varbit_9141 = 1;
+        } else {
+            %varbit_9141 = 0;
+        }
+    case 2:
+        if (%varbit_9142 = false) {
+            %varbit_9142 = 1;
+        } else {
+            %varbit_9142 = 0;
+        }
+    case 3:
+        if (%varbit_9143 = false) {
+            %varbit_9143 = 1;
+        } else {
+            %varbit_9143 = 0;
+        }
+    case 4:
+        if (%varbit_9144 = false) {
+            %varbit_9144 = 1;
+        } else {
+            %varbit_9144 = 0;
+        }
+    case 5:
+        if (%varbit_9145 = false) {
+            %varbit_9145 = 1;
+        } else {
+            %varbit_9145 = 0;
+        }
+    case 6:
+        if (%varbit_9146 = false) {
+            %varbit_9146 = 1;
+        } else {
+            %varbit_9146 = 0;
+        }
+    case 7:
+        if (%varbit_9147 = false) {
+            %varbit_9147 = 1;
+        } else {
+            %varbit_9147 = 0;
+        }
+    case 8:
+        if (%varbit_9148 = false) {
+            %varbit_9148 = 1;
+        } else {
+            %varbit_9148 = 0;
+        }
+}
+~clientscript_4356($component);

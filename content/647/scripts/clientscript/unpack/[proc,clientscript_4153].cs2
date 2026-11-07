@@ -1,0 +1,6 @@
+[proc,clientscript_4153]
+if (%varbit_4466 = true) {
+    if_setgraphic("radio_buttons,1", friendschatsetup:com33);
+} else if (%varbit_4466 = false) {
+    if_setgraphic("radio_buttons,0", friendschatsetup:com33);
+}

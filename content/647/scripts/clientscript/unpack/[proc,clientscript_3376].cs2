@@ -1,0 +1,9 @@
+[proc,clientscript_3376](component $component0)
+def_int $int1 = if_getwidth($component0);
+def_string $string = removetags(if_gettext($component0));
+def_int $int2 = paraheight($string, $int1, verdana_11pt_regular);
+if ($int2 = true) {
+    if_setsize(op4125($string, 3793), 19, ^setsize_abs, ^setsize_abs, $component0);
+} else {
+    if_setsize($int1, calc(14 * $int2 + 5), ^setsize_abs, ^setsize_abs, $component0);
+}

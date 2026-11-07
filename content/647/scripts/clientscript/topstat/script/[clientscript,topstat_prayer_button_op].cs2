@@ -1,0 +1,13 @@
+[clientscript,topstat_prayer_button_op](int $int)
+if ($int ! 1) {
+    return;
+}
+if (%varp_1397 = false) {
+    return;
+}
+if (~bool_to_int(%varc_int_182) = true) {
+    %varc_int_182 = 0;
+} else {
+    %varc_int_182 = 1;
+}
+~topstat_prayer_button_update;

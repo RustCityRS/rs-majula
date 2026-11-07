@@ -1,0 +1,61 @@
+[proc,create_focus](int $int0, int $int1)
+if (login_getint_5609 = -3) {
+    return;
+}
+def_int $int2 = %varc_int_174;
+%varc_int_174 = $int0;
+%varc_int_175 = clientclock;
+switch_int ($int0) {
+    case 6:
+        if ($int1 = true) {
+            %varc_int_1099 = string_length(%varc_string_122);
+            ~clientscript_3218(account_create:com87, account_create:com31, account_create:com88, %varc_string_122, 6);
+        }
+    case 14:
+        if ($int1 = true) {
+            %varc_int_1099 = string_length(%varc_string_326);
+            ~clientscript_3218(account_create:com106, account_create:com107, account_create:com108, %varc_string_326, 14);
+        }
+    case 7:
+        if ($int1 = true) {
+            %varc_int_1099 = string_length(%varc_string_124);
+            ~clientscript_3218(account_create:com77, account_create:com78, account_create:com79, ~clientscript_2949(%varc_string_124), 7);
+        }
+    case 8:
+        if ($int1 = true) {
+            %varc_int_1099 = string_length(%varc_string_125);
+            ~clientscript_3218(account_create:com67, account_create:com68, account_create:com69, ~clientscript_2949(%varc_string_125), 8);
+        }
+    case 15:
+        if ($int1 = true) {
+            if (%varc_int_1407 < 1) {
+                %varc_int_1099 = 0;
+                ~clientscript_3218(account_create:com113, account_create:com30, account_create:com114, "", 15);
+            } else {
+                %varc_int_1099 = string_length(tostring(%varc_int_1407));
+                ~clientscript_3218(account_create:com113, account_create:com30, account_create:com114, tostring(%varc_int_1407), 15);
+            }
+        }
+}
+if ($int2 = 6 & $int0 ! 6) {
+    if (compare(%varc_string_123, %varc_string_122) ! 0) {
+        ~clientscript_2283(false, true);
+    }
+} else if ($int2 = 14 & $int0 ! 14) {
+    if (compare(%varc_string_327, %varc_string_326) ! 0) {
+        ~clientscript_3953(0);
+    }
+} else if ($int2 = 7 & $int0 ! 7) {
+    if (compare(%varc_string_328, %varc_string_124) ! 0) {
+        ~clientscript_3228(7, 0, 0);
+        if (string_length(%varc_string_125) > 0) {
+            ~clientscript_3228(8, 1, 0);
+        }
+    }
+} else if ($int2 = 8 & $int0 ! 8) {
+    if (compare(%varc_string_329, %varc_string_125) ! 0) {
+        ~clientscript_3228(8, 1, 0);
+    }
+} else if ($int2 = 15 & ($int0 ! 15 & %varc_int_1408 ! %varc_int_1407)) {
+    ~clientscript_3954(0);
+}

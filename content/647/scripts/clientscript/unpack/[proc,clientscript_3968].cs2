@@ -1,0 +1,30 @@
+[proc,clientscript_3968]
+if (%varc_int_1429 = true | %varc_int_1425 = %varc_int_1426) {
+    return;
+}
+%varc_int_1427 = 0;
+def_struct $struct0 = enum(105, 74, enum_3483, %varc_int_1425);
+def_int $int1 = 1;
+if (getwindowmode >= 2) {
+    if (if_gethide(toplevel_fullscreen:com23) = true | if_getgraphic(toplevel_fullscreen:com23) = null) {
+        $int1 = 0;
+    }
+} else if (if_gethide(toplevel:com140) = true | if_getgraphic(toplevel:com140) = null) {
+    $int1 = 0;
+}
+if (%learning_the_ropes = 1000) {
+    if_setonop("clientscript_3976(%varc_int_1425, 1, $int1)", yk8819607:com2);
+} else {
+    if_setonop(null, yk8819607:com2);
+}
+if (if_gethide(yk8819607:com12) = true & if_gethide(yk8819607:com1) = true) {
+    if ($struct0 ! null) {
+        if_settrans(255, yk8819607:com13);
+        if_setontimer("clientscript_3969()", yk8819607:com12);
+        if_sethide(false, yk8819607:com12);
+    } else {
+        if_sethide(true, yk8819607:com1);
+        if_sethide(true, yk8819607:com12);
+    }
+}
+%varc_int_1426 = %varc_int_1425;

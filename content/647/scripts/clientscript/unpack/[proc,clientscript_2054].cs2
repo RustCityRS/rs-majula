@@ -1,0 +1,5 @@
+[proc,clientscript_2054](int $int0, component $component1, coord $int2)
+if (clientclock >= $int0) {
+    worldmap_setcoord_5214($int2);
+    if_setontimer(null, $component1);
+}

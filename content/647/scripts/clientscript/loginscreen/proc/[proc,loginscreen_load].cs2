@@ -1,0 +1,74 @@
+[proc,loginscreen_load](component $component0, component $component1, component $component2, component $component3, component $component4, component $component5)
+if_openmainoverlay(0, 0, 4, 3, 135, 30, 3791, 3792, 297, 16777215, 3793);
+if_setsize(278, 90, ^setsize_abs, ^setsize_abs, loginscreen:com23);
+if_setgraphic(logo_alpha, loginscreen:com23);
+if_setgraphic(culling_4x3, loginscreen:com8);
+if_setgraphic(culling_4x2, loginscreen:com9);
+if_setgraphic(culling_4x4, loginscreen:com10);
+if_setgraphic(culling_4x5, loginscreen:com11);
+if_setgraphic(culling_4x7, loginscreen:com12);
+if_setgraphic(culling_4x6, loginscreen:com13);
+if_setgraphic(culling_4x8, loginscreen:com14);
+if_setgraphic(culling_4x9, loginscreen:com15);
+if_setgraphic("corner_flourish,0", loginscreen:com22);
+if_setgraphic("corner_flourish,0", loginscreen:com97);
+if_setgraphic("corner_flourish,0", loginscreen:com100);
+if_setgraphic("corner_frame_1,4", loginscreen:com70);
+if_sethflip(true, loginscreen:com70);
+if_setvflip(true, loginscreen:com70);
+if_setgraphic("corner_frame_1,4", loginscreen:com74);
+if_sethflip(false, loginscreen:com74);
+if_setvflip(true, loginscreen:com74);
+if_setgraphic("corner_frame_1,4", loginscreen:com4);
+if_setgraphic("corner_frame_1,4", loginscreen:com6);
+set_clientopt_6039(random(18));
+if (%varc_int_176 <= 0) {
+    %varc_int_176 = calc((random(5) + 1) * 10);
+}
+if_sethook1427("login_resize()", loginscreen:com17);
+~clientscript_3964;
+%varc_string_32 = "";
+%varc_string_33 = "";
+%varc_int_547 = 0;
+%varc_int_1093 = 0;
+if_openoverlay(48758834, 882);
+~graphics_options_init(0);
+if_setonclick("loginscreen_setactivemenu(11)", loginscreen_graphics_options:com20);
+if_setonkey("loginscreen_keypress(^event_key, ^event_keychar)", loginscreen:com17);
+~loginscreen_initialisecamera($component0, $component1, $component2, $component3, $component4, $component5);
+~cursors_login;
+if (frombilling = true) {
+    %varc_int_1090 = 11;
+    %varc_int_1091 = 11;
+    ~loginscreen_setactivemenu_full(11, 1, 0);
+} else {
+    if (%varc_int_1240 = 2 & get_clientopt_6131 ! 0) {
+        %varc_int_1240 = 3;
+    }
+    if (is_unsigned = true) {
+        %varc_int_1240 = 3;
+    }
+    if (get_clientopt_6148 = false & (is_unsigned = false & (%varc_int_1240 < 3 | (get_clientopt_6144 = true | get_clientopt_6132 = false)))) {
+        %varc_int_1090 = 0;
+        %varc_int_1091 = 0;
+        ~loginscreen_setactivemenu_full(0, 1, 0);
+    } else if (login_getint_5623 = true) {
+        %varc_int_1090 = 5;
+        %varc_int_1091 = 5;
+        ~loginscreen_setactivemenu_full(5, 1, 0);
+        if (%varc_int_1273 = true) {
+            return;
+        } else {
+            if_setontimer("login_delay(south_progress9:com50, 0)", south_progress9:com50);
+        }
+    } else if (~userflowflags(3) = true) {
+        %varc_int_1090 = 7;
+        %varc_int_1091 = 7;
+        ~loginscreen_setactivemenu_full(7, 1, 0);
+    } else {
+        %varc_int_1090 = 11;
+        %varc_int_1091 = 11;
+        ~loginscreen_setactivemenu_full(11, 1, 0);
+    }
+}
+~login_resize;

@@ -1,0 +1,52 @@
+[clientscript,rand_rewards_clickinformation](int $int0)
+def_int $int1 = calc($int0 / 5);
+def_enum $enum2 = enum_3016;
+if (map_members = true) {
+    $enum2 = enum_3015;
+}
+if (map_members = true & $int1 = 41 | map_members = false & $int1 = 17) {
+    if_sethide(true, rand_rewards_interface:com42);
+    if_settext(struct_param(enum(105, 74, $enum2, $int1), param_1078), rand_rewards_interface:com40);
+    if_sethide(false, rand_rewards_interface:com43);
+    if_settext(oc_name(struct_param(enum(105, 74, $enum2, $int1), param_1070)), rand_rewards_interface:com43);
+    if_sethide(false, rand_rewards_interface:com44);
+    if_setobject(struct_param(enum(105, 74, $enum2, $int1), param_1070), -1, rand_rewards_interface:com44);
+    if_sethide(false, rand_rewards_interface:com41);
+    if_sethide(false, rand_rewards_interface:com66);
+    if_sethide(false, rand_rewards_interface:com64);
+    if_sethide(false, rand_rewards_interface:com62);
+    if_sethide(false, rand_rewards_interface:com63);
+    if_sethide(true, rand_rewards_interface:com67);
+    if_sethide(true, rand_rewards_interface:com68);
+    if_settext("1 : 1xp", rand_rewards_interface:com62);
+} else if (stat_base(dungeoneering) < struct_param(enum(105, 74, $enum2, $int1), param_1071)) {
+    if_sethide(true, rand_rewards_interface:com42);
+    if_settext(struct_param(enum(105, 74, $enum2, $int1), param_1078), rand_rewards_interface:com40);
+    if_sethide(false, rand_rewards_interface:com43);
+    if_settext(oc_name(struct_param(enum(105, 74, $enum2, $int1), param_1070)), rand_rewards_interface:com43);
+    if_sethide(false, rand_rewards_interface:com44);
+    if_setobject(struct_param(enum(105, 74, $enum2, $int1), param_1070), -1, rand_rewards_interface:com44);
+    if_sethide(false, rand_rewards_interface:com41);
+    if_sethide(true, rand_rewards_interface:com66);
+    if_sethide(true, rand_rewards_interface:com64);
+    if_sethide(true, rand_rewards_interface:com62);
+    if_sethide(true, rand_rewards_interface:com63);
+    if_sethide(false, rand_rewards_interface:com67);
+    if_sethide(false, rand_rewards_interface:com68);
+    if_settext("Dungeoneering <tostring(struct_param(enum(105, 74, $enum2, $int1), param_1071))> required", rand_rewards_interface:com68);
+} else {
+    if_sethide(true, rand_rewards_interface:com42);
+    if_settext(struct_param(enum(105, 74, $enum2, $int1), param_1078), rand_rewards_interface:com40);
+    if_sethide(false, rand_rewards_interface:com43);
+    if_settext(oc_name(struct_param(enum(105, 74, $enum2, $int1), param_1070)), rand_rewards_interface:com43);
+    if_sethide(false, rand_rewards_interface:com44);
+    if_setobject(struct_param(enum(105, 74, $enum2, $int1), param_1070), -1, rand_rewards_interface:com44);
+    if_sethide(false, rand_rewards_interface:com41);
+    if_sethide(false, rand_rewards_interface:com66);
+    if_sethide(false, rand_rewards_interface:com64);
+    if_sethide(false, rand_rewards_interface:com62);
+    if_sethide(false, rand_rewards_interface:com63);
+    if_sethide(true, rand_rewards_interface:com67);
+    if_sethide(true, rand_rewards_interface:com68);
+    if_settext(tostring(struct_param(enum(105, 74, $enum2, $int1), param_1072)), rand_rewards_interface:com62);
+}

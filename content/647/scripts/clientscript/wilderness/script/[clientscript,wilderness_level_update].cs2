@@ -1,0 +1,9 @@
+[clientscript,wilderness_level_update](component $component0)
+def_int $int1 = coordz(coord);
+def_int $int2 = calc(($int1 - 9920) / 8 + 1);
+def_int $int3 = calc(($int1 - 3520) / 8 + 1);
+if ($int1 > 6400) {
+    if_settext("Level: <tostring($int2)>", $component0);
+} else {
+    if_settext("Level: <tostring($int3)>", $component0);
+}

@@ -1,0 +1,37 @@
+[clientscript,statusicons_addtooltip](component $component0, int $int1, int $int2, string $string)
+if ($component0 = hs3423786:com1 & %varc_int_616 = false) {
+    return;
+}
+def_int $int3 = 0;
+def_int $int4 = 0;
+def_int $int5 = 0;
+def_component $component6 = null;
+def_component $component7 = null;
+def_component $component8 = null;
+if (%varc_int_1 < calc(clientclock + 25)) {
+    if (%varc_int_1 < clientclock) {
+        %varc_int_1 = clientclock;
+    }
+    %varc_int_1 = calc(%varc_int_1 + 2);
+    return;
+}
+%varc_int_1 = calc(clientclock + 25 + 10);
+if (%varc_int_2 ! 1) {
+    $int5 = calc(parawidth($string, 1000, p12_full) + 8);
+    if (getwindowmode < 2) {
+        $component6 = toplevel:com15;
+        $component8 = toplevel:com224;
+        $component7 = toplevel:com14;
+    } else {
+        $component6 = toplevel_fullscreen:com13;
+        $component8 = toplevel_fullscreen:com164;
+        $component7 = toplevel_fullscreen:com12;
+    }
+    $int3 = calc(if_getx($component7) + if_getx($component0) + $int1 - $int5);
+    $int4 = calc(if_gety($component7) + if_gety($component0) + $int2 - 17);
+    if_sethide(false, $component6);
+    if_setsize($int5, 17, ^setsize_abs, ^setsize_abs, $component6);
+    if_setposition($int3, $int4, ^setpos_abs_left, ^setpos_abs_top, $component6);
+    if_settext($string, $component8);
+    %varc_int_2 = 1;
+}

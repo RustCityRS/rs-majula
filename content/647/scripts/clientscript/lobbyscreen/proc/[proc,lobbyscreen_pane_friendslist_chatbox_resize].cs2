@@ -1,0 +1,20 @@
+[proc,lobbyscreen_pane_friendslist_chatbox_resize](int $int0, int $int1)
+def_int $int2 = calc(if_getheight(lobbyscreen_pane_friendslist:com13) - if_gety(lobbyscreen_pane_friendslist:com61) - 35 - $int0 - 7);
+if ($int1 = true) {
+    $int2 = calc($int2 - $int2 % 15);
+}
+if ($int2 < 113) {
+    $int2 = 113;
+}
+if_setsize(20, $int2, ^setsize_minus, ^setsize_abs, lobbyscreen_pane_friendslist:com49);
+%varc_int_1274 = $int0;
+if_setposition(0, calc(if_gety(lobbyscreen_pane_friendslist:com49) - if_gety(lobbyscreen_pane_friendslist:com61) - 7), ^setpos_abs_left, ^setpos_abs_top, lobbyscreen_pane_friendslist:com62);
+def_int $int3 = calc($int2 - 8);
+$int3 = calc($int3 - $int3 % 15);
+if_setsize(if_getwidth(lobbyscreen_pane_friendslist:com52), $int3, ^setsize_abs, ^setsize_abs, lobbyscreen_pane_friendslist:com52);
+%varc_int_1122 = calc(%varc_int_1122 - ($int3 - $int3));
+~lobbyscreen_pane_friendslist_chat_build(lobbyscreen_pane_friendslist:com49);
+if_setsize(if_getwidth(lobbyscreen_pane_friendslist:com16), calc($int2 + 86), ^setsize_abs, ^setsize_minus, lobbyscreen_pane_friendslist:com16);
+if_setsize(if_getwidth(lobbyscreen_pane_friendslist:com48), calc($int2 + 86), ^setsize_abs, ^setsize_minus, lobbyscreen_pane_friendslist:com48);
+~clientscript_3029(lobbyscreen_pane_friendslist:com45, lobbyscreen_pane_friendslist:com44, lobbyscreen_pane_friendslist:com46, lobbyscreen_pane_friendslist:com42, lobbyscreen_pane_friendslist:com41, lobbyscreen_pane_friendslist:com47);
+~clientscript_3041(lobbyscreen_pane_friendslist:com87, lobbyscreen_pane_friendslist:com86, lobbyscreen_pane_friendslist:com84, lobbyscreen_pane_friendslist:com78, lobbyscreen_pane_friendslist:com79);

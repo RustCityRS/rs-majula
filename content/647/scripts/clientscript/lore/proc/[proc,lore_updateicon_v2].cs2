@@ -1,0 +1,24 @@
+[proc,lore_updateicon_v2](component $component0, graphic $graphic1, graphic $graphic2, int $int3, obj $obj4, int $int5, obj $obj6, int $int7, obj $obj8, int $int9, obj $obj10, int $int11)
+if (if_gethide($component0) = false & cc_find($component0, 0) = true) {
+    if ($obj4 ! null & ~magic_runecount($obj4, lore_stats_side:com74) < $int5) {
+        cc_setgraphic($graphic2);
+        return;
+    }
+    if ($obj6 ! null & ~magic_runecount($obj6, lore_stats_side:com74) < $int7) {
+        cc_setgraphic($graphic2);
+        return;
+    }
+    if ($obj8 ! null & ~magic_runecount($obj8, lore_stats_side:com74) < $int9) {
+        cc_setgraphic($graphic2);
+        return;
+    }
+    if ($obj10 ! null & ~magic_runecount($obj10, lore_stats_side:com74) < $int11) {
+        cc_setgraphic($graphic2);
+        return;
+    }
+    if (stat_base(summoning) < $int3) {
+        cc_setgraphic($graphic2);
+    } else {
+        cc_setgraphic($graphic1);
+    }
+}

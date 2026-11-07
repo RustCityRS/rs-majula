@@ -1,0 +1,20 @@
+[proc,clientscript_304](int $int0)
+if ($int0 = -1) {
+    return;
+}
+sound_synth(synth_2266, 1, 0);
+def_int $int1 = maparea_getbycoord($int0);
+$int1 = ~clientscript_2785($int1);
+if ($int1 = -1) {
+    return;
+}
+~worldmap_overlay_clear(worldmap:com29);
+%varc_string_31 = "";
+~clientscript_308(worldmap:com25);
+if_settext(maparea_getname($int1), worldmap:com20);
+~deltooltip_action(worldmap:com57);
+worldmap_setflag_5227($int1, $int0);
+worldmap_setcoord_5214($int0);
+%varc_int_172 = maparea_getdefaultzoom($int1);
+~worldmap_setzoom;
+~worldmap_vartransmit_effects;

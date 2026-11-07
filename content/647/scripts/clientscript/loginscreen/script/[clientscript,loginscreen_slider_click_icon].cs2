@@ -1,0 +1,8 @@
+[clientscript,loginscreen_slider_click_icon](component $component0, component $component1)
+def_int $int2 = get_clientopt_6143;
+if ($int2 = false & (%varc_int_1394 > 0 & %varc_int_1394 <= 255)) {
+    set_clientopt_6038(%varc_int_1394);
+} else if ($int2 > 0) {
+    set_clientopt_6038(0);
+}
+~loginscreen_loginvol($component0, $component1, 0, 1);

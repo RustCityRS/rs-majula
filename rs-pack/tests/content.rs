@@ -1,4 +1,4 @@
-//! Repository configs and authored overlays are packed directly from source.
+//! Repository configs are packed directly from source.
 #![cfg(rev = "647")]
 
 use rs_pack::cache::varp::VarPlayerScope;
@@ -32,21 +32,21 @@ fn a_registry_rename_stops_packing() {
     let pack = content.join("pack");
     let output = content.join("output");
     fs::create_dir_all(&pack).unwrap();
-    fs::create_dir_all(content.join("scripts/_unpack")).unwrap();
+    fs::create_dir_all(content.join("scripts/globalscript/_unpack")).unwrap();
     fs::create_dir_all(output.join("server")).unwrap();
     fs::write(pack.join("seq.pack"), "893=human_shearing\n").unwrap();
     fs::write(pack.join("npc.pack"), "1=guard\n").unwrap();
     fs::write(
-        content.join("scripts/_unpack/all.npc"),
+        content.join("scripts/globalscript/_unpack/all.npc"),
         "[guard]\nmultivarp=renamed_varp\nmultivar=null\nmultidefault=-1\nmulti1=1\n",
     )
     .unwrap();
     fs::write(
-        content.join("scripts/_unpack/all.seq"),
+        content.join("scripts/globalscript/_unpack/all.seq"),
         "[seq_893]\npriority=5\n",
     )
     .unwrap();
-    fs::write(content.join("scripts/_unpack/all.loc"), "").unwrap();
+    fs::write(content.join("scripts/globalscript/_unpack/all.loc"), "").unwrap();
     fs::write(output.join("server/seq.dat"), b"previous output").unwrap();
 
     for verify in [false, true] {
@@ -75,7 +75,7 @@ fn a_registry_rename_stops_packing() {
 #[test]
 fn config_crcs_reject_incomplete_source() {
     let content = scratch("config_crc");
-    let scripts = content.join("scripts");
+    let scripts = content.join("scripts/runescript");
     let pack_dir = content.join("pack");
     fs::create_dir_all(&pack_dir).unwrap();
     fs::create_dir_all(&scripts).unwrap();
@@ -95,10 +95,10 @@ fn config_crcs_reject_incomplete_source() {
     assert!(!content.join("server").exists());
 }
 
-/// One authored overlay of every kind, read back out of the packed configs.
+/// Authored properties of every kind, read back out of the packed configs.
 #[test]
 #[ignore = "runs the full pack pipeline against content/647 (minutes)"]
-fn every_kind_of_authored_overlay_reaches_the_packed_configs() {
+fn authored_properties_reach_the_packed_configs() {
     let root = repo_root();
     env::set_current_dir(&root).unwrap();
     let registry = PackRegistry::load(Path::new(rs_pack::PACK_DIR)).unwrap();

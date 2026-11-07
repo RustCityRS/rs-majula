@@ -14,7 +14,7 @@ pub fn pack_hunts(
 ) -> Result<PackedFile> {
     let pack = &registry.hunt;
 
-    let configs = parse_config_sections_cached(file_cache, "hunt", constants);
+    let configs = parse_config_sections_cached(file_cache, "hunt", constants)?;
 
     let mut server = PackedData::new(pack.max);
 

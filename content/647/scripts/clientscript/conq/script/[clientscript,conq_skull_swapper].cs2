@@ -1,0 +1,12 @@
+[clientscript,conq_skull_swapper]
+%varc_int_1364 = calc(%varc_int_1364 + 1);
+if (%varc_int_1364 = 50) {
+    if_settext("Opponent's Turn", conq_side_turn:com41);
+} else if (%varc_int_1364 = 100) {
+    if_settext("Opponent's Turn.", conq_side_turn:com41);
+} else if (%varc_int_1364 = 150) {
+    if_settext("Opponent's Turn..", conq_side_turn:com41);
+} else if (%varc_int_1364 >= 200) {
+    if_settext("Opponent's Turn...", conq_side_turn:com41);
+    %varc_int_1364 = 0;
+}

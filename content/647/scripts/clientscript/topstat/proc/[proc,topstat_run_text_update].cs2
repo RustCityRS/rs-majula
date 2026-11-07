@@ -1,0 +1,3 @@
+[proc,topstat_run_text_update](component $component)
+if_setcolour(~clientscript_806, $component);
+if_settext(tostring(headicon_count), $component);

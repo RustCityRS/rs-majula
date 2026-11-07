@@ -1,0 +1,15 @@
+[clientscript,ql4_refresh]
+if (map_members = true) {
+    %varc_int_693 = %varbit_4536;
+} else {
+    %varc_int_693 = 0;
+}
+%varc_int_694 = %varbit_4538;
+%varc_int_692 = %varbit_4537;
+~ql4_sort(1, %varc_int_693, %varc_int_694, %varc_int_692, %varc_int_1103);
+def_int $int = 0;
+if (map_members = true & %learning_the_ropes >= 1000) {
+    ~ql4_dropdownbox(1, %varc_int_693, 2, questlist_v4:com16, questlist_v4:com14, questlist_v4:com15, null, tradebacking_dark, "scrollbar_v2,1", "scrollbar_v2,1", tradebacking_light, ^white, 16776960, 494, "scrollbar_dragger_v2,3", "scrollbar_dragger_v2,0", "scrollbar_dragger_v2,1", "scrollbar_dragger_v2,2", "scrollbar_v2,0", "scrollbar_v2,1");
+} else {
+    ~dropdownbox_refuse("Free/Members", questlist_v4:com16, questlist_v4:com14, questlist_v4:com15, null, tradebacking_dark, ^yellow, p11_full);
+}

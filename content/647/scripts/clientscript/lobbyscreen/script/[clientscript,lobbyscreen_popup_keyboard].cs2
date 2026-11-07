@@ -1,0 +1,11 @@
+[clientscript,lobbyscreen_popup_keyboard](int $int0)
+def_int $int1 = login_getint_5613;
+if ($int1 = -3) {
+    return;
+} else if ($int1 = 21 & $int0 = 13) {
+    ~lobby_hop_abort;
+    return;
+} else if ($int0 = 13) {
+    ~lobby_popup_close;
+    return;
+}

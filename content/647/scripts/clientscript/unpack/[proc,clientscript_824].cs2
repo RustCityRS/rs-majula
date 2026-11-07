@@ -1,0 +1,109 @@
+[proc,clientscript_824](int $int, string $string)(string)
+if ($int = false) {
+    $string = append($string, " ");
+    return($string);
+}
+if ($int = true) {
+    $string = append($string, "a");
+    return($string);
+}
+if ($int = 2) {
+    $string = append($string, "b");
+    return($string);
+}
+if ($int = 3) {
+    $string = append($string, "c");
+    return($string);
+}
+if ($int = 4) {
+    $string = append($string, "d");
+    return($string);
+}
+if ($int = 5) {
+    $string = append($string, "e");
+    return($string);
+}
+if ($int = 6) {
+    $string = append($string, "f");
+    return($string);
+}
+if ($int = 7) {
+    $string = append($string, "g");
+    return($string);
+}
+if ($int = 8) {
+    $string = append($string, "h");
+    return($string);
+}
+if ($int = 9) {
+    $string = append($string, "i");
+    return($string);
+}
+if ($int = 10) {
+    $string = append($string, "j");
+    return($string);
+}
+if ($int = 11) {
+    $string = append($string, "k");
+    return($string);
+}
+if ($int = 12) {
+    $string = append($string, "l");
+    return($string);
+}
+if ($int = 13) {
+    $string = append($string, "m");
+    return($string);
+}
+if ($int = 14) {
+    $string = append($string, "n");
+    return($string);
+}
+if ($int = 15) {
+    $string = append($string, "o");
+    return($string);
+}
+if ($int = 16) {
+    $string = append($string, "p");
+    return($string);
+}
+if ($int = 17) {
+    $string = append($string, "q");
+    return($string);
+}
+if ($int = 18) {
+    $string = append($string, "r");
+    return($string);
+}
+if ($int = 19) {
+    $string = append($string, "s");
+    return($string);
+}
+if ($int = 20) {
+    $string = append($string, "t");
+    return($string);
+}
+if ($int = 21) {
+    $string = append($string, "u");
+    return($string);
+}
+if ($int = 22) {
+    $string = append($string, "v");
+    return($string);
+}
+if ($int = 23) {
+    $string = append($string, "w");
+    return($string);
+}
+if ($int = 24) {
+    $string = append($string, "x");
+    return($string);
+}
+if ($int = 25) {
+    $string = append($string, "y");
+    return($string);
+}
+if ($int = 26) {
+    $string = append($string, "z");
+    return($string);
+}

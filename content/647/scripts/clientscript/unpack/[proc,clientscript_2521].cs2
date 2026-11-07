@@ -1,0 +1,38 @@
+[proc,clientscript_2521]
+def_int $int0 = 0;
+def_int $int1 = 0;
+def_int $int2 = 0;
+def_int $int3 = 0;
+def_int $int4 = -1;
+def_int $int5 = -1;
+$int1 = calc((if_getwidth(mob_reward_spoils:com2) - 180) / 4);
+$int2 = calc((if_getheight(mob_reward_spoils:com2) - 128) / 3);
+while ($int0 < 5 & enum(105, 79, %varc_int_875, $int0) ! logs_11760) {
+    $int5 = enum(105, 79, %varc_int_875, $int0);
+    switch_int ($int0) {
+        case 0:
+            if_settext(oc_name(oc_uncert($int5)), mob_reward_spoils:com19);
+            $int3 = %varc_int_876;
+        case 1:
+            if_settext(oc_name(oc_uncert($int5)), mob_reward_spoils:com20);
+            $int3 = %varc_int_877;
+        case 2:
+            if_settext(oc_name(oc_uncert($int5)), mob_reward_spoils:com21);
+            $int3 = %varc_int_878;
+        case 3:
+            if_settext(oc_name(oc_uncert($int5)), mob_reward_spoils:com22);
+            $int3 = %varc_int_879;
+        case 4:
+            if_settext(oc_name(oc_uncert($int5)), mob_reward_spoils:com23);
+            $int3 = %varc_int_880;
+    }
+    cc_create(mob_reward_spoils:com2, ^iftype_graphic, $int0);
+    cc_setsize(36, 32, ^setsize_abs, ^setsize_abs);
+    cc_setposition(calc((36 + $int1) * ($int0 % 5)), calc($int0 / 5 * (32 + $int2)), ^setpos_abs_left, ^setpos_abs_top);
+    cc_setobject(oc_uncert($int5), $int3);
+    cc_setopbase("<col=ff981f><oc_name(oc_uncert($int5))>");
+    cc_setop(1, "Select");
+    cc_setop(2, "Examine");
+    cc_setgraphicshadow(0x333333);
+    $int0 = calc($int0 + 1);
+}

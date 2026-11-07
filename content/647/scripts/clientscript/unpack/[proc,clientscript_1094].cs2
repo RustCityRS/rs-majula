@@ -1,0 +1,6 @@
+[proc,clientscript_1094]
+if (%varp_1241 = true) {
+    ~cutscene_overlay_clamp;
+} else {
+    ~cutscene_overlay_resize;
+}

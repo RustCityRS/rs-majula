@@ -1,0 +1,6 @@
+[clientscript,clan_join_invite_onload]
+if (ignore_count = true) {
+    ~clientscript_4283;
+} else {
+    if_sethook1431("clientscript_4282()", be7067035:com8);
+}

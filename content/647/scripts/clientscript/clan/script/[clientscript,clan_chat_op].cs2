@@ -1,0 +1,24 @@
+[clientscript,clan_chat_op](int $int0, int $int1)
+def_string $string = "";
+def_int $int2 = 0;
+if (clanchannel2_find_affined = true) {
+    if (ignore_getname = true) {
+        $string = clanchannel2_getusername($int0);
+        if ($int1 = true) {
+            if (friend_test($string) = true) {
+                $int2 = 1;
+            } else {
+                tutorial_openchat(0, 0, "You only message people on your Friends List.");
+            }
+        } else if ($int1 = 8) {
+            ~clan_chat_kick($string);
+        }
+    } else {
+        mes("You must be in a clan to do that.");
+    }
+} else {
+    mes("You must be in a clan to do that.");
+}
+if ($int2 = true) {
+    ~meslayer_mode6($string);
+}

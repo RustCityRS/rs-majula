@@ -1,0 +1,17 @@
+[proc,component_flashtext_timer](component $component0, int $int1, string $string)
+def_int $int2 = 0;
+if ($int1 = -1 & if_find($component0) = true | cc_find($component0, $int1) = true) {
+    if (%varc_int_198 ! 1) {
+        cc_setontimer(null);
+        cc_settext($string);
+        return;
+    }
+    if (calc(clientclock % 20) > 9) {
+        cc_settext("");
+        if (calc(clientclock % 20) = 10) {
+            sound_synth(synth_5009, 1, 0);
+        }
+    } else {
+        cc_settext($string);
+    }
+}

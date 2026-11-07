@@ -1,0 +1,7 @@
+[clientscript,clanwars_setup_acceptlayer](component $component)
+~v2_stone_button_out_filled($component);
+if (%varp_1149 ! -1) {
+    ~clientscript_1801;
+} else {
+    ~clientscript_1802;
+}

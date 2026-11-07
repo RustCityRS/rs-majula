@@ -1,0 +1,5 @@
+[proc,options_poh]
+def_string $string = "null";
+$string = "House options";
+if_setonmouserepeat("addtooltip(^event_com, options:com20, $string, 25, 180)", options:com8);
+%varc_int_2 = 0;

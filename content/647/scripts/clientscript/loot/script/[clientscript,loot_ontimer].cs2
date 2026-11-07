@@ -1,0 +1,15 @@
+[clientscript,loot_ontimer](component $component)
+if (%varc_int_53 < clientclock) {
+    if (%varbit_4072 = true | %varbit_4073 = true) {
+        if_setgraphic("loot_icon,2", $component);
+    } else if (%varbit_4071 = true) {
+        if (%varbit_4465 = true) {
+            if_setgraphic("loot_icon,3", $component);
+        } else {
+            if_setgraphic("loot_icon,0", $component);
+        }
+    } else {
+        if_setgraphic("loot_icon,1", $component);
+    }
+    %varc_int_53 = calc(clientclock + 500);
+}

@@ -18,7 +18,7 @@ pub fn pack_dbrows(
     let row_pack = &registry.dbrow;
     let table_pack = PackFile::load(&registry.pack_dir().join("dbtable.pack"))?;
 
-    let table_configs = parse_config_sections_cached(file_cache, "dbtable", constants);
+    let table_configs = parse_config_sections_cached(file_cache, "dbtable", constants)?;
     let mut table_schemas: HashMap<&str, Vec<ColumnDef>> = HashMap::new();
     for (tname, props) in &table_configs {
         let mut columns = Vec::new();
@@ -30,7 +30,7 @@ pub fn pack_dbrows(
         table_schemas.insert(tname, columns);
     }
 
-    let configs = parse_config_sections_cached(file_cache, "dbrow", constants);
+    let configs = parse_config_sections_cached(file_cache, "dbrow", constants)?;
 
     let mut server = PackedData::new(row_pack.max);
 
@@ -336,9 +336,12 @@ mod tests {
     #[test]
     fn every_dbrow_value_names_something() {
         let registry = registry();
-        let source = Path::new("..").join(crate::CONTENT_DIR).join("scripts");
+        let source = Path::new("..")
+            .join(crate::CONTENT_DIR)
+            .join("scripts/runescript");
         let constants = load_constants(&source);
-        let tables = parse_config_sections(&collect_config_files(&source, "dbtable"), &constants);
+        let tables =
+            parse_config_sections(&collect_config_files(&source, "dbtable"), &constants).unwrap();
         let mut schemas: HashMap<String, HashMap<String, Vec<u8>>> = HashMap::new();
         for (table, props) in &tables {
             let columns = schemas.entry(table.clone()).or_default();
@@ -355,7 +358,8 @@ mod tests {
                 columns.insert(parts[0].to_string(), types);
             }
         }
-        let rows = parse_config_sections(&collect_config_files(&source, "dbrow"), &constants);
+        let rows =
+            parse_config_sections(&collect_config_files(&source, "dbrow"), &constants).unwrap();
         let mut found = BTreeSet::new();
         for (row, props) in &rows {
             let Some(columns) = props

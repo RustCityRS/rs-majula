@@ -1,0 +1,4 @@
+[proc,clientscript_2177](int $int)
+if (cc_find(questlist_v4:com18, $int) = true) {
+    cc_setontimer("clientscript_2178($int, cc_gettext)");
+}

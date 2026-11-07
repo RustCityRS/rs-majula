@@ -1,0 +1,9 @@
+[proc,clientscript_3161](int $int)
+if ($int = true & is_subscriber = false) {
+    if_setonkey("lobbyscreen_pane_clanchat_keyboard(^event_key, ^event_keychar)", lobbyscreen_pane_clanchat:com24);
+    if_setontimer("lobbyscreen_pane_clanchat_caret_flash(clientclock, lobbyscreen_pane_clanchat:com26)", lobbyscreen_pane_clanchat:com25);
+} else {
+    if_setonkey(null, lobbyscreen_pane_clanchat:com24);
+    if_setontimer(null, lobbyscreen_pane_clanchat:com25);
+    if_settext(escape(%varc_string_278), lobbyscreen_pane_clanchat:com25);
+}

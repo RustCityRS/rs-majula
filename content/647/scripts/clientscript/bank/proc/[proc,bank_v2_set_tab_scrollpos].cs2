@@ -1,0 +1,21 @@
+[proc,bank_v2_set_tab_scrollpos](int $int0, int $int1)
+switch_int ($int0) {
+    case 1:
+        %varc_int_203 = $int1;
+    case 2:
+        %varc_int_204 = $int1;
+    case 3:
+        %varc_int_205 = $int1;
+    case 4:
+        %varc_int_206 = $int1;
+    case 5:
+        %varc_int_207 = $int1;
+    case 6:
+        %varc_int_208 = $int1;
+    case 7:
+        %varc_int_209 = $int1;
+    case 8:
+        %varc_int_210 = $int1;
+    case 9:
+        %varc_int_211 = $int1;
+}

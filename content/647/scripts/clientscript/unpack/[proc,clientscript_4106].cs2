@@ -1,0 +1,3 @@
+[proc,clientscript_4106](component $component, string $string)(int)
+return(calc((if_getwidth($component) + max(op4125($string, 495), op4125(if_gettext($component), 494))) / 2));
+return(0);

@@ -1,0 +1,5 @@
+[proc,ql4_skill_requirements](int $int0, int $int1)(int)
+def_struct $struct2 = enum(105, 74, enum_169, $int0);
+%varc_int_699 = enum(105, 74, struct_param($struct2, param_61), $int1);
+return(~ql4_skill_requirements_cache);
+return(-1);

@@ -1,0 +1,6 @@
+[proc,clientscript_2097]
+if (%varc_int_645 <= 5) {
+    if_setcolour(0x3366ff, di9181176:com28);
+} else {
+    if_setcolour(0x666666, di9181176:com28);
+}

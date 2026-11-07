@@ -1,0 +1,59 @@
+[proc,notes_update]
+if (%varp_1437 = false) {
+    return;
+}
+if (if_gethide(notes:com10) = false) {
+    if_setontimer("notes_update()", notes:com9);
+    return;
+} else {
+    if_setontimer(null, notes:com9);
+}
+~meslayer_close(13);
+if_sethide(true, notes:com16);
+%varc_int_821 = 0;
+def_int $int0 = 0;
+def_int $int1 = 0;
+def_int $int2 = 0;
+def_string $string = "";
+cc_deleteall(notes:com9);
+if (is_subscriber = true) {
+    if_settext("The notes system is not available for users restricted to quick-chat.", notes:com13);
+    if_sethide(false, notes:com13);
+    return;
+} else {
+    if_settext("", notes:com13);
+    if_sethide(true, notes:com13);
+}
+while ($int1 < 30) {
+    $string = ~notes_get_note($int1);
+    if (compare($string, "") ! 0) {
+        $int0 = ~notes_build($string, $int0, $int2, ~notes_get_colour($int1));
+        $int2 = calc($int2 + 1);
+    }
+    $int1 = calc($int1 + 1);
+}
+if ($int2 <= 0) {
+    if_settext("No notes", notes:com13);
+    if_sethide(false, notes:com13);
+    if_settext("Notes", notes:com1);
+} else if ($int2 > 0 & $int2 <= 30) {
+    if_settext("<\"Notes (\"><tostring($int2)><\"/\"><\"30\"><\")\">", notes:com1);
+} else {
+    if_settext("Notes", notes:com1);
+}
+if ($int0 > 0 & $int0 < 13) {
+    if (cc_find(notes:com9, calc($int2 - 1)) = true) {
+        if_setsize(cc_getwidth, calc(if_getheight(notes:com9) - (cc_gety + cc_getheight)), ^setsize_abs, ^setsize_abs, notes:com12);
+        if_setposition(cc_getx, calc(cc_gety + cc_getheight), ^setpos_abs_left, ^setpos_abs_top, notes:com12);
+        if_sethide(false, notes:com12);
+    }
+} else {
+    if_sethide(true, notes:com12);
+}
+if ($int0 < 1) {
+    if_setscrollsize(0, 0, notes:com9);
+} else {
+    if_setscrollsize(0, calc($int0 * 15 + 10), notes:com9);
+}
+~scrollbar_resize(notes:com15, notes:com9, if_getscrolly(notes:com9));
+if_sethide(true, notes:com44);

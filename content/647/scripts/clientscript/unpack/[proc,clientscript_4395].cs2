@@ -1,0 +1,7 @@
+[proc,clientscript_4395](int $int)
+if (%varbit_9086 > 0) {
+    ~clientscript_4398(calc(%varbit_9086 - 1), fz7368400:com65, $int);
+}
+if (%varbit_9087 > 0) {
+    ~clientscript_4398(calc(%varbit_9087 - 1), fz7368400:com62, $int);
+}

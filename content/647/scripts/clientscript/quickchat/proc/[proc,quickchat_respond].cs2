@@ -1,0 +1,26 @@
+[proc,quickchat_respond](int $int0, int $int1, string $string)
+if ($int1 = -1 | quickchat_phrase_getautocount($int1) = false) {
+    return;
+}
+%varc_int_126 = $int0;
+%varc_string_27 = $string;
+%varc_int_127 = 1;
+if (getwindowmode >= 2) {
+    if_setgraphic(chat_background, chatbox:com1);
+    if_setalpha(0, chatbox:com1);
+    if_sethide(false, chatbox:com1);
+    if_sethide(false, chatbox:com2);
+    ~chatbox_resize_reset(0);
+    if_sethide(true, toplevel_fullscreen:com72);
+}
+if_sethide(true, chatbox_background:com50);
+if_setonkey(null, chatbox_background:com55);
+if_sethide(false, chatbox_background:com0);
+if_sethide(true, chatbox_background:com7);
+if_sethide(true, chatbox_background:com9);
+if_sethide(true, chatbox_background:com13);
+if_sethide(false, chatbox_background:com17);
+if_sethide(false, chatbox_background:com1);
+if_sethide(true, chatbox_background:com3);
+if_setscrollpos(0, 0, chatbox_background:com17);
+~quickchat_response_add(chatbox_background:com1, $int1);

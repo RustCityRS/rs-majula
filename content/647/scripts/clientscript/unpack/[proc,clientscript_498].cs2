@@ -1,0 +1,235 @@
+[proc,clientscript_498](int $int0, int $int1, int $int2, int $int3, int $int4, int $int5)
+def_int $int6 = 0;
+def_int $int7 = 0;
+def_int $int8 = 0;
+def_int $int9 = 0;
+def_int $int10 = 0;
+def_int $int11 = 0;
+def_int $int12 = 0;
+def_struct $struct13 = null;
+if ($int0 = %varc_int_1372 & ($int1 = %varc_int_1373 & ($int2 = %varc_int_1374 & ($int3 = %varc_int_1375 & ($int4 = %varc_int_1376 & $int5 = %varc_int_1377))))) {
+    return;
+} else {
+    if_setonvarctransmit("clientscript_498(%varc_int_1372, %varc_int_1373, %varc_int_1374, %varc_int_1375, %varc_int_1376, %varc_int_1377){varc_int_1372, varc_int_1373, varc_int_1374, varc_int_1375, varc_int_1376, varc_int_1377}", aa1143828:com0);
+}
+if (%varc_int_1367 ! -1) {
+    $int6 = calc(%varc_int_1372 + %varc_int_1373 + %varc_int_1374 + %varc_int_1375 + %varc_int_1376 + %varc_int_1377);
+    if ($int6 = false) {
+        if_sethide(true, aa1143828:com14);
+        if_sethide(false, aa1143828:com29);
+    } else {
+        if_sethide(false, aa1143828:com14);
+        if_sethide(true, aa1143828:com29);
+    }
+    if ($int6 = true) {
+        if_sethide(false, aa1143828:com15);
+        if_setposition(82, if_gety(aa1143828:com15), ^setpos_abs_left, ^setpos_abs_top, aa1143828:com15);
+        if (%varc_int_1372 = true) {
+            $struct13 = struct_293;
+        } else if (%varc_int_1373 = true) {
+            $struct13 = struct_299;
+        } else if (%varc_int_1374 = true) {
+            $struct13 = struct_305;
+        } else if (%varc_int_1375 = true) {
+            $struct13 = struct_1044;
+        } else if (%varc_int_1376 = true) {
+            $struct13 = struct_1045;
+        } else {
+            $struct13 = struct_1046;
+        }
+        if_setgraphic(struct_param($struct13, param_1153), aa1143828:com15);
+        if_setonmouserepeat("clientscript_499(struct_param($struct13, param_1149))", aa1143828:com15);
+        if_sethide(true, aa1143828:com16);
+        if_sethide(true, aa1143828:com17);
+        if_sethide(true, aa1143828:com18);
+        if_sethide(true, aa1143828:com19);
+    } else if ($int6 = 2) {
+        if_sethide(false, aa1143828:com15);
+        if_setposition(50, if_gety(aa1143828:com15), ^setpos_abs_left, ^setpos_abs_top, aa1143828:com15);
+        if (%varc_int_1372 = true) {
+            $struct13 = struct_293;
+        } else if (%varc_int_1373 = true) {
+            $struct13 = struct_299;
+            $int8 = 1;
+        } else if (%varc_int_1374 = true) {
+            $struct13 = struct_305;
+            $int9 = 1;
+        } else if (%varc_int_1375 = true) {
+            $struct13 = struct_1044;
+            $int10 = 1;
+        } else {
+            $struct13 = struct_1045;
+            $int11 = 1;
+        }
+        if_setgraphic(struct_param($struct13, param_1153), aa1143828:com15);
+        if_setonmouserepeat("clientscript_499(struct_param($struct13, param_1149))", aa1143828:com15);
+        if_sethide(false, aa1143828:com16);
+        if_setposition(115, if_gety(aa1143828:com16), ^setpos_abs_left, ^setpos_abs_top, aa1143828:com16);
+        if (%varc_int_1373 = true & $int8 = false) {
+            $struct13 = struct_299;
+        } else if (%varc_int_1374 = true & $int9 = false) {
+            $struct13 = struct_305;
+        } else if (%varc_int_1375 = true & $int10 = false) {
+            $struct13 = struct_1044;
+        } else if (%varc_int_1376 = true & $int11 = false) {
+            $struct13 = struct_1045;
+        } else {
+            $struct13 = struct_1046;
+        }
+        if_setgraphic(struct_param($struct13, param_1153), aa1143828:com16);
+        if_setonmouserepeat("clientscript_499(struct_param($struct13, param_1149))", aa1143828:com16);
+        if_sethide(true, aa1143828:com17);
+        if_sethide(true, aa1143828:com18);
+        if_sethide(true, aa1143828:com19);
+    } else if ($int6 = 3) {
+        if_sethide(false, aa1143828:com15);
+        if_setposition(30, if_gety(aa1143828:com15), ^setpos_abs_left, ^setpos_abs_top, aa1143828:com15);
+        if (%varc_int_1372 = true) {
+            $struct13 = struct_293;
+        } else if (%varc_int_1373 = true) {
+            $struct13 = struct_299;
+            $int8 = 1;
+        } else if (%varc_int_1374 = true) {
+            $struct13 = struct_305;
+            $int9 = 1;
+        } else {
+            $struct13 = struct_1044;
+            $int10 = 1;
+        }
+        if_setgraphic(struct_param($struct13, param_1153), aa1143828:com15);
+        if_setonmouserepeat("clientscript_499(struct_param($struct13, param_1149))", aa1143828:com15);
+        if_sethide(false, aa1143828:com16);
+        if_setposition(80, if_gety(aa1143828:com16), ^setpos_abs_left, ^setpos_abs_top, aa1143828:com16);
+        if (%varc_int_1373 = true & $int8 = false) {
+            $struct13 = struct_299;
+        } else if (%varc_int_1374 = true & $int9 = false) {
+            $struct13 = struct_305;
+            $int9 = 1;
+        } else if (%varc_int_1375 = true & $int10 = false) {
+            $struct13 = struct_1044;
+            $int10 = 1;
+        } else {
+            $struct13 = struct_1045;
+            $int11 = 1;
+        }
+        if_setgraphic(struct_param($struct13, param_1153), aa1143828:com16);
+        if_setonmouserepeat("clientscript_499(struct_param($struct13, param_1149))", aa1143828:com16);
+        if_sethide(false, aa1143828:com17);
+        if_setposition(130, if_gety(aa1143828:com17), ^setpos_abs_left, ^setpos_abs_top, aa1143828:com17);
+        if (%varc_int_1374 = true & $int9 = false) {
+            $struct13 = struct_305;
+        } else if (%varc_int_1375 = true & $int10 = false) {
+            $struct13 = struct_1044;
+        } else if (%varc_int_1376 = true & $int11 = false) {
+            $struct13 = struct_1045;
+        } else {
+            $struct13 = struct_1046;
+        }
+        if_setgraphic(struct_param($struct13, param_1153), aa1143828:com17);
+        if_setonmouserepeat("clientscript_499(struct_param($struct13, param_1149))", aa1143828:com17);
+        if_sethide(true, aa1143828:com18);
+        if_sethide(true, aa1143828:com19);
+    } else if ($int6 = 4) {
+        if_sethide(false, aa1143828:com15);
+        if_setposition(18, if_gety(aa1143828:com15), ^setpos_abs_left, ^setpos_abs_top, aa1143828:com15);
+        if (%varc_int_1372 = true) {
+            $struct13 = struct_293;
+        } else if (%varc_int_1373 = true) {
+            $struct13 = struct_299;
+            $int8 = 1;
+        } else {
+            $struct13 = struct_305;
+            $int9 = 1;
+        }
+        if_setgraphic(struct_param($struct13, param_1153), aa1143828:com15);
+        if_setonmouserepeat("clientscript_499(struct_param($struct13, param_1149))", aa1143828:com15);
+        if_sethide(false, aa1143828:com16);
+        if_setposition(61, if_gety(aa1143828:com16), ^setpos_abs_left, ^setpos_abs_top, aa1143828:com16);
+        if (%varc_int_1373 = true & $int8 = false) {
+            $struct13 = struct_299;
+        } else if (%varc_int_1374 = true & $int9 = false) {
+            $struct13 = struct_305;
+            $int9 = 1;
+        } else {
+            $struct13 = struct_1044;
+            $int10 = 1;
+        }
+        if_setgraphic(struct_param($struct13, param_1153), aa1143828:com16);
+        if_setonmouserepeat("clientscript_499(struct_param($struct13, param_1149))", aa1143828:com16);
+        if_sethide(false, aa1143828:com17);
+        if_setposition(104, if_gety(aa1143828:com17), ^setpos_abs_left, ^setpos_abs_top, aa1143828:com17);
+        if (%varc_int_1374 = true & $int9 = false) {
+            $struct13 = struct_305;
+        } else if (%varc_int_1375 = true & $int10 = false) {
+            $struct13 = struct_1044;
+            $int10 = 1;
+        } else {
+            $struct13 = struct_1045;
+            $int11 = 1;
+        }
+        if_setgraphic(struct_param($struct13, param_1153), aa1143828:com17);
+        if_setonmouserepeat("clientscript_499(struct_param($struct13, param_1149))", aa1143828:com17);
+        if_sethide(false, aa1143828:com18);
+        if_setposition(147, if_gety(aa1143828:com18), ^setpos_abs_left, ^setpos_abs_top, aa1143828:com18);
+        if (%varc_int_1375 = true & $int10 = false) {
+            $struct13 = struct_1044;
+        } else if (%varc_int_1376 = true & $int11 = false) {
+            $struct13 = struct_1045;
+        } else {
+            $struct13 = struct_1046;
+        }
+        if_setgraphic(struct_param($struct13, param_1153), aa1143828:com18);
+        if_setonmouserepeat("clientscript_499(struct_param($struct13, param_1149))", aa1143828:com18);
+        if_sethide(true, aa1143828:com19);
+    } else {
+        if_sethide(false, aa1143828:com15);
+        if_setposition(11, if_gety(aa1143828:com15), ^setpos_abs_left, ^setpos_abs_top, aa1143828:com15);
+        if (%varc_int_1372 = true) {
+            $struct13 = struct_293;
+        } else {
+            $struct13 = struct_299;
+            $int8 = 1;
+        }
+        if_setgraphic(struct_param($struct13, param_1153), aa1143828:com15);
+        if_setonmouserepeat("clientscript_499(struct_param($struct13, param_1149))", aa1143828:com15);
+        if_sethide(false, aa1143828:com16);
+        if_setposition(47, if_gety(aa1143828:com16), ^setpos_abs_left, ^setpos_abs_top, aa1143828:com16);
+        if (%varc_int_1373 = true & $int8 = false) {
+            $struct13 = struct_299;
+        } else {
+            $struct13 = struct_305;
+            $int9 = 1;
+        }
+        if_setgraphic(struct_param($struct13, param_1153), aa1143828:com16);
+        if_setonmouserepeat("clientscript_499(struct_param($struct13, param_1149))", aa1143828:com16);
+        if_sethide(false, aa1143828:com17);
+        if_setposition(83, if_gety(aa1143828:com17), ^setpos_abs_left, ^setpos_abs_top, aa1143828:com17);
+        if (%varc_int_1374 = true & $int9 = false) {
+            $struct13 = struct_305;
+        } else {
+            $struct13 = struct_1044;
+            $int10 = 1;
+        }
+        if_setgraphic(struct_param($struct13, param_1153), aa1143828:com17);
+        if_setonmouserepeat("clientscript_499(struct_param($struct13, param_1149))", aa1143828:com17);
+        if_sethide(false, aa1143828:com18);
+        if_setposition(119, if_gety(aa1143828:com18), ^setpos_abs_left, ^setpos_abs_top, aa1143828:com18);
+        if (%varc_int_1375 = true & $int10 = false) {
+            $struct13 = struct_1044;
+        } else {
+            $struct13 = struct_1045;
+            $int11 = 1;
+        }
+        if_setgraphic(struct_param($struct13, param_1153), aa1143828:com18);
+        if_setonmouserepeat("clientscript_499(struct_param($struct13, param_1149))", aa1143828:com18);
+        if_sethide(false, aa1143828:com19);
+        if_setposition(155, if_gety(aa1143828:com19), ^setpos_abs_left, ^setpos_abs_top, aa1143828:com19);
+        if (%varc_int_1376 = true & $int11 = false) {
+            $struct13 = struct_1045;
+        } else {
+            $struct13 = struct_1046;
+        }
+        if_setgraphic(struct_param($struct13, param_1153), aa1143828:com19);
+        if_setonmouserepeat("clientscript_499(struct_param($struct13, param_1149))", aa1143828:com19);
+    }
+}

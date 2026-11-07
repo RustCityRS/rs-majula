@@ -1,0 +1,4 @@
+[proc,clientscript_2939]
+if (%varc_int_1199 = true) {
+    if_settext(%varc_string_311, rand_dungeon_rewards_v2:com267);
+}

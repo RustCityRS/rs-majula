@@ -1,0 +1,21 @@
+[proc,clientscript_2889]
+def_npc $npc0 = enum(105, 110, enum_927, %varbit_7099);
+def_int $int1 = -1;
+def_int $int2 = -1;
+if ($npc0 ! null) {
+    if (nc_param($npc0, param_956) ! null) {
+        if_setmodel(enum(110, 109, enum_934, nc_param($npc0, param_956)), ma6343905:com45);
+        if_setmodelanim(enum(110, 65, enum_935, nc_param($npc0, param_956)), ma6343905:com45);
+        if_setgraphic(enum(110, 100, enum_932, nc_param($npc0, param_956)), ma6343905:com49);
+        if_settext(enum(110, 115, enum_930, nc_param($npc0, param_956)), ma6343905:com52);
+    }
+    if (nc_param($npc0, param_957) ! null) {
+        if_setmodel(enum(110, 109, enum_934, nc_param($npc0, param_957)), ma6343905:com46);
+        if_setmodelanim(enum(110, 65, enum_935, nc_param($npc0, param_957)), ma6343905:com46);
+        if_setgraphic(enum(110, 100, enum_932, nc_param($npc0, param_957)), ma6343905:com50);
+        if_settext(enum(110, 115, enum_930, nc_param($npc0, param_957)), ma6343905:com53);
+    }
+    if_setgraphic(enum(110, 100, enum_933, $npc0), ma6343905:com48);
+    if_setmodel(enum(110, 109, enum_934, $npc0), ma6343905:com44);
+    if_setmodelanim(enum(110, 65, enum_935, $npc0), ma6343905:com44);
+}

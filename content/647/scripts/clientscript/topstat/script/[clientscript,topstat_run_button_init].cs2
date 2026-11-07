@@ -1,0 +1,7 @@
+[clientscript,topstat_run_button_init](component $component)
+%varc_int_119 = %option_run;
+if_setonvartransmit("topstat_run_button_vartransmit($component){option_run}", $component);
+if_setonmouserepeat("topstat_run_button_mouseover($component)", $component);
+if_setonmouseleave("topstat_run_button_mouseleave($component)", $component);
+if_setonop("topstat_run_button_op($component, ^event_op)", $component);
+~topstat_run_button_update($component);

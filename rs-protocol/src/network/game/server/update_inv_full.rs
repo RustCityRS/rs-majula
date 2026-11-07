@@ -114,7 +114,7 @@ pub struct InvItem {
 }
 
 #[cfg(since_647)]
-#[server_prot(UpdateInvFull, Buffered, VarShort)]
+#[server_prot(UpdateInvFull, Immediate, VarShort)]
 pub struct UpdateInvFull {
     pub inv_id: u16,
     /// The other player's copy of the inv (flags bit 0): the client keeps

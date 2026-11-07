@@ -1,0 +1,101 @@
+[proc,graphics_options_rebuild](int $int0, int $int1, int $int2, int $int3, int $int4)
+def_component $component5 = null;
+def_component $component6 = null;
+switch_int ($int4) {
+    case 1:
+        if_settext("Graphics Options", graphics_options:com19);
+        if_openoverlay(48627718, 978);
+        $component5 = graphics_options:com4;
+        $component6 = graphics_options:com20;
+        if_setsize(0, 0, ^setsize_minus, ^setsize_minus, graphics_options_client:com5);
+        if_setsize(if_getwidth(graphics_options:com4), 304, ^setsize_abs, ^setsize_abs, graphics_options:com4);
+        if_setonclick("closebutton_click()", graphics_options:com18);
+        if_setop(1, "Close", graphics_options:com18);
+    case 0:
+        if_openoverlay(57802780, 978);
+        if_setgraphic("corner_flourish,0", loginscreen_graphics_options:com11);
+        if_setgraphic("corner_flourish,0", loginscreen_graphics_options:com12);
+        if_setgraphic("corner_flourish,0", loginscreen_graphics_options:com14);
+        $component5 = loginscreen_graphics_options:com4;
+        $component6 = loginscreen_graphics_options:com5;
+        ~loginscreen_soundvol(loginscreen_graphics_options:com56, loginscreen_graphics_options:com57);
+        ~loginscreen_musicvol(loginscreen_graphics_options:com49, loginscreen_graphics_options:com50);
+        ~loginscreen_bgsoundvol(loginscreen_graphics_options:com63, loginscreen_graphics_options:com64);
+        ~loginscreen_stereo(loginscreen_graphics_options:com82, loginscreen_graphics_options:com80);
+        if_setposition(0, 5, ^setpos_abs_centre, ^setpos_abs_top, graphics_options_client:com0);
+        if_setposition(0, 5, ^setpos_abs_centre, ^setpos_abs_top, graphics_options_client:com5);
+        if_setsize(if_getwidth(loginscreen_graphics_options:com28), calc(if_gety(graphics_options_client:com0) + if_gety(graphics_options_client:com8) + if_getheight(graphics_options_client:com0) + 5 + if_getheight(loginscreen_graphics_options:com29)), ^setsize_abs, ^setsize_abs, loginscreen_graphics_options:com28);
+        if_setsize(if_getwidth(loginscreen_graphics_options:com28), if_getheight(loginscreen_graphics_options:com28), ^setsize_abs, ^setsize_abs, loginscreen_graphics_options:com22);
+        if_setsize(if_getwidth(loginscreen_graphics_options:com8), calc(if_getheight(loginscreen_graphics_options:com22) + 47), ^setsize_abs, ^setsize_abs, loginscreen_graphics_options:com8);
+        if_setposition(0, calc(if_gety(loginscreen_graphics_options:com8) + 33), ^setpos_abs_centre, ^setpos_abs_top, loginscreen_graphics_options:com22);
+        if_setposition(0, 0, ^setpos_abs_centre, ^setpos_abs_centre, loginscreen_graphics_options:com28);
+        if_setposition(0, 100, ^setpos_abs_centre, ^setpos_abs_centre, loginscreen_graphics_options:com29);
+        if_setposition(0, -5, ^setpos_abs_centre, ^setpos_abs_centre, graphics_options_client:com2);
+        if_sethide(false, loginscreen_graphics_options:com29);
+        if_sethide(true, loginscreen_graphics_options:com23);
+        ~graphics_options_login_resize(0);
+        if_sethook1427("graphics_options_login_resize(false)", loginscreen_graphics_options:com4);
+        if_sethook1427("clientscript_2919(false, $int4)", loginscreen:com50);
+    case 2:
+        if_openoverlay(59703298, 978);
+        $component5 = lobbyscreen_pane_options:com0;
+        $component6 = lobbyscreen_pane_options:com59;
+        if_setposition(0, 5, ^setpos_abs_centre, ^setpos_abs_top, graphics_options_client:com0);
+        if_setposition(0, 0, ^setpos_abs_centre, ^setpos_abs_top, graphics_options_client:com5);
+        if_setsize(if_getwidth(lobbyscreen_pane_options:com2), calc(if_gety(graphics_options_client:com0) + if_gety(graphics_options_client:com8) + if_getheight(graphics_options_client:com0) + 5 + if_getheight(lobbyscreen_pane_options:com5)), ^setsize_abs, ^setsize_abs, lobbyscreen_pane_options:com2);
+        if_sethide(false, lobbyscreen_pane_options:com5);
+        if_sethide(true, lobbyscreen_pane_options:com3);
+        if_sethook1427("clientscript_2919(false, $int4)", lobbyscreen:com13);
+        ~lobby_resize;
+}
+if_setonclick("autosetup($int4)", graphics_options_client:com1);
+~graphics_options_windowmodebutton(1, $int1, graphics_options_client:com12, graphics_options_client:com21, graphics_options_client:com22, $int2, $int3, $int0, $int4);
+~graphics_options_windowmodebutton(2, $int1, graphics_options_client:com13, graphics_options_client:com19, graphics_options_client:com20, $int2, $int3, $int0, $int4);
+~graphics_options_windowmodebutton(3, $int1, graphics_options_client:com14, graphics_options_client:com17, graphics_options_client:com18, $int2, $int3, $int0, $int4);
+if_sethide(true, $component6);
+if_setonclick(null, $component5);
+if (%varc_int_178 < 0) {
+    %varc_int_178 = max(screenmode_getcurrent, 0);
+}
+if (%varc_int_178 >= screenmode_getcount) {
+    %varc_int_178 = 0;
+}
+def_component $component7 = graphics_options_client:com16;
+cc_deleteall($component7);
+cc_create($component7, ^iftype_rectangle, if_getchildcount($component7));
+cc_setsize(0, 0, ^setsize_minus, ^setsize_minus);
+cc_setposition(0, 0, ^setpos_abs_centre, ^setpos_abs_centre);
+cc_setfill(true);
+cc_setcolour(0x2e2b26);
+.cc_create($component7, ^iftype_rectangle, if_getchildcount($component7));
+.cc_setsize(0, 0, ^setsize_minus, ^setsize_minus);
+.cc_setposition(0, 0, ^setpos_abs_centre, ^setpos_abs_top);
+.cc_setfill(false);
+.cc_setcolour(0x5f5b52);
+def_int $int8 = .cc_getid;
+.cc_create($component7, ^iftype_text, if_getchildcount($component7));
+.cc_settextfont(p11_full);
+.cc_settextalign(^settextalign_centre, ^settextalign_centre, 0);
+if (screenmode_getcount <= 0) {
+    .cc_setsize(0, 0, ^setsize_minus, ^setsize_minus);
+    .cc_setposition(0, 0, ^setpos_abs_centre, ^setpos_abs_centre);
+    .cc_setcolour(0xebe0bc);
+    .cc_settext("N/A");
+} else {
+    .cc_setsize(21, 0, ^setsize_minus, ^setsize_minus);
+    .cc_setposition(2, 0, ^setpos_abs_left, ^setpos_abs_centre);
+    if (%varc_int_178 < calc(screenmode_getcount - 1)) {
+        .cc_setcolour(0xebe0bc);
+    } else {
+        .cc_setcolour(0x00b1e1);
+    }
+    .cc_settext(~graphics_options_resolutions(%varc_int_178));
+    .cc_create($component7, ^iftype_graphic, if_getchildcount($component7));
+    .cc_setsize(16, 16, ^setsize_abs, ^setsize_abs);
+    .cc_setposition(1, 0, ^setpos_abs_right, ^setpos_abs_centre);
+    .cc_setgraphic(2554);
+    cc_setonmouseover("graphics_options_mouseoveroption(^event_com, .cc_getid, true, $int8, 8419437, true)");
+    cc_setonmouseleave("graphics_options_mouseoveroption(^event_com, .cc_getid, false, $int8, 6249298, true)");
+    cc_setonclick("graphics_options_createdropdown(^event_com, ^event_subid, .cc_getid, $int8, -1, struct_845, $int2, $int3, $int0, $int1, $int4)");
+}
+~clientscript_3451($int4, false);

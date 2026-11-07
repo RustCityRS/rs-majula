@@ -1,0 +1,13 @@
+[proc,clientscript_4005](int $int)
+if ($int = false) {
+    if_setgraphic(4324, task_side:com0);
+    if_setgraphic(4324, task_side:com1);
+    if_setgraphic(4325, task_side:com175);
+    if_setgraphic("task_arrow,1", task_side:com177);
+} else {
+    if_setgraphic(4322, task_side:com0);
+    if_setgraphic(4322, task_side:com1);
+    if_setgraphic(4323, task_side:com175);
+    if_setgraphic("task_arrow,0", task_side:com177);
+    ~deltooltip_action(task_side:com136);
+}

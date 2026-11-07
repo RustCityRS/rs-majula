@@ -14,12 +14,12 @@ pub fn pack_invs(
 ) -> Result<PackedFile> {
     let pack = &registry.inv;
 
-    let configs = parse_config_sections_cached(file_cache, "inv", constants);
+    let configs = parse_config_sections_cached(file_cache, "inv", constants)?;
 
     let mut server = PackedData::new(pack.max);
     #[cfg(since_647)]
     let client_count = file_cache
-        .client_count("inv", pack, constants)
+        .client_count("inv", pack, constants)?
         .unwrap_or(pack.max);
     #[cfg(since_647)]
     let mut client = PackedData::new(client_count);

@@ -1,0 +1,21 @@
+[proc,clientscript_2838]
+def_int $int0 = calc(coordx(coord) - coordx(coord) % 64);
+def_int $int1 = calc(coordz(coord) - coordz(coord) % 64);
+def_coord $coord2 = coordpack(0_0_0_0_0, $int0, 0, $int1);
+cam_allocpath(0, 6);
+cam_allocpath(1, 6);
+cam_addwaypoint(0, 0, ~clientscript_2808($coord2, 0_52_91_8_8, 0_52_91_33_21), 1025, ~clientscript_2808($coord2, 0_52_91_8_8, 0_52_91_33_21), 790, 0);
+cam_addwaypoint(1, 0, ~clientscript_2808($coord2, 0_52_91_8_8, 0_52_91_33_24), 355, ~clientscript_2808($coord2, 0_52_91_8_8, 0_52_91_33_24), 265, 0);
+cam_addwaypoint(0, 1, ~clientscript_2808($coord2, 0_52_91_8_8, 0_52_91_33_34), 506, ~clientscript_2808($coord2, 0_52_91_8_8, 0_52_91_33_34), 506, 0);
+cam_addwaypoint(1, 1, ~clientscript_2808($coord2, 0_52_91_8_8, 0_52_91_33_37), 190, ~clientscript_2808($coord2, 0_52_91_8_8, 0_52_91_33_37), 190, 0);
+cam_addwaypoint(0, 2, ~clientscript_2808($coord2, 0_52_91_8_8, 0_52_91_33_31), 506, ~clientscript_2808($coord2, 0_52_91_8_8, 0_52_91_33_31), 506, 0);
+cam_addwaypoint(1, 2, ~clientscript_2808($coord2, 0_52_91_8_8, 0_52_91_33_36), 195, ~clientscript_2808($coord2, 0_52_91_8_8, 0_52_91_33_36), 210, 0);
+cam_addwaypoint(0, 3, ~clientscript_2808($coord2, 0_52_91_8_8, 0_52_91_33_28), 506, ~clientscript_2808($coord2, 0_52_91_8_8, 0_52_91_33_27), 506, 0);
+cam_addwaypoint(1, 3, ~clientscript_2808($coord2, 0_52_91_8_8, 0_52_91_33_31), 115, ~clientscript_2808($coord2, 0_52_91_8_8, 0_52_91_33_30), 70, 0);
+cam_addwaypoint(0, 4, ~clientscript_2808($coord2, 0_52_91_8_8, 0_52_91_33_26), 506, ~clientscript_2808($coord2, 0_52_91_8_8, 0_52_91_33_25), 506, 0);
+cam_addwaypoint(1, 4, ~clientscript_2808($coord2, 0_52_91_8_8, 0_52_91_33_30), 240, ~clientscript_2808($coord2, 0_52_91_8_8, 0_52_91_33_29), 330, 0);
+cam_addwaypoint(0, 5, ~clientscript_2808($coord2, 0_52_91_8_8, 0_52_91_33_24), 506, ~clientscript_2808($coord2, 0_52_91_8_8, 0_52_91_33_23), 506, 0);
+cam_addwaypoint(1, 5, ~clientscript_2808($coord2, 0_52_91_8_8, 0_52_91_33_37), 350, ~clientscript_2808($coord2, 0_52_91_8_8, 0_52_91_33_39), 350, 0);
+%varc_int_1068 = 0;
+if_setonchattransmit_2426("clientscript_2840()", nom_cutscene_controller:com0);
+cam_startpath(0, %varc_int_1068, 100, 100, 1, %varc_int_1068);

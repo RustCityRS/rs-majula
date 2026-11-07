@@ -1,0 +1,27 @@
+[proc,prayer_refresh_scrollbar]
+def_int $int = 0;
+if (%varbit_6840 = false) {
+    if (%varc_int_1052 = true) {
+        if (%varc_int_181 = true) {
+            cc_deleteall(prayer:com6);
+            if_setscrollpos(0, 0, prayer:com5);
+            $int = 1;
+        } else if (if_getchildcount(prayer:com6) = false) {
+            ~scrollbar_vertical(prayer:com6, prayer:com5, "scrollbar_dragger_v2,3", "scrollbar_dragger_v2,0", "scrollbar_dragger_v2,1", "scrollbar_dragger_v2,2", "scrollbar_v2,0", "scrollbar_v2,1");
+            $int = 1;
+        }
+    } else if (if_getchildcount(prayer:com6) ! 0) {
+        cc_deleteall(prayer:com6);
+        if_setscrollpos(0, 0, prayer:com5);
+        $int = 1;
+    }
+} else if (if_getchildcount(prayer:com6) ! 0) {
+    cc_deleteall(prayer:com6);
+    if_setscrollpos(0, 0, prayer:com5);
+    if_setsize(16384, calc(19 + if_getheight(prayer:com0)), ^setsize_rel, ^setsize_minus, prayer:com5);
+    $int = 1;
+}
+if ($int = true) {
+    ~prayer_load_buttons(prayer:com8);
+    ~prayer_load_glow(prayer:com7);
+}

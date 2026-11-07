@@ -1,0 +1,13 @@
+[proc,clientscript_1317]
+if_setmodel(model_18789, elem_magicpress_pipes:com0);
+if_setmodel(model_18813, elem_magicpress_pipes:com28);
+if_setmodel(model_18814, elem_magicpress_pipes:com29);
+if (%varbit_4835 < 1) {
+    if_setmodel(null, elem_magicpress_pipes:com29);
+}
+if (%varbit_4835 < 2) {
+    if_setmodel(null, elem_magicpress_pipes:com28);
+}
+if (%varbit_4835 < 3) {
+    if_setmodel(null, elem_magicpress_pipes:com0);
+}

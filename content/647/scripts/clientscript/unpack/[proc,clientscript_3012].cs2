@@ -1,0 +1,11 @@
+[proc,clientscript_3012](int $int)(component)
+switch_int ($int) {
+    case 0:
+        return(ix926645:com3);
+    case 1:
+        return(ix926645:com4);
+    case 2:
+        return(ix926645:com5);
+    case 3:
+        return(ix926645:com43);
+}

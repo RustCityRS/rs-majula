@@ -1,0 +1,41 @@
+[clientscript,quickchat_phrase_countdialog_onkey](int $int0, char $int1, component $component2, component $component3, chatphrase $int4)
+if ($int0 = 13) {
+    ~quickchat_close;
+    return;
+}
+if ($int0 = 102) {
+    ~quickchat_open(%varc_int_126, %varc_string_27);
+    return;
+}
+def_int $int5 = string_length(tostring(%varc_int_129));
+def_int $int6 = string_indexof_char("0123456789", $int1, 0);
+if ($int0 = 84) {
+    if ($int5 > 0) {
+        ~quickchat_phrase_int($component2, $int4, %varc_int_129);
+    } else {
+        ~quickchat_close;
+    }
+    return;
+}
+if ($int0 = 85) {
+    if ($int5 > 0) {
+        %varc_int_129 = calc(%varc_int_129 / 10);
+    } else if (%varc_int_127 = false) {
+        ~quickchat_close;
+    } else {
+        if_sethide(true, chatbox_background:com7);
+        if_sethide(true, chatbox_background:com9);
+        if_sethide(true, chatbox_background:com13);
+        if_sethide(false, chatbox_background:com17);
+        if_sethide(false, chatbox_background:com1);
+        if_sethide(true, chatbox_background:com3);
+        return;
+    }
+} else if ($int6 >= 0 & ($int5 < 10 & calc(%varc_int_129 * 10 + $int6) > 0)) {
+    %varc_int_129 = calc(%varc_int_129 * 10 + $int6);
+}
+if (%varc_int_129 > 0) {
+    if_settext("Please enter a value: <tostring(%varc_int_129)>*", $component3);
+} else {
+    if_settext("Please enter a value: *", $component3);
+}

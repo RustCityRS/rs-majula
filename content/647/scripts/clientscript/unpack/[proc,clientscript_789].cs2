@@ -1,0 +1,39 @@
+[proc,clientscript_789](component $component)
+if (($component = xplamp:agility | ($component = xplamp:herblore | ($component = xplamp:thieving | ($component = xplamp:fletching | ($component = xplamp:slayer | ($component = xplamp:farming | ($component = xplamp:construction | ($component = xplamp:hunter | $component = xplamp:summoning)))))))) & map_members = false) {
+    return;
+}
+if ($component = xplamp:summoning & %varbit_4302 < 110) {
+    return;
+}
+if ($component = xplamp:herblore & %druidquest < 4) {
+    return;
+}
+if ($component = xplamp:construction & %varbit_2187 = false) {
+    return;
+}
+if_sethide(true, xplamp:com4);
+if_sethide(true, xplamp:com21);
+if_sethide(true, xplamp:com22);
+if_sethide(true, xplamp:com23);
+if_sethide(true, xplamp:com24);
+if_sethide(true, xplamp:com25);
+if_sethide(true, xplamp:com27);
+if_sethide(true, xplamp:com5);
+if_sethide(true, xplamp:com6);
+if_sethide(true, xplamp:com8);
+if_sethide(true, xplamp:com26);
+if_sethide(true, xplamp:com9);
+if_sethide(true, xplamp:com12);
+if_sethide(true, xplamp:com13);
+if_sethide(true, xplamp:com7);
+if_sethide(true, xplamp:com15);
+if_sethide(true, xplamp:com16);
+if_sethide(true, xplamp:com17);
+if_sethide(true, xplamp:com18);
+if_sethide(true, xplamp:com10);
+if_sethide(true, xplamp:com11);
+if_sethide(true, xplamp:com19);
+if_sethide(true, xplamp:com14);
+if_sethide(true, xplamp:com20);
+if_sethide(true, xplamp:com28);
+if_sethide(false, $component);

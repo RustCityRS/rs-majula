@@ -1,0 +1,8 @@
+[proc,clientscript_3215](int $int)
+if ($int = true) {
+    if_setop(1, "Microtutorial", toplevel:com98);
+    if_setop(1, "Microtutorial", toplevel_fullscreen:com44);
+} else {
+    if_setop(1, "", toplevel:com98);
+    if_setop(1, "", toplevel_fullscreen:com44);
+}

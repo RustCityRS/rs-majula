@@ -1,0 +1,43 @@
+[proc,clientscript_3269](int $int0, int $int1, int $int2, int $int3)(int, int, int, int)
+if ($int0 = false) {
+    $int2 = 48;
+    $int3 = 48;
+}
+def_int $int4 = $int1;
+if (%varc_int_1198 = true) {
+    $int4 = calc($int4 + 2);
+    if ($int0 = true) {
+        $int4 = calc($int4 + $int3);
+    } else {
+        $int4 = calc($int4 + $int2);
+    }
+}
+def_int $int5 = $int4;
+if (%varc_int_1199 = true) {
+    $int5 = calc($int5 + 2);
+    if ($int0 = 2) {
+        $int5 = calc($int5 + $int3);
+    } else {
+        $int5 = calc($int5 + $int2);
+    }
+}
+def_int $int6 = $int5;
+if (%varc_int_1200 = true) {
+    $int6 = calc($int6 + 2);
+    if ($int0 = 3) {
+        $int6 = calc($int6 + $int3);
+    } else {
+        $int6 = calc($int6 + $int2);
+    }
+}
+def_int $int7 = $int6;
+if (%varc_int_1201 = true) {
+    $int7 = calc($int7 + 2);
+    if ($int0 = 4) {
+        $int7 = calc($int7 + $int3);
+    } else {
+        $int7 = calc($int7 + $int2);
+    }
+}
+return($int4, $int5, $int6, $int7);
+return(0, 0, 0, 0);

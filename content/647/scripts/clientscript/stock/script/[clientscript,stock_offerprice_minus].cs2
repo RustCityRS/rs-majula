@@ -1,0 +1,7 @@
+[clientscript,stock_offerprice_minus]
+if (%varp_1109 = -1) {
+    return;
+}
+%varc_int_85 = max(calc(%varc_int_85 - 1), 1);
+if_settext("<op4124(%varc_int_85, 1)> gp", stockmarket:com153);
+~sm_offerprice_settimer;

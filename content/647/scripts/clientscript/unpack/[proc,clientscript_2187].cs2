@@ -1,0 +1,25 @@
+[proc,clientscript_2187](int $int)(int)
+switch_int ($int) {
+    case 0:
+        return(%varbit_7301);
+    case 1:
+        return(%varbit_7302);
+    case 2:
+        return(%varbit_7303);
+    case 3:
+        return(%varbit_7304);
+    case 4:
+        return(%varbit_7305);
+    case 5:
+        return(%varbit_7298);
+    case 6:
+        return(%varbit_7299);
+    case 7:
+        return(%varbit_7300);
+    case 8:
+        return(%varbit_7296);
+    case 9:
+        return(%varbit_7297);
+}
+return(-1);
+return(0);

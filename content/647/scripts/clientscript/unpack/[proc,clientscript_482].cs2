@@ -1,0 +1,25 @@
+[proc,clientscript_482]
+switch_int (%varbit_7512) {
+    case default:
+        return;
+    case 1:
+        if_setgraphic(3257, conq_buy_army:com143);
+    case 2:
+        if_setgraphic(3257, conq_buy_army:com145);
+    case 3:
+        if_setgraphic(3257, conq_buy_army:com147);
+    case 4:
+        if_setgraphic(3257, conq_buy_army:com149);
+    case 5:
+        if_setgraphic(3257, conq_buy_army:com151);
+    case 6:
+        if_setgraphic(3257, conq_buy_army:com153);
+    case 7:
+        if_setgraphic(3257, conq_buy_army:com155);
+    case 8:
+        if_setgraphic(3257, conq_buy_army:com157);
+    case 9:
+        if_setgraphic(3257, conq_buy_army:com159);
+    case 10:
+        if_setgraphic(3257, conq_buy_army:com161);
+}

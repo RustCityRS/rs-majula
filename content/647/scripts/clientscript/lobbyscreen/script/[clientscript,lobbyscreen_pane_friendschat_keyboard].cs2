@@ -1,0 +1,28 @@
+[clientscript,lobbyscreen_pane_friendschat_keyboard](int $int0, char $int1)
+if (clan_getchatsize <= 0 | is_subscriber = true) {
+    return;
+}
+switch_int ($int0) {
+    case 84:
+        if (clan_getchatsize > 0) {
+            if (string_length(%varc_string_349) > 0) {
+                chat_setmode(1);
+                chat_sendpublic(%varc_string_349);
+            }
+        } else {
+            tutorial_openchat(11, 0, "You are not in a Friends Chat Channel.");
+        }
+        %varc_string_349 = "";
+        if_settext(escape(%varc_string_349), lobbyscreen_pane_friendschat:com27);
+        %varc_int_1507 = string_length(%varc_string_349);
+        ~clientscript_4571(lobbyscreen_pane_friendschat:com27, lobbyscreen_pane_friendschat:com28, %varc_string_349);
+    case 96, 97, 98, 99, 102, 103:
+        %varc_int_1507 = ~clientscript_1553($int0, %varc_int_1507, %varc_string_349);
+        ~clientscript_4571(lobbyscreen_pane_friendschat:com27, lobbyscreen_pane_friendschat:com28, %varc_string_349);
+    case -1, 85, 101:
+        if (char_isprintable($int1) = true | ($int0 = 85 | $int0 = 101)) {
+            %varc_string_349, %varc_int_1507 = ~clientscript_802(%varc_int_1507, %varc_string_349, 0, $int0, $int1);
+            if_settext(escape(%varc_string_349), lobbyscreen_pane_friendschat:com27);
+            ~clientscript_4571(lobbyscreen_pane_friendschat:com27, lobbyscreen_pane_friendschat:com28, %varc_string_349);
+        }
+}

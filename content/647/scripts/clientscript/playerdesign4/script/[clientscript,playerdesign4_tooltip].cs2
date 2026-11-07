@@ -1,0 +1,4 @@
+[clientscript,playerdesign4_tooltip](component $component0, int $int1, int $int2, string $string)
+if (cc_find($component0, $int1) = true | $int1 = -1 & if_find($component0) = true) {
+    ~playerdesign4_tooltip($string, ~cc_getx_absolute, cc_getwidth, ~cc_gety_absolute, $int2);
+}

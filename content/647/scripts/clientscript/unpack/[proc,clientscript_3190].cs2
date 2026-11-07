@@ -1,0 +1,28 @@
+[proc,clientscript_3190]
+if_openoverlay(59375677, 915);
+if_sethide(false, lobbyscreen:com44);
+if (if_gethide(enum(105, 73, enum_941, 5)) = false) {
+    ~clientscript_3161(0);
+}
+if (string_length(%varc_string_279) > 0) {
+    if_settext("Reporting: <%varc_string_279>", wy7834917:com49);
+} else {
+    if_settext("Report Abuse", wy7834917:com49);
+}
+if (autosetup_isactive = true | staffmodlevel > 0) {
+    if (%varc_int_6 = false) {
+        if_setgraphic("check_box_2,0", wy7834917:com46);
+    } else {
+        if_setgraphic("check_box_2,2", wy7834917:com46);
+    }
+    if (autosetup_getvalue = 5 | autosetup_getvalue = 6) {
+        if_settext("Suggest to mute this player for 48 hours", wy7834917:com47);
+    } else {
+        if_settext("Mute this player for 48 hours", wy7834917:com47);
+    }
+    if_setsize(calc(op4125(if_gettext(wy7834917:com47), 3793) + 18), if_getheight(wy7834917:com45), ^setsize_abs, ^setsize_abs, wy7834917:com45);
+    if_sethide(false, wy7834917:com45);
+} else {
+    if_sethide(true, wy7834917:com45);
+}
+if_setonkey("lobby_down_collapse(^event_key)", wy7834917:com18);

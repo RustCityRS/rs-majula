@@ -1,0 +1,30 @@
+[proc,clientscript_4166](component $component0, component $component1, int $int2, int $int3, string $string0, string $string1)
+cc_deleteall($component0);
+~clientscript_4178(0, $int2, 0);
+if (map_members = false & $int3 = true) {
+    if_sethide(true, $component0);
+    return;
+}
+cc_create($component0, ^iftype_rectangle, 0);
+cc_setsize(0, 0, ^setsize_minus, ^setsize_minus);
+cc_setposition(0, 0, ^setpos_abs_centre, ^setpos_abs_centre);
+cc_setfill(true);
+cc_setcolour(^red);
+cc_sethide(true);
+if_setontimer("clientscript_4175(^event_com, cc_getid, $int2, false)", $component0);
+cc_create($component0, ^iftype_graphic, 1);
+cc_setsize(15, 15, ^setsize_abs, ^setsize_abs);
+cc_setposition(10, 0, ^setpos_abs_left, ^setpos_abs_centre);
+~clientscript_4169($int2);
+if_setonvartransmit("clientscript_4168(^event_com, cc_getid, $int2){varp_286}", $component0);
+cc_create($component0, ^iftype_text, 2);
+cc_setsize(35, 0, ^setsize_minus, ^setsize_minus);
+cc_setposition(0, 0, ^setpos_abs_right, ^setpos_abs_centre);
+cc_settextfont(p11_full);
+cc_settextalign(^settextalign_left, ^settextalign_centre, 0);
+cc_setcolour(0xff981f);
+cc_settextshadow(true);
+cc_settext($string0);
+if_setonmouseover("cc_text_colour_swapper(^event_com, cc_getid, 16777215)", $component0);
+if_setonmouserepeat("clientscript_1160(^event_com, -1, $component1, $string1, 25, 200)", $component0);
+if_setonmouseleave("clientscript_4167(^event_com, cc_getid, $component1)", $component0);

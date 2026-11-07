@@ -366,8 +366,9 @@ fn compile_runescript(source: &Path, pack: &Path) -> anyhow::Result<(Vec<u8>, Ve
             start.elapsed().as_secs_f64()
         );
         let start = Instant::now();
-        let bytes = runec::compile_memory(source, Some(&private), false)
-            .map_err(|e| anyhow::anyhow!("{e}"))?;
+        let bytes =
+            runec::compile_memory(&source.join("scripts/runescript"), Some(&private), false)
+                .map_err(|e| anyhow::anyhow!("{e}"))?;
         debug!("Compiled scripts in {:.2}s", start.elapsed().as_secs_f64());
         pin_script_ids(pack, &private);
         Ok(bytes)
@@ -468,7 +469,7 @@ pub fn pack_all(
                 Err(e) => panic!("RuneScript compilation failed: {}", e),
             }
         });
-        let h_assets = s.spawn(|| pack_assets(&registry, source, verify));
+        let h_assets = s.spawn(|| pack_assets(&registry, &source.join("scripts"), verify));
         let h_media = s.spawn(|| pack_media_jag(source));
         let h_textures = s.spawn(|| pack_textures_jag(&registry, source));
         let h_title = s.spawn(|| pack_title_jag(source));

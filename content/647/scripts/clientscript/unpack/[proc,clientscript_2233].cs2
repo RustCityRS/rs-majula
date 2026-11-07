@@ -1,0 +1,6 @@
+[proc,clientscript_2233]
+if (%varc_int_1131 > 0) {
+    sound_synth(synth_8729, 1, 0);
+    %varc_int_1131 = calc(%varc_int_1131 - 1);
+    ~clientscript_2220;
+}

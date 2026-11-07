@@ -1,0 +1,13 @@
+[clientscript,glo3_cutscenes](component $component)
+if (%varc_int_1452 <= 100) {
+    ~clientscript_4130($component);
+    return;
+}
+if (%varc_int_1452 <= 200) {
+    ~clientscript_4131($component, ~coord_0_0(coord));
+    return;
+}
+if (%varc_int_1452 <= 300) {
+    ~clientscript_4132($component, ~coord_0_0(coord));
+    return;
+}

@@ -1,0 +1,14 @@
+[proc,clientscript_2612](coord $coord0, int $int1)
+cam_followcoord(coordpack($coord0, 16, 0, 16));
+switch_int ($int1) {
+    case 0:
+        viewport_setfov2(144, 180);
+    case 1:
+        viewport_setfov2(176, 220);
+    case 2:
+        viewport_setfov2(208, 260);
+    case 3:
+        viewport_setfov2(240, 300);
+    case 4:
+        viewport_setfov2(272, 340);
+}

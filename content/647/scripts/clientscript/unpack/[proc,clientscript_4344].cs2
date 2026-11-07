@@ -1,0 +1,23 @@
+[proc,clientscript_4344]()(string, string, string, string, string, string, string, string, string, string)
+def_string $string0 = "";
+def_string $string1 = "";
+def_string $string2 = "";
+def_string $string3 = "";
+def_string $string4 = "";
+def_string $string5 = "";
+def_string $string6 = "";
+def_string $string7 = "";
+def_string $string8 = "";
+def_string $string9 = "";
+$string0 = ~clan_keyword_get(%clansetting_varbit_25, %clansetting_varbit_26);
+$string1 = ~clan_keyword_get(%clansetting_varbit_27, %clansetting_varbit_28);
+$string2 = ~clan_keyword_get(%clansetting_varbit_29, %clansetting_varbit_30);
+$string3 = ~clan_keyword_get(%clansetting_varbit_31, %clansetting_varbit_32);
+$string4 = ~clan_keyword_get(%clansetting_varbit_33, %clansetting_varbit_34);
+$string5 = ~clan_keyword_get(%clansetting_varbit_35, %clansetting_varbit_36);
+$string6 = ~clan_keyword_get(%clansetting_varbit_37, %clansetting_varbit_38);
+$string7 = ~clan_keyword_get(%clansetting_varbit_39, %clansetting_varbit_40);
+$string8 = ~clan_keyword_get(%clansetting_varbit_41, %clansetting_varbit_42);
+$string9 = ~clan_keyword_get(%clansetting_varbit_43, %clansetting_varbit_44);
+return($string0, $string1, $string2, $string3, $string4, $string5, $string6, $string7, $string8, $string9);
+return("", "", "", "", "", "", "", "", "", "");

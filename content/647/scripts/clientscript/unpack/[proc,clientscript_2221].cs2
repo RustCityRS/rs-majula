@@ -1,0 +1,11 @@
+[proc,clientscript_2221]
+switch_int (%varp_1685) {
+    case 0:
+        if_settext("", kj1016328:com156);
+    case 1:
+        if_settext("Not enough workers.", kj1016328:com156);
+    case 2:
+        if_settext("Not enough resources.", kj1016328:com156);
+    case 3:
+        if_settext("Worker limit reached.", kj1016328:com156);
+}

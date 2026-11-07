@@ -1,0 +1,68 @@
+[clientscript,rand_rewards_populate]
+def_int $int0 = 0;
+def_int $int1 = 0;
+def_int $int2 = 0;
+def_int $int3 = 0;
+def_int $int4 = 0;
+def_int $int5 = 0;
+def_enum $enum6 = enum_3016;
+if (map_members = true) {
+    $enum6 = enum_3015;
+}
+if (calc(enum_getoutputcount($enum6) % 5) = false) {
+    $int3 = calc(enum_getoutputcount($enum6) / 5 * 67);
+} else {
+    $int3 = calc(enum_getoutputcount($enum6) / 5 * 67 + 67);
+}
+cc_deleteall(rand_rewards_interface:com1);
+if_setscrollsize(calc(5 * 60), $int3, rand_rewards_interface:com1);
+while ($int0 < enum_getoutputcount($enum6)) {
+    cc_create(rand_rewards_interface:com2, ^iftype_graphic, $int4);
+    cc_setop(1, oc_name(struct_param(enum(105, 74, $enum6, $int0), param_1070)));
+    cc_setonop("rand_rewards_clickinformation($int4)");
+    $int5 = $int4;
+    $int4 = calc($int4 + 1);
+    cc_setgraphic("km_shoptile,1");
+    if (stat_base(dungeoneering) < struct_param(enum(105, 74, $enum6, $int0), param_1071)) {
+        cc_setcolour(^red);
+    }
+    cc_setsize(52, 55, ^setsize_abs, ^setsize_abs);
+    cc_setposition(calc($int1 * 60), calc($int2 * 67 - 1), ^setpos_abs_left, ^setpos_abs_top);
+    cc_sethide(true);
+    cc_create(rand_rewards_interface:com2, ^iftype_graphic, $int4);
+    $int4 = calc($int4 + 1);
+    cc_setgraphic("km_shoptile,0");
+    cc_setsize(48, 52, ^setsize_abs, ^setsize_abs);
+    cc_setposition(calc($int1 * 60 + 2), calc($int2 * 67 + 1), ^setpos_abs_left, ^setpos_abs_top);
+    cc_setonmouserepeat("rand_rewards_onhover($int5)");
+    cc_setonmouseleave("rand_rewards_onexit($int5)");
+    cc_create(rand_rewards_interface:com2, ^iftype_graphic, $int4);
+    $int4 = calc($int4 + 1);
+    cc_setgraphic("km_shopitems,4");
+    cc_setcolour(0xc80000);
+    cc_setsize(12, 12, ^setsize_abs, ^setsize_abs);
+    cc_setposition(calc($int1 * 60 + 5), calc($int2 * 67 + 40), ^setpos_abs_left, ^setpos_abs_top);
+    cc_create(rand_rewards_interface:com2, ^iftype_text, $int4);
+    $int4 = calc($int4 + 1);
+    cc_setcolour(0xe2e2a2);
+    cc_settextfont(p11_full);
+    cc_settextshadow(true);
+    cc_settextalign(^settextalign_centre, ^settextalign_centre, 0);
+    cc_settext(~tostring_shortform(struct_param(enum(105, 74, $enum6, $int0), param_1072)));
+    cc_setsize(31, 12, ^setsize_abs, ^setsize_abs);
+    cc_setposition(calc($int1 * 60 + 18), calc($int2 * 67 + 40), ^setpos_abs_left, ^setpos_abs_top);
+    cc_create(rand_rewards_interface:com2, ^iftype_graphic, $int4);
+    $int4 = calc($int4 + 1);
+    cc_setobject(struct_param(enum(105, 74, $enum6, calc(($int4 - 5) / 5)), param_1070), -1);
+    cc_setsize(25, 25, ^setsize_abs, ^setsize_abs);
+    cc_setposition(calc($int1 * 60 + 13), calc($int2 * 67 + 9), ^setpos_abs_left, ^setpos_abs_top);
+    $int1 = calc($int1 + 1);
+    if ($int1 >= 5) {
+        $int1 = 0;
+        $int2 = calc($int2 + 1);
+    }
+    $int0 = calc($int0 + 1);
+}
+if (if_getscrolly(rand_rewards_interface:com1) = false) {
+    ~scrollbar_vertical(rand_rewards_interface:com35, rand_rewards_interface:com1, "scrollbar_dragger_v2,3", "scrollbar_dragger_v2,0", "scrollbar_dragger_v2,1", "scrollbar_dragger_v2,2", "scrollbar_v2,0", "scrollbar_v2,1");
+}

@@ -1,0 +1,14 @@
+[proc,clientscript_4347]
+def_enum $enum = null;
+if (%varp_2136 > 0) {
+    $enum = enum(105, 103, enum_3703, %varp_2136);
+    if ($enum ! null) {
+        if_sethide(true, clan_keywords:com219);
+        if_setscrollpos(0, 0, clan_keywords:com224);
+        ~clientscript_4499($enum, 1, "Select a keyword", enum_getoutputcount($enum), 7, clan_keywords:com213, clan_keywords:com223, clan_keywords:com225, clan_keywords:com224, clan_keywords:com230);
+    }
+} else {
+    if_sethide(false, clan_keywords:com219);
+    ~clientscript_4501(clan_keywords:com213, "Select a keyword");
+    ~clientscript_4501(clan_keywords:com199, "Select a category");
+}

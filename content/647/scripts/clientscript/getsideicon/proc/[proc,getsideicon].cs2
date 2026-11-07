@@ -1,0 +1,45 @@
+[proc,getsideicon](int $int)(component)
+if (getwindowmode >= 2) {
+    return(~getsideicon_resizeable($int));
+} else {
+    switch_int ($int) {
+        case 0:
+            return(toplevel:com137);
+        case 1:
+            return(toplevel:com138);
+        case 2:
+            return(toplevel:com139);
+        case 3:
+            return(toplevel:com140);
+        case 4:
+            return(toplevel:com141);
+        case 5:
+            return(toplevel:com142);
+        case 6:
+            return(toplevel:com143);
+        case 7:
+            return(toplevel:com144);
+        case 8:
+            return(toplevel:com106);
+        case 9:
+            return(toplevel:com107);
+        case 10:
+            return(toplevel:com108);
+        case 11:
+            return(toplevel:com109);
+        case 12:
+            return(toplevel:com110);
+        case 13:
+            return(toplevel:com111);
+        case 14:
+            return(toplevel:com112);
+        case 15:
+            return(toplevel:com113);
+        case 95:
+            return(summoning_orb:com8);
+        case 99:
+            return(toplevel:com181);
+    }
+}
+return(null);
+return(null);

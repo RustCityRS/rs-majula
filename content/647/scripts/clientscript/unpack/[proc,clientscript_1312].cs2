@@ -1,0 +1,133 @@
+[proc,clientscript_1312](int $int0)
+def_int $int1 = ~current_side_if;
+if ($int0 = true) {
+    if ($int1 ! 0) {
+        if_setgraphic(null, toplevel:com128);
+        if_setgraphic(null, toplevel:com146);
+        if_setgraphic(null, toplevel:com147);
+    }
+    if ($int1 ! 2) {
+        if_setgraphic(null, toplevel:com129);
+        if_setgraphic(null, toplevel:com148);
+        if_setgraphic(null, toplevel:com149);
+    }
+    if ($int1 ! 3) {
+        if_setgraphic(null, toplevel:com130);
+        if_setgraphic(null, toplevel:com150);
+        if_setgraphic(null, toplevel:com151);
+    }
+    if ($int1 ! 1) {
+        if_setgraphic(null, toplevel:com131);
+        if_setgraphic(null, toplevel:com152);
+        if_setgraphic(null, toplevel:com153);
+    }
+    if ($int1 ! 4) {
+        if_setgraphic(null, toplevel:com132);
+        if_setgraphic(null, toplevel:com154);
+        if_setgraphic(null, toplevel:com155);
+    }
+    if ($int1 ! 5) {
+        if_setgraphic(null, toplevel:com133);
+        if_setgraphic(null, toplevel:com156);
+        if_setgraphic(null, toplevel:com157);
+    }
+    if ($int1 ! 6) {
+        if_setgraphic(null, toplevel:com134);
+        if_setgraphic(null, toplevel:com158);
+        if_setgraphic(null, toplevel:com159);
+    }
+    if ($int1 ! 7) {
+        if_setgraphic(null, toplevel:com135);
+        if_setgraphic(null, toplevel:com160);
+        if_setgraphic(null, toplevel:com161);
+    }
+    if ($int1 ! 8) {
+        if_setgraphic(null, toplevel:com98);
+        if_setgraphic(null, toplevel:com82);
+        if_setgraphic(null, toplevel:com83);
+    }
+    if ($int1 ! 9) {
+        if_setgraphic(null, toplevel:com99);
+        if_setgraphic(null, toplevel:com84);
+        if_setgraphic(null, toplevel:com85);
+    }
+    if ($int1 ! 10) {
+        if_setgraphic(null, toplevel:com100);
+        if_setgraphic(null, toplevel:com86);
+        if_setgraphic(null, toplevel:com87);
+    }
+    if ($int1 ! 11) {
+        if_setgraphic(null, toplevel:com101);
+        if_setgraphic(null, toplevel:com88);
+        if_setgraphic(null, toplevel:com89);
+    }
+    if ($int1 ! 12) {
+        if_setgraphic(null, toplevel:com102);
+        if_setgraphic(null, toplevel:com90);
+        if_setgraphic(null, toplevel:com91);
+    }
+    if ($int1 ! 13) {
+        if_setgraphic(null, toplevel:com103);
+        if_setgraphic(null, toplevel:com92);
+        if_setgraphic(null, toplevel:com93);
+    }
+    if ($int1 ! 14) {
+        if_setgraphic(null, toplevel:com104);
+        if_setgraphic(null, toplevel:com94);
+        if_setgraphic(null, toplevel:com95);
+    }
+    if ($int1 ! 15) {
+        if_setgraphic(null, toplevel:com105);
+        if_setgraphic(null, toplevel:com96);
+        if_setgraphic(null, toplevel:com97);
+    }
+} else {
+    if_setgraphic(null, toplevel:com128);
+    if_setgraphic(null, toplevel:com146);
+    if_setgraphic(null, toplevel:com147);
+    if_setgraphic(null, toplevel:com129);
+    if_setgraphic(null, toplevel:com148);
+    if_setgraphic(null, toplevel:com149);
+    if_setgraphic(null, toplevel:com130);
+    if_setgraphic(null, toplevel:com150);
+    if_setgraphic(null, toplevel:com151);
+    if_setgraphic(null, toplevel:com131);
+    if_setgraphic(null, toplevel:com152);
+    if_setgraphic(null, toplevel:com153);
+    if_setgraphic(null, toplevel:com132);
+    if_setgraphic(null, toplevel:com154);
+    if_setgraphic(null, toplevel:com155);
+    if_setgraphic(null, toplevel:com133);
+    if_setgraphic(null, toplevel:com156);
+    if_setgraphic(null, toplevel:com157);
+    if_setgraphic(null, toplevel:com134);
+    if_setgraphic(null, toplevel:com158);
+    if_setgraphic(null, toplevel:com159);
+    if_setgraphic(null, toplevel:com135);
+    if_setgraphic(null, toplevel:com160);
+    if_setgraphic(null, toplevel:com161);
+    if_setgraphic(null, toplevel:com98);
+    if_setgraphic(null, toplevel:com82);
+    if_setgraphic(null, toplevel:com83);
+    if_setgraphic(null, toplevel:com99);
+    if_setgraphic(null, toplevel:com84);
+    if_setgraphic(null, toplevel:com85);
+    if_setgraphic(null, toplevel:com100);
+    if_setgraphic(null, toplevel:com86);
+    if_setgraphic(null, toplevel:com87);
+    if_setgraphic(null, toplevel:com101);
+    if_setgraphic(null, toplevel:com88);
+    if_setgraphic(null, toplevel:com89);
+    if_setgraphic(null, toplevel:com102);
+    if_setgraphic(null, toplevel:com90);
+    if_setgraphic(null, toplevel:com91);
+    if_setgraphic(null, toplevel:com103);
+    if_setgraphic(null, toplevel:com92);
+    if_setgraphic(null, toplevel:com93);
+    if_setgraphic(null, toplevel:com104);
+    if_setgraphic(null, toplevel:com94);
+    if_setgraphic(null, toplevel:com95);
+    if_setgraphic(null, toplevel:com105);
+    if_setgraphic(null, toplevel:com96);
+    if_setgraphic(null, toplevel:com97);
+}

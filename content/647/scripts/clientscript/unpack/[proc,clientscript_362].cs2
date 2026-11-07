@@ -1,0 +1,11 @@
+[proc,clientscript_362](component $component0, int $int1, string $string)
+cc_deleteall($component0);
+if_setsize($int1, if_getheight($component0), ^setsize_abs, ^setsize_abs, $component0);
+cc_create($component0, ^iftype_text, if_getchildcount($component0));
+cc_setsize(0, 0, ^setsize_minus, ^setsize_minus);
+cc_setposition(0, 0, ^setpos_abs_centre, ^setpos_abs_centre);
+cc_settextfont(welcome_font_small);
+cc_setcolour(0x241b12);
+cc_settextalign(^settextalign_centre, ^settextalign_centre, 0);
+cc_settextshadow(false);
+cc_settext($string);

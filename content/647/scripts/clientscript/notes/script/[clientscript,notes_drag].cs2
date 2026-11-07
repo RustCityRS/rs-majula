@@ -1,0 +1,35 @@
+[clientscript,notes_drag](component $component0, int $int1, int $int2)
+def_int $int3 = 0;
+def_int $int4 = 0;
+if (cc_find($component0, $int1) = true) {
+    if_sethide(true, notes:com14);
+    if_sethide(false, notes:com10);
+    $int4 = cc_getheight;
+    if_setposition(cc_getx, $int2, ^setpos_abs_left, ^setpos_abs_top, notes:com10);
+    if_setsize(cc_getwidth, $int4, ^setsize_abs, ^setsize_abs, notes:com10);
+    $int3 = calc($int2 + $int4 / 2);
+}
+def_int $int5 = if_gety(notes:com11);
+def_int $int6 = calc($int5 + if_getheight(notes:com11));
+if ($int3 >= $int5 & $int3 <= $int6) {
+    if_setgraphic("notes_add_delete_icons,4", notes:com8);
+} else {
+    if_setgraphic("notes_add_delete_icons,3", notes:com8);
+}
+def_int $int7 = 0;
+def_int $int8 = if_gety(notes:com9);
+def_int $int9 = calc($int8 + $int4);
+def_int $int10 = calc($int8 + if_getheight(notes:com9));
+def_int $int11 = calc($int10 - $int4);
+if ($int3 >= $int8 & $int3 <= $int9) {
+    $int7 = -4;
+} else if ($int3 >= $int11 & $int3 <= $int10) {
+    $int7 = 4;
+} else {
+    %varc_int_821 = 0;
+    return;
+}
+%varc_int_821 = calc(%varc_int_821 + 1);
+if (%varc_int_821 > 5) {
+    ~scrollbar_ondrag_doscroll(notes:com15, notes:com9, calc(if_getscrolly(notes:com9) + $int7), 1);
+}

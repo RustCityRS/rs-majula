@@ -1,0 +1,36 @@
+[proc,clientscript_2973]
+if (stat(construction) < 56) {
+    if_setcolour(0x868360, crosstiled:com27);
+} else {
+    if_setcolour(0xeae7c4, crosstiled:com27);
+}
+if (stat(construction) < 57) {
+    if_setcolour(0x868360, crosstiled:com23);
+} else {
+    if_setcolour(0xeae7c4, crosstiled:com23);
+}
+if (stat(construction) < 59) {
+    if_setcolour(0x868360, crosstiled:com19);
+} else {
+    if_setcolour(0xeae7c4, crosstiled:com19);
+}
+if (stat(construction) < 62) {
+    if_setcolour(0x868360, crosstiled:com15);
+} else {
+    if_setcolour(0xeae7c4, crosstiled:com15);
+}
+if (stat(construction) < 65) {
+    if_setcolour(0x868360, crosstiled:com7);
+} else {
+    if_setcolour(0xeae7c4, crosstiled:com7);
+}
+if (stat(construction) < 70) {
+    if_setcolour(0x868360, crosstiled:com11);
+} else {
+    if_setcolour(0xeae7c4, crosstiled:com11);
+}
+if (stat(construction) < 80) {
+    if_setcolour(0x868360, crosstiled:com3);
+} else {
+    if_setcolour(0xeae7c4, crosstiled:com3);
+}

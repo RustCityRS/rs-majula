@@ -1,0 +1,8 @@
+[proc,clientscript_2085]
+if (%varc_int_645 <= 5) {
+    if_setcolour(0x3366ff, tv1998864:com29);
+} else if (%varc_int_645 >= 25) {
+    if_setcolour(0xe12323, tv1998864:com29);
+} else {
+    if_setcolour(0x666666, tv1998864:com29);
+}

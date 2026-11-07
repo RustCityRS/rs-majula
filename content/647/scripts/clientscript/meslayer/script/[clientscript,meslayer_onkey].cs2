@@ -1,0 +1,122 @@
+[clientscript,meslayer_onkey](int $int0, char $int1)
+switch_int ($int0) {
+    case 84:
+        if (%varc_int_5 = 12) {
+            ~clientscript_1806(%varc_string_22);
+            return;
+        }
+        if (string_length(%varc_string_22) > 0) {
+            if (%varc_int_5 = 13) {
+                resume_stringdialog(%varc_string_22);
+            } else if (%varc_int_5 = 4 | %varc_int_5 = 5) {
+                if (ignores_count < 0) {
+                    mes("Unable to update Ignore List: system busy");
+                } else if (%varc_int_5 = 4) {
+                    ignore_add(%varc_string_22);
+                } else if (%varc_int_5 = 5) {
+                    if (ignores_test(~displayname_simplify(%varc_string_22)) = true) {
+                        ignore_del(~displayname_simplify(%varc_string_22));
+                    } else {
+                        mes("That player is not on your ignore list.");
+                    }
+                }
+            } else if (%varc_int_5 < 7) {
+                if (friend_count < 0) {
+                    mes("Unable to complete action - system busy");
+                } else if (%varc_int_5 = 2) {
+                    friend_add(%varc_string_22);
+                } else if (%varc_int_5 = 3) {
+                    if (friend_test(~displayname_simplify(%varc_string_22)) = true) {
+                        friend_del(~displayname_simplify(%varc_string_22));
+                    } else {
+                        mes("That player is not on your friends list.");
+                    }
+                } else if (%varc_int_5 = 6) {
+                    if (chat_getfilter_private = 2) {
+                        chat_setfilter(chat_getfilter_public, 1, chat_getfilter_trade);
+                        ~redraw_chat_buttons;
+                        ~rebuildchatbox;
+                        ~rebuildpmbox;
+                    }
+                    chat_sendprivate(%varc_string_23, %varc_string_22);
+                }
+            } else if (%varc_int_5 = 11) {
+                ~bank_v2_confirmsearch;
+            } else if (%varc_int_5 = 7) {
+                %varc_string_22 = ~find_and_replace(%varc_string_22, "K", "000");
+                %varc_string_22 = ~find_and_replace(%varc_string_22, "k", "000");
+                %varc_string_22 = ~find_and_replace(%varc_string_22, "M", "000000");
+                %varc_string_22 = ~find_and_replace(%varc_string_22, "m", "000000");
+                if (getlanguage = true) {
+                    %varc_string_22 = ~find_and_replace(%varc_string_22, "T", "000");
+                    %varc_string_22 = ~find_and_replace(%varc_string_22, "t", "000");
+                }
+                resume_countdialog(%varc_string_22);
+            } else if (%varc_int_5 = 8) {
+                %varc_string_201 = escape(%varc_string_22);
+                %varc_int_1026 = 1;
+                resume_namedialog(%varc_string_22);
+            } else if (%varc_int_5 = 9) {
+                if (compare(lowercase(%varc_string_22), lowercase(%varc_string_33)) ! 0) {
+                    resume_stringdialog(%varc_string_22);
+                } else {
+                    mes("Please do not enter your password here!");
+                }
+            } else if (%varc_int_5 = 10) {
+                %varc_string_202 = escape(%varc_string_22);
+                %varc_int_1027 = 1;
+                clan_leavechat2(%varc_string_22);
+            } else if (%varc_int_5 = 15) {
+                ~friendschat_kick(%varc_string_22);
+            } else if (%varc_int_5 = 16) {
+                ~clan_chat_kick_find(%varc_string_22);
+            }
+        } else if (%varc_int_5 = 14) {
+            ~music_search_close;
+            return;
+        } else if (%varc_int_5 = 7) {
+        }
+        if_sethide(true, chatbox:com3);
+        if_sethide(true, chatbox:com7);
+        if_sethide(false, chatbox:com8);
+        %varc_int_5 = 0;
+        if (getwindowmode >= 2) {
+            ~subchanged;
+        }
+        return;
+    case 13:
+        if (%varc_int_5 = 12) {
+            ~clientscript_1806(%varc_string_38);
+            ~meslayer_close(0);
+        } else if (%varc_int_5 = 14) {
+            ~music_search_close;
+        }
+        return;
+    case 96, 97, 98, 99, 102, 103:
+        if (key_isdown_ctrl = false) {
+            return;
+        }
+        %varc_int_1029 = ~clientscript_1553($int0, %varc_int_1029, %varc_string_22);
+    case default:
+        switch_int (%varc_int_5) {
+            case 6, 9, 11:
+                %varc_string_22, %varc_int_1029 = ~clientscript_802(%varc_int_1029, %varc_string_22, 0, $int0, $int1);
+            case 7:
+                %varc_string_22, %varc_int_1029 = ~clientscript_802(%varc_int_1029, %varc_string_22, 6, $int0, $int1);
+            case 13:
+                %varc_string_22, %varc_int_1029 = ~clientscript_802(%varc_int_1029, %varc_string_22, 5, $int0, $int1);
+            case 14:
+                %varc_string_22, %varc_int_1029 = ~clientscript_802(%varc_int_1029, %varc_string_22, 4, $int0, $int1);
+            case default:
+                %varc_string_22, %varc_int_1029 = ~clientscript_802(%varc_int_1029, %varc_string_22, 2, $int0, $int1);
+        }
+}
+if_settext(escape(%varc_string_22), chatbox:com5);
+~clientscript_1557;
+if (%varc_int_5 = 11) {
+    ~bank_v2_search_update;
+} else if (%varc_int_5 = 14) {
+    %varc_string_196 = lowercase(%varc_string_22);
+    %varc_int_89 = 1;
+    ~music_v3_refresh;
+}

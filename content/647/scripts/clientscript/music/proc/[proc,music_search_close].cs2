@@ -1,0 +1,5 @@
+[proc,music_search_close]
+~meslayer_close(14);
+%varc_string_196 = "";
+~music_v3_refresh;
+if_setgraphic("music_header_icons,7", music_v3:com17);

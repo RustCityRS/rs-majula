@@ -1,0 +1,14 @@
+[clientscript,friends2_switchmode](int $int)
+if ($int = true) {
+    if_sethide(true, friends2:com9);
+    if_sethide(false, friends2:com30);
+    if_sethide(true, friends2:com48);
+    if_sethide(false, friends2:com50);
+    ~ignore_init;
+} else {
+    if_sethide(true, friends2:com30);
+    if_sethide(false, friends2:com9);
+    if_sethide(true, friends2:com50);
+    if_sethide(false, friends2:com48);
+    ~friend_init;
+}

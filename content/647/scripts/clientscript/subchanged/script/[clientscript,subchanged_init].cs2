@@ -1,0 +1,3 @@
+[clientscript,subchanged_init](component $component)
+if_sethook1424("subchanged()", $component);
+~subchanged;

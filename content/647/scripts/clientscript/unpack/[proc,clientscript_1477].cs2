@@ -1,0 +1,18 @@
+[proc,clientscript_1477]
+if (%varbit_5007 = false) {
+    if_settext("Quick task:", dj9382776:com36);
+} else {
+    if_settext("Large task:", dj9382776:com36);
+}
+if_settext(tostring(%varbit_4216), dj9382776:com100);
+if_settext(tostring(calc((%varbit_4208 + 1) * 5)), dj9382776:com102);
+if_settext(tostring(%varbit_4217), dj9382776:com91);
+if_settext(tostring(calc((%varbit_4209 + 1) * 5)), dj9382776:com93);
+if_settext(tostring(%varbit_4218), dj9382776:com81);
+if_settext(tostring(calc((%varbit_4210 + 1) * 5)), dj9382776:com83);
+if_settext(tostring(%varbit_4219), dj9382776:com71);
+if_settext(tostring(calc((%varbit_4211 + 1) * 5)), dj9382776:com73);
+if_settext(tostring(%varbit_4220), dj9382776:com61);
+if_settext(tostring(calc((%varbit_4212 + 1) * 5)), dj9382776:com63);
+if_settext(tostring(%varbit_5008), dj9382776:com51);
+if_settext(tostring(calc((%varbit_4213 + 1) * 5)), dj9382776:com53);

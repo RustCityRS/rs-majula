@@ -1,0 +1,8 @@
+[proc,inventory_setcursor](int $int0, int $int1, obj $obj2)
+def_int $int3 = -1;
+$int3 = oc_wearpos($obj2, $int0);
+if ($int3 ! -1) {
+    cc_setcursor_op($int1, $int3);
+} else {
+    cc_setcursor_op($int1, 36);
+}

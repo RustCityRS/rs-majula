@@ -1,0 +1,6 @@
+[clientscript,mob_move_text](component $component)
+if (%varbit_6357 = true | (%varbit_6357 = 4 | %varbit_6357 = 3)) {
+    if_setposition(0, 5, ^setpos_abs_left, ^setpos_abs_top, $component);
+} else {
+    if_setposition(0, 0, ^setpos_abs_left, ^setpos_abs_top, $component);
+}

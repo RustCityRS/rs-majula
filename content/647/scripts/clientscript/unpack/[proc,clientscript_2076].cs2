@@ -1,0 +1,12 @@
+[proc,clientscript_2076]
+def_int $int = 0;
+if (%varc_int_632 = false) {
+    if (calc(10 - %varc_int_634) > 0) {
+        $int = calc(10 - %varc_int_634);
+    } else {
+        $int = 0;
+    }
+    if_settext(tostring($int), snp_waiting_room:com5);
+} else {
+    if_settext(tostring(%varc_int_638), snp_waiting_room:com5);
+}

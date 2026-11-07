@@ -1,0 +1,11 @@
+[clientscript,mob_camera_control](int $int)
+switch_int ($int) {
+    case 1:
+        cam_clear_5507;
+    case 2:
+        cam_clear_5508;
+    case 3:
+        cam_clear_5509;
+    case 4:
+        cam_clear_5510;
+}

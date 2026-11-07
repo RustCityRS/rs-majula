@@ -1,0 +1,22 @@
+[proc,clientscript_2021](component $component0, boolean $int1)
+if ($int1 = true) {
+    if (cc_find($component0, 0) = true) {
+        cc_setgraphic(3862);
+    }
+    if (cc_find($component0, 1) = true) {
+        cc_setgraphic(3860);
+    }
+    if (cc_find($component0, 2) = true) {
+        cc_setgraphic(3861);
+    }
+} else {
+    if (cc_find($component0, 0) = true) {
+        cc_setgraphic(3859);
+    }
+    if (cc_find($component0, 1) = true) {
+        cc_setgraphic(3857);
+    }
+    if (cc_find($component0, 2) = true) {
+        cc_setgraphic(3858);
+    }
+}

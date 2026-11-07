@@ -1,0 +1,12 @@
+[proc,clientscript_1694](int $int)(int)
+if ($int < 32) {
+    return(testbit(%varc_int_1040, $int));
+}
+if ($int < 64) {
+    return(testbit(%varc_int_1041, calc($int % 32)));
+}
+if ($int < 96) {
+    return(testbit(%varc_int_1042, calc($int % 32)));
+}
+return(0);
+return(0);

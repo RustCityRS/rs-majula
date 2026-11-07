@@ -1,0 +1,6 @@
+[proc,clientscript_314](component $component)
+if (%varc_int_179 ! -1) {
+    if_setmodel(%varc_int_179, $component);
+} else {
+    if_setmodel(model_18535, $component);
+}

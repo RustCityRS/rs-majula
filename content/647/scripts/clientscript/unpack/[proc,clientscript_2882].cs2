@@ -1,0 +1,9 @@
+[proc,clientscript_2882]
+if (%varbit_4393 = true | %varbit_542 = true) {
+    return;
+}
+if (%varbit_7078 = false) {
+    ~addtooltip_action(music_v3:com10, music_v3:com16, "Playlist on", 25, 189);
+} else {
+    ~addtooltip_action(music_v3:com10, music_v3:com16, "Playlist off", 25, 189);
+}

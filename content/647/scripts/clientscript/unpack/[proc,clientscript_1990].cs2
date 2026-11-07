@@ -1,0 +1,17 @@
+[proc,clientscript_1990]()(int)
+def_int $int = 0;
+$int = calc(%varbit_5783 + %varbit_5785 + %varbit_5786 + %varbit_5790 + %varbit_5791 + %varbit_5793 + %varbit_5792 + %varbit_5784);
+if (%varbit_5782 = 5) {
+    $int = calc($int + 1);
+}
+if (%varbit_5787 = 5) {
+    $int = calc($int + 1);
+}
+if (%varbit_5788 = 5) {
+    $int = calc($int + 1);
+}
+if (%varbit_5789 = 5) {
+    $int = calc($int + 1);
+}
+return($int);
+return(0);

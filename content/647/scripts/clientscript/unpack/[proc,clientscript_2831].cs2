@@ -1,0 +1,11 @@
+[proc,clientscript_2831](int $int0, idkit $int1, int $int2)
+if ($int0 ! 1) {
+    return;
+}
+player_setbodytype($int2, $int1);
+if ($int2 = true) {
+    %varc_int_1009 = $int1;
+} else {
+    %varc_int_1008 = $int1;
+}
+~player_kit_hair_redraw;

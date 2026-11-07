@@ -1,0 +1,66 @@
+[proc,clientscript_1368]
+if_settext("Zamorak = <tostring(%varbit_155)>", castlewars_status_overlay_zamorak:com0);
+if_settext("<tostring(%varbit_145)> = Saradomin", castlewars_status_overlay_zamorak:com1);
+if_settext("<tostring(%varp_380)> min", castlewars_status_overlay_zamorak:com6);
+if (%varbit_146 = false) {
+    if_settext("Health: <tostring(%varbit_146)>%", castlewars_status_overlay_zamorak:com9);
+    if_setcolour(^red, castlewars_status_overlay_zamorak:com9);
+} else {
+    if_settext("Health <tostring(%varbit_146)>%", castlewars_status_overlay_zamorak:com9);
+    if_setcolour(^green, castlewars_status_overlay_zamorak:com9);
+}
+if (%varbit_143 = false) {
+    if_settext("Safe", castlewars_status_overlay_zamorak:com2);
+    if_setcolour(^green, castlewars_status_overlay_zamorak:com2);
+} else if (%varbit_143 = true) {
+    if_settext("Taken", castlewars_status_overlay_zamorak:com2);
+    if_setcolour(^red, castlewars_status_overlay_zamorak:com2);
+} else if (%varbit_143 = 2) {
+    if_settext("Dropped", castlewars_status_overlay_zamorak:com2);
+    if_setcolour(^yellow, castlewars_status_overlay_zamorak:com2);
+}
+if (%varbit_153 = false) {
+    if_settext("Safe", castlewars_status_overlay_zamorak:com3);
+    if_setcolour(^green, castlewars_status_overlay_zamorak:com3);
+} else if (%varbit_153 = true) {
+    if_settext("Taken", castlewars_status_overlay_zamorak:com3);
+    if_setcolour(^red, castlewars_status_overlay_zamorak:com3);
+} else if (%varbit_153 = 2) {
+    if_settext("Dropped", castlewars_status_overlay_zamorak:com3);
+    if_setcolour(^yellow, castlewars_status_overlay_zamorak:com3);
+}
+if (%varbit_147 = true) {
+    if_settext("Unlocked", castlewars_status_overlay_zamorak:com10);
+    if_setcolour(^red, castlewars_status_overlay_zamorak:com10);
+} else {
+    if_settext("Locked", castlewars_status_overlay_zamorak:com10);
+    if_setcolour(^green, castlewars_status_overlay_zamorak:com10);
+}
+if (%varbit_148 = true) {
+    if_settext("Cleared", castlewars_status_overlay_zamorak:com11);
+    if_setcolour(^red, castlewars_status_overlay_zamorak:com11);
+} else {
+    if_settext("Collapsed", castlewars_status_overlay_zamorak:com11);
+    if_setcolour(^green, castlewars_status_overlay_zamorak:com11);
+}
+if (%varbit_149 = true) {
+    if_settext("Cleared", castlewars_status_overlay_zamorak:com12);
+    if_setcolour(^red, castlewars_status_overlay_zamorak:com12);
+} else {
+    if_settext("Collapsed", castlewars_status_overlay_zamorak:com12);
+    if_setcolour(^green, castlewars_status_overlay_zamorak:com12);
+}
+if (%varbit_150 = true) {
+    if_settext("Destroyed", castlewars_status_overlay_zamorak:com13);
+    if_setcolour(^red, castlewars_status_overlay_zamorak:com13);
+} else {
+    if_settext("Operational", castlewars_status_overlay_zamorak:com13);
+    if_setcolour(^green, castlewars_status_overlay_zamorak:com13);
+}
+if_setobject(obj_18748, -1, castlewars_status_overlay_zamorak:com4);
+if_setobject(obj_18749, -1, castlewars_status_overlay_zamorak:com5);
+if_setobject(obj_18750, -1, castlewars_status_overlay_zamorak:com14);
+if_setobject(obj_18751, -1, castlewars_status_overlay_zamorak:com15);
+if_setobject(obj_18752, -1, castlewars_status_overlay_zamorak:com16);
+if_setobject(obj_18753, -1, castlewars_status_overlay_zamorak:com17);
+if_setobject(obj_18754, -1, castlewars_status_overlay_zamorak:com18);

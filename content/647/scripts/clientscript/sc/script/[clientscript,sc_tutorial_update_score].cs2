@@ -1,0 +1,3 @@
+[clientscript,sc_tutorial_update_score]
+def_int $int = calc(%varp_1332 + %varp_1334 + %varp_1337 + 2 * (%varp_1333 - %varp_1335));
+if_settext("Score: <tostring($int)>", sc_tutorial_overlay:com8);

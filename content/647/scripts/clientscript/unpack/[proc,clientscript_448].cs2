@@ -1,0 +1,6 @@
+[proc,clientscript_448]
+if (%varbit_7537 = false) {
+    if_setgraphic("km_tickbox,0", conq_side_diplomacy:com10);
+} else {
+    if_setgraphic("km_tickbox,1", conq_side_diplomacy:com10);
+}

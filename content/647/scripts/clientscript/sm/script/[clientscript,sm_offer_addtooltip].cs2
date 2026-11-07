@@ -1,0 +1,5 @@
+[clientscript,sm_offer_addtooltip](component $component0, component $component1, int $int2, int $int3, string $string)
+if (if_gethide(stockmarket:com17) = false) {
+    return;
+}
+~addtooltip_action($component0, $component1, $string, $int2, $int3);

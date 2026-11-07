@@ -1,0 +1,21 @@
+[proc,clientscript_442](int $int)
+if_setgraphic("radio_buttons,0", be4882748:com24);
+if_setgraphic("radio_buttons,0", be4882748:com25);
+if_setgraphic("radio_buttons,0", be4882748:com26);
+if_setgraphic("radio_buttons,0", be4882748:com27);
+if_setgraphic("radio_buttons,0", be4882748:com28);
+if_setgraphic("radio_buttons,0", be4882748:com29);
+switch_int ($int) {
+    case 66584606:
+        if_setgraphic("radio_buttons,1", be4882748:com24);
+    case 66584607:
+        if_setgraphic("radio_buttons,1", be4882748:com25);
+    case 66584608:
+        if_setgraphic("radio_buttons,1", be4882748:com26);
+    case 66584609:
+        if_setgraphic("radio_buttons,1", be4882748:com27);
+    case 66584610:
+        if_setgraphic("radio_buttons,1", be4882748:com28);
+    case 66584611:
+        if_setgraphic("radio_buttons,1", be4882748:com29);
+}

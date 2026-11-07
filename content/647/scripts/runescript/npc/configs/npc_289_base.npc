@@ -1,0 +1,295 @@
+// 289's base npcs (its cache-derived _unpack/225/all.npc), server keys only.
+// Hitpoints are 2011's life points: 289's times ten, or void-634's where it has the npc.
+[guard2]
+desc=He tries to keep order around here.
+wanderrange=2
+maxrange=4
+attackrange=5
+respawnrate=100
+hitpoints=220
+attack=15
+strength=15
+defence=16
+ranged=26
+param=attackrate,6
+param=attackbonus,6
+param=strengthbonus,10
+param=rangebonus,10
+param=stabdefence,13
+param=slashdefence,17
+param=crushdefence,14
+param=magicdefence,-4
+param=rangedefence,15
+param=damagetype,^ranged_style
+param=attack_anim,human_crossbow
+param=proj_launch,crossbowbolt_launch
+param=proj_travel,crossbowbolt_travel
+category=guard
+// osrs stats and Vislvl match 1:1
+// This npc havent any attack sound.
+// https://raw.githubusercontent.com/Joshua-F/osrs-dumps/refs/heads/master/config/dump.npc npc_3270
+
+[babydragon]
+desc=Young but still dangerous.
+// todo: proof
+wanderrange=4
+maxrange=6
+respawnrate=60
+hitpoints=500
+attack=40
+strength=40
+defence=40
+param=stabdefence,30
+param=slashdefence,50
+param=crushdefence,50
+param=magicdefence,40
+param=rangedefence,30
+param=damagetype,^slash_style
+param=attack_anim,bdrag_attack
+param=defend_anim,bdrag_block
+param=death_anim,bdrag_death
+param=attack_sound,babydragon_attack
+param=defend_sound,babydragon_hit
+param=death_sound,babydragon_death
+param=death_drop,babydragon_bones
+huntmode=cowardly
+huntrange=2
+// https://oldschool.runescape.wiki/w/Baby_dragon_(unused)
+// all data taken Baby blue dragon.
+
+[dryhad]
+desc=A wood nymph.
+param=attack_anim,dryhad_attack
+param=defend_anim,dryhad_block
+param=death_anim,dryhad_death
+param=attack_sound,null
+param=defend_sound,null
+param=death_sound,null
+
+[lizardman]
+desc=A scaly reptilian creature.
+param=attack_anim,lizardman_attack
+param=defend_anim,lizardman_block
+param=death_anim,lizardman_death
+param=attack_sound,lizardman_attack
+param=defend_sound,lizardman_hit
+param=death_sound,lizardman_death
+huntmode=cowardly
+huntrange=2
+// TODO
+
+[orc]
+desc=A hideous malformed elf.
+hitpoints=290
+attack=13
+strength=16
+defence=14
+param=attackrate,5
+param=strengthbonus,5
+param=stabdefence,12
+param=slashdefence,14
+param=crushdefence,13
+param=magicdefence,5
+param=damagetype,^crush_style
+param=attack_anim,orc_attack
+param=defend_anim,orc_block
+param=death_anim,orc_death
+param=attack_sound,orc_attack
+param=defend_sound,orc_hit
+param=death_sound,orc_death
+huntmode=cowardly
+huntrange=1
+// This npc has probably replaced this npc in the cache.
+// Strangely, Vislvl matches perfectly and the npc still has stats, although it can't be killed.
+// https://raw.githubusercontent.com/Joshua-F/osrs-dumps/refs/heads/master/config/dump.npc npc_2106
+
+[golem]
+desc=A creature made from clay.
+hitpoints=700
+attack=35
+strength=60
+defence=30
+param=stabdefence,30
+param=slashdefence,40
+param=crushdefence,20
+param=damagetype,^crush_style
+param=attack_anim,golem_attack
+param=defend_anim,golem_block
+param=death_anim,golem_death
+param=attack_sound,golem_attack
+param=defend_sound,golem_hit
+param=death_sound,golem_death
+param=death_drop,null
+// https://raw.githubusercontent.com/Joshua-F/osrs-dumps/refs/heads/master/config/dump.npc npc_2836
+// TODO try get more infos param stats, wander and max ranges.
+
+// 289's giantrat is 2011's giant_rat: its keys are in
+// general/configs/npc_behaviour.npc's [giant_rat], whose own win.
+
+[brownbear]
+desc=Eek! A bear!
+wanderrange=13
+maxrange=15
+respawnrate=100
+hitpoints=270
+attack=17
+strength=18
+defence=15
+param=damagetype,^slash_style
+param=attack_anim,bear_attack
+param=defend_anim,bear_block
+param=death_anim,bear_death
+param=attack_sound,bear_attack
+param=defend_sound,bear_hit
+param=death_sound,bear_death
+category=bear
+huntmode=cowardly
+huntrange=1
+// osrs stats and Vislvl match 1:1
+// https://raw.githubusercontent.com/Joshua-F/osrs-dumps/refs/heads/master/config/dump.npc npc_2838
+
+[darkbear]
+desc=Eek! A bear!
+wanderrange=8
+maxrange=10
+respawnrate=100
+hitpoints=250
+attack=15
+strength=16
+defence=13
+param=damagetype,^slash_style
+param=attack_anim,bear_attack
+param=defend_anim,bear_block
+param=death_anim,bear_death
+param=attack_sound,bear_attack
+param=defend_sound,bear_hit
+param=death_sound,bear_death
+category=bear
+huntmode=cowardly
+huntrange=1
+// osrs stats and Vislvl match 1:1
+// https://raw.githubusercontent.com/Joshua-F/osrs-dumps/refs/heads/master/config/dump.npc npc_2839
+
+[mammoth]
+desc=A wooly elephantlike monster.
+param=damagetype,^stab_style
+param=attack_anim,mammoth_attack
+param=defend_anim,mammoth_block
+param=death_anim,mammoth_death
+param=attack_sound,mammoth_attack
+param=defend_sound,mammoth_hit
+param=death_sound,mammoth_death
+param=death_drop,big_bones
+huntmode=cowardly
+huntrange=3
+// The original variation data has been removed from the cache.
+// This NPC stats data is not original, so do not use it.
+// https://raw.githubusercontent.com/Joshua-F/osrs-dumps/refs/heads/master/config/dump.npc npc_6604
+
+[seabird3]
+desc=A sea bird.
+hitpoints=320
+attack=22
+strength=22
+defence=17
+param=stabdefence,12
+param=slashdefence,10
+param=crushdefence,16
+param=magicdefence,8
+param=damagetype,^stab_style
+param=attack_anim,bird_attack
+param=defend_anim,bird_block
+param=death_anim,bird_death
+param=attack_sound,bird_attack
+param=defend_sound,bird_hit
+param=death_sound,bird_death
+// https://raw.githubusercontent.com/Joshua-F/osrs-dumps/refs/heads/master/config/dump.npc npc_283
+
+// 289's flytrap is 2011's fly_trap.
+[nasty_tree]
+desc=Its bark is worse than its swipe.
+defaultmode=none
+wanderrange=0
+moverestrict=nomove
+blockwalk=all
+hitpoints=2500
+attack=20
+strength=20
+defence=40
+param=stabdefence,40
+param=slashdefence,10
+param=crushdefence,60
+param=magicdefence,10
+param=damagetype,^crush_style
+param=attack_anim,deadtree_attack
+param=attack_sound,nasty_tree_attack
+huntmode=aggressive_melee
+huntrange=1
+// "They have level 20 Attack & Strength" - ash
+// https://raw.githubusercontent.com/Joshua-F/osrs-dumps/refs/heads/master/config/dump.npc npc_4418
+
+[lady_pirate]
+desc=A fine example of piracys' equal opportunities program.
+respawnrate=50
+hitpoints=200
+attack=20
+strength=20
+defence=20
+param=attackbonus,10
+param=strengthbonus,9
+param=slashdefence,1
+param=damagetype,^slash_style
+param=attack_anim,human_sword_slash
+param=defend_anim,human_sword_def
+param=attack_sound,hacksword_slash
+param=defend_sound,female_hit
+param=death_sound,female_death
+category=pirate
+// osrs stats and Vislvl match 1:1
+// https://raw.githubusercontent.com/Joshua-F/osrs-dumps/refs/heads/master/config/dump.npc npc_524
+
+[floatingtwig_broken1]
+desc=Reminds me of playing pooh sticks.
+
+[freshfish]
+desc=I can see fish swimming in the water.
+op4=hidden
+op5=hidden
+defaultmode=none
+wanderrange=0
+moverestrict=nomove
+
+[saltfish]
+desc=I can see fish swimming in the water.
+op4=hidden
+op5=hidden
+defaultmode=none
+wanderrange=0
+moverestrict=nomove
+
+[seth]
+desc=Slightly fishy smelling.
+
+[cow_beef]
+desc=It's a dairy cow.
+timer=25
+respawnrate=90
+hitpoints=80
+param=attackbonus,-15
+param=strengthbonus,-15
+param=stabdefence,-21
+param=slashdefence,-21
+param=crushdefence,-21
+param=magicdefence,-21
+param=rangedefence,-21
+param=damagetype,^crush_style
+param=attack_anim,cow_attack
+param=defend_anim,cow_block
+param=death_anim,cow_death
+param=attack_sound,cow_attack
+param=defend_sound,cow_hit
+param=death_sound,cow_death
+category=cow
+// osrs stats and Vislvl match 1:1
+// https://raw.githubusercontent.com/Joshua-F/osrs-dumps/refs/heads/master/config/dump.npc npc_2793
+

@@ -1,0 +1,26 @@
+[clientscript,macro_beekeeper_timer](component $component0, component $component1, component $component2, component $component3, component $component4, component $component5, component $component6, component $component7)
+%varc_int_681 = calc((%varc_int_681 + random(4) + 2) % 2048);
+%varc_int_684 = calc((%varc_int_684 + random(4) + 2) % 2048);
+%varc_int_687 = calc((%varc_int_687 + random(4) + 2) % 2048);
+%varc_int_690 = calc((%varc_int_690 + random(4) + 2) % 2048);
+if (%varc_int_680 < 20 & (%varc_int_680 < -20 | random(2) = false)) {
+    %varc_int_680 = min(calc(%varc_int_680 + random(3) + 1), 25);
+} else {
+    %varc_int_680 = max(calc(%varc_int_680 - (random(3) + 1)), -25);
+}
+if (%varc_int_683 < 20 & (%varc_int_683 < -20 | random(2) = false)) {
+    %varc_int_683 = min(calc(%varc_int_683 + random(3) + 1), 25);
+} else {
+    %varc_int_683 = max(calc(%varc_int_683 - (random(3) + 1)), -25);
+}
+if (%varc_int_686 < 20 & (%varc_int_686 < -20 | random(2) = false)) {
+    %varc_int_686 = min(calc(%varc_int_686 + random(3) + 1), 25);
+} else {
+    %varc_int_686 = max(calc(%varc_int_686 - (random(3) + 1)), -25);
+}
+if (%varc_int_689 < 20 & (%varc_int_689 < -20 | random(2) = false)) {
+    %varc_int_689 = min(calc(%varc_int_689 + random(3) + 1), 25);
+} else {
+    %varc_int_689 = max(calc(%varc_int_689 - (random(3) + 1)), -25);
+}
+~macro_beekeeper_update($component0, $component1, $component2, $component3, $component4, $component5, $component6, $component7);

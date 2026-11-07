@@ -1,0 +1,72 @@
+[proc,lobbyscreen_input_full](int $int0, int $int1, int $int2, string $string0, string $string1, string $string2, string $string3)
+~lobbyscreen_input_clear;
+if_settext($string0, lobbyscreen:com138);
+if (compare($string1, "") ! 0) {
+    if ($int1 ! -1 & $int1 ! 6) {
+        %varc_string_277 = $string1;
+    } else {
+        %varc_string_277 = $string1;
+    }
+    if ($int0 = true) {
+        if_settext(escape(%varc_string_277), lobbyscreen:com140);
+    } else {
+        if_settext(%varc_string_277, lobbyscreen:com140);
+    }
+}
+if ($int1 = 6) {
+    if_settext("Yes", lobbyscreen:com148);
+    if_setop(1, "Yes", lobbyscreen:com148);
+    if_settext("No", lobbyscreen:com150);
+    if_setop(1, "No", lobbyscreen:com150);
+} else if ($int1 = false) {
+    if_setsize(386, 136, ^setsize_abs, ^setsize_abs, lobbyscreen:com136);
+    if_setsize(0, 12, ^setsize_minus, ^setsize_abs, lobbyscreen:com140);
+}
+if ($int2 = false) {
+    if_setsize(0, 0, ^setsize_minus, ^setsize_minus, lobbyscreen:com144);
+    if_setsize(0, 0, ^setsize_minus, ^setsize_minus, lobbyscreen:com148);
+    if_sethide(true, lobbyscreen:com149);
+    if_sethide(true, lobbyscreen:com150);
+}
+if_sethide(false, lobbyscreen:com30);
+def_int $int3 = 0;
+switch_int ($int1) {
+    case 0:
+        $int3 = 0;
+    case 1, 2, 3, 4, 5, 7, 9:
+        $int3 = 2;
+}
+if (if_gethide(enum(105, 73, enum_941, 5)) = false) {
+    ~clientscript_3161(0);
+} else if (if_gethide(enum(105, 73, enum_941, 3)) = false) {
+    ~clientscript_4556(0);
+}
+if_setonkey("lobbyscreen_input_keyboard(^event_key, ^event_keychar, ^event_com, $int3, $int1, $string2)", lobbyscreen:com140);
+if_setonop("lobbyscreen_input_ok($int1, $string2)", lobbyscreen:com144);
+def_int $int4 = 0;
+if ($int1 ! -1 & $int1 ! 6) {
+    %varc_int_1097 = string_length(%varc_string_277);
+    if_setonclick("clientscript_1874(^event_mousex, lobbyscreen:com140, lobbyscreen:com141)", lobbyscreen:com140);
+    ~clientscript_1875(lobbyscreen:com140, lobbyscreen:com141, %varc_string_277);
+    if_sethide(true, lobbyscreen:com141);
+    if_setsize(if_getwidth(lobbyscreen:com136), 136, ^setsize_abs, ^setsize_abs, lobbyscreen:com136);
+    if_setonclick(null, lobbyscreen:com142);
+    if_setonmouseover(null, lobbyscreen:com142);
+    if_setonmouseleave(null, lobbyscreen:com142);
+    if_sethide(true, lobbyscreen:com142);
+} else {
+    %varc_int_1097 = 0;
+    if_sethide(true, lobbyscreen:com141);
+    if (string_length($string3) > 0 & string_length(%varc_string_277) > 0) {
+        $int4 = max(44, calc(paraheight(%varc_string_277, if_getwidth(lobbyscreen:com139), p11_full) * 13));
+        if_setsize(if_getwidth(lobbyscreen:com139), $int4, ^setsize_abs, ^setsize_abs, lobbyscreen:com139);
+        if_setsize(if_getwidth(lobbyscreen:com136), calc($int4 + 95), ^setsize_abs, ^setsize_abs, lobbyscreen:com136);
+        if_setposition(if_getx(lobbyscreen:com142), calc(if_gety(lobbyscreen:com139) + $int4 + 5), ^setpos_abs_left, ^setpos_abs_top, lobbyscreen:com142);
+        if_setsize(if_getwidth(lobbyscreen:com142), 13, ^setsize_abs, ^setsize_abs, lobbyscreen:com142);
+        if_settext("<u=2c6ff8><$string3></u>", lobbyscreen:com142);
+        if_setcolour(0x2c6ff8, lobbyscreen:com142);
+        if_setonmouseover("lobbyscreen_input_link_highlight(lobbyscreen:com142, $string3, true)", lobbyscreen:com142);
+        if_setonmouseleave("lobbyscreen_input_link_highlight(lobbyscreen:com142, $string3, false)", lobbyscreen:com142);
+        if_sethide(false, lobbyscreen:com142);
+    }
+}

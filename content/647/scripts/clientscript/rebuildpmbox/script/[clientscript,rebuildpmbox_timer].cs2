@@ -1,0 +1,6 @@
+[clientscript,rebuildpmbox_timer]
+if (hud_test(49414144, -1) = true) {
+    return;
+}
+if_setontimer(null, private_chat:com0);
+~rebuildpmbox;

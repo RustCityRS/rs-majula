@@ -15,6 +15,28 @@ struct Cli {
 
 #[derive(Subcommand)]
 enum Commands {
+    /// Recover missing registry names by matching dictionary candidates to cache hashes
+    #[cfg(since_647)]
+    RecoverNames {
+        #[arg(long, default_value = rs_pack::PACK_DIR)]
+        pack: PathBuf,
+        #[arg(long)]
+        kind: String,
+        #[arg(long, default_value_t = 4096)]
+        max_index: u32,
+        #[arg(required = true)]
+        dictionaries: Vec<PathBuf>,
+    },
+    /// Decompile client scripts to editable RuneScript source and verify their bytes
+    #[cfg(since_647)]
+    UnpackClientscripts {
+        #[arg(short, long, default_value = "expected")]
+        expected: PathBuf,
+        #[arg(short, long, default_value = "content_unpack")]
+        output: PathBuf,
+        #[arg(long, default_value = rs_pack::PACK_DIR)]
+        pack: PathBuf,
+    },
     /// Compile text config files and build an in-memory CacheStore
     Pack {
         /// Source directory containing config files (.npc, .hunt, etc.)
@@ -71,6 +93,25 @@ fn main() -> Result<()> {
     let cli = Cli::parse();
 
     match cli.command {
+        #[cfg(since_647)]
+        Commands::RecoverNames {
+            pack,
+            kind,
+            max_index,
+            dictionaries,
+        } => {
+            let count = unpack::names::recover(&pack, &kind, &dictionaries, max_index)?;
+            tracing::info!("Recovered {count} {kind} names");
+        }
+        #[cfg(since_647)]
+        Commands::UnpackClientscripts {
+            expected,
+            output,
+            pack,
+        } => {
+            let count = unpack::cs2::unpack_cs2_scripts(&expected, &output, &pack)?;
+            tracing::info!("Decompiled and byte-verified {count} clientscripts");
+        }
         #[cfg(before_647)]
         Commands::Pack {
             source,

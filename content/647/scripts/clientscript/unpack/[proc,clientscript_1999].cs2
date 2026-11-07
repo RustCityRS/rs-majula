@@ -1,0 +1,4 @@
+[proc,clientscript_1999](component $component)
+~clientscript_2001($component, %shop);
+if_setonvartransmit("clientscript_2000($component, %shop){varp_1081}", $component);
+return;

@@ -1,0 +1,5 @@
+[proc,clientscript_1144](component $component)
+if (cam_getpathcount(0) = 7) {
+    cam_startpath(0, 5, 600, 400, 1, 5);
+}
+if_setonchattransmit_2426(null, $component);

@@ -1,0 +1,51 @@
+[clientscript,chat_op](int $int0, int $int1, string $string)
+$string = removetags($string);
+def_int $int2 = chat_gethistory_length($int1);
+switch_int ($int0) {
+    case 1:
+        opplayer(4, $string);
+    case 2:
+        opplayer(1, $string);
+    case 3:
+        opplayer(7, $string);
+    case 4:
+        opplayer(1, $string);
+    case 5:
+        opplayer(9, $string);
+    case 6:
+        if (~clientscript_2709 = false) {
+            mes("You cannot add a friend until you have entered your date of birth");
+            return;
+        }
+        if (friend_test($string) = true) {
+            if (is_quickchat_only = false & is_subscriber = false) {
+                ~meslayer_mode6($string);
+            }
+        } else {
+            friend_add($string);
+        }
+    case 7:
+        ignore_add($string);
+    case 8:
+        %varc_string_24 = $string;
+    case 9:
+        if ($int2 = 17) {
+            ~quickchat_respond(4, player_getdisplayname($int1), chat_gethistory_rank($int1));
+        } else if ($int2 = 18) {
+            ~quickchat_respond(5, player_getdisplayname($int1), chat_gethistory_rank($int1));
+        } else if ($int2 = 20) {
+            ~quickchat_respond(6, player_getdisplayname($int1), chat_gethistory_rank($int1));
+        } else if ($int2 = 42) {
+            ~quickchat_respond(9, player_getdisplayname($int1), chat_gethistory_rank($int1));
+        } else if ($int2 = 45) {
+            ~quickchat_respond(11, player_getdisplayname($int1), chat_gethistory_rank($int1));
+        }
+    case 10:
+        if ($int2 = 41 | $int2 = 42) {
+            ~clan_chat_kick_find($string);
+        } else if ($int2 = 9 | $int2 = 20) {
+            ~friendschat_kick($string);
+        } else {
+            opplayer(5, $string);
+        }
+}

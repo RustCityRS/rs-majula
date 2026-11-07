@@ -1,0 +1,38 @@
+[proc,clientscript_2739](component $component0, int $int1)
+cc_deleteall($component0);
+def_int $int2 = inv_size(inv);
+def_obj $obj3 = null;
+def_int $int4 = calc($int2 / 4);
+def_int $int5 = calc((if_getwidth($component0) - 4 * 36) / 3);
+def_int $int6 = calc((if_getheight($component0) - $int4 * 32) / 6);
+def_int $int7 = 0;
+while ($int7 < $int2) {
+    cc_create($component0, ^iftype_graphic, $int7);
+    $obj3 = inv_getobj(inv, $int7);
+    if ($obj3 ! null) {
+        cc_setsize(36, 32, ^setsize_abs, ^setsize_abs);
+        cc_setposition(calc($int7 % 4 * (36 + $int5)), calc($int7 / 4 * (32 + $int6)), ^setpos_abs_left, ^setpos_abs_top);
+        cc_setobject($obj3, inv_getnum(inv, $int7));
+        cc_setopbase(append("<col=ff9040>", oc_name($obj3)));
+        cc_setop(1, "Equip");
+        cc_setop(9, "Stats");
+        cc_settargetverb("Compare");
+        cc_setop(10, "Examine");
+        cc_setgraphicshadow(0x302020);
+        if ($int1 = $int7) {
+            cc_setoutline(2);
+        } else {
+            cc_setoutline(1);
+        }
+        cc_setonop("clientscript_1620(^event_com, ^event_subid, 100, 0, 8)");
+        cc_setontargetenter("enable_button_acc1($component0, $int7)");
+        cc_setontargetleave("enable_button_acc1($component0, -1)");
+    } else {
+        cc_sethide(true);
+    }
+    $int7 = calc($int7 + 1);
+}
+if ($int1 ! -1 & inv_getobj(inv, $int1) = null) {
+    $int1 = -1;
+}
+if_setoninvtransmit("enable_button_acc1(^event_com, $int1){inv}", $component0);

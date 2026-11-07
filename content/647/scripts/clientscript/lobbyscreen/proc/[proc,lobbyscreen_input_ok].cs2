@@ -1,0 +1,63 @@
+[proc,lobbyscreen_input_ok](int $int0, string $string0)
+def_int $int1 = 0;
+def_string $string1 = "";
+def_string $string2 = "";
+def_int $int2 = -1;
+def_string $string3 = "";
+def_string $string4 = "";
+def_int $int3 = -1;
+if (string_length(%varc_string_277) > 0) {
+    switch_int ($int0) {
+        case 0:
+            if (string_length(%varc_string_277) > 0 & string_length($string0) > 0) {
+                if (chat_getfilter_private = 2) {
+                    ~clientscript_3047(1);
+                }
+                chat_sendprivate(removetags($string0), %varc_string_277);
+            }
+        case 1:
+            if (friend_count < 0) {
+                mes("Unable to update Friends List - system busy.");
+            } else if (string_length(%varc_string_277) > 0) {
+                friend_add(%varc_string_277);
+            }
+        case 2:
+            if (ignores_count < 0) {
+                mes("Unable to update Ignore List - system busy.");
+            } else if (string_length(%varc_string_277) > 0) {
+                ignore_add(%varc_string_277);
+            }
+        case 3:
+            if (friend_count < 0) {
+                mes("Unable to update Friends List - system busy.");
+            } else if (string_length(%varc_string_277) > 0) {
+                friend_del(%varc_string_277);
+            }
+        case 4:
+            if (ignores_count < 0) {
+                mes("Unable to update Ignore List - system busy.");
+            } else if (string_length(%varc_string_277) > 0) {
+                ignore_del(%varc_string_277);
+            }
+        case 5:
+            if (clan_getchatsize <= 0 & string_length(%varc_string_277) > 0) {
+                clan_leavechat2(%varc_string_277);
+            }
+        case 6:
+            %varc_int_1094 = 0;
+            url_request("bugtracker_v4", "index.html", 0);
+        case 7:
+            if (string_length(%varc_string_277) > 0) {
+                ~clan_chat_kick_find(%varc_string_277);
+            }
+        case 9:
+            if (clan_getchatsize > 0 & string_length(%varc_string_277) > 0) {
+                ~friendschat_kick(%varc_string_277);
+            }
+    }
+}
+if ($int1 = true) {
+    ~lobbyscreen_input($string1, $string2, $int2, $string3, $string4);
+} else {
+    ~lobbyscreen_input_close;
+}

@@ -1,0 +1,33 @@
+[proc,worldmap_createline](component $component0, int $int1, int $int2)(int)
+def_struct $struct3 = enum(105, 74, enum_1805, $int1);
+if ($struct3 = null) {
+    return($int2);
+}
+def_string $string = struct_param($struct3, param_596);
+def_category $category4 = struct_param($struct3, param_477);
+cc_create($component0, ^iftype_graphic, if_getchildcount($component0));
+.cc_create($component0, ^iftype_text, if_getchildcount($component0));
+cc_setposition(3, $int2, ^setpos_abs_left, ^setpos_abs_top);
+cc_setsize(15, 15, ^setsize_abs, ^setsize_abs);
+.cc_setposition(calc(cc_getx + cc_getwidth), $int2, ^setpos_abs_left, ^setpos_abs_top);
+.cc_setsize(calc(.cc_getx + cc_getx), cc_getheight, ^setsize_minus, ^setsize_abs);
+cc_setgraphic(struct_param($struct3, param_595));
+.cc_setcolour(0xafafaf);
+.cc_settextfont(p12_full);
+.cc_settextshadow(true);
+.cc_settextalign(^settextalign_left, ^settextalign_centre, 0);
+.cc_settext($string);
+if ($category4 ! null) {
+    cc_setopbase("<col=ff9040><$string></col>");
+    .cc_setopbase("<col=ff9040><$string></col>");
+    cc_setop(1, "Highlight");
+    .cc_setop(1, "Highlight");
+    cc_setonop("worldmap_flashelementcategory($category4)");
+    .cc_setonop("worldmap_flashelementcategory($category4)");
+    cc_setonmouseover("cc_text_colour_swapper($component0, .cc_getid, 16777215)");
+    .cc_setonmouseover("cc_text_colour_swapper($component0, .cc_getid, 16777215)");
+    cc_setonmouseleave("cc_text_colour_swapper($component0, .cc_getid, 11513775)");
+    .cc_setonmouseleave("cc_text_colour_swapper($component0, .cc_getid, 11513775)");
+}
+return(calc($int2 + cc_getheight));
+return(0);

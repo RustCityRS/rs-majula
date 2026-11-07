@@ -1,0 +1,25 @@
+[proc,clientscript_2817]
+cam_allocpath(0, 8);
+cam_allocpath(1, 8);
+cam_addwaypoint(0, 0, ~clientscript_2808(%varc_int_1065, 0_70_91_21_54, 0_70_91_18_55), 378, ~clientscript_2808(%varc_int_1065, 0_70_91_21_54, 0_70_91_19_55), 378, 0);
+cam_addwaypoint(1, 0, ~clientscript_2808(%varc_int_1065, 0_70_91_21_54, 0_70_91_21_55), 325, ~clientscript_2808(%varc_int_1065, 0_70_91_21_54, 0_70_91_22_55), 295, 0);
+cam_addwaypoint(0, 1, ~clientscript_2808(%varc_int_1065, 0_70_91_21_54, 0_70_91_20_55), 378, ~clientscript_2808(%varc_int_1065, 0_70_91_21_54, 0_70_91_21_55), 378, 0);
+cam_addwaypoint(1, 1, ~clientscript_2808(%varc_int_1065, 0_70_91_21_54, 0_70_91_23_55), 330, ~clientscript_2808(%varc_int_1065, 0_70_91_21_54, 0_70_91_24_55), 335, 0);
+cam_addwaypoint(0, 2, ~clientscript_2808(%varc_int_1065, 0_70_91_21_54, 0_70_91_22_55), 378, ~clientscript_2808(%varc_int_1065, 0_70_91_21_54, 0_70_91_23_55), 378, 0);
+cam_addwaypoint(1, 2, ~clientscript_2808(%varc_int_1065, 0_70_91_21_54, 0_70_91_25_55), 330, ~clientscript_2808(%varc_int_1065, 0_70_91_21_54, 0_70_91_26_55), 350, 0);
+cam_addwaypoint(0, 3, ~clientscript_2808(%varc_int_1065, 0_70_91_21_54, 0_70_91_24_55), 378, ~clientscript_2808(%varc_int_1065, 0_70_91_21_54, 0_70_91_25_55), 378, 0);
+cam_addwaypoint(1, 3, ~clientscript_2808(%varc_int_1065, 0_70_91_21_54, 0_70_91_27_55), 325, ~clientscript_2808(%varc_int_1065, 0_70_91_21_54, 0_70_91_28_55), 305, 0);
+cam_addwaypoint(0, 4, ~clientscript_2808(%varc_int_1065, 0_70_91_21_54, 0_70_91_26_55), 378, ~clientscript_2808(%varc_int_1065, 0_70_91_21_54, 0_70_91_27_55), 378, 0);
+cam_addwaypoint(1, 4, ~clientscript_2808(%varc_int_1065, 0_70_91_21_54, 0_70_91_29_55), 340, ~clientscript_2808(%varc_int_1065, 0_70_91_21_54, 0_70_91_30_55), 325, 0);
+cam_addwaypoint(0, 5, ~clientscript_2808(%varc_int_1065, 0_70_91_21_54, 0_70_91_28_54), 378, ~clientscript_2808(%varc_int_1065, 0_70_91_21_54, 0_70_91_29_53), 378, 0);
+cam_addwaypoint(1, 5, ~clientscript_2808(%varc_int_1065, 0_70_91_21_54, 0_70_91_31_55), 330, ~clientscript_2808(%varc_int_1065, 0_70_91_21_54, 0_70_91_32_55), 340, 0);
+cam_addwaypoint(0, 6, ~clientscript_2808(%varc_int_1065, 0_70_91_21_54, 0_70_91_30_53), 378, ~clientscript_2808(%varc_int_1065, 0_70_91_21_54, 0_70_91_31_53), 378, 0);
+cam_addwaypoint(1, 6, ~clientscript_2808(%varc_int_1065, 0_70_91_21_54, 0_70_91_33_55), 346, ~clientscript_2808(%varc_int_1065, 0_70_91_21_54, 0_70_91_34_55), 346, 0);
+cam_addwaypoint(0, 7, ~clientscript_2808(%varc_int_1065, 0_70_91_21_54, 0_70_91_32_53), 378, ~clientscript_2808(%varc_int_1065, 0_70_91_21_54, 0_70_91_33_53), 378, 0);
+cam_addwaypoint(1, 7, ~clientscript_2808(%varc_int_1065, 0_70_91_21_54, 0_70_91_35_55), 345, ~clientscript_2808(%varc_int_1065, 0_70_91_21_54, 0_70_91_36_55), 355, 0);
+%varc_int_1065 = -1;
+%varc_int_1064 = 0;
+%varc_int_1067 = 875;
+~clientscript_2825(1);
+~clientscript_2810(5832706);
+if_setonchattransmit_2426("clientscript_2824(1)", fade2:com0);

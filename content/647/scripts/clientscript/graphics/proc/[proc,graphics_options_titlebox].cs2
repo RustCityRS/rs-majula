@@ -1,0 +1,15 @@
+[proc,graphics_options_titlebox](int $int0, int $int1, component $component2, string $string)(int)
+cc_create($component2, ^iftype_text, if_getchildcount($component2));
+cc_setsize(211, 16, ^setsize_abs, ^setsize_abs);
+if ($int0 = true) {
+    cc_setposition(6, $int1, ^setpos_abs_right, ^setpos_abs_top);
+} else {
+    cc_setposition(0, $int1, ^setpos_abs_left, ^setpos_abs_top);
+}
+cc_settextfont(p12_full);
+cc_settextalign(^settextalign_left, ^settextalign_centre, 0);
+cc_setcolour(0xebe0bc);
+cc_settextshadow(true);
+cc_settext($string);
+return(cc_getid);
+return(0);

@@ -1,0 +1,11 @@
+[proc,clientscript_606]
+cc_create(lore_stats_side:com74, ^iftype_graphic, 0);
+cc_setsize(32, 36, ^setsize_abs, ^setsize_abs);
+cc_setposition(0, 0, ^setpos_abs_left, ^setpos_abs_top);
+cc_create(summoning_orb:com17, ^iftype_graphic, 0);
+cc_setsize(57, 34, ^setsize_abs, ^setsize_abs);
+cc_setposition(0, 0, ^setpos_abs_left, ^setpos_abs_top);
+def_graphic $graphic0 = "lore_stats_side_icons,0";
+def_graphic $graphic1 = "lore_stats_side_icons,1";
+~lore_magic_init_v2(lore_stats_side:com73, $graphic0, $graphic1, oc_weight(%varp_448, param_394), %varc_string_204, %varc_string_205, enum(111, 111, enum_1283, %varp_448), 1, null, 0, null, 0, null, 0);
+~clientscript_608;

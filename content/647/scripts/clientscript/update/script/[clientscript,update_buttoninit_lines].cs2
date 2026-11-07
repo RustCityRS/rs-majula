@@ -1,0 +1,6 @@
+[clientscript,update_buttoninit_lines]
+if_settext(~tostring_spacer(enum(105, 105, enum_2454, 1), ","), mob_special_units:com10);
+if_settext(~tostring_spacer(enum(105, 105, enum_2454, 2), ","), mob_special_units:com59);
+if_settext(~tostring_spacer(enum(105, 105, enum_2454, 3), ","), mob_special_units:com51);
+if_settext(~tostring_spacer(enum(105, 105, enum_2454, 4), ","), mob_special_units:com43);
+if_settext(~tostring_spacer(enum(105, 105, enum_2454, 5), ","), mob_special_units:com68);

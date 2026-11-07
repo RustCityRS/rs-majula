@@ -1,0 +1,21 @@
+[proc,clientscript_4180](int $int0, component $component1, int $int2, string $string)(int)
+def_int $int3 = calc(paraheight($string, if_getwidth($component1), p11_full) * 10 + 2);
+def_int $int4 = calc(clientclock - $int2);
+if ($int2 > 0 & $int4 < 255) {
+    cc_create($component1, ^iftype_rectangle, if_getchildcount($component1));
+    cc_setsize(0, $int3, ^setsize_minus, ^setsize_abs);
+    cc_setposition(0, $int0, ^setpos_abs_centre, ^setpos_abs_top);
+    cc_setfill(true);
+    cc_setcolour(^red);
+    cc_settrans(max($int4, 0));
+    cc_setontimer("clientscript_4181(^event_com, ^event_subid)");
+}
+cc_create($component1, ^iftype_text, if_getchildcount($component1));
+cc_setsize(0, $int3, ^setsize_minus, ^setsize_abs);
+cc_setposition(0, $int0, ^setpos_abs_centre, ^setpos_abs_top);
+cc_setcolour(0xaaaaaa);
+cc_settextfont(p11_full);
+cc_settextalign(^settextalign_centre, ^settextalign_centre, 0);
+cc_settext($string);
+return(calc($int0 + $int3 + 2));
+return(0);

@@ -1,0 +1,71 @@
+[clientscript,chatdefault_init]
+def_int $int = 0;
+if_setonkey("chatdefault_onkey(^event_key, ^event_keychar)", chatbox_background:com55);
+if_setonchattransmit_2418("chatdefault_updatechatbox(true)", chatbox_tabs:com0);
+if_sethook1421("chatdefault_updatechatbox(true)", chatbox_tabs:com0);
+if_sethook1420("chatdefault_updatechatbox(false)", chatbox_tabs:com0);
+if_sethook1422("rebootwatch()", chatbox_tabs:com0);
+if_setonvarcstrtransmit("clientscript_710(){varc_string_0}", chatbox_tabs:com0);
+%varc_string_1 = "";
+%varc_int_1028 = 0;
+%varc_int_42 = -1;
+%varc_int_41 = 0;
+%varc_int_43 = chat_getofflinepm;
+%character_creation_name_required = -1;
+%varc_int_4 = 0;
+%varc_string_2 = "";
+%varc_string_3 = "";
+%varc_string_4 = "";
+%varc_string_5 = "";
+%varc_string_6 = "";
+%varc_string_7 = "";
+%varc_string_8 = "";
+%varc_string_9 = "";
+%varc_string_10 = "";
+%varc_string_11 = "";
+%varc_string_12 = "";
+%varc_string_13 = "";
+%varc_string_14 = "";
+%varc_string_15 = "";
+%varc_string_16 = "";
+%varc_string_17 = "";
+%varc_string_18 = "";
+%varc_string_19 = "";
+%varc_string_20 = "";
+%varc_string_21 = "";
+%varc_string_276 = "";
+~clientscript_1558(true);
+if_sethide(false, chatbox_background:com55);
+if (getwindowmode >= 2) {
+    if_sethide(true, chatbox:com2);
+    if_setgraphic(1247, chatbox:com1);
+    if_setalpha(1, chatbox:com1);
+    if_sethide(false, chatbox:com1);
+    if_sethide(true, chatbox_background:com51);
+    if_sethide(false, chatbox_background:com52);
+    if_sethide(false, chatbox_background:com53);
+    while ($int < 100) {
+        if_settextshadow(true, enum(105, 73, enum_579, $int));
+        if_setcolour(^white, enum(105, 73, enum_579, $int));
+        $int = calc($int + 1);
+    }
+    if_settextshadow(true, chatbox_background:com55);
+    if_setcolour(^white, chatbox_background:com55);
+} else {
+    if_setgraphic(chat_background, chatbox:com1);
+    if_sethide(false, chatbox:com1);
+    if_sethide(false, chatbox:com2);
+    if_sethide(false, chatbox_background:com51);
+    if_sethide(true, chatbox_background:com52);
+    if_sethide(true, chatbox_background:com53);
+    while ($int < 100) {
+        if_settextshadow(false, enum(105, 73, enum_579, $int));
+        if_setcolour(^black, enum(105, 73, enum_579, $int));
+        $int = calc($int + 1);
+    }
+    if_settextshadow(false, chatbox_background:com55);
+    if_setcolour(^black, chatbox_background:com55);
+}
+%varc_int_7 = if_getheight(chatbox_background:com58);
+~redraw_chat_buttons;
+%varc_string_0 = "";

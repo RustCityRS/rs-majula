@@ -1,0 +1,19 @@
+[proc,clientscript_3501](component $component0)
+def_int $int1 = 0;
+def_int $int2 = 0;
+def_int $int3 = 0;
+while ($int1 < inv_size(trail_puzzlehintinv)) {
+    cc_create($component0, ^iftype_model, $int1);
+    cc_setsize(49, 49, ^setsize_abs, ^setsize_abs);
+    cc_setposition(calc(56 * $int2), calc(56 * $int3), ^setpos_abs_left, ^setpos_abs_top);
+    if (inv_getobj(trail_puzzlehintinv, $int1) ! null) {
+        cc_setobject(inv_getobj(trail_puzzlehintinv, $int1), inv_getnum(trail_puzzlehintinv, $int1));
+        cc_setmodelangle(0, 0, 512, 0, 0, 1340);
+        cc_setmodelorthog(true);
+    } else {
+        cc_sethide(true);
+    }
+    $int1 = calc($int1 + 1);
+    $int2 = calc($int1 % 5);
+    $int3 = calc($int1 / 5);
+}

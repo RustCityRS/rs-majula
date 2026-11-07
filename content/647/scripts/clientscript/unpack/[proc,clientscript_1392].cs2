@@ -1,0 +1,46 @@
+[proc,clientscript_1392]
+def_int $int = random(4);
+if ($int = false) {
+    if_setposition(59, 9, ^setpos_abs_left, ^setpos_abs_top, macro_mime_emotes:com2);
+    if_setposition(59, 50, ^setpos_abs_left, ^setpos_abs_top, macro_mime_emotes:com3);
+    if_setposition(139, 9, ^setpos_abs_left, ^setpos_abs_top, macro_mime_emotes:com4);
+    if_setposition(139, 50, ^setpos_abs_left, ^setpos_abs_top, macro_mime_emotes:com5);
+    if_setposition(219, 9, ^setpos_abs_left, ^setpos_abs_top, macro_mime_emotes:com6);
+    if_setposition(219, 50, ^setpos_abs_left, ^setpos_abs_top, macro_mime_emotes:com7);
+    if_setposition(319, 9, ^setpos_abs_left, ^setpos_abs_top, macro_mime_emotes:com8);
+    if_setposition(319, 50, ^setpos_abs_left, ^setpos_abs_top, macro_mime_emotes:com9);
+    return;
+}
+if ($int = true) {
+    if_setposition(59, 9, ^setpos_abs_left, ^setpos_abs_top, macro_mime_emotes:com3);
+    if_setposition(59, 50, ^setpos_abs_left, ^setpos_abs_top, macro_mime_emotes:com4);
+    if_setposition(139, 9, ^setpos_abs_left, ^setpos_abs_top, macro_mime_emotes:com5);
+    if_setposition(139, 50, ^setpos_abs_left, ^setpos_abs_top, macro_mime_emotes:com2);
+    if_setposition(219, 9, ^setpos_abs_left, ^setpos_abs_top, macro_mime_emotes:com7);
+    if_setposition(219, 50, ^setpos_abs_left, ^setpos_abs_top, macro_mime_emotes:com8);
+    if_setposition(319, 9, ^setpos_abs_left, ^setpos_abs_top, macro_mime_emotes:com9);
+    if_setposition(319, 50, ^setpos_abs_left, ^setpos_abs_top, macro_mime_emotes:com6);
+    return;
+}
+if ($int = 2) {
+    if_setposition(59, 9, ^setpos_abs_left, ^setpos_abs_top, macro_mime_emotes:com4);
+    if_setposition(59, 50, ^setpos_abs_left, ^setpos_abs_top, macro_mime_emotes:com5);
+    if_setposition(139, 9, ^setpos_abs_left, ^setpos_abs_top, macro_mime_emotes:com2);
+    if_setposition(139, 50, ^setpos_abs_left, ^setpos_abs_top, macro_mime_emotes:com3);
+    if_setposition(219, 9, ^setpos_abs_left, ^setpos_abs_top, macro_mime_emotes:com8);
+    if_setposition(219, 50, ^setpos_abs_left, ^setpos_abs_top, macro_mime_emotes:com9);
+    if_setposition(319, 9, ^setpos_abs_left, ^setpos_abs_top, macro_mime_emotes:com6);
+    if_setposition(319, 50, ^setpos_abs_left, ^setpos_abs_top, macro_mime_emotes:com7);
+    return;
+}
+if ($int = 3) {
+    if_setposition(59, 9, ^setpos_abs_left, ^setpos_abs_top, macro_mime_emotes:com5);
+    if_setposition(59, 50, ^setpos_abs_left, ^setpos_abs_top, macro_mime_emotes:com2);
+    if_setposition(139, 9, ^setpos_abs_left, ^setpos_abs_top, macro_mime_emotes:com3);
+    if_setposition(139, 50, ^setpos_abs_left, ^setpos_abs_top, macro_mime_emotes:com4);
+    if_setposition(219, 9, ^setpos_abs_left, ^setpos_abs_top, macro_mime_emotes:com9);
+    if_setposition(219, 50, ^setpos_abs_left, ^setpos_abs_top, macro_mime_emotes:com6);
+    if_setposition(319, 9, ^setpos_abs_left, ^setpos_abs_top, macro_mime_emotes:com7);
+    if_setposition(319, 50, ^setpos_abs_left, ^setpos_abs_top, macro_mime_emotes:com8);
+    return;
+}

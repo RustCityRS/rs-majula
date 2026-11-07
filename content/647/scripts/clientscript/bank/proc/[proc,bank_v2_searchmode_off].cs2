@@ -1,0 +1,14 @@
+[proc,bank_v2_searchmode_off]
+if_sethide(true, bank_v2_main:com115);
+if_sethide(true, bank_v2_main:com116);
+if_setgraphic("bank_buttons_new1,0", bank_v2_main:com18);
+if_setgraphic("bank_buttons_new2,0", bank_v2_main:com17);
+if (%open_bank_tab = false) {
+    ~bank_v2_show_all;
+}
+~bank_v2_tab_highlight(1);
+%varc_string_138 = "";
+~meslayer_close(11);
+%varc_int_188 = 0;
+if_settext("Bank of RuneScape", bank_v2_main:com45);
+if_setontimer(null, bank_v2_main:com17);

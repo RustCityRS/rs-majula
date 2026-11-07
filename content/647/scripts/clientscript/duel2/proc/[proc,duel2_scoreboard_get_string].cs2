@@ -1,0 +1,105 @@
+[proc,duel2_scoreboard_get_string](int $int)(string)
+switch_int ($int) {
+    case 0:
+        return(%varc_string_224);
+    case 1:
+        return(%varc_string_225);
+    case 2:
+        return(%varc_string_226);
+    case 3:
+        return(%varc_string_227);
+    case 4:
+        return(%varc_string_228);
+    case 5:
+        return(%varc_string_229);
+    case 6:
+        return(%varc_string_230);
+    case 7:
+        return(%varc_string_231);
+    case 8:
+        return(%varc_string_232);
+    case 9:
+        return(%varc_string_233);
+    case 10:
+        return(%varc_string_234);
+    case 11:
+        return(%varc_string_235);
+    case 12:
+        return(%varc_string_236);
+    case 13:
+        return(%varc_string_237);
+    case 14:
+        return(%varc_string_238);
+    case 15:
+        return(%varc_string_239);
+    case 16:
+        return(%varc_string_240);
+    case 17:
+        return(%varc_string_241);
+    case 18:
+        return(%varc_string_242);
+    case 19:
+        return(%varc_string_243);
+    case 20:
+        return(%varc_string_244);
+    case 21:
+        return(%varc_string_245);
+    case 22:
+        return(%varc_string_246);
+    case 23:
+        return(%varc_string_247);
+    case 24:
+        return(%varc_string_248);
+    case 25:
+        return(%varc_string_249);
+    case 26:
+        return(%varc_string_250);
+    case 27:
+        return(%varc_string_251);
+    case 28:
+        return(%varc_string_252);
+    case 29:
+        return(%varc_string_253);
+    case 30:
+        return(%varc_string_254);
+    case 31:
+        return(%varc_string_255);
+    case 32:
+        return(%varc_string_256);
+    case 33:
+        return(%varc_string_257);
+    case 34:
+        return(%varc_string_258);
+    case 35:
+        return(%varc_string_259);
+    case 36:
+        return(%varc_string_260);
+    case 37:
+        return(%varc_string_261);
+    case 38:
+        return(%varc_string_262);
+    case 39:
+        return(%varc_string_263);
+    case 40:
+        return(%varc_string_264);
+    case 41:
+        return(%varc_string_265);
+    case 42:
+        return(%varc_string_266);
+    case 43:
+        return(%varc_string_267);
+    case 44:
+        return(%varc_string_268);
+    case 45:
+        return(%varc_string_269);
+    case 46:
+        return(%varc_string_270);
+    case 47:
+        return(%varc_string_271);
+    case 48:
+        return(%varc_string_272);
+    case 49:
+        return(%varc_string_273);
+    case default:
+        return("");
+}

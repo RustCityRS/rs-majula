@@ -1,0 +1,6 @@
+[clientscript,peng_rak_engine_ops](component $component)
+if (%varc_int_805 = 5 | %varc_int_805 = 11) {
+    if_setop(1, "Pump", $component);
+} else {
+    if_setop(1, "Inspect", $component);
+}

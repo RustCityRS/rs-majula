@@ -1,0 +1,9 @@
+[proc,clientscript_2871](int $int)
+if ($int = true) {
+    if (%varc_int_1077 = true) {
+        %varc_int_1077 = 0;
+    } else {
+        %varc_int_1077 = 1;
+    }
+}
+~clientscript_2872;

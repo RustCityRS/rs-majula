@@ -1,0 +1,24 @@
+[clientscript,deathkeep_select_drag](component $component0, int $int1, component $component2, int $int3, int $int4)
+def_obj $obj5 = null;
+def_obj $obj6 = null;
+if ($component0 = deathkeep_select:com9) {
+    if ($component2 = deathkeep_select:com9) {
+        if (cc_find($component0, $int1) = true & .cc_find($component2, $int3) = true) {
+            $obj5, $obj6 = cc_getinvobject, .cc_getinvobject;
+            cc_setobject_nonum($obj6, 1);
+            .cc_setobject_nonum($obj5, 1);
+            cc_setopbase("<col=ff9040><oc_name($obj6)></col>");
+            .cc_setopbase("<col=ff9040><oc_name($obj5)></col>");
+        }
+        return;
+    }
+    if ($component2 = deathkeep_select:com17) {
+        ~clientscript_1535($int1, 0);
+        ~deathkeep_select_update($int4);
+    }
+    return;
+}
+if ($component0 = deathkeep_select:com17 & $component2 = deathkeep_select:com9) {
+    ~clientscript_1535($int3, $int1);
+    ~deathkeep_select_update($int4);
+}

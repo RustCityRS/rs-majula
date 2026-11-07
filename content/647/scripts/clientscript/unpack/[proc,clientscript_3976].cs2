@@ -1,0 +1,19 @@
+[proc,clientscript_3976](int $int0, int $int1, int $int2)
+if ($int2 ! 1) {
+    return;
+}
+~deltooltip_action(task_side:com163);
+%varc_int_1416 = $int1;
+if_sethide(true, task_side:com92);
+if_sethide(true, task_side:com94);
+if_sethide(false, task_side:com125);
+if_sethide(false, task_side:com122);
+if (~clientscript_3999($int0) = true) {
+    if (%varbit_8588 = 4094) {
+        ~clientscript_3977(%varbit_8587);
+    } else {
+        return;
+    }
+} else {
+    ~clientscript_3977($int0);
+}

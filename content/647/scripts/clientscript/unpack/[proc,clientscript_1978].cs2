@@ -1,0 +1,16 @@
+[proc,clientscript_1978]()(int)
+def_int $int = 0;
+$int = calc($int + 1);
+$int = calc($int + 1);
+$int = calc($int + 1);
+$int = calc($int + 3);
+$int = calc($int + 1);
+$int = calc($int + 1);
+$int = calc($int + 1);
+$int = calc($int + 1);
+$int = calc($int + 1);
+$int = calc($int + 1);
+$int = calc($int + 1);
+$int = calc($int + 1);
+return($int);
+return(0);

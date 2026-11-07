@@ -1,0 +1,9 @@
+[proc,clanwars_resynch_prayer]
+if (%varc_int_256 = false) {
+    if_setgraphic("options_radio_buttons,2", clanwars_setup:com131);
+    if_settrans(0, clanwars_setup:com130);
+} else {
+    if_setgraphic("options_radio_buttons,1", clanwars_setup:com131);
+    if_settrans(225, clanwars_setup:com130);
+}
+~clanwars_updateside;

@@ -1,0 +1,13 @@
+[clientscript,task_main_close_hover](int $int)
+if ($int = false) {
+    if_setgraphic(4324, task_main:com43);
+    if_setgraphic(4324, task_main:com45);
+    if_setgraphic(4325, task_main:com44);
+    if_setgraphic("task_arrow,1", task_main:com59);
+} else {
+    ~deltooltip_action(task_main:com93);
+    if_setgraphic(4322, task_main:com43);
+    if_setgraphic(4322, task_main:com45);
+    if_setgraphic(4323, task_main:com44);
+    if_setgraphic("task_arrow,0", task_main:com59);
+}

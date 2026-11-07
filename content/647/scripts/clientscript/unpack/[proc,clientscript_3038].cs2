@@ -1,0 +1,4 @@
+[proc,clientscript_3038](component $component, string $string)
+~cc_add_text($component, 0, 0, 0, 0, 0, $string, ^white, p11_full, ^settextalign_centre, ^settextalign_centre, 0, true);
+cc_setsize(0, 0, ^setsize_minus, ^setsize_minus);
+return;

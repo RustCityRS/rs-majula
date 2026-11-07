@@ -1,0 +1,29 @@
+[proc,clientscript_4017](int $int)
+if_settext(enum(105, 115, enum_3487, $int), task_main:com121);
+def_string $string0 = "Click to hide completed Tasks.";
+def_string $string1 = "Click to hide Tasks which are not in a set.";
+if (%varbit_8579 = true) {
+    if_setonop("task_main_list_populate(999, 0, 999)", task_main:com106);
+    $string0 = "Click to show completed Tasks.";
+} else {
+    if_setonop("task_main_list_populate(999, 1, 999)", task_main:com106);
+}
+if_setonmouserepeat("addtooltip(task_main:com94, task_main:com97, $string0, 45, 150)", task_main:com106);
+if (%varbit_8580 = true) {
+    if_setonop("task_main_list_populate(999, 999, 0)", task_main:com114);
+    $string1 = "Click to show Tasks which are not in a set.";
+} else {
+    if_setonop("task_main_list_populate(999, 999, 1)", task_main:com114);
+}
+if_setonmouserepeat("addtooltip(task_main:com94, task_main:com97, $string1, 45, 150)", task_main:com114);
+if (%varc_int_1429 = true) {
+    if_setgraphic("check_box_2,2", task_main:com142);
+    if_setonmouseover("clientscript_4033(0, 1)", task_main:com142);
+    if_setonmouseleave("clientscript_4033(1, 1)", task_main:com142);
+    if_setop(1, "Turn-on", task_main:com142);
+} else {
+    if_setgraphic("check_box_2,0", task_main:com142);
+    if_setonmouseover("clientscript_4033(0, 0)", task_main:com142);
+    if_setonmouseleave("clientscript_4033(1, 0)", task_main:com142);
+    if_setop(1, "Turn-off", task_main:com142);
+}

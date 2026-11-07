@@ -1,0 +1,48 @@
+[proc,objdialog_dosearch](string $string)
+def_int $int0 = oc_wearpos2($string, 1);
+def_int $int1 = if_getwidth(objdialog:com4);
+def_int $int2 = calc($int1 - 8);
+if ($int0 = -1) {
+    cc_create(objdialog:com4, ^iftype_text, 0);
+    cc_setposition(0, 48, ^setpos_abs_left, ^setpos_abs_top);
+    cc_setsize($int1, 16, ^setsize_abs, ^setsize_abs);
+    cc_settextfont(p11_full);
+    cc_settext("Too many results. Please refine your search.");
+    cc_settextalign(^settextalign_centre, ^settextalign_centre, 0);
+    cc_setcolour(0xa05a00);
+    cc_settextshadow(false);
+    if_setscrollsize(0, 15, objdialog:com4);
+    ~objdialog_doscrollbar;
+    return;
+}
+if ($int0 = false) {
+    cc_create(objdialog:com4, ^iftype_text, 0);
+    cc_setposition(0, 48, ^setpos_abs_left, ^setpos_abs_top);
+    cc_setsize($int1, 16, ^setsize_abs, ^setsize_abs);
+    cc_settextfont(p11_full);
+    cc_settext("No matching items found.");
+    cc_settextalign(^settextalign_centre, ^settextalign_centre, 0);
+    cc_setcolour(0xa05a00);
+    cc_settextshadow(false);
+    if_setscrollsize(0, 15, objdialog:com4);
+    ~objdialog_doscrollbar;
+    return;
+}
+def_int $int3 = 1;
+def_obj $obj4 = oc_search_next;
+cc_create(objdialog:com4, ^iftype_rectangle, 0);
+while ($obj4 ! null) {
+    cc_create(objdialog:com4, ^iftype_text, $int3);
+    cc_setposition(4, calc(15 * ($int3 - 1)), ^setpos_abs_left, ^setpos_abs_top);
+    cc_setsize($int2, 15, ^setsize_abs, ^setsize_abs);
+    cc_setcolour(0xa05a00);
+    cc_settext(oc_name($obj4));
+    cc_settextfont(p12_full);
+    cc_settextshadow(false);
+    cc_setonmouseover("objdialog_highlight($int3, $obj4)");
+    cc_setonclick("objdialog_select($obj4)");
+    $obj4 = oc_search_next;
+    $int3 = calc($int3 + 1);
+}
+if_setscrollsize(0, calc(15 * ($int3 - 1)), objdialog:com4);
+~objdialog_doscrollbar;

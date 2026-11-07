@@ -1,0 +1,26 @@
+[clientscript,warguild_tag_tick]
+if (%varbit_8655 = false) {
+    if_sethide(true, warguild_token_overlay:com35);
+} else {
+    if_sethide(false, warguild_token_overlay:com35);
+}
+if (%varbit_8656 = false) {
+    if_sethide(true, warguild_token_overlay:com36);
+} else {
+    if_sethide(false, warguild_token_overlay:com36);
+}
+if (%varbit_8657 = false) {
+    if_sethide(true, warguild_token_overlay:com37);
+} else {
+    if_sethide(false, warguild_token_overlay:com37);
+}
+if (%varbit_8658 = false) {
+    if_sethide(true, warguild_token_overlay:com38);
+} else {
+    if_sethide(false, warguild_token_overlay:com38);
+}
+if (%varbit_8659 = false) {
+    if_sethide(true, warguild_token_overlay:com39);
+} else {
+    if_sethide(false, warguild_token_overlay:com39);
+}

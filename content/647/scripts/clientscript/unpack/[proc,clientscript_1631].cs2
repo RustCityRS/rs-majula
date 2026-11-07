@@ -1,0 +1,13 @@
+[proc,clientscript_1631]
+if (%varc_int_1033 <= cam_getpathcount(0)) {
+    %varc_int_1033 = calc(%varc_int_1033 + 1);
+    switch_int (%varc_int_1033) {
+        case default:
+            if_setonchattransmit_2426(null, fd205343:com0);
+        case 2, 4:
+            if_setonchattransmit_2426("clientscript_1631()", fd205343:com0);
+            cam_startpath(0, %varc_int_1033, 200, 200, 1, %varc_int_1033);
+    }
+} else {
+    %varc_int_1033 = 0;
+}

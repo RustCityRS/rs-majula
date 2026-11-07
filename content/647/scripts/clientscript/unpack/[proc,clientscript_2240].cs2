@@ -1,0 +1,14 @@
+[proc,clientscript_2240]()(int)
+def_int $int = 5;
+$int = calc(%varc_int_1126 + %varc_int_1127 + %varc_int_1128 + %varc_int_1129 + %varc_int_1131 + %varc_int_1130);
+if (%varc_int_1133 = true) {
+    $int = calc($int + 1);
+}
+if (%varc_int_1134 = true) {
+    $int = calc($int + 1);
+}
+if (%varc_int_1132 = true) {
+    $int = calc($int + 1);
+}
+return($int);
+return(0);

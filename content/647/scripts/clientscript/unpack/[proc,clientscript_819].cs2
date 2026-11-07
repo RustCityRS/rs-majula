@@ -1,0 +1,19 @@
+[proc,clientscript_819]
+if (%varp_1174 ! -1 & %varp_1174 ! 0) {
+    if_setnpcmodel(%varp_1174, lore_cats_side:com3);
+} else {
+    if_setmodel(null, lore_cats_side:com3);
+}
+if (%varbit_1049 = true) {
+    if_settext(~clientscript_821, lore_cats_side:com25);
+} else if (%varp_448 ! -1) {
+    if_settext(oc_name(%varp_448), lore_cats_side:com25);
+} else {
+    if_settext("", lore_cats_side:com25);
+}
+if (%varbit_4282 > 50) {
+    %varbit_4282 = calc(%varbit_4282 - 50);
+    if_setmodelanim(enum(105, 65, enum_1275, %varbit_4282), lore_cats_side:com3);
+} else {
+    if_setmodelanim(enum(105, 65, enum_1276, %varbit_4282), lore_cats_side:com3);
+}

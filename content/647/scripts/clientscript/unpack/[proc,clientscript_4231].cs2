@@ -1,0 +1,7 @@
+[proc,clientscript_4231](component $component)
+if (if_find($component) = true) {
+    cc_setonclick("clientscript_4209($component, 0)");
+    cc_setonhold("clientscript_4209($component, 0)");
+    cc_setonrelease("clientscript_4209($component, 1)");
+    cc_settrans(255);
+}

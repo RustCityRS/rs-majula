@@ -1,0 +1,11 @@
+[clientscript,lobbyscreen_report_abuse_ignore_keyboard](int $int)
+switch_int ($int) {
+    case 1:
+        ~lobbyscreen_report_abuse_help(6, lobbyscreen_report_abuse_ignore:com14, lobbyscreen_report_abuse_ignore:com15, lobbyscreen_report_abuse_ignore:com3, lobbyscreen_report_abuse_ignore:com2, lobbyscreen_report_abuse_ignore:com0);
+    case 13:
+        if (if_gethide(lobbyscreen_report_abuse_ignore:com2) = false) {
+            ~lobbyscreen_report_abuse_help_close(lobbyscreen_report_abuse_ignore:com14, lobbyscreen_report_abuse_ignore:com15, lobbyscreen_report_abuse_ignore:com3, lobbyscreen_report_abuse_ignore:com2, lobbyscreen_report_abuse_ignore:com0);
+        } else {
+            ~lobbyscreen_report_abuse_ignore_close;
+        }
+}

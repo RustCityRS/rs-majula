@@ -1,0 +1,6 @@
+[proc,clientscript_603]
+if (%varc_int_82 <= 0) {
+    if_setontimer(null, stockmarket:com148);
+    ~clientscript_621;
+}
+%varc_int_82 = calc(%varc_int_82 - 1);

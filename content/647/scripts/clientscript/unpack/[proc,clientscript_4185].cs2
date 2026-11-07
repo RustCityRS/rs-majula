@@ -1,0 +1,6 @@
+[proc,clientscript_4185](int $int)
+if ($int = 70254623) {
+    if_setgraphic(3865, interface_1072:com31);
+} else if ($int = 70254624) {
+    if_setgraphic(3866, interface_1072:com32);
+}

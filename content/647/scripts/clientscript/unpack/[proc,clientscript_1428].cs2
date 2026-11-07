@@ -1,0 +1,9 @@
+[proc,clientscript_1428](component $component0, int $int1)
+if (cc_find($component0, $int1) = true) {
+    if (%varc_int_1024 = %varbit_6521 & %varc_int_1024 ! 0) {
+        cc_setontimer("clientscript_1429($component0, $int1)");
+    } else {
+        cc_setontimer(null);
+        cc_settrans(0);
+    }
+}

@@ -1,0 +1,47 @@
+[proc,firedup_update_tooltip](int $int)
+def_string $string = "";
+switch_int ($int) {
+    case 1:
+        $string = enum(105, 115, enum_1697, %varbit_5146);
+        if_setonmouserepeat("addtooltip(^event_com, firedup_beacon_map:com2, $string, 25, 130)", firedup_beacon_map:com3);
+    case 2:
+        $string = enum(105, 115, enum_1698, %varbit_5147);
+        if_setonmouserepeat("addtooltip(^event_com, firedup_beacon_map:com2, $string, 25, 160)", firedup_beacon_map:com4);
+    case 3:
+        $string = enum(105, 115, enum_1699, %varbit_5148);
+        if_setonmouserepeat("addtooltip(^event_com, firedup_beacon_map:com2, $string, 25, 200)", firedup_beacon_map:com5);
+    case 4:
+        $string = enum(105, 115, enum_1700, %varbit_5149);
+        if_setonmouserepeat("addtooltip(^event_com, firedup_beacon_map:com2, $string, 25, 200)", firedup_beacon_map:com6);
+    case 5:
+        $string = enum(105, 115, enum_1701, %varbit_5150);
+        if_setonmouserepeat("addtooltip(^event_com, firedup_beacon_map:com2, $string, 25, 200)", firedup_beacon_map:com7);
+    case 6:
+        $string = enum(105, 115, enum_1702, %varbit_5151);
+        if_setonmouserepeat("addtooltip(^event_com, firedup_beacon_map:com2, $string, 25, 200)", firedup_beacon_map:com8);
+    case 7:
+        $string = enum(105, 115, enum_1703, %varbit_5152);
+        if_setonmouserepeat("addtooltip(^event_com, firedup_beacon_map:com2, $string, 25, 200)", firedup_beacon_map:com9);
+    case 8:
+        $string = enum(105, 115, enum_1704, %varbit_5153);
+        if_setonmouserepeat("addtooltip(^event_com, firedup_beacon_map:com2, $string, 25, 200)", firedup_beacon_map:com10);
+    case 9:
+        $string = enum(105, 115, enum_1705, %varbit_5154);
+        if_setonmouserepeat("addtooltip(^event_com, firedup_beacon_map:com2, $string, 25, 200)", firedup_beacon_map:com11);
+    case 10:
+        $string = enum(105, 115, enum_1706, %varbit_5155);
+        if_setonmouserepeat("addtooltip(^event_com, firedup_beacon_map:com2, $string, 25, 200)", firedup_beacon_map:com12);
+    case 11:
+        $string = enum(105, 115, enum_1707, %varbit_5156);
+        if_setonmouserepeat("addtooltip(^event_com, firedup_beacon_map:com2, $string, 25, 200)", firedup_beacon_map:com13);
+    case 12:
+        $string = enum(105, 115, enum_1708, %varbit_5157);
+        if_setonmouserepeat("addtooltip(^event_com, firedup_beacon_map:com2, $string, 25, 200)", firedup_beacon_map:com14);
+    case 13:
+        $string = enum(105, 115, enum_1709, %varbit_5158);
+        if_setonmouserepeat("addtooltip(^event_com, firedup_beacon_map:com2, $string, 25, 200)", firedup_beacon_map:com15);
+    case 14:
+        $string = enum(105, 115, enum_1710, %varbit_5159);
+        if_setonmouserepeat("addtooltip(^event_com, firedup_beacon_map:com2, $string, 25, 200)", firedup_beacon_map:com16);
+}
+%varc_int_2 = 0;

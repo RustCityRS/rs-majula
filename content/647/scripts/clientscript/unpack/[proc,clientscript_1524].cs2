@@ -1,0 +1,5 @@
+[proc,clientscript_1524]
+if (cc_find(questjournal_scroll:com9, 0) = true) {
+    cc_deleteall(questjournal_scroll:com9);
+    if_setop(1, "null", questjournal_scroll:com9);
+}

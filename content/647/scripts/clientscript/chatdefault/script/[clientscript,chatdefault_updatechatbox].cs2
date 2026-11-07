@@ -1,0 +1,6 @@
+[clientscript,chatdefault_updatechatbox](boolean $boolean)
+if (hud_test(49283081, -1) = true) {
+    if_setontimer("chatdefault_updatechatbox_minimenu_timer($boolean)", chatbox:com_chatbox_background);
+    return;
+}
+~chatdefault_updatechatbox($boolean);

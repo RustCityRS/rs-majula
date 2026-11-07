@@ -1,0 +1,9 @@
+[clientscript,objdialog_highlight](int $int0, obj $obj1)
+if (cc_find(objdialog:com4, 0) = true) {
+    cc_setposition(0, calc(15 * ($int0 - 1)), ^setpos_abs_left, ^setpos_abs_top);
+    cc_setsize(if_getwidth(objdialog:com4), 15, ^setsize_abs, ^setsize_abs);
+    cc_setcolour(^black);
+    cc_settrans(220);
+    cc_setfill(true);
+}
+if_setobject($obj1, -1, objdialog:com15);

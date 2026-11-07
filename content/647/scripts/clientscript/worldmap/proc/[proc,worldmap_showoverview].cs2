@@ -1,0 +1,9 @@
+[proc,worldmap_showoverview](int $int)
+if ($int = true) {
+    if_sethide(false, worldmap:com46);
+    if_setop(1, "Hide overview", worldmap:com6);
+} else {
+    if_sethide(true, worldmap:com46);
+    if_setop(1, "Show overview", worldmap:com6);
+}
+if_setonop("worldmap_toggleoverview()", worldmap:com6);

@@ -15,10 +15,10 @@ pub fn pack_seqs(
 ) -> Result<PackedFile> {
     let pack = &registry.seq;
 
-    let configs = parse_config_sections_cached(file_cache, "seq", constants);
+    let configs = parse_config_sections_cached(file_cache, "seq", constants)?;
 
     #[cfg(since_647)]
-    let client_configs = file_cache.client_configs("seq", constants);
+    let client_configs = file_cache.client_configs("seq", constants)?;
     let mut server = PackedData::new(pack.max);
     let mut client = PackedData::new(pack.max);
 

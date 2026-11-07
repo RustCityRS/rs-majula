@@ -1,0 +1,42 @@
+[clientscript,easter09_nuts_start]
+if_clearops(easter09_nuts:com29);
+%varc_int_767 = 0;
+%varc_int_761 = -1;
+%varc_int_762 = -1;
+%varc_int_763 = -1;
+%varc_int_764 = -1;
+%varc_int_765 = 0;
+%varc_int_766 = 0;
+if_setontimer(null, easter09_nuts:com19);
+if_setontimer(null, easter09_nuts:com20);
+if_setontimer(null, easter09_nuts:com21);
+if_setontimer(null, easter09_nuts:com22);
+if_setontimer(null, easter09_nuts:com10);
+if_setontimer(null, easter09_nuts:com25);
+if_settext("Correct: <tostring(%varc_int_767)>/<tostring(10)>", easter09_nuts:com3);
+%varc_int_761 = enum(105, 109, enum_208, 1);
+if (%varc_int_761 ! -1) {
+    if_setmodel(%varc_int_761, easter09_nuts:com6);
+    if_setmodelangle(0, 0, 512, 0, 0, 800, easter09_nuts:com6);
+}
+%varc_int_762 = enum(105, 109, enum_208, 2);
+if (%varc_int_762 ! -1) {
+    if_setmodel(%varc_int_762, easter09_nuts:com7);
+    if_setmodelangle(0, 0, 512, 0, 0, 800, easter09_nuts:com7);
+}
+%varc_int_763 = enum(105, 109, enum_208, 3);
+if (%varc_int_763 ! -1) {
+    if_setmodel(%varc_int_763, easter09_nuts:com8);
+    if_setmodelangle(0, 0, 512, 0, 0, 800, easter09_nuts:com8);
+}
+%varc_int_764 = enum(105, 109, enum_208, 4);
+if (%varc_int_764 ! -1) {
+    if_setmodel(%varc_int_764, easter09_nuts:com9);
+    if_setmodelangle(0, 0, 512, 0, 0, 800, easter09_nuts:com9);
+}
+if_setposition(calc(0 - if_getwidth(easter09_nuts:com6)), if_gety(easter09_nuts:com6), ^setpos_abs_left, ^setpos_abs_top, easter09_nuts:com6);
+if_setposition(calc(0 - if_getwidth(easter09_nuts:com7)), if_gety(easter09_nuts:com7), ^setpos_abs_left, ^setpos_abs_top, easter09_nuts:com7);
+if_setposition(calc(0 - if_getwidth(easter09_nuts:com8)), if_gety(easter09_nuts:com8), ^setpos_abs_left, ^setpos_abs_top, easter09_nuts:com8);
+if_setposition(calc(0 - if_getwidth(easter09_nuts:com9)), if_gety(easter09_nuts:com9), ^setpos_abs_left, ^setpos_abs_top, easter09_nuts:com9);
+if_setposition(if_getx(easter09_nuts:com5), 200, ^setpos_abs_left, ^setpos_abs_top, easter09_nuts:com10);
+if_setontimer("apply_zoom_item_text1(easter09_nuts:com6)", easter09_nuts:com19);

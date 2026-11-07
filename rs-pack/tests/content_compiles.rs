@@ -23,7 +23,7 @@ fn every_revision_compiles_and_lints() {
 
     for rev in rs_ver::REVS {
         let content = root.join("content").join(rev);
-        let scripts = content.join("scripts");
+        let scripts = content.join("scripts/runescript");
         let pack = content.join("pack");
         assert!(
             scripts.is_dir(),

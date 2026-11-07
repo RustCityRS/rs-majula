@@ -1,0 +1,71 @@
+[proc,cws_cc_getvar](int $int)(int)
+switch_int ($int) {
+    case 1:
+        return(%varbit_3851);
+    case 2:
+        return(%varbit_3852);
+    case 3:
+        return(%varbit_3853);
+    case 4:
+        return(%varbit_3854);
+    case 5:
+        return(%varbit_3855);
+    case 6:
+        return(%varbit_3856);
+    case 7:
+        return(%varbit_3857);
+    case 8:
+        return(%varbit_3858);
+    case 9:
+        return(%varbit_3859);
+    case 10:
+        return(%varbit_3860);
+    case 11:
+        return(%varbit_3861);
+    case 12:
+        return(%varbit_3862);
+    case 13:
+        return(%varbit_3863);
+    case 14:
+        return(%varbit_3864);
+    case 15:
+        return(%varbit_3865);
+    case 16:
+        return(%varbit_3866);
+    case 17:
+        return(%varbit_3867);
+    case 18:
+        return(%varbit_3868);
+    case 19:
+        return(%varbit_3869);
+    case 20:
+        return(%varbit_3870);
+    case 22:
+        if (%varbit_5294 = true) {
+            return(7);
+        }
+        return(0);
+    case 23:
+        return(%varbit_3871);
+    case 24:
+        return(%varbit_3872);
+    case 25:
+        return(%varbit_3946);
+    case 26:
+        return(%varbit_4132);
+    case 27:
+        return(%varbit_4307);
+    case 28:
+        return(%varbit_4308);
+    case 29:
+        return(%varbit_4309);
+    case 30:
+        return(%varbit_5366);
+    case 31:
+        if (%varbit_5295 = true) {
+            return(7);
+        }
+        return(0);
+    case 33:
+        return(%varbit_6500);
+}

@@ -100,7 +100,7 @@ fn pack(kind: &str) -> HashMap<String, i32> {
 /// Each clone in `npc_clones_2011.npc` and the 289 npc its comment names.
 fn clones() -> Vec<(String, String)> {
     let path = format!(
-        "{}/../../content/647/scripts/npc/configs/npc_clones_2011.npc",
+        "{}/../../content/647/scripts/runescript/npc/configs/npc_clones_2011.npc",
         env!("CARGO_MANIFEST_DIR")
     );
     let text = std::fs::read_to_string(&path).expect(&path);

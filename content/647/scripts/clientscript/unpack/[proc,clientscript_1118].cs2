@@ -1,0 +1,107 @@
+[proc,clientscript_1118](component $component)
+switch_component ($component) {
+    case magic:com7:
+        if (%varbit_6459 = false) {
+            if_setgraphic(1703, $component);
+        } else if (%varc_int_988 = true) {
+            if_setgraphic(1702, $component);
+        } else {
+            if_setgraphic(1701, $component);
+        }
+    case magic:com9:
+        if (%varbit_6462 = false) {
+            if_setgraphic(1703, $component);
+        } else if (%varc_int_989 = true) {
+            if_setgraphic(1702, $component);
+        } else {
+            if_setgraphic(1701, $component);
+        }
+    case magic:com11:
+        if (%varbit_6461 = false) {
+            if_setgraphic(1703, $component);
+        } else if (%varc_int_990 = true) {
+            if_setgraphic(1702, $component);
+        } else {
+            if_setgraphic(1701, $component);
+        }
+    case magic:com13:
+        if (%varbit_6460 = false) {
+            if_setgraphic(1703, $component);
+        } else if (%varc_int_991 = true) {
+            if_setgraphic(1702, $component);
+        } else {
+            if_setgraphic(1701, $component);
+        }
+    case magic_lunar:com5:
+        if (%varbit_6463 = false) {
+            if_setgraphic(1703, $component);
+        } else if (%varc_int_988 = true) {
+            if_setgraphic(1702, $component);
+        } else {
+            if_setgraphic(1701, $component);
+        }
+    case magic_lunar:com9:
+        if (%varbit_6464 = false) {
+            if_setgraphic(1703, $component);
+        } else if (%varc_int_990 = true) {
+            if_setgraphic(1702, $component);
+        } else {
+            if_setgraphic(1701, $component);
+        }
+    case magic_lunar:com7:
+        if (%varbit_6465 = false) {
+            if_setgraphic(1703, $component);
+        } else if (%varc_int_989 = true) {
+            if_setgraphic(1702, $component);
+        } else {
+            if_setgraphic(1701, $component);
+        }
+    case magic_zaros:com5:
+        if (%varbit_6466 = false) {
+            if_setgraphic(1703, $component);
+        } else if (%varc_int_988 = true) {
+            if_setgraphic(1702, $component);
+        } else {
+            if_setgraphic(1701, $component);
+        }
+    case magic_zaros:com7:
+        if (%varbit_6467 = false) {
+            if_setgraphic(1703, $component);
+        } else if (%varc_int_989 = true) {
+            if_setgraphic(1702, $component);
+        } else {
+            if_setgraphic(1701, $component);
+        }
+    case rand_magic:com7:
+        if (%varbit_7348 = false) {
+            if_setgraphic(1703, $component);
+        } else if (%varc_int_988 = true) {
+            if_setgraphic(1702, $component);
+        } else {
+            if_setgraphic(1701, $component);
+        }
+    case rand_magic:com9:
+        if (%varbit_7351 = false) {
+            if_setgraphic(1703, $component);
+        } else if (%varc_int_989 = true) {
+            if_setgraphic(1702, $component);
+        } else {
+            if_setgraphic(1701, $component);
+        }
+    case rand_magic:com11:
+        if (%varbit_7350 = false) {
+            if_setgraphic(1703, $component);
+        } else if (%varc_int_990 = true) {
+            if_setgraphic(1702, $component);
+        } else {
+            if_setgraphic(1701, $component);
+        }
+    case rand_magic:com13:
+        if (%varbit_7349 = false) {
+            if_setgraphic(1703, $component);
+        } else if (%varc_int_991 = true) {
+            if_setgraphic(1702, $component);
+        } else {
+            if_setgraphic(1701, $component);
+        }
+}

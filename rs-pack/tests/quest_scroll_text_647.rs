@@ -29,7 +29,7 @@ fn rs2_files(dir: &Path, out: &mut Vec<PathBuf>) {
 
 #[test]
 fn quest_scrolls_break_lines_with_br() {
-    let scripts = Path::new(env!("CARGO_MANIFEST_DIR")).join("../content/647/scripts");
+    let scripts = Path::new(env!("CARGO_MANIFEST_DIR")).join("../content/647/scripts/runescript");
     let mut files = Vec::new();
     rs2_files(&scripts, &mut files);
     let mut calls = 0;

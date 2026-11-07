@@ -1,0 +1,74 @@
+[proc,task_requirement](int $int0, int $int1, int $int2, component $component3)(int)
+def_struct $struct4 = enum(105, 74, enum_3483, $int1);
+def_int $int5 = 0;
+def_int $int6 = 0;
+def_stat $stat7 = null;
+def_int $int8 = 0;
+def_string $string = "";
+def_struct $struct9 = null;
+switch_int ($int2) {
+    case 0:
+        $int5 = struct_param($struct4, param_1294);
+        $int6 = struct_param($struct4, param_1295);
+    case 1:
+        $int5 = struct_param($struct4, param_1296);
+        $int6 = struct_param($struct4, param_1297);
+    case 2:
+        $int5 = struct_param($struct4, param_1298);
+        $int6 = struct_param($struct4, param_1299);
+    case 3:
+        $int5 = struct_param($struct4, param_1300);
+        $int6 = struct_param($struct4, param_1301);
+    case 4:
+        $int5 = struct_param($struct4, param_1302);
+        $int6 = struct_param($struct4, param_1303);
+    case 5:
+        $int5 = struct_param($struct4, param_1304);
+        $int6 = struct_param($struct4, param_1305);
+    case 6:
+        $int5 = struct_param($struct4, param_1306);
+        $int6 = struct_param($struct4, param_1307);
+    case 7:
+        $int5 = struct_param($struct4, param_1308);
+        $int6 = struct_param($struct4, param_1309);
+    case 8:
+        $int5 = struct_param($struct4, param_1310);
+        $int6 = struct_param($struct4, param_1311);
+    case 9:
+        $int5 = struct_param($struct4, param_1312);
+        $int6 = struct_param($struct4, param_1313);
+}
+if ($int5 = false) {
+    return($int0);
+} else if ($int5 < 62) {
+    $stat7 = enum(105, 83, enum_681, $int5);
+    if ($stat7 ! null) {
+        $string = "This Task requires <tostring($int6)> <enum(105, 115, enum_108, $int5)>.";
+        if (stat($stat7) >= $int6) {
+            $string = append("<str>", $string);
+        }
+    }
+} else if ($int5 = 62) {
+    $struct9 = enum(105, 74, enum_2252, $int6);
+    $string = "To complete this Task, you must complete the <struct_param($struct9, param_845)> quest.";
+    if (~ql4_getprogress($int6) = 2) {
+        $string = append("<str>", $string);
+    }
+} else {
+    $string = ~task_special_requirements($int1, calc($int2 + 1));
+}
+def_int $int10 = 0;
+if (compare($string, "") ! 0) {
+    if_sethide(false, $component3);
+    if_settext($string, $component3);
+    if_settextfont(p12_full, $component3);
+    if_settextalign(^settextalign_left, ^settextalign_centre, 0, $component3);
+    $int10 = calc(if_getwidth(if_getlayer($component3)) - 18);
+    $int8 = calc(15 * paraheight($string, $int10, p12_full));
+    if_setsize($int10, $int8, ^setsize_abs, ^setsize_abs, $component3);
+    if_setposition(9, $int0, ^setpos_abs_left, ^setpos_abs_top, $component3);
+} else {
+    $int8 = 0;
+}
+return(calc($int0 + $int8));
+return(0);

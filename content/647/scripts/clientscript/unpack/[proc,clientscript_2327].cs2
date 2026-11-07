@@ -1,0 +1,5 @@
+[proc,clientscript_2327](int $int)
+if (clientclock >= calc(100 + $int)) {
+    if_setontimer(null, easter09_nuts:com25);
+    if_sethide(true, easter09_nuts:com25);
+}

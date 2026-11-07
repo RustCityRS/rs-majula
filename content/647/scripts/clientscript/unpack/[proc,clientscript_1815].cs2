@@ -1,0 +1,87 @@
+[proc,clientscript_1815](string $string)(string)
+if (compare($string, "n") < 0) {
+    if (compare($string, "g") < 0) {
+        if (compare($string, "a") = false) {
+            return("A");
+        }
+        if (compare($string, "b") = false) {
+            return("B");
+        }
+        if (compare($string, "c") = false) {
+            return("C");
+        }
+        if (compare($string, "d") = false) {
+            return("D");
+        }
+        if (compare($string, "e") = false) {
+            return("E");
+        }
+        if (compare($string, "f") = false) {
+            return("F");
+        }
+    }
+    if (compare($string, "g") = false) {
+        return("G");
+    }
+    if (compare($string, "h") = false) {
+        return("H");
+    }
+    if (compare($string, "i") = false) {
+        return("I");
+    }
+    if (compare($string, "j") = false) {
+        return("J");
+    }
+    if (compare($string, "k") = false) {
+        return("K");
+    }
+    if (compare($string, "l") = false) {
+        return("L");
+    }
+    if (compare($string, "m") = false) {
+        return("M");
+    }
+}
+if (compare($string, "u") < 0) {
+    if (compare($string, "n") = false) {
+        return("N");
+    }
+    if (compare($string, "o") = false) {
+        return("O");
+    }
+    if (compare($string, "p") = false) {
+        return("P");
+    }
+    if (compare($string, "q") = false) {
+        return("Q");
+    }
+    if (compare($string, "r") = false) {
+        return("R");
+    }
+    if (compare($string, "s") = false) {
+        return("S");
+    }
+    if (compare($string, "t") = false) {
+        return("T");
+    }
+}
+if (compare($string, "u") = false) {
+    return("U");
+}
+if (compare($string, "v") = false) {
+    return("V");
+}
+if (compare($string, "w") = false) {
+    return("W");
+}
+if (compare($string, "x") = false) {
+    return("X");
+}
+if (compare($string, "y") = false) {
+    return("Y");
+}
+if (compare($string, "z") = false) {
+    return("Z");
+}
+return($string);
+return("");

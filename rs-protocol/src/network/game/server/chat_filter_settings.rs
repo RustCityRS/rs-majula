@@ -27,7 +27,7 @@ impl ServerProtMessage for ChatFilterSettings {
 }
 
 #[cfg(since_647)]
-#[server_prot(ChatFilterSettings, Buffered, Fixed)]
+#[server_prot(ChatFilterSettings, Immediate, Fixed)]
 pub struct ChatFilterSettings {
     pub public: u8,
     pub trade: u8,

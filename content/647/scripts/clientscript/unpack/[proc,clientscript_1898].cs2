@@ -1,0 +1,25 @@
+[proc,clientscript_1898](int $int)(int, int)
+switch_int ($int) {
+    case 0:
+        return(%varc_int_523, %varc_int_533);
+    case 1:
+        return(%varc_int_524, %varc_int_534);
+    case 2:
+        return(%varc_int_525, %varc_int_535);
+    case 3:
+        return(%varc_int_526, %varc_int_536);
+    case 4:
+        return(%varc_int_527, %varc_int_537);
+    case 5:
+        return(%varc_int_528, %varc_int_538);
+    case 6:
+        return(%varc_int_529, %varc_int_539);
+    case 7:
+        return(%varc_int_530, %varc_int_540);
+    case 8:
+        return(%varc_int_531, %varc_int_541);
+    case 9:
+        return(%varc_int_532, %varc_int_542);
+}
+return(0, 0);
+return(0, 0);

@@ -1,0 +1,8 @@
+[clientscript,macro_beekeeper_dragcomplete](component $component0, component $component1, component $component2)
+switch_component ($component1) {
+    case beehive:com12, beehive:com13, beehive:com14, beehive:com15, beehive:com16, beehive:com17, beehive:com18, beehive:com19:
+        if_setposition(if_getx($component1), if_gety($component1), ^setpos_abs_left, ^setpos_abs_top, $component0);
+        sound_synth(synth_5507, 1, 0);
+    case default:
+        if_setposition(if_getx($component2), if_gety($component2), ^setpos_abs_left, ^setpos_abs_top, $component0);
+}

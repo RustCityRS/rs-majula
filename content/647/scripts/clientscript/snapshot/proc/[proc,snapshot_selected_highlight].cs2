@@ -1,0 +1,11 @@
+[proc,snapshot_selected_highlight]
+def_int $int = 0;
+while ($int < if_getchildcount(snapshot_main_v2:com92)) {
+    if (cc_find(snapshot_main_v2:com92, $int) = true) {
+        cc_settrans(255);
+    }
+    $int = calc($int + 1);
+}
+if (cc_find(snapshot_main_v2:com92, %varc_int_792) = true) {
+    cc_settrans(110);
+}

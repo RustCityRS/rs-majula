@@ -1,0 +1,16 @@
+[proc,scale_round](int $int0, int $int1, int $int2)(int)
+def_int $int3 = 0;
+def_int $int4 = 0;
+if ($int1 = false) {
+    return(0);
+}
+if ($int0 = false | $int2 = false) {
+    return(0);
+}
+if (calc($int0 / $int1) >= calc(2147483647 / $int2)) {
+    return(2147483647);
+} else if (calc($int0 % $int1 * ($int2 % $int1) % $int1) > calc($int1 / 2)) {
+    return(calc(scale($int0, $int1, $int2) + 1));
+} else {
+    return(scale($int0, $int1, $int2));
+}

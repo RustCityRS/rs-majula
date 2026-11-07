@@ -1,0 +1,3 @@
+[proc,graphics_options_init](int $int0)
+def_int $int1 = get_clientopt_6131;
+~graphics_options_rebuild($int1, getwindowmode, ~graphics_options_reviewoptions($int1), $int0);

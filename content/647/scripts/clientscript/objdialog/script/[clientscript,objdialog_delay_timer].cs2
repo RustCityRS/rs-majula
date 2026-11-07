@@ -1,0 +1,7 @@
+[clientscript,objdialog_delay_timer]
+%varc_int_81 = calc(%varc_int_81 - 1);
+if (%varc_int_81 > 0) {
+    return;
+}
+if_setontimer(null, objdialog:com9);
+~objdialog_refreshsearch;

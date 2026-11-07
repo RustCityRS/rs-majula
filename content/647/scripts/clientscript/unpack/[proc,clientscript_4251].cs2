@@ -1,0 +1,34 @@
+[proc,clientscript_4251]
+if (%varbit_9030 = false) {
+    return;
+}
+if (if_gethide(toplevel_fullscreen:com182) = true) {
+    return;
+}
+def_int $int0 = if_getx(toplevel_fullscreen:com182);
+def_int $int1 = if_gety(toplevel_fullscreen:com182);
+def_int $int2 = if_getwidth(toplevel_fullscreen:com0);
+def_string $string = if_gettext(toplevel_fullscreen:com238);
+if ($int2 < 998) {
+    if (compare($string, "Click here to show the Task window.") = false) {
+        ~clientscript_4248($string, 51, 77, 2, ^white, nj566125);
+    } else if (compare($string, "Task complete! Click here to return to the task list.") = false) {
+        ~clientscript_4248($string, 158, 45, 1, ^white, nj566125);
+    } else if (compare($string, "Click on the first Task in the list for details of how to complete it.") = false | compare($string, "Click on the Task which is now first in the list.") = false) {
+        ~clientscript_4248($string, 180, 205, 1, ^white, nj566125);
+    } else if (compare($string, "Click on the Hints tab for more on how to complete this Task.") = false | compare($string, "Remember, the Hints tab provides more details about a Task.") = false) {
+        ~clientscript_4248($string, 196, 223, 1, ^white, nj566125);
+    } else if (compare($string, "The '?' icon will add an arrow to the screen which points to your destination.") = false) {
+        ~clientscript_4248($string, 196, 127, 1, ^white, nj566125);
+    }
+} else if (compare($string, "Click here to show the Task window.") = false) {
+    ~clientscript_4248($string, 288, 39, 2, ^white, nj566125);
+} else if (compare($string, "Task complete! Click here to return to the task list.") = false) {
+    ~clientscript_4248($string, 158, 5, 1, ^white, nj566125);
+} else if (compare($string, "Click on the first Task in the list for details of how to complete it.") = false | compare($string, "Click on the Task which is now first in the list.") = false) {
+    ~clientscript_4248($string, 180, 165, 1, ^white, nj566125);
+} else if (compare($string, "Click on the Hints tab for more on how to complete this Task.") = false | compare($string, "Remember, the Hints tab provides more details about a Task.") = false) {
+    ~clientscript_4248($string, 196, 183, 1, ^white, nj566125);
+} else if (compare($string, "The '?' icon will add an arrow to the screen which points to your destination.") = false) {
+    ~clientscript_4248($string, 196, 87, 1, ^white, nj566125);
+}

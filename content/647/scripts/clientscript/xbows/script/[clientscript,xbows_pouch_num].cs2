@@ -1,0 +1,25 @@
+[clientscript,xbows_pouch_num]
+if_settext(tostring(%varbit_2469), xbows_pouch:com11);
+if_settext(tostring(%varbit_2470), xbows_pouch:com12);
+if_settext(tostring(%varbit_2471), xbows_pouch:com13);
+if_settext(tostring(%varbit_2472), xbows_pouch:com14);
+if (%varbit_2469 = false) {
+    if_setcolour(0xff0033, xbows_pouch:com11);
+} else {
+    if_setcolour(0x00c000, xbows_pouch:com11);
+}
+if (%varbit_2470 = false) {
+    if_setcolour(0xff0033, xbows_pouch:com12);
+} else {
+    if_setcolour(0x00c000, xbows_pouch:com12);
+}
+if (%varbit_2471 = false) {
+    if_setcolour(0xff0033, xbows_pouch:com13);
+} else {
+    if_setcolour(0x00c000, xbows_pouch:com13);
+}
+if (%varbit_2472 = false) {
+    if_setcolour(0xff0033, xbows_pouch:com14);
+} else {
+    if_setcolour(0x00c000, xbows_pouch:com14);
+}

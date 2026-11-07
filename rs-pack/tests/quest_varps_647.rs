@@ -9,7 +9,7 @@
 //!
 //! `quest_varps_647.tsv` lists each such varp. This decompiles the client's
 //! own table from 786's clientscript 2193, unpacked into the repo
-//! (`content/647/clientscript/*.cs2`), and fails if a listed
+//! (`content/647/scripts/clientscript/**/*.cs2`), and fails if a listed
 //! varp is not there with that value, or if 647's registry does not give the
 //! name that id.
 //!
@@ -19,65 +19,79 @@
 
 #![cfg(since_647)]
 
-use rs_pack::cs2::{assembly, decompile};
 use rs_pack::pack::names::AssetNames;
+use runec::clientscript;
+use runec::parser::{Expr, Statement};
 use std::collections::BTreeMap;
 use std::fs;
 use std::path::Path;
 
-/// varp id -> the completion values the client's quest table gives it.
 fn client_quest_table(root: &Path) -> BTreeMap<u32, Vec<i32>> {
-    // 786's own script, as the repo carries it unpacked: CI has no
-    // reference cache in expected/ since the unpacked cache is in git.
     let names = AssetNames::load(&root.join("content/647/pack")).unwrap();
-    let text = fs::read_to_string(
-        root.join("content/647/clientscript")
-            .join(format!("{}.cs2", names.name("clientscript", 2193))),
-    )
-    .unwrap();
-    let script = assembly::pack(&text, &names).expect("pack clientscript 2193");
-    let source = decompile(&script, 2193).expect("decompile 2193");
-
-    // Each case is `~script_2157(%varp63, 6)`, or -- decompiled without
-    // the callee's signature, as here -- `~script_2157;` followed by
-    // `return(%varp63, 6);`, the arguments left on the stack.
-    let mut table: BTreeMap<u32, Vec<i32>> = BTreeMap::new();
-    let mut pending: Option<&str> = None;
-    for line in source.lines().map(str::trim) {
-        let (script, args) = if let Some(call) = line.strip_prefix("~script_") {
-            match call.split_once('(') {
-                Some((script, args)) => (script, args),
-                None => {
-                    pending = Some(call.trim_end_matches(';'));
-                    continue;
+    let key = clientscript::script_key(&names.name("clientscript", 2193));
+    let source = clientscript::load_sources(&root.join("content/647/scripts/clientscript"))
+        .unwrap()
+        .into_iter()
+        .find(|source| {
+            source
+                .file
+                .scripts
+                .iter()
+                .any(|script| format!("[{},{}]", script.trigger, script.name) == key)
+        })
+        .expect("Missing client quest table");
+    let mut table = BTreeMap::new();
+    fn visit(body: &[Statement], names: &AssetNames, table: &mut BTreeMap<u32, Vec<i32>>) {
+        for statement in body {
+            match statement {
+                Statement::Return { values, .. } => {
+                    for value in values {
+                        let Expr::ProcCall { name, args, .. } = value else {
+                            continue;
+                        };
+                        let pairs: &[(usize, usize)] = match name.as_str() {
+                            "clientscript_2157" => &[(0, 1)],
+                            "clientscript_2158" => &[(0, 2)],
+                            "clientscript_2159" => &[(0, 1), (2, 3)],
+                            _ => continue,
+                        };
+                        for &(var, value) in pairs {
+                            if let (Expr::GameVar(name, _), Expr::IntLiteral(value)) =
+                                (&args[var], &args[value])
+                                && let Ok(id) = names.id("varp", name)
+                            {
+                                table.entry(id).or_default().push(*value);
+                            }
+                        }
+                    }
                 }
-            }
-        } else if let (Some(script), Some(args)) = (pending.take(), line.strip_prefix("return(")) {
-            (script, args)
-        } else {
-            continue;
-        };
-        let args: Vec<&str> = args
-            .trim_end_matches([')', ';'])
-            .split(',')
-            .map(str::trim)
-            .collect();
-        // 2157(var, complete); 2158(var, start, complete);
-        // 2159(var, complete, var, complete).
-        let pairs: Vec<(&str, &str)> = match script {
-            "2157" => vec![(args[0], args[1])],
-            "2158" => vec![(args[0], args[2])],
-            "2159" => vec![(args[0], args[1]), (args[2], args[3])],
-            _ => continue,
-        };
-        for (var, complete) in pairs {
-            if let (Some(id), Ok(complete)) = (var.strip_prefix("%varp"), complete.parse()) {
-                if let Ok(id) = id.parse() {
-                    table.entry(id).or_default().push(complete);
+                Statement::If {
+                    body,
+                    else_if,
+                    else_body,
+                    ..
+                } => {
+                    visit(body, names, table);
+                    for (_, body, _) in else_if {
+                        visit(body, names, table);
+                    }
+                    if let Some(body) = else_body {
+                        visit(body, names, table);
+                    }
                 }
+                Statement::Switch { cases, default, .. } => {
+                    for case in cases {
+                        visit(&case.body, names, table);
+                    }
+                    if let Some(body) = default {
+                        visit(body, names, table);
+                    }
+                }
+                _ => {}
             }
         }
     }
+    visit(&source.file.scripts[0].body, &names, &mut table);
     table
 }
 

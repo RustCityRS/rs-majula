@@ -26,14 +26,7 @@ fn names(pack: &Path) -> BTreeSet<String> {
 }
 
 fn scripts(dir: &Path, out: &mut Vec<PathBuf>) {
-    for entry in fs::read_dir(dir).unwrap().flatten() {
-        let path = entry.path();
-        if path.is_dir() {
-            scripts(&path, out);
-        } else if path.extension().is_some_and(|e| e == "rs2") {
-            out.push(path);
-        }
-    }
+    out.extend(runec::sources::script_files(dir, "rs2").unwrap());
 }
 
 #[test]
@@ -46,7 +39,7 @@ fn every_script_var_is_registered() {
     }
 
     let mut files = Vec::new();
-    scripts(&root.join("content/647/scripts"), &mut files);
+    scripts(&root.join("content/647/scripts/runescript"), &mut files);
     let mut missing = BTreeSet::new();
     for path in files {
         let text = fs::read_to_string(&path).unwrap();

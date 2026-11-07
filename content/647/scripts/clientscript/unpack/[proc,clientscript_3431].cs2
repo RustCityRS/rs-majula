@@ -1,0 +1,130 @@
+[proc,clientscript_3431](int $int0, int $int1, colour $colour2)
+if ($int1 = true) {
+    if ($int0 = 3) {
+        if_setcolour($colour2, castlewars_catapult:com25);
+    } else if ($int0 = 4) {
+        if_setcolour($colour2, castlewars_catapult:com27);
+    } else if ($int0 = 5) {
+        if_setcolour($colour2, castlewars_catapult:com29);
+    } else if ($int0 = 6) {
+        if_setcolour($colour2, castlewars_catapult:com31);
+    } else if ($int0 = 7) {
+        if_setcolour($colour2, castlewars_catapult:com33);
+    } else if ($int0 = 8) {
+        if_setcolour($colour2, castlewars_catapult:com35);
+    }
+} else if ($int1 = 2) {
+    if ($int0 = 3) {
+        if_setcolour($colour2, castlewars_catapult:com37);
+    } else if ($int0 = 4) {
+        if_setcolour($colour2, castlewars_catapult:com39);
+    } else if ($int0 = 5) {
+        if_setcolour($colour2, castlewars_catapult:com41);
+    } else if ($int0 = 6) {
+        if_setcolour($colour2, castlewars_catapult:com43);
+    } else if ($int0 = 7) {
+        if_setcolour($colour2, castlewars_catapult:com45);
+    } else if ($int0 = 8) {
+        if_setcolour($colour2, castlewars_catapult:com47);
+    }
+} else if ($int1 = 3) {
+    if ($int0 = true) {
+        if_setcolour($colour2, castlewars_catapult:com49);
+    } else if ($int0 = 2) {
+        if_setcolour($colour2, castlewars_catapult:com51);
+    } else if ($int0 = 3) {
+        if_setcolour($colour2, castlewars_catapult:com53);
+    } else if ($int0 = 4) {
+        if_setcolour($colour2, castlewars_catapult:com55);
+    } else if ($int0 = 5) {
+        if_setcolour($colour2, castlewars_catapult:com57);
+    } else if ($int0 = 6) {
+        if_setcolour($colour2, castlewars_catapult:com59);
+    } else if ($int0 = 7) {
+        if_setcolour($colour2, castlewars_catapult:com61);
+    } else if ($int0 = 8) {
+        if_setcolour($colour2, castlewars_catapult:com63);
+    }
+} else if ($int1 = 4) {
+    if ($int0 = true) {
+        if_setcolour($colour2, castlewars_catapult:com65);
+    } else if ($int0 = 2) {
+        if_setcolour($colour2, castlewars_catapult:com67);
+    } else if ($int0 = 3) {
+        if_setcolour($colour2, castlewars_catapult:com69);
+    } else if ($int0 = 4) {
+        if_setcolour($colour2, castlewars_catapult:com71);
+    } else if ($int0 = 5) {
+        if_setcolour($colour2, castlewars_catapult:com73);
+    } else if ($int0 = 6) {
+        if_setcolour($colour2, castlewars_catapult:com75);
+    } else if ($int0 = 7) {
+        if_setcolour($colour2, castlewars_catapult:com77);
+    } else if ($int0 = 8) {
+        if_setcolour($colour2, castlewars_catapult:com79);
+    }
+} else if ($int1 = 5) {
+    if ($int0 = true) {
+        if_setcolour($colour2, castlewars_catapult:com81);
+    } else if ($int0 = 2) {
+        if_setcolour($colour2, castlewars_catapult:com83);
+    } else if ($int0 = 3) {
+        if_setcolour($colour2, castlewars_catapult:com85);
+    } else if ($int0 = 4) {
+        if_setcolour($colour2, castlewars_catapult:com87);
+    } else if ($int0 = 5) {
+        if_setcolour($colour2, castlewars_catapult:com89);
+    } else if ($int0 = 6) {
+        if_setcolour($colour2, castlewars_catapult:com91);
+    } else if ($int0 = 7) {
+        if_setcolour($colour2, castlewars_catapult:com93);
+    } else if ($int0 = 8) {
+        if_setcolour($colour2, castlewars_catapult:com95);
+    }
+} else if ($int1 = 6) {
+    if ($int0 = true) {
+        if_setcolour($colour2, castlewars_catapult:com97);
+    } else if ($int0 = 2) {
+        if_setcolour($colour2, castlewars_catapult:com99);
+    } else if ($int0 = 3) {
+        if_setcolour($colour2, castlewars_catapult:com101);
+    } else if ($int0 = 4) {
+        if_setcolour($colour2, castlewars_catapult:com103);
+    } else if ($int0 = 5) {
+        if_setcolour($colour2, castlewars_catapult:com105);
+    } else if ($int0 = 6) {
+        if_setcolour($colour2, castlewars_catapult:com107);
+    } else if ($int0 = 7) {
+        if_setcolour($colour2, castlewars_catapult:com109);
+    } else if ($int0 = 8) {
+        if_setcolour($colour2, castlewars_catapult:com111);
+    }
+} else if ($int1 = 7) {
+    if ($int0 = true) {
+        if_setcolour($colour2, castlewars_catapult:com113);
+    } else if ($int0 = 2) {
+        if_setcolour($colour2, castlewars_catapult:com115);
+    } else if ($int0 = 3) {
+        if_setcolour($colour2, castlewars_catapult:com117);
+    } else if ($int0 = 4) {
+        if_setcolour($colour2, castlewars_catapult:com119);
+    } else if ($int0 = 5) {
+        if_setcolour($colour2, castlewars_catapult:com121);
+    } else if ($int0 = 6) {
+        if_setcolour($colour2, castlewars_catapult:com123);
+    }
+} else if ($int1 = 8) {
+    if ($int0 = true) {
+        if_setcolour($colour2, castlewars_catapult:com125);
+    } else if ($int0 = 2) {
+        if_setcolour($colour2, castlewars_catapult:com127);
+    } else if ($int0 = 3) {
+        if_setcolour($colour2, castlewars_catapult:com129);
+    } else if ($int0 = 4) {
+        if_setcolour($colour2, castlewars_catapult:com131);
+    } else if ($int0 = 5) {
+        if_setcolour($colour2, castlewars_catapult:com133);
+    } else if ($int0 = 6) {
+        if_setcolour($colour2, castlewars_catapult:com135);
+    }
+}

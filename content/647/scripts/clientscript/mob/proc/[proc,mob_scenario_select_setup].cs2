@@ -1,0 +1,36 @@
+[proc,mob_scenario_select_setup]
+def_int $int = 1;
+%varc_int_838 = %varbit_6347;
+while ($int <= 4 & enum(105, 73, enum_2383, $int) ! mob_scenario_select:com20) {
+    if ($int <= %varc_int_838) {
+        if_setcolour(0xe1981f, enum(105, 73, enum_2384, $int));
+        if_setop(1, "Select", enum(105, 73, enum_2383, $int));
+        switch_int ($int) {
+            case 1:
+                if_settext("Conflict", enum(105, 73, enum_2384, $int));
+            case 2:
+                if_settext("Siege", enum(105, 73, enum_2384, $int));
+            case 3:
+                if_settext("Hoard", enum(105, 73, enum_2384, $int));
+            case 4:
+                if_settext("Rescue", enum(105, 73, enum_2384, $int));
+        }
+    } else {
+        if_setcolour(0x996600, enum(105, 73, enum_2384, $int));
+        if_setop(1, "Select", enum(105, 73, enum_2383, $int));
+        switch_int ($int) {
+            case 2:
+                if_settext("Siege<br>- Locked", enum(105, 73, enum_2384, $int));
+            case 3:
+                if_settext("Hoard<br>- Locked", enum(105, 73, enum_2384, $int));
+            case 4:
+                if_settext("Rescue<br>- Locked", enum(105, 73, enum_2384, $int));
+        }
+    }
+    $int = calc($int + 1);
+}
+if_setcolour(0x996600, mob_scenario_select:com42);
+if_setcolour(0x996600, mob_scenario_select:com31);
+if_setcolour(0x996600, mob_scenario_select:com38);
+if_setcolour(0x996600, mob_scenario_select:com26);
+~clientscript_2486;

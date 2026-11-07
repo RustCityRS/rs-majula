@@ -1,0 +1,27 @@
+[proc,mob_formation_setops]
+def_int $int0 = 1;
+def_int $int1 = ~clientscript_2497;
+def_component $component2 = null;
+def_component $component3 = null;
+while ($int0 <= 9 | enum(105, 73, enum_2400, $int0) ! mob_formation:com25) {
+    if ($int0 <= $int1) {
+        $component2 = enum(105, 73, enum_2400, $int0);
+        $component3 = enum(105, 73, enum_2402, $int0);
+        if_setonclick("mob_formation_click(^event_com)", $component2);
+        if_setonclick("mob_formation_click($component2)", $component3);
+        if_setcolour(0xe1981f, $component3);
+        if_setop(1, "Select", $component2);
+        if_setop(1, "Select", $component3);
+        if_settext(enum(105, 115, enum_2403, $int0), $component3);
+    } else {
+        $component2 = enum(105, 73, enum_2400, $int0);
+        $component3 = enum(105, 73, enum_2402, $int0);
+        if_setonclick(null, $component2);
+        if_setonclick(null, $component3);
+        if_setcolour(0x996600, $component3);
+        if_clearops($component2);
+        if_clearops($component3);
+        if_settext("<enum(105, 115, enum_2403, $int0)> - Locked", $component3);
+    }
+    $int0 = calc($int0 + 1);
+}

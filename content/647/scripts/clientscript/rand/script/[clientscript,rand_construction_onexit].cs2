@@ -1,0 +1,15 @@
+[clientscript,rand_construction_onexit](int $int)
+switch_int ($int) {
+    case 65208432:
+        if_sethide(true, rand_start_room_construction:com125);
+    case 65208343:
+        if_sethide(true, rand_start_room_construction:com39);
+    case 65208415:
+        if_sethide(true, rand_start_room_construction:com107);
+    case 65208398:
+        if_sethide(true, rand_start_room_construction:com90);
+    case 65208381:
+        if_sethide(true, rand_start_room_construction:com73);
+    case 65208364:
+        if_sethide(true, rand_start_room_construction:com57);
+}

@@ -1,0 +1,19 @@
+[clientscript,meslayer_lastname](int $int0, int $int1, component $component2, int $int3, string $string)
+if ($int1 ! 1) {
+    return;
+}
+if (cc_find($component2, $int3) = true) {
+    cc_delete;
+}
+if (%varc_int_5 ! $int0 | string_length($string) <= 0) {
+    return;
+}
+%varc_string_22 = removetags($string);
+if_settext(escape(%varc_string_22), chatbox:com5);
+if (%varc_int_5 = 8) {
+    resume_namedialog(%varc_string_22);
+    ~meslayer_close(0);
+} else if (%varc_int_5 = 10) {
+    clan_leavechat2(%varc_string_22);
+    ~meslayer_close(0);
+}

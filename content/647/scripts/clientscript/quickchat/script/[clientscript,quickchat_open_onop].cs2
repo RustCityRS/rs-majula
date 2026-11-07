@@ -1,0 +1,57 @@
+[clientscript,quickchat_open_onop](int $int0)
+def_int $int1 = -1;
+def_int $int2 = -1;
+def_int $int3 = -1;
+def_int $int4 = -1;
+def_int $int5 = -1;
+def_int $int6 = -1;
+$int1, $int2, $int3, $int4, $int5, $int6 = ~clientscript_4590;
+if ($int0 = true) {
+    ~quickchat_open(0, "");
+} else if ($int0 = 2) {
+    if (clan_getchatsize > 0) {
+        ~quickchat_open(2, "");
+    } else {
+        %varc_int_41 = 0;
+        ~chat_alert_reset(0);
+        ~redraw_chat_buttons;
+        ~rebuildchatbox;
+        ~rebuildpmbox;
+        mes("You aren't in a Friends Chat channel.");
+        return;
+    }
+} else if ($int0 = 3) {
+    if ($int1 >= 0) {
+        if ($int2 >= $int3) {
+            ~quickchat_open(8, "");
+        } else {
+            tutorial_openchat(43, 0, "Your rank is not high enough to chat in the Clan Chat.");
+            return;
+        }
+    } else {
+        %varc_int_41 = 0;
+        ~chat_alert_reset(0);
+        ~redraw_chat_buttons;
+        ~rebuildchatbox;
+        ~rebuildpmbox;
+        mes("You aren't in a Clan Chat channel.");
+        return;
+    }
+} else if ($int0 = 4) {
+    if ($int4 >= 0) {
+        if ($int5 >= $int6) {
+            ~quickchat_open(10, "");
+        } else {
+            tutorial_openchat(43, 0, "Guests cannot chat in this visited Clan channel.");
+            return;
+        }
+    } else {
+        %varc_int_41 = 0;
+        ~chat_alert_reset(0);
+        ~redraw_chat_buttons;
+        ~rebuildchatbox;
+        ~rebuildpmbox;
+        mes("You aren't a guest in a Clan Chat channel.");
+        return;
+    }
+}

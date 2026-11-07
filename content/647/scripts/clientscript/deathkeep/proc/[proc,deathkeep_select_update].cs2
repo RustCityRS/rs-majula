@@ -1,0 +1,271 @@
+[proc,deathkeep_select_update](int $int0)
+if (%varbit_9227 > 1) {
+    if_settext("Select <tostring(%varbit_9227)> items to keep. The rest will be dropped.", deathkeep_select:com12);
+} else if (%varbit_9227 = true) {
+    if_settext("Select an item to keep. The rest will be dropped.", deathkeep_select:com12);
+} else {
+    if_settext("These items will be dropped.", deathkeep_select:com12);
+}
+def_obj $array0(4);
+$array0(0) = ~clientscript_750(%varbit_9222);
+$array0(1) = ~clientscript_750(%varbit_9223);
+$array0(2) = ~clientscript_750(%varbit_9224);
+$array0(3) = ~clientscript_750(%varbit_9225);
+cc_deleteall(deathkeep_select:com9);
+cc_deleteall(deathkeep_select:com8);
+def_int $int1 = 15;
+def_obj $obj2 = null;
+def_graphic $graphic3 = 6014;
+def_graphic $graphic4 = 6015;
+def_int $int5 = -1;
+while ($int5 < %varbit_9227 & $int5 < 4) {
+    $int5 = max($int5, 0);
+    cc_create(deathkeep_select:com8, ^iftype_graphic, if_getchildcount(deathkeep_select:com8));
+    cc_setsize(36, 36, ^setsize_abs, ^setsize_abs);
+    cc_setposition($int1, 0, ^setpos_abs_left, ^setpos_abs_centre);
+    cc_setgraphic($graphic3);
+    $obj2 = $array0($int5);
+    .cc_create(deathkeep_select:com9, ^iftype_graphic, if_getchildcount(deathkeep_select:com9));
+    if (%varbit_9227 = false) {
+        .cc_setsize(36, 36, ^setsize_abs, ^setsize_abs);
+        .cc_setposition($int1, 0, ^setpos_abs_left, ^setpos_abs_centre);
+        .cc_setgraphic(duel_misc_graphic);
+    } else {
+        .cc_setsize(36, 32, ^setsize_abs, ^setsize_abs);
+        .cc_setposition(calc($int1 + 2), 0, ^setpos_abs_left, ^setpos_abs_centre);
+        if ($obj2 ! null) {
+            .cc_setobject_nonum($obj2, 1);
+            .cc_setop(1, "Unprotect");
+            .cc_setop(10, "Examine");
+            .cc_setgraphicshadow(0x302020);
+            .cc_setoutline(1);
+            .cc_setopbase("<col=ff9040><oc_name($obj2)></col>");
+            .cc_setdraggable(deathkeep_select:com2, -1);
+            .cc_setdragbehaviour(2);
+            .cc_setdragdeadzone(5);
+            .cc_setdragdeadtime(5);
+            .cc_setonop("clientscript_1620(^event_com, ^event_subid, 100, 0, 8)");
+            .cc_setondragcomplete("deathkeep_select_drag(^event_com, ^event_subid, ^event_dragcom, ^event_dragsubid, $int0)");
+        }
+        cc_setonmouseover("cc_graphic_swapper(^event_com, ^event_subid, $graphic4)");
+        cc_setonmouseleave("cc_graphic_swapper(^event_com, ^event_subid, $graphic3)");
+    }
+    $int1 = calc($int1 + max(cc_getwidth, .cc_getwidth) + 10);
+    $int5 = calc($int5 + 1);
+}
+$int1 = calc($int1 + 9);
+if_setsize($int1, if_getheight(deathkeep_select:com3), ^setsize_abs, ^setsize_abs, deathkeep_select:com3);
+cc_deleteall(deathkeep_select:com16);
+cc_deleteall(deathkeep_select:com17);
+cc_deleteall(deathkeep_select:com24);
+cc_deleteall(deathkeep_select:com25);
+def_int $int6 = 0;
+def_int $int7 = 0;
+def_int $int8 = 0;
+def_int $int9 = 0;
+def_int $int10 = 0;
+def_int $int11 = 0;
+def_int $int12 = if_getwidth(deathkeep_select:com2);
+def_int $int13 = calc($int12 - (max(if_getwidth(deathkeep_select:com18), if_getwidth(deathkeep_select:com26)) + 4));
+def_int $int14 = max(calc($int13 / 36), 1);
+def_int $int15 = calc(($int13 - 36 * $int14) / max(calc($int14 - 1), 1));
+def_int $int16 = max(calc($int15 / 2), 4);
+def_int $int17 = calc(inv_size(inv) + inv_size(worn));
+def_int $int18 = 0;
+def_int $int19 = 0;
+$int5 = 0;
+while ($int5 <= $int17) {
+    $obj2 = ~clientscript_750($int5);
+    cc_create(deathkeep_select:com17, ^iftype_graphic, $int5);
+    .cc_create(deathkeep_select:com25, ^iftype_graphic, $int5);
+    if ($obj2 ! null) {
+        $int18 = ~clientscript_1393($int5);
+        $int19 = 0;
+        while ($int19 < 4 & $int18 > 0) {
+            if ($array0($int19) = $obj2) {
+                $int18 = calc($int18 - 1);
+                $array0($int19) = null;
+            }
+            $int19 = calc($int19 + 1);
+        }
+        if ($int18 > 0) {
+            if (oc_weight(oc_uncert($obj2), param_1397) = true) {
+                .cc_setsize(36, 32, ^setsize_abs, ^setsize_abs);
+                .cc_setobject($obj2, $int18);
+                .cc_setgraphicshadow(0x302020);
+                .cc_setoutline(1);
+                .cc_setop(10, "Examine");
+                .cc_setopbase("<col=ff9040><oc_name($obj2)></col>");
+                $int10 = calc($int8 * (36 + $int15));
+                $int11 = calc($int9 * (32 + $int16));
+                .cc_setposition(calc($int10 + 2), calc($int11 + 2), ^setpos_abs_left, ^setpos_abs_top);
+                $int8 = calc($int8 + 1);
+                if ($int8 >= $int14) {
+                    $int8, $int9 = 0, calc($int9 + 1);
+                }
+                cc_sethide(true);
+                cc_create(deathkeep_select:com24, ^iftype_graphic, if_getchildcount(deathkeep_select:com24));
+                cc_setsize(36, 36, ^setsize_abs, ^setsize_abs);
+                cc_setposition($int10, $int11, ^setpos_abs_left, ^setpos_abs_top);
+                cc_setgraphic(6016);
+            } else {
+                cc_setsize(36, 32, ^setsize_abs, ^setsize_abs);
+                cc_setobject($obj2, $int18);
+                cc_setgraphicshadow(0x302020);
+                cc_setoutline(1);
+                cc_setop(1, "Protect");
+                cc_setop(10, "Examine");
+                cc_setopbase("<col=ff9040><oc_name($obj2)></col>");
+                $int10 = calc($int6 * (36 + $int15));
+                $int11 = calc($int7 * (32 + $int16));
+                cc_setposition(calc($int10 + 2), calc($int11 + 2), ^setpos_abs_left, ^setpos_abs_top);
+                cc_setdraggable(deathkeep_select:com2, -1);
+                cc_setdragbehaviour(2);
+                cc_setdragdeadzone(5);
+                cc_setdragdeadtime(5);
+                cc_setonop("clientscript_1620(^event_com, ^event_subid, 100, 0, 8)");
+                cc_setondragcomplete("deathkeep_select_drag(^event_com, ^event_subid, ^event_dragcom, ^event_dragsubid, $int0)");
+                $int6 = calc($int6 + 1);
+                if ($int6 >= $int14) {
+                    $int6, $int7 = 0, calc($int7 + 1);
+                }
+                .cc_sethide(true);
+                .cc_create(deathkeep_select:com16, ^iftype_graphic, if_getchildcount(deathkeep_select:com16));
+                .cc_setsize(36, 36, ^setsize_abs, ^setsize_abs);
+                .cc_setposition($int10, $int11, ^setpos_abs_left, ^setpos_abs_top);
+                .cc_setgraphic($graphic3);
+                .cc_setonmouseover("cc_graphic_swapper(^event_com, ^event_subid, $graphic4)");
+                .cc_setonmouseleave("cc_graphic_swapper(^event_com, ^event_subid, $graphic3)");
+            }
+        } else {
+            cc_sethide(true);
+            .cc_sethide(true);
+        }
+    } else {
+        cc_sethide(true);
+        .cc_sethide(true);
+    }
+    $int5 = calc($int5 + 1);
+}
+if ($int6 <= 0) {
+    $int7 = max(calc($int7 - 1), 0);
+}
+if ($int8 <= 0) {
+    $int9 = max(calc($int9 - 1), 0);
+}
+def_int $int20 = calc(($int7 + 1) * (32 + $int16));
+def_int $int21 = calc(($int9 + 1) * (32 + $int16));
+if ($int7 < 2 & $int7 <= $int9) {
+    if_setsize(0, calc($int20 + if_getheight(deathkeep_select:com12) + 6), ^setsize_minus, ^setsize_abs, deathkeep_select:com11);
+    if_setsize(0, calc(if_getheight(deathkeep_select:com11) + 3), ^setsize_minus, ^setsize_minus, deathkeep_select:com19);
+} else if ($int9 < 2 & $int9 <= $int7) {
+    if_setsize(0, calc($int21 + if_getheight(deathkeep_select:com20) + 6), ^setsize_minus, ^setsize_abs, deathkeep_select:com19);
+    if_setsize(0, calc(if_getheight(deathkeep_select:com19) + 3), ^setsize_minus, ^setsize_minus, deathkeep_select:com11);
+}
+if ($int6 <= 0 & $int7 <= 0) {
+    cc_create(deathkeep_select:com17, ^iftype_text, if_getchildcount(deathkeep_select:com17));
+    cc_setsize(0, 0, ^setsize_minus, ^setsize_minus);
+    cc_setposition(0, 0, ^setpos_abs_centre, ^setpos_abs_top);
+    cc_setcolour(^white);
+    cc_settextshadow(true);
+    cc_settextfont(p12_full);
+    cc_settextalign(^settextalign_centre, ^settextalign_centre, 0);
+    cc_settext("You haven't got any more items to choose.");
+}
+if ($int20 > if_getheight(deathkeep_select:com15)) {
+    if_setscrollsize(0, $int20, deathkeep_select:com15);
+    if_setsize(0, $int20, ^setsize_minus, ^setsize_abs, deathkeep_select:com17);
+    if_setsize(0, $int20, ^setsize_minus, ^setsize_abs, deathkeep_select:com16);
+    ~scrollbar_vertical(deathkeep_select:com18, deathkeep_select:com15, "aif_scrollbar_dragger_1,3", "aif_scrollbar_dragger_1,0", "aif_scrollbar_dragger_1,1", "aif_scrollbar_dragger_1,2", "aif_scrollbar_arrow_1,1", "aif_scrollbar_arrow_1,0");
+    if_sethide(false, deathkeep_select:com18);
+    if_setposition(2, 0, ^setpos_abs_left, ^setpos_abs_centre, deathkeep_select:com15);
+} else {
+    if_setscrollsize(0, 0, deathkeep_select:com15);
+    if_setsize(0, 0, ^setsize_minus, ^setsize_minus, deathkeep_select:com17);
+    if_setsize(0, 0, ^setsize_minus, ^setsize_minus, deathkeep_select:com16);
+    if_setscrollpos(0, 0, deathkeep_select:com15);
+    cc_deleteall(deathkeep_select:com18);
+    if_sethide(true, deathkeep_select:com18);
+    if_setposition(0, 0, ^setpos_abs_centre, ^setpos_abs_centre, deathkeep_select:com15);
+}
+if ($int21 > if_getheight(deathkeep_select:com23)) {
+    if_setscrollsize(0, $int21, deathkeep_select:com23);
+    if_setsize(0, $int21, ^setsize_minus, ^setsize_abs, deathkeep_select:com25);
+    if_setsize(0, $int21, ^setsize_minus, ^setsize_abs, deathkeep_select:com24);
+    ~scrollbar_vertical(deathkeep_select:com26, deathkeep_select:com23, "aif_scrollbar_dragger_1,3", "aif_scrollbar_dragger_1,0", "aif_scrollbar_dragger_1,1", "aif_scrollbar_dragger_1,2", "aif_scrollbar_arrow_1,1", "aif_scrollbar_arrow_1,0");
+    if_sethide(false, deathkeep_select:com26);
+    if_setposition(2, 0, ^setpos_abs_left, ^setpos_abs_centre, deathkeep_select:com23);
+} else {
+    if_setscrollsize(0, 0, deathkeep_select:com23);
+    if_setsize(0, 0, ^setsize_minus, ^setsize_minus, deathkeep_select:com25);
+    if_setsize(0, 0, ^setsize_minus, ^setsize_minus, deathkeep_select:com24);
+    if_setscrollpos(0, 0, deathkeep_select:com23);
+    cc_deleteall(deathkeep_select:com26);
+    if_sethide(true, deathkeep_select:com26);
+    if_setposition(0, 0, ^setpos_abs_centre, ^setpos_abs_centre, deathkeep_select:com23);
+}
+cc_deleteall(deathkeep_select:com45);
+if (%varp_105 ! -1) {
+    if_sethide(true, deathkeep_select:com27);
+    if_sethide(true, deathkeep_select:com42);
+    if_setposition(0, 0, ^setpos_abs_centre, ^setpos_abs_top, deathkeep_select:com3);
+    return;
+}
+if_sethide(false, deathkeep_select:com27);
+def_string $string0 = "Your hub (<enum(105, 115, enum_3792, %varbit_9231)>)";
+def_string $string1 = "";
+def_int $int22 = 0;
+$int5 = -1;
+$int17 = enum_getoutputcount(enum_3796);
+$int7 = 2;
+def_int $int23 = 0;
+while ($int5 <= $int17) {
+    cc_create(deathkeep_select:com45, ^iftype_text, calc($int5 + 1));
+    $int23 = 0;
+    switch_int ($int5) {
+        case 0, -1:
+            $int23 = 1;
+        case 1:
+            if (%varbit_668 = true & map_members = true) {
+                $int23 = 1;
+            }
+        case 2:
+            if (%varbit_3910 = true & map_members = true) {
+                $int23 = 1;
+            }
+        case 3:
+            if (%varbit_6982 = true & map_members = true) {
+                $int23 = 1;
+            }
+    }
+    if ($int23 = true) {
+        if ($int5 = -1) {
+            $string1 = $string0;
+        } else {
+            $string1 = enum(105, 115, enum_3796, $int5);
+        }
+        $int22 = max($int22, op4125($string1, 494));
+        if (calc(%varbit_9228 - 1) ! $int5) {
+            cc_setsize(0, 15, ^setsize_minus, ^setsize_abs);
+            cc_setposition(0, $int7, ^setpos_abs_centre, ^setpos_abs_top);
+            cc_settextfont(p11_full);
+            cc_settextalign(^settextalign_centre, ^settextalign_centre, 0);
+            cc_setcolour(0xebe0bc);
+            cc_setonmouseover("clientscript_743(^event_com, ^event_subid, true)");
+            cc_setonmouseleave("clientscript_743(^event_com, ^event_subid, false)");
+            cc_settext($string1);
+            cc_setop(1, "Select");
+            cc_setonop("clientscript_747(^event_op, $string1, $int0)");
+            $int7 = calc($int7 + cc_getheight);
+        } else if (.cc_find(deathkeep_select:com29, $int0) = true) {
+            .cc_settext($string1);
+        }
+    } else {
+        cc_sethide(true);
+    }
+    $int5 = calc($int5 + 1);
+}
+$int22 = calc($int22 + 28);
+if_setsize($int22, if_getheight(deathkeep_select:com27), ^setsize_abs, ^setsize_abs, deathkeep_select:com27);
+if_setsize($int22, calc($int7 + 6), ^setsize_abs, ^setsize_abs, deathkeep_select:com43);
+if_setposition(max(calc($int22 + 1 - ($int12 - $int1) / 2), 0), 0, ^setpos_abs_centre, ^setpos_abs_top, deathkeep_select:com3);

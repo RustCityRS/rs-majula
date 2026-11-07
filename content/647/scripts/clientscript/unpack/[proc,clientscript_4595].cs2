@@ -1,0 +1,17 @@
+[proc,clientscript_4595]
+if_sethide(true, deathkeep_info:com17);
+if_sethide(true, deathkeep_info:com16);
+if_sethide(true, deathkeep_info:com20);
+if_sethide(true, deathkeep_info:com19);
+if_sethide(true, deathkeep_info:com22);
+if_sethide(true, deathkeep_info:com21);
+if_sethide(true, deathkeep_info:com24);
+if_setscrollsize(0, 0, deathkeep_info:com15);
+if_setposition(0, 0, ^setpos_abs_centre, ^setpos_abs_centre, deathkeep_info:com15);
+if_setscrollpos(0, 0, deathkeep_info:com15);
+cc_setsize(0, 0, ^setsize_minus, ^setsize_minus);
+cc_setposition(0, 0, ^setpos_abs_centre, ^setpos_abs_centre);
+cc_settextfont(p12_full);
+cc_settextalign(^settextalign_centre, ^settextalign_centre, 0);
+cc_setcolour(0xff981f);
+cc_settextshadow(true);

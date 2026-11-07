@@ -1,0 +1,102 @@
+[proc,clientscript_1046](int $int0, char $int1, component $component2, component $component3, component $component4, chatphrase $int5, int $int6)
+def_int $int7 = 1;
+def_int $int8 = 0;
+def_int $int9 = 1000;
+def_int $int10 = -1;
+if (char_isalphanumeric($int1) = true) {
+    while ($int8 < $int6) {
+        if (cc_find($component3, calc(~clientscript_1844($int8) + 1)) = true & (string_indexof_char(lowercase(cc_gettext), op4122($int1), 0) = false & .cc_find($component3, 0) = true)) {
+            .cc_setposition(cc_getx, cc_gety, ^setpos_abs_left, ^setpos_abs_top);
+            .cc_setsize(cc_getwidth, cc_getheight, ^setsize_abs, ^setsize_abs);
+            .cc_setcolour(0x577e45);
+            .cc_setfill(true);
+            if ($int8 < %varc_int_128) {
+                if (cc_gety < if_getscrolly($component3)) {
+                    ~scrollbar_resize($component4, $component3, cc_gety);
+                }
+            } else if ($int8 > %varc_int_128 & calc(cc_gety + cc_getheight) > calc(if_getheight($component3) + if_getscrolly($component3))) {
+                ~scrollbar_resize($component4, $component3, calc(cc_gety + cc_getheight - if_getheight($component3)));
+            }
+            %varc_int_128 = $int8;
+            return;
+        }
+        $int8 = calc($int8 + 1);
+    }
+    return;
+}
+if ($int0 = 104) {
+    if ($int6 = false) {
+        return;
+    }
+    if (%varc_int_128 <= 0) {
+        %varc_int_128 = calc($int6 - 1);
+    } else {
+        %varc_int_128 = calc(%varc_int_128 - 1);
+    }
+    if (cc_find($component3, calc(~clientscript_1844(%varc_int_128) + 1)) = true) {
+        if (.cc_find($component3, 0) = true) {
+            .cc_setposition(cc_getx, cc_gety, ^setpos_abs_left, ^setpos_abs_top);
+            .cc_setsize(cc_getwidth, cc_getheight, ^setsize_abs, ^setsize_abs);
+            .cc_setcolour(0x577e45);
+            .cc_setfill(true);
+        }
+        if (cc_gety < if_getscrolly($component3)) {
+            ~scrollbar_resize($component4, $component3, calc(if_getscrolly($component3) - cc_getheight));
+        } else if (calc(cc_gety + cc_getheight) > calc(if_getheight($component3) + if_getscrolly($component3))) {
+            ~scrollbar_resize($component4, $component3, if_getscrollheight($component3));
+        }
+    }
+    return;
+}
+if ($int0 = 105) {
+    if ($int6 = false) {
+        return;
+    }
+    if (%varc_int_128 = calc($int6 - 1)) {
+        %varc_int_128 = 0;
+    } else {
+        %varc_int_128 = calc(%varc_int_128 + 1);
+    }
+    if (cc_find($component3, calc(~clientscript_1844(%varc_int_128) + 1)) = true) {
+        if (.cc_find($component3, 0) = true) {
+            .cc_setposition(cc_getx, cc_gety, ^setpos_abs_left, ^setpos_abs_top);
+            .cc_setsize(cc_getwidth, cc_getheight, ^setsize_abs, ^setsize_abs);
+            .cc_setcolour(0x577e45);
+            .cc_setfill(true);
+        }
+        if (calc(cc_gety + cc_getheight) > calc(if_getheight($component3) + if_getscrolly($component3))) {
+            ~scrollbar_resize($component4, $component3, calc(if_getscrolly($component3) + cc_getheight));
+        } else if (cc_gety < if_getscrolly($component3)) {
+            ~scrollbar_resize($component4, $component3, 0);
+        }
+    }
+    return;
+}
+if ($int0 = 102) {
+    ~quickchat_open(%varc_int_126, %varc_string_27);
+    return;
+}
+if ($int0 = 13) {
+    ~quickchat_close;
+    return;
+}
+if ($int0 = 84) {
+    if (%varc_int_128 >= 0 & cc_find($component3, calc(%varc_int_128 + 1)) = true) {
+        ~quickchat_phrase_int($component2, $int5, ~clientscript_1844(%varc_int_128));
+    }
+    return;
+}
+if ($int0 = 85) {
+    if (%varc_int_127 = false) {
+        ~quickchat_close;
+    } else {
+        %varc_int_128 = -1;
+        if_sethide(true, chatbox_background:com7);
+        if_sethide(true, chatbox_background:com9);
+        if_sethide(true, chatbox_background:com13);
+        if_sethide(false, chatbox_background:com17);
+        if_sethide(false, chatbox_background:com1);
+        if_sethide(true, chatbox_background:com3);
+    }
+    return;
+}

@@ -1,0 +1,7 @@
+[proc,clientscript_3441]()(int)
+if (inv_total(worn, ring_of_charos__a) > 0 | inv_total(worn, ring_of_charos__a__i) > 0) {
+    return(1);
+} else {
+    return(0);
+}
+return(-1);

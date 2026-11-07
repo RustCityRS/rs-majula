@@ -1,0 +1,23 @@
+[clientscript,quickchat_menu_scroll](component $component0, int $int1)
+if (if_getscrollx($component0) > $int1) {
+    if_setscrollsize(calc(if_getscrollwidth($component0) - 10), 0, $component0);
+    if_setscrollpos(calc(if_getscrollx($component0) - 10), 0, $component0);
+    if (if_getscrollx($component0) < $int1) {
+        if_setscrollsize(calc($int1 + if_getwidth($component0)), 0, $component0);
+        if_setscrollpos($int1, 0, $component0);
+        if_setontimer(null, $component0);
+        return;
+    }
+} else if (if_getscrollx($component0) < $int1) {
+    if_setscrollsize(calc(if_getscrollwidth($component0) + 10), 0, $component0);
+    if_setscrollpos(calc(if_getscrollx($component0) + 10), 0, $component0);
+    if (if_getscrollx($component0) > $int1) {
+        if_setscrollsize(calc($int1 + if_getwidth($component0)), 0, $component0);
+        if_setscrollpos($int1, 0, $component0);
+        if_setontimer(null, $component0);
+        return;
+    }
+} else {
+    if_setontimer(null, $component0);
+    return;
+}

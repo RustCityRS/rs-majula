@@ -1,0 +1,5 @@
+[proc,clientscript_4225]
+if_setonmouserepeat("clientscript_4226()", toplevel_fullscreen:com187);
+if_setonmouseleave("deltooltip(toplevel_fullscreen:com183)", toplevel_fullscreen:com187);
+if_setonmouserepeat("clientscript_4226()", toplevel:com26);
+if_setonmouseleave("deltooltip(toplevel:com22)", toplevel:com26);

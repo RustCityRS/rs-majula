@@ -1,0 +1,23 @@
+[proc,seer_varcupdate](int $int0, component $component1)
+switch_int ($int0) {
+    case 0:
+        if (%varc_int_618 < 0 | %varc_int_618 > 25) {
+            %varc_int_618 = 0;
+        }
+        if_settext(enum(105, 115, enum_2121, %varc_int_618), $component1);
+    case 1:
+        if (%varc_int_619 < 0 | %varc_int_619 > 25) {
+            %varc_int_619 = 0;
+        }
+        if_settext(enum(105, 115, enum_2121, %varc_int_619), $component1);
+    case 2:
+        if (%varc_int_620 < 0 | %varc_int_620 > 25) {
+            %varc_int_620 = 0;
+        }
+        if_settext(enum(105, 115, enum_2121, %varc_int_620), $component1);
+    case 3:
+        if (%varc_int_621 < 0 | %varc_int_621 > 25) {
+            %varc_int_621 = 0;
+        }
+        if_settext(enum(105, 115, enum_2121, %varc_int_621), $component1);
+}

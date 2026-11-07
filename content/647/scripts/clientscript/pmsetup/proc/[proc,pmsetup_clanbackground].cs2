@@ -1,0 +1,12 @@
+[proc,pmsetup_clanbackground](component $component0, component $component1, int $int2)
+if ($int2 ! 1) {
+    if_setgraphic(tradebacking, $component0);
+    if_setsize(0, 0, ^setsize_minus, ^setsize_minus, $component0);
+    if_settiling(true, $component0);
+    if_settextshadow(true, $component1);
+} else {
+    if_setgraphic(chat_background, $component0);
+    if_setsize(519, 142, ^setsize_abs, ^setsize_abs, $component0);
+    if_settiling(false, $component0);
+    if_settextshadow(false, $component1);
+}

@@ -1,0 +1,6 @@
+[clientscript,clan_info_load]
+if (ignore_count = true) {
+    ~clientscript_4415;
+} else {
+    if_sethook1431("clientscript_4414()", clan_info:com170);
+}

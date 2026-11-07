@@ -1,0 +1,26 @@
+[proc,clientscript_3979](int $int0, component $component1)
+%varbit_8576 = $int0;
+def_struct $struct2 = enum(105, 74, enum_3483, $int0);
+def_string $string = " -<br>";
+$string = append(struct_param($struct2, param_1266), $string);
+$string = append($string, struct_param($struct2, param_1273));
+if (~clientscript_3999($int0) = false) {
+    if_setonmouserepeat("task_side_list_tooltip($component1, $string)", $component1);
+} else {
+    if_setonmouserepeat(null, $component1);
+}
+switch_component ($component1) {
+    case task_side:com64:
+        %varbit_8577 = 1;
+    case task_side:com144:
+        %varbit_8577 = 2;
+    case task_side:com149:
+        %varbit_8577 = 3;
+    case task_side:com154:
+        %varbit_8577 = 4;
+    case task_side:com159:
+        %varbit_8577 = 5;
+    case task_side:com165:
+        %varbit_8577 = 6;
+}
+~clientscript_3975;

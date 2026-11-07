@@ -13,10 +13,16 @@ pub fn unpack_metadata(store: &Js5Store, pack_dir: &Path, content_dir: &Path) ->
     fs::create_dir_all(&dir)?;
     fs::create_dir_all(pack_dir)?;
     let mut hashes: BTreeMap<&str, BTreeMap<u32, i32>> = BTreeMap::new();
+    let mut count = 0;
     for &aid in archive::ARCHIVE_IDS {
-        let table = store
-            .reference_table(aid)
-            .with_context(|| format!("Missing archive {aid} reference table"))?;
+        let Some(table) = store.reference_table(aid) else {
+            ensure!(
+                store.group_count(aid).unwrap_or(0) == 0,
+                "Missing archive {aid} reference table"
+            );
+            continue;
+        };
+        count += 1;
         let stem = archive::versions_filename(aid).context("Unknown archive metadata filename")?;
         let mut versions = format!("# table_version={}\n", table.version);
         let mut files = String::new();
@@ -67,7 +73,7 @@ pub fn unpack_metadata(store: &Js5Store, pack_dir: &Path, content_dir: &Path) ->
         }
         fs::write(pack_dir.join(format!("{name}.hashes")), text)?;
     }
-    Ok(archive::ARCHIVE_IDS.len() as u32)
+    Ok(count)
 }
 
 pub fn unpack_archive(
@@ -87,6 +93,9 @@ pub fn unpack_archive(
         .groups
         .clone();
     for info in &groups {
+        if aid == archive::BILLBOARDS {
+            ensure!(info.id == 0, "Unexpected billboard group {}", info.id);
+        }
         let path = dir.join(format!(
             "{}.{}",
             names.name(archive_name(aid), info.id),
@@ -96,12 +105,14 @@ pub fn unpack_archive(
             .read_group(aid, info.id)?
             .context("Missing asset group")?;
         let mut text = String::new();
+        let mut files = Vec::new();
         for entry in &group.entries {
             let kind = asset::entry_kind(aid, info.id);
             let name = names.name(
                 kind.unwrap_or(archive_name(aid)),
                 if kind.is_some() { entry.id } else { info.id },
             );
+            let start = text.len();
             text.push_str(&format!("[{name}]\n"));
             let body = asset::unpack(aid, info.id, entry.data(), &names)
                 .with_context(|| format!("{aid}/{}/{}", info.id, entry.id))?;
@@ -111,6 +122,12 @@ pub fn unpack_archive(
                 text.push_str(&body);
             }
             text.push('\n');
+            if aid == archive::BILLBOARDS {
+                files.push((
+                    dir.join(format!("{name}.{extension}")),
+                    text[start..].to_owned(),
+                ));
+            }
         }
         let original = store
             .read_group_raw_decompressed(aid, info.id)?
@@ -124,10 +141,15 @@ pub fn unpack_archive(
             "Text round trip changed archive {aid} group {}",
             info.id
         );
-        if let Some(parent) = path.parent() {
-            fs::create_dir_all(parent)?;
+        if aid != archive::BILLBOARDS {
+            files.push((path, text));
         }
-        fs::write(path, text)?;
+        for (path, text) in files {
+            if let Some(parent) = path.parent() {
+                fs::create_dir_all(parent)?;
+            }
+            fs::write(path, text)?;
+        }
     }
     Ok(groups.len() as u32)
 }

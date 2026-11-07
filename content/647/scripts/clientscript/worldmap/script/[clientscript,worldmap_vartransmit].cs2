@@ -1,0 +1,7 @@
+[clientscript,worldmap_vartransmit](component $component0, component $component1, component $component2, component $component3, component $component4, int $int5)
+~worldmap_key_build(%varbit_5367, $component0, $component1, $component2);
+if ($int5 ! %varbit_6175) {
+    if_setonvartransmit("worldmap_vartransmit($component0, $component1, $component2, $component3, $component4, %varbit_6175){varp_463}", $component4);
+    ~worldmap_overlay_clear($component3);
+}
+~worldmap_vartransmit_effects;

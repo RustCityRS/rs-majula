@@ -19,7 +19,7 @@ pub fn pack_idks(
 ) -> Result<PackedFile> {
     let pack = &registry.idk;
 
-    let configs = parse_config_sections_cached(file_cache, "idk", constants);
+    let configs = parse_config_sections_cached(file_cache, "idk", constants)?;
 
     let mut server = PackedData::new(pack.max);
     let mut client = PackedData::new(pack.max);

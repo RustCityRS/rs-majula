@@ -1,0 +1,32 @@
+[proc,clientscript_1223]
+if (player_isfemale = true) {
+    if_sethide(false, zw4121725:com20);
+    if_sethide(false, zw4121725:com22);
+    if_sethide(false, zw4121725:com24);
+    if_sethide(false, zw4121725:com26);
+    if_sethide(false, zw4121725:com28);
+    if_sethide(false, zw4121725:com30);
+    if_sethide(false, zw4121725:com32);
+    if_sethide(true, zw4121725:com19);
+    if_sethide(true, zw4121725:com21);
+    if_sethide(true, zw4121725:com23);
+    if_sethide(true, zw4121725:com25);
+    if_sethide(true, zw4121725:com27);
+    if_sethide(true, zw4121725:com29);
+    if_sethide(true, zw4121725:com31);
+} else {
+    if_sethide(true, zw4121725:com20);
+    if_sethide(true, zw4121725:com22);
+    if_sethide(true, zw4121725:com24);
+    if_sethide(true, zw4121725:com26);
+    if_sethide(true, zw4121725:com28);
+    if_sethide(true, zw4121725:com30);
+    if_sethide(true, zw4121725:com32);
+    if_sethide(false, zw4121725:com19);
+    if_sethide(false, zw4121725:com21);
+    if_sethide(false, zw4121725:com23);
+    if_sethide(false, zw4121725:com25);
+    if_sethide(false, zw4121725:com27);
+    if_sethide(false, zw4121725:com29);
+    if_sethide(false, zw4121725:com31);
+}

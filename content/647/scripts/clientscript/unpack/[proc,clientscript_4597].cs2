@@ -1,0 +1,46 @@
+[proc,clientscript_4597]
+def_string $string0 = "What if I entered the Wilderness?";
+def_string $string1 = "Back";
+def_int $int = 0;
+if (%varbit_9226 >= 2) {
+    if_sethide(true, deathkeep_info:com28);
+    if_setsize(16, 0, ^setsize_minus, ^setsize_minus, deathkeep_info:com26);
+    if_setsize(16, 0, ^setsize_abs, ^setsize_minus, deathkeep_info:com27);
+} else {
+    $int = max(paraheight($string0, if_getwidth(deathkeep_info:com30), p12_full), paraheight($string1, if_getwidth(deathkeep_info:com30), p12_full));
+    $int = calc($int * 12 + 10);
+    if_setsize(10, $int, ^setsize_minus, ^setsize_abs, deathkeep_info:com28);
+    if_sethide(false, deathkeep_info:com28);
+    $int = calc($int + 5);
+    if_setsize(16, $int, ^setsize_minus, ^setsize_minus, deathkeep_info:com26);
+    if_setsize(16, $int, ^setsize_abs, ^setsize_minus, deathkeep_info:com27);
+    ~v2_stone_button_filled(deathkeep_info:com29);
+    if_setonmouseover("v2_stone_button_in_filled(deathkeep_info:com29)", deathkeep_info:com28);
+    if_setonmouseleave("v2_stone_button_filled(deathkeep_info:com29)", deathkeep_info:com28);
+    if (%varbit_9226 = true) {
+        if_settext($string1, deathkeep_info:com30);
+    } else {
+        if_settext($string0, deathkeep_info:com30);
+    }
+}
+cc_deleteall(deathkeep_info:com26);
+$int = calc(paraheight(%varc_string_352, if_getwidth(deathkeep_info:com26), p11_full) * 10 + 2);
+cc_create(deathkeep_info:com26, ^iftype_text, 0);
+cc_setsize(0, $int, ^setsize_minus, ^setsize_abs);
+cc_setposition(0, 0, ^setpos_abs_centre, ^setpos_abs_top);
+cc_settextfont(p11_full);
+cc_settextalign(^settextalign_centre, ^settextalign_centre, 0);
+cc_setcolour(0xff981f);
+cc_settextshadow(true);
+cc_settext(%varc_string_352);
+if ($int > if_getheight(deathkeep_info:com26)) {
+    if_setscrollsize(0, $int, deathkeep_info:com26);
+    ~scrollbar_vertical(deathkeep_info:com27, deathkeep_info:com26, "scrollbar_dragger_v2,3", "scrollbar_dragger_v2,0", "scrollbar_dragger_v2,1", "scrollbar_dragger_v2,2", "scrollbar_v2,0", "scrollbar_v2,1");
+    if_sethide(false, deathkeep_info:com27);
+    if_setposition(0, 0, ^setpos_abs_left, ^setpos_abs_top, deathkeep_info:com26);
+} else {
+    if_setscrollsize(0, 0, deathkeep_info:com26);
+    if_sethide(true, deathkeep_info:com27);
+    if_setposition(0, 0, ^setpos_abs_centre, ^setpos_abs_top, deathkeep_info:com26);
+    if_setscrollpos(0, 0, deathkeep_info:com26);
+}

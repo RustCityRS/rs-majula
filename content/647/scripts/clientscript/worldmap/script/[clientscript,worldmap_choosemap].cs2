@@ -1,0 +1,16 @@
+[clientscript,worldmap_choosemap](maparea $int0, component $component1, component $component2, component $component3, component $component4, component $component5)
+sound_synth(synth_2266, 1, 0);
+$int0 = ~clientscript_2785($int0);
+if ($int0 = worldmap_getstate_5235) {
+    ~worldmap_showmenu(0, $component1, $component2, $component3, $component4, $component5);
+    return;
+}
+%varc_string_31 = "";
+~clientscript_308($component4);
+~worldmap_overlay_clear($component5);
+~deltooltip_action(worldmap:com57);
+minimap_flash($int0);
+%varc_int_172 = maparea_getdefaultzoom($int0);
+~worldmap_setzoom;
+~worldmap_vartransmit_effects;
+~worldmap_showmenu(0, $component1, $component2, $component3, $component4, $component5);

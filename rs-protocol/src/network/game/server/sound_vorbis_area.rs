@@ -10,7 +10,7 @@ use rs_io::{Packet, PacketFrame};
 use rs_protocol_macros::server_prot;
 
 #[cfg(since_647)]
-#[server_prot(SoundVorbisArea, Buffered, Fixed)]
+#[server_prot(SoundVorbisArea, Immediate, Fixed)]
 pub struct SoundVorbisArea {
     pub coord: u8,
     pub sample_id: u16,

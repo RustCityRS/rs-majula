@@ -1,0 +1,3 @@
+[proc,clientscript_1602](string $string)(string)
+return(~find_and_replace($string, substring("<lt>", 0, 1), ">"));
+return("");

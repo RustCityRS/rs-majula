@@ -1,0 +1,6 @@
+[proc,add_to_inputstring](int $int0, int $int1, int $int2, string $string0)(string)
+def_string $string1 = "";
+def_int $int3 = -1;
+$string1, $int3 = ~clientscript_802($int3, $string0, $int0, $int1, $int2);
+return($string1);
+return("");

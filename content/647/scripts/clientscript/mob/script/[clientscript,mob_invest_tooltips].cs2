@@ -1,0 +1,25 @@
+[clientscript,mob_invest_tooltips]
+if (compare(%varc_string_184, "") = false) {
+    if_setonmouserepeat("addtooltip(mob_invest:com50, mob_invest:com11, %varc_string_184, 50, 250)", mob_invest:com50);
+    if_setonmouseleave("deltooltip(mob_invest:com11)", mob_invest:com50);
+}
+if (compare(%varc_string_185, "") = false) {
+    if_setonmouserepeat("addtooltip(mob_invest:com51, mob_invest:com11, %varc_string_185, 50, 250)", mob_invest:com51);
+    if_setonmouseleave("deltooltip(mob_invest:com11)", mob_invest:com51);
+}
+if (compare(%varc_string_186, "") = false) {
+    if_setonmouserepeat("addtooltip(mob_invest:com52, mob_invest:com11, %varc_string_186, 50, 250)", mob_invest:com52);
+    if_setonmouseleave("deltooltip(mob_invest:com11)", mob_invest:com52);
+}
+if (compare(%varc_string_187, "") = false) {
+    if_setonmouserepeat("addtooltip(mob_invest:com53, mob_invest:com11, %varc_string_187, 50, 250)", mob_invest:com53);
+    if_setonmouseleave("deltooltip(mob_invest:com11)", mob_invest:com53);
+}
+if (compare(%varc_string_188, "") = false) {
+    if_setonmouserepeat("addtooltip(mob_invest:com54, mob_invest:com11, %varc_string_188, 50, 250)", mob_invest:com54);
+    if_setonmouseleave("deltooltip(mob_invest:com11)", mob_invest:com54);
+}
+if (compare(%varc_string_189, "") = false) {
+    if_setonmouserepeat("addtooltip(mob_invest:com55, mob_invest:com11, %varc_string_189, 50, 250)", mob_invest:com55);
+    if_setonmouseleave("deltooltip(mob_invest:com11)", mob_invest:com55);
+}

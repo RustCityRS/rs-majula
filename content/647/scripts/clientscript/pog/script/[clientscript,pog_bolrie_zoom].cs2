@@ -1,0 +1,9 @@
+[clientscript,pog_bolrie_zoom]
+if (%varc_int_52 < 300) {
+    %varc_int_52 = calc(%varc_int_52 + 1);
+}
+if (%varc_int_51 > 0 & calc(%varc_int_52 % 3) = false) {
+    %varc_int_51 = calc(%varc_int_51 - 3);
+    %varc_int_50 = calc(%varc_int_50 + 1);
+    if_setmodelangle(0, %varc_int_50, 0, 0, 0, %varc_int_51, xc4139998:com0);
+}

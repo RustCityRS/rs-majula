@@ -1,0 +1,6 @@
+[clientscript,create_caret_flash](int $int0, component $component1, int $int2)
+if (%varc_int_174 = $int2 & (calc((clientclock - $int0) % 40) < 20 & (login_getint_5609 ! -3 & has_focus = true))) {
+    if_sethide(false, $component1);
+} else {
+    if_sethide(true, $component1);
+}

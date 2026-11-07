@@ -30,7 +30,7 @@ pub fn pack_locs(
 ) -> Result<PackedFile> {
     let pack = &registry.loc;
 
-    let configs = parse_config_sections_cached(file_cache, "loc", constants);
+    let configs = parse_config_sections_cached(file_cache, "loc", constants)?;
 
     #[cfg(since_647)]
     let mut loc_ids = HashMap::new();
@@ -53,6 +53,20 @@ pub fn pack_locs(
             client.skip_entry();
             continue;
         };
+        // An explicit declaration can name an absent cache slot without
+        // turning it into an empty (opcode-0) entry on the client.
+        if props
+            .iter()
+            .any(|(key, value)| key == "absent" && value == "yes")
+        {
+            anyhow::ensure!(
+                props.len() == 1,
+                "Absent loc {debugname} cannot define properties"
+            );
+            server.finish_entry();
+            client.skip_entry();
+            continue;
+        }
 
         #[cfg(before_647)]
         let mut src_models: Vec<&str> = Vec::new();
@@ -1051,6 +1065,36 @@ mod tests {
     use rs_io::Packet;
     use std::collections::HashMap;
     use std::{env, fs, process};
+
+    #[test]
+    fn an_absent_loc_declaration_preserves_the_empty_cache_slot() {
+        let dir = env::temp_dir().join(format!("rs-majula-absent-loc-{}", process::id()));
+        fs::create_dir_all(&dir).unwrap();
+        let mut registry = PackRegistry::load(&dir).unwrap();
+        registry.loc.max = 1;
+        registry.loc.id_to_debugname.insert(0, "missing".into());
+        registry.loc.debugname_to_id.insert("missing".into(), 0);
+        let pack = || {
+            pack_locs(
+                &FileCache::new(&dir),
+                &registry,
+                &HashMap::new(),
+                &HashMap::new(),
+            )
+            .unwrap()
+        };
+        let original = pack();
+        fs::write(dir.join("missing.loc"), "[missing]\nabsent=yes\n").unwrap();
+        let declared = pack();
+        assert_eq!(original.server.dat, declared.server.dat);
+        assert_eq!(original.server.idx, declared.server.idx);
+        let original = original.client.unwrap();
+        let declared = declared.client.unwrap();
+        assert_eq!(original.dat, declared.dat);
+        assert_eq!(original.idx, declared.idx);
+        fs::remove_file(dir.join("missing.loc")).unwrap();
+        fs::remove_dir(dir).unwrap();
+    }
 
     #[test]
     fn multiloc_config_preserves_both_selectors_and_defaults() {

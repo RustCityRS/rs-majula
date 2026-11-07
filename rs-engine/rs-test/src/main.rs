@@ -35,7 +35,7 @@ fn main() {
         .spawn(move || -> anyhow::Result<bool> {
             use rs_test::runner;
             let labels = runner::discover_labels(
-                &runner::content_dir().join("scripts"),
+                &runner::content_dir().join("scripts/runescript"),
                 cli.filter.as_deref(),
             );
             let mut engine = runner::load_engine()?;

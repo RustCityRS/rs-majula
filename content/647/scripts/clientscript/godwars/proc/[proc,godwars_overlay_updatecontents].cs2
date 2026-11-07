@@ -1,0 +1,63 @@
+[proc,godwars_overlay_updatecontents](component $component0, component $component1, component $component2, component $component3, component $component4, int $int5, int $int6, int $int7, int $int8, int $int9, component $component10, component $component11, component $component12, component $component13, component $component14, component $component15, int $int16)
+if (%varbit_8725 < 4000) {
+    if_settext(tostring(%varbit_8725), $component15);
+} else {
+    if_settext("Max", $component15);
+}
+if (%varbit_3939 < 4000) {
+    if_settext(tostring(%varbit_3939), $component10);
+} else {
+    if_settext("Max", $component10);
+}
+if (%varbit_3941 < 4000) {
+    if_settext(tostring(%varbit_3941), $component11);
+} else {
+    if_settext("Max", $component11);
+}
+if (%varbit_3938 < 4000) {
+    if_settext(tostring(%varbit_3938), $component12);
+} else {
+    if_settext("Max", $component12);
+}
+if (%varbit_3942 < 4000) {
+    if_settext(tostring(%varbit_3942), $component13);
+} else {
+    if_settext("Max", $component13);
+}
+def_int $int17 = parawidth(if_gettext($component15), 512, p11_full);
+def_int $int18 = parawidth(if_gettext($component10), 512, p11_full);
+def_int $int19 = parawidth(if_gettext($component11), 512, p11_full);
+def_int $int20 = parawidth(if_gettext($component12), 512, p11_full);
+def_int $int21 = parawidth(if_gettext($component13), 512, p11_full);
+def_int $int22 = $int5;
+$int22 = max($int22, calc($int16 + 10 + $int17));
+$int22 = max($int22, calc($int6 + 10 + $int18));
+$int22 = max($int22, calc($int7 + 10 + $int19));
+$int22 = max($int22, calc($int8 + 10 + $int20));
+$int22 = max($int22, calc($int9 + 10 + $int21));
+if_setsize($int22, if_getheight($component0), ^setsize_abs, ^setsize_abs, $component0);
+if (%varbit_8725 < 40) {
+    if_setcolour(0xff981f, $component14);
+} else {
+    if_setcolour(0x66ffff, $component14);
+}
+if (%varbit_3939 < 40) {
+    if_setcolour(0xff981f, $component1);
+} else {
+    if_setcolour(0x66ffff, $component1);
+}
+if (%varbit_3941 < 40) {
+    if_setcolour(0xff981f, $component2);
+} else {
+    if_setcolour(0x66ffff, $component2);
+}
+if (%varbit_3938 < 40) {
+    if_setcolour(0xff981f, $component3);
+} else {
+    if_setcolour(0x66ffff, $component3);
+}
+if (%varbit_3942 < 40) {
+    if_setcolour(0xff981f, $component4);
+} else {
+    if_setcolour(0x66ffff, $component4);
+}

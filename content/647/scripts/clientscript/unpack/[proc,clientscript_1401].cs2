@@ -1,0 +1,42 @@
+[proc,clientscript_1401](int $int0, int $int1, int $int2, string $string)(int)
+$string = ~clientscript_1602($string);
+def_int $int3 = string_length($string);
+$int0 = calc($int0 - $int2);
+if ($int0 <= 0) {
+    return(0);
+}
+if ($int0 >= op4125($string, $int1)) {
+    return($int3);
+}
+def_int $int4 = 0;
+def_int $int5 = string_length($string);
+def_int $int6 = -1;
+def_int $int7 = 0;
+def_int $int8 = 0;
+while ($int4 ! $int5) {
+    $int6 = calc(($int5 - $int4) / 2 + $int4);
+    if ($int6 = $int4) {
+        $int7 = op4125(substring($string, 0, $int5), $int1);
+        if ($int5 > 1) {
+            $int8 = op4125(substring($string, 0, calc($int5 - 1)), $int1);
+        }
+        if (calc($int7 - $int0) < calc($int0 - $int8)) {
+            return($int5);
+        }
+        return(calc($int5 - 1));
+    }
+    if ($int0 <= op4125(substring($string, 0, $int6), $int1)) {
+        $int4, $int5 = $int4, $int6;
+    } else {
+        $int4, $int5 = $int6, $int5;
+    }
+}
+$int7 = op4125(substring($string, 0, $int5), $int1);
+if ($int5 > 1) {
+    $int8 = op4125(substring($string, 0, calc($int5 - 1)), $int1);
+}
+if (calc($int7 - $int0) < calc($int0 - $int8)) {
+    return($int5);
+}
+return(calc($int5 - 1));
+return(0);

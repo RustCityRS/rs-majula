@@ -1,0 +1,14 @@
+[proc,clientscript_2936](int $int)
+if (is_unsigned = true) {
+    %varc_int_547 = $int;
+    ~login_open(11);
+    if_sethide(true, loginscreen:com28);
+    if (login_getint_5623 = true) {
+        if_sethide(false, loginscreen:com27);
+    } else {
+        if_sethide(false, loginscreen:com26);
+    }
+    if (%varc_int_547 = true) {
+        ~login_dologin;
+    }
+}

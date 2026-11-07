@@ -3,7 +3,7 @@
 Research for building Unstable Foundations (UF) as 647 content, end to end. Every
 claim names its source. Kinds of claim are kept apart:
 
-- **cache**: cache 786 (configs in `content/647/scripts/_unpack/all.*`, maps in
+- **cache**: cache 786 (configs in `content/647/scripts/globalscript/_unpack/all.*`, maps in
   `content/647/maps/*.jm2`, interfaces in
   `content/647/interfaces/*.if` (named components), decompiled
   clientscripts in `runescape/target/unpack-work/clientscript/_decompiled/<id>.cs2`),
@@ -51,7 +51,7 @@ Update:Advisors and Objectives give 17 September 2009.)
 
 ### 1.1 What 647 content does now
 
-- `content/647/scripts/login_logout/scripts/login.rs2:40`: `if
+- `content/647/scripts/runescript/login_logout/scripts/login.rs2:40`: `if
   (%learning_the_ropes < 1000) { ~cc_open_interface(); return; }`.
 - `cc_setup.rs2` `[proc,cc_open_interface]`: opens `playerdesign4` (interface
   1028) top-level, `allowdesign(^true)`.
@@ -59,7 +59,7 @@ Update:Advisors and Objectives give 17 September 2009.)
   1001`, applies the design, opens the game frame. **No teleport**: the player
   stays where the account was created.
 - `%learning_the_ropes` is varp 281 (`content/647/pack/varp.pack:282`, perm in
-  `content/647/scripts/player/configs/perm.varp:3`, `transmit=yes` in
+  `content/647/scripts/runescript/player/configs/perm.varp:3`, `transmit=yes` in
   `all.varp`).
 
 ### 1.2 What cache 786 says varp 281 is
@@ -485,7 +485,7 @@ dragonfire: **no source found**.
   found**. Engine: `rs-protocol/src/network/game/server/vorbis_sound.rs` exists
   (fields `unk1`, `unk2`), nothing sends it, no wire test.
 - **Music** (wiki locations; 647 ids from `content/647/pack/midi.pack` and
-  `content/647/scripts/music/configs/music.dbrow`):
+  `content/647/scripts/runescript/music/configs/music.dbrow`):
 
 | Track | When (wiki) | midi | music list (playbutton) |
 |---|---|---|---|
@@ -571,7 +571,7 @@ Its UF npc spawn (7942 at (3294,4937)) and teles (`.teles.toml`, region 14669 /
    and report.** Instancing (item 2) would make it unnecessary.
 4. **Script commands** for CAM_FORCEANGLE, CAM_SMOOTHRESET, CAM_REMOVEROOF:
    missing, and outside the hands-off list (rs-vm `ops/player.rs`, `engine.rs`,
-   `active_player.rs`, `content/647/scripts/engine.rs2`). No UF source asks for
+   `active_player.rs`, `content/647/scripts/runescript/engine.rs2`). No UF source asks for
    them (the cs2 paths do the work), so only add them if a step needs them; each
    needs a wire test against `MapAreaConfig` first.
 5. **Voice-over**: VORBIS_SOUND has no command and no mapping (section 5): out

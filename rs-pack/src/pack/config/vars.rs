@@ -12,7 +12,7 @@ pub fn pack_vars(
     kind: &str,
     constants: &HashMap<String, String>,
 ) -> Result<PackedFile> {
-    let configs = parse_config_sections_cached(file_cache, kind, constants);
+    let configs = parse_config_sections_cached(file_cache, kind, constants)?;
 
     let mut server = PackedData::new(pack.max);
 

@@ -1,0 +1,2 @@
+[clientscript,bees_mouseleave](component $component)
+if_setmodelanim(swarm_walk, $component);

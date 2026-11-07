@@ -1,0 +1,11 @@
+[proc,clientscript_246]
+if_setonkey("snapshot_onkey_v1(^event_key, ^event_keychar)", snapshot_main_v2:com53);
+if_setonkey(null, chatbox_background:com55);
+%varc_int_6 = 0;
+%varc_int_11 = 1;
+if (if_gethide(chatbox:com3) = false) {
+    if_sethide(true, chatbox:com3);
+    if_sethide(false, chatbox:com8);
+    %varc_int_5 = 0;
+    %varc_string_22 = "";
+}

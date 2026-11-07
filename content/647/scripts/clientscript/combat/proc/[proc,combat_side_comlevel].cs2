@@ -1,0 +1,6 @@
+[proc,combat_side_comlevel](component $component)
+if (%varc_int_1000 > player_getcomlevel) {
+    if_settext("Combat Lvl: <tostring(player_getcomlevel)>+<tostring(calc(%varc_int_1000 - player_getcomlevel))>", $component);
+} else {
+    if_settext("Combat Lvl: <tostring(player_getcomlevel)>", $component);
+}

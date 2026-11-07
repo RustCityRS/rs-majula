@@ -1,0 +1,44 @@
+[proc,task_main_list_populate](int $int0, int $int1, int $int2)
+if ($int0 = 63) {
+    $int0 = %varbit_8575;
+} else if ($int0 = 999) {
+    $int0 = %varbit_8582;
+}
+if ($int1 = 999) {
+    $int1 = %varbit_8579;
+}
+if ($int2 = 999) {
+    $int2 = %varbit_8580;
+}
+~clientscript_4017($int0);
+if_setgraphic(enum(105, 100, enum_3491, $int0), task_main:com120);
+if_settext(enum(105, 115, enum_3487, $int0), task_main:com121);
+if_sethide(false, task_main:com121);
+if (if_find(task_main:com105) = true) {
+    cc_setcursor_op(1, 172);
+}
+if (if_find(task_main:com117) = true) {
+    cc_setcursor_op(1, 56);
+}
+if (if_find(task_main:com121) = true) {
+    cc_setcursor_op(1, 56);
+}
+%varc_int_1422 = -1;
+def_int $int3 = enum(105, 105, enum_3482, $int0);
+cc_deleteall(task_main:com98);
+if_sethide(true, task_main:com119);
+if_sethide(true, task_main:com115);
+def_int $int4 = 0;
+if_sethide(false, task_main:com91);
+if (%varbit_9030 = true) {
+    $int4 = ~clientscript_4243;
+    if_sethide(true, task_main:com91);
+} else if ($int3 = 4091) {
+    $int4 = ~clientscript_3988($int0);
+} else {
+    $int4 = ~task_main_listitemloop($int3, $int1, $int2);
+}
+def_int $int5 = calc($int4 + if_getheight(task_main:com99));
+$int5 = max($int5, if_getheight(task_main:com98));
+if_setscrollsize(0, $int5, task_main:com98);
+~scrollbar_vertical(task_main:com100, task_main:com98, "task_scrollbar_dragger,3", "task_scrollbar_dragger,0", "task_scrollbar_dragger,1", "task_scrollbar_dragger,2", "task_scrollbar,1", "task_scrollbar,0");

@@ -1,0 +1,6 @@
+[proc,clientscript_3285](int $int)
+if_setscrollsize(0, $int, rand_floor_select:com36);
+if_setscrollsize(0, $int, rand_floor_select:com38);
+if (if_getscrollheight(rand_floor_select:com36) < if_getheight(rand_floor_select:com36)) {
+    if_sethide(true, rand_floor_select:com47);
+}

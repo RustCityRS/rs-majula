@@ -1,0 +1,7 @@
+[proc,clientscript_3143](int $int, string $string)
+if ($int = false) {
+    if_setcolour(0xebe0bc, lobbyscreen_pane_worldselect:com8);
+} else if ($int = true) {
+    if_setcolour(^red, lobbyscreen_pane_worldselect:com8);
+}
+if_settext($string, lobbyscreen_pane_worldselect:com8);

@@ -1,0 +1,36 @@
+[clientscript,snp_game_overlay_tooltips](component $component0, component $component1)
+def_string $string = "";
+if (%varbit_5835 = true) {
+    return;
+}
+switch_component ($component0) {
+    case tv1998864:com9, tv1998864:com13, tv1998864:com28:
+        $string = "The number of times that the avatar has been killed.";
+    case tv1998864:com10, tv1998864:com14, tv1998864:com25:
+        $string = "The Slayer level required to attack each avatar.";
+    case tv1998864:com11, tv1998864:com15, tv1998864:com24:
+        $string = "The remaining health of each avatar.";
+    case tv1998864:com26, tv1998864:com27:
+        $string = "How much time the game has remaining.";
+    case tv1998864:com8:
+        $string = "This column displays the blue team's statistics.";
+    case tv1998864:com12:
+        $string = "This column displays the red team's statistics.";
+    case tv1998864:com29:
+        $string = "Shows which team controls the soul obelisk.";
+    case tv1998864:com30:
+        $string = "Shows which team controls the western graveyard.";
+    case tv1998864:com31:
+        $string = "Shows which team controls the eastern graveyard.";
+    case tv1998864:com6:
+        $string = "Shows how much control a team has over the soul obelisk.";
+    case tv1998864:com69:
+        $string = "Shows how much control a team has over the eastern graveyard.";
+    case tv1998864:com62:
+        $string = "Shows how much control a team has over the western graveyard.";
+    case tv1998864:com56:
+        $string = "Shows how active you have been during the game.";
+    case default:
+        return;
+}
+~addtooltip_action($component0, $component1, $string, 25, if_getwidth(if_getlayer($component1)));

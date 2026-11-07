@@ -1,0 +1,3 @@
+[proc,mescoord](coord $coord)(string)
+return("<tostring(coordy($coord))>_<tostring(calc(coordx($coord) / 64))>_<tostring(calc(coordz($coord) / 64))>_<tostring(calc(coordx($coord) % 64))>_<tostring(calc(coordz($coord) % 64))>");
+return("");

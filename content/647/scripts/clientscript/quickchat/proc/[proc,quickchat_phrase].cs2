@@ -1,0 +1,10 @@
+[proc,quickchat_phrase](component $component0, int $int1, int $int2)
+if ($int2 >= 0) {
+    ~quickchat_return($component0, $int2);
+}
+%varc_int_134 = 0;
+if (quickchat_phrase_getcmdcount($int1) > 0) {
+    ~quickchat_phrase_setup($component0, $int1);
+} else {
+    ~quickchat_phrase_send($int1);
+}

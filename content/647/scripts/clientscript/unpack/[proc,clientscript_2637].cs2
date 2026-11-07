@@ -1,0 +1,10 @@
+[proc,clientscript_2637]
+if (%varc_int_902 = true) {
+    if_setgraphic(1949, mob_side_command:com24);
+} else if (%varc_int_902 = 2) {
+    if_setgraphic(1946, mob_side_command:com24);
+} else if (%varc_int_902 = 3) {
+    if_setgraphic(1947, mob_side_command:com24);
+}
+if_settext("", mob_side_command:com28);
+if_settext("", mob_side_command:com29);

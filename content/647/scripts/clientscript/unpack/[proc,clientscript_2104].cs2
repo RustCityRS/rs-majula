@@ -1,0 +1,8 @@
+[proc,clientscript_2104](int $int)
+if ($int = true) {
+    if_sethide(false, sandwich_tray:com23);
+    if_sethide(true, sandwich_tray:com9);
+} else {
+    if_sethide(true, sandwich_tray:com23);
+    if_sethide(false, sandwich_tray:com9);
+}

@@ -1,0 +1,22 @@
+[proc,skill_advance_guide_subsection_title_fishing](int $int)(int, string)
+switch_int ($int) {
+    case 0:
+        return("Techniques", 0);
+    case 1:
+        return("Catches", 0);
+    case 2:
+        return("Barbarian", 1);
+    case 3:
+        return("Multiple Catch", 1);
+    case 4:
+        return("Other", 0);
+    case 5:
+        return("Activities", 1);
+    case 6:
+        return("Dungeoneering", 0);
+    case 7:
+        return("Milestones", 0);
+    case default:
+        return("", -1);
+}
+return("", 0);

@@ -1,0 +1,6 @@
+[clientscript,friends_chat_minimenu_timer]
+if (hud_test(72679429, -1) = true) {
+    return;
+}
+if_setontimer(null, friends_chat:com5);
+~clientscript_518;

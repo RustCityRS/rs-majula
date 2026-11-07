@@ -1,0 +1,24 @@
+[proc,clientscript_1126](component $component)
+%varc_int_993 = 0;
+switch_component ($component) {
+    case magic:com2:
+        ~deltooltip_action(magic:com96);
+        if (%varbit_2668 = false) {
+            if_setgraphic(1701, $component);
+        }
+    case magic_zaros:com18:
+        ~deltooltip_action(magic_zaros:com53);
+        if (%varbit_2668 = false) {
+            if_setgraphic(1701, $component);
+        }
+    case magic_lunar:com20:
+        ~deltooltip_action(magic_lunar:com64);
+        if (%varbit_2668 = false) {
+            if_setgraphic(1701, $component);
+        }
+    case rand_magic:com2:
+        ~deltooltip_action(rand_magic:com72);
+        if (%varbit_2668 = false) {
+            if_setgraphic(1701, $component);
+        }
+}

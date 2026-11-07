@@ -1,0 +1,5 @@
+[proc,clientscript_2583]
+if_setcolour(0xff9935, mob_squad_exchange:com114);
+if_setop(1, "Resupply", mob_squad_exchange:com113);
+if_setonop("clientscript_2592(^event_com)", mob_squad_exchange:com113);
+if_setonclick(null, mob_squad_exchange:com113);

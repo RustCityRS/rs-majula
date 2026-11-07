@@ -1,0 +1,4 @@
+[proc,clientscript_4228](component $component0, int $int1, int $int2, string $string)
+if (.cc_find($component0, $int1) = true) {
+    ~clientscript_4229($int2, $string);
+}

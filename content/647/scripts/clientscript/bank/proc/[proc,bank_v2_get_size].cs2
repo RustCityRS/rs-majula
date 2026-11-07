@@ -1,0 +1,12 @@
+[proc,bank_v2_get_size]()(int)
+if (is_logged_in = true) {
+    if (~clientscript_3287 = true) {
+        return(516);
+    } else {
+        return(calc(516 - 10));
+    }
+} else if (~clientscript_3287 = true) {
+    return(calc(516 - 439 + 1));
+} else {
+    return(calc(516 - 439 + 1 - 10));
+}

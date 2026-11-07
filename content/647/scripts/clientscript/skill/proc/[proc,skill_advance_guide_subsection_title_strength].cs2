@@ -1,0 +1,20 @@
+[proc,skill_advance_guide_subsection_title_strength](int $int)(int, string)
+switch_int ($int) {
+    case 0:
+        return("Weaponry", 1);
+    case 1:
+        return("Armour", 1);
+    case 2:
+        return("Shortcuts", 1);
+    case 3:
+        return("Areas", 1);
+    case 4:
+        return("Barbarian", 1);
+    case 5:
+        return("Dungeoneering", 0);
+    case 6:
+        return("Milestones", 0);
+    case default:
+        return("", -1);
+}
+return("", 0);

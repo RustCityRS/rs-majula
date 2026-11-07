@@ -1,0 +1,13 @@
+[proc,bank_v2_showequipscreen]
+if (%bank_hidden = true) {
+    if_sethide(true, bank_v2_main:com0);
+    if_sethide(true, bank_v2_side:com0);
+    if_sethide(false, equip_screen2:com0);
+    if_sethide(false, bank_v2_side:com1);
+} else {
+    if_sethide(false, bank_v2_main:com0);
+    if_sethide(false, bank_v2_side:com0);
+    if_sethide(true, equip_screen2:com0);
+    if_sethide(true, bank_v2_side:com1);
+}
+~window_resize;

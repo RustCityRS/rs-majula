@@ -1,0 +1,8 @@
+[proc,chatdefault_updatechatbox](boolean $boolean)
+if ($boolean = true & ((if_hasoverlay(chatbox:com10) = true | if_hasoverlay(chatbox:com11) = true) & (chat_gethistory_length(0) = false | (chat_gethistory_length(0) = 4 | (chat_gethistory_length(0) = 27 | (chat_gethistory_length(0) = 28 | (chat_gethistory_length(0) = 29 | (chat_gethistory_length(0) = 26 | (chat_gethistory_length(0) = 30 | chat_gethistory_length(0) = 31))))))))) {
+    ~chatdefault_openmeslayer;
+}
+~rebuildchatbox;
+~rebuildpmbox;
+~chatalerts;
+~redraw_chat_buttons;

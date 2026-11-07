@@ -1,0 +1,6 @@
+[proc,clientscript_4245](int $int0, int $int1, int $int2, colour $colour3, fontmetrics $fontmetrics4, string $string)
+if (getwindowmode >= 2) {
+    ~clientscript_4248($string, $int0, $int1, $int2, $colour3, $fontmetrics4);
+} else {
+    ~clientscript_4247($string, $int0, $int1, $int2, $colour3, $fontmetrics4);
+}

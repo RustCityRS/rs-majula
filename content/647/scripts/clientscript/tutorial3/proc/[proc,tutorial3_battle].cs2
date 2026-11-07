@@ -1,0 +1,108 @@
+[proc,tutorial3_battle](component $component0, coord $coord1)
+switch_int (%varc_int_1007) {
+    case 1:
+        cam_allocpath(0, 2);
+        cam_addwaypoint(0, 0, ~tutorial3_coord(0_57_77_32_13, $coord1), 600, ~tutorial3_coord(0_57_77_32_13, $coord1), 600, 0);
+        cam_addwaypoint(0, 1, ~tutorial3_coord(0_57_77_32_13, $coord1), 450, ~tutorial3_coord(0_57_77_32_13, $coord1), 450, 0);
+        cam_allocpath(1, 2);
+        cam_addwaypoint(1, 0, ~tutorial3_coord(0_57_77_32_20, $coord1), 100, ~tutorial3_coord(0_57_77_32_20, $coord1), 100, 0);
+        cam_addwaypoint(1, 1, ~tutorial3_coord(0_57_77_32_25, $coord1), 100, ~tutorial3_coord(0_57_77_32_25, $coord1), 100, 0);
+        cam_startpath(0, 0, 100, 140, 1, 0);
+        if_setontimer("clientscript_2771($component0, clientclock)", $component0);
+    case 2:
+        if_setontimer(null, $component0);
+        cam_allocpath(0, 10);
+        cam_allocpath(1, 10);
+        cam_addwaypoint(0, 0, ~tutorial3_coord(0_57_77_25_37, $coord1), 400, ~tutorial3_coord(0_57_77_25_37, $coord1), 420, 0);
+        cam_addwaypoint(0, 1, ~tutorial3_coord(0_57_77_26_36, $coord1), 400, ~tutorial3_coord(0_57_77_26_36, $coord1), 420, 128);
+        cam_addwaypoint(0, 2, ~tutorial3_coord(0_57_77_27_35, $coord1), 400, ~tutorial3_coord(0_57_77_27_35, $coord1), 420, 0);
+        cam_addwaypoint(0, 3, ~tutorial3_coord(0_57_77_28_34, $coord1), 400, ~tutorial3_coord(0_57_77_28_34, $coord1), 420, -128);
+        cam_addwaypoint(0, 4, ~tutorial3_coord(0_57_77_29_33, $coord1), 400, ~tutorial3_coord(0_57_77_29_33, $coord1), 420, 0);
+        cam_addwaypoint(0, 5, ~tutorial3_coord(0_57_77_30_32, $coord1), 400, ~tutorial3_coord(0_57_77_30_32, $coord1), 420, 128);
+        cam_addwaypoint(0, 6, ~tutorial3_coord(0_57_77_31_31, $coord1), 400, ~tutorial3_coord(0_57_77_31_31, $coord1), 420, 0);
+        cam_addwaypoint(0, 7, ~tutorial3_coord(0_57_77_32_30, $coord1), 400, ~tutorial3_coord(0_57_77_32_30, $coord1), 420, -128);
+        cam_addwaypoint(0, 8, ~tutorial3_coord(0_57_77_32_29, $coord1), 400, ~tutorial3_coord(0_57_77_32_29, $coord1), 420, 0);
+        cam_addwaypoint(0, 9, ~tutorial3_coord(0_57_77_32_28, $coord1), 400, ~tutorial3_coord(0_57_77_32_28, $coord1), 420, 128);
+        cam_addwaypoint(0, 10, ~tutorial3_coord(0_57_77_32_27, $coord1), 400, ~tutorial3_coord(0_57_77_32_27, $coord1), 420, 0);
+        cam_addwaypoint(1, 0, ~tutorial3_coord(0_57_77_32_26, $coord1), 400, ~tutorial3_coord(0_57_77_32_26, $coord1), 400, 0);
+        cam_addwaypoint(1, 1, ~tutorial3_coord(0_57_77_32_25, $coord1), 395, ~tutorial3_coord(0_57_77_32_25, $coord1), 395, 0);
+        cam_addwaypoint(1, 2, ~tutorial3_coord(0_57_77_32_24, $coord1), 390, ~tutorial3_coord(0_57_77_32_24, $coord1), 390, 0);
+        cam_addwaypoint(1, 3, ~tutorial3_coord(0_57_77_32_23, $coord1), 385, ~tutorial3_coord(0_57_77_32_23, $coord1), 385, 0);
+        cam_addwaypoint(1, 4, ~tutorial3_coord(0_57_77_32_22, $coord1), 380, ~tutorial3_coord(0_57_77_32_22, $coord1), 380, 0);
+        cam_addwaypoint(1, 5, ~tutorial3_coord(0_57_77_32_21, $coord1), 375, ~tutorial3_coord(0_57_77_32_21, $coord1), 375, 0);
+        cam_addwaypoint(1, 6, ~tutorial3_coord(0_57_77_32_20, $coord1), 370, ~tutorial3_coord(0_57_77_32_20, $coord1), 370, 0);
+        cam_addwaypoint(1, 7, ~tutorial3_coord(0_57_77_32_19, $coord1), 365, ~tutorial3_coord(0_57_77_32_19, $coord1), 365, 0);
+        cam_addwaypoint(1, 8, ~tutorial3_coord(0_57_77_32_18, $coord1), 360, ~tutorial3_coord(0_57_77_32_18, $coord1), 360, 0);
+        cam_addwaypoint(1, 9, ~tutorial3_coord(0_57_77_32_17, $coord1), 355, ~tutorial3_coord(0_57_77_32_17, $coord1), 355, 0);
+        cam_addwaypoint(1, 10, ~tutorial3_coord(0_57_77_32_17, $coord1), 350, ~tutorial3_coord(0_57_77_32_17, $coord1), 350, 0);
+        if_setonchattransmit_2426("clientscript_2772($component0, 1)", $component0);
+        cam_startpath(0, 0, 3000, 2500, 1, 0);
+        sound_synth(synth_6645, 1, 0);
+    case 3:
+        if_setonchattransmit_2426(null, $component0);
+        cam_allocpath(0, 2);
+        cam_addwaypoint(0, 0, ~tutorial3_coord(0_57_77_32_22, $coord1), 350, ~tutorial3_coord(0_57_77_32_22, $coord1), 350, 0);
+        cam_addwaypoint(0, 1, ~tutorial3_coord(0_57_77_32_22, $coord1), 300, ~tutorial3_coord(0_57_77_32_22, $coord1), 300, 0);
+        cam_allocpath(1, 2);
+        cam_addwaypoint(1, 0, ~tutorial3_coord(0_57_77_32_30, $coord1), 300, ~tutorial3_coord(0_57_77_32_30, $coord1), 300, 0);
+        cam_addwaypoint(1, 1, ~tutorial3_coord(0_57_77_32_30, $coord1), 350, ~tutorial3_coord(0_57_77_32_30, $coord1), 350, 0);
+        cam_startpath(0, 0, 60, 50, 1, 0);
+    case 4:
+        cam_allocpath(0, 2);
+        cam_addwaypoint(0, 0, ~tutorial3_coord(0_57_77_36_18, $coord1), 450, ~tutorial3_coord(0_57_77_36_17, $coord1), 450, 0);
+        cam_addwaypoint(0, 1, ~tutorial3_coord(0_57_77_34_12, $coord1), 600, ~tutorial3_coord(0_57_77_34_13, $coord1), 600, 0);
+        cam_allocpath(1, 2);
+        cam_addwaypoint(1, 0, ~tutorial3_coord(0_57_77_32_17, $coord1), 400, ~tutorial3_coord(0_57_77_32_18, $coord1), 400, 0);
+        cam_addwaypoint(1, 1, ~tutorial3_coord(0_57_77_32_19, $coord1), 350, ~tutorial3_coord(0_57_77_32_18, $coord1), 350, 0);
+        cam_startpath(0, 0, 250, 200, 1, 0);
+    case 5:
+        cam_allocpath(0, 2);
+        cam_addwaypoint(0, 0, ~tutorial3_coord(0_57_77_36_17, $coord1), 700, ~tutorial3_coord(0_57_77_36_17, $coord1), 700, 0);
+        cam_addwaypoint(0, 1, ~tutorial3_coord(0_57_77_36_17, $coord1), 700, ~tutorial3_coord(0_57_77_36_17, $coord1), 700, 0);
+        cam_allocpath(1, 2);
+        cam_addwaypoint(1, 0, ~tutorial3_coord(0_57_77_32_14, $coord1), 350, ~tutorial3_coord(0_57_77_32_13, $coord1), 350, 0);
+        cam_addwaypoint(1, 1, ~tutorial3_coord(0_57_77_32_13, $coord1), 150, ~tutorial3_coord(0_57_77_32_13, $coord1), 350, 0);
+        cam_startpath(0, 0, 100, 100, 1, 0);
+    case 6:
+        cam_allocpath(0, 2);
+        cam_addwaypoint(0, 0, ~tutorial3_coord(0_57_77_35_13, $coord1), 450, ~tutorial3_coord(0_57_77_35_14, $coord1), 450, 0);
+        cam_addwaypoint(0, 1, ~tutorial3_coord(0_57_77_33_14, $coord1), 450, ~tutorial3_coord(0_57_77_33_14, $coord1), 450, 0);
+        cam_allocpath(1, 2);
+        cam_addwaypoint(1, 0, ~tutorial3_coord(0_57_77_32_17, $coord1), 400, ~tutorial3_coord(0_57_77_32_18, $coord1), 400, 0);
+        cam_addwaypoint(1, 1, ~tutorial3_coord(0_57_77_32_19, $coord1), 400, ~tutorial3_coord(0_57_77_32_18, $coord1), 400, 0);
+        cam_startpath(0, 0, 60, 60, 1, 0);
+    case 7:
+        cam_allocpath(0, 2);
+        cam_addwaypoint(0, 0, ~tutorial3_coord(0_57_77_33_14, $coord1), 400, ~tutorial3_coord(0_57_77_33_13, $coord1), 400, 0);
+        cam_addwaypoint(0, 1, ~tutorial3_coord(0_57_77_33_12, $coord1), 400, ~tutorial3_coord(0_57_77_33_13, $coord1), 400, 0);
+        cam_allocpath(1, 2);
+        cam_addwaypoint(1, 0, ~tutorial3_coord(0_57_77_29_13, $coord1), 350, ~tutorial3_coord(0_57_77_29_13, $coord1), 350, 0);
+        cam_addwaypoint(1, 1, ~tutorial3_coord(0_57_77_29_13, $coord1), 350, ~tutorial3_coord(0_57_77_29_13, $coord1), 350, 0);
+        cam_startpath(0, 0, 30, 30, 1, 0);
+    case 8:
+        cam_allocpath(0, 2);
+        cam_addwaypoint(0, 0, ~tutorial3_coord(0_57_77_36_21, $coord1), 450, ~tutorial3_coord(0_57_77_36_20, $coord1), 450, 0);
+        cam_addwaypoint(0, 1, ~tutorial3_coord(0_57_77_35_19, $coord1), 450, ~tutorial3_coord(0_57_77_36_20, $coord1), 450, 0);
+        cam_allocpath(1, 2);
+        cam_addwaypoint(1, 0, ~tutorial3_coord(0_57_77_34_20, $coord1), 400, ~tutorial3_coord(0_57_77_33_21, $coord1), 400, 0);
+        cam_addwaypoint(1, 1, ~tutorial3_coord(0_57_77_32_21, $coord1), 400, ~tutorial3_coord(0_57_77_33_21, $coord1), 400, 0);
+        cam_startpath(0, 0, 150, 150, 1, 0);
+    case 9:
+        cam_allocpath(0, 2);
+        cam_addwaypoint(0, 0, ~tutorial3_coord(0_57_77_36_17, $coord1), 500, ~tutorial3_coord(0_57_77_34_17, $coord1), 500, 0);
+        cam_addwaypoint(0, 1, ~tutorial3_coord(0_57_77_29_16, $coord1), 700, ~tutorial3_coord(0_57_77_29_17, $coord1), 700, 0);
+        cam_allocpath(1, 2);
+        cam_addwaypoint(1, 0, ~tutorial3_coord(0_57_77_34_12, $coord1), 250, ~tutorial3_coord(0_57_77_34_12, $coord1), 250, 0);
+        cam_addwaypoint(1, 1, ~tutorial3_coord(0_57_77_35_12, $coord1), 250, ~tutorial3_coord(0_57_77_35_12, $coord1), 250, 0);
+        cam_startpath(0, 0, 30, 30, 1, 0);
+    case 10:
+        cam_allocpath(0, 2);
+        cam_addwaypoint(0, 0, ~tutorial3_coord(0_57_77_36_9, $coord1), 800, ~tutorial3_coord(0_57_77_36_9, $coord1), 800, 0);
+        cam_addwaypoint(0, 1, ~tutorial3_coord(0_57_77_36_7, $coord1), 600, ~tutorial3_coord(0_57_77_36_7, $coord1), 600, 0);
+        cam_allocpath(1, 2);
+        cam_addwaypoint(1, 0, ~tutorial3_coord(0_57_77_32_16, $coord1), 500, ~tutorial3_coord(0_57_77_32_16, $coord1), 500, 0);
+        cam_addwaypoint(1, 1, ~tutorial3_coord(0_57_77_30_18, $coord1), 400, ~tutorial3_coord(0_57_77_30_18, $coord1), 400, 0);
+        cam_startpath(0, 0, 400, 80, 1, 0);
+    case default:
+        cam_clear_5512;
+}

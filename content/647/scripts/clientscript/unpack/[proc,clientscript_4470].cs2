@@ -1,0 +1,9 @@
+[proc,clientscript_4470]
+def_int $int0 = 0;
+def_int $int1 = 0;
+if (~clientscript_4468 = true) {
+    if_sethide(false, clan_chat:com22);
+    if_sethide(true, clan_chat:com110);
+    return;
+}
+~clientscript_4471;

@@ -1,0 +1,23 @@
+[proc,clientscript_489](int $int)(component)
+switch_int ($int) {
+    case default:
+        return(null);
+    case 1:
+        return(conq_buy_army:com58);
+    case 2:
+        return(conq_buy_army:com60);
+    case 3:
+        return(conq_buy_army:com62);
+    case 4:
+        return(conq_buy_army:com64);
+    case 5:
+        return(conq_buy_army:com68);
+    case 6:
+        return(conq_buy_army:com70);
+    case 7:
+        return(conq_buy_army:com72);
+    case 8:
+        return(conq_buy_army:com74);
+    case 9:
+        return(conq_buy_army:com66);
+}

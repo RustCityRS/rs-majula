@@ -1,0 +1,43 @@
+[clientscript,worldmap_init](component $component0, component $component1, component $component2, component $component3, component $component4, component $component5, component $component6, component $component7, component $component8, component $component9)
+~clientscript_1088($component0, 0);
+def_int $int10 = -1;
+if (%varc_int_622 ! -1) {
+    $int10 = maparea_getbycoord(%varc_int_622);
+    if ($int10 = -1) {
+        $int10 = 28;
+    }
+}
+$int10 = ~clientscript_2785($int10);
+if (worldmap_coord_hasarea(%varc_int_622, $int10) = true) {
+    worldmap_setflag_5227($int10, %varc_int_622);
+} else {
+    minimap_flash($int10);
+}
+%varc_int_172 = maparea_getdefaultzoom($int10);
+~worldmap_setzoom;
+~worldmap_showoverview(0);
+~clientscript_1376(0, $component5, $component9);
+~worldmap_showmenu(0, $component6, $component7, $component8, $component4, $component5);
+~worldmap_key_build(%varbit_5367, $component1, $component2, $component3);
+if_setonvarctransmit("worldmap_init($component0, $component1, $component2, $component3, $component4, $component5, $component6, $component7, $component8, $component9){varc_int_622}", $component0);
+if_setonvartransmit("worldmap_vartransmit($component1, $component2, $component3, $component5, $component0, %varbit_6175){varp_463, varp_1159}", $component0);
+if_setonkey("worldmap_onkey(^event_key, ^event_keychar, $component4, -1)", $component4);
+%varc_string_31 = "";
+def_int $int11 = 0;
+def_int $int12 = 0;
+def_coord $coord13 = %varc_int_622;
+if ($coord13 ! -1) {
+    $int11, $int12 = worldmap_coord_to_display($coord13);
+    if ($int11 < 0 | $int12 < 0) {
+        $coord13 = coordpack(0_0_0_0_0, coordx($coord13), ~clientscript_686(calc(coordy($coord13) - 1), 4), coordz($coord13));
+        $int11, $int12 = worldmap_coord_to_display($coord13);
+        if ($int11 < 0 | $int12 < 0) {
+            $coord13 = coordpack(0_0_0_0_0, coordx($coord13), ~clientscript_686(calc(coordy($coord13) - 1), 4), coordz($coord13));
+            $int11, $int12 = worldmap_coord_to_display($coord13);
+            if ($int11 < 0 | $int12 < 0) {
+                return;
+            }
+        }
+    }
+    if_setontimer("clientscript_2054(calc(clientclock + 4), $component0, $coord13)", $component0);
+}

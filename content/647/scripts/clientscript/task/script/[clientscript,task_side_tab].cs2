@@ -1,0 +1,73 @@
+[clientscript,task_side_tab](int $int0)
+def_string $string = "";
+def_int $int1 = 0;
+def_int $int2 = 0;
+def_int $int3 = 0;
+switch_int ($int0) {
+    case 0:
+        if_sethide(true, task_side:com92);
+        if_sethide(true, task_side:com94);
+        if_sethide(false, task_side:com125);
+        if (compare(if_gettext(task_side:com91), struct_param(struct_1753, param_1266)) = false | compare(if_gettext(task_side:com91), struct_param(struct_1752, param_1266)) = false & %learning_the_ropes = 1000) {
+            $string = "Click on the Hints tab for more on how to complete this Task.";
+        } else if (compare(if_gettext(task_side:com91), struct_param(struct_1754, param_1266)) = false | compare(if_gettext(task_side:com91), struct_param(struct_1518, param_1266)) = false) {
+            $string = "Remember, the Hints tab provides more details about a Task.";
+        }
+        if (getwindowmode >= 2) {
+            $int1 = 196;
+            $int2 = 183;
+            $int3 = 1;
+            if (if_getwidth(toplevel_fullscreen:com0) < 997) {
+                $int2 = calc($int2 + 40);
+            }
+        } else {
+            $int1 = 217;
+            $int2 = 177;
+        }
+    case 1:
+        if_sethide(true, task_side:com92);
+        if_sethide(false, task_side:com94);
+        if_sethide(true, task_side:com125);
+        if (compare(if_gettext(task_side:com91), struct_param(struct_1753, param_1266)) = false | compare(if_gettext(task_side:com91), struct_param(struct_1752, param_1266)) = false & %learning_the_ropes = 1000) {
+            $string = "Click on the Hints tab for more on how to complete this Task.";
+        } else if (compare(if_gettext(task_side:com91), struct_param(struct_1754, param_1266)) = false | compare(if_gettext(task_side:com91), struct_param(struct_1518, param_1266)) = false) {
+            $string = "Remember, the Hints tab provides more details about a Task.";
+        }
+        if (getwindowmode >= 2) {
+            $int1 = 196;
+            $int2 = 183;
+            $int3 = 1;
+            if (if_getwidth(toplevel_fullscreen:com0) < 997) {
+                $int2 = calc($int2 + 40);
+            }
+        } else {
+            $int1 = 217;
+            $int2 = 177;
+        }
+    case 2:
+        if_sethide(false, task_side:com92);
+        if_sethide(true, task_side:com94);
+        if_sethide(true, task_side:com125);
+        if (compare(if_gettext(task_side:com91), struct_param(struct_1753, param_1266)) = false | compare(if_gettext(task_side:com91), struct_param(struct_1754, param_1266)) = false) {
+            $string = "The '?' icon will add an arrow to the screen which points to your destination.";
+        }
+        if (getwindowmode >= 2) {
+            $int1 = 196;
+            $int2 = 87;
+            $int3 = 1;
+            if (if_getwidth(toplevel_fullscreen:com0) < 997) {
+                $int2 = calc($int2 + 40);
+            }
+        } else {
+            $int1 = 208;
+            $int2 = 78;
+        }
+}
+if (%varbit_9030 = false) {
+    $string = "";
+}
+if ($int3 = false) {
+    ~clientscript_4247($string, $int1, $int2, 1, ^white, nj566125);
+} else {
+    ~clientscript_4248($string, $int1, $int2, 1, ^white, nj566125);
+}

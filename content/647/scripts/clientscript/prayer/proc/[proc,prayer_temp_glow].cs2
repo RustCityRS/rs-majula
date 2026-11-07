@@ -1,0 +1,12 @@
+[proc,prayer_temp_glow]
+def_int $int0 = 30;
+if (%varbit_6840 = true) {
+    $int0 = 20;
+}
+def_int $int1 = 0;
+while ($int1 < $int0) {
+    if (cc_find(prayer:com7, $int1) = true & (~clientscript_2297($int1) = true & ~clientscript_2295($int1) = true)) {
+        cc_setgraphic(prayerglow);
+    }
+    $int1 = calc($int1 + 1);
+}

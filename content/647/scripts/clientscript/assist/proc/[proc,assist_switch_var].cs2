@@ -1,0 +1,6 @@
+[proc,assist_switch_var](int $int)(int)
+if ($int = false) {
+    return(1);
+} else {
+    return(0);
+}

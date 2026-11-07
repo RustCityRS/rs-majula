@@ -1,0 +1,18 @@
+[clientscript,tanning_open]
+def_int $int0 = 1;
+def_obj $obj1 = null;
+def_component $component2 = null;
+while ($int0 <= enum_getoutputcount(enum_2120)) {
+    if_settext(enum(105, 115, enum_2023, $int0), enum(105, 73, enum_2118, $int0));
+    $obj1 = enum(105, 111, enum_2019, $int0);
+    $component2 = enum(105, 73, enum_2120, $int0);
+    if_setobject($obj1, 1, enum(105, 73, enum_2117, $int0));
+    if_setopbase(enum(105, 115, enum_2023, $int0), $component2);
+    if (inv_total(inv, $obj1) > 0) {
+        if_setcolour(^green, enum(105, 73, enum_2118, $int0));
+    } else {
+        if_setcolour(^red, enum(105, 73, enum_2118, $int0));
+    }
+    $int0 = calc($int0 + 1);
+}
+~tanning_cost;

@@ -1,0 +1,9 @@
+[proc,clientscript_3141](int $int, string $string)
+if (worldlist_hop($int, $string) = true) {
+    %varc_int_547 = 0;
+    ~clientscript_3143(0, "Switched to game world <tostring($int)>");
+} else {
+    ~clientscript_3143(1, "Sorry, we couldn't contact world <tostring($int)>.<br>Please choose a different world.");
+}
+~clientscript_3116;
+return;

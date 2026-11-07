@@ -1,0 +1,87 @@
+[proc,clientscript_1307]
+def_component $component = null;
+if (%varbit_1958 = false) {
+    ~clientscript_1310(templetrek_map:com22);
+    ~clientscript_1310(templetrek_map:com23);
+    ~clientscript_1310(templetrek_map:com24);
+    ~clientscript_1310(templetrek_map:com26);
+    ~clientscript_1310(templetrek_map:com27);
+    ~clientscript_1310(templetrek_map:com28);
+    ~clientscript_1310(templetrek_map:com29);
+    ~clientscript_1310(templetrek_map:com30);
+    ~clientscript_1310(templetrek_map:com31);
+    ~clientscript_1310(templetrek_map:com25);
+    ~clientscript_1310(templetrek_map:com32);
+    ~clientscript_1310(templetrek_map:com33);
+    ~clientscript_1310(templetrek_map:com34);
+    ~clientscript_1310(templetrek_map:com35);
+    ~clientscript_1310(templetrek_map:com36);
+    ~clientscript_1310(templetrek_map:com37);
+    ~clientscript_1310(templetrek_map:com38);
+    ~clientscript_1310(templetrek_map:com39);
+    ~clientscript_1310(templetrek_map:com40);
+    ~clientscript_1310(templetrek_map:com41);
+    ~clientscript_1310(templetrek_map:com42);
+    ~clientscript_1310(templetrek_map:com43);
+    ~clientscript_1310(templetrek_map:com44);
+    ~clientscript_1310(templetrek_map:com45);
+    ~clientscript_1310(templetrek_map:com46);
+    return;
+}
+if (%varbit_1958 = true) {
+    $component = templetrek_map:com22;
+} else if (%varbit_1958 = 2) {
+    $component = templetrek_map:com23;
+} else if (%varbit_1958 = 3) {
+    $component = templetrek_map:com24;
+} else if (%varbit_1958 = 4) {
+    $component = templetrek_map:com26;
+} else if (%varbit_1958 = 5) {
+    $component = templetrek_map:com27;
+} else if (%varbit_1958 = 6) {
+    $component = templetrek_map:com28;
+} else if (%varbit_1958 = 7) {
+    $component = templetrek_map:com29;
+} else if (%varbit_1958 = 8) {
+    $component = templetrek_map:com30;
+} else if (%varbit_1958 = 9) {
+    $component = templetrek_map:com31;
+} else if (%varbit_1958 = 10) {
+    $component = templetrek_map:com25;
+} else if (%varbit_1958 = 11) {
+    $component = templetrek_map:com32;
+} else if (%varbit_1958 = 12) {
+    $component = templetrek_map:com33;
+} else if (%varbit_1958 = 13) {
+    $component = templetrek_map:com34;
+} else if (%varbit_1958 = 14) {
+    $component = templetrek_map:com35;
+} else if (%varbit_1958 = 15) {
+    $component = templetrek_map:com36;
+} else if (%varbit_1958 = 16) {
+    $component = templetrek_map:com37;
+} else if (%varbit_1958 = 17) {
+    $component = templetrek_map:com38;
+} else if (%varbit_1958 = 18) {
+    $component = templetrek_map:com39;
+} else if (%varbit_1958 = 19) {
+    $component = templetrek_map:com40;
+} else if (%varbit_1958 = 20) {
+    $component = templetrek_map:com41;
+} else if (%varbit_1958 = 21) {
+    $component = templetrek_map:com42;
+} else if (%varbit_1958 = 22) {
+    $component = templetrek_map:com43;
+} else if (%varbit_1958 = 23) {
+    $component = templetrek_map:com44;
+} else if (%varbit_1958 = 24) {
+    $component = templetrek_map:com45;
+} else if (%varbit_1958 = 25) {
+    $component = templetrek_map:com46;
+}
+if ($component = null) {
+    return;
+} else {
+    if_setmodel(model_14129, $component);
+    if_setmodelanim(seq_3777, $component);
+}

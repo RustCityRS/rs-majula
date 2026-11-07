@@ -1,0 +1,27 @@
+[clientscript,mob_chat_text_update]
+def_int $int0 = -1;
+def_int $int1 = 1;
+if (compare(%varc_string_179, "") = false | compare(%varc_string_179, "null") = false) {
+    return;
+}
+if_settext(if_gettext(mob_chat:com43), mob_chat:com44);
+if_settext(if_gettext(mob_chat:com42), mob_chat:com43);
+if_settext(if_gettext(mob_chat:com41), mob_chat:com42);
+if_settext(if_gettext(mob_chat:com40), mob_chat:com41);
+if_settext(if_gettext(mob_chat:com39), mob_chat:com40);
+if_settext(if_gettext(mob_chat:com38), mob_chat:com39);
+if_settext(if_gettext(mob_chat:com37), mob_chat:com38);
+if_settext(if_gettext(mob_chat:com36), mob_chat:com37);
+if_settext(if_gettext(mob_chat:com35), mob_chat:com36);
+if_settext(if_gettext(mob_chat:com34), mob_chat:com35);
+if_settext(if_gettext(mob_chat:com33), mob_chat:com34);
+if_settext(if_gettext(mob_chat:com32), mob_chat:com33);
+if_settext(if_gettext(mob_chat:com31), mob_chat:com32);
+if_settext(if_gettext(mob_chat:com30), mob_chat:com31);
+if_settext(if_gettext(mob_chat:com29), mob_chat:com30);
+if_settext(if_gettext(mob_chat:com28), mob_chat:com29);
+if_settext(if_gettext(mob_chat:com27), mob_chat:com28);
+if_settext(if_gettext(mob_chat:com26), mob_chat:com27);
+if_settext(if_gettext(mob_chat:com25), mob_chat:com26);
+if_settext(%varc_string_179, mob_chat:com25);
+~scrollbar_ondrag_doscroll(mob_chat:com45, mob_chat:com46, if_getscrollheight(mob_chat:com46), 1);

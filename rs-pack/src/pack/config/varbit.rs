@@ -13,14 +13,14 @@ pub fn pack_varbits(
 ) -> Result<PackedFile> {
     let pack = &registry.varbit;
 
-    let configs = parse_config_sections_cached(file_cache, "varbit", constants);
+    let configs = parse_config_sections_cached(file_cache, "varbit", constants)?;
 
     let mut server = PackedData::new(pack.max);
     #[cfg(before_647)]
     let client_count = pack.max;
     #[cfg(since_647)]
     let client_count = file_cache
-        .client_count("varbit", pack, constants)
+        .client_count("varbit", pack, constants)?
         .unwrap_or(pack.max);
     let mut client = PackedData::new(client_count);
 
@@ -103,7 +103,7 @@ mod tests {
     fn server_only_varbits_stay_out_of_the_client() {
         // Unit tests run with cwd = rs-pack/, one level below the repo-root-relative dirs.
         let root = Path::new("..");
-        let source = root.join(crate::CONTENT_DIR).join("scripts");
+        let source = root.join(crate::CONTENT_DIR).join("scripts/runescript");
         let registry = PackRegistry::load(&root.join(crate::PACK_DIR)).expect("load registry");
         let constants = load_constants(&source);
         let server_dir = root.join("target").join("varbit-pack-test");
@@ -121,12 +121,17 @@ mod tests {
             .filter(|(_, data)| !data.is_empty())
             .map(|(id, _)| id as u32)
             .collect();
-        let cache_varbits =
-            parse_config_sections(&[source.join("_unpack").join("all.varbit")], &constants)
-                .keys()
-                .filter_map(|name| registry.varbit.get_by_debugname(name))
-                .max()
-                .expect("run `cargo unpack` first");
+        let cache_varbits = parse_config_sections(
+            &[source
+                .with_file_name("globalscript")
+                .join("_unpack/all.varbit")],
+            &constants,
+        )
+        .unwrap()
+        .keys()
+        .filter_map(|name| registry.varbit.get_by_debugname(name))
+        .max()
+        .expect("run `cargo unpack` first");
         assert_eq!(
             client.last().copied(),
             Some(cache_varbits),

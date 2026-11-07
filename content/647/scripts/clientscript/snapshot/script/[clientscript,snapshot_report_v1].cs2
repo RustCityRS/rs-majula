@@ -1,0 +1,6 @@
+[clientscript,snapshot_report_v1](int $int)
+if (string_length(%varc_string_24) > 0) {
+    chat_sendabusereport(%varc_string_24, $int, %varc_int_6, "");
+}
+~clientscript_675;
+%varc_int_11 = 0;

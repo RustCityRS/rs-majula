@@ -1,0 +1,23 @@
+[proc,clientscript_661](component $component0, component $component1, graphic $graphic2, graphic $graphic3, int $int4, obj $obj5, int $int6, obj $obj7, int $int8, obj $obj9, int $int10, obj $obj11, int $int12, string $string0, string $string1)
+if (cc_find($component0, 0) = true) {
+    switch_obj ($obj5) {
+        case sundering_strike__tier_1:
+            $int4, $string0, $obj5 = ~clientscript_3357;
+        case poisonous_shot__tier_1:
+            $int4, $string0, $obj5 = ~clientscript_3358;
+        case snaring_wave__tier_1:
+            $int4, $string0, $obj5 = ~clientscript_3359;
+        case aptitude__tier_1:
+            $int4, $string0, $obj5 = ~clientscript_3360;
+        case second_wind__tier_1:
+            $int4, $string0, $obj5 = ~clientscript_3361;
+        case glimmer_of_light__tier_1:
+            $int4, $string0, $obj5 = ~clientscript_3362;
+        case bronze_bull_rush_scroll:
+            $int4, $string0, $obj5 = ~clientscript_775;
+    }
+    $string0 = append($string0, " (<tostring(%varbit_4288)> Special Move points)");
+    ~lore_updateicon_v2(lore_stats_side:com74, $graphic2, $graphic3, $int4, $obj5, $int6, $obj7, $int8, $obj9, $int10, $obj11, $int12);
+    cc_setonmouserepeat("magic_addtooltip(^event_com, lore_stats_side:com73, $int4, $string0, $string1, $obj5, $int6, $obj7, $int8, $obj9, $int10, $obj11, $int12)");
+    cc_setonmouseleave("lore_deltooltip(lore_stats_side:com73)");
+}

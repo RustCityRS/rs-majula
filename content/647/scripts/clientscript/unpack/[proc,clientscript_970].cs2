@@ -1,0 +1,54 @@
+[proc,clientscript_970](component $component)(int)
+if ($component = stats:com195 & %varbit_4732 = true) {
+    return(1);
+} else if ($component = stats:com6 & %varbit_4733 = true) {
+    return(1);
+} else if ($component = stats:com23 & %varbit_4734 = true) {
+    return(1);
+} else if ($component = stats:com47 & %varbit_4735 = true) {
+    return(1);
+} else if ($component = stats:com71 & %varbit_4736 = true) {
+    return(1);
+} else if ($component = stats:com88 & %varbit_4737 = true) {
+    return(1);
+} else if ($component = stats:com188 & %varbit_4738 = true) {
+    return(1);
+} else if ($component = stats:com14 & %varbit_4739 = true) {
+    return(1);
+} else if ($component = stats:com31 & %varbit_4740 = true) {
+    return(1);
+} else if ($component = stats:com55 & %varbit_4741 = true) {
+    return(1);
+} else if ($component = stats:com79 & %varbit_4742 = true) {
+    return(1);
+} else if ($component = stats:com96 & %varbit_4743 = true) {
+    return(1);
+} else if ($component = stats:com181 & %varbit_4744 = true) {
+    return(1);
+} else if ($component = stats:com174 & %varbit_4745 = true) {
+    return(1);
+} else if ($component = stats:com39 & %varbit_4746 = true) {
+    return(1);
+} else if ($component = stats:com63 & %varbit_4747 = true) {
+    return(1);
+} else if ($component = stats:com167 & %varbit_4748 = true) {
+    return(1);
+} else if ($component = stats:com160 & %varbit_4749 = true) {
+    return(1);
+} else if ($component = stats:com105 & %varbit_4750 = true) {
+    return(1);
+} else if ($component = stats:com113 & %varbit_4751 = true) {
+    return(1);
+} else if ($component = stats:com121 & %varbit_4752 = true) {
+    return(1);
+} else if ($component = stats:com129 & %varbit_4753 = true) {
+    return(1);
+} else if ($component = stats:com137 & %varbit_4754 = true) {
+    return(1);
+} else if ($component = stats:com145 & %varbit_4755 = true) {
+    return(1);
+} else if ($component = stats:com153 & %varbit_7756 = true) {
+    return(1);
+} else {
+    return(0);
+}

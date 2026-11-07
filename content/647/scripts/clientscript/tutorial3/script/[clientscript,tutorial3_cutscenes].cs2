@@ -1,0 +1,18 @@
+[clientscript,tutorial3_cutscenes](component $component)
+if (%varc_int_1007 <= 0) {
+    cam_clear_5512;
+    return;
+}
+if (%varc_int_1007 <= 100) {
+    ~tutorial3_battle($component, ~coord_0_0(coord));
+    return;
+}
+if (%varc_int_1007 <= 200) {
+    ~clientscript_2762($component, ~coord_0_0(coord));
+    return;
+}
+if (%varc_int_1007 <= 300) {
+    ~tutorial3_explosion($component, ~coord_0_0(coord));
+    return;
+}
+~clientscript_2826($component, ~coord_0_0(coord));

@@ -1,0 +1,8 @@
+[clientscript,playerdesign4_switchpage](boolean $int)
+sound_synth(synth_9824, 1, 0);
+if ($int = true & %character_creation_multipage = true) {
+    %character_creation_page = 1;
+    if_sethide(false, playerdesign4:com117);
+    ~clientscript_2741;
+}
+~playerdesign4_switchpage($int);

@@ -1,0 +1,17 @@
+[proc,clientscript_2486]
+if (%varc_int_882 ! -1) {
+    if_settext("Players: <tostring(%varc_int_882)>", mob_scenario_select:com42);
+}
+if (%varc_int_887 ! -1) {
+    if_settext("Players: <tostring(%varc_int_887)>", mob_scenario_select:com31);
+}
+if (%varc_int_892 ! -1) {
+    if_settext("Players: <tostring(%varc_int_892)>", mob_scenario_select:com38);
+}
+if (%varc_int_897 ! -1) {
+    if_settext("Players: <tostring(%varc_int_897)>", mob_scenario_select:com26);
+}
+if_setcolour(0xe1981f, mob_scenario_select:com42);
+if_setcolour(0xe1981f, mob_scenario_select:com31);
+if_setcolour(0xe1981f, mob_scenario_select:com38);
+if_setcolour(0xe1981f, mob_scenario_select:com26);

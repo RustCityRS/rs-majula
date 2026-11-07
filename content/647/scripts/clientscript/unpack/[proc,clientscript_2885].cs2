@@ -1,0 +1,11 @@
+[proc,clientscript_2885](component $component0, int $int1, int $int2, int $int3, int $int4, int $int5)
+if ($int5 ! 2 & ($int5 ! 3 & $int5 ! 4)) {
+    return;
+}
+~deltooltip_action(music_v3:com16);
+%varc_int_1 = 0;
+$int4 = calc($int4 + clientclock);
+if (cc_find($component0, $int1) = true) {
+    cc_settrans($int2);
+    cc_setontimer("clientscript_1621($component0, $int1, $int3, $int4)");
+}

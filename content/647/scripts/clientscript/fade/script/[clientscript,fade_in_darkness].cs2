@@ -1,0 +1,8 @@
+[clientscript,fade_in_darkness](component $component)
+if (%varbit_278 = false) {
+    if_setmodelanim(seq_1378, $component);
+} else if (%varbit_278 = true) {
+    if_setmodelanim(seq_2115, $component);
+} else {
+    if_setmodelanim(seq_2117, $component);
+}

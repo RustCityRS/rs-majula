@@ -1,0 +1,15 @@
+[clientscript,objdialog_onkey](int $int0, char $int1)
+if ($int0 = 84) {
+    %varc_int_81 = 0;
+    if_setontimer(null, objdialog:com9);
+    ~objdialog_refreshsearch;
+    return;
+}
+def_string $string = ~add_to_inputstring(%varc_string_22, 0, $int0, $int1);
+if (compare(%varc_string_22, $string) = false) {
+    return;
+}
+%varc_string_22 = $string;
+if_settext("<escape(%varc_string_22)>*", objdialog:com9);
+%varc_int_81 = 50;
+if_setontimer("objdialog_delay_timer()", objdialog:com9);

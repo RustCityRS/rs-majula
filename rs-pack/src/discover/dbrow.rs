@@ -5,7 +5,7 @@
 //! `pack_dir/dbrow.pack` (`id=name` text format, one entry per line).
 //!
 //! Revision-agnostic: the registry is derived from text source files in
-//! `content/scripts/`, never from the cache.
+//! `content/scripts/runescript/`, never from the cache.
 //!
 //! Idempotency: when a pack file already exists, existing `id=name`
 //! assignments are preserved for names that still appear in the scan. New

@@ -1,0 +1,7 @@
+[clientscript,clan_chat_list_refresh](int $int)
+if (clanchannel2_find_affined = true) {
+    if ($int <= -1) {
+        $int = %varc_int_1035;
+    }
+    ~clientscript_4436(clan_chat:com14, $int);
+}

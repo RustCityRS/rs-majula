@@ -1,0 +1,4 @@
+[proc,clientscript_630](int $int)
+if (stockmarket_isempty($int) = false & cc_find(~clientscript_623($int), 0) = true) {
+    cc_settrans(230);
+}

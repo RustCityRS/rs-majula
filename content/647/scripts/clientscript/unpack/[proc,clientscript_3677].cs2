@@ -1,0 +1,38 @@
+[proc,clientscript_3677](component $component0, int $int1)
+def_int $int2 = 0;
+switch_component ($component0) {
+    case rand_herbburner:com14:
+        $int2 = %varc_int_1336;
+    case rand_herbburner:com15:
+        $int2 = %varc_int_1337;
+    case rand_herbburner:com16:
+        $int2 = %varc_int_1338;
+    case rand_herbburner:com17:
+        $int2 = %varc_int_1339;
+    case rand_herbburner:com18:
+        $int2 = %varc_int_1340;
+    case rand_herbburner:com19:
+        $int2 = %varc_int_1341;
+    case rand_herbburner:com20:
+        $int2 = %varc_int_1342;
+    case rand_herbburner:com21:
+        $int2 = %varc_int_1343;
+    case rand_herbburner:com22:
+        $int2 = %varc_int_1344;
+    case rand_herbburner:com23:
+        $int2 = %varc_int_1345;
+    case rand_herbburner:com24:
+        $int2 = %varc_int_1346;
+    case rand_herbburner:com25:
+        $int2 = %varc_int_1347;
+    case rand_herbburner:com26:
+        $int2 = %varc_int_1348;
+    case rand_herbburner:com27:
+        $int2 = %varc_int_1349;
+    case rand_herbburner:com28:
+        $int2 = %varc_int_1350;
+    case rand_herbburner:com29:
+        $int2 = %varc_int_1351;
+}
+def_string $string = "Current price: <~tostring_shortform($int2)> gp";
+~addtooltip_action_dynamic($component0, $int1, rand_herbburner:com48, $string, 25, if_getwidth(if_getlayer(rand_herbburner:com48)));

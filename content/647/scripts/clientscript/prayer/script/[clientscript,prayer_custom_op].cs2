@@ -1,0 +1,13 @@
+[clientscript,prayer_custom_op](component $component0, int $int1)
+if (~clientscript_2297($int1) = false) {
+    if (~clientscript_2295($int1) = false) {
+        return;
+    }
+    if (cc_find($component0, $int1) = true) {
+        cc_setgraphic("miscgraphics,11");
+        cc_setop(1, "Deselect");
+    }
+} else if (cc_find($component0, $int1) = true) {
+    cc_setgraphic("miscgraphics,10");
+    cc_setop(1, "Select");
+}

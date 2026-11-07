@@ -1,0 +1,20 @@
+[clientscript,rand_ring_interface_init]
+%varc_int_1186 = 1337;
+%varc_int_1184 = 0;
+if_setposition(if_getx(rand_ring_interface:com112), 52, ^setpos_abs_left, ^setpos_abs_top, rand_ring_interface:com112);
+if_setposition(if_getx(rand_ring_interface:com27), 52, ^setpos_abs_left, ^setpos_abs_top, rand_ring_interface:com27);
+if_setposition(if_getx(rand_ring_interface:com26), 52, ^setpos_abs_left, ^setpos_abs_top, rand_ring_interface:com26);
+if_sethide(true, rand_ring_interface:com254);
+if_sethide(true, rand_ring_interface:com239);
+if_sethide(true, rand_ring_interface:com224);
+if_sethide(true, rand_ring_interface:com209);
+if_settrans(255, rand_ring_interface:com257);
+if_settrans(255, rand_ring_interface:com242);
+if_settrans(255, rand_ring_interface:com227);
+if_settrans(255, rand_ring_interface:com212);
+if_sethide(true, rand_ring_interface:com194);
+if_sethide(true, rand_ring_interface:com195);
+if_sethide(true, rand_ring_interface:com196);
+if_sethide(true, rand_ring_interface:com197);
+if_sethide(true, rand_ring_interface:com261);
+if_sethide(true, rand_ring_interface:com191);

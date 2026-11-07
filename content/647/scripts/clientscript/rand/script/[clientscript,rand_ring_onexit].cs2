@@ -1,0 +1,17 @@
+[clientscript,rand_ring_onexit](int $int)
+switch_int ($int) {
+    case 65077384:
+        if_sethide(true, rand_ring_interface:com137);
+    case 65077291:
+        if_sethide(true, rand_ring_interface:com44);
+    case 65077333:
+        if_sethide(true, rand_ring_interface:com86);
+    case 65077526:
+        if_setgraphic("login_lobby_button,8", rand_ring_interface:com281);
+        if_setgraphic("login_lobby_button,9", rand_ring_interface:com282);
+        if_setgraphic("login_lobby_button,8", rand_ring_interface:com283);
+    case 65077527:
+        if_setgraphic("login_lobby_button,8", rand_ring_interface:com284);
+        if_setgraphic("login_lobby_button,9", rand_ring_interface:com285);
+        if_setgraphic("login_lobby_button,8", rand_ring_interface:com286);
+}

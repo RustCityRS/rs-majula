@@ -1,0 +1,56 @@
+[proc,clientscript_3388](int $int0, int $int1, boolean $int2)
+def_int $int3 = 4;
+switch_int ($int0) {
+    case 1:
+        if (autosetup_getvalue2 ! 1) {
+            autosetup_level_7004;
+        } else {
+            return;
+        }
+    case 2:
+        if ($int3 >= 2) {
+            if (autosetup_getvalue2 ! 2) {
+                autosetup_level_7003;
+            } else {
+                return;
+            }
+        } else {
+            ~clientscript_3413($int1);
+        }
+    case 3:
+        if ($int3 >= 3) {
+            if (autosetup_getvalue2 ! 3) {
+                autosetup_level_7002;
+            } else {
+                return;
+            }
+        } else {
+            ~clientscript_3413($int1);
+        }
+    case 4:
+        if ($int3 >= 4) {
+            if (autosetup_getvalue2 ! 4) {
+                autosetup_level_7001;
+            } else {
+                return;
+            }
+        } else {
+            ~clientscript_3413($int1);
+        }
+    case 0:
+        if ($int2 = true) {
+            if (autosetup_getvalue2 ! 0) {
+                autosetup_level_7005;
+            } else {
+                return;
+            }
+        }
+    case -1:
+        ~autosetup($int1);
+}
+def_int $int4 = get_clientopt_6131;
+if ($int0 = false | $int2 = true) {
+    ~graphics_options_rebuild_advanced($int4, getwindowmode, ~graphics_options_reviewoptions($int4), $int1);
+} else {
+    ~graphics_options_rebuild($int4, getwindowmode, ~graphics_options_reviewoptions($int4), $int1);
+}

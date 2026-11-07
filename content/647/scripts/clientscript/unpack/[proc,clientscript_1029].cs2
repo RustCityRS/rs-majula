@@ -1,0 +1,40 @@
+[proc,clientscript_1029](enum $enum0, int $int1)
+cc_deleteall(quickchat_tutorial:com23);
+cc_deleteall(quickchat_tutorial:com25);
+if_settext("Quick-chat - Shortcut Reference", quickchat_tutorial:com14);
+if_sethide(false, quickchat_tutorial:com35);
+if_sethide(true, quickchat_tutorial:com17);
+if_setonclick("quickchat_tutorial_showpage(enum_1486, 0, 7)", quickchat_tutorial:com30);
+if_settext("User Guide", quickchat_tutorial:com30);
+def_int $int2 = 0;
+def_int $int3 = 20;
+def_int $int4 = 0;
+def_int $int5 = 0;
+def_int $int6 = 0;
+def_string $string = "";
+cc_create(quickchat_tutorial:com25, ^iftype_graphic, $int4);
+cc_setgraphic("v2_borders_slim,11");
+cc_setposition(35, calc($int3 - 22), ^setpos_abs_left, ^setpos_abs_top);
+cc_setsize(400, 32, ^setsize_abs, ^setsize_abs);
+$int4 = calc($int4 + 1);
+while ($int2 < $int1) {
+    $int2 = calc($int2 + 1);
+    ~quickchat_tutorial_addtext($int4, 35, $int3, 400, 100, enum(105, 115, $enum0, $int5), ^yellow);
+    $int4 = calc($int4 + 1);
+    $int5 = calc($int5 + 1);
+    $string = enum(105, 115, $enum0, $int5);
+    $int6 = calc(paraheight($string, 300, p12_full) * 12);
+    ~quickchat_tutorial_addtext($int4, 150, $int3, 300, $int6, $string, ^white);
+    $int4 = calc($int4 + 1);
+    $int5 = calc($int5 + 1);
+    $int3 = calc($int3 + $int6 + 10);
+    cc_create(quickchat_tutorial:com25, ^iftype_graphic, $int4);
+    cc_setgraphic("v2_borders_slim,11");
+    cc_setposition(35, calc($int3 - 20), ^setpos_abs_left, ^setpos_abs_top);
+    cc_setsize(400, 32, ^setsize_abs, ^setsize_abs);
+    $int4 = calc($int4 + 1);
+}
+if ($int3 > if_getheight(quickchat_tutorial:com25)) {
+    if_setscrollsize(0, $int3, quickchat_tutorial:com25);
+    ~scrollbar_vertical(quickchat_tutorial:com24, quickchat_tutorial:com25, "scrollbar_dragger_v2,3", "scrollbar_dragger_v2,0", "scrollbar_dragger_v2,1", "scrollbar_dragger_v2,2", "scrollbar_v2,0", "scrollbar_v2,1");
+}

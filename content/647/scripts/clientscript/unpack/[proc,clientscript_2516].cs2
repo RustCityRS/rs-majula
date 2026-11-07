@@ -1,0 +1,15 @@
+[proc,clientscript_2516]
+%varc_int_847 = %varbit_6364;
+%varc_int_848 = %varbit_6366;
+%varc_int_849 = %varbit_6367;
+%varc_int_850 = %varbit_6363;
+%varc_int_851 = %varbit_6365;
+%varc_int_839 = %varbit_6351;
+if_settext(tostring(%varc_int_847), mob_special_units:com13);
+if_settext(tostring(%varc_int_848), mob_special_units:com61);
+if_settext(tostring(%varc_int_849), mob_special_units:com53);
+if_settext(tostring(%varc_int_850), mob_special_units:com45);
+if_settext(tostring(%varc_int_851), mob_special_units:com70);
+if_settext(~tostring_spacer(%varc_int_839, ","), mob_special_units:com77);
+~clientscript_2517;
+return;

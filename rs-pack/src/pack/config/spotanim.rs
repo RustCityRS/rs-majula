@@ -20,7 +20,7 @@ pub fn pack_spotanims(
 ) -> Result<PackedFile> {
     let pack = &registry.spotanim;
 
-    let configs = parse_config_sections_cached(file_cache, "spotanim", constants);
+    let configs = parse_config_sections_cached(file_cache, "spotanim", constants)?;
 
     let mut server = PackedData::new(pack.max);
     let mut client = PackedData::new(pack.max);

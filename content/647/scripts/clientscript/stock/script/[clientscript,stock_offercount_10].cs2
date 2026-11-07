@@ -1,0 +1,10 @@
+[clientscript,stock_offercount_10]
+if (%varp_1113 = false) {
+    if (%varc_int_84 <= 2147483637) {
+        %varc_int_84 = calc(%varc_int_84 + 10);
+    }
+} else {
+    %varc_int_84 = 10;
+}
+if_settext(op4124(%varc_int_84, 1), stockmarket:com148);
+~sm_offercount_settimer;

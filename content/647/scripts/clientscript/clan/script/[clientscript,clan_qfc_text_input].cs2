@@ -1,0 +1,26 @@
+[clientscript,clan_qfc_text_input](component $component0, char $int1, int $int2, component $component3)
+%varc_string_346 = if_gettext($component0);
+switch_int ($int2) {
+    case 84:
+        ~clan_qfc_return(1);
+    case 96, 97, 98, 99, 102, 103:
+        if (key_isdown_ctrl = false) {
+            return;
+        }
+        ~clientscript_1553($int2, %varc_int_1498, %varc_string_346);
+    case 85:
+        if (string_length(%varc_string_346) > 0) {
+            %varc_string_346 = substring(%varc_string_346, 0, calc(string_length(%varc_string_346) - 1));
+        }
+    case default:
+        if ($int2 = 67 & key_isdown_shift = true) {
+            ~clientscript_4367;
+            return;
+        }
+        if (string_length(%varc_string_346) < 13) {
+            %varc_string_346 = ~add_to_inputstring(%varc_string_346, 0, $int2, $int1);
+        }
+}
+%varc_int_1498 = ~clientscript_1552(%varc_int_1498, %varc_string_346, 5631, $component0, -1);
+if_setposition(%varc_int_1498, if_gety($component3), ^setpos_abs_left, ^setpos_abs_top, $component3);
+if_settext(%varc_string_346, $component0);

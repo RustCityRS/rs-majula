@@ -1,0 +1,156 @@
+[proc,loginscreen_setactivemenu_full](int $int0, int $int1, int $int2)
+def_int $int3 = ~login_getreply;
+if ($int1 = false & ($int3 = -3 | ($int3 = 21 | $int3 = true))) {
+    return;
+}
+%varc_int_175 = clientclock;
+~deltooltip_action(loginscreen:com80);
+%varc_int_1 = 0;
+%varc_int_174 = 1;
+if (%varc_int_1090 ! 6) {
+    %varc_int_1091 = %varc_int_1090;
+    if_setonclick("loginscreen_setactivemenu(%varc_int_1091)", loginscreen_graphics_options:com20);
+}
+if ($int0 = false) {
+    %varc_int_174 = 0;
+    ~firstrun;
+    if_sethide(false, loginscreen:com24);
+} else {
+    if_sethide(true, loginscreen:com24);
+    if_closeoverlay(48758808);
+}
+if ($int0 = 5) {
+    if_openoverlay(48758811, 975);
+    if_sethide(true, loginscreen:com23);
+    if_sethide(false, loginscreen:com27);
+} else {
+    if_closeoverlay(48758811);
+    if_sethide(false, loginscreen:com23);
+    if_sethide(true, loginscreen:com27);
+}
+if ($int0 = 11 | $int0 = 12) {
+    %varc_int_547 = 0;
+    if_openoverlay(48758810, 596);
+    ~login_load;
+    ~login_open($int0);
+    if_sethide(false, login:com4);
+    ~login_resize;
+} else {
+    ~login_close;
+    if_closeoverlay(48758810);
+    if_sethide(true, loginscreen:com26);
+}
+if ($int0 = 7) {
+    if_openoverlay(48758832, 673);
+    ~create_setup;
+    if_sethide(false, loginscreen:com48);
+} else {
+    if_closeoverlay(48758832);
+    if_sethide(true, loginscreen:com48);
+}
+if ($int0 = 8) {
+    %varc_int_174 = 10;
+    if_sethide(false, loginscreen:com49);
+} else {
+    if_closeoverlay(48758833);
+    if_sethide(true, loginscreen:com49);
+}
+if ($int0 = 7 | $int0 = 8) {
+    if_sethide(true, loginscreen:com23);
+} else {
+    if_sethide(false, loginscreen:com23);
+}
+def_graphic $graphic4 = 4120;
+def_graphic $graphic5 = 4125;
+if ($int0 = false | ($int0 = 7 | $int0 = 8)) {
+    if_setcolour(0x646464, loginscreen:com106);
+    if_setonclick(null, loginscreen:com106);
+    if_setonmouseover(null, loginscreen:com106);
+    if_setonmouseleave(null, loginscreen:com106);
+} else {
+    if_setcolour(^black, loginscreen:com106);
+    if_setonclick("loginscreen_setactivemenu(6)", loginscreen:com106);
+    if_setonmouseover("graphic_swapper(^event_com, $graphic5)", loginscreen:com106);
+    if_setonmouseleave("graphic_swapper(^event_com, $graphic4)", loginscreen:com106);
+}
+if ($int0 = 6) {
+    ~graphics_options_init(0);
+    if ($int2 = true) {
+        ~graphics_options_rebuild_advanced(get_clientopt_6131, getwindowmode, ~graphics_options_reviewoptions(get_clientopt_6131), 0);
+    }
+    if_sethide(false, loginscreen:com50);
+    %varc_int_174 = 13;
+} else {
+    if (%varc_int_1090 = 6 & $int0 ! 5) {
+        if_sethide(false, loginscreen:com23);
+    }
+    if_sethide(true, loginscreen:com50);
+    if_sethook1427(null, loginscreen:com50);
+    if_sethook1427(null, loginscreen_graphics_options:com4);
+}
+def_int $int6 = 0;
+def_int $int7 = 0;
+def_string $string = "";
+def_int $int8 = 3793;
+if ($int0 = 9) {
+    $int6 = if_getwidth(loginscreen:com76);
+    $int7 = calc(paraheight(if_gettext(loginscreen:com76), $int6, verdana_11pt_regular) * 14 + 5);
+    if_setsize($int6, $int7, ^setsize_abs, ^setsize_abs, loginscreen:com76);
+    $string = if_gettext(loginscreen:com78);
+    $int7 = calc(if_gety(loginscreen:com76) + $int7 + 6);
+    if (string_length($string) > 0) {
+        if_setposition(0, $int7, ^setpos_abs_centre, ^setpos_abs_top, loginscreen:com77);
+        if_setsize(op4125($string, $int8), if_getheight(loginscreen:com77), ^setsize_abs, ^setsize_abs, loginscreen:com77);
+        if_settext("<u=c8c8c8><$string></u>", loginscreen:com78);
+        if_setonmouseover("loginscreen_link_highlight(loginscreen:com77, loginscreen:com78, $string, $int8, true)", loginscreen:com77);
+        if_setonmouseleave("loginscreen_link_highlight(loginscreen:com77, loginscreen:com78, $string, $int8, false)", loginscreen:com77);
+        if_sethide(false, loginscreen:com77);
+        $int7 = calc($int7 + if_getheight(loginscreen:com77) + 6);
+    } else {
+        if_setposition(0, 0, ^setpos_abs_centre, ^setpos_abs_top, loginscreen:com77);
+        if_setonmouseover(null, loginscreen:com77);
+        if_setonmouseleave(null, loginscreen:com77);
+        if_setonclick(null, loginscreen:com77);
+        if_sethide(true, loginscreen:com77);
+        if_settext("", loginscreen:com78);
+    }
+    if_setsize(op4125(if_gettext(loginscreen:com79), 3795), if_getheight(loginscreen:com79), ^setsize_abs, ^setsize_abs, loginscreen:com79);
+    if_setsize(if_getwidth(loginscreen:com51), calc($int7 + if_getheight(loginscreen:com79) + 11), ^setsize_abs, ^setsize_abs, loginscreen:com51);
+    if_sethide(false, loginscreen:com51);
+} else {
+    if_sethide(true, loginscreen:com51);
+    if_setposition(0, 0, ^setpos_abs_centre, ^setpos_abs_top, loginscreen:com77);
+    if_setonmouseover(null, loginscreen:com77);
+    if_setonmouseleave(null, loginscreen:com77);
+    if_setonclick(null, loginscreen:com77);
+    if_sethide(true, loginscreen:com77);
+    if_settext("", loginscreen:com78);
+    if_settext("", loginscreen:com76);
+    if_setonclick(null, loginscreen:com79);
+}
+if ($int0 = 10) {
+    %varc_int_174 = 11;
+    if_sethide(false, loginscreen:com52);
+} else {
+    if_sethide(true, loginscreen:com52);
+    if_setonclick(null, loginscreen:com56);
+    if_setonclick(null, loginscreen:com57);
+}
+if ($int0 ! 9 & $int0 ! 10) {
+    %varc_int_1090 = $int0;
+}
+if ($int0 = 12) {
+    %varc_string_32 = %varc_string_122;
+    %varc_string_33 = %varc_string_124;
+    %varc_string_122 = "";
+    %varc_string_124 = "";
+    %varc_string_125 = "";
+    if_settext(%varc_string_32, login:com65);
+    if_settext(~clientscript_2949(%varc_string_33), login:com71);
+    %varc_int_174 = 4;
+    %varc_int_175 = clientclock;
+    %varc_int_1099 = string_length(~clientscript_2949(%varc_string_33));
+    ~clientscript_3237(login:com64, login:com65, login:com66, %varc_string_32, 3);
+    ~clientscript_3237(login:com70, login:com71, login:com72, ~clientscript_2949(%varc_string_33), 4);
+    ~login_dologin;
+}

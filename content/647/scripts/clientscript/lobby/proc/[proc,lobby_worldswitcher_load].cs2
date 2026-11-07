@@ -1,0 +1,37 @@
+[proc,lobby_worldswitcher_load]
+~clientscript_3104(lobbyscreen_pane_worldselect:com7);
+~clientscript_3105(lobbyscreen_pane_worldselect:com5);
+~clientscript_3107(lobbyscreen_pane_worldselect:com10);
+~clientscript_3107(lobbyscreen_pane_worldselect:com11);
+~clientscript_3108(lobbyscreen_pane_worldselect:com54);
+~clientscript_3108(lobbyscreen_pane_worldselect:com31);
+~clientscript_3108(lobbyscreen_pane_worldselect:com51);
+~clientscript_3108(lobbyscreen_pane_worldselect:com48);
+~clientscript_3108(lobbyscreen_pane_worldselect:com44);
+if (getlanguage ! 0) {
+    if_settext("Language", lobbyscreen_pane_worldselect:com51);
+}
+~clientscript_3109(lobbyscreen_pane_worldselect:com26);
+~clientscript_3109(lobbyscreen_pane_worldselect:com19);
+~clientscript_3111(lobbyscreen_pane_worldselect:com36);
+~clientscript_3111(lobbyscreen_pane_worldselect:com24);
+~clientscript_3110(lobbyscreen_pane_worldselect:com56);
+~clientscript_3110(lobbyscreen_pane_worldselect:com57);
+~clientscript_3110(lobbyscreen_pane_worldselect:com58);
+~clientscript_3110(lobbyscreen_pane_worldselect:com59);
+~clientscript_3110(lobbyscreen_pane_worldselect:com61);
+~clientscript_3155(lobbyscreen_pane_worldselect:com53);
+~clientscript_3155(lobbyscreen_pane_worldselect:com50);
+if_sethide(false, lobbyscreen_pane_worldselect:com75);
+if_sethide(false, lobbyscreen_pane_worldselect:com34);
+if_sethide(false, lobbyscreen_pane_worldselect:com60);
+if_sethide(false, lobbyscreen_pane_worldselect:com84);
+if_sethide(false, lobbyscreen_pane_worldselect:com42);
+if_setposition(110, 0, ^setpos_abs_right, ^setpos_abs_top, lobbyscreen_pane_worldselect:com33);
+if_setposition(94, 0, ^setpos_abs_right, ^setpos_abs_top, lobbyscreen_pane_worldselect:com74);
+if_setposition(173, 0, ^setpos_abs_right, ^setpos_abs_top, lobbyscreen_pane_worldselect:com59);
+if_setposition(157, 0, ^setpos_abs_right, ^setpos_abs_top, lobbyscreen_pane_worldselect:com83);
+if_setposition(173, 0, ^setpos_abs_right, ^setpos_abs_top, lobbyscreen_pane_worldselect:com41);
+if_setsize(330, 2, ^setsize_minus, ^setsize_minus, lobbyscreen_pane_worldselect:com32);
+if_setsize(313, 0, ^setsize_minus, ^setsize_minus, lobbyscreen_pane_worldselect:com72);
+~clientscript_3110(lobbyscreen_pane_worldselect:com60);

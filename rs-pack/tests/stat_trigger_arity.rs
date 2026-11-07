@@ -9,7 +9,7 @@
 //! parameter reads back as `0` (or `""`). Nothing logs, nothing fails; the
 //! handler simply computes with zeros.
 //!
-//! `content/647/scripts/player/scripts/xp.rs2` carried exactly that. It declared
+//! `content/647/scripts/runescript/player/scripts/xp.rs2` carried exactly that. It declared
 //!
 //! ```text
 //! [advancestat,_](int $xp)
@@ -24,7 +24,7 @@
 //!    pass.
 //! 2. **Semantics** (not checkable from text): `advancestat` is the *level-up*
 //!    trigger, so even a zero-arg handler would only have run on level-up. Every
-//!    earlier revision uses it that way -- `content/<rev>/scripts/levelup/scripts/
+//!    earlier revision uses it that way -- `content/<rev>/scripts/runescript/levelup/scripts/
 //!    levelup.rs2` hangs `@levelup(..)` off `[advancestat,<skill>]` for all 20
 //!    skills -- and 647 is now consistent with them. The orb counter moved into
 //!    `~givexp`, which counts the XP at grant time.
@@ -64,14 +64,7 @@ fn repo_root() -> PathBuf {
 
 /// Every `.rs2` under `dir`, recursively.
 fn script_files(dir: &Path, out: &mut Vec<PathBuf>) {
-    for entry in fs::read_dir(dir).unwrap_or_else(|e| panic!("read {}: {e}", dir.display())) {
-        let path = entry.expect("dir entry").path();
-        if path.is_dir() {
-            script_files(&path, out);
-        } else if path.extension().is_some_and(|e| e == "rs2") {
-            out.push(path);
-        }
-    }
+    out.extend(runec::sources::script_files(dir, "rs2").unwrap());
 }
 
 /// The trigger word of a header line, if the line opens one.
@@ -105,7 +98,7 @@ fn argless_stat_triggers_declare_no_parameters() {
     let mut revisions_walked = 0usize;
 
     for rev in rs_ver::REVS {
-        let scripts = root.join("content").join(rev).join("scripts");
+        let scripts = root.join("content").join(rev).join("scripts/runescript");
         assert!(
             scripts.is_dir(),
             "revision {rev} is listed in rs_ver::REVS but {} does not exist",

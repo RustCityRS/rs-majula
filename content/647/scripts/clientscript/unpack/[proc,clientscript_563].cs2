@@ -1,0 +1,86 @@
+[proc,clientscript_563]
+def_int $int0 = 50;
+def_int $int1 = 45;
+if_settext(tostring(%varbit_4143), nq4631762:com4);
+if (%varbit_4144 = false) {
+    if_setgraphic("staticons2,8", nq4631762:com27);
+    if_setposition($int0, $int1, ^setpos_abs_left, ^setpos_abs_top, nq4631762:com27);
+    if_sethide(false, nq4631762:com12);
+    $int1 = calc($int1 + 29);
+} else {
+    if_sethide(true, nq4631762:com12);
+}
+if (%varbit_4145 = false) {
+    if_setgraphic("staticons2,10", nq4631762:com28);
+    if_setposition($int0, $int1, ^setpos_abs_left, ^setpos_abs_top, nq4631762:com28);
+    if_sethide(false, nq4631762:com13);
+    $int1 = calc($int1 + 29);
+} else {
+    if_sethide(true, nq4631762:com13);
+}
+if (%varbit_4146 = false) {
+    if_setgraphic("staticons,4", nq4631762:com29);
+    if_setposition($int0, $int1, ^setpos_abs_left, ^setpos_abs_top, nq4631762:com29);
+    if_sethide(false, nq4631762:com14);
+    $int1 = calc($int1 + 29);
+} else {
+    if_sethide(true, nq4631762:com14);
+}
+if (%varbit_4147 = false) {
+    if_setgraphic("staticons2,11", nq4631762:com30);
+    if_setposition($int0, $int1, ^setpos_abs_left, ^setpos_abs_top, nq4631762:com30);
+    if_sethide(false, nq4631762:com15);
+    $int1 = calc($int1 + 29);
+} else {
+    if_sethide(true, nq4631762:com15);
+}
+if (%varbit_4151 = false) {
+    if_setgraphic("staticons,6", nq4631762:com32);
+    if_setposition($int0, $int1, ^setpos_abs_left, ^setpos_abs_top, nq4631762:com32);
+    if_sethide(false, nq4631762:com17);
+    $int1 = calc($int1 + 29);
+} else {
+    if_sethide(true, nq4631762:com17);
+}
+if (%varbit_4152 = true) {
+    if_setgraphic("staticons2,12", nq4631762:com33);
+    if_setposition($int0, $int1, ^setpos_abs_left, ^setpos_abs_top, nq4631762:com33);
+    if_sethide(false, nq4631762:com18);
+    $int1 = calc($int1 + 29);
+} else {
+    if_sethide(true, nq4631762:com18);
+}
+if (%varbit_4276 = true) {
+    if_setgraphic("staticons2,7", nq4631762:com31);
+    if_setposition($int0, $int1, ^setpos_abs_left, ^setpos_abs_top, nq4631762:com31);
+    if_sethide(false, nq4631762:com16);
+    $int1 = calc($int1 + 29);
+} else {
+    if_sethide(true, nq4631762:com16);
+}
+$int0 = 8;
+$int1 = 45;
+if (%varbit_4148 = false) {
+    if_setgraphic("staticons,3", nq4631762:com34);
+    if_setposition($int0, $int1, ^setpos_abs_left, ^setpos_abs_top, nq4631762:com34);
+    if_sethide(false, nq4631762:com19);
+    $int1 = calc($int1 + 29);
+} else {
+    if_sethide(true, nq4631762:com19);
+}
+if (%varbit_4149 = false) {
+    if_setgraphic("staticons,0", nq4631762:com35);
+    if_setposition($int0, $int1, ^setpos_abs_left, ^setpos_abs_top, nq4631762:com35);
+    if_sethide(false, nq4631762:com20);
+    $int1 = calc($int1 + 29);
+} else {
+    if_sethide(true, nq4631762:com20);
+}
+if (%varbit_4150 = false) {
+    if_setgraphic("staticons,5", nq4631762:com36);
+    if_setposition($int0, $int1, ^setpos_abs_left, ^setpos_abs_top, nq4631762:com36);
+    if_sethide(false, nq4631762:com21);
+    $int1 = calc($int1 + 29);
+} else {
+    if_sethide(true, nq4631762:com21);
+}

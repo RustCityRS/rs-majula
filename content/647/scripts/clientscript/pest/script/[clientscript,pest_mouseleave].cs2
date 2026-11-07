@@ -1,0 +1,2 @@
+[clientscript,pest_mouseleave](component $component)
+if_settext(removetags(if_gettext($component)), $component);

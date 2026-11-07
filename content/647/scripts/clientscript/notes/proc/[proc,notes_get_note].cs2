@@ -1,0 +1,66 @@
+[proc,notes_get_note](int $int)(string)
+def_string $string = "";
+switch_int ($int) {
+    case 0:
+        $string = %varc_string_149;
+    case 1:
+        $string = %varc_string_150;
+    case 2:
+        $string = %varc_string_151;
+    case 3:
+        $string = %varc_string_152;
+    case 4:
+        $string = %varc_string_153;
+    case 5:
+        $string = %varc_string_154;
+    case 6:
+        $string = %varc_string_155;
+    case 7:
+        $string = %varc_string_156;
+    case 8:
+        $string = %varc_string_157;
+    case 9:
+        $string = %varc_string_158;
+    case 10:
+        $string = %varc_string_159;
+    case 11:
+        $string = %varc_string_160;
+    case 12:
+        $string = %varc_string_161;
+    case 13:
+        $string = %varc_string_162;
+    case 14:
+        $string = %varc_string_163;
+    case 15:
+        $string = %varc_string_164;
+    case 16:
+        $string = %varc_string_165;
+    case 17:
+        $string = %varc_string_166;
+    case 18:
+        $string = %varc_string_167;
+    case 19:
+        $string = %varc_string_168;
+    case 20:
+        $string = %varc_string_169;
+    case 21:
+        $string = %varc_string_170;
+    case 22:
+        $string = %varc_string_171;
+    case 23:
+        $string = %varc_string_172;
+    case 24:
+        $string = %varc_string_173;
+    case 25:
+        $string = %varc_string_174;
+    case 26:
+        $string = %varc_string_175;
+    case 27:
+        $string = %varc_string_176;
+    case 28:
+        $string = %varc_string_177;
+    case 29:
+        $string = %varc_string_178;
+}
+return($string);
+return("");

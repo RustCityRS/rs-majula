@@ -1,0 +1,13 @@
+[proc,clientscript_283]
+def_int $int0 = 0;
+def_int $int1 = 0;
+def_int $int2 = scale(%varp_1380, 1000, 100);
+$int0 = enum(105, 105, enum_706, $int2);
+$int1 = enum(105, 105, enum_707, $int2);
+if_setposition(15, $int0, ^setpos_abs_right, ^setpos_abs_top, di9181176:com74);
+if_setsize(14, $int1, ^setsize_abs, ^setsize_abs, di9181176:com74);
+if ($int2 < 25) {
+    if_setcolour(0xff9623, di9181176:com74);
+} else {
+    if_setcolour(0x048306, di9181176:com74);
+}

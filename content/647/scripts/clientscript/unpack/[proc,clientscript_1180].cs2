@@ -1,0 +1,16 @@
+[proc,clientscript_1180]
+if (%doublexp_setupflag = true) {
+    if (getlanguage = true) {
+        if_setgraphic("xp_token_with_plus,2", toplevel:xp_orb);
+        if_setgraphic("xp_token_with_plus,2", toplevel_fullscreen:xp_orb);
+    } else {
+        if_setgraphic("xp_token_with_plus,0", toplevel:xp_orb);
+        if_setgraphic("xp_token_with_plus,0", toplevel_fullscreen:xp_orb);
+    }
+} else if (getlanguage = true) {
+    if_setgraphic("xp_token,2", toplevel:xp_orb);
+    if_setgraphic("xp_token,2", toplevel_fullscreen:xp_orb);
+} else {
+    if_setgraphic("xp_token,0", toplevel:xp_orb);
+    if_setgraphic("xp_token,0", toplevel_fullscreen:xp_orb);
+}

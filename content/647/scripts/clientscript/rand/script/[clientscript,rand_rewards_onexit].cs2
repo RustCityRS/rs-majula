@@ -1,0 +1,4 @@
+[clientscript,rand_rewards_onexit](int $int)
+if (cc_find(rand_rewards_interface:com2, $int) = true) {
+    cc_sethide(true);
+}

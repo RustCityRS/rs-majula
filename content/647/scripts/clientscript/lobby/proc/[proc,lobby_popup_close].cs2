@@ -1,0 +1,22 @@
+[proc,lobby_popup_close]
+if_clearops(lobbyscreen:com225);
+if_clearops(lobbyscreen:com231);
+if_setonop(null, lobbyscreen:com225);
+if_setonop(null, lobbyscreen:com231);
+if_setonmouseover(null, lobbyscreen:com231);
+if_setonmouseleave(null, lobbyscreen:com231);
+if_setonmouseover(null, lobbyscreen:com225);
+if_setonmouseleave(null, lobbyscreen:com225);
+if_setposition(6, 5, ^setpos_abs_left, ^setpos_abs_bottom, lobbyscreen:com225);
+if_setposition(6, 5, ^setpos_abs_left, ^setpos_abs_bottom, lobbyscreen:com231);
+if_settext("", lobbyscreen:com230);
+if_settext("", lobbyscreen:com236);
+if_sethide(true, lobbyscreen:com225);
+if_sethide(true, lobbyscreen:com231);
+if_settext("", lobbyscreen:com224);
+%varc_int_1092 = 0;
+if_setgraphic(null, lobbyscreen:com223);
+if_setontimer(null, lobbyscreen:com223);
+if_setonkey(null, lobbyscreen:com33);
+if_sethide(true, lobbyscreen:com33);
+if_sethide(true, lobbyscreen:com19);

@@ -41,7 +41,7 @@ fn no_server_only_varp_transmits() {
         .filter_map(|(id, name)| Some((name.to_string(), id.parse().ok()?)))
         .collect();
     // The client's count: one past the highest cache varp.
-    let client_count = fs::read_to_string(root.join("scripts/_unpack/all.varp"))
+    let client_count = fs::read_to_string(root.join("scripts/globalscript/_unpack/all.varp"))
         .expect("run `cargo unpack` first")
         .lines()
         .filter_map(|l| l.strip_prefix('[')?.strip_suffix(']'))
@@ -51,7 +51,7 @@ fn no_server_only_varp_transmits() {
         .expect("all.varp names no registered varp");
 
     let mut files = Vec::new();
-    configs(&root.join("scripts"), &mut files);
+    configs(&root.join("scripts/runescript"), &mut files);
     let mut bad = Vec::new();
     for path in files {
         let mut section = String::new();

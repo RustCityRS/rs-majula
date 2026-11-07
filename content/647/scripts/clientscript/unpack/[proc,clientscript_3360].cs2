@@ -1,0 +1,26 @@
+[proc,clientscript_3360]()(int, obj, string)
+switch_int (%varp_448) {
+    case default:
+        return(5, "Aptitude (Tier 1)", aptitude__tier_1);
+    case 17955:
+        return(5, "Aptitude (Tier 1)", aptitude__tier_1);
+    case 17956:
+        return(15, "Aptitude (Tier 2)", aptitude__tier_2);
+    case 17957:
+        return(25, "Aptitude (Tier 3)", aptitude__tier_3);
+    case 17958:
+        return(35, "Aptitude (Tier 4)", aptitude__tier_4);
+    case 17959:
+        return(45, "Aptitude (Tier 5)", aptitude__tier_5);
+    case 17960:
+        return(55, "Aptitude (Tier 6)", aptitude__tier_6);
+    case 17961:
+        return(65, "Aptitude (Tier 7)", aptitude__tier_7);
+    case 17962:
+        return(75, "Aptitude (Tier 8)", aptitude__tier_8);
+    case 17963:
+        return(85, "Aptitude (Tier 9)", aptitude__tier_9);
+    case 17964:
+        return(95, "Aptitude (Tier 10)", aptitude__tier_10);
+}
+return(0, "", null);

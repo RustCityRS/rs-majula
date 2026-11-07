@@ -1,0 +1,3 @@
+[proc,hex_to_rgb](colour $colour)(int, int, int)
+return(calc($colour / 65536), calc(and($colour, 65280) / 256), and($colour, 255));
+return(0, 0, 0);

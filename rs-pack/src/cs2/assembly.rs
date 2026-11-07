@@ -45,8 +45,12 @@ fn domain(op: u16) -> Option<&'static str> {
     }
 }
 
-pub fn unpack(data: &[u8], names: &AssetNames) -> Result<String> {
-    let script = Script::decode(data)?;
+pub fn unpack(
+    data: &[u8],
+    names: &AssetNames,
+    format: &runec::clientscript::format::Format,
+) -> Result<String> {
+    let script = Script::decode(data, format)?;
     let mut text = format!("name={}\n", serde_json::to_string(&script.name)?);
     for (key, value) in [
         ("local_int_count", script.local_int_count),

@@ -1,0 +1,28 @@
+[proc,clientscript_1377](component $component0, int $int1)
+def_npc $npc2 = null;
+if (%varbit_7516 = $int1) {
+    $npc2 = ~clientscript_486(%varbit_7520);
+} else if (%varbit_7517 = $int1) {
+    $npc2 = ~clientscript_486(%varbit_7521);
+} else if (%varbit_7518 = $int1) {
+    $npc2 = ~clientscript_486(%varbit_7526);
+} else if (%varbit_7519 = $int1) {
+    $npc2 = ~clientscript_486(%varbit_7527);
+} else if (%varbit_7522 = $int1) {
+    $npc2 = ~clientscript_486(%varbit_7530);
+} else if (%varbit_7523 = $int1) {
+    $npc2 = ~clientscript_486(%varbit_7531);
+} else if (%varbit_7524 = $int1) {
+    $npc2 = ~clientscript_486(%varbit_7532);
+} else if (%varbit_7525 = $int1) {
+    $npc2 = ~clientscript_486(%varbit_7533);
+} else if (%varbit_7528 = $int1) {
+    $npc2 = ~clientscript_486(%varbit_7534);
+} else if (%varbit_7529 = $int1) {
+    $npc2 = ~clientscript_486(%varbit_7535);
+}
+if ($npc2 ! null) {
+    if_settext(nc_param($npc2, param_1140), $component0);
+} else {
+    if_settext("", $component0);
+}

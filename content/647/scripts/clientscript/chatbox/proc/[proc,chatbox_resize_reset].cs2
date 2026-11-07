@@ -1,0 +1,2 @@
+[proc,chatbox_resize_reset](int $int)
+~chatbox_resize(calc(if_getheight(toplevel_fullscreen:com1) - 259), $int);

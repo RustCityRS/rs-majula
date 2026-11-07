@@ -1,0 +1,45 @@
+[proc,chatalerts]
+if (%learning_the_ropes < 1000) {
+    return;
+}
+def_int $int0 = chat_getofflinepm;
+def_int $int1 = 0;
+if ($int0 > %varc_int_43) {
+    if (%varc_int_41 = false) {
+        %varc_int_43 = $int0;
+        return;
+    }
+    $int0 = calc($int0 - %varc_int_43 - 1);
+    if ($int0 >= 100) {
+        $int0 = 99;
+    }
+    while ($int0 >= 0) {
+        $int1 = chat_gethistory_length($int0);
+        if (~filtertest($int0, 0) = true & ~partnercheck($int0) = false) {
+            switch_int ($int1) {
+                case 0, 4, 27, 28, 29, 109, 110, 26, 117:
+                    ~chat_alert_enable(1);
+                case 1, 2, 17, 116:
+                    ~chat_alert_enable(2);
+                case 3, 5, 6, 7, 18, 19, 30, 31:
+                    ~chat_alert_enable(3);
+                case 9, 11, 107, 20:
+                    ~chat_alert_enable(4);
+                case 100, 101, 103, 105, 106, 108, 111, 112, 113, 114, 118:
+                    ~chat_alert_enable(5);
+                case 102, 104:
+                    ~chat_alert_enable(6);
+                case 41, 43, 42:
+                    ~chat_alert_enable(7);
+                case 44, 46, 45:
+                    ~chat_alert_enable(7);
+                case 115:
+                    if (string_length(chat_gethistory_bytypeandline($int0)) > 1) {
+                        ~chat_alert_enable(1);
+                    }
+            }
+        }
+        $int0 = calc($int0 - 1);
+    }
+    %varc_int_43 = chat_getofflinepm;
+}

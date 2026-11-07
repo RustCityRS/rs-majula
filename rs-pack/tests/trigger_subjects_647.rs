@@ -52,8 +52,12 @@ fn every_trigger_subject_resolves() {
     let seen = Arc::new(Mutex::new(Vec::new()));
     let subscriber = tracing_subscriber::registry().with(Unresolved(seen.clone()));
     with_default(subscriber, || {
-        runec::compile_memory(&content.join("scripts"), Some(&content.join("pack")), false)
-            .expect("content/647 compiles")
+        runec::compile_memory(
+            &content.join("scripts/runescript"),
+            Some(&content.join("pack")),
+            false,
+        )
+        .expect("content/647 compiles")
     });
 
     let seen = seen.lock().unwrap();

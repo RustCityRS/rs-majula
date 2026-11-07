@@ -1,0 +1,52 @@
+[proc,aif_tooltip](component $component0, component $component1, int $int2, int $int3, fontmetrics $fontmetrics4, fontmetrics $fontmetrics5, colour $colour6, int $int7, int $int8, int $int9, int $int10, int $int11, string $string)
+if (%varc_int_1 < calc(clientclock + 25)) {
+    if (%varc_int_1 < clientclock) {
+        %varc_int_1 = clientclock;
+    }
+    %varc_int_1 = calc(%varc_int_1 + 2);
+    return;
+}
+%varc_int_1 = calc(clientclock + 25 + 10);
+def_int $int12 = 0;
+def_int $int13 = 0;
+if (.cc_find($component0, calc(if_getchildcount($component0) - 1)) = true & ((cc_find($component1, $int2) = true | $int2 = -1 & if_find($component1) = true) & .cc_getgraphic = 5613)) {
+    switch_int ($int9) {
+        case 3:
+            if (.cc_get2dangle = false) {
+                $int13 = if_getheight($component0);
+                $int12 = calc(~cc_gety_absolute + $int11 - (~if_gety_absolute($component0) + $int13 / 2));
+                $int13 = calc(($int13 - 35) / 2);
+                $int12 = max(min($int12, $int13), calc(0 - $int13));
+                .cc_setposition(0, $int12, ^setpos_abs_right, ^setpos_abs_centre);
+                return;
+            }
+        case 1:
+            if (.cc_get2dangle = 32768) {
+                $int13 = if_getheight($component0);
+                $int12 = calc(~cc_gety_absolute + $int11 - (~if_gety_absolute($component0) + $int13 / 2));
+                $int13 = calc(($int13 - 35) / 2);
+                $int12 = max(min($int12, $int13), calc(0 - $int13));
+                .cc_setposition(0, $int12, ^setpos_abs_left, ^setpos_abs_centre);
+                return;
+            }
+        case 0:
+            if (.cc_get2dangle = 49152) {
+                $int13 = if_getwidth($component0);
+                $int12 = calc(~cc_getx_absolute + $int10 - (~if_getx_absolute($component0) + $int13 / 2));
+                $int13 = calc(($int13 - 35) / 2);
+                $int12 = max(min($int12, $int13), calc(0 - $int13));
+                .cc_setposition($int12, 0, ^setpos_abs_centre, ^setpos_abs_bottom);
+                return;
+            }
+        case default:
+            if (.cc_get2dangle = 16384) {
+                $int13 = if_getwidth($component0);
+                $int12 = calc(~cc_getx_absolute + $int10 - (~if_getx_absolute($component0) + $int13 / 2));
+                $int13 = calc(($int13 - 35) / 2);
+                $int12 = max(min($int12, $int13), calc(0 - $int13));
+                .cc_setposition($int12, 0, ^setpos_abs_centre, ^setpos_abs_top);
+                return;
+            }
+    }
+}
+~aif_tooltip_draw($component0, $component1, $int2, $string, $int3, $fontmetrics4, $fontmetrics5, $colour6, $int7, $int8, $int9, $int10, $int11);

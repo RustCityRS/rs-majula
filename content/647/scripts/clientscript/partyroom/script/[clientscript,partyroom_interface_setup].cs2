@@ -1,0 +1,7 @@
+[clientscript,partyroom_interface_setup]
+~scrollbar_vertical(gf1578898:com19, gf1578898:com23, "scrollbar_dragger_v2,3", "scrollbar_dragger_v2,0", "scrollbar_dragger_v2,1", "scrollbar_dragger_v2,2", "scrollbar_v2,0", "scrollbar_v2,1");
+if_setscrollpos(0, 0, gf1578898:com19);
+~scrollbar_ondrag_doscroll(gf1578898:com19, gf1578898:com23, 0, 1);
+~scrollbar_vertical(gf1578898:com20, gf1578898:com24, "scrollbar_dragger_v2,3", "scrollbar_dragger_v2,0", "scrollbar_dragger_v2,1", "scrollbar_dragger_v2,2", "scrollbar_v2,0", "scrollbar_v2,1");
+if_setscrollpos(0, 0, gf1578898:com20);
+~scrollbar_ondrag_doscroll(gf1578898:com20, gf1578898:com24, 0, 1);

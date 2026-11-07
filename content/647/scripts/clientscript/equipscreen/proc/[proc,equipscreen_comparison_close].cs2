@@ -1,0 +1,9 @@
+[proc,equipscreen_comparison_close]
+%varc_string_321 = "";
+%varc_string_322 = "";
+%varc_string_323 = "";
+%varc_string_324 = "";
+%varc_string_325 = "";
+if_sethide(true, equip_screen2:com51);
+if_sethide(true, inventory_wear2:com1);
+if_sethide(true, bank_v2_side:com3);

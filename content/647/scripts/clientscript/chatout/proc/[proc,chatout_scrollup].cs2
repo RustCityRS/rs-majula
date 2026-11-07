@@ -1,0 +1,17 @@
+[proc,chatout_scrollup]
+def_int $int = %character_creation_name_required;
+def_string $string = "null";
+if ($int = -1) {
+    $int = %varc_int_4;
+}
+if (%character_creation_name_required ! %varc_int_4) {
+    $int = calc($int - 1);
+    if ($int < 0) {
+        $int = 19;
+    }
+    $string = ~chatout_get($int);
+    if (string_length($string) > 0) {
+        %varc_string_1 = $string;
+        %character_creation_name_required = $int;
+    }
+}

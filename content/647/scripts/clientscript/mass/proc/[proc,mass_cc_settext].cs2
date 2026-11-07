@@ -1,0 +1,6 @@
+[proc,mass_cc_settext](component $component0, int $int1, string $string)
+if (cc_find($component0, $int1) = true) {
+    cc_settext($string);
+} else {
+    mes("Cannot find component.<tostring($int1)>");
+}

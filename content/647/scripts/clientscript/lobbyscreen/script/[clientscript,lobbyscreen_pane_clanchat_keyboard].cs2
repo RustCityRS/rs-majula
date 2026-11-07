@@ -1,0 +1,28 @@
+[clientscript,lobbyscreen_pane_clanchat_keyboard](int $int0, char $int1)
+if (is_subscriber = true) {
+    return;
+}
+switch_int ($int0) {
+    case 84:
+        if (clanchannel2_find_affined = true) {
+            if (string_length(%varc_string_278) > 0) {
+                chat_setmode(2);
+                chat_sendpublic(%varc_string_278);
+            }
+        } else {
+            tutorial_openchat(43, 0, "You are not in a Clan.");
+        }
+        %varc_string_278 = "";
+        if_settext(escape(%varc_string_278), lobbyscreen_pane_clanchat:com25);
+        %varc_int_1098 = string_length(%varc_string_278);
+        ~clientscript_1390(lobbyscreen_pane_clanchat:com25, lobbyscreen_pane_clanchat:com26, %varc_string_278);
+    case 96, 97, 98, 99, 102, 103:
+        %varc_int_1098 = ~clientscript_1553($int0, %varc_int_1098, %varc_string_278);
+        ~clientscript_1390(lobbyscreen_pane_clanchat:com25, lobbyscreen_pane_clanchat:com26, %varc_string_278);
+    case -1, 85, 101:
+        if (char_isprintable($int1) = true | ($int0 = 85 | $int0 = 101)) {
+            %varc_string_278, %varc_int_1098 = ~clientscript_802(%varc_int_1098, %varc_string_278, 0, $int0, $int1);
+            if_settext(escape(%varc_string_278), lobbyscreen_pane_clanchat:com25);
+            ~clientscript_1390(lobbyscreen_pane_clanchat:com25, lobbyscreen_pane_clanchat:com26, %varc_string_278);
+        }
+}

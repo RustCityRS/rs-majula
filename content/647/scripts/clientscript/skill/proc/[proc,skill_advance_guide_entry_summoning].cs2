@@ -1,0 +1,680 @@
+[proc,skill_advance_guide_entry_summoning](int $int0, int $int1)(int, obj, string, string)
+switch_int ($int0) {
+    case 0:
+        switch_int ($int1) {
+            case 0:
+                return(1, spirit_wolf_pouch, "Spirit wolf - Attack XP<br>Gold charm, wolf bones, 7 shards", "You can now infuse <col=000080>spirit wolf pouches</col>.");
+            case 1:
+                return(4, dreadfowl_pouch, "Dreadfowl - Magic XP<br>Gold charm, raw chicken, 8 shards", "You can now infuse <col=000080>dreadfowl pouches</col>.");
+            case 2:
+                return(4, meerkats_pouch, "Meerkats<br>Obtained from Treasure Trails.", "You can now summon <col=000080>meerkats</col>.");
+            case 3:
+                return(10, spirit_spider_pouch, "Spirit spider - Controlled XP<br>Gold charm, spider carcass, 8 shards", "You can now infuse <col=000080>spirit spider pouches</col>.");
+            case 4:
+                return(13, thorny_snail_pouch, "Thorny snail - Ranged XP<br>Gold charm, raw thin snail, 9 shards", "You can now infuse <col=000080>thorny snail pouches</col>.");
+            case 5:
+                return(16, granite_crab_pouch, "Granite crab - Defence XP<br>Gold charm, iron ore, 7 shards", "You can now infuse <col=000080>granite crab pouches</col>.");
+            case 6:
+                return(17, spirit_mosquito_pouch, "Spirit mosquito - Attack XP<br>Gold charm, proboscis, 1 shard", "You can now infuse <col=000080>spirit mosquito pouches</col>.");
+            case 7:
+                return(18, desert_wyrm_pouch, "Desert wyrm - Strength XP<br>Green charm, bucket of sand, 45 shards", "You can now infuse <col=000080>desert wyrm pouches</col>.");
+            case 8:
+                return(19, spirit_scorpion_pouch, "Spirit scorpion - Controlled XP<br>Crimson charm, bronze claws, 57 shards", "You can now infuse <col=000080>spirit scorpion pouches</col>.");
+            case 9:
+                return(22, spirit_tz_kih_pouch, "Spirit Tz-Kih - Magic XP<br>Crimson charm, obsidian charm, 64 shards", "You can now infuse <col=000080>spirit Tz-Kih pouches</col>.");
+            case 10:
+                return(23, albino_rat_pouch, "Albino rat - Attack XP<br>Blue charm, raw rat meat, 75 shards", "You can now infuse <col=000080>albino rat pouches</col>.");
+            case 11:
+                return(25, spirit_kalphite_pouch, "Spirit kalphite - Defence XP<br>Blue charm, potato cactus, 51 shards", "You can now infuse <col=000080>spirit kalphite pouches</col>.");
+            case 12:
+                return(28, compost_mound_pouch, "Compost mound - Strength XP<br>Green charm, compost, 47 shards", "You can now infuse <col=000080>compost mound pouches</col>.");
+            case 13:
+                return(29, giant_chinchompa_pouch, "Giant chinchompa - Ranged XP<br>Blue charm, chinchompa, 84 shards", "You can now infuse <col=000080>giant chinchompa pouches</col>.");
+            case 14:
+                return(31, vampire_bat_pouch, "Vampire bat - Controlled XP<br>Crimson charm, vampire dust, 81 shards", "You can now infuse <col=000080>vampire bat pouches</col>.");
+            case 15:
+                return(32, honey_badger_pouch, "Honey badger - Strength XP<br>Crimson charm, honeycomb, 84 shards", "You can now infuse <col=000080>honey badger pouches</col>.");
+            case 16:
+                return(33, beaver_pouch, "Beaver<br>Green charm, willow logs, 72 shards", "You can now infuse <col=000080>beaver pouches</col>.");
+            case 17:
+                return(34, void_ravager_pouch, "Void ravager - Strength XP<br>Green charm, ravager charm, 74 shards", "You can now infuse <col=000080>void ravager pouches</col>.");
+            case 18:
+                return(34, void_spinner_pouch, "Void spinner - Defence XP<br>Blue charm, spinner charm, 74 shards", "You can now infuse <col=000080>void spinner pouches</col>.");
+            case 19:
+                return(34, void_torcher_pouch, "Void torcher - Magic XP<br>Blue charm, torcher charm, 74 shards", "You can now infuse <col=000080>void torcher pouches</col>.");
+            case 20:
+                return(34, void_shifter_pouch, "Void shifter - Attack XP<br>Blue charm, shifter charm, 74 shards", "You can now infuse <col=000080>void shifter pouches</col>.");
+            case 21:
+                return(36, bronze_minotaur_pouch, "Bronze minotaur - Defence XP<br>Blue charm, bronze bar, 102 shards", "You can now infuse <col=000080>bronze minotaur pouches</col>.");
+            case 22:
+                return(40, bull_ant_pouch, "Bull ant - Controlled XP<br>Gold charm, marigolds, 11 shards", "You can now infuse <col=000080>bull ant pouches</col>.");
+            case 23:
+                return(41, macaw_pouch, "Macaw<br>Green charm, guam, 78 shards", "You can now infuse <col=000080>macaw pouches</col>.");
+            case 24:
+                return(42, evil_turnip_pouch, "Evil turnip - Ranged XP<br>Crimson charm, carved turnip, 104 shards", "You can now infuse <col=000080>evil turnip pouches</col>.");
+            case 25:
+                return(43, sp__cockatrice_pouch, "Spirit cockatrice - Magic XP<br>Green charm, cockatrice egg, 88 shards", "You can now infuse <col=000080>spirit cockatrice pouches</col>.");
+            case 26:
+                return(43, sp__guthatrice_pouch, "Spirit guthatrice - Magic XP<br>Green charm, guthatrice egg, 88 shards", "You can now infuse <col=000080>spirit guthatrice pouches</col>.");
+            case 27:
+                return(43, sp__saratrice_pouch, "Spirit saratrice - Magic XP<br>Green charm, saratrice egg, 88 shards", "You can now infuse <col=000080>spirit saratrice pouches</col>.");
+            case 28:
+                return(43, sp__zamatrice_pouch, "Spirit zamatrice - Magic XP<br>Green charm, zamatrice egg, 88 shards", "You can now infuse <col=000080>spirit zamatrice pouches</col>.");
+            case 29:
+                return(43, sp__pengatrice_pouch, "Spirit pengatrice - Magic XP<br>Green charm, pengatrice egg, 88 shards", "You can now infuse <col=000080>spirit pengatrice pouches</col>.");
+            case 30:
+                return(43, sp__coraxatrice_pouch, "Spirit coraxatrice - Magic XP<br>Green charm, coraxatrice egg, 88 shards", "You can now infuse <col=000080>spirit coraxatrice pouches</col>.");
+            case 31:
+                return(43, sp__vulatrice_pouch, "Spirit vulatrice - Magic XP<br>Green charm, vulatrice egg, 88 shards", "You can now infuse <col=000080>spirit vulatrice pouches</col>.");
+            case 32:
+                return(46, iron_minotaur_pouch, "Iron minotaur - Defence XP<br>Blue charm, iron bar, 125 shards", "You can now infuse <col=000080>iron minotaur pouches</col>.");
+            case 33:
+                return(46, pyrelord_pouch, "Pyrelord - Strength XP<br>Crimson charm, tinderbox, 111 shards", "You can now infuse <col=000080>pyrelord</col> pouches.");
+            case 34:
+                return(47, magpie_pouch, "Magpie<br>Green charm, gold ring, 88 shards", "You can now infuse <col=000080>magpie pouches</col>.");
+            case 35:
+                return(49, bloated_leech_pouch, "Bloated leech - Attack XP<br>Crimson charm, raw beef, 117 shards", "You can now infuse <col=000080>bloated leech pouches</col>.");
+            case 36:
+                return(52, spirit_terrorbird_pouch, "Spirit terrorbird - Controlled XP<br>Gold charm, raw bird meat, 12 shards", "You can now infuse <col=000080>spirit terrorbird pouches</col>.");
+            case 37:
+                return(54, abyssal_parasite_pouch, "Abyssal parasite - Magic XP<br>Green charm, abyssal charm, 106 shards", "You can now infuse <col=000080>abyssal parasite pouches</col>.");
+            case 38:
+                return(55, spirit_jelly_pouch, "Spirit jelly - Strength XP<br>Blue charm, jug of water, 151 shards", "You can now infuse <col=000080>spirit jelly pouches</col>.");
+            case 39:
+                return(56, steel_minotaur_pouch, "Steel minotaur - Defence XP<br>Blue charm, steel bar, 141 shards", "You can now infuse <col=000080>steel minotaur pouches</col>.");
+            case 40:
+                return(56, ibis_pouch, "Ibis<br>Green charm, harpoon, 109 shards", "You can now infuse <col=000080>ibis pouches</col>.");
+            case 41:
+                return(57, spirit_kyatt_pouch, "Spirit kyatt - Attack XP<br>Blue charm, kyatt fur, 153 shards", "You can now infuse <col=000080>spirit kyatt pouches</col>.");
+            case 42:
+                return(57, spirit_larupia_pouch, "Spirit larupia - Controlled XP<br>Blue charm, larupia fur, 155 shards", "You can now infuse <col=000080>spirit larupia pouches</col>.");
+            case 43:
+                return(57, spirit_graahk_pouch, "Spirit graahk - Strength XP<br>Blue charm, graahk fur, 154 shards", "You can now infuse <col=000080>spirit graahk pouches</col>.");
+            case 44:
+                return(58, karam__overlord_pouch, "Karamthulhu overlord - Ranged XP<br>Blue charm, empty fishbowl, 144 shards", "You can now infuse <col=000080>karamthulhu overlord pouches</col>.");
+            case 45:
+                return(61, smoke_devil_pouch, "Smoke devil - Magic XP<br>Crimson charm, goat's horn dust, 141 shards", "You can now infuse <col=000080>smoke devil pouches</col>.");
+            case 46:
+                return(62, abyssal_lurker_pouch, "Abyssal lurker - Controlled XP<br>Green charm, abyssal charm, 119 shards", "You can now infuse <col=000080>abyssal lurker pouches</col>.");
+            case 47:
+                return(63, spirit_cobra_pouch, "Spirit cobra - Attack XP<br>Crimson charm, snake hide, 116 shards", "You can now infuse <col=000080>spirit cobra pouches</col>.");
+            case 48:
+                return(64, stranger_plant_pouch, "Stranger plant - Controlled XP<br>Crimson charm, bagged plant, 128 shards", "You can now infuse <col=000080>stranger plant pouches</col>.");
+            case 49:
+                return(66, mithril_minotaur_pouch, "Mithril minotaur - Defence XP<br>Blue charm, mithril bar, 152 shards", "You can now infuse <col=000080>mithril minotaur pouches</col>.");
+            case 50:
+                return(66, barker_toad_pouch, "Barker toad - Strength XP<br>Gold charm, swamp toad, 11 shards", "You can now infuse <col=000080>barker toad pouches</col>.");
+            case 51:
+                return(67, war_tortoise_pouch, "War tortoise - Defence XP<br>Gold charm, tortoise shell, 1 shard", "You can now infuse <col=000080>war tortoise pouches</col>.");
+            case 52:
+                return(68, bunyip_pouch, "Bunyip - Attack XP<br>Green charm, raw shark, 110 shards", "You can now infuse <col=000080>bunyip pouches</col>.");
+            case 53:
+                return(69, fruit_bat_pouch, "Fruit bat<br>Green charm, banana, 130 shards", "You can now infuse <col=000080>fruit bat pouches</col>.");
+            case 54:
+                return(70, ravenous_locust_pouch, "Ravenous locust - Attack XP<br>Crimson charm, pot of flour, 79 shards", "You can now infuse <col=000080>ravenous locust pouches</col>.");
+            case 55:
+                return(71, arctic_bear_pouch, "Arctic bear - Controlled XP<br>Gold charm, polar kebbit fur, 14 shards", "You can now infuse <col=000080>arctic bear pouches</col>.");
+            case 56:
+                return(72, phoenix_pouch, "Phoenix - Magic XP<br>Crimson charm, phoenix quill, 165 shards (after In Pyre Need)", "You can now infuse <col=000080>phoenix pouches</col> (after In Pyre Need)</col>.");
+            case 57:
+                return(73, obsidian_golem_pouch, "Obsidian golem - Strength XP<br>Blue charm, obsidian charm, 195 shards", "You can now infuse <col=000080>obsidian golem pouches</col>.");
+            case 58:
+                return(74, granite_lobster_pouch, "Granite lobster - Defence XP<br>Crimson charm, granite (500g, 2kg or 5kg), 166 shards", "You can now infuse <col=000080>granite lobster pouches</col>.");
+            case 59:
+                return(75, praying_mantis_pouch, "Praying mantis - Attack XP<br>Crimson charm, flowers (any except black or white), 168 shards", "You can now infuse <col=000080>praying mantis pouches</col>.");
+            case 60:
+                return(76, forge_regent_pouch, "Forge regent - Ranged XP<br>Green charm, ruby harvest, 141 shards", "You can now infuse <col=000080>forge regent pouches</col>.");
+            case 61:
+                return(76, adamant_minotaur_pouch, "Adamant minotaur - Defence XP<br>Blue charm, adamant bar, 144 shards", "You can now infuse <col=000080>adamant minotaur pouches</col>.");
+            case 62:
+                return(77, talon_beast_pouch, "Talon beast - Strength XP<br>Crimson charm, talon beast charm, 174 shards", "You can now infuse <col=000080>talon beast pouches</col>.");
+            case 63:
+                return(78, giant_ent_pouch, "Giant ent - Controlled XP<br>Green charm, willow branch, 124 shards", "You can now infuse <col=000080>giant ent pouches</col>.");
+            case 64:
+                return(79, fire_titan_pouch, "Fire titan - Magic XP<br>Blue charm, fire talisman, 198 shards", "You can now infuse <col=000080>fire titan pouches</col>.");
+            case 65:
+                return(79, moss_titan_pouch, "Moss titan - Strength XP<br>Blue charm, earth talisman, 202 shards", "You can now infuse <col=000080>moss titan pouches</col>.");
+            case 66:
+                return(79, ice_titan_pouch, "Ice titan - Attack XP<br>Blue charm, air talisman, water talisman, 198 shards", "You can now infuse <col=000080>ice titan pouches</col>.");
+            case 67:
+                return(80, hydra_pouch, "Hydra - Ranged XP<br>Green charm, water orb, 128 shards", "You can now infuse <col=000080>hydra pouches</col>.");
+            case 68:
+                return(83, spirit_dagannoth_pouch, "Spirit dagannoth - Controlled XP<br>Crimson charm, dagannoth hide, 1 shard", "You can now infuse <col=000080>spirit dagannoth pouches</col>.");
+            case 69:
+                return(83, lava_titan_pouch, "Lava titan - Strength XP<br>Blue charm, obsidian charm, 219 shards", "You can now infuse <col=000080>lava titan pouches</col>.");
+            case 70:
+                return(85, swamp_titan_pouch, "Swamp titan - Attack XP<br>Crimson charm, swamp lizard, 150 shards", "You can now infuse <col=000080>swamp titan pouches</col>.");
+            case 71:
+                return(86, rune_minotaur_pouch, "Rune minotaur - Defence XP<br>Blue charm, rune bar, 1 shard", "You can now infuse <col=000080>rune minotaur pouches</col>.");
+            case 72:
+                return(88, unicorn_stallion_pouch, "Unicorn stallion - Controlled XP<br>Green charm, unicorn horn, 140 shards", "You can now infuse <col=000080>unicorn stallion pouches</col>.");
+            case 73:
+                return(89, geyser_titan_pouch, "Geyser titan - Ranged XP<br>Blue charm, water talisman, 222 shards", "You can now infuse <col=000080>geyser titan pouches</col>.");
+            case 74:
+                return(92, wolpertinger_pouch, "Wolpertinger - Magic XP<br>Crimson charm, raw rabbit, wolf bones, 203 shards", "You can now infuse <col=000080>wolpertinger pouches</col>.");
+            case 75:
+                return(93, abyssal_titan_pouch, "Abyssal titan - Attack XP<br>Green charm, abyssal charm, 113 shards", "You can now infuse <col=000080>abyssal titan pouches</col>.");
+            case 76:
+                return(95, iron_titan_pouch, "Iron titan - Defence XP<br>Crimson charm, iron platebody, 198 shards", "You can now infuse <col=000080>iron titan pouches</col>.");
+            case 77:
+                return(96, pack_yak_pouch, "Pack yak - Strength XP<br>Crimson charm, yak hide, 211 shards", "You can now infuse <col=000080>pack yak pouches</col>.");
+            case 78:
+                return(99, steel_titan_pouch, "Steel titan - Ranged XP<br>Crimson charm, steel platebody, 178 shards", "You can now infuse <col=000080>steel titan pouches</col>.");
+        }
+    case 1:
+        switch_int ($int1) {
+            case 0:
+                return(1, howl_scroll, "Howl", "You can now use <col=000080>Howl scrolls</col>.");
+            case 1:
+                return(4, dreadfowl_strike_scroll, "Dreadfowl Strike", "You can now use <col=000080>Dreadfowl Strike scrolls</col>.");
+            case 2:
+                return(4, fetch_casket_scroll, "Fetch Casket", "You can now use <col=000080>Fetch Casket scrolls</col>.");
+            case 3:
+                return(10, egg_spawn_scroll, "Egg Spawn", "You can now use <col=000080>Egg Spawn scrolls</col>.");
+            case 4:
+                return(13, slime_spray_scroll, "Slime Spray", "You can now use <col=000080>Slime Spray scrolls</col>.");
+            case 5:
+                return(16, stony_shell_scroll, "Stony Shell", "You can now use <col=000080>Stony Shell scrolls</col>.");
+            case 6:
+                return(17, pester_scroll, "Pester", "You can now use <col=000080>Pester scrolls</col>.");
+            case 7:
+                return(18, electric_lash_scroll, "Electric Lash", "You can now use <col=000080>Electric Lash scrolls</col>.");
+            case 8:
+                return(19, venom_shot_scroll, "Venom Shot", "You can now use <col=000080>Venom Shot scrolls</col>.");
+            case 9:
+                return(22, fireball_assault_scroll, "Fireball Assault", "You can now use <col=000080>Fireball Assault scrolls</col>.");
+            case 10:
+                return(23, cheese_feast_scroll, "Cheese Feast", "You can now use <col=000080>Cheese Feast scrolls</col>.");
+            case 11:
+                return(25, sandstorm_scroll, "Sandstorm", "You can now use <col=000080>Sandstorm scrolls</col>.");
+            case 12:
+                return(28, generate_compost_scroll, "Generate Compost", "You can now use <col=000080>Generate Compost scrolls</col>.");
+            case 13:
+                return(29, explode_scroll, "Explode", "You can now use <col=000080>Explode scrolls</col>.");
+            case 14:
+                return(31, vampire_touch_scroll, "Vampire Touch", "You can now use <col=000080>Vampire Touch scrolls</col>.");
+            case 15:
+                return(32, insane_ferocity_scroll, "Insane Ferocity", "You can now use <col=000080>Insane Ferocity scrolls</col>.");
+            case 16:
+                return(33, multichop_scroll, "Multichop", "You can now use <col=000080>Multichop scrolls</col>.");
+            case 17:
+                return(34, call_to_arms_scroll, "Call to Arms", "You can now use <col=000080>Call to Arms scrolls</col>.");
+            case 18:
+                return(36, bronze_bull_rush_scroll, "Bronze Bull Rush", "You can now use <col=000080>Bronze Bull Rush scrolls</col>.");
+            case 19:
+                return(40, unburden_scroll, "Unburden", "You can now use <col=000080>Unburden scrolls</col>.");
+            case 20:
+                return(41, herbcall_scroll, "Herbcall", "You can now use <col=000080>Herbcall scrolls</col>.");
+            case 21:
+                return(42, evil_flames_scroll, "Evil Flames", "You can now use <col=000080>Evil Flames scrolls</col>.");
+            case 22:
+                return(43, petrifying_gaze_scroll, "Petrifying Gaze", "You can now use <col=000080>Petrifying Gaze scrolls</col>.");
+            case 23:
+                return(46, iron_bull_rush_scroll, "Iron Bull Rush", "You can now use <col=000080>Iron Bull Rush scrolls</col>.");
+            case 24:
+                return(46, immense_heat_scroll, "Immense Heat", "You can now use <col=000080>Immense Heat scrolls</col>.");
+            case 25:
+                return(47, thieving_fingers_scroll, "Thieving Fingers", "You can now use <col=000080>Thieving Fingers scrolls</col>.");
+            case 26:
+                return(49, blood_drain_scroll, "Blood Drain", "You can now use <col=000080>Blood Drain scrolls</col>.");
+            case 27:
+                return(52, tireless_run_scroll, "Tireless Run", "You can now use <col=000080>Tireless Run scrolls</col>.");
+            case 28:
+                return(54, abyssal_drain_scroll, "Abyssal Drain", "You can now use <col=000080>Abyssal Drain scrolls</col>.");
+            case 29:
+                return(55, dissolve_scroll, "Dissolve", "You can now use <col=000080>Dissolve scrolls</col>.");
+            case 30:
+                return(56, steel_bull_rush_scroll, "Steel Bull Rush", "You can now use <col=000080>Steel Bull Rush scrolls</col>.");
+            case 31:
+                return(56, fish_rain_scroll, "Fish Rain", "You can now use <col=000080>Fish Rain scrolls</col>.");
+            case 32:
+                return(57, ambush_scroll, "Ambush", "You can now use <col=000080>Ambush scrolls</col>.");
+            case 33:
+                return(57, rending_scroll, "Rending", "You can now use <col=000080>Rending scrolls</col>.");
+            case 34:
+                return(57, goad_scroll, "Goad", "You can now use <col=000080>Goad scrolls</col>.");
+            case 35:
+                return(58, doomsphere_scroll, "Doomsphere Device", "You can now use <col=000080>Doomsphere Device scrolls</col>.");
+            case 36:
+                return(61, dust_cloud_scroll, "Dust Cloud", "You can now use <col=000080>Dust Cloud scrolls</col>.");
+            case 37:
+                return(62, abyssal_stealth_scroll, "Abyssal Stealth", "You can now use <col=000080>Abyssal Stealth scrolls</col>.");
+            case 38:
+                return(63, oph__incubation_scroll, "Ophidian Incubation", "You can now use <col=000080>Ophidian Incubation scrolls</col>.");
+            case 39:
+                return(64, poisonous_blast_scroll, "Poisonous Blast", "You can now use <col=000080>Poisonous Blast scrolls</col>.");
+            case 40:
+                return(66, mith_bull_rush_scroll, "Mithril Bull Rush", "You can now use <col=000080>Mithril Bull Rush scrolls</col>.");
+            case 41:
+                return(66, toad_bark_scroll, "Toad Bark", "You can now use <col=000080>Toad Bark scrolls</col>.");
+            case 42:
+                return(67, testudo_scroll, "Testudo", "You can now use <col=000080>Testudo scrolls</col>.");
+            case 43:
+                return(68, swallow_whole_scroll, "Swallow Whole", "You can now use <col=000080>Swallow Whole scrolls</col>.");
+            case 44:
+                return(69, fruitfall_scroll, "Fruitfall", "You can now use <col=000080>Fruitfall scrolls</col>.");
+            case 45:
+                return(70, famine_scroll, "Famine", "You can now use <col=000080>Famine scrolls</col>.");
+            case 46:
+                return(71, arctic_blast_scroll, "Arctic Blast", "You can now use <col=000080>Arctic Blast scrolls</col>.");
+            case 47:
+                return(72, rise_from_the_ashes_scroll, "Rise from the Ashes (after In Pyre Need)", "You can now use <col=000080>Rise from the Ashes scrolls</col> (after In Pyre Need).");
+            case 48:
+                return(73, volcanic_str__scroll, "Volcanic Strength", "You can now use <col=000080>Volcanic Strength scrolls</col>.");
+            case 49:
+                return(74, crushing_claw_scroll, "Crushing Claw", "You can now use <col=000080>Crushing Claw scrolls</col>.");
+            case 50:
+                return(75, mantis_strike_scroll, "Mantis Strike", "You can now use <col=000080>Mantis Strike scrolls</col>.");
+            case 51:
+                return(76, inferno_scroll, "Inferno", "You can now use <col=000080>Inferno scrolls</col>.");
+            case 52:
+                return(76, addy_bull_rush_scroll, "Adamant Bull Rush", "You can now use <col=000080>Adamant Bull Rush scrolls</col>.");
+            case 53:
+                return(77, deadly_claw_scroll, "Deadly Claw", "You can now use <col=000080>Deadly Claw scrolls</col>.");
+            case 54:
+                return(78, acorn_missile_scroll, "Acorn Missile", "You can now use <col=000080>Acorn Missile scrolls</col>.");
+            case 55:
+                return(79, titan_s_con__scroll, "Titan's Constitution", "You can now use <col=000080>Titan's Constitution scrolls</col>.");
+            case 56:
+                return(80, regrowth_scroll, "Regrowth", "You can now use <col=000080>Regrowth scrolls</col>.");
+            case 57:
+                return(83, spike_shot_scroll, "Spike Shot", "You can now use <col=000080>Spike Shot scrolls</col>.");
+            case 58:
+                return(83, ebon_thunder_scroll, "Ebon Thunder", "You can now use <col=000080>Ebon Thunder scrolls</col>.");
+            case 59:
+                return(85, swamp_plague_scroll, "Swamp Plague", "You can now use <col=000080>Swamp Plague scrolls</col>.");
+            case 60:
+                return(86, rune_bull_rush_scroll, "Rune Bull Rush", "You can now use <col=000080>Rune Bull Rush scrolls</col>.");
+            case 61:
+                return(88, healing_aura_scroll, "Healing Aura", "You can now use <col=000080>Healing Aura scrolls</col>.");
+            case 62:
+                return(89, boil_scroll, "Boil", "You can now use <col=000080>Boil scrolls</col>.");
+            case 63:
+                return(92, magic_focus_scroll, "Magic Focus", "You can now use <col=000080>Magic Focus scrolls</col>.");
+            case 64:
+                return(93, essence_shipment_scroll, "Essence Shipment", "You can now use <col=000080>Essence Shipment scrolls</col>.");
+            case 65:
+                return(95, iron_within_scroll, "Iron Within", "You can now use <col=000080>Iron Within scrolls</col>.");
+            case 66:
+                return(96, winter_storage_scroll, "Winter Storage", "You can now use <col=000080>Winter Storage scrolls</col>.");
+            case 67:
+                return(99, steel_of_legends_scroll, "Steel of Legends", "You can now use <col=000080>Steel of Legends scrolls</col>.");
+        }
+    case 2:
+        switch_int ($int1) {
+            case 0:
+                return(4, bulldog_puppy, "Bulldog", "You can now raise <col=000080>bulldogs</col>.");
+            case 1:
+                return(4, dalmatian_puppy, "Dalmatian", "You can now raise <col=000080>dalmatians</col>.");
+            case 2:
+                return(4, greyhound_puppy, "Greyhound", "You can now raise <col=000080>greyhounds</col>.");
+            case 3:
+                return(4, labrador_puppy, "Labrador", "You can now raise <col=000080>labradors</col>.");
+            case 4:
+                return(4, sheepdog_puppy, "Sheepdog", "You can now raise <col=000080>sheepdogs</col>.");
+            case 5:
+                return(4, terrier_puppy, "Terrier", "You can now raise <col=000080>terriers</col>.");
+            case 6:
+                return(4, creeping_hand, "Creeping hand", "You can now keep <col=000080>creeping hands</col>.");
+            case 7:
+                return(4, minitrice, "Minitrice", "You can now keep <col=000080>minitrices</col>.");
+            case 8:
+                return(4, baby_basilisk, "Baby basilisk", "You can now keep <col=000080>baby basilisks</col>.");
+            case 9:
+                return(4, baby_kurask, "Baby kurask", "You can now keep <col=000080>baby kurasks</col>.");
+            case 10:
+                return(4, abyssal_minion, "Abyssal minion", "You can now keep <col=000080>abyssal minions</col>.");
+            case 11:
+                return(4, rune_guardian, "Rune guardian<br> (after Rune Mechanics)", "You can now keep <col=000080>rune guardians</col> (after Rune Mechanics)");
+            case 12:
+                return(10, baby_gecko, "Gecko", "You can now raise <col=000080>geckos</col>.");
+            case 13:
+                return(10, platypus, "Platypus<br> (after As a First Resort...)", "You can now raise <col=000080>platypodes</col> (after As a First Resort...).");
+            case 14:
+                return(23, broav, "Broav<br> (after While Guthix Sleeps...)", "You can now raise <col=000080>broavs</col> <br> (after While Guthix Sleeps...).");
+            case 15:
+                return(30, penguin, "Penguin", "You can now raise <col=000080>penguins</col>.");
+            case 16:
+                return(37, tooth_creature, "Tooth pet", "You can now raise <col=000080>tooth pets</col>.");
+            case 17:
+                return(40, baby_giant_crab, "Giant crab", "You can now raise <col=000080>giant crabs</col>.");
+            case 18:
+                return(50, raven, "Raven", "You can now raise <col=000080>ravens</col>.");
+            case 19:
+                return(60, squirrel, "Squirrel", "You can now raise <col=000080>squirrels</col>.");
+            case 20:
+                return(70, saradomin_owl, "Saradomin owl", "You can now raise <col=000080>Saradomin owls</col>.");
+            case 21:
+                return(70, guthix_raptor, "Guthix raptor", "You can now raise <col=000080>Guthix raptors</col>.");
+            case 22:
+                return(70, zamorak_hawk, "Zamorak hawk", "You can now raise <col=000080>Zamorak hawks</col>.");
+            case 23:
+                return(71, ex_ex_parrot_13336, "Ex-ex-parrot<br> (after Rocking Out)", "You can now raise <col=000080>ex-ex-parrots</col> (after Rocking Out).");
+            case 24:
+                return(72, phoenix_eggling_14627, "Cute phoenix eggling<br> (after In Pyre Need)", "You can now raise <col=000080>cute phoenix egglings</col> (after In Pyre Need).");
+            case 25:
+                return(72, phoenix_eggling, "Mean phoenix eggling<br> (after In Pyre Need)", "You can now raise <col=000080>mean phoenix egglings</col> (after In Pyre Need).");
+            case 26:
+                return(80, baby_raccoon, "Raccoon", "You can now raise <col=000080>raccoons</col>.");
+            case 27:
+                return(80, sneakerpeeper_spawn, "Sneakerpeeper<br> (with 80 Dungeoneering)", "You can now raise <col=000080>sneakerpeepers</col>. (You also need level 80 Dungeoneering.)");
+            case 28:
+                return(85, vulture, "Vulture", "You can now raise <col=000080>vultures</col>.");
+            case 29:
+                return(90, chameleon, "Chameleon", "You can now raise <col=000080>chameleons</col>.");
+            case 30:
+                return(95, monkey_12201, "Monkey", "You can now raise <col=000080>monkeys</col>.");
+            case 31:
+                return(99, dragon_hatchling, "Dragon", "You can now raise <col=000080>dragons</col>.");
+        }
+    case 3:
+        switch_int ($int1) {
+            case 0:
+                return(10, antlers, "Antlers", "You can now use <col=000080>antlers</col>.");
+            case 1:
+                return(20, adamant_full_helm, "Adamant full helm<br> (with 30 Defence)", "You can now have <col=000080>adamant full helms</col> enchanted to hold Summoning scrolls. (You also need level 30 Defence).");
+            case 2:
+                return(20, snakeskin_bandana, "Snakeskin bandana<br> (with 30 Defence and 30 Ranged)", "You can now have <col=000080>snakeskin bandanas</col> enchanted to hold Summoning scrolls. (You also need level 30 Defence and level 30 Ranged).");
+            case 3:
+                return(20, slayer_helmet__e, "Slayer helmet<br> (with 10 Defence)", "You can now have <col=000080>Slayer helmets</col> enchanted to hold Summoning scrolls. (You also need level 10 Defence).");
+            case 4:
+                return(30, lizard_skull, "Lizard skull", "You can now use <col=000080>lizard skulls</col>.");
+            case 5:
+                return(30, splitbark_helm, "Splitbark helm<br> (with 40 Defence and 40 Magic)", "You can now have <col=000080>splitbark helms</col> enchanted to hold Summoning scrolls. (You also need level 40 Defence and level 40 Magic).");
+            case 6:
+                return(30, rune_full_helm, "Rune full helm<br> (with 40 Defence)", "You can now have <col=000080>rune full helms</col> enchanted to hold Summoning scrolls. (You also need level 40 Defence).");
+            case 7:
+                return(35, berserker_helm, "Berserker helm<br> (after Fremennik Trials with 45 Defence)", "You can now have <col=000080>Berserker helms</col> enchanted to hold Summoning scrolls. (After Fremennik Trials and with level 45 Defence).");
+            case 8:
+                return(35, farseer_helm, "Farseer helm<br> (after Fremennik Trials with 45 Defence)", "You can now have <col=000080>Farseer helms</col> enchanted to hold Summoning scrolls. (After Fremennik Trials and with level 45 Defence).");
+            case 9:
+                return(35, archer_helm, "Archer helm<br> (after Fremennik Trials with 45 Defence)", "You can now have <col=000080>Archer helms</col> enchanted to hold Summoning scrolls. (After Fremennik Trials and with level 45 Defence).");
+            case 10:
+                return(35, warrior_helm, "Warrior helm<br> (after Fremennik Trials with 45 Defence)", "You can now have <col=000080>Warrior helms</col> enchanted to hold Summoning scrolls. (After Fremennik Trials and with level 45 Defence).");
+            case 11:
+                return(45, helm_of_neitiznot, "Helm of Neitiznot<br> (after Fremennik Isles)", "You can now have the <col=000080>Helm of Neitiznot</col> enchanted to hold Summoning scrolls (after Fremennik Isles).");
+            case 12:
+                return(50, feather_headdress, "Feather headdress", "You can now use <col=000080>feather headdresses</col>. (You also need Level 79 Crafting to make feather headdresses).");
+            case 13:
+                return(50, dragon_med_helm, "Dragon medium helm<br> (with 60 Defence)", "You can now have <col=000080>dragon medium helms</col> enchanted to hold Summoning scrolls. (You also need level 60 Defence.)");
+            case 14:
+                return(50, spirit_cape, "Spirit cape<br> (with 50 Defence and 50 Dungeoneering)", "You can now wear <col=000080>spirit capes</col>. (You also need level 50 Defence and 50 Dungeoneering.)");
+            case 15:
+                return(55, lunar_helm, "Lunar helm<br> (with 40 Defence and 65 Magic)", "You can now have <col=000080>lunar helms</col> enchanted to hold Summoning scrolls. (You also need level 40 Defence and level 65 Magic.)");
+            case 16:
+                return(60, armadyl_helmet, "Armadyl helm<br> (with 70 Defence and 70 Ranged)", "You can now have <col=000080>Armadyl helms</col> enchanted to hold Summoning scrolls. (You also need level 70 Defence and level 70 Ranged.)");
+        }
+    case 4:
+        switch_int ($int1) {
+            case 0:
+                return(91, starved_ancient_effigy, "Starved ancient effigies", "You can now investigate <col=000080>starved ancient effigies</col> using your knowledge of Summoning.");
+            case 1:
+                return(93, nourished_ancient_effigy, "Nourished ancient effigies", "You can now investigate <col=000080>nourished ancient effigies</col> using your knowledge of Summoning.");
+            case 2:
+                return(95, sated_ancient_effigy, "Sated ancient effigies", "You can now investigate <col=000080>sated ancient effigies</col> using your knowledge of Summoning.");
+            case 3:
+                return(97, gorged_ancient_effigy, "Gorged ancient effigies", "You can now investigate <col=000080>gorged ancient effigies</col> using your knowledge of Summoning.");
+        }
+    case 5:
+        switch_int ($int1) {
+            case 0:
+                return(1, sacred_clay_pouch__class_1, "Stealing Creation - class 1 clay being - Strength XP", "You can now summon <col=000080>class 1 clay beings</col> in Stealing Creation.");
+            case 1:
+                return(20, sacred_clay_pouch__class_2, "Stealing Creation - class 2 clay being - Strength XP", "You can now summon <col=000080>class 2 clay beings</col> in Stealing Creation.");
+            case 2:
+                return(40, sacred_clay_pouch__class_3, "Stealing Creation - class 3 clay being - Strength XP", "You can now summon <col=000080>class 3 clay beings</col> in Stealing Creation.");
+            case 3:
+                return(60, sacred_clay_pouch__class_4, "Stealing Creation - class 4 clay being - Strength XP", "You can now summon <col=000080>class 4 clay beings</col> in Stealing Creation.");
+            case 4:
+                return(80, sacred_clay_pouch__class_5, "Stealing Creation - class 5 clay being - Strength XP", "You can now summon <col=000080>class 5 clay beings</col> in Stealing Creation.");
+        }
+    case 6:
+        switch_int ($int1) {
+            case 0:
+                return(-1, ring_of_kinship, "Dungeoneering skill tasks<br>As your Summoning level increases, you will be able to attempt higher-level summoning tasks within Daemonheim. You will also be more likely to succeed when attempting summoning tasks within Daemonheim.", "");
+            case 1:
+                return(1, cub_bloodrager_pouch, "Cub bloodrager (Melee, tier 1)<br>Gold charm, novite ore", "You can now infuse <col=000080>cub bloodrager pouches</col> within Daemonheim.");
+            case 2:
+                return(1, sundering_strike__tier_1, "Sundering Strike (Tier 1) scroll", "You can now use <col=000080>Sundering Strike (Tier 1) scrolls</col> within Daemonheim.");
+            case 3:
+                return(2, cub_deathslinger_pouch, "Cub deathslinger (Ranged, tier 1)<br>Gold charm, tangle gum branches", "You can now infuse <col=000080>cub deathslinger pouches</col> within Daemonheim.");
+            case 4:
+                return(2, poisonous_shot__tier_1, "Poisonous Shot (Tier 1) scroll", "You can now use <col=000080> Poisonous Shot (Tier 1) scrolls</col> within Daemonheim.");
+            case 5:
+                return(3, cub_stormbringer_pouch, "Cub stormbringer (Magic, tier 1)<br>Gold charm, salve nettles", "You can now infuse <col=000080>cub stormbringer pouches</col> within Daemonheim.");
+            case 6:
+                return(3, snaring_wave__tier_1, "Snaring Wave (Tier 1) scroll", "You can now use <col=000080> Snaring Wave (Tier 1) scrolls</col> within Daemonheim.");
+            case 7:
+                return(5, cub_hoardstalker_pouch, "Cub hoardstalker (Forager, tier 1)<br>Gold charm, protomastyx hide", "You can now infuse <col=000080>cub hoardstalker pouches</col> within Daemonheim.");
+            case 8:
+                return(5, aptitude__tier_1, "Aptitude (Tier 1) scroll", "You can now use <col=000080> Aptitude (Tier 1) scrolls</col> within Daemonheim.");
+            case 9:
+                return(7, cub_worldbearer_pouch, "Cub worldbearer (Beast of burden, tier 1)<br>Gold charm, protoleather torn bag", "You can now infuse <col=000080>cub worldbearer pouches</col> within Daemonheim.");
+            case 10:
+                return(7, second_wind__tier_1, "Second Wind (Tier 1) scroll", "You can now use <col=000080> Second Wind (Tier 1) scrolls</col> within Daemonheim.");
+            case 11:
+                return(9, cub_skinweaver_pouch, "Cub skinweaver (Healer, tier 1)<br>Gold charm, 2 cooked heim crabs", "You can now infuse <col=000080>cub skinweaver pouches</col> within Daemonheim.");
+            case 12:
+                return(9, glimmer_of_light__tier_1, "Glimmer of Light (Tier 1) scroll", "You can now use <col=000080> Glimmer of Light (Tier 1) scrolls</col> within Daemonheim.");
+            case 13:
+                return(11, little_bloodrager_pouch, "Little bloodrager (Melee, tier 2)<br>Gold charm, bathus ore", "You can now infuse <col=000080>little bloodrager pouches</col> within Daemonheim.");
+            case 14:
+                return(11, sundering_strike__tier_2, "Sundering Strike (Tier 2) scroll", "You can now use <col=000080> Sundering Strike (Tier 2) scrolls</col> within Daemonheim.");
+            case 15:
+                return(12, little_deathslinger_pouch, "Little deathslinger (Ranged, tier 2)<br>Gold charm, seeping elm branches", "You can now infuse <col=000080>little deathslinger pouches</col> within Daemonheim.");
+            case 16:
+                return(12, poisonous_shot__tier_2, "Poisonous Shot (Tier 2) scroll", "You can now use <col=000080> Poisonous Shot (Tier 2) scrolls</col> within Daemonheim.");
+            case 17:
+                return(13, little_stormbringer_pouch, "Little stormbringer (Magic, tier 2)<br>Gold charm, wildercress stems", "You can now infuse <col=000080>little stormbringer pouches</col> within Daemonheim.");
+            case 18:
+                return(13, snaring_wave__tier_2, "Snaring Wave (Tier 2) scroll", "You can now use <col=000080> Snaring Wave (Tier 2) scrolls</col> within Daemonheim.");
+            case 19:
+                return(15, little_hoardstalker_pouch, "Little hoardstalker (Forager, tier 2)<br>Gold charm, submastyx hide", "You can now infuse <col=000080>little hoardstalker pouches</col> within Daemonheim.");
+            case 20:
+                return(15, aptitude__tier_2, "Aptitude (Tier 2) scroll", "You can now use <col=000080> Aptitude (Tier 2) scrolls</col> within Daemonheim.");
+            case 21:
+                return(17, little_worldbearer_pouch, "Little worldbearer (Beast of burden, tier 2)<br>Gold charm, subleather torn bag", "You can now infuse <col=000080>little worldbearer pouches</col> within Daemonheim.");
+            case 22:
+                return(17, second_wind__tier_2, "Second Wind (Tier 2) scroll", "You can now use <col=000080> Second Wind (Tier 2) scrolls</col> within Daemonheim.");
+            case 23:
+                return(19, little_skinweaver_pouch, "Little skinweaver (Healer, tier 2)<br>Gold charm, 2 cooked red-eye", "You can now infuse <col=000080>little skinweaver pouches</col> within Daemonheim.");
+            case 24:
+                return(19, glimmer_of_light__tier_2, "Glimmer of Light (Tier 2) scroll", "You can now use <col=000080> Glimmer of Light (Tier 2) scrolls</col> within Daemonheim.");
+            case 25:
+                return(21, "naïve_bloodrager_pouch", "Naïve bloodrager (Melee, tier 3)<br>Gold charm, marmaros ore", "You can now infuse <col=000080>naïve bloodrager pouches</col> within Daemonheim.");
+            case 26:
+                return(21, sundering_strike__tier_3, "Sundering Strike (Tier 3) scroll", "You can now use <col=000080> Sundering Strike (Tier 3) scrolls</col> within Daemonheim.");
+            case 27:
+                return(22, "naïve_deathslinger_pouch", "Naïve deathslinger (Ranged, tier 3)<br>Gold charm, blood spindle branches", "You can now infuse <col=000080>naïve deathslinger pouches</col> within Daemonheim.");
+            case 28:
+                return(22, poisonous_shot__tier_3, "Poisonous Shot (Tier 3) scroll", "You can now use <col=000080> Poisonous Shot (Tier 3) scrolls</col> within Daemonheim.");
+            case 29:
+                return(23, "naïve_stormbringer_pouch", "Naïve stormbringer (Magic, tier 3)<br>Gold charm, blightleaf gauze", "You can now infuse <col=000080>naïve stormbringer pouches</col> within Daemonheim.");
+            case 30:
+                return(23, snaring_wave__tier_3, "Snaring Wave (Tier 3) scroll", "You can now use <col=000080> Snaring Wave (Tier 3) scrolls</col> within Daemonheim.");
+            case 31:
+                return(25, "naïve_hoardstalker_pouch", "Naïve hoardstalker (Forager, tier 3)<br>Gold charm, paramastyx hide", "You can now infuse <col=000080>naïve hoardstalker pouches</col> within Daemonheim.");
+            case 32:
+                return(25, aptitude__tier_3, "Aptitude (Tier 3) scroll", "You can now use <col=000080> Aptitude (Tier 3) scrolls</col> within Daemonheim.");
+            case 33:
+                return(27, "naïve_worldbearer_pouch", "Naïve worldbearer (Beast of burden, tier 3)<br>Gold charm, paraleather torn bag", "You can now infuse <col=000080>naïve worldbearer pouches</col> within Daemonheim.");
+            case 34:
+                return(27, second_wind__tier_3, "Second Wind (Tier 3) scroll", "You can now use <col=000080> Second Wind (Tier 3) scrolls</col> within Daemonheim.");
+            case 35:
+                return(29, "naïve_skinweaver_pouch", "Naïve skinweaver (Healer, tier 3)<br>Gold charm, 2 cooked dusk eels", "You can now infuse <col=000080>naïve skinweaver pouches</col> within Daemonheim.");
+            case 36:
+                return(29, glimmer_of_light__tier_3, "Glimmer of Light (Tier 3) scroll", "You can now use <col=000080> Glimmer of Light (Tier 3) scrolls</col> within Daemonheim.");
+            case 37:
+                return(31, keen_bloodrager_pouch, "Keen bloodrager (Melee, tier 4)<br>Green charm, kratonite ore", "You can now infuse <col=000080>keen bloodrager pouches</col> within Daemonheim.");
+            case 38:
+                return(31, sundering_strike__tier_4, "Sundering Strike (Tier 4) scroll", "You can now use <col=000080> Sundering Strike (Tier 4) scrolls</col> within Daemonheim.");
+            case 39:
+                return(32, keen_deathslinger_pouch, "Keen deathslinger (Ranged, tier 4)<br>Green charm, utuku branches", "You can now infuse <col=000080>keen deathslinger pouches</col> within Daemonheim.");
+            case 40:
+                return(32, poisonous_shot__tier_4, "Poisonous Shot (Tier 4) scroll", "You can now use <col=000080> Poisonous Shot (Tier 4) scrolls</col> within Daemonheim.");
+            case 41:
+                return(33, keen_stormbringer_pouch, "Keen stormbringer (Magic, tier 4)<br>Green charm, roseblood stems", "You can now infuse <col=000080>keen stormbringer pouches</col> within Daemonheim.");
+            case 42:
+                return(33, snaring_wave__tier_4, "Snaring Wave (Tier 4) scroll", "You can now use <col=000080> Snaring Wave (Tier 4) scrolls</col> within Daemonheim.");
+            case 43:
+                return(35, keen_hoardstalker_pouch, "Keen hoardstalker (Forager, tier 4)<br>Green charm, archaemastyx hide", "You can now infuse <col=000080>keen hoardstalker pouches</col> within Daemonheim.");
+            case 44:
+                return(35, aptitude__tier_4, "Aptitude (Tier 4) scroll", "You can now use <col=000080> Aptitude (Tier 4) scrolls</col> within Daemonheim.");
+            case 45:
+                return(37, keen_worldbearer_pouch, "Keen worldbearer (Beast of burden, tier 4)<br>Green charm, archleather torn bag", "You can now infuse <col=000080>keen worldbearer pouches</col> within Daemonheim.");
+            case 46:
+                return(37, second_wind__tier_4, "Second Wind (Tier 4) scroll", "You can now use <col=000080> Second Wind (Tier 4) scrolls</col> within Daemonheim.");
+            case 47:
+                return(39, keen_skinweaver_pouch, "Keen skinweaver (Healer, tier 4)<br>Green charm, 2 cooked giant flatfish", "You can now infuse <col=000080>keen skinweaver pouches</col> within Daemonheim.");
+            case 48:
+                return(39, glimmer_of_light__tier_4, "Glimmer of Light (Tier 4) scroll", "You can now use <col=000080> Glimmer of Light (Tier 4) scrolls</col> within Daemonheim.");
+            case 49:
+                return(41, brave_bloodrager_pouch, "Brave bloodrager (Melee, tier 5)<br>Green charm, fractite ore", "You can now infuse <col=000080>brave bloodrager pouches</col> within Daemonheim.");
+            case 50:
+                return(41, sundering_strike__tier_5, "Sundering Strike (Tier 5) scroll", "You can now use <col=000080> Sundering Strike (Tier 5) scrolls</col> within Daemonheim.");
+            case 51:
+                return(42, brave_deathslinger_pouch, "Brave deathslinger (Ranged, tier 5)<br>Green charm, spinebeam branches", "You can now infuse <col=000080>brave deathslinger pouches</col> within Daemonheim.");
+            case 52:
+                return(42, poisonous_shot__tier_5, "Poisonous Shot (Tier 5) scroll", "You can now use <col=000080> Poisonous Shot (Tier 5) scrolls</col> within Daemonheim.");
+            case 53:
+                return(43, brave_stormbringer_pouch, "Brave stormbringer (Magic, tier 5)<br>Green charm, bryll reeds", "You can now infuse <col=000080>brave stormbringer pouches</col> within Daemonheim.");
+            case 54:
+                return(43, snaring_wave__tier_5, "Snaring Wave (Tier 5) scroll", "You can now use <col=000080> Snaring Wave (Tier 5) scrolls</col> within Daemonheim.");
+            case 55:
+                return(45, brave_hoardstalker_pouch, "Brave hoardstalker (Forager, tier 5)<br>Green charm, dromomastyx hide", "You can now infuse <col=000080>brave hoardstalker pouches</col> within Daemonheim.");
+            case 56:
+                return(45, aptitude__tier_5, "Aptitude (Tier 5) scroll", "You can now use <col=000080> Aptitude (Tier 5) scrolls</col> within Daemonheim.");
+            case 57:
+                return(47, brave_worldbearer_pouch, "Brave worldbearer (Beast of burden, tier 5)<br>Green charm, dromoleather torn bag", "You can now infuse <col=000080>brave worldbearer pouches</col> within Daemonheim.");
+            case 58:
+                return(47, second_wind__tier_5, "Second Wind (Tier 5) scroll", "You can now use <col=000080> Second Wind (Tier 5) scrolls</col> within Daemonheim.");
+            case 59:
+                return(49, brave_skinweaver_pouch, "Brave skinweaver (Healer, tier 5)<br>Green charm, 2 cooked short-finned eels", "You can now infuse <col=000080>brave skinweaver pouches</col> within Daemonheim.");
+            case 60:
+                return(49, glimmer_of_light__tier_5, "Glimmer of Light (Tier 5) scroll", "You can now use <col=000080> Glimmer of Light (Tier 5) scrolls</col> within Daemonheim.");
+            case 61:
+                return(51, brah_bloodrager_pouch, "Brah bloodrager (Melee, tier 6)<br>Green charm, zephyrium ore", "You can now infuse <col=000080>brah bloodrager pouches</col> within Daemonheim.");
+            case 62:
+                return(51, sundering_strike__tier_6, "Sundering Strike (Tier 6) scroll", "You can now use <col=000080> Sundering Strike (Tier 6) scrolls</col> within Daemonheim.");
+            case 63:
+                return(52, brah_deathslinger_pouch, "Brah deathslinger (Ranged, tier 6)<br>Green charm, bovistrangler branches", "You can now infuse <col=000080>brah deathslinger pouches</col> within Daemonheim.");
+            case 64:
+                return(52, poisonous_shot__tier_6, "Poisonous Shot (Tier 6) scroll", "You can now use <col=000080> Poisonous Shot (Tier 6) scrolls</col> within Daemonheim.");
+            case 65:
+                return(53, brah_stormbringer_pouch, "Brah stormbringer (Magic, tier 6)<br>Green charm, duskweed sproutings", "You can now infuse <col=000080>brah stormbringer pouches</col> within Daemonheim.");
+            case 66:
+                return(53, snaring_wave__tier_6, "Snaring Wave (Tier 6) scroll", "You can now use <col=000080> Snaring Wave (Tier 6) scrolls</col> within Daemonheim.");
+            case 67:
+                return(55, brah_hoardstalker_pouch, "Brah hoardstalker (Forager, tier 6)<br>Green charm, spinomastyx hide", "You can now infuse <col=000080>brah hoardstalker pouches</col> within Daemonheim.");
+            case 68:
+                return(55, aptitude__tier_6, "Aptitude (Tier 6) scroll", "You can now use <col=000080> Aptitude (Tier 6) scrolls</col> within Daemonheim.");
+            case 69:
+                return(57, brah_worldbearer_pouch, "Brah worldbearer (Beast of burden, tier 6)<br>Green charm, spinoleather torn bag", "You can now infuse <col=000080>brah worldbearer pouches</col> within Daemonheim.");
+            case 70:
+                return(57, second_wind__tier_6, "Second Wind (Tier 6) scroll", "You can now use <col=000080> Second Wind (Tier 6) scrolls</col> within Daemonheim.");
+            case 71:
+                return(59, brah_skinweaver_pouch, "Brah skinweaver (Healer, tier 6)<br>Green charm, 2 cooked web snippers", "You can now infuse <col=000080>brah skinweaver pouches</col> within Daemonheim.");
+            case 72:
+                return(59, glimmer_of_light__tier_6, "Glimmer of Light (Tier 6) scroll", "You can now use <col=000080> Glimmer of Light (Tier 6) scrolls</col> within Daemonheim.");
+            case 73:
+                return(61, naabe_bloodrager_pouch, "Naabe bloodrager (Melee, tier 7)<br>Crimson charm, argonite ore", "You can now infuse <col=000080>naabe bloodrager pouches</col> within Daemonheim.");
+            case 74:
+                return(61, sundering_strike__tier_7, "Sundering Strike (Tier 7) scroll", "You can now use <col=000080> Sundering Strike (Tier 7) scrolls</col> within Daemonheim.");
+            case 75:
+                return(62, naabe_deathslinger_pouch, "Naabe deathslinger (Ranged, tier 7)<br>Crimson charm, thigat branches", "You can now infuse <col=000080>naabe deathslinger pouches</col> within Daemonheim.");
+            case 76:
+                return(62, poisonous_shot__tier_7, "Poisonous Shot (Tier 7) scroll", "You can now use <col=000080> Poisonous Shot (Tier 7) scrolls</col> within Daemonheim.");
+            case 77:
+                return(63, naabe_stormbringer_pouch, "Naabe stormbringer (Magic, tier 7)<br>Crimson charm, soulbell roots", "You can now infuse <col=000080>naabe stormbringer pouches</col> within Daemonheim.");
+            case 78:
+                return(63, snaring_wave__tier_7, "Snaring Wave (Tier 7) scroll", "You can now use <col=000080> Snaring Wave (Tier 7) scrolls</col> within Daemonheim.");
+            case 79:
+                return(65, naabe_hoardstalker_pouch, "Naabe hoardstalker (Forager, tier 7)<br>Crimson charm, gallimastyx hide", "You can now infuse <col=000080>naabe hoardstalker pouches</col> within Daemonheim.");
+            case 80:
+                return(65, aptitude__tier_7, "Aptitude (Tier 7) scroll", "You can now use <col=000080> Aptitude (Tier 7) scrolls</col> within Daemonheim.");
+            case 81:
+                return(67, naabe_worldbearer_pouch, "Naabe worldbearer (Beast of burden, tier 7)<br>Crimson charm, gallileather torn bag", "You can now infuse <col=000080>naabe worldbearer pouches</col> within Daemonheim.");
+            case 82:
+                return(67, second_wind__tier_7, "Second Wind (Tier 7) scroll", "You can now use <col=000080> Second Wind (Tier 7) scrolls</col> within Daemonheim.");
+            case 83:
+                return(69, naabe_skinweaver_pouch, "Naabe skinweaver (Healer, tier 7)<br>Crimson charm, 2 cooked bouldabass", "You can now infuse <col=000080>naabe skinweaver pouches</col> within Daemonheim.");
+            case 84:
+                return(69, glimmer_of_light__tier_7, "Glimmer of Light (Tier 7) scroll", "You can now use <col=000080> Glimmer of Light (Tier 7) scrolls</col> within Daemonheim.");
+            case 85:
+                return(71, wise_bloodrager_pouch, "Wise bloodrager (Melee, tier 8)<br>Crimson charm, katagon ore", "You can now infuse <col=000080>wise bloodrager pouches</col> within Daemonheim.");
+            case 86:
+                return(71, sundering_strike__tier_8, "Sundering Strike (Tier 8) scroll", "You can now use <col=000080> Sundering Strike (Tier 8) scrolls</col> within Daemonheim.");
+            case 87:
+                return(72, wise_deathslinger_pouch, "Wise deathslinger (Ranged, tier 8)<br>Crimson charm, corpsethorn branches", "You can now infuse <col=000080>wise deathslinger pouches</col> within Daemonheim.");
+            case 88:
+                return(72, poisonous_shot__tier_8, "Poisonous Shot (Tier 8) scroll", "You can now use <col=000080> Poisonous Shot (Tier 8) scrolls</col> within Daemonheim.");
+            case 89:
+                return(73, wise_stormbringer_pouch, "Wise stormbringer (Magic, tier 8)<br>Crimson charm, ectograss blades", "You can now infuse <col=000080>wise stormbringer pouches</col> within Daemonheim.");
+            case 90:
+                return(73, snaring_wave__tier_8, "Snaring Wave (Tier 8) scroll", "You can now use <col=000080> Snaring Wave (Tier 8) scrolls</col> within Daemonheim.");
+            case 91:
+                return(75, wise_hoardstalker_pouch, "Wise hoardstalker (Forager, tier 8)<br>Crimson charm, stegomastyx hide", "You can now infuse <col=000080>wise hoardstalker pouches</col> within Daemonheim.");
+            case 92:
+                return(75, aptitude__tier_8, "Aptitude (Tier 8) scroll", "You can now use <col=000080> Aptitude (Tier 8) scrolls</col> within Daemonheim.");
+            case 93:
+                return(77, wise_worldbearer_pouch, "Wise worldbearer (Beast of burden, tier 8)<br>Crimson charm, stegoleather torn bag", "You can now infuse <col=000080>wise worldbearer pouches</col> within Daemonheim.");
+            case 94:
+                return(77, second_wind__tier_8, "Second Wind (Tier 8) scroll", "You can now use <col=000080> Second Wind (Tier 8) scrolls</col> within Daemonheim.");
+            case 95:
+                return(79, wise_skinweaver_pouch, "Wise skinweaver (Healer, tier 8)<br>Crimson charm, 2 cooked salve eels", "You can now infuse <col=000080>wise skinweaver pouches</col> within Daemonheim.");
+            case 96:
+                return(79, glimmer_of_light__tier_8, "Glimmer of Light (Tier 8) scroll", "You can now use <col=000080> Glimmer of Light (Tier 8) scrolls</col> within Daemonheim.");
+            case 97:
+                return(81, adept_bloodrager_pouch, "Adept bloodrager (Melee, tier 9)<br>Blue charm, gorgonite ore", "You can now infuse <col=000080>adept bloodrager pouches</col> within Daemonheim.");
+            case 98:
+                return(81, sundering_strike__tier_9, "Sundering Strike (Tier 9) scroll", "You can now use <col=000080> Sundering Strike (Tier 9) scrolls</col> within Daemonheim.");
+            case 99:
+                return(82, adept_deathslinger_pouch, "Adept deathslinger (Ranged, tier 9)<br>Blue charm, entgallow branches", "You can now infuse <col=000080>adept deathslinger pouches</col> within Daemonheim.");
+            case 100:
+                return(82, poisonous_shot__tier_9, "Poisonous Shot (Tier 9) scroll", "You can now use <col=000080> Poisonous Shot (Tier 9) scrolls</col> within Daemonheim.");
+            case 101:
+                return(83, adept_stormbringer_pouch, "Adept stormbringer (Magic, tier 9)<br>Blue charm, runeleaf fibres", "You can now infuse <col=000080>adept stormbringer pouches</col> within Daemonheim.");
+            case 102:
+                return(83, snaring_wave__tier_9, "Snaring Wave (Tier 9) scroll", "You can now use <col=000080> Snaring Wave (Tier 9) scrolls</col> within Daemonheim.");
+            case 103:
+                return(85, adept_hoardstalker_pouch, "Adept hoardstalker (Forager, tier 9)<br>Blue charm, megamastyx hide", "You can now infuse <col=000080>adept hoardstalker pouches</col> within Daemonheim.");
+            case 104:
+                return(85, aptitude__tier_9, "Aptitude (Tier 9) scroll", "You can now use <col=000080> Aptitude (Tier 9) scrolls</col> within Daemonheim.");
+            case 105:
+                return(87, adept_worldbearer_pouch, "Adept worldbearer (Beast of burden, tier 9)<br>Blue charm, megaleather torn bag", "You can now infuse <col=000080>adept worldbearer pouches</col> within Daemonheim.");
+            case 106:
+                return(87, second_wind__tier_9, "Second Wind (Tier 9) scroll", "You can now use <col=000080> Second Wind (Tier 9) scrolls</col> within Daemonheim.");
+            case 107:
+                return(89, adept_skinweaver_pouch, "Adept skinweaver (Healer, tier 9)<br>Blue charm, 2 cooked blue crabs", "You can now infuse <col=000080>adept skinweaver pouches</col> within Daemonheim.");
+            case 108:
+                return(89, glimmer_of_light__tier_9, "Glimmer of Light (Tier 9) scroll", "You can now use <col=000080> Glimmer of Light (Tier 9) scrolls</col> within Daemonheim.");
+            case 109:
+                return(91, sachem_bloodrager_pouch, "Sachem bloodrager (Melee, tier 10)<br>Blue charm, promethium ore", "You can now infuse <col=000080>sachem bloodrager pouches</col> within Daemonheim.");
+            case 110:
+                return(91, sundering_strike__tier_10, "Sundering Strike (Tier 10) scroll", "You can now use <col=000080> Sundering Strike (Tier 10) scrolls</col> within Daemonheim.");
+            case 111:
+                return(92, sachem_deathslinger_pouch, "Sachem deathslinger (Ranged, tier 10)<br>Blue charm, grave creeper branches", "You can now infuse <col=000080>sachem deathslinger pouches</col> within Daemonheim.");
+            case 112:
+                return(92, poisonous_shot__tier_10, "Poisonous Shot (Tier 10) scroll", "You can now use <col=000080> Poisonous Shot (Tier 10) scrolls</col> within Daemonheim.");
+            case 113:
+                return(93, sachem_stormbringer_pouch, "Sachem stormbringer (Magic, tier 10)<br>Blue charm, spiritbloom fibres", "You can now infuse <col=000080>sachem stormbringer pouches</col> within Daemonheim.");
+            case 114:
+                return(93, snaring_wave__tier_10, "Snaring Wave (Tier 10) scroll", "You can now use <col=000080> Snaring Wave (Tier 10) scrolls</col> within Daemonheim.");
+            case 115:
+                return(95, sachem_hoardstalker_pouch, "Sachem hoardstalker (Forager, tier 10)<br>Blue charm, tyrannomastyx hide", "You can now infuse <col=000080>sachem hoardstalker pouches</col> within Daemonheim.");
+            case 116:
+                return(95, aptitude__tier_10, "Aptitude (Tier 10) scroll", "You can now use <col=000080> Aptitude (Tier 10) scrolls</col> within Daemonheim.");
+            case 117:
+                return(97, sachem_worldbearer_pouch, "Sachem worldbearer (Beast of burden, tier 10)<br>Blue charm, tyrannoleather torn bag", "You can now infuse <col=000080>sachem worldbearer pouches</col> within Daemonheim.");
+            case 118:
+                return(97, second_wind__tier_10, "Second Wind (Tier 10) scroll", "You can now use <col=000080> Second Wind (Tier 10) scrolls</col> within Daemonheim.");
+            case 119:
+                return(99, sachem_skinweaver_pouch, "Sachem skinweaver (Healer, tier 10)<br>Blue charm, 2 cooked cave morays", "You can now infuse <col=000080>sachem skinweaver pouches</col> within Daemonheim.");
+            case 120:
+                return(99, glimmer_of_light__tier_10, "Glimmer of Light (Tier 10) scroll", "You can now use <col=000080> Glimmer of Light (Tier 10) scrolls</col> within Daemonheim.");
+        }
+    case 7:
+        if ($int1 = false) {
+            return(99, summoning_cape, "Skill mastery", "<col=000080>Congratulations! You are now a master of <col=800000>Summoning<col=000080>.  Why not visit <col=800000>Pikkupstix<col=000080> in <col=800000>Taverley<col=000080>? He has something special only available to true masters of the <col=800000>Summoning<col=000080> skill!");
+        }
+}

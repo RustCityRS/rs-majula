@@ -1,0 +1,10 @@
+[clientscript,sfa_bar_timer](component $component)
+if (calc(clientclock % 5) = false) {
+    if (scale(%varc_int_1078, 2000, 200) > scale(%varbit_7189, 2000, 200)) {
+        if_setsize(20, scale(%varc_int_1078, 2000, 200), ^setsize_abs, ^setsize_abs, $component);
+        %varc_int_1078 = calc(%varc_int_1078 - 1);
+    } else {
+        if_setontimer(null, $component);
+        %varc_int_1079 = 0;
+    }
+}

@@ -1,0 +1,2 @@
+[clientscript,brew_redscore](component $component)
+if_settext(tostring(%varc_int_221), $component);

@@ -1,0 +1,10 @@
+[proc,clientscript_1036]()(int)
+def_int $int = -1;
+if (enum(105, 105, enum_1548, %varbit_4758) > 0) {
+    $int = enum(105, 107, enum_1549, %varbit_4758);
+    if ($int ! -1) {
+        return($int);
+    }
+}
+return(enum(105, 107, enum_1483, %varbit_4759));
+return(-1);

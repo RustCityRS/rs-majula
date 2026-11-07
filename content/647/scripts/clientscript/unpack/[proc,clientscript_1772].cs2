@@ -1,0 +1,9 @@
+[proc,clientscript_1772]
+if (%varc_int_248 = false) {
+    if_setgraphic("options_radio_buttons,2", clanwars_setup:com105);
+    if_setgraphic("options_radio_buttons,0", clanwars_setup:com108);
+} else {
+    if_setgraphic("options_radio_buttons,0", clanwars_setup:com105);
+    if_setgraphic("options_radio_buttons,2", clanwars_setup:com108);
+}
+~clanwars_updateside;

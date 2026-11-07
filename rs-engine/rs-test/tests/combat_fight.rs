@@ -243,7 +243,7 @@ fn the_server_knows_every_npcs_size_and_combat_level() {
         let ids = pack_ids("npc");
         let mut checked = 0;
         let mut wrong = Vec::new();
-        let unpack = content("scripts/_unpack/all.npc");
+        let unpack = content("scripts/runescript/_unpack/all.npc");
         for section in unpack.split("\n[") {
             let section = section.trim_start_matches('[');
             let Some((name, body)) = section.split_once("]\n") else {

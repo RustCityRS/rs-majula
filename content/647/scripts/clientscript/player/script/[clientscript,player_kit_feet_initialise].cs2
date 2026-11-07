@@ -1,0 +1,14 @@
+[clientscript,player_kit_feet_initialise]
+cc_deleteall(player_kit_feet:com1);
+~clientscript_1088(player_kit_feet:com1, 22);
+cc_deleteall(player_kit_feet:com6);
+~verticalgradient(player_kit_feet:com6, 0x483f33, 0x302922, 0, 0);
+~clientscript_2647(player_kit_feet:com6);
+cc_deleteall(player_kit_feet:com9);
+~verticalgradient(player_kit_feet:com9, 0x483f33, 0x302922, 0, 0);
+~player_kit_player_create(player_kit_feet:com9, 380, 100);
+~clientscript_2647(player_kit_feet:com9);
+cc_deleteall(player_kit_feet:com11);
+~clientscript_2647(player_kit_feet:com11);
+~player_kit_feet_redraw;
+if_setonvarctransmit("player_kit_feet_varctransmit(){varc_int_1014, varc_int_1018}", player_kit_feet:com1);

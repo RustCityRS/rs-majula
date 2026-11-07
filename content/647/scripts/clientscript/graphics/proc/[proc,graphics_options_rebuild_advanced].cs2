@@ -1,0 +1,239 @@
+[proc,graphics_options_rebuild_advanced](int $int0, int $int1, int $int2, int $int3, int $int4)
+def_component $component5 = null;
+def_component $component6 = null;
+switch_int ($int4) {
+    case 1:
+        if_settext("Custom Graphics Options", graphics_options:com19);
+        if_openoverlay(48627718, 977);
+        $component5 = graphics_options:com4;
+        $component6 = graphics_options:com20;
+        if_setonclick("graphics_options_rebuild($int0, $int1, $int2, $int3, $int4)", graphics_options:com18);
+        if_setop(1, "Back", graphics_options:com18);
+    case 0:
+        if_openoverlay(57802780, 977);
+        $component5 = loginscreen_graphics_options:com4;
+        $component6 = loginscreen_graphics_options:com5;
+        if_sethide(true, loginscreen_graphics_options:com29);
+        if_sethide(false, loginscreen_graphics_options:com23);
+        if_setonclick("graphics_options_rebuild($int0, $int1, $int2, $int3, $int4)", loginscreen_graphics_options:com23);
+        if_sethook1427("graphics_options_login_resize(true)", loginscreen_graphics_options:com4);
+        if_sethook1427("clientscript_2919(true, $int4)", loginscreen:com50);
+    case 2:
+        if_openoverlay(59703298, 977);
+        $component5 = lobbyscreen_pane_options:com0;
+        $component6 = lobbyscreen_pane_options:com59;
+        if_sethide(true, lobbyscreen_pane_options:com5);
+        if_sethide(false, lobbyscreen_pane_options:com3);
+        if_setonclick("graphics_options_rebuild($int0, $int1, $int2, $int3, $int4)", lobbyscreen_pane_options:com3);
+        if_sethook1427("clientscript_2919(true, $int4)", lobbyscreen:com13);
+        ~lobby_resize;
+}
+if_sethide(true, $component6);
+if_setonclick(null, $component5);
+def_int $int7 = 0;
+def_int $int8 = 1;
+def_component $component9 = null;
+def_component $component10 = null;
+def_component $component11 = null;
+def_component $component12 = null;
+def_component $component13 = null;
+if_setgraphic(null, interface_977:com60);
+if_setgraphic(null, interface_977:com56);
+if_setgraphic(null, interface_977:com58);
+if_setgraphic(null, interface_977:com54);
+if_setonmouseover(null, interface_977:com59);
+if_setonmouseover(null, interface_977:com55);
+if_setonmouseover(null, interface_977:com57);
+if_setonmouseover(null, interface_977:com53);
+if_setonmouseleave(null, interface_977:com59);
+if_setonmouseleave(null, interface_977:com55);
+if_setonmouseleave(null, interface_977:com57);
+if_setonmouseleave(null, interface_977:com53);
+if_setonclick(null, interface_977:com59);
+if_setonclick(null, interface_977:com55);
+if_setonclick(null, interface_977:com57);
+if_setonclick(null, interface_977:com53);
+if (clientopt_isavailable_7214 = false) {
+    switch_int ($int0) {
+        case 0:
+            ~graphics_options_toolkitbutton(0, $int0, 64028721, interface_977:com59, interface_977:com60, $int4);
+        case 2:
+            ~graphics_options_toolkitbutton(2, $int0, 64028721, interface_977:com59, interface_977:com60, $int4);
+        case 1:
+            ~graphics_options_toolkitbutton(1, $int0, 64028721, interface_977:com59, interface_977:com60, $int4);
+        case 3:
+            ~graphics_options_toolkitbutton(3, $int0, 64028721, interface_977:com59, interface_977:com60, $int4);
+    }
+    if_setposition(175, if_gety(interface_977:com49), ^setpos_abs_right, ^setpos_abs_top, interface_977:com49);
+    if_setsize(350, if_getheight(interface_977:com47), ^setsize_abs, ^setsize_abs, interface_977:com46);
+} else {
+    if (get_clientopt_6147 = true | $int0 = false) {
+        $component9 = interface_977:com49;
+        ~graphics_options_toolkitbutton(0, $int0, 64028721, interface_977:com59, interface_977:com60, $int4);
+        $int7 = calc($int7 + 1);
+    }
+    while ($int8 < 4) {
+        if (clientopt_canset_7314($int8) < 3) {
+            switch_int ($int8) {
+                case 2:
+                    $component13 = interface_977:com50;
+                    ~graphics_options_toolkitbutton(1, $int0, 64028722, interface_977:com57, interface_977:com58, $int4);
+                case 1:
+                    $component13 = interface_977:com51;
+                    ~graphics_options_toolkitbutton(2, $int0, 64028723, interface_977:com55, interface_977:com56, $int4);
+                case 3:
+                    $component13 = interface_977:com52;
+                    ~graphics_options_toolkitbutton(3, $int0, 64028724, interface_977:com53, interface_977:com54, $int4);
+            }
+            $int7 = calc($int7 + 1);
+            if ($component9 = null) {
+                $component9 = $component13;
+            } else if ($component10 = null) {
+                $component10 = $component13;
+            } else if ($component11 = null) {
+                $component11 = $component13;
+            } else if ($component12 = null) {
+                $component12 = $component13;
+            }
+        }
+        $int8 = calc($int8 + 1);
+    }
+    switch_int ($int7) {
+        case 1:
+            if_setposition(175, if_gety($component9), ^setpos_abs_right, ^setpos_abs_top, $component9);
+            if_setsize(350, if_getheight(interface_977:com47), ^setsize_abs, ^setsize_abs, interface_977:com46);
+        case 2:
+            if_setposition(90, if_gety($component9), ^setpos_abs_left, ^setpos_abs_top, $component9);
+            if_setposition(90, if_gety($component10), ^setpos_abs_right, ^setpos_abs_top, $component10);
+            if_setsize(400, if_getheight(interface_977:com47), ^setsize_abs, ^setsize_abs, interface_977:com46);
+        case 3:
+            if_setposition(58, if_gety($component9), ^setpos_abs_left, ^setpos_abs_top, $component9);
+            if_setposition(173, if_gety($component10), ^setpos_abs_right, ^setpos_abs_top, $component10);
+            if_setposition(58, if_gety($component11), ^setpos_abs_right, ^setpos_abs_top, $component11);
+            if_setsize(400, if_getheight(interface_977:com47), ^setsize_abs, ^setsize_abs, interface_977:com46);
+    }
+}
+def_int $int14 = 0;
+def_int $int15 = -1;
+def_component $component16 = interface_977:com28;
+def_component $component17 = interface_977:com27;
+cc_deleteall($component16);
+cc_deleteall($component17);
+~graphics_options_titlebox("Brightness", 0, $int14, $component16);
+~loginscreen_brightness(interface_977:com32, interface_977:com33);
+if_setdraggable(interface_977:com32, -1, interface_977:com33);
+def_int $int18 = 1;
+def_int $int19 = calc($int3 + 21);
+def_int $int20 = -1;
+def_struct $struct21 = null;
+def_enum $enum22 = null;
+def_int $int23 = 0;
+def_int $int24 = 0;
+def_int $int25 = 0;
+def_int $int26 = -1;
+while ($int24 < enum_getoutputcount(enum_201)) {
+    $struct21 = enum(105, 74, enum_201, $int24);
+    $int20 = ~graphics_options_titlebox(struct_param($struct21, param_845), $int18, $int14, $component16);
+    cc_create($component16, ^iftype_rectangle, if_getchildcount($component16));
+    cc_setsize($int19, 16, ^setsize_abs, ^setsize_abs);
+    if ($int18 = true) {
+        cc_setposition(4, $int14, ^setpos_abs_right, ^setpos_abs_top);
+    } else {
+        cc_setposition(calc(233 - $int19), $int14, ^setpos_abs_left, ^setpos_abs_top);
+    }
+    cc_setfill(true);
+    cc_setcolour(0x2e2b26);
+    .cc_create($component16, ^iftype_rectangle, if_getchildcount($component16));
+    .cc_setsize(cc_getwidth, cc_getheight, ^setsize_abs, ^setsize_abs);
+    .cc_setposition(cc_getx, cc_gety, ^setpos_abs_left, ^setpos_abs_top);
+    .cc_setfill(false);
+    .cc_setcolour(0x5f5b52);
+    $int15 = .cc_getid;
+    .cc_create($component16, ^iftype_text, if_getchildcount($component16));
+    .cc_settextfont(p11_full);
+    .cc_settextalign(^settextalign_centre, ^settextalign_centre, 0);
+    $int23 = ~graphics_options_detailget($struct21);
+    if ($int23 <= -1) {
+        .cc_setsize(cc_getwidth, cc_getheight, ^setsize_abs, ^setsize_abs);
+        .cc_setposition(cc_getx, cc_gety, ^setpos_abs_left, ^setpos_abs_top);
+        .cc_setcolour(0xebe0bc);
+        .cc_settext("<col=646464>N/A");
+    } else {
+        .cc_setsize($int3, cc_getheight, ^setsize_abs, ^setsize_abs);
+        .cc_setposition(calc(cc_getx + 2), cc_gety, ^setpos_abs_left, ^setpos_abs_top);
+        $enum22 = struct_param($struct21, param_683);
+        $int25 = ~clientscript_829($struct21, $enum22);
+        if ($struct21 ! struct_1009) {
+            if ($int23 < $int25) {
+                .cc_setcolour(0xebe0bc);
+            } else {
+                .cc_setcolour(0x00b1e1);
+            }
+        } else if ($int23 > 0) {
+            .cc_setcolour(0xebe0bc);
+        } else {
+            .cc_setcolour(0x00b1e1);
+        }
+        if (testbit(struct_param($struct21, param_682), $int0) ! 1) {
+            .cc_settext("<col=646464>N/A");
+            .cc_setsize(cc_getwidth, cc_getheight, ^setsize_abs, ^setsize_abs);
+            .cc_setposition(cc_getx, cc_gety, ^setpos_abs_left, ^setpos_abs_top);
+        } else {
+            .cc_settext(enum(105, 115, $enum22, $int23));
+            .cc_create($component16, ^iftype_graphic, if_getchildcount($component16));
+            .cc_setsize(16, 16, ^setsize_abs, ^setsize_abs);
+            .cc_setposition(calc(cc_getx + cc_getwidth - (.cc_getwidth + 1)), calc($int14 + (16 - .cc_getheight) / 2), ^setpos_abs_left, ^setpos_abs_top);
+            .cc_setgraphic(2554);
+            cc_setonmouseover("graphics_options_mouseoveroption(^event_com, .cc_getid, true, $int15, 8419437, true)");
+            cc_setonmouseleave("graphics_options_mouseoveroption(^event_com, .cc_getid, false, $int15, 6249298, true)");
+            cc_setonclick("graphics_options_createdropdown(^event_com, ^event_subid, .cc_getid, $int15, $int20, $struct21, $int2, $int3, $int0, $int1, $int4)");
+        }
+    }
+    if ($int18 = true) {
+        $int18 = 0;
+        $int14 = calc($int14 + 20);
+        $int26 = if_getchildcount($component17);
+        cc_create($component17, ^iftype_rectangle, $int26);
+        cc_setsize(2, 1, ^setsize_minus, ^setsize_abs);
+        cc_setposition(1, calc($int14 + 3), ^setpos_abs_left, ^setpos_abs_top);
+        cc_setfill(true);
+        cc_setcolour(0x80786d);
+    } else {
+        $int18 = 1;
+    }
+    $int24 = calc($int24 + 1);
+}
+if ($int18 = true) {
+    $int14 = calc($int14 + 20);
+}
+if ($int26 ! -1 & ($int18 = false & cc_find($component17, $int26) = true)) {
+    cc_delete;
+}
+if_setsize(if_getwidth(interface_977:com26), calc($int14 + 5), ^setsize_abs, ^setsize_abs, interface_977:com26);
+if_setsize(if_getwidth(interface_977:com24), calc(if_gety(interface_977:com26) + if_getheight(interface_977:com26)), ^setsize_abs, ^setsize_abs, interface_977:com24);
+if_setsize(if_getwidth(interface_977:com3), calc(if_gety(interface_977:com24) + if_getheight(interface_977:com24)), ^setsize_abs, ^setsize_abs, interface_977:com3);
+switch_int ($int4) {
+    case 1:
+        if_setsize(if_getwidth(graphics_options:com4), 334, ^setsize_abs, ^setsize_abs, graphics_options:com4);
+        if_setposition(0, if_gety(interface_977:com2), ^setpos_abs_left, ^setpos_abs_top, interface_977:com2);
+        if_setsize(20, calc(if_getheight(graphics_options:com6) - if_getheight(interface_977:com1)), ^setsize_minus, ^setsize_abs, interface_977:com2);
+        if_setsize(if_getwidth(interface_977:com0), if_getheight(graphics_options:com6), ^setsize_abs, ^setsize_abs, interface_977:com0);
+        if_setscrollsize(0, calc(if_getheight(interface_977:com3) + 5), interface_977:com2);
+        ~scrollbar_vertical(interface_977:com70, interface_977:com2, "scrollbar_dragger_v2,3", "scrollbar_dragger_v2,0", "scrollbar_dragger_v2,1", "scrollbar_dragger_v2,2", "scrollbar_v2,0", "scrollbar_v2,1");
+    case 0:
+        if_setposition(0, 0, ^setpos_abs_centre, ^setpos_abs_top, interface_977:com0);
+        if_setposition(0, 0, ^setpos_abs_centre, ^setpos_abs_top, loginscreen_graphics_options:com28);
+        if_setsize(if_getwidth(interface_977:com2), if_getheight(interface_977:com3), ^setsize_abs, ^setsize_abs, interface_977:com2);
+        if_setsize(if_getwidth(interface_977:com0), calc(if_gety(interface_977:com2) + if_getheight(interface_977:com2)), ^setsize_abs, ^setsize_abs, interface_977:com0);
+        if_setsize(if_getwidth(loginscreen_graphics_options:com28), calc(if_getheight(interface_977:com0) + 15 + if_getheight(loginscreen_graphics_options:com23)), ^setsize_abs, ^setsize_abs, loginscreen_graphics_options:com28);
+        if_setsize(if_getwidth(loginscreen_graphics_options:com22), calc(if_getheight(loginscreen_graphics_options:com28) + 5), ^setsize_abs, ^setsize_abs, loginscreen_graphics_options:com22);
+        if_setsize(if_getwidth(loginscreen_graphics_options:com8), calc(40 + if_getheight(loginscreen_graphics_options:com22)), ^setsize_abs, ^setsize_abs, loginscreen_graphics_options:com8);
+        if_setposition(0, 10, ^setpos_abs_centre, ^setpos_abs_centre, loginscreen_graphics_options:com22);
+    case 2:
+        if_setposition(0, 0, ^setpos_abs_centre, ^setpos_abs_top, interface_977:com0);
+        if_setsize(if_getwidth(interface_977:com2), if_getheight(interface_977:com3), ^setsize_abs, ^setsize_abs, interface_977:com2);
+        if_setsize(if_getwidth(interface_977:com0), calc(if_gety(interface_977:com2) + if_getheight(interface_977:com2)), ^setsize_abs, ^setsize_abs, interface_977:com0);
+        if_setsize(if_getwidth(lobbyscreen_pane_options:com2), calc(if_getheight(interface_977:com0) + 2 + if_getheight(lobbyscreen_pane_options:com3)), ^setsize_abs, ^setsize_abs, lobbyscreen_pane_options:com2);
+}
+~clientscript_3451($int4, true);
+~graphics_options_login_resize(1);

@@ -1,0 +1,11 @@
+[clientscript,flashside_vartransmit]
+if (%varbit_3756 < 1 | (%varbit_3756 > 20 | ~getsidehidden(calc(%varbit_3756 - 1)) = false)) {
+    if_setontimer(null, toplevel_fullscreen:com19);
+    if_setontimer(null, toplevel:com127);
+    ~arrow_set(null, -1, null, -1);
+    ~subchanged;
+    return;
+}
+~flashside_arrow;
+if_setontimer("flashside_timer()", toplevel_fullscreen:com19);
+if_setontimer("flashside_timer()", toplevel:com127);

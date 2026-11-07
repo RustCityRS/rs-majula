@@ -1,0 +1,21 @@
+[clientscript,worldmap_key_toggle](int $int0, component $component1, int $int2, int $int3, int $int4, boolean $int5, string $string)
+if ($int0 ! 1) {
+    return;
+}
+if (cc_find($component1, $int2) = true) {
+    cc_setop(1, $string);
+}
+if (cc_find($component1, $int3) = true) {
+    cc_setop(1, $string);
+}
+if (cc_find($component1, $int4) = true) {
+    if ($int5 = true) {
+        cc_sethide(false);
+    } else {
+        cc_sethide(true);
+    }
+}
+if ($int2 = 11) {
+    worldmap_setflag_5231(950, $int5);
+}
+sound_synth(synth_2266, 1, 0);

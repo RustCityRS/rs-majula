@@ -1,0 +1,8 @@
+[clientscript,create_no_displayname_onload]
+if_setonkey(null, chatbox_background:com55);
+if_setonkey("playerdesign4_name_onkey(^event_key, ^event_keychar, false)", no_displayname:com55);
+if_setonclick("clientscript_3217(^event_mousex, no_displayname:com59, no_displayname:com60, no_displayname:com61, 16)", no_displayname:com60);
+%varc_int_1099 = 0;
+%varc_string_330 = "";
+%varc_int_1412 = 0;
+~clientscript_3218(no_displayname:com59, no_displayname:com60, no_displayname:com61, %varc_string_330, 16);

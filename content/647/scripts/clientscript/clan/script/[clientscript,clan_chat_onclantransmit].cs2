@@ -1,0 +1,8 @@
+[clientscript,clan_chat_onclantransmit](component $int)
+if (hud_test(72744974, -1) = true) {
+    if_setontimer("clan_chat_minimenu_timer()", clan_chat:com14);
+    return;
+}
+if (clanchannel2_find_affined = true) {
+    ~clientscript_4451;
+}

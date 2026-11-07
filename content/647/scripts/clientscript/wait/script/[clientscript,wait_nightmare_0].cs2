@@ -1,0 +1,14 @@
+[clientscript,wait_nightmare_0]
+def_int $int0 = 0;
+def_int $int1 = 0;
+$int0 = enum(105, 105, enum_723, %varc_int_645);
+$int1 = enum(105, 105, enum_2196, %varc_int_645);
+if (%varc_int_645 < 15) {
+    if_setcolour(0x3366ff, di9181176:com5);
+} else if (%varc_int_645 > 15) {
+    if_setcolour(0xe12323, di9181176:com5);
+} else {
+    if_setcolour(0x666666, di9181176:com5);
+}
+if_setposition($int0, 66, ^setpos_abs_right, ^setpos_abs_top, di9181176:com5);
+if_setsize($int1, 8, ^setsize_abs, ^setsize_abs, di9181176:com5);

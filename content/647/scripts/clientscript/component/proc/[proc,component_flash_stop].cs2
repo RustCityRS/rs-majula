@@ -1,0 +1,3 @@
+[proc,component_flash_stop](component $component)
+if_setontimer(null, $component);
+if_settrans(0, $component);

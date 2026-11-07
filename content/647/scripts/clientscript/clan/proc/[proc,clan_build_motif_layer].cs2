@@ -1,0 +1,37 @@
+[proc,clan_build_motif_layer](component $component0, component $component1, component $component2, component $component3, enum $enum4)
+cc_deleteall($component0);
+cc_deleteall($component1);
+def_int $int5 = 0;
+def_int $int6 = 0;
+def_int $int7 = 2;
+def_int $int8 = 5;
+def_int $int9 = 60;
+def_int $int10 = 60;
+def_int $int11 = 0;
+def_int $int12 = 0;
+def_int $int13 = calc((if_getwidth($component0) - $int7) / ($int7 + $int10));
+def_int $int14 = enum_getoutputcount($enum4);
+while ($int5 < $int14) {
+    $int11 = calc(($int10 + $int7) * ($int5 - $int6 * $int13));
+    $int12 = calc($int6 * ($int9 + $int8));
+    cc_create($component1, ^iftype_graphic, $int5);
+    cc_setsize($int10, $int9, ^setsize_abs, ^setsize_abs);
+    cc_setposition($int11, $int12, ^setpos_abs_left, ^setpos_abs_top);
+    cc_setgraphic("aif_bronze_icon_button_1,0");
+    cc_setonvartransmit("clientscript_4395($int14){varp_2093}");
+    cc_setonmouseover("clan_motif_background_mouseover(^event_subid, $component1)");
+    cc_setonmouseleave("clan_motif_background_mouseleave(^event_subid, $component1)");
+    cc_create($component0, ^iftype_graphic, $int5);
+    cc_setsize(calc($int10 - 10), calc($int9 - 10), ^setsize_abs, ^setsize_abs);
+    cc_setposition(calc($int11 + 5), calc($int12 + 5), ^setpos_abs_left, ^setpos_abs_top);
+    cc_setgraphic(enum(105, 100, $enum4, calc($int5 + 1)));
+    cc_setop(1, "Select");
+    cc_setonop("clientscript_4394(^event_subid, $component1, $int14)");
+    $int5 = calc($int5 + 1);
+    if (calc($int5 % $int13) = false) {
+        $int6 = calc($int6 + 1);
+    }
+}
+if_setscrollpos(0, 0, $component2);
+if_setscrollsize(0, calc($int6 * ($int8 + $int9)), $component2);
+~scrollbar_vertical($component3, $component2, "aif_scrollbar_dragger_2,3", "aif_scrollbar_dragger_2,0", "aif_scrollbar_dragger_2,1", "aif_scrollbar_dragger_2,2", "aif_scrollbar_arrow_2,1", "aif_scrollbar_arrow_2,0");

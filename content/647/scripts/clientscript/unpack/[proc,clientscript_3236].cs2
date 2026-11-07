@@ -1,0 +1,10 @@
+[proc,clientscript_3236](int $int0, component $component1, component $component2, int $int3, component $component4)
+def_string $string = "";
+switch_int ($int3) {
+    case 3:
+        $string = %varc_string_32;
+    case 4:
+        $string = ~clientscript_2949(%varc_string_33);
+}
+%varc_int_1099 = ~clientscript_1401($int0, $string, 3793, 0);
+~clientscript_3237($component4, $component1, $component2, $string, $int3);

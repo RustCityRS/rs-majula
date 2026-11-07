@@ -1,0 +1,21 @@
+[proc,clientscript_912](obj $obj)(string)
+def_string $string = enum(111, 115, enum_1440, $obj);
+if (compare($string, "") ! 0) {
+    return("<br><$string>");
+}
+switch_int (%varc_int_746) {
+    case 0:
+        if (oc_weight($obj, param_1047) ! 1) {
+            return("<br><enum(105, 115, enum_1437, oc_weight($obj, param_23))>");
+        }
+    case 1:
+        return("<br><enum(105, 115, enum_1439, oc_weight($obj, param_23))>");
+    case 2, 5:
+        return("<br><enum(105, 115, enum_1436, oc_weight($obj, param_23))>");
+    case 3:
+        return("<br><enum(105, 115, enum_1438, oc_weight($obj, param_23))>");
+    case 4:
+        return("<br>Requires an ogre composite bow.");
+}
+return("");
+return("");

@@ -1,0 +1,7 @@
+[clientscript,mob_highlight_start](component $component)
+if (%varc_int_905 = $component & %varc_int_904 = true) {
+    ~mob_highlight_stop;
+    return;
+}
+~mob_highlight_stop;
+~mob_highlight_start($component);

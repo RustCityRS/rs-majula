@@ -47,9 +47,13 @@ pub fn load_engine() -> anyhow::Result<Engine> {
     // exactly as the server's does.
     let cache: &'static CacheStore = unsafe { &*cache_ptr };
 
-    let (dat, idx) =
-        runec::compile_memory_with_tests(&content.join("scripts"), Some(&pack), false, true)
-            .map_err(|e| anyhow::anyhow!("compile with tests: {e}"))?;
+    let (dat, idx) = runec::compile_memory_with_tests(
+        &content.join("scripts/runescript"),
+        Some(&pack),
+        false,
+        true,
+    )
+    .map_err(|e| anyhow::anyhow!("compile with tests: {e}"))?;
     let scripts = ScriptProvider::from_bytes(&dat, &idx);
     info!("compiled {} scripts with tests", scripts.count());
 
@@ -192,8 +196,7 @@ fn shared_engine() -> &'static std::sync::Mutex<std::sync::mpsc::Sender<EngineJo
 /// A test label is a `[label,...]` header below the file's `#testscript`
 /// line; labels above it are production code.
 pub fn discover_labels(scripts_dir: &Path, filter: Option<&str>) -> Vec<String> {
-    let mut files = Vec::new();
-    collect_rs2(scripts_dir, &mut files);
+    let files = runec::sources::script_files(scripts_dir, "rs2").unwrap_or_default();
     let mut labels = Vec::new();
     for path in files {
         let Ok(source) = std::fs::read_to_string(&path) else {
@@ -221,20 +224,6 @@ pub fn discover_labels(scripts_dir: &Path, filter: Option<&str>) -> Vec<String> 
     }
     labels.sort();
     labels
-}
-
-fn collect_rs2(dir: &Path, out: &mut Vec<PathBuf>) {
-    let Ok(entries) = std::fs::read_dir(dir) else {
-        return;
-    };
-    for entry in entries.flatten() {
-        let path = entry.path();
-        if path.is_dir() {
-            collect_rs2(&path, out);
-        } else if path.extension().is_some_and(|e| e == "rs2") {
-            out.push(path);
-        }
-    }
 }
 
 /// Runs one test label on a freshly reset world.

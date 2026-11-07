@@ -13,7 +13,7 @@ use tracing::debug;
 
 #[cfg(since_274)]
 pub fn pack_mes(file_cache: &FileCache, constants: &HashMap<String, String>) -> Result<PackedFile> {
-    let configs = parse_config_sections_cached(file_cache, "mesanim", constants);
+    let configs = parse_config_sections_cached(file_cache, "mesanim", constants)?;
 
     let count = configs
         .values()
