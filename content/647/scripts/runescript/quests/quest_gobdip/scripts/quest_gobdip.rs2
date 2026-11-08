@@ -125,6 +125,7 @@ if ($option = 2) {
 ~gobdip_bentnoze("<p,goblinchat>Orange armour might be good.");
 ~gobdip_wartface("<p,goblinchat>Yep bring us orange armour.");
 %varplayerbit_2378 = ^gobdip_will_bring_armour;
+~send_quest_progress(^questlist_gobdip, %varplayerbit_2378, ^gobdip_complete);
 
 // "I have some <colour> armour here": Grubfoot tries it on (2011-06-14, 357.2-367.1s orange,
 // 379.8-389.6s blue, 409.4-417.8s brown).
@@ -170,6 +171,7 @@ queue(goblin_diplomacy_complete_quest, 0, 0);
 // The recording's close camera and Grubfoot's walk are to be matched in-client.
 [proc,gobdip_changing_room](int $stage, int $grubfoot, string $colour)
 %varplayerbit_2378 = $stage;
+~send_quest_progress(^questlist_gobdip, %varplayerbit_2378, ^gobdip_complete);
 minimap_toggle(2);
 ~mesbox_np("Grubfoot goes into the changing room...");
 p_delay(4);

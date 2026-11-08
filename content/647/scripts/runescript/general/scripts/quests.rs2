@@ -26,9 +26,9 @@ if ($random < 32) {       // The least common music that plays when completing a
     ~music_jingle("quest complete 1");
 }
 ~update_questpoints;
-// Send Quest Scroll: void-634's names the quest's own points first among the
-// rewards (Cook.kt, Doric.kt, ...; no 2011 source found), which the quest's
-// port lists below it, and shows the total (277's "Quest Points:", com7).
+// Send Quest Scroll: the quest's own points first among the rewards, the rest
+// below it, and the total (277's "Quest Points:", com7), as every 2011 scroll
+// found shows (Doric's, Cook's, Imp Catcher's, ...; void-634's Cook.kt too).
 if_settext(questscroll_ver3:com_4, $questmessage);
 if_setobject(questscroll_ver3:com_5, $obj, $objscale);
 if_settext(questscroll_ver3:com_7, tostring(%qp));
@@ -52,8 +52,8 @@ mes("Congratulations! Quest complete!");
 // 289's send_quest_complete2: the quest complete scroll with the rewards
 // given as text, a line each between |s, where 289 shows them on its own
 // scroll (questscroll_death, 4 lines 200 wide in q8_full). 2011's one scroll
-// (277) lists rewards below the quest's points (com10) on com11-17, 213 wide
-// in p12_full (cache 786, font 495). For Troll Romance both of 289's procs
+// (277) lists rewards below the quest's points (com10) on com11-17 in p12_full
+// (cache 786, font 495), wrapped narrower than their 213 px (below). For Troll Romance both of 289's procs
 // say "You've helped a lonely troll find love": that waits for the Troll
 // Romance port.
 [proc,send_quest_complete2](int $quest, namedobj $obj, int $objscale, int $questpoints, string $questmessage, string $rewardtext)
