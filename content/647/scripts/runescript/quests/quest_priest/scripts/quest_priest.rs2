@@ -164,6 +164,9 @@ session_log(^log_adventure, "Quest complete: The Restless Ghost");
 // five ancient bones", wrapped after "five".
 ~send_quest_complete2(^questlist_priest, muddy_skull, 220, ^priest_questpoints, "You have completed The Restless Ghost!", "125 Prayer XP and five ancient bones");
 if_settext(questscroll_ver3:com_10, "1 Quest Point,");
+// The Task System's "The Restless Ghost" (task 347, a quest task), as Cook's Assistant's is shown
+// completing in 2011 (quest_cook.rs2).
+~task_complete(347);
 
 // ── Journal ─────────────────────────────────────────────────────────────────
 // void-634's (TheRestlessGhost.kt), in 289's colour codes: void-634's navy is

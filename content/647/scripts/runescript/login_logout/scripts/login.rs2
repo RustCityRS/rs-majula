@@ -127,6 +127,8 @@ inv_transmit(worn, wornitems:worn)
 if (getwindowmode = 1) {
     if_opensub(combat_side, toplevel:com_tab0, ^true)
     if_opensub(task_side, toplevel:com_tab1, ^true)
+    // The Task System's popup (void-634's task_overlay: 548:20, 746:79).
+    if_opensub(interface_1055, toplevel:com_20, ^true)
     if_opensub(stats, toplevel:com_tab2, ^true)
     if_opensub(questlist_v4, toplevel:com_tab3, ^true)
     if_opensub(inventory, toplevel:com_tab4, ^true)
@@ -143,6 +145,7 @@ if (getwindowmode = 1) {
 } else {
     if_opensub(combat_side, toplevel_fullscreen:com_tab0, ^true)
     if_opensub(task_side, toplevel_fullscreen:com_tab1, ^true)
+    if_opensub(interface_1055, toplevel_fullscreen:com_79, ^true)
     if_opensub(stats, toplevel_fullscreen:com_tab2, ^true)
     if_opensub(questlist_v4, toplevel_fullscreen:com_tab3, ^true)
     if_opensub(inventory, toplevel_fullscreen:com_tab4, ^true)
@@ -157,6 +160,10 @@ if (getwindowmode = 1) {
     if_opensub(music_v3, toplevel_fullscreen:com_tab14, ^true)
     if_opensub(notes, toplevel_fullscreen:com_tab15, ^true)
 }
+
+// The Task System's tab: the set for where the player stands, and its six slots.
+~task_area_here;
+~task_refresh;
 
 // Every tab's events follow its if_opensub. Opening a sub where one is already
 // open closes it first, and the client's close drops every event the server

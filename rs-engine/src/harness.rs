@@ -213,10 +213,22 @@ impl Engine {
     /// Everything else is a new player's: level 1 (10 hitpoints), the
     /// default appearance, empty inventories, at the new-player spawn.
     pub fn harness_login_returning(&mut self, username: &str) -> Option<HarnessClient> {
+        self.harness_login_returning_at(username, 3094, 3106)
+    }
+
+    /// [`harness_login_returning`](Self::harness_login_returning), logging in
+    /// at `x`, `z` on level 0 instead of the new-player spawn, for content
+    /// that `[login]` decides from where the player stands.
+    pub fn harness_login_returning_at(
+        &mut self,
+        username: &str,
+        x: u16,
+        z: u16,
+    ) -> Option<HarnessClient> {
         let tutorial_done = *self.cache.varps.debugnames.get("learning_the_ropes")?;
         let profile = PlayerProfile {
-            x: 3094,
-            z: 3106,
+            x,
+            z,
             y: 0,
             body: [0, 10, 18, 26, 33, 36, 42],
             colors: [0; 5],

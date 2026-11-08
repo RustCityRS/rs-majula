@@ -254,14 +254,11 @@ stat_advance(cooking, 3000);
 inv_add(inv, coins, 500);
 inv_add(inv, cert_sardine, 20);
 session_log(^log_adventure, "Quest complete: Cook's Assistant");
-// ~send_quest_complete(^questlist_cook, cake, 250, ^cook_questpoints, "You have completed the Cooks' Quest!");
-// 2011-05-20 recording (404s): the scroll reads "You have completed Cook's Assistant!".
-// 2011's scroll (2011-05-23 A-JAsglDtjE, 211s).
+// 2011's scroll (2011-05-20 recording, 404s; 2011-05-23 A-JAsglDtjE, 211s).
 ~send_quest_complete2(^questlist_cook, cake, 250, ^cook_questpoints, "You have completed Cook's Assistant!", "300 Cooking XP|500 coins|20 sardines|Access to the cook's range");
-if_settext(questscroll_ver3:com_11, "300 Cooking XP");
-if_settext(questscroll_ver3:com_12, "500 coins");
-if_settext(questscroll_ver3:com_13, "20 sardines");
-if_settext(questscroll_ver3:com_14, "Access to the cook's range");
+// The Task System's "Cook's Assistant" (task 348, a quest task): "You have completed the Task
+// 'Cook's Assistant'!" after the quest (2011-05-23 A-JAsglDtjE, chat at 213s).
+~task_complete(348);
 
 [oplocu,cooking_range]
 if (%cookquest < ^cook_complete) {
