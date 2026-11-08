@@ -5,7 +5,12 @@ if(%phoenixgang = ^phoenixgang_spoken_reldo) { // you wont get options for selli
     } else if(inv_total(inv, bear_fur) > 0) {
         @multi4("Can you tell me where I can find the Phoenix Gang?", baraek_phoenixgang, "Can you sell me some furs?", baraek_sell_fur, "Hello. I am in search of a quest.", baraek_quest, "Would you like to buy my fur?", baraek_buy_fur);
     } else {
-        @multi3("Can you tell me where I can find the Phoenix Gang?", baraek_phoenixgang, "Can you sell me some furs?", baraek_sell_fur, "Hello. I am in search of a quest.", baraek_quest);
+        // 2011 (LhbN1Qi39D4 94.2s, TSNR-A0LI8s 85.5s): two options under "Choose an option:", the
+        // furs first; 289's "Hello. I am in search of a quest." is not offered.
+        switch_int(~p_choice2_header("Can you sell me some furs?", 1, "Can you tell me where I can find the Phoenix Gang?", 2, "Choose an option:")) {
+            case 1 : @baraek_sell_fur;
+            case 2 : @baraek_phoenixgang;
+        }
     }
 } else {
     if(inv_total(inv, grey_wolf_fur) > 0 & inv_total(inv, bear_fur) > 0) {
@@ -96,14 +101,25 @@ if($option = 1) {
 } else if($option = 2) {
     ~chatplayer("<p,angry>No! I almost got my throat torn out by a wolf to get this!");
 }
+// Shield of Arrav: 2011's lines (LhbN1Qi39D4 97.2-120.9s, TSNR-A0LI8s 87.3-93.9s, UgONltQDj38
+// 134.6-158.8s), word for word. The bribe menu is 2011's: its order, "No, I don't" with a comma,
+// and with fewer than 20 coins "I haven't got that much." in the middle (TSNR-A0LI8s 93.9s; no
+// recording picks it, so Baraek's answer is unknown and he says nothing). "No, I don't like things
+// like bribery." is answered as 289 did (unverified).
 [label,baraek_phoenixgang]
 ~chatplayer("<p,quiz>Can you tell me where I can find the Phoenix Gang?");
-~chatnpc("<p,angry>Sh sh sh, not so loud!|You don't want to get me in trouble!");
+~chatnpc("<p,angry>Sh sh sh, not so loud! You don't want to get me in trouble!");
 ~chatplayer("<p,quiz>So DO you know where they are?");
 ~chatnpc("<p,neutral>I may do.");
 ~chatnpc("<p,neutral>But I don't want to get into trouble for revealing their hideout.");
-~chatnpc("<p,neutral>Of course, if I was, say|20 gold coins richer I may happen to be|more inclined to take that sort of risk...");
-switch_int(~p_choice3("Okay. Have 20 gold coins.", 1, "No. I don't like things like bribery.", 2, "Yes. I'd like to be 20 gold coins richer too.", 3)) {
+~chatnpc("<p,neutral>Of course, if I was, say 20 gold coins richer I may happen to be more inclined to take that sort of risk...");
+def_int $bribe;
+if(inv_total(inv, coins) >= 20) {
+    $bribe = ~p_choice3("Yes. I'd like to be 20 gold coins richer too.", 3, "Okay. Have 20 gold coins.", 1, "No, I don't like things like bribery.", 2);
+} else {
+    $bribe = ~p_choice3("Yes. I'd like to be 20 gold coins richer too.", 3, "I haven't got that much.", 4, "No, I don't like things like bribery.", 2);
+}
+switch_int($bribe) {
     case 1 :
         ~chatplayer("<p,neutral>Okay. Have 20 gold coins.");
         if(inv_total(inv, coins) < 20) {
@@ -116,9 +132,11 @@ switch_int(~p_choice3("Okay. Have 20 gold coins.", 1, "No. I don't like things l
         ~chatnpc("<p,neutral>Gang. They're operating there under the name of the VTAM Corporation. Be careful. The Phoenixes ain't the types to be messed about.");
         ~chatplayer("<p,happy>Thanks!");
     case 2 :
-        ~chatplayer("<p,angry>No. I don't like things like bribery.");
-        ~chatnpc("<p,happy>Heh. If you wanna deal with the Phoenix Gang|they're involved in much worse than a bit of bribery.");
+        ~chatplayer("<p,angry>No, I don't like things like bribery.");
+        ~chatnpc("<p,happy>Heh. If you wanna deal with the Phoenix Gang they're involved in much worse than a bit of bribery.");
     case 3 :
         ~chatplayer("<p,happy>Yes. I'd like to be 20 gold coins richer too.");
+    case 4 :
+        ~chatplayer("<p,sad>I haven't got that much.");
 
 }

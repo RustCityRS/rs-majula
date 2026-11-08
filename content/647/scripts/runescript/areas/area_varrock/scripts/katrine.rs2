@@ -11,9 +11,15 @@ switch_int(%blackarmgang) {
     case default : @katrine_standard;
 }
 
+// Shield of Arrav: 2011's lines, word for word, from the 2011-02-28 Black Arm recording (YouTube
+// TSNR-A0LI8s, 157.3-212.8s and 514.9-517.5s) and the 2011-03-02 one (UgONltQDj38, 250.0-299.0s):
+// "It was Charlie, the tramp outside.", the framing plan before the menu (not in 289), and "the
+// Phoenix Gang -  has" with two spaces (184.0s). 2011 wraps lines itself (289's | breaks dropped).
+// Branches no recording shows (the business, fame and riches, "Everyone knows", the hints, the
+// door, the honest face, "Sounds a little tricky", one crossbow) are 289's, unverified for 2011.
 [label,katrine_standard]
 ~chatplayer("<p,quiz>What is this place?");
-~chatnpc("<p,neutral>It's a private business.|Can I help you at all?");
+~chatnpc("<p,neutral>It's a private business. Can I help you at all?");
 def_int $option;
 if(%blackarmgang = ^blackarmgang_started) {
     $option = ~p_choice3("I've heard you're the Black Arm Gang.", 3, "What sort of business?", 1, "I'm looking for fame and riches.", 2);
@@ -30,14 +36,14 @@ switch_int($option) {
     case 3 :
         ~chatplayer("<p,quiz>I've heard you're the Black Arm Gang.");
         ~chatnpc("<p,angry>Who told you that?");
-        $option = ~p_choice3("I'd rather not reveal my sources.", 1, "It was the tramp outside.", 2, "Everyone knows - it's no great secret.", 3);
+        $option = ~p_choice3("I'd rather not reveal my sources.", 1, "It was Charlie, the tramp outside.", 2, "Everyone knows - it's no great secret.", 3);
         if($option = 1) {
             ~chatplayer("<p,neutral>I'd rather not reveal my sources.");
-            ~chatnpc("<p,neutral>Yes, I can understand that.|So what do you want with us?");
+            ~chatnpc("<p,neutral>Yes, I can understand that. So what do you want with us?");
         } else if($option = 2) {
-            ~chatplayer("<p,neutral>It was the tramp outside.");
-            ~chatnpc("<p,neutral>Is that guy still out there?|He's getting to be a nuisance.|Remind me to send someone to kill him.");
-            ~chatnpc("<p,neutral>So now you've found us,|what do you want?");
+            ~chatplayer("<p,neutral>It was Charlie, the tramp outside.");
+            ~chatnpc("<p,neutral>Is that guy still out there? He's getting to be a nuisance. Remind me to send someone to kill him.");
+            ~chatnpc("<p,neutral>So now you've found us, what do you want?");
         } else if($option = 3) {
             ~chatplayer("<p,neutral>Everyone knows.|It's no great secret.");
             ~chatnpc("<p,shock>I thought we were safe back here!");
@@ -52,7 +58,7 @@ switch_int($option) {
 [label,katrine_gangmember]
 ~chatplayer("<p,neutral>I want to become a member of your gang.");
 ~chatnpc("<p,neutral>How unusual.");
-~chatnpc("<p,neutral>Normally we recruit for our gang|by watching local thugs and thieves in action.|People don't normally waltz in here|saying 'hello, can I play'.");
+~chatnpc("<p,neutral>Normally we recruit for our gang by watching local thugs and thieves in action. People don't normally waltz in here saying 'hello, can I play'.");
 ~chatnpc("<p,neutral>How can I be sure you can be trusted?");
 switch_int (~p_choice2("Well, you can give me a try can't you?", 1, "Well, people tell me I have an honest face.", 2)) {
     case 1 :
@@ -63,9 +69,17 @@ switch_int (~p_choice2("Well, you can give me a try can't you?", 1, "Well, peopl
         ~chatnpc("<p,neutral>... How unusual. Someone honest wanting to join a gang of thieves. Excuse me if I remain unconvinced."); 
 }
 ~chatnpc("<p,neutral>Thinking about it... I may have a solution actually.");
-~chatnpc("<p,neutral>Our rival gang - the Phoenix Gang -|has a weapons stash a little east of here.");
-~chatnpc("<p,neutral>We're fresh out of crossbows,|so if you could steal a couple of crossbows for us|it would be very much appreciated.");
+~chatnpc("<p,neutral>Our rival gang - the Phoenix Gang -  has a weapons stash a little east of here.");
+~chatnpc("<p,neutral>We're fresh out of crossbows, so if you could steal a couple of crossbows for us it would be very much appreciated.");
 ~chatnpc("<p,neutral>Then I'll be happy to call you a Black Arm.");
+~chatplayer("<p,quiz>Sounds simple enough. Any particular reason you need two of them?");
+~chatnpc("<p,neutral>I have an idea for framing a local merchant who is refusing to pay our, very reasonable, 'keep-your-life-pleasant' insurance rates. I need two phoenix crossbows; one to kill somebody important with and the other to");
+~chatnpc("<p,neutral>hide in the merchant's house where the local law can find it! When they find it, they'll suspect him of murdering the target for the Phoenix gang and, hopefully, arrest the whole gang! Leaving us as the only");
+~chatnpc("<p,happy>thieves gang in Varrock! Brilliant, eh?");
+~chatplayer("<p,neutral>Yeah, brilliant. So who are you planning to murder?");
+~chatnpc("<p,quiz>I haven't decided yet, but it'll need to be somebody important. Say, why you being so nosey? You aren't with the law are you?");
+~chatplayer("<p,shock>No, no! Just curious.");
+~chatnpc("<p,angry>You'd better just keep your mouth shut about this plan, or I'll make sure it stays shut for you. Now, are you going to go get those crossbows or not?");
 switch_int (~p_choice2("Ok, no problem.", 1, "Sounds a little tricky. Got anything easier?", 2)) {
     case 1 :
         ~chatplayer("<p,happy>Ok, no problem.");
@@ -94,7 +108,7 @@ if(inv_total(inv,phoenix_crossbow) >= 2) {
     ~mesbox("You give the crossbows to Katrine.");
     inv_del(inv, phoenix_crossbow, 2);
     %blackarmgang = ^blackarmgang_joined;
-    ~chatnpc("<p,neutral>Ok. You can join our gang now.|Feel free to enter any of the rooms of the ganghouse.");
+    ~chatnpc("<p,neutral>Ok. You can join our gang now. Feel free to enter any of the rooms of the ganghouse.");
     return;
 } else if(inv_total(inv,phoenix_crossbow) = 1) {
     ~chatplayer("<p,neutral>I have one...");

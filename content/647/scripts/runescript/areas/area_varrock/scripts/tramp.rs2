@@ -1,6 +1,32 @@
+// Charlie the Tramp: 289's areas/area_varrock/scripts/tramp.rs2 with 2011's menus and lines, word
+// for word, from the 2011-02-28 Black Arm recording (YouTube TSNR-A0LI8s, 129.7-142.5s and
+// 229.0-242.6s) and the 2011-03-02 one (UgONltQDj38, 173.2-202.4s):
+// - a fifth option first, "Who are you?";
+// - "Funny you should mention that...there is actually." and the Black Arm Gang's headquarters;
+// - once Katrine wants the crossbows, a menu that sells the Phoenix hideout for 10 gold ("Any
+//   idea where the Phoenix gang hideout is?") and "I think I know where the hideout is, but I
+//   can't get inside.", without "Who are you?" or the alleyway.
+// No recording picks "Who are you?", "Don't worry, I'll find it myself.", "10 gold? That's too
+// much, I'll give you 5." or "I think I know where the hideout is...": the player says the option,
+// as every recorded 2011 option does, and Charlie's answer is unknown (nothing more is said).
+// Whether the 10 gold leave the backpack is not shown (the stats tab is open); it is taken here
+// like Baraek's 20. The other branches are 289's, unverified for 2011.
 [opnpc1,charlie_the_tramp]
 ~chatnpc("<p,sad>Spare some change guv?");
-switch_int(~p_choice4("Sorry, I haven't got any.", 1, "Go get a job!", 2, "Ok. Here you go.", 3, "Is there anything down this alleyway?", 4)) {
+if(%blackarmgang = ^blackarmgang_spoken_katrine) {
+    switch_int(~p_choice5("Sorry, I haven't got any.", 1, "Go get a job!", 2, "Ok. Here you go.", 3, "Any idea where the Phoenix gang hideout is?", 6, "I think I know where the hideout is, but I can't get inside.", 7)) {
+        case 1 : @tramp_option(1);
+        case 2 : @tramp_option(2);
+        case 3 : @tramp_option(3);
+        case 6 : @tramp_phoenix_hideout;
+        case 7 : ~chatplayer("<p,quiz>I think I know where the hideout is, but I can't get inside.");
+    }
+    return;
+}
+@tramp_option(~p_choice5("Who are you?", 5, "Sorry, I haven't got any.", 1, "Go get a job!", 2, "Ok. Here you go.", 3, "Is there anything down this alleyway?", 4));
+
+[label,tramp_option](int $picked)
+switch_int($picked) {
     case 1 :
         ~chatplayer("<p,sad>Sorry, I haven't got any.");
         ~chatnpc("<p,sad>Thanks anyway.");
@@ -25,7 +51,8 @@ switch_int(~p_choice4("Sorry, I haven't got any.", 1, "Go get a job!", 2, "Ok. H
         }
     case 4 :
         ~chatplayer("<p,quiz>Is there anything down this alleyway?");
-        ~chatnpc("<p,neutral>Yes, there is actually.|A notorious gang of thieves and hoodlums,|called the Black Arm Gang.");
+        ~chatnpc("<p,neutral>Funny you should mention that...there is actually.");
+        ~chatnpc("<p,neutral>The ruthless and notorious criminal gang known as the Black Arm Gang have their headquarters down there.");
         def_int $option = ~p_choice2("Thanks for the warning!", 1, "Do you think they would let me join?", 2);
         if($option = 1) {
             ~chatplayer("<p,happy>Thanks for the warning!");
@@ -43,10 +70,27 @@ switch_int(~p_choice4("Sorry, I haven't got any.", 1, "Go get a job!", 2, "Ok. H
                 %blackarmgang = ^blackarmgang_started;
                 ~send_quest_progress(^questlist_blackarmgang, %blackarmgang, ^blackarmgang_complete);
             }
-            ~chatnpc("<p,neutral>You never know.|You'll find a lady down there called Katrine.|Speak to her.");
+            ~chatnpc("<p,neutral>You never know. You'll find a lady down there called Katrine. Speak to her.");
             ~chatnpc("<p,neutral>But don't upset her, she's pretty dangerous.");
         }
+    case 5 : ~chatplayer("<p,quiz>Who are you?");
+}
 
+[label,tramp_phoenix_hideout]
+~chatplayer("<p,quiz>Any idea where the Phoenix gang hideout is?");
+~chatnpc("<p,neutral>Sure, I know everything there is to know about this city. I'd be happy to tell you for 10 gold.");
+switch_int(~p_choice3("Ok, that sounds fair.", 1, "Don't worry, I'll find it myself.", 2, "10 gold? That's too much, I'll give you 5.", 3)) {
+    case 1 :
+        ~chatplayer("<p,neutral>Ok, that sounds fair.");
+        if(inv_total(inv, coins) < 10) {
+            return;
+        }
+        inv_del(inv, coins, 10);
+        ~chatnpc("<p,neutral>Great, thanks. Now listen closely; to get to the Phoenix hideout, walk east from here. It's the one with the Blue Moon Inn on the corner. Take the first alley leading south off of that road and you'll find the hideout at the");
+        ~chatnpc("<p,neutral>end of that alley. It's called the VTAM corporation.");
+        ~chatplayer("<p,neutral>V T A M, got it.");
+    case 2 : ~chatplayer("<p,neutral>Don't worry, I'll find it myself.");
+    case 3 : ~chatplayer("<p,quiz>10 gold? That's too much, I'll give you 5.");
 }
 
 [label,tramp_phoenixmember]

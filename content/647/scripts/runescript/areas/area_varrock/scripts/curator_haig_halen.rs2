@@ -1,0 +1,123 @@
+// Curator Haig Halen in the Varrock Museum: 289's areas/area_varrock/scripts/curator.rs2 on 2011's
+// curator_haig_halen (646; the 786 map's 50_53 57,55, void-634's 3257,3447). Shield of Arrav is
+// 2011's: each gang member brings their own half and gets two half-certificates, one to trade
+// to the partner (289: both halves together for two whole certificates). The lines are the
+// 2011-02-28 recordings' (LhbN1Qi39D4 427.5-452.4s, TSNR-A0LI8s 591.0-614.6s) and the 2011-03-02
+// one's (UgONltQDj38 714.4-756.6s), word for word: Talk-to opens with "Welcome to the museum of
+// Varrock.", a half used on him goes straight to "Let me have a look at it first.". The Dig Site
+// letters and certificates are 289's (unverified for 2011).
+[opnpc1,curator_haig_halen]
+~chatnpc("<p,neutral>Welcome to the museum of Varrock.");
+if (inv_total(inv, unstamped_letter) > 0) @curator_stamp_letter;
+if (inv_total(inv, level_1_certificate) > 0) @curator_level_1;
+if (inv_total(inv, level_2_certificate) > 0) @curator_level_2;
+if (inv_total(inv, level_3_certificate) > 0) @curator_level_3;
+if(%phoenixgang = ^phoenixgang_joined | %blackarmgang = ^blackarmgang_joined) {
+    if(inv_total(inv, broken_shield) > 0 | inv_total(inv, arravshield2) > 0) {
+        @curator_arrav_half;
+    }
+}
+def_int $option = ~p_choice2("Have you any interesting news?", 1, "Do you know where I could find any treasure?", 2);
+if($option = 1) {
+    ~chatplayer("<p,quiz>Have you any interesting news?");
+    ~chatnpc("<p,neutral>No, I'm only interested in old stuff.");
+} else if($option = 2) {
+    ~chatplayer("<p,quiz>Do you know where I could find any treasure?");
+    ~chatnpc("<p,neutral>Look around you! This museum is full of treasures!");
+    ~chatplayer("<p,sad>No, I meant treasures for ME.");
+    ~chatnpc("<p,neutral>Any treasures this museum knows about it goes to great lengths to acquire.");
+}
+
+[opnpcu,curator_haig_halen]
+switch_obj(last_useitem) {
+    case unstamped_letter : @curator_stamp_letter;
+    case sealed_letter : ~chatnpc("<p,confused>No, I don't want it back, thank you.");
+    case level_1_certificate : @curator_level_1;
+    case level_2_certificate : @curator_level_2;
+    case level_3_certificate : @curator_level_3;
+    case broken_shield, arravshield2 :
+        if(%phoenixgang = ^phoenixgang_joined | %blackarmgang = ^blackarmgang_joined) {
+            @curator_arrav_half;
+        }
+        ~displaymessage(^dm_default);
+    case default : ~displaymessage(^dm_default);
+}
+
+// 2011's half: the Phoenix half (broken_shield, void-634's broken_shield_right) for the right
+// half-certificate (11173, void's half_certificate_right), the Black Arm half for the left
+// (11174); the other gang is named last (Phoenix: "the infamous Blackarm Gang", LhbN1Qi39D4
+// 451.0s; Black Arm: "the infamous Phoenix Gang", TSNR-A0LI8s 612.6s).
+[label,curator_arrav_half]
+def_obj $half = arravshield2;
+def_obj $certificate = half_certificate_11174;
+def_string $other = "Phoenix Gang";
+if(inv_total(inv, broken_shield) > 0) {
+    $half = broken_shield;
+    $certificate = half_certificate;
+    $other = "Blackarm Gang";
+}
+~chatnpc("<p,neutral>Let me have a look at it first.");
+~objbox($half, "The curator peers at the shield.", 250, 0, 0);
+~chatnpc("<p,shock>This is incredible!");
+~chatnpc("<p,shock>That shield has been missing for over twenty-five years!");
+~chatnpc("<p,neutral>Leave the shield here with me and I'll write you out a certificate saying that you have returned the shield, so that you can claim your reward from the King.");
+~chatplayer("<p,neutral>Can I have two certificates please?");
+~chatnpc("<p,happy>Yes, certainly. Please hand over the shield.");
+~objbox($half, "You hand over the shield half.", 250, 0, 0);
+inv_del(inv, $half, 1);
+inv_add(inv, $certificate, 2);
+~objbox($certificate, "The curator writes out two half-certificates.", 250, 0, 0);
+~chatnpc("<p,neutral>Of course, you won't actually be able to claim the reward with only half the reward certificate...");
+~chatplayer("<p,angry>What? I went through a lot of trouble to get that shield piece and now you tell me it was for nothing? That's not very fair!");
+~chatnpc("<p,neutral>Well, if you were to get me the other half of the shield, I could give you the other half of the reward certificate. It's rumoured to be in the possession of the infamous <$other>, beyond that I can't help you.");
+~chatplayer("<p,neutral>Okay, I'll see what I can do.");
+
+[label,curator_stamp_letter]
+~chatplayer("<p,happy>I have been given this letter by an examiner at the Dig Site. Can you stamp this for me?");
+~chatnpc("<p,confused>What we have here? A letter of recommendation indeed...");
+~chatnpc("<p,happy>Normally I wouldn't do this...|But in this instance I don't see why not.");
+// osrs sets varbit 2552 (varp 135, bit 9) to 1 signifying we've already stamped once, if we bring another letter to stamp the curator will instead say
+// player: I have another letter here; could you stamp it for me again?
+// curator <confused>: You've already given me one of those! But... ok, give it here...
+// player: Thanks!
+
+// another fun fact is that osrs clears this varbit after quest completion, meaning we can go back to the curator and get the initial dialogue again
+
+// there's also this if we loose all the stamped letters and are still in the %itexam_progress = ^itexam_stamping quest stage
+// player <sad>: I seem to have lost the letter of recommendation that you stamped for me.
+// curator: Yes, I saw you drop it as you walked off last time. Here it is.
+// player: Thanks!
+inv_del(inv, unstamped_letter, 1);
+inv_add(inv, sealed_letter, 1);
+~chatnpc("<p,happy>There you go, good luck student...|Be sure to come back and show me your certificates.|I would like to see how you get on.");
+ ~chatplayer("<p,happy>Okay, I will. Thanks, see you later.");
+
+
+[label,curator_level_1]
+inv_del(inv, level_1_certificate, 1);
+~chatplayer("<p,happy>Look what I have been awarded.");
+~chatnpc("<p,happy>Well that's great, well done.|I'll take that for safekeeping;|come and tell me when you are the next level.");
+
+[label,curator_level_2]
+inv_del(inv, level_2_certificate, 1);
+~chatplayer("<p,happy>Look, I am level 2 now...");
+~chatnpc("<p,happy>Excellent work!|I'll take that for safe keeping,|remember to come and see me when you have graduated.");
+
+[label,curator_level_3]
+inv_del(inv, level_3_certificate, 1);
+~chatplayer("<p,happy>Look at this certificate, curator...");
+~chatnpc("<p,happy>Well, well - a level 3 graduate!|I'll keep your certificate safe for you.|I feel I must reward you for your work...");
+~chatnpc("<p,neutral>What would you prefer: something to eat or drink?");
+switch_int(~p_choice2("Something to eat please.", 1, "Something to drink please.", 2)) { 
+    case 1 :
+        ~chatplayer("<p,happy>Something to eat please.");
+        inv_add(inv, chocolate_cake, 1);
+        ~chatnpc("<p,happy>Very good! Come and eat this cake I baked!");
+    case 2 : 
+        ~chatnpc("<p,happy>Certainly, have this...");
+        inv_add(inv, fruit_blast, 1);
+        ~chatplayer("<p,quiz>A cocktail?");
+        ~chatnpc("<p,happy>It's a new recipe from the gnome kingdom.|You'll like it I'm sure!");
+        ~chatplayer("<p,happy>Cheers!");
+        ~chatnpc("<p,happy>Cheers!");
+}

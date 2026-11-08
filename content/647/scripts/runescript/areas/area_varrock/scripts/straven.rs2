@@ -21,6 +21,10 @@ if(last_useitem = intel_report) {
 }
 ~displaymessage(^dm_default);
 
+// Shield of Arrav's lines are 2011's, word for word: the 2011-02-28 recording (YouTube
+// LhbN1Qi39D4, 187.5-237.0s and 324.9-339.5s) and the 2011-03-02 one (UgONltQDj38, 593.2-624.8s).
+// 2011 wraps them itself (289's | breaks dropped). Branches no recording shows ("Why not?", "I
+// want nothing...", no report yet) are 289's, unverified for 2011.
 [label,straven_cant_enter]
 ~chatnpc("<p,neutral>Hey! You can't go in there. Only authorised personnel of the VTAM Corporation are allowed beyond this point.");
 def_int $option;
@@ -32,21 +36,23 @@ if(%phoenixgang = ^phoenixgang_spoken_baraek) {
 switch_int ($option) {
     case 1 :
         ~chatplayer("<p,sad>I know who you are!");
-        ~chatnpc("<p,neutral>I see.|Carry on?");
-        ~chatplayer("<p,sad>This is the headquarters of the Phoenix Gang,|the most powerful crime syndicate this city has ever seen!");
-        ~chatnpc("<p,neutral>And supposing we were this crime gang,|what would you want with us?");
+        ~chatnpc("<p,neutral>Really.");
+        ~chatplayer("<p,sad>This is the headquarters of the Phoenix Gang, the most powerful crime syndicate this city has ever seen!");
+        ~chatnpc("<p,neutral>No, this is a legitimate business run by legitimate businessmen.");
+        ~chatnpc("<p,neutral>Supposing we were this crime gang however, what would you want with us?");
         $option = ~p_choice2("I'd like to offer you my services.", 1, "I want nothing. I was just making sure you were them.", 2);
         if($option = 1) {
             ~chatplayer("<p,happy>I'd like to offer you my services.");
             ~chatnpc("<p,neutral>You mean you'd like to join the Phoenix Gang?");
-            ~chatnpc("<p,neutral>Well, the Phoenix Gang doesn't let people join just like that.");
+            ~chatnpc("<p,neutral>Well, obviously I can't speak for them, but the Phoenix Gang doesn't let people join just like that.");
             ~chatnpc("<p,neutral>You can't be too careful, you understand.");
             ~chatnpc("<p,neutral>Generally someone has to prove their loyalty before they can join.");
             ~chatplayer("<p,quiz>How would I go about doing that?");
-            ~chatnpc("<p,neutral>Let me think...|I have an idea.");
-            ~chatnpc("<p,neutral>A rival gang of ours,|called the Black Arm Gang|is supposedly meeting a contact from Port Sarim today.|In the Blue Moon Inn");
+            ~chatnpc("<p,neutral>Obviously, I would have no idea about that.");
+            ~chatnpc("<p,neutral>Although having said that, a rival gang of ours, er, theirs, called the Black Arm Gang is supposedly meeting a contact from Port Sarim today in the Blue Moon Inn.");
             %phoenixgang = ^phoenixgang_spoken_straven;
-            ~chatnpc("<p,neutral>by the south entrance to this city.|The name of the contact is Jonny the Beard.|Kill him and bring back his intelligence report.");
+            ~chatnpc("<p,neutral>The Blue Moon Inn is just by the south entrance to this city, and supposedly the name of the contact is Jonny the Beard.");
+            ~chatnpc("<p,neutral>OBVIOUSLY I know NOTHING about the dealings of the Phoenix Gang, but I bet if SOMEBODY were to kill him and bring back his intelligence report, they would be considered loyal enough to join.");
             ~chatplayer("<p,happy>Ok, I'll get right on it.");
         } else if($option = 2) {
             ~chatplayer("<p,happy>I want nothing. I was just making sure you were them.");
@@ -54,7 +60,7 @@ switch_int ($option) {
         }
     case 2 :
         ~chatplayer("<p,quiz>How do I get a job with the VTAM corporation?");
-        ~chatnpc("<p,neutral>Get a copy of the Varrock Herald.|If we have any positions right now,|they'll be advertised in there.");
+        ~chatnpc("<p,neutral>Get a copy of the Varrock Herald. If we have any positions right now, they'll be advertised in there.");
     case 3 :
         ~chatplayer("<p,quiz>Why not?");
         ~chatnpc("<p,neutral>Sorry. That's classified information.");
@@ -65,9 +71,9 @@ switch_int ($option) {
 if(inv_total(inv, intel_report) > 0) {
     ~chatplayer("<p,happy>I have the intelligence report!");
     ~chatnpc("<p,neutral>Let's see it then.");
-    ~mesbox("You hand over the report.|The man reads the report.");
+    ~mesbox("You hand over the report. The man reads the report.");
     ~chatnpc("<p,neutral>Yes. Yes, this is very good.");
-    ~chatnpc("<p,happy>Ok! You can join the Phoenix Gang!|I am Straven, one of the gang leaders.");
+    ~chatnpc("<p,happy>Ok! You can join the Phoenix Gang! I am Straven, one of the gang leaders.");
     ~chatplayer("<p,neutral>Nice to meet you.");
     ~chatnpc("<p,neutral>Take this key.");
     %phoenixgang = ^phoenixgang_joined;
