@@ -335,10 +335,28 @@ fn if_opensub_matches_client() {
 #[test]
 fn if_opentop_matches_client() {
     use rs_protocol::network::game::server::if_opentop::IfOpentop;
-    let bytes = encode(&IfOpentop { interface: 746 });
+    let bytes = encode(&IfOpentop {
+        interface: 746,
+        mode: 0,
+    });
     let mut p = ClientPacket::new(&bytes);
     assert_eq!(p.g2_alt1(), 746, "toplevel interface id");
     assert_eq!(p.g1_alt1(), 0, "mode flag");
+    p.done(bytes.len());
+}
+
+/// Mode 2, the one that makes the client rebuild its scene behind a "Loading -
+/// please wait." screen (ImageSourceTextureOp.method3619), reads back as 2.
+#[test]
+fn if_opentop_mode_matches_client() {
+    use rs_protocol::network::game::server::if_opentop::IfOpentop;
+    let bytes = encode(&IfOpentop {
+        interface: 548,
+        mode: 2,
+    });
+    let mut p = ClientPacket::new(&bytes);
+    assert_eq!(p.g2_alt1(), 548, "toplevel interface id");
+    assert_eq!(p.g1_alt1(), 2, "mode");
     p.done(bytes.len());
 }
 

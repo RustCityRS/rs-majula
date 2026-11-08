@@ -46,9 +46,17 @@ if_opentop(worldmap);
 // The X at the top right (755:44, op1 "Close"). The client keeps every
 // sub-interface across IF_OPENTOP, so the frame comes back with its tabs,
 // orbs and chat as they were.
+//
+// In 2011 the screen went black with "Loading - please wait." and then the
+// game view came back (YouTube 0PgitXjVAiU, 2011-02-09, 09:24 and 09:26).
+// That is IF_OPENTOP's mode 2: the client rebuilds the scene behind its
+// loading screen (ImageSourceTextureOp.method3619, client state 11). With
+// mode 0, client B came back to a black game view and minimap that stayed
+// black until the next map load (2026-11-08). Which mode Jagex's server sent
+// is not known; void-634 sends 2 on close too (WorldMap.kt).
 [if_button1,worldmap:close]
 if (getwindowmode = 1) {
-    if_opentop(toplevel);
+    if_opentop_mode(toplevel, 2);
 } else {
-    if_opentop(toplevel_fullscreen);
+    if_opentop_mode(toplevel_fullscreen, 2);
 }

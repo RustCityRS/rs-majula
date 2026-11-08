@@ -314,6 +314,9 @@
 [command,if_opentop](interface $interface)
 // info: Open the top-level game frame for the secondary player
 [command,.if_opentop](interface $interface)
+// info: if_opentop with IF_OPENTOP's mode byte: 2 has the client rebuild its
+// scene behind a "Loading - please wait." screen (ImageSourceTextureOp.method3619)
+[command,if_opentop_mode](interface $interface, int $mode)
 // info: Open a modal in the main viewport
 [command,if_openmain](interface $interface)
 // info: Open a modal in the main viewport for the secondary player

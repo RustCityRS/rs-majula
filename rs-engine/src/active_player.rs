@@ -2185,10 +2185,15 @@ impl ActivePlayer {
     /// Rev-647: opens a toplevel (root) interface and remembers it so later
     /// component-hash lookups (main-screen mounts, tab slots) resolve
     /// against the right layout row.
+    ///
+    /// # Arguments
+    /// * `interface` - The toplevel interface.
+    /// * `mode` - IF_OPENTOP's mode byte: `0`, or `2` for the client to
+    ///   rebuild its scene behind a "Loading - please wait." screen.
     #[cfg(since_647)]
-    pub fn if_open_top(&mut self, interface: u16) {
+    pub fn if_open_top(&mut self, interface: u16, mode: u8) {
         self.player.toplevel = interface;
-        self.write(IfOpentop { interface });
+        self.write(IfOpentop { interface, mode });
     }
 
     /// Rev-647: mounts a sub-interface at a parent component hash, and

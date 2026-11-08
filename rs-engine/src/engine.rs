@@ -5674,8 +5674,8 @@ impl ScriptPlayer for ActivePlayer {
     }
 
     #[cfg(since_647)]
-    fn if_opentop(&mut self, com: u16) {
-        self.if_open_top(com);
+    fn if_opentop(&mut self, com: u16, mode: u8) {
+        self.if_open_top(com, mode);
     }
 
     #[cfg(since_647)]

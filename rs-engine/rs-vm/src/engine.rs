@@ -1101,9 +1101,10 @@ pub trait ScriptPlayer {
     #[cfg(since_647)]
     fn window_mode(&self) -> u8;
 
-    /// Rev-647: opens a toplevel (root) interface.
+    /// Rev-647: opens a toplevel (root) interface, with IF_OPENTOP's mode
+    /// byte (`2` rebuilds the client's scene behind a loading screen).
     #[cfg(since_647)]
-    fn if_opentop(&mut self, com: u16);
+    fn if_opentop(&mut self, com: u16, mode: u8);
 
     /// Rev-647: mounts a sub-interface at a parent component hash
     /// (`interface << 16 | component`), as the type of the sub that holds it.

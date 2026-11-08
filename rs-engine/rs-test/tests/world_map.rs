@@ -74,10 +74,15 @@ fn button(client: &mut HarnessClient, op: u8, com: i32, slot: u16) {
 
 /// Each IF_OPENTOP's interface, in the order sent.
 fn tops(packets: &[(u16, Vec<u8>)]) -> Vec<u16> {
+    top_modes(packets).into_iter().map(|(top, _)| top).collect()
+}
+
+/// Each IF_OPENTOP as `(interface, mode)`.
+fn top_modes(packets: &[(u16, Vec<u8>)]) -> Vec<(u16, u8)> {
     packets
         .iter()
         .filter(|(op, _)| *op == ServerProt::IfOpentop as u16)
-        .map(|(_, p)| u16::from_le_bytes([p[0], p[1]]))
+        .map(|(_, p)| (u16::from_le_bytes([p[0], p[1]]), p[2].wrapping_sub(128)))
         .collect()
 }
 
@@ -183,7 +188,9 @@ fn resizable_globe_opens_the_map() {
 }
 
 /// The close button puts back the frame the player plays in. The client
-/// keeps every sub-interface across IF_OPENTOP, so nothing is re-sent.
+/// keeps every sub-interface across IF_OPENTOP, so nothing is re-sent. Mode 2
+/// has the client rebuild the scene behind "Loading - please wait.", as 2011
+/// shows after the map (YouTube 0PgitXjVAiU, 2011-02-09, 09:24).
 #[test]
 fn close_returns_to_the_players_frame() {
     runner::on_loaded_engine(|engine| {
@@ -197,7 +204,11 @@ fn close_returns_to_the_players_frame() {
             assert_eq!(toplevel(engine, client.pid), WORLDMAP, "{name}: open");
             button(&mut client, 1, CLOSE, 0xFFFF);
             let packets = ticks(engine, &mut client, 1);
-            assert_eq!(tops(&packets), vec![frame], "{name}: back to {frame}");
+            assert_eq!(
+                top_modes(&packets),
+                vec![(frame, 2)],
+                "{name}: back to {frame}, rebuilding the scene"
+            );
             assert_eq!(
                 first(&packets, ServerProt::IfOpensub),
                 None,

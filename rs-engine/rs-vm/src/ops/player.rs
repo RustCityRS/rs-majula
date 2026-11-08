@@ -707,7 +707,15 @@ pub fn build<E: ScriptEngine + 'static>() -> OpsRegistry {
         #[cfg(since_647)]
         active_player_mut!(m, IF_OPENTOP => |s, player| {
             let com = s.pop_int_as::<u16>()?;
-            player.if_opentop(com);
+            player.if_opentop(com, 0);
+        });
+
+        // 5018: if_opentop with IF_OPENTOP's mode byte.
+        #[cfg(since_647)]
+        active_player_mut!(m, IF_OPENTOP_MODE => |s, player| {
+            let mode = s.pop_int_as::<u8>()?;
+            let com = s.pop_int_as::<u16>()?;
+            player.if_opentop(com, mode);
         });
 
         // 5003
