@@ -409,7 +409,6 @@ pub fn pack_objs(
                         server.p1(dummy);
                     }
 
-                    #[cfg(since_647)]
                     // 97
                     "certlink" => parse_ref(&registry.obj, "obj", value, |v| {
                         client.p1(97);
