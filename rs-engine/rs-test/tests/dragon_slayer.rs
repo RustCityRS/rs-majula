@@ -968,19 +968,15 @@ fn crandor_s_hole_rope_wall_and_secret_door() {
             "up the rope: {said:?}"
         );
 
-        // Elvarg (spawned at 2852,9637) waits past the wall: she is not under test here, and a
-        // fresh harness player across it would be hers.
-        let elvarg = id(engine, "npc", "elvarg");
-        let near: Vec<u16> = engine
-            .npc_list
-            .npcs
-            .iter()
-            .flatten()
-            .filter(|n| n.npc.uid.id() == elvarg)
-            .map(|n| n.npc.uid.nid())
-            .collect();
-        for nid in near {
-            engine.remove_npc(nid);
+        // Elvarg (spawned at 2852,9637) waits past the wall and a fresh harness player across it
+        // would be hers: 990 life points (varp 1240, bits 1-15) outlast the crossing. She stays,
+        // for elvarg_slain_gives_her_head.
+        {
+            let player = engine.harness_player_mut(client.pid).unwrap();
+            player.stats.levels[3] = 99;
+            player.stats.base_levels[3] = 99;
+            let lp = player.vars.get(1240).as_int();
+            player.vars.set(1240, VarValue::Int((lp & 1) | 990 << 1));
         }
         tele(engine, &mut client, 2845, 0, 9635);
         oploc1(&mut client, CRANDOR_WALL);
@@ -1016,6 +1012,57 @@ fn crandor_s_hole_rope_wall_and_secret_door() {
             }
         }
         assert_eq!(found.len(), 1, "found from exactly one side: {found:?}");
+        assert!(engine.script_errors.take().is_empty(), "no script errors");
+    });
+}
+
+/// Elvarg slain gives her head ("You cut off Elvarg's head as proof of your victory!", the
+/// 2011-05-04 recording mYqjoMQCOHI at 328.6s), and the quest waits for Oziach; 289 ended it
+/// at her death.
+const ELVARG: (u16, u16, u8) = (2852, 9637, 0);
+
+#[test]
+fn elvarg_slain_gives_her_head() {
+    let _turn = TURN.lock().unwrap_or_else(|e| e.into_inner());
+    runner::on_loaded_engine(|engine| {
+        let mut client = login(engine, "ds_elvarg");
+        set_var(engine, &client, "dragonquest", 9);
+        {
+            let player = engine.harness_player_mut(client.pid).unwrap();
+            for skill in [0, 1, 2, 3] {
+                player.stats.levels[skill] = 99;
+                player.stats.base_levels[skill] = 99;
+                player.stats.xp[skill] = 130_344_310;
+            }
+            // Life points live in varp 1240 (bits 1-15): 990, to outlast her fire (up to 600).
+            let lp = player.vars.get(1240).as_int();
+            player.vars.set(1240, VarValue::Int((lp & 1) | 990 << 1));
+        }
+        let (nid, sx, sz) = npc_near_on(engine, "elvarg", ELVARG.0, ELVARG.1, ELVARG.2);
+        engine.get_npc_mut(nid).unwrap().npc.stats.levels[NpcStat::Hitpoints as usize] = 1;
+        tele(engine, &mut client, sx, 0, sz);
+        let line = "You cut off Elvarg's head as proof of your victory!";
+        let mut said = Vec::new();
+        for tick in 0..90 {
+            // Attack, and again every 10 ticks in case a swing missed.
+            if tick % 10 == 0 {
+                let mut p = ClientPacket::new();
+                p.p1_alt2(0).p2_alt3(nid as i32);
+                client.send(ClientProt::OpNpc2, &p.finish());
+            }
+            said.extend(messages(engine, &mut client, 1));
+            if said.iter().any(|m| m == line) {
+                break;
+            }
+        }
+        assert!(said.iter().any(|m| m == line), "2011's line: {said:?}");
+        settle(engine, &mut client, 3);
+        assert_eq!(held(engine, &client, "elvarg_s_head"), 1, "her head");
+        assert_eq!(
+            var(engine, &client, "dragonquest"),
+            9,
+            "Oziach ends it, not her death"
+        );
         assert!(engine.script_errors.take().is_empty(), "no script errors");
     });
 }

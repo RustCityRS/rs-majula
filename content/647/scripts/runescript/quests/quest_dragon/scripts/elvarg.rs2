@@ -1,0 +1,119 @@
+// 289's Elvarg (quests/quest_dragon/scripts/elvarg.rs2) with 2011's changes, from the
+// 2011-05-04 recording (YouTube mYqjoMQCOHI; transcript runescape/target/refs/dragon/
+// transcript_0504_p2.md) and the 2011 wiki (Dragon Slayer, 9 May 2011):
+// - slain, she gives the player her head ("You cut off Elvarg's head as proof of your
+//   victory!", 328.6s), and Oziach ends the quest when shown it (oziach.rs2, 357.6s); 289
+//   ended the quest at her death;
+// - behind the shield her fire says "Your shield absorbs most of the dragon fire." (from
+//   297.2s, at each breath); 289's ended "!";
+// - her fire's reach in life points is the 2011 wiki's: "up to 120 lp worth of damage with
+//   her firebreath attack, even if an anti-dragon shield is equipped", and "up to 600s
+//   without an anti-dragon shield".
+// Not known for 2011, so 289's (in life points, ten to its hitpoint): the prayer and potion
+// cuts and their messages, the fire's prayer drain, and her melee and fire odds. Her ranged
+// fire is not ported (see [ai_opplayer2,elvarg]).
+// Waiting: the lair's entry cutscene, Attack 2 and the prayer drain on entering (2011 wiki;
+// 280.6s), which need the lair's entrance.
+
+// death
+[ai_queue3,elvarg]
+gosub(npc_death);
+// requires kill credit? https://youtu.be/6ZU7EIZcU4o?list=PLn23LiLYLb1aqrojPTi1_Np81LJku2Nd0&t=141
+if (npc_findhero = ^false) {
+    return;
+}
+if (%npc_aggressive_player ! uid) { // if u didnt do the last hit
+    return;
+}
+// 2011: her head, for Oziach.
+if (%dragonquest >= ^quest_dragon_sailed_to_crandor & %dragonquest < ^dragon_complete) {
+    queue(elvarg_head, 0, 0);
+}
+
+[queue,elvarg_head]
+if (inv_total(inv, elvarg_s_head) > 0 | inv_total(bank, elvarg_s_head) > 0) {
+    return;
+}
+mes("You cut off Elvarg's head as proof of your victory!");
+if (inv_freespace(inv) = 0) {
+    obj_add(coord, elvarg_s_head, 1, ^lootdrop_duration);
+} else {
+    inv_add(inv, elvarg_s_head, 1);
+}
+
+// 289's ranged fire (its [ai_applayer2], with retaliation by AP) is the old dragon's: seq 84,
+// spotanims 130 and 131 and synth 163, which cache 786 has only for the old skeleton. 2011's
+// Elvarg stands, fights and dies on the remodelled dragons' frame set 2931 (bas 1850; her
+// attack, block and death seqs 12252, 12251, 12250), as 647's chromatic dragons do, and they
+// fight without it (npc/scripts/dragon.rs2); whether 2011's breathed from range is not shown
+// in the recording. So she fights at OP, 289's way.
+[ai_opplayer2,elvarg]
+if (%npc_action_delay > map_clock) {
+    return;
+}
+if (~npc_check_notcombat = false) {
+    npc_setmode(null);
+    return;
+}
+if (~npc_check_notcombat_self = false) {
+    return;
+}
+
+// from 89 hits from 2 2006 videos: https://youtu.be/ucaYfz3ihWs?list=PLn23LiLYLb1aqrojPTi1_Np81LJku2Nd0
+// https://youtu.be/zmYEl97Smxs?list=PLn23LiLYLb1aqrojPTi1_Np81LJku2Nd0&t=104
+// seems like a 75% chance to melee, and 25% chance to dragon fire
+if (random(4) = 0) {
+    ~elvarg_dragon_fire_op;
+} else {
+    ~npc_default_attack;
+}
+
+[proc,elvarg_dragon_fire_op]
+if_close;
+// Her breath on her own frame set (2931): the remodelled dragons' seq 14245 with their fire,
+// spotanim 2465 on her (dragon.rs2's), not 289's old-dragon seq 84 and spotanim 1.
+spotanim_npc(dragon_breath_shoot, 0, 0);
+npc_anim(colour_dragon_breath, 0);
+sound_synth(dragonbreath, 1, 30);
+%npc_action_delay = add(map_clock, 4);
+
+// damage player
+def_int $maxhit = ~elvarg_max_hit;
+def_int $damage = randominc($maxhit);
+
+// not sure if this was a thing, but this video has it https://youtu.be/ucaYfz3ihWs?list=PLn23LiLYLb1aqrojPTi1_Np81LJku2Nd0&t=130
+stat_drain(prayer, 0, 10); // 10%
+
+queue(combat_damage_player, 0, $damage);
+queue*(playerhit_n_retaliate, 0)(npc_uid);
+~npc_set_attack_vars;
+
+
+// proc is used when the player has dragon fire shiled, prot magic, or antifire potion
+// Life points: 2011's reach (the 2011 wiki: 120 behind the shield, 600 without it); the
+// cuts below are 289's, ten times over.
+[proc,elvarg_max_hit]()(int)
+def_int $maxhit = 600;
+if (inv_total(worn, anti_dragon_shield) > 0) {
+    // 2011-05-04 recording (mYqjoMQCOHI), 297.2s on.
+    mes("Your shield absorbs most of the dragon fire.");
+    $maxhit = 120;
+    if (%prayer12 = ^true) {
+        $maxhit = sub($maxhit, 30);
+        // https://youtu.be/lSV2whAirvY?t=41
+        mes("Your prayers resist some of the dragon fire!");
+    }
+    if (map_clock < %dragonresist) {
+        $maxhit = sub($maxhit, 30);
+        // guess based off this https://youtu.be/UXNFe3FeDgg?t=15
+        mes("Your potion protects you from the heat of the dragon fire!");
+    }
+} else {
+    if (%prayer12 = ^true) {
+        $maxhit = sub($maxhit, 150);
+    }
+    if (map_clock < %dragonresist) {
+        $maxhit = sub($maxhit, 150);
+    }
+}
+return($maxhit);
