@@ -42,6 +42,15 @@ if (add(%lastcombat, 8) > map_clock) {
 %varclient_622 = coord;
 %varclient_674 = coord;
 if_opentop(worldmap);
+// Others see the player reading a map while it is open: "An animation has
+// been added for when players are viewing the world map" (Jagex news 2419,
+// 9 November 2009), an open map held up in both hands (YouTube kabOLpe353E,
+// "New World Map Stance", uploaded 2009-11-10, 00:03-00:10). Seq 5354 is
+// void-634's open_map (unused there; void-634 only): cache 786's 5354 hides
+// the left hand, puts obj 9973 (a tan and black two-panel dummy model) in the
+// right and loops from frame 8. In client B the player holds it up in front
+// in both hands at chest height, the 2009 pose (2026-11-08).
+anim(seq_5354, 0);
 
 // The X at the top right (755:44, op1 "Close"). The client keeps every
 // sub-interface across IF_OPENTOP, so the frame comes back with its tabs,
@@ -55,6 +64,7 @@ if_opentop(worldmap);
 // black until the next map load (2026-11-08). Which mode Jagex's server sent
 // is not known; void-634 sends 2 on close too (WorldMap.kt).
 [if_button1,worldmap:close]
+anim(null, 0);
 if (getwindowmode = 1) {
     if_opentop_mode(toplevel, 2);
 } else {

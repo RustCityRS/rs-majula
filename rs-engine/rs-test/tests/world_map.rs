@@ -26,6 +26,7 @@ use rs_pack::cache::VarValue;
 use rs_protocol::network::game::client_prot::ClientProt;
 use rs_protocol::network::game::server_prot::ServerProt;
 use rs_test::runner;
+use rs_vm::ops::test::{calls_for, forget_calls, set_recording};
 
 const FIXED: u16 = 548;
 const RESIZABLE: u16 = 746;
@@ -296,5 +297,26 @@ fn map_buttons_are_refused_when_the_map_is_shut() {
         let packets = ticks(engine, &mut client, 1);
         assert_eq!(tops(&packets), Vec::<u16>::new(), "nothing re-opens");
         assert_eq!(toplevel(engine, client.pid), FIXED);
+    });
+}
+
+/// Others see the player reading the map while it is open (Jagex news 2419,
+/// 9 November 2009): seq 5354, void-634's open_map. Closing it ends the pose.
+#[test]
+fn the_map_shows_the_player_reading() {
+    runner::on_loaded_engine(|engine| {
+        let mut client = player(engine, "wm_reading", 1);
+        set_recording(true);
+        forget_calls();
+        button(&mut client, 1, GLOBE_FIXED, 0xFFFF);
+        ticks(engine, &mut client, 1);
+        let opened = calls_for("anim");
+        forget_calls();
+        button(&mut client, 1, CLOSE, 0xFFFF);
+        ticks(engine, &mut client, 1);
+        let closed = calls_for("anim");
+        set_recording(false);
+        assert_eq!(opened, vec!["5354"], "reading the map");
+        assert_eq!(closed, vec!["-1"], "and no longer");
     });
 }

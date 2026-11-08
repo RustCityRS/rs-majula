@@ -9,8 +9,10 @@ use rs_io::{Packet, PacketFrame};
 #[cfg(since_647)]
 use rs_protocol_macros::server_prot;
 
-// Rev-647 IF_OPENTOP (opcode 61): `ig2 interface`, `g1_alt3 mode`
-// (MapAreaConfig.java:563). Mode 2 also runs ImageSourceTextureOp.method3619:
+// Rev-647 IF_OPENTOP (opcode 61), read by MapAreaConfig.java:563 as `ig2
+// interface` (little-endian, which `p2_alt1` writes) and `g1_alt3 mode` (the
+// client's name for `byte - 128`, which `p1_alt1` writes as `mode + 128`).
+// Mode 2 also runs ImageSourceTextureOp.method3619:
 // client state 11, the "Loading - please wait." screen that rebuilds the
 // scene, then a cache trim and a garbage collection.
 #[cfg(since_647)]
