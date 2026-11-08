@@ -1,0 +1,44 @@
+// Crandor as 2011 has it: 289's quests/quest_dragon/scripts/crandor.rs2 on 2011's island. 2011's
+// way down to Elvarg is a hole on the island (hole_25154, l44_50's 17,55) into a cave under it, and
+// a climbing rope back up (climbing_rope_25213, l44_150's 17,57); their destinations are void-634's
+// (crandor.teles.toml: 2833,3255 -> 2833,9658; rimmington.teles.toml: 2833,9657 -> 2834,3258).
+// 289's sand-dune opening and rope, and Elvarg's two gates, are not in 2011's maps: Elvarg sits
+// behind a low wall of spikes instead (wall_25161, l44_150's 30,35-36).
+// Not known for 2011: an animation or line for the hole and the rope (289's opening had neither).
+
+[oploc1,hole_25154] p_teleport(0_44_150_17_58);
+
+[oploc1,climbing_rope_25213] p_teleport(0_44_50_18_58);
+
+// The 2011 wiki (Dragon Slayer, May 2011): "Elvarg behind a short wall of spikes protruding from
+// the ground on the east. Climb over it". The 2011-05-04 recording (YouTube mYqjoMQCOHI, 290-295.4s)
+// shows the wall's "Climb-over" and then "You climb over the low wall.". Its animation is not
+// clear in the recording: 289's low-wall climb (the Barbarian Outpost's, human_walk_crumbledwall)
+// stands in.
+[oploc1,wall_25161]
+def_int $dx = 1;
+def_int $direction = ^exact_east;
+if (coordx(coord) > coordx(loc_coord)) {
+    $dx = -1;
+    $direction = ^exact_west;
+}
+def_coord $start = movecoord(loc_coord, calc(0 - $dx), 0, 0);
+~forcewalk2($start);
+sound_synth(climb_wall, 1, 40);
+~agility_exactmove(human_walk_crumbledwall, 30, 2, $start, movecoord($start, calc(2 * $dx), 0, 0), 30, 100, $direction, false);
+mes("You climb over the low wall.");
+
+// 289's, word for word: the secret door into the Karamja volcano's dungeon (l44_150's 20,0).
+[oploc1,dragonsecretdoor]
+def_boolean $entering = ~check_axis_locactive(coord);
+if (%dragon_wall = ^false) {
+    if ($entering = true | %dragonquest >= ^dragon_complete) {
+        mes("You found a secret door!");
+        mes("You remember where the secret door is for future reference.");
+        %dragon_wall = ^true;
+    } else {
+        ~displaymessage(^dm_default);
+        return;
+    }
+}
+~open_and_close_door2(loc_param(next_loc_stage), $entering, coffin_open);

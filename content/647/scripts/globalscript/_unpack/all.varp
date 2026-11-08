@@ -868,7 +868,12 @@ type=int
 scope=perm
 
 // 185
-[varplayer_185]
+[dragon_wall]
+// Server-only (cache 786 does not transmit it and no clientscript reads it), so 289's
+// varp lives here instead of a new id above the cache's range.
+// Dragon Slayer: 1 = the player found Crandor's secret door (289's id 185).
+type=int
+scope=perm
 
 // 186
 [dragon_shield]

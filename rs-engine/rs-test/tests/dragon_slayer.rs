@@ -936,3 +936,86 @@ fn ned_takes_the_map_as_2011s() {
         assert_eq!(held(engine, &client, "crandor_map"), 0);
     });
 }
+
+/// 2011's island (map squares 44_50 and 44_150): the hole down to Elvarg's cave and the rope
+/// back up, at void-634's destinations; the low wall of spikes before her ("You climb over the
+/// low wall.", the 2011-05-04 recording mYqjoMQCOHI, 290-295.4s); and 289's secret door, which
+/// is found from one side (%dragon_wall) and then opens.
+const CRANDOR_HOLE: (u16, u16, u16) = (25154, 2833, 3255);
+const CRANDOR_ROPE: (u16, u16, u16) = (25213, 2833, 9657);
+const CRANDOR_WALL: (u16, u16, u16) = (25161, 2846, 9635);
+const CRANDOR_SECRET_DOOR: (u16, u16, u16) = (2606, 2836, 9600);
+
+#[test]
+fn crandor_s_hole_rope_wall_and_secret_door() {
+    let _turn = TURN.lock().unwrap_or_else(|e| e.into_inner());
+    runner::on_loaded_engine(|engine| {
+        let mut client = login(engine, "crandor");
+        tele(engine, &mut client, 2833, 0, 3257);
+        oploc1(&mut client, CRANDOR_HOLE);
+        let said = messages(engine, &mut client, 12);
+        assert_eq!(
+            at(engine, &client),
+            (2833, 0, 9658),
+            "down the hole: {said:?}"
+        );
+
+        oploc1(&mut client, CRANDOR_ROPE);
+        let said = messages(engine, &mut client, 12);
+        assert_eq!(
+            at(engine, &client),
+            (2834, 0, 3258),
+            "up the rope: {said:?}"
+        );
+
+        // Elvarg (spawned at 2852,9637) waits past the wall: she is not under test here, and a
+        // fresh harness player across it would be hers.
+        let elvarg = id(engine, "npc", "elvarg");
+        let near: Vec<u16> = engine
+            .npc_list
+            .npcs
+            .iter()
+            .flatten()
+            .filter(|n| n.npc.uid.id() == elvarg)
+            .map(|n| n.npc.uid.nid())
+            .collect();
+        for nid in near {
+            engine.remove_npc(nid);
+        }
+        tele(engine, &mut client, 2845, 0, 9635);
+        oploc1(&mut client, CRANDOR_WALL);
+        let said = messages(engine, &mut client, 14);
+        assert!(
+            said.iter().any(|m| m == "You climb over the low wall."),
+            "2011's line: {said:?}"
+        );
+        assert_eq!(at(engine, &client), (2847, 0, 9635), "over the wall");
+
+        // The wall runs along the door tile's south edge (angle 3): the tile itself and the
+        // one south of it are its two sides. Only one finds the door.
+        let mut found = Vec::new();
+        for z in [9600, 9599] {
+            set_var(engine, &client, "dragon_wall", 0);
+            tele(engine, &mut client, 2836, 0, z);
+            oploc1(&mut client, CRANDOR_SECRET_DOOR);
+            let said = messages(engine, &mut client, 8);
+            if said.iter().any(|m| m == "You found a secret door!") {
+                assert!(
+                    said.iter()
+                        .any(|m| m == "You remember where the secret door is for future reference."),
+                    "{said:?}"
+                );
+                assert_eq!(var(engine, &client, "dragon_wall"), 1, "remembered");
+                found.push(z);
+            } else {
+                assert_eq!(
+                    var(engine, &client, "dragon_wall"),
+                    0,
+                    "not found from {z}: {said:?}"
+                );
+            }
+        }
+        assert_eq!(found.len(), 1, "found from exactly one side: {found:?}");
+        assert!(engine.script_errors.take().is_empty(), "no script errors");
+    });
+}
