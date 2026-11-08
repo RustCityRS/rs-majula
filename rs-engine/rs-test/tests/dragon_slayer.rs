@@ -883,3 +883,56 @@ fn the_lady_lumbridges_hole_takes_three_planks() {
         assert_eq!(at(engine, &client), (3047, 0, 3204), "on the dock");
     });
 }
+
+const NED: (u16, u16, u8) = (3100, 3257, 0);
+
+/// Ned hired with the ship repaired and the map in the pack, in the 2011-05-04 recording's words
+/// (mYqjoMQCOHI 99.4-125.2s): the short menu option, "Sorry, where was it you said you wanted to
+/// go?", "Ah, you only live once! I'll do it!", "I fixed her up!" and the map in an item box.
+#[test]
+fn ned_takes_the_map_as_2011s() {
+    let _turn = TURN.lock().unwrap_or_else(|e| e.into_inner());
+    runner::on_loaded_engine(|engine| {
+        let mut client = login(engine, "ds_ned");
+        set_var(engine, &client, "dragonquest", 7);
+        set_var(engine, &client, "dragon_ned_hired", 0);
+        give(engine, &client, 0, "crandor_map", 1);
+        let t = talk_on(
+            engine,
+            &mut client,
+            "ned",
+            NED,
+            &["You're a sailor? Could you take me to Crandor?"],
+        );
+        assert_eq!(t.unanswered, None, "{:?}", t.texts);
+        says(
+            &t,
+            &[
+                "You're a sailor? Could you take me to the island of Crandor?",
+                "Well, I was a sailor. I've not been able to get work at sea these days, though. They say I'm too old.",
+                "Sorry, where was it you said you wanted to go?",
+                "To the island of Crandor.",
+                "Crandor?",
+                "But... It would be a chance to sail a ship once more. I'd sail anywhere if it was a chance to sail again.",
+                "Then again, no captain in his right mind would sail to that island...",
+                "Ah, you only live once! I'll do it!",
+                "So, where's your ship?",
+                "It's the Lady Lumbridge, in Port Sarim.",
+                "That old pile of junk? Last I heard, she wasn't seaworthy.",
+                "I fixed her up!",
+                "You did? Excellent!",
+                "Just show me the map and we can get ready to go!",
+                "Here you go.",
+                "You hand the map to Ned.",
+                "Excellent! I'll meet you at the ship, then.",
+            ],
+        );
+        assert!(
+            !t.said("There is a wistfull look in Ned's eyes."),
+            "289's line, not 2011's"
+        );
+        assert_eq!(var(engine, &client, "dragonquest"), 8, "Ned has the map");
+        assert_eq!(var(engine, &client, "dragon_ned_hired"), 1);
+        assert_eq!(held(engine, &client, "crandor_map"), 0);
+    });
+}

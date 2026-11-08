@@ -37,13 +37,13 @@ if (last_useitem = crandor_map) {
 def_int $option;
 if(%princequest >= ^prince_spoken_osman & %princequest < ^prince_saved) {
     if (~quest_dragon_getting_map_parts = true & %dragon_ned_hired = ^false) {
-        $option = ~p_choice4_header("You're a sailor? Could you take me to the island of Crandor?", 1, "Ned, could you make other things from wool?", 2, "Yes, I would like some rope.", 3, "No thanks, Ned, I don't need any.", 4, "Choose an option:");
+        $option = ~p_choice4_header("You're a sailor? Could you take me to Crandor?", 1, "Ned, could you make other things from wool?", 2, "Yes, I would like some rope.", 3, "No thanks, Ned, I don't need any.", 4, "Choose an option:");
     } else {
         $option = ~p_choice3_header("Ned, could you make other things from wool?", 2, "Yes, I would like some rope.", 3, "No thanks, Ned, I don't need any.", 4, "Choose an option:");
     }
 } else {
     if (~quest_dragon_getting_map_parts = true & %dragon_ned_hired = ^false) {
-        $option = ~p_choice3_header("You're a sailor? Could you take me to the island of Crandor?", 1, "Yes, I would like some rope.", 3, "No thanks, Ned, I don't need any.", 4, "Choose an option:");
+        $option = ~p_choice3_header("You're a sailor? Could you take me to Crandor?", 1, "Yes, I would like some rope.", 3, "No thanks, Ned, I don't need any.", 4, "Choose an option:");
     } else {
         $option = ~p_choice2_header("Yes, I would like some rope.", 3, "No thanks, Ned, I don't need any.", 4, "Choose an option:");
     }
@@ -136,37 +136,46 @@ if(inv_total(inv, ball_of_wool) >= 3) {
 ~chatplayer("<p,neutral>I will come back when I need you to make me one.");
 
 [label,ned_dragon_slayer_before_hired]
+// Dragon Slayer's Ned as the 2011-05-04 recording has him (YouTube mYqjoMQCOHI, 99.4-125.2s;
+// runescape/target/refs/dragon/transcript_0504_p2.md), word for word: the menu says "Could you
+// take me to Crandor?", the player the island's full name; then Ned's "Sorry, where was it you
+// said you wanted to go?" up to "Ah, you only live once! I'll do it!" and "So, where's your
+// ship?" (289's wistful look and "I miss those days." are not in it). The recording's player had
+// the ship repaired and the map in the pack; the other cases keep 289's lines.
+// Not ported: 2011 first asks "What would you like to talk about?" (About the Task System... /
+// Talk about something else.; 95.4s), as with every Task System npc here, and the 2011 menu
+// had a fourth option, "Talk about Vampire Slayer.", whose answer no source shows.
 ~chatplayer("<p,quiz>You're a sailor? Could you take me to the island of Crandor?");
-~chatnpc("<p,sad>Well, I was a sailor. I've not been able to get work at|sea these days, though. They say I'm too old.");
-// from https://web.archive.org/web/20060828222012/http://www.trillionareguild.com/runescape/dragon.php
-// 14) From this point you must go to Draynor Village and talk to Ned, ask him 
-// to sail you to Crandor on Lady Lumbridge, he will say if you find a seaworthy 
-// ship he will take you anywhere.
-// 
-// this lines up perfectly with rsc dialogue, this dialogue is much different in osrs.
-~mesbox("There is a wistfull look in Ned's eyes.");
-~chatnpc("<p,sad>I miss those days.|If you could get me a ship I would take you anywhere."); // :3
+~chatnpc("<p,sad>Well, I was a sailor. I've not been able to get work at sea these days, though. They say I'm too old.");
+~chatnpc("<p,quiz>Sorry, where was it you said you wanted to go?");
+~chatplayer("<p,neutral>To the island of Crandor.");
+~chatnpc("<p,shock>Crandor?");
+~chatnpc("<p,neutral>But... It would be a chance to sail a ship once more. I'd sail anywhere if it was a chance to sail again.");
+~chatnpc("<p,sad>Then again, no captain in his right mind would sail to that island...");
+~chatnpc("<p,happy>Ah, you only live once! I'll do it!");
 %dragon_ned_hired = ^true;
-if (%dragonquest >= ^quest_dragon_spoken_to_oziach & %dragonquest < ^quest_dragon_bought_ship) {
-    ~chatplayer("<p,neutral>I will work on finding a sea worthy ship then."); //rsc
-    return;
-}
+~chatnpc("<p,quiz>So, where's your ship?");
 @ned_so_wheres_your_ship;
 
 
 [label,ned_so_wheres_your_ship]
 if (%dragonquest = ^quest_dragon_repaired_ship) {
-    ~chatplayer("<p,happy>As it happens I do have a ship ready to sail!");
-    ~chatnpc("<p,happy>That'd be grand, where is it?");
-    ~chatplayer("<p,neutral>It's called Lady Lumbridge and it's docked in Port Sarim."); // rsc says "the Lumbridge Lady"
-    ~chatnpc("<p,neutral>I'll meet you there then."); // guessed
+    // 2011 (115.0-120.4s).
+    ~chatplayer("<p,neutral>It's the Lady Lumbridge, in Port Sarim.");
+    ~chatnpc("<p,neutral>That old pile of junk? Last I heard, she wasn't seaworthy.");
+    ~chatplayer("<p,happy>I fixed her up!");
+    ~chatnpc("<p,happy>You did? Excellent!");
     ~chatnpc("<p,neutral>Just show me the map and we can get ready to go!");
+    if (inv_total(inv, crandor_map) > 0) {
+        @give_map_to_ned;
+    }
     return;
 }
 
 if (%dragonquest = ^quest_dragon_bought_ship) {
-    ~chatplayer("<p,neutral>It's called Lady Lumbridge and it's docked in Port Sarim."); // rsc
-    ~chatnpc("<p,neutral>That old pile of junk? Last I heard, she wasn't seaworthy."); // osrs
+    // 2011's first two lines (115.0-116.2s); the player's answer to an unrepaired ship is 289's (osrs).
+    ~chatplayer("<p,neutral>It's the Lady Lumbridge, in Port Sarim.");
+    ~chatnpc("<p,neutral>That old pile of junk? Last I heard, she wasn't seaworthy.");
     ~chatplayer("<p,neutral>Yes, good point. I'd better go and fix her up."); // osrs
     return;
 }
@@ -237,8 +246,9 @@ if (%dragon_ned_hired = 0 | %dragonquest ! ^quest_dragon_repaired_ship) {
     ~displaymessage(^dm_default);
     return;
 }
-~mesbox("You give the map to Ned.");
+// 2011 (122.8-125.2s): the player's line, then the map in an item box, then Ned.
+~chatplayer("<p,neutral>Here you go.");
 inv_del(inv, crandor_map, inv_total(inv, crandor_map));
 %dragonquest = ^quest_dragon_ned_given_map;
-~chatplayer("<p,quiz>Here you go.");
-~chatnpc("<p,neutral>I'll meet you at the ship then.");
+~objbox(crandor_map, "You hand the map to Ned.", 250, 0, 0);
+~chatnpc("<p,happy>Excellent! I'll meet you at the ship, then.");
