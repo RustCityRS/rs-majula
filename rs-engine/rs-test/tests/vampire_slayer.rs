@@ -573,9 +573,9 @@ fn lookat(payload: &[u8]) -> (u16, u8, u8) {
 /// the track unlocked at once, the player's push on the lid at tick 6, the
 /// stake failing at tick 9 and the player thrown back a tile at 10, the
 /// camera's three fitted moves, the coffin left open and empty as the Count
-/// rises on 3081,9777 at tick 21; he waits there, the player's camera
-/// comes back when the player goes to attack him, and the coffin closes once
-/// he has gone.
+/// rises on 3081,9777 at tick 21; he waits there and strikes first as the
+/// player reaches him, the player's camera comes back 16 ticks after he rose,
+/// and the coffin closes once he has gone.
 #[test]
 fn the_coffin_plays_2011s_cutscene() {
     let _turn = TURN.lock().unwrap_or_else(|e| e.into_inner());
@@ -683,21 +683,51 @@ fn the_coffin_plays_2011s_cutscene() {
             loc_at(engine, "coffin_163", COFFIN.1, COFFIN.2),
             "the coffin lies open and empty"
         );
-        // He stands where he rose until the player attacks him.
-        ticks(engine, &mut client, 10);
+        // He stands where he rose; the player goes for him at once. The camera
+        // stays the cutscene's: it comes back 16 ticks after his rise, whatever
+        // the player does (about 9.5s in the 2011-05-04 and 2011-02-28
+        // recordings). He strikes first as the player reaches him (2011-04-21,
+        // 2011-05-04): his attack sound before the player's first hit on him.
         let c = engine.get_npc(nid).expect("he stays").npc.pathing.coord;
-        assert_eq!((c.x(), c.z()), (3081, 9777), "he waits to be attacked");
-        // The player goes for him: the camera is the player's again.
+        assert_eq!((c.x(), c.z()), (3081, 9777), "he waits where he rose");
+        let attack_sound = pack_id("synth", "vampire_attack").to_string();
         let mut p = ClientPacket::new();
         p.p1_alt2(0).p2_alt3(nid as i32);
         client.send(ClientProt::OpNpc2, &p.finish());
-        let mut reset = false;
-        for _ in 0..3 {
+        let (mut reset_at, mut swing_at, mut hit_at) = (None, None, None);
+        set_recording(true);
+        forget_calls();
+        for t in 32..80 {
             engine.cycle();
-            reset |= client.packets().iter().any(|(op, _)| *op == CAM_RESET);
+            if reset_at.is_none() && client.packets().iter().any(|(op, _)| *op == CAM_RESET) {
+                reset_at = Some(t - tick);
+            }
+            if swing_at.is_none()
+                && calls_for("sound_synth")
+                    .iter()
+                    .any(|a| a.split(',').next() == Some(attack_sound.as_str()))
+            {
+                swing_at = Some(t);
+            }
+            if hit_at.is_none() && !calls_for("npc_damage").is_empty() {
+                hit_at = Some(t);
+            }
+            forget_calls();
+            if t % 20 == 0 {
+                client.send(ClientProt::NoTimeout, &[]);
+            }
         }
-        assert!(reset, "CAM_RESET once the player attacks");
+        set_recording(false);
         no_script_errors(engine, "the attack");
+        assert_eq!(reset_at, Some(16), "CAM_RESET 16 ticks after he rises");
+        let (swing, hit) = (
+            swing_at.expect("he swings"),
+            hit_at.expect("the player hits him"),
+        );
+        assert!(
+            swing < hit,
+            "he strikes first: swing at {swing}, the player's hit at {hit}"
+        );
         // Away from him, the player leaves him to his ai_timer: he goes, the
         // player has the camera back, and the coffin closes for another try.
         engine.harness_telejump(client.pid, 3222, 0, 3218);

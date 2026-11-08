@@ -25,16 +25,22 @@ spotanim_npc(spotanim_567, 0, 0);
 npc_delay(18);
 npc_del;
 
-// The coffin cutscene's camera (quest_vampire.rs2) holds until the player
-// engages him: in the 2010-10-15 and 2011-02-19 recordings it gives the
-// player's camera back as the player reaches him to attack.
+// The coffin cutscene's camera (quest_vampire.rs2) holds a set time, and
+// engaging him does not give it back: in the 2011-05-04 recording (YouTube
+// 8rnPUf2QQv4) the player clicks Attack at 241s and 245.5s and the camera
+// stays until 249.5s; in the 2011-02-28 one (Go0RZkE-Nfc) a mage casts at
+// him from 268.5s and it stays until 277.5s.
+// He strikes first as the player reaches him (2011-04-21 LJsjL-Lu9cQ 147.9s,
+// his 20 before the player's first; 2011-05-04 8rnPUf2QQv4 251.0s, his 3
+// before their 71 at 252.9s): his blow comes as they arrive, then theirs.
 [opnpc2,count_draynor]
-cam_reset;
+if (npc_getmode ! opplayer2 & %npc_action_delay <= map_clock & %death = ^false) {
+    npc_setmode(opplayer2);
+    ~count_draynor_swing;
+}
 @player_combat_start;
 
-[apnpc2,count_draynor]
-cam_reset;
-@player_combat_start_ap;
+[apnpc2,count_draynor] @player_combat_start_ap;
 
 // https://youtu.be/67aR5-_INcU
 // - seems to be called on npc damage, and on npc hit
@@ -67,6 +73,9 @@ if (~npc_check_notcombat = false) {
 if (~npc_check_notcombat_self = false) {
     return;
 }
+~count_draynor_swing;
+
+[proc,count_draynor_swing]
 anim(%com_defendanim, 0);
 npc_anim(npc_param(attack_anim), 0);
 if (npc_param(attack_sound) ! null) {
@@ -134,6 +143,9 @@ anim(seq_12606, 0);
 // sent him when the player was 10 tiles off; 2011's rises 9 tiles from
 // where the cutscene throws the player, and follows a player who attacks
 // him, so leaving is 20 tiles: the basement's stairs.
+// He does not come for the player: in the 2011-04-21 (LJsjL-Lu9cQ, 143.5-147.9s)
+// and 2011-05-04 (240-251s) recordings he waits where he rose while the player
+// walks up ([opnpc2] has him strike first as they arrive).
 [ai_timer,count_draynor]
 if (finduid(%npc_attacking_uid) = true) {
     if (npc_range(coord) > 20 | coordy(coord) ! coordy(npc_coord)) {
@@ -141,6 +153,12 @@ if (finduid(%npc_attacking_uid) = true) {
         cam_reset;
         ~quest_vampire_coffin_close;
         npc_del;
+        return;
+    }
+    // One who stands beside him without attacking is attacked (2011 wiki,
+    // Count Draynor: aggressive).
+    if (npc_range(coord) <= 1 & npc_getmode ! opplayer2 & %death = ^false) {
+        npc_setmode(opplayer2);
     }
 } else {
     ~quest_vampire_coffin_close;

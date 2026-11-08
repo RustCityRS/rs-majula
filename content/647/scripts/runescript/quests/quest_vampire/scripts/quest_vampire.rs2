@@ -58,7 +58,7 @@ while (npc_findnext = true) {
 //      rises from the floor (seq 3328) on 3081,9777, facing the camera;
 //  24  he turns to the player, who gets up (seq 3110). He stands there until
 //      the player attacks him.
-// The camera holds until the player engages him (count_draynor.rs2). Its
+// The camera holds a set 16 ticks from his rise ([queue,vampire_coffin_camera]). Its
 // tiles, heights and speeds are fitted to the recordings' frames in the 647
 // client. The look's constant speed of 1 lets the client's angles reach the
 // look (with 0 they stop about 90 units short): the end frames are at pitch
@@ -101,9 +101,15 @@ if (loc_find(0_48_152_8_57, coffin) = true) {
 npc_add(0_48_152_9_49, count_draynor, 500);
 npc_anim(seq_3328, 0);
 %npc_attacking_uid = uid;
+// The camera comes back about 9.5s after he rises, whatever the player does
+// (2011-05-04 recording 8rnPUf2QQv4: 240.0s to 249.5s; 2011-02-28
+// Go0RZkE-Nfc: about 268s to 277.5s): 16 ticks.
+queue(vampire_coffin_camera, 16, 0);
 p_delay(2);
 npc_facesquare(coord);
 anim(seq_3110, 0);
+
+[queue,vampire_coffin_camera] cam_reset;
 
 // The coffin lies open and empty while its Count is out, and closes once he
 // has gone, staked or got away: a player he got away from opens it for
