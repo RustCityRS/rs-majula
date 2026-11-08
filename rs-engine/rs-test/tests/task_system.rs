@@ -5,9 +5,14 @@
 
 #![cfg(since_647)]
 
+#[path = "../../../rs-protocol/tests/support/client_packet.rs"]
+mod client_packet;
+
+use client_packet::ClientPacket;
 use rs_engine::Engine;
 use rs_engine::harness::HarnessClient;
 use rs_pack::cache::VarValue;
+use rs_protocol::network::game::client_prot::ClientProt;
 use rs_test::runner;
 use rs_test::talk::{converse, talk_to};
 
@@ -174,5 +179,62 @@ fn finishing_cooks_assistant_completes_its_task() {
             !slots.contains(&COOKS_ASSISTANT_TASK),
             "the done task leaves the tab: {slots:?}"
         );
+    });
+}
+
+/// Karamja's "Five a Day" (task 182): one banana from each of five trees in the plantation east
+/// of the volcano (banana_tree, loc 2073, in cache 786's map square 45_49).
+#[test]
+fn five_plantation_bananas_complete_five_a_day() {
+    let _turn = TURN.lock().unwrap_or_else(|e| e.into_inner());
+    runner::on_loaded_engine(|engine| {
+        let mut client = login(engine, "tasks_bananas");
+        let (sx, sz) = (2903u16..2913)
+            .flat_map(|x| (3155u16..3168).map(move |z| (x, z)))
+            .find(|&(x, z)| !rsmod::is_flagged(x, z, 0, 0x100 | 0x200000))
+            .expect("a walkable tile in the plantation");
+        engine.harness_telejump(client.pid, sx, 0, sz);
+        for _ in 0..3 {
+            engine.cycle();
+        }
+        client.packets();
+        let mut messages = Vec::new();
+        let mut per_tree = Vec::new();
+        for (x, z) in [
+            (2906, 3161),
+            (2906, 3164),
+            (2909, 3158),
+            (2909, 3161),
+            (2909, 3164),
+        ] {
+            let mut p = ClientPacket::new();
+            p.p2_alt1(z).p2_alt1(2073).p1(0).p2_alt2(x);
+            client.send(ClientProt::OpLoc1, &p.finish());
+            let mut these = Vec::new();
+            for _ in 0..25 {
+                engine.cycle();
+                these.extend(
+                    HarnessClient::game_messages(&client.packets())
+                        .into_iter()
+                        .map(|(_, t)| t),
+                );
+            }
+            let at = engine.harness_player(client.pid).unwrap().pathing.coord;
+            per_tree.push(((x, z), (at.x(), at.z()), these.clone()));
+            messages.extend(these);
+        }
+        let picked = messages
+            .iter()
+            .filter(|m| *m == "You pick a banana.")
+            .count();
+        assert_eq!(picked, 5, "five bananas: {per_tree:?}");
+        assert_eq!(bits(varp(engine, &client, 1000), 0, 2), 5, "varbit 3566");
+        assert!(
+            messages
+                .iter()
+                .any(|m| m == "You have completed the Task 'Five a Day'!"),
+            "the task's message: {messages:?}"
+        );
+        assert_eq!(overall(engine, &client), 1, "one task in total");
     });
 }
