@@ -293,6 +293,13 @@ fn the_duke_gives_the_shield() {
             ],
         );
         assert_eq!(held(engine, &client, "anti_dragon_shield"), 1);
+        assert!(
+            t.messages
+                .iter()
+                .any(|m| m.contains("the Task 'Always Be Prepared'")),
+            "the shield completes task 107: {:?}",
+            t.messages
+        );
     });
 }
 

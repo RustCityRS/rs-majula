@@ -93,3 +93,9 @@ inv_add(inv, anti_dragon_shield, 1);
 ~objbox(anti_dragon_shield, "The Duke hands you a heavy orange shield.", 250, 0, 0);
 ~chatnpc("<p,neutral>Take care out there. If you kill it...");
 ~chatnpc("<p,angry>If you kill it, for Saradomin's sake make sure it's really dead!");
+// 2011's Task System: the shield completes "Always Be Prepared" (task 107, done at varbit 4996;
+// the recording's chat at 228.0s, after the Duke's last line).
+if (%varplayerbit_4996 = 0) {
+    %varplayerbit_4996 = 1;
+    ~task_complete(107);
+}
