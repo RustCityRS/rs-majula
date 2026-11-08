@@ -22,6 +22,7 @@ use rs_engine::harness::HarnessClient;
 use rs_protocol::network::game::client_prot::ClientProt;
 use rs_protocol::network::game::server_prot::ServerProt;
 use rs_test::runner;
+use rs_vm::ops::test::{calls_for, forget_calls};
 
 const SPELLBOOK: i32 = 192 << 16;
 const VARROCK_TELEPORT: i32 = SPELLBOOK | 40;
@@ -63,7 +64,7 @@ fn caster(engine: &mut Engine, name: &str, magic: u16, items: &[(&str, u32)]) ->
     }
     engine.cycle();
     client.packets();
-    rs_vm::ops::test::forget_calls();
+    forget_calls();
     client
 }
 
@@ -157,7 +158,7 @@ fn a_spell_above_the_level_is_refused() {
         cast(&mut client, VARROCK_TELEPORT);
         ticks(engine, &mut client, 4);
         assert_eq!(
-            rs_vm::ops::test::calls_for("mes"),
+            calls_for("mes"),
             ["Your Magic level is not high enough for this spell."]
         );
         let player = engine.harness_player(client.pid).unwrap();
@@ -174,7 +175,7 @@ fn a_spell_without_its_runes_is_refused() {
         cast(&mut client, VARROCK_TELEPORT);
         ticks(engine, &mut client, 4);
         assert_eq!(
-            rs_vm::ops::test::calls_for("mes"),
+            calls_for("mes"),
             ["You do not have enough Fire Runes to cast this spell."]
         );
     });
@@ -218,7 +219,7 @@ fn superheat_smelts_iron_ore() {
         let iron_ore = id(engine, "iron_ore");
         cast_on(&mut client, SUPERHEAT_ITEM, 2, iron_ore);
         ticks(engine, &mut client, 3);
-        let said = rs_vm::ops::test::calls_for("mes");
+        let said = calls_for("mes");
         assert_eq!(count(engine, client.pid, iron_ore), 0, "{said:?}");
         assert_eq!(count(engine, client.pid, id(engine, "iron_bar")), 1);
         assert_eq!(count(engine, client.pid, id(engine, "nature_rune")), 0);
@@ -240,7 +241,7 @@ fn bones_to_bananas_turns_every_bone() {
         let mut client = caster(engine, "bananas", 15, &items);
         cast(&mut client, BONES_TO_BANANAS);
         ticks(engine, &mut client, 3);
-        let said = rs_vm::ops::test::calls_for("mes");
+        let said = calls_for("mes");
         assert_eq!(
             count(engine, client.pid, id(engine, "bones")),
             0,

@@ -17,6 +17,7 @@ use crate::state::ExecutionState;
 use crate::{handlers, none};
 use rs_pack::cache::script::*;
 use std::cell::{Cell, RefCell};
+use std::mem;
 use tracing::info;
 
 /// One assertion's outcome, in the order the script ran them.
@@ -140,7 +141,7 @@ pub fn clear() {
 
 /// Takes the assertions recorded since the last [`clear`].
 pub fn take_results() -> Vec<AssertionResult> {
-    RESULTS.with(|r| std::mem::take(&mut *r.borrow_mut()))
+    RESULTS.with(|r| mem::take(&mut *r.borrow_mut()))
 }
 
 /// Records one assertion outcome.

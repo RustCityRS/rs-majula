@@ -8,6 +8,7 @@ use rs_grid::CoordGrid;
 use rs_pack::cache::script::Script;
 use rs_pack::types::{LocAngle, LocLayer, LocShape};
 use std::any::type_name;
+use std::mem;
 use std::sync::Arc;
 use std::time::Instant;
 
@@ -565,7 +566,7 @@ impl ScriptState {
     /// **Called by:** The `GoSub` / `GoSubWithParams` opcode handlers in `ops::core`.
     #[inline(always)]
     pub(crate) fn gosub_frame(&mut self, script: &'static Arc<Script>) -> Result<(), ScriptError> {
-        let old_script = std::mem::replace(&mut self.script, Arc::clone(script));
+        let old_script = mem::replace(&mut self.script, Arc::clone(script));
         self.goto_frame_stack.push(GoToFrame {
             script: Arc::clone(&old_script),
             pc: self.pc,
@@ -1000,7 +1001,7 @@ impl ScriptState {
             "{}",
             format!("string stack underflow, script: {}", self.script.info.name)
         );
-        std::mem::take(unsafe { self.string_stack.get_unchecked_mut(self.ssp as usize) })
+        mem::take(unsafe { self.string_stack.get_unchecked_mut(self.ssp as usize) })
     }
 
     /// Pops a sequence of typed script arguments from the operand stacks.

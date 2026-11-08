@@ -13,9 +13,15 @@ use crate::cache::map::{
     SkyboxData, TerrainData, load_xtea_keys,
 };
 #[cfg(since_647)]
+use crate::pack::incremental::{self, Hash, Stage};
+#[cfg(before_647)]
+use crate::pack::incremental::{Hash, remember};
+#[cfg(since_647)]
 use crate::pack::js5::prepare_group;
 #[cfg(since_647)]
-use crate::pack::js5::{PreparedGroup, group_version, insert_archive};
+use crate::pack::js5::{PreparedGroup, group_version, insert_archive, versions_dep};
+#[cfg(since_647)]
+use crate::pack::names::AssetNames;
 #[cfg(since_647)]
 use crate::pack::pack_registry::PackFile;
 #[cfg(since_647)]
@@ -28,8 +34,6 @@ use crate::zone_csv::load_csv_zones;
 pub(super) use crate::zone_csv::zone_key;
 #[cfg(since_647)]
 use anyhow::{Context, Result, bail, ensure};
-#[cfg(since_647)]
-use rayon::prelude::*;
 #[cfg(before_647)]
 use rs_io::Packet;
 #[cfg(before_647)]
@@ -429,6 +433,11 @@ pub fn encode_jm2(jm2_bytes: &[u8]) -> (Vec<u8>, Vec<u8>) {
 
 #[cfg(before_647)]
 pub fn pack_maps(content_dir: &Path) -> PackedMapSquare {
+    let bz2 = |data: &[u8]| {
+        remember(Hash::new("bz2").bytes(data).key(), || {
+            bz2_compress_with_size(data)
+        })
+    };
     let maps_dir = content_dir.join("maps");
     let mut mapsquares = MapSquares::default();
     let mut mapcrcs = MapSquareCrcs::new();
@@ -500,20 +509,20 @@ pub fn pack_maps(content_dir: &Path) -> PackedMapSquare {
 
         terrain_buf.clear();
         encode_tiles(&tiles, &mut terrain_buf);
-        let terrain_compressed = bz2_compress_with_size(&terrain_buf);
+        let terrain_compressed = bz2(&terrain_buf);
         let terrain_crc = crc::getcrc(&terrain_compressed, 0, terrain_compressed.len());
         mapsquares.insert(('m', map_x, map_z), Arc::from(terrain_compressed));
         mapcrcs.insert(('m', map_x, map_z), terrain_crc);
 
         encode_locs(&map_data, &mut loc_buf);
-        let loc_compressed = bz2_compress_with_size(&loc_buf.data[..loc_buf.pos]);
+        let loc_compressed = bz2(&loc_buf.data[..loc_buf.pos]);
         let loc_crc = crc::getcrc(&loc_compressed, 0, loc_compressed.len());
         mapsquares.insert(('l', map_x, map_z), Arc::from(loc_compressed));
         mapcrcs.insert(('l', map_x, map_z), loc_crc);
 
         if !map_data.npcs.is_empty() {
             encode_npcs(&map_data, &mut npc_buf);
-            let npc_compressed = bz2_compress_with_size(&npc_buf.data[..npc_buf.pos]);
+            let npc_compressed = bz2(&npc_buf.data[..npc_buf.pos]);
             let npc_crc = crc::getcrc(&npc_compressed, 0, npc_compressed.len());
             mapsquares.insert(('n', map_x, map_z), Arc::from(npc_compressed));
             mapcrcs.insert(('n', map_x, map_z), npc_crc);
@@ -521,7 +530,7 @@ pub fn pack_maps(content_dir: &Path) -> PackedMapSquare {
 
         if !map_data.objs.is_empty() {
             encode_objs(&map_data, &mut obj_buf);
-            let obj_compressed = bz2_compress_with_size(&obj_buf.data[..obj_buf.pos]);
+            let obj_compressed = bz2(&obj_buf.data[..obj_buf.pos]);
             let obj_crc = crc::getcrc(&obj_compressed, 0, obj_compressed.len());
             mapsquares.insert(('o', map_x, map_z), Arc::from(obj_compressed));
             mapcrcs.insert(('o', map_x, map_z), obj_crc);
@@ -534,33 +543,69 @@ pub fn pack_maps(content_dir: &Path) -> PackedMapSquare {
     (mapsquares, mapcrcs, multimap, freemap, worldmap)
 }
 
+/// A server-only spawn layer, packed again only when its squares or the
+/// names they use change.
 #[cfg(since_647)]
-pub fn pack_spawns(map_dirs: &[PathBuf], pack_dir: &Path) -> Result<PackedData> {
-    let entries = collect(map_dirs, pack_dir, 'n', is_npc_spawns, |text| {
+fn pack_spawn_layer(
+    map_dirs: &[PathBuf],
+    names: &AssetNames,
+    label: &str,
+    prefix: char,
+    is_kind: fn(&str) -> bool,
+    encode: impl Fn(&str) -> Option<Vec<u8>>,
+) -> Result<PackedData> {
+    let stage = Stage::new(&format!("{label} spawns"), Vec::new());
+    let sources: Vec<PathBuf> = squares(map_dirs)
+        .into_iter()
+        .filter(|(stem, _)| is_kind(stem))
+        .map(|(_, path)| path)
+        .collect();
+    let packed = stage.unit_with(names, 0, &sources, |names| {
+        let entries = collect(map_dirs, names, prefix, is_kind, encode)?;
+        info!("  {} {label} spawn regions packed", entries.len());
+        Ok(pack_spawn_entries(&entries))
+    })?;
+    stage.finish(Vec::new());
+    Ok(packed)
+}
+
+#[cfg(since_647)]
+pub fn pack_spawns(map_dirs: &[PathBuf], names: &AssetNames) -> Result<PackedData> {
+    pack_spawn_layer(map_dirs, names, "NPC", 'n', is_npc_spawns, |text| {
         let spawns = parse_npc_spawn_text(text);
         (!spawns.is_empty()).then(|| encode_npc_spawn_binary(&spawns))
-    })?;
-    info!("  {} NPC spawn regions packed", entries.len());
-    Ok(pack_spawn_entries(&entries))
+    })
 }
 
 /// Pack global ground-item spawns. Same on-disk container shape as the NPC
 /// packer; the engine merges these as the `o` mapsquare layer and loads them
 /// as `EntityLifeTime::Respawn` objs.
 #[cfg(since_647)]
-pub fn pack_obj_spawns(map_dirs: &[PathBuf], pack_dir: &Path) -> Result<PackedData> {
-    let entries = collect(map_dirs, pack_dir, 'o', is_obj_spawns, |text| {
+pub fn pack_obj_spawns(map_dirs: &[PathBuf], names: &AssetNames) -> Result<PackedData> {
+    pack_spawn_layer(map_dirs, names, "obj", 'o', is_obj_spawns, |text| {
         let spawns = parse_obj_spawn_text(text);
         (!spawns.is_empty()).then(|| encode_obj_spawn_binary(&spawns))
-    })?;
-    info!("  {} obj spawn regions packed", entries.len());
-    Ok(pack_spawn_entries(&entries))
+    })
 }
 
 /// Areas painted on tiles: a line per tile in `a<mx>_<mz>.jm2`,
 /// `level x z: area ...`, up to five areas a tile.
 #[cfg(since_647)]
 pub fn pack_area_map(map_dirs: &[PathBuf], pack_dir: &Path) -> Result<AreaMap> {
+    let stage = Stage::new("area map", Vec::new());
+    let mut sources: Vec<PathBuf> = squares(map_dirs)
+        .into_iter()
+        .filter(|(stem, _)| stem.starts_with('a'))
+        .map(|(_, path)| path)
+        .collect();
+    sources.push(pack_dir.join("area.pack"));
+    let areas = stage.unit(0, &sources, || paint_area_map(map_dirs, pack_dir))?;
+    stage.finish(Vec::new());
+    Ok(areas)
+}
+
+#[cfg(since_647)]
+fn paint_area_map(map_dirs: &[PathBuf], pack_dir: &Path) -> Result<AreaMap> {
     let pack = PackFile::load(&pack_dir.join("area.pack"))?;
     let mut areas = AreaMap::default();
     for (stem, path) in squares(map_dirs) {
@@ -613,12 +658,11 @@ type Entry = (u8, u8, Vec<u8>);
 #[cfg(since_647)]
 fn collect(
     map_dirs: &[PathBuf],
-    pack_dir: &Path,
+    names: &AssetNames,
     prefix: char,
     is_kind: fn(&str) -> bool,
     encode: impl Fn(&str) -> Option<Vec<u8>>,
 ) -> Result<Vec<Entry>> {
-    let names = crate::pack::names::AssetNames::load(pack_dir)?;
     let mut entries = Vec::new();
     for (stem, path) in squares(map_dirs) {
         if !is_kind(&stem) {
@@ -634,7 +678,7 @@ fn collect(
         if let Some(binary) = encode(&super::map_references::convert(
             &fs::read_to_string(&path)?,
             &stem,
-            &names,
+            names,
             false,
         )?) {
             entries.push((mx, mz, binary));
@@ -663,19 +707,20 @@ pub fn pack_archive(
     content_dir: &Path,
     pack_dir: &Path,
     versions: &HashMap<u8, ArchiveVersions>,
+    names: &AssetNames,
 ) -> Result<()> {
     let aid = archive::MAPS;
     let format = archive::archive_format(aid).unwrap();
     let map_dir = content_dir.join("maps");
-    let names = crate::pack::names::AssetNames::load(pack_dir)?;
     let map_dirs = source_dirs(content_dir);
     let sources = squares(&map_dirs);
 
     let map_pack = PackFile::load(&pack_dir.join("map.pack")).unwrap_or_else(|_| PackFile::empty());
 
     let keys_candidates = [content_dir.join("keys.json")];
-    let xtea_keys = if let Some(path) = keys_candidates.iter().find(|p| p.exists()) {
-        load_xtea_keys(path).unwrap_or_default()
+    let (xtea_keys, keys_dep) = if let Some(path) = keys_candidates.iter().find(|p| p.exists()) {
+        let dep = Hash::new("keys").bytes(&fs::read(path)?).key();
+        (load_xtea_keys(path).unwrap_or_default(), dep)
     } else {
         anyhow::bail!("No keys.json found in output dir or content dir");
     };
@@ -687,10 +732,24 @@ pub fn pack_archive(
         .collect();
     groups.sort_by_key(|(id, _)| *id);
 
-    let prepared: Vec<PreparedGroup> = groups
-        .par_iter()
-        .map(|(gid, name)| -> Result<PreparedGroup> {
-            let ver = group_version(versions, aid, gid);
+    let stage = Stage::new(
+        "maps",
+        vec![versions_dep(versions, aid), ("keys".to_owned(), keys_dep)],
+    );
+    let encrypted = |name: &str| map_dir.join(format!("encrypted/{name}.js5"));
+    let prepared = stage.groups(
+        names,
+        &groups,
+        |name| {
+            vec![
+                sources
+                    .get(name)
+                    .cloned()
+                    .unwrap_or_else(|| encrypted(name)),
+            ]
+        },
+        |gid, name, names| -> Result<PreparedGroup> {
+            let ver = group_version(versions, aid, &gid);
             let version = ver as u16;
             let name_hash = java_string_hash(name);
 
@@ -699,19 +758,31 @@ pub fn pack_archive(
 
             let (raw, crc) = if is_landscape {
                 let text_path = sources.get(name);
-                let encrypted_path = map_dir.join(format!("encrypted/{name}.js5"));
+                let encrypted_path = encrypted(name);
 
                 if let Some(text_path) = text_path {
                     let text = super::map_references::convert(
                         &fs::read_to_string(text_path)?,
                         name,
-                        &names,
+                        names,
                         false,
                     )?;
                     let locs = parse_landscape_text(&text);
                     let binary = encode_landscape_binary(&locs);
                     let key = xtea_keys.get(&name_hash).copied().unwrap_or([0; 4]);
-                    let container = compress_xtea(&binary, CompressionType::Gzip, version, &key)?;
+                    let mut inputs = Hash::new("landscape");
+                    inputs.int(u64::from(version));
+                    for part in key {
+                        inputs.int(u64::from(part as u32));
+                    }
+                    let container = incremental::memo(inputs.bytes(&binary).key(), || {
+                        Ok(compress_xtea(
+                            &binary,
+                            CompressionType::Gzip,
+                            version,
+                            &key,
+                        )?)
+                    })?;
                     let crc = compute_group_crc(&container[..container.len() - 2]);
                     (container, crc)
                 } else if encrypted_path.exists() {
@@ -728,12 +799,12 @@ pub fn pack_archive(
                 let text = super::map_references::convert(
                     &fs::read_to_string(text_path)?,
                     name,
-                    &names,
+                    names,
                     false,
                 )?;
                 let spawns = parse_npc_spawn_text(&text);
                 let binary = encode_npc_spawn_binary(&spawns);
-                prepare_group(aid, *gid, &binary, version, false)?
+                prepare_group(aid, gid, &binary, version, false)?
             } else {
                 let text_path = sources
                     .get(name)
@@ -741,16 +812,16 @@ pub fn pack_archive(
                 let text = super::map_references::convert(
                     &fs::read_to_string(text_path)?,
                     name,
-                    &names,
+                    names,
                     false,
                 )?;
                 let terrain = parse_terrain_text(&text);
                 let binary = encode_terrain_binary(&terrain);
-                prepare_group(aid, *gid, &binary, version, false)?
+                prepare_group(aid, gid, &binary, version, false)?
             };
 
             Ok(PreparedGroup {
-                id: *gid,
+                id: gid,
                 raw,
                 crc,
                 version: ver,
@@ -762,8 +833,9 @@ pub fn pack_archive(
                     name_hash: None,
                 }],
             })
-        })
-        .collect::<Result<_>>()?;
+        },
+    )?;
+    stage.finish(Vec::new());
 
     insert_archive(
         store,

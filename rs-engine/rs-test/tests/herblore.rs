@@ -26,6 +26,7 @@ use rs_engine::Engine;
 use rs_engine::harness::HarnessClient;
 use rs_protocol::network::game::client_prot::ClientProt;
 use rs_test::runner;
+use std::sync::Mutex;
 
 const HERBLORE: usize = 15;
 /// 2011's xp counter, which counts ten times what `~givexp` pays.
@@ -33,7 +34,7 @@ const XP_COUNTER: u16 = 1801;
 
 // The cases share one loaded engine and each starts with a reset, which would
 // log the others' herbalists out: one at a time.
-static TURN: std::sync::Mutex<()> = std::sync::Mutex::new(());
+static TURN: Mutex<()> = Mutex::new(());
 
 /// `inventory:inv`, the backpack component `[login]` binds `inv` to.
 const BACKPACK: i32 = 149 << 16;

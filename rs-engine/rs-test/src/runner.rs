@@ -38,8 +38,13 @@ pub fn load_engine() -> anyhow::Result<Engine> {
     let content = content_dir();
     let pack = PathBuf::from(rs_pack::PACK_DIR);
 
-    let rs_pack::startup::PackResult { store, layout, .. } =
-        rs_pack::pack_all(&content, &pack, false, true)?;
+    let rs_pack::startup::PackResult { store, layout, .. } = rs_pack::pack_all(
+        &content,
+        &pack,
+        cfg!(debug_assertions).then_some(Path::new(rs_pack::PACK_CACHE_DIR)),
+        false,
+        true,
+    )?;
 
     rs_pack::cache::map::XteaKeyStore::load(&content.join("keys.json"))?.install_global();
     let cache_ptr = Box::into_raw(store);

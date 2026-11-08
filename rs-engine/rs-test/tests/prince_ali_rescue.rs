@@ -16,10 +16,11 @@ use rs_protocol::network::game::client_prot::ClientProt;
 use rs_test::runner;
 use rs_test::talk::{converse, explore, talk_to};
 use rsmod::rsmod::collision::collision_strategy::CollisionType;
+use std::sync::Mutex;
 
 /// Every engine in this binary shares rs-pathfinder's process-static
 /// collision map: the cases take turns.
-static TURN: std::sync::Mutex<()> = std::sync::Mutex::new(());
+static TURN: Mutex<()> = Mutex::new(());
 
 fn obj(engine: &Engine, name: &str) -> u16 {
     *engine

@@ -5,17 +5,22 @@ use crate::socket::handshake;
 use crate::{ConnectionGuard, ServerIO, SharedCache, Socket};
 use rs_db::LoginDevice;
 #[cfg(before_647)]
+use rs_io::crc::getcrc;
+#[cfg(before_647)]
 use rs_pack::cache::CacheStore;
 use rs_protocol::network::game::MAX_PACKET_SIZE;
 #[cfg(before_647)]
 use std::collections::HashMap;
+use std::io;
 use std::net::{IpAddr, SocketAddr};
 #[cfg(before_647)]
 use std::sync::{Arc, LazyLock};
 use std::time::Duration;
+#[cfg(since_647)]
+use tokio::fs;
 use tokio::io::{AsyncReadExt, AsyncWriteExt};
 use tokio::net::{TcpListener, TcpStream};
-use tokio::time::timeout;
+use tokio::time::{sleep, timeout};
 use tokio_tungstenite::accept_hdr_async_with_config;
 use tokio_tungstenite::tungstenite::handshake::server::{ErrorResponse, Request, Response};
 use tokio_tungstenite::tungstenite::http::StatusCode;
@@ -107,7 +112,7 @@ pub async fn serve(
             Ok(conn) => conn,
             Err(e) => {
                 warn!("HTTP accept error: {e}");
-                tokio::time::sleep(Duration::from_millis(100)).await;
+                sleep(Duration::from_millis(100)).await;
                 continue;
             }
         };
@@ -326,13 +331,13 @@ async fn handle_connection(
 const JAV_CONFIG: &[u8] = include_bytes!("../../public/647/jav_config.ws");
 /// Peeks at the request until its head ends or fills `buf`: the bytes read.
 /// A peek before more arrives returns the same bytes at once, so it waits.
-async fn peek_head(stream: &TcpStream, buf: &mut [u8]) -> std::io::Result<usize> {
+async fn peek_head(stream: &TcpStream, buf: &mut [u8]) -> io::Result<usize> {
     loop {
         let n = stream.peek(buf).await?;
         if n == 0 || n == buf.len() || head_ends(&buf[..n]) {
             return Ok(n);
         }
-        tokio::time::sleep(PEEK_RETRY).await;
+        sleep(PEEK_RETRY).await;
     }
 }
 
@@ -476,7 +481,7 @@ async fn route(
             Body::Owned(JAV_CONFIG.to_vec()),
         ),
         #[cfg(since_647)]
-        "/client.jar" => match tokio::fs::read("public/647/client.jar").await {
+        "/client.jar" => match fs::read("public/647/client.jar").await {
             Ok(bytes) => {
                 let len = bytes.len();
                 (
@@ -766,7 +771,7 @@ struct Script {
 impl Script {
     fn new(source: &str) -> Self {
         let body: Arc<[u8]> = source.as_bytes().into();
-        let crc = rs_io::crc::getcrc(&body, 0, body.len()) as u32;
+        let crc = getcrc(&body, 0, body.len()) as u32;
         Self {
             body,
             version: format!("{crc:08x}"),
@@ -948,7 +953,7 @@ fn client_version(cache: &CacheStore) -> Option<u32> {
 /// The CRC of a static asset, `None` if this world doesn't have it.
 fn asset_version(cache: &CacheStore, path: &str) -> Option<u32> {
     let data = cache.static_assets.get(path)?;
-    Some(rs_io::crc::getcrc(data, 0, data.len()) as u32)
+    Some(getcrc(data, 0, data.len()) as u32)
 }
 
 /// A numeric query parameter; missing or non-numeric reads as 0.
@@ -989,6 +994,7 @@ fn parse_query(query: &str) -> HashMap<String, String> {
 #[cfg(test)]
 mod tests {
     use super::*;
+    use crate::device::tests::query;
     use rs_db::DeviceCheck;
 
     #[cfg(before_647)]
@@ -1029,7 +1035,7 @@ mod tests {
         let head =
             |target: &str| format!("GET {target} HTTP/1.1\r\nHost: w1\r\nUser-Agent: {ua}\r\n\r\n");
         let agent = &device::hash64(ua)[..8];
-        let query = device::tests::query(["00000000000000ff", "blink", "Win32", "", agent]);
+        let query = query(["00000000000000ff", "blink", "Win32", "", agent]);
         let device = login_device(&head(&format!("/?{query}")));
         assert_eq!(device.check, Some(DeviceCheck::Sealed));
         assert_eq!(device.fingerprint, Some(255));

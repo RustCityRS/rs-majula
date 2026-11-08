@@ -2,8 +2,9 @@ use std::collections::HashMap;
 use std::hash::Hash;
 use std::sync::{Arc, Mutex};
 use std::time::{Duration, Instant};
+use tokio::sync;
 
-type Slot<V> = Arc<tokio::sync::Mutex<Option<(Instant, V)>>>;
+type Slot<V> = Arc<sync::Mutex<Option<(Instant, V)>>>;
 
 /// Answers worked out at most once per `ttl` for each key, shared by every
 /// request: while one caller works out a stale answer, the others asking
@@ -52,6 +53,7 @@ impl<K: Eq + Hash, V: Clone> Cache<K, V> {
 mod tests {
     use super::*;
     use std::sync::atomic::{AtomicU32, Ordering};
+    use tokio::time::sleep;
 
     #[tokio::test]
     async fn answers_are_worked_out_once_until_stale() {
@@ -65,7 +67,7 @@ mod tests {
         assert_eq!(ask(1).await, Ok(0));
         assert_eq!(ask(1).await, Ok(0));
         assert_eq!(ask(2).await, Ok(1));
-        tokio::time::sleep(Duration::from_millis(60)).await;
+        sleep(Duration::from_millis(60)).await;
         assert_eq!(ask(1).await, Ok(2));
         // Failures aren't kept.
         let failed = cache.get(3, || async { Err::<u32, _>("down") }).await;

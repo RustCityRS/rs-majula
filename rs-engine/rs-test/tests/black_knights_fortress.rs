@@ -16,9 +16,10 @@ use rs_pack::cache::VarValue;
 use rs_protocol::network::game::client_prot::ClientProt;
 use rs_protocol::network::game::server_prot::ServerProt;
 use rs_test::runner;
-use rs_test::talk::{converse, talk_to};
+use rs_test::talk::{converse, settexts, talk_to};
+use std::sync::Mutex;
 
-static TURN: std::sync::Mutex<()> = std::sync::Mutex::new(());
+static TURN: Mutex<()> = Mutex::new(());
 
 const BACKPACK: i32 = 149 << 16;
 /// The grill (maps/l47_54.jm2: level 0, 18,51) and the hole (level 1, 23,51).
@@ -231,11 +232,9 @@ fn black_knights_fortress_as_2011_had_it() {
         // The scroll opens from the queue after the last box.
         for _ in 0..3 {
             engine.cycle();
-            reward.texts.extend(
-                rs_test::talk::settexts(&client.packets())
-                    .into_iter()
-                    .map(|(_, t)| t),
-            );
+            reward
+                .texts
+                .extend(settexts(&client.packets()).into_iter().map(|(_, t)| t));
         }
         for line in [
             "I have ruined the Black Knights' invincibility potion. That should put a stop to your problem and an end to their little schemes.",

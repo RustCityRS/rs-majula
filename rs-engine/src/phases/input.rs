@@ -1,6 +1,8 @@
 use crate::active_player::{ActivePlayer, EnginePlayer};
+#[cfg(since_647)]
+use crate::engine::engine;
 use crate::engine::{Engine, engine_mut};
-use crate::phases::shared::EntityId;
+use crate::phases::shared::{EntityId, panic_message};
 use rs_vm::engine::ScriptPlayer;
 use std::panic::{AssertUnwindSafe, catch_unwind};
 use tracing::error;
@@ -57,7 +59,7 @@ impl Engine {
                 Ok(()) => break,
                 Err(panic) => {
                     let pid = pids[start];
-                    let msg = crate::phases::shared::panic_message(&panic);
+                    let msg = panic_message(&panic);
                     error!("panic during input processing for pid {pid}: {msg}");
                     self.emergency_remove_player(pid);
                     start += 1;
@@ -154,7 +156,7 @@ impl Engine {
             let target_op = active.player.interaction.target_op;
             let following = target_op == Some(ServerTriggerType::ApPlayer3 as u8)
                 || target_op == Some(ServerTriggerType::OpPlayer3 as u8);
-            let client_pathfinder = crate::engine::engine().client_pathfinder;
+            let client_pathfinder = engine().client_pathfinder;
             if !following
                 && active.player.opcalled
                 && (!active.player.pathing.has_waypoints() || !client_pathfinder)

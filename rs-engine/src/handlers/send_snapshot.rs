@@ -9,6 +9,8 @@ use rs_entity::StaffModLevel;
 use rs_protocol::network::game::client::send_snapshot::SendSnapshot;
 #[cfg(before_647)]
 use rs_util::base37::is_valid_userhash;
+#[cfg(since_647)]
+use rs_util::base37::to_userhash;
 use rs_vm::ScriptError;
 use rs_vm::engine::ScriptPlayer;
 
@@ -58,7 +60,7 @@ impl ClientGameHandler for SendSnapshot {
             self.offender as u64
         };
         #[cfg(since_647)]
-        let offender37 = match rs_util::base37::to_userhash(&self.offender) {
+        let offender37 = match to_userhash(&self.offender) {
             0 => return Ok(()),
             hash => hash,
         };

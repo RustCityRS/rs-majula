@@ -10,6 +10,9 @@ use rs_db::{
     PlayedSession, PlayerSave, SaveResult, check_new_password, refusal,
 };
 use rs_util::base37::{to_raw_username, to_screen_name, to_userhash};
+#[cfg(since_647)]
+use rs_util::random::JavaRandom;
+use std::fs;
 use std::net::IpAddr;
 use std::path::Path;
 use std::sync::Arc;
@@ -687,7 +690,7 @@ async fn take_over_node(db: &Db, node_id: u8) -> Result<bool, rs_db::Error> {
         warn!("Ended {} session(s) left over from a previous run", ended);
     }
 
-    let orphans = std::fs::read_dir(Path::new("data").join("players"))
+    let orphans = fs::read_dir(Path::new("data").join("players"))
         .map(|entries| {
             entries
                 .flatten()
@@ -721,7 +724,7 @@ async fn retire_node(db: &Db, node_id: u8) {
 
 /// The players with a local `.sav` file waiting to be synced.
 fn local_save_users() -> Vec<u64> {
-    let Ok(entries) = std::fs::read_dir(Path::new("data").join("players")) else {
+    let Ok(entries) = fs::read_dir(Path::new("data").join("players")) else {
         return Vec::new();
     };
     entries
@@ -1525,7 +1528,7 @@ async fn set_display_name(db: &Db, own_user37: u64, display_name: &str) -> SetDi
 
 /// A random `PrefixSuffixNNN` display-name candidate.
 #[cfg(since_647)]
-fn random_name(rng: &mut rs_util::random::JavaRandom) -> String {
+fn random_name(rng: &mut JavaRandom) -> String {
     const PREFIXES: &[&str] = &[
         "Iron", "Dark", "Storm", "Blaze", "Frost", "Shadow", "Rune", "Dusk", "Ember", "Moon",
         "Wolf", "Stone", "Vale", "Ash", "Cinder", "Dawn", "Gloom", "Jade", "Onyx", "Mist", "Bolt",
@@ -1550,7 +1553,7 @@ async fn free_name_suggestions(db: &Db, own_user37: u64, count: usize) -> Vec<St
     let seed = SystemTime::now()
         .duration_since(UNIX_EPOCH)
         .map_or(0, |d| d.as_nanos() as i64);
-    let mut rng = rs_util::random::JavaRandom::new(seed);
+    let mut rng = JavaRandom::new(seed);
     let mut suggestions = Vec::with_capacity(count);
     for _ in 0..count * 10 {
         if suggestions.len() >= count {
@@ -1586,6 +1589,9 @@ async fn with_display_name(db: &Db, user37: u64, result: LoadResult) -> LoadResu
 #[cfg(test)]
 mod tests {
     use super::*;
+    use rs_entity::build::STAT_COUNT;
+    use std::env;
+    use tokio::sync::mpsc::unbounded_channel;
 
     #[test]
     fn profile_round_trips_through_save_row() {
@@ -1598,8 +1604,8 @@ mod tests {
             gender: 1,
             runenergy: 9000,
             playtime: 600,
-            stats: [1154; rs_entity::build::STAT_COUNT],
-            levels: [10; rs_entity::build::STAT_COUNT],
+            stats: [1154; STAT_COUNT],
+            levels: [10; STAT_COUNT],
             varps: vec![(281, 1000), (1000, -1)],
             invs: vec![
                 PlayerProfileInv {
@@ -1736,7 +1742,7 @@ mod tests {
     /// The settings to reach a `#[sqlx::test]` database: its name from the
     /// pool, the rest from `DATABASE_URL`.
     fn test_db_config(pool: &sqlx::PgPool) -> DbConfig {
-        let url = std::env::var("DATABASE_URL").unwrap();
+        let url = env::var("DATABASE_URL").unwrap();
         let rest = url.split_once("://").unwrap().1;
         let (auth, host) = rest.split_once('@').unwrap();
         let (user, pass) = auth.split_once(':').unwrap_or((auth, ""));
@@ -1762,8 +1768,8 @@ mod tests {
 
     impl World {
         async fn start(pool: &sqlx::PgPool, node_id: u8) -> Self {
-            let (tx, req_rx) = tokio::sync::mpsc::unbounded_channel();
-            let (resp_tx, rx) = tokio::sync::mpsc::unbounded_channel();
+            let (tx, req_rx) = unbounded_channel();
+            let (resp_tx, rx) = unbounded_channel();
             let config = DbClientConfig {
                 db: test_db_config(pool),
                 node_id,
@@ -1783,7 +1789,7 @@ mod tests {
         /// The next response, skipping lease renewals (but counting them).
         async fn next(&mut self) -> DbResponse {
             loop {
-                let response = tokio::time::timeout(Duration::from_secs(10), self.rx.recv())
+                let response = timeout(Duration::from_secs(10), self.rx.recv())
                     .await
                     .expect("db task stalled")
                     .expect("db task stopped");
@@ -1932,7 +1938,7 @@ mod tests {
             .execute(&pool)
             .await
             .unwrap();
-        tokio::time::sleep(LEASE_INTERVAL + Duration::from_secs(1)).await;
+        sleep(LEASE_INTERVAL + Duration::from_secs(1)).await;
         assert!(matches!(one.load().await, LoadResult::Busy));
 
         // A world that went silent (9) loses them: world 1 takes over, and
@@ -2027,15 +2033,15 @@ mod tests {
     /// hangs up, or a shutdown would wait on it forever.
     #[tokio::test]
     async fn offline_wait_ends_when_the_engine_hangs_up() {
-        let (tx, mut rx) = tokio::sync::mpsc::unbounded_channel();
-        let (resp_tx, mut resp_rx) = tokio::sync::mpsc::unbounded_channel();
+        let (tx, mut rx) = unbounded_channel();
+        let (resp_tx, mut resp_rx) = unbounded_channel();
         let _ = tx.send(DbRequest::Release { user37: 1 });
         assert!(wait_offline(Duration::from_millis(50), &mut rx, &resp_tx).await);
         assert!(rx.try_recv().is_err(), "requests are handled while offline");
 
         drop(tx);
         let wait = wait_offline(Duration::from_secs(60), &mut rx, &resp_tx);
-        let done = tokio::time::timeout(Duration::from_secs(1), wait).await;
+        let done = timeout(Duration::from_secs(1), wait).await;
         assert_eq!(
             done.ok(),
             Some(false),
@@ -2047,8 +2053,8 @@ mod tests {
     #[test]
     fn short_arrays_are_padded() {
         let back = profile_from_save(PlayerSave::default());
-        assert_eq!(back.levels, [1; rs_entity::build::STAT_COUNT]);
-        assert_eq!(back.stats, [0; rs_entity::build::STAT_COUNT]);
+        assert_eq!(back.levels, [1; STAT_COUNT]);
+        assert_eq!(back.stats, [0; STAT_COUNT]);
         assert!(back.invs.is_empty());
     }
 }

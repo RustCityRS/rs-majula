@@ -1,4 +1,5 @@
 use crate::archive;
+use crate::pack::incremental::{Lookups, Registry, answer};
 use crate::pack::pack_registry::PackFile;
 #[cfg(since_647)]
 use crate::pack::util::placeholder_prefix;
@@ -16,12 +17,14 @@ use std::fs;
 #[cfg(since_647)]
 use std::io::ErrorKind;
 use std::path::{Path, PathBuf};
+use std::sync::Arc;
 #[cfg(since_647)]
 use tracing::{info, warn};
 
 pub struct AssetNames {
-    packs: HashMap<String, PackFile>,
-    components: HashMap<u32, HashMap<u32, String>>,
+    packs: Arc<HashMap<String, PackFile>>,
+    components: Arc<HashMap<u32, HashMap<u32, String>>>,
+    lookups: Option<Lookups>,
 }
 
 impl runec::clientscript::decompile::Names for AssetNames {
@@ -38,9 +41,34 @@ impl runec::clientscript::decompile::Names for AssetNames {
     }
 }
 
+/// A unit packed from these names is reused while each name it looked up
+/// still resolves as it did.
+impl Registry for AssetNames {
+    fn recording(&self) -> Self {
+        Self {
+            packs: self.packs.clone(),
+            components: self.components.clone(),
+            lookups: Some(Lookups::default()),
+        }
+    }
+
+    fn recorded(&self) -> Vec<u8> {
+        self.lookups.as_ref().map_or_else(Vec::new, Lookups::encode)
+    }
+
+    fn unchanged(&self, recorded: &[u8]) -> bool {
+        Lookups::decode(recorded).is_some_and(|lookups| {
+            lookups.iter().all(|(op, kind, query, answer)| {
+                self.current(*op, kind, query).as_ref() == Some(answer)
+            })
+        })
+    }
+}
+
 impl AssetNames {
     pub fn load(dir: &Path) -> Result<Self> {
         let mut packs = HashMap::new();
+        let mut components: HashMap<u32, HashMap<u32, String>> = HashMap::new();
         for entry in fs::read_dir(dir)? {
             let path = entry?.path();
             if path.extension().is_some_and(|e| e == "pack") {
@@ -49,28 +77,51 @@ impl AssetNames {
                     .unwrap()
                     .to_str()
                     .context("Invalid pack name")?;
-                packs.insert(name.to_owned(), PackFile::load(&path)?);
+                let text = fs::read_to_string(&path).unwrap_or_default();
+                if name == "interface" {
+                    for line in text.lines() {
+                        let Some((id, name)) = line.split_once('=') else {
+                            continue;
+                        };
+                        let Some((group, file)) = id.split_once(':') else {
+                            continue;
+                        };
+                        components
+                            .entry(group.parse()?)
+                            .or_default()
+                            .insert(file.parse()?, name.to_owned());
+                    }
+                }
+                packs.insert(name.to_owned(), PackFile::parse(&text));
             }
         }
-        let mut components: HashMap<u32, HashMap<u32, String>> = HashMap::new();
-        if let Ok(text) = fs::read_to_string(dir.join("interface.pack")) {
-            for line in text.lines() {
-                let Some((id, name)) = line.split_once('=') else {
-                    continue;
-                };
-                let Some((group, file)) = id.split_once(':') else {
-                    continue;
-                };
-                components
-                    .entry(group.parse()?)
-                    .or_default()
-                    .insert(file.parse()?, name.to_owned());
-            }
-        }
-        Ok(Self { packs, components })
+        Ok(Self {
+            packs: Arc::new(packs),
+            components: Arc::new(components),
+            lookups: None,
+        })
+    }
+
+    /// What a recorded lookup gives now.
+    fn current(&self, op: u8, kind: &str, query: &str) -> Option<String> {
+        Some(match op {
+            b'i' => answer(self.lookup(kind, query).ok()),
+            b'n' => self.find_name(kind, query.parse().ok()?),
+            b'C' => self.find_component_name(kind.parse().ok()?, query.parse().ok()?),
+            b'c' => answer(self.find_component_id(kind.parse().ok()?, query).ok()),
+            _ => return None,
+        })
     }
 
     pub fn name(&self, kind: &str, id: u32) -> String {
+        let name = self.find_name(kind, id);
+        if let Some(lookups) = &self.lookups {
+            lookups.record(b'n', kind, &id.to_string(), || name.clone());
+        }
+        name
+    }
+
+    fn find_name(&self, kind: &str, id: u32) -> String {
         self.packs
             .get(kind)
             .and_then(|p| p.get_by_id(id))
@@ -79,6 +130,16 @@ impl AssetNames {
     }
 
     pub fn id(&self, kind: &str, name: &str) -> Result<u32> {
+        let id = self.lookup(kind, name);
+        if let Some(lookups) = &self.lookups {
+            lookups.record(b'i', kind, name, || answer(id.as_ref().ok()));
+        }
+        id
+    }
+
+    /// [`id`](Self::id) without recording: also how [`files`](Self::files)
+    /// finds a stage's files, which is not what it packs from them.
+    fn lookup(&self, kind: &str, name: &str) -> Result<u32> {
         if let Some(id) = self.packs.get(kind).and_then(|p| p.get_by_debugname(name)) {
             return Ok(id);
         }
@@ -134,8 +195,8 @@ impl AssetNames {
                 .context("Invalid asset filename")?
                 .replace('\\', "/");
             let id = self
-                .id(kind, &full)
-                .or_else(|_| self.id(kind, &name))
+                .lookup(kind, &full)
+                .or_else(|_| self.lookup(kind, &name))
                 .with_context(|| path.display().to_string())?;
             ensure!(
                 files.insert(id, path).is_none(),
@@ -148,6 +209,14 @@ impl AssetNames {
     }
 
     pub fn component_name(&self, group: u32, file: u32) -> String {
+        let name = self.find_component_name(group, file);
+        if let Some(lookups) = &self.lookups {
+            lookups.record(b'C', &group.to_string(), &file.to_string(), || name.clone());
+        }
+        name
+    }
+
+    fn find_component_name(&self, group: u32, file: u32) -> String {
         self.components
             .get(&group)
             .and_then(|v| v.get(&file))
@@ -165,6 +234,14 @@ impl AssetNames {
     }
 
     pub fn component_id(&self, group: u32, name: &str) -> Result<u32> {
+        let id = self.find_component_id(group, name);
+        if let Some(lookups) = &self.lookups {
+            lookups.record(b'c', &group.to_string(), name, || answer(id.as_ref().ok()));
+        }
+        id
+    }
+
+    fn find_component_id(&self, group: u32, name: &str) -> Result<u32> {
         let components = self.components.get(&group);
         if let Some((&id, _)) = components
             .and_then(|v| v.iter().find(|(_, value)| *value == name))
@@ -349,7 +426,7 @@ fn name_problems(content_dir: &Path, pack_dir: &Path) -> Result<(usize, Vec<Stri
             .map(|(id, name)| (id.to_string(), name.as_str()));
         identifier_problems("interface", entries.collect(), &mut problems);
     }
-    for (group, components) in &names.components {
+    for (group, components) in names.components.iter() {
         let entries = components
             .iter()
             .map(|(file, name)| (format!("{group}:{file}"), name.as_str()));

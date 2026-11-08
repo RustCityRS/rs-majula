@@ -7,6 +7,8 @@ use crate::network::game::server_prot_priority::ServerProtPriority;
 use rs_io::{Packet, PacketFrame};
 use rs_protocol_macros::server_prot;
 use rs_ver::STRING_TERMINATOR;
+#[cfg(since_647)]
+use std::borrow::Cow;
 
 #[cfg(before_647)]
 #[server_prot(MessageGame, Immediate, VarByte)]
@@ -39,7 +41,7 @@ impl MessageGame<'_> {
     /// end of a game message, `<name>:tradereq:`; 2011's is message type 100
     /// from that name, which its chat box offers to accept (clientscript 84,
     /// "Accept trade"; void-634 `ChatType.TradeRequest`).
-    fn parts(&self) -> (i32, Option<&str>, std::borrow::Cow<'_, str>) {
+    fn parts(&self) -> (i32, Option<&str>, Cow<'_, str>) {
         if self.kind == 0
             && let Some(name) = self.text.strip_suffix(":tradereq:")
         {

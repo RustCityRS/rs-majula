@@ -20,6 +20,7 @@ use rs_pack::ParamValue;
 use rs_protocol::network::game::client_prot::ClientProt;
 use rs_test::runner;
 use std::collections::HashMap;
+use std::fs;
 
 /// A 647 pack registry (`content/647/pack/<kind>.pack`): name to id.
 fn pack_id(kind: &str, name: &str) -> i32 {
@@ -27,7 +28,7 @@ fn pack_id(kind: &str, name: &str) -> i32 {
         "{}/../../content/647/pack/{kind}.pack",
         env!("CARGO_MANIFEST_DIR")
     );
-    let ids: HashMap<String, i32> = std::fs::read_to_string(&path)
+    let ids: HashMap<String, i32> = fs::read_to_string(&path)
         .expect(&path)
         .lines()
         .filter_map(|l| l.split_once('='))

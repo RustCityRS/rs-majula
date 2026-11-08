@@ -153,10 +153,11 @@ impl VarSet {
 #[cfg(test)]
 mod tests {
     use super::*;
+    use std::iter;
 
     #[test]
     fn new_empty_iterator() {
-        let vs = VarSet::new(std::iter::empty());
+        let vs = VarSet::new(iter::empty());
         assert_eq!(vs.len(), 0);
         assert!(vs.is_empty());
     }

@@ -3,13 +3,17 @@ use crate::archive::{self, ArchiveVersions};
 #[cfg(since_647)]
 use crate::cache::js5::PackedCache;
 #[cfg(since_647)]
-use crate::pack::js5::{PreparedGroup, insert_archive, load_name_hashes};
+use crate::pack::incremental::Stage;
+#[cfg(before_647)]
+use crate::pack::incremental::{Hash, remember};
+#[cfg(since_647)]
+use crate::pack::js5::{PreparedGroup, insert_archive, load_name_hashes, versions_dep};
+#[cfg(since_647)]
+use crate::pack::names::AssetNames;
 #[cfg(since_647)]
 use crate::pack::packed_data::PackedData;
 #[cfg(since_647)]
 use anyhow::{Result, bail, ensure};
-#[cfg(since_647)]
-use rayon::prelude::*;
 #[cfg(since_647)]
 use rs_io::Packet;
 #[cfg(before_647)]
@@ -50,7 +54,10 @@ pub fn pack_midis(content_dir: &Path, kind: &str) -> HashMap<String, Vec<u8>> {
                 continue;
             }
             if let Ok(data) = fs::read(&path) {
-                result.insert(name.to_string(), bz2_compress_with_size(&data));
+                let compressed = remember(Hash::new("bz2").bytes(&data).key(), || {
+                    bz2_compress_with_size(&data)
+                });
+                result.insert(name.to_string(), compressed);
             }
         }
     }
@@ -65,8 +72,8 @@ pub fn pack_archive(
     content_dir: &Path,
     pack_dir: &Path,
     versions: &HashMap<u8, ArchiveVersions>,
+    names: &AssetNames,
 ) -> Result<()> {
-    let names = crate::pack::names::AssetNames::load(pack_dir)?;
     for aid in [archive::SONGS, archive::JINGLES] {
         let format = archive::archive_format(aid).unwrap();
         let files = names.files(
@@ -76,19 +83,25 @@ pub fn pack_archive(
         )?;
         let gids: Vec<_> = files.iter().map(|(gid, _)| *gid).collect();
         let hashes = load_name_hashes(pack_dir, aid, &gids);
-        let prepared = files
-            .par_iter()
-            .map(|(gid, path)| {
+        let stage = Stage::new(&format!("archive {aid}"), vec![versions_dep(versions, aid)]);
+        let mut prepared = stage.groups(
+            names,
+            &files,
+            |path| vec![path.clone()],
+            |gid, path, _| {
                 let data = encode_jagex_midi(&fs::read(path)?)?;
-                let mut group = PreparedGroup::new(aid, *gid, &data, versions)?;
-                group.name_hash = hashes.get(gid).copied().unwrap_or(-1);
+                let mut group = PreparedGroup::new(aid, gid, &data, versions)?;
                 group.files = vec![FileInfo {
                     id: 0,
                     name_hash: None,
                 }];
                 Ok(group)
-            })
-            .collect::<Result<Vec<_>>>()?;
+            },
+        )?;
+        stage.finish(Vec::new());
+        for group in &mut prepared {
+            group.name_hash = hashes.get(&group.id).copied().unwrap_or(-1);
+        }
         insert_archive(store, aid, format, versions, prepared, "from MIDI")?;
     }
     Ok(())

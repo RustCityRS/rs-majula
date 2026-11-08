@@ -29,6 +29,8 @@ pub type ComId = i32;
 pub use player_uid::PlayerUid;
 
 use crate::trigger::ServerTriggerType;
+use std::io;
+use std::result;
 use thiserror::Error;
 
 /// Unified error type for the script virtual machine.
@@ -54,7 +56,7 @@ use thiserror::Error;
 #[derive(Error, Debug)]
 pub enum ScriptError {
     #[error("I/O error: {0}")]
-    Io(#[from] std::io::Error),
+    Io(#[from] io::Error),
 
     #[error("Load error: {0}")]
     Load(String),
@@ -240,4 +242,4 @@ pub enum ScriptError {
 /// Used throughout the VM crate so that functions can return `Result<T>`
 /// without repeating the error type. Any function that can fail during
 /// script loading or execution should return this type.
-pub type Result<T> = std::result::Result<T, ScriptError>;
+pub type Result<T> = result::Result<T, ScriptError>;

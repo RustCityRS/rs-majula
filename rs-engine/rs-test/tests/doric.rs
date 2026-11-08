@@ -11,10 +11,11 @@ use rs_engine::Engine;
 use rs_engine::harness::HarnessClient;
 use rs_pack::cache::VarValue;
 use rs_test::runner;
-use rs_test::talk::{converse, talk_to};
+use rs_test::talk::{converse, settexts, talk_to};
 use rsmod::rsmod::collision::collision_strategy::CollisionType;
+use std::sync::Mutex;
 
-static TURN: std::sync::Mutex<()> = std::sync::Mutex::new(());
+static TURN: Mutex<()> = Mutex::new(());
 
 const MINING: usize = 14;
 
@@ -211,11 +212,8 @@ fn doric_takes_the_ores_for_2011s_reward() {
         for _ in 0..6 {
             engine.cycle();
             let packets = client.packets();
-            talk.texts.extend(
-                rs_test::talk::settexts(&packets)
-                    .into_iter()
-                    .map(|(_, t)| t),
-            );
+            talk.texts
+                .extend(settexts(&packets).into_iter().map(|(_, t)| t));
         }
         for line in [
             "Have you got my materials yet, traveller?",

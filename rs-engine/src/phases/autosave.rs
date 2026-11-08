@@ -3,6 +3,7 @@ use crate::engine::Engine;
 use crate::player_save::{extract_profile, save_binary};
 use crate::script_errors::FLUSH_TICKS;
 use rs_vm::engine::ScriptPlayer;
+use std::mem;
 use tracing::info;
 
 /// Number of ticks between autosave cycles. At 600ms per tick this is
@@ -60,7 +61,7 @@ impl Engine {
             && let Some(tx) = &self.db_tx
         {
             let _ = tx.send(DbRequest::Logs {
-                logs: std::mem::take(&mut self.logs),
+                logs: mem::take(&mut self.logs),
             });
         }
 

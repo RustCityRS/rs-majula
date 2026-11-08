@@ -17,11 +17,15 @@ use rs_protocol::network::game::client::message_private::MessagePrivate;
 use rs_protocol::network::game::client::message_public::MessagePublic;
 use rs_protocol::network::game::client_prot::ClientProt;
 #[cfg(before_647)]
+use rs_protocol::network::game::server_prot::ServerProt;
+#[cfg(before_647)]
 use rs_util::base37::{to_raw_username, to_screen_name};
 use rs_util::wordpack;
 use serde_json::{Map, Value, json};
 use std::io::Read;
 use std::mem;
+use zstd::stream::copy_decode;
+use zstd::stream::read::Decoder;
 
 /// How much of a stored chunk is decompressed at a time.
 const PIECE: u64 = 256 << 10;
@@ -168,7 +172,7 @@ const ZSTD_MAGIC: [u8; 4] = [0x28, 0xB5, 0x2F, 0xFD];
 pub fn decompress_chunk(data: &[u8]) -> Option<Vec<u8>> {
     let mut raw = Vec::new();
     let read = if data.starts_with(&ZSTD_MAGIC) {
-        zstd::stream::copy_decode(data, &mut raw)
+        copy_decode(data, &mut raw)
     } else {
         DeflateDecoder::new(data).read_to_end(&mut raw).map(drop)
     };
@@ -228,7 +232,7 @@ impl Builder {
     /// readable: nothing after that can play.
     pub fn feed_chunk(&mut self, data: &[u8]) -> bool {
         if data.starts_with(&ZSTD_MAGIC) {
-            zstd::stream::read::Decoder::with_buffer(data).is_ok_and(|raw| self.feed_from(raw))
+            Decoder::with_buffer(data).is_ok_and(|raw| self.feed_from(raw))
         } else {
             self.feed_from(DeflateDecoder::new(data))
         }
@@ -352,10 +356,7 @@ impl Builder {
 
         let mut header = extra;
         #[cfg(before_647)]
-        header.insert(
-            "logout".into(),
-            json!(rs_protocol::network::game::server_prot::ServerProt::Logout as u8),
-        );
+        header.insert("logout".into(), json!(ServerProt::Logout as u8));
         #[cfg(any(rev = "225", all(since_254, before_647)))]
         header.insert(
             "cameraOp".into(),
@@ -382,6 +383,7 @@ impl Builder {
 #[cfg(test)]
 mod tests {
     use super::*;
+    use zstd::bulk::compress;
 
     #[test]
     fn minimap_cameras_move_back_to_their_click() {
@@ -480,13 +482,13 @@ mod tests {
         let mut deflate = DeflateEncoder::new(Vec::new(), Compression::fast());
         deflate.write_all(&noted(0, "old")).unwrap();
         let old = deflate.finish().unwrap();
-        let new = zstd::bulk::compress(&noted(600, "new"), 3).unwrap();
+        let new = compress(&noted(600, "new"), 3).unwrap();
         let mut b = Builder::default();
         assert!(b.feed_chunk(&old) && b.feed_chunk(&new));
         assert_eq!(notes(&mut b), json!([[0, "old"], [600, "new"]]));
 
         // A broken chunk ends it there.
-        let mut cut = zstd::bulk::compress(&[7; 4096], 3).unwrap();
+        let mut cut = compress(&[7; 4096], 3).unwrap();
         cut.truncate(cut.len() >> 1);
         assert!(!b.feed_chunk(&cut));
         assert!(!b.feed_chunk(&noted(0, "not a chunk")));
@@ -508,7 +510,7 @@ mod tests {
         assert!(rec.len() as u64 > PIECE * 4);
         let whole = build(&rec, Map::new());
         let mut pieces = Builder::default();
-        assert!(pieces.feed_chunk(&zstd::bulk::compress(&rec, 3).unwrap()));
+        assert!(pieces.feed_chunk(&compress(&rec, 3).unwrap()));
         assert_eq!(pieces.take(Map::new()), whole);
     }
 

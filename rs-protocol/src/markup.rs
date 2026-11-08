@@ -69,6 +69,7 @@ pub fn markup(text: &str) -> Cow<'_, str> {
 #[cfg(test)]
 mod tests {
     use super::markup;
+    use std::borrow::Cow;
 
     #[test]
     fn codes_become_2011_tags() {
@@ -88,10 +89,7 @@ mod tests {
 
     #[test]
     fn plain_text_and_stray_ats_pass_through() {
-        assert!(matches!(
-            markup("You steal a cake."),
-            std::borrow::Cow::Borrowed(_)
-        ));
+        assert!(matches!(markup("You steal a cake."), Cow::Borrowed(_)));
         assert_eq!(markup("mail@example.com"), "mail@example.com");
         assert_eq!(markup("a @ bb @ c"), "a @ bb @ c");
     }

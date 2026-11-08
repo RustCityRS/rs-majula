@@ -15,8 +15,9 @@ use rs_pack::cache::VarValue;
 use rs_protocol::network::game::client_prot::ClientProt;
 use rs_test::runner;
 use rs_test::talk::{converse, talk_to};
+use std::sync::Mutex;
 
-static TURN: std::sync::Mutex<()> = std::sync::Mutex::new(());
+static TURN: Mutex<()> = Mutex::new(());
 
 /// Lumbridge/Draynor's first task (enum_3482 1 -> 346, "The Blood Pact").
 const LUMBRIDGE_FIRST: i32 = 346;

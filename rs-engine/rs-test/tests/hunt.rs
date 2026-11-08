@@ -16,8 +16,10 @@
 use rs_engine::Engine;
 use rs_entity::InteractionTarget;
 use rs_pack::cache::VarValue;
+use rs_pack::types::NpcMode;
 use rs_protocol::network::game::client_prot::ClientProt;
 use rs_test::runner;
+use rs_vm::ops::test::{calls_for, forget_calls};
 use std::sync::Mutex;
 
 static TURN: Mutex<()> = Mutex::new(());
@@ -166,7 +168,7 @@ fn a_remodelled_green_dragon_clone_hunts_and_breathes_fire() {
             .npcs
             .get_by_id(4679)
             .map_or(1, |t| t.size.max(1)) as i32;
-        rs_vm::ops::test::forget_calls();
+        forget_calls();
         let (mut targeted, mut breathed) = (false, false);
         for tick in 0..200 {
             // The client's keep-alive: 100 silent ticks would log the player out.
@@ -187,10 +189,7 @@ fn a_remodelled_green_dragon_clone_hunts_and_breathes_fire() {
             {
                 targeted = true;
             }
-            if rs_vm::ops::test::calls_for("spotanim_npc")
-                .iter()
-                .any(|a| a == "2465,0,0")
-            {
+            if calls_for("spotanim_npc").iter().any(|a| a == "2465,0,0") {
                 breathed = true;
                 break;
             }
@@ -236,7 +235,7 @@ fn a_duckling_hunts_its_duck() {
         }
         assert_eq!(
             target,
-            Some((duck, Some(rs_pack::types::NpcMode::OpNpc3 as u8))),
+            Some((duck, Some(NpcMode::OpNpc3 as u8))),
             "the duckling's target"
         );
     });

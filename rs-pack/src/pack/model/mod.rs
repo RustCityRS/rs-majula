@@ -9,7 +9,11 @@ use crate::cache::seq_frame::split_frame_into_stripes;
 #[cfg(since_647)]
 use crate::cache::seq_frame::{AnimFrame, FrameBone};
 #[cfg(since_647)]
-use crate::pack::js5::{PreparedGroup, insert_archive};
+use crate::pack::incremental::Stage;
+#[cfg(since_647)]
+use crate::pack::js5::{PreparedGroup, insert_archive, versions_dep};
+#[cfg(since_647)]
+use crate::pack::names::AssetNames;
 #[cfg(before_647)]
 use crate::pack::pack_registry::PackFile;
 #[cfg(before_647)]
@@ -20,8 +24,6 @@ use crate::pack::util::{load_order, walk};
 use crate::types::BoneType;
 #[cfg(since_647)]
 use anyhow::{Context, Result, bail, ensure};
-#[cfg(since_647)]
-use rayon::prelude::*;
 #[cfg(before_647)]
 use rs_io::Packet;
 #[cfg(before_647)]
@@ -475,18 +477,19 @@ pub fn parse_frames(
 pub fn pack_archive(
     store: &mut PackedCache,
     content_dir: &Path,
-    pack_dir: &Path,
     versions: &HashMap<u8, ArchiveVersions>,
+    names: &AssetNames,
 ) -> Result<()> {
     let aid = archive::ANIMS;
     let anim_dir = content_dir.join("animations");
-    let names = crate::pack::names::AssetNames::load(pack_dir)?;
     let files = names.files(&anim_dir, "anim", &["anim"])?;
-    let prepared = files
-        .par_iter()
-        .map(|(gid, path)| {
-            let gid = *gid;
-            let frames = parse_frames(&fs::read_to_string(path)?, &names)
+    let stage = Stage::new("anims", vec![versions_dep(versions, aid)]);
+    let prepared = stage.groups(
+        names,
+        &files,
+        |path| vec![path.clone()],
+        |gid, path, names| {
+            let frames = parse_frames(&fs::read_to_string(path)?, names)
                 .with_context(|| format!("Reading animation {}", path.display()))?;
             let refs: Vec<_> = frames
                 .iter()
@@ -506,8 +509,9 @@ pub fn pack_archive(
                 })
                 .collect();
             Ok(group)
-        })
-        .collect::<Result<Vec<_>>>()?;
+        },
+    )?;
+    stage.finish(Vec::new());
     insert_archive(
         store,
         aid,

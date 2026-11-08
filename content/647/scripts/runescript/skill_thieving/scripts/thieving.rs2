@@ -69,33 +69,33 @@ if($replacement = null) $replacement = market_stall;
 anim(human_pickuptable, 0);
 sound_synth(pick, 1, 0);
 // p_delay here was added with this update: https://oldschool.runescape.wiki/w/Update:Special_Attacks
-p_delay(0); 
+p_delay(0);
 switch_loc (loc_type) {
-    case bakers_stall_stealing : 
+    case bakers_stall_stealing :
         longqueue(stolen_from_stall_baker, ^baker_stall_timer, 0, ^discard);
         %marketthief_cake = 1;
-    case tea_stall : 
+    case tea_stall :
         longqueue(stolen_from_stall_tea, ^tea_stall_timer, 0, ^discard);
         %marketthief_tea = 1;
-    case silk_stall_stealing : 
+    case silk_stall_stealing :
         longqueue(stolen_from_stall_silk, ^silk_stall_timer, 0, ^discard);
         %marketthief_silk = 1;
-    case fur_stall_stealing : 
-        longqueue(stolen_from_stall_fur, ^fur_stall_timer, 0, ^discard); 
+    case fur_stall_stealing :
+        longqueue(stolen_from_stall_fur, ^fur_stall_timer, 0, ^discard);
         %marketthief_fur = 1;
-    case silver_stall_stealing : 
+    case silver_stall_stealing :
         longqueue(stolen_from_stall_silver, ^silver_stall_timer, 0, ^discard);
         %marketthief_silver = 1;
-    case spice_stall_stealing : 
+    case spice_stall_stealing :
         longqueue(stolen_from_stall_spice, ^spice_stall_timer, 0, ^discard);
         %marketthief_spice = 1;
-    case gem_stall_stealing : 
+    case gem_stall_stealing :
         longqueue(stolen_from_stall_gem, ^gem_stall_timer, 0, ^discard);
         %marketthief_gem = 1;
-    case viking_fur_market : 
+    case viking_fur_market :
         longqueue(stolen_from_stall_vikingfur, ^vikingfur_stall_timer, 0, ^discard);
         %marketthief_vikingfur = 1;
-    case fish_stall : 
+    case fish_stall :
         longqueue(stolen_from_stall_vikingfish, ^vikingfish_stall_timer, 0, ^discard);
         %marketthief_vikingfish = 1;
     case fish_stall_4705 :

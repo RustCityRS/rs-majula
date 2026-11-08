@@ -11,18 +11,23 @@
 //! packets through the engine's real read path and drain what the engine
 //! flushes back.
 
-use crate::active_player::EnginePlayer;
+use crate::active_player::{ActivePlayer, EnginePlayer};
 use crate::clients::client_game::create_io;
 use crate::engine::{Engine, LoginRequest, engine_mut};
 use crate::phases::shared::EntityId;
 use crate::player_save::PlayerProfile;
 use rs_crypto::isaac::{Isaac, IsaacPair};
-use rs_entity::{EntityLifeTime, Obj, Player};
+use rs_db::LoginDevice;
+use rs_entity::build::STAT_COUNT;
+use rs_entity::{EntityLifeTime, Obj, Player, StaffModLevel};
 use rs_grid::CoordGrid;
+use rs_pack::cache::script::{SETUP_PLAYER, TEST_OP};
 use rs_protocol::network::game::client_prot::ClientProt;
 use rs_protocol::network::game::client_prot_frame::ClientProtFrame;
+use rs_protocol::network::game::server_prot::ServerProt;
 use rs_vm::ScriptError;
-use rs_vm::engine::ScriptPlayer;
+use rs_vm::engine::{ScriptPlayer, with_engine};
+use rs_vm::ops::test;
 use rs_vm::pointer::ScriptPointer;
 use rs_vm::register::OpsRegistry;
 use rs_vm::state::{LocRef, ScriptState};
@@ -30,6 +35,7 @@ use rs_vm::subject::ScriptSubject;
 use rs_vm::trigger::ServerTriggerType;
 use std::cell::RefCell;
 use std::net::{Ipv4Addr, SocketAddr};
+use std::time::Instant;
 use tokio::sync::mpsc::{Sender, UnboundedReceiver};
 
 /// ISAAC seed for every harness session. The client side keeps its own copy
@@ -55,7 +61,7 @@ thread_local! {
 /// The client side of a harness player's session.
 pub struct HarnessClient {
     pub pid: u16,
-    packet_tx: Sender<(std::time::Instant, Vec<u8>)>,
+    packet_tx: Sender<(Instant, Vec<u8>)>,
     bytes_rx: UnboundedReceiver<Vec<u8>>,
     _disconnect_tx: Sender<()>,
     /// Mirrors the engine's `isaac_decode`, so opcodes arrive masked as a
@@ -88,7 +94,7 @@ impl HarnessClient {
         }
         bytes.extend_from_slice(payload);
         self.packet_tx
-            .try_send((std::time::Instant::now(), bytes))
+            .try_send((Instant::now(), bytes))
             .expect("harness inbox has room");
     }
 
@@ -148,7 +154,7 @@ impl HarnessClient {
     /// time]: ..."), which a busy machine sends at random and the game never
     /// says.
     pub fn game_messages(packets: &[(u16, Vec<u8>)]) -> Vec<(i32, String)> {
-        let opcode = rs_protocol::network::game::server_prot::ServerProt::MessageGame as u16;
+        let opcode = ServerProt::MessageGame as u16;
         packets
             .iter()
             .filter(|(op, _)| *op == opcode)
@@ -235,8 +241,8 @@ impl Engine {
             gender: 0,
             runenergy: 10000,
             playtime: 0,
-            stats: [0; rs_entity::build::STAT_COUNT],
-            levels: [1; rs_entity::build::STAT_COUNT],
+            stats: [0; STAT_COUNT],
+            levels: [1; STAT_COUNT],
             // `login.rs2` sends anyone under 1000 to character creation.
             varps: vec![(tutorial_done, 1000)],
             invs: Vec::new(),
@@ -266,7 +272,7 @@ impl Engine {
             remote_addr: SocketAddr::from((Ipv4Addr::LOCALHOST, 0)),
             reconnect: false,
             uid: None,
-            device: rs_db::LoginDevice::default(),
+            device: LoginDevice::default(),
             // Fixed, the client's default: content opens `toplevel` (548) for
             // window mode 1 and the resizable root for anything else.
             display_mode: 1,
@@ -274,11 +280,11 @@ impl Engine {
         let engine = self as *mut Engine;
         // `ActivePlayer::new` and the `[login]` trigger read the global
         // engine and cache, which a direct call from a test has not installed.
-        rs_vm::engine::with_engine(self, || {
+        with_engine(self, || {
             unsafe { &mut *engine }.accept_login(
                 request,
                 profile,
-                rs_entity::StaffModLevel::Normal,
+                StaffModLevel::Normal,
                 None,
                 0,
                 pid,
@@ -305,7 +311,7 @@ impl Engine {
     /// set before the player phase acts on it.
     pub fn harness_inputs(&mut self) {
         let engine = self as *mut Engine;
-        rs_vm::engine::with_engine(self, || unsafe { &mut *engine }.inputs());
+        with_engine(self, || unsafe { &mut *engine }.inputs());
     }
 
     /// Moves a player as `p_telejump` does: placed, not walked, and the
@@ -317,7 +323,7 @@ impl Engine {
     /// zone, where a zone scan (an npc's hunt) never found it.
     pub fn harness_telejump(&mut self, pid: u16, x: u16, y: u8, z: u16) {
         let engine = self as *mut Engine;
-        rs_vm::engine::with_engine(self, || {
+        with_engine(self, || {
             let engine = unsafe { &mut *engine };
             let Some(active) = engine.get_player_mut(pid) else {
                 return;
@@ -343,9 +349,8 @@ impl Engine {
     /// Awards experience as `stat_advance` does (in the engine's tenths): a
     /// level gained queues the stat's `[advancestat]` script.
     pub fn harness_add_xp(&mut self, pid: u16, stat: usize, xp: i32) {
-        use rs_vm::engine::ScriptPlayer;
         let engine = self as *mut Engine;
-        rs_vm::engine::with_engine(self, || {
+        with_engine(self, || {
             if let Some(active) = unsafe { &mut *engine }.get_player_mut(pid) {
                 active.add_xp(stat, xp);
             }
@@ -375,13 +380,9 @@ impl Engine {
         self.with_harness_player(pid, |active| active.if_close_sub(parent));
     }
 
-    fn with_harness_player(
-        &mut self,
-        pid: u16,
-        f: impl FnOnce(&mut crate::active_player::ActivePlayer),
-    ) {
+    fn with_harness_player(&mut self, pid: u16, f: impl FnOnce(&mut ActivePlayer)) {
         let engine = self as *mut Engine;
-        rs_vm::engine::with_engine(self, || {
+        with_engine(self, || {
             if let Some(active) = unsafe { &mut *engine }.get_player_mut(pid) {
                 f(active);
             }
@@ -392,7 +393,7 @@ impl Engine {
     pub fn harness_add_obj(&mut self, x: u16, y: u8, z: u16, id: u16, count: u32) {
         let coord = CoordGrid::new(x, y, z);
         let engine = self as *mut Engine;
-        rs_vm::engine::with_engine(self, || {
+        with_engine(self, || {
             let obj = Obj::new(coord, EntityLifeTime::Despawn, id, count);
             unsafe { &mut *engine }.add_obj(coord, obj, None, 200);
         });
@@ -402,7 +403,7 @@ impl Engine {
     /// call log on. Without this, a test command is an unknown opcode.
     pub fn harness_enable_tests(&mut self) {
         self.ops.extend(ops());
-        rs_vm::ops::test::set_recording(true);
+        test::set_recording(true);
     }
 
     /// Returns the world to its just-started state between tests: every
@@ -468,9 +469,9 @@ fn subject_of(trigger: ServerTriggerType) -> Subject {
 /// - `TEST_OP` -- fires a trigger against a loc at a coord, or the first npc
 ///   of a type, with the active player as subject.
 pub fn ops() -> OpsRegistry {
-    let mut ops = rs_vm::ops::test::build();
-    ops.insert(rs_pack::cache::script::SETUP_PLAYER, setup_player);
-    ops.insert(rs_pack::cache::script::TEST_OP, test_op);
+    let mut ops = test::build();
+    ops.insert(SETUP_PLAYER, setup_player);
+    ops.insert(TEST_OP, test_op);
     ops
 }
 
@@ -486,7 +487,7 @@ fn setup_player(s: &mut ScriptState) -> Result<(), ScriptError> {
         .map(|active| active.uid())
         .ok_or_else(|| ScriptError::Runtime("setup_player: login did not land".into()))?;
     SESSIONS.with(|s| s.borrow_mut().push(client));
-    rs_vm::ops::test::forget_calls();
+    test::forget_calls();
     s.active_player = Some(uid);
     s.pointers.add(ScriptPointer::ActivePlayer);
     s.pointers.add(ScriptPointer::ProtectedActivePlayer);

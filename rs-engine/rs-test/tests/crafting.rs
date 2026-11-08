@@ -31,6 +31,7 @@ use rs_engine::harness::HarnessClient;
 use rs_protocol::network::game::client_prot::ClientProt;
 use rs_protocol::network::game::server_prot::ServerProt;
 use rs_test::runner;
+use std::sync::Mutex;
 
 const CRAFTING: usize = 12;
 const XP_COUNTER: u16 = 1801;
@@ -62,7 +63,7 @@ const UNHOLY_NEED: i32 = SILVER_IF | 26;
 
 /// Every engine in this binary shares rs-pathfinder's process-static
 /// collision map: the cases take turns.
-static TURN: std::sync::Mutex<()> = std::sync::Mutex::new(());
+static TURN: Mutex<()> = Mutex::new(());
 
 fn obj(engine: &Engine, name: &str) -> u16 {
     *engine

@@ -192,9 +192,7 @@ pub fn get_param_value_for_type(
         "component" if value.contains(':') => {
             return Some(ParamValue::Int(
                 registry
-                    .component_hashes
-                    .get(value)
-                    .copied()
+                    .component_hash(value)
                     .or_else(|| {
                         let (interface, component) = value.split_once(':')?;
                         let interface = registry

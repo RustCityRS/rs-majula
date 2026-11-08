@@ -15,11 +15,13 @@ use rs_engine::harness::HarnessClient;
 use rs_protocol::network::game::client_prot::ClientProt;
 use rs_test::runner;
 use rs_test::talk::{explore, talk_to};
+use rs_vm::ops::test::{calls_for, set_recording};
 use rsmod::rsmod::collision::collision_strategy::CollisionType;
+use std::sync::Mutex;
 
 /// Every engine in this binary shares rs-pathfinder's process-static
 /// collision map: the cases take turns.
-static TURN: std::sync::Mutex<()> = std::sync::Mutex::new(());
+static TURN: Mutex<()> = Mutex::new(());
 
 /// A spawn of npc `name`: its nid, and a tile beside it that one step from
 /// the npc reaches (npcs wander).
@@ -145,7 +147,7 @@ fn the_crystal_key_halves_join() {
             engine.cycle();
         }
         client.packets();
-        rs_vm::ops::test::set_recording(true);
+        set_recording(true);
         let backpack_if: i32 = 149 << 16;
         let mut p = ClientPacket::new();
         p.p4(backpack_if)
@@ -169,7 +171,7 @@ fn the_crystal_key_halves_join() {
             (1, 0, 0)
         );
         assert!(
-            rs_vm::ops::test::calls_for("mes")
+            calls_for("mes")
                 .iter()
                 .any(|m| m == "You join the two halves of the key together.")
         );

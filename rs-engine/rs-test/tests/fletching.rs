@@ -16,8 +16,10 @@ mod client_packet;
 use client_packet::ClientPacket;
 use rs_engine::Engine;
 use rs_engine::harness::HarnessClient;
+use rs_pack::cache::VarValue;
 use rs_protocol::network::game::client_prot::ClientProt;
 use rs_test::runner;
+use std::sync::Mutex;
 
 const FLETCHING: usize = 9;
 /// 2011's xp counter, which counts ten times what `~givexp` pays.
@@ -25,7 +27,7 @@ const XP_COUNTER: u16 = 1801;
 
 // The cases share one loaded engine and each starts with a reset, which would
 // log the others' fletchers out: one at a time.
-static TURN: std::sync::Mutex<()> = std::sync::Mutex::new(());
+static TURN: Mutex<()> = Mutex::new(());
 
 /// `inventory:inv`, the backpack component `[login]` binds `inv` to.
 const BACKPACK: i32 = 149 << 16;
@@ -179,9 +181,7 @@ fn a_knife_cuts_achey_logs_into_ogre_arrow_shafts() {
         backpack.set(1, logs, 1);
         player.stats.levels[FLETCHING] = 5;
         player.stats.base_levels[FLETCHING] = 5;
-        player
-            .vars
-            .set(chompybird, rs_pack::cache::VarValue::Int(1));
+        player.vars.set(chompybird, VarValue::Int(1));
         let xp = player.stats.xp[FLETCHING];
         let counted = player.vars.get(XP_COUNTER).as_int();
         engine.cycle();

@@ -5,6 +5,8 @@ use crate::network::game::server_prot_message::{ServerProtMessage, ServerProtMes
 #[cfg(since_647)]
 use crate::network::game::server_prot_priority::ServerProtPriority;
 #[cfg(since_647)]
+use rs_io::packet::BitWriter;
+#[cfg(since_647)]
 use rs_io::{Packet, PacketFrame};
 #[cfg(since_647)]
 use rs_protocol_macros::server_prot;
@@ -51,7 +53,7 @@ impl ServerProtMessage for RebuildRegion {
         }
         let bit_bytes = (bit_count + 7) >> 3;
         let mut bits_pkt = Packet::new(bit_bytes);
-        let mut writer = rs_io::packet::BitWriter::new();
+        let mut writer = BitWriter::new();
         for tmpl in &self.templates {
             match tmpl {
                 Some(encoded) => {

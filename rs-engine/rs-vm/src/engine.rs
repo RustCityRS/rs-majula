@@ -35,6 +35,7 @@ use rs_pack::cache::wordenc::WordEncProvider;
 use rs_pack::types::{LocAngle, LocShape};
 use rs_util::random::JavaRandom;
 use std::cell::Cell;
+use std::ptr::null_mut;
 use std::sync::Arc;
 
 /// Engine-level operations available to the script VM.
@@ -1105,9 +1106,9 @@ pub trait ScriptPlayer {
     fn if_opentop(&mut self, com: u16);
 
     /// Rev-647: mounts a sub-interface at a parent component hash
-    /// (`interface << 16 | component`).
+    /// (`interface << 16 | component`), as the type of the sub that holds it.
     #[cfg(since_647)]
-    fn if_opensub(&mut self, sub_id: u16, parent_hash: i32, walkable: u8);
+    fn if_opensub(&mut self, sub_id: u16, parent_hash: i32);
 
     /// Rev-647: closes whatever sub-interface is mounted at the parent
     /// component hash.
@@ -2143,7 +2144,7 @@ pub trait ScriptNpc {
 }
 
 thread_local! {
-    static ENGINE_PTR: Cell<*mut ()> = const { Cell::new(std::ptr::null_mut()) };
+    static ENGINE_PTR: Cell<*mut ()> = const { Cell::new(null_mut()) };
 }
 
 /// Stores raw engine and cache pointers into thread-local storage.

@@ -1,3 +1,5 @@
+use crate::ScriptError;
+
 /// Identifies which entity pointer slot is active within a [`ScriptState`](crate::state::ScriptState).
 ///
 /// Each variant corresponds to one of the VM's entity reference fields
@@ -156,7 +158,7 @@ impl ScriptPointerSet {
         if self.has(ptr) {
             Ok(())
         } else {
-            Err(crate::ScriptError::Runtime(format!(
+            Err(ScriptError::Runtime(format!(
                 "required pointer not set: {}",
                 ptr.name()
             )))

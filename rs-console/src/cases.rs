@@ -2,9 +2,10 @@ use crate::users::{name_key, now_ms};
 use rs_admin_api::{Recovery, RecoveryEvidence};
 use serde::{Deserialize, Serialize};
 use std::collections::{BTreeMap, BTreeSet, HashMap, HashSet};
-use std::io::Write;
+use std::fs::{self, OpenOptions};
+use std::io::{self, Write};
 use std::path::PathBuf;
-use std::sync::Mutex;
+use std::sync::{Mutex, MutexGuard};
 use std::time::{Duration, Instant};
 use tracing::warn;
 
@@ -716,7 +717,7 @@ impl Cases {
             next_id: 1,
             ..Inner::default()
         };
-        if let Ok(text) = std::fs::read_to_string(&path) {
+        if let Ok(text) = fs::read_to_string(&path) {
             for line in text.lines().filter(|l| !l.trim().is_empty()) {
                 match serde_json::from_str::<Entry>(line) {
                     Ok(entry) => match inner.check(&entry) {
@@ -734,13 +735,13 @@ impl Cases {
         }
     }
 
-    fn lock(&self) -> std::sync::MutexGuard<'_, Inner> {
+    fn lock(&self) -> MutexGuard<'_, Inner> {
         self.inner.lock().unwrap_or_else(|e| e.into_inner())
     }
 
-    fn append(&self, entries: &[Entry]) -> std::io::Result<()> {
+    fn append(&self, entries: &[Entry]) -> io::Result<()> {
         if let Some(dir) = self.path.parent() {
-            std::fs::create_dir_all(dir)?;
+            fs::create_dir_all(dir)?;
         }
         let mut lines = Vec::new();
         for entry in entries {
@@ -748,7 +749,7 @@ impl Cases {
             lines.push(b'\n');
         }
         // One write, so a change of several entries lands whole or not at all.
-        std::fs::OpenOptions::new()
+        OpenOptions::new()
             .create(true)
             .append(true)
             .open(&self.path)?
@@ -882,7 +883,7 @@ impl Cases {
     ) -> Result<usize, String> {
         let mut inner = self.lock();
         let at_ms = now_ms();
-        let mut seen = std::collections::HashSet::new();
+        let mut seen = HashSet::new();
         let entries: Vec<Entry> = keys
             .into_iter()
             .filter(|k| inner.dismissed.contains_key(k) != dismissed && seen.insert(k.clone()))
@@ -1074,9 +1075,11 @@ impl Cases {
 #[cfg(test)]
 mod tests {
     use super::*;
+    use std::env;
+    use std::thread;
 
     fn temp_log(tag: &str) -> PathBuf {
-        std::env::temp_dir().join(format!("rs-console-cases-{tag}-{}.jsonl", now_ms()))
+        env::temp_dir().join(format!("rs-console-cases-{tag}-{}.jsonl", now_ms()))
     }
 
     fn chat(id: i64) -> Evidence {
@@ -1140,7 +1143,7 @@ mod tests {
             .create("Kim", "Next".into(), "Eve".into(), Priority::Low, vec![])
             .unwrap();
         assert_eq!(next.id, 2);
-        let _ = std::fs::remove_file(path);
+        let _ = fs::remove_file(path);
     }
 
     #[test]
@@ -1168,7 +1171,7 @@ mod tests {
         looked.extend(seen(&theirs));
         assert!(cases.unread("Ash", &looked).is_empty());
         // Their own changes since don't count; others' do.
-        std::thread::sleep(Duration::from_millis(2));
+        thread::sleep(Duration::from_millis(2));
         cases
             .change("ash", mine.id, |_| {
                 Ok(vec![Change::Comment {
@@ -1185,7 +1188,7 @@ mod tests {
             })
             .unwrap();
         assert_eq!(cases.unread("Ash", &looked), HashSet::from([theirs.id]));
-        let _ = std::fs::remove_file(path);
+        let _ = fs::remove_file(path);
     }
 
     #[test]
@@ -1236,9 +1239,9 @@ mod tests {
         assert_eq!(case.resolution, None);
 
         // Only what took is in the log.
-        let lines = std::fs::read_to_string(&path).unwrap().lines().count();
+        let lines = fs::read_to_string(&path).unwrap().lines().count();
         assert_eq!(lines, 4);
-        let _ = std::fs::remove_file(path);
+        let _ = fs::remove_file(path);
     }
 
     fn appeal(issued_by: Option<&str>) -> Change {
@@ -1302,7 +1305,7 @@ mod tests {
             .create("Kim", "T".into(), "Eve".into(), Priority::Low, vec![])
             .unwrap();
         assert!(cases.change("Kim", plain.id, decide).is_err());
-        let _ = std::fs::remove_file(path);
+        let _ = fs::remove_file(path);
     }
 
     #[test]
@@ -1374,7 +1377,7 @@ mod tests {
             .create("Kim", "T".into(), "Eve".into(), Priority::Low, vec![])
             .unwrap();
         assert!(cases.change("Kim", plain.id, checked(1)).is_err());
-        let _ = std::fs::remove_file(path);
+        let _ = fs::remove_file(path);
     }
 
     #[test]
@@ -1390,7 +1393,7 @@ mod tests {
         assert_eq!(triage["report:1"].dismissed.as_ref().unwrap().by, "Ash");
         assert!(triage["report:2"].dismissed.is_none());
         assert_eq!(triage["report:3"].dismissed.as_ref().unwrap().by, "Kim");
-        let _ = std::fs::remove_file(path);
+        let _ = fs::remove_file(path);
     }
 
     #[test]
@@ -1455,7 +1458,7 @@ mod tests {
         cases.change("Ash", case.id, remove(9000, 12000)).unwrap();
         assert!(in_triage(&cases).is_empty());
         assert!(in_triage(&Cases::open(path.clone())).is_empty());
-        let _ = std::fs::remove_file(path);
+        let _ = fs::remove_file(path);
     }
 
     #[test]

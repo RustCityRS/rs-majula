@@ -233,7 +233,10 @@ pub fn walk(path: &Path) -> Vec<PathBuf> {
     };
     for entry in entries.flatten() {
         let path = entry.path();
-        if path.is_dir() {
+        if entry
+            .file_type()
+            .is_ok_and(|kind| kind.is_dir() || kind.is_symlink() && path.is_dir())
+        {
             results.extend(walk(&path));
         } else {
             results.push(path);

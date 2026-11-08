@@ -81,16 +81,16 @@ if (%option_chat = 0) {
 [if_button,options:optpm]
 if_close;
 if (getwindowmode = 1) {
-    if_opensub(pmsetup, toplevel:side12, ^true);
+    if_opensub(pmsetup, toplevel:side12);
 } else {
-    if_opensub(pmsetup, toplevel_fullscreen:side12, ^true);
+    if_opensub(pmsetup, toplevel_fullscreen:side12);
 }
 
 [if_button,pmsetup:close]
 if (getwindowmode = 1) {
-    if_opensub(options, toplevel:side12, ^true);
+    if_opensub(options, toplevel:side12);
 } else {
-    if_opensub(options, toplevel_fullscreen:side12, ^true);
+    if_opensub(options, toplevel_fullscreen:side12);
 }
 
 // No split (com41) is 0, as 289's off. Each private colour (com49-66) splits

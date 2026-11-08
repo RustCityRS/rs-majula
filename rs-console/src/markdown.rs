@@ -1,3 +1,4 @@
+use pulldown_cmark::html::push_html;
 use pulldown_cmark::{CowStr, Event, Options, Parser, Tag, TagEnd};
 use rs_admin_api::media;
 
@@ -87,7 +88,7 @@ pub fn render(markdown: &str) -> String {
         out.push(Event::InlineHtml(html.into()));
     }
     let mut html = String::with_capacity((markdown.len() * 3) >> 1);
-    pulldown_cmark::html::push_html(&mut html, out.into_iter());
+    push_html(&mut html, out.into_iter());
     html
 }
 

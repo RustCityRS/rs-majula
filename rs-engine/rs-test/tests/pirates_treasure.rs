@@ -15,8 +15,9 @@ use rs_pack::cache::VarValue;
 use rs_protocol::network::game::client_prot::ClientProt;
 use rs_test::runner;
 use rs_test::talk::{Conversation, converse, talk_to};
+use std::sync::Mutex;
 
-static TURN: std::sync::Mutex<()> = std::sync::Mutex::new(());
+static TURN: Mutex<()> = Mutex::new(());
 
 const BACKPACK: i32 = 149 << 16;
 /// Locs in cache 786's map (maps/l*.jm2): Luthas's crate, Wydin's back-room door and crate, and

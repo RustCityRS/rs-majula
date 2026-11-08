@@ -17,7 +17,9 @@ use rs_engine::Engine;
 use rs_engine::harness::HarnessClient;
 use rs_entity::player::StaffModLevel;
 use rs_protocol::network::game::client_prot::ClientProt;
+use rs_protocol::network::game::server::npc_info::add_direction;
 use rs_test::runner;
+use rs_vm::ops::test::forget_calls;
 
 /// `inventory:inv`, the backpack component `[login]` binds `inv` to.
 const BACKPACK: i32 = 149 << 16;
@@ -79,7 +81,7 @@ fn developer(engine: &mut Engine, name: &str) -> HarnessClient {
         engine.cycle();
     }
     client.packets();
-    rs_vm::ops::test::forget_calls();
+    forget_calls();
     client
 }
 
@@ -360,7 +362,7 @@ fn the_mime_s_audience_faces_the_stage() {
                         (c.z() * 2 + 1) as i32 - fz as i32,
                     )
                 });
-                let dir = rs_protocol::network::game::server::npc_info::add_direction(facing);
+                let dir = add_direction(facing);
                 (n.npc.base_type, dir)
             })
             .collect();

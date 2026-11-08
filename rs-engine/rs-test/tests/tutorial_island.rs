@@ -35,7 +35,10 @@ use rs_pack::cache::VarValue;
 use rs_pack::types::NpcStat;
 use rs_protocol::network::game::client_prot::ClientProt;
 use rs_test::runner;
+use rs_vm::ops::test::{calls_for, forget_calls, set_recording};
 use rs_vm::state::ExecutionState;
+use std::fs;
+use std::sync::Mutex;
 
 /// The chatbox's foreground slot, `chatbox:com7`.
 const CHAT_FOREGROUND: i32 = 752 << 16 | 7;
@@ -62,7 +65,7 @@ const OPEN_PLAYER_CONTROLS: i32 = 195;
 const TOGGLED_ON_RUN: i32 = 200;
 const BEFORE_ATTACKING_MELEE: i32 = 430;
 
-static TURN: std::sync::Mutex<()> = std::sync::Mutex::new(());
+static TURN: Mutex<()> = Mutex::new(());
 
 fn varp_id(engine: &Engine, name: &str) -> u16 {
     *engine
@@ -119,7 +122,7 @@ fn loc_id(name: &str) -> u16 {
         env!("CARGO_MANIFEST_DIR"),
         "/../../content/647/pack/loc.pack"
     );
-    std::fs::read_to_string(pack)
+    fs::read_to_string(pack)
         .expect("loc.pack")
         .lines()
         .find_map(|l| l.split_once('=').filter(|(_, n)| *n == name))
@@ -461,8 +464,8 @@ fn the_tutorial_rat_bites_with_the_melee_mark() {
         let rat = rat_beside(engine);
         // Alive the whole fight: the bites are under test, not the kill.
         engine.get_npc_mut(rat).unwrap().npc.stats.levels[NpcStat::Hitpoints as usize] = 3000;
-        rs_vm::ops::test::set_recording(true);
-        rs_vm::ops::test::forget_calls();
+        set_recording(true);
+        forget_calls();
         let mut p = ClientPacket::new();
         p.p1_alt2(0).p2_alt3(rat as i32);
         client.send(ClientProt::OpNpc2, &p.finish());
@@ -476,13 +479,13 @@ fn the_tutorial_rat_bites_with_the_melee_mark() {
             if tick % 20 == 0 {
                 client.send(ClientProt::NoTimeout, &[]);
             }
-            for call in rs_vm::ops::test::calls_for("damage") {
+            for call in calls_for("damage") {
                 let parts: Vec<i32> = call.split(',').map(|v| v.parse().unwrap()).collect();
                 bites.push((parts[0], parts[1]));
             }
-            rs_vm::ops::test::forget_calls();
+            forget_calls();
         }
-        rs_vm::ops::test::set_recording(false);
+        set_recording(false);
         assert!(
             bites.iter().all(|(mark, _)| [0, 8, 10].contains(mark)),
             "melee, its crit or a miss: {bites:?}"
@@ -523,8 +526,8 @@ fn the_tutorial_rat_spares_the_last_hitpoint() {
         let rat = rat_beside(engine);
         // Alive the whole fight: the bites are under test, not the kill.
         engine.get_npc_mut(rat).unwrap().npc.stats.levels[NpcStat::Hitpoints as usize] = 3000;
-        rs_vm::ops::test::set_recording(true);
-        rs_vm::ops::test::forget_calls();
+        set_recording(true);
+        forget_calls();
         let mut p = ClientPacket::new();
         p.p1_alt2(0).p2_alt3(rat as i32);
         client.send(ClientProt::OpNpc2, &p.finish());
@@ -536,13 +539,13 @@ fn the_tutorial_rat_spares_the_last_hitpoint() {
             if tick % 20 == 0 {
                 client.send(ClientProt::NoTimeout, &[]);
             }
-            for call in rs_vm::ops::test::calls_for("damage") {
+            for call in calls_for("damage") {
                 let parts: Vec<i32> = call.split(',').map(|v| v.parse().unwrap()).collect();
                 bites.push((tick, before, parts[0], parts[1]));
             }
-            rs_vm::ops::test::forget_calls();
+            forget_calls();
         }
-        rs_vm::ops::test::set_recording(false);
+        set_recording(false);
         assert!(
             bites
                 .iter()

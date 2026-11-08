@@ -2,6 +2,8 @@ use crate::network::game::server::ServerProtMessage;
 use crate::network::game::server_prot::ServerProt;
 use crate::network::game::server_prot_message::ServerProtMessageInfo;
 use crate::network::game::server_prot_priority::ServerProtPriority;
+#[cfg(since_647)]
+use rs_io::packet::BitWriter;
 use rs_io::{Packet, PacketFrame};
 use rs_protocol_macros::server_prot;
 #[cfg(rev = "225")]
@@ -105,7 +107,7 @@ impl ServerProtMessage for RebuildNormal {
             let total_bits = 30 + other_count * 18;
             let bit_bytes = (total_bits + 7) >> 3;
             let mut bits_pkt = Packet::new(bit_bytes);
-            let mut writer = rs_io::packet::BitWriter::new();
+            let mut writer = BitWriter::new();
 
             let player_pos = (self.player_z as u32 & 0x3FFF)
                 | ((self.player_x as u32 & 0x3FFF) << 14)

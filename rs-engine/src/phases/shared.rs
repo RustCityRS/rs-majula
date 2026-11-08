@@ -9,6 +9,8 @@ use rs_vm::state::{LocRef, ObjRef};
 use rs_vm::subject::ScriptSubject;
 use rs_zone::zone_map::ZoneMap;
 use rsmod::rsmod::flag::collision_flag::CollisionFlag;
+use std::any::Any;
+use std::borrow::Cow;
 
 /// Identifies an entity by type and slot index for zone and collision
 /// tracking operations.
@@ -715,12 +717,12 @@ impl Engine {
 ///
 /// A `Cow<str>` containing the panic message, borrowing from the payload
 /// when possible.
-pub(crate) fn panic_message(panic: &Box<dyn std::any::Any + Send>) -> std::borrow::Cow<'_, str> {
+pub(crate) fn panic_message(panic: &Box<dyn Any + Send>) -> Cow<'_, str> {
     if let Some(s) = panic.downcast_ref::<&str>() {
-        std::borrow::Cow::Borrowed(*s)
+        Cow::Borrowed(*s)
     } else if let Some(s) = panic.downcast_ref::<String>() {
-        std::borrow::Cow::Borrowed(s.as_str())
+        Cow::Borrowed(s.as_str())
     } else {
-        std::borrow::Cow::Borrowed("unknown panic")
+        Cow::Borrowed("unknown panic")
     }
 }

@@ -24,6 +24,7 @@ use rs_engine::harness::HarnessClient;
 use rs_entity::InteractionTarget;
 use rs_protocol::network::game::client_prot::ClientProt;
 use rs_test::runner;
+use rs_vm::ops::test::calls_for;
 use rs_vm::trigger::ServerTriggerType;
 
 /// `inventory:inv`, the backpack component `[login]` binds `inv` to.
@@ -127,14 +128,14 @@ fn item_on_ground_obj(engine: &mut Engine) {
     // And the content answers it, through the engine's own interaction.
     let lit = (0..5).any(|_| {
         engine.cycle();
-        rs_vm::ops::test::calls_for("mes")
+        calls_for("mes")
             .iter()
             .any(|m| m == "You attempt to light the logs.")
     });
     assert!(
         lit,
         "[opobju,_category_22] never tried to light the logs; mes calls: {:?}",
-        rs_vm::ops::test::calls_for("mes")
+        calls_for("mes")
     );
 }
 

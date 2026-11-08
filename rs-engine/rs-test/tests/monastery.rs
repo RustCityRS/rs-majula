@@ -17,9 +17,11 @@ mod client_packet;
 use client_packet::ClientPacket;
 use rs_engine::Engine;
 use rs_engine::harness::HarnessClient;
+use rs_pack::cache::VarValue;
 use rs_protocol::network::game::client_prot::ClientProt;
 use rs_protocol::network::game::server_prot::ServerProt;
 use rs_test::runner;
+use std::sync::Mutex;
 
 const PRAYER: usize = 5;
 const ALTAR: (u16, u16, u16) = (2640, 3051, 3498);
@@ -27,7 +29,7 @@ const LADDER: (u16, u16, u16) = (2641, 3057, 3483);
 
 // The cases share one loaded engine and each starts with a reset, which would
 // log the others' players out: one at a time.
-static TURN: std::sync::Mutex<()> = std::sync::Mutex::new(());
+static TURN: Mutex<()> = Mutex::new(());
 
 fn op_loc1(client: &mut HarnessClient, (loc, x, z): (u16, u16, u16)) {
     let mut p = ClientPacket::new();
@@ -140,7 +142,7 @@ fn the_monastery_ladder_keeps_out_all_but_the_order() {
             .harness_player_mut(client.pid)
             .unwrap()
             .vars
-            .set(guild, rs_pack::cache::VarValue::Int(1));
+            .set(guild, VarValue::Int(1));
         op_loc1(&mut client, LADDER);
         let (said, _) = run(engine, &mut client, 8);
         let player = engine.harness_player(client.pid).unwrap();

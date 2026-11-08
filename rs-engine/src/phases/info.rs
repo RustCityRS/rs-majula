@@ -1,5 +1,6 @@
 use crate::engine::Engine;
 use crate::info::{NpcSnapshot, PlayerSnapshot};
+use crate::phases::shared::panic_message;
 use rs_entity::InteractionTarget;
 #[cfg(since_647)]
 use rs_entity::MoveSpeed;
@@ -52,7 +53,7 @@ impl Engine {
                 Ok(()) => break,
                 Err(panic) => {
                     let pid = pids[start];
-                    let msg = crate::phases::shared::panic_message(&panic);
+                    let msg = panic_message(&panic);
                     error!("panic during player info for pid {pid}: {msg}");
                     self.emergency_remove_player(pid);
                     start += 1;
@@ -132,7 +133,7 @@ impl Engine {
                 Ok(()) => break,
                 Err(panic) => {
                     let nid = nids[start];
-                    let msg = crate::phases::shared::panic_message(&panic);
+                    let msg = panic_message(&panic);
                     error!("panic during npc info for nid {nid}: {msg}");
                     self.emergency_deactivate_npc(nid);
                     start += 1;

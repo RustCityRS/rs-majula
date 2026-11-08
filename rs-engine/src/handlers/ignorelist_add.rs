@@ -7,6 +7,8 @@ use crate::handlers::ClientGameHandler;
 use rs_protocol::network::game::client_prot::IgnoreListAdd;
 #[cfg(before_647)]
 use rs_util::base37::is_valid_userhash;
+#[cfg(since_647)]
+use rs_util::base37::to_userhash;
 use rs_vm::ScriptError;
 use rs_vm::engine::ScriptPlayer;
 
@@ -55,7 +57,7 @@ impl ClientGameHandler for IgnoreListAdd {
             self.user37
         };
         #[cfg(since_647)]
-        let user37 = match rs_util::base37::to_userhash(&self.name) {
+        let user37 = match to_userhash(&self.name) {
             0 => return Ok(()),
             hash => hash as i64,
         };

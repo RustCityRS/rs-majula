@@ -18,8 +18,9 @@ use rs_protocol::network::game::server_prot::ServerProt;
 use rs_test::runner;
 use rs_test::talk::{Conversation, converse, talk_to};
 use rsmod::rsmod::collision::collision_strategy::CollisionType;
+use std::sync::Mutex;
 
-static TURN: std::sync::Mutex<()> = std::sync::Mutex::new(());
+static TURN: Mutex<()> = Mutex::new(());
 
 const CRAFTING: usize = 12;
 const BACKPACK: i32 = 149 << 16;

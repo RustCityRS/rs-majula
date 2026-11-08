@@ -1,4 +1,5 @@
 use crate::{Db, Error};
+use sqlx::query_as;
 use std::collections::{HashMap, HashSet};
 
 /// A timestamp column as Unix milliseconds.
@@ -207,11 +208,10 @@ impl Db {
         depth: u8,
         limit: usize,
     ) -> Result<Vec<ChainLink>, Error> {
-        let Some((start,)) =
-            sqlx::query_as::<_, (i64,)>("SELECT id FROM players WHERE name_hash = $1")
-                .bind(name_hash as i64)
-                .fetch_optional(&self.pool)
-                .await?
+        let Some((start,)) = query_as::<_, (i64,)>("SELECT id FROM players WHERE name_hash = $1")
+            .bind(name_hash as i64)
+            .fetch_optional(&self.pool)
+            .await?
         else {
             return Ok(Vec::new());
         };

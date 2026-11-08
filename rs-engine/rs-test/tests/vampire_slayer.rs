@@ -11,16 +11,22 @@ mod client_packet;
 use client_packet::ClientPacket;
 use rs_engine::Engine;
 use rs_engine::harness::HarnessClient;
+use rs_inv::{Inventory, StackMode};
+use rs_pack::ParamValue;
 use rs_pack::cache::VarValue;
 use rs_pack::types::NpcStat;
 use rs_protocol::network::game::client_prot::ClientProt;
 use rs_test::runner;
 use rs_test::talk::{converse, explore, talk_to};
+use rs_vm::ops::test::{calls_for, forget_calls, set_recording};
 use rsmod::rsmod::collision::collision_strategy::CollisionType;
+use std::collections::BTreeSet;
+use std::fs;
+use std::sync::Mutex;
 
 /// Every engine in this binary shares rs-pathfinder's process-static
 /// collision map: the cases take turns.
-static TURN: std::sync::Mutex<()> = std::sync::Mutex::new(());
+static TURN: Mutex<()> = Mutex::new(());
 
 /// 2011's coffin in Draynor Manor's basement (`l48_152`: 0 8 57, 3x3).
 const COFFIN: (u16, u16, u16) = (158, 3080, 9785);
@@ -428,7 +434,7 @@ fn the_count_is_staked_and_morgan_ends_the_quest() {
             .unwrap()
             .invs
             .entry(bank)
-            .or_insert_with(|| rs_inv::Inventory::with_stack_mode(516, rs_inv::StackMode::Always))
+            .or_insert_with(|| Inventory::with_stack_mode(516, StackMode::Always))
             .set(0, stake, 2);
         let xp = engine.harness_player(client.pid).unwrap().stats.xp[ATTACK];
         let talk = converse(engine, &mut client, &[], 300);
@@ -465,7 +471,7 @@ fn pack_id(kind: &str, name: &str) -> i32 {
         "{}/../../content/647/pack/{kind}.pack",
         env!("CARGO_MANIFEST_DIR")
     );
-    std::fs::read_to_string(&path)
+    fs::read_to_string(&path)
         .expect(&path)
         .lines()
         .find_map(|l| {
@@ -477,12 +483,12 @@ fn pack_id(kind: &str, name: &str) -> i32 {
 
 /// The frame sets a seq's frames come from, from 647's unpacked cache
 /// (`all.seq`: `frameN=<delay>:<frame>:<frame set>`).
-fn frame_sets(seq: &str) -> std::collections::BTreeSet<String> {
+fn frame_sets(seq: &str) -> BTreeSet<String> {
     let path = format!(
         "{}/../../content/647/scripts/globalscript/_unpack/all.seq",
         env!("CARGO_MANIFEST_DIR")
     );
-    let all = std::fs::read_to_string(&path).expect(&path);
+    let all = fs::read_to_string(&path).expect(&path);
     let head = format!(
         "[{seq}]
 "
@@ -529,7 +535,7 @@ fn the_count_fights_on_his_own_skeleton() {
         ] {
             let value = params.get(&pack_id("param", param));
             assert!(
-                matches!(value, Some(rs_pack::ParamValue::Int(v)) if *v == seq),
+                matches!(value, Some(ParamValue::Int(v)) if *v == seq),
                 "{param} is {value:?}, not {seq}"
             );
             assert_eq!(frame_sets(&format!("seq_{seq}")), own, "{param} {seq}");
@@ -596,14 +602,14 @@ fn the_coffin_plays_2011s_cutscene() {
         let mut risen: Option<(usize, u16, u16, u16)> = None;
         // The seqs the player plays, by tick.
         let mut played: Vec<(usize, String)> = Vec::new();
-        rs_vm::ops::test::set_recording(true);
-        rs_vm::ops::test::forget_calls();
+        set_recording(true);
+        forget_calls();
         for tick in 0..32 {
             engine.cycle();
-            for seq in rs_vm::ops::test::calls_for("anim") {
+            for seq in calls_for("anim") {
                 played.push((tick, seq));
             }
-            rs_vm::ops::test::forget_calls();
+            forget_calls();
             let packets = client.packets();
             for (_, m) in HarnessClient::game_messages(&packets) {
                 said.push((tick, m));
@@ -630,7 +636,7 @@ fn the_coffin_plays_2011s_cutscene() {
                 client.send(ClientProt::NoTimeout, &[]);
             }
         }
-        rs_vm::ops::test::set_recording(false);
+        set_recording(false);
         no_script_errors(engine, "the cutscene");
         let at = |text: &str| {
             said.iter()

@@ -15,8 +15,10 @@ mod client_packet;
 use client_packet::ClientPacket;
 use rs_engine::Engine;
 use rs_engine::harness::HarnessClient;
+use rs_pack::cache::VarValue;
 use rs_protocol::network::game::client_prot::ClientProt;
 use rs_test::runner;
+use rs_vm::ops::test::{calls_for, forget_calls};
 
 /// `inventory:inv`, the backpack component `[login]` binds `inv` to.
 const BACKPACK: i32 = 149 << 16;
@@ -51,7 +53,7 @@ fn player_holding(engine: &mut Engine, name: &str, items: &[u16]) -> HarnessClie
     for (slot, &obj) in items.iter().enumerate() {
         backpack.set(slot as u16, obj, 1);
     }
-    rs_vm::ops::test::forget_calls();
+    forget_calls();
     client
 }
 
@@ -72,7 +74,7 @@ fn if_buttont(from: (i32, i32), to: (i32, i32)) -> Vec<u8> {
 }
 
 fn lit_logs(engine: &Engine, pid: u16) -> bool {
-    let tried = rs_vm::ops::test::calls_for("mes")
+    let tried = calls_for("mes")
         .iter()
         .any(|m| m == "You attempt to light the logs.");
     let inv = *engine.cache.invs.debugnames.get("inv").unwrap();
@@ -112,7 +114,7 @@ fn something_used_on_an_item_reaches_its_held_trigger() {
         assert!(
             lit_logs(engine, client.pid),
             "[opheldu,tinderbox] dropped and lit the logs; mes: {:?}",
-            rs_vm::ops::test::calls_for("mes")
+            calls_for("mes")
         );
 
         // The logs used on the tinderbox: the target is searched first, so the
@@ -163,7 +165,7 @@ fn something_used_on_an_item_reaches_its_held_trigger() {
         engine.harness_inputs();
         let player = engine.harness_player(client.pid).unwrap();
         assert_eq!(player.last_use_item, None, "nothing recorded as used");
-        assert!(rs_vm::ops::test::calls_for("mes").is_empty(), "nothing ran");
+        assert!(calls_for("mes").is_empty(), "nothing ran");
     });
 }
 
@@ -185,9 +187,7 @@ fn eating_cave_nightshade_hurts_150_life_points() {
         player.stats.levels[3] = 99;
         player.stats.base_levels[3] = 99;
         let bit0 = player.vars.get(1240).as_int() & 1;
-        player
-            .vars
-            .set(1240, rs_pack::cache::VarValue::Int((990 << 1) | bit0));
+        player.vars.set(1240, VarValue::Int((990 << 1) | bit0));
         engine.cycle();
         let before = life(engine, client.pid);
         assert_eq!(before, 990);
@@ -197,7 +197,7 @@ fn eating_cave_nightshade_hurts_150_life_points() {
         for _ in 0..5 {
             engine.cycle();
         }
-        let said = rs_vm::ops::test::calls_for("mes");
+        let said = calls_for("mes");
         assert!(
             said.iter()
                 .any(|m| m == "The nightshade was highly poisonous."),

@@ -1,8 +1,10 @@
 use crate::users::{name_key, now_ms};
 use serde::{Deserialize, Serialize};
-use std::io::Write;
+use std::collections::HashSet;
+use std::fs::{self, OpenOptions};
+use std::io::{self, Write};
 use std::path::PathBuf;
-use std::sync::Mutex;
+use std::sync::{Mutex, MutexGuard};
 use tracing::warn;
 
 /// The longest note.
@@ -65,7 +67,7 @@ impl Notes {
             next_id: 1,
             ..Inner::default()
         };
-        if let Ok(text) = std::fs::read_to_string(&path) {
+        if let Ok(text) = fs::read_to_string(&path) {
             for line in text.lines().filter(|l| !l.trim().is_empty()) {
                 match serde_json::from_str::<Logged>(line) {
                     Ok(logged) => inner.apply(logged),
@@ -79,19 +81,19 @@ impl Notes {
         }
     }
 
-    fn lock(&self) -> std::sync::MutexGuard<'_, Inner> {
+    fn lock(&self) -> MutexGuard<'_, Inner> {
         self.inner.lock().unwrap_or_else(|e| e.into_inner())
     }
 
     /// Writes `logged` and syncs it before it takes.
     fn log(&self, inner: &mut Inner, logged: Logged) -> Result<(), String> {
-        let write = || -> std::io::Result<()> {
+        let write = || -> io::Result<()> {
             if let Some(dir) = self.path.parent() {
-                std::fs::create_dir_all(dir)?;
+                fs::create_dir_all(dir)?;
             }
             let mut line = serde_json::to_vec(&logged)?;
             line.push(b'\n');
-            let mut file = std::fs::OpenOptions::new()
+            let mut file = OpenOptions::new()
                 .create(true)
                 .append(true)
                 .open(&self.path)?;
@@ -164,7 +166,7 @@ impl Notes {
     /// there, most recently watched first.
     pub fn watched(&self) -> Vec<Note> {
         let inner = self.lock();
-        let mut seen = std::collections::HashSet::new();
+        let mut seen = HashSet::new();
         inner
             .notes
             .iter()
@@ -178,10 +180,11 @@ impl Notes {
 #[cfg(test)]
 mod tests {
     use super::*;
+    use std::env;
 
     #[test]
     fn notes_rebuild_and_only_their_author_or_an_admin_removes_them() {
-        let path = std::env::temp_dir().join(format!("rs-console-notes-{}.jsonl", now_ms()));
+        let path = env::temp_dir().join(format!("rs-console-notes-{}.jsonl", now_ms()));
         let notes = Notes::open(path.clone());
         let first = notes
             .add("Ash", "Bob", "Asks for gold a lot", false)
@@ -216,6 +219,6 @@ mod tests {
         assert_eq!(reopened.watched().len(), 1);
         // Ids carry on from the log.
         assert_eq!(reopened.add("Ash", "Zed", "x", false).unwrap().id, 5);
-        let _ = std::fs::remove_file(path);
+        let _ = fs::remove_file(path);
     }
 }

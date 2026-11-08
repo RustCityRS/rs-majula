@@ -34,11 +34,14 @@ use client_packet::ClientPacket;
 use rs_engine::Engine;
 use rs_engine::harness::HarnessClient;
 use rs_pack::ParamValue;
+use rs_pack::cache::VarValue;
 use rs_protocol::network::game::client_prot::ClientProt;
 use rs_test::runner;
+use std::fs;
+use std::ops::RangeInclusive;
 
 const THIEVING: usize = 17;
-const LUMBRIDGE_MEN: std::ops::RangeInclusive<u16> = 7873..=7879;
+const LUMBRIDGE_MEN: RangeInclusive<u16> = 7873..=7879;
 const BAKERS_STALL: (u16, u16, u16) = (34384, 2667, 3310);
 const CHEST_10_COINS: (u16, u16, u16) = (2566, 2676, 3310);
 /// Miscellania's veg stall, 289's `misc_veg_market` (786 places it at
@@ -293,7 +296,7 @@ fn miscellanias_veg_stall_can_be_robbed() {
 #[test]
 fn the_market_guards_carry_market_guard() {
     runner::on_loaded_engine(|engine| {
-        let param: i32 = std::fs::read_to_string(format!(
+        let param: i32 = fs::read_to_string(format!(
             "{}/../../content/647/pack/param.pack",
             env!("CARGO_MANIFEST_DIR")
         ))
@@ -347,9 +350,7 @@ fn a_stunned_player_cannot_walk() {
         let stunned = 2193; // `stunned`, a server-only varp (varp.pack)
         let until = engine.clock as i32 + 20;
         let player = engine.harness_player_mut(client.pid).unwrap();
-        player
-            .vars
-            .set(stunned, rs_pack::cache::VarValue::Int(until));
+        player.vars.set(stunned, VarValue::Int(until));
         player.walktrigger = Some(walktrigger);
         // A walkable tile a few steps off: a click the pathfinder cannot reach
         // queues no steps, and the walk trigger fires only on a step.

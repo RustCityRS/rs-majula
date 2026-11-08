@@ -28,9 +28,11 @@ mod client_packet;
 use client_packet::ClientPacket;
 use rs_engine::Engine;
 use rs_engine::harness::HarnessClient;
+use rs_pack::cache::VarValue;
 use rs_protocol::network::game::client_prot::ClientProt;
 use rs_protocol::network::game::server_prot::ServerProt;
 use rs_test::runner;
+use std::sync::Mutex;
 
 const FISHING: usize = 10;
 /// 2011's xp counter (varp 1801): `~givexp` adds ten to it for each xp it pays.
@@ -47,7 +49,7 @@ const APE_ATOLL: [(u16, (u16, u16)); 2] = [(1405, (2771, 2733)), (1406, (2707, 2
 
 // The cases share one loaded engine and each starts with a reset, which would
 // log the others' fishers out: one at a time.
-static TURN: std::sync::Mutex<()> = std::sync::Mutex::new(());
+static TURN: Mutex<()> = Mutex::new(());
 
 #[test]
 fn a_2011_spot_gives_shrimps() {
@@ -321,7 +323,7 @@ fn a_taught_player_lowers_the_karambwan_vessel() {
             .harness_player_mut(pid)
             .unwrap()
             .vars
-            .set(lubufu, rs_pack::cache::VarValue::Int(31));
+            .set(lubufu, VarValue::Int(31));
         op_npc1(&mut client, nid);
         let emptied = |e: &Engine| {
             e.harness_player(pid)

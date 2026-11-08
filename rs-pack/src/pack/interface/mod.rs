@@ -10,7 +10,9 @@ use crate::cache::js5::PackedCache;
 #[cfg(before_647)]
 use crate::config_crc;
 #[cfg(since_647)]
-use crate::pack::js5::{PreparedGroup, insert_archive, load_name_hashes};
+use crate::pack::incremental::{Stage, dir_key, files_under, stats_key};
+#[cfg(since_647)]
+use crate::pack::js5::{PreparedGroup, insert_archive, load_name_hashes, versions_dep};
 #[cfg(since_647)]
 use crate::pack::names::AssetNames;
 #[cfg(before_647)]
@@ -27,11 +29,11 @@ use anyhow::Result;
 #[cfg(since_647)]
 use anyhow::{Context, anyhow, bail, ensure};
 #[cfg(since_647)]
-use rayon::prelude::*;
-#[cfg(since_647)]
 use rs_io::js5::encode_group_entries;
 #[cfg(since_647)]
 use runec::clientscript::{self, HookValue, component_hook};
+#[cfg(since_647)]
+use runec::sources::roots;
 #[cfg(since_647)]
 use runec::symbol::SymbolRegistry;
 #[cfg(since_647)]
@@ -41,6 +43,8 @@ use std::fs;
 use std::path::Path;
 #[cfg(before_647)]
 use std::str::FromStr;
+#[cfg(since_647)]
+use std::sync::OnceLock;
 #[cfg(before_647)]
 use tracing::debug;
 
@@ -793,22 +797,43 @@ pub fn pack_archive(
     content_dir: &Path,
     pack_dir: &Path,
     versions: &HashMap<u8, ArchiveVersions>,
+    names: &AssetNames,
 ) -> Result<()> {
     let aid = archive::INTERFACES;
     let format = archive::archive_format(aid).unwrap();
-    let names = AssetNames::load(pack_dir)?;
     let if_files = names.files(&content_dir.join("interfaces"), "interface", &["if3"])?;
     let gids: Vec<_> = if_files.iter().map(|(gid, _)| *gid).collect();
     let name_hashes = load_name_hashes(pack_dir, aid, &gids);
-    let scripts = archive::archive_format(archive::CLIENTSCRIPT)
-        .unwrap()
-        .content_dir;
-    let registry = clientscript::registry_with_scripts(&content_dir.join(scripts), pack_dir)?;
-
-    let prepared: BTreeMap<u32, PreparedGroup> = if_files
-        .par_iter()
-        .map(|(gid, path)| {
-            let components = parse_components(&fs::read_to_string(path)?, *gid, &names, &registry)
+    let scripts = content_dir.join(
+        archive::archive_format(archive::CLIENTSCRIPT)
+            .unwrap()
+            .content_dir,
+    );
+    let stage = Stage::new(
+        "interfaces",
+        vec![
+            versions_dep(versions, aid),
+            (
+                "clientscripts".to_owned(),
+                stats_key(&files_under(&roots(&scripts))),
+            ),
+            ("pack".to_owned(), dir_key(pack_dir, &["script.pack"])),
+        ],
+    );
+    let registry = OnceLock::new();
+    let mut prepared = stage.groups(
+        names,
+        &if_files,
+        |path| vec![path.clone()],
+        |gid, path, names| {
+            let registry = match registry.get() {
+                Some(registry) => registry,
+                None => {
+                    let built = clientscript::registry_with_scripts(&scripts, pack_dir)?;
+                    registry.get_or_init(|| built)
+                }
+            };
+            let components = parse_components(&fs::read_to_string(path)?, gid, names, registry)
                 .with_context(|| path.display().to_string())?;
             let entries: Vec<(u32, Vec<u8>)> = components
                 .iter()
@@ -819,19 +844,22 @@ pub fn pack_archive(
                 .map(|(position, data)| (*position, data.as_slice()))
                 .collect();
             let data = encode_group_entries(&refs);
-            let mut group = PreparedGroup::new(aid, *gid, &data, versions)?;
+            let mut group = PreparedGroup::new(aid, gid, &data, versions)?;
             group.fit_files(entries.len());
-            group.name_hash = name_hashes.get(gid).copied().unwrap_or(-1);
-            Ok((*gid, group))
-        })
-        .collect::<Result<_>>()?;
+            Ok(group)
+        },
+    )?;
+    stage.finish(Vec::new());
+    for group in &mut prepared {
+        group.name_hash = name_hashes.get(&group.id).copied().unwrap_or(-1);
+    }
 
     insert_archive(
         store,
         aid,
         format,
         versions,
-        prepared.into_values().collect(),
+        prepared,
         "from .if3 text files",
     )?;
 

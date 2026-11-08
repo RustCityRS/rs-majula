@@ -9,6 +9,8 @@ use axum::http::{HeaderMap, HeaderName, StatusCode};
 use axum::response::{IntoResponse, Response};
 use rs_db::{Db, NewsSummary, Passwords};
 use rs_pack::cache::wordenc::WordEncProvider;
+#[cfg(before_647)]
+use rs_pack::pack::wordenc::pack_wordenc;
 use std::net::{IpAddr, SocketAddr};
 #[cfg(before_647)]
 use std::path::Path;
@@ -106,7 +108,7 @@ impl SiteConfig {
 pub fn load_wordenc() -> Option<WordEncProvider> {
     #[cfg(before_647)]
     {
-        let jag = rs_pack::pack::wordenc::pack_wordenc(Path::new(rs_pack::CONTENT_DIR));
+        let jag = pack_wordenc(Path::new(rs_pack::CONTENT_DIR));
         (!jag.is_empty()).then(|| WordEncProvider::from_jag(&jag))
     }
     // Rev 647's content has no wordenc folder yet.

@@ -2,7 +2,10 @@ pub mod log_layer;
 
 use std::collections::VecDeque;
 use std::io;
+use std::panic;
+use std::process;
 use std::sync::Arc;
+use std::thread;
 use std::time::{Duration, Instant};
 
 use anyhow::Result;
@@ -13,15 +16,16 @@ use crossterm::terminal::{
 use log_layer::{LogBuffer, LogLine};
 use mpsc::{UnboundedReceiver, unbounded_channel};
 use ratatui::Terminal;
-use ratatui::backend::CrosstermBackend;
+use ratatui::backend::{Backend, CrosstermBackend};
 use ratatui::layout::{Constraint, Direction, Layout, Rect};
 use ratatui::style::{Color, Modifier, Style};
-use ratatui::symbols;
+use ratatui::symbols::bar;
 use ratatui::text::{Line, Span};
 use ratatui::widgets::{Block, Borders, Paragraph, Sparkline, Wrap};
 use rs_engine::TickStats;
-use sysinfo::{Pid, ProcessRefreshKind, RefreshKind, System};
+use sysinfo::{Pid, ProcessRefreshKind, ProcessesToUpdate, RefreshKind, System};
 use tokio::sync::{mpsc, watch};
+use tracing::Level;
 use watch::channel;
 
 const BANNER: &str = r"
@@ -144,7 +148,7 @@ impl App {
             RefreshKind::nothing().with_processes(ProcessRefreshKind::nothing().with_memory()),
         )
         .ok();
-        let pid = Pid::from_u32(std::process::id());
+        let pid = Pid::from_u32(process::id());
         Self {
             log_buf,
             sinks,
@@ -199,7 +203,7 @@ impl App {
         {
             self.last_mem_poll = Instant::now();
             sys.refresh_processes_specifics(
-                sysinfo::ProcessesToUpdate::Some(&[self.pid]),
+                ProcessesToUpdate::Some(&[self.pid]),
                 true,
                 ProcessRefreshKind::nothing().with_memory(),
             );
@@ -265,9 +269,9 @@ impl App {
         let mut best_priority: u8 = 0;
         for line in buf.range(scan_start..) {
             let p = match line.level {
-                tracing::Level::ERROR => 4,
-                tracing::Level::WARN => 3,
-                tracing::Level::INFO => 2,
+                Level::ERROR => 4,
+                Level::WARN => 3,
+                Level::INFO => 2,
                 _ => 1,
             };
             if p >= best_priority {
@@ -339,11 +343,11 @@ fn react_to_log(line: &LogLine) -> String {
         "hmm that's concerning. filing under 'not my problem yet'"
     } else {
         match line.level {
-            tracing::Level::ERROR => "oof. we don't talk about this one.",
-            tracing::Level::WARN => "noted. adding to the 'investigate later' pile",
-            tracing::Level::INFO => "business as usual. flawless. chef's kiss.",
-            tracing::Level::DEBUG => "debugging like professionals. println? never heard of her.",
-            tracing::Level::TRACE => "we trace everything. Lost City traces nothing.",
+            Level::ERROR => "oof. we don't talk about this one.",
+            Level::WARN => "noted. adding to the 'investigate later' pile",
+            Level::INFO => "business as usual. flawless. chef's kiss.",
+            Level::DEBUG => "debugging like professionals. println? never heard of her.",
+            Level::TRACE => "we trace everything. Lost City traces nothing.",
         }
     };
 
@@ -355,17 +359,17 @@ pub async fn run(
     sinks: TuiSinks,
     guards: crate::ConnectionGuards,
 ) -> Result<()> {
-    let tui_thread_id = std::thread::current().id();
-    std::panic::set_hook(Box::new(move |info| {
-        if std::thread::current().id() == tui_thread_id {
+    let tui_thread_id = thread::current().id();
+    panic::set_hook(Box::new(move |info| {
+        if thread::current().id() == tui_thread_id {
             let _ = disable_raw_mode();
             let _ = crossterm::execute!(io::stdout(), LeaveAlternateScreen);
             eprintln!("{info}");
-            std::process::exit(1);
+            process::exit(1);
         } else {
             tracing::error!(
                 "PANIC on {:?}: {info}",
-                std::thread::current().name().unwrap_or("unnamed")
+                thread::current().name().unwrap_or("unnamed")
             );
         }
     }));
@@ -385,14 +389,11 @@ pub async fn run(
     res
 }
 
-async fn run_app<B: ratatui::backend::Backend>(
-    terminal: &mut Terminal<B>,
-    mut app: App,
-) -> Result<()>
+async fn run_app<B: Backend>(terminal: &mut Terminal<B>, mut app: App) -> Result<()>
 where
-    <B as ratatui::backend::Backend>::Error: Send,
-    <B as ratatui::backend::Backend>::Error: Sync,
-    <B as ratatui::backend::Backend>::Error: 'static,
+    <B as Backend>::Error: Send,
+    <B as Backend>::Error: Sync,
+    <B as Backend>::Error: 'static,
 {
     let frame_rate = Duration::from_millis(50);
     let mut last_tick = Instant::now();
@@ -741,7 +742,7 @@ fn draw_graphs(f: &mut ratatui::Frame, area: Rect, app: &App) {
         .block(Block::default().borders(Borders::TOP).title(title))
         .data(&data)
         .max(app.mem_peak_mb.max(1))
-        .bar_set(symbols::bar::NINE_LEVELS)
+        .bar_set(bar::NINE_LEVELS)
         .style(Style::default().fg(Color::LightGreen));
     f.render_widget(sparkline, area);
 }
@@ -787,11 +788,11 @@ fn draw_log(f: &mut ratatui::Frame, area: Rect, app: &App) {
 
 fn format_line(line: &LogLine, query: &str) -> Line<'static> {
     let level_style = match line.level {
-        tracing::Level::ERROR => Style::default().fg(Color::Red),
-        tracing::Level::WARN => Style::default().fg(Color::Yellow),
-        tracing::Level::INFO => Style::default().fg(Color::Green),
-        tracing::Level::DEBUG => Style::default().fg(Color::Blue),
-        tracing::Level::TRACE => Style::default().fg(Color::DarkGray),
+        Level::ERROR => Style::default().fg(Color::Red),
+        Level::WARN => Style::default().fg(Color::Yellow),
+        Level::INFO => Style::default().fg(Color::Green),
+        Level::DEBUG => Style::default().fg(Color::Blue),
+        Level::TRACE => Style::default().fg(Color::DarkGray),
     };
     let mut spans = vec![
         Span::styled(format!("{:<5} ", line.level), level_style),

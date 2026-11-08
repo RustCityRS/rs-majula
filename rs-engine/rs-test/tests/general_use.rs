@@ -13,6 +13,9 @@ use rs_engine::Engine;
 use rs_engine::harness::HarnessClient;
 use rs_protocol::network::game::client_prot::ClientProt;
 use rs_test::runner;
+use rs_test::talk::converse;
+use rs_vm::ops::test::{calls_for, forget_calls};
+use std::fs;
 
 /// `inventory:inv`.
 const BACKPACK: i32 = 149 << 16;
@@ -45,7 +48,7 @@ fn holding(engine: &mut Engine, name: &str, x: u16, z: u16, objs: &[u16]) -> Har
     }
     engine.cycle();
     client.packets();
-    rs_vm::ops::test::forget_calls();
+    forget_calls();
     client
 }
 
@@ -63,7 +66,7 @@ fn use_on_hat_stand(client: &mut HarnessClient, item: u16) {
 }
 
 fn said(line: &str) -> bool {
-    rs_vm::ops::test::calls_for("mes").iter().any(|m| m == line)
+    calls_for("mes").iter().any(|m| m == line)
 }
 
 /// A hat on the hat stand falls off: 289's joke, the hat dropped to the floor.
@@ -123,7 +126,7 @@ fn loc_id(name: &str) -> u16 {
         env!("CARGO_MANIFEST_DIR"),
         "/../../content/647/pack/loc.pack"
     );
-    std::fs::read_to_string(pack)
+    fs::read_to_string(pack)
         .expect("loc.pack")
         .lines()
         .find_map(|l| l.split_once('=').filter(|(_, n)| *n == name))
@@ -195,7 +198,7 @@ fn beside_loc(
         engine.cycle();
     }
     client.packets();
-    rs_vm::ops::test::forget_calls();
+    forget_calls();
     client
 }
 
@@ -367,7 +370,7 @@ fn mithril_seeds_plant_flowers_and_the_paterdomus_organ_plays() {
         let mut client = beside_loc(engine, "organist", ORGAN, &[]);
         op_loc1(&mut client, loc_id("church_organ_30754"), ORGAN.0, ORGAN.2);
         cycles(engine, 6);
-        let songs = rs_vm::ops::test::calls_for("midi_song");
+        let songs = calls_for("midi_song");
         assert!(
             songs.iter().any(|s| s == "39" || s == "40"),
             "church music 1 or 2: {songs:?}"
@@ -438,7 +441,7 @@ fn varrock_s_manhole_opens_closes_and_climbs_down() {
         cycles(engine, 6);
         op_loc1(&mut client, loc_id("manholeopen"), MANHOLE.0, MANHOLE.2);
         // 2011 asks first (2011-04-20 recording, 319.3-320.3s).
-        let talk = rs_test::talk::converse(engine, &mut client, &["Yes, please."], 30);
+        let talk = converse(engine, &mut client, &["Yes, please."], 30);
         assert!(
             talk.said("This sewer looks quite dangerous, are you sure you want to enter?"),
             "{:?}",
@@ -518,11 +521,7 @@ fn a_bucket_fills_at_a_sink_and_a_well() {
             let mut client = beside_loc(engine, name, (x, 0, z), &[bucket]);
             use_on_loc(&mut client, bucket, loc_id(loc), x, z);
             cycles(engine, 8);
-            assert!(
-                said(line),
-                "{loc}: {:?}",
-                rs_vm::ops::test::calls_for("mes")
-            );
+            assert!(said(line), "{loc}: {:?}", calls_for("mes"));
             assert_eq!(
                 slot0(engine, client.pid),
                 Some(water),

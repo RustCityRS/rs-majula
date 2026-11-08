@@ -1,7 +1,7 @@
 use crate::app::App;
 use crate::news_render;
 use crate::routes::messages::{message_text, subject_text};
-use axum::body::{Body, Bytes};
+use axum::body::{Body, Bytes, to_bytes};
 use axum::extract::{Path, Request, State};
 use axum::http::{StatusCode, header};
 use axum::middleware::{self, Next};
@@ -16,7 +16,9 @@ use rs_admin_api::{
 };
 use rs_db::{NewsAdminPost, RecoveryDecided, StaffMessageRecord, validate_name};
 use std::sync::Arc;
+use tokio::fs;
 use tokio::net::TcpListener;
+use tokio::task::spawn_blocking;
 use tracing::{info, warn};
 
 /// News posts are long-ish text, so a request is allowed a long one.
@@ -90,7 +92,7 @@ async fn authenticate(State(state): State<Arc<AdminState>>, req: Request, next: 
     } else {
         MAX_BODY
     };
-    let Ok(body) = axum::body::to_bytes(body, limit).await else {
+    let Ok(body) = to_bytes(body, limit).await else {
         return StatusCode::PAYLOAD_TOO_LARGE.into_response();
     };
     let path = parts
@@ -224,7 +226,7 @@ async fn upload(
     let found = media::sniff(&body).ok_or(StatusCode::UNSUPPORTED_MEDIA_TYPE)?;
     let kind = found.kind;
     let size = body.len();
-    let name = tokio::task::spawn_blocking(move || media::store(&dir, &body, &found))
+    let name = spawn_blocking(move || media::store(&dir, &body, &found))
         .await
         .map_err(|_| StatusCode::INTERNAL_SERVER_ERROR)?
         .map_err(|e| {
@@ -503,7 +505,7 @@ async fn media_file(
     if !media::valid_name(&name) {
         return Err(StatusCode::NOT_FOUND);
     }
-    let bytes = tokio::fs::read(dir.join(&name))
+    let bytes = fs::read(dir.join(&name))
         .await
         .map_err(|_| StatusCode::NOT_FOUND)?;
     let kind = media::sniff(&bytes).ok_or(StatusCode::NOT_FOUND)?;

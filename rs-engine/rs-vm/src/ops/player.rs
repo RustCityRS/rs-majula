@@ -1,10 +1,14 @@
 use crate::engine::{ScriptEngine, ScriptNpc, ScriptPlayer, engine, engine_mut};
 use crate::iterators::{self, PlayerIteratorState};
+#[cfg(since_647)]
+use crate::ops::test;
 use crate::register::OpsRegistry;
 use crate::state::{ExecutionState, QueuePriority, ScriptArgument, ScriptState, TimerPriority};
 use crate::trigger::ServerTriggerType;
 use crate::util::*;
 use crate::*;
+#[cfg(since_647)]
+use rs_pack::cache::MIDI_JINGLE_BASE;
 use rs_pack::cache::script::*;
 use rs_pack::types::HuntCheckVis;
 use rs_util::colour::rgb24_to_15;
@@ -95,7 +99,7 @@ pub fn build<E: ScriptEngine + 'static>() -> OpsRegistry {
             let delay = s.pop_int_as::<u8>()?;
             let seq = s.pop_int();
             #[cfg(since_647)]
-            crate::ops::test::record_call(ANIM, "anim", &seq.to_string());
+            test::record_call(ANIM, "anim", &seq.to_string());
             player.anim((seq != -1).then_some(seq as u16), delay);
         });
 
@@ -190,15 +194,15 @@ pub fn build<E: ScriptEngine + 'static>() -> OpsRegistry {
             let amount = s.pop_int_as::<u16>()?;
             let hitmark = s.pop_int_as::<u8>()?;
             let uid = s.pop_int();
-            if crate::ops::test::recording() {
+            if test::recording() {
                 let arg = format!("{hitmark},{amount},{soak},{healthbar}");
-                crate::ops::test::record_call(DAMAGE, "damage", &arg);
+                test::record_call(DAMAGE, "damage", &arg);
             }
             let pid = (uid & 0x7FF) as u16;
             let source = hit_source(s, pid);
-            if crate::ops::test::recording() {
+            if test::recording() {
                 let arg = source.map_or(-1, i32::from).to_string();
-                crate::ops::test::record_call(DAMAGE, "hit_by", &arg);
+                test::record_call(DAMAGE, "hit_by", &arg);
             }
             if let Some(target) = engine_mut::<E>().get_player_mut(pid)
                 && target.uid().packed() as i32 == uid
@@ -686,7 +690,7 @@ pub fn build<E: ScriptEngine + 'static>() -> OpsRegistry {
         // 2062
         active_player_mut!(m, MES => |s, player| {
             #[cfg(since_647)]
-            crate::ops::test::record_call(MES, "mes", s.peek_string(0));
+            test::record_call(MES, "mes", s.peek_string(0));
             player.mes(s.peek_string(0));
             s.drop_strings(1);
         });
@@ -709,10 +713,9 @@ pub fn build<E: ScriptEngine + 'static>() -> OpsRegistry {
         // 5003
         #[cfg(since_647)]
         active_player_mut!(m, IF_OPENSUB => |s, player| {
-            let walkable = s.pop_int();
             let parent_hash = s.pop_int();
             let sub_id = s.pop_int_as::<u16>()?;
-            player.if_opensub(sub_id, parent_hash, walkable as u8);
+            player.if_opensub(sub_id, parent_hash);
         });
 
         // 5004
@@ -799,11 +802,11 @@ pub fn build<E: ScriptEngine + 'static>() -> OpsRegistry {
                     // 2011 keeps jingles apart from songs: a jingle's `midi`
                     // id is its own plus MIDI_JINGLE_BASE (a song plays none).
                     #[cfg(since_647)]
-                    let Some(id) = id.checked_sub(rs_pack::cache::MIDI_JINGLE_BASE as u16) else {
+                    let Some(id) = id.checked_sub(MIDI_JINGLE_BASE as u16) else {
                         return Ok(());
                     };
                     #[cfg(since_647)]
-                    crate::ops::test::record_call(MIDI_JINGLE, "midi_jingle", &id.to_string());
+                    test::record_call(MIDI_JINGLE, "midi_jingle", &id.to_string());
                     #[allow(clippy::unnecessary_cast)]
                     player.midi_jingle(id, delay as u16);
                 }
@@ -828,12 +831,12 @@ pub fn build<E: ScriptEngine + 'static>() -> OpsRegistry {
 
                 // A `midi` id past the songs is a jingle (MIDI_JINGLE_BASE).
                 #[cfg(since_647)]
-                let id = id.filter(|&id| (id as usize) < rs_pack::cache::MIDI_JINGLE_BASE);
+                let id = id.filter(|&id| (id as usize) < MIDI_JINGLE_BASE);
                 if !player.lowmem()
                     && let Some(id) = id
                 {
                     #[cfg(since_647)]
-                    crate::ops::test::record_call(MIDI_SONG, "midi_song", &id.to_string());
+                    test::record_call(MIDI_SONG, "midi_song", &id.to_string());
                     player.midi_song(id);
                 }
             }
@@ -846,7 +849,7 @@ pub fn build<E: ScriptEngine + 'static>() -> OpsRegistry {
             let duration = s.pop_int_as::<u16>()?;
             let id = s.pop_int_as::<u16>()?;
             if !player.lowmem() {
-                crate::ops::test::record_call(MUSIC_PLAYJINGLE, "music_playjingle", &id.to_string());
+                test::record_call(MUSIC_PLAYJINGLE, "music_playjingle", &id.to_string());
                 player.midi_jingle(id, duration);
             }
         });
@@ -856,7 +859,7 @@ pub fn build<E: ScriptEngine + 'static>() -> OpsRegistry {
         active_player_mut!(m, MUSIC_PLAYSONG => |s, player| {
             let id = s.pop_int_as::<u16>()?;
             if !player.lowmem() {
-                crate::ops::test::record_call(MUSIC_PLAYSONG, "music_playsong", &id.to_string());
+                test::record_call(MUSIC_PLAYSONG, "music_playsong", &id.to_string());
                 player.midi_song(id);
             }
         });
@@ -1387,9 +1390,9 @@ pub fn build<E: ScriptEngine + 'static>() -> OpsRegistry {
                 return Ok(());
             }
             #[cfg(since_647)]
-            if crate::ops::test::recording() {
+            if test::recording() {
                 let arg = format!("{synth},{loops},{delay}");
-                crate::ops::test::record_call(SOUND_SYNTH, "sound_synth", &arg);
+                test::record_call(SOUND_SYNTH, "sound_synth", &arg);
             }
             player.sound_synth(synth as u16, loops, delay);
         });

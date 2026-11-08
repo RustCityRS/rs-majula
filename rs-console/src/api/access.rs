@@ -11,6 +11,7 @@ use rs_admin_api::{
 use std::collections::HashMap;
 use std::sync::{Arc, Mutex};
 use std::time::{Duration, Instant};
+use tokio::time::{self, MissedTickBehavior};
 use tracing::warn;
 
 /// How long a player's staff level is trusted before it's looked up again.
@@ -64,8 +65,8 @@ const ROSTER_EVERY: Duration = Duration::from_secs(60);
 
 /// Keeps [`Roster`] up to date.
 pub async fn keep_roster(app: Arc<App>) {
-    let mut interval = tokio::time::interval(ROSTER_EVERY);
-    interval.set_missed_tick_behavior(tokio::time::MissedTickBehavior::Delay);
+    let mut interval = time::interval(ROSTER_EVERY);
+    interval.set_missed_tick_behavior(MissedTickBehavior::Delay);
     let mut failing = false;
     loop {
         interval.tick().await;
@@ -365,6 +366,10 @@ pub(super) async fn check_replay(app: &App, staff: &Staff, id: &str) -> Result<(
 #[cfg(test)]
 mod tests {
     use super::*;
+    use crate::cases::{Cases, Change, Priority};
+    use crate::users::now_ms;
+    use std::env;
+    use std::fs;
 
     fn levels() -> HashMap<String, u8> {
         [("trial", 1), ("mod", 1), ("admin", 2), ("boss", 3)]
@@ -409,29 +414,26 @@ mod tests {
         assert!(!cases("boss", Role::Maintainer).sees_subject("boss"));
 
         // The case log: a peer's case seen only once they're on it.
-        let path = std::env::temp_dir().join(format!(
-            "rs-console-caseview-{}.jsonl",
-            crate::users::now_ms()
-        ));
-        let log = crate::cases::Cases::open(path.clone());
+        let path = env::temp_dir().join(format!("rs-console-caseview-{}.jsonl", now_ms()));
+        let log = Cases::open(path.clone());
         let on_peer = log
             .create(
                 "Detection",
                 "T".into(),
                 "trial".into(),
-                crate::cases::Priority::Normal,
+                Priority::Normal,
                 vec![],
             )
             .unwrap();
         assert!(!moderator.sees(&on_peer));
         let on_peer = log
             .change("admin", on_peer.id, |_| {
-                Ok(vec![crate::cases::Change::Assigned { name: "mod".into() }])
+                Ok(vec![Change::Assigned { name: "mod".into() }])
             })
             .unwrap();
         assert!(moderator.sees(&on_peer));
         assert!(!cases("trial", Role::Trial).sees(&on_peer));
-        let _ = std::fs::remove_file(path);
+        let _ = fs::remove_file(path);
     }
 
     #[test]

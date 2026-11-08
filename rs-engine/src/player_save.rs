@@ -1,3 +1,4 @@
+use rs_entity::build;
 use rs_entity::player::{ChatSettingsPrivate, ChatSettingsPublic, ChatSettingsTradeDuel, Player};
 use rs_grid::CoordGrid;
 use rs_inv::{Inventory, Item, StackMode};
@@ -7,7 +8,7 @@ use rs_pack::cache::varp::VarPlayerScope;
 use rs_pack::cache::{CacheStore, VarValue};
 use rs_pack::types::PlayerStat;
 use rs_stat::{get_exp_by_level, get_level_by_exp};
-use std::fs;
+use std::fs::{self, File};
 use std::io::Write;
 use std::path::{Path, PathBuf};
 use std::time::{SystemTime, UNIX_EPOCH};
@@ -20,7 +21,7 @@ const SAV_MAGIC: u16 = 0x2004;
 const SAV_VERSION: u16 = 9;
 
 /// Total number of player stats (skills).
-const STAT_COUNT: usize = rs_entity::build::STAT_COUNT;
+const STAT_COUNT: usize = build::STAT_COUNT;
 
 // ---- PlayerProfile: shared representation for DB and binary ----
 
@@ -629,7 +630,7 @@ fn write_atomically(path: &Path, username: &str, data: &[u8]) {
         return;
     }
     let tmp = path.with_extension("tmp");
-    let result = fs::File::create(&tmp)
+    let result = File::create(&tmp)
         .and_then(|mut f| {
             f.write_all(data)?;
             f.sync_all()
@@ -672,11 +673,14 @@ pub fn delete_save_file(username: &str) {
 #[cfg(test)]
 mod tests {
     use super::*;
+    use rs_var::VarSet;
+    use rs_vm::PlayerUid;
+    use std::iter;
 
     #[test]
     fn new_player_defaults_hitpoints() {
-        let uid = rs_vm::PlayerUid::new("test".into(), 1);
-        let vars = rs_var::VarSet::new(std::iter::empty());
+        let uid = PlayerUid::new("test".into(), 1);
+        let vars = VarSet::new(iter::empty());
         let mut player = Player::new(uid, CoordGrid::new(3222, 0, 3222), vars, false);
         apply_new_player_defaults(&mut player);
         assert_eq!(player.stats.levels[PlayerStat::Hitpoints as usize], 10);

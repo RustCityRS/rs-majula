@@ -567,6 +567,21 @@ impl Player {
         }
     }
 
+    /// Rev-647: the IF_OPENSUB type for a sub mounted on `parent`: that of
+    /// the sub holding `parent`'s interface, or 1 on the toplevel. A main or
+    /// chat modal mounts as type 0 at the end of the tick, after the script.
+    #[cfg(since_647)]
+    pub fn sub_kind(&self, parent: i32) -> u8 {
+        let iface = (parent as u32 >> 16) as u16;
+        if self.modal_main == Some(iface) || self.modal_chat == Some(iface) {
+            return 0;
+        }
+        self.open_subs
+            .values()
+            .find(|&&(sub, _)| sub == iface)
+            .map_or(1, |&(_, kind)| kind)
+    }
+
     /// Rev-647: records IF_MOVESUB -- the sub on `from` moves to `to`,
     /// closing whatever `to` held, as the client's branch for it does.
     #[cfg(since_647)]
@@ -1276,10 +1291,11 @@ impl Player {
 mod move_type_tests {
     use super::*;
     use rs_info::PlayerInfoProt;
+    use std::iter;
 
     fn make_player() -> Player {
         let uid = PlayerUid::new("test".into(), 1);
-        let vars = VarSet::new(std::iter::empty());
+        let vars = VarSet::new(iter::empty());
         Player::new(uid, CoordGrid::new(3222, 0, 3222), vars, false)
     }
 
@@ -1434,6 +1450,7 @@ mod move_type_tests {
 #[cfg(test)]
 mod combat_level_tests {
     use super::*;
+    use std::iter;
 
     /// Faithful copy of the original f64 combat-level formula, parameterized by
     /// the already-reduced sums. This is the reference the integer rewrite of
@@ -1474,7 +1491,7 @@ mod combat_level_tests {
 
     fn player_with(levels: [u8; 7]) -> Player {
         let uid = PlayerUid::new("test".into(), 1);
-        let varps = VarSet::new(std::iter::empty());
+        let varps = VarSet::new(iter::empty());
         let mut player = Player::new(uid, CoordGrid::new(3222, 0, 3222), varps, false);
         // [Attack, Defence, Strength, Hitpoints, Ranged, Prayer, Magic]
         for (i, &lvl) in levels.iter().enumerate() {
@@ -1515,13 +1532,14 @@ mod combat_level_tests {
 #[cfg(test)]
 mod afk_zone_tests {
     use super::*;
+    use std::iter;
 
     /// `zones_afk` turns on after 1000 ticks inside the AFK zones and resets
     /// once the player leaves them, like 2004scape's `zonesAfk()`.
     #[test]
     fn zones_afk_after_1000_ticks_in_place() {
         let uid = PlayerUid::new("test".into(), 1);
-        let varps = VarSet::new(std::iter::empty());
+        let varps = VarSet::new(iter::empty());
         let mut player = Player::new(uid, CoordGrid::new(3222, 0, 3222), varps, false);
 
         // First tick records the zone and resets the counter.
@@ -1549,10 +1567,11 @@ mod interaction_tests {
     use crate::{LocSerial, ObjSerial};
     use rs_pack::types::{LocAngle, LocLayer, LocShape};
     use rs_vm::trigger::ServerTriggerType;
+    use std::iter;
 
     fn make_player() -> Player {
         let uid = PlayerUid::new("test".into(), 1);
-        let vars = VarSet::new(std::iter::empty());
+        let vars = VarSet::new(iter::empty());
         Player::new(uid, CoordGrid::new(3222, 0, 3222), vars, false)
     }
 
@@ -2335,10 +2354,11 @@ mod interaction_tests {
 #[cfg(test)]
 mod energy_tests {
     use super::*;
+    use std::iter;
 
     fn make_player() -> Player {
         let uid = PlayerUid::new("test".into(), 1);
-        let vars = VarSet::new(std::iter::empty());
+        let vars = VarSet::new(iter::empty());
         Player::new(uid, CoordGrid::new(3222, 0, 3222), vars, false)
     }
 

@@ -1,3 +1,4 @@
+use super::anticheat::cv;
 use serde_json::{Value, json};
 use std::collections::VecDeque;
 
@@ -56,7 +57,7 @@ impl Reactions {
     /// How even the reactions are: their standard deviation over their
     /// mean.
     fn spread(&self) -> Option<f64> {
-        super::anticheat::cv(self.times.iter().map(|&t| f64::from(t)))
+        cv(self.times.iter().map(|&t| f64::from(t)))
     }
 
     pub fn report(&self, flags: &mut Vec<(&'static str, i16)>) -> ReactionStats {

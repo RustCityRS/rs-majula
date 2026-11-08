@@ -120,7 +120,7 @@ fn assembled_cache_matches_openrs2_group_by_group() {
     let source = Path::new(rs_pack::CONTENT_DIR);
     let pack = Path::new(rs_pack::PACK_DIR);
 
-    let result = rs_pack::pack_all(source, pack, true, true).expect("pack_all failed");
+    let result = rs_pack::pack_all(source, pack, None, true, true).expect("pack_all failed");
     let mut store = result.cache;
 
     let known: BTreeMap<u8, &Known> = KNOWN.iter().map(|k| (k.archive, k)).collect();

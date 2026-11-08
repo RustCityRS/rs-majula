@@ -21,6 +21,7 @@ mod client_packet;
 use client_packet::ClientPacket;
 use rs_engine::Engine;
 use rs_engine::harness::HarnessClient;
+use rs_entity::player::StaffModLevel;
 use rs_pack::cache::VarValue;
 use rs_protocol::network::game::client_prot::ClientProt;
 use rs_protocol::network::game::server_prot::ServerProt;
@@ -166,7 +167,7 @@ fn set_sail_shows_2011_s_ship_journey() {
         engine
             .harness_player_mut(client.pid)
             .unwrap()
-            .staff_mod_level = rs_entity::player::StaffModLevel::Maintainer;
+            .staff_mod_level = StaffModLevel::Maintainer;
         cheat(&mut client, "~sail_test");
         let mut packets = Vec::new();
         for _ in 0..2 {

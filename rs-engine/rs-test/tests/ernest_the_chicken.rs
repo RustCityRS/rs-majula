@@ -14,12 +14,15 @@ use rs_engine::harness::HarnessClient;
 use rs_pack::cache::VarValue;
 use rs_protocol::network::game::client_prot::ClientProt;
 use rs_test::runner;
-use rs_test::talk::{explore, talk_to};
+use rs_test::talk::{converse, explore, talk_to};
+use rs_vm::ops::test::{calls_for, set_recording};
 use rsmod::rsmod::collision::collision_strategy::CollisionType;
+use std::fs;
+use std::sync::Mutex;
 
 /// Every engine in this binary shares rs-pathfinder's process-static
 /// collision map: the cases take turns.
-static TURN: std::sync::Mutex<()> = std::sync::Mutex::new(());
+static TURN: Mutex<()> = Mutex::new(());
 
 const LEVER_A: (u16, u16, u16) = (146, 3108, 9745);
 const LEVER_B: (u16, u16, u16) = (147, 3118, 9752);
@@ -43,7 +46,7 @@ fn loc(engine: &Engine, name: &str) -> u16 {
         "/../../content/647/pack/loc.pack"
     );
     let _ = engine;
-    std::fs::read_to_string(pack)
+    fs::read_to_string(pack)
         .unwrap()
         .lines()
         .find_map(|l| {
@@ -95,7 +98,7 @@ fn login(engine: &mut Engine, name: &str, (x, level, z): (u16, u8, u16)) -> Harn
     engine.cycle();
     engine.harness_telejump(client.pid, x, level, z);
     ticks(engine, &mut client, 3);
-    rs_vm::ops::test::set_recording(true);
+    set_recording(true);
     client
 }
 
@@ -105,7 +108,7 @@ fn coord(engine: &Engine, client: &HarnessClient) -> (u16, u16) {
 }
 
 fn said(text: &str) -> bool {
-    rs_vm::ops::test::calls_for("mes").iter().any(|m| m == text)
+    calls_for("mes").iter().any(|m| m == text)
 }
 
 /// Levers start down (2011 wiki: "All levers start in the down position");
@@ -138,18 +141,10 @@ fn the_basement_levers_unlock_2011_s_doors() {
 
         op_loc2(&mut client, LEVER_B);
         ticks(engine, &mut client, 6);
-        assert!(
-            said("The lever is down."),
-            "{:?}",
-            rs_vm::ops::test::calls_for("mes")
-        );
+        assert!(said("The lever is down."), "{:?}", calls_for("mes"));
         op_loc1(&mut client, LEVER_B);
         ticks(engine, &mut client, 6);
-        assert!(
-            said("You pull lever B up."),
-            "{:?}",
-            rs_vm::ops::test::calls_for("mes")
-        );
+        assert!(said("You pull lever B up."), "{:?}", calls_for("mes"));
         assert_eq!(get(engine, &client, levers), 1 << 2, "lever B is bit 2");
 
         let (ax, az) = next_to(LEVER_A.1, 0, LEVER_A.2);
@@ -224,7 +219,7 @@ fn the_front_doors_open_from_outside_only() {
         assert!(
             said("The doors slam shut behind you."),
             "{:?}",
-            rs_vm::ops::test::calls_for("mes")
+            calls_for("mes")
         );
         assert!(
             coord(engine, &client).1 > 3353,
@@ -347,9 +342,9 @@ fn ernest_pays_2011s_reward() {
         talk_to(&mut client, nid);
         // The machine runs for ~5 ticks with no box open between "Give 'em here then." and
         // Ernest's thanks: one converse per side of that pause.
-        let mut talk = rs_test::talk::converse(engine, &mut client, &[], 120);
+        let mut talk = converse(engine, &mut client, &[], 120);
         talk.texts
-            .extend(rs_test::talk::converse(engine, &mut client, &[], 120).texts);
+            .extend(converse(engine, &mut client, &[], 120).texts);
         for line in [
             "I have everything!",
             "How can *cluck* I ever thank you?",
@@ -364,7 +359,7 @@ fn ernest_pays_2011s_reward() {
         assert!(
             said("Ernest hands you 3,000 coins, 10 eggs and 300 feathers."),
             "{:?}",
-            rs_vm::ops::test::calls_for("mes")
+            calls_for("mes")
         );
         let pack = engine
             .harness_player(client.pid)

@@ -4,6 +4,8 @@ use crate::http::{ApiError, App, Staff};
 use crate::worlds::{Outcome, Reply, WorldConfig, WorldView};
 use axum::Json;
 use axum::extract::{Path, State};
+use axum::http::StatusCode;
+use rs_admin_api::Outcome as AdminOutcome;
 use rs_admin_api::{
     Broadcast, CancelReboot, Maintenance, OnlinePlayer, Reboot, ReloadScripts, ScriptsReloaded,
     path,
@@ -11,6 +13,8 @@ use rs_admin_api::{
 use serde::{Deserialize, Serialize};
 use std::sync::Arc;
 use std::time::Duration;
+use tokio::process::Command;
+use tokio::time::timeout;
 
 /// The furthest ahead a reboot may land on any world, stagger included:
 /// what a world accepts (ten hours).
@@ -47,7 +51,7 @@ pub async fn players(
         .worlds
         .players(world)
         .await
-        .map_err(|e| ApiError::new(axum::http::StatusCode::BAD_GATEWAY, e))?;
+        .map_err(|e| ApiError::new(StatusCode::BAD_GATEWAY, e))?;
     players.sort_by_key(|p| p.name.to_lowercase());
     Ok(Json(players))
 }
@@ -236,8 +240,8 @@ pub async fn start(
             .iter()
             .any(|v| v.config.node == world.node && v.online);
         let answer = match &world.unit {
-            _ if online => rs_admin_api::Outcome::refused("It's already running."),
-            None => rs_admin_api::Outcome::refused(
+            _ if online => AdminOutcome::refused("It's already running."),
+            None => AdminOutcome::refused(
                 "The console's worlds file names no systemd unit for it, so it can't be started from here.",
             ),
             Some(unit) => start_unit(unit).await,
@@ -263,20 +267,20 @@ pub async fn start(
 /// Starts systemd unit `unit`. The console's machine has to let its user do
 /// that: see the deploy docs' polkit rule.
 async fn start_unit(unit: &str) -> rs_admin_api::Outcome {
-    let run = tokio::process::Command::new("systemctl")
+    let run = Command::new("systemctl")
         .args(["start", "--no-ask-password", unit])
         .kill_on_drop(true)
         .output();
-    match tokio::time::timeout(START_TIMEOUT, run).await {
-        Ok(Ok(out)) if out.status.success() => rs_admin_api::Outcome::ok(
-            "Started. It takes a minute or so to load before players can log in.",
-        ),
-        Ok(Ok(out)) => rs_admin_api::Outcome::refused(format!(
+    match timeout(START_TIMEOUT, run).await {
+        Ok(Ok(out)) if out.status.success() => {
+            AdminOutcome::ok("Started. It takes a minute or so to load before players can log in.")
+        }
+        Ok(Ok(out)) => AdminOutcome::refused(format!(
             "systemd refused: {}",
             String::from_utf8_lossy(&out.stderr).trim()
         )),
-        Ok(Err(e)) => rs_admin_api::Outcome::refused(format!("Couldn't run systemctl: {e}")),
-        Err(_) => rs_admin_api::Outcome::refused("systemctl didn't answer within 30 seconds."),
+        Ok(Err(e)) => AdminOutcome::refused(format!("Couldn't run systemctl: {e}")),
+        Err(_) => AdminOutcome::refused("systemctl didn't answer within 30 seconds."),
     }
 }
 
@@ -475,5 +479,5 @@ pub async fn reload_scripts(
     );
     reply
         .map(Json)
-        .map_err(|e| ApiError::new(axum::http::StatusCode::BAD_GATEWAY, format!("{e}.")))
+        .map_err(|e| ApiError::new(StatusCode::BAD_GATEWAY, format!("{e}.")))
 }

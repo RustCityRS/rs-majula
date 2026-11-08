@@ -15,7 +15,7 @@ use crate::script_errors::FixedErrors;
 use crate::sessions::{Session, Sessions, Stage};
 use crate::templates::Templates;
 use crate::users::{Role, User, Users};
-use crate::worlds::Worlds;
+use crate::worlds::{WorldConfig, Worlds};
 use axum::extract::{ConnectInfo, DefaultBodyLimit, FromRequestParts, Request, State};
 use axum::http::header::{self, HeaderName, HeaderValue};
 use axum::http::request::Parts;
@@ -24,7 +24,9 @@ use axum::middleware::{self, Next};
 use axum::response::{IntoResponse, Response};
 use axum::routing::get;
 use axum::{Json, Router};
+use reqwest::Url;
 use serde_json::json;
+use std::fmt::Display;
 use std::net::{IpAddr, SocketAddr};
 use std::path::PathBuf;
 use std::sync::Arc;
@@ -136,7 +138,7 @@ impl ApiError {
         Self::new(StatusCode::FORBIDDEN, "Your role can't do that.")
     }
 
-    pub fn internal(e: impl std::fmt::Display) -> Self {
+    pub fn internal(e: impl Display) -> Self {
         tracing::error!("{e:#}");
         Self::new(StatusCode::INTERNAL_SERVER_ERROR, "Something went wrong.")
     }
@@ -355,10 +357,10 @@ async fn same_origin(State(app): State<Arc<App>>, req: Request, next: Next) -> R
 
 /// The console's Content-Security-Policy. Only the worlds' replay pages
 /// (`client` in the worlds file) may be framed.
-pub fn csp(worlds: &[crate::worlds::WorldConfig]) -> HeaderValue {
+pub fn csp(worlds: &[WorldConfig]) -> HeaderValue {
     let mut frames: Vec<String> = worlds
         .iter()
-        .filter_map(|w| reqwest::Url::parse(w.client.as_deref()?).ok())
+        .filter_map(|w| Url::parse(w.client.as_deref()?).ok())
         .map(|url| url.origin().ascii_serialization())
         .filter(|origin| origin != "null")
         .collect();
@@ -422,6 +424,8 @@ mod assets {
     use flate2::write::GzEncoder;
     use sha2::{Digest, Sha256};
     use std::borrow::Cow;
+    #[cfg(debug_assertions)]
+    use std::fs;
     use std::io::Write;
 
     pub struct Asset {
@@ -506,7 +510,7 @@ mod assets {
             #[cfg(debug_assertions)]
             {
                 let path = concat!(env!("CARGO_MANIFEST_DIR"), "/web/");
-                std::fs::read(format!("{path}{}", self.name))
+                fs::read(format!("{path}{}", self.name))
                     .unwrap_or_default()
                     .into()
             }

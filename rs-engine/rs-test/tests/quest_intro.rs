@@ -17,10 +17,11 @@ use rs_pack::cache::VarValue;
 use rs_protocol::network::game::client_prot::ClientProt;
 use rs_protocol::network::game::server_prot::ServerProt;
 use rs_test::runner;
-use rs_test::talk::{converse, settexts, talk_to};
+use rs_test::talk::{Conversation, converse, settexts, talk_to};
 use rsmod::rsmod::collision::collision_strategy::CollisionType;
+use std::sync::Mutex;
 
-static TURN: std::sync::Mutex<()> = std::sync::Mutex::new(());
+static TURN: Mutex<()> = Mutex::new(());
 
 const QUEST_INTRO: u16 = 178;
 
@@ -323,7 +324,7 @@ fn at_the_window_of(
     npc: &str,
     varp: &str,
     choices: &[&str],
-) -> (HarnessClient, rs_test::talk::Conversation) {
+) -> (HarnessClient, Conversation) {
     engine.harness_reset();
     let mut client = engine.harness_login_returning(name).expect("login");
     for _ in 0..10 {

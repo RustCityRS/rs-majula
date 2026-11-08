@@ -1,5 +1,5 @@
 use super::AuditFilter;
-use super::access::{AuditView, CaseView};
+use super::access::{AuditView, CaseView, ceiling, check_player};
 use super::live;
 use super::replays::{ReplayView, view};
 use crate::audit::Entry;
@@ -114,10 +114,7 @@ pub async fn search(
     // A recording asked for by id, else the sessions of whoever fits best.
     let replays: Vec<ReplaySummary> = match (by_id, players.first()) {
         (Some(found), _) => {
-            if super::access::check_player(&app, &staff, &found.player)
-                .await
-                .is_ok()
-            {
+            if check_player(&app, &staff, &found.player).await.is_ok() {
                 vec![found]
             } else {
                 Vec::new()
@@ -131,7 +128,7 @@ pub async fn search(
                     name: Some(best.name.clone()),
                     flagged: false,
                     before: None,
-                    max_staff_level: super::access::ceiling(&staff),
+                    max_staff_level: ceiling(&staff),
                     limit: SHOWN as u32,
                 },
             )

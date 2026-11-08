@@ -9,13 +9,15 @@ use crate::cache::js5::PackedCache;
 #[cfg(since_647)]
 use crate::cache::texture::{OP_NAMES, TextureDef, TextureOp};
 #[cfg(since_647)]
-use crate::pack::js5::{PreparedGroup, insert_archive};
+use crate::pack::incremental::Stage;
+#[cfg(since_647)]
+use crate::pack::js5::{PreparedGroup, insert_archive, versions_dep};
+#[cfg(since_647)]
+use crate::pack::names::AssetNames;
 #[cfg(before_647)]
 use crate::pack::util::{media, palette};
 #[cfg(since_647)]
 use anyhow::Result;
-#[cfg(since_647)]
-use rayon::prelude::*;
 #[cfg(before_647)]
 use rs_io::jag::JagFile;
 #[cfg(since_647)]
@@ -80,31 +82,33 @@ pub fn pack_textures_jag(registry: &PackRegistry, content_dir: &Path) -> Vec<u8>
 pub fn pack_archive(
     store: &mut PackedCache,
     content_dir: &Path,
-    pack_dir: &Path,
     versions: &HashMap<u8, ArchiveVersions>,
+    names: &AssetNames,
 ) -> Result<()> {
     let aid = archive::TEXTURES;
     let format = archive::archive_format(aid).unwrap();
-    let names = crate::pack::names::AssetNames::load(pack_dir)?;
     let group_files = names.files(
         &content_dir.join(format.content_dir),
         "texture",
         &["texture"],
     )?;
-    let prepared: Vec<PreparedGroup> = group_files
-        .par_iter()
-        .map(|(gid, path)| {
-            let text = source::convert(&fs::read_to_string(path)?, &names, false)?;
+    let stage = Stage::new("textures", vec![versions_dep(versions, aid)]);
+    let prepared = stage.groups(
+        names,
+        &group_files,
+        |path| vec![path.clone()],
+        |gid, path, names| {
+            let text = source::convert(&fs::read_to_string(path)?, names, false)?;
             let data = encode_texture(&parse_texture_text(&text));
-            let gid = *gid;
             let mut group = PreparedGroup::new(aid, gid, &data, versions)?;
             group.files = vec![FileInfo {
                 id: 0,
                 name_hash: None,
             }];
             Ok(group)
-        })
-        .collect::<Result<Vec<_>>>()?;
+        },
+    )?;
+    stage.finish(Vec::new());
 
     insert_archive(
         store,

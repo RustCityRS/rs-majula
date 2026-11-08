@@ -1,3 +1,5 @@
+use std::env;
+
 pub const REVS: &[&str] = &["225", "244", "245.2", "254", "274", "289", "647"];
 
 pub fn compile_target_revision() {
@@ -16,7 +18,7 @@ pub fn compile_target_revision() {
         println!("cargo::rustc-check-cfg=cfg(before_{id})");
     }
 
-    let active = match std::env::var("REV") {
+    let active = match env::var("REV") {
         Ok(s) => {
             let s = s.trim().to_string();
             assert!(

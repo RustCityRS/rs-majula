@@ -18,8 +18,11 @@ mod client_packet;
 use client_packet::ClientPacket;
 use rs_engine::Engine;
 use rs_engine::harness::HarnessClient;
+use rs_pack::cache::VarValue;
 use rs_protocol::network::game::client_prot::ClientProt;
 use rs_test::runner;
+use rs_test::talk::{converse, settexts, talk_to};
+use std::sync::Mutex;
 
 const SEDRIDOR: u16 = 300;
 const AUBURY: u16 = 5913;
@@ -28,7 +31,7 @@ const COMPLETE: i32 = 6;
 
 // The cases share one loaded engine and each starts with a reset, which would
 // log the others' players out: one at a time.
-static TURN: std::sync::Mutex<()> = std::sync::Mutex::new(());
+static TURN: Mutex<()> = Mutex::new(());
 
 /// The spawned npc `id`: its nid and tile.
 fn npc(engine: &Engine, id: u16) -> (u16, u16, u16) {
@@ -70,7 +73,7 @@ fn visitor(engine: &mut Engine, name: &str, id: u16, stage: i32) -> (HarnessClie
         .harness_player_mut(client.pid)
         .unwrap()
         .vars
-        .set(varp, rs_pack::cache::VarValue::Int(stage));
+        .set(varp, VarValue::Int(stage));
     for _ in 0..3 {
         engine.cycle();
     }
@@ -177,8 +180,8 @@ fn sedridor_takes_the_talisman_and_sends_a_research_package() {
             .get_mut(&inv)
             .unwrap()
             .set(0, talisman, 1);
-        rs_test::talk::talk_to(&mut client, nid);
-        let talk = rs_test::talk::converse(
+        talk_to(&mut client, nid);
+        let talk = converse(
             engine,
             &mut client,
             &["I'm looking for the head wizard.", "Yes, certainly."],
@@ -230,8 +233,8 @@ fn sedridor_takes_the_notes_and_returns_the_talisman() {
             .get_mut(&inv)
             .unwrap()
             .set(0, notes, 1);
-        rs_test::talk::talk_to(&mut client, nid);
-        let talk = rs_test::talk::converse(engine, &mut client, &[], 300);
+        talk_to(&mut client, nid);
+        let talk = converse(engine, &mut client, &[], 300);
         assert!(talk.unanswered.is_none(), "{:?}", talk.unanswered);
         for line in [
             "May I have them?",
@@ -245,11 +248,7 @@ fn sedridor_takes_the_notes_and_returns_the_talisman() {
         let mut scroll = talk.texts.clone();
         for _ in 0..4 {
             engine.cycle();
-            scroll.extend(
-                rs_test::talk::settexts(&client.packets())
-                    .into_iter()
-                    .map(|(_, t)| t),
-            );
+            scroll.extend(settexts(&client.packets()).into_iter().map(|(_, t)| t));
         }
         // 2011's scroll (2011-05-15 NBvmMylvOY8, 459s), its reward wrapped after "Runecrafting".
         for line in [
@@ -318,8 +317,8 @@ fn aubury_takes_the_package_and_teleports_the_player_back() {
                 .unwrap()
                 .set(0, package, 1);
             let start = engine.harness_player(client.pid).unwrap().pathing.coord;
-            rs_test::talk::talk_to(&mut client, nid);
-            let talk = rs_test::talk::converse(
+            talk_to(&mut client, nid);
+            let talk = converse(
                 engine,
                 &mut client,
                 &["I've been sent here with a package for you.", answer],

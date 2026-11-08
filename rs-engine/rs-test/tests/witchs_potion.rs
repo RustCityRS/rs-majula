@@ -16,8 +16,9 @@ use rs_protocol::network::game::client_prot::ClientProt;
 use rs_protocol::network::game::server_prot::ServerProt;
 use rs_test::runner;
 use rs_test::talk::{converse, talk_to};
+use std::sync::Mutex;
 
-static TURN: std::sync::Mutex<()> = std::sync::Mutex::new(());
+static TURN: Mutex<()> = Mutex::new(());
 
 /// Hetty's cauldron, loc 2024 in Rimmington (maps/l46_50.jm2: level 0, 23,5).
 const CAULDRON: (u16, u16, u16) = (2024, 2967, 3205);

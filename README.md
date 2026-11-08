@@ -546,6 +546,7 @@ before `migrate`).
 | `--members <BOOL>` | `true` | Members or free-to-play rules. `--members false` runs a free world. |
 | `--client-pathfinder` | `true` | Trust the paths the client works out for walking. |
 | `--verify` | `true` | Check at startup that the packed cache matches byte for byte. |
+| `--pack-cache <BOOL>` | `true` in debug, `false` in release | Reuse what earlier startups packed from content that hasn't changed since, kept in `data/pack-cache/<rev>`, to speed up development. `--pack-cache false` packs everything. |
 | `--no-tui` | `false` | Log to stdout instead of showing the dashboard. It does this by itself when stdout isn't a terminal. |
 | `--auto-register <BOOL>` | `true` in debug, `false` in release | Create an account the first time an unknown name logs in (debug builds also make it staff level 3). In release, players register on the website. |
 | `--auto-migrate <BOOL>` | `true` in debug, `false` in release | Apply database changes at startup. When off, the server only checks the schema and keeps logins offline until `rs-server migrate` has run. |

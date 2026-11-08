@@ -6,6 +6,7 @@ use rs_engine::Engine;
 use rs_engine::harness::HarnessClient;
 use rs_pack::cache::VarValue;
 use rs_test::runner;
+use rs_vm::ops::test::{calls_for, set_recording};
 
 /// %life_points: varbit 7198, bits 1-15 of varp 1240.
 fn life(engine: &Engine, pid: u16) -> i32 {
@@ -34,7 +35,7 @@ fn the_manor_garden_s_vines_hit_for_10_or_20() {
             .flat_map(|x| (3336..3344).map(move |z| (x, z)))
             .find(|&(x, z)| !rsmod::is_flagged(x, z, 0, 0x100 | 0x200000))
             .expect("a walkable tile in the garden zone");
-        rs_vm::ops::test::set_recording(true);
+        set_recording(true);
         engine.harness_telejump(client.pid, walkable.0, 0, walkable.1);
         let mut hits = Vec::new();
         let mut last = life(engine, client.pid);
@@ -47,7 +48,7 @@ fn the_manor_garden_s_vines_hit_for_10_or_20() {
             }
             last = now;
         }
-        let said = rs_vm::ops::test::calls_for("mes");
+        let said = calls_for("mes");
         assert!(
             said.iter()
                 .any(|m| m == "A vine whips out and attacks you!"),

@@ -1,4 +1,5 @@
 use rs_grid::{CoordGrid, ZoneCoordGrid};
+use std::mem;
 
 /// Maximum number of players supported by the engine.
 pub const MAX_PLAYERS: usize = 2048;
@@ -116,7 +117,7 @@ impl IdBitSet {
     /// of the ID list for iteration while the set's bit operations remain valid.
     #[inline]
     pub fn swap_ids(&mut self, other: &mut Vec<u16>) {
-        std::mem::swap(&mut self.ids, other);
+        mem::swap(&mut self.ids, other);
     }
 
     /// Returns the number of IDs currently in the set.

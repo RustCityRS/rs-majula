@@ -56,6 +56,22 @@ impl PackedData {
         }
     }
 
+    /// Data an earlier pack made, from its `dat` and `idx`.
+    pub fn from_parts(dat: Vec<u8>, idx: Vec<u8>) -> Self {
+        let count = if dat.len() >= 2 {
+            Packet::from(&dat[..2]).g2() as PackId
+        } else {
+            0
+        };
+        let entry_start = dat.len();
+        Self {
+            dat,
+            idx,
+            count,
+            entry_start,
+        }
+    }
+
     /// Start a new entry. Call this before writing opcodes for an entry.
     #[inline]
     pub const fn start_entry(&mut self) {

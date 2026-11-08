@@ -1292,12 +1292,21 @@ impl Engine {
     /// # Call Stack
     ///
     /// **Called by:** the asset-reload handler (triggered via `reload_tx`).
-    pub fn reload_assets(&mut self, new_store: Box<CacheStore>, new_scripts: ScriptProvider) {
+    pub fn reload_assets(
+        &mut self,
+        new_store: Box<CacheStore>,
+        new_scripts: ScriptProvider,
+        #[cfg(since_647)] layout: InterfaceLayout,
+    ) {
         unsafe {
             std::ptr::drop_in_place(self.cache_ptr);
             std::ptr::write(self.cache_ptr, *new_store);
         }
         self.scripts = new_scripts;
+        #[cfg(since_647)]
+        {
+            self.layout = layout;
+        }
         self.controls.refresh(&self.scripts);
         let count = self.scripts.count();
 
@@ -5670,8 +5679,9 @@ impl ScriptPlayer for ActivePlayer {
     }
 
     #[cfg(since_647)]
-    fn if_opensub(&mut self, sub_id: u16, parent_hash: i32, walkable: u8) {
-        self.if_open_sub(sub_id, parent_hash, walkable);
+    fn if_opensub(&mut self, sub_id: u16, parent_hash: i32) {
+        let kind = self.player.sub_kind(parent_hash);
+        self.if_open_sub(sub_id, parent_hash, kind);
     }
 
     #[cfg(since_647)]

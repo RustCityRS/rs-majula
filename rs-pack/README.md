@@ -47,6 +47,14 @@ REV=647 cargo run -p rs-pack -- pack
 REV=647 cargo test -p rs-pack --test crc_gate -- --ignored
 ```
 
+In debug builds, a pack reuses what an earlier one made from sources that haven't changed since,
+kept in `data/pack-cache/<rev>`. Each unit (a 647 group, a config type, the scripts, a JAG
+archive) is packed again when one of its source files changes size or modified time, or when a
+name it looked up in the registries resolves differently. Unchanged encoded data skips
+compression. An edit to the packer's own code starts the cache over. Release builds pack
+everything unless given `--cache true` (the server's `--pack-cache true`); the CRC gate test
+always packs everything.
+
 The final `Pack complete` log reports packing and runtime provider loading time, excluding
 Cargo compilation and the rest of server bootstrap. Enable debug logs for per-archive,
 config-type and compiler timing:

@@ -46,7 +46,7 @@ if ($obj9 ! null) { %varclient_1801 = oc_name($obj9); }
 if ($obj10 ! null) { %varclient_1802 = oc_name($obj10); }
 ~skill_make_amount($maximum);
 if_openchat(skillmulti2010);
-if_opensub(skillmulti2010_numbers, skillmulti2010:numbers, ^false);
+if_opensub(skillmulti2010_numbers, skillmulti2010:numbers);
 if_settext(skillmulti2010_numbers:text, $text);
 if_setevents(skillmulti2010_numbers:all, 0, 0, ^if_op1, 0, 0, ^false, ^false);
 p_pausebutton;

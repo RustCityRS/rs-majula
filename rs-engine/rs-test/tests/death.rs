@@ -18,6 +18,7 @@ use rs_engine::Engine;
 use rs_engine::harness::HarnessClient;
 use rs_protocol::network::game::server_prot::ServerProt;
 use rs_test::runner;
+use rs_vm::ops::test::{calls_for, forget_calls};
 use rs_vm::subject::ScriptSubject;
 
 /// `inventory:inv`, the backpack.
@@ -155,7 +156,7 @@ fn a_death_plays_the_death_jingle() {
         let mut client = engine.harness_login_returning("mortal2").expect("login");
         let mut ui = ClientInterfaces::default();
         ticks(engine, &mut client, &mut ui, 2);
-        rs_vm::ops::test::forget_calls();
+        forget_calls();
         let uid = engine.harness_player(client.pid).unwrap().uid;
         engine
             .run_script_by_name(
@@ -172,7 +173,7 @@ fn a_death_plays_the_death_jingle() {
             said.iter().any(|m| m == "Oh dear, you are dead!"),
             "the player died; the game said {said:?}"
         );
-        let jingles = rs_vm::ops::test::calls_for("midi_jingle");
+        let jingles = calls_for("midi_jingle");
         assert!(
             jingles.iter().any(|a| a == "90"),
             "jingle 90 played; midi_jingle calls {jingles:?}"

@@ -1,5 +1,9 @@
 use crate::engine::{ScriptEngine, ScriptNpc, engine, engine_mut};
 use crate::iterators::NpcIteratorState;
+#[cfg(since_647)]
+use crate::ops::player::queue_source;
+#[cfg(since_647)]
+use crate::ops::test;
 use crate::register::OpsRegistry;
 use crate::state::{ExecutionState, ScriptArgument};
 use crate::trigger::ServerTriggerType;
@@ -9,6 +13,8 @@ use crate::{active_npc_mut, iterators};
 use rs_grid::CoordGrid;
 use rs_pack::ParamValue;
 use rs_pack::cache::script::*;
+#[cfg(since_647)]
+use rs_pack::types::MultiVar;
 use rs_pack::types::{HuntCheckVis, NpcMode};
 #[cfg(since_647)]
 use rs_util::bits::getbit_range;
@@ -131,19 +137,19 @@ pub fn build<E: ScriptEngine + 'static>() -> OpsRegistry {
             let amount = u16::from(s.pop_int_as::<u8>()?);
             let damage_type = s.pop_int_as::<u8>()?;
             #[cfg(since_647)]
-            if crate::ops::test::recording() {
+            if test::recording() {
                 let arg = format!("{damage_type},{amount}");
-                crate::ops::test::record_call(NPC_DAMAGE, "npc_damage", &arg);
+                test::record_call(NPC_DAMAGE, "npc_damage", &arg);
             }
             npc.damage(amount, damage_type);
             // A player's hit (their own script, or one their script queued)
             // is bright for them; 2011 paints everyone else's darker.
             #[cfg(since_647)]
             {
-                let source = crate::ops::player::queue_source(s).or(s.queue_source);
-                if crate::ops::test::recording() {
+                let source = queue_source(s).or(s.queue_source);
+                if test::recording() {
                     let arg = source.map_or(-1, i32::from).to_string();
-                    crate::ops::test::record_call(NPC_DAMAGE, "npc_hit_by", &arg);
+                    test::record_call(NPC_DAMAGE, "npc_hit_by", &arg);
                 }
                 npc.hit_source(source);
             }
@@ -417,7 +423,7 @@ pub fn build<E: ScriptEngine + 'static>() -> OpsRegistry {
                 (true, Ok(player)) => {
                     use crate::engine::ScriptPlayer as _;
                     let value = match npc_type.multivar {
-                        Some(rs_pack::types::MultiVar::Varbit(id)) => engine::<E>()
+                        Some(MultiVar::Varbit(id)) => engine::<E>()
                             .varbits()
                             .get_by_id(id)
                             .map(|v| {
@@ -425,7 +431,7 @@ pub fn build<E: ScriptEngine + 'static>() -> OpsRegistry {
                                 getbit_range(base, v.start_bit as i32, v.end_bit as i32)
                             })
                             .unwrap_or(-1),
-                        Some(rs_pack::types::MultiVar::Varp(id)) => player.get_var(id).as_int(),
+                        Some(MultiVar::Varp(id)) => player.get_var(id).as_int(),
                         None => -1,
                     };
                     npc_type
@@ -471,7 +477,7 @@ pub fn build<E: ScriptEngine + 'static>() -> OpsRegistry {
                 trigger,
                 delay,
                 Some(vec![ScriptArgument::Int(arg)]),
-                crate::ops::player::queue_source(s),
+                queue_source(s),
             )?;
         });
 
@@ -684,9 +690,9 @@ pub fn build<E: ScriptEngine + 'static>() -> OpsRegistry {
             #[cfg(since_647)]
             let id = u16::try_from(s.pop_int()).unwrap_or(u16::MAX);
             #[cfg(since_647)]
-            if crate::ops::test::recording() {
+            if test::recording() {
                 let arg = format!("{id},{height},{delay}");
-                crate::ops::test::record_call(SPOTANIM_NPC, "spotanim_npc", &arg);
+                test::record_call(SPOTANIM_NPC, "spotanim_npc", &arg);
             }
             npc.spotanim(id, height, delay);
         });

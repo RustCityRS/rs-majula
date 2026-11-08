@@ -8,10 +8,11 @@
 use rs_engine::Engine;
 use rs_engine::harness::HarnessClient;
 use rs_test::runner;
-use rs_test::talk::{Conversation, converse, talk_to};
+use rs_test::talk::{Conversation, converse, settexts, talk_to};
 use rsmod::rsmod::collision::collision_strategy::CollisionType;
+use std::sync::Mutex;
 
-static TURN: std::sync::Mutex<()> = std::sync::Mutex::new(());
+static TURN: Mutex<()> = Mutex::new(());
 
 const SMITHING: usize = 13;
 
@@ -106,11 +107,8 @@ fn talk(
     let mut talk = converse(engine, client, answers, 400);
     for _ in 0..3 {
         engine.cycle();
-        talk.texts.extend(
-            rs_test::talk::settexts(&client.packets())
-                .into_iter()
-                .map(|(_, t)| t),
-        );
+        talk.texts
+            .extend(settexts(&client.packets()).into_iter().map(|(_, t)| t));
     }
     talk
 }

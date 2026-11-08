@@ -13,6 +13,7 @@
 use rs_engine::Engine;
 use rs_pack::types::ParamValue;
 use rs_test::runner;
+use std::fs;
 
 /// The categories 289's search hooks answer (`general_use` chests, crates,
 /// drawers), with 2011's open drawers and chests whose ops moved
@@ -65,7 +66,7 @@ fn pack(kind: &str) -> Vec<(i32, String)> {
         "{}/../../content/647/pack/{kind}.pack",
         env!("CARGO_MANIFEST_DIR")
     );
-    std::fs::read_to_string(&path)
+    fs::read_to_string(&path)
         .expect(&path)
         .lines()
         .filter_map(|l| l.split_once('='))

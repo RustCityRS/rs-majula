@@ -25,6 +25,7 @@ mod totp;
 mod users;
 mod worlds;
 
+use crate::api::access;
 use crate::audit::Audit;
 use crate::canned::CannedTexts;
 use crate::cases::Cases;
@@ -41,15 +42,20 @@ use crate::sessions::Sessions;
 use crate::templates::Templates;
 use crate::users::{Role, User, Users, hash_password, now_ms, password_problem};
 use crate::worlds::Worlds;
-use anyhow::{Context, Result, bail};
+use anyhow::{Context, Error, Result, bail};
 use axum::http::HeaderName;
-use clap::{Parser, Subcommand, ValueEnum};
-use std::io::BufRead;
+use clap::{ArgAction, Parser, Subcommand, ValueEnum};
+use rs_admin_api::path;
+use std::io::{self, BufRead};
 use std::net::SocketAddr;
 use std::path::PathBuf;
 use std::sync::Arc;
 use std::time::Duration;
+use tokio::net::TcpListener;
+use tokio::signal;
+use tokio::time;
 use tracing::{info, warn};
+use tracing_subscriber::EnvFilter;
 
 #[derive(Parser, Debug)]
 #[command(name = "rs-console", about = "The staff console")]
@@ -70,7 +76,7 @@ struct ServeArgs {
     port: u16,
     #[arg(long, default_value = "rs-console/worlds.json")]
     worlds: PathBuf,
-    #[arg(long, default_value_t = false, action = clap::ArgAction::Set)]
+    #[arg(long, default_value_t = false, action = ArgAction::Set)]
     https: bool,
     #[arg(long, env = "RS_ADMIN_ORIGIN")]
     origin: Option<String>,
@@ -158,7 +164,7 @@ async fn main() -> Result<()> {
 fn read_password(name: &str, from_stdin: bool) -> Result<String> {
     let password = if from_stdin {
         let mut line = String::new();
-        std::io::stdin().lock().read_line(&mut line)?;
+        io::stdin().lock().read_line(&mut line)?;
         line.trim_end_matches(['\r', '\n']).to_owned()
     } else {
         let first = rpassword::prompt_password(format!("Password for {name}: "))?;
@@ -184,12 +190,10 @@ async fn game_staff_name(name: &str, args: &ServeArgs) -> Result<String> {
         name: name.to_owned(),
     };
     let record = Worlds::new(world_list, None, &secret)
-        .ask_any(rs_admin_api::path::PLAYER, &lookup)
+        .ask_any(path::PLAYER, &lookup)
         .await
         .map_err(|e| anyhow::anyhow!("couldn't look {name} up in the game: {e}"))?;
-    Ok(Worlds::game_staff(record, name)
-        .map_err(anyhow::Error::msg)?
-        .name)
+    Ok(Worlds::game_staff(record, name).map_err(Error::msg)?.name)
 }
 
 async fn user_command(users: &Users, cmd: UserCmd, args: &ServeArgs) -> Result<()> {
@@ -286,9 +290,8 @@ async fn user_command(users: &Users, cmd: UserCmd, args: &ServeArgs) -> Result<(
 }
 
 async fn serve(args: ServeArgs, users: Users, data_dir: PathBuf) -> Result<()> {
-    let logs = tracing_subscriber::fmt().with_env_filter(
-        tracing_subscriber::EnvFilter::try_from_default_env().unwrap_or_else(|_| "info".into()),
-    );
+    let logs = tracing_subscriber::fmt()
+        .with_env_filter(EnvFilter::try_from_default_env().unwrap_or_else(|_| "info".into()));
     match args.log_format {
         LogFormat::Text => logs.init(),
         LogFormat::Json => logs.json().flatten_event(true).init(),
@@ -357,7 +360,7 @@ async fn serve(args: ServeArgs, users: Users, data_dir: PathBuf) -> Result<()> {
     tokio::spawn(controls::keep_in_sync(app.clone()));
     tokio::spawn(schedule::keep_running(app.clone()));
     tokio::spawn(economy::keep_sampling(app.clone()));
-    tokio::spawn(api::access::keep_roster(app.clone()));
+    tokio::spawn(access::keep_roster(app.clone()));
     tokio::spawn(detect::keep_checking(app.clone()));
     if app.worlds.has_web() {
         tokio::spawn(appeals::keep_taking_in(app.clone()));
@@ -365,7 +368,7 @@ async fn serve(args: ServeArgs, users: Users, data_dir: PathBuf) -> Result<()> {
     }
     let pruner = app.clone();
     tokio::spawn(async move {
-        let mut interval = tokio::time::interval(Duration::from_secs(60));
+        let mut interval = time::interval(Duration::from_secs(60));
         loop {
             interval.tick().await;
             pruner.sessions.prune();
@@ -373,7 +376,7 @@ async fn serve(args: ServeArgs, users: Users, data_dir: PathBuf) -> Result<()> {
     });
     let lookups = app.clone();
     tokio::spawn(async move {
-        let mut interval = tokio::time::interval(Duration::from_millis(audit::GATHER_MS >> 1));
+        let mut interval = time::interval(Duration::from_millis(audit::GATHER_MS >> 1));
         loop {
             interval.tick().await;
             lookups.audit.write_lookups(false);
@@ -384,7 +387,7 @@ async fn serve(args: ServeArgs, users: Users, data_dir: PathBuf) -> Result<()> {
     let addr: SocketAddr = format!("{}:{}", args.host, args.port)
         .parse()
         .context("parsing --host/--port")?;
-    let listener = tokio::net::TcpListener::bind(addr)
+    let listener = TcpListener::bind(addr)
         .await
         .with_context(|| format!("binding {addr}"))?;
     if !addr.ip().is_loopback() && !args.https {
@@ -400,7 +403,7 @@ async fn serve(args: ServeArgs, users: Users, data_dir: PathBuf) -> Result<()> {
         http::router(app).into_make_service_with_connect_info::<SocketAddr>(),
     )
     .with_graceful_shutdown(async {
-        let _ = tokio::signal::ctrl_c().await;
+        let _ = signal::ctrl_c().await;
         info!("Shutting down");
     })
     .await?;

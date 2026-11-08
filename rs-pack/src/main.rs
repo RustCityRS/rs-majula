@@ -6,7 +6,7 @@ use rs_io::js5::java_string_hash;
 use rs_pack::pyxel;
 use rs_pack::unpack;
 use std::io::{BufRead, stdin};
-use std::path::PathBuf;
+use std::path::{Path, PathBuf};
 use tracing_subscriber::EnvFilter;
 
 #[derive(Parser)]
@@ -64,6 +64,10 @@ enum Commands {
         verify: bool,
         #[arg(long, default_value = "true")]
         members: bool,
+        /// Reuse what earlier packs made from unchanged sources, as debug
+        /// builds do by default (`--cache false` packs everything)
+        #[arg(long, action = ArgAction::Set, default_value_t = cfg!(debug_assertions))]
+        cache: bool,
     },
     /// Extract original cache archives into editable content files
     Unpack {
@@ -143,8 +147,10 @@ fn main() -> Result<()> {
             pack,
             verify,
             members,
+            cache,
         } => {
-            let (store, scripts) = rs_pack::pack_all(&source, &pack, verify, members)?;
+            let cache = cache.then_some(Path::new(rs_pack::PACK_CACHE_DIR));
+            let (store, scripts) = rs_pack::pack_all(&source, &pack, cache, verify, members)?;
             tracing::debug!(
                 "CacheStore: {} packs, {} jingles, {} maps, {} songs, {} objs, {} invs, {} varps, {} scripts",
                 store.jags.len(),
@@ -163,8 +169,10 @@ fn main() -> Result<()> {
             pack,
             verify,
             members,
+            cache,
         } => {
-            let result = rs_pack::pack_all(&source, &pack, verify, members)?;
+            let cache = cache.then_some(Path::new(rs_pack::PACK_CACHE_DIR));
+            let result = rs_pack::pack_all(&source, &pack, cache, verify, members)?;
             tracing::info!(
                 "JS5 cache packed in memory: {} npcs, {} objs, {} locs, {} seqs, {} enums, {} structs, {} invs, {} varbits",
                 result.store.npcs.count(),

@@ -8,6 +8,7 @@
 
 use serde_json::{Value, json};
 use std::collections::VecDeque;
+use std::mem;
 
 /// A slot's top left on the client's screen.
 pub type Slot = (i16, i16);
@@ -65,7 +66,7 @@ impl SlotClicks {
 
     /// A press (or from 254, a click) on the screen.
     pub fn press(&mut self, ms: u32, x: i16, y: i16, right: bool) {
-        if !std::mem::take(&mut self.moved) {
+        if !mem::take(&mut self.moved) {
             return;
         }
         let press = Press { ms, x, y, right };

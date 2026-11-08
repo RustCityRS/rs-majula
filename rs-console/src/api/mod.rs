@@ -35,6 +35,7 @@ use rs_admin_api::{MAX_MEDIA_BYTES, ReplaySummary, ReportRecord, ScriptErrorGrou
 use serde::Deserialize;
 use std::sync::Arc;
 use std::time::Duration;
+use tokio::task::spawn_blocking;
 
 /// What an untriaged sessions walk asked for: whose, only flagged ones,
 /// from when back, and of staff up to which level.
@@ -258,7 +259,7 @@ async fn audit(
     let view = AuditView::new(&app, &staff);
     let limit = query.limit.unwrap_or(50).min(200);
     // Older pages and searches read the file.
-    tokio::task::spawn_blocking(move || {
+    spawn_blocking(move || {
         app.audit
             .page(query.before, limit, |e| view.shows(e) && filter.keeps(e))
             .into_iter()

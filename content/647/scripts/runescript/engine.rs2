@@ -1127,8 +1127,8 @@
 // info: Set interface component events — engine builds the access mask
 [command,if_setevents](component $component, int $from_slot, int $to_slot, int $ops, int $useon_flags, int $depth, boolean $allow_drag, boolean $can_target)
 [command,.if_setevents](component $component, int $from_slot, int $to_slot, int $ops, int $useon_flags, int $depth, boolean $allow_drag, boolean $can_target)
-// info: Open a sub-interface on a specific parent component with walkable flag
-[command,if_opensub](interface $interface, int $component, int $walkable)
+// info: Open a sub-interface on a specific parent component, as the type of the sub that holds it
+[command,if_opensub](interface $interface, int $component)
 // info: Close a sub-interface at a specific component hash
 [command,if_closesub](int $component_hash)
 // info: Move a sub-interface from one parent component to another without firing onload hooks

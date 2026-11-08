@@ -7,8 +7,9 @@ use rs_admin_api::{
 use serde::{Deserialize, Serialize};
 use std::collections::HashMap;
 use std::path::PathBuf;
-use std::sync::{Arc, Mutex};
+use std::sync::{Arc, Mutex, MutexGuard};
 use std::time::{Duration, Instant};
+use tokio::time::{self, MissedTickBehavior};
 use tracing::{info, warn};
 
 /// How often worlds are checked against what's wanted.
@@ -357,7 +358,7 @@ impl Controls {
         self.lock().get(&node).cloned()
     }
 
-    fn lock(&self) -> std::sync::MutexGuard<'_, HashMap<u8, Push>> {
+    fn lock(&self) -> MutexGuard<'_, HashMap<u8, Push>> {
         self.pushes.lock().unwrap_or_else(|e| e.into_inner())
     }
 
@@ -441,8 +442,8 @@ pub async fn sync(app: &App, actor: &str, nodes: Option<&[u8]>) {
 
 /// Keeps every world's controls as wanted.
 pub async fn keep_in_sync(app: Arc<App>) {
-    let mut interval = tokio::time::interval(SYNC_INTERVAL);
-    interval.set_missed_tick_behavior(tokio::time::MissedTickBehavior::Delay);
+    let mut interval = time::interval(SYNC_INTERVAL);
+    interval.set_missed_tick_behavior(MissedTickBehavior::Delay);
     loop {
         interval.tick().await;
         sync(&app, "console", None).await;

@@ -2,7 +2,7 @@ use crate::active_player::{ActivePlayer, EnginePlayer};
 use crate::engine::Engine;
 use crate::engine::{engine, engine_mut};
 use crate::handlers::op_common::{HeldCheck, check_held};
-use crate::phases::shared::EntityId;
+use crate::phases::shared::{EntityId, panic_message};
 #[cfg(target_arch = "x86_64")]
 use core::arch::x86_64::{_MM_HINT_T0, _mm_prefetch};
 use rs_entity::MoveSpeed;
@@ -67,7 +67,7 @@ impl Engine {
                 Ok(()) => break,
                 Err(panic) => {
                     let pid = pids[start];
-                    let msg = crate::phases::shared::panic_message(&panic);
+                    let msg = panic_message(&panic);
                     error!("panic during player processing for pid {pid}: {msg}");
                     self.emergency_remove_player(pid);
                     start += 1;

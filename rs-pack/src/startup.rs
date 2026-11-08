@@ -30,6 +30,7 @@ use crate::cache::varobj::VarObjType;
 use crate::cache::varp::VarPlayerTypeRaw;
 use crate::cache::vars::VarsType;
 use crate::cache::wordenc::WordEncProvider;
+use crate::pack::incremental::{Stage, files_under};
 use crate::pack::names;
 use crate::pack::other::map;
 use crate::pack::pack;
@@ -126,9 +127,14 @@ pub fn pack_all(
     members: bool,
 ) -> Result<PackResult> {
     let start = Instant::now();
+    // Checking config names registers new ones, so everything that reads the
+    // registries starts after it, from names loaded once.
+    let config_files = pack::ConfigFiles::new(&content_dir.join("scripts"));
+    pack::check_configs(&config_files, pack_dir)?;
+    let asset_names = names::AssetNames::load(pack_dir)?;
     let (packed, scripts) = thread::scope(|scope| {
         let scripts = scope.spawn(|| compile_scripts(content_dir, pack_dir));
-        let packed = pack::pack_cache(content_dir, pack_dir, verify);
+        let packed = pack::pack_cache(content_dir, pack_dir, verify, &config_files, &asset_names);
         (packed, unwrap_thread("scripts", scripts.join()))
     });
     let (assets, cache) = packed?;
@@ -138,10 +144,22 @@ pub fn pack_all(
         start.elapsed().as_secs_f64()
     );
     archive::verify_crcs(&cache, verify)?;
-    names::verify_names(content_dir, pack_dir, verify)?;
+    // A strict gate that passed needs no rerun until its inputs change; a
+    // lenient one runs every pack, to keep showing what it warns about.
+    if verify {
+        let gate = Stage::new("name gate", Vec::new());
+        let mut sources = files_under(&[pack_dir.to_path_buf()]);
+        sources.push(content_dir.join("versions/interfaces.fileids"));
+        gate.unit(0, &sources, || {
+            names::verify_names(content_dir, pack_dir, true).map(|()| Vec::new())
+        })?;
+        gate.finish(Vec::new());
+    } else {
+        names::verify_names(content_dir, pack_dir, false)?;
+    }
     let map_dirs = map::source_dirs(content_dir);
-    let spawns = map::pack_spawns(&map_dirs, pack_dir)?;
-    let obj_spawns = map::pack_obj_spawns(&map_dirs, pack_dir)?;
+    let spawns = map::pack_spawns(&map_dirs, &asset_names)?;
+    let obj_spawns = map::pack_obj_spawns(&map_dirs, &asset_names)?;
     let area_map = map::pack_area_map(&map_dirs, pack_dir)?;
     let store = load_cache(
         &assets,

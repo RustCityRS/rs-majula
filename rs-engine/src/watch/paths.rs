@@ -6,7 +6,9 @@
     allow(dead_code, unused_variables, unused_imports, unreachable_code)
 )]
 
+use super::anticheat;
 use serde_json::{Value, json};
+use std::array;
 use std::collections::VecDeque;
 
 /// A pause this long (ms) between samples ends a move.
@@ -111,7 +113,7 @@ impl MousePaths {
             curved |= off(i + 1).abs() > CURVED;
             (w[1].1 - w[0].1).hypot(w[1].2 - w[0].2)
         });
-        let cv = super::anticheat::cv(steps.inspect(|step| path += step));
+        let cv = anticheat::cv(steps.inspect(|step| path += step));
         if path <= distance * STRAIGHT {
             self.straight += 1;
         }
@@ -128,10 +130,7 @@ impl MousePaths {
             let (lo, t) = (i.floor() as usize, i.fract());
             off(lo) + (off((lo + 1).min(last)) - off(lo)) * t
         };
-        let shape: Shape = (
-            std::array::from_fn(|i| at((i + 1) as f64 / 8.0)),
-            samples.len(),
-        );
+        let shape: Shape = (array::from_fn(|i| at((i + 1) as f64 / 8.0)), samples.len());
         let same = self.shapes.iter().any(|(points, len)| {
             *len == shape.1
                 && points
@@ -194,6 +193,7 @@ impl PathStats {
 #[cfg(test)]
 mod tests {
     use super::*;
+    use std::f64::consts::PI;
 
     fn flags(p: &MousePaths) -> Vec<&'static str> {
         let mut flags = Vec::new();
@@ -233,7 +233,7 @@ mod tests {
 
     /// Smooth start and stop, as people move.
     fn ease(t: f64) -> f64 {
-        (1.0 - (t * std::f64::consts::PI).cos()) / 2.0
+        (1.0 - (t * PI).cos()) / 2.0
     }
 
     /// A pseudo-random number from 0 to 1 for move `i`.
@@ -248,7 +248,7 @@ mod tests {
             |_, t| ease(t),
             |i, t| {
                 let bend = 0.5 + 1.5 * rand(i + 1);
-                (std::f64::consts::PI * t.powf(bend)).sin() * (50.0 * rand(i) - 25.0)
+                (PI * t.powf(bend)).sin() * (50.0 * rand(i) - 25.0)
             },
         );
         assert_eq!(p.moves, 40);
@@ -263,11 +263,7 @@ mod tests {
 
     #[test]
     fn bots_repeat_their_curves() {
-        let p = moves(
-            |_| 9,
-            |_, t| ease(t),
-            |_, t| (t * std::f64::consts::PI).sin() * 30.0,
-        );
+        let p = moves(|_| 9, |_, t| ease(t), |_, t| (t * PI).sin() * 30.0);
         // Eased at an even pace, so steady too.
         assert_eq!(flags(&p), ["steady_mouse_moves", "repeated_mouse_curves"]);
     }

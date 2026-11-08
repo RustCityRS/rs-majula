@@ -32,6 +32,13 @@ overflow-checks = false
 opt-level = 0
 debug = 2
 
+# Scripts compile about three times faster with the compiler optimized.
+[profile.dev.package.rs-runec]
+opt-level = 3
+
+[profile.dev.package.rs-pack]
+opt-level = 3
+
 [profile.dev-opt]
 inherits = "dev"
 opt-level = 2

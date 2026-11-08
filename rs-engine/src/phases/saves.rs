@@ -1,4 +1,6 @@
 use crate::active_player::ActivePlayer;
+#[cfg(since_647)]
+use crate::clients::client_db::SetDisplayNameResult;
 use crate::clients::client_db::{AuthResult, DbResponse, LoadResult, ModOutcome, SaveOutcome};
 use crate::engine::Engine;
 use crate::player_save::delete_save_file;
@@ -285,9 +287,8 @@ impl Engine {
         &mut self,
         user37: u64,
         name: String,
-        result: crate::clients::client_db::SetDisplayNameResult,
+        result: SetDisplayNameResult,
     ) {
-        use crate::clients::client_db::SetDisplayNameResult;
         use rs_util::base37::to_screen_name;
         use rs_vm::state::ExecutionState;
         use rs_vm::subject::ScriptSubject;

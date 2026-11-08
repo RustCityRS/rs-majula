@@ -1,4 +1,5 @@
 use rs_util::net::limit_address;
+use std::io::{self, Error, ErrorKind};
 use std::net::IpAddr;
 use tokio::io::{AsyncReadExt, AsyncWriteExt};
 use tokio::net::TcpStream;
@@ -461,7 +462,7 @@ async fn run_connection(
     outbound_rx: &mut UnboundedReceiver<EtherOutbound>,
     inbound_tx: &UnboundedSender<EtherInbound>,
     ready_tx: &mut Option<oneshot::Sender<()>>,
-) -> std::io::Result<()> {
+) -> io::Result<()> {
     stream.set_nodelay(true)?;
 
     let mut frame_buf = Vec::with_capacity(256);
@@ -476,8 +477,8 @@ async fn run_connection(
     loop {
         let n = stream.read(&mut read_buf).await?;
         if n == 0 {
-            return Err(std::io::Error::new(
-                std::io::ErrorKind::ConnectionReset,
+            return Err(Error::new(
+                ErrorKind::ConnectionReset,
                 "ether connection closed during handshake",
             ));
         }
@@ -527,8 +528,8 @@ async fn run_connection(
             result = stream.read(&mut read_buf) => {
                 let n = result?;
                 if n == 0 {
-                    return Err(std::io::Error::new(
-                        std::io::ErrorKind::ConnectionReset,
+                    return Err(Error::new(
+                        ErrorKind::ConnectionReset,
                         "ether connection closed",
                     ));
                 }
@@ -554,7 +555,7 @@ async fn run_connection(
 ///
 /// # Returns
 /// `Ok(())` on success, or an I/O error.
-async fn write_frame(stream: &mut TcpStream, payload: &[u8]) -> std::io::Result<()> {
+async fn write_frame(stream: &mut TcpStream, payload: &[u8]) -> io::Result<()> {
     let len = payload.len() as u16;
     stream.write_all(&len.to_be_bytes()).await?;
     stream.write_all(payload).await?;

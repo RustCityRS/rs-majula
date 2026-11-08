@@ -13,7 +13,9 @@ use axum::http::StatusCode;
 use rs_admin_api::{PlayerLookup, PlayerRecord, path};
 use serde::{Deserialize, Serialize};
 use serde_json::json;
+use std::cmp::Reverse;
 use std::sync::Arc;
+use tokio::task::spawn_blocking;
 
 #[derive(Serialize)]
 pub struct StaffAccount {
@@ -61,7 +63,7 @@ pub async fn list(
         .into_iter()
         .map(|u| StaffAccount::of(&app, &staff, u))
         .collect();
-    accounts.sort_by_key(|a| (std::cmp::Reverse(a.role), name_key(&a.name)));
+    accounts.sort_by_key(|a| (Reverse(a.role), name_key(&a.name)));
     Ok(Json(accounts))
 }
 
@@ -125,7 +127,7 @@ pub struct NewAccount {
 }
 
 async fn hashed(password: String) -> Result<String, ApiError> {
-    tokio::task::spawn_blocking(move || hash_password(&password))
+    spawn_blocking(move || hash_password(&password))
         .await
         .map_err(ApiError::internal)?
         .map_err(ApiError::internal)
@@ -329,7 +331,7 @@ async fn activity_rows(
         .collect();
     let app = app.clone();
     // It reads back through the audit file.
-    tokio::task::spawn_blocking(move || {
+    spawn_blocking(move || {
         let entries = app.audit.since(since_ms, |e| {
             matches!(
                 e.action.as_str(),

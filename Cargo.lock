@@ -2977,6 +2977,7 @@ dependencies = [
  "rs-ver",
  "rustc-hash",
  "serde_json",
+ "siphasher",
  "tracing",
  "tracing-subscriber",
  "zip",
@@ -3024,9 +3025,9 @@ dependencies = [
 
 [[package]]
 name = "rs-runec"
-version = "0.5.7"
+version = "0.5.8"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "1cdc5c25a9bd0d9e809aa8ec05c0b91c43df3f11fbe836b86cded1042303da24"
+checksum = "54e82c9422a496270716f9d9c9b910b473a2915dbf18b968c67cf0de532d31a5"
 dependencies = [
  "anyhow",
  "clap",

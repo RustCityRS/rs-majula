@@ -10,9 +10,10 @@ use super::varp::VarPlayerTypeRaw;
 use crate::archive;
 use crate::cache::js5::PackedCache;
 use crate::cache::map::XteaKeyStore;
+use crate::pack::incremental::{self, Hash};
 use crate::pack::packed_data::PackedData;
 use crate::types::{MapSquareCrcs, MapSquares};
-use anyhow::{Result, anyhow, bail};
+use anyhow::{Context, Result, anyhow, bail};
 use rayon::prelude::*;
 use rs_crypto::huffman::Huffman;
 use rs_io::Packet;
@@ -180,13 +181,24 @@ pub(crate) fn load_mapsquares(
         .par_iter()
         .filter_map(|group| {
             let &(kind, mx, mz) = name_lookup.get(&group.name_hash)?;
-            let data = if kind == 'l' {
-                cache.read_group_xtea(archive::MAPS, group.id, &xtea.get(mx as u32, mz as u32))
-            } else {
-                cache.read_group_raw_decompressed(archive::MAPS, group.id)
+            let keys = xtea.get(mx as u32, mz as u32);
+            let mut inputs = Hash::new("mapsquare");
+            inputs.bytes(cache.groups.get(&(archive::MAPS, group.id))?);
+            if kind == 'l' {
+                for key in keys {
+                    inputs.int(u64::from(key as u32));
+                }
             }
-            .ok()??;
-            let compressed = compress(&data, CompressionType::Gzip).unwrap_or_default();
+            let compressed = incremental::memo(inputs.key(), || {
+                let data = if kind == 'l' {
+                    cache.read_group_xtea(archive::MAPS, group.id, &keys)
+                } else {
+                    cache.read_group_raw_decompressed(archive::MAPS, group.id)
+                }?
+                .context("Missing map group")?;
+                Ok(compress(&data, CompressionType::Gzip).unwrap_or_default())
+            })
+            .ok()?;
             Some(((kind, mx, mz), Arc::from(compressed), group.crc as i32))
         })
         .collect();

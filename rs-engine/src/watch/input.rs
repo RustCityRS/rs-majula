@@ -12,6 +12,8 @@
     )
 )]
 
+#[cfg(before_647)]
+use super::anticheat::plausible;
 use rs_io::Packet;
 use rs_protocol::network::game::client::ClientProtMessage;
 #[cfg(all(since_254, before_647))]
@@ -165,7 +167,7 @@ impl InputDecoder {
             #[cfg(before_647)]
             ClientProt::MoveMinimapClick => {
                 if let Some(msg) = decode::<MoveMinimapClick>(data)
-                    && super::anticheat::plausible(&msg.trailer)
+                    && plausible(&msg.trailer)
                 {
                     out.push(Timed {
                         ms: at,
@@ -338,6 +340,10 @@ impl InputDecoder {
 #[cfg(test)]
 mod tests {
     use super::*;
+    #[cfg(any(rev = "225", all(since_254, before_647)))]
+    use rs_protocol::network::game::client_prot_message::ClientProtMessageInfo;
+    #[cfg(all(since_254, before_647))]
+    use std::iter;
 
     /// Encodes samples as the client's `EVENT_MOUSE_MOVE` does.
     #[cfg(all(since_254, before_647))]
@@ -391,7 +397,7 @@ mod tests {
     #[test]
     fn long_stills_and_outside() {
         let mut samples = vec![(5, 5)];
-        samples.extend(std::iter::repeat_n((5, 5), 20));
+        samples.extend(iter::repeat_n((5, 5), 20));
         samples.push((6, 5));
         let data = encode_moves(&samples, &mut (0, 0));
         let mut decoder = InputDecoder::default();
@@ -435,7 +441,7 @@ mod tests {
         #[cfg(any(rev = "225", all(since_254, before_647)))]
         {
             let data = [0x01, 0x80, 0x02, 0x00, 0, 0];
-            let len = <EventCameraPosition as rs_protocol::network::game::client_prot_message::ClientProtMessageInfo>::FRAME.min();
+            let len = <EventCameraPosition as ClientProtMessageInfo>::FRAME.min();
             assert!(decoder.packet(
                 &ClientProt::EventCameraPosition,
                 1_000,

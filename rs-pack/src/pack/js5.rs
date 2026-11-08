@@ -1,9 +1,11 @@
 use crate::archive::{self, ArchiveFormat, ArchiveVersions};
 use crate::cache::js5::PackedCache;
+use crate::pack::incremental::{self, Hash, Key, Registry, Stage, dir_key, files_under};
 use crate::pack::model::source as model_source;
 use crate::pack::names::{AssetNames, archive_name};
 use crate::pack::other::{asset, wma};
 use crate::pack::pack::collect_config_files;
+use crate::pack::pack_dir::PrivatePack;
 use crate::pack::pack_registry::PackFile;
 use crate::pack::sound::{vorbis, vorbis_setup};
 use anyhow::{Context, Result, ensure};
@@ -14,9 +16,11 @@ use rs_io::js5::java_string_hash;
 use rs_io::js5::reference::{FileInfo, GroupInfo, ReferenceTable, encode_reference_table};
 use rs_io::js5::{compute_group_crc, detect_file_count, encode_group_entries};
 use runec::clientscript;
-use std::collections::{HashMap, hash_map::Entry};
+use runec::sources::roots;
+use std::collections::{HashMap, HashSet, hash_map::Entry};
 use std::fs;
-use std::path::Path;
+use std::path::{Path, PathBuf};
+use std::slice;
 use std::time::Instant;
 use tracing::{debug, info};
 
@@ -178,12 +182,16 @@ pub fn insert_archive(
         whirlpooled: format.whirlpooled,
         groups: group_infos,
     };
-    let raw = compress_best(
-        &encode_reference_table(&table),
-        true,
-        true,
-        archive::codec_override(255, aid as u32),
-    )?;
+    let encoded = encode_reference_table(&table);
+    let key = Hash::new("table").int(u64::from(aid)).bytes(&encoded).key();
+    let raw = incremental::memo(key, || {
+        Ok(compress_best(
+            &encoded,
+            true,
+            true,
+            archive::codec_override(255, aid as u32),
+        )?)
+    })?;
     store.groups.insert((255, aid as u32), raw);
     info!(
         "  archive {:>2} ({}) -- {} groups, table_version={} {}",
@@ -299,30 +307,44 @@ pub fn pack_asset_archives(
     content_dir: &Path,
     pack_dir: &Path,
     versions: &HashMap<u8, ArchiveVersions>,
+    names: &AssetNames,
 ) -> Result<()> {
-    let names = AssetNames::load(pack_dir)?;
     let cache = SIMPLE_ARCHIVES
         .par_iter()
         .map(|&aid| -> Result<_> {
             let start = Instant::now();
             let mut cache = PackedCache::default();
             let format = archive::archive_format(aid).unwrap();
+            let dir = content_dir.join(format.content_dir);
 
             if aid == archive::CLIENTSCRIPT {
-                let compiled = clientscript::compile_directory(
-                    &content_dir.join(format.content_dir),
-                    pack_dir,
-                )?;
-                let hashes =
-                    load_name_hashes(pack_dir, aid, &compiled.keys().copied().collect::<Vec<_>>());
-                let prepared = compiled
-                    .into_iter()
-                    .map(|(id, data)| {
-                        let mut group = PreparedGroup::new(aid, id, &data, versions)?;
-                        group.name_hash = hashes.get(&id).copied().unwrap_or(-1);
-                        Ok(group)
-                    })
-                    .collect::<Result<Vec<_>>>()?;
+                let private = PrivatePack::copy(pack_dir)?;
+                let stage = Stage::new(
+                    "clientscript",
+                    vec![
+                        versions_dep(versions, aid),
+                        ("pack".to_owned(), dir_key(private.path(), &["script.pack"])),
+                    ],
+                );
+                let sources = files_under(&roots(&dir));
+                let mut prepared = stage.unit_groups(&(), 0, &sources, |_| {
+                    clientscript::compile_directory(&dir, private.path())?
+                        .into_iter()
+                        .map(|(id, data)| PreparedGroup::new(aid, id, &data, versions))
+                        .collect()
+                })?;
+                // Compiling gives new clientscripts ids, which the pack dir
+                // keeps from now on.
+                private.pin(pack_dir, "clientscript.pack");
+                stage.finish(vec![(
+                    "pack".to_owned(),
+                    dir_key(private.path(), &["script.pack"]),
+                )]);
+                let ids: Vec<_> = prepared.iter().map(|group| group.id).collect();
+                let hashes = load_name_hashes(pack_dir, aid, &ids);
+                for group in &mut prepared {
+                    group.name_hash = hashes.get(&group.id).copied().unwrap_or(-1);
+                }
                 insert_archive(
                     &mut cache,
                     aid,
@@ -335,29 +357,13 @@ pub fn pack_asset_archives(
             }
 
             let group_files = if let Some(extension) = asset::extension(aid) {
-                names.files(
-                    &content_dir.join(format.content_dir),
-                    archive_name(aid),
-                    &[extension],
-                )?
+                names.files(&dir, archive_name(aid), &[extension])?
             } else if aid == archive::MODELS {
-                names.files(
-                    &content_dir.join(format.content_dir),
-                    archive_name(aid),
-                    &["model"],
-                )?
+                names.files(&dir, archive_name(aid), &["model"])?
             } else if aid == archive::VORBIS {
-                names.files(
-                    &content_dir.join(format.content_dir),
-                    "vorbis",
-                    &["vorbis", "sample"],
-                )?
+                names.files(&dir, "vorbis", &["vorbis", "sample"])?
             } else if aid == archive::DLLS {
-                names.files(
-                    &content_dir.join(format.content_dir),
-                    "dlls",
-                    &["dll", "dylib", "so"],
-                )?
+                names.files(&dir, "dlls", &["dll", "dylib", "so"])?
             } else {
                 Vec::new()
             };
@@ -373,65 +379,93 @@ pub fn pack_asset_archives(
                     .find(|(id, _)| *id == 0)
                     .context("Missing Vorbis setup source")?
                     .1;
-                let data = vorbis_setup::pack(&fs::read_to_string(path)?, &names)?;
-                Some((vorbis::Setup::new(&data, &names)?, data))
+                // Every sample packs against the setup, so the stage depends
+                // on it, with the names packing it looked up.
+                let view = names.recording();
+                let data = vorbis_setup::pack(&fs::read_to_string(path)?, &view)?;
+                let setup = vorbis::Setup::new(&data, &view)?;
+                let key = Hash::new("setup")
+                    .bytes(&data)
+                    .bytes(&view.recorded())
+                    .key();
+                Some((setup, data, key))
             } else {
                 None
             };
 
-            let name_hashes: HashMap<u32, i32> = if format.named {
-                let gids: Vec<u32> = group_files.iter().map(|(gid, _)| *gid).collect();
-                load_name_hashes(pack_dir, aid, &gids)
-            } else {
-                HashMap::new()
-            };
-
-            let prepared: Vec<PreparedGroup> = group_files
-                .par_iter()
-                .map(|(gid, path)| {
-                    let mut file_ids = None;
-                    let data = if asset::extension(aid).is_some() {
-                        let entries = asset::pack_file(aid, *gid, path, &names)?;
-                        file_ids = Some(entries.iter().map(|(id, _)| *id).collect::<Vec<_>>());
-                        encode_group_entries(
-                            &entries
-                                .iter()
-                                .map(|(id, data)| (*id, data.as_slice()))
-                                .collect::<Vec<_>>(),
-                        )
-                    } else if aid == archive::MODELS {
-                        model_source::pack(&fs::read_to_string(path)?, &names)?
-                    } else if aid == archive::VORBIS {
-                        let (setup, data) = vorbis.as_ref().unwrap();
-                        if *gid == 0 {
-                            data.clone()
-                        } else {
-                            vorbis::pack_sample(
-                                &fs::read_to_string(path)?,
-                                &fs::read(path.with_extension("ogg"))?,
-                                setup,
-                                &names,
-                            )?
-                        }
+            let mut deps = vec![versions_dep(versions, aid)];
+            if let Some((_, _, key)) = &vorbis {
+                deps.push(("setup".to_owned(), *key));
+            }
+            let stage = Stage::new(&format!("archive {aid}"), deps);
+            let build = |gid: u32, path: &PathBuf, names: &AssetNames| -> Result<PreparedGroup> {
+                let mut file_ids = None;
+                let data = if asset::extension(aid).is_some() {
+                    let entries = asset::pack_file(aid, gid, path, names)?;
+                    file_ids = Some(entries.iter().map(|(id, _)| *id).collect::<Vec<_>>());
+                    encode_group_entries(
+                        &entries
+                            .iter()
+                            .map(|(id, data)| (*id, data.as_slice()))
+                            .collect::<Vec<_>>(),
+                    )
+                } else if aid == archive::MODELS {
+                    model_source::pack(&fs::read_to_string(path)?, names)?
+                } else if aid == archive::VORBIS {
+                    let (setup, data, _) = vorbis.as_ref().unwrap();
+                    if gid == 0 {
+                        data.clone()
                     } else {
-                        fs::read(path)?
-                    };
-                    let mut group = PreparedGroup::new(aid, *gid, &data, versions)?;
-                    if let Some(ids) = file_ids {
-                        group.set_files(ids);
+                        vorbis::pack_sample(
+                            &fs::read_to_string(path)?,
+                            &fs::read(path.with_extension("ogg"))?,
+                            setup,
+                            names,
+                        )?
                     }
-                    group.name_hash = name_hashes.get(gid).copied().unwrap_or(-1);
-                    Ok(group)
-                })
-                .collect::<Result<Vec<_>>>()?;
-            let mut prepared = prepared;
-            if aid == archive::WORLDMAP {
-                prepared.extend(pack_world_maps(
-                    &content_dir.join("scripts"),
-                    pack_dir,
-                    &names,
-                    versions,
-                )?);
+                } else {
+                    fs::read(path)?
+                };
+                let mut group = PreparedGroup::new(aid, gid, &data, versions)?;
+                if let Some(ids) = file_ids {
+                    group.set_files(ids);
+                }
+                Ok(group)
+            };
+            // A world map's sources name the squares it packs, so the archive
+            // is one unit over every file it could read.
+            let mut prepared = if aid == archive::WORLDMAP {
+                let scripts = content_dir.join("scripts");
+                let mut sources = files_under(slice::from_ref(&dir));
+                sources.extend(collect_config_files(&scripts, wma::KIND));
+                stage.unit_groups(names, 0, &sources, |names| {
+                    let mut groups = group_files
+                        .par_iter()
+                        .map(|(gid, path)| build(*gid, path, names))
+                        .collect::<Result<Vec<_>>>()?;
+                    groups.extend(pack_world_maps(&scripts, pack_dir, names, versions)?);
+                    Ok(groups)
+                })?
+            } else {
+                let sources = |path: &PathBuf| match vorbis {
+                    Some(_) => vec![path.clone(), path.with_extension("ogg")],
+                    None => vec![path.clone()],
+                };
+                stage.groups(names, &group_files, sources, build)?
+            };
+            stage.finish(Vec::new());
+
+            if format.named || aid == archive::WORLDMAP {
+                let assets: HashSet<u32> = group_files.iter().map(|(gid, _)| *gid).collect();
+                let ids: Vec<u32> = prepared.iter().map(|group| group.id).collect();
+                let hashes = load_name_hashes(pack_dir, aid, &ids);
+                for group in &mut prepared {
+                    group.name_hash = if format.named || !assets.contains(&group.id) {
+                        hashes.get(&group.id).copied().unwrap_or(-1)
+                    } else {
+                        -1
+                    };
+                }
             }
 
             insert_archive(
@@ -456,6 +490,29 @@ pub fn pack_asset_archives(
     Ok(())
 }
 
+/// What an archive's groups take from its versions: their versions and file
+/// ids.
+pub fn versions_dep(versions: &HashMap<u8, ArchiveVersions>, aid: u8) -> (String, Key) {
+    let mut hash = Hash::new("versions");
+    if let Some(archive) = versions.get(&aid) {
+        let mut groups: Vec<_> = archive.group_versions.iter().collect();
+        groups.sort_unstable();
+        for (gid, version) in groups {
+            hash.int(u64::from(*gid)).int(u64::from(*version));
+        }
+        let mut files: Vec<_> = archive.group_file_ids.iter().collect();
+        files.sort_unstable_by_key(|(gid, _)| **gid);
+        for (gid, ids) in files {
+            hash.int(u64::from(*gid)).int(ids.len() as u64);
+            for (id, name_hash) in ids {
+                hash.int(u64::from(*id))
+                    .int(name_hash.map_or(u64::MAX, |name| u64::from(name as u32)));
+            }
+        }
+    }
+    ("versions".to_owned(), hash.key())
+}
+
 pub fn prepare_group(
     archive_id: u8,
     group_id: u32,
@@ -467,10 +524,19 @@ pub fn prepare_group(
         .map(|f| f.allow_bzip2)
         .unwrap_or(true);
     let forced = archive::codec_override(archive_id, group_id);
-    let compressed = compress_best(data, allow_uncompressed, allow_bzip2, forced)?;
-    let crc = compute_group_crc(&compressed);
-    let mut with_version = compressed;
-    with_version.reserve_exact(2);
-    with_version.extend_from_slice(&version.to_be_bytes());
-    Ok((with_version, crc))
+    let key = Hash::new("group")
+        .int(allow_uncompressed as u64)
+        .int(allow_bzip2 as u64)
+        .int(forced.map_or(u64::MAX, |codec| codec as u64))
+        .int(u64::from(version))
+        .bytes(data)
+        .key();
+    let raw = incremental::memo(key, || {
+        let mut raw = compress_best(data, allow_uncompressed, allow_bzip2, forced)?;
+        raw.reserve_exact(2);
+        raw.extend_from_slice(&version.to_be_bytes());
+        Ok(raw)
+    })?;
+    let crc = compute_group_crc(&raw[..raw.len() - 2]);
+    Ok((raw, crc))
 }

@@ -21,15 +21,17 @@ use crate::token::SignInTokens;
 use crate::turnstile::Turnstile;
 use anyhow::{Context, Result, anyhow};
 use axum::http::HeaderName;
-use clap::{Parser, Subcommand, ValueEnum};
+use clap::{ArgAction, Parser, Subcommand, ValueEnum};
 use rs_db::{Db, DbConfig, Passwords};
 use rs_util::os::{raise_open_files, shutdown_signal};
 use std::net::SocketAddr;
 use std::path::PathBuf;
 use std::sync::Arc;
 use std::time::Duration;
+use tokio::net::TcpListener;
 use tokio::sync::Semaphore;
 use tracing::{info, warn};
+use tracing_subscriber::EnvFilter;
 
 /// The game website: registration, news, world select and the archived
 /// 2004 pages.
@@ -44,7 +46,7 @@ struct Args {
     root: PathBuf,
     #[arg(long, default_value = "localhost")]
     public_host: String,
-    #[arg(long, default_value_t = false, action = clap::ArgAction::Set)]
+    #[arg(long, default_value_t = false, action = ArgAction::Set)]
     https: bool,
     #[arg(long)]
     real_ip_header: Option<HeaderName>,
@@ -84,7 +86,7 @@ struct Args {
     db_pass: Option<String>,
     #[arg(long, env = "RS_PEPPER", hide_env_values = true)]
     pepper: Option<String>,
-    #[arg(long, default_value_t = cfg!(debug_assertions), action = clap::ArgAction::Set)]
+    #[arg(long, default_value_t = cfg!(debug_assertions), action = ArgAction::Set)]
     auto_migrate: bool,
     #[command(subcommand)]
     command: Option<Cmd>,
@@ -107,8 +109,7 @@ async fn main() -> Result<()> {
     raise_open_files();
     let args = Args::parse();
     let logs = tracing_subscriber::fmt().with_env_filter(
-        tracing_subscriber::EnvFilter::try_from_default_env()
-            .unwrap_or_else(|_| "info,sqlx=warn".into()),
+        EnvFilter::try_from_default_env().unwrap_or_else(|_| "info,sqlx=warn".into()),
     );
     match args.log_format {
         LogFormat::Text => logs.init(),
@@ -248,7 +249,7 @@ async fn main() -> Result<()> {
     let addr: SocketAddr = format!("{}:{}", args.host, args.port)
         .parse()
         .context("parsing --host/--port")?;
-    let listener = tokio::net::TcpListener::bind(addr)
+    let listener = TcpListener::bind(addr)
         .await
         .with_context(|| format!("binding {addr}"))?;
     info!("Accepting HTTP connections on: {}", addr);

@@ -38,6 +38,8 @@ use format::{
     put_flag, put_varint,
 };
 use rs_protocol::network::game::client_prot::ClientProt;
+#[cfg(before_274)]
+use rs_protocol::network::game::server_prot::ServerProt;
 use rustc_hash::FxHashMap;
 use state::ClientState;
 use std::fmt::{self, Write as _};
@@ -94,8 +96,7 @@ pub const KEYFRAME_MS: u32 = 60_000;
 pub const TRACKING_TICKS: u32 = 17;
 /// `ENABLE_TRACKING`'s opcode: the client's input report starts a new run.
 #[cfg(before_274)]
-pub const TRACKING_ENABLED: u8 =
-    rs_protocol::network::game::server_prot::ServerProt::EnableTracking as u8;
+pub const TRACKING_ENABLED: u8 = ServerProt::EnableTracking as u8;
 
 /// How long after marking one of a check's incidents (or a script's error)
 /// on the timeline the next is left off: a bot repeats them every tick.

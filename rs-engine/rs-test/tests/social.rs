@@ -23,6 +23,7 @@ use rs_entity::{ChatSettingsPrivate, ChatSettingsPublic, ChatSettingsTradeDuel};
 use rs_protocol::network::game::client_prot::ClientProt;
 use rs_test::runner;
 use rs_util::base37::to_userhash;
+use std::iter;
 use tokio::sync::mpsc::{UnboundedReceiver, unbounded_channel};
 
 #[test]
@@ -46,7 +47,7 @@ fn session(engine: &mut Engine, name: &str) -> (HarnessClient, UnboundedReceiver
 }
 
 fn drain(rx: &mut UnboundedReceiver<EtherOutbound>) -> Vec<EtherOutbound> {
-    std::iter::from_fn(|| rx.try_recv().ok()).collect()
+    iter::from_fn(|| rx.try_recv().ok()).collect()
 }
 
 /// `SET_CHATFILTERSETTINGS` (CS2 op 5001): `p1(public) p1(private) p1(trade)`.

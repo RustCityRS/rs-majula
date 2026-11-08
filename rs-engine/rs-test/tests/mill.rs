@@ -18,8 +18,10 @@ mod client_packet;
 use client_packet::ClientPacket;
 use rs_engine::Engine;
 use rs_engine::harness::HarnessClient;
+use rs_pack::cache::VarValue;
 use rs_protocol::network::game::client_prot::ClientProt;
 use rs_test::runner;
+use rs_vm::ops::test::{calls_for, forget_calls, set_recording};
 
 /// `inventory:inv`, the backpack component `[login]` binds `inv` to.
 const BACKPACK: i32 = 149 << 16;
@@ -100,12 +102,12 @@ fn grain_in_the_hopper_comes_out_as_flour_in_the_bin() {
             .p2_alt2(HOPPER.1 as i32)
             .p1_alt1(0)
             .p2_alt1(HOPPER.0);
-        rs_vm::ops::test::set_recording(true);
-        rs_vm::ops::test::forget_calls();
+        set_recording(true);
+        forget_calls();
         client.send(ClientProt::OpLocT, &p.finish());
         ticks(engine, &mut client, 6);
         // What the scripts said (the call log).
-        let said = rs_vm::ops::test::calls_for("mes");
+        let said = calls_for("mes");
         assert!(
             said.iter().any(|m| m == "You put the grain in the hopper."),
             "said {said:?}"
@@ -119,7 +121,7 @@ fn grain_in_the_hopper_comes_out_as_flour_in_the_bin() {
         op_loc1(&mut client, CONTROLS);
         ticks(engine, &mut client, 6);
         // What the scripts said (the call log).
-        let said = rs_vm::ops::test::calls_for("mes");
+        let said = calls_for("mes");
         assert!(
             said.iter()
                 .any(|m| m == "You operate the hopper. The grain slides down the chute."),
@@ -137,7 +139,7 @@ fn grain_in_the_hopper_comes_out_as_flour_in_the_bin() {
         op_loc1(&mut client, FLOUR_BIN);
         ticks(engine, &mut client, 8);
         // What the scripts said (the call log).
-        let said = rs_vm::ops::test::calls_for("mes");
+        let said = calls_for("mes");
         assert!(
             said.iter()
                 .any(|m| m == "You fill a pot with the last of the flour in the bin."),
@@ -170,11 +172,11 @@ fn a_dairy_cow_fills_an_empty_bucket() {
             .set(0, bucket, 1);
         engine.harness_telejump(client.pid, 3251, 0, 3275);
         ticks(engine, &mut client, 10);
-        rs_vm::ops::test::set_recording(true);
-        rs_vm::ops::test::forget_calls();
+        set_recording(true);
+        forget_calls();
         op_loc1(&mut client, (8689, 3252, 3275));
         ticks(engine, &mut client, 10);
-        let said = rs_vm::ops::test::calls_for("mes");
+        let said = calls_for("mes");
         assert!(
             said.iter().any(|m| m == "You milk the cow."),
             "said {said:?}"
@@ -197,7 +199,7 @@ fn set_varp(engine: &mut Engine, pid: u16, name: &str, value: i32) {
         .harness_player_mut(pid)
         .unwrap()
         .vars
-        .set(id, rs_pack::cache::VarValue::Int(value));
+        .set(id, VarValue::Int(value));
 }
 
 /// Cook's Assistant's rework (15 December 2009, 2011 wiki): once Millie
@@ -241,11 +243,11 @@ fn mill_lane_mills_extra_fine_flour_for_the_cook() {
         ticks(engine, &mut client, 6);
         engine.harness_telejump(client.pid, 3168, 0, 3306);
         ticks(engine, &mut client, 3);
-        rs_vm::ops::test::set_recording(true);
-        rs_vm::ops::test::forget_calls();
+        set_recording(true);
+        forget_calls();
         op_loc1(&mut client, FLOUR_BIN);
         ticks(engine, &mut client, 8);
-        let said = rs_vm::ops::test::calls_for("mes");
+        let said = calls_for("mes");
         assert!(
             said.iter()
                 .any(|m| m == "You fill a pot with the extra fine flour from the bin."),

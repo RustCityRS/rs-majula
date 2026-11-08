@@ -7,6 +7,7 @@ use rs_pack::cache::dbrow::DbRowValue;
 use rs_pack::cache::dbtable::{DbIndexKey, DbTableValue};
 use rs_pack::cache::script::*;
 use rustc_hash::FxHashSet;
+use std::mem;
 
 /// Registers database query opcodes for searching, iterating, and reading
 /// fields from cache-defined database tables and rows.
@@ -278,7 +279,7 @@ fn db_find_refine<E: ScriptEngine + 'static>(
     let (query, packed) = decode_query(s);
     let found = engine.dbindex().find(&query, packed);
     let found_set: FxHashSet<u16> = found.iter().copied().collect();
-    let prev = std::mem::take(&mut s.db_row_query);
+    let prev = mem::take(&mut s.db_row_query);
     s.db_row = None;
     s.db_row_query = prev
         .into_iter()

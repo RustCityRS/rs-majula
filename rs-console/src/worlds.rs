@@ -1,5 +1,9 @@
+use crate::sessions::random_token;
 use futures_util::StreamExt;
 use futures_util::stream;
+use reqwest::header::CONTENT_TYPE;
+use reqwest::redirect::Policy;
+use reqwest::{Client, StatusCode};
 use rs_admin_api::{
     LiveReplay, MediaSaved, NONCE_HEADER, OnlinePlayer, PlayerRecord, ReplayGet, SIGNATURE_HEADER,
     TIMESTAMP_HEADER, WorldStatus, path,
@@ -7,10 +11,12 @@ use rs_admin_api::{
 use serde::de::DeserializeOwned;
 use serde::{Deserialize, Serialize};
 use std::collections::HashMap;
+use std::fs;
 use std::path::Path;
 use std::sync::atomic::{AtomicUsize, Ordering};
 use std::sync::{Arc, RwLock};
 use std::time::{Duration, Instant, SystemTime, UNIX_EPOCH};
+use tokio::time::{self, MissedTickBehavior};
 use tracing::{info, warn};
 
 /// How often every world's status is refreshed.
@@ -42,7 +48,7 @@ pub struct WorldConfig {
 }
 
 pub fn load(path: &Path) -> anyhow::Result<Vec<WorldConfig>> {
-    let worlds: Vec<WorldConfig> = serde_json::from_str(&std::fs::read_to_string(path)?)?;
+    let worlds: Vec<WorldConfig> = serde_json::from_str(&fs::read_to_string(path)?)?;
     let mut nodes: Vec<u8> = worlds.iter().map(|w| w.node).collect();
     nodes.sort_unstable();
     if nodes.windows(2).any(|w| w[0] == w[1]) {
@@ -125,7 +131,7 @@ pub struct Worlds {
     worlds: Vec<WorldConfig>,
     web: Option<String>,
     secret: Box<[u8]>,
-    client: reqwest::Client,
+    client: Client,
     snapshots: RwLock<HashMap<u8, Snapshot>>,
     /// Which world a lookup asks first, turn by turn.
     turn: AtomicUsize,
@@ -133,10 +139,10 @@ pub struct Worlds {
 
 impl Worlds {
     pub fn new(worlds: Vec<WorldConfig>, web: Option<String>, secret: &str) -> Self {
-        let client = reqwest::Client::builder()
+        let client = Client::builder()
             .timeout(REQUEST_TIMEOUT)
             .connect_timeout(CONNECT_TIMEOUT)
-            .redirect(reqwest::redirect::Policy::none())
+            .redirect(Policy::none())
             .build()
             .expect("building the HTTP client");
         Self {
@@ -351,14 +357,14 @@ impl Worlds {
         let timestamp = SystemTime::now()
             .duration_since(UNIX_EPOCH)
             .map_or(0, |d| d.as_secs());
-        let nonce = crate::sessions::random_token();
+        let nonce = random_token();
         let signature = rs_admin_api::sign(&self.secret, timestamp, &nonce, method, path, &body);
 
         let url = format!("{}{}", base.trim_end_matches('/'), path);
         let request = if method == "POST" {
             self.client
                 .post(&url)
-                .header(reqwest::header::CONTENT_TYPE, "application/json")
+                .header(CONTENT_TYPE, "application/json")
                 .body(body)
         } else {
             self.client.get(&url)
@@ -382,29 +388,29 @@ impl Worlds {
         let status = response.status();
         let (world, website) = match status {
             s if s.is_success() => return Ok(response),
-            reqwest::StatusCode::UNAUTHORIZED => {
+            StatusCode::UNAUTHORIZED => {
                 return Err(CallError::failed(
                     "Refused the console's signature (check RS_ADMIN_SECRET and clocks)",
                 ));
             }
-            reqwest::StatusCode::SERVICE_UNAVAILABLE => (
+            StatusCode::SERVICE_UNAVAILABLE => (
                 "The world is busy",
                 "The website isn't set up to keep uploads (--media-dir)",
             ),
-            reqwest::StatusCode::BAD_GATEWAY => (
+            StatusCode::BAD_GATEWAY => (
                 "The world couldn't reach the game database",
                 "The website couldn't reach the game database",
             ),
-            reqwest::StatusCode::UNPROCESSABLE_ENTITY => (
+            StatusCode::UNPROCESSABLE_ENTITY => (
                 "That isn't a valid name",
                 "The website refused it: the post or its category is gone, or the title or text is empty",
             ),
-            reqwest::StatusCode::UNSUPPORTED_MEDIA_TYPE => (
+            StatusCode::UNSUPPORTED_MEDIA_TYPE => (
                 "Unsupported file",
                 "That isn't an image or video the site takes (PNG, JPEG, GIF, WebP, MP4 or WebM)",
             ),
-            reqwest::StatusCode::PAYLOAD_TOO_LARGE => ("Too large", "That file is over 50 MB"),
-            reqwest::StatusCode::NOT_FOUND => ("Not found", "The website has no such file"),
+            StatusCode::PAYLOAD_TOO_LARGE => ("Too large", "That file is over 50 MB"),
+            StatusCode::NOT_FOUND => ("Not found", "The website has no such file"),
             s => return Err(CallError::failed(format!("Answered {s}"))),
         };
         Err(CallError {
@@ -413,8 +419,8 @@ impl Worlds {
                 Server::Website => website,
             }
             .to_owned(),
-            refused: status == reqwest::StatusCode::UNSUPPORTED_MEDIA_TYPE
-                || status == reqwest::StatusCode::PAYLOAD_TOO_LARGE,
+            refused: status == StatusCode::UNSUPPORTED_MEDIA_TYPE
+                || status == StatusCode::PAYLOAD_TOO_LARGE,
         })
     }
 
@@ -444,7 +450,7 @@ impl Worlds {
             .map_err(|e| e.message)?;
         let content_type = response
             .headers()
-            .get(reqwest::header::CONTENT_TYPE)
+            .get(CONTENT_TYPE)
             .and_then(|v| v.to_str().ok())
             .unwrap_or("application/octet-stream")
             .to_owned();
@@ -616,8 +622,8 @@ impl Worlds {
 
 /// Keeps every world's status fresh.
 pub async fn poll(worlds: Arc<Worlds>) {
-    let mut interval = tokio::time::interval(POLL_INTERVAL);
-    interval.set_missed_tick_behavior(tokio::time::MissedTickBehavior::Delay);
+    let mut interval = time::interval(POLL_INTERVAL);
+    interval.set_missed_tick_behavior(MissedTickBehavior::Delay);
     loop {
         interval.tick().await;
         worlds.refresh(None).await;

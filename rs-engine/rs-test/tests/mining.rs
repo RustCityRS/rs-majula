@@ -16,6 +16,7 @@ use client_packet::ClientPacket;
 use rs_engine::harness::HarnessClient;
 use rs_protocol::network::game::client_prot::ClientProt;
 use rs_test::runner;
+use std::sync::Mutex;
 
 const MINING: usize = 14;
 /// 2011's xp counter (varp 1801): `~givexp` adds ten to it for each xp it pays.
@@ -47,7 +48,7 @@ fn the_lumbridge_swamp_south_west_mine_gives_coal() {
 fn mine(rock: (u16, u16, u16), depleted: u16, ore: &str, level: u16, exp: i32, said_ore: &str) {
     // The cases share one loaded engine and each starts with a reset, which
     // would log the others' miners out: one at a time.
-    static TURN: std::sync::Mutex<()> = std::sync::Mutex::new(());
+    static TURN: Mutex<()> = Mutex::new(());
     let _turn = TURN.lock().unwrap_or_else(|e| e.into_inner());
     let ore_name = ore.to_string();
     let said_ore = said_ore.to_string();

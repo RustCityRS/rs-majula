@@ -12,8 +12,9 @@ use rs_pack::cache::VarValue;
 use rs_test::runner;
 use rs_test::talk::{converse, settexts, talk_to};
 use rsmod::rsmod::collision::collision_strategy::CollisionType;
+use std::sync::Mutex;
 
-static TURN: std::sync::Mutex<()> = std::sync::Mutex::new(());
+static TURN: Mutex<()> = Mutex::new(());
 
 const MIZGOG: u16 = 706;
 const MAGIC: usize = 6;

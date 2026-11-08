@@ -1,5 +1,6 @@
 use crate::active_player::EnginePlayer;
 use crate::engine::Engine;
+use crate::phases::shared::panic_message;
 use std::panic::{AssertUnwindSafe, catch_unwind};
 use tracing::error;
 
@@ -64,7 +65,7 @@ impl Engine {
                     if let Some(active) = taken.take() {
                         self.player_list.players[pid as usize] = Some(active);
                     }
-                    let msg = crate::phases::shared::panic_message(&panic);
+                    let msg = panic_message(&panic);
                     error!("panic during output processing for pid {pid}: {msg}");
                     self.emergency_remove_player(pid);
                     start += 1;

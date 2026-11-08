@@ -20,6 +20,7 @@ use rs_engine::Engine;
 use rs_engine::harness::HarnessClient;
 use rs_protocol::network::game::client_prot::ClientProt;
 use rs_test::runner;
+use std::fs;
 
 const BACKPACK: i32 = 149 << 16;
 
@@ -38,7 +39,7 @@ fn id(engine: &Engine, kind: &str, name: &str) -> u16 {
         "{}/../../content/647/pack/loc.pack",
         env!("CARGO_MANIFEST_DIR")
     );
-    std::fs::read_to_string(&path)
+    fs::read_to_string(&path)
         .expect(&path)
         .lines()
         .find_map(|l| l.split_once('=').filter(|(_, n)| *n == name))

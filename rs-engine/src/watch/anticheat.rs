@@ -34,7 +34,12 @@ use rs_protocol::network::game::client::unpack_coord;
 use rs_protocol::network::game::client_prot::ClientProt;
 use serde_json::{Map, Value, json};
 use std::collections::VecDeque;
+#[cfg(before_647)]
+use std::f64::consts::PI;
 use std::hash::Hash;
+#[cfg(before_647)]
+use std::iter;
+use std::mem;
 use std::sync::Arc;
 use std::time::{SystemTime, UNIX_EPOCH};
 
@@ -665,7 +670,7 @@ impl AntiCheat {
 
     /// Checks the inputs `decode` times from a report.
     fn inputs_from(&mut self, decode: impl FnOnce(&mut InputDecoder, &mut Vec<Timed>)) {
-        let mut decoded = std::mem::take(&mut self.decoded);
+        let mut decoded = mem::take(&mut self.decoded);
         decoded.clear();
         decode(&mut self.inputs, &mut decoded);
         for timed in &decoded {
@@ -888,7 +893,7 @@ impl AntiCheat {
                     && (i32::from(z) - i32::from(b.z) - tile_z).abs() <= reach
             })
         };
-        let matched = std::iter::once(base)
+        let matched = iter::once(base)
             .chain(self.bases.iter().rev().copied())
             .find(lands_from);
         let lands = path.len() >= MAX_STEPS || matched.is_some();
@@ -1424,7 +1429,7 @@ fn minimap_tile(t: &MinimapTrailer) -> (i32, i32) {
 /// The client's sine or cosine table entry `i` (2048 to a turn, 16.16).
 #[cfg(before_647)]
 fn table(f: fn(f64) -> f64, i: i32) -> i32 {
-    (f(f64::from(i) * std::f64::consts::PI / 1024.0) * 65536.0) as i32
+    (f(f64::from(i) * PI / 1024.0) * 65536.0) as i32
 }
 
 fn offset(pos: u16, base: u16) -> i32 {

@@ -283,6 +283,8 @@ pub fn game_login_reply(staffmodlevel: u8, pid: u16) -> Vec<u8> {
 mod tests {
     use super::*;
     use rs_crypto::rsa::parse_rsa_key_from_pem;
+    #[cfg(since_647)]
+    use std::array;
     use std::sync::LazyLock;
 
     static KEY: LazyLock<RsaKey> = LazyLock::new(|| {
@@ -411,7 +413,7 @@ Az5KOlJPE6c=
                 assert_eq!(login.seed, SEED);
                 assert!(!login.low_memory);
                 assert_eq!(login.uid, None);
-                assert_eq!(login.archive_crcs, std::array::from_fn(|i| i as i32 - 17));
+                assert_eq!(login.archive_crcs, array::from_fn(|i| i as i32 - 17));
                 if !lobby {
                     assert_eq!(login.settings.window_mode, 2);
                     assert_eq!(login.settings.screen_width, 800);

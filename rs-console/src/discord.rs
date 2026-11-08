@@ -1,11 +1,14 @@
 use crate::users::now_ms;
 use crate::worlds::{Outcome, Reply};
 use reqwest::Client;
+use reqwest::StatusCode;
 use reqwest::header::{CONTENT_TYPE, RETRY_AFTER};
+use reqwest::redirect::Policy;
 use rs_admin_api::iso_time;
 use serde_json::{Value, json};
 use std::time::Duration;
 use tokio::sync::mpsc::{self, Receiver, Sender};
+use tokio::time::sleep;
 use tracing::warn;
 
 /// How long Discord gets to take a message.
@@ -120,7 +123,7 @@ impl Discord {
         let queue = webhook.map(|url| {
             let client = Client::builder()
                 .timeout(TIMEOUT)
-                .redirect(reqwest::redirect::Policy::none())
+                .redirect(Policy::none())
                 .build()
                 .expect("building the HTTP client");
             let (queue, messages) = mpsc::channel(QUEUE);
@@ -193,13 +196,13 @@ async fn send_all(client: Client, url: String, mut messages: Receiver<Value>) {
                 .await;
             match sent {
                 Ok(r) if r.status().is_success() => break,
-                Ok(r) if r.status() == reqwest::StatusCode::TOO_MANY_REQUESTS && attempt == 0 => {
+                Ok(r) if r.status() == StatusCode::TOO_MANY_REQUESTS && attempt == 0 => {
                     let wait = r
                         .headers()
                         .get(RETRY_AFTER)
                         .and_then(|v| v.to_str().ok()?.parse::<f64>().ok())
                         .map_or(Duration::from_secs(2), Duration::from_secs_f64);
-                    tokio::time::sleep(wait.min(MAX_RETRY_WAIT)).await;
+                    sleep(wait.min(MAX_RETRY_WAIT)).await;
                 }
                 Ok(r) => {
                     warn!("Discord refused a world notice: {}", r.status());
@@ -282,6 +285,7 @@ pub fn escape(text: &str) -> String {
 #[cfg(test)]
 mod tests {
     use super::*;
+    use rs_admin_api::Outcome as AdminOutcome;
 
     #[test]
     fn worlds_read_as_a_list() {
@@ -301,9 +305,9 @@ mod tests {
 
     fn reply(world: u16, ok: bool) -> Reply<rs_admin_api::Outcome> {
         let answer = if ok {
-            rs_admin_api::Outcome::ok("Done.")
+            AdminOutcome::ok("Done.")
         } else {
-            rs_admin_api::Outcome::refused("It's already running.")
+            AdminOutcome::refused("It's already running.")
         };
         Reply {
             node: world as u8,

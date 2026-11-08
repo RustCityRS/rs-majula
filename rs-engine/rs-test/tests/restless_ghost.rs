@@ -21,7 +21,7 @@ use rs_engine::harness::HarnessClient;
 use rs_pack::cache::VarValue;
 use rs_protocol::network::game::client_prot::ClientProt;
 use rs_test::runner;
-use rs_test::talk::{converse, talk_to};
+use rs_test::talk::{converse, settexts, talk_to};
 
 const AERECK: u16 = 456;
 const GHOST: u16 = 457;
@@ -133,11 +133,7 @@ fn messages(engine: &mut Engine, client: &mut HarnessClient, n: usize) -> Vec<St
                 .map(|(_, t)| t),
         );
         // Interface texts too (the quest scroll's lines).
-        said.extend(
-            rs_test::talk::settexts(&packets)
-                .into_iter()
-                .map(|(_, t)| t),
-        );
+        said.extend(settexts(&packets).into_iter().map(|(_, t)| t));
     }
     said
 }

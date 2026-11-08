@@ -1,9 +1,10 @@
 use crate::users::name_key;
 use rs_admin_api::hex;
 use sha2::{Digest, Sha256};
+use std::cmp::Reverse;
 use std::collections::HashMap;
 use std::net::IpAddr;
-use std::sync::Mutex;
+use std::sync::{Mutex, MutexGuard};
 use std::time::{Duration, Instant, SystemTime, UNIX_EPOCH};
 
 /// A signed-in session ends after this long without a request...
@@ -87,7 +88,7 @@ pub struct Sessions {
 }
 
 impl Sessions {
-    fn lock(&self) -> std::sync::MutexGuard<'_, Inner> {
+    fn lock(&self) -> MutexGuard<'_, Inner> {
         self.inner.lock().unwrap_or_else(|e| e.into_inner())
     }
 
@@ -189,7 +190,7 @@ impl Sessions {
             .filter(|s| s.stage == Stage::SignedIn && name_key(&s.user) == key && !s.expired(now))
             .cloned()
             .collect();
-        sessions.sort_by_key(|s| std::cmp::Reverse(s.last_seen));
+        sessions.sort_by_key(|s| Reverse(s.last_seen));
         sessions
     }
 

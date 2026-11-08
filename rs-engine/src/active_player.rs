@@ -3,6 +3,10 @@ use crate::clients::client_game::{ClientHandle, MAX_UNSENT};
 use crate::counters::{self, AutoBan, COUNTERS};
 use crate::engine::{OtherPlayers, engine, engine_mut};
 use crate::handlers::ClientGameHandler;
+use crate::phases::logout::TIMEOUT_NO_RESPONSE;
+#[cfg(before_274)]
+use crate::watch::TRACKING_TICKS;
+use crate::watch::menu::InvOp;
 use crate::watch::schedule::End;
 use crate::watch::{MapBase, Op, Target, Using, Watch, menu};
 use mem::take;
@@ -15,6 +19,8 @@ use rs_info::FocusKind;
 use rs_inv::Inventory;
 use rs_io::{Packet, PacketFrame};
 use rs_pack::cache::inv::InvScope;
+#[cfg(since_647)]
+use rs_pack::cache::map::XteaKeyStore;
 #[cfg(since_254)]
 use rs_pack::cache::varbit::VarbitType;
 use rs_pack::cache::{ScriptVarType, VarValue};
@@ -22,9 +28,9 @@ use rs_pack::cache::{ScriptVarType, VarValue};
 use rs_pack::types::MultiVar;
 use rs_pack::types::{Font, PlayerStat};
 use rs_protocol::network::game::MAX_PACKET_SIZE;
-use rs_protocol::network::game::client::ClientProtMessage;
 #[cfg(before_647)]
 use rs_protocol::network::game::client::move_minimapclick::MinimapTrailer;
+use rs_protocol::network::game::client::{ClientProtMessage, unpack_coord};
 #[cfg(before_647)]
 use rs_protocol::network::game::client_prot::AnticheatCycleLogic1;
 #[cfg(before_647)]
@@ -186,14 +192,145 @@ use rs_protocol::network::game::client_prot_category::ClientProtCategory;
 use rs_protocol::network::game::client_prot_frame::ClientProtFrame;
 use rs_protocol::network::game::info_prot::PlayerInfoProt;
 use rs_protocol::network::game::server::ServerProtMessage;
+#[cfg(before_647)]
+use rs_protocol::network::game::server::cam_look_at::CamLookAt;
+#[cfg(since_647)]
+use rs_protocol::network::game::server::cam_lookat::CamLookat;
+#[cfg(before_647)]
+use rs_protocol::network::game::server::cam_move_to::CamMoveTo;
+#[cfg(since_647)]
+use rs_protocol::network::game::server::cam_moveto::CamMoveto;
+use rs_protocol::network::game::server::cam_reset::CamReset;
+use rs_protocol::network::game::server::cam_shake::CamShake;
+use rs_protocol::network::game::server::chat_filter_settings::ChatFilterSettings;
+#[cfg(since_647)]
+use rs_protocol::network::game::server::chat_filter_settings_privatechat::ChatFilterSettingsPrivatechat;
+#[cfg(rev = "225")]
+use rs_protocol::network::game::server::data_land::DataLand;
+#[cfg(rev = "225")]
+use rs_protocol::network::game::server::data_land_done::DataLandDone;
+#[cfg(rev = "225")]
+use rs_protocol::network::game::server::data_loc::DataLoc;
+#[cfg(rev = "225")]
+use rs_protocol::network::game::server::data_loc_done::DataLocDone;
+#[cfg(before_274)]
+use rs_protocol::network::game::server::enable_tracking::EnableTracking;
+#[cfg(before_274)]
+use rs_protocol::network::game::server::finish_tracking::FinishTracking;
+#[cfg(all(since_254, before_647))]
+use rs_protocol::network::game::server::friendlist_loaded::FriendListLoaded;
+#[cfg(since_647)]
+use rs_protocol::network::game::server::friendlist_loaded::FriendlistLoaded;
+use rs_protocol::network::game::server::hint_arrow::HintArrow;
 #[cfg(since_647)]
 use rs_protocol::network::game::server::hint_arrow::HintArrowKind;
+#[cfg(before_647)]
+use rs_protocol::network::game::server::if_close::IfClose;
+#[cfg(since_647)]
+use rs_protocol::network::game::server::if_closesub::IfClosesub;
+#[cfg(since_647)]
+use rs_protocol::network::game::server::if_movesub::IfMovesub;
+#[cfg(before_647)]
+use rs_protocol::network::game::server::if_openchat::IfOpenChat;
+#[cfg(before_647)]
+use rs_protocol::network::game::server::if_openmain::IfOpenMain;
+#[cfg(before_647)]
+use rs_protocol::network::game::server::if_openmain_side::IfOpenMainSide;
+#[cfg(all(since_244, before_647))]
+use rs_protocol::network::game::server::if_openoverlay::IfOpenOverlay;
+#[cfg(before_647)]
+use rs_protocol::network::game::server::if_openside::IfOpenSide;
+#[cfg(since_647)]
+use rs_protocol::network::game::server::if_opensub::IfOpensub;
+#[cfg(since_647)]
+use rs_protocol::network::game::server::if_opentop::IfOpentop;
+use rs_protocol::network::game::server::if_setanim::IfSetAnim;
+use rs_protocol::network::game::server::if_setcolour::IfSetColour;
+#[cfg(since_647)]
+use rs_protocol::network::game::server::if_setevents::IfSetEvents;
+#[cfg(since_647)]
+use rs_protocol::network::game::server::if_setgraphic::IfSetGraphic;
+use rs_protocol::network::game::server::if_sethide::IfSetHide;
+use rs_protocol::network::game::server::if_setmodel::IfSetModel;
+use rs_protocol::network::game::server::if_setnpchead::IfSetNpcHead;
+use rs_protocol::network::game::server::if_setobject::IfSetObject;
+use rs_protocol::network::game::server::if_setplayerhead::IfSetPlayerHead;
+use rs_protocol::network::game::server::if_setposition::IfSetPosition;
+#[cfg(before_245_2)]
+use rs_protocol::network::game::server::if_setrecol::IfSetRecol;
+#[cfg(since_245_2)]
+use rs_protocol::network::game::server::if_setscrollpos::IfSetScrollPos;
+#[cfg(before_647)]
+use rs_protocol::network::game::server::if_settab::IfSetTab;
+#[cfg(before_647)]
+use rs_protocol::network::game::server::if_settab_active::IfSetTabActive;
+use rs_protocol::network::game::server::if_settext::IfSetText;
+use rs_protocol::network::game::server::last_login_info::LastLoginInfo;
 use rs_protocol::network::game::server::loc_add_change::LocAddChange;
 use rs_protocol::network::game::server::loc_del::LocDel;
+#[cfg(before_647)]
+use rs_protocol::network::game::server::logout::Logout;
+use rs_protocol::network::game::server::message_game::MessageGame;
+#[cfg(since_647)]
+use rs_protocol::network::game::server::message_public;
+#[cfg(any(rev = "225", since_244))]
+use rs_protocol::network::game::server::midi_jingle::MidiJingle;
+#[cfg(any(rev = "225", since_244))]
+use rs_protocol::network::game::server::midi_song::MidiSong;
+#[cfg(since_274)]
+use rs_protocol::network::game::server::minimap_toggle::MinimapToggle;
+use rs_protocol::network::game::server::npc_info::NpcInfo;
 use rs_protocol::network::game::server::obj_add::ObjAdd;
+#[cfg(before_647)]
+use rs_protocol::network::game::server::p_countdialog::PCountDialog;
+use rs_protocol::network::game::server::player_info::PlayerInfo;
+#[cfg(since_647)]
+use rs_protocol::network::game::server::rebuild_normal::MAX_PLAYERS;
+#[cfg(any(rev = "225", since_244))]
+use rs_protocol::network::game::server::rebuild_normal::RebuildNormal;
+#[cfg(before_647)]
+use rs_protocol::network::game::server::reset_anims::ResetAnims;
+#[cfg(before_647)]
+use rs_protocol::network::game::server::reset_client_varcache::ResetClientVarCache;
+#[cfg(since_647)]
+use rs_protocol::network::game::server::run_client_script::{RunClientScript, ScriptParam};
+#[cfg(since_647)]
+use rs_protocol::network::game::server::set_map_flag::SetMapFlag;
+#[cfg(before_647)]
+use rs_protocol::network::game::server::set_multiway::SetMultiway;
+#[cfg(since_254)]
+use rs_protocol::network::game::server::set_player_op::SetPlayerOp;
+use rs_protocol::network::game::server::synth_sound::SynthSound;
+#[cfg(before_647)]
+use rs_protocol::network::game::server::tut_flash::TutFlash;
+#[cfg(before_647)]
+use rs_protocol::network::game::server::tut_open::TutOpen;
+#[cfg(before_647)]
+use rs_protocol::network::game::server::unset_map_flag::UnsetMapFlag;
+#[cfg(since_647)]
+use rs_protocol::network::game::server::update_inv_full::InvItem;
+use rs_protocol::network::game::server::update_inv_full::UpdateInvFull;
+#[cfg(before_647)]
+use rs_protocol::network::game::server::update_inv_partial::UpdateInvPartial;
+#[cfg(before_647)]
+use rs_protocol::network::game::server::update_inv_stop_transmit::UpdateInvStopTransmit;
+#[cfg(any(rev = "225", all(since_244, before_647)))]
+use rs_protocol::network::game::server::update_pid::UpdatePid;
+use rs_protocol::network::game::server::update_runenergy::UpdateRunEnergy;
+#[cfg(before_647)]
+use rs_protocol::network::game::server::update_runweight::UpdateRunWeight;
+use rs_protocol::network::game::server::update_stat::UpdateStat;
 use rs_protocol::network::game::server::update_zone_full_follows::UpdateZoneFullFollows;
 use rs_protocol::network::game::server::update_zone_partial_enclosed::UpdateZonePartialEnclosed;
 use rs_protocol::network::game::server::update_zone_partial_follows::UpdateZonePartialFollows;
+#[cfg(since_647)]
+use rs_protocol::network::game::server::varc_large::VarcLarge;
+#[cfg(since_647)]
+use rs_protocol::network::game::server::varc_small::VarcSmall;
+#[cfg(since_647)]
+use rs_protocol::network::game::server::varc_str_small::VarcStrSmall;
+use rs_protocol::network::game::server::varp_large::VarpLarge;
+use rs_protocol::network::game::server::varp_small::VarpSmall;
 use rs_protocol::network::game::server_prot::ServerProt;
 use rs_protocol::network::game::server_prot_priority::ServerProtPriority;
 #[cfg(since_254)]
@@ -201,8 +338,9 @@ use rs_util::bits::{fits_bit_range, getbit_range, setbit_range_toint};
 use rs_var::VarSet;
 use rs_vm::ScriptError;
 use rs_vm::engine::{ScriptEngine, ScriptPlayer};
-#[cfg(since_647)]
 use rs_vm::state::QueuePriority;
+#[cfg(since_647)]
+use rs_vm::state::ScriptArgument;
 use rs_vm::state::ScriptState;
 use rs_vm::subject::ScriptSubject;
 use rs_vm::trigger::ServerTriggerType;
@@ -213,10 +351,13 @@ use rsmod::rsmod::flag::zone_flag::ZoneFlag;
 use rustc_hash::{FxHashMap, FxHashSet};
 use std::borrow::Cow;
 use std::cell::RefCell;
+#[cfg(since_647)]
+use std::collections::HashMap;
 use std::fmt;
 use std::fmt::Write as _;
 use std::mem;
 use std::net::IpAddr;
+use std::str;
 use std::time::{Duration, Instant};
 use tracing::{debug, error, warn};
 
@@ -642,9 +783,9 @@ impl ActivePlayer {
 
         // The client's input report: sent now, then from a fresh start.
         #[cfg(before_274)]
-        if engine().clock.is_multiple_of(crate::watch::TRACKING_TICKS) {
-            self.write(rs_protocol::network::game::server::finish_tracking::FinishTracking);
-            self.write(rs_protocol::network::game::server::enable_tracking::EnableTracking);
+        if engine().clock.is_multiple_of(TRACKING_TICKS) {
+            self.write(FinishTracking);
+            self.write(EnableTracking);
         }
 
         self.watch_acting_on();
@@ -658,7 +799,7 @@ impl ActivePlayer {
 
     pub fn cam_moveto(&mut self, x: u8, z: u8, height: u16, rate: u8, rate2: u8) {
         #[cfg(before_647)]
-        self.write(rs_protocol::network::game::server::cam_move_to::CamMoveTo {
+        self.write(CamMoveTo {
             x,
             z,
             height,
@@ -666,7 +807,7 @@ impl ActivePlayer {
             rate2,
         });
         #[cfg(since_647)]
-        self.write(rs_protocol::network::game::server::cam_moveto::CamMoveto {
+        self.write(CamMoveto {
             local_x: x,
             local_z: z,
             height,
@@ -677,7 +818,7 @@ impl ActivePlayer {
 
     pub fn cam_lookat(&mut self, x: u8, z: u8, height: u16, rate: u8, rate2: u8) {
         #[cfg(before_647)]
-        self.write(rs_protocol::network::game::server::cam_look_at::CamLookAt {
+        self.write(CamLookAt {
             x,
             z,
             height,
@@ -685,7 +826,7 @@ impl ActivePlayer {
             rate2,
         });
         #[cfg(since_647)]
-        self.write(rs_protocol::network::game::server::cam_lookat::CamLookat {
+        self.write(CamLookat {
             local_x: x,
             local_z: z,
             height,
@@ -696,7 +837,7 @@ impl ActivePlayer {
 
     pub fn cam_shake(&mut self, direction: u8, jitter: u8, amplitude: u8, frequency: u8) {
         #[cfg(before_647)]
-        self.write(rs_protocol::network::game::server::cam_shake::CamShake {
+        self.write(CamShake {
             direction,
             jitter,
             amplitude,
@@ -705,7 +846,7 @@ impl ActivePlayer {
         // 647 adds the wobble's starting phase; a shake starts at the start,
         // as the pre-647 client began every shake at cycle 0.
         #[cfg(since_647)]
-        self.write(rs_protocol::network::game::server::cam_shake::CamShake {
+        self.write(CamShake {
             direction,
             jitter,
             amplitude,
@@ -784,11 +925,7 @@ impl ActivePlayer {
                 let now_multi =
                     rsmod::is_zone_flagged(zone.x(), zone.z(), zone.y(), ZoneFlag::Multi as u8);
                 if was_multi != now_multi {
-                    self.write(
-                        rs_protocol::network::game::server::set_multiway::SetMultiway {
-                            hide: now_multi,
-                        },
-                    );
+                    self.write(SetMultiway { hide: now_multi });
                 }
             }
             self.trigger_zone_exit(old_zone.y(), old_zone.x(), old_zone.z());
@@ -856,7 +993,7 @@ impl ActivePlayer {
                 .player
                 .state
                 .queues
-                .add(rs_vm::state::QueuePriority::Engine, id, 0, None);
+                .add(QueuePriority::Engine, id, 0, None);
         }
     }
 
@@ -890,41 +1027,30 @@ impl ActivePlayer {
 
     /// Sends a camera reset packet to the client, restoring the default camera.
     pub fn cam_reset(&mut self) {
-        self.write(rs_protocol::network::game::server::cam_reset::CamReset);
+        self.write(CamReset);
     }
 
     /// Sends the chat filter settings (public, private, trade) to the client.
     pub fn chat_filter_settings(&mut self, public: u8, private: u8, trade: u8) {
         #[cfg(before_647)]
-        self.write(
-            rs_protocol::network::game::server::chat_filter_settings::ChatFilterSettings {
-                public,
-                private,
-                trade,
-            },
-        );
+        self.write(ChatFilterSettings {
+            public,
+            private,
+            trade,
+        });
         // Rev-647 splits the settings across two packets: public/trade in
         // CHAT_FILTER_SETTINGS and private in its own packet.
         #[cfg(since_647)]
         {
-            self.write(
-                rs_protocol::network::game::server::chat_filter_settings::ChatFilterSettings {
-                    public,
-                    trade,
-                },
-            );
-            self.write(
-                rs_protocol::network::game::server::chat_filter_settings_privatechat::ChatFilterSettingsPrivatechat {
-                    private,
-                },
-            );
+            self.write(ChatFilterSettings { public, trade });
+            self.write(ChatFilterSettingsPrivatechat { private });
         }
     }
 
     /// Sends a chunk of land (ground texture) map data to the client.
     #[cfg(rev = "225")]
     pub fn data_land(&mut self, x: u8, z: u8, off: u16, len: u16, data: &[u8]) {
-        self.write(rs_protocol::network::game::server::data_land::DataLand {
+        self.write(DataLand {
             x,
             z,
             off,
@@ -937,13 +1063,13 @@ impl ActivePlayer {
     /// have been sent.
     #[cfg(rev = "225")]
     pub fn data_land_done(&mut self, x: u8, z: u8) {
-        self.write(rs_protocol::network::game::server::data_land_done::DataLandDone { x, z });
+        self.write(DataLandDone { x, z });
     }
 
     /// Sends a chunk of location map data to the client.
     #[cfg(rev = "225")]
     pub fn data_loc(&mut self, x: u8, z: u8, off: u16, len: u16, data: &[u8]) {
-        self.write(rs_protocol::network::game::server::data_loc::DataLoc {
+        self.write(DataLoc {
             x,
             z,
             off,
@@ -956,7 +1082,7 @@ impl ActivePlayer {
     /// mapsquare have been sent.
     #[cfg(rev = "225")]
     pub fn data_loc_done(&mut self, x: u8, z: u8) {
-        self.write(rs_protocol::network::game::server::data_loc_done::DataLocDone { x, z });
+        self.write(DataLocDone { x, z });
     }
 
     /// Sends a hint arrow pointing at an NPC.
@@ -965,14 +1091,14 @@ impl ActivePlayer {
     /// * `nid` - The world index of the NPC to highlight.
     pub fn hint_npc(&mut self, nid: u16) {
         #[cfg(before_647)]
-        self.write(rs_protocol::network::game::server::hint_arrow::HintArrow {
+        self.write(HintArrow {
             hint: 1,
             arg1: nid,
             arg2: 0,
             arg3: 0,
         });
         #[cfg(since_647)]
-        self.write(rs_protocol::network::game::server::hint_arrow::HintArrow {
+        self.write(HintArrow {
             kind: HintArrowKind::Npc { npc_index: nid },
             model_id: 0xFFFF,
         });
@@ -988,7 +1114,7 @@ impl ActivePlayer {
     /// * `height` - The vertical offset of the arrow above the tile.
     pub fn hint_tile(&mut self, offset: u8, x: u16, z: u16, height: u8) {
         #[cfg(before_647)]
-        self.write(rs_protocol::network::game::server::hint_arrow::HintArrow {
+        self.write(HintArrow {
             hint: offset,
             arg1: x,
             arg2: z,
@@ -1000,7 +1126,7 @@ impl ActivePlayer {
         {
             let _ = offset;
             let level = self.player.pathing.coord.y();
-            self.write(rs_protocol::network::game::server::hint_arrow::HintArrow {
+            self.write(HintArrow {
                 kind: HintArrowKind::Coord {
                     x,
                     z,
@@ -1018,14 +1144,14 @@ impl ActivePlayer {
     /// * `slot` - The player index (pid) to highlight.
     pub fn hint_player(&mut self, slot: u16) {
         #[cfg(before_647)]
-        self.write(rs_protocol::network::game::server::hint_arrow::HintArrow {
+        self.write(HintArrow {
             hint: 10,
             arg1: slot,
             arg2: 0,
             arg3: 0,
         });
         #[cfg(since_647)]
-        self.write(rs_protocol::network::game::server::hint_arrow::HintArrow {
+        self.write(HintArrow {
             kind: HintArrowKind::Player { player_index: slot },
             model_id: 0xFFFF,
         });
@@ -1035,14 +1161,14 @@ impl ActivePlayer {
     /// client to remove the arrow.
     pub fn stop_hint(&mut self) {
         #[cfg(before_647)]
-        self.write(rs_protocol::network::game::server::hint_arrow::HintArrow {
+        self.write(HintArrow {
             hint: 0xFF,
             arg1: 0,
             arg2: 0,
             arg3: 0,
         });
         #[cfg(since_647)]
-        self.write(rs_protocol::network::game::server::hint_arrow::HintArrow {
+        self.write(HintArrow {
             kind: HintArrowKind::Stop,
             model_id: 0xFFFF,
         });
@@ -1051,7 +1177,7 @@ impl ActivePlayer {
     /// Sends an interface close packet to the client.
     pub fn if_close(&mut self) {
         #[cfg(before_647)]
-        self.write(rs_protocol::network::game::server::if_close::IfClose {});
+        self.write(IfClose {});
         // Rev-647 closes per-slot: IF_CLOSESUB names the parent component hash
         // the sub-interface was mounted on, so a close goes to each slot a
         // modal actually opened in rather than to a single screen-wide modal.
@@ -1070,9 +1196,7 @@ impl ActivePlayer {
     /// Sends a packet to open both a main interface and a side interface.
     pub fn if_open_main_side(&mut self, com: u16, side: u16) {
         #[cfg(before_647)]
-        self.write(
-            rs_protocol::network::game::server::if_openmain_side::IfOpenMainSide { com, side },
-        );
+        self.write(IfOpenMainSide { com, side });
         #[cfg(since_647)]
         {
             self.if_open_main(com);
@@ -1092,7 +1216,7 @@ impl ActivePlayer {
     /// a tinted box.
     pub fn if_open_main(&mut self, com: u16) {
         #[cfg(before_647)]
-        self.write(rs_protocol::network::game::server::if_openmain::IfOpenMain { com });
+        self.write(IfOpenMain { com });
         #[cfg(since_647)]
         {
             let layout = &engine().layout;
@@ -1129,7 +1253,7 @@ impl ActivePlayer {
     /// small one leaves the dialogue on screen.
     pub fn if_open_chat(&mut self, com: u16) {
         #[cfg(before_647)]
-        self.write(rs_protocol::network::game::server::if_openchat::IfOpenChat { com });
+        self.write(IfOpenChat { com });
         #[cfg(since_647)]
         {
             let parent_hash = engine().layout.dialogue_slot(com);
@@ -1157,7 +1281,7 @@ impl ActivePlayer {
     /// type-0 panel went with the client's close and left the tabs hidden.
     pub fn if_open_side(&mut self, com: u16) {
         #[cfg(before_647)]
-        self.write(rs_protocol::network::game::server::if_openside::IfOpenSide { com });
+        self.write(IfOpenSide { com });
         #[cfg(since_647)]
         {
             let parent = self.toplevel_slot(&engine().layout.overlay_tab);
@@ -1192,149 +1316,122 @@ impl ActivePlayer {
         };
         let days_since_login = ((self.player.last_date - previous) / (60 * 60 * 24)) as u16;
         #[cfg(before_647)]
-        self.write(
-            rs_protocol::network::game::server::last_login_info::LastLoginInfo {
-                ip: 2130706433,
-                login: days_since_login,
-                recovery: 201,
-                messages: self.unread_messages,
-                #[cfg(since_244)]
-                warn_members_in_non_members: !engine().members && self.member(),
-            },
-        );
+        self.write(LastLoginInfo {
+            ip: 2130706433,
+            login: days_since_login,
+            recovery: 201,
+            messages: self.unread_messages,
+            #[cfg(since_244)]
+            warn_members_in_non_members: !engine().members && self.member(),
+        });
         // Rev-647 only reports the day count; the welcome-screen extras
         // (ip/recovery/messages) are gone from the packet.
         #[cfg(since_647)]
-        self.write(
-            rs_protocol::network::game::server::last_login_info::LastLoginInfo {
-                login: days_since_login as i32,
-            },
-        );
+        self.write(LastLoginInfo {
+            login: days_since_login as i32,
+        });
     }
 
     /// Sets the animation playing on an interface component.
     pub fn if_setanim(&mut self, com: i32, seq: u16) {
         #[cfg(before_647)]
-        self.write(rs_protocol::network::game::server::if_setanim::IfSetAnim {
+        self.write(IfSetAnim {
             com: com as u16,
             seq,
         });
         #[cfg(since_647)]
-        self.write(rs_protocol::network::game::server::if_setanim::IfSetAnim { com, seq });
+        self.write(IfSetAnim { com, seq });
     }
 
     /// Sets the color of an interface component.
     pub fn if_setcolour(&mut self, com: i32, colour: u16) {
         #[cfg(before_647)]
-        self.write(
-            rs_protocol::network::game::server::if_setcolour::IfSetColour {
-                com: com as u16,
-                colour,
-            },
-        );
+        self.write(IfSetColour {
+            com: com as u16,
+            colour,
+        });
         #[cfg(since_647)]
-        self.write(rs_protocol::network::game::server::if_setcolour::IfSetColour { com, colour });
+        self.write(IfSetColour { com, colour });
     }
 
     /// Sets the visibility of an interface component.
     pub fn if_sethide(&mut self, com: i32, hide: bool) {
         #[cfg(before_647)]
-        self.write(rs_protocol::network::game::server::if_sethide::IfSetHide {
+        self.write(IfSetHide {
             com: com as u16,
             hide,
         });
         #[cfg(since_647)]
-        self.write(rs_protocol::network::game::server::if_sethide::IfSetHide { com, hidden: hide });
+        self.write(IfSetHide { com, hidden: hide });
     }
 
     /// Sets the model displayed on an interface component.
     pub fn if_setmodel(&mut self, com: i32, model: u16) {
         #[cfg(before_647)]
-        self.write(
-            rs_protocol::network::game::server::if_setmodel::IfSetModel {
-                com: com as u16,
-                model,
-            },
-        );
+        self.write(IfSetModel {
+            com: com as u16,
+            model,
+        });
         #[cfg(since_647)]
-        self.write(rs_protocol::network::game::server::if_setmodel::IfSetModel { com, model });
+        self.write(IfSetModel { com, model });
     }
 
     /// Sets the graphic (a sprite) displayed on an interface component.
     #[cfg(since_647)]
     pub fn if_setgraphic(&mut self, com: i32, graphic: u16) {
-        self.write(
-            rs_protocol::network::game::server::if_setgraphic::IfSetGraphic { com, graphic },
-        );
+        self.write(IfSetGraphic { com, graphic });
     }
 
     /// Sets an NPC head model on an interface component.
     pub fn if_setnpchead(&mut self, com: i32, npc: u16) {
         #[cfg(before_647)]
-        self.write(
-            rs_protocol::network::game::server::if_setnpchead::IfSetNpcHead {
-                com: com as u16,
-                npc,
-            },
-        );
+        self.write(IfSetNpcHead {
+            com: com as u16,
+            npc,
+        });
         #[cfg(since_647)]
-        self.write(rs_protocol::network::game::server::if_setnpchead::IfSetNpcHead { com, npc });
+        self.write(IfSetNpcHead { com, npc });
     }
 
     /// Sets an item model on an interface component with a given zoom scale.
     pub fn if_setobject(&mut self, com: i32, obj: u16, scale: i32) {
         #[cfg(before_647)]
-        self.write(
-            rs_protocol::network::game::server::if_setobject::IfSetObject {
-                com: com as u16,
-                obj,
-                scale: scale as u16,
-            },
-        );
+        self.write(IfSetObject {
+            com: com as u16,
+            obj,
+            scale: scale as u16,
+        });
         #[cfg(since_647)]
-        self.write(
-            rs_protocol::network::game::server::if_setobject::IfSetObject { com, obj, scale },
-        );
+        self.write(IfSetObject { com, obj, scale });
     }
 
     /// Sets the local player's head model on an interface component.
     pub fn if_setplayerhead(&mut self, com: i32) {
         #[cfg(before_647)]
-        self.write(
-            rs_protocol::network::game::server::if_setplayerhead::IfSetPlayerHead {
-                com: com as u16,
-            },
-        );
+        self.write(IfSetPlayerHead { com: com as u16 });
         #[cfg(since_647)]
-        self.write(rs_protocol::network::game::server::if_setplayerhead::IfSetPlayerHead { com });
+        self.write(IfSetPlayerHead { com });
     }
 
     /// Sets the position of an interface component.
     pub fn if_setposition(&mut self, com: i32, x: u16, y: u16) {
         #[cfg(before_647)]
-        self.write(
-            rs_protocol::network::game::server::if_setposition::IfSetPosition {
-                com: com as u16,
-                x,
-                y,
-            },
-        );
+        self.write(IfSetPosition {
+            com: com as u16,
+            x,
+            y,
+        });
         #[cfg(since_647)]
-        self.write(rs_protocol::network::game::server::if_setposition::IfSetPosition { com, x, y });
+        self.write(IfSetPosition { com, x, y });
     }
 
     /// Sets the scrollbar position on an interface component.
     #[cfg(since_245_2)]
     pub fn if_setscrollpos(&mut self, com: i32, y: u16) {
         #[cfg(before_647)]
-        self.write(
-            rs_protocol::network::game::server::if_setscrollpos::IfSetScrollPos {
-                com: com as u16,
-                y,
-            },
-        );
+        self.write(IfSetScrollPos { com: com as u16, y });
         #[cfg(since_647)]
-        self.write(rs_protocol::network::game::server::if_setscrollpos::IfSetScrollPos { com, y });
+        self.write(IfSetScrollPos { com, y });
     }
 
     /// Opens an overlay interface over the game view (a minigame's timer, the
@@ -1346,7 +1443,7 @@ impl ActivePlayer {
     #[cfg(since_244)]
     pub fn if_openoverlay(&mut self, com: u16) {
         #[cfg(before_647)]
-        self.write(rs_protocol::network::game::server::if_openoverlay::IfOpenOverlay { com });
+        self.write(IfOpenOverlay { com });
         #[cfg(since_647)]
         {
             let parent = self.toplevel_slot(&engine().layout.overlay);
@@ -1369,9 +1466,7 @@ impl ActivePlayer {
     /// other players on this player's context menu.
     #[cfg(since_254)]
     pub fn set_player_op(&mut self, op: u8, value: &str, primary: u8) {
-        self.write(
-            rs_protocol::network::game::server::set_player_op::SetPlayerOp { op, value, primary },
-        );
+        self.write(SetPlayerOp { op, value, primary });
     }
 
     /// Tells the client the loading state of its friend list (`1` connecting,
@@ -1379,14 +1474,12 @@ impl ActivePlayer {
     #[cfg(since_254)]
     pub fn friendlist_loaded(&mut self, status: u8) {
         #[cfg(before_647)]
-        self.write(
-            rs_protocol::network::game::server::friendlist_loaded::FriendListLoaded { status },
-        );
+        self.write(FriendListLoaded { status });
         // Rev-647 FRIENDLIST_LOADED carries no payload and only signals the
         // loaded state; the "connecting" (1) state has no 647 equivalent.
         #[cfg(since_647)]
         if status == 2 {
-            self.write(rs_protocol::network::game::server::friendlist_loaded::FriendlistLoaded);
+            self.write(FriendlistLoaded);
         }
     }
 
@@ -1394,21 +1487,19 @@ impl ActivePlayer {
     /// blacked out).
     #[cfg(since_274)]
     pub fn minimap_toggle(&mut self, minimap_type: u8) {
-        self.write(
-            rs_protocol::network::game::server::minimap_toggle::MinimapToggle { minimap_type },
-        );
+        self.write(MinimapToggle { minimap_type });
     }
 
     /// Recolors an interface component model, remapping `src` color to `dst`.
     #[cfg(before_245_2)]
     pub fn if_setrecol(&mut self, com: u16, src: u16, dst: u16) {
-        self.write(rs_protocol::network::game::server::if_setrecol::IfSetRecol { com, src, dst });
+        self.write(IfSetRecol { com, src, dst });
     }
 
     /// Assigns an interface component to a tab slot on the client.
     pub fn if_settab(&mut self, com: u16, tab: u8) {
         #[cfg(before_647)]
-        self.write(rs_protocol::network::game::server::if_settab::IfSetTab { com, tab });
+        self.write(IfSetTab { com, tab });
         // TODO(647): rev-647 has no tab packets — tabs are laid out via
         // IF_OPENSUB by content (interface milestone).
         #[cfg(since_647)]
@@ -1418,7 +1509,7 @@ impl ActivePlayer {
     /// Switches the client's currently selected (active) tab.
     pub fn if_settabactive(&mut self, tab: u8) {
         #[cfg(before_647)]
-        self.write(rs_protocol::network::game::server::if_settab_active::IfSetTabActive { tab });
+        self.write(IfSetTabActive { tab });
         // 2011's client has no tab packet: it keeps its selected tab in varc
         // 168, in the same order as the tabs (clientscript 71, called by 1302
         // with it), and void-634 switches tabs by setting it.
@@ -1429,12 +1520,12 @@ impl ActivePlayer {
     /// Sets the text content of an interface component.
     pub fn if_settext(&mut self, com: i32, text: &str) {
         #[cfg(before_647)]
-        self.write(rs_protocol::network::game::server::if_settext::IfSetText {
+        self.write(IfSetText {
             com: com as u16,
             text,
         });
         #[cfg(since_647)]
-        self.write(rs_protocol::network::game::server::if_settext::IfSetText { com, text });
+        self.write(IfSetText { com, text });
     }
 
     /// Sends the logout packet and marks the player as having received it.
@@ -1445,7 +1536,7 @@ impl ActivePlayer {
         self.watch_end();
         self.player.logout_sent = true;
         #[cfg(before_647)]
-        self.write(rs_protocol::network::game::server::logout::Logout);
+        self.write(Logout);
         // TODO(647): port with the network milestone — the rev-647 logout
         // packet is not modelled yet.
     }
@@ -1454,8 +1545,7 @@ impl ActivePlayer {
     fn watch_end(&mut self) {
         let engine = engine();
         let ms = self.watch.ms();
-        let silent = engine.clock.saturating_sub(self.player.last_response)
-            >= crate::phases::logout::TIMEOUT_NO_RESPONSE;
+        let silent = engine.clock.saturating_sub(self.player.last_response) >= TIMEOUT_NO_RESPONSE;
         let (end, at) = if engine.is_shutdown() {
             (End::Reboot, ms)
         } else if let Some(lost) = self.player.disconnected_at {
@@ -1668,10 +1758,11 @@ impl ActivePlayer {
                 obj(id).is_some_and(|t| !menu::ground_obj(t.op.as_deref(), op))
             }
             Op::Held { op, obj, com, .. } => {
-                inv_top(com, obj).is_some_and(|top| top != menu::InvOp::Obj(usize::from(op) - 1))
+                inv_top(com, obj).is_some_and(|top| top != InvOp::Obj(usize::from(op) - 1))
             }
-            Op::InvButton { op, obj, com, .. } => inv_top(com, obj)
-                .is_some_and(|top| top != menu::InvOp::Interface(usize::from(op) - 1)),
+            Op::InvButton { op, obj, com, .. } => {
+                inv_top(com, obj).is_some_and(|top| top != InvOp::Interface(usize::from(op) - 1))
+            }
             Op::Player { .. } | Op::Other => false,
         }
     }
@@ -1830,7 +1921,7 @@ impl ActivePlayer {
 
     pub fn watch_walk(&mut self, path: &[u32], minimap: bool) {
         if let Some(&to) = path.last() {
-            let (x, z) = rs_protocol::network::game::client::unpack_coord(to);
+            let (x, z) = unpack_coord(to);
             self.watch.anticheat.walked(x, z);
         }
         self.watch_op(Op::Other);
@@ -1838,7 +1929,7 @@ impl ActivePlayer {
             return;
         }
         if let Some(&to) = path.last() {
-            let (x, z) = rs_protocol::network::game::client::unpack_coord(to);
+            let (x, z) = unpack_coord(to);
             let on = if minimap { " (minimap)" } else { "" };
             self.watch
                 .note_fmt(engine().clock, format_args!("Walk to {x}, {z}{on}"));
@@ -2034,7 +2125,7 @@ impl ActivePlayer {
     /// Sends a game message to the player's chatbox.
     pub fn message_game(&mut self, text: &str) {
         #[cfg(before_647)]
-        self.write(rs_protocol::network::game::server::message_game::MessageGame { text });
+        self.write(MessageGame { text });
         #[cfg(since_647)]
         self.message_game_typed(0, text);
     }
@@ -2043,52 +2134,48 @@ impl ActivePlayer {
     /// 0 for the game channel, 11 for the clan chat's (`void-634` `ChatType`).
     #[cfg(since_647)]
     pub fn message_game_typed(&mut self, msg_type: i32, text: &str) {
-        self.write(
-            rs_protocol::network::game::server::message_game::MessageGame {
-                kind: msg_type,
-                text,
-            },
-        );
+        self.write(MessageGame {
+            kind: msg_type,
+            text,
+        });
     }
 
     /// Plays a MIDI jingle sound effect on the client.
     #[cfg(rev = "225")]
     pub fn midi_jingle(&mut self, delay: u16, bytes: &[u8]) {
-        self.write(rs_protocol::network::game::server::midi_jingle::MidiJingle { delay, bytes });
+        self.write(MidiJingle { delay, bytes });
     }
 
     /// Plays a MIDI jingle sound effect on the client.
     #[cfg(since_244)]
     pub fn midi_jingle(&mut self, id: u16, delay: u16) {
         #[cfg(before_647)]
-        self.write(rs_protocol::network::game::server::midi_jingle::MidiJingle { id, delay });
+        self.write(MidiJingle { id, delay });
         // Rev-647 adds a volume byte (255 = full, mirroring the 647
         // reference server's default) and widens the delay/duration word.
         #[cfg(since_647)]
-        self.write(
-            rs_protocol::network::game::server::midi_jingle::MidiJingle {
-                song_id: id,
-                duration: delay as u32,
-                volume: 255,
-            },
-        );
+        self.write(MidiJingle {
+            song_id: id,
+            duration: delay as u32,
+            volume: 255,
+        });
     }
 
     /// Starts playing a MIDI song on the client
     #[cfg(rev = "225")]
     pub fn midi_song(&mut self, name: &str, crc: i32, len: i32) {
-        self.write(rs_protocol::network::game::server::midi_song::MidiSong { name, crc, len });
+        self.write(MidiSong { name, crc, len });
     }
 
     /// Starts playing a MIDI song on the client
     #[cfg(since_244)]
     pub fn midi_song(&mut self, id: u16) {
         #[cfg(before_647)]
-        self.write(rs_protocol::network::game::server::midi_song::MidiSong { id });
+        self.write(MidiSong { id });
         // Rev-647 MIDI_SONG carries a volume (0 loads the track but plays
         // nothing) and a delay; full volume, at once.
         #[cfg(since_647)]
-        self.write(rs_protocol::network::game::server::midi_song::MidiSong {
+        self.write(MidiSong {
             id,
             volume: 255,
             delay: 0,
@@ -2101,7 +2188,7 @@ impl ActivePlayer {
     #[cfg(since_647)]
     pub fn if_open_top(&mut self, interface: u16) {
         self.player.toplevel = interface;
-        self.write(rs_protocol::network::game::server::if_opentop::IfOpentop { interface });
+        self.write(IfOpentop { interface });
     }
 
     /// Rev-647: mounts a sub-interface at a parent component hash, and
@@ -2111,7 +2198,7 @@ impl ActivePlayer {
     #[cfg(since_647)]
     pub fn if_open_sub(&mut self, interface: u16, com: i32, walkable: u8) {
         self.player.sub_opened(com, interface, walkable);
-        self.write(rs_protocol::network::game::server::if_opensub::IfOpensub {
+        self.write(IfOpensub {
             interface,
             com,
             walkable,
@@ -2123,7 +2210,7 @@ impl ActivePlayer {
     #[cfg(since_647)]
     pub fn if_close_sub(&mut self, com: i32) {
         self.player.sub_closed(com);
-        self.write(rs_protocol::network::game::server::if_closesub::IfClosesub { com });
+        self.write(IfClosesub { com });
     }
 
     /// Rev-647: moves the sub-interface mounted at `from` onto `to`, as a
@@ -2131,13 +2218,13 @@ impl ActivePlayer {
     #[cfg(since_647)]
     pub fn if_move_sub(&mut self, com: i32, com2: i32) {
         self.player.sub_moved(com, com2);
-        self.write(rs_protocol::network::game::server::if_movesub::IfMovesub { com, com2 });
+        self.write(IfMovesub { com, com2 });
     }
 
     /// Rev-647: the hash of a gameframe slot on the current toplevel, or 0 if
     /// the toplevel has no such slot.
     #[cfg(since_647)]
-    fn toplevel_slot(&self, slots: &std::collections::HashMap<u16, u16>) -> i32 {
+    fn toplevel_slot(&self, slots: &HashMap<u16, u16>) -> i32 {
         let top = self.player.toplevel;
         slots
             .get(&top)
@@ -2147,14 +2234,12 @@ impl ActivePlayer {
     /// Rev-647: sets the client-side event mask for a component slot range.
     #[cfg(since_647)]
     pub fn if_set_events(&mut self, com: i32, slot1: u16, slot2: u16, settings: i32) {
-        self.write(
-            rs_protocol::network::game::server::if_setevents::IfSetEvents {
-                com,
-                slot1,
-                slot2,
-                settings,
-            },
-        );
+        self.write(IfSetEvents {
+            com,
+            slot1,
+            slot2,
+            settings,
+        });
     }
 
     /// Rev-647: transmits a client variable, picking the small or large
@@ -2164,12 +2249,9 @@ impl ActivePlayer {
     pub fn varc_transmit(&mut self, id: u16, val: i32) {
         self.player.varcs.insert(id, val);
         if (-128..=127).contains(&val) {
-            self.write(rs_protocol::network::game::server::varc_small::VarcSmall {
-                id,
-                val: val as u8,
-            });
+            self.write(VarcSmall { id, val: val as u8 });
         } else {
-            self.write(rs_protocol::network::game::server::varc_large::VarcLarge { id, val });
+            self.write(VarcLarge { id, val });
         }
     }
 
@@ -2177,42 +2259,30 @@ impl ActivePlayer {
     #[cfg(since_647)]
     pub fn varc_str_transmit(&mut self, id: u16, val: &str) {
         self.player.varc_strings.insert(id, val.into());
-        self.write(rs_protocol::network::game::server::varc_str_small::VarcStrSmall { id, val });
+        self.write(VarcStrSmall { id, val });
     }
 
     /// Rev-647: invokes a clientscript (cs2) with no parameters.
     #[cfg(since_647)]
     pub fn run_client_script(&mut self, script_id: i32) {
-        self.write(
-            rs_protocol::network::game::server::run_client_script::RunClientScript {
-                script_id,
-                params: Vec::new(),
-            },
-        );
+        self.write(RunClientScript {
+            script_id,
+            params: Vec::new(),
+        });
     }
 
     /// Rev-647 `runclientscript*`: invokes a CS2 script with typed int/string
     /// parameters.
     #[cfg(since_647)]
-    pub fn run_client_script_with_params(
-        &mut self,
-        script_id: i32,
-        args: Vec<rs_vm::state::ScriptArgument>,
-    ) {
-        use rs_protocol::network::game::server::run_client_script::ScriptParam;
+    pub fn run_client_script_with_params(&mut self, script_id: i32, args: Vec<ScriptArgument>) {
         let params = args
             .into_iter()
             .map(|a| match a {
-                rs_vm::state::ScriptArgument::Int(v) => ScriptParam::Int(v),
-                rs_vm::state::ScriptArgument::String(s) => ScriptParam::Str(s),
+                ScriptArgument::Int(v) => ScriptParam::Int(v),
+                ScriptArgument::String(s) => ScriptParam::Str(s),
             })
             .collect();
-        self.write(
-            rs_protocol::network::game::server::run_client_script::RunClientScript {
-                script_id,
-                params,
-            },
-        );
+        self.write(RunClientScript { script_id, params });
     }
 
     /// Rev-647 public chat delivery: one MESSAGE_PUBLIC server packet per
@@ -2227,25 +2297,23 @@ impl ActivePlayer {
         char_count: usize,
         huffman_data: Vec<u8>,
     ) {
-        self.write(
-            rs_protocol::network::game::server::message_public::MessagePublic {
-                from_index,
-                effects,
-                staffmodlevel,
-                char_count,
-                huffman_data,
-            },
-        );
+        self.write(message_public::MessagePublic {
+            from_index,
+            effects,
+            staffmodlevel,
+            char_count,
+            huffman_data,
+        });
     }
 
     /// Sends the pre-encoded NPC info update payload to the client.
     pub fn npc_info(&mut self, bytes: &[u8]) {
-        self.write(rs_protocol::network::game::server::npc_info::NpcInfo { bytes });
+        self.write(NpcInfo { bytes });
     }
 
     /// Sends the pre-encoded player info update payload to the client.
     pub fn player_info(&mut self, bytes: &[u8]) {
-        self.write(rs_protocol::network::game::server::player_info::PlayerInfo { bytes });
+        self.write(PlayerInfo { bytes });
     }
 
     /// [`player_info`](Self::player_info) for a payload in two parts, the
@@ -2290,16 +2358,13 @@ impl ActivePlayer {
     /// Opens the count dialog (number input) on the client.
     pub fn p_countdialog(&mut self) {
         #[cfg(before_647)]
-        self.write(rs_protocol::network::game::server::p_countdialog::PCountDialog);
+        self.write(PCountDialog);
         // Rev-647 asks for a number with clientscript 108 (void-634
         // `int_entry`): it shows its text in the chat box and takes digits
         // (varc 5 = 7), and the client answers RESUME_P_COUNTDIALOG. The text
         // is 289's client's prompt.
         #[cfg(since_647)]
         {
-            use rs_protocol::network::game::server::run_client_script::{
-                RunClientScript, ScriptParam,
-            };
             self.write(RunClientScript {
                 script_id: 108,
                 params: vec![ScriptParam::Str("Enter amount:".into())],
@@ -2349,19 +2414,15 @@ impl ActivePlayer {
                     crcs.insert(('l', x, z), crc);
                 }
             }
-            self.write(
-                rs_protocol::network::game::server::rebuild_normal::RebuildNormal {
-                    zone_x,
-                    zone_z,
-                    mapsquares: mapsquares.into_iter().collect(),
-                    crcs: crcs.into_iter().collect(),
-                },
-            );
+            self.write(RebuildNormal {
+                zone_x,
+                zone_z,
+                mapsquares: mapsquares.into_iter().collect(),
+                crcs: crcs.into_iter().collect(),
+            });
         }
         #[cfg(all(since_244, before_647))]
-        self.write(
-            rs_protocol::network::game::server::rebuild_normal::RebuildNormal { zone_x, zone_z },
-        );
+        self.write(RebuildNormal { zone_x, zone_z });
         // Rev-647: the rebuild carries the PlayerInfo init bit-stream on the
         // first login (self position + 18-bit packed regions per slot) and
         // the XTEA key blocks for every mapsquare covering the build area.
@@ -2370,24 +2431,22 @@ impl ActivePlayer {
             let _ = (zone_x, zone_z);
             let first_login = self.player.pending_login;
             let player_regions = if first_login {
-                vec![0u32; rs_protocol::network::game::server::rebuild_normal::MAX_PLAYERS]
+                vec![0u32; MAX_PLAYERS]
             } else {
                 Vec::new()
             };
-            let xtea_keys = rs_pack::cache::map::XteaKeyStore::global()
+            let xtea_keys = XteaKeyStore::global()
                 .map(|s| s.snapshot_build_area(coord.x(), coord.z()))
                 .unwrap_or_default();
-            self.write(
-                rs_protocol::network::game::server::rebuild_normal::RebuildNormal {
-                    self_index: self.player.uid.pid(),
-                    player_x: coord.x(),
-                    player_z: coord.z(),
-                    player_plane: coord.y(),
-                    login: first_login,
-                    player_regions,
-                    xtea_keys,
-                },
-            );
+            self.write(RebuildNormal {
+                self_index: self.player.uid.pid(),
+                player_x: coord.x(),
+                player_z: coord.z(),
+                player_plane: coord.y(),
+                login: first_login,
+                player_regions,
+                xtea_keys,
+            });
             if first_login {
                 self.player.pending_login = false;
             }
@@ -2398,7 +2457,7 @@ impl ActivePlayer {
     /// entity animations.
     pub fn reset_anims(&mut self) {
         #[cfg(before_647)]
-        self.write(rs_protocol::network::game::server::reset_anims::ResetAnims);
+        self.write(ResetAnims);
         // TODO(647): rev-647 has no RESET_ANIMS packet modelled yet.
     }
 
@@ -2406,39 +2465,35 @@ impl ActivePlayer {
     /// resync on the next varp transmit.
     pub fn reset_client_varcache(&mut self) {
         #[cfg(before_647)]
-        self.write(rs_protocol::network::game::server::reset_client_varcache::ResetClientVarCache);
+        self.write(ResetClientVarCache);
         // TODO(647): rev-647 has no RESET_CLIENT_VARCACHE packet modelled yet.
     }
 
     /// Plays a synthesised sound effect on the client.
     pub fn synth_sound(&mut self, synth: u16, loops: u8, delay: u16) {
         #[cfg(before_647)]
-        self.write(
-            rs_protocol::network::game::server::synth_sound::SynthSound {
-                synth,
-                loops,
-                delay,
-            },
-        );
+        self.write(SynthSound {
+            synth,
+            loops,
+            delay,
+        });
         #[cfg(since_647)]
-        self.write(
-            rs_protocol::network::game::server::synth_sound::SynthSound {
-                synth,
-                loops,
-                delay,
-                volume: 255,
-                speed: 256,
-            },
-        );
+        self.write(SynthSound {
+            synth,
+            loops,
+            delay,
+            volume: 255,
+            speed: 256,
+        });
     }
 
     /// Clears the destination map flag (red minimap marker) on the client.
     pub fn unset_map_flag(&mut self) {
         #[cfg(before_647)]
-        self.write(rs_protocol::network::game::server::unset_map_flag::UnsetMapFlag);
+        self.write(UnsetMapFlag);
         // Rev-647 clears the flag by setting it to the (255, 255) sentinel.
         #[cfg(since_647)]
-        self.write(rs_protocol::network::game::server::set_map_flag::SetMapFlag { x: 255, z: 255 });
+        self.write(SetMapFlag { x: 255, z: 255 });
     }
 
     /// Sends a full inventory update to the client for the given component.
@@ -2451,12 +2506,10 @@ impl ActivePlayer {
             .map(|c| c.width as usize * c.height as usize)
             .unwrap_or(objs.len())
             .min(objs.len());
-        self.write(
-            rs_protocol::network::game::server::update_inv_full::UpdateInvFull {
-                com,
-                objs: &objs[..size],
-            },
-        );
+        self.write(UpdateInvFull {
+            com,
+            objs: &objs[..size],
+        });
     }
 
     /// Sends a full inventory update to the client. Rev-647 keys client
@@ -2476,7 +2529,6 @@ impl ActivePlayer {
 
     #[cfg(since_647)]
     fn send_inv_full(&mut self, inv_id: u16, other: bool, objs: &[Option<(u16, i32)>]) {
-        use rs_protocol::network::game::server::update_inv_full::{InvItem, UpdateInvFull};
         let slots: Vec<Option<InvItem>> = objs
             .iter()
             .map(|slot| {
@@ -2499,9 +2551,7 @@ impl ActivePlayer {
     /// Each entry is `(slot, item)` for one changed slot.
     pub fn update_inv_partial(&mut self, com: u16, objs: &[(u16, Option<(u16, i32)>)]) {
         #[cfg(before_647)]
-        self.write(
-            rs_protocol::network::game::server::update_inv_partial::UpdateInvPartial { com, objs },
-        );
+        self.write(UpdateInvPartial { com, objs });
         // TODO(647): port with the inventory milestone — rev-647 partial
         // updates are inv-id keyed (UPDATE_INV_PARTIAL not modelled yet).
         #[cfg(since_647)]
@@ -2511,11 +2561,7 @@ impl ActivePlayer {
     /// Tells the client to stop expecting inventory updates for a component.
     pub fn update_inv_stop_transmit(&mut self, com: rs_vm::ComId) {
         #[cfg(before_647)]
-        self.write(
-            rs_protocol::network::game::server::update_inv_stop_transmit::UpdateInvStopTransmit {
-                com,
-            },
-        );
+        self.write(UpdateInvStopTransmit { com });
         // TODO(647): port with the inventory milestone — no rev-647
         // stop-transmit packet is modelled yet.
         #[cfg(since_647)]
@@ -2525,9 +2571,9 @@ impl ActivePlayer {
     /// Sends the player's server-side player ID to the client.
     pub fn update_pid(&mut self, pid: u16) {
         #[cfg(rev = "225")]
-        self.write(rs_protocol::network::game::server::update_pid::UpdatePid { pid });
+        self.write(UpdatePid { pid });
         #[cfg(all(since_244, before_647))]
-        self.write(rs_protocol::network::game::server::update_pid::UpdatePid {
+        self.write(UpdatePid {
             pid,
             members: self.member(),
         });
@@ -2563,13 +2609,11 @@ impl ActivePlayer {
 
     /// Sends a single stat update packet to the client.
     pub fn update_stat(&mut self, stat: usize) {
-        self.write(
-            rs_protocol::network::game::server::update_stat::UpdateStat {
-                stat: stat as u8,
-                exp: self.player.stats.xp[stat] / 10,
-                lvl: self.player.stats.levels[stat] as u8,
-            },
-        );
+        self.write(UpdateStat {
+            stat: stat as u8,
+            exp: self.player.stats.xp[stat] / 10,
+            lvl: self.player.stats.levels[stat] as u8,
+        });
     }
 
     /// Sends a run energy update packet to the client.
@@ -2577,11 +2621,9 @@ impl ActivePlayer {
     /// The energy value is divided by 100 to convert from internal
     /// representation to the client's 0-100 percentage scale.
     pub fn update_runenergy(&mut self, energy: u16) {
-        self.write(
-            rs_protocol::network::game::server::update_runenergy::UpdateRunEnergy {
-                energy: (energy / 100) as u8,
-            },
-        );
+        self.write(UpdateRunEnergy {
+            energy: (energy / 100) as u8,
+        });
     }
 
     /// Transmits a varp (player variable) value to the client, automatically
@@ -2597,12 +2639,12 @@ impl ActivePlayer {
 
     /// Sends a varp update using the 4-byte (large) encoding.
     pub fn varp_large(&mut self, id: u16, val: i32) {
-        self.write(rs_protocol::network::game::server::varp_large::VarpLarge { id, val });
+        self.write(VarpLarge { id, val });
     }
 
     /// Sends a varp update using the 1-byte (small) encoding.
     pub fn varp_small(&mut self, id: u16, val: u8) {
-        self.write(rs_protocol::network::game::server::varp_small::VarpSmall { id, val });
+        self.write(VarpSmall { id, val });
     }
 
     /// Synchronizes dirty inventories to the client.
@@ -2734,11 +2776,9 @@ impl ActivePlayer {
         }
         if runweight_changed || first_seen_weight {
             #[cfg(before_647)]
-            self.write(
-                rs_protocol::network::game::server::update_runweight::UpdateRunWeight {
-                    kg: (self.player.runweight / 1000) as u16,
-                },
-            );
+            self.write(UpdateRunWeight {
+                kg: (self.player.runweight / 1000) as u16,
+            });
             // TODO(647): rev-647 has no UPDATE_RUNWEIGHT packet — weight is
             // surfaced client-side (interface milestone).
         }
@@ -3001,7 +3041,7 @@ impl ActivePlayer {
     /// * `com` - The interface component ID to open.
     pub fn open_tutorial(&mut self, com: u16) {
         #[cfg(before_647)]
-        self.write(rs_protocol::network::game::server::tut_open::TutOpen { com });
+        self.write(TutOpen { com });
         // TODO(647): rev-647 has no TUT_OPEN packet (interface milestone).
         self.player.open_tutorial(com);
     }
@@ -3012,7 +3052,7 @@ impl ActivePlayer {
     /// * `tab` - The tab index to flash.
     pub fn tut_flash(&mut self, tab: u8) {
         #[cfg(before_647)]
-        self.write(rs_protocol::network::game::server::tut_flash::TutFlash { tab });
+        self.write(TutFlash { tab });
         // TODO(647): rev-647 has no TUT_FLASH packet (interface milestone).
         #[cfg(since_647)]
         let _ = tab;
@@ -3046,7 +3086,7 @@ impl ActivePlayer {
             self.player.modal_tutorial = None;
             // -1 (u16::MAX on the wire) tells the client to close the tutorial.
             #[cfg(before_647)]
-            self.write(rs_protocol::network::game::server::tut_open::TutOpen { com: u16::MAX });
+            self.write(TutOpen { com: u16::MAX });
             // TODO(647): rev-647 has no TUT_OPEN packet (interface milestone).
         }
         Ok(())
@@ -4038,7 +4078,7 @@ impl EnginePlayer for ActivePlayer {
         self.reset_anims();
         // The client's own input report, for the replay and the checks.
         #[cfg(before_274)]
-        self.write(rs_protocol::network::game::server::enable_tracking::EnableTracking);
+        self.write(EnableTracking);
         let coord = self.player.pathing.coord;
         let snapshot_coord = CoordGrid::new(coord.x().saturating_sub(1), coord.y(), coord.z());
         self.player.pathing.last_step_coord = snapshot_coord;
@@ -4499,7 +4539,7 @@ impl TriggerName {
     }
 
     fn as_str(&self) -> &str {
-        std::str::from_utf8(&self.buf[..self.len]).unwrap_or_default()
+        str::from_utf8(&self.buf[..self.len]).unwrap_or_default()
     }
 }
 

@@ -1,7 +1,8 @@
 use crate::archive::{self, ArchiveVersions};
 use crate::cache::js5::PackedCache;
 use crate::pack::{
-    js5::{PreparedGroup, insert_archive, load_name_hashes},
+    incremental::Stage,
+    js5::{PreparedGroup, insert_archive, load_name_hashes, versions_dep},
     names::AssetNames,
 };
 use anyhow::{Context, Result, bail, ensure};
@@ -13,11 +14,10 @@ pub fn pack_archive(
     content_dir: &Path,
     pack_dir: &Path,
     versions: &HashMap<u8, ArchiveVersions>,
+    names: &AssetNames,
 ) -> Result<()> {
-    let names = AssetNames::load(pack_dir)?;
-    let root = content_dir.join("shaders");
-    let mut groups = Vec::new();
-    for entry in fs::read_dir(root)? {
+    let mut shaders = Vec::new();
+    for entry in fs::read_dir(content_dir.join("shaders"))? {
         let entry = entry?;
         if !entry.file_type()?.is_dir() {
             continue;
@@ -32,27 +32,38 @@ pub fn pack_archive(
             &format!("shaders_{name}"),
             &["arb", "glsl", "shader"],
         )?;
-        let mut entries = Vec::new();
-        for (id, path) in files {
-            let data = if path.extension().is_some_and(|e| e == "shader") {
-                pack(&fs::read_to_string(path)?)?
-            } else {
-                fs::read(path)?
-            };
-            entries.push((id, data));
-        }
-        let refs: Vec<_> = entries
-            .iter()
-            .map(|(id, data)| (*id, data.as_slice()))
-            .collect();
-        let data = encode_group_entries(&refs);
-        let mut group = PreparedGroup::new(archive::SHADERS, gid, &data, versions)?;
-        group.set_files(entries.iter().map(|(id, _)| *id));
-        group.name_hash = load_name_hashes(pack_dir, archive::SHADERS, &[gid])
-            .get(&gid)
-            .copied()
-            .unwrap_or(-1);
-        groups.push(group);
+        shaders.push((gid, files));
+    }
+    let stage = Stage::new("shaders", vec![versions_dep(versions, archive::SHADERS)]);
+    let mut groups = stage.groups(
+        names,
+        &shaders,
+        |files| files.iter().map(|(_, path)| path.clone()).collect(),
+        |gid, files, _| {
+            let mut entries = Vec::new();
+            for (id, path) in files {
+                let data = if path.extension().is_some_and(|e| e == "shader") {
+                    pack(&fs::read_to_string(path)?)?
+                } else {
+                    fs::read(path)?
+                };
+                entries.push((*id, data));
+            }
+            let refs: Vec<_> = entries
+                .iter()
+                .map(|(id, data)| (*id, data.as_slice()))
+                .collect();
+            let data = encode_group_entries(&refs);
+            let mut group = PreparedGroup::new(archive::SHADERS, gid, &data, versions)?;
+            group.set_files(entries.iter().map(|(id, _)| *id));
+            Ok(group)
+        },
+    )?;
+    stage.finish(Vec::new());
+    let ids: Vec<_> = groups.iter().map(|group| group.id).collect();
+    let hashes = load_name_hashes(pack_dir, archive::SHADERS, &ids);
+    for group in &mut groups {
+        group.name_hash = hashes.get(&group.id).copied().unwrap_or(-1);
     }
     insert_archive(
         store,

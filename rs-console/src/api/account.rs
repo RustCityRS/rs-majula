@@ -9,6 +9,7 @@ use axum::http::StatusCode;
 use serde::{Deserialize, Serialize};
 use serde_json::json;
 use std::sync::Arc;
+use tokio::task::spawn_blocking;
 
 #[derive(Serialize)]
 pub struct SessionView {
@@ -105,7 +106,7 @@ pub async fn reauthenticate(
         ));
     }
     let stored = staff.user.password_hash.clone();
-    let password_ok = tokio::task::spawn_blocking(move || verify_password(&password, &stored))
+    let password_ok = spawn_blocking(move || verify_password(&password, &stored))
         .await
         .map_err(ApiError::internal)?;
     let code_ok = staff.user.totp_secret().is_some_and(|secret| {
@@ -148,7 +149,7 @@ pub async fn change_password(
     reauthenticate(&app, &staff, req.current, &req.code, "password_changed").await?;
 
     let new = req.new;
-    let hash = tokio::task::spawn_blocking(move || hash_password(&new))
+    let hash = spawn_blocking(move || hash_password(&new))
         .await
         .map_err(ApiError::internal)?
         .map_err(ApiError::internal)?;

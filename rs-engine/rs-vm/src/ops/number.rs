@@ -5,6 +5,7 @@ use crate::util::RUNEDAY_EPOCH_DAYS;
 use crate::{handlers, none};
 use rs_pack::cache::script::*;
 use rs_util::bits::{clearbit_range, getbit_range, setbit_range, setbit_range_toint};
+use std::f64::consts::PI;
 
 /// Registers arithmetic, bitwise, trigonometric, and random number opcodes.
 ///
@@ -229,14 +230,14 @@ pub fn build<E: ScriptEngine + 'static>() -> OpsRegistry {
         // 4625
         none!(m, SIN_DEG => |s| {
             let a = s.pop_int();
-            let rad = (a as f64) * std::f64::consts::PI / (180.0 * 65536.0);
+            let rad = (a as f64) * PI / (180.0 * 65536.0);
             s.push_int((rad.sin() * 65536.0) as i32);
         });
 
         // 4626
         none!(m, COS_DEG => |s| {
             let a = s.pop_int();
-            let rad = (a as f64) * std::f64::consts::PI / (180.0 * 65536.0);
+            let rad = (a as f64) * PI / (180.0 * 65536.0);
             s.push_int((rad.cos() * 65536.0) as i32);
         });
 
@@ -245,7 +246,7 @@ pub fn build<E: ScriptEngine + 'static>() -> OpsRegistry {
             let b = s.pop_int();
             let a = s.pop_int();
             let rad = (a as f64).atan2(b as f64);
-            s.push_int((rad * 180.0 * 65536.0 / std::f64::consts::PI) as i32);
+            s.push_int((rad * 180.0 * 65536.0 / PI) as i32);
         });
 
         // 4628

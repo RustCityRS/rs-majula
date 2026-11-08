@@ -201,6 +201,12 @@ fn page(
 #[cfg(test)]
 mod tests {
     use super::*;
+    #[cfg(before_647)]
+    use rs_pack::cache::wordenc::WordEncProvider;
+    #[cfg(before_647)]
+    use rs_pack::pack::wordenc::pack_wordenc;
+    #[cfg(before_647)]
+    use std::path::Path;
 
     fn form(password: &str, password2: &str, terms: &str) -> CreateForm {
         CreateForm {
@@ -231,11 +237,11 @@ mod tests {
     #[cfg(before_647)]
     #[test]
     fn game_word_filter_catches_names() {
-        let dir = std::path::Path::new(env!("CARGO_MANIFEST_DIR"))
+        let dir = Path::new(env!("CARGO_MANIFEST_DIR"))
             .join("..")
             .join(rs_pack::CONTENT_DIR);
-        let jag = rs_pack::pack::wordenc::pack_wordenc(&dir);
-        let filter = rs_pack::cache::wordenc::WordEncProvider::from_jag(&jag);
+        let jag = pack_wordenc(&dir);
+        let filter = WordEncProvider::from_jag(&jag);
         let blocked = |name: &str| filter.filter(name).contains('*');
         for name in ["Arse", "Big Arse", "F U C K", "Mr Bitch"] {
             assert!(blocked(name), "{name} should be blocked");

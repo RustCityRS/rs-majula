@@ -12,6 +12,7 @@ use rs_protocol::network::game::server::obj_add::ObjAdd;
 use rs_protocol::network::game::server::obj_del::ObjDel;
 use rs_protocol::network::game::server::obj_reveal::ObjReveal;
 use rustc_hash::FxHashMap;
+use std::mem;
 
 /// An 8x8 tile region that manages all entities and events within its bounds.
 ///
@@ -326,7 +327,7 @@ impl Zone {
             return;
         }
 
-        let mut buf = std::mem::take(&mut self.shared);
+        let mut buf = mem::take(&mut self.shared);
         buf.resize(len, 0);
         let mut packet = Packet::from(buf);
         for event in &self.events {

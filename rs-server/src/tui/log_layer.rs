@@ -1,5 +1,5 @@
 use std::collections::VecDeque;
-use std::fmt::Write as _;
+use std::fmt::{Debug, Write as _};
 use std::sync::{Arc, Mutex};
 
 use tracing::field::{Field, Visit};
@@ -76,7 +76,7 @@ impl Visit for MessageVisitor {
         }
     }
 
-    fn record_debug(&mut self, field: &Field, value: &dyn std::fmt::Debug) {
+    fn record_debug(&mut self, field: &Field, value: &dyn Debug) {
         if field.name() == "message" {
             let _ = write!(self.0, "{value:?}");
         } else {

@@ -12,12 +12,14 @@
 #![cfg(since_647)]
 
 use std::collections::HashMap;
+use std::fs;
 
+use rs_pack::types::HuntModeType;
 use rs_test::runner;
 
 fn content(path: &str) -> String {
     let path = format!("{}/../../content/647/{path}", env!("CARGO_MANIFEST_DIR"));
-    std::fs::read_to_string(&path).expect(&path)
+    fs::read_to_string(&path).expect(&path)
 }
 
 fn pack_ids(kind: &str) -> HashMap<String, u16> {
@@ -121,6 +123,6 @@ fn an_npc_keeps_its_hunt_mode() {
             .hunts
             .get_by_id(cowardly)
             .expect("the cowardly hunt");
-        assert_eq!(hunt.hunt_type, rs_pack::types::HuntModeType::Player);
+        assert_eq!(hunt.hunt_type, HuntModeType::Player);
     });
 }

@@ -28,6 +28,7 @@ use rs_engine::Engine;
 use rs_engine::harness::HarnessClient;
 use rs_protocol::network::game::client_prot::ClientProt;
 use rs_test::runner;
+use std::fs;
 
 /// 647 SYNTH_SOUND: `p2 synth; p1 loops; p2 delay; p1 volume; p2 speed`.
 const SYNTH_SOUND: u16 = 50;
@@ -60,7 +61,7 @@ fn loc_id(_: &Engine, name: &str) -> u16 {
         env!("CARGO_MANIFEST_DIR"),
         "/../../content/647/pack/loc.pack"
     );
-    std::fs::read_to_string(pack)
+    fs::read_to_string(pack)
         .expect("loc.pack")
         .lines()
         .find_map(|l| l.split_once('=').filter(|(_, n)| *n == name))

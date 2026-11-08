@@ -5,8 +5,10 @@ use rs_db::{Db, DbConfig, NewReplay, ReplayChunk, ReplayStore};
 use rustc_hash::{FxHashMap, FxHashSet};
 use std::time::Duration;
 use tokio::sync::mpsc::Receiver;
+use tokio::task::spawn_blocking;
 use tokio::time::{Instant, MissedTickBehavior, interval_at};
 use tracing::{debug, info, warn};
+use zstd::bulk;
 
 /// How often old recordings are pruned.
 const PRUNE_EVERY: Duration = Duration::from_secs(60 * 60);
@@ -126,7 +128,7 @@ async fn compact(db: &Db, id: i64) -> Result<i64, rs_db::Error> {
     };
     let (start_ms, end_ms, last_seq) = (first.start_ms, last.end_ms, last.seq);
     let before: i64 = chunks.iter().map(|c| c.data.len() as i64).sum();
-    let (data, whole) = tokio::task::spawn_blocking(move || {
+    let (data, whole) = spawn_blocking(move || {
         let mut raw = Vec::new();
         let mut whole = true;
         for chunk in &chunks {
@@ -137,7 +139,7 @@ async fn compact(db: &Db, id: i64) -> Result<i64, rs_db::Error> {
             };
             raw.append(&mut data);
         }
-        (zstd::bulk::compress(&raw, COMPACT_LEVEL).ok(), whole)
+        (bulk::compress(&raw, COMPACT_LEVEL).ok(), whole)
     })
     .await
     .unwrap_or_default();
@@ -230,7 +232,7 @@ async fn store(
         return;
     }
     // Off the runtime's threads: a busy batch is a lot to compress.
-    let compressed = tokio::task::spawn_blocking(move || {
+    let compressed = spawn_blocking(move || {
         raw.into_iter()
             .map(|(at, raw)| {
                 let chunk = ReplayChunk {
@@ -271,5 +273,5 @@ async fn store(
 
 fn compress(data: &[u8]) -> Vec<u8> {
     // Compressing into memory only fails on running out of it.
-    zstd::bulk::compress(data, LEVEL).unwrap_or_default()
+    bulk::compress(data, LEVEL).unwrap_or_default()
 }

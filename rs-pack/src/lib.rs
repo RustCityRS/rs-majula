@@ -57,6 +57,9 @@ use crate::cache::varp::{VarPlayerType, VarPlayerTypeRaw};
 use crate::cache::vars::VarsType;
 #[cfg(before_647)]
 use crate::cache::wordenc::WordEncProvider;
+use crate::pack::incremental::{self, Session, Stage, dir_key, files_under};
+#[cfg(before_647)]
+use crate::pack::incremental::{Hash, Key, remember};
 #[cfg(before_647)]
 use crate::pack::media::pack_media_jag;
 #[cfg(before_647)]
@@ -69,6 +72,7 @@ use crate::pack::other::map::pack_maps;
 use crate::pack::other::song::pack_midis;
 #[cfg(before_647)]
 use crate::pack::pack::pack_assets;
+use crate::pack::pack_dir::PrivatePack;
 #[cfg(before_647)]
 use crate::pack::pack_registry::{PackRegistry, PackedFile};
 #[cfg(before_647)]
@@ -92,14 +96,18 @@ use rs_io::jag::JagFile;
 #[cfg(before_647)]
 use std::collections::HashMap;
 #[cfg(before_647)]
+use std::fs;
+#[cfg(before_647)]
 use std::mem::take;
 use std::path::Path;
 #[cfg(before_647)]
+use std::path::PathBuf;
+#[cfg(before_647)]
 use std::sync::Arc;
-use std::sync::atomic::{AtomicU64, Ordering};
 use std::thread;
-use std::time::{Instant, SystemTime, UNIX_EPOCH};
-use std::{env, fs, io, process};
+use std::time::Instant;
+#[cfg(all(since_244, before_274))]
+use std::time::{SystemTime, UNIX_EPOCH};
 use tracing::{debug, warn};
 
 pub mod archive;
@@ -128,6 +136,23 @@ macro_rules! rev_content_path {
 
 pub const CONTENT_DIR: &str = rev_content_path!("");
 pub const PACK_DIR: &str = rev_content_path!("/pack");
+/// What packs made, reused while their sources are unchanged.
+pub const PACK_CACHE_DIR: &str = concat!("data/pack-cache/", env!("REV"));
+
+fn open_cache(dir: Option<&Path>) -> Option<Session> {
+    let dir = dir?;
+    incremental::open(dir)
+        .inspect_err(|e| warn!("Packing without the cache in {}: {e:#}", dir.display()))
+        .ok()
+}
+
+fn finish_cache(session: Option<Session>) {
+    if let Some(session) = session
+        && let Err(e) = session.finish()
+    {
+        warn!("Couldn't keep the pack cache: {e:#}");
+    }
+}
 
 #[cfg(rev = "225")]
 pub(crate) mod config_crc {
@@ -349,6 +374,21 @@ fn insert_jag(
     packs.insert(name, Arc::from(data));
 }
 
+/// A builder's output, reused while its sources and `deps` are as an earlier
+/// pack found them.
+#[cfg(before_647)]
+fn cached(
+    name: &str,
+    sources: Vec<PathBuf>,
+    deps: Vec<(String, Key)>,
+    build: impl FnOnce() -> Vec<u8>,
+) -> Vec<u8> {
+    let stage = Stage::new(name, deps);
+    let output = stage.unit(0, &sources, || anyhow::Ok(build()));
+    stage.finish(Vec::new());
+    output.unwrap_or_else(|e| panic!("{name}: {e:#}"))
+}
+
 fn unwrap_thread<T>(name: &str, result: thread::Result<T>) -> T {
     result.unwrap_or_else(|e| {
         let msg = if let Some(s) = e.downcast_ref::<&str>() {
@@ -372,84 +412,57 @@ pub fn compile_scripts(source: &Path, pack: &Path) -> anyhow::Result<ScriptProvi
 
 fn compile_runescript(source: &Path, pack: &Path) -> anyhow::Result<(Vec<u8>, Vec<u8>)> {
     let start = Instant::now();
-    static NEXT: AtomicU64 = AtomicU64::new(0);
-    let nanos = SystemTime::now()
-        .duration_since(UNIX_EPOCH)
-        .map_or(0, |d| d.as_nanos());
-    let private = env::temp_dir().join(format!(
-        "rs-pack-{}-{nanos}-{}",
-        process::id(),
-        NEXT.fetch_add(1, Ordering::Relaxed)
-    ));
-    fs::create_dir(&private).map_err(|e| anyhow::anyhow!("creating {}: {e}", private.display()))?;
-    let compiled = copy_pack(pack, &private).and_then(|()| {
-        debug!(
-            "Prepared script registries in {:.3}s",
-            start.elapsed().as_secs_f64()
-        );
-        let start = Instant::now();
-        let bytes =
-            runec::compile_memory(&source.join("scripts/runescript"), Some(&private), false)
-                .map_err(|e| anyhow::anyhow!("{e}"))?;
-        debug!("Compiled scripts in {:.2}s", start.elapsed().as_secs_f64());
-        pin_script_ids(pack, &private);
-        Ok(bytes)
-    });
-    if let Err(e) = fs::remove_dir_all(&private) {
-        warn!("Couldn't remove {}: {e}", private.display());
-    }
-    compiled
+    let private = PrivatePack::copy(pack)?;
+    debug!(
+        "Prepared script registries in {:.3}s",
+        start.elapsed().as_secs_f64()
+    );
+    let start = Instant::now();
+    let scripts = source.join("scripts/runescript");
+    let stage = Stage::new(
+        "scripts",
+        vec![("pack".to_owned(), dir_key(private.path(), &[]))],
+    );
+    let bytes = stage.unit(0, &files_under(&runec::sources::roots(&scripts)), || {
+        runec::compile_memory(&scripts, Some(private.path()), false)
+            .map_err(|e| anyhow::anyhow!("{e}"))
+    })?;
+    debug!("Compiled scripts in {:.2}s", start.elapsed().as_secs_f64());
+    private.pin(pack, "script.pack");
+    // Compiling gives new scripts ids, which the pack dir keeps from now on.
+    stage.finish(vec![("pack".to_owned(), dir_key(private.path(), &[]))]);
+    Ok(bytes)
 }
 
-/// Copies the files of `pack` into the empty directory `to`.
-fn copy_pack(pack: &Path, to: &Path) -> anyhow::Result<()> {
-    let copy = || -> io::Result<()> {
-        for entry in fs::read_dir(pack)? {
-            let entry = entry?;
-            if entry.file_type()?.is_file() {
-                fs::copy(entry.path(), to.join(entry.file_name()))?;
-            }
-        }
-        Ok(())
-    };
-    copy().map_err(|e| anyhow::anyhow!("copying {} to compile against: {e}", pack.display()))
-}
-
-fn pin_script_ids(pack: &Path, private: &Path) {
-    let Ok(pinned) = fs::read(private.join("script.pack")) else {
-        return;
-    };
-    let shipped = pack.join("script.pack");
-    if fs::read(&shipped).is_ok_and(|old| old == pinned) {
-        return;
-    }
-    let tag = private.file_name().unwrap_or_default().to_string_lossy();
-    let tmp = pack.join(format!("script.pack.{tag}.tmp"));
-    if let Err(e) = fs::write(&tmp, &pinned).and_then(|()| fs::rename(&tmp, &shipped)) {
-        warn!("Couldn't update {}: {e}", shipped.display());
-        let _ = fs::remove_file(&tmp);
-    }
-}
-
+/// Packs `source` for the server. With a `cache` directory, what an earlier
+/// pack made from sources that haven't changed since is reused.
 #[cfg(since_647)]
 pub fn pack_all(
     source: &Path,
     pack: &Path,
+    cache: Option<&Path>,
     verify: bool,
     members: bool,
 ) -> anyhow::Result<startup::PackResult> {
-    ThreadPoolBuilder::new()
+    let session = open_cache(cache);
+    let result = ThreadPoolBuilder::new()
         .build()?
-        .install(|| startup::pack_all(source, pack, verify, members))
+        .install(|| startup::pack_all(source, pack, verify, members))?;
+    finish_cache(session);
+    Ok(result)
 }
 
+/// Packs `source` for the server. With a `cache` directory, what an earlier
+/// pack made from sources that haven't changed since is reused.
 #[cfg(before_647)]
 pub fn pack_all(
     source: &Path,
     pack: &Path,
+    cache: Option<&Path>,
     verify: bool,
     members: bool,
 ) -> anyhow::Result<(Box<CacheStore>, ScriptProvider)> {
+    let session = open_cache(cache);
     debug!("Packing assets...");
     debug!("  source: {}", source.display());
     debug!("  pack:   {}", pack.display());
@@ -492,12 +505,43 @@ pub fn pack_all(
             }
         });
         let h_assets = s.spawn(|| pack_assets(&registry, &source.join("scripts"), verify));
-        let h_media = s.spawn(|| pack_media_jag(source));
-        let h_textures = s.spawn(|| pack_textures_jag(&registry, source));
-        let h_title = s.spawn(|| pack_title_jag(source));
-        let h_models = s.spawn(|| pack_models(&registry, source, pack));
-        let h_sounds = s.spawn(|| pack_sounds(&registry, source, pack));
-        let h_wordenc = s.spawn(|| pack_wordenc(source));
+        let h_media = s.spawn(|| {
+            let sources = files_under(&[source.join("sprites")]);
+            cached("media", sources, Vec::new(), || pack_media_jag(source))
+        });
+        let h_textures = s.spawn(|| {
+            let mut sources = files_under(&[source.join("textures")]);
+            sources.push(pack.join("texture.pack"));
+            cached("textures", sources, Vec::new(), || {
+                pack_textures_jag(&registry, source)
+            })
+        });
+        let h_title = s.spawn(|| {
+            let mut sources = files_under(&[source.join("title"), source.join("fonts")]);
+            sources.push(source.join("binary").join("title.jpg"));
+            cached("title", sources, Vec::new(), || pack_title_jag(source))
+        });
+        let h_models = s.spawn(|| {
+            let mut sources = files_under(&[source.join("models")]);
+            for name in ["model", "anim", "base"] {
+                sources.push(pack.join(format!("{name}.order")));
+                sources.push(pack.join(format!("{name}.pack")));
+            }
+            cached("models", sources, Vec::new(), || {
+                pack_models(&registry, source, pack)
+            })
+        });
+        let h_sounds = s.spawn(|| {
+            let mut sources = files_under(&[source.join("synth")]);
+            sources.extend([pack.join("synth.order"), pack.join("synth.pack")]);
+            cached("sounds", sources, Vec::new(), || {
+                pack_sounds(&registry, source, pack)
+            })
+        });
+        let h_wordenc = s.spawn(|| {
+            let sources = files_under(&[source.join("wordenc")]);
+            cached("wordenc", sources, Vec::new(), || pack_wordenc(source))
+        });
         let h_jingles = s.spawn(|| pack_midis(source, "jingles"));
         let h_songs = s.spawn(|| pack_midis(source, "songs"));
         let h_maps = s.spawn(|| pack_maps(source));
@@ -513,7 +557,18 @@ pub fn pack_all(
             let dat = |name: &str| assets[name].server.dat.clone();
             let (flo, loc, npc) = (dat("flo"), dat("loc"), dat("npc"));
             let (multimap, freemap) = (multimap.clone(), freemap.clone());
-            s.spawn(move || worldmap.build(source, &flo, &loc, &npc, &multimap, &freemap))
+            s.spawn(move || {
+                let dirs = ["maps", "worldmap", "sprites", "fonts"].map(|dir| source.join(dir));
+                let configs = Hash::new("configs")
+                    .bytes(&flo)
+                    .bytes(&loc)
+                    .bytes(&npc)
+                    .key();
+                let deps = vec![("configs".to_owned(), configs)];
+                cached("worldmap", files_under(&dirs), deps, || {
+                    worldmap.build(source, &flo, &loc, &npc, &multimap, &freemap)
+                })
+            })
         };
         let (script_dat, script_idx) = unwrap_thread("scripts", h_scripts.join());
         let media = unwrap_thread("media", h_media.join());
@@ -778,6 +833,7 @@ pub fn pack_all(
     });
 
     debug!("CacheStore built successfully");
+    finish_cache(session);
     Ok((store, scripts))
 }
 
@@ -871,6 +927,7 @@ fn assemble_config_jag(assets: &mut HashMap<String, PackedFile>, pack_dir: &Path
     }
 
     let mut jag = JagFile::new();
+    let mut inputs = Hash::new("config.jag");
     let mut has_data = false;
     for entry in &order {
         let Some((kind, ext)) = entry.split_once('.') else {
@@ -882,12 +939,13 @@ fn assemble_config_jag(assets: &mut HashMap<String, PackedFile>, pack_dir: &Path
             } else {
                 take(&mut client.dat)
             };
+            inputs.bytes(entry.as_bytes()).bytes(&data);
             jag.write(entry, data);
             has_data = true;
         }
     }
     if has_data {
-        jag.build(JagArchive::Config.compression())
+        remember(inputs.key(), || jag.build(JagArchive::Config.compression()))
     } else {
         Vec::new()
     }
@@ -899,8 +957,9 @@ fn assemble_interface_jag(assets: &mut HashMap<String, PackedFile>) -> Vec<u8> {
         && let Some(client) = packed_file.client.take()
     {
         let mut jag = JagFile::new();
+        let key = Hash::new("interface.jag").bytes(&client.dat).key();
         jag.write("data", client.dat);
-        return jag.build(JagArchive::Interface.compression());
+        return remember(key, || jag.build(JagArchive::Interface.compression()));
     }
     Vec::new()
 }

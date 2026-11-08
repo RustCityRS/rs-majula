@@ -13,6 +13,7 @@
 use rs_test::runner;
 use rs_vm::trigger::ServerTriggerType;
 use std::collections::{BTreeSet, HashMap};
+use std::fs;
 
 /// The npc triggers a 289 base answers by its own name or category.
 #[rustfmt::skip]
@@ -89,7 +90,7 @@ fn pack(kind: &str) -> HashMap<String, i32> {
         "{}/../../content/647/pack/{kind}.pack",
         env!("CARGO_MANIFEST_DIR")
     );
-    std::fs::read_to_string(&path)
+    fs::read_to_string(&path)
         .expect(&path)
         .lines()
         .filter_map(|l| l.split_once('='))
@@ -106,7 +107,7 @@ fn clones() -> Vec<(String, String)> {
         "{}/../../content/647/scripts/globalscript/_unpack/all.npc",
         env!("CARGO_MANIFEST_DIR")
     );
-    let text = std::fs::read_to_string(&path).expect(&path);
+    let text = fs::read_to_string(&path).expect(&path);
     let mut out = Vec::new();
     let mut section: Option<String> = None;
     for line in text.lines() {

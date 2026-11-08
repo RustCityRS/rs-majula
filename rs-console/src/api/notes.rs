@@ -4,10 +4,12 @@ use super::players::checked_name;
 use crate::audit::Event;
 use crate::http::{ApiError, App, Staff};
 use crate::notes::{MAX_TEXT, Note};
+use crate::users::name_key;
 use axum::Json;
 use axum::extract::{Path, Query, State};
 use axum::http::StatusCode;
 use serde::{Deserialize, Serialize};
+use std::collections::HashMap;
 use std::sync::Arc;
 
 #[derive(Deserialize)]
@@ -35,8 +37,7 @@ pub async fn of(
 /// Notes on staff are for those above them, as their cases are, but
 /// whoever wrote one sees it.
 fn sees(view: &CaseView, staff: &Staff, note: &Note) -> bool {
-    view.sees_subject(&note.player)
-        || crate::users::name_key(&note.by) == crate::users::name_key(staff.name())
+    view.sees_subject(&note.player) || name_key(&note.by) == name_key(staff.name())
 }
 
 #[derive(Deserialize)]
@@ -116,20 +117,17 @@ pub async fn watched(State(app): State<Arc<App>>, staff: Staff) -> Json<Vec<Watc
         .into_iter()
         .filter(|n| sees(&view, &staff, n))
         .collect();
-    let online: std::collections::HashMap<String, u16> = live::online(&app)
+    let online: HashMap<String, u16> = live::online(&app)
         .await
         .iter()
         .filter_map(|l| l.players.as_ref().map(|list| (l.world, list)))
-        .flat_map(|(world, list)| {
-            list.iter()
-                .map(move |p| (crate::users::name_key(&p.name), world))
-        })
+        .flat_map(|(world, list)| list.iter().map(move |p| (name_key(&p.name), world)))
         .collect();
     Json(
         notes
             .into_iter()
             .map(|note| Watched {
-                world: online.get(&crate::users::name_key(&note.player)).copied(),
+                world: online.get(&name_key(&note.player)).copied(),
                 note,
             })
             .collect(),

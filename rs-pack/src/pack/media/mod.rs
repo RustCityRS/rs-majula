@@ -5,7 +5,9 @@ use crate::archive::{self, ArchiveVersions};
 #[cfg(since_647)]
 use crate::cache::js5::PackedCache;
 #[cfg(since_647)]
-use crate::pack::js5::{PreparedGroup, insert_archive, load_name_hashes};
+use crate::pack::incremental::Stage;
+#[cfg(since_647)]
+use crate::pack::js5::{PreparedGroup, insert_archive, load_name_hashes, versions_dep};
 #[cfg(since_647)]
 use crate::pack::names::{AssetNames, archive_name};
 #[cfg(before_647)]
@@ -16,8 +18,6 @@ use crate::sheet::Parsed;
 use crate::{sheet, tga};
 #[cfg(since_647)]
 use anyhow::{Context, Result, bail, ensure};
-#[cfg(since_647)]
-use rayon::prelude::*;
 #[cfg(before_647)]
 use rs_io::jag::JagFile;
 #[cfg(since_647)]
@@ -86,8 +86,8 @@ pub fn pack_archive(
     content_dir: &Path,
     pack_dir: &Path,
     versions: &HashMap<u8, ArchiveVersions>,
+    names: &AssetNames,
 ) -> Result<()> {
-    let names = AssetNames::load(pack_dir)?;
     for &(aid, dir_name) in &[
         (archive::SPRITES, "sprites"),
         (archive::LOADING_SPRITES, "loading_sprites"),
@@ -101,19 +101,31 @@ pub fn pack_archive(
         )?;
         let ids: Vec<_> = files.iter().map(|(id, _)| *id).collect();
         let hashes = load_name_hashes(pack_dir, aid, &ids);
-        let groups = files
-            .par_iter()
-            .map(|(gid, path)| {
+        let stage = Stage::new(&format!("archive {aid}"), vec![versions_dep(versions, aid)]);
+        let mut groups = stage.groups(
+            names,
+            &files,
+            |path| {
+                vec![
+                    path.clone(),
+                    path.with_extension("tga"),
+                    path.with_extension("alpha.tga"),
+                ]
+            },
+            |gid, path, _| {
                 let data = encode_sprite_sheet(path).with_context(|| path.display().to_string())?;
-                let mut group = PreparedGroup::new(aid, *gid, &data, versions)?;
-                group.name_hash = hashes.get(gid).copied().unwrap_or(-1);
+                let mut group = PreparedGroup::new(aid, gid, &data, versions)?;
                 group.files = vec![FileInfo {
                     id: 0,
                     name_hash: None,
                 }];
                 Ok(group)
-            })
-            .collect::<Result<Vec<_>>>()?;
+            },
+        )?;
+        stage.finish(Vec::new());
+        for group in &mut groups {
+            group.name_hash = hashes.get(&group.id).copied().unwrap_or(-1);
+        }
         insert_archive(store, aid, format, versions, groups, "from TGA sheets")?;
     }
     Ok(())

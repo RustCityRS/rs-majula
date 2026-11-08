@@ -4,6 +4,7 @@ use crate::network::game::server_prot_message::ServerProtMessageInfo;
 use crate::network::game::server_prot_priority::ServerProtPriority;
 use rs_io::{Packet, PacketFrame};
 use rs_protocol_macros::server_prot;
+use std::f64::consts::TAU;
 
 #[server_prot(NpcInfo, Immediate, VarShort)]
 pub struct NpcInfo<'a> {
@@ -35,7 +36,7 @@ pub fn add_direction(facing: Option<(i32, i32)>) -> u8 {
         return 4;
     };
     // 16384 units to the turn: the client's 2607.5945876176133.
-    let angle = ((dx as f64).atan2(dz as f64) * (16384.0 / std::f64::consts::TAU)) as i32 & 0x3FFF;
+    let angle = ((dx as f64).atan2(dz as f64) * (16384.0 / TAU)) as i32 & 0x3FFF;
     let octant = ((angle + 1024) >> 11) & 7;
     ((octant + 4) & 7) as u8
 }

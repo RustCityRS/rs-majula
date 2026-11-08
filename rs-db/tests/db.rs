@@ -8,6 +8,10 @@ use rs_db::{
 };
 use rs_util::base37::to_userhash;
 use sqlx::PgPool;
+use std::collections::BTreeMap;
+use std::net::IpAddr;
+use std::time::{SystemTime, UNIX_EPOCH};
+use tokio::task::JoinSet;
 
 fn claimed(save: Option<PlayerSave>) -> Claim {
     Claim::Claimed {
@@ -795,11 +799,11 @@ async fn imports_only_fill_an_empty_offline_player(pool: PgPool) {
 #[ignore = "needs DATABASE_URL"]
 async fn login_attempts_are_counted_before_they_are_checked(pool: PgPool) {
     let db = Db::from_pool(pool);
-    let ip: std::net::IpAddr = "203.0.113.7".parse().unwrap();
+    let ip: IpAddr = "203.0.113.7".parse().unwrap();
     // All at once, as if checked in parallel: no more than 5 get through
     // (fewer, even none, when refused ones are counted for a moment), and
     // no more after them.
-    let mut claims = tokio::task::JoinSet::new();
+    let mut claims = JoinSet::new();
     for _ in 0..20 {
         let db = db.clone();
         claims.spawn(async move { db.claim_login_attempt(ip, 60, 5).await.unwrap() });
@@ -822,8 +826,8 @@ async fn login_attempts_are_counted_before_they_are_checked(pool: PgPool) {
 #[ignore = "needs DATABASE_URL"]
 async fn login_failures_are_counted_per_ip(pool: PgPool) {
     let db = Db::from_pool(pool.clone());
-    let ip: std::net::IpAddr = "203.0.113.7".parse().unwrap();
-    let other: std::net::IpAddr = "2001:db8::1".parse().unwrap();
+    let ip: IpAddr = "203.0.113.7".parse().unwrap();
+    let other: IpAddr = "2001:db8::1".parse().unwrap();
     for _ in 0..3 {
         db.record_login_failure(ip).await.unwrap();
     }
@@ -851,8 +855,8 @@ async fn login_failures_are_counted_per_ip(pool: PgPool) {
 #[ignore = "needs DATABASE_URL"]
 async fn registrations_are_counted_per_ip(pool: PgPool) {
     let db = Db::from_pool(pool.clone());
-    let ip: std::net::IpAddr = "203.0.113.7".parse().unwrap();
-    let other: std::net::IpAddr = "2001:db8::1".parse().unwrap();
+    let ip: IpAddr = "203.0.113.7".parse().unwrap();
+    let other: IpAddr = "2001:db8::1".parse().unwrap();
 
     for (hash, from) in [(1, Some(ip)), (2, Some(ip)), (3, Some(other)), (4, None)] {
         let new = NewPlayer {
@@ -866,11 +870,11 @@ async fn registrations_are_counted_per_ip(pool: PgPool) {
     assert_eq!(db.recent_registrations(ip, 1).await.unwrap(), 2);
     assert_eq!(db.recent_registrations(other, 1).await.unwrap(), 1);
     // IPv6 counts by /64, and IPv4 by the address alone.
-    let neighbour: std::net::IpAddr = "2001:db8::ffff:1".parse().unwrap();
-    let next_net: std::net::IpAddr = "2001:db8:0:1::1".parse().unwrap();
+    let neighbour: IpAddr = "2001:db8::ffff:1".parse().unwrap();
+    let next_net: IpAddr = "2001:db8:0:1::1".parse().unwrap();
     assert_eq!(db.recent_registrations(neighbour, 1).await.unwrap(), 1);
     assert_eq!(db.recent_registrations(next_net, 1).await.unwrap(), 0);
-    let next_ip: std::net::IpAddr = "203.0.113.8".parse().unwrap();
+    let next_ip: IpAddr = "203.0.113.8".parse().unwrap();
     assert_eq!(db.recent_registrations(next_ip, 1).await.unwrap(), 0);
 
     // Registrations older than the window don't count.
@@ -1571,9 +1575,9 @@ async fn logins_a_day_ago(pool: &PgPool) {
 #[ignore = "needs DATABASE_URL"]
 async fn logins_link_accounts_by_address(pool: PgPool) {
     let db = Db::from_pool(pool.clone());
-    let a: std::net::IpAddr = "203.0.113.7".parse().unwrap();
-    let b: std::net::IpAddr = "2001:db8::1".parse().unwrap();
-    let c: std::net::IpAddr = "198.51.100.2".parse().unwrap();
+    let a: IpAddr = "203.0.113.7".parse().unwrap();
+    let b: IpAddr = "2001:db8::1".parse().unwrap();
+    let c: IpAddr = "198.51.100.2".parse().unwrap();
     // 1 registered from a; 4 registered from a but never logged in.
     for (hash, from) in [(1, Some(a)), (2, None), (3, None), (4, Some(a)), (5, None)] {
         db.create_player(&NewPlayer {
@@ -1653,9 +1657,9 @@ async fn logins_link_accounts_by_address(pool: PgPool) {
 #[ignore = "needs DATABASE_URL"]
 async fn logins_link_accounts_by_client(pool: PgPool) {
     let db = Db::from_pool(pool);
-    let home: std::net::IpAddr = "203.0.113.7".parse().unwrap();
-    let vpn: std::net::IpAddr = "198.51.100.2".parse().unwrap();
-    let cafe: std::net::IpAddr = "192.0.2.9".parse().unwrap();
+    let home: IpAddr = "203.0.113.7".parse().unwrap();
+    let vpn: IpAddr = "198.51.100.2".parse().unwrap();
+    let cafe: IpAddr = "192.0.2.9".parse().unwrap();
     const NAMES: [&str; 4] = ["One", "Two", "Three", "Four"];
     for (hash, name) in (1..).zip(NAMES) {
         db.create_player(&NewPlayer {
@@ -1713,8 +1717,8 @@ async fn devices_group_logins_with_their_addresses(pool: PgPool) {
         .await
         .unwrap();
     }
-    let home: std::net::IpAddr = "203.0.113.7".parse().unwrap();
-    let work: std::net::IpAddr = "198.51.100.2".parse().unwrap();
+    let home: IpAddr = "203.0.113.7".parse().unwrap();
+    let work: IpAddr = "198.51.100.2".parse().unwrap();
     let phone = LoginDevice {
         web: true,
         user_agent: Some("Mozilla/5.0 (iPhone; CPU iPhone OS 18_0 like Mac OS X)".into()),
@@ -1767,7 +1771,7 @@ async fn crowded_addresses_link_nobody(pool: PgPool) {
         .await
         .unwrap();
     }
-    let ip = std::net::IpAddr::from([203, 0, 113, 1]);
+    let ip = IpAddr::from([203, 0, 113, 1]);
     let device = LoginDevice::default();
     db.record_login(2, 10, ip, None, &device, None)
         .await
@@ -1833,7 +1837,7 @@ async fn crowded_browsers_link_nobody(pool: PgPool) {
         .unwrap();
     }
     // Each from an address of its own, on one browser.
-    let ip = |hash: u64| std::net::IpAddr::from([10, 0, (hash >> 8) as u8, hash as u8]);
+    let ip = |hash: u64| IpAddr::from([10, 0, (hash >> 8) as u8, hash as u8]);
     let device = LoginDevice::default();
     db.record_login(2, 10, ip(2), Some(77), &device, None)
         .await
@@ -1884,7 +1888,7 @@ async fn crowded_browsers_link_nobody(pool: PgPool) {
 #[ignore = "needs DATABASE_URL"]
 async fn others_are_counted_only_so_far(pool: PgPool) {
     let db = Db::from_pool(pool.clone());
-    let ip = std::net::IpAddr::from([203, 0, 113, 9]);
+    let ip = IpAddr::from([203, 0, 113, 9]);
     let device = LoginDevice::default();
     for hash in 1..=MAX_OTHERS as u64 + 3 {
         let name = format!("Player {hash}");
@@ -1922,7 +1926,7 @@ async fn banned_accounts_chain_through_browsers_and_addresses(pool: PgPool) {
         .await
         .unwrap();
     }
-    let ip = |n: u8| std::net::IpAddr::from([203, 0, 113, n]);
+    let ip = |n: u8| IpAddr::from([203, 0, 113, n]);
     let device = LoginDevice::default();
     // Before the ban: Banned (2) plays on browser 9 at home; Friend (4)
     // visits that home; Far (5) shares an address with Friend.
@@ -2463,8 +2467,8 @@ async fn anticheat_leaders_rank_and_trend(pool: PgPool) {
         .await
         .unwrap();
     }
-    let since = (std::time::SystemTime::now()
-        .duration_since(std::time::UNIX_EPOCH)
+    let since = (SystemTime::now()
+        .duration_since(UNIX_EPOCH)
         .unwrap()
         .as_millis() as i64)
         - 24 * 3_600_000;
@@ -2484,7 +2488,7 @@ async fn anticheat_leaders_rank_and_trend(pool: PgPool) {
 #[ignore = "needs DATABASE_URL"]
 async fn account_activity_covers_recent_accounts(pool: PgPool) {
     let db = Db::from_pool(pool.clone());
-    let ip: std::net::IpAddr = "203.0.113.7".parse().unwrap();
+    let ip: IpAddr = "203.0.113.7".parse().unwrap();
     for name_hash in [1, 2] {
         db.create_player(&NewPlayer {
             staff_mod_level: 0,
@@ -2523,8 +2527,8 @@ async fn account_activity_covers_recent_accounts(pool: PgPool) {
         .await
         .unwrap();
 
-    let since = (std::time::SystemTime::now()
-        .duration_since(std::time::UNIX_EPOCH)
+    let since = (SystemTime::now()
+        .duration_since(UNIX_EPOCH)
         .unwrap()
         .as_millis() as i64)
         - 7 * 86_400_000;
@@ -3166,8 +3170,8 @@ async fn staff_keep_players_off_the_hiscores(pool: PgPool) {
 #[ignore = "needs DATABASE_URL"]
 async fn recovery_requests_are_limited_decided_and_redeemed(pool: PgPool) {
     let db = Db::from_pool(pool);
-    let home: std::net::IpAddr = "203.0.113.7".parse().unwrap();
-    let away: std::net::IpAddr = "198.51.100.2".parse().unwrap();
+    let home: IpAddr = "203.0.113.7".parse().unwrap();
+    let away: IpAddr = "198.51.100.2".parse().unwrap();
     db.create_player(&NewPlayer {
         staff_mod_level: 0,
         registration_ip: Some(home),
@@ -3349,7 +3353,7 @@ async fn recovery_requests_are_limited_decided_and_redeemed(pool: PgPool) {
 #[ignore = "needs DATABASE_URL"]
 async fn strangers_cant_crowd_out_an_owners_recovery(pool: PgPool) {
     let db = Db::from_pool(pool);
-    let home: std::net::IpAddr = "203.0.113.7".parse().unwrap();
+    let home: IpAddr = "203.0.113.7".parse().unwrap();
     db.create_player(&NewPlayer {
         staff_mod_level: 0,
         ..player(7)
@@ -3375,13 +3379,13 @@ async fn strangers_cant_crowd_out_an_owners_recovery(pool: PgPool) {
         language: None,
     };
     for i in 0..RECOVERIES_WAITING {
-        let stranger = std::net::IpAddr::from([198, 51, 100, i as u8]);
+        let stranger = IpAddr::from([198, 51, 100, i as u8]);
         assert!(matches!(
             db.file_recovery(&request(stranger, &[])).await.unwrap(),
             RecoveryFiled::Filed { .. }
         ));
     }
-    let stranger = std::net::IpAddr::from([198, 51, 100, 99]);
+    let stranger = IpAddr::from([198, 51, 100, 99]);
     assert_eq!(
         db.recovery_refusal(7, stranger, &[]).await.unwrap(),
         Some(RecoveryFiled::TooManyWaiting)
@@ -3529,7 +3533,7 @@ async fn sessions_played_at_once_are_found(pool: PgPool) {
     named(&db, 3, "Sibling").await;
     named(&db, 4, "Twin").await;
     named(&db, 5, "Stranger").await;
-    let home: std::net::IpAddr = "203.0.113.7".parse().unwrap();
+    let home: IpAddr = "203.0.113.7".parse().unwrap();
     let laptop = LoginDevice {
         web: true,
         fingerprint: Some(-42),
@@ -3643,7 +3647,7 @@ async fn items_passed_between_linked_accounts_are_found(pool: PgPool) {
     named(&db, 3, "Dropper").await;
     named(&db, 4, "Taker").await;
     named(&db, 5, "Buddy").await;
-    let home: std::net::IpAddr = "203.0.113.7".parse().unwrap();
+    let home: IpAddr = "203.0.113.7".parse().unwrap();
     let device = LoginDevice::default();
     // Main and Alt on one browser; the others each on their own.
     for (hash, ip, uid) in [
@@ -3710,7 +3714,7 @@ async fn items_passed_between_linked_accounts_are_found(pool: PgPool) {
     let found = db.linked_transfers(None, 1, 50_000, 3, 50).await.unwrap();
     // By pair, whatever UTC days they fell on: (via, transfers, swaps, methods).
     type Pair = (String, i64, i64, Vec<String>);
-    let mut pairs: std::collections::BTreeMap<(String, String), Pair> = Default::default();
+    let mut pairs: BTreeMap<(String, String), Pair> = Default::default();
     for r in &found {
         let p = pairs.entry((r.from.clone(), r.to.clone())).or_insert((
             r.via.clone(),
@@ -3803,8 +3807,8 @@ async fn accounts_played_in_turns_are_told_apart(pool: PgPool) {
         .fetch_all(&pool)
         .await
         .unwrap();
-    let now = std::time::SystemTime::now()
-        .duration_since(std::time::UNIX_EPOCH)
+    let now = SystemTime::now()
+        .duration_since(UNIX_EPOCH)
         .unwrap()
         .as_millis() as i64;
     let day = 24 * 3600 * 1000;

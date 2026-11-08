@@ -20,6 +20,7 @@ mod client_packet;
 use client_packet::ClientPacket;
 use rs_engine::Engine;
 use rs_engine::harness::HarnessClient;
+use rs_pack::cache::varp::VarPlayerScope;
 use rs_protocol::network::game::client_prot::ClientProt;
 use rs_protocol::network::game::server_prot::ServerProt;
 use rs_test::runner;
@@ -252,7 +253,7 @@ fn the_stat_flash_is_not_saved() {
         let flash = engine.cache.varps.get_by_id(1179).expect("varp 1179");
         assert_ne!(
             flash.scope,
-            rs_pack::cache::varp::VarPlayerScope::Perm,
+            VarPlayerScope::Perm,
             "skill_stat_flash is not saved"
         );
     });

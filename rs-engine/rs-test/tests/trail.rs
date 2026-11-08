@@ -22,6 +22,7 @@ use rs_pack::cache::VarValue;
 use rs_protocol::network::game::client_prot::ClientProt;
 use rs_protocol::network::game::server_prot::ServerProt;
 use rs_test::runner;
+use rs_vm::ops::test::{calls_for, forget_calls, set_recording};
 
 /// `inventory:inv`, the backpack component `[login]` binds `inv` to.
 const BACKPACK: i32 = 149 << 16;
@@ -321,11 +322,11 @@ fn the_last_casket_of_an_easy_trail_opens_2011s_reward_box() {
             .unwrap()
             .vars
             .set(status, VarValue::Int(4));
-        rs_vm::ops::test::set_recording(true);
-        rs_vm::ops::test::forget_calls();
+        set_recording(true);
+        forget_calls();
         op1(&mut client, BACKPACK, casket, 0);
         let packets = ticks(engine, &mut client, 3);
-        let said = rs_vm::ops::test::calls_for("mes");
+        let said = calls_for("mes");
         assert!(
             said.iter()
                 .any(|m| m == "Well done you've completed the Treasure Trail!"),

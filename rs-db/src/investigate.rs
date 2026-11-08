@@ -1,4 +1,5 @@
 use crate::{Db, Error};
+use std::time::{SystemTime, UNIX_EPOCH};
 
 /// A timestamp column as Unix milliseconds.
 macro_rules! ms {
@@ -71,8 +72,8 @@ impl Db {
         limit: i64,
     ) -> Result<Vec<AnticheatLeader>, Error> {
         let since = since_ms as f64 / 1000.0;
-        let now = std::time::SystemTime::now()
-            .duration_since(std::time::UNIX_EPOCH)
+        let now = SystemTime::now()
+            .duration_since(UNIX_EPOCH)
             .map_or(since, |d| d.as_secs_f64());
         let bucket_secs = ((now - since) / f64::from(buckets.max(1))).max(1.0);
         let sql = concat!(

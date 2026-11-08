@@ -1,3 +1,4 @@
+use crate::pack::incremental::{Hash, remember};
 use crate::pack::other::map::encode_jm2;
 use crate::pack::util::walk;
 use crate::pack::versionlist::build_version_list;
@@ -67,7 +68,7 @@ fn stage(
             }
             return Box::default();
         };
-        let mut blob = gz_compress(&data);
+        let mut blob = remember(Hash::new("gz").bytes(&data).key(), || gz_compress(&data));
         if version != 0 {
             blob.extend_from_slice(&version.to_be_bytes());
         }

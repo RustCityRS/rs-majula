@@ -79,33 +79,33 @@ if (map_members = ^true) {
 }
 
 if (getwindowmode = 1) {
-    if_opensub(topstat_hitpoints, toplevel:topstat_hitpoints, ^true)
-    if_opensub(topstat_prayer, toplevel:topstat_prayer, ^true)
-    if_opensub(topstat_run, toplevel:topstat_run, ^true)
+    if_opensub(topstat_hitpoints, toplevel:topstat_hitpoints)
+    if_opensub(topstat_prayer, toplevel:topstat_prayer)
+    if_opensub(topstat_run, toplevel:topstat_run)
     if ($summoning = ^true) {
-        if_opensub(topstat_lore, toplevel:topstat_lore, ^true)
+        if_opensub(topstat_lore, toplevel:topstat_lore)
     }
-    if_opensub(filterbuttons, toplevel:filterbuttons, ^true)
-    if_opensub(chattop, toplevel:chattop, ^true)
+    if_opensub(filterbuttons, toplevel:filterbuttons)
+    if_opensub(chattop, toplevel:chattop)
     // split/private chat overlay (matches void rev-634 gameframe); sits in the
     // 512x69 slot just below the chatbox
-    if_opensub(pmchat, toplevel:pmchat, ^true)
+    if_opensub(pmchat, toplevel:pmchat)
     // status icons such as multiway combat, in the slot sized for them
-    if_opensub(statusicons, toplevel:statusicons, ^true)
+    if_opensub(statusicons, toplevel:statusicons)
 } else {
-    if_opensub(topstat_hitpoints, toplevel_fullscreen:topstat_hitpoints, ^true)
-    if_opensub(topstat_prayer, toplevel_fullscreen:topstat_prayer, ^true)
-    if_opensub(topstat_run, toplevel_fullscreen:topstat_run, ^true)
+    if_opensub(topstat_hitpoints, toplevel_fullscreen:topstat_hitpoints)
+    if_opensub(topstat_prayer, toplevel_fullscreen:topstat_prayer)
+    if_opensub(topstat_run, toplevel_fullscreen:topstat_run)
     if ($summoning = ^true) {
-        if_opensub(topstat_lore, toplevel_fullscreen:topstat_lore, ^true)
+        if_opensub(topstat_lore, toplevel_fullscreen:topstat_lore)
     }
-    if_opensub(filterbuttons, toplevel_fullscreen:filterbuttons, ^true)
-    if_opensub(chattop, toplevel_fullscreen:chattop, ^true)
-    if_opensub(pmchat, toplevel_fullscreen:pmchat, ^true)
-    if_opensub(statusicons, toplevel_fullscreen:statusicons, ^true)
+    if_opensub(filterbuttons, toplevel_fullscreen:filterbuttons)
+    if_opensub(chattop, toplevel_fullscreen:chattop)
+    if_opensub(pmchat, toplevel_fullscreen:pmchat)
+    if_opensub(statusicons, toplevel_fullscreen:statusicons)
 }
 
-if_opensub(chatdefault, chattop:chatdefault, ^true)
+if_opensub(chatdefault, chattop:chatdefault)
 
 // The prayer orb's quick prayers, selecting (varc 181) and on (182), which
 // void-634's server sends as the orb opens (PrayerList.kt). The client
@@ -125,40 +125,40 @@ inv_transmit(worn, wornitems:hat_container)
 // above is enough — same as void, which uses no if_setevents for it either.
 
 if (getwindowmode = 1) {
-    if_opensub(combat_side, toplevel:side0, ^true)
-    if_opensub(task_side, toplevel:side1, ^true)
+    if_opensub(combat_side, toplevel:side0)
+    if_opensub(task_side, toplevel:side1)
     // The Task System's popup (void-634's task_overlay: graphics_confirm_layer, 548:20, 746:80).
-    if_opensub(interface_1055, toplevel:graphics_confirm_layer, ^true)
-    if_opensub(stats, toplevel:side2, ^true)
-    if_opensub(questlist_v4, toplevel:side3, ^true)
-    if_opensub(inventory, toplevel:side4, ^true)
-    if_opensub(wornitems, toplevel:side5, ^true)
-    if_opensub(prayer, toplevel:side6, ^true)
-    if_opensub(magic, toplevel:side7, ^true)
-    if_opensub(friends2, toplevel:side9, ^true)
-    if_opensub(interface_1109, toplevel:side10, ^true)
-    if_opensub(clan_chat, toplevel:side11, ^true)
-    if_opensub(options, toplevel:side12, ^true)
-    if_opensub(emotes, toplevel:side13, ^true)
-    if_opensub(music_v3, toplevel:side14, ^true)
-    if_opensub(notes, toplevel:side15, ^true)
+    if_opensub(interface_1055, toplevel:graphics_confirm_layer)
+    if_opensub(stats, toplevel:side2)
+    if_opensub(questlist_v4, toplevel:side3)
+    if_opensub(inventory, toplevel:side4)
+    if_opensub(wornitems, toplevel:side5)
+    if_opensub(prayer, toplevel:side6)
+    if_opensub(magic, toplevel:side7)
+    if_opensub(friends2, toplevel:side9)
+    if_opensub(interface_1109, toplevel:side10)
+    if_opensub(clan_chat, toplevel:side11)
+    if_opensub(options, toplevel:side12)
+    if_opensub(emotes, toplevel:side13)
+    if_opensub(music_v3, toplevel:side14)
+    if_opensub(notes, toplevel:side15)
 } else {
-    if_opensub(combat_side, toplevel_fullscreen:side0, ^true)
-    if_opensub(task_side, toplevel_fullscreen:side1, ^true)
-    if_opensub(interface_1055, toplevel_fullscreen:graphics_confirm_layer, ^true)
-    if_opensub(stats, toplevel_fullscreen:side2, ^true)
-    if_opensub(questlist_v4, toplevel_fullscreen:side3, ^true)
-    if_opensub(inventory, toplevel_fullscreen:side4, ^true)
-    if_opensub(wornitems, toplevel_fullscreen:side5, ^true)
-    if_opensub(prayer, toplevel_fullscreen:side6, ^true)
-    if_opensub(magic, toplevel_fullscreen:side7, ^true)
-    if_opensub(friends2, toplevel_fullscreen:side9, ^true)
-    if_opensub(interface_1109, toplevel_fullscreen:side10, ^true)
-    if_opensub(clan_chat, toplevel_fullscreen:side11, ^true)
-    if_opensub(options, toplevel_fullscreen:side12, ^true)
-    if_opensub(emotes, toplevel_fullscreen:side13, ^true)
-    if_opensub(music_v3, toplevel_fullscreen:side14, ^true)
-    if_opensub(notes, toplevel_fullscreen:side15, ^true)
+    if_opensub(combat_side, toplevel_fullscreen:side0)
+    if_opensub(task_side, toplevel_fullscreen:side1)
+    if_opensub(interface_1055, toplevel_fullscreen:graphics_confirm_layer)
+    if_opensub(stats, toplevel_fullscreen:side2)
+    if_opensub(questlist_v4, toplevel_fullscreen:side3)
+    if_opensub(inventory, toplevel_fullscreen:side4)
+    if_opensub(wornitems, toplevel_fullscreen:side5)
+    if_opensub(prayer, toplevel_fullscreen:side6)
+    if_opensub(magic, toplevel_fullscreen:side7)
+    if_opensub(friends2, toplevel_fullscreen:side9)
+    if_opensub(interface_1109, toplevel_fullscreen:side10)
+    if_opensub(clan_chat, toplevel_fullscreen:side11)
+    if_opensub(options, toplevel_fullscreen:side12)
+    if_opensub(emotes, toplevel_fullscreen:side13)
+    if_opensub(music_v3, toplevel_fullscreen:side14)
+    if_opensub(notes, toplevel_fullscreen:side15)
 }
 
 // The Task System's tab: the set for where the player stands, and its six slots.

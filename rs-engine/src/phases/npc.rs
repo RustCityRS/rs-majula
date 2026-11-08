@@ -1,7 +1,7 @@
 use crate::active_npc::ActiveNpc;
 use crate::engine::{Engine, NpcEvent, NpcEventKind};
 use crate::engine::{engine, engine_mut};
-use crate::phases::shared::EntityId;
+use crate::phases::shared::{EntityId, panic_message};
 #[cfg(target_arch = "x86_64")]
 use core::arch::x86_64::{_MM_HINT_T0, _mm_prefetch};
 #[cfg(target_arch = "x86_64")]
@@ -95,7 +95,7 @@ impl Engine {
                 Ok(()) => break,
                 Err(panic) => {
                     let nid = nids[start];
-                    let msg = crate::phases::shared::panic_message(&panic);
+                    let msg = panic_message(&panic);
                     error!("panic during npc processing for nid {nid}: {msg}");
                     self.emergency_deactivate_npc(nid);
                     start += 1;
@@ -147,7 +147,7 @@ impl Engine {
             Ok(Ok(_)) => {}
             Ok(Err(e)) => error!("error running npc event script for npc {nid}: {e}"),
             Err(panic) => {
-                let msg = crate::phases::shared::panic_message(&panic);
+                let msg = panic_message(&panic);
                 error!("panic in npc event script for npc {nid}: {msg}");
             }
         }

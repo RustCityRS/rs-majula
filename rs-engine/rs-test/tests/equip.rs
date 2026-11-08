@@ -15,7 +15,9 @@ mod client_packet;
 use client_packet::ClientPacket;
 use rs_engine::Engine;
 use rs_protocol::network::game::client_prot::ClientProt;
+use rs_protocol::network::game::server_prot::ServerProt;
 use rs_test::runner;
+use rs_vm::ops::test::{calls_for, forget_calls};
 
 /// `inventory:inv`.
 const BACKPACK: i32 = 149 << 16;
@@ -45,7 +47,7 @@ fn wield(engine: &mut Engine, name: &str, level: u16) -> bool {
         player.stats.levels[stat] = level;
     }
     player.invs.get_mut(&inv).expect("backpack").set(0, obj, 1);
-    rs_vm::ops::test::forget_calls();
+    forget_calls();
 
     let mut p = ClientPacket::new();
     p.p4(BACKPACK).p2_alt3(obj as i32).p2_alt1(0);
@@ -62,7 +64,7 @@ fn wield(engine: &mut Engine, name: &str, level: u16) -> bool {
 /// a level message, or for the dragonhide body the Dragon Slayer one that
 /// 289 checks first.
 fn refused() -> bool {
-    !rs_vm::ops::test::calls_for("mes").is_empty()
+    !calls_for("mes").is_empty()
 }
 
 #[test]
@@ -107,7 +109,7 @@ fn the_wield_requirements_the_first_port_dropped_hold() {
             "no helm without the Trials"
         );
         assert!(
-            rs_vm::ops::test::calls_for("mes")
+            calls_for("mes")
                 .iter()
                 .any(|m| m.contains("Only Fremenniks are worthy of wearing this helm.")),
             "289's Fremennik message"
@@ -137,7 +139,7 @@ fn the_newer_289_wield_lines_hold() {
             "no dragon dagger without Lost City"
         );
         assert!(
-            rs_vm::ops::test::calls_for("mes")
+            calls_for("mes")
                 .iter()
                 .any(|m| m.contains("You need to complete the Lost City Of Zanaris Quest.")),
             "289's Zanaris message"
@@ -212,7 +214,7 @@ fn wearing_the_elemental_shield_plays_its_shimmer() {
             engine.cycle();
             packets.extend(client.packets());
         }
-        let synth = rs_protocol::network::game::server_prot::ServerProt::SynthSound as u16;
+        let synth = ServerProt::SynthSound as u16;
         let sounds: Vec<u16> = packets
             .iter()
             .filter(|(op, _)| *op == synth)

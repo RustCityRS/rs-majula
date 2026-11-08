@@ -1,4 +1,5 @@
 pub mod config;
+pub mod incremental;
 pub mod interface;
 #[cfg(since_647)]
 pub(crate) mod js5;
@@ -11,6 +12,7 @@ pub mod ondemand;
 pub mod other;
 #[allow(clippy::module_inception)]
 pub mod pack;
+pub(crate) mod pack_dir;
 pub mod pack_registry;
 pub mod packed_data;
 pub mod sound;

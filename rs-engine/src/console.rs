@@ -9,6 +9,7 @@ use rs_pack::cache::inv::{InvScope, InvType};
 use rs_pack::types::PlayerStat;
 use rs_stat::{get_exp_by_level, get_level_by_exp};
 use rs_vm::engine::ScriptPlayer;
+use std::iter;
 use tokio::sync::oneshot;
 use tracing::error;
 
@@ -491,7 +492,7 @@ impl Engine {
         {
             item = real;
         }
-        let forms: Vec<u16> = std::iter::once(item.id)
+        let forms: Vec<u16> = iter::once(item.id)
             .chain(item.certlink.filter(|&id| objs.get_by_id(id).is_some()))
             .collect();
         Some(ItemForms {

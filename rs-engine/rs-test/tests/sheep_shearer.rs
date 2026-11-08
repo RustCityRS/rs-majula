@@ -11,11 +11,13 @@ mod client_packet;
 use client_packet::ClientPacket;
 use rs_engine::Engine;
 use rs_engine::harness::HarnessClient;
+use rs_inv::{Inventory, StackMode};
 use rs_pack::cache::VarValue;
 use rs_protocol::network::game::client_prot::ClientProt;
 use rs_test::runner;
-use rs_test::talk::{converse, explore, talk_to};
+use rs_test::talk::{Conversation, converse, explore, talk_to};
 use rsmod::rsmod::collision::collision_strategy::CollisionType;
+use std::sync::Mutex;
 
 const CRAFTING: usize = 12;
 const BACKPACK: i32 = 149 << 16;
@@ -26,7 +28,7 @@ const AT_WHEEL: (u16, u8, u16) = (3209, 1, 3213);
 
 /// Every engine in this binary shares rs-pathfinder's process-static
 /// collision map: the cases take turns.
-static TURN: std::sync::Mutex<()> = std::sync::Mutex::new(());
+static TURN: Mutex<()> = Mutex::new(());
 
 fn obj(engine: &Engine, name: &str) -> u16 {
     *engine
@@ -132,11 +134,7 @@ fn total(engine: &Engine, client: &HarnessClient, inv_id: u16, o: u16) -> i32 {
 }
 
 /// Walks to Fred and talks, taking `choices`.
-fn talk_to_fred(
-    engine: &mut Engine,
-    client: &mut HarnessClient,
-    choices: &[&str],
-) -> rs_test::talk::Conversation {
+fn talk_to_fred(engine: &mut Engine, client: &mut HarnessClient, choices: &[&str]) -> Conversation {
     let fred = npc(engine, "fred_the_farmer");
     let (nid, x, z) = beside(engine, fred, (3190, 3273));
     engine.harness_telejump(client.pid, x, 0, z);
@@ -315,7 +313,7 @@ fn fred_s_job_from_taking_it_to_his_pay() {
         let held = player
             .invs
             .entry(bank)
-            .or_insert_with(|| rs_inv::Inventory::with_stack_mode(size, rs_inv::StackMode::Always));
+            .or_insert_with(|| Inventory::with_stack_mode(size, StackMode::Always));
         held.set(0, coins, 5);
         held.set(1, black_wool, 3);
         held.set(2, shears, 1);

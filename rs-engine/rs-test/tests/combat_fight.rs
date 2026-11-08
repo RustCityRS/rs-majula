@@ -22,7 +22,9 @@ use rs_pack::ParamValue;
 use rs_pack::types::NpcStat;
 use rs_protocol::network::game::client_prot::ClientProt;
 use rs_test::runner;
+use rs_vm::ops::test::{calls_for, forget_calls, set_recording};
 use std::collections::HashMap;
+use std::fs;
 
 const COW: u16 = 12362;
 const ATTACK: usize = 0;
@@ -109,7 +111,7 @@ fn a_fight_runs_on_life_points() {
 /// A 647 content file, from the repo root.
 fn content(path: &str) -> String {
     let path = format!("{}/../../content/647/{path}", env!("CARGO_MANIFEST_DIR"));
-    std::fs::read_to_string(&path).expect(&path)
+    fs::read_to_string(&path).expect(&path)
 }
 
 /// A 647 pack registry (`content/647/pack/<kind>.pack`): name to id.
@@ -319,8 +321,8 @@ fn a_hit_belongs_to_the_player_who_dealt_it() {
         }
         // Alive for the whole fight: who dealt each hit is under test.
         engine.get_npc_mut(nid).unwrap().npc.stats.levels[NpcStat::Hitpoints as usize] = 3000;
-        rs_vm::ops::test::set_recording(true);
-        rs_vm::ops::test::forget_calls();
+        set_recording(true);
+        forget_calls();
         let mut p = ClientPacket::new();
         p.p1_alt2(0).p2_alt3(nid as i32);
         client.send(ClientProt::OpNpc2, &p.finish());
@@ -331,11 +333,11 @@ fn a_hit_belongs_to_the_player_who_dealt_it() {
             if tick % 20 == 0 {
                 client.send(ClientProt::NoTimeout, &[]);
             }
-            on_cow.extend(rs_vm::ops::test::calls_for("npc_hit_by"));
-            on_player.extend(rs_vm::ops::test::calls_for("hit_by"));
-            rs_vm::ops::test::forget_calls();
+            on_cow.extend(calls_for("npc_hit_by"));
+            on_player.extend(calls_for("hit_by"));
+            forget_calls();
         }
-        rs_vm::ops::test::set_recording(false);
+        set_recording(false);
         let me = client.pid.to_string();
         assert!(
             !on_cow.is_empty() && on_cow.iter().all(|by| *by == me),

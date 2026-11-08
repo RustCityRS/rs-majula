@@ -148,6 +148,8 @@ mod tests {
     use rs_crypto::rsa::load_rsa_key;
     #[cfg(since_647)]
     use rs_io::js5::compression::{CompressionType, compress};
+    #[cfg(since_647)]
+    use std::ptr;
 
     #[cfg(since_647)]
     #[test]
@@ -181,10 +183,7 @@ mod tests {
             &[getcrc(&reference, 0, reference.len()); 3]
         );
         let shared = cache.clone();
-        assert!(std::ptr::eq(
-            cache.get(2, 7).unwrap(),
-            shared.get(2, 7).unwrap()
-        ));
+        assert!(ptr::eq(cache.get(2, 7).unwrap(), shared.get(2, 7).unwrap()));
     }
 
     #[cfg(before_647)]

@@ -1,5 +1,8 @@
+use crate::pack::incremental::{Hash, Key, Lookups, Registry, answer};
 #[cfg(since_647)]
 use crate::pack::pack::FileCache;
+#[cfg(since_647)]
+use crate::pack::pack_dir::replace;
 use crate::pack::packed_data::PackedData;
 #[cfg(since_647)]
 use crate::pack::util::placeholder_prefix;
@@ -12,7 +15,9 @@ use std::collections::HashMap;
 #[cfg(since_647)]
 use std::collections::HashSet;
 use std::fs;
+use std::ops::{Deref, DerefMut};
 use std::path::{Path, PathBuf};
+use std::sync::Arc;
 use tracing::debug;
 #[cfg(since_647)]
 use tracing::info;
@@ -22,70 +27,101 @@ pub type PackId = u16;
 #[cfg(since_647)]
 pub type PackId = u32;
 
+/// A registry's names. Copies share them, and a pack cache view of a
+/// [`PackRegistry`] records the lookups made through it.
 #[derive(Clone)]
 pub struct PackFile {
+    entries: Arc<PackEntries>,
+    lookups: Option<(Arc<str>, Arc<Lookups>)>,
+}
+
+#[derive(Clone)]
+pub struct PackEntries {
     pub id_to_debugname: HashMap<PackId, String>,
     pub debugname_to_id: HashMap<String, PackId>,
     #[cfg(since_647)]
     identifiers: HashMap<String, PackId>,
     pub max: PackId,
+    key: Key,
+}
+
+impl Deref for PackFile {
+    type Target = PackEntries;
+
+    fn deref(&self) -> &PackEntries {
+        &self.entries
+    }
+}
+
+impl DerefMut for PackFile {
+    fn deref_mut(&mut self) -> &mut PackEntries {
+        Arc::make_mut(&mut self.entries)
+    }
 }
 
 impl PackFile {
     pub fn empty() -> Self {
-        Self {
-            id_to_debugname: HashMap::new(),
-            debugname_to_id: HashMap::new(),
-            #[cfg(since_647)]
-            identifiers: HashMap::new(),
-            max: 0,
-        }
+        Self::parse("")
     }
 
     pub fn load(path: &Path) -> Result<Self> {
+        Ok(Self::parse(&fs::read_to_string(path).unwrap_or_default()))
+    }
+
+    pub fn parse(text: &str) -> Self {
         let mut id_to_debugname = HashMap::new();
         let mut debugname_to_id = HashMap::new();
         let mut max: PackId = 0;
 
-        if let Ok(text) = fs::read_to_string(path) {
-            for line in text.lines() {
-                let line = line.trim();
-                if line.is_empty() {
-                    continue;
-                }
-                let Some((id_str, debugname)) = line.split_once('=') else {
-                    continue;
-                };
-                let Ok(id) = id_str.parse::<PackId>() else {
-                    continue;
-                };
-                let name = debugname.trim().to_string();
-                id_to_debugname.insert(id, name.clone());
-                debugname_to_id.insert(name, id);
-                if id >= max {
-                    max = id + 1;
-                }
+        for line in text.lines() {
+            let line = line.trim();
+            if line.is_empty() {
+                continue;
+            }
+            let Some((id_str, debugname)) = line.split_once('=') else {
+                continue;
+            };
+            let Ok(id) = id_str.parse::<PackId>() else {
+                continue;
+            };
+            let name = debugname.trim().to_string();
+            id_to_debugname.insert(id, name.clone());
+            debugname_to_id.insert(name, id);
+            if id >= max {
+                max = id + 1;
             }
         }
 
-        Ok(Self {
-            #[cfg(since_647)]
-            identifiers: identifier_aliases(&debugname_to_id),
-            id_to_debugname,
-            debugname_to_id,
-            max,
-        })
+        Self {
+            entries: Arc::new(PackEntries {
+                #[cfg(since_647)]
+                identifiers: identifier_aliases(&debugname_to_id),
+                id_to_debugname,
+                debugname_to_id,
+                max,
+                key: Hash::new("registry").bytes(text.as_bytes()).key(),
+            }),
+            lookups: None,
+        }
+    }
+
+    pub fn get_by_debugname(&self, debugname: &str) -> Option<PackId> {
+        let id = self.find(debugname);
+        if let Some((kind, lookups)) = &self.lookups {
+            lookups.record(b'i', kind, debugname, || answer(id));
+        }
+        id
     }
 
     #[cfg(before_647)]
-    pub fn get_by_debugname(&self, debugname: &str) -> Option<PackId> {
+    fn find(&self, debugname: &str) -> Option<PackId> {
         self.debugname_to_id.get(debugname).copied()
     }
 
     /// A real name that isn't an identifier also answers to the identifier
     /// form scripts write it as, unless two names share that form.
     #[cfg(since_647)]
-    pub fn get_by_debugname(&self, debugname: &str) -> Option<PackId> {
+    fn find(&self, debugname: &str) -> Option<PackId> {
         self.debugname_to_id
             .get(debugname)
             .or_else(|| self.identifiers.get(debugname))
@@ -93,7 +129,11 @@ impl PackFile {
     }
 
     pub fn get_by_id(&self, id: PackId) -> Option<&str> {
-        self.id_to_debugname.get(&id).map(|s| s.as_str())
+        let name = self.id_to_debugname.get(&id).map(|s| s.as_str());
+        if let Some((kind, lookups)) = &self.lookups {
+            lookups.record(b'n', kind, &id.to_string(), || answer(name));
+        }
+        name
     }
 }
 
@@ -120,6 +160,7 @@ pub struct PackedFile {
     pub client: Option<PackedData>,
 }
 
+#[derive(Clone)]
 pub struct PackRegistry {
     pub npc: PackFile,
     pub obj: PackFile,
@@ -190,8 +231,137 @@ pub struct PackRegistry {
     #[cfg(since_647)]
     pub varobj: PackFile,
     #[cfg(since_647)]
-    pub component_hashes: HashMap<String, i32>,
+    pub component_hashes: Arc<HashMap<String, i32>>,
     pack_dir: PathBuf,
+    lookups: Option<Arc<Lookups>>,
+}
+
+/// A config kind packed from a registry view is reused while every name it
+/// looked up still resolves as it did.
+impl Registry for PackRegistry {
+    fn recording(&self) -> Self {
+        let lookups = Arc::new(Lookups::default());
+        let mut view = self.clone();
+        for (kind, file) in view.files_mut() {
+            file.lookups = Some((Arc::from(kind), lookups.clone()));
+        }
+        view.lookups = Some(lookups);
+        view
+    }
+
+    fn recorded(&self) -> Vec<u8> {
+        self.lookups
+            .as_deref()
+            .map_or_else(Vec::new, Lookups::encode)
+    }
+
+    fn unchanged(&self, recorded: &[u8]) -> bool {
+        Lookups::decode(recorded).is_some_and(|lookups| {
+            lookups.iter().all(|(op, kind, query, answer)| {
+                self.current(*op, kind, query).as_ref() == Some(answer)
+            })
+        })
+    }
+}
+
+/// The registries by the name their `.pack` file goes by.
+macro_rules! registry_files {
+    ($($(#[$cfg:meta])* $kind:literal => $field:ident,)*) => {
+        impl PackRegistry {
+            fn file(&self, kind: &str) -> Option<&PackFile> {
+                match kind {
+                    $($(#[$cfg])* $kind => Some(&self.$field),)*
+                    _ => None,
+                }
+            }
+
+            /// Every registry, named: a field left out of the list doesn't
+            /// compile, so no registry's lookups go unrecorded.
+            fn files_mut(&mut self) -> Vec<(&'static str, &mut PackFile)> {
+                let PackRegistry {
+                    $($(#[$cfg])* $field,)*
+                    #[cfg(since_647)]
+                    component_hashes: _,
+                    pack_dir: _,
+                    lookups: _,
+                } = self;
+                let mut files = Vec::new();
+                $($(#[$cfg])* files.push(($kind, $field));)*
+                files
+            }
+        }
+    };
+}
+
+registry_files! {
+    "npc" => npc,
+    "obj" => obj,
+    "loc" => loc,
+    "hunt" => hunt,
+    "param" => param,
+    "category" => category,
+    "seq" => seq,
+    "spotanim" => spotanim,
+    "varp" => varp,
+    "varn" => varn,
+    "inv" => inv,
+    "idk" => idk,
+    "enum" => r#enum,
+    "struct" => r#struct,
+    "mesanim" => mesanim,
+    "vars" => vars,
+    "model" => model,
+    "interface" => interface,
+    "dbrow" => dbrow,
+    "synth" => synth,
+    "flo" => flo,
+    "texture" => texture,
+    "anim" => anim,
+    "midi" => midi,
+    #[cfg(since_254)]
+    "varbit" => varbit,
+    #[cfg(since_647)]
+    "flu" => flu,
+    #[cfg(since_647)]
+    "bas" => bas,
+    #[cfg(since_647)]
+    "cursor" => cursor,
+    #[cfg(since_647)]
+    "hitmark" => hitmark,
+    #[cfg(since_647)]
+    "billboard" => billboard,
+    #[cfg(since_647)]
+    "fontmetrics" => fontmetrics,
+    #[cfg(since_647)]
+    "particleeffector" => particleeffector,
+    #[cfg(since_647)]
+    "particleemitter" => particleemitter,
+    #[cfg(since_647)]
+    "light" => light,
+    #[cfg(since_647)]
+    "mel" => mel,
+    #[cfg(since_647)]
+    "msi" => msi,
+    #[cfg(since_647)]
+    "quest" => quest,
+    #[cfg(since_647)]
+    "chatcat" => chatcat,
+    #[cfg(since_647)]
+    "chatphrase" => chatphrase,
+    #[cfg(since_647)]
+    "sprites" => sprites,
+    #[cfg(since_647)]
+    "varc" => varc,
+    #[cfg(since_647)]
+    "varcs" => varcs,
+    #[cfg(since_647)]
+    "varclansetting" => varclansetting,
+    #[cfg(since_647)]
+    "stat" => stat,
+    #[cfg(since_647)]
+    "area" => area,
+    #[cfg(since_647)]
+    "varobj" => varobj,
 }
 
 impl PackRegistry {
@@ -323,13 +493,45 @@ impl PackRegistry {
             #[cfg(since_647)]
             varobj: load("varobj")?,
             #[cfg(since_647)]
-            component_hashes,
+            component_hashes: Arc::new(component_hashes),
             pack_dir: pack_dir.to_path_buf(),
+            lookups: None,
         })
     }
 
     pub fn pack_dir(&self) -> &Path {
         &self.pack_dir
+    }
+
+    /// A component's hash by its `interface:component` name.
+    #[cfg(since_647)]
+    pub fn component_hash(&self, name: &str) -> Option<i32> {
+        let hash = self.component_hashes.get(name).copied();
+        if let Some(lookups) = &self.lookups {
+            lookups.record(b'c', "component", name, || answer(hash));
+        }
+        hash
+    }
+
+    /// Records that a unit reads all of registry `kind`, as a config kind
+    /// does its own: any change to it repacks the unit.
+    pub fn depend_on(&self, kind: &str) {
+        if let Some(lookups) = &self.lookups {
+            let key = self.file(kind).map(|file| file.key);
+            lookups.record(b'w', kind, "", || answer(key));
+        }
+    }
+
+    /// What a recorded lookup gives now.
+    fn current(&self, op: u8, kind: &str, query: &str) -> Option<String> {
+        Some(match op {
+            b'i' => answer(self.file(kind)?.find(query)),
+            b'n' => answer(self.file(kind)?.id_to_debugname.get(&query.parse().ok()?)),
+            #[cfg(since_647)]
+            b'c' => answer(self.component_hashes.get(query)),
+            b'w' => answer(self.file(kind).map(|file| file.key)),
+            _ => return None,
+        })
     }
 
     #[cfg(since_647)]
@@ -602,6 +804,6 @@ fn save_pack_file(path: &Path, pack: &PackFile) -> Result<()> {
         .iter()
         .map(|(id, name)| format!("{id}={name}\n"))
         .collect();
-    fs::write(path, content)?;
+    replace(path, content.as_bytes())?;
     Ok(())
 }

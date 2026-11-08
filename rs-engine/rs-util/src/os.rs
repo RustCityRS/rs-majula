@@ -2,7 +2,14 @@
 use std::ffi::c_ulong;
 #[cfg(windows)]
 use std::ffi::c_void;
+#[cfg(not(unix))]
+use std::future::pending;
 use std::io;
+#[cfg(any(target_os = "linux", windows))]
+use std::io::Error;
+#[cfg(not(windows))]
+use std::io::ErrorKind;
+use tokio::signal::ctrl_c;
 #[cfg(unix)]
 use tokio::signal::unix::{SignalKind, signal};
 
@@ -83,13 +90,13 @@ pub fn raise_thread_priority() -> io::Result<()> {
     };
     match unsafe { pthread_setschedparam(pthread_self(), SCHED_FIFO, &param) } {
         0 => Ok(()),
-        EPERM => Err(io::Error::new(
-            io::ErrorKind::PermissionDenied,
+        EPERM => Err(Error::new(
+            ErrorKind::PermissionDenied,
             format!(
                 "SCHED_FIFO {REALTIME_PRIORITY} refused; allow it with LimitRTPRIO={REALTIME_PRIORITY} in the systemd unit"
             ),
         )),
-        code => Err(io::Error::from_raw_os_error(code)),
+        code => Err(Error::from_raw_os_error(code)),
     }
 }
 
@@ -102,14 +109,14 @@ pub fn raise_thread_priority() -> io::Result<()> {
         fn SetThreadPriority(thread: *mut c_void, priority: i32) -> i32;
     }
     if unsafe { SetThreadPriority(GetCurrentThread(), THREAD_PRIORITY_TIME_CRITICAL) } == 0 {
-        return Err(io::Error::last_os_error());
+        return Err(Error::last_os_error());
     }
     Ok(())
 }
 
 #[cfg(not(any(target_os = "linux", windows)))]
 pub fn raise_thread_priority() -> io::Result<()> {
-    Err(io::ErrorKind::Unsupported.into())
+    Err(ErrorKind::Unsupported.into())
 }
 
 /// Resolves on Ctrl+C, or on SIGTERM where it exists: the signal service
@@ -119,14 +126,14 @@ pub async fn shutdown_signal() -> &'static str {
     {
         let mut term = signal(SignalKind::terminate()).expect("SIGTERM handler");
         tokio::select! {
-            Ok(()) = tokio::signal::ctrl_c() => "Ctrl+C",
+            Ok(()) = ctrl_c() => "Ctrl+C",
             _ = term.recv() => "SIGTERM",
         }
     }
     #[cfg(not(unix))]
     {
-        if tokio::signal::ctrl_c().await.is_err() {
-            std::future::pending::<()>().await;
+        if ctrl_c().await.is_err() {
+            pending::<()>().await;
         }
         "Ctrl+C"
     }

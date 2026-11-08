@@ -20,6 +20,7 @@ use rs_engine::harness::HarnessClient;
 use rs_protocol::network::game::client_prot::ClientProt;
 use rs_protocol::network::game::server_prot::ServerProt;
 use rs_test::runner;
+use rs_util::base37::to_screen_name;
 
 const MAIN: u16 = 335;
 const SIDE: u16 = 336;
@@ -183,7 +184,7 @@ fn varp(engine: &Engine, pid: u16, varp: u16) -> i32 {
 /// claimed no display name: the login name as 289 shows it, as the client
 /// draws them.
 fn display_name(username: &str) -> String {
-    rs_util::base37::to_screen_name(username)
+    to_screen_name(username)
 }
 
 fn trade_with(client: &mut HarnessClient, other: u16) {

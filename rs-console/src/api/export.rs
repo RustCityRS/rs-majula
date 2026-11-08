@@ -13,6 +13,7 @@ use rs_admin_api::{
 };
 use serde::Deserialize;
 use std::sync::Arc;
+use tokio::task::spawn_blocking;
 
 /// The most rows an export holds.
 const MAX_AUDIT_ROWS: usize = 10_000;
@@ -110,7 +111,7 @@ pub async fn audit(
     let view = AuditView::new(&app, &staff);
     // It reads back through the file.
     let reader = app.clone();
-    let entries: Vec<_> = match tokio::task::spawn_blocking(move || {
+    let entries: Vec<_> = match spawn_blocking(move || {
         reader
             .audit
             .page(None, MAX_AUDIT_ROWS, |e| view.shows(e) && filter.keeps(e))

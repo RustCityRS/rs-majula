@@ -21,7 +21,7 @@ if ($lines = 0) {
 }
 $interface = tutorial_text;
 tut_open($interface);
-if_opensub($interface, chattop:mes_layer_large, ^true);
+if_opensub($interface, chattop:mes_layer_large);
 if_settext(tutorial_text:tut2_title, $title);
 if ($lines = 1) {
     if_settext(tutorial_text:tut2_a, split_get($page, 0));

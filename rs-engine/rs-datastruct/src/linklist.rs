@@ -6,6 +6,8 @@
 // execution ("speedup bug") that is authentic server behavior.
 
 use crate::Entry;
+use std::iter;
+use std::ops::{Index, IndexMut};
 
 const SENTINEL: usize = 0;
 
@@ -423,7 +425,7 @@ impl<T> LinkList<T> {
     /// An iterator yielding `&T` for each element in insertion order.
     pub fn iter(&self) -> impl Iterator<Item = &T> + '_ {
         let mut idx = self.sentinel_next();
-        std::iter::from_fn(move || {
+        iter::from_fn(move || {
             if idx == SENTINEL {
                 return None;
             }
@@ -479,7 +481,7 @@ impl<T> Default for LinkList<T> {
 }
 
 /// Allows indexing a `LinkList` with `list[handle]` syntax.
-impl<T> std::ops::Index<usize> for LinkList<T> {
+impl<T> Index<usize> for LinkList<T> {
     type Output = T;
 
     /// Returns an immutable reference to the value at `handle`.
@@ -503,7 +505,7 @@ impl<T> std::ops::Index<usize> for LinkList<T> {
 }
 
 /// Allows mutable indexing a `LinkList` with `list[handle] = value` syntax.
-impl<T> std::ops::IndexMut<usize> for LinkList<T> {
+impl<T> IndexMut<usize> for LinkList<T> {
     /// Returns a mutable reference to the value at `handle`.
     ///
     /// This delegates to [`LinkList::get_mut`].

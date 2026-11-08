@@ -25,6 +25,8 @@ use rs_engine::Engine;
 use rs_engine::harness::HarnessClient;
 use rs_protocol::network::game::client_prot::ClientProt;
 use rs_test::runner;
+use std::fs;
+use std::sync::Mutex;
 
 const WOODCUTTING: usize = 8;
 
@@ -112,7 +114,7 @@ fn choking_ivy_gives_xp_and_no_item() {
 fn chop(case: Chop) {
     // The cases share one loaded engine and each starts with a reset, which
     // would log the others' woodcutters out: one at a time.
-    static TURN: std::sync::Mutex<()> = std::sync::Mutex::new(());
+    static TURN: Mutex<()> = Mutex::new(());
     let _turn = TURN.lock().unwrap_or_else(|e| e.into_inner());
     runner::on_loaded_engine(move |engine| {
         let tree = loc_id(case.tree);
@@ -224,7 +226,7 @@ fn loc_id(name: &str) -> u16 {
         env!("CARGO_MANIFEST_DIR"),
         "/../../content/647/pack/loc.pack"
     );
-    std::fs::read_to_string(pack)
+    fs::read_to_string(pack)
         .expect("loc.pack")
         .lines()
         .find_map(|l| l.split_once('=').filter(|(_, n)| *n == name))

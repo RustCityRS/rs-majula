@@ -599,6 +599,7 @@ mod tests {
 #[cfg(test)]
 mod compiler_contract {
     use super::*;
+    use runec::trigger_table;
 
     /// Triggers that legitimately have no byte in the compiler's table.
     ///
@@ -679,7 +680,7 @@ mod compiler_contract {
 
             match names
                 .iter()
-                .find_map(|n| runec::trigger_table::byte(n).map(|b| (n, b)))
+                .find_map(|n| trigger_table::byte(n).map(|b| (n, b)))
             {
                 Some((name, compiler_byte)) => {
                     assert_eq!(

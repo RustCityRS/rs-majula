@@ -32,11 +32,13 @@ use std::future::ready;
 use std::mem::take;
 #[cfg(since_244)]
 use std::net::SocketAddr;
+#[cfg(since_647)]
+use std::sync::PoisonError;
 use std::sync::atomic::{AtomicUsize, Ordering};
-use std::time::Duration;
+use std::time::{Duration, Instant};
 use tokio::net::TcpListener;
 use tokio::sync::mpsc;
-use tokio::time::timeout;
+use tokio::time::{sleep, timeout};
 use tracing::{debug, warn};
 
 #[repr(u8)]
@@ -70,7 +72,7 @@ pub async fn serve(
             Ok(conn) => conn,
             Err(e) => {
                 warn!("TCP accept error: {e}");
-                tokio::time::sleep(Duration::from_millis(100)).await;
+                sleep(Duration::from_millis(100)).await;
                 continue;
             }
         };
@@ -209,6 +211,12 @@ pub async fn handshake(mut client: Socket) -> anyhow::Result<()> {
                             .await?;
                         bail!("{}: js5 wrong revision: {revision}", client.addr);
                     }
+                    client.server_io.js5 = client
+                        .server_io
+                        .js5_latest
+                        .read()
+                        .unwrap_or_else(PoisonError::into_inner)
+                        .clone();
                     let crcs = client.server_io.js5.prefetch_crcs();
                     let mut reply = Packet::new(1 + size_of_val(&crcs));
                     reply.p1(0);
@@ -647,7 +655,7 @@ async fn send_js5_file(client: &mut Socket, archive: u8, file: u16) -> anyhow::R
 #[allow(clippy::collapsible_match)]
 pub async fn network_loop(
     mut client: Socket,
-    packet_tx: Sender<(std::time::Instant, Vec<u8>)>,
+    packet_tx: Sender<(Instant, Vec<u8>)>,
     mut bytes_rx: UnboundedReceiver<Vec<u8>>,
     recycle_tx: UnboundedSender<Vec<u8>>,
     disconnect_tx: &Sender<()>,
@@ -658,7 +666,7 @@ pub async fn network_loop(
         tokio::select! {
             result = client.read() => match result {
                 Ok(Some(bytes)) if !bytes.is_empty() => {
-                    if packet_tx.try_send((std::time::Instant::now(), bytes)).is_err() {
+                    if packet_tx.try_send((Instant::now(), bytes)).is_err() {
                         disconnect_tx.send(()).await?;
                         bail!("{addr} inbox full or closed");
                     }
@@ -676,7 +684,7 @@ pub async fn network_loop(
                         bail!("{addr} over {MAX_UNSENT} bytes behind writing");
                     }
                     let len = bytes.len();
-                    match tokio::time::timeout(WRITE_STALL_TIMEOUT, client.write_owned(bytes)).await {
+                    match timeout(WRITE_STALL_TIMEOUT, client.write_owned(bytes)).await {
                         Ok(result) => {
                             unsent.fetch_sub(len, Ordering::Relaxed);
                             if let Some(returned) = result? {

@@ -21,6 +21,9 @@ use rs_engine::harness::HarnessClient;
 use rs_pack::cache::VarValue;
 use rs_protocol::network::game::client_prot::ClientProt;
 use rs_test::runner;
+use rs_vm::ops::test::{calls_for, forget_calls};
+use std::fs;
+use std::sync::Mutex;
 
 const COOKING: usize = 7;
 
@@ -163,7 +166,7 @@ fn guild_guest(engine: &mut Engine, name: &str, x: u16, z: u16) -> HarnessClient
     engine.harness_telejump(client.pid, x, 0, z);
     engine.cycle();
     client.packets();
-    rs_vm::ops::test::forget_calls();
+    forget_calls();
     client
 }
 
@@ -174,7 +177,7 @@ fn guild_guest(engine: &mut Engine, name: &str, x: u16, z: u16) -> HarnessClient
 /// The guild's door is one wall in rs-pathfinder's collision map, a process
 /// static every engine in this test binary shares: one door test's open door
 /// moved the other's walk to it, and its refusal never came. They take turns.
-static CHEFDOOR_TURN: std::sync::Mutex<()> = std::sync::Mutex::new(());
+static CHEFDOOR_TURN: Mutex<()> = Mutex::new(());
 
 #[test]
 fn the_guild_door_turns_away_a_cook_below_32() {
@@ -197,7 +200,7 @@ fn the_guild_door_turns_away_a_cook_below_32() {
         }
         assert!(open, "the Head chef's line");
         assert_eq!(
-            rs_vm::ops::test::calls_for("mes"),
+            calls_for("mes"),
             ["You need a cooking level of 32 to enter the Chef's Guild."]
         );
         engine.cycle();
@@ -228,7 +231,7 @@ fn the_guild_door_lets_anyone_out() {
             engine.cycle();
             client.packets();
         }
-        assert!(rs_vm::ops::test::calls_for("mes").is_empty(), "no refusal");
+        assert!(calls_for("mes").is_empty(), "no refusal");
         let player = engine.harness_player(client.pid).unwrap();
         assert!(!player.is_interface_open(NPC_CHAT_3), "no Head chef");
         assert!(player.pathing.coord.z() <= CHEFDOOR.1, "out on the street");
@@ -244,7 +247,7 @@ fn the_head_chef_and_cooked_meats_take_289s_configs() {
         let chef = *engine.cache.npcs.debugnames.get("head_chef").unwrap();
         let chef = engine.cache.npcs.get_by_id(chef).unwrap();
         assert_eq!((chef.wanderrange, chef.maxrange), (3, 3));
-        let meat: u16 = std::fs::read_to_string(format!(
+        let meat: u16 = fs::read_to_string(format!(
             "{}/../../content/647/pack/category.pack",
             env!("CARGO_MANIFEST_DIR")
         ))

@@ -3,6 +3,8 @@ use crate::archive;
 #[cfg(since_647)]
 use crate::cache::js5::PackedCache;
 #[cfg(since_647)]
+use crate::pack::incremental::{Hash, remember};
+#[cfg(since_647)]
 use crate::pack::packed_data::PackedData;
 #[cfg(since_647)]
 use anyhow::{Result, bail};
@@ -354,16 +356,22 @@ pub(crate) fn load_midi_tick_lengths(cache: &PackedCache) -> Box<[Option<u16>]> 
             .groups
             .par_iter()
             .filter_map(|group| {
-                let data = cache
-                    .read_group_raw_decompressed(archive, group.id)
-                    .ok()??;
-                let ms = decode_jagex_midi(&data)
-                    .ok()
-                    .and_then(|smf| parse_midi_length(&smf))?;
-                Some((
-                    base + group.id as usize,
-                    ((ms as f64 / 600.0).ceil() as u32 + 1) as u16,
-                ))
+                let raw = cache.groups.get(&(archive, group.id))?;
+                let ticks = remember(Hash::new("midi length").bytes(raw).key(), || {
+                    let ms = cache
+                        .read_group_raw_decompressed(archive, group.id)
+                        .ok()
+                        .flatten()
+                        .and_then(|data| decode_jagex_midi(&data).ok())
+                        .and_then(|smf| parse_midi_length(&smf));
+                    ms.map_or_else(Vec::new, |ms| {
+                        let mut buf = Packet::new(2);
+                        buf.p2(((ms as f64 / 600.0).ceil() as u32 + 1) as u16);
+                        buf.data
+                    })
+                });
+                (ticks.len() == 2)
+                    .then(|| (base + group.id as usize, Packet::from(&ticks[..]).g2()))
             })
             .collect();
         for (i, ticks) in groups {

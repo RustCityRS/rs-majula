@@ -1,4 +1,5 @@
 use sha2::{Digest, Sha256};
+use std::fs;
 use std::io;
 use std::path::Path;
 
@@ -73,17 +74,19 @@ pub fn store(dir: &Path, bytes: &[u8], media: &Media) -> io::Result<String> {
     if path.exists() {
         return Ok(name);
     }
-    std::fs::create_dir_all(dir)?;
+    fs::create_dir_all(dir)?;
     // Written aside then renamed into place, so half a file is never served.
     let partial = dir.join(format!(".{name}.partial"));
-    std::fs::write(&partial, bytes)?;
-    std::fs::rename(&partial, &path)?;
+    fs::write(&partial, bytes)?;
+    fs::rename(&partial, &path)?;
     Ok(name)
 }
 
 #[cfg(test)]
 mod tests {
     use super::*;
+    use std::env;
+    use std::process;
 
     #[test]
     fn sniffs_by_content() {
@@ -109,15 +112,14 @@ mod tests {
 
     #[test]
     fn stores_once_by_content() {
-        let dir =
-            std::env::temp_dir().join(format!("rs-admin-api-media-test-{}", std::process::id()));
+        let dir = env::temp_dir().join(format!("rs-admin-api-media-test-{}", process::id()));
         let bytes = b"GIF89a-test-bytes";
         let media = sniff(bytes).unwrap();
         let a = store(&dir, bytes, &media).unwrap();
         let b = store(&dir, bytes, &media).unwrap();
         assert_eq!(a, b);
         assert!(valid_name(&a));
-        assert_eq!(std::fs::read(dir.join(&a)).unwrap(), bytes);
-        std::fs::remove_dir_all(&dir).unwrap();
+        assert_eq!(fs::read(dir.join(&a)).unwrap(), bytes);
+        fs::remove_dir_all(&dir).unwrap();
     }
 }

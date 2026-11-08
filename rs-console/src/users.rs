@@ -3,7 +3,11 @@ use anyhow::{Context, Result, bail};
 use argon2::{Argon2, PasswordHash, PasswordHasher, PasswordVerifier};
 use serde::{Deserialize, Serialize};
 use std::fs;
+#[cfg(unix)]
+use std::fs::Permissions;
 use std::io::ErrorKind;
+#[cfg(unix)]
+use std::os::unix::fs::PermissionsExt;
 use std::path::{Path, PathBuf};
 use std::sync::{Mutex, MutexGuard};
 use std::time::{SystemTime, UNIX_EPOCH};
@@ -179,8 +183,7 @@ impl Users {
         fs::write(&tmp, serde_json::to_string_pretty(file)?)?;
         #[cfg(unix)]
         {
-            use std::os::unix::fs::PermissionsExt;
-            fs::set_permissions(&tmp, fs::Permissions::from_mode(0o600))?;
+            fs::set_permissions(&tmp, Permissions::from_mode(0o600))?;
         }
         fs::rename(&tmp, &self.path).with_context(|| format!("replacing {}", self.path.display()))
     }
@@ -265,6 +268,7 @@ pub fn password_problem(password: &str, name: &str) -> Option<String> {
 #[cfg(test)]
 mod tests {
     use super::*;
+    use std::env;
 
     #[test]
     fn names_match_like_game_names() {
@@ -311,7 +315,7 @@ mod tests {
 
     #[test]
     fn file_changes_round_trip() {
-        let dir = std::env::temp_dir().join(format!("rs-console-users-{}", now_ms()));
+        let dir = env::temp_dir().join(format!("rs-console-users-{}", now_ms()));
         let users = Users::new(dir.join("users.json"));
         users
             .add(User {
@@ -330,14 +334,14 @@ mod tests {
         users.remove("mod_ash").unwrap();
         assert!(users.find("mod ash").unwrap().is_none());
         // Changed from the command line: read again.
-        std::fs::write(
+        fs::write(
             users.path(),
             r#"{"users":[{"name":"Mod Kat","role":"moderator","password_hash":"y"}]}"#,
         )
         .unwrap();
         assert_eq!(users.all().unwrap()[0].name, "Mod Kat");
-        std::fs::remove_file(users.path()).unwrap();
+        fs::remove_file(users.path()).unwrap();
         assert!(users.all().unwrap().is_empty());
-        let _ = std::fs::remove_dir_all(dir);
+        let _ = fs::remove_dir_all(dir);
     }
 }

@@ -1,6 +1,7 @@
 use crate::engine::{Engine, PendingZoneEvent};
 use crate::game_map::apply_loc_collision;
 use rs_entity::EntityLifeTime;
+use std::mem;
 use std::time::Instant;
 
 impl Engine {
@@ -58,7 +59,7 @@ impl Engine {
             return;
         }
         let due = self.pending_zone_events.split_off(&(self.clock + 1));
-        let ready = std::mem::replace(&mut self.pending_zone_events, due);
+        let ready = mem::replace(&mut self.pending_zone_events, due);
 
         // Locs come back only once every expiring loc's collision is cleared:
         // collision flags aren't counted, so a temporary loc over part of the
