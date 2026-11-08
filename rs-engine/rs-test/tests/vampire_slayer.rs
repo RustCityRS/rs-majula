@@ -17,7 +17,7 @@ use rs_pack::cache::VarValue;
 use rs_pack::types::NpcStat;
 use rs_protocol::network::game::client_prot::ClientProt;
 use rs_test::runner;
-use rs_test::talk::{converse, explore, talk_to};
+use rs_test::talk::{converse, explore, settexts, talk_to};
 use rs_vm::ops::test::{calls_for, forget_calls, set_recording};
 use rsmod::rsmod::collision::collision_strategy::CollisionType;
 use std::collections::BTreeSet;
@@ -297,6 +297,8 @@ fn the_count_is_staked_and_morgan_ends_the_quest() {
             client.send(ClientProt::OpLoc1, &p.finish());
             let mut said = Vec::new();
             let mut hammered: Option<usize> = None;
+            let mut gone: Option<usize> = None;
+            let mut lowered = false;
             let mut risen = false;
             let mut risen_at = 0;
             // The Count's last life points and tile, and the tick he went.
@@ -322,11 +324,17 @@ fn the_count_is_staked_and_morgan_ends_the_quest() {
                         player.stats.xp[ATTACK],
                     ));
                 }
-                for (_, m) in HarnessClient::game_messages(&client.packets()) {
-                    if m == "You hammer the stake into the vampire's chest!" {
-                        hammered = Some(tick);
-                    }
+                let packets = client.packets();
+                for (_, m) in HarnessClient::game_messages(&packets) {
                     said.push(m);
+                }
+                // Dialogue text (the player's line after the dust), marked apart.
+                for (_, t) in settexts(&packets) {
+                    said.push(format!("(text) {}", t.replace("<br>", " ")));
+                }
+                // 2011 says nothing at the stake: its tick is when he is marked slain.
+                if hammered.is_none() && var(engine, client, "vampire_count_slain") == 1 {
+                    hammered = Some(tick);
                 }
                 // A harness client sends nothing on its own: without this
                 // the engine drops it after 100 silent ticks.
@@ -346,9 +354,18 @@ fn the_count_is_staked_and_morgan_ends_the_quest() {
                         if !risen {
                             risen = true;
                             risen_at = tick;
-                            // A hit or two from beaten: the fight is not what
-                            // is under test, and a harness player's max hit
-                            // stays its login one (14 life points).
+                        }
+                        // A hit or two from beaten: the fight is not what is
+                        // under test, and a harness player's max hit stays its
+                        // login one (14 life points). Not before garlic's first
+                        // bite, which comes only at full life points: the first
+                        // Attack (+3) falls in the cutscene's hold, the second
+                        // (+33) walks the 9 tiles to him and bites.
+                        if !lowered
+                            && (said.iter().any(|m| m.contains("garlic in your pack"))
+                                || tick >= risen_at + 60)
+                        {
+                            lowered = true;
                             engine.get_npc_mut(nid).unwrap().npc.stats.levels
                                 [NpcStat::Hitpoints as usize] = 10;
                         }
@@ -361,10 +378,16 @@ fn the_count_is_staked_and_morgan_ends_the_quest() {
                         }
                     }
                     None if risen => {
-                        if let Some(h) = hammered {
-                            said.push(format!("(gone {} ticks after the hammer)", tick - h));
+                        // On a few ticks: 2011's lines come once he has gone.
+                        let at = *gone.get_or_insert_with(|| {
+                            if let Some(h) = hammered {
+                                said.push(format!("(gone {} ticks after the hammer)", tick - h));
+                            }
+                            tick
+                        });
+                        if tick >= at + 6 {
+                            break;
                         }
-                        break;
                     }
                     None => {}
                 }
@@ -411,10 +434,22 @@ fn the_count_is_staked_and_morgan_ends_the_quest() {
             said.iter().any(|m| m == "(gone 20 ticks after the hammer)"),
             "{said:?}"
         );
+        // 2011's lines (2011-02-28 Go0RZkE-Nfc, 2011-05-04 8rnPUf2QQv4): the
+        // garlic as the fight starts, nothing at the stake, and once he has
+        // gone the player's line and "You have slain the vampire."
+        for line in [
+            "The garlic in your pack weakens the vampire.",
+            "You have slain the vampire.",
+            "(text) I should tell Morgan that I've killed the vampire!",
+        ] {
+            assert!(
+                said.iter().any(|m| m == line),
+                "2011 shows {line:?}: {said:?}"
+            );
+        }
         assert!(
-            said.iter()
-                .any(|m| m == "You hammer the stake into the vampire's chest!"),
-            "{said:?}"
+            !said.iter().any(|m| m.contains("hammer the stake")),
+            "2011 says nothing at the stake: {said:?}"
         );
         assert_eq!(var(engine, &client, "vampire_count_slain"), 1);
         assert_eq!(
@@ -504,10 +539,18 @@ fn frame_sets(seq: &str) -> BTreeSet<String> {
 [",
             )
             .map_or(all.len(), |e| start + e)];
+    // A frame names its set either as `<delay>:<frame>:<set>` or, since 44d106685d's
+    // unpack, as `animframe_<set>_<frame>`.
     body.lines()
         .filter_map(|l| l.strip_prefix("frame"))
         .filter_map(|l| l.split_once('='))
-        .filter_map(|(_, v)| v.rsplit(':').next().map(str::to_string))
+        .filter_map(|(_, v)| {
+            let v = v.trim();
+            match v.strip_prefix("animframe_") {
+                Some(rest) => rest.split('_').next().map(str::to_string),
+                None => v.rsplit(':').next().map(str::to_string),
+            }
+        })
         .collect()
 }
 

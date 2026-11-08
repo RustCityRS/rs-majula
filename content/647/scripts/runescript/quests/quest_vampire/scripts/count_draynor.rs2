@@ -9,6 +9,13 @@
 // recording, 96.0s-98.2s): his seq 12604 with spotanim 567 (model 51051,
 // seq 12605) on him, both 12s long. 12604 loops back to its start when it
 // ends, so he goes a tick before it does, the dust all but gone.
+// 2011's lines, as two dated recordings' chat has them (2011-02-28 YouTube
+// Go0RZkE-Nfc, 309s; 2011-05-04 8rnPUf2QQv4, 253s and 267.5-269s): "The garlic
+// in your pack weakens the vampire." as the fight starts; nothing at the stake
+// (289's "You hammer the stake into the vampire's chest!" is in neither); once
+// he has crumbled away, the player's "I should tell Morgan that I've killed the
+// vampire!" (05-04, 267.5s, about 1.5s after he goes) and "You have slain the
+// vampire." (both).
 [ai_queue4,count_draynor]
 ~quest_vampire_coffin_close;
 npc_walk(npc_coord);
@@ -52,9 +59,9 @@ if (inv_total(inv, garlic) > 0) {
         npc_statsub(attack, 10, 0);
         npc_statsub(strength, 10, 0);
         npc_statsub(defence, 40, 0);
-        mes("The vampire seems to weaken.");
+        mes("The garlic in your pack weakens the vampire.");
     } else if (random(64) = 0) {
-        mes("The vampire seems to weaken.");
+        mes("The garlic in your pack weakens the vampire.");
     }
 }
 
@@ -116,8 +123,9 @@ if (inv_total(inv, stake_hammer) = 0) {
     return;
 }
 p_delay(1);
-mes("You hammer the stake into the vampire's chest!");
 inv_del(inv, stake, 1);
+// 2011's lines once he has crumbled away: his dust goes 20 ticks after this.
+queue(vampire_count_slain, 22, 0);
 // The client keeps an animation still playing over a new one of lower
 // priority (Class243 for players, WallObject for npcs): the player's swing,
 // or the Count's attack or block (3331, 3332: priority 6), refused the
@@ -137,6 +145,10 @@ p_delay(0);
 // The rework's stake hammer blow (seq 12606, the hammer in hand), as the
 // player strikes in the 2011-02-19 recording at 96.0s-98.2s.
 anim(seq_12606, 0);
+
+[queue,vampire_count_slain]
+mes("You have slain the vampire.");
+~chatplayer("<p,neutral>I should tell Morgan that I've killed the vampire!");
 
 // He goes when the player leaves him, or after a while (npc_add's 500 ticks;
 // "he disappears after a period of time", 2011 wiki, Vampire Slayer). 289
