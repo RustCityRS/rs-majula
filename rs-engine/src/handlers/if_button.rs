@@ -1,5 +1,5 @@
 use crate::active_player::ActivePlayer;
-#[cfg(before_647)]
+#[cfg(any(before_647, debug_assertions))]
 use crate::engine::engine;
 use crate::engine::engine_mut;
 use crate::handlers::ClientGameHandler;
@@ -249,11 +249,10 @@ fn handle_if_button(
     ) {
         Err(ScriptError::TriggerNotFound(_)) => {
             #[cfg(debug_assertions)]
-            {
-                let iface = (com as u32) >> 16;
-                let comp = (com as u32) & 0xFFFF;
-                active.message_game(&format!("No trigger for [if_button,{}:{}]", iface, comp));
-            }
+            active.message_game(&format!(
+                "No trigger for [if_button,{}]",
+                engine().layout.component_name(com)
+            ));
         }
         other => other?,
     }

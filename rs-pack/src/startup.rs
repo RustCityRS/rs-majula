@@ -39,6 +39,8 @@ use crate::types::ParamValue;
 use crate::zone_csv::load_csv_zones;
 use crate::{archive, compile_scripts, unwrap_thread};
 use anyhow::{Context, Result};
+use runec::symbol::identifier_form;
+use std::borrow::Cow;
 use std::collections::{HashMap, HashSet};
 use std::path::Path;
 use std::time::Instant;
@@ -80,6 +82,7 @@ pub struct InterfaceLayout {
     pub chatbox: HashMap<u16, u16>,
     /// component_id → interface_id (root_layer) for interface listener cleanup.
     pub component_roots: HashMap<u16, i32>,
+    pub component_names: HashMap<i32, Box<str>>,
     /// Parent component hash (`chatbox_iface << 16 | dialogue_box_index`) where
     /// dialogue_box interfaces (npc/player chat, message box, multi-choice)
     /// mount. Rev-647: the chatbox interface (752) hosts the dialogue_box at
@@ -104,6 +107,15 @@ impl InterfaceLayout {
             .get(&iface)
             .copied()
             .unwrap_or(self.dialogue_parent_hash)
+    }
+
+    /// Component `com`'s name as scripts write it (`interface:component`), or
+    /// its ids when interface.pack has none.
+    pub fn component_name(&self, com: i32) -> Cow<'_, str> {
+        match self.component_names.get(&com) {
+            Some(name) => Cow::Borrowed(name),
+            None => Cow::Owned(format!("{}:{}", (com as u32) >> 16, com & 0xFFFF)),
+        }
     }
 }
 
@@ -282,7 +294,8 @@ fn toplevel_slot<'a>(
     })
 }
 
-/// Scan interface.pack for well-known component names and build an [`InterfaceLayout`].
+/// Build an [`InterfaceLayout`] from interface.pack: the toplevels' well-known
+/// slots and every component's name.
 fn load_interface_layout(pack_dir: &Path) -> InterfaceLayout {
     let mut layout = InterfaceLayout::default();
     let path = pack_dir.join("interface.pack");
@@ -318,6 +331,10 @@ fn load_interface_layout(pack_dir: &Path) -> InterfaceLayout {
             slot.insert(iface, comp);
         }
         layout.component_roots.insert(comp, iface as i32);
+        layout.component_names.insert(
+            ((iface as i32) << 16) | comp as i32,
+            format!("{}:{}", identifier_form(interface), identifier_form(name)).into(),
+        );
     }
     layout
 }

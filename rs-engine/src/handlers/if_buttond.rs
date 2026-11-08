@@ -1,4 +1,6 @@
 use crate::active_player::ActivePlayer;
+#[cfg(debug_assertions)]
+use crate::engine::engine;
 use crate::engine::engine_mut;
 use crate::handlers::ClientGameHandler;
 use rs_protocol::network::game::client::if_buttond::IfButtonD;
@@ -73,12 +75,10 @@ impl ClientGameHandler for IfButtonD {
         ) {
             Err(ScriptError::TriggerNotFound(_)) => {
                 #[cfg(debug_assertions)]
-                {
-                    let iface = (com as u32) >> 16;
-                    let comp = (com as u32) & 0xFFFF;
-                    active
-                        .message_game(&format!("No trigger for [inv_buttond,{}:{}]", iface, comp));
-                }
+                active.message_game(&format!(
+                    "No trigger for [inv_buttond,{}]",
+                    engine().layout.component_name(com)
+                ));
             }
             other => other?,
         }

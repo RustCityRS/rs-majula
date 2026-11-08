@@ -97,9 +97,8 @@ fn spell_on_item(packet: IfButtonT, active: &mut ActivePlayer) -> Result<(), Scr
         Err(ScriptError::TriggerNotFound(_)) => {
             #[cfg(debug_assertions)]
             active.message_game(&format!(
-                "No trigger for [opheldt,{}:{}]",
-                spell >> 16,
-                spell & 0xFFFF
+                "No trigger for [opheldt,{}]",
+                engine().layout.component_name(spell)
             ));
             active.message_game("Nothing interesting happens.");
             Ok(())
