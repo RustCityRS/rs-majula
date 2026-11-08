@@ -1,7 +1,0 @@
-// From 289's crandor_map.rs2: the proc other ported content calls,
-// until the rest of that file is ported.
-[proc,quest_dragon_getting_map_parts]()(boolean)
-if (%dragonquest >= ^quest_dragon_spoken_to_oziach & %dragonquest < ^quest_dragon_ned_given_map) {
-    return(true);
-}
-return(false);

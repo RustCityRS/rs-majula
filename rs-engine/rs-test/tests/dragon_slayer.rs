@@ -5,13 +5,20 @@
 
 #![cfg(since_647)]
 
+#[path = "../../../rs-protocol/tests/support/client_packet.rs"]
+mod client_packet;
+
+use client_packet::ClientPacket;
 use rs_engine::Engine;
 use rs_engine::harness::HarnessClient;
 use rs_pack::cache::VarValue;
+use rs_protocol::network::game::client_prot::ClientProt;
 use rs_test::runner;
 use rs_test::talk::{Conversation, converse, talk_to};
 
 static TURN: std::sync::Mutex<()> = std::sync::Mutex::new(());
+
+const BACKPACK: i32 = 149 << 16;
 
 fn id(engine: &Engine, kind: &str, name: &str) -> u16 {
     let map = match kind {
@@ -328,4 +335,184 @@ fn oziach_takes_elvargs_head() {
         assert_eq!(var(engine, &client, "dragonquest"), 10, "complete");
         assert_eq!(held(engine, &client, "elvarg_s_head"), 0, "Oziach keeps it");
     });
+}
+
+fn oploc1(client: &mut HarnessClient, loc: (u16, u16, u16)) {
+    let (id, x, z) = loc;
+    let mut p = ClientPacket::new();
+    p.p2_alt1(z as i32)
+        .p2_alt1(id as i32)
+        .p1(0)
+        .p2_alt2(x as i32);
+    client.send(ClientProt::OpLoc1, &p.finish());
+}
+
+fn use_on_loc(client: &mut HarnessClient, obj: u16, slot: u16, loc: (u16, u16, u16)) {
+    let (id, x, z) = loc;
+    let mut p = ClientPacket::new();
+    p.p2_alt2(obj as i32)
+        .p2_alt2(slot as i32)
+        .p2(z as i32)
+        .p4_alt2(BACKPACK)
+        .p2_alt2(x as i32)
+        .p1_alt1(0)
+        .p2_alt1(id as i32);
+    client.send(ClientProt::OpLocT, &p.finish());
+}
+
+/// The backpack slot holding `name`.
+fn slot_of(engine: &Engine, client: &HarnessClient, name: &str) -> i32 {
+    let o = id(engine, "obj", name);
+    let inv = *engine.cache.invs.debugnames.get("inv").unwrap();
+    let pack = engine
+        .harness_player(client.pid)
+        .unwrap()
+        .invs
+        .get(&inv)
+        .unwrap();
+    (0..28u16)
+        .find(|&s| pack.get(s).map(|i| i.obj) == Some(o))
+        .unwrap_or_else(|| panic!("{name} in the backpack")) as i32
+}
+
+/// Uses the backpack's `used` on its `target` (IF_BUTTONT) and answers what follows.
+fn use_on_obj(
+    engine: &mut Engine,
+    client: &mut HarnessClient,
+    used: &str,
+    target: &str,
+    choices: &[&str],
+) -> Conversation {
+    let (us, ts) = (
+        slot_of(engine, client, used),
+        slot_of(engine, client, target),
+    );
+    let mut p = ClientPacket::new();
+    p.p4(BACKPACK)
+        .p2_alt1(ts)
+        .p2_alt1(us)
+        .p2_alt2(id(engine, "obj", used) as i32)
+        .p4_alt1(BACKPACK)
+        .p2(id(engine, "obj", target) as i32);
+    client.send(ClientProt::IfButtonT, &p.finish());
+    converse(engine, client, choices, 300)
+}
+
+const ORACLE: (u16, u16, u8) = (3013, 3501, 0);
+/// Thalzar's door (2011's magic_door_25115, the l47_153 map's 42,47) and the chest behind it.
+const MAGIC_DOOR: (u16, u16, u16) = (25115, 3050, 9839);
+const ORACLE_CHEST: (u16, u16, u16) = (2587, 3057, 9841);
+
+/// The Oracle's riddle, the four items used on Thalzar's door one by one, "The door opens...", and
+/// the chest's inscription and piece (2011-05-04 recording UYp0v2Pc1yI, 647.6-714.8s).
+#[test]
+fn the_oracle_thalzars_door_and_chest() {
+    let _turn = TURN.lock().unwrap_or_else(|e| e.into_inner());
+    runner::on_loaded_engine(|engine| {
+        let mut client = login(engine, "ds_oracle");
+        set_var(engine, &client, "dragonquest", 2);
+        set_var(engine, &client, "dragon_oracle", 1);
+        let t = talk_on(
+            engine,
+            &mut client,
+            "oracle",
+            ORACLE,
+            &["I seek a piece of the map to the island of Crandor."],
+        );
+        assert_eq!(t.unanswered, None, "{:?}", t.texts);
+        says(
+            &t,
+            &[
+                "The map's behind a door below,",
+                "Last, a bowl that's not seen heat.",
+            ],
+        );
+        assert_eq!(var(engine, &client, "dragon_oracle"), 2);
+
+        tele(engine, &mut client, 3049, 0, 9840);
+        let items = [
+            ("silk", "You put the silk into the opening in the door."),
+            (
+                "bowl__unfired",
+                "You put the unfired bowl into the opening in the door.",
+            ),
+            (
+                "wizard_s_mind_bomb",
+                "You pour the Wizard's Mind Bomb into the opening in the door.",
+            ),
+            (
+                "lobster_pot",
+                "You put the small crustacean cage into the opening in the door.",
+            ),
+        ];
+        for (slot, (name, _)) in items.iter().enumerate() {
+            give(engine, &client, slot as u16, name, 1);
+        }
+        for (slot, (name, line)) in items.iter().enumerate() {
+            use_on_loc(
+                &mut client,
+                id(engine, "obj", name),
+                slot as u16,
+                MAGIC_DOOR,
+            );
+            let said = messages(engine, &mut client, 6);
+            assert!(said.iter().any(|m| m == line), "2011's {line:?}: {said:?}");
+            assert_eq!(held(engine, &client, name), 0, "{name} goes into the door");
+        }
+        oploc1(&mut client, MAGIC_DOOR);
+        let said = messages(engine, &mut client, 8);
+        assert!(said.iter().any(|m| m == "The door opens..."), "{said:?}");
+        let at = engine.harness_player(client.pid).unwrap().pathing.coord;
+        assert_eq!(at.x(), 3051, "through the door to the chest's side");
+        assert_eq!(var(engine, &client, "dragon_oracle"), 3);
+
+        oploc1(&mut client, ORACLE_CHEST);
+        let t = converse(engine, &mut client, &[], 300);
+        says(
+            &t,
+            &[
+                "As you open the chest, you notice an inscription on the lid:",
+                "Here I rest the map to my beloved home. To whoever finds it, I beg of you, let it be.",
+                "There is no shame in backing out now.",
+                "You find a map piece in the chest.",
+            ],
+        );
+        assert_eq!(held(engine, &client, "mappart3"), 1);
+    });
+}
+
+/// The three pieces joined: 2011's item box and line, with no full stop (UYp0v2Pc1yI 720.2s).
+#[test]
+fn the_three_pieces_make_the_map() {
+    let _turn = TURN.lock().unwrap_or_else(|e| e.into_inner());
+    runner::on_loaded_engine(|engine| {
+        let mut client = login(engine, "ds_map");
+        set_var(engine, &client, "dragonquest", 2);
+        give(engine, &client, 0, "map_part", 1);
+        give(engine, &client, 1, "mappart2", 1);
+        give(engine, &client, 2, "mappart3", 1);
+        let t = use_on_obj(engine, &mut client, "map_part", "mappart2", &[]);
+        assert!(
+            t.said("You put the three pieces together and assemble a map that shows the route through the reefs to Crandor"),
+            "{:?}",
+            t.texts
+        );
+        assert_eq!(held(engine, &client, "crandor_map"), 1);
+        for piece in ["map_part", "mappart2", "mappart3"] {
+            assert_eq!(held(engine, &client, piece), 0, "{piece} joined");
+        }
+    });
+}
+
+fn messages(engine: &mut Engine, client: &mut HarnessClient, ticks: usize) -> Vec<String> {
+    let mut out = Vec::new();
+    for _ in 0..ticks {
+        engine.cycle();
+        out.extend(
+            HarnessClient::game_messages(&client.packets())
+                .into_iter()
+                .map(|(_, t)| t),
+        );
+    }
+    out
 }

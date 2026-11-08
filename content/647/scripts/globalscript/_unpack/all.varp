@@ -896,7 +896,13 @@ type=int
 scope=perm
 
 // 190
-[varplayer_190]
+[dragon_door]
+// Server-only (cache 786 does not transmit it and no clientscript reads it), so this
+// state lives here instead of a new id above the cache's range.
+// Dragon Slayer: the Oracle's four items used on Thalzar's door, one bit each (magic_door.rs2;
+// 190 is unused in 289 and 786).
+type=int
+scope=perm
 
 // 191
 [varplayer_191]
