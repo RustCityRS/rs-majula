@@ -30,7 +30,7 @@ softtimer(music_end, 1);
 // random event timer
 settimer(general_macro_events, 500);
 // for logout out during a general macro event, they respawn when you log back in
-// queue: 
+// queue:
 // - https://youtu.be/T0ulsgorBkY?list=PLn23LiLYLb1Y3P9S9qZbijcJihiD416jT
 // - https://youtu.be/HwGAzcmvF9k?list=PLn23LiLYLb1Y3P9S9qZbijcJihiD416jT
 // npc spawns only after interface is closed
@@ -90,6 +90,8 @@ if (getwindowmode = 1) {
     // split/private chat overlay (matches void rev-634 gameframe); sits in the
     // 512x69 slot just below the chatbox
     if_opensub(private_chat, toplevel:com_private_chat, ^true)
+    // status icons such as multiway combat, in the slot sized for them
+    if_opensub(interface_745, toplevel:com_14, ^true)
 } else {
     if_opensub(health_orb, toplevel_fullscreen:com_orb_health, ^true)
     if_opensub(topstat_prayer, toplevel_fullscreen:com_orb_prayer, ^true)
@@ -100,6 +102,7 @@ if (getwindowmode = 1) {
     if_opensub(chatbox_tabs, toplevel_fullscreen:com_chatbox_tabs, ^true)
     if_opensub(chatbox, toplevel_fullscreen:com_chatbox, ^true)
     if_opensub(private_chat, toplevel_fullscreen:com_private_chat, ^true)
+    if_opensub(interface_745, toplevel_fullscreen:com_12, ^true)
 }
 
 if_opensub(chatbox_background, chatbox:com_chatbox_background, ^true)
@@ -109,8 +112,8 @@ if_opensub(chatbox_background, chatbox:com_chatbox_background, ^true)
 // starts both at -1, and the prayer book offers Activate only while 181 is 0
 // (clientscript 1237): unsent, no prayer can be clicked. Quick prayers
 // themselves are not ported.
-sendvarc(181, 0)
-sendvarc(182, 0)
+%varclient_181 = false
+%varclient_182 = false
 
 [proc,initalltabs]()
 inv_transmit(inv, inventory:inv)

@@ -3,6 +3,8 @@ use super::worldmap::WorldmapBuilder;
 #[cfg(since_647)]
 use crate::archive::{self, ArchiveVersions};
 #[cfg(since_647)]
+use crate::cache::area::AreaMap;
+#[cfg(since_647)]
 use crate::cache::js5::PackedCache;
 use crate::cache::map::TerrainTile;
 #[cfg(since_647)]
@@ -25,7 +27,7 @@ use crate::zone_csv::load_csv_zones;
 #[cfg(before_647)]
 pub(super) use crate::zone_csv::zone_key;
 #[cfg(since_647)]
-use anyhow::{Context, Result};
+use anyhow::{Context, Result, bail, ensure};
 #[cfg(since_647)]
 use rayon::prelude::*;
 #[cfg(before_647)]
@@ -553,6 +555,56 @@ pub fn pack_obj_spawns(map_dirs: &[PathBuf], pack_dir: &Path) -> Result<PackedDa
     })?;
     info!("  {} obj spawn regions packed", entries.len());
     Ok(pack_spawn_entries(&entries))
+}
+
+/// Areas painted on tiles: a line per tile in `a<mx>_<mz>.jm2`,
+/// `level x z: area ...`, up to five areas a tile.
+#[cfg(since_647)]
+pub fn pack_area_map(map_dirs: &[PathBuf], pack_dir: &Path) -> Result<AreaMap> {
+    let pack = PackFile::load(&pack_dir.join("area.pack"))?;
+    let mut areas = AreaMap::default();
+    for (stem, path) in squares(map_dirs) {
+        let Some((mx, mz)) = stem
+            .strip_prefix('a')
+            .and_then(|square| square.split_once('_'))
+        else {
+            continue;
+        };
+        let (Ok(mx), Ok(mz)) = (mx.parse::<u16>(), mz.parse::<u16>()) else {
+            continue;
+        };
+        for line in fs::read_to_string(&path)?.lines() {
+            let line = line.trim();
+            if line.is_empty() || line.starts_with('#') {
+                continue;
+            }
+            let context = || format!("{stem}.jm2: {line}");
+            let (coords, names) = line.split_once(':').with_context(context)?;
+            let coords = coords
+                .split_whitespace()
+                .map(str::parse)
+                .collect::<Result<Vec<u16>, _>>()
+                .with_context(context)?;
+            let &[level, x, z] = coords.as_slice() else {
+                bail!("Invalid area tile: {}", context());
+            };
+            ensure!(
+                level < 4 && x < 64 && z < 64,
+                "Invalid area tile: {}",
+                context()
+            );
+            for name in names.split_whitespace() {
+                let id = pack
+                    .get_by_debugname(name)
+                    .with_context(|| format!("Unknown area {name}: {}", context()))?;
+                areas
+                    .paint(level as u8, (mx << 6) | x, (mz << 6) | z, id as u16)
+                    .with_context(context)?;
+            }
+        }
+    }
+    info!("  {} area tiles painted", areas.len());
+    Ok(areas)
 }
 
 #[cfg(since_647)]

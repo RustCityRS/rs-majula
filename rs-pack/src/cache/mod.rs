@@ -23,6 +23,8 @@ use crate::cache::vars::VarsTypeProvider;
 #[cfg(all(since_244, before_647))]
 use crate::types::OndemandBlobs;
 use crate::types::{MapSquareCrcs, MapSquareCsv, MapSquares};
+#[cfg(since_647)]
+use area::{AreaMap, AreaTypeProvider};
 use dbtable::DbTableIndex;
 use font::FontTypeProvider;
 use midi::MidiProvider;
@@ -38,6 +40,8 @@ use wordenc::WordEncProvider;
 #[cfg(since_647)]
 pub use midi::MIDI_JINGLE_BASE;
 
+#[cfg(since_647)]
+pub mod area;
 #[cfg(since_647)]
 pub mod bas;
 #[cfg(since_647)]
@@ -154,10 +158,17 @@ pub struct CacheStore {
     pub midi_tick_lengths: Box<[Option<u16>]>,
     #[cfg(before_647)]
     pub static_assets: HashMap<Box<str>, Arc<[u8]>>,
+    #[cfg(before_647)]
     pub multimap: MapSquareCsv,
     pub freemap: MapSquareCsv,
     #[cfg(since_647)]
     pub huffman: Huffman,
+    #[cfg(since_647)]
+    pub areas: AreaTypeProvider,
+    #[cfg(since_647)]
+    pub area_map: AreaMap,
+    #[cfg(since_647)]
+    pub multiway_area: Option<u16>,
 }
 
 pub use crate::types::ScriptVarType;

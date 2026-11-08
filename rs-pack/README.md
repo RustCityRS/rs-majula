@@ -107,6 +107,13 @@ Billboards, particles, quickchat and world map details are configs like the rest
 `all.quickchatcat`, `all.quickchatphrase`, `all.wma`). A `.wma` block is one map's details and
 static elements; its position in the cache is its `wma.pack` id.
 
+Areas (`.area`) are server only; the cache keeps an empty entry per area. `colour=0xRRGGBB` is the
+map editor's highlight, and `trigger=yes` runs `[area,<name>]` when a player steps onto one of its
+tiles and `[areaexit,<name>]` when they step off. Tiles are painted in `maps/a<mx>_<mz>.jm2`, a line
+per tile, `level x z: area ...`, with up to five areas on a tile. `inarea(area, coord)` tests a tile.
+Multi-combat is the `multiway` area: `map_multiway` and npc hunting read it, and its triggers set
+varc 616, which shows the client's multiway icon.
+
 Names come from `pack/*.pack`. Assets without recovered names use stable names such as
 `model_123`, rather than guessed names. References resolve through those same registries;
 local geometry indices and numeric values remain numeric. `null` represents an absent
@@ -1389,6 +1396,7 @@ server-only types are loaded directly from packed data.
 
 | Type     | Source Extension | Description                                |
 |----------|------------------|--------------------------------------------|
+| area     | `.area`          | Areas painted on map tiles                 |
 | inv      | `.inv`           | Inventory definitions (scope, size, stock) |
 | param    | `.param`         | Parameter type and default value           |
 | enum     | `.enum`          | Key-value lookups with input/output types  |
@@ -1904,6 +1912,16 @@ Hunt configs define NPC hunting behavior.
 
 Check requirements are mutually exclusive: only one of `check_category`, `check_npc`, `check_obj`, `check_loc`,
 `check_inv`, or `check_invparam` may be specified per hunt config.
+
+##### AREA (Server-Only)
+
+Source extension: `.area`
+
+| Opcode | Field     | Format             |
+|--------|-----------|--------------------|
+| 1      | colour    | `p3(rgb)`          |
+| 2      | trigger   | flag (`yes`)       |
+| 250    | debugname | `pjstr(debugname)` |
 
 ##### DBTABLE (Server-Only)
 

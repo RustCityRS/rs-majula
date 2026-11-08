@@ -1,4 +1,5 @@
 use crate::cache::CacheStore;
+use crate::cache::area::{AreaMap, AreaType, MULTIWAY};
 use crate::cache::category::CategoryType;
 use crate::cache::dbrow::DbRowType;
 use crate::cache::dbtable::{DbTableIndex, DbTableType};
@@ -125,6 +126,7 @@ pub fn pack_all(
     let map_dirs = map::source_dirs(content_dir);
     let spawns = map::pack_spawns(&map_dirs, pack_dir)?;
     let obj_spawns = map::pack_obj_spawns(&map_dirs, pack_dir)?;
+    let area_map = map::pack_area_map(&map_dirs, pack_dir)?;
     let store = load_cache(
         &assets,
         &cache,
@@ -132,6 +134,7 @@ pub fn pack_all(
         pack_dir,
         &spawns,
         &obj_spawns,
+        area_map,
         members,
     )?;
     let mut layout = load_interface_layout(pack_dir);
@@ -158,6 +161,7 @@ fn load_cache(
     pack_dir: &Path,
     spawns: &PackedData,
     obj_spawns: &PackedData,
+    area_map: AreaMap,
     members: bool,
 ) -> Result<Box<CacheStore>> {
     let npcs = load_config::<NpcTypeRaw, _>(assets, "npc", ())?;
@@ -186,6 +190,7 @@ fn load_cache(
     let dbtables = load_config::<DbTableType, _>(assets, "dbtable", ())?;
     let dbrows = load_config::<DbRowType, _>(assets, "dbrow", ())?;
     let categories = load_config::<CategoryType, _>(assets, "category", ())?;
+    let areas: TypeProvider<AreaType> = load_config::<AreaType, _>(assets, "area", ())?;
 
     let locs = load_config::<LocTypeRaw, LocType>(assets, "loc", ())?;
 
@@ -237,9 +242,11 @@ fn load_cache(
         },
         midi_ids: midi::load_midi_ids(pack_dir),
         midi_tick_lengths: midi::load_midi_tick_lengths(cache),
-        multimap: load_csv_zones(&content_dir.join("maps/multiway.csv")),
         freemap: load_csv_zones(&content_dir.join("maps/free2play.csv")),
         huffman,
+        multiway_area: areas.get_by_debugname(MULTIWAY).map(|area| area.id),
+        areas,
+        area_map,
     }))
 }
 

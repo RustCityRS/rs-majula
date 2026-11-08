@@ -18,7 +18,6 @@ use rs_vm::subject::ScriptSubject;
 use rs_vm::trigger::ServerTriggerType;
 use rs_zone::zone_map::ZoneMap;
 use rsmod::rsmod::collision::collision_strategy::CollisionType;
-use rsmod::rsmod::flag::zone_flag::ZoneFlag;
 #[cfg(target_arch = "x86_64")]
 use std::mem::size_of;
 use std::panic::{AssertUnwindSafe, catch_unwind};
@@ -748,14 +747,7 @@ impl Engine {
                         Some(InteractionTarget::Player { pid: tp }) if tp == pid
                     );
 
-                    if !is_current_target
-                        && !rsmod::is_zone_flagged(
-                            player_coord.x(),
-                            player_coord.z(),
-                            player_coord.y(),
-                            ZoneFlag::Multi as u8,
-                        )
-                    {
+                    if !is_current_target && !engine.multiway(player_coord) {
                         if let Some(varp_id) = hunt.check_notcombat {
                             if player.player.vars.len() > varp_id as usize {
                                 let last_combat = player.player.vars.get(varp_id).as_int();

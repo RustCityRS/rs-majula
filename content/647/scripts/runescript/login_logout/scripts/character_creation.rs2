@@ -77,10 +77,10 @@ if (p_finduid(uid) = true) {
     def_int $hair_struct = enum(105, 74, enum_3304, %character_creation_hair_style);
     if ($hair_struct ! -1) {
         def_int $hair = struct_param($hair_struct, param_788);
-        if ($hair ! -1) { sendvarc(1008, $hair); }
+        if ($hair ! -1) { %varclient_1008 = $hair; }
     }
     def_int $beard = enum(105, 75, enum_3307, calc(%character_creation_hair_style / 2));
-    if ($beard ! -1) { sendvarc(1009, $beard); }
+    if ($beard ! -1) { %varclient_1009 = $beard; }
     ~cc_update_outfit_varcs();
 }
 [if_button,playerdesign4:com_39]
@@ -90,9 +90,9 @@ if (p_finduid(uid) = true) {
     def_int $hair_struct = enum(105, 74, enum_3302, %character_creation_hair_style);
     if ($hair_struct ! -1) {
         def_int $hair = struct_param($hair_struct, param_788);
-        if ($hair ! -1) { sendvarc(1008, $hair); }
+        if ($hair ! -1) { %varclient_1008 = $hair; }
     }
-    sendvarc(1009, -1)
+    %varclient_1009 = -1
     ~cc_update_outfit_varcs();
 }
 
@@ -157,14 +157,14 @@ def_int $colour_top = struct_param($sub_struct, $base_param);
 def_int $colour_legs = struct_param($sub_struct, calc($base_param + 1));
 def_int $colour_feet = struct_param($sub_struct, calc($base_param + 2));
 
-sendvarc(1010, $torso)
-sendvarc(1011, $arms)
-sendvarc(1012, $hands)
-sendvarc(1013, $legs)
-sendvarc(1014, $feet)
-sendvarc(1016, $colour_top)
-sendvarc(1017, $colour_legs)
-sendvarc(1018, $colour_feet)
+%varclient_1010 = $torso
+%varclient_1011 = $arms
+%varclient_1012 = $hands
+%varclient_1013 = $legs
+%varclient_1014 = $feet
+%varclient_1016 = $colour_top
+%varclient_1017 = $colour_legs
+%varclient_1018 = $colour_feet
 
 [proc,cc_update_colour_varcs]()
 def_int $style_index = calc(%character_creation_style - 1);
@@ -190,9 +190,9 @@ def_int $colour_top = struct_param($sub_struct, $base_param);
 def_int $colour_legs = struct_param($sub_struct, calc($base_param + 1));
 def_int $colour_feet = struct_param($sub_struct, calc($base_param + 2));
 
-sendvarc(1016, $colour_top)
-sendvarc(1017, $colour_legs)
-sendvarc(1018, $colour_feet)
+%varclient_1016 = $colour_top
+%varclient_1017 = $colour_legs
+%varclient_1018 = $colour_feet
 
 // TODO color feet didn't appear to save correct for certain colors.
 
@@ -215,34 +215,34 @@ if (p_finduid(uid) = true) {
             def_int $struct = enum(105, 74, enum_3304, $slot);
             if ($struct ! -1) { $idk = struct_param($struct, param_788); }
         }
-        if ($idk ! -1) { sendvarc(1008, $idk); }
+        if ($idk ! -1) { %varclient_1008 = $idk; }
     } else if ($part = 2) {
         if ($female = 0) {
             def_int $struct = enum(105, 74, enum_3307, $slot);
             if ($struct ! -1) { $idk = struct_param($struct, param_788); }
         }
-        if ($idk ! -1) { sendvarc(1009, $idk); }
+        if ($idk ! -1) { %varclient_1009 = $idk; }
     } else if ($part = 3) {
         if ($female = 1) {
             $idk = enum(105, 75, enum_3299, $slot);
         } else {
             $idk = enum(105, 75, enum_3287, $slot);
         }
-        if ($idk ! -1) { sendvarc(1010, $idk); }
+        if ($idk ! -1) { %varclient_1010 = $idk; }
     } else if ($part = 6) {
         if ($female = 1) {
             $idk = enum(105, 75, enum_3301, $slot);
         } else {
             $idk = enum(105, 75, enum_3289, $slot);
         }
-        if ($idk ! -1) { sendvarc(1013, $idk); }
+        if ($idk ! -1) { %varclient_1013 = $idk; }
     } else if ($part = 7) {
         if ($female = 1) {
             $idk = enum(105, 75, enum_1137, $slot);
         } else {
             $idk = enum(105, 75, enum_1136, $slot);
         }
-        if ($idk ! -1) { sendvarc(1014, $idk); }
+        if ($idk ! -1) { %varclient_1014 = $idk; }
     }
     ~cc_rearm_grids();
 }
@@ -256,19 +256,19 @@ if (p_finduid(uid) = true) {
 
     if ($part = 0) {
         $colour = enum(105, 105, enum_748, $slot);
-        if ($colour ! -1) { sendvarc(1019, $colour); }
+        if ($colour ! -1) { %varclient_1019 = $colour; }
     } else if ($part = 1 | $part = 2) {
         $colour = enum(105, 105, enum_2345, $slot);
-        if ($colour ! -1) { sendvarc(1015, $colour); }
+        if ($colour ! -1) { %varclient_1015 = $colour; }
     } else if ($part = 3) {
         $colour = enum(105, 105, enum_3283, $slot);
-        if ($colour ! -1) { sendvarc(1016, $colour); }
+        if ($colour ! -1) { %varclient_1016 = $colour; }
     } else if ($part = 6) {
         $colour = enum(105, 105, enum_3283, $slot);
-        if ($colour ! -1) { sendvarc(1017, $colour); }
+        if ($colour ! -1) { %varclient_1017 = $colour; }
     } else if ($part = 7) {
         $colour = enum(105, 105, enum_3297, $slot);
-        if ($colour ! -1) { sendvarc(1018, $colour); }
+        if ($colour ! -1) { %varclient_1018 = $colour; }
     }
     ~cc_rearm_grids();
 }
@@ -279,6 +279,6 @@ if (p_finduid(uid) = true) {
     def_int $slot = last_slot;
     def_int $colour = enum(105, 105, enum_748, $slot);
     if ($colour ! -1) {
-        sendvarc(1019, $colour)
+        %varclient_1019 = $colour
     }
 }

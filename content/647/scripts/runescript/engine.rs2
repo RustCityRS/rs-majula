@@ -78,6 +78,8 @@
 [command,map_findsquare](coord $coord, int $minradius, int $maxradius, int $type)(coord)
 // info: Returns true if the map tile at $coord is in a multi-way combat area
 [command,map_multiway](coord $coord)(boolean)
+// info: Returns true if $area is painted on the map tile at $coord
+[command,inarea](area $area, coord $coord)(boolean)
 
 // Player ops (2000-2499)
 // info: Get access to $player if they are in the world
@@ -181,8 +183,6 @@
 [command,p_get_suggestion](int $index)(string)
 [command,p_next_suggestions]
 [command,p_prev_suggestions]
-[command,sendvarc_str](int $varc_id, string $value)
-[command,.sendvarc_str](int $varc_id, string $value)
 // info: Requires protected access - delay this script/the player for $delay cycles
 [command,p_delay](int $delay)
 // info: Requires protected access - delay this script/the secondary player for $delay cycles
@@ -1115,9 +1115,6 @@
 // info: Set interface component events — engine builds the access mask
 [command,if_setevents](component $component, int $from_slot, int $to_slot, int $ops, int $useon_flags, int $depth, boolean $allow_drag, boolean $can_target)
 [command,.if_setevents](component $component, int $from_slot, int $to_slot, int $ops, int $useon_flags, int $depth, boolean $allow_drag, boolean $can_target)
-// info: Send a client variable (VARC) to the client
-[command,sendvarc](int $varc_id, int $value)
-[command,.sendvarc](int $varc_id, int $value)
 // info: Open a sub-interface on a specific parent component with walkable flag
 [command,if_opensub](interface $interface, int $component, int $walkable)
 // info: Close a sub-interface at a specific component hash
@@ -1126,8 +1123,6 @@
 [command,if_movesub](component $from, component $to)
 // info: Get the bank tab a slot belongs to (0=main, 1-8=tabs)
 [command,bank_get_tab](int $slot)(int)
-// info: Send a varbit value to the client
-[command,sendvarbit](int $varbit_id, int $value)
 // info: Set the actively selected bank tab (1=all, 2-9=tabs)
 [command,set_bank_tab](int $tab)
 // info: Get the actively selected bank tab

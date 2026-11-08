@@ -21,15 +21,15 @@ p_stringdialog
 def_string $name = last_string;
 if (~create_check_username($name) = false) {
     p_prev_suggestions
-    sendvarc_str(330, "")
+    %varclient_1849 = ""
     if_settext(playerdesign4:com_154, "Invalid Name")
     if_sethide(playerdesign4:com_155, true)
     if_sethide(playerdesign4:com_156, false)
     if_sethide(playerdesign4:com_164, true)
     ~cc_send_suggestions();
     runclientscript("playerdesign4_open_name_entry()")
-    sendvarc_str(330, "")
-    sendvarc(1099, string_length(""))
+    %varclient_1849 = ""
+    %varclient_1099 = string_length("")
     runclientscript("script3218(playerdesign4:com_181, playerdesign4:com_182, playerdesign4:com_183, \"\", 16)")
     @cc_name_loop;
 }
@@ -39,15 +39,15 @@ def_string $formatted = last_string;
 if ($result = 1) {
     queue(character_created, 0, 0);
 } else {
-    sendvarc_str(330, $formatted)
+    %varclient_1849 = $formatted
     if_settext(playerdesign4:com_154, "'<$formatted>' is not available.")
     if_sethide(playerdesign4:com_155, true)
     if_sethide(playerdesign4:com_156, false)
     if_sethide(playerdesign4:com_164, true)
     ~cc_send_suggestions();
     runclientscript("playerdesign4_open_name_entry()")
-    sendvarc_str(330, $formatted)
-    sendvarc(1099, string_length($formatted))
+    %varclient_1849 = $formatted
+    %varclient_1099 = string_length($formatted)
     runclientscript("script3218(playerdesign4:com_181, playerdesign4:com_182, playerdesign4:com_183, $formatted, 16)")
     @cc_name_loop;
 }
@@ -98,13 +98,13 @@ def_string $s0 = p_get_suggestion(0);
 def_string $s1 = p_get_suggestion(1);
 def_string $s2 = p_get_suggestion(2);
 // varc_str 331-336: used by CS2 3945 when user clicks a suggestion (delayed OK — clicks are future ticks)
-sendvarc_str(331, $s0)
-sendvarc_str(332, $s1)
-sendvarc_str(333, $s2)
-sendvarc_str(334, ^string_empty)
-sendvarc_str(335, ^string_empty)
-sendvarc_str(336, ^string_empty)
-// display text immediately (if_settext is not delayed like sendvarc_str)
+%varclient_1850 = $s0
+%varclient_1851 = $s1
+%varclient_1852 = $s2
+%varclient_1853 = ^string_empty
+%varclient_1854 = ^string_empty
+%varclient_1855 = ^string_empty
+// display text immediately (if_settext is not delayed like a string varc)
 if_settext(playerdesign4:com_158, $s0)
 if_settext(playerdesign4:com_159, $s1)
 if_settext(playerdesign4:com_160, $s2)

@@ -139,6 +139,3 @@ clippy.collapsible_if = "allow"
 clippy.derivable_impls = "allow"
 clippy.new_without_default = "allow"
 clippy.too_many_arguments = "allow"
-
-[patch.crates-io]
-rs-io = { path = "../rs-io" }

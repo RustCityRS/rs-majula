@@ -143,7 +143,7 @@ if_setevents(bank_v2_side:com_0, 0, 27, calc(^if_op1 + ^if_op2 + ^if_op3 + ^if_o
 // RuneScape (search: '...')").
 ~bank_spaces_used;
 runclientscript("script1465()");
-sendvarc(190, 1);
+%varclient_190 = true;
 
 [label,closebank]
 // inv_stoptransmit(bank_side:inv);
@@ -340,5 +340,5 @@ while ($slot < inv_size(bank)) {
     }
     $slot = calc($slot + 1);
 }
-sendvarc(1038, $free);
-sendvarc(192, $used);
+%varclient_1038 = $free;
+%varclient_192 = $used;

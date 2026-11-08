@@ -190,6 +190,16 @@ fn authored_properties_reach_the_packed_configs() {
         assert_eq!((check.condition.as_str(), check.value), expected);
     }
 
+    // _unpack/all.area and maps/a*.jm2 -- multi-combat, the first area, painted.
+    let multiway = id(&registry.area, "multiway");
+    assert!(config.areas.get_by_id(multiway).unwrap().trigger);
+    assert!(!config.areas.get_by_id(1).unwrap().trigger);
+    assert_eq!(config.multiway_area, Some(multiway));
+    let painted = |x, z| config.area_map.get(0, x, z).contains(&multiway);
+    assert!(painted(3082, 3420), "Barbarian Village");
+    assert!(painted(2965, 3380), "Falador");
+    assert!(!painted(3222, 3218), "Lumbridge is single");
+
     // player/configs/perm.varp -- persistence on a cache varp.
     let varp = config
         .varps

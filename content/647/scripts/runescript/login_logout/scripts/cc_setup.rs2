@@ -16,11 +16,11 @@ def_int $colour_index = random($colour_count);
 def_int $hair_colour = enum(105, 105, enum_2345, $colour_index);
 if ($hair_colour ! -1) {
     setidkcolour(0, $hair_colour);
-    sendvarc(1015, $hair_colour);
+    %varclient_1015 = $hair_colour;
 }
 
-if ($hair ! -1) { sendvarc(1008, $hair); }
-sendvarc(1009, 14);
+if ($hair ! -1) { %varclient_1008 = $hair; }
+%varclient_1009 = 14;
 
 if_opentop(playerdesign4);
 allowdesign(^true);
@@ -28,17 +28,17 @@ allowdesign(^true);
 ~cc_transmit_invs();
 
 [proc,cc_send_makeover_varcs]()
-sendvarc(1008, 0)
-sendvarc(1009, 14)
-sendvarc(1010, 18)
-sendvarc(1011, 26)
-sendvarc(1012, 34)
-sendvarc(1013, 38)
-sendvarc(1014, 42)
-sendvarc(1015, 0)
-sendvarc(1016, 0)
-sendvarc(1017, 0)
-sendvarc(1018, 0)
+%varclient_1008 = 0
+%varclient_1009 = 14
+%varclient_1010 = 18
+%varclient_1011 = 26
+%varclient_1012 = 34
+%varclient_1013 = 38
+%varclient_1014 = 42
+%varclient_1015 = 0
+%varclient_1016 = 0
+%varclient_1017 = 0
+%varclient_1018 = 0
 
 [proc,cc_transmit_invs]()
 inv_transmit(inv_463, playerdesign4:com_45)

@@ -4,8 +4,8 @@
 // (905), with its number panel skillmulti2010_numbers (916) mounted at com4:
 // up to ten items, and one amount chosen beforehand from 1/5/10/All/+1/-1.
 // The client lays both out in 905's onload (clientscript 711) from varcs --
-// 754 the verb, 755-760 and 1139-1142 the items, 132-137 and 280-283 their
-// names -- and two varbits of varp 1363: skill_creation_maximum, All's count,
+// 754 the verb, 755-760 and 1139-1142 the items, string varcs 132-137 and
+// 280-283 (varclient_1651-1656, 1799-1802) their names -- and two varbits of varp 1363: skill_creation_maximum, All's count,
 // and skill_creation_amount, the amount chosen (it persists). An item is a
 // pause button (`active_properties=1` in the cache). The layout and names
 // follow void-634's MakeAmount.
@@ -23,17 +23,27 @@ return($product, $count);
 // All ten of the dialogue's items (choices com14 to com23, void-634's
 // dialogue_skill_creation), for makes with more than five, such as smelting.
 [proc,skill_make10](string $text, int $verb, int $maximum, namedobj $obj1, namedobj $obj2, namedobj $obj3, namedobj $obj4, namedobj $obj5, namedobj $obj6, namedobj $obj7, namedobj $obj8, namedobj $obj9, namedobj $obj10)(namedobj, int)
-sendvarc(754, $verb); // the verb: ^skill_make_make, ^skill_make_cook, ...
-~skill_make_item(755, 132, $obj1);
-~skill_make_item(756, 133, $obj2);
-~skill_make_item(757, 134, $obj3);
-~skill_make_item(758, 135, $obj4);
-~skill_make_item(759, 136, $obj5);
-~skill_make_item(760, 137, $obj6);
-~skill_make_item(1139, 280, $obj7);
-~skill_make_item(1140, 281, $obj8);
-~skill_make_item(1141, 282, $obj9);
-~skill_make_item(1142, 283, $obj10);
+%varclient_754 = $verb; // the verb: ^skill_make_make, ^skill_make_cook, ...
+%varclient_755 = $obj1;
+%varclient_756 = $obj2;
+%varclient_757 = $obj3;
+%varclient_758 = $obj4;
+%varclient_759 = $obj5;
+%varclient_760 = $obj6;
+%varclient_1139 = $obj7;
+%varclient_1140 = $obj8;
+%varclient_1141 = $obj9;
+%varclient_1142 = $obj10;
+if ($obj1 ! null) { %varclient_1651 = oc_name($obj1); }
+if ($obj2 ! null) { %varclient_1652 = oc_name($obj2); }
+if ($obj3 ! null) { %varclient_1653 = oc_name($obj3); }
+if ($obj4 ! null) { %varclient_1654 = oc_name($obj4); }
+if ($obj5 ! null) { %varclient_1655 = oc_name($obj5); }
+if ($obj6 ! null) { %varclient_1656 = oc_name($obj6); }
+if ($obj7 ! null) { %varclient_1799 = oc_name($obj7); }
+if ($obj8 ! null) { %varclient_1800 = oc_name($obj8); }
+if ($obj9 ! null) { %varclient_1801 = oc_name($obj9); }
+if ($obj10 ! null) { %varclient_1802 = oc_name($obj10); }
 ~skill_make_amount($maximum);
 if_openchat(skillmulti2010);
 if_opensub(skillmulti2010_numbers, skillmulti2010:com_4, ^false);
@@ -56,14 +66,6 @@ switch_component ($com) {
     case skillmulti2010:com_23 : return($obj10, $amount);
     case default : return(null, 0);
 }
-
-[proc,skill_make_item](int $varc, int $varc_name, namedobj $obj)
-if ($obj = null) {
-    sendvarc($varc, -1);
-    return;
-}
-sendvarc($varc, $obj);
-sendvarc_str($varc_name, oc_name($obj));
 
 // The number panel. All is the maximum; +1 stops at it, -1 at nothing.
 [if_button,skillmulti2010_numbers:com_5]

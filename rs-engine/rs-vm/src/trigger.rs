@@ -193,6 +193,10 @@ pub enum ServerTriggerType {
     ChangeStat = 165,
     AiSpawn = 166,
     AiDespawn = 167,
+    #[cfg(since_647)]
+    Area = 178,
+    #[cfg(since_647)]
+    AreaExit = 179,
 }
 
 impl ServerTriggerType {
@@ -701,8 +705,9 @@ mod compiler_contract {
 
         // Guards against losing coverage silently: a variant deleted here, or a
         // keyword the compiler stops emitting, moves one of these counts.
-        // The five `InvButton6..10` variants exist only from rev 647.
-        let expected = if cfg!(since_647) { (148, 8) } else { (143, 8) };
+        // The five `InvButton6..10` variants and `Area`/`AreaExit` exist only
+        // from rev 647.
+        let expected = if cfg!(since_647) { (150, 8) } else { (143, 8) };
         assert_eq!(
             (matched, name_keyed),
             expected,

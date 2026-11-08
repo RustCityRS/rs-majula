@@ -38,21 +38,59 @@ if_openmain_side(shop_template, shop_template_side);
 [proc,openshop_2011]
 %shop_currency = coins;
 %shop_sample = null;
-def_int $slot = 0;
-while ($slot < 40) {
-    def_int $base = 0;
-    if ($slot < inv_size(%shop)) {
-        def_obj $obj = inv_getobj(%shop, $slot);
-        if ($obj ! null) {
-            $base = max(0, inv_stockbase(%shop, $obj));
-        }
-    }
-    sendvarc(calc(^shop_stockbase_varc + $slot), $base);
-    $slot = calc($slot + 1);
-}
+// Each slot's base stock, which the client prices by (clientscript 2721).
+%varclient_946 = ~shop_stockbase(0);
+%varclient_947 = ~shop_stockbase(1);
+%varclient_948 = ~shop_stockbase(2);
+%varclient_949 = ~shop_stockbase(3);
+%varclient_950 = ~shop_stockbase(4);
+%varclient_951 = ~shop_stockbase(5);
+%varclient_952 = ~shop_stockbase(6);
+%varclient_953 = ~shop_stockbase(7);
+%varclient_954 = ~shop_stockbase(8);
+%varclient_955 = ~shop_stockbase(9);
+%varclient_956 = ~shop_stockbase(10);
+%varclient_957 = ~shop_stockbase(11);
+%varclient_958 = ~shop_stockbase(12);
+%varclient_959 = ~shop_stockbase(13);
+%varclient_960 = ~shop_stockbase(14);
+%varclient_961 = ~shop_stockbase(15);
+%varclient_962 = ~shop_stockbase(16);
+%varclient_963 = ~shop_stockbase(17);
+%varclient_964 = ~shop_stockbase(18);
+%varclient_965 = ~shop_stockbase(19);
+%varclient_966 = ~shop_stockbase(20);
+%varclient_967 = ~shop_stockbase(21);
+%varclient_968 = ~shop_stockbase(22);
+%varclient_969 = ~shop_stockbase(23);
+%varclient_970 = ~shop_stockbase(24);
+%varclient_971 = ~shop_stockbase(25);
+%varclient_972 = ~shop_stockbase(26);
+%varclient_973 = ~shop_stockbase(27);
+%varclient_974 = ~shop_stockbase(28);
+%varclient_975 = ~shop_stockbase(29);
+%varclient_976 = ~shop_stockbase(30);
+%varclient_977 = ~shop_stockbase(31);
+%varclient_978 = ~shop_stockbase(32);
+%varclient_979 = ~shop_stockbase(33);
+%varclient_980 = ~shop_stockbase(34);
+%varclient_981 = ~shop_stockbase(35);
+%varclient_982 = ~shop_stockbase(36);
+%varclient_983 = ~shop_stockbase(37);
+%varclient_984 = ~shop_stockbase(38);
+%varclient_985 = ~shop_stockbase(39);
 if_setevents(shop_template:inv, 0, calc(inv_size(%shop) * ^shop_slot_components - 1), ~inv_ops(^if_op1, ^if_op2, ^if_op3, ^if_op4, ^if_op5, ^if_op6, ^no_op, ^no_op, ^no_op, ^if_op10), 0, 0, ^false, ^false);
 runclientscript("interface_inv_init_big(shop_template_side:inv, inv, 4, 7, 0, -1, \"Value\", \"Sell 1\", \"Sell 5\", \"Sell 10\", \"Sell 50\", \"Examine\", \"\", \"\", \"\")");
 if_setevents(shop_template_side:inv, 0, 27, ~inv_ops(^if_op1, ^if_op2, ^if_op3, ^if_op4, ^if_op5, ^if_op6, ^no_op, ^no_op, ^no_op, ^no_op), 0, 0, ^false, ^false);
+
+[proc,shop_stockbase](int $slot)(int)
+if ($slot < inv_size(%shop)) {
+    def_obj $obj = inv_getobj(%shop, $slot);
+    if ($obj ! null) {
+        return(max(0, inv_stockbase(%shop, $obj)));
+    }
+}
+return(0);
 
 [if_close,shop_template]
 inv_stoptransmit(shop_template_side:inv);

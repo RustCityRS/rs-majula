@@ -762,10 +762,14 @@ fn empty_tables_come_from_their_files() {
     let path = Path::new(env!("CARGO_TARGET_TMPDIR")).join("empty_tables");
     let _ = fs::remove_dir_all(&path);
     fs::create_dir_all(&path).unwrap();
-    fs::write(path.join("all.area"), "// 0\n[area_0]\n\n// 2\n[area_2]\n").unwrap();
+    fs::write(
+        path.join("all.controller"),
+        "// 0\n[controller_0]\n\n// 2\n[controller_2]\n",
+    )
+    .unwrap();
     fs::write(path.join("all.varcon"), "[config43_0]\nfoo=1\n").unwrap();
-    let area = pack_empty_table(&path, "area").unwrap();
-    let entries: Vec<_> = PackedData::entries(&area.dat, &area.idx)
+    let controller = pack_empty_table(&path, "controller").unwrap();
+    let entries: Vec<_> = PackedData::entries(&controller.dat, &controller.idx)
         .unwrap()
         .map(|(id, data)| (id, data.to_vec()))
         .collect();

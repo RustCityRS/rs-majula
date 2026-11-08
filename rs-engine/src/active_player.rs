@@ -199,11 +199,14 @@ use rs_protocol::network::game::server_prot_priority::ServerProtPriority;
 use rs_var::VarSet;
 use rs_vm::ScriptError;
 use rs_vm::engine::{ScriptEngine, ScriptPlayer};
+#[cfg(since_647)]
+use rs_vm::state::QueuePriority;
 use rs_vm::state::ScriptState;
 use rs_vm::subject::ScriptSubject;
 use rs_vm::trigger::ServerTriggerType;
 use rs_zone::ZoneMessage;
 use rs_zone::zone_map::ZoneMap;
+#[cfg(before_647)]
 use rsmod::rsmod::flag::zone_flag::ZoneFlag;
 use rustc_hash::{FxHashMap, FxHashSet};
 use std::borrow::Cow;
@@ -717,8 +720,11 @@ impl ActivePlayer {
     /// 2. On a map-zone (mapsquare) crossing, fires the `[mapzone]` / `[mapzoneexit]`
     ///    triggers.
     /// 3. On a zone crossing, rebuilds the active zone list (delegated to
-    ///    [`Player::update_map`]), toggles the multiway indicator, and fires the
-    ///    `[zone]` / `[zoneexit]` triggers.
+    ///    [`Player::update_map`]), toggles the multiway indicator before 647, and
+    ///    fires the `[zone]` / `[zoneexit]` triggers.
+    /// 4. From 647, when the areas painted on the player's tile change, fires the
+    ///    `[areaexit]` / `[area]` triggers of the areas that trigger. The multiway
+    ///    indicator is `[area,multiway]`'s from then.
     ///
     /// # Side Effects
     /// * Drains `self.player.cam_queue` and writes camera / `SetMultiway` packets.
@@ -765,26 +771,71 @@ impl ActivePlayer {
         self.player.update_map();
 
         if zone_changed {
-            let was_multi = rsmod::is_zone_flagged(
-                old_zone.x(),
-                old_zone.z(),
-                old_zone.y(),
-                ZoneFlag::Multi as u8,
-            );
-            let now_multi =
-                rsmod::is_zone_flagged(zone.x(), zone.z(), zone.y(), ZoneFlag::Multi as u8);
-            if was_multi != now_multi {
-                #[cfg(before_647)]
-                self.write(
-                    rs_protocol::network::game::server::set_multiway::SetMultiway {
-                        hide: now_multi,
-                    },
+            #[cfg(before_647)]
+            {
+                let was_multi = rsmod::is_zone_flagged(
+                    old_zone.x(),
+                    old_zone.z(),
+                    old_zone.y(),
+                    ZoneFlag::Multi as u8,
                 );
-                // TODO(647): rev-647 drives the multiway crossed-swords
-                // indicator through varbits/content, not a dedicated packet.
+                let now_multi =
+                    rsmod::is_zone_flagged(zone.x(), zone.z(), zone.y(), ZoneFlag::Multi as u8);
+                if was_multi != now_multi {
+                    self.write(
+                        rs_protocol::network::game::server::set_multiway::SetMultiway {
+                            hide: now_multi,
+                        },
+                    );
+                }
             }
             self.trigger_zone_exit(old_zone.y(), old_zone.x(), old_zone.z());
             self.trigger_zone(coord.y(), zone.x(), zone.z());
+        }
+
+        // 4. The areas painted on the tile changed -> area exit/enter triggers.
+        #[cfg(since_647)]
+        self.trigger_areas(coord);
+    }
+
+    /// Fires `[areaexit,...]` for each triggering area the player's tile no
+    /// longer has, then `[area,...]` for each it gained.
+    #[cfg(since_647)]
+    fn trigger_areas(&mut self, coord: CoordGrid) {
+        let areas = engine().cache.area_map.get(coord.y(), coord.x(), coord.z());
+        if areas == self.player.areas {
+            return;
+        }
+        let left = mem::replace(&mut self.player.areas, areas);
+        for area in left {
+            if area != u16::MAX && !areas.contains(&area) {
+                self.trigger_area(ServerTriggerType::AreaExit, area);
+            }
+        }
+        for area in areas {
+            if area != u16::MAX && !left.contains(&area) {
+                self.trigger_area(ServerTriggerType::Area, area);
+            }
+        }
+    }
+
+    #[cfg(since_647)]
+    fn trigger_area(&mut self, trigger: ServerTriggerType, area: u16) {
+        let engine = engine();
+        if !engine
+            .cache
+            .areas
+            .get_by_id(area)
+            .is_some_and(|area| area.trigger)
+        {
+            return;
+        }
+        if let Some(script) = engine.script_by_key(trigger, Some(area as i32), None) {
+            let _ = self
+                .player
+                .state
+                .queues
+                .add(QueuePriority::Engine, script.id, 0, None);
         }
     }
 
@@ -2123,6 +2174,7 @@ impl ActivePlayer {
     /// Rev-647: transmits a string client variable.
     #[cfg(since_647)]
     pub fn varc_str_transmit(&mut self, id: u16, val: &str) {
+        self.player.varc_strings.insert(id, val.into());
         self.write(rs_protocol::network::game::server::varc_str_small::VarcStrSmall { id, val });
     }
 

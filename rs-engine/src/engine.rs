@@ -787,6 +787,7 @@ impl Engine {
                 rsmod::change_zone(zone.x(), zone.z(), y, ZoneFlag::Free as u8, true);
             }
         }
+        #[cfg(before_647)]
         for &key in &cache.multimap {
             let zone = ZoneCoordGrid::from(key);
             rsmod::change_zone(zone.x(), zone.z(), zone.y(), ZoneFlag::Multi as u8, true);
@@ -1179,6 +1180,20 @@ impl Engine {
 // -----------------------------------------------------------------------
 
 impl Engine {
+    /// Whether `coord` is multi-combat: from 647 the `multiway` area painted
+    /// on its tile, before that its zone's `ZoneFlag::Multi`.
+    pub fn multiway(&self, coord: CoordGrid) -> bool {
+        #[cfg(before_647)]
+        return rsmod::is_zone_flagged(coord.x(), coord.z(), coord.y(), ZoneFlag::Multi as u8);
+        #[cfg(since_647)]
+        return self.cache.multiway_area.is_some_and(|area| {
+            self.cache
+                .area_map
+                .get(coord.y(), coord.x(), coord.z())
+                .contains(&area)
+        });
+    }
+
     /// Computes the script lookup key for a given server trigger.
     ///
     /// Trigger lookup keys encode the trigger type, an optional type-specific
@@ -4750,11 +4765,7 @@ impl ScriptEngine for Engine {
         Ok(true)
     }
 
-    /// Indicates if this coord has a `ZoneFlag::Multi` collision flag on it.
-    ///
-    /// # Call Stack
-    ///
-    /// **Calls:** reads `rsmod::is_zone_flagged()`
+    /// Indicates if this coord is multi-combat, see [`Engine::multiway`].
     fn map_multiway(&self, coord: CoordGrid) -> rs_vm::Result<bool> {
         let (x, y, z) = (coord.x(), coord.y(), coord.z());
         if !rsmod::is_zone_allocated(x, z, y) {
@@ -4763,7 +4774,17 @@ impl ScriptEngine for Engine {
                 coord
             )));
         }
-        Ok(rsmod::is_zone_flagged(x, z, y, ZoneFlag::Multi as u8))
+        Ok(self.multiway(coord))
+    }
+
+    #[cfg(since_647)]
+    fn inarea(&self, area: u16, coord: CoordGrid) -> bool {
+        area != u16::MAX
+            && self
+                .cache
+                .area_map
+                .get(coord.y(), coord.x(), coord.z())
+                .contains(&area)
     }
 
     /// Reads a shared variable (vars) by its definition ID.
@@ -5653,6 +5674,16 @@ impl ScriptPlayer for ActivePlayer {
     #[cfg(since_647)]
     fn sendvarc_str(&mut self, id: u16, value: &str) {
         self.varc_str_transmit(id, value);
+    }
+
+    #[cfg(since_647)]
+    fn varc(&self, id: u16) -> i32 {
+        self.player.varcs.get(&id).copied().unwrap_or(0)
+    }
+
+    #[cfg(since_647)]
+    fn varc_str(&self, id: u16) -> &str {
+        self.player.varc_strings.get(&id).map_or("", |value| value)
     }
 
     #[cfg(since_647)]

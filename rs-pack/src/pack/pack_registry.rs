@@ -149,6 +149,8 @@ pub struct PackRegistry {
     #[cfg(since_647)]
     pub stat: PackFile,
     #[cfg(since_647)]
+    pub area: PackFile,
+    #[cfg(since_647)]
     pub component_hashes: HashMap<String, i32>,
     pack_dir: PathBuf,
 }
@@ -278,6 +280,8 @@ impl PackRegistry {
             #[cfg(since_647)]
             stat: load("stat")?,
             #[cfg(since_647)]
+            area: load("area")?,
+            #[cfg(since_647)]
             component_hashes,
             pack_dir: pack_dir.to_path_buf(),
         })
@@ -322,6 +326,7 @@ impl PackRegistry {
             ("quest", &self.quest),
             ("quickchatcat", &self.chatcat),
             ("quickchatphrase", &self.chatphrase),
+            ("area", &self.area),
         ] {
             for path in fc.collect(ext) {
                 let Some(text) = fc.read(path) else {
@@ -433,6 +438,7 @@ fn load_component_hashes(path: &Path, interfaces: &PackFile) -> HashMap<String, 
 
 #[cfg(since_647)]
 const CONFIG_PACKS: &[(&str, bool)] = &[
+    ("area", false),
     ("hunt", false),
     ("varn", false),
     ("vars", false),

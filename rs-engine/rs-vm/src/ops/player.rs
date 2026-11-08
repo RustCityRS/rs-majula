@@ -755,22 +755,6 @@ pub fn build<E: ScriptEngine + 'static>() -> OpsRegistry {
             player.if_setevents(com, slot1 as u16, slot2 as u16, settings);
         });
 
-        // 5002
-        #[cfg(since_647)]
-        active_player_mut!(m, SENDVARC => |s, player| {
-            let value = s.pop_int();
-            let varc_id = s.pop_int_as::<u16>()?;
-            player.sendvarc(varc_id, value);
-        });
-
-        // 5015
-        #[cfg(since_647)]
-        active_player_mut!(m, SENDVARC_STR => |s, player| {
-            let value = s.pop_string();
-            let varc_id = s.pop_int_as::<u16>()?;
-            player.sendvarc_str(varc_id, &value);
-        });
-
         // 5000
         #[cfg(since_647)]
         active_player_mut!(m, RUNCLIENTSCRIPT => |s, player| {

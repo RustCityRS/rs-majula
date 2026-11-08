@@ -9,6 +9,7 @@ license.workspace = true
 [dependencies]
 rs-engine = { workspace = true, features = ["harness"] }
 rs-entity = { workspace = true }
+rs-grid = { workspace = true }
 rs-inv = { workspace = true }
 rs-pack = { workspace = true }
 rs-pathfinder = { workspace = true }

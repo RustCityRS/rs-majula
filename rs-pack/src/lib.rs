@@ -254,6 +254,7 @@ pub(crate) mod config_crc {
     pub const VARC: i32 = 57638886;
     pub const VARCS: i32 = -1218318004;
     pub const VARCLANSETTING: i32 = -904846536;
+    pub const AREA: i32 = 402829966;
 }
 
 pub(crate) const CONFIG_TYPE_CRCS: &[(&str, i32)] = &[
@@ -317,6 +318,8 @@ pub(crate) const CONFIG_TYPE_CRCS: &[(&str, i32)] = &[
     ("varcs", config_crc::VARCS),
     #[cfg(since_647)]
     ("varclansetting", config_crc::VARCLANSETTING),
+    #[cfg(since_647)]
+    ("area", config_crc::AREA),
 ];
 
 #[cfg(before_647)]

@@ -295,5 +295,13 @@ pub fn build<E: ScriptEngine + 'static>() -> OpsRegistry {
             }
             engine_mut::<E>().sound_area(coord.y(), coord.x(), coord.z(), synth as u16, range, loops, delay);
         });
+
+        // 1025
+        #[cfg(since_647)]
+        none!(m, INAREA => |s| {
+            let coord = pop_coord(s)?;
+            let area = s.pop_int();
+            s.push_int(engine::<E>().inarea(area as u16, coord) as i32);
+        });
     }
 }

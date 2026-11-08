@@ -114,7 +114,7 @@ runclientscript("interface_invother_init_big(trademain:com_34, tradeoffer, 4, 7,
 if_setevents(trademain:com_34, 0, 27, ~inv_ops(^no_op, ^no_op, ^no_op, ^no_op, ^no_op, ^no_op, ^no_op, ^no_op, ^if_op9, ^no_op), 0, 0, ^false, ^false);
 runclientscript("interface_inv_init_big(tradeside:com_0, inv, 4, 7, 0, -1, \"Offer\", \"Offer-5\", \"Offer-10\", \"Offer-All\", \"Offer-X\", \"\", \"\", \"\", \"\")");
 if_setevents(tradeside:com_0, 0, 27, ~inv_ops(^if_op1, ^if_op2, ^if_op3, ^if_op4, ^if_op5, ^no_op, ^no_op, ^no_op, ^no_op, ^if_op10), 0, 0, ^false, ^false);
-sendvarc_str(203, $name);
+%varclient_1722 = $name;
 %offer_modified = 0;
 %other_offer_modified = 0;
 .if_settext(trademain:com_21, "has <tostring(inv_freespace(inv))> free inventory slots.");
@@ -126,7 +126,7 @@ sendvarc_str(203, $name);
 .if_setevents(trademain:com_34, 0, 27, ~inv_ops(^no_op, ^no_op, ^no_op, ^no_op, ^no_op, ^no_op, ^no_op, ^no_op, ^if_op9, ^no_op), 0, 0, ^false, ^false);
 .runclientscript("interface_inv_init_big(tradeside:com_0, inv, 4, 7, 0, -1, \"Offer\", \"Offer-5\", \"Offer-10\", \"Offer-All\", \"Offer-X\", \"\", \"\", \"\", \"\")");
 .if_setevents(tradeside:com_0, 0, 27, ~inv_ops(^if_op1, ^if_op2, ^if_op3, ^if_op4, ^if_op5, ^no_op, ^no_op, ^no_op, ^no_op, ^if_op10), 0, 0, ^false, ^false);
-.sendvarc_str(203, $name);
+.%varclient_1722 = $name;
 .%offer_modified = 0;
 .%other_offer_modified = 0;
 if_settext(trademain:com_21, "has <tostring(.inv_freespace(inv))> free inventory slots.");
@@ -139,10 +139,10 @@ if_settext(trademain:com_21, "has <tostring(.inv_freespace(inv))> free inventory
 [proc,trade_wealth]
 def_int $mine = ~trade_offer_worth;
 def_int $theirs = ~.trade_offer_worth;
-sendvarc(729, $mine);
-sendvarc(697, $theirs);
-.sendvarc(729, $theirs);
-.sendvarc(697, $mine);
+%varclient_729 = $mine;
+%varclient_697 = $theirs;
+.%varclient_729 = $theirs;
+.%varclient_697 = $mine;
 
 [proc,trade_offer_worth]()(int)
 def_int $worth = 0;

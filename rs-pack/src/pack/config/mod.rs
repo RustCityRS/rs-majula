@@ -26,6 +26,8 @@ use std::collections::{BTreeMap, BTreeSet, HashMap};
 use std::path::Path;
 
 #[cfg(since_647)]
+pub mod area;
+#[cfg(since_647)]
 pub mod bas;
 #[cfg(since_647)]
 pub mod billboard;

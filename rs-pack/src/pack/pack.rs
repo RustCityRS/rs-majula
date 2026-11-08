@@ -101,6 +101,8 @@ fn pack_cached_assets(
         "varcs",
         #[cfg(since_647)]
         "varclansetting",
+        #[cfg(since_647)]
+        "area",
     ];
     let results: HashMap<String, PackedFile> = kinds
         .par_iter()
@@ -175,6 +177,8 @@ fn pack_cached_assets(
                 "varclansetting" => {
                     varclansetting::pack_varclansettings(fc, &registry.varclansetting, &constants)?
                 }
+                #[cfg(since_647)]
+                "area" => area::pack_areas(fc, registry, &constants)?,
                 _ => unreachable!(),
             };
             debug!(
@@ -258,6 +262,8 @@ impl FileCache {
         "varc",
         #[cfg(since_647)]
         "varclansetting",
+        #[cfg(since_647)]
+        "area",
     ];
     pub fn new(source_dir: &Path) -> Self {
         let mut files = Vec::new();

@@ -11,6 +11,8 @@ use rs_hero::HeroPoints;
 use rs_info::PlayerInfoProt;
 use rs_info::{EntityMasks, FocusKind};
 use rs_inv::Inventory;
+#[cfg(since_647)]
+use rs_pack::cache::area::{NO_AREAS, TileAreas};
 use rs_pack::types::{BlockWalk, MoveRestrict, PlayerStat};
 use rs_stat::Stats;
 use rs_var::VarSet;
@@ -281,6 +283,8 @@ pub struct Player {
     /// `applydesign` reads the character-design preview varcs back from it.
     #[cfg(since_647)]
     pub varcs: FxHashMap<u16, i32>,
+    #[cfg(since_647)]
+    pub varc_strings: FxHashMap<u16, Box<str>>,
     /// Rev-647: display name claimed via `p_setdisplayname`; falls back to the
     /// login username when unset.
     #[cfg(since_647)]
@@ -302,6 +306,8 @@ pub struct Player {
     pub build_area: BuildArea,
     pub last_zone: CoordGrid,
     pub last_map_zone: CoordGrid,
+    #[cfg(since_647)]
+    pub areas: TileAreas,
     pub afk_event_ready: bool,
     pub afk_zones: [u32; 2],
     pub last_afk_zone: u16,
@@ -455,6 +461,8 @@ impl Player {
             #[cfg(since_647)]
             varcs: FxHashMap::default(),
             #[cfg(since_647)]
+            varc_strings: FxHashMap::default(),
+            #[cfg(since_647)]
             display_name: None,
             #[cfg(since_647)]
             name_suggestions: Vec::new(),
@@ -478,6 +486,8 @@ impl Player {
             build_area: BuildArea::new(),
             last_zone: CoordGrid::new(0, 0, 0),
             last_map_zone: CoordGrid::new(0, 0, 0),
+            #[cfg(since_647)]
+            areas: NO_AREAS,
             afk_event_ready: false,
             afk_zones: [0; 2],
             last_afk_zone: 0,

@@ -603,6 +603,10 @@ pub trait ScriptEngine {
     /// **Calls:** reads `rsmod::is_zone_flagged()`
     fn map_multiway(&self, coord: CoordGrid) -> crate::Result<bool>;
 
+    /// Indicates if `area` is painted on this coord's tile.
+    #[cfg(since_647)]
+    fn inarea(&self, area: u16, coord: CoordGrid) -> bool;
+
     /// Reads a shared variable (vars) by its definition ID.
     ///
     /// # Arguments
@@ -1116,6 +1120,15 @@ pub trait ScriptPlayer {
     /// Rev-647: transmits a string client variable (varc string).
     #[cfg(since_647)]
     fn sendvarc_str(&mut self, id: u16, val: &str);
+
+    /// Rev-647: the value last transmitted for a client variable, 0 if none.
+    #[cfg(since_647)]
+    fn varc(&self, id: u16) -> i32;
+
+    /// Rev-647: the value last transmitted for a string client variable, empty
+    /// if none.
+    #[cfg(since_647)]
+    fn varc_str(&self, id: u16) -> &str;
 
     /// Rev-647: invokes a clientscript (cs2) with no parameters.
     #[cfg(since_647)]

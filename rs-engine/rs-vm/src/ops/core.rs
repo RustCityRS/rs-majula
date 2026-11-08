@@ -19,6 +19,10 @@ use rs_pack::cache::script::*;
 /// - **Player variables:** `PUSH_VARP`, `POP_VARP`, `PUSH_VARBIT`, `POP_VARBIT`
 /// - **NPC variables:** `PUSH_VARN`, `POP_VARN`
 /// - **Shared variables:** `PUSH_VARS`, `POP_VARS`
+/// - **Client variables (647):** `PUSH_VARC_INT`, `POP_VARC_INT`, `PUSH_VARC_STRING`,
+///   `POP_VARC_STRING`: a write transmits, a read gets what was sent last
+/// - **Clan, obj, npc-bit and controller variables (647):** `PUSH_VARCLAN` ...
+///   `PUSH_CLANSETTING_STRING` (stubs; the server keeps no owner for them yet)
 /// - **Branching:** `BRANCH`, `BRANCH_NOT`, `BRANCH_EQUALS`, `BRANCH_LESS_THAN`,
 ///   `BRANCH_GREATER_THAN`, `BRANCH_LESS_THAN_OR_EQUALS`, `BRANCH_GREATER_THAN_OR_EQUALS`
 /// - **Flow control:** `RETURN`, `GOSUB`, `JUMP`, `SWITCH`,
@@ -301,6 +305,26 @@ pub fn build<E: ScriptEngine + 'static>() -> OpsRegistry {
             s.goto_frame(script)?;
         });
 
+        // 42
+        #[cfg(since_647)]
+        none!(m, PUSH_VARC_INT => |s| {
+            let operand = s.int_operand();
+            let secondary = ((operand >> 16) & 0x1) != 0;
+            let id = (operand & 0xFFFF) as u16;
+            let value = get_active_player::<E>(s, secondary)?.varc(id);
+            s.push_int(value);
+        });
+
+        // 43
+        #[cfg(since_647)]
+        none!(m, POP_VARC_INT => |s| {
+            let operand = s.int_operand();
+            let secondary = ((operand >> 16) & 0x1) != 0;
+            let id = (operand & 0xFFFF) as u16;
+            let value = s.pop_int();
+            get_active_player_mut::<E>(s, secondary)?.sendvarc(id, value);
+        });
+
         // 44
         none!(m, DEFINE_ARRAY => |_s| {
             Err(ScriptError::Runtime("Not implemented".to_string()))?;
@@ -313,6 +337,122 @@ pub fn build<E: ScriptEngine + 'static>() -> OpsRegistry {
 
         // 46
         none!(m, POP_ARRAY_INT => |_s| {
+            Err(ScriptError::Runtime("Not implemented".to_string()))?;
+        });
+
+        // 47
+        #[cfg(since_647)]
+        none!(m, PUSH_VARC_STRING => |s| {
+            let operand = s.int_operand();
+            let secondary = ((operand >> 16) & 0x1) != 0;
+            let id = (operand & 0xFFFF) as u16;
+            let value = get_active_player::<E>(s, secondary)?.varc_str(id);
+            s.push_string(value);
+        });
+
+        // 48
+        #[cfg(since_647)]
+        none!(m, POP_VARC_STRING => |s| {
+            let operand = s.int_operand();
+            let secondary = ((operand >> 16) & 0x1) != 0;
+            let id = (operand & 0xFFFF) as u16;
+            let value = s.pop_string();
+            get_active_player_mut::<E>(s, secondary)?.sendvarc_str(id, &value);
+        });
+
+        // 74
+        #[cfg(since_647)]
+        none!(m, PUSH_VARCLAN => |_s| {
+            Err(ScriptError::Runtime("Not implemented".to_string()))?;
+        });
+
+        // 75
+        #[cfg(since_647)]
+        none!(m, POP_VARCLAN => |_s| {
+            Err(ScriptError::Runtime("Not implemented".to_string()))?;
+        });
+
+        // 76
+        #[cfg(since_647)]
+        none!(m, PUSH_VAROBJ => |_s| {
+            Err(ScriptError::Runtime("Not implemented".to_string()))?;
+        });
+
+        // 77
+        #[cfg(since_647)]
+        none!(m, POP_VAROBJ => |_s| {
+            Err(ScriptError::Runtime("Not implemented".to_string()))?;
+        });
+
+        // 78
+        #[cfg(since_647)]
+        none!(m, PUSH_VARNBIT => |_s| {
+            Err(ScriptError::Runtime("Not implemented".to_string()))?;
+        });
+
+        // 79
+        #[cfg(since_647)]
+        none!(m, POP_VARNBIT => |_s| {
+            Err(ScriptError::Runtime("Not implemented".to_string()))?;
+        });
+
+        // 80
+        #[cfg(since_647)]
+        none!(m, PUSH_VARCON => |_s| {
+            Err(ScriptError::Runtime("Not implemented".to_string()))?;
+        });
+
+        // 81
+        #[cfg(since_647)]
+        none!(m, POP_VARCON => |_s| {
+            Err(ScriptError::Runtime("Not implemented".to_string()))?;
+        });
+
+        // 82
+        #[cfg(since_647)]
+        none!(m, POP_CLANSETTING_INT => |_s| {
+            Err(ScriptError::Runtime("Not implemented".to_string()))?;
+        });
+
+        // 83
+        #[cfg(since_647)]
+        none!(m, POP_CLANSETTING_VARBIT => |_s| {
+            Err(ScriptError::Runtime("Not implemented".to_string()))?;
+        });
+
+        // 84
+        #[cfg(since_647)]
+        none!(m, POP_CLANSETTING_LONG => |_s| {
+            Err(ScriptError::Runtime("Not implemented".to_string()))?;
+        });
+
+        // 85
+        #[cfg(since_647)]
+        none!(m, POP_CLANSETTING_STRING => |_s| {
+            Err(ScriptError::Runtime("Not implemented".to_string()))?;
+        });
+
+        // 112
+        #[cfg(since_647)]
+        none!(m, PUSH_CLANSETTING_INT => |_s| {
+            Err(ScriptError::Runtime("Not implemented".to_string()))?;
+        });
+
+        // 113
+        #[cfg(since_647)]
+        none!(m, PUSH_CLANSETTING_VARBIT => |_s| {
+            Err(ScriptError::Runtime("Not implemented".to_string()))?;
+        });
+
+        // 114
+        #[cfg(since_647)]
+        none!(m, PUSH_CLANSETTING_LONG => |_s| {
+            Err(ScriptError::Runtime("Not implemented".to_string()))?;
+        });
+
+        // 115
+        #[cfg(since_647)]
+        none!(m, PUSH_CLANSETTING_STRING => |_s| {
             Err(ScriptError::Runtime("Not implemented".to_string()))?;
         });
     }

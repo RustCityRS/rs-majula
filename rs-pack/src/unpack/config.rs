@@ -198,6 +198,8 @@ pub(crate) fn config_decoders() -> Vec<(&'static str, ConfigDecoder)> {
         #[cfg(since_274)]
         ("hunt", |buf, _, _, _| decode_empty_record("hunt", buf)),
         #[cfg(since_647)]
+        ("area", |buf, _, _, _| decode_empty_record("area", buf)),
+        #[cfg(since_647)]
         ("vars", |buf, _, _, _| decode_empty_record("vars", buf)),
         #[cfg(since_647)]
         ("varn", |buf, _, _, _| decode_empty_record("varn", buf)),

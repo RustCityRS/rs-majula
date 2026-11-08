@@ -130,7 +130,7 @@ fn cheat_maintainer(
     active: &mut ActivePlayer,
 ) -> Result<(), ScriptError> {
     match cmd {
-        _ if cmd.starts_with("~") => cheat_debugproc(&cmd, &mut args, active),
+        _ if cmd.starts_with("~") => cheat_debugproc(&cmd[1..], &mut args, active),
         "reload" => cheat_reload(),
         "give" => cheat_give(&mut args, active),
         "givemany" => cheat_give_many(&mut args, active),
@@ -147,6 +147,13 @@ fn cheat_maintainer(
         "localbots" => cheat_spawn_local_bots(active),
         "locadd" => cheat_loc_add(&mut args, active),
         "npcadd" => cheat_npc_add(&mut args, active),
+        _ if engine()
+            .scripts
+            .get_by_name(&format!("[debugproc,{cmd}]"))
+            .is_some() =>
+        {
+            cheat_debugproc(cmd, &mut args, active)
+        }
         _ => cheat_jagex_moderator(cmd, args, active),
     }
 }
@@ -218,13 +225,14 @@ fn cheat_normal(
 /// Runs the `[debugproc,<name>]` script, parsing the remaining arguments into
 /// the script's declared parameter types (int, obj, loc, coord, stat, ...).
 ///
-/// Usage: `::~<name> [args...]` (e.g. `::~getcoord` or `::~setxp attack 50`).
+/// Usage: `~<name> [args...]` (e.g. `~getcoord` or `~setxp attack 50`), or the
+/// bare name when no cheat has it: 647's console cannot type `~`, its toggle.
 fn cheat_debugproc(
-    cmd: &&str,
+    proc: &str,
     args: &mut Split<char>,
     active: &mut ActivePlayer,
 ) -> Result<(), ScriptError> {
-    let name = format!("[debugproc,{}]", &cmd[1..]);
+    let name = format!("[debugproc,{proc}]");
     let Some(script) = engine().scripts.get_by_name(&name).cloned() else {
         return Err(ScriptError::ScriptNotFoundName(name));
     };

@@ -1,0 +1,6 @@
+// The client shows its multiway icon (interface_745:com_1) while varc 616 is 1.
+[area,multiway]
+%varclient_616 = true;
+
+[areaexit,multiway]
+%varclient_616 = false;

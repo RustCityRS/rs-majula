@@ -266,10 +266,52 @@ pub const POP_INT_DISCARD: u16 = 38;
 pub const POP_STRING_DISCARD: u16 = 39;
 pub const GOSUB_WITH_PARAMS: u16 = 40;
 pub const JUMP_WITH_PARAMS: u16 = 41;
+#[cfg(since_647)]
+pub const PUSH_VARC_INT: u16 = 42;
+#[cfg(since_647)]
+pub const POP_VARC_INT: u16 = 43;
 
 pub const DEFINE_ARRAY: u16 = 44;
 pub const PUSH_ARRAY_INT: u16 = 45;
 pub const POP_ARRAY_INT: u16 = 46;
+#[cfg(since_647)]
+pub const PUSH_VARC_STRING: u16 = 47;
+#[cfg(since_647)]
+pub const POP_VARC_STRING: u16 = 48;
+
+// Vars only the server keeps, numbered as rs-runec emits them.
+#[cfg(since_647)]
+pub const PUSH_VARCLAN: u16 = 74;
+#[cfg(since_647)]
+pub const POP_VARCLAN: u16 = 75;
+#[cfg(since_647)]
+pub const PUSH_VAROBJ: u16 = 76;
+#[cfg(since_647)]
+pub const POP_VAROBJ: u16 = 77;
+#[cfg(since_647)]
+pub const PUSH_VARNBIT: u16 = 78;
+#[cfg(since_647)]
+pub const POP_VARNBIT: u16 = 79;
+#[cfg(since_647)]
+pub const PUSH_VARCON: u16 = 80;
+#[cfg(since_647)]
+pub const POP_VARCON: u16 = 81;
+#[cfg(since_647)]
+pub const POP_CLANSETTING_INT: u16 = 82;
+#[cfg(since_647)]
+pub const POP_CLANSETTING_VARBIT: u16 = 83;
+#[cfg(since_647)]
+pub const POP_CLANSETTING_LONG: u16 = 84;
+#[cfg(since_647)]
+pub const POP_CLANSETTING_STRING: u16 = 85;
+#[cfg(since_647)]
+pub const PUSH_CLANSETTING_INT: u16 = 112;
+#[cfg(since_647)]
+pub const PUSH_CLANSETTING_VARBIT: u16 = 113;
+#[cfg(since_647)]
+pub const PUSH_CLANSETTING_LONG: u16 = 114;
+#[cfg(since_647)]
+pub const PUSH_CLANSETTING_STRING: u16 = 115;
 
 // ── Server ops (1003-1999) ──────────────────────────────────────────────────
 
@@ -298,6 +340,8 @@ pub const WORLD_DELAY: u16 = 1021;
 pub const MIDI_LENGTH: u16 = 1022;
 pub const MAP_LOC: u16 = 1023;
 pub const SOUND_AREA: u16 = 1024;
+#[cfg(since_647)]
+pub const INAREA: u16 = 1025;
 
 // ── Player ops (2000-2499) ──────────────────────────────────────────────────
 
@@ -434,8 +478,6 @@ pub const RUNCLIENTSCRIPT: u16 = 5000;
 #[cfg(since_647)]
 pub const IF_SETEVENTS: u16 = 5001;
 #[cfg(since_647)]
-pub const SENDVARC: u16 = 5002;
-#[cfg(since_647)]
 pub const IF_OPENSUB: u16 = 5003;
 #[cfg(since_647)]
 pub const IF_CLOSESUB: u16 = 5004;
@@ -443,8 +485,6 @@ pub const IF_CLOSESUB: u16 = 5004;
 pub const IF_MOVESUB: u16 = 5012;
 #[cfg(since_647)]
 pub const RUNCLIENTSCRIPT_STAR: u16 = 5013;
-#[cfg(since_647)]
-pub const SENDVARC_STR: u16 = 5015;
 #[cfg(since_647)]
 pub const LAST_TARGETCOM: u16 = 5016;
 #[cfg(since_647)]
