@@ -117,3 +117,59 @@ fn port_sarim_and_karamja_npcs_answer_every_branch() {
         }
     });
 }
+
+/// 289's Gerrant (on 2011's npc 12261, Port Sarim), Rommik (Rimmington) and Peksa (Barbarian
+/// Village) at 647: every branch of their Talk-to says something, fails no script, and one opens
+/// their shop under 289's title.
+#[test]
+fn gerrant_rommik_and_peksa_open_their_shops() {
+    let _turn = TURN.lock().unwrap_or_else(|e| e.into_inner());
+    runner::on_loaded_engine(|engine| {
+        for (npc, title) in [
+            ("gerrant_12261", "Gerrant's Fishy Business."),
+            ("rommik", "Rommiks Crafty Supplies."),
+            ("peksa", "Helmet Shop."),
+        ] {
+            let _ = engine.script_errors.take();
+            let branches = explore(
+                engine,
+                |engine| {
+                    engine.harness_reset();
+                    let mut client: HarnessClient = engine
+                        .harness_login_returning("shop_visitor")
+                        .expect("login");
+                    for _ in 0..10 {
+                        engine.cycle();
+                    }
+                    let (nid, x, y, z) = beside(engine, npc);
+                    engine.harness_telejump(client.pid, x, y, z);
+                    for _ in 0..3 {
+                        engine.cycle();
+                    }
+                    client.packets();
+                    talk_to(&mut client, nid);
+                    client
+                },
+                24,
+            );
+            let errors: Vec<String> = engine
+                .script_errors
+                .take()
+                .into_iter()
+                .map(|e| format!("{e:?}"))
+                .collect();
+            assert!(errors.is_empty(), "{npc}: {errors:?}");
+            assert!(branches.len() >= 2, "{npc}: {} branches", branches.len());
+            assert!(
+                branches
+                    .iter()
+                    .any(|b| b.conversation.texts.iter().any(|t| t == title)),
+                "{npc}: no branch opens {title:?}: {:?}",
+                branches
+                    .iter()
+                    .map(|b| &b.conversation.texts)
+                    .collect::<Vec<_>>()
+            );
+        }
+    });
+}

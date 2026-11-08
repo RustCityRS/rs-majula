@@ -256939,6 +256939,14 @@ head2=model_39544
 unknown119=3
 cursor1=1,cursor_44
 desc=A Fishing expert.
+// 289's [gerrant] (areas/area_port_sarim/configs/port_sarim.npc): his shop, on 2011's Gerrant
+// (the one cache 786's Port Sarim spawns; gerrant.rs2).
+category=shop_keeper
+param=owned_shop,fishingshop
+param=shop_sell_multiplier,1000
+param=shop_buy_multiplier,700
+param=shop_delta,10
+param=shop_title,Gerrant's Fishy Business.
 
 // 12262
 [captain_korasi_12262]
