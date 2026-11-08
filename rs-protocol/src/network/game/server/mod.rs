@@ -101,10 +101,14 @@ pub mod loc_anim_specific;
 pub mod loc_del;
 #[cfg(before_647)]
 pub mod loc_merge;
+#[cfg(since_647)]
+pub mod loc_prefetch;
 #[cfg(before_647)]
 pub mod logout;
 pub mod map_anim;
 pub mod map_projanim;
+#[cfg(since_647)]
+pub mod map_projanim_halfsq;
 #[cfg(since_647)]
 pub mod message_clanchannel;
 #[cfg(since_647)]
@@ -163,6 +167,8 @@ pub mod sound_vorbis_area;
 #[cfg(since_647)]
 pub mod spotanim_specific;
 pub mod synth_sound;
+#[cfg(since_647)]
+pub mod text_coord;
 #[cfg(before_647)]
 pub mod tut_flash;
 #[cfg(before_647)]

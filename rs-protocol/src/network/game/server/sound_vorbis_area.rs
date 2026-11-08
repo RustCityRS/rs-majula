@@ -11,29 +11,33 @@ use rs_protocol_macros::server_prot;
 
 #[cfg(since_647)]
 #[server_prot(SoundVorbisArea, Immediate, Fixed)]
+#[derive(Debug, Clone)]
 pub struct SoundVorbisArea {
     pub coord: u8,
-    pub sample_id: u16,
-    pub radius_rate: u8,
-    pub unk_c: u8,
-    pub unk_d: u8,
+    pub sound: u16,
+    pub info: u8,
+    pub delay: u8,
+    pub volume: u8,
+    pub speed: u16,
 }
 
 #[cfg(since_647)]
 impl ServerProtMessage for SoundVorbisArea {
     fn encode(&self, buf: &mut Packet) {
         buf.p1(self.coord);
-        buf.p2(self.sample_id);
-        buf.p1(self.radius_rate);
-        buf.p1(self.unk_c);
-        buf.p1(self.unk_d);
+        buf.p2(self.sound);
+        buf.p1(self.info);
+        buf.p1(self.delay);
+        buf.p1(self.volume);
+        buf.p2(self.speed);
     }
 
     fn sizeof(&self) -> usize {
         size_of_val(&self.coord)
-            + size_of_val(&self.sample_id)
-            + size_of_val(&self.radius_rate)
-            + size_of_val(&self.unk_c)
-            + size_of_val(&self.unk_d)
+            + size_of_val(&self.sound)
+            + size_of_val(&self.info)
+            + size_of_val(&self.delay)
+            + size_of_val(&self.volume)
+            + size_of_val(&self.speed)
     }
 }

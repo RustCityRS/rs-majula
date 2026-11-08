@@ -21,7 +21,14 @@
 use rs_io::Packet;
 use rs_protocol::network::game::server::ServerProtMessage;
 use rs_protocol::network::game::server::loc_anim::LocAnim;
+use rs_protocol::network::game::server::loc_prefetch::LocPrefetch;
 use rs_protocol::network::game::server::map_projanim::MapProjAnim;
+use rs_protocol::network::game::server::map_projanim_halfsq::MapProjAnimHalfsq;
+use rs_protocol::network::game::server::sound_area::SoundArea;
+use rs_protocol::network::game::server::sound_vorbis_area::SoundVorbisArea;
+use rs_protocol::network::game::server::text_coord::TextCoord;
+use rs_protocol::network::game::server_prot_message::ServerProtMessageInfo;
+use rs_protocol::network::game::zone_prot::ZoneProt;
 
 // ---------------------------------------------------------------------------
 // Client `Packet` reader port. Line-for-line from the deob-647 client.
@@ -120,6 +127,14 @@ impl<'a> ClientPacket<'a> {
     fn g2_alt3(&mut self) -> i32 {
         self.pos += 2;
         ((self.b(self.pos - 1) & 0xFF) << 8) + ((self.b(self.pos - 2) - 128) & 0xFF)
+    }
+
+    /// `(b[-3] & 0xFF) << 16) + ((b[-2] & 0xFF) << 8) + (b[-1] & 0xFF)`
+    fn g3(&mut self) -> i32 {
+        self.pos += 3;
+        ((self.b(self.pos - 3) & 0xFF) << 16)
+            + ((self.b(self.pos - 2) & 0xFF) << 8)
+            + (self.b(self.pos - 1) & 0xFF)
     }
 
     /// `b[-2]<<16 | b[-1]<<24 | b[-3]<<8 | b[-4]` (little-endian-ish)
@@ -501,6 +516,137 @@ fn map_projanim_matches_client() {
     assert_eq!(c.g1(), 16, "angle");
     assert_eq!(c.g2(), 0x1234, "distance offset");
     c.done(16);
+}
+
+/// `AClass17`'s `MAP_PROJANIM_HALFSQ` branch: half-square coords, then a flag
+/// byte, and a source before the target.
+#[test]
+fn map_projanim_halfsq_matches_client() {
+    let message = MapProjAnimHalfsq {
+        coord: 0xa7,
+        ground: true,
+        wearpos: Some(3),
+        dx: -9,
+        dz: 12,
+        source: 43,
+        target: -(42 + 1),
+        spotanim: 91,
+        src_height: -20i8 as u8,
+        dst_height: 31,
+        start_delay: 51,
+        end_delay: 70,
+        peak: 16,
+        arc: 0x1234,
+    };
+    let bytes = encode(&message);
+    assert_eq!(message.sizeof(), bytes.len());
+
+    let mut c = ClientPacket::new(&bytes);
+    let coord = c.g1();
+    assert_eq!(coord >> 4 & 0xF, 10, "x half-square within the zone");
+    assert_eq!(coord & 0xF, 7, "z half-square within the zone");
+    let flags = c.g1();
+    assert_eq!(flags & 0x1, 0x1, "ground");
+    assert_eq!(flags & 0x2, 0x2, "wearpos present");
+    assert_eq!(flags >> 2, 3, "wearpos");
+    assert_eq!(c.g1s(), -9, "dst dx");
+    assert_eq!(c.g1s(), 12, "dst dz");
+    assert_eq!(c.g2s(), 43, "source");
+    assert_eq!(c.g2s(), -43, "target");
+    assert_eq!(c.g2(), 91, "spotanim");
+    assert_eq!(c.g1s(), -20, "src height off the wearpos");
+    assert_eq!(c.g1(), 31, "dst height");
+    assert_eq!(c.g2(), 51, "start");
+    assert_eq!(c.g2(), 70, "end");
+    assert_eq!(c.g1(), 16, "angle");
+    assert_eq!(c.g2(), 0x1234, "distance offset");
+    c.done(19);
+}
+
+/// `AClass17`'s `LOC_PREFETCH` branch.
+#[test]
+fn loc_prefetch_matches_client() {
+    let message = LocPrefetch {
+        id: 0x1234,
+        shape: 10,
+    };
+    let bytes = encode(&message);
+    assert_eq!(message.sizeof(), bytes.len());
+
+    let mut c = ClientPacket::new(&bytes);
+    assert_eq!(c.g2(), 0x1234, "loc");
+    assert_eq!(c.g1(), 10, "shape");
+    c.done(3);
+}
+
+/// `AClass17`'s `TEXT_COORD` branch skips its leading length byte.
+#[test]
+fn text_coord_matches_client() {
+    let message = TextCoord {
+        coord: 0x35,
+        duration: 300,
+        height: 120,
+        colour: 0xff9040,
+        text: "Bank".to_string(),
+    };
+    let bytes = encode(&message);
+    assert_eq!(message.sizeof(), bytes.len());
+
+    let mut c = ClientPacket::new(&bytes);
+    assert_eq!(c.g1() as usize, bytes.len() - 1, "length");
+    let coord = c.g1();
+    assert_eq!(coord >> 4 & 0x7, 3, "x within the zone");
+    assert_eq!(coord & 0x7, 5, "z within the zone");
+    assert_eq!(c.g2(), 300, "duration");
+    assert_eq!(c.g1(), 120, "height");
+    assert_eq!(c.g3(), 0xff9040, "colour");
+    assert_eq!(c.gjstr(), "Bank");
+    c.done(13);
+}
+
+/// `AClass17`'s two area sound branches read the same eight bytes. The Java
+/// client's names are swapped: its `SOUND_VORBIS_AREA` (zone 10, server 72)
+/// plays a synth and its `SOUND_AREA` (zone 2, server 54) a vorbis sample.
+#[test]
+fn sound_areas_match_client() {
+    assert_eq!(ZoneProt::SoundArea as u8, 10);
+    assert_eq!(SoundArea::PROT as u8, 72);
+    assert_eq!(ZoneProt::SoundVorbisArea as u8, 2);
+    assert_eq!(SoundVorbisArea::PROT as u8, 54);
+
+    let area = SoundArea {
+        coord: 0x35,
+        sound: 2017,
+        info: 5 << 4 | 2,
+        delay: 30,
+        volume: 200,
+        speed: 256,
+    };
+    let vorbis = SoundVorbisArea {
+        coord: 0x35,
+        sound: 2017,
+        info: 5 << 4 | 2,
+        delay: 30,
+        volume: 200,
+        speed: 256,
+    };
+    assert_eq!(area.sizeof(), 8);
+    assert_eq!(vorbis.sizeof(), 8);
+
+    for bytes in [encode(&area), encode(&vorbis)] {
+        let mut c = ClientPacket::new(&bytes);
+        let coord = c.g1();
+        assert_eq!(coord >> 4 & 0x7, 3, "x within the zone");
+        assert_eq!(coord & 0x7, 5, "z within the zone");
+        assert_eq!(c.g2(), 2017, "sound");
+        let info = c.g1();
+        assert_eq!(info >> 4 & 0xF, 5, "range");
+        assert_eq!(info & 0x7, 2, "loops");
+        assert_eq!(c.g1(), 30, "delay");
+        assert_eq!(c.g1(), 200, "volume");
+        assert_eq!(c.g2(), 256, "speed");
+        c.done(8);
+    }
 }
 
 // ---------------------------------------------------------------------------

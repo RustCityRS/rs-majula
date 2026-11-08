@@ -2420,8 +2420,6 @@ impl ActivePlayer {
                 delay,
             },
         );
-        // Rev-647 adds volume/speed; 255/255 (full volume, normal speed)
-        // mirror the 647 reference server's defaults.
         #[cfg(since_647)]
         self.write(
             rs_protocol::network::game::server::synth_sound::SynthSound {
@@ -2429,7 +2427,7 @@ impl ActivePlayer {
                 loops,
                 delay,
                 volume: 255,
-                speed: 255,
+                speed: 256,
             },
         );
     }
@@ -4120,10 +4118,18 @@ impl EnginePlayer for ActivePlayer {
             ZoneMessage::LocAnim(m) => self.write(m.clone()),
             #[cfg(before_647)]
             ZoneMessage::LocMerge(m) => self.write(m.clone()),
+            #[cfg(since_647)]
+            ZoneMessage::LocPrefetch(m) => self.write(m.clone()),
             ZoneMessage::MapAnim(m) => self.write(m.clone()),
             ZoneMessage::MapProjAnim(m) => self.write(m.clone()),
+            #[cfg(since_647)]
+            ZoneMessage::MapProjAnimHalfsq(m) => self.write(m.clone()),
             #[cfg(since_289)]
             ZoneMessage::SoundArea(m) => self.write(m.clone()),
+            #[cfg(since_647)]
+            ZoneMessage::SoundVorbisArea(m) => self.write(m.clone()),
+            #[cfg(since_647)]
+            ZoneMessage::TextCoord(m) => self.write(m.clone()),
         }
     }
 

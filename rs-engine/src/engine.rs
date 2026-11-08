@@ -62,6 +62,8 @@ use rs_protocol::login::game_login_reply;
 use rs_protocol::network::game::MAX_PACKET_SIZE;
 use rs_protocol::network::game::info_prot::{NpcInfoProt, PlayerInfoProt};
 use rs_protocol::network::game::server::obj_count::ObjCount;
+#[cfg(since_289)]
+use rs_protocol::network::game::server::sound_area::SoundArea;
 use rs_protocol::network::game::server::update_reboot_timer::UpdateRebootTimer;
 use rs_util::base37::to_raw_username;
 use rs_util::random::JavaRandom;
@@ -4595,35 +4597,23 @@ impl ScriptEngine for Engine {
     ///
     /// **Called by:** VM ops via `ScriptEngine` trait
     /// **Calls:** `Zone::sound_area`, `Engine::track_zone`
-    #[cfg(all(since_289, before_647))]
+    #[cfg(since_289)]
     fn sound_area(&mut self, y: u8, x: u16, z: u16, sound: u16, range: u8, loops: u8, delay: u8) {
         let coord = CoordGrid::packed_zone_coord(x, z);
         let info = ((range & 0xF) << 4) | (loops & 0x7);
-        let message =
-            ZoneMessage::SoundArea(rs_protocol::network::game::server::sound_area::SoundArea {
+        self.zones
+            .zone_mut(x, y, z)
+            .sound_area(ZoneMessage::SoundArea(SoundArea {
                 coord,
                 sound,
                 info,
                 delay,
-            });
-        self.zones.zone_mut(x, y, z).sound_area(message);
+                #[cfg(since_647)]
+                volume: 255,
+                #[cfg(since_647)]
+                speed: 256,
+            }));
         self.track_zone(x, y, z);
-    }
-
-    /// TODO(647): port with the zone milestone — rev-647 SOUND_AREA is a
-    /// distinct zone sub-prot (`zone_prot::SOUND_AREA`) not yet modelled as a
-    /// `ZoneMessage` variant.
-    #[cfg(since_647)]
-    fn sound_area(
-        &mut self,
-        _y: u8,
-        _x: u16,
-        _z: u16,
-        _sound: u16,
-        _range: u8,
-        _loops: u8,
-        _delay: u8,
-    ) {
     }
 
     /// Checks whether adding a location at the given coordinate is unsafe, i.e.

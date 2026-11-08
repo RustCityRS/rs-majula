@@ -5,14 +5,22 @@ use rs_protocol::network::game::server::loc_anim::LocAnim;
 use rs_protocol::network::game::server::loc_del::LocDel;
 #[cfg(before_647)]
 use rs_protocol::network::game::server::loc_merge::LocMerge;
+#[cfg(since_647)]
+use rs_protocol::network::game::server::loc_prefetch::LocPrefetch;
 use rs_protocol::network::game::server::map_anim::MapAnim;
 use rs_protocol::network::game::server::map_projanim::MapProjAnim;
+#[cfg(since_647)]
+use rs_protocol::network::game::server::map_projanim_halfsq::MapProjAnimHalfsq;
 use rs_protocol::network::game::server::obj_add::ObjAdd;
 use rs_protocol::network::game::server::obj_count::ObjCount;
 use rs_protocol::network::game::server::obj_del::ObjDel;
 use rs_protocol::network::game::server::obj_reveal::ObjReveal;
 #[cfg(since_289)]
 use rs_protocol::network::game::server::sound_area::SoundArea;
+#[cfg(since_647)]
+use rs_protocol::network::game::server::sound_vorbis_area::SoundVorbisArea;
+#[cfg(since_647)]
+use rs_protocol::network::game::server::text_coord::TextCoord;
 use rs_protocol::network::game::zone_prot::ZoneProt;
 
 /// Generates the [`ZoneMessage`] enum and its mechanical `encode_zone` /
@@ -85,8 +93,16 @@ zone_messages! {
     LocAnim(LocAnim),
     #[cfg(before_647)]
     LocMerge(LocMerge),
+    #[cfg(since_647)]
+    LocPrefetch(LocPrefetch),
     MapAnim(MapAnim),
     MapProjAnim(MapProjAnim),
+    #[cfg(since_647)]
+    MapProjAnimHalfsq(MapProjAnimHalfsq),
     #[cfg(since_289)]
     SoundArea(SoundArea),
+    #[cfg(since_647)]
+    SoundVorbisArea(SoundVorbisArea),
+    #[cfg(since_647)]
+    TextCoord(TextCoord),
 }

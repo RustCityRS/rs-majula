@@ -25,7 +25,7 @@ pub enum ZoneProt {
 pub enum ZoneProt {
     LocMerge = 0,
     ObjDel = 1,
-    SoundArea = 2,
+    SoundVorbisArea = 2,
     LocAnim = 3,
     ObjCount = 4,
     LocPrefetch = 5,
@@ -33,7 +33,7 @@ pub enum ZoneProt {
     ObjReveal = 7,
     LocDel = 8,
     TextCoord = 9,
-    SoundVorbisArea = 10,
+    SoundArea = 10,
     ObjAdd = 11,
     MapProjAnimHalfsq = 12,
     LocAddChange = 13,
