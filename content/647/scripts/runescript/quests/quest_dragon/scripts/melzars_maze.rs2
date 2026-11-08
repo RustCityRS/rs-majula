@@ -1,0 +1,175 @@
+// Melzar's Maze: 289's quests/quest_dragon/scripts/melzars_maze.rs2 on cache 786's ids, with what the
+// 2011-05-04 recording (YouTube UYp0v2Pc1yI, 316.6-550.8s; the chat) and the 2011 wiki (Dragon Slayer,
+// 2011-05-22) show:
+// - the maze key opens the front door with "You use the key and the door opens." (319.5s);
+// - a coloured key: "The key disintegrates as it unlocks the door." with a full stop (345.6s on;
+//   289: "...", from a screenshot);
+// - the top floor's ladder down: "You climb down the ladder", the chest: "You open the chest",
+//   neither with a full stop (476s, 546.6s), and the piece in an item box (549.6s; 289: a message
+//   box);
+// - 2011's monsters are new npcs (cache 786 6088-6101; 289's dragonslayer_* ids are barbarian
+//   spirits at 647). "Of the monsters there are only one of each drops the keys" (the 2011 wiki):
+//   the rat is zombie_rat (6088), the one rat spawned alone (the wiki's "small zombie rat with the
+//   long tail"); the skeleton is skeleton_6091, alone too and the only one with its shield model
+//   (21205; the wiki's buckler, "not the skeleton with the square shield"); both zombies drop the
+//   blue key ("Kill the zombies", the wiki; void-634's maze zombies too). Which ghosts wear "the
+//   hooded shirt without cape" is not found, so every maze ghost drops the orange key, as 289 has
+//   it. The wiki's keys "are not a 100% drop", at an unknown rate: they drop every time, as 289's.
+// entrance
+[oploc1,melzardoor]
+sound_synth(locked, 1, 0);
+mes("The door is securely locked.");
+
+[oplocu,melzardoor]
+if (last_useitem = maze_key) {
+    mes("You use the key and the door opens.");
+    ~open_and_close_door(loc_1535, ~check_axis_locactive(coord), false);
+} else {
+    ~displaymessage(^dm_default);
+}
+
+[oploc1,exit_door]
+if (~check_axis_locactive(coord) = false) {
+    mes("The door is locked."); // osrs
+    return;
+}
+~open_and_close_door(loc_1535, true, false);
+
+// broken ladder
+[oploc1,ladder_broken]
+mes("The ladder is broken, I can't climb it."); // osrs
+
+// ladder
+[oploc1,funladdertop]
+// No arrivedelay in osrs
+mes("You climb down the ladder");
+~climb_ladder(movecoord(coord, 0, 0, 6400), true);
+
+// red door
+[oploc1,red_door] mes("This door is securely locked."); // osrs
+[oplocu,red_door] @open_melzar_maze_door(redkey);
+// orange door
+[oploc1,orange_door] mes("This door is securely locked."); // osrs
+[oplocu,orange_door] @open_melzar_maze_door(orangekey);
+// yellow door
+[oploc1,yellow_door] mes("This door is securely locked."); // osrs
+[oplocu,yellow_door] @open_melzar_maze_door(yellowkey);
+// blue door
+[oploc1,blue_door] mes("This door is securely locked."); // osrs
+[oplocu,blue_door] @open_melzar_maze_door(bluekey);
+// magenta door
+[oploc1,magenta_door] mes("This door is securely locked."); // osrs
+[oplocu,magenta_door] @open_melzar_maze_door(magentakey);
+// green door
+[oploc1,green_door] mes("This door is securely locked."); // osrs
+[oplocu,green_door] @open_melzar_maze_door(greenkey);
+
+[label,open_melzar_maze_door](obj $key)
+if (last_useitem = $key) {
+    mes("The key disintegrates as it unlocks the door.");
+    inv_del(inv, $key, 1);
+    ~open_and_close_door(loc_1535, ~check_axis_locactive(coord), false);
+} else {
+    ~displaymessage(^dm_default); // osrs
+}
+
+// rat
+[ai_queue3,zombie_rat]
+gosub(npc_death);
+if (npc_findhero = ^false) {
+    return;
+}
+// Default drop from config.
+obj_add(npc_coord, npc_param(death_drop), 1, ^lootdrop_duration);
+obj_add(npc_coord, raw_rat_meat, 1, ^lootdrop_duration);
+// Drop red key.
+obj_add(npc_coord, redkey, 1, ^lootdrop_duration);
+
+// ghosts
+[ai_queue3,ghost_6094] @melzar_ghost_death;
+[ai_queue3,ghost_6095] @melzar_ghost_death;
+[ai_queue3,ghost_6096] @melzar_ghost_death;
+[ai_queue3,ghost_6097] @melzar_ghost_death;
+[ai_queue3,ghost_6098] @melzar_ghost_death;
+
+[label,melzar_ghost_death]
+gosub(npc_death);
+if (npc_findhero = ^false) {
+    return;
+}
+// Drop orange key.
+obj_add(npc_coord, orangekey, 1, ^lootdrop_duration);
+
+// skeleton
+[ai_queue3,skeleton_6091]
+gosub(npc_death);
+if (npc_findhero = ^false) {
+    return;
+}
+// Default drop from config.
+obj_add(npc_coord, npc_param(death_drop), 1, ^lootdrop_duration);
+// Drop yellow key.
+obj_add(npc_coord, yellowkey, 1, ^lootdrop_duration);
+
+// zombies
+[ai_queue3,zombie_6099] @melzar_zombie_death;
+[ai_queue3,zombie_6100] @melzar_zombie_death;
+
+[label,melzar_zombie_death]
+gosub(npc_death);
+if (npc_findhero = ^false) {
+    return;
+}
+// Default drop from config.
+obj_add(npc_coord, npc_param(death_drop), 1, ^lootdrop_duration);
+// Drop blue key.
+obj_add(npc_coord, bluekey, 1, ^lootdrop_duration);
+
+[ai_queue3,melzar_the_mad]
+gosub(npc_death);
+if (npc_findhero = ^false) {
+    return;
+}
+// Default drop from config.
+obj_add(npc_coord, npc_param(death_drop), 1, ^lootdrop_duration);
+// Drop magenta key.
+obj_add(npc_coord, magentakey, 1, ^lootdrop_duration);
+
+// demon
+[ai_queue3,lesser_demon_6101]
+gosub(npc_death);
+if (npc_findhero = ^false) {
+    return;
+}
+obj_add(npc_coord, ashes, 1, ^lootdrop_duration);
+// Drop green key.
+obj_add(npc_coord, greenkey, 1, ^lootdrop_duration);
+
+// chest
+[oploc1,funchestshut]
+p_arrivedelay;
+mes("You open the chest");
+anim(human_openchest, 0);
+sound_synth(chest_open, 1, 0);
+p_delay(0);
+// Temp note: dur does not need updated
+loc_change(funchestopen, 300);
+
+[oploc2,funchestopen]
+p_arrivedelay;
+mes("You close the chest.");
+anim(human_closechest, 0);
+sound_synth(chest_close, 1, 0);
+p_delay(0);
+// Temp note: dur does not need updated
+loc_change(funchestshut, 300);
+
+[oploc1,funchestopen]
+if (~quest_dragon_getting_map_parts = false | ~obj_gettotal(map_part) > 0 | ~obj_gettotal(crandor_map) > 0) {
+    mes("You find nothing in the chest.");
+} else {
+    inv_add(inv, map_part, 1);
+    ~objbox(map_part, "You find a map piece in the chest.", 250, 0, 0);
+}
+// Temp note: dur does not need updated
+loc_change(funchestshut, 300);

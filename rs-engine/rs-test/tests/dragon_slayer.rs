@@ -628,3 +628,112 @@ fn wormbrain_drops_his_piece_and_lives() {
         );
     });
 }
+
+/// Melzar's Maze locs in cache 786's map (l45_50, l45_150).
+const MAZE_DOOR: (u16, u16, u16) = (2595, 2941, 3248);
+const MAZE_RED_DOOR: (u16, u16, u16) = (2596, 2926, 3244);
+const MAZE_CHEST: (u16, u16, u16) = (2603, 2935, 9657);
+
+/// The front door with the maze key and a coloured door with its key, in 2011's words
+/// (UYp0v2Pc1yI 319.5s, 345.6s).
+#[test]
+fn melzars_maze_doors_take_2011s_keys() {
+    let _turn = TURN.lock().unwrap_or_else(|e| e.into_inner());
+    runner::on_loaded_engine(|engine| {
+        let mut client = login(engine, "ds_maze_doors");
+        set_var(engine, &client, "dragonquest", 2);
+        give(engine, &client, 0, "maze_key", 1);
+        tele(engine, &mut client, 2942, 0, 3248);
+        use_on_loc(&mut client, id(engine, "obj", "maze_key"), 0, MAZE_DOOR);
+        let said = messages(engine, &mut client, 8);
+        assert!(
+            said.iter()
+                .any(|m| m == "You use the key and the door opens."),
+            "{said:?}"
+        );
+        assert_eq!(held(engine, &client, "maze_key"), 1, "the maze key is kept");
+
+        give(engine, &client, 1, "redkey", 1);
+        tele(engine, &mut client, 2927, 0, 3244);
+        use_on_loc(&mut client, id(engine, "obj", "redkey"), 1, MAZE_RED_DOOR);
+        let said = messages(engine, &mut client, 8);
+        assert!(
+            said.iter()
+                .any(|m| m == "The key disintegrates as it unlocks the door."),
+            "{said:?}"
+        );
+        assert_eq!(held(engine, &client, "redkey"), 0, "the key is gone");
+    });
+}
+
+/// The maze's lone zombie rat (6088, the 2011 wiki's "small zombie rat with the long tail")
+/// drops the red key.
+#[test]
+fn the_maze_zombie_rat_drops_the_red_key() {
+    let _turn = TURN.lock().unwrap_or_else(|e| e.into_inner());
+    runner::on_loaded_engine(|engine| {
+        let mut client = login(engine, "ds_maze_rat");
+        set_var(engine, &client, "dragonquest", 2);
+        {
+            let player = engine.harness_player_mut(client.pid).unwrap();
+            for skill in [0, 1, 2, 3] {
+                player.stats.levels[skill] = 99;
+                player.stats.base_levels[skill] = 99;
+                player.stats.xp[skill] = 130_344_310;
+            }
+        }
+        let (nid, sx, sz) = npc_near_on(engine, "zombie_rat", 2930, 3252, 0);
+        engine.get_npc_mut(nid).unwrap().npc.stats.levels[NpcStat::Hitpoints as usize] = 1;
+        tele(engine, &mut client, sx, 0, sz);
+        let mut p = ClientPacket::new();
+        p.p1_alt2(0).p2_alt3(nid as i32);
+        client.send(ClientProt::OpNpc2, &p.finish());
+        let mut last = None;
+        for _ in 0..60 {
+            match engine.get_npc(nid) {
+                Some(n) if n.npc.stats.levels[NpcStat::Hitpoints as usize] > 0 => {
+                    last = Some((n.npc.pathing.coord.x(), n.npc.pathing.coord.z()));
+                }
+                _ => {}
+            }
+            settle(engine, &mut client, 1);
+        }
+        let (kx, kz) = last.expect("the rat was seen alive");
+        let redkey = id(engine, "obj", "redkey");
+        let mut p = ClientPacket::new();
+        p.p2_alt1(redkey as i32)
+            .p2_alt2(kz as i32)
+            .p1(0)
+            .p2(kx as i32);
+        client.send(ClientProt::OpObj3, &p.finish());
+        settle(engine, &mut client, 8);
+        assert_eq!(
+            held(engine, &client, "redkey"),
+            1,
+            "the red key at {kx},{kz}"
+        );
+    });
+}
+
+/// The basement chest: 2011's "You open the chest" (no full stop) and the piece in an item box
+/// (UYp0v2Pc1yI 546.6-549.6s).
+#[test]
+fn melzars_chest_gives_the_first_piece() {
+    let _turn = TURN.lock().unwrap_or_else(|e| e.into_inner());
+    runner::on_loaded_engine(|engine| {
+        let mut client = login(engine, "ds_maze_chest");
+        set_var(engine, &client, "dragonquest", 2);
+        tele(engine, &mut client, 2935, 0, 9656);
+        oploc1(&mut client, MAZE_CHEST);
+        let said = messages(engine, &mut client, 6);
+        assert!(said.iter().any(|m| m == "You open the chest"), "{said:?}");
+        oploc1(&mut client, (2604, MAZE_CHEST.1, MAZE_CHEST.2));
+        let t = converse(engine, &mut client, &[], 300);
+        assert!(
+            t.said("You find a map piece in the chest."),
+            "{:?}",
+            t.texts
+        );
+        assert_eq!(held(engine, &client, "map_part"), 1);
+    });
+}

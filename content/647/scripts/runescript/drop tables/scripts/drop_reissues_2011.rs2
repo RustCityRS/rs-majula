@@ -87,12 +87,10 @@
 [ai_queue3,skeleton_5335] @skeleton_unarmed; // 2011's Skeleton (level 21), 289's skeleton_unarmed
 [ai_queue3,skeleton_5336] @skeleton_unarmed; // 2011's Skeleton (level 21), 289's skeleton_unarmed
 [ai_queue3,skeleton_5341] @skeleton_armed; // 2011's Skeleton (level 45), 289's giantskeleton
-[ai_queue3,skeleton_6091] @skeleton_armed; // 2011's Skeleton (level 22), 289's skeleton_armed
+// skeleton_6091, zombie_6099, zombie_6100 and lesser_demon_6101 spawn only in Melzar's Maze: their
+// deaths and keys are 289's maze ones (quests/quest_dragon/scripts/melzars_maze.rs2).
 [ai_queue3,skeleton_6092] @skeleton_armed; // 2011's Skeleton (level 22), 289's skeleton_armed
 [ai_queue3,skeleton_6093] @skeleton_armed; // 2011's Skeleton (level 22), 289's skeleton_armed
-[ai_queue3,zombie_6099] @armed_zombie; // 2011's Zombie (level 24), 289's zombie_armed
-[ai_queue3,zombie_6100] @armed_zombie; // 2011's Zombie (level 24), 289's zombie_armed
-[ai_queue3,lesser_demon_6101] @ai_queue3_lesser_demon; // 2011's Lesser demon (level 82), 289's lesser_demon
 [ai_queue3,goblin_6283] @goblin_drop_table; // 2011's Goblin (level 13), 289's goblin_helmet
 [ai_queue3,chaos_druid_7105] @chaos_druid_drop_table; // 2011's Chaos druid (level 13), 289's chaos_druid
 [ai_queue3,thug_7106] @thug_drop_table; // 2011's Thug (level 10), 289's thug
