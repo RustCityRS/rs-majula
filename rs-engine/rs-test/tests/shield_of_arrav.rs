@@ -430,6 +430,21 @@ fn the_black_arm_gang_as_2011s() {
                 "Great! You'll find the Phoenix gang's weapon stash just next to a temple, due east of here.",
             ],
         );
+        // The framing plan's first box, line for line as 2011 wraps it (TSNR-A0LI8s 193.8s): the
+        // second line breaks after the hyphen in "'keep-your-life-", and the box ends on "and the
+        // other to" (one box, not a fifth line spilled into the next).
+        for line in [
+            "I have an idea for framing a local merchant who is",
+            "refusing to pay our, very reasonable, 'keep-your-life-",
+            "pleasant' insurance rates. I need two phoenix crossbows;",
+            "one to kill somebody important with and the other to",
+        ] {
+            assert!(
+                t.texts.iter().any(|x| x == line),
+                "2011's line {line:?}: {:?}",
+                t.texts
+            );
+        }
         assert_eq!(var(engine, &client, "blackarmgang"), 2);
 
         give(engine, &client, 0, "coins", 10);

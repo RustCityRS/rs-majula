@@ -72,6 +72,9 @@ impl FontType {
 
             // we need to split on the next word boundary
             let mut split_index = remaining.len();
+            // How many characters the break itself takes: a space or a | goes, a hyphen stays.
+            #[cfg(since_647)]
+            let mut skip = 1;
             let bytes = remaining.as_bytes();
 
             for i in 0..bytes.len() {
@@ -81,9 +84,29 @@ impl FontType {
                         break;
                     }
                     split_index = i;
+                    #[cfg(since_647)]
+                    {
+                        skip = 1;
+                    }
                 } else if bytes[i] == b'|' {
                     split_index = i;
+                    #[cfg(since_647)]
+                    {
+                        skip = 1;
+                    }
                     break;
+                }
+                // 647's client also breaks a line just after a hyphen, which stays on the line,
+                // once the hyphen itself fits (FontMetrics.method1482, char 45); 2011's dialogue
+                // breaks there too (Katrine's "'keep-your-life-" / "pleasant'", YouTube
+                // TSNR-A0LI8s, 2011-02-28, 193.8s).
+                #[cfg(since_647)]
+                if bytes[i] == b'-' {
+                    if self.string_width(&remaining[..=i]) > max_width {
+                        break;
+                    }
+                    split_index = i + 1;
+                    skip = 0;
                 }
             }
 
@@ -114,7 +137,10 @@ impl FontType {
             lines.push(line);
 
             // advance past the split point
+            #[cfg(before_647)]
             let start = (split_index + 1).min(remaining.len());
+            #[cfg(since_647)]
+            let start = (split_index + skip).min(remaining.len());
             let mut next = remaining[start..].to_string();
 
             // apply saved color to the start of the next line
@@ -312,5 +338,28 @@ impl FontTypeProvider {
         }
 
         FontTypeProvider { fonts, id_index }
+    }
+}
+
+#[cfg(all(test, since_647))]
+mod tests {
+    use super::FontType;
+
+    /// Every glyph 6 px wide: a line of 30 px holds five characters.
+    fn fixed() -> FontType {
+        FontType {
+            id: 0,
+            draw_width: [6; 256],
+        }
+    }
+
+    #[test]
+    fn a_line_breaks_after_a_hyphen_that_fits() {
+        assert_eq!(fixed().split("aaaa-bbbb cc", 30), ["aaaa-", "bbbb", "cc"]);
+    }
+
+    #[test]
+    fn a_hyphen_that_does_not_fit_leaves_the_last_space() {
+        assert_eq!(fixed().split("aa bbbb-cc", 30), ["aa", "bbbb-", "cc"]);
     }
 }

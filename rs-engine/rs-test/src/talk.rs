@@ -42,10 +42,25 @@ impl Conversation {
     /// Whether the texts set during it contain `needle`. A chat box sets each
     /// wrapped line as its own text, so the lines are joined with spaces first;
     /// an item box sets one text with its lines joined by `<br>`, which also
-    /// reads as a space.
+    /// reads as a space. A line the 647 font broke after a hyphen
+    /// ("'keep-your-life-" / "pleasant'") joins the next with no space.
     pub fn said(&self, needle: &str) -> bool {
         let joined = self.texts.join(" ");
-        joined.contains(needle) || joined.replace("<br>", " ").contains(needle)
+        if joined.contains(needle) || joined.replace("<br>", " ").contains(needle) {
+            return true;
+        }
+        let mut hyphens = String::new();
+        for (i, text) in self.texts.iter().enumerate() {
+            if i > 0 && !self.texts[i - 1].ends_with('-') {
+                hyphens.push(' ');
+            }
+            hyphens.push_str(text);
+        }
+        hyphens.contains(needle)
+            || hyphens
+                .replace("-<br>", "-")
+                .replace("<br>", " ")
+                .contains(needle)
     }
 }
 
