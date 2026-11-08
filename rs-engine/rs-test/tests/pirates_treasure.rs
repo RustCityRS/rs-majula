@@ -451,7 +451,25 @@ fn the_key_the_chest_and_the_casket() {
         assert_eq!(var(engine, &client, "hunt"), 3, "no treasure yet");
 
         // With the gardener gone (killed, as in the recording): the casket, and what's in it.
+        // The park's other gardener (3012,3372) wanders; one that has wandered within the dig's
+        // 10 tiles would refuse it too, so every gardener that near goes.
         engine.remove_npc(gardener);
+        let want = id(engine, "npc", "gardener");
+        let near: Vec<u16> = engine
+            .npc_list
+            .npcs
+            .iter()
+            .flatten()
+            .filter(|n| n.npc.uid.id() == want)
+            .filter(|n| {
+                let c = n.npc.pathing.coord;
+                c.x().abs_diff(DIG.0) <= 10 && c.z().abs_diff(DIG.1) <= 10
+            })
+            .map(|n| n.npc.uid.nid())
+            .collect();
+        for nid in near {
+            engine.remove_npc(nid);
+        }
         tele(engine, &mut client, DIG.0, 0, DIG.1);
         op_held1(&mut client, spade, 0);
         let said = messages(engine, &mut client, 12);
