@@ -423,11 +423,12 @@ fn each_key_option_flips_its_own_bit() {
     });
 }
 
-/// The key's order and options are saved, as void-634 saves them.
+/// The key's order and options last the session, as cache 786 has varp 463:
+/// nothing from 2011 shows them outliving a logout (void-634 saves them).
 #[test]
-fn the_key_settings_are_saved() {
+fn the_key_settings_last_the_session() {
     runner::on_loaded_engine(|engine| {
         let varp = engine.cache.varps.get_by_id(KEY_VARP).expect("varp 463");
-        assert!(varp.scope == VarPlayerScope::Perm, "saved");
+        assert!(varp.scope == VarPlayerScope::Temp, "not saved");
     });
 }

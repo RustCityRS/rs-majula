@@ -82,8 +82,9 @@ if (getwindowmode = 1) {
 // rebuilds the key in the next order (clientscript 692
 // worldmap_keysort_button); the server keeps the varp. Varp 463 is protect=no
 // (the map's buttons run unprotected, as every button on 548, 746 and 755
-// does) and scope=perm: void-634 saves the options (persist = true), and no
-// 2011 source says whether they outlived a logout (void-634 only).
+// does) and keeps cache 786's scope: not saved. No dated recording or Jagex
+// page shows the key's order or options outliving a logout; void-634 saves
+// them (persist = true).
 
 // "Re-sort key" (755:54): Traditional, Alphabetical, Categorised, in turn
 // (clientscripts 692 and 1839; YouTube 0PgitXjVAiU, 2011-02-09, 07:45 "Key
