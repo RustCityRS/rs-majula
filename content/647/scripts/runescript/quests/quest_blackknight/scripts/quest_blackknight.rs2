@@ -158,9 +158,10 @@ if (%spy = 1) {
     mes("I can't hear much right now.");
 }
 
-// 2011 has no quest-progress message here (clientscript 2193 reads %spy itself).
+// The quest list redraws from %spy (clientscript 2193 reads it; ql4_refresh redraws).
 [proc,update_blackknight_progress]
 %spy = calc(%spy + 1);
+~send_quest_progress(^questlist_fortress, %spy, ^blackknight_complete);
 
 // "Sir Amik hands you 2,500 coins." in a box, then "Congratulations! Quest complete!" and 2011's
 // scroll (2011-05-04, 340.9-342.5s): "You have completed Black Knights' Fortress!", "3 Quest
