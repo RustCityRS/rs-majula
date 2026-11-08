@@ -315,13 +315,25 @@ transmit=yes
 scope=perm
 
 // 72
-[varplayer_72]
+[hunt_store_employed]
+// Server-only (cache 786 does not transmit it and no clientscript reads it), so 289's
+// varp lives here instead of a new id above the cache's range.
+// Pirate's Treasure: 1 = Luthas has hired the player (289's id 72).
+scope=perm
 
 // 73
-[varplayer_73]
+[crate_bananas]
+// Server-only (cache 786 does not transmit it and no clientscript reads it), so 289's
+// varp lives here instead of a new id above the cache's range.
+// Pirate's Treasure: bananas in Luthas's crate (289's id 73).
+scope=perm
 
 // 74
-[varplayer_74]
+[crate_rum]
+// Server-only (cache 786 does not transmit it and no clientscript reads it), so 289's
+// varp lives here instead of a new id above the cache's range.
+// Pirate's Treasure: 1 = rum in Luthas's crate, 2 = in Wydin's store (289's id 74).
+scope=perm
 
 // 75
 [journey_number]
