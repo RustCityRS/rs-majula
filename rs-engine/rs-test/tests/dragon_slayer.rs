@@ -776,3 +776,110 @@ fn klarense_sells_the_ship_as_2011s() {
         );
     });
 }
+
+/// The Lady Lumbridge's gangplanks (void-634's 3047,3205 -> 3047,3207 level 1 and back to
+/// 3047,3204), her ladders, and the hole in her hold.
+const GANGPLANK_ON: (u16, u16, u16) = (2593, 3047, 3205);
+const GANGPLANK_OFF: (u16, u16, u16) = (2594, 3047, 3206);
+const DECK_LADDER: (u16, u16, u16) = (2590, 3049, 3208);
+const HOLD_LADDER: (u16, u16, u16) = (272, 3049, 3208);
+/// loc_25036, the multiloc cache 786 places at l47_50 level 0 (39,7): the hole until
+/// dragon_hull_repaired (varbit 1837, bit 10 of varp 177) is 1.
+const HOLE: (u16, u16, u16) = (25036, 3047, 3207);
+
+fn at(engine: &Engine, client: &HarnessClient) -> (u16, u8, u16) {
+    let c = engine.harness_player(client.pid).unwrap().pathing.coord;
+    (c.x(), c.y(), c.z())
+}
+
+fn hull_repaired(engine: &Engine, client: &HarnessClient) -> bool {
+    var(engine, client, "varplayer_177") >> 10 & 1 == 1
+}
+
+/// Boarding, the hold, and 2011's repair (2011-05-04 recording mYqjoMQCOHI, 28.6-52.6s): one
+/// plank used on the hole, then Repair for each of the others, 30 steel nails a plank (the 2011
+/// wiki), three lines of 2011's own, and the player left in the hold.
+#[test]
+fn the_lady_lumbridges_hole_takes_three_planks() {
+    let _turn = TURN.lock().unwrap_or_else(|e| e.into_inner());
+    runner::on_loaded_engine(|engine| {
+        let mut client = login(engine, "ds_hull");
+        set_var(engine, &client, "dragonquest", 3);
+        set_var(engine, &client, "dragon_ship_planks", 0);
+        tele(engine, &mut client, 3047, 0, 3204);
+        oploc1(&mut client, GANGPLANK_ON);
+        let said = messages(engine, &mut client, 6);
+        assert!(said.iter().any(|m| m == "You board the ship."), "{said:?}");
+        assert_eq!(at(engine, &client), (3047, 1, 3207), "on the deck");
+
+        oploc1(&mut client, DECK_LADDER);
+        let said = messages(engine, &mut client, 12);
+        assert_eq!(
+            at(engine, &client),
+            (3049, 0, 3208),
+            "in the hold: {said:?}"
+        );
+
+        oploc1(&mut client, HOLE);
+        let t = converse(engine, &mut client, &[], 60);
+        says(
+            &t,
+            &["You'll need to use wooden planks on this hole to patch it up."],
+        );
+
+        give(engine, &client, 0, "plank", 3);
+        give(engine, &client, 1, "steel_nails", 90);
+        give(engine, &client, 2, "hammer", 1);
+        use_on_loc(&mut client, id(engine, "obj", "plank"), 0, HOLE);
+        let t = converse(engine, &mut client, &[], 60);
+        says(
+            &t,
+            &[
+                "You nail a plank over the hole, but you still need more planks to close the hole completely.",
+            ],
+        );
+        assert_eq!(held(engine, &client, "steel_nails"), 60, "30 nails a plank");
+        oploc1(&mut client, HOLE);
+        let t = converse(engine, &mut client, &[], 60);
+        says(
+            &t,
+            &[
+                "You nail a plank over the hole, but you still need one more plank to close the hole completely.",
+            ],
+        );
+        assert!(!hull_repaired(engine, &client));
+        oploc1(&mut client, HOLE);
+        let t = converse(engine, &mut client, &[], 60);
+        says(
+            &t,
+            &[
+                "You nail a final plank over the hole. You have successfully patched the hole in the ship.",
+            ],
+        );
+        assert_eq!(held(engine, &client, "plank"), 0);
+        assert_eq!(held(engine, &client, "steel_nails"), 0);
+        assert_eq!(var(engine, &client, "dragonquest"), 7, "repaired");
+        assert!(
+            hull_repaired(engine, &client),
+            "the hold shows the patched hull"
+        );
+        assert_eq!(
+            at(engine, &client).1,
+            0,
+            "2011 leaves the player in the hold"
+        );
+
+        oploc1(&mut client, HOLD_LADDER);
+        settle(engine, &mut client, 12);
+        // 289's ship_ladder script climbs straight up from where the player stands.
+        assert_eq!(at(engine, &client).1, 1, "back on the deck");
+        tele(engine, &mut client, 3047, 1, 3207);
+        oploc1(&mut client, GANGPLANK_OFF);
+        let said = messages(engine, &mut client, 6);
+        assert!(
+            said.iter().any(|m| m == "You disembark the ship."),
+            "{said:?}"
+        );
+        assert_eq!(at(engine, &client), (3047, 0, 3204), "on the dock");
+    });
+}
