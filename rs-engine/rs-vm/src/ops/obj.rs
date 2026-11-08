@@ -4,8 +4,11 @@ use crate::register::OpsRegistry;
 use crate::state::ObjRef;
 use crate::util::*;
 use crate::{ScriptError, active_obj, handlers, iterators, none};
+use rs_inv::Item;
 use rs_pack::ParamValue;
 use rs_pack::cache::script::*;
+#[cfg(since_647)]
+use rs_util::bits::{fits_bit_range, getbit_range, setbit_range_toint};
 
 /// Registers ground-item (obj) opcodes for spawning, removing, picking up,
 /// and querying items that exist on the world map.
@@ -17,6 +20,7 @@ use rs_pack::cache::script::*;
 /// - **Removal:** `OBJ_DEL`
 /// - **Pickup:** `OBJ_TAKEITEM`
 /// - **Queries:** `OBJ_COORD`, `OBJ_COUNT`, `OBJ_TYPE`
+/// - **Varobjs (647):** `OBJ_GETVAR`, `OBJ_SETVAR`
 ///
 /// # Call Stack
 ///
@@ -59,9 +63,10 @@ pub fn build<E: ScriptEngine + 'static>() -> OpsRegistry {
             let id = obj_id as u16;
             let count = count as u32;
             let receiver = s.active_player;
+            let item = Item::new(id, count);
 
             if let Some(serial) =
-                add_obj_split::<E>(coord, id, count, obj_type.stackable, receiver, duration as u64)?
+                add_obj_split::<E>(coord, item, obj_type.stackable, receiver, duration as u64)?
             {
                 set_active_obj(s, ObjRef { coord, id, serial }, s.int_operand() != 0);
             }
@@ -91,10 +96,10 @@ pub fn build<E: ScriptEngine + 'static>() -> OpsRegistry {
             }
 
             let id = obj_id as u16;
-            let count = count as u32;
+            let item = Item::new(id, count as u32);
 
             if let Some(serial) =
-                add_obj_split::<E>(coord, id, count, obj_type.stackable, None, duration as u64)?
+                add_obj_split::<E>(coord, item, obj_type.stackable, None, duration as u64)?
             {
                 set_active_obj(s, ObjRef { coord, id, serial }, s.int_operand() != 0);
             }
@@ -228,10 +233,16 @@ pub fn build<E: ScriptEngine + 'static>() -> OpsRegistry {
                 return Ok(());
             }
             player.log_floor(true, obj.coord, obj_id, count as i32);
-            let overflow = get_inv_mut::<E>(inv_type.id, player)?.add(obj_id, count, stackable);
+            let item = Item {
+                #[cfg(since_647)]
+                var: engine::<E>().obj_var(obj.coord, obj_id, obj.serial),
+                ..Item::new(obj_id, count)
+            };
+            let overflow = get_inv_mut::<E>(inv_type.id, player)?.add_item(item, stackable);
             if overflow > 0 {
                 let player_coord = player.coord();
-                add_obj_split::<E>(player_coord, obj_id, overflow, stackable, Some(uid), LOOTDROP_DURATION)?;
+                let rest = Item { num: overflow, ..item };
+                add_obj_split::<E>(player_coord, rest, stackable, Some(uid), LOOTDROP_DURATION)?;
             }
 
             engine_mut::<E>().remove_obj(obj.coord, obj_id, obj.serial, obj_type.respawnrate as u64);
@@ -242,7 +253,33 @@ pub fn build<E: ScriptEngine + 'static>() -> OpsRegistry {
             s.push_int(obj.id as i32);
         });
 
-        // obj_setvar // https://x.com/JagexAsh/status/1679942100249464833
+        // 3531
+        #[cfg(since_647)]
+        active_obj!(m, OBJ_GETVAR => |s, obj| {
+            let varobj = pop_varobj::<E>(s)?;
+            require_objvar::<E>(obj.id, varobj)?;
+            let var = engine::<E>().obj_var(obj.coord, obj.id, obj.serial);
+            s.push_int(getbit_range(var, varobj.start_bit as i32, varobj.end_bit as i32));
+        });
+
+        // 3532
+        // https://x.com/JagexAsh/status/1679942100249464833
+        #[cfg(since_647)]
+        active_obj!(m, OBJ_SETVAR => |s, obj| {
+            let value = s.pop_int();
+            let varobj = pop_varobj::<E>(s)?;
+            require_objvar::<E>(obj.id, varobj)?;
+            let (start, end) = (varobj.start_bit as i32, varobj.end_bit as i32);
+            if !fits_bit_range(value, start, end) {
+                return Err(ScriptError::Runtime(format!("Varobj value out of range: {value}")));
+            }
+            let var = engine::<E>().obj_var(obj.coord, obj.id, obj.serial);
+            let var = setbit_range_toint(var, value, start, end);
+            if !engine_mut::<E>().set_obj_var(obj.coord, obj.id, obj.serial, var) {
+                return Err(ScriptError::Runtime("obj_setvar: obj is gone or respawns".into()));
+            }
+        });
+
         // obj_adddelayed // https://x.com/JagexAsh/status/1730321158858276938
     }
 }

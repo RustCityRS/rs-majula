@@ -10,6 +10,8 @@ use rs_grid::CoordGrid;
 use rs_pack::ParamValue;
 use rs_pack::cache::script::*;
 use rs_pack::types::{HuntCheckVis, NpcMode};
+#[cfg(since_647)]
+use rs_util::bits::getbit_range;
 
 /// Registers NPC-related opcodes for spawning, movement, combat, AI mode
 /// management, searching, and NPC state queries.
@@ -419,10 +421,8 @@ pub fn build<E: ScriptEngine + 'static>() -> OpsRegistry {
                             .varbits()
                             .get_by_id(id)
                             .map(|v| {
-                                let start = v.start_bit as u32;
-                                let width = v.end_bit as u32 - start + 1;
-                                let mask = if width >= 32 { u32::MAX } else { (1u32 << width) - 1 };
-                                ((player.get_var(v.basevar).as_int() as u32 >> start) & mask) as i32
+                                let base = player.get_var(v.basevar).as_int();
+                                getbit_range(base, v.start_bit as i32, v.end_bit as i32)
                             })
                             .unwrap_or(-1),
                         Some(rs_pack::types::MultiVar::Varp(id)) => player.get_var(id).as_int(),

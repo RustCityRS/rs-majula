@@ -320,6 +320,9 @@ fn structured_flow_and_typed_procedures_need_no_stack_helpers() {
         signatures[&100004].param_types,
         [Type::Component, Type::Graphic, Type::Colour]
     );
+    // As the unpack does: every script is decompiled before any is registered
+    // back, so no script's text changes how another's reads.
+    let mut parsed = Vec::new();
     for (&id, script) in &scripts {
         let generated = source::decompile(
             script,
@@ -341,11 +344,15 @@ fn structured_flow_and_typed_procedures_need_no_stack_helpers() {
             assert!(generated.contains("~clientscript_100006;"));
             assert!(generated.contains("while ("));
         }
-        let parsed = Source::parse(&generated, path).unwrap();
-        clientscript::register(&parsed.file, &HashMap::new(), &mut registry).unwrap();
+        parsed.push((id, Source::parse(&generated, path).unwrap()));
+    }
+    for (_, source) in &parsed {
+        clientscript::register(&source.file, &HashMap::new(), &mut registry).unwrap();
+    }
+    for (id, source) in &parsed {
         assert_eq!(
-            parsed.compile(&registry, &format).unwrap()[0].1,
-            original[&id]
+            source.compile(&registry, &format).unwrap()[0].1,
+            original[id]
         );
     }
 }

@@ -22,7 +22,7 @@ use rs_entity::{EntityLifeTime, InteractionTarget, Loc, LocSerial, Obj, ObjSeria
 use rs_entity::{MODAL_MAIN, MODAL_NONE, NpcUid, PlayerUid};
 use rs_grid::{CoordGrid, ZoneCoordGrid};
 use rs_info::{NpcRenderer, PlayerRenderer};
-use rs_inv::{Inventory, STACK_LIMIT, StackMode};
+use rs_inv::{Inventory, Item, STACK_LIMIT, StackMode};
 use rs_pack::cache::category::CategoryTypeProvider;
 use rs_pack::cache::dbrow::DbRowTypeProvider;
 use rs_pack::cache::dbtable::{DbTableIndex, DbTableTypeProvider};
@@ -47,6 +47,8 @@ use rs_pack::cache::r#struct::StructTypeProvider;
 #[cfg(since_254)]
 use rs_pack::cache::varbit::VarbitTypeProvider;
 use rs_pack::cache::varn::VarnTypeProvider;
+#[cfg(since_647)]
+use rs_pack::cache::varobj::VarObjTypeProvider;
 use rs_pack::cache::varp::VarPlayerTypeProvider;
 use rs_pack::cache::vars::VarsTypeProvider;
 use rs_pack::cache::wordenc::WordEncProvider;
@@ -237,12 +239,11 @@ pub struct NpcEvent {
 /// A request to spawn a ground object after a delay (measured in game ticks).
 ///
 /// Queued into `Engine::obj_delayed_queue` and processed during the world phase.
-/// Once the `delay` expires, the object is created at `coord` with the specified
-/// `id`, `count`, `receiver`, and `duration` (despawn lifetime).
+/// Once the `delay` expires, `item` is put down at `coord` with the specified
+/// `receiver` and `duration` (despawn lifetime).
 pub struct ObjDelayedRequest {
     pub coord: CoordGrid,
-    pub id: u16,
-    pub count: u32,
+    pub item: Item,
     pub receiver: Option<PlayerUid>,
     pub duration: u64,
     pub delay: i32,
@@ -1998,6 +1999,25 @@ impl Engine {
         serial
     }
 
+    /// Puts `item` down as a despawning obj, its varobjs with it.
+    pub fn add_item_obj(
+        &mut self,
+        coord: CoordGrid,
+        item: Item,
+        receiver: Option<PlayerUid>,
+        duration: u64,
+    ) -> ObjSerial {
+        let obj = Obj::new(coord, EntityLifeTime::Despawn, item.obj, item.num);
+        let serial = self.add_obj(coord, obj, receiver, duration);
+        #[cfg(since_647)]
+        if item.var != 0 {
+            self.zones
+                .zone_mut(coord.x(), coord.y(), coord.z())
+                .set_obj_var(coord.x(), coord.z(), item.obj, serial, item.var);
+        }
+        serial
+    }
+
     /// Forgets objs that appeared too long ago for a reaction to them.
     pub(crate) fn forget_appeared_objs(&mut self) {
         const KEEP: std::time::Duration = std::time::Duration::from_secs(15);
@@ -3681,6 +3701,11 @@ impl ScriptEngine for Engine {
         &self.cache.varbits
     }
 
+    #[cfg(since_647)]
+    fn varobjs(&self) -> &VarObjTypeProvider {
+        &self.cache.varobjs
+    }
+
     fn dbrows(&self) -> &DbRowTypeProvider {
         &self.cache.dbrows
     }
@@ -4107,12 +4132,11 @@ impl ScriptEngine for Engine {
     /// # Call Stack
     ///
     /// **Called by:** VM ops via `ScriptEngine` trait
-    /// **Calls:** `Obj::new`, `Engine::add_obj` (inherent)
+    /// **Calls:** `Engine::add_item_obj`
     fn add_obj(
         &mut self,
         coord: CoordGrid,
-        id: u16,
-        count: u32,
+        item: Item,
         receiver: Option<PlayerUid>,
         duration: u64,
     ) -> rs_vm::Result<ObjSerial> {
@@ -4122,12 +4146,7 @@ impl ScriptEngine for Engine {
                 coord
             )));
         }
-        Ok(self.add_obj(
-            coord,
-            Obj::new(coord, EntityLifeTime::Despawn, id, count),
-            receiver,
-            duration,
-        ))
+        Ok(self.add_item_obj(coord, item, receiver, duration))
     }
 
     /// Enqueues a ground object to be spawned after a delay.
@@ -4141,16 +4160,14 @@ impl ScriptEngine for Engine {
     fn add_obj_delayed(
         &mut self,
         coord: CoordGrid,
-        id: u16,
-        count: u32,
+        item: Item,
         receiver: Option<PlayerUid>,
         duration: u64,
         delay: i32,
     ) {
         self.obj_delayed_queue.add_tail(ObjDelayedRequest {
             coord,
-            id,
-            count,
+            item,
             receiver,
             duration,
             delay,
@@ -4201,6 +4218,22 @@ impl ScriptEngine for Engine {
         self.zones
             .zone(coord.x(), coord.y(), coord.z())?
             .obj_dropped_for(coord.x(), coord.z(), id, serial)
+    }
+
+    #[cfg(since_647)]
+    fn obj_var(&self, coord: CoordGrid, id: u16, serial: ObjSerial) -> i32 {
+        self.zones
+            .zone(coord.x(), coord.y(), coord.z())
+            .map_or(0, |zone| zone.obj_var(coord.x(), coord.z(), id, serial))
+    }
+
+    #[cfg(since_647)]
+    fn set_obj_var(&mut self, coord: CoordGrid, id: u16, serial: ObjSerial, var: i32) -> bool {
+        self.zones.zone(coord.x(), coord.y(), coord.z()).is_some()
+            && self
+                .zones
+                .zone_mut(coord.x(), coord.y(), coord.z())
+                .set_obj_var(coord.x(), coord.z(), id, serial, var)
     }
 
     /// Whether a staff level is kept apart from other players.

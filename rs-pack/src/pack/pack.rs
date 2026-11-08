@@ -103,6 +103,8 @@ fn pack_cached_assets(
         "varclansetting",
         #[cfg(since_647)]
         "area",
+        #[cfg(since_647)]
+        "varobj",
     ];
     let results: HashMap<String, PackedFile> = kinds
         .par_iter()
@@ -179,6 +181,8 @@ fn pack_cached_assets(
                 }
                 #[cfg(since_647)]
                 "area" => area::pack_areas(fc, registry, &constants)?,
+                #[cfg(since_647)]
+                "varobj" => varobj::pack_varobjs(fc, registry, &constants)?,
                 _ => unreachable!(),
             };
             debug!(
@@ -264,6 +268,8 @@ impl FileCache {
         "varclansetting",
         #[cfg(since_647)]
         "area",
+        #[cfg(since_647)]
+        "varobj",
     ];
     pub fn new(source_dir: &Path) -> Self {
         let mut files = Vec::new();

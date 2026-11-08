@@ -1,6 +1,6 @@
 use rs_entity::player::{ChatSettingsPrivate, ChatSettingsPublic, ChatSettingsTradeDuel, Player};
 use rs_grid::CoordGrid;
-use rs_inv::{Inventory, StackMode};
+use rs_inv::{Inventory, Item, StackMode};
 use rs_io::{Packet, crc};
 use rs_pack::cache::inv::InvScope;
 use rs_pack::cache::varp::VarPlayerScope;
@@ -17,7 +17,7 @@ use tracing::error;
 const SAV_MAGIC: u16 = 0x2004;
 
 /// Current save file format version. Incremented when the binary layout changes.
-const SAV_VERSION: u16 = 8;
+const SAV_VERSION: u16 = 9;
 
 /// Total number of player stats (skills).
 const STAT_COUNT: usize = rs_entity::build::STAT_COUNT;
@@ -30,6 +30,7 @@ const STAT_COUNT: usize = rs_entity::build::STAT_COUNT;
 pub struct PlayerProfileInv {
     pub inv_type: u16,
     pub items: Vec<(u16, u16, u32)>, // (slot, obj_id, count)
+    pub vars: Vec<(u16, i32)>,       // (slot, varobjs) of the items with any set
 }
 
 /// A serialisable snapshot of a player's persistent state.
@@ -111,6 +112,7 @@ pub fn extract_profile(player: &Player, cache: &CacheStore) -> PlayerProfile {
             invs.push(PlayerProfileInv {
                 inv_type: type_id,
                 items,
+                vars: inv_vars(inventory),
             });
         }
     }
@@ -210,8 +212,25 @@ pub fn apply_profile(profile: &PlayerProfile, player: &mut Player, cache: &Cache
                 inv.set(slot, obj_id, count);
             }
         }
+        #[cfg(since_647)]
+        for &(slot, var) in &inv_profile.vars {
+            inv.set_var(slot, var);
+        }
         player.invs.insert(inv_profile.inv_type, inv);
     }
+}
+
+/// The varobjs of `inventory`'s items that have any set, by slot.
+pub fn inv_vars(inventory: &Inventory) -> Vec<(u16, i32)> {
+    inventory
+        .slots
+        .iter()
+        .enumerate()
+        .filter_map(|(slot, item)| {
+            item.filter(Item::has_vars)
+                .map(|item| (slot as u16, item.var()))
+        })
+        .collect()
 }
 
 // ---- Binary serialization (local file fallback, TS-compatible) ----
@@ -244,7 +263,7 @@ pub fn save_binary(profile: &PlayerProfile, cache: &CacheStore) -> Vec<u8> {
                 .get_by_id(i.inv_type)
                 .map(|t| t.size as usize)
                 .unwrap_or(28);
-            4 + cap * 7
+            6 + cap * 7 + i.vars.len() * 6
         })
         .sum();
     let mut sav = Packet::new(1024 + varp_bytes + inv_bytes);
@@ -320,6 +339,11 @@ pub fn save_binary(profile: &PlayerProfile, cache: &CacheStore) -> Vec<u8> {
                 sav.p2(0);
             }
         }
+        sav.p2(inv_profile.vars.len() as u16);
+        for &(slot, var) in &inv_profile.vars {
+            sav.p2(slot);
+            sav.p4(var);
+        }
         inv_count += 1;
     }
     sav.data[inv_count_pos] = inv_count;
@@ -345,7 +369,7 @@ pub fn save_binary(profile: &PlayerProfile, cache: &CacheStore) -> Vec<u8> {
 /// DeSerializes a [`PlayerProfile`] from raw binary `.sav` data.
 ///
 /// Validates the magic number, version, and CRC32 checksum before parsing.
-/// Supports forward-compatible reading of older save versions (v2..=v7).
+/// Supports forward-compatible reading of older save versions (v2..=v8).
 ///
 /// # Arguments
 /// * `data` - The raw binary save data.
@@ -447,10 +471,18 @@ pub fn load_binary(data: &[u8]) -> Result<PlayerProfile, &'static str> {
             items.push((slot as u16, id, count));
         }
 
+        let mut vars = Vec::new();
+        if version >= 9 {
+            for _ in 0..sav.g2() {
+                vars.push((sav.g2(), sav.g4s()));
+            }
+        }
+
         if !items.is_empty() {
             invs.push(PlayerProfileInv {
                 inv_type: type_id,
                 items,
+                vars,
             });
         }
     }

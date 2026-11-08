@@ -1,7 +1,7 @@
 use crate::active_player::{ActivePlayer, EnginePlayer};
 use crate::clients::client_db::{DbRequest, LoadResult, SaveOutcome};
 use crate::engine::Engine;
-use crate::player_save::{PlayerProfile, PlayerProfileInv};
+use crate::player_save::{PlayerProfile, PlayerProfileInv, inv_vars};
 use rs_grid::CoordGrid;
 use rs_inv::{Inventory, StackMode};
 use rs_pack::cache::CacheStore;
@@ -588,6 +588,10 @@ fn with_profile_inv(
                 inventory.set(slot, obj, count);
             }
         }
+        #[cfg(since_647)]
+        for &(slot, var) in &profile.invs[index].vars {
+            inventory.set_var(slot, var);
+        }
     }
     let message = f(&mut inventory)?;
     let items: Vec<(u16, u16, u32)> = inventory
@@ -596,15 +600,20 @@ fn with_profile_inv(
         .enumerate()
         .filter_map(|(slot, item)| item.as_ref().map(|i| (slot as u16, i.obj, i.num)))
         .collect();
+    let vars = inv_vars(&inventory);
     match saved {
         Some(index) if items.is_empty() => {
             profile.invs.remove(index);
         }
-        Some(index) => profile.invs[index].items = items,
+        Some(index) => {
+            profile.invs[index].items = items;
+            profile.invs[index].vars = vars;
+        }
         None if items.is_empty() => {}
         None => profile.invs.push(PlayerProfileInv {
             inv_type: inv.id,
             items,
+            vars,
         }),
     }
     Ok(message)

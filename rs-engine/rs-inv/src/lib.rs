@@ -127,6 +127,13 @@ impl Inventory {
     /// Add an item. Stackable items merge into existing stacks.
     /// Returns the count that could NOT be added (0 = full success).
     pub fn add(&mut self, item_id: u16, count: u32, stackable: bool) -> u32 {
+        self.add_item(Item::new(item_id, count), stackable)
+    }
+
+    /// Adds `item.num` of `item`, as [`add`](Self::add) does. A stack takes
+    /// only an item it [stacks with](Item::stacks_with).
+    pub fn add_item(&mut self, item: Item, stackable: bool) -> u32 {
+        let count = item.num;
         if count == 0 {
             return 0;
         }
@@ -135,25 +142,25 @@ impl Inventory {
             if let Some(slot) = self
                 .slots
                 .iter()
-                .position(|s| s.as_ref().is_some_and(|i| i.obj == item_id))
+                .position(|s| s.as_ref().is_some_and(|i| i.stacks_with(&item)))
             {
-                let item = self.slots[slot].as_mut().unwrap();
-                let new_count = item.num as u64 + count as u64;
+                let held = self.slots[slot].as_mut().unwrap();
+                let new_count = held.num as u64 + count as u64;
                 if new_count > STACK_LIMIT as u64 {
-                    let can_add = STACK_LIMIT - item.num;
-                    item.num = STACK_LIMIT;
+                    let can_add = STACK_LIMIT - held.num;
+                    held.num = STACK_LIMIT;
                     self.mark_dirty(slot as u16);
                     return count - can_add;
                 }
-                item.num = new_count as u32;
+                held.num = new_count as u32;
                 self.mark_dirty(slot as u16);
                 return 0;
             }
             if let Some(slot) = self.slots.iter().position(|s| s.is_none()) {
                 let actual = count.min(STACK_LIMIT);
                 self.slots[slot] = Some(Item {
-                    obj: item_id,
                     num: actual,
+                    ..item
                 });
                 self.mark_dirty(slot as u16);
                 return count - actual;
@@ -166,10 +173,7 @@ impl Inventory {
                     break;
                 }
                 if self.slots[i].is_none() {
-                    self.slots[i] = Some(Item {
-                        obj: item_id,
-                        num: 1,
-                    });
+                    self.slots[i] = Some(Item { num: 1, ..item });
                     self.mark_dirty(i as u16);
                     remaining -= 1;
                 }
@@ -185,28 +189,61 @@ impl Inventory {
     /// count 0 rather than cleared, so the item shows as out-of-stock and restocks
     /// over time. Non-stock items are cleared from their slot as usual.
     pub fn delete(&mut self, item_id: u16, count: u32) -> u32 {
+        self.delete_each(item_id, count, |_| {})
+    }
+
+    /// Removes up to `count` of an item as [`delete`](Self::delete) does,
+    /// returning the count removed and, as each slot held them, those of the
+    /// items that carried varobjs.
+    pub fn delete_with_vars(&mut self, item_id: u16, count: u32) -> (u32, Vec<Item>) {
+        let mut with_vars = Vec::new();
+        let completed = self.delete_each(item_id, count, |item| {
+            if item.has_vars() {
+                with_vars.push(item);
+            }
+        });
+        (completed, with_vars)
+    }
+
+    /// Sets the varobjs of the item in `slot`. The client never sees them, so
+    /// the slot isn't sent again.
+    #[cfg(since_647)]
+    pub fn set_var(&mut self, slot: u16, var: i32) {
+        if let Some(Some(item)) = self.slots.get_mut(slot as usize) {
+            item.var = var;
+        }
+    }
+
+    /// Removes up to `count` of an item as [`delete`](Self::delete) does,
+    /// handing what each slot gave up to `taken`.
+    pub fn delete_each(&mut self, item_id: u16, count: u32, mut taken: impl FnMut(Item)) -> u32 {
         let stock_obj = self.stockobj.contains(&item_id);
         let mut remaining = count;
         for i in 0..self.slots.len() {
             if remaining == 0 {
                 break;
             }
-            let Some(item) = self.slots[i].as_ref() else {
+            let Some(item) = self.slots[i] else {
                 continue;
             };
             if item.obj != item_id {
                 continue;
             }
-            let num = item.num;
-            let remove_count = num.min(remaining);
+            let remove_count = item.num.min(remaining);
             remaining -= remove_count;
-            let new_count = num - remove_count;
+            let new_count = item.num - remove_count;
             if new_count == 0 && !stock_obj {
                 self.slots[i] = None;
             } else {
                 self.slots[i].as_mut().unwrap().num = new_count;
             }
             self.mark_dirty(i as u16);
+            if remove_count > 0 {
+                taken(Item {
+                    num: remove_count,
+                    ..item
+                });
+            }
         }
         count - remaining
     }
@@ -263,11 +300,13 @@ impl Inventory {
     /// player save loading, shop restock (`cleanup.rs`), `Inventory::move_to_slot_to`.
     /// **Calls:** nothing.
     pub fn set(&mut self, slot: u16, id: u16, count: u32) {
+        self.set_item(slot, Item::new(id, count));
+    }
+
+    /// Places `item` in `slot` as [`set`](Self::set) does, varobjs and all.
+    pub fn set_item(&mut self, slot: u16, item: Item) {
         if let Some(s) = self.slots.get_mut(slot as usize) {
-            *s = Some(Item {
-                obj: id,
-                num: count,
-            });
+            *s = Some(item);
             self.mark_dirty(slot);
         }
     }
@@ -432,7 +471,7 @@ impl Inventory {
     /// Returns `(overflow, obj_id)` or `None` if slot was empty/invalid.
     pub fn move_from_slot(&mut self, slot: u16, stackable: bool) -> u32 {
         match self.take_slot(slot) {
-            Some(item) => self.add(item.obj, item.num, stackable),
+            Some(item) => self.add_item(item, stackable),
             None => 0,
         }
     }
@@ -441,7 +480,7 @@ impl Inventory {
     /// Returns `(overflow, obj_id)` or `None` if slot was empty/invalid.
     pub fn move_from_slot_to(&mut self, dest: &mut Inventory, slot: u16, stackable: bool) -> u32 {
         match self.take_slot(slot) {
-            Some(item) => dest.add(item.obj, item.num, stackable),
+            Some(item) => dest.add_item(item, stackable),
             None => 0,
         }
     }
@@ -455,11 +494,11 @@ impl Inventory {
         let from_item = self.get(from_slot).copied();
         let to_item = dest.get(to_slot).copied();
         match from_item {
-            Some(item) => dest.set(to_slot, item.obj, item.num),
+            Some(item) => dest.set_item(to_slot, item),
             None => dest.delete_slot(to_slot),
         }
         match to_item {
-            Some(item) => self.set(from_slot, item.obj, item.num),
+            Some(item) => self.set_item(from_slot, item),
             None => self.delete_slot(from_slot),
         }
     }
@@ -513,9 +552,49 @@ impl Inventory {
 pub struct Item {
     pub obj: u16,
     pub num: u32,
+    #[cfg(since_647)]
+    pub var: i32,
 }
 
 impl Item {
+    /// `num` of `obj`, its varobjs all 0.
+    #[inline]
+    pub const fn new(obj: u16, num: u32) -> Self {
+        Self {
+            obj,
+            num,
+            #[cfg(since_647)]
+            var: 0,
+        }
+    }
+
+    /// Whether `other` joins this item's stack: the same obj, with the same
+    /// varobjs.
+    #[inline]
+    pub const fn stacks_with(&self, other: &Item) -> bool {
+        self.obj == other.obj && self.var() == other.var()
+    }
+
+    /// The 32 bits this item's varobjs share.
+    #[cfg(since_647)]
+    #[inline]
+    pub const fn var(&self) -> i32 {
+        self.var
+    }
+
+    /// The 32 bits this item's varobjs share: none before 647.
+    #[cfg(before_647)]
+    #[inline]
+    pub const fn var(&self) -> i32 {
+        0
+    }
+
+    /// Whether any of this item's varobjs is set.
+    #[inline]
+    pub const fn has_vars(&self) -> bool {
+        self.var() != 0
+    }
+
     /// Returns this item as the `(obj_id, count)` pair used for network
     /// transmission, with the count cast to `i32` for the client protocol.
     #[inline]
@@ -711,7 +790,7 @@ mod tests {
 
         // Buying out a stock object keeps its slot occupied at count 0.
         inv.delete(10, 5);
-        assert_eq!(inv.get(0), Some(&Item { obj: 10, num: 0 }));
+        assert_eq!(inv.get(0), Some(&Item::new(10, 0)));
 
         // A non-stock object is cleared from its slot as usual.
         inv.delete(99, 3);
@@ -1467,5 +1546,32 @@ mod tests {
         inv.set(0, 1, 10);
         let result = inv.collect_slots_at(&[]);
         assert!(result.is_empty());
+    }
+
+    #[cfg(since_647)]
+    #[test]
+    fn varobjs_keep_items_apart_and_move_with_them() {
+        let with_var = |var, num| Item {
+            var,
+            ..Item::new(1, num)
+        };
+        let mut bank = Inventory::with_stack_mode(10, StackMode::Always);
+        bank.add_item(with_var(7, 1), false);
+        bank.add_item(with_var(9, 1), false);
+        bank.add_item(with_var(7, 1), false);
+        assert_eq!(bank.get(0), Some(&with_var(7, 2)));
+        assert_eq!(bank.get(1), Some(&with_var(9, 1)));
+
+        let mut inv = Inventory::new(28);
+        bank.move_from_slot_to(&mut inv, 1, false);
+        assert_eq!(inv.get(0), Some(&with_var(9, 1)));
+        inv.move_to_slot_to(&mut bank, 0, 5);
+        assert_eq!(bank.get(5), Some(&with_var(9, 1)));
+
+        bank.add(1, 4, false);
+        assert_eq!(
+            bank.delete_with_vars(1, 7),
+            (7, vec![with_var(7, 2), with_var(9, 1)])
+        );
     }
 }

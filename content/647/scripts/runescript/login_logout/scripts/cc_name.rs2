@@ -55,16 +55,15 @@ if ($result = 1) {
 //Continue button
 [if_button,playerdesign4:com_166]
 if (p_finduid(uid) = true) {
-    runclientscript("playerdesign4_submit_name(0, 1, 1)")
+    runclientscript("playerdesign4_submit_name(0, 1, 1)");
 }
 
 // More suggestions button
 [if_button,playerdesign4:com_165]
 if (p_finduid(uid) = true) {
-    p_request_more_suggestions
-    queue(cc_more_suggestions, 1, 0)
+    p_request_more_suggestions;
+    queue(cc_more_suggestions, 1, 0);
 }
-
 // Previous suggestions button
 [if_button,playerdesign4:com_164]
 if (p_finduid(uid) = true) {

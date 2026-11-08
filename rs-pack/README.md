@@ -114,6 +114,14 @@ per tile, `level x z: area ...`, with up to five areas on a tile. `inarea(area, 
 Multi-combat is the `multiway` area: `map_multiway` and npc hunting read it, and its triggers set
 varc 616, which shows the client's multiway icon.
 
+Varobjs (`.varobj`) are server only too; the cache keeps an empty entry per varobj. Each obj
+carries 32 bits, and a varobj is its `startbit`..`endbit` slice of them. An obj lists the varobjs
+it carries in `objvar=a,b,c`, which also makes it unstackable; the packer refuses a listed varobj
+without bits, or one whose bits overlap another's. Scripts read and write them with
+`inv_getvar(inv, slot, varobj)` / `inv_setvar(inv, slot, varobj, value)` for an inventory slot and
+`obj_getvar(varobj)` / `obj_setvar(varobj, value)` for the active ground obj. The bits go with the
+item wherever it moves, is dropped or is picked up, and are saved with the player.
+
 Names come from `pack/*.pack`. Assets without recovered names use stable names such as
 `model_123`, rather than guessed names. References resolve through those same registries;
 local geometry indices and numeric values remain numeric. `null` represents an absent
@@ -1406,6 +1414,7 @@ server-only types are loaded directly from packed data.
 | dbtable  | `.dbtable`       | Database table schemas                     |
 | varn     | `.varn`          | NPC variable definitions                   |
 | vars     | `.vars`          | Shared variable definitions                |
+| varobj   | `.varobj`        | Bit slices of an obj's 32 bits             |
 | mesanim  | `.mesanim`       | Message animation sequences                |
 | category | `.category`      | Virtual type (debugname only)              |
 
@@ -1653,6 +1662,7 @@ replaced with spaces) and used as the name.
 | 14      | wearpos2       | `p1(wear_pos_id)` (server only)                                                                 |
 | 15      | tradeable      | Flag opcode. Emitted when `tradeable=no` (server only).                                         |
 | 16      | members        | Flag opcode. Emitted when `members=yes`.                                                        |
+| 17      | objvar         | `p1(count)` then `p2(varobj_id)` per varobj (server only, 647). Drops `stackable`.              |
 | 23      | manwear        | `p2(model_id) p1(offset)`                                                                       |
 | 24      | manwear2       | `p2(model_id)`                                                                                  |
 | 25      | womanwear      | `p2(model_id) p1(offset)`                                                                       |
@@ -1922,6 +1932,15 @@ Source extension: `.area`
 | 1      | colour    | `p3(rgb)`          |
 | 2      | trigger   | flag (`yes`)       |
 | 250    | debugname | `pjstr(debugname)` |
+
+##### VAROBJ (Server-Only)
+
+Source extension: `.varobj`
+
+| Opcode | Field             | Format                     |
+|--------|-------------------|----------------------------|
+| 1      | startbit, endbit  | `p1(startbit) p1(endbit)`  |
+| 250    | debugname         | `pjstr(debugname)`         |
 
 ##### DBTABLE (Server-Only)
 

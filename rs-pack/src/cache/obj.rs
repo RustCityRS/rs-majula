@@ -38,6 +38,8 @@ pub struct ObjType {
     pub certtemplate: Option<u16>,
     pub respawnrate: u16,
     pub params: Option<Box<FxHashMap<i32, ParamValue>>>,
+    #[cfg(since_647)]
+    pub objvar: Option<Box<[u16]>>,
     debugname: Option<Box<str>>,
 }
 
@@ -71,6 +73,8 @@ impl From<ObjTypeRaw> for ObjType {
             certtemplate: raw.certtemplate,
             respawnrate: raw.respawnrate,
             params: raw.params,
+            #[cfg(since_647)]
+            objvar: raw.objvar,
             debugname: raw.debugname,
         }
     }
@@ -172,6 +176,8 @@ pub struct ObjTypeRaw {
     pub boughtlink: u16,
     #[cfg(since_647)]
     pub boughttemplate: u16,
+    #[cfg(since_647)]
+    pub objvar: Option<Box<[u16]>>,
     pub respawnrate: u16,
     pub params: Option<Box<FxHashMap<i32, ParamValue>>>,
     debugname: Option<Box<str>>,
@@ -347,6 +353,8 @@ impl CacheType for ObjTypeRaw {
             boughtlink: 0,
             #[cfg(since_647)]
             boughttemplate: 0,
+            #[cfg(since_647)]
+            objvar: None,
             respawnrate: 100,
             params: None,
             debugname: None,
@@ -382,6 +390,8 @@ impl CacheType for ObjTypeRaw {
                 14 => self.wearpos2 = Some(WearPos::try_from(buf.g1()).unwrap()),
                 15 => self.tradeable = false,
                 16 => self.members = true,
+                #[cfg(since_647)]
+                17 => self.objvar = Some(read_array(buf, Packet::g2)),
                 #[cfg(since_647)]
                 18 => self.multistack = buf.g2(),
                 23 => {

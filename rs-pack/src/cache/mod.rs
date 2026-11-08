@@ -35,6 +35,8 @@ use seq_frame::SeqFrameProvider;
 use std::collections::HashMap;
 #[cfg(before_647)]
 use std::sync::Arc;
+#[cfg(since_647)]
+use varobj::VarObjTypeProvider;
 use wordenc::WordEncProvider;
 
 #[cfg(since_647)]
@@ -102,6 +104,8 @@ pub mod texture;
 #[cfg(since_254)]
 pub mod varbit;
 pub mod varn;
+#[cfg(since_647)]
+pub mod varobj;
 pub mod varp;
 pub mod vars;
 pub mod wordenc;
@@ -169,6 +173,8 @@ pub struct CacheStore {
     pub area_map: AreaMap,
     #[cfg(since_647)]
     pub multiway_area: Option<u16>,
+    #[cfg(since_647)]
+    pub varobjs: VarObjTypeProvider,
 }
 
 pub use crate::types::ScriptVarType;

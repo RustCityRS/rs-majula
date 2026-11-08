@@ -438,6 +438,7 @@ pub const CONFIG_GROUPS: &[(&str, u32)] = &[
     ("varp", CONFIG_GROUP_VARP),
     ("area", CONFIG_GROUP_AREA),
     ("varc", CONFIG_GROUP_VARC),
+    ("varobj", CONFIG_GROUP_VAROBJ),
     ("vars", CONFIG_GROUP_VARS),
     ("varn", CONFIG_GROUP_VARN),
     ("struct", CONFIG_GROUP_STRUCT),
@@ -458,7 +459,6 @@ pub const CONFIG_GROUPS: &[(&str, u32)] = &[
 /// the string var tables; 37, 38, 39 and 45 have no known name.
 #[cfg(since_647)]
 pub const CONFIG_EMPTY_TABLES: &[(&str, u32, &str, i32)] = &[
-    ("varobj", CONFIG_GROUP_VAROBJ, "varobject", -1949850762),
     ("config21", CONFIG_GROUP_VARPSTR, "config21", -1751999962),
     ("config23", CONFIG_GROUP_VARSSTR, "config23", -1095511195),
     ("varnbit", CONFIG_GROUP_VARNBIT, "varnpcbit", -1298439089),

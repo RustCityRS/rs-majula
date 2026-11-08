@@ -2,7 +2,7 @@ use crate::engine::{ScriptEngine, ScriptNpc, ScriptPlayer, engine, engine_mut};
 use crate::state::{LocRef, ObjRef, ScriptState};
 use crate::{NpcUid, ObjSerial, PlayerUid, Result, ScriptError};
 use rs_grid::CoordGrid;
-use rs_inv::{Inventory, STACK_LIMIT, StackMode};
+use rs_inv::{Inventory, Item, STACK_LIMIT, StackMode};
 use rs_pack::ParamValue;
 use rs_pack::cache::dbrow::DbRowType;
 use rs_pack::cache::r#enum::EnumType;
@@ -19,6 +19,8 @@ use rs_pack::cache::script::Script;
 use rs_pack::cache::seq::SeqType;
 use rs_pack::cache::spotanim::SpotAnimType;
 use rs_pack::cache::r#struct::StructType;
+#[cfg(since_647)]
+use rs_pack::cache::{provider::CacheType, varobj::VarObjType};
 use std::sync::Arc;
 
 pub const LOOTDROP_DURATION: u64 = (200 * 3) >> 1;
@@ -50,30 +52,80 @@ pub(crate) fn require_inv_access(state: &ScriptState, inv: &InvType, idx: usize)
     Ok(())
 }
 
-/// Drops `count` of object `id` on the ground at `coord`, splitting the way the
-/// inventory and obj opcodes expect: a non-stackable object (or a lone item) is
-/// dropped as individual single-count piles, while a stackable amount is dropped
-/// as one combined pile.
+/// Drops `item` on the ground at `coord`, splitting the way the inventory and
+/// obj opcodes expect: a non-stackable object (or a lone item) is dropped as
+/// individual single-count piles, each with the item's varobjs, while a
+/// stackable amount is dropped as one combined pile.
 ///
 /// Returns the serial of the last pile, the one a script's active obj becomes,
 /// or `None` if nothing was dropped.
 pub(crate) fn add_obj_split<E: ScriptEngine + 'static>(
     coord: CoordGrid,
-    id: u16,
-    count: u32,
+    item: Item,
     stackable: bool,
     receiver: Option<PlayerUid>,
     duration: u64,
 ) -> Result<Option<ObjSerial>> {
     let mut serial = None;
-    if !stackable || count == 1 {
-        for _ in 0..count {
-            serial = Some(engine_mut::<E>().add_obj(coord, id, 1, receiver, duration)?);
+    if !stackable || item.num == 1 {
+        for _ in 0..item.num {
+            let pile = Item { num: 1, ..item };
+            serial = Some(engine_mut::<E>().add_obj(coord, pile, receiver, duration)?);
         }
     } else {
-        serial = Some(engine_mut::<E>().add_obj(coord, id, count, receiver, duration)?);
+        serial = Some(engine_mut::<E>().add_obj(coord, item, receiver, duration)?);
     }
     Ok(serial)
+}
+
+/// What [`Inventory::delete_with_vars`] took, ready to put down: the items
+/// without varobjs as one, then each with its own.
+pub(crate) fn taken_items(
+    obj: u16,
+    completed: u32,
+    with_vars: Vec<Item>,
+) -> impl Iterator<Item = Item> {
+    let plain = completed - with_vars.iter().map(|item| item.num).sum::<u32>();
+    (plain > 0)
+        .then(|| Item::new(obj, plain))
+        .into_iter()
+        .chain(with_vars)
+}
+
+/// Pops a varobj id from the script stack and looks up its [`VarObjType`].
+#[cfg(since_647)]
+pub(crate) fn pop_varobj<E: ScriptEngine + 'static>(
+    state: &mut ScriptState,
+) -> Result<&'static VarObjType> {
+    let id = state.pop_int();
+    engine::<E>()
+        .varobjs()
+        .get_by_id(id as u16)
+        .ok_or(ScriptError::VarObjNotFound(id))
+}
+
+/// Errors unless obj `obj` lists `varobj` in its `objvar`.
+#[cfg(since_647)]
+pub(crate) fn require_objvar<E: ScriptEngine + 'static>(
+    obj: u16,
+    varobj: &VarObjType,
+) -> Result<()> {
+    let obj_type = engine::<E>()
+        .objs()
+        .get_by_id(obj)
+        .ok_or(ScriptError::ObjNotFound(obj as i32))?;
+    if obj_type
+        .objvar
+        .as_deref()
+        .is_some_and(|vars| vars.contains(&varobj.id))
+    {
+        return Ok(());
+    }
+    Err(ScriptError::Runtime(format!(
+        "Obj {:?} has no varobj {:?}",
+        obj_type.debugname(),
+        varobj.debugname()
+    )))
 }
 
 /// Returns the uid held in the chosen active player slot.

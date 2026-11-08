@@ -14,7 +14,8 @@ macro_rules! columns {
     () => {
         "x, z, y, body, colors, gender, runenergy, playtime, stats, levels, \
          afk_zones, last_afk_zone, public_chat, private_chat, trade_chat, \
-         last_date, varp_ids, varp_values, inv_types, inv_slots, inv_objs, inv_counts"
+         last_date, varp_ids, varp_values, inv_types, inv_slots, inv_objs, inv_counts, \
+         inv_vars"
     };
 }
 

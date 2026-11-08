@@ -1,7 +1,7 @@
 use crate::state::{LocRef, NpcRef, ObjRef, QueuePriority, ScriptArgument, TimerPriority};
 use crate::{ObjSerial, PlayerUid};
 use rs_grid::CoordGrid;
-use rs_inv::Inventory;
+use rs_inv::{Inventory, Item};
 use rs_pack::cache::VarValue;
 use rs_pack::cache::category::CategoryTypeProvider;
 use rs_pack::cache::dbrow::DbRowTypeProvider;
@@ -27,6 +27,8 @@ use rs_pack::cache::r#struct::StructTypeProvider;
 #[cfg(since_254)]
 use rs_pack::cache::varbit::VarbitTypeProvider;
 use rs_pack::cache::varn::VarnTypeProvider;
+#[cfg(since_647)]
+use rs_pack::cache::varobj::VarObjTypeProvider;
 use rs_pack::cache::varp::VarPlayerTypeProvider;
 use rs_pack::cache::vars::VarsTypeProvider;
 use rs_pack::cache::wordenc::WordEncProvider;
@@ -71,6 +73,8 @@ pub trait ScriptEngine {
     fn varps(&self) -> &VarPlayerTypeProvider;
     #[cfg(since_254)]
     fn varbits(&self) -> &VarbitTypeProvider;
+    #[cfg(since_647)]
+    fn varobjs(&self) -> &VarObjTypeProvider;
     fn dbrows(&self) -> &DbRowTypeProvider;
     fn dbtables(&self) -> &DbTableTypeProvider;
     fn dbindex(&self) -> &DbTableIndex;
@@ -274,8 +278,7 @@ pub trait ScriptEngine {
     ///
     /// # Arguments
     /// * `coord` - The packed coordinate where the object should appear.
-    /// * `id` - The object type identifier.
-    /// * `count` - The stack count for the object.
+    /// * `item` - The object, its stack count and (from 647) its varobjs.
     /// * `receiver` - Optional player who alone may see the object. `None`
     ///   makes it visible to everyone.
     /// * `duration` - The tick at which the object should be removed.
@@ -286,8 +289,7 @@ pub trait ScriptEngine {
     fn add_obj(
         &mut self,
         coord: CoordGrid,
-        id: u16,
-        count: u32,
+        item: Item,
         receiver: Option<PlayerUid>,
         duration: u64,
     ) -> crate::Result<ObjSerial>;
@@ -296,16 +298,14 @@ pub trait ScriptEngine {
     ///
     /// # Arguments
     /// * `coord` - The packed coordinate where the object should appear.
-    /// * `id` - The object type identifier.
-    /// * `count` - The stack count for the object.
+    /// * `item` - The object, its stack count and (from 647) its varobjs.
     /// * `receiver` - Optional player restricting visibility.
     /// * `duration` - The tick at which the object should be removed.
     /// * `delay` - The number of ticks to wait before the object becomes visible.
     fn add_obj_delayed(
         &mut self,
         coord: CoordGrid,
-        id: u16,
-        count: u32,
+        item: Item,
         receiver: Option<PlayerUid>,
         duration: u64,
         delay: i32,
@@ -345,6 +345,16 @@ pub trait ScriptEngine {
     /// `None` for one nobody dropped (a map spawn, or one a script put down
     /// for everyone).
     fn obj_dropped_for(&self, coord: CoordGrid, id: u16, serial: ObjSerial) -> Option<u64>;
+
+    /// The varobjs of a ground object: 0 for one with none set, or that
+    /// isn't there.
+    #[cfg(since_647)]
+    fn obj_var(&self, coord: CoordGrid, id: u16, serial: ObjSerial) -> i32;
+
+    /// Sets the varobjs of a dropped ground object; `false` if it isn't there
+    /// or is a map spawn, which keeps none.
+    #[cfg(since_647)]
+    fn set_obj_var(&mut self, coord: CoordGrid, id: u16, serial: ObjSerial, var: i32) -> bool;
 
     /// Whether staff of level `staffmodlevel` are kept apart from other
     /// players on this world: besides the engine's own checks, they don't

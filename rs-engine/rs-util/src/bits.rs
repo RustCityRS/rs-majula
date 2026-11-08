@@ -152,13 +152,31 @@ pub const fn clearbit_range(num: i32, start: i32, end: i32) -> i32 {
 #[inline(always)]
 pub const fn setbit_range_toint(num: i32, value: i32, start: i32, end: i32) -> i32 {
     let max = make_mask(end - start + 1);
-    let assign = if value > max { max } else { value };
+    let assign = if max != -1 && value > max { max } else { value };
     clearbit_range(num, start, end) | assign.wrapping_shl(start as u32)
+}
+
+/// Bits `start..=end` of `num`, shifted down to bit 0.
+///
+/// Implements the GETBIT_RANGE VM opcode, and reads varbits and varobjs.
+#[inline(always)]
+pub const fn getbit_range(num: i32, start: i32, end: i32) -> i32 {
+    let r = 31i32.wrapping_sub(end);
+    (num.wrapping_shl(r as u32) as u32).wrapping_shr(start.wrapping_add(r) as u32) as i32
+}
+
+/// Whether bits `start..=end` hold `value`: it is neither negative nor wider
+/// than them. A varbit or varobj stores only such values.
+#[inline(always)]
+pub const fn fits_bit_range(value: i32, start: i32, end: i32) -> bool {
+    value >= 0 && value as u32 <= make_mask(end - start + 1) as u32
 }
 
 #[cfg(test)]
 mod tests {
-    use crate::bits::{clearbit_range, setbit_range, setbit_range_toint};
+    use crate::bits::{
+        clearbit_range, fits_bit_range, getbit_range, setbit_range, setbit_range_toint,
+    };
 
     #[test]
     fn test_bitcount() {
@@ -256,23 +274,36 @@ mod tests {
 
     #[test]
     fn getbit_range_extraction() {
-        // Mimics the GETBIT_RANGE opcode: ((a << (31-c)) as u32 >> (b + 31-c)) as i32
-        let a = setbit_range_toint(0, 5, 4, 7); // value 5 at bits 4-7
-        let b = 4; // start bit
-        let c = 7; // end bit
-        let r = 31 - c;
-        let extracted = ((a.wrapping_shl(r as u32) as u32) >> ((b + r) as u32)) as i32;
-        assert_eq!(extracted, 5);
+        let a = setbit_range_toint(0, 5, 4, 7);
+        assert_eq!(getbit_range(a, 4, 7), 5);
     }
 
     #[test]
     fn getbit_range_from_zero() {
         let a = setbit_range_toint(0, 3, 0, 2);
-        let b = 0;
-        let c = 2;
-        let r = 31 - c;
-        let extracted = ((a.wrapping_shl(r as u32) as u32) >> ((b + r) as u32)) as i32;
-        assert_eq!(extracted, 3);
+        assert_eq!(getbit_range(a, 0, 2), 3);
+    }
+
+    #[test]
+    fn getbit_range_full_width_and_top_bit() {
+        assert_eq!(getbit_range(-5, 0, 31), -5);
+        assert_eq!(getbit_range(i32::MIN, 31, 31), 1);
+        assert_eq!(getbit_range(-1, 18, 31), 0x3FFF);
+    }
+
+    #[test]
+    fn setbit_range_toint_full_width_keeps_the_value() {
+        assert_eq!(setbit_range_toint(0, 5, 0, 31), 5);
+        assert_eq!(setbit_range_toint(-1, 0, 0, 31), 0);
+    }
+
+    #[test]
+    fn fits_bit_range_bounds() {
+        assert!(fits_bit_range(15, 0, 3));
+        assert!(!fits_bit_range(16, 0, 3));
+        assert!(!fits_bit_range(-1, 0, 3));
+        assert!(fits_bit_range(i32::MAX, 0, 31));
+        assert!(!fits_bit_range(-1, 0, 31));
     }
 
     #[test]
@@ -319,9 +350,11 @@ mod tests {
         // Set value, then extract it back
         for value in [0, 1, 7, 15] {
             let packed = setbit_range_toint(0, value, 8, 11);
-            let r = 31 - 11;
-            let extracted = ((packed.wrapping_shl(r as u32) as u32) >> ((8 + r) as u32)) as i32;
-            assert_eq!(extracted, value, "round-trip failed for value {value}");
+            assert_eq!(
+                getbit_range(packed, 8, 11),
+                value,
+                "round-trip failed for value {value}"
+            );
         }
     }
 

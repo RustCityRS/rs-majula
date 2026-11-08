@@ -1,5 +1,4 @@
 use crate::engine::{Engine, engine_mut};
-use rs_entity::{EntityLifeTime, Obj};
 use rs_pack::types::HuntModeType;
 use rs_vm::state::ExecutionState;
 
@@ -113,9 +112,12 @@ impl Engine {
 
             h = self.obj_delayed_queue.next();
             let request = self.obj_delayed_queue.unlink(idx);
-            let coord = request.coord;
-            let obj = Obj::new(coord, EntityLifeTime::Despawn, request.id, request.count);
-            engine_mut().add_obj(coord, obj, request.receiver, request.duration);
+            engine_mut().add_item_obj(
+                request.coord,
+                request.item,
+                request.receiver,
+                request.duration,
+            );
         }
     }
 

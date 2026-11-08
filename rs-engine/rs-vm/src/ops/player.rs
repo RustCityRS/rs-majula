@@ -898,7 +898,7 @@ pub fn build<E: ScriptEngine + 'static>() -> OpsRegistry {
 
         // 3516
         #[cfg(since_647)]
-        active_player_mut!(m, P_STRINGDIALOG => |s, _player| {
+        protected_active_player_mut!(m, P_STRINGDIALOG => |s, _player| {
             s.execution = ExecutionState::StringDialog;
         });
 
@@ -907,7 +907,7 @@ pub fn build<E: ScriptEngine + 'static>() -> OpsRegistry {
         // resumes the script with last_int (1 = set, 0 = taken, -1 = error)
         // and last_string (the formatted screen name).
         #[cfg(since_647)]
-        active_player_mut!(m, P_SETDISPLAYNAME => |s, player| {
+        protected_active_player_mut!(m, P_SETDISPLAYNAME => |s, player| {
             let name = s.pop_string();
             let uid = player.uid();
             engine_mut::<E>().request_set_display_name(uid, name);
@@ -916,7 +916,7 @@ pub fn build<E: ScriptEngine + 'static>() -> OpsRegistry {
 
         // 3518
         #[cfg(since_647)]
-        active_player!(m, P_GET_SUGGESTION => |s, player| {
+        protected_active_player!(m, P_GET_SUGGESTION => |s, player| {
             let slot = s.pop_int() as usize;
             let page = player.suggestion_page();
             let index = page * 3 + slot;
@@ -930,19 +930,19 @@ pub fn build<E: ScriptEngine + 'static>() -> OpsRegistry {
 
         // 3519
         #[cfg(since_647)]
-        active_player_mut!(m, P_NEXT_SUGGESTIONS => |_s, player| {
+        protected_active_player_mut!(m, P_NEXT_SUGGESTIONS => |_s, player| {
             player.next_suggestion_page();
         });
 
         // 3520
         #[cfg(since_647)]
-        active_player_mut!(m, P_PREV_SUGGESTIONS => |_s, player| {
+        protected_active_player_mut!(m, P_PREV_SUGGESTIONS => |_s, player| {
             player.prev_suggestion_page();
         });
 
         // 3521
         #[cfg(since_647)]
-        active_player_mut!(m, P_REQUEST_MORE_SUGGESTIONS => |_s, player| {
+        protected_active_player_mut!(m, P_REQUEST_MORE_SUGGESTIONS => |_s, player| {
             let uid = player.uid();
             engine_mut::<E>().request_more_suggestions(uid);
         });

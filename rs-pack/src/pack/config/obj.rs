@@ -3,7 +3,11 @@ use std::collections::HashMap;
 #[cfg(since_647)]
 use super::mark_client_params;
 use crate::pack::config::param::parse_params;
+#[cfg(since_647)]
+use crate::pack::pack::ConfigSections;
 use crate::pack::pack::{FileCache, parse_config_sections_cached};
+#[cfg(since_647)]
+use crate::pack::pack_registry::PackFile;
 use crate::pack::pack_registry::{PackRegistry, PackedFile};
 use crate::pack::packed_data::PackedData;
 #[cfg(before_647)]
@@ -21,6 +25,8 @@ pub fn pack_objs(
     let pack = &registry.obj;
 
     let configs = parse_config_sections_cached(file_cache, "obj", constants)?;
+    #[cfg(since_647)]
+    let varobjs = parse_config_sections_cached(file_cache, "varobj", constants)?;
 
     #[cfg(since_647)]
     let client_params = file_cache
@@ -55,6 +61,8 @@ pub fn pack_objs(
         };
         #[cfg(since_647)]
         let props = &mark_client_params(props, &registry.param, client_params);
+        #[cfg(since_647)]
+        let has_objvar = props.iter().any(|(key, _)| key == "objvar");
         #[cfg(before_647)]
         let mut cert_props_owned;
         #[cfg(before_647)]
@@ -191,6 +199,8 @@ pub fn pack_objs(
 
                     // 11
                     "stackable" => parse_bool(value, |v| {
+                        #[cfg(since_647)]
+                        let v = v && !has_objvar;
                         if v {
                             client.p1(11);
                         }
@@ -229,6 +239,12 @@ pub fn pack_objs(
                             client.p1(16);
                         }
                     }),
+
+                    // 17
+                    #[cfg(since_647)]
+                    "objvar" => {
+                        pack_objvars(&mut server, value, &registry.varobj, &varobjs, debugname)
+                    }
 
                     #[cfg(since_647)]
                     "multistack" => parse_ref(&registry.obj, "obj", value, |v| {
@@ -648,5 +664,34 @@ fn pack_batch(
         }
         249 => parse_params(registry, param_types, packed, props, name),
         _ => unreachable!(),
+    }
+}
+
+/// The varobjs an obj carries. Each must have its bits, apart from the others'.
+#[cfg(since_647)]
+fn pack_objvars(
+    server: &mut PackedData,
+    value: &str,
+    pack: &PackFile,
+    varobjs: &ConfigSections,
+    debugname: &str,
+) {
+    let names: Vec<&str> = value.split(',').map(str::trim).collect();
+    let mut ranges: Vec<(u8, u8)> = Vec::with_capacity(names.len());
+    server.p1(17);
+    server.p1(u8::try_from(names.len()).expect("Too many obj varobjs"));
+    for name in names {
+        let bit = |key: &str| {
+            let props = varobjs.get(name)?;
+            props.iter().find(|(k, _)| k == key)?.1.parse::<u8>().ok()
+        };
+        let (Some(start), Some(end)) = (bit("startbit"), bit("endbit")) else {
+            panic!("[{debugname}]: varobj {name} has no startbit and endbit");
+        };
+        if let Some((s, e)) = ranges.iter().find(|&&(s, e)| start <= e && s <= end) {
+            panic!("[{debugname}]: varobj {name}'s bits {start}..={end} overlap {s}..={e}");
+        }
+        ranges.push((start, end));
+        parse_ref(pack, "varobj", name, |id| server.p2(id));
     }
 }

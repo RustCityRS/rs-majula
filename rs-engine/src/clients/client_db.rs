@@ -1409,6 +1409,14 @@ fn to_save(profile: &PlayerProfile) -> PlayerSave {
             save.inv_counts.push(count as i32);
         }
     }
+    if profile.invs.iter().any(|inv| !inv.vars.is_empty()) {
+        for inv in &profile.invs {
+            for &(slot, ..) in &inv.items {
+                let var = inv.vars.iter().find(|&&(s, _)| s == slot);
+                save.inv_vars.push(var.map_or(0, |&(_, var)| var));
+            }
+        }
+    }
     save
 }
 
@@ -1438,13 +1446,21 @@ pub fn profile_from_save(save: PlayerSave) -> PlayerProfile {
             save.inv_objs.get(i).copied().unwrap_or(0) as u16,
             save.inv_counts.get(i).copied().unwrap_or(0) as u32,
         );
-        if let Some(inv) = invs.iter_mut().find(|inv| inv.inv_type == inv_type) {
-            inv.items.push(item);
-        } else {
-            invs.push(PlayerProfileInv {
-                inv_type,
-                items: vec![item],
-            });
+        let var = save.inv_vars.get(i).copied().unwrap_or(0);
+        let index = match invs.iter().position(|inv| inv.inv_type == inv_type) {
+            Some(index) => index,
+            None => {
+                invs.push(PlayerProfileInv {
+                    inv_type,
+                    items: Vec::new(),
+                    vars: Vec::new(),
+                });
+                invs.len() - 1
+            }
+        };
+        invs[index].items.push(item);
+        if var != 0 {
+            invs[index].vars.push((item.0, var));
         }
     }
 
@@ -1589,10 +1605,12 @@ mod tests {
                 PlayerProfileInv {
                     inv_type: 93,
                     items: vec![(0, 995, u32::MAX >> 1), (27, 1351, 1)],
+                    vars: vec![(27, -7)],
                 },
                 PlayerProfileInv {
                     inv_type: 94,
                     items: vec![(3, 1277, 1)],
+                    vars: vec![],
                 },
             ],
             afk_zones: [7, 8],
@@ -1616,6 +1634,7 @@ mod tests {
         for (a, b) in back.invs.iter().zip(&profile.invs) {
             assert_eq!(a.inv_type, b.inv_type);
             assert_eq!(a.items, b.items);
+            assert_eq!(a.vars, b.vars);
         }
         assert_eq!(back.afk_zones, profile.afk_zones);
         assert_eq!(

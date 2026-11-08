@@ -26,6 +26,7 @@ use crate::cache::spotanim::SpotAnimTypeRaw;
 use crate::cache::r#struct::StructTypeRaw;
 use crate::cache::varbit::VarbitType;
 use crate::cache::varn::VarnType;
+use crate::cache::varobj::VarObjType;
 use crate::cache::varp::VarPlayerTypeRaw;
 use crate::cache::vars::VarsType;
 use crate::cache::wordenc::WordEncProvider;
@@ -191,6 +192,7 @@ fn load_cache(
     let dbrows = load_config::<DbRowType, _>(assets, "dbrow", ())?;
     let categories = load_config::<CategoryType, _>(assets, "category", ())?;
     let areas: TypeProvider<AreaType> = load_config::<AreaType, _>(assets, "area", ())?;
+    let varobjs: TypeProvider<VarObjType> = load_config::<VarObjType, _>(assets, "varobj", ())?;
 
     let locs = load_config::<LocTypeRaw, LocType>(assets, "loc", ())?;
 
@@ -247,6 +249,7 @@ fn load_cache(
         multiway_area: areas.get_by_debugname(MULTIWAY).map(|area| area.id),
         areas,
         area_map,
+        varobjs,
     }))
 }
 

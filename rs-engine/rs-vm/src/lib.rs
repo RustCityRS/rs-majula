@@ -200,6 +200,10 @@ pub enum ScriptError {
     #[error("Varbit not found: {0}")]
     VarbitNotFound(i32),
 
+    #[cfg(since_647)]
+    #[error("Varobj not found: {0}")]
+    VarObjNotFound(i32),
+
     #[error("Npc not found: {0}")]
     NpcNotFound(i32),
 

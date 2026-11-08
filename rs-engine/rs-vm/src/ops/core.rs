@@ -8,6 +8,8 @@ use rs_pack::cache::VarValue;
 #[cfg(since_254)]
 use rs_pack::cache::provider::CacheType;
 use rs_pack::cache::script::*;
+#[cfg(since_254)]
+use rs_util::bits::{fits_bit_range, getbit_range, setbit_range_toint};
 
 /// Registers the core virtual machine opcodes that handle stack manipulation,
 /// control flow, variable access, and subroutine management.
@@ -201,11 +203,8 @@ pub fn build<E: ScriptEngine + 'static>() -> OpsRegistry {
                 .varbits()
                 .get_by_id(id)
                 .ok_or(ScriptError::VarbitNotFound(id as i32))?;
-            let start = varbit.start_bit as u32;
-            let width = varbit.end_bit as u32 - start + 1;
-            let mask = if width >= 32 { u32::MAX } else { (1u32 << width) - 1 };
-            let base = get_active_player::<E>(s, secondary)?.get_var(varbit.basevar).as_int() as u32;
-            s.push_int(((base >> start) & mask) as i32);
+            let base = get_active_player::<E>(s, secondary)?.get_var(varbit.basevar).as_int();
+            s.push_int(getbit_range(base, varbit.start_bit as i32, varbit.end_bit as i32));
         });
 
         // 27
@@ -225,18 +224,15 @@ pub fn build<E: ScriptEngine + 'static>() -> OpsRegistry {
             if !s.pointers.has(ScriptState::PROTECTED_ACTIVE_PLAYER[secondary as usize]) && basevar.protect {
                 return Err(ScriptError::Runtime(format!("Varbit: {:?} requires protected access!", varbit.debugname())))
             }
-            let start = varbit.start_bit as u32;
-            let width = varbit.end_bit as u32 - start + 1;
-            let value_mask = if width >= 32 { u32::MAX } else { (1u32 << width) - 1 };
+            let (start, end) = (varbit.start_bit as i32, varbit.end_bit as i32);
             let mut value = s.pop_int();
-            if value < 0 || value as i64 > value_mask as i64 {
+            if !fits_bit_range(value, start, end) {
                 value = 0;
             }
-            let shifted_mask = value_mask << start;
             let player = get_active_player_mut::<E>(s, secondary)?;
-            let current = player.get_var(varbit.basevar).as_int() as u32;
-            let new_value = (shifted_mask & ((value as u32) << start)) | (current & !shifted_mask);
-            player.set_var(varbit.basevar, VarValue::from_int(basevar.var_type, new_value as i32), basevar.transmit);
+            let current = player.get_var(varbit.basevar).as_int();
+            let new_value = setbit_range_toint(current, value, start, end);
+            player.set_var(varbit.basevar, VarValue::from_int(basevar.var_type, new_value), basevar.transmit);
         });
 
         // 31

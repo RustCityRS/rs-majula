@@ -46,6 +46,8 @@ pub struct Zone {
     pub objs: Vec<Obj>,
     receivers: FxHashMap<u64, u64>,
     dropped_for: FxHashMap<u64, u64>,
+    #[cfg(since_647)]
+    vars: FxHashMap<u64, i32>,
     events: Vec<ZoneEvent>,
     shared: Vec<u8>,
     next_serial: ObjSerial,
@@ -87,6 +89,8 @@ impl Zone {
             objs: Vec::new(),
             receivers: FxHashMap::default(),
             dropped_for: FxHashMap::default(),
+            #[cfg(since_647)]
+            vars: FxHashMap::default(),
             events: Vec::new(),
             shared: Vec::new(),
             next_serial: ObjSerial::FIRST,
@@ -972,6 +976,35 @@ impl Zone {
         }
     }
 
+    /// The varobjs of the obj with this [`serial`](Obj::serial): 0 for one
+    /// with none set, or that isn't there.
+    #[cfg(since_647)]
+    pub fn obj_var(&self, x: u16, z: u16, id: u16, serial: ObjSerial) -> i32 {
+        self.obj_index(x, z, id, serial)
+            .and_then(|idx| self.vars.get(&self.objs[idx].oid()).copied())
+            .unwrap_or(0)
+    }
+
+    /// Sets the varobjs of the dropped obj with this [`serial`](Obj::serial).
+    /// A map spawn keeps none, so it is refused, as is an obj that isn't there.
+    #[cfg(since_647)]
+    pub fn set_obj_var(&mut self, x: u16, z: u16, id: u16, serial: ObjSerial, var: i32) -> bool {
+        let Some(idx) = self.obj_index(x, z, id, serial) else {
+            return false;
+        };
+        let obj = &self.objs[idx];
+        if obj.lifetime() != EntityLifeTime::Despawn {
+            return false;
+        }
+        let oid = obj.oid();
+        if var == 0 {
+            self.vars.remove(&oid);
+        } else {
+            self.vars.insert(oid, var);
+        }
+        true
+    }
+
     /// Reveals a privately-owned obj to all players and queues an enclosed `ObjReveal` event.
     ///
     /// Transitions an obj from player-private visibility to public visibility by
@@ -1147,6 +1180,8 @@ impl Zone {
         self.clear_queued_events(oid);
         self.receivers.remove(&oid);
         self.dropped_for.remove(&oid);
+        #[cfg(since_647)]
+        self.vars.remove(&oid);
         if self.objs[idx].lifetime() == EntityLifeTime::Despawn {
             self.objs.remove(idx);
         } else {

@@ -77,6 +77,8 @@ pub mod varbit;
 pub mod varc;
 #[cfg(since_647)]
 pub mod varclansetting;
+#[cfg(since_647)]
+pub mod varobj;
 pub mod varp;
 pub mod vars;
 

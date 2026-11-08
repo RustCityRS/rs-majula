@@ -5,7 +5,7 @@
 //! compiler gives it an id past the registry's end -- and the first script to
 //! touch it reads past the player's or world's var array and stops the engine.
 //! Agility's course-progress varps did exactly that. This fails on any `%name`
-//! in a script that no varp, varbit, var or varn registry holds.
+//! in a script that no varp, varbit, var, varn or varc registry holds.
 //!
 //! ```text
 //! cargo test -p rs-pack --test script_vars_registered_647
@@ -34,7 +34,7 @@ fn every_script_var_is_registered() {
     let root = Path::new(env!("CARGO_MANIFEST_DIR")).join("..");
     let pack = root.join("content/647/pack");
     let mut registered = BTreeSet::new();
-    for kind in ["varp", "varbit", "vars", "varn"] {
+    for kind in ["varp", "varbit", "vars", "varn", "varc", "varcs"] {
         registered.extend(names(&pack.join(format!("{kind}.pack"))));
     }
 

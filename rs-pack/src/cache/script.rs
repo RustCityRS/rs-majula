@@ -625,6 +625,10 @@ pub const OBJ_NAME: u16 = 3508;
 pub const OBJ_PARAM: u16 = 3509;
 pub const OBJ_TAKEITEM: u16 = 3510;
 pub const OBJ_TYPE: u16 = 3511;
+#[cfg(since_647)]
+pub const OBJ_GETVAR: u16 = 3531;
+#[cfg(since_647)]
+pub const OBJ_SETVAR: u16 = 3532;
 
 // ── Npc config ops (4000-4099) ──────────────────────────────────────────────
 
@@ -703,6 +707,10 @@ pub const INV_TOTALPARAM_STACK: u16 = 4329;
 pub const INV_TOTALPARAM: u16 = 4330;
 pub const INV_TRANSMIT: u16 = 4331;
 pub const INVOTHER_TRANSMIT: u16 = 4332;
+#[cfg(since_647)]
+pub const INV_GETVAR: u16 = 4333;
+#[cfg(since_647)]
+pub const INV_SETVAR: u16 = 4334;
 
 // ── Enum ops (4400-4499) ────────────────────────────────────────────────────
 

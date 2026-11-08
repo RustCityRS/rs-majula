@@ -774,7 +774,7 @@ fn empty_tables_come_from_their_files() {
         .map(|(id, data)| (id, data.to_vec()))
         .collect();
     assert_eq!(entries, [(0, vec![0]), (1, vec![]), (2, vec![0])]);
-    assert_eq!(pack_empty_table(&path, "varobj").unwrap().dat, [0, 0]);
+    assert_eq!(pack_empty_table(&path, "varnbit").unwrap().dat, [0, 0]);
     assert!(pack_empty_table(&path, "varcon").is_err());
 }
 

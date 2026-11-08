@@ -775,6 +775,10 @@
 [command,obj_addall](coord $coord, namedobj $obj, int $count, int $duration)
 // info: Get a param on the current object
 [command,obj_param]/*(param $param)(dynamic)*/
+// info: Get a varobj of the current object
+[command,obj_getvar](varobj $varobj)(int)
+// info: Set a varobj of the current object
+[command,obj_setvar](varobj $varobj, int $value)
 // info: Get the current object's display anme
 [command,obj_name]()(string)
 // info: Despawn the current object
@@ -913,6 +917,10 @@
 [command,inv_getobj](inv $inv, int $slot)(obj)
 // info: Get the object in $slot in a secondary inventory
 [command,.inv_getobj](inv $inv, int $slot)(obj)
+// info: Get a varobj of the object in $slot in an inventory
+[command,inv_getvar](inv $inv, int $slot, varobj $varobj)(int)
+// info: Get a varobj of the object in $slot in a secondary inventory
+[command,.inv_getvar](inv $inv, int $slot, varobj $varobj)(int)
 // info: Check if an object fits in an inventory
 [command,inv_itemspace](inv $inv, obj $obj, int $count, int $size)(boolean)
 // info: Check if an object fits in a secondary inventory
@@ -949,6 +957,10 @@
 [command,inv_setslot](inv $inv, int $slot, namedobj $obj, int $count)
 // info: Set the $slot in secondary $inv to $object x $count
 [command,.inv_setslot](inv $inv, int $slot, namedobj $obj, int $count)
+// info: Set a varobj of the object in $slot in an inventory
+[command,inv_setvar](inv $inv, int $slot, varobj $varobj, int $value)
+// info: Set a varobj of the object in $slot in a secondary inventory
+[command,.inv_setvar](inv $inv, int $slot, varobj $varobj, int $value)
 // info: Return the total number of $obj in $inv
 [command,inv_total](inv $inv, obj $obj)(int)
 // info: Return the total number of $obj in secondary $inv
@@ -1121,8 +1133,6 @@
 [command,if_closesub](int $component_hash)
 // info: Move a sub-interface from one parent component to another without firing onload hooks
 [command,if_movesub](component $from, component $to)
-// [command,obj_getvar]
-// [command,obj_setvar]
 // [command,inv_totalparam](inv $inv, param param)(int)
 // [command,inv_totalparam_stack](inv $inv, param param)(int)
 // [command,obj_adddelayed]
