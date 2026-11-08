@@ -1,0 +1,43 @@
+// 289's dig in Falador park (quests/quest_hunt/scripts/dig.rs2) with 2011's changes, from the
+// 2011-04-26 recording (YouTube GTgKzVezVDo, 484-503s; transcript
+// runescape/target/refs/hunt/transcript_0426.md) and the 2011 wiki (Pirate's Treasure, 2011-04-17):
+// - the gardener shouts "First moles, now this! Take this, vandal!" (289's "Hey, leave off my
+//   flowers!"), with a hint arrow over him, and while he attacks a dig is refused with "I can't
+//   dig up anything with him attacking me!";
+// - the treasure is "a little chest of treasure": One-Eyed Hector's casket (obj 7956, void-634's
+//   casket_pirates_treasure), opened for the coins, ring and emerald (casket.rs2); 289 gave them
+//   loose as "a little bag of treasure";
+// - the treasure line comes about four ticks after the hole (289's five, then the queue);
+// - 2011's scroll keeps "the ... Quest!" and lists the casket and the pay-fare option.
+[label,hunt_dig]
+if (%hunt ! 3) {
+    mes("It seems a shame to dig up these nice flowers for no reason.");
+    return;
+}
+
+if (npc_find(coord, gardener, 10, 0) = true) {
+    if (npc_getmode = opplayer2) {
+        mes("I can't dig up anything with him attacking me!");
+        return;
+    }
+    @pirate_irate_gardener_attack;
+}
+
+p_arrivedelay;
+anim(human_dig, 0);
+mes("You dig a hole in the ground...");
+
+p_delay(3);
+queue(hunt_quest_complete, 0, 0);
+
+[queue,hunt_quest_complete]
+mes("and find a little chest of treasure.");
+inv_add(inv, casket_7956, 1);
+%hunt = ^hunt_complete;
+session_log(^log_adventure, "Quest complete: Pirate's Treasure");
+~send_quest_complete2(^questlist_hunt, casket_7956, 250, ^hunt_questpoints, "You have completed the Pirate's Treasure Quest!", "One-Eyed Hector's Treasure Chest|You can also use the Pay-fare option to go to and from Karamja");
+
+[label,pirate_irate_gardener_attack]
+npc_say("First moles, now this! Take this, vandal!");
+hint_npc;
+npc_setmode(opplayer2);

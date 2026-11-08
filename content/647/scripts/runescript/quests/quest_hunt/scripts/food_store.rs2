@@ -1,0 +1,61 @@
+// 289's Wydin's store door and back-room crate (quests/quest_hunt/scripts/food_store.rs2) with
+// 2011's changes, from the 2011-04-26 recording (YouTube GTgKzVezVDo; transcript
+// runescape/target/refs/hunt/transcript_0426.md): while the rum is being fetched, Wydin offers
+// the job at the door ("Well, can I get a job here?" / "Sorry, I didn't realise."), and the crate
+// reads "in amongst the bananas." with "Yes." / "No." to the banana.
+[oploc1,wydindoor]
+def_boolean $entering = ~check_axis(coord, loc_coord, loc_angle);
+if ($entering = true) {
+    if (npc_find(coord, wydin, 10, 0) = true) {
+        if (testbit(%hunt_store_employed, ^hunt_fetch_rum) = ^false) {
+            @wydin_employees_only;
+        }
+
+        if (inv_getobj(worn, ^wearpos_torso) ! white_apron) {
+            @wydin_apron_required;
+        }
+    }
+
+}
+
+~open_and_close_door(wydindooropen, $entering, false);
+
+[label,wydin_employees_only]
+~chatnpc("<p,neutral>Hey, you can't go in there. Only employees of the grocery store can go in.");
+if (%hunt = ^hunt_fetch_rum) {
+    def_int $choice = ~p_choice2("Well, can I get a job here?", 1, "Sorry, I didn't realise.", 2);
+    if ($choice = 1) {
+        // 2011's option reads "Well, ..."; the player then says "Can I get a job here?"
+        // (wydin.rs2), the line 289's Wydin hears from his own menu.
+        @wydin_job;
+    }
+}
+~chatplayer("<p,neutral>Sorry, I didn't realise.");
+
+[label,wydin_apron_required]
+~chatnpc("<p,neutral>Can you put your apron on before going in there, please?");
+
+[oploc1,grocerycrate]
+mes("There are a lot of bananas in the crate.");
+p_delay(3);
+
+if (%crate_rum = 2) {
+    mes("You find your bottle of rum in amongst the bananas.");
+    anim(human_pickuptable, 0);
+
+    %crate_rum = 0;
+    inv_add(inv, karamjan_rum, 1);
+    sound_synth(pick2, 1, 0);
+
+    p_delay(1);
+}
+
+def_int $choice = ~p_choice2_header("Yes.", 1, "No.", 2, "Do you want to take a banana?");
+if ($choice = 1) {
+    mes("You take a banana.");
+    anim(human_pickuptable, 0);
+    sound_synth(pick2, 1, 0);
+
+    inv_add(inv, banana, 1);
+}
+
