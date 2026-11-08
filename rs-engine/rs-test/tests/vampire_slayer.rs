@@ -695,12 +695,25 @@ fn the_coffin_plays_2011s_cutscene() {
         p.p1_alt2(0).p2_alt3(nid as i32);
         client.send(ClientProt::OpNpc2, &p.finish());
         let (mut reset_at, mut swing_at, mut hit_at) = (None, None, None);
+        // Where the cutscene left the player, who stays there until the camera returns.
+        let left = engine.harness_player(client.pid).unwrap().pathing.coord;
+        let mut moved_early = None;
         set_recording(true);
         forget_calls();
         for t in 32..80 {
             engine.cycle();
             if reset_at.is_none() && client.packets().iter().any(|(op, _)| *op == CAM_RESET) {
                 reset_at = Some(t - tick);
+            }
+            let here = engine.harness_player(client.pid).unwrap().pathing.coord;
+            if reset_at.is_none() && moved_early.is_none() && here != left {
+                moved_early = Some(t - tick);
+            }
+            // As the 2011 player: Attack again once the camera is back.
+            if reset_at == Some(t - tick) {
+                let mut p = ClientPacket::new();
+                p.p1_alt2(0).p2_alt3(nid as i32);
+                client.send(ClientProt::OpNpc2, &p.finish());
             }
             if swing_at.is_none()
                 && calls_for("sound_synth")
@@ -720,6 +733,10 @@ fn the_coffin_plays_2011s_cutscene() {
         set_recording(false);
         no_script_errors(engine, "the attack");
         assert_eq!(reset_at, Some(16), "CAM_RESET 16 ticks after he rises");
+        assert_eq!(
+            moved_early, None,
+            "the player stays in the cutscene until the camera returns (2011-05-04: clicks at 241s, sets off at 249.5s)"
+        );
         let (swing, hit) = (
             swing_at.expect("he swings"),
             hit_at.expect("the player hits him"),
