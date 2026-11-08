@@ -1,6 +1,13 @@
 // 289's fortress guard (fortress_guard.rs2) on 2011's fortress_guard (npc 609), unverified: no 2011
-// recording talks to one.
-[opnpc1,fortress_guard]
+// recording talks to one. 2011's four other fortress guards (4603-4606) are 289's fortress guard
+// too (all.npc), so they answer the same.
+[opnpc1,fortress_guard] @fortress_guard_talk;
+[opnpc1,fortress_guard_4603] @fortress_guard_talk;
+[opnpc1,fortress_guard_4604] @fortress_guard_talk;
+[opnpc1,fortress_guard_4605] @fortress_guard_talk;
+[opnpc1,fortress_guard_4606] @fortress_guard_talk;
+
+[label,fortress_guard_talk]
 if ((inv_getobj(worn, ^wearpos_hat) ! bronze_med_helm) | (inv_getobj(worn, ^wearpos_torso) ! iron_chainbody)) {
     ~chatnpc("<p,angry>Get lost. This is private property.");
 } else {
