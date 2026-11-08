@@ -923,3 +923,186 @@ fn run_client_script_matches_client() {
     assert_eq!(&strs[2..], &["Value".to_string(), "Sell 1".to_string()]);
     p.done(bytes.len());
 }
+
+// ---------------------------------------------------------------------------
+// Hint arrows
+// ---------------------------------------------------------------------------
+
+/// What the client keeps of a HINT_ARROW (`MapAreaConfig.java:1219`): `g1`
+/// as `slot << 5 | type`, `g1 icon`, then by type: a tile (2-6) `g1 level,
+/// g2 x, g2 z, g1 height, g2 range`; an npc (1) or player (10) `g2 index`
+/// and six skipped bytes; then `g2 model`. Type 0 clears the slot and reads
+/// no more.
+#[derive(Debug, PartialEq)]
+struct ClientHint {
+    slot: i32,
+    kind: i32,
+    icon: i32,
+    tile: Option<(i32, i32, i32, i32, i32)>,
+    index: Option<i32>,
+    model: i32,
+}
+
+fn read_hint(bytes: &[u8]) -> ClientHint {
+    let mut p = ClientPacket::new(bytes);
+    let head = p.g1();
+    let (slot, kind) = (head >> 5, head & 0x1F);
+    let mut hint = ClientHint {
+        slot,
+        kind,
+        icon: -1,
+        tile: None,
+        index: None,
+        model: -1,
+    };
+    if kind == 0 {
+        return hint;
+    }
+    hint.icon = p.g1();
+    if kind == 1 || kind == 10 {
+        hint.index = Some(p.g2());
+        p.pos += 6;
+    } else if (2..=6).contains(&kind) {
+        let level = p.g1();
+        let x = p.g2();
+        let z = p.g2();
+        let height = p.g1();
+        let range = p.g2();
+        hint.tile = Some((level, x, z, height, range));
+    }
+    hint.model = p.g2();
+    p.done(bytes.len());
+    hint
+}
+
+/// A tile arrow carries its slot in the type byte's top three bits, its icon
+/// (the colour) and its range, and each of the client's five tile offsets
+/// (2 the centre, 3-6 the middle of an edge) comes back as sent.
+#[test]
+fn hint_arrow_tile_matches_client() {
+    use rs_protocol::network::game::server::hint_arrow::{HintArrow, HintArrowKind};
+    for offset in 2..=6u8 {
+        let bytes = encode(&HintArrow {
+            slot: 7,
+            icon: 2,
+            kind: HintArrowKind::Coord {
+                offset,
+                x: 3222,
+                z: 3218,
+                level: 1,
+                height: 40,
+                range: 65535,
+            },
+            model_id: 0xFFFF,
+        });
+        assert_eq!(bytes.len(), 12);
+        let hint = read_hint(&bytes);
+        assert_eq!(
+            hint,
+            ClientHint {
+                slot: 7,
+                kind: offset as i32,
+                icon: 2,
+                tile: Some((1, 3222, 3218, 40, 65535)),
+                index: None,
+                model: 0xFFFF,
+            },
+            "offset {offset}"
+        );
+    }
+}
+
+/// The arrows already sent before slots existed keep their bytes: slot 0,
+/// icon 0, a tile's range 0.
+#[test]
+fn hint_arrow_slot_zero_keeps_its_bytes() {
+    use rs_protocol::network::game::server::hint_arrow::{HintArrow, HintArrowKind};
+    let tile = encode(&HintArrow {
+        slot: 0,
+        icon: 0,
+        kind: HintArrowKind::Coord {
+            offset: 2,
+            x: 3094,
+            z: 3106,
+            level: 0,
+            height: 20,
+            range: 0,
+        },
+        model_id: 0xFFFF,
+    });
+    assert_eq!(
+        tile,
+        [2, 0, 0, 0x0C, 0x16, 0x0C, 0x22, 20, 0, 0, 0xFF, 0xFF],
+        "tile arrow"
+    );
+    let npc = encode(&HintArrow {
+        slot: 0,
+        icon: 0,
+        kind: HintArrowKind::Npc { npc_index: 300 },
+        model_id: 0xFFFF,
+    });
+    assert_eq!(
+        npc,
+        [1, 0, 1, 44, 0, 0, 0, 0, 0, 0, 0xFF, 0xFF],
+        "npc arrow"
+    );
+    let player = encode(&HintArrow {
+        slot: 0,
+        icon: 0,
+        kind: HintArrowKind::Player { player_index: 5 },
+        model_id: 0xFFFF,
+    });
+    assert_eq!(
+        player,
+        [10, 0, 0, 5, 0, 0, 0, 0, 0, 0, 0xFF, 0xFF],
+        "player arrow"
+    );
+    let stop = encode(&HintArrow {
+        slot: 0,
+        icon: 0,
+        kind: HintArrowKind::Stop,
+        model_id: 0xFFFF,
+    });
+    assert_eq!(stop, [0; 12], "stop");
+}
+
+/// A stop clears only its own slot.
+#[test]
+fn hint_arrow_stop_names_its_slot() {
+    use rs_protocol::network::game::server::hint_arrow::{HintArrow, HintArrowKind};
+    let bytes = encode(&HintArrow {
+        slot: 7,
+        icon: 0,
+        kind: HintArrowKind::Stop,
+        model_id: 0xFFFF,
+    });
+    assert_eq!(bytes.len(), 12);
+    let hint = read_hint(&bytes);
+    assert_eq!((hint.slot, hint.kind), (7, 0));
+}
+
+/// An npc or player arrow takes a slot and an icon as well.
+#[test]
+fn hint_arrow_entity_matches_client() {
+    use rs_protocol::network::game::server::hint_arrow::{HintArrow, HintArrowKind};
+    let npc = read_hint(&encode(&HintArrow {
+        slot: 3,
+        icon: 1,
+        kind: HintArrowKind::Npc { npc_index: 1234 },
+        model_id: 0xFFFF,
+    }));
+    assert_eq!(
+        (npc.slot, npc.kind, npc.icon, npc.index),
+        (3, 1, 1, Some(1234))
+    );
+    let player = read_hint(&encode(&HintArrow {
+        slot: 4,
+        icon: 0,
+        kind: HintArrowKind::Player { player_index: 2047 },
+        model_id: 0xFFFF,
+    }));
+    assert_eq!(
+        (player.slot, player.kind, player.icon, player.index),
+        (4, 10, 0, Some(2047))
+    );
+}

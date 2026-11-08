@@ -1099,6 +1099,8 @@ impl ActivePlayer {
         });
         #[cfg(since_647)]
         self.write(HintArrow {
+            slot: 0,
+            icon: 0,
             kind: HintArrowKind::Npc { npc_index: nid },
             model_id: 0xFFFF,
         });
@@ -1121,21 +1123,80 @@ impl ActivePlayer {
             arg3: height,
         });
         // Rev-647 coord hints carry the level explicitly (the 2004-era packet
-        // implied the player's plane) and have no centre/edge offset variants.
+        // implied the player's plane). This command keeps the bytes it has
+        // always sent: slot 0, icon 0, the tile's centre, range 0;
+        // `hint_coord_slot` sends the rest.
         #[cfg(since_647)]
         {
             let _ = offset;
             let level = self.player.pathing.coord.y();
             self.write(HintArrow {
+                slot: 0,
+                icon: 0,
                 kind: HintArrowKind::Coord {
+                    offset: 2,
                     x,
                     z,
                     level,
                     height,
+                    range: 0,
                 },
                 model_id: 0xFFFF,
             });
         }
+    }
+
+    /// Rev-647: a hint arrow over a tile in one of the client's eight slots,
+    /// so arrows from different systems (a quest's, the world map marker's)
+    /// stand side by side instead of replacing each other.
+    ///
+    /// # Arguments
+    /// * `slot` - The client's arrow slot, `0`--`7`.
+    /// * `icon` - The arrow's colour: an index into the hint_headicons,
+    ///   hint_mapmarkers and hint_mapedge sprite sheets.
+    /// * `offset` - Where over the tile it hovers: `2` its centre, `3`--`6`
+    ///   the middle of its west, east, south or north edge.
+    /// * `level`, `x`, `z` - The tile.
+    /// * `height` - How high over the tile, in the client's quarter units.
+    /// * `range` - How far away the minimap still shows it, in 32-tile units.
+    #[cfg(since_647)]
+    #[allow(clippy::too_many_arguments)]
+    pub fn hint_coord_slot(
+        &mut self,
+        slot: u8,
+        icon: u8,
+        offset: u8,
+        level: u8,
+        x: u16,
+        z: u16,
+        height: u8,
+        range: u16,
+    ) {
+        self.write(HintArrow {
+            slot,
+            icon,
+            kind: HintArrowKind::Coord {
+                offset,
+                x,
+                z,
+                level,
+                height,
+                range,
+            },
+            model_id: 0xFFFF,
+        });
+    }
+
+    /// Rev-647: clears the hint arrow in one of the client's eight slots,
+    /// leaving the others.
+    #[cfg(since_647)]
+    pub fn hint_stop_slot(&mut self, slot: u8) {
+        self.write(HintArrow {
+            slot,
+            icon: 0,
+            kind: HintArrowKind::Stop,
+            model_id: 0xFFFF,
+        });
     }
 
     /// Sends a hint arrow pointing at another player.
@@ -1152,6 +1213,8 @@ impl ActivePlayer {
         });
         #[cfg(since_647)]
         self.write(HintArrow {
+            slot: 0,
+            icon: 0,
             kind: HintArrowKind::Player { player_index: slot },
             model_id: 0xFFFF,
         });
@@ -1169,6 +1232,8 @@ impl ActivePlayer {
         });
         #[cfg(since_647)]
         self.write(HintArrow {
+            slot: 0,
+            icon: 0,
             kind: HintArrowKind::Stop,
             model_id: 0xFFFF,
         });

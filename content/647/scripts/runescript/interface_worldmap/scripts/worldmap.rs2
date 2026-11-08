@@ -105,6 +105,7 @@ switch_int (last_slot) {
     case 3, 4 : %varplayerbit_6175 = calc(1 - %varplayerbit_6175);
     case 11, 12 : %varplayerbit_6176 = calc(1 - %varplayerbit_6176);
     case 14, 16 : %varplayerbit_6177 = calc(1 - %varplayerbit_6177);
+    case 18, 19 : ~worldmap_marker_clear; // "Clear your marker"
 }
 
 // The key's next order after $order, as clientscript 692
@@ -121,3 +122,57 @@ switch_int ($order) {
     case 1 : return(2);
     case default : return(0);
 }
+
+// "Your marker" (varp 1159, a coord, which cache 786 transmits). Double-
+// clicking the map sets it, and a hint arrow points the way (Jagex news,
+// Quiet Before the Swarm, 24 June 2010: a marker or waypoint, "a hint arrow
+// to help you get there"; "Your Marker" since 19 July 2010, 2011 wiki,
+// Update: Dungeoneering Update). The client draws it on the map from the
+// varp (clientscript 2045, struct 972) and offers to clear it: "Clear marker"
+// on it (755:42 op10, since 19 July 2010), "Clear your marker" in the key
+// (script285 slots 18 and 19) and on the globe (op2, clientscript 334; since
+// 25 August 2010, Jagex news, Conquest). Varp 1159 is protect=no (the map's
+// buttons and CLICKWORLDMAP run unprotected) and keeps cache 786's scope: not
+// saved. No dated recording or Jagex page shows a marker outliving a logout
+// (void-634 saves it), so nothing re-sends its arrow at login.
+
+// Entered from the engine, not from a trigger: CLICKWORLDMAP (rev-647 opcode
+// 60), which the client sends on every press on the map, runs
+// [proc,clickworldmap] by name with the pressed tile
+// (rs-engine/src/handlers/client_status.rs), as WINDOW_STATUS runs
+// [proc,switch_window_mode]. What makes a double-click is not known: no Jagex
+// page, patch note or recording defines it. This is void-634's rule as the
+// PRD reads it, void-634 only: the same tile again within 1 tick. (WorldMap.kt
+// starts a 1-tick clock on each press, which taken strictly is the same tick;
+// a quick double-click often straddles a tick, so the next one counts too.)
+// The last press is kept in two of cache 786's server-only varps.
+[proc,clickworldmap](coord $coord)
+if ($coord = %worldmap_lastclick & sub(map_clock, %worldmap_lastclick_clock) <= 1) {
+    ~worldmap_marker_set($coord);
+}
+%worldmap_lastclick = $coord;
+%worldmap_lastclick_clock = map_clock;
+
+[proc,worldmap_marker_set](coord $coord)
+%varplayer_1159 = $coord;
+~worldmap_marker_arrow;
+
+// The marker's hint arrow, which blinks at the minimap's edge and over the
+// tile, and stays when the player gets there (YouTube wI_EzW-balM,
+// 2010-06-26, 00:08; bJKD9rL-rxc, 2010-07-10, 00:12-00:20; the client blinks
+// every minimap hint arrow, Linkable_Sub13). Blue: icon 2 is the one index
+// blue in all three hint sheets (hint_headicons, hint_mapmarkers,
+// hint_mapedge). The client shows a tile arrow on the minimap only within
+// range * 32 tiles, and 2010's marker showed from across the map, so the
+// largest range. Its slot (7, clear of quests' 0) and height (0) are not
+// known.
+[proc,worldmap_marker_arrow]
+hint_coord_slot(^worldmap_marker_slot, ^worldmap_marker_icon, ^worldmap_marker_offset, %varplayer_1159, 0, ^worldmap_marker_range);
+
+[proc,worldmap_marker_clear]
+%varplayer_1159 = null;
+hint_stop_slot(^worldmap_marker_slot);
+
+[if_button2,toplevel:worldmap_icon] ~worldmap_marker_clear;
+[if_button2,toplevel_fullscreen:worldmap_button] ~worldmap_marker_clear;
+[if_button10,worldmap:arrow_waypoint] ~worldmap_marker_clear;

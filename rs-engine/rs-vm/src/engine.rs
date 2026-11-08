@@ -1257,6 +1257,36 @@ pub trait ScriptPlayer {
     /// Clears any active hint arrow on the player's client.
     fn stop_hint(&mut self);
 
+    /// Rev-647: a hint arrow over a tile in one of the client's eight slots,
+    /// with an icon (its colour) and a minimap range in 32-tile units.
+    ///
+    /// # Arguments
+    /// * `slot` - The client's arrow slot, `0`--`7`.
+    /// * `icon` - An index into the hint_headicons, hint_mapmarkers and
+    ///   hint_mapedge sprite sheets.
+    /// * `offset` - `2` the tile's centre, `3`--`6` the middle of its west,
+    ///   east, south or north edge.
+    /// * `level`, `x`, `z` - The tile.
+    /// * `height` - The arrow's height over the tile.
+    /// * `range` - How far away the minimap shows it, in 32-tile units.
+    #[cfg(since_647)]
+    #[allow(clippy::too_many_arguments)]
+    fn hint_coord_slot(
+        &mut self,
+        slot: u8,
+        icon: u8,
+        offset: u8,
+        level: u8,
+        x: u16,
+        z: u16,
+        height: u8,
+        range: u16,
+    );
+
+    /// Rev-647: clears the hint arrow in one slot, leaving the others.
+    #[cfg(since_647)]
+    fn hint_stop_slot(&mut self, slot: u8);
+
     /// Returns the player's gender.
     ///
     /// # Returns

@@ -4208,10 +4208,19 @@ transmit=yes
 [varplayer_1155]
 
 // 1156
-[varplayer_1156]
+[worldmap_lastclick]
+// Server-only (cache 786 does not transmit it and no clientscript reads it), so this
+// state lives here instead of a new id above the cache's range.
+// The world map's last press (CLICKWORLDMAP), for the double-click that sets the
+// marker (interface_worldmap).
+type=coord
+protect=no
 
 // 1157
-[varplayer_1157]
+[worldmap_lastclick_clock]
+// Server-only, as 1156: the tick of the world map's last press.
+type=int
+protect=no
 
 // 1158
 [varplayer_1158]
@@ -4220,6 +4229,12 @@ transmit=yes
 // 1159
 [varplayer_1159]
 transmit=yes
+// 2011's world map marker, "Your marker" (interface_worldmap). Set and cleared
+// from the map's buttons and CLICKWORLDMAP, which run unprotected. Not saved,
+// as cache 786 has it: no dated recording or Jagex page shows a marker
+// outliving a logout (void-634 saves it).
+type=coord
+protect=no
 
 // 1160
 [varplayer_1160]

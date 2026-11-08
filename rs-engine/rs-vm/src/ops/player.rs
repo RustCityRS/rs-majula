@@ -335,6 +335,44 @@ pub fn build<E: ScriptEngine + 'static>() -> OpsRegistry {
             player.stop_hint();
         });
 
+        // 5019: a tile hint arrow in one of 647's eight slots.
+        #[cfg(since_647)]
+        active_player_mut!(m, HINT_COORD_SLOT => |s, player| {
+            let range = s.pop_int_as::<u16>()?;
+            let height = s.pop_int_as::<u8>()?;
+            let coord = pop_coord(s)?;
+            let offset = s.pop_int_as::<u8>()?;
+            let icon = s.pop_int_as::<u8>()?;
+            let slot = s.pop_int_as::<u8>()?;
+            if slot > 7 || !(2..=6).contains(&offset) {
+                return Err(ScriptError::Runtime(format!(
+                    "hint_coord_slot: slot {slot} (0-7), offset {offset} (2-6)"
+                )));
+            }
+            player.hint_coord_slot(
+                slot,
+                icon,
+                offset,
+                coord.y(),
+                coord.x(),
+                coord.z(),
+                height,
+                range,
+            );
+        });
+
+        // 5020: clears one of 647's eight hint arrow slots.
+        #[cfg(since_647)]
+        active_player_mut!(m, HINT_STOP_SLOT => |s, player| {
+            let slot = s.pop_int_as::<u8>()?;
+            if slot > 7 {
+                return Err(ScriptError::Runtime(format!(
+                    "hint_stop_slot: slot {slot} (0-7)"
+                )));
+            }
+            player.hint_stop_slot(slot);
+        });
+
         // 2031
         none!(m, HUNTALL => |s| {
             let vis = HuntCheckVis::try_from(s.pop_int() as u8).unwrap_or(HuntCheckVis::Off);

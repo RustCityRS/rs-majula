@@ -491,6 +491,10 @@ pub const LAST_TARGETCOM: u16 = 5016;
 pub const IF_SETGRAPHIC: u16 = 5017;
 #[cfg(since_647)]
 pub const IF_OPENTOP_MODE: u16 = 5018;
+#[cfg(since_647)]
+pub const HINT_COORD_SLOT: u16 = 5019;
+#[cfg(since_647)]
+pub const HINT_STOP_SLOT: u16 = 5020;
 pub const SOFTTIMER: u16 = 2103;
 pub const SOUND_SYNTH: u16 = 2104;
 pub const SPOTANIM_PL: u16 = 2105;

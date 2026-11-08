@@ -6039,6 +6039,26 @@ impl ScriptPlayer for ActivePlayer {
         self.stop_hint();
     }
 
+    #[cfg(since_647)]
+    fn hint_coord_slot(
+        &mut self,
+        slot: u8,
+        icon: u8,
+        offset: u8,
+        level: u8,
+        x: u16,
+        z: u16,
+        height: u8,
+        range: u16,
+    ) {
+        self.hint_coord_slot(slot, icon, offset, level, x, z, height, range);
+    }
+
+    #[cfg(since_647)]
+    fn hint_stop_slot(&mut self, slot: u8) {
+        self.hint_stop_slot(slot);
+    }
+
     /// Returns the player's gender (`0` = male, `1` = female).
     ///
     /// # Call Stack

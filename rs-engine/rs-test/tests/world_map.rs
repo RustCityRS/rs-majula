@@ -43,6 +43,10 @@ const SORT: i32 = (WORLDMAP as i32) << 16 | 54;
 const KEY_LIST: i32 = (WORLDMAP as i32) << 16 | 49;
 /// The key's order (varbit 5367, bits 0-1) and options (6174-6177, bits 2-5).
 const KEY_VARP: u16 = 463;
+/// worldmap:arrow_waypoint, the marker on the map ("Clear marker", op10).
+const WAYPOINT: i32 = (WORLDMAP as i32) << 16 | 42;
+/// "Your marker", a coord.
+const MARKER: u16 = 1159;
 /// The map's centre and "You are here".
 const VARC_CENTRE: u16 = 622;
 const VARC_YOU_ARE_HERE: u16 = 674;
@@ -430,5 +434,210 @@ fn the_key_settings_last_the_session() {
     runner::on_loaded_engine(|engine| {
         let varp = engine.cache.varps.get_by_id(KEY_VARP).expect("varp 463");
         assert!(varp.scope == VarPlayerScope::Temp, "not saved");
+    });
+}
+
+/// Each HINT_ARROW as the client reads it: `(slot, type, icon, tile)`, the
+/// tile `(level, x, z, height, range)` for types 2-6.
+type Hint = (u8, u8, u8, Option<(u8, u16, u16, u8, u16)>);
+
+fn hints(packets: &[(u16, Vec<u8>)]) -> Vec<Hint> {
+    packets
+        .iter()
+        .filter(|(op, _)| *op == ServerProt::HintArrow as u16)
+        .map(|(_, p)| {
+            let (slot, kind) = (p[0] >> 5, p[0] & 0x1F);
+            let tile = (2..=6).contains(&kind).then(|| {
+                (
+                    p[2],
+                    u16::from_be_bytes([p[3], p[4]]),
+                    u16::from_be_bytes([p[5], p[6]]),
+                    p[7],
+                    u16::from_be_bytes([p[8], p[9]]),
+                )
+            });
+            (slot, kind, p[1], tile)
+        })
+        .collect()
+}
+
+/// Each varp the client was sent, as `(varp, value)`: VARP_SMALL is `p1_alt3
+/// value, p2 varp` (a signed byte), VARP_LARGE `p2 varp, p4_alt2 value`.
+fn varp_sends(packets: &[(u16, Vec<u8>)]) -> Vec<(u16, i32)> {
+    packets
+        .iter()
+        .filter_map(|(op, p)| {
+            if *op == ServerProt::VarpSmall as u16 {
+                let value = 128u8.wrapping_sub(p[0]) as i8 as i32;
+                Some((u16::from_be_bytes([p[1], p[2]]), value))
+            } else if *op == ServerProt::VarpLarge as u16 {
+                let value = i32::from_be_bytes([p[4], p[5], p[2], p[3]]);
+                Some((u16::from_be_bytes([p[0], p[1]]), value))
+            } else {
+                None
+            }
+        })
+        .collect()
+}
+
+/// A press on the map: CLICKWORLDMAP, `p4_alt2(level << 28 | x << 14 | z)`.
+fn click_map(client: &mut HarnessClient, x: u16, z: u16) {
+    let mut p = ClientPacket::new();
+    p.p4_alt2(packed(0, x, z));
+    client.send(ClientProt::ClickWorldMap, &p.finish());
+}
+
+/// A double-click on the map at `x`, `z`: two presses in one tick.
+fn double_click(engine: &mut Engine, client: &mut HarnessClient, x: u16, z: u16) -> Packets {
+    click_map(client, x, z);
+    click_map(client, x, z);
+    ticks(engine, client, 1)
+}
+
+const SPOT: (u16, u16) = (3165, 3305);
+
+/// Two presses on one tile within a tick set the marker (varp 1159) and its
+/// hint arrow: slot 7, the blue icon 2, the tile's centre, the largest range.
+#[test]
+fn a_double_click_sets_the_marker() {
+    runner::on_loaded_engine(|engine| {
+        let mut client = player(engine, "wm_marker", 1);
+        open_map(engine, &mut client);
+        let packets = double_click(engine, &mut client, SPOT.0, SPOT.1);
+        assert_eq!(
+            varp(engine, client.pid, MARKER),
+            packed(0, SPOT.0, SPOT.1),
+            "Your marker"
+        );
+        assert!(
+            varp_sends(&packets).contains(&(MARKER, packed(0, SPOT.0, SPOT.1))),
+            "the client is told, and draws it on the map"
+        );
+        assert_eq!(
+            hints(&packets),
+            vec![(7, 2, 2, Some((0, SPOT.0, SPOT.1, 0, 65535)))],
+            "its arrow"
+        );
+
+        // The second press on the next tick counts too.
+        let other = (SPOT.0 + 10, SPOT.1);
+        click_map(&mut client, other.0, other.1);
+        ticks(engine, &mut client, 1);
+        click_map(&mut client, other.0, other.1);
+        ticks(engine, &mut client, 1);
+        assert_eq!(
+            varp(engine, client.pid, MARKER),
+            packed(0, other.0, other.1)
+        );
+    });
+}
+
+/// One press, presses on two tiles, or two on one tile two ticks apart set
+/// nothing.
+#[test]
+fn single_or_scattered_clicks_set_nothing() {
+    runner::on_loaded_engine(|engine| {
+        let mut client = player(engine, "wm_scatter", 1);
+        open_map(engine, &mut client);
+        let mut sent = Vec::new();
+        click_map(&mut client, SPOT.0, SPOT.1);
+        sent.extend(ticks(engine, &mut client, 3));
+        click_map(&mut client, SPOT.0, SPOT.1);
+        click_map(&mut client, SPOT.0 + 1, SPOT.1);
+        sent.extend(ticks(engine, &mut client, 1));
+        click_map(&mut client, SPOT.0 + 5, SPOT.1);
+        sent.extend(ticks(engine, &mut client, 2));
+        click_map(&mut client, SPOT.0 + 5, SPOT.1);
+        sent.extend(ticks(engine, &mut client, 1));
+        assert_eq!(varp(engine, client.pid, MARKER), -1, "no marker");
+        assert_eq!(hints(&sent), Vec::<Hint>::new(), "no arrow");
+    });
+}
+
+/// "Clear your marker" on the globe (op2), in the key (slots 18 and 19) and
+/// "Clear marker" on the marker itself (755:42 op10) each clear the varp and
+/// stop the marker's slot, only that one.
+#[test]
+fn every_clear_path_clears_the_marker() {
+    runner::on_loaded_engine(|engine| {
+        let mut client = player(engine, "wm_clear", 1);
+        for (what, op, com, slot, map_up) in [
+            ("globe", 2, GLOBE_FIXED, 0xFFFF, false),
+            ("key 18", 1, KEY_LIST, 18, true),
+            ("key 19", 1, KEY_LIST, 19, true),
+            ("marker", 10, WAYPOINT, 0xFFFF, true),
+        ] {
+            open_map(engine, &mut client);
+            double_click(engine, &mut client, SPOT.0, SPOT.1);
+            assert_eq!(varp(engine, client.pid, MARKER), packed(0, SPOT.0, SPOT.1));
+            if !map_up {
+                button(&mut client, 1, CLOSE, 0xFFFF);
+                ticks(engine, &mut client, 1);
+            }
+            button(&mut client, op, com, slot);
+            let packets = ticks(engine, &mut client, 1);
+            assert_eq!(varp(engine, client.pid, MARKER), -1, "{what} clears it");
+            assert!(
+                varp_sends(&packets).contains(&(MARKER, -1)),
+                "{what}: the client is told (clientscript 334 drops the globe's op2)"
+            );
+            assert_eq!(
+                hints(&packets),
+                vec![(7, 0, 0, None)],
+                "{what} stops slot 7"
+            );
+            if map_up {
+                button(&mut client, 1, CLOSE, 0xFFFF);
+                ticks(engine, &mut client, 1);
+            }
+        }
+    });
+}
+
+/// The marker's arrow lives in its own slot: setting and clearing it never
+/// sends anything for slot 0, where quests and the tutorial put theirs
+/// (hint_coord), so the client keeps those.
+#[test]
+fn the_marker_arrow_leaves_quest_arrows_alone() {
+    runner::on_loaded_engine(|engine| {
+        let mut client = player(engine, "wm_slots", 1);
+        open_map(engine, &mut client);
+        let mut sent = double_click(engine, &mut client, SPOT.0, SPOT.1);
+        button(&mut client, 1, KEY_LIST, 19);
+        sent.extend(ticks(engine, &mut client, 1));
+        let slots: Vec<u8> = hints(&sent).iter().map(|h| h.0).collect();
+        assert_eq!(slots, vec![7, 7], "set and stop, both in slot 7");
+    });
+}
+
+/// The marker lasts the session, as cache 786 has varp 1159: nothing from
+/// 2011 shows one outliving a logout (void-634 saves it).
+#[test]
+fn the_marker_lasts_the_session() {
+    runner::on_loaded_engine(|engine| {
+        let varp = engine.cache.varps.get_by_id(MARKER).expect("varp 1159");
+        assert!(varp.scope == VarPlayerScope::Temp, "not saved");
+    });
+}
+
+/// Content without [proc,clickworldmap] (any other revision's, or 647's
+/// before it) ignores CLICKWORLDMAP: no error, nothing changes.
+#[test]
+fn a_map_press_without_the_proc_is_ignored() {
+    runner::on_loaded_engine(|engine| {
+        let mut client = player(engine, "wm_noproc", 1);
+        open_map(engine, &mut client);
+        let id = engine
+            .scripts
+            .names
+            .remove("[proc,clickworldmap]")
+            .expect("647's content has the proc");
+        let packets = double_click(engine, &mut client, SPOT.0, SPOT.1);
+        engine
+            .scripts
+            .names
+            .insert("[proc,clickworldmap]".into(), id);
+        assert_eq!(messages(&packets), Vec::<String>::new(), "no error");
+        assert_eq!(varp(engine, client.pid, MARKER), -1, "no marker");
     });
 }
