@@ -737,3 +737,42 @@ fn melzars_chest_gives_the_first_piece() {
         assert_eq!(held(engine, &client, "map_part"), 1);
     });
 }
+
+const KLARENSE: (u16, u16, u8) = (3047, 3204, 0);
+
+/// Klarense sells the Lady Lumbridge in 2011's words (mYqjoMQCOHI 11.2-25.0s), and greets her new
+/// captain (56.2s).
+#[test]
+fn klarense_sells_the_ship_as_2011s() {
+    let _turn = TURN.lock().unwrap_or_else(|e| e.into_inner());
+    runner::on_loaded_engine(|engine| {
+        let mut client = login(engine, "ds_klarense");
+        set_var(engine, &client, "dragonquest", 2);
+        give(engine, &client, 0, "coins", 2000);
+        let t = talk_on(
+            engine,
+            &mut client,
+            "klarense",
+            KLARENSE,
+            &["I'd like to buy her.", "Yep, sounds good."],
+        );
+        assert_eq!(t.unanswered, None, "{:?}", t.texts);
+        says(
+            &t,
+            &[
+                "So, are you interested in buying a ship? Now, I'll be straight with you: she's not quite seaworthy right now, but give her a bit of work and she'll be the nippiest ship this side of Port Khazard.",
+                "Why is she damaged?",
+                "How does 2,000 gold sound? I'll even throw in my cabin boy, Jenkins, for free! He'll swab the decks and splice the mainsails for you!",
+                "Okey dokey, she's all yours!",
+            ],
+        );
+        assert_eq!(var(engine, &client, "dragonquest"), 3, "bought");
+        assert_eq!(held(engine, &client, "coins"), 0);
+
+        let t = talk_on(engine, &mut client, "klarense", KLARENSE, &[]);
+        says(
+            &t,
+            &["Hello, captain! Here to take your new ship for a spin?"],
+        );
+    });
+}

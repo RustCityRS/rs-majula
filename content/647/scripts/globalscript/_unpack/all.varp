@@ -939,7 +939,13 @@ scope=perm
 [varplayer_198]
 
 // 199
-[varplayer_199]
+[dragon_ship_planks]
+// Server-only (cache 786 does not transmit it and no clientscript reads it), so this
+// state lives here instead of a new id above the cache's range.
+// Dragon Slayer: planks nailed over the Lady Lumbridge's hole, 0 to 3 (289 counted them in
+// dragonquestvar, varp 177, which cache 786 transmits; 199 is unused in 289 and 786).
+type=int
+scope=perm
 
 // 200
 [totemquest]
