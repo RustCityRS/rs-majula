@@ -60,9 +60,9 @@ pub struct PackResult {
 pub struct InterfaceLayout {
     /// interface_id → component_id for the `mainmodal` target.
     pub main_screen: HashMap<u16, u16>,
-    /// interface_id → component_id for the toplevel's full-size main slot
-    /// (548:8 `mainoverlay_clipped` fixed, 746:6 `mainoverlay` resizable,
-    /// `void-634`'s `wide_screen` with 746's +1 drift).
+    /// interface_id → component_id for the toplevel's full-size main slot:
+    /// the game view on fixed (548:8 `mainoverlay_clipped`), the whole window
+    /// on resizable (746:8 `mainmodal_fullscreen`).
     pub wide_screen: HashMap<u16, u16>,
     /// The main-screen interfaces that open in `wide_screen` instead: the
     /// content `wide_screen_enum` (2011's skill guide, whose own backdrop
@@ -71,9 +71,10 @@ pub struct InterfaceLayout {
     /// interface_id → component_id for the `sidemodal` target, the slot
     /// over the side panels that side modals mount on.
     pub overlay_tab: HashMap<u16, u16>,
-    /// interface_id → component_id for the full-size slot over the game view
-    /// that `if_openoverlay` mounts on (548:7 `mainoverlay`, 746:8
-    /// `mainmodal_fullscreen`: `void-634`'s `overlay` with 746's +1 drift).
+    /// interface_id → component_id for the `mainoverlay` target, the
+    /// full-size slot over the game view that `if_openoverlay` mounts on
+    /// (548:7, 746:6), which Jagex's full-screen overlays size themselves to
+    /// (clientscript 709).
     pub overlay: HashMap<u16, u16>,
     /// interface_id → component_id for the `chattop` target.
     pub chatbox: HashMap<u16, u16>,
@@ -271,12 +272,10 @@ fn toplevel_slot<'a>(
 ) -> Option<&'a mut HashMap<u16, u16>> {
     Some(match (interface, component) {
         ("toplevel" | "toplevel_fullscreen", "mainmodal") => &mut layout.main_screen,
-        ("toplevel", "mainoverlay_clipped") | ("toplevel_fullscreen", "mainoverlay") => {
+        ("toplevel", "mainoverlay_clipped") | ("toplevel_fullscreen", "mainmodal_fullscreen") => {
             &mut layout.wide_screen
         }
-        ("toplevel", "mainoverlay") | ("toplevel_fullscreen", "mainmodal_fullscreen") => {
-            &mut layout.overlay
-        }
+        ("toplevel" | "toplevel_fullscreen", "mainoverlay") => &mut layout.overlay,
         ("toplevel" | "toplevel_fullscreen", "sidemodal") => &mut layout.overlay_tab,
         ("toplevel" | "toplevel_fullscreen", "chattop") => &mut layout.chatbox,
         _ => return None,

@@ -165,7 +165,7 @@ fn an_attack_level_opens_2011s_box_and_flashes_the_stat() {
         let player = engine.harness_player(client.pid).unwrap();
         let wide = match player.toplevel {
             548 => 8,
-            746 => 6,
+            746 => 8,
             other => panic!("toplevel {other}"),
         };
         assert_eq!(
@@ -191,13 +191,14 @@ fn an_attack_level_opens_2011s_box_and_flashes_the_stat() {
             "skill_guide_v2; said {said:?}"
         );
         assert_eq!(varp(engine, &client, SKILL_GUIDE_VARP), 1);
-        // In the toplevel's full-size slot (void-634's `wide_screen`), where
-        // the guide's own backdrop fills the view: 548:8 fixed, 746:6
-        // resizable. In the 512x334 main slot it showed as a tinted box.
+        // In the toplevel's full-size slot, where the guide's own backdrop
+        // fills the view: 548:8 `mainoverlay_clipped` fixed, 746:8
+        // `mainmodal_fullscreen` resizable. In the 512x334 main slot it
+        // showed as a tinted box.
         let player = engine.harness_player(client.pid).unwrap();
         let wide = match player.toplevel {
             548 => 8,
-            746 => 6,
+            746 => 8,
             other => panic!("toplevel {other}"),
         };
         assert_eq!(

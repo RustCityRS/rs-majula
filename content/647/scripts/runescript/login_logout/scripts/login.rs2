@@ -127,7 +127,7 @@ inv_transmit(worn, wornitems:hat_container)
 if (getwindowmode = 1) {
     if_opensub(combat_side, toplevel:side0, ^true)
     if_opensub(task_side, toplevel:side1, ^true)
-    // The Task System's popup (void-634's task_overlay: 548:20, 746:79).
+    // The Task System's popup (void-634's task_overlay: graphics_confirm_layer, 548:20, 746:80).
     if_opensub(interface_1055, toplevel:graphics_confirm_layer, ^true)
     if_opensub(stats, toplevel:side2, ^true)
     if_opensub(questlist_v4, toplevel:side3, ^true)
@@ -145,7 +145,7 @@ if (getwindowmode = 1) {
 } else {
     if_opensub(combat_side, toplevel_fullscreen:side0, ^true)
     if_opensub(task_side, toplevel_fullscreen:side1, ^true)
-    if_opensub(interface_1055, toplevel_fullscreen:no_displayname_layer, ^true)
+    if_opensub(interface_1055, toplevel_fullscreen:graphics_confirm_layer, ^true)
     if_opensub(stats, toplevel_fullscreen:side2, ^true)
     if_opensub(questlist_v4, toplevel_fullscreen:side3, ^true)
     if_opensub(inventory, toplevel_fullscreen:side4, ^true)
