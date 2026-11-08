@@ -1,0 +1,9 @@
+// 289's fortress guard (fortress_guard.rs2) on 2011's fortress_guard (npc 609), unverified: no 2011
+// recording talks to one.
+[opnpc1,fortress_guard]
+if ((inv_getobj(worn, ^wearpos_hat) ! bronze_med_helm) | (inv_getobj(worn, ^wearpos_torso) ! iron_chainbody)) {
+    ~chatnpc("<p,angry>Get lost. This is private property.");
+} else {
+    ~chatnpc("<p,angry>Hey! Get back on duty!");
+    ~chatplayer("<p,confused>Uh...");
+}
