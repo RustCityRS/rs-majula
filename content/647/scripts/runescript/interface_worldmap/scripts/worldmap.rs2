@@ -1,0 +1,54 @@
+// 2011's world map: interface 755 (worldmap), cache 786.
+//
+// The globe beside the minimap (toplevel:worldmap_icon, 548:179, fixed;
+// toplevel_fullscreen:worldmap_button, 746:179, resizable; op1 "World Map",
+// clientscript 334) swaps the whole game screen for the map: no game view,
+// tabs or chat, in either frame (worldmap.if3 755:0 sizes itself to the
+// canvas; Jagex Knowledge Base, Controls - The Basics, Wayback snapshot
+// 2011-01-19; 2011 wiki, World map, rev 2011-05-10; YouTube 0PgitXjVAiU, "How
+// to Play Runescape: Part 3", uploaded 2011-02-09, 05:06). Zoom, panning, the
+// key, search, the overview and the area list run in the client.
+//
+// The server says where the player is: the map opens on the player, "even if
+// you are in a dungeon (with a small number of exceptions)" (Jagex Knowledge
+// Base, Controls - World Map View, snapshot 2011-05-20). worldmap_init
+// (clientscript 1369) picks the map holding varc 622 and centres on it as 755
+// loads, falling back to the surface; worldmap_overlay (clientscript 2045)
+// draws "You are here" at varc 674. No clientscript writes either, so both
+// are set before the IF_OPENTOP that loads the map.
+
+[if_button1,toplevel:worldmap_icon] @worldmap_open;
+[if_button1,toplevel_fullscreen:worldmap_button] @worldmap_open;
+
+[label,worldmap_open]
+// Inside Daemonheim the globe reads "Daemonheim Map" (varbit 6090,
+// clientscript 334) and opens Daemonheim's own map, which is not ported.
+if (%varplayerbit_6090 = 1) {
+    return;
+}
+// "For obvious reasons, you will not be able to load the world map while you
+// are in combat." (Jagex Knowledge Base, Controls - World Map View, Wayback
+// snapshot 2011-05-20; 2011 wiki, World map, rev 2011-05-10). No source gives
+// the combat refusal's text: the busy refusal stands in for it, unverified.
+// That one is sourced (2011 wiki, Magic carpet, rev 2011-04-17).
+if (p_finduid(uid) = false) {
+    mes("Please finish what you are doing before opening the world map.");
+    return;
+}
+if (add(%lastcombat, 8) > map_clock) {
+    mes("Please finish what you are doing before opening the world map.");
+    return;
+}
+%varclient_622 = coord;
+%varclient_674 = coord;
+if_opentop(worldmap);
+
+// The X at the top right (755:44, op1 "Close"). The client keeps every
+// sub-interface across IF_OPENTOP, so the frame comes back with its tabs,
+// orbs and chat as they were.
+[if_button1,worldmap:close]
+if (getwindowmode = 1) {
+    if_opentop(toplevel);
+} else {
+    if_opentop(toplevel_fullscreen);
+}
