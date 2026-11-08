@@ -6,4 +6,5 @@
 inv_add(inv, amulet_of_accuracy, 1);
 stat_advance(magic, 8750);
 session_log(^log_adventure, "Quest complete: Imp Catcher");
-~send_quest_complete(^questlist_imp, amulet_of_accuracy, 200, ^imp_questpoints, "You have completed the<br>Imp Catcher Quest!");
+// 2011's scroll (2011-04-24 pwZp0zd82QI, 170s; 2011-05-18 d1_wE03EGF0, 158s).
+~send_quest_complete2(^questlist_imp, amulet_of_accuracy, 200, ^imp_questpoints, "You have completed the Imp Catcher Quest!", "875 Magic XP|Amulet of Accuracy");

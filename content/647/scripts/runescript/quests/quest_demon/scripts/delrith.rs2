@@ -111,7 +111,8 @@ spotanim_pl(spotanim_778, 0, 0); // void-634: silverlight_sparkle
 %demon_slayer_gabindo = 0;
 %demon_slayer_purchai = 0;
 session_log(^log_adventure, "Quest complete: Demon Slayer");
-~send_quest_complete2(^questlist_demon, silverlight, 250, ^demon_questpoints, "You have completed the<br>Demon Slayer Quest!", "Silverlight");
+// 2011's scroll (2011-04-20 bHxrbaUN3AI, 592s): "quest" in lower case, on one line.
+~send_quest_complete2(^questlist_demon, silverlight, 250, ^demon_questpoints, "You have completed the Demon Slayer quest!", "Silverlight");
 
 // Banish's menu, void-634's order: the word, and its place in this player's
 // incantation.

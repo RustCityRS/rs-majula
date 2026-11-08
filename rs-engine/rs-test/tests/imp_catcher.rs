@@ -131,15 +131,19 @@ fn mizgog_takes_the_four_beads_for_an_amulet_of_accuracy() {
             talk.texts
                 .extend(settexts(&packets).into_iter().map(|(_, t)| t));
         }
-        // 647 breaks interface text with <br>. 289's `\\n` is the 2004
-        // client's line break; the 2011 client draws it as it stands.
-        assert!(
-            talk.texts
-                .iter()
-                .any(|t| t == "You have completed the<br>Imp Catcher Quest!"),
-            "the quest scroll; set {:?}",
-            talk.texts
-        );
+        // 2011's scroll (2011-04-24 pwZp0zd82QI, 2011-05-18 d1_wE03EGF0): one line, then the
+        // rewards under the quest point.
+        for line in [
+            "You have completed the Imp Catcher Quest!",
+            "875 Magic XP",
+            "Amulet of Accuracy",
+        ] {
+            assert!(
+                talk.texts.iter().any(|t| t == line),
+                "the 2011 scroll shows {line:?}; set {:?}",
+                talk.texts
+            );
+        }
         assert!(
             talk.texts.iter().all(|t| !t.contains('\\')),
             "a 2004 escape reached the client: {:?}",

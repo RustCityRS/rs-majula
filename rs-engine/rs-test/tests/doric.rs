@@ -223,6 +223,9 @@ fn doric_takes_the_ores_for_2011s_reward() {
             "Many thanks. Pass them here, please. I can spare you some coins for your trouble, and please use my anvils any time you want.",
             "You hand the clay, copper, and iron to Doric.",
             "You have completed Doric's Quest!",
+            "1300 Mining XP",
+            "180 coins",
+            "Use of Doric's Anvils",
         ] {
             assert!(talk.said(line), "2011 shows {line:?}; set {:?}", talk.texts);
         }

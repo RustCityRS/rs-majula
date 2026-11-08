@@ -160,10 +160,10 @@ if (inv_freespace(inv) >= 5) {
     inv_add(bank, ancient_bones, 5);
 }
 session_log(^log_adventure, "Quest complete: The Restless Ghost");
-// 289's message; the rewards as the 2011 wiki lists them.
-~send_quest_complete(^questlist_priest, muddy_skull, 220, ^priest_questpoints, "You have completed the<br>Restless Ghosts' Quest!");
-if_settext(questscroll_ver3:com_11, "125 Prayer XP");
-if_settext(questscroll_ver3:com_12, "5 Ancient bones");
+// 2011's scroll (2011-04-20 i7PABMV6o2k, 351s): "1 Quest Point," (a comma) over "125 Prayer XP and
+// five ancient bones", wrapped after "five".
+~send_quest_complete2(^questlist_priest, muddy_skull, 220, ^priest_questpoints, "You have completed The Restless Ghost!", "125 Prayer XP and five ancient bones");
+if_settext(questscroll_ver3:com_10, "1 Quest Point,");
 
 // ── Journal ─────────────────────────────────────────────────────────────────
 // void-634's (TheRestlessGhost.kt), in 289's colour codes: void-634's navy is

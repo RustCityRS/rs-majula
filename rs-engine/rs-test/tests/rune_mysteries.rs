@@ -242,8 +242,26 @@ fn sedridor_takes_the_notes_and_returns_the_talisman() {
         ] {
             assert!(talk.said(line), "2011 shows {line:?}; {:?}", talk.texts);
         }
+        let mut scroll = talk.texts.clone();
         for _ in 0..4 {
             engine.cycle();
+            scroll.extend(
+                rs_test::talk::settexts(&client.packets())
+                    .into_iter()
+                    .map(|(_, t)| t),
+            );
+        }
+        // 2011's scroll (2011-05-15 NBvmMylvOY8, 459s), its reward wrapped after "Runecrafting".
+        for line in [
+            "You have completed Rune Mysteries!",
+            "Access to the Runecrafting",
+            "skill and rune essence mine",
+            "Air talisman",
+        ] {
+            assert!(
+                scroll.iter().any(|t| t == line),
+                "the 2011 scroll shows {line:?}; {scroll:?}"
+            );
         }
         let pack = engine
             .harness_player(client.pid)

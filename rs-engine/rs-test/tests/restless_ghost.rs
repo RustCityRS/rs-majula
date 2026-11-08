@@ -126,8 +126,15 @@ fn messages(engine: &mut Engine, client: &mut HarnessClient, n: usize) -> Vec<St
     let mut said = Vec::new();
     for _ in 0..n {
         engine.cycle();
+        let packets = client.packets();
         said.extend(
-            HarnessClient::game_messages(&client.packets())
+            HarnessClient::game_messages(&packets)
+                .into_iter()
+                .map(|(_, t)| t),
+        );
+        // Interface texts too (the quest scroll's lines).
+        said.extend(
+            rs_test::talk::settexts(&packets)
                 .into_iter()
                 .map(|(_, t)| t),
         );
@@ -280,6 +287,18 @@ fn the_skull_in_the_coffin_lays_the_ghost_to_rest() {
             said.iter().any(|m| m == "You put the skull in the coffin."),
             "{said:?}"
         );
+        // 2011's scroll (2011-04-20 i7PABMV6o2k, 351s).
+        for line in [
+            "You have completed The Restless Ghost!",
+            "1 Quest Point,",
+            "125 Prayer XP and five",
+            "ancient bones",
+        ] {
+            assert!(
+                said.iter().any(|m| m == line),
+                "the 2011 scroll shows {line:?}; {said:?}"
+            );
+        }
         assert_eq!(stage(engine, &client), 5, "complete");
         assert_eq!(total(engine, &client, "inv", "muddy_skull"), 0);
         assert_eq!(total(engine, &client, "inv", "ancient_bones"), 5);

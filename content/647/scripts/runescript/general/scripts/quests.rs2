@@ -58,7 +58,12 @@ mes("Congratulations! Quest complete!");
 // Romance port.
 [proc,send_quest_complete2](int $quest, namedobj $obj, int $objscale, int $questpoints, string $questmessage, string $rewardtext)
 ~send_quest_complete($quest, $obj, $objscale, $questpoints, $questmessage);
-split_init($rewardtext, 213, 7, p12_full);
+// 2011's scrolls wrap their reward lines narrower than the 213-px components: between 155 and
+// 173 px (The Restless Ghost's "125 Prayer XP and five" / "ancient bones", Rune Mysteries'
+// "Access to the Runecrafting" / "skill and rune essence mine", Cook's Assistant's unwrapped
+// "Access to the cook's range"; target/port-tools/wrap_samples_scroll.txt). 170 is within; the
+// exact width is not known.
+split_init($rewardtext, 170, 7, p12_full);
 if_settext(questscroll_ver3:com_11, split_get(0, 0));
 if_settext(questscroll_ver3:com_12, split_get(0, 1));
 if_settext(questscroll_ver3:com_13, split_get(0, 2));

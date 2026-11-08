@@ -136,7 +136,8 @@ queue(doric_quest_complete, 0, 0);
 inv_add(inv, coins, 180);
 stat_advance(mining, 13000);
 session_log(^log_adventure, "Quest complete: Doric's Quest");
-~send_quest_complete(^questlist_doric, steel_pickaxe, 250, ^doric_questpoints, "You have completed Doric's Quest!");
+// 2011's scroll (2011-04-19 ycSbSwi-IPk, 130s; the same in five other 2010-2011 recordings).
+~send_quest_complete2(^questlist_doric, steel_pickaxe, 250, ^doric_questpoints, "You have completed Doric's Quest!", "1300 Mining XP|180 coins|Use of Doric's Anvils");
 
 [label,trail_doric]
 // 289: https://www.youtube.com/watch?v=Smadil97tFc
