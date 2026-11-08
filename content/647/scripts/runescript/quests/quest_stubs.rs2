@@ -6,8 +6,3 @@
 // the quest. 289's ladders.rs2 calls it.
 [proc,grandtree_spawn_charlie]
 
-// The Knight's Sword (quest_squire.rs2): Sir Vyvin guards his cupboard once
-// the quest reaches it. 289's cupboards.rs2 calls it only when %squire is 5
-// or more; nothing in 647 sets %squire yet.
-[proc,vyvin_distracted]()(boolean)
-return(true);

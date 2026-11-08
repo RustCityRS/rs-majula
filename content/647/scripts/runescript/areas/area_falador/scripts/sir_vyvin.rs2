@@ -1,7 +1,7 @@
 [opnpc1,sir_vyvin]
 ~chatplayer("<p,neutral>Hello.");
 ~chatnpc("<p,neutral>Greetings traveller.");
-@multi3("Do you have anything to trade?", sir_vyvin_trade, "Why are there so many knights in this city?", sir_vyvin_knights, "Can I distract you for a minute?", sir_vyvin_distract);
+@multi3("Do you have anything to trade?", sir_vyvin_trade, "Why are there so many knights in this city?", sir_vyvin_knights, "Can I just distract you for a minute?", sir_vyvin_distract);
 
 [label,sir_vyvin_trade]
 ~chatplayer("<p,quiz>Do you have anything to trade?");
