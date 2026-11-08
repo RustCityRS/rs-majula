@@ -162,14 +162,16 @@ if (%spy = 1) {
 [proc,update_blackknight_progress]
 %spy = calc(%spy + 1);
 
-// "Sir Amik hands you 2,500 coins." in a box, then "Congratulations! Quest complete!" and the
-// scroll (2011-05-04, 340.9s).
+// "Sir Amik hands you 2,500 coins." in a box, then "Congratulations! Quest complete!" and 2011's
+// scroll (2011-05-04, 340.9-342.5s): "You have completed Black Knights' Fortress!", "3 Quest
+// Points" and "2500 Coins", a cauldron of green potion pictured: broken_cauldron (obj 9591, after
+// the rework's dossiers 9589-9590; 289 pictured coins).
 [queue,black_knights_fortress_quest_complete]
 %spy = ^blackknight_complete;
 inv_add(inv, coins, 2500);
 ~mesbox("Sir Amik hands you 2,500 coins.");
 session_log(^log_adventure, "Quest complete: Black Knight's Fortress");
-~send_quest_complete(^questlist_fortress, coins, 260, ^blackknight_questpoints, "You have completed the Black Knights' Fortress Quest!");
+~send_quest_complete2(^questlist_fortress, broken_cauldron, 260, ^blackknight_questpoints, "You have completed Black Knights' Fortress!", "2500 Coins");
 
 [proc,black_knights_aggro](coord $first_search_coord, coord $all_search_coord)
 if (npc_find($first_search_coord, aggressive_black_knight, 5, 0) = true) {

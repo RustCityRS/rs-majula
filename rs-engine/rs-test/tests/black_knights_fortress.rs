@@ -227,12 +227,23 @@ fn black_knights_fortress_as_2011_had_it() {
         let nid = to_sir_amik(engine, &client);
         client.packets();
         talk_to(&mut client, nid);
-        let reward = converse(engine, &mut client, &[], 400);
+        let mut reward = converse(engine, &mut client, &[], 400);
+        // The scroll opens from the queue after the last box.
+        for _ in 0..3 {
+            engine.cycle();
+            reward.texts.extend(
+                rs_test::talk::settexts(&client.packets())
+                    .into_iter()
+                    .map(|(_, t)| t),
+            );
+        }
         for line in [
             "I have ruined the Black Knights' invincibility potion. That should put a stop to your problem and an end to their little schemes.",
             "Now, I believe there was some talk of a cash reward...",
             "Absolutely right. Please accept this reward.",
             "Sir Amik hands you 2,500 coins.",
+            "You have completed Black Knights' Fortress!",
+            "2500 Coins",
         ] {
             assert!(reward.said(line), "2011 shows {line:?}; {:?}", reward.texts);
         }
