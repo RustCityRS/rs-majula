@@ -5722,3 +5722,7 @@
 5729=[if_button1,toplevel_fullscreen:worldmap_button]
 5730=[label,worldmap_open]
 5731=[if_button1,worldmap:close]
+5732=[proc,worldmap_keysort_next]
+5733=[label,test_worldmap_keysort_next_cycles]
+5734=[if_button1,worldmap:sort_button]
+5735=[if_button1,worldmap:com_49]

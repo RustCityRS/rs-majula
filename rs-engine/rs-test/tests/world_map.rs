@@ -23,6 +23,7 @@ use client_packet::ClientPacket;
 use rs_engine::Engine;
 use rs_engine::harness::HarnessClient;
 use rs_pack::cache::VarValue;
+use rs_pack::cache::varp::VarPlayerScope;
 use rs_protocol::network::game::client_prot::ClientProt;
 use rs_protocol::network::game::server_prot::ServerProt;
 use rs_test::runner;
@@ -38,6 +39,10 @@ const GLOBE_RESIZABLE: i32 = (RESIZABLE as i32) << 16 | 179;
 /// worldmap:close, worldmap:sort_button.
 const CLOSE: i32 = (WORLDMAP as i32) << 16 | 44;
 const SORT: i32 = (WORLDMAP as i32) << 16 | 54;
+/// worldmap:com_49, the key: its option lines are dynamic slots 0-19.
+const KEY_LIST: i32 = (WORLDMAP as i32) << 16 | 49;
+/// The key's order (varbit 5367, bits 0-1) and options (6174-6177, bits 2-5).
+const KEY_VARP: u16 = 463;
 /// The map's centre and "You are here".
 const VARC_CENTRE: u16 = 622;
 const VARC_YOU_ARE_HERE: u16 = 674;
@@ -318,5 +323,111 @@ fn the_map_shows_the_player_reading() {
         set_recording(false);
         assert_eq!(opened, vec!["5354"], "reading the map");
         assert_eq!(closed, vec!["-1"], "and no longer");
+    });
+}
+/// Each IF_SETEVENTS as `(com, from, to, events)`: `p2_alt2(from)
+/// p4_alt3(events) p4_alt3(com) p2_alt3(to)`.
+fn events(packets: &[(u16, Vec<u8>)]) -> Vec<(i32, u16, u16, i32)> {
+    packets
+        .iter()
+        .filter(|(op, _)| *op == ServerProt::IfSetEvents as u16)
+        .map(|(_, p)| {
+            let from = u16::from_be_bytes([p[0], p[1].wrapping_sub(128)]);
+            let ops = i32::from_be_bytes([p[3], p[2], p[5], p[4]]);
+            let com = i32::from_be_bytes([p[7], p[6], p[9], p[8]]);
+            let to = u16::from_le_bytes([p[10].wrapping_sub(128), p[11]]);
+            (com, from, to, ops)
+        })
+        .collect()
+}
+
+fn varp(engine: &Engine, pid: u16, id: u16) -> i32 {
+    engine.harness_player(pid).unwrap().vars.get(id).as_int()
+}
+
+/// Opens the map from the fixed globe.
+fn open_map(engine: &mut Engine, client: &mut HarnessClient) -> Packets {
+    button(client, 1, GLOBE_FIXED, 0xFFFF);
+    let packets = ticks(engine, client, 1);
+    assert_eq!(toplevel(engine, client.pid), WORLDMAP, "the map is open");
+    packets
+}
+
+/// The key's option lines are dynamic children of 755:49 (script285), slots
+/// 0-19; the client sends their ops only for the slots the server enables.
+#[test]
+fn opening_allows_the_key_options() {
+    runner::on_loaded_engine(|engine| {
+        let mut client = player(engine, "wm_events", 1);
+        let packets = open_map(engine, &mut client);
+        let ev = events(&packets);
+        assert!(
+            ev.iter()
+                .any(|&(c, f, t, ops)| c == KEY_LIST && f == 0 && t == 19 && ops & (1 << 1) != 0),
+            "755:49 slots 0-19, op1; sent {ev:?}"
+        );
+    });
+}
+
+/// "Re-sort key" steps Traditional (0), Alphabetical (1), Categorised (2) and
+/// back (clientscripts 692 worldmap_keysort_button, 1839), in varbit 5367.
+#[test]
+fn resort_steps_traditional_alphabetical_categorised() {
+    runner::on_loaded_engine(|engine| {
+        let mut client = player(engine, "wm_sort", 1);
+        open_map(engine, &mut client);
+        assert_eq!(varp(engine, client.pid, KEY_VARP) & 3, 0, "Traditional");
+        for want in [1, 2, 0] {
+            button(&mut client, 1, SORT, 0xFFFF);
+            ticks(engine, &mut client, 1);
+            assert_eq!(varp(engine, client.pid, KEY_VARP) & 3, want);
+        }
+    });
+}
+
+/// script285 lays each option line out as two clickable children: "You are
+/// here" 0 and 1 (varbit 6174, bit 2), intra-map links 3 and 4 (6175, bit 3),
+/// map labels 11 and 12 (6176, bit 4), icon tooltips 14 and 16 (6177, bit 5).
+/// The client relabels the line; the server flips the bit.
+#[test]
+fn each_key_option_flips_its_own_bit() {
+    runner::on_loaded_engine(|engine| {
+        let mut client = player(engine, "wm_options", 1);
+        open_map(engine, &mut client);
+        for (slot, bit) in [
+            (0, 2),
+            (1, 2),
+            (3, 3),
+            (4, 3),
+            (11, 4),
+            (12, 4),
+            (14, 5),
+            (16, 5),
+        ] {
+            let before = varp(engine, client.pid, KEY_VARP);
+            button(&mut client, 1, KEY_LIST, slot);
+            ticks(engine, &mut client, 1);
+            let after = varp(engine, client.pid, KEY_VARP);
+            assert_eq!(after ^ before, 1 << bit, "slot {slot} flips bit {bit}");
+        }
+        for slot in [2, 5, 6, 7, 8, 9, 10, 13, 15, 17, 20, 40] {
+            let before = varp(engine, client.pid, KEY_VARP);
+            button(&mut client, 1, KEY_LIST, slot);
+            ticks(engine, &mut client, 1);
+            assert_eq!(
+                varp(engine, client.pid, KEY_VARP),
+                before,
+                "slot {slot} changes nothing"
+            );
+        }
+    });
+}
+
+/// The key's order and options are saved, as void-634 saves them.
+#[test]
+fn the_key_settings_are_saved() {
+    runner::on_loaded_engine(|engine| {
+        let varp = engine.cache.varps.get_by_id(KEY_VARP).expect("varp 463");
+        assert!(varp.scope == VarPlayerScope::Perm, "saved");
     });
 }

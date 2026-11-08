@@ -42,6 +42,10 @@ if (add(%lastcombat, 8) > map_clock) {
 %varclient_622 = coord;
 %varclient_674 = coord;
 if_opentop(worldmap);
+// The key's option lines (below) send their ops only from the slots enabled
+// here. void-634 enables 0-182, every line of the key; which range 2011 used
+// is not known, and only the option lines (0-19) mean anything to the server.
+if_setevents(worldmap:com_49, 0, 19, ^if_op1, 0, 0, false, false);
 // Others see the player reading a map while it is open: "An animation has
 // been added for when players are viewing the world map" (Jagex news 2419,
 // 9 November 2009), an open map held up in both hands (YouTube kabOLpe353E,
@@ -69,4 +73,50 @@ if (getwindowmode = 1) {
     if_opentop_mode(toplevel, 2);
 } else {
     if_opentop_mode(toplevel_fullscreen, 2);
+}
+
+// The key (755:49, "Show key"). Its order and four options live in varp 463,
+// which the client reads and redraws from (if_setonvartransmit in
+// worldmap_init): varbit 5367 the order, 6174-6177 the options. The client
+// only relabels a clicked line (clientscript 1404 worldmap_key_toggle) or
+// rebuilds the key in the next order (clientscript 692
+// worldmap_keysort_button); the server keeps the varp. Varp 463 is protect=no
+// (the map's buttons run unprotected, as every button on 548, 746 and 755
+// does) and scope=perm: void-634 saves the options (persist = true), and no
+// 2011 source says whether they outlived a logout (void-634 only).
+
+// "Re-sort key" (755:54): Traditional, Alphabetical, Categorised, in turn
+// (clientscripts 692 and 1839; YouTube 0PgitXjVAiU, 2011-02-09, 07:45 "Key
+// order: Traditional", 08:30-08:38).
+[if_button1,worldmap:sort_button]
+%varplayerbit_5367 = ~worldmap_keysort_next(%varplayerbit_5367);
+
+// The option lines. script285 builds each as two clickable children of
+// 755:49 and the client sends the clicked one's slot: "You are here" 0 and 1
+// (varbit 6174), intra-map links 3 and 4 (6175), map labels 11 and 12 (6176),
+// icon tooltips 14 and 16 (6177). Each is Hide/Show (Jagex Knowledge Base,
+// Controls - World Map View, snapshot 2011-05-20: "options to turn some map
+// features on or off"; YouTube 0PgitXjVAiU 08:11-08:22). void-634 answers
+// only one child of each line (1, 4, 12, 16).
+[if_button1,worldmap:com_49]
+switch_int (last_slot) {
+    case 0, 1 : %varplayerbit_6174 = calc(1 - %varplayerbit_6174);
+    case 3, 4 : %varplayerbit_6175 = calc(1 - %varplayerbit_6175);
+    case 11, 12 : %varplayerbit_6176 = calc(1 - %varplayerbit_6176);
+    case 14, 16 : %varplayerbit_6177 = calc(1 - %varplayerbit_6177);
+}
+
+// The key's next order after $order, as clientscript 692
+// (worldmap_keysort_button) rebuilds it on "Re-sort key": 0 Traditional, 1
+// Alphabetical, 2 Categorised, then back to 0 (clientscript 1839). The
+// server must pick the order the client has just drawn, or the varp's next
+// update snaps the key back. This is RuneScript, not a shared .gs2 proc:
+// every .gs2 proc is also compiled into the client's clientscripts, and a new
+// one changes cache 786's archive 12 (crc_gate: 0xd4df1688, not 0xac5b8029),
+// while 692 itself, which inlines the cycle, stays as the cache has it.
+[proc,worldmap_keysort_next](int $order)(int)
+switch_int ($order) {
+    case 0 : return(1);
+    case 1 : return(2);
+    case default : return(0);
 }

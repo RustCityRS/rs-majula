@@ -1913,6 +1913,12 @@ transmit=yes
 // 463
 [varplayer_463]
 transmit=yes
+// 2011's world map key (interface_worldmap): varbit 5367 its order, 6174-6177
+// its four Hide/Show options. Its buttons run unprotected (on 755, the map
+// itself), so protect=no. Saved as void-634 saves them (persist = true): no
+// 2011 source says whether they outlived a logout (void-634 only).
+protect=no
+scope=perm
 
 // 464
 [musicmulti_11]
