@@ -860,13 +860,23 @@ type=int
 scope=perm
 
 // 184
-[varplayer_184]
+[dragon_oracle]
+// Server-only (cache 786 does not transmit it and no clientscript reads it), so 289's
+// varp lives here instead of a new id above the cache's range.
+// Dragon Slayer: what the Oracle and Thalzar's door know (289's id 184).
+type=int
+scope=perm
 
 // 185
 [varplayer_185]
 
 // 186
-[varplayer_186]
+[dragon_shield]
+// Server-only (cache 786 does not transmit it and no clientscript reads it), so 289's
+// varp lives here instead of a new id above the cache's range.
+// Dragon Slayer: 1 = told of the Duke's shield (289's id 186).
+type=int
+scope=perm
 
 // 187
 [dragon_goblin]
@@ -878,7 +888,12 @@ scope=perm
 transmit=yes
 
 // 189
-[varplayer_189]
+[dragon_guildmaster]
+// Server-only (cache 786 does not transmit it and no clientscript reads it), so this
+// flag lives here instead of a new id above the cache's range.
+// Dragon Slayer: 1 = the Guildmaster has told Crandor's story (no 289 varp; 189 is unused in 289 and 786).
+type=int
+scope=perm
 
 // 190
 [varplayer_190]
