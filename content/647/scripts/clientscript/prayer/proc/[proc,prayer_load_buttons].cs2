@@ -15,7 +15,7 @@ if (%varclient_1052 = 1 & %varplayerbit_6840 = 0) {
     $int8 = calc(30 + 4);
 }
 def_int $int9 = calc(30 + 6);
-if (%varclient_181 = 1) {
+if (%varclient_181 = true) {
     $int5 = 8;
     $int6 = $int5;
     $int7 = 30;
@@ -44,7 +44,7 @@ while ($int4 < $int14) {
     cc_setsize($int2, $int3, ^setsize_abs, ^setsize_abs);
     cc_setposition($int6, $int7, ^setpos_abs_left, ^setpos_abs_top);
     cc_setgraphic($graphic12);
-    if (%varclient_181 = 0) {
+    if (%varclient_181 = false) {
         cc_setop(1, "Activate<col=ff9040>");
         cc_setonvartransmit("prayer_varupdate(event_com, prayer:com_7, $int4){activated_prayers, varplayer_1582}");
         cc_setonmouserepeat("script1160(event_com, event_comsubid, prayer:com_49, $string0, 25, 190)");

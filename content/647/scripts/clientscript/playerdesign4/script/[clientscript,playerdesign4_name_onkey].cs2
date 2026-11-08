@@ -1,6 +1,6 @@
 // 3944
 [clientscript,playerdesign4_name_onkey](int $key0, char $char1, boolean $boolean2)
-if (%varclient_1412 = 1) {
+if (%varclient_1412 = true) {
     return;
 }
 def_component $component3 = playerdesign4:com_181;
@@ -15,7 +15,7 @@ switch_int ($key0) {
     case ^key_escape :
         return;
     case ^key_return :
-        %varclient_1412 = 1;
+        %varclient_1412 = true;
         return;
     case ^key_left, ^key_right, ^key_up, ^key_down, ^key_home, ^key_end :
         %varclient_1099 = ~script1553($key0, %varclient_1099, %varclient_1849);

@@ -22,7 +22,7 @@ $int0 = ~script2879(8, %varplayerbit_7089, $int0);
 $int0 = ~script2879(9, %varplayerbit_7090, $int0);
 $int0 = ~script2879(10, %varplayerbit_7091, $int0);
 $int0 = ~script2879(11, %varplayerbit_7092, $int0);
-if (%varplayerbit_7081 = 32767 & %varclient_1077 = 1) {
+if (%varplayerbit_7081 = 32767 & %varclient_1077 = true) {
     if_sethide(false, music_v3:com_14);
 } else {
     if_sethide(true, music_v3:com_14);

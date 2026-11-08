@@ -45,7 +45,7 @@ if (string_length(%varclient_1796) > 0) {
                 clan_joinchat(%varclient_1796);
             }
         case 6 :
-            %varclient_1094 = 0;
+            %varclient_1094 = false;
             openurl("bugtracker_v4", "index.html", false);
         case 7 :
             if (string_length(%varclient_1796) > 0) {

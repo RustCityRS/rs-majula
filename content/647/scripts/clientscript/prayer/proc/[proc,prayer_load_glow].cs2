@@ -15,7 +15,7 @@ if (%varclient_1052 = 1 & %varplayerbit_6840 = 0) {
     $int8 = calc(34 + 0);
 }
 def_int $int9 = calc(34 + 2);
-if (%varclient_181 = 1) {
+if (%varclient_181 = true) {
     $int5 = 6;
     $int6 = $int5;
     $int7 = 28;

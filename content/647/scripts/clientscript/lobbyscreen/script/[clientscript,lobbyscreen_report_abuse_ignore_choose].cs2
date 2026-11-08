@@ -21,7 +21,7 @@ if ($int0 = 1 & string_length(%varclient_1798) > 0) {
         }
     }
 }
-if (%varclient_1094 = 1) {
+if (%varclient_1094 = true) {
     ~lobbyscreen_input("", "Open a bug report form?<br>(opens a new window)", 6, "", "");
-    %varclient_1094 = 0;
+    %varclient_1094 = false;
 }

@@ -10,6 +10,6 @@ if (%open_bank_tab = 0) {
 ~bank_v2_tab_highlight(1);
 %varclient_1657 = "";
 ~meslayer_close(11);
-%varclient_188 = 0;
+%varclient_188 = false;
 if_settext("Bank of RuneScape", bank_v2_main:com_45);
 if_setontimer(null, bank_v2_main:com_17);

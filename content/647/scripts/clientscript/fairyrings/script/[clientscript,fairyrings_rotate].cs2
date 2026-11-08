@@ -19,7 +19,7 @@ if (%varclient_125 < clientclock) {
     if_sethide(false, $component15);
     if_sethide(true, $component16);
 } else {
-    if (%varclient_156 <= clientclock & %varclient_157 = 1) {
+    if (%varclient_156 <= clientclock & %varclient_157 = true) {
         sound_synth(synth_2871, 1, 0);
         %varclient_156 = calc(clientclock + 10);
     }

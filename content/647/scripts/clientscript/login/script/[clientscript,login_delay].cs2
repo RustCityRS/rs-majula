@@ -3,7 +3,7 @@
 $int1 = calc($int1 + 1);
 if_setontimer("login_delay($component0, $int1)", $component0);
 if ($int1 > 1) {
-    %varclient_1273 = 1;
+    %varclient_1273 = true;
     if_setontimer(null, $component0);
     ~login_dologin;
 }

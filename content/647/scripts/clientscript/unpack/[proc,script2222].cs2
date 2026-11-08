@@ -5,7 +5,7 @@ switch_int ($key0) {
         ~loginscreen_setactivemenu(11);
     case ^key_return :
         if (if_gethide(account_create_success:com_13) = true) {
-            if (%varclient_1088 = 1) {
+            if (%varclient_1088 = true) {
                 ~loginscreen_link("dob", "set_members_dob.ws", false);
             } else {
                 ~loginscreen_setactivemenu(12);

@@ -7,7 +7,7 @@ if (detailget_safemode = true) {
     if_settext($string0, options_firstrun:com_4);
     if_setsize(if_getwidth(options_firstrun:com_2), calc(22 * paraheight($string0, if_getwidth(options_firstrun:com_4), verdana_11pt_regular) + 86), ^setsize_abs, ^setsize_abs, options_firstrun:com_2);
     if_setsize(stringwidth(if_gettext(options_firstrun:com_6), verdana_11pt_regular), if_getheight(options_firstrun:com_6), ^setsize_abs, ^setsize_abs, options_firstrun:com_6);
-} else if (%varclient_1277 = 1 & %varclient_1240 = -1) {
+} else if (%varclient_1277 = true & %varclient_1240 = -1) {
     $string0 = "This is your first time playing. Click below to auto-choose best graphics settings. Choose 'Leave Alone' to continue with default settings.";
     if_settext($string0, options_firstrun:com_4);
     if_setsize(if_getwidth(options_firstrun:com_2), calc(22 * paraheight($string0, if_getwidth(options_firstrun:com_4), verdana_11pt_regular) + 86), ^setsize_abs, ^setsize_abs, options_firstrun:com_2);
@@ -22,11 +22,11 @@ if (detailget_safemode = true) {
     if_sethide(true, options_firstrun:com_6);
 } else {
     $string0 = "Available graphics options have changed. Click below to auto choose best graphics settings.";
-    if (%varclient_1277 = 1) {
+    if (%varclient_1277 = true) {
         $string0 = "Available graphics options have changed. Click below to auto-choose best graphics settings. Choose 'Leave Alone' to continue with your current settings.";
     }
     if_settext($string0, options_firstrun:com_4);
     if_setsize(if_getwidth(options_firstrun:com_2), calc(22 * paraheight($string0, if_getwidth(options_firstrun:com_4), verdana_11pt_regular) + 86), ^setsize_abs, ^setsize_abs, options_firstrun:com_2);
     if_setsize(stringwidth(if_gettext(options_firstrun:com_6), verdana_11pt_regular), if_getheight(options_firstrun:com_6), ^setsize_abs, ^setsize_abs, options_firstrun:com_6);
 }
-%varclient_1277 = 1;
+%varclient_1277 = true;

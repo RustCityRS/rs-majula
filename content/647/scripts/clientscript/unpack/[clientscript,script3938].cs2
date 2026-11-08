@@ -1,9 +1,9 @@
 // 3938
 [clientscript,script3938]
-if (%varclient_1411 = 1) {
-    %varclient_1411 = 0;
+if (%varclient_1411 = true) {
+    %varclient_1411 = false;
     if_setgraphic("check_box_2,1", account_create:com_28);
 } else {
-    %varclient_1411 = 1;
+    %varclient_1411 = true;
     if_setgraphic("check_box_2,3", account_create:com_28);
 }

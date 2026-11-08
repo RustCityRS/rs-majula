@@ -1,6 +1,6 @@
 // 9
 [clientscript,bank_v2_bankpinshow](component $component0, component $component1, component $component2)
-if (%varclient_169 = 1) {
+if (%varclient_169 = true) {
     if_sethide(false, $component0);
     if_sethide(false, $component1);
     if_sethide(false, $component2);

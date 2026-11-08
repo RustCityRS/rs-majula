@@ -30,17 +30,17 @@ if_settext("<tostring(%varplayer_1690)>/7", interface_931:com_118);
 if_settext("<tostring(%varplayer_1691)>/7", interface_931:com_119);
 ~script2221;
 if_settext("Turn <tostring(%varplayer_1674)>/15", interface_931:com_20);
-if (%varclient_1132 = 0) {
+if (%varclient_1132 = false) {
     if_setgraphic("warning_icons,1", interface_931:com_121);
 } else {
     if_setgraphic("warning_icons,2", interface_931:com_121);
 }
-if (%varclient_1134 = 0) {
+if (%varclient_1134 = false) {
     if_setgraphic("warning_icons,1", interface_931:com_122);
 } else {
     if_setgraphic("warning_icons,2", interface_931:com_122);
 }
-if (%varclient_1133 = 0) {
+if (%varclient_1133 = false) {
     if_setgraphic("warning_icons,1", interface_931:com_123);
 } else {
     if_setgraphic("warning_icons,2", interface_931:com_123);

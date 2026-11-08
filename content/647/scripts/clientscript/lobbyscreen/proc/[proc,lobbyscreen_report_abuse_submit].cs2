@@ -6,11 +6,11 @@ if (string_length(%varclient_1798) > 0) {
 ~lobbyscreen_report_abuse_stage2_close;
 if (string_length(%varclient_1798) > 0 & ignore_test(%varclient_1798) = false & compare(%varclient_1798, chat_playername_unfiltered) ! 0) {
     if ($int0 = 5) {
-        %varclient_1094 = 1;
+        %varclient_1094 = true;
     }
     ~lobbyscreen_report_abuse_ignore;
 } else {
-    %varclient_1094 = 0;
+    %varclient_1094 = false;
     if ($int0 = 5) {
         ~lobbyscreen_input_full("", "Open a bug report form?<br>(opens a new window)", 0, 6, "", "", 1);
     }

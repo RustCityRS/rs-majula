@@ -3,7 +3,7 @@
 if_closesubclient(lobbyscreen:com_61);
 if_sethide(true, lobbyscreen:com_44);
 if_setonkey(null, interface_915:com_18);
-%varclient_1094 = 0;
+%varclient_1094 = false;
 if (if_gethide(enum(int, component, enum_941, 5)) = false) {
     ~script3161(1);
 }

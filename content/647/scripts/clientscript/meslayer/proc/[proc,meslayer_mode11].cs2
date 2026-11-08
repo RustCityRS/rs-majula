@@ -1,6 +1,6 @@
 // 1549
 [proc,meslayer_mode11]
-if (%varclient_11 = 1) {
+if (%varclient_11 = true) {
     ~script675;
 }
 if (getwindowmode >= 2) {

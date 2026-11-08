@@ -10,7 +10,7 @@ if (playermodlevel = 5 | playermodlevel = 6) {
     if_settext("Mute this player for 48 hours", snapshot_main_v2:com_10);
     if_settext("Mute this player for 48 hours", snapshot_main_v2:com_60);
 }
-%varclient_11 = 1;
+%varclient_11 = true;
 if (map_lang ! 1) {
     ~script216;
     ~script246;

@@ -1,6 +1,6 @@
 // 1484
 [clientscript,bank_v2_close]
-if (%varclient_188 = 1) {
+if (%varclient_188 = true) {
     ~bank_v2_searchmode_off;
 }
 ~script675;

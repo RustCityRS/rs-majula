@@ -5,7 +5,7 @@ if (worldlist_fetch = false) {
     if_setontimer("lobbyscreen_entergame($component0)", $component0);
     return;
 }
-%varclient_1322 = 0;
+%varclient_1322 = false;
 ~lobbyscreen_loginbutton_text(1);
 if_setontimer(null, $component0);
 ~lobby_popup_close;

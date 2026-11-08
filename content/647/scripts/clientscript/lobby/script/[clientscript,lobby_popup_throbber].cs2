@@ -1,12 +1,12 @@
 // 3094
 [clientscript,lobby_popup_throbber]
 def_int $int0 = lobby_entergamereply;
-if ($int0 ! -3 & %varclient_1322 = 0) {
+if ($int0 ! -3 & %varclient_1322 = false) {
     if_setontimer(null, lobbyscreen:com_223);
     return;
 }
-if (%varclient_1322 = 1 & $int0 = -3) {
-    %varclient_1322 = 0;
+if (%varclient_1322 = true & $int0 = -3) {
+    %varclient_1322 = false;
 }
 if (clientclock < %varclient_1092) {
     return;

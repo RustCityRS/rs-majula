@@ -34,7 +34,7 @@ if ($int2 = -1) {
     %varclient_1414 = 2;
 }
 if ((userdetail_lobby_playage = 0 | compare(substring(chat_playername, 0, 1), "#") = 0) & $boolean0 = false) {
-    %varclient_1322 = 1;
+    %varclient_1322 = true;
     %varclient_200 = 0;
     ~lobby_popup(-3, 0, "Logging In - Please Wait", 1, null, 0, -1, "", "", 0, "", "");
     %varclient_1100 = -3;

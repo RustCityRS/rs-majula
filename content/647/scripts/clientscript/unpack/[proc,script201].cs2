@@ -1,6 +1,6 @@
 // 201
 [proc,script201]
-if (%varclient_1034 = 1 & %varclient_1027 = 1 & string_length(%varclient_1721) > 0) {
+if (%varclient_1034 = 1 & %varclient_1027 = true & string_length(%varclient_1721) > 0) {
     clan_joinchat(%varclient_1721);
     %varclient_1034 = 2;
 }

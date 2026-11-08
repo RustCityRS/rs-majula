@@ -2,7 +2,7 @@
 [proc,bank_v2_tab_click](int $int0, int $int1)
 if (~bank_v2_get_tab_size($int1) > 0) {
     if ($int0 = 1) {
-        if (%varclient_188 = 1) {
+        if (%varclient_188 = true) {
             ~bank_v2_searchmode_off;
         }
         ~bank_v2_hide_all;

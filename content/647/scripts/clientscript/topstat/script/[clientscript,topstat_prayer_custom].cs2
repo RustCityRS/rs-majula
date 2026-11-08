@@ -1,6 +1,6 @@
 // 2299
 [clientscript,topstat_prayer_custom](component $component0)
-if (%varclient_181 = 1) {
+if (%varclient_181 = true) {
     if (%varplayerbit_6840 = 1) {
         if_setop(2, "Finish quick curse selection", $component0);
         if_settext("Select your quick curses:", prayer:com_46);

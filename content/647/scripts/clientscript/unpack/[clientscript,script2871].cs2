@@ -1,10 +1,10 @@
 // 2871
 [clientscript,script2871](int $int0)
 if ($int0 = 1) {
-    if (%varclient_1077 = 1) {
-        %varclient_1077 = 0;
+    if (%varclient_1077 = true) {
+        %varclient_1077 = false;
     } else {
-        %varclient_1077 = 1;
+        %varclient_1077 = true;
     }
 }
 ~script2872;

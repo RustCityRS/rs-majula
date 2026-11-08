@@ -17,10 +17,10 @@ if ($int1 >= 0) {
     if ($int1 < $int2) {
         return;
     }
-    if (%varclient_1413 = 0) {
+    if (%varclient_1413 = false) {
         return;
     }
-    if (%varclient_11 = 1) {
+    if (%varclient_11 = true) {
         ~script675;
     }
     if (getwindowmode >= 2) {

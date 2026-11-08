@@ -1,6 +1,6 @@
 // 724
 [clientscript,statusicons_addtooltip](component $component0, string $string0, int $int1, int $int2)
-if ($component0 = interface_745:com_1 & %varclient_616 = 0) {
+if ($component0 = interface_745:com_1 & %varclient_616 = false) {
     return;
 }
 def_int $int3 = 0;

@@ -31,7 +31,7 @@ if_setonresize("login_resize", loginscreen:com_17);
 %varclient_1551 = "";
 %varclient_1552 = "";
 %varclient_547 = 0;
-%varclient_1093 = 0;
+%varclient_1093 = false;
 if_opensubclient(loginscreen:com_50, loginscreen_graphics_options);
 ~graphics_options_init(0);
 if_setonclick("loginscreen_setactivemenu(11)", loginscreen_graphics_options:com_20);
@@ -57,7 +57,7 @@ if (frombilling = true) {
         %varclient_1090 = 5;
         %varclient_1091 = 5;
         ~loginscreen_setactivemenu_full(5, true, false);
-        if (%varclient_1273 = 1) {
+        if (%varclient_1273 = true) {
             return;
         } else {
             if_setontimer("login_delay(south_progress9:com_50, 0)", south_progress9:com_50);

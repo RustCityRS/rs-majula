@@ -4,4 +4,4 @@ if (string_length(%varclient_1543) > 0) {
     chat_sendabusereport(%varclient_1543, $int0, %varclient_6, "");
 }
 ~script675;
-%varclient_11 = 0;
+%varclient_11 = false;

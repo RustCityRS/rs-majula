@@ -21,7 +21,7 @@ if ($key0 = ^key_return) {
 if ($key0 = ^key_backspace) {
     if ($int5 > 0) {
         %varclient_129 = calc(%varclient_129 / 10);
-    } else if (%varclient_127 = 0) {
+    } else if (%varclient_127 = false) {
         ~quickchat_close;
     } else {
         if_sethide(true, chatbox_background:com_7);

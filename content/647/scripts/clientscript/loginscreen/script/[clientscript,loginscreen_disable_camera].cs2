@@ -5,7 +5,7 @@ if_setonmouserepeat(null, $component3);
 if_setonmouserepeat(null, $component3);
 def_coord $coord6 = null;
 def_int $rgb7 = ^black;
-if (%varclient_986 = 1) {
+if (%varclient_986 = true) {
     if_settrans(0, $component1);
     if_setcolour(^black, $component1);
     if_sethide(false, $component1);
@@ -17,7 +17,7 @@ if (%varclient_986 = 1) {
     cam_lookat($coord6, 0, 100, 100);
     if_sethide(false, $component0);
     if_setontimer("loginscreen_camerarestart($component0, $component1, $component2, $component3, $component4, $component5, calc(clientclock + 30))", $component0);
-    %varclient_986 = 0;
+    %varclient_986 = false;
     %varclient_994 = 2;
 } else {
     if_setoncamfinished(null, $component0);
@@ -33,6 +33,6 @@ if (%varclient_986 = 1) {
     }
     if_setontimer("script1253(event_com)", $component2);
     if_setontimer("loginscreen_camerastop($component0, $component1, $component2, $component3, $component4, $component5, calc(clientclock + 30))", $component0);
-    %varclient_986 = 1;
+    %varclient_986 = true;
 }
 ~login_resize;

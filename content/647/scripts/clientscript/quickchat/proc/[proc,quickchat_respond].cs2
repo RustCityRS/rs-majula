@@ -5,7 +5,7 @@ if ($chatphrase1 = null | chatphrase_getautoresponsecount($chatphrase1) = 0) {
 }
 %varclient_126 = $int0;
 %varclient_1546 = $string0;
-%varclient_127 = 1;
+%varclient_127 = true;
 if (getwindowmode >= 2) {
     if_setgraphic(chat_background, chatbox:com_1);
     if_setalpha(false, chatbox:com_1);

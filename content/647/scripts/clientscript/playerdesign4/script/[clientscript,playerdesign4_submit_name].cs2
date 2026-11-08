@@ -1,7 +1,7 @@
 // 3945
 [clientscript,playerdesign4_submit_name](int $int0, int $int1, int $int2)
 if ($int2 = 1) {
-    %varclient_1412 = 1;
+    %varclient_1412 = true;
 }
 switch_int ($int0) {
     case default :

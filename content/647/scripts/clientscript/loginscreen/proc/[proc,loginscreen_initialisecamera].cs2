@@ -13,11 +13,11 @@ if_setcolour(^black, $component1);
 if_settrans(0, $component1);
 if_sethide(false, $component1);
 if (%varclient_994 = 1) {
-    %varclient_986 = 1;
+    %varclient_986 = true;
 } else if (%varclient_994 ! 2) {
     if (profile_cpu > 400) {
         %varclient_994 = 1;
-        %varclient_986 = 1;
+        %varclient_986 = true;
         if (getwindowmode > 1) {
             setwindowmode(^windowmode_small);
         }
@@ -31,8 +31,8 @@ if (%varclient_994 = 1) {
 if_setonclick("loginscreen_disable_camera($component0, $component1, $component2, $component3, $component4, $component5)", $component3);
 if_setonmouserepeat("script2961($component4, $component5, true)", $component3);
 if_setonmouseleave("script2961($component4, $component5, false)", $component3);
-%varclient_986 = 1;
-if (%varclient_986 = 1) {
+%varclient_986 = true;
+if (%varclient_986 = true) {
     if_setgraphic("animatedcam,0", $component4);
     return;
 }

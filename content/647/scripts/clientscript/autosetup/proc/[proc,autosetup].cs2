@@ -9,7 +9,7 @@ if ($int1 = 1 | $int1 = 3) {
     return;
 } else {
     %varclient_1240 = 3;
-    %varclient_1277 = 0;
+    %varclient_1277 = false;
     detail_toolkit_default($int1, true);
     if ($int0 = 3) {
         if (unknown_command_5623 = true) {

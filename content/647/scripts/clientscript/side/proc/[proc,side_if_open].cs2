@@ -1,6 +1,6 @@
 // 1387
 [proc,side_if_open](int $int0)
-if (%varclient_1413 = 0 & $int0 ! 99) {
+if (%varclient_1413 = false & $int0 ! 99) {
     return;
 }
 ~script4249($int0);

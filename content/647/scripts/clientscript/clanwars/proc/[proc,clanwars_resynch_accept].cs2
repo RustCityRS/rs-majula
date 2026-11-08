@@ -6,7 +6,7 @@ if (%varplayer_1149 ! -1) {
         ~v2_stone_button_out_proc(clanwars_setup:com_143);
         if_setonmouserepeat("v2_stone_button_in_filled(event_com)", clanwars_setup:com_143);
         if_setonmouseleave("v2_stone_button_out_filled(event_com)", clanwars_setup:com_143);
-        if (%varclient_259 = 0) {
+        if (%varclient_259 = false) {
             if_settext("Accept", clanwars_setup:com_146);
             if_settextfont(b12_full, clanwars_setup:com_146);
         } else {

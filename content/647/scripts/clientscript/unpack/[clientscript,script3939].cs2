@@ -2,14 +2,14 @@
 [clientscript,script3939](int $int0)
 if ($int0 = 1) {
     if_setcolour(0xfafafa, account_create:com_29);
-    if (%varclient_1411 = 1) {
+    if (%varclient_1411 = true) {
         if_setgraphic("check_box_2,3", account_create:com_28);
     } else {
         if_setgraphic("check_box_2,1", account_create:com_28);
     }
 } else {
     if_setcolour(0xebe0bc, account_create:com_29);
-    if (%varclient_1411 = 1) {
+    if (%varclient_1411 = true) {
         if_setgraphic("check_box_2,2", account_create:com_28);
     } else {
         if_setgraphic("check_box_2,0", account_create:com_28);

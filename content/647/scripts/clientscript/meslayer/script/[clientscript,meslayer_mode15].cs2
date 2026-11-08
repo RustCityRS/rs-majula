@@ -1,10 +1,10 @@
 // 2688
 [clientscript,meslayer_mode15]
 if (clan_getchatcount > 0 & clan_getchatrank >= clan_getchatminkick) {
-    if (%varclient_1413 = 0) {
+    if (%varclient_1413 = false) {
         return;
     }
-    if (%varclient_11 = 1) {
+    if (%varclient_11 = true) {
         ~script675;
     }
     if (getwindowmode >= 2) {

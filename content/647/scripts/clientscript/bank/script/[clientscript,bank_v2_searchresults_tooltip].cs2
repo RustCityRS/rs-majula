@@ -1,6 +1,6 @@
 // 1480
 [clientscript,bank_v2_searchresults_tooltip](component $component0, int $int1)
-if (%varclient_188 = 0) {
+if (%varclient_188 = false) {
     ~deltooltip_action(bank_v2_main:com_97);
     return;
 }

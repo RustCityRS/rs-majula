@@ -11,5 +11,5 @@ if_setonkey("playerdesign4_name_onkey(event_keycode, event_keychar, true)", play
 if_setonclick("script3217(event_mousex, playerdesign4:com_181, playerdesign4:com_182, playerdesign4:com_183, 16)", playerdesign4:com_182);
 %varclient_1099 = 0;
 %varclient_1849 = "";
-%varclient_1412 = 0;
+%varclient_1412 = false;
 ~script3218(playerdesign4:com_181, playerdesign4:com_182, playerdesign4:com_183, %varclient_1849, 16);

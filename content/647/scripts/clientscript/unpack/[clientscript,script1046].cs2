@@ -88,7 +88,7 @@ if ($key0 = ^key_return) {
     return;
 }
 if ($key0 = ^key_backspace) {
-    if (%varclient_127 = 0) {
+    if (%varclient_127 = false) {
         ~quickchat_close;
     } else {
         %varclient_128 = -1;

@@ -1,9 +1,9 @@
 // 1419
 [clientscript,meslayer_mode5]
-if (%varclient_1413 = 0) {
+if (%varclient_1413 = false) {
     return;
 }
-if (%varclient_11 = 1) {
+if (%varclient_11 = true) {
     ~script675;
 }
 if (getwindowmode >= 2) {

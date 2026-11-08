@@ -3,13 +3,13 @@
 %varclient_799 = calc(%varclient_799 + 1);
 if (%varclient_799 >= 30) {
     %varclient_799 = 0;
-    if (%varclient_798 = 1) {
-        %varclient_798 = 0;
+    if (%varclient_798 = true) {
+        %varclient_798 = false;
     } else {
-        %varclient_798 = 1;
+        %varclient_798 = true;
     }
 }
-if (%varclient_798 = 1) {
+if (%varclient_798 = true) {
     if_settext("<escape(%varclient_1543)><col=ffff00> ", snapshot_main_v2:com_53);
 } else {
     if_settext("<escape(%varclient_1543)><col=ffff00>|", snapshot_main_v2:com_53);

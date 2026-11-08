@@ -1,6 +1,6 @@
 // 1050
 [proc,quickchat_open](int $int0, string $string0)
-if (%varclient_1413 = 0) {
+if (%varclient_1413 = false) {
     return;
 }
 if ($int0 = 2 & compare("", clan_getchatdisplayname) = 0) {
@@ -43,5 +43,5 @@ if ($int0 = 3) {
 }
 %varclient_126 = $int0;
 %varclient_1546 = $string0;
-%varclient_127 = 1;
+%varclient_127 = true;
 ~quickchat_menu_add(chatbox_background:com_1, 0, $chatcat1, $chatcat2, $int3);

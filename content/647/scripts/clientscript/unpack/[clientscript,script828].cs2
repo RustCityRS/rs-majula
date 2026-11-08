@@ -3,9 +3,9 @@
 ~script2872;
 def_int $intarray0(calc(979 + 1));
 def_int $int0 = 0;
-if (%varclient_89 = 0 | %varclient_89 = -1) {
+if (%varclient_89 = false | %varclient_89 = null) {
     %varclient_1715 = "";
-    %varclient_89 = 1;
+    %varclient_89 = true;
 }
 while ($int0 <= 979) {
     $intarray0($int0) = $int0;

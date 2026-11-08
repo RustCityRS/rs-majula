@@ -34,7 +34,7 @@ if (%open_bank_tab = 0) {
 } else {
     ~bank_v2_show_range(~bank_v2_get_tab_range(%open_bank_tab));
 }
-if (%open_bank_tab ! 0 & %varclient_188 = 1) {
+if (%open_bank_tab ! 0 & %varclient_188 = true) {
     ~bank_v2_searchmode_off;
 }
 ~bank_v2_build_tabs;

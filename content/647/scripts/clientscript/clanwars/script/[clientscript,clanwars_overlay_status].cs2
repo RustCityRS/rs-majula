@@ -4,7 +4,7 @@ def_string $string0 = "";
 def_int $int17 = 0;
 def_int $int18 = 0;
 def_int $int19 = 0;
-if (%varclient_271 = 1) {
+if (%varclient_271 = true) {
     if_settext("<clan_getchatdisplayname>:", $component3);
 } else {
     if_settext("This clan:", $component3);
@@ -46,7 +46,7 @@ if (%varplayerbit_5280 > 0) {
     if_sethide(true, $component8);
     if_sethide(true, $component14);
 }
-if (%varclient_260 = 1) {
+if (%varclient_260 = true) {
     if_setontimer(null, $component16);
     if (%varplayerbit_5281 > 0) {
         if_settext("Time remaining:", $component15);

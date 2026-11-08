@@ -3,7 +3,7 @@
 if_setonkey("snapshot_onkey_v1(event_keycode, event_keychar)", snapshot_main_v2:com_53);
 if_setonkey(null, chatbox_background:com_55);
 %varclient_6 = false;
-%varclient_11 = 1;
+%varclient_11 = true;
 if (if_gethide(chatbox:com_3) = false) {
     if_sethide(true, chatbox:com_3);
     if_sethide(false, chatbox:com_8);

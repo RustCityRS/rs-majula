@@ -1,6 +1,6 @@
 // 3685
 [proc,meslayer_mode14]
-if (%varclient_11 = 1) {
+if (%varclient_11 = true) {
     mes("You can't do that while you're reporting abuse.");
     return;
 }

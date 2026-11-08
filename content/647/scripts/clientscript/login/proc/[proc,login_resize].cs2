@@ -34,6 +34,6 @@ if (detailget_maxscreensize = 2 & getwindowmode ! ^windowmode_small) {
 } else if (calc(if_getwidth(loginscreen:com_81) + if_getx(loginscreen:com_81)) > if_getwidth(loginscreen:com_17)) {
     if_setposition(5, 5, ^setpos_abs_right, ^setpos_abs_top, loginscreen:com_81);
 }
-if (%varclient_986 = 0) {
+if (%varclient_986 = false) {
     if_setposition(5, 5, ^setpos_abs_right, ^setpos_abs_top, loginscreen:com_81);
 }

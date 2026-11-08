@@ -1,9 +1,9 @@
 // 111
 [proc,meslayer_mode10]
-if (%varclient_1413 = 0) {
+if (%varclient_1413 = false) {
     return;
 }
-if (%varclient_11 = 1) {
+if (%varclient_11 = true) {
     ~script675;
 }
 if (getwindowmode >= 2) {
@@ -20,11 +20,11 @@ if_setonclick(null, chatbox:com_3);
 if_setonkey("meslayer_onkey(event_keycode, event_keychar)", chatbox:com_5);
 cc_create(chatbox:com_3, ^iftype_text, 0);
 ~meslayer_setupdynamicbutton;
-if (%varclient_1027 = 1 & string_length(%varclient_1721) > 0) {
+if (%varclient_1027 = true & string_length(%varclient_1721) > 0) {
     cc_settext("Last name entered: <%varclient_1721>");
 } else {
     %varclient_1721 = removetags(chat_playername_unfiltered);
-    %varclient_1027 = 1;
+    %varclient_1027 = true;
     cc_settext("Your name: <%varclient_1721>");
 }
 cc_setop(1, "Use:");

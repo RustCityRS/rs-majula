@@ -7,5 +7,5 @@ if (clientclock >= $int6) {
     if_setonmouserepeat("script2961($component4, $component5, true)", $component3);
     if_setonmouseleave("script2961($component4, $component5, false)", $component3);
     if_setgraphic("animatedcam,0", $component4);
-    %varclient_986 = 1;
+    %varclient_986 = true;
 }

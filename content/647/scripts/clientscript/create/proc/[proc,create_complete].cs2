@@ -43,7 +43,7 @@ if (%varclient_1407 < 13) {
 }
 def_string $string2 = "dob";
 def_string $string3 = "set_members_dob.ws";
-if (%varclient_1088 = 1) {
+if (%varclient_1088 = true) {
     $string0 = "Continue To Buy";
     if_setonclick("loginscreen_link($string2, $string3, false)", account_create_success:com_40);
 } else {

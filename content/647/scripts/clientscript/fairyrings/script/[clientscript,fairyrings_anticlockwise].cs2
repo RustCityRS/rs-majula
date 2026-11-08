@@ -1,6 +1,6 @@
 // 963
 [clientscript,fairyrings_anticlockwise](int $int0)
-%varclient_157 = 1;
+%varclient_157 = true;
 if (%varclient_125 >= calc(clientclock - 5)) {
     return;
 }

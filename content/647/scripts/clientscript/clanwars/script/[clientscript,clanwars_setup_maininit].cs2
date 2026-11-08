@@ -20,7 +20,7 @@ if (map_members = false) {
 %varclient_256 = false;
 %varclient_257 = 0;
 %varclient_258 = false;
-%varclient_259 = 0;
+%varclient_259 = false;
 if_setonvartransmit("clanwars_setup_vartransmit{varplayer_1305, varplayer_1149}", $component0);
 if_setonvarctransmit("clanwars_setup_varctransmit{varclient_259}", $component0);
 if_setonvarcstrtransmit("clanwars_setup_varcstrtransmit($component0){varclient_1556}", $component0);

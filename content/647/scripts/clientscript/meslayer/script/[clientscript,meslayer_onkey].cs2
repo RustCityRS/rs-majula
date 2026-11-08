@@ -55,7 +55,7 @@ switch_int ($key0) {
                 resume_countdialog(%varclient_1541);
             } else if (%varclient_5 = 8) {
                 %varclient_1720 = escape(%varclient_1541);
-                %varclient_1026 = 1;
+                %varclient_1026 = true;
                 resume_namedialog(%varclient_1541);
             } else if (%varclient_5 = 9) {
                 if (compare(lowercase(%varclient_1541), lowercase(%varclient_1552)) ! 0) {
@@ -65,7 +65,7 @@ switch_int ($key0) {
                 }
             } else if (%varclient_5 = 10) {
                 %varclient_1721 = escape(%varclient_1541);
-                %varclient_1027 = 1;
+                %varclient_1027 = true;
                 clan_joinchat(%varclient_1541);
             } else if (%varclient_5 = 15) {
                 ~friendschat_kick(%varclient_1541);
@@ -118,6 +118,6 @@ if (%varclient_5 = 11) {
     ~bank_v2_search_update;
 } else if (%varclient_5 = 14) {
     %varclient_1715 = lowercase(%varclient_1541);
-    %varclient_89 = 1;
+    %varclient_89 = true;
     ~music_v3_refresh;
 }

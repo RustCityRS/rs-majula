@@ -2,7 +2,7 @@
 [proc,quickchat_phrase_resend]
 %varclient_126 = %varclient_131;
 %varclient_1546 = %varclient_1547;
-%varclient_127 = 0;
+%varclient_127 = false;
 if (if_gethide(chatbox_background:com_0) = true) {
     if (getwindowmode >= 2) {
         if_setgraphic(chat_background, chatbox:com_1);

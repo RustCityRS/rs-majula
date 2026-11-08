@@ -8,7 +8,7 @@ if ($int0 > 25) {
     if (~script2916 < 200 & %life_points < 45 & $int0 < 100 & stat_base(hitpoints) > 0) {
         ~script1888;
     } else {
-        %varclient_1025 = 0;
+        %varclient_1025 = false;
     }
     if (if_gettrans(health_orb:com_7) ! 0) {
         if_settrans(0, health_orb:com_7);
