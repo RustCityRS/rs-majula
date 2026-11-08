@@ -1192,6 +1192,8 @@ head1=model_47182
 unknown119=1
 cursor1=1,cursor_44
 desc=What restful music!
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 30
 [musician_30]
@@ -1213,6 +1215,8 @@ head1=model_47189
 unknown119=1
 cursor1=1,cursor_44
 desc=What restful music!
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 31
 [priest]
@@ -1595,6 +1599,8 @@ param=retreat,10
 category=chicken
 // osrs stats and Vislvl match 1:1
 // https://raw.githubusercontent.com/Joshua-F/osrs-dumps/refs/heads/master/config/dump.npc npc_1173
+// 289's
+wanderrange=5
 
 // 42
 [sheep]
@@ -1843,6 +1849,8 @@ param=defend_sound,chicken_hit
 param=death_sound,chicken_death
 // osrs stats and Vislvl match 1:1
 // https://raw.githubusercontent.com/Joshua-F/osrs-dumps/refs/heads/master/config/dump.npc npc_2062
+// 289's
+wanderrange=5
 
 // 49
 [hellhound]
@@ -2564,6 +2572,8 @@ param=proj_travel,iron_arrow_travel
 param=proj_height,48
 // osrs stats and Vislvl match 1:1
 // https://raw.githubusercontent.com/Joshua-F/osrs-dumps/refs/heads/master/config/dump.npc npc_6095
+// 289's
+wanderrange=5
 
 // 68
 [darkskinned_gnome]
@@ -2622,6 +2632,8 @@ param=proj_travel,iron_arrow_travel
 param=proj_height,48
 // osrs stats and Vislvl match 1:1
 // https://raw.githubusercontent.com/Joshua-F/osrs-dumps/refs/heads/master/config/dump.npc npc_6096
+// 289's
+wanderrange=5
 
 // 69
 [sten]
@@ -3033,6 +3045,8 @@ desc=Oh, it's a camel.
 moverestrict=outdoors
 param=death_anim,camel_death
 param=death_sound,cow_death
+// 289's
+wanderrange=5
 
 // 81
 [cow]
@@ -4711,6 +4725,8 @@ huntmode=cowardly
 huntrange=1
 // osrs stats and Vislvl match 1:1
 // https://raw.githubusercontent.com/Joshua-F/osrs-dumps/refs/heads/master/config/dump.npc npc_2845
+// 289's
+wanderrange=5
 
 // 129
 [egil]
@@ -5239,6 +5255,8 @@ huntrange=5
 category=ice_warrior
 // osrs stats and Vislvl match 1:1
 // https://raw.githubusercontent.com/Joshua-F/osrs-dumps/refs/heads/master/config/dump.npc npc_2851
+// 289's
+wanderrange=3
 
 // 146
 [gull]
@@ -5438,6 +5456,8 @@ multinpc=230,undead_tree
 multinpc=240,undead_tree
 unknown119=1
 desc=Its bark is worse than its swipe.
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 153
 [butterfly]
@@ -6527,6 +6547,8 @@ param=death_anim,human_death
 param=attack_sound,synth_2566
 param=defend_sound,brassclash2
 param=death_sound,black_knight_death
+// 289's
+wanderrange=5
 
 // 182
 [pirate]
@@ -7087,6 +7109,8 @@ magic=18
 param=damagetype,^crush_style
 // osrs stats and Vislvl match 1:1
 // https://raw.githubusercontent.com/Joshua-F/osrs-dumps/refs/heads/master/config/dump.npc npc_1025
+// 289's
+wanderrange=5
 
 // 195
 [bandit]
@@ -7352,6 +7376,8 @@ param=attack_sound,unarmed_kick
 // TODO
 // attack anim guesses
 // https://raw.githubusercontent.com/Joshua-F/osrs-dumps/refs/heads/master/config/dump.npc npc_4929
+// 289's
+wanderrange=0
 
 // 201
 [jailer]
@@ -7580,6 +7606,8 @@ param=damagetype,^crush_style
 param=max_dealt,0
 // osrs stats and Vislvl match 1:1
 // https://raw.githubusercontent.com/Joshua-F/osrs-dumps/refs/heads/master/config/dump.npc npc_304
+// 289's
+wanderrange=5
 
 // 206
 [guard_206]
@@ -7949,6 +7977,8 @@ unknown119=1
 cursor1=1,cursor_44
 desc=A former Knight of the Round Table.
 moverestrict=indoors
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 219
 [fisherman]
@@ -8222,6 +8252,8 @@ head2=model_39544
 unknown119=1
 cursor1=1,cursor_44
 desc=The Fishing Contest judge.
+// 289's
+wanderrange=0
 
 // 226
 [npc_226]
@@ -9340,6 +9372,8 @@ multinpc=1,justin_servil
 multinpc=2,slave_fighter
 unknown119=1
 desc=Jeremy's father Sir Servil.
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 268
 [local]
@@ -9804,6 +9838,8 @@ cursor1=1,cursor_44
 quest=quest_6
 desc=Lumbridge Castle's head cook.
 moverestrict=indoors
+// 289's
+wanderrange=0
 
 // 279
 [brother_omad]
@@ -10023,6 +10059,8 @@ cursor1=1,cursor_44
 desc=A dwarf smith. Quite handy with a hammer.
 moverestrict=indoors
 param=death_anim,dwarf_death
+// 289's
+wanderrange=3
 
 // 285
 [veronica]
@@ -10245,6 +10283,8 @@ head3=model_38096
 unknown119=3
 cursor1=1,cursor_44
 desc=A farmer who's seen happier times.
+// 289's
+wanderrange=3
 
 // 292
 [npc_292]
@@ -11505,6 +11545,8 @@ head3=model_39492
 unknown119=1
 cursor1=1,cursor_44
 desc=He has a colourful personality.
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 338
 [chancy]
@@ -11675,6 +11717,8 @@ head2=model_39227
 unknown119=1
 cursor1=1,cursor_44
 desc=He's not that ill.
+// 289's
+wanderrange=0
 
 // 344
 [lathastrainer1]
@@ -12707,6 +12751,8 @@ model6=model_323
 head1=model_61564
 unknown119=3
 desc=A mourner, or plague healer.
+// 289's
+wanderrange=1
 
 // 373
 [nurse_sarah]
@@ -12812,6 +12858,8 @@ unknown119=3
 cursor1=1,cursor_44
 quest=quest_182
 desc=A pirate.
+// 289's
+wanderrange=0
 
 // 376
 [npc_376]
@@ -13680,6 +13728,8 @@ model1=model_18900
 unknown119=3
 cursorattack=cursor_42
 desc=An annoying flappy thing.
+// 289's
+wanderrange=8
 
 // 413
 [npc_413]
@@ -13720,6 +13770,8 @@ multinpc=28,lokar_searunner
 multinpc=29,lokar_searunner
 unknown119=1
 desc=Either a very fremennikey pirate, or a very piratey fremennik.
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 414
 [npc_414]
@@ -14098,6 +14150,8 @@ multinpc=12,bird_s_eye__jack
 multinpc=14,bird_s_eye__jack
 unknown119=1
 desc=The strong arm of the law.
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 432
 [cyrisus]
@@ -14195,6 +14249,8 @@ head2=model_39312
 unknown119=1
 cursor1=1,cursor_44
 desc=I hope he's not dead!
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 436
 [fallen_man_436]
@@ -14349,6 +14405,8 @@ multinpc=18,andil
 multinpc=19,andil
 unknown119=1
 desc=A very angry nymph.
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 442
 [delgon]
@@ -14394,6 +14452,8 @@ multinpc=18,delgon
 multinpc=19,delgon
 unknown119=1
 desc=A very angry nymph.
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 444
 [goblin_444]
@@ -14824,6 +14884,9 @@ unknown119=3
 cursor1=1,cursor_44
 // Hitpoints are 2011's life points: 289's times ten, or void-634's where it has the npc.
 desc=An old druid.
+// 289's
+wanderrange=0
+maxrange=0
 
 // 455
 [kaqemeex]
@@ -14858,6 +14921,8 @@ head1=model_39854
 unknown119=3
 cursor1=1,cursor_44
 desc=A wise druid.
+// 289's
+wanderrange=0
 
 // 456
 [father_aereck]
@@ -14949,6 +15014,8 @@ cursor1=1,cursor_44
 quest=quest_27,quest_174
 desc=Very holy.
 moverestrict=indoors
+// 289's
+wanderrange=5
 
 // 459
 [skeleton_warlock]
@@ -15056,6 +15123,8 @@ param=shop_buy_multiplier,600
 param=shop_delta,10
 param=shop_title,Magic Guild Store
 // https://raw.githubusercontent.com/Joshua-F/osrs-dumps/refs/heads/master/config/dump.npc npc_3247
+// 289's
+wanderrange=0
 
 // 462
 [wizard_distentor]
@@ -16009,6 +16078,8 @@ param=death_sound,mummy_death
 huntmode=cowardly
 huntrange=1
 // TODO
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 491
 [zamorakghost]
@@ -17015,6 +17086,8 @@ param=shop_buy_multiplier,600
 param=shop_delta,20
 param=shop_title,Bob's Brilliant Axes.
 moverestrict=indoors
+// 289's
+wanderrange=0
 
 // 520
 [shopkeeper]
@@ -17038,6 +17111,8 @@ param=shop_buy_multiplier,400
 param=shop_delta,30
 param=shop_title,Lumbridge General Store
 moverestrict=indoors
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 521
 [shop_assistant]
@@ -17419,6 +17494,8 @@ param=shop_buy_multiplier,400
 param=shop_delta,30
 param=shop_title,Rimmington General Store
 moverestrict=indoors
+// 289's
+wanderrange=0
 
 // 531
 [generalassistant6]
@@ -17458,6 +17535,8 @@ param=shop_buy_multiplier,400
 param=shop_delta,30
 param=shop_title,Rimmington General Store
 moverestrict=indoors
+// 289's
+wanderrange=0
 
 // 532
 [gravecreeper]
@@ -17921,6 +18000,9 @@ param=shop_buy_multiplier,650
 param=shop_delta,20
 param=shop_title,Dommiks Crafting Store.
 moverestrict=indoors
+// 289's
+wanderrange=0
+maxrange=0
 
 // 546
 [zaff]
@@ -19373,6 +19455,8 @@ param=shop_buy_multiplier,600
 param=shop_delta,10
 param=shop_title,Betty's Magic Emporium.
 moverestrict=indoors
+// 289's
+wanderrange=1
 
 // 584
 [herquin]
@@ -19962,6 +20046,8 @@ cursor1=1,cursor_44
 desc=Anyone fancy a trim?
 moverestrict=indoors
 // 289's makeover_mage is 2011's make_over_mage.
+// 289's
+wanderrange=3
 
 // 599
 [make_over_mage]
@@ -20596,6 +20682,8 @@ head2=model_39254
 unknown119=3
 cursor1=1,cursor_44
 desc=A student busily digging.
+// 289's
+wanderrange=2
 
 // 617
 [student2]
@@ -20630,6 +20718,8 @@ head1=model_39124
 unknown119=3
 cursor1=1,cursor_44
 desc=A student busily digging.
+// 289's
+wanderrange=2
 
 // 618
 [examiner]
@@ -20654,6 +20744,8 @@ head1=model_39090
 unknown119=3
 cursor1=1,cursor_44
 desc=Upon examining the examiner you examine it is indeed an examiner!
+// 289's
+wanderrange=2
 
 // 619
 [archaeological_expert]
@@ -20686,6 +20778,8 @@ head2=model_38642
 unknown119=3
 cursor1=1,cursor_44
 desc=An expert on archaeology.
+// 289's
+wanderrange=0
 
 // 620
 [panning_guide]
@@ -20714,6 +20808,8 @@ head2=model_39223
 unknown119=3
 cursor1=1,cursor_44
 desc=A specialist in panning for gold.
+// 289's
+wanderrange=0
 
 // 621
 [gnome_baller]
@@ -21279,6 +21375,9 @@ unknown119=3
 cursor1=1,cursor_44
 desc=A religious man... And occasional drunk.
 moverestrict=indoors
+// 289's
+wanderrange=3
+maxrange=3
 
 // 641
 [charlie_the_tramp]
@@ -21393,6 +21492,8 @@ param=defend_sound,blade3
 param=attack_anim,human_sword_stab
 param=defend_anim,human_unarmedblock
 param=death_anim,human_death
+// 289's
+wanderrange=5
 
 // 644
 [straven]
@@ -23058,6 +23159,8 @@ unknown119=3
 cursor1=1,cursor_44
 desc=He smells of fish...
 moverestrict=indoors
+// 289's
+wanderrange=5
 
 // 696
 [caroline]
@@ -23443,6 +23546,9 @@ attack=20
 strength=10
 defence=15
 // https://raw.githubusercontent.com/Joshua-F/osrs-dumps/refs/heads/master/config/dump.npc npc_7746
+// 289's
+wanderrange=0
+maxrange=0
 
 // 707
 [npc_707]
@@ -23568,6 +23674,9 @@ head1=model_39066
 unknown119=3
 cursor1=1,cursor_44
 desc=She looks concerned.
+// 289's
+wanderrange=2
+maxrange=2
 
 // 711
 [bravek]
@@ -24443,6 +24552,8 @@ unknown119=3
 cursor1=1,cursor_44
 desc=A wise old witch doctor.
 moverestrict=indoors
+// 289's
+wanderrange=3
 
 // 741
 [duke_horacio]
@@ -24503,6 +24614,8 @@ huntrange=7
 // all the stats information matches otherwise osrs but we only have 120hp
 // instead of 80 hp. and osrs Vislvl is also 83 while we have 86 again.
 // https://raw.githubusercontent.com/Joshua-F/osrs-dumps/refs/heads/master/config/dump.npc npc_817
+// 289's
+wanderrange=32
 
 // 743
 [lava_flow_miner_743]
@@ -24585,6 +24698,8 @@ head3=model_39481
 unknown119=1
 cursor1=1,cursor_44
 desc=A young sailor.
+// 289's
+wanderrange=0
 
 // 745
 [wormbrain]
@@ -24703,6 +24818,8 @@ multinpc=6,cabin_boy_jenkins
 multinpc=7,cabin_boy_jenkins
 unknown119=1
 desc=Overgrown vermin.
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 749
 [angry_barbarian_spirit]
@@ -25680,6 +25797,8 @@ unknown119=1
 cursor1=1,cursor_44
 desc=A busy housewife.
 members=yes
+// 289's
+wanderrange=0
 
 // 781
 [shilop]
@@ -25740,6 +25859,8 @@ desc=One of Gertrude's sons.
 moverestrict=indoors
 members=yes
 param=death_anim,midget_death
+// 289's
+wanderrange=0
 
 // 783
 [wilough]
@@ -25805,6 +25926,8 @@ desc=One of Gertrude's sons.
 moverestrict=indoors
 members=yes
 param=death_anim,midget_death
+// 289's
+wanderrange=0
 
 // 785
 [civilian]
@@ -26217,6 +26340,9 @@ strength=38
 defence=40
 param=damagetype,^slash_style
 // https://raw.githubusercontent.com/Joshua-F/osrs-dumps/refs/heads/master/config/dump.npc npc_4923
+// 289's
+wanderrange=1
+maxrange=2
 
 // 797
 [helemos]
@@ -27774,6 +27900,8 @@ huntmode=cowardly
 huntrange=2
 // osrs stats and Vislvl match 1:1
 // https://raw.githubusercontent.com/Joshua-F/osrs-dumps/refs/heads/master/config/dump.npc npc_4652
+// 289's
+wanderrange=5
 
 // 841
 [mine_cart_driver]
@@ -28305,6 +28433,9 @@ param=death_drop,big_bones
 //This npc probably shares the same stats as the city guard according to the osrs cache.
 //but the animations and sounds are quess.
 // https://raw.githubusercontent.com/Joshua-F/osrs-dumps/refs/heads/master/config/dump.npc npc_4369
+// 289's
+wanderrange=2
+maxrange=3
 
 // 859
 [ogre_guard2]
@@ -28885,6 +29016,8 @@ param=attack_sound,baxe_slash
 param=defend_sound,blade2
 // osrs stats and Vislvl match 1:1
 // https://raw.githubusercontent.com/Joshua-F/osrs-dumps/refs/heads/master/config/dump.npc npc_4406
+// 289's
+wanderrange=4
 
 // 879
 [delrith]
@@ -28986,6 +29119,8 @@ unknown119=1
 cursor1=1,cursor_44
 desc=An old wizard.
 moverestrict=indoors
+// 289's
+wanderrange=0
 
 // 882
 [gypsy_aris]
@@ -29141,6 +29276,8 @@ head2=model_39223
 unknown119=3
 cursor1=1,cursor_44
 desc=On special duty to protect the Carnilleans.
+// 289's
+wanderrange=2
 
 // 888
 [philipe_carnillean]
@@ -29155,6 +29292,9 @@ unknown119=3
 cursor1=1,cursor_44
 desc=The newest member of the Carnillean family.
 param=death_anim,midget_death
+// 289's
+wanderrange=1
+maxrange=1
 
 // 889
 [henryeta_carnillean]
@@ -29403,6 +29543,9 @@ param=defend_anim,human_staff_block
 param=attack_sound,staff_hit
 // TODO try to get information about the wanderrange/maxrange
 // The npc in question is no longer killable after the release of the Secrets of the North quest.
+// 289's
+wanderrange=4
+maxrange=4
 
 // 895
 [boy]
@@ -30074,6 +30217,8 @@ multivar=varplayerbit_8494
 multinpc=0,leela
 unknown119=1
 desc=She comes from Al-Kharid.
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 916
 [joe_916]
@@ -30307,6 +30452,8 @@ unknown119=3
 cursor1=1,cursor_44
 quest=quest_20
 desc=A witch.
+// 289's
+wanderrange=1
 
 // 923
 [hassan]
@@ -33559,6 +33706,8 @@ param=defend_sound,chicken_hit
 param=death_sound,chicken_death
 param=retreat,10
 category=chicken
+// 289's
+wanderrange=5
 
 // 1018
 [rooster]
@@ -33586,6 +33735,8 @@ model1=model_23905
 unknown119=3
 cursorattack=cursor_42
 desc=He rules the, er, roost.
+// 289's
+wanderrange=5
 
 // 1019
 [fire_elemental]
@@ -34486,6 +34637,8 @@ model7=model_185
 unknown119=1
 desc=A mute performer.
 timer=5
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 1057
 [strange_watcher]
@@ -34518,6 +34671,8 @@ model5=model_176
 model6=model_3599
 unknown119=1
 desc=A member of the audience.
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 1058
 [macro_theatre_guthix]
@@ -34546,6 +34701,8 @@ model5=model_176
 model6=model_3599
 unknown119=1
 desc=A member of the audience.
+// 289's
+wanderrange=0
 
 // 1059
 [macro_theatre_zamorak]
@@ -34573,6 +34730,8 @@ model4=model_176
 model5=model_3599
 unknown119=1
 desc=A member of the audience.
+// 289's
+wanderrange=0
 
 // 1060
 [denulth]
@@ -38274,6 +38433,9 @@ patrol1=0_44_157_34_44,0
 patrol2=0_44_157_43_44,0
 patrol3=0_44_157_43_41,0
 patrol4=0_44_157_34_41,0
+// 289's
+wanderrange=50
+maxrange=50
 
 // 1143
 [troll_sguard2]
@@ -38306,6 +38468,9 @@ patrol1=0_44_157_34_41,0
 patrol2=0_44_157_34_38,0
 patrol3=0_44_157_39_38,0
 patrol4=0_44_157_39_41,0
+// 289's
+wanderrange=50
+maxrange=50
 
 // 1144
 [troll_sguard3]
@@ -38338,6 +38503,9 @@ patrol1=0_44_157_39_41,0
 patrol2=0_44_157_39_38,0
 patrol3=0_44_157_43_38,0
 patrol4=0_44_157_43_41,0
+// 289's
+wanderrange=0
+maxrange=50
 
 // 1145
 [troll_sguard4]
@@ -38368,6 +38536,9 @@ patrol3=0_44_157_38_34,0
 patrol4=0_44_157_36_34,0
 patrol5=0_44_157_36_30,0
 patrol6=0_44_157_34_30,0
+// 289's
+wanderrange=0
+maxrange=50
 
 // 1146
 [troll_sguard5]
@@ -38403,6 +38574,9 @@ patrol4=0_44_157_45_29,0
 patrol5=0_44_157_48_32,0
 patrol6=0_44_157_48_37,0
 patrol7=0_44_157_45_37,0
+// 289's
+wanderrange=0
+maxrange=50
 
 // 1147
 [troll_sguard6]
@@ -38427,6 +38601,9 @@ patrol5=0_44_157_34_27,0
 patrol6=0_44_157_37_27,0
 patrol7=0_44_157_37_29,0
 patrol8=0_44_157_39_29,0
+// 289's
+wanderrange=0
+maxrange=50
 
 // 1148
 [troll_sguard7]
@@ -38459,6 +38636,9 @@ patrol1=0_44_157_42_28,0
 patrol2=0_44_157_42_34,0
 patrol3=0_44_157_39_34,0
 patrol4=0_44_157_39_28,0
+// 289's
+wanderrange=0
+maxrange=50
 
 // 1149
 [troll_sguard8]
@@ -38494,6 +38674,9 @@ patrol4=0_44_157_44_29,0
 patrol5=0_44_157_47_32,0
 patrol6=0_44_157_45_32,0
 patrol7=0_44_157_45_37,0
+// 289's
+wanderrange=0
+maxrange=50
 
 // 1150
 [eadgar_storeroom_guard]
@@ -38513,6 +38696,9 @@ defaultmode=none
 moverestrict=nomove
 blockwalk=all
 timer=10
+// 289's
+wanderrange=0
+maxrange=0
 
 // 1151
 [burntmeat]
@@ -38546,6 +38732,8 @@ cursor1=1,cursor_44
 desc=Human is his speciality.
 defaultmode=none
 moverestrict=nomove
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 1152
 [weird_old_man]
@@ -38609,6 +38797,8 @@ param=crushdefence,1
 param=magicdefence,10
 param=rangedefence,10
 param=attack_anim,kalphite_attack
+// 289's
+wanderrange=50
 
 // 1154
 [kalphite_soldier]
@@ -38640,6 +38830,8 @@ param=crushdefence,5
 param=magicdefence,50
 param=rangedefence,50
 param=attack_anim,kalphite_attack
+// 289's
+wanderrange=10
 
 // 1155
 [kalphite_guardian]
@@ -38728,6 +38920,8 @@ param=slashdefence,25
 param=crushdefence,5
 param=magicdefence,50
 param=rangedefence,50
+// 289's
+wanderrange=5
 
 // 1158
 [kalphite_queen]
@@ -38763,6 +38957,8 @@ param=death_anim,seq_6228
 param=defend_sound,kalthite_queen_hit
 param=attack_anim,kalphite_queen_attack_mandibles
 param=death_sound,kalphite_queen_death
+// 289's
+wanderrange=20
 
 // 1159
 [kalphite_queen_dead]
@@ -38825,6 +39021,8 @@ attackrange=5
 huntrange=5
 maxrange=25
 huntmode=kalphite_larva
+// 289's
+wanderrange=50
 
 // 1162
 [timfraku]
@@ -39061,6 +39259,8 @@ multivar=varplayerbit_5820
 multinpc=0,dororan
 unknown119=1
 desc=A dwarf in anguish.
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 1169
 [tbwt_tamayu_hunter]
@@ -39357,6 +39557,9 @@ param=death_anim,bird_death
 param=attack_sound,bird_attack
 param=defend_sound,bird_hit
 param=death_sound,bird_death
+// 289's
+wanderrange=15
+maxrange=17
 
 // 1181
 [pelican_1181]
@@ -39971,6 +40174,8 @@ head1=model_39647
 unknown119=3
 cursor1=1,cursor_44
 desc=He looks pretty handy with that bow.
+// 289's
+wanderrange=8
 
 // 1202
 [arianwyn]
@@ -40323,6 +40528,8 @@ head2=model_39223
 unknown119=1
 cursor1=1,cursor_44
 desc=He's washing his clothes in the lake.
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 1214
 [thistle]
@@ -40335,6 +40542,8 @@ model1=model_4067
 unknown119=1
 cursor1=1,cursor_45
 desc=It's a Troll Thistle.
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 1215
 [parrots]
@@ -40344,6 +40553,8 @@ name=Parrots
 model1=model_26868
 unknown119=1
 desc=What a colourful bunch of parrots!
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 1216
 [parroty_pete]
@@ -46214,6 +46425,8 @@ multivar=varplayerbit_6011
 multinpc=1,king_vargas_7402
 unknown119=1
 desc=He's in no state to rule a kingdom.
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 1374
 [guard_1374]
@@ -46247,6 +46460,8 @@ head2=model_38097
 unknown119=1
 cursor1=1,cursor_44
 desc=He's guarding the throne room.
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 1375
 [npc_1375]
@@ -46358,6 +46573,8 @@ multinpc=99,advisor_ghrim
 unknown119=1
 quest=quest_182
 desc=He probably hasn't smiled since the Third Age.
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 1376
 [derrik]
@@ -47058,6 +47275,8 @@ head2=model_38097
 unknown119=1
 cursor1=1,cursor_44
 desc=He's a lumberjack, and he's okay.
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 1396
 [miner_magnus]
@@ -47095,6 +47314,8 @@ head2=model_39256
 unknown119=1
 cursor1=1,cursor_44
 desc=He's just mining his own business.
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 1397
 [fisherman_frodi]
@@ -47134,6 +47355,8 @@ head2=model_39275
 unknown119=1
 cursor1=1,cursor_44
 desc=There's something fishy about him.
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 1398
 [gardener_gunnhild]
@@ -47167,6 +47390,8 @@ modeloffset7=3,-11,6
 unknown119=1
 cursor1=1,cursor_44
 desc=She's looking a bit weedy.
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 1399
 [fishing_spot_1399]
@@ -47182,6 +47407,8 @@ unknown119=5
 cursor1=1,cursor_60
 cursor2=3,cursor_60
 desc=I can see fish swimming in the water.
+// cache 786 walk mode 5: stands
+wanderrange=0
 
 // 1400
 [gull_1400]
@@ -47461,6 +47688,8 @@ head2=model_63346
 unknown119=1
 cursor1=1,cursor_44
 desc=Waydar is some kind of flight officer.
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 1410
 [master_of_races]
@@ -47746,6 +47975,8 @@ head2=model_42660
 unknown119=1
 cursor1=1,cursor_44
 desc=This Gnome is busy applying some kind of pasty material to the cave walls.
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 1424
 [waymottin]
@@ -47774,6 +48005,8 @@ head3=model_63384
 unknown119=1
 cursor1=1,cursor_44
 desc=This Gnome is busy applying some kind of pasty material to the cave walls.
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 1425
 [zooknock]
@@ -47860,6 +48093,8 @@ head3=model_42662
 unknown119=1
 cursor1=1,cursor_44
 desc=An official looking Gnome with small beady eyes.
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 1429
 [dugopul]
@@ -47924,6 +48159,8 @@ head1=model_4662
 unknown119=1
 cursor1=1,cursor_44
 desc=A huge brutish gorilla. He looks like a jail guard.
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 1432
 [aberab]
@@ -47939,6 +48176,8 @@ head1=model_4662
 unknown119=1
 cursor1=1,cursor_44
 desc=A huge brutish gorilla. He looks like a jail guard.
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 1433
 [solihib]
@@ -48209,6 +48448,8 @@ head1=model_4655
 unknown119=1
 cursor1=1,cursor_44
 desc=A rather dapper little monkey.
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 1449
 [uwogo]
@@ -48400,6 +48641,8 @@ head1=model_4663
 unknown119=1
 cursor1=1,cursor_44
 desc=A huge brutish gorilla stands here, blocking the way.
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 1462
 [elder_guard_1462]
@@ -48414,6 +48657,8 @@ head1=model_4663
 unknown119=1
 cursor1=1,cursor_44
 desc=A huge brutish gorilla stands here, blocking the way.
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 1463
 [monkey_1463]
@@ -49498,6 +49743,8 @@ head3=model_38642
 unknown119=1
 cursor1=1,cursor_44
 desc=He runs this place.
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 1527
 [mine_cart]
@@ -49755,6 +50002,8 @@ name=Loading crane
 model1=model_4909
 unknown119=1
 desc=Those are some of the biggest teeth I've ever seen.
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 1543
 [innocent_looking_key]
@@ -49769,6 +50018,8 @@ model1=model_4918
 unknown119=1
 cursor1=1,cursor_45
 desc=A shiny key sitting quietly on a crate.
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 1544
 [mine_cart_1544]
@@ -49780,6 +50031,8 @@ name=Mine cart
 model1=model_4894
 unknown119=1
 desc=Big, metal, and wheeled.
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 1545
 [mine_cart_1545]
@@ -49927,6 +50180,8 @@ head1=model_52825
 unknown119=1
 cursor1=1,cursor_44
 desc=A frail little troll.
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 1554
 [aga]
@@ -49940,6 +50195,8 @@ head1=model_64488
 unknown119=1
 cursor1=1,cursor_44
 desc=A beautiful troll.
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 1555
 [arrg]
@@ -49958,6 +50215,8 @@ head1=model_62655
 unknown119=1
 cursor1=1,cursor_44
 desc=A massive, scary-looking troll.
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 1556
 [arrg_1556]
@@ -50281,6 +50540,8 @@ head3=model_39312
 unknown119=1
 cursor1=1,cursor_44
 desc=Looks like the leader of the Myreque.
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 1570
 [sani_piliu]
@@ -50312,6 +50573,8 @@ head1=model_39066
 unknown119=1
 cursor1=1,cursor_44
 desc=A pretty young rogue.
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 1571
 [harold_evans]
@@ -50346,6 +50609,8 @@ head2=model_39312
 unknown119=1
 cursor1=1,cursor_44
 desc=Hot headed, big built youth, who trained in the militia.
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 1572
 [radigad_ponfit]
@@ -50914,6 +51179,9 @@ model2=model_57960
 unknown119=3
 cursorattack=cursor_42
 desc=Its scales seem to be made of bronze.
+// 289's
+wanderrange=5
+maxrange=20
 
 // 1591
 [iron_dragon]
@@ -50933,6 +51201,9 @@ model2=model_57960
 unknown119=3
 cursorattack=cursor_42
 desc=Its scales seem to be made of iron.
+// 289's
+wanderrange=5
+maxrange=20
 
 // 1592
 [steel_dragon]
@@ -50953,6 +51224,9 @@ model2=model_57960
 unknown119=3
 cursorattack=cursor_42
 desc=Its scales seem to be made of steel.
+// 289's
+wanderrange=5
+maxrange=20
 
 // 1593
 [wild_dog]
@@ -52078,6 +52352,8 @@ head1=model_26113
 unknown119=1
 cursor1=1,cursor_44
 desc=He's in charge of the Skullball Course.
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 1661
 [agility_boss]
@@ -52094,6 +52370,8 @@ head1=model_26113
 unknown119=1
 cursor1=1,cursor_44
 desc=He's in charge of the Agility Course.
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 1662
 [skullball_trainer]
@@ -52170,6 +52448,8 @@ head1=model_26113
 unknown119=1
 cursor1=1,cursor_44
 desc=Looks like he's guarding a trapdoor...
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 1666
 [npc_1666]
@@ -52396,6 +52676,8 @@ head1=model_39601
 unknown119=1
 cursor1=1,cursor_44
 desc=An elven bowyer.
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 1681
 [moss_giant_1681]
@@ -52858,6 +53140,8 @@ head1=model_39661
 unknown119=1
 cursor1=1,cursor_44
 desc=A ghost banker.
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 1703
 [ghost_sailor]
@@ -52905,6 +53189,8 @@ head1=model_39661
 unknown119=1
 cursor1=1,cursor_44
 desc=A ghostship captain.
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 1705
 [ghost_captain_1705]
@@ -52927,6 +53213,8 @@ model6=model_5210
 head1=model_39661
 unknown119=1
 cursor1=1,cursor_44
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 1706
 [ghost_guard]
@@ -52948,6 +53236,8 @@ head1=model_39661
 unknown119=1
 cursor1=1,cursor_44
 desc=This ghost guards the gates of Port Phasmatys.
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 1707
 [ghost_1707]
@@ -53287,6 +53577,8 @@ head2=model_39275
 unknown119=1
 cursor1=1,cursor_44
 desc=A member of the 'Humans Against Monsters' group.
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 1718
 [jimmy_the_chisel]
@@ -53359,6 +53651,8 @@ multinpc=17,gerdi
 multinpc=18,gerdi
 multinpc=19,gerdi
 unknown119=1
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 1721
 [jobo]
@@ -53402,6 +53696,8 @@ multinpc=17,jobo
 multinpc=18,jobo
 multinpc=19,jobo
 unknown119=1
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 1723
 [andil_1723]
@@ -53865,6 +54161,8 @@ head2=model_39227
 unknown119=1
 cursor1=1,cursor_44
 desc=One of Sigmund's elite guards.
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 1741
 [h_a_m__guard_1741]
@@ -53906,6 +54204,8 @@ head2=model_39223
 unknown119=1
 cursor1=1,cursor_44
 desc=One of Sigmund's elite guards.
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 1742
 [h_a_m__agent_brian]
@@ -55478,6 +55778,8 @@ name=Rock pile
 model1=model_5654
 unknown119=1
 desc=A pile of boulders.
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 1804
 [slagilith_1804]
@@ -55530,6 +55832,8 @@ head2=model_38642
 unknown119=1
 cursor1=1,cursor_44
 desc=He seems to be guarding a single rock. Interesting job.
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 1807
 [hamal_the_chieftain]
@@ -56040,6 +56344,8 @@ multinpc=90,dondakan_the_dwarf
 multinpc=100,dondakan_the_dwarf
 multinpc=110,dondakan_the_dwarf_1838
 unknown119=1
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 1837
 [dondakan_the_dwarf]
@@ -56147,6 +56453,8 @@ head1=model_51654
 unknown119=1
 cursor1=1,cursor_44
 desc=A short angry guy.
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 1841
 [rolad]
@@ -56299,6 +56607,8 @@ head2=model_51633
 unknown119=1
 cursor1=1,cursor_44
 desc=He seems deeply engaged in conversation with his fellow boatmen.
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 1848
 [dernu]
@@ -56331,6 +56641,8 @@ head2=model_51633
 unknown119=1
 cursor1=1,cursor_44
 desc=He seems deeply engaged in conversation with his fellow boatmen.
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 1849
 [derni]
@@ -56363,6 +56675,8 @@ head2=model_51633
 unknown119=1
 cursor1=1,cursor_44
 desc=He seems deeply engaged in conversation with his fellow boatmen.
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 1850
 [arzinian_avatar_of_strength]
@@ -56517,6 +56831,8 @@ head1=model_5817
 unknown119=1
 cursor1=1,cursor_44
 desc=It's the Arzinian Being, whatever that is, that comes from Bordanzan, wherever that is.
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 1860
 [brian_1860]
@@ -56606,6 +56922,8 @@ head1=model_46676
 unknown119=1
 cursor1=1,cursor_44
 desc=A bazaar merchant.
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 1863
 [drunken_ali]
@@ -56883,6 +57201,8 @@ head2=model_39248
 unknown119=1
 cursor1=1,cursor_44
 desc=A snake charmer.
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 1873
 [ali_the_camel]
@@ -56935,6 +57255,8 @@ name=Snake
 model1=model_47120
 unknown119=1
 desc=A toothless old Snake.
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 1876
 [npc_1876]
@@ -56944,6 +57266,8 @@ alwaysontop=yes
 multivar=varplayerbit_334
 multinpc=28,blackjack_seller
 unknown119=1
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 1877
 [npc_1877]
@@ -56962,6 +57286,8 @@ retex5d=material_426
 multivar=varplayerbit_338
 multinpc=1,bandit_leader
 unknown119=1
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 1878
 [bandit_leader]
@@ -57558,6 +57884,8 @@ vislevel=0
 multivar=varplayerbit_335
 multinpc=1,menaphite_leader
 unknown119=1
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 1900
 [npc_1900]
@@ -57942,6 +58270,8 @@ head1=model_6217
 unknown119=1
 cursor1=1,cursor_44
 desc=Luckily, I can't see much of his face.
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 1917
 [bandit_shopkeeper]
@@ -58088,6 +58418,8 @@ head1=model_39615
 unknown119=1
 cursor1=1,cursor_44
 desc=One of Morytania's vampyric nobility.
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 1921
 [bartender_1921]
@@ -58113,6 +58445,8 @@ head2=model_39275
 unknown119=1
 cursor1=1,cursor_44
 desc=Looks like a rough-and-ready type.
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 1922
 [npc_1922]
@@ -58310,6 +58644,8 @@ head3=model_39439
 unknown119=1
 cursor1=1,cursor_44
 desc=A tough-looking criminal.
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 1928
 [bandit_1928]
@@ -58350,6 +58686,8 @@ head2=model_39252
 head3=model_39439
 unknown119=1
 cursor1=1,cursor_44
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 1929
 [bandit_1929]
@@ -58390,6 +58728,8 @@ head2=model_39252
 head3=model_39439
 unknown119=1
 cursor1=1,cursor_44
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 1930
 [bandit_1930]
@@ -58430,6 +58770,8 @@ head2=model_39252
 head3=model_39439
 unknown119=1
 cursor1=1,cursor_44
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 1931
 [bandit_1931]
@@ -58485,6 +58827,8 @@ multinpc=3,troll_child
 multinpc=4,troll_child
 multinpc=5,troll_child
 unknown119=1
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 1933
 [troll_child]
@@ -58530,6 +58874,8 @@ head1=model_64484
 unknown119=1
 cursor1=1,cursor_44
 desc=An ice troll.
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 1936
 [ice_troll_1936]
@@ -58660,6 +59006,8 @@ multinpc=0,ice_block
 multinpc=1,troll_father
 unknown119=1
 desc=A troll frozen in a block of ice.
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 1944
 [ice_block]
@@ -58685,6 +59033,8 @@ multinpc=0,ice_block_1946
 multinpc=1,troll_mother
 unknown119=1
 desc=A troll frozen in a block of ice.
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 1946
 [ice_block_1946]
@@ -58708,6 +59058,8 @@ multivar=varplayerbit_382
 multinpc=4,troll_father
 multinpc=5,troll_father
 unknown119=1
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 1948
 [troll_father]
@@ -58733,6 +59085,8 @@ multivar=varplayerbit_382
 multinpc=4,troll_mother
 multinpc=5,troll_mother
 unknown119=1
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 1950
 [troll_mother]
@@ -60098,6 +60452,8 @@ multivar=varplayerbit_396
 multinpc=0,vanstrom_klause
 multinpc=1,stranger
 unknown119=1
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 2021
 [light_creature]
@@ -60129,6 +60485,8 @@ name=Juna
 model1=model_6511
 head1=model_6567
 unknown119=1
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 2024
 [strange_old_man]
@@ -60591,6 +60949,8 @@ head1=model_31696
 unknown119=1
 cursor1=1,cursor_44
 desc=They're done for!
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 2041
 [grug]
@@ -60605,6 +60965,8 @@ head1=model_31696
 unknown119=1
 cursor1=1,cursor_44
 desc=They're done for!
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 2042
 [ogre_guard_2042]
@@ -60815,6 +61177,8 @@ name=Hole in the wall
 model1=model_34601
 unknown119=1
 desc=What could be hiding in that crack in the wall?
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 2059
 [zavistic_rarve]
@@ -61011,6 +61375,8 @@ unknown119=5
 cursor1=1,cursor_60
 cursor2=3,cursor_60
 desc=I can see fish swimming in the water.
+// cache 786 walk mode 5: stands
+wanderrange=0
 
 // 2068
 [fishing_spot_2068]
@@ -61025,6 +61391,8 @@ model1=model_6568
 unknown119=5
 cursor1=1,cursor_60
 cursor2=3,cursor_60
+// cache 786 walk mode 5: stands
+wanderrange=0
 
 // 2069
 [cave_goblin_miner]
@@ -61158,6 +61526,8 @@ head2=model_23231
 unknown119=1
 cursor1=1,cursor_44
 cursorattack=cursor_42
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 2076
 [cave_goblin_miner_2076]
@@ -61174,6 +61544,8 @@ head1=model_6957
 unknown119=1
 cursor1=1,cursor_44
 cursorattack=cursor_42
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 2077
 [cave_goblin_miner_2077]
@@ -61535,6 +61907,8 @@ head1=model_51660
 unknown119=1
 cursor1=1,cursor_44
 desc=The head secretary of the Blue Opal mining company.
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 2095
 [green_gemstone_secretary]
@@ -61553,6 +61927,8 @@ head1=model_51654
 unknown119=1
 cursor1=1,cursor_44
 desc=The head secretary of the Green Gemstone mining company.
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 2096
 [white_chisel_secretary]
@@ -61574,6 +61950,8 @@ head1=model_51660
 unknown119=1
 cursor1=1,cursor_44
 desc=The head secretary of the White Chisel mining company.
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 2097
 [silver_cog_secretary]
@@ -61596,6 +61974,8 @@ head1=model_51654
 unknown119=1
 cursor1=1,cursor_44
 desc=The head secretary of the Silver Cog mining company.
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 2098
 [brown_engine_secretary]
@@ -61620,6 +62000,8 @@ head1=model_51666
 unknown119=1
 cursor1=1,cursor_44
 desc=The head secretary of the Brown Engine mining company.
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 2099
 [red_axe_secretary]
@@ -62085,6 +62467,8 @@ model5=model_7068
 head1=model_51624
 unknown119=1
 desc=A trader for the Yellow Fortune mining company.
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 2115
 [trader_2115]
@@ -62398,6 +62782,8 @@ head2=model_51649
 unknown119=1
 cursor1=1,cursor_44
 desc=He is regulating the flow of goods on the trade floor and maintaining order.
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 2129
 [npc_2129]
@@ -62716,6 +63102,8 @@ head1=model_34056
 unknown119=1
 cursor1=1,cursor_44
 desc=Very protective of his master...and his property.
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 2141
 [blasidar_the_sculptor]
@@ -62768,6 +63156,8 @@ multinpc=5,riki_the_sculptor_s_model_2148
 multinpc=6,riki_the_sculptor_s_model_2149
 multinpc=7,riki_the_sculptor_s_model_2150
 unknown119=1
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 2143
 [riki_the_sculptor_s_model]
@@ -64376,6 +64766,8 @@ model5=model_2985
 head1=model_51654
 unknown119=1
 cursor1=1,cursor_44
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 2206
 [dwarven_boatman_2206]
@@ -64399,6 +64791,8 @@ head1=model_51654
 unknown119=1
 cursor1=1,cursor_44
 desc=His ship miraculously survived the crash into the statue earlier.
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 2207
 [dwarven_miner]
@@ -64956,6 +65350,8 @@ vislevel=0
 multivar=varplayerbit_579
 multinpc=1,black_guard_berserker_2232
 unknown119=1
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 2232
 [black_guard_berserker_2232]
@@ -65205,6 +65601,8 @@ head1=model_48455
 unknown119=1
 cursor1=1,cursor_44
 desc=He provides new players with useful information.
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 2245
 [khazard_trooper_2245]
@@ -65437,6 +65835,8 @@ name=Bed
 model1=model_7381
 unknown119=1
 desc=It's a fairly ordinary bed, but...
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 2255
 [thing_under_the_bed]
@@ -65663,6 +66063,8 @@ head1=model_38093
 unknown119=1
 cursor1=1,cursor_44
 desc=An initiate of Zamorak.
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 2263
 [abyssal_leech]
@@ -66197,6 +66599,8 @@ head2=model_39254
 unknown119=1
 cursor1=1,cursor_44
 desc=An observer for the Temple Knights.
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 2283
 [lady_table]
@@ -66232,6 +66636,8 @@ head1=model_39066
 unknown119=1
 cursor1=1,cursor_44
 desc=An observer for the Temple Knights.
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 2284
 [sir_kuam_ferentse]
@@ -66267,6 +66673,8 @@ head2=model_39227
 unknown119=1
 cursor1=1,cursor_44
 desc=An observer for the Temple Knights.
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 2285
 [sir_leye]
@@ -66338,6 +66746,8 @@ head2=model_39254
 unknown119=1
 cursor1=1,cursor_44
 desc=An observer for the Temple Knights.
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 2287
 [sir_ren_itchood]
@@ -66375,6 +66785,8 @@ head3=model_39549
 unknown119=1
 cursor1=1,cursor_44
 desc=An observer for the Temple Knights.
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 2288
 [miss_cheevers]
@@ -66412,6 +66824,8 @@ head2=model_38823
 unknown119=1
 cursor1=1,cursor_44
 desc=An observer for the Temple Knights.
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 2289
 [ms__hynn_terprett]
@@ -66448,6 +66862,8 @@ head2=model_38823
 unknown119=1
 cursor1=1,cursor_44
 desc=An observer for the Temple Knights.
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 2290
 [sir_tiffy_cashien]
@@ -66483,6 +66899,8 @@ unknown119=1
 cursor1=1,cursor_44
 quest=quest_177
 desc=Head of recruitment for the Temple Knights.
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 2291
 [rug_merchant]
@@ -66622,6 +67040,8 @@ head3=model_39216
 unknown119=1
 cursor1=1,cursor_44
 desc=A man who deals in rugs.
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 2295
 [npc_2295]
@@ -66636,6 +67056,8 @@ multinpc=10,rug_merchant_2296
 unknown119=1
 cursor1=1,cursor_44
 desc=A man who deals in rugs.
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 2296
 [rug_merchant_2296]
@@ -66969,6 +67391,8 @@ name=Sheepdog
 model1=model_7755
 unknown119=1
 desc=Farmer/sheep liaison officer. Go on - give the dog a bone!
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 2312
 [rooster_2312]
@@ -67000,6 +67424,8 @@ param=defend_sound,chicken_hit
 param=death_sound,chicken_death
 param=retreat,10
 category=chicken
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 2313
 [chicken_2313]
@@ -67436,6 +67862,8 @@ name=Muncher
 model1=model_26262
 unknown119=1
 desc=Only the Grim Reaper would have a pet like this.
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 2330
 [garth]
@@ -68498,6 +68926,8 @@ multinpc=15,gnome_2371
 multinpc=16,gnome_2371
 multinpc=17,gnome_2371
 unknown119=1
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 2371
 [gnome_2371]
@@ -68590,6 +69020,8 @@ model5=model_273
 model6=model_323
 head1=model_61564
 unknown119=1
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 2375
 [npc_2375]
@@ -68598,6 +69030,8 @@ vislevel=0
 multivar=varplayerbit_797
 multinpc=1,eluned_2376
 unknown119=1
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 2376
 [eluned_2376]
@@ -69071,6 +69505,8 @@ turnspeed=0
 multivar=varplayerbit_582
 multinpc=0,red_axe_cat
 unknown119=1
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 2406
 [npc_2406]
@@ -69245,6 +69681,8 @@ model1=model_63418
 head1=model_63417
 unknown119=1
 cursor1=1,cursor_44
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 2415
 [colonel_grimsson]
@@ -69654,6 +70092,8 @@ multivar=varplayerbit_814
 multinpc=0,jarvald
 multinpc=1,jarvald_2437
 unknown119=1
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 2436
 [jarvald]
@@ -69735,6 +70175,8 @@ head2=model_38097
 unknown119=1
 cursor1=1,cursor_44
 desc=A Fremennik raider.
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 2439
 [askeladden_2439]
@@ -69766,6 +70208,8 @@ recol4d=8489
 name=Door-support
 model1=model_8718
 unknown119=1
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 2441
 [door]
@@ -69821,6 +70265,8 @@ recol4d=8489
 name=Door-support
 model1=model_8718
 unknown119=1
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 2444
 [door_2444]
@@ -69876,6 +70322,8 @@ recol4d=8489
 name=Door-support
 model1=model_8718
 unknown119=1
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 2447
 [door_2447]
@@ -69925,6 +70373,8 @@ name=Egg
 model1=model_8712
 unknown119=1
 desc=A horror from the ocean depths...
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 2450
 [egg_2450]
@@ -70102,6 +70552,8 @@ head3=model_39538
 unknown119=1
 cursor1=1,cursor_44
 desc=He's at home in the forests.
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 2459
 [npc_2459]
@@ -70358,6 +70810,8 @@ head1=model_8853
 unknown119=1
 cursor1=1,cursor_44
 desc=Speaks on behalf of His and Her Royal Frogness.
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 2473
 [h_a_m__agent_walton_2473]
@@ -70489,6 +70943,8 @@ head3=model_39316
 unknown119=1
 cursor1=1,cursor_44
 desc=Apparently a master of quizzes!
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 2478
 [evil_bob]
@@ -72420,6 +72876,8 @@ head1=model_51666
 unknown119=1
 cursor1=1,cursor_44
 desc=He smells of rock dust.
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 2565
 [jorzik]
@@ -73527,6 +73985,8 @@ head2=model_38642
 unknown119=1
 cursor1=1,cursor_44
 desc=A soggy, smelly Fremennik.
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 2622
 [tzhaar_hur_lek]
@@ -73754,6 +74214,8 @@ head1=model_39045
 unknown119=1
 cursor1=1,cursor_44
 desc=A busy-body who loves a bit of gossip.
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 2635
 [bob_2635]
@@ -73990,6 +74452,8 @@ multivar=varplayerbit_8242
 multinpc=1,dororan_2647
 unknown119=1
 desc=A dwarf on top of the world.
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 2647
 [dororan_2647]
@@ -74016,6 +74480,8 @@ multivar=varplayerbit_6665
 multinpc=1,dororan_2651
 unknown119=1
 desc=A dwarf on top of the world.
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 2651
 [dororan_2651]
@@ -75959,6 +76425,8 @@ name=Fishing spot
 model1=model_36844
 unknown119=5
 cursor1=1,cursor_60
+// cache 786 walk mode 5: stands
+wanderrange=0
 
 // 2723
 [zanik_2723]
@@ -75991,6 +76459,8 @@ op5=hidden
 defaultmode=none
 moverestrict=nomove
 category=saltfish
+// cache 786 walk mode 5: stands
+wanderrange=0
 
 // 2725
 [otto_godblessed]
@@ -77127,6 +77597,8 @@ modeloffset8=3,-11,6
 modeloffset9=-3,-11,6
 unknown119=1
 cursor1=1,cursor_44
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 2779
 [ranger_2779]
@@ -77333,6 +77805,8 @@ vislevel=0
 multivar=varplayerbit_1330
 multinpc=1,thorgel
 unknown119=1
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 2789
 [thorgel]
@@ -77624,6 +78098,8 @@ name=A pile of broken glass
 model1=model_2676
 unknown119=1
 desc=It looks like some broken bottles
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 2801
 [ogre_2801]
@@ -78089,6 +78565,8 @@ head2=model_45469
 unknown119=1
 cursor1=1,cursor_44
 desc=A shifty-looking character.
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 2826
 [pirate_pete_2826]
@@ -78105,6 +78583,8 @@ head1=model_39838
 head2=model_45469
 unknown119=1
 cursor1=1,cursor_44
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 2827
 [captain_braindeath]
@@ -78140,6 +78620,8 @@ head3=model_39482
 unknown119=1
 cursor1=1,cursor_44
 desc=A shabby-looking leader.
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 2828
 [50__luke]
@@ -78152,6 +78634,8 @@ model1=model_21391
 head1=model_21395
 unknown119=1
 cursor1=1,cursor_44
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 2829
 [davey]
@@ -78181,6 +78665,8 @@ head2=model_39415
 unknown119=1
 cursor1=1,cursor_44
 desc=Looks like he's taking a break.
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 2830
 [captain_donnie]
@@ -79043,6 +79529,8 @@ name=Fishing spot
 model1=model_36844
 unknown119=5
 cursor1=1,cursor_60
+// cache 786 walk mode 5: stands
+wanderrange=0
 
 // 2860
 [amaethwr]
@@ -79156,6 +79644,8 @@ vislevel=0
 multivar=varplayerbit_8243
 multinpc=1,gudrun_2867
 unknown119=1
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 2867
 [gudrun_2867]
@@ -79240,6 +79730,8 @@ multinpc=0,kjell
 multinpc=1,kjell_2874
 unknown119=1
 desc=A barbarian guard.
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 2873
 [kjell]
@@ -79296,6 +79788,8 @@ multinpc=0,chieftain_gunthor
 multinpc=1,chieftain_gunthor_2878
 unknown119=1
 desc=A heavily built barbarian with an air of power and authority.
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 2877
 [chieftain_gunthor]
@@ -79589,6 +80083,8 @@ name=Rock
 model1=model_14183
 unknown119=1
 desc=A Rock.
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 2891
 [suspicious_water]
@@ -79950,6 +80446,8 @@ multinpc=50,evil_dave_2910
 multinpc=60,evil_dave_2910
 multinpc=70,evil_dave_2910
 unknown119=1
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 2909
 [evil_dave]
@@ -80294,6 +80792,8 @@ vislevel=0
 multivar=varplayerbit_1380
 multinpc=1,evil_dave_2910
 unknown119=1
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 2923
 [npc_2923]
@@ -80416,6 +80916,8 @@ head4=model_39316
 unknown119=1
 cursor1=1,cursor_44
 desc=A sensible looking man.
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 2933
 [npc_2933]
@@ -80593,6 +81095,8 @@ head1=model_34062
 unknown119=1
 cursor1=1,cursor_44
 desc=Who ate all the rats?
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 2942
 [bellemorde]
@@ -81177,6 +81681,8 @@ name=Ali Morrisane
 model1=model_46484
 head1=model_46676
 unknown119=1
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 2962
 [guard_2962]
@@ -81201,6 +81707,8 @@ model8=model_49415
 model9=model_541
 unknown119=1
 desc=He tries to keep order around here.
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 2963
 [guard_2963]
@@ -81224,6 +81732,8 @@ model7=model_185
 model8=model_49415
 model9=model_541
 unknown119=1
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 2964
 [guard_2964]
@@ -81247,6 +81757,8 @@ model7=model_185
 model8=model_49415
 model9=model_541
 unknown119=1
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 2965
 [guard_2965]
@@ -81270,6 +81782,8 @@ model7=model_185
 model8=model_49415
 model9=model_541
 unknown119=1
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 2966
 [guard_2966]
@@ -81293,6 +81807,8 @@ model7=model_185
 model8=model_49415
 model9=model_541
 unknown119=1
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 2967
 [guard_2967]
@@ -81316,6 +81832,8 @@ model7=model_185
 model8=model_49415
 model9=model_541
 unknown119=1
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 2968
 [guard_2968]
@@ -81339,6 +81857,8 @@ model7=model_185
 model8=model_49415
 model9=model_541
 unknown119=1
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 2969
 [guard_2969]
@@ -81362,6 +81882,8 @@ model7=model_185
 model8=model_49415
 model9=model_541
 unknown119=1
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 2970
 [guard_2970]
@@ -81385,6 +81907,8 @@ model7=model_185
 model8=model_49415
 model9=model_541
 unknown119=1
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 2971
 [guard_2971]
@@ -81408,6 +81932,8 @@ model7=model_185
 model8=model_49415
 model9=model_541
 unknown119=1
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 2972
 [guard_2972]
@@ -81431,6 +81957,8 @@ model7=model_185
 model8=model_49415
 model9=model_541
 unknown119=1
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 2973
 [guard_2973]
@@ -81454,6 +81982,8 @@ model7=model_185
 model8=model_49415
 model9=model_541
 unknown119=1
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 2974
 [npc_2974]
@@ -82438,6 +82968,8 @@ model1=model_36844
 unknown119=5
 cursor1=1,cursor_60
 cursor2=3,cursor_60
+// cache 786 walk mode 5: stands
+wanderrange=0
 
 // 3020
 [rug_merchant_3020]
@@ -82519,6 +83051,8 @@ head3=model_39261
 unknown119=1
 cursor1=1,cursor_44
 desc=Phenomenal cosmic powers, itty-bitty living space.
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 3023
 [nirrie]
@@ -82549,6 +83083,8 @@ head1=model_39063
 unknown119=1
 cursor1=1,cursor_44
 desc=An elemental waterspirit.
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 3025
 [hallak]
@@ -83229,6 +83765,8 @@ head3=model_39218
 unknown119=1
 cursor1=1,cursor_44
 desc=A banker of Nardah.
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 3047
 [target]
@@ -83257,6 +83795,8 @@ multivar=varplayerbit_1451
 multinpc=0,target
 multinpc=1,target_3048
 unknown119=1
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 3050
 [larxus]
@@ -83315,6 +83855,8 @@ head1=model_40019
 head2=model_38642
 unknown119=1
 desc=A mysterious watcher.
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 3052
 [mystery_figure_3052]
@@ -83329,6 +83871,8 @@ head1=model_50435
 head2=model_10272
 unknown119=1
 desc=A mysterious watcher.
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 3053
 [mystery_figure_3053]
@@ -83348,6 +83892,8 @@ head2=model_42662
 head3=model_50436
 unknown119=1
 desc=A mysterious watcher.
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 3054
 [mystery_figure_3054]
@@ -83365,6 +83911,8 @@ model2=model_34149
 head1=model_34276
 unknown119=1
 desc=A mysterious watcher.
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 3055
 [mystery_figure_3055]
@@ -83380,6 +83928,8 @@ model2=model_26161
 head1=model_26111
 unknown119=1
 desc=A mysterious watcher.
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 3056
 [mystery_figure_3056]
@@ -83394,6 +83944,8 @@ model2=model_10310
 head1=model_39787
 unknown119=1
 desc=A mysterious watcher.
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 3057
 [earth_warrior_champion]
@@ -83818,6 +84370,8 @@ vislevel=0
 multivar=varplayerbit_1467
 multinpc=1,dead_monk
 unknown119=1
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 3077
 [dead_monk]
@@ -84379,6 +84933,8 @@ head1=model_10696
 unknown119=1
 cursor1=1,cursor_44
 desc=A guardian of the arena.
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 3103
 [rewards_guardian]
@@ -84409,6 +84965,8 @@ head1=model_10695
 unknown119=1
 cursor1=1,cursor_44
 desc=A guardian of the arena.
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 3104
 [charmed_warrior]
@@ -84784,6 +85342,8 @@ head3=model_39223
 unknown119=1
 cursor1=1,cursor_44
 desc=He wants to escape!
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 3119
 [advisor_ghrim]
@@ -84899,6 +85459,8 @@ head3=model_62008
 unknown119=1
 cursor1=1,cursor_44
 desc=I saw the witchdoctor, he told me what to do.
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 3123
 [simon_templeton]
@@ -84942,6 +85504,8 @@ vislevel=0
 multivar=varplayerbit_1550
 multinpc=3,pyramid_block
 unknown119=1
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 3125
 [npc_3125]
@@ -84952,6 +85516,8 @@ vislevel=0
 multivar=varplayerbit_1550
 multinpc=1,pyramid_block_8522
 unknown119=1
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 3126
 [pentyn]
@@ -84990,6 +85556,8 @@ head2=model_38642
 unknown119=1
 cursor1=1,cursor_44
 desc=He's been trapped here for thousands of years.
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 3127
 [aristarchus]
@@ -85048,6 +85616,8 @@ multinpc=60,pile_of_bones
 multinpc=65,pile_of_bones
 multinpc=70,pile_of_bones
 unknown119=1
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 3129
 [boneguard]
@@ -85083,6 +85653,8 @@ turnspeed=0
 multivar=varplayerbit_1577
 multinpc=0,crust_of_ice
 unknown119=1
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 3133
 [crust_of_ice]
@@ -85104,6 +85676,8 @@ turnspeed=0
 multivar=varplayerbit_1578
 multinpc=0,furnace_grate
 unknown119=1
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 3135
 [furnace_grate]
@@ -85137,6 +85711,8 @@ multivar=varplayerbit_1605
 multinpc=0,enakhra
 multinpc=1,enakhra_3138
 unknown119=1
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 3137
 [enakhra]
@@ -85206,6 +85782,8 @@ multinpc=0,boneguard_3140
 multinpc=1,akthanakos
 multinpc=2,akthanakos_3142
 unknown119=1
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 3140
 [boneguard_3140]
@@ -85297,6 +85875,8 @@ vislevel=0
 multivar=varplayerbit_1604
 multinpc=0,lazim
 unknown119=1
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 3144
 [npc_3144]
@@ -85305,6 +85885,8 @@ vislevel=0
 multivar=varplayerbit_1604
 multinpc=1,lazim
 unknown119=1
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 3145
 [npc_3145]
@@ -85313,6 +85895,8 @@ vislevel=0
 multivar=varplayerbit_1604
 multinpc=2,lazim
 unknown119=1
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 3146
 [npc_3146]
@@ -85321,6 +85905,8 @@ vislevel=0
 multivar=varplayerbit_1604
 multinpc=3,lazim
 unknown119=1
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 3147
 [lazim]
@@ -86930,6 +87516,8 @@ head1=model_61564
 unknown119=1
 cursor1=1,cursor_44
 desc=A mourner, or plague healer.
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 3217
 [kaylee]
@@ -89531,6 +90119,8 @@ model5=model_2981
 model6=model_2985
 unknown119=1
 desc=He's building a cannon.
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 3283
 [squirrel]
@@ -89893,6 +90483,8 @@ head1=model_11929
 unknown119=1
 cursor1=1,cursor_44
 desc=I'm gonna make him an offer he can't refuse.
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 3305
 [fat_rocco]
@@ -90073,6 +90665,8 @@ multinpc=1,fairy_godfather
 multinpc=2,fairy_godfather_4433
 multinpc=3,fairy_queen_4437
 unknown119=1
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 3316
 [npc_3316]
@@ -90084,6 +90678,8 @@ multinpc=1,fat_rocco
 multinpc=2,fat_rocco
 multinpc=3,fairy_very_wise
 unknown119=1
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 3317
 [npc_3317]
@@ -90095,6 +90691,8 @@ multinpc=1,slim_louie
 multinpc=2,slim_louie
 multinpc=3,tooth_fairy
 unknown119=1
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 3318
 [npc_3318]
@@ -90266,6 +90864,8 @@ head1=model_39102
 head2=model_38781
 unknown119=1
 desc=A less enthusiastic ecclesiastic woman, she seems slightly tired.
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 3327
 [jeremy_clerksin]
@@ -90294,6 +90894,8 @@ head1=model_39744
 head2=model_38097
 unknown119=1
 desc=Rather more tired than most.
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 3328
 [tarquin]
@@ -90329,6 +90931,8 @@ head3=model_40663
 unknown119=1
 cursor1=1,cursor_44
 desc=A dandy canoe man.
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 3329
 [sigurd]
@@ -90620,6 +91224,8 @@ model1=model_12640
 unknown119=1
 cursor1=1,cursor_45
 desc=A fun guy. No wait, that's awful. Plus it doesn't even make sense.
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 3345
 [fungi_3345]
@@ -90636,6 +91242,8 @@ model1=model_12640
 unknown119=1
 cursor1=1,cursor_45
 desc=A fun guy. No wait, that's awful. Plus it doesn't even make sense.
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 3346
 [mutated_zygomite]
@@ -91008,6 +91616,8 @@ vislevel=0
 multivar=varplayerbit_1940
 multinpc=4,zanik_2544
 unknown119=1
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 3364
 [zanik_3364]
@@ -91084,6 +91694,8 @@ head1=model_23243
 head2=model_15561
 unknown119=1
 cursor1=1,cursor_44
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 3369
 [zanik_3369]
@@ -93013,6 +93625,8 @@ vislevel=0
 multivar=varplayerbit_1908
 multinpc=1,ogre_boat_3472
 unknown119=1
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 3470
 [npc_3470]
@@ -93022,6 +93636,8 @@ vislevel=0
 multivar=varplayerbit_1908
 multinpc=1,ogre_boat
 unknown119=1
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 3471
 [ogre_boat]
@@ -93763,6 +94379,8 @@ head1=model_64095
 unknown119=1
 cursor1=1,cursor_44
 desc=A flea infested, pale looking excuse of a man.
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 3510
 [npc_3510]
@@ -95108,6 +95726,8 @@ head1=model_40031
 head2=model_39260
 unknown119=1
 cursor1=1,cursor_44
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 3560
 [mihail]
@@ -95139,6 +95759,8 @@ head1=model_39629
 head2=model_38642
 unknown119=1
 cursor1=1,cursor_44
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 3561
 [nicoleta]
@@ -95166,6 +95788,8 @@ model5=model_427
 head1=model_39024
 unknown119=1
 cursor1=1,cursor_44
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 3562
 [simona]
@@ -95193,6 +95817,8 @@ model5=model_427
 head1=model_39077
 unknown119=1
 cursor1=1,cursor_44
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 3563
 [vasile]
@@ -95481,6 +96107,8 @@ op5=hidden
 defaultmode=none
 moverestrict=nomove
 category=memberfish
+// cache 786 walk mode 5: stands
+wanderrange=0
 
 // 3575
 [fishing_spot_3575]
@@ -95500,6 +96128,8 @@ op5=hidden
 defaultmode=none
 moverestrict=nomove
 category=memberfish
+// cache 786 walk mode 5: stands
+wanderrange=0
 
 // 3576
 [juvinate]
@@ -96751,6 +97381,8 @@ model6=model_358
 head1=model_39022
 unknown119=1
 cursor1=1,cursor_44
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 3641
 [brana]
@@ -97308,6 +97940,8 @@ model3=model_20294
 unknown119=1
 cursorattack=cursor_42
 desc=White and fluffy.
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 3674
 [bones_3674]
@@ -97976,6 +98610,8 @@ turnspeed=0
 name=Boulder
 model1=model_24149
 unknown119=1
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 3710
 [ulfric_3710]
@@ -99309,6 +99945,8 @@ head1=model_49475
 unknown119=1
 cursor1=1,cursor_44
 desc=Cheerful, helpful and optimistic, I'll bet.
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 3778
 [npc_3778]
@@ -99988,6 +100626,8 @@ head2=model_14789
 unknown119=1
 cursor1=1,cursor_44
 desc=Posts things.
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 3806
 [millie_miller]
@@ -100099,6 +100739,8 @@ head2=model_63351
 unknown119=1
 cursor1=1,cursor_44
 desc=Tally Ho!
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 3810
 [captain_bleemadge]
@@ -100127,6 +100769,8 @@ head2=model_63351
 unknown119=1
 cursor1=1,cursor_44
 desc=Huzzah!
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 3811
 [captain_errdo]
@@ -100154,6 +100798,8 @@ head1=model_42660
 head2=model_63351
 unknown119=1
 cursor1=1,cursor_44
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 3812
 [captain_klemfoodle]
@@ -100182,6 +100828,8 @@ head2=model_63351
 unknown119=1
 cursor1=1,cursor_44
 desc=Up up and away!
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 3813
 [npc_3813]
@@ -100328,6 +100976,8 @@ multinpc=190,wise_old_man
 multinpc=200,wise_old_man
 multinpc=210,wise_old_man_11569
 unknown119=1
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 3821
 [wise_old_man_3821]
@@ -100361,6 +101011,8 @@ head3=model_39356
 unknown119=1
 cursor1=1,cursor_44
 desc=Founder and Director of the Piscatoris Fishing Colony.
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 3823
 [franklin_caranos]
@@ -100589,6 +101241,8 @@ multinpc=40,wise_old_man_2567
 multinpc=50,wise_old_man_2567
 multinpc=55,wise_old_man_2567
 unknown119=1
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 3833
 [npc_3833]
@@ -100609,6 +101263,8 @@ multinpc=140,wise_old_man_2567
 multinpc=150,wise_old_man_2567
 multinpc=180,wise_old_man_2567
 unknown119=1
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 3834
 [npc_3834]
@@ -100802,6 +101458,8 @@ unknown119=5
 cursor1=1,cursor_60
 cursor2=3,cursor_60
 desc=I can see fish swimming in the water.
+// cache 786 walk mode 5: stands
+wanderrange=0
 
 // 3849
 [grubfoot_3849]
@@ -102622,6 +103280,8 @@ head1=model_52825
 unknown119=1
 cursor1=1,cursor_44
 desc=He looks flipping mad.
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 3913
 [tilt]
@@ -102652,6 +103312,8 @@ head1=model_52825
 unknown119=1
 cursor1=1,cursor_44
 desc=He looks ready to flip out.
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 3914
 [gardener_3914]
@@ -102749,6 +103411,8 @@ head3=model_39432
 unknown119=1
 cursor1=1,cursor_44
 desc=His bark's worse than his blight.
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 3917
 [farmer_fromund]
@@ -102777,6 +103441,8 @@ head3=model_39547
 unknown119=1
 cursor1=1,cursor_44
 desc=He looks a bit seedy.
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 3918
 [prince_brand_3918]
@@ -103119,6 +103785,8 @@ head2=model_38861
 unknown119=1
 cursor1=1,cursor_44
 desc=A Fremennik teenager.
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 3929
 [hild_3929]
@@ -103147,6 +103815,8 @@ head1=model_39124
 unknown119=1
 cursor1=1,cursor_44
 desc=A Fremennik teenager.
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 3930
 [armod]
@@ -103178,6 +103848,8 @@ head2=model_39223
 unknown119=1
 cursor1=1,cursor_44
 desc=A Fremennik teenager.
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 3931
 [beigarth]
@@ -103213,6 +103885,8 @@ head2=model_39223
 unknown119=1
 cursor1=1,cursor_44
 desc=A Fremennik teenager.
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 3932
 [reinn]
@@ -103246,6 +103920,8 @@ head2=model_39223
 unknown119=1
 cursor1=1,cursor_44
 desc=A Fremennik teenager.
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 3933
 [alviss]
@@ -103357,6 +104033,8 @@ head1=model_51684
 unknown119=1
 cursor1=1,cursor_44
 desc=A dwarf miner. He's digging holes in the walls.
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 3937
 [ferd]
@@ -103386,6 +104064,8 @@ head2=model_51629
 unknown119=1
 cursor1=1,cursor_44
 desc=A dwarf miner. He's shoring up the walls.
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 3938
 [donal]
@@ -103471,6 +104151,8 @@ head1=model_38095
 head2=model_38097
 unknown119=1
 cursor1=1,cursor_44
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 3942
 [guard_3942]
@@ -103501,6 +104183,8 @@ head2=model_38097
 unknown119=1
 cursor1=1,cursor_44
 desc=He's guarding the entrance to the dungeons.
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 3943
 [giant_sea_snake]
@@ -108419,6 +109103,8 @@ head2=model_39223
 unknown119=1
 cursor1=1,cursor_44
 desc=Chief Herald of Falador.
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 4250
 [sawmill_operator]
@@ -108500,6 +109186,8 @@ vislevel=0
 multivar=varplayerbit_2231
 multinpc=1,sick_looking_sheep__1
 unknown119=1
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 4254
 [npc_4254]
@@ -108508,6 +109196,8 @@ vislevel=0
 multivar=varplayerbit_2232
 multinpc=1,sick_looking_sheep__2
 unknown119=1
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 4255
 [npc_4255]
@@ -108516,6 +109206,8 @@ vislevel=0
 multivar=varplayerbit_2233
 multinpc=1,sick_looking_sheep__3
 unknown119=1
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 4256
 [npc_4256]
@@ -108524,6 +109216,8 @@ vislevel=0
 multivar=varplayerbit_2234
 multinpc=1,sick_looking_sheep__4
 unknown119=1
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 4257
 [guard_4257]
@@ -109951,6 +110645,8 @@ head1=model_39068
 unknown119=1
 cursor1=1,cursor_44
 desc=Bank staff.
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 4297
 [sloane]
@@ -110503,6 +111199,8 @@ head1=model_23247
 unknown119=1
 cursor1=1,cursor_44
 desc=What has he got under his coat?
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 4313
 [npc_4313]
@@ -111654,6 +112352,8 @@ model1=model_15833
 unknown119=1
 cursor1=1,cursor_44
 desc=A colourful bird.
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 4374
 [parrot_4374]
@@ -111673,6 +112373,8 @@ name=Parrot
 model1=model_15833
 unknown119=1
 cursor1=1,cursor_44
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 4375
 [security_guard]
@@ -112382,6 +113084,8 @@ head1=model_39733
 head2=model_39223
 head3=model_39466
 unknown119=1
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 4406
 [minotaur_4406]
@@ -113046,6 +113750,8 @@ multinpc=75,fairy_very_wise
 multinpc=80,fairy_very_wise
 multinpc=90,fairy_very_wise
 unknown119=1
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 4436
 [npc_4436]
@@ -113056,6 +113762,8 @@ multivar=varplayerbit_2326
 multinpc=80,fairy_queen_4437
 multinpc=90,fairy_queen_4437
 unknown119=1
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 4437
 [fairy_queen_4437]
@@ -113697,6 +114405,8 @@ model1=model_36512
 unknown119=1
 cursorattack=cursor_42
 desc=This is ready for you to cast magic at it.
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 4475
 [ned_4475]
@@ -113750,6 +114460,8 @@ head1=model_21386
 unknown119=1
 cursor1=1,cursor_44
 desc=Who's your mummy?
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 4477
 [annoyed_guardian_mummy]
@@ -114759,6 +115471,8 @@ head1=model_39893
 unknown119=1
 cursor1=1,cursor_44
 desc=He reminds me of my old mathematics teacher.
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 4504
 [ethereal_expert]
@@ -114793,6 +115507,8 @@ head1=model_39893
 unknown119=1
 cursor1=1,cursor_44
 desc=The master of accomplishment.
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 4505
 [ethereal_perceptive]
@@ -114828,6 +115544,8 @@ head1=model_39893
 unknown119=1
 cursor1=1,cursor_44
 desc=He knows what is possible.
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 4506
 [ethereal_guide]
@@ -114862,6 +115580,8 @@ head1=model_39893
 unknown119=1
 cursor1=1,cursor_44
 desc=He knows the past, present and future. But what of my shoe size?
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 4507
 [ethereal_fluke]
@@ -114896,6 +115616,8 @@ head1=model_39893
 unknown119=1
 cursor1=1,cursor_44
 desc=Luck is probably on his side.
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 4508
 [npc_4508]
@@ -114907,6 +115629,8 @@ multivar=varplayerbit_8241
 multinpc=0,ethereal_mimic
 multinpc=1,ethereal_mimic_135
 unknown119=1
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 4509
 [me]
@@ -115056,6 +115780,8 @@ vislevel=0
 multivar=varplayerbit_9063
 multinpc=2,pauline_polaris_13626
 unknown119=1
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 4515
 [meteora]
@@ -115326,6 +116052,8 @@ modeloffset7=3,-11,6
 unknown119=1
 cursor1=1,cursor_44
 desc=Should I pronounce it 'bucket'?
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 4527
 [suqah]
@@ -115552,6 +116280,8 @@ head2=model_39800
 unknown119=1
 cursor1=1,cursor_44
 desc=Either a very fremennikey pirate, or a very piratey fremennik.
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 4538
 [npc_4538]
@@ -115638,6 +116368,8 @@ head2=model_39498
 unknown119=1
 cursor1=1,cursor_44
 desc=A keen-eyed lookout with a telescope.
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 4543
 [first_mate__davey_boy]
@@ -115988,6 +116720,8 @@ head1=model_51670
 unknown119=1
 cursor1=1,cursor_44
 desc=A seller of crossbow parts.
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 4559
 [holoy]
@@ -116017,6 +116751,8 @@ head1=model_51670
 unknown119=1
 cursor1=1,cursor_44
 desc=A seller of crossbow parts.
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 4560
 [frizzy_skernip]
@@ -116140,6 +116876,8 @@ head1=model_51670
 unknown119=1
 cursor1=1,cursor_44
 desc=A seller of crossbow parts.
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 4564
 [digsite_workman_4564]
@@ -116371,6 +117109,8 @@ head3=model_63311
 unknown119=1
 cursor1=1,cursor_44
 desc=The delivery honcho!
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 4573
 [timble]
@@ -116759,6 +117499,8 @@ head2=model_63356
 unknown119=1
 cursor1=1,cursor_44
 desc=Gnome customer.
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 4588
 [dalila]
@@ -116792,6 +117534,8 @@ head2=model_25745
 unknown119=1
 cursor1=1,cursor_44
 desc=Gnome customer.
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 4591
 [eebel]
@@ -117603,6 +118347,8 @@ model8=model_24506
 head1=model_24219
 unknown119=1
 desc=An ugly green creature.
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 4634
 [goblin_4634]
@@ -117631,6 +118377,8 @@ model7=model_24509
 head1=model_24221
 unknown119=1
 desc=An ugly green creature.
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 4635
 [goblin_4635]
@@ -117666,6 +118414,8 @@ model8=model_24497
 head1=model_24220
 unknown119=1
 desc=An ugly green creature.
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 4636
 [goblin_4636]
@@ -117692,6 +118442,8 @@ model7=model_24497
 model8=model_24507
 unknown119=1
 desc=An ugly green creature.
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 4637
 [goblin_4637]
@@ -117721,6 +118473,8 @@ model8=model_24491
 head1=model_24216
 unknown119=1
 desc=An ugly green creature.
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 4638
 [gnome_soldier]
@@ -117750,6 +118504,8 @@ head2=model_63378
 head3=model_63324
 unknown119=1
 desc=A little warrior.
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 4639
 [gnome_soldier_4639]
@@ -117780,6 +118536,8 @@ head2=model_63378
 head3=model_42660
 unknown119=1
 desc=A little warrior.
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 4640
 [gnome_soldier_4640]
@@ -117805,6 +118563,8 @@ head2=model_42662
 head3=model_63315
 unknown119=1
 desc=A little warrior.
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 4641
 [gnome_soldier_4641]
@@ -117826,6 +118586,8 @@ head2=model_63378
 head3=model_63324
 unknown119=1
 desc=A little warrior.
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 4642
 [gnome_soldier_4642]
@@ -117844,6 +118606,8 @@ head2=model_63378
 head3=model_63324
 unknown119=1
 desc=A little warrior.
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 4643
 [healthorg_and_tortoise]
@@ -117854,6 +118618,8 @@ name=Healthorg and tortoise
 model1=model_16917
 unknown119=1
 desc=King Healthorg riding his War Tortoise.
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 4644
 [oaknock_the_engineer]
@@ -117892,6 +118658,8 @@ head2=model_63385
 head3=model_63377
 unknown119=1
 desc=A weasly, shifty-looking Gnome Mage.
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 4646
 [king_healthorg]
@@ -120693,6 +121461,8 @@ model7=model_185
 head1=model_39740
 unknown119=1
 cursor1=1,cursor_44
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 4730
 [meiyerditch_citizen_4730]
@@ -120725,6 +121495,8 @@ model7=model_183
 head1=model_39926
 unknown119=1
 cursor1=1,cursor_44
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 4734
 [meiyerditch_citizen_4734]
@@ -121080,6 +121852,8 @@ model6=model_361
 head1=model_38981
 unknown119=1
 cursor1=1,cursor_44
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 4745
 [meiyerditch_citizen_4745]
@@ -121108,6 +121882,8 @@ head1=model_39008
 unknown119=1
 cursor1=1,cursor_44
 desc=This citizen looks pale, tired and old!
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 4746
 [a_meiyerditch_child]
@@ -121447,6 +122223,8 @@ head2=model_39223
 unknown119=1
 cursor1=1,cursor_44
 desc=This citizen looks dirty and tired!
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 4757
 [meiyerditch_miner_4757]
@@ -121476,6 +122254,8 @@ head1=model_39921
 unknown119=1
 cursor1=1,cursor_44
 desc=This citizen looks dirty and tired!
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 4758
 [meiyerditch_miner_4758]
@@ -121506,6 +122286,8 @@ model9=model_7607
 head1=model_39921
 unknown119=1
 cursor1=1,cursor_44
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 4759
 [meiyerditch_miner_4759]
@@ -121567,6 +122349,8 @@ head1=model_39921
 unknown119=1
 cursor1=1,cursor_44
 desc=This citizen looks dirty and tired!
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 4761
 [meiyerditch_miner_4761]
@@ -121599,6 +122383,8 @@ model9=model_7607
 head1=model_39921
 unknown119=1
 cursor1=1,cursor_44
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 4762
 [shadowy_figure]
@@ -123076,6 +123862,8 @@ multinpc=11,col__o_niall_4873
 multinpc=12,col__o_niall_4873
 unknown119=1
 cursor1=1,cursor_44
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 4854
 [npc_4854]
@@ -123968,6 +124756,8 @@ name=Sea slug
 model1=model_560
 unknown119=1
 desc=A rather nasty looking crustacean.
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 4895
 [jeb]
@@ -124362,6 +125152,8 @@ op5=hidden
 defaultmode=none
 moverestrict=nomove
 category=saltfish
+// cache 786 walk mode 5: stands
+wanderrange=0
 
 // 4909
 [fritz_the_glassblower]
@@ -124398,6 +125190,8 @@ head4=model_39458
 unknown119=1
 cursor1=1,cursor_44
 desc=His motives are see-through.
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 4910
 [earth_elemental_4910]
@@ -124421,6 +125215,8 @@ model1=model_18649
 unknown119=1
 cursor1=1,cursor_58
 desc=An elemental rock.
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 4912
 [npc_4912]
@@ -125249,6 +126045,8 @@ head1=model_62654
 unknown119=1
 cursor1=1,cursor_44
 desc=Trollish.
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 4948
 [my_arm_4948]
@@ -125276,6 +126074,8 @@ model1=model_62667
 head1=model_62654
 unknown119=1
 cursor1=1,cursor_44
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 4950
 [npc_4950]
@@ -125318,6 +126118,8 @@ multivar=varplayerbit_2790
 multinpc=150,my_arm
 multinpc=220,my_arm
 unknown119=1
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 4954
 [npc_4954]
@@ -125413,6 +126215,8 @@ vislevel=0
 multivar=varplayerbit_2798
 multinpc=1,captain_barnaby
 unknown119=1
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 4962
 [captain_barnaby]
@@ -125529,6 +126333,8 @@ head1=model_46768
 unknown119=1
 cursor1=1,cursor_44
 desc=It's a leprechaun sunbathing on a mountain.
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 4966
 [npc_4966]
@@ -125583,6 +126389,8 @@ multivar=varplayerbit_2796
 multinpc=1,drunken_dwarf_s_leg
 unknown119=1
 desc=A little troll who has no name.
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 4971
 [baby_roc]
@@ -126747,6 +127555,8 @@ head1=model_51699
 unknown119=1
 cursor1=1,cursor_44
 desc=An apprentice.
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 5027
 [wizard_shug]
@@ -126764,6 +127574,8 @@ head1=model_51698
 unknown119=1
 cursor1=1,cursor_44
 desc=A tired old wizard.
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 5028
 [egg_launcher]
@@ -127046,6 +127858,8 @@ model1=model_20697
 model2=model_20696
 unknown119=1
 desc=What on Gielinor is that?
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 5041
 [penance_ranger]
@@ -127062,6 +127876,8 @@ model1=model_20719
 model2=model_20720
 unknown119=1
 desc=Shooty-shooty.
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 5042
 [penance_runner]
@@ -127071,6 +127887,8 @@ name=Penance Runner
 model1=model_20721
 unknown119=1
 desc=He's making a run for it!
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 5043
 [penance_healer]
@@ -127081,6 +127899,8 @@ name=Penance Healer
 model1=model_20698
 unknown119=1
 desc=A nasty piece of work.
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 5044
 [penance_fighter_5044]
@@ -127179,6 +127999,8 @@ model7=model_181
 head1=model_39641
 unknown119=1
 cursor1=1,cursor_44
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 5052
 [auguste_5052]
@@ -128608,6 +129430,8 @@ name=Eagle
 model1=model_19380
 unknown119=1
 desc=It seems to be protecting the nest.
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 5134
 [npc_5134]
@@ -128734,6 +129558,8 @@ name=Boulder
 model1=model_20088
 unknown119=1
 desc=Now, who put that there? It's too suspicious and round to be natural.
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 5141
 [uri]
@@ -129619,6 +130445,8 @@ model2=model_20295
 model3=model_20294
 unknown119=1
 cursorattack=cursor_42
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 5170
 [ram_5170]
@@ -129645,6 +130473,8 @@ model3=model_20286
 unknown119=1
 cursorattack=cursor_42
 desc=White and fluffy.
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 5171
 [mountain_goat_5171]
@@ -130123,6 +130953,8 @@ multivar=haunted
 multinpc=3,ava
 unknown119=1
 cursor1=1,cursor_44
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 5200
 [witch_5200]
@@ -131147,6 +131979,8 @@ head2=model_63351
 unknown119=1
 cursor1=1,cursor_44
 desc=He looks embarrassed
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 5250
 [scarab_mage]
@@ -131380,6 +132214,8 @@ vislevel=0
 multivar=varplayerbit_3275
 multinpc=1,stonemason_5262
 unknown119=1
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 5262
 [stonemason_5262]
@@ -131423,6 +132259,8 @@ vislevel=0
 multivar=varplayerbit_3275
 multinpc=1,nathifa
 unknown119=1
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 5264
 [nathifa]
@@ -131464,6 +132302,8 @@ vislevel=0
 multivar=varplayerbit_3275
 multinpc=1,urbi
 unknown119=1
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 5266
 [urbi]
@@ -131501,6 +132341,8 @@ vislevel=0
 multivar=varplayerbit_3275
 multinpc=1,jamila
 unknown119=1
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 5268
 [jamila]
@@ -131810,6 +132652,8 @@ vislevel=0
 multivar=varplayerbit_3284
 multinpc=0,maisa
 unknown119=1
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 5281
 [maisa]
@@ -131853,6 +132697,8 @@ multinpc=1,osman
 multinpc=2,osman_5284
 unknown119=1
 desc=He looks a little shifty.
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 5283
 [npc_5283]
@@ -136368,6 +137214,8 @@ multinpc=90,larry_5424
 multinpc=95,larry_5424
 unknown119=1
 cursor1=1,cursor_44
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 5424
 [larry_5424]
@@ -136653,6 +137501,8 @@ head1=model_47183
 unknown119=1
 cursor1=1,cursor_44
 desc=What restful music!
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 5440
 [npc_5440]
@@ -136664,6 +137514,8 @@ multinpc=0,kgp_agent
 multinpc=1,kgp_agent
 unknown119=1
 cursor1=1,cursor_44
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 5441
 [kgp_agent]
@@ -136700,6 +137552,8 @@ head1=model_47186
 unknown119=1
 cursor1=1,cursor_44
 desc=What restful music!
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 5443
 [npc_5443]
@@ -136746,6 +137600,8 @@ model1=model_21547
 head1=model_21525
 unknown119=1
 cursor1=1,cursor_44
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 5446
 [penguin_suit]
@@ -136806,6 +137662,8 @@ vislevel=0
 name=Penguin
 model1=model_21547
 unknown119=1
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 5450
 [penguin_5450]
@@ -136817,6 +137675,8 @@ vislevel=0
 name=Penguin
 model1=model_21547
 unknown119=1
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 5451
 [penguin_5451]
@@ -136828,6 +137688,8 @@ vislevel=0
 name=Penguin
 model1=model_21547
 unknown119=1
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 5452
 [icelord]
@@ -136888,6 +137750,8 @@ turnspeed=0
 name=Crusher
 model1=model_21591
 unknown119=1
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 5457
 [crusher_5457]
@@ -136898,6 +137762,8 @@ turnspeed=0
 name=Crusher
 model1=model_21591
 unknown119=1
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 5458
 [crusher_5458]
@@ -136908,6 +137774,8 @@ turnspeed=0
 name=Crusher
 model1=model_21591
 unknown119=1
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 5459
 [crusher_5459]
@@ -136918,6 +137786,8 @@ turnspeed=0
 name=Crusher
 model1=model_21591
 unknown119=1
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 5460
 [bandos_avatar_5460]
@@ -137171,6 +138041,8 @@ op5=hidden
 defaultmode=none
 moverestrict=nomove
 category=rarefish
+// cache 786 walk mode 5: stands
+wanderrange=0
 
 // 5471
 [fishing_spot_5471]
@@ -137190,6 +138062,8 @@ op5=hidden
 defaultmode=none
 moverestrict=nomove
 category=memberfish
+// cache 786 walk mode 5: stands
+wanderrange=0
 
 // 5472
 [ice_troll_king]
@@ -137312,6 +138186,8 @@ head2=model_39212
 unknown119=1
 cursor1=1,cursor_44
 desc=Physician to Neitiznot's militia.
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 5478
 [king_gjuki_sorvott_iv]
@@ -137561,6 +138437,8 @@ head2=model_38097
 unknown119=1
 cursor1=1,cursor_44
 desc=Jatizso's fishmonger.
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 5485
 [raum_urda_stein]
@@ -137710,6 +138588,8 @@ head2=model_38097
 unknown119=1
 cursor1=1,cursor_44
 desc=He can look after your money.
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 5489
 [guard_5489]
@@ -137789,6 +138669,8 @@ head1=model_38095
 head2=model_38097
 unknown119=1
 cursor1=1,cursor_44
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 5491
 [guard_5491]
@@ -138259,6 +139141,8 @@ head3=model_39299
 unknown119=1
 cursor1=1,cursor_44
 desc=Commander of Neitiznot's guards.
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 5506
 [thakkrad_sigmundson_5506]
@@ -138297,6 +139181,8 @@ head2=model_39227
 unknown119=1
 cursor1=1,cursor_44
 desc=A young master craftsman.
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 5507
 [maria_gunnars]
@@ -138332,6 +139218,8 @@ head1=model_38587
 unknown119=1
 cursor1=1,cursor_44
 desc=Ferry-mistress.
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 5508
 [maria_gunnars_5508]
@@ -138364,6 +139252,8 @@ model7=model_358
 head1=model_38587
 unknown119=1
 cursor1=1,cursor_44
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 5509
 [jofridr_mordstatter]
@@ -138674,6 +139564,8 @@ head3=model_39328
 unknown119=1
 cursor1=1,cursor_44
 desc=Guards the Burgher's room.
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 5519
 [trogen_konungarde]
@@ -138707,6 +139599,8 @@ head3=model_39299
 unknown119=1
 cursor1=1,cursor_44
 desc=Guards the Burgher's room.
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 5520
 [slug_hemligssen]
@@ -139750,6 +140644,8 @@ head1=model_40015
 unknown119=1
 cursor1=1,cursor_44
 desc=He knows everything has a reason.
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 5581
 [homunculus]
@@ -139960,6 +140856,8 @@ head3=model_39630
 unknown119=1
 cursor1=1,cursor_44
 desc=Famous for his fights.
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 5590
 [no_fingers]
@@ -140001,6 +140899,8 @@ head3=model_40003
 unknown119=1
 cursor1=1,cursor_44
 desc=Count them pinkies!
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 5591
 [gummy]
@@ -140039,6 +140939,8 @@ head3=model_39799
 unknown119=1
 cursor1=1,cursor_44
 desc=He wishes he had teeth.
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 5592
 [the_guns]
@@ -140165,6 +141067,8 @@ multinpc=12,homunculus_5583
 multinpc=14,homunculus_5583
 multinpc=16,homunculus_5583
 unknown119=1
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 5600
 [npc_5600]
@@ -140176,6 +141080,8 @@ alwaysontop=yes
 multivar=varplayerbit_3359
 multinpc=1,homunculus
 unknown119=1
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 5601
 [npc_5601]
@@ -140277,6 +141183,8 @@ multinpc=120,dr_fenkenstrain
 multinpc=130,dr_fenkenstrain
 unknown119=1
 cursor1=1,cursor_44
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 5607
 [clockwork_cat_5607]
@@ -143135,6 +144043,8 @@ model1=model_6568
 unknown119=5
 cursor1=1,cursor_60
 cursor2=3,cursor_60
+// cache 786 walk mode 5: stands
+wanderrange=0
 
 // 5749
 [fishing_spot_5749]
@@ -143149,6 +144059,8 @@ model1=model_6568
 unknown119=5
 cursor1=1,cursor_60
 cursor2=3,cursor_60
+// cache 786 walk mode 5: stands
+wanderrange=0
 
 // 5750
 [cave_bug_5750]
@@ -144239,6 +145151,8 @@ head1=model_23245
 unknown119=1
 cursor1=1,cursor_44
 desc=A goblin baby.
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 5805
 [nipper]
@@ -144275,6 +145189,8 @@ model1=model_23712
 head1=model_23245
 unknown119=1
 cursor1=1,cursor_44
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 5807
 [bozin]
@@ -144635,6 +145551,8 @@ head2=model_23246
 unknown119=1
 cursor1=1,cursor_44
 desc=Don't spit, it's unhygienic.
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 5824
 [goblin_fish]
@@ -144920,6 +145838,8 @@ model8=model_181
 head1=model_39836
 head2=model_38096
 unknown119=1
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 5837
 [anna_jones]
@@ -144939,6 +145859,8 @@ head2=model_38746
 unknown119=1
 cursor1=1,cursor_44
 desc=An archeologist.
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 5838
 [king_roald_5838]
@@ -146213,6 +147135,8 @@ multinpc=1,cyrisus_5896
 multinpc=2,cyrisus_5897
 multinpc=3,cyrisus_5895
 unknown119=1
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 5900
 [npc_5900]
@@ -146224,6 +147148,8 @@ multinpc=4,cyrisus_5896
 multinpc=5,cyrisus_5897
 multinpc=6,cyrisus_5895
 unknown119=1
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 5901
 [npc_5901]
@@ -146239,6 +147165,8 @@ multinpc=24,bird_s_eye__jack_5898
 multinpc=26,bird_s_eye__jack_5898
 multinpc=28,bird_s_eye__jack_5898
 unknown119=1
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 5902
 [the_inadequacy]
@@ -146257,6 +147185,8 @@ model7=model_25005
 unknown119=1
 cursorattack=cursor_42
 desc=Are you good enough to fight?
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 5903
 [the_everlasting]
@@ -146386,6 +147316,8 @@ head2=model_39218
 unknown119=1
 cursor1=1,cursor_44
 desc=A greasy, grimy gourmet.
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 5911
 [cook_5911]
@@ -146466,6 +147398,8 @@ modeloffset8=3,-11,6
 modeloffset9=-3,-11,6
 unknown119=1
 cursor1=1,cursor_44
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 5913
 [aubury]
@@ -146683,6 +147617,8 @@ model2=model_25685
 model3=model_25684
 unknown119=1
 desc=He's studying to be a guard.
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 5922
 [captain]
@@ -147013,6 +147949,8 @@ model1=model_25362
 head1=model_40052
 unknown119=1
 cursor1=1,cursor_44
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 5933
 [marius_giste]
@@ -147029,6 +147967,8 @@ head1=model_39915
 head2=model_38096
 unknown119=1
 cursor1=1,cursor_44
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 5934
 [caden_azro]
@@ -147045,6 +147985,8 @@ head1=model_39915
 head2=model_38096
 unknown119=1
 cursor1=1,cursor_44
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 5935
 [thias_leacke]
@@ -147061,6 +148003,8 @@ head1=model_39744
 head2=model_39223
 unknown119=1
 cursor1=1,cursor_44
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 5936
 [sinco_doar]
@@ -147077,6 +148021,8 @@ head1=model_39915
 head2=model_38096
 unknown119=1
 cursor1=1,cursor_44
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 5937
 [tinse_torpe]
@@ -147092,6 +148038,8 @@ model1=model_25362
 head1=model_40052
 unknown119=1
 cursor1=1,cursor_44
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 5938
 [information_clerk]
@@ -147117,6 +148065,8 @@ head1=model_39090
 unknown119=1
 cursor1=1,cursor_44
 desc=A lady with lots of information about the Museum.
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 5939
 [torrcs]
@@ -147193,6 +148143,8 @@ head2=model_39223
 head3=model_39466
 unknown119=1
 cursor1=1,cursor_44
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 5942
 [museum_guard_5942]
@@ -147240,6 +148192,8 @@ head2=model_39223
 head3=model_39466
 unknown119=1
 cursor1=1,cursor_44
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 5944
 [teacher_and_pupil]
@@ -147606,6 +148560,8 @@ head3=model_39245
 unknown119=1
 cursor1=1,cursor_44
 desc=Looks very young.
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 5966
 [natural_historian]
@@ -147758,6 +148714,8 @@ model3=model_25760
 model4=model_25492
 unknown119=1
 desc=Bloodsuckers!
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 5972
 [sea_slugs_display]
@@ -147775,6 +148733,8 @@ model5=model_25743
 model6=model_25744
 unknown119=1
 desc=Slugs of the sea variety.
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 5973
 [snail_display]
@@ -147790,6 +148750,8 @@ model3=model_25786
 model4=model_25485
 unknown119=1
 desc=A house on its back.
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 5974
 [monkey_display]
@@ -147805,6 +148767,8 @@ model3=model_25785
 model4=model_25787
 unknown119=1
 desc=A cheeky little monkey.
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 5975
 [lizard_display]
@@ -147820,6 +148784,8 @@ model3=model_25768
 model4=model_25766
 unknown119=1
 desc=A scaly little fellow.
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 5976
 [penguin_display]
@@ -147834,6 +148800,8 @@ model2=model_41149
 model3=model_25783
 unknown119=1
 desc=Nice suit.
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 5977
 [camel_display]
@@ -147846,6 +148814,8 @@ name=Camel display
 model1=model_38650
 unknown119=1
 desc=He's got the hump.
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 5978
 [terrorbird_display]
@@ -147862,6 +148832,8 @@ model4=model_25748
 model5=model_25492
 unknown119=1
 desc=Terrifying!
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 5979
 [dragon_display]
@@ -147878,6 +148850,8 @@ model2=model_25751
 model3=model_57963
 unknown119=1
 desc=Looks like a fire-breather.
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 5980
 [wyvern_display]
@@ -147895,6 +148869,8 @@ model5=model_25493
 model6=model_25494
 unknown119=1
 desc=Needs a good square meal.
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 5981
 [battle_tortoise_display]
@@ -147913,6 +148889,8 @@ model6=model_25732
 model7=model_25733
 unknown119=1
 desc=A huge beast.
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 5982
 [mole_display]
@@ -147927,6 +148905,8 @@ model2=model_25481
 model3=model_25483
 unknown119=1
 desc=Loves making molehills.
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 5983
 [schoolgirl_5983]
@@ -148095,6 +149075,8 @@ model1=model_26050
 head1=model_26087
 unknown119=1
 cursor1=1,cursor_44
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 5992
 [rupert_the_beard_5992]
@@ -148174,6 +149156,8 @@ turnspeed=0
 multivar=varplayerbit_3717
 multinpc=0,grimgnash
 unknown119=1
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 5998
 [npc_5998]
@@ -148217,6 +149201,8 @@ multinpc=0,rupert_the_beard_5992
 multinpc=1,rupert_the_beard_6001
 unknown119=1
 cursor1=1,cursor_44
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 6001
 [rupert_the_beard_6001]
@@ -149649,6 +150635,8 @@ multivar=varplayerbit_3732
 multinpc=0,gravingas
 unknown119=1
 cursor1=1,cursor_44
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 6076
 [npc_6076]
@@ -149664,6 +150652,8 @@ multivar=varplayerbit_3732
 multinpc=1,gravingas
 unknown119=1
 cursor1=1,cursor_44
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 6077
 [npc_6077]
@@ -150658,6 +151648,8 @@ head1=model_57933
 unknown119=1
 cursor1=1,cursor_44
 desc=Professor of Unnatural History.
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 6118
 [observatory_assistant]
@@ -150681,6 +151673,8 @@ cursor1=1,cursor_44
 // Hitpoints are 2011's life points: 289's times ten, or void-634's where it has the npc.
 desc=He helps the professor.
 moverestrict=indoors
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 6119
 [npc_6119]
@@ -150746,6 +151740,8 @@ model7=model_24507
 head1=model_24218
 unknown119=1
 desc=Sleeping like an ugly baby.
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 6123
 [naghead]
@@ -150770,6 +151766,8 @@ model5=model_24442
 model6=model_24451
 unknown119=1
 desc=An old goblin hag.
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 6124
 [wagchin]
@@ -150796,6 +151794,8 @@ model5=model_24442
 model6=model_24452
 unknown119=1
 desc=A young goblin 'beauty'.
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 6125
 [goblin_6125]
@@ -150848,6 +151848,8 @@ head1=model_24217
 unknown119=1
 cursor1=1,cursor_44
 desc=Big appetite for a small creature.
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 6128
 [smellytoes]
@@ -150868,6 +151870,8 @@ head1=model_24210
 unknown119=1
 cursor1=1,cursor_44
 desc=Likes drink a little too much.
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 6129
 [creakyknees]
@@ -150887,6 +151891,8 @@ head1=model_24218
 unknown119=1
 cursor1=1,cursor_44
 desc=Lean and green.
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 6130
 [clothears]
@@ -150898,6 +151904,8 @@ model1=model_24427
 unknown119=1
 cursor1=1,cursor_44
 desc=He looks to be in a world of his own.
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 6131
 [zombie_6131]
@@ -150918,6 +151926,8 @@ name=Zombie
 model1=model_27113
 unknown119=1
 desc=Brains!
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 6132
 [goblin_6132]
@@ -150928,6 +151938,8 @@ name=Goblin
 model1=model_27110
 unknown119=1
 desc=The studious one.
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 6133
 [goblin_6133]
@@ -150938,6 +151950,8 @@ name=Goblin
 model1=model_27111
 unknown119=1
 desc=He looks bored.
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 6134
 [dunce]
@@ -150948,6 +151962,8 @@ name=Dunce
 model1=model_27115
 unknown119=1
 desc=This imp is clearly the class clown.
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 6135
 [town_crier]
@@ -152010,6 +153026,8 @@ name=Jury
 model1=model_27192
 unknown119=1
 desc=Jury.
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 6183
 [guard_6183]
@@ -152175,6 +153193,8 @@ model3=model_27201
 head1=model_40034
 unknown119=1
 desc=Primping with combs and hair clips.
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 6191
 [npc_6191]
@@ -152188,6 +153208,8 @@ multinpc=0,murderguard
 multinpc=90,murderguard
 unknown119=1
 cursor1=1,cursor_44
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 6192
 [npc_6192]
@@ -152200,6 +153222,8 @@ multinpc=0,anna
 multinpc=90,anna
 unknown119=1
 cursor1=1,cursor_44
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 6193
 [npc_6193]
@@ -152212,6 +153236,8 @@ multinpc=0,bob_sinclair
 multinpc=90,bob_sinclair
 unknown119=1
 cursor1=1,cursor_44
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 6194
 [npc_6194]
@@ -152224,6 +153250,8 @@ multinpc=0,carol
 multinpc=90,carol
 unknown119=1
 cursor1=1,cursor_44
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 6195
 [npc_6195]
@@ -152236,6 +153264,8 @@ multinpc=0,david
 multinpc=90,david
 unknown119=1
 cursor1=1,cursor_44
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 6196
 [npc_6196]
@@ -152248,6 +153278,8 @@ multinpc=0,elizabeth
 multinpc=90,elizabeth
 unknown119=1
 cursor1=1,cursor_44
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 6197
 [npc_6197]
@@ -152260,6 +153292,8 @@ multinpc=0,frank
 multinpc=90,frank
 unknown119=1
 cursor1=1,cursor_44
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 6199
 [npc_6199]
@@ -152342,6 +153376,8 @@ vislevel=0
 multivar=varplayerbit_3936
 multinpc=0,knight_6201
 unknown119=1
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 6203
 [k_ril_tsutsaroth]
@@ -152815,6 +153851,8 @@ model3=model_28085
 unknown119=1
 cursorattack=cursor_42
 desc=A servant of Armadyl.
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 6230
 [spiritual_ranger_6230]
@@ -152830,6 +153868,8 @@ model3=model_28081
 unknown119=1
 cursorattack=cursor_42
 desc=Armadyl's favourite servant.
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 6231
 [spiritual_mage_6231]
@@ -152843,6 +153883,8 @@ model1=model_28060
 unknown119=1
 cursorattack=cursor_42
 desc=A mage who serves Armadyl above all else - even death.
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 6232
 [aviansie]
@@ -153415,6 +154457,8 @@ model1=model_36844
 unknown119=5
 cursor1=1,cursor_60
 desc=It looks like there might be fish swimming in the water.
+// cache 786 walk mode 5: stands
+wanderrange=0
 
 // 6268
 [jogre_6268]
@@ -153583,6 +154627,8 @@ model1=model_27788
 unknown119=1
 cursorattack=cursor_42
 desc=One of Bandos's chosen.
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 6279
 [goblin_6279]
@@ -154067,6 +155113,8 @@ op1=Push
 name=Big monolith
 model1=model_28343
 unknown119=1
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 6300
 [small_monolith]
@@ -154079,6 +155127,8 @@ op1=Push
 name=Small monolith
 model1=model_28344
 unknown119=1
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 6302
 [evil_creature_6302]
@@ -154237,6 +155287,8 @@ model1=model_28346
 head1=model_28312
 unknown119=1
 desc=She looks bored.
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 6315
 [guard_no__72]
@@ -154250,6 +155302,8 @@ model1=model_28346
 head1=model_28312
 unknown119=1
 desc=He looks even more bored.
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 6316
 [guard_no__21_6316]
@@ -155894,6 +156948,8 @@ vislevel=0
 multivar=varplayerbit_4056
 multinpc=1,wizard_cromperty_6375
 unknown119=1
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 6387
 [npc_6387]
@@ -155977,6 +157033,8 @@ head1=model_29183
 unknown119=1
 cursor1=1,cursor_44
 desc=I wish I could tell where he was looking.
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 6391
 [glough_6391]
@@ -156070,6 +157128,8 @@ head1=model_23243
 head2=model_15561
 unknown119=1
 desc=The Chosen Commander?
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 6398
 [npc_6398]
@@ -156080,6 +157140,8 @@ multivar=varplayerbit_4105
 multinpc=16,zanik_6393
 multinpc=17,zanik_6393
 unknown119=1
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 6399
 [zanik_6399]
@@ -156108,6 +157170,8 @@ multinpc=16,oldak_6392
 multinpc=17,oldak_6392
 unknown119=1
 cursor1=1,cursor_44
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 6401
 [oldak_6401]
@@ -158144,6 +159208,8 @@ multinpc=108,high_priest_421
 multinpc=109,high_priest_421
 multinpc=110,high_priest_421
 unknown119=1
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 6490
 [goblin_6490]
@@ -158245,6 +159311,8 @@ head1=model_24221
 unknown119=1
 cursor1=1,cursor_44
 desc=He doesn't look very welcoming.
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 6497
 [goblin_guard_6497]
@@ -158276,6 +159344,8 @@ head1=model_24219
 unknown119=1
 cursor1=1,cursor_44
 desc=He doesn't look very welcoming.
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 6498
 [guard_6498]
@@ -158305,6 +159375,8 @@ head1=model_24221
 unknown119=1
 cursor1=1,cursor_44
 desc=A guard wearing blue armour.
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 6499
 [guard_6499]
@@ -158332,6 +159404,8 @@ head1=model_24221
 unknown119=1
 cursor1=1,cursor_44
 desc=A guard wearing orange armour.
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 6500
 [guard_6500]
@@ -158357,6 +159431,8 @@ head1=model_24221
 unknown119=1
 cursor1=1,cursor_44
 desc=A guard wearing black armour.
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 6501
 [guard_6501]
@@ -158382,6 +159458,8 @@ head1=model_24221
 unknown119=1
 cursor1=1,cursor_44
 desc=A guard wearing white armour.
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 6502
 [guard_6502]
@@ -158409,6 +159487,8 @@ head1=model_24221
 unknown119=1
 cursor1=1,cursor_44
 desc=A guard wearing purple armour.
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 6503
 [guard_6503]
@@ -158434,6 +159514,8 @@ head1=model_24221
 unknown119=1
 cursor1=1,cursor_44
 desc=A guard wearing yellow armour.
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 6504
 [ghost_6504]
@@ -158497,6 +159579,8 @@ model1=model_20302
 model2=model_20301
 unknown119=1
 desc=A very noble spider and attendant to the Queen.
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 6508
 [grand_chamberlain_of_the_web]
@@ -158525,6 +159609,8 @@ model1=model_20302
 model2=model_20301
 unknown119=1
 desc=The highest ranking of the Spider Queen's servants.
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 6509
 [marshall_of_the_teeming_horde]
@@ -158551,6 +159637,8 @@ model1=model_20309
 model2=model_20312
 unknown119=1
 desc=The head of the Spider Queen's army.
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 6510
 [jury_6510]
@@ -158856,6 +159944,8 @@ head1=model_39703
 unknown119=1
 cursor1=1,cursor_44
 desc=Gives an introduction to the Grand Exchange.
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 6522
 [brugsen_bursen]
@@ -158870,6 +159960,8 @@ head1=model_39642
 unknown119=1
 cursor1=1,cursor_44
 desc=Knows all about the Grand Exchange.
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 6523
 [farid_morrisane__ores]
@@ -158884,6 +159976,8 @@ head1=model_29873
 unknown119=1
 cursor1=1,cursor_44
 desc=The son of Ali M!
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 6524
 [bob_barter__herbs]
@@ -158899,6 +159993,8 @@ head1=model_39773
 unknown119=1
 cursor1=1,cursor_44
 desc=He's probably seen better days.
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 6525
 [murky_matt__runes]
@@ -158914,6 +160010,8 @@ head1=model_39571
 unknown119=1
 cursor1=1,cursor_44
 desc=You can never miss a pirate in disguise.
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 6526
 [relobo_blinyo__logs]
@@ -158934,6 +160032,8 @@ head1=model_39656
 unknown119=1
 cursor1=1,cursor_44
 desc=A tribal man, for sure.
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 6527
 [hofuthand__armour_and_weapons]
@@ -158953,6 +160053,8 @@ head1=model_51657
 unknown119=1
 cursor1=1,cursor_44
 desc=He's travelled a long way.
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 6528
 [grand_exchange_clerk]
@@ -158971,6 +160073,8 @@ head1=model_39131
 unknown119=1
 cursor1=1,cursor_44
 desc=There to help me make my bids.
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 6529
 [grand_exchange_clerk_6529]
@@ -158989,6 +160093,8 @@ head1=model_39112
 unknown119=1
 cursor1=1,cursor_44
 desc=There to help me make my bids.
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 6530
 [grand_exchange_clerk_6530]
@@ -159009,6 +160115,8 @@ head1=model_40033
 unknown119=1
 cursor1=1,cursor_44
 desc=There to help me make my bids.
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 6531
 [grand_exchange_clerk_6531]
@@ -159029,6 +160137,8 @@ head1=model_39713
 unknown119=1
 cursor1=1,cursor_44
 desc=There to help me make my bids.
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 6532
 [banker_6532]
@@ -159197,6 +160307,8 @@ model1=model_20309
 model2=model_20312
 unknown119=1
 desc=Chief architect of the Spider Realm.
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 6537
 [mandrith]
@@ -159213,6 +160325,8 @@ head1=model_40667
 unknown119=1
 cursor1=1,cursor_44
 desc=A collector of ancient artefacts.
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 6538
 [golrana_6538]
@@ -162483,6 +163597,8 @@ multivar=varplayerbit_8700
 multinpc=default,chair_13290
 multinpc=1,meike
 unknown119=1
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 6733
 [npc_6733]
@@ -162492,6 +163608,8 @@ multinpc=default,chair
 multinpc=1,luitger
 multinpc=2,luitger
 unknown119=1
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 6734
 [npc_6734]
@@ -162501,6 +163619,8 @@ multivar=varplayerbit_8700
 multinpc=default,chair
 multinpc=1,klaas
 unknown119=1
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 6735
 [meike]
@@ -162611,6 +163731,8 @@ vislevel=0
 name=Snow
 model1=model_30382
 unknown119=1
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 6742
 [barbarian_snowman]
@@ -163109,6 +164231,8 @@ model2=model_31022
 unknown119=1
 cursorattack=cursor_42
 desc=Bred to shoot you down.
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 6774
 [scabaras_lancer]
@@ -163289,6 +164413,8 @@ head1=model_6145
 unknown119=1
 cursor1=1,cursor_44
 desc=An animated clay statue.
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 6786
 [lead_archaeologist_abigail]
@@ -163305,6 +164431,8 @@ head3=model_38864
 unknown119=1
 cursor1=1,cursor_44
 desc=She looks a bit dirty from digging.
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 6787
 [assistant_archaeologist_kerner]
@@ -163321,6 +164449,8 @@ head2=model_39474
 unknown119=1
 cursor1=1,cursor_44
 desc=He looks a bit dusty from troweling.
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 6788
 [high_priest_of_scabaras]
@@ -163334,6 +164464,8 @@ head1=model_31081
 unknown119=1
 cursor1=1,cursor_44
 desc=He exudes something like holiness.
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 6789
 [high_priest_of_scabaras_6789]
@@ -168452,6 +169584,8 @@ op5=hidden
 defaultmode=none
 moverestrict=nomove
 category=memberfish
+// cache 786 walk mode 5: stands
+wanderrange=0
 
 // 7045
 [fishing_spot_7045]
@@ -168472,6 +169606,8 @@ op5=hidden
 defaultmode=none
 moverestrict=nomove
 category=saltfish
+// cache 786 walk mode 5: stands
+wanderrange=0
 
 // 7046
 [fishing_spot_7046]
@@ -168492,6 +169628,8 @@ op5=hidden
 defaultmode=none
 moverestrict=nomove
 category=rarefish
+// cache 786 walk mode 5: stands
+wanderrange=0
 
 // 7047
 [balnea]
@@ -168543,6 +169681,8 @@ head1=model_31787
 unknown119=1
 cursor1=1,cursor_44
 desc=I'm surprised she can use a needle with those big hands.
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 7049
 [ogress_banker]
@@ -168559,6 +169699,8 @@ head1=model_31804
 unknown119=1
 cursor1=1,cursor_44
 desc=Fit to wear the uniform?
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 7050
 [ogress_banker_7050]
@@ -168580,6 +169722,8 @@ model1=model_32033
 head1=model_31804
 unknown119=1
 cursor1=1,cursor_44
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 7051
 [chief_tess]
@@ -168652,6 +169796,8 @@ multivar=varplayerbit_4322
 multinpc=0,chargurr
 unknown119=1
 cursor1=1,cursor_44
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 7056
 [npc_7056]
@@ -168665,6 +169811,8 @@ multivar=varplayerbit_4322
 multinpc=1,chargurr_7054
 unknown119=1
 cursor1=1,cursor_44
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 7057
 [snurgh]
@@ -169264,6 +170412,8 @@ multivar=varplayerbit_4322
 multinpc=0,massage_table
 multinpc=1,thump
 unknown119=1
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 7101
 [npc_7101]
@@ -169283,6 +170433,8 @@ vislevel=0
 multivar=varplayerbit_4322
 multinpc=1,kringk_7063
 unknown119=1
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 7103
 [npc_7103]
@@ -169292,6 +170444,8 @@ vislevel=0
 multivar=varplayerbit_4322
 multinpc=1,hairdryer
 unknown119=1
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 7104
 [dawg]
@@ -169733,6 +170887,8 @@ head1=model_51672
 unknown119=1
 cursor1=1,cursor_44
 desc=He seems to be enjoying his time in the bar.
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 7116
 [drunken_sailor]
@@ -169807,6 +170963,8 @@ head3=model_39941
 unknown119=1
 cursor1=1,cursor_44
 cursor2=3,cursor_56
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 7118
 [catapult_engineer]
@@ -169938,6 +171096,8 @@ vislevel=0
 name=Mud
 model1=model_32264
 unknown119=1
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 7125
 [rabbit_7125]
@@ -170306,6 +171466,8 @@ name=Gublinch jailmate
 model1=model_32398
 unknown119=1
 desc=An imprisoned gublinch.
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 7145
 [gublinchette_jailmate]
@@ -170317,6 +171479,8 @@ name=Gublinchette jailmate
 model1=model_32392
 unknown119=1
 desc=An imprisoned gublinch.
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 7146
 [gublinchette_jailmate_7146]
@@ -170329,6 +171493,8 @@ model1=model_32393
 model2=model_32395
 unknown119=1
 desc=An imprisoned gublinch.
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 7147
 [gublinch_jailmate_7147]
@@ -170340,6 +171506,8 @@ name=Gublinch jailmate
 model1=model_32391
 unknown119=1
 desc=An imprisoned gublinch.
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 7148
 [gublinch_jailmate_7148]
@@ -170351,6 +171519,8 @@ name=Gublinch jailmate
 model1=model_32394
 unknown119=1
 desc=An imprisoned gublinch.
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 7149
 [gublinch_jailmate_7149]
@@ -170363,6 +171533,8 @@ model1=model_32399
 model2=model_32400
 unknown119=1
 desc=An imprisoned gublinch.
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 7150
 [gublinch_jailmate_7150]
@@ -170375,6 +171547,8 @@ model1=model_32396
 model2=model_32397
 unknown119=1
 desc=An imprisoned gublinch.
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 7151
 [student_7151]
@@ -170424,6 +171598,8 @@ head1=model_39090
 unknown119=1
 cursor1=1,cursor_44
 desc=A person sitting an exam.
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 7153
 [student_7153]
@@ -170447,6 +171623,8 @@ head2=model_39223
 unknown119=1
 cursor1=1,cursor_44
 desc=A person sitting an exam.
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 7154
 [student_7154]
@@ -170468,6 +171646,8 @@ head2=model_39223
 unknown119=1
 cursor1=1,cursor_44
 desc=A person sitting an exam.
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 7155
 [student_7155]
@@ -170495,6 +171675,8 @@ head2=model_39223
 unknown119=1
 cursor1=1,cursor_44
 desc=A person sitting an exam.
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 7156
 [student_7156]
@@ -170524,6 +171706,8 @@ head2=model_38891
 unknown119=1
 cursor1=1,cursor_44
 desc=A person sitting an exam.
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 7157
 [student_7157]
@@ -170551,6 +171735,8 @@ head2=model_38861
 unknown119=1
 cursor1=1,cursor_44
 desc=A person sitting an exam.
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 7158
 [cockroach_drone]
@@ -170913,6 +172099,8 @@ vislevel=0
 multivar=varplayerbit_4505
 multinpc=20,caroline
 unknown119=1
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 7180
 [npc_7180]
@@ -170923,6 +172111,8 @@ multivar=varplayerbit_4505
 multinpc=25,caroline
 multinpc=27,caroline
 unknown119=1
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 7181
 [npc_7181]
@@ -170932,6 +172122,8 @@ vislevel=0
 multivar=varplayerbit_4505
 multinpc=100,caroline
 unknown119=1
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 7182
 [npc_7182]
@@ -171174,6 +172366,8 @@ multinpc=27,kimberly
 multinpc=30,kimberly
 multinpc=35,kimberly
 unknown119=1
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 7192
 [npc_7192]
@@ -171209,6 +172403,8 @@ vislevel=0
 multivar=varplayerbit_4505
 multinpc=20,kent_7189
 unknown119=1
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 7196
 [rabbit_hole]
@@ -175826,6 +177022,8 @@ vislevel=0
 multivar=varplayerbit_6010
 multinpc=0,king_vargas
 unknown119=1
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 7404
 [npc_7404]
@@ -175846,6 +177044,8 @@ multinpc=0,erjolf
 multinpc=5,erjolf
 unknown119=1
 cursor1=1,cursor_44
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 7405
 [npc_7405]
@@ -175873,6 +177073,8 @@ multinpc=220,erjolf_7463
 multinpc=250,erjolf_7463
 unknown119=1
 cursor1=1,cursor_44
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 7406
 [npc_7406]
@@ -176018,6 +177220,8 @@ model1=model_25362
 head1=model_31229
 unknown119=1
 desc=A cute, cuddly, little squirrel - with teeth.
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 7414
 [beny]
@@ -176031,6 +177235,8 @@ model1=model_25362
 head1=model_31229
 unknown119=1
 desc=A cute, cuddly, little squirrel - with teeth.
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 7415
 [bubbles]
@@ -176044,6 +177250,8 @@ model1=model_25362
 head1=model_31229
 unknown119=1
 desc=A cute, cuddly, little squirrel - with teeth.
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 7416
 [big_ben]
@@ -176057,6 +177265,8 @@ model1=model_25362
 head1=model_32811
 unknown119=1
 desc=A cute, cuddly, little squirrel - with teeth.
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 7417
 [easter_bird]
@@ -176171,6 +177381,8 @@ multinpc=75,impling_worker_7422
 multinpc=80,impling_worker_7422
 multinpc=85,impling_worker_7422
 unknown119=1
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 7424
 [impling_worker_7424]
@@ -176201,6 +177413,8 @@ head1=model_32817
 unknown119=1
 cursor1=1,cursor_44
 desc=An impling manager: what a terrifying thought!
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 7426
 [impling_worker_7426]
@@ -176217,6 +177431,8 @@ head1=model_32817
 unknown119=1
 cursor1=1,cursor_44
 desc=This worker looks after the incubator.
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 7429
 [npc_7429]
@@ -176236,6 +177452,8 @@ multinpc=45,easter_bunny_jr_7411
 multinpc=55,easter_bunny_jr_7411
 multinpc=60,easter_bunny_jr_7411
 unknown119=1
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 7430
 [npc_7430]
@@ -176245,6 +177463,8 @@ vislevel=0
 multivar=varplayerbit_6014
 multinpc=25,easter_bunny_jr
 unknown119=1
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 7431
 [npc_7431]
@@ -176254,6 +177474,8 @@ vislevel=0
 multivar=varplayerbit_6014
 multinpc=50,easter_bunny_jr
 unknown119=1
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 7432
 [npc_7432]
@@ -176263,6 +177485,8 @@ vislevel=0
 multivar=varplayerbit_6014
 multinpc=65,easter_bunny_jr
 unknown119=1
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 7433
 [npc_7433]
@@ -176272,6 +177496,8 @@ vislevel=0
 multivar=varplayerbit_6014
 multinpc=35,easter_bunny_jr
 unknown119=1
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 7434
 [npc_7434]
@@ -176284,6 +177510,8 @@ multinpc=75,easter_bunny_jr_7412
 multinpc=80,easter_bunny_jr_7412
 multinpc=85,easter_bunny_jr_7412
 unknown119=1
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 7435
 [npc_7435]
@@ -176299,6 +177527,8 @@ multinpc=10,easter_bird
 multinpc=15,easter_bird
 multinpc=20,easter_bird_7418
 unknown119=1
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 7436
 [npc_7436]
@@ -176352,6 +177582,8 @@ multinpc=75,impling_worker
 multinpc=80,impling_worker
 multinpc=85,impling_worker
 unknown119=1
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 7442
 [npc_7442]
@@ -176371,6 +177603,8 @@ multinpc=75,impling_worker_7424
 multinpc=80,impling_worker_7424
 multinpc=85,impling_worker_7424
 unknown119=1
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 7443
 [highwayman_7443]
@@ -177351,6 +178585,8 @@ model1=model_46550
 head1=model_46684
 unknown119=1
 cursor1=1,cursor_44
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 7499
 [npc_7499]
@@ -177440,6 +178676,8 @@ model8=model_181
 model9=model_40283
 unknown119=1
 desc=He likes a good fight, as long as he's not part of it.
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 7505
 [khazard_guard_7505]
@@ -177466,6 +178704,8 @@ model8=model_181
 model9=model_40294
 unknown119=1
 desc=He likes a good fight, as long as he's not part of it.
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 7506
 [khazard_guard_7506]
@@ -177492,6 +178732,8 @@ model8=model_550
 model9=model_40294
 unknown119=1
 desc=His favourite must be winning.
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 7507
 [khazard_guard_7507]
@@ -177518,6 +178760,8 @@ model8=model_40258
 model9=model_181
 unknown119=1
 desc=Blood-thirsty and enthusiastic.
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 7508
 [khazard_guard_7508]
@@ -177543,6 +178787,8 @@ model7=model_181
 model8=model_40283
 unknown119=1
 desc=Probably discussing the strengths and weaknesses of the fighting slaves.
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 7509
 [khazard_guard_7509]
@@ -177567,6 +178813,8 @@ model6=model_8748
 model7=model_181
 model8=model_40283
 unknown119=1
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 7510
 [khazard_guard_7510]
@@ -177593,6 +178841,8 @@ model8=model_550
 model9=model_40279
 unknown119=1
 desc=His favourite must be winning.
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 7511
 [khazard_guard_7511]
@@ -177620,6 +178870,8 @@ model9=model_181
 model10=model_40298
 unknown119=1
 desc=His favourite must be winning.
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 7512
 [khazard_guard_7512]
@@ -177647,6 +178899,8 @@ model9=model_181
 model10=model_40277
 unknown119=1
 desc=Probably discussing the strengths and weaknesses of the fighting slaves.
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 7513
 [khazard_guard_7513]
@@ -177672,6 +178926,8 @@ model7=model_181
 model8=model_40285
 unknown119=1
 desc=Probably discussing the strengths and weaknesses of the fighting slaves.
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 7514
 [khazard_guard_7514]
@@ -177698,6 +178954,8 @@ model8=model_550
 model9=model_40297
 unknown119=1
 desc=Bloodthirsty and enthusiastic.
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 7515
 [khazard_guard_7515]
@@ -177724,6 +178982,8 @@ model8=model_550
 model9=model_40301
 unknown119=1
 desc=Bloodthirsty and enthusiastic.
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 7516
 [npc_7516]
@@ -177779,6 +179039,8 @@ head2=model_39286
 unknown119=1
 cursor1=1,cursor_44
 desc=He's asleep.
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 7519
 [khazard_guard_7519]
@@ -177807,6 +179069,8 @@ head2=model_39227
 unknown119=1
 cursor1=1,cursor_44
 desc=He's propping the bar up. Or is it the other way round?
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 7520
 [khazard_guard_7520]
@@ -177831,6 +179095,8 @@ head2=model_39227
 unknown119=1
 cursor1=1,cursor_44
 desc=He demands to have some booze.
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 7521
 [npc_7521]
@@ -178291,6 +179557,8 @@ multinpc=1,lazy_khazard_guard_7525
 multinpc=2,lazy_khazard_guard_7526
 multinpc=3,lazy_khazard_guard_7527
 unknown119=1
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 7551
 [general_khazard_7551]
@@ -178357,6 +179625,8 @@ head2=model_39275
 unknown119=1
 cursor1=1,cursor_44
 desc=He's snoring.
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 7555
 [npc_7555]
@@ -178390,6 +179660,8 @@ head1=model_46770
 unknown119=1
 cursor1=1,cursor_44
 desc=Looks after your Farming tools.
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 7558
 [tool_leprechaun_7558]
@@ -178450,6 +179722,8 @@ head1=model_46767
 unknown119=1
 cursor1=1,cursor_44
 desc=Looks after your Farming tools.
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 7562
 [tool_leprechaun_7562]
@@ -178516,6 +179790,8 @@ head1=model_45703
 unknown119=1
 cursor1=1,cursor_44
 desc=Looks after your Farming tools.
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 7566
 [npc_7566]
@@ -178531,6 +179807,8 @@ recolhsl2d=5408
 model1=model_46763
 unknown119=1
 desc=Looks after your Farming tools.
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 7567
 [tool_leprechaun_7567]
@@ -178551,6 +179829,8 @@ model2=model_46757
 head1=model_45703
 unknown119=1
 cursor1=1,cursor_44
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 7568
 [npc_7568]
@@ -178565,6 +179845,8 @@ recolhsl2s=7055
 recolhsl2d=6814
 model1=model_46763
 unknown119=1
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 7569
 [tool_leprechaun_7569]
@@ -178677,6 +179959,8 @@ multinpc=115,larry_5424
 multinpc=120,larry_5424
 multinpc=125,larry_5424
 unknown119=1
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 7575
 [npc_7575]
@@ -178686,6 +179970,8 @@ vislevel=0
 multivar=varplayerbit_6180
 multinpc=1,larry_5425
 unknown119=1
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 7576
 [npc_7576]
@@ -178700,6 +179986,8 @@ multinpc=115,larry_5424
 multinpc=120,larry_5424
 multinpc=125,larry_5424
 unknown119=1
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 7577
 [npc_7577]
@@ -178734,6 +180022,8 @@ multinpc=120,larry_5426
 multinpc=125,larry_5426
 unknown119=1
 cursor1=1,cursor_44
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 7578
 [larry_7578]
@@ -178766,6 +180056,8 @@ model1=model_47003
 head1=model_47078
 unknown119=1
 cursor1=1,cursor_44
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 7580
 [npc_7580]
@@ -178961,6 +180253,8 @@ head1=model_21528
 unknown119=1
 cursor1=1,cursor_44
 desc=He's a little rough around the edges.
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 7594
 [npc_7594]
@@ -178983,6 +180277,8 @@ multinpc=115,kgp_agent_7595
 multinpc=120,kgp_agent_7595
 multinpc=125,kgp_agent_7595
 unknown119=1
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 7595
 [kgp_agent_7595]
@@ -179063,6 +180359,8 @@ head1=model_33299
 unknown119=1
 cursor1=1,cursor_44
 desc=A trusted and fierce-temped creature of Guthix.
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 7601
 [reggie]
@@ -179308,6 +180606,8 @@ head1=model_18055
 unknown119=1
 cursor1=1,cursor_44
 cursorattack=cursor_42
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 7614
 [vyrewatch_7614]
@@ -179453,6 +180753,8 @@ head1=model_18056
 unknown119=1
 cursor1=1,cursor_44
 cursorattack=cursor_42
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 7623
 [vyrewatch_7623]
@@ -179661,6 +180963,8 @@ name=Fishing spot
 model1=model_6568
 unknown119=5
 cursor1=3,cursor_60
+// cache 786 walk mode 5: stands
+wanderrange=0
 
 // 7637
 [npc_7637]
@@ -181194,6 +182498,8 @@ head1=model_51683
 head2=model_51638
 unknown119=1
 desc=He works in the power station.
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 7727
 [monk_7727]
@@ -181531,6 +182837,8 @@ name=Fluffs
 model1=model_34020
 head1=model_34053
 unknown119=1
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 7744
 [npc_7744]
@@ -181570,6 +182878,8 @@ head1=model_34291
 unknown119=1
 cursor1=1,cursor_44
 desc=It looks concerned.
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 7747
 [tzhaar_xil_tog]
@@ -181589,6 +182899,8 @@ head1=model_34279
 unknown119=1
 cursor1=1,cursor_44
 desc=It looks upset.
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 7748
 [tzhaar_hur_frok]
@@ -181608,6 +182920,8 @@ head1=model_34280
 unknown119=1
 cursor1=1,cursor_44
 desc=It looks worried.
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 7749
 [tzhaar_ket_grol]
@@ -181693,6 +183007,8 @@ head1=model_34289
 unknown119=1
 cursor1=1,cursor_44
 desc=A TzHaar librarian.
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 7753
 [tzhaar_mej_7753]
@@ -181759,6 +183075,8 @@ model1=model_34169
 model2=model_34202
 unknown119=1
 desc=A TzHaar-Hur stamping stone tablets.
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 7757
 [tzhaar_hur_brekt]
@@ -181779,6 +183097,8 @@ head1=model_34293
 unknown119=1
 cursor1=1,cursor_44
 desc=A senior citizen TzHaar-Hur.
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 7758
 [tzhaar_hur_brekt_7758]
@@ -181796,6 +183116,8 @@ model4=model_34221
 head1=model_34293
 unknown119=1
 cursor1=1,cursor_44
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 7759
 [tzhaar_ket_jok]
@@ -181814,6 +183136,8 @@ head1=model_34274
 unknown119=1
 cursor1=1,cursor_44
 desc=A senior citizen TzHaar-Ket.
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 7760
 [tzhaar_ket_jok_7760]
@@ -181829,6 +183153,8 @@ model4=model_34213
 head1=model_34281
 unknown119=1
 cursor1=1,cursor_44
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 7761
 [tzhaar_xil_mor]
@@ -181849,6 +183175,8 @@ head1=model_34288
 unknown119=1
 cursor1=1,cursor_44
 desc=A senior citizen TzHaar-Xil.
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 7762
 [tzhaar_xil_mor_7762]
@@ -181866,6 +183194,8 @@ model4=model_34207
 head1=model_34277
 unknown119=1
 cursor1=1,cursor_44
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 7763
 [tzhaar_mej_kol]
@@ -181886,6 +183216,8 @@ head1=model_34275
 unknown119=1
 cursor1=1,cursor_44
 desc=A senior citizen TzHaar-Mej.
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 7764
 [tzhaar_mej_kol_7764]
@@ -181903,6 +183235,8 @@ model4=model_34230
 head1=model_34272
 unknown119=1
 cursor1=1,cursor_44
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 7765
 [tzhaar_hur_klag]
@@ -181923,6 +183257,8 @@ head1=model_34292
 unknown119=1
 cursor1=1,cursor_44
 desc=A senior citizen TzHaar-Hur.
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 7766
 [tzhaar_hur_klag_7766]
@@ -181941,6 +183277,8 @@ head1=model_34273
 unknown119=1
 cursor1=1,cursor_44
 desc=A senior citizen TzHaar-Hur.
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 7767
 [tzhaar_hur_7767]
@@ -182033,6 +183371,8 @@ model1=model_34298
 unknown119=1
 cursorattack=cursor_42
 desc=A monster made of magma.
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 7773
 [fire_monster]
@@ -182047,6 +183387,8 @@ model1=model_34299
 unknown119=1
 cursorattack=cursor_42
 desc=A monster like many others, but on fire.
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 7774
 [skeleton_7774]
@@ -182279,6 +183621,8 @@ multivar=varplayerbit_4764
 multinpc=250,catolax
 unknown119=1
 cursor1=1,cursor_44
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 7784
 [npc_7784]
@@ -182311,6 +183655,8 @@ multinpc=200,ali_cat
 multinpc=250,ali_cat
 unknown119=1
 cursor1=1,cursor_44
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 7785
 [ali_cat]
@@ -183438,6 +184784,8 @@ multinpc=1,young_ralph_7835
 multinpc=2,young_ralph_7834
 unknown119=1
 desc=He's going for that 'stripy' look.
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 7860
 [gull_7860]
@@ -183496,6 +184844,8 @@ name=Fishing spot
 model1=model_36844
 unknown119=5
 cursor1=1,cursor_60
+// cache 786 walk mode 5: stands
+wanderrange=0
 
 // 7863
 [fishing_spot_7863]
@@ -183508,6 +184858,8 @@ name=Fishing spot
 model1=model_36844
 unknown119=5
 cursor1=1,cursor_60
+// cache 786 walk mode 5: stands
+wanderrange=0
 
 // 7865
 [npc_7865]
@@ -184434,6 +185786,8 @@ model1=model_36514
 unknown119=1
 cursorattack=cursor_42
 desc=Ready for all you can swing at it.
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 7892
 [general_wartface_7892]
@@ -185419,6 +186773,8 @@ head2=model_39223
 unknown119=1
 cursor1=1,cursor_44
 desc=A White Knight from Falador.
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 7942
 [sir_vant_7942]
@@ -185444,6 +186800,8 @@ head2=model_39223
 unknown119=1
 cursor1=1,cursor_44
 desc=A White Knight from Falador.
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 7943
 [dragon]
@@ -186296,6 +187654,8 @@ head1=model_39111
 unknown119=1
 cursor1=1,cursor_44
 desc=A hard-working mother.
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 8005
 [laura_8005]
@@ -186371,6 +187731,8 @@ head1=model_40008
 unknown119=1
 cursor1=1,cursor_44
 desc=He looks and smells like he's been in the wild for some time.
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 8010
 [man_8010]
@@ -186511,6 +187873,8 @@ head1=model_28688
 unknown119=1
 cursor1=1,cursor_44
 desc=He's probably a handful for his parents.
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 8016
 [baby_sarah]
@@ -187256,6 +188620,8 @@ multinpc=0,blaze_sharpeye
 multinpc=1,blaze_sharpeye_5194
 multinpc=2,blaze_sharpeye_5194
 unknown119=1
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 8066
 [npc_8066]
@@ -187267,6 +188633,8 @@ multinpc=0,squire_fyre
 multinpc=1,squire_fyre_8043
 multinpc=2,squire_fyre_8043
 unknown119=1
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 8067
 [npc_8067]
@@ -187311,6 +188679,8 @@ multinpc=0,gjalp
 multinpc=1,gjalp_8051
 multinpc=2,gjalp_8051
 unknown119=1
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 8071
 [npc_8071]
@@ -187322,6 +188692,8 @@ multinpc=0,brother_fintan
 multinpc=1,brother_fintan_8053
 multinpc=2,brother_fintan_8053
 unknown119=1
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 8072
 [npc_8072]
@@ -187333,6 +188705,8 @@ multinpc=0,stubthumb
 multinpc=1,stubthumb_8055
 multinpc=2,stubthumb_8056
 unknown119=1
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 8073
 [npc_8073]
@@ -187345,6 +188719,8 @@ multinpc=1,doronbol_8058
 multinpc=2,doronbol_8058
 unknown119=1
 desc=A dog-like cat with a wonky tail.
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 8074
 [npc_8074]
@@ -187370,6 +188746,8 @@ multinpc=1,egg_8062
 multinpc=2,egg_8062
 unknown119=1
 desc=She looks rather kindly, for a troll.
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 8076
 [npc_8076]
@@ -187382,6 +188760,8 @@ multinpc=0,nanuq
 multinpc=1,nanuq_8064
 multinpc=2,nanuq_8064
 unknown119=1
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 8078
 [maggie]
@@ -187522,6 +188902,8 @@ name=Ticket vendor
 model1=model_41955
 unknown119=1
 desc=Gives out tickets for the circus.
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 8089
 [npc_8089]
@@ -188500,6 +189882,8 @@ model5=model_42345
 model6=model_42357
 model7=model_42352
 unknown119=1
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 8155
 [armoured_zombie_8155]
@@ -188516,6 +189900,8 @@ model6=model_42358
 model7=model_42354
 model8=model_42353
 unknown119=1
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 8156
 [armoured_zombie_8156]
@@ -188532,6 +189918,8 @@ model6=model_42357
 model7=model_42355
 model8=model_42356
 unknown119=1
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 8157
 [armoured_zombie_8157]
@@ -188548,6 +189936,8 @@ model6=model_42358
 model7=model_42355
 model8=model_42356
 unknown119=1
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 8158
 [armoured_zombie_8158]
@@ -188564,6 +189954,8 @@ model6=model_42357
 model7=model_42354
 model8=model_42353
 unknown119=1
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 8159
 [armoured_zombie_8159]
@@ -188723,6 +190115,8 @@ head1=model_42338
 unknown119=1
 cursor1=1,cursor_44
 desc=He has seen better, happier days.
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 8170
 [ramarno]
@@ -188920,6 +190314,8 @@ name=Fish
 model1=model_42375
 unknown119=1
 desc=It seems to be travelling upstream.
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 8177
 [fish_8177]
@@ -188931,6 +190327,8 @@ minimap=no
 name=Fish
 model1=model_42375
 unknown119=1
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 8178
 [monk_of_zamorak_8178]
@@ -189042,6 +190440,8 @@ multinpc=100,zemouregal_8148
 multinpc=110,zemouregal_8148
 multinpc=120,zemouregal_8148
 unknown119=1
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 8184
 [npc_8184]
@@ -189053,6 +190453,8 @@ multinpc=100,sharathteerk_8167
 multinpc=110,sharathteerk_8167
 multinpc=120,sharathteerk_8167
 unknown119=1
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 8185
 [acrobat]
@@ -189326,6 +190728,8 @@ head1=model_42667
 unknown119=1
 cursor1=1,cursor_44
 quest=quest_20
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 8204
 [babe]
@@ -189340,6 +190744,8 @@ head1=model_42666
 unknown119=1
 cursor1=1,cursor_44
 quest=quest_20
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 8205
 [gus]
@@ -190972,6 +192378,8 @@ recolhsl3d=35057
 name=Stone block
 model1=model_45103
 unknown119=1
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 8299
 [harrallak_menarous_8299]
@@ -191589,6 +192997,8 @@ model3=model_43672
 head1=model_35503
 unknown119=1
 desc=He appears to be guarding the ladder.
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 8329
 [elite_black_knight_8329]
@@ -193085,6 +194495,8 @@ head2=model_39212
 unknown119=1
 cursor1=1,cursor_44
 desc=He's carefully folding clothes.
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 8429
 [zombie_head_8429]
@@ -194075,6 +195487,8 @@ size=2
 multivar=varplayerbit_5558
 multinpc=1,silif_8432
 unknown119=1
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 8471
 [npc_8471]
@@ -194356,6 +195770,8 @@ model1=model_44816
 head1=model_44738
 unknown119=1
 desc=A Dragonkin, creators of dragonkind.
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 8494
 [strisath]
@@ -194371,6 +195787,8 @@ model1=model_44815
 head1=model_44739
 unknown119=1
 desc=A Dragonkin, creators of dragonkind.
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 8495
 [sakirth]
@@ -194386,6 +195804,8 @@ model1=model_44817
 head1=model_44737
 unknown119=1
 desc=A Dragonkin, creators of dragonkind.
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 8496
 [hazelmere_s_hat]
@@ -194647,6 +196067,8 @@ head1=model_30284
 unknown119=1
 cursor1=1,cursor_44
 quest=quest_74
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 8515
 [yeti_8515]
@@ -194660,6 +196082,8 @@ name=Yeti
 model1=model_45187
 unknown119=1
 quest=quest_74
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 8516
 [yeti_8516]
@@ -194950,6 +196374,8 @@ op1=Move
 name=Statue
 model1=model_51365
 unknown119=1
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 8536
 [snow_imp_8536]
@@ -196077,6 +197503,8 @@ spotshadow=no
 vislevel=0
 model1=model_6318
 unknown119=1
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 8594
 [npc_8594]
@@ -196961,6 +198389,8 @@ model1=model_36844
 unknown119=1
 cursor1=1,cursor_60
 cursor2=3,cursor_60
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 8648
 [rock_golem]
@@ -197039,6 +198469,8 @@ vislevel=0
 multivar=varplayerbit_1940
 multinpc=2,zanik_3208
 unknown119=1
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 8652
 [npc_8652]
@@ -197315,6 +198747,8 @@ multinpc=130,polar_bear
 multinpc=135,polar_bear
 multinpc=140,jim
 unknown119=1
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 8675
 [polar_bear]
@@ -197385,6 +198819,8 @@ head1=model_47030
 unknown119=1
 cursor1=1,cursor_44
 desc=Agent of the PBJ.
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 8680
 [npc_8680]
@@ -197653,6 +199089,8 @@ multinpc=125,larry_5424
 multinpc=130,larry_5424
 unknown119=1
 cursor1=1,cursor_44
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 8694
 [npc_8694]
@@ -197690,6 +199128,8 @@ multinpc=125,larry_5425
 multinpc=130,larry_5425
 unknown119=1
 cursor1=1,cursor_44
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 8695
 [npc_8695]
@@ -197729,6 +199169,8 @@ multinpc=125,larry_5426
 multinpc=130,larry_5426
 unknown119=1
 cursor1=1,cursor_44
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 8696
 [npc_8696]
@@ -197775,6 +199217,8 @@ head1=model_47194
 unknown119=1
 cursor1=1,cursor_44
 desc=Fiddle de dee!
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 8699
 [musician_8699]
@@ -197793,6 +199237,8 @@ head2=model_48461
 unknown119=1
 cursor1=1,cursor_44
 desc=Fiddle de dee!
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 8700
 [musician_8700]
@@ -197809,6 +199255,8 @@ head1=model_47176
 unknown119=1
 cursor1=1,cursor_44
 desc=Fiddle de dee!
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 8701
 [musician_8701]
@@ -197824,6 +199272,8 @@ head1=model_47181
 unknown119=1
 cursor1=1,cursor_44
 desc=Fiddle de dee!
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 8702
 [musician_8702]
@@ -197846,6 +199296,8 @@ head1=model_47184
 unknown119=1
 cursor1=1,cursor_44
 desc=What restful music!
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 8703
 [musician_8703]
@@ -197867,6 +199319,8 @@ head1=model_47199
 unknown119=1
 cursor1=1,cursor_44
 desc=What restful music!
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 8704
 [musician_8704]
@@ -197882,6 +199336,8 @@ head1=model_47196
 unknown119=1
 cursor1=1,cursor_44
 desc=Fiddle de dee!
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 8705
 [musician_8705]
@@ -197903,6 +199359,8 @@ head1=model_47197
 unknown119=1
 cursor1=1,cursor_44
 desc=What restful music!
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 8706
 [musician_8706]
@@ -197918,6 +199376,8 @@ head1=model_47201
 unknown119=1
 cursor1=1,cursor_44
 desc=Fiddle de dee!
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 8707
 [musician_8707]
@@ -197934,6 +199394,8 @@ head1=model_47188
 unknown119=1
 cursor1=1,cursor_44
 desc=He plays charming music.
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 8708
 [musician_8708]
@@ -197950,6 +199412,8 @@ head1=model_47198
 unknown119=1
 cursor1=1,cursor_44
 desc=She plays charming music.
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 8709
 [npc_8709]
@@ -197961,6 +199425,8 @@ multivar=varplayerbit_3275
 multinpc=0,musician_8711
 multinpc=1,musician_8710
 unknown119=1
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 8710
 [musician_8710]
@@ -198006,6 +199472,8 @@ head1=model_47205
 unknown119=1
 cursor1=1,cursor_44
 desc=Bang-bang good!
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 8713
 [ghostly_piper]
@@ -198020,6 +199488,8 @@ head1=model_47180
 unknown119=1
 cursor1=1,cursor_44
 desc=A call to arms for warrior's past.
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 8715
 [drunken_musician]
@@ -198041,6 +199511,8 @@ head1=model_47185
 unknown119=1
 cursor1=1,cursor_44
 desc=I've heard better lute playing...
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 8716
 [musician_8716]
@@ -198065,6 +199537,8 @@ head1=model_47179
 unknown119=1
 cursor1=1,cursor_44
 desc=He's better than Prince Brand.
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 8717
 [musician_8717]
@@ -198081,6 +199555,8 @@ head1=model_47177
 unknown119=1
 cursor1=1,cursor_44
 desc=What restful music!
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 8718
 [musician_8718]
@@ -198104,6 +199580,8 @@ head1=model_47193
 unknown119=1
 cursor1=1,cursor_44
 desc=What restful music!
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 8719
 [drummer]
@@ -198119,6 +199597,8 @@ head1=model_47204
 unknown119=1
 cursor1=1,cursor_44
 desc=She bangs the drums.
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 8720
 [drummer_8720]
@@ -198135,6 +199615,8 @@ head1=model_47200
 unknown119=1
 cursor1=1,cursor_44
 desc=She bangs the drums.
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 8721
 [musician_8721]
@@ -198156,6 +199638,8 @@ head1=model_47190
 unknown119=1
 cursor1=1,cursor_44
 desc=What restful music.
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 8722
 [bill_blakey]
@@ -198171,6 +199655,8 @@ head1=model_47178
 unknown119=1
 cursor1=1,cursor_44
 desc=He looks lovelorn.
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 8723
 [elf_musician]
@@ -198186,6 +199672,8 @@ head1=model_47195
 unknown119=1
 cursor1=1,cursor_44
 desc=She's beautiful.
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 8724
 [glophren_8724]
@@ -198632,6 +200120,8 @@ vislevel=0
 multivar=varplayerbit_6472
 multinpc=1,black_guard_8752
 unknown119=1
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 8754
 [commander_veldaban_8754]
@@ -198685,6 +200175,8 @@ vislevel=0
 multivar=varplayerbit_6474
 multinpc=2,commander_veldaban_8754
 unknown119=1
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 8757
 [commander_veldaban_8757]
@@ -198841,6 +200333,8 @@ multivar=varplayerbit_6474
 multinpc=3,veldaban
 multinpc=5,veldaban
 unknown119=1
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 8765
 [npc_8765]
@@ -199881,6 +201375,8 @@ multinpc=11,colonel_grenda
 multinpc=12,colonel_grenda
 multinpc=13,colonel_grenda
 unknown119=1
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 8818
 [colonel_grenda_8818]
@@ -199924,6 +201420,8 @@ head1=model_51675
 unknown119=1
 cursor1=1,cursor_44
 desc=He is the Supreme Commander of all regiments of the Black Guard.
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 8820
 [supreme_commander_8820]
@@ -200192,6 +201690,8 @@ model1=model_27192
 head1=model_51654
 head2=model_51636
 unknown119=1
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 8832
 [living_rock_protector]
@@ -200328,6 +201828,8 @@ model1=model_36844
 unknown119=1
 cursor1=1,cursor_60
 desc=It looks like there are fish swimming in the water.
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 8842
 [rocktail_shoal]
@@ -200343,6 +201845,8 @@ model1=model_36844
 unknown119=1
 cursor1=1,cursor_60
 desc=It looks like there are fish swimming in the water.
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 8843
 [npc_8843]
@@ -200660,6 +202164,8 @@ head2=model_39212
 unknown119=1
 cursor1=1,cursor_44
 desc=A product of a consumerist society.
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 8865
 [elf_squad__light___yellow]
@@ -200702,6 +202208,8 @@ head1=model_49450
 unknown119=1
 cursor1=1,cursor_44
 desc=A helpful soul who loves dispensing advice.
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 8868
 [muncher_8868]
@@ -200713,6 +202221,8 @@ name=Muncher
 model1=model_49471
 unknown119=1
 desc=Only the Grim Reaper would have a pet like this.
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 8869
 [grim_reaper_8869]
@@ -200938,6 +202448,8 @@ head1=model_49835
 unknown119=1
 cursor1=1,cursor_44
 desc=A wizard who specialises in magical picture-taking processes.
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 8880
 [npc_8880]
@@ -201151,6 +202663,8 @@ vislevel=0
 multivar=varplayerbit_6553
 multinpc=46,dwarf_8897
 unknown119=1
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 8897
 [dwarf_8897]
@@ -201303,6 +202817,8 @@ model6=model_358
 head1=model_39066
 unknown119=1
 cursor1=1,cursor_44
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 8905
 [npc_8905]
@@ -202257,6 +203773,8 @@ multinpc=0,arianwyn_8913
 multinpc=1,arianwyn_8950
 multinpc=4,arianwyn_8913
 unknown119=1
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 8952
 [npc_8952]
@@ -202267,6 +203785,8 @@ alwaysontop=yes
 multivar=varplayerbit_6558
 multinpc=3,arianwyn_8914
 unknown119=1
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 8953
 [mourner_8953]
@@ -202568,6 +204088,8 @@ head1=model_39093
 head2=model_47427
 unknown119=1
 cursor1=1,cursor_44
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 8970
 [dwarf_squad__heavy___red]
@@ -202633,6 +204155,8 @@ model1=model_20309
 model2=model_20312
 unknown119=1
 desc=The head of the Queen's dining chamber.
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 8974
 [keeper_of_the_royal_eggs]
@@ -202659,6 +204183,8 @@ model1=model_20309
 model2=model_20312
 unknown119=1
 desc=A personal servant of the Spider Queen.
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 8975
 [spider_queen]
@@ -202677,6 +204203,8 @@ head1=model_49944
 unknown119=1
 cursor1=1,cursor_44
 desc=Would scare anyone off their tuffet.
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 8976
 [spider_herald]
@@ -202696,6 +204224,8 @@ head1=model_49945
 unknown119=1
 cursor1=1,cursor_44
 desc=A large, flamboyant subject of the Spider Queen.
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 8977
 [grim_reaper_8977]
@@ -202714,6 +204244,8 @@ head1=model_40009
 unknown119=1
 cursor1=1,cursor_44
 desc=What could be beneath that hood?
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 8978
 [npc_8978]
@@ -202724,6 +204256,8 @@ multivar=varplayerbit_4883
 multinpc=default,spider_8979
 multinpc=50,bathtub
 unknown119=1
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 8979
 [spider_8979]
@@ -203836,6 +205370,8 @@ head1=model_50478
 unknown119=1
 cursor1=1,cursor_44
 desc=A mysterious archaeologist.
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 9048
 [azzanadra_9048]
@@ -204162,6 +205698,8 @@ vislevel=0
 name=Waterfiend
 model1=model_34580
 unknown119=1
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 9079
 [zaros]
@@ -204279,6 +205817,8 @@ recol1d=6210
 name=Abyssal demon
 model1=model_5062
 unknown119=1
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 9087
 [gargoyle_9087]
@@ -204377,6 +205917,8 @@ model1=model_50927
 unknown119=1
 cursorattack=cursor_42
 desc=The Dagannoth Mother's guardians.
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 9093
 [baba_yaga_9093]
@@ -204414,6 +205956,8 @@ head2=model_38827
 modeloffset4=3,-11,6
 unknown119=1
 cursor1=1,cursor_44
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 9094
 [baba_yaga_9094]
@@ -204489,6 +206033,8 @@ head3=model_40662
 unknown119=1
 cursor1=1,cursor_44
 desc=Apparently, he keeps a lighthouse.
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 9096
 [wallasalki_9096]
@@ -204910,6 +206456,8 @@ head2=model_38642
 head3=model_39307
 unknown119=1
 cursor1=1,cursor_44
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 9119
 [koschei_the_deathless_9119]
@@ -206015,6 +207563,8 @@ minimap=no
 vislevel=0
 model1=model_6318
 unknown119=1
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 9168
 [geoff]
@@ -206036,6 +207586,8 @@ spotshadow=no
 vislevel=0
 model1=model_6318
 unknown119=1
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 9170
 [sparky]
@@ -208869,6 +210421,8 @@ head1=model_46425
 unknown119=1
 cursor1=1,cursor_44
 desc=She has a certain otherworldly quality.
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 9319
 [asleif_hamalsdotter_9319]
@@ -209736,6 +211290,8 @@ ambient=25
 contrast=15
 model1=model_51139
 unknown119=1
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 9351
 [npc_9351]
@@ -209746,6 +211302,8 @@ ambient=25
 contrast=15
 model1=model_51138
 unknown119=1
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 9352
 [npc_9352]
@@ -209756,6 +211314,8 @@ ambient=25
 contrast=15
 model1=model_51140
 unknown119=1
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 9354
 [armour]
@@ -209765,6 +211325,8 @@ name=Armour
 model1=model_50170
 unknown119=1
 desc=A suit of armour.
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 9356
 [count_draynor]
@@ -209882,6 +211444,8 @@ head1=model_51088
 unknown119=1
 cursor1=1,cursor_44
 desc=A fortune-teller.
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 9363
 [ebenezer_scourge]
@@ -209990,6 +211554,8 @@ alwaysontop=yes
 multivar=varplayerbit_6932
 multinpc=0,ebenezer_scourge_9371
 unknown119=1
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 9370
 [npc_9370]
@@ -210027,6 +211593,8 @@ multivar=varplayerbit_6928
 multinpc=0,snow_imp_9376
 multinpc=2,snow_imp_9377
 unknown119=1
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 9373
 [npc_9373]
@@ -210039,6 +211607,8 @@ multivar=varplayerbit_6929
 multinpc=0,snow_imp_9376
 multinpc=2,snow_imp_9377
 unknown119=1
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 9374
 [npc_9374]
@@ -210051,6 +211621,8 @@ multivar=varplayerbit_6930
 multinpc=0,snow_imp_9376
 multinpc=2,snow_imp_9377
 unknown119=1
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 9375
 [npc_9375]
@@ -210063,6 +211635,8 @@ multivar=varplayerbit_6931
 multinpc=0,snow_imp_9376
 multinpc=2,snow_imp_9377
 unknown119=1
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 9376
 [snow_imp_9376]
@@ -210190,6 +211764,8 @@ multivar=varplayerbit_6934
 multinpc=0,partygoer_9387
 multinpc=1,partygoer_9388
 unknown119=1
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 9387
 [partygoer_9387]
@@ -210387,6 +211963,8 @@ head1=model_39076
 unknown119=1
 cursor1=1,cursor_44
 desc=Her lack of body heat is unsettling.
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 9399
 [npc_9399]
@@ -210452,6 +212030,8 @@ head1=model_45289
 unknown119=1
 cursor1=1,cursor_44
 desc=The Queen of Snow's rebellious teenage son.
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 9404
 [npc_9404]
@@ -210573,6 +212153,8 @@ respawndir=6
 multivar=varplayerbit_6940
 multinpc=2,general_bentnoze_9412
 unknown119=1
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 9412
 [general_bentnoze_9412]
@@ -210599,6 +212181,8 @@ respawndir=2
 multivar=varplayerbit_6939
 multinpc=2,general_wartface_9414
 unknown119=1
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 9414
 [general_wartface_9414]
@@ -210625,6 +212209,8 @@ respawndir=6
 multivar=varplayerbit_6941
 multinpc=2,sir_amik_varze_9416
 unknown119=1
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 9416
 [sir_amik_varze_9416]
@@ -210656,6 +212242,8 @@ respawndir=6
 multivar=varplayerbit_6942
 multinpc=2,cook_9418
 unknown119=1
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 9418
 [cook_9418]
@@ -210697,6 +212285,8 @@ respawndir=2
 multivar=varplayerbit_6943
 multinpc=2,partygoer_9420
 unknown119=1
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 9420
 [partygoer_9420]
@@ -210724,6 +212314,8 @@ respawndir=6
 multivar=varplayerbit_6944
 multinpc=2,tiny_thom_9422
 unknown119=1
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 9422
 [tiny_thom_9422]
@@ -210753,6 +212345,8 @@ op1=Move
 name=Statue
 model1=model_51365
 unknown119=1
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 9424
 [statue_9424]
@@ -210765,6 +212359,8 @@ op1=Move
 name=Statue
 model1=model_51365
 unknown119=1
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 9425
 [statue_9425]
@@ -210777,6 +212373,8 @@ op1=Move
 name=Statue
 model1=model_51393
 unknown119=1
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 9426
 [statue_9426]
@@ -210789,6 +212387,8 @@ op1=Move
 name=Statue
 model1=model_51404
 unknown119=1
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 9427
 [statue_9427]
@@ -210801,6 +212401,8 @@ op1=Move
 name=Statue
 model1=model_51404
 unknown119=1
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 9428
 [statue_9428]
@@ -210813,6 +212415,8 @@ op1=Move
 name=Statue
 model1=model_51384
 unknown119=1
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 9429
 [statue_9429]
@@ -210825,6 +212429,8 @@ op1=Move
 name=Statue
 model1=model_51391
 unknown119=1
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 9430
 [statue_9430]
@@ -210835,6 +212441,8 @@ minimap=no
 name=Statue
 model1=model_51377
 unknown119=1
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 9431
 [statue_9431]
@@ -210845,6 +212453,8 @@ minimap=no
 name=Statue
 model1=model_51360
 unknown119=1
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 9432
 [elemental_creature]
@@ -210874,6 +212484,8 @@ head1=model_51697
 unknown119=1
 cursor1=1,cursor_44
 desc=He's a bit uptight.
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 9434
 [wizard_edvin]
@@ -210891,6 +212503,8 @@ head1=model_51700
 unknown119=1
 cursor1=1,cursor_44
 desc=He's working hard on something.
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 9435
 [npc_9435]
@@ -211103,6 +212717,8 @@ multinpc=0,knight_9448
 multinpc=1,knight_9449
 unknown119=1
 cursor1=1,cursor_56
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 9451
 [spectral_tender]
@@ -213807,6 +215423,8 @@ multinpc=55,xenia_11476
 multinpc=60,xenia
 unknown119=1
 desc=An old adventurer.
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 9634
 [xenia]
@@ -215022,6 +216640,8 @@ head1=model_32814
 unknown119=1
 cursor1=1,cursor_44
 desc=The loveable protector of Easter.
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 9688
 [npc_9688]
@@ -215049,6 +216669,8 @@ multinpc=14,hooded_client
 multinpc=15,hooded_client
 multinpc=16,hooded_client
 unknown119=1
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 9689
 [easta_buni]
@@ -215121,6 +216743,8 @@ head1=model_32811
 unknown119=1
 cursor1=1,cursor_44
 desc=A cute, cuddly little squirrel...with teeth.
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 9696
 [easter_bird_9696]
@@ -215141,6 +216765,8 @@ head1=model_32816
 unknown119=1
 cursor1=1,cursor_44
 desc=The bird looks awake and alert.
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 9698
 [npc_9698]
@@ -215211,6 +216837,8 @@ head1=model_32817
 unknown119=1
 cursor1=1,cursor_44
 desc=An impling manager: what a terrifying thought!
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 9707
 [fremennik_shipmaster]
@@ -215226,6 +216854,8 @@ head1=model_55624
 unknown119=1
 cursor1=1,cursor_44
 desc=He looks at home in this climate.
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 9708
 [fremennik_shipmaster_9708]
@@ -215241,6 +216871,8 @@ model1=model_55638
 head1=model_55624
 unknown119=1
 cursor1=1,cursor_44
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 9709
 [fremennik_warrior_9709]
@@ -215256,6 +216888,8 @@ head1=model_55625
 unknown119=1
 cursor1=1,cursor_44
 desc=He's not from around here.
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 9710
 [fremennik_banker]
@@ -215274,6 +216908,8 @@ head1=model_55621
 unknown119=1
 cursor1=1,cursor_44
 desc=Protects the items that are forbidden from Daemonheim.
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 9711
 [rewards_trader]
@@ -215291,6 +216927,8 @@ head1=model_55622
 unknown119=1
 cursor1=1,cursor_44
 desc=He is trembling and is covered in cuts and scrapes.
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 9712
 [dungeoneering_tutor]
@@ -215305,6 +216943,8 @@ head1=model_55619
 unknown119=1
 cursor1=1,cursor_44
 desc=Your contact for forming parties in Daemonheim.
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 9713
 [thok__master_of_dungeoneering]
@@ -215318,6 +216958,8 @@ head1=model_55626
 unknown119=1
 cursor1=1,cursor_44
 desc=The self-proclaimed master of Dungeoneering.
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 9714
 [estrith]
@@ -215329,6 +216971,8 @@ model1=model_56325
 head1=model_55558
 unknown119=1
 desc=She is finding it hard to hide her boredom.
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 9715
 [sonje]
@@ -215342,6 +216986,8 @@ head1=model_55557
 unknown119=1
 cursor1=1,cursor_44
 desc=I wouldn't pick a fight with her.
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 9716
 [wiglaf]
@@ -215357,6 +217003,8 @@ head1=model_55620
 unknown119=1
 cursor1=1,cursor_44
 desc=He's cooking up a storm.
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 9717
 [gull_9717]
@@ -215410,6 +217058,8 @@ name=Rook
 model1=model_26851
 unknown119=1
 desc=You're being watched.
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 9720
 [lobster]
@@ -220292,6 +221942,8 @@ head1=model_55534
 unknown119=1
 cursor1=1,cursor_44
 desc=An immensely powerful healer of the gorajo.
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 10059
 [hobgoblin_geomancer]
@@ -236149,6 +237801,8 @@ name=Magic construct
 model1=model_55303
 unknown119=1
 desc=Created to perform menial tasks.
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 11007
 [ferret_11007]
@@ -236180,6 +237834,8 @@ name=Guardian sphere
 model1=model_62083
 unknown119=1
 desc=A sphere of dangerous portal energy.
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 11010
 [ferret_11010]
@@ -239374,6 +241030,8 @@ head1=model_55623
 unknown119=1
 cursor1=1,cursor_44
 desc=Our contact on the inside.
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 11227
 [dungeoneering_skillcape__melee]
@@ -239900,6 +241558,8 @@ head1=model_56935
 unknown119=1
 cursor1=1,cursor_44
 desc=Exchanges lobsters, tuna and swordfish for banknotes.
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 11268
 [npc_11268]
@@ -239914,6 +241574,8 @@ multinpc=22,chief_thief_robin
 multinpc=25,chief_thief_robin
 unknown119=1
 quest=quest_174
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 11269
 [market_guard_11269]
@@ -239933,6 +241595,8 @@ head1=model_40034
 unknown119=1
 cursor1=1,cursor_44
 desc=On guard for thieves and ne'erdowells.
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 11270
 [urist_loric]
@@ -239962,6 +241626,8 @@ head1=model_51654
 unknown119=1
 cursor1=1,cursor_44
 desc=A crafter at the pinnacle of his art.
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 11271
 [guard_11271]
@@ -239998,6 +241664,8 @@ head2=model_39223
 unknown119=1
 cursor1=1,cursor_44
 desc=The key to the vault lever hangs from his belt.
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 11272
 [registrar]
@@ -240030,6 +241698,8 @@ head1=model_56938
 unknown119=1
 cursor1=1,cursor_44
 desc=The Registrar of Guilds.
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 11273
 [npc_11273]
@@ -240048,6 +241718,8 @@ multinpc=35,guildmaster_darren_lightfinger_11276
 multinpc=40,guildmaster_darren_lightfinger_11277
 unknown119=1
 quest=quest_174
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 11274
 [darren_lightfinger]
@@ -240129,6 +241801,8 @@ multinpc=30,chief_thief_robin_11280
 unknown119=1
 cursor1=1,cursor_44
 quest=quest_174
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 11280
 [chief_thief_robin_11280]
@@ -240422,6 +242096,8 @@ head1=model_56941
 unknown119=1
 cursor1=1,cursor_44
 desc=A Thieves' Guild trainer.
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 11295
 [safe_cracking_trainer]
@@ -240439,6 +242115,8 @@ head1=model_56943
 unknown119=1
 cursor1=1,cursor_44
 desc=A Thieves' Guild trainer.
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 11296
 [advanced_pickpocketing_trainer]
@@ -240537,6 +242215,8 @@ head1=model_57036
 unknown119=1
 cursor1=1,cursor_44
 desc=Our man on the inside.
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 11300
 [flagstaff_of_festivities]
@@ -240786,6 +242466,8 @@ multivar=varplayerbit_7838
 multinpc=1,gnarly
 multinpc=2,gnarly_11310
 unknown119=1
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 11309
 [gnarly]
@@ -240856,6 +242538,8 @@ size=2
 multivar=varplayerbit_7826
 multinpc=95,general_shredflesh
 unknown119=1
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 11314
 [general_shredflesh]
@@ -241797,6 +243481,8 @@ minimap=no
 name=Farming patch
 model1=model_3951
 unknown119=1
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 11384
 [farming_patch_11384]
@@ -243042,6 +244728,8 @@ head2=model_39223
 unknown119=1
 cursor1=1,cursor_44
 desc=The courthouse clerk.
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 11462
 [court_judge_11462]
@@ -243162,6 +244850,8 @@ multinpc=15,gamdin
 multinpc=16,barbarian_12230
 unknown119=1
 cursor1=1,cursor_44
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 11467
 [npc_11467]
@@ -243181,6 +244871,8 @@ multinpc=15,vidar_ilknot
 multinpc=16,wizard_12231
 unknown119=1
 cursor1=1,cursor_44
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 11468
 [npc_11468]
@@ -243194,6 +244886,8 @@ multinpc=7,arresting_officer
 multinpc=9,arresting_officer
 unknown119=1
 cursor1=1,cursor_44
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 11469
 [npc_11469]
@@ -243207,6 +244901,8 @@ multinpc=11,megan
 multinpc=13,estate_agent
 unknown119=1
 cursor1=1,cursor_44
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 11470
 [npc_11470]
@@ -243345,6 +245041,8 @@ multivar=varplayerbit_7975
 multinpc=0,knight_bernard
 multinpc=1,knight_bernard_11481
 unknown119=1
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 11479
 [npc_11479]
@@ -243357,6 +245055,8 @@ multivar=varplayerbit_7975
 multinpc=3,knight_bernard
 multinpc=4,knight_bernard_11481
 unknown119=1
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 11480
 [knight_bernard]
@@ -243400,6 +245100,8 @@ multivar=varplayerbit_7976
 multinpc=0,knight_ami_11484
 multinpc=1,knight_ami_11485
 unknown119=1
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 11483
 [npc_11483]
@@ -243412,6 +245114,8 @@ multivar=varplayerbit_7976
 multinpc=3,knight_ami_11484
 multinpc=4,knight_ami_11485
 unknown119=1
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 11484
 [knight_ami_11484]
@@ -243455,6 +245159,8 @@ multivar=varplayerbit_7977
 multinpc=0,knight_diana
 multinpc=1,knight_diana_11489
 unknown119=1
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 11487
 [npc_11487]
@@ -243467,6 +245173,8 @@ multivar=varplayerbit_7977
 multinpc=3,knight_diana
 multinpc=4,knight_diana_11489
 unknown119=1
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 11488
 [knight_diana]
@@ -244873,6 +246581,8 @@ vislevel=0
 multivar=varplayerbit_2098
 multinpc=210,zenevivia
 unknown119=1
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 11571
 [zenevivia]
@@ -244895,6 +246605,8 @@ vislevel=0
 multivar=varplayerbit_8052
 multinpc=1,wise_old_man_2567
 unknown119=1
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 11573
 [npc_11573]
@@ -245207,6 +246919,8 @@ multivar=varplayerbit_8045
 multinpc=55,wise_old_man_2567
 multinpc=56,wise_old_man_2567
 unknown119=1
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 11598
 [npc_11598]
@@ -245280,6 +246994,8 @@ multinpc=122,wise_old_man_2567
 multinpc=123,wise_old_man_2567
 multinpc=124,wise_old_man_2567
 unknown119=1
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 11599
 [zenevivia_11599]
@@ -245757,6 +247473,8 @@ multinpc=3,mabel
 multinpc=4,mabel
 multinpc=5,mabel
 unknown119=1
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 11628
 [zenevivia_11628]
@@ -245818,6 +247536,8 @@ name=Hay bale
 model1=model_57917
 unknown119=1
 quest=quest_11
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 11631
 [mabel_11631]
@@ -246048,6 +247768,8 @@ multinpc=42,ali_tist_11643
 multinpc=45,ali_tist
 unknown119=1
 quest=quest_83
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 11642
 [ali_tist]
@@ -246105,6 +247827,8 @@ multinpc=42,customer_11645
 multinpc=45,customer_11645
 unknown119=1
 quest=quest_83
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 11645
 [customer_11645]
@@ -246160,6 +247884,8 @@ multinpc=42,customer_11647
 multinpc=45,customer_11647
 unknown119=1
 quest=quest_83
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 11647
 [customer_11647]
@@ -246278,6 +248004,8 @@ multinpc=18,captain_korasi_11648
 multinpc=21,captain_korasi_11648
 unknown119=1
 quest=quest_83
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 11655
 [npc_11655]
@@ -246289,6 +248017,8 @@ multinpc=24,captain_korasi_11648
 multinpc=27,captain_korasi_11648
 unknown119=1
 quest=quest_83
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 11656
 [npc_11656]
@@ -246301,6 +248031,8 @@ multinpc=30,captain_korasi_11648
 multinpc=33,captain_korasi_11648
 unknown119=1
 quest=quest_83
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 11657
 [npc_11657]
@@ -246318,6 +248050,8 @@ multinpc=45,captain_korasi_11648
 multinpc=48,captain_korasi_11648
 unknown119=1
 quest=quest_83
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 11658
 [npc_11658]
@@ -246332,6 +248066,8 @@ multinpc=5,captain_korasi_11648
 multinpc=6,captain_korasi_11648
 unknown119=1
 quest=quest_83
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 11659
 [npc_11659]
@@ -246342,6 +248078,8 @@ multivar=varplayerbit_7451
 multinpc=51,captain_korasi_11648
 unknown119=1
 quest=quest_83
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 11660
 [jessika_11660]
@@ -246418,6 +248156,8 @@ multinpc=18,jessika_11660
 multinpc=21,jessika_11660
 unknown119=1
 quest=quest_83
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 11666
 [npc_11666]
@@ -246429,6 +248169,8 @@ multinpc=24,jessika_11660
 multinpc=27,jessika_11660
 unknown119=1
 quest=quest_83
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 11667
 [npc_11667]
@@ -246441,6 +248183,8 @@ multinpc=30,jessika_11660
 multinpc=33,jessika_11660
 unknown119=1
 quest=quest_83
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 11668
 [npc_11668]
@@ -246458,6 +248202,8 @@ multinpc=45,jessika_11660
 multinpc=48,jessika_11660
 unknown119=1
 quest=quest_83
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 11669
 [npc_11669]
@@ -246472,6 +248218,8 @@ multinpc=5,jessika_11660
 multinpc=6,jessika_11660
 unknown119=1
 quest=quest_83
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 11670
 [npc_11670]
@@ -246482,6 +248230,8 @@ multivar=varplayerbit_7451
 multinpc=51,jessika_11660
 unknown119=1
 quest=quest_83
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 11671
 [full_barrel]
@@ -246510,6 +248260,8 @@ alwaysontop=yes
 name=Empty barrel
 model1=model_58677
 unknown119=1
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 11673
 [full_barrel_11673]
@@ -246794,6 +248546,8 @@ alwaysontop=yes
 name=Barrel
 model1=model_58657
 unknown119=1
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 11687
 [indentured_worker]
@@ -246879,6 +248633,8 @@ multinpc=4,black_knight_doorkeeper
 multinpc=5,black_knight_doorkeeper
 multinpc=6,black_knight_doorkeeper
 unknown119=1
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 11692
 [black_knight_doorkeeper_11692]
@@ -246928,6 +248684,8 @@ head1=model_58692
 unknown119=1
 cursor1=1,cursor_44
 desc=The hours are long, but the pay is good: one family not killed per day.
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 11694
 [indentured_worker_11694]
@@ -246952,6 +248710,8 @@ model1=model_58569
 head1=model_58692
 unknown119=1
 cursor1=1,cursor_44
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 11695
 [indentured_worker_11695]
@@ -246976,6 +248736,8 @@ model1=model_58569
 head1=model_58692
 unknown119=1
 cursor1=1,cursor_44
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 11696
 [black_knight_guardian]
@@ -247007,6 +248769,8 @@ modeloffset8=0,5,0
 unknown119=1
 cursorattack=cursor_42
 desc=A Black Knight with lots of combat experience.
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 11697
 [black_knight_guardian_11697]
@@ -247037,6 +248801,8 @@ modeloffset5=-5,0,5
 modeloffset8=0,5,0
 unknown119=1
 cursorattack=cursor_42
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 11698
 [void_leech]
@@ -252965,6 +254731,8 @@ op1=Move
 name=Sliding block
 model1=model_59116
 unknown119=1
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 12126
 [sliding_block_12126]
@@ -252978,6 +254746,8 @@ op1=Move
 name=Sliding block
 model1=model_59118
 unknown119=1
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 12127
 [sliding_block_12127]
@@ -252991,6 +254761,8 @@ op1=Move
 name=Sliding block
 model1=model_59113
 unknown119=1
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 12128
 [sliding_block_12128]
@@ -253004,6 +254776,8 @@ op1=Move
 name=Sliding block
 model1=model_59129
 unknown119=1
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 12129
 [sliding_block_12129]
@@ -253017,6 +254791,8 @@ op1=Move
 name=Sliding block
 model1=model_59108
 unknown119=1
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 12130
 [sliding_block_12130]
@@ -253030,6 +254806,8 @@ op1=Move
 name=Sliding block
 model1=model_59106
 unknown119=1
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 12131
 [sliding_block_12131]
@@ -253043,6 +254821,8 @@ op1=Move
 name=Sliding block
 model1=model_59117
 unknown119=1
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 12132
 [sliding_block_12132]
@@ -253056,6 +254836,8 @@ op1=Move
 name=Sliding block
 model1=model_59111
 unknown119=1
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 12133
 [sliding_block_12133]
@@ -253095,6 +254877,8 @@ op1=Move
 name=Sliding block
 model1=model_59105
 unknown119=1
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 12136
 [sliding_block_12136]
@@ -253225,6 +255009,8 @@ op1=Move
 name=Sliding block
 model1=model_59123
 unknown119=1
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 12146
 [sliding_block_12146]
@@ -253316,6 +255102,8 @@ op1=Move
 name=Sliding block
 model1=model_59130
 unknown119=1
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 12153
 [sliding_block_12153]
@@ -253381,6 +255169,8 @@ name=Ferret
 model1=model_59568
 unknown119=1
 desc=An intelligent little critter.
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 12158
 [ferret_12158]
@@ -253394,6 +255184,8 @@ name=Ferret
 model1=model_59569
 unknown119=1
 desc=An intelligent little critter.
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 12159
 [ferret_12159]
@@ -253407,6 +255199,8 @@ name=Ferret
 model1=model_59566
 unknown119=1
 desc=An intelligent little critter.
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 12160
 [ferret_12160]
@@ -253420,6 +255214,8 @@ name=Ferret
 model1=model_59565
 unknown119=1
 desc=An intelligent little critter.
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 12161
 [ferret_12161]
@@ -253433,6 +255229,8 @@ name=Ferret
 model1=model_59567
 unknown119=1
 desc=An intelligent little critter.
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 12162
 [enemy_scout]
@@ -254800,6 +256598,8 @@ head2=model_39799
 head3=model_39254
 unknown119=1
 cursor1=1,cursor_44
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 12240
 [simon_sez]
@@ -255189,6 +256989,8 @@ multinpc=20,captain_korasi
 multinpc=22,captain_korasi
 multinpc=24,captain_korasi_7900
 unknown119=1
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 12266
 [jessika_12266]
@@ -255284,6 +257086,8 @@ multinpc=20,jessika_12266
 multinpc=22,jessika_12266
 multinpc=24,jessika_12266
 unknown119=1
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 12273
 [npc_12273]
@@ -255295,6 +257099,8 @@ multivar=varplayerbit_8253
 multinpc=1,jessika_12266
 multinpc=2,captain_korasi_7900
 unknown119=1
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 12274
 [commodore_tyr_12274]
@@ -255337,6 +257143,8 @@ multivar=varplayerbit_8248
 multinpc=22,commodore_tyr_12274
 multinpc=24,commodore_tyr_12274
 unknown119=1
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 12277
 [commodore_tyr_12277]
@@ -255363,6 +257171,8 @@ multinpc=36,commodore_tyr_12275
 multinpc=38,commodore_tyr_12275
 multinpc=40,commodore_tyr_12275
 unknown119=1
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 12281
 [npc_12281]
@@ -255441,6 +257251,8 @@ head1=model_60778
 unknown119=1
 cursor1=1,cursor_44
 desc=The fabled Valluta?
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 12286
 [pest_drone_12286]
@@ -255582,6 +257394,8 @@ multinpc=20,sir_tiffy_12293
 multinpc=22,sir_tiffy_12293
 multinpc=24,sir_tiffy_12293
 unknown119=1
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 12298
 [sir_tiffy_12298]
@@ -255680,6 +257494,8 @@ multinpc=20,lord_daquarius_12306
 multinpc=22,lord_daquarius_12306
 multinpc=24,lord_daquarius_12306
 unknown119=1
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 12304
 [npc_12304]
@@ -255925,6 +257741,8 @@ multinpc=16,captain_gilroy
 unknown119=1
 quest=quest_180
 desc=One of the Black Knights.
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 12314
 [npc_12314]
@@ -255937,6 +257755,8 @@ multinpc=16,captain_gilroy
 multinpc=18,captain_gilroy
 multinpc=20,captain_gilroy
 unknown119=1
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 12315
 [captain_gilroy]
@@ -255994,6 +257814,8 @@ multinpc=14,black_knight_12319
 multinpc=16,black_knight_12319
 unknown119=1
 desc=One of the Black Knights.
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 12318
 [npc_12318]
@@ -256005,6 +257827,8 @@ multinpc=16,black_knight_12319
 multinpc=18,black_knight_12319
 multinpc=20,black_knight_12319
 unknown119=1
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 12319
 [black_knight_12319]
@@ -256452,6 +258276,8 @@ head1=model_60998
 unknown119=1
 cursor1=1,cursor_44
 desc=A gnome mage and hunter with a somewhat enthusiastic swagger.
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 12338
 [npc_12338]
@@ -257455,6 +259281,8 @@ model1=model_61106
 head1=model_61044
 unknown119=1
 desc=He is in high spirits.
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 12377
 [pumpkin_pete]
@@ -257499,6 +259327,8 @@ head1=model_40009
 unknown119=1
 cursor1=1,cursor_44
 desc=What could be beneath that hood?
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 12380
 [edgar]
@@ -257527,6 +259357,8 @@ head1=model_31139
 unknown119=1
 cursor1=1,cursor_44
 desc=He'll Poe-n you.
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 12381
 [allan]
@@ -257554,6 +259386,8 @@ head1=model_31148
 unknown119=1
 cursor1=1,cursor_44
 desc=He'll Poe-n you.
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 12382
 [npc_12382]
@@ -257576,6 +259410,8 @@ multinpc=0,npc_1957
 multinpc=1,npc_1957
 multinpc=2,greta_12385
 unknown119=1
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 12384
 [greta]
@@ -257601,6 +259437,8 @@ model1=model_61117
 head1=model_61047
 unknown119=1
 desc=A lycanthropic backing singer.
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 12386
 [npc_12386]
@@ -257623,6 +259461,8 @@ multinpc=0,npc_1957
 multinpc=1,npc_1957
 multinpc=2,helga_12389
 unknown119=1
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 12388
 [helga_12388]
@@ -257648,6 +259488,8 @@ model1=model_61118
 head1=model_61046
 unknown119=1
 desc=A lycanthropic backing singer.
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 12390
 [npc_12390]
@@ -257670,6 +259512,8 @@ multinpc=0,npc_1957
 multinpc=1,npc_1957
 multinpc=2,moira_12393
 unknown119=1
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 12392
 [moira_12392]
@@ -257695,6 +259539,8 @@ model1=model_61119
 head1=model_61045
 unknown119=1
 desc=A lycanthropic backing singer.
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 12394
 [minstrel_web]
@@ -257714,6 +259560,8 @@ head1=model_49946
 unknown119=1
 cursor1=1,cursor_44
 desc=She looks familiar.
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 12395
 [npc_12395]
@@ -257742,6 +259590,8 @@ model6=model_19180
 model7=model_181
 unknown119=1
 desc=He seems to be enjoying the party.
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 12397
 [dancer_12397]
@@ -257759,6 +259609,8 @@ model6=model_181
 model7=model_42686
 unknown119=1
 desc=He seems to be enjoying the party.
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 12398
 [dancer_12398]
@@ -257775,6 +259627,8 @@ model5=model_19196
 model6=model_19190
 unknown119=1
 desc=She seems to be enjoying the party.
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 12399
 [dancer_12399]
@@ -257792,6 +259646,8 @@ model6=model_181
 model7=model_42686
 unknown119=1
 desc=He seems to be enjoying the party.
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 12400
 [dancer_12400]
@@ -257807,6 +259663,8 @@ model5=model_358
 model6=model_42695
 unknown119=1
 desc=She seems to be enjoying the party.
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 12401
 [party_pete_12401]
@@ -257920,6 +259778,8 @@ multinpc=0,npc_1957
 multinpc=1,npc_1957
 multinpc=2,purple_spider
 unknown119=1
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 12411
 [npc_12411]
@@ -257931,6 +259791,8 @@ multinpc=0,npc_1957
 multinpc=1,npc_1957
 multinpc=2,blue_spider
 unknown119=1
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 12412
 [npc_12412]
@@ -257942,6 +259804,8 @@ multinpc=0,npc_1957
 multinpc=1,npc_1957
 multinpc=2,red_spider
 unknown119=1
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 12413
 [npc_12413]
@@ -257953,6 +259817,8 @@ multinpc=0,npc_1957
 multinpc=1,npc_1957
 multinpc=2,green_spider
 unknown119=1
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 12414
 [npc_12414]
@@ -257964,6 +259830,8 @@ multinpc=0,npc_1957
 multinpc=1,npc_1957
 multinpc=2,orange_spider
 unknown119=1
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 12415
 [npc_12415]
@@ -257975,6 +259843,8 @@ multinpc=0,npc_1957
 multinpc=1,npc_1957
 multinpc=2,turquoise_spider
 unknown119=1
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 12416
 [npc_12416]
@@ -257986,6 +259856,8 @@ multinpc=0,npc_1957
 multinpc=1,npc_1957
 multinpc=2,pink_spider
 unknown119=1
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 12417
 [npc_12417]
@@ -257997,6 +259869,8 @@ multinpc=0,npc_1957
 multinpc=1,npc_1957
 multinpc=2,beige_spider
 unknown119=1
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 12419
 [npc_12419]
@@ -258007,6 +259881,8 @@ vislevel=0
 multivar=varplayerbit_8308
 multinpc=0,orange_spider
 unknown119=1
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 12420
 [npc_12420]
@@ -265709,6 +267585,8 @@ op1=Move
 name=Sliding block
 model1=model_61642
 unknown119=1
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 12965
 [sliding_block_12965]
@@ -268571,6 +270449,8 @@ head1=model_46681
 unknown119=1
 cursor1=1,cursor_44
 desc=She comes from Al Kharid.
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 13173
 [leela_13173]
@@ -268599,6 +270479,8 @@ name=Ogre chef
 model1=model_25362
 head1=model_31696
 unknown119=1
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 13175
 [peter_13175]
@@ -268617,6 +270499,8 @@ head1=model_39947
 head2=model_38097
 unknown119=1
 cursor1=1,cursor_44
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 13176
 [npc_13176]
@@ -268626,6 +270510,8 @@ multivar=varplayerbit_8606
 multinpc=default,pedestal
 multinpc=0,mizaru
 unknown119=1
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 13177
 [pedestal]
@@ -268644,6 +270530,8 @@ multivar=varplayerbit_8606
 multinpc=default,pedestal
 multinpc=0,kikazaru
 unknown119=1
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 13179
 [npc_13179]
@@ -268653,6 +270541,8 @@ multivar=varplayerbit_8606
 multinpc=default,pedestal
 multinpc=0,iwazaru
 unknown119=1
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 13180
 [rokuh_13180]
@@ -268961,6 +270851,8 @@ multinpc=default,rock_13204
 multinpc=1,mizaru_13203
 unknown119=1
 quest=quest_183
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 13201
 [npc_13201]
@@ -268971,6 +270863,8 @@ multinpc=default,rock_13205
 multinpc=1,kikazaru_13207
 unknown119=1
 quest=quest_183
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 13202
 [npc_13202]
@@ -268981,6 +270875,8 @@ multinpc=default,rock_13206
 multinpc=1,iwazaru_13208
 unknown119=1
 quest=quest_183
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 13203
 [mizaru_13203]
@@ -269146,6 +271042,8 @@ multinpc=250,leeuni
 multinpc=253,leeuni
 unknown119=1
 quest=quest_183
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 13215
 [leeuni]
@@ -269292,6 +271190,8 @@ multinpc=253,iwazaru_13226
 multinpc=255,iwazaru_13226
 unknown119=1
 quest=quest_183
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 13226
 [iwazaru_13226]
@@ -269416,6 +271316,8 @@ vislevel=0
 multivar=varplayerbit_8628
 multinpc=1,assistant_13236
 unknown119=1
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 13236
 [assistant_13236]
@@ -269456,6 +271358,8 @@ vislevel=0
 multivar=varplayerbit_8628
 multinpc=1,rug_merchant_13238
 unknown119=1
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 13238
 [rug_merchant_13238]
@@ -269481,6 +271385,8 @@ multivar=varplayerbit_8647
 multinpc=1,monkey_guard_13242
 unknown119=1
 quest=quest_183
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 13240
 [npc_13240]
@@ -269489,6 +271395,8 @@ multivar=varplayerbit_8623
 multinpc=1,monkey_guard_13242
 unknown119=1
 quest=quest_183
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 13241
 [osman_13241]
@@ -269685,6 +271593,8 @@ name=Snow angel statue
 model1=model_62455
 unknown119=1
 desc=She is carved from ice.
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 13255
 [seal]
@@ -270007,6 +271917,8 @@ head1=model_62370
 unknown119=1
 cursor1=1,cursor_44
 desc=The self-proclaimed master of festivities.
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 13281
 [rewards_trader_13281]
@@ -270024,6 +271936,8 @@ head1=model_36081
 unknown119=1
 cursor1=1,cursor_44
 desc=He is trembling, covered in cuts and scrapes, and wearing a festive hat.
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 13282
 [snowman_13282]
@@ -270210,6 +272124,8 @@ multivar=varplayerbit_8700
 multinpc=default,chair_13289
 multinpc=1,monarchist
 unknown119=1
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 13292
 [npc_13292]
@@ -270219,6 +272135,8 @@ multivar=varplayerbit_8700
 multinpc=default,chair_13288
 multinpc=1,monarchist_13294
 unknown119=1
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 13293
 [monarchist]
@@ -270266,6 +272184,8 @@ unknown119=1
 cursor1=1,cursor_44
 quest=quest_182
 desc=He looks like a professional explorer.
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 13296
 [memorial_stone_13296]
@@ -270331,6 +272251,8 @@ multinpc=1,hreidmar
 multinpc=2,hreidmar
 multinpc=3,hreidmar
 unknown119=1
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 13300
 [hreidmar]
@@ -270779,6 +272701,8 @@ head1=model_62654
 unknown119=1
 cursor1=1,cursor_44
 quest=quest_185
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 13325
 [pretty_flower]
@@ -270796,6 +272720,8 @@ unknown119=1
 cursor1=1,cursor_44
 quest=quest_185
 desc=A mighty troll warlord.
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 13326
 [big_rock]
@@ -270831,6 +272757,8 @@ model1=model_62666
 head1=model_62655
 unknown119=1
 desc=Sparkly Crystal, son of Pretty Flower, and maybe someday a mighty troll warlord.
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 13329
 [npc_13329]
@@ -270840,6 +272768,8 @@ vislevel=0
 multivar=varplayerbit_8704
 multinpc=20,veldaban_13332
 unknown119=1
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 13330
 [npc_13330]
@@ -270855,6 +272785,8 @@ multinpc=45,veldaban_13332
 multinpc=46,veldaban_13332
 multinpc=47,veldaban_13332
 unknown119=1
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 13331
 [npc_13331]
@@ -270864,6 +272796,8 @@ vislevel=0
 multivar=varplayerbit_8704
 multinpc=80,veldaban_13332
 unknown119=1
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 13332
 [veldaban_13332]
@@ -271375,6 +273309,8 @@ model7=model_2993
 model8=model_2991
 unknown119=1
 desc=A dwarf gone bad.
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 13350
 [chaos_dwarf_13350]
@@ -271396,6 +273332,8 @@ model7=model_2993
 model8=model_2991
 unknown119=1
 desc=A dwarf gone bad.
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 13351
 [chaos_dwarf_13351]
@@ -271416,6 +273354,8 @@ model6=model_2989
 model7=model_2993
 model8=model_2991
 unknown119=1
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 13352
 [chaos_dwarf_13352]
@@ -271437,6 +273377,8 @@ model7=model_2993
 model8=model_2991
 unknown119=1
 desc=A dwarf gone bad.
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 13353
 [chaos_dwarf_13353]
@@ -271457,6 +273399,8 @@ model6=model_2989
 model7=model_2993
 model8=model_2991
 unknown119=1
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 13354
 [chaos_dwarf_hand_cannoneer_13354]
@@ -271476,6 +273420,8 @@ model5=model_2985
 model6=model_2989
 model7=model_48500
 unknown119=1
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 13355
 [chaos_dwarf_hand_cannoneer_13355]
@@ -271493,6 +273439,8 @@ model5=model_2985
 model6=model_48476
 model7=model_48500
 unknown119=1
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 13356
 [chaos_dwogre_13356]
@@ -271507,6 +273455,8 @@ name=Chaos dwogre
 model1=model_48587
 model2=model_48586
 unknown119=1
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 13357
 [klaas_13357]
@@ -271677,6 +273627,8 @@ multinpc=33,klaas_13364
 multinpc=34,klaas_13364
 multinpc=35,klaas_13364
 unknown119=1
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 13366
 [black_guard_13366]
@@ -271711,6 +273663,8 @@ multivar=varplayerbit_8704
 multinpc=20,protester_13393
 multinpc=21,protester_13393
 unknown119=1
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 13368
 [npc_13368]
@@ -271720,6 +273674,8 @@ multivar=varplayerbit_8704
 multinpc=20,protester_13390
 multinpc=21,protester_13390
 unknown119=1
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 13369
 [npc_13369]
@@ -271729,6 +273685,8 @@ multivar=varplayerbit_8704
 multinpc=20,protester_13394
 multinpc=21,protester_13394
 unknown119=1
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 13370
 [npc_13370]
@@ -271738,6 +273696,8 @@ multivar=varplayerbit_8704
 multinpc=20,protester_13392
 multinpc=21,protester_13392
 unknown119=1
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 13371
 [npc_13371]
@@ -271748,6 +273708,8 @@ multinpc=1,protester
 multinpc=2,protester
 multinpc=3,protester
 unknown119=1
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 13372
 [npc_13372]
@@ -271758,6 +273720,8 @@ multinpc=1,protester_13390
 multinpc=2,protester_13390
 multinpc=3,protester_13390
 unknown119=1
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 13373
 [npc_13373]
@@ -271768,6 +273732,8 @@ multinpc=1,protester_13391
 multinpc=2,protester_13391
 multinpc=3,protester_13391
 unknown119=1
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 13374
 [npc_13374]
@@ -271778,6 +273744,8 @@ multinpc=1,protester_13392
 multinpc=2,protester_13392
 multinpc=3,protester_13392
 unknown119=1
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 13375
 [npc_13375]
@@ -271788,6 +273756,8 @@ multinpc=1,protester_13393
 multinpc=2,protester_13393
 multinpc=3,protester_13393
 unknown119=1
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 13376
 [npc_13376]
@@ -271798,6 +273768,8 @@ multinpc=1,protester_13394
 multinpc=2,protester_13394
 multinpc=3,protester_13394
 unknown119=1
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 13377
 [npc_13377]
@@ -271807,6 +273779,8 @@ multivar=varplayerbit_8711
 multinpc=2,protester
 multinpc=3,protester
 unknown119=1
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 13378
 [npc_13378]
@@ -271816,6 +273790,8 @@ multivar=varplayerbit_8711
 multinpc=2,protester_13390
 multinpc=3,protester_13390
 unknown119=1
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 13379
 [npc_13379]
@@ -271825,6 +273801,8 @@ multivar=varplayerbit_8711
 multinpc=2,protester_13391
 multinpc=3,protester_13391
 unknown119=1
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 13380
 [npc_13380]
@@ -271834,6 +273812,8 @@ multivar=varplayerbit_8711
 multinpc=2,protester_13392
 multinpc=3,protester_13392
 unknown119=1
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 13382
 [npc_13382]
@@ -271843,6 +273823,8 @@ multivar=varplayerbit_8711
 multinpc=2,protester_13394
 multinpc=3,protester_13394
 unknown119=1
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 13383
 [npc_13383]
@@ -271851,6 +273833,8 @@ vislevel=0
 multivar=varplayerbit_8711
 multinpc=3,protester
 unknown119=1
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 13384
 [npc_13384]
@@ -271859,6 +273843,8 @@ vislevel=0
 multivar=varplayerbit_8711
 multinpc=3,protester_13390
 unknown119=1
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 13385
 [npc_13385]
@@ -271867,6 +273853,8 @@ vislevel=0
 multivar=varplayerbit_8711
 multinpc=3,protester_13391
 unknown119=1
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 13386
 [npc_13386]
@@ -271875,6 +273863,8 @@ vislevel=0
 multivar=varplayerbit_8711
 multinpc=3,protester_13392
 unknown119=1
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 13387
 [npc_13387]
@@ -271883,6 +273873,8 @@ vislevel=0
 multivar=varplayerbit_8711
 multinpc=3,protester_13393
 unknown119=1
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 13388
 [npc_13388]
@@ -271891,6 +273883,8 @@ vislevel=0
 multivar=varplayerbit_8711
 multinpc=3,protester_13394
 unknown119=1
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 13389
 [protester]
@@ -272384,6 +274378,8 @@ model6=model_2985
 head1=model_51622
 unknown119=1
 desc=A dwarf miner in heat-resistant overalls.
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 13403
 [lava_flow_miner_13403]
@@ -272694,6 +274690,8 @@ multivar=varplayerbit_8704
 multinpc=34,meike_13411
 multinpc=35,meike_13411
 unknown119=1
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 13415
 [npc_13415]
@@ -272708,6 +274706,8 @@ multinpc=45,meike_13411
 multinpc=46,meike_13411
 multinpc=47,meike_13411
 unknown119=1
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 13416
 [npc_13416]
@@ -272716,6 +274716,8 @@ vislevel=0
 multivar=varplayerbit_8704
 multinpc=80,meike_13411
 unknown119=1
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 13417
 [meike_13417]
@@ -273810,6 +275812,8 @@ model2=model_60041
 unknown119=1
 cursorattack=cursor_42
 desc=A mage well practised in the art of ancient spellcasting.
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 13460
 [hati]
@@ -274193,6 +276197,8 @@ model1=model_42366
 head1=model_42334
 unknown119=1
 cursor1=1,cursor_44
+// cache 786 walk mode 1: stands
+wanderrange=0
 
 // 13487
 [npc_13487]
