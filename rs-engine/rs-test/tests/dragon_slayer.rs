@@ -12,9 +12,11 @@ use client_packet::ClientPacket;
 use rs_engine::Engine;
 use rs_engine::harness::HarnessClient;
 use rs_pack::cache::VarValue;
+use rs_pack::types::NpcStat;
 use rs_protocol::network::game::client_prot::ClientProt;
 use rs_test::runner;
 use rs_test::talk::{Conversation, converse, talk_to};
+use rsmod::rsmod::collision::collision_strategy::CollisionType;
 
 static TURN: std::sync::Mutex<()> = std::sync::Mutex::new(());
 
@@ -124,6 +126,19 @@ fn npc_near_on(engine: &Engine, name: &str, x: u16, z: u16, level: u8) -> (u16, 
         .unwrap_or_else(|| panic!("{name} is spawned"));
     let (sx, sz) = [(1i16, 0i16), (-1, 0), (0, 1), (0, -1)]
         .into_iter()
+        // One step from the npc must reach the tile: not across a wall or a cell's bars.
+        .filter(|&(dx, dz)| {
+            rsmod::can_travel(
+                level,
+                nx,
+                nz,
+                dx as i8,
+                dz as i8,
+                1,
+                0,
+                CollisionType::Normal,
+            )
+        })
         .map(|(dx, dz)| (nx.wrapping_add_signed(dx), nz.wrapping_add_signed(dz)))
         .find(|&(x, z)| !rsmod::is_flagged(x, z, level, 0x100 | 0x200000))
         .unwrap_or_else(|| panic!("a walkable tile beside {name}"));
@@ -515,4 +530,101 @@ fn messages(engine: &mut Engine, client: &mut HarnessClient, ticks: usize) -> Ve
         );
     }
     out
+}
+
+const WORMBRAIN: (u16, u16, u8) = (3014, 3189, 0);
+
+/// Wormbrain's 2011 opener and the player's "piece of a map" line (UYp0v2Pc1yI 579.6-586.2s).
+#[test]
+fn wormbrain_talks_as_2011s() {
+    let _turn = TURN.lock().unwrap_or_else(|e| e.into_inner());
+    runner::on_loaded_engine(|engine| {
+        let mut client = login(engine, "ds_wormbrain_talk");
+        set_var(engine, &client, "dragonquest", 2);
+        set_var(engine, &client, "dragon_goblin", 1);
+        let t = talk_on(
+            engine,
+            &mut client,
+            "wormbrain",
+            WORMBRAIN,
+            &[
+                "I believe you've got a piece of map that I need.",
+                "I'm not going to do anything for you. Forget it.",
+            ],
+        );
+        assert_eq!(t.unanswered, None, "{:?}", t.texts);
+        says(
+            &t,
+            &[
+                "Whut you want?",
+                "I believe you've got piece of a map that I need.",
+                "So? Why should I be giving it to you? What you do for Wormbrain?",
+            ],
+        );
+    });
+}
+
+/// Beaten to 0 life points, 2011's Wormbrain does not die: he drops his piece (2011 wiki,
+/// Wormbrain, 2011-05-18; "Wormbrain drops a map piece on the floor.", UYp0v2Pc1yI 595.2s), and
+/// an attack straight after gets "You have just beaten Wormbrain up. Give the poor goblin a
+/// break." (596.4s).
+#[test]
+fn wormbrain_drops_his_piece_and_lives() {
+    let _turn = TURN.lock().unwrap_or_else(|e| e.into_inner());
+    runner::on_loaded_engine(|engine| {
+        let mut client = login(engine, "ds_wormbrain_fight");
+        set_var(engine, &client, "dragonquest", 2);
+        set_var(engine, &client, "dragon_goblin", 1);
+        {
+            let player = engine.harness_player_mut(client.pid).unwrap();
+            for skill in [0, 1, 2, 3] {
+                player.stats.levels[skill] = 99;
+                player.stats.base_levels[skill] = 99;
+                player.stats.xp[skill] = 130_344_310;
+            }
+        }
+        let (nid, sx, sz) = npc_near_on(engine, "wormbrain", WORMBRAIN.0, WORMBRAIN.1, 0);
+        engine.get_npc_mut(nid).unwrap().npc.stats.levels[NpcStat::Hitpoints as usize] = 1;
+        tele(engine, &mut client, sx, 0, sz);
+        let mut p = ClientPacket::new();
+        p.p1_alt2(0).p2_alt3(nid as i32);
+        client.send(ClientProt::OpNpc2, &p.finish());
+        let mut said = Vec::new();
+        for _ in 0..60 {
+            said.extend(messages(engine, &mut client, 1));
+            if said
+                .iter()
+                .any(|m| m == "Wormbrain drops a map piece on the floor.")
+            {
+                break;
+            }
+        }
+        assert!(
+            said.iter()
+                .any(|m| m == "Wormbrain drops a map piece on the floor."),
+            "{said:?}"
+        );
+        settle(engine, &mut client, 3);
+        assert!(engine.get_npc(nid).is_some(), "Wormbrain lives");
+        assert!(
+            var(engine, &client, "dragon_wormbrain_beaten") > 0,
+            "the beating's tick is kept"
+        );
+
+        // He may have wandered a step in his cell: stand beside him again.
+        let (_, sx, sz) = npc_near_on(engine, "wormbrain", WORMBRAIN.0, WORMBRAIN.1, 0);
+        tele(engine, &mut client, sx, 0, sz);
+        let mut p = ClientPacket::new();
+        p.p1_alt2(0).p2_alt3(nid as i32);
+        client.send(ClientProt::OpNpc2, &p.finish());
+        let said = messages(engine, &mut client, 12);
+        let hp = engine
+            .get_npc(nid)
+            .map(|n| n.npc.stats.levels[NpcStat::Hitpoints as usize]);
+        assert!(
+            said.iter()
+                .any(|m| m == "You have just beaten Wormbrain up. Give the poor goblin a break."),
+            "{said:?} life points {hp:?}"
+        );
+    });
 }

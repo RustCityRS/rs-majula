@@ -905,7 +905,13 @@ type=int
 scope=perm
 
 // 191
-[varplayer_191]
+[dragon_wormbrain_beaten]
+// Server-only (cache 786 does not transmit it and no clientscript reads it), so this
+// state lives here instead of a new id above the cache's range.
+// Dragon Slayer: the map_clock tick Wormbrain was last beaten and dropped his piece (wormbrain.rs2;
+// 191 is unused in 289 and 786).
+type=int
+scope=perm
 
 // 192
 [murderquest]

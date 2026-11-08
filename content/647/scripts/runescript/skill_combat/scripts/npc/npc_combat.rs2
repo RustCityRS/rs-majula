@@ -112,6 +112,11 @@ return(false);
 // it says "You have no reason to do that.", so its prob this osrs message.
 // every guide says you have to kill wormbrain, and monster db's say he drops bones. so theres no
 // beating up message most likely.
+// 2011: just after he drops his piece (wormbrain.rs2).
+if (npc_type = wormbrain & map_clock >= %dragon_wormbrain_beaten & %dragon_wormbrain_beaten > 0 & sub(map_clock, %dragon_wormbrain_beaten) < ^lootdrop_duration) {
+    mes("You have just beaten Wormbrain up. Give the poor goblin a break.");
+    return (false);
+}
 if (npc_type = wormbrain & (~quest_dragon_getting_map_parts = false | inv_total(inv, mappart2) > 0 | %dragon_goblin ! ^quest_dragon_knows_about_goblin)) {
     mes("The goblin is already in prison. You have no reason to attack him.");
     // if (%dragon_progress < 3) {
@@ -196,6 +201,11 @@ return (false);
 
 // this proc is used for magic
 [proc,npc_is_attackable_opt]()(boolean)
+// 2011: just after he drops his piece (wormbrain.rs2).
+if (npc_type = wormbrain & map_clock >= %dragon_wormbrain_beaten & %dragon_wormbrain_beaten > 0 & sub(map_clock, %dragon_wormbrain_beaten) < ^lootdrop_duration) {
+    mes("You have just beaten Wormbrain up. Give the poor goblin a break.");
+    return (false);
+}
 if (npc_type = wormbrain & (~quest_dragon_getting_map_parts = false | inv_total(inv, mappart2) > 0 | %dragon_goblin ! ^quest_dragon_knows_about_goblin)) {
     mes("The goblin is already in prison. You have no reason to attack him.");
     return (false);
