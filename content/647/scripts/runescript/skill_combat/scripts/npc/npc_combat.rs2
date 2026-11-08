@@ -364,7 +364,9 @@ if (inv_getobj(worn, ^wearpos_ring) = ring_of_recoil & map_members = ^true & npc
     // of Recoil"). Its Ring of recoil page's "101 life points ... recoil of 11" is not borne out.
     def_int $recoil_damage = calc(($damage / 100 + 1) * 10);
     $recoil_damage = min($recoil_damage, npc_stat(hitpoints));
-    npc_queue(2, ~combat_hit($recoil_damage, ^hitmark_reflect, 0), 0);
+    // In the same tick as the hit: the recording's 10s show 0.07-0.2s after each of his hits
+    // (one tick is 0.6s). Queued on the npc it came a tick late, npcs going before players.
+    ~npc_default_damage(~combat_hit($recoil_damage, ^hitmark_reflect, 0));
     ~ring_of_recoil_lose_charge($recoil_damage);
 }
 ~damage_self_hitmark($damage, ~hit_mark($hit));

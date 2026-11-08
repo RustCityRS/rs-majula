@@ -71,16 +71,32 @@ fn a_ring_of_recoil_sends_back_2011s_ten() {
         p.p1_alt2(0).p2_alt3(nid as i32);
         client.send(ClientProt::OpNpc2, &p.finish());
         let mut on_cow = Vec::new();
+        // Ticks where a recoil landed with no bite on the player in that same tick.
+        let mut late = Vec::new();
+        let life = |engine: &rs_engine::Engine, pid| {
+            (engine.harness_player(pid).unwrap().vars.get(1240).as_int() >> 1) & 0x7FFF
+        };
         for tick in 0..80 {
+            let before = life(engine, client.pid);
             engine.cycle();
             client.packets();
             if tick % 20 == 0 {
                 client.send(ClientProt::NoTimeout, &[]);
             }
-            on_cow.extend(calls_for("npc_damage"));
+            let calls = calls_for("npc_damage");
+            if calls.iter().any(|a| a.starts_with("4,")) && life(engine, client.pid) >= before {
+                late.push(tick);
+            }
+            on_cow.extend(calls);
             forget_calls();
         }
         set_recording(false);
+        // The 2011-04-21 recording's 10s show 0.07-0.2s after each of the Count's hits: the
+        // same tick (0.6s).
+        assert!(
+            late.is_empty(),
+            "recoils a tick after their bite, at ticks {late:?}"
+        );
         // "type,amount" for each hit on the cow: its recoils carry the deflect hitmark (4).
         let recoils: Vec<i32> = on_cow
             .iter()
